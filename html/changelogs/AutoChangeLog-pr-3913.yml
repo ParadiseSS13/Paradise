@@ -1,0 +1,6 @@
+author: Regens
+delete-after: True
+changes: 
+  - tweak: "Robotic hearts will now properly give the mob a heart attack instead of just damaging it when EMP'd"
+  - rscadd: "Assisted organs will now also take damage from EMP's"
+  - bugfix: "Internal robotic and assisted organs will now actually take damage from EMP's"
