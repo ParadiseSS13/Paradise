@@ -220,19 +220,9 @@
 				display_to << "<span class='danger'>Error: unable to deliver message.</span>"
 				display_spideros()
 				return
-			//Search for holder of the PDA.
-			var/mob/living/L = null
-			if(P.loc && isliving(P.loc))
-				L = P.loc
-			//Maybe they are a pAI!
-			else
-				L = get(P, /mob/living/silicon)
-
-			if(L)
-				L << "\icon[P] <b>Message from unknown source: </b>\"[t]\" (Unable to Reply)"
-			P.play_ringtone()
+			
 			var/datum/data/pda/app/messenger/M = P.find_program(/datum/data/pda/app/messenger)
-			M.set_new(1)
+			M.notify("<b>Message from unknown source: </b>\"[t]\" (Unable to Reply)", 0)
 
 		if("Inject")
 			if( (href_list["tag"]=="radium"? (reagents.get_reagent_amount("radium"))<=(a_boost*a_transfer) : !reagents.get_reagent_amount(href_list["tag"])) )//Special case for radium. If there are only a_boost*a_transfer radium units left.
