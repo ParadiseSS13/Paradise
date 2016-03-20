@@ -50,12 +50,12 @@
 		var/mob/living/silicon/robot/R = usr
 		var/module = R.get_selected_module()
 		if(!module)
-			usr << "\red You have no module selected."
+			usr << "<span class='warning'>You have no module selected.</span>"
 			return
 		R.cycle_modules()
 		R.uneq_numbered(module)
 	else
-		usr << "\red This mob type cannot throw items."
+		usr << "<span class='warning'>This mob type cannot throw items.</span>"
 	return
 
 
@@ -63,17 +63,17 @@
 	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		if(!C.get_active_hand())
-			usr << "\red You have nothing to drop in your hand."
+			usr << "<span class='warning'>You have nothing to drop in your hand.</span>"
 			return
 		drop_item()
 	else if(isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		if(!R.get_selected_module())
-			usr << "\red You have no module selected."
+			usr << "<span class='warning'>You have no module selected.</span>"
 			return
 		R.deselect_module(R.get_selected_module())
 	else
-		usr << "\red This mob type cannot drop items."
+		usr << "<span class='warning'>This mob type cannot drop items.</span>"
 	return
 
 //This gets called when you press the delete button.
@@ -81,7 +81,7 @@
 	set hidden = 1
 
 	if(!usr.pulling)
-		usr << "\blue You are not pulling anything."
+		usr << "<span class='notice'>You are not pulling anything.</span>"
 		return
 	usr.stop_pulling()
 
@@ -227,13 +227,13 @@
 			for(var/mob/M in range(mob, 1))
 				if(M.pulling == mob)
 					if(!M.restrained() && M.stat == 0 && M.canmove && mob.Adjacent(M))
-						src << "\blue You're restrained! You can't move!"
+						src << "<span class='notice'>You're restrained! You can't move!</span>"
 						return 0
 					else
 						M.stop_pulling()
 
 		if(mob.pinned.len)
-			src << "\blue You're pinned to a wall by [mob.pinned[1]]!"
+			src << "<span class='notice'>You're pinned to a wall by [mob.pinned[1]]!</span>"
 			return 0
 
 		var/turf/T = mob.loc
@@ -327,12 +327,12 @@
 			if(G.state == 2)
 				move_delay = world.time + 10
 				if(!prob(25))	return 1
-				mob.visible_message("\red [mob] has broken free of [G.assailant]'s grip!")
+				mob.visible_message("<span class='warning'>[mob] has broken free of [G.assailant]'s grip!</span>")
 				qdel(G)
 			if(G.state == 3)
 				move_delay = world.time + 10
 				if(!prob(5))	return 1
-				mob.visible_message("\red [mob] has broken free of [G.assailant]'s headlock!")
+				mob.visible_message("<span class='warning'>[mob] has broken free of [G.assailant]'s headlock!</span>")
 				qdel(G)
 	return 0
 

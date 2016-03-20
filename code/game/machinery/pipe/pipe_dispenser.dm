@@ -100,18 +100,18 @@
 /obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	src.add_fingerprint(usr)
 	if (istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
-		usr << "\blue You put [W] back to [src]."
+		usr << "<span class='notice'>You put [W] back to [src].</span>"
 		user.drop_item()
 		qdel(W)
 		return
 	else if (istype(W, /obj/item/weapon/wrench))
 		if (unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to unfasten \the [src] from the floor..."
+			user << "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>"
 			if (do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
-					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
+					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
 					"You hear ratchet.")
 				src.anchored = 0
 				src.stat |= MAINT
@@ -120,11 +120,11 @@
 					usr << browse(null, "window=pipedispenser")
 		else /*if (unwrenched==1)*/
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to fasten \the [src] to the floor..."
+			user << "<span class='notice'>You begin to fasten \the [src] to the floor...</span>"
 			if (do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
-					"\blue You have fastened \the [src]. Now it can dispense pipes.", \
+					"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
 					"You hear ratchet.")
 				src.anchored = 1
 				src.stat &= ~MAINT

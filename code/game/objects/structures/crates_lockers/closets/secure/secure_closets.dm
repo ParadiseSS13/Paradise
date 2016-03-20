@@ -166,7 +166,7 @@
 			locked = 0
 			welded = 0
 			update_icon()
-			usr << "\red You successfully break out!"
+			usr << "<span class='warning'>You successfully break out!</span>"
 			for(var/mob/O in viewers(L.loc))
 				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
 			if(istype(src.loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)

@@ -38,18 +38,18 @@
 				var/tmp_label = ""
 				var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
 				if(length(label_text) > 20)
-					user << "\red The inscription can be at most 20 characters long."
+					user << "<span class='warning'>The inscription can be at most 20 characters long.</span>"
 				else
 					if(label_text == "")
-						user << "\blue You scratch the inscription off of [initial(BB)]."
+						user << "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>"
 						BB.name = initial(BB.name)
 					else
-						user << "\blue You inscribe \"[label_text]\" into \the [initial(BB.name)]."
+						user << "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>"
 						BB.name = "[initial(BB.name)] \"[label_text]\""
 			else
-				user << "\blue You can only inscribe a metal bullet."	//because inscribing beanbags is silly
+				user << "<span class='notice'>You can only inscribe a metal bullet.</span>"	//because inscribing beanbags is silly
 		else
-			user << "\blue There is no bullet in the casing to inscribe anything into."
+			user << "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>"
 
 /obj/item/ammo_casing/proc/newshot() //For energy weapons, shotgun shells and wands (!).
 	if (!BB)

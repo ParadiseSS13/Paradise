@@ -48,7 +48,7 @@ Obviously, requires DNA2.
 				//M.dna.SetSEState(HULKBLOCK,0)
 				M.update_mutations()		//update our mutation overlays
 				M.update_body()
-				M << "\red You suddenly feel very weak."
+				M << "<span class='warning'>You suddenly feel very weak.</span>"
 
 /obj/effect/proc_holder/spell/targeted/hulk
 	name = "Hulk Out"
@@ -72,7 +72,7 @@ Obviously, requires DNA2.
 
 /obj/effect/proc_holder/spell/targeted/hulk/cast(list/targets)
 	if (istype(usr.loc,/mob/))
-		usr << "\red You can't hulk out right now!"
+		usr << "<span class='warning'>You can't hulk out right now!</span>"
 		return
 	var/mob/living/carbon/human/M=usr
 	M.hulk_time = world.time + HULK_DURATION
@@ -122,7 +122,7 @@ Obviously, requires DNA2.
 	if(!ishuman(usr))	return
 
 	if (istype(usr.loc,/mob/))
-		usr << "\red You can't change your appearance right now!"
+		usr << "<span class='warning'>You can't change your appearance right now!</span>"
 		return
 	var/mob/living/carbon/human/M=usr
 
@@ -250,10 +250,10 @@ Obviously, requires DNA2.
 	for(var/mob/living/target in targets)
 		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")
 		if(REMOTE_TALK in target.mutations)
-			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
+			target.show_message("<span class='notice'>You hear [usr.real_name]'s voice: [say]</span>")
 		else
-			target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-		usr.show_message("\blue You project your mind into [target.real_name]: [say]")
+			target.show_message("<span class='notice'>You hear a voice that seems to echo around the room: [say]</span>")
+		usr.show_message("<span class='notice'>You project your mind into [target.real_name]: [say]</span>")
 		for(var/mob/dead/observer/G in player_list)
 			G.show_message("<i>Telepathic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
@@ -315,7 +315,7 @@ Obviously, requires DNA2.
 	var/mob/target
 
 	if(istype(user.l_hand, /obj/item/tk_grab) || istype(user.r_hand, /obj/item/tk_grab/))
-		user << "\red Your mind is too busy with that telekinetic grab."
+		user << "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>"
 		user.remoteview_target = null
 		user.reset_view(0)
 		return

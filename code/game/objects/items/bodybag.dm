@@ -126,7 +126,7 @@
 	MouseDrop(over_object, src_location, over_location)
 		if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
 			if(!ishuman(usr))	return
-			usr << "\red You can't fold that up anymore.."
+			usr << "<span class='warning'>You can't fold that up anymore..</span>"
 		..()
 
 	attackby(W as obj, mob/user as mob, params)
@@ -135,5 +135,5 @@
 				src.locked = !src.locked
 				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
 			else
-				user << "\red Access denied."
+				user << "<span class='warning'>Access denied.</span>"
 			return

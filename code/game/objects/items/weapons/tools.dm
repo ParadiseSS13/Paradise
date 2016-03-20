@@ -303,7 +303,7 @@
 		return 1
 	else
 		if(M)
-			M << "\blue You need more welding fuel to complete this task."
+			M << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 		return 0
 
 //Returns whether or not the welding tool is currently on.

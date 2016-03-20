@@ -351,7 +351,7 @@ About the new airlock wires panel:
 			else /*if(src.justzap)*/
 				return
 		else if(user.hallucination > 50 && prob(10) && src.operating == 0)
-			user << "\red <B>You feel a powerful shock course through your body!</B>"
+			user << "<span class='danger'>You feel a powerful shock course through your body!</span>"
 			user.adjustStaminaLoss(50)
 			user.AdjustStunned(5)
 			return
@@ -631,14 +631,14 @@ About the new airlock wires panel:
 		if(H.getBrainLoss() >= 60)
 			playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
-				visible_message("\red [user] headbutts the airlock.")
+				visible_message("<span class='warning'>[user] headbutts the airlock.</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("head")
 				H.Stun(5)
 				H.Weaken(5)
 				if(affecting.take_damage(10, 0))
 					H.UpdateDamageIcon()
 			else
-				visible_message("\red [user] headbutts the airlock. Good thing they're wearing a helmet.")
+				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing they're wearing a helmet.</span>")
 			return
 
 	if(src.p_open)
@@ -808,7 +808,7 @@ About the new airlock wires panel:
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 			user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to remove electronics from the airlock assembly.")
 			if(do_after(user,40, target = src))
-				user << "\blue You removed the airlock electronics!"
+				user << "<span class='notice'>You removed the airlock electronics!</span>"
 
 				var/obj/structure/door_assembly/da = new assembly_type(src.loc)
 				da.anchored = 1
@@ -842,9 +842,9 @@ About the new airlock wires panel:
 				qdel(src)
 				return
 		else if(arePowerSystemsOn())
-			user << "\blue The airlock's motors resist your efforts to force it."
+			user << "<span class='notice'>The airlock's motors resist your efforts to force it.</span>"
 		else if(locked)
-			user << "\blue The airlock's bolts prevent it from being forced."
+			user << "<span class='notice'>The airlock's bolts prevent it from being forced.</span>"
 		else if( !welded && !operating )
 			if(density)
 				if(beingcrowbarred == 0) //being fireaxe'd
@@ -852,7 +852,7 @@ About the new airlock wires panel:
 					if(F.wielded)
 						spawn(0)	open(1)
 					else
-						user << "\red You need to be wielding \the [C] to do that."
+						user << "<span class='warning'>You need to be wielding \the [C] to do that.</span>"
 				else
 					spawn(0)	open(1)
 			else
@@ -861,7 +861,7 @@ About the new airlock wires panel:
 					if(F.wielded)
 						spawn(0)	close(1)
 					else
-						user << "\red You need to be wielding \the [C] to do that."
+						user << "<span class='warning'>You need to be wielding \the [C] to do that.</span>"
 				else
 					spawn(0)	close(1)
 	else

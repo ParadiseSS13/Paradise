@@ -40,7 +40,7 @@
 		usr << "\icon[src] [src.name] contains:"
 		if(reagents && reagents.reagent_list.len)
 			for(var/datum/reagent/R in reagents.reagent_list)
-				user << "\blue [R.volume] units of [R.name]"
+				user << "<span class='notice'>[R.volume] units of [R.name]</span>"
 
 
 /obj/item/weapon/extinguisher/New()

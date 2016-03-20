@@ -303,7 +303,7 @@
 			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
 			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-			user << "\blue The walls suddenly disappear."
+			user << "<span class='notice'>The walls suddenly disappear.</span>"
 	return 1
 
 

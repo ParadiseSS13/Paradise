@@ -73,15 +73,15 @@
 				return 1
 	else
 		if(amount < 2)
-			user << "\blue You need at least two rods to do this."
+			user << "<span class='notice'>You need at least two rods to do this.</span>"
 			return
-		usr << "\blue Assembling grille..."
+		usr << "<span class='notice'>Assembling grille...</span>"
 
 		if (!do_after(usr, 10, target = src))
 			return
 
 		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
-		usr << "\blue You assemble a grille"
+		usr << "<span class='notice'>You assemble a grille</span>"
 		F.add_fingerprint(usr)
 		use(2)
 	return

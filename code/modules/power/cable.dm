@@ -124,7 +124,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			return */
 ///// Z-Level Stuff
 		/* if(breaker_box)
-			user << "\red This cable is connected to nearby breaker box. Use breaker box to interact with it."
+			user << "<span class='warning'>This cable is connected to nearby breaker box. Use breaker box to interact with it.</span>"
 			return */
 
 		if (shock(user, 50))

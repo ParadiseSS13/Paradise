@@ -1035,7 +1035,7 @@
 						user << "\blue You [ locked ? "lock" : "unlock"] the Air Alarm interface."
 						updateUsrDialog()
 					else
-						user << "\red Access denied."
+						user << "<span class='warning'>Access denied.</span>"
 
 
 			return

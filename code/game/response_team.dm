@@ -19,15 +19,15 @@ var/send_emergency_team
 		return
 
 	if(!ticker)
-		usr << "\red The game hasn't started yet!"
+		usr << "<span class='warning'>The game hasn't started yet!</span>"
 		return
 
 	if(ticker.current_state == 1)
-		usr << "\red The round hasn't started yet!"
+		usr << "<span class='warning'>The round hasn't started yet!</span>"
 		return
 
 	if(send_emergency_team)
-		usr << "\red Central Command has already dispatched an emergency response team!"
+		usr << "<span class='warning'>Central Command has already dispatched an emergency response team!</span>"
 		return
 
 	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
@@ -39,7 +39,7 @@ var/send_emergency_team
 				return
 
 	if(send_emergency_team)
-		usr << "\red Central Command has already dispatched an emergency response team!"
+		usr << "<span class='warning'>Central Command has already dispatched an emergency response team!</span>"
 		return
 
 	var/ert_type = pick_ert_type()
@@ -93,7 +93,7 @@ var/send_emergency_team
 		return
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		usr << "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>"
+		usr << "<span class='notice'><B>Upon using the antagHUD you forfeited the ability to join the round.</B></span>"
 		return
 
 	if(response_team_members.len > 6)

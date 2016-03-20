@@ -215,7 +215,7 @@
 		return
 
 	if (istype(W, /obj/item/weapon/wrench))
-		user << "\blue Now disassembling table"
+		user << "<span class='notice'>Now disassembling table</span>"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user,50, target = src))
 			destroy()
@@ -377,7 +377,7 @@
 		return
 
 	if (istype(I, /obj/item/weapon/wrench))
-		user << "\blue Now disassembling the wooden table"
+		user << "<span class='notice'>Now disassembling the wooden table</span>"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		sleep(50)
 		new /obj/item/weapon/table_parts/wood( src.loc )
@@ -428,7 +428,7 @@
 		return
 
 	if (istype(W, /obj/item/weapon/wrench))
-		user << "\blue Now disassembling the wooden table"
+		user << "<span class='notice'>Now disassembling the wooden table</span>"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		sleep(50)
 		new /obj/item/weapon/table_parts/wood( src.loc )
@@ -527,7 +527,7 @@
 		return
 
 	if (istype(I, /obj/item/weapon/wrench))
-		user << "\blue Now disassembling the glass table"
+		user << "<span class='notice'>Now disassembling the glass table</span>"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		sleep(50)
 		new /obj/item/weapon/table_parts/glass( src.loc )
@@ -589,18 +589,18 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			if(src.status == 2)
-				user << "\blue Now weakening the reinforced table"
+				user << "<span class='notice'>Now weakening the reinforced table</span>"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 				if (do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
-					user << "\blue Table weakened"
+					user << "<span class='notice'>Table weakened</span>"
 					src.status = 1
 			else
-				user << "\blue Now strengthening the reinforced table"
+				user << "<span class='notice'>Now strengthening the reinforced table</span>"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 				if (do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
-					user << "\blue Table strengthened"
+					user << "<span class='notice'>Table strengthened</span>"
 					src.status = 2
 			return
 		return

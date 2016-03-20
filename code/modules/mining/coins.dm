@@ -134,7 +134,7 @@
 								"uranium" = /obj/item/clothing/gloves/ring/uranium)
 			var/typekey = typelist[cmineral]
 			if(ispath(typekey))
-				user << "\blue You make [src] into a ring."
+				user << "<span class='notice'>You make [src] into a ring.</span>"
 				new typekey(get_turf(loc))
 				qdel(src)
 	else ..()

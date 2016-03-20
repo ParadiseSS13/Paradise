@@ -98,7 +98,7 @@
 		equip_cultist(cult_mind.current)
 		grant_runeword(cult_mind.current)
 		update_cult_icons_added(cult_mind)
-		cult_mind.current << "\blue You are a member of the cult!"
+		cult_mind.current << "<span class='notice'>You are a member of the cult!</span>"
 		memorize_cult_objectives(cult_mind)
 
 	..()
@@ -199,7 +199,7 @@
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
 	if(cult_mind in cult)
 		cult -= cult_mind
-		cult_mind.current << "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>"
+		cult_mind.current << "<span class='warning'><FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT></span>"
 		cult_mind.memory = ""
 		cult_mind.special_role = null
 		// remove the cult viewpoint object
@@ -295,11 +295,11 @@
 	if(!check_cult_victory())
 		feedback_set_details("round_end_result","win - cult win")
 		feedback_set("round_end_result",acolytes_survived)
-		world << "\red <FONT size = 3><B> The cult wins! It has succeeded in serving its dark masters!</B></FONT>"
+		world << "<span class='warning'><FONT size = 3><B> The cult wins! It has succeeded in serving its dark masters!</B></FONT></span>"
 	else
 		feedback_set_details("round_end_result","loss - staff stopped the cult")
 		feedback_set("round_end_result",acolytes_survived)
-		world << "\red <FONT size = 3><B> The staff managed to stop the cult!</B></FONT>"
+		world << "<span class='warning'><FONT size = 3><B> The staff managed to stop the cult!</B></FONT></span>"
 
 	var/text = "<b>Cultists escaped:</b> [acolytes_survived]"
 

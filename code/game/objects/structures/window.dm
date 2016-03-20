@@ -122,8 +122,8 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	else if (usr.a_intent == I_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
-		usr.visible_message("\red [usr.name] bangs against the [src.name]!", \
-							"\red You bang against the [src.name]!", \
+		usr.visible_message("<span class='warning'>[usr.name] bangs against the [src.name]!</span>", \
+							"<span class='warning'>You bang against the [src.name]!</span>", \
 							"You hear a banging sound.")
 	else
 		user.changeNext_move(CLICK_CD_MELEE)

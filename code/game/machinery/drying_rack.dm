@@ -87,7 +87,7 @@
 					sleep(60)
 					icon_state = "drying_rack"
 					var/obj/item/weapon/reagent_containers/food/snacks/grown/D = new J(src.loc)
-					user << "\blue You finish drying the [D]"
+					user << "<span class='notice'>You finish drying the [D]</span>"
 					D.icon_state = "[D.icon_state]_dry"
 					D.dry = 1
 					D.reagents.remove_any(50)
@@ -96,10 +96,10 @@
 					src.running = 0
 					return
 				else
-					user << "\red That has already been dried!"
+					user << "<span class='warning'>That has already been dried!</span>"
 		else
-			user << "\red Please wait until the last item has dried."
+			user << "<span class='warning'>Please wait until the last item has dried.</span>"
 	else
-		user << "\red You cannot add that to the drying rack."
+		user << "<span class='warning'>You cannot add that to the drying rack.</span>"
 
 

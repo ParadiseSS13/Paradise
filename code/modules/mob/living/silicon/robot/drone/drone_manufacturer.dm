@@ -85,7 +85,7 @@
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
 
 	if(!(config.allow_drone_spawn))
-		src << "\red That verb is not currently permitted."
+		src << "<span class='warning'>That verb is not currently permitted.</span>"
 		return
 
 	if (!src.stat)
@@ -95,7 +95,7 @@
 		return 0 //something is terribly wrong
 
 	if(jobban_isbanned(src,"nonhumandept") || jobban_isbanned(src,"Drone"))
-		usr << "\red You are banned from playing drones and cannot spawn as a drone."
+		usr << "<span class='warning'>You are banned from playing drones and cannot spawn as a drone.</span>"
 		return
 
 	if(!ticker || ticker.current_state < 3)
@@ -113,7 +113,7 @@
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-			usr << "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>"
+			usr << "<span class='notice'><B>Upon using the antagHUD you forfeited the ability to join the round.</B></span>"
 			return
 		if(G.started_as_observer == 1)
 			joinedasobserver = 1
@@ -138,11 +138,11 @@
 			continue
 
 		if(DF.count_drones() >= config.max_maint_drones)
-			src << "\red There are too many active drones in the world for you to spawn."
+			src << "<span class='warning'>There are too many active drones in the world for you to spawn.</span>"
 			return
 
 		if(DF.drone_progress >= 100)
 			DF.create_drone(src.client)
 			return
 
-	src << "\red There are no available drone spawn points, sorry."
+	src << "<span class='warning'>There are no available drone spawn points, sorry.</span>"

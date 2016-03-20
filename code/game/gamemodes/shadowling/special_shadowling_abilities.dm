@@ -45,11 +45,11 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				usr.Weaken(30)
 
 				sleep(100)
-				H.visible_message("<span class='warning'><b>The skin on [H]'s back begins to split apart. Black spines slowly emerge from the divide.</b></span>", \
+				H.visible_message("<span class='danger'>The skin on [H]'s back begins to split apart. Black spines slowly emerge from the divide.</span>", \
 									"<span class='shadowling'>Spines pierce your back. Your claws break apart your fingers. You feel excruciating pain as your true form begins its exit.</span>")
 
 				sleep(90)
-				H.visible_message("<span class='warning'><b>[H], skin shifting, begins tearing at the walls around them.</b></span>", \
+				H.visible_message("<span class='danger'>[H], skin shifting, begins tearing at the walls around them.</span>", \
 								"<span class='shadowling'>Your false skin slips away. You begin tearing at the fragile membrane protecting you.</span>")
 
 				sleep(80)

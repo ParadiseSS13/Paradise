@@ -390,16 +390,16 @@
 							qdel(MED)
 						for(var/mob/M in viewers(src, null))
 							if ((M.client && !( M.blinded )))
-								M.show_message("\blue [user] applies [MED] on [src]")
+								M.show_message("<span class='notice'>[user] applies [MED] on [src]</span>")
 						return
 					else
-						user << "\blue [MED] won't help at all."
+						user << "<span class='notice'>[MED] won't help at all.</span>"
 						return
 			else
-				user << "\blue [src] is at full health."
+				user << "<span class='notice'>[src] is at full health.</span>"
 				return
 		else
-			user << "\blue [src] is dead, medical items won't bring it back to life."
+			user << "<span class='notice'>[src] is dead, medical items won't bring it back to life.</span>"
 			return
 	else if(meat_type && (stat == DEAD))	//if the animal has a meat, and if it is dead.
 		if(istype(O, /obj/item/weapon/kitchen/knife))

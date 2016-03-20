@@ -176,6 +176,6 @@
 					pass.reason = reason
 					pass.name = "guest pass #[number]"
 				else
-					usr << "\red Cannot issue pass without issuing ID."
+					usr << "<span class='warning'>Cannot issue pass without issuing ID.</span>"
 	updateUsrDialog()
 	return

@@ -54,11 +54,11 @@ var/list/karma_spenders = list()
 	set category = "Special Verbs"
 
 	if(!ticker || !player_list.len)
-		usr << "\red You can't award karma until the game has started."
+		usr << "<span class='warning'>You can't award karma until the game has started.</span>"
 		return
 
 	if(ticker.current_state == GAME_STATE_PREGAME)
-		usr << "\red You can't award karma until the game has started."
+		usr << "<span class='warning'>You can't award karma until the game has started.</span>"
 		return
 
 	var/list/karma_list = list("Cancel")
@@ -68,7 +68,7 @@ var/list/karma_spenders = list()
 		karma_list += M
 
 	if(!karma_list.len || karma_list.len == 1)
-		usr << "\red There's no-one to spend your karma on."
+		usr << "<span class='warning'>There's no-one to spend your karma on.</span>"
 		return
 
 	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", "Cancel") as null|mob in karma_list
@@ -77,7 +77,7 @@ var/list/karma_spenders = list()
 		return
 
 	if(!istype(pickedmob, /mob))
-		usr << "\red That's not a mob."
+		usr << "<span class='warning'>That's not a mob.</span>"
 		return
 
 	spend_karma(pickedmob)
@@ -91,31 +91,31 @@ var/list/karma_spenders = list()
 		usr << "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing."
 		return
 	if(!istype(M, /mob))
-		usr << "\red That's not a mob."
+		usr << "<span class='warning'>That's not a mob.</span>"
 		return
 	if(!M.client)
-		usr << "\red That mob has no client connected at the moment."
+		usr << "<span class='warning'>That mob has no client connected at the moment.</span>"
 		return
 	if(src.client.karma_spent)
-		usr << "\red You've already spent your karma for the round."
+		usr << "<span class='warning'>You've already spent your karma for the round.</span>"
 		return
 	for(var/a in karma_spenders)
 		if(a == src.key)
-			usr << "\red You've already spent your karma for the round."
+			usr << "<span class='warning'>You've already spent your karma for the round.</span>"
 			return
 	if(M.key == src.key)
-		usr << "\red You can't spend karma on yourself!"
+		usr << "<span class='warning'>You can't spend karma on yourself!</span>"
 		return
 	if(M.client.address == src.client.address)
-		message_admins("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
-		log_game("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
-		usr << "\red The karma system is not available to multi-accounters."
+		message_admins("<span class='warning'>Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!</span>")
+		log_game("<span class='warning'>Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!</span>")
+		usr << "<span class='warning'>The karma system is not available to multi-accounters.</span>"
 	var/choice = input("Give [M.name] good karma?", "Karma") in list("Good", "Cancel")
 	if(!choice || choice == "Cancel")
 		return
 	if(choice == "Good" && !(src.client.karma_spent))
 		if(src.client.karma_spent)
-			usr << "\red You've already spent your karma for the round."
+			usr << "<span class='warning'>You've already spent your karma for the round.</span>"
 			return
 		M.client.karma += 1
 		usr << "[choice] karma spent on [M.name]."
@@ -146,7 +146,7 @@ var/list/karma_spenders = list()
 /client/proc/verify_karma()
 	var/currentkarma=0
 	if(!dbcon.IsConnected())
-		usr << "\red Unable to connect to karma database. Please try again later.<br>"
+		usr << "<span class='warning'>Unable to connect to karma database. Please try again later.<br></span>"
 		return
 	else
 		var/DBQuery/query = dbcon.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey='[src.key]'")
@@ -371,7 +371,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	else if(name == "Nanotrasen Recruiter")
 		cost = 10
 	else
-		usr << "\red That job is not refundable."
+		usr << "<span class='warning'>That job is not refundable.</span>"
 		return
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")
@@ -392,7 +392,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		else if(type == "species")
 			typelist = text2list(dbspecies,",")
 		else
-			usr << "\red Type [type] is not a valid column."
+			usr << "<span class='warning'>Type [type] is not a valid column.</span>"
 
 		if(name in typelist)
 			typelist -= name
@@ -408,10 +408,10 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 				message_admins("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
 				karmacharge(text2num(cost),1)
 		else
-			usr << "\red You have not bought [name]."
+			usr << "<span class='warning'>You have not bought [name].</span>"
 
 	else
-		usr << "\red Your ckey ([dbckey]) was not found."
+		usr << "<span class='warning'>Your ckey ([dbckey]) was not found.</span>"
 
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")

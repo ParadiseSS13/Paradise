@@ -25,7 +25,7 @@
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
-					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
+					src << "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>"
 					now_pushing = 0
 					return
 			if(!(tmob.status_flags & CANPUSH))

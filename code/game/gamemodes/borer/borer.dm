@@ -99,7 +99,7 @@
 
 /datum/game_mode/proc/greet_borer(var/datum/mind/borer, var/you_are=1)
 	if (you_are)
-		borer.current << "<B>\red You are a Cortical Borer!</B>"
+		borer.current << "<span class='danger'>You are a Cortical Borer!</span>"
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in borer.objectives)
@@ -134,7 +134,7 @@
 					world << "<B>Objective #[count]</B>: [objective.explanation_text] \green <B>Success</B>"
 					feedback_add_details("borer_objective","[objective.type]|SUCCESS")
 				else
-					world << "<B>Objective #[count]</B>: [objective.explanation_text] \red Failed"
+					world << "<B>Objective #[count]</B>: [objective.explanation_text] <span class='warning'>Failed</span>"
 					feedback_add_details("borer_objective","[objective.type]|FAIL")
 					borerwin = 0
 				count++

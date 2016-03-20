@@ -53,14 +53,14 @@
 
 			//Display an attack message.
 			for(var/mob/O in viewers(user, null))
-				if(target != user) O.show_message(text("\red <B>[target] has been hit over the head with a [src.name], by [user]!</B>"), 1)
-				else O.show_message(text("\red <B>[target] hit himself with a [src.name] on the head!</B>"), 1)
+				if(target != user) O.show_message(text("<span class='danger'>[target] has been hit over the head with a [src.name], by [user]!</span>"), 1)
+				else O.show_message(text("<span class='danger'>[target] hit himself with a [src.name] on the head!</span>"), 1)
 
 		else
 			//Default attack message
 			for(var/mob/O in viewers(user, null))
-				if(target != user) O.show_message(text("\red <B>[target] has been attacked with a [src.name], by [user]!</B>"), 1)
-				else O.show_message(text("\red <B>[target] has attacked himself with a [src.name]!</B>"), 1)
+				if(target != user) O.show_message(text("<span class='danger'>[target] has been attacked with a [src.name], by [user]!</span>"), 1)
+				else O.show_message(text("<span class='danger'>[target] has attacked himself with a [src.name]!</span>"), 1)
 
 		//Attack logs
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has attacked [target.name] ([target.ckey]) with a drinking glass!</font>")
@@ -74,7 +74,7 @@
 		//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
 		if(src.reagents)
 			for(var/mob/O in viewers(user, null))
-				O.show_message(text("\blue <B>The contents of the [src] splashes all over [target]!</B>"), 1)
+				O.show_message(text("<span class='notice'><B>The contents of the [src] splashes all over [target]!</B></span>"), 1)
 			src.reagents.reaction(target, TOUCH)
 
 		//Finally, smash the bottle. This kills (del) the bottle.

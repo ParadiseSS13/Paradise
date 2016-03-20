@@ -419,7 +419,7 @@
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
+			O.show_message("<span class='warning'><B>[M]</B> [M.attacktext] [src]!</span>", 1)
 		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
 		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
@@ -499,7 +499,7 @@
 
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>The [M.name] has shocked []!</B>", src), 1)
+						O.show_message(text("<span class='danger'>The [M.name] has shocked []!</span>", src), 1)
 
 				Weaken(power)
 				if (stuttering < power)
@@ -884,7 +884,7 @@
 												sec_hud_set_security_status()
 
 			if(!modified)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"
 
 	if (href_list["secrecord"])
 		if(hasHUD(usr,"security"))
@@ -914,7 +914,7 @@
 								read = 1
 
 			if(!read)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"
 
 	if (href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
@@ -944,7 +944,7 @@
 								usr << "<a href='?src=\ref[src];secrecordadd=`'>\[Add comment\]</a>"
 
 			if(!read)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"
 
 	if (href_list["secrecordadd"])
 		if(hasHUD(usr,"security"))
@@ -1014,7 +1014,7 @@
 											sec_hud_set_security_status()
 
 			if(!modified)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"
 
 	if (href_list["medrecord"])
 		if(hasHUD(usr,"medical"))
@@ -1045,7 +1045,7 @@
 								read = 1
 
 			if(!read)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"
 
 	if (href_list["medrecordComment"])
 		if(hasHUD(usr,"medical"))
@@ -1075,7 +1075,7 @@
 								usr << "<a href='?src=\ref[src];medrecordadd=`'>\[Add comment\]</a>"
 
 			if(!read)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"
 
 	if (href_list["medrecordadd"])
 		if(hasHUD(usr,"medical"))
@@ -1452,16 +1452,16 @@
 	if(usr == src)
 		self = 1
 	if(!self)
-		usr.visible_message("\blue [usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.",\
+		usr.visible_message("<span class='notice'>[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.</span>",\
 		"You begin counting [src]'s pulse")
 	else
-		usr.visible_message("\blue [usr] begins counting their pulse.",\
+		usr.visible_message("<span class='notice'>[usr] begins counting their pulse.</span>",\
 		"You begin counting your pulse.")
 
 	if(src.pulse)
 		usr << "\blue [self ? "You have a" : "[src] has a"] pulse! Counting..."
 	else
-		usr << "\red [src] has no pulse!"	//it is REALLY UNLIKELY that a dead person would check his own pulse
+		usr << "<span class='warning'>[src] has no pulse!</span>"	//it is REALLY UNLIKELY that a dead person would check his own pulse
 		return
 
 	usr << "Don't move until counting is finished."
@@ -1685,7 +1685,7 @@
 	if(status_flags & LEAPING) status_flags &= ~LEAPING
 
 	if(!src.Adjacent(T))
-		src << "\red You miss!"
+		src << "<span class='warning'>You miss!</span>"
 		return
 
 	T.Weaken(5)
@@ -1698,7 +1698,7 @@
 	var/use_hand = "left"
 	if(l_hand)
 		if(r_hand)
-			src << "\red You need to have one hand free to grab someone."
+			src << "<span class='warning'>You need to have one hand free to grab someone.</span>"
 			return
 		else
 			use_hand = "right"
@@ -1724,16 +1724,16 @@
 		return
 
 	if(stat || paralysis || stunned || weakened || lying)
-		src << "\red You cannot do that in your current state."
+		src << "<span class='warning'>You cannot do that in your current state.</span>"
 		return
 
 	var/obj/item/weapon/grab/G = locate() in src
 	if(!G || !istype(G))
-		src << "\red You are not grabbing anyone."
+		src << "<span class='warning'>You are not grabbing anyone.</span>"
 		return
 
 	if(G.state < GRAB_AGGRESSIVE)
-		src << "\red You must have an aggressive grab to gut your prey!"
+		src << "<span class='warning'>You must have an aggressive grab to gut your prey!</span>"
 		return
 
 	last_special = world.time + 50

@@ -61,7 +61,7 @@
 /obj/machinery/computer/security/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		user << "\blue You have authorized full network access!"
+		user << "<span class='notice'>You have authorized full network access!</span>"
 		ui_interact(user)
 	else
 		ui_interact(user)

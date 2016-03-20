@@ -364,7 +364,7 @@
 						eyes.damage += rand(3,4)
 						if (eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
-								M << "\red You go blind!"*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
+								M << "<span class='warning'>You go blind!</span>"*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 															//This specific example would allow you to squish people's eyes with a GRAB_NECK.
 
 				if(I_DISARM) //This checks that the user is on disarm intent.

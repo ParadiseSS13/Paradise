@@ -22,12 +22,12 @@
 
 			var/location = get_turf(holder.my_atom)
 			for(var/mob/M in viewers(5, location))
-				M << "\red The solution violently bubbles!"
+				M << "<span class='warning'>The solution violently bubbles!</span>"
 
 			location = get_turf(holder.my_atom)
 
 			for(var/mob/M in viewers(5, location))
-				M << "\red The solution spews out foam!"
+				M << "<span class='warning'>The solution spews out foam!</span>"
 
 			//world << "Holder volume is [holder.total_volume]"
 			//for(var/datum/reagent/R in holder.reagent_list)
@@ -52,7 +52,7 @@
 			var/location = get_turf(holder.my_atom)
 
 			for(var/mob/M in viewers(5, location))
-				M << "\red The solution spews out a metalic foam!"
+				M << "<span class='warning'>The solution spews out a metalic foam!</span>"
 
 			var/datum/effect/system/foam_spread/s = new()
 			s.set_up(created_volume, location, holder, 1)
@@ -72,7 +72,7 @@
 			var/location = get_turf(holder.my_atom)
 
 			for(var/mob/M in viewers(5, location))
-				M << "\red The solution spews out a metalic foam!"
+				M << "<span class='warning'>The solution spews out a metalic foam!</span>"
 
 			var/datum/effect/system/foam_spread/s = new()
 			s.set_up(created_volume, location, holder, 2)

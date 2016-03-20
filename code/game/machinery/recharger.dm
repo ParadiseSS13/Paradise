@@ -28,10 +28,10 @@
 		// Checks to make sure he's not in space doing it, and that the area got proper power.
 		var/area/a = get_area(src)
 		if(!isarea(a))
-			user << "\red The [name] blinks red as you try to insert the item!"
+			user << "<span class='warning'>The [name] blinks red as you try to insert the item!</span>"
 			return
 		if(a.power_equip == 0 && a.requires_power)
-			user << "\red The [name] blinks red as you try to insert the item!"
+			user << "<span class='warning'>The [name] blinks red as you try to insert the item!</span>"
 			return
 
 		if (istype(G, /obj/item/weapon/gun/energy))
@@ -53,7 +53,7 @@
 		update_icon()
 	else if(istype(G, /obj/item/weapon/wrench))
 		if(charging)
-			user << "\red Remove the weapon first!"
+			user << "<span class='warning'>Remove the weapon first!</span>"
 			return
 		anchored = !anchored
 		user << "You [anchored ? "attached" : "detached"] the recharger."

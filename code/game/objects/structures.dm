@@ -68,11 +68,11 @@
 
 	for(var/obj/O in range(0, src))
 		if(O.density == 1 && O != src && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
-			user << "\red You cannot climb [src], as it is blocked by \a [O]!"
+			user << "<span class='warning'>You cannot climb [src], as it is blocked by \a [O]!</span>"
 			return
 	for(var/turf/T in range(0, src))
 		if(T.density == 1)
-			user << "\red You cannot climb [src], as it is blocked by \a [T]!"
+			user << "<span class='warning'>You cannot climb [src], as it is blocked by \a [T]!</span>"
 			return
 	var/turf/T = src.loc
 	if(!T || !istype(T)) return
@@ -108,14 +108,14 @@
 		if(M.lying) return //No spamming this on people.
 
 		M.Weaken(5)
-		M << "\red You topple as \the [src] moves under you!"
+		M << "<span class='warning'>You topple as \the [src] moves under you!</span>"
 
 		if(prob(25))
 
 			var/damage = rand(15,30)
 			var/mob/living/carbon/human/H = M
 			if(!istype(H))
-				H << "\red You land heavily!"
+				H << "<span class='warning'>You land heavily!</span>"
 				M.adjustBruteLoss(damage)
 				return
 
@@ -134,12 +134,12 @@
 					affecting = H.get_organ("head")
 
 			if(affecting)
-				M << "\red You land heavily on your [affecting.name]!"
+				M << "<span class='warning'>You land heavily on your [affecting.name]!</span>"
 				affecting.take_damage(damage, 0)
 				if(affecting.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
-				H << "\red You land heavily!"
+				H << "<span class='warning'>You land heavily!</span>"
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()

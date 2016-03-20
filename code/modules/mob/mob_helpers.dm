@@ -461,7 +461,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set category = "IC"
 
 	if(usr.sleeping)
-		usr << "\red You are already sleeping"
+		usr << "<span class='warning'>You are already sleeping</span>"
 		return
 	else
 		if(alert(src,"You sure you want to sleep for a while?","Sleep","Yes","No") == "Yes")

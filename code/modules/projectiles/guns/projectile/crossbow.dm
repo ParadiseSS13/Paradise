@@ -80,7 +80,7 @@
 
 /obj/item/weapon/gun/launcher/crossbow/special_check(user)
 	if(tension <= 0)
-		user << "\red \The [src] is not drawn back!"
+		user << "<span class='warning'>\The [src] is not drawn back!</span>"
 		return 0
 	return 1
 
@@ -261,11 +261,11 @@
 			var/obj/item/stack/rods/R = W
 			if(R.amount >= 3)
 				R.use(3)
-				user << "\blue You assemble a backbone of rods around the wooden stock."
+				user << "<span class='notice'>You assemble a backbone of rods around the wooden stock.</span>"
 				buildstate++
 				update_icon()
 			else
-				user << "\blue You need at least three rods to complete this task."
+				user << "<span class='notice'>You need at least three rods to complete this task.</span>"
 			return
 	else if(istype(W,/obj/item/weapon/weldingtool))
 		if(buildstate == 1)
@@ -273,7 +273,7 @@
 			if(T.remove_fuel(0,user))
 				if(!src || !T.isOn()) return
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-				user << "\blue You weld the rods into place."
+				user << "<span class='notice'>You weld the rods into place.</span>"
 			buildstate++
 			update_icon()
 		return
@@ -282,35 +282,35 @@
 		if(buildstate == 2)
 			if(C.amount >= 5)
 				C.use(5)
-				user << "\blue You wire a crude cell mount into the top of the crossbow."
+				user << "<span class='notice'>You wire a crude cell mount into the top of the crossbow.</span>"
 				buildstate++
 				update_icon()
 			else
-				user << "\blue You need at least five segments of cable coil to complete this task."
+				user << "<span class='notice'>You need at least five segments of cable coil to complete this task.</span>"
 			return
 		else if(buildstate == 4)
 			if(C.amount >= 5)
 				C.use(5)
-				user << "\blue You string a steel cable across the crossbow's lath."
+				user << "<span class='notice'>You string a steel cable across the crossbow's lath.</span>"
 				buildstate++
 				update_icon()
 			else
-				user << "\blue You need at least five segments of cable coil to complete this task."
+				user << "<span class='notice'>You need at least five segments of cable coil to complete this task.</span>"
 			return
 	else if(istype(W,/obj/item/stack/sheet/mineral/plastic))
 		if(buildstate == 3)
 			var/obj/item/stack/sheet/mineral/plastic/P = W
 			if(P.amount >= 3)
 				P.use(3)
-				user << "\blue You assemble and install a heavy plastic lath onto the crossbow."
+				user << "<span class='notice'>You assemble and install a heavy plastic lath onto the crossbow.</span>"
 				buildstate++
 				update_icon()
 			else
-				user << "\blue You need at least three plastic sheets to complete this task."
+				user << "<span class='notice'>You need at least three plastic sheets to complete this task.</span>"
 			return
 	else if(istype(W,/obj/item/weapon/screwdriver))
 		if(buildstate == 5)
-			user << "\blue You secure the crossbow's various parts."
+			user << "<span class='notice'>You secure the crossbow's various parts.</span>"
 			new /obj/item/weapon/gun/launcher/crossbow(get_turf(src))
 			qdel(src)
 		return

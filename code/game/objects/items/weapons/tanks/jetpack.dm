@@ -29,7 +29,7 @@
 		return
 
 	if(air_contents.oxygen < 10)
-		user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+		user << text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>")
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 
@@ -133,7 +133,7 @@
 		return
 
 	if(air_contents.carbon_dioxide < 10)
-		user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+		user << text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>")
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 

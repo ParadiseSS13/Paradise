@@ -352,7 +352,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	slaved.leave_serv_hud(vampire_mind)
 	update_vampire_icons_removed(vampire_mind)
 	//world << "Removed [vampire_mind.current.name] from vampire shit"
-	vampire_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>"
+	vampire_mind.current << "<span class='warning'><FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT></span>"
 
 /datum/vampire/proc/check_sun()
 	var/ax = owner.x

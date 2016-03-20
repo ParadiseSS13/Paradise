@@ -61,7 +61,7 @@
 		last_stomach_attack = world.time
 		for(var/mob/M in hearers(4, src))
 			if(M.client)
-				M.show_message(text("\red You hear something rumbling inside [src]'s stomach..."), 2)
+				M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
 
 		var/obj/item/I = user.get_active_hand()
 		if(I && I.force)
@@ -81,7 +81,7 @@
 
 			for(var/mob/M in viewers(user, null))
 				if(M.client)
-					M.show_message(text("\red <B>[user] attacks [src]'s stomach wall with the [I.name]!"), 2)
+					M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with the [I.name]!</span>"), 2)
 			playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 			if(prob(src.getBruteLoss() - 50))
@@ -116,7 +116,7 @@
 		if (H.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
-			H << "\red You can't use your [temp.name]"
+			H << "<span class='warning'>You can't use your [temp.name]</span>"
 			return
 	return
 
@@ -205,7 +205,7 @@
 			var/mob/living/carbon/human/H = src
 			src.visible_message( \
 				text("\blue [src] examines [].",src.gender==MALE?"himself":"herself"), \
-				"\blue You check yourself for injuries." \
+				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
 
 			for(var/obj/item/organ/external/org in H.organs)
@@ -499,7 +499,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	//actually throw it!
 	if (item)
 		item.layer = initial(item.layer)
-		src.visible_message("\red [src] has thrown [item].")
+		src.visible_message("<span class='warning'>[src] has thrown [item].</span>")
 
 		newtonian_move(get_dir(target, src))
 

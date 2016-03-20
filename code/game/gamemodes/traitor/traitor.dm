@@ -367,7 +367,7 @@
 
 	update_traitor_icons_removed(traitor_mind)
 	//world << "Removed [traitor_mind.current.name] from traitor shit"
-	traitor_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>"
+	traitor_mind.current << "<span class='warning'><FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT></span>"
 
 /datum/game_mode/proc/assign_exchange_role(var/datum/mind/owner)
 	//set faction

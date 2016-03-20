@@ -341,13 +341,13 @@
 							C:broken = 1
 						C.open()
 						C.update_icon()
-						master.visible_message("\red [master] breaks open [C]!")
+						master.visible_message("<span class='warning'>[master] breaks open [C]!</span>")
 					else
-						master.visible_message("\blue [master] is trying to force [C] open!")
+						master.visible_message("<span class='notice'>[master] is trying to force [C] open!</span>")
 
 					master.sleep += 1 // mechanical strain
 					return BIG_OBJECT_WORK
-				master.visible_message("\blue [master] is trying to open [C], but can't!")
+				master.visible_message("<span class='notice'>[master] is trying to open [C], but can't!</span>")
 				master.sleep = 5
 				return 0
 
@@ -642,14 +642,14 @@
 		if(istype(M) && (remaining > MOB_WORK))
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			M << "\red <B>The unloading machine grabs you with a hard metallic claw!</B>"
+			M << "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>"
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
 			M.loc = master
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
-			M.visible_message("\red [M.name] gets pulled into the machine!")
+			M.visible_message("<span class='warning'>[M.name] gets pulled into the machine!</span>")
 			return MOB_WORK
 	outlet_reaction(var/atom/W,var/turf/D)
 		var/mob/living/M = W
@@ -661,7 +661,7 @@
 		if(bruteloss < 100) // requires tenderization
 			M.apply_damage(rand(5,15),BRUTE)
 			M << "The machine is tearing you apart!"
-			master.visible_message("\red [master] makes a squishy grinding noise.")
+			master.visible_message("<span class='warning'>[master] makes a squishy grinding noise.</span>")
 			return
 		M.loc = master.loc
 		M.gib()
@@ -698,14 +698,14 @@
 		if(remaining > MOB_WORK)
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			M << "\red <B>The unloading machine grabs you with a hard metallic claw!</B>"
+			M << "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>"
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
 			M.loc = master
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
-			M.visible_message("\red [M.name] gets pulled into the machine!")
+			M.visible_message("<span class='warning'>[M.name] gets pulled into the machine!</span>")
 			return MOB_WORK
 
 	outlet_reaction(var/atom/W,var/turf/D)
@@ -719,7 +719,7 @@
 		D = get_step(D,master.outdir) // throw attempt
 		eject_speed = rand(0,4)
 
-		M.visible_message("\blue [M.name] is ejected from the unloader.")
+		M.visible_message("<span class='notice'>[M.name] is ejected from the unloader.</span>")
 		M.throw_at(D,eject_speed,eject_speed)
 		return
 
@@ -760,7 +760,7 @@
 
 		if(!damage)
 			playsound(master.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-			master.visible_message("\red \The [src] punched at [M], but whiffed!")
+			master.visible_message("<span class='warning'>\The [src] punched at [M], but whiffed!</span>")
 
 			if(maxpunches > 1 && prob(50)) // Follow through on a miss, 50% chance
 				return punch(M,maxpunches - 1) + 1
@@ -769,14 +769,14 @@
 		var/armor_block = M.run_armor_check(affecting, "melee")
 
 		playsound(master.loc, "punch", 25, 1, -1)
-		master.visible_message("\red <B>\The [src] has punched [M]!</B>")
+		master.visible_message("<span class='danger'>\The [src] has punched [M]!</span>")
 		if(!master.emagged)
 			M.apply_damage(damage, STAMINA, affecting, armor_block) // Clean fight
 		else
 			M.apply_damage(damage, BRUTE,   affecting, armor_block) // Foul!  Foooul!
 
 		if(damage >= 9)
-			master.visible_message("\red <B>\The [src] has weakened [M]!</B>")
+			master.visible_message("<span class='danger'>\The [src] has weakened [M]!</span>")
 			M.apply_effect(4, WEAKEN, armor_block)
 			if(!master.emagged)
 				master.sleep = 1

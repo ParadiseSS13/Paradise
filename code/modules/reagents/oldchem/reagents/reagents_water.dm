@@ -292,10 +292,10 @@
 		var/mob/living/carbon/human/H=M
 		if(method == TOUCH)
 			if(H.wear_mask)
-				H << "\red Your mask protects you from the holy water!"
+				H << "<span class='warning'>Your mask protects you from the holy water!</span>"
 				return
 			else if(H.head)
-				H << "\red Your helmet protects you from the holy water!"
+				H << "<span class='warning'>Your helmet protects you from the holy water!</span>"
 				return
 			else
 				M << "<span class='warning'>Something holy interferes with your powers!</span>"

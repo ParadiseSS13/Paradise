@@ -115,7 +115,7 @@ var/global/loopModeNames=list(
 
 /obj/machinery/media/jukebox/attack_hand(var/mob/user)
 	if(stat & NOPOWER)
-		usr << "\red You don't see anything to mess with."
+		usr << "<span class='warning'>You don't see anything to mess with.</span>"
 		return
 	if(stat & BROKEN && playlist!=null)
 		user.visible_message("\red <b>[user.name] smacks the side of \the [src.name].</b>","\red You hammer the side of \the [src.name].")
@@ -180,7 +180,7 @@ var/global/loopModeNames=list(
 /obj/machinery/media/jukebox/Topic(href, href_list)
 	..()
 	if(emagged)
-		usr << "\red You touch the bluescreened menu. Nothing happens. You feel dumber."
+		usr << "<span class='warning'>You touch the bluescreened menu. Nothing happens. You feel dumber.</span>"
 		return
 
 	if (href_list["power"])
@@ -190,7 +190,7 @@ var/global/loopModeNames=list(
 
 	if (href_list["playlist"])
 		if(!check_reload())
-			usr << "\red You must wait 60 seconds between playlist reloads."
+			usr << "<span class='warning'>You must wait 60 seconds between playlist reloads.</span>"
 			return
 		playlist_id=href_list["playlist"]
 		last_reload=world.time

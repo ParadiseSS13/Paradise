@@ -15,7 +15,7 @@
 		if(O.client)
 			var/area/A = get_area(src)
 			if(A)
-				O << "\blue <b>Someone has begun playing with a [src.name] in [A.name]!. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a>)</b>"
+				O << "<span class='notice'><b>Someone has begun playing with a [src.name] in [A.name]!. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a>)</b></span>"
 
 /obj/structure/spirit_board/examine(mob/user)
 	..(user)

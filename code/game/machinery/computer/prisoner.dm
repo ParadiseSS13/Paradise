@@ -91,7 +91,7 @@
 					usr.drop_item()
 					I.loc = src
 					inserted_id = I
-				else usr << "\red No valid ID."
+				else usr << "<span class='warning'>No valid ID.</span>"
 			if("1")
 				inserted_id.loc = get_step(src,get_turf(usr))
 				inserted_id = null

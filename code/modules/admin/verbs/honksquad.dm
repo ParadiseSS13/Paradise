@@ -62,14 +62,14 @@ var/global/sent_honksquad = 0
 				new_honksquad.internals.icon_state = "internal1"
 
 			//So they don't forget their code or mission.
-			new_honksquad.mind.store_memory("<B>Mission:</B> \red [input].")
+			new_honksquad.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
 
 			new_honksquad << "\blue You are a HONKsquad. [!honk_leader_selected?"commando":"<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill. \nYour current mission is: \red<B>[input]</B>"
 
 			honksquad_number--
 
 
-	message_admins("\blue [key_name_admin(usr)] has spawned a HONKsquad.", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a HONKsquad.</span>", 1)
 	log_admin("[key_name(usr)] used Spawn HONKsquad.")
 	return 1
 

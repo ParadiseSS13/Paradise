@@ -87,7 +87,7 @@
 
 		if (ismob(target))
 			add_logs(target, user, "planted [name] on")
-			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
+			user.visible_message("<span class='warning'>[user.name] finished planting an explosive on [target.name]!</span>")
 			message_admins("[key_name_admin(user)] planted [src.name] on [key_name_admin(target)] with [timer] second fuse",0,1)
 			log_game("[key_name(user)] planted [src.name] on [key_name(target)] with [timer] second fuse")
 

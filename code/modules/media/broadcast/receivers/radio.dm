@@ -14,7 +14,7 @@
 
 /obj/machinery/media/receiver/boombox/attack_hand(var/mob/user)
 	if(stat & (NOPOWER|BROKEN))
-		usr << "\red You don't see anything to mess with."
+		usr << "<span class='warning'>You don't see anything to mess with.</span>"
 		return
 	user.set_machine(src)
 	interact(user)
@@ -59,7 +59,7 @@
 				media_frequency = newfreq
 				connect_frequency()
 			else
-				usr << "\red Invalid FM frequency. (90.0, 200.0)"
+				usr << "<span class='warning'>Invalid FM frequency. (90.0, 200.0)</span>"
 	updateDialog()
 
 

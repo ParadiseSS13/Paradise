@@ -138,7 +138,7 @@
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
-		visible_message("\red <B>[user]</B> [user.attacktext] [src]!")
+		visible_message("<span class='warning'><B>[user]</B> [user.attacktext] [src]!</span>")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	return
 
@@ -146,8 +146,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-	user << "\red You slash at \the [src]!"
-	visible_message("\red The [user] slashes at [src.name]'s armor!")
+	user << "<span class='warning'>You slash at \the [src]!</span>"
+	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 	return
 
 /obj/spacepod/proc/deal_damage(var/damage)
@@ -246,7 +246,7 @@
 		user << "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>"
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!hatch_open)
-			user << "\red The maintenance hatch is closed!"
+			user << "<span class='warning'>The maintenance hatch is closed!</span>"
 			return
 		if(battery)
 			user << "<span class='notice'>The pod already has a battery.</span>"
@@ -257,7 +257,7 @@
 		return
 	if(istype(W, /obj/item/device/spacepod_equipment))
 		if(!hatch_open)
-			user << "\red The maintenance hatch is closed!"
+			user << "<span class='warning'>The maintenance hatch is closed!</span>"
 			return
 		if(!equipment_system)
 			user << "<span class='warning'>The pod has no equipment datum, yell at pomf</span>"
@@ -299,21 +299,21 @@
 
 	if(istype(W, /obj/item/weapon/weldingtool))
 		if(!hatch_open)
-			user << "\red You must open the maintenance hatch before attempting repairs."
+			user << "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>"
 			return
 		var/obj/item/weapon/weldingtool/WT = W
 		if(!WT.isOn())
-			user << "\red The welder must be on for this task."
+			user << "<span class='warning'>The welder must be on for this task.</span>"
 			return
 		if (health < initial(health))
-			user << "\blue You start welding the spacepod..."
+			user << "<span class='notice'>You start welding the spacepod...</span>"
 			playsound(loc, 'sound/items/Welder.ogg', 50, 1)
 			if(do_after(user, 20, target = src))
 				if(!src || !WT.remove_fuel(3, user)) return
 				repair_damage(10)
 				user << "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]"
 		else
-			user << "\blue <b>\The [src] is fully repaired!</b>"
+			user << "<span class='notice'><b>\The [src] is fully repaired!</b></span>"
 
 
 /obj/spacepod/attack_hand(mob/user as mob)

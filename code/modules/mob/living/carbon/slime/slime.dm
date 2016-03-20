@@ -365,7 +365,7 @@
 					visible_message("<span class='warning'>[src] has been touched with the stun gloves by [M]!</span>")
 					return
 				else
-					M << "\red Not enough charge! "
+					M << "<span class='warning'>Not enough charge! </span>"
 					return
 */
 

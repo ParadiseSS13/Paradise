@@ -200,7 +200,7 @@
 		if((queue.len+1)<queue_max_len)
 			add_to_queue(design_last_ordered,multiplier)
 		else
-			usr << "\red The autolathe queue is full!"
+			usr << "<span class='warning'>The autolathe queue is full!</span>"
 		if (!busy)
 			busy = 1
 			process_queue()

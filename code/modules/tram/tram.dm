@@ -254,7 +254,7 @@
 	if(M.melee_damage_upper == 0)	return
 	if(prob(M.melee_damage_upper))
 		qdel(src)
-	src.visible_message("\red <B>[M] has [M.attacktext] [src]!</B>")
+	src.visible_message("<span class='danger'>[M] has [M.attacktext] [src]!</span>")
 	M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 
 /obj/tram/bullet_act(var/obj/item/projectile/proj)

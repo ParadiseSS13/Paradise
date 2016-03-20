@@ -46,7 +46,7 @@
 
 
 	if (src.health <= 0)
-		visible_message("\blue The [src] dissipates")
+		visible_message("<span class='notice'>The [src] dissipates</span>")
 		qdel(src)
 		return
 
@@ -59,7 +59,7 @@
 	health -= Proj.damage
 	..()
 	if(health <=0)
-		visible_message("\blue The [src] dissipates")
+		visible_message("<span class='notice'>The [src] dissipates</span>")
 		qdel(src)
 		return
 	opacity = 1
@@ -106,7 +106,7 @@
 
 	//Handle the destruction of the shield
 	if (src.health <= 0)
-		visible_message("\blue The [src] dissipates")
+		visible_message("<span class='notice'>The [src] dissipates</span>")
 		qdel(src)
 		return
 
@@ -215,14 +215,14 @@
 		return
 
 	if (src.active)
-		user.visible_message("\blue \icon[src] [user] deactivated the shield generator.", \
-			"\blue \icon[src] You deactivate the shield generator.", \
+		user.visible_message("<span class='notice'>\icon[src] [user] deactivated the shield generator.</span>", \
+			"<span class='notice'>\icon[src] You deactivate the shield generator.</span>", \
 			"You hear heavy droning fade out.")
 		src.shields_down()
 	else
 		if(anchored)
-			user.visible_message("\blue \icon[src] [user] activated the shield generator.", \
-				"\blue \icon[src] You activate the shield generator.", \
+			user.visible_message("<span class='notice'>\icon[src] [user] activated the shield generator.</span>", \
+				"<span class='notice'>\icon[src] You activate the shield generator.</span>", \
 				"You hear heavy droning.")
 			src.shields_up()
 		else
@@ -237,22 +237,22 @@
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 		if(is_open)
-			user << "\blue You close the panel."
+			user << "<span class='notice'>You close the panel.</span>"
 			is_open = 0
 		else
-			user << "\blue You open the panel and expose the wiring."
+			user << "<span class='notice'>You open the panel and expose the wiring.</span>"
 			is_open = 1
 
 	else if(istype(W, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = W
-		user << "\blue You begin to replace the wires."
+		user << "<span class='notice'>You begin to replace the wires.</span>"
 		//if(do_after(user, min(60, round( ((maxhealth/health)*10)+(malfunction*10) ), target = src)) //Take longer to repair heavier damage
 		if(do_after(user, 30, target = src))
 			if(!src || !coil) return
 			coil.use(1)
 			health = max_health
 			malfunction = 0
-			user << "\blue You repair the [src]!"
+			user << "<span class='notice'>You repair the [src]!</span>"
 			update_icon()
 
 	else if(istype(W, /obj/item/weapon/wrench))
@@ -261,15 +261,15 @@
 			return
 		if(anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue You unsecure the [src] from the floor!"
+			user << "<span class='notice'>You unsecure the [src] from the floor!</span>"
 			if(active)
-				user << "\blue The [src] shuts off!"
+				user << "<span class='notice'>The [src] shuts off!</span>"
 				src.shields_down()
 			anchored = 0
 		else
 			if(istype(get_turf(src), /turf/space)) return //No wrenching these in space!
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue You secure the [src] to the floor!"
+			user << "<span class='notice'>You secure the [src] to the floor!</span>"
 			anchored = 1
 
 
@@ -278,7 +278,7 @@
 			src.locked = !src.locked
 			user << "The controls are now [src.locked ? "locked." : "unlocked."]"
 		else
-			user << "\red Access denied."
+			user << "<span class='warning'>Access denied.</span>"
 
 	else
 		..()
@@ -346,13 +346,13 @@
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user as mob)
 	if(state != 1)
-		user << "\red The shield generator needs to be firmly secured to the floor first."
+		user << "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>"
 		return 1
 	if(src.locked && !istype(user, /mob/living/silicon))
-		user << "\red The controls are locked!"
+		user << "<span class='warning'>The controls are locked!</span>"
 		return 1
 	if(power != 1)
-		user << "\red The shield generator needs to be powered by wire underneath."
+		user << "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>"
 		return 1
 
 	if(src.active >= 1)
@@ -398,7 +398,7 @@
 		src.active = 2
 	if(src.active >= 1)
 		if(src.power == 0)
-			src.visible_message("\red The [src.name] shuts down due to lack of power!", \
+			src.visible_message("<span class='warning'>The [src.name] shuts down due to lack of power!</span>", \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			src.active = 0
@@ -474,7 +474,7 @@
 			src.locked = !src.locked
 			user << "Controls are now [src.locked ? "locked." : "unlocked."]"
 		else
-			user << "\red Access denied."
+			user << "<span class='warning'>Access denied.</span>"
 
 	else
 		add_fingerprint(user)

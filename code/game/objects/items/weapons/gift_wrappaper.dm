@@ -30,7 +30,7 @@
 		user.put_in_active_hand(gift)
 		src.gift.add_fingerprint(user)
 	else
-		user << "\blue The gift was empty!"
+		user << "<span class='notice'>The gift was empty!</span>"
 	qdel(src)
 	return
 
@@ -41,16 +41,16 @@
 /obj/effect/spresent/relaymove(mob/user as mob)
 	if (user.stat)
 		return
-	user << "\blue You cant move."
+	user << "<span class='notice'>You cant move.</span>"
 
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if (!istype(W, /obj/item/weapon/wirecutters))
-		user << "\blue I need wirecutters for that."
+		user << "<span class='notice'>I need wirecutters for that.</span>"
 		return
 
-	user << "\blue You cut open the present."
+	user << "<span class='notice'>You cut open the present.</span>"
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc

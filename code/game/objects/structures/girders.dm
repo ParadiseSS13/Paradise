@@ -32,30 +32,30 @@
 	if(istype(W, /obj/item/weapon/wrench) && state == 0)
 		if(anchored && !istype(src,/obj/structure/girder/displaced))
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue Now disassembling the girder"
+			user << "<span class='notice'>Now disassembling the girder</span>"
 			if(do_after(user,40, target = src))
 				if(!src) return
-				user << "\blue You dissasembled the girder!"
+				user << "<span class='notice'>You dissasembled the girder!</span>"
 				refundMetal(metalUsed)
 				qdel(src)
 		else if(!anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue Now securing the girder"
+			user << "<span class='notice'>Now securing the girder</span>"
 			if(get_turf(user, 40))
-				user << "\blue You secured the girder!"
+				user << "<span class='notice'>You secured the girder!</span>"
 				new/obj/structure/girder( src.loc )
 				qdel(src)
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
-		user << "\blue Now slicing apart the girder"
+		user << "<span class='notice'>Now slicing apart the girder</span>"
 		if(do_after(user,30, target = src))
 			if(!src) return
-			user << "\blue You slice apart the girder!"
+			user << "<span class='notice'>You slice apart the girder!</span>"
 			refundMetal(metalUsed)
 			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
-		user << "\blue You drill through the girder!"
+		user << "<span class='notice'>You drill through the girder!</span>"
 		refundMetal(metalUsed)
 		qdel(src)
 
@@ -67,27 +67,27 @@
 
 	else if(istype(W, /obj/item/weapon/screwdriver) && state == 2 && istype(src,/obj/structure/girder/reinforced))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
-		user << "\blue Now unsecuring support struts"
+		user << "<span class='notice'>Now unsecuring support struts</span>"
 		if(do_after(user,40, target = src))
 			if(!src) return
-			user << "\blue You unsecured the support struts!"
+			user << "<span class='notice'>You unsecured the support struts!</span>"
 			state = 1
 
 	else if(istype(W, /obj/item/weapon/wirecutters) && istype(src,/obj/structure/girder/reinforced) && state == 1)
 		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
-		user << "\blue Now removing support struts"
+		user << "<span class='notice'>Now removing support struts</span>"
 		if(do_after(user,40, target = src))
 			if(!src) return
-			user << "\blue You removed the support struts!"
+			user << "<span class='notice'>You removed the support struts!</span>"
 			new/obj/structure/girder( src.loc )
 			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/crowbar) && state == 0 && anchored )
 		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
-		user << "\blue Now dislodging the girder"
+		user << "<span class='notice'>Now dislodging the girder</span>"
 		if(do_after(user, 40, target = src))
 			if(!src) return
-			user << "\blue You dislodged the girder!"
+			user << "<span class='notice'>You dislodged the girder!</span>"
 			new/obj/structure/girder/displaced( src.loc )
 			qdel(src)
 
@@ -100,16 +100,16 @@
 				if(!anchored)
 					if(S.amount < 2) return
 					S.use(2)
-					user << "\blue You create a false wall! Push on it to open or close the passage."
+					user << "<span class='notice'>You create a false wall! Push on it to open or close the passage.</span>"
 					new /obj/structure/falsewall (src.loc)
 					qdel(src)
 				else
 					if(S.amount < 2) return ..()
-					user << "\blue Now adding plating..."
+					user << "<span class='notice'>Now adding plating...</span>"
 					if (do_after(user,40, target = src))
 						if(!src || !S || S.amount < 2) return
 						S.use(2)
-						user << "\blue You added the plating!"
+						user << "<span class='notice'>You added the plating!</span>"
 						var/turf/Tsrc = get_turf(src)
 						Tsrc.ChangeTurf(/turf/simulated/wall)
 						for(var/turf/simulated/wall/X in Tsrc.loc)
@@ -121,17 +121,17 @@
 				if(!anchored)
 					if(S.amount < 2) return
 					S.use(2)
-					user << "\blue You create a false wall! Push on it to open or close the passage."
+					user << "<span class='notice'>You create a false wall! Push on it to open or close the passage.</span>"
 					new /obj/structure/falsewall/reinforced (src.loc)
 					qdel(src)
 				else
 					if (src.icon_state == "reinforced") //I cant believe someone would actually write this line of code...
 						if(S.amount < 1) return ..()
-						user << "\blue Now finalising reinforced wall."
+						user << "<span class='notice'>Now finalising reinforced wall.</span>"
 						if(do_after(user, 50, target = src))
 							if(!src || !S || S.amount < 1) return
 							S.use(1)
-							user << "\blue Wall fully reinforced!"
+							user << "<span class='notice'>Wall fully reinforced!</span>"
 							var/turf/Tsrc = get_turf(src)
 							Tsrc.ChangeTurf(/turf/simulated/wall/r_wall)
 							for(var/turf/simulated/wall/r_wall/X in Tsrc.loc)
@@ -140,11 +140,11 @@
 						return
 					else
 						if(S.amount < 1) return ..()
-						user << "\blue Now reinforcing girders"
+						user << "<span class='notice'>Now reinforcing girders</span>"
 						if (do_after(user,60, target = src))
 							if(!src || !S || S.amount < 1) return
 							S.use(1)
-							user << "\blue Girders reinforced!"
+							user << "<span class='notice'>Girders reinforced!</span>"
 							new/obj/structure/girder/reinforced( src.loc )
 							qdel(src)
 						return
@@ -154,17 +154,17 @@
 			if(!anchored)
 				if(S.amount < 2) return
 				S.use(2)
-				user << "\blue You create a false wall! Push on it to open or close the passage."
+				user << "<span class='notice'>You create a false wall! Push on it to open or close the passage.</span>"
 				var/F = text2path("/obj/structure/falsewall/[M]")
 				new F (src.loc)
 				qdel(src)
 			else
 				if(S.amount < 2) return ..()
-				user << "\blue Now adding plating..."
+				user << "<span class='notice'>Now adding plating...</span>"
 				if (do_after(user,40, target = src))
 					if(!src || !S || S.amount < 2) return
 					S.use(2)
-					user << "\blue You added the plating!"
+					user << "<span class='notice'>You added the plating!</span>"
 					var/turf/Tsrc = get_turf(src)
 					Tsrc.ChangeTurf(text2path("/turf/simulated/wall/mineral/[M]"))
 					for(var/turf/simulated/wall/mineral/X in Tsrc.loc)
@@ -179,7 +179,7 @@
 		if (P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
 			user.drop_item()
 			P.loc = src.loc
-			user << "\blue You fit the pipe into the [src]!"
+			user << "<span class='notice'>You fit the pipe into the [src]!</span>"
 	else
 		..()
 
@@ -241,19 +241,19 @@
 /obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-		user << "\blue Now disassembling the girder"
+		user << "<span class='notice'>Now disassembling the girder</span>"
 		if(do_after(user,40, target = src))
-			user << "\blue You dissasembled the girder!"
+			user << "<span class='notice'>You dissasembled the girder!</span>"
 			dismantle()
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
-		user << "\blue Now slicing apart the girder"
+		user << "<span class='notice'>Now slicing apart the girder</span>"
 		if(do_after(user,30, target = src))
-			user << "\blue You slice apart the girder!"
+			user << "<span class='notice'>You slice apart the girder!</span>"
 			dismantle()
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
-		user << "\blue You drill through the girder!"
+		user << "<span class='notice'>You drill through the girder!</span>"
 		dismantle()
 
 /obj/structure/cultgirder/proc/dismantle()

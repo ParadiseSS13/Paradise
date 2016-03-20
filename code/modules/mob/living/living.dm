@@ -471,7 +471,7 @@
 							var/obj/item/weapon/grab/G = pick(M.grabbed_by)
 							if (istype(G, /obj/item/weapon/grab))
 								for(var/mob/O in viewers(M, null))
-									O.show_message(text("\red [] has been pulled from []'s grip by []", G.affecting, G.assailant, src), 1)
+									O.show_message(text("<span class='warning'>[] has been pulled from []'s grip by []</span>", G.affecting, G.assailant, src), 1)
 								//G = null
 								qdel(G)
 						else
@@ -568,8 +568,8 @@
 	var/mob/living/simple_animal/borer/B = src.loc
 	var/mob/living/captive_brain/H = src
 
-	H << "\red <B>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</B>"
-	B.host << "\red <B>You feel the captive mind of [src] begin to resist your control.</B>"
+	H << "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>"
+	B.host << "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>"
 
 	spawn(rand(350,450)+B.host.brainloss)
 
@@ -577,8 +577,8 @@
 			return
 
 		B.host.adjustBrainLoss(rand(5,10))
-		H << "\red <B>With an immense exertion of will, you regain control of your body!</B>"
-		B.host << "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>"
+		H << "<span class='danger'>With an immense exertion of will, you regain control of your body!</span>"
+		B.host << "<span class='danger'>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</span>"
 
 		B.detatch()
 
@@ -607,19 +607,19 @@
 			if(G.state == 2)
 				if(prob(60))
 					for(var/mob/O in viewers(L, null))
-						O.show_message(text("\red [] has broken free of []'s grip!", L, G.assailant), 1)
+						O.show_message(text("<span class='warning'>[] has broken free of []'s grip!</span>", L, G.assailant), 1)
 					qdel(G)
 
 			else
 				if(G.state == 3)
 					if(prob(5))
 						for(var/mob/O in viewers(usr, null))
-							O.show_message(text("\red [] has broken free of []'s headlock!", L, G.assailant), 1)
+							O.show_message(text("<span class='warning'>[] has broken free of []'s headlock!</span>", L, G.assailant), 1)
 						qdel(G)
 
 	if(resisting)
 		for(var/mob/O in viewers(usr, null))
-			O.show_message(text("\red <B>[] resists!</B>", L), 1)
+			O.show_message(text("<span class='danger'>[] resists!</span>", L), 1)
 
 /* resist_buckle allows a mob that is bucklecuffed to break free of the chair/bed/whatever
 */////
@@ -631,17 +631,17 @@
 			C.changeNext_move(CLICK_CD_BREAKOUT)
 			C.last_special = world.time + CLICK_CD_BREAKOUT
 
-			C << "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still)</span>"
+			C << "<span class='warning'>You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still)</span></span>"
 			for(var/mob/O in viewers(L))
-				O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
+				O.show_message("<span class='danger'>[usr] attempts to unbuckle themself!</span>", 1)
 
 			spawn(0)
 				if(do_after(usr, 1200, target = C))
 					if(!C.buckled)
 						return
 					for(var/mob/O in viewers(C))
-						O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
-					C << "\blue You successfully unbuckle yourself."
+						O.show_message("<span class='danger'>[usr] manages to unbuckle themself!</span>", 1)
+					C << "<span class='notice'>You successfully unbuckle yourself.</span>"
 					C.buckled.user_unbuckle_mob(C,C)
 
 	else

@@ -306,18 +306,18 @@
 						if(!H.wear_mask.unacidable)
 							qdel(H.wear_mask)
 							H.update_inv_wear_mask()
-							H << "\red Your mask melts away but protects you from the acid!"
+							H << "<span class='warning'>Your mask melts away but protects you from the acid!</span>"
 						else
-							H << "\red Your mask protects you from the acid!"
+							H << "<span class='warning'>Your mask protects you from the acid!</span>"
 						return
 
 					if(H.head)
 						if(!H.head.unacidable)
 							qdel(H.head)
 							H.update_inv_head()
-							H << "\red Your helmet melts away but protects you from the acid"
+							H << "<span class='warning'>Your helmet melts away but protects you from the acid</span>"
 						else
-							H << "\red Your helmet protects you from the acid!"
+							H << "<span class='warning'>Your helmet protects you from the acid!</span>"
 						return
 
 				if(!H.unacidable)
@@ -333,7 +333,7 @@
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			for(var/mob/M in viewers(5, O))
-				M << "\red \the [O] melts."
+				M << "<span class='warning'>\the [O] melts.</span>"
 			qdel(O)
 
 /datum/chemical_reaction/facid
@@ -717,7 +717,7 @@
 					qdel(E)
 
 			for(var/mob/O in viewers(W, null))
-				O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)
+				O.show_message(text("<span class='notice'>The fungi are completely dissolved by the solution!</span>"), 1)
 
 /datum/reagent/atrazine/reaction_obj(var/obj/O, var/volume)
 	if(istype(O,/obj/structure/alien/weeds/))

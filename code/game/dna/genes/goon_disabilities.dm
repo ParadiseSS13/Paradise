@@ -288,9 +288,9 @@
 				if (C == owner)
 					continue
 				if (src.variant == 2)
-					C << "\red [src.personalized_stink]"
+					C << "<span class='warning'>[src.personalized_stink]</span>"
 				else
-					C << "\red [stinkString()]"
+					C << "<span class='warning'>[stinkString()]</span>"
 */
 
 
@@ -347,7 +347,7 @@
 		msg_admin_attack("[key_name_admin(usr)] has cast the spell [name] on [key_name_admin(L)]")
 
 	L.adjust_fire_stacks(0.5)
-	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")
+	L.visible_message("<span class='warning'><b>[L.name]</b> suddenly bursts into flames!</span>")
 	L.IgniteMob()
 	playsound(L.loc, 'sound/effects/bamf.ogg', 50, 0)
 
@@ -377,7 +377,7 @@
 	if (istype(usr,/mob/living/carbon/human/))
 		var/mob/living/carbon/human/H = usr
 
-		H.visible_message("\red <b>[H.name]'s flesh melts right off! Holy shit!</b>")
+		H.visible_message("<span class='danger'>[H.name]'s flesh melts right off! Holy shit!</span>")
 		//if (H.gender == "female")
 		//	playsound(H.loc, 'female_fallscream.ogg', 50, 0)
 		//else
@@ -391,7 +391,7 @@
 		nH.brain_op_stage = 4
 		H.gib(1)
 	else
-		usr.visible_message("\red <b>[usr.name] melts into a pile of bloody viscera!</b>")
+		usr.visible_message("<span class='danger'>[usr.name] melts into a pile of bloody viscera!</span>")
 		usr.gib(1)
 
 	return

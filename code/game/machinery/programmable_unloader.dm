@@ -199,11 +199,11 @@
 	if(istype(I,/obj/item/weapon/wrench)) // code borrowed from pipe dispenser
 		if (unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to unfasten \the [src] from the floor..."
+			user << "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>"
 			if (do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
-					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
+					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
 					"You hear ratchet.")
 				src.anchored = 0
 				src.stat |= MAINT
@@ -212,11 +212,11 @@
 					usr << browse(null, "window=pipedispenser")
 		else /* unwrenched */
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to fasten \the [src] to the floor..."
+			user << "<span class='notice'>You begin to fasten \the [src] to the floor...</span>"
 			if (do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
-					"\blue You fastened \the [src] into place.", \
+					"<span class='notice'>You fastened \the [src] into place.</span>", \
 					"You hear ratchet.")
 				src.anchored = 1
 				src.input = get_step(src.loc,src.indir)
@@ -237,9 +237,9 @@
 			user << "You open \the [src]'s maintenance panel."
 	if(istype(I,/obj/item/weapon/crowbar))
 		if(open)
-			user << "\blue You begin to pry out the [src]'s circuits."
+			user << "<span class='notice'>You begin to pry out the [src]'s circuits.</span>"
 			if(do_after(user,40, target = src))
-				user << "\blue You remove the circuitboard."
+				user << "<span class='notice'>You remove the circuitboard.</span>"
 				circuit_removed = 1
 				use_power = 0
 				on = 0
@@ -299,7 +299,7 @@
 			if(M.client)
 				M.client.eye = M.client.mob
 				M.client.perspective = MOB_PERSPECTIVE
-				M << "\blue The machine turns off, and you fall out."
+				M << "<span class='notice'>The machine turns off, and you fall out.</span>"
 
 		return
 
@@ -516,7 +516,7 @@
 			if(damage < 5)
 				visible_message("[H] gives \the [src] a weak punch.")
 				if(prob(10))
-					visible_message("\blue \The [src] feints at [H], as though mocking \him.")
+					visible_message("<span class='notice'>\The [src] feints at [H], as though mocking \him.</span>")
 			else if(damage < 10)
 				visible_message("[H] hits \the [src] with a solid [pick("punch","jab","smack")].")
 			else if(damage < 15)
@@ -533,11 +533,11 @@
 				damage -= 5
 			if(newsleep)
 				if(emagged)
-					visible_message("\red \The [src]'s lights glow a bloodthirsty red.  It refuses to stop!")
+					visible_message("<span class='warning'>\The [src]'s lights glow a bloodthirsty red.  It refuses to stop!</span>")
 					sleep = 0
 				else
 					sleep += newsleep
-					visible_message("\blue \The [src]'s lights dim for a moment and it beeps, signifying a valid hit.")
+					visible_message("<span class='notice'>\The [src]'s lights dim for a moment and it beeps, signifying a valid hit.</span>")
 					playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 			return
 

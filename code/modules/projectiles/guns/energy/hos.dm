@@ -18,7 +18,7 @@
 				mode = 0
 				charge_cost = 1000
 				fire_sound = 'sound/weapons/Laser.ogg'
-				user << "\red [src.name] is now set to kill."
+				user << "<span class='warning'>[src.name] is now set to kill.</span>"
 				projectile_type = "/obj/item/projectile/beam"
 				modifystate = "hoslaserkill"
 				fire_delay = 0
@@ -26,7 +26,7 @@
 				mode = 1
 				charge_cost = 500
 				fire_sound = 'sound/weapons/taser2.ogg'
-				user << "\red [src.name] is now set to disable."
+				user << "<span class='warning'>[src.name] is now set to disable.</span>"
 				projectile_type = "/obj/item/projectile/beam/disabler"
 				modifystate = "hoslaserdisable"
 				fire_delay = 0
@@ -34,7 +34,7 @@
 				mode = 2
 				charge_cost = 2000
 				fire_sound = 'sound/weapons/taser.ogg'
-				user << "\red [src.name] is now set to stun."
+				user << "<span class='warning'>[src.name] is now set to stun.</span>"
 				projectile_type = "/obj/item/projectile/energy/electrode"
 				modifystate = "hoslaserstun"
 				fire_delay = 15

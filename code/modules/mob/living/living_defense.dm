@@ -46,7 +46,7 @@
 	if(C && C.active)
 		C.attack_self(src)//Should shut it off
 		update_icons()
-		src << "\blue Your [C.name] was disrupted!"
+		src << "<span class='notice'>Your [C.name] was disrupted!</span>"
 		Stun(2)
 
 	//Armor
@@ -96,10 +96,10 @@
 			//miss_chance = min(15*(distance-2), 0)
 		/*
 		if (prob(miss_chance))
-			visible_message("\blue \The [O] misses [src] narrowly!")
+			visible_message("<span class='notice'>\The [O] misses [src] narrowly!</span>")
 			return
 		*/
-		src.visible_message("\red [src] has been hit by [O].")
+		src.visible_message("<span class='warning'>[src] has been hit by [O].</span>")
 		var/armor = run_armor_check(zone, "melee")
 
 		apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)

@@ -228,7 +228,7 @@
 			//emergency stop if seal integrity reaches 0
 			if(scanner_seal_integrity <= 0 || (scanner_temperature >= 1273 && !rad_shield))
 				stop_scanning()
-				src.visible_message("\blue \icon[src] buzzes unhappily. It has failed mid-scan!", 2)
+				src.visible_message("<span class='notice'>\icon[src] buzzes unhappily. It has failed mid-scan!</span>", 2)
 
 			if(prob(5))
 				src.visible_message("\blue \icon[src] [pick("whirrs","chuffs","clicks")][pick(" excitedly"," energetically"," busily")].", 2)
@@ -255,7 +255,7 @@
 		used_coolant = 0
 
 /obj/machinery/radiocarbon_spectrometer/proc/complete_scan()
-	src.visible_message("\blue \icon[src] makes an insistent chime.", 2)
+	src.visible_message("<span class='notice'>\icon[src] makes an insistent chime.</span>", 2)
 
 	if(scanned_item)
 		//create report

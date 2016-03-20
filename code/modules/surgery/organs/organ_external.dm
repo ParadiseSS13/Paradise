@@ -47,7 +47,7 @@
 	// Internal organs of this body part
 	var/list/internal_organs = list()
 
-	var/damage_msg = "\red You feel an intense pain"
+	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
 
 	var/open = 0
@@ -787,8 +787,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		owner.visible_message(\
-			"\red You hear a loud cracking sound coming from \the [owner].",\
-			"\red <b>Something feels like it shattered in your [name]!</b>",\
+			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
+			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		if(owner.species && !(owner.species.flags & NO_PAIN))
 			owner.emote("scream")
@@ -932,13 +932,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		if(type == "brute")
-			owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s [name].",	\
-			"\red <b>Your [name] becomes a mangled mess!</b>",	\
-			"\red You hear a sickening crack.")
+			owner.visible_message("<span class='warning'>You hear a sickening cracking sound coming from \the [owner]'s [name].</span>",	\
+			"<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
+			"<span class='warning'>You hear a sickening crack.</span>")
 		else
-			owner.visible_message("\red \The [owner]'s [name] melts away, turning into mangled mess!",	\
-			"\red <b>Your [name] melts away!</b>",	\
-			"\red You hear a sickening sizzle.")
+			owner.visible_message("<span class='warning'>\The [owner]'s [name] melts away, turning into mangled mess!</span>",	\
+			"<span class='danger'>Your [name] melts away!</span>",	\
+			"<span class='warning'>You hear a sickening sizzle.</span>")
 	disfigured = 1
 
 /obj/item/organ/external/is_primary_organ(var/mob/living/carbon/human/O = null)

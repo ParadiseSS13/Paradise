@@ -29,10 +29,10 @@
 	if (istype(W, /obj/item/weapon/mop))
 		if (src.reagents.total_volume >= 2)
 			src.reagents.trans_to(W, 2)
-			user << "\blue You wet the mop"
+			user << "<span class='notice'>You wet the mop</span>"
 			playsound(src.loc, 'sound/effects/slosh.ogg', 25, 1)
 		if (src.reagents.total_volume < 1)
-			user << "\blue Out of water!"
+			user << "<span class='notice'>Out of water!</span>"
 	return
 
 /obj/structure/mopbucket/ex_act(severity)

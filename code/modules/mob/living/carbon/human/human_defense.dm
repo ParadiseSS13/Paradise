@@ -176,12 +176,12 @@ emp_act
 	if(!istype(affecting))
 		return
 	if(!(affecting.status & ORGAN_ROBOT))
-		user << "\red That limb isn't robotic."
+		user << "<span class='warning'>That limb isn't robotic.</span>"
 		return
 	if(affecting.sabotaged)
-		user << "\red [src]'s [affecting.name] is already sabotaged!"
+		user << "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>"
 	else
-		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties."
+		user << "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>"
 		affecting.sabotaged = 1
 	return 1
 
@@ -198,7 +198,7 @@ emp_act
 		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
 		src.loc.add_blood(src)
 		--src.meatleft
-		user << "\red You hack off a chunk of meat from [src.name]"
+		user << "<span class='warning'>You hack off a chunk of meat from [src.name]</span>"
 		if(!src.meatleft)
 			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[key_name(user)]</b>"
 			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[key_name(src)]</b> into meat</b>"
@@ -226,9 +226,9 @@ emp_act
 
 	if(! I.discrete)
 		if(I.attack_verb.len)
-			visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
+			visible_message("<span class='danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
 		else
-			visible_message("\red <B>[src] has been attacked in the [hit_area] with [I.name] by [user]!</B>")
+			visible_message("<span class='danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
@@ -331,7 +331,7 @@ emp_act
 
 		/*
 		if(!zone)
-			visible_message("\blue \The [O] misses [src] narrowly!")
+			visible_message("<span class='notice'>\The [O] misses [src] narrowly!</span>")
 			return
 		*/
 		O.throwing = 0		//it hit, so stop moving
@@ -347,7 +347,7 @@ emp_act
 			return
 		var/hit_area = affecting.name
 
-		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
+		src.visible_message("<span class='warning'>[src] has been hit in the [hit_area] by [O].</span>")
 		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].") //I guess "melee" is the best fit here
 
 
