@@ -103,7 +103,7 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		user << "<span class='warning'><B>Subject cannot have abiotic items on.</B></span>"
+		user << "<span class='danger'>Subject cannot have abiotic items on.</span>"
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
@@ -424,10 +424,10 @@
 	return
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
 	if (!istype(M))
-		usr << "<span class='warning'><B>The cryo cell cannot handle such a lifeform!</B></span>"
+		usr << "<span class='danger'>The cryo cell cannot handle such a lifeform!</span>"
 		return
 	if (occupant)
-		usr << "<span class='warning'><B>The cryo cell is already occupied!</B></span>"
+		usr << "<span class='danger'>The cryo cell is already occupied!</span>"
 		return
 	if (M.abiotic())
 		usr << "<span class='warning'>Subject may not have abiotic items on.</span>"

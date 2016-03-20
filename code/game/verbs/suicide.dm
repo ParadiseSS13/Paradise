@@ -104,7 +104,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		viewers(loc) << "<span class='warning'><b>[src]'s brain is growing dull and lifeless. It looks like it's lost the will to live.</b></span>"
+		viewers(loc) << "<span class='danger'>[src]'s brain is growing dull and lifeless. It looks like it's lost the will to live.</span>"
 		spawn(50)
 			death(0)
 			suiciding = 0
@@ -125,7 +125,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		viewers(src) << "<span class='warning'><b>[src] is powering down. It looks like \he's trying to commit suicide.</b></span>"
+		viewers(src) << "<span class='danger'>[src] is powering down. It looks like \he's trying to commit suicide.</span>"
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()
@@ -145,7 +145,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		viewers(src) << "<span class='warning'><b>[src] is powering down. It looks like \he's trying to commit suicide.</b></span>"
+		viewers(src) << "<span class='danger'>[src] is powering down. It looks like \he's trying to commit suicide.</span>"
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()
@@ -182,7 +182,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		viewers(src) << "<span class='warning'><b>[src] is thrashing wildly! It looks like \he's trying to commit suicide.</b></span>"
+		viewers(src) << "<span class='danger'>[src] is thrashing wildly! It looks like \he's trying to commit suicide.</span>"
 		//put em at -175
 		adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()

@@ -95,7 +95,7 @@
 		t += "<span class='notice'><B>You are too far away to read it.</B></span>"
 
 	else if(stat & (NOPOWER|BROKEN))
-		t += "<span class='warning'><B>The display is off.</B></span>"
+		t += "<span class='danger'>The display is off.</span>"
 
 	else if(target)
 		var/datum/gas_mixture/environment = target.return_air()

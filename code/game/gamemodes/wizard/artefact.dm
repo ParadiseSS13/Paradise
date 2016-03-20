@@ -275,7 +275,7 @@ var/global/list/multiverse = list()
 			user << "You bind the sword to yourself. You can now use it to summon help."
 			if(!usr.mind.special_role)
 				if(prob(probability_evil))
-					user << "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>"
+					user << "<span class='danger'>With your new found power you could easily conquer the station!</span>"
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.owner = usr.mind
 					usr.mind.objectives += hijack_objective
@@ -285,7 +285,7 @@ var/global/list/multiverse = list()
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
-					user << "<span class='warning'><B>With your new found power you could easily defend the station!</B></span>"
+					user << "<span class='danger'>With your new found power you could easily defend the station!</span>"
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.owner = usr.mind
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
@@ -304,7 +304,7 @@ var/global/list/multiverse = list()
 			if(candidates.len)
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
-				user << "<span class='warning'><B>The sword flashes, and you find yourself face to face with...you!</B></span>"
+				user << "<span class='danger'>The sword flashes, and you find yourself face to face with...you!</span>"
 
 			else
 				user << "You fail to summon any copies of yourself. Perhaps you should try again in a bit."

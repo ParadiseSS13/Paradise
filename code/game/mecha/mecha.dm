@@ -932,7 +932,7 @@
 		emagged = 1
 		usr << "<span class='notice'>You slide the card through the [src]'s ID slot.</span>"
 		playsound(src.loc, "sparks", 100, 1)
-		src.desc += "</br><b><span class='warning'>The mech's equipment slots spark dangerously!</b></span>"
+		src.desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	else
 		usr <<"<span class='warning'>The [src]'s ID slot rejects the card.</span>"
 	return

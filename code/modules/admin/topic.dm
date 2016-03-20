@@ -450,7 +450,7 @@
 				add_note(M.ckey, "Appearance banned - [reason]", null, usr, 0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] appearance banned [key_name_admin(M)]</span>", 1)
 				M << "<span class='warning'><BIG><B>You have been appearance banned by [usr.client.ckey].</B></BIG></span>"
-				M << "<span class='warning'><B>The reason is: [reason]</B></span>"
+				M << "<span class='danger'>The reason is: [reason]</span>"
 				M << "<span class='warning'>Appearance ban can be lifted only upon request.</span>"
 				if(config.banappeals)
 					M << "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>"
@@ -897,7 +897,7 @@
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr, 0)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 					M << "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>"
-					M << "<span class='warning'><B>The reason is: [reason]</B></span>"
+					M << "<span class='danger'>The reason is: [reason]</span>"
 					M << "<span class='warning'>This jobban will be lifted in [mins] minutes.</span>"
 					href_list["jobban2"] = 1 // lets it fall through and refresh
 					return 1
@@ -917,7 +917,7 @@
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr, 0)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 						M << "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>"
-						M << "<span class='warning'><B>The reason is: [reason]</B></span>"
+						M << "<span class='danger'>The reason is: [reason]</span>"
 						M << "<span class='warning'>Jobban can be lifted only upon request.</span>"
 						href_list["jobban2"] = 1 // lets it fall through and refresh
 						return 1
@@ -2406,11 +2406,11 @@
 						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
 /*				if("shockwave")
 				ok = 1
-				world << "<span class='warning'><B><big>ALERT: STATION STRESS CRITICAL</big></B></span>"
+				world << "<span class='danger'><big>ALERT: STATION STRESS CRITICAL</big></span>"
 				sleep(60)
-				world << "<span class='warning'><B><big>ALERT: STATION STRESS CRITICAL. TOLERABLE LEVELS EXCEEDED!</big></B></span>"
+				world << "<span class='danger'><big>ALERT: STATION STRESS CRITICAL. TOLERABLE LEVELS EXCEEDED!</big></span>"
 				sleep(80)
-				world << "<span class='warning'><B><big>ALERT: STATION STRUCTURAL STRESS CRITICAL. SAFETY MECHANISMS FAILED!</big></B></span>"
+				world << "<span class='danger'><big>ALERT: STATION STRUCTURAL STRESS CRITICAL. SAFETY MECHANISMS FAILED!</big></span>"
 				sleep(40)
 				for(var/mob/M in world)
 					shake_camera(M, 400, 1)
@@ -2521,7 +2521,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")
 				for(var/mob/living/carbon/human/H in player_list)
-					H << "<span class='warning'><B>You suddenly feel stupid.</B></span>"
+					H << "<span class='danger'>You suddenly feel stupid.</span>"
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody retarded")
 			if("fakeguns")

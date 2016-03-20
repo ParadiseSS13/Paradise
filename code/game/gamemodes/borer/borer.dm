@@ -99,7 +99,7 @@
 
 /datum/game_mode/proc/greet_borer(var/datum/mind/borer, var/you_are=1)
 	if (you_are)
-		borer.current << "<B><span class='warning'>You are a Cortical Borer!</B></span>"
+		borer.current << "<span class='danger'>You are a Cortical Borer!</span>"
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in borer.objectives)

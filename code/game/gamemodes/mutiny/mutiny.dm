@@ -339,7 +339,7 @@ datum/game_mode/mutiny
 			mode.add_loyalist(M.mind)
 		else if(choice == "No")
 			M << "<span class='warning'>You declined to join the loyalists.</span>"
-			mode.head_loyalist.current << "<span class='warning'><b>[M] declined to support the loyalists.</b></span>"
+			mode.head_loyalist.current << "<span class='danger'>[M] declined to support the loyalists.</span>"
 
 /mob/living/carbon/human/proc/recruit_mutineer()
 	set name = "Recruit Mutineer"
@@ -376,7 +376,7 @@ datum/game_mode/mutiny
 			mode.add_mutineer(M.mind)
 		else if(choice == "No")
 			M << "<span class='warning'>You declined to join the mutineers.</span>"
-			mode.head_mutineer.current << "<span class='warning'><b>[M] declined to support the mutineers.</b></span>"
+			mode.head_mutineer.current << "<span class='danger'>[M] declined to support the mutineers.</span>"
 
 /proc/get_mutiny_mode()
 	if(!ticker || !istype(ticker.mode, /datum/game_mode/mutiny))

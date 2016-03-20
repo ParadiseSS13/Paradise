@@ -108,7 +108,7 @@
 						time = 0
 					else
 						for(var/mob/O in viewers(world.view, user))
-							O.show_message(text("<span class='warning'><B>[] is trying to take a blood sample from []!</B></span>", user, target), 1)
+							O.show_message(text("<span class='danger'>[] is trying to take a blood sample from []!</span>", user, target), 1)
 					if(!do_mob(user, target, time))
 						return
 
@@ -190,9 +190,9 @@
 
 				for(var/mob/O in viewers(world.view, user))
 					if(time == 30)
-						O.show_message(text("<span class='warning'><B>[] is trying to inject []!</B></span>", user, target), 1)
+						O.show_message(text("<span class='danger'>[] is trying to inject []!</span>", user, target), 1)
 					else
-						O.show_message(text("<span class='warning'><B>[] begins hunting for an injection port on []'s suit!</B></span>", user, target), 1)
+						O.show_message(text("<span class='danger'>[] begins hunting for an injection port on []'s suit!</span>", user, target), 1)
 
 				if(!do_mob(user, target, time)) return
 
@@ -315,20 +315,20 @@
 
 		if (target != user && target.getarmor(target_zone, "melee") > 5 && prob(50))
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message(text("<span class='warning'><B>[user] tries to stab [target] in \the [hit_area] with [src.name], but the attack is deflected by armor!</B></span>"), 1)
+				O.show_message(text("<span class='danger'>[user] tries to stab [target] in \the [hit_area] with [src.name], but the attack is deflected by armor!</span>"), 1)
 			user.unEquip(src)
 			qdel(src)
 			return
 
 		for(var/mob/O in viewers(world.view, user))
-			O.show_message(text("<span class='warning'><B>[user] stabs [target] in \the [hit_area] with [src.name]!</B></span>"), 1)
+			O.show_message(text("<span class='danger'>[user] stabs [target] in \the [hit_area] with [src.name]!</span>"), 1)
 
 		if(affecting.take_damage(3))
 			target:UpdateDamageIcon()
 
 	else
 		for(var/mob/O in viewers(world.view, user))
-			O.show_message(text("<span class='warning'><B>[user] stabs [target] with [src.name]!</B></span>"), 1)
+			O.show_message(text("<span class='danger'>[user] stabs [target] with [src.name]!</span>"), 1)
 		target.take_organ_damage(3)// 7 is the same as crowbar punch
 
 	src.reagents.reaction(target, INGEST)
@@ -421,7 +421,7 @@
 
 				if(ismob(target) && target != user)
 					for(var/mob/O in viewers(world.view, user))
-						O.show_message(text("<span class='warning'><B>[] is trying to inject [] with a giant syringe!</B></span>", user, target), 1)
+						O.show_message(text("<span class='danger'>[] is trying to inject [] with a giant syringe!</span>", user, target), 1)
 					if(!do_mob(user, target, 300)) return
 					for(var/mob/O in viewers(world.view, user))
 						O.show_message(text("<span class='warning'>[] injects [] with a giant syringe!</span>", user, target), 1)

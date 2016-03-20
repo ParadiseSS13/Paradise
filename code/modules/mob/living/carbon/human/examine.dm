@@ -184,7 +184,7 @@
 	//Jitters
 	switch(jitteriness)
 		if(300 to INFINITY)
-			msg += "<span class='warning'><B>[t_He] [t_is] convulsing violently!</B></span>\n"
+			msg += "<span class='danger'>[t_He] [t_is] convulsing violently!</span>\n"
 		if(200 to 300)
 			msg += "<span class='warning'>[t_He] [t_is] extremely jittery.</span>\n"
 		if(100 to 200)
@@ -273,9 +273,9 @@
 
 		var/obj/item/organ/external/E = organs_by_name[organ_tag]
 		if(!E)
-			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] [t_is] missing [t_his] [organ_descriptor].</b></span>\n"
+			wound_flavor_text["[organ_tag]"] = "<span class='danger'>[t_He] [t_is] missing [t_his] [organ_descriptor].</span>\n"
 		else if(E.is_stump())
-			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] [t_has] a stump where [t_his] [organ_descriptor] should be.</b></span>\n"
+			wound_flavor_text["[organ_tag]"] = "<span class='danger'>[t_He] [t_has] a stump where [t_his] [organ_descriptor] should be.</span>\n"
 		else
 			continue
 
@@ -408,11 +408,11 @@
 	else if(is_bleeding["r_foot"])
 		display_shoes = 1
 	if(display_chest)
-		msg += "<span class='warning'><b>[src] has blood soaking through from under [t_his] clothing!</b></span>\n"
+		msg += "<span class='danger'>[src] has blood soaking through from under [t_his] clothing!</span>\n"
 	if(display_shoes)
-		msg += "<span class='warning'><b>[src] has blood running from [t_his] shoes!</b></span>\n"
+		msg += "<span class='danger'>[src] has blood running from [t_his] shoes!</span>\n"
 	if(display_gloves)
-		msg += "<span class='warning'><b>[src] has blood running from under [t_his] gloves!</b></span>\n"
+		msg += "<span class='danger'>[src] has blood running from under [t_his] gloves!</span>\n"
 
 
 	for(var/implant in get_visible_implants(0))

@@ -769,7 +769,7 @@
 				return
 //			playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
-				viewers(src) << "<span class='warning'><b>[src] farts on the Bible!</b></span>"
+				viewers(src) << "<span class='danger'>[src] farts on the Bible!</span>"
 				viewers(src) << "<span class='notice'><b>A mysterious force smites [src]!</b></span>"
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(3, 1, src)

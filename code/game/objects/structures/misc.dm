@@ -52,7 +52,7 @@
 
 				if("No")
 
-					user <<"<span class='warning'><b>Process aborted!</b></span>"
+					user <<"<span class='danger'>Process aborted!</span>"
 
 					return
 		else

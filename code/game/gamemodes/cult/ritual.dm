@@ -355,7 +355,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			return
 		M.take_organ_damage(0,rand(5,20)) //really lucky - 5 hits for a crit
 		for(var/mob/O in viewers(M, null))
-			O.show_message(text("<span class='warning'><B>[] beats [] with the arcane tome!</B></span>", user, M), 1)
+			O.show_message(text("<span class='danger'>[] beats [] with the arcane tome!</span>", user, M), 1)
 		M << "<span class='warning'>You feel searing heat inside!</span>"
 
 

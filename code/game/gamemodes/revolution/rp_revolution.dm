@@ -164,9 +164,9 @@
 	var/mob/living/carbon/human/M = input("Select a person to convert", "Viva la revolution!", null) as mob in Possible
 	if(((src.mind in ticker.mode:head_revolutionaries) || (src.mind in ticker.mode:revolutionaries)))
 		if((M.mind in ticker.mode:head_revolutionaries) || (M.mind in ticker.mode:revolutionaries))
-			src << "<span class='warning'><b>[M] is already be a revolutionary!</b></span>"
+			src << "<span class='danger'>[M] is already be a revolutionary!</span>"
 		else if(!ticker.mode:is_convertible(M))
-			src << "<span class='warning'><b>[M] is implanted with a loyalty implant - Remove it first!</b></span>"
+			src << "<span class='danger'>[M] is implanted with a loyalty implant - Remove it first!</span>"
 		else
 			if(world.time < M.mind.rev_cooldown)
 				src << "<span class='warning'>Wait five seconds before reconversion attempt.</span>"
@@ -181,7 +181,7 @@
 				src << "<span class='notice'><b>[M] joins the revolution!</b></span>"
 			else if(choice == "No!")
 				M << "<span class='warning'>You reject this traitorous cause!</span>"
-				src << "<span class='warning'><b>[M] does not support the revolution!</b></span>"
+				src << "<span class='danger'>[M] does not support the revolution!</span>"
 			M.mind.rev_cooldown = world.time+50
 
 /datum/game_mode/revolution/rp_revolution/process()

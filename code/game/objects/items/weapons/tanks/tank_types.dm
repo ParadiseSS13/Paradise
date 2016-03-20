@@ -26,7 +26,7 @@
 	examine(mob/user)
 		if(..(user, 0))
 			if(air_contents.oxygen < 10)
-				user << text("<span class='warning'><B>The meter on the [src.name] indicates you are almost out of air!</B></span>")
+				user << text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>")
 				//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
 
@@ -71,7 +71,7 @@
 	examine(mob/user)
 		if(..(user, 0))
 			if(air_contents.oxygen < 1 && loc==usr)
-				user << "<span class='warning'><B>The meter on the [src.name] indicates you are almost out of air!</B></span>"
+				user << "<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"
 				user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/air/New()
@@ -123,7 +123,7 @@
 /obj/item/weapon/tank/plasma/plasmaman/examine(mob/user)
 	if(..(user, 0))
 		if(air_contents.toxins < 0.2 && loc==usr)
-			user << text("<span class='warning'><B>The meter on the [src.name] indicates you are almost out of plasma!</B></span>")
+			user << text("<span class='danger'>The meter on the [src.name] indicates you are almost out of plasma!</span>")
 			user << sound('sound/effects/alert.ogg')
 
 /*
@@ -150,7 +150,7 @@
 	examine(mob/user)
 		if(..(user, 0))
 			if(air_contents.oxygen < 0.2 && loc==usr)
-				user << text("<span class='warning'><B>The meter on the [src.name] indicates you are almost out of air!</B></span>")
+				user << text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>")
 				user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/emergency_oxygen/engi
@@ -191,7 +191,7 @@
 /obj/item/weapon/tank/nitrogen/examine(mob/user)
 	if(..(user, 0))
 		if(air_contents.nitrogen < 10)
-			user << text("<span class='warning'><B>The meter on the [src.name] indicates you are almost out of air!</B></span>")
+			user << text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>")
 			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
 

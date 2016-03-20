@@ -84,8 +84,8 @@
 
 		//Display an attack message.
 		for(var/mob/O in viewers(user, null))
-			if(target != user) O.show_message(text("<span class='warning'><B>[target] has been hit over the head with a bottle of [src.name], by [user]!</B></span>"), 1)
-			else O.show_message(text("<span class='warning'><B>[target] hit himself with a bottle of [src.name] on the head!</B></span>"), 1)
+			if(target != user) O.show_message(text("<span class='danger'>[target] has been hit over the head with a bottle of [src.name], by [user]!</span>"), 1)
+			else O.show_message(text("<span class='danger'>[target] hit himself with a bottle of [src.name] on the head!</span>"), 1)
 		//Weaken the target for the duration that we calculated and divide it by 5.
 		if(armor_duration)
 			target.apply_effect(min(armor_duration, 10) , WEAKEN) // Never weaken more than a flash!
@@ -93,8 +93,8 @@
 	else
 		//Default attack message and don't weaken the target.
 		for(var/mob/O in viewers(user, null))
-			if(target != user) O.show_message(text("<span class='warning'><B>[target] has been attacked with a bottle of [src.name], by [user]!</B></span>"), 1)
-			else O.show_message(text("<span class='warning'><B>[target] has attacked himself with a bottle of [src.name]!</B></span>"), 1)
+			if(target != user) O.show_message(text("<span class='danger'>[target] has been attacked with a bottle of [src.name], by [user]!</span>"), 1)
+			else O.show_message(text("<span class='danger'>[target] has attacked himself with a bottle of [src.name]!</span>"), 1)
 
 	//Attack logs
 	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has attacked [key_name(target)] with a bottle!</font>")

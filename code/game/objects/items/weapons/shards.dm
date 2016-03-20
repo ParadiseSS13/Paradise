@@ -16,8 +16,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/weapon/shard/suicide_act(mob/user)
-		viewers(user) << pick("<span class='warning'><b>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</b></span>", \
-							"<span class='warning'><b>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</b></span>")
+		viewers(user) << pick("<span class='danger'>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</span>", \
+							"<span class='danger'>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</span>")
 		return (BRUTELOSS)
 
 /obj/item/weapon/shard/New()
@@ -55,7 +55,7 @@
 		var/mob/living/M = AM
 		if (M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
 			return
-		M << "<span class='warning'><B>You step on \the [src]!</B></span>"
+		M << "<span class='danger'>You step on \the [src]!</span>"
 		playsound(src.loc, 'sound/effects/glass_step.ogg', 50, 1) // not sure how to handle metal shards with sounds
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M

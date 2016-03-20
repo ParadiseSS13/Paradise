@@ -89,7 +89,7 @@ var/global/list/frozen_mob_list = list()
 		return
 	var/obj/mecha/M = O
 	if(!istype(M,/obj/mecha))
-		src << "<span class='warning'><b>This can only be used on Mechs!</b></span>"
+		src << "<span class='danger'>This can only be used on Mechs!</span>"
 		return
 	else
 		if(usr)

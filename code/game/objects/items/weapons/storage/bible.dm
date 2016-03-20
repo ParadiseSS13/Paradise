@@ -9,7 +9,7 @@
 	var/deity_name = "Christ"
 
 	suicide_act(mob/user)
-		viewers(user) << "<span class='warning'><b>[user] stares into [src.name] and attempts to trascend understanding of the universe!</b></span>"
+		viewers(user) << "<span class='danger'>[user] stares into [src.name] and attempts to trascend understanding of the universe!</span>"
 		return (user.dust())
 
 
@@ -77,7 +77,7 @@
 		if ((istype(M, /mob/living/carbon/human) && prob(60)))
 			bless(M)
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("<span class='warning'><B>[] heals [] with the power of [src.deity_name]!</B></span>", user, M), 1)
+				O.show_message(text("<span class='danger'>[] heals [] with the power of [src.deity_name]!</span>", user, M), 1)
 			M << "<span class='warning'>May the power of [src.deity_name] compel you to be healed!</span>"
 			playsound(src.loc, "punch", 25, 1, -1)
 		else
@@ -85,11 +85,11 @@
 				M.adjustBrainLoss(10)
 				M << "<span class='warning'>You feel dumber.</span>"
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("<span class='warning'><B>[] beats [] over the head with []!</B></span>", user, M, src), 1)
+				O.show_message(text("<span class='danger'>[] beats [] over the head with []!</span>", user, M, src), 1)
 			playsound(src.loc, "punch", 25, 1, -1)
 	else if(M.stat == 2)
 		for(var/mob/O in viewers(M, null))
-			O.show_message(text("<span class='warning'><B>[] smacks []'s lifeless corpse with [].</B></span>", user, M, src), 1)
+			O.show_message(text("<span class='danger'>[] smacks []'s lifeless corpse with [].</span>", user, M, src), 1)
 		playsound(src.loc, "punch", 25, 1, -1)
 	return
 

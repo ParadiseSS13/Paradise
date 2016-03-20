@@ -782,7 +782,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.visible_message(\
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
-			"<span class='warning'><b>Something feels like it shattered in your [name]!</b></span>",\
+			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		if(owner.species && !(owner.species.flags & NO_PAIN))
 			owner.emote("scream")
@@ -927,11 +927,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		if(type == "brute")
 			owner.visible_message("<span class='warning'>You hear a sickening cracking sound coming from \the [owner]'s [name].</span>",	\
-			"<span class='warning'><b>Your [name] becomes a mangled mess!</b></span>",	\
+			"<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
 			"<span class='warning'>You hear a sickening crack.</span>")
 		else
 			owner.visible_message("<span class='warning'>\The [owner]'s [name] melts away, turning into mangled mess!</span>",	\
-			"<span class='warning'><b>Your [name] melts away!</b></span>",	\
+			"<span class='danger'>Your [name] melts away!</span>",	\
 			"<span class='warning'>You hear a sickening sizzle.</span>")
 	disfigured = 1
 

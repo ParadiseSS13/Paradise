@@ -226,9 +226,9 @@ emp_act
 
 	if(! I.discrete)
 		if(I.attack_verb.len)
-			visible_message("<span class='warning'><B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B></span>")
+			visible_message("<span class='danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
 		else
-			visible_message("<span class='warning'><B>[src] has been attacked in the [hit_area] with [I.name] by [user]!</B></span>")
+			visible_message("<span class='danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)

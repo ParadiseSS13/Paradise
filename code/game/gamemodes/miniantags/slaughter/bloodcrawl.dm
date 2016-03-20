@@ -45,7 +45,7 @@
 				else
 					victim.forceMove(holder)//holder
 					victim.emote("scream")
-					visible_message("<span class='warning'><b>[src] drags [victim] into [B]!</b></span>")
+					visible_message("<span class='danger'>[src] drags [victim] into [B]!</span>")
 					kidnapped = victim
 		flick("jaunt",animation)
 		loc = holder
@@ -53,7 +53,7 @@
 
 		if(kidnapped)
 			src << "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>"
-			visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
+			visible_message("<span class='danger'>Loud eating sounds come from the blood...</span>")
 			sleep(6)
 			if(animation)
 				qdel(animation)

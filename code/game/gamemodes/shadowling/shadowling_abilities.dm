@@ -20,7 +20,7 @@
 			return
 
 		var/mob/living/carbon/human/M = target
-		usr.visible_message("<span class='warning'><b>[usr]'s eyes flash a blinding red!</b></span>")
+		usr.visible_message("<span class='danger'>[usr]'s eyes flash a blinding red!</span>")
 		target.visible_message("<span class='danger'>[target] freezes in place, their eyes glazing over...</span>")
 		if(in_range(target, usr))
 			target << "<span class='userdanger'>Your gaze is forcibly drawn into [usr]'s eyes, and you are mesmerized by their heavenly beauty...</span>"
@@ -50,7 +50,7 @@
 			charge_counter = charge_max
 			return
 		var/mob/living/carbon/human/M = target
-		usr.visible_message("<span class='warning'><b>[usr]'s eyes flash a blinding red!</b></span>")
+		usr.visible_message("<span class='danger'>[usr]'s eyes flash a blinding red!</span>")
 		target.visible_message("<span class='danger'>[target] freezes in place, their eyes glazing over...</span>")
 		if(in_range(target, usr))
 			target << "<span class='userdanger'>Your gaze is forcibly drawn into [usr]'s eyes, and you are mesmerized by the heavenly lights...</span>"
@@ -446,7 +446,7 @@ datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowl
 datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(!is_shadow_or_thrall(M))
-		M << "<span class='warning'><b>You breathe in the black smoke, and your eyes burn horribly!</b></span>"
+		M << "<span class='danger'>You breathe in the black smoke, and your eyes burn horribly!</span>"
 		M.eye_blind = 5
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at their eyes!")
@@ -471,7 +471,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	action_icon_state = "screech"
 
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech/cast(list/targets)
-	usr.audible_message("<span class='warning'><b>[usr] lets out a horrible scream!</b></span>")
+	usr.audible_message("<span class='danger'>[usr] lets out a horrible scream!</span>")
 	playsound(usr.loc, 'sound/effects/screech.ogg', 100, 1)
 
 	for(var/turf/T in targets)
@@ -489,7 +489,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 				M.ear_damage += 3
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
-				S << "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>"
+				S << "<span class='danger'>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</span>"
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				var/datum/effect/system/spark_spread/sp = new /datum/effect/system/spark_spread
@@ -699,7 +699,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 		charge_counter = charge_max
 		return
 
-	usr.visible_message("<span class='warning'><b>A massive ball of lightning appears in [usr]'s hands and flares out!</b></span>", \
+	usr.visible_message("<span class='danger'>A massive ball of lightning appears in [usr]'s hands and flares out!</span>", \
 						"<span class='shadowling'>You conjure a ball of lightning and release it.</span>")
 
 	for(var/turf/T in targets)

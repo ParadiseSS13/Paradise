@@ -642,7 +642,7 @@
 		if(istype(M) && (remaining > MOB_WORK))
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			M << "<span class='warning'><B>The unloading machine grabs you with a hard metallic claw!</B></span>"
+			M << "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>"
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
@@ -698,7 +698,7 @@
 		if(remaining > MOB_WORK)
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			M << "<span class='warning'><B>The unloading machine grabs you with a hard metallic claw!</B></span>"
+			M << "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>"
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
@@ -769,14 +769,14 @@
 		var/armor_block = M.run_armor_check(affecting, "melee")
 
 		playsound(master.loc, "punch", 25, 1, -1)
-		master.visible_message("<span class='warning'><B>\The [src] has punched [M]!</B></span>")
+		master.visible_message("<span class='danger'>\The [src] has punched [M]!</span>")
 		if(!master.emagged)
 			M.apply_damage(damage, STAMINA, affecting, armor_block) // Clean fight
 		else
 			M.apply_damage(damage, BRUTE,   affecting, armor_block) // Foul!  Foooul!
 
 		if(damage >= 9)
-			master.visible_message("<span class='warning'><B>\The [src] has weakened [M]!</B></span>")
+			master.visible_message("<span class='danger'>\The [src] has weakened [M]!</span>")
 			M.apply_effect(4, WEAKEN, armor_block)
 			if(!master.emagged)
 				master.sleep = 1

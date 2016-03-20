@@ -235,9 +235,9 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 			if(g.antagHUD)
 				g.antagHUD = 0						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = 2				// We'll allow them to respawn
-				g << "<span class='warning'><B>The Administrator has disabled AntagHUD </B></span>"
+				g << "<span class='danger'>The Administrator has disabled AntagHUD </span>"
 		config.antag_hud_allowed = 0
-		src << "<span class='warning'><B>AntagHUD usage has been disabled</B></span>"
+		src << "<span class='danger'>AntagHUD usage has been disabled</span>"
 		action = "disabled"
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
@@ -269,13 +269,13 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 		src << "<span class='notice'><B>AntagHUD restrictions have been lifted</B></span>"
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
-			g << "<span class='warning'><B>The administrator has placed restrictions on joining the round if you use AntagHUD</B></span>"
-			g << "<span class='warning'><B>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </B></span>"
+			g << "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD</span>"
+			g << "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </span>"
 			g.antagHUD = 0
 			g.has_enabled_antagHUD = 0
 		action = "placed restrictions"
 		config.antag_hud_restricted = 1
-		src << "<span class='warning'><B>AntagHUD restrictions have been enabled</B></span>"
+		src << "<span class='danger'>AntagHUD restrictions have been enabled</span>"
 
 	log_admin("[key_name(usr)] has [action] on joining the round if they use AntagHUD")
 	message_admins("Admin [key_name_admin(usr)] has [action] on joining the round if they use AntagHUD", 1)
@@ -809,7 +809,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	usr << text("<span class='warning'><b>Attack Log for []</b></span>", mob)
+	usr << text("<span class='danger'>Attack Log for []</span>", mob)
 	for(var/t in M.attack_log)
 		usr << t
 	feedback_add_details("admin_verb","ATTL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

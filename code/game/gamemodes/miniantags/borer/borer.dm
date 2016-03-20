@@ -281,8 +281,8 @@
 		if(!host || !src || controlling)
 			return
 		else
-			src << "<span class='warning'><B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B></span>"
-			host << "<span class='warning'><B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B></span>"
+			src << "<span class='danger'>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</span>"
+			host << "<span class='danger'>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</span>"
 			var/borer_key = src.key
 			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
 			msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
@@ -472,12 +472,12 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
 	if(B && B.host_brain)
-		src << "<span class='warning'><B>You withdraw your probosci, releasing control of [B.host_brain]</B></span>"
+		src << "<span class='danger'>You withdraw your probosci, releasing control of [B.host_brain]</span>"
 
 		B.detatch()
 
 	else
-		src << "<span class='warning'><B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B></span>"
+		src << "<span class='danger'>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</span>"
 
 //Brain slug proc for tormenting the host.
 /mob/living/carbon/proc/punish_host()
@@ -491,8 +491,8 @@
 		return
 
 	if(B.host_brain.ckey)
-		src << "<span class='warning'><B>You send a punishing spike of psychic agony lancing into your host's brain.</B></span>"
-		B.host_brain << "<span class='warning'><B><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></B></span>"
+		src << "<span class='danger'>You send a punishing spike of psychic agony lancing into your host's brain.</span>"
+		B.host_brain << "<span class='danger'><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></span>"
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
@@ -514,8 +514,8 @@
 		return
 
 	if(B.chemicals >= 100)
-		src << "<span class='warning'><B>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</B></span>"
-		visible_message("<span class='warning'><B>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</B></span>")
+		src << "<span class='danger'>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</span>"
+		visible_message("<span class='danger'>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</span>")
 		B.chemicals -= 100
 
 		new /obj/effect/decal/cleanable/vomit(get_turf(src))

@@ -123,7 +123,7 @@
 /obj/vehicle/attack_animal(var/mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)	return
 	health -= M.melee_damage_upper
-	src.visible_message("<span class='warning'><B>[M] has [M.attacktext] [src]!</B></span>")
+	src.visible_message("<span class='danger'>[M] has [M.attacktext] [src]!</span>")
 	M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(src.loc)
@@ -208,7 +208,7 @@
 		user << "<span class='warning'>You bypass [src]'s controls.</span>"
 
 /obj/vehicle/proc/explode()
-	src.visible_message("<span class='warning'><B>[src] blows apart!</B></span>", 1)
+	src.visible_message("<span class='danger'>[src] blows apart!</span>", 1)
 	var/turf/Tsec = get_turf(src)
 
 	new /obj/item/stack/rods(Tsec)

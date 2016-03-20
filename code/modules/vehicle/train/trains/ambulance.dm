@@ -143,7 +143,7 @@
 	if(is_train_head() && istype(load, /mob/living/carbon/human))
 		var/mob/living/carbon/human/D = load
 		D << "<span class='warning'>\b You ran over [H]!</span>"
-		visible_message("<B><span class='warning'>\The [src] ran over [H]!</B></span>")
+		visible_message("<span class='danger'>\The [src] ran over [H]!</span>")
 		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [key_name(H)], driven by [key_name(D)]</font>")
 		msg_admin_attack("[key_name_admin(D)] ran over [key_name_admin(H)]")
 	else

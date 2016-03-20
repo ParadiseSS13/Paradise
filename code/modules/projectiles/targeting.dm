@@ -64,9 +64,9 @@
 				if(L)
 					L.NotTargeted(src)
 			qdel(target)
-			usr.visible_message("<span class='warning'><b>[usr] turns \the [src] on [M]!</b></span>")
+			usr.visible_message("<span class='danger'>[usr] turns \the [src] on [M]!</span>")
 		else
-			usr.visible_message("<span class='warning'><b>[usr] aims \a [src] at [M]!</b></span>")
+			usr.visible_message("<span class='danger'>[usr] aims \a [src] at [M]!</span>")
 		M.Targeted(src)
 
 //HE MOVED, SHOOT HIM!
@@ -306,7 +306,7 @@ client/verb/ToggleGunMode()
 						M << "<span class='warning'>Your move intent is now set to walk, as your targeter permits it.</span>"
 						M.set_m_intent("walk")
 				else
-					M << "<span class='warning'><b>Your character will now be shot if they move.</b></span>"
+					M << "<span class='danger'>Your character will now be shot if they move.</span>"
 
 mob/living/proc/set_m_intent(var/intent)
 	if (intent != "walk" && intent != "run")
@@ -339,7 +339,7 @@ client/verb/AllowTargetRun()
 				if(target_can_run)
 					M << "Your character may now <b>run</b> at the discretion of their targeter."
 				else
-					M << "<span class='warning'><b>Your character will now be shot if they run.</b></span>"*/
+					M << "<span class='danger'>Your character will now be shot if they run.</span>"*/
 
 client/verb/AllowTargetClick()
 	set hidden=1
@@ -363,4 +363,4 @@ client/verb/AllowTargetClick()
 				if(target_can_click)
 					M << "Your character may now <b>use items</b> at the discretion of their targeter."
 				else
-					M << "<span class='warning'><b>Your character will now be shot if they use items.</b></span>"
+					M << "<span class='danger'>Your character will now be shot if they use items.</span>"

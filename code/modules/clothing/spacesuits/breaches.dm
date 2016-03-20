@@ -218,4 +218,4 @@ var/global/list/breach_burn_descriptors = list(
 	..(user)
 	if(can_breach && breaches && breaches.len)
 		for(var/datum/breach/B in breaches)
-			user << "<span class='warning'><B>It has \a [B.descriptor].</B></span>"
+			user << "<span class='danger'>It has \a [B.descriptor].</span>"

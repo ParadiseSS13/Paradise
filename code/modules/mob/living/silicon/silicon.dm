@@ -74,7 +74,7 @@
 			src.take_organ_damage(10)
 			Stun(3)
 	flick("noise", src:flash)
-	src << "<span class='warning'><B>*BZZZT*</B></span>"
+	src << "<span class='danger'>*BZZZT*</span>"
 	src << "<span class='warning'>Warning: Electromagnetic pulse detected.</span>"
 	..()
 

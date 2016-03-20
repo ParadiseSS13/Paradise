@@ -53,14 +53,14 @@
 
 			//Display an attack message.
 			for(var/mob/O in viewers(user, null))
-				if(target != user) O.show_message(text("<span class='warning'><B>[target] has been hit over the head with a [src.name], by [user]!</B></span>"), 1)
-				else O.show_message(text("<span class='warning'><B>[target] hit himself with a [src.name] on the head!</B></span>"), 1)
+				if(target != user) O.show_message(text("<span class='danger'>[target] has been hit over the head with a [src.name], by [user]!</span>"), 1)
+				else O.show_message(text("<span class='danger'>[target] hit himself with a [src.name] on the head!</span>"), 1)
 
 		else
 			//Default attack message
 			for(var/mob/O in viewers(user, null))
-				if(target != user) O.show_message(text("<span class='warning'><B>[target] has been attacked with a [src.name], by [user]!</B></span>"), 1)
-				else O.show_message(text("<span class='warning'><B>[target] has attacked himself with a [src.name]!</B></span>"), 1)
+				if(target != user) O.show_message(text("<span class='danger'>[target] has been attacked with a [src.name], by [user]!</span>"), 1)
+				else O.show_message(text("<span class='danger'>[target] has attacked himself with a [src.name]!</span>"), 1)
 
 		//Attack logs
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has attacked [target.name] ([target.ckey]) with a drinking glass!</font>")
