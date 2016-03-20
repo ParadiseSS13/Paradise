@@ -1924,3 +1924,8 @@
 
 	if(wear_id)
 		. |= wear_id.GetAccess()
+	if(istype(w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = w_uniform
+		if(U.accessories)
+			for(var/obj/item/clothing/accessory/A in U.accessories)
+				. |= A.GetAccess()
