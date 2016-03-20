@@ -1489,7 +1489,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								if(second_limb)
 									organ_data[second_limb] = "amputated"
 									rlimb_data[second_limb] = null
-						if("Prothesis")
+						if("Prosthesis")
 							var/choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in chargen_robolimbs
 							if(!choice)
 								return
