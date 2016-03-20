@@ -397,16 +397,20 @@
 
 //call_function:	<function name> ['(' [arguments] ')']
 	call_function(i, list/node, list/arguments)
+		var/list/cur_argument = list()
 		if(length(tokenl(i)))
 			node += token(i++)
 			if(token(i) != "(")
 				parse_error("Expected ( but found '[token(i)]'")
 			else if(token(i + 1) != ")")
 				do
-					i = expression(i + 1, arguments)
+					i = expression(i + 1, cur_argument)
 					if(token(i) == ",")
+						arguments += list(cur_argument)
+						cur_argument = list()
 						continue
 				while(token(i) && token(i) != ")")
+				arguments += list(cur_argument)
 			else
 				i++
 		else
