@@ -57,7 +57,10 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
 		dna = new_dna.Clone()
-		blood_DNA = list()
+		if(blood_DNA)
+			blood_DNA.Cut()
+		else
+			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
 /obj/item/organ/proc/die()
@@ -173,6 +176,9 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
+	status &= ~ORGAN_DEAD
+	if(!owner)
+		processing_objects |= src
 
 /obj/item/organ/proc/is_damaged()
 	return damage > 0
