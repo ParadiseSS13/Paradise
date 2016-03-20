@@ -1454,4 +1454,4 @@ mob/proc/yank_out_object()
 	return 1
 
 /mob/proc/get_access()
-	return null //must return either IGNORE_ACCESS or an /obj/item
+	return list() //must return list or IGNORE_ACCESS

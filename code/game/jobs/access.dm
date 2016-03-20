@@ -118,8 +118,8 @@
 	if(acc == IGNORE_ACCESS)
 		return 1 //Mob ignores access
 
-	if(istype(acc, /obj/item))
-		return check_access(acc)
+	else
+		return check_access_list(acc)
 
 	return 0
 

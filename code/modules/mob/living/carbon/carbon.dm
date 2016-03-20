@@ -816,8 +816,8 @@ so that different stomachs can handle things in different ways VB*/
 				toEat.reagents.trans_to(src, toEat.reagents.total_volume*toEat.transfer_efficiency)
 
 /mob/living/carbon/get_access()
-	var/obj/item/I = get_active_hand()
-	if(istype(I))
-		return I
+	. = ..()
 
-	return null
+	var/obj/item/I = get_active_hand()
+	if(I)
+		. |= I.GetAccess()
