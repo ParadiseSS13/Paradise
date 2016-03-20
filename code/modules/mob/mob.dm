@@ -1452,3 +1452,6 @@ mob/proc/yank_out_object()
 
 /mob/proc/IsVocal()
 	return 1
+
+/mob/proc/get_access()
+	return list() //must return list or IGNORE_ACCESS

@@ -1927,3 +1927,9 @@
 
 /mob/living/carbon/human/proc/get_age_pitch()
 	return 1.0 + 0.5*(30 - age)/80
+
+/mob/living/carbon/human/get_access()
+	. = ..()
+
+	if(wear_id)
+		. |= wear_id.GetAccess()

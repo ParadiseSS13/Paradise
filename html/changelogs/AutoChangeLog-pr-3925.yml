@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - rscadd: "Adds PDA chatrooms. Post memes! Talk to your fellow collaborators! Get caught!"
+  - tweak: "You can now set the PDA messenger to automatically scroll down to new messages."

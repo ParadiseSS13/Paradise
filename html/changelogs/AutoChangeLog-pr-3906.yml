@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Removes random 1% chance to heal fire damage"
+  - tweak: "Removes passive healing from resist heat mutation"
+  - tweak: "Regen mutation heals every cycle (albeit less, on average), but doesn't cost hunger"

@@ -11,6 +11,11 @@
 	data["apps"] = pda.shortcut_cache
 	data["categories"] = pda.shortcut_cat_order
 	data["pai"] = !isnull(pda.pai)				// pAI inserted?
+	
+	var/list/notifying[0]
+	for(var/P in pda.notifying_programs)
+		notifying["\ref[P]"] = 1
+	data["notifying"] = notifying
 
 /datum/data/pda/app/main_menu/Topic(href, list/href_list)
 	switch(href_list["choice"])
