@@ -262,6 +262,27 @@ var/list/organ_cache = list()
 		if(3.0)
 			take_damage(0,3)
 
+/obj/item/organ/internal/emp_act(severity)
+	if(!robotic)
+		return
+	if(robotic == 2)
+		switch (severity)
+			if (1.0)
+				take_damage(20,1)
+			if (2.0)
+				take_damage(7,1)
+			if(3.0)
+				take_damage(3,1)
+	else if(robotic == 1)
+		take_damage(11,1)
+
+/obj/item/organ/internal/heart/emp_act(intensity)
+	if(owner && robotic == 2)
+		owner.heart_attack = 1
+		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
+	else if(owner && robotic == 1)
+		take_damage(11,1)
+
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
 		return
