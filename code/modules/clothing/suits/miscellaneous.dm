@@ -335,14 +335,29 @@
 	item_color = "mankini"
 
 /obj/item/clothing/suit/jacket/miljacket
-	name = "military jacket"
-	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable."
+	name = "olive military jacket"
+	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in olive."
 	icon_state = "militaryjacket"
 	item_state = "militaryjacket"
 	ignore_suitadjust = 1
 	action_button_name = null
 	adjust_flavour = null
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter,/obj/item/weapon/gun/projectile/automatic/pistol,/obj/item/weapon/gun/projectile/revolver,/obj/item/weapon/gun/projectile/revolver/detective)
+
+/obj/item/clothing/suit/jacket/miljacket/navy
+	name = "navy military jacket"
+	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in navy blue."
+	icon_state = "navy_jacket"
+
+/obj/item/clothing/suit/jacket/miljacket/desert
+	name = "desert military jacket"
+	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in desert beige."
+	icon_state = "desert_jacket"
+
+/obj/item/clothing/suit/jacket/miljacket/white
+	name = "white military jacket"
+	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in snow white."
+	icon_state = "white_jacket"
 
 /obj/item/clothing/suit/xenos
 	name = "xenos suit"
