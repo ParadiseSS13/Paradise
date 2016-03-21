@@ -49,6 +49,7 @@
 #define NO_INTORGANS	4096
 #define NO_POISON		8192
 #define RADIMMUNE		16384
+#define ALL_RPARTS		32768
 
 //Species clothing flags
 #define HAS_UNDERWEAR 	1

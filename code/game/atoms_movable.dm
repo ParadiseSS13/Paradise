@@ -108,13 +108,27 @@
 		..()
 
 /atom/movable/proc/forceMove(atom/destination)
-	if(loc)
-		loc.Exited(src)
+	var/turf/old_loc = loc
+	if(old_loc)
+		old_loc.Exited(src)
+
 	loc = destination
+
 	if(destination)
-		loc.Entered(src)
-		for(var/atom/movable/AM in loc)
+		destination.Entered(src)
+		for(var/atom/movable/AM in destination)
 			AM.Crossed(src)
+
+		if(isturf(destination) && opacity)
+			var/turf/new_loc = destination
+			new_loc.reconsider_lights()
+
+	if(isturf(old_loc) && opacity)
+		old_loc.reconsider_lights()
+
+	for(var/datum/light_source/L in light_sources)
+		L.source_atom.update_light()
+
 	return 1
 
 //called when src is thrown into hit_atom

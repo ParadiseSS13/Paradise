@@ -91,7 +91,10 @@
 						// To stop any procs which sleep from executing slowly.
 						if(d)
 							if(hascall(d, v))
-								spawn() call(d, v)(arglist(args_list)) // Spawn in case the function sleeps.
+								var/list/arguments[0]
+								for(var/list/arg in args_list)
+									arguments += SDQL_expression(d, arg)
+								spawn() call(d, v)(arglist(arguments)) // Spawn in case the function sleeps.
 
 			if("delete")
 				for(var/datum/d in objs)

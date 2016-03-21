@@ -18,6 +18,7 @@
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
+	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 10, rad = 0)
@@ -93,6 +94,7 @@
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
 	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
+	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
 	species_restricted = null
