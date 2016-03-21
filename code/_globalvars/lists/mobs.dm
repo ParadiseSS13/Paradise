@@ -22,6 +22,7 @@ var/global/list/spirits = list()					//List of all the spirits, including Masks
 var/global/list/living_mob_list = list()			//List of all alive mobs, including clientless. Excludes /mob/new_player
 var/global/list/dead_mob_list = list()				//List of all dead mobs, including clientless. Excludes /mob/new_player
 var/global/list/respawnable_list = list()				//List of all mobs, dead or in mindless creatures that still be respawned.
+var/global/list/simple_animal_list = list()			//List of all simple animals, including clientless
 
 //global var of unsafe-to-spawn-on-reaction mobs
 var/global/list/blocked_mobs = list(/mob/living/simple_animal,

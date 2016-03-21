@@ -19,10 +19,10 @@
 	response_harm   = "kicks"
 	see_in_dark = 5
 
-/mob/living/simple_animal/pet/pug/Life()
+/mob/living/simple_animal/pet/pug/process_ai()
 	..()
 
-	if(!stat && !resting && !buckled)
+	if(!resting && !buckled)
 		if(prob(1))
 			custom_emote(1, pick("chases its tail."))
 			spawn(0)

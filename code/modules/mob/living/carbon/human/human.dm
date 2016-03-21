@@ -636,8 +636,8 @@
 // called when something steps onto a human
 // this handles mulebots and vehicles
 /mob/living/carbon/human/Crossed(var/atom/movable/AM)
-	if(istype(AM, /obj/machinery/bot/mulebot))
-		var/obj/machinery/bot/mulebot/MB = AM
+	if(istype(AM, /mob/living/simple_animal/bot/mulebot))
+		var/mob/living/simple_animal/bot/mulebot/MB = AM
 		MB.RunOver(src)
 
 	if(istype(AM, /obj/vehicle))
@@ -1753,7 +1753,7 @@
 		if(M.stat == 2)
 			M.gib()
 
-/mob/living/carbon/human/assess_threat(var/obj/machinery/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 
