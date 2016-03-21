@@ -1,3 +1,7 @@
+#define LIGHT_DAM_THRESHOLD 4
+#define LIGHT_HEAL_THRESHOLD 2
+#define LIGHT_DAMAGE_TAKEN 7
+
 /*
 
 SHADOWLING: A gamemode based on previously-run events
@@ -294,14 +298,34 @@ Made by Xhuis
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
 
-	light_effect_amp = 1
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	flags = NO_BLOOD | NO_BREATHE | NO_SCAN | NO_INTORGANS
+	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE | NO_INTORGANS
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
+	hot_env_multiplier = 1.5
 
 	silent_steps = 1
+
+/datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
+	if(!H.weakeyes) H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
+	var/light_amount = 0
+	H.nutrition = 450 //i aint never get hongry
+	if(isturf(H.loc))
+		var/turf/T = H.loc
+		light_amount = T.get_lumcount()*10
+		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
+			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
+			if(H.stat != DEAD)
+				H << "<span class='userdanger'>The light burns you!</span>" //Message spam to say "GET THE FUCK OUT"
+				H << 'sound/weapons/sear.ogg'
+		else if(light_amount < LIGHT_HEAL_THRESHOLD)
+			H.heal_overall_damage(5,5)
+			H.adjustToxLoss(-5)
+			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
+			H.adjustCloneLoss(-1)
+			H.SetWeakened(0)
+			H.SetStunned(0)
 
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
 	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]
