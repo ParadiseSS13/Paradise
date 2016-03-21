@@ -69,6 +69,8 @@
 				dat += "<a href='?src=\ref[src];operation=togglerun'>ALWAYS</a>"
 			else
 				dat += "<a href='?src=\ref[src];operation=togglerun'>NEVER</a>"
+		if(!allservers)
+			dat += "<br><a href='?src=\ref[src];operation=editlinks'>\[Edit Links\]</a>"
 
 	if(screen == 2) //code editor
 		if(editingcode == user)
@@ -161,6 +163,27 @@
 						[compiling_errors]
 					</div>
 					"} //anything typed will be overridden anyways by the one who is editing the code
+	if(screen == 3) //links menu
+		dat += "<br>[temp]<br>"
+		dat += "<center><a href='?src=\ref[src];operation=codeback'>\[Back\]</a><a href='?src=\ref[src];operation=mainmenu'>\[Main Menu\]</a><a href='?src=\ref[src];operation=refresh'>\[Refresh\]</a></center>"
+		dat += "<br>Current Network: [network]"
+		dat += "<br>Selected Server: [SelectedServer.id]"
+		dat += "<br><br>Linked Machines:"
+		// Operations to linked machines!
+		for(var/datum/server_machine_link/L in SelectedServer.linked_machines)
+			var/obj/machinery/M = L.machine
+			dat += "<br>[M](\ref[M]) (Tag: [L.machine_tag]) "
+			if(L.subscribed)
+				dat += "<a href='?src=\ref[src];togglesubscribe=\ref[L]'>\[Unsubscribe\]</a>"
+			else
+				dat += "<a href='?src=\ref[src];togglesubscribe=\ref[L]'>\[Subscribe\]</a>"
+			dat += " <a href='?src=\ref[src];unlink=\ref[L]'>\[Unlink\]</a>"
+
+		dat += "<br><br>Unlinked Machines:"
+		// Iterate through all the machines
+		for(var/obj/machinery/M in SelectedServer.loc.loc.contents)
+			if(M.tcomms_linkable && !(M in SelectedServer.linked_machines_refs))
+				dat += "<br>[M](\ref[M]) <a href='?src=\ref[src];linkmachine=\ref[M]'>\[Link\]</a>"
 
 	var/datum/browser/popup = new(user, "traffic_control", "Telecommunication Traffic Control", 700, 500)
 	//codemirror
@@ -321,6 +344,9 @@
 				for(var/obj/machinery/telecomms/server/Server in servers)
 					Server.autoruncode = 0
 
+			if("editlinks")
+				screen = 3
+
 	if(href_list["network"])
 
 		var/newnet = input(user, "Which network do you want to view?", "Comm Monitor", network) as null|text
@@ -335,6 +361,35 @@
 				screen = 0
 				servers = list()
 				temp = "<font color = #336699>- NEW NETWORK TAG SET IN ADDRESS \[[network]\] -</font color>"
+
+	if(href_list["linkmachine"])
+		var/obj/machinery/M = locate(href_list["linkmachine"])
+		var/machine_tag = input("Please input a tag for \the [M].", name, "\ref[M]")
+		if(..())
+			return
+		if(!machine_tag)
+			return
+		machine_tag = replacetext(machine_tag, ">", "")
+		machine_tag = replacetext(machine_tag, "<", "")
+		if(SelectedServer.linked_machines_by_tag[machine_tag])
+			temp = "<font color = #D70B00>- FAILED: TAG IS ALREADY TAKEN -</font>"
+			return
+		var/datum/server_machine_link/L = new /datum/server_machine_link(M,SelectedServer,machine_tag)
+		SelectedServer.linked_machines += L
+		SelectedServer.linked_machines_by_tag[machine_tag] = L
+		SelectedServer.linked_machines_refs += M
+	if(href_list["togglesubscribe"])
+		var/datum/server_machine_link/L = locate(href_list["togglesubscribe"])
+		L.subscribed = !L.subscribed
+		if(L.subscribed)
+			L.machine.tcomms_subscribers |= L
+		else
+			L.machine.tcomms_subscribers -= L
+	if(href_list["unlink"])
+		var/datum/server_machine_link/L = locate(href_list["unlink"])
+		SelectedServer.linked_machines -= L
+		SelectedServer.linked_machines_by_tag[L.machine_tag] = null
+		SelectedServer.linked_machines_refs -= L.machine
 
 	updateUsrDialog()
 

@@ -113,6 +113,15 @@
 	interpreter.SetProc("broadcast", "tcombroadcast", signal, list("message", "freq", "source", "job"))
 
 	/*
+		-> Interface with a linked machine
+				@format: interface_machine(machine, args)
+
+				@param machine:		Tag assigned to the machine using the Traffic Control
+				@param args:		Arguments to pass to machine
+	*/
+	interpreter.SetProc("interface_machine", "interface_machine", signal, list("machine", "args"))
+
+	/*
 		-> Store a value permanently to the server machine (not the actual game hosting machine, the ingame machine)
 				@format: mem(address, value)
 
@@ -313,3 +322,18 @@
 	var/pass = S.relay_information(newsign, "/obj/machinery/telecomms/hub")
 	if(!pass)
 		S.relay_information(newsign, "/obj/machinery/telecomms/broadcaster") // send this simple message to broadcasters
+
+/datum/signal/proc/interface_machine(var/machine_tag,var/list/arglist)
+	var/obj/machinery/telecomms/server/S = data["server"]
+
+	var/datum/server_machine_link/L = S.linked_machines_by_tag[machine_tag]
+	if(L == null)
+		return
+	var/obj/machinery/M = L.machine
+
+	if(M == null)
+		return
+	if(M.loc.loc != S.loc.loc)
+		return
+
+	return M.server_interface(arglist)

@@ -215,7 +215,10 @@
 	name = "Circuitboard (Telecommunications Traffic Control)"
 	build_path = /obj/machinery/computer/telecomms/traffic
 	origin_tech = "programming=3"
-
+/obj/item/weapon/circuitboard/server_interface
+	name = "Circuit board (Telecommunications Server Interface)"
+	build_path = /obj/machinery/computer/telecomms/server_interface
+	origin_tech = "programming=5"
 
 /obj/item/weapon/circuitboard/shuttle
 	name = "circuit board (Shuttle)"

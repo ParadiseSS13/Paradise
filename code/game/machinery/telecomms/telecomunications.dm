@@ -465,12 +465,17 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/rawcode = ""	// the code to compile (raw text)
 	var/datum/TCS_Compiler/Compiler	// the compiler that compiles and runs the code
 	var/autoruncode = 0		// 1 if the code is set to run every time a signal is picked up
+	var/
 
 	var/encryption = "null" // encryption key: ie "password"
 	var/salt = "null"		// encryption salt: ie "123comsat"
 							// would add up to md5("password123comsat")
 	var/language = "human"
 	var/obj/item/device/radio/headset/server_radio = null
+
+	var/list/linked_machines = list()
+	var/list/linked_machines_by_tag = list()
+	var/list/linked_machines_refs = list()
 
 /obj/machinery/telecomms/server/New()
 	..()
@@ -585,9 +590,16 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/garbage_collector = 1 // if set to 0, will not be garbage collected
 	var/input_type = "Speech File"
 
+/datum/server_machine_link
+	var/obj/machinery/machine = null
+	var/obj/machinery/telecomms/server/server = null
+	var/obj/machinery/telecomms/hub/hub = null
+	var/obj/machinery/telecomms/relay/relay = null
+	//var/obj/machinery/telecomms/m_relay/m_relay = null
+	var/machine_tag = ""
+	var/subscribed = 0
 
-
-
-
-
-
+/datum/server_machine_link/New(n_machine,n_server,n_tag)
+	machine = n_machine
+	server = n_server
+	machine_tag = n_tag
