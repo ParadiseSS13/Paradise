@@ -662,7 +662,7 @@ var/list/slot_equipment_priority = list( \
 	if (flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(lentext(msg) <= 40 || !shrink)
-			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
+			return "<span class='notice'>[lhtml_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a></span>"
 

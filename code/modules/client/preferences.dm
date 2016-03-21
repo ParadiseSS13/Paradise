@@ -977,7 +977,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			if(medmsg != null)
 				medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				medmsg = html_encode(medmsg)
+				medmsg = lhtml_encode(medmsg)
 
 				med_record = medmsg
 				SetRecords(user)
@@ -987,7 +987,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			if(secmsg != null)
 				secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				secmsg = html_encode(secmsg)
+				secmsg = lhtml_encode(secmsg)
 
 				sec_record = secmsg
 				SetRecords(user)
@@ -996,7 +996,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			if(genmsg != null)
 				genmsg = copytext(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				genmsg = html_encode(genmsg)
+				genmsg = lhtml_encode(genmsg)
 
 				gen_record = genmsg
 				SetRecords(user)
