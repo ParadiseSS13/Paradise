@@ -60,7 +60,6 @@
 	// desired: 30hp/minute unmolested, 60hp/min on food boost, assuming one tick every 2 seconds
 	//          100/kill means bonus 50hp/kill regenerated over the next 1-2 minutes
 
-
 	var/degenerate = 0 // if 1, they slowly degen until they all die off. Used by high-level abilities only.
 
 	// Loot
@@ -283,7 +282,6 @@
 		visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Retaliate()
-	..()
 	var/list/around = view(src, 7)
 	for(var/atom/movable/A in around)
 		if(A == src)
@@ -390,11 +388,25 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
-	add_language("TerrorSpider")
-	msg_terrorspiders("A [src] has grown in [get_area(src)].")
-	name += " ([rand(1, 1000)])"
-	if (name_usealtnames)
-		name = pick(altnames)
+	if (type == /mob/living/simple_animal/hostile/poison/terror_spider)
+		// don't permit  /mob/living/simple_animal/hostile/poison/terror_spider to be spawned.
+		// it is just a placeholder parent type, you want to spawn one of the subclasses:  /mob/living/simple_animal/hostile/poison/terror_spider/*
+		//var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
+		//S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red,/mob/living/simple_animal/hostile/poison/terror_spider/gray,/mob/living/simple_animal/hostile/poison/terror_spider/green)
+		qdel(src)
+	else
+		add_language("TerrorSpider")
+		msg_terrorspiders("A [src] has grown in [get_area(src)].")
+		name += " ([rand(1, 1000)])"
+		if (name_usealtnames)
+			name = pick(altnames)
+		// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
+		spawn(30)
+			if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
+				if (ckey)
+					notify_ghosts("A [src] has appeared in [get_area(src)]. (already player-controlled")
+				else
+					notify_ghosts("A [src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
@@ -1246,7 +1258,7 @@
 // -------------: ROLE: gamma-level threat to the whole station, like a blob
 // -------------: AI: builds a nest, lays many eggs, attempts to take over the station
 // -------------: SPECIAL: spins webs, breaks lights, breaks cameras, coccoons objects, lays eggs, commands other spiders...
-// -------------: TO FIGHT IT: bring an army, and take no prisoners. Decloner guns are a very good idea.
+// -------------: TO FIGHT IT: bring an army, and take no prisoners. Mechs and/or decloner guns are a very good idea.
 // -------------: http://tvtropes.org/pmwiki/pmwiki.php/Main/HiveQueen
 
 
@@ -1293,8 +1305,9 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
-	if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
-		notify_ghosts("A [src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
+	spawn(30)
+		if (!ckey && ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
+			notify_ghosts("A [src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
@@ -1668,13 +1681,13 @@
 	set desc = "Causes a single crew member to quake in fear."
 	if (spider_can_hallucinate)
 		spider_can_hallucinate--
-		var/choices = list()
+		var/list/choices = list()
 		for(var/mob/living/carbon/human/H in player_list)
 			if(H == src)
 				continue
 			if (H.health < 1)
 				continue
-			choices += L
+			choices += H
 		if (choices.len < 1)
 			return
 		var/madnesstarget = pick(choices)
@@ -1688,8 +1701,9 @@
 		else if (!istype(madnesstarget,/mob/living/simple_animal/hostile/poison/terror_spider/))
 			src << "[madnesstarget] is not a terror spider."
 		else
-			madnesstarget.hallucinate = max(madnesstarget.hallucinate,600)
-			madnesstarget << "<span class='danger'>Your head throbs in pain.</span>"
+			var/mob/living/carbon/human/H = madnesstarget
+			H.hallucination = max(H.hallucination,600)
+			H << "<span class='danger'>Your head throbs in pain.</span>"
 			src << "You reach through bluespace into the mind of [madnesstarget], making their fears come to life. They start to hallucinate."
 	else
 		src << "You have run out of uses of this ability."
@@ -1754,6 +1768,7 @@
 	move_to_delay = 5
 	ventcrawler = 1
 	idle_ventcrawl_chance = 5
+
 	ai_type = 1 // defend self only!
 
 	spider_tier = 3
@@ -1777,6 +1792,38 @@
 		meat_amount = 0
 	..()
 
+// --------------------------------------------------------------------------------
+// ----------------- TERROR SPIDERS: T3 NIGHTMARE CLASS, PRINCE SPIDER ------------
+// --------------------------------------------------------------------------------
+// -------------: ROLE: boss
+// -------------: AI: no special ai
+// -------------: SPECIAL: massive health
+// -------------: TO FIGHT IT: a squad of at least 4 people with laser rifles.
+// -------------: http://tvtropes.org/pmwiki/pmwiki.php/Main/WakeUpCallBoss
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince
+	name = "prince of terror spider"
+	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Extremely dangerous."
+	altnames = list("Prince of Terror","Terror Prince")
+	icon_state = "terror_queen"
+	icon_living = "terror_queen"
+	icon_dead = "terror_queen_dead"
+	maxHealth = 600 // 30 laser shots. 15 cannon shots
+	health = 600
+	melee_damage_lower = 15
+	melee_damage_upper = 20
+	move_to_delay = 5
+	ventcrawler = 1
+
+	idle_ventcrawl_chance = 0 // stationary!
+
+	//ai_type = 1 // won't attack unless you attack it first.
+
+	ai_breaks_lights = 1
+	ai_breaks_cameras = 1
+
+	spider_tier = 3
+	spider_opens_doors = 2
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T4 LOVECRAFT CLASS, SPIDER EMPRESS -----------
@@ -1832,7 +1879,7 @@
 	set name = "Lay Empress Eggs"
 	set category = "Spider"
 	set desc = "Lay spider eggs. As empress, you can lay queen-level eggs to create a new brood."
-	var/eggtype = input("What kind of eggs?") as null|anything in list("QUEEN", "MOTHER", "red - assault","gray - ambush", "green - nurse", "black - poison","purple - guard")
+	var/eggtype = input("What kind of eggs?") as null|anything in list("QUEEN", "MOTHER", "PRINCE", "red - assault","gray - ambush", "green - nurse", "black - poison","purple - guard")
 	var/numlings = input("How many in the batch?") as null|anything in list(1,2,3,4,5,10,15,20,30,40,50)
 	if (eggtype == null || numlings == null)
 		src << "Cancelled."
@@ -1850,10 +1897,12 @@
 	else if (eggtype == "purple - guard")
 		DoLayTerrorEggs("green spider eggs", /mob/living/simple_animal/hostile/poison/terror_spider/purple,numlings,0)
 	// T3
-	else if (eggtype == "QUEEN")
-		DoLayTerrorEggs("strange spider eggs", /mob/living/simple_animal/hostile/poison/terror_spider/queen,numlings,1)
+	else if (eggtype == "PRINCE")
+		DoLayTerrorEggs("strange spider eggs", /mob/living/simple_animal/hostile/poison/terror_spider/prince,numlings,1)
 	else if (eggtype == "MOTHER")
 		DoLayTerrorEggs("strange spider eggs", /mob/living/simple_animal/hostile/poison/terror_spider/mother,numlings,1)
+	else if (eggtype == "QUEEN")
+		DoLayTerrorEggs("strange spider eggs", /mob/living/simple_animal/hostile/poison/terror_spider/queen,numlings,1)
 	// Unrecognized
 	else
 		src << "Unrecognized egg type."
@@ -1967,7 +2016,6 @@
 	set name = "Mass Hallucinate"
 	set category = "Spider"
 	set desc = "Causes widespread, terrifying hallucinations amongst many crew as you assault their minds."
-	var/choices = list()
 	for(var/mob/living/carbon/human/H in player_list)
 		if (H.health < 1)
 			// nothing
@@ -2241,9 +2289,9 @@
 				S.master_commander = master_commander
 				S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 				S.enemies = enemies
-				if (S.ai_playercontrol_allowingeneral)
-					notify_ghosts("[S.name] in [get_area(src)] can be controlled! <a href=?src=\ref[S];activate=1>(Click to play)</a>")
-					// pulling ghosts without asking is dumb. This method ensures we get players who aren't AFK.
+				// we don't do this anymore, because it is handled in New()
+				//if (S.ai_playercontrol_allowingeneral)
+				//	notify_ghosts("[S.name] in [get_area(src)] can be controlled! <a href=?src=\ref[S];activate=1>(Click to play)</a>")
 				qdel(src)
 
 // --------------------------------------------------------------------------------
