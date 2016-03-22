@@ -518,6 +518,14 @@ var/list/uplink_items = list()
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
 
+/datum/uplink_item/stealthy_weapons/garrote
+	name = "Fiber Wire Garrote"
+	desc = "A length of fiber wire between two wooden handles, perfect for the discrete assassin. This weapon, when used on a target from behind \
+			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
+	reference = "GAR"
+	item = /obj/item/weapon/twohanded/garrote
+	cost = 12
+
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
