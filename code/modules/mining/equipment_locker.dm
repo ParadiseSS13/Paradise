@@ -557,7 +557,10 @@
 				if(ishuman(L))
 					shake_camera(L, 20, 1)
 					var/mob/living/carbon/human/H = L
-					H.vomit()
+					H << "<span class='danger'>As you emerge from the tunnel, your head spins as you lose your footing, and you flop to the ground</span>"
+					spawn(20)
+						H.Stun(3)
+						H.fakevomit()
 
 /**********************Resonator**********************/
 

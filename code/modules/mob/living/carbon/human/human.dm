@@ -1284,6 +1284,11 @@
 				spawn(350)	//wait 35 seconds before next volley
 					lastpuke = 0
 
+/mob/living/carbon/human/fakevomit(var/green = 0)
+	if(check_has_mouth())
+		..()
+
+
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
