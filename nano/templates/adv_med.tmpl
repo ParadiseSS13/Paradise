@@ -174,6 +174,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 						</span>
 						{{if value.status.splinted}} splinted <br> {{/if}}
 						{{if value.status.robotic}} robotic <br> {{/if}}
+						{{if value.status.dead}} <span class='bad'>DEAD</span> <br {{/if}}
 						{{if value.shrapnel_len}}
 							{{for value.shrapnel : shrapValue:shrapindex}}
 								{{:shrapValue.known ? shrapValue.name : "unknown object"}} <br>
@@ -220,6 +221,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 						</span>
 						{{if value.robotic == 1}} robotic <br> {{/if}}
 						{{if value.robotic == 2}} assisted <br> {{/if}}
+						{{if value.dead}} <span class='bad'>DEAD</span> <br> {{/if}}
 					</td>
 				</tr>
 			{{/for}}

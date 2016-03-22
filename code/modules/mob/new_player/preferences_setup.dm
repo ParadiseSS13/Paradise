@@ -1,4 +1,5 @@
-//The mob should have a gender you want before running this proc. Will run fine without H
+/datum/preferences
+	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
 	if(gender_override)
 		gender = gender_override
@@ -130,62 +131,62 @@
 	b_eyes = blue
 
 /datum/preferences/proc/randomize_skin_color()
-	var/red
-	var/green
-	var/blue
+		var/red
+		var/green
+		var/blue
 
-	var/col = pick ("black", "grey", "brown", "chestnut", "blue", "lightblue", "green", "albino")
-	switch(col)
-		if("black")
-			red = 0
-			green = 0
-			blue = 0
-		if("grey")
-			red = rand (100, 200)
-			green = red
-			blue = red
-		if("brown")
-			red = 102
-			green = 51
-			blue = 0
-		if("chestnut")
-			red = 153
-			green = 102
-			blue = 0
-		if("blue")
-			red = 51
-			green = 102
-			blue = 204
-		if("lightblue")
-			red = 102
-			green = 204
-			blue = 255
-		if("green")
-			red = 0
-			green = 102
-			blue = 0
-		if("albino")
-			red = rand (200, 255)
-			green = rand (0, 150)
-			blue = rand (0, 150)
+		var/col = pick ("black", "grey", "brown", "chestnut", "blue", "lightblue", "green", "albino")
+		switch(col)
+			if("black")
+				red = 0
+				green = 0
+				blue = 0
+			if("grey")
+				red = rand (100, 200)
+				green = red
+				blue = red
+			if("brown")
+				red = 102
+				green = 51
+				blue = 0
+			if("chestnut")
+				red = 153
+				green = 102
+				blue = 0
+			if("blue")
+				red = 51
+				green = 102
+				blue = 204
+			if("lightblue")
+				red = 102
+				green = 204
+				blue = 255
+			if("green")
+				red = 0
+				green = 102
+				blue = 0
+			if("albino")
+				red = rand (200, 255)
+				green = rand (0, 150)
+				blue = rand (0, 150)
 
-	red = max(min(red + rand (-25, 25), 255), 0)
-	green = max(min(green + rand (-25, 25), 255), 0)
-	blue = max(min(blue + rand (-25, 25), 255), 0)
+		red = max(min(red + rand (-25, 25), 255), 0)
+		green = max(min(green + rand (-25, 25), 255), 0)
+		blue = max(min(blue + rand (-25, 25), 255), 0)
 
-	r_skin = red
-	g_skin = green
-	b_skin = blue
+		r_skin = red
+		g_skin = green
+		b_skin = blue
 
 /datum/preferences/proc/blend_backpack(var/icon/clothes_s,var/backbag,var/satchel,var/backpack="backpack")
-	switch(backbag)
-		if(2)
-			clothes_s.Blend(new /icon('icons/mob/back.dmi', backpack), ICON_OVERLAY)
-		if(3)
-			clothes_s.Blend(new /icon('icons/mob/back.dmi', satchel), ICON_OVERLAY)
-		if(4)
-			clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
-	return clothes_s
+		switch(backbag)
+			if(2)
+				clothes_s.Blend(new /icon('icons/mob/back.dmi', backpack), ICON_OVERLAY)
+			if(3)
+				clothes_s.Blend(new /icon('icons/mob/back.dmi', satchel), ICON_OVERLAY)
+			if(4)
+				clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
+		return clothes_s
 
 /datum/preferences/proc/update_preview_icon(var/for_observer=0)		//seriously. This is horrendous.
 	qdel(preview_icon_front)
@@ -226,12 +227,14 @@
 		var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
-	for(var/name in list("r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","l_arm","l_hand"))
+	for(var/name in list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand"))
 		if(organ_data[name] == "amputated") continue
 		if(organ_data[name] == "cyborg")
 			var/datum/robolimb/R
 			if(rlimb_data[name]) R = all_robolimbs[rlimb_data[name]]
 			if(!R) R = basic_robolimb
+			if(name == "chest")
+				name = "torso"
 			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
 			continue
 		preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)

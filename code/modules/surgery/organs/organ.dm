@@ -57,7 +57,10 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
 		dna = new_dna.Clone()
-		blood_DNA = list()
+		if(blood_DNA)
+			blood_DNA.Cut()
+		else
+			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
 /obj/item/organ/proc/die()
@@ -173,6 +176,9 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
+	status &= ~ORGAN_DEAD
+	if(!owner)
+		processing_objects |= src
 
 /obj/item/organ/proc/is_damaged()
 	return damage > 0
@@ -255,6 +261,27 @@ var/list/organ_cache = list()
 			return
 		if(3.0)
 			take_damage(0,3)
+
+/obj/item/organ/internal/emp_act(severity)
+	if(!robotic)
+		return
+	if(robotic == 2)
+		switch (severity)
+			if (1.0)
+				take_damage(20,1)
+			if (2.0)
+				take_damage(7,1)
+			if(3.0)
+				take_damage(3,1)
+	else if(robotic == 1)
+		take_damage(11,1)
+
+/obj/item/organ/internal/heart/emp_act(intensity)
+	if(owner && robotic == 2)
+		owner.heart_attack = 1
+		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
+	else if(owner && robotic == 1)
+		take_damage(11,1)
 
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))

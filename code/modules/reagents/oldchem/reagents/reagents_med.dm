@@ -87,6 +87,11 @@
 	..()
 	return
 
+/datum/reagent/mitocholide/reaction_obj(var/obj/O, var/volume)
+	if(istype(O, /obj/item/organ))
+		var/obj/item/organ/Org = O
+		Org.rejuvenate()
+
 /datum/reagent/cryoxadone
 	name = "Cryoxadone"
 	id = "cryoxadone"
