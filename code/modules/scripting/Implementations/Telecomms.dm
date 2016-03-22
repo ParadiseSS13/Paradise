@@ -338,3 +338,22 @@
 		return
 
 	return M.server_interface(arglist)
+
+/datum/signal/proc/pda_message(recipient, message)
+	var/obj/machinery/telecomms/server/S = data["server"]
+	if(!istext(recipient))
+		return
+	if(!message)
+		return
+	var/obj/machinery/message_server/useMS = null
+	if(message_servers)
+		for (var/obj/machinery/message_server/MS in message_servers)
+			if(MS.active)
+				useMS = MS
+				break
+	if(useMS)
+		for(var/obj/item/device/pda/P in PDAs)
+			if (P.owner==recipient)
+				useMS.send_pda_message("[P.owner]", "[S.id] Automated Broadcast", message)
+				var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+				PM:notify("<b>Message from [S.id] (Automated Message), </b>\"[message]\" (<i>Unable to Reply</i>)", 0)
