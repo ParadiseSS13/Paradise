@@ -205,6 +205,8 @@
 #include "code\datums\helper_datums\global_iterator.dm"
 #include "code\datums\helper_datums\teleport.dm"
 #include "code\datums\helper_datums\topic_input.dm"
+#include "code\datums\smells\smell.dm"
+#include "code\datums\smells\vomit.dm"
 #include "code\datums\spells\area_teleport.dm"
 #include "code\datums\spells\bloodcrawl.dm"
 #include "code\datums\spells\charge.dm"

@@ -953,3 +953,16 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+/mob/living/verb/sniff()
+
+	set name = "Sniff"
+	set category = "IC"
+
+	if(istype(wear_mask, /obj/item/clothing/mask))//can't smell things with a mask on your face
+		src << "<span class='notice'>You can't smell anything other than your mask.</span>"
+
+	var/turf/T = get_turf(src)
+	var/datum/smell/S = T.smell
+
+	eval_smell(S)

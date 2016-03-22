@@ -27,6 +27,8 @@
 		//Random events (vomiting etc)
 		handle_random_events()
 
+		handle_smells()
+		
 		. = 1
 
 	//Handle temperature/pressure differences between body and environment
@@ -310,3 +312,21 @@
 		var/client/C = client
 		for(var/mob/living/carbon/human/H in view(src, world.view))
 			C.images += H.hud_list[NATIONS_HUD]
+			
+/mob/living/proc/handle_smells()
+	if(istype(get_turf(src), /turf/simulated))
+		var/turf/T = get_turf(src)
+		if(!T.smell)
+			current_smell = null
+		else if(!current_smell)
+			current_smell = T.smell
+			eval_smell(current_smell)
+		else if(current_smell.name != T.smell.name)
+			current_smell = T.smell
+			eval_smell(current_smell)
+
+		if(current_smell)
+			if(prob(10))
+				eval_smell(current_smell)
+			if(current_smell.qty >= SMELL_NORMAL && prob(40))
+				own_smell = current_smell

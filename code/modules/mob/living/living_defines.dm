@@ -53,3 +53,8 @@
 	var/step_count = 0
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
+	
+	//smell vars
+	var/datum/smell/current_smell = null //last sensed smell
+	var/constipated = 0 //set by viruses, used to tell if the nose is clogged or not, clogged noses cant smell
+	//var/smell_coef = 1//multiplier for how good of a smeller it is. higher means it can smell tracer ammounts. | edit:this isnt working here
