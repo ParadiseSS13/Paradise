@@ -307,13 +307,13 @@ BLIND     // can't see anything
 			mask_adjusted = 0
 			slot_flags = initial(slot_flags)
 			if(flags_inv != initial(flags_inv))
-				if(initial(flags_inv) && HIDEFACE) //If the mask is one that hides the face and can be adjusted yet lost that trait when it was adjusted, make it hide the face again.
-					flags_inv += HIDEFACE
+				if(initial(flags_inv) & HIDEFACE) //If the mask is one that hides the face and can be adjusted yet lost that trait when it was adjusted, make it hide the face again.
+					flags_inv |= HIDEFACE
 			if(flags != initial(flags))
-				if(initial(flags) && MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
-					flags += MASKCOVERSMOUTH
-				if(initial(flags) && AIRTIGHT) //If the mask is airtight and thus, one that you'd be able to run internals from yet can't because it was adjusted, make it airtight again.
-					flags += AIRTIGHT
+				if(initial(flags) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
+					flags |= MASKCOVERSMOUTH
+				if(initial(flags) & AIRTIGHT) //If the mask is airtight and thus, one that you'd be able to run internals from yet can't because it was adjusted, make it airtight again.
+					flags |= AIRTIGHT
 			if(H.head == src)
 				if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
@@ -337,13 +337,13 @@ BLIND     // can't see anything
 						if(H.internals)
 							H.internals.icon_state = "internal0"
 						H.internal = null
-			if(flags_inv && HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
-				flags_inv -= HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
+			if(flags_inv & HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+				flags_inv &= HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
 										This reveals the user's face since the bandana will now be going on their head.*/
-			if(flags && MASKCOVERSMOUTH) //Mask won't cover the mouth any more since it's been pushed out of the way. Allows for CPRing with adjusted masks.
-				flags -= MASKCOVERSMOUTH
-			if(flags && AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
-				flags -= AIRTIGHT
+			if(flags & MASKCOVERSMOUTH) //Mask won't cover the mouth any more since it's been pushed out of the way. Allows for CPRing with adjusted masks.
+				flags &= ~MASKCOVERSMOUTH
+			if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
+				flags &= ~AIRTIGHT
 			if(user.wear_mask == src)
 				if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
 					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
