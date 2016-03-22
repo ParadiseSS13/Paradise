@@ -1862,6 +1862,7 @@
 #include "code\modules\store\items.dm"
 #include "code\modules\store\store.dm"
 #include "code\modules\surgery\bones.dm"
+#include "code\modules\surgery\dental_implant.dm"
 #include "code\modules\surgery\encased.dm"
 #include "code\modules\surgery\face.dm"
 #include "code\modules\surgery\generic.dm"

@@ -211,6 +211,20 @@
 	target.apply_damage(3, BURN, affected)
 	return 0
 
+//drill bone
+/datum/surgery_step/generic/drill
+	name = "drill bone"
+	allowed_tools = list(/obj/item/weapon/surgicaldrill = 100, /obj/item/weapon/pickaxe/drill = 60, /obj/item/weapon/screwdriver = 20)
+	time = 30
+
+/datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message("[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)].", "<span class='notice'>You begin to drill into the bone in [target]'s [parse_zone(target_zone)]...</span>")
+	..()
+
+/datum/surgery_step/generic/drill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message("[user] drills into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You drill into [target]'s [parse_zone(target_zone)].</span>")
+	return 1
+
 
 /datum/surgery_step/generic/amputate
 	name = "amputate limb"
