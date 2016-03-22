@@ -349,4 +349,5 @@
 /mob/living/silicon/adjustToxLoss(var/amount)
 	return
 
-
+/mob/living/silicon/get_access()
+	return IGNORE_ACCESS //silicons always have access

@@ -315,7 +315,7 @@
 		log_to_dd("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]")
 		return 0
 	if(!C.mind)
-		user << "<span class='warning>[C.name]'s mind is not there for you to enthrall.</span>"
+		user << "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>"
 		return 0
 	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.vampire_enthralled ))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")

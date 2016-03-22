@@ -255,7 +255,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	//		dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
 			dat += "<br><b>Handicaps</b><br>"
 			dat += "\t<a href='?_src_=prefs;preference=disabilities'><b>\[Set Disabilities\]</b></a><br>"
-			dat += "Limbs: <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
+			dat += "Limbs and Parts: <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
 			if(species != "Slime People" && species != "Machine")
 				dat += "Internal Organs: <a href='?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
 
@@ -266,6 +266,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
+					if("chest")
+						organ_name = "torso"
+					if("groin")
+						organ_name = "lower body"
+					if("head")
+						organ_name = "head"
 					if("l_arm")
 						organ_name = "left arm"
 					if("r_arm")
@@ -296,7 +302,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						R = all_robolimbs[rlimb_data[name]]
 					else
 						R = basic_robolimb
-					dat += "\t[R.company] [organ_name] prothesis"
+					dat += "\t[R.company] [organ_name] prosthesis"
 
 
 				else if(status == "amputated")
@@ -350,7 +356,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "[TextPreview(flavor_text)]...<br>"
 			dat += "<br>"
 
-			if((species in list("Unathi", "Vulpkanin", "Tajaran"))) //Species that have head accessories.
+			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
 				var/headaccessoryname = "Head Accessory"
 				if(species == "Unathi")
 					headaccessoryname = "Horns"
@@ -358,23 +364,22 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc)]'><tr><td>__</td></tr></table></font> "
 				dat += "Style: <a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a><br>"
 
+			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have body markings.
 				dat += "<br><b>Body Markings</b><br>"
 				dat += "<a href='?_src_=prefs;preference=markings;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings)]'><tr><td>__</td></tr></table></font> "
 				dat += "<br>Style: <a href='?_src_=prefs;preference=m_style;task=input'>[m_style]</a><br>"
 
-			var/hairname = "Hair"
-			if(species == "Machine")
-				hairname = "Frame Color"
-			dat += "<br><b>[hairname]</b><br>"
+			dat += "<br><b>Hair</b><br>"
 			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]'><tr><td>__</td></tr></table></font> "
 			dat += " <br>Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
 
-			dat += "<br><b>Facial</b><br>"
+			dat += "<br><b>Facial Hair</b><br>"
 			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial)]'><tr><td>__</td></tr></table></font> "
-			dat += " <br>Style: <a href='?_src_=prefs;preference=f_style;task=input'>[f_style]</a><br>"
+			dat += " <br>Style: <a href='?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a><br>"
 
-			dat += "<br><b>Eyes</b><br>"
-			dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font><br>"
+			if(species != "Machine")
+				dat += "<br><b>Eyes</b><br>"
+				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font><br>"
 
 			if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
 				dat += "<br><b>Body Color</b><br>"
@@ -1060,7 +1065,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
 
-					var/list/new_species = list("Human","Tajaran","Skrell","Unathi","Diona", "Vulpkanin")
+					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 					var/prev_species = species
 //						var/whitelisted = 0
 
@@ -1085,8 +1090,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								continue
 							if(gender == FEMALE && S.gender == MALE)
 								continue
-							if( !(species in S.species_allowed))
+							if(!(species in S.species_allowed))
 								continue
+
 							valid_hairstyles[hairstyle] = hair_styles_list[hairstyle]
 
 						if(valid_hairstyles.len)
@@ -1103,7 +1109,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								continue
 							if(gender == FEMALE && S.gender == MALE)
 								continue
-							if( !(species in S.species_allowed))
+							if(!(species in S.species_allowed))
 								continue
 
 							valid_facialhairstyles[facialhairstyle] = facial_hair_styles_list[facialhairstyle]
@@ -1138,6 +1144,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						m_style = "None" // No Unathi markings on Tajara
 
 						body_accessory = null //no vulptail on humans damnit
+
+						//Reset prosthetics.
+						organ_data = list()
+						rlimb_data = list()
 				if("speciesprefs")//oldvox code
 					speciesprefs = !speciesprefs
 
@@ -1176,7 +1186,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("hair")
 					if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Vulpkanin")
 						var/input = "Choose your character's hair colour:"
-						if(species == "Machine")
+						if(species == "Machine" && !("head" in rlimb_data))
 							input = "Choose your character's frame colour:"
 						var/new_hair = input(user, input, "Character Preference", rgb(r_hair, g_hair, b_hair)) as color|null
 						if(new_hair)
@@ -1188,17 +1198,31 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/list/valid_hairstyles = list()
 					for(var/hairstyle in hair_styles_list)
 						var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
-						if( !(species in S.species_allowed))
-							continue
+						if(species == "Machine") //Species that can use prosthetic heads.
+							if(species in S.species_allowed)
+								if(!rlimb_data["head"])
+									valid_hairstyles[hairstyle] = S
+									continue
+								else
+									continue
+							else
+								if(!rlimb_data["head"])
+									continue
+								else if("Human" in S.species_allowed)
+									valid_hairstyles[hairstyle] = S
+									continue
+						else
+							if(!(species in S.species_allowed))
+								continue
 
-						valid_hairstyles[hairstyle] = hair_styles_list[hairstyle]
+							valid_hairstyles[hairstyle] = S
 
 					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 					if(new_h_style)
 						h_style = new_h_style
 
 				if("headaccessory")
-					if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with head accessories
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with head accessories
 						var/input = "Choose the colour of your your character's head accessory:"
 						var/new_head_accessory = input(user, input, "Character Preference", rgb(r_headacc, g_headacc, b_headacc)) as color|null
 						if(new_head_accessory)
@@ -1207,11 +1231,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_headacc = hex2num(copytext(new_head_accessory, 6, 8))
 
 				if("ha_style")
-					if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with head accessories
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with head accessories
 						var/list/valid_head_accessory_styles = list()
 						for(var/head_accessory_style in head_accessory_styles_list)
 							var/datum/sprite_accessory/H = head_accessory_styles_list[head_accessory_style]
-							if( !(species in H.species_allowed))
+							if(!(species in H.species_allowed))
 								continue
 
 							valid_head_accessory_styles[head_accessory_style] = head_accessory_styles_list[head_accessory_style]
@@ -1221,8 +1245,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							ha_style = new_head_accessory_style
 
 				if("markings")
-					if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with markings
-						var/input = "Choose the colour of your your character's body markings:"
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with markings
+						var/input = "Choose the colour of your your character's markings:"
 						var/new_markings = input(user, input, "Character Preference", rgb(r_markings, g_markings, b_markings)) as color|null
 						if(new_markings)
 							r_markings = hex2num(copytext(new_markings, 2, 4))
@@ -1230,16 +1254,22 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_markings = hex2num(copytext(new_markings, 6, 8))
 
 				if("m_style")
-					if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with markings
+					if(species in list("Unathi", "Vulpkanin", "Tajaran")) // Species with markings
 						var/list/valid_markings = list()
 						for(var/markingstyle in marking_styles_list)
 							var/datum/sprite_accessory/M = marking_styles_list[markingstyle]
-							if( !(species in M.species_allowed))
+							if(!(species in M.species_allowed))
 								continue
+
+							if(species == "Machine") //Species that can use prosthetic heads.
+								if(!("head" in rlimb_data) && M.name != "None") //If the character can have prosthetic heads and they have the default head (with screen), no optic markings.
+									continue
+								else if(("head" in rlimb_data) && M.name == "None") //Otherwise, if they DON'T have the default head and since they must have optics, give them a list of styles excluding the "None" option.
+									continue
 
 							valid_markings[markingstyle] = marking_styles_list[markingstyle]
 
-						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference") as null|anything in valid_markings
+						var/new_marking_style = input(user, "Choose the style of your character's markings:", "Character Preference", m_style) as null|anything in valid_markings
 						if(new_marking_style)
 							m_style = new_marking_style
 
@@ -1275,8 +1305,24 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							continue
 						if(gender == FEMALE && S.gender == MALE)
 							continue
-						if( !(species in S.species_allowed))
-							continue
+						if(species == "Machine") //Species that can use prosthetic heads.
+							if(species in S.species_allowed)
+								if(!rlimb_data["head"])
+									valid_facialhairstyles[facialhairstyle] = S
+									continue
+								else
+									continue
+							else
+								if(!rlimb_data["head"])
+									continue
+								else if("Human" in S.species_allowed)
+									valid_facialhairstyles[facialhairstyle] = S
+									continue
+								else
+									continue
+						else
+							if(!(species in S.species_allowed))
+								continue
 
 						valid_facialhairstyles[facialhairstyle] = facial_hair_styles_list[facialhairstyle]
 
@@ -1370,14 +1416,29 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						flavor_text = msg
 
 				if("limbs")
-					var/limb_name = input(user, "Which limb do you want to change?") as null|anything in list("Left Leg","Right Leg","Left Arm","Right Arm","Left Foot","Right Foot","Left Hand","Right Hand")
+					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
+					if(species == "Machine")
+						valid_limbs = list("Torso", "Lower Body", "Head", "Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
+					var/limb_name = input(user, "Which limb do you want to change?") as null|anything in valid_limbs
 					if(!limb_name) return
 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
 					var/third_limb = null  // if you try to unchange the hand, the arm should also change
-					var/valid_limb_states=list("Normal","Amputated","Prothesis")
+					var/valid_limb_states = list("Normal", "Amputated", "Prosthesis")
+					var/no_amputate = 0
+
 					switch(limb_name)
+						if("Torso")
+							limb = "chest"
+							second_limb = "groin"
+							no_amputate = 1
+						if("Lower Body")
+							limb = "groin"
+							no_amputate = 1
+						if("Head")
+							limb = "head"
+							no_amputate = 1
 						if("Left Leg")
 							limb = "l_leg"
 							second_limb = "l_foot"
@@ -1392,37 +1453,50 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							second_limb = "r_hand"
 						if("Left Foot")
 							limb = "l_foot"
-							third_limb = "l_leg"
+							if(species != "Machine")
+								third_limb = "l_leg"
 						if("Right Foot")
 							limb = "r_foot"
-							third_limb = "r_leg"
+							if(species != "Machine")
+								third_limb = "r_leg"
 						if("Left Hand")
 							limb = "l_hand"
-							third_limb = "l_arm"
+							if(species != "Machine")
+								third_limb = "l_arm"
 						if("Right Hand")
 							limb = "r_hand"
-							third_limb = "r_arm"
+							if(species != "Machine")
+								third_limb = "r_arm"
 
 					var/new_state = input(user, "What state do you wish the limb to be in?") as null|anything in valid_limb_states
 					if(!new_state) return
 
 					switch(new_state)
 						if("Normal")
+							if(limb == "head")
+								m_style = "None"
+								h_style = random_hair_style(gender, species)
+								f_style = facial_hair_styles_list["Shaved"]
 							organ_data[limb] = null
 							rlimb_data[limb] = null
 							if(third_limb)
 								organ_data[third_limb] = null
 								rlimb_data[third_limb] = null
 						if("Amputated")
-							organ_data[limb] = "amputated"
-							rlimb_data[limb] = null
-							if(second_limb)
-								organ_data[second_limb] = "amputated"
-								rlimb_data[second_limb] = null
-						if("Prothesis")
+							if(!no_amputate)
+								organ_data[limb] = "amputated"
+								rlimb_data[limb] = null
+								if(second_limb)
+									organ_data[second_limb] = "amputated"
+									rlimb_data[second_limb] = null
+						if("Prosthesis")
 							var/choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in chargen_robolimbs
 							if(!choice)
 								return
+							if(limb == "head")
+								m_style = "Humanoid Optics"
+								ha_style = "None"
+								h_style = hair_styles_list["Bald"]
 							rlimb_data[limb] = choice
 							organ_data[limb] = "cyborg"
 							if(second_limb)
@@ -1499,7 +1573,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					UI_style_color = UI_style_color_new
 
 				if("UIalpha")
-					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parametr for UI, between 50 and 255") as num
+					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
 					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
 					UI_style_alpha = UI_style_alpha_new
 
@@ -1585,8 +1659,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.real_name = real_name
 	character.name = character.real_name
-	if(character.dna)
-		character.dna.real_name = character.real_name
 
 	character.flavor_text = flavor_text
 	character.med_record = med_record
@@ -1618,9 +1690,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.h_style = h_style
 	character.f_style = f_style
 
-
 	// Destroy/cyborgize organs
-
 	for(var/name in organ_data)
 
 		var/status = organ_data[name]
@@ -1695,6 +1765,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
+
+	character.dna.ready_dna(character)
+	character.sync_organ_dna(assimilate=1)
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 

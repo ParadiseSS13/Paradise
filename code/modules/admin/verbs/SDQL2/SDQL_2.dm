@@ -91,7 +91,10 @@
 						// To stop any procs which sleep from executing slowly.
 						if(d)
 							if(hascall(d, v))
-								spawn() call(d, v)(arglist(args_list)) // Spawn in case the function sleeps.
+								var/list/arguments[0]
+								for(var/list/arg in args_list)
+									arguments += SDQL_expression(d, arg)
+								spawn() call(d, v)(arglist(arguments)) // Spawn in case the function sleeps.
 
 			if("delete")
 				for(var/datum/d in objs)
@@ -357,22 +360,39 @@
 	return list("val" = val, "i" = i)
 
 /proc/SDQL_var(datum/object, list/expression, start = 1)
-
+	var/v
 	if(expression[start] in object.vars)
-
-		if(start < expression.len && expression[start + 1] == ".")
-			return SDQL_var(object.vars[expression[start]], expression[start + 2])
-
+		v = object.vars[expression[start]]
+	else if(expression[start] == "src")
+		v = object
+	else if(expression[start] == "usr")
+		v = usr
+	else if(expression[start] == "marked")
+		if(usr.client && usr.client.holder && usr.client.holder.marked_datum)
+			v = usr.client.holder.marked_datum
 		else
-			return object.vars[expression[start]]
-
+			return null
+	else if(expression[start] == "\[" && start < expression.len)
+		if(lowertext(copytext(expression[start + 1], 1, 3)) != "0x")
+			usr << "<span class='danger'>Invalid ref syntax: [expression[start + 1]]</span>"
+			return null
+		v = locate("\[[expression[start + 1]]\]")
+		if(!v)
+			usr << "<span class='danger'>Invalid ref: [expression[start + 1]]</span>"
+			return null
+		start++
 	else
 		return null
+
+	if(start < expression.len && expression[start + 1] == ".")
+		return SDQL_var(v, expression[start + 2])
+	else
+		return v
 
 /proc/SDQL2_tokenize(query_text)
 
 	var/list/whitespace = list(" ", "\n", "\t")
-	var/list/single = list("(", ")", ",", "+", "-", ".", ";")
+	var/list/single = list("(", ")", ",", "+", "-", ".", ";", "\[", "\]")
 	var/list/multi = list(
 					"=" = list("", "="),
 					"<" = list("", "=", ">"),

@@ -1,0 +1,12 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Makes heads keep hair on removal"
+  - bugfix: "Amputated limbs from a DNA-injected individual now will keep their appearance of the DNA-injected person"
+  - bugfix: "Wounds will vanish on their own now"
+  - rscadd: "Admins now have an \"incarnate\" option on the player panel when viewing ghosts for quick player instantiation"
+  - bugfix: "Fixes a runtime regarding failing a limb reconnection surgery"
+  - bugfix: "Copying a client's preferences now overrides the previous mob's DNA"
+  - bugfix: "A DNA injector is now more thorough, and affects the DNA of mobs' limbs and organs"
+  - bugfix: "DNA-lacking species can no longer be DNA-injected"
+  - bugfix: "Brains are now labeled again"

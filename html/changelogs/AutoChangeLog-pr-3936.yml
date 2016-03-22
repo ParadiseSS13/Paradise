@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - rscadd: "Pet collars now act as death alarms and can have ID's attached to them."
+  - tweak: "All domestic animals can now wear collars."

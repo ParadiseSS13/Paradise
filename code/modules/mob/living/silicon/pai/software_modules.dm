@@ -149,7 +149,7 @@
 			return
 
 		data["receiver_off"] = M.toff
-		data["ringer_off"] = M.silent
+		data["ringer_off"] = M.notify_silent
 		data["current_ref"] = null
 		data["current_name"] = user.current_pda_messaging
 
@@ -205,7 +205,7 @@
 				M.toff = href_list["toggler"] != "1"
 				return 1
 			else if(href_list["ringer"])
-				M.silent = href_list["ringer"] != "1"
+				M.notify_silent = href_list["ringer"] != "1"
 				return 1
 			else if(href_list["select"])
 				var/s = href_list["select"]

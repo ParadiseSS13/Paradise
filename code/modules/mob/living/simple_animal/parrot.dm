@@ -34,6 +34,7 @@
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
 	small = 1
+	can_collar = 1
 
 	speak = list("Hi","Hello!","Cracker?","BAWWWWK george mellons griffing me")
 	speak_emote = list("squawks","says","yells")
@@ -118,17 +119,21 @@
  */
 /mob/living/simple_animal/parrot/show_inv(mob/user as mob)
 	user.set_machine(src)
-	if(user.stat) return
 
-	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
-	if(ears)
-		dat +=	"<br><b>Headset:</b> [ears] (<a href='?src=\ref[src];remove_inv=ears'>Remove</a>)"
-	else
-		dat +=	"<br><b>Headset:</b> <a href='?src=\ref[src];add_inv=ears'>Nothing</a>"
+	var/dat = {"<table>"}
 
-	user << browse(dat, text("window=mob[];size=325x500", name))
-	onclose(user, "mob[real_name]")
-	return
+	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=\ref[src];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? ears : "<font color=grey>Empty</font>"]</A></td></tr>"
+	if(can_collar)
+		dat += "<tr><td>&nbsp;</td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+
+	dat += {"</table>
+	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	"}
+
+	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
+	popup.set_content(dat)
+	popup.open()
 
 /mob/living/simple_animal/parrot/Topic(href, href_list)
 
@@ -138,8 +143,6 @@
 
 	//Is the usr's mob type able to do this?
 	if(ishuman(usr) || isrobot(usr))
-
-		//Removing from inventory
 		if(href_list["remove_inv"])
 			var/remove_from = href_list["remove_inv"]
 			switch(remove_from)
@@ -157,8 +160,7 @@
 					else
 						usr << "\red There is nothing to remove from its [remove_from]."
 						return
-
-		//Adding things to inventory
+			show_inv(usr)
 		else if(href_list["add_inv"])
 			var/add_to = href_list["add_inv"]
 			if(!usr.get_active_hand())
@@ -205,6 +207,7 @@
 
 						if(headset_to_add.translate_binary)
 							available_channels.Add(":b")
+			show_inv(usr)
 		else
 			..()
 

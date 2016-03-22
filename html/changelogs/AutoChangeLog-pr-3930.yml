@@ -1,0 +1,7 @@
+author: tigercat2000
+delete-after: True
+changes: 
+  - rscadd: "Nukeops now have an assault pod, they can use it for 30 TC. Loud and mean."
+  - bugfix: "Lighting overlays can no longer go below 0 lum_r/g/b"
+  - bugfix: "Shuttles will work with lighting better."
+  - bugfix: "Wizards can no longer teleport to prohibited areas such as Central Command."

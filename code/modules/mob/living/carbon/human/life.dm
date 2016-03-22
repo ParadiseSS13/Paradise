@@ -200,11 +200,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		adjustCloneLoss(0.1)
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	if(getFireLoss())
-		if((RESIST_HEAT in mutations) || (prob(1)))
-			heal_organ_damage(0,1)
-
-
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
 			continue
@@ -833,13 +828,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(.) //alive
 		if(REGEN in mutations)
-			if(nutrition)
-				if(prob(10))
-					var/randumb = rand(1, 5)
-					nutrition -= randumb
-					heal_overall_damage(randumb, randumb)
-				if(nutrition < 0)
-					nutrition = 0
+			heal_overall_damage(0.1, 0.1)
 
 		if(!in_stasis)
 			handle_organs()

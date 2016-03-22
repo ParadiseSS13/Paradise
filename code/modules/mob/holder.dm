@@ -34,6 +34,14 @@
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
 
+/obj/item/weapon/holder/emp_act(var/intensity)
+	for(var/mob/living/M in contents)
+		M.emp_act(intensity)
+
+/obj/item/weapon/holder/ex_act(var/intensity)
+	for(var/mob/living/M in contents)
+		M.ex_act(intensity)
+
 /obj/item/weapon/holder/container_resist(var/mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
@@ -91,4 +99,5 @@
 /obj/item/weapon/holder/mouse
 	name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
