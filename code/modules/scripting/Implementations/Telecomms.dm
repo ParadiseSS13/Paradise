@@ -240,6 +240,9 @@
 	interpreter.SetProc("time",			/proc/time)
 	interpreter.SetProc("timestamp",	/proc/timestamp)
 
+	// Station data
+	interpreter.SetProc("crew_manifest",/proc/n_crew_manifest)
+
 	// Run the compiled code
 	interpreter.Run()
 
@@ -331,8 +334,6 @@
 		return
 	var/obj/machinery/M = L.machine
 
-	if(M == null)
-		return
 	if(M.loc.loc != S.loc.loc)
 		return
 
