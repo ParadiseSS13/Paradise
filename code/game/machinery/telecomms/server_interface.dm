@@ -1,7 +1,9 @@
 /obj/machinery/computer/telecomms/server_interface
 	name = "telecommunications server interface"
+	icon_screen = "server_interface"
+	icon_keyboard = "teleport_key"
 	tcomms_linkable = 1 // That's the whole point of this.
-	light_color = LIGHT_COLOR_DARKGREEN
+	light_color = LIGHT_COLOR_LIGHTBLUE
 	circuit = /obj/item/weapon/circuitboard/server_interface
 
 	var/list/ui_elements = list("text~Welcome. The telecomms server has not been configured to display a UI on this server interface. Press init to send \"init\" signal to server.","button~Init~init")

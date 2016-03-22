@@ -122,6 +122,15 @@
 	interpreter.SetProc("interface_machine", "interface_machine", signal, list("machine", "args"))
 
 	/*
+		-> Sends a PDA message
+				@format: pda_message(recipient, message)
+
+				@param recipient:	Name of recipient. Must match name on the PDA exactly.
+				@param message:		Message to send to recipient
+	*/
+	interpreter.SetProc("pda_message", "pda_message", signal, list("recipient", "message"))
+
+	/*
 		-> Store a value permanently to the server machine (not the actual game hosting machine, the ingame machine)
 				@format: mem(address, value)
 
