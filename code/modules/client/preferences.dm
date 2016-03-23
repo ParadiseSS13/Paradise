@@ -1658,6 +1658,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			real_name += "[pick(last_names)]"
 
 	character.real_name = real_name
+	character.dna.real_name = real_name
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
@@ -1768,6 +1769,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.dna.ready_dna(character)
 	character.sync_organ_dna(assimilate=1)
+	character.UpdateAppearance()
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
