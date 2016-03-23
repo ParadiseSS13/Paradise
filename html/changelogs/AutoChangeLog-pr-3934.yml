@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds in the ability to transfer non-locked metal+glass only designs from the protolathe to autolathe"
