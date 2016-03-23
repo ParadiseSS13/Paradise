@@ -80,7 +80,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
-	var/nanoui_fancy = FALSE //needs to be turned off by default, cause it's broken as hell.
+	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
 	var/sound = SOUND_DEFAULT
 	var/UI_style_color = "#ffffff"
@@ -753,7 +753,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += "</center></tt>"
 
 	user << browse(null, "window=preferences")
-	user << browse(sanitize_local(HTML, SANITIZE_BROWSER), "window=records;size=350x300")
+	user << browse(HTML, "window=records;size=350x300")
 	return
 
 /datum/preferences/proc/GetPlayerAltTitle(datum/job/job)
@@ -973,30 +973,30 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else
 			user << browse(null, "window=records")
 		if(href_list["task"] == "med_record")
-			var/medmsg = input(usr,"Set your medical notes here.","Medical Records",lhtml_decode(med_record)) as message
+			var/medmsg = input(usr,"Set your medical notes here.","Medical Records",html_decode(med_record)) as message
 
 			if(medmsg != null)
 				medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				medmsg = lhtml_encode(medmsg)
+				medmsg = html_encode(medmsg)
 
 				med_record = medmsg
 				SetRecords(user)
 
 		if(href_list["task"] == "sec_record")
-			var/secmsg = input(usr,"Set your security notes here.","Security Records",lhtml_decode(sec_record)) as message
+			var/secmsg = input(usr,"Set your security notes here.","Security Records",html_decode(sec_record)) as message
 
 			if(secmsg != null)
 				secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				secmsg = lhtml_encode(secmsg)
+				secmsg = html_encode(secmsg)
 
 				sec_record = secmsg
 				SetRecords(user)
 		if(href_list["task"] == "gen_record")
-			var/genmsg = input(usr,"Set your employment notes here.","Employment Records",lhtml_decode(gen_record)) as message
+			var/genmsg = input(usr,"Set your employment notes here.","Employment Records",html_decode(gen_record)) as message
 
 			if(genmsg != null)
 				genmsg = copytext(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				genmsg = lhtml_encode(genmsg)
+				genmsg = html_encode(genmsg)
 
 				gen_record = genmsg
 				SetRecords(user)
@@ -1407,7 +1407,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						nanotrasen_relation = new_relation
 
 				if("flavor_text")
-					var/msg = input(usr,"Set the flavor text in your 'examine' verb. This can also be used for OOC notes and preferences!","Flavor Text",lhtml_decode(flavor_text)) as message
+					var/msg = input(usr,"Set the flavor text in your 'examine' verb. This can also be used for OOC notes and preferences!","Flavor Text",html_decode(flavor_text)) as message
 
 					if(msg != null)
 						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
@@ -1645,6 +1645,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
+	var/datum/species/S = all_species[species]
+	character.change_species(species) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
@@ -1656,7 +1658,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else if(firstspace == name_length)
 			real_name += "[pick(last_names)]"
 
+	character.add_language(language)
+
 	character.real_name = real_name
+	character.dna.real_name = real_name
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
@@ -1716,15 +1721,30 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				else if(status == "mechanical")
 					I.robotize()
 
-	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)//character.species.flags & CAN_BE_FAT)
+	character.dna.b_type = b_type
+	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
+		character.dna.SetSEState(FATBLOCK,1,1)
 		character.mutations += FAT
 		character.mutations += OBESITY
+		character.overeatduration = 600
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		character.dna.SetSEState(GLASSESBLOCK,1,1)
 		character.disabilities|=NEARSIGHTED
 	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
+		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
 		character.disabilities|=EPILEPSY
 	if(disabilities & DISABILITY_FLAG_DEAF)
+		character.dna.SetSEState(DEAFBLOCK,1,1)
 		character.sdisabilities|=DEAF
+	if(disabilities & DISABILITY_FLAG_MUTE)
+		character.dna.SetSEState(MUTEBLOCK,1,1)
+		character.sdisabilities |= MUTE
+
+	S.handle_dna(character)
+
+	if(character.dna.dirtySE)
+		character.dna.UpdateSE()
+	domutcheck(character)
 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
@@ -1765,8 +1785,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
 
-	character.dna.ready_dna(character)
+	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
+	character.UpdateAppearance()
+
+	// Do the initial caching of the player's body icons.
+	character.force_update_limbs()
+	character.update_eyes()
+	character.regenerate_icons()
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
