@@ -62,6 +62,13 @@ proc/isembryo(A)
 		return 1
 	return 0
 
+/proc/ispet(A)
+	if(istype(A, /mob/living/simple_animal))
+		var/mob/living/simple_animal/SA = A
+		if(SA.can_collar)
+			return 1
+	return 0
+
 /proc/iscrab(A)
 	if(istype(A, /mob/living/simple_animal/crab))
 		return 1

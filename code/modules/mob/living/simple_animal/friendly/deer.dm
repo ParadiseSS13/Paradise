@@ -15,3 +15,4 @@
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
+	can_collar = 1

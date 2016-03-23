@@ -251,6 +251,14 @@
 	build_path = /obj/item/device/assembly/voice
 	category = list("initial", "Miscellaneous")
 
+/datum/design/videocam
+	name = "Video Camera"
+	id = "videocam"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 120, MAT_GLASS = 60)
+	build_path = /obj/item/device/videocam
+	category = list("initial", "Miscellaneous")
+
 /datum/design/canvas
 	name = "11px by 11px Canvas"
 	id = "canvas"

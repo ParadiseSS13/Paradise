@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes not being able to speak over xeno common or hivemind when you receive the Xeno hive node"
