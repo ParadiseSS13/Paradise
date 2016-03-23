@@ -195,7 +195,6 @@ Made by Xhuis
 	GAME FINISH CHECKS
 */
 
-
 /datum/game_mode/shadowling/check_finished()
 	var/shadows_alive = 0 //and then shadowling was kill
 	for(var/datum/mind/shadow in shadows) //but what if shadowling was not kill?
@@ -314,14 +313,14 @@ Made by Xhuis
 	H.nutrition = 450 //i aint never get hongry
 	if(isturf(H.loc))
 		var/turf/T = H.loc
-		light_amount = T.get_lumcount()*10
+		light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
 			if(H.stat != DEAD)
 				H << "<span class='userdanger'>The light burns you!</span>" //Message spam to say "GET THE FUCK OUT"
 				H << 'sound/weapons/sear.ogg'
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
-			H.heal_overall_damage(5,5)
+			H.heal_overall_damage(5, 5)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
 			H.adjustCloneLoss(-1)
