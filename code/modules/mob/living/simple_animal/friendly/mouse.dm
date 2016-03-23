@@ -31,6 +31,7 @@
 	universal_speak = 0
 	can_hide = 1
 	holder_type = /obj/item/weapon/holder/mouse
+	can_collar = 1
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()

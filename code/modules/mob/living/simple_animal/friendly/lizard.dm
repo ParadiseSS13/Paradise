@@ -22,3 +22,4 @@
 	can_hide = 1
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
 	meat_amount = 1
+	can_collar = 1

@@ -839,15 +839,6 @@
 						U.accessories -= A
 						update_inv_w_uniform()
 
-	if (href_list["refresh"])
-		if((machine)&&(in_range(src, usr)))
-			show_inv(machine)
-
-	if (href_list["mach_close"])
-		var/t1 = text("window=[]", href_list["mach_close"])
-		unset_machine()
-		src << browse(null, t1)
-
 	if (href_list["criminal"])
 		if(hasHUD(usr,"security"))
 
@@ -1943,3 +1934,8 @@
 
 	if(wear_id)
 		. |= wear_id.GetAccess()
+	if(istype(w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = w_uniform
+		if(U.accessories)
+			for(var/obj/item/clothing/accessory/A in U.accessories)
+				. |= A.GetAccess()
