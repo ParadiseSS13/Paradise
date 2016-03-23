@@ -308,7 +308,8 @@ Made by Xhuis
 	silent_steps = 1
 
 /datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
-	if(!H.weakeyes) H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
+	if(!H.weakeyes)
+		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
 	H.nutrition = 450 //i aint never get hongry
 	if(isturf(H.loc))
