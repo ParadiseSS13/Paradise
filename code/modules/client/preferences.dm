@@ -1769,6 +1769,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.dna.ready_dna(character)
 	character.sync_organ_dna(assimilate=1)
+	character.UpdateAppearance()
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
