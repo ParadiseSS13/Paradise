@@ -407,9 +407,9 @@
 	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 	if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
 		//give the syndicats a bit of stealth
-		a.autosay("[tagname] has been vandalized in Space!", "[tagname]'s Death Alarm")
+		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
 	else
-		a.autosay("[tagname] has been vandalized in [t.name]!", "[tagname]'s Death Alarm")
+		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
 	qdel(a)
 	processing_objects -= src
 

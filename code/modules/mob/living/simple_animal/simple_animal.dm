@@ -92,6 +92,7 @@
 	if(collar)
 		collar.forceMove(loc)
 		collar = null
+	return ..()
 
 /mob/living/simple_animal/Login()
 	if(src && src.client)
