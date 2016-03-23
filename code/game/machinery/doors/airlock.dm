@@ -53,6 +53,7 @@
 	var/frozen = 0 //special condition for airlocks that are frozen shut, this will look weird on not normal airlocks because of a lack of special overlays.
 	autoclose = 1
 	explosion_block = 1
+	tcomms_linkable = 1
 
 /obj/machinery/door/airlock/command
 	name = "Airlock"
@@ -441,7 +442,7 @@ About the new airlock wires panel:
 	if(electrified_timer)
 		deltimer(electrified_timer)
 		electrified_timer = null
-	
+
 	var/message = ""
 	if(isWireCut(AIRLOCK_WIRE_ELECTRIFY) && arePowerSystemsOn())
 		message = text("The electrification wire is cut - Door permanently electrified.")
@@ -1069,3 +1070,85 @@ About the new airlock wires panel:
 		src.open()
 		src.lock()
 	return
+
+/obj/machinery/door/airlock/server_interface(var/list/argslist)
+	if(argslist && argslist.len >= 2)
+		var/activate = argslist[2]
+		switch(argslist[1])
+			if("idscan")
+				if(isWireCut(AIRLOCK_WIRE_IDSCAN))
+				else if(activate && aiDisabledIdScanner)
+					aiDisabledIdScanner = 0
+				else if(!activate && !aiDisabledIdScanner)
+					aiDisabledIdScanner = 1
+			if("main_power")
+				if(!main_power_lost_until)
+					loseMainPower()
+			if("backup_power")
+				if(!backup_power_lost_until)
+					loseBackupPower()
+			if("bolts")
+				if(isWireCut(AIRLOCK_WIRE_DOOR_BOLTS))
+				else if(activate)
+					lock()
+				else if(!activate)
+					unlock()
+			if("electrify_temporary")
+				if(activate && isWireCut(AIRLOCK_WIRE_ELECTRIFY))
+				else if(!activate && electrified_until != 0)
+					electrify(0)
+				else if(activate)	//electrify door for 30 seconds
+					electrify(30)
+			if("electrify_permanently")
+				if(isWireCut(AIRLOCK_WIRE_ELECTRIFY))
+				else if(!activate && electrified_until != 0)
+					electrify(0)
+				else if(activate)
+					electrify(-1)
+			if("open")
+				if(welded || locked)
+				else if(activate && density)
+					open()
+				else if(!activate && !density)
+					close()
+			if("safeties")
+				// Safeties!  We don't need no stinking safeties!
+				if (isWireCut(AIRLOCK_WIRE_SAFETY))
+				else if (!activate && safe)
+					safe = 0
+				else if (activate && !safe)
+					safe = 1
+			if("fast")
+				// Door speed control
+				if(isWireCut(AIRLOCK_WIRE_SPEED))
+				else if (activate && src.normalspeed)
+					normalspeed = 0
+				else if (!activate && !src.normalspeed)
+					normalspeed = 1
+			if("bolt_lights")
+				// Bolt lights
+				if(src.isWireCut(AIRLOCK_WIRE_LIGHT))
+				else if (!activate && src.lights)
+					lights = 0
+				else if (activate && !src.lights)
+					lights = 1
+			if("emergency")
+				// Emergency access
+				if (!activate && emergency)
+					emergency = 0
+				else if (activate && !emergency)
+					emergency = 1
+
+	var/list/data = list()
+
+	data["main_power_loss"]		= round(main_power_lost_until 	> 0 ? max(main_power_lost_until - world.time,	0) / 10 : main_power_lost_until,	1)
+	data["backup_power_loss"]	= round(backup_power_lost_until	> 0 ? max(backup_power_lost_until - world.time,	0) / 10 : backup_power_lost_until,	1)
+	data["electrified"] 		= round(electrified_until		> 0 ? max(electrified_until - world.time, 	0) / 10 	: electrified_until,		1)
+	data["open"] = !density
+	data["idscan"] = !aiDisabledIdScanner
+	data["bolts"] = locked
+	data["bolt_lights"] = lights
+	data["safeties"] = safe
+	data["fast"] = !normalspeed
+	data["emergency"] = emergency
+	return data

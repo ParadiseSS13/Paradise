@@ -346,6 +346,9 @@
 	if(M.loc.loc != S.loc.loc)
 		return
 
+	if(!M.interact_offline && (M.stat & (NOPOWER|BROKEN)))
+		return
+
 	return M.server_interface(arglist)
 
 /datum/signal/proc/pda_message(recipient, message)
