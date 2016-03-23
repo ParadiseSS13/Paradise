@@ -245,9 +245,12 @@
 		new_meat.name = "[slab_name] [new_meat.name]"
 		new_meat.reagents.add_reagent("nutriment",slab_nutrition)
 
+
 		if(occupant.reagents)
 			occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count,1))
 
+	if(occupant.get_species() == "Human")
+		new /obj/item/stack/sheet/animalhide/human
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)

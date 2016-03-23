@@ -23,8 +23,6 @@
 	var/turns_per_move = 1
 	var/turns_since_move = 0
 	universal_speak = 0
-	var/meat_amount = 0
-	var/meat_type
 	var/stop_automated_movement = 0 //Use this to temporarely stop random movement or to if you write special movement code for animals.
 	var/wander = 1	// Does the mob wander around when idle?
 	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
@@ -273,9 +271,10 @@
 /mob/living/simple_animal/gib()
 	if(icon_gib)
 		flick(icon_gib, src)
-	if(meat_amount && meat_type)
-		for(var/i = 0; i < meat_amount; i++)
-			new meat_type(src.loc)
+	if(butcher_results)
+		for(var/path in butcher_results)
+			for(var/i = 1; i <= butcher_results[path];i++)
+				new path(src.loc)
 	..()
 
 
@@ -448,9 +447,6 @@
 			name = C.tagname
 			real_name = C.tagname
 		return
-	else if(meat_type && (stat == DEAD))	//if the animal has a meat, and if it is dead.
-		if(istype(O, /obj/item/weapon/kitchen/knife))
-			harvest()
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
@@ -610,12 +606,6 @@
 			continue
 	if(alone && partner && children < 3)
 		new childtype(loc)
-
-
-// Harvest an animal's delicious byproducts
-/mob/living/simple_animal/proc/harvest()
-	gib()
-	return
 
 /mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"

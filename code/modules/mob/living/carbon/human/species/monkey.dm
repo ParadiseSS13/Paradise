@@ -15,6 +15,7 @@
 	is_small = 1
 	has_fine_manipulation = 0
 	ventcrawler = 1
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."
@@ -29,7 +30,6 @@
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 
 	total_health = 75
 	brute_mod = 1.5

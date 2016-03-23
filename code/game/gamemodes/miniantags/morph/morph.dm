@@ -38,7 +38,7 @@
 	wander = 0
 	attacktext = "glomps"
 	attack_sound = 'sound/effects/blobattack.ogg'
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/slab
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/slab = 2)
 
 	var/morphed = 0
 	var/atom/movable/form = null
