@@ -78,7 +78,7 @@
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
-	var/list/butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/human = 1)
+	var/list/butcher_results = null
 	var/base_color      //Used when setting species.
 
 	//Used in icon caching.
