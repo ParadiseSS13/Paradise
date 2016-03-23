@@ -1,24 +1,11 @@
-#define SMELL_HORRIBLE 0
-#define SMELL_FOUL 1
-#define SMELL_NEUTRAL 2
-#define SMELL_PLEASANT 3
-#define SMELL_NICE 4
-
-#define SMELL_TRACE 2
-#define SMELL_FAINT 4
-#define SMELL_NORMAL 8
-#define SMELL_INTENSE 16
-
 /datum/smell
-	var/qty
+	var/concentration //how much of the smell is in the turf
 	var/name
-	var/intensity
+	var/badness //how good or bad the smell is
 	var/description
 
-/datum/smell/New(var/q)
-	qty=q
-	return src
-
+/datum/smell/New(var/smell_concentration)
+	concentration=smell_concentration
 
 //outputs a string that fully describes a smell
 /mob/living/proc/eval_smell(var/datum/smell/S)
@@ -26,43 +13,43 @@
 		var/mob/living/carbon/human/H = src
 		if((H.species.flags & NO_BREATHE) || (NO_BREATHE in H.mutations) || wear_mask)//can't breathe can't smell, masks block smells
 			return
-	if(!S || constipated)//if there's no smell at all OR if your nose is constipated
+	if(!S || smell_breathing_obstructed)//if there's no smell at all OR if your nose is constipated
 		src << "<span class='notice'>You can't smell anything!</span>"
 		return
 
-	var/int = null
-	var/class = null
-	var/qty = null
+	var/badness = null
+	var/span_class = null
+	var/concentration = null
 
-	var/actual_qty =  get_species_coef(src) * S.qty
+	var/sensed_concentration =  get_species_coef(src) * S.concentration
 
-	if(actual_qty<=SMELL_TRACE)
-		qty = " trace,"
-	else if(actual_qty<=SMELL_FAINT)
-		qty = " faint,"
-	else if(actual_qty<=SMELL_NORMAL)
-		qty = ""
-	else if(actual_qty<=SMELL_INTENSE)
-		qty = "n intense,"
+	if(sensed_concentration <= SMELL_TRACE)
+		concentration = " trace,"
+	else if(sensed_concentration <= SMELL_FAINT)
+		concentration = " faint,"
+	else if(sensed_concentration <= SMELL_NORMAL)
+		concentration = ""
+	else if(sensed_concentration <= SMELL_INTENSE)
+		concentration = "n intense,"
 
-	switch(S.intensity)
+	switch(S.badness)
 		if(SMELL_HORRIBLE)
-			int = "indescribably disgusting"
-			class = "'warning'"
+			badness = "indescribably disgusting"
+			span_class = "warning"
 		if(SMELL_FOUL)
-			int = "incredibly foul"
-			class = "'warning'"
+			badness = "incredibly foul"
+			span_class = "warning"
 		if(SMELL_NEUTRAL)
-			int =""
-			class = "'notice'"
+			badness =""
+			span_class = "notice"
 		if(SMELL_PLEASANT)
-			int ="pleasant"
-			class = "'notice'"
+			badness = "pleasant"
+			span_class = "notice"
 		if(SMELL_NICE)
-			int = "really nice"
-			class = "'notice'"
+			badness = "really nice"
+			span_class = "notice"
 
-	var/data = "<span class=[class]>There's a[qty] [int] smell of [S.description].</span>"
+	var/data = "<span class='[span_class]'>There's a[concentration] [badness] smell of [S.description].</span>"
 	src << data
 
 //returns the smell coeffiect for the species, higher means able to smell tracer ammounts
@@ -82,7 +69,10 @@ mob/living/proc/get_species_coef(var/mob/living/M)
 		return 3 //ian is a god and pretty sure xenos can smell fear
 	else if(iscat(M) || isbear(M) ||ismouse(M))
 		return 2 //runtime is ok too
-	else if(iscarp(M) || iscrab(M))
-		return 0 //not entirely sure how you might end up in a carp, maybe xenobio, so just in case
 
 	return 1 //in case I forget someone
+
+/datum/smell/vomit
+	name = "vomit"
+	badness = 1
+	description = "vomit"

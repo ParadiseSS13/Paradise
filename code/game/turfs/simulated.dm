@@ -11,6 +11,8 @@
 	var/dirt = 0
 	var/dirtoverlay = null
 
+	var/datum/smell/smell = null
+
 /turf/simulated/New()
 	..()
 	levelupdate()

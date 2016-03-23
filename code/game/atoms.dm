@@ -372,7 +372,7 @@
 /atom/proc/add_vomit_floor(mob/living/carbon/M as mob, var/toxvomit = 0)
 	if( istype(src, /turf/simulated) )
 		var/obj/effect/decal/cleanable/vomit/this = new /obj/effect/decal/cleanable/vomit(src)
-
+		addSmell(src, "vomit", SMELL_TRACE)
 		// Make toxins vomit look different
 		if(toxvomit)
 			this.icon_state = "vomittox_[pick(1,4)]"
@@ -381,6 +381,26 @@
 	if( istype(src, /turf/simulated) )
 		new /obj/effect/decal/cleanable/poop(src)
 
+/atom/proc/addSmell(var/turf/simulated/T, var/smellName, var/concentration)
+	if(istype(T, /turf/simulated))
+		var/P = text2path("/datum/smell/[smellName]")
+		var/datum/smell/S = new P(concentration)
+		mergeSmell(src, S)
+		concentration--
+		if(concentration > 0)
+			for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir = 1))
+				tile.addSmell(smellName, concentration)
+
+/atom/proc/mergeSmell(var/turf/simulated/T, var/datum/smell/NS)
+	if(istype(T, /turf/simulated))
+		if(!T.smell)
+			T.smell = NS
+		else
+			if(T.smell.name == NS.name)
+				T.smell.concentration += NS.concentration
+			else
+				if(NS.concentration >= T.smell.concentration)
+					T.smell=NS
 
 /atom/proc/get_global_map_pos()
 	if(!islist(global_map) || isemptylist(global_map)) return

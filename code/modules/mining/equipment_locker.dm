@@ -564,8 +564,7 @@
 							var/turf/T = get_turf(L)
 							T.add_vomit_floor(L)
 							playsound(L, 'sound/effects/splat.ogg', 50, 1)
-							T.addSmell("vomit",SMELL_TRACE)
-							
+
 /**********************Resonator**********************/
 
 /obj/item/weapon/resonator

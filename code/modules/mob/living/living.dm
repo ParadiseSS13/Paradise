@@ -962,7 +962,7 @@
 	if(istype(wear_mask, /obj/item/clothing/mask))//can't smell things with a mask on your face
 		src << "<span class='notice'>You can't smell anything other than your mask.</span>"
 
-	var/turf/T = get_turf(src)
+	var/turf/simulated/T = get_turf(src)
 	var/datum/smell/S = T.smell
 
 	eval_smell(S)

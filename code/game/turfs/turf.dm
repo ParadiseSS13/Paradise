@@ -32,8 +32,6 @@
 	var/list/footstep_sounds = list()
 	var/shoe_running_volume = 50
 	var/shoe_walking_volume = 20
-	
-	var/datum/smell/smell = null
 
 /turf/New()
 	..()
@@ -372,23 +370,3 @@
 
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
-	
-/turf/proc/addSmell(var/smellName, var/qty)
-	if(istype(src, /turf/simulated))
-		var/P = text2path("/datum/smell/[smellName]")
-		var/datum/smell/S = new P(qty)
-		mergeSmell(S)
-		qty--
-		if(qty > 0)
-			for(var/turf/tile in GetAtmosAdjacentTurfs(alldir=1))
-				tile.addSmell(smellName, qty)
-
-/turf/proc/mergeSmell(var/datum/smell/NS)
-	if(!smell)
-		smell = NS
-	else
-		if(smell.name == NS.name)
-			smell.qty += NS.qty
-		else
-			if(NS.qty >= smell.qty)
-				smell=NS
