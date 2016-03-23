@@ -1658,6 +1658,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			real_name += "[pick(last_names)]"
 
 	character.real_name = real_name
+	character.dna.real_name = real_name
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
