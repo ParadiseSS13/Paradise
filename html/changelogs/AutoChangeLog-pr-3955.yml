@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Shadow people no longer dust on death, are rad immune+virus immune, and can be cloned. Slip immunity removed"
+  - tweak: "Shadowlings no longer get hungry or fat and no longer dust on death"
