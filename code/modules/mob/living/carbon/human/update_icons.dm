@@ -957,7 +957,8 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/update_hud()	//TODO: do away with this if possible
 	if(client)
-		client.screen |= contents
+		for(var/obj/item/I in get_all_slots())
+			client.screen |= I // Items only please, no arms allowed
 		if(hud_used)
 			hud_used.hidden_inventory_update() 	//Updates the screenloc of the items on the 'other' inventory bar
 			update_inv_handcuffed(0) // update handcuff overlay
