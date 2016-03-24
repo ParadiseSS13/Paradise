@@ -136,6 +136,9 @@
 			extinguishItem(F)
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets)
+	if(!shadowling_check(usr))
+		charge_counter = charge_max
+		return
 	usr << "<span class='shadowling'>You silently disable all nearby lights.</span>"
 	for(var/obj/effect/glowshroom/G in orange(2, usr)) //Why the fuck was this in the loop below?
 		G.visible_message("<span class='warning'>\The [G] withers away!</span>")
@@ -449,7 +452,7 @@
 			reviveThrallAcquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. This will, after a short time, bring a dead thrall completely back to life \
 			with no bodily defects.</i></span>"
-			user.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/reviveThrall
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/reviveThrall)
 
 		if(thralls < victory_threshold)
 			user << "<span class='shadowling'>You do not have the power to ascend. You require [victory_threshold] thralls, but only [thralls] living thralls are present.</span>"
@@ -636,6 +639,10 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 					usr << "<span class='warning'>[thrallToRevive] must be conscious to become empowered.</span>"
 					charge_counter = charge_max
 					return
+				if(thrallToRevive.get_species() == "Lesser Shadowling")
+					usr << "<span class='warning'>[thrallToRevive] is already empowered.</span>"
+					charge_counter = charge_max
+					return
 				var/empowered_thralls = 0
 				for(var/datum/mind/M in ticker.mode.shadowling_thralls)
 					if(!ishuman(M.current))
@@ -693,7 +700,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 				playsound(thrallToRevive, 'sound/machines/defib_zap.ogg', 50, 1)
 				usr.Beam(thrallToRevive,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 				sleep(10)
-				if(thrallToRevive.revive(full_heal = 1))
+				if(thrallToRevive.revive())
 					thrallToRevive.visible_message("<span class='boldannounce'>[thrallToRevive] heaves in breath, dim red light shining in their eyes.</span>", \
 											   "<span class='shadowling'><b><i>You have returned. One of your masters has brought you from the darkness beyond.</b></i></span>")
 					thrallToRevive.Weaken(4)
