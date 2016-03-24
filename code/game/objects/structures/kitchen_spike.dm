@@ -23,7 +23,7 @@
 		if(R.get_amount() >= 4)
 			R.use(4)
 			user << "<span class='notice'>You add spikes to the frame.</span>"
-			new /obj/structure/kitchenspike(src.loc,)
+			new /obj/structure/kitchenspike(loc)
 			add_fingerprint(user)
 			qdel(src)
 
@@ -42,12 +42,12 @@
 
 /obj/structure/kitchenspike/attackby(obj/item/weapon/grab/G as obj, mob/user as mob)
 	if(istype(G, /obj/item/weapon/crowbar))
-		if(!src.buckled_mob)
+		if(!buckled_mob)
 			playsound(loc, 'sound/items/Crowbar.ogg', 100, 1)
 			if(do_after(user, 20, target = src))
 				user << "<span class='notice'>You pry the spikes out of the frame.</span>"
 				new /obj/item/stack/rods(loc, 4)
-				new /obj/structure/kitchenspike_frame(src.loc,)
+				new /obj/structure/kitchenspike_frame(loc)
 				add_fingerprint(user)
 				qdel(src)
 		else
@@ -58,11 +58,13 @@
 	if(buckled_mob)
 		user << "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>"
 	else
-		if(istype(G.affecting, /mob/living/))
+		if(isliving(G.affecting))
 			if(!buckled_mob)
-				if(do_mob(src, src, 120))
+				if(do_mob(user, src, 120))
 					if(spike(G.affecting))
+						G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
 						qdel(G)
+						return
 		user << "<span class='danger'>You can't use that on the spike!</span>"
 		return
 
@@ -77,9 +79,8 @@
 	if(victim.buckled)
 		return 0
 	var/mob/living/H = victim
-	playsound(src.loc, "sound/effects/splat.ogg", 25, 1)
-	H.visible_message("<span class='danger'>[src] slams [victim] onto the meat spike!</span>", "<span class='userdanger'>[src] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
-	H.loc = src.loc
+	playsound(loc, "sound/effects/splat.ogg", 25, 1)
+	H.forceMove(loc)
 	H.emote("scream")
 	if(istype(H, /mob/living/carbon/human)) //So you don't get human blood when you spike a giant spidere
 		var/turf/simulated/pos = get_turf(H)
@@ -131,7 +132,7 @@
 		animate(M, transform = m180, time = 3)
 		M.pixel_y = M.get_standard_pixel_y_offset(180)
 		M.adjustBruteLoss(30)
-		src.visible_message(text("<span class='danger'>[M] falls free of the [src]!</span>"))
+		visible_message("<span class='danger'>[M] falls free of the [src]!</span>")
 		unbuckle_mob()
 		M.emote("scream")
 		M.AdjustWeakened(10)

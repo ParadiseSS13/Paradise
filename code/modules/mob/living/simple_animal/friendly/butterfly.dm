@@ -17,7 +17,7 @@
 	density = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 0)
 
 /mob/living/simple_animal/butterfly/New()
 	..()

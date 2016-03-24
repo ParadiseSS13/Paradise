@@ -6,6 +6,7 @@
 // No comment
 /atom/proc/attackby(obj/item/W, mob/living/user, params)
 	return
+
 /atom/movable/attackby(obj/item/W, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -15,12 +16,11 @@
 /mob/living/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	if((butcher_results) && (stat == DEAD))
-		var/sharpness = is_sharp(I)
-		if(sharpness)
+	if(user.a_intent == I_HARM && stat == DEAD && butcher_results) //can we butcher it?
+		if(is_sharp(I))
 			user << "<span class='notice'>You begin to butcher [src]...</span>"
 			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80/sharpness))
+			if(do_mob(user, src, 80))
 				harvest(user)
 			return
 

@@ -32,7 +32,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
-	butcher_results = list(/obj/item/weapon/ectoplasm = 1)
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
