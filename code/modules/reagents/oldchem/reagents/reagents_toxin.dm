@@ -67,7 +67,7 @@
 		M << "\red Your insides are burning!"
 		M.adjustToxLoss(rand(20,60)*REM)
 	else if(prob(40))
-		M.heal_organ_damage(5*REM,0)
+		M.adjustBruteLoss(-5*REM)
 	..()
 	return
 
