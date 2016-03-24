@@ -192,8 +192,8 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease
 	name = "Diseased Touch (100)"
-	desc = "Touches your victim with infected blood giving them the Shutdown Syndrome which quickly shutsdown their major organs resulting in a quick painful death."
-	gain_desc = "You have gained the Diseased Touch ability which causes those you touch to die shortly after unless treated medically."
+	desc = "Touches your victim with infected blood giving them appendicitis, which will, left untreated, cause a slow death by poison."
+	gain_desc = "You have gained the Diseased Touch ability which causes those you touch to die unless treated medically."
 	action_icon_state = "vampire_disease"
 	required_blood = 100
 
@@ -204,21 +204,8 @@
 		if(!affects(target))
 			usr << "<span class='warning'>They seem to be unaffected.</span>"
 			continue
-		var/datum/disease2/disease/shutdown = new /datum/disease2/disease
-		var/datum/disease2/effectholder/holder = new /datum/disease2/effectholder
-		var/datum/disease2/effect/organs/vampire/O = new /datum/disease2/effect/organs/vampire
-		holder.effect += O
-		holder.chance = 10
-		shutdown.infectionchance = 100
-		shutdown.antigen |= text2num(pick(ANTIGENS))
-		shutdown.antigen |= text2num(pick(ANTIGENS))
-		shutdown.spreadtype = "None"
-		shutdown.uniqueID = rand(0,10000)
-		shutdown.effects += holder
-		shutdown.speed = 1
-		shutdown.stage = 2
-		shutdown.clicks = 185
-		infect_virus2(target, shutdown, 0)
+		var/datum/disease/D = new /datum/disease/appendicitis //someone should probably make a better virus for this
+		target.ForceContractDisease(D)
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare
 	name = "Glare"

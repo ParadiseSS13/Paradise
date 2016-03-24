@@ -435,6 +435,11 @@ var/const/INGEST = 2
 						else R.reaction_obj(A, R.volume+volume_modifier)
 	return
 
+/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list("toxin" = 10, "beer" = 15)
+	for(var/r_id in list_reagents)
+		var/amt = list_reagents[r_id]
+		add_reagent(r_id, amt, data)
+
 /datum/reagents/proc/add_reagent(var/reagent, var/amount, var/list/data=null, var/reagtemp = 300)
 	if(!isnum(amount)) return 1
 	update_total()
@@ -486,13 +491,10 @@ var/const/INGEST = 2
 		reagent_list += R
 		R.holder = src
 		R.volume = amount
-//					SetViruses(R, data) // Includes setting data
-		if(data) R.data = data
-		//debug
-		//world << "Adding data"
-		//for(var/D in R.data)
-		//	world << "Container data: [D] = [R.data[D]]"
-		//debug
+		if(data)
+			R.data = data
+			R.on_new(data)
+
 		update_total()
 		my_atom.on_reagent_change()
 		handle_reactions()
@@ -605,9 +607,9 @@ var/const/INGEST = 2
 	// Technically we should probably copy all data lists, but
 	// that could possibly eat up a lot of memory needlessly
 	// if most data lists are read-only.
-	if (trans_data["virus2"])
-		var/list/v = trans_data["virus2"]
-		trans_data["virus2"] = v.Copy()
+	if(trans_data["viruses"])
+		var/list/v = trans_data["viruses"]
+		trans_data["viruses"] = v.Copy()
 
 	return trans_data
 

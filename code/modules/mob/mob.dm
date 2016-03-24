@@ -6,6 +6,8 @@
 	hud_used = null
 	if(mind && mind.current == src)
 		spellremove(src)
+	for(var/infection in viruses)
+		qdel(infection)
 	ghostize()
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
@@ -1382,16 +1384,6 @@ mob/proc/yank_out_object()
 			src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
-
-/mob/proc/fakepoop() //for aesthetic craps. Whyyyyy -Fox
-	if(stat==DEAD)
-		return
-	var/turf/location = loc
-	if (istype(location, /turf/simulated))
-		src.visible_message("<span class='warning'>[src] has explosive diarrhea all over the floor!</span>","<span class='warning'>You have explosive diarrhea all over the floor!</span>")
-		location.add_poop_floor()
-		playsound(location, 'sound/effects/splat.ogg', 50, 1)
-
 
 
 /mob/proc/adjustEarDamage()

@@ -208,7 +208,6 @@ text("<A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A>"))
 
 	target_types += /obj/effect/decal/cleanable/blood/oil
 	target_types += /obj/effect/decal/cleanable/vomit
-	target_types += /obj/effect/decal/cleanable/poop
 	target_types += /obj/effect/decal/cleanable/blood/gibs/robot
 	target_types += /obj/effect/decal/cleanable/crayon
 	target_types += /obj/effect/decal/cleanable/liquid_fuel
@@ -220,7 +219,6 @@ text("<A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A>"))
 	target_types += /obj/effect/decal/cleanable/ash
 	target_types += /obj/effect/decal/cleanable/greenglow
 	target_types += /obj/effect/decal/cleanable/dirt
-	target_types += /obj/effect/decal/cleanable/mucus
 
 	if(blood)
 		target_types += /obj/effect/decal/cleanable/blood/xeno/

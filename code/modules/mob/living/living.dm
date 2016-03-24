@@ -386,6 +386,9 @@
 		C.handcuffed = initial(C.handcuffed)
 		C.heart_attack = 0
 
+		for(var/datum/disease/D in C.viruses)
+			D.cure(0)
+
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
 			var/mob/living/carbon/human/human_mob = src

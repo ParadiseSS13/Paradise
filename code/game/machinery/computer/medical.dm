@@ -84,7 +84,6 @@
 					dat += text("\n<A href='?src=\ref[];print_p=1'>Print Record</A><BR>\n<A href='?src=\ref[];screen=2'>Back</A><BR>", src, src)
 				if(5.0)
 					dat += "<CENTER><B>Virus Database</B></CENTER>"
-					/*	Advanced diseases is weak! Feeble! Glory to virus2!
 					for(var/Dt in typesof(/datum/disease/))
 						var/datum/disease/Dis = new Dt(0)
 						if(istype(Dis, /datum/disease/advance))
@@ -92,11 +91,6 @@
 						if(!Dis.desc)
 							continue
 						dat += "<br><a href='?src=\ref[src];vir=[Dt]'>[Dis.name]</a>"
-					*/
-					for (var/ID in virusDB)
-						var/datum/data/record/v = virusDB[ID]
-						dat += "<br><a href='?src=\ref[src];vir=\ref[v]'>[v.fields["name"]]</a>"
-
 					dat += "<br><a href='?src=\ref[src];screen=1'>Back</a>"
 				if(6.0)
 					dat += "<center><b>Medical Robot Monitor</b></center>"

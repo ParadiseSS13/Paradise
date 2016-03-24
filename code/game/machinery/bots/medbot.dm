@@ -424,10 +424,17 @@
 	if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_tox)))
 		return 1
 
-	if((C.virus2.len) && (!C.reagents.has_reagent(treatment_virus)))
-		for (var/ID in C.virus2)
-			if (ID in virusDB) // If the virus is known, the medbot is aware of it
-				return 1
+	if(treat_virus)
+		for(var/datum/disease/D in C.viruses)
+			//the medibot can't detect viruses that are undetectable to Health Analyzers or Pandemic machines.
+			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+				return 0
+			if(D.severity == NONTHREAT) // medibot doesn't try to heal truly harmless viruses
+				return 0
+			if((D.stage > 1) || (D.spread_flags & AIRBORNE)) // medibot can't detect a virus in its initial stage unless it spreads airborne.
+
+				if(!C.reagents.has_reagent(treatment_virus))
+					return 1 //STOP DISEASE FOREVER
 	return 0
 
 /obj/machinery/bot/medbot/proc/medicate_patient(mob/living/carbon/C as mob)
@@ -458,12 +465,14 @@
 	else
 		if(treat_virus)
 			var/virus = 0
-			if(C:virus2.len)
-				for (var/ID in C.virus2)
-					if (ID in virusDB) // If the virus is known, the medbot is aware of it and will try to cure it
-						virus = 1
+			for(var/datum/disease/D in C.viruses)
+				//detectable virus
+				if((!(D.visibility_flags & HIDDEN_SCANNER)) || (!(D.visibility_flags & HIDDEN_PANDEMIC)))
+					if(D.severity != NONTHREAT)      //virus is harmful
+						if((D.stage > 1) || (D.spread_flags & AIRBORNE))
+							virus = 1
 
-			if (!reagent_id && (virus))
+			if(!reagent_id && (virus))
 				if(!C.reagents.has_reagent(treatment_virus))
 					reagent_id = treatment_virus
 
