@@ -1529,6 +1529,8 @@
 		var/mob/dead/observer/G = locate(href_list["incarn_ghost"])
 		if(!istype(G))
 			usr << "This will only work on /mob/dead/observer"
+		log_admin("[key_name(G)] was incarnated by [key_name(src.owner)]")
+		message_admins("[key_name_admin(G)] was incarnated by [key_name_admin(src.owner)]")
 		G.incarnate_ghost()
 
 	else if(href_list["togmutate"])

@@ -1,0 +1,6 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Limbs and cyborg modules will no longer appear in your screen."
+  - bugfix: "Cyborg module icons are now persistent throughout logging in and out."
+  - bugfix: "Various cyborg modules, like engineering, now use the proper icon."

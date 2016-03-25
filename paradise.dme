@@ -764,6 +764,7 @@
 #include "code\game\objects\items\weapons\grenades\chem_grenade.dm"
 #include "code\game\objects\items\weapons\grenades\clowngrenade.dm"
 #include "code\game\objects\items\weapons\grenades\clusterbuster.dm"
+#include "code\game\objects\items\weapons\grenades\confetti.dm"
 #include "code\game\objects\items\weapons\grenades\custom_grenades.dm"
 #include "code\game\objects\items\weapons\grenades\emgrenade.dm"
 #include "code\game\objects\items\weapons\grenades\flashbang.dm"

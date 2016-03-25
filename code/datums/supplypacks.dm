@@ -918,7 +918,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/reagent_containers/food/drinks/cans/beer,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/beer,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/beer,
-					/obj/item/weapon/reagent_containers/food/drinks/cans/beer)
+					/obj/item/weapon/reagent_containers/food/drinks/cans/beer,
+					/obj/item/weapon/grenade/confetti,
+					/obj/item/weapon/grenade/confetti)
 	cost = 20
 	containername = "party equipment"
 	announce_beacons = list("Bar" = list("Bar"))
