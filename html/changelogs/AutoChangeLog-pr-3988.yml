@@ -1,5 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "Unbranded heads and groins no longer invisible."
-  - bugfix: "Zeng-hu left leg will now be in line with the body when facing south."

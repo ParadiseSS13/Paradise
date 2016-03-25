@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes several chems not properly healing brute/burn damage, consistently, as intended"
