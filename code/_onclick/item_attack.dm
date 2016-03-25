@@ -16,8 +16,9 @@
 /mob/living/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(user.a_intent == I_HARM && stat == DEAD && butcher_results) //can we butcher it?
-		if(is_sharp(I))
+	if(user.a_intent == I_HARM && stat == DEAD && !isnull(butcher_results)) //can we butcher it?
+		if(istype(I, /obj/item/weapon/kitchen/knife))
+			world << "living"
 			user << "<span class='notice'>You begin to butcher [src]...</span>"
 			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 			if(do_mob(user, src, 80))

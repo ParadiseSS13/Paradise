@@ -447,6 +447,10 @@
 			name = C.tagname
 			real_name = C.tagname
 		return
+	else if(butcher_results && (stat == DEAD))	//if the animal has a meat, and if it is dead.
+		if(istype(O, /obj/item/weapon/kitchen/knife))
+			world << "Simple"
+			harvest(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
