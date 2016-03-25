@@ -131,6 +131,8 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 		usr << "<span class='notice'>ERROR: Messaging server is not responding.</span>"
 
 /datum/data/pda/app/chatroom/Topic(href, list/href_list)
+	if(!pda.can_use())
+		return
 	unnotify()
 
 	switch(href_list["choice"])
@@ -172,7 +174,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				return
 			t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 			t = readd_quotes(t)
-			if (!t || (!in_range(pda, usr) && pda.loc != usr))
+			if (!t || !pda.can_use())
 				return
 
 			target.post(src, t)
