@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Robotics now has a \"sterile\" surgical area for performing augmentations"
+  - rscadd: "Adds the FixOVein and Bone Gel to the autolathe"
+  - tweak: "ensures all surgical tools have origin tech on them; lowers origin tech on FixoVein"
