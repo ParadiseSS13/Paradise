@@ -290,7 +290,7 @@
 		if(I.status != ORGAN_ROBOT || I.robotic != 2)
 			user << "<span class='notice'>You can only implant cybernetic organs.</span>"
 
-		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
+		if((target_zone != I.parent_organ && !(target_zone == "head" && I.parent_organ == "eyes")) || target.get_organ_slot(I.slot))
 			user << "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>"
 			return -1
 
