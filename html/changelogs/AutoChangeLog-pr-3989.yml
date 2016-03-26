@@ -1,0 +1,5 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - rscadd: "Slime People can now wear underwear."
+  - rscadd: "Slime People can now wear undershirts."

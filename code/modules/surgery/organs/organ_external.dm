@@ -312,6 +312,7 @@ This function completely restores a damaged organ to perfect condition.
 		status = 128
 	else
 		status = 0
+	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
@@ -320,6 +321,8 @@ This function completely restores a damaged organ to perfect condition.
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
 		current_organ.rejuvenate()
 
+	for(var/obj/item/organ/external/EO in contents)
+		EO.rejuvenate()
 
 	// remove embedded objects and drop them on the floor
 	for(var/obj/implanted_object in implants)
@@ -329,6 +332,8 @@ This function completely restores a damaged organ to perfect condition.
 
 	owner.updatehealth()
 	update_icon()
+	if(!owner)
+		processing_objects |= src
 
 
 /obj/item/organ/external/proc/createwound(var/type = CUT, var/damage)

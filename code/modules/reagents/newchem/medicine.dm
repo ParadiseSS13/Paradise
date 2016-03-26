@@ -384,7 +384,8 @@ datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
 		M.adjustOxyLoss(-1)
 	if(M.health < 0 || M.health > 0 && prob(33))
 		M.adjustToxLoss(-1)
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 	..()
 	return
 

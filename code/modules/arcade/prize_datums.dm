@@ -223,6 +223,13 @@ var/global/datum/prizes/global_prizes = new
 	cost = 75
 	tier_unlocked = 2
 
+/datum/prize_item/confetti
+	name = "Confetti Grenade"
+	desc = "Party time!"
+	typepath = /obj/item/weapon/grenade/confetti
+	cost = 65
+	tier_unlocked = 2
+
 //////////////////////////////////////
 //			Tier 3 Prizes			//
 //////////////////////////////////////

@@ -64,6 +64,8 @@
 			data["charges"] = pda.cartridge.charges ? pda.cartridge.charges : 0
 
 /datum/data/pda/app/messenger/Topic(href, list/href_list)
+	if(!pda.can_use())
+		return
 	unnotify()
 
 	switch(href_list["choice"])

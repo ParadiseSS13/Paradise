@@ -194,3 +194,14 @@
 /obj/effect/decal/cleanable/fungus/New()
 	..()
 	reagents.add_reagent("fungus", 10)
+
+/obj/effect/decal/cleanable/confetti //PARTY TIME!
+	name = "confetti"
+	desc = "Party time!"
+	gender = PLURAL
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "confetti1"
+	random_icon_states = list("confetti1", "confetti2", "confetti3")
+	anchored = 1
+
+
