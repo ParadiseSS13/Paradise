@@ -378,7 +378,7 @@
 	cold_env_multiplier = 3
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
-	clothing_flags = HAS_SOCKS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
