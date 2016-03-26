@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Major rebalance and Shadowling update (https://github.com/ParadiseSS13/Paradise/pull/3986 for details). In general, Shadowlings can no longer enthrall or engage in Shadowling like behavior, pre-hatch. Post-hatch, shadowlings are much more powerful, with a ride array of New abilities such as extending the shuttle or making thralls into lesser shadowlings. Shadowling gameplay should not revolve almost entirely around darkness, as opposed to pre-hatch shenanigans."
