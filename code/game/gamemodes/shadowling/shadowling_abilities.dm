@@ -75,8 +75,8 @@
 			target << "<span class='userdanger'>Your gaze is forcibly drawn into [usr]'s eyes, and you are mesmerized by the heavenly lights...</span>"
 		else
 			target << "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by their heavenly beauty...</span>"
-		target.Stun(5) //Roughly 50% as long as the normal one
-		M.silent += 5
+		target.Stun(3) //Roughly 30% as long as the normal one
+		M.silent += 3
 
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
