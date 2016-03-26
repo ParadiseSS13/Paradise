@@ -141,6 +141,7 @@
 	description = "Watch out that the Green Fairy doesn't come for you!"
 	color = "#33EE00" // rgb: lots, ??, ??
 	overdose_threshold = 30
+	dizzy_adj = 5
 	alcohol_perc = 0.7
 
 //copy paste from LSD... shoot me
