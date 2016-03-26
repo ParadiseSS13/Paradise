@@ -57,7 +57,10 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
 		dna = new_dna.Clone()
-		blood_DNA.Cut()
+		if(blood_DNA)
+			blood_DNA.Cut()
+		else
+			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
 /obj/item/organ/proc/die()
@@ -81,16 +84,16 @@ var/list/organ_cache = list()
 		return
 
 	//Process infections
-	if ((status & ORGAN_ROBOT) || (sterile) ||(owner && owner.species && (owner.species.flags & IS_PLANT)))
+	if ((status & ORGAN_ROBOT) || sterile ||(owner && owner.species && (owner.species.flags & IS_PLANT)))
 		germ_level = 0
 		return
 
 	if(!owner)
-		if(reagents)
-			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in reagents.reagent_list
-			if(B && prob(40))
-				reagents.remove_reagent("blood",0.1)
-				blood_splatter(src,B,1)
+		if(reagents && prob(40))
+			reagents.remove_any(0.1)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				R.reaction_turf(get_turf(src), 0.1)
+
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
@@ -173,6 +176,9 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
+	status &= ~ORGAN_DEAD
+	if(!owner)
+		processing_objects |= src
 
 /obj/item/organ/proc/is_damaged()
 	return damage > 0
@@ -256,6 +262,27 @@ var/list/organ_cache = list()
 		if(3.0)
 			take_damage(0,3)
 
+/obj/item/organ/internal/emp_act(severity)
+	if(!robotic)
+		return
+	if(robotic == 2)
+		switch (severity)
+			if (1.0)
+				take_damage(20,1)
+			if (2.0)
+				take_damage(7,1)
+			if(3.0)
+				take_damage(3,1)
+	else if(robotic == 1)
+		take_damage(11,1)
+
+/obj/item/organ/internal/heart/emp_act(intensity)
+	if(owner && robotic == 2)
+		owner.heart_attack = 1
+		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
+	else if(owner && robotic == 1)
+		take_damage(11,1)
+
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
 		return
@@ -268,8 +295,8 @@ var/list/organ_cache = list()
 	loc = get_turf(owner)
 	processing_objects |= src
 	var/datum/reagent/blood/organ_blood
-	if(reagents) organ_blood = locate(/datum/reagent/blood) in reagents.reagent_list
-	if(!organ_blood || !organ_blood.data["blood_DNA"])
+	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_name())
+	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(owner.species.flags & NO_BLOOD)))
 		owner.vessel.trans_to(src, 5, 1, 1)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead

@@ -139,6 +139,9 @@ var/global/nologevent = 0
 			else
 				body += "<A href='?_src_=holder;makeanimal=\ref[M]'>Animalize</A> | "
 
+			if(istype(M, /mob/dead/observer))
+				body += "<a href='?_src_=holder;incarn_ghost=\ref[M]'>Re-incarnate</a> | "
+
 			// DNA2 - Admin Hax
 			if(M.dna && iscarbon(M))
 				body += "<br><br>"

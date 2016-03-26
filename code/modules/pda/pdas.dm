@@ -50,9 +50,12 @@
 
 /obj/item/device/pda/mime/New()
 	..()
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
-		M.silent = 1
+		M.notify_silent = 1
+	M = find_program(/datum/data/pda/app/chatroom)
+	if(M)
+		M.notify_silent = 1
 
 /obj/item/device/pda/heads
 	default_cartridge = /obj/item/weapon/cartridge/head
@@ -142,9 +145,12 @@
 
 /obj/item/device/pda/librarian/New()
 	..()
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
-		M.silent = 1 //Quiet in the library!
+		M.notify_silent = 1 //Quiet in the library!
+	M = find_program(/datum/data/pda/app/chatroom)
+	if(M)
+		M.notify_silent = 1 //Quiet in the library!
 
 /obj/item/device/pda/clear
 	icon_state = "pda-transp"

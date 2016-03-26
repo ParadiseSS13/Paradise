@@ -1,3 +1,80 @@
+/obj/machinery/computer/emergency_shuttle
+	name = "emergency shuttle console"
+	desc = "For shuttle control."
+	icon_screen = "shuttle"
+	icon_keyboard = "tech_key"
+	var/auth_need = 3
+	var/list/authorized = list()
+
+/obj/machinery/computer/emergency_shuttle/attackby(obj/item/weapon/card/W, mob/user, params)
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(!istype(W, /obj/item/weapon/card))
+		return
+	if(shuttle_master.emergency.mode != SHUTTLE_DOCKED)
+		return
+	if(!user)
+		return
+	if(shuttle_master.emergency.timeLeft() < 11)
+		return
+	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
+		if (istype(W, /obj/item/device/pda))
+			var/obj/item/device/pda/pda = W
+			W = pda.id
+		if (!W:access) //no access
+			user << "The access level of [W:registered_name]\'s card is not high enough. "
+			return
+
+		var/list/cardaccess = W:access
+		if(!istype(cardaccess, /list) || !cardaccess.len) //no access
+			user << "The access level of [W:registered_name]\'s card is not high enough. "
+			return
+
+		if(!(access_heads in W:access)) //doesn't have this access
+			user << "The access level of [W:registered_name]\'s card is not high enough. "
+			return 0
+
+		var/choice = alert(user, text("Would you like to (un)authorize a shortened launch time? [] authorization\s are still needed. Use abort to cancel all authorizations.", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
+		if(shuttle_master.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
+			return 0
+
+		var/seconds = shuttle_master.emergency.timeLeft()
+		if(seconds <= 10)
+			return 0
+
+		switch(choice)
+			if("Authorize")
+				if(!authorized.Find(W:registered_name))
+					authorized += W:registered_name
+					if(auth_need - authorized.len > 0)
+						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
+						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
+						minor_announcement.Announce("[auth_need - authorized.len] more authorization(s) needed until shuttle is launched early")
+					else
+						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
+						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
+						minor_announcement.Announce("The emergency shuttle will launch in 10 seconds")
+						shuttle_master.emergency.setTimer(100)
+
+			if("Repeal")
+				if(authorized.Remove(W:registered_name))
+					minor_announcement.Announce("[auth_need - authorized.len] authorizations needed until shuttle is launched early")
+
+			if("Abort")
+				if(authorized.len)
+					minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
+					authorized.Cut()
+
+/obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
+	if(!emagged && shuttle_master.emergency.mode == SHUTTLE_DOCKED)
+		var/time = shuttle_master.emergency.timeLeft()
+		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
+		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
+		minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
+		shuttle_master.emergency.setTimer(100)
+		emagged = 1
+
+
 /obj/docking_port/mobile/emergency
 	name = "emergency shuttle"
 	id = "emergency"
@@ -111,14 +188,17 @@
 						G.dom_attempts = min(1,G.dom_attempts)
 */
 		if(SHUTTLE_DOCKED)
+
 			if(time_left <= 0 && shuttle_master.emergencyNoEscape)
 				priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
+
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
 				for(var/area/shuttle/escape/E in world)
 					E << 'sound/effects/hyperspace_begin.ogg'
+
 			if(time_left <= 0 && !shuttle_master.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
 				for(var/obj/docking_port/mobile/pod/M in shuttle_master.mobile)
@@ -193,9 +273,16 @@
 	admin_controlled = 0
 	icon_state = "dorm_emag"
 
+/obj/docking_port/stationary/random
+	name = "escape pod"
+	id = "pod"
+	dwidth = 1
+	width = 3
+	height = 4
+	var/target_area = /area/mine/unexplored
+
 /obj/docking_port/stationary/random/initialize()
 	..()
-	var/target_area = /area/mine/unexplored
-	var/turfs = get_area_turfs(target_area)
-	var/T=pick(turfs)
+	var/list/turfs = get_area_turfs(target_area)
+	var/turf/T = pick(turfs)
 	src.loc = T

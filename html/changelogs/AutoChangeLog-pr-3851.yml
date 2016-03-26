@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes facehuggers hugging already infected people"
-  - bugfix: "Fixes facehuggers hugging people while dead"
-  - bugfix: "Fixes Embryo's developing twice as fast as they should"

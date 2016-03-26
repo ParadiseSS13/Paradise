@@ -6,6 +6,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "larva0_dead"
 	var/stage = 0
+	var/polling = 0
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
 	..()
@@ -65,8 +66,9 @@
 
 
 /obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
-	if(!owner)
+	if(!owner || polling)
 		return
+	polling = 1
 	spawn()
 		var/list/candidates = pollCandidates("Do you want to play as an alien?", ROLE_ALIEN, 0)
 		var/mob/C = null
@@ -81,7 +83,8 @@
 		else if(owner.client)
 			C = owner.client
 		else
-			stage = 4 // Let's try again later.
+			stage = 2 // Let's try again later.
+			polling = 0
 			return
 
 		var/overlay = image('icons/mob/alien.dmi', loc = owner, icon_state = "burst_lie")

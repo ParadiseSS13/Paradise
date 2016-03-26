@@ -446,7 +446,7 @@ var/list/admin_verbs_proccall = list (
 /client/proc/big_brother()
 	set category = "Admin"
 	set name = "Big Brother Mode"
-	
+
 	if(!check_rights(R_PERMISSIONS))
 		return
 
@@ -809,7 +809,17 @@ var/list/admin_verbs_proccall = list (
 		return
 
 	if(!istype(H))
-		return
+		if(istype(H, /mob/living/carbon/brain))
+			var/mob/living/carbon/brain/B = H
+			if(istype(B.container, /obj/item/device/mmi/posibrain/ipc))
+				var/obj/item/device/mmi/posibrain/ipc/C = B.container
+				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
+				if(istype(P.owner, /mob/living/carbon/human))
+					H = P.owner
+			else
+				return
+		else
+			return
 
 	if(holder)
 		admin_log_and_message_admins("is altering the appearance of [H].")
@@ -825,7 +835,17 @@ var/list/admin_verbs_proccall = list (
 		return
 
 	if(!istype(H))
-		return
+		if(istype(H, /mob/living/carbon/brain))
+			var/mob/living/carbon/brain/B = H
+			if(istype(B.container, /obj/item/device/mmi/posibrain/ipc))
+				var/obj/item/device/mmi/posibrain/ipc/C = B.container
+				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
+				if(istype(P.owner, /mob/living/carbon/human))
+					H = P.owner
+			else
+				return
+		else
+			return
 
 	if(!H.client)
 		usr << "Only mobs with clients can alter their own appearance."
@@ -906,6 +926,7 @@ var/list/admin_verbs_proccall = list (
 		return
 
 	prefs.toggles ^= CHAT_DEBUGLOGS
+	prefs.save_preferences(src)
 	if (prefs.toggles & CHAT_DEBUGLOGS)
 		usr << "You now will get debug log messages"
 	else

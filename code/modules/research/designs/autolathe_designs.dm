@@ -74,6 +74,15 @@
 	build_path = /obj/item/clothing/head/welding
 	category = list("initial","Tools")
 
+/datum/design/cable_coil
+	name = "Cable coil"
+	id = "cable_coil"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10, MAT_GLASS = 5)
+	build_path = /obj/item/stack/cable_coil
+	category = list("initial","Tools")
+	maxstack = 30
+
 /datum/design/weldingtool
 	name = "Welding Tool"
 	id = "welding_tool"
@@ -242,6 +251,14 @@
 	build_path = /obj/item/device/assembly/voice
 	category = list("initial", "Miscellaneous")
 
+/datum/design/videocam
+	name = "Video Camera"
+	id = "videocam"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 120, MAT_GLASS = 60)
+	build_path = /obj/item/device/videocam
+	category = list("initial", "Miscellaneous")
+
 /datum/design/canvas
 	name = "11px by 11px Canvas"
 	id = "canvas"
@@ -273,14 +290,6 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/weapon/canvas/twentythreeXtwentythree
 	category = list("initial", "Miscellaneous")
-	
-/datum/design/glass_picture_frame
-	name = "Glass Picture Frame"
-	id = "glass_picture_frame"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 25, MAT_GLASS = 75)
-	build_path = /obj/item/weapon/picture_frame/glass
-	category = list("initial", "Miscellaneous")
 
 /datum/design/camera_assembly
 	name = "Camera Assembly"
@@ -297,6 +306,7 @@
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/glass
 	category = list("initial","Construction")
+	maxstack = 50
 
 /datum/design/light_bulb
 	name = "Light Bulb"
@@ -321,6 +331,7 @@
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/metal
 	category = list("initial","Construction")
+	maxstack = 50
 
 /datum/design/newscaster_frame
 	name = "Newscaster Frame"
@@ -345,6 +356,7 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list("initial","Construction")
+	maxstack = 50
 
 /datum/design/rods
 	name = "Metal Rod"
@@ -353,6 +365,7 @@
 	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/stack/rods
 	category = list("initial","Construction")
+	maxstack = 50
 
 /datum/design/beaker
 	name = "Beaker"

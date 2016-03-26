@@ -59,6 +59,8 @@
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
 
+	name = "[dna.real_name]'s [initial(name)]"
+
 	if(!owner) return ..() // Probably a redundant removal; just bail
 
 	var/obj/item/organ/internal/brain/B = src
@@ -67,7 +69,7 @@
 
 		if(borer)
 			borer.detatch() //Should remove borer if the brain is removed - RR
-		if(owner.mind)//don't transfer if the owner does not have a mind.
+		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
 	if(istype(owner,/mob/living/carbon/human))
@@ -77,7 +79,7 @@
 
 /obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
 
-	name = "brain"
+	name = "[initial(name)]"
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
@@ -94,7 +96,7 @@
 				brainmob.mind.transfer_to(target)
 			else
 				target.key = brainmob.key
-	..()
+	..(target, special = special, dont_remove_slot = brain_already_exists)
 
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.

@@ -15,7 +15,8 @@
 	M.setCloneLoss(0)
 	M.setOxyLoss(0)
 	M.radiation = 0
-	M.heal_organ_damage(5,5)
+	M.adjustBruteLoss(-5)
+	M.adjustFireLoss(-5)
 	M.adjustToxLoss(-5)
 	M.hallucination = 0
 	M.setBrainLoss(0)

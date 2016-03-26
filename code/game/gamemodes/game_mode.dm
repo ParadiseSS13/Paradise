@@ -137,18 +137,7 @@
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
 						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						if(PM)
-							PM.play_ringtone()
-						//Search for holder of the PDA.
-						var/mob/living/L = null
-						if(P.loc && isliving(P.loc))
-							L = P.loc
-						//Maybe they are a pAI!
-						else
-							L = get(P, /mob/living/silicon)
-
-						if(L)
-							L << "\icon[P] <b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)"
+						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker

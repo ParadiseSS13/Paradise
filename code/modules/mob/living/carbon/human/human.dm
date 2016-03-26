@@ -694,10 +694,10 @@
 	return
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/proc/get_visible_name()
-	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
+/mob/living/carbon/human/get_visible_name()
+	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name("Unknown")
-	if( head && (head.flags_inv&HIDEFACE) )
+	if(head && (head.flags_inv & HIDEFACE))
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
@@ -838,15 +838,6 @@
 						A.on_removed(usr)
 						U.accessories -= A
 						update_inv_w_uniform()
-
-	if (href_list["refresh"])
-		if((machine)&&(in_range(src, usr)))
-			show_inv(machine)
-
-	if (href_list["mach_close"])
-		var/t1 = text("window=[]", href_list["mach_close"])
-		unset_machine()
-		src << browse(null, t1)
 
 	if (href_list["criminal"])
 		if(hasHUD(usr,"security"))
@@ -1308,7 +1299,8 @@
 /mob/living/carbon/human/revive()
 
 	if(species && !(species.flags & NO_BLOOD))
-		vessel.add_reagent("blood",560-vessel.total_volume)
+		var/blood_reagent = get_blood_name()
+		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
 		fixblood()
 
 	// Fix up all organs.
@@ -1618,26 +1610,36 @@
 // Allows IPC's to change their monitor display
 /mob/living/carbon/human/proc/change_monitor()
 	set category = "IC"
-	set name = "Change Monitor Display"
-	set desc = "Change the display on your monitor."
+	set name = "Change Monitor/Optical Display"
+	set desc = "Change the display on your monitor or the colour of your optics."
 
-	if(stat || paralysis || stunned || weakened)
-		src << "<span class='warning'>You cannot change your monitor display in your current state.</span>"
+	if(incapacitated())
+		src << "<span class='warning'>You cannot change your monitor or optical display in your current state.</span>"
 		return
 
-	var/list/hair = list()
-	for(var/i in hair_styles_list)
-		var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
-		if(species.name in tmp_hair.species_allowed)
-			hair += i
+	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
+		if(client.prefs.rlimb_data["head"]) //If head is present here, that means it's not the default Morpheus. Thus, no screen to adjust. Instead, let them change the colour of their optics!
+			var/optic_colour = input(src, "Select optic colour", rgb(r_markings, g_markings, b_markings)) as color|null
+			if(optic_colour)
+				r_markings = hex2num(copytext(optic_colour, 2, 4))
+				g_markings = hex2num(copytext(optic_colour, 4, 6))
+				b_markings = hex2num(copytext(optic_colour, 6, 8))
 
-	var/new_style = input(src, "Select a monitor display", "Monitor Display")  as null|anything in hair
-	if(stat || paralysis || stunned || weakened)
-		return
-	if(new_style)
-		h_style = new_style
+			update_markings()
+		else if(!client.prefs.rlimb_data["head"])//Means that the character has the default Morpheus head, which has a screen. Time to customize.
+			var/list/hair = list()
+			for(var/i in hair_styles_list)
+				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
+				if(species.name in tmp_hair.species_allowed)
+					hair += i
 
-	update_hair()
+			var/new_style = input(src, "Select a monitor display", "Monitor Display", h_style)  as null|anything in hair
+			if(incapacitated())
+				return
+			if(new_style)
+				h_style = new_style
+
+		update_hair()
 
 //Putting a couple of procs here that I don't know where else to dump.
 //Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
@@ -1911,3 +1913,29 @@
 	else
 		src << "<span class='notice'>You swallow a gulp of [toDrink].</span>"
 	return 1
+
+/mob/living/carbon/human/can_track(mob/living/user)
+	if(wear_id)
+		var/obj/item/weapon/card/id/id = wear_id
+		if(istype(id) && id.is_untrackable())
+			return 0
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = head
+		if(hat.blockTracking)
+			return 0
+
+	return ..()
+
+/mob/living/carbon/human/proc/get_age_pitch()
+	return 1.0 + 0.5*(30 - age)/80
+
+/mob/living/carbon/human/get_access()
+	. = ..()
+
+	if(wear_id)
+		. |= wear_id.GetAccess()
+	if(istype(w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = w_uniform
+		if(U.accessories)
+			for(var/obj/item/clothing/accessory/A in U.accessories)
+				. |= A.GetAccess()

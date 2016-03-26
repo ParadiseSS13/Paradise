@@ -141,7 +141,7 @@ datum/game_mode/nations
 			qdel(oldmmi)
 
 /datum/game_mode/nations/proc/remove_access()
-	for(var/obj/machinery/door/airlock/W in machines)
+	for(var/obj/machinery/door/airlock/W in airlocks)
 		if(W.z in config.station_levels)
 			W.req_access = list()
 

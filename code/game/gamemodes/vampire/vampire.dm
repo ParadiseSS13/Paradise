@@ -71,7 +71,7 @@
 		grant_vampire_powers(vampire.current)
 		forge_vampire_objectives(vampire)
 		greet_vampire(vampire)
-
+		update_vampire_icons_added(vampire)
 	..()
 
 /datum/game_mode/proc/auto_declare_completion_vampire()

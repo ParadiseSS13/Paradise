@@ -17,7 +17,7 @@
 	set category = "AI IM"
 	set name = "Send PDA Message"
 	set src in usr
-	
+
 	if(usr.stat == DEAD)
 		usr << "You can't send PDA messages because you are dead!"
 		return
@@ -36,7 +36,7 @@
 	set category = "AI IM"
 	set name = "Show Message Log"
 	set src in usr
-	
+
 	if(usr.stat == DEAD)
 		usr << "You can't do that because you are dead!"
 		return
@@ -56,7 +56,7 @@
 	set category = "AI IM"
 	set name = "Toggle Sender/Receiver"
 	set src in usr
-	
+
 	if(usr.stat == DEAD)
 		usr << "You can't do that because you are dead!"
 		return
@@ -69,13 +69,13 @@
 	set category = "AI IM"
 	set name = "Toggle Ringer"
 	set src in usr
-	
+
 	if(usr.stat == DEAD)
 		usr << "You can't do that because you are dead!"
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
-	M.silent = !M.silent
-	usr << "<span class='notice'>PDA ringer toggled [(M.silent ? "Off" : "On")]!</span>"
+	M.notify_silent = !M.notify_silent
+	usr << "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>"
 
 /obj/item/device/pda/ai/can_use()
 	return 1

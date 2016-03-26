@@ -354,12 +354,11 @@
 
 	blood_color = "#A10808"
 	if(istype(M))
-		if (!istype(M.dna, /datum/dna))
-			M.dna = new /datum/dna(null)
-			M.dna.real_name = M.real_name
+		if(M.species.flags & NO_BLOOD)
+			return 0
 		M.check_dna()
-		if (M.species)
-			blood_color = M.species.blood_color
+		blood_color = M.species.blood_color
+
 	. = 1
 	return 1
 

@@ -207,12 +207,12 @@ var/global/list/virusDB = list()
 
 /datum/disease2/disease/proc/get_info()
 	var/r = {"
-	<small>Analysis determined the existence of a GNAv2-based viral lifeform.</small><br>
-	<u>Designation:</u> [name()]<br>
-	<u>Antigen:</u> [antigens2string(antigen)]<br>
-	<u>Transmitted By:</u> [spreadtype]<br>
-	<u>Rate of Progression:</u> [stageprob * 10]<br>
-	<u>Species Affected:</u> [list2text(affected_species, ", ")]<br>
+<small>Analysis determined the existence of a GNAv2-based viral lifeform.</small><br>
+<u>Designation:</u> [name()]<br>
+<u>Antigen:</u> [antigens2string(antigen)]<br>
+<u>Transmitted By:</u> [spreadtype]<br>
+<u>Rate of Progression:</u> [stageprob * 10]<br>
+<u>Species Affected:</u> [list2text(affected_species, ", ")]<br>
 "}
 
 	r += "<u>Symptoms:</u><br>"
@@ -262,7 +262,7 @@ proc/virus2_greater_infection()
 
 proc/virology_letterhead(var/report_name)
 	return {"
-		<center><h1><b>[report_name]</b></h1></center>
-		<center><small><i>[station_name()] Virology Lab</i></small></center>
-		<hr>
+<center><h1><b>[report_name]</b></h1></center>
+<center><small><i>[station_name()] Virology Lab</i></small></center>
+<hr>
 "}

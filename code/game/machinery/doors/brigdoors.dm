@@ -42,7 +42,7 @@
 	pixel_y = ((src.dir & 3)? (src.dir ==1 ? 24 : -32) : (0))
 
 	spawn(20)
-		for(var/obj/machinery/door/window/brigdoor/M in machines)
+		for(var/obj/machinery/door/window/brigdoor/M in airlocks)
 			if (M.id == src.id)
 				targets += M
 
@@ -67,15 +67,7 @@
 /obj/machinery/door_timer/process()
 	if(stat & (NOPOWER|BROKEN))	return
 	if(timing)
-
-		// poorly done midnight rollover
-		// (no seriously there's gotta be a better way to do this)
-		var/timeleft = timeleft()
-		if(timeleft > 1e5)
-			releasetime = 0
-
-
-		if(world.timeofday > releasetime)
+		if(timeleft() <= 0)
 			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security", list(z))
 			timer_end() // open doors, reset timer, clear status screen
 			timing = 0
@@ -142,9 +134,12 @@
 
 // Check for releasetime timeleft
 /obj/machinery/door_timer/proc/timeleft()
-	. = (releasetime - world.timeofday)/10
-	if(. < 0)
-		. = 0
+	var/time = releasetime - world.timeofday
+	if(time > MIDNIGHT_ROLLOVER / 2)
+		time -= MIDNIGHT_ROLLOVER
+	if(time < 0)
+		return 0
+	return time / 10
 
 // Set timetoset
 /obj/machinery/door_timer/proc/timeset(var/seconds)

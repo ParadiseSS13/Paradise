@@ -14,7 +14,7 @@
 		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 
 	for(var/obj/item/organ/internal/I in internal_organs)
-		if(istype(loc,/turf))
+		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
 			spawn()
@@ -27,6 +27,12 @@
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
 			E.droplimb(DROPLIMB_EDGE)
+
+	for(var/mob/M in src)
+		if(M in stomach_contents)
+			stomach_contents.Remove(M)
+		M.forceMove(get_turf(src))
+		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 	if(!isSynthetic())
 		flick("gibbed-h", animation)
