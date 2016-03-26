@@ -961,6 +961,6 @@
 		for(var/path in butcher_results)
 			for(var/i = 1, i <= butcher_results[path], i++)
 				new path(loc)
-				butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()

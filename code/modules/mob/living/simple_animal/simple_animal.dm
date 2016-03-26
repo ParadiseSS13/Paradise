@@ -447,10 +447,6 @@
 			name = C.tagname
 			real_name = C.tagname
 		return
-	else if(butcher_results && (stat == DEAD))	//if the animal has a meat, and if it is dead.
-		if(istype(O, /obj/item/weapon/kitchen/knife))
-			world << "Simple"
-			harvest(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
@@ -471,6 +467,7 @@
 				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 			adjustBruteLoss(damage)
+	..()
 
 
 /mob/living/simple_animal/movement_delay()
