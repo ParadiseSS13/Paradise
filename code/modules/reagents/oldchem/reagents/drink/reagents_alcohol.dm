@@ -11,12 +11,12 @@
 	var/dizzy_adj = 3
 	var/slurr_adj = 3
 	var/confused_adj = 2
-	var/slur_start = 40			//amount absorbed after which mob starts slurring
-	var/brawl_start = 50		//amount absorbed after which mob switches to drunken brawling as a fighting style
-	var/confused_start = 60	//amount absorbed after which mob starts confusing directions
-	var/vomit_start = 90 //amount absorbed after which mob starts vomitting
-	var/blur_start = 140	//amount absorbed after which mob starts getting blurred vision
-	var/pass_out = 180	//amount absorbed after which mob starts passing out
+	var/slur_start = 20			//amount absorbed after which mob starts slurring
+	var/brawl_start = 25		//amount absorbed after which mob switches to drunken brawling as a fighting style
+	var/confused_start = 30	//amount absorbed after which mob starts confusing directions
+	var/vomit_start = 45 //amount absorbed after which mob starts vomitting
+	var/blur_start = 70	//amount absorbed after which mob starts getting blurred vision
+	var/pass_out = 90	//amount absorbed after which mob starts passing out
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 
 /datum/reagent/ethanol/on_mob_life(var/mob/living/M as mob, var/alien)
@@ -25,8 +25,7 @@
 	var/sober_str=!(SOBER in M.mutations)?1:2
 	M.nutrition += nutriment_factor
 
-	var/d = current_cycle * alcohol_perc
-
+	var/d = 0
 	// make all the beverages work together
 	for(var/datum/reagent/ethanol/A in holder.reagent_list)
 		if(isnum(A.current_cycle)) d += A.current_cycle * A.alcohol_perc
@@ -69,6 +68,7 @@
 			H.adjustToxLoss(0.1)
 	..()
 	return
+
 
 /datum/reagent/ethanol/reaction_obj(var/obj/O, var/volume)
 	if(istype(O,/obj/item/weapon/paper))
