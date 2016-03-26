@@ -1,6 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - bugfix: "You now will actually have the correct `real_name` on your DNA."
-  - bugfix: "No more roundstart runtimes regarding IPC hair."
-  - bugfix: "Mitocholide rejuv will work more usefully now."
