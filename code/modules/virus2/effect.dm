@@ -870,6 +870,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 	name = "Coldingtons Effect"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob.smell_breathing_obstructed = 1
 		if (prob(30))
 			mob << "<span class='warning'>You feel like you are about to sneeze!</span>"
 		sleep(5)
@@ -885,11 +886,18 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 					M.dry=0
 			M.virus2 |= virus_copylist(mob.virus2)
 
+	deactivate(var/mob/living/carbon/mob,var/multiplier)
+		mob.smell_breathing_obstructed = 0
+
 /datum/disease2/effect/gunck
 	name = "Flemmingtons"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob.smell_breathing_obstructed = 1
 		mob << "<span class = 'notice'> Mucous runs down the back of your throat.</span>"
+
+	deactivate(var/mob/living/carbon/mob,var/multiplier)
+		mob.smell_breathing_obstructed = 0
 
 /datum/disease2/effect/drool
 	name = "Saliva Effect"

@@ -53,3 +53,7 @@
 	var/step_count = 0
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
+
+	//smell vars
+	var/datum/smell/current_turf_smell = null //last sensed smell
+	var/smell_breathing_obstructed = 0 //stuffed noses and strangling people prevent them smelling

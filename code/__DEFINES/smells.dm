@@ -1,0 +1,10 @@
+#define SMELL_HORRIBLE 0
+#define SMELL_FOUL 1
+#define SMELL_NEUTRAL 2
+#define SMELL_PLEASANT 3
+#define SMELL_NICE 4
+
+#define SMELL_TRACE 2
+#define SMELL_FAINT 4
+#define SMELL_NORMAL 8
+#define SMELL_INTENSE 16

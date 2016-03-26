@@ -241,3 +241,5 @@
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
 	var/list/permanent_huds = list()
+	
+	var/datum/smell/own_smell = null //what the mob smells like
