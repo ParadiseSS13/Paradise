@@ -23,6 +23,13 @@
 	if(!istype(tool))
 		return 0
 
+	var/dental_implants = 0
+	for(var/obj/item/weapon/reagent_containers/food/pill in target.internal_organs) // Can't give them more than 4 dental implants.
+		dental_implants++
+	if(dental_implants >= 4)
+		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>")
+		return 0
+
 	user.drop_item()
 	target.internal_organs += tool
 	tool.forceMove(target)
