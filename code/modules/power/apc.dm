@@ -104,6 +104,8 @@
 
 	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
 
+	tcomms_linkable = 1
+
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = 0
 
@@ -1383,5 +1385,54 @@
 		return 1
 	else
 		return 0
+/obj/machinery/power/apc/server_interface(var/list/argslist)
+	if(argslist.len >= 2 && isnum(argslist[2]))
+		var/action = argslist[1]
+		var/val = argslist[2]
+		if (action == "coverlock")
+			coverlocked = val
+		if (action == "breaker")
+			operating = (val != 0)
+			if(malfai)
+				if (ticker.mode.config_tag == "malfunction")
+					if ((src.z in config.station_levels))
+						operating ? ticker.mode:apcs++ : ticker.mode:apcs--
+			src.update()
+			update_icon()
+		if (action == "chargemode")
+			chargemode = (val != 0)
+			if(!chargemode)
+				charging = 0
+				update_icon()
+		if (action == "equipment" && val >= 1 && val <= 3)
+			equipment = setsubsystem(val)
+			update_icon()
+			update()
+		if (action == "lighting" && val >= 1 && val <= 3)
+			lighting = setsubsystem(val)
+			update_icon()
+			update()
+		else if (action == "environment" && val >= 1 && val <= 3)
+			environ = setsubsystem(val)
+			update_icon()
+			update()
+	if(argslist.len >= 1)
+		var/action = argslist[1]
+		if (action == "overload")
+			src.overload_lighting()
+
+	var/list/data = list(
+		"locked" = locked,
+		"operating" = operating,
+		"externalpower" = main_status,
+		"power" = cell ? cell.percent() : null,
+		"chargemode" = chargemode,
+		"charging" = charging,
+		"load" = round(lastused_equip + lastused_light + lastused_environ),
+		"coverlock" = coverlocked,
+		"equipment" = equipment,
+		"lighting" = lighting,
+		"environment" = environ)
+	return data
 
 #undef APC_UPDATE_ICON_COOLDOWN
