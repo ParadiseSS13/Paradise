@@ -81,9 +81,9 @@
 	metabolization_rate = 0.4
 	vomit_start = INFINITY		//
 	blur_start = INFINITY		//
-	pass_out = INFINITY			//INFINITY, so that IPCs don't puke and stuff
-	var/spark_start = 25	//amount absorbed after which mob starts sparking
-	var/collapse_start = 70	//amount absorbed after wich mob starts sparking and collapsing (DOUBLE THE SPARKS, DOUBLE THE FUN)
+	pass_out = INFINITY		//INFINITY, so that IPCs don't puke and stuff
+	var/spark_start = 50	//amount absorbed after which mob starts sparking
+	var/collapse_start = 80	//amount absorbed after wich mob starts sparking and collapsing (DOUBLE THE SPARKS, DOUBLE THE FUN)
 	var/braindamage_start = 250 //amount absorbed after which mob starts taking a small amount of brain damage
 
 
@@ -99,7 +99,11 @@
 
 /datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
 
-	var/d = current_cycle * alcohol_perc
+	var/d = 0
+	//	make all the beverages work together
+	for(var/datum/reagent/ethanol/synthanol/A in holder.reagent_list)
+		if(isnum(A.current_cycle)) d += A.current_cycle * A.alcohol_perc
+
 	if(M.isSynthetic()) //works normally on synthetics
 		if(d >= spark_start && prob(25))
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
