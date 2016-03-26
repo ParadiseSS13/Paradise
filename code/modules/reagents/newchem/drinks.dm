@@ -39,6 +39,7 @@
 	slur_start = 30
 	brawl_start = 40
 	confused_start = 100
+	alcohol_perc = 0.4
 
 /datum/chemical_reaction/applejack
 	name = "applejack"
@@ -55,6 +56,7 @@
 	id = "jackrose"
 	description = "A classic cocktail that had fallen out of fashion, but never out of taste,"
 	color = "#664300"
+	alcohol_perc = 0.4
 
 /datum/chemical_reaction/jackrose
 	name = "jackrose"
@@ -80,9 +82,10 @@
 	vomit_start = INFINITY		//
 	blur_start = INFINITY		//
 	pass_out = INFINITY			//INFINITY, so that IPCs don't puke and stuff
-	var/spark_start = 50	//amount absorbed after which mob starts sparking
-	var/collapse_start = 150	//amount absorbed after wich mob starts sparking and collapsing (DOUBLE THE SPARKS, DOUBLE THE FUN)
+	var/spark_start = 25	//amount absorbed after which mob starts sparking
+	var/collapse_start = 70	//amount absorbed after wich mob starts sparking and collapsing (DOUBLE THE SPARKS, DOUBLE THE FUN)
 	var/braindamage_start = 250 //amount absorbed after which mob starts taking a small amount of brain damage
+
 
 
 /datum/chemical_reaction/synthanol
@@ -96,7 +99,7 @@
 
 /datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
 
-	var/d = data
+	var/d = current_cycle * alcohol_perc
 	if(M.isSynthetic()) //works normally on synthetics
 		if(d >= spark_start && prob(25))
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -107,7 +110,7 @@
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, M)
 			s.start()
-		if(d >= braindamage_start && prob(33))
+		if(d >= braindamage_start && prob(10))
 			M.adjustBrainLoss(1)
 
 	else
@@ -131,6 +134,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	description = "An oily substance that an IPC could technically consider a 'drink'."
 	reagent_state = LIQUID
 	color = "#363636"
+	alcohol_perc = 0.5
 
 /datum/chemical_reaction/synthanol/robottears
 	name = "Robot Tears"
@@ -146,6 +150,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	description = "A fruit drink meant only for synthetics, however that works."
 	reagent_state = LIQUID
 	color = "#adb21f"
+	alcohol_perc = 0.3
 
 /datum/chemical_reaction/synthanol/trinary
 	name = "Trinary"
@@ -161,6 +166,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	description = "A drink containing some organic ingredients, but meant only for synthetics."
 	reagent_state = LIQUID
 	color = "#5b3210"
+	alcohol_perc = 0.5
 
 /datum/chemical_reaction/synthanol/servo
 	name = "Servo"
@@ -176,6 +182,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	description = "A potent mix of alcohol and synthanol. Will only work on synthetics."
 	reagent_state = LIQUID
 	color = "#e7ae04"
+	alcohol_perc = 0.2
 
 /datum/chemical_reaction/synthanol/uplink
 	name = "Uplink"
@@ -190,6 +197,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	description = "The classic drink adjusted for a robot's tastes."
 	reagent_state = LIQUID
 	color = "#7204e7"
+	alcohol_perc = 0.5
 
 /datum/chemical_reaction/synthanol/synthnsoda
 	name = "Synth 'n Soda"
@@ -204,6 +212,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	description = "Someone mixed wine and alcohol for robots. Hope you're proud of yourself."
 	reagent_state = LIQUID
 	color = "#d004e7"
+	alcohol_perc = 0.5
 
 /datum/chemical_reaction/synthanol/synthignon
 	name = "Synthignon"
