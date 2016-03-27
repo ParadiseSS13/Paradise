@@ -1364,6 +1364,11 @@ mob/proc/yank_out_object()
 					return G
 				break
 
+/mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null)
+	var/mob/dead/observer/ghost = get_ghost()
+	if(ghost)
+		ghost.notify_cloning(message, sound, source)
+		return ghost
 
 /mob/proc/fakevomit(green=0) //for aesthetic vomits that need to be instant and do not stun. -Fox
 	if(stat==DEAD)

@@ -257,6 +257,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 
+/mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source)
+	if(message)
+		src << "<span class='ghostalert'>[message]</span>"
+	src << "<span class='ghostalert'><a href=?src=\ref[src];reenter=1>(Click to re-enter)</a></span>"
+	if(sound)
+		src << sound(sound)
+
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = huds[hud_index]
 	H.add_hud_to(src)
