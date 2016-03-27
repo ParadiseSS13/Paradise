@@ -193,3 +193,11 @@
 	time = 100
 	reqs = list(/obj/item/stack/tape_roll = 1,
 				/datum/reagent/liquidgibs = 10)
+
+/datum/table_recipe/garrote
+	name = "Makeshift Garrote"
+	result = /obj/item/weapon/twohanded/garrote/improvised
+	time = 15
+	reqs = list(/obj/item/stack/sheet/wood = 1,
+				/obj/item/stack/cable_coil = 5)
+	tools = list(/obj/item/weapon/kitchen/knife) // Gotta carve the wood into handles

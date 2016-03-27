@@ -241,3 +241,9 @@
 	if(I == module_active)
 		deselect_module(get_selected_module())
 	return ..()
+
+/mob/living/silicon/robot/proc/update_module_icon()
+	if(!module)
+		hands.icon_state = "nomod"
+	else
+		hands.icon_state = lowertext(module.module_type)

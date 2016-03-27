@@ -1645,6 +1645,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
+	var/datum/species/S = all_species[species]
 	character.change_species(species) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
@@ -1657,7 +1658,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else if(firstspace == name_length)
 			real_name += "[pick(last_names)]"
 
+	character.add_language(language)
+
 	character.real_name = real_name
+	character.dna.real_name = real_name
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
@@ -1717,15 +1721,30 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				else if(status == "mechanical")
 					I.robotize()
 
+	character.dna.b_type = b_type
 	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
+		character.dna.SetSEState(FATBLOCK,1,1)
 		character.mutations += FAT
 		character.mutations += OBESITY
+		character.overeatduration = 600
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		character.dna.SetSEState(GLASSESBLOCK,1,1)
 		character.disabilities|=NEARSIGHTED
 	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
+		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
 		character.disabilities|=EPILEPSY
 	if(disabilities & DISABILITY_FLAG_DEAF)
+		character.dna.SetSEState(DEAFBLOCK,1,1)
 		character.sdisabilities|=DEAF
+	if(disabilities & DISABILITY_FLAG_MUTE)
+		character.dna.SetSEState(MUTEBLOCK,1,1)
+		character.sdisabilities |= MUTE
+
+	S.handle_dna(character)
+
+	if(character.dna.dirtySE)
+		character.dna.UpdateSE()
+	domutcheck(character)
 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
@@ -1766,8 +1785,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
 
-	character.dna.ready_dna(character)
+	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
+	character.UpdateAppearance()
+
+	// Do the initial caching of the player's body icons.
+	character.force_update_limbs()
+	character.update_eyes()
+	character.regenerate_icons()
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 

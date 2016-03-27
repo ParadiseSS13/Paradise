@@ -1,4 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "ASAP fix to what would've broken the ability to configure prostheses in character creation."

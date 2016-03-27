@@ -985,6 +985,10 @@ var/list/ai_verbs_default = list(
 		usr << "<span class='warning'>You are dead!</span>"
 		return 1
 
+	if(lacks_power())
+		usr << "<span class='warning'>Power systems failure!</span>"
+		return 1
+
 	if((flags & AI_CHECK_WIRELESS) && src.control_disabled)
 		usr << "<span class='warning'>Wireless control is disabled!</span>"
 		return 1

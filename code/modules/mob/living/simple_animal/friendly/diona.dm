@@ -38,6 +38,7 @@
 	var/list/donors = list()
 	var/ready_evolve = 0
 	holder_type = /obj/item/weapon/holder/diona
+	can_collar = 1
 
 /mob/living/simple_animal/diona/New()
 	..()
