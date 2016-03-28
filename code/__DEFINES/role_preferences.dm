@@ -27,6 +27,7 @@
 #define ROLE_HOG_GOD			"hand of god: god" // We're prolly gonna port this one day or another
 #define ROLE_HOG_CULTIST		"hand of god: cultist"
 #define ROLE_RAIDER				"vox raider"
+#define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
 #define ROLE_MUTINEER			"mutineer"
 // Role tags for EVERYONE!
@@ -69,4 +70,5 @@ var/global/list/special_roles = list(
 	ROLE_REVENANT,
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
+	ROLE_TRADER,
 )

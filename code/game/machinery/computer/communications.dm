@@ -273,6 +273,17 @@
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
+		if("AcceptDocking")
+			usr << "Docking request accepted!"
+			trade_dock_timelimit = world.time + 1200
+			trade_dockrequest_timelimit = 0
+			command_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
+		if("DenyDocking")
+			usr << "Docking requeset denied!"
+			trade_dock_timelimit = 0
+			trade_dockrequest_timelimit = 0
+			command_announcement.Announce("Docking request for trading ship denied.", "Docking request")
+
 	nanomanager.update_uis(src)
 	return 1
 
@@ -357,6 +368,11 @@
 		shuttle["eta"] = "[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 
 	data["shuttle"] = shuttle
+
+	if(trade_dockrequest_timelimit > world.time)
+		data["dock_request"] = 1
+	else
+		data["dock_request"] = 0
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)

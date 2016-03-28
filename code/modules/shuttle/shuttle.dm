@@ -584,6 +584,7 @@
 	var/possible_destinations = ""
 	var/admin_controlled
 	var/max_connect_range = 7
+	var/docking_request = 0
 
 /obj/machinery/computer/shuttle/New(location, obj/item/weapon/circuitboard/shuttle/C)
 	..()
@@ -636,6 +637,8 @@
 			if(admin_controlled)
 				dat += "Authorized personnel only<br>"
 				dat += "<A href='?src=\ref[src];request=1]'>Request Authorization</A><br>"
+		if(docking_request)
+			dat += "<A href='?src=\ref[src];request=1]'>Request docking at NSS Cyberiad</A><br>"
 	dat += "<a href='?src=\ref[user];mach_close=computer'>Close</a>"
 
 	var/datum/browser/popup = new(user, "computer", M ? M.name : "shuttle", 300, 200)
@@ -728,6 +731,45 @@
 	desc = "Used to call and send the administration shuttle."
 	shuttleId = "admin"
 	possible_destinations = "admin_home;admin_away"
+
+var/global/trade_dock_timelimit = 0
+var/global/trade_dockrequest_timelimit = 0
+
+/obj/machinery/computer/shuttle/trade
+	name = "Freighter Console"
+	docking_request = 1
+	var/possible_destinations_dock
+	var/possible_destinations_nodock
+	var/cooldown = 0
+	var/docking_request_message = "A trading ship has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
+
+/obj/machinery/computer/shuttle/trade/attack_hand(mob/user)
+	if(trade_dock_timelimit > world.time)
+		possible_destinations = possible_destinations_dock
+		docking_request = 0
+	else
+		possible_destinations = possible_destinations_nodock
+		docking_request = 1
+	..(user)
+
+/obj/machinery/computer/shuttle/trade/Topic(href, href_list)
+	..()
+	if(href_list["request"])
+		if(cooldown)
+			return
+		cooldown = 1
+		usr << "<span class='notice'>Request sent.</span>"
+		command_announcement.Announce(docking_request_message, "Docking Request")
+		trade_dockrequest_timelimit = world.time + 1200 // They have 2 minutes to approve the request.
+		spawn(1200) //Two minute cooldown
+			cooldown = 0
+
+/obj/machinery/computer/shuttle/trade/sol
+	req_access = list(access_trade_sol)
+	possible_destinations_dock = "trade_sol_base;trade_sol_offstation;trade_dock"
+	possible_destinations_nodock = "trade_sol_base;trade_sol_offstation"
+	shuttleId = "trade_sol"
+	docking_request_message = "A trading ship of Sol origin has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
 
 #undef DOCKING_PORT_HIGHLIGHT
 

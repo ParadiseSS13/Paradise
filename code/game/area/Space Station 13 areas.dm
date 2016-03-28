@@ -438,6 +438,14 @@ var/list/ghostteleportlocs = list()
 	name = "Syndicate Infiltrator"
 	icon_state = "shuttle"
 
+/area/shuttle/trade
+	name = "Trade Shuttle"
+	icon_state = "shuttle"
+	requires_power = 0
+
+/area/shuttle/trade/sol
+	name = "Sol Freighter"
+
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
 /area/dummy/           // Referenced in engine.dm:261
@@ -666,6 +674,14 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Aft Starboard Solars"
 	icon_state = "southeast"
 	requires_power = 0
+
+/area/trader_station
+	name = "Trade Base"
+	icon_state = "yellow"
+	requires_power = 0
+
+/area/trader_station/sol
+	name = "Jupiter Station 6"
 
 /area/vox_station/mining
 	name = "\improper Nearby Mining Asteroid"

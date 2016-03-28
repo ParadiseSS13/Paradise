@@ -1027,3 +1027,49 @@ datum/objective/heist/inviolate_death
 	check_completion()
 		if(vox_kills > MAX_VOX_KILLS) return 0
 		return 1
+
+// Traders
+
+/datum/objective/trade // Yes, I know there's no check_completion. The objectives exist only to tell the traders what to get.
+	proc/choose_target(var/station)
+		return
+
+/datum/objective/trade/stock // Stock or spare parts.
+	var/target_rating = 1
+	choose_target(var/station)
+		var/itemname
+		switch(rand(1,8))
+			if(1)
+				target = /obj/item/weapon/stock_parts/cell
+				target_amount = 10
+				target_rating = 3
+				itemname = "ten high-capacity power cells"
+			if(2)
+				target = /obj/item/weapon/stock_parts/manipulator
+				target_amount = 20
+				itemname = "twenty micro manipulators"
+			if(3)
+				target = /obj/item/weapon/stock_parts/matter_bin
+				target_amount = 20
+				itemname = "twenty matter bins"
+			if(4)
+				target = /obj/item/weapon/stock_parts/micro_laser
+				target_amount = 15
+				itemname = "fifteen micro-lasers"
+			if(5)
+				target = /obj/item/weapon/stock_parts/capacitor
+				target_amount = 15
+				itemname = "fifteen capacitors"
+			if(6)
+				target = /obj/item/weapon/stock_parts/subspace/filter
+				target_amount = 4
+				itemname = "four hyperwave filters"
+			if(7)
+				target = /obj/item/solar_assembly
+				target_amount = 10
+				itemname = "ten solar panel assemblies"
+			if(8)
+				target = /obj/item/device/flash
+				target_amount = 6
+				itemname = "six flashes"
+		explanation_text = "We are running low on spare parts. Trade for [itemname]."

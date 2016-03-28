@@ -98,6 +98,10 @@
 /var/const/access_syndicate_leader = 151//Nuke Op Leader Access
 /var/const/access_vox = 152//Vox Access
 
+//Trade Stations
+
+var/const/access_trade_sol = 160
+
 	//MONEY
 /var/const/access_crate_cash = 200
 
