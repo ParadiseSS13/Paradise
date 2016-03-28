@@ -9,10 +9,6 @@
 	desc = "Accepts one input and outputs the reverse state."
 	mono_input = 1				//NOT Gates are the simplest logic gate because they only utilize one input.
 	output_state = LOGIC_ON		//Starts with an active output, since the input will be OFF at start
-
-/obj/machinery/logic_gate/not/process()		//This gate only handles its logic when it receives a signal, and outputs both on the process and when it receives the signal
-	handle_output()
-	return
 /*
 	A quick note regarding NOT Gates:
 	- Connecting multiple things to the input of a NOT Gate can cause weird behaviour due to updating both when it receives a signal and when it calls process().
@@ -21,11 +17,6 @@
 	 - For this reason, it is HIGHLY RECOMMENDED that you only connect a single signal source to the input of a NOT Gate to avoid signal spasms.
 	- Connecting multiple things to the output of a NOT Gate should not cause this unusual behavior.
 */
-/obj/machinery/logic_gate/not/receive_signal(datum/signal/signal, receive_method, receive_param)
-	..()
-	handle_logic()
-	return
-
 /obj/machinery/logic_gate/not/handle_logic()		//Our output will always be a continuous signal, even with a FLICKER, it just will update the output when the FLICKER ends
 	if(input1_state == LOGIC_ON)				//Output is OFF while input is ON
 		output_state = LOGIC_OFF
@@ -47,14 +38,12 @@
 /*
 	STATUS Gates are largely a diagnostics tool, but I'm sure someone will still make a logic gate rave with them anyways.
 	- There is no need to actually connect an output for these to work, they just need an input to sample from.
-	- STATUS Gates attempt to output both on the process cycle and whenever a signal is received.
-	 - This may seem a little spammy, but ensures they don't hold anything up signal-wise.
+	- STATUS Gates attempt to update their lights whenever they receive a signal.
 */
 
 /obj/machinery/logic_gate/status/receive_signal(datum/signal/signal, receive_method, receive_params)
 	..()
 	handle_logic()					//STATUS Gate calls handle_logic() when it receives a signal to update its light and output_state
-	handle_output()					//STATUS Gate outputs when it receives a signal, since it is just a connector piece (like a wire for power)
 
 /obj/machinery/logic_gate/status/handle_logic()
 	output_state = input1_state				//Output is equal to input, since it is simply a connection with an attached light
@@ -68,7 +57,6 @@
 		set_light(2,2,"#ff9900")
 		spawn(LOGIC_FLICKER_TIME + 1)
 			handle_logic()
-			handle_output()
 		return
 
 //////////////////////////////////

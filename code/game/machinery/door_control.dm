@@ -132,7 +132,25 @@
 	else
 		icon_state = "doorctrl0"
 
-/obj/machinery/driver_button/var/range = 7
+//////////////////////////////////////
+//			Driver Button			//
+//////////////////////////////////////
+
+/obj/machinery/driver_button/initialize()
+	..()
+	set_frequency(frequency)
+
+/obj/machinery/driver_button/proc/set_frequency(new_frequency)
+	radio_controller.remove_object(src, frequency)
+	frequency = new_frequency
+	radio_connection = radio_controller.add_object(src, frequency, RADIO_LOGIC)
+	return
+
+/obj/machinery/driver_button/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src,frequency)
+	return ..()
+
 
 /obj/machinery/driver_button/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -159,7 +177,9 @@
 /obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
 	return {"
 	<ul>
-	<li>[format_tag("ID Tag","id_tag")]</li>
+	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag")]</li>
+	<li><b>Logic Connection:</b> <a href='?src=\ref[src];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
+	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
 	</ul>"}
 
 /obj/machinery/driver_button/attack_hand(mob/user as mob)
@@ -180,6 +200,25 @@
 /obj/machinery/driver_button/proc/launch_sequence()
 	active = 1
 	icon_state = "launcheract"
+
+	if(logic_connect)
+		if(!radio_connection)		//can't output without this
+			return
+
+		if(logic_id_tag == null)	//Don't output to an undefined id_tag
+			return
+
+		var/datum/signal/signal = new
+		signal.transmission_method = 1	//radio signal
+		signal.source = src
+
+		signal.data = list(
+				"tag" = logic_id_tag,
+				"sigtype" = "logic",
+				"state" = LOGIC_FLICKER,	//Buttons are a FLICKER source, since they only register as ON when you press it, then turn OFF after you release
+		)
+
+		radio_connection.post_signal(src, signal, filter = RADIO_LOGIC)
 
 	for(var/obj/machinery/door/poddoor/M in range(src,range))
 		if (M.id_tag == src.id_tag && !M.protected)
@@ -202,3 +241,8 @@
 
 	icon_state = "launcherbtt"
 	active = 0
+
+/obj/machinery/driver_button/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+	..()
+	if("toggle_logic" in href_list)
+		logic_connect = !logic_connect

@@ -5,11 +5,17 @@
 	desc = "A remote control switch for a mass driver."
 	var/id_tag = "default"
 	var/active = 0
-	settagwhitelist = list("id_tag")
+	settagwhitelist = list("id_tag", "logic_id_tag")
 	anchored = 1.0
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 4
+	var/range = 7
+
+	var/datum/radio_frequency/radio_connection
+	var/frequency = 0
+	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
+	var/logic_connect = 0							//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
 
 /obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
 	..()
@@ -22,6 +28,8 @@
 			pixel_x = 25
 		if(WEST)
 			pixel_x = -25
+	if(radio_controller)
+		set_frequency(frequency)
 
 /obj/machinery/ignition_switch
 	name = "ignition switch"

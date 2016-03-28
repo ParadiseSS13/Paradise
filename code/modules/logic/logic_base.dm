@@ -42,23 +42,19 @@
 	if(tamperproof)		//doing this during New so we don't have to worry about forgetting to set these vars during editting / defining
 		unacidable = 1
 	..()
-	if(!radio_controller)
-		spawn(40)
-			set_frequency(frequency)
-	else
-		spawn(1) // For things that set the frequency directly
-			set_frequency(frequency)
+	if(radio_controller)
+		set_frequency(frequency)
 	component_parts = list()
 	var/obj/item/weapon/circuitboard/logic_gate/LG = new(null)
 	LG.set_type(type)
 	component_parts += LG
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
+/obj/machinery/logic_gate/initialize()
+	..()
+	set_frequency(frequency)
+
 /obj/machinery/logic_gate/proc/set_frequency(new_frequency)
-	if(!radio_controller)
-		sleep(20)
-	if(!radio_controller)
-		return
 	radio_controller.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_LOGIC)
@@ -94,8 +90,7 @@
 			"state" = output_state,
 	)
 
-	radio_connection.post_signal(src, signal)
-	return
+	radio_connection.post_signal(src, signal, filter = RADIO_LOGIC)
 
 /obj/machinery/logic_gate/receive_signal(datum/signal/signal, receive_method, receive_param)
 	if(!signal.data["tag"] || ((signal.data["tag"] != input1_id_tag) && (signal.data["tag"] != input2_id_tag)) || (signal.data["sigtype"] != "logic"))
