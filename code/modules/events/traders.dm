@@ -62,7 +62,7 @@ var/global/list/unused_trade_stations = list("sol")
 
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
 	M << "<span class='boldnotice'>You are a trader!</span>"
-	M << "<span class='notice'>You are currently docked at [M.loc.loc].</span>"
+	M << "<span class='notice'>You are currently docked at [get_area(M)].</span>"
 	M << "<span class='notice'>You are about to trade with NSS Cyberiad.</span>"
 	M << "<span class='notice'>Negotiate an agreement, and request docking.</span>"
 	spawn(25)
@@ -70,7 +70,7 @@ var/global/list/unused_trade_stations = list("sol")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/i = 1
-	var/max_objectives = pick(2,2,2,2,3,3,3,4)
+	var/max_objectives = pick(2, 2, 2, 2, 3, 3, 3, 4)
 	var/list/objs = list()
 	var/list/goals = list("stockparts")
 	while(i<= max_objectives)

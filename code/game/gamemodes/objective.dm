@@ -1031,12 +1031,12 @@ datum/objective/heist/inviolate_death
 // Traders
 
 /datum/objective/trade // Yes, I know there's no check_completion. The objectives exist only to tell the traders what to get.
-	proc/choose_target(var/station)
+/datum/objective/trade/proc/choose_target(var/station)
 		return
 
 /datum/objective/trade/stock // Stock or spare parts.
 	var/target_rating = 1
-	choose_target(var/station)
+/datum/objective/trade/stock/choose_target(var/station)
 		var/itemname
 		switch(rand(1,8))
 			if(1)
