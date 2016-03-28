@@ -879,3 +879,41 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/matter_bin = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1)
+
+
+//Selectable mode board, like vending machine boards
+/obj/item/weapon/circuitboard/logic_gate
+	name = "circuit board (Logic Connector)"
+	build_path = /obj/machinery/logic
+	board_type = "machine"
+	origin_tech = "programming=1"		//This stuff is pretty much the absolute basis of programming, so it's mostly useless for research
+	req_components = list(/obj/item/stack/cable_coil = 1)
+
+	var/list/names_paths = list(
+							"NOT Gate" = /obj/machinery/logic_gate/not,
+							"OR Gate" = /obj/machinery/logic_gate/or,
+							"AND Gate" = /obj/machinery/logic_gate/and,
+							"NAND Gate" = /obj/machinery/logic_gate/nand,
+							"NOR Gate" = /obj/machinery/logic_gate/nor,
+							"XOR Gate" = /obj/machinery/logic_gate/xor,
+							"XNOR Gate" = /obj/machinery/logic_gate/xnor
+	)
+
+/obj/item/weapon/circuitboard/logic_gate/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/screwdriver))
+		set_type(null, user)
+
+/obj/item/weapon/circuitboard/logic_gate/proc/set_type(typepath, mob/user)
+	var/new_name = "Logic Base"
+	if(!typepath)
+		new_name = input("Circuit Setting", "What would you change the board setting to?") in names_paths
+		typepath = names_paths[new_name]
+	else
+		for(var/name in names_paths)
+			if(names_paths[name] == typepath)
+				new_name = name
+				break
+	build_path = typepath
+	name = "circuit board ([new_name])"
+	if(user)
+		user << "<span class='notice'>You set the board to [new_name].</span>"
