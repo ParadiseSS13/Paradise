@@ -40,7 +40,7 @@
 	time = 64
 	var/obj/item/implant/I = null
 
-/datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	I = locate(/obj/item/implant) in target
 	user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
@@ -48,7 +48,7 @@
 	target.custom_pain("The pain in your [affected.name] is living hell!")
 	..()
 
-/datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	I = locate(/obj/item/implant) in target
 	if(I && (target_zone == "chest")) //implant removal only works on the chest.
@@ -74,6 +74,6 @@
 		else
 			qdel(I)
 	else
-		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
+		user.visible_message("<span class='notice'>[user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
 		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
 	return 1

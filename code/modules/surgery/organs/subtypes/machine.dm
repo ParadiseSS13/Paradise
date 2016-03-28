@@ -131,7 +131,7 @@
 	..()
 
 
-/obj/item/organ/internal/eyes/optical_sensor/remove(var/mob/living/user,special = 0)
+/obj/item/organ/internal/eyes/optical_sensor/remove(mob/living/user,special = 0)
 	if(!special)
 		to_chat(owner, "Error 404:Optical Sensors not found.")
 
@@ -149,16 +149,21 @@
 	species = "Machine"
 	var/obj/item/mmi/stored_mmi
 
+// Set stored_mmi to null first if you wanna preserve it
 /obj/item/organ/internal/brain/mmi_holder/Destroy()
 	QDEL_NULL(stored_mmi)
 	return ..()
 
-/obj/item/organ/internal/brain/mmi_holder/insert(var/mob/living/target,special = 0)
+/obj/item/organ/internal/brain/mmi_holder/insert(mob/living/target,special = 0)
 	..()
 	// To supersede the over-writing of the MMI's name from `insert`
 	update_from_mmi()
 
-/obj/item/organ/internal/brain/mmi_holder/remove(var/mob/living/user,special = 0)
+/obj/item/organ/internal/brain/mmi_holder/transfer_identity(mob/living/carbon/H)
+	if(stored_mmi)
+		stored_mmi.transfer_identity(H)
+
+/obj/item/organ/internal/brain/mmi_holder/remove(mob/living/user,special = 0)
 	if(!special)
 		if(stored_mmi)
 			. = stored_mmi
@@ -191,4 +196,5 @@
 			update_from_mmi()
 		else
 			stored_mmi.loc = get_turf(src)
+			stored_mmi = null
 			qdel(src)

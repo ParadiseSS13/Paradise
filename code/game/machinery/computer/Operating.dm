@@ -156,11 +156,16 @@
 
 			occupantData["bloodType"]=occupant.b_type
 		if(occupant.surgeries.len)
+			var/list/surgeries = list()
 			occupantData["inSurgery"] = 1
-			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
-				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
+			for(var/datum/active_surgery/procedure in occupant.surgeries)
+				var/list/operation = list()
+				var/list/possible_steps = list()
+				for(var/datum/surgery_step/next_step in procedure.next_possible_steps)
+					possible_steps += next_step.name
+				operation["nextSteps"] = possible_steps
+				surgeries[procedure.location] = operation
+			occupantData["surgeries"] = surgeries
 
 	data["occupant"] = occupantData
 	data["verbose"]=verbose

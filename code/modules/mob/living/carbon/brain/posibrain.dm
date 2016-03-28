@@ -69,22 +69,29 @@
 	return
 
 /obj/item/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)
-	name = "positronic brain ([H])"
+	name = "Positronic brain ([H])"
 	if(isnull(brainmob.dna))
 		brainmob.dna = H.dna.Clone()
 	brainmob.name = brainmob.dna.real_name
 	brainmob.real_name = brainmob.name
 	brainmob.timeofhostdeath = H.timeofdeath
 	brainmob.stat = CONSCIOUS
-	if(brainmob.mind)
-		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a metal cube.</span>")
 	become_occupied("posibrain-occupied")
 	if(radio)
 		radio_action.ApplyIcon()
-	return
+
+/obj/item/mmi/posibrain/createfromhuman(var/mob/living/carbon/human/H)
+	name = "Positronic brain ([H.real_name])"
+	if(isnull(brainmob.dna))
+		brainmob.dna = H.dna.Clone()
+	brainmob.name = brainmob.dna.real_name
+	brainmob.real_name = brainmob.name
+	become_occupied("posibrain-occupied")
+	return src
+
 
 /obj/item/mmi/posibrain/proc/transfer_personality(var/mob/candidate)
 	src.searching = 0
@@ -177,14 +184,14 @@
 	..()
 
 /obj/item/mmi/posibrain/New()
-	src.brainmob = new(src)
-	src.brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
-	src.brainmob.real_name = src.brainmob.name
-	src.brainmob.loc = src
-	src.brainmob.container = src
-	src.brainmob.stat = 0
-	src.brainmob.SetSilence(0)
-	dead_mob_list -= src.brainmob
+	brainmob = new(src)
+	brainmob.container = src
+	brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
+	brainmob.real_name = brainmob.name
+	brainmob.loc = src
+	brainmob.stat = 0
+	brainmob.SetSilence(0)
+	dead_mob_list -= brainmob
 
 	..()
 

@@ -3,7 +3,7 @@
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest")
 
-/datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/active_surgery/surgery)
 	if(!ishuman(user))
 		return FALSE
 	if(ishuman(target))
@@ -27,7 +27,7 @@
 	var/obj/item/organ/internal/IC = null
 	var/list/organ_types = list(/obj/item/organ/internal/heart)
 
-/datum/surgery_step/internal/extract_organ/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/internal/extract_organ/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	for(var/obj/item/I in target.internal_organs)
 		if(I.type in organ_types)
 			IC = I
@@ -35,7 +35,7 @@
 	user.visible_message("[user] starts to remove [target]'s organs.", "<span class='notice'>You start to remove [target]'s organs...</span>")
 	..()
 
-/datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	var/mob/living/carbon/human/AB = target
 	if(NO_INTORGANS in AB.species.species_traits)
 		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
@@ -49,7 +49,7 @@
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
 		return TRUE
 
-/datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	user.visible_message("<span class='warning'>[user]'s hand slips, failing to extract anything!</span>", "<span class='warning'>Your hand slips, failing to extract anything!</span>")
 	return FALSE
 
@@ -58,18 +58,18 @@
 	allowed_tools = list(/obj/item/organ/internal/heart/gland = 100)
 	time = 32
 
-/datum/surgery_step/internal/gland_insert/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/internal/gland_insert/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	user.visible_message("[user] starts to insert [tool] into [target].", "<span class ='notice'>You start to insert [tool] into [target]...</span>")
 	..()
 
-/datum/surgery_step/internal/gland_insert/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/internal/gland_insert/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	user.visible_message("[user] inserts [tool] into [target].", "<span class ='notice'>You insert [tool] into [target].</span>")
 	user.drop_item()
 	var/obj/item/organ/internal/heart/gland/gland = tool
 	gland.insert(target, 2)
 	return TRUE
 
-/datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	user.visible_message("<span class='warning'>[user]'s hand slips, failing to insert the gland!</span>", "<span class='warning'>Your hand slips, failing to insert the gland!</span>")
 	return FALSE
 
@@ -81,7 +81,7 @@
 	possible_locs = list("chest")
 	requires_organic_bodypart = 0
 
-/datum/surgery/organ_extraction/synth/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery/organ_extraction/synth/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	if(!ishuman(user))
 		return FALSE
 	if(ishuman(target))

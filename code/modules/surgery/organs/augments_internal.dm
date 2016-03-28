@@ -10,7 +10,7 @@
 	sterile = TRUE // Doesn't accumulate germs
 	robotic = 2 // these are cybernetic after all
 
-/obj/item/organ/internal/cyberimp/New(var/mob/M = null)
+/obj/item/organ/internal/cyberimp/New(mob/M = null)
 	. = ..()
 	if(implant_overlay)
 		var/image/overlay = new /image(icon, implant_overlay)
@@ -115,7 +115,7 @@
 	if(!r_hand_ignore && r_hand_obj in owner.contents)
 		r_hand_obj.flags ^= NODROP
 
-/obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(active)
 		ui_action_click()

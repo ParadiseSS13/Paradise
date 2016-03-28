@@ -25,10 +25,13 @@
 
 	can_infect = 0
 	blood_level = 0
+	painful = FALSE
+	steps_to_pop = 1
+	steps_this_can_pop = list(/datum/surgery_step/rigsuit)
 
 	time = 50
 
-/datum/surgery_step/hardsuit/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/hardsuit/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	if(!istype(target))
 		return 0
 	if(istype(tool,/obj/item/weldingtool))
@@ -37,12 +40,12 @@
 			return 0
 	return (target_zone == "chest") && istype(target.back, /obj/item/rig) && (target.back.flags&NODROP)
 
-/datum/surgery_step/rigsuit/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/rigsuit/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	user.visible_message("[user] starts cutting through the support systems of [target]'s [target.back] with \the [tool]." , \
 	"You start cutting through the support systems of [target]'s [target.back] with \the [tool].")
 	..()
 
-/datum/surgery_step/rigsuit/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/rigsuit/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 
 	var/obj/item/rig/rig = target.back
 	if(!istype(rig))
@@ -52,7 +55,7 @@
 		"<span class='notice'>You have cut through the support systems of [target]'s [rig] with \the [tool].</span>")
 	return 1
 
-/datum/surgery_step/rigsuit/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/rigsuit/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	user.visible_message("<span class='danger'>[user]'s [tool] can't quite seem to get through the metal...</span>", \
 	"<span class='danger'>Your [tool] can't quite seem to get through the metal. It's weakening, though - try again.</span>")
 	return 0

@@ -11,12 +11,12 @@
 	var/non_primary = 0
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 
-/obj/item/organ/internal/New(var/mob/living/carbon/holder)
+/obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
 	if(istype(holder))
 		insert(holder)
 
-/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
+/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
 
@@ -25,6 +25,7 @@
 		if(dont_remove_slot)
 			non_primary = 1
 		else
+			log_debug("Caution, [M]'s [replaced.name] was replaced by [src]. Area: [get_area(M)]")
 			replaced.remove(M, special = 1)
 
 	owner = M
@@ -51,29 +52,18 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
-	owner = null
+	. = ..()
 	if(M)
 		M.internal_organs -= src
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
-		if(vital && !special)
-			if(M.stat != DEAD)//safety check!
-				M.death()
 
-	if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
-		if(!istype(parent))
-			log_runtime(EXCEPTION("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]"), src)
-		else
-			parent.internal_organs -= src
-
+	processing_objects |= src
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
-	return src
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/internal/replaced(mob/living/carbon/human/target)
     insert(target)
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
@@ -355,7 +345,7 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
-/obj/item/organ/internal/robotize(var/icon_bypass) //If icon bypass isn't null, skip the processing here and go straight to the parent call.
+/obj/item/organ/internal/robotize(icon_bypass) //If icon bypass isn't null, skip the processing here and go straight to the parent call.
 	if(!icon_bypass && !(status & ORGAN_ROBOT)) //Don't override the icons for the already-mechanical IPC organs.
 		var/list/states = icon_states('icons/obj/surgery.dmi') //Insensitive to specially-defined icon files for species like the Drask or whomever else. Everyone gets the same robotic heart.
 		if(slot == "heart" && ("[slot]-prosthetic-on" in states) && ("[slot]-prosthetic-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
@@ -400,7 +390,7 @@
 /obj/item/organ/internal/liver/on_life()
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
-			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
+			to_chat(owner, "<span class='warning'>Your skin itches.</span>")
 	if(germ_level > INFECTION_LEVEL_TWO)
 		if(prob(1))
 			spawn owner.vomit()

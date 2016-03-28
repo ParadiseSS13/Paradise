@@ -138,7 +138,7 @@
 
 //TODO:Make absorb light on insert.
 
-/*/obj/item/organ/diona/removed(var/mob/living/user)
+/*/obj/item/organ/diona/removed(mob/living/user)
 	var/mob/living/carbon/human/H = owner
 	..()
 	if(!istype(H) || !H.bodyparts || !H.bodyparts.len)

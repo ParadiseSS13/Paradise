@@ -30,25 +30,7 @@
 		return 0
 
 	if(can_operate(M))  //Checks if mob is lying down on table for surgery
-		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
-			if(!attempt_initiate_surgery(src, M, user,1))
-				return 0
-			else
-				return 1
-		if(istype(src,/obj/item/organ/external))
-			var/obj/item/organ/external/E = src
-			if(E.robotic == 2) // Robot limbs are less messy to attach
-				if(!attempt_initiate_surgery(src, M, user,1))
-					return 0
-				else
-					return 1
-
-		if(isscrewdriver(src) && M.get_species() == "Machine")
-			if(!attempt_initiate_surgery(src, M, user))
-				return 0
-			else
-				return 1
-		if(is_sharp(src))
+		if(can_be_used_for_starting_surgery(src))
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
