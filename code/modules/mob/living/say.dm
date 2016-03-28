@@ -445,4 +445,4 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, MOB_LAYER + 1)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	flick_overlay(, bubble_recipients, 30)
+	flick_overlay(I, bubble_recipients, 30)
