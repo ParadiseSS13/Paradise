@@ -129,7 +129,7 @@
 	draining = 1
 	essence_drained = rand(15, 20)
 	src << "<span class='revennotice'>You search for the soul of [target].</span>"
-	if(do_after(src, 10, 3, 0, target = target)) //did they get deleted in that second?
+	if(do_after(src, 10, 0, target = target)) //did they get deleted in that second?
 		if(target.ckey)
 			src << "<span class='revennotice'>Their soul burns with intelligence.</span>"
 			essence_drained += rand(20, 30)
@@ -138,7 +138,7 @@
 			essence_drained += rand(40, 50)
 		else
 			src << "<span class='revennotice'>Their soul is weak and faltering.</span>"
-		if(do_after(src, 20, 6, 0, target = target)) //did they get deleted NOW?
+		if(do_after(src, 20, 0, target = target)) //did they get deleted NOW?
 			switch(essence_drained)
 				if(1 to 30)
 					src << "<span class='revennotice'>[target] will not yield much essence. Still, every bit counts.</span>"
@@ -148,7 +148,7 @@
 					src << "<span class='revenboldnotice'>Such a feast! [target] will yield much essence to you.</span>"
 				if(90 to INFINITY)
 					src << "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>"
-			if(do_after(src, 20, 6, 0, target = target)) //how about now
+			if(do_after(src, 20, 0, target = target)) //how about now
 				if(!target.stat)
 					src << "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>"
 					target << "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>"
@@ -162,7 +162,7 @@
 				stun(27)
 				target.visible_message("<span class='warning'>[target] suddenly rises slightly into the air, their skin turning an ashy gray.</span>")
 				target.Beam(src,icon_state="drain_life",icon='icons/effects/effects.dmi',time=26)
-				if(do_after(src, 30, 9, 0, target)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
+				if(do_after(src, 30, 0, target)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
 					change_essence_amount(essence_drained, 0, target)
 					if(essence_drained > 90)
 						essence_regen_cap += 25
