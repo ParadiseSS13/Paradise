@@ -9,6 +9,7 @@
 "ai" = (/turf/simulated/floor/plating,/area/awaymission)
 "aj" = (/obj/machinery/power/smes/magical,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/awaymission)
 "ak" = (/obj/structure/toilet{dir = 1},/obj/structure/alien/weeds{icon_state = "weeds2"},/obj/item/organ/internal/body_egg/alien_embryo,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
+"al" = (/obj/machinery/shower{dir = 8},/obj/structure/alien/weeds{icon_state = "weeds1"},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
 "am" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0},/turf/simulated/floor/plating,/area/awaymission)
 "an" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating,/area/awaymission)
 "ao" = (/turf/simulated/wall,/area/awaymission)
@@ -174,7 +175,6 @@
 "dt" = (/obj/machinery/vending/dinnerware,/turf/simulated/floor/plasteel,/area/awaymission)
 "du" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/alien/weeds,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
 "dw" = (/obj/machinery/door/window/eastleft,/obj/structure/alien/weeds,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
-"dx" = (/obj/machinery/shower{dir = 8},/obj/structure/alien/egg,/obj/structure/alien/weeds{icon_state = "weeds1"},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
 "dy" = (/obj/machinery/light,/turf/simulated/floor/plasteel,/area/awaymission)
 "dz" = (/obj/machinery/processor,/turf/simulated/floor/plasteel,/area/awaymission)
 "dA" = (/obj/machinery/chem_master/condimaster,/turf/simulated/floor/plasteel,/area/awaymission)
@@ -298,7 +298,7 @@ aaaaaaabaoaHcHcIaHcJaoaHcKcLaHavaocMcNcOaHavaoaHaHaHaHaHaHaHaHaHaHaHaHcBcPcPcPcQ
 aaaaaaabaoaHagaHcScTaobvaHaHaHcUaocVcWcWaHcXaoaHaHaHaHaHaHaHaHaHaHaHaHaocYcPcZdadbdbcPcPcPcPcPdadadadadacPcYaoabaaaaaaaa
 aaaaaaaabRaHdcddcSdeaoaHaHaHaHcUaocWdfcWaHdgaoaHaHaHaHaHbpaHbpaHaHaHaHaodhcPdadidjdkcPcPcPcQcPdadadldadacPdhaoabaaaaaaaa
 aaaaaaabaodmdndodndpaobTbTbUbTbVaodqdrdsdrbVaoaHaHaHaHaHaHaHaHaHaHaHaHaodtcPcQcPcPcPcPcPcPcPcPcPcPcPcPcPcPdtaoabaaaaaaaa
-aaaaaaabbWduakdwdxaobWbXaYaZbYaobWbXaYaZbYaoaoaHaHaHaHaHbqaHbqaHaHaHaHaocPdydzdAdBdCcQdycPdycPcPdDdEdFcPdycQaoabaaaaaaaa
+aaaaaaabbWduakdwalaobWbXaYaZbYaobWbXaYaZbYaoaoaHaHaHaHaHbqaHbqaHaHaHaHaocPdydzdAdBdCcQdycPdycPcPdDdEdFcPdycQaoabaaaaaaaa
 aaaaaaabaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaHaHaHaHbtaobuaobvaHaHaHaoaoaoaoaoaoaoaoaodGaoaoaoaoaoaoaoaoaoaoabaaaaaaaa
 aaaaaaabaoaHaHaHaHaHaHaHaHaHdHaHaHaHaHaHdIdIdIaHaHaHaHaHbnaHbnaHaHaHaHaHaHaHaHbnaHaHaHaHaHaHaHaHaHaHcWaHaHcWbmaaaaaaaaaa
 aaaaaaabaodJaHdKaHaHaHaHaHaHaHdHaHaHaHaHdIdIdIaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHcWcWcWcWaHboaaaaaaaaaa
