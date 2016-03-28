@@ -585,9 +585,13 @@
 
 	. = ..()
 
-	if(. && istype(next) && bloodiness)
-		next.AddTracks(/obj/effect/decal/cleanable/blood/tracks/wheels, currentDNA, get_dir(last, next), 0, currentBloodColor)
-		bloodiness--
+	if(. && istype(next))
+		if(bloodiness)
+			next.AddTracks(/obj/effect/decal/cleanable/blood/tracks/wheels, currentDNA, get_dir(last, next), 0, currentBloodColor)
+			bloodiness--
+
+		for(var/mob/living/carbon/human/H in next)
+			RunOver(H)
 
 // calculates a path to the current destination
 // given an optional turf to avoid
@@ -687,8 +691,6 @@
 				M.Weaken(5)
 	return ..()
 
-// called from mob/living/carbon/human/Crossed()
-// when mulebot is in the same loc
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
 	add_logs(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
@@ -765,7 +767,7 @@
 
 		if("autopick")
 			auto_pickup = text2num(signal.data["value"])
-		
+
 		else
 			return 0
 	return 1
