@@ -40,7 +40,7 @@
 
 
 		//Effects of bloodloss
-		var/word = pick("dizzy","woozy","faint")
+		var/word = pick("dizzy", "woozy", "faint")
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))

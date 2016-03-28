@@ -55,10 +55,8 @@
 	canmove = 0
 	icon = null
 	invisibility = 101
-	for(var/t in bodyparts)
-		qdel(t)
-	for(var/i in internal_organs)
-		qdel(i)
+	QDEL_NULL(bodyparts)
+	QDEL_NULL(internal_organs)
 
 	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
 
@@ -90,9 +88,8 @@
 		else if(O.mind.role_alt_title == "Robot")
 			O.mmi = null //Robots do not have removable brains.
 		else
-			O.mmi = new /obj/item/mmi(O)
-
-		if(O.mmi) O.mmi.transfer_identity(src) //Does not transfer key/client.
+			var/obj/item/mmi/M = new /obj/item/mmi(O)
+			O.mmi = M.createfromhuman(src)
 
 	callHook("borgify", list(O))
 

@@ -107,7 +107,8 @@
 	can_stand = 1
 
 /obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.unEquip(owner.shoes)
+	if(owner && owner.shoes)
+		owner.unEquip(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right

@@ -44,7 +44,7 @@
 	// Internal organs of this body part
 	var/list/internal_organs = list()
 
-	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
+	var/damage_msg = "<span class='warning'>You feel an intense pain.</span>"
 	var/broken_description
 
 	var/open = 0
@@ -102,7 +102,7 @@
 	return
 
 
-/obj/item/organ/external/New(var/mob/living/carbon/holder)
+/obj/item/organ/external/New(mob/living/carbon/holder)
 	..()
 	var/mob/living/carbon/human/H = holder
 	icobase = dna.species.icobase
@@ -112,7 +112,7 @@
 		sync_colour_to_human(H)
 	get_icon()
 
-/obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	forceMove(owner)
 	if(istype(owner))
@@ -441,7 +441,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner.step_count >= splinted_count + SPLINT_LIFE)
 		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
-		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off their [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off [owner.p_their()] [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
 		owner.emote("scream")
 		owner.Stun(2)
 		owner.handle_splints()
@@ -466,7 +466,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				var/gore_sound = "[is_robotic() ? "tortured metal" : "ripping tendons and flesh"]"
 				owner.visible_message(
 					"<span class='danger'>\The [owner]'s [src.name] flies off in an arc!</span>",\
-					"<span class='moderate'><b>Your [src.name] goes flying off!</b></span>",\
+					"<span class='moderate'><b>Your [src.name] goes flying off!</b>.</span>",\
 					"<span class='danger'>You hear a terrible sound of [gore_sound].</span>")
 		if(DROPLIMB_BURN)
 			var/gore = "[is_robotic() ? "" : " of burning flesh"]"
@@ -583,7 +583,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 /****************************************************
 			   HELPERS
 ****************************************************/
-/obj/item/organ/external/proc/release_restraints(var/mob/living/carbon/human/holder)
+
+/obj/item/organ/external/proc/release_restraints(mob/living/carbon/human/holder)
 	if(!holder)
 		holder = owner
 	if(!holder)
@@ -615,7 +616,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
-	broken_description = pick("broken","fracture","hairline fracture")
+	broken_description = pick("broken", "fracture", "hairline fracture")
 	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
@@ -655,7 +656,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 
-/obj/item/organ/external/proc/set_company(var/company)
+/obj/item/organ/external/proc/set_company(company)
 	model = company
 	var/datum/robolimb/R = all_robolimbs[company]
 	if(R)
@@ -689,7 +690,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_malfunctioning()
 	return (is_robotic() && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
 
-/obj/item/organ/external/remove(var/mob/living/user, var/ignore_children)
+/obj/item/organ/external/remove(mob/living/user, ignore_children)
 
 	if(!owner)
 		return
@@ -733,6 +734,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		explosion(get_turf(owner),-1,-1,2,3)
 		do_sparks(5, 0, victim)
 		qdel(src)
+		return null
+	return src
 
 /obj/item/organ/external/proc/disfigure()
 	if(disfigured)
@@ -743,7 +746,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							  "<span class='warning'>You hear a sickening sound.</span>")
 	disfigured = TRUE
 
-/obj/item/organ/external/is_primary_organ(var/mob/living/carbon/human/O = null)
+/obj/item/organ/external/is_primary_organ(mob/living/carbon/human/O = null)
 	if(isnull(O))
 		O = owner
 	if(!istype(O)) // You're not the primary organ of ANYTHING, bucko

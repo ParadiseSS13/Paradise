@@ -114,22 +114,38 @@
 		icon_state = "mmi_empty"
 		name = "Man-Machine Interface"
 
+
+// Used in Robotize() to create an MMI for the borg
+/obj/item/mmi/proc/createfromhuman(var/mob/living/carbon/human/H)
+	var/obj/item/organ/internal/brain/B = H.get_int_organ(/obj/item/organ/internal/brain)
+	. = src
+	if(B && !istype(B, /obj/item/organ/internal/brain/mmi_holder))
+		held_brain = B.remove(H)
+		held_brain.forceMove(src)
+	else if(istype(B, /obj/item/organ/internal/brain/mmi_holder))
+		var/obj/item/mmi/held_mmi = B.remove(H)
+		held_mmi.forceMove(src.loc)
+		qdel(src)
+		return held_mmi
+	else
+		if(isnull(H.dna.species.return_organ("brain"))) // Diona/buggy people
+			held_brain = new(src)
+		else // We have a species, and it has a brain
+			var/brain_path = H.dna.species.return_organ("brain")
+			if(!ispath(brain_path, /obj/item/organ/internal/brain))
+				brain_path = /obj/item/organ/internal/brain
+			held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
+		held_brain.dna = H.dna.Clone()
+		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
+
+
 /obj/item/mmi/proc/transfer_identity(var/mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
 	brainmob.name = H.real_name
 	brainmob.real_name = H.real_name
-	brainmob.dna = H.dna.Clone()
 	brainmob.container = src
 
-	if(!istype(H.dna.species) || isnull(H.dna.species.return_organ("brain"))) // Diona/buggy people
-		held_brain = new(src)
-	else // We have a species, and it has a brain
-		var/brain_path = H.dna.species.return_organ("brain")
-		if(!ispath(brain_path, /obj/item/organ/internal/brain))
-			brain_path = /obj/item/organ/internal/brain
-		held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
-	held_brain.dna = brainmob.dna.Clone()
-	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
+	createfromhuman(H)
 
 	name = "Man-Machine Interface: [brainmob.real_name]"
 	become_occupied("mmi_full")

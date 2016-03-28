@@ -303,12 +303,14 @@
 
 			return
 
-	if(..()) //To allow surgery to return properly.
-		return
-
 	switch(M.a_intent)
 
 		if(INTENT_HELP)
+			if(stat == DEAD && surgeries.len)
+				for(var/datum/active_surgery/S in surgeries)
+					if(S.next_step(M, src))
+						return 1
+
 			help_shake_act(M)
 
 		if(INTENT_GRAB)
@@ -392,7 +394,11 @@
 			updatehealth()
 	return
 
-/mob/living/carbon/slime/attackby(obj/item/W, mob/living/user, params)
+/mob/living/carbon/slime/attackby(obj/item/W, mob/user, params)
+	if(stat == DEAD && surgeries.len && user.a_intent == INTENT_HELP)
+		for(var/datum/active_surgery/S in surgeries)
+			if(S.next_step(user, src))
+				return 1
 	if(istype(W,/obj/item/stack/sheet/mineral/plasma)) //Lets you feed slimes plasma.
 		if(user in Friends)
 			++Friends[user]

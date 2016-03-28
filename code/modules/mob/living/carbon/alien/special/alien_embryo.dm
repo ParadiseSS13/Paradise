@@ -57,8 +57,8 @@
 			RefreshInfectionImage()
 
 	if(stage == 5 && prob(50))
-		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == "chest" && istype(S.get_surgery_step(), /datum/surgery_step/internal/manipulate_organs))
+		for(var/datum/active_surgery/S in owner.surgeries)
+			if(S.location == "chest" && S.step_has_been_done(/datum/surgery_step/open_encased/saw))
 				AttemptGrow(0)
 				return
 		AttemptGrow()

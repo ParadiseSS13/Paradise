@@ -79,7 +79,7 @@
 	holder = null
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
-/obj/item/organ/internal/cyberimp/arm/proc/Extend(var/obj/item/item)
+/obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/item)
 	if(!(item in src))
 		return
 

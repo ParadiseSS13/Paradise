@@ -7,6 +7,10 @@
 	for(var/obj/item in get_all_slots())
 		unEquip(item)
 		qdel(item)
+
+	for(var/datum/active_surgery/AS in surgeries)
+		AS.complete(src) // I mean, TECHNICALLY these will NEVER be completed, but we just want 'em out of the way
+
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -121,9 +125,10 @@
 /mob/living/carbon/gib()
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
-			I.remove(src)
-			I.forceMove(get_turf(src))
-			I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			var/obj/item/thing = I.remove(src)
+			thing.forceMove(get_turf(src))
+			spawn()
+				thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/mob/M in src)
 		if(M in src.stomach_contents)

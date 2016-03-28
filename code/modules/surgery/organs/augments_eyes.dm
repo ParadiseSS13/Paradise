@@ -16,7 +16,7 @@
 	var/aug_message = "Your vision is augmented!"
 
 
-/obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/insert(mob/living/carbon/M, special = 0)
 	..()
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && eye_colour)
@@ -25,7 +25,7 @@
 		to_chat(owner, "<span class='notice'>[aug_message]</span>")
 	M.update_sight()
 
-/obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	M.update_sight()
 
@@ -83,14 +83,14 @@
 	slot = "eye_hud"
 	var/HUD_type = 0
 
-/obj/item/organ/internal/cyberimp/eyes/hud/insert(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(HUD_type)
 		var/datum/atom_hud/H = huds[HUD_type]
 		H.add_hud_to(M)
 		M.permanent_huds |= H
 
-/obj/item/organ/internal/cyberimp/eyes/hud/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = huds[HUD_type]

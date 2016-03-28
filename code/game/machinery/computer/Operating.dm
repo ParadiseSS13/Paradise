@@ -55,43 +55,6 @@
 	ui_interact(user)
 
 
-///obj/machinery/computer/operating/interact(mob/user)
-//	if( ((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)) )
-//		if(!istype(user, /mob/living/silicon))
-//			user.unset_machine()
-//			user << browse(null, "window=op")
-//			return
-//
-//	user.set_machine(src)
-//	var/dat = "<HEAD><TITLE>Operating Computer</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
-//	dat += "<A HREF='?src=[user.UID()];mach_close=op'>Close</A><br><br>" //| <A HREF='?src=[user.UID()];update=1'>Update</A>"
-//	if(src.table && (src.table.check_victim()))
-//		src.victim = src.table.victim
-//		dat += {"
-//<B>Patient Information:</B><BR>
-//<BR>
-//<B>Name:</B> [src.victim.real_name]<BR>
-//<B>Age:</B> [src.victim.age]<BR>
-//<B>Blood Type:</B> [src.victim.b_type]<BR>
-//<BR>
-//<B>Health:</B> [src.victim.health]<BR>
-//<B>Brute Damage:</B> [src.victim.getBruteLoss()]<BR>
-//<B>Toxins Damage:</B> [src.victim.getToxLoss()]<BR>
-//<B>Fire Damage:</B> [src.victim.getFireLoss()]<BR>
-//<B>Suffocation Damage:</B> [src.victim.getOxyLoss()]<BR>
-//<B>Patient Status:</B> [src.victim.stat ? "Non-Responsive" : "Awake"]<BR>
-//<B>Heartbeat rate:</B> [victim.get_pulse(GETPULSE_TOOL)]<BR>
-//"}
-//	else
-//		src.victim = null
-//		dat += {"
-//<B>Patient Information:</B><BR>
-//<BR>
-//<B>No Patient Detected</B>
-//"}
-//	user << browse(dat, "window=op")
-//	onclose(user, "op")
-
 /obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)//ui is mostly copy pasta from the sleeper ui
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -156,11 +119,17 @@
 
 			occupantData["bloodType"]=occupant.b_type
 		if(occupant.surgeries.len)
+			var/list/surgeries = list()
 			occupantData["inSurgery"] = 1
-			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
-				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
+			for(var/datum/active_surgery/procedure in occupant.surgeries)
+				var/list/operation = list()
+				var/list/possible_steps = list()
+				for(var/next_step in procedure.next_possible_steps)
+					var/datum/surgery_step/SS = next_step
+					possible_steps += initial(SS.name)
+				operation["nextSteps"] = possible_steps
+				surgeries[procedure.location] = operation
+			occupantData["surgeries"] = surgeries
 
 	data["occupant"] = occupantData
 	data["verbose"]=verbose

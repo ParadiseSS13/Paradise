@@ -23,10 +23,10 @@
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
 	if(lying && surgeries.len)
 		if(user != src && user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
+			for(var/datum/active_surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return 1
-	return ..()
+	..()
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
 	if(!iscarbon(user))
@@ -44,7 +44,7 @@
 
 	if(lying && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
+			for(var/datum/active_surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return 1
 	return 0

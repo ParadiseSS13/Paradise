@@ -1,5 +1,6 @@
-/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, var/override )
+/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user)
 	if(istype(M))
+		to_chat(world, "Attempting to initiate surgery!") // FIXME remove this
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
 		var/selected_zone = user.zone_sel.selecting
@@ -9,64 +10,73 @@
 			affecting = H.get_organ(check_zone(selected_zone))
 
 		if(can_operate(M) || isslime(M))	//if they're prone or a slime
-			var/datum/surgery/current_surgery
-			for(var/datum/surgery/S in M.surgeries)
+			var/datum/active_surgery/current_surgery
+			for(var/datum/active_surgery/S in M.surgeries)
 				if(S.location == selected_zone)
 					current_surgery = S
 
 			if(!current_surgery)
+				// Here's where we initialize our active_surgery
 				var/list/all_surgeries = GLOB.surgeries_list.Copy()
-				var/list/available_surgeries = list()
 
+				// This list's format:
+				// 	Each entry will be a "surgery_step" type
+				//	It will be the "key" for a list of full surgeries we can do that have it as a first step
+				//	If there's multiple possible first steps, then we pop up the prompt
+				// 	Otherwise, we just do that step
+				var/list/possible_first_steps = list()
+
+				//Build a list of steps we can perform without any prior steps
 				for(var/datum/surgery/S in all_surgeries)
-					if(!S.possible_locs.Find(selected_zone))
-						continue
-					if(affecting && S.requires_organic_bodypart && affecting.is_robotic())
-						continue
-					if(!S.can_start(user, M))
+					if(!S.surgery_is_compatible(user, M, selected_zone))
 						continue
 
-					for(var/path in S.allowed_mob)
-						if(istype(M, path))
-							// If there are multiple surgeries with the same name,
-							// prepare to cry
-							available_surgeries[S.name] = S
-							break
+					var/datum/surgery_step/first_step = S.steps[1]
+					var/datum/surgery_step/temp_reference = new first_step
+					to_chat(world, "Surgery: [S.name], First Step: [temp_reference.name]") // FIXME world print
+					if(possible_first_steps.Find(temp_reference.name))
+						continue
+					if(temp_reference.tool_quality(I) > 0)
+						// Our starter-tool can perform the first step,
+						// let's add this step to the list of ones we can do!
+						possible_first_steps[temp_reference.name] = first_step
+					else
+						to_chat(world, "Surgery: [S.name], Tool incompatible!") // FIXME world print
+					qdel(temp_reference)
 
-				if(override)
-					var/datum/surgery/S
-					if(istype(I,/obj/item/robot_parts))
-						S = available_surgeries["Apply Robotic Prosthetic"]
-					if(istype(I,/obj/item/organ/external))
-						var/obj/item/organ/external/E = I
-						if(E.is_robotic())
-							S = available_surgeries["Synthetic Limb Reattachment"]
-					if(S)
-						var/datum/surgery/procedure = new S.type
-						if(procedure)
-							procedure.location = selected_zone
-							M.surgeries += procedure
-							procedure.organ_ref = affecting
-							procedure.next_step(user, M)
+				/* This is where I build a list of possible steps
+				To get this list:
+				I will look through all possible surgeries
+				I will look at their first steps
+				I will see if their first step can be performed with the held item
+					If there are different types of steps that can be performed with the held tool,
+					then pop up the procedure prompt
+				*/
+				var/datum/surgery_step/the_first_step
+				if(possible_first_steps.len > 1)
+					// We'll need to build a list of surgeries, tagged by name, from our "possible_first_steps" list
 
-				else
-					var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries
-					if(P && user && user.Adjacent(M) && (I in user))
-						var/datum/surgery/S = available_surgeries[P]
-						var/datum/surgery/procedure = new S.type
-						if(procedure)
-							procedure.location = selected_zone
-							M.surgeries += procedure
-							procedure.organ_ref = affecting
-							user.visible_message("[user] prepares to operate on [M]'s [parse_zone(selected_zone)].", \
-							"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
+					var/P = input("Perform which step?", "Surgery", null, null) as null|anything in possible_first_steps
+					if(P)
+						the_first_step = possible_first_steps[P]
+				else if(possible_first_steps.len == 1)
+					// Whee BYOND lists are weird - a blend of hash-tables and arrays
+					var/step_name = possible_first_steps[1]
+					the_first_step = possible_first_steps[step_name]
+
+				if(the_first_step && user && user.Adjacent(M) && (I in user))
+					var/datum/active_surgery/procedure = new
+					if(procedure)
+						procedure.location = selected_zone
+						procedure.next_step_to_do = the_first_step
+						M.surgeries += procedure
+						procedure.organ_ref = affecting
+						user.visible_message("[user] prepares to operate on [M]'s [parse_zone(selected_zone)].", \
+						"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
+						procedure.next_step(user, M)
 
 			else if(!current_surgery.step_in_progress)
-				if(current_surgery.status == 1 )
-					M.surgeries -= current_surgery
-					to_chat(user, "You stop the surgery.")
-					qdel(current_surgery)
-				else if(istype(user.get_inactive_hand(), /obj/item/cautery) && current_surgery.can_cancel)
+				if(istype(user.get_inactive_hand(), /obj/item/cautery) && current_surgery.can_cancel)
 					M.surgeries -= current_surgery
 					user.visible_message("[user] mends the incision on [M]'s [parse_zone(selected_zone)] with the [I] .", \
 						"<span class='notice'>You mend the incision on [M]'s [parse_zone(selected_zone)].</span>")
@@ -113,4 +123,23 @@
 
 // Called when a limb containing this object is placed back on a body
 /atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
+	return 0
+
+/proc/can_be_used_for_starting_surgery(obj/item/I, mob/living/user, mob/living/target)
+	// Eh, I split it up like this so you can view it in a single screen
+	if(is_sharp(I))
+		// Surgery, "Classic"!
+		return 1
+	if(istype(I, /obj/item/robot_parts))
+		// Robot limbs
+		return 1
+	if(istype(I, /obj/item/screwdriver))
+		// Robotic "surgeries"
+		return 1
+	if(istype(I, /obj/item/organ/external))
+		// Limb attachment
+		return 1
+	if(istype(I, /obj/item/multitool))
+		// Robo-limb removal
+		return 1
 	return 0

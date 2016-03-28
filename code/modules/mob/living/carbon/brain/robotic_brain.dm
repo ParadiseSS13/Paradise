@@ -91,14 +91,21 @@
 	brainmob.real_name = brainmob.name
 	brainmob.timeofhostdeath = H.timeofdeath
 	brainmob.stat = CONSCIOUS
-	if(brainmob.mind)
-		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [ejected_flavor_text].</span>")
 	become_occupied(occupied_icon)
 	if(radio)
 		radio_action.ApplyIcon()
+/obj/item/mmi/posibrain/createfromhuman(var/mob/living/carbon/human/H)
+	brainmob = new(src)
+	brainmob.name = H.real_name
+	brainmob.real_name = H.real_name
+	if(isnull(brainmob.dna))
+		brainmob.dna = H.dna.Clone()
+	brainmob.container = src
+	become_occupied("posibrain-occupied")
+	return src
 
 /obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/H)
 	if(..())
