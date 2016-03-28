@@ -157,9 +157,10 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "decompiler"
 
-	//Metal, glass, wood, plastic.
+	//Metal, plasteel, glass, wood, plastic.
 	var/list/stored_comms = list(
 		"metal" = 0,
+		"plasteel" = 0,
 		"glass" = 0,
 		"wood" = 0,
 		"plastic" = 0
@@ -212,6 +213,7 @@
 			new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
 
 			stored_comms["metal"] += 15
+			stored_comms["plasteel"] += 15
 			stored_comms["glass"] += 15
 			stored_comms["wood"] += 5
 			stored_comms["plastic"] += 5
@@ -242,6 +244,7 @@
 			stored_comms["plastic"]++
 			stored_comms["plastic"]++
 			stored_comms["glass"]++
+			stored_comms["plasteel"]++
 		else if(istype(W,/obj/item/trash))
 			stored_comms["metal"]++
 			stored_comms["plastic"]++
@@ -251,6 +254,7 @@
 			stored_comms["metal"]++
 			stored_comms["glass"]++
 			stored_comms["glass"]++
+			stored_comms["plasteel"]++
 		else if(istype(W,/obj/item/ammo_casing))
 			stored_comms["metal"]++
 		else if(istype(W,/obj/item/weapon/shard/shrapnel))
@@ -357,6 +361,11 @@
 						stack_metal = new /obj/item/stack/sheet/metal/cyborg(src.module)
 						stack_metal.amount = 1
 					stack = stack_metal
+				if("plasteel")
+					if(!stack_plasteel)
+						stack_plasteel = new /obj/item/stack/sheet/plasteel/cyborg(src.module)
+						stack_plasteel.amount = 1
+					stack = stack_plasteel
 				if("glass")
 					if(!stack_glass)
 						stack_glass = new /obj/item/stack/sheet/glass/cyborg(src.module)

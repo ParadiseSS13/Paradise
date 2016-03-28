@@ -15,10 +15,12 @@
 	req_access = list(access_engine, access_robotics)
 	local_transmit = 1
 	ventcrawler = 2
+	magpulse = 1
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
 	var/obj/item/stack/sheet/metal/cyborg/stack_metal = null
+	var/obj/item/stack/sheet/plasteel/cyborg/stack_plasteel = null //does stack_plasteel work here?
 	var/obj/item/stack/sheet/wood/cyborg/stack_wood = null
 	var/obj/item/stack/sheet/glass/cyborg/stack_glass = null
 	var/obj/item/stack/sheet/mineral/plastic/cyborg/stack_plastic = null
@@ -60,6 +62,7 @@
 
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
+	stack_plasteel = locate(/obj/item/stack/sheet/plasteel/cyborg) in src.module
 	stack_wood = locate(/obj/item/stack/sheet/wood/cyborg) in src.module
 	stack_glass = locate(/obj/item/stack/sheet/glass/cyborg) in src.module
 	stack_plastic = locate(/obj/item/stack/sheet/mineral/plastic/cyborg) in src.module

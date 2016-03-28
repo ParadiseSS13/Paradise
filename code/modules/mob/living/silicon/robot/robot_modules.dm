@@ -172,11 +172,12 @@
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal = 50,
+		/obj/item/stack/sheet/plasteel = 50,
 		/obj/item/stack/sheet/glass = 50,
 		/obj/item/stack/sheet/rglass = 50,
-		/obj/item/stack/cable_coil/cyborg = 50,
-		/obj/item/stack/rods = 15,
-		/obj/item/stack/tile/plasteel = 15
+		/obj/item/stack/cable_coil/cyborg = 30,
+		/obj/item/stack/rods = 30,
+		/obj/item/stack/tile/plasteel = 20
 		)
 
 /obj/item/weapon/robot_module/engineering/New()
@@ -198,29 +199,10 @@
 
 	src.emag = new /obj/item/borg/stun(src)
 
-	var/obj/item/stack/sheet/metal/cyborg/M = new /obj/item/stack/sheet/metal/cyborg(src)
-	M.amount = 50
-	src.modules += M
-
-	var/obj/item/stack/sheet/rglass/cyborg/R = new /obj/item/stack/sheet/rglass/cyborg(src)
-	R.amount = 50
-	src.modules += R
-
-	var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src)
-	G.amount = 50
-	src.modules += G
-
-	var/obj/item/stack/cable_coil/cyborg/W = new /obj/item/stack/cable_coil/cyborg(src)
-	W.amount = 50
-	src.modules += W
-
-	var/obj/item/stack/rods/Q = new /obj/item/stack/rods(src)
-	Q.amount = 15
-	src.modules += Q
-
-	var/obj/item/stack/tile/plasteel/F = new /obj/item/stack/tile/plasteel(src) //floor tiles not regular plasteel, calm down
-	F.amount = 15
-	src.modules += F
+	for(var/G in stacktypes) //Attempt to unify Engi-Borg material stacks into fewer lines. See Line 492 for example. Variables changed out of paranoia.
+		var/obj/item/stack/sheet/M = new G(src)
+		M.amount = stacktypes[G]
+		src.modules += M
 
 	fix_modules()
 
@@ -479,14 +461,15 @@
 	name = "drone module"
 	module_type = "Engineer"
 	stacktypes = list(
-		/obj/item/stack/sheet/wood = 1,
-		/obj/item/stack/sheet/mineral/plastic = 1,
-		/obj/item/stack/sheet/rglass = 5,
-		/obj/item/stack/tile/wood = 5,
-		/obj/item/stack/rods = 15,
-		/obj/item/stack/tile/plasteel = 15,
-		/obj/item/stack/sheet/metal = 20,
-		/obj/item/stack/sheet/glass = 20,
+		/obj/item/stack/sheet/wood = 10,
+		/obj/item/stack/sheet/mineral/plastic = 10,
+		/obj/item/stack/sheet/rglass = 50,
+		/obj/item/stack/tile/wood = 20,
+		/obj/item/stack/rods = 30,
+		/obj/item/stack/tile/plasteel = 20,
+		/obj/item/stack/sheet/metal = 50,
+		/obj/item/stack/sheet/plasteel = 50,
+		/obj/item/stack/sheet/glass = 50,
 		/obj/item/stack/cable_coil/cyborg = 30
 		)
 
