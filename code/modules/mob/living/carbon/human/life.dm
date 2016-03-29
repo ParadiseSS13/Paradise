@@ -200,11 +200,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		adjustCloneLoss(0.1)
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	if(getFireLoss())
-		if((RESIST_HEAT in mutations) || (prob(1)))
-			heal_organ_damage(0,1)
-
-
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
 			continue
@@ -736,32 +731,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				adjustOxyLoss(-(light_amount))
 				//TODO: heal wounds, heal broken limbs.
 
-	if(species.light_dam)
-		var/light_amount = 0
-		if(isturf(loc))
-			var/turf/T = loc
-			light_amount = T.get_lumcount()*10
-		if(light_amount > species.light_dam && !incorporeal_move) //if there's enough light, start dying
-			if(species.light_effect_amp)
-				adjustFireLoss(4.7) //This gets multiplied by 1.5 due to Shadowling's innate fire weakness, so it ends up being about 7.
-			else
-				adjustFireLoss(1)
-				adjustBruteLoss(1)
-			src << "<span class='userdanger'>The light burns you!</span>"
-			src << 'sound/weapons/sear.ogg'
-		else //heal in the dark
-			if(species.light_effect_amp)
-				adjustFireLoss(-5)
-				adjustBruteLoss(-5)
-				adjustBrainLoss(-25) //gibbering shadowlings are hilarious but also bad to have
-				adjustCloneLoss(-1)
-				SetWeakened(0)
-				SetStunned(0)
-			else
-				adjustFireLoss(-1)
-				adjustBruteLoss(-1)
-
-
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
@@ -833,13 +802,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(.) //alive
 		if(REGEN in mutations)
-			if(nutrition)
-				if(prob(10))
-					var/randumb = rand(1, 5)
-					nutrition -= randumb
-					heal_overall_damage(randumb, randumb)
-				if(nutrition < 0)
-					nutrition = 0
+			heal_overall_damage(0.1, 0.1)
 
 		if(!in_stasis)
 			handle_organs()

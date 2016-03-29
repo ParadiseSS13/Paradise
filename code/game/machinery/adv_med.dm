@@ -389,6 +389,8 @@
 					organStatus["splinted"] = 1
 				if(E.status & ORGAN_BLEEDING)
 					organStatus["bleeding"] = 1
+				if(E.status & ORGAN_DEAD)
+					organStatus["dead"] = 1
 
 				organData["status"] = organStatus
 
@@ -415,6 +417,7 @@
 				organData["bruised"] = I.min_broken_damage
 				organData["broken"] = I.min_bruised_damage
 				organData["robotic"] = I.robotic
+				organData["dead"] = (I.status & ORGAN_DEAD)
 
 				intOrganData.Add(list(organData))
 

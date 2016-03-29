@@ -107,7 +107,6 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	recipes = metal_recipes
 	return ..()
 
-
 /*
  * Plasteel
  */
@@ -116,8 +115,6 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 	new/datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 50, one_per_turf = 1), \
 	new/datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1), \
-//	new/datum/stack_recipe("RUST fuel assembly port frame", /obj/item/rust_fuel_assembly_port_frame, 12, time = 50, one_per_turf = 1), \
-//	new/datum/stack_recipe("RUST fuel compressor frame", /obj/item/rust_fuel_compressor_frame, 12, time = 50, one_per_turf = 1), \
 
 	)
 

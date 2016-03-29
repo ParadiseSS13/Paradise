@@ -219,9 +219,6 @@
 
 	body += "<td width='50%'><div align='center'><a href='?_src_=vars;datumrefresh=\ref[D]'>Refresh</a>"
 
-	//if(ismob(D))
-	//	body += "<br><a href='?_src_=vars;mob_player_panel=\ref[D]'>Show player panel</a></div></td></tr></table></div><hr>"
-
 	body += {"	<form>
 				<select name="file" size="1"
 				onchange="loadPage(this.form.elements\[0\])"

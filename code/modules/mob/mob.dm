@@ -495,16 +495,17 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
-	var/dat = {"
-	<HR>
-	<B><FONT size=3>[name]</FONT></B>
-	<HR>
-	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=[slot_l_hand]'>		[(l_hand&&!(l_hand.flags&ABSTRACT)) 	? l_hand	: "Nothing"]</A>
-	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=[slot_r_hand]'>		[(r_hand&&!(r_hand.flags&ABSTRACT))		? r_hand	: "Nothing"]</A>
-	<BR><A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	var/dat = {"<table>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td>&nbsp;</td></tr>"}
+	dat += {"</table>
+	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
 	"}
-	user << browse(dat, "window=mob\ref[src];size=325x500")
-	onclose(user, "mob\ref[src]")
+
+	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
+	popup.set_content(dat)
+	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
@@ -662,7 +663,7 @@ var/list/slot_equipment_priority = list( \
 	if (flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(lentext(msg) <= 40 || !shrink)
-			return "<span class='notice'>[msg]</span>"
+			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a></span>"
 
@@ -1363,6 +1364,11 @@ mob/proc/yank_out_object()
 					return G
 				break
 
+/mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null)
+	var/mob/dead/observer/ghost = get_ghost()
+	if(ghost)
+		ghost.notify_cloning(message, sound, source)
+		return ghost
 
 /mob/proc/fakevomit(green=0) //for aesthetic vomits that need to be instant and do not stun. -Fox
 	if(stat==DEAD)
@@ -1452,3 +1458,6 @@ mob/proc/yank_out_object()
 
 /mob/proc/IsVocal()
 	return 1
+
+/mob/proc/get_access()
+	return list() //must return list or IGNORE_ACCESS

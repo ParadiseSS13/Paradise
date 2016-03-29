@@ -26,6 +26,7 @@
 	melee_damage_upper = 2
 	stop_automated_movement_when_pulled = 1
 	var/milk_content = 0
+	can_collar = 1
 
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	..()
@@ -111,6 +112,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	var/milk_content = 0
+	can_collar = 1
 
 /mob/living/simple_animal/cow/New()
 	..()
@@ -178,6 +180,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	small = 1
 	can_hide = 1
+	can_collar = 1
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -220,6 +223,7 @@ var/global/chicken_count = 0
 	pass_flags = PASSTABLE | PASSMOB
 	small = 1
 	can_hide = 1
+	can_collar = 1
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -297,6 +301,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	can_collar = 1
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
@@ -318,6 +323,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "pecks"
 	health = 50
+	can_collar = 1
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -339,6 +345,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	can_collar = 1
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -360,6 +367,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	can_collar = 1
 
 /mob/living/simple_animal/walrus
 	name = "walrus"
@@ -381,3 +389,4 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	can_collar = 1

@@ -67,6 +67,9 @@
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 	var/can_hide    = 0
 
+	var/obj/item/clothing/accessory/petcollar/collar = null
+	var/can_collar = 0 // can add collar to mob or not
+
 //Hot simple_animal baby making vars
 	var/childtype = null
 	var/scan_ready = 1
@@ -80,7 +83,16 @@
 	verbs -= /mob/verb/observe
 	if(!can_hide)
 		verbs -= /mob/living/simple_animal/verb/hide
+	if(collar)
+		if(!istype(collar))
+			collar = new(src)
+		regenerate_icons()
 
+/mob/living/simple_animal/Destroy()
+	if(collar)
+		collar.forceMove(loc)
+		collar = null
+	return ..()
 
 /mob/living/simple_animal/Login()
 	if(src && src.client)
@@ -92,6 +104,30 @@
 	..()
 	health = Clamp(health, 0, maxHealth)
 
+/mob/living/simple_animal/handle_hud_icons()
+	..()
+	if(fire)
+		if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
+		else									fire.icon_state = "fire0"
+	if(oxygen)
+		if(oxygen_alert)						oxygen.icon_state = "oxy1"
+		else									oxygen.icon_state = "oxy0"
+	if(toxin)
+		if(toxins_alert)							toxin.icon_state = "tox1"
+		else									toxin.icon_state = "tox0"
+
+/mob/living/simple_animal/handle_hud_icons_health()
+	..()
+	if(healths && maxHealth > 0)
+		switch(health / maxHealth * 30)
+			if(30 to INFINITY)		healths.icon_state = "health0"
+			if(26 to 29)			healths.icon_state = "health1"
+			if(21 to 25)			healths.icon_state = "health2"
+			if(16 to 20)			healths.icon_state = "health3"
+			if(11 to 15)			healths.icon_state = "health4"
+			if(6 to 10)				healths.icon_state = "health5"
+			if(1 to 5)				healths.icon_state = "health6"
+			if(0)					healths.icon_state = "health7"
 
 /mob/living/simple_animal/Life()
 
@@ -176,7 +212,7 @@
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
-	
+
 	var/tox = environment.toxins
 	var/oxy = environment.oxygen
 	var/n2 = environment.nitrogen
@@ -401,6 +437,18 @@
 		else
 			user << "\blue [src] is dead, medical items won't bring it back to life."
 			return
+	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
+		var/obj/item/clothing/accessory/petcollar/C = O
+		user.drop_item()
+		C.forceMove(src)
+		collar = C
+		collar.equipped(src)
+		regenerate_icons()
+		usr << "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>"
+		if(C.tagname)
+			name = C.tagname
+			real_name = C.tagname
+		return
 	else if(meat_type && (stat == DEAD))	//if the animal has a meat, and if it is dead.
 		if(istype(O, /obj/item/weapon/kitchen/knife))
 			harvest()
@@ -525,6 +573,21 @@
 	density = initial(density)
 	update_canmove()
 
+/mob/living/simple_animal/show_inv(mob/user as mob)
+	user.set_machine(src)
+	var/dat = {"<table>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td>&nbsp;</td></tr>"}
+	if(can_collar)
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += {"</table>
+	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	"}
+
+	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
+	popup.set_content(dat)
+	popup.open()
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(gender != FEMALE || stat || !scan_ready || !childtype || !simplespecies)
@@ -586,3 +649,54 @@
 
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
+
+/mob/living/simple_animal/Topic(href, href_list)
+	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+		if(href_list["remove_inv"])
+			if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
+				return
+			var/remove_from = href_list["remove_inv"]
+			switch(remove_from)
+				if("collar")
+					if(!can_collar)
+						return
+					if(collar)
+						if(collar.flags & NODROP)
+							usr << "<span class='warning'>\The [collar] is stuck too hard to [src] for you to remove!</span>"
+							return
+						collar.dropped(src)
+						collar.forceMove(src.loc)
+						collar = null
+						regenerate_icons()
+					else
+						usr << "<span class='danger'>There is nothing to remove from its [remove_from].</span>"
+						return
+			show_inv(usr)
+		else if(href_list["add_inv"])
+			if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
+				return
+
+			var/add_to = href_list["add_inv"]
+			switch(add_to)
+				if("collar")
+					if(!can_collar || collar)
+						return
+					var/obj/item/clothing/accessory/petcollar/C = usr.get_active_hand()
+					if(!C)
+						usr.visible_message("[usr] rubs [src]'s neck.","<span class='notice'>You rub [src]'s neck for a moment.</span>")
+						return
+					usr.drop_item()
+					C.forceMove(src)
+					collar = C
+					collar.equipped(src)
+					regenerate_icons()
+					usr << "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>"
+					if(C.tagname)
+						name = C.tagname
+						real_name = C.tagname
+			show_inv(usr)
+
+/mob/living/simple_animal/get_access()
+	. = ..()
+	if(collar)
+		. |= collar.GetAccess()

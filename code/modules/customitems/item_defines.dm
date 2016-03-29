@@ -149,6 +149,13 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
 
 
+/obj/item/device/guitar/jello_guitar //Antcolon3: Dan Jello
+	name = "Dan Jello's Pink Guitar"
+	desc = "Dan Jello's special pink guitar."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jello_guitar"
+	item_state = "jello_guitar"
+
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
