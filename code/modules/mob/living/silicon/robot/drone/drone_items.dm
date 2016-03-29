@@ -160,7 +160,6 @@
 	//Metal, glass, wood, plastic.
 	var/list/stored_comms = list(
 		"metal" = 0,
-		"plasteel" = 0,
 		"glass" = 0,
 		"wood" = 0,
 		"plastic" = 0
