@@ -939,6 +939,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
 				isRemoteObserve = 0
 
+		if(remote_view)
+			isRemoteObserve = 1
+
 		if(!isRemoteObserve && client && !client.adminobs)
 			remoteview_target = null
 			reset_view(null)
