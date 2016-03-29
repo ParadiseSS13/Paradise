@@ -308,11 +308,11 @@
 	icon_state = "bottle8"
 	list_reagents = list("plasma" = 30)
 
-/obj/item/weapon/reagent_containers/glass/bottle/synaptizine
-	name = "synaptizine bottle"
-	desc = "A small bottle of synaptizine."
+/obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine
+	name = "diphenhydramine bottle"
+	desc = "A small bottle of diphenhydramine."
 	icon_state = "bottle20"
-	list_reagents = list("synaptizine" = 30)
+	list_reagents = list("diphenhydramine" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/flu_virion
 	name = "Flu virion culture bottle"

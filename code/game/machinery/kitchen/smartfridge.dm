@@ -143,7 +143,12 @@
 	name = "smart virus storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
 	req_access_txt = "39"
-	spawn_meds = list(/obj/item/weapon/reagent_containers/syringe/antiviral = 4, /obj/item/weapon/reagent_containers/glass/bottle/cold = 1, /obj/item/weapon/reagent_containers/glass/bottle/flu_virion = 1, /obj/item/weapon/reagent_containers/glass/bottle/mutagen = 1, /obj/item/weapon/reagent_containers/glass/bottle/plasma = 1, /obj/item/weapon/reagent_containers/glass/bottle/synaptizine = 1)
+	spawn_meds = list(/obj/item/weapon/reagent_containers/syringe/antiviral = 4,
+					  /obj/item/weapon/reagent_containers/glass/bottle/cold = 1,
+					  /obj/item/weapon/reagent_containers/glass/bottle/flu_virion = 1,
+					  /obj/item/weapon/reagent_containers/glass/bottle/mutagen = 1,
+					  /obj/item/weapon/reagent_containers/glass/bottle/plasma = 1,
+					  /obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine = 1)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/accept_check(obj/item/O)
 	if(..(O))

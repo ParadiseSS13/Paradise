@@ -13,7 +13,7 @@ var/list/archive_diseases = list()
 var/list/advance_cures = 	list(
 									"sodiumchloride", "sugar", "orangejuice",
 									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "synaptizine", "lipolicide",
+									"teporone", "diphenhydramine", "lipolicide",
 									"silver", "gold"
 								)
 

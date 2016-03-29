@@ -37,9 +37,9 @@
 	id = "sugarvirusfood"
 	color = "#41B0C0" // rgb: 65,176,192
 
-/datum/reagent/synaptizine/synaptizinevirusfood
+/datum/reagent/diphenhydramine/diphenhydraminevirusfood
 	name = "virus rations"
-	id = "synaptizinevirusfood"
+	id = "diphenhydraminevirusfood"
 	description = "mutates blood"
 	color = "#D18AA5" // rgb: 209,138,165
 
@@ -69,11 +69,11 @@
 	required_reagents = list("mutagen" = 1, "virusfood" = 1)
 	result_amount = 1
 
-/datum/chemical_reaction/virus_food_synaptizine
+/datum/chemical_reaction/virus_food_diphenhydramine
 	name = "virus rations"
-	id = "synaptizinevirusfood"
-	result = "synaptizinevirusfood"
-	required_reagents = list("synaptizine" = 1, "virusfood" = 1)
+	id = "diphenhydraminevirusfood"
+	result = "diphenhydraminevirusfood"
+	required_reagents = list("diphenhydramine" = 1, "virusfood" = 1)
 	result_amount = 1
 
 /datum/chemical_reaction/virus_food_plasma
@@ -83,11 +83,11 @@
 	required_reagents = list("plasma" = 1, "virusfood" = 1)
 	result_amount = 1
 
-/datum/chemical_reaction/virus_food_plasma_synaptizine
+/datum/chemical_reaction/virus_food_plasma_diphenhydramine
 	name = "weakened virus plasma"
 	id = "weakplasmavirusfood"
 	result = "weakplasmavirusfood"
-	required_reagents = list("synaptizine" = 1, "plasmavirusfood" = 1)
+	required_reagents = list("diphenhydramine" = 1, "plasmavirusfood" = 1)
 	result_amount = 2
 
 /datum/chemical_reaction/virus_food_mutagen_sugar
@@ -175,14 +175,14 @@
 /datum/chemical_reaction/mix_virus/mix_virus_9
 	name = "Mix Virus 9"
 	id = "mixvirus9"
-	required_reagents = list("synaptizinevirusfood" = 1)
+	required_reagents = list("diphenhydraminevirusfood" = 1)
 	level_min = 1
 	level_max = 1
 
 /datum/chemical_reaction/mix_virus/rem_virus
 	name = "Devolve Virus"
 	id = "remvirus"
-	required_reagents = list("synaptizine" = 1)
+	required_reagents = list("diphenhydramine" = 1)
 	required_catalysts = list("blood" = 1)
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)

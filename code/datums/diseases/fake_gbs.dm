@@ -3,8 +3,8 @@
 	max_stages = 5
 	spread_text = "On contact"
 	spread_flags = CONTACT_GENERAL
-	cure_text = "Synaptizine & Sulfur"
-	cures = list("synaptizine","sulfur")
+	cure_text = "Diphenhydramine & Sulfur"
+	cures = list("diphenhydramine","sulfur")
 	agent = "Gravitokinetic Bipotential SADS-"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	desc = "If left untreated death will occur."
