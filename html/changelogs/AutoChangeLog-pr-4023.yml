@@ -1,0 +1,4 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - tweak: "Action progress bars are now smooth."
