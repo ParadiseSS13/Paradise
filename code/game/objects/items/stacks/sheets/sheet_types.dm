@@ -131,7 +131,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=2"
-
+/* Just in case we ever decide to use it
 /obj/item/stack/sheet/plasteel/cyborg
 	name = "plasteel"
 	singular_name = "plasteel sheet"
@@ -141,7 +141,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 	materials = list()
 	throwforce = 10.0
 	flags = CONDUCT
-
+*/
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
 	return ..()

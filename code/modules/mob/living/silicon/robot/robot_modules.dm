@@ -172,7 +172,6 @@
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal = 50,
-		/obj/item/stack/sheet/plasteel/cyborg = 50,
 		/obj/item/stack/sheet/glass = 50,
 		/obj/item/stack/sheet/rglass = 50,
 		/obj/item/stack/cable_coil/cyborg = 50,
@@ -462,13 +461,11 @@
 	module_type = "Engineer"
 	stacktypes = list(
 		/obj/item/stack/sheet/wood = 10,
-		/obj/item/stack/sheet/mineral/plastic = 10,
 		/obj/item/stack/sheet/rglass = 50,
 		/obj/item/stack/tile/wood = 20,
 		/obj/item/stack/rods = 30,
 		/obj/item/stack/tile/plasteel = 20,
 		/obj/item/stack/sheet/metal = 50,
-		/obj/item/stack/sheet/plasteel/cyborg = 50,
 		/obj/item/stack/sheet/glass = 50,
 		/obj/item/stack/cable_coil/cyborg = 30
 		)

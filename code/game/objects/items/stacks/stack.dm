@@ -34,10 +34,6 @@
 /obj/item/stack/attack_self(mob/user as mob)
 	list_recipes(user)
 
-/obj/item/stack/sheet/plasteel/cyborg/attack_self(mob/user as mob)
-	user << "<span class='warning'>You lack the subroutines necessary to build more complex structures with that material.</span>"
-	return
-
 /obj/item/stack/proc/list_recipes(mob/user as mob, recipes_sublist)
 	if (!recipes)
 		return
