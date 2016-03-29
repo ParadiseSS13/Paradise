@@ -141,6 +141,7 @@
 /datum/click_intercept/buildmode/Destroy()
 	stored = null
 	Reset()
+	areaimage.loc = null
 	qdel(areaimage)
 	..()
 
