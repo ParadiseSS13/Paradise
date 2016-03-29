@@ -125,11 +125,9 @@
 	color = "#00FFFF"
 
 	loot = list(
-				/obj/item/weapon/card/emag = 1,
 				/obj/item/weapon/card/emag_broken = 2,
 				/obj/item/weapon/defibrillator/compact/combat/loaded = 1,
 				/obj/item/weapon/defibrillator/compact/loaded = 2,
-				/obj/item/weapon/gun/energy/telegun = 1,
 				/obj/item/weapon/gun/energy/laser/retro = 2,
 				/obj/item/weapon/rcd/combat = 1,
 				/obj/item/weapon/rcd = 2,
@@ -158,7 +156,6 @@
 				/obj/item/weapon/stock_parts/scanning_module = 1,
 				/obj/item/weapon/spacecash/c200 = 1,
 				/obj/item/weapon/airlock_electronics = 1,
-				/obj/item/weapon/implanter/adrenalin = 1,
 				/obj/item/weapon/gun/energy/kinetic_accelerator/super = 1,
 				/obj/item/pizzabox = 3,
 				)
