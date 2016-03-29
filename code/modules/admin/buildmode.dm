@@ -4,7 +4,8 @@
 #define THROW_BUILDMODE 4
 #define AREA_BUILDMODE 5
 #define COPY_BUILDMODE 6
-#define NUM_BUILDMODES 6
+#define AREAEDIT_BUILDMODE 7
+#define NUM_BUILDMODES 7
 
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
@@ -128,11 +129,19 @@
 	var/varholder = "name"
 	var/valueholder = "derp"
 	var/objholder = /obj/structure/closet
+	var/area/storedarea = null
+	var/image/areaimage
 	var/atom/movable/stored = null
+
+/datum/click_intercept/buildmode/New(client/c)
+	..()
+	areaimage = image('icons/turf/areas.dmi',null,"yellow")
+	holder.images += areaimage
 
 /datum/click_intercept/buildmode/Destroy()
 	stored = null
 	Reset()
+	qdel(areaimage)
 	..()
 
 /datum/click_intercept/buildmode/create_buttons()
@@ -188,6 +197,12 @@
 			user << "<span class='notice'>Left Mouse Button on obj/turf/mob   = Spawn a Copy of selected target</span>"
 			user << "<span class='notice'>Right Mouse Button on obj/mob = Select target to copy</span>"
 			user << "<span class='notice'>***********************************************************</span>"
+		if(AREAEDIT_BUILDMODE)
+			user << "<span class='notice'>***********************************************************</span>"
+			user << "<span class='notice'>Left Mouse Button on obj/turf/mob  = Paint area</span>"
+			user << "<span class='notice'>Right Mouse Button on obj/turf/mob = Select area to paint</span>"
+			user << "<span class='notice'>Right Mouse Button on buildmode button = Create new area</span>"
+			user << "<span class='notice'>***********************************************************</span>"
 
 /datum/click_intercept/buildmode/proc/change_settings(mob/user)
 	switch(mode)
@@ -199,7 +214,7 @@
 			objholder = text2path(target_path)
 			if(!ispath(objholder))
 				objholder = pick_closest_path(target_path)
-				if(!objholder)
+				if(!objholder || ispath(objholder, /area))
 					objholder = /obj/structure/closet
 					alert("That path is not allowed.")
 			else
@@ -234,6 +249,20 @@
 			generator_path = type
 			cornerA = null
 			cornerB = null
+		if(AREAEDIT_BUILDMODE)
+			var/target_path = input(user,"Enter typepath:", "Typepath", "/area")
+			var/areatype = text2path(target_path)
+			if(ispath(areatype,/area))
+				var/areaname = input(user,"Enter area name:", "Area name", "Area")
+				if(!areaname || !length(areaname))
+					return
+				storedarea = new areatype
+				storedarea.power_equip = 0
+				storedarea.power_light = 0
+				storedarea.power_environ = 0
+				storedarea.always_unpowered = 0
+				storedarea.name = areaname
+				areaimage.loc = storedarea
 
 /datum/click_intercept/buildmode/proc/change_dir()
 	switch(build_dir)
@@ -257,6 +286,10 @@
 
 /datum/click_intercept/buildmode/proc/Reset()//Reset temporary variables
 	deselect_region()
+	if(mode == AREAEDIT_BUILDMODE)
+		areaimage.loc = storedarea
+	else
+		areaimage.loc = null
 
 /datum/click_intercept/buildmode/proc/select_tile(var/turf/T)
 	return new /obj/effect/buildmode_reticule(T, holder)
@@ -396,3 +429,14 @@
 				if(ismovableatom(object)) // No copying turfs for now.
 					user << "<span class='notice'>[object] set as template.</span>"
 					stored = object
+		if(AREAEDIT_BUILDMODE)
+			if(left_click)
+				if(!storedarea)
+					return
+				var/turf/T = get_turf(object)
+				if(get_area(T) != storedarea)
+					storedarea.contents.Add(T)
+			else if(right_click)
+				var/turf/T = get_turf(object)
+				storedarea = get_area(T)
+				areaimage.loc = storedarea
