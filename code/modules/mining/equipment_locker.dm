@@ -556,14 +556,15 @@
 				L.Weaken(3)
 				if(ishuman(L))
 					shake_camera(L, 20, 1)
+					var/mob/living/carbon/human/H = L
 					spawn(20)
-						if(L)
-							L.visible_message("<span class='danger'>[L.name] vomits from travelling through the [src.name]!</span>", "<span class='userdanger'>You throw up from travelling through the [src.name]!</span>")
-							L.nutrition -= 20
-							L.adjustToxLoss(-3)
-							var/turf/T = get_turf(L)
-							T.add_vomit_floor(L)
-							playsound(L, 'sound/effects/splat.ogg', 50, 1)
+						if(H && H.check_has_mouth())
+							H.visible_message("<span class='danger'>[L.name] vomits from travelling through the [src.name]!</span>", "<span class='userdanger'>You throw up from travelling through the [src.name]!</span>")
+							H.nutrition -= 20
+							H.adjustToxLoss(-3)
+							var/turf/T = get_turf(H)
+							T.add_vomit_floor(H)
+							playsound(H, 'sound/effects/splat.ogg', 50, 1)
 
 /**********************Resonator**********************/
 
