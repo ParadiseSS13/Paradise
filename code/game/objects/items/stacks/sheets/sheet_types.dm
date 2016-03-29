@@ -72,6 +72,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 		), 4), \
 	null, \
 	new/datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 50, one_per_turf = 0, on_floor = 1), \
+	new/datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, 1, time = 50, one_per_turf = 0, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("grenade casing", /obj/item/weapon/grenade/chem_grenade), \
 	new/datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2), \

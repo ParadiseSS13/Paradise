@@ -114,39 +114,3 @@
 		return
 	spark()
 	..(severity)
-
-/obj/machinery/ignition_switch/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
-
-/obj/machinery/ignition_switch/attackby(obj/item/weapon/W, mob/user as mob, params)
-	return src.attack_hand(user)
-
-/obj/machinery/ignition_switch/attack_hand(mob/user as mob)
-
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(active)
-		return
-
-	use_power(5)
-
-	active = 1
-	icon_state = "launcheract"
-
-	for(var/obj/machinery/sparker/M in world)
-		if (M.id == src.id)
-			spawn( 0 )
-				M.spark()
-
-	for(var/obj/machinery/igniter/M in world)
-		if(M.id == src.id)
-			use_power(50)
-			M.on = !( M.on )
-			M.icon_state = text("igniter[]", M.on)
-
-	sleep(50)
-
-	icon_state = "launcherbtt"
-	active = 0
-
-	return

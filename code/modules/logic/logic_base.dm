@@ -265,8 +265,15 @@
 	if(tamperproof)
 		//This is some top-level tamperproofing right here, that's for sure. It can even defy a singularity!
 		return 0
+	..()
 
 /obj/machinery/logic_gate/bullet_act()
 	if(tamperproof)
+		return 0
+	..()
+
+/obj/machinery/logic_gate/tesla_act(var/power)
+	if(tamperproof)
+		tesla_zap(src, 3, power)	//If we're tamperproof, we'll just bounce the full shock of the tesla zap we got hit by, so it continues on normally without diminishing
 		return 0
 	..()
