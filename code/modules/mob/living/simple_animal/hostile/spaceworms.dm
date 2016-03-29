@@ -165,7 +165,7 @@
 
 	src.visible_message("<span class='userdanger'>\the [src] starts to eat \the [noms]!</span>","<span class='notice'>You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 
-	if(do_after(src, nomDelay,5,0, target = noms))
+	if(do_after(src, nomDelay, 0, target = noms))
 		if(noms && Adjacent(noms) && (currentlyEating == noms))//It exists, were next to it, and it's still the thing were eating
 			if(W)
 				W.ChangeTurf(/turf/simulated/floor/plating)
