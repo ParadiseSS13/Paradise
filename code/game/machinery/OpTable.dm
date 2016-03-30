@@ -130,7 +130,7 @@
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user, 20, target = src))
 			user << "<span class='notice'>You deconstruct the table.</span>"
-			new /obj/item/stack/sheet/plasteel( loc, 5)
+			new /obj/item/stack/sheet/plasteel(loc, 5)
 			qdel(src)
 
 
