@@ -35,11 +35,12 @@
 	var/prev_flashing_lights = 0
 
 /mob/living/simple_animal/bot/secbot/beepsky
-	name = "Officer Beep O'sky"
-	desc = "It's Officer Beep O'sky! Powered by a potato and a shot of whiskey."
+	name = "Officer Beepsky"
+	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
 	idcheck = 0
 	weaponscheck = 0
 	auto_patrol = 1
+	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/turf/Tsec = get_turf(src)
@@ -53,6 +54,7 @@
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	radio_channel = "AI Private"
+	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
@@ -60,6 +62,7 @@
 	idcheck = 0
 	weaponscheck = 1
 	auto_patrol = 1
+	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
