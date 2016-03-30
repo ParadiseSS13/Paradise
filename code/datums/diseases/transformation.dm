@@ -67,7 +67,7 @@
 
 
 
-/*/datum/disease/transformation/jungle_fever
+/datum/disease/transformation/jungle_fever
 	name = "Jungle Fever"
 	cure_text = "Bananas"
 	cures = list("banana")
@@ -83,7 +83,7 @@
 	stage_prob = 4
 	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
-	new_form = /mob/living/carbon/monkey
+	new_form = /mob/living/carbon/human/monkey
 
 	stage1	= null
 	stage2	= null
@@ -92,10 +92,9 @@
 					"<span class='warning'>You have a craving for bananas.</span>", "<span class='warning'>Your mind feels clouded.</span>")
 	stage5	= list("<span class='warning'>You feel like monkeying around.</span>")
 
-/datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/affected_mob)
-	if(!ismonkey(affected_mob))
-		ticker.mode.add_monkey(affected_mob.mind)
-		affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
+/datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/human/affected_mob)
+	if(!issmall(affected_mob))
+		affected_mob.monkeyize()
 
 /datum/disease/transformation/jungle_fever/stage_act()
 	..()
@@ -111,10 +110,6 @@
 			if(prob(3))
 				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."))
 
-/datum/disease/transformation/jungle_fever/cure()
-	ticker.mode.remove_monkey(affected_mob.mind)
-	..()
-*/
 
 /datum/disease/transformation/robot
 
