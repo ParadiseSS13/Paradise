@@ -884,7 +884,7 @@ obj/item/weapon/circuitboard/rdserver
 //Selectable mode board, like vending machine boards
 /obj/item/weapon/circuitboard/logic_gate
 	name = "circuit board (Logic Connector)"
-	build_path = /obj/machinery/logic
+	build_path = /obj/machinery/logic_gate
 	board_type = "machine"
 	origin_tech = "programming=1"		//This stuff is pretty much the absolute basis of programming, so it's mostly useless for research
 	req_components = list(/obj/item/stack/cable_coil = 1)
@@ -896,8 +896,16 @@ obj/item/weapon/circuitboard/rdserver
 							"NAND Gate" = /obj/machinery/logic_gate/nand,
 							"NOR Gate" = /obj/machinery/logic_gate/nor,
 							"XOR Gate" = /obj/machinery/logic_gate/xor,
-							"XNOR Gate" = /obj/machinery/logic_gate/xnor
+							"XNOR Gate" = /obj/machinery/logic_gate/xnor,
+							"STATUS Gate" = /obj/machinery/logic_gate/status,
+							"CONVERT Gate" = /obj/machinery/logic_gate/convert
 	)
+
+/obj/item/weapon/circuitboard/logic_gate/New()
+	..()
+	if(build_path == /obj/machinery/logic_gate)			//If we spawn the base type board (determined by the base type machine as the build path), become a random gate board
+		var/new_path = names_paths[pick(names_paths)]
+		set_type(new_path)
 
 /obj/item/weapon/circuitboard/logic_gate/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))

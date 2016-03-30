@@ -193,6 +193,10 @@
 	"}
 	return menu_contents
 
+/obj/machinery/logic_gate/convert/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+	..()
+	update_multitool_menu(user)
+
 /obj/machinery/logic_gate/attackby(obj/item/O, mob/user, params)
 	if(tamperproof)
 		user << "<span class='warning'>The [src] appears to be tamperproofed! You can't interact with it!</span>"
