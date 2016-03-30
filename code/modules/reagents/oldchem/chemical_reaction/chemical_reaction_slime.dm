@@ -504,7 +504,7 @@
 		on_reaction(datum/reagents/holder)
 			feedback_add_details("slime_cores_used","[type]")
 			var/obj/item/areaeditor/blueprints/slime/P = new /obj/item/areaeditor/blueprints/slime
-			P.loc = get_turf(holder.my_atom)
+			P.forceMove(get_turf(holder.my_atom))
 
 //Sepia
 	slimestop

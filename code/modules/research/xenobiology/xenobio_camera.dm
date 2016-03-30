@@ -102,7 +102,7 @@
 
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/slime/S in X.stored_slimes)
-			S.loc = remote_eye.loc
+			S.forceMove(remote_eye.loc)
 			S.visible_message("[S] warps in!")
 			X.stored_slimes -= S
 
@@ -127,7 +127,7 @@
 					S.buckled.unbuckle_mob()
 				S.Feedstop()
 				S.visible_message("[S] vanishes in a flash of light!")
-				S.loc = X
+				S.forceMove(X)
 				X.stored_slimes += S
 
 
