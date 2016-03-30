@@ -109,7 +109,6 @@
 /datum/chemical_reaction/mix_virus
 	name = "Mix Virus"
 	id = "mixvirus"
-	result = "blood"
 	required_reagents = list("virusfood" = 1)
 	required_catalysts = list("blood" = 1)
 	var/level_min = 0

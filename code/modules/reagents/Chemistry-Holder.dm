@@ -304,13 +304,6 @@ var/const/INGEST = 2
 						if(!C.no_message)
 							M << "\blue \icon[my_atom] [C.mix_message]"
 
-				/*	if(istype(my_atom, /obj/item/slime_core))
-						var/obj/item/slime_core/ME = my_atom
-						ME.Uses--
-						if(ME.Uses <= 0) // give the notification that the slime core is dead
-							for(var/mob/M in viewers(4, get_turf(my_atom)) )
-								M << "\blue \icon[my_atom] The innards begin to boil!"
-					*/
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
@@ -454,33 +447,6 @@ var/const/INGEST = 2
 			R.volume += amount
 			update_total()
 			my_atom.on_reagent_change()
-/*
-			// mix dem viruses
-			if(R.id == "blood" && reagent == "blood")
-				if(R.data && data)
-
-					if(R.data["viruses"] || data["viruses"])
-
-						var/list/mix1 = R.data["viruses"]
-						var/list/mix2 = data["viruses"]
-
-						// Stop issues with the list changing during mixing.
-						var/list/to_mix = list()
-
-						for(var/datum/disease/advance/AD in mix1)
-							to_mix += AD
-						for(var/datum/disease/advance/AD in mix2)
-							to_mix += AD
-
-						var/datum/disease/advance/AD = Advance_Mix(to_mix)
-						if(AD)
-							var/list/preserve = list(AD)
-							for(var/D in R.data["viruses"])
-								if(!istype(D, /datum/disease/advance))
-									preserve += D
-							R.data["viruses"] = preserve
-*/
-
 			handle_reactions()
 			return 0
 

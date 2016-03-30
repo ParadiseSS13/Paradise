@@ -190,8 +190,8 @@
 						preserve += D
 				data["viruses"] = preserve
 
-		if(data["blood_colour"])
-			color = data["blood_colour"]
+	if(mix_data["blood_colour"])
+		color = mix_data["blood_colour"]
 	return 1
 
 /datum/reagent/blood/on_update(var/atom/A)
