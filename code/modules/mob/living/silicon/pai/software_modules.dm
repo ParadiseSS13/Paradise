@@ -224,7 +224,7 @@
 
 /datum/pai_software/chatroom
 	name = "Digital Chatroom"
-	ram_cost = 3
+	ram_cost = 5
 	id = "chatroom"
 	toggle = 0
 
