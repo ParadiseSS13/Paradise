@@ -1788,7 +1788,7 @@ area/security/podbay
 	icon_state = "toxlab"
 
 /area/toxins/xenobiology
-	name = "Xenobiology Lab"
+	name = "\improper Xenobiology Lab"
 	icon_state = "toxmix"
 
 /area/toxins/xenobiology/xenoflora_storage

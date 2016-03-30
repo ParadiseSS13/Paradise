@@ -444,9 +444,9 @@
 	color = "#2956B2"
 
 /obj/item/areaeditor/blueprints/slime/edit_area()
-	var/success = ..()
+	. = ..()
 	var/area/A = get_area(src)
-	if(success)
+	if(.)
 		for(var/turf/T in A)
 			T.color = "#2956B2"
 		qdel(src)
