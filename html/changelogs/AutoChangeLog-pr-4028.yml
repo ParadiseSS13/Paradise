@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - rscadd: "Status displays now display the time when in Shuttle ETA mode and no shuttle activity is happening."
+  - tweak: "Shuttle ETA countdowns on status displays are now amber."
