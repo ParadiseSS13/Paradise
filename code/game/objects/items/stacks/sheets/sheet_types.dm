@@ -86,7 +86,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 
 /obj/item/stack/sheet/metal
 	name = "metal"
-	desc = "Sheets made out off metal. It has been dubbed Metal Sheets."
+	desc = "Sheets made out of metal."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
@@ -96,7 +96,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 
 /obj/item/stack/sheet/metal/cyborg
 	name = "metal"
-	desc = "Sheets made out off metal. It has been dubbed Metal Sheets."
+	desc = "Sheets made out of metal."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
 	materials = list()
