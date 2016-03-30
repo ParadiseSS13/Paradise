@@ -20,13 +20,12 @@
 
 /obj/item/device/assembly/signaler/New()
 	..()
-	if(!radio_controller)
-		spawn(40)
-			set_frequency(frequency)
-	else
-		spawn(1) // For things that set the frequency directly
-			set_frequency(frequency)
-	return
+	if(radio_controller)
+		set_frequency(frequency)
+
+/obj/item/device/assembly/signaler/initialize()
+	if(radio_controller)
+		set_frequency(frequency)
 
 /obj/item/device/assembly/signaler/Destroy()
 	if(radio_controller)

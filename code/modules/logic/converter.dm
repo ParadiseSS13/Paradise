@@ -112,7 +112,7 @@
 				attached_signaler.receiving = 1
 			else
 				attached_signaler.receiving = 0
-	if("adjust_signaler" in href_list && attached_signaler)		//Make sure that we have a signaler attached to handle this one, otherwise ignore this command
+	if(("adjust_signaler" in href_list) && attached_signaler)		//Make sure that we have a signaler attached to handle this one, otherwise ignore this command
 		attached_signaler.interact(user, 1)
 	update_multitool_menu(user)
 
