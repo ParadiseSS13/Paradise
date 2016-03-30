@@ -5,7 +5,8 @@
 #define AREA_BUILDMODE 5
 #define COPY_BUILDMODE 6
 #define AREAEDIT_BUILDMODE 7
-#define NUM_BUILDMODES 7
+#define FILL_BUILDMODE 8
+#define NUM_BUILDMODES 8
 
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
@@ -204,6 +205,11 @@
 			user << "<span class='notice'>Right Mouse Button on obj/turf/mob = Select area to paint</span>"
 			user << "<span class='notice'>Right Mouse Button on buildmode button = Create new area</span>"
 			user << "<span class='notice'>***********************************************************</span>"
+		if(FILL_BUILDMODE)
+			user << "<span class='notice'>***********************************************************</span>"
+			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>"
+			user << "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>"
+			user << "<span class='notice'>***********************************************************</span>"
 
 /datum/click_intercept/buildmode/proc/change_settings(mob/user)
 	switch(mode)
@@ -264,6 +270,19 @@
 				storedarea.always_unpowered = 0
 				storedarea.name = areaname
 				areaimage.loc = storedarea
+		if(FILL_BUILDMODE)
+			var/target_path = input(user,"Enter typepath:" ,"Typepath","/obj/structure/closet")
+			objholder = text2path(target_path)
+			if(!ispath(objholder))
+				objholder = pick_closest_path(target_path)
+				if(!objholder || ispath(objholder, /area))
+					objholder = /obj/structure/closet
+					return
+			else
+				if(ispath(objholder,/mob) && !check_rights(R_DEBUG,0))
+					objholder = /obj/structure/closet
+			cornerA = null
+			cornerB = null
 
 /datum/click_intercept/buildmode/proc/change_dir()
 	switch(build_dir)
@@ -441,3 +460,25 @@
 				var/turf/T = get_turf(object)
 				storedarea = get_area(T)
 				areaimage.loc = storedarea
+		if(FILL_BUILDMODE)
+			if(!cornerA)
+				cornerA = select_tile(get_turf(object))
+				return
+			if(cornerA && !cornerB)
+				cornerB = select_tile(get_turf(object))
+			if(left_click) //rectangular
+				if(cornerA && cornerB)
+					if(!objholder)
+						user << "<span class='warning'>Select object type first.</span>"
+					else
+						for(var/turf/T in block(get_turf(cornerA),get_turf(cornerB)))
+							if(ispath(objholder,/turf))
+								T.ChangeTurf(objholder)
+							else
+								var/obj/A = new objholder(T)
+								A.dir = build_dir
+					deselect_region()
+					return
+
+			//Something wrong - Reset
+			deselect_region()
