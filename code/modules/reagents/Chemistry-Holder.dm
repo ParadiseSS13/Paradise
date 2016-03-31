@@ -447,6 +447,7 @@ var/const/INGEST = 2
 			R.volume += amount
 			update_total()
 			my_atom.on_reagent_change()
+			R.on_merge(data)
 			handle_reactions()
 			return 0
 

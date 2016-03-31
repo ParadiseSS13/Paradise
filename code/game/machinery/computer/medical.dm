@@ -200,12 +200,20 @@
 				src.active2 = null
 
 			if(href_list["vir"])
-				var/datum/data/record/v = locate(href_list["vir"])
-				src.temp = "<center>GNAv2 based virus lifeform V-[v.fields["id"]]</center>"
-				src.temp += "<br><b>Name:</b> <A href='?src=\ref[src];field=vir_name;edit_vir=\ref[v]'>[v.fields["name"]]</A>"
-				src.temp += "<br><b>Antigen:</b> [v.fields["antigen"]]"
-				src.temp += "<br><b>Spread:</b> [v.fields["spread type"]] "
-				src.temp += "<br><b>Details:</b><br> <A href='?src=\ref[src];field=vir_desc;edit_vir=\ref[v]'>[v.fields["description"]]</A>"
+				var/type = href_list["vir"]
+				var/datum/disease/Dis = new type(0)
+				var/AfS = ""
+				for(var/mob/M in Dis.viable_mobtypes)
+					AfS += " [initial(M.name)];"
+				src.temp = {"<b>Name:</b> [Dis.name]
+<BR><b>Number of stages:</b> [Dis.max_stages]
+<BR><b>Spread:</b> [Dis.spread_text] Transmission
+<BR><b>Possible Cure:</b> [(Dis.cure_text||"none")]
+<BR><b>Affected Lifeforms:</b>[AfS]
+<BR>
+<BR><b>Notes:</b> [Dis.desc]
+<BR>
+<BR><b>Severity:</b> [Dis.severity]"}
 
 			if (href_list["del_all"])
 				src.temp = text("Are you sure you wish to delete all records?<br>\n\t<A href='?src=\ref[];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=\ref[];temp=1'>No</A><br>", src, src)

@@ -14,7 +14,7 @@
 /datum/disease/beesease/stage_act()
 	..()
 	switch(stage)
-		if(2) //also changes say, see say.dm
+		if(2) //also changes say, see say.dm // no it doesn't, that's horrifyingly snowflakey
 			if(prob(2))
 				affected_mob << "<span class='notice'>You taste honey in your mouth.</span>"
 		if(3)

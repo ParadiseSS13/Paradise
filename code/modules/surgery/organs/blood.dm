@@ -213,8 +213,10 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	B.data["donor"] = src
 	B.data["viruses"] = list()
 
-	for(var/datum/disease/D in src.viruses)
+	for(var/datum/disease/D in viruses)
 		B.data["viruses"] += D.Copy()
+	if(resistances && resistances.len)
+		B.data["resistances"] = resistances.Copy()
 
 	B.data["blood_DNA"] = copytext(src.dna.unique_enzymes,1,0)
 	B.data["blood_type"] = copytext(src.dna.b_type,1,0)
