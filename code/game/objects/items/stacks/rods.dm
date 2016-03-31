@@ -22,13 +22,13 @@
 	icon_state = "rods"
 	item_state = "rods"
 	flags = CONDUCT
-	w_class = 3.0
-	force = 9.0
-	throwforce = 10.0
-	throw_speed = 3
-	throw_range = 7
+	w_class =
+	force =
+	throwforce =
+	throw_speed =
+	throw_range =
 	materials = list()
-	max_amount = 60
+	max_amount =
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 
