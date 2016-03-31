@@ -96,13 +96,6 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	origin_tech = "materials=1"
 
 /obj/item/stack/sheet/metal/cyborg
-	name = "metal"
-	desc = "Sheets made out of metal."
-	singular_name = "metal sheet"
-	icon_state = "sheet-metal"
-	materials = list()
-	throwforce = 10.0
-	flags = CONDUCT
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
 	recipes = metal_recipes
@@ -162,10 +155,6 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	origin_tech = "materials=1;biotech=1"
 
 /obj/item/stack/sheet/wood/cyborg
-	name = "wooden plank"
-	desc = "One can only guess that this is a bunch of wood."
-	singular_name = "wood plank"
-	icon_state = "sheet-wood"
 
 /obj/item/stack/sheet/wood/New(var/loc, var/amount=null)
 	recipes = wood_recipes

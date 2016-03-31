@@ -16,21 +16,7 @@
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 
 /obj/item/stack/rods/cyborg
-	name = "metal rod"
-	desc = "Some rods. Can be used for building, or something."
-	singular_name = "metal rod"
-	icon_state = "rods"
-	item_state = "rods"
-	flags = CONDUCT
-	w_class =
-	force =
-	throwforce =
-	throw_speed =
-	throw_range =
 	materials = list()
-	max_amount =
-	attack_verb = list("hit", "bludgeoned", "whacked")
-	hitsound = 'sound/weapons/grenadelaunch.ogg'
 
 /obj/item/stack/rods/New(var/loc, var/amount=null)
 	..()
