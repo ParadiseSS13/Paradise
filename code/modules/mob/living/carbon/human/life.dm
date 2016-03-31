@@ -64,8 +64,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			update_mutations()
 			check_mutations=0
 
-		handle_virus_updates()
-
 		handle_shock()
 		handle_pain()
 		handle_heartbeat()
@@ -345,12 +343,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(breath)
 		loc.assume_air(breath)
-		//spread virus2
-		if(virus2.len > 0)
-			if(prob(10) && get_infection_chance(src))
-				for(var/mob/living/carbon/M in view(1,src))
-					src.spread_disease_to(M)
-
 
 
 // USED IN DEATHWHISPERS
@@ -955,7 +947,23 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	// Puke if toxloss is too high
 	if(!stat)
 		if (getToxLoss() >= 45 && nutrition > 20)
-			vomit()
+			lastpuke ++
+			if(lastpuke >= 25) // about 25 second delay I guess
+				Stun(5)
+
+				visible_message("<span class='danger'>[src] throws up!</span>", \
+						"<span class='userdanger'>[src] throws up!</span>")
+				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+
+				var/turf/location = loc
+				if (istype(location, /turf/simulated))
+					location.add_vomit_floor(src, 1)
+
+				nutrition -= 20
+				adjustToxLoss(-3)
+
+				// make it so you can only puke so fast
+				lastpuke = 0
 
 	//0.1% chance of playing a scary sound to someone who's in complete darkness
 	if(isturf(loc) && rand(1,1000) == 1)
@@ -963,69 +971,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in currentTurf
 		if(L && L.lum_r + L.lum_g + L.lum_b == 0)
 			playsound_local(src,pick(scarySounds),50, 1, -1)
-
-	// Separate proc so we can jump out of it when we've succeeded in spreading disease.
-/mob/living/carbon/human/proc/findAirborneVirii()
-	for(var/obj/effect/decal/cleanable/blood/B in get_turf(src))
-		if(B.virus2.len)
-			for (var/ID in B.virus2)
-				var/datum/disease2/disease/V = B.virus2[ID]
-				if (infect_virus2(src,V))
-					return 1
-
-	for(var/obj/effect/decal/cleanable/mucus/M in get_turf(src))
-		if(M.virus2.len)
-			for (var/ID in M.virus2)
-				var/datum/disease2/disease/V = M.virus2[ID]
-				if (infect_virus2(src,V))
-					return 1
-
-	for(var/obj/effect/decal/cleanable/poop/P in get_turf(src))
-		if(P.virus2.len)
-			for (var/ID in P.virus2)
-				var/datum/disease2/disease/V = P.virus2[ID]
-				if (infect_virus2(src,V))
-					return 1
-
-
-	return 0
-
-/mob/living/carbon/human/proc/handle_virus_updates()
-	if(status_flags & GODMODE)	return 0	//godmode
-	if(bodytemperature > 406)
-		for (var/ID in virus2)
-			var/datum/disease2/disease/V = virus2[ID]
-			V.cure(src)
-	if(mob_master.current_cycle % 3) //don't spam checks over all objects in view every tick.
-		for(var/obj/effect/decal/cleanable/O in view(1,src))
-			if(istype(O,/obj/effect/decal/cleanable/blood))
-				var/obj/effect/decal/cleanable/blood/B = O
-				if(B.virus2.len)
-					for (var/ID in B.virus2)
-						var/datum/disease2/disease/V = B.virus2[ID]
-						infect_virus2(src,V.getcopy())
-
-			else if(istype(O,/obj/effect/decal/cleanable/mucus))
-				var/obj/effect/decal/cleanable/mucus/M = O
-				if(M.virus2.len)
-					for (var/ID in M.virus2)
-						var/datum/disease2/disease/V = M.virus2[ID]
-						infect_virus2(src,V.getcopy())
-
-
-	for (var/ID in virus2)
-		var/datum/disease2/disease/V = virus2[ID]
-		if(isnull(V)) // Trying to figure out a runtime error that keeps repeating
-			CRASH("virus2 nulled before calling activate()")
-		else
-			V.activate(src)
-		// activate may have deleted the virus
-		if(!V) continue
-
-		// check if we're immune
-		if(V.antigen & src.antibodies)
-			V.dead = 1
-	return
 
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
@@ -1160,16 +1105,15 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
 		if(prob(5))
-			if(airborne_can_reach(get_turf(src), get_turf(H)))
-				if(istype(loc,/obj/item/bodybag))
-					return
-				var/obj/item/clothing/mask/M = H.wear_mask
-				if(M && (M.flags & MASKCOVERSMOUTH))
-					return
-				if(H.species && H.species.flags & NO_BREATHE)
-					return //no puking if you can't smell!
-				H << "<spawn class='warning'>You smell something foul..."
-				H.fakevomit()
+			if(istype(loc,/obj/item/bodybag))
+				return
+			var/obj/item/clothing/mask/M = H.wear_mask
+			if(M && (M.flags & MASKCOVERSMOUTH))
+				return
+			if(H.species && H.species.flags & NO_BREATHE)
+				return //no puking if you can't smell!
+			H << "<spawn class='warning'>You smell something foul..."
+			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
 	var/client/C = src.client

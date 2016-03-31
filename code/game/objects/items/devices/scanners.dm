@@ -187,19 +187,13 @@ REAGENT SCANNER
 	if (istype(M, /mob/living/carbon))
 		if(upgraded)
 			chemscan(user, M)
-		if(M:virus2.len) // WHAT IS TYPECASTING
-			var/mob/living/carbon/C = M
-			for (var/ID in C.virus2)
-				if (ID in virusDB)
-					var/datum/data/record/V = virusDB[ID]
-					user.show_message(text("\red Warning: Pathogen [V.fields["name"]] detected in subject's blood. Known antigen : [V.fields["antigen"]]"))
-//			user.show_message(text("\red Warning: Unknown pathogen detected in subject's blood."))
+		for(var/datum/disease/D in M.viruses)
+			if(!(D.visibility_flags & HIDDEN_SCANNER))
+				user << "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
 	if(M.getStaminaLoss())
 		user.show_message("<span class='info'>Subject appears to be suffering from fatigue.</span>")
 	if (M.getCloneLoss())
 		user.show_message("<span class='warning'>Subject appears to have [M.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>")
-//	if (M.reagents && M.reagents.get_reagent_amount("epinephrine"))
-//		user.show_message("\blue Bloodstream Analysis located [M.reagents:get_reagent_amount("epinephrine")] units of rejuvenation chemicals.")
 	if (M.has_brain_worms())
 		user.show_message("\red Subject suffering from aberrant brain activity. Recommend further scanning.")
 	else if (M.getBrainLoss() >= 100 || istype(M, /mob/living/carbon/human) && !M.get_int_organ(/obj/item/organ/internal/brain))

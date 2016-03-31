@@ -32,6 +32,21 @@
 			return A
 	return 0
 
+/proc/get_areas_in_range(dist=0, atom/center=usr)
+	if(!dist)
+		var/turf/T = get_turf(center)
+		return T ? list(T.loc) : list()
+	if(!center)
+		return list()
+
+	var/list/turfs = RANGE_TURFS(dist, center)
+	var/list/areas = list()
+	for(var/V in turfs)
+		var/turf/T = V
+		areas |= T.loc
+	return areas
+
+
 /proc/in_range(source, user)
 	if(get_dist(source, user) <= 1)
 		return 1

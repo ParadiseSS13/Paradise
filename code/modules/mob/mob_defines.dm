@@ -194,8 +194,8 @@
 
 //List of active diseases
 
-	var/viruses = list() // replaces var/datum/disease/virus
-
+	var/list/viruses = list() // replaces var/datum/disease/virus
+	var/list/resistances = list()
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 

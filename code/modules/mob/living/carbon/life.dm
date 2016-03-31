@@ -84,12 +84,7 @@
 
 	if(breath)
 		loc.assume_air(breath)
-		//spread virus2
-		if(virus2.len > 0)
-			if(prob(10) && get_infection_chance(src))
-				for(var/mob/living/carbon/M in view(1,src))
-					src.spread_disease_to(M)
-
+		air_update_turf()
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)

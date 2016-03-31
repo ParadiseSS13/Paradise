@@ -352,22 +352,26 @@
 	organ_tag = "appendix"
 	parent_organ = "groin"
 	slot = "appendix"
+	var/inflamed = 0
 
-
-/*
-/obj/item/organ/internal/appendix/removed()
-
-	if(owner)
-		var/inflamed = 0
-		for(var/datum/disease/appendicitis/appendicitis in owner.viruses)
-			inflamed = 1
-			appendicitis.cure()
-			owner.resistances += appendicitis
-		if(inflamed)
-			icon_state = "appendixinflamed"
-			name = "inflamed appendix"
+/obj/item/organ/internal/appendix/remove(mob/living/carbon/M, special = 0)
+	for(var/datum/disease/appendicitis/A in M.viruses)
+		A.cure()
+		inflamed = 1
+	update_icon()
 	..()
-*/
+
+/obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
+	..()
+	if(inflamed)
+		M.AddDisease(new /datum/disease/appendicitis)
+
+/obj/item/organ/internal/appendix/prepare_eat()
+	var/obj/S = ..()
+	if(inflamed)
+		S.reagents.add_reagent("????", 5)
+	return S
+
 //shadowling tumor
 /obj/item/organ/internal/shadowtumor
 	name = "black tumor"

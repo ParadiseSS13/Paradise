@@ -668,8 +668,6 @@
 				shake_camera(M, 10, 5)
 				if (M == usr)
 					continue
-				if(!airborne_can_reach(UT, T))
-					continue
 				M << "<span class='warning'>You are sent flying!</span>"
 				M.Weaken(5)
 				step_away(M, UT, 15)

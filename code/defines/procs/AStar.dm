@@ -70,6 +70,10 @@ Actual Adjacent procs :
 
 //the actual algorithm
 /proc/AStar(start, end, atom, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id=null, turf/exclude=null, simulated_only = 1)
+	//sanitation
+	start = get_turf(start) //IF YOU WANT A FUCKING TURF TRY CASTING IT BEFORE THE FUCKING FIRST CALL
+	if(!start)
+		return 0
 
 	if(maxnodes)
 		//if start turf is farther than maxnodes from end turf, no need to do anything
@@ -82,10 +86,6 @@ Actual Adjacent procs :
 	var/list/path = null //the returned path, if any
 	var/PathNode/cur //current processed turf
 
-	//sanitation
-	start = get_turf(start)
-	if(!start)
-		return 0
 
 	//initialization
 	open.Insert(new /PathNode(start,null,0,call(start,dist)(end),0))
