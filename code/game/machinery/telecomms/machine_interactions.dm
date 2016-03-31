@@ -172,7 +172,7 @@
 // Off-Site Relays
 //
 // You are able to send/receive signals from the station's z level (changeable in the STATION_Z #define) if
-// the relay is on the telecomm satellite (changable in the TELECOMM_Z #define)
+// the relay is on the telecomm satellite (changeable in the TELECOMM_Z #define)
 
 
 /obj/machinery/telecomms/relay/proc/toggle_level()

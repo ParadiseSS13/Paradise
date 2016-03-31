@@ -43,7 +43,7 @@ datum/directive/tau_ceti_needs_women
 datum/directive/tau_ceti_needs_women/get_description()
 	return {"
 		<p>
-			Recent evidence suggests [get_target_gender()] aptitudes may be effected by radiation from [system_name()].
+			Recent evidence suggests [get_target_gender()] aptitudes may be affected by radiation from [system_name()].
 			Effects were measured under laboratory and station conditions. Humans remain more trusted than Xeno. Further information is classified.
 		</p>
 	"}
