@@ -20,7 +20,7 @@
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
 	var/obj/item/stack/sheet/metal/cyborg/stack_metal = null
-	var/obj/item/stack/sheet/wood/cyborg/stack_wood = null
+	var/obj/item/stack/sheet/wood/stack_wood = null
 	var/obj/item/stack/sheet/glass/cyborg/stack_glass = null
 	var/obj/item/stack/sheet/mineral/plastic/cyborg/stack_plastic = null
 	var/obj/item/weapon/matter_decompiler/decompiler = null
