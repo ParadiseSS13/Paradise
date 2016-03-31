@@ -96,6 +96,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	origin_tech = "materials=1"
 
 /obj/item/stack/sheet/metal/cyborg
+	materials = list()
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
 	recipes = metal_recipes
