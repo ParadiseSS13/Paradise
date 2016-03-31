@@ -173,7 +173,7 @@
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
-	minimal_access = list(access_medical, access_virology, access_maint_tunnels)
+	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
 

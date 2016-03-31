@@ -107,7 +107,7 @@
 
 
 /mob/living/simple_animal/slaughter/phasein()
-	..()
+	. = ..()
 	speed = 0
 	boost = world.time + 60
 

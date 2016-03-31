@@ -22,7 +22,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/perform(obj/effect/decal/cleanable/target, recharge = 1, mob/living/user = usr)
 	if(istype(user))
-		if(phased == 1)
+		if(phased)
 			if(user.phasein(target))
 				phased = 0
 		else
