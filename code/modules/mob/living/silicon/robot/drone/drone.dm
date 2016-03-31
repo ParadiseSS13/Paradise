@@ -61,7 +61,7 @@
 
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
-	stack_wood = locate(/obj/item/stack/sheet/wood/cyborg) in src.module
+	stack_wood = locate(/obj/item/stack/sheet/wood) in src.module
 	stack_glass = locate(/obj/item/stack/sheet/glass/cyborg) in src.module
 	stack_plastic = locate(/obj/item/stack/sheet/mineral/plastic/cyborg) in src.module
 
