@@ -175,8 +175,8 @@
 		/obj/item/stack/sheet/glass/cyborg = 50,
 		/obj/item/stack/sheet/rglass/cyborg = 50,
 		/obj/item/stack/cable_coil/cyborg = 50,
-		/obj/item/stack/rods = 30,
-		/obj/item/stack/tile/plasteel = 20
+		/obj/item/stack/rods/cyborg = 60,
+		/obj/item/stack/tile/plasteel/cyborg = 20
 		)
 
 /obj/item/weapon/robot_module/engineering/New()
@@ -462,9 +462,9 @@
 	stacktypes = list(
 		/obj/item/stack/sheet/wood/cyborg = 10,
 		/obj/item/stack/sheet/rglass/cyborg = 50,
-		/obj/item/stack/tile/wood = 20,
-		/obj/item/stack/rods = 30,
-		/obj/item/stack/tile/plasteel = 20,
+		/obj/item/stack/tile/wood/cyborg = 20,
+		/obj/item/stack/rods/cyborg/ = 60,
+		/obj/item/stack/tile/plasteel/cyborg = 20,
 		/obj/item/stack/sheet/metal/cyborg = 50,
 		/obj/item/stack/sheet/glass/cyborg = 50,
 		/obj/item/stack/cable_coil/cyborg = 30

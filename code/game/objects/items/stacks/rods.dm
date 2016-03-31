@@ -15,6 +15,23 @@
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 
+/obj/item/stack/rods/cyborg
+	name = "metal rod"
+	desc = "Some rods. Can be used for building, or something."
+	singular_name = "metal rod"
+	icon_state = "rods"
+	item_state = "rods"
+	flags = CONDUCT
+	w_class = 3.0
+	force = 9.0
+	throwforce = 10.0
+	throw_speed = 3
+	throw_range = 7
+	materials = list()
+	max_amount = 60
+	attack_verb = list("hit", "bludgeoned", "whacked")
+	hitsound = 'sound/weapons/grenadelaunch.ogg'
+
 /obj/item/stack/rods/New(var/loc, var/amount=null)
 	..()
 
@@ -41,11 +58,11 @@
 			if(new_item.get_amount() <= 0)
 				// stack was moved into another one on the pile
 				new_item = locate() in user.loc
-				
+
 			user.visible_message("<span class='warning'>[user.name] shaped [src] into metal with the weldingtool.</span>", \
 						 "<span class='notice'>You shaped [src] into metal with the weldingtool.</span>", \
 						 "<span class='warning'>You hear welding.</span>")
-			
+
 			var/replace = user.get_inactive_hand() == src
 			use(2)
 			if (get_amount() <= 0 && replace)
