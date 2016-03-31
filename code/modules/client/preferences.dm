@@ -59,8 +59,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define BE_CIVILIAN 1
 #define RETURN_TO_LOBBY 2
 
-#define MAX_SAVE_SLOTS 10 // Save slots for regular players
-#define MAX_SAVE_SLOTS_MEMBER 10 // Save slots for BYOND members
+#define MAX_SAVE_SLOTS 20 // Save slots for regular players
+#define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
 
 /datum/preferences
 	//doohickeys for savefiles

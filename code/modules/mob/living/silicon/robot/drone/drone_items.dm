@@ -374,4 +374,4 @@
 					stack = stack_plastic
 
 			stack.amount++
-			decompiler.stored_comms[type]--;
+			decompiler.stored_comms[type]--

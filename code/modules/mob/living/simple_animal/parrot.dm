@@ -43,8 +43,7 @@
 
 	speak_chance = 1//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
 	turns_per_move = 5
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/cracker/
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/cracker = 3)
 
 	response_help  = "pets the"
 	response_disarm = "gently moves aside the"
@@ -149,7 +148,7 @@
 				if("ears")
 					if(ears)
 						if(available_channels.len)
-							src.say("[pick(available_channels)] BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							src.say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 						else
 							src.say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 						ears.loc = src.loc
@@ -329,9 +328,9 @@
 							useradio = 1
 
 						if(copytext(possible_phrase,1,3) in department_radio_keys)
-							possible_phrase = "[useradio?pick(available_channels):""] [copytext(possible_phrase,3,length(possible_phrase)+1)]" //crop out the channel prefix
+							possible_phrase = "[useradio?pick(available_channels):""][copytext(possible_phrase,3,length(possible_phrase)+1)]" //crop out the channel prefix
 						else
-							possible_phrase = "[useradio?pick(available_channels):""] [possible_phrase]"
+							possible_phrase = "[useradio?pick(available_channels):""][possible_phrase]"
 
 						newspeak.Add(possible_phrase)
 
@@ -682,40 +681,17 @@
 /mob/living/simple_animal/parrot/Poly
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
-	speak = list("Poly wanna cracker!", ":e Check the singlo, you chucklefucks!",":e Check the tesla, you shits!",":e STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",":e Wire the solars, you lazy bums!",":e WHO TOOK THE DAMN HARDSUITS?",":e OH GOD ITS FREE CALL THE SHUTTLE")
+	speak = list("Poly wanna cracker!", ":eCheck the singlo, you chucklefucks!",":eCheck the tesla, you shits!",":eSTOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",":eWire the solars, you lazy bums!",":eWHO TOOK THE DAMN HARDSUITS?",":eOH GOD ITS FREE CALL THE SHUTTLE")
 
 /mob/living/simple_animal/parrot/Poly/New()
 	ears = new /obj/item/device/radio/headset/headset_eng(src)
 	available_channels = list(":e")
 	..()
 
-/mob/living/simple_animal/parrot/say(var/message)
-
-	if(stat)
-		return
-
-	var/verb = "says"
-	if(speak_emote.len)
-		verb = pick(speak_emote)
-
-	var/message_mode = null
-	if(copytext(message,1,2) == ";")
-		message_mode = "headset"
-		message = copytext(message,2)
-
-	if(copytext(message,1,2) == ":")
-		var/channel_prefix = copytext(message, 1 ,3)
-		message_mode = department_radio_keys[channel_prefix]
-		var/positioncut = 3
-		message = trim(copytext(message,positioncut))
-
-	message = capitalize(trim_left(message))
-	if(message_mode)
-		if(ears && istype(ears,/obj/item/device/radio))
-			ears.talk_into(src, message, message_mode, verb, null)
-
-	..(message)
-
+/mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios, var/alt_name)
+	if(message_mode && istype(ears))
+		ears.talk_into(src, message, message_mode, verb, speaking)
+		used_radios += ears
 
 /mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null)
 	if(prob(50))
@@ -726,7 +702,7 @@
 
 /mob/living/simple_animal/parrot/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
 	if(prob(50))
-		parrot_hear("[pick(available_channels)] [message]")
+		parrot_hear("[pick(available_channels)][message]")
 	..()
 
 

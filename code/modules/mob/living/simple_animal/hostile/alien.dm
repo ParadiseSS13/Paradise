@@ -10,8 +10,7 @@
 	response_disarm = "shoves the"
 	response_harm = "hits the"
 	speed = 0
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/xenomeat
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/xenomeat = 3)
 	maxHealth = 100
 	health = 100
 	harm_intent_damage = 5
@@ -140,3 +139,25 @@
 		dead = 1
 		visible_message("[src] lets out a waning guttural screech, green blood bubbling from its maw...")
 		playsound(src, 'sound/voice/hiss6.ogg', 100, 1)
+
+
+/mob/living/simple_animal/hostile/alien/maid
+	name = "lusty xenomorph maid"
+	melee_damage_lower = 0
+	melee_damage_upper = 0
+	a_intent = "help"
+	friendly = "caresses"
+	environment_smash = 0
+	icon_state = "maid"
+	icon_living = "maid"
+	icon_dead = "maid_dead"
+
+/mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
+	if(istype(target, /atom/movable))
+		if(istype(target, /obj/effect/decal/cleanable))
+			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
+			qdel(target)
+			return
+		var/atom/movable/M = target
+		M.clean_blood()
+		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")

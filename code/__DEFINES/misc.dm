@@ -181,3 +181,10 @@
 #define TURF_WET_WATER	1
 #define TURF_WET_LUBE	2
 #define TURF_WET_ICE	3
+
+#define APPEARANCE_UI_IGNORE_ALPHA			RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA
+
+// Metal foam states
+// teehee no one will find these here
+#define MFOAM_ALUMINUM 	1
+#define MFOAM_IRON 		2

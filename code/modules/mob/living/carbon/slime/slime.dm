@@ -66,6 +66,12 @@
 		coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	..()
 
+/mob/living/carbon/slime/Destroy()
+	for(var/obj/machinery/computer/camera_advanced/xenobio/X in machines)
+		if(src in X.stored_slimes)
+			X.stored_slimes -= src
+	return ..()
+
 /mob/living/carbon/slime/regenerate_icons()
 	icon_state = "[colour] [is_adult ? "adult" : "baby"] slime"
 	overlays.len = 0

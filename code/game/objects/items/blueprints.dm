@@ -179,7 +179,7 @@
 	A.name = str
 	usr << "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>"
 	interact()
-	return
+	return 1
 
 
 /obj/item/areaeditor/proc/set_area_machinery_title(var/area/A,var/title,var/oldtitle)

@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Implements Advanced Camera Consoles. A type of camera console that function like AI's vision style. Non-buildable/accessible."
+  - rscadd: "Adds in Xenobiology Advance Cameras. A type of camera console that functions like advanced cameras, but only works in Xenobiology areas; can move around slimes and feed them with the console as well. Also non-buildable/accessible (for now)."
+  - rscadd: "Adds in cerulean slime reaction that generates a single use blueprint. On use it colors turfs a lavender color"

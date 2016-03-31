@@ -59,8 +59,7 @@
 	icon_state = "reindeer"
 	icon_living = "reindeer"
 	icon_dead = "reindeer-dead"
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 3)
 
 	melee_damage_lower = 5
 	melee_damage_upper = 10

@@ -161,9 +161,6 @@
 	if(ismob(AM))
 		var/mob/tmob = AM
 
-		if(iscarbon(tmob) && prob(10))
-			spread_disease_to(tmob, "Contact")
-
 		//BubbleWrap - Should stop you pushing a restrained person out of the way
 		//i still don't get it, is this supposed to be 'bubblewrapping' or was it made by a guy named 'BubbleWrap'
 		if(ishuman(tmob))
@@ -1242,44 +1239,6 @@
 		return 0
 	return 1
 
-/mob/living/carbon/human/proc/vomit(hairball=0)
-	if(stat==DEAD)return
-
-	if(!check_has_mouth())
-		return
-
-	if(!lastpuke)
-		lastpuke = 1
-		src << "<spawn class='warning'>You feel nauseous..."
-		spawn(150)	//15 seconds until second warning
-			src << "<spawn class='warning'>You feel like you are about to throw up!"
-			spawn(100)	//and you have 10 more for mad dash to the bucket
-				Stun(5)
-
-				if(hairball)
-					src.visible_message("<span class='warning'>[src] hacks up a hairball!</span>","<span class='warning'>You hack up a hairball!</span>")
-				else
-					src.visible_message("<span class='warning'>[src] throws up!</span>","<span class='warning'>You throw up!</span>")
-				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-
-				var/turf/location = loc
-				if (istype(location, /turf/simulated))
-					location.add_vomit_floor(src, 1)
-
-				var/stomach_len = src.stomach_contents.len
-				if (stomach_len)
-					var/content = src.stomach_contents[stomach_len]
-					if (istype(content, /atom/movable))
-						var/atom/movable/AM = content
-						src.stomach_contents.Remove(AM)
-						AM.loc = location
-
-				if(!hairball)
-					nutrition -= 40
-					adjustToxLoss(-3)
-				spawn(350)	//wait 35 seconds before next volley
-					lastpuke = 0
-
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
@@ -1310,12 +1269,6 @@
 					if(H.brainmob.mind)
 						H.brainmob.mind.transfer_to(src)
 						qdel(H)
-
-
-
-	for (var/ID in virus2)
-		var/datum/disease2/disease/V = virus2[ID]
-		V.cure(src)
 
 	..()
 

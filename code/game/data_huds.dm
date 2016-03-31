@@ -60,10 +60,11 @@
 
 //called when a carbon changes virus
 /mob/living/carbon/proc/check_virus()
-	for (var/ID in virus2)
-		if (ID in virusDB)
+	for(var/datum/disease/D in viruses)
+		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
 			return 1
 	return 0
+
 //helper for getting the appropriate health status
 /proc/RoundHealth(health)
 	switch(health)

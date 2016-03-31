@@ -304,13 +304,6 @@ var/const/INGEST = 2
 						if(!C.no_message)
 							M << "\blue \icon[my_atom] [C.mix_message]"
 
-				/*	if(istype(my_atom, /obj/item/slime_core))
-						var/obj/item/slime_core/ME = my_atom
-						ME.Uses--
-						if(ME.Uses <= 0) // give the notification that the slime core is dead
-							for(var/mob/M in viewers(4, get_turf(my_atom)) )
-								M << "\blue \icon[my_atom] The innards begin to boil!"
-					*/
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
@@ -435,6 +428,11 @@ var/const/INGEST = 2
 						else R.reaction_obj(A, R.volume+volume_modifier)
 	return
 
+/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list("toxin" = 10, "beer" = 15)
+	for(var/r_id in list_reagents)
+		var/amt = list_reagents[r_id]
+		add_reagent(r_id, amt, data)
+
 /datum/reagents/proc/add_reagent(var/reagent, var/amount, var/list/data=null, var/reagtemp = 300)
 	if(!isnum(amount)) return 1
 	update_total()
@@ -449,33 +447,7 @@ var/const/INGEST = 2
 			R.volume += amount
 			update_total()
 			my_atom.on_reagent_change()
-/*
-			// mix dem viruses
-			if(R.id == "blood" && reagent == "blood")
-				if(R.data && data)
-
-					if(R.data["viruses"] || data["viruses"])
-
-						var/list/mix1 = R.data["viruses"]
-						var/list/mix2 = data["viruses"]
-
-						// Stop issues with the list changing during mixing.
-						var/list/to_mix = list()
-
-						for(var/datum/disease/advance/AD in mix1)
-							to_mix += AD
-						for(var/datum/disease/advance/AD in mix2)
-							to_mix += AD
-
-						var/datum/disease/advance/AD = Advance_Mix(to_mix)
-						if(AD)
-							var/list/preserve = list(AD)
-							for(var/D in R.data["viruses"])
-								if(!istype(D, /datum/disease/advance))
-									preserve += D
-							R.data["viruses"] = preserve
-*/
-
+			R.on_merge(data)
 			handle_reactions()
 			return 0
 
@@ -486,13 +458,10 @@ var/const/INGEST = 2
 		reagent_list += R
 		R.holder = src
 		R.volume = amount
-//					SetViruses(R, data) // Includes setting data
-		if(data) R.data = data
-		//debug
-		//world << "Adding data"
-		//for(var/D in R.data)
-		//	world << "Container data: [D] = [R.data[D]]"
-		//debug
+		if(data)
+			R.data = data
+			R.on_new(data)
+
 		update_total()
 		my_atom.on_reagent_change()
 		handle_reactions()
@@ -605,9 +574,9 @@ var/const/INGEST = 2
 	// Technically we should probably copy all data lists, but
 	// that could possibly eat up a lot of memory needlessly
 	// if most data lists are read-only.
-	if (trans_data["virus2"])
-		var/list/v = trans_data["virus2"]
-		trans_data["virus2"] = v.Copy()
+	if(trans_data["viruses"])
+		var/list/v = trans_data["viruses"]
+		trans_data["viruses"] = v.Copy()
 
 	return trans_data
 
