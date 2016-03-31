@@ -16,7 +16,7 @@
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
 	id = "unholywater"
-	description = "Something that shouldn't exist on this plane of existance."
+	description = "Something that shouldn't exist on this plane of existence."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)

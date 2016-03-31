@@ -683,7 +683,7 @@
 	name = "Machine"
 	name_plural = "Machines"
 
-	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
+	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independent, free-willed \
 	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
 	to corporate operations. IPCs (Integrated Positronic Chassis) are a loose category of self-willed robots with a humanoid form, \
 	generally self-owned after being 'born' into servitude; they are reliable and dedicated workers, albeit more than slightly \

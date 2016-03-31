@@ -178,7 +178,7 @@
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
-	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist. This medal is almost never awarded to anybody but commanders."
+	desc = "An extremely rare golden medal awarded only by CentComm. To receive such a medal is the highest honor and as such, very few exist. This medal is almost never awarded to anybody but commanders."
 
 /*
 	Holobadges are worn on the belt or neck, and can be used to show that the holder is an authorized

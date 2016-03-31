@@ -8,7 +8,7 @@
 
 /obj/structure/falsewall
 	name = "wall"
-	desc = "A huge chunk of metal used to seperate rooms."
+	desc = "A huge chunk of metal used to separate rooms."
 	anchored = 1
 	icon = 'icons/turf/walls/wall.dmi'
 	var/mineral = "metal"
@@ -124,7 +124,7 @@
 
 /obj/structure/falsewall/reinforced
 	name = "reinforced wall"
-	desc = "A huge chunk of reinforced metal used to seperate rooms."
+	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "r_wall"
 	walltype = "rwall"
@@ -205,7 +205,7 @@
 
 /obj/structure/falsewall/plasma
 	name = "plasma wall"
-	desc = "A wall with plasma plating. This is definately a bad idea."
+	desc = "A wall with plasma plating. This is definitely a bad idea."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = ""
 	mineral = "plasma"

@@ -74,7 +74,7 @@ class getid3_writetags
 			$this->errors[] = 'filename is undefined in getid3_writetags';
 			return false;
 		} elseif (!file_exists($this->filename)) {
-			$this->errors[] = 'filename set to non-existant file "'.$this->filename.'" in getid3_writetags';
+			$this->errors[] = 'filename set to non-existent file "'.$this->filename.'" in getid3_writetags';
 			return false;
 		}
 

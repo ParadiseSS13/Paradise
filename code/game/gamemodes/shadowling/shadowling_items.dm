@@ -30,7 +30,7 @@
 
 /obj/item/clothing/shoes/shadowling
 	name = "chitin feet"
-	desc = "Charred-looking feet. They have minature hooks that latch onto flooring."
+	desc = "Charred-looking feet. They have miniature hooks that latch onto flooring."
 	icon_state = "golem"
 	unacidable = 1
 	flags = NOSLIP | ABSTRACT | NODROP

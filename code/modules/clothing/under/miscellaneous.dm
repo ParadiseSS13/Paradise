@@ -345,7 +345,7 @@
 
 /obj/item/clothing/under/dress/dress_green
 	name = "green dress"
-	desc = "A simple, tight fitting green dress."
+	desc = "A simple, tight-fitting green dress."
 	icon_state = "dress_green"
 	item_color = "dress_green"
 
@@ -375,19 +375,19 @@
 
 /obj/item/clothing/under/dress/dress_rd
 	name = "research director dress uniform"
-	desc = "Feminine fashion for the style concious RD."
+	desc = "Feminine fashion for the style-conscious RD."
 	icon_state = "dress_rd"
 	item_color = "dress_rd"
 
 /obj/item/clothing/under/dress/dress_cap
 	name = "captain dress uniform"
-	desc = "Feminine fashion for the style concious captain."
+	desc = "Feminine fashion for the style-conscious captain."
 	icon_state = "dress_cap"
 	item_color = "dress_cap"
 
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal dress uniform"
-	desc = "Feminine fashion for the style concious HoP."
+	desc = "Feminine fashion for the style-conscious HoP."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
 
@@ -536,35 +536,35 @@
 
 /obj/item/clothing/under/vox_grey
 	name = "Grey Vox Jumpsuit"
-	desc = "An assistant's jumpsuit ripped to better fit a vox."
+	desc = "An assistant's jumpsuit ripped to better fit a Vox."
 	icon_state = "vgrey"
 	item_state = "vgrey"
 	item_color = "vgrey"
 
 /obj/item/clothing/under/vox_robotics
 	name = "Vox Robotics Jumpsuit"
-	desc = "A roboticist's jumpsuit ripped to better fit a vox."
+	desc = "A roboticist's jumpsuit ripped to better fit a Vox."
 	icon_state = "vrobotics"
 	item_state = "vrobotics"
 	item_color = "vrobotics"
 
 /obj/item/clothing/under/vox_toxins
 	name = "Vox Toxins Jumpsuit"
-	desc = "A Toxin Researcher's jumpsuit ripped to better fit a vox."
+	desc = "A Toxin Researcher's jumpsuit ripped to better fit a Vox."
 	icon_state = "vtoxinswhite"
 	item_state = "vtoxinswhite"
 	item_color = "vtoxinswhite"
 
 /obj/item/clothing/under/vox_atmos
 	name = "Vox Atmos Jumpsuit"
-	desc = "An Atmos Tech's jumpsuit ripped to better fit a vox."
+	desc = "An Atmos Tech's jumpsuit ripped to better fit a Vox."
 	icon_state = "vatmos"
 	item_state = "vatmos"
 	item_color = "vatmos"
 
 /obj/item/clothing/under/vox_engi
 	name = "Vox Engineer Jumpsuit"
-	desc = "An Engineer's jumpsuit ripped to better fit a vox."
+	desc = "An Engineer's jumpsuit ripped to better fit a Vox."
 	icon_state = "vengine"
 	item_state = "vengine"
 	item_color = "vengine"
@@ -572,7 +572,7 @@
 
 /obj/item/clothing/under/vox_sec
 	name = "Vox Security Jumpsuit"
-	desc = "A Security officer's jumpsuit ripped to better fit a vox."
+	desc = "A Security officer's jumpsuit ripped to better fit a Vox."
 	icon_state = "vred"
 	item_state = "vred"
 	item_color = "vred"
@@ -580,7 +580,7 @@
 
 /obj/item/clothing/under/vox_chem
 	name = "Vox Chemist Jumpsuit"
-	desc = "A Chemist's jumpsuit ripped to better fit a vox."
+	desc = "A Chemist's jumpsuit ripped to better fit a Vox."
 	icon_state = "vchem"
 	item_state = "vchem"
 	item_color = "vchem"
@@ -616,14 +616,14 @@
 
 /obj/item/clothing/under/pennywise
 	name = "Pennywise Costume"
-	desc = "It's everything you ever were afraid of."
+	desc = "It's everything you were ever afraid of."
 	icon_state = "pennywise"
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
-	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."
+	desc = "An assistant's formal wear. Why an assistant needs formal wear is still unknown."
 	icon_state = "assistant_formal"
 	item_state = "gy_suit"
 	item_color = "assistant_formal"
