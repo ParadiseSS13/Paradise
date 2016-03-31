@@ -389,8 +389,8 @@
 /mob/living/simple_animal/bot/proc/speak(message, channel) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if((!on) || (!message))
 		return
-	if(channel && Radio.channels[channel])// Use radio if we have channel key
-		Radio.autosay(message, name, channel)
+	if(channel)
+		Radio.autosay(message, name, channel == "headset" ? null : channel)
 	else
 		say(message)
 	return
