@@ -396,60 +396,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-/datum/reagent/nanomachines
-	name = "Nanomachines"
-	id = "nanomachines"
-	description = "Microscopic construction robots."
-	reagent_state = LIQUID
-	color = "#535E66" // rgb: 83, 94, 102
-
-/datum/reagent/nanomachines/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	src = null
-	if( (prob(10) && method==TOUCH) || method==INGEST)
-		M.contract_disease(new /datum/disease/robotic_transformation(0),1)
-
-/datum/reagent/xenomicrobes
-	name = "Xenomicrobes"
-	id = "xenomicrobes"
-	description = "Microbes with an entirely alien cellular structure."
-	reagent_state = LIQUID
-	color = "#535E66" // rgb: 83, 94, 102
-
-/datum/reagent/xenomicrobes/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	src = null
-	if( (prob(10) && method==TOUCH) || method==INGEST)
-		M.contract_disease(new /datum/disease/xeno_transformation(0),1)
-*/
-
-/datum/reagent/spore
-	name = "Blob Spores"
-	id = "spore"
-	description = "Spores of some blob creature thingy."
-	reagent_state = LIQUID
-	color = "#CE760A" // rgb: 206, 118, 10
-	var/client/blob_client = null
-	var/blob_point_rate = 3
-
-/datum/reagent/spore/on_mob_life(var/mob/living/M)
-	if(!M) M = holder.my_atom
-	if (holder.has_reagent("atrazine",45))
-		holder.del_reagent("spore")
-	if (prob(1))
-		M << "\red Your mouth tastes funny."
-	if (prob(1) && prob(25))
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(directory[ckey(C.key)])
-				blob_client = directory[ckey(C.key)]
-				C.gib()
-				if(blob_client)
-					var/obj/effect/blob/core/core = new(get_turf(C), 200, blob_client, blob_point_rate)
-					if(core.overmind && core.overmind.mind)
-						core.overmind.mind.name = C.name
-
-	return
-
 /datum/reagent/condensedcapsaicin
 	name = "Condensed Capsaicin"
 	id = "condensedcapsaicin"
