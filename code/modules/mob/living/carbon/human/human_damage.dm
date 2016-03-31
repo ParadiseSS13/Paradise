@@ -205,7 +205,7 @@
 
 /mob/living/carbon/human/setToxLoss(var/amount)
 	if(species.flags & NO_POISON)
-		toxloss = 0 //this *also* overrides three procs, definately excessive
+		toxloss = 0 //this *also* overrides three procs, definitely excessive
 	else
 		..()
 
