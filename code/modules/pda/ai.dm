@@ -85,5 +85,13 @@
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
 	return
 
-/obj/item/device/pda/ai/pai
+/obj/item/device/pda/pai
+	icon_state = "NONE"
+	detonate = 0
 	ttone = "assist"
+
+/obj/item/device/pda/pai/can_use()
+	var/mob/living/silicon/pai/pAI = usr
+	if(!istype(pAI))
+		return 0
+	return ..() && !pAI.silence_time
