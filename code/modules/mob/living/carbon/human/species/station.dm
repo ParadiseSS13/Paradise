@@ -55,6 +55,9 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
+	can_consume_mobs = 1
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -106,6 +109,9 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
+	can_consume_mobs = 1
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
+								 /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -147,6 +153,9 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#B43214"
+	can_consume_mobs = 1
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -354,6 +363,8 @@
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	can_consume_mobs = 1
+	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
 	suicide_messages = list(
 		"is attempting to bite their antenna off!",
