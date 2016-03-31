@@ -231,13 +231,6 @@
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/head/human_head
-	name = "bloated human head"
-	desc = "A horribly bloated and mismatched human head."
-	icon_state = "lingspacehelmet"
-	item_state = "lingspacehelmet"
-	body_parts_covered = HEAD
-
 
 /*
  * Misc
