@@ -4,7 +4,7 @@
 "ad" = (/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/wall,/area/awaymission)
 "ae" = (/obj/machinery/power/terminal,/turf/simulated/floor/plating,/area/awaymission)
 "af" = (/obj/machinery/power/apc/noalarm{dir = 1; pixel_y = 32},/obj/structure/cable{d2 = 2; icon_state = "0-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission)
-"ag" = (/mob/living/carbon/alien/humanoid/queen{bodytemperature = 31000.1; maxHealth = 0; stat = 2; suiciding = 0},/turf/simulated/floor/carpet,/area/awaymission)
+"ag" = (/mob/living/simple_animal/hostile/alien/queen,/turf/simulated/floor/carpet,/area/awaymission)
 "ah" = (/obj/item/stack/cable_coil/random,/obj/effect/decal/remains/human,/turf/simulated/floor/plating,/area/awaymission)
 "ai" = (/turf/simulated/floor/plating,/area/awaymission)
 "aj" = (/obj/machinery/power/smes/magical,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/awaymission)
@@ -295,7 +295,7 @@ aaaaaaaaboaHbpaHaHaHbpaHaHaHbpaHaHaHbpaHaHaHbpaHaHaHaHbtaobuaobvaHaHaobvaHaHaHaH
 aaaaaaaabsaHaHaHaHaHbqaHaHaHaHaHbqaHaHaHaHaHaHaHaHaHaHaHbnaHbnaHaHaHaHaHcDcDcDcDcDcDcDcDcDcDcDcDcDcDcDcDcDbtaoabaaaaaaaa
 aaaaaaabaoaoaocEaoaoaoaoaocFaoaoaoaoaocGaoaoaoaHaHaHaHaHbpaHbpaHaHaHaHcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBaoabaaaaaaaa
 aaaaaaabaoaHcHcIaHcJaoaHcKcLaHavaocMcNcOaHavaoaHaHaHaHaHaHaHaHaHaHaHaHcBcPcPcPcQcPcPcPcPcPcPcPcPcPcPcPcQcPcPaoabaaaaaaaa
-aaaaaaabaoaHagaHcScTaobvaHaHaHcUaocVcWcWaHcXaoaHaHaHaHaHaHaHaHaHaHaHaHaocYcPcZdadbdbcPcPcPcPcPdadadadadacPcYaoabaaaaaaaa
+aaaaaaabaoaHaHagcScTaobvaHaHaHcUaocVcWcWaHcXaoaHaHaHaHaHaHaHaHaHaHaHaHaocYcPcZdadbdbcPcPcPcPcPdadadadadacPcYaoabaaaaaaaa
 aaaaaaaabRaHdcddcSdeaoaHaHaHaHcUaocWdfcWaHdgaoaHaHaHaHaHbpaHbpaHaHaHaHaodhcPdadidjdkcPcPcPcQcPdadadldadacPdhaoabaaaaaaaa
 aaaaaaabaodmdndodndpaobTbTbUbTbVaodqdrdsdrbVaoaHaHaHaHaHaHaHaHaHaHaHaHaodtcPcQcPcPcPcPcPcPcPcPcPcPcPcPcPcPdtaoabaaaaaaaa
 aaaaaaabbWduakdwalaobWbXaYaZbYaobWbXaYaZbYaoaoaHaHaHaHaHbqaHbqaHaHaHaHaocPdydzdAdBdCcQdycPdycPcPdDdEdFcPdycQaoabaaaaaaaa
