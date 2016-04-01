@@ -20,6 +20,12 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
 
+/turf/simulated/floor/bluegrid/kill_floor //for a coldroom to kill slimes
+	name = "Killroom Floor"
+	oxygen = 0
+	nitrogen = 500
+	temperature = 80
+
 /turf/simulated/floor/greengrid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "gcircuit"
