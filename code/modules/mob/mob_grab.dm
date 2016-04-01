@@ -414,7 +414,7 @@
 		return 1
 
 	var/mob/living/carbon/human/H = attacker
-	if(ishuman(H) && H.species.can_consume_mobs && is_type_in_list(prey,  H.species.allowed_consumed_mobs)) //species eating of other mobs
+	if(ishuman(H) && is_type_in_list(prey,  H.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
 
 	return 0

@@ -63,8 +63,8 @@
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
-	var/can_consume_mobs = 0 //can it consume mobs?
-	var/list/allowed_consumed_mobs = list()
+
+	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
 	var/flags = 0       // Various specific features.
 	var/clothing_flags = 0 // Underwear and socks.
