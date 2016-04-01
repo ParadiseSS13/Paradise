@@ -46,19 +46,12 @@
 	harm_intent_damage = 5
 	minbodytemp = 0
 	maxbodytemp = 500
-	min_oxy = 0
-	max_oxy = INFINITY
-	min_tox = 0
-	max_tox = INFINITY
-	min_co2 = 0
-	max_co2 = INFINITY
-	min_n2  = 0
-	max_n2  = INFINITY
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	melee_damage_type = STAMINA
-	ignored_damage_types = list(BRUTE = 0, BURN = 0, TOX = 1, CLONE = 1, STAMINA = 1, OXY = 1)
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	environment_smash = 0
 	attacktext = "shocks"
 	attack_sound = 'sound/effects/EMPulse.ogg'

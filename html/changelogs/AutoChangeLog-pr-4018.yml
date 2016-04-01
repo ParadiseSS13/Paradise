@@ -1,0 +1,10 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - rscadd: "Bots can now be controlled by players, by opening them up and inserting a pAI. *beep"
+  - bugfix: "MULEbots can now access the engineering destination."
+  - bugfix: "All MULEbot destinations should now have the correct load/unload direction, meaning the crates won't be dumped inside the flaps."
+  - rscadd: "Diagnostic HUD's now give health and status information about bots."
+  - bugfix: "MULEbot rampage blood tracks are now rendered correctly and handle UE traces as appropriate."
+  - experiment: "Bots should (hopefully) lag the game less now."
+  - tweak: "Beepsky contains 30% more potato."

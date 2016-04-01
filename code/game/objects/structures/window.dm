@@ -97,6 +97,14 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	else
 		return 1
 
+/obj/structure/window/CanAStarPass(ID, to_dir)
+	if(!density)
+		return 1
+	if((dir == SOUTHWEST) || (dir == to_dir))
+		return 0
+
+	return 1
+
 /obj/structure/window/hitby(AM as mob|obj)
 	..()
 	var/tforce = 0

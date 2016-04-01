@@ -226,7 +226,7 @@
 			beepskyData["botstatus"] = list("loca" = null, "mode" = -1)
 		var/botsCount=0
 		if(SC.botlist && SC.botlist.len)
-			for(var/obj/machinery/bot/B in SC.botlist)
+			for(var/mob/living/simple_animal/bot/B in SC.botlist)
 				botsCount++
 				if(B.loc)
 					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "ref" = "\ref[B]")
@@ -276,7 +276,7 @@
 
 
 		var/mulebotsCount=0
-		for(var/obj/machinery/bot/B in QC.botlist)
+		for(var/mob/living/simple_animal/bot/B in QC.botlist)
 			mulebotsCount++
 			if(B.loc)
 				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "ref" = "\ref[B]")
@@ -392,7 +392,7 @@
 		BucketData[++BucketData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
 
 	var/CbotData[0]
-	for(var/obj/machinery/bot/cleanbot/B in aibots)
+	for(var/mob/living/simple_animal/bot/cleanbot/B in simple_animal_list)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)

@@ -94,6 +94,11 @@ proc/isembryo(A)
 		return 1
 	return 0
 
+/proc/isbot(A)
+	if(istype(A, /mob/living/simple_animal/bot))
+		return 1
+	return 0
+
 /proc/isclown(A)
 	if(istype(A, /mob/living/simple_animal/hostile/retaliate/clown))
 		return 1

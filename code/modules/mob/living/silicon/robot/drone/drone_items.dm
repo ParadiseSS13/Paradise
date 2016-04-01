@@ -364,7 +364,7 @@
 					stack = stack_glass
 				if("wood")
 					if(!stack_wood)
-						stack_wood = new /obj/item/stack/sheet/wood/cyborg(src.module)
+						stack_wood = new /obj/item/stack/sheet/wood(src.module)
 						stack_wood.amount = 1
 					stack = stack_wood
 				if("plastic")

@@ -35,6 +35,11 @@
 	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
 	return 0
 
+/obj/effect/blob/CanAStarPass(ID, dir, caller)
+	. = 0
+	if(ismovableatom(caller))
+		var/atom/movable/mover = caller
+		. = . || mover.checkpass(PASSBLOB)
 
 /obj/effect/blob/process()
 	Life()

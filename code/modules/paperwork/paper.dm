@@ -140,10 +140,13 @@
 		..()
 
 /obj/item/weapon/paper/proc/addtofield(var/id, var/text, var/links = 0)
+	if(id > MAX_PAPER_FIELDS)
+		return
+
 	var/locid = 0
 	var/laststart = 1
 	var/textindex = 1
-	while(1) // I know this can cause infinite loops and fuck up the whole server, but the if(istart==0) should be safe as fuck
+	while(locid <= MAX_PAPER_FIELDS)
 		var/istart = 0
 		if(links)
 			istart = findtext(info_links, "<span class=\"paper_field\">", laststart)
@@ -248,11 +251,11 @@
 
 		t = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[t]</b></font>"
 
-//	t = replacetext(t, "#", "") // Junk converted to nothing!
+	t = copytext(t, 1, MAX_PAPER_MESSAGE_LEN)
 
 //Count the fields
 	var/laststart = 1
-	while(1)
+	while(fields < MAX_PAPER_FIELDS)
 		var/i = findtext(t, "<span class=\"paper_field\">", laststart)
 		if(i==0)
 			break
