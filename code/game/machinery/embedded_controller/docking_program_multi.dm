@@ -17,7 +17,7 @@
 	if (istype(M,/obj/machinery/embedded_controller/radio/docking_port_multi))	//if our parent controller is the right type, then we can auto-init stuff at construction
 		var/obj/machinery/embedded_controller/radio/docking_port_multi/controller = M
 		//parse child_tags_txt and create child tags
-		children_tags = text2list(controller.child_tags_txt, ";")
+		children_tags = splittext(controller.child_tags_txt, ";")
 
 	children_ready = list()
 	children_override = list()

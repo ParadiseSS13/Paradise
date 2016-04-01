@@ -101,16 +101,26 @@
 	..()
 	wires = new(src)
 	spawn(50)
+<<<<<<< HEAD
 		if(product_slogans)
 			slogan_list += text2list(product_slogans, ";")
+=======
+		if(src.product_slogans)
+			src.slogan_list += splittext(src.product_slogans, ";")
+>>>>>>> byond510
 
 			// So not all machines speak at the exact same time.
 			// The first time this machine says something will be at slogantime + this random value,
 			// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is crated.
 			last_slogan = world.time + rand(0, slogan_delay)
 
+<<<<<<< HEAD
 		if(product_ads)
 			ads_list += text2list(product_ads, ";")
+=======
+		if(src.product_ads)
+			src.ads_list += splittext(src.product_ads, ";")
+>>>>>>> byond510
 
 		build_inventory()
 		power_change()

@@ -309,9 +309,45 @@
 						if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
 
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+	. = ..()
+	var/damage = intensity - check_eye_prot()
+	if(.)
+		if(visual)
+			return
+		switch(damage)
+			if(1)
+				src << "<span class='warning'>Your eyes sting a little.</span>"
+				/*if(prob(40)) //waiting on carbon organs
+					eye_stat += 1*/
 
-/mob/living/carbon/proc/eyecheck()
-	return 0
+			if(2)
+				src << "<span class='warning'>Your eyes burn.</span>"
+				//eye_stat += rand(2, 4)
+
+			else
+				src << "Your eyes itch and burn severely!</span>"
+				//eye_stat += rand(12, 16)
+
+		/*if(eye_stat > 10)
+			eye_blind += damage
+			eye_blurry += damage * rand(3, 6)
+
+			if(eye_stat > 20)
+				if (prob(eye_stat - 20))
+					src << "<span class='warning'>Your eyes start to burn badly!</span>"
+					disabilities |= NEARSIGHTED
+				else if(prob(eye_stat - 25))
+					src << "<span class='warning'>You can't see anything!</span>"
+					sdisabilities |= BLIND
+			else
+				src << "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>"*/
+		return 1
+
+	else if(damage == 0) // just enough protection
+		if(prob(20))
+			src << "<span class='notice'>Something bright flashes in the corner of your vision!</span>"
+
 
 /mob/living/carbon/proc/tintcheck()
 	return 0

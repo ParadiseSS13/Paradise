@@ -67,7 +67,7 @@
 	return
 
 
-/mob/living/carbon/alien/eyecheck()
+/mob/living/carbon/alien/check_eye_prot()
 	return 2
 
 /mob/living/carbon/alien/updatehealth()

@@ -249,13 +249,12 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	s.set_up(2, 1, location)
 	s.start()
 	for(var/mob/living/carbon/C in viewers(5, location))
-		if(C.eyecheck())
-			continue
-		flick("e_flash", C.flash)
-		if(get_dist(C, location) < 4)
-			C.Weaken(5)
-			continue
-		C.Stun(5)
+		if(C.flash_eyes())
+			if(get_dist(C, location) < 4)
+				C.Weaken(5)
+				continue
+			C.Stun(5)
+
 
 /datum/chemical_reaction/flash_powder/on_reaction(var/datum/reagents/holder, var/created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
@@ -265,13 +264,11 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	s.set_up(2, 1, location)
 	s.start()
 	for(var/mob/living/carbon/C in viewers(5, location))
-		if(C.eyecheck())
-			continue
-		flick("e_flash", C.flash)
-		if(get_dist(C, location) < 4)
-			C.Weaken(5)
-			continue
-		C.Stun(5)
+		if(C.flash_eyes())
+			if(get_dist(C, location) < 4)
+				C.Weaken(5)
+				continue
+			C.Stun(5)
 	holder.remove_reagent("flash_powder", created_volume)
 
 /datum/reagent/smoke_powder
