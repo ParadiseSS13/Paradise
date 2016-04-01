@@ -98,10 +98,18 @@
 		var/obj/item/weapon/reagent_containers/food/snacks/collected = new type
 		collected.loc = U
 		collected.reagents.remove_any(collected.reagents.total_volume)
+		collected.trash = null
 		if(reagents.total_volume > bitesize)
 			reagents.trans_to(collected, bitesize)
 		else
 			reagents.trans_to(collected, reagents.total_volume)
+			if(trash)
+				var/obj/item/TrashItem
+				if(ispath(trash,/obj/item))
+					TrashItem = new trash(src)
+				else if(istype(trash,/obj/item))
+					TrashItem = trash
+				TrashItem.forceMove(loc)
 			qdel(src)
 		return 1
 
