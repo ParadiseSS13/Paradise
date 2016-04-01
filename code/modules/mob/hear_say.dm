@@ -114,7 +114,7 @@
 			message = stars(message)
 
 	var/speaker_name = "unknown"
-	if(speaker) 
+	if(speaker)
 		speaker_name = speaker.name
 
 	if(vname)
@@ -160,7 +160,7 @@
 			else
 				track = "[speaker_name] ([jobname])"
 		else
-			if(istype(follow_target, /obj/machinery/bot))
+			if(istype(follow_target, /mob/living/simple_animal/bot))
 				track = "<a href='byond://?src=\ref[src];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
 			else
 				track = "<a href='byond://?src=\ref[src];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"

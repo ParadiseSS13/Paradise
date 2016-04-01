@@ -20,14 +20,7 @@
 	speak_emote = list("hisses")
 	a_intent = I_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	var/dead = 0
 	unsuitable_atmos_damage = 15
 	faction = list("alien")
@@ -49,14 +42,16 @@
 	var/plant_cooldown = 30
 	var/plants_off = 0
 
-/mob/living/simple_animal/hostile/alien/drone/Life()
-	..()
-	if(!stat)
-		plant_cooldown--
-		if(stance==HOSTILE_STANCE_IDLE)
-			if(!plants_off && prob(10) && plant_cooldown<=0)
-				plant_cooldown = initial(plant_cooldown)
-				SpreadPlants()
+/mob/living/simple_animal/hostile/alien/drone/process_ai()
+	. = ..()
+	if(!.)
+		return
+
+	plant_cooldown--
+	if(stance==HOSTILE_STANCE_IDLE)
+		if(!plants_off && prob(10) && plant_cooldown<=0)
+			plant_cooldown = initial(plant_cooldown)
+			SpreadPlants()
 
 /mob/living/simple_animal/hostile/alien/sentinel
 	name = "alien sentinel"
@@ -94,18 +89,18 @@
 	var/egg_cooldown = 30
 	var/plant_cooldown = 30
 
-/mob/living/simple_animal/hostile/alien/queen/Life()
+/mob/living/simple_animal/hostile/alien/queen/process_ai()
 	..()
-	if(!stat)
-		egg_cooldown--
-		plant_cooldown--
-		if(stance==HOSTILE_STANCE_IDLE)
-			if(!plants_off && prob(10) && plant_cooldown<=0)
-				plant_cooldown = initial(plant_cooldown)
-				SpreadPlants()
-			if(!sterile && prob(10) && egg_cooldown<=0)
-				egg_cooldown = initial(egg_cooldown)
-				LayEggs()
+
+	egg_cooldown--
+	plant_cooldown--
+	if(stance==HOSTILE_STANCE_IDLE)
+		if(!plants_off && prob(10) && plant_cooldown<=0)
+			plant_cooldown = initial(plant_cooldown)
+			SpreadPlants()
+		if(!sterile && prob(10) && egg_cooldown<=0)
+			egg_cooldown = initial(egg_cooldown)
+			LayEggs()
 
 /mob/living/simple_animal/hostile/alien/proc/SpreadPlants()
 	if(!isturf(loc) || istype(loc, /turf/space))

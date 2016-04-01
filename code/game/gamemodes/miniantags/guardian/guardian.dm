@@ -17,14 +17,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	min_oxy = 0
-	max_oxy = INFINITY
-	min_tox = 0
-	max_tox = INFINITY
-	min_co2 = 0
-	max_co2 = INFINITY
-	min_n2  = 0
-	max_n2  = INFINITY
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attacktext = "punches"
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY

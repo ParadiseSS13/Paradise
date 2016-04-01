@@ -40,23 +40,17 @@
 	close()
 
 /obj/machinery/door/window/Bumped(atom/movable/AM as mob|obj)
-	if( operating || !src.density )
+	if(operating || !density)
 		return
-	if (!( ismob(AM) ))
-		var/obj/machinery/bot/bot = AM
-		if(istype(bot))
-			if(src.check_access(bot.botcard))
-				open_and_close()
-			else
-				flick(text("[]deny", src.base_state), src)
-		else if(istype(AM, /obj/mecha))
+	if (!ismob(AM))
+		if(istype(AM, /obj/mecha))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && src.allowed(mecha.occupant))
 				open_and_close()
 			else
 				flick(text("[]deny", src.base_state), src)
 		return
-	if (!( ticker ))
+	if (!ticker)
 		return
 	var/mob/M = AM
 	if(!M.restrained() && !M.small)
@@ -92,7 +86,7 @@
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
 /obj/machinery/door/window/CanAStarPass(var/obj/item/weapon/card/id/ID, var/to_dir)
-	return !density || (dir != to_dir) || check_access(ID)
+	return !density || (dir != to_dir) || (check_access(ID) && !(stat & NOPOWER))
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
 	if(istype(mover) && mover.checkpass(PASSGLASS))

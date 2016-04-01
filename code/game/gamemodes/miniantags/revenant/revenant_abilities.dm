@@ -291,18 +291,18 @@
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
 			spawn(0)
-				for(var/obj/machinery/bot/bot in T.contents)
+				for(var/mob/living/simple_animal/bot/bot in T.contents)
 					if(!bot.emagged)
 						new/obj/effect/overlay/temp/revenant(bot.loc)
 						bot.locked = 0
 						bot.open = 1
-						bot.Emag(null)
+						bot.emag_act(null)
 				for(var/mob/living/carbon/human/human in T.contents)
 					human << "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>"
 					new/obj/effect/overlay/temp/revenant(human.loc)
 					human.emp_act(1)
 				for(var/obj/thing in T.contents)
-					if(istype(thing, /obj/machinery/power/apc) || istype(thing, /obj/machinery/power/smes) || istype(thing, /obj/machinery/bot)) //Doesn't work on dominators, SMES and APCs, to prevent kekkery
+					if(istype(thing, /obj/machinery/power/apc) || istype(thing, /obj/machinery/power/smes)) //Doesn't work on dominators, SMES and APCs, to prevent kekkery
 						continue
 					if(prob(20))
 						if(prob(50))

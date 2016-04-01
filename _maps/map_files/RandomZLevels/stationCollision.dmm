@@ -254,7 +254,7 @@
 "eT" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 1; external_pressure_bound = 120; icon_state = "in"; initialize_directions = 1; internal_pressure_bound = 4000; on = 1; pressure_checks = 2; pump_direction = 0},/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/research)
 "eU" = (/obj/machinery/r_n_d/server{stat = 1},/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/research)
 "eV" = (/obj/machinery/power/emitter{anchored = 1; dir = 1; icon_state = "emitter"; state = 2},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/research)
-"eW" = (/obj/machinery/bot/medbot/mysterious{desc = "A dark little medical robot. She looks somewhat underwhelmed."; name = "Nightingale"},/turf/simulated/shuttle/floor{icon_state = "floor4"; nitrogen = 0.01; oxygen = 0.01; temperature = 2.7},/area/awaymission/syndishuttle)
+"eW" = (/mob/living/simple_animal/bot/medbot/mysterious{desc = "A dark little medical robot. She looks somewhat underwhelmed."; name = "Nightingale"},/turf/simulated/shuttle/floor{icon_state = "floor4"; nitrogen = 0.01; oxygen = 0.01; temperature = 2.7},/area/awaymission/syndishuttle)
 "eX" = (/obj/structure/table,/turf/simulated/shuttle/floor{icon_state = "floor4"; nitrogen = 0.01; oxygen = 0.01; temperature = 2.7},/area/awaymission/syndishuttle)
 "eY" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plasteel/airless{icon_state = "floorscorched1"},/area/awaymission/northblock)
 "eZ" = (/turf/simulated/floor/plasteel,/area/awaymission/northblock)

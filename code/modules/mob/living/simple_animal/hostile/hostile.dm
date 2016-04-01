@@ -32,33 +32,34 @@
 	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_SLEEP (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
 
 /mob/living/simple_animal/hostile/Life()
-
 	. = ..()
 	if(!.)
 		walk(src, 0)
 		return 0
 	if(ranged)
 		ranged_cooldown--
-	if(client)
-		return 0
+		
+/mob/living/simple_animal/hostile/process_ai()
+	..()
 	if(!AICanContinue())
 		return 0
-	if(!stat)
-		switch(stance)
-			if(HOSTILE_STANCE_IDLE)
-				var/new_target = FindTarget()
-				GiveTarget(new_target)
+	switch(stance)
+		if(HOSTILE_STANCE_IDLE)
+			var/new_target = FindTarget()
+			GiveTarget(new_target)
 
-			if(HOSTILE_STANCE_ATTACK)
-				MoveToTarget()
-				DestroySurroundings()
+		if(HOSTILE_STANCE_ATTACK)
+			MoveToTarget()
+			DestroySurroundings()
 
-			if(HOSTILE_STANCE_ATTACKING)
-				AttackTarget()
-				DestroySurroundings()
+		if(HOSTILE_STANCE_ATTACKING)
+			AttackTarget()
+			DestroySurroundings()
 
-		if(AIShouldSleep())
-			AIStatus = AI_SLEEP
+	if(AIShouldSleep())
+		AIStatus = AI_SLEEP
+
+	return 1
 
 
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
