@@ -173,7 +173,7 @@
 		death()
 		return
 
-	else if(src.health <= config.health_threshold_crit)
+	else if(src.health <= MOB_THRESHOLD_CRIT)
 
 		if(!src.reagents.has_reagent("epinephrine"))
 			src.adjustOxyLoss(10)

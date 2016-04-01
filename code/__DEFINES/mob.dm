@@ -94,3 +94,5 @@
 #define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody
 
 #define IGNORE_ACCESS -1
+
+#define MOB_THRESHOLD_CRIT 0

@@ -4,8 +4,8 @@
 	icon_state = "larva0"
 	pass_flags = PASSTABLE | PASSMOB
 
-	maxHealth = 30
-	health = 30
+	maxHealth = 25
+	health = 25
 	density = 0
 
 	var/amount_grown = 0
