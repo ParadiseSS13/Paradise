@@ -193,7 +193,7 @@
 		return
 	if(blinded || eye_blind)
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		//throw_laert("blind", /obj/screen/alert/blind)
+		//throw_alert("blind", /obj/screen/alert/blind)
 	else
 		clear_fullscreen("blind")
 		//clear_alert("blind")

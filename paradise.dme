@@ -174,7 +174,6 @@
 #include "code\controllers\Processes\ticker.dm"
 #include "code\controllers\Processes\timer.dm"
 #include "code\controllers\Processes\vote.dm"
-#include "code\controllers\ProcessScheduler\core\_stubs.dm"
 #include "code\controllers\ProcessScheduler\core\process.dm"
 #include "code\controllers\ProcessScheduler\core\processScheduler.dm"
 #include "code\datums\ai_law_sets.dm"
