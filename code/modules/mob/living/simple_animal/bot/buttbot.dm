@@ -39,6 +39,7 @@
 	if(superfart_timer)
 		deltimer(superfart_timer)
 		superfart_timer = null
+	return ..()
 
 /mob/living/simple_animal/bot/buttbot/handle_automated_action()
 	if(!..())
