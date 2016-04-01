@@ -125,8 +125,6 @@ datum/hud/New(mob/owner)
 		guardian_hud()
 	else if(ispet(mymob))
 		corgi_hud()
-	else
-		
 
 	reload_fullscreen()
 

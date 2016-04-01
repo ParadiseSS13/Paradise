@@ -31,7 +31,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(E)
-				E.damage += eye_damage
+				E.damage += rand(1, 3)
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
 

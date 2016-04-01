@@ -49,7 +49,6 @@
 	//if we're chasing someone, get a little bit angry
 	if(target_mob && prob(10))
 		feral++
-		M.flash_pain()
 
 	//calm down a little bit
 	if(feral > 0)

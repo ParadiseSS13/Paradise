@@ -315,33 +315,39 @@
 	if(.)
 		if(visual)
 			return
+		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+		if(!E)
+			return
+
 		switch(damage)
 			if(1)
 				src << "<span class='warning'>Your eyes sting a little.</span>"
-				/*if(prob(40)) //waiting on carbon organs
-					eye_stat += 1*/
+				if(prob(40)) //waiting on carbon organs
+					E.damage += 1
 
 			if(2)
 				src << "<span class='warning'>Your eyes burn.</span>"
-				//eye_stat += rand(2, 4)
+				E.damage += rand(2, 4)
 
 			else
 				src << "Your eyes itch and burn severely!</span>"
-				//eye_stat += rand(12, 16)
+				E.damage += rand(12, 16)
 
-		/*if(eye_stat > 10)
+		if(E.damage > E.min_bruised_damage)
 			eye_blind += damage
 			eye_blurry += damage * rand(3, 6)
 
-			if(eye_stat > 20)
-				if (prob(eye_stat - 20))
+			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
+				if(!(E.status & ORGAN_ROBOT))
 					src << "<span class='warning'>Your eyes start to burn badly!</span>"
-					disabilities |= NEARSIGHTED
-				else if(prob(eye_stat - 25))
-					src << "<span class='warning'>You can't see anything!</span>"
-					sdisabilities |= BLIND
+				else //snowflake conditions piss me off for the record
+					src << "<span class='warning'>The flash blinds you!</span>"
+
+			else if(E.damage >= E.min_broken_damage)
+				src << "<span class='warning'>You can't see anything!</span>"
+
 			else
-				src << "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>"*/
+				src << "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>"
 		return 1
 
 	else if(damage == 0) // just enough protection

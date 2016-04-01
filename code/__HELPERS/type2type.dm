@@ -281,7 +281,7 @@
 
 //Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
 /proc/text2matrix(var/matrixtext)
-	var/list/matrixtext_list = text2list(matrixtext, " ")
+	var/list/matrixtext_list = splittext(matrixtext, " ")
 	var/list/matrix_list = list()
 	for(var/item in matrixtext_list)
 		var/entry = text2num(item)
