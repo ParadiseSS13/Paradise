@@ -16,21 +16,22 @@
 
 
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
-/obj/item/weapon/reagent_containers/food/snacks/proc/On_Consume(var/mob/M)
-	if(!usr)	return
+/obj/item/weapon/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
+	if(!user)
+		return
 	spawn(0)
 		if(!reagents.total_volume)
-			if(M == usr)
-				to_chat(usr, "<span class='notice'>You finish eating \the [src].</span>")
-			usr.visible_message("<span class='notice'>[usr] finishes eating \the [src].</span>")
-			usr.unEquip(src)	//so icons update :[
+			if(M == user)
+				to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
+			user.visible_message("<span class='notice'>[user] finishes eating \the [src].</span>")
+			user.unEquip(src)	//so icons update :[
 
 			if(trash)
 				if(ispath(trash,/obj/item))
-					var/obj/item/TrashItem = new trash(usr)
-					usr.put_in_hands(TrashItem)
+					var/obj/item/TrashItem = new trash(user)
+					user.put_in_hands(TrashItem)
 				else if(istype(trash,/obj/item))
-					usr.put_in_hands(trash)
+					user.put_in_hands(trash)
 			qdel(src)
 	return
 
@@ -48,7 +49,7 @@
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
 			bitecount++
-			On_Consume(C)
+			On_Consume(C, user)
 			return 1
 	return 0
 
@@ -1139,9 +1140,9 @@
 		unpopped = rand(1,10)
 		reagents.add_reagent("nutriment", 2)
 		bitesize = 0.1 //this snack is supposed to be eating during looooong time. And this it not dinner food! --rastaf0
-	On_Consume()
+	On_Consume(mob/M, mob/user)
 		if(prob(unpopped))	//lol ...what's the point?
-			to_chat(usr, "\red You bite down on an un-popped kernel!")
+			to_chat(user, "\red You bite down on an un-popped kernel!")
 			unpopped = max(0, unpopped-1)
 		..()
 
@@ -1581,9 +1582,9 @@
 		reagents.add_reagent("nutriment", 4)
 		reagents.add_reagent("porktonium", 10)
 		baconbeacon = new /obj/item/device/radio/beacon/bacon(src)
-	On_Consume()
+	On_Consume(mob/M, mob/user)
 		if(!reagents.total_volume)
-			baconbeacon.loc = usr
+			baconbeacon.loc = user
 			baconbeacon.digest_delay()
 
 

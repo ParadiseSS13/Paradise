@@ -521,12 +521,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/throw_item(atom/target)
 	throw_mode_off()
-	if(usr.stat || !target)
+	if(stat || !target)
 		return
 	if(target.type == /obj/screen)
 		return
 
-	var/atom/movable/item = src.get_active_hand()
+	var/atom/movable/item = get_active_hand()
 
 	if(!item || (item.flags & NODROP))
 		return
@@ -542,14 +542,14 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been thrown by [key_name(usr)] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has thrown [key_name(M)] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
-				msg_admin_attack("[key_name_admin(usr)] has thrown [key_name_admin(M)] from [start_T_descriptor] with the target [end_T_descriptor]")
+				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been thrown by [key_name(src)] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
+				attack_log += text("\[[time_stamp()]\] <font color='red'>Has thrown [key_name(M)] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
+				msg_admin_attack("[key_name_admin(src)] has thrown [key_name_admin(M)] from [start_T_descriptor] with the target [end_T_descriptor]")
 
-				if(!iscarbon(usr))
+				if(!iscarbon(src))
 					M.LAssailant = null
 				else
-					M.LAssailant = usr
+					M.LAssailant = src
 
 	if(!item)
 		return //Grab processing has a chance of returning null
@@ -557,17 +557,17 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		unEquip(item)
 	update_icons()
 
-	if (istype(usr, /mob/living/carbon)) //Check if a carbon mob is throwing. Modify/remove this line as required.
-		item.loc = usr.loc
-		if(src.client)
-			src.client.screen -= item
+	if (istype(src, /mob/living/carbon)) //Check if a carbon mob is throwing. Modify/remove this line as required.
+		item.loc = loc
+		if(client)
+			client.screen -= item
 		if(istype(item, /obj/item))
 			item:dropped(src) // let it know it's been dropped
 
 	//actually throw it!
 	if (item)
 		item.layer = initial(item.layer)
-		src.visible_message("\red [src] has thrown [item].")
+		visible_message("\red [src] has thrown [item].")
 
 		newtonian_move(get_dir(target, src))
 
