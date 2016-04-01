@@ -299,7 +299,7 @@
 
 	New()
 		..()
-		reagents.add_reagent(pick("polonium","initropidril","concentrated_initro","pancuronium","sodium_thiopental","ketamine","sulfonal","amanitin","coniine","curare","sarin","histamine","venom","cyanide","spidereggs"), 40)
+		reagents.add_reagent(pick("polonium","initropidril","concentrated_initro","pancuronium","sodium_thiopental","ketamine","sulfonal","amanitin","coniine","curare","sarin","histamine","venom","cyanide","spidereggs","nanomachines"), 40)
 
 
 /obj/item/weapon/reagent_containers/glass/bottle/plasma
