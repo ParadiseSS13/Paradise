@@ -160,7 +160,7 @@
 	if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
 		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > 10)
-			user << "\red The label can be at most 10 characters long."
+			user << "<span class='warning'>The label can be at most 10 characters long.</span>"
 		else
 			user << "<span class='notice'>You set the label to \"[tmp_label]\".</span>"
 			label_text = tmp_label
