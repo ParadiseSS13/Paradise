@@ -478,3 +478,45 @@
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			user << "<span class='notice'>You remove the robot arm from [src].</span>"
 			build_step--
+			
+//Buttbot assembly
+/obj/item/weapon/buttbot_assembly
+	name = "incomplete buttbot assembly"
+	desc = "Some sort of bizarre assembly made from a lower torso and voice analyzer."
+	icon = 'icons/goonstation/obj/aibots.dmi'
+	icon_state = "buttpart"
+	item_state = "assembly"
+	var/build_step = 0
+	var/created_name = "Buttbot"
+
+/obj/item/organ/external/groin/attackby(obj/item/device/assembly/voice/V, mob/user, params)
+	if(!istype(V))
+		..()
+		return
+
+	if(!V.secured)
+		qdel(V)
+		var/obj/item/weapon/buttbot_assembly/A = new
+		user.put_in_hands(A)
+		user << "<span class='notice'>You add the voice analyzer to the butt.</span>"
+		user.unEquip(src, 1)
+		qdel(src)
+
+/obj/item/weapon/buttbot_assembly/attackby(obj/item/W, mob/user, params)
+	..()
+	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
+		qdel(W)
+		var/turf/T = get_turf(user.loc)
+		var/mob/living/simple_animal/bot/buttbot/A = new /mob/living/simple_animal/bot/buttbot(T)
+		A.name = created_name
+		user << "<span class='notice'>You add the robot arm to the odd looking butt assembly. Butt butt!</span>"
+		user.unEquip(src, 1)
+		qdel(src)
+	else if(istype(W, /obj/item/weapon/pen))
+		var/t = stripped_input(user, "Enter new robot name", name, created_name, MAX_NAME_LEN)
+		if(!t)
+			return
+		if(!in_range(src, usr) && loc != usr)
+			return
+
+		created_name = t
