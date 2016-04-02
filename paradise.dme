@@ -1233,6 +1233,8 @@
 #include "code\modules\events\infestation.dm"
 #include "code\modules\events\ion_storm.dm"
 #include "code\modules\events\mass_hallucination.dm"
+#include "code\modules\events\meaty_gore.dm"
+#include "code\modules\events\meaty_ops.dm"
 #include "code\modules\events\meaty_ores.dm"
 #include "code\modules\events\meteors.dm"
 #include "code\modules\events\money_hacker.dm"
