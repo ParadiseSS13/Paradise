@@ -15,8 +15,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 1
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "stamps on the"
@@ -25,7 +24,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	var/mouse_color //brown, gray and white, leave blank for random
 	layer = MOB_LAYER
-	min_oxy = 16 //Require atleast 16kPA oxygen
+	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
@@ -41,20 +40,22 @@
 
 /mob/living/simple_animal/mouse/Life()
 	. = ..()
-
-	if(!ckey && stat == CONSCIOUS && prob(0.5))
-		stat = UNCONSCIOUS
-		icon_state = "mouse_[mouse_color]_sleep"
-		wander = 0
-		speak_chance = 0
-		//snuffles
-	else if(stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS)
 		if(ckey || prob(1))
 			stat = CONSCIOUS
 			icon_state = "mouse_[mouse_color]"
 			wander = 1
 		else if(prob(5))
 			emote("snuffles")
+
+/mob/living/simple_animal/mouse/process_ai()
+	..()
+
+	if(prob(0.5))
+		stat = UNCONSCIOUS
+		icon_state = "mouse_[mouse_color]_sleep"
+		wander = 0
+		speak_chance = 0
 
 /mob/living/simple_animal/mouse/New()
 	..()

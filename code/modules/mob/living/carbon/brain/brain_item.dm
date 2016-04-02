@@ -23,9 +23,10 @@
 	owner.ear_deaf = 0
 
 /obj/item/organ/internal/brain/xeno
-	name = "thinkpan"
-	desc = "It looks kind of like an enormous wad of purple bubblegum."
-	icon_state = "brain-x-d"
+	name = "xenomorph brain"
+	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
+	icon_state = "brain-x"
+	origin_tech = "biotech=7"
 
 /obj/item/organ/internal/brain/New()
 	..()

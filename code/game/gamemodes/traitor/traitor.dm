@@ -340,13 +340,13 @@
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
+	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	//var/ref = "\ref[traitor_mind]"
-	tatorhud.join_solo_hud(traitor_mind.current)
+	tatorhud.join_hud(traitor_mind.current)
 	set_antag_hud(traitor_mind.current, "hudsyndicate")
 
 /datum/game_mode/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
+	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	tatorhud.leave_hud(traitor_mind.current)
 	set_antag_hud(traitor_mind.current, null)
 

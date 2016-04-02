@@ -48,10 +48,6 @@
 				apply_effect(4, WEAKEN, armor_block)
 
 			return
-	else
-		if(istype(M,/mob/living/carbon))
-//      log_debug("No gloves, [M] is truing to infect [src]")
-			M.spread_disease_to(src, "Contact")
 
 	var/datum/martial_art/attacker_style = M.martial_art
 

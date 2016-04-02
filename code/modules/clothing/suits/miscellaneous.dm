@@ -224,6 +224,14 @@
 	item_state = "ponchoshame"
 	flags = NODROP
 
+/obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
+	name = "bloated human suit"
+	desc = "A horribly bloated suit made from human skins."
+	icon_state = "lingspacesuit"
+	item_state = "lingspacesuit"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+
 /*
  * Misc
  */

@@ -15,8 +15,7 @@
 	emote_see = list("shakes its head", "shivers")
 	speak_chance = 1
 	turns_per_move = 10
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/corgi = 3)
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
@@ -399,11 +398,11 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 
-/mob/living/simple_animal/pet/corgi/Ian/Life()
+/mob/living/simple_animal/pet/corgi/Ian/process_ai()
 	..()
 
 	//Feeding, chasing food, FOOOOODDDD
-	if(!stat && !resting && !buckled && (ckey == null))
+	if(!resting && !buckled)
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			turns_since_scan = 0
@@ -450,10 +449,9 @@
 		if(prob(1))
 			custom_emote(1, pick("dances around.","chases its tail!"))
 			spawn(0)
-				if (ckey == null)
-					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-						dir = i
-						sleep(1)
+				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+					dir = i
+					sleep(1)
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
@@ -563,20 +561,18 @@
 		return
 	..()
 
-/mob/living/simple_animal/pet/corgi/Lisa/Life()
+/mob/living/simple_animal/pet/corgi/Lisa/process_ai()
 	..()
 
 	make_babies()
 
-	if(!stat && !resting && !buckled)
+	if(!resting && !buckled)
 		if(prob(1))
-			if (ckey == null)
-				custom_emote(1, pick("dances around.","chases her tail."))
-				spawn(0)
-					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-						dir = i
-						sleep(1)
-
+			custom_emote(1, pick("dances around.","chases her tail."))
+			spawn(0)
+				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+					dir = i
+					sleep(1)
 
 /mob/living/simple_animal/pet/corgi/attack_hand(mob/living/carbon/human/M)
 	. = ..()

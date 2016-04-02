@@ -92,6 +92,42 @@
 
 #undef STOMACH_ATTACK_DELAY
 
+/mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
+	if(src.is_muzzled())
+		if(message)
+			src << "<span class='warning'>The muzzle prevents you from vomiting!</span>"
+		return 0
+	if(stun)
+		Stun(4)
+	if(nutrition < 100 && !blood)
+		if(message)
+			visible_message("<span class='warning'>[src] dry heaves!</span>", \
+							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
+		if(stun)
+			Weaken(10)
+	else
+		if(message)
+			visible_message("<span class='danger'>[src] throws up!</span>", \
+							"<span class='userdanger'>You throw up!</span>")
+		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
+		var/turf/T = get_turf(src)
+		for(var/i=0 to distance)
+			if(blood)
+				if(T)
+					T.add_blood_floor(src)
+				if(stun)
+					adjustBruteLoss(3)
+			else
+				if(T)
+					T.add_vomit_floor(src)
+				nutrition -= lost_nutrition
+				if(stun)
+					adjustToxLoss(-3)
+			T = get_step(T, dir)
+			if (is_blocked_turf(T))
+				break
+	return 1
+
 /mob/living/carbon/gib()
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
@@ -106,19 +142,6 @@
 		M.forceMove(get_turf(src))
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 	. = ..()
-
-
-/mob/living/carbon/attack_hand(mob/M as mob)
-	if(!istype(M, /mob/living/carbon)) return
-	if (ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (H.hand)
-			temp = H.organs_by_name["l_hand"]
-		if(temp && !temp.is_usable())
-			H << "\red You can't use your [temp.name]"
-			return
-	return
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, override = 0, tesla_shock = 0)
 	if(status_flags & GODMODE)	//godmode
@@ -546,12 +569,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/show_inv(mob/user)
 	user.set_machine(src)
-	
+
 	var/dat = {"<table>
 	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
-	
+
 	dat += "<tr><td><B>Back:</B></td><td><A href='?src=\ref[src];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
 	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank))
 		dat += "&nbsp;<A href='?src=\ref[src];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"

@@ -16,20 +16,6 @@
 	..()
 	return
 
-/datum/reagent/virus_food
-	name = "Virus Food"
-	id = "virusfood"
-	description = "A mixture of water, milk, and oxygen. Virus cells can use this mixture to reproduce."
-	reagent_state = LIQUID
-	nutriment_factor = 2 * REAGENTS_METABOLISM
-	color = "#899613" // rgb: 137, 150, 19
-
-/datum/reagent/virus_food/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.nutrition += nutriment_factor*REM
-	..()
-	return
-
 /datum/reagent/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"

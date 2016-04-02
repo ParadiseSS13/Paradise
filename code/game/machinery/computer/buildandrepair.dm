@@ -54,6 +54,10 @@
 /obj/item/weapon/circuitboard/med_data
 	name = "Circuit board (Medical Records)"
 	build_path = /obj/machinery/computer/med_data
+/obj/item/weapon/circuitboard/pandemic
+	name = "circuit board (PanD.E.M.I.C. 2200)"
+	build_path = /obj/machinery/computer/pandemic
+	origin_tech = "programming=2;biotech=2"
 /obj/item/weapon/circuitboard/scan_consolenew
 	name = "Circuit board (DNA Machine)"
 	build_path = /obj/machinery/computer/scan_consolenew
@@ -243,12 +247,6 @@
 	build_path = /obj/machinery/computer/shuttle/white_ship
 
 
-/obj/item/weapon/circuitboard/curefab
-	name = "Circuit board (Cure Fabricator)"
-	build_path = /obj/machinery/computer/curer
-/obj/item/weapon/circuitboard/splicer
-	name = "Circuit board (Disease Splicer)"
-	build_path = /obj/machinery/computer/diseasesplicer
 /obj/item/weapon/circuitboard/HolodeckControl
 	name = "Circuit board (Holodeck Control)"
 	build_path = /obj/machinery/computer/HolodeckControl

@@ -132,13 +132,9 @@
 
 /obj/item/organ/internal/optical_sensor/remove(var/mob/living/user,special = 0)
 	if(!special)
-		owner.disabilities |= NEARSIGHTED
-		owner.sdisabilities |= BLIND
-		owner.eye_blind = 20
-		owner.eye_blurry = 40
 		owner << "Error 404:Optical Sensors not found."
 
-	..()
+	. = ..()
 
 /obj/item/organ/internal/optical_sensor/surgeryize()
 	if(!owner)

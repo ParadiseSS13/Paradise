@@ -1,0 +1,5 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - rscdel: "A lot of the guns and armor in the station collision, space hotel, academy, and wild west away missions have been removed/replaced."
+  - rscdel: "Removes that fucking facehugger from station collision."

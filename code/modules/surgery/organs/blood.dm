@@ -23,6 +23,16 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		vessel.add_reagent(species.exotic_blood, max_blood)
 	else
 		vessel.add_reagent("blood", max_blood)
+		for(var/datum/reagent/blood/B in vessel.reagent_list)
+			if(B.id == "blood")
+				B.data = list(
+				"donor" = src,
+				"viruses" = null,
+				"blood_DNA" = dna.unique_enzymes,
+				"blood_colour" = species.blood_color,
+				"blood_type" = b_type,
+				"resistances" = null,
+				"trace_chem" = null)
 	spawn(1)
 		fixblood()
 
@@ -30,9 +40,14 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 /mob/living/carbon/human/proc/fixblood()
 	for(var/datum/reagent/blood/B in vessel.reagent_list)
 		if(B.id == "blood")
-			B.data = list(	"donor"=src,"viruses"=null,"blood_DNA"=dna.unique_enzymes,"blood_colour"= species.blood_color,"blood_type"=dna.b_type,	\
-							"resistances"=null,"trace_chem"=null, "virus2" = null, "antibodies" = null)
-			B.color = B.data["blood_colour"]
+			B.data = list(
+			"donor" = src,
+			"viruses" = null,
+			"blood_DNA" = dna.unique_enzymes,
+			"blood_colour" = species.blood_color,
+			"blood_type" = b_type,
+			"resistances" = null,
+			"trace_chem" = null)
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/proc/handle_blood()
@@ -196,10 +211,13 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 	//set reagent data
 	B.data["donor"] = src
-	if (!B.data["virus2"])
-		B.data["virus2"] = list()
-	B.data["virus2"] |= virus_copylist(src.virus2)
-	B.data["antibodies"] = src.antibodies
+	B.data["viruses"] = list()
+
+	for(var/datum/disease/D in viruses)
+		B.data["viruses"] += D.Copy()
+	if(resistances && resistances.len)
+		B.data["resistances"] = resistances.Copy()
+
 	B.data["blood_DNA"] = copytext(src.dna.unique_enzymes,1,0)
 	B.data["blood_type"] = copytext(src.dna.b_type,1,0)
 
@@ -242,14 +260,10 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 //Transfers blood from container ot vessels
 /mob/living/carbon/proc/inject_blood(obj/item/weapon/reagent_containers/container, var/amount)
 	var/datum/reagent/blood/injected = get_blood(container.reagents)
+
 	if (!istype(injected))
 		return
-	var/list/sniffles = virus_copylist(injected.data["virus2"])
-	for(var/ID in sniffles)
-		var/datum/disease2/disease/sniffle = sniffles[ID]
-		infect_virus2(src,sniffle,1)
-	if (injected.data["antibodies"] && prob(5))
-		antibodies |= injected.data["antibodies"]
+
 	var/list/chems = list()
 	chems = params2list(injected.data["trace_chem"])
 	for(var/C in chems)
@@ -387,9 +401,5 @@ Large: Whether the splat should be big or not
 			B.blood_DNA[bld.data["blood_DNA"]] = bld.data["blood_type"]
 		else
 			B.blood_DNA[bld.data["blood_DNA"]] = "O+"
-
-	// Update virus information.
-	if(bld.data["virus2"])
-		B.virus2 = virus_copylist(bld.data["virus2"])
 
 	return B

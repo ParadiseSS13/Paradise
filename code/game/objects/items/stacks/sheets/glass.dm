@@ -24,12 +24,7 @@
 	var/full_window = /obj/structure/window/full/basic
 
 /obj/item/stack/sheet/glass/cyborg
-	name = "glass"
-	desc = "HOLY SHEET! That is a lot of glass."
-	singular_name = "glass sheet"
-	icon_state = "sheet-glass"
 	materials = list()
-	created_window = /obj/structure/window/basic
 
 /obj/item/stack/sheet/glass/attack_self(mob/user as mob)
 	construct_window(user)
@@ -159,10 +154,6 @@
 	var/full_window = /obj/structure/window/full/reinforced
 
 /obj/item/stack/sheet/rglass/cyborg
-	name = "reinforced glass"
-	desc = "Glass which seems to have rods or something stuck in them."
-	singular_name = "reinforced glass sheet"
-	icon_state = "sheet-rglass"
 	materials = list()
 
 /obj/item/stack/sheet/rglass/attack_self(mob/user as mob)

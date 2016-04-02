@@ -208,7 +208,7 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
 	name = "cleanse contaminations"//RENAME MEH
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/dethrall,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/dethrall, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("head")
 
 /datum/surgery/remove_thrall/synth
@@ -219,13 +219,13 @@
 
 
 /datum/surgery/remove_thrall/can_start(mob/user, mob/living/carbon/target)
-	return is_thrall(target)//would this be too meta?
+	return is_thrall(target) //would this be too meta?
 
 /datum/surgery/remove_thrall/synth/can_start(mob/user, mob/living/carbon/target)
 	return is_thrall(target) && target.get_species() == "Machine"
 
 
-/datum/surgery_step/dethrall
+/datum/surgery_step/internal/dethrall
 	name = "cleanse contamination"
 	allowed_tools = list(/obj/item/device/flash = 100, /obj/item/device/flashlight/pen = 80, /obj/item/device/flashlight = 40)
 
@@ -244,22 +244,27 @@
 	..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	if(target.get_species() == "Lesser Shadowling") //Empowered thralls cannot be deconverted
+		target << "<span class='shadowling'><b><i>NOT LIKE THIS!</i></b></span>"
+		user.visible_message("<span class='warning'>[target] suddenly slams upward and knocks down [user]!</span>", \
+							 "<span class='userdanger'>[target] suddenly bolts up and slams you with tremendous force!</span>")
+		user.resting = 0 //Remove all stuns
+		user.SetSleeping(0)
+		user.SetStunned(0)
+		user.SetWeakened(0)
+		user.SetParalysis(0)
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			C.Weaken(6)
+			C.apply_damage(20, "brute", "chest")
+		else if(issilicon(user))
+			var/mob/living/silicon/S = user
+			S.Weaken(8)
+			S.apply_damage(20, "brute")
+			playsound(S, 'sound/effects/bang.ogg', 50, 1)
+		return 0
 	user.visible_message("[user] shines light onto the tumor in [target]'s head!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
-	ticker.mode.remove_thrall(target.mind,0)
+	ticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s head!</span>")
 	new /obj/item/organ/internal/shadowtumor(get_turf(target))
-
 	return 1
-
-/datum/surgery_step/internal/dethrall/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/braincase = target.named_organ_parent("brain")
-	if(prob(50))
-		user.visible_message("<span class='warning'>[user] slips and rips the tumor out from [target]'s [braincase]!</span>", \
-							 "<span class='warning'><b>You fumble and tear out [target]'s tumor!</span>")
-		target.adjustBrainLoss(110) // This is so you can't just defib'n go
-		ticker.mode.remove_thrall(target.mind,1)
-
-		return 0
-	else
-		user.visible_message("<span class='warning'>[user]'s hand slips and fumbles! Luckily, they didn't damage anything!</span>")
-		return 0

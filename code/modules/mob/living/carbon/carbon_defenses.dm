@@ -24,3 +24,16 @@
 					if(S.next_step(user, src))
 						return 1
 	..()
+
+/mob/living/carbon/attack_hand(mob/living/carbon/human/user)
+	if(!iscarbon(user))
+		return
+
+	for(var/datum/disease/D in viruses)
+		if(D.IsSpreadByTouch())
+			user.ContractDisease(D)
+
+	for(var/datum/disease/D in user.viruses)
+		if(D.IsSpreadByTouch())
+			ContractDisease(D)
+	return 0

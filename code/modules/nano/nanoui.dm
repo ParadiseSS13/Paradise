@@ -187,7 +187,7 @@ nanoui is used to open and update nano browser uis
 			"showMap" = show_map,
 			"mapZLevel" = map_z_level,
 			"user" = list(
-				"name" = user.name,
+				"name" = sanitize(user.name),
 				"fancy" = user.client.prefs.nanoui_fancy
 			),
 			"window" = list(

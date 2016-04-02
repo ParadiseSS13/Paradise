@@ -17,6 +17,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\chatroom.dm
 <div id="chatroom-body">
 	{{if data.no_server}}
 		<h3 class="bad">ERROR: Messaging server is not responding.</h3>
+		{{:helper.link('Reconnect', 'refresh', {'choice' : "Reconnect"}, null, 'pdalink fixedLeftWidest')}}
 	{{else data.room}}
 		{{if data.inviting}}
 			<h3>Invite whom to #{{:data.room}}?</h3>

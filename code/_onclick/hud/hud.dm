@@ -194,6 +194,8 @@ datum/hud/New(mob/owner)
 		ai_hud()
 	else if(isrobot(mymob))
 		robot_hud()
+	else if(isbot(mymob))
+		bot_hud()
 	else if(isobserver(mymob))
 		ghost_hud()
 	else if(isovermind(mymob))
@@ -206,6 +208,8 @@ datum/hud/New(mob/owner)
 		guardian_hud()
 	else if(ispet(mymob))
 		corgi_hud()
+	else
+		
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)
