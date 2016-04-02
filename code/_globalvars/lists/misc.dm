@@ -1,5 +1,5 @@
 var/global/list/alphabet = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
-var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z") 
+var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
 var/global/list/zero_character_only = list("0")
 var/global/list/hex_characters = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
 var/global/list/binary = list("0","1")
@@ -20,5 +20,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"Thunderdome",
 	"UO45",
 	"UO45R",
+	"UO71",
+	"UO71R",
 	"Xeno"
 	)

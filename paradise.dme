@@ -1026,6 +1026,7 @@
 #include "code\modules\awaymissions\mission_code\evil_santa.dm"
 #include "code\modules\awaymissions\mission_code\spacebattle.dm"
 #include "code\modules\awaymissions\mission_code\stationCollision.dm"
+#include "code\modules\awaymissions\mission_code\UO71-terrorspiders.dm"
 #include "code\modules\awaymissions\mission_code\wildwest.dm"
 #include "code\modules\client\asset_cache.dm"
 #include "code\modules\client\client defines.dm"

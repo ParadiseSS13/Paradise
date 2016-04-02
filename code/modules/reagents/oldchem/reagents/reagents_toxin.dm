@@ -25,7 +25,20 @@
 		..()
 		return
 
-// Terror Spider, Black, Deadly Poison
+
+// Terror Spider, Green, Harmless Pheremone
+
+
+/datum/reagent/terror_green_toxin
+	name = "Green Terror Pheromone"
+	id = "terror_green_toxin"
+	description = "A nontoxic pheromone used by the green terror spider."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+	metabolization_rate = 0.1
+
+
+// Terror Spider, Black, Deadly Venom
 
 /datum/reagent/terror_black_toxin
 	name = "Black Widow venom"
@@ -158,7 +171,7 @@
 		S1.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 		S1.name = "red spiderling"
 		var/obj/effect/spider/terror_spiderling/S2 = new(get_turf(M))
-		S2.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/black
+		S2.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
 		S2.name = "black spiderling"
 		var/obj/effect/spider/terror_spiderling/S3 = new(get_turf(M))
 		S3.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
@@ -500,17 +513,13 @@
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-
 			if(volume > 25)
-
 				if(H.wear_mask)
 					H << "\red Your mask protects you from the acid!"
 					return
-
 				if(H.head)
 					H << "\red Your helmet protects you from the acid!"
 					return
-
 				if(!M.unacidable)
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
@@ -522,20 +531,15 @@
 						M.take_organ_damage(5,10)
 			else
 				M.take_organ_damage(5,10)
-
 	if(method == INGEST)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-
 			if(volume < 10)
 				M << "<span class = 'danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
-
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
 					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
 					M.emote("scream")
-
-
 			if(volume > 25)
 				if(!M.unacidable)
 					if(prob(75))

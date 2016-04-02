@@ -66,7 +66,18 @@ var/global/list/blocked_mobs = list(/mob/living/simple_animal,
 			/mob/living/simple_animal/hostile/winter/santa/stage_1,
 			/mob/living/simple_animal/hostile/winter/santa/stage_2,
 			/mob/living/simple_animal/hostile/winter/santa/stage_3,
-			/mob/living/simple_animal/hostile/winter/santa/stage_4
+			/mob/living/simple_animal/hostile/winter/santa/stage_4,
+			/mob/living/simple_animal/hostile/poison/terror_spider,
+			/mob/living/simple_animal/hostile/poison/terror_spider/red,
+			/mob/living/simple_animal/hostile/poison/terror_spider/gray,
+			/mob/living/simple_animal/hostile/poison/terror_spider/green,
+			/mob/living/simple_animal/hostile/poison/terror_spider/black,
+			/mob/living/simple_animal/hostile/poison/terror_spider/white,
+			/mob/living/simple_animal/hostile/poison/terror_spider/purple,
+			/mob/living/simple_animal/hostile/poison/terror_spider/queen,
+			/mob/living/simple_animal/hostile/poison/terror_spider/prince,
+			/mob/living/simple_animal/hostile/poison/terror_spider/mother,
+			/mob/living/simple_animal/hostile/poison/terror_spider/empress
 			)
 
 var/global/list/med_hud_users = list()
