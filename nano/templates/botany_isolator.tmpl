@@ -26,10 +26,10 @@ Used In File(s): \code\modules\hydroponics\seed_machines.dm
 			{{for data.geneMasks}}
 				<div class="item">
 					<div class="itemLabel">
-						{{:value.mask}}
+						{{:value}}
 					</div>
 					<div class="itemContent">
-						{{:helper.link('Extract', 'arrow-circle-down', {'get_gene' : value.tag}, null)}}
+						{{:helper.link('Extract', 'arrow-circle-down', {'get_gene' : value}, null)}}
 					</div>
 				</div>
 			{{empty}}

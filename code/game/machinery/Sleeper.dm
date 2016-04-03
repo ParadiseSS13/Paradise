@@ -1,3 +1,5 @@
+#define ADDICTION_SPEEDUP_TIME 1500 // 2.5 minutes
+
 /////////////////////////////////////////
 // SLEEPER CONSOLE
 /////////////////////////////////////////
@@ -340,7 +342,19 @@
 				for(var/datum/reagent/x in src.occupant.reagents.reagent_list)
 					src.occupant.reagents.trans_to(beaker, 3)
 					src.occupant.vessel.trans_to(beaker, 1)
-	src.updateDialog()
+
+	if(occupant)
+		for(var/A in occupant.reagents.addiction_list)
+			var/datum/reagent/R = A
+
+			var/addiction_removal_chance = 5
+			if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
+				addiction_removal_chance = 10
+			if(prob(addiction_removal_chance))
+				occupant << "<span class='notice'>You no longer feel reliant on [R.name]!</span>"
+				occupant.reagents.addiction_list.Remove(R)
+
+	updateDialog()
 	return
 
 
@@ -643,3 +657,5 @@
 		src.add_fingerprint(usr)
 		return
 	return
+
+#undef ADDICTION_SPEEDUP_TIME

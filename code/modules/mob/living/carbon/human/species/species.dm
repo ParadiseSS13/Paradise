@@ -55,9 +55,6 @@
 	var/brute_mod = null    // Physical damage reduction/malus.
 	var/burn_mod = null     // Burn damage reduction/malus.
 
-	var/light_dam //Light level above which species takes damage, and below which it heals.
-	var/light_effect_amp //If 0, takes/heals 1 burn and brute per tick. Otherwise, both healing and damage effects are amplified.
-
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -104,6 +101,9 @@
 	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
+	var/scream_verb = "screams"
+	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
+	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
 
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
@@ -423,14 +423,12 @@
 		H.see_invisible = SEE_INVISIBLE_LIVING
 
 		if(H.mind && H.mind.vampire)
-			if((VAMP_VISION in H.mind.vampire.powers) && (!(VAMP_FULL in H.mind.vampire.powers)))
-				H.sight |= SEE_MOBS
-
-			else if(VAMP_FULL in H.mind.vampire.powers)
+			if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
 				H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 				H.see_in_dark = 8
 				H.see_invisible = SEE_INVISIBLE_MINIMUM
-
+			else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
+				H.sight |= SEE_MOBS
 
 		if(XRAY in H.mutations)
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS

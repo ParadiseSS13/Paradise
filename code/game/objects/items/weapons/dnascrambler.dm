@@ -38,7 +38,7 @@
 		target.generate_name()
 		if(istype(target, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = target
-			H.sync_organ_dna(1)
+			H.sync_organ_dna(assimilate = 1)
 			H.update_body(0)
 			H.reset_hair() // No more winding up with hairstyles you're not supposed to have, and blowing your cover
 			H.dna.ResetUIFrom(H)

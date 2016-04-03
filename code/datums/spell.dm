@@ -88,10 +88,9 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			user << "Not when you're incapacitated."
 			return 0
 
-		if(ishuman(user))
-			if(user.is_muzzled())
-				user << "Mmmf mrrfff!"
-				return 0
+		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
+			user << "Mmmf mrrfff!"
+			return 0
 	var/obj/effect/proc_holder/spell/noclothes/spell = locate() in (user.spell_list | (user.mind ? user.mind.spell_list : list()))
 	if(clothes_req && !(spell && istype(spell)))//clothes check
 		if(!istype(user, /mob/living/carbon/human))

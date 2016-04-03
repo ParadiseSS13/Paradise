@@ -406,14 +406,15 @@ var/global/list/bad_blocks[0]
 //  Initial DNA setup.  I'm kind of wondering why the hell this doesn't just call the above.
 //    ready_dna is (hopefully) only used on mob creation, and sets the struc_enzymes_original and SE_original only once - Bone White
 
-/datum/dna/proc/ready_dna(mob/living/carbon/human/character)
+/datum/dna/proc/ready_dna(mob/living/carbon/human/character, flatten_SE = 1)
 
 	ResetUIFrom(character)
 
-	ResetSE()
+	if(flatten_SE)
+		ResetSE()
 
 	struc_enzymes_original = struc_enzymes // sets the original struc_enzymes when ready_dna is called
-	SE_original = SE
+	SE_original = SE.Copy()
 
 	unique_enzymes = md5(character.real_name)
 	reg_dna[unique_enzymes] = character.real_name

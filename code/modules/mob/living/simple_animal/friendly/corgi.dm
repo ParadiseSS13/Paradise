@@ -32,31 +32,6 @@
 	..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/handle_hud_icons()
-	..()
-	if(fire)
-		if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
-		else									fire.icon_state = "fire0"
-	if(oxygen)
-		if(oxygen_alert)						oxygen.icon_state = "oxy1"
-		else									oxygen.icon_state = "oxy0"
-	if(toxin)
-		if(toxins_alert)							toxin.icon_state = "tox1"
-		else									toxin.icon_state = "tox0"
-
-/mob/living/simple_animal/pet/corgi/handle_hud_icons_health()
-	..()
-	if(healths)
-		switch(health)
-			if(30 to INFINITY)		healths.icon_state = "health0"
-			if(26 to 29)			healths.icon_state = "health1"
-			if(21 to 25)			healths.icon_state = "health2"
-			if(16 to 20)			healths.icon_state = "health3"
-			if(11 to 15)			healths.icon_state = "health4"
-			if(6 to 10)				healths.icon_state = "health5"
-			if(1 to 5)				healths.icon_state = "health6"
-			if(0)					healths.icon_state = "health7"
-
 /mob/living/simple_animal/pet/corgi/Life()
 	. = ..()
 	regenerate_icons()
@@ -73,19 +48,21 @@
 	user.set_machine(src)
 	if(user.stat) return
 
-	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
-	if(inventory_head)
-		dat +=	"<br><b>Head:</b> [inventory_head] (<a href='?src=\ref[src];remove_inv=head'>Remove</a>)"
-	else
-		dat +=	"<br><b>Head:</b> <a href='?src=\ref[src];add_inv=head'>Nothing</a>"
-	if(inventory_back)
-		dat +=	"<br><b>Back:</b> [inventory_back] (<a href='?src=\ref[src];remove_inv=back'>Remove</a>)"
-	else
-		dat +=	"<br><b>Back:</b> <a href='?src=\ref[src];add_inv=back'>Nothing</a>"
+	var/dat = {"<table>"}
 
-	user << browse(dat, text("window=mob[];size=325x500", real_name))
-	onclose(user, "mob[real_name]")
-	return
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=\ref[src];[inventory_head?"remove_inv":"add_inv"]=head'>[(inventory_head && !(inventory_head.flags&ABSTRACT)) ? inventory_head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=\ref[src];[inventory_back?"remove_inv":"add_inv"]=back'>[(inventory_back && !(inventory_back.flags&ABSTRACT)) ? inventory_back : "<font color=grey>Empty</font>"]</A></td></tr>"
+	if(can_collar)
+		dat += "<tr><td>&nbsp;</td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+
+	dat += {"</table>
+	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	"}
+
+	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
+	popup.set_content(dat)
+	popup.open()
 
 /mob/living/simple_animal/pet/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(inventory_head && inventory_back)
@@ -542,11 +519,7 @@
 			overlays += image('icons/mob/mask.dmi',"facehugger_corgipuppy")
 		else
 			overlays += image('icons/mob/mask.dmi',"facehugger_corgi")
-	if(pcollar)
-		overlays += collar
-		overlays += pettag
-
-	return
+	..(0)
 
 /mob/living/simple_animal/pet/corgi/puppy
 	name = "\improper corgi puppy"

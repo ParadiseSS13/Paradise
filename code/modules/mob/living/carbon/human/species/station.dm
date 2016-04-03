@@ -231,6 +231,9 @@
 	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
+	scream_verb = "shrieks"
+	male_scream_sound = 'sound/voice/shriek1.ogg'
+	female_scream_sound = 'sound/voice/shriek1.ogg'
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -347,6 +350,7 @@
 	flags = IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	bodyflags = FEET_CLAWS
+	eyes = "kidan_eyes"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
@@ -374,7 +378,7 @@
 	cold_env_multiplier = 3
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
-	clothing_flags = HAS_SOCKS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
@@ -453,8 +457,8 @@
 	set name = "Regrow Limbs"
 	set desc = "Regrow one of your missing limbs at the cost of a large amount of hunger"
 
-#define SLIMEPERSON_HUNGERCOST 125
-#define SLIMEPERSON_MINHUNGER 300
+#define SLIMEPERSON_HUNGERCOST 50
+#define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
 
 	if(stat || paralysis || stunned)
@@ -620,12 +624,13 @@
 	has_organ = list(
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
 		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/eyes/diona,
+		"receptor node" =      /obj/item/organ/internal/diona_receptor,
 		"gas bladder" =        /obj/item/organ/internal/brain/diona,
 		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
 		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
 		)
 
+	vision_organ = /obj/item/organ/internal/diona_receptor
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/diona/chest),
 		"groin" =  list("path" = /obj/item/organ/external/diona/groin),
@@ -707,15 +712,17 @@
 
 	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE
-	clothing_flags = HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = HAS_SKIN_COLOR | HAS_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 	virus_immune = 1
 	can_revive_by_healing = 1
 	reagent_tag = PROCESS_SYN
+	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,

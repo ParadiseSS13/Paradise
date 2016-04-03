@@ -9,19 +9,23 @@
 	var/slot
 	vital = 0
 	var/organ_action_name = null
+	var/non_primary = 0
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
 	if(istype(holder))
 		insert(holder)
 	..()
 
-/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
 
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
-		replaced.remove(M, special = 1)
+		if(dont_remove_slot)
+			non_primary = 1
+		else
+			replaced.remove(M, special = 1)
 
 	owner = M
 
@@ -76,6 +80,8 @@
 	return ..()
 
 /obj/item/organ/internal/proc/prepare_eat()
+	if(robotic)
+		return //no eating cybernetic implants!
 	var/obj/item/weapon/reagent_containers/food/snacks/organ/S = new
 	S.name = name
 	S.desc = desc
@@ -120,31 +126,64 @@
 
 
 // Brain is defined in brain_item.dm.
+
 /obj/item/organ/internal/heart
 	name = "heart"
 	icon_state = "heart-on"
 	organ_tag = "heart"
 	parent_organ = "chest"
+	slot = "heart"
+	origin_tech = "biotech=3"
+	var/beating = 1
 	dead_icon = "heart-off"
-	vital = 1
-	var/beating = 0
+	var/icon_base = "heart"
 
 /obj/item/organ/internal/heart/update_icon()
 	if(beating)
-		icon_state = "heart-on"
+		icon_state = "[icon_base]-on"
 	else
-		icon_state = "heart-off"
-
-/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
-	..()
-	beating = 1
-	update_icon()
+		icon_state = "[icon_base]-off"
 
 /obj/item/organ/internal/heart/remove(mob/living/carbon/M, special = 0)
 	..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.stat == DEAD || H.heart_attack)
+			Stop()
+			return
+		if(!special)
+			H.heart_attack = 1
+
 	spawn(120)
-		beating = 0
-		update_icon()
+		if(!owner)
+			Stop()
+
+/obj/item/organ/internal/heart/attack_self(mob/user)
+	..()
+	if(!beating)
+		Restart()
+		spawn(80)
+			if(!owner)
+				Stop()
+
+
+/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
+	..()
+	if(ishuman(M) && beating)
+		var/mob/living/carbon/human/H = M
+		if(H.heart_attack)
+			H.heart_attack = 0
+			return
+
+/obj/item/organ/internal/heart/proc/Stop()
+	beating = 0
+	update_icon()
+	return 1
+
+/obj/item/organ/internal/heart/proc/Restart()
+	beating = 1
+	update_icon()
+	return 1
 
 /obj/item/organ/internal/heart/prepare_eat()
 	var/obj/S = ..()

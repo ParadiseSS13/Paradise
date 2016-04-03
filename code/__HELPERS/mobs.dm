@@ -46,6 +46,7 @@ proc/random_hair_style(var/gender, species = "Human")
 			continue
 		if( !(species in S.species_allowed))
 			continue
+
 		valid_hairstyles[hairstyle] = hair_styles_list[hairstyle]
 
 	if(valid_hairstyles.len)

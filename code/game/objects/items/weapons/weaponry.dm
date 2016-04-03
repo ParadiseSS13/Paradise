@@ -27,6 +27,8 @@
 	throwforce = 10
 	w_class = 1
 	var/transformed = 0
+	var/transform_into = /obj/item/weapon/nullrod/sword
+	var/transform_via = list(/obj/item/clothing/suit/armor/riot/knight/templar, /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx)
 
 	suicide_act(mob/user)
 		viewers(user) << "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>"
@@ -53,7 +55,7 @@
 	if(M.mind)
 		if(M.mind.vampire)
 			if(ishuman(M))
-				if(!(VAMP_FULL in M.mind.vampire.powers))
+				if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
 					M << "<span class='warning'>The nullrod's power interferes with your own!</span>"
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
@@ -61,13 +63,15 @@
 /obj/item/weapon/nullrod/afterattack(var/obj/item/I as obj, mob/user as mob, proximity)
 	if(!proximity)
 		return
-	if(istype(I, /obj/item/clothing/suit/armor/riot/knight/templar)) //Only the Chaplain's holy armor is capable fo performing this feat.
-		if(!transformed) // can't turn a sword into a sword.
-			user << "<span class='notice'>You sheath the [src] into the [I]'s scabbard, transforming it into a holy sword.</span>"
-			user.unEquip(src)
-			qdel(src)
-			var/obj/item/weapon/nullrod/sword/S = new /obj/item/weapon/nullrod/sword
-			user.put_in_hands(S)
+	for(var/T in transform_via)
+		if(istype(I, T)) //Only the Chaplain's holy armor is capable fo performing this feat.
+			if(!transformed) // can't turn a sword into a sword.
+				var/obj/item/S = new transform_into()
+				user << "<span class='notice'>You sheath the [src] into the [I]'s scabbard, transforming it into \a [S].</span>"
+				user.unEquip(src)
+				qdel(src)
+				user.put_in_hands(S)
+				break
 
 /obj/item/weapon/nullrod/sword
 	name = "holy sword"

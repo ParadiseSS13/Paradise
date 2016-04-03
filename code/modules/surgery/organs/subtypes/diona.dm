@@ -185,7 +185,7 @@
 	parent_organ = "groin"
 	slot = "appendix"
 
-/obj/item/organ/internal/eyes/diona
+/obj/item/organ/internal/diona_receptor
 	name = "receptor node"
 	organ_tag = "eyes"
 	icon = 'icons/mob/alien.dmi'
@@ -193,6 +193,24 @@
 	origin_tech = "biotech=3"
 	parent_organ = "head"
 	slot = "eyes"
+
+
+/obj/item/organ/internal/diona_receptor/remove(var/mob/living/user,special = 0)
+	if(!special)
+		owner.disabilities |= NEARSIGHTED
+		owner.sdisabilities |= BLIND
+		owner.eye_blind = 20
+		owner.eye_blurry = 40
+	..()
+
+/obj/item/organ/internal/diona_receptor/surgeryize()
+	if(!owner)
+		return
+	owner.disabilities &= ~NEARSIGHTED
+	owner.sdisabilities &= ~BLIND
+	owner.eye_blurry = 0
+	owner.eye_blind = 0
+
 
 //TODO:Make absorb rads on insert
 

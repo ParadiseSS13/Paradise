@@ -114,17 +114,18 @@
 					msg="We see that you completed [newunits] new unit[newunits>1?"s":""] for Task #[count]! "
 					pay=objective.completion_payment * newunits
 					objective.units_compensated += newunits
+					objective.is_completed() // So we don't get many messages regarding completion
 				else if(!objective.completed)
 					if(objective.is_completed())
 						pay=objective.completion_payment
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.money += objective.completion_payment
+						M.mind.initial_account.money += pay
 						var/datum/transaction/T = new()
 						T.target_name = "[command_name()] Payroll"
 						T.purpose = "Payment"
-						T.amount = objective.completion_payment
+						T.amount = pay
 						T.date = current_date_string
 						T.time = worldtime2text()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
@@ -136,18 +137,7 @@
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
 						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						if(PM)
-							PM.play_ringtone()
-						//Search for holder of the PDA.
-						var/mob/living/L = null
-						if(P.loc && isliving(P.loc))
-							L = P.loc
-						//Maybe they are a pAI!
-						else
-							L = get(P, /mob/living/silicon)
-
-						if(L)
-							L << "\icon[P] <b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)"
+						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker

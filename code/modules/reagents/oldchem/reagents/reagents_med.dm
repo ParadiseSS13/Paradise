@@ -57,9 +57,11 @@
 
 /datum/reagent/synaptizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
+	M.SetSleeping(0)
 	if(prob(50))
 		M.adjustBrainLoss(-1.0)
 	..()
@@ -85,6 +87,11 @@
 	..()
 	return
 
+/datum/reagent/mitocholide/reaction_obj(var/obj/O, var/volume)
+	if(istype(O, /obj/item/organ))
+		var/obj/item/organ/Org = O
+		Org.rejuvenate()
+
 /datum/reagent/cryoxadone
 	name = "Cryoxadone"
 	id = "cryoxadone"
@@ -97,8 +104,9 @@
 	if(M.bodytemperature < 265)
 		M.adjustCloneLoss(-4)
 		M.adjustOxyLoss(-10)
-		M.heal_organ_damage(12,12)
 		M.adjustToxLoss(-3)
+		M.adjustBruteLoss(-12)
+		M.adjustFireLoss(-12)
 		M.status_flags &= ~DISFIGURED
 	..()
 	return
@@ -114,7 +122,8 @@
 /datum/reagent/rezadone/on_mob_life(mob/living/M)
 	M.setCloneLoss(0) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
 	M.adjustCloneLoss(-1) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate.
-	M.heal_organ_damage(1,1)
+	M.adjustBruteLoss(-1)
+	M.adjustFireLoss(-1)
 	M.status_flags &= ~DISFIGURED
 	..()
 	return
@@ -133,7 +142,3 @@
 	reagent_state = LIQUID
 	color = "#0AB478"
 	metabolization_rate = 0.2
-
-/datum/reagent/spaceacillin/on_mob_life(var/mob/living/M as mob)
-	..()
-	return
