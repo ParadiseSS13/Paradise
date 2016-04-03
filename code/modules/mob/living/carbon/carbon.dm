@@ -315,6 +315,9 @@
 	if(.)
 		if(visual)
 			return
+		if(weakeyes)
+			Stun(2)
+
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E)
 			return
