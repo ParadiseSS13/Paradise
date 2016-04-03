@@ -6,7 +6,8 @@
 #define COPY_BUILDMODE 6
 #define AREAEDIT_BUILDMODE 7
 #define FILL_BUILDMODE 8
-#define NUM_BUILDMODES 8
+#define LINK_BUILDMODE 9
+#define NUM_BUILDMODES 9
 
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
@@ -90,6 +91,32 @@
 	cl = null
 	qdel(I)
 
+/obj/effect/buildmode_line
+	var/image/I 
+	var/client/cl
+
+/obj/effect/buildmode_line/New(var/client/c, var/atom/atom_a, var/atom/atom_b, var/linename)
+	name = linename
+	loc = get_turf(atom_a)
+	I = image('icons/misc/mark.dmi', src, "line", 19.0)
+	var/x_offset = ((atom_b.x * 32) + atom_b.pixel_x) - ((atom_a.x * 32) + atom_a.pixel_x)
+	var/y_offset = ((atom_b.y * 32) + atom_b.pixel_y) - ((atom_a.y * 32) + atom_a.pixel_y)
+	
+	var/matrix/M = matrix()
+	M.Translate(0, 16)
+	M.Scale(1, sqrt((x_offset * x_offset) + (y_offset * y_offset)) / 32)
+	M.Turn(90 - Atan2(x_offset, y_offset)) // So... You pass coords in order x,y to this version of atan2. It should be called acsc2.
+	M.Translate(atom_a.pixel_x, atom_a.pixel_y)
+	
+	transform = M
+	cl = c
+	cl.images += I
+
+/obj/effect/buildmode_line/Destroy()
+	cl.images -= I 
+	cl = null
+	qdel(I)
+
 /datum/click_intercept
 	var/client/holder = null
 	var/list/obj/screen/buttons = list()
@@ -133,6 +160,9 @@
 	var/area/storedarea = null
 	var/image/areaimage
 	var/atom/movable/stored = null
+	var/list/link_lines = list()
+	var/obj/link_obj
+	var/valid_links = 0
 
 /datum/click_intercept/buildmode/New(client/c)
 	..()
@@ -209,6 +239,11 @@
 			user << "<span class='notice'>***********************************************************</span>"
 			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>"
 			user << "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>"
+			user << "<span class='notice'>***********************************************************</span>"
+		if(LINK_BUILDMODE)
+			user << "<span class='notice'>***********************************************************</span>"
+			user << "<span class='notice'>Left Mouse Button on obj  = Select button to link</span>"
+			user << "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button"
 			user << "<span class='notice'>***********************************************************</span>"
 
 /datum/click_intercept/buildmode/proc/change_settings(mob/user)
@@ -310,6 +345,9 @@
 		areaimage.loc = storedarea
 	else
 		areaimage.loc = null
+	for(var/obj/effect/buildmode_line/L in link_lines)
+		qdel(L)
+		link_lines -= L
 
 /datum/click_intercept/buildmode/proc/select_tile(var/turf/T)
 	return new /obj/effect/buildmode_reticule(T, holder)
@@ -482,3 +520,76 @@
 
 			//Something wrong - Reset
 			deselect_region()
+		if(LINK_BUILDMODE)
+			if(left_click && istype(object, /obj/machinery))
+				link_obj = object
+			if(right_click && istype(object, /obj/machinery))
+				if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/airlock))
+					var/obj/machinery/door_control/M = link_obj
+					var/obj/machinery/door/airlock/P = object
+					if(!M.id || M.id == "")
+						M.id = input(holder, "Please select an ID for the button", "Buildmode", "")
+						if(!M.id || M.id == "")
+							goto(line_jump)
+					if(P.id_tag == M.id && (P in range(M.range, M)) && P.id_tag && P.id_tag != "")
+						P.id_tag = null
+						holder << "[P] unlinked."
+						goto(line_jump)
+					if(!M.normaldoorcontrol)
+						if(link_lines.len && alert(holder, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
+							goto(line_jump)
+						M.normaldoorcontrol = 1
+					if(P.id_tag && alert(holder, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
+						goto(line_jump)
+					P.id_tag = M.id
+				if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/poddoor))
+					var/obj/machinery/door_control/M = link_obj
+					var/obj/machinery/door/poddoor/P = object
+					if(!M.id || M.id == "")
+						M.id = input(holder, "Please select an ID for the button", "Buildmode", "")
+						if(!M.id || M.id == "")
+							goto(line_jump)
+					if(P.id_tag == M.id && P.id_tag && P.id_tag != "")
+						P.id_tag = null
+						holder << "[P] unlinked."
+						goto(line_jump)
+					if(M.normaldoorcontrol)
+						if(link_lines.len && alert(holder, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
+							goto(line_jump)
+						M.normaldoorcontrol = 0
+					if(!M.id || M.id == "")
+						M.id = input(holder, "Please select an ID for the button", "Buildmode", "")
+						if(!M.id || M.id == "")
+							goto(line_jump)
+					if(P.id_tag && P.id_tag != 1 && alert(holder, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
+						goto(line_jump)
+					P.id_tag = M.id
+			
+			line_jump // For the goto
+			valid_links = 0
+			for(var/obj/effect/buildmode_line/L in link_lines)
+				qdel(L)
+				link_lines -= L
+			
+			if(istype(link_obj, /obj/machinery/door_control))
+				var/obj/machinery/door_control/M = link_obj
+				for(var/obj/machinery/door/airlock/P in range(M.range,M))
+					if(P.id_tag == M.id)
+						var/obj/effect/buildmode_line/L = new(holder, M, P, "[M.name] to [P.name]")
+						L.color = M.normaldoorcontrol ? "#339933" : "#993333"
+						if(M.normaldoorcontrol)
+							valid_links = 1
+						link_lines += L
+						var/obj/effect/buildmode_line/L2 = new(holder, P, M, "[M.name] to [P.name]") // Yes, reversed one so that you can see it from both sides.
+						L2.color = L.color
+						link_lines += L2
+				for(var/obj/machinery/door/poddoor/P in world)
+					if(P.id_tag == M.id)
+						var/obj/effect/buildmode_line/L = new(holder, M, P, "[M.name] to [P.name]")
+						L.color = M.normaldoorcontrol ? "#993333" : "#339933"
+						if(M.normaldoorcontrol)
+							valid_links = 0
+						link_lines += L
+						var/obj/effect/buildmode_line/L2 = new(holder, P, M, "[M.name] to [P.name]") // Yes, reversed one so that you can see it from both sides.
+						L2.color = L.color
+						link_lines += L2
