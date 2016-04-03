@@ -314,7 +314,6 @@
 	name = "removal of embedded objects"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch, /datum/surgery_step/remove_object, /datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("r_arm","l_arm","r_leg","l_leg","r_hand","r_foot","l_hand","l_foot","groin","chest","head")
-	allowed_mob = list(/mob/living/carbon/human/machine)
 
 
 /datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/target)
