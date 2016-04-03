@@ -3,7 +3,7 @@
 // AI (i.e. game AI, not the AI player) controlled bots
 /mob/living/simple_animal/bot
 	icon = 'icons/obj/aibots.dmi'
-	layer = MOB_LAYER
+	layer = MOB_LAYER - 0.1
 	light_range = 3
 	stop_automated_movement = 1
 	wander = 0
@@ -389,8 +389,8 @@
 /mob/living/simple_animal/bot/proc/speak(message, channel) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if((!on) || (!message))
 		return
-	if(channel && Radio.channels[channel])// Use radio if we have channel key
-		Radio.autosay(message, name, channel)
+	if(channel)
+		Radio.autosay(message, name, channel == "headset" ? null : channel)
 	else
 		say(message)
 	return
