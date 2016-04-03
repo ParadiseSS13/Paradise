@@ -886,6 +886,10 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/get_access()
 	. = ..()
 
-	var/obj/item/I = get_active_hand()
-	if(I)
-		. |= I.GetAccess()
+	var/obj/item/RH = get_active_hand()
+	if(RH)
+		. |= RH.GetAccess()
+
+	var/obj/item/LH = get_inactive_hand()
+	if(LH)
+		. |= LH.GetAccess()
