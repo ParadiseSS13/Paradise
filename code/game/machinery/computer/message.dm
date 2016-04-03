@@ -22,17 +22,18 @@
 	var/defaultmsg = "<span class='notice'>Welcome. Please select an option.</span>"
 	var/rebootmsg = "<span class='warning'>%$&(£: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
 	//Computer properties
-	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
+	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message, 4 = chat room selection, 5 = chat room logs
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
 	var/emag = 0		// When it is emagged.
 	var/message = "<span class='notice'>System bootup complete. Please select an option.</span>"	// The message that shows on the main menu.
 	var/auth = 0 // Are they authenticated?
-	var/optioncount = 7
+	var/optioncount = 8
 	// Custom Message Properties
 	var/customsender = "System Administrator"
 	var/obj/item/device/pda/customrecepient = null
 	var/customjob		= "Admin"
 	var/custommessage 	= "This is a test, please ignore."
+	var/datum/chatroom/current_chatroom = null
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
@@ -62,6 +63,7 @@
 			src.spark_system.start()
 			var/obj/item/weapon/paper/monitorkey/MK = new/obj/item/weapon/paper/monitorkey
 			MK.loc = src.loc
+			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			// Will help make emagging the console not so easy to get away with.
 			MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
 			update_icon()
@@ -129,6 +131,7 @@
 					dat += "<dd><A href='?src=\ref[src];clearr=1'>&#09;[++i]. Clear Request Console Logs</a><br></dd>"
 					dat += "<dd><A href='?src=\ref[src];pass=1'>&#09;[++i]. Set Custom Key</a><br></dd>"
 					dat += "<dd><A href='?src=\ref[src];msg=1'>&#09;[++i]. Send Admin Message</a><br></dd>"
+					dat += "<dd><A href='?src=\ref[src];chatroom=1'>&#09;[++i]. View Chatrooms</a><br></dd>"
 			else
 				for(var/n = ++i; n <= optioncount; n++)
 					dat += "<dd><font color='blue'>&#09;[n]. ---------------</font><br></dd>"
@@ -246,7 +249,41 @@
 				dat += {"<tr><td width = '5%'><center><A href='?src=\ref[src];deleter=\ref[rc]' style='color: rgb(255,0,0)'>X</a></center></td><td width='15%'>[rc.send_dpt]</td>
 				<td width='15%'>[rc.rec_dpt]</td><td width='300px'>[rc.message]</td><td width='15%'>[rc.stamp]</td><td width='15%'>[rc.id_auth]</td><td width='15%'>[rc.priority]</td></tr>"}
 			dat += "</table>"
-
+		//Chat room list
+		if(5)
+			dat += "<center><A href='?src=\ref[src];back=1'>Back</a> - <A href='?src=\ref[src];refresh=1'>Refresh</center><hr>"
+			dat += {"<table border='1' width='100%'>
+					<tr>
+					<th width='40%'>Room Name</th>
+					<th width='20%'>Users</th>
+					<th width='20%'>Invites</th>
+					<th width='20%'>Messages</th>
+					</tr>"}
+			for(var/datum/chatroom/C in chatrooms)
+				var/list/invites = (C.invites - C.users)
+				dat += {"<tr>
+					<td><a href='?src=\ref[src];viewroom=\ref[C]'>[C.name]</a></td>
+					<td>[C.users.len]</td>
+					<td>[invites.len]</td>
+					<td>[C.logs.len]</td>
+					</tr>"}
+			dat += "</table>"
+		//View chat room logs
+		if(6)
+			dat += "<center><A href='?src=\ref[src];chatroom=1'>Back</a> - <A href='?src=\ref[src];refresh=1'>Refresh</center><hr>"
+			dat += {"<table border='1' width='100%'>
+					<tr>
+					<th width='25%'>Name</th>
+					<th width='75%'>Message</th>
+					</tr>"}
+			if(current_chatroom)
+				for(var/M in current_chatroom.logs)
+					var/list/message = M
+					dat += {"<tr>
+						<td>[message["username"]]</td>
+						<td>[message["message"]]</td>
+						</tr>"}
+			dat += "</table>"
 
 	dat += "</body>"
 	message = defaultmsg
@@ -458,12 +495,8 @@
 						//Sender isn't faking as someone who exists
 						if(isnull(PDARec))
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[customsender]","[custommessage]")
-							recipient_messenger.play_ringtone()
-							if( customrecepient.loc && ishuman(customrecepient.loc) )
-								var/mob/living/carbon/human/H = customrecepient.loc
-								H << "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[src];choice=Message;target=\ref[src]'>Reply</a>)"
+							recipient_messenger.notify("<b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='?src=\ref[src];choice=Message;target=\ref[src]'>Reply</a>)")
 							log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
-							recipient_messenger.set_new(1)
 						//Sender is faking as someone who exists
 						else
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[PDARec.owner]","[custommessage]")
@@ -472,12 +505,8 @@
 							if(!recipient_messenger.conversations.Find("\ref[PDARec]"))
 								recipient_messenger.conversations.Add("\ref[PDARec]")
 
-							recipient_messenger.play_ringtone()
-							if( customrecepient.loc && ishuman(customrecepient.loc) )
-								var/mob/living/carbon/human/H = customrecepient.loc
-								H << "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[recipient_messenger];choice=Message;target=\ref[PDARec]'>Reply</a>)"
+							recipient_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='?src=\ref[recipient_messenger];choice=Message;target=\ref[PDARec]'>Reply</a>)")
 							log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
-							recipient_messenger.set_new(1)
 						//Finally..
 						ResetMessage()
 
@@ -493,6 +522,19 @@
 
 		if (href_list["back"])
 			src.screen = 0
+		// View chat room list
+		if (href_list["chatroom"])
+			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
+				message = noserver
+			else if(auth)
+				screen = 5
+		if (href_list["viewroom"])
+			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
+				message = noserver
+			else if(auth)
+				current_chatroom = locate(href_list["viewroom"])
+				if(current_chatroom)
+					screen = 6
 
 	return src.attack_hand(usr)
 

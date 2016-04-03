@@ -128,7 +128,7 @@
 				R = pick(standard_medicines + rare_medicines)
 			else
 				R = pick(standard_medicines)
-			var/obj/item/weapon/reagent_containers/pill/P = new(src)
+			var/obj/item/weapon/reagent_containers/food/pill/P = new(src)
 
 			if(rare_medicines.Find(R))
 				P.reagents.add_reagent(R,10)

@@ -11,6 +11,8 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
+	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+
 	flick("gibbed-r", animation)
 	robogibs(loc, viruses)
 

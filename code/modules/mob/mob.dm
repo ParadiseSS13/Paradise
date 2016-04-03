@@ -6,6 +6,8 @@
 	hud_used = null
 	if(mind && mind.current == src)
 		spellremove(src)
+	for(var/infection in viruses)
+		qdel(infection)
 	ghostize()
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
@@ -174,6 +176,10 @@
 				equip_to_slot_if_possible(C, slot)
 		else
 			equip_to_slot_if_possible(W, slot)
+	else
+		W = get_item_by_slot(slot)
+		if(W)
+			W.attack_hand(src)
 
 	if(ishuman(src) && W == src:head)
 		src:update_hair()
@@ -495,16 +501,17 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
-	var/dat = {"
-	<HR>
-	<B><FONT size=3>[name]</FONT></B>
-	<HR>
-	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=[slot_l_hand]'>		[(l_hand&&!(l_hand.flags&ABSTRACT)) 	? l_hand	: "Nothing"]</A>
-	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=[slot_r_hand]'>		[(r_hand&&!(r_hand.flags&ABSTRACT))		? r_hand	: "Nothing"]</A>
-	<BR><A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	var/dat = {"<table>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td>&nbsp;</td></tr>"}
+	dat += {"</table>
+	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
 	"}
-	user << browse(dat, "window=mob\ref[src];size=325x500")
-	onclose(user, "mob\ref[src]")
+
+	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
+	popup.set_content(dat)
+	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
@@ -625,7 +632,7 @@ var/list/slot_equipment_priority = list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize(msg)
+	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
 
 	if(mind)
 		mind.store_memory(msg)
@@ -662,7 +669,7 @@ var/list/slot_equipment_priority = list( \
 	if (flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(lentext(msg) <= 40 || !shrink)
-			return "<span class='notice'>[msg]</span>"
+			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a></span>"
 
@@ -740,16 +747,6 @@ var/list/slot_equipment_priority = list( \
 
 		if(istype(O, /obj/singularity))
 			var/name = "Singularity"
-			if (names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-		if(istype(O, /obj/machinery/bot))
-			var/name = "BOT: [O.name]"
 			if (names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
@@ -847,7 +844,7 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/pull_damage()
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.health - H.halloss <= config.health_threshold_softcrit)
+		if(H.health <= config.health_threshold_softcrit)
 			for(var/name in H.organs_by_name)
 				var/obj/item/organ/external/e = H.organs_by_name[name]
 				if(e && H.lying)
@@ -860,9 +857,9 @@ var/list/slot_equipment_priority = list( \
 	..()
 	if(M != usr) return
 	if(M.small) return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+	if(!M.can_strip) return
 	if(usr == src) return
 	if(!Adjacent(usr)) return
-	if(istype(M,/mob/living/silicon/ai)) return
 	show_inv(usr)
 
 //this and stop_pulling really ought to be /mob/living procs
@@ -996,30 +993,9 @@ var/list/slot_equipment_priority = list( \
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
-	var/obj/docking_port/mobile/emergency/E = shuttle_master.emergency
-
-	if(E.mode >= SHUTTLE_RECALL)
-		var/message = ""
-
-		var/timeleft = E.timeLeft()
-		message = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-
-		switch(E.mode)
-			if(SHUTTLE_RECALL, SHUTTLE_ESCAPE)
-				message = "ETR-[message]"
-			if(SHUTTLE_CALL)
-				message = "ETA-[message]"
-			if(SHUTTLE_DOCKED)
-				if(timeleft < 5)
-					message = "Departing..."
-				else
-					message = "ETD-[message]"
-			if(SHUTTLE_STRANDED)
-				message = "ETA-ERR"
-			if(SHUTTLE_ENDGAME)
-				return
-
-		stat(null, message)
+	var/ETA = shuttle_master.emergency.getModeStr()
+	if(ETA)
+		stat(null, "[ETA] [shuttle_master.emergency.getTimerStr()]")
 
 /mob/proc/add_stings_to_statpanel(var/list/stings)
 	for(var/obj/effect/proc_holder/changeling/S in stings)
@@ -1121,94 +1097,72 @@ var/list/slot_equipment_priority = list( \
 
 
 /mob/proc/Jitter(amount)
-	jitteriness = max(jitteriness,amount,0)
+	jitteriness = max(jitteriness, amount, 0)
 
 /mob/proc/Dizzy(amount)
-	dizziness = max(dizziness,amount,0)
+	dizziness = max(dizziness, amount, 0)
 
 /mob/proc/Stun(amount)
-	if(status_flags & CANSTUN)
-		stunned = max(max(stunned,amount),0) //can't go below 0, getting a low amount of stun doesn't lower your current stun
-		update_canmove()
-	return
+	SetStunned(max(stunned, amount))
 
 /mob/proc/SetStunned(amount) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
 	if(status_flags & CANSTUN)
-		stunned = max(amount,0)
+		stunned = max(amount, 0)
 		update_canmove()
-	return
+	else if(stunned)
+		stunned = 0
+		update_canmove()
 
 /mob/proc/AdjustStunned(amount)
-	if(status_flags & CANSTUN)
-		stunned = max(stunned + amount,0)
-		update_canmove()
-	return
+	SetStunned(stunned + amount)
 
 /mob/proc/Weaken(amount)
-	if(status_flags & CANWEAKEN)
-		weakened = max(max(weakened,amount),0)
-		update_canmove()	//updates lying, canmove and icons
-	return
+	SetWeakened(max(weakened, amount))
 
 /mob/proc/SetWeakened(amount)
 	if(status_flags & CANWEAKEN)
-		weakened = max(amount,0)
+		weakened = max(amount, 0)
 		update_canmove()	//updates lying, canmove and icons
-	return
+	else if(weakened)
+		weakened = 0
+		update_canmove()
 
 /mob/proc/AdjustWeakened(amount)
-	if(status_flags & CANWEAKEN)
-		weakened = max(weakened + amount,0)
-		update_canmove()	//updates lying, canmove and icons
-	return
+	SetWeakened(weakened + amount)
 
 /mob/proc/Paralyse(amount)
-	if(status_flags & CANPARALYSE)
-		paralysis = max(max(paralysis,amount),0)
-		update_canmove()
-	return
+	SetParalysis(max(paralysis, amount))
 
 /mob/proc/SetParalysis(amount)
 	if(status_flags & CANPARALYSE)
-		paralysis = max(amount,0)
+		paralysis = max(amount, 0)
 		update_canmove()
-	return
+	else if(paralysis)
+		paralysis = 0
+		update_canmove()
 
 /mob/proc/AdjustParalysis(amount)
-	if(status_flags & CANPARALYSE)
-		paralysis = max(paralysis + amount,0)
-		update_canmove()
-	return
+	SetParalysis(paralysis + amount)
 
 /mob/proc/Sleeping(amount)
-	sleeping = max(max(sleeping,amount),0)
-	update_canmove()
-	return
+	SetSleeping(max(sleeping, amount))
 
 /mob/proc/SetSleeping(amount)
-	sleeping = max(amount,0)
+	sleeping = max(amount, 0)
 	update_canmove()
-	return
 
 /mob/proc/AdjustSleeping(amount)
-	sleeping = max(sleeping + amount,0)
-	update_canmove()
-	return
+	SetSleeping(sleeping + amount)
 
 /mob/proc/Resting(amount)
-	resting = max(max(resting,amount),0)
-	update_canmove()
-	return
+	SetResting(max(resting, amount))
 
 /mob/proc/SetResting(amount)
-	resting = max(amount,0)
+	resting = max(amount, 0)
 	update_canmove()
-	return
 
 /mob/proc/AdjustResting(amount)
-	resting = max(resting + amount,0)
-	update_canmove()
-	return
+	SetResting(resting + amount)
 
 /mob/proc/get_species()
 	return ""
@@ -1382,6 +1336,11 @@ mob/proc/yank_out_object()
 					return G
 				break
 
+/mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null)
+	var/mob/dead/observer/ghost = get_ghost()
+	if(ghost)
+		ghost.notify_cloning(message, sound, source)
+		return ghost
 
 /mob/proc/fakevomit(green=0) //for aesthetic vomits that need to be instant and do not stun. -Fox
 	if(stat==DEAD)
@@ -1395,16 +1354,6 @@ mob/proc/yank_out_object()
 			src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
-
-/mob/proc/fakepoop() //for aesthetic craps. Whyyyyy -Fox
-	if(stat==DEAD)
-		return
-	var/turf/location = loc
-	if (istype(location, /turf/simulated))
-		src.visible_message("<span class='warning'>[src] has explosive diarrhea all over the floor!</span>","<span class='warning'>You have explosive diarrhea all over the floor!</span>")
-		location.add_poop_floor()
-		playsound(location, 'sound/effects/splat.ogg', 50, 1)
-
 
 
 /mob/proc/adjustEarDamage()
@@ -1468,3 +1417,9 @@ mob/proc/yank_out_object()
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()
 	return 1 // Yes, you can
+
+/mob/proc/IsVocal()
+	return 1
+
+/mob/proc/get_access()
+	return list() //must return list or IGNORE_ACCESS

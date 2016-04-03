@@ -44,7 +44,7 @@
 	C.visible_message("<span class=warning>[user] has analyzed [C]'s vitals!</span>")
 
 	user.show_message("<span class=notice>Analyzing Results for [C]:</span>")
-	user.show_message("<span class=notice>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health - C.halloss]% healthy"]</span>", 1)
+	user.show_message("<span class=notice>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health]% healthy"]</span>", 1)
 	user.show_message("<span class=notice>\t Damage Specifics: [C.getOxyLoss() > 50 ? "</span><span class=warning>" : ""][C.getOxyLoss()]-[C.getToxLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getToxLoss()]-[C.getFireLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getFireLoss()]-[C.getBruteLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getBruteLoss()]</span>", 1)
 	user.show_message("<span class=notice>\t Key: Suffocation/Toxin/Burns/Brute</span>", 1)
 	user.show_message("<span class=notice>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
@@ -157,11 +157,12 @@
 /datum/data/pda/utility/scanmode/notes/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
 	if(notes && istype(A, /obj/item/weapon/paper))
 		var/obj/item/weapon/paper/P = A
+		var/list/brlist = list("p", "/p", "br", "hr", "h1", "h2", "h3", "h4", "/h1", "/h2", "/h3", "/h4")
 
 		// JMO 20140705: Makes scanned document show up properly in the notes. Not pretty for formatted documents,
 		// as this will clobber the HTML, but at least it lets you scan a document. You can restore the original
 		// notes by editing the note again. (Was going to allow you to edit, but scanned documents are too long.)
-		var/raw_scan = P.info
+		var/raw_scan = sanitize_simple(P.info, list("\t" = "", "ÿ" = ""))
 		var/formatted_scan = ""
 		// Scrub out the tags (replacing a few formatting ones along the way)
 		// Find the beginning and end of the first tag.
@@ -177,7 +178,7 @@
 			// If we have a space after the tag (and presumably attributes) just crop that off.
 			if(tagend)
 				tag = copytext(tag, 1, tagend)
-			if(tag == "p" || tag == "/p" || tag == "br") // Check if it's I vertical space tag.
+			if(tag in brlist) // Check if it's I vertical space tag.
 				formatted_scan = formatted_scan + "<br>" // If so, add some padding in.
 			raw_scan = copytext(raw_scan, tag_stop + 1) // continue on with the stuff after the tag
 			// Look for the next tag in what's left
@@ -187,9 +188,9 @@
 		formatted_scan = formatted_scan + raw_scan
 		// If there is something in there already, pad it out.
 		if(length(notes.note) > 0)
-			notes.note = notes.note + "<br><br>"
+			notes.note += "<br><br>"
 		// Store the scanned document to the notes
-		notes.note = "Scanned Document. Edit to restore previous notes/delete scan.<br>----------<br>" + formatted_scan + "<br>"
+		notes.note += "Scanned Document. Edit to restore previous notes/delete scan.<br>----------<br>" + formatted_scan + "<br>"
 		// notehtml ISN'T set to allow user to get their old notes back. A better implementation would add a "scanned documents"
 		// feature to the PDA, which would better convey the availability of the feature, but this will work for now.
 		// Inform the user

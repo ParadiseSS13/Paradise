@@ -17,6 +17,8 @@
 	var/current_heat_capacity = 50
 	var/efficiency
 
+	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
+
 	light_color = LIGHT_COLOR_WHITE
 	power_change()
 		..()
@@ -327,34 +329,37 @@
 
 		overlays += pickle
 		overlays += "lid[on]"
-		if(src.on) //no bobbing if off
+		if(src.on && !running_bob_animation) //no bobbing if off
 			var/up = 0 //used to see if we are going up or down, 1 is down, 2 is up
-			while(occupant)
-				overlays -= "lid[on]" //have to remove the overlays first, to force an update- remove cloning pod overlay
-				overlays -= pickle //remove mob overlay
+			spawn(0) // Without this, the icon update will block. The new thread will die once the occupant leaves.
+				running_bob_animation = 1
+				while(occupant)
+					overlays -= "lid[on]" //have to remove the overlays first, to force an update- remove cloning pod overlay
+					overlays -= pickle //remove mob overlay
 
-				switch(pickle.pixel_y) //this looks messy as fuck but it works, switch won't call itself twice
+					switch(pickle.pixel_y) //this looks messy as fuck but it works, switch won't call itself twice
 
-					if(23) //inbetween state, for smoothness
-						switch(up) //this is set later in the switch, to keep track of where the mob is supposed to go
-							if(2) //2 is up
-								pickle.pixel_y = 24 //set to highest
+						if(23) //inbetween state, for smoothness
+							switch(up) //this is set later in the switch, to keep track of where the mob is supposed to go
+								if(2) //2 is up
+									pickle.pixel_y = 24 //set to highest
 
-							if(1) //1 is down
-								pickle.pixel_y = 22 //set to lowest
+								if(1) //1 is down
+									pickle.pixel_y = 22 //set to lowest
 
-					if(22) //mob is at it's lowest
-						pickle.pixel_y = 23 //set to inbetween
-						up = 2 //have to go up
+						if(22) //mob is at it's lowest
+							pickle.pixel_y = 23 //set to inbetween
+							up = 2 //have to go up
 
-					if(24) //mob is at it's highest
-						pickle.pixel_y = 23 //set to inbetween
-						up = 1 //have to go down
+						if(24) //mob is at it's highest
+							pickle.pixel_y = 23 //set to inbetween
+							up = 1 //have to go down
 
-				overlays += pickle //re-add the mob to the icon
-				overlays += "lid[on]" //re-add the overlay of the pod, they are inside it, not floating
+					overlays += pickle //re-add the mob to the icon
+					overlays += "lid[on]" //re-add the overlay of the pod, they are inside it, not floating
 
-				sleep(7) //don't want to jiggle violently, just slowly bob
+					sleep(7) //don't want to jiggle violently, just slowly bob
+				running_bob_animation = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)

@@ -14,3 +14,17 @@
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
+
+/turf/unsimulated/floor/chasm
+	name = "sinkhole"
+	desc = "It's difficult to see the bottom."
+	density = 1
+	icon = 'icons/turf/floors/Chasms.dmi'
+	icon_state = "Fill"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
+
+/turf/unsimulated/floor/chasm/New()
+	spawn(1)
+		smooth_icon(src)
+		smooth_icon_neighbors(src)

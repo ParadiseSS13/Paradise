@@ -151,6 +151,7 @@
 	for(var/mob/O in viewers(usr))
 		O.show_message("\red \the [src] rattles and prints out a sheet of paper.", 1)
 
+	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	sleep(10)
 
 	var/obj/item/weapon/paper/P = new(usr.loc)

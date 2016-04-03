@@ -147,6 +147,9 @@
 		usr << "<span class='notice'>[src] is locked!</span>"
 	return 0
 
+/obj/item/weapon/storage/secure/hear_talk(mob/living/M as mob, msg)
+
+/obj/item/weapon/storage/secure/hear_message(mob/living/M as mob, msg)
 
 // -----------------------------
 //        Secure Briefcase

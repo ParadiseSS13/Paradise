@@ -201,6 +201,22 @@
 	connected = null
 	return ..()
 
+/obj/structure/tray/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height == 0)
+		return 1
+
+	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
+	if(locate(/obj/structure/table) in get_turf(mover))
+		return 1
+	else
+		return 0
+
+/obj/structure/tray/m_tray/CanAStarPass(ID, dir, caller)
+	. = !density
+	if(ismovableatom(caller))
+		var/atom/movable/mover = caller
+		. = . || mover.checkpass(PASSTABLE)
 
 /*
  * Crematorium
@@ -480,4 +496,3 @@
 					Morgue = B.loc
 			if (Morgue)
 				Morgue.update()
-

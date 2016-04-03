@@ -29,7 +29,7 @@
 	if(M.flash_eyes(affect_silicon = 1))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
+			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(E)
 				E.damage += rand(1, 3)
 		M.Stun(max(10/distance, 3))

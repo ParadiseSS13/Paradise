@@ -18,7 +18,7 @@
 	if(((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD)
 		ChangeToHusk()
 	if(species.can_revive_by_healing)
-		var/obj/item/organ/brain/B = internal_organs_by_name["brain"]
+		var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
 		if(B)
 			if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && stat == DEAD)
 				update_revive()
@@ -32,7 +32,7 @@
 		return 0	//godmode
 
 	if(species && species.has_organ["brain"])
-		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			sponge.take_damage(amount, 1)
 			brainloss = sponge.damage
@@ -46,7 +46,7 @@
 		return 0	//godmode
 
 	if(species && species.has_organ["brain"])
-		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			sponge.damage = min(max(amount, 0),(maxHealth*2))
 			brainloss = sponge.damage
@@ -60,7 +60,7 @@
 		return 0	//godmode
 
 	if(species && species.has_organ["brain"])
-		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			brainloss = min(sponge.damage,maxHealth*2)
 		else
@@ -126,12 +126,6 @@
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(0, -amount, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
 
-
-/mob/living/carbon/human/Stun(amount)
-	..()
-
-/mob/living/carbon/human/Weaken(amount)
-	..()
 
 /mob/living/carbon/human/Paralyse(amount)
 	// Notify our AI if they can now control the suit.
@@ -407,43 +401,3 @@ This function restores all organs.
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	updatehealth()
 	return 1
-
-// CARBON ORGANS: REMOVE THIS SHIT
-/mob/living/carbon/human/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
-	. = ..()
-	var/obj/item/organ/eyes/E = internal_organs_by_name["eyes"]
-	if(!E)
-		return
-
-	var/damage = intensity - check_eye_prot()
-	if(.)
-		if(visual)
-			return
-		switch(damage)
-			if(1)
-				if(prob(40))
-					E.damage += 1
-			if(2)
-				E.damage += rand(2, 4)
-			else
-				E.damage += rand(12, 16)
-
-		if(E.damage > 10)
-			eye_blind += damage
-			eye_blurry += damage * rand(3, 6)
-
-			if(E.damage > 20)
-				if (prob(E.damage - 20))
-					src << "<span class='warning'>Your eyes start to burn badly!</span>"
-					disabilities |= NEARSIGHTED
-				else if(prob(E.damage - 25))
-					src << "<span class='warning'>You can't see anything!</span>"
-					sdisabilities |= BLIND
-			else
-				src << "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>"
-		return 1
-
-	else if(damage == 0) // just enough protection
-		if(prob(20))
-			src << "<span class='notice'>Something bright flashes in the corner of your vision!</span>"
-

@@ -277,7 +277,7 @@
 	name = "Completed Robots"
 	id = "finished"
 	blacklist = null
-	whitelist = list(/obj/mecha,/obj/machinery/bot,/mob/living/silicon/robot)
+	whitelist = list(/obj/mecha,/mob/living/simple_animal/bot,/mob/living/silicon/robot)
 	mobcheck = 1
 	//todo: detect and allow finished cyborg endoskeletons with no brain
 	contains(var/atom/A)
@@ -771,7 +771,7 @@
 		playsound(master.loc, "punch", 25, 1, -1)
 		master.visible_message("\red <B>\The [src] has punched [M]!</B>")
 		if(!master.emagged)
-			M.apply_damage(damage, HALLOSS, affecting, armor_block) // Clean fight
+			M.apply_damage(damage, STAMINA, affecting, armor_block) // Clean fight
 		else
 			M.apply_damage(damage, BRUTE,   affecting, armor_block) // Foul!  Foooul!
 
@@ -789,7 +789,7 @@
 	inlet_reaction(var/atom/W,var/turf/S,var/remaining)
 		//stolen from boxing gloves code
 		var/mob/living/carbon/human/M = W
-		if((M.lying || (M.health - M.halloss < 25))&& !master.emagged)
+		if((M.lying || (M.health - M.staminaloss < 25))&& !master.emagged)
 			M << "\The [src] gives you a break."
 			master.sleep+=5
 			return 0 // Be polite

@@ -19,13 +19,16 @@
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."
 
+	scream_verb = "screeches"
+	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
 	reagent_tag = PROCESS_ORG
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 
 	total_health = 75
 	brute_mod = 1.5

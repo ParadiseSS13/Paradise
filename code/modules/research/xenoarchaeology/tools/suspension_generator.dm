@@ -28,14 +28,14 @@
 		var/turf/T = get_turf(suspension_field)
 		if(field_type == "carbon")
 			for(var/mob/living/carbon/M in T)
-				M.weakened = max(M.weakened, 3)
+				M.Weaken(3)
 				cell.charge -= power_use
 				if(prob(5))
 					M << "\blue [pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move.")]"
 
 		if(field_type == "iron")
 			for(var/mob/living/silicon/M in T)
-				M.weakened = max(M.weakened, 3)
+				M.Weaken(3)
 				cell.charge -= power_use
 				if(prob(5))
 					M << "\blue [pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move.")]"
@@ -47,7 +47,7 @@
 			I.loc = suspension_field
 
 		for(var/mob/living/simple_animal/M in T)
-			M.weakened = max(M.weakened, 3)
+			M.Weaken(3)
 			cell.charge -= power_use
 			if(prob(5))
 				M << "\blue [pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move.")]"
@@ -247,7 +247,7 @@
 		if("carbon")
 			success = 1
 			for(var/mob/living/carbon/C in T)
-				C.weakened += 5
+				C.AdjustWeakened(5)
 				C.visible_message("\blue \icon[C] [C] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
 		if("nitrogen")
 			success = 1
@@ -270,7 +270,7 @@
 		if("iron")
 			success = 1
 			for(var/mob/living/silicon/R in T)
-				R.weakened += 5
+				R.AdjustWeakened(5)
 				R.visible_message("\blue \icon[R] [R] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
 			//
 	//in case we have a bad field type
@@ -279,7 +279,7 @@
 
 	for(var/mob/living/simple_animal/C in T)
 		C.visible_message("\blue \icon[C] [C] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
-		C.weakened += 5
+		C.AdjustWeakened(5)
 
 	suspension_field = new(T)
 	suspension_field.field_type = field_type
@@ -306,7 +306,7 @@
 
 	for(var/mob/M in T)
 		M << "<span class='info'>You no longer feel like floating.</span>"
-		M.weakened = min(M.weakened, 3)
+		M.SetWeakened(min(M.weakened, 3))
 
 	src.visible_message("\blue \icon[src] [src] deactivates with a gentle shudder.")
 	qdel(suspension_field)

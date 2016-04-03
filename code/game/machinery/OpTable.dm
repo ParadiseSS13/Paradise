@@ -126,6 +126,12 @@
 			take_victim(W:affecting,usr)
 			qdel(W)
 			return
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		if(do_after(user, 20, target = src))
+			user << "<span class='notice'>You deconstruct the table.</span>"
+			new /obj/item/stack/sheet/plasteel(loc, 5)
+			qdel(src)
 
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)

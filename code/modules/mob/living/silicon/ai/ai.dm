@@ -41,12 +41,13 @@ var/list/ai_verbs_default = list(
 	anchored = 1 // -- TLE
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
+	can_strip = 0
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
+	var/alarms = list("Motion" = list(), "Fire" = list(), "Atmosphere" = list(), "Power" = list(), "Camera" = list())
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
@@ -69,17 +70,29 @@ var/list/ai_verbs_default = list(
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
 
-	var/mob/living/silicon/ai/parent = null
 
-	var/camera_light_on = 0	//Defines if the AI toggled the light on the camera it's looking through.
-	var/datum/trackable/track = null
+	var/mob/living/silicon/ai/parent = null
+	var/camera_light_on = 0
+	var/list/obj/machinery/camera/lit_cameras = list()
+
+	var/datum/trackable/track = new()
+
 	var/last_paper_seen = null
 	var/can_shunt = 1
 	var/last_announcement = ""
 	var/datum/announcement/priority/announcement
-	var/obj/machinery/bot/Bot
+	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
+
+	var/obj/machinery/hologram/holopad/holo = null
+	var/mob/camera/aiEye/eyeobj = new()
+	var/sprint = 10
+	var/cooldown = 0
+	var/acceleration = 1
+	var/tracking = 0 //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
+
+	var/obj/machinery/camera/portable/builtInCamera
 
 	//var/obj/item/borg/sight/hud/sec/sechud = null
 	//var/obj/item/borg/sight/hud/med/healthhud = null
@@ -175,6 +188,13 @@ var/list/ai_verbs_default = list(
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
 
+	eyeobj.ai = src
+	eyeobj.name = "[src.name] (AI Eye)" // Give it a name
+	eyeobj.loc = src.loc
+
+	builtInCamera = new /obj/machinery/camera/portable(src)
+	builtInCamera.c_tag = name
+	builtInCamera.network = list("SS13")
 
 	ai_list += src
 	shuttle_caller_list += src
@@ -486,23 +506,23 @@ var/list/ai_verbs_default = list(
 		return
 
 	if (href_list["track"])
-		var/mob/target = locate(href_list["track"]) in mob_list
-		if(target && trackable(target))
+		var/mob/living/target = locate(href_list["track"]) in mob_list
+		if(target && target.can_track())
 			ai_actual_track(target)
 		else
 			src << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
 		return
 
 	if (href_list["trackbot"])
-		var/obj/machinery/bot/target = locate(href_list["trackbot"]) in aibots
-		if(target && trackable(target))
+		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in simple_animal_list
+		if(target)
 			ai_actual_track(target)
 		else
 			src << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
 		return
 
 	if (href_list["callbot"]) //Command a bot to move to a selected location.
-		Bot = locate(href_list["callbot"]) in aibots
+		Bot = locate(href_list["callbot"]) in simple_animal_list
 		if(!Bot || Bot.remote_disabled || src.control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 		waypoint_mode = 1
@@ -510,7 +530,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if (href_list["interface"]) //Remotely connect to a bot!
-		Bot = locate(href_list["interface"]) in aibots
+		Bot = locate(href_list["interface"]) in simple_animal_list
 		if(!Bot || Bot.remote_disabled || src.control_disabled)
 			return
 		Bot.attack_ai(src)
@@ -622,16 +642,15 @@ var/list/ai_verbs_default = list(
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
-	for (Bot in aibots)
+	for (var/mob/living/simple_animal/bot/Bot in simple_animal_list)
 		if((Bot.z in ai_allowed_Zlevel) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
-			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.bot_type_name])</td>"
+			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
 			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
 			d += "<td width='30%'>[bot_area.name]</td>"
 			d += "<td width='10%'><A HREF=?src=\ref[src];interface=\ref[Bot]>Interface</A></td>"
 			d += "<td width='10%'><A HREF=?src=\ref[src];callbot=\ref[Bot]>Call</A></td>"
-			d += "<td width='10%'><a href='byond://?src=\ref[src];track2=\ref[src];trackbot=\ref[Bot]'>Track</A></td>"
 			d += "</tr>"
 			d = format_text(d)
 
@@ -662,7 +681,10 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/proc/switchCamera(var/obj/machinery/camera/C)
 
-	if (!C || stat == 2) //C.can_use())
+	if(!tracking)
+		cameraFollow = null
+
+	if (!C || stat == DEAD) //C.can_use())
 		return 0
 
 	if(!src.eyeobj)
@@ -823,17 +845,20 @@ var/list/ai_verbs_default = list(
 	if(stat != CONSCIOUS)
 		return
 
-	if(check_unable())
+	camera_light_on = !camera_light_on
+
+	if (!camera_light_on)
+		src << "Camera lights deactivated."
+
+		for (var/obj/machinery/camera/C in lit_cameras)
+			C.set_light(0)
+			lit_cameras = list()
+
 		return
 
-	camera_light_on = !camera_light_on
-	src << "Camera lights [camera_light_on ? "activated" : "deactivated"]."
-	if(!camera_light_on)
-		if(current)
-			current.set_light(0)
-			current = null
-	else
-		lightNearbyCamera()
+	light_cameras()
+
+	src << "Camera lights activated."
 
 /mob/living/silicon/ai/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -854,26 +879,25 @@ var/list/ai_verbs_default = list(
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.
 
-/mob/living/silicon/ai/proc/lightNearbyCamera()
-	if(camera_light_on && camera_light_on < world.timeofday)
-		if(src.current)
-			var/obj/machinery/camera/camera = near_range_camera(src.eyeobj)
-			if(camera && src.current != camera)
-				src.current.set_light(0)
-				if(!camera.light_disabled)
-					src.current = camera
-					src.current.set_light(AI_CAMERA_LUMINOSITY)
-				else
-					src.current = null
-			else if(isnull(camera))
-				src.current.set_light(0)
-				src.current = null
-		else
-			var/obj/machinery/camera/camera = near_range_camera(src.eyeobj)
-			if(camera && !camera.light_disabled)
-				src.current = camera
-				src.current.set_light(AI_CAMERA_LUMINOSITY)
-		camera_light_on = world.timeofday + 1 * 20 // Update the light every 2 seconds.
+/mob/living/silicon/ai/proc/light_cameras()
+	var/list/obj/machinery/camera/add = list()
+	var/list/obj/machinery/camera/remove = list()
+	var/list/obj/machinery/camera/visible = list()
+	for (var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
+		for (var/obj/machinery/camera/C in CC.cameras)
+			if (!C.can_use() || get_dist(C, eyeobj) > 7)
+				continue
+			visible |= C
+
+	add = visible - lit_cameras
+	remove = lit_cameras - visible
+
+	for (var/obj/machinery/camera/C in remove)
+		lit_cameras -= C //Removed from list before turning off the light so that it doesn't check the AI looking away.
+		C.Togglelight(0)
+	for (var/obj/machinery/camera/C in add)
+		C.Togglelight(1)
+		lit_cameras |= C
 
 
 /mob/living/silicon/ai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -958,6 +982,10 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/proc/check_unable(var/flags = 0)
 	if(stat == DEAD)
 		usr << "<span class='warning'>You are dead!</span>"
+		return 1
+
+	if(lacks_power())
+		usr << "<span class='warning'>Power systems failure!</span>"
 		return 1
 
 	if((flags & AI_CHECK_WIRELESS) && src.control_disabled)

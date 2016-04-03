@@ -122,7 +122,7 @@
 
 /mob/living/proc/handle_weakened()
 	if(weakened)
-		weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
+		AdjustWeakened(-1)
 		if(!weakened)
 			update_icons()
 	return weakened
@@ -147,14 +147,14 @@
 		slurring = max(slurring-1, 0)
 	return slurring
 
-/mob/living/proc/handle_paralysed() // Currently only used by simple_animal.dm, treated as a special case in other mobs
+/mob/living/proc/handle_paralysed()
 	if(paralysis)
 		AdjustParalysis(-1)
 	return paralysis
 
 /mob/living/proc/handle_sleeping()
 	if(sleeping)
-		sleeping = max(sleeping - 1, 0)
+		AdjustSleeping(-1)
 	return sleeping
 
 
@@ -193,7 +193,7 @@
 		return
 	if(blinded || eye_blind)
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		//throw_laert("blind", /obj/screen/alert/blind)
+		//throw_alert("blind", /obj/screen/alert/blind)
 	else
 		clear_fullscreen("blind")
 		//clear_alert("blind")
@@ -216,10 +216,10 @@
 			//clear_alert("high")
 
 	if(machine)
-		if (!( machine.check_eye(src) ))
+		if(!machine.check_eye(src))
 			reset_view(null)
 	else
-		if(!client.adminobs)
+		if(!remote_view && !client.adminobs)
 			reset_view(null)
 
 /mob/living/proc/update_sight()
@@ -238,31 +238,25 @@
 		if(A.CheckRemoval(src))
 			A.Remove(src)
 	for(var/obj/item/I in src)
-		if(istype(I,/obj/item/clothing/under))
-			var/obj/item/clothing/under/U = I
-			for(var/obj/item/IU in U)
-				if(istype(IU, /obj/item/clothing/accessory))
-					var/obj/item/clothing/accessory/A = IU
-					if(A.action_button_name)
-						if(!A.action)
-							if(A.action_button_is_hands_free)
-								A.action = new/datum/action/item_action/hands_free
-							else
-								A.action = new/datum/action/item_action
-							A.action.name = A.action_button_name
-							A.action.target = A
-						A.action.check_flags &= ~AB_CHECK_INSIDE
-						A.action.Grant(src)
-		if(I.action_button_name)
-			if(!I.action)
-				if(I.action_button_is_hands_free)
-					I.action = new/datum/action/item_action/hands_free
-				else
-					I.action = new/datum/action/item_action
-				I.action.name = I.action_button_name
-				I.action.target = I
-			I.action.Grant(src)
+		give_action_button(I, 1)
 	return
+
+/mob/living/proc/give_action_button(var/obj/item/I, recursive = 0)
+	if(I.action_button_name)
+		if(!I.action)
+			if(istype(I, /obj/item/organ/internal))
+				I.action = new/datum/action/item_action/organ_action
+			else if(I.action_button_is_hands_free)
+				I.action = new/datum/action/item_action/hands_free
+			else
+				I.action = new/datum/action/item_action
+			I.action.name = I.action_button_name
+			I.action.target = I
+		I.action.Grant(src)
+
+	if(recursive)
+		for(var/obj/item/T in I)
+			give_action_button(I, recursive - 1)
 
 /mob/living/update_action_buttons()
 	if(!hud_used) return

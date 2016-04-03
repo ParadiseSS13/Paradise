@@ -353,13 +353,11 @@ var/list/robot_verbs_default = list(
 
 		if("Peacekeeper")
 			module = new /obj/item/weapon/robot_module/peacekeeper(src)
-			icon_state = "droidpeace"
 			module.channels = list()
 			icon_state = "droidpeace"
 
 		if("Hunter")
 			module = new /obj/item/weapon/robot_module/alien/hunter(src)
-			hands.icon_state = "standard"
 			icon = "icons/mob/alien.dmi"
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
@@ -375,7 +373,7 @@ var/list/robot_verbs_default = list(
 	if (custom_sprite == 1)
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
-	hands.icon_state = lowertext(modtype)
+	hands.icon_state = lowertext(module.module_type)
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
@@ -824,6 +822,9 @@ var/list/robot_verbs_default = list(
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/medical))
 				for(var/obj/item/weapon/borg_defib/F in src.module.modules)
 					F.safety = 0
+			if(module)
+				module.module_type = "Malf" // For the cool factor
+				update_module_icon()
 			update_icons()
 		return
 
@@ -1276,6 +1277,9 @@ var/list/robot_verbs_default = list(
 
 	if(icontype)
 		icon_state = module_sprites[icontype]
+		if(icontype == "Bro")
+			module.module_type = "Brobot"
+			update_module_icon()
 		lockcharge = null
 	else
 		src << "Something is badly wrong with the sprite selection. Harass a coder."
@@ -1325,6 +1329,10 @@ var/list/robot_verbs_default = list(
 	if (suiciding)
 		..()
 
+/mob/living/silicon/robot/regenerate_icons()
+	..()
+	update_module_icon()
+
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
@@ -1355,7 +1363,7 @@ var/list/robot_verbs_default = list(
 	if(isnull(ckey) && !searching_for_ckey)
 		searching_for_ckey = 1
 		user << "<span class='notice'>Now checking for possible borgs.</span>"
-		var/list/borg_candidates = pollCandidates("Do you want to play as a Nanotrasen Combat borg?", poll_time = 300)
+		var/list/borg_candidates = pollCandidates("Do you want to play as a Nanotrasen Combat borg?")
 		if(borg_candidates.len > 0 && isnull(ckey))
 			searching_for_ckey = 0
 			var/mob/M = pick(borg_candidates)

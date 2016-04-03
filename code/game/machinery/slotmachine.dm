@@ -1,5 +1,3 @@
-var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
-
 /obj/machinery/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
@@ -47,37 +45,55 @@ var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
 		if(operation == 1) // Play
 			if (working == 1)
 				return
-			if (!account || account.money < 5)
+			if (!account || account.money < 10)
 				return
-			if(!account.charge(5, transaction_purpose = "Bet", dest_name = name))
+			if(!account.charge(10, transaction_purpose = "Bet", dest_name = name))
 				return
 			plays += 1
 			working = 1
 			icon_state = "slots-on"
-			var/roll = rand(1,10000)
+			var/roll = rand(1,1350)
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-			spawn(30)
+			spawn(25)
 				if (roll == 1)
-					visible_message("<b>[src]</b> says, 'JACKPOT! [usr.name] has won two hundred and fifty thousand credits!'")
-					slotmachine_announcement.Announce("Congratulations to [usr.name] on winning the jackpot of two hundred and fifty thousand credits!", "Jackpot Winner")
-					result = "JACKPOT! You win two hundred and fifty thousand credits!"
+					visible_message("<b>[src]</b> says, 'JACKPOT! [usr.name] has won a MILLION CREDITS!'")
+					command_announcement.Announce("Congratulations to [usr.name] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
+					result = "JACKPOT! You win one million credits!"
 					resultlvl = "highlight"
-					win_money(250000, 'sound/effects/engine_alert2.ogg')
-				else if (roll > 1 && roll <= 10)
-					visible_message("<b>[src]</b> says, 'Big Winner! [usr.name] has won five thousand credits!'")
-					result = "Big Winner! You win five thousand credits!"
+					win_money(1000000, 'sound/goonstation/misc/airraid_loop.ogg')
+				else if (roll > 1 && roll <= 5)
+					visible_message("<b>[src]</b> says, 'Big Winner! [usr.name] has won a hundred thousand credits!'")
+					command_announcement.Announce("Congratulations to [usr.name] on winning a hundred thousand credits!", "Big Winner")
+					result = "Big Winner! You win a hundred thousand credits!"
 					resultlvl = "good"
-					win_money(5000)
-				else if (roll > 10 && roll <= 100)
-					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won five hundred credits!'")
-					result = "You win five hundred credits!"
+					win_money(100000, 'sound/goonstation/misc/klaxon.ogg')
+				else if (roll > 5 && roll <= 25)
+					visible_message("<b>[src]</b> says, 'Big Winner! [usr.name] has won ten thousand credits!'")
+					result = "You win ten thousand credits!"
 					resultlvl = "good"
-					win_money(500)
-				else if (roll > 100 && roll <= 1000)
-					result = "You win 5 credits!"
+					win_money(10000, 'sound/goonstation/misc/klaxon.ogg')
+				else if (roll > 25 && roll <= 50)
+					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won a thousand credits!'")
+					result = "You win a thousand credits!"
 					resultlvl = "good"
-					win_money(5)
+					win_money(1000, 'sound/goonstation/misc/bell.ogg')
+				else if (roll > 50 && roll <= 100)
+					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won a hundred credits!'")
+					result = "You win a hundred credits!"
+					resultlvl = "good"
+					win_money(100, 'sound/goonstation/misc/bell.ogg')
+				else if (roll > 100 && roll <= 200)
+					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won fifty credits!'")
+					result = "You win fifty credits!"
+					resultlvl = "good"
+					win_money(50)
+				else if (roll > 200 && roll <= 500)
+					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won ten credits!'")
+					result = "You win ten credits!"
+					resultlvl = "good"
+					win_money(10)
 				else
+					visible_message("<b>[src]</b> says, 'No Luck!'")
 					result = "<span class='warning'>No luck!</span>"
 					resultlvl = "average"
 				working = 0
@@ -85,7 +101,7 @@ var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
 
 /obj/machinery/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
-		playsound(loc, sound, 50)
+		playsound(loc, sound, 55, 1)
 
 	if(!account)
 		return

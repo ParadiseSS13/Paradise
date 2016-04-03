@@ -1,5 +1,3 @@
-/obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
-
 /obj/item/clothing/shoes/syndigaloshes
 	desc = "A pair of brown shoes. They seem to have extra grip."
 	name = "brown shoes"
@@ -20,6 +18,7 @@
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
+	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 10, rad = 0)
@@ -77,18 +76,7 @@
 	var/footstep = 1	//used for squeeks whilst walking
 	species_restricted = null
 	silence_steps = 1
-
-/obj/item/clothing/shoes/clown_shoes/step_action(var/mob/living/carbon/human/H)
-	if(!istype(H))	return 0
-
-	if(H.m_intent == "run")
-		if(footstep >= 2)
-			playsound(src, "clownstep", 50, 1)
-			footstep = 0
-		else
-			footstep++
-	else
-		playsound(src, "clownstep", 20, 1)
+	shoe_sound = "clownstep"
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
@@ -101,22 +89,12 @@
 	put_on_delay = 50
 	var/footstep = 1
 	silence_steps = 1
-
-/obj/item/clothing/shoes/jackboots/step_action(var/mob/living/carbon/human/H)
-	if(!istype(H))	return 0
-
-	if(H.m_intent == "run")
-		if(footstep >= 2)
-			playsound(src, "jackboot", 50, 1)
-			footstep = 0
-		else
-			footstep++
-	else
-		playsound(src, "jackboot", 20, 1)
+	shoe_sound = "jackboot"
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
 	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
+	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
 	species_restricted = null
@@ -190,6 +168,7 @@
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shoe_silencer))
 		silence_steps = 1
+		shoe_sound = null
 		user.unEquip(I)
 		qdel(I)
 	else . = ..()

@@ -462,6 +462,16 @@
 			O.emp_act(severity)
 	..()
 
+/obj/item/weapon/storage/hear_talk(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_talk(M, msg)
+
+/obj/item/weapon/storage/hear_message(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_message(M, msg)
+
 // BubbleWrap - A box can be folded up to make card
 /obj/item/weapon/storage/attack_self(mob/user as mob)
 

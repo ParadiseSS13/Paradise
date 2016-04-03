@@ -67,7 +67,7 @@
 			if(speaker == src)
 				src << "<span class='warning'>You cannot hear yourself speak!</span>"
 			else
-				src << "<span class='name'>[speaker_name]</span>[alt_name] talks but you cannot hear \him."
+				src << "<span class='name'>[speaker_name]</span>[alt_name] talks but you cannot hear them."
 	else
 		if(language)
 			src << "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][language.format_message(message, verb)]</span>"
@@ -160,7 +160,7 @@
 			else
 				track = "[speaker_name] ([jobname])"
 		else
-			if(istype(follow_target, /obj/machinery/bot))
+			if(istype(follow_target, /mob/living/simple_animal/bot))
 				track = "<a href='byond://?src=\ref[src];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
 			else
 				track = "<a href='byond://?src=\ref[src];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"

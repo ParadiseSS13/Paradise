@@ -10,6 +10,28 @@
 		if(rig)
 			SetupStat(rig)
 
+/mob/living/proc/can_track(mob/living/user)
+	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
+	var/turf/T = get_turf(src)
+	if(!T)
+		return 0
+	if(T.z == ZLEVEL_CENTCOMM) //dont detect mobs on centcomm
+		return 0
+	if(T.z >= MAX_Z)
+		return 0
+	if(user != null && src == user)
+		return 0
+	if(invisibility || alpha == 0)//cloaked
+		return 0
+	if(digitalcamo)
+		return 0
+
+	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
+	if(!near_camera(src))
+		return 0
+
+	return 1
+
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
@@ -180,17 +202,6 @@
 	if(status_flags & GODMODE)	return 0
 	staminaloss = amount
 
-/mob/living/proc/getHalLoss()
-	return halloss
-
-/mob/living/proc/adjustHalLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	halloss = min(max(halloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/setHalLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	halloss = amount
-
 /mob/living/proc/getMaxHealth()
 	return maxHealth
 
@@ -344,7 +355,6 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	setHalLoss(0)
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
@@ -374,7 +384,9 @@
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
 		C.heart_attack = 0
-		C.brain_op_stage = 0
+
+		for(var/datum/disease/D in C.viruses)
+			D.cure(0)
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
@@ -771,6 +783,9 @@
 	src << "<span class='notice'>You're too exhausted to keep going...</span>"
 	Weaken(5)
 
+/mob/living/proc/get_visible_name()
+	return name
+
 /mob/living/update_gravity(has_gravity)
 	if(!ticker)
 		return
@@ -952,3 +967,14 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+/mob/living/proc/harvest(mob/living/user)
+	if(qdeleted(src))
+		return
+	if(butcher_results)
+		for(var/path in butcher_results)
+			for(var/i = 1, i <= butcher_results[path], i++)
+				new path(loc)
+			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+		visible_message("<span class='notice'>[user] butchers [src].</span>")
+		gib()

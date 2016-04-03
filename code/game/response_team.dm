@@ -153,9 +153,9 @@ var/send_emergency_team
 	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
 	if (new_gender)
 		if(new_gender == "Male")
-			M.gender = MALE
+			M.change_gender(MALE)
 		else
-			M.gender = FEMALE
+			M.change_gender(FEMALE)
 
 	M.set_species("Human",1)
 	M.dna.ready_dna(M)
@@ -607,6 +607,6 @@ var/send_emergency_team
 	new /obj/item/device/flashlight/flare( src )
 	new /obj/item/weapon/kitchen/knife/combat( src )
 	new /obj/item/device/radio/centcom( src )
-	new /obj/item/weapon/reagent_containers/pill/salicylic( src )
-	new /obj/item/weapon/reagent_containers/pill/patch/synthflesh( src )
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic( src )
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh( src )
 	return

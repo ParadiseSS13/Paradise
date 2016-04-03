@@ -364,15 +364,15 @@
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		nanomanager.update_uis(src)
 		return
-	if("brain" in subject.internal_organs_by_name)
-		var/obj/item/organ/brain/Brn = subject.internal_organs_by_name["brain"]
+	if(subject.get_int_organ(/obj/item/organ/internal/brain))
+		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
 			var/datum/species/S = all_species[Brn.dna.species] // stepladder code wooooo
 			if(S.flags & NO_SCAN)
 				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
 				nanomanager.update_uis(src)
 				return
-	if (subject.brain_op_stage == 4.0)
+	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
 		scantemp = "<span class=\"bad\">Error: No signs of intelligence detected.</span>"
 		nanomanager.update_uis(src)
 		return
@@ -388,7 +388,7 @@
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)
 		return
-	if (scan_brain && !("brain" in subject.internal_organs_by_name))
+	if (scan_brain && !subject.get_int_organ(/obj/item/organ/internal/brain))
 		scantemp = "<span class=\"bad\">Error: No brain found.</span>"
 		nanomanager.update_uis(src)
 		return
@@ -403,7 +403,7 @@
 	R.ckey = subject.ckey
 	var/extra_info = ""
 	if(scan_brain)
-		var/obj/item/organ/B = subject.internal_organs_by_name["brain"]
+		var/obj/item/organ/B = subject.get_int_organ(/obj/item/organ/internal/brain)
 		B.dna.check_integrity()
 		R.dna=B.dna.Clone()
 		var/datum/species/S = all_species[R.dna.species]

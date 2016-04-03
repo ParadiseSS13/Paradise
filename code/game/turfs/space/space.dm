@@ -15,8 +15,22 @@
 
 /turf/space/New()
 	. = ..()
+	if(!global_space_area)
+		global_space_area = new /area/space()
+		global_space_area.white_overlay = image(loc=global_space_area, icon='icons/turf/space.dmi', icon_state="white")
+		global_space_area.white_overlay.plane = SPACE_WHITE_PLANE
+	if(istype(loc,/area/space))
+		global_space_area.contents += src
+	else
+		var/area/A = loc
+		if(!A.white_overlay)
+			A.white_overlay = image(loc=A, icon='icons/turf/space.dmi', icon_state="white")
+			A.white_overlay.plane = SPACE_WHITE_PLANE
+			for(var/client/C in parallax_on_clients)
+				C.images |= A.white_overlay
 
 	if(!istype(src, /turf/space/transit))
+		plane = SPACE_TURF_PLANE
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()
 
@@ -69,10 +83,8 @@
 
 /turf/space/Entered(atom/movable/A as mob|obj)
 	..()
-	if ((!(A) || src != A.loc))
-		return
-
-	if(destination_z)
+	
+	if(destination_z && A && (src in A.locs))
 		A.x = destination_x
 		A.y = destination_y
 		A.z = destination_z

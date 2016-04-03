@@ -201,6 +201,7 @@ var/const/POS_HEADER = {"<html>
 		</tr>"}
 	receipt += "</table></body></html>"
 
+	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new(loc)
 	P.name="Receipt #[id]-[++sales]"
 	P.info=receipt

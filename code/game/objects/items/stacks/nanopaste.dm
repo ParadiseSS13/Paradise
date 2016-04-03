@@ -4,7 +4,7 @@
 	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."
 	icon = 'icons/obj/nanopaste.dmi'
 	icon_state = "tube"
-	origin_tech = "materials=4;engineering=3"
+	origin_tech = "materials=3;engineering=2"
 	amount = 10
 
 
@@ -26,10 +26,6 @@
 	if (istype(M,/mob/living/carbon/human))		//Repairing robolimbs
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
-
-		if(can_operate(H))
-			if (do_surgery(H,user,src))
-				return
 
 		if (S && (S.status & ORGAN_ROBOT))
 			if(S.get_damage())

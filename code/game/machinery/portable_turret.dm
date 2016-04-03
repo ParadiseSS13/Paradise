@@ -449,7 +449,7 @@ var/list/turret_icons
 
 /obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
 
-	if(Proj.damage_type == HALLOSS || Proj.damage_type == STAMINA)
+	if(Proj.damage_type == STAMINA)
 		return
 
 	if(enabled)

@@ -1,28 +1,27 @@
-/datum/chemical_reaction/
-
-	hydrocodone
+/datum/chemical_reaction/hydrocodone
 		name = "Hydrocodone"
 		id = "hydrocodone"
 		result = "hydrocodone"
 		required_reagents = list("morphine" = 1, "sacid" = 1, "water" = 1, "oil" = 1)
 		result_amount = 2
 
-	mitocholide
+/datum/chemical_reaction/mitocholide
 		name = "mitocholide"
 		id = "mitocholide"
 		result = "mitocholide"
 		required_reagents = list("synthflesh" = 1, "cryoxadone" = 1, "plasma" = 1)
 		result_amount = 3
 
-	cryoxadone
+/datum/chemical_reaction/cryoxadone
 		name = "Cryoxadone"
 		id = "cryoxadone"
 		result = "cryoxadone"
 		required_reagents = list("cryostylane" = 1, "plasma" = 1, "acetone" = 1, "mutagen" = 1)
 		result_amount = 4
 		mix_message = "The solution bubbles softly."
+		mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-	spaceacillin
+/datum/chemical_reaction/spaceacillin
 		name = "Spaceacillin"
 		id = "spaceacillin"
 		result = "spaceacillin"
@@ -30,60 +29,14 @@
 		result_amount = 2
 		mix_message = "The solvent extracts an antibiotic compound from the fungus."
 
-	rezadone
+/datum/chemical_reaction/rezadone
 		name = "Rezadone"
 		id = "rezadone"
 		result = "rezadone"
 		required_reagents = list("carpotoxin" = 1, "spaceacillin" = 1, "copper" = 1)
 		result_amount = 3
 
-	virus_food
-		name = "Virus Food"
-		id = "virusfood"
-		result = "virusfood"
-		required_reagents = list("water" = 1, "milk" = 1, "oxygen" = 1)
-		result_amount = 3
-/*
-	mix_virus
-		name = "Mix Virus"
-		id = "mixvirus"
-		result = "blood"
-		required_reagents = list("virusfood" = 5)
-		required_catalysts = list("blood")
-		var/level = 2
-
-		on_reaction(var/datum/reagents/holder, var/created_volume)
-
-			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-			if(B && B.data)
-				var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-				if(D)
-					D.Evolve(level - rand(0, 1))
-
-
-		mix_virus_2
-
-			name = "Mix Virus 2"
-			id = "mixvirus2"
-			required_reagents = list("mutagen" = 5)
-			level = 4
-
-		rem_virus
-
-			name = "Devolve Virus"
-			id = "remvirus"
-			required_reagents = list("synaptizine" = 5)
-
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-
-				var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-				if(B && B.data)
-					var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-					if(D)
-						D.Devolve()
-*/
-
-	sterilizine
+/datum/chemical_reaction/sterilizine
 		name = "Sterilizine"
 		id = "sterilizine"
 		result = "sterilizine"

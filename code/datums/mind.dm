@@ -53,6 +53,7 @@
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
+	var/miming = 0 // Mime's vow of silence
 	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
 	var/datum/vampire/vampire			//vampire holder
@@ -885,9 +886,10 @@
 				if(src in ticker.mode.vampires)
 					ticker.mode.vampires -= src
 					special_role = null
-					current.remove_vampire_powers()
+					if(vampire)
+						vampire.remove_vampire_powers()
+						qdel(vampire)
 					ticker.mode.update_vampire_icons_removed(src)
-					if(vampire)  qdel(vampire)
 					current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>"
 					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")

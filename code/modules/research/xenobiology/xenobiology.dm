@@ -215,39 +215,13 @@
 	user << "<span class='notice'>You offer the sentience potion to [M]...</span>"
 	being_used = 1
 
-	var/list/candidates = get_candidates(ROLE_SENTIENT, ALIEN_AFK_BRACKET)
-
-	shuffle(candidates)
-
-	var/time_passed = world.time
-	var/list/consenting_candidates = list()
-
-	for(var/candidate in candidates)
-
-		if(candidate in not_interested)
-			continue
-
-		spawn(0)
-			switch(alert(candidate, "Would you like to play as [M.name]? Please choose quickly!","Confirmation","Yes","No"))
-				if("Yes")
-					if((world.time-time_passed)>=50 || !src)
-						return
-					consenting_candidates += candidate
-				if("No")
-					if(!src)
-						return
-					not_interested += candidate
-
-	sleep(50)
+	var/list/candidates = pollCandidates("Do you want to play as [M.name]?", ROLE_SENTIENT, 0, 100)
 
 	if(!src)
 		return
 
-	listclearnulls(consenting_candidates) //some candidates might have left during sleep(50)
-
-	if(consenting_candidates.len)
-		var/client/C = null
-		C = pick(consenting_candidates)
+	if(candidates.len)
+		var/mob/C = pick(candidates)
 		M.key = C.key
 		M.universal_speak = 1
 		M.faction |= "sentient"
@@ -385,7 +359,7 @@
 				var/mob/living/M = A
 				if(M in immune)
 					continue
-				M.stunned = 10
+				M.notransform = 1
 				M.anchored = 1
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
@@ -413,7 +387,7 @@
 	return
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
-	M.stunned = 0
+	M.notransform = 0
 	M.anchored = 0
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
@@ -464,6 +438,18 @@
 	max_amount = 60
 	turf_type = /turf/simulated/floor/sepia
 
+/obj/item/areaeditor/blueprints/slime
+	name = "cerulean prints"
+	desc = "A one use set of blueprints made of jelly like organic material. Renaming an area to 'Xenobiology Lab' will extend the reach of the management console."
+	color = "#2956B2"
+
+/obj/item/areaeditor/blueprints/slime/edit_area()
+	. = ..()
+	var/area/A = get_area(src)
+	if(.)
+		for(var/turf/T in A)
+			T.color = "#2956B2"
+		qdel(src)
 
 /turf/simulated/floor/sepia
 	slowdown = 2
@@ -503,7 +489,7 @@
 			user << "The rune fizzles uselessly. There is no spirit nearby."
 			return
 		var/mob/living/carbon/human/golem/G = new /mob/living/carbon/human/golem
-		if(prob(50))	G.gender = "female"
+		G.change_gender(pick(MALE,FEMALE))
 		G.loc = src.loc
 		G.key = ghost.key
 		G << "You are an adamantine golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. Serve [user], and assist them in completing their goals at any cost."

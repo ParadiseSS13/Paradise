@@ -354,15 +354,31 @@
 
 	blood_color = "#A10808"
 	if(istype(M))
-		if (!istype(M.dna, /datum/dna))
-			M.dna = new /datum/dna(null)
-			M.dna.real_name = M.real_name
+		if(M.species.flags & NO_BLOOD)
+			return 0
 		M.check_dna()
-		if (M.species)
-			blood_color = M.species.blood_color
+		blood_color = M.species.blood_color
+
 	. = 1
 	return 1
 
+/atom/proc/add_blood_list(mob/living/carbon/M)
+	// Returns 0 if we have that blood already
+	if(!istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
+		blood_DNA = list()
+	//if this blood isn't already in the list, add it
+	if(blood_DNA[M.dna.unique_enzymes])
+		return 0 //already bloodied with this blood. Cannot add more.
+	var/blood_type = "X*"
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		blood_type = H.b_type
+	blood_DNA[M.dna.unique_enzymes] = blood_type
+	return 1
+
+// Only adds blood on the floor -- Skie
+/atom/proc/add_blood_floor(mob/living/carbon/M)
+	return //why the fuck this is at an atom level but only works on simulated turfs I don't know
 
 /atom/proc/clean_blood()
 	src.germ_level = 0
@@ -377,10 +393,6 @@
 		// Make toxins vomit look different
 		if(toxvomit)
 			this.icon_state = "vomittox_[pick(1,4)]"
-
-/atom/proc/add_poop_floor(mob/living/carbon/M as mob)
-	if( istype(src, /turf/simulated) )
-		new /obj/effect/decal/cleanable/poop(src)
 
 
 /atom/proc/get_global_map_pos()

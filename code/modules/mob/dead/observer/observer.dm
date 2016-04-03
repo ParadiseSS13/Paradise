@@ -110,18 +110,6 @@ Works together with spawning an observer, noted above.
 	if(!loc) return
 	if(!client) return 0
 
-	//regular_hud_updates()
-	//if(client.images.len)
-	//	for(var/image/hud in client.images)
-	//		if(copytext(hud.icon_state,1,4) == "hud")
-	//			client.images.Remove(hud)
-	//if(antagHUD)
-	//	var/list/target_list = list()
-	//	for(var/mob/living/target in oview(src, 14))
-	//		if(target.mind && (target.mind.special_role || issilicon(target) || target.mind.nation))
-	//			target_list += target
-	//	if(target_list.len)
-	//		assess_targets(target_list, src)
 
 
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
@@ -257,6 +245,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 
+/mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source)
+	if(message)
+		src << "<span class='ghostalert'>[message]</span>"
+	src << "<span class='ghostalert'><a href=?src=\ref[src];reenter=1>(Click to re-enter)</a></span>"
+	if(sound)
+		src << sound(sound)
+
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = huds[hud_index]
 	H.add_hud_to(src)
@@ -313,9 +308,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//var/adding_hud = (usr in A.hudusers) ? 0 : 1
 
 	for(var/datum/atom_hud/antag/H in (huds))
-		//if(istype(H, /datum/atom_hud/antag))// || istype(H, /datum/atom_hud/data/human/security/advanced))
 		if(!M.antagHUD)
-			//(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
 			H.add_hud_to(usr)
 		else
 			H.remove_hud_from(usr)
@@ -636,3 +629,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return 0
 	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A].</span>")
 	return 1
+
+/mob/dead/observer/proc/incarnate_ghost()
+	if(!client)
+		return
+	var/mob/living/carbon/human/new_char = new(get_turf(src))
+	client.prefs.copy_to(new_char)
+	if(mind)
+		mind.active = 1
+		mind.transfer_to(new_char)
+	else
+		new_char.key = key

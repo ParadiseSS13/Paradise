@@ -11,6 +11,8 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+
 	flick("gibbed-a", animation)
 	xgibs(loc, viruses)
 	dead_mob_list -= src

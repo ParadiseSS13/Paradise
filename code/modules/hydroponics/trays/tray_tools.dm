@@ -31,6 +31,7 @@
 	if(!last_data)
 		user << "There is no scan data to print."
 		return
+	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	P.name = "paper - [form_title]"
 	P.info = "[last_data]"

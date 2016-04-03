@@ -34,10 +34,13 @@
 	. = ..(user, P)
 	if(.)
 		user.show_message("<span class=notice>Virus sent!</span>", 1)
-		var/datum/data/pda/app/messenger/M = P.find_program(/datum/data/pda/app/messenger)
+		var/datum/data/pda/app/M = P.find_program(/datum/data/pda/app/messenger)
 		if(M)
-			M.silent = 1
-			P.ttone = "silence"
+			M.notify_silent = 1
+		M = P.find_program(/datum/data/pda/app/chatroom)
+		if(M)
+			M.notify_silent = 1
+		P.ttone = "silence"
 
 
 /datum/data/pda/messenger_plugin/virus/detonate

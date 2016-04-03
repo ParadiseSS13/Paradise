@@ -166,3 +166,33 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha/honker/targeting
 	category = list("Exosuit Modules")
+
+/datum/design/recitence_main
+	name = "Exosuit Module (\"Recitence\" Central Control module)"
+	desc = "Allows for the construction of a \"Recitence\" Central Control module."
+	id = "recitence_main"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/mecha/recitence/main
+	category = list("Exosuit Modules")
+
+/datum/design/recitence_peri
+	name = "Exosuit Module (\"Recitence\" Peripherals Control module)"
+	desc = "Allows for the construction of a \"Recitence\" Peripheral Control module."
+	id = "recitence_peri"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/mecha/recitence/peripherals
+	category = list("Exosuit Modules")
+
+/datum/design/recitence_targ
+	name = "Exosuit Module (\"Recitence\" Weapons & Targeting Control module)"
+	desc = "Allows for the construction of a \"Recitence\" Weapons & Targeting Control module."
+	id = "recitence_targ"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/mecha/recitence/targeting
+	category = list("Exosuit Modules")

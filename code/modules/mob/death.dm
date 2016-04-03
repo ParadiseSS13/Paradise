@@ -8,7 +8,7 @@
 	icon = null
 	invisibility = 101
 
-	playsound(src.loc, 'sound/effects/gib.ogg', 100, 1, 10)
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 
 	animation = new(loc)
 	animation.icon_state = "blank"

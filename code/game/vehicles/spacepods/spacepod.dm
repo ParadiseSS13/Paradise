@@ -4,7 +4,7 @@
 /obj/spacepod
 	name = "\improper space pod"
 	desc = "A space pod meant for space travel."
-	icon = 'icons/48x48/pods.dmi'
+	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = 1 //Dense. To raise the heat.
 	opacity = 0
 
@@ -74,6 +74,8 @@
 	spacepods_list += src
 
 /obj/spacepod/Destroy()
+	if (equipment_system.cargo_system)
+		equipment_system.cargo_system.removed(null)
 	qdel(equipment_system)
 	equipment_system = null
 	qdel(battery)
@@ -283,6 +285,17 @@
 				equipment_system.misc_system = W
 				equipment_system.misc_system.my_atom = src
 				return
+		if(istype(W, /obj/item/device/spacepod_equipment/cargo))
+			if(equipment_system.cargo_system)
+				user << "<span class='notice'>The pod already has a cargo system, remove it first.</span>"
+				return
+			else
+				user << "<span class='notice'>You insert \the [W] into the cargo system.</span>"
+				user.drop_item(W)
+				W.forceMove(src)
+				equipment_system.cargo_system = W
+				equipment_system.cargo_system.my_atom = src
+				return
 
 	if(istype(W, /obj/item/weapon/weldingtool))
 		if(!hatch_open)
@@ -316,6 +329,8 @@
 		possible.Add("Weapon System")
 	if(equipment_system.misc_system)
 		possible.Add("Misc. System")
+	if(equipment_system.cargo_system)
+		possible.Add("Cargo System")
 	/* Not yet implemented
 	if(equipment_system.engine_system)
 		possible.Add("Engine System")
@@ -332,6 +347,7 @@
 			SPE = equipment_system.weapon_system
 			if(user.put_in_any_hand_if_possible(SPE))
 				user << "<span class='notice'>You remove \the [SPE] from the equipment system.</span>"
+				SPE.removed(user)
 				SPE.my_atom = null
 				equipment_system.weapon_system = null
 			else
@@ -340,8 +356,18 @@
 			SPE = equipment_system.misc_system
 			if(user.put_in_any_hand_if_possible(SPE))
 				user << "<span class='notice'>You remove \the [SPE] from the equipment system.</span>"
+				SPE.removed(user)
 				SPE.my_atom = null
 				equipment_system.misc_system = null
+			else
+				user << "<span class='warning'>You need an open hand to do that.</span>"
+		if("Cargo System")
+			SPE = equipment_system.cargo_system
+			if(user.put_in_any_hand_if_possible(SPE))
+				user << "<span class='notice'>You remove \the [SPE] from the equipment system.</span>"
+				SPE.removed(user)
+				SPE.my_atom = null
+				equipment_system.cargo_system = null
 			else
 				user << "<span class='warning'>You need an open hand to do that.</span>"
 		/*
@@ -481,29 +507,52 @@
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		return 1
 
-/obj/spacepod/MouseDrop_T(mob/M, mob/user)
-	if(!isliving(M))
-		return
+/obj/spacepod/MouseDrop_T(atom/A, mob/user)
+	if(istype(A,/mob))
+		var/mob/M = A
+		if(!isliving(M))
+			return
 
-	occupant_sanity_check()
+		occupant_sanity_check()
 
-	if(M != user && M.stat == DEAD && allow2enter)
-		if(occupant2 && !occupant)
-			usr << "<span class='danger'><b>You can't put a corpse into the driver's seat!</b></span>"
-			return 0
-		if(!occupant2)
-			visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
-			sleep(10)
-			moved_other_inside(M)
+		if(M != user && M.stat == DEAD && allow2enter)
+			if(occupant2 && !occupant)
+				usr << "<span class='danger'><b>You can't put a corpse into the driver's seat!</b></span>"
+				return 0
+			if(!occupant2)
+				visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
+				sleep(10)
+				moved_other_inside(M)
 
-	if(M == user)
-		enter_pod(user)
+		if(M == user)
+			enter_pod(user)
 
+	if(istype(A, /obj/structure/ore_box)) // For loading ore boxes
+		var/obj/structure/ore_box/O = A
+		if(equipment_system.cargo_system && istype(equipment_system.cargo_system,/obj/item/device/spacepod_equipment/cargo/ore))
+			var/obj/item/device/spacepod_equipment/cargo/ore/C = equipment_system.cargo_system
+			if(!C.box)
+				user << "<span class='notice'>You begin loading \the [O] into \the [src]'s [equipment_system.cargo_system]</span>"
+				if(do_after(user, 40, target = src))
+					C.box = O
+					O.forceMove(C)
+					user << "<span class='notice'>You load \the [O] into \the [src]'s [equipment_system.cargo_system]!</span>"
+				else
+					user << "<span class='warning'>You fail to load \the [O] into \the [src]'s [equipment_system.cargo_system]</span>"
+			else
+				user << "<span class='warning'>\The [src] already has \an [C.box]</span>"
 
 /obj/spacepod/verb/enter_pod(mob/user = usr)
 	set category = "Object"
 	set name = "Enter Pod"
 	set src in oview(1)
+
+	if (usr.stat != CONSCIOUS)
+		return
+
+	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
+		usr << "They are too far away to put inside"
+		return
 
 	if(!istype(user))
 		return 0
@@ -686,6 +735,17 @@
 			return
 		equipment_system.weapon_system.fire_weapons()
 
+/obj/spacepod/verb/unload()
+	if(!CheckIfOccupant2(usr))
+		set name = "Unload Cargo"
+		set desc = "Unloads the cargo"
+		set category = "Spacepod"
+		set src = usr.loc
+		if(!equipment_system.cargo_system)
+			usr << "<span class='warning'>\The [src] has no cargo system!</span>"
+			return
+		equipment_system.cargo_system.unload()
+
 /obj/spacepod/verb/toggleLights()
 	set name = "Toggle Lights"
 	set category = "Spacepod"
@@ -785,6 +845,11 @@
 					moveship = 0
 		if(moveship)
 			Move(get_step(src, direction), direction)
+			if(equipment_system.cargo_system)
+				for (var/turf/T in locs)
+					for (var/obj/item/I in T.contents)
+						equipment_system.cargo_system.passover(I)
+
 	else
 		if(!battery)
 			user << "<span class='warning'>No energy cell detected.</span>"
