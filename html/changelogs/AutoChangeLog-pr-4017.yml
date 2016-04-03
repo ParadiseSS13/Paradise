@@ -1,7 +1,0 @@
-author: ProperPants
-delete-after: True
-changes: 
-  - rscadd: "Maint drones have magboots."
-  - rscdel: "Removed plastic from maint drones. Literally useless for station maintenance."
-  - tweak: "Increased starting amounts of some materials for maint drones and engi borgs."
-  - experiment: "Reduced the number of lines taken by Engineering cyborgs calling on materials stacks."
