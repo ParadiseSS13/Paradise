@@ -36,5 +36,8 @@
 #define ANTAG_HUD_OPS		9
 #define ANTAG_HUD_WIZ		10
 #define ANTAG_HUD_SHADOW    11
-#define ANTAG_HUD_SOLO	12
-
+#define ANTAG_HUD_TRAITOR 12
+#define ANTAG_HUD_NINJA 13 //For Daves Rework
+#define ANTAG_HUD_CHANGELING 14
+#define ANTAG_HUD_VAMPIRE 15
+#define ANTAG_HUD_ABDUCTOR 16 //For Fox

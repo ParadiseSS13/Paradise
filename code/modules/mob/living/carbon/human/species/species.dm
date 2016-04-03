@@ -64,6 +64,8 @@
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
 
+	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
+
 	var/flags = 0       // Various specific features.
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
@@ -414,125 +416,147 @@
 	return 0
 
 /datum/species/proc/handle_vision(mob/living/carbon/human/H)
-	if( H.stat == DEAD )
+	if(H.stat == DEAD)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		H.see_in_dark = 8
-		if(!H.druggy)		H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else
-		H.sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		if(!H.druggy)
+			H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		return
 
-		H.see_in_dark = darksight //set their variables to default, modify them later
-		H.see_invisible = SEE_INVISIBLE_LIVING
+	H.sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
-		if(H.mind && H.mind.vampire)
-			if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
-				H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-				H.see_in_dark = 8
-				H.see_invisible = SEE_INVISIBLE_MINIMUM
-			else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
-				H.sight |= SEE_MOBS
+	H.see_in_dark = darksight //set their variables to default, modify them later
+	H.see_invisible = SEE_INVISIBLE_LIVING
 
-		if(XRAY in H.mutations)
+	if(H.mind && H.mind.vampire)
+		if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark = 8
-
 			H.see_invisible = SEE_INVISIBLE_MINIMUM
+		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
+			H.sight |= SEE_MOBS
 
 
-		if(H.seer == 1)
-			var/obj/effect/rune/R = locate() in H.loc
-			if(R && R.word1 == cultwords["see"] && R.word2 == cultwords["hell"] && R.word3 == cultwords["join"])
-				H.see_invisible = SEE_INVISIBLE_OBSERVER
-			else
-				H.see_invisible = SEE_INVISIBLE_LIVING
-				H.seer = 0
+	if(XRAY in H.mutations)
+		H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+		H.see_in_dark = 8
 
-		//This checks how much the mob's eyewear impairs their vision
-		if(H.tinttotal >= TINT_IMPAIR)
-			if(tinted_weldhelh)
-				if(H.tinttotal >= TINT_BLIND)
-					H.eye_blind = max(H.eye_blind, 1)
-				if(H.client)
-					H.client.screen += global_hud.darkMask
+		H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-		var/minimum_darkness_view = INFINITY
-		if(H.glasses)
-			if(istype(H.glasses, /obj/item/clothing/glasses))
-				var/obj/item/clothing/glasses/G = H.glasses
-				H.sight |= G.vision_flags
 
-				if(G.darkness_view)
-					H.see_in_dark = G.darkness_view
-					minimum_darkness_view = G.darkness_view
+	if(H.seer == 1)
+		var/obj/effect/rune/R = locate() in H.loc
+		if(R && R.word1 == cultwords["see"] && R.word2 == cultwords["hell"] && R.word3 == cultwords["join"])
+			H.see_invisible = SEE_INVISIBLE_OBSERVER
+		else
+			H.see_invisible = SEE_INVISIBLE_LIVING
+			H.seer = 0
 
-				if(!G.see_darkness)
-					H.see_invisible = SEE_INVISIBLE_MINIMUM
+	//This checks how much the mob's eyewear impairs their vision
+	if(H.tinttotal >= TINT_IMPAIR)
+		if(tinted_weldhelh)
+			H.overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+		if(H.tinttotal >= TINT_BLIND)
+			H.eye_blind = max(H.eye_blind, 1)
+	else
+		H.clear_fullscreen("tint")
 
-		if(H.head)
-			if(istype(H.head, /obj/item/clothing/head))
-				var/obj/item/clothing/head/hat = H.head
-				H.sight |= hat.vision_flags
+	var/minimum_darkness_view = INFINITY
+	if(H.glasses)
+		if(istype(H.glasses, /obj/item/clothing/glasses))
+			var/obj/item/clothing/glasses/G = H.glasses
+			H.sight |= G.vision_flags
 
-				if(hat.darkness_view && hat.darkness_view < minimum_darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
-					H.see_in_dark = hat.darkness_view
+			if(G.darkness_view)
+				H.see_in_dark = G.darkness_view
+				minimum_darkness_view = G.darkness_view
 
-				if(!hat.see_darkness)
-					H.see_invisible = SEE_INVISIBLE_MINIMUM
+			if(!G.see_darkness)
+				H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-				//switch(hat.HUDType)
-				//	if(SECHUD)
-				//		process_sec_hud(H,1)
-				//	if(MEDHUD)
-				//		process_med_hud(H,1)
-				//	if(ANTAGHUD)
-				//		process_antag_hud(H)
+	if(H.head)
+		if(istype(H.head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = H.head
+			H.sight |= hat.vision_flags
 
-		if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
-			var/obj/item/weapon/rig/rig = H.back
-			if(rig.visor)
-				if(!rig.helmet || (H.head && rig.helmet == H.head))
-					if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
-						var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
-						if(istype(G))
-							H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
-							if(G.vision_flags)		// MESONS
-								H.sight |= G.vision_flags
+			if(hat.darkness_view && hat.darkness_view < minimum_darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
+				H.see_in_dark = hat.darkness_view
 
-							if(!G.see_darkness)
-								H.see_invisible = SEE_INVISIBLE_MINIMUM
+			if(!hat.see_darkness)
+				H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-							//switch(G.HUDType)
-							//	if(SECHUD)
-							//		process_sec_hud(H,1)
-							//	if(MEDHUD)
-							//		process_med_hud(H,1)
-							//	if(ANTAGHUD)
-							//		process_antag_hud(H)
+			//switch(hat.HUDType)
+			//	if(SECHUD)
+			//		process_sec_hud(H,1)
+			//	if(MEDHUD)
+			//		process_med_hud(H,1)
+			//	if(ANTAGHUD)
+			//		process_antag_hud(H)
 
-		if(H.vision_type)
-			H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)
-			H.see_invisible = H.vision_type.see_invisible
-			if(H.vision_type.light_sensitive)
-				H.weakeyes = 1
-			H.sight |= H.vision_type.sight_flags
+	if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
+		var/obj/item/weapon/rig/rig = H.back
+		if(rig.visor)
+			if(!rig.helmet || (H.head && rig.helmet == H.head))
+				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
+					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
+					if(istype(G))
+						H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
+						if(G.vision_flags)		// MESONS
+							H.sight |= G.vision_flags
 
-		if(H.see_override)	//Override all
-			H.see_invisible = H.see_override
+						if(!G.see_darkness)
+							H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-		if(H.blind)
-			if(H.blinded)		H.blind.layer = 18
-			else				H.blind.layer = 0
+						//switch(G.HUDType)
+						//	if(SECHUD)
+						//		process_sec_hud(H,1)
+						//	if(MEDHUD)
+						//		process_med_hud(H,1)
+						//	if(ANTAGHUD)
+						//		process_antag_hud(H)
 
-		if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
-			if(H.glasses)					//to every /obj/item
-				var/obj/item/clothing/glasses/G = H.glasses
-				if(!G.prescription)
-					H.client.screen += global_hud.vimpaired
-			else
-				H.client.screen += global_hud.vimpaired
+	if(H.vision_type)
+		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)
+		H.see_invisible = H.vision_type.see_invisible
+		if(H.vision_type.light_sensitive)
+			H.weakeyes = 1
+		H.sight |= H.vision_type.sight_flags
 
-		if(H.eye_blurry)			H.client.screen += global_hud.blurry
-		if(H.druggy)				H.client.screen += global_hud.druggy
+	if(H.see_override)	//Override all
+		H.see_invisible = H.see_override
+
+	if(!H.client)
+		return 1
+
+	if(H.blinded || H.eye_blind)
+		H.overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+		//H.throw_alert("blind", /obj/screen/alert/blind)
+	else
+		H.clear_fullscreen("blind")
+		//H.clear_alert("blind")
+
+
+	if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
+		if(H.glasses)					//to every /obj/item
+			var/obj/item/clothing/glasses/G = H.glasses
+			if(!G.prescription)
+				H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+		else
+			H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+	else
+		H.clear_fullscreen("nearsighted")
+
+	if(H.eye_blurry)
+		H.overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+	else
+		H.clear_fullscreen("blurry")
+
+	if(H.druggy)
+		H.overlay_fullscreen("high", /obj/screen/fullscreen/high)
+		//H.throw_alert("high", /obj/screen/alert/high)
+	else
+		H.clear_fullscreen("high")
+		//H.clear_alert("high")
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(H.healths)

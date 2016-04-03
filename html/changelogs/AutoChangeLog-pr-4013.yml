@@ -1,4 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "Incisions made at the beginning of embedded object removal surgery can now be closed in the same procedure."

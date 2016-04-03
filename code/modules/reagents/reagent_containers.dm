@@ -79,7 +79,11 @@
 
 /obj/item/weapon/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
-		reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
-		user << "<span class='notice'>You fill [src] from [source].</span>"
-		return
+		if(reagents.total_volume >= volume)
+			user << "span class='warning'>\The [src] is full.</span>"
+			return
+		else
+			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
+			user << "<span class='notice'>You fill [src] from [source].</span>"
+			return
 	..()
