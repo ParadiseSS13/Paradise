@@ -1812,7 +1812,7 @@ obj/item/toy/cards/deck/syndicate/black
 	var/spawner_type = /obj/effect/decal/cleanable/confetti
 
 /obj/item/toy/party_popper/attack_self(user as mob)
-	playsound(user, 'sound/effects/partypop.ogg', 50, 1)
+	playsound(user, 'sound/effects/party_pop.ogg', 50, 1)
 	var/turf/T = get_turf(src)
 	var/atom/movable/x = new spawner_type
 	x.loc = T
