@@ -3,46 +3,57 @@
 	name = "UO71"
 	icon_state = "away"
 	report_alerts = 0
-	//lighting_use_dynamic = 1
+	tele_proof = 1
 
 
 /area/awaymission/UO71/plaza
+	name = "UO71 Plaza"
 	icon_state = "awaycontent1"
 
 /area/awaymission/UO71/centralhall
+	name = "UO71 Central"
 	icon_state = "awaycontent2"
 
 /area/awaymission/UO71/eng
+	name = "UO71 Engineering"
 	icon_state = "awaycontent3"
 
 /area/awaymission/UO71/mining
+	name = "UO71 Mining"
 	icon_state = "awaycontent4"
 
 /area/awaymission/UO71/science
+	name = "UO71 Science"
 	icon_state = "awaycontent5"
 
 /area/awaymission/UO71/gateway
+	name = "UO71 Gateway"
 	icon_state = "awaycontent6"
 
 /area/awaymission/UO71/outside
+	name = "UO71 Outside"
 	icon_state = "awaycontent7"
 
 /area/awaymission/UO71/bridge
+	name = "UO71 Bridge"
 	icon_state = "awaycontent21"
 	requires_power = 0
 	tele_proof = 1
 
 /area/awaymission/UO71/queen
+	name = "UO71 Queen Lair"
 	icon_state = "awaycontent9"
 	requires_power = 0
 	tele_proof = 1
 
 /area/awaymission/UO71/vault
+	name = "UO71 Containment"
 	icon_state = "awaycontent10"
 	requires_power = 0
 	tele_proof = 1
 
 /area/awaymission/UO71/loot
+	name = "UO71 Loot Vault"
 	icon_state = "awaycontent11"
 	requires_power = 0
 	tele_proof = 1
@@ -295,3 +306,10 @@
 	damage = 20
 	damage_type = CLONE
 
+/obj/item/weapon/reagent_containers/food/pill/terror_white_toxin
+	name = "white terror pill"
+	desc = "Don't swallow this."
+	icon_state = "pill5"
+	New()
+		..()
+		reagents.add_reagent("terror_white_toxin", 5)

@@ -108,6 +108,8 @@
 	metabolization_rate = 0.1
 	var/wdstage = 0
 	var/wdtreated = 0
+	var/awaymission_infection = 0
+	var/alternate_ending = 0
 
 /datum/reagent/terror_white_toxin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -144,9 +146,8 @@
 		// the spider eggs secrete stimulants/etc to keep their host alive until they hatch
 	if (wdstage == 1) // immediately
 		M << "<span class='danger'> Your spider bite wound hurts horribly! </span>"
-		//M.emote("scream")
-		//M.drop_l_hand()
-		//M.drop_r_hand()
+		if(istype(get_area(M), /area/awaycontent) || istype(get_area(M),/area/awaymission/))
+			awaymission_infection = 1
 	if (wdstage == 15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
 		M << "<span class='notice'> The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>"
 		M.adjustBruteLoss(-10)
@@ -162,7 +163,12 @@
 	if (wdstage == 165) // 5m 30s
 		M << "<span class='danger'> The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>"
 	if (wdstage == 180) // 6m
-		M << "<span class='danger'> The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, and all over you!</span>"
+		if (awaymission_infection && !istype(get_area(M), /area/awaycontent) && !istype(get_area(M),/area/awaymission/))
+			// we started in the awaymission, we ended on the station.
+			// To prevent someone bringing an infection back, we're going to trigger an alternate, equally-bad result here.
+			// Actually, let's make it slightly worse... just to discourage people from bringing back infections.
+			alternate_ending = 1
+		M << "<span class='danger'> The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, biting you all over!</span>"
 		M.visible_message("<span class='danger'>[M] flails around on the floor as spiderlings erupt from their skin and swarm all over them! </span>")
 		M.Stun(20)
 		M.Weaken(20)
@@ -178,6 +184,14 @@
 		S3.name = "green spiderling"
 		M.adjustBruteLoss(20)
 		M.adjustToxLoss(40)
+		if (alternate_ending)
+			// This is the alternate ending of the infestation, triggered above by someone bringing back an infection from a gateway mission to the main station.
+			// In this ending, we still spawn spiderlings - but we make sure they're stillborn, and don't grow up.
+			// In addition, we give you an extra 60 toxin... enough to crit most people.
+			S1.stillborn = 1
+			S2.stillborn = 1
+			S3.stillborn = 1
+			M.adjustToxLoss(60)
 	if (wdstage == 190) // 6m 30s
 		M << "\red The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting."
 		M.reagents.remove_reagent("terror_white_toxin", 100)
