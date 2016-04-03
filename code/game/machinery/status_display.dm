@@ -88,25 +88,18 @@
 			remove_display()
 			return 1
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
+			var/use_warn = 0
 			if(shuttle_master.emergency.timer)
-				message2 = get_shuttle_timer()
-				switch(shuttle_master.emergency.mode)
-					if(SHUTTLE_RECALL, SHUTTLE_ESCAPE)
-						message1 = "-ETR-"
-					if(SHUTTLE_CALL)
-						message1 = "-ETA-"
-					if(SHUTTLE_DOCKED)
-						message1 = "-ETD-"
-					else
-						message1 = "-ERR-"
-						message2 = "??:??"
+				use_warn = 1
+				message1 = "-[shuttle_master.emergency.getModeStr()]-"
+				message2 = shuttle_master.emergency.getTimerStr()
+
 				if(length(message2) > CHARS_PER_LINE)
 					message2 = "Error!"
-				update_display(message1, message2, 1)
 			else
 				message1 = "TIME"
 				message2 = worldtime2text()
-				update_display(message1, message2)
+			update_display(message1, message2, use_warn)
 			return 1
 		if(STATUS_DISPLAY_MESSAGE)	//custom messages
 			var/line1
@@ -167,18 +160,6 @@
 	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[warning ? WARNING_FONT_COLOR : FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
-
-/obj/machinery/status_display/proc/get_shuttle_timer()
-	var/timeleft = shuttle_master.emergency.timeLeft()
-	if(timeleft > 0)
-		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-	return "00:00"
-
-/obj/machinery/status_display/proc/get_supply_shuttle_timer()
-	var/timeleft = shuttle_master.supply.timeLeft()
-	if(timeleft > 0)
-		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-	return "00:00"
 
 /obj/machinery/status_display/proc/remove_display()
 	if(overlays.len)
