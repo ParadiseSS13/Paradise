@@ -50,7 +50,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/spider_max_steps = 15 // after we take X turns trying to do something, give up!
 
 	// Speech
-	speak_chance = 3 // quiet but deadly
+	speak_chance = 0 // quiet but deadly
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
 
@@ -97,6 +97,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/ai_cocoons_objects = 0
 	var/idle_cocoon_chance = 10
 	var/ai_guards_queen = 0
+	var/ai_stays_on_vents = 0
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
@@ -339,6 +340,7 @@ var/global/list/spider_ckey_blacklist = list()
 					if(!(H.species.reagent_tag & PROCESS_ORG) || (H.species.flags & NO_POISON))
 						H.attack_animal(src)
 						return
+			var/inject_target = pick("chest","head") // Yes, there are other body parts. No, the code won't work if we pick any of them. Grrr.
 			if (istype(src,/mob/living/simple_animal/hostile/poison/terror_spider/purple))
 				if (prob(10))
 					visible_message("<span class='danger'> \icon[src] [src] rams into [L] knocking them to the floor and stunning them! </span>")
@@ -352,11 +354,11 @@ var/global/list/spider_ckey_blacklist = list()
 				else
 					melee_damage_lower = 1
 					melee_damage_upper = 5
-					if (L.stunned || L.can_inject(null,0,null,0))
+					if (L.stunned || L.can_inject(null,0,inject_target,0))
 						L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
-						visible_message("<span class='danger'> \icon[src] [src] buries its long fangs deep into [target]! </span>")
+						visible_message("<span class='danger'> \icon[src] [src] buries its long fangs deep into the [inject_target] of [target]! </span>")
 					else
-						visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot penetrate their clothing! </span>")
+						visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
 					L.attack_animal(src)
 					//L.Weaken(5)
 					melee_damage_lower = 10
@@ -392,22 +394,22 @@ var/global/list/spider_ckey_blacklist = list()
 						visible_message("<span class='danger'> \icon[src] [src] recoils in horror from [target] as its fangs burn!</span>")
 						death()
 					else if (!L.reagents.has_reagent("terror_white_toxin",5) && !degenerate)
-						if (L.stunned || L.paralysis || L.can_inject(null,0,null,0))
+						if (L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
 							L.reagents.add_reagent("terror_white_toxin", 10)
-							visible_message("<span class='danger'> \icon[src] [src] injects a green venom into [target]!</span>")
+							visible_message("<span class='danger'> \icon[src] [src] injects a green venom into the [inject_target] of [target]!</span>")
 						else
-							visible_message("<span class='danger'> \icon[src] [src] bites [target], but its fangs don't penetrate their clothing!</span>")
+							visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
 					attackstep = 3
 				else if (attackstep == 3)
 					if (L in enemies)
-						if (L.stunned || L.paralysis || L.can_inject(null,0,null,0))
+						if (L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
 							do_attack_animation(L)
 							L.reagents.add_reagent("terror_white_tranq", 5)
-							visible_message("<span class='danger'> \icon[src] [src] injects a blue venom into [target]!</span></span>")
+							visible_message("<span class='danger'> \icon[src] [src] injects a blue venom into the [inject_target] of [target]!</span></span>")
 							enemies -= L
 						else
 							do_attack_animation(L)
-							visible_message("<span class='danger'> \icon[src] [src] bites [target], but its fangs don't penetrate their clothing!</span>")
+							visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
 					else
 						visible_message("<span class='notice'> \icon[src] [src] takes a moment to recover. </span>")
 						attackstep = 4
@@ -755,6 +757,18 @@ var/global/list/spider_ckey_blacklist = list()
 									cocoon_target = O
 									stop_automated_movement = 1
 									spider_steps_taken = 0
+			else if (ai_stays_on_vents && invisibility == 0 && prob(20))
+				var/vdistance = 99
+				var/temp_vent = null
+				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
+					if(!v.welded)
+						if (get_dist(src,v) < vdistance)
+							temp_vent = v
+							vdistance = get_dist(src,v)
+				if (temp_vent)
+					if (get_dist(src,temp_vent) > 0 && get_dist(src,temp_vent) < 5)
+						step_to(src,temp_vent)
+						// for grays, so they can stay cloaked even if bumped.
 			else if (ai_ventcrawls && world.time > (lastventcrawltime + minventcrawlfrequency))
 				if (prob(idle_ventcrawl_chance))
 					var/vdistance = 99
@@ -1160,7 +1174,8 @@ var/global/list/spider_ckey_blacklist = list()
 					if (theempress == src)
 						i_am_empress = 1
 					break
-		src << "Hive Command: "
+		src << "------------------------"
+		src << "Hive Status: "
 		if (theempress)
 			src << "- Empress: [theempress], in [get_area(theempress)], supreme commander of all terror spiders."
 		if (thequeen)
@@ -1178,14 +1193,14 @@ var/global/list/spider_ckey_blacklist = list()
 		src << "Your Status: "
 		src << " - Role: [spider_role_summary]"
 		if (ai_type == 0)
-			src << "Orders: <span class='danger'> kill all humanoids on sight </span>"
+			src << "- Orders: <span class='danger'> kill all humanoids on sight </span>"
 		else if (ai_type == 1)
-			src << "Orders: <span class='notice'> defend yourself & the hive, without being aggressive </span> "
+			src << "- Orders: <span class='notice'> defend yourself & the hive, without being aggressive </span> "
 		else if (ai_type == 2)
-			src << "Orders: <span class='danger'> do not attack anyone, not even in self-defense!</span> "
+			src << "- Orders: <span class='danger'> do not attack anyone, not even in self-defense!</span> "
 		if (spider_queen_declared_war)
-			src << "<span class='userdanger'>WAR: The Queen has declared all-out war! </span>"
-
+			src << "- <span class='userdanger'>WAR: The Queen has declared all-out war! </span>"
+		src << "------------------------"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/BroadcastOrders()
 	var/cache_thequeen = null
@@ -1216,6 +1231,18 @@ var/global/list/spider_ckey_blacklist = list()
 				new /obj/effect/spider/terrorweb(T)
 			busy = 0
 			stop_automated_movement = 0
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoAOEWeb()
+	for (var/turf/T in oview(3))
+		if (!T.density && get_dist(src,T) == 3 && prob(50))
+			var/obj/effect/spider/terrorweb/W = locate() in T
+			if (!W)
+				var/obj/effect/spider/terrorweb/B = new /obj/effect/spider/terrorweb(T)
+				B.spinner = src
+				B.trigger = 1
+	visible_message("<span class='notice'> [src] coats the area in webbing!</span>")
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/verb/EatCorpse() // var/mob/living/carbon/nibbletarget in oview(1)
 	set name = "Eat Corpse"
@@ -1390,29 +1417,43 @@ var/global/list/spider_ckey_blacklist = list()
 	melee_damage_lower = 15 // same as guard spider, its a melee class
 	melee_damage_upper = 20
 	ventcrawler = 1
-	move_to_delay = 5 // slow.
+	move_to_delay = 5 // normal speed
 	stat_attack = 1 // ensures they will target people in crit, too!
 	environment_smash = 1
 	wander = 0 // wandering defeats the purpose of stealth
 	idle_vision_range = 3 // very low idle vision range
 	ai_spins_webs = 0
+	ai_stays_on_vents = 1
 
 	var/grayticks = 0
+	vision_type = null // prevent them seeing through walls when doing AOE web.
 
+/mob/living/simple_animal/hostile/poison/terror_spider/gray/proc/GrayCloak()
+	visible_message("<span class='notice'> [src] hides in the vent.</span>")
+	invisibility = INVISIBILITY_LEVEL_ONE
+	icon_state = "terror_gray_cloaked"
+	icon_living = "terror_gray_cloaked"
+	if (!ckey)
+		vision_range = 3
+	// Bugged, does not work yet. Also spams webs. Also doesn't look great. But... planned.
+	//AOEWeb()
+	move_to_delay = 15 // while invisible, slow.
 
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/Aggro()
+/mob/living/simple_animal/hostile/poison/terror_spider/gray/proc/GrayDeCloak()
 	invisibility = 0
 	icon_state = "terror_gray"
 	icon_living = "terror_gray"
+	visible_message("<span class='notice'> [src] emerges from the vent, seeking prey!</span>")
+	vision_range = 9
+	move_to_delay = 5
+
+/mob/living/simple_animal/hostile/poison/terror_spider/gray/Aggro()
+	GrayDeCloak()
 	..()
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/AttackingTarget()
-	if (invisibility > 0)
-		invisibility = 0
-	else if (icon_state == "terror_gray_cloaked")
-		icon_state = "terror_gray"
-		icon_living = "terror_gray"
+	if (invisibility > 0 || icon_state == "terror_gray_cloaked")
+		GrayDeCloak()
 	else
 		..()
 
@@ -1422,27 +1463,27 @@ var/global/list/spider_ckey_blacklist = list()
 	spawn (30)
 		idle_ventcrawl_chance = currentchance
 
+/mob/living/simple_animal/hostile/poison/terror_spider/gray/verb/AOEWeb()
+	set name = "AOE Web"
+	set category = "Spider"
+	set desc = "Spin a sticky web to slow down prey."
+	DoAOEWeb()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/Life()
 	..()
 	grayticks++
-	if (grayticks > 3)
+	if (grayticks > 2)
 		grayticks = 0
 		var/obj/machinery/atmospherics/unary/vent_pump/V = locate() in get_turf(src)
 		if ((V && !V.welded) || (V && spider_awaymission && !ckey)) // spiders can cloak up if on a normal unwelded vent OR on any vent as an awaymission AI spider
 			if (invisibility != INVISIBILITY_LEVEL_ONE)
 				// if standing on a vent, and not cloaked, cloak.
-				visible_message("<span class='notice'> [src] hides in the vent [V].</span>")
-				invisibility = INVISIBILITY_LEVEL_ONE
-				icon_state = "terror_gray_cloaked"
-				icon_living = "terror_gray_cloaked"
+				GrayCloak()
 		else
 			if (invisibility == INVISIBILITY_LEVEL_ONE)
 				// if cloaked, and either not standing on a vent, or standing on a welded vent, uncloak
-				invisibility = 0
-				icon_state = "terror_gray"
-				icon_living = "terror_gray"
-				visible_message("<span class='notice'> [src] emerges from the vent, seeking prey!</span>")
+				GrayDeCloak()
+
 
 
 // --------------------------------------------------------------------------------
@@ -1576,7 +1617,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/nestfrequency = 150 // 15 seconds
 	var/lastnestsetup = 0
 	var/neststep = 0
-	var/spider_max_per_nest = 20 // above this, queen stops spawning more, and declares war.
+	var/spider_max_per_nest = 25 // above this, queen stops spawning more, and declares war.
 
 	var/canlay = 0 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/spider_can_hallucinate = 5 // single target hallucinate, atmosphere
@@ -2530,6 +2571,8 @@ var/global/list/spider_ckey_blacklist = list()
 	density = 0 // prevents it blocking all movement
 	health = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	icon_state = "stickyweb1"
+	var/spinner = null
+	var/trigger = 0
 
 
 /obj/effect/spider/terrorweb/New()
@@ -2557,6 +2600,13 @@ var/global/list/spider_ckey_blacklist = list()
 		return prob(20)
 	return 1
 
+/obj/effect/spider/terrorweb/Destroy()
+	if (trigger && spinner && prob(50))
+		var/mob/living/simple_animal/hostile/poison/terror_spider/gray/N = spinner
+		if (N)
+			if (get_dist(src,N) < 10)
+				N.GrayDeCloak()
+	..()
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: LOOT DROPS -----------------------------------

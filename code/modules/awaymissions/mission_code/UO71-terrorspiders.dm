@@ -305,11 +305,3 @@
 	icon_state = "declone"
 	damage = 20
 	damage_type = CLONE
-
-/obj/item/weapon/reagent_containers/food/pill/terror_white_toxin
-	name = "white terror pill"
-	desc = "Don't swallow this."
-	icon_state = "pill5"
-	New()
-		..()
-		reagents.add_reagent("terror_white_toxin", 5)
