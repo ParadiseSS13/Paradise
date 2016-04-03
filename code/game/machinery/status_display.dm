@@ -91,7 +91,7 @@
 			var/use_warn = 0
 			if(shuttle_master.emergency.timer)
 				use_warn = 1
-				message1 = "-[shuttle_master.emergency.getModeStr()]"
+				message1 = "-[shuttle_master.emergency.getModeStr()]-"
 				message2 = shuttle_master.emergency.getTimerStr()
 
 				if(length(message2) > CHARS_PER_LINE)
