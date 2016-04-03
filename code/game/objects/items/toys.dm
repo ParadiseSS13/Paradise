@@ -19,6 +19,8 @@
  *		Toy xeno
  *		Toy chainsaws
  *		Action Figures
+ *		Party Whistle
+ *		Party Popper
  */
 
 
@@ -1778,3 +1780,40 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "conch"
 	use_action = "pulls the string"
 	possible_answers = list("Yes.", "No.", "Try asking again.", "Nothing.", "I don't think so.", "Neither.", "Maybe someday.")
+
+/*
+ *	Party Whistle
+ */
+
+/obj/item/toy/party_whistle
+	name = "Party Whistle"
+	desc = "Let everybody know there's a party on with this loud, festive whistle!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "party_whistle"
+	var/sound_oncooldown = 0
+
+/obj/item/toy/party_whistle/attack_self(user as mob)
+	if(sound_oncooldown == 0)
+		sound_oncooldown = 1
+		playsound(user, 'sound/effects/confetti_partywhistle.ogg', 50 , 1)
+		spawn(25)
+			sound_oncooldown = 0
+		return
+
+/*
+ *	Party Popper
+ */
+
+/obj/item/toy/party_popper
+	name = "Party Popper"
+	desc = "Keep the party going with this simple but fun party popper!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "party_popper"
+	var/spawner_type = /obj/effect/decal/cleanable/confetti
+
+/obj/item/toy/party_popper/attack_self(user as mob)
+	playsound(user, 'sound/effects/partypop.ogg', 50, 1)
+	var/turf/T = get_turf(src)
+	var/atom/movable/x = new spawner_type
+	x.loc = T
+	qdel(src)
