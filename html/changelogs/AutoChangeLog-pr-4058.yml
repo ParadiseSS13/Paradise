@@ -1,7 +1,0 @@
-author: FalseIncarnate
-delete-after: True
-changes: 
-  - tweak: "Let's you know when your container is full when filling from sinks."
-  - tweak: "Prevents splashing containers onto beakers and buckets that have a lid on them."
-  - rscadd: "Pill bottles can now be labeled with a simple pen."
-  - tweak: "Beakers/buckets (and pill bottles) now accept 26 character labels from pens."
