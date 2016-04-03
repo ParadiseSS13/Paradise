@@ -150,7 +150,7 @@
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_egg1", "smashed_egg2", "smashed_egg3")
 
-/obj/effect/decal/cleanable/pie_smudge //honk
+/obj/effect/decal/cleanable/pie_smudge //honk :o)
 	name = "smashed pie"
 	desc = "It's pie cream from a cream pie."
 	density = 0
@@ -191,5 +191,3 @@
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
 	anchored = 1
-
-
