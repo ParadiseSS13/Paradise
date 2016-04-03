@@ -1100,23 +1100,31 @@
 	. = ..()
 
 
-///eyecheck()
+///check_eye_prot()
 ///Returns a number between -1 to 2
-/mob/living/carbon/human/eyecheck()
+/mob/living/carbon/human/check_eye_prot()
 	var/number = ..()
-	if(istype(src.head, /obj/item/clothing/head))			//are they wearing something on their head
-		var/obj/item/clothing/head/HFP = src.head			//if yes gets the flash protection value from that item
+	if(istype(head, /obj/item/clothing/head))			//are they wearing something on their head
+		var/obj/item/clothing/head/HFP = head			//if yes gets the flash protection value from that item
 		number += HFP.flash_protect
-	if(istype(src.glasses, /obj/item/clothing/glasses))		//glasses
-		var/obj/item/clothing/glasses/GFP = src.glasses
+	if(istype(glasses, /obj/item/clothing/glasses))		//glasses
+		var/obj/item/clothing/glasses/GFP = glasses
 		number += GFP.flash_protect
-	if(istype(src.wear_mask, /obj/item/clothing/mask))		//mask
-		var/obj/item/clothing/mask/MFP = src.wear_mask
+	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
+		var/obj/item/clothing/mask/MFP = wear_mask
 		number += MFP.flash_protect
-	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in src.internal_organs)
+	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
 		number += EFP.flash_protect
 
 	return number
+
+/mob/living/carbon/human/check_ear_prot()
+	if(head && (head.flags & HEADBANGPROTECT))
+		return 1
+	if(l_ear && (l_ear.flags & EARBANGPROTECT))
+		return 1
+	if(r_ear && (r_ear.flags & EARBANGPROTECT))
+		return 1
 
 ///tintcheck()
 ///Checks eye covering items for visually impairing tinting, such as welding masks

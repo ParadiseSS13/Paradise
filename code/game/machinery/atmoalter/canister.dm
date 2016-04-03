@@ -375,7 +375,7 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
 	return
-	
+
 /obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user as mob)
 	return src.ui_interact(user)
 
@@ -427,7 +427,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	if (href_list["choice"] == "menu")
 		menu = text2num(href_list["mode_target"])
 
@@ -625,13 +625,12 @@ update_flag
 
 	if(busy)
 		return 0
-	if(!WT.isOn())
+	if(!WT.remove_fuel(0, user))
 		return 0
 
 	// Do after stuff here
 	user << "<span class='notice'>You start to slice away at \the [src]...</span>"
 	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-	WT.eyecheck(user)
 	busy = 1
 	if(do_after(user, 50, target = src))
 		busy = 0

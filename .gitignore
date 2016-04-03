@@ -16,4 +16,5 @@ data/
 /_maps/map_files/**/*.dmm.backup
 /nano/debug.html
 *.db
+stddef.dm
 .atom-build.json
