@@ -5,7 +5,7 @@
 	icon_state = "cat2"
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
-	icon_resting = "cat_rest"
+	icon_resting = "cat2_rest"
 	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
@@ -16,8 +16,7 @@
 	see_in_dark = 6
 	simplespecies = /mob/living/simple_animal/pet/cat
 	childtype = /mob/living/simple_animal/pet/cat/kitten
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 3)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -28,7 +27,8 @@
 	desc = "GCAT"
 	icon_state = "cat"
 	icon_living = "cat"
-	icon_dead = "cat2_dead"
+	icon_dead = "cat_dead"
+	icon_resting = "cat_rest"
 	gender = FEMALE
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target

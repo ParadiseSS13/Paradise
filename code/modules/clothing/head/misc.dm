@@ -338,7 +338,6 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR|NODROP
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	var/cooldown = 0
 	action_button_name = "Caw"
 
 /obj/item/clothing/head/griffin/attack_self()
@@ -362,3 +361,9 @@
 	desc = "A hat suitable for any man of high and exalted rank."
 	icon_state = "lordadmiralhat"
 	item_state = "lordadmiralhat"
+
+/obj/item/clothing/head/human_head
+	name = "bloated human head"
+	desc = "A horribly bloated and mismatched human head."
+	icon_state = "lingspacehelmet"
+	item_state = "lingspacehelmet"

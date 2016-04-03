@@ -1,13 +1,6 @@
 /mob/living/simple_animal/hostile/asteroid/
 	vision_range = 2
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	faction = list("mining")
 	environment_smash = 2
@@ -268,24 +261,38 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/death()
 	if(stat != DEAD)
-		new /obj/item/asteroid/hivelord_core(src.loc)
+		new /obj/item/organ/internal/hivelord_core(src.loc)
 	..()
 
-/obj/item/asteroid/hivelord_core
+/obj/item/organ/internal/hivelord_core
 	name = "hivelord remains"
 	desc = "All that remains of a hivelord, it seems to be what allows it to break pieces of itself off without being hurt... its healing properties will soon become inert if not used quickly. Try not to think about what you're eating."
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "boiledrorocore"
+	slot = "hivecore"
 	var/inert = 0
 	var/preserved = 0
 
-/obj/item/asteroid/hivelord_core/New()
+/obj/item/organ/internal/hivelord_core/New()
 	spawn(2400)
 		if(!preserved)
 			inert = 1
 			desc = "The remains of a hivelord that have become useless, having been left alone too long after being harvested."
 
-/obj/item/asteroid/hivelord_core/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/organ/internal/hivelord_core/on_life()
+	..()
+	if(owner)
+		owner.adjustBruteLoss(-1)
+		owner.adjustFireLoss(-1)
+		owner.adjustOxyLoss(-2)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		var/datum/reagent/blood/B = locate() in H.vessel.reagent_list //Grab some blood
+		var/blood_volume = round(H.vessel.get_reagent_amount("blood"))
+		if(B && blood_volume < H.max_blood && blood_volume)
+			B.volume += 2 // Fast blood regen
+
+/obj/item/organ/internal/hivelord_core/attack(mob/living/M as mob, mob/living/user as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(inert)
@@ -303,6 +310,9 @@
 			H.revive()
 			qdel(src)
 	..()
+
+/obj/item/organ/internal/hivelord_core/prepare_eat()
+	return null
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	name = "hivelord brood"
@@ -370,7 +380,7 @@
 	anchored = 1 //Stays anchored until death as to be unpullable
 	var/pre_attack = 0
 
-/mob/living/simple_animal/hostile/asteroid/goliath/Life()
+/mob/living/simple_animal/hostile/asteroid/goliath/process_ai()
 	..()
 	handle_preattack()
 

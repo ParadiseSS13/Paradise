@@ -62,7 +62,7 @@ datum/directive/ipc_virus/get_remaining_orders()
 
 	return text
 
-/hook/debrain/proc/debrain_directive(obj/item/organ/brain/B)
+/hook/debrain/proc/debrain_directive(var/obj/item/organ/internal/brain/B)
 	var/datum/directive/ipc_virus/D = get_directive("ipc_virus")
 	if (!D) return 1
 

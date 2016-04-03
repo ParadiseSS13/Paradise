@@ -9,6 +9,8 @@
 
 	if(..())
 		. = 1
+		for(var/obj/item/organ/internal/O in internal_organs)
+			O.on_life()
 		handle_changeling()
 
 	handle_wetness()
@@ -82,12 +84,7 @@
 
 	if(breath)
 		loc.assume_air(breath)
-		//spread virus2
-		if(virus2.len > 0)
-			if(prob(10) && get_infection_chance(src))
-				for(var/mob/living/carbon/M in view(1,src))
-					src.spread_disease_to(M)
-
+		air_update_turf()
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
@@ -248,7 +245,7 @@
 			if(M.loc != src)
 				stomach_contents.Remove(M)
 				continue
-			if(istype(M, /mob/living/carbon) && stat != 2)
+			if(istype(M, /mob/living) && stat != 2)
 				if(M.stat == 2)
 					M.death(1)
 					stomach_contents.Remove(M)
@@ -441,6 +438,13 @@
 
 		if(see_override)
 			see_invisible = see_override
+
+
+/mob/living/carbon/handle_actions()
+	..()
+	for(var/obj/item/I in internal_organs)
+		give_action_button(I, 1)
+
 
 /mob/living/carbon/handle_hud_icons()
 	return

@@ -1,21 +1,132 @@
+///Datum Surgery Helpers//
+/datum/surgery
+	var/name
+	var/status = 1
+	var/list/steps = list()
+	/*
+	var/eyes	=	0
+	var/face	=	0
+	var/appendix =	0
+	var/ribcage =	0
+	var/head_reattach = 0									//Steps in a surgery
+	*/
+
+	var/can_cancel = 1
+	var/step_in_progress = 0
+	var/list/in_progress = list()									//Actively performing a Surgery
+	var/location = "chest"										//Surgery location
+	var/requires_organic_bodypart = 1							//Prevents you from performing an operation on robotic limbs
+	var/list/possible_locs = list() 							//Multiple locations -- c0
+	var/obj/item/organ/organ_ref									//Operable body part
+	var/current_organ = "organ"
+	var/list/allowed_mob = list(/mob/living/carbon/human)
+
+/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target)
+	// if 0 surgery wont show up in list
+	// put special restrictions here
+	return 1
+
+
+/datum/surgery/proc/next_step(mob/user, mob/living/carbon/target)
+	if(step_in_progress)	return
+
+	var/datum/surgery_step/S = get_surgery_step()
+	if(S)
+		if(S.try_op(user, target, user.zone_sel.selecting, user.get_active_hand(), src))
+			return 1
+	return 0
+
+/datum/surgery/proc/get_surgery_step()
+	var/step_type = steps[status]
+	return new step_type
+
+
+/datum/surgery/proc/complete(mob/living/carbon/human/target)
+	target.surgeries -= src
+	src = null
+
+
+
 /* SURGERY STEPS */
 /datum/surgery_step
 	var/priority = 0	//steps with higher priority would be attempted first
 
 	// type path referencing tools that can be used for this step, and how well are they suited for it
 	var/list/allowed_tools = null
-	// type paths referencing mutantraces that this step applies to.
-	var/list/allowed_species = null
-	var/list/disallowed_species = null
+	var/implement_type = null
 
 	// duration of the step
-	var/min_duration = 0
-	var/max_duration = 0
+	var/time = 10
+
+	var/name
+	var/accept_hand = 0				//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
+	var/accept_any_item = 0
 
 	// evil infection stuff that will make everyone hate me
 	var/can_infect = 0
 	//How much blood this step can get on surgeon. 1 - hands, 2 - full body.
 	var/blood_level = 0
+
+	var/list/allowed_mob = list()
+	var/list/disallowed_mob = list()
+
+
+/datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/success = 0
+	if(accept_hand)
+		if(!tool)
+			success = 1
+	if(accept_any_item)
+		if(tool && tool_quality(tool))
+			success = 1
+	else
+		for(var/path in allowed_tools)
+			if(istype(tool, path))
+				implement_type = path
+				if(tool_quality(tool))
+					success = 1
+
+	if(success)
+		if(target_zone == surgery.location)
+			initiate(user, target, target_zone, tool, surgery)
+			return 1//returns 1 so we don't stab the guy in the dick or wherever.
+	if(isrobot(user) && user.a_intent != I_HARM) //to save asimov borgs a LOT of heartache
+		return 1
+	return 0
+
+/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	surgery.step_in_progress = 1
+
+	if(begin_step(user, target, target_zone, tool, surgery) == -1)
+		surgery.step_in_progress = 0
+		return
+
+	var/advance = 0
+	var/prob_chance = 100
+
+	if(implement_type)	//this means it isn't a require nd or any item step.
+		prob_chance = min(allowed_tools[implement_type], 100)
+	prob_chance *= get_location_modifier(target)
+
+	if(prob_chance > 100)//if we are using a super tool
+		time = time/prob_chance //PLACEHOLDER VALUES
+
+	if(do_after(user, time, target = target))
+
+
+		if(prob(prob_chance) || isrobot(user))
+			if(end_step(user, target, target_zone, tool, surgery))
+				advance = 1
+		else
+			if(fail_step(user, target, target_zone, tool, surgery))
+				advance = 1
+
+		if(advance)
+			surgery.status++
+			if(surgery.status > surgery.steps.len)
+				surgery.complete(target)
+
+	surgery.step_in_progress = 0
 
 //returns how well tool is suited for this step
 /datum/surgery_step/proc/tool_quality(obj/item/tool)
@@ -29,28 +140,29 @@
 	if(!hasorgans(target))
 		return 0
 
-	if(allowed_species)
-		for(var/species in allowed_species)
-			if(target.species.name == species)
+	if(allowed_mob)//can i just remove this and/or change it?
+		for(var/species in allowed_mob)
+			if(target.get_species() == species)
 				return 1
 
-	if(disallowed_species)
-		for(var/species in disallowed_species)
-			if(target.species.name == species)
+	if(disallowed_mob)
+		for(var/species in disallowed_mob)
+			if(target.get_species() == species)
 				return 0
 
 	return 1
 
 // checks whether this step can be applied with the given user and target
-/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	return 0
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
-/datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if (can_infect && affected)
-		spread_germs_to_organ(affected, user)
-	if (ishuman(user) && prob(60))
+/datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	if(ishuman(target))
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		if (can_infect && affected)
+			spread_germs_to_organ(affected, user)
+	if (ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
 		var/mob/living/carbon/human/H = user
 		if (blood_level)
 			H.bloody_hands(target,0)
@@ -59,54 +171,23 @@
 	return
 
 // does stuff to end the step, which is normally print a message + do whatever this step changes
-/datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	return
 
 // stuff that happens when the step fails
-/datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	return null
+
 
 /proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user)
 	if(!istype(user) || !istype(E)) return
-
+	//world << "Germ spread: [E] : [E.owner]"
 	var/germ_level = user.germ_level
 	if(user.gloves)
 		germ_level = user.gloves.germ_level
 	if(!(E.status & ORGAN_ROBOT)) //Germs on robotic limbs bad
 		E.germ_level = max(germ_level,E.germ_level) //as funny as scrubbing microbes out with clean gloves is - no.
 
-/proc/do_surgery(mob/living/carbon/M, mob/living/user, obj/item/tool)
-	if(!istype(M))
-		return 0
-	if (user.a_intent == I_HARM)	//check for Hippocratic Oath
-		return 0
-	var/zone = user.zone_sel.selecting
-	if(zone in M.op_stage.in_progress) //Can't operate on someone repeatedly.
-		user << "\red You can't operate on this area while surgery is already in progress."
-		return 1
-	for(var/datum/surgery_step/S in surgery_steps)
-		//check if tool is right or close enough and if this step is possible
-		if(S.tool_quality(tool))
-			var/step_is_valid = S.can_use(user, M, zone, tool)
-			if(step_is_valid && S.is_valid_target(M))
-				if(step_is_valid == 2) // This is a failure that already has a message for failing.
-					return 1
-				M.op_stage.in_progress += zone
-				S.begin_step(user, M, zone, tool)		//start on it
-				//We had proper tools! (or RNG smiled.) and user did not move or change hands.
-				if(prob(S.tool_quality(tool)) &&  do_mob(user, M, rand(S.min_duration, S.max_duration)))
-					S.end_step(user, M, zone, tool)		//finish successfully
-				else if ((tool in user.contents) && user.Adjacent(M))			//or
-					S.fail_step(user, M, zone, tool)		//malpractice~
-				else // This failing silently was a pain.
-					user << "<span class='warning'>You must remain close to your patient to conduct surgery.</span>"
-				M.op_stage.in_progress -= zone 									// Clear the in-progress flag.
-				return	1	  												//don't want to do weapony things after surgery
-
-	if (user.a_intent == I_HELP)
-		user << "<span class='warning'>You can't see any useful way to use [tool] on [M].</span>"
-		return 1
-	return 0
 
 /proc/sort_surgeries()
 	var/gap = surgery_steps.len
@@ -123,13 +204,3 @@
 			if(l.priority < r.priority)
 				surgery_steps.Swap(i, gap + i)
 				swapped = 1
-
-/datum/surgery_status/
-	var/eyes	=	0
-	var/face	=	0
-	var/appendix =	0
-	var/ribcage =	0
-	var/head_reattach = 0
-	var/current_organ = "organ"
-	var/obj/item/organ/organ_ref = null
-	var/list/in_progress = list()

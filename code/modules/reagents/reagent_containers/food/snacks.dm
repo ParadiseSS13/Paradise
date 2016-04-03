@@ -4,7 +4,7 @@
 	desc = "yummy"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = null
-	var/bitesize = 1
+	bitesize = 1
 	var/bitecount = 0
 	var/trash = null
 	var/slice_path
@@ -18,19 +18,20 @@
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/weapon/reagent_containers/food/snacks/proc/On_Consume(var/mob/M)
 	if(!usr)	return
-	if(!reagents.total_volume)
-		if(M == usr)
-			usr << "<span class='notice'>You finish eating \the [src].</span>"
-		usr.visible_message("<span class='notice'>[usr] finishes eating \the [src].</span>")
-		usr.unEquip(src)	//so icons update :[
+	spawn(0)
+		if(!reagents.total_volume)
+			if(M == usr)
+				usr << "<span class='notice'>You finish eating \the [src].</span>"
+			usr.visible_message("<span class='notice'>[usr] finishes eating \the [src].</span>")
+			usr.unEquip(src)	//so icons update :[
 
-		if(trash)
-			if(ispath(trash,/obj/item))
-				var/obj/item/TrashItem = new trash(usr)
-				usr.put_in_hands(TrashItem)
-			else if(istype(trash,/obj/item))
-				usr.put_in_hands(trash)
-		qdel(src)
+			if(trash)
+				if(ispath(trash,/obj/item))
+					var/obj/item/TrashItem = new trash(usr)
+					usr.put_in_hands(TrashItem)
+				else if(istype(trash,/obj/item))
+					usr.put_in_hands(trash)
+			qdel(src)
 	return
 
 /obj/item/weapon/reagent_containers/food/snacks/attack_self(mob/user as mob)
@@ -38,83 +39,17 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/attack(mob/M as mob, mob/user as mob, def_zone)
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
-		user << "\red None of [src] left, oh no!"
+		user << "<span class='warning'>None of [src] left, oh no!</span>"
 		M.unEquip(src)	//so icons update :[
 		qdel(src)
 		return 0
 
 	if(istype(M, /mob/living/carbon))
-		var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 20) + (M.reagents.get_reagent_amount("protein") * 25) + (M.reagents.get_reagent_amount("plantmatter") * 25)
-		if(M == user)								//If you're eating it yourself
-			if(istype(M,/mob/living/carbon/human))
-				var/mob/living/carbon/human/H = M
-				if(!H.check_has_mouth())
-					user << "Where do you intend to put \the [src]? You don't have a mouth!"
-					return
-			if (fullness <= 50)
-				M << "\red You hungrily chew out a piece of [src] and gobble it!"
-			if (fullness > 50 && fullness <= 150)
-				M << "\blue You hungrily begin to eat [src]."
-			if (fullness > 150 && fullness <= 350)
-				M << "\blue You take a bite of [src]."
-			if (fullness > 350 && fullness <= 550)
-				M << "\blue You unwillingly chew a bit of [src]."
-			if (fullness > (550 * (1 + M.overeatduration / 2000)))	// The more you eat - the more you can eat
-				M << "\red You cannot force any more of [src] to go down your throat."
-				return 0
-		else
-			if(istype(M,/mob/living/carbon/human))
-				var/mob/living/carbon/human/H = M
-				if(!H.check_has_mouth())
-					user << "Where do you intend to put \the [src]? \The [H] doesn't have a mouth!"
-					return
-
-			if(!istype(M, /mob/living/carbon/slime))		//If you're feeding it to someone else.
-
-				if (fullness <= (550 * (1 + M.overeatduration / 1000)))
-					for(var/mob/O in viewers(world.view, user))
-						O.show_message("\red [user] attempts to feed [M] [src].", 1)
-				else
-					for(var/mob/O in viewers(world.view, user))
-						O.show_message("\red [user] cannot force anymore of [src] down [M]'s throat.", 1)
-						return 0
-
-				if(!do_mob(user, M)) return
-
-				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
-				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-				log_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)])")
-				if(!iscarbon(user))
-					M.LAssailant = null
-				else
-					M.LAssailant = user
-
-				for(var/mob/O in viewers(world.view, user))
-					O.show_message("\red [user] feeds [M] [src].", 1)
-
-			else
-				user << "This creature does not seem to have a mouth!"
-				return
-
-		if(reagents)								//Handle ingestion of the reagent.
-			playsound(M.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
-			if(reagents.total_volume)
-				reagents.reaction(M, INGEST)
-				spawn(0)
-					if(reagents.total_volume > bitesize)
-						/*
-						 * I totally cannot understand what this code supposed to do.
-						 * Right now every snack consumes in 2 bites, my popcorn does not work right, so I simplify it. -- rastaf0
-						var/temp_bitesize =  max(reagents.total_volume /2, bitesize)
-						reagents.trans_to(M, temp_bitesize)
-						*/
-						reagents.trans_to(M, bitesize)
-					else
-						reagents.trans_to(M, reagents.total_volume)
-					bitecount++
-					On_Consume(M)
+		var/mob/living/carbon/C = M
+		if(C.eat(src, user))
+			bitecount++
+			On_Consume(C)
 			return 1
-
 	return 0
 
 /obj/item/weapon/reagent_containers/food/snacks/afterattack(obj/target, mob/user, proximity)
@@ -145,30 +80,38 @@
 
 		var/obj/item/weapon/kitchen/utensil/U = W
 
-		if(!U.reagents)
-			U.create_reagents(5)
-
-		if (U.reagents.total_volume > 0)
-			user << "\red You already have something on your [U]."
+		if(U.contents.len >= U.max_contents)
+			user << "<span class='warning'>You cannot fit anything else on your [U]."
 			return
 
 		user.visible_message( \
 			"[user] scoops up some [src] with \the [U]!", \
-			"\blue You scoop up some [src] with \the [U]!" \
+			"<span class='notice'>You scoop up some [src] with \the [U]!" \
 		)
 
 		src.bitecount++
 		U.overlays.Cut()
-		U.loaded = "[src]"
 		var/image/I = new(U.icon, "loadedfood")
 		I.color = src.filling_color
 		U.overlays += I
 
-		reagents.trans_to(U,min(reagents.total_volume,5))
-
-		if (reagents.total_volume <= 0)
+		var/obj/item/weapon/reagent_containers/food/snacks/collected = new type
+		collected.loc = U
+		collected.reagents.remove_any(collected.reagents.total_volume)
+		collected.trash = null
+		if(reagents.total_volume > bitesize)
+			reagents.trans_to(collected, bitesize)
+		else
+			reagents.trans_to(collected, reagents.total_volume)
+			if(trash)
+				var/obj/item/TrashItem
+				if(ispath(trash,/obj/item))
+					TrashItem = new trash(src)
+				else if(istype(trash,/obj/item))
+					TrashItem = trash
+				TrashItem.forceMove(loc)
 			qdel(src)
-		return
+		return 1
 
 	if((slices_num <= 0 || !slices_num) || !slice_path)
 		return 0
@@ -911,6 +854,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("nanomachines", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/roburgerbig
@@ -922,7 +866,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nanites", 100)
+		reagents.add_reagent("nanomachines", 100)
 		bitesize = 0.1
 
 /obj/item/weapon/reagent_containers/food/snacks/xenoburger
@@ -1662,6 +1606,12 @@
 		user.drop_item()
 		forceMove(get_turf(O))
 		return Expand()
+	if(istype(O, /obj/machinery/computer/camera_advanced/xenobio))
+		var/obj/machinery/computer/camera_advanced/xenobio/X = O
+		X.monkeys++
+		user << "<span class='notice'>You feed [src] to the [X]. It now has [X.monkeys] monkey cubes stored.</span>"
+		qdel(src)
+		return
 	..()
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/attack_self(mob/user)
@@ -3349,15 +3299,6 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-
-// potato + knife = raw sticks
-/obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/kitchen/knife))
-		new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(src)
-		user << "You cut the potato."
-		qdel(src)
-	else
-		..()
 
 /obj/item/weapon/reagent_containers/food/snacks/rawsticks
 	name = "raw potato sticks"

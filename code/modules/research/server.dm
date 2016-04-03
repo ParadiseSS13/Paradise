@@ -13,6 +13,7 @@
 	var/heating_power = 40000
 	var/delay = 10
 	req_access = list(access_rd) //Only the R&D can change server settings.
+	var/plays_sound = 0
 
 /obj/machinery/r_n_d/server/New()
 	..()
@@ -58,6 +59,9 @@
 			id_with_download += text2num(N)
 
 /obj/machinery/r_n_d/server/process()
+	if(prob(3) && plays_sound)
+		playsound(loc, "computer_ambience", 50, 1)
+
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)
 		if(0 to T0C)
@@ -341,6 +345,7 @@
 	id_with_upload_string = "1;3"
 	id_with_download_string = "1;3"
 	server_id = 1
+	plays_sound = 1
 
 /obj/machinery/r_n_d/server/robotics
 	name = "Robotics and Mechanic R&D Server"

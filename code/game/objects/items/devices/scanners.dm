@@ -105,7 +105,7 @@ REAGENT SCANNER
 			if(H.reagents.addiction_list.len)
 				user.show_message("<span class='danger'>Subject is addicted to the following reagents:</span>")
 				for(var/datum/reagent/R in H.reagents.addiction_list)
-					user.show_message("<span class='danger'>[R.name]</span>")
+					user.show_message("<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>")
 			else
 				user.show_message("<span class='notice'>Subject is not addicted to any reagents.</span>")
 
@@ -157,7 +157,7 @@ REAGENT SCANNER
 		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
 		user.show_message("\blue Analyzing Results for [M]:\n\t Overall Status: dead")
 	else
-		user.show_message("\blue Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "dead" : "[M.health - M.halloss]% healthy"]")
+		user.show_message("\blue Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "dead" : "[M.health]% healthy"]")
 	user.show_message("\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>", 1)
 	user.show_message("\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	user.show_message("\blue Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)", 1)
@@ -187,22 +187,16 @@ REAGENT SCANNER
 	if (istype(M, /mob/living/carbon))
 		if(upgraded)
 			chemscan(user, M)
-		if(M:virus2.len) // WHAT IS TYPECASTING
-			var/mob/living/carbon/C = M
-			for (var/ID in C.virus2)
-				if (ID in virusDB)
-					var/datum/data/record/V = virusDB[ID]
-					user.show_message(text("\red Warning: Pathogen [V.fields["name"]] detected in subject's blood. Known antigen : [V.fields["antigen"]]"))
-//			user.show_message(text("\red Warning: Unknown pathogen detected in subject's blood."))
+		for(var/datum/disease/D in M.viruses)
+			if(!(D.visibility_flags & HIDDEN_SCANNER))
+				user << "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
 	if(M.getStaminaLoss())
 		user.show_message("<span class='info'>Subject appears to be suffering from fatigue.</span>")
 	if (M.getCloneLoss())
 		user.show_message("<span class='warning'>Subject appears to have [M.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>")
-//	if (M.reagents && M.reagents.get_reagent_amount("epinephrine"))
-//		user.show_message("\blue Bloodstream Analysis located [M.reagents:get_reagent_amount("epinephrine")] units of rejuvenation chemicals.")
 	if (M.has_brain_worms())
 		user.show_message("\red Subject suffering from aberrant brain activity. Recommend further scanning.")
-	else if (M.getBrainLoss() >= 100 || istype(M, /mob/living/carbon/human) && M:brain_op_stage == 4.0)
+	else if (M.getBrainLoss() >= 100 || istype(M, /mob/living/carbon/human) && !M.get_int_organ(/obj/item/organ/internal/brain))
 		user.show_message("\red Subject is brain dead.")
 	else if (M.getBrainLoss() >= 60)
 		user.show_message("\red Severe brain damage detected. Subject likely to have mental retardation.")
@@ -242,9 +236,17 @@ REAGENT SCANNER
 				user.show_message("\red <b>Warning: Blood Level CRITICAL: [blood_percent]% [blood_volume]cl")
 			else
 				user.show_message("\blue Blood Level Normal: [blood_percent]% [blood_volume]cl")
-		if(H.heart_attack)
+		if(H.heart_attack && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("\blue Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>")
+		var/implant_detect
+		for(var/obj/item/organ/internal/cyberimp/CI in H.internal_organs)
+			if(CI.status == ORGAN_ROBOT)
+				implant_detect += "[H.name] is modified with a [CI.name].<br>"
+		if(implant_detect)
+			user.show_message("<span class='notice'>Detected cybernetic modifications:</span>")
+			user.show_message("<span class='notice'>[implant_detect]</span>")
+
 	src.add_fingerprint(user)
 	return
 

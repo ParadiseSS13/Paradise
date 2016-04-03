@@ -113,7 +113,7 @@
 			_y = min
 
 	var/turf/T = locate(_x, _y, _z)
-	AM.loc = T
+	AM.forceMove(T)
 	AM.newtonian_move(dir)
 
 

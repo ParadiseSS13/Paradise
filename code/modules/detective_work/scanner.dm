@@ -18,7 +18,7 @@
 	if(log.len && !scanning)
 		scanning = 1
 		user << "<span class='notice'>Printing report, please wait...</span>"
-
+		playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 		spawn(100)
 
 			// Create our paper

@@ -83,6 +83,7 @@
 	var/lastpuke = 0
 	var/unacidable = 0
 	var/small = 0
+	var/can_strip = 1
 	var/list/pinned = list()            //List of things pinning this creature to walls (see living_defense.dm)
 	var/list/embedded = list()          //Embedded items, since simple mobs don't have organs.
 	var/list/languages = list()         // For speaking/listening.
@@ -190,8 +191,8 @@
 
 //List of active diseases
 
-	var/viruses = list() // replaces var/datum/disease/virus
-
+	var/list/viruses = list() // replaces var/datum/disease/virus
+	var/list/resistances = list()
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
@@ -206,6 +207,8 @@
 	var/radar_open = 0 	// nonzero is radar is open
 
 	var/atom/movable/remote_control //Calls relaymove() to whatever it is
+
+	var/remote_view = 0 // Set to 1 to prevent view resets on Life
 
 	var/obj/control_object //Used by admins to possess objects. All mobs should have this var
 	var/datum/visibility_interface/visibility_interface = null // used by the visibility system to provide an interface for the visibility networks
@@ -235,3 +238,5 @@
 	var/resize = 1 //Badminnery resize
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
+
+	var/list/permanent_huds = list()

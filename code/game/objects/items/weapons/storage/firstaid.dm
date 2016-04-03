@@ -35,13 +35,13 @@
 
 		icon_state = pick("ointment","firefirstaid")
 
-		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
-		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
-		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
-		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf( src )
 		new /obj/item/device/healthanalyzer( src )
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
-		new /obj/item/weapon/reagent_containers/pill/salicylic( src )
+		new /obj/item/weapon/reagent_containers/food/pill/salicylic( src )
 		return
 
 /obj/item/weapon/storage/firstaid/fire/empty
@@ -54,11 +54,11 @@
 	New()
 		..()
 		if (empty) return
-		new /obj/item/weapon/reagent_containers/pill/patch/styptic( src )
-		new /obj/item/weapon/reagent_containers/pill/patch/styptic( src )
-		new /obj/item/weapon/reagent_containers/pill/salicylic( src )
-		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
-		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/food/pill/patch/styptic( src )
+		new /obj/item/weapon/reagent_containers/food/pill/patch/styptic( src )
+		new /obj/item/weapon/reagent_containers/food/pill/salicylic( src )
+		new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf( src )
 		new /obj/item/device/healthanalyzer( src )
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
 		return
@@ -78,9 +78,9 @@
 		new /obj/item/weapon/reagent_containers/syringe/charcoal( src )
 		new /obj/item/weapon/reagent_containers/syringe/charcoal( src )
 		new /obj/item/weapon/reagent_containers/syringe/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
 		new /obj/item/device/healthanalyzer( src )
 		return
 
@@ -96,10 +96,10 @@
 	New()
 		..()
 		if (empty) return
-		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
-		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
-		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
-		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
+		new /obj/item/weapon/reagent_containers/food/pill/salbutamol( src )
+		new /obj/item/weapon/reagent_containers/food/pill/salbutamol( src )
+		new /obj/item/weapon/reagent_containers/food/pill/salbutamol( src )
+		new /obj/item/weapon/reagent_containers/food/pill/salbutamol( src )
 		new /obj/item/device/healthanalyzer( src )
 		return
 
@@ -118,10 +118,10 @@
 
 		icon_state = pick("brute","brute2")
 
-		new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
-		new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
-		new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
-		new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
+		new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(src)
+		new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(src)
+		new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(src)
+		new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(src)
 		new /obj/item/device/healthanalyzer(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 		new /obj/item/stack/medical/bruise_pack(src)
@@ -168,8 +168,8 @@
 	new /obj/item/clothing/accessory/stethoscope( src )
 	new /obj/item/weapon/defibrillator/compact/combat/loaded(src)
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
-	new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
-	new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 	return
@@ -210,14 +210,19 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
 	w_class = 2.0
-	can_hold = list("/obj/item/weapon/reagent_containers/pill","/obj/item/weapon/dice","/obj/item/weapon/paper")
+	can_hold = list("/obj/item/weapon/reagent_containers/food/pill","/obj/item/weapon/dice","/obj/item/weapon/paper")
 	allow_quick_gather = 1
 	use_to_pickup = 1
 	storage_slots = 14
 	display_contents_with_number = 1
+	var/base_name = ""
+	var/label_text = ""
+
+/obj/item/weapon/storage/pill_bottle/New()
+	..()
+	base_name = name
 
 /obj/item/weapon/storage/pill_bottle/MouseDrop(obj/over_object as obj) //Quick pillbottle fix. -Agouri
-
 	if (ishuman(usr)) //Can monkeys even place items in the pocket slots? Leaving this in just in case~
 		var/mob/M = usr
 		if (!( istype(over_object, /obj/screen) ))
@@ -239,19 +244,37 @@
 			return
 	return
 
+/obj/item/weapon/storage/pill_bottle/attackby(var/obj/item/I, mob/user as mob, params)
+	if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
+		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
+		if(length(tmp_label) > MAX_NAME_LEN)
+			user << "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>"
+		else
+			user << "<span class='notice'>You set the label to \"[tmp_label]\".</span>"
+			label_text = tmp_label
+			update_name_label()
+	else
+		..()
+
+/obj/item/weapon/storage/pill_bottle/proc/update_name_label()
+	if(label_text == "")
+		name = base_name
+	else
+		name = "[base_name] ([label_text])"
+
 /obj/item/weapon/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"
 	desc = "Contains pills used to counter toxins."
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
-		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
 
 /obj/item/weapon/storage/pill_bottle/dice
 	name = "pack of dice"
@@ -269,11 +292,11 @@
 
 /obj/item/weapon/storage/pill_bottle/painkillers/New()
 	..()
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)

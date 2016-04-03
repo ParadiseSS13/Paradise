@@ -59,7 +59,7 @@
 	var/screen				// Which screen our main window displays
 	var/subscreen			// Which specific function of the main screen is being displayed
 
-	var/obj/item/device/pda/ai/pai/pda = null
+	var/obj/item/device/pda/pai/pda = null
 
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
@@ -110,6 +110,8 @@
 		pda.name = pda.owner + " (" + pda.ownjob + ")"
 		var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
 		M.toff = 1
+		var/datum/data/pda/app/chatroom/C = pda.find_program(/datum/data/pda/app/chatroom)
+		C.toff = 1
 	..()
 
 /mob/living/silicon/pai/Login()

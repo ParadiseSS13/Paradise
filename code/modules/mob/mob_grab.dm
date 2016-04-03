@@ -6,7 +6,7 @@
 #define EAT_TIME_FAT 100
 
 //time it takes for a mob to be eaten (in deciseconds) (overrides mob eat time)
-#define EAT_TIME_MOUSE 30
+#define EAT_TIME_ANIMAL 30
 
 /obj/item/weapon/grab
 	name = "grab"
@@ -360,7 +360,7 @@
 						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Pressed fingers into the eyes of [affecting.name] ([affecting.ckey])</font>")
 						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Had fingers pressed into their eyes by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has pressed his fingers into [key_name(affecting)]'s eyes.")
-						var/obj/item/organ/eyes/eyes = affected.internal_organs_by_name["eyes"]
+						var/obj/item/organ/internal/eyes/eyes = affected.get_int_organ(/obj/item/organ/internal/eyes)
 						eyes.damage += rand(3,4)
 						if (eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
@@ -413,10 +413,8 @@
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
-	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/simple_animal/diona)) //Kidan eating nymphs
-		return 1
-
-	if(ishuman(attacker) && attacker.get_species() == "Tajaran"  && istype(prey,/mob/living/simple_animal/mouse)) //Tajaran eating mice. Meow!
+	var/mob/living/carbon/human/H = attacker
+	if(ishuman(H) && is_type_in_list(prey,  H.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
 
 	return 0
@@ -425,8 +423,8 @@
 	if(isalien(attacker))
 		return EAT_TIME_XENO //xenos get a speed boost
 
-	if(istype(prey,/mob/living/simple_animal/mouse)) //mice get eaten at xeno-eating-speed regardless
-		return EAT_TIME_MOUSE
+	if(istype(prey,/mob/living/simple_animal)) //simple animals get eaten at xeno-eating-speed regardless
+		return EAT_TIME_ANIMAL
 
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
 
@@ -447,4 +445,4 @@
 #undef EAT_TIME_XENO
 #undef EAT_TIME_FAT
 
-#undef EAT_TIME_MOUSE
+#undef EAT_TIME_ANIMAL

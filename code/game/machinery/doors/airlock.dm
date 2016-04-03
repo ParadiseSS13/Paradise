@@ -30,6 +30,9 @@
 	var/electrified_until = 0	// World time when the door is no longer electrified. -1 if it is permanently electrified until someone fixes it.
 	var/main_power_lost_until = 0	 //World time when main power is restored.
 	var/backup_power_lost_until = -1 //World time when backup power is restored.
+	var/electrified_timer = null
+	var/main_power_timer = null
+	var/backup_power_timer = null
 	var/spawnPowerRestoreRunning = 0
 	var/welded = null
 	var/locked = 0
@@ -208,30 +211,17 @@
 	desc = "And they said I was crazy."
 	icon = 'icons/obj/doors/Dooruranium.dmi'
 	mineral = "uranium"
-	var/last_event = 0
+	var/event_step = 20
 
-/obj/machinery/door/airlock/process()
-	// Deliberate no call to parent.
-	if(main_power_lost_until > 0 && world.time >= main_power_lost_until)
-		regainMainPower()
-
-	if(backup_power_lost_until > 0 && world.time >= backup_power_lost_until)
-		regainBackupPower()
-
-	else if(electrified_until > 0 && world.time >= electrified_until)
-		electrify(0)
-
-/obj/machinery/door/airlock/uranium/process()
-	if(world.time > last_event+20)
-		if(prob(50))
-			radiate()
-		last_event = world.time
+/obj/machinery/door/airlock/uranium/New()
 	..()
+	addtimer(src, "radiate", event_step)
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
-	for(var/mob/living/L in range (3,src))
-		L.apply_effect(15,IRRADIATE,0)
-	return
+	if(prob(50))
+		for(var/mob/living/L in range (3,src))
+			L.apply_effect(15,IRRADIATE,0)
+	addtimer(src, "radiate", event_step)
 
 /obj/machinery/door/airlock/plasma
 	name = "plasma airlock"
@@ -261,8 +251,9 @@
 	mineral = "clown"
 
 /obj/machinery/door/airlock/mime
-	name = "Airlock"
+	name = "Tranquillite Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
+	mineral = "mime"
 
 /obj/machinery/door/airlock/sandstone
 	name = "Sandstone Airlock"
@@ -337,6 +328,15 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/Destroy()
 	qdel(wires)
 	wires = null
+	if(main_power_timer)
+		deltimer(main_power_timer)
+		main_power_timer = null
+	if(backup_power_timer)
+		deltimer(backup_power_timer)
+		backup_power_timer = null
+	if(electrified_timer)
+		deltimer(electrified_timer)
+		electrified_timer = null
 	return ..()
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user as mob) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
@@ -352,8 +352,8 @@ About the new airlock wires panel:
 				return
 		else if(user.hallucination > 50 && prob(10) && src.operating == 0)
 			user << "\red <B>You feel a powerful shock course through your body!</B>"
-			user.staminaloss += 50
-			user.stunned += 5
+			user.adjustStaminaLoss(50)
+			user.AdjustStunned(5)
 			return
 	..(user)
 
@@ -398,10 +398,13 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/proc/loseMainPower()
 	main_power_lost_until = mainPowerCablesCut() ? -1 : world.time + SecondsToTicks(60)
+	if(main_power_lost_until > 0)
+		main_power_timer = addtimer(src, "regainMainPower", SecondsToTicks(60), 1)
 
 	// If backup power is permanently disabled then activate in 10 seconds if possible, otherwise it's already enabled or a timer is already running
 	if(backup_power_lost_until == -1 && !backupPowerCablesCut())
 		backup_power_lost_until = world.time + SecondsToTicks(10)
+		backup_power_timer = addtimer(src, "regainBackupPower", SecondsToTicks(10), 1)
 
 	// Disable electricity if required
 	if(electrified_until && isAllPowerLoss())
@@ -409,12 +412,16 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/proc/loseBackupPower()
 	backup_power_lost_until = backupPowerCablesCut() ? -1 : world.time + SecondsToTicks(60)
+	if(backup_power_lost_until > 0)
+		backup_power_timer = addtimer(src, "regainBackupPower", SecondsToTicks(60), 1)
 
 	// Disable electricity if required
 	if(electrified_until && isAllPowerLoss())
 		electrify(0)
 
 /obj/machinery/door/airlock/proc/regainMainPower()
+	main_power_timer = null
+
 	if(!mainPowerCablesCut())
 		main_power_lost_until = 0
 		// If backup power is currently active then disable, otherwise let it count down and disable itself later
@@ -423,22 +430,28 @@ About the new airlock wires panel:
 		update_icon()
 
 /obj/machinery/door/airlock/proc/regainBackupPower()
+	backup_power_timer = null
+
 	if(!backupPowerCablesCut())
 		// Restore backup power only if main power is offline, otherwise permanently disable
 		backup_power_lost_until = main_power_lost_until == 0 ? -1 : 0
 		update_icon()
 
 /obj/machinery/door/airlock/proc/electrify(var/duration, var/feedback = 0)
+	if(electrified_timer)
+		deltimer(electrified_timer)
+		electrified_timer = null
+	
 	var/message = ""
-	if(src.isWireCut(AIRLOCK_WIRE_ELECTRIFY) && arePowerSystemsOn())
+	if(isWireCut(AIRLOCK_WIRE_ELECTRIFY) && arePowerSystemsOn())
 		message = text("The electrification wire is cut - Door permanently electrified.")
-		src.electrified_until = -1
+		electrified_until = -1
 	else if(duration && !arePowerSystemsOn())
 		message = text("The door is unpowered - Cannot electrify the door.")
-		src.electrified_until = 0
+		electrified_until = 0
 	else if(!duration && electrified_until != 0)
 		message = "The door is now un-electrified."
-		src.electrified_until = 0
+		electrified_until = 0
 	else if(duration)	//electrify door for the given duration seconds
 		if(usr)
 			shockedby += text("\[[time_stamp()]\] - [usr](ckey:[usr.ckey])")
@@ -446,7 +459,8 @@ About the new airlock wires panel:
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
-		src.electrified_until = duration == -1 ? -1 : world.time + SecondsToTicks(duration)
+		electrified_until = duration == -1 ? -1 : world.time + SecondsToTicks(duration)
+		electrified_timer = addtimer(src, "electrify", SecondsToTicks(duration), 1, 0)
 
 	if(feedback && message)
 		usr << message
@@ -685,23 +699,23 @@ About the new airlock wires panel:
 				usr << text("The electrification wire is cut - Door permanently electrified.")
 			else if(!activate && electrified_until != 0)
 				usr << "The door is now un-electrified."
-				src.electrified_until = 0
+				electrify(0)
 			else if(activate)	//electrify door for 30 seconds
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				usr << "The door is now electrified for thirty seconds."
-				src.electrified_until = world.time + SecondsToTicks(30)
+				electrify(30)
 		if("electrify_permanently")
 			if(src.isWireCut(AIRLOCK_WIRE_ELECTRIFY))
 				usr << text("The electrification wire is cut - Cannot electrify the door.")
 			else if(!activate && electrified_until != 0)
 				usr << "The door is now un-electrified."
-				src.electrified_until = 0
+				electrify(0)
 			else if(activate)
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				usr << "The door is now electrified."
-				electrified_until = -1
+				electrify(-1)
 		if("open")
 			if(src.welded)
 				usr << text("The airlock has been welded shut!")
@@ -1032,7 +1046,7 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/CanAStarPass(var/obj/item/weapon/card/id/ID)
 //Airlock is passable if it is open (!density), bot has access, and is not bolted shut)
-	return !density || (check_access(ID) && !locked)
+	return !density || (check_access(ID) && !locked && arePowerSystemsOn())
 
 /obj/machinery/door/airlock/emp_act(var/severity)
 	if(prob(40/severity))

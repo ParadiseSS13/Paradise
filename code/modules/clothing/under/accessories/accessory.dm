@@ -339,13 +339,79 @@
 
 /obj/item/clothing/accessory/petcollar
 	name = "pet collar"
+	desc = "The latest fashion accessory for your favorite pets!"
 	icon_state = "petcollar"
 	item_color = "petcollar"
 	var/tagname = null
+	var/obj/item/weapon/card/id/access_id
+
+/obj/item/clothing/accessory/petcollar/Destroy()
+	if(access_id)
+		qdel(access_id)
+		access_id = null
+	processing_objects -= src
+	return ..()
 
 /obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
-	tagname = copytext(sanitize(input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot") as null|text),1,MAX_NAME_LEN)
-	name = "[initial(name)] - [tagname]"
+	var/option = "Change Name"
+	if(access_id)
+		option = input(user, "What do you want to do?", "[src]", option) as null|anything in list("Change Name", "Remove ID")
+
+	switch(option)
+		if("Change Name")
+			var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
+			if(t)
+				tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
+				name = "[initial(name)] - [tagname]"
+		if("Remove ID")
+			if(access_id)
+				user.visible_message("<span class='warning'>[user] starts unclipping \the [access_id] from \the [src].</span>")
+				if(do_after(user, 50, target = user) && access_id)
+					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
+					access_id.forceMove(get_turf(user))
+					user.put_in_hands(access_id)
+					access_id = null
+
+/obj/item/clothing/accessory/petcollar/attackby(obj/item/weapon/card/id/W, mob/user, params)
+	if(!istype(W))
+		return ..()
+	if(access_id)
+		user << "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>"
+	user.drop_item()
+	W.forceMove(src)
+	access_id = W
+	user << "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>"
+
+/obj/item/clothing/accessory/petcollar/GetAccess()
+	return access_id ? access_id.GetAccess() : ..()
+
+/obj/item/clothing/accessory/petcollar/examine(mob/user)
+	..()
+	if(access_id)
+		user << "There is \icon[access_id] \a [access_id] clipped onto it."
+
+/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
+	if(istype(user))
+		processing_objects |= src
+
+/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
+	processing_objects -= src
+
+/obj/item/clothing/accessory/petcollar/process()
+	var/mob/living/simple_animal/M = loc
+	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
+	if(istype(M) && src == M.collar && M.stat != DEAD)
+		return
+
+	var/area/t = get_area(M)
+	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+	if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
+		//give the syndicats a bit of stealth
+		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
+	else
+		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
+	qdel(a)
+	processing_objects -= src
 
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !U.accessories.len)

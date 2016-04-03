@@ -317,7 +317,7 @@
 			occupantData["health"] = H.health
 			occupantData["maxHealth"] = H.maxHealth
 
-			occupantData["hasVirus"] = H.virus2.len
+			occupantData["hasVirus"] = H.viruses.len
 
 			occupantData["bruteLoss"] = H.getBruteLoss()
 			occupantData["oxyLoss"] = H.getOxyLoss()
@@ -389,6 +389,8 @@
 					organStatus["splinted"] = 1
 				if(E.status & ORGAN_BLEEDING)
 					organStatus["bleeding"] = 1
+				if(E.status & ORGAN_DEAD)
+					organStatus["dead"] = 1
 
 				organData["status"] = organStatus
 
@@ -405,7 +407,7 @@
 			occupantData["extOrgan"] = extOrganData
 
 			var/intOrganData[0]
-			for(var/obj/item/organ/I in H.internal_organs)
+			for(var/obj/item/organ/internal/I in H.internal_organs)
 				var/organData[0]
 				organData["name"] = I.name
 				organData["desc"] = I.desc
@@ -415,6 +417,7 @@
 				organData["bruised"] = I.min_broken_damage
 				organData["broken"] = I.min_bruised_damage
 				organData["robotic"] = I.robotic
+				organData["dead"] = (I.status & ORGAN_DEAD)
 
 				intOrganData.Add(list(organData))
 
@@ -447,6 +450,7 @@
 			printing = 1
 			visible_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>")
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
 			P.info += "<b>Time of scan:</b> [worldtime2text(world.time)]<br><br>"
 			P.info += "[printing_text]"
@@ -472,7 +476,7 @@
 					t1 = "*dead*"
 			dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
-			if(occupant.virus2.len)
+			if(occupant.viruses.len)
 				dat += "<font color='red'>Viral pathogen detected in blood stream.</font><BR>"
 
 			var/extra_font = null
@@ -589,7 +593,7 @@
 				else
 					dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
 				dat += "</tr>"
-			for(var/obj/item/organ/i in occupant.internal_organs)
+			for(var/obj/item/organ/internal/i in occupant.internal_organs)
 				var/mech = i.desc
 				var/infection = "None"
 				switch (i.germ_level)

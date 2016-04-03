@@ -19,12 +19,6 @@
 
 	action_icon_state = "skeleton"
 
-/obj/effect/proc_holder/spell/targeted/lichdom/New()
-	if(!config.continuous_rounds)
-		existence_stops_round_end = 1
-		config.continuous_rounds = 1
-	..()
-
 /obj/effect/proc_holder/spell/targeted/lichdom/Destroy()
 	for(var/datum/mind/M in ticker.mode.wizards) //Make sure no other bones are about
 		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
@@ -34,7 +28,11 @@
 		config.continuous_rounds = 0
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)	
+	if(!config.continuous_rounds)
+		existence_stops_round_end = 1
+		config.continuous_rounds = 1
+
 	for(var/mob/M in targets)
 		var/list/hand_items = list()
 		if(iscarbon(M))

@@ -71,6 +71,8 @@ proc/get_radio_key_from_channel(var/channel)
 	var/list/returns[3]
 	var/speech_problem_flag = 0
 
+
+
 	if((HULK in mutations) && health >= 25 && length(message))
 		message = "[uppertext(message)]!!!"
 		verb = pick("yells","roars","hollers")
@@ -91,6 +93,9 @@ proc/get_radio_key_from_channel(var/channel)
 	else if(COMIC in mutations)
 		message = "<span class='sans'>[message]</span>"
 
+	if(!IsVocal())
+		message = ""
+		speech_problem_flag = 1
 
 	returns[1] = message
 	returns[2] = verb
@@ -425,7 +430,9 @@ proc/get_radio_key_from_channel(var/channel)
 				speech_bubble_recipients.Add(M.client)
 
 	spawn(0)
-		flick_overlay(image('icons/mob/talk.dmi', src, "h[speech_bubble_test]",MOB_LAYER+1), speech_bubble_recipients, 30)
+		var/image/I = image('icons/mob/talk.dmi', src, "h[speech_bubble_test]", MOB_LAYER + 1)
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		flick_overlay(I, speech_bubble_recipients, 30)
 
 	if(watching.len)
 		var/rendered = "<span class='game say'><span class='name'>[src.name]</span> [not_heard].</span>"
@@ -436,4 +443,6 @@ proc/get_radio_key_from_channel(var/channel)
 	return 1
 
 /mob/living/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
-	flick_overlay(image('icons/mob/talk.dmi', bubble_loc, bubble_state,MOB_LAYER+1), bubble_recipients, 30)
+	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, MOB_LAYER + 1)
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	flick_overlay(I, bubble_recipients, 30)

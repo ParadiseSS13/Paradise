@@ -111,7 +111,7 @@
 	if(!. || !I)
 		return
 
-	var/obj/item/organ/O = I //Organs shouldn't be removed unless you call droplimb.
+	var/obj/item/organ/internal/O = I //Organs shouldn't be removed unless you call droplimb.
 	if(istype(O) && O.owner == src)
 		return
 

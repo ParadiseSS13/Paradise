@@ -110,11 +110,11 @@
 	if(!effect || (blocked >= 2))	return 0
 	switch(effecttype)
 		if(STUN)
-			stunned = max(stunned,(effect/(blocked+1)))
+			Stun(effect / (blocked + 1))
 		if(WEAKEN)
-			weakened = max(weakened,(effect/(blocked+1)))
+			Weaken(effect / (blocked + 1))
 		if(PARALYZE)
-			paralysis = max(paralysis,(effect/(blocked+1)))
+			Paralyse(effect / (blocked + 1))
 		if(IRRADIATE)
 			radiation += min((effect - (effect*getarmor(null, "rad"))), 0)//Rads auto check armor
 		if(STUTTER)
@@ -348,6 +348,9 @@
 
 /mob/living/silicon/adjustToxLoss(var/amount)
 	return
+
+/mob/living/silicon/get_access()
+	return IGNORE_ACCESS //silicons always have access
 
 /mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
 	if(affect_silicon)

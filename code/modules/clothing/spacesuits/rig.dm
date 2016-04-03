@@ -98,27 +98,28 @@
 
 	if(!istype(H)) return
 
-	if(H.wear_suit != src)
-		return
+	spawn(1)	//to ensure the slot is set before we continue
+		if(H.wear_suit != src)
+			return
 
-	if(attached_helmet && helmet)
-		if(H.head)
-			M << "You are unable to deploy your suit's helmet as \the [H.head] is in the way."
-		else
-			M << "Your suit's helmet deploys with a hiss."
-			//TODO: Species check, skull damage for forcing an unfitting helmet on?
-			helmet.forceMove(H)
-			H.equip_to_slot(helmet, slot_head)
-			helmet.flags |= NODROP
+		if(attached_helmet && helmet)
+			if(H.head)
+				M << "You are unable to deploy your suit's helmet as \the [H.head] is in the way."
+			else
+				M << "Your suit's helmet deploys with a hiss."
+				//TODO: Species check, skull damage for forcing an unfitting helmet on?
+				helmet.forceMove(H)
+				H.equip_to_slot(helmet, slot_head)
+				helmet.flags |= NODROP
 
-	if(attached_boots && boots)
-		if(H.shoes)
-			M << "You are unable to deploy your suit's magboots as \the [H.shoes] are in the way."
-		else
-			M << "Your suit's boots deploy with a hiss."
-			boots.forceMove(H)
-			H.equip_to_slot(boots, slot_shoes)
-			boots.flags |= NODROP
+		if(attached_boots && boots)
+			if(H.shoes)
+				M << "You are unable to deploy your suit's magboots as \the [H.shoes] are in the way."
+			else
+				M << "Your suit's boots deploy with a hiss."
+				boots.forceMove(H)
+				H.equip_to_slot(boots, slot_shoes)
+				boots.flags |= NODROP
 
 /obj/item/clothing/suit/space/rig/dropped()
 	..()

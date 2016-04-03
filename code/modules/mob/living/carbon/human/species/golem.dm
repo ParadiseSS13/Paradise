@@ -36,7 +36,7 @@
 	siemens_coeff = 0
 
 	has_organ = list(
-		"brain" = /obj/item/organ/brain/golem
+		"brain" = /obj/item/organ/internal/brain/golem
 		)
 	suicide_messages = list(
 		"is crumbling into dust!",

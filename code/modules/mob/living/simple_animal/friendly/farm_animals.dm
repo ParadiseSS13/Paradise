@@ -12,8 +12,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 4
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -26,6 +25,7 @@
 	melee_damage_upper = 2
 	stop_automated_movement_when_pulled = 1
 	var/milk_content = 0
+	can_collar = 1
 
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	..()
@@ -102,8 +102,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/slab = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -111,6 +110,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	var/milk_content = 0
+	can_collar = 1
 
 /mob/living/simple_animal/cow/New()
 	..()
@@ -166,8 +166,7 @@
 	density = 0
 	speak_chance = 2
 	turns_per_move = 2
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 1
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -178,6 +177,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	small = 1
 	can_hide = 1
+	can_collar = 1
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -208,8 +208,7 @@ var/global/chicken_count = 0
 	density = 0
 	speak_chance = 2
 	turns_per_move = 3
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 2
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 2)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -220,6 +219,7 @@ var/global/chicken_count = 0
 	pass_flags = PASSTABLE | PASSMOB
 	small = 1
 	can_hide = 1
+	can_collar = 1
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -290,13 +290,13 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/ham
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/ham = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	can_collar = 1
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
@@ -311,13 +311,13 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat //enough to make one turkey
-	meat_amount = 4
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "pecks"
 	health = 50
+	can_collar = 1
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -332,13 +332,13 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	can_collar = 1
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -353,13 +353,13 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	can_collar = 1
 
 /mob/living/simple_animal/walrus
 	name = "walrus"
@@ -374,10 +374,10 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	can_collar = 1

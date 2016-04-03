@@ -105,20 +105,24 @@
 				return
 
 	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/simple_animal/diona))
-		user << "\red You don't have the dexterity to do this!"
+		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return
 	if(istype(user, /mob/living))
 		var/mob/living/M = user
 		if (HULK in M.mutations)
-			M << "\red Your meaty finger is much too large for the trigger guard!"
+			M << "<span class='danger'>Your meaty finger is much too large for the trigger guard!</span>"
 			return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.species.name == "Golem")
-			user << "\red Your metal fingers don't fit in the trigger guard!"
+		if(H.get_species() == "Golem")
+			user << "<span class='danger'>Your metal fingers don't fit in the trigger guard!</span>"
 			return
-		if(user.dna && user.dna.species == "Shadowling")
+		if(H.get_species() == "Shadowling")
 			user << "<span class='danger'>The muzzle flash would cause damage to your form!</span>"
+			return
+		if(H.martial_art && H.martial_art.name == "The Sleeping Carp") //great dishonor to famiry
+			user << "<span class='danger'>Use of ranged weaponry would bring dishonor to the clan.</span>"
+			return
 
 	add_fingerprint(user)
 
@@ -296,7 +300,7 @@
 				user.death()
 			else
 				user << "<span class = 'notice'>Ow...</span>"
-				user.apply_effect(110,AGONY,0)
+				user.apply_effect(110,STAMINA,0)
 			del(in_chamber)
 			mouthshoot = 0
 			return

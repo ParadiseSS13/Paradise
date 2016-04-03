@@ -1,5 +1,3 @@
-/mob/living/silicon/ai/proc/IsVocal()
-
 var/announcing_vox = 0 // Stores the time of the last announcement
 var/const/VOX_CHANNEL = 200
 var/const/VOX_DELAY = 100

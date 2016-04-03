@@ -17,13 +17,13 @@
 					firstloc = get_step(my_atom, NORTH)
 					secondloc = get_step(firstloc,EAST)
 				if(SOUTH)
-					firstloc = get_step(my_atom, SOUTH)
+					firstloc = get_turf(my_atom)
 					secondloc = get_step(firstloc,EAST)
 				if(EAST)
 					firstloc = get_step(my_atom, EAST)
 					secondloc = get_step(firstloc,NORTH)
 				if(WEST)
-					firstloc = get_step(my_atom, WEST)
+					firstloc = get_turf(my_atom)
 					secondloc = get_step(firstloc,NORTH)
 		olddir = dir
 		var/proj_type = text2path(projectile_type)
@@ -48,6 +48,7 @@
 	var/obj/spacepod/my_atom
 	var/obj/item/device/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/device/spacepod_equipment/misc/misc_system // misc system
+	var/obj/item/device/spacepod_equipment/cargo/cargo_system // cargo system
 	//var/obj/item/device/spacepod_equipment/engine/engine_system // engine system
 	//var/obj/item/device/spacepod_equipment/shield/shield_system // shielding system
 
@@ -59,12 +60,16 @@
 /obj/item/device/spacepod_equipment
 	name = "equipment"
 	var/obj/spacepod/my_atom
+
+/obj/item/device/spacepod_equipment/proc/removed(var/mob/user) // So that you can unload cargo when you remove the module
+	return
+
 // base item for spacepod weapons
 
 /obj/item/device/spacepod_equipment/weaponry
 	name = "pod weapon"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/pods/ship.dmi'
+	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "blank"
 	var/projectile_type
 	var/shot_cost = 0
@@ -98,11 +103,39 @@
 	shot_cost = 600
 	fire_sound = 'sound/weapons/Laser.ogg'
 
+// MINING LASERS
+/obj/item/device/spacepod_equipment/weaponry/mining_laser_basic
+	name = "weak mining laser system"
+	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock"
+	icon_state = "pod_taser"
+	projectile_type = "/obj/item/projectile/kinetic"
+	shot_cost = 300
+	fire_delay = 14
+	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
+
+/obj/item/device/spacepod_equipment/weaponry/mining_laser
+	name = "mining laser system"
+	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock"
+	icon_state = "pod_m_laser"
+	projectile_type = "/obj/item/projectile/kinetic/super"
+	shot_cost = 250
+	fire_delay = 10
+	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
+
+/obj/item/device/spacepod_equipment/weaponry/mining_laser_hyper
+	name = "enhanced mining laser system"
+	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock"
+	icon_state = "pod_w_laser"
+	projectile_type = "/obj/item/projectile/kinetic/hyper"
+	shot_cost = 200
+	fire_delay = 8
+	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
+
 //base item for spacepod misc equipment (tracker)
 /obj/item/device/spacepod_equipment/misc
 	name = "pod misc"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/pods/ship.dmi'
+	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "blank"
 	var/enabled
 
@@ -122,3 +155,34 @@
 		user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
 	else
 		..()
+
+/obj/item/device/spacepod_equipment/cargo
+	name = "pod cargo"
+	desc = "You shouldn't be seeing this"
+	icon = 'icons/goonstation/pods/ship.dmi'
+	icon_state = "blank"
+
+/obj/item/device/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
+	return
+
+/obj/item/device/spacepod_equipment/cargo/proc/unload()
+	return
+
+/obj/item/device/spacepod_equipment/cargo/ore
+	name = "\improper spacepod ore storage system"
+	desc = "An ore storage system for spacepods. Scoops up any ore you drive over."
+	icon_state = "pod_locator"
+	var/obj/structure/ore_box/box
+
+/obj/item/device/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
+	if(box && istype(I,/obj/item/weapon/ore))
+		I.forceMove(box)
+
+/obj/item/device/spacepod_equipment/cargo/ore/unload()
+	if(box)
+		box.forceMove(get_turf(my_atom))
+		box = null
+
+/obj/item/device/spacepod_equipment/cargo/ore/removed(var/mob/user)
+	. = ..()
+	unload()

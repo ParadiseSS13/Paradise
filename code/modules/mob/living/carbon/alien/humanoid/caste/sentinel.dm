@@ -3,10 +3,7 @@
 	caste = "s"
 	maxHealth = 150
 	health = 150
-	storedPlasma = 100
-	max_plasma = 250
 	icon_state = "aliens_s"
-	plasma_rate = 10
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
@@ -45,7 +42,9 @@
 	if(name == "alien sentinel")
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
-	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/neurotoxin)
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel
+	internal_organs += new /obj/item/organ/internal/xenos/acidgland
+	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 /mob/living/carbon/alien/humanoid/sentinel/handle_regular_hud_updates()

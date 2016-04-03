@@ -199,12 +199,12 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)
 			H.equip_or_collect(new /obj/item/weapon/crowbar(H), slot_l_hand)
 			H.equip_or_collect(new /obj/item/weapon/storage/bag/ore(H), slot_l_store)
-			H.equip_or_collect(new /obj/item/weapon/reagent_containers/pill/patch/styptic(H), slot_r_store)
+			H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(H), slot_r_store)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/crowbar(H), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/storage/bag/ore(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/reagent_containers/pill/patch/styptic(H), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(H), slot_in_backpack)
 		return 1
 
 
@@ -282,11 +282,10 @@
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/toy/crayon/mime(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_in_backpack)
-		H.verbs += /client/proc/mimespeak
-		H.verbs += /client/proc/mimewall
-		H.mind.special_verbs += /client/proc/mimespeak
-		H.mind.special_verbs += /client/proc/mimewall
-		H.miming = 1
+		if(H.mind)
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
+			H.mind.miming = 1
 		return 1
 
 

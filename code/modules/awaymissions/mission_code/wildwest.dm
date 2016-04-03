@@ -157,7 +157,7 @@
 	layer = 3
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
-	var/triggerproc = "explode" //name of the proc thats called when the mine is triggered
+	var/triggerproc = "triggerrad1" //name of the proc thats called when the mine is triggered
 	var/triggered = 0
 
 /obj/effect/meatgrinder/New()
@@ -183,11 +183,6 @@
 		s.start()
 		explosion(mob, 1, 0, 0, 0)
 		qdel(src)
-
-/*/obj/effect/meatgrinder
-	name = "Meat Grinder"
-	icon_state = "blob"
-	triggerproc = "triggerrad1"*/
 
 
 /////For the Wishgranter///////////

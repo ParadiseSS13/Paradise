@@ -346,11 +346,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(record_found)//If they have a record we can determine a few things.
 		new_character.real_name = record_found.fields["name"]
-		new_character.gender = record_found.fields["sex"]
+		new_character.change_gender(record_found.fields["sex"])
 		new_character.age = record_found.fields["age"]
 		new_character.b_type = record_found.fields["b_type"]
 	else
-		new_character.gender = pick(MALE,FEMALE)
+		new_character.change_gender(pick(MALE,FEMALE))
 		var/datum/preferences/A = new()
 		A.real_name = G_found.real_name
 		A.copy_to(new_character)

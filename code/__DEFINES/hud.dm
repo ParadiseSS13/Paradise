@@ -14,7 +14,8 @@
 #define DIAG_HUD		"9" // Silicon health bar
 #define DIAG_BATT_HUD	"10"// Borg/Mech power meter
 #define DIAG_MECH_HUD	"11"// Mech health bar
-#define STATUS_HUD_OOC		"12" // STATUS_HUD without virus db check for someone being ill.
+#define STATUS_HUD_OOC	"12"// STATUS_HUD without virus db check for someone being ill.
+#define DIAG_BOT_HUD	"13"// Bot HUDS
 
 //for antag huds. these are used at the /mob level
 #define SPECIALROLE_HUD 		"13"
@@ -35,5 +36,8 @@
 #define ANTAG_HUD_OPS		9
 #define ANTAG_HUD_WIZ		10
 #define ANTAG_HUD_SHADOW    11
-#define ANTAG_HUD_SOLO	12
-
+#define ANTAG_HUD_TRAITOR 12
+#define ANTAG_HUD_NINJA 13 //For Daves Rework
+#define ANTAG_HUD_CHANGELING 14
+#define ANTAG_HUD_VAMPIRE 15
+#define ANTAG_HUD_ABDUCTOR 16 //For Fox

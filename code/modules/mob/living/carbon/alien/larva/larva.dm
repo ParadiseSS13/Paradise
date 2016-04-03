@@ -6,8 +6,6 @@
 
 	maxHealth = 30
 	health = 30
-	storedPlasma = 50
-	max_plasma = 50
 	density = 0
 
 	var/amount_grown = 0
@@ -25,6 +23,8 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
+
 	..()
 
 //This is fine, works the same as a human
@@ -64,8 +64,9 @@
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/adjustToxLoss(amount)
-	if(stat != DEAD)
+
+/mob/living/carbon/alien/larva/adjustPlasma(amount)
+	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
 
@@ -236,15 +237,6 @@
 
 
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
-
-	user.set_machine(src)
-	var/dat = {"
-	<B><HR><FONT size=3>[name]</FONT></B>
-	<BR><HR><BR>
-	<BR><A href='?src=\ref[user];mach_close=mob[name]'>Close</A>
-	<BR>"}
-	user << browse(dat, text("window=mob[name];size=340x480"))
-	onclose(user, "mob[name]")
 	return
 
 /* Commented out because it's duplicated in life.dm

@@ -32,10 +32,12 @@
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.
 	var/cold_level_3 = 120  // Cold damage level 3 below this point.
+	var/cold_env_multiplier = 1 // Damage multiplier for being in a cold environment
 
 	var/heat_level_1 = 360  // Heat damage level 1 above this point.
 	var/heat_level_2 = 400  // Heat damage level 2 above this point.
 	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
+	var/hot_env_multiplier = 1 // Damage multiplier for being in a hot environment
 	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
@@ -53,9 +55,6 @@
 	var/brute_mod = null    // Physical damage reduction/malus.
 	var/burn_mod = null     // Burn damage reduction/malus.
 
-	var/light_dam //Light level above which species takes damage, and below which it heals.
-	var/light_effect_amp //If 0, takes/heals 1 burn and brute per tick. Otherwise, both healing and damage effects are amplified.
-
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -64,6 +63,8 @@
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+
+	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
 	var/flags = 0       // Various specific features.
 	var/clothing_flags = 0 // Underwear and socks.
@@ -76,8 +77,6 @@
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
-	var/meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/human
-
 	var/base_color      //Used when setting species.
 
 	//Used in icon caching.
@@ -102,16 +101,19 @@
 	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
+	var/scream_verb = "screams"
+	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
+	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
 
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
-		"heart" =    /obj/item/organ/heart,
-		"lungs" =    /obj/item/organ/lungs,
-		"liver" =    /obj/item/organ/liver,
-		"kidneys" =  /obj/item/organ/kidneys,
-		"brain" =    /obj/item/organ/brain,
-		"appendix" = /obj/item/organ/appendix,
-		"eyes" =     /obj/item/organ/eyes
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes
 		)
 	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/list/has_limbs = list(
@@ -128,11 +130,12 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
 	var/cyborg_type = "Cyborg"
+	var/list/proc/species_abilities = list()
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
-		vision_organ = "eyes"
+		vision_organ = /obj/item/organ/internal/eyes
 
 	unarmed = new unarmed_type()
 
@@ -142,19 +145,21 @@
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 
+
+	for(var/obj/item/organ/internal/iorgan in H.internal_organs)
+		if(iorgan in H.internal_organs)
+			qdel(iorgan)
+
 	for(var/obj/item/organ/organ in H.contents)
-		if((organ in H.organs) || (organ in H.internal_organs))
+		if(organ in H.organs)
 			qdel(organ)
 
 	if(H.organs)                  H.organs.Cut()
-	if(H.internal_organs)         H.internal_organs.Cut()
 	if(H.organs_by_name)          H.organs_by_name.Cut()
-	if(H.internal_organs_by_name) H.internal_organs_by_name.Cut()
 
 	H.organs = list()
 	H.internal_organs = list()
 	H.organs_by_name = list()
-	H.internal_organs_by_name = list()
 
 	for(var/limb_type in has_limbs)
 		var/list/organ_data = has_limbs[limb_type]
@@ -162,9 +167,12 @@
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
-	for(var/organ in has_organ)
-		var/organ_type = has_organ[organ]
-		H.internal_organs_by_name[organ] = new organ_type(H,1)
+	for(var/index in has_organ)
+		var/organ = has_organ[index]
+		H.internal_organs |= new organ(H)
+
+	for(var/obj/item/organ/internal/I in H.internal_organs)
+		I.insert(H)
 
 	for(var/name in H.organs_by_name)
 		H.organs |= H.organs_by_name[name]
@@ -289,32 +297,63 @@
 
 		switch(breath.temperature)
 			if(-INFINITY to cold_level_3)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(cold_level_3 to cold_level_2)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(cold_level_2 to cold_level_1)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(heat_level_1 to heat_level_2)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 
 			if(heat_level_2 to heat_level_3_breathe)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 
 			if(heat_level_3_breathe to INFINITY)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
+	if(C.get_species() == "Monkey" || C.get_species() == "Farwa" || C.get_species() == "Stok" || C.get_species() == "Wolpin" || C.get_species() == "Neara")
+		C.butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5)
+	grant_abilities(C)
 	return
+
+/datum/species/proc/grant_abilities(var/mob/living/carbon/human/H)
+	for(var/proc/ability in species_abilities)
+		H.verbs += ability
+	return
+
+/datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
+	if(!H.get_species() == "Monkey" || !H.get_species() == "Farwa" || !H.get_species() == "Stok" || !H.get_species() == "Wolpin" || !H.get_species() == "Neara")
+		H.butcher_results = null
+	remove_abilities(H)
+	return
+
+/datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
+	for (var/proc/ability in species_abilities)
+		H.verbs -= ability
+	return
+
+// Do species-specific reagent handling here
+// Return 1 if it should do normal processing too
+// Return 0 if it shouldn't deplete and do its normal effect
+// Other return values will cause weird badness
+/datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	return 1
+
+// For special snowflake species effects
+// (Slime People changing color based on the reagents they consume)
+/datum/species/proc/handle_life(var/mob/living/carbon/human/H)
+	return 1
 
 /datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
@@ -390,13 +429,12 @@
 	H.see_invisible = SEE_INVISIBLE_LIVING
 
 	if(H.mind && H.mind.vampire)
-		if((VAMP_VISION in H.mind.vampire.powers) && (!(VAMP_FULL in H.mind.vampire.powers)))
-			H.sight |= SEE_MOBS
-
-		else if(VAMP_FULL in H.mind.vampire.powers)
+		if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark = 8
 			H.see_invisible = SEE_INVISIBLE_MINIMUM
+		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
+			H.sight |= SEE_MOBS
 
 
 	if(XRAY in H.mutations)
@@ -624,14 +662,8 @@
 Returns the path corresponding to the corresponding organ
 It'll return null if the organ doesn't correspond, so include null checks when using this!
 */
+//Fethas Todo:Do i need to redo this?
 /datum/species/proc/return_organ(var/organ_slot)
 	if(!(organ_slot in has_organ))
 		return null
 	return has_organ[organ_slot]
-
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
-/datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
-	return 1

@@ -19,13 +19,19 @@
 	if(!ishuman(user))
 		user << "\red You don't know how to use this!"
 		return
-	if(user:miming || user.silent)
-		user << "\red You find yourself unable to speak at all."
+	if(user.silent)
+		user << "<span class='warning'>You find yourself unable to speak at all.</span>"
 		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H && H.mind)
+			if(H.mind.miming)
+				user << "<span class='warning'>Your vow of silence prevents you from speaking.</span>"
+				return
 	if(spamcheck)
 		user << "\red \The [src] needs to recharge!"
 		return
-	
+
 	var/message = input(user, "Shout a message:", "Megaphone") as text|null
 	if(!message)
 		return

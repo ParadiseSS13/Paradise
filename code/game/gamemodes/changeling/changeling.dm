@@ -164,12 +164,12 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		update_change_icons_removed(changeling_mind)
 
 /datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
-	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
-	linghud.join_solo_hud(changeling.current)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
+	linghud.join_hud(changeling.current)
 	set_antag_hud(changeling.current, "hudchangeling")
 
 /datum/game_mode/proc/update_change_icons_removed(datum/mind/changeling)
-	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
 	linghud.leave_hud(changeling.current)
 	set_antag_hud(changeling.current, null)
 

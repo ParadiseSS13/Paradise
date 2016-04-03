@@ -34,8 +34,14 @@
 			if(H.species)
 				for(var/i in facial_hair_styles_list)
 					var/datum/sprite_accessory/facial_hair/tmp_facial = facial_hair_styles_list[i]
-					if(H.species.name in tmp_facial.species_allowed)
+					if(H.species.name in tmp_facial.species_allowed)  //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human hair styles.
 						species_facial_hair += i
+					else
+						if(H.species.flags & ALL_RPARTS)
+							if(("head" in H.client.prefs.rlimb_data) && ("Human" in tmp_facial.species_allowed))
+								species_facial_hair += i
+							else
+								return
 			else
 				species_facial_hair = facial_hair_styles_list
 		var/f_new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in species_facial_hair
@@ -44,17 +50,21 @@
 		if(H.species)
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
-				if(H.species.name in tmp_hair.species_allowed)
+				if(H.species.name in tmp_hair.species_allowed) //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human facial hair styles.
+					if((H.species.flags & ALL_RPARTS) && !("head" in H.client.prefs.rlimb_data))
+						return
 					species_hair += i
+				else
+					if(H.species.flags & ALL_RPARTS)
+						if(("head" in H.client.prefs.rlimb_data) && ("Human" in tmp_hair.species_allowed))
+							species_facial_hair += i
+						else
+							return
 		else
 			species_hair = hair_styles_list
 		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in species_hair
 		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
-		playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
-		spawn(5)
-			playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
-		spawn(10)
-			playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
+		playsound(loc, "sound/goonstation/misc/Scissor.ogg", 100, 1)
 		if(do_after(user, 50, target = H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)
 			if(!(M in view(1))) //Adjacency test
 				user.visible_message("<span class='notice'>[user] stops cutting [M]'s hair.</span>", "<span class='notice'>You stop cutting [M]'s hair.</span>")

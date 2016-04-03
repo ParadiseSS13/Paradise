@@ -26,6 +26,7 @@
 	linked_account = station_account
 
 /obj/item/device/eftpos/proc/print_reference()
+	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/R = new(src.loc)
 	R.name = "Reference: [eftpos_name]"
 

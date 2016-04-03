@@ -136,8 +136,8 @@
 				newtraitor << "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate..."
 				newtraitor << "<B>You are now a traitor.</B>"
 				newtraitor.mind.special_role = "traitor"
-				var/datum/atom_hud/antag/tatorhud = huds[SPECIALROLE_HUD]
-				tatorhud.join_solo_hud(newtraitor)
+				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
+				tatorhud.join_hud(newtraitor)
 				set_antag_hud(src, "hudsyndicate")
 
 				var/obj_count = 1
