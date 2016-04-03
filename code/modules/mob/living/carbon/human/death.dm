@@ -129,7 +129,6 @@
 
 	if(!gibbed)
 		update_canmove()
-		if(client) blind.layer = 0
 
 	timeofdeath = worldtime2text()
 	med_hud_set_health()

@@ -89,9 +89,8 @@
 
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 
-			for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
-				if(M:eyecheck() <= 0)
-					flick("e_flash", M.flash)
+			for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
+				C.flash_eyes()
 
 			for(var/i = 1, i <= 5, i++)
 				var/chosen = pick(critters)
@@ -127,9 +126,8 @@
 
 				playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 
-				for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
-					if(M:eyecheck() <= 0)
-						flick("e_flash", M.flash)
+				for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
+					C.flash_eyes()
 
 				var/chosen = pick(critters)
 				var/mob/living/simple_animal/hostile/C = new chosen
@@ -153,9 +151,8 @@
 
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 
-			for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
-				if(M:eyecheck() <= 0)
-					flick("e_flash", M.flash)
+			for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
+				C.flash_eyes()
 
 			for(var/i = 1, i <= 4 + rand(1,2), i++)
 				var/chosen = pick(borks)
@@ -181,9 +178,8 @@
 
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 
-			for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
-				if(M:eyecheck() <= 0)
-					flick("e_flash", M.flash)
+			for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
+				C.flash_eyes()
 
 			for(var/i = 1, i <= 4 + rand(1,2), i++)
 				var/chosen = pick(borks)

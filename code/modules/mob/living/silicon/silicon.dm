@@ -73,7 +73,7 @@
 		if(2)
 			src.take_organ_damage(10)
 			Stun(3)
-	flick("noise", src:flash)
+	flash_eyes(affect_silicon = 1)
 	src << "\red <B>*BZZZT*</B>"
 	src << "\red Warning: Electromagnetic pulse detected."
 	..()
@@ -351,3 +351,7 @@
 
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
+
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
+	if(affect_silicon)
+		return ..()
