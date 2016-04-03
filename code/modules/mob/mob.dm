@@ -993,8 +993,6 @@ var/list/slot_equipment_priority = list( \
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
-	var/obj/docking_port/mobile/emergency/E = shuttle_master.emergency
-
 	var/ETA = shuttle_master.emergency.getModeStr()
 	if(ETA)
 		stat(null, "[ETA] [shuttle_master.emergency.getTimerStr()]")
