@@ -15,5 +15,5 @@
 
 
 
-/datum/event/meteor_wave/end()
+/datum/event/meteor_wave/goreops/end()
 	command_announcement.Announce("All MeteorOps are dead. Major Station Victory.", "MeteorOps")
