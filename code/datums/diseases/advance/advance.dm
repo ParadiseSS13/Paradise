@@ -182,7 +182,7 @@ var/list/advance_cures = 	list(
 		CRASH("We did not have any symptoms before generating properties.")
 		return
 
-	var/list/properties = list("resistance" = 1, "stealth" = 1, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
 
 	for(var/datum/symptom/S in symptoms)
 
@@ -199,7 +199,7 @@ var/list/advance_cures = 	list(
 
 	if(properties && properties.len)
 		switch(properties["stealth"])
-			if(2 to 3)
+			if(2)
 				visibility_flags = HIDDEN_SCANNER
 			if(3 to INFINITY)
 				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
