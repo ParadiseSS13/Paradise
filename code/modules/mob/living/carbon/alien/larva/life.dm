@@ -19,14 +19,14 @@
 		blinded = 1
 		silent = 0
 	else				//ALIVE. LIGHTS ARE ON
-		if(health < -25 || brain_op_stage == 4.0)
+		if(health <= -maxHealth|| brain_op_stage == 4.0)
 			death()
 			blinded = 1
 			silent = 0
 			return 1
 
 		//UNCONSCIOUS. NO-ONE IS HOME
-		if( (getOxyLoss() > 25) || (config.health_threshold_crit >= health) )
+		if( (getOxyLoss() > 25) || (MOB_THRESHOLD_CRIT >= health) )
 			//if( health <= 20 && prob(1) )
 			//	spawn(0)
 			//		emote("gasp")
