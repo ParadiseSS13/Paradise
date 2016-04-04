@@ -174,9 +174,9 @@ var/list/chemical_mob_spawn_nicecritters = list() // and possible friendly mobs
 			for(var/T in typesof(/mob/living/simple_animal))
 				var/mob/living/simple_animal/SA = T
 				switch(initial(SA.gold_core_spawnable))
-					if(1)
+					if(CHEM_MOB_SPAWN_HOSTILE)
 						chemical_mob_spawn_meancritters += T
-					if(2)
+					if(CHEM_MOB_SPAWN_FRIENDLY)
 						chemical_mob_spawn_nicecritters += T
 		var/atom/A = holder.my_atom
 		var/turf/T = get_turf(A)
