@@ -22,7 +22,7 @@
 	var/obj/item/inventory_mask
 	can_hide = 1
 	can_collar = 1
-	gold_core_spawnable = 2
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement
@@ -47,7 +47,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
-	gold_core_spawnable = 0
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 //LOOK AT THIS - ..()??
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob, params)

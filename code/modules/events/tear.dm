@@ -44,7 +44,7 @@
 		var/list/tear_critters = list()
 		for(var/T in typesof(/mob/living/simple_animal))
 			var/mob/living/simple_animal/SA = T
-			if(initial(SA.gold_core_spawnable) == 1)
+			if(initial(SA.gold_core_spawnable) == CHEM_MOB_SPAWN_HOSTILE)
 				tear_critters += T
 
 		for(var/i in 1 to 5)

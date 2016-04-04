@@ -15,4 +15,4 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 	can_collar = 1
-	gold_core_spawnable = 2
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY

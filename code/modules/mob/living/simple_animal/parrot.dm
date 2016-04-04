@@ -82,7 +82,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
-	gold_core_spawnable = 2
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 
 /mob/living/simple_animal/parrot/New()
@@ -683,7 +683,7 @@
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	speak = list("Poly wanna cracker!", ":eCheck the singlo, you chucklefucks!",":eCheck the tesla, you shits!",":eSTOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",":eWire the solars, you lazy bums!",":eWHO TOOK THE DAMN HARDSUITS?",":eOH GOD ITS FREE CALL THE SHUTTLE")
-	gold_core_spawnable = 0
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/parrot/Poly/New()
 	ears = new /obj/item/device/radio/headset/headset_eng(src)

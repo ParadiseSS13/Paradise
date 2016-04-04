@@ -13,5 +13,5 @@
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
-	gold_core_spawnable = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 

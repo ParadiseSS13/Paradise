@@ -29,7 +29,7 @@
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
 	heat_damage_per_tick = 20
-	gold_core_spawnable = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 
 /mob/living/simple_animal/hostile/alien/drone
@@ -128,7 +128,7 @@
 	move_to_delay = 4
 	maxHealth = 400
 	health = 400
-	gold_core_spawnable = 0
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /obj/item/projectile/neurotox
 	name = "neurotoxin"
@@ -153,7 +153,7 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
-	gold_core_spawnable = 0 //no fun allowed
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //no fun allowed
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(istype(target, /atom/movable))

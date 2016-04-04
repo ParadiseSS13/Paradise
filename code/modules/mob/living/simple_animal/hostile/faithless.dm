@@ -25,7 +25,7 @@
 	speed = 4
 
 	faction = list("faithless")
-	gold_core_spawnable = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/movement_dir = 0)
 	return 1
