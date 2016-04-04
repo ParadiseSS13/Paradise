@@ -132,6 +132,13 @@
 			radio_config["[radio_channel]"] = 1
 	Radio.config(radio_config)
 
+	add_language("Galactic Common", 1)
+	add_language("Sol Common", 1)
+	add_language("Tradeband", 1)
+	add_language("Gutter", 1)
+	add_language("Trinary", 1)
+	default_language = all_languages["Galactic Common"]
+
 	bot_core = new bot_core_type(src)
 	spawn(30)
 		if(radio_controller && bot_filter)
