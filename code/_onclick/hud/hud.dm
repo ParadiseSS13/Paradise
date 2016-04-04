@@ -178,6 +178,11 @@ var/area/global_space_area = null
 	var/atom/posobj = get_turf(mymob)
 	for(var/obj/screen/spessbg/bgobj in mymob.client.spessbg)
 		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-posobj.x],CENTER-7:[bgobj.offset_y-posobj.y]"
+		var/area/A = posobj.loc 
+		if(A.parallax_icon_state)
+			bgobj.icon_state = A.parallax_icon_state
+		else
+			bgobj.icon_state = "spess"
 
 /mob/Move(atom/newloc, direct = 0)
 	. = ..()

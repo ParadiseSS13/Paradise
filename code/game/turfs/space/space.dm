@@ -28,9 +28,9 @@
 			A.white_overlay.plane = SPACE_WHITE_PLANE
 			for(var/client/C in parallax_on_clients)
 				C.images |= A.white_overlay
-
+	
+	plane = SPACE_TURF_PLANE
 	if(!istype(src, /turf/space/transit))
-		plane = SPACE_TURF_PLANE
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()
 

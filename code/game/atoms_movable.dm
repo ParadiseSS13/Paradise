@@ -89,7 +89,7 @@
 			if(loc == newloc) //Remove this check and people can accelerate. Not opening that can of worms just yet.
 				newtonian_move(last_move)
 
-	for(var/mob/M in contents)
+	for(var/mob/M in GetAllContents())
 		if(M.hud_used)
 			M.hud_used.update_parallax()
 
@@ -133,6 +133,12 @@
 
 	for(var/datum/light_source/L in light_sources)
 		L.source_atom.update_light()
+	
+	for(var/mob/M in GetAllContents()) // Update parallax of contents
+		if(M.hud_used)
+			M.hud_used.update_parallax()
+	if(ismob(src) && src:hud_used)
+		src:hud_used.update_parallax()
 
 	return 1
 

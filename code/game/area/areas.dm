@@ -12,7 +12,7 @@
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
 	var/image/white_overlay
-
+	var/parallax_icon_state = "spess"
 
 /area/New()
 	icon_state = ""

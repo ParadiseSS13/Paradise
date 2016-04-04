@@ -135,6 +135,7 @@
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
+	var/parallax_icon_state = "spess"
 
 /obj/docking_port/stationary/register()
 	if(!shuttle_master)
@@ -165,6 +166,7 @@
 /obj/docking_port/stationary/transit
 	name = "In Transit"
 	turf_type = /turf/space/transit
+	parallax_icon_state = "speedspess_ns"
 
 /obj/docking_port/stationary/transit/register()
 	if(!..())
@@ -383,6 +385,9 @@
 		if(istype(T1, /turf/simulated))
 			var/turf/simulated/Ts1 = T1
 			Ts1.copy_air_with_tile(T0)
+		
+		// Update parallax
+		areaInstance.parallax_icon_state = S1.parallax_icon_state
 
 		//move mobile to new location
 
