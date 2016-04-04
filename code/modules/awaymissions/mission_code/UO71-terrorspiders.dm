@@ -9,30 +9,41 @@
 /area/awaymission/UO71/plaza
 	name = "UO71 Plaza"
 	icon_state = "awaycontent1"
+	fire = 1
 
 /area/awaymission/UO71/centralhall
 	name = "UO71 Central"
 	icon_state = "awaycontent2"
+	fire = 1
 
 /area/awaymission/UO71/eng
 	name = "UO71 Engineering"
 	icon_state = "awaycontent3"
+	fire = 1
 
 /area/awaymission/UO71/mining
 	name = "UO71 Mining"
 	icon_state = "awaycontent4"
+	fire = 1
 
 /area/awaymission/UO71/science
 	name = "UO71 Science"
 	icon_state = "awaycontent5"
+	fire = 1
+
+/area/awaymission/UO71/medical
+	name = "UO71 Medical"
+	icon_state = "awaycontent6"
+	fire = 1
 
 /area/awaymission/UO71/gateway
 	name = "UO71 Gateway"
-	icon_state = "awaycontent6"
+	icon_state = "awaycontent7"
+	fire = 1
 
 /area/awaymission/UO71/outside
 	name = "UO71 Outside"
-	icon_state = "awaycontent7"
+	icon_state = "awaycontent8"
 
 /area/awaymission/UO71/bridge
 	name = "UO71 Bridge"
@@ -46,9 +57,17 @@
 	requires_power = 0
 	tele_proof = 1
 
-/area/awaymission/UO71/vault
-	name = "UO71 Containment"
+/area/awaymission/UO71/prince
+	name = "UO71 Prince Containment"
 	icon_state = "awaycontent10"
+	fire = 1
+	requires_power = 0
+	tele_proof = 1
+
+/area/awaymission/UO71/mother
+	name = "UO71 Mother Containment"
+	icon_state = "awaycontent10"
+	fire = 1
 	requires_power = 0
 	tele_proof = 1
 
@@ -147,6 +166,16 @@
 	I am no scientist, but without that thing we're locked out of the bridge. Everyone else evacuated already.<br>\
 	We need to get out, and we need to get out now. Find it. Kill the thing and recover the ID.<br>\
 	It is the only way we are getting home.<br>\
+	"
+
+/obj/item/weapon/paper/terrorspiders8
+	name = "paper= 'Last Words'"
+	info = "<b>The Last Words of Nurse Barnes</b><br>\
+	<br>\
+	It is too much. First Phil, then those damn spiders bite Mary too. Heaven help us. <br>\
+	I'll be evacuating as soon as I've grabbed my supplies. I had to pay for those myself. Stupid budget cuts. <br>\
+	The new world they've found for us isn't that hospitable, but at least there are no deadly spid---<br>\
+	(the writing trails off, as if the writer was interrupted)<br>\
 	"
 
 /obj/item/weapon/card/id/away01
