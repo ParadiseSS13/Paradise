@@ -33,6 +33,7 @@
 	var/harmbaton = 0 //If true, beat instead of stun
 	var/flashing_lights = 0 //If true, flash lights
 	var/prev_flashing_lights = 0
+	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
@@ -40,7 +41,6 @@
 	idcheck = 0
 	weaponscheck = 0
 	auto_patrol = 1
-	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/turf/Tsec = get_turf(src)
@@ -54,7 +54,6 @@
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	radio_channel = "AI Private"
-	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
@@ -62,7 +61,6 @@
 	idcheck = 0
 	weaponscheck = 1
 	auto_patrol = 1
-	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
