@@ -33,6 +33,7 @@
 
 	faction = list("carp")
 	flying = 1
+	gold_core_spawnable = 1
 
 /mob/living/simple_animal/hostile/carp/Process_Spacemove(var/movement_dir = 0)
 	return 1	//No drifting in space for space carp!	//original comments do not steal
@@ -53,6 +54,7 @@
 	icon_state = "holocarp"
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
+	gold_core_spawnable = 0
 
 /mob/living/simple_animal/hostile/carp/holocarp/death()
 	..()

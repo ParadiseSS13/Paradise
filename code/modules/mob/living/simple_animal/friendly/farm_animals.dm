@@ -111,6 +111,7 @@
 	health = 50
 	var/milk_content = 0
 	can_collar = 1
+	gold_core_spawnable = 2
 
 /mob/living/simple_animal/cow/New()
 	..()
@@ -178,6 +179,7 @@
 	small = 1
 	can_hide = 1
 	can_collar = 1
+	gold_core_spawnable = 2
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -220,6 +222,7 @@ var/global/chicken_count = 0
 	small = 1
 	can_hide = 1
 	can_collar = 1
+	gold_core_spawnable = 2
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -297,6 +300,7 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = 2
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
@@ -318,6 +322,7 @@ var/global/chicken_count = 0
 	attacktext = "pecks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = 2
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -339,6 +344,7 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = 2
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -360,6 +366,7 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = 2
 
 /mob/living/simple_animal/walrus
 	name = "walrus"
@@ -381,3 +388,4 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = 2

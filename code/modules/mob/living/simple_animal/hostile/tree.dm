@@ -28,6 +28,7 @@
 	minbodytemp = 0
 
 	faction = list("hostile", "winter")
+	gold_core_spawnable = 1
 
 /mob/living/simple_animal/hostile/tree/FindTarget()
 	. = ..()

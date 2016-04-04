@@ -17,6 +17,7 @@
 	speak = list("Hruuugh!","Hrunnph")
 	emote_see = list("paws the ground","shakes its mane","stomps")
 	emote_hear = list("snuffles")
+	gold_core_spawnable = 1
 
 /mob/living/simple_animal/hostile/diyaab
 	name = "diyaab"
@@ -37,6 +38,7 @@
 	speak = list("Awrr?","Aowrl!","Worrl")
 	emote_see = list("sniffs the air cautiously","looks around")
 	emote_hear = list("snuffles")
+	gold_core_spawnable = 1
 
 /mob/living/simple_animal/hostile/shantak
 	name = "shantak"
@@ -56,6 +58,7 @@
 	speak_chance = 5
 	speak = list("Shuhn","Shrunnph?","Shunpf")
 	emote_see = list("scratches the ground","shakes out it's mane","tinkles gently")
+	gold_core_spawnable = 1
 
 /mob/living/simple_animal/yithian
 	name = "yithian"
@@ -63,6 +66,7 @@
 	icon_state = "yithian"
 	icon_living = "yithian"
 	icon_dead = "yithian_dead"
+	gold_core_spawnable = 2
 
 /mob/living/simple_animal/tindalos
 	name = "tindalos"
@@ -70,3 +74,4 @@
 	icon_state = "tindalos"
 	icon_living = "tindalos"
 	icon_dead = "tindalos_dead"
+	gold_core_spawnable = 2

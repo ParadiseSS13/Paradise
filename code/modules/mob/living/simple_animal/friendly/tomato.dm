@@ -15,3 +15,4 @@
 	harm_intent_damage = 5
 	pass_flags = PASSTABLE
 	can_hide = 1
+	gold_core_spawnable = 2

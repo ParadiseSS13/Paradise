@@ -29,6 +29,7 @@
 
 	faction = list("scarybat")
 	var/mob/living/owner
+	gold_core_spawnable = 1
 
 /mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)
 	..()

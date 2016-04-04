@@ -17,11 +17,13 @@
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
+	gold_core_spawnable = 2
 
 //Captain fox
 /mob/living/simple_animal/pet/fox/Renault
 	name = "Renault"
 	desc = "Renault, the Captain's trustworthy fox. I wonder what it says?"
+	gold_core_spawnable = 0
 
 //Syndi fox
 /mob/living/simple_animal/pet/fox/Syndifox
@@ -33,3 +35,4 @@
 	icon_resting = "Syndifox_rest"
 	flags = NO_BREATHE
 	faction = list("syndicate")
+	gold_core_spawnable = 0

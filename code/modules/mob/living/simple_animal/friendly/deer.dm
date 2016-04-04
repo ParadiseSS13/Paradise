@@ -15,3 +15,4 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 	can_collar = 1
+	gold_core_spawnable = 2

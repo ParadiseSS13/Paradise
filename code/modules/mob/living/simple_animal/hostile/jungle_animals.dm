@@ -30,6 +30,7 @@
 
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
 	var/stalk_tick_delay = 3
+	gold_core_spawnable = 1
 
 /mob/living/simple_animal/hostile/panther/ListTargets()
 	var/list/targets = list()
@@ -87,6 +88,7 @@
 
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
 	var/stalk_tick_delay = 3
+	gold_core_spawnable = 1
 
 /mob/living/simple_animal/hostile/snake/ListTargets()
 	var/list/targets = list()
