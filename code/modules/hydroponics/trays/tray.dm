@@ -49,6 +49,8 @@
 
 	var/last_plant_ikey		//This is for debugging reference, and is otherwise useless. --FalseIncarnate
 
+	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpolinate one plant
+
 /*
 *	process() can be found in \code\modules\hydroponics\tray\tray_process.dm
 *	reagent handling can be found in \code\modules\hydroponics\tray\tray_reagents.dm
@@ -163,8 +165,7 @@
 		return
 
 	if(closed_system)
-		if(user)
-			to_chat(user, "You can't harvest from the plant while the lid is shut.")
+		if(user) user << "You can't harvest from the plant while the lid is shut."
 		return
 
 	if(user)
@@ -197,7 +198,7 @@
 	if(!user || !dead) return
 
 	if(closed_system)
-		to_chat(user, "You can't remove the dead plant while the lid is shut.")
+		user << "You can't remove the dead plant while the lid is shut."
 		return
 
 	seed = null
@@ -209,7 +210,7 @@
 	yield_mod = 0
 	mutation_mod = 0
 
-	to_chat(user, "You remove the dead plant.")
+	user << "You remove the dead plant."
 	check_health()
 	return
 
@@ -337,11 +338,11 @@
 	set src in view(1)
 
 	if(labelled)
-		to_chat(usr, "You remove the label.")
+		usr << "You remove the label."
 		labelled = null
 		update_icon()
 	else
-		to_chat(usr, "There is no label to remove.")
+		usr << "There is no label to remove."
 	return
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/setlight()
@@ -352,7 +353,7 @@
 	var/new_light = input("Specify a light level.") as null|anything in list(0,1,2,3,4,5,6,7,8,9,10)
 	if(new_light)
 		tray_light = new_light
-		to_chat(usr, "You set the tray to a light level of [tray_light] lumens.")
+		usr << "You set the tray to a light level of [tray_light] lumens."
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/check_level_sanity()
 	//Make sure various values are sane.
@@ -399,7 +400,7 @@
 
 	if(istype(O, /obj/item/weapon/crowbar))
 		if(anchored==2)
-			to_chat(user, "Unscrew the hoses first!")
+			user << "Unscrew the hoses first!"
 			return
 		default_deconstruction_crowbar(O, 1)
 
@@ -411,11 +412,11 @@
 			var/obj/item/weapon/reagent_containers/glass/C = O
 			//Check if container is empty
 			if(!C.reagents.total_volume)
-				to_chat(user, "\red [C] is empty.")
+				user << "\red [C] is empty."
 				return
 			//Container not empty, transfer contents to tray
 			var/trans = C.reagents.trans_to(src, C.amount_per_transfer_from_this)
-			to_chat(user, "\blue You transfer [trans] units of the solution to [src].")
+			user << "\blue You transfer [trans] units of the solution to [src]."
 
 			check_level_sanity()
 			process_reagents()
@@ -428,7 +429,7 @@
 			toxins += P.toxicity
 			pestlevel -= P.pest_kill_str
 			weedlevel -= P.weed_kill_str
-			to_chat(user, "You spray [src] with [O].")
+			user << "You spray [src] with [O]."
 			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 			qdel(O)
 
@@ -441,7 +442,7 @@
 			user.drop_item(O)
 			toxins += W.toxicity
 			weedlevel -= W.weed_kill_str
-			to_chat(user, "You spray [src] with [O].")
+			user << "You spray [src] with [O]."
 			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 			qdel(O)
 
@@ -454,7 +455,7 @@
 			//Check if there is a plant in the tray
 			if(seed)
 				if(!S.reagents.total_volume)
-					to_chat(user, "\red [S] is empty.")
+					user << "\red [S] is empty."
 					return
 				//Container not empty, transfer contents to tray
 				S.reagents.trans_to(src, S.amount_per_transfer_from_this)
@@ -463,20 +464,20 @@
 				check_level_sanity()
 				update_icon()
 			else
-				to_chat(user, "There's nothing in [src] to spray!")
+				user << "There's nothing in [src] to spray!"
 
 		else if(istype(O, /obj/item/weapon/screwdriver) && unwrenchable) //THIS NEED TO BE DONE DIFFERENTLY, SOMEONE REFACTOR THE TRAY CODE ALREADY
 			if(anchored)
 				if(anchored == 2)
 					playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 					anchored = 1
-					to_chat(user, "You unscrew the [src]'s hoses.")
+					user << "You unscrew the [src]'s hoses."
 					panel_open = 0
 
 				else if(anchored == 1)
 					playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 					anchored = 2
-					to_chat(user, "You screw in the [src]'s hoses.")
+					user << "You screw in the [src]'s hoses."
 					panel_open = 1
 
 				for(var/obj/machinery/portable_atmospherics/hydroponics/h in range(1,src))
@@ -486,15 +487,15 @@
 	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))
 
 		if(!seed)
-			to_chat(user, "There is nothing to take a sample from in \the [src].")
+			user << "There is nothing to take a sample from in \the [src]."
 			return
 
 		if(sampled)
-			to_chat(user, "You have already sampled from this plant.")
+			user << "You have already sampled from this plant."
 			return
 
 		if(dead)
-			to_chat(user, "The plant is dead.")
+			user << "The plant is dead."
 			return
 
 		// Create a sample.
@@ -519,14 +520,14 @@
 			if(seed)
 				return ..()
 			else
-				to_chat(user, "There's no plant to inject.")
+				user << "There's no plant to inject."
 				return 1
 		else
 			if(seed)
 				//Leaving this in in case we want to extract from plants later.
-				to_chat(user, "You can't get any extract out of this plant.")
+				user << "You can't get any extract out of this plant."
 			else
-				to_chat(user, "There's nothing to draw something from.")
+				user << "There's nothing to draw something from."
 			return 1
 
 	else if (istype(O, /obj/item/seeds))
@@ -537,11 +538,11 @@
 			user.drop_item(O)
 
 			if(!S.seed)
-				to_chat(user, "The packet seems to be empty. You throw it away.")
+				user << "The packet seems to be empty. You throw it away."
 				qdel(O)
 				return
 
-			to_chat(user, "You plant the [S.seed.seed_name] [S.seed.seed_noun].")
+			user << "You plant the [S.seed.seed_name] [S.seed.seed_noun]."
 			seed = S.seed //Grab the seed datum.
 			dead = 0
 			age = 1
@@ -555,7 +556,7 @@
 			check_health()
 
 		else
-			to_chat(user, "<span class='danger'>\The [src] already has seeds in it!</span>")
+			user << "<span class='danger'>\The [src] already has seeds in it!</span>"
 
 	else if (istype(O, /obj/item/weapon/minihoe))  // The minihoe
 
@@ -564,7 +565,7 @@
 			weedlevel = 0
 			update_icon()
 		else
-			to_chat(user, "<span class='danger'>This plot is completely devoid of weeds. It doesn't need uprooting.</span>")
+			user << "<span class='danger'>This plot is completely devoid of weeds. It doesn't need uprooting.</span>"
 
 	else if (istype(O, /obj/item/weapon/storage/bag/plants))
 
@@ -584,24 +585,11 @@
 
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
-		to_chat(user, "You [anchored ? "wrench" : "unwrench"] \the [src].")
+		user << "You [anchored ? "wrench" : "unwrench"] \the [src]."
 
-	else if(istype(O, /obj/item/apiary))
-
-		if(seed)
-			to_chat(user, "<span class='danger'>[src] is already occupied!</span>")
-		else
-			user.drop_item()
-			qdel(O)
-
-			var/obj/machinery/apiary/A = new(src.loc)
-			A.icon = src.icon
-			A.icon_state = src.icon_state
-			A.hydrotray_type = src.type
-			qdel(src)
 	else if ((istype(O, /obj/item/weapon/tank) && !( src.destroyed )))
 		if (src.holding)
-			to_chat(user, "\blue There is alreadu a tank loaded into the [src].")
+			user << "\blue There is alreadu a tank loaded into the [src]."
 			return
 		var/obj/item/weapon/tank/T = O
 		user.drop_item()
@@ -636,26 +624,26 @@
 	..(user)
 
 	if(!seed)
-		to_chat(user, "[src] is empty.")
+		user << "[src] is empty."
 		return
 
-	to_chat(user, "<span class='notice'>[seed.display_name]</span> are growing here.</span>")
+	user << "<span class='notice'>[seed.display_name]</span> are growing here.</span>"
 
 	if(!Adjacent(user))
 		return
 
-	to_chat(user, "Water: [round(waterlevel,0.1)]/[maxwater]")
-	to_chat(user, "Nutrient: [round(nutrilevel,0.1)]/[maxnutri]")
+	user << "Water: [round(waterlevel,0.1)]/[maxwater]"
+	user << "Nutrient: [round(nutrilevel,0.1)]/[maxnutri]"
 
 	if(weedlevel >= 5)
-		to_chat(user, "\The [src] is <span class='danger'>infested with weeds</span>!")
+		user << "\The [src] is <span class='danger'>infested with weeds</span>!"
 	if(pestlevel >= 5)
-		to_chat(user, "\The [src] is <span class='danger'>infested with tiny worms</span>!")
+		user << "\The [src] is <span class='danger'>infested with tiny worms</span>!"
 
 	if(dead)
-		to_chat(user, "<span class='danger'>The plant is dead.</span>")
+		user << "<span class='danger'>The plant is dead.</span>"
 	else if(health <= (seed.get_trait(TRAIT_ENDURANCE)/ 2))
-		to_chat(user, "The plant looks <span class='danger'>unhealthy</span>.")
+		user << "The plant looks <span class='danger'>unhealthy</span>."
 
 	if(mechanical)
 		var/turf/T = loc
@@ -683,7 +671,7 @@
 				light_available =  5
 			light_string = "a light level of [light_available] lumens"
 
-		to_chat(user, "The tray's sensor suite is reporting [light_string] and a temperature of [environment.temperature]K.")
+		user << "The tray's sensor suite is reporting [light_string] and a temperature of [environment.temperature]K."
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid_verb()
 	set name = "Toggle Tray Lid"
@@ -696,7 +684,7 @@
 		return
 
 	closed_system = !closed_system
-	to_chat(user, "You [closed_system ? "close" : "open"] the tray's lid.")
+	user << "You [closed_system ? "close" : "open"] the tray's lid."
 	update_icon()
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/eject_tank_verb()
@@ -710,9 +698,9 @@
 		return
 
 	if(!holding)
-		to_chat(usr, "\red There is no tank loaded into [src] to eject.")
+		usr << "\red There is no tank loaded into [src] to eject."
 
 	if(istype(holding, /obj/item/weapon/tank))
-		to_chat(usr, "\blue You eject [holding.name] from [src].")
+		usr << "\blue You eject [holding.name] from [src]."
 		holding.loc = loc
 		holding = null

@@ -1062,28 +1062,26 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 15
 	containername = "exotic seeds crate"
 
-/datum/supply_packs/organic/bee_keeper
-	name = "Beekeeping Crate"
-	contains = list(/obj/item/beezeez,
-					/obj/item/beezeez,
-					/obj/item/weapon/bee_net,
-					/obj/item/apiary,
-					/obj/item/queen_bee,
-					/obj/item/queen_bee,
-					/obj/item/queen_bee)
-	cost = 20
-	containertype = /obj/structure/closet/crate/hydroponics
-	containername = "Beekeeping crate"
-	access = access_hydroponics
-	announce_beacons = list("Hydroponics" = list("Hydroponics"))
+/datum/supply_packs/organic/hydroponics/beekeeping_fullkit
+	name = "Beekeeping Starter Kit"
+	contains = list(/obj/structure/beebox,
+					/obj/item/honey_frame,
+					/obj/item/honey_frame,
+					/obj/item/honey_frame,
+					/obj/item/queen_bee/bought,
+					/obj/item/clothing/head/beekeeper_head,
+					/obj/item/clothing/suit/beekeeper_suit)
+	cost = 15
+	containername = "beekeeping starter kit"
 
-/datum/supply_packs/organic/foodcart
-	name = "Food Cart crate"
-	contains = list(/obj/structure/foodcart)
+/datum/supply_packs/organic/hydroponics/beekeeping_suits
+	name = "2 Beekeeper suits"
+	contains = list(/obj/item/clothing/head/beekeeper_head,
+					/obj/item/clothing/suit/beekeeper_suit,
+					/obj/item/clothing/head/beekeeper_head,
+					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 10
-	containertype = /obj/structure/largecrate
-	containername = "food cart crate"
-	announce_beacons = list("Kitchen" = list("Kitchen"))
+	containername = "beekeeper suits"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Materials ///////////////////////////////////////
