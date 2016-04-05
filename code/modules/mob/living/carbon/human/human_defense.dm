@@ -176,12 +176,15 @@ emp_act
 	if(!istype(affecting))
 		return
 	if(!(affecting.status & ORGAN_ROBOT))
-		user << "\red That limb isn't robotic."
+		to_chat(user, "\red That limb isn't robotic.")
+
 		return
 	if(affecting.sabotaged)
-		user << "\red [src]'s [affecting.name] is already sabotaged!"
+		to_chat(user, "\red [src]'s [affecting.name] is already sabotaged!")
+
 	else
-		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties."
+		to_chat(user, "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.")
+
 		affecting.sabotaged = 1
 	return 1
 
@@ -198,7 +201,8 @@ emp_act
 		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
 		src.loc.add_blood(src)
 		--src.meatleft
-		user << "\red You hack off a chunk of meat from [src.name]"
+		to_chat(user, "\red You hack off a chunk of meat from [src.name]")
+
 		if(!src.meatleft)
 			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[key_name(user)]</b>"
 			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[key_name(src)]</b> into meat</b>"
@@ -212,7 +216,8 @@ emp_act
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
 	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
-		user << "<span class='danger'>They are missing that limb!</span>"
+		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
+
 		return 1
 	var/hit_area = affecting.name
 

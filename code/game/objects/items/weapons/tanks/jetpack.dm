@@ -29,7 +29,8 @@
 		return
 
 	if(air_contents.oxygen < 10)
-		user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+		to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"))
+
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 
@@ -37,7 +38,8 @@
 	set name = "Toggle Jetpack Stabilization"
 	set category = "Object"
 	src.stabilization_on = !( src.stabilization_on )
-	usr << "You toggle the stabilization [stabilization_on? "on":"off"]."
+	to_chat(usr, "You toggle the stabilization [stabilization_on? "on":"off"].")
+
 	return
 
 
@@ -133,7 +135,8 @@
 		return
 
 	if(air_contents.carbon_dioxide < 10)
-		user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+		to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"))
+
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 
@@ -142,7 +145,8 @@
 	var/obj/item/weapon/rig/holder
 
 /obj/item/weapon/tank/jetpack/rig/examine()
-	usr << "It's a jetpack. If you can see this, report it on the bug tracker."
+	to_chat(usr, "It's a jetpack. If you can see this, report it on the bug tracker.")
+
 	return 0
 
 /obj/item/weapon/tank/jetpack/rig/allow_thrust(num, mob/living/user as mob)

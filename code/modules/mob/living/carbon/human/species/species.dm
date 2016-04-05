@@ -288,10 +288,12 @@
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
-				H << "\red You feel your face freezing and an icicle forming in your lungs!"
+				to_chat(H, "\red You feel your face freezing and an icicle forming in your lungs!")
+
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				H << "\red You feel your face burning and a searing heat in your lungs!"
+				to_chat(H, "\red You feel your face burning and a searing heat in your lungs!")
+
 
 
 

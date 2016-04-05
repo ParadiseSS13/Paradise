@@ -135,7 +135,8 @@
 /obj/machinery/processor/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 
 	if(src.processing)
-		user << "<span class='warning'>\the [src] is already processing something!</span>"
+		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
+
 		return 1
 
 	if(default_deconstruction_screwdriver(user, "processor1", "processor", O))
@@ -158,7 +159,8 @@
 	var/datum/food_processor_process/P = select_recipe(what)
 
 	if (!P)
-		user << "<span class='warning'>That probably won't blend.</span>"
+		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
+
 		return 1
 
 	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
@@ -174,11 +176,13 @@
 		return
 
 	if(src.processing)
-		user << "<span class='warning'>\the [src] is already processing something!</span>"
+		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
+
 		return 1
 
 	if(src.contents.len == 0)
-		user << "<span class='warning'>\the [src] is empty.</span>"
+		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
+
 		return 1
 	src.processing = 1
 	user.visible_message("[user] turns on [src].", \

@@ -73,7 +73,8 @@
 			for(var/mob/M in world) if(M.z == epicenter.z) if(!(M in close))
 				// check if the mob can hear
 				if(M.ear_deaf <= 0 || !M.ear_deaf) if(!istype(M.loc,/turf/space))
-					M << 'sound/effects/explosionfar.ogg'
+					to_chat(M, 'sound/effects/explosionfar.ogg')
+
 
 		if(heavy_impact_range > 1)
 			var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()

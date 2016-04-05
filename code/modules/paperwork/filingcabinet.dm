@@ -35,7 +35,8 @@
 
 /obj/structure/filingcabinet/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/folder) || istype(P, /obj/item/weapon/photo) || istype(P, /obj/item/weapon/paper_bundle) || istype(P, /obj/item/documents))
-		user << "<span class='notice'>You put [P] in [src].</span>"
+		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
+
 		user.drop_item()
 		P.loc = src
 		icon_state = "[initial(icon_state)]-open"
@@ -45,14 +46,17 @@
 	else if(istype(P, /obj/item/weapon/wrench))
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
-		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
+
 	else
-		user << "<span class='notice'>You can't put [P] in [src]!</span>"
+		to_chat(user, "<span class='notice'>You can't put [P] in [src]!</span>")
+
 
 
 /obj/structure/filingcabinet/attack_hand(mob/user as mob)
 	if(contents.len <= 0)
-		user << "<span class='notice'>\The [src] is empty.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is empty.</span>")
+
 		return
 
 	user.set_machine(src)
@@ -77,9 +81,11 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
-			user << "<span class='notice'>You pull \a [I] out of [src] at random.</span>"
+			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
+
 			return
-	user << "<span class='notice'>You find nothing in [src].</span>"
+	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
+
 
 /obj/structure/filingcabinet/Topic(href, href_list)
 	if(href_list["retrieve"])

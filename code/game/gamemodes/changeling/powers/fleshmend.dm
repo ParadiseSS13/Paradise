@@ -8,7 +8,8 @@
 
 //Starts healing you every second for 10 seconds. Can be used whilst unconscious.
 /obj/effect/proc_holder/changeling/fleshmend/sting_action(var/mob/living/user)
-	user << "<span class='notice'>We begin to heal rapidly.</span>"
+	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()

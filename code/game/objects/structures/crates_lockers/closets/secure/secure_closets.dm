@@ -48,22 +48,27 @@
 
 /obj/structure/closet/secure_closet/proc/togglelock(mob/user as mob)
 	if(src.opened)
-		user << "<span class='notice'>Close the locker first.</span>"
+		to_chat(user, "<span class='notice'>Close the locker first.</span>")
+
 		return
 	if(src.broken)
-		user << "<span class='warning'>The locker appears to be broken.</span>"
+		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
+
 		return
 	if(user.loc == src)
-		user << "<span class='notice'>You can't reach the lock from inside.</span>"
+		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
+
 		return
 	if(src.allowed(user))
 		src.locked = !src.locked
 		for(var/mob/O in viewers(user, 3))
 			if((O.client && !( O.blinded )))
-				O << "<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>"
+				to_chat(O, "<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
+
 		update_icon()
 	else
-		user << "<span class='notice'>Access Denied</span>"
+		to_chat(user, "<span class='notice'>Access Denied</span>")
+
 
 /obj/structure/closet/secure_closet/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/rcs))
@@ -74,7 +79,8 @@
 			if(src.large)
 				src.MouseDrop_T(W:affecting, user)	//act like they were dragged onto the closet
 			else
-				user << "<span class='notice'>The locker is too small to stuff [W:affecting] into!</span>"
+				to_chat(user, "<span class='notice'>The locker is too small to stuff [W:affecting] into!</span>")
+
 		if(isrobot(user))
 			return
 		user.drop_item()
@@ -94,7 +100,8 @@
 		desc = "It appears to be broken."
 		icon_state = icon_off
 		flick(icon_broken, src)
-		user << "<span class='notice'>You unlock \the [src].</span>"
+		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
@@ -115,7 +122,8 @@
 		src.add_fingerprint(usr)
 		src.togglelock(usr)
 	else
-		usr << "<span class='warning'>This mob type can't use this verb.</span>"
+		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+
 
 /obj/structure/closet/secure_closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	overlays.Cut()
@@ -141,7 +149,8 @@
 	//okay, so the closet is either welded or locked... resist!!!
 	L.changeNext_move(CLICK_CD_BREAKOUT)
 	L.last_special = world.time + CLICK_CD_BREAKOUT
-	L << "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>"
+	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
+
 	for(var/mob/O in viewers(src))
 		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
 
@@ -166,7 +175,8 @@
 			locked = 0
 			welded = 0
 			update_icon()
-			usr << "\red You successfully break out!"
+			to_chat(usr, "\red You successfully break out!")
+
 			for(var/mob/O in viewers(L.loc))
 				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
 			if(istype(src.loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)

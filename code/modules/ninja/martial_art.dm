@@ -21,7 +21,8 @@
 	if(!used)
 		user.visible_message("<span class='warning'>You stick the [src]'s needle into your arm and press the button.", \
 			  "<span class='warning'>[user] sticks the [src]'s needle \his arm and presses the button.")
-		user << "<span class='info'>The nanomachines in the [src] flow through your bloodstream."
+		to_chat(user, "<span class='info'>The nanomachines in the [src] flow through your bloodstream.")
+
 
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
 		N.teach(user)
@@ -31,7 +32,8 @@
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
 		return 0
 	else
-		user << "<span class='warning'>The [src] has been used already!</span>"
+		to_chat(user, "<span class='warning'>The [src] has been used already!</span>")
+
 		return 1
 
 // Ninja martial art datum
@@ -45,7 +47,8 @@
 /datum/martial_art/ninja_martial_art/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
 	..()
 	H.middleClickOverride = new /datum/middleClickOverride/ninja_martial_art()
-	H << 	"You have been taugh the ways of the <i>Creeping Widow</i>.<br>\
+		to_chat(H, "You have been taugh the ways of the <i>Creeping Widow</i>.<br>\)
+
 			Your stikes on harm intent will deal more damage.<br>Using middle mouse button on a nearby person while on harm intent will send them flying backwards.<br>\
 			Your grabs will instantly be aggressive while you are using this style.<br>Using middle mouse button while on harm intent and behind a person will put them in a silencing choke hold.<br>\
 			Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
@@ -64,7 +67,8 @@
 			D.Stun(1)
 			spawn(50) has_focus = 1
 			return 1
-		A << "<span class='warning'>You are not focused enough to use that move yet!</span>"
+		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
+
 		return 0
 	return A.pointed(D)
 
@@ -72,11 +76,13 @@
 	if(!D.stat && !D.weakened)
 		A.face_atom(D)
 		if(A.dir != D.dir) // If the user's direction is not the same as the target's after A.face_atom(D) you are not behind them, and cannot use this ability.
-			A << "<span class='warning'>You cannot grab [D] from that angle!</span>"
+			to_chat(A, "<span class='warning'>You cannot grab [D] from that angle!</span>")
+
 			return 0
 
 		if(has_choke_hold) // Are we already choking someone?
-			A<< "<span class='warning'>You are have a target in your grip!</span>"
+			to_chat(A, "<span class='warning'>You are have a target in your grip!</span>")
+
 			return 0
 
 		has_choke_hold = 1
@@ -105,8 +111,10 @@
 			I++
 			sleep(5)
 
-		A << "<span class='warning'>You feel [D] go limp in your grip.</span>"
-		D << "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>"
+		to_chat(A, "<span class='warning'>You feel [D] go limp in your grip.</span>")
+
+		to_chat(D, "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>")
+
 		D.AdjustParalysis(20)
 
 		has_choke_hold = 0
@@ -131,7 +139,8 @@
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 			spawn(50) has_focus = 1
 			return 1
-		A << "<span class='warning'>You are not focused enough to use that move yet!</span>"
+		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
+
 		return 0
 	return A.pointed(D)
 

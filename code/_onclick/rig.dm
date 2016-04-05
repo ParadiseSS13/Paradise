@@ -18,15 +18,19 @@
 
 	switch(hardsuit_click_mode)
 		if(MIDDLE_CLICK)
-			src << "Hardsuit activation mode set to middle-click."
+			to_chat(src, "Hardsuit activation mode set to middle-click.")
+
 		if(ALT_CLICK)
-			src << "Hardsuit activation mode set to alt-click."
+			to_chat(src, "Hardsuit activation mode set to alt-click.")
+
 		if(CTRL_CLICK)
-			src << "Hardsuit activation mode set to control-click."
+			to_chat(src, "Hardsuit activation mode set to control-click.")
+
 		else
 			// should never get here, but just in case:
 			log_debug("Bad hardsuit click mode: [hardsuit_click_mode] - expected 0 to [MAX_HARDSUIT_CLICK_MODE]")
-			src << "Somehow you bugged the system. Setting your hardsuit mode to middle-click."
+			to_chat(src, "Somehow you bugged the system. Setting your hardsuit mode to middle-click.")
+
 			hardsuit_click_mode = MIDDLE_CLICK
 
 /mob/living/MiddleClickOn(atom/A)

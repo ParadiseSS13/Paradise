@@ -187,7 +187,8 @@
 				radiation -= 0.1
 				reagents.add_reagent("radium", rads/10)
 				if( prob(10) )
-					src << "<span class='notice'>You feel relaxed.</span>"
+					to_chat(src, "<span class='notice'>You feel relaxed.</span>")
+
 				return
 
 			if (radiation > 100)
@@ -195,7 +196,8 @@
 				if(!(species.flags & RAD_ABSORB))
 					Weaken(10)
 					if(!lying)
-						src << "<span class='alert'>You feel weak.</span>"
+						to_chat(src, "<span class='alert'>You feel weak.</span>")
+
 						emote("collapse")
 
 			if (radiation < 0)
@@ -229,7 +231,8 @@
 							radiation -= 5
 							Weaken(3)
 							if(!lying)
-								src << "<span class='alert'>You feel weak.</span>"
+								to_chat(src, "<span class='alert'>You feel weak.</span>")
+
 								emote("collapse")
 						updatehealth()
 
@@ -238,7 +241,8 @@
 						adjustToxLoss(3)
 						damage = 3
 						if(prob(1))
-							src << "<span class='alert'>You mutate!</span>"
+							to_chat(src, "<span class='alert'>You mutate!</span>")
+
 							randmutb(src)
 							domutcheck(src,null)
 							emote("gasp")
@@ -249,7 +253,8 @@
 						adjustToxLoss(5)
 						damage = 5
 						if(prob(1))
-							src << "<span class='alert'>You mutate!</span>"
+							to_chat(src, "<span class='alert'>You mutate!</span>")
+
 							randmutb(src)
 							domutcheck(src,null)
 							emote("gasp")
@@ -392,7 +397,8 @@
 		return
 
 	var/loc_temp = get_temperature(environment)
-	//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]"
+//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
+
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
 	if(stat != 2)
@@ -698,7 +704,8 @@
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
 			if(overeatduration < 100)
-				src << "<span class='notice'>You feel fit again!</span>"
+				to_chat(src, "<span class='notice'>You feel fit again!</span>")
+
 				mutations.Remove(FAT)
 				update_mutantrace(0)
 				update_mutations(0)
@@ -706,7 +713,8 @@
 				update_inv_wear_suit()
 		else
 			if(overeatduration > 500)
-				src << "<span class='alert'>You suddenly feel blubbery!</span>"
+				to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
+
 				mutations.Add(FAT)
 				update_mutantrace(0)
 				update_mutations(0)
@@ -888,17 +896,20 @@
 			isRemoteObserve = 1
 
 			if(remoteview_target.stat != CONSCIOUS)
-				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
+				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
+
 				isRemoteObserve = 0
 
 			if(PSY_RESIST in remoteview_target.mutations)
-				src << "<span class='alert'>Your mind is shut out!</span>"
+				to_chat(src, "<span class='alert'>Your mind is shut out!</span>")
+
 				isRemoteObserve = 0
 
 			// Not on the station or mining?
 			var/turf/temp_turf = get_turf(remoteview_target)
 			if(!temp_turf in config.contact_levels)
-				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
+				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
+
 				isRemoteObserve = 0
 
 		if(remote_view)
@@ -969,7 +980,8 @@
 		return
 
 	if(shock_stage == 10)
-		src << "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!")
+		to_chat(src, "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!"))
+
 
 	if(shock_stage >= 30)
 		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
@@ -977,22 +989,26 @@
 		stuttering = max(stuttering, 5)
 
 	if(shock_stage == 40)
-		src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+		to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
+
 
 	if(shock_stage >=60)
 		if(shock_stage == 60) custom_emote(1,"falls limp.")
 		if (prob(2))
-			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
+
 			Weaken(20)
 
 	if(shock_stage >= 80)
 		if (prob(5))
-			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
+
 			Weaken(20)
 
 	if(shock_stage >= 120)
 		if (prob(2))
-			src << "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness.")
+			to_chat(src, "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness."))
+
 			Paralyse(5)
 
 	if(shock_stage == 150)
@@ -1082,7 +1098,8 @@
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!
-			H << "<spawn class='warning'>You smell something foul..."
+			to_chat(H, "<spawn class='warning'>You smell something foul...")
+
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
@@ -1102,7 +1119,9 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,0,30) //Credit to GhostHack (www.ghosthack.de) for sound.
+					to_chat(src, sound('sound/effects/electheart.ogg',0,0,0,30))//Credit to GhostHack (www.ghosthack.de) for sound.
+
+
 				else
 					heartbeat++
 				return
@@ -1120,9 +1139,11 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
+
 				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
+
 			else
 				heartbeat++
 

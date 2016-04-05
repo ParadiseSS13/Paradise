@@ -362,20 +362,24 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 				var/mob/living/carbon/human/H = C
 				if((H.r_ear && (H.r_ear.flags & EARBANGPROTECT)) || (H.l_ear && (H.l_ear.flags & EARBANGPROTECT)) || (H.head && (H.head.flags & HEADBANGPROTECT)))
 					ear_safety++
-		M << "<span class='warning'>BANG</span>"
+		to_chat(M, "<span class='warning'>BANG</span>")
+
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
 			M.ear_damage += rand(0, 5)
 			M.ear_deaf = max(M.ear_deaf,15)
 			if (M.ear_damage >= 15)
-				M << "<span class='warning'>Your ears start to ring badly!</span>"
+				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+
 				if(prob(M.ear_damage - 10 + 5))
-					M << "<span class='warning'>You can't hear anything!</span>"
+					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+
 					M.disabilities |= DEAF
 			else
 				if (M.ear_damage >= 5)
-					M << "<span class='warning'>Your ears start to ring!</span>"
+					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+
 
 /datum/chemical_reaction/sonic_powder/on_reaction(var/datum/reagents/holder, var/created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
@@ -391,20 +395,24 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 				var/mob/living/carbon/human/H = C
 				if((H.r_ear && (H.r_ear.flags & EARBANGPROTECT)) || (H.l_ear && (H.l_ear.flags & EARBANGPROTECT)) || (H.head && (H.head.flags & HEADBANGPROTECT)))
 					ear_safety++
-			C << "<span class='warning'>BANG</span>"
+			to_chat(C, "<span class='warning'>BANG</span>")
+
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
 			M.ear_damage += rand(0, 5)
 			M.ear_deaf = max(M.ear_deaf,15)
 			if (M.ear_damage >= 15)
-				M << "<span class='warning'>Your ears start to ring badly!</span>"
+				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+
 				if(prob(M.ear_damage - 10 + 5))
-					M << "<span class='warning'>You can't hear anything!</span>"
+					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+
 					M.disabilities |= DEAF
 			else
 				if (M.ear_damage >= 5)
-					M << "<span class='warning'>Your ears start to ring!</span>"
+					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+
 	holder.remove_reagent("sonic_powder", created_volume)
 
 /datum/reagent/phlogiston

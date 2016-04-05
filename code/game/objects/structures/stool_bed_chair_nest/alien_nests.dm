@@ -34,7 +34,8 @@
 				"<span class='notice'>You hear squelching...</span>")
 			if(!do_after(M, 1200, target = src))
 				if(M && M.buckled)
-					M << "<span class='warning'>You fail to escape \the [src]!</span>"
+					to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
+
 				return
 			if(!M.buckled)
 				return

@@ -16,7 +16,8 @@
 
 /obj/item/weapon/melee/energy/attack_self(mob/living/carbon/user)
 	if(user.disabilities & CLUMSY && prob(50))
-		user << "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>"
+		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+
 		user.take_organ_damage(5,5)
 	active = !active
 	if (active)
@@ -31,7 +32,8 @@
 			icon_state = "sword[item_color]"
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
-		user << "<span class='notice'>[src] is now active.</span>"
+		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)
@@ -41,7 +43,8 @@
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		user << "<span class='notice'>[src] can now be concealed.</span>"
+		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -106,7 +109,8 @@
 		var/obj/item/weapon/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))
 			attack_self()
-			R << "<span class='notice'>It's out of charge!</span>"
+			to_chat(R, "<span class='notice'>It's out of charge!</span>")
+
 			return
 		..()
 	return
@@ -152,11 +156,13 @@
 	..()
 	if(istype(W, /obj/item/weapon/melee/energy/sword/saber))
 		if(W == src)
-			user << "<span class='notice'>You try to attach the end of the energy sword to... itself. You're not very smart, are you?</span>"
+			to_chat(user, "<span class='notice'>You try to attach the end of the energy sword to... itself. You're not very smart, are you?</span>")
+
 			if(ishuman(user))
 				user.adjustBrainLoss(10)
 		else
-			user << "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>"
+			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
+
 			var/obj/item/weapon/twohanded/dualsaber/newSaber = new /obj/item/weapon/twohanded/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = 1
@@ -170,7 +176,8 @@
 		if(hacked == 0)
 			hacked = 1
 			item_color = "rainbow"
-			user << "<span class='warning'>RNBW_ENGAGE</span>"
+			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
+
 
 			if(active)
 				icon_state = "swordrainbow"
@@ -182,7 +189,8 @@
 					user.update_inv_l_hand()
 
 		else
-			user << "<span class='warning'>It's already fabulous!</span>"
+			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+
 
 /obj/item/weapon/melee/energy/sword/pirate
 	name = "energy cutlass"

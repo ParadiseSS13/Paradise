@@ -106,4 +106,5 @@
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears in [user]'s hand!</span>")
 
 		if(message)
-			user << message
+			to_chat(user, message)
+

@@ -143,7 +143,8 @@
 				playsound(src.loc, 'sound/voice/biamthelaw.ogg', 50, 0)
 				m_type = 2
 			else
-				src << "You are not THE LAW, pal."
+				to_chat(src, "You are not THE LAW, pal.")
+
 
 		if("halt")
 			if (istype(module,/obj/item/weapon/robot_module/security))
@@ -152,7 +153,8 @@
 				playsound(src.loc, 'sound/voice/halt.ogg', 50, 0)
 				m_type = 2
 			else
-				src << "You are not security."
+				to_chat(src, "You are not security.")
+
 
 		if ("flip")
 			m_type = 1
@@ -160,6 +162,7 @@
 			src.SpinAnimation(5,1)
 
 		if ("help")
-			src << "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitch_s, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look, beep, ping, \nbuzz, law, halt"
+			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitch_s, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look, beep, ping, \nbuzz, law, halt")
+
 
 	..(act, m_type, message)

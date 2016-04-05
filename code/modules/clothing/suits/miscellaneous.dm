@@ -553,10 +553,12 @@
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
 	if(on)
 		on = 0
-		usr << "You turn the suit's special processes off."
+		to_chat(usr, "You turn the suit's special processes off.")
+
 	else
 		on = 1
-		usr << "You turn the suit's special processes on."
+		to_chat(usr, "You turn the suit's special processes on.")
+
 		processing_objects.Add(src)
 
 

@@ -21,7 +21,8 @@
 		projectile_type = "/obj/item/projectile/beam"
 		modifystate = "bsgun_kill"
 
-		user << "<span class = 'warning'>You adjust [src.name] to the kill setting.</span>"
+		to_chat(user, "<span class = 'warning'>You adjust [src.name] to the kill setting.</span>")
+
 
 	else
 		fire_mode = 0
@@ -32,6 +33,7 @@
 		fire_sound = 'sound/weapons/gunshot.ogg'
 		modifystate = "bsgun_stun"
 
-		user << "<span class = 'info'>You adjust [src.name] to the stun setting.</span>"
+		to_chat(user, "<span class = 'info'>You adjust [src.name] to the stun setting.</span>")
+
 
 	update_icon()

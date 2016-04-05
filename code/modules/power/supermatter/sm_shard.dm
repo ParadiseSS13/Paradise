@@ -44,7 +44,8 @@
 /obj/item/weapon/shard/supermatter/Crossed(AM as mob|obj)
 	if(ismob(AM))
 		var/mob/M = AM
-		M << "\red <B>You step on \the [src]!</B>"
+		to_chat(M, "\red <B>You step on \the [src]!</B>")
+
 		playsound(src.loc, 'sound/effects/glass_step_sm.ogg', 70, 1) // not sure how to handle metal shards with sounds
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -66,7 +67,8 @@
 
 /obj/item/weapon/shard/supermatter/attack_hand(var/mob/user)
 	if(!istype(user,/mob/living/carbon/human/nucleation))
-		user << pick( "\red You think twice before touching that without protection.",
+		to_chat(user, pick( "\red You think twice before touching that without protection.",)
+
 					  "\red You don't want to touch that without some protection.",
 					  "\red You probably should get something else to pick that up.",
 					  "\red You aren't sure that's a good idea.",

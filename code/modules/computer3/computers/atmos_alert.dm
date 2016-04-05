@@ -97,14 +97,16 @@
 			var/removing_zone = href_list["priority_clear"]
 			for(var/zone in priority_alarms)
 				if(ckey(zone) == removing_zone)
-					usr << "\green Priority Alert for area [zone] cleared."
+					to_chat(usr, "\green Priority Alert for area [zone] cleared.")
+
 					priority_alarms -= zone
 
 		if("minor_clear" in href_list)
 			var/removing_zone = href_list["minor_clear"]
 			for(var/zone in minor_alarms)
 				if(ckey(zone) == removing_zone)
-					usr << "\green Minor Alert for area [zone] cleared."
+					to_chat(usr, "\green Minor Alert for area [zone] cleared.")
+
 					minor_alarms -= zone
 
 		computer.updateUsrDialog()

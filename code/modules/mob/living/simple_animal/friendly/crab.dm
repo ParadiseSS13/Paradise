@@ -51,7 +51,8 @@
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/wirecutters))
 		if(prob(50))
-			user << "\red \b This kills the crab."
+			to_chat(user, "\red \b This kills the crab.")
+
 			health -= 20
 			death()
 		else
@@ -70,7 +71,8 @@
 						if ((M.client && !( M.blinded )))
 							M.show_message("\blue [user] applies the [MED] on [src]")
 		else
-			user << "\blue this [src] is dead, medical items won't bring it back to life."
+			to_chat(user, "\blue this [src] is dead, medical items won't bring it back to life.")
+
 	else
 		if(O.force)
 			health -= O.force
@@ -78,7 +80,8 @@
 				if ((M.client && !( M.blinded )))
 					M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
 		else
-			usr << "\red This weapon is ineffective, it does no damage."
+			to_chat(usr, "\red This weapon is ineffective, it does no damage.")
+
 			for(var/mob/M in viewers(src, null))
 				if ((M.client && !( M.blinded )))
 					M.show_message("\red [user] gently taps [src] with the [O]. ")
@@ -104,14 +107,16 @@
 					inventory_head.loc = src.loc
 					inventory_head = null
 				else
-					usr << "\red There is nothing to remove from its [remove_from]."
+					to_chat(usr, "\red There is nothing to remove from its [remove_from].")
+
 					return
 			if("mask")
 				if(inventory_mask)
 					inventory_mask.loc = src.loc
 					inventory_mask = null
 				else
-					usr << "\red There is nothing to remove from its [remove_from]."
+					to_chat(usr, "\red There is nothing to remove from its [remove_from].")
+
 					return
 
 		//show_inv(usr) //Commented out because changing Ian's  name and then calling up his inventory opens a new inventory...which is annoying.
@@ -122,12 +127,14 @@
 			return
 		var/add_to = href_list["add_inv"]
 		if(!usr.get_active_hand())
-			usr << "\red You have nothing in your hand to put on its [add_to]."
+			to_chat(usr, "\red You have nothing in your hand to put on its [add_to].")
+
 			return
 		switch(add_to)
 			if("head")
 				if(inventory_head)
-					usr << "\red It's is already wearing something."
+					to_chat(usr, "\red It's is already wearing something.")
+
 					return
 				else
 					var/obj/item/item_to_add = usr.get_active_hand()
@@ -169,7 +176,8 @@
 					)
 
 					if( ! ( item_to_add.type in allowed_types ) )
-						usr << "\red It doesn't seem too keen on wearing that item."
+						to_chat(usr, "\red It doesn't seem too keen on wearing that item.")
+
 						return
 
 					usr.drop_item()
@@ -232,7 +240,8 @@
 
 			if("mask")
 				if(inventory_mask)
-					usr << "\red It's already wearing something."
+					to_chat(usr, "\red It's already wearing something.")
+
 					return
 				else
 					var/obj/item/item_to_add = usr.get_active_hand()
@@ -248,7 +257,8 @@
 					)
 
 					if( ! ( item_to_add.type in allowed_types ) )
-						usr << "\red This object won't fit."
+						to_chat(usr, "\red This object won't fit.")
+
 						return
 
 					usr.drop_item()

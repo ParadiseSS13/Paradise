@@ -11,7 +11,8 @@
 //Fake our own death and fully heal. You will appear to be dead but regenerate fully after a short delay.
 /obj/effect/proc_holder/changeling/fakedeath/sting_action(var/mob/living/user)
 
-	user << "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>"
+	to_chat(user, "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>")
+
 
 	user.status_flags |= FAKEDEATH		//play dead
 	user.update_canmove()
@@ -22,7 +23,8 @@
 
 	spawn(800)
 		if(user && user.mind && user.mind.changeling && user.mind.changeling.purchasedpowers)
-			user << "<span class='notice'>We are ready to regenerate.</span>"
+			to_chat(user, "<span class='notice'>We are ready to regenerate.</span>")
+
 			user.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/revive(null)
 
 	feedback_add_details("changeling_powers","FD")

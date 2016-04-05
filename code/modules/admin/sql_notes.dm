@@ -2,7 +2,8 @@
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+
 		return
 	if(!target_ckey)
 		var/new_ckey = ckey(input(usr,"Who would you like to add a note for?","Enter a ckey",null) as text|null)
@@ -15,7 +16,8 @@
 			log_game("SQL ERROR obtaining ckey from player table. Error : \[[err]\]\n")
 			return
 		if(!query_find_ckey.NextRow())
-			usr << "<span class='redtext'>[new_ckey] has not been seen before, you can only add notes to known players.</span>"
+			to_chat(usr, "<span class='redtext'>[new_ckey] has not been seen before, you can only add notes to known players.</span>")
+
 			return
 		else
 			target_ckey = new_ckey
@@ -53,7 +55,8 @@
 	var/notetext
 	var/adminckey
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+
 		return
 	if(!note_id)
 		return
@@ -80,7 +83,8 @@
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+
 		return
 	if(!note_id)
 		return

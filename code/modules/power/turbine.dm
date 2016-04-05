@@ -120,10 +120,12 @@
 		inturf = get_step(src, dir)
 		locate_machinery()
 		if(turbine)
-			user << "<span class='notice'>Turbine connected.</span>"
+			to_chat(user, "<span class='notice'>Turbine connected.</span>")
+
 			stat &= ~BROKEN
 		else
-			user << "<span class='alert'>Turbine not connected.</span>"
+			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
+
 			stat |= BROKEN
 		return
 
@@ -279,10 +281,12 @@
 		outturf = get_step(src, dir)
 		locate_machinery()
 		if(compressor)
-			user << "<span class='notice'>Compressor connected.</span>"
+			to_chat(user, "<span class='notice'>Compressor connected.</span>")
+
 			stat &= ~BROKEN
 		else
-			user << "<span class='alert'>Compressor not connected.</span>"
+			to_chat(user, "<span class='alert'>Compressor not connected.</span>")
+
 			stat |= BROKEN
 		return
 

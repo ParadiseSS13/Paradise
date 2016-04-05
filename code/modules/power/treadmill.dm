@@ -168,7 +168,8 @@
 
 /obj/machinery/treadmill_monitor/examine(mob/user)
 	..()
-	user << "The display reads:<div style='text-align: center'>[line1]<br>[line2]</div>"
+	to_chat(user, "The display reads:<div style='text-align: center'>[line1]<br>[line2]</div>")
+
 
 /obj/machinery/treadmill_monitor/update_icon()
 	overlays.Cut()

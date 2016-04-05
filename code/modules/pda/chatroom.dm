@@ -139,7 +139,8 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 /datum/data/pda/app/chatroom/proc/check_messaging_available()
 	. = messaging_available()
 	if(!.)
-		usr << "<span class='notice'>ERROR: Messaging server is not responding.</span>"
+		to_chat(usr, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
+
 
 /datum/data/pda/app/chatroom/Topic(href, list/href_list)
 	if(!pda.can_use())

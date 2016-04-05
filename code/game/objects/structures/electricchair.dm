@@ -40,9 +40,11 @@
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	if(last_time + delay_time > world.time)
-		usr << "<span class='warning'>\The [src] is not ready yet!</span>"
+		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")
+
 		return
-	usr << "<span class='notice'>You activate \the [src].</span>"
+	to_chat(usr, "<span class='notice'>You activate \the [src].</span>")
+
 	shock()
 	return
 
@@ -78,7 +80,8 @@
 	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
 	if(buckled_mob)
 		buckled_mob.burn_skin(90)
-		buckled_mob << "<span class='danger'>You feel a deep shock course through your body!</span>"
+		to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
+
 		sleep(1)
 		buckled_mob.burn_skin(90)
 		sleep(5)

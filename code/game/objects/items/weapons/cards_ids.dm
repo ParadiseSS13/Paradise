@@ -119,7 +119,8 @@
 	if(..(user, 1))
 		show(usr)
 	else
-		user << "<span class='warning'>It is too far away.</span>"
+		to_chat(user, "<span class='warning'>It is too far away.</span>")
+
 
 /obj/item/weapon/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -141,7 +142,8 @@
 	user.visible_message("[user] shows you: \icon[src] [src.name]. The assignment on the card: [src.assignment]",\
 		"You flash your ID card: \icon[src] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
-		user << "There's [mining_points] mining equipment redemption points loaded onto this card."
+		to_chat(user, "There's [mining_points] mining equipment redemption points loaded onto this card.")
+
 	src.add_fingerprint(user)
 	return
 
@@ -190,7 +192,8 @@
 
 	if(istype(W, /obj/item/weapon/id_decal/))
 		var/obj/item/weapon/id_decal/decal = W
-		user << "You apply [decal] to [src]."
+		to_chat(user, "You apply [decal] to [src].")
+
 		if(decal.override_name)
 			name = decal.decal_name
 		desc = decal.decal_desc
@@ -204,9 +207,11 @@
 		if(!stamped)
 			dat+="<img src=large_[W.icon_state].png>"
 			stamped = 1
-			usr << "You stamp the ID card!"
+			to_chat(usr, "You stamp the ID card!")
+
 		else
-			usr << "This ID has already been stamped!"
+			to_chat(usr, "This ID has already been stamped!")
+
 
 /obj/item/weapon/card/id/silver
 	name = "identification card"
@@ -242,7 +247,8 @@
 		var/obj/item/weapon/card/id/I = O
 		if(istype(user, /mob/living) && user.mind)
 			if(user.mind.special_role)
-				usr << "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>"
+				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
+
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/weapon/card/id/syndicate/proc/fake_id_photo(var/mob/living/carbon/human/H, var/side=0)//get_id_photo wouldn't work correctly
@@ -253,7 +259,8 @@
 	var/icon/faked
 	if(!side)
 		if(!H.equip_to_slot_if_possible(src, slot_l_store, 0, 1))
-			H << "<span class='warning'>You need to empty your pockets before taking the ID picture.</span>"
+			to_chat(H, "<span class='warning'>You need to empty your pockets before taking the ID picture.</span>")
+
 			return
 
 	if(side)
@@ -273,18 +280,21 @@
 	if(!src.registered_name)
 		var t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
 		if(!t)
-			user << "<span class='warning'>Invalid name.</span>"
+			to_chat(user, "<span class='warning'>Invalid name.</span>")
+
 			return
 		src.registered_name = t
 
 		var u = sanitize(stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than maintenance.", "Agent Card Job Assignment", "Agent", MAX_MESSAGE_LEN))
 		if(!u)
-			user << "<span class='warning'>Invalid assignment.</span>"
+			to_chat(user, "<span class='warning'>Invalid assignment.</span>")
+
 			src.registered_name = ""
 			return
 		src.assignment = u
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-		user << "<span class='notice'>You successfully forge the ID card.</span>"
+		to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
+
 		registered_user = user
 	else if(!registered_user || registered_user == user)
 		if(!registered_user)
@@ -301,7 +311,8 @@
 							return
 						src.registered_name = new_name
 						UpdateName()
-						user << "<span class='notice'>Name changed to [new_name].</span>"
+						to_chat(user, "<span class='notice'>Name changed to [new_name].</span>")
+
 
 					if("Photo")
 						if(!Adjacent(user))
@@ -311,7 +322,8 @@
 						front = new(photo)
 						side = new(photoside)
 						if(photo && photoside)
-							user << "<span class='notice'>Photo changed.</span>"
+							to_chat(user, "<span class='notice'>Photo changed.</span>")
+
 
 					if("Appearance")
 						var/list/appearances = list(
@@ -348,28 +360,32 @@
 						if(!choice)
 							return
 						src.icon_state = choice
-						usr << "<span class='notice'>Appearance changed to [choice].</span>"
+						to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
+
 
 					if("Sex")
 						var/new_sex = sanitize(stripped_input(user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(user) ? capitalize(user.gender) : "Male", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.sex = new_sex
-						user << "<span class='notice'>Sex changed to [new_sex].</span>"
+						to_chat(user, "<span class='notice'>Sex changed to [new_sex].</span>")
+
 
 					if("Age")
 						var/new_age = sanitize(stripped_input(user,"What age would you like to put on this card?","Agent Card Age","21", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.age = new_age
-						user << "<span class='notice'>Age changed to [new_age].</span>"
+						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
+
 
 					if("Occupation")
 						var/new_job = sanitize(stripped_input(user,"What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.assignment = new_job
-						user << "<span class='notice'>Occupation changed to [new_job].</span>"
+						to_chat(user, "<span class='notice'>Occupation changed to [new_job].</span>")
+
 						UpdateName()
 
 					if("Money Account")
@@ -377,7 +393,8 @@
 						if(!Adjacent(user))
 							return
 						associated_account_number = new_account
-						user << "<span class='notice'>Linked money account changed to [new_account].</span>"
+						to_chat(user, "<span class='notice'>Linked money account changed to [new_account].</span>")
+
 
 					if("Blood Type")
 						var/default = "\[UNSET\]"
@@ -390,7 +407,8 @@
 						if(!Adjacent(user))
 							return
 						src.blood_type = new_blood_type
-						user << "<span class='notice'>Blood type changed to [new_blood_type].</span>"
+						to_chat(user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
+
 
 					if("DNA Hash")
 						var/default = "\[UNSET\]"
@@ -403,7 +421,8 @@
 						if(!Adjacent(user))
 							return
 						src.dna_hash = new_dna_hash
-						user << "<span class='notice'>DNA hash changed to [new_dna_hash].</span>"
+						to_chat(user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
+
 
 					if("Fingerprint Hash")
 						var/default = "\[UNSET\]"
@@ -416,7 +435,8 @@
 						if(!Adjacent(user))
 							return
 						src.fingerprint_hash = new_fingerprint_hash
-						user << "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>"
+						to_chat(user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
+
 
 					if("Reset Card")
 						name = initial(name)
@@ -432,7 +452,8 @@
 						access = initial_access.Copy() // Initial() doesn't work on lists
 						registered_user = null
 
-						user << "<span class='notice'>All information has been deleted from \the [src].</span>"
+						to_chat(user, "<span class='notice'>All information has been deleted from \the [src].</span>")
+
 	else
 		..()
 
@@ -496,7 +517,8 @@
 	var/points = 0
 
 /obj/item/weapon/card/id/prisoner/attack_self(mob/user as mob)
-	usr << "You have accumulated [points] out of the [goal] points you need for freedom."
+	to_chat(usr, "You have accumulated [points] out of the [goal] points you need for freedom.")
+
 
 /obj/item/weapon/card/id/prisoner/one
 	name = "Prisoner #13-001"

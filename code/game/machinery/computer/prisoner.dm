@@ -91,7 +91,9 @@
 					usr.drop_item()
 					I.loc = src
 					inserted_id = I
-				else usr << "\red No valid ID."
+				else
+					to_chat(usr, "\red No valid ID.")
+
 			if("1")
 				inserted_id.loc = get_step(src,get_turf(usr))
 				inserted_id = null
@@ -117,7 +119,8 @@
 		if(src.allowed(usr))
 			screen = !screen
 		else
-			usr << "<span class='warning'>Unauthorized access.</span>"
+			to_chat(usr, "<span class='warning'>Unauthorized access.</span>")
+
 
 	else if(href_list["warn"])
 		var/warning = sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
@@ -125,7 +128,8 @@
 		var/obj/item/weapon/implant/I = locate(href_list["warn"])
 		if((I)&&(I.imp_in))
 			var/mob/living/carbon/R = I.imp_in
-			R << "<span class='boldnotice'>You hear a voice in your head saying: '[warning]'</span>"
+			to_chat(R, "<span class='boldnotice'>You hear a voice in your head saying: '[warning]'</span>")
+
 
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()

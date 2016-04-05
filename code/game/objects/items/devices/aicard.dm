@@ -83,7 +83,8 @@
 			msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].")
 			flush = 1
 			AI.suiciding = 1
-			AI << "Your core files are being wiped!"
+			to_chat(AI, "Your core files are being wiped!")
+
 			while (AI && AI.stat != DEAD)
 				AI.adjustOxyLoss(2)
 				AI.updatehealth()
@@ -92,13 +93,17 @@
 
 	if (href_list["radio"])
 		AI.aiRadio.disabledAi = text2num(href_list["radio"])
-		AI << "<span class='warning'>Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!</span>"
-		user << "<span class='notice'>You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver.</span>"
+		to_chat(AI, "<span class='warning'>Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!</span>")
+
+		to_chat(user, "<span class='notice'>You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver.</span>")
+
 
 	if (href_list["wireless"])
 		AI.control_disabled = text2num(href_list["wireless"])
-		AI << "<span class='warning'>Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!</span>"
-		user << "<span class='notice'>You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface.</span>"
+		to_chat(AI, "<span class='warning'>Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!</span>")
+
+		to_chat(user, "<span class='notice'>You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface.</span>")
+
 		update_icon()
 
 	return 1

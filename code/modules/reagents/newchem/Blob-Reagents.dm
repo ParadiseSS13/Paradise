@@ -150,4 +150,5 @@
 	if(message_living && !issilicon(M))
 		totalmessage += message_living
 	totalmessage += "!"
-	M << "<span class='userdanger'>[totalmessage]</span>"
+	to_chat(M, "<span class='userdanger'>[totalmessage]</span>")
+

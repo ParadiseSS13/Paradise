@@ -46,7 +46,8 @@
 						injector_names |= I.id_tag
 			else
 				for(var/obj/machinery/atmospherics/binary/dp_vent_pump/I in world)
-					//world << "test"
+//					to_chat(world, "test")
+
 					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
 						injector_names |= I.id_tag
 

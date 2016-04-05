@@ -33,7 +33,8 @@
 /mob/living/carbon/alien/handle_breath_temperature(datum/gas_mixture/breath)
 	if(breath.temperature > (T0C + 66) && !(RESIST_COLD in mutations))
 		if(prob(20))
-			src << "<span class='danger'>You feel a searing heat in your lungs!</span>"
+			to_chat(src, "<span class='danger'>You feel a searing heat in your lungs!</span>")
+
 		fire_alert = max(fire_alert, 1)
 	else
 		fire_alert = 0

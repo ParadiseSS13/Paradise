@@ -184,7 +184,8 @@
 		if(href_list["delete"])
 
 			if(!src.allowed(usr) && !emagged)
-				usr << "\red ACCESS DENIED."
+				to_chat(usr, "\red ACCESS DENIED.")
+
 				return
 
 			if(SelectedServer)
@@ -222,7 +223,8 @@
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(do_after(user, 20, target = src))
 				if (src.stat & BROKEN)
-					user << "\blue The broken glass falls out."
+					to_chat(user, "\blue The broken glass falls out.")
+
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 					new /obj/item/weapon/shard(loc)
 					var/obj/item/weapon/circuitboard/comm_server/M = new /obj/item/weapon/circuitboard/comm_server( A )
@@ -234,7 +236,8 @@
 					A.anchored = 1
 					qdel(src)
 				else
-					user << "\blue You disconnect the monitor."
+					to_chat(user, "\blue You disconnect the monitor.")
+
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 					var/obj/item/weapon/circuitboard/comm_server/M = new /obj/item/weapon/circuitboard/comm_server( A )
 					for (var/obj/C in src)
@@ -251,4 +254,5 @@
 		if(!emagged)
 			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 			emagged = 1
-			user << "\blue You you disable the security protocols"
+			to_chat(user, "\blue You you disable the security protocols")
+

@@ -50,8 +50,10 @@
 /datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in living_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
-			C << "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>"
-			C << "<span class='danger'>It feels like part of you has died.</span>"
+			to_chat(C, "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>")
+
+			to_chat(C, "<span class='danger'>It feels like part of you has died.</span>")
+
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
 	if(M.a_intent == I_HARM)
@@ -61,16 +63,20 @@
 			var/turf/p_loc_m = H.loc
 
 			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
-			H << "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>"
+			to_chat(H, "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>")
+
 			do_after(H, 250, target = src)
 			if(p_loc == M.loc && p_loc_m == H.loc)
 				var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
 				H.remove_language("Wryn Hivemind")
 				node.remove(H)
 				node.loc = M.loc
-				M << "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>"
-				H << "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>"
-				H << "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>"
+				to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
+
+				to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
+
+				to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
+
 				H.h_style = "Bald"
 				H.update_hair()
 

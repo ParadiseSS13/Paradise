@@ -39,11 +39,13 @@
 	var/datum/reagents/R = src.reagents
 
 	if(!R || !R.total_volume)
-		user << "\red None of [src] left, oh no!"
+		to_chat(user, "\red None of [src] left, oh no!")
+
 		return 0
 
 	if(M == user)
-		M << "\blue You swallow some of contents of the [src]."
+		to_chat(M, "\blue You swallow some of contents of the [src].")
+
 		if(reagents.total_volume)
 			reagents.reaction(M, INGEST)
 			spawn(0)
@@ -85,26 +87,32 @@
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 		if(!target.reagents.total_volume)
-			user << "\red [target] is empty."
+			to_chat(user, "\red [target] is empty.")
+
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			user << "\red [src] is full."
+			to_chat(user, "\red [src] is full.")
+
 			return
 
 		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-		user << "\blue You fill [src] with [trans] units of the contents of [target]."
+		to_chat(user, "\blue You fill [src] with [trans] units of the contents of [target].")
+
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
 	else if(target.is_open_container() || istype(target, /obj/item/weapon/reagent_containers/food/snacks))
 		if(!reagents.total_volume)
-			user << "\red [src] is empty."
+			to_chat(user, "\red [src] is empty.")
+
 			return
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			user << "\red you can't add anymore to [target]."
+			to_chat(user, "\red you can't add anymore to [target].")
+
 			return
 		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-		user << "\blue You transfer [trans] units of the condiment to [target]."
+		to_chat(user, "\blue You transfer [trans] units of the condiment to [target].")
+
 
 /obj/item/weapon/reagent_containers/food/condiment/on_reagent_change()
 	if(!possible_states.len)
@@ -230,15 +238,19 @@
 	//You can tear the bag open above food to put the condiments on it, obviously.
 	if(istype(target, /obj/item/weapon/reagent_containers/food/snacks))
 		if(!reagents.total_volume)
-			user << "<span class='warning'>You tear open [src], but there's nothing in it.</span>"
+			to_chat(user, "<span class='warning'>You tear open [src], but there's nothing in it.</span>")
+
 			qdel(src)
 			return
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			user << "<span class='warning'>You tear open [src], but [target] is stacked so high that it just drips off!</span>" //Not sure if food can ever be full, but better safe than sorry.
+			to_chat(user, "<span class='warning'>You tear open [src], but [target] is stacked so high that it just drips off!</span>")//Not sure if food can ever be full, but better safe than sorry.
+
+
 			qdel(src)
 			return
 		else
-			user << "<span class='notice'>You tear open [src] above [target] and the condiments drip onto it.</span>"
+			to_chat(user, "<span class='notice'>You tear open [src] above [target] and the condiments drip onto it.</span>")
+
 			src.reagents.trans_to(target, amount_per_transfer_from_this)
 			qdel(src)
 

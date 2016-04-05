@@ -13,7 +13,8 @@
 
 /obj/item/device/pizza_bomb/attack_self(mob/user)
 	if(disarmed)
-		user << "<span class='notice'>\The [src] is disarmed.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is disarmed.</span>")
+
 		return
 	if(!timer_set)
 		name = "pizza bomb"
@@ -29,7 +30,8 @@
 			return
 		timer = Clamp(timer, 10, 100)
 		icon_state = "pizzabox1"
-		user << "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing \the [src]."
+		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing \the [src].")
+
 		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has set the timer on a pizza bomb to [timer/10] seconds ([loc.x],[loc.y],[loc.z]).")
 		armer = usr
@@ -41,7 +43,8 @@
 		desc = "OH GOD THAT'S NOT A PIZZA"
 		icon_state = "pizzabox_bomb"
 		audible_message("<span class='warning'>\icon[src] *beep* *beep*</span>")
-		user << "<span class='danger'>That's no pizza! That's a bomb!</span>"
+		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
+
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [armer] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has triggered a pizza bomb armed by [armer] ([loc.x],[loc.y],[loc.z]).")
 		primed = 1
@@ -59,7 +62,8 @@
 
 /obj/item/device/pizza_bomb/attackby(var/obj/item/I, var/mob/user, params)
 	if(istype(I, /obj/item/weapon/wirecutters) && primed)
-		user << "<span class='danger'>Oh God, what wire do you cut?!</span>"
+		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
+
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
 		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
 			return
@@ -68,7 +72,8 @@
 		sleep(5)
 		if(chosen_wire == correct_wire)
 			src.audible_message("<span class='warning'>\icon[src] \The [src] suddenly stops beeping and seems lifeless.</span>")
-			user << "<span class='notice'>You did it!</span>"
+			to_chat(user, "<span class='notice'>You did it!</span>")
+
 			icon_state = "pizzabox_bomb_[correct_wire]"
 			name = "pizza bomb"
 			desc = "A devious contraption, made of a small explosive payload hooked up to pressure-sensitive wires. It's disarmed."
@@ -76,12 +81,14 @@
 			primed = 0
 			return
 		else
-			user << "<span class='userdanger'>WRONG WIRE!</span>"
+			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
+
 			go_boom()
 			return
 	if(istype(I, /obj/item/weapon/wirecutters) && disarmed)
 		if(!in_range(user, src))
-			user << "<span class='warning'>You can't see the box well enough to cut the wires out.</span>"
+			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
+
 			return
 		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from \the [src].</span>")
 		if(do_after(user, 40, target = src))

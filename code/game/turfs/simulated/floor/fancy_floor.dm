@@ -14,7 +14,8 @@
 	if(istype(C, /obj/item/weapon/screwdriver))
 		if(broken || burnt)
 			return
-		user << "<span class='danger'>You unscrew the planks.</span>"
+		to_chat(user, "<span class='danger'>You unscrew the planks.</span>")
+
 		new floor_tile(src)
 		make_plating()
 		playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
@@ -42,7 +43,8 @@
 	if(istype(C, /obj/item/weapon/shovel))
 		new /obj/item/weapon/ore/glass(src)
 		new /obj/item/weapon/ore/glass(src) //Make some sand if you shovel grass
-		user << "<span class='notice'>You shovel the grass.</span>"
+		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
+
 		make_plating()
 
 /turf/simulated/floor/carpet

@@ -14,30 +14,36 @@
 	if(W.GetID())
 		if(subverted)
 			locked = 0
-			user << "<span class='danger'>It looks like the locking system has been shorted out.</span>"
+			to_chat(user, "<span class='danger'>It looks like the locking system has been shorted out.</span>")
+
 			return
 
 		if((!req_access || !req_access.len) && (!req_one_access || !req_one_access.len))
 			locked = 0
-			user << "<span class='danger'>\The [src] doesn't seem to have a locking mechanism.</span>"
+			to_chat(user, "<span class='danger'>\The [src] doesn't seem to have a locking mechanism.</span>")
+
 			return
 
 		if(security_check_enabled && !src.allowed(user))
-			user << "<span class='danger'>Access denied.</span>"
+			to_chat(user, "<span class='danger'>Access denied.</span>")
+
 			return
 
 		locked = !locked
-		user << "You [locked ? "lock" : "unlock"] \the [src] access panel."
+		to_chat(user, "You [locked ? "lock" : "unlock"] \the [src] access panel.")
+
 		return
 
 	else if(istype(W,/obj/item/weapon/crowbar))
 
 		if(!open && locked)
-			user << "The access panel is locked shut."
+			to_chat(user, "The access panel is locked shut.")
+
 			return
 
 		open = !open
-		user << "You [open ? "open" : "close"] the access panel."
+		to_chat(user, "You [open ? "open" : "close"] the access panel.")
+
 		return
 
 	if(open)
@@ -47,19 +53,22 @@
 			if(open)
 				wires.Interact(user)
 			else
-				user << "You can't reach the wiring."
+				to_chat(user, "You can't reach the wiring.")
+
 			return
 		// Air tank.
 		if(istype(W,/obj/item/weapon/tank)) //Todo, some kind of check for suits without integrated air supplies.
 
 			if(air_supply)
-				user << "\The [src] already has a tank installed."
+				to_chat(user, "\The [src] already has a tank installed.")
+
 				return
 
 			user.unEquip(W)
 			air_supply = W
 			W.forceMove(src)
-			user << "You slot [W] into [src] and tighten the connecting valve."
+			to_chat(user, "You slot [W] into [src] and tighten the connecting valve.")
+
 			return
 
 		// Check if this is a hardsuit upgrade or a modification.
@@ -68,23 +77,27 @@
 			if(istype(src.loc,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = src.loc
 				if(H.back == src)
-					user << "<span class='danger'>You can't install a hardsuit module while the suit is being worn.</span>"
+					to_chat(user, "<span class='danger'>You can't install a hardsuit module while the suit is being worn.</span>")
+
 					return 1
 
 			if(!installed_modules) installed_modules = list()
 			if(installed_modules.len)
 				for(var/obj/item/rig_module/installed_mod in installed_modules)
 					if(!installed_mod.redundant && istype(installed_mod,W))
-						user << "The hardsuit already has a module of that class installed."
+						to_chat(user, "The hardsuit already has a module of that class installed.")
+
 						return 1
 
 			var/obj/item/rig_module/mod = W
-			user << "You begin installing \the [mod] into \the [src]."
+			to_chat(user, "You begin installing \the [mod] into \the [src].")
+
 			if(!do_after(user,40, target = src))
 				return
 			if(!user || !W)
 				return
-			user << "You install \the [mod] into \the [src]."
+			to_chat(user, "You install \the [mod] into \the [src].")
+
 			user.unEquip(mod)
 			installed_modules |= mod
 			mod.forceMove(src)
@@ -94,7 +107,8 @@
 
 		else if(!cell && istype(W,/obj/item/weapon/stock_parts/cell))
 
-			user << "You jack \the [W] into \the [src]'s battery mount."
+			to_chat(user, "You jack \the [W] into \the [src]'s battery mount.")
+
 			user.unEquip(W)
 			W.forceMove(src)
 			src.cell = W
@@ -103,14 +117,16 @@
 		else if(istype(W,/obj/item/weapon/wrench))
 
 			if(!air_supply)
-				user << "There is not tank to remove."
+				to_chat(user, "There is not tank to remove.")
+
 				return
 
 			if(user.r_hand && user.l_hand)
 				air_supply.forceMove(get_turf(user))
 			else
 				user.put_in_hands(air_supply)
-			user << "You detach and remove \the [air_supply]."
+			to_chat(user, "You detach and remove \the [air_supply].")
+
 			air_supply = null
 			return
 
@@ -127,7 +143,8 @@
 			if(istype(src.loc,/mob/living/carbon/human) && to_remove != "cell")
 				var/mob/living/carbon/human/H = src.loc
 				if(H.back == src)
-					user << "You can't remove an installed device while the hardsuit is being worn."
+					to_chat(user, "You can't remove an installed device while the hardsuit is being worn.")
+
 					return
 
 			switch(to_remove)
@@ -135,7 +152,8 @@
 				if("cell")
 
 					if(cell)
-						user << "You detatch \the [cell] from \the [src]'s battery mount."
+						to_chat(user, "You detatch \the [cell] from \the [src]'s battery mount.")
+
 						for(var/obj/item/rig_module/module in installed_modules)
 							module.deactivate()
 						if(user.r_hand && user.l_hand)
@@ -144,7 +162,8 @@
 							cell.forceMove(user.put_in_hands(cell))
 						cell = null
 					else
-						user << "There is nothing loaded in that mount."
+						to_chat(user, "There is nothing loaded in that mount.")
+
 
 				if("system module")
 
@@ -155,7 +174,8 @@
 						possible_removals[module.name] = module
 
 					if(!possible_removals.len)
-						user << "There are no installed modules to remove."
+						to_chat(user, "There are no installed modules to remove.")
+
 						return
 
 					var/removal_choice = input("Which module would you like to remove?") as null|anything in possible_removals
@@ -163,7 +183,8 @@
 						return
 
 					var/obj/item/rig_module/removed = possible_removals[removal_choice]
-					user << "You detatch \the [removed] from \the [src]."
+					to_chat(user, "You detatch \the [removed] from \the [src].")
+
 					removed.forceMove(get_turf(src))
 					removed.removed()
 					installed_modules -= removed
@@ -192,5 +213,6 @@
 		req_one_access.Cut()
 		locked = 0
 		subverted = 1
-		user << "<span class='danger'>You short out the access protocol for the suit.</span>"
+		to_chat(user, "<span class='danger'>You short out the access protocol for the suit.</span>")
+
 		return 1

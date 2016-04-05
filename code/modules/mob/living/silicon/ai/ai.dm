@@ -201,12 +201,18 @@ var/list/ai_verbs_default = list(
 	..()
 
 /mob/living/silicon/ai/proc/on_mob_init()
-	src << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
-	src << "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>"
-	src << "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>"
-	src << "To use something, simply click on it."
-	src << "Use say :b to speak to your cyborgs through binary. Use say :h to speak from an active holopad."
-	src << "For department channels, use the following say commands:"
+	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
+
+	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
+
+	to_chat(src, "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>")
+
+	to_chat(src, "To use something, simply click on it.")
+
+	to_chat(src, "Use say :b to speak to your cyborgs through binary. Use say :h to speak from an active holopad.")
+
+	to_chat(src, "For department channels, use the following say commands:")
+
 
 	var/radio_text = ""
 	for(var/i = 1 to common_radio.channels.len)
@@ -216,11 +222,13 @@ var/list/ai_verbs_default = list(
 		if(i != common_radio.channels.len)
 			radio_text += ", "
 
-	src << radio_text
+	to_chat(src, radio_text)
+
 
 	if (!(ticker && ticker.mode && (mind in ticker.mode.malf_ai)))
 		show_laws()
-		src << "<b>These laws may be changed by other players, or by you being the traitor.</b>"
+		to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
+
 
 	job = "AI"
 
@@ -330,7 +338,8 @@ var/list/ai_verbs_default = list(
 		if("President") icon_state = "ai-president"
 		else icon_state = "ai"
 	//else
-			//usr <<"You can only change your display once!"
+//			to_chat(usr, "You can only change your display once!")
+
 			//return
 
 
@@ -358,7 +367,8 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(message_cooldown)
-		src << "<span class='warning'>Please allow one minute to pass between announcements.</span>"
+		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
+
 		return
 
 	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as message|null
@@ -418,7 +428,8 @@ var/list/ai_verbs_default = list(
 
 	anchored = !anchored // Toggles the anchor
 
-	src << "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]"
+	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
+
 
 /mob/living/silicon/ai/update_canmove()
 	return 0
@@ -499,7 +510,8 @@ var/list/ai_verbs_default = list(
 			if(H)
 				H.attack_ai(src) //may as well recycle
 			else
-				src << "<span class='notice'>Unable to locate the holopad.</span>"
+				to_chat(src, "<span class='notice'>Unable to locate the holopad.</span>")
+
 
 	if(href_list["say_word"])
 		play_vox_word(href_list["say_word"], null, src)
@@ -510,7 +522,8 @@ var/list/ai_verbs_default = list(
 		if(target && target.can_track())
 			ai_actual_track(target)
 		else
-			src << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
+			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
+
 		return
 
 	if (href_list["trackbot"])
@@ -518,7 +531,8 @@ var/list/ai_verbs_default = list(
 		if(target)
 			ai_actual_track(target)
 		else
-			src << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
+			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
+
 		return
 
 	if (href_list["callbot"]) //Command a bot to move to a selected location.
@@ -526,7 +540,8 @@ var/list/ai_verbs_default = list(
 		if(!Bot || Bot.remote_disabled || src.control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 		waypoint_mode = 1
-		src << "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>"
+		to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
+
 		return
 
 	if (href_list["interface"]) //Remotely connect to a bot!
@@ -542,7 +557,8 @@ var/list/ai_verbs_default = list(
 	if (href_list["ai_take_control"]) //Mech domination
 		var/obj/mecha/M = locate(href_list["ai_take_control"])
 		if(controlled_mech)
-			src << "You are already loaded into an onboard computer!"
+			to_chat(src, "You are already loaded into an onboard computer!")
+
 			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK,src, usr) //Called om the mech itself.
@@ -553,12 +569,14 @@ var/list/ai_verbs_default = list(
 		if(A && target)
 
 			A.cameraFollow = target
-			A << "Now tracking [target.name] on camera."
+			to_chat(A, "Now tracking [target.name] on camera.")
+
 			if (usr.machine == null)
 				usr.machine = usr
 
 			while (src.cameraFollow == target)
-				usr << "Target is not on or near any active cameras on the station. We'll check again in 5 seconds (unless you use the cancel-camera verb)."
+				to_chat(usr, "Target is not on or near any active cameras on the station. We'll check again in 5 seconds (unless you use the cancel-camera verb).")
+
 				sleep(40)
 				continue
 
@@ -574,11 +592,13 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
+
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+		to_chat(M, "No attacking people at spawn, you jackass.")
+
 		return
 
 	switch(M.a_intent)
@@ -630,7 +650,8 @@ var/list/ai_verbs_default = list(
 	set name = "Access Robot Control"
 	set desc = "Wirelessly control various automatic robots."
 	if(stat == 2)
-		src << "<span class='danger'>Critical error. System offline.</span>"
+		to_chat(src, "<span class='danger'>Critical error. System offline.</span>")
+
 		return
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
@@ -666,7 +687,8 @@ var/list/ai_verbs_default = list(
 	else if(cameranet && cameranet.checkTurfVis(turf_check))
 		call_bot(turf_check)
 	else
-		src << "<span class='danger'>Selected location is not visible.</span>"
+		to_chat(src, "<span class='danger'>Selected location is not visible.</span>")
+
 
 /mob/living/silicon/ai/proc/call_bot(var/turf/waypoint)
 
@@ -674,7 +696,8 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(Bot.calling_ai && Bot.calling_ai != src) //Prevents an override if another AI is controlling this bot.
-		src << "<span class='danger'>Interface error. Unit is already in use.</span>"
+		to_chat(src, "<span class='danger'>Interface error. Unit is already in use.</span>")
+
 		return
 
 	Bot.call_bot(src, waypoint)
@@ -709,7 +732,8 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(usr.stat == 2)
-		usr << "You can't change your camera network because you are dead!"
+		to_chat(usr, "You can't change your camera network because you are dead!")
+
 		return
 
 	var/mob/living/silicon/ai/U = usr
@@ -741,7 +765,8 @@ var/list/ai_verbs_default = list(
 			if(network in C.network)
 				U.eyeobj.setLoc(get_turf(C))
 				break
-	src << "\blue Switched to [network] camera network."
+	to_chat(src, "\blue Switched to [network] camera network.")
+
 //End of code by Mord_Sith
 
 
@@ -756,7 +781,8 @@ var/list/ai_verbs_default = list(
 	set name = "AI Status"
 
 	if(usr.stat == 2)
-		usr <<"You cannot change your emotional status because you are dead!"
+		to_chat(usr, "You cannot change your emotional status because you are dead!")
+
 		return
 
 	if(check_unable())
@@ -832,7 +858,8 @@ var/list/ai_verbs_default = list(
 
 	var/obj/machinery/power/apc/apc = src.loc
 	if(!istype(apc))
-		src << "\blue You are already in your Main Core."
+		to_chat(src, "\blue You are already in your Main Core.")
+
 		return
 	apc.malfvacate()
 
@@ -848,7 +875,8 @@ var/list/ai_verbs_default = list(
 	camera_light_on = !camera_light_on
 
 	if (!camera_light_on)
-		src << "Camera lights deactivated."
+		to_chat(src, "Camera lights deactivated.")
+
 
 		for (var/obj/machinery/camera/C in lit_cameras)
 			C.set_light(0)
@@ -858,7 +886,8 @@ var/list/ai_verbs_default = list(
 
 	light_cameras()
 
-	src << "Camera lights activated."
+	to_chat(src, "Camera lights activated.")
+
 
 /mob/living/silicon/ai/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -874,7 +903,8 @@ var/list/ai_verbs_default = list(
 	var/newmsg = input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg) as text
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
-		usr << "The arrival message has been successfully changed."
+		to_chat(usr, "The arrival message has been successfully changed.")
+
 
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.
@@ -930,7 +960,8 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_RADIO))
 		return
 
-	src << "Accessing Subspace Transceiver control..."
+	to_chat(src, "Accessing Subspace Transceiver control...")
+
 	if (src.aiRadio)
 		src.aiRadio.interact(src)
 
@@ -942,13 +973,16 @@ var/list/ai_verbs_default = list(
 			var/mob/living/carbon/human/H = target
 			var/obj/item/weapon/card/id/id = H.wear_id
 			if(istype(id) && id.is_untrackable())
-				src << "Unable to locate an airlock"
+				to_chat(src, "Unable to locate an airlock")
+
 				return
 			if(H.digitalcamo)
-				src << "Unable to locate an airlock"
+				to_chat(src, "Unable to locate an airlock")
+
 				return
 		if (!near_camera(target))
-			src << "Target is not near any active cameras."
+			to_chat(src, "Target is not near any active cameras.")
+
 			return
 		var/obj/machinery/door/airlock/tobeopened
 		var/dist = -1
@@ -956,43 +990,54 @@ var/list/ai_verbs_default = list(
 			if(!D.density) continue
 			if(dist < 0)
 				dist = get_dist(D, target)
-				//world << dist
+//				to_chat(world, dist)
+
 				tobeopened = D
 			else
 				if(dist > get_dist(D, target))
 					dist = get_dist(D, target)
-					//world << dist
+//					to_chat(world, dist)
+
 					tobeopened = D
-					//world << "found [tobeopened.name] closer"
+//					to_chat(world, "found [tobeopened.name] closer")
+
 				else
-					//world << "[D.name] not close enough | [get_dist(D, target)] | [dist]"
+//					to_chat(world, "[D.name] not close enough | [get_dist(D, target)] | [dist]")
+
 		if(tobeopened)
 			switch(alert(src, "Do you want to open \the [tobeopened] for [target]?","Doorknob_v2a.exe","Yes","No"))
 				if("Yes")
 					var/nhref = "src=\ref[tobeopened];aiEnable=7"
 					tobeopened.Topic(nhref, params2list(nhref), tobeopened, 1)
-					src << "\blue You've opened \the [tobeopened] for [target]."
+					to_chat(src, "\blue You've opened \the [tobeopened] for [target].")
+
 				if("No")
-					src << "\red You deny the request."
+					to_chat(src, "\red You deny the request.")
+
 		else
-			src << "\red You've failed to open an airlock for [target]"
+			to_chat(src, "\red You've failed to open an airlock for [target]")
+
 		return
 
 
 /mob/living/silicon/ai/proc/check_unable(var/flags = 0)
 	if(stat == DEAD)
-		usr << "<span class='warning'>You are dead!</span>"
+		to_chat(usr, "<span class='warning'>You are dead!</span>")
+
 		return 1
 
 	if(lacks_power())
-		usr << "<span class='warning'>Power systems failure!</span>"
+		to_chat(usr, "<span class='warning'>Power systems failure!</span>")
+
 		return 1
 
 	if((flags & AI_CHECK_WIRELESS) && src.control_disabled)
-		usr << "<span class='warning'>Wireless control is disabled!</span>"
+		to_chat(usr, "<span class='warning'>Wireless control is disabled!</span>")
+
 		return 1
 	if((flags & AI_CHECK_RADIO) && src.aiRadio.disabledAi)
-		src << "<span class='warning'>System Error - Transceiver Disabled!</span>"
+		to_chat(src, "<span class='warning'>System Error - Transceiver Disabled!</span>")
+
 		return 1
 	return 0
 
@@ -1004,18 +1049,24 @@ var/list/ai_verbs_default = list(
 		return
 	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
 		if(!mind)
-			user << "<span class='warning'>No intelligence patterns detected.</span>"    //No more magical carding of empty cores, AI RETURN TO BODY!!!11
+			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
+
+
 			return
 		if (mind.special_role == "malfunction") //AI MALF!!
-			user << "<span class='boldannounce'>ERROR</span>: Remote transfer interface disabled."//Do ho ho ho~
+			to_chat(user, "<span class='boldannounce'>ERROR</span>: Remote transfer interface disabled.")//Do ho ho ho~
+
+
 			return
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = 1//Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
 		loc = card//Throw AI into the card.
-		src << "You have been downloaded to a mobile storage device. Remote device connection severed."
-		user << "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
+		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
+
+		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+
 
 // Pass lying down or getting up to our pet human, if we're in a rig.
 /mob/living/silicon/ai/lay_down()

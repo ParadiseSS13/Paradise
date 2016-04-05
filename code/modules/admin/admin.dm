@@ -9,7 +9,8 @@ var/global/nologevent = 0
 	log_adminwarn(msg)
 	for(var/client/C in admins)
 		if(R_SERVER & C.holder.rights)
-			C << msg
+			to_chat(C, msg)
+
 
 /proc/msg_admin_attack(var/text) //Toggleable Attack Messages
 	log_attack(text)
@@ -20,7 +21,8 @@ var/global/nologevent = 0
 				if(C.prefs.toggles & CHAT_ATTACKLOGS)
 					if(!istype(C, /mob/living))
 						var/msg = rendered
-						C << msg
+						to_chat(C, msg)
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
@@ -31,7 +33,8 @@ var/global/nologevent = 0
 	set desc="Edit player (respawn, ban, heal, etc)"
 
 	if(!M)
-		usr << "You seem to be selecting a mob that doesn't exist anymore."
+		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.")
+
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -470,8 +473,10 @@ var/global/nologevent = 0
 		else
 			dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 
-	//world << "Channelname: [src.admincaster_feed_channel.channel_name] [src.admincaster_feed_channel.author]"
-	//world << "Msg: [src.admincaster_feed_message.author] [src.admincaster_feed_message.body]"
+//	to_chat(world, "Channelname: [src.admincaster_feed_channel.channel_name] [src.admincaster_feed_channel.author]")
+
+//	to_chat(world, "Msg: [src.admincaster_feed_message.author] [src.admincaster_feed_message.body]")
+
 	usr << browse(dat, "window=admincaster_main;size=400x600")
 	onclose(usr, "admincaster_main")
 
@@ -546,7 +551,8 @@ var/global/nologevent = 0
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		world << "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>"
+		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
+
 		log_admin("Announce: [key_name(usr)] : [message]")
 	feedback_add_details("admin_verb","A") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -572,9 +578,11 @@ var/global/nologevent = 0
 
 	config.looc_allowed = !(config.looc_allowed)
 	if (config.looc_allowed)
-		world << "<B>The LOOC channel has been globally enabled!</B>"
+		to_chat(world, "<B>The LOOC channel has been globally enabled!</B>")
+
 	else
-		world << "<B>The LOOC channel has been globally disabled!</B>"
+		to_chat(world, "<B>The LOOC channel has been globally disabled!</B>")
+
 	log_and_message_admins("toggled LOOC.")
 	feedback_add_details("admin_verb","TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -588,9 +596,11 @@ var/global/nologevent = 0
 
 	config.dsay_allowed = !(config.dsay_allowed)
 	if (config.dsay_allowed)
-		world << "<B>Deadchat has been globally enabled!</B>"
+		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
+
 	else
-		world << "<B>Deadchat has been globally disabled!</B>"
+		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
+
 	log_admin("[key_name(usr)] toggled deadchat.")
 	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
 	feedback_add_details("admin_verb","TDSAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
@@ -626,7 +636,8 @@ var/global/nologevent = 0
 		feedback_add_details("admin_verb","SN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
-		usr << "<font color='red'>Error: Start Now: Game has already started.</font>"
+		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
+
 		return 0
 
 /datum/admins/proc/toggleenter()
@@ -639,9 +650,11 @@ var/global/nologevent = 0
 
 	enter_allowed = !( enter_allowed )
 	if (!( enter_allowed ))
-		world << "<B>New players may no longer enter the game.</B>"
+		to_chat(world, "<B>New players may no longer enter the game.</B>")
+
 	else
-		world << "<B>New players may now enter the game.</B>"
+		to_chat(world, "<B>New players may now enter the game.</B>")
+
 	log_admin("[key_name(usr)] toggled new player game entering.")
 	message_admins("[key_name_admin(usr)] toggled new player game entering.", 1)
 	world.update_status()
@@ -657,9 +670,11 @@ var/global/nologevent = 0
 
 	config.allow_ai = !( config.allow_ai )
 	if (!( config.allow_ai ))
-		world << "<B>The AI job is no longer chooseable.</B>"
+		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
+
 	else
-		world << "<B>The AI job is chooseable now.</B>"
+		to_chat(world, "<B>The AI job is chooseable now.</B>")
+
 	message_admins("[key_name_admin(usr)] toggled AI allowed.")
 	log_admin("[key_name(usr)] toggled AI allowed.")
 	world.update_status()
@@ -675,9 +690,11 @@ var/global/nologevent = 0
 
 	abandon_allowed = !( abandon_allowed )
 	if (abandon_allowed)
-		world << "<B>You may now respawn.</B>"
+		to_chat(world, "<B>You may now respawn.</B>")
+
 	else
-		world << "<B>You may no longer respawn :(</B>"
+		to_chat(world, "<B>You may no longer respawn :(</B>")
+
 	message_admins("[key_name_admin(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].", 1)
 	log_admin("[key_name(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].")
 	world.update_status()
@@ -711,10 +728,12 @@ var/global/nologevent = 0
 		return //alert("Round end delayed", null, null, null, null, null)
 	going = !( going )
 	if (!( going ))
-		world << "<b>The game start has been delayed.</b>"
+		to_chat(world, "<b>The game start has been delayed.</b>")
+
 		log_admin("[key_name(usr)] delayed the game.")
 	else
-		world << "<b>The game will start soon.</b>"
+		to_chat(world, "<b>The game will start soon.</b>")
+
 		log_admin("[key_name(usr)] removed the delay.")
 	feedback_add_details("admin_verb","DELAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -802,10 +821,12 @@ var/global/nologevent = 0
 		return
 
 	if(!istype(M))
-		usr << "This can only be used on instances of type /mob"
+		to_chat(usr, "This can only be used on instances of type /mob")
+
 		return
 	if(!M.mind)
-		usr << "This mob has no mind!"
+		to_chat(usr, "This mob has no mind!")
+
 		return
 
 	M.mind.edit_memory()
@@ -821,9 +842,11 @@ var/global/nologevent = 0
 
 	guests_allowed = !( guests_allowed )
 	if (!( guests_allowed ))
-		world << "<B>Guests may no longer enter the game.</B>"
+		to_chat(world, "<B>Guests may no longer enter the game.</B>")
+
 	else
-		world << "<B>Guests may now enter the game.</B>"
+		to_chat(world, "<B>Guests may now enter the game.</B>")
+
 	log_admin("[key_name(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.")
 	message_admins("\blue [key_name_admin(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.", 1)
 	feedback_add_details("admin_verb","TGU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -833,25 +856,33 @@ var/global/nologevent = 0
 	for(var/mob/living/silicon/S in mob_list)
 		ai_number++
 		if(isAI(S))
-			usr << "<b>AI [key_name(S, usr)]'s laws:</b>"
+			to_chat(usr, "<b>AI [key_name(S, usr)]'s laws:</b>")
+
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
-			usr << "<b>CYBORG [key_name(S, usr)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>"
+			to_chat(usr, "<b>CYBORG [key_name(S, usr)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>")
+
 		else if (ispAI(S))
 			var/mob/living/silicon/pai/P = S
-			usr << "<b>pAI [key_name(S, usr)]'s laws:</b>"
-			usr << "[P.pai_law0]"
-			if(P.pai_laws) usr << "[P.pai_laws]"
+			to_chat(usr, "<b>pAI [key_name(S, usr)]'s laws:</b>")
+			to_chat(usr, "[P.pai_law0]")
+			if(P.pai_laws)
+				to_chat(usr, "[P.pai_laws]")
+
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			usr << "<b>SILICON [key_name(S, usr)]'s laws:</b>"
+			to_chat(usr, "<b>SILICON [key_name(S, usr)]'s laws:</b>")
+
 
 		if (S.laws == null)
-			usr << "[key_name(S, usr)]'s laws are null. Contact a coder."
+			to_chat(usr, "[key_name(S, usr)]'s laws are null. Contact a coder.")
+
 		else
 			S.laws.show_laws(usr)
 	if(!ai_number)
-		usr << "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
+		to_chat(usr, "<b>No AI's located.</b>")//Just so you know the thing is actually working and not just ignoring you.
+
+
 
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")
@@ -932,7 +963,8 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 			if(kick_only_afk && !C.is_afk())	//Ignore clients who are not afk
 				continue
 			if(message)
-				C << message
+				to_chat(C, message)
+
 			kicked_client_names.Add("[C.ckey]")
 			del(C)
 	return kicked_client_names

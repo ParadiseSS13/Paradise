@@ -36,7 +36,8 @@
 	if(!pod_moving && icon_state == "open" && istype(AM, /mob/living) && !is_type_in_list(AM, disallowed_mobs))
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(pod.contents.len)
-				AM << "<span class=The pod is already occupied.</span>"
+				to_chat(AM, "<span class=The pod is already occupied.</span>")
+
 				return
 			else if(!pod.moving && pod.dir in directions())
 				AM.forceMove(pod)

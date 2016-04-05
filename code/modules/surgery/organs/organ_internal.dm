@@ -302,7 +302,8 @@
 
 	if (germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
-			owner << "<span class='warning'> Your skin itches.</span>"
+			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
+
 	if (germ_level > INFECTION_LEVEL_TWO)
 		if(prob(1))
 			spawn owner.vomit()
@@ -458,12 +459,14 @@
 
 	if(organhonked < world.time)
 		organhonked = world.time+900
-		owner << "<font color='red' size='7'>HONK</font>"
+		to_chat(owner, "<font color='red' size='7'>HONK</font>")
+
 		owner.sleeping = 0
 		owner.stuttering = 20
 		owner.ear_deaf = 30
 		owner.Weaken(3)
-		owner << 'sound/items/AirHorn.ogg'
+		to_chat(owner, 'sound/items/AirHorn.ogg')
+
 		if(prob(30))
 			owner.Stun(10)
 			owner.Paralyse(4)

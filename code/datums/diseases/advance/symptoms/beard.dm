@@ -32,17 +32,20 @@ BONUS
 			var/mob/living/carbon/human/H = M
 			switch(A.stage)
 				if(1, 2)
-					H << "<span class='warning'>Your chin itches.</span>"
+					to_chat(H, "<span class='warning'>Your chin itches.</span>")
+
 					if(H.f_style == "Shaved")
 						H.f_style = "Jensen Beard"
 						H.update_hair()
 				if(3, 4)
-					H << "<span class='warning'>You feel tough.</span>"
+					to_chat(H, "<span class='warning'>You feel tough.</span>")
+
 					if(!(H.f_style == "Dwarf Beard") && !(H.f_style == "Very Long Beard") && !(H.f_style == "Full Beard"))
 						H.f_style = "Full Beard"
 						H.update_hair()
 				else
-					H << "<span class='warning'>You feel manly!</span>"
+					to_chat(H, "<span class='warning'>You feel manly!</span>")
+
 					if(!(H.f_style == "Dwarf Beard") && !(H.f_style == "Very Long Beard"))
 						H.f_style = pick("Dwarf Beard", "Very Long Beard")
 						H.update_hair()

@@ -105,7 +105,8 @@
 			message = "<B>\The [src]</B> does a flip!"
 			src.SpinAnimation(5,1)
 		if("help")
-			src << "burp, flip, deathgasp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roar, roll, scratch,\nscretch, shake, sign-#, sit, sulk, sway, tail, twitch, whimper"
+			to_chat(src, "burp, flip, deathgasp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roar, roll, scratch,\nscretch, shake, sign-#, sit, sulk, sway, tail, twitch, whimper")
+
 
 	if(!stat)
 		if (act == "roar")

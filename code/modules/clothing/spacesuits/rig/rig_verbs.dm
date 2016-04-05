@@ -17,21 +17,24 @@
 	set src = usr.contents
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	if(!check_power_cost(usr))
 		return
 
 	if(!(flags & NODROP))
-		usr << "<span class='warning'>The suit is not active.</span>"
+		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
+
 		return
 
 	if(!check_suit_access(usr))
 		return
 
 	if(!visor)
-		usr << "<span class='warning'>The hardsuit does not have a configurable visor.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit does not have a configurable visor.</span>")
+
 		return
 
 	var/mob/M = usr
@@ -51,7 +54,8 @@
 	set src = usr.contents
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	if(!check_suit_access(usr))
@@ -87,7 +91,8 @@
 	set src = usr.contents
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	if(!check_suit_access(usr))
@@ -107,7 +112,8 @@
 	set src = usr.contents
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	if(!check_suit_access(usr))
@@ -127,7 +133,8 @@
 	set src = usr.contents
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	if(!check_suit_access(usr))
@@ -150,7 +157,8 @@
 	set src = usr.contents
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	if(!check_suit_access(usr))
@@ -176,11 +184,13 @@
 		return
 
 	if(!(flags & NODROP))
-		usr << "<span class='warning'>The suit is not active.</span>"
+		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
+
 		return
 
 	if(!visor)
-		usr << "<span class='warning'>The hardsuit does not have a configurable visor.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit does not have a configurable visor.</span>")
+
 		return
 
 	var/mob/M = usr
@@ -191,7 +201,8 @@
 		visor.activate()
 
 	if(!visor.active)
-		usr << "<span class='warning'>The visor is suffering a hardware fault and cannot be configured.</span>"
+		to_chat(usr, "<span class='warning'>The visor is suffering a hardware fault and cannot be configured.</span>")
+
 		return
 
 	visor.engage()
@@ -207,15 +218,18 @@
 		return
 
 	if(!(flags & NODROP))
-		usr << "<span class='warning'>The suit is not active.</span>"
+		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
+
 		return
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	if(!speech)
-		usr << "<span class='warning'>The hardsuit does not have a speech synthesiser.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit does not have a speech synthesiser.</span>")
+
 		return
 
 	var/mob/M = usr
@@ -238,11 +252,13 @@
 		return
 
 	if(!(flags & NODROP))
-		usr << "<span class='warning'>The suit is not active.</span>"
+		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
+
 		return
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	var/mob/M = usr
@@ -258,11 +274,13 @@
 
 	if(!istype(module))
 		selected_module = null
-		usr << "<font color='blue'><b>Primary system is now: deselected.</b></font>"
+		to_chat(usr, "<font color='blue'><b>Primary system is now: deselected.</b></font>")
+
 		return
 
 	selected_module = module
-	usr << "<font color='blue'><b>Primary system is now: [selected_module.interface_name].</b></font>"
+	to_chat(usr, "<font color='blue'><b>Primary system is now: [selected_module.interface_name].</b></font>")
+
 
 /obj/item/weapon/rig/verb/toggle_module()
 
@@ -278,11 +296,13 @@
 		return
 
 	if(!(flags & NODROP))
-		usr << "<span class='warning'>The suit is not active.</span>"
+		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
+
 		return
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	var/mob/M = usr
@@ -300,10 +320,12 @@
 		return
 
 	if(module.active)
-		usr << "<font color='blue'><b>You attempt to deactivate \the [module.interface_name].</b></font>"
+		to_chat(usr, "<font color='blue'><b>You attempt to deactivate \the [module.interface_name].</b></font>")
+
 		module.deactivate()
 	else
-		usr << "<font color='blue'><b>You attempt to activate \the [module.interface_name].</b></font>"
+		to_chat(usr, "<font color='blue'><b>You attempt to activate \the [module.interface_name].</b></font>")
+
 		module.activate()
 
 /obj/item/weapon/rig/verb/engage_module()
@@ -317,11 +339,13 @@
 		return
 
 	if(!(flags & NODROP))
-		usr << "<span class='warning'>The suit is not active.</span>"
+		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
+
 		return
 
 	if(!istype(wearer) || !wearer.back == src)
-		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
+
 		return
 
 	if(!check_power_cost(usr, 0, 0, 0, 0))
@@ -341,5 +365,6 @@
 	if(!istype(module))
 		return
 
-	usr << "<font color='blue'><b>You attempt to engage the [module.interface_name].</b></font>"
+	to_chat(usr, "<font color='blue'><b>You attempt to engage the [module.interface_name].</b></font>")
+
 	module.engage()

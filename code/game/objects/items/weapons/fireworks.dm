@@ -9,7 +9,8 @@ obj/item/weapon/firework/attackby(obj/item/weapon/W,mob/user, params)
 		return
 	if (istype(W, /obj/item/weapon/weldingtool) && W:welding || istype(W,/obj/item/weapon/lighter) && W:lit)
 		for(var/mob/M in viewers(user))
-			M << "[user] lits \the [src]"
+			to_chat(M, "[user] lits \the [src]")
+
 		litzor = 1
 		icon_state = "rocket_1"
 		S = new()
@@ -31,7 +32,8 @@ obj/item/weapon/sparkler/attackby(obj/item/weapon/W,mob/user, params)
 		return
 	if (istype(W, /obj/item/weapon/weldingtool) && W:welding || istype(W,/obj/item/weapon/lighter) && W:lit)
 		for(var/mob/M in viewers(user))
-			M << "[user] lits \the [src]"
+			to_chat(M, "[user] lits \the [src]")
+
 		litzor = 1
 		icon_state = "sparkler_1"
 		var/b = rand(5,9)

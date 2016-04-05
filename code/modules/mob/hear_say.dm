@@ -65,14 +65,18 @@
 	if(sdisabilities & DEAF || ear_deaf)
 		if(!language || !(language.flags & INNATE)) // INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 			if(speaker == src)
-				src << "<span class='warning'>You cannot hear yourself speak!</span>"
+				to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
+
 			else
-				src << "<span class='name'>[speaker_name]</span>[alt_name] talks but you cannot hear them."
+				to_chat(src, "<span class='name'>[speaker_name]</span>[alt_name] talks but you cannot hear them.")
+
 	else
 		if(language)
-			src << "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][language.format_message(message, verb)]</span>"
+			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][language.format_message(message, verb)]</span>")
+
 		else
-			src << "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>"
+			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>")
+
 		if (speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			src.playsound_local(source, speech_sound, sound_vol, 1)
@@ -177,11 +181,14 @@
 		formatted = "[verb], <span class=\"body\">\"[message]\"</span>"
 	if(sdisabilities & DEAF || ear_deaf)
 		if(prob(20))
-			src << "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>"
+			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
+
 	else if(track)
-		src << "[part_a][track][part_b][formatted]</span></span>"
+		to_chat(src, "[part_a][track][part_b][formatted]</span></span>")
+
 	else
-		src << "[part_a][speaker_name][part_b][formatted]</span></span>"
+		to_chat(src, "[part_a][speaker_name][part_b][formatted]</span></span>")
+
 
 /mob/proc/hear_signlang(var/message, var/verb = "gestures", var/datum/language/language, var/mob/speaker = null)
 	if(!client)
@@ -215,4 +222,5 @@
 	else
 		heard = "<span class = 'game_say'>...<i>You almost hear someone talking</i>...</span>"
 
-	src << heard
+	to_chat(src, heard)
+

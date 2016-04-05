@@ -150,7 +150,8 @@
 	if (CM.stat || CM.restrained())
 		return
 
-	CM << "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>"
+	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
+
 	src.attack_hand(CM)
 
 
@@ -192,7 +193,8 @@
 	if (user != O)
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
-				B << text("\red [] stuffs [] into []!", user, O, src)
+				to_chat(B, text("\red [] stuffs [] into []!", user, O, src))
+
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -274,7 +276,8 @@
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if (cremating)
-		usr << "\red It's locked."
+		to_chat(usr, "\red It's locked.")
+
 		return
 	if ((connected) && (locked == 0))
 		for(var/atom/movable/A as mob|obj in connected.loc)
@@ -388,7 +391,8 @@
 	if (CM.stat || CM.restrained())
 		return
 
-	CM << "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>"
+	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
+
 	src.attack_hand(CM)
 
 /*
@@ -429,7 +433,8 @@
 	if (user != O)
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
-				B << text("\red [] stuffs [] into []!", user, O, src)
+				to_chat(B, text("\red [] stuffs [] into []!", user, O, src))
+
 			//Foreach goto(99)
 	return
 
@@ -446,7 +451,8 @@
 				if (!C.cremating)
 					C.cremate(user)
 	else
-		usr << "\red Access denied."
+		to_chat(usr, "\red Access denied.")
+
 	return
 
 /hook/Login/proc/update_morgue(var/client/client, var/mob/L)

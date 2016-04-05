@@ -16,7 +16,8 @@
 			if(I && I.implanted)
 				I.hidden_uplink.uses +=1
 				use(1)
-				user << "<span class='notice'>You press the [src] onto yourself and charge your hidden uplink.</span>"
+				to_chat(user, "<span class='notice'>You press the [src] onto yourself and charge your hidden uplink.</span>")
+
 
 /obj/item/stack/telecrystal/afterattack(var/obj/item/I as obj, mob/user as mob, proximity)
 	if(!proximity)
@@ -25,4 +26,5 @@
 		if(I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
 			I.hidden_uplink.uses +=1
 			use(1)
-			user << "<span class='notice'>You slot the [src] into the [I] and charge its internal uplink.</span>"
+			to_chat(user, "<span class='notice'>You slot the [src] into the [I] and charge its internal uplink.</span>")
+

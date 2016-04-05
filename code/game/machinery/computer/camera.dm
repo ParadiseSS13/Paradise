@@ -61,7 +61,8 @@
 /obj/machinery/computer/security/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		user << "\blue You have authorized full network access!"
+		to_chat(user, "\blue You have authorized full network access!")
+
 		ui_interact(user)
 	else
 		ui_interact(user)

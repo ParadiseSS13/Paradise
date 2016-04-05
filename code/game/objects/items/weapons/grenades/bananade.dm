@@ -40,20 +40,25 @@ var/turf/T
 /obj/item/weapon/grenade/bananade/casing/attackby(var/obj/item/I, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/bananapeel))
 		if(fillamt < 9)
-			usr << "<span  class='notice'>You add another banana peel to the assembly.</span>"
+			to_chat(usr, "<span  class='notice'>You add another banana peel to the assembly.</span>")
+
 			fillamt += 1
 			qdel(I)
 		else
-			usr << "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>"
+			to_chat(usr, "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>")
+
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(fillamt)
 			var/obj/item/weapon/grenade/bananade/G = new /obj/item/weapon/grenade/bananade
 			user.unEquip(src)
 			user.put_in_hands(G)
 			G.deliveryamt = src.fillamt
-			user << "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>"
+			to_chat(user, "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>")
+
 			qdel(src)
 		else
-			usr << "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>"
+			to_chat(usr, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
+
 	else
-		usr << "<span class='notice'>Only banana peels fit in this assembly, up to 9.</span>"
+		to_chat(usr, "<span class='notice'>Only banana peels fit in this assembly, up to 9.</span>")
+

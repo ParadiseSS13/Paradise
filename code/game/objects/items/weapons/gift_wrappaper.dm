@@ -30,7 +30,8 @@
 		user.put_in_active_hand(gift)
 		src.gift.add_fingerprint(user)
 	else
-		user << "\blue The gift was empty!"
+		to_chat(user, "\blue The gift was empty!")
+
 	qdel(src)
 	return
 
@@ -41,16 +42,19 @@
 /obj/effect/spresent/relaymove(mob/user as mob)
 	if (user.stat)
 		return
-	user << "\blue You cant move."
+	to_chat(user, "\blue You cant move.")
+
 
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if (!istype(W, /obj/item/weapon/wirecutters))
-		user << "\blue I need wirecutters for that."
+		to_chat(user, "\blue I need wirecutters for that.")
+
 		return
 
-	user << "\blue You cut open the present."
+	to_chat(user, "\blue You cut open the present.")
+
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc
@@ -141,4 +145,5 @@
 	max_amount = 25
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
-	user << "<span class='notice'>You need to use it on a package that has already been wrapped!</span>"
+	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
+

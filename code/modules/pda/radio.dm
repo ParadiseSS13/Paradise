@@ -31,7 +31,8 @@
 
 /obj/item/radio/integrated/proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3,var/key4, var/value4, s_filter)
 
-	//world << "Post: [freq]: [key]=[value], [key2]=[value2]"
+//	to_chat(world, "Post: [freq]: [key]=[value], [key2]=[value2]")
+
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(freq)
 
 	if(!frequency)

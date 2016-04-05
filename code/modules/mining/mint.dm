@@ -124,7 +124,8 @@
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(processing==1)
-		usr << "<span class='notice'>The machine is processing.</span>"
+		to_chat(usr, "<span class='notice'>The machine is processing.</span>")
+
 		return
 	if(href_list["choose"])
 		chosen = href_list["choose"]

@@ -47,7 +47,8 @@
 
 /obj/machinery/syndicatebomb/examine(mob/user)
 	..(user)
-	user << "A digital display on it reads \"[timer]\"."
+	to_chat(user, "A digital display on it reads \"[timer]\".")
+
 
 /obj/machinery/syndicatebomb/update_icon()
 	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
@@ -56,25 +57,31 @@
 	if(istype(I, /obj/item/weapon/wrench))
 		if(!anchored)
 			if(!isturf(src.loc) || istype(src.loc, /turf/space))
-				user << "<span class='notice'>The bomb must be placed on solid ground to attach it</span>"
+				to_chat(user, "<span class='notice'>The bomb must be placed on solid ground to attach it</span>")
+
 			else
-				user << "<span class='notice'>You firmly wrench the bomb to the floor</span>"
+				to_chat(user, "<span class='notice'>You firmly wrench the bomb to the floor</span>")
+
 				playsound(loc, 'sound/items/ratchet.ogg', 50, 1)
 				anchored = 1
 				if(active)
-					user << "<span class='notice'>The bolts lock in place</span>"
+					to_chat(user, "<span class='notice'>The bolts lock in place</span>")
+
 		else
 			if(!active)
-				user << "<span class='notice'>You wrench the bomb from the floor</span>"
+				to_chat(user, "<span class='notice'>You wrench the bomb from the floor</span>")
+
 				playsound(loc, 'sound/items/ratchet.ogg', 50, 1)
 				anchored = 0
 			else
-				user << "<span class='warning'>The bolts are locked down!</span>"
+				to_chat(user, "<span class='warning'>The bolts are locked down!</span>")
+
 
 	else if(istype(I, /obj/item/weapon/screwdriver))
 		open_panel = !open_panel
 		update_icon()
-		user << "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>"
+		to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
+
 
 	else if(istype(I, /obj/item/weapon/wirecutters) || istype(I, /obj/item/device/multitool) || istype(I, /obj/item/device/assembly/signaler ))
 		if(open_panel)
@@ -83,23 +90,29 @@
 	else if(istype(I, /obj/item/weapon/crowbar))
 		if(open_panel && isWireCut(WIRE_BOOM) && isWireCut(WIRE_UNBOLT) && isWireCut(WIRE_DELAY) && isWireCut(WIRE_PROCEED) && isWireCut(WIRE_ACTIVATE))
 			if(payload)
-				user << "<span class='notice'>You carefully pry out [payload].</span>"
+				to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
+
 				payload.loc = user.loc
 				payload = null
 			else
-				user << "<span class='notice'>There isn't anything in here to remove!</span>"
+				to_chat(user, "<span class='notice'>There isn't anything in here to remove!</span>")
+
 		else if (open_panel)
-			user << "<span class='notice'>The wires conneting the shell to the explosives are holding it down!</span>"
+			to_chat(user, "<span class='notice'>The wires conneting the shell to the explosives are holding it down!</span>")
+
 		else
-			user << "<span class='notice'>The cover is screwed on, it won't pry off!</span>"
+			to_chat(user, "<span class='notice'>The cover is screwed on, it won't pry off!</span>")
+
 	else if(istype(I, /obj/item/weapon/bombcore))
 		if(!payload)
 			payload = I
-			user << "<span class='notice'>You place [payload] into [src].</span>"
+			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
+
 			user.drop_item()
 			payload.loc = src
 		else
-			user << "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>"
+			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
+
 	else
 		..()
 
@@ -118,7 +131,8 @@
 				settings(user)
 				return
 		else if(anchored)
-			user << "<span class='notice'>The bomb is bolted to the floor!</span>"
+			to_chat(user, "<span class='notice'>The bomb is bolted to the floor!</span>")
+
 			return
 
 /obj/machinery/syndicatebomb/proc/settings(var/mob/user)
@@ -310,7 +324,8 @@
 				detonated++
 			existant++
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
-		user << "<span class='notice'>[existant] found, [detonated] triggered.</span>"
+		to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
+
 		if(detonated)
 			var/turf/T = get_turf(src)
 			var/area/A = get_area(T)

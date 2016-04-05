@@ -97,17 +97,20 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		user << "\blue <B>The cryo cell is already occupied!</B>"
+		to_chat(user, "\blue <B>The cryo cell is already occupied!</B>")
+
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		user << "\red <B>Subject cannot have abiotic items on.</B>"
+		to_chat(user, "\red <B>Subject cannot have abiotic items on.</B>")
+
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			usr << "[L.name] will not fit into the cryo cell because they have a slime latched onto their head."
+			to_chat(usr, "[L.name] will not fit into the cryo cell because they have a slime latched onto their head.")
+
 			return
 	if(put_mob(L))
 		if(L == user)
@@ -161,7 +164,8 @@
 		return
 
 	if(panel_open)
-		usr << "\blue <b>Close the maintenance panel first.</b>"
+		to_chat(usr, "\blue <b>Close the maintenance panel first.</b>")
+
 		return
 
 	ui_interact(user)
@@ -273,10 +277,12 @@
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			user << "\red A beaker is already loaded into the machine."
+			to_chat(user, "\red A beaker is already loaded into the machine.")
+
 			return
 		if(!user.drop_item())
-			user << "The [G] is stuck to you!"
+			to_chat(user, "The [G] is stuck to you!")
+
 			return
 		G.forceMove(src)
 		beaker =  G
@@ -285,7 +291,8 @@
 
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(occupant || on)
-			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+
 			return
 		default_deconstruction_screwdriver(user, "pod0-o", "pod0", G)
 		return
@@ -297,13 +304,15 @@
 
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
-			user << "\blue <b>Close the maintenance panel first.</b>"
+			to_chat(user, "\blue <b>Close the maintenance panel first.</b>")
+
 			return
 		if(!ismob(G:affecting))
 			return
 		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
 			if(M.Victim == G:affecting)
-				usr << "[G:affecting:name] will not fit into the cryo because they have a slime latched onto their head."
+				to_chat(usr, "[G:affecting:name] will not fit into the cryo because they have a slime latched onto their head.")
+
 				return
 		var/mob/M = G:affecting
 		if(put_mob(M))
@@ -424,16 +433,20 @@
 	return
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
 	if (!istype(M))
-		usr << "\red <B>The cryo cell cannot handle such a lifeform!</B>"
+		to_chat(usr, "\red <B>The cryo cell cannot handle such a lifeform!</B>")
+
 		return
 	if (occupant)
-		usr << "\red <B>The cryo cell is already occupied!</B>"
+		to_chat(usr, "\red <B>The cryo cell is already occupied!</B>")
+
 		return
 	if (M.abiotic())
-		usr << "\red Subject may not have abiotic items on."
+		to_chat(usr, "\red Subject may not have abiotic items on.")
+
 		return
 	if(!node)
-		usr << "\red The cell is not correctly connected to its pipe network!"
+		to_chat(usr, "\red The cell is not correctly connected to its pipe network!")
+
 		return
 	if (M.client)
 		M.client.perspective = EYE_PERSPECTIVE
@@ -441,7 +454,8 @@
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
-		M << "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>"
+		to_chat(M, "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>")
+
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)
@@ -456,7 +470,8 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if (usr.stat == 2)//and he's not dead....
 			return
-		usr << "\blue Release sequence activated. This will take two minutes."
+		to_chat(usr, "\blue Release sequence activated. This will take two minutes.")
+
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
@@ -474,7 +489,8 @@
 	set src in oview(1)
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
-			usr << "You're too busy getting your life sucked out of you."
+			to_chat(usr, "You're too busy getting your life sucked out of you.")
+
 			return
 	if (usr.stat != 0 || stat & (NOPOWER|BROKEN))
 		return

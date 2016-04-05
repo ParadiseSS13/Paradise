@@ -9,7 +9,8 @@
 		if(container && istype(container, /obj/item/device/mmi/posibrain))
 			var/obj/item/device/mmi/posibrain/P = container
 			if(P && P.silenced)
-				usr << "<span class='warning'>You cannot speak, as your internal speaker has been toggled to 'off'.</span>"
+				to_chat(usr, "<span class='warning'>You cannot speak, as your internal speaker has been toggled to 'off'.</span>")
+
 				return
 		if(prob(emp_damage*4))
 			if(prob(10))//10% chane to drop the message entirely

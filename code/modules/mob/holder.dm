@@ -47,10 +47,13 @@
 
 	if(istype(M))
 		M.unEquip(src)
-		M << "[src] wriggles out of your grip!"
-		src << "You wriggle out of [M]'s grip!"
+		to_chat(M, "[src] wriggles out of your grip!")
+
+		to_chat(src, "You wriggle out of [M]'s grip!")
+
 	else if(istype(src.loc,/obj/item))
-		src << "You struggle free of [src.loc]."
+		to_chat(src, "You struggle free of [src.loc].")
+
 		src.forceMove(get_turf(src))
 
 	if(istype(M))
@@ -74,8 +77,10 @@
 	if(desc)	H.desc = desc
 	H.attack_hand(grabber)
 
-	grabber << "<span class='notice'>You scoop up \the [src]."
-	src << "<span class='notice'>\The [grabber] scoops you up.</span>"
+	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
+
+	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
+
 	grabber.status_flags |= PASSEMOTES
 	return H
 

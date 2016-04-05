@@ -79,7 +79,8 @@
 			return
 
 	if(blocked)
-		user << "\red \The [src] is welded solid!"
+		to_chat(user, "\red \The [src] is welded solid!")
+
 		return
 
 	var/area/A = get_area_master(src)
@@ -142,11 +143,13 @@
 		return
 
 	if(user.stat || user.stunned || user.weakened || user.paralysis || get_dist(src, user) > 1)
-		user << "Sorry, you must remain able bodied and close to \the [src] in order to use it."
+		to_chat(user, "Sorry, you must remain able bodied and close to \the [src] in order to use it.")
+
 		return
 
 	if(alarmed && density && !access_granted)
-		user << "<span class='warning'>Access denied.  Please wait for authorities to arrive, or for the alert to clear.</span>"
+		to_chat(user, "<span class='warning'>Access denied.  Please wait for authorities to arrive, or for the alert to clear.</span>")
+
 		return
 
 	else
@@ -178,7 +181,8 @@
 		return //Already doing something or depowered.
 
 	if(blocked)
-		user << "\red \The [src] is welded solid!"
+		to_chat(user, "\red \The [src] is welded solid!")
+
 		return
 
 	var/area/A = get_area_master(src)

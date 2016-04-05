@@ -46,7 +46,8 @@
 
 /obj/machinery/computer/salvage_ship/attack_hand(mob/user as mob)
 	if(!allowed(user))
-		user << "\red Access Denied"
+		to_chat(user, "\red Access Denied")
+
 		return
 
 	user.set_machine(src)

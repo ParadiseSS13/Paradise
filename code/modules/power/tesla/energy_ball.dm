@@ -56,7 +56,8 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 /obj/singularity/energy_ball/examine(mob/user)
 	..()
 	if(orbiting_balls.len)
-		user << "The amount of orbiting mini-balls is [orbiting_balls.len]."
+		to_chat(user, "The amount of orbiting mini-balls is [orbiting_balls.len].")
+
 
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(var/move_amount)

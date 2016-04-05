@@ -38,7 +38,8 @@
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
-					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
+					to_chat(src, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
+
 					now_pushing = 0
 					return
 				if(!(tmob.status_flags & CANPUSH))
@@ -124,7 +125,8 @@
 
 /mob/living/carbon/alien/larva/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
+
 		return
 
 	if(M.Victim)
@@ -149,11 +151,13 @@
 
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
+
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+		to_chat(M, "No attacking people at spawn, you jackass.")
+
 		return
 
 	..()
@@ -195,11 +199,13 @@
 
 /mob/living/carbon/alien/larva/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
+
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+		to_chat(M, "No attacking people at spawn, you jackass.")
+
 		return
 
 	..()
@@ -224,7 +230,8 @@
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
-				M << "<span class='warning'>[name] is too injured for that.</span>"
+				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
+
 	return
 
 /mob/living/carbon/alien/larva/restrained()

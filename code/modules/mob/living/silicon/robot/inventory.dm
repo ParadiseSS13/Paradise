@@ -43,14 +43,16 @@
 	if(!(locate(O) in src.module.modules) && O != src.module.emag)
 		return
 	if(activated(O))
-		src << "Already activated"
+		to_chat(src, "Already activated")
+
 		return
 	if (is_component_functioning("power cell") && cell)
 		if(istype(O, /obj/item/borg))
 			var/obj/item/borg/B = O
 			if(B.powerneeded)
 				if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
-					src << "Not enough power to activate [B.name]!"
+					to_chat(src, "Not enough power to activate [B.name]!")
+
 					return
 	if(!module_state_1)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -77,7 +79,8 @@
 		if(istype(module_state_3,/obj/item/borg/sight))
 			sight_mode |= module_state_3:sight_mode
 	else
-		src << "You need to disable a module first!"
+		to_chat(src, "You need to disable a module first!")
+
 	src.update_icons()
 
 /mob/living/silicon/robot/proc/uneq_active()

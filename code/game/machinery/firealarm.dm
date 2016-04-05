@@ -89,7 +89,8 @@ FIRE ALARM
 						user.visible_message("\red [user] has disconnected [src]'s detecting unit!", "You have disconnected [src]'s detecting unit.")
 
 				else if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
-					user << "<span class='warning'>You cut the wires!</span>"
+					to_chat(user, "<span class='warning'>You cut the wires!</span>")
+
 					playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
 					new_coil.amount = 5
@@ -100,15 +101,18 @@ FIRE ALARM
 				if(istype(W, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/coil = W
 					if(!coil.use(5))
-						user << "<span class='warning'>You cut the wires!</span>"
+						to_chat(user, "<span class='warning'>You cut the wires!</span>")
+
 						return
 
 					buildstage = 2
-					user << "<span class='notice'>You wire \the [src]!</span>"
+					to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
+
 					update_icon()
 
 				else if(istype(W, /obj/item/weapon/crowbar))
-					user << "<span class='warning'>You pry out the circuit!</span>"
+					to_chat(user, "<span class='warning'>You pry out the circuit!</span>")
+
 					playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
 					spawn(20)
 						var/obj/item/weapon/firealarm_electronics/circuit = new /obj/item/weapon/firealarm_electronics()
@@ -117,13 +121,15 @@ FIRE ALARM
 						update_icon()
 			if(0)
 				if(istype(W, /obj/item/weapon/firealarm_electronics))
-					user << "<span class='notice'>You insert the circuit!</span>"
+					to_chat(user, "<span class='notice'>You insert the circuit!</span>")
+
 					qdel(W)
 					buildstage = 1
 					update_icon()
 
 				else if(istype(W, /obj/item/weapon/wrench))
-					user << "<span class='warning'>You remove the fire alarm assembly from the wall!</span>"
+					to_chat(user, "<span class='warning'>You remove the fire alarm assembly from the wall!</span>")
+
 					new /obj/item/mounted/frame/firealarm(get_turf(user))
 					playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 					qdel(src)

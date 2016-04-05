@@ -42,7 +42,8 @@
 			return 1
 		else
 			if(!user.unEquip(O))
-				user << "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>"
+				to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
+
 				return 0
 			O.forceMove(src)
 			beaker = O
@@ -51,10 +52,12 @@
 			src.updateUsrDialog()
 			return 0
 	if (!is_type_in_list(O, allowed_items))
-		user << "It doesn't look like that contains any juice."
+		to_chat(user, "It doesn't look like that contains any juice.")
+
 		return 1
 	if(!user.unEquip(O))
-		user << "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>"
+		to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
+
 		return 0
 	O.forceMove(src)
 	src.updateUsrDialog()

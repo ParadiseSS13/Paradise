@@ -37,7 +37,8 @@
 			if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/meat))
 				user.unEquip(W)
 				del(W)
-				user << "You add the meat to the drying rack."
+				to_chat(user, "You add the meat to the drying rack.")
+
 				src.running = 1
 				use_power = 2
 				icon_state = "drying_rack_on"
@@ -50,7 +51,8 @@
 			if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/grown/grapes))
 				user.unEquip(W)
 				del(W)
-				user << "You add the grapes to the drying rack."
+				to_chat(user, "You add the grapes to the drying rack.")
+
 				src.running = 1
 				use_power = 2
 				icon_state = "drying_rack_on"
@@ -63,7 +65,8 @@
 			if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/grown/greengrapes))
 				user.unEquip(W)
 				del(W)
-				user << "You add the green grapes to the drying rack."
+				to_chat(user, "You add the green grapes to the drying rack.")
+
 				src.running = 1
 				use_power = 2
 				icon_state = "drying_rack_on"
@@ -78,7 +81,8 @@
 					var/J = W.type
 					var/obj/item/weapon/reagent_containers/food/snacks/grown/B = W
 					B.reagents.trans_to(src, B.reagents.total_volume)
-					user << "You add the [W] to the drying rack."
+					to_chat(user, "You add the [W] to the drying rack.")
+
 					user.unEquip(W)
 					del(W)
 					src.running = 1
@@ -87,7 +91,8 @@
 					sleep(60)
 					icon_state = "drying_rack"
 					var/obj/item/weapon/reagent_containers/food/snacks/grown/D = new J(src.loc)
-					user << "\blue You finish drying the [D]"
+					to_chat(user, "\blue You finish drying the [D]")
+
 					D.icon_state = "[D.icon_state]_dry"
 					D.dry = 1
 					D.reagents.remove_any(50)
@@ -96,10 +101,13 @@
 					src.running = 0
 					return
 				else
-					user << "\red That has already been dried!"
+					to_chat(user, "\red That has already been dried!")
+
 		else
-			user << "\red Please wait until the last item has dried."
+			to_chat(user, "\red Please wait until the last item has dried.")
+
 	else
-		user << "\red You cannot add that to the drying rack."
+		to_chat(user, "\red You cannot add that to the drying rack.")
+
 
 

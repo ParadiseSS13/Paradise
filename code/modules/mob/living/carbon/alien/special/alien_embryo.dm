@@ -11,9 +11,11 @@
 /obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
 	..()
 	if(stage < 4)
-		finder << "It's small and weak, barely the size of a fetus."
+		to_chat(finder, "It's small and weak, barely the size of a fetus.")
+
 	else
-		finder << "It's grown quite large, and writhes slightly as you look at it."
+		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
+
 		if(prob(10))
 			AttemptGrow(0)
 
@@ -30,24 +32,29 @@
 			if(prob(2))
 				owner.emote("cough")
 			if(prob(2))
-				owner << "<span class='danger'>Your throat feels sore.</span>"
+				to_chat(owner, "<span class='danger'>Your throat feels sore.</span>")
+
 			if(prob(2))
-				owner << "<span class='danger'>Mucous runs down the back of your throat.</span>"
+				to_chat(owner, "<span class='danger'>Mucous runs down the back of your throat.</span>")
+
 		if(4)
 			if(prob(2))
 				owner.emote("sneeze")
 			if(prob(2))
 				owner.emote("cough")
 			if(prob(4))
-				owner << "<span class='danger'>Your muscles ache.</span>"
+				to_chat(owner, "<span class='danger'>Your muscles ache.</span>")
+
 				if(prob(20))
 					owner.take_organ_damage(1)
 			if(prob(4))
-				owner << "<span class='danger'>Your stomach hurts.</span>"
+				to_chat(owner, "<span class='danger'>Your stomach hurts.</span>")
+
 				if(prob(20))
 					owner.adjustToxLoss(1)
 		if(5)
-			owner << "<span class='danger'>You feel something tearing its way out of your stomach...</span>"
+			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach...</span>")
+
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
@@ -98,7 +105,9 @@
 			new_xeno.mind.name = new_xeno.name
 			new_xeno.mind.assigned_role = "MODE"
 			new_xeno.mind.special_role = "Alien"
-			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)	//To get the player's attention
+			to_chat(new_xeno, sound('sound/voice/hiss5.ogg',0,0,0,100))//To get the player's attention
+
+
 			if(gib_on_success)
 				owner.gib()
 			else

@@ -332,10 +332,12 @@
 	var/turf/U = get_turf(A)
 	var/obj/structure/cable/cable = locate() in T
 	if(!cable || !istype(cable))
-		src << "<span class='warning'>There is no cable here to power the gloves.</span>"
+		to_chat(src, "<span class='warning'>There is no cable here to power the gloves.</span>")
+
 		return
 	if(world.time < G.next_shock)
-		src << "<span class='warning'>[G] aren't ready to shock again!</span>"
+		to_chat(src, "<span class='warning'>[G] aren't ready to shock again!</span>")
+
 		return
 	src.visible_message("<span class='warning'>[name] fires an arc of electricity!</span>", \
 	"<span class='warning'>You fire an arc of electricity!</span>", \

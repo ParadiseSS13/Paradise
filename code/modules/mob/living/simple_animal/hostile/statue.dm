@@ -64,7 +64,8 @@
 	if(can_be_seen(NewLoc))
 		icon_state = "angelseen"
 		if(client)
-			src << "<span class='warning'>You cannot move, there are eyes on you!</span>"
+			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
+
 		return 0
 	icon_state = "angel"
 	return ..()
@@ -101,7 +102,8 @@
 	if(can_be_seen())
 		icon_state = "angelseen"
 		if(client)
-			src << "<span class='warning'>You cannot attack, there are eyes on you!</span>"
+			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
+
 		return
 	icon_state = "angelattack"
 	..()

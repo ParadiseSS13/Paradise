@@ -135,7 +135,8 @@
 				media_frequency = newfreq
 				connect_frequency()
 			else
-				usr << "\red Invalid FM frequency. (90.0, 200.0)"
+				to_chat(usr, "\red Invalid FM frequency. (90.0, 200.0)")
+
 
 /obj/machinery/media/transmitter/broadcast/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -160,23 +161,27 @@
 
 				var/datum/gas_mixture/removed = env.remove(transfer_moles)
 
-				//world << "got [transfer_moles] moles at [removed.temperature]"
+//				to_chat(world, "got [transfer_moles] moles at [removed.temperature]")
+
 
 				if(removed)
 
 					var/heat_capacity = removed.heat_capacity()
-					//world << "heating ([heat_capacity])"
+//					to_chat(world, "heating ([heat_capacity])")
+
 					if(heat_capacity) // Added check to avoid divide by zero (oshi-) runtime errors -- TLE
 						if(removed.temperature < MAX_TEMP + T0C)
 							removed.temperature = min(removed.temperature + heating_power/heat_capacity, 1000) // Added min() check to try and avoid wacky superheating issues in low gas scenarios -- TLE
 						else
 							removed.temperature = max(removed.temperature - heating_power/heat_capacity, TCMB)
 
-					//world << "now at [removed.temperature]"
+//					to_chat(world, "now at [removed.temperature]")
+
 
 				env.merge(removed)
 
-				//world << "turf now at [env.temperature]"
+//				to_chat(world, "turf now at [env.temperature]")
+
 /*
 		// Checks heat from the environment and applies any integrity damage
 		var/datum/gas_mixture/environment = loc.return_air()

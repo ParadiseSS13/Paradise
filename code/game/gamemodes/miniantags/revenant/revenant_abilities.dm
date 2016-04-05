@@ -29,47 +29,63 @@
 	if(!castcheck(0))
 		return
 	if(draining)
-		src << "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>"
+		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
+
 		return
 	if(target in drained_mobs)
-		src << "<span class='revenwarning'>[target]'s soul is dead and empty.</span>"
+		to_chat(src, "<span class='revenwarning'>[target]'s soul is dead and empty.</span>")
+
 		return
 	if(!target.stat)
-		src << "<span class='revennotice'>This being's soul is too strong to harvest.</span>"
+		to_chat(src, "<span class='revennotice'>This being's soul is too strong to harvest.</span>")
+
 		if(prob(10))
-			target << "You feel as if you are being watched."
+			to_chat(target, "You feel as if you are being watched.")
+
 		return
 	draining = 1
 	essence_drained = rand(15, 20)
-	src << "<span class='revennotice'>You search for the soul of [target].</span>"
+	to_chat(src, "<span class='revennotice'>You search for the soul of [target].</span>")
+
 	if(do_after(src, 10, 0, target = target)) //did they get deleted in that second?
 		if(target.ckey)
-			src << "<span class='revennotice'>Their soul burns with intelligence.</span>"
+			to_chat(src, "<span class='revennotice'>Their soul burns with intelligence.</span>")
+
 			essence_drained += rand(20, 30)
 		if(target.stat != DEAD)
-			src << "<span class='revennotice'>Their soul blazes with life!</span>"
+			to_chat(src, "<span class='revennotice'>Their soul blazes with life!</span>")
+
 			essence_drained += rand(40, 50)
 		else
-			src << "<span class='revennotice'>Their soul is weak and faltering.</span>"
+			to_chat(src, "<span class='revennotice'>Their soul is weak and faltering.</span>")
+
 		if(do_after(src, 20, 0, target = target)) //did they get deleted NOW?
 			switch(essence_drained)
 				if(1 to 30)
-					src << "<span class='revennotice'>[target] will not yield much essence. Still, every bit counts.</span>"
+					to_chat(src, "<span class='revennotice'>[target] will not yield much essence. Still, every bit counts.</span>")
+
 				if(30 to 70)
-					src << "<span class='revennotice'>[target] will yield an average amount of essence.</span>"
+					to_chat(src, "<span class='revennotice'>[target] will yield an average amount of essence.</span>")
+
 				if(70 to 90)
-					src << "<span class='revenboldnotice'>Such a feast! [target] will yield much essence to you.</span>"
+					to_chat(src, "<span class='revenboldnotice'>Such a feast! [target] will yield much essence to you.</span>")
+
 				if(90 to INFINITY)
-					src << "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>"
+					to_chat(src, "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>")
+
 			if(do_after(src, 20, 0, target = target)) //how about now
 				if(!target.stat)
-					src << "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>"
-					target << "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>"
+					to_chat(src, "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>")
+
+					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
+
 					draining = 0
 					return //hey, wait a minute...
-				src << "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>"
+				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")
+
 				if(target.stat != DEAD)
-					target << "<span class='warning'>You feel a horribly unpleasant draining sensation as your grip on life weakens...</span>"
+					to_chat(target, "<span class='warning'>You feel a horribly unpleasant draining sensation as your grip on life weakens...</span>")
+
 				icon_state = "revenant_draining"
 				reveal(27)
 				stun(27)
@@ -80,14 +96,17 @@
 					if(essence_drained > 90)
 						essence_regen_cap += 25
 						perfectsouls += 1
-						src << "<span class='revenboldnotice'>The perfection of [target]'s soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap].</span>"
-					src << "<span class='revennotice'>[target]'s soul has been considerably weakened and will yield no more essence for the time being.</span>"
+						to_chat(src, "<span class='revenboldnotice'>The perfection of [target]'s soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap].</span>")
+
+					to_chat(src, "<span class='revennotice'>[target]'s soul has been considerably weakened and will yield no more essence for the time being.</span>")
+
 					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
  										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
 					drained_mobs.Add(target)
 					target.death(0)
 				else
-					src << "<span class='revenwarning'>[target ? "[target] has":"They have"] been drawn out of your grasp. The link has been broken.</span>"
+					to_chat(src, "<span class='revenwarning'>[target ? "[target] has":"They have"] been drawn out of your grasp. The link has been broken.</span>")
+
 					draining = 0
 					essence_drained = 0
 					if(target) //Wait, target is WHERE NOW?
@@ -95,7 +114,8 @@
 											   "<span class='revenwarning'>Violets lights, dancing in your vision, receding--</span>")
 					return
 			else
-				src << "<span class='revenwarning'>You are not close enough to siphon [target ? "[target]'s":"their"] soul. The link has been broken.</span>"
+				to_chat(src, "<span class='revenwarning'>You are not close enough to siphon [target ? "[target]'s":"their"] soul. The link has been broken.</span>")
+
 				draining = 0
 				essence_drained = 0
 				return
@@ -132,8 +152,10 @@
 				charge_counter = charge_max
 				return
 			log_say("RevenantTransmit: [key_name(user)]->[key_name(M)] : [msg]")
-			usr << "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>"
-			M << "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>"
+			to_chat(usr, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
+
+			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
+
 
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant
@@ -172,7 +194,8 @@
 			charge_counter = charge_max
 			return 0
 		name = "[initial(name)] ([cast_amount]E)"
-		user << "<span class='revennotice'>You have unlocked [initial(name)]!</span>"
+		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
+
 		panel = "Revenant Abilities"
 		locked = 0
 		charge_counter = charge_max
@@ -248,7 +271,8 @@
 					T.flags -= NOJAUNT
 					new/obj/effect/overlay/temp/revenant(T)
 				for(var/mob/living/carbon/human/human in T.contents)
-					human << "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>"
+					to_chat(human, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
+
 					human.adjustStaminaLoss(stamdamage)
 					human.adjustToxLoss(toxdamage)
 					human.confused += confusion
@@ -298,7 +322,8 @@
 						bot.open = 1
 						bot.emag_act(null)
 				for(var/mob/living/carbon/human/human in T.contents)
-					human << "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>"
+					to_chat(human, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
+
 					new/obj/effect/overlay/temp/revenant(human.loc)
 					human.emp_act(1)
 				for(var/obj/thing in T.contents)

@@ -177,7 +177,8 @@
 			usr.machine = src
 
 			if (href_list["download"])
-				if(!src.dl_list) usr << "\red This unit is not capable of downloading any additional schematics."
+				to_chat(if(!src.dl_list) usr, "\red This unit is not capable of downloading any additional schematics.")
+
 				else
 					var/amtdl = 0
 					//var/dontload = 0
@@ -191,8 +192,10 @@
 										src.download += new S.type(src)
 										amtdl++
 									else dontload = 0*/
-						if (amtdl) usr << "\blue [amtdl] new schematics downloaded from Robotics Research Database."
-						else usr << "\red No new schematics currently available in Robotics Research Database."
+						to_chat(if (amtdl) usr, "\blue [amtdl] new schematics downloaded from Robotics Research Database.")
+
+						to_chat(else usr, "\red No new schematics currently available in Robotics Research Database.")
+
 
 			if (href_list["delete"])
 				var/operation = text2num(href_list["delete"])
@@ -201,15 +204,19 @@
 					for(var/datum/manufacture/D in src.diskload)
 						src.diskload-= D
 						amtgone++
-					if (amtgone) usr << "\blue Cleared [amtgone] schematics from database."
-					else usr << "\red No disk-loaded schematics detected in database."
+					to_chat(if (amtgone) usr, "\blue Cleared [amtgone] schematics from database.")
+
+					to_chat(else usr, "\red No disk-loaded schematics detected in database.")
+
 				if(operation == 2) // Clear Download Schematics
 					var/amtgone = 0
 					for(var/datum/manufacture/D in src.download)
 						src.download-= D
 						amtgone++
-					if (amtgone) usr << "\blue Cleared [amtgone] schematics from database."
-					else usr << "\red No downloaded schematics detected in database."
+					to_chat(if (amtgone) usr, "\blue Cleared [amtgone] schematics from database.")
+
+					to_chat(else usr, "\red No downloaded schematics detected in database.")
+
 
 			if (href_list["eject"])
 				var/operation = text2num(href_list["eject"])
@@ -228,7 +235,8 @@
 					if(10) ejecting = /obj/item/weapon/ore/hydrogen
 					if(11) ejecting = /obj/item/weapon/ore/fabric
 					else
-						usr << "\red Error. Unknown ore type."
+						to_chat(usr, "\red Error. Unknown ore type.")
+
 						return
 				sleep(3)
 				ejectamt = input(usr,"How many units do you want to eject?","Eject Materials") as num
@@ -249,7 +257,8 @@
 					if (istype(O,I.cost2)) A2++
 					if (istype(O,I.cost3)) A3++
 				if (A1 < I.amount1 || A2 < I.amount2 || A3 < I.amount3)
-					usr << "\red Insufficient materials to manufacture that item."
+					to_chat(usr, "\red Insufficient materials to manufacture that item.")
+
 					return
 				// Consume Mats
 				var/C1 = I.amount1
@@ -337,7 +346,8 @@
 					if(istype(W,/obj/item/clothing/suit/space/)) new /obj/item/weapon/ore/fabric(src)
 					load = 2
 		else if(istype(W, /obj/item/weapon/disk/data/schematic))
-			if (!src.acceptdisk) user << "\red This unit is unable to accept disks."
+			to_chat(if (!src.acceptdisk) user, "\red This unit is unable to accept disks.")
+
 			else
 				var/amtload = 0
 				var/dontload = 0
@@ -354,19 +364,24 @@
 						src.diskload += new WS.type(src)
 						amtload++
 					else dontload = 0
-				if (amtload) user << "\blue [amtload] new schematics downloaded from disk."
-				else user << "\red No new schematics available on disk."
+				to_chat(if (amtload) user, "\blue [amtload] new schematics downloaded from disk.")
+
+				to_chat(else user, "\red No new schematics available on disk.")
+
 		else if (istype(W, /obj/item/weapon/storage/bag/ore))
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] uses the []'s automatic ore loader on []!", user, src, W), 1)
 			var/amtload = 0
 			for (var/obj/item/weapon/ore/M in W.contents)
 				M.loc = src
 				amtload++
-			if (amtload) user << "\blue [amtload] pieces of ore loaded from [W]!"
-			else user << "\red No ore loaded!"
+			to_chat(if (amtload) user, "\blue [amtload] pieces of ore loaded from [W]!")
+
+			to_chat(else user, "\red No ore loaded!")
+
 		else if(istype(W, /obj/item/weapon/card/emag))
 			src.hacked = 1
-			user << "\blue You remove the [src]'s product locks!"
+			to_chat(user, "\blue You remove the [src]'s product locks!")
+
 		else ..()
 
 		if (load == 1)
@@ -391,8 +406,10 @@
 			for (var/obj/item/weapon/ore/M in O.contents)
 				M.loc = src
 				amtload++
-			if (amtload) user << "\blue [amtload] pieces of ore loaded from [O]!"
-			else user << "\red No ore loaded!"
+			to_chat(if (amtload) user, "\blue [amtload] pieces of ore loaded from [O]!")
+
+			to_chat(else user, "\red No ore loaded!")
+
 		else if (istype(O, /obj/item/weapon/ore/))
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] begins quickly stuffing ore into []!", user, src), 1)
 			var/staystill = user.loc
@@ -400,7 +417,8 @@
 				M.loc = src
 				sleep(3)
 				if (user.loc != staystill) break
-			user << "\blue You finish stuffing ore into [src]!"
+			to_chat(user, "\blue You finish stuffing ore into [src]!")
+
 		/*else if (istype(O, /obj/item/weapon/plant/wheat/metal))
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] begins quickly stuffing [O] into []!", user, src), 1)
 			var/staystill = user.loc
@@ -409,7 +427,8 @@
 				del M
 				sleep(3)
 				if (user.loc != staystill) break
-			user << "\blue You finish stuffing [O] into [src]!"*/
+			to_chat(user, "\blue You finish stuffing [O] into [src]!"*/)
+
 		else ..()
 		src.updateUsrDialog()
 

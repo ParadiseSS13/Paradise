@@ -247,7 +247,8 @@
 				else
 					new /obj/machinery/power/solar(get_turf(src), src)
 			else
-				user << "<span class='warning'>You need two sheets of glass to put them into a solar panel.</span>"
+				to_chat(user, "<span class='warning'>You need two sheets of glass to put them into a solar panel.</span>")
+
 				return
 			return 1
 
@@ -418,7 +419,8 @@
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20, target = src))
 			if (src.stat & BROKEN)
-				user << "<span class='notice'>The broken glass falls out.</span>"
+				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				new /obj/item/weapon/shard( src.loc )
 				var/obj/item/weapon/circuitboard/solar_control/M = new /obj/item/weapon/circuitboard/solar_control( A )
@@ -430,7 +432,8 @@
 				A.anchored = 1
 				qdel(src)
 			else
-				user << "<span class='notice'>You disconnect the monitor.</span>"
+				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				var/obj/item/weapon/circuitboard/solar_control/M = new /obj/item/weapon/circuitboard/solar_control( A )
 				for (var/obj/C in src)

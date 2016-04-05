@@ -5,7 +5,8 @@
 	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge", "summonitem", "wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special","voodoo","special")
 	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos","necromantic")
 
-	usr << "<B>You summoned [summon_type ? "magic" : "guns"]!</B>"
+	to_chat(usr, "<B>You summoned [summon_type ? "magic" : "guns"]!</B>")
+
 	message_admins("[key_name_admin(usr)] summoned [summon_type ? "magic" : "guns"]!")
 
 	for(var/mob/living/carbon/human/H in player_list)
@@ -136,7 +137,8 @@
 						H.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 						H.see_in_dark = 8
 						H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-						H << "<span class='notice'>The walls suddenly disappear.</span>"
+						to_chat(H, "<span class='notice'>The walls suddenly disappear.</span>")
+
 				if("voodoo")
 					new /obj/item/voodoo(get_turf(H))
 				if("special")
@@ -154,4 +156,5 @@
 							new /obj/item/weapon/gun/magic/staff/chaos(get_turf(H))
 						if("necromantic")
 							new /obj/item/device/necromantic_stone(get_turf(H))
-					H << "<span class='notice'>You suddenly feel lucky.</span>"
+					to_chat(H, "<span class='notice'>You suddenly feel lucky.</span>")
+

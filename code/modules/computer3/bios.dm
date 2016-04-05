@@ -24,22 +24,26 @@
 
 		if(istype(user,/mob/living/silicon))
 			if(!program.ai_allowed)
-				user << "\blue You are forbidden from accessing this program."
+				to_chat(user, "\blue You are forbidden from accessing this program.")
+
 				return 0
 		else
 			if(program.human_controls)
 				if(!ishuman(user))
-					user << "\red Your body can't work the controls!"
+					to_chat(user, "\red Your body can't work the controls!")
+
 					return 0
 				if(user.restrained())
-					user << "\red You need a free hand!"
+					to_chat(user, "\red You need a free hand!")
+
 					return 0
 
 			if(!in_range(src,user))
 				// telekinesis check
 				if(ishuman(user) && istype(user.get_active_hand(),/obj/item/tk_grab))
 					if(program.human_controls)
-						user << "\red It's too complicated to work at a distance!"
+						to_chat(user, "\red It's too complicated to work at a distance!")
+
 						return 0
 					add_fingerprint(user)
 					user.set_machine(src)
@@ -115,7 +119,8 @@
 		switch(errorcode)
 			if(PROG_CRASH)
 				if(usr)
-					usr << "\red The program crashed!"
+					to_chat(usr, "\red The program crashed!")
+
 					usr << browse(null,"\ref[src]")
 					Reset()
 
@@ -148,7 +153,8 @@
 
 			else
 				if(usr)
-					usr << "\red The program crashed!"
+					to_chat(usr, "\red The program crashed!")
+
 					usr << browse(null,"\ref[src]")
 					testing("computer/Crash() - unknown error code [errorcode]")
 					Reset()

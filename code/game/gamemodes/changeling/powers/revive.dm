@@ -61,7 +61,8 @@
 			IO.damage = 0
 			IO.trace_chemicals = list()
 		H.updatehealth()
-	user << "<span class='notice'>We have regenerated.</span>"
+	to_chat(user, "<span class='notice'>We have regenerated.</span>")
+
 
 	user.regenerate_icons()
 

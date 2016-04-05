@@ -291,9 +291,11 @@ var/list/world_uplinks = list()
 		if(!S.used && !S.checking)
 			hidden_uplink.uses += S.TC_cost
 			qdel(S)
-			user << "<span class='notice'>Teleporter refunded.</span>"
+			to_chat(user, "<span class='notice'>Teleporter refunded.</span>")
+
 		else
-			user << "<span class='notice'>This teleporter is already used, or is currently being used.</span>"
+			to_chat(user, "<span class='notice'>This teleporter is already used, or is currently being used.</span>")
+
 
 // PRESET UPLINKS
 // A collection of preset uplinks.

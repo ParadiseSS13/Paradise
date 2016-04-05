@@ -203,15 +203,18 @@
 		return
 	if(href_list["make"])
 		if(!check_table_space())
-			usr << "<span class ='warning'>The table is too crowded.</span>"
+			to_chat(usr, "<span class ='warning'>The table is too crowded.</span>")
+
 			return
 		var/datum/table_recipe/TR = locate(href_list["make"])
 		busy = 1
 		interact(usr)
 		if(construct_item(usr, TR))
-			usr << "<span class='notice'>[TR.name] constructed.</span>"
+			to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+
 		else
-			usr << "<span class ='warning'>Construction failed.</span>"
+			to_chat(usr, "<span class ='warning'>Construction failed.</span>")
+
 		busy = 0
 		interact(usr)
 

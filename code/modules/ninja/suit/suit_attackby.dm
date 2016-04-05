@@ -5,7 +5,8 @@
 		if(istype(I, /obj/item/weapon/stock_parts/cell))
 			var/obj/item/weapon/stock_parts/cell/CELL
 			if(CELL.maxcharge > cell.maxcharge && suitGloves)
-				U << "<span class='notice'>Higher maximum capacity detected.\nUpgrading...</span>"
+				to_chat(U, "<span class='notice'>Higher maximum capacity detected.\nUpgrading...</span>")
+
 				if (n_gloves && n_gloves.candrain && do_after(U,s_delay, target = U))
 					U.drop_item()
 					CELL.loc = src
@@ -17,8 +18,10 @@
 					old_cell.corrupt()
 					old_cell.updateicon()
 					cell = CELL
-					U << "<span class='notice'>Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%</span>"
+					to_chat(U, "<span class='notice'>Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%</span>")
+
 				else
-					U << "<span class='danger'>Procedure interrupted. Protocol terminated.</span>"
+					to_chat(U, "<span class='danger'>Procedure interrupted. Protocol terminated.</span>")
+
 			return
 	..()

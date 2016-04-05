@@ -45,7 +45,8 @@
 
 /obj/machinery/optable/attack_hand(mob/user as mob)
 	if (HULK in usr.mutations)
-		usr << text("\blue You destroy the table.")
+		to_chat(usr, text("\blue You destroy the table."))
+
 		visible_message("\red [usr] destroys the operating table!")
 		src.density = 0
 		qdel(src)
@@ -129,18 +130,21 @@
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user, 20, target = src))
-			user << "<span class='notice'>You deconstruct the table.</span>"
+			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
+
 			new /obj/item/stack/sheet/plasteel(loc, 5)
 			qdel(src)
 
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
 	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)
-		usr << "<span class='notice'>The table is already occupied!</span>"
+		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
+
 		return 0
 
 	if(patient.buckled)
-		usr << "<span class='notice'>Unbuckle first!</span>"
+		to_chat(usr, "<span class='notice'>Unbuckle first!</span>")
+
 		return 0
 
 	return 1

@@ -17,7 +17,8 @@
 			user.drop_item(O)
 			contents += O
 			has_extinguisher = O
-			user << "<span class='notice'>You place [O] in [src].</span>"
+			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
+
 		else
 			opened = !opened
 	else
@@ -34,11 +35,13 @@
 		if (user.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
-			user << "<span class='notice'>You try to move your [temp.name], but cannot!"
+			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
+
 			return
 	if(has_extinguisher)
 		user.put_in_hands(has_extinguisher)
-		user << "<span class='notice'>You take [has_extinguisher] from [src].</span>"
+		to_chat(user, "<span class='notice'>You take [has_extinguisher] from [src].</span>")
+
 		has_extinguisher = null
 		opened = 1
 	else
@@ -48,7 +51,8 @@
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
 	if(has_extinguisher)
 		has_extinguisher.loc = loc
-		user << "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>"
+		to_chat(user, "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>")
+
 		has_extinguisher = null
 		opened = 1
 	else

@@ -21,7 +21,8 @@
 				mode = 2
 			else
 				mode = 1
-			user << "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'"
+			to_chat(user, "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'")
+
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 
 	return

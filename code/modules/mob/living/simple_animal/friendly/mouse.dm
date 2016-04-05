@@ -36,7 +36,8 @@
 	..()
 	if(prob(speak_chance))
 		for(var/mob/M in view())
-			M << 'sound/effects/mousesqueek.ogg'
+			to_chat(M, 'sound/effects/mousesqueek.ogg')
+
 
 /mob/living/simple_animal/mouse/Life()
 	. = ..()
@@ -104,15 +105,18 @@
 //	return 1
 
 /mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
-	src << "<span class='warning'>You are too small to pull anything.</span>"
+	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
+
 	return
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM
-			M << "\blue \icon[src] Squeek!"
-			M << 'sound/effects/mousesqueek.ogg'
+			to_chat(M, "\blue \icon[src] Squeek!")
+
+			to_chat(M, 'sound/effects/mousesqueek.ogg')
+
 	..()
 
 /mob/living/simple_animal/mouse/death()

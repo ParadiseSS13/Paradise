@@ -31,7 +31,8 @@
 		return
 	if(istype(W, /obj/item/weapon/screwdriver))
 		status = !status
-		user << "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>"
+		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
+
 	add_fingerprint(user)
 	return
 

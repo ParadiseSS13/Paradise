@@ -473,7 +473,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set category = "IC"
 
 	if(usr.sleeping)
-		usr << "\red You are already sleeping"
+		to_chat(usr, "\red You are already sleeping")
+
 		return
 	else
 		if(alert(src,"You sure you want to sleep for a while?","Sleep","Yes","No") == "Yes")
@@ -484,7 +485,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set category = "IC"
 
 	resting = !resting
-	src << "\blue You are now [resting ? "resting" : "getting up"]"
+	to_chat(src, "\blue You are now [resting ? "resting" : "getting up"]")
+
 
 /proc/is_blind(A)
 	if(iscarbon(A))
@@ -554,14 +556,17 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					else										// Everyone else (dead people who didn't ghost yet, etc.)
 						lname = name
 				lname = "<span class='name'>[lname]</span> "
-			M << "<span class='deadsay'>[lname][follow][message]</span>"
+			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
+
 
 /proc/notify_ghosts(var/message, var/ghost_sound = null) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in player_list)
 		if(O.client)
-			O << "<span class='ghostalert'>[message]<span>"
+			to_chat(O, "<span class='ghostalert'>[message]<span>")
+
 			if(ghost_sound)
-				O << sound(ghost_sound)
+				to_chat(O, sound(ghost_sound))
+
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
 	if (!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
@@ -642,7 +647,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					break
 			if(newname)
 				break	//That's a suitable name!
-			src << "Sorry, that [role]-name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken."
+			to_chat(src, "Sorry, that [role]-name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken.")
+
 
 		if(!newname)	//we'll stick with the oldname then
 			return

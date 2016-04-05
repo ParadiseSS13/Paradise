@@ -39,7 +39,8 @@
 
 /obj/machinery/light_switch/examine(mob/user)
 	if(..(user, 1))
-		user << "A light switch. It is [on? "on" : "off"]."
+		to_chat(user, "A light switch. It is [on? "on" : "off"].")
+
 
 
 /obj/machinery/light_switch/attack_hand(mob/user)

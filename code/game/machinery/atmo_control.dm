@@ -73,10 +73,12 @@ obj/machinery/air_sensor
 			return 1
 		if(istype(W, /obj/item/weapon/wrench))
 			if(bolts)
-				usr << "The [src] is bolted to the floor! You can't detach it like this."
+				to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
+
 				return 1
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to unfasten \the [src]..."
+			to_chat(user, "\blue You begin to unfasten \the [src]...")
+
 			if(do_after(user, 40, target = src))
 				user.visible_message("[user] unfastens \the [src].", "\blue You have unfastened \the [src].", "You hear ratchet.")
 				new /obj/item/pipe_gsensor(src.loc)
@@ -299,7 +301,8 @@ legend {
 				if(!isnull(G.id_tag) && G.frequency == frequency)
 					sensor_list|=G.id_tag
 			if(!sensor_list.len)
-				user << "<span class=\"warning\">No sensors on this frequency.</span>"
+				to_chat(user, "<span class=\"warning\">No sensors on this frequency.</span>")
+
 				return MT_ERROR
 
 			// Have the user pick one of them and name its label
@@ -320,7 +323,8 @@ legend {
 				if(!isnull(G.id_tag) && G.frequency == frequency)
 					sensor_list|=G.id_tag
 			if(!sensor_list.len)
-				user << "<span class=\"warning\">No sensors on this frequency.</span>"
+				to_chat(user, "<span class=\"warning\">No sensors on this frequency.</span>")
+
 				return MT_ERROR
 			var/label = sensors[href_list["edit_sensor"]]
 			var/sensor = input(user, "Select a sensor:", "Sensor Data", href_list["edit_sensor"]) as null|anything in sensor_list

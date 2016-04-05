@@ -18,7 +18,8 @@
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
 	if(manifest)
-		user << "<span class='notice'>You tear the manifest off of the crate.</span>"
+		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -27,7 +28,8 @@
 		update_icon()
 		return
 	else
-		user << "<span class='notice'>You need a crowbar to pry this open!</span>"
+		to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
+
 		return
 
 /obj/structure/largecrate/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

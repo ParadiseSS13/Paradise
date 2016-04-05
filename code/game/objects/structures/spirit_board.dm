@@ -15,11 +15,13 @@
 		if(O.client)
 			var/area/A = get_area(src)
 			if(A)
-				O << "\blue <b>Someone has begun playing with a [src.name] in [A.name]!. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a>)</b>"
+				to_chat(O, "\blue <b>Someone has begun playing with a [src.name] in [A.name]!. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a>)</b>")
+
 
 /obj/structure/spirit_board/examine(mob/user)
 	..(user)
-	user << "[initial(desc)] The planchette is sitting at \"[planchette]\"."
+	to_chat(user, "[initial(desc)] The planchette is sitting at \"[planchette]\".")
+
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())
@@ -69,7 +71,8 @@
 		light_amount =  10
 
 	if(light_amount > 2)
-		M << "<span class='warning'>It's too bright here to use [src.name]!</span>"
+		to_chat(M, "<span class='warning'>It's too bright here to use [src.name]!</span>")
+
 		return 0
 
 	//mobs in range check
@@ -77,12 +80,14 @@
 	for(var/mob/living/L in orange(1,src))
 		if(L.ckey && L.client)
 			if((world.time - L.client.inactivity) < (world.time - 300) || L.stat != CONSCIOUS || L.restrained())//no playing with braindeads or corpses or handcuffed dudes.
-				M << "<span class='warning'>[L] doesn't seem to be paying attention...</span>"
+				to_chat(M, "<span class='warning'>[L] doesn't seem to be paying attention...</span>")
+
 			else
 				users_in_range++
 
 	if(users_in_range < 2)
-		M << "<span class='warning'>There aren't enough people to use the [src.name]!</span>"
+		to_chat(M, "<span class='warning'>There aren't enough people to use the [src.name]!</span>")
+
 		return 0
 
 	return 1

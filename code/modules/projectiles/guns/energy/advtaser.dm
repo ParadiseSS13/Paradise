@@ -21,7 +21,8 @@
 				mode = 1
 				charge_cost = 500
 				fire_sound = 'sound/weapons/taser2.ogg'
-				user << "\red [src.name] is now set to Disable."
+				to_chat(user, "\red [src.name] is now set to Disable.")
+
 				projectile_type = "/obj/item/projectile/beam/disabler"
 				modifystate = "advtaserdisable"
 				fire_delay = 0
@@ -29,7 +30,8 @@
 				mode = 0
 				charge_cost = 2000
 				fire_sound = 'sound/weapons/Taser.ogg'
-				user << "\red [src.name] is now set to stun."
+				to_chat(user, "\red [src.name] is now set to stun.")
+
 				projectile_type = "/obj/item/projectile/energy/electrode"
 				modifystate = "advtaserstun"
 				fire_delay = 15

@@ -68,11 +68,13 @@
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(anchored)
 			anchored = 0
-			user << "<span class='alert'>\The [src] can now be moved.</span>"
+			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
+
 			return
 		else if(!anchored)
 			anchored = 1
-			user << "<span class='alert'>\The [src] is now secured.</span>"
+			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
+
 			return
 
 	default_deconstruction_crowbar(O)
@@ -104,7 +106,8 @@
 				src.dirty = 0 // just to be sure
 				src.flags = OPENCONTAINER
 		else
-			user << "<span class='alert'>It's broken!</span>"
+			to_chat(user, "<span class='alert'>It's broken!</span>")
+
 			return 1
 	else if(src.dirty==100) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/weapon/reagent_containers/spray/cleaner) || istype(O, /obj/item/weapon/soap)) // If they're trying to clean it then let them
@@ -122,11 +125,13 @@
 				src.icon_state = off_icon
 				src.flags = OPENCONTAINER
 		else //Otherwise bad luck!!
-			user << "<span class='alert'>It's dirty!</span>"
+			to_chat(user, "<span class='alert'>It's dirty!</span>")
+
 			return 1
 	else if(is_type_in_list(O,acceptable_items))
 		if (contents.len>=max_n_of_items)
-			user << "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>"
+			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
+
 			return 1
 		if (istype(O,/obj/item/stack) && O:amount>1)
 			new O.type (src)
@@ -136,7 +141,8 @@
 				"<span class='notice'>You add one of [O] to \the [src].</span>")
 		else
 			if(!user.drop_item())
-				user << "<span class='notice'>\The [O] is stuck to your hand, you cannot put it in \the [src]</span>"
+				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand, you cannot put it in \the [src]</span>")
+
 				return 0
 
 			O.forceMove(src)
@@ -151,15 +157,18 @@
 			return 1
 		for (var/datum/reagent/R in O.reagents.reagent_list)
 			if (!(R.id in acceptable_reagents))
-				user << "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>"
+				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
+
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
 	else if(istype(O,/obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = O
-		user << "<span class='alert'>This is ridiculous. You can not fit \the [G.affecting] in this [src].</span>"
+		to_chat(user, "<span class='alert'>This is ridiculous. You can not fit \the [G.affecting] in this [src].</span>")
+
 		return 1
 	else
-		user << "<span class='alert'>You have no idea what you can cook with this [O].</span>"
+		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
+
 		return 1
 	src.updateUsrDialog()
 
@@ -343,7 +352,8 @@
 	if (src.reagents.total_volume)
 		src.dirty++
 	src.reagents.clear_reagents()
-	usr << "<span class='notice'>You dispose of \the [src]'s contents.</span>"
+	to_chat(usr, "<span class='notice'>You dispose of \the [src]'s contents.</span>")
+
 	src.updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/muck_start()

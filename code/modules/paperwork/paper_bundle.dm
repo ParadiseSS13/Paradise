@@ -24,14 +24,16 @@
 		if (istype(P, /obj/item/weapon/paper/carbon))
 			var/obj/item/weapon/paper/carbon/C = P
 			if (!C.iscopy && !C.copied)
-				user << "<span class='notice'>Take off the carbon copy first.</span>"
+				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
+
 				add_fingerprint(user)
 				return
 
 		amount++
 		if(screen == 2)
 			screen = 1
-		user << "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
+		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
+
 		user.unEquip(P)
 		P.loc = src
 		if(istype(user,/mob/living/carbon/human))
@@ -42,7 +44,8 @@
 		amount++
 		if(screen == 2)
 			screen = 1
-		user << "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
+		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
+
 		user.unEquip(W)
 		W.loc = src
 	else if(istype(W, /obj/item/weapon/lighter))
@@ -55,7 +58,8 @@
 			src.amount++
 			if(screen == 2)
 				screen = 1
-		user << "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
+		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
+
 		qdel(W)
 	else
 		if(istype(W, /obj/item/stack/tape_roll))
@@ -94,13 +98,15 @@
 				qdel(src)
 
 			else
-				user << "\red You must hold \the [P] steady to burn \the [src]."
+				to_chat(user, "\red You must hold \the [P] steady to burn \the [src].")
+
 
 /obj/item/weapon/paper_bundle/examine(mob/user)
 	if(..(user, 1))
 		src.show_content(user)
 	else
-		user << "<span class='notice'>It is too far away.</span>"
+		to_chat(user, "<span class='notice'>It is too far away.</span>")
+
 
 /obj/item/weapon/paper_bundle/proc/show_content(mob/user as mob)
 	var/dat
@@ -162,7 +168,8 @@
 		if(href_list["remove"])
 			var/obj/item/weapon/W = src[page]
 			usr.put_in_hands(W)
-			usr << "<span class='notice'>You remove the [W.name] from the bundle.</span>"
+			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
+
 			if(amount == 1)
 				var/obj/item/weapon/paper/P = src[1]
 				usr.unEquip(src)
@@ -176,7 +183,8 @@
 			amount--
 			update_icon()
 	else
-		usr << "<span class='notice'>You need to hold it in your hands to change pages.</span>"
+		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
+
 	if (istype(src.loc, /mob))
 		src.attack_self(src.loc)
 		updateUsrDialog()
@@ -200,7 +208,8 @@
 	set category = "Object"
 	set src in usr
 
-	usr << "<span class='notice'>You loosen the bundle.</span>"
+	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
+
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)

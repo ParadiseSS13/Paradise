@@ -57,7 +57,8 @@
 		//..() //Doesn't need to run the parent. Since when can fucking bodybags be welded shut? -Agouri
 			return
 		else if(istype(W, /obj/item/weapon/wirecutters))
-			user << "You cut the tag off the bodybag"
+			to_chat(user, "You cut the tag off the bodybag")
+
 			src.name = "body bag"
 			src.overlays.Cut()
 			return
@@ -89,7 +90,8 @@
 	// Make it possible to escape from bodybags in morgues and crematoriums
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
-			user << "<span class='notice'>It won't budge!</span>"
+			to_chat(user, "<span class='notice'>It won't budge!</span>")
+
 
 /obj/item/bodybag/cryobag
 	name = "stasis bag"
@@ -126,14 +128,17 @@
 	MouseDrop(over_object, src_location, over_location)
 		if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
 			if(!ishuman(usr))	return
-			usr << "\red You can't fold that up anymore.."
+			to_chat(usr, "\red You can't fold that up anymore..")
+
 		..()
 
 	attackby(W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 			if(src.allowed(user))
 				src.locked = !src.locked
-				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
+				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
+
 			else
-				user << "\red Access denied."
+				to_chat(user, "\red Access denied.")
+
 			return

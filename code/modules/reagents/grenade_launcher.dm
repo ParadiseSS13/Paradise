@@ -19,7 +19,8 @@
 
 /obj/item/weapon/gun/grenadelauncher/examine(mob/user)
 	if(..(user, 2))
-		user << "\blue [grenades.len] / [max_grenades] [ammo_name]s."
+		to_chat(user, "\blue [grenades.len] / [max_grenades] [ammo_name]s.")
+
 
 /obj/item/weapon/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 
@@ -28,10 +29,13 @@
 			user.drop_item()
 			I.loc = src
 			grenades += I
-			user << "\blue You put the [ammo_name] in the [name]."
-			user << "\blue [grenades.len] / [max_grenades] [ammo_name]s."
+			to_chat(user, "\blue You put the [ammo_name] in the [name].")
+
+			to_chat(user, "\blue [grenades.len] / [max_grenades] [ammo_name]s.")
+
 		else
-			usr << "\red The grenade launcher cannot hold more [ammo_name]s."
+			to_chat(usr, "\red The grenade launcher cannot hold more [ammo_name]s.")
+
 
 /obj/item/weapon/gun/grenadelauncher/afterattack(obj/target, mob/user , flag)
 
@@ -47,12 +51,14 @@
 	if(grenades.len)
 		spawn(0) fire_grenade(target,user)
 	else
-		usr << "\red The [name] is empty."
+		to_chat(usr, "\red The [name] is empty.")
+
 
 /obj/item/weapon/gun/grenadelauncher/proc/fire_grenade(atom/target, mob/user)
 	for(var/mob/O in viewers(world.view, user))
 		O.show_message(text("\red [] fired a [ammo_name]!", user), 1)
-	user << "\red You fire the [name]!"
+	to_chat(user, "\red You fire the [name]!")
+
 	var/obj/item/weapon/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
 	grenades -= F
 	F.loc = user.loc
@@ -93,16 +99,20 @@
 			user.drop_item()
 			I.loc = src
 			grenades += I
-			user << "\blue You put the [ammo_name] in the [name]."
-			user << "\blue [grenades.len] / [max_grenades] [ammo_name]s."
+			to_chat(user, "\blue You put the [ammo_name] in the [name].")
+
+			to_chat(user, "\blue [grenades.len] / [max_grenades] [ammo_name]s.")
+
 			icon_state = "piecannon1"
 		else
-			usr << "\red The grenade launcher cannot hold more [ammo_name]s."
+			to_chat(usr, "\red The grenade launcher cannot hold more [ammo_name]s.")
+
 
 /obj/item/weapon/gun/grenadelauncher/piecannon/fire_grenade(atom/target, mob/user)
 	for(var/mob/O in viewers(world.view, user))
 		O.show_message(text("\red [] fired a [ammo_name]!", user), 1)
-	user << "\red You fire the [name]!"
+	to_chat(user, "\red You fire the [name]!")
+
 	var/obj/item/weapon/reagent_containers/food/snacks/pie/P = grenades[1] //Now with less copypasta!
 	grenades -= P
 	P.loc = user.loc

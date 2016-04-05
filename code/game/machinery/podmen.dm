@@ -31,7 +31,8 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 
 	if(istype(W,/obj/item/weapon/reagent_containers))
 
-		user << "You inject the contents of the syringe into the seeds."
+		to_chat(user, "You inject the contents of the syringe into the seeds.")
+
 
 		var/datum/reagent/blood/B
 
@@ -42,7 +43,8 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 				break
 		if(B)
 			source = B.data["donor"]
-			user << "The strange, sluglike seeds quiver gently and swell with blood."
+			to_chat(user, "The strange, sluglike seeds quiver gently and swell with blood.")
+
 			if(!source.client && source.mind)
 				for(var/mob/O in respawnable_list)
 					if(O.mind == source.mind && config.revival_pod_plants)
@@ -51,10 +53,12 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 								source.key = O.key
 								return
 							if("No")
-								user << "The seeds seem to reject the blood, returning to their original size as they stop quivering."
+								to_chat(user, "The seeds seem to reject the blood, returning to their original size as they stop quivering.")
+
 								return
 		else
-			user << "Nothing happens."
+			to_chat(user, "Nothing happens.")
+
 			return
 
 		if (!istype(source))
@@ -76,7 +80,8 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 
 
 	if(beingharvested)
-		user << ("\red You can only harvest the pod once!")
+		to_chat(user, ("\red You can only harvest the pod once!"))
+
 	else
 		user.visible_message("\blue [user] carefully begins to open the pod...","\blue You carefully begin to open the pod...")
 		beingharvested = 1
@@ -123,11 +128,15 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 					ticker.mode:update_all_cult_icons() //So the icon actually appears
 			// -- End mode specific stuff
 
-		podman << "\green <B>You awaken slowly, feeling your sap stir into sluggish motion as the warm air caresses your bark.</B>"
+		to_chat(podman, "\green <B>You awaken slowly, feeling your sap stir into sluggish motion as the warm air caresses your bark.</B>")
+
 		if(source && ckey && podman.ckey == ckey)
-			podman << "<B>Memories of a life as [source] drift oddly through a mind unsuited for them, like a skin of oil over a fathomless lake.</B>"
-		podman << "<B>You are now one of the Dionaea, a race of drifting interstellar plantlike creatures that sometimes share their seeds with human traders.</B>"
-		podman << "<B>Too much darkness will send you into shock and starve you, but light will help you heal.</B>"
+			to_chat(podman, "<B>Memories of a life as [source] drift oddly through a mind unsuited for them, like a skin of oil over a fathomless lake.</B>")
+
+		to_chat(podman, "<B>You are now one of the Dionaea, a race of drifting interstellar plantlike creatures that sometimes share their seeds with human traders.</B>")
+
+		to_chat(podman, "<B>Too much darkness will send you into shock and starve you, but light will help you heal.</B>")
+
 
 	else
 		new /mob/living/carbon/monkey/diona(parent.loc)

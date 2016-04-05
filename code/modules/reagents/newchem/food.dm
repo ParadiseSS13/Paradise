@@ -11,7 +11,8 @@ datum/reagent/questionmark/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 		return
 	if(method == INGEST)
 		M.Weaken(2)
-		M << "<span class='danger'>Ugh! Eating that was a terrible idea!</span>"
+		to_chat(M, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
+
 
 datum/reagent/egg
 	name = "Egg"
@@ -201,11 +202,15 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(method == INGEST)
 		var/ranchance = rand(1,10)
 		if(ranchance == 1)
-			M << "<span class='warning'>You feel very sick.</span>"
+			to_chat(M, "<span class='warning'>You feel very sick.</span>")
+
 			M.reagents.add_reagent("toxin", rand(1,5))
 		else if(ranchance <= 5)
-			M << "<span class='warning'>That tasted absolutely FOUL.</span>"
-		else M << "<span class='warning'>Yuck!</span>"
+			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
+
+		else
+			to_chat(M, "<span class='warning'>Yuck!</span>")
+
 
 /datum/reagent/chicken_soup
 	name = "Chicken soup"
@@ -232,7 +237,8 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
 		return
 	if(method == INGEST)
-		M << "<span class='notice'>That tasted amazing!</span>"
+		to_chat(M, "<span class='notice'>That tasted amazing!</span>")
+
 
 
 /datum/reagent/msg/on_mob_life(var/mob/living/M as mob)
@@ -240,7 +246,8 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 		if(prob(10))
 			M.adjustToxLoss(rand(2.4))
 		if(prob(7))
-			M << "<span class='warning'>A horrible migraine overpowers you.</span>"
+			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
+
 			M.Stun(rand(2,5))
 	..()
 	return
@@ -287,7 +294,8 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 
 /datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob)
 	if(prob(8))
-		M << "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>"
+		to_chat(M, "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>")
+
 		M.adjustToxLoss(rand(1,2))
 	..()
 
@@ -393,12 +401,14 @@ datum/reagent/ectoplasm/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 		return
 	if(method == INGEST)
 		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
-		M << "<span class='warning'>[spooky_eat]</span>"
+		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
+
 
 /datum/reagent/ectoplasm/on_mob_life(var/mob/living/M as mob)
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
 	if(prob(8))
-		M << "<span class='warning'>[spooky_message]</span>"
+		to_chat(M, "<span class='warning'>[spooky_message]</span>")
+
 	..()
 	return
 
@@ -446,12 +456,15 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 
 /datum/reagent/hydrogenated_soybeanoil/overdose_process(var/mob/living/M as mob)
 	if(prob(33))
-		M << "<span class='warning'>You feel horribly weak.</span>"
+		to_chat(M, "<span class='warning'>You feel horribly weak.</span>")
+
 	if(prob(10))
-		M << "<span class='warning'>You cannot breathe!</span>"
+		to_chat(M, "<span class='warning'>You cannot breathe!</span>")
+
 		M.adjustOxyLoss(5)
 	if(prob(5))
-		M << "<span class='warning'>You feel a sharp pain in your chest!</span>"
+		to_chat(M, "<span class='warning'>You feel a sharp pain in your chest!</span>")
+
 		M.adjustOxyLoss(25)
 		M.Stun(5)
 		M.Paralyse(10)
@@ -529,7 +542,8 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	if(prob(8))
 		M.reagents.add_reagent(pick("blood", "corn_syrup", "synthflesh", "hydrogenated_soybeanoil", "porktonium", "toxic_slurry"), 0.8)
 	else if(prob(6))
-		M << "<span class='warning'>[pick("You feel ill.","Your stomach churns.","You feel queasy.","You feel sick.")]</span>"
+		to_chat(M, "<span class='warning'>[pick("You feel ill.","Your stomach churns.","You feel queasy.","You feel sick.")]</span>")
+
 		M.emote(pick("groan","moan"))
 	..()
 	return
@@ -556,20 +570,24 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 			var/mob/living/carbon/human/H = M
 
 			if(H.wear_mask)
-				H << "<span class='warning'>The pepperoni bounces off your mask!</span>"
+				to_chat(H, "<span class='warning'>The pepperoni bounces off your mask!</span>")
+
 				return
 
 			if(H.head)
-				H << "<span class='warning'>Your mask protects you from the errant pepperoni!</span>"
+				to_chat(H, "<span class='warning'>Your mask protects you from the errant pepperoni!</span>")
+
 				return
 
 			if(prob(50))
 				M.adjustBruteLoss(1)
 				playsound(M, 'sound/effects/woodhit.ogg', 50, 1)
-				M << "<span class='warning'>A slice of pepperoni slaps you!</span>"
+				to_chat(M, "<span class='warning'>A slice of pepperoni slaps you!</span>")
+
 			else
 				M.emote("burp")
-				M << "<span class='warning'>My goodness, that was tasty!</span>"
+				to_chat(M, "<span class='warning'>My goodness, that was tasty!</span>")
+
 
 
 /datum/chemical_reaction/pepperoni
@@ -590,14 +608,17 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 
 /datum/reagent/cholesterol/on_mob_life(var/mob/living/M as mob)
 	if(volume >= 25 && prob(volume*0.15))
-		M << "<span class='warning'>Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!</span>"
+		to_chat(M, "<span class='warning'>Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!</span>")
+
 		M.adjustToxLoss(rand(1,2))
 	else if(volume >= 45 && prob(volume*0.08))
-		M << "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>"
+		to_chat(M, "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>")
+
 		M.adjustToxLoss(rand(2,4))
 		M.Stun(1)
 	else if(volume >= 150 && prob(volume*0.01))
-		M << "<span class='warning'>Your chest is burning with pain!</span>"
+		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
+
 		M.Stun(1)
 		M.Weaken(1)
 		if(ishuman(M))

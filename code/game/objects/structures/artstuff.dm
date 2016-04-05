@@ -139,15 +139,18 @@ var/global/list/globalBlankCanvases[AMT_OF_CANVASES]
 	..(user)
 	if(in_range(user, src) && get_turf(src) && user.client && ishuman(user)) //Let only humans be the robust zoominators. I'm too spooked other mobs trying to use it may get broken huds.
 		if(src.loc == user || get_turf(src) == get_turf(user))
-			user << "<span class='notice'>[src] has to be on the ground to focus on it!</span>"
+			to_chat(user, "<span class='notice'>[src] has to be on the ground to focus on it!</span>")
+
 			return
-		user << "<span class='notice'>You focus on \the [src].</span>"
+		to_chat(user, "<span class='notice'>You focus on \the [src].</span>")
+
 		user.client.screen = list() //This is because screen objects go way past the view bounds we set, therefore not allowing stretch to fit to zoom in properly.
 		user.client.reset_stretch = winget(user.client, "mapwindow.map", "icon-size") //Remember previous icon-size
 		user.client.view = 3 //Decrease view
 		winset(user.client, "mapwindow.map", "icon-size=0") //Enable stretch-to-fit
 		user.client.viewingCanvas = 1 //Reset everything we just changed as soon as client tries to move
 	else
-		user << "<span class='notice'>It is too far away.</span>"
+		to_chat(user, "<span class='notice'>It is too far away.</span>")
+
 
 #undef AMT_OF_CANVASES

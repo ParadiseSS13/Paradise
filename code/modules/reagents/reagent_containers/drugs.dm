@@ -24,28 +24,34 @@
 		if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 			if(!target.reagents.total_volume && target.reagents)
-				user << "\red [target] is empty."
+				to_chat(user, "\red [target] is empty.")
+
 				return
 
 			if(reagents.total_volume >= reagents.maximum_volume)
-				user << "\red [src] is full."
+				to_chat(user, "\red [src] is full.")
+
 				return
 
 			for(var/datum/reagent/A in target.reagents.reagent_list)
 				if(A.reagent_state != 1)
-					user << "\red You can only put powders in [src]."
+					to_chat(user, "\red You can only put powders in [src].")
+
 					return
 
 			var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-			user << "\blue You fill [src] with [trans] units of the contents of [target]."
+			to_chat(user, "\blue You fill [src] with [trans] units of the contents of [target].")
+
 
 		else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
 			if(!reagents.total_volume)
-				user << "\red [src] is empty."
+				to_chat(user, "\red [src] is empty.")
+
 				return
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				user << "\red [target] is full."
+				to_chat(user, "\red [target] is full.")
+
 				return
 
 			// /vg/: Logging transfers of bad things
@@ -60,7 +66,8 @@
 					log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-			user << "\blue You transfer [trans] units of the solution to [target]."
+			to_chat(user, "\blue You transfer [trans] units of the solution to [target].")
+
 
 		//Safety for dumping stuff into a ninja suit. It handles everything through attackby() and this is unnecessary.
 
@@ -75,9 +82,11 @@
 		if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/device/flashlight/pen))
 			var/tmp_label = sanitize(input(user, "Enter a label for [src.name]","Label",src.label_text))
 			if(length(tmp_label) > 10)
-				user << "\red The label can be at most 10 characters long."
+				to_chat(user, "\red The label can be at most 10 characters long.")
+
 			else
-				user << "\blue You set the label to \"[tmp_label]\"."
+				to_chat(user, "\blue You set the label to \"[tmp_label]\".")
+
 				src.label_text = tmp_label
 				src.update_name_label()
 

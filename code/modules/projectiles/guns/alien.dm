@@ -33,7 +33,8 @@
 
 /obj/item/weapon/gun/launcher/spikethrower/examine(mob/user)
 	..(user)
-	user << "It has [spikes] [spikes == 1 ? "spike" : "spikes"] remaining."
+	to_chat(user, "It has [spikes] [spikes == 1 ? "spike" : "spikes"] remaining.")
+
 
 /obj/item/weapon/gun/launcher/spikethrower/update_icon()
 	icon_state = "spikethrower[spikes]"
@@ -45,7 +46,8 @@
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		if(H.species && H.species.name != "Vox" && H.species.name != "Vox Armalis")
-			user << "\red \The [src] does not respond to you!"
+			to_chat(user, "\red \The [src] does not respond to you!")
+
 			return 0
 	return 1
 
@@ -89,7 +91,8 @@
 			if(H.species.name == "Vox Armalis")
 				..()
 				return
-		user << "\red \The [src] is far too large for you to pick up."
+		to_chat(user, "\red \The [src] is far too large for you to pick up.")
+
 		return
 
 /obj/item/weapon/gun/energy/noisecannon/process_chambered() //Does not have ammo.

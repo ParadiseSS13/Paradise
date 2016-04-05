@@ -32,7 +32,8 @@
 			AC.loc = src
 			num_loaded++
 	if(num_loaded)
-		user << "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>"
+		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+
 		A.update_icon()
 		update_icon()
 		chamber_round()
@@ -48,9 +49,11 @@
 		CB.update_icon()
 		num_unloaded++
 	if (num_unloaded)
-		user << "<span class = 'notice'>You unload [num_unloaded] shell\s from [src]!</span>"
+		to_chat(user, "<span class = 'notice'>You unload [num_unloaded] shell\s from [src]!</span>")
+
 	else
-		user << "<span class='notice'>[src] is empty.</span>"
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+
 
 /obj/item/weapon/gun/projectile/revolver/get_ammo(var/countchambered = 0, var/countempties = 1)
 	var/boolets = 0 //mature var names for mature people
@@ -62,7 +65,8 @@
 
 /obj/item/weapon/gun/projectile/revolver/examine(mob/user)
 	..(user)
-	user << "[get_ammo(0,0)] of those are live rounds."
+	to_chat(user, "[get_ammo(0,0)] of those are live rounds.")
+
 
 /obj/item/weapon/gun/projectile/revolver/verb/spin_revolver()
 	set name = "Spin cylinder"
@@ -98,7 +102,8 @@
 	if(!ghettomodded)
 		return 1
 	if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
-		M << "<span class='danger'>[src] blows up in your face!</span>"
+		to_chat(M, "<span class='danger'>[src] blows up in your face!</span>")
+
 		M.take_organ_damage(0,20)
 		M.drop_item()
 		qdel(src)
@@ -115,7 +120,8 @@
 
 	if(src && input && !M.stat && in_range(M,src))
 		name = input
-		M << "You name the gun [input]. Say hello to your new friend."
+		to_chat(M, "You name the gun [input]. Say hello to your new friend.")
+
 		return 1
 
 /obj/item/weapon/gun/projectile/revolver/detective/verb/reskin_gun()
@@ -134,21 +140,24 @@
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
-		M << "Your gun is now skinned as [choice]. Say hello to your new friend."
+		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
+
 		return 1
 
 /obj/item/weapon/gun/projectile/revolver/detective/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
 	if(istype(A, /obj/item/weapon/screwdriver) || istype(A, /obj/item/weapon/conversion_kit))
 		if(magazine.caliber == "38")
-			user << "<span class='notice'>You begin to reinforce the barrel of [src].</span>"
+			to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src].</span>")
+
 			if(magazine.ammo_count())
 				afterattack(user, user)	//you know the drill
 				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='danger'>[src] goes off in your face!</span>")
 				return
 			if(do_after(user, 30, target = src))
 				if(magazine.ammo_count())
-					user << "<span class='notice'>You can't modify it!</span>"
+					to_chat(user, "<span class='notice'>You can't modify it!</span>")
+
 					return
 				if (istype(A, /obj/item/weapon/conversion_kit))
 					ghettomodded = 0
@@ -156,21 +165,25 @@
 					ghettomodded = 1
 				magazine.caliber = "357"
 				desc = "[initial(desc)] The barrel and chamber assembly seems to have been modified."
-				user << "<span class='warning'>You reinforce the barrel of [src]! Now it will fire .357 rounds.</span>"
+				to_chat(user, "<span class='warning'>You reinforce the barrel of [src]! Now it will fire .357 rounds.</span>")
+
 		else
-			user << "<span class='notice'>You begin to revert the modifications to [src].</span>"
+			to_chat(user, "<span class='notice'>You begin to revert the modifications to [src].</span>")
+
 			if(magazine.ammo_count())
 				afterattack(user, user)	//and again
 				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='danger'>[src] goes off in your face!</span>")
 				return
 			if(do_after(user, 30, target = src))
 				if(magazine.ammo_count())
-					user << "<span class='notice'>You can't modify it!</span>"
+					to_chat(user, "<span class='notice'>You can't modify it!</span>")
+
 					return
 				ghettomodded = 0
 				magazine.caliber = "38"
 				desc = initial(desc)
-				user << "<span class='warning'>You remove the modifications on [src]! Now it will fire .38 rounds.</span>"
+				to_chat(user, "<span class='warning'>You remove the modifications on [src]! Now it will fire .38 rounds.</span>")
+
 
 
 

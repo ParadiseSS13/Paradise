@@ -132,7 +132,8 @@
 
 /obj/item/organ/internal/optical_sensor/remove(var/mob/living/user,special = 0)
 	if(!special)
-		owner << "Error 404:Optical Sensors not found."
+		to_chat(owner, "Error 404:Optical Sensors not found.")
+
 
 	. = ..()
 

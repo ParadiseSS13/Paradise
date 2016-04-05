@@ -148,7 +148,8 @@
 			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)
 			food.LAssailant = C
 			X.monkeys --
-			owner << "[X] now has [X.monkeys] monkeys left."
+			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
+
 
 
 /datum/action/monkey_recycle

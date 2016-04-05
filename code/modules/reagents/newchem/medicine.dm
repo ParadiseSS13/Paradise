@@ -17,11 +17,13 @@ datum/reagent/silver_sulfadiazine/reaction_mob(var/mob/living/M as mob, var/meth
 		if(method == TOUCH)
 			M.adjustFireLoss(-volume)
 			if(show_message)
-				M << "<span class='notice'>The silver sulfadiazine soothes your burns.</span>"
+				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
+
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
-				M << "<span class='warning'>You feel sick...</span>"
+				to_chat(M, "<span class='warning'>You feel sick...</span>")
+
 	..()
 	return
 
@@ -44,12 +46,14 @@ datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TO
 		if(method == TOUCH)
 			M.adjustBruteLoss(-volume)
 			if(show_message)
-				M << "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>"
+				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
+
 			M.emote("scream")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
-				M << "<span class='warning'>You feel gross!</span>"
+				to_chat(M, "<span class='warning'>You feel gross!</span>")
+
 	..()
 	return
 
@@ -89,7 +93,8 @@ datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vo
 			M.adjustBruteLoss(-1.5*volume)
 			M.adjustFireLoss(-1.5*volume)
 			if(show_message)
-				M << "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>"
+				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
+
 	..()
 	return
 
@@ -631,8 +636,10 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
-					ghost << "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
-					ghost << sound('sound/effects/genetics.ogg')
+					to_chat(ghost, "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+
+					to_chat(ghost, sound('sound/effects/genetics.ogg'))
+
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")

@@ -26,6 +26,7 @@
 
 /obj/item/device/hailer/emag_act(user as mob)
 	if(!emagged)
-		user << "\red You overload \the [src]'s voice synthesizer."
+		to_chat(user, "\red You overload \the [src]'s voice synthesizer.")
+
 		emagged = 1
 

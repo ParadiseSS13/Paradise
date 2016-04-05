@@ -56,7 +56,8 @@
 			while(!istype(M, /mob/living))
 				if(!M || !M.loc || count > 6)
 					//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
-					src << "You are not being carried by anyone!"
+					to_chat(src, "You are not being carried by anyone!")
+
 					return 0
 				M = M.loc
 				count++
@@ -68,13 +69,17 @@
 				for (var/mob/v in viewers(T))
 					v.show_message("<span class='notice'>[M] presses \his thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
 				var/datum/dna/dna = M.dna
-				P << "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>"
+				to_chat(P, "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>")
+
 				if(dna.unique_enzymes == P.master_dna)
-					P << "<b>DNA is a match to stored Master DNA.</b>"
+					to_chat(P, "<b>DNA is a match to stored Master DNA.</b>")
+
 				else
-					P << "<b>DNA does not match stored Master DNA.</b>"
+					to_chat(P, "<b>DNA does not match stored Master DNA.</b>")
+
 			else
-				P << "[M] does not seem like \he is going to provide a DNA sample willingly."
+				to_chat(P, "[M] does not seem like \he is going to provide a DNA sample willingly.")
+
 			return 1
 
 /datum/pai_software/radio_config
@@ -502,9 +507,11 @@
 		if(!T || !(T.z in config.contact_levels))
 			break
 		if(T.loc)
-			AI << "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>"
+			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>")
+
 		else
-			AI << "<font color = red><b>Network Alert: Brute-force encryption crack in progress. Unable to pinpoint location.</b></font>"
+			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress. Unable to pinpoint location.</b></font>")
+
 	var/obj/machinery/door/D = cable.machine
 	if(!istype(D))
 		hack_aborted = 1
@@ -702,7 +709,8 @@
 		while(!isliving(held))
 			if(!held || !held.loc || count > 6)
 				//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
-				src << "You are not being carried by anyone!"
+				to_chat(src, "You are not being carried by anyone!")
+
 				return 0
 			held = held.loc
 			count++

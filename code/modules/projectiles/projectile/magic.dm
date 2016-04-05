@@ -67,9 +67,11 @@
 					ghost.reenter_corpse()
 					break
 		if(old_stat != DEAD)
-			target << "<span class='notice'>You feel great!</span>"
+			to_chat(target, "<span class='notice'>You feel great!</span>")
+
 		else
-			target << "<span class='notice'>You rise with a start, you're alive!!!</span>"
+			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+
 
 /obj/item/projectile/magic/teleport
 	name = "bolt of teleportation"
@@ -238,7 +240,8 @@ proc/wabbajack(mob/living/M)
 			else
 				new_mob.key = M.key
 
-			new_mob << "<B>Your form morphs into that of a [randomize].</B>"
+			to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")
+
 
 			qdel(M)
 			return new_mob
@@ -262,8 +265,10 @@ proc/wabbajack(mob/living/M)
 				S.icon = change.icon
 				if(H.mind)
 					H.mind.transfer_to(S)
-					S << "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>"
-					S << "<span class='userdanger'>Do not harm [firer.name], your creator.</span>"
+					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
+
+					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
+
 				H = change
 				H.loc = S
 				qdel(src)

@@ -44,7 +44,8 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	..(user)
-	user << "There are [crystals.len ? crystals.len : "no"] bluespace crystal\s in the crystal slots."
+	to_chat(user, "There are [crystals.len ? crystals.len : "no"] bluespace crystal\s in the crystal slots.")
+
 
 /obj/machinery/computer/telescience/initialize()
 	..()
@@ -54,7 +55,8 @@
 /obj/machinery/computer/telescience/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/ore/bluespace_crystal))
 		if(crystals.len >= max_crystals)
-			user << "<span class='warning'>There are not enough crystal slots.</span>"
+			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
+
 			return
 		user.drop_item()
 		crystals += W
@@ -73,17 +75,20 @@
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
 			telepad = M.buffer
 			M.buffer = null
-			user << "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>"
+			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
+
 			updateUsrDialog()
 	else
 		..()
 
 /obj/machinery/computer/telescience/emag_act(user as mob)
 	if (!emagged)
-		user << "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"
+		to_chat(user, "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!")
+
 		emagged = 1
 	else
-		user << "\red The machine seems unaffected by the card swipe..."
+		to_chat(user, "\red The machine seems unaffected by the card swipe...")
+
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
 	src.attack_hand(user)

@@ -45,7 +45,8 @@
 	if(H.hud_used)
 		H.hud_used.instantiate()
 
-	H << "<B>You are now a [H.species.name].</B>"
+	to_chat(H, "<B>You are now a [H.species.name].</B>")
+
 
 	return H
 
@@ -88,6 +89,7 @@
 	if(H.hud_used)
 		H.hud_used.instantiate()
 
-	H << "<B>You are now a [H.species.name].</B>"
+	to_chat(H, "<B>You are now a [H.species.name].</B>")
+
 
 	return H

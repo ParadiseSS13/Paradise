@@ -52,6 +52,7 @@
 
 	//entangling people
 	if(victim.loc == src.loc)
-		victim << "<span class='danger'>Tendrils [pick("wind", "tangle", "tighten")] around you!</span>"
+		to_chat(victim, "<span class='danger'>Tendrils [pick("wind", "tangle", "tighten")] around you!</span>")
+
 		can_buckle = 1
 		buckle_mob(victim)

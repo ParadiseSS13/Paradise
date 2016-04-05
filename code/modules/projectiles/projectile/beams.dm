@@ -239,16 +239,19 @@
 							f.break_tile()
 							f.hotspot_expose(1000,CELL_VOLUME)
 				if((x == 1 || x == world.maxx || y == 1 || y == world.maxy))
-					//world << "deleting"
+//					to_chat(world, "deleting")
+
 					//qdel(src) //Delete if it passes the world edge
 					broken = 1
 					return
 				if(kill_count < 1)
-					//world << "deleting"
+//					to_chat(world, "deleting")
+
 					//qdel(src)
 					broken = 1
 				kill_count--
-				//world << "[x] [y]"
+//				to_chat(world, "[x] [y]")
+
 				if(!bumped && !isturf(original))
 					if(loc == get_turf(original))
 						if(!(original in permutated))
@@ -263,7 +266,8 @@
 						Bump(original)
 				first = 0
 				if(broken)
-					//world << "breaking"
+//					to_chat(world, "breaking")
+
 					break
 				else
 					last = get_turf(src.loc)
@@ -274,7 +278,8 @@
 			qdel(src)
 		return
 	/*cleanup(reference) //Waits .3 seconds then removes the overlay.
-		//world << "setting invisibility"
+//		to_chat(world, "setting invisibility")
+
 		sleep(50)
 		src.invisibility = 101
 		return*/

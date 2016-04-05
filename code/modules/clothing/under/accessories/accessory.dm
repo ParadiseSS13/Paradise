@@ -23,7 +23,8 @@
 	loc = has_suit
 	has_suit.overlays += inv_overlay
 
-	user << "<span class='notice'>You attach [src] to [has_suit].</span>"
+	to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
+
 	src.add_fingerprint(user)
 
 /obj/item/clothing/accessory/proc/on_removed(mob/user as mob)
@@ -38,7 +39,8 @@
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
 	if(istype(H))
 		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
-			user << "[H]'s body is covered, and you cannot attach \the [src]."
+			to_chat(user, "[H]'s body is covered, and you cannot attach \the [src].")
+
 			return 1
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(istype(U))
@@ -47,7 +49,8 @@
 				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
 				U.attackby(src, user)
 		else
-			user << "[H] is not wearing anything to attach \the [src] to."
+			to_chat(user, "[H] is not wearing anything to attach \the [src] to.")
+
 		return 1
 	return ..()
 
@@ -203,7 +206,8 @@
 
 /obj/item/clothing/accessory/holobadge/attack_self(mob/user as mob)
 	if(!stored_name)
-		user << "Waving around a badge before swiping an ID would be pretty pointless."
+		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
+
 		return
 	if(isliving(user))
 		user.visible_message("\red [user] displays their NanoTrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.","\red You display your NanoTrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.")
@@ -220,22 +224,26 @@
 			id_card = pda.id
 
 		if(access_security in id_card.access || emagged)
-			user << "You imprint your ID details onto the badge."
+			to_chat(user, "You imprint your ID details onto the badge.")
+
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
 		else
-			user << "[src] rejects your insufficient access rights."
+			to_chat(user, "[src] rejects your insufficient access rights.")
+
 		return
 	..()
 
 /obj/item/clothing/accessory/holobadge/emag_act(user as mob)
 	if (emagged)
-		user << "\red [src] is already cracked."
+		to_chat(user, "\red [src] is already cracked.")
+
 		return
 	else
 		emagged = 1
-		user << "\red You swipe the card and crack the holobadge security checks."
+		to_chat(user, "\red You swipe the card and crack the holobadge security checks.")
+
 		return
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)
@@ -376,11 +384,13 @@
 	if(!istype(W))
 		return ..()
 	if(access_id)
-		user << "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>"
+		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>")
+
 	user.drop_item()
 	W.forceMove(src)
 	access_id = W
-	user << "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>"
+	to_chat(user, "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>")
+
 
 /obj/item/clothing/accessory/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()
@@ -388,7 +398,8 @@
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
 	..()
 	if(access_id)
-		user << "There is \icon[access_id] \a [access_id] clipped onto it."
+		to_chat(user, "There is \icon[access_id] \a [access_id] clipped onto it.")
+
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
 	if(istype(user))

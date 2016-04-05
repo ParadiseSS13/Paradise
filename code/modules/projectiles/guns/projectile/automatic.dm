@@ -36,12 +36,14 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, text2path(mag_type)))
 			if(magazine)
-				user << "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>"
+				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
+
 				magazine.forceMove(get_turf(src.loc))
 				magazine.update_icon()
 				magazine = null
 			else
-				user << "<span class='notice'>You insert the magazine into \the [src].</span>"
+				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
+
 			user.remove_from_mob(AM)
 			magazine = AM
 			magazine.forceMove(src)
@@ -59,11 +61,13 @@
 	if(!select)
 		burst_size = 1
 		fire_delay = 0
-		user << "<span class='notice'>You switch to semi-automatic.</span>"
+		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
+
 	else
 		burst_size = initial(burst_size)
 		fire_delay = initial(fire_delay)
-		user << "<span class='notice'>You switch to [burst_size] round burst.</span>"
+		to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
@@ -144,7 +148,8 @@
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/attack_self(mob/user as mob)
 	cover_open = !cover_open
-	user << "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>"
+	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
+
 	update_icon()
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/update_icon()
@@ -154,7 +159,8 @@
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
-		user << "<span class='notice'>[src]'s cover is open! Close it before firing!</span>"
+		to_chat(user, "<span class='notice'>[src]'s cover is open! Close it before firing!</span>")
+
 	else
 		..()
 		update_icon()
@@ -172,12 +178,14 @@
 		user.put_in_hands(magazine)
 		magazine = null
 		update_icon()
-		user << "<span class='notice'>You remove the magazine from [src].</span>"
+		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
+
 
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	if(!cover_open && istype(A, mag_type))
-		user << "<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>"
+		to_chat(user, "<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>")
+
 		return
 	..()
 
@@ -246,15 +254,18 @@
 			select = 1
 			burst_size = initial(burst_size)
 			fire_delay = initial(fire_delay)
-			user << "<span class='notice'>You switch to [burst_size] round burst.</span>"
+			to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+
 		if(1)
 			select = 2
-			user << "<span class='notice'>You switch to grenades.</span>"
+			to_chat(user, "<span class='notice'>You switch to grenades.</span>")
+
 		if(2)
 			select = 0
 			burst_size = 1
 			fire_delay = 0
-			user << "<span class='notice'>You switch to semi-auto.</span>"
+			to_chat(user, "<span class='notice'>You switch to semi-auto.</span>")
+
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
 	return

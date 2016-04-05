@@ -54,7 +54,8 @@
 		if (H.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
-			H << "<span class='notice'>You try to move your [temp.name], but cannot!"
+			to_chat(H, "<span class='notice'>You try to move your [temp.name], but cannot!")
+
 			return
 	if(amount >= 1)
 		amount--
@@ -75,9 +76,11 @@
 
 		P.loc = user.loc
 		user.put_in_hands(P)
-		user << "<span class='notice'>You take [P] out of the [src].</span>"
+		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+
 	else
-		user << "<span class='notice'>[src] is empty!</span>"
+		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+
 
 	add_fingerprint(user)
 	return
@@ -89,7 +92,8 @@
 
 	user.drop_item()
 	i.loc = src
-	user << "<span class='notice'>You put [i] in [src].</span>"
+	to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
+
 	papers.Add(i)
 	amount++
 
@@ -97,9 +101,11 @@
 /obj/item/weapon/paper_bin/examine(mob/user)
 	if(..(user, 1))
 		if(amount)
-			usr << "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>"
+			to_chat(usr, "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>")
+
 		else
-			usr << "<span class='notice'>There are no papers in the bin.</span>"
+			to_chat(usr, "<span class='notice'>There are no papers in the bin.</span>")
+
 
 
 /obj/item/weapon/paper_bin/update_icon()
@@ -127,9 +133,11 @@
 			P = new /obj/item/weapon/paper/carbon
 		P.loc = user.loc
 		user.put_in_hands(P)
-		user << "<span class='notice'>You take [P] out of the [src].</span>"
+		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+
 	else
-		user << "<span class='notice'>[src] is empty!</span>"
+		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+
 
 	add_fingerprint(user)
 	return

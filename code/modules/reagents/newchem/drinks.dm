@@ -27,7 +27,8 @@
 		if(prob(50))
 			M.say("[sonic_message]")
 		else
-			M << "<span class='notice'>[sonic_message ]</span>"
+			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
+
 	..()
 	return
 
@@ -130,7 +131,8 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	if(M.isSynthetic())
 		return
 	if(method == INGEST)
-		M << pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>")
+		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
+
 
 /datum/reagent/ethanol/synthanol/robottears
 	name = "Robot Tears"

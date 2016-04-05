@@ -208,10 +208,12 @@
 
 /obj/machinery/shieldgen/attack_hand(mob/user as mob)
 	if(locked)
-		user << "The machine is locked, you are unable to use it."
+		to_chat(user, "The machine is locked, you are unable to use it.")
+
 		return
 	if(is_open)
-		user << "The panel must be closed before operating this machine."
+		to_chat(user, "The panel must be closed before operating this machine.")
+
 		return
 
 	if (src.active)
@@ -226,7 +228,8 @@
 				"You hear heavy droning.")
 			src.shields_up()
 		else
-			user << "The device must first be secured to the floor."
+			to_chat(user, "The device must first be secured to the floor.")
+
 	return
 
 /obj/machinery/shieldgen/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -237,48 +240,58 @@
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 		if(is_open)
-			user << "\blue You close the panel."
+			to_chat(user, "\blue You close the panel.")
+
 			is_open = 0
 		else
-			user << "\blue You open the panel and expose the wiring."
+			to_chat(user, "\blue You open the panel and expose the wiring.")
+
 			is_open = 1
 
 	else if(istype(W, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = W
-		user << "\blue You begin to replace the wires."
+		to_chat(user, "\blue You begin to replace the wires.")
+
 		//if(do_after(user, min(60, round( ((maxhealth/health)*10)+(malfunction*10) ), target = src)) //Take longer to repair heavier damage
 		if(do_after(user, 30, target = src))
 			if(!src || !coil) return
 			coil.use(1)
 			health = max_health
 			malfunction = 0
-			user << "\blue You repair the [src]!"
+			to_chat(user, "\blue You repair the [src]!")
+
 			update_icon()
 
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(locked)
-			user << "The bolts are covered, unlocking this would retract the covers."
+			to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
+
 			return
 		if(anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue You unsecure the [src] from the floor!"
+			to_chat(user, "\blue You unsecure the [src] from the floor!")
+
 			if(active)
-				user << "\blue The [src] shuts off!"
+				to_chat(user, "\blue The [src] shuts off!")
+
 				src.shields_down()
 			anchored = 0
 		else
 			if(istype(get_turf(src), /turf/space)) return //No wrenching these in space!
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue You secure the [src] to the floor!"
+			to_chat(user, "\blue You secure the [src] to the floor!")
+
 			anchored = 1
 
 
 	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 		if(src.allowed(user))
 			src.locked = !src.locked
-			user << "The controls are now [src.locked ? "locked." : "unlocked."]"
+			to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
+
 		else
-			user << "\red Access denied."
+			to_chat(user, "\red Access denied.")
+
 
 	else
 		..()
@@ -346,13 +359,16 @@
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user as mob)
 	if(state != 1)
-		user << "\red The shield generator needs to be firmly secured to the floor first."
+		to_chat(user, "\red The shield generator needs to be firmly secured to the floor first.")
+
 		return 1
 	if(src.locked && !istype(user, /mob/living/silicon))
-		user << "\red The controls are locked!"
+		to_chat(user, "\red The controls are locked!")
+
 		return 1
 	if(power != 1)
-		user << "\red The shield generator needs to be powered by wire underneath."
+		to_chat(user, "\red The shield generator needs to be powered by wire underneath.")
+
 		return 1
 
 	if(src.active >= 1)
@@ -452,29 +468,34 @@
 /obj/machinery/shieldwallgen/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		if(active)
-			user << "Turn off the field generator first."
+			to_chat(user, "Turn off the field generator first.")
+
 			return
 
 		else if(state == 0)
 			state = 1
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-			user << "You secure the external reinforcing bolts to the floor."
+			to_chat(user, "You secure the external reinforcing bolts to the floor.")
+
 			src.anchored = 1
 			return
 
 		else if(state == 1)
 			state = 0
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-			user << "You undo the external reinforcing bolts."
+			to_chat(user, "You undo the external reinforcing bolts.")
+
 			src.anchored = 0
 			return
 
 	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (src.allowed(user))
 			src.locked = !src.locked
-			user << "Controls are now [src.locked ? "locked." : "unlocked."]"
+			to_chat(user, "Controls are now [src.locked ? "locked." : "unlocked."]")
+
 		else
-			user << "\red Access denied."
+			to_chat(user, "\red Access denied.")
+
 
 	else
 		add_fingerprint(user)

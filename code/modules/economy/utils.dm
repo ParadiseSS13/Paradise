@@ -48,7 +48,8 @@
 
 /datum/money_account/proc/charge(var/transaction_amount,var/datum/money_account/dest,var/transaction_purpose, var/terminal_name="", var/terminal_id=0, var/dest_name = "UNKNOWN")
 	if(suspended)
-		usr << "<span class='warning'>Unable to access source account: account suspended.</span>"
+		to_chat(usr, "<span class='warning'>Unable to access source account: account suspended.</span>")
+
 		return 0
 	
 	if(transaction_amount <= money)
@@ -88,5 +89,6 @@
 		transaction_log.Add(T)
 		return 1
 	else
-		usr << "<span class='warning'>Insufficient funds in account.</span>"
+		to_chat(usr, "<span class='warning'>Insufficient funds in account.</span>")
+
 		return 0

@@ -14,12 +14,15 @@
 	if(istype(W, /obj/item/weapon/reagent_containers/glass) || istype(W, /obj/item/weapon/reagent_containers/food/drinks))
 		if(src.reagents && W.reagents && !noscoop)
 			if(!src.reagents.total_volume)
-				user << "<span class='notice'>There isn't enough [src] to scoop up!</span>"
+				to_chat(user, "<span class='notice'>There isn't enough [src] to scoop up!</span>")
+
 				return
 			if(W.reagents.total_volume >= W.reagents.maximum_volume)
-				user << "<span class='notice'>[W] is full!</span>"
+				to_chat(user, "<span class='notice'>[W] is full!</span>")
+
 				return
-			user << "<span class='notice'>You scoop the [src] into [W]!</span>"
+			to_chat(user, "<span class='notice'>You scoop the [src] into [W]!</span>")
+
 			reagents.trans_to(W, reagents.total_volume)
 			if(!reagents.total_volume && !noclear) //scooped up all of it
 				qdel(src)
@@ -29,7 +32,8 @@
 		else
 			src.reagents.chem_temp += 15
 			src.reagents.handle_reactions()
-			user << "<span class='notice'>You heat [src] with [W]!</span>"
+			to_chat(user, "<span class='notice'>You heat [src] with [W]!</span>")
+
 
 /obj/effect/decal/cleanable/ex_act()
 	if(reagents)

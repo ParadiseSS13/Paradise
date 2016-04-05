@@ -36,9 +36,11 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 	set name = "Check Urge"
 	set src in usr
 	if (src.urge)
-		owner << "\red \b You feel the urge to [src.urge]"
+		to_chat(owner, "\red \b You feel the urge to [src.urge]")
+
 	else
-		owner << "\b You feel no supernatural compulsions."
+		to_chat(owner, "\b You feel no supernatural compulsions.")
+
 
 
 /obj/cult_viewpoint/verb/reach_out()
@@ -49,10 +51,14 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 
 	for(var/mob/spirit/mask/currentMask in spirits)
 		if (currentMask.is_active())
-			owner << "\red \b You feel the reassuring presence of your god."
-			currentMask << "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[currentMask];track2=\ref[currentMask];track=\ref[usr]'>[get_display_name()]</a></span><span class='message'> has reached out to you.</span></span>"
+			to_chat(owner, "\red \b You feel the reassuring presence of your god.")
+
+			to_chat(currentMask, "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[currentMask];track2=\ref[currentMask];track=\ref[usr]'>[get_display_name()]</a></span><span class='message'> has reached out to you.</span></span>")
+
+
 			return
-	owner << "\b You feel a chilling absence."
+	to_chat(owner, "\b You feel a chilling absence.")
+
 	handle_missing_mask()
 
 
@@ -63,11 +69,14 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 	set src in usr
 	switch(favor)
 		if(FAVOR_PLEASED)
-			owner << "\red \b You bask in your gods favor."
+			to_chat(owner, "\red \b You bask in your gods favor.")
+
 		if(FAVOR_INDIFFERENT)
-			owner << "\red \b You feel nothing."
+			to_chat(owner, "\red \b You feel nothing.")
+
 		if(FAVOR_DISPLEASED)
-			owner << "\red \b You cringe at your gods displeasure."
+			to_chat(owner, "\red \b You cringe at your gods displeasure.")
+
 
 
 /obj/cult_viewpoint/verb/pray_to_mask()
@@ -81,10 +90,13 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 		return
 
 	cult_log("[key_name(usr,0)](Pray):[input]")
-	owner << "<span class='cultspeech'><b>You pray to Nar'Sie</b>: [input]</span>"
+	to_chat(owner, "<span class='cultspeech'><b>You pray to Nar'Sie</b>: [input]</span>")
+
 
 	for(var/mob/spirit/spirit in spirits)
-		spirit << "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>[get_display_name()]</a> prays : </span><span class='message'>[input]</span></span>"
+		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>[get_display_name()]</a> prays : </span><span class='message'>[input]</span></span>")
+
+
 
 // PROCS
 /obj/cult_viewpoint/proc/set_favor(var/newFavor)
@@ -120,10 +132,12 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 		return FALSE
 	if (newName)
 		cult_name = newName
-		owner << "\red \b You have been blessed with the secret name of '[newName]'."
+		to_chat(owner, "\red \b You have been blessed with the secret name of '[newName]'.")
+
 	else
 		cult_name = null
-		owner << "\red \b Your god has taken your secret name."
+		to_chat(owner, "\red \b Your god has taken your secret name.")
+
 
 
 /obj/cult_viewpoint/proc/get_display_name()
@@ -159,7 +173,8 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 		else
 			return
 	else
-		owner << "\b You cannot become a mask of Nar'Sie because a Mask already exists."
+		to_chat(owner, "\b You cannot become a mask of Nar'Sie because a Mask already exists.")
+
 	mask_has_been_found()
 	return
 

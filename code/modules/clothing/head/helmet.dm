@@ -24,7 +24,8 @@
 			flags ^= visor_flags
 			flags_inv ^= visor_flags_inv
 			icon_state = "[initial(icon_state)][up ? "up" : ""]"
-			user << "[up ? alt_toggle_message : toggle_message] \the [src]"
+			to_chat(user, "[up ? alt_toggle_message : toggle_message] \the [src]")
+
 
 			user.update_inv_head()
 

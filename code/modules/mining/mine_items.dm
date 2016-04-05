@@ -219,17 +219,20 @@
 /obj/item/device/mobcapsule/proc/capture(var/mob/target, var/mob/U as mob)
 	var/mob/living/simple_animal/T = target
 	if(captured)
-		U << "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!"
+		to_chat(U, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
+
 	else
 		if(istype(T) && "neutral" in T.faction)
 			T.forceMove(src)
 			T.name = "[U.name]'s [initial(T.name)]"
 			T.cancel_camera()
 			name = "Lazarus Capsule: [initial(T.name)]"
-			U << "<span class='notice'>You placed a [T.name] inside the Lazarus Capsule!</span>"
+			to_chat(U, "<span class='notice'>You placed a [T.name] inside the Lazarus Capsule!</span>")
+
 			captured = T
 		else
-			U << "You can't capture that mob!"
+			to_chat(U, "You can't capture that mob!")
+
 
 /obj/item/device/mobcapsule/throw_impact(atom/A, mob/user)
 	..()

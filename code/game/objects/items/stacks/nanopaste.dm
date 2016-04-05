@@ -21,7 +21,8 @@
 			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
 		else
-			user << "<span class='notice'>All [R]'s systems are nominal.</span>"
+			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
+
 
 	if (istype(M,/mob/living/carbon/human))		//Repairing robolimbs
 		var/mob/living/carbon/human/H = M
@@ -35,6 +36,8 @@
 				user.visible_message("<span class='notice'>\The [user] applies some nanite paste at[user != M ? " \the [M]'s" : " \the"][S.name] with \the [src].</span>",\
 				"<span class='notice'>You apply some nanite paste at [user == M ? "your" : "[M]'s"] [S.name].</span>")
 			else
-				user << "<span class='notice'>Nothing to fix here.</span>"
+				to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
+
 		else
-			user << "<span class='notice'>[src] won't work on that.</span>"
+			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
+

@@ -278,7 +278,8 @@
 	if(staminaloss)
 		var/total_health = (health - staminaloss)
 		if(total_health <= config.health_threshold_softcrit && !stat)
-			src << "<span class='notice'>You're too exhausted to keep going...</span>"
+			to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+
 			Weaken(5)
 			setStaminaLoss(health - 2)
 			return

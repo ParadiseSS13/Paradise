@@ -102,12 +102,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(glass))	//you can dip cigarettes into beakers
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
-			user << "<span class='notice'>You dip \the [src] into \the [glass].</span>"
+			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
+
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
-				user << "<span class='notice'>[glass] is empty.</span>"
+				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
+
 			else
-				user << "<span class='notice'>[src] is full.</span>"
+				to_chat(user, "<span class='notice'>[src] is full.</span>")
+
 
 
 /obj/item/clothing/mask/cigarette/proc/light(var/flavor_text = "[usr] lights the [name].")
@@ -176,7 +179,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 			var/mob/living/carbon/C = loc
 			reagents.trans_to(C, REAGENTS_METABOLISM)
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				C << "<span class='notice'>Your [name] loses its flavor.</span>"
+				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
+
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 	return
@@ -188,7 +192,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
 		var/mob/living/M = loc
-		M << "<span class='notice'>Your [name] goes out.</span>"
+		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
+
 		M.unEquip(src, 1)		//Force the un-equip so the overlays update
 	processing_objects.Remove(src)
 	qdel(src)
@@ -302,7 +307,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(W, /obj/item/weapon/match))
 		..()
 	else
-		user << "<span class='notice'>\The [src] straight out REFUSES to be lit by such uncivilized means.</span>"
+		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such uncivilized means.</span>")
+
 
 /////////////////
 //SMOKING PIPES//
@@ -338,7 +344,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		new /obj/effect/decal/cleanable/ash(location)
 		if(ismob(loc))
 			var/mob/living/M = loc
-			M << "<span class='notice'>Your [name] goes out, and you empty the ash.</span>"
+			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
+
 			lit = 0
 			icon_state = icon_off
 			item_state = icon_off
@@ -357,7 +364,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		processing_objects.Remove(src)
 		return
 	if(smoketime <= 0)
-		user << "<span class='notice'>You refill the pipe with tobacco.</span>"
+		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
+
 		reagents.add_reagent("nicotine", chem_volume)
 		smoketime = initial(smoketime)
 	return
@@ -366,7 +374,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(W, /obj/item/weapon/match))
 		..()
 	else
-		user << "<span class='notice'>\The [src] straight out REFUSES to be lit by such means.</span>"
+		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such means.</span>")
+
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
@@ -401,12 +410,14 @@ obj/item/weapon/rollingpaperpack/attack_self(mob/user)
 	if(papers > 1)
 		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
 		user.put_in_inactive_hand(P)
-		user << "You take a paper out of the pack."
+		to_chat(user, "You take a paper out of the pack.")
+
 		papers --
 	else
 		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
 		user.put_in_inactive_hand(P)
-		user << "You take the last paper out of the pack, and throw the pack away."
+		to_chat(user, "You take the last paper out of the pack, and throw the pack away.")
+
 		qdel(src)
 
 /obj/item/weapon/rollingpaperpack/MouseDrop(atom/over_object)
@@ -428,4 +439,5 @@ obj/item/weapon/rollingpaperpack/attack_self(mob/user)
 
 /obj/item/weapon/rollingpaperpack/examine(mob/user)
 	..(user)
-	user << "There are [src.papers] left"
+	to_chat(user, "There are [src.papers] left")
+

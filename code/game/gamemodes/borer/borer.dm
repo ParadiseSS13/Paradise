@@ -18,8 +18,10 @@
 	var/list/found_vents = list()
 
 /datum/game_mode/borer/announce()
-	world << "<B>The current game mode is - Cortical Borer!</B>"
-	world << "<B>An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.</B>"
+	to_chat(world, "<B>The current game mode is - Cortical Borer!</B>")
+
+	to_chat(world, "<B>An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.</B>")
+
 
 /datum/game_mode/borer/can_start()
 	if(!..())
@@ -99,11 +101,13 @@
 
 /datum/game_mode/proc/greet_borer(var/datum/mind/borer, var/you_are=1)
 	if (you_are)
-		borer.current << "<B>\red You are a Cortical Borer!</B>"
+		to_chat(borer.current, "<B>\red You are a Cortical Borer!</B>")
+
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in borer.objectives)
-		borer.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		to_chat(borer.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+
 		obj_count++
 	return
 
@@ -125,16 +129,20 @@
 	for(var/datum/mind/borer in borers)
 		var/borerwin = 1
 		if((borer.current) && istype(borer.current,/mob/living/simple_animal/borer))
-			world << "<B>The borer was [borer.current.key].</B>"
-			world << "<B>The last host was [borer.current:host.key].</B>"
+			to_chat(world, "<B>The borer was [borer.current.key].</B>")
+
+			to_chat(world, "<B>The last host was [borer.current:host.key].</B>")
+
 
 			var/count = 1
 			for(var/datum/objective/objective in borer.objectives)
 				if(objective.check_completion())
-					world << "<B>Objective #[count]</B>: [objective.explanation_text] \green <B>Success</B>"
+					to_chat(world, "<B>Objective #[count]</B>: [objective.explanation_text] \green <B>Success</B>")
+
 					feedback_add_details("borer_objective","[objective.type]|SUCCESS")
 				else
-					world << "<B>Objective #[count]</B>: [objective.explanation_text] \red Failed"
+					to_chat(world, "<B>Objective #[count]</B>: [objective.explanation_text] \red Failed")
+
 					feedback_add_details("borer_objective","[objective.type]|FAIL")
 					borerwin = 0
 				count++
@@ -143,10 +151,12 @@
 			borerwin = 0
 
 		if(borerwin)
-			world << "<B>The borer was successful!<B>"
+			to_chat(world, "<B>The borer was successful!<B>")
+
 			feedback_add_details("borer_success","SUCCESS")
 		else
-			world << "<B>The borer has failed!<B>"
+			to_chat(world, "<B>The borer has failed!<B>")
+
 			feedback_add_details("borer_success","FAIL")
 	return 1
 

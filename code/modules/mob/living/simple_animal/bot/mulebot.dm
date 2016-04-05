@@ -115,7 +115,8 @@
 				"<span class='notice'>You repair [src]!</span>"
 			)
 		else
-			user << "<span class='notice'>[src] does not need a repair!</span>"
+			to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
+
 	else if((istype(I, /obj/item/device/multitool) || istype(I, /obj/item/weapon/wirecutters)) && open)
 		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
@@ -124,7 +125,8 @@
 			user.visible_message("<span class='danger'>[user] knocks [load] off [src] with \the [I]!</span>",
 									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
 		else
-			user << "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>"
+			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
+
 			..()
 	else
 		..()
@@ -136,7 +138,8 @@
 		emagged = 1
 	if(!open)
 		locked = !locked
-		user << "<span class='notice'>You [locked ? "lock" : "unlock"] the [src]'s controls!</span>"
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the [src]'s controls!</span>")
+
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
 
@@ -185,7 +188,8 @@
 				turn_off()
 			else if(cell && !open)
 				if(!turn_on())
-					usr << "<span class='warning'>You can't switch on [src]!</span>"
+					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
+
 					return
 			else
 				return
@@ -249,7 +253,8 @@
 		update_controls()
 		return 1
 	else
-		user << "<span class='danger'>Access denied.</span>"
+		to_chat(user, "<span class='danger'>Access denied.</span>")
+
 		return 0
 
 // TODO: remove this; PDAs currently depend on it
@@ -474,7 +479,8 @@
 		return
 	if(on)
 		var/speed = (wires.Motor1() ? 1 : 0) + (wires.Motor2() ? 2 : 0)
-		//world << "speed: [speed]"
+//		to_chat(world, "speed: [speed]")
+
 		var/num_steps = 0
 		switch(speed)
 			if(0)
@@ -516,13 +522,15 @@
 					path -= next
 					return
 				if(istype(next, /turf/simulated))
-					//world << "at ([x],[y]) moving to ([next.x],[next.y])"
+//					to_chat(world, "at ([x],[y]) moving to ([next.x],[next.y])")
+
 
 					var/oldloc = loc
 					var/moved = step_towards(src, next)	// attempt to move
 					if(cell) cell.use(1)
 					if(moved && oldloc!=loc)	// successful move
-						//world << "Successful move."
+//						to_chat(world, "Successful move.")
+
 						blockcount = 0
 						path -= loc
 
@@ -533,7 +541,8 @@
 
 					else		// failed to move
 
-						//world << "Unable to move."
+//						to_chat(world, "Unable to move.")
+
 						blockcount++
 						mode = BOT_BLOCKED
 						if(blockcount == 3)
@@ -553,16 +562,19 @@
 						return
 				else
 					buzz(ANNOYED)
-					//world << "Bad turf."
+//					to_chat(world, "Bad turf.")
+
 					mode = BOT_NAV
 					return
 			else
-				//world << "No path."
+//				to_chat(world, "No path.")
+
 				mode = BOT_NAV
 				return
 
 		if(BOT_NAV)	// calculate new path
-			//world << "Calc new path."
+//			to_chat(world, "Calc new path.")
+
 			mode = BOT_WAIT_FOR_NAV
 			spawn(0)
 				calc_path()
@@ -639,7 +651,8 @@
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				calling_ai << "<span class='notice'>\icon[src] [src] wirelessly plays a chiming sound!</span>"
+				to_chat(calling_ai, "<span class='notice'>\icon[src] [src] wirelessly plays a chiming sound!</span>")
+
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
 				radio_channel = "AI Private" //Report on AI Private instead if the AI is controlling us.
@@ -726,14 +739,18 @@
 	switch(command)
 		if("start")
 			if(load)
-				src << "<span class='warning big'>DELIVER [load] TO [destination]</span>"
+				to_chat(src, "<span class='warning big'>DELIVER [load] TO [destination]</span>")
+
 			else
-				src << "<span class='warning big'>PICK UP DELIVERY AT [destination]</span>"
+				to_chat(src, "<span class='warning big'>PICK UP DELIVERY AT [destination]</span>")
+
 		if("unload")
 			if(load)
-				src << "<span class='warning big'>UNLOAD</span>"
+				to_chat(src, "<span class='warning big'>UNLOAD</span>")
+
 			else
-				src << "<span class='warning big'>LOAD</span>"
+				to_chat(src, "<span class='warning big'>LOAD</span>")
+
 		if("autoret", "autopick", "target")
 		else
 			..()

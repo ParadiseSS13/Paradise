@@ -385,7 +385,8 @@
 
 /mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
+
 		return
 
 	if(M.Victim) return // can't attack while eating!
@@ -423,13 +424,16 @@
 								M.show_message("\blue [user] applies [MED] on [src]")
 						return
 					else
-						user << "\blue [MED] won't help at all."
+						to_chat(user, "\blue [MED] won't help at all.")
+
 						return
 			else
-				user << "\blue [src] is at full health."
+				to_chat(user, "\blue [src] is at full health.")
+
 				return
 		else
-			user << "\blue [src] is dead, medical items won't bring it back to life."
+			to_chat(user, "\blue [src] is dead, medical items won't bring it back to life.")
+
 			return
 	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
@@ -438,7 +442,8 @@
 		collar = C
 		collar.equipped(src)
 		regenerate_icons()
-		usr << "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>"
+		to_chat(usr, "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>")
+
 		if(C.tagname)
 			name = C.tagname
 			real_name = C.tagname
@@ -655,14 +660,16 @@
 						return
 					if(collar)
 						if(collar.flags & NODROP)
-							usr << "<span class='warning'>\The [collar] is stuck too hard to [src] for you to remove!</span>"
+							to_chat(usr, "<span class='warning'>\The [collar] is stuck too hard to [src] for you to remove!</span>")
+
 							return
 						collar.dropped(src)
 						collar.forceMove(src.loc)
 						collar = null
 						regenerate_icons()
 					else
-						usr << "<span class='danger'>There is nothing to remove from its [remove_from].</span>"
+						to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
+
 						return
 			show_inv(usr)
 		else if(href_list["add_inv"])
@@ -683,7 +690,8 @@
 					collar = C
 					collar.equipped(src)
 					regenerate_icons()
-					usr << "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>"
+					to_chat(usr, "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>")
+
 					if(C.tagname)
 						name = C.tagname
 						real_name = C.tagname

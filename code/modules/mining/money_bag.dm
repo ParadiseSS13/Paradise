@@ -67,13 +67,15 @@
 		var/obj/item/weapon/coin/C = W
 		if(!user.drop_item())
 			return
-		user << "<span class='notice'>You add the [C.name] into the bag.</span>"
+		to_chat(user, "<span class='notice'>You add the [C.name] into the bag.</span>")
+
 		contents += C
 	if (istype(W, /obj/item/weapon/moneybag))
 		var/obj/item/weapon/moneybag/C = W
 		for (var/obj/O in C.contents)
 			contents += O;
-		user << "<span class='notice'>You empty the [C.name] into the bag.</span>"
+		to_chat(user, "<span class='notice'>You empty the [C.name] into the bag.</span>")
+
 	return
 
 /obj/item/weapon/moneybag/Topic(href, href_list)

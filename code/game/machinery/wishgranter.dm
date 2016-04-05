@@ -20,18 +20,22 @@
 	usr.set_machine(src)
 
 	if(!istype(user, /mob/living/carbon/human))
-		user << "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's."
+		to_chat(user, "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.")
+
 		return
 
 	if(is_special_character(user))
-		user << "Even to a heart as dark as yours, you know nothing good will come of this.  Something instinctual makes you pull away."
+		to_chat(user, "Even to a heart as dark as yours, you know nothing good will come of this.  Something instinctual makes you pull away.")
+
 		return
 
 	if(inuse)
-		user << "Someone is already communing with the Wish Granter."
+		to_chat(user, "Someone is already communing with the Wish Granter.")
+
 		return
 
-	user << "The power of the Wish Granter have turned you into the superhero the station deserves. You are a masked vigilante, and answer to no man. Will you use your newfound strength to protect the innocent, or will you hunt the guilty?"
+	to_chat(user, "The power of the Wish Granter have turned you into the superhero the station deserves. You are a masked vigilante, and answer to no man. Will you use your newfound strength to protect the innocent, or will you hunt the guilty?")
+
 
 	inuse = 1
 	var/wish
@@ -51,7 +55,8 @@
 
 	//Remove the wishgranter or teleport it randomly on the station
 	if(!types.len)
-		user << "The wishgranter slowly fades into mist..."
+		to_chat(user, "The wishgranter slowly fades into mist...")
+
 		qdel(src)
 		return
 	else

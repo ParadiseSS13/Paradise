@@ -58,11 +58,14 @@
 /obj/item/weapon/stock_parts/cell/examine(mob/user)
 	if(..(user, 1))
 		if(maxcharge <= 2500)
-			user << "[desc]\nThe manufacturer's label states this cell has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%."
+			to_chat(user, "[desc]\nThe manufacturer's label states this cell has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%.")
+
 		else
-			user << "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%."
+			to_chat(user, "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%.")
+
 	if(crit_fail)
-		user << "\red This power cell seems to be faulty."
+		to_chat(user, "\red This power cell seems to be faulty.")
+
 
 /obj/item/weapon/stock_parts/cell/attack_self(mob/user as mob)
 	src.add_fingerprint(user)
@@ -73,7 +76,8 @@
 	if(istype(W, /obj/item/weapon/reagent_containers/syringe))
 		var/obj/item/weapon/reagent_containers/syringe/S = W
 
-		user << "You inject the solution into the power cell."
+		to_chat(user, "You inject the solution into the power cell.")
+
 
 		if(S.reagents.has_reagent("plasma", 5))
 

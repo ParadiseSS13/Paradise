@@ -46,9 +46,11 @@
 	else
 		injectamount = cause
 	reagents.trans_to(R, injectamount)
-	R << "<span class='italics'>You hear a faint beep.</span>"
+	to_chat(R, "<span class='italics'>You hear a faint beep.</span>")
+
 	if(!reagents.total_volume)
-		R << "<span class='italics'>You hear a faint click from your chest.</span>"
+		to_chat(R, "<span class='italics'>You hear a faint click from your chest.</span>")
+
 		qdel(src)
 
 

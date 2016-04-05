@@ -66,13 +66,15 @@ var/list/tape_roll_applications = list()
 /obj/item/taperoll/attack_self(mob/user as mob)
 	if(icon_state == "[icon_base]_start")
 		start = get_turf(src)
-		usr << "\blue You place the first end of the [src]."
+		to_chat(usr, "\blue You place the first end of the [src].")
+
 		icon_state = "[icon_base]_stop"
 	else
 		icon_state = "[icon_base]_start"
 		end = get_turf(src)
 		if(start.y != end.y && start.x != end.x || start.z != end.z)
-			usr << "\blue [src] can only be laid horizontally or vertically."
+			to_chat(usr, "\blue [src] can only be laid horizontally or vertically.")
+
 			return
 
 		var/turf/cur = start
@@ -101,7 +103,8 @@ var/list/tape_roll_applications = list()
 						break
 			cur = get_step_towards(cur,end)
 		if (!can_place)
-			usr << "\blue You can't run \the [src] through that!"
+			to_chat(usr, "\blue You can't run \the [src] through that!")
+
 			return
 
 		cur = start
@@ -115,7 +118,9 @@ var/list/tape_roll_applications = list()
 				P.icon_state = "[P.icon_base]_[dir]"
 			cur = get_step_towards(cur,end)
 	//is_blocked_turf(var/turf/T)
-		usr << "\blue You finish placing the [src]."	//Git Test
+			to_chat(usr, "\blue You finish placing the [src].")//Git Test
+
+
 
 /obj/item/taperoll/afterattack(var/atom/A, mob/user as mob, proximity)
 	if (!proximity)
@@ -127,7 +132,8 @@ var/list/tape_roll_applications = list()
 		P.loc = locate(T.x,T.y,T.z)
 		P.icon_state = "[src.icon_base]_door"
 		P.layer = 3.2
-		user << "\blue You finish placing the [src]."
+		to_chat(user, "\blue You finish placing the [src].")
+
 
 	if (istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
 		var/turf/F = A
@@ -177,7 +183,8 @@ var/list/tape_roll_applications = list()
 
 /obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
 	if(user.a_intent == I_HELP && ((!can_puncture(W) && src.allowed(user))))
-		user << "You can't break the [src] with that!"
+		to_chat(user, "You can't break the [src] with that!")
+
 		return
 	user.show_viewers("\blue [user] breaks the [src]!")
 
