@@ -428,8 +428,8 @@ var/const/POS_HEADER = {"<html>
 			if("Add to Order")
 				AddToOrder(href_list["preset"],text2num(href_list["units"]))
 			if("Add Products")
-				for(var/list/line in text2list(href_list["csv"],"\n"))
-					var/list/cells = text2list(line,",")
+				for(var/list/line in splittext(href_list["csv"],"\n"))
+					var/list/cells = splittext(line,",")
 					if(cells.len<2)
 						usr << "\red The CSV must have at least two columns: Product Name, followed by Price (as a number)."
 						src.attack_hand(usr)

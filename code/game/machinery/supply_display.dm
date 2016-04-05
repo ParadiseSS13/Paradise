@@ -13,7 +13,7 @@
 				message2 = worldtime2text()
 		else
 			message1 = "CARGO"
-			message2 = get_supply_shuttle_timer()
+			shuttle_master.supply.getTimerStr()
 			if(lentext(message2) > CHARS_PER_LINE)
 				message2 = "Error"
 

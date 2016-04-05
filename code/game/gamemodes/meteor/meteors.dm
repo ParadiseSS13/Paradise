@@ -280,7 +280,7 @@
 
 /obj/effect/meteor/gore/ram_turf(turf/T)
 	if(!istype(T, /turf/space))
-		new /obj/effect/decal/cleanable/blood (T)
+		new /obj/effect/decal/cleanable/blood(T)
 
 /obj/effect/meteor/gore/Bump(atom/A)
 	A.ex_act(hitpwr)
@@ -291,8 +291,8 @@
 	name = "MeteorOps"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "syndicaterangedpsace"
-	hits = 3
-	hitpwr = 3
+	hits = 10
+	hitpwr = 1
 	meteorsound = 'sound/effects/blobattack.ogg'
 	meteordrop = /obj/item/weapon/reagent_containers/food/snacks/meat
 	var/meteorgibs = /obj/effect/gibspawner/generic
@@ -304,7 +304,7 @@
 
 /obj/effect/meteor/goreops/ram_turf(turf/T)
 	if(!istype(T, /turf/space))
-		new /obj/effect/decal/cleanable/blood (T)
+		new /obj/effect/decal/cleanable/blood(T)
 
 /obj/effect/meteor/goreops/Bump(atom/A)
 	A.ex_act(hitpwr)

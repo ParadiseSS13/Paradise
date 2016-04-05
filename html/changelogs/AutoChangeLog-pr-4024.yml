@@ -1,4 +1,0 @@
-author: Tastyfish
-delete-after: True
-changes: 
-  - tweak: "Clicking a filled inventory slot's square with an open hand now clicks the item in the slot."

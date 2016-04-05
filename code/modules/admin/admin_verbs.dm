@@ -677,7 +677,7 @@ var/list/admin_verbs_proccall = list (
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
-			var/list/splitline = text2list(line, " - ")
+			var/list/splitline = splittext(line, " - ")
 			if(n_lower(splitline[1]) == ckey)
 				if(splitline.len >= 2)
 					rank = ckeyEx(splitline[2])

@@ -591,7 +591,8 @@
 			bloodiness--
 
 		for(var/mob/living/carbon/human/H in next)
-			RunOver(H)
+			if(H != load)
+				RunOver(H)
 
 // calculates a path to the current destination
 // given an optional turf to avoid
