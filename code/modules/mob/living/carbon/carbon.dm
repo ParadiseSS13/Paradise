@@ -309,9 +309,54 @@
 						if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
 
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+	. = ..()
+	var/damage = intensity - check_eye_prot()
+	if(.)
+		if(visual)
+			return
+		if(weakeyes)
+			Stun(2)
 
-/mob/living/carbon/proc/eyecheck()
-	return 0
+		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+		if(!E)
+			return
+
+		switch(damage)
+			if(1)
+				src << "<span class='warning'>Your eyes sting a little.</span>"
+				if(prob(40)) //waiting on carbon organs
+					E.damage += 1
+
+			if(2)
+				src << "<span class='warning'>Your eyes burn.</span>"
+				E.damage += rand(2, 4)
+
+			else
+				src << "Your eyes itch and burn severely!</span>"
+				E.damage += rand(12, 16)
+
+		if(E.damage > E.min_bruised_damage)
+			eye_blind += damage
+			eye_blurry += damage * rand(3, 6)
+
+			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
+				if(!(E.status & ORGAN_ROBOT))
+					src << "<span class='warning'>Your eyes start to burn badly!</span>"
+				else //snowflake conditions piss me off for the record
+					src << "<span class='warning'>The flash blinds you!</span>"
+
+			else if(E.damage >= E.min_broken_damage)
+				src << "<span class='warning'>You can't see anything!</span>"
+
+			else
+				src << "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>"
+		return 1
+
+	else if(damage == 0) // just enough protection
+		if(prob(20))
+			src << "<span class='notice'>Something bright flashes in the corner of your vision!</span>"
+
 
 /mob/living/carbon/proc/tintcheck()
 	return 0
@@ -844,6 +889,10 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/get_access()
 	. = ..()
 
-	var/obj/item/I = get_active_hand()
-	if(I)
-		. |= I.GetAccess()
+	var/obj/item/RH = get_active_hand()
+	if(RH)
+		. |= RH.GetAccess()
+
+	var/obj/item/LH = get_inactive_hand()
+	if(LH)
+		. |= LH.GetAccess()

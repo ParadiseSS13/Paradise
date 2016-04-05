@@ -1,30 +1,5 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-
-var/global/list/unconscious_overlays = list("1" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage1"),\
-	"2" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage2"),\
-	"3" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage3"),\
-	"4" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage4"),\
-	"5" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage5"),\
-	"6" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage6"),\
-	"7" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage7"),\
-	"8" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage8"),\
-	"9" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage9"),\
-	"10" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage10"))
-var/global/list/oxyloss_overlays = list("1" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay1"),\
-	"2" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay2"),\
-	"3" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay3"),\
-	"4" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay4"),\
-	"5" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay5"),\
-	"6" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay6"),\
-	"7" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay7"))
-var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay1"),\
-	"2" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay2"),\
-	"3" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay3"),\
-	"4" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay4"),\
-	"5" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay5"),\
-	"6" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay6"))
-
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 
@@ -50,10 +25,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(!loc_as_cryobag.opened)
 			loc_as_cryobag.used++
 			in_stasis = 1
-
-	//if(mob_master.current_cycle % 30 == 15)
-		//hud_updateflag = 1022
-		//HudRefactor:WTF do i put here....
 
 	voice = GetVoice()
 
@@ -909,7 +880,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 
 /mob/living/carbon/human/handle_vision()
-	client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask)
 	if(machine)
 		if(!machine.check_eye(src))		reset_view(null)
 	else

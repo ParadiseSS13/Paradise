@@ -120,8 +120,8 @@
 					var/datum/reagent/B
 					if(istype(T,/mob/living/carbon/human))
 						var/mob/living/carbon/human/H = T
-						if(H.species && H.species.exotic_blood && H.reagents.total_volume)
-							H.reagents.trans_to(src,amount)
+						if(H.species && H.species.exotic_blood && H.vessel.total_volume)
+							H.vessel.trans_to(src,amount)
 						else
 							B = T.take_blood(src,amount)
 					else
@@ -136,6 +136,8 @@
 						user << "\blue You take a blood sample from [target]"
 						for(var/mob/O in viewers(4, user))
 							O.show_message("\red [user] takes a blood sample from [target].", 1)
+					else
+						user.visible_message("<span class='warning'>[user] takes a sample from [target].</span>", "<span class='notice'>You take a sample from [target].</span>")
 
 			else //if not mob
 				if(!target.reagents.total_volume)

@@ -69,7 +69,7 @@ datum/directive/vox_heist/initialize()
     sympathizer_names.Add("[candidate.mind.assigned_role] [candidate.mind.name]")
 
   if(sympathizers.len)
-    special_orders.Add("Brig the following sympathizers: [list2text(sympathizer_names, ", ")]")
+    special_orders.Add("Brig the following sympathizers: [jointext(sympathizer_names, ", ")]")
 
 datum/directive/vox_heist/meets_prerequisites()
   var/list/candidates = get_vox_candidates()

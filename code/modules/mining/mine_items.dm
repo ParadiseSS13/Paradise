@@ -211,7 +211,7 @@
 	return ..()
 
 /obj/item/device/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
-	if(!istype(A, /mob/living/simple_animal))
+	if(!istype(A, /mob/living/simple_animal) || isbot(A))
 		return ..()
 	capture(A, user)
 	return 1

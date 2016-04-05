@@ -993,30 +993,9 @@ var/list/slot_equipment_priority = list( \
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
-	var/obj/docking_port/mobile/emergency/E = shuttle_master.emergency
-
-	if(E.mode >= SHUTTLE_RECALL)
-		var/message = ""
-
-		var/timeleft = E.timeLeft()
-		message = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-
-		switch(E.mode)
-			if(SHUTTLE_RECALL, SHUTTLE_ESCAPE)
-				message = "ETR-[message]"
-			if(SHUTTLE_CALL)
-				message = "ETA-[message]"
-			if(SHUTTLE_DOCKED)
-				if(timeleft < 5)
-					message = "Departing..."
-				else
-					message = "ETD-[message]"
-			if(SHUTTLE_STRANDED)
-				message = "ETA-ERR"
-			if(SHUTTLE_ENDGAME)
-				return
-
-		stat(null, message)
+	var/ETA = shuttle_master.emergency.getModeStr()
+	if(ETA)
+		stat(null, "[ETA] [shuttle_master.emergency.getTimerStr()]")
 
 /mob/proc/add_stings_to_statpanel(var/list/stings)
 	for(var/obj/effect/proc_holder/changeling/S in stings)
@@ -1187,9 +1166,6 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/get_species()
 	return ""
-
-/mob/proc/flash_weak_pain()
-	flick("weak_pain",pain)
 
 /mob/proc/get_visible_implants(var/class = 0)
 	var/list/visible_implants = list()

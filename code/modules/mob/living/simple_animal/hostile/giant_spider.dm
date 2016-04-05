@@ -49,6 +49,7 @@
 	move_to_delay = 6
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
