@@ -82,6 +82,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 
 /mob/living/simple_animal/parrot/New()
@@ -272,13 +273,13 @@
 
 	//Sprite and AI update for when a parrot gets pulled
 	if(pulledby && stat == CONSCIOUS)
-		icon_state = "parrot_fly"	
+		icon_state = "parrot_fly"
 
 /mob/living/simple_animal/parrot/process_ai()
 	if(pulledby)
 		parrot_state = PARROT_WANDER
 		return
-	
+
 	if(!isturf(src.loc) || !canmove || buckled)
 		return //If it can't move, dont let it move. (The buckled check probably isn't necessary thanks to canmove)
 
@@ -682,6 +683,7 @@
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	speak = list("Poly wanna cracker!", ":eCheck the singlo, you chucklefucks!",":eCheck the tesla, you shits!",":eSTOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",":eWire the solars, you lazy bums!",":eWHO TOOK THE DAMN HARDSUITS?",":eOH GOD ITS FREE CALL THE SHUTTLE")
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/parrot/Poly/New()
 	ears = new /obj/item/device/radio/headset/headset_eng(src)

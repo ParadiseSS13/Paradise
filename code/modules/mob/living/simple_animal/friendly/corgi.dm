@@ -26,6 +26,7 @@
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/facehugger
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/pet/corgi/New()
 	..()
@@ -398,6 +399,7 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/pet/corgi/Ian/process_ai()
 	..()
@@ -554,6 +556,7 @@
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
 	var/puppies = 0
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/corgi/Lisa/Topic(href, href_list)

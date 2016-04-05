@@ -200,6 +200,7 @@
 	var/list/not_interested = list()
 	var/being_used = 0
 	w_class = 1
+	var/sentience_type = SENTIENCE_ORGANIC
 
 
 /obj/item/weapon/sentience_potion/afterattack(mob/living/M, mob/user)
@@ -210,27 +211,30 @@
 		return ..()
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
-		return..()
+		return ..()
+	var/mob/living/simple_animal/SM = M
+	if(SM.sentience_type != sentience_type)
+		to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+		return ..()
 
-	to_chat(user, "<span class='notice'>You offer the sentience potion to [M]...</span>")
+	to_chat(user, "<span class='notice'>You offer the sentience potion to [SM]...</span>")
 	being_used = 1
 
-	var/list/candidates = pollCandidates("Do you want to play as [M.name]?", ROLE_SENTIENT, 0, 100)
+	var/list/candidates = pollCandidates("Do you want to play as [SM.name]?", ROLE_SENTIENT, 0, 100)
 
 	if(!src)
 		return
 
 	if(candidates.len)
 		var/mob/C = pick(candidates)
-		M.key = C.key
-		M.universal_speak = 1
-		M.faction |= "sentient"
-		to_chat(M, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
-		to_chat(M, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>")
+		SM.key = C.key
+		SM.universal_speak = 1
+		SM.faction = user.faction
+		SM.master_commander = user
+		SM.sentience_act()
+		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
+		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>")
 		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
-		if(isanimal(M))
-			var/mob/living/simple_animal/S = M
-			S.master_commander = user
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")

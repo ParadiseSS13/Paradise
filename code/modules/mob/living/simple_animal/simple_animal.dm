@@ -67,6 +67,8 @@
 	var/scan_ready = 1
 	var/simplespecies //Sorry, no spider+corgi buttbabies.
 
+	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
+
 	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 

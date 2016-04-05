@@ -31,6 +31,7 @@
 	can_hide = 1
 	holder_type = /obj/item/weapon/holder/mouse
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -144,3 +145,4 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
