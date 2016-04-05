@@ -240,7 +240,6 @@
 
 /datum/computer/file/embedded_program/docking/proc/force_undock()
 //	to_chat(world, "[id_tag]: forcing undock")
-
 	if (tag_target)
 		send_docking_command(tag_target, "dock_error")
 	reset()

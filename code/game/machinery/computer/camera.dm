@@ -62,7 +62,6 @@
 	if(!emagged)
 		emagged = 1
 		to_chat(user, "\blue You have authorized full network access!")
-
 		ui_interact(user)
 	else
 		ui_interact(user)

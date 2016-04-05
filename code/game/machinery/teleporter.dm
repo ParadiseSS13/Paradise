@@ -44,12 +44,10 @@
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			if(!user.unEquip(L))
 				to_chat(user, "<span class='warning'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
-
 				return
 			L.loc = src
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into the [name]'s slot.</span>")
-
 	else
 		..()
 	return
@@ -58,7 +56,6 @@
 	if(!emagged)
 		emagged = 1
 		to_chat(user, "\blue The teleporter can now lock on to Syndicate beacons!")
-
 	else
 		ui_interact(user)
 
@@ -107,12 +104,10 @@
 
 	if(!check_hub_connection())
 		to_chat(usr, "<span class='warning'>Error: Unable to detect hub.</span>")
-
 		nanomanager.update_uis(src)
 		return
 	if(calibrating)
 		to_chat(usr, "<span class='warning'>Error: Calibration in progress. Stand by.</span>")
-
 		nanomanager.update_uis(src)
 		return
 
@@ -137,12 +132,10 @@
 	if(href_list["calibrate"])
 		if(!target)
 			to_chat(usr, "<span class='warning'>Error: No target set to calibrate to.</span>")
-
 			nanomanager.update_uis(src)
 			return
 		if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
 			to_chat(usr, "<span class='notice'>Hub is already calibrated.</span>")
-
 			nanomanager.update_uis(src)
 			return
 		src.visible_message("<span class='notice'>Processing hub calibration to target...</span>")
@@ -226,7 +219,6 @@
 		var/list/S = power_station.linked_stations
 		if(!S.len)
 			to_chat(user, "<span class='alert'>No connected stations located.</span>")
-
 			return
 		for(var/obj/machinery/teleport/station/R in S)
 			var/turf/T = get_turf(R)
@@ -327,7 +319,6 @@
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
 	if(z == ZLEVEL_CENTCOMM)
 		to_chat(M, "You can't use this here.")
-
 	if(power_station && power_station.engaged && !panel_open)
 		//--FalseIncarnate
 		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
@@ -340,7 +331,6 @@
 				"\red External firewalls prevent you from utilizing this machine!",
 				"\red Your AI core's anti-bluespace failsafes trigger and prevent teleportation!")
 				to_chat(T, "[pick(TPError)]")
-
 			return
 		else
 			teleport(M)
@@ -446,10 +436,8 @@
 				linked_stations.Add(M.buffer)
 				M.buffer = null
 				to_chat(user, "<span class='caution'>You upload the data from the [W.name]'s buffer.</span>")
-
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
-
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", W))
 		update_icon()
 		return
@@ -464,12 +452,10 @@
 			var/obj/item/device/multitool/M = W
 			M.buffer = src
 			to_chat(user, "<span class='caution'>You download the data to the [W.name]'s buffer.</span>")
-
 			return
 		if(istype(W, /obj/item/weapon/wirecutters))
 			link_console_and_hub()
 			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
-
 			return
 
 /obj/machinery/teleport/station/attack_ai()
@@ -481,13 +467,11 @@
 	else
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 
-
 /obj/machinery/teleport/station/proc/toggle(mob/user)
 	if (stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console)
 		return
 	if (teleporter_hub.panel_open)
 		to_chat(user, "<span class='notice'>Close the hub's maintenance panel first.</span>")
-
 		return
 	if (teleporter_console.target)
 		src.engaged = !src.engaged

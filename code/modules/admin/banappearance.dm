@@ -34,7 +34,6 @@ DEBUG
 	for(var/s in appearance_keylist)
 		to_chat(world, s)
 
-
 /mob/verb/reload_appearances()
 	set name = "reload appearances"
 
@@ -71,7 +70,6 @@ DEBUG
 /proc/appearance_savebanfile()
 	var/savefile/S=new("data/appearance_full.ban")
 	to_chat(S["keys[0]"], appearance_keylist)
-
 
 /proc/appearance_unban(mob/M)
 	appearance_remove("[M.ckey]")

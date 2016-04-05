@@ -8,7 +8,6 @@
 		var/mob/living/carbon/C = src
 		if(C.l_hand || C.r_hand)
 			to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
-
 			return 0
 		var/obj/item/weapon/bloodcrawl/B1 = new(C)
 		var/obj/item/weapon/bloodcrawl/B2 = new(C)
@@ -56,7 +55,6 @@
 
 		if(kidnapped)
 			to_chat(src, "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>")
-
 			visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
 			sleep(6)
 			if(animation)
@@ -66,7 +64,6 @@
 				sleep(30)
 			if(kidnapped)
 				to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
-
 				adjustBruteLoss(-1000)
 				adjustFireLoss(-1000)
 				adjustOxyLoss(-1000)
@@ -77,7 +74,6 @@
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
 					to_chat(kidnapped, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
-
 					kidnapped.adjustBruteLoss(1000)
 					kidnapped.forceMove(src)
 					demon.consumed_mobs.Add(kidnapped)
@@ -86,7 +82,6 @@
 					qdel(kidnapped)
 			else
 				to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
-
 		else
 			sleep(6)
 			if (animation)
@@ -104,7 +99,6 @@
 
 	if(notransform)
 		to_chat(src, "<span class='warning'>Finish eating first!</span>")
-
 		return 0
 	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
 	if(!do_after(src, 20, target = B))

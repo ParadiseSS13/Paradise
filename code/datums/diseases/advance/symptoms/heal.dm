@@ -75,7 +75,6 @@ Bonus
 	if(cured)
 		to_chat(M, "<span class='notice'>You feel much better.</span>")
 
-
 /datum/symptom/heal/metabolism/End(datum/disease/advance/A)
 	// Remove all the diseases we cured.
 	var/mob/living/M = A.affected_mob
@@ -85,7 +84,6 @@ Bonus
 				if(res in cured_diseases)
 					M.resistances -= res
 		to_chat(M, "<span class='warning'>You feel weaker.</span>")
-
 
 /*
 //////////////////////////////////////

@@ -145,7 +145,6 @@
 			else
 				to_chat(src, "You are not THE LAW, pal.")
 
-
 		if("halt")
 			if (istype(module,/obj/item/weapon/robot_module/security))
 				message = "<B>[src]</B>'s speakers skreech, \"Halt! Security!\"."
@@ -155,7 +154,6 @@
 			else
 				to_chat(src, "You are not security.")
 
-
 		if ("flip")
 			m_type = 1
 			message = "<B>[src]</B> does a flip!"
@@ -163,6 +161,5 @@
 
 		if ("help")
 			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitch_s, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look, beep, ping, \nbuzz, law, halt")
-
 
 	..(act, m_type, message)

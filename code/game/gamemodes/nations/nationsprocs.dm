@@ -17,7 +17,6 @@
 			H.mind.nation.current_name = input
 			H.mind.nation.update_nation_id()
 			to_chat(H, "You rename your nation to [input].")
-
 			H.verbs -= /mob/living/carbon/human/proc/set_nation_name
 			return 1
 
@@ -46,7 +45,6 @@
 				H.mind.nation.member_rank = input
 			H.mind.nation.update_nation_id()
 			to_chat(H, "You changed the [type] rank of your nation to [input].")
-
 			return 1
 
 /mob/living/carbon/human/proc/choose_heir()
@@ -67,15 +65,12 @@
 			if(H.mind.nation.heir)
 				var/mob/living/carbon/human/oldheir = H.mind.nation.heir
 				to_chat(oldheir, "You are no longer the heir to your nation!")
-
 				oldheir.verbs -= /mob/living/carbon/human/proc/takeover
 			var/mob/living/carbon/human/newheir = heir
 			H.mind.nation.heir = newheir
 			newheir.verbs += /mob/living/carbon/human/proc/takeover
 			to_chat(newheir, "You have been selected to be the heir to your nation's leadership!")
-
 			to_chat(H, "You have selected [heir] to be your heir!")
-
 			H.mind.nation.update_nation_id()
 
 
@@ -96,7 +91,6 @@
 		if(confirmation == "Yes")
 			var/mob/living/carbon/human/oldleader = H.mind.nation.current_leader
 			to_chat(oldleader, "You have been replaced by [H.name] as the leader of [H.mind.nation.current_name]!")
-
 			oldleader.verbs -= /mob/living/carbon/human/proc/set_nation_name
 			oldleader.verbs -= /mob/living/carbon/human/proc/set_ranks
 			oldleader.verbs -= /mob/living/carbon/human/proc/choose_heir
@@ -107,7 +101,6 @@
 			H.verbs += /mob/living/carbon/human/proc/set_ranks
 			H.verbs += /mob/living/carbon/human/proc/choose_heir
 			to_chat(H, "You have replaced [oldleader.name] as the leader of [H.mind.nation.current_name]!")
-
 			H.mind.nation.update_nation_id()
 
 

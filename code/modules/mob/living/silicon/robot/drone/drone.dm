@@ -109,12 +109,10 @@
 
 	if(istype(W, /obj/item/borg/upgrade/))
 		to_chat(user, "\red The maintenance drone chassis not compatible with \the [W].")
-
 		return
 
 	else if (istype(W, /obj/item/weapon/crowbar))
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
-
 		return
 
 	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
@@ -123,19 +121,16 @@
 
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "\red The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.")
-
 				return
 
 			if(!allowed(usr))
 				to_chat(user, "\red Access denied.")
-
 				return
 
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
 				to_chat(usr, "\red The reboot system is currently offline. Please wait another [cooldown_time] seconds.")
-
 				return
 
 			user.visible_message("\red \the [user] swipes \his ID card through \the [src], attempting to reboot it.", "\red You swipe your ID card through \the [src], attempting to reboot it.")
@@ -159,7 +154,6 @@
 			else
 				to_chat(user, "\red Access denied.")
 
-
 		return
 
 	..()
@@ -167,7 +161,6 @@
 /mob/living/silicon/robot/drone/emag_act(user as mob)
 	if(!client || stat == 2)
 		to_chat(user, "\red There's not much point subverting this heap of junk.")
-
 		return
 
 	if(!ishuman(user))
@@ -176,15 +169,11 @@
 
 	if(emagged)
 		to_chat(src, "\red [user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt.")
-
 		to_chat(user, "\red You attempt to subvert [src], but the sequencer has no effect.")
-
 		return
 
 	to_chat(user, "\red You swipe the sequencer across [src]'s interface and watch its eyes flicker.")
-
 	to_chat(src, "\red You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script.")
-
 
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
@@ -200,10 +189,8 @@
 	set_zeroth_law("Only [H.real_name] and people he designates as being such are Syndicate Agents.")
 
 	to_chat(src, "<b>Obey these laws:</b>")
-
 	laws.show_laws(src)
 	to_chat(src, "\red \b ALERT: [H.real_name] is your new master. Obey your new laws and his commands.")
-
 	return
 
 //DRONE LIFE/DEATH
@@ -243,10 +230,8 @@
 	if(stat != 2)
 		if(emagged)
 			to_chat(src, "\red You feel something attempting to modify your programming, but your hacked subroutines are unaffected.")
-
 		else
 			to_chat(src, "\red A reset-to-factory directive packet filters through your data connection, and you obediently modify your programming to suit it.")
-
 			full_law_reset()
 			show_laws()
 
@@ -254,10 +239,8 @@
 	if(stat != 2)
 		if(emagged)
 			to_chat(src, "\red You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.")
-
 		else
 			to_chat(src, "\red You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.")
-
 			death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
@@ -296,20 +279,13 @@
 
 	lawupdate = 0
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
-
 	full_law_reset()
 	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
-
 	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-
 	to_chat(src, "Use <b>;</b> to talk to other drones, and <b>say</b> to speak silently to your nearby fellows.")
-
 	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
-
 	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
-
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
-
 
 /*
 	sprite["Default"] = "repairbot"
@@ -346,13 +322,11 @@
 		var/obj/item/O = AM
 		if(O.w_class > 2)
 			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
-
 			return
 		else
 			..()
 	else
 		to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
-
 		return
 
 /mob/living/silicon/robot/drone/add_robot_verbs()

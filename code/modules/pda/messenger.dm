@@ -107,7 +107,6 @@
 			if(!P)
 				to_chat(usr, "PDA not found.")
 
-
 			var/datum/data/pda/messenger_plugin/plugin = locate(href_list["plugin"])
 			if(plugin && (plugin in pda.cartridge.messenger_plugins))
 				plugin.messenger = src
@@ -168,7 +167,6 @@
 	if(useMS && useTC) // only send the message if it's stable
 		if(useTC != 2) // Does our recipient have a broadcaster on their level?
 			to_chat(U, "ERROR: Cannot reach recipient.")
-
 			return
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
 		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "\ref[P]")))
@@ -185,7 +183,6 @@
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
 
-
 /datum/data/pda/app/messenger/proc/available_pdas()
 	var/list/names = list()
 	var/list/plist = list()
@@ -193,7 +190,6 @@
 
 	if (toff)
 		to_chat(usr, "Turn on your receiver in order to send messages.")
-
 		return
 
 	for(var/A in PDAs)

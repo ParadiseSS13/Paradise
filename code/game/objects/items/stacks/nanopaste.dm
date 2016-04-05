@@ -23,7 +23,6 @@
 		else
 			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
 
-
 	if (istype(M,/mob/living/carbon/human))		//Repairing robolimbs
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
@@ -37,7 +36,5 @@
 				"<span class='notice'>You apply some nanite paste at [user == M ? "your" : "[M]'s"] [S.name].</span>")
 			else
 				to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
-
 		else
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
-

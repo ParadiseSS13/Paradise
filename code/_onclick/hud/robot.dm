@@ -247,12 +247,10 @@
 
 		if(!r.module)
 			to_chat(usr, "\red No module selected")
-
 			return
 
 		if(!r.module.modules)
 			to_chat(usr, "\red Selected module has no modules to select")
-
 			return
 
 		if(!r.robot_modules_background)

@@ -50,7 +50,6 @@ Obviously, requires DNA2.
 				M.update_body()
 				to_chat(M, "\red You suddenly feel very weak.")
 
-
 /obj/effect/proc_holder/spell/targeted/hulk
 	name = "Hulk Out"
 	panel = "Abilities"
@@ -74,7 +73,6 @@ Obviously, requires DNA2.
 /obj/effect/proc_holder/spell/targeted/hulk/cast(list/targets)
 	if (istype(usr.loc,/mob/))
 		to_chat(usr, "\red You can't hulk out right now!")
-
 		return
 	var/mob/living/carbon/human/M=usr
 	M.hulk_time = world.time + HULK_DURATION
@@ -125,7 +123,6 @@ Obviously, requires DNA2.
 
 	if (istype(usr.loc,/mob/))
 		to_chat(usr, "\red You can't change your appearance right now!")
-
 		return
 	var/mob/living/carbon/human/M=usr
 
@@ -232,7 +229,6 @@ Obviously, requires DNA2.
 
 	if(!validtargets.len)
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
-
 		start_recharge()
 		return
 
@@ -298,7 +294,6 @@ Obviously, requires DNA2.
 
 	if(!validtargets.len || validtargets.len == 1)
 		to_chat(usr, "<span class='warning'>No valid targets with remote view were found!</span>")
-
 		start_recharge()
 		return
 
@@ -321,7 +316,6 @@ Obviously, requires DNA2.
 
 	if(istype(user.l_hand, /obj/item/tk_grab) || istype(user.r_hand, /obj/item/tk_grab/))
 		to_chat(user, "\red Your mind is too busy with that telekinetic grab.")
-
 		user.remoteview_target = null
 		user.reset_view(0)
 		return

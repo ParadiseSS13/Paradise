@@ -26,7 +26,6 @@
 /obj/item/weapon/c4/suicide_act(var/mob/user)
 	. = (BRUTELOSS)
 	to_chat(viewers(user), "<span class='suicide'>[user] activates the C4 and holds it above his head! It looks like \he's going out with a bang!</span>")
-
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
 		if(user.mind.special_role)
@@ -57,7 +56,6 @@
 	if(istype(I, /obj/item/weapon/screwdriver))
 		open_panel = !open_panel
 		to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
-
 	else if(istype(I, /obj/item/weapon/wirecutters) || istype(I, /obj/item/device/multitool) || istype(I, /obj/item/device/assembly/signaler ))
 		wires.Interact(user)
 	else
@@ -75,14 +73,12 @@
 	to_chat(user, "Timer set for [timer] seconds.")
 
 
-
 /obj/item/weapon/c4/afterattack(atom/target as obj|turf, mob/user as mob, flag)
 	if (!flag)
 		return
 	if (ismob(target) || istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/item/clothing/accessory/storage) || istype(target, /obj/item/clothing/under))
 		return
 	to_chat(user, "Planting explosives...")
-
 
 	if(do_after(user, 50, target = target) && in_range(user, target))
 		user.drop_item()
@@ -101,7 +97,6 @@
 
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
 		to_chat(user, "Bomb has been planted. Timer counting down from [timer].")
-
 		spawn(timer*10)
 			explode(get_turf(target))
 

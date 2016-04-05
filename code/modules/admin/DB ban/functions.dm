@@ -94,7 +94,6 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	if(blockselfban)
 		if(a_ckey == ckey)
 			to_chat(usr, "<span class='danger'>You cannot apply this ban type on yourself.</span>")
-
 			return
 
 	var/who
@@ -120,14 +119,12 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 			var/adm_bans = text2num(adm_query.item[1])
 			if(adm_bans >= MAX_ADMIN_BANS_PER_ADMIN)
 				to_chat(usr, "<span class='danger'>You already logged [MAX_ADMIN_BANS_PER_ADMIN] admin ban(s) or more. Do not abuse this function!</span>")
-
 				return
 
 	var/sql = "INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`) VALUES (null, Now(), '[serverip]', '[bantype_str]', '[reason]', '[job]', [(duration)?"[duration]":"0"], [(rounds)?"[rounds]":"0"], Now() + INTERVAL [(duration>0) ? duration : 0] MINUTE, '[ckey]', '[computerid]', '[ip]', '[a_ckey]', '[a_computerid]', '[a_ip]', '[who]', '[adminwho]', '', null, null, null, null, null)"
 	var/DBQuery/query_insert = dbcon.NewQuery(sql)
 	query_insert.Execute()
 	to_chat(usr, "\blue Ban saved to database.")
-
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
 
 	if(announceinirc)
@@ -196,19 +193,16 @@ datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 
 	if(ban_number == 0)
 		to_chat(usr, "\red Database update failed due to no bans fitting the search criteria. If this is not a legacy ban you should contact the database admin.")
-
 		return
 
 	if(ban_number > 1)
 		to_chat(usr, "\red Database update failed due to multiple bans fitting the search criteria. Note down the ckey, job and current time and contact the database admin.")
-
 		return
 
 	if(istext(ban_id))
 		ban_id = text2num(ban_id)
 	if(!isnum(ban_id))
 		to_chat(usr, "\red Database update failed due to a ban ID mismatch. Contact the database admin.")
-
 		return
 
 	DB_ban_unban_by_id(ban_id)
@@ -219,7 +213,6 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 
 	if(!isnum(banid) || !istext(param))
 		to_chat(usr, "Cancelled")
-
 		return
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT ckey, duration, reason FROM [format_table_name("ban")] WHERE id = [banid]")
@@ -236,7 +229,6 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 		reason = query.item[3]
 	else
 		to_chat(usr, "Invalid ban id. Contact the database admin")
-
 		return
 
 	reason = sql_sanitize_text(reason)
@@ -249,7 +241,6 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 				value = sql_sanitize_text(value)
 				if(!value)
 					to_chat(usr, "Cancelled")
-
 					return
 
 			var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("ban")] SET reason = '[value]', edits = CONCAT(edits,'- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><BR>') WHERE id = [banid]")
@@ -260,7 +251,6 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 				value = input("Insert the new duration (in minutes) for [pckey]'s ban", "New Duration", "[duration]", null) as null|num
 				if(!isnum(value) || !value)
 					to_chat(usr, "Cancelled")
-
 					return
 
 			var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("ban")] SET duration = [value], edits = CONCAT(edits,'- [eckey] changed ban duration from [duration] to [value]<br>'), expiration_time = DATE_ADD(bantime, INTERVAL [value] MINUTE) WHERE id = [banid]")
@@ -272,11 +262,9 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 				return
 			else
 				to_chat(usr, "Cancelled")
-
 				return
 		else
 			to_chat(usr, "Cancelled")
-
 			return
 
 datum/admins/proc/DB_ban_unban_by_id(var/id)
@@ -300,12 +288,10 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 
 	if(ban_number == 0)
 		to_chat(usr, "\red Database update failed due to a ban id not being present in the database.")
-
 		return
 
 	if(ban_number > 1)
 		to_chat(usr, "\red Database update failed due to multiple bans having the same ID. Contact the database admin.")
-
 		return
 
 	if(!src.owner || !istype(src.owner, /client))
@@ -343,7 +329,6 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		to_chat(usr, "\red Failed to establish database connection")
-
 		return
 
 	var/output = "<div align='center'><table width='90%'><tr>"

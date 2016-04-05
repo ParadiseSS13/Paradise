@@ -17,14 +17,11 @@
 		if(2) //also changes say, see say.dm // no it doesn't, that's horrifyingly snowflakey
 			if(prob(2))
 				to_chat(affected_mob, "<span class='notice'>You taste honey in your mouth.</span>")
-
 		if(3)
 			if(prob(10))
 				to_chat(affected_mob, "<span class='notice'>Your stomach rumbles.</span>")
-
 			if(prob(2))
 				to_chat(affected_mob, "<span class='danger'>Your stomach stings painfully.</span>")
-
 				if(prob(20))
 					affected_mob.adjustToxLoss(2)
 					affected_mob.updatehealth()
@@ -34,7 +31,6 @@
 												"<span class='userdanger'>Your stomach buzzes violently!</span>")
 			if(prob(5))
 				to_chat(affected_mob, "<span class='danger'>You feel something moving in your throat.</span>")
-
 			if(prob(1))
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a swarm of bees!</span>", \
 													"<span class='userdanger'>You cough up a swarm of bees!</span>")

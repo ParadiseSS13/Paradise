@@ -228,11 +228,8 @@ About the Tools:
 	system you'll need to add something like this in its new proc:
 
 		to_chat(var/datum/reagents/R = new/datum/reagents(100), <<< create a new datum , 100 is the maximum_volume of the new holder datum.)
-
 		to_chat(reagents = R, <<< assign the new datum to the objects reagents var)
-
 		to_chat(R.my_atom = src, <<< set the holders my_atom to src so that we know where we are.)
-
 
 		This can also be done by calling a convenience proc:
 		atom/proc/create_reagents(var/max_volume)

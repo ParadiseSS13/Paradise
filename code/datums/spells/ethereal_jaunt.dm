@@ -21,7 +21,6 @@
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
 			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
-
 			continue
 		spawn(0)
 
@@ -113,7 +112,6 @@
 		loc = newLoc
 	else
 		to_chat(user, "<span class='warning'>Some strange aura is blocking the way!</span>")
-
 	src.canmove = 0
 	spawn(2) src.canmove = 1
 

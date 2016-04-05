@@ -17,11 +17,9 @@
 
 	if(istype(W, /obj/item/weapon/wirecutters))
 		to_chat(usr, "\blue These cables are too tough to be cut with those [W.name].")
-
 		return
 	else if(istype(W, /obj/item/stack/cable_coil))
 		to_chat(usr, "\blue You will need heavier cables to connect to these.")
-
 		return
 	else
 		..()

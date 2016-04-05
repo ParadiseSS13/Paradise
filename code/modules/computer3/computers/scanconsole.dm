@@ -359,7 +359,6 @@
 		if(!viable)
 			return "No viable occupant detected."
 		to_chat(var/dat = topic_link(src,"mode=0",", Main Menu") + "<br>")
-
 		dat += "<h3>Modify Unique Identifier</h3>"
 		dat += "<div align='center'>Unique Identifier:<br />[getblockstring(ui=1)]<br /><br />"
 
@@ -374,7 +373,6 @@
 		if(!viable)
 			return "No viable occupant detected."
 		to_chat(var/dat = topic_link(src,"mode=0",", Main Menu") + "<br>")
-
 		dat += "<h3>Modify Structural Enzymes</h3>"
 		dat += "<div align='center'>Structural Enzymes: [getblockstring(ui=0)]<br /><br />"
 		dat += "Selected Block: " + block_plus_minus("seblock",se_block,1,MAX_SEBLOCK) + "<br /><br />"
@@ -385,7 +383,6 @@
 
 	proc/emitter_menu()
 		to_chat(var/dat = topic_link(src,"mode=0",", Main Menu") + "<br>")
-
 		dat += "<h3>Radiation Emitter Settings</h3>"
 		if (viable)
 			dat += topic_link(src,"pulse","Pulse Radiation")
@@ -745,7 +742,6 @@
 					else
 						human_occupant.reagents.add_reagent("inaprovaline", round(REJUVENATORS_MAX - human_occupant.reagents.get_reagent_amount("inaprovaline")))
 //				to_chat(usr, text("Occupant now has [] units of rejuvenation in his/her bloodstream.", human_occupant.reagents.get_reagent_amount("inaprovaline")))
-
 
 	////////////////////////////////////////////////////////
 	if (href_list["strucmenuplus"])

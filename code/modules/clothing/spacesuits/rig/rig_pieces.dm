@@ -24,7 +24,6 @@
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>")//To prevent some lighting anomalities.
 
-
 		return
 	toggle_light(user)
 

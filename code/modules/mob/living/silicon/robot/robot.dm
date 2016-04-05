@@ -248,7 +248,6 @@ var/list/robot_verbs_default = list(
 			mmi.update_icon()
 		else
 			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
-
 			ghostize()
 			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
 		mmi = null
@@ -268,7 +267,6 @@ var/list/robot_verbs_default = list(
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "\red Crisis mode active. Combat module available.")
-
 		modules+="Combat"
 	if(ticker && ticker.mode && ticker.mode.name == "nations")
 		var/datum/game_mode/nations/N = ticker.mode
@@ -421,7 +419,6 @@ var/list/robot_verbs_default = list(
 	if(!is_component_functioning("diagnosis unit"))
 		to_chat(src, "\red Your self-diagnosis component isn't functioning.")
 
-
 	var/dat = self_diagnosis()
 	src << browse(dat, "window=robotdiagnosis")
 
@@ -446,11 +443,9 @@ var/list/robot_verbs_default = list(
 	if(C.toggled)
 		C.toggled = 0
 		to_chat(src, "\red You disable [C.name].")
-
 	else
 		C.toggled = 1
 		to_chat(src, "\red You enable [C.name].")
-
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -559,7 +554,6 @@ var/list/robot_verbs_default = list(
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(20))
 					to_chat(usr, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
-
 					now_pushing = 0
 					return
 			if(!(tmob.status_flags & CANPUSH))
@@ -603,7 +597,6 @@ var/list/robot_verbs_default = list(
 
 				to_chat(usr, "\blue You install the [W.name].")
 
-
 				return
 
 	if (istype(W, /obj/item/weapon/weldingtool) && user.a_intent == I_HELP)
@@ -611,7 +604,6 @@ var/list/robot_verbs_default = list(
 			return
 		if (!getBruteLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-
 			return
 		var/obj/item/weapon/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -623,14 +615,12 @@ var/list/robot_verbs_default = list(
 			user.visible_message("<span class='alert'>\The [user] patches some dents on \the [src] with \the [WT].</span>")
 		else
 			to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
-
 			return
 
 
 	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == I_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
 		if (!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
@@ -643,21 +633,17 @@ var/list/robot_verbs_default = list(
 		if(opened)
 			if(cell)
 				to_chat(user, "You close the cover.")
-
 				opened = 0
 				update_icons()
 			else if(wiresexposed && wires.IsAllCut())
 				//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 				if(!mmi)
 					to_chat(user, "\The [src] has no brain to remove.")
-
 					return
 
 				to_chat(user, "You jam the crowbar into the robot and begin levering [mmi].")
-
 				if(do_after(user,3 SECONDS, target = src))
 					to_chat(user, "You damage some parts of the chassis, but eventually manage to rip out [mmi]!")
-
 					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
 					C.l_leg = new/obj/item/robot_parts/l_leg(C)
 					C.r_leg = new/obj/item/robot_parts/r_leg(C)
@@ -684,7 +670,6 @@ var/list/robot_verbs_default = list(
 				var/datum/robot_component/C = components[remove]
 				var/obj/item/robot_parts/robot_component/I = C.wrapped
 				to_chat(user, "You remove \the [I].")
-
 				if(istype(I))
 					I.brute = C.brute_damage
 					I.burn = C.electronics_damage
@@ -698,10 +683,8 @@ var/list/robot_verbs_default = list(
 		else
 			if(locked)
 				to_chat(user, "The cover is locked and cannot be opened.")
-
 			else
 				to_chat(user, "You open the cover.")
-
 				opened = 1
 				update_icons()
 
@@ -709,16 +692,13 @@ var/list/robot_verbs_default = list(
 		var/datum/robot_component/C = components["power cell"]
 		if(wiresexposed)
 			to_chat(user, "Close the panel first.")
-
 		else if(cell)
 			to_chat(user, "There is a power cell already installed.")
-
 		else
 			user.drop_item()
 			W.loc = src
 			cell = W
 			to_chat(user, "You insert the power cell.")
-
 
 			C.installed = 1
 			C.wrapped = W
@@ -734,11 +714,9 @@ var/list/robot_verbs_default = list(
 		else
 			to_chat(user, "You can't reach the wiring.")
 
-
 	else if(istype(W, /obj/item/weapon/screwdriver) && opened && !cell)	// haxing
 		wiresexposed = !wiresexposed
 		to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
-
 		update_icons()
 
 	else if(istype(W, /obj/item/weapon/screwdriver) && opened && cell)	// radio
@@ -746,7 +724,6 @@ var/list/robot_verbs_default = list(
 			radio.attackby(W,user)//Push it to the radio to let it handle everything
 		else
 			to_chat(user, "Unable to locate a radio.")
-
 		update_icons()
 
 	else if(istype(W, /obj/item/device/encryptionkey/) && opened)
@@ -755,45 +732,35 @@ var/list/robot_verbs_default = list(
 		else
 			to_chat(user, "Unable to locate a radio.")
 
-
 	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
 			to_chat(user, "The interface seems slightly damaged")
-
 		if(opened)
 			to_chat(user, "You must close the cover to swipe an ID card.")
-
 		else
 			if(allowed(usr))
 				locked = !locked
 				to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
-
 				update_icons()
 			else
 				to_chat(user, "\red Access denied.")
-
 
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
 			to_chat(user, "<span class='warning'>You must access the borgs internals!</span>")
-
 		else if(!src.module && U.require_module)
 			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
-
 		else if(U.locked)
 			to_chat(user, "<span class='warning'>The upgrade is locked and cannot be used yet!</span>")
-
 		else
 			if(!user.drop_item())
 				return
 			if(U.action(src))
 				to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
-
 				U.forceMove(src)
 			else
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
-
 
 	else
 		spark_system.start()
@@ -806,18 +773,15 @@ var/list/robot_verbs_default = list(
 	if(!opened)//Cover is closed
 		if(locked)
 			to_chat(user, "You emag the cover lock.")
-
 			locked = 0
 		else
 			to_chat(user, "The cover is already unlocked.")
-
 		return
 
 	if(opened)//Cover is open
 		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
 			to_chat(user, "You must close the panel first")
-
 			return
 		else
 			sleep(6)
@@ -826,7 +790,6 @@ var/list/robot_verbs_default = list(
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			disconnect_from_ai()
 			to_chat(user, "You emag [src]'s interface.")
-
 //			message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
 			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 			clear_supplied_laws()
@@ -836,30 +799,21 @@ var/list/robot_verbs_default = list(
 			lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people he designates as being such are Syndicate Agents.")
 			to_chat(src, "\red ALERT: Foreign software detected.")
-
 			sleep(5)
 			to_chat(src, "\red Initiating diagnostics...")
-
 			sleep(20)
 			to_chat(src, "\red SynBorg v1.7 loaded.")
-
 			sleep(5)
 			to_chat(src, "\red LAW SYNCHRONISATION ERROR")
-
 			sleep(5)
 			to_chat(src, "\red Would you like to send a report to NanoTraSoft? Y/N")
-
 			sleep(10)
 			to_chat(src, "\red > N")
-
 			sleep(20)
 			to_chat(src, "\red ERRORERRORERROR")
-
 			to_chat(src, "<b>Obey these laws:</b>")
-
 			laws.show_laws(src)
 			to_chat(src, "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands.")
-
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
 				for(var/obj/item/weapon/pickaxe/drill/cyborg/D in src.module.modules)
 					qdel(D)
@@ -885,16 +839,13 @@ var/list/robot_verbs_default = list(
 				update_icons()
 				to_chat(usr, "You unlock your cover.")
 
-
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
-
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
-
 		return
 
 	switch(M.a_intent)
@@ -997,7 +948,6 @@ var/list/robot_verbs_default = list(
 			cell.add_fingerprint(user)
 			user.put_in_active_hand(cell)
 			to_chat(user, "You remove \the [cell].")
-
 			cell = null
 			update_icons()
 			diag_hud_set_borgcell()
@@ -1083,7 +1033,6 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
 		to_chat(src, "\red Weapon lock active, unable to use modules! Count:[weaponlock_time]")
-
 		return
 
 	if(!module)
@@ -1171,10 +1120,8 @@ var/list/robot_verbs_default = list(
 				contents -= O
 			else
 				to_chat(src, "Module isn't activated.")
-
 		else
 			to_chat(src, "Module isn't activated")
-
 		installed_modules()
 		return 1
 
@@ -1186,13 +1133,11 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_recharging)
 		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
-
 		return
 
 //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
 	lamp_intensity = (lamp_intensity+2) % (lamp_max+2)
 	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]")
-
 	update_headlamp()
 
 /mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
@@ -1200,7 +1145,6 @@ var/list/robot_verbs_default = list(
 
 	if(lamp_intensity && (turn_off || stat))
 		to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
-
 		lamp_intensity = 0
 		lamp_recharging = 1
 		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
@@ -1257,7 +1201,6 @@ var/list/robot_verbs_default = list(
 								cleaned_human.update_inv_shoes(0,0)
 							cleaned_human.clean_blood()
 							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
-
 		return
 #undef BORG_CAMERA_BUFFER
 
@@ -1296,7 +1239,6 @@ var/list/robot_verbs_default = list(
 	if(R)
 		R.UnlinkSelf()
 		to_chat(R, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
-
 		src.verbs -= /mob/living/silicon/robot/proc/ResetSecurityCodes
 
 /mob/living/silicon/robot/mode()
@@ -1341,7 +1283,6 @@ var/list/robot_verbs_default = list(
 		lockcharge = null
 	else
 		to_chat(src, "Something is badly wrong with the sprite selection. Harass a coder.")
-
 		icon_state = module_sprites[1]
 		lockcharge = null
 		return
@@ -1359,20 +1300,16 @@ var/list/robot_verbs_default = list(
 	else
 		to_chat(src, "Your icon has been set. You now require a module reset to change it.")
 
-
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
 		if(1) //New Cyborg
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=\ref[connected_ai];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>")
-
 		if(2) //New Module
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>")
-
 		if(3) //New Name
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>")
-
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1426,7 +1363,6 @@ var/list/robot_verbs_default = list(
 	if(isnull(ckey) && !searching_for_ckey)
 		searching_for_ckey = 1
 		to_chat(user, "<span class='notice'>Now checking for possible borgs.</span>")
-
 		var/list/borg_candidates = pollCandidates("Do you want to play as a Nanotrasen Combat borg?")
 		if(borg_candidates.len > 0 && isnull(ckey))
 			searching_for_ckey = 0
@@ -1439,11 +1375,9 @@ var/list/robot_verbs_default = list(
 		else
 			searching_for_ckey = 0
 			to_chat(user, "<span class='notice'>Unable to connect to Central Command. Please wait and try again later.</span>")
-
 			return
 	else
 		to_chat(user, "<span class='warning'>[src] is already checking for possible borgs.</span>")
-
 		return
 
 /mob/living/silicon/robot/syndicate
@@ -1477,7 +1411,6 @@ var/list/robot_verbs_default = list(
 	spawn(5)
 		if(playstyle_string)
 			to_chat(src, playstyle_string)
-
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 

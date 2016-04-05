@@ -233,7 +233,6 @@
 			if(istype(C))
 				if(!C.get_amount() >= 3)
 					to_chat(user, "<span class='warning'>You need three or more cable pieces to repair this damage.</span>")
-
 					return 2
 				C.use(3)
 			return 1
@@ -291,20 +290,16 @@
 		if(I.status != ORGAN_ROBOT || I.robotic != 2)
 			to_chat(user, "<span class='notice'>You can only implant cybernetic organs.</span>")
 
-
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
-
 			return -1
 
 		if(I.damage > (I.max_damage * 0.75))
 			to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
-
 			return -1
 
 		if(target.get_int_organ(I))
 			to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
-
 			return -1
 
 		user.visible_message("[user] begins reattaching [target]'s [tool].", \
@@ -315,7 +310,6 @@
 
 		if(target_zone != "chest")
 			to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
-
 
 			return -1
 		var/obj/item/device/mmi/M = tool
@@ -329,27 +323,22 @@
 
 		if(!M.brainmob || !M.brainmob.client || !M.brainmob.ckey || M.brainmob.stat >= DEAD)
 			to_chat(user, "<span class='danger'>That brain is not usable.</span>")
-
 			return -1
 
 		if(!(affected.status & ORGAN_ROBOT))
 			to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
-
 			return -1
 
 		if(!target.species)
 			to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
-
 			return -1
 
 		if(!target.species.has_organ["brain"])
 			to_chat(user, "<span class='danger'>You're pretty sure [target.species.name_plural] don't normally have a brain.</span>")
-
 			return -1
 
 		if(target.get_int_organ(/obj/item/organ/internal/brain/))
 			to_chat(user, "<span class='danger'>Your subject already has a brain.</span>")
-
 			return -1
 
 		user.visible_message("[user] starts installing \the [tool] into [target]'s [affected.name].", \
@@ -364,7 +353,6 @@
 			return -1
 		if(!organs.len)
 			to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
-
 			return -1
 		else
 			for(var/obj/item/organ/internal/O in organs)
@@ -421,7 +409,6 @@
 
 		if(!user.canUnEquip(I, 0))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
-
 			return 0
 
 		user.drop_item()
@@ -529,27 +516,22 @@
 
 		if(!M.brainmob || !M.brainmob.client || !M.brainmob.ckey || M.brainmob.stat >= DEAD)
 			to_chat(user, "<span class='danger'>That brain is not usable.</span>")
-
 			return 2
 
 		if(!(affected.status & ORGAN_ROBOT))
 			to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
-
 			return 2
 
 		if(!target.species)
 			to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
-
 			return 2
 
 		if(!target.species.has_organ["brain"])
 			to_chat(user, "<span class='danger'>You're pretty sure [target.species.name_plural] don't normally have a brain.</span>")
-
 			return 2
 
 		if(target.get_int_organ(/obj/item/organ/internal/brain/))
 			to_chat(user, "<span class='danger'>Your subject already has a brain.</span>")
-
 			return 2
 
 		return 1

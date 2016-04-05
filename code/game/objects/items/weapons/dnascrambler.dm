@@ -33,7 +33,6 @@
 			else
 				to_chat(user, "\red You failed to inject [M.name].")
 
-
 	proc/injected(var/mob/living/carbon/target, var/mob/living/carbon/user)
 		scramble(1, target, 100)
 		target.generate_name()

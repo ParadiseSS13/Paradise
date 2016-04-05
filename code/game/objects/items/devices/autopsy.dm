@@ -80,7 +80,6 @@
 	set name = "Print Data"
 	if(usr.stat || !(istype(usr,/mob/living/carbon/human)))
 		to_chat(usr, "No.")
-
 		return
 
 	var/scan_data = ""
@@ -189,17 +188,14 @@
 		src.timeofdeath = null
 		to_chat(user, "\red A new patient has been registered.. Purging data for previous patient.")
 
-
 	src.timeofdeath = M.timeofdeath
 
 	var/obj/item/organ/external/S = M.get_organ(user.zone_sel.selecting)
 	if(!S)
 		to_chat(usr, "<b>You can't scan this body part.</b>")
-
 		return
 	if(!S.open)
 		to_chat(usr, "<b>You have to cut the limb open first!</b>")
-
 		return
 	for(var/mob/O in viewers(M))
 		O.show_message("\red [user.name] scans the wounds on [M.name]'s [S.name] with \the [src.name]", 1)

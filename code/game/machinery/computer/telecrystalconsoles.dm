@@ -35,7 +35,6 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 
 		if(uplinkholder)
 			to_chat(user, "<span class='notice'>The [src] already has an uplink in it.</span>")
-
 			return
 
 		if(O.hidden_uplink)
@@ -48,7 +47,6 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>The [O] doesn't appear to be an uplink...</span>")
-
 
 
 

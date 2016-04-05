@@ -158,7 +158,6 @@ Thus, the two variables affect pump operation are set in New():
 	src.add_fingerprint(usr)
 	if(!src.allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
-
 		return
 	usr.set_machine(src)
 	interact(user)
@@ -190,6 +189,5 @@ Thus, the two variables affect pump operation are set in New():
 		return ..()
 	if (!(stat & NOPOWER) && on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
-
 		return 1
 	return ..()

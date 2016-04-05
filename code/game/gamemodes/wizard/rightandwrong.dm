@@ -6,7 +6,6 @@
 	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos","necromantic")
 
 	to_chat(usr, "<B>You summoned [summon_type ? "magic" : "guns"]!</B>")
-
 	message_admins("[key_name_admin(usr)] summoned [summon_type ? "magic" : "guns"]!")
 
 	for(var/mob/living/carbon/human/H in player_list)
@@ -138,7 +137,6 @@
 						H.see_in_dark = 8
 						H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
 						to_chat(H, "<span class='notice'>The walls suddenly disappear.</span>")
-
 				if("voodoo")
 					new /obj/item/voodoo(get_turf(H))
 				if("special")
@@ -157,4 +155,3 @@
 						if("necromantic")
 							new /obj/item/device/necromantic_stone(get_turf(H))
 					to_chat(H, "<span class='notice'>You suddenly feel lucky.</span>")
-

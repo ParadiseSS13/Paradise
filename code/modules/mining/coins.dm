@@ -103,17 +103,14 @@
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
 			to_chat(user, "<span class='notice'>There already is a string attached to this coin.</span>")
-
 			return
 
 		if (CC.use(1))
 			overlays += image('icons/obj/items.dmi',"coin_string_overlay")
 			string_attached = 1
 			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
-
 		else
 			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin.</span>")
-
 			return
 
 	else if(istype(W,/obj/item/weapon/wirecutters))
@@ -127,7 +124,6 @@
 		overlays = list()
 		string_attached = null
 		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
-
 	else if(istype(W,/obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.welding && WT.remove_fuel(0, user))
@@ -139,7 +135,6 @@
 			var/typekey = typelist[cmineral]
 			if(ispath(typekey))
 				to_chat(user, "\blue You make [src] into a ring.")
-
 				new typekey(get_turf(loc))
 				qdel(src)
 	else ..()

@@ -196,7 +196,5 @@ datum/hud/New(mob/owner)
 
 		else
 			to_chat(usr, "\red Inventory hiding is currently only supported for human mobs, sorry.")
-
 	else
 		to_chat(usr, "\red This mob type does not use a HUD.")
-

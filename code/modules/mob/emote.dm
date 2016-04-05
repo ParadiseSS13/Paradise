@@ -18,7 +18,6 @@
 
 	if(stat || !use_me && usr == src)
 		to_chat(usr, "You are unable to emote.")
-
 		return
 
 	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)
@@ -87,18 +86,15 @@
 
 	if(client.prefs.muted & MUTE_DEADCHAT)
 		to_chat(src, "\red You cannot send deadchat emotes (muted).")
-
 		return
 
 	if(!(client.prefs.toggles & CHAT_DEAD))
 		to_chat(src, "\red You have deadchat muted.")
-
 		return
 
 	if(!src.client.holder)
 		if(!config.dsay_allowed)
 			to_chat(src, "\red Deadchat is globally muted")
-
 			return
 
 
@@ -123,7 +119,6 @@
 
 			if(check_rights(R_ADMIN|R_MOD, 0, M) && (M.client.prefs.toggles & CHAT_DEAD)) // Show the emote to admins/mods
 				to_chat(M, message)
-
 
 			else if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
 				M.show_message(message, 2)

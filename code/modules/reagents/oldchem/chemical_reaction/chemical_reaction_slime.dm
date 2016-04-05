@@ -221,7 +221,6 @@
 						to_chat(M, "\blue You feel a chill!")
 
 
-
 	slimefireproof
 		name = "Slime Fireproof"
 		id = "m_fireproof"

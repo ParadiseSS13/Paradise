@@ -33,7 +33,6 @@
 	if(!isturf(user.loc))
 		to_chat(user, "You cannot turn the light on while in this [user.loc].")//To prevent some lighting anomalities.
 
-
 		return 0
 	on = !on
 	update_brightness(user)
@@ -49,13 +48,11 @@
 
 		if(!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")	//don't have dexterity
 			to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
-
 			return
 
 		var/mob/living/carbon/human/H = M	//mob has protective eyewear
 		if(istype(M, /mob/living/carbon/human) && ((H.head && H.head.flags & HEADCOVERSEYES) || (H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || (H.glasses && H.glasses.flags & GLASSESCOVERSEYES)))
 			to_chat(user, "<span class='notice'>You're going to need to remove that [(H.head && H.head.flags & HEADCOVERSEYES) ? "helmet" : (H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) ? "mask": "glasses"] first.</span>")
-
 			return
 
 		if(M == user)	//they're using it on themselves
@@ -73,14 +70,11 @@
 			if(istype(M, /mob/living/carbon/human))	//robots and aliens are unaffected
 				if(M.stat == DEAD || M.sdisabilities & BLIND)	//mob is dead or fully blind
 					to_chat(user, "<span class='notice'>[M] pupils does not react to the light!</span>")
-
 				else if(XRAY in M.mutations)	//mob has X-RAY vision
 					to_chat(user, "<span class='notice'>[M] pupils give an eerie glow!</span>")
-
 				else	//they're okay!
 					if(M.flash_eyes(visual = 1))
 						to_chat(user, "<span class='notice'>[M]'s pupils narrow.</span>")
-
 	else
 		return ..()
 
@@ -200,7 +194,6 @@ obj/item/device/flashlight/lamp/bananalamp
 	// Usual checks
 	if(!fuel)
 		to_chat(user, "<span class='notice'>It's out of fuel.</span>")
-
 		return
 	if(on)
 		return
@@ -282,9 +275,7 @@ obj/item/device/flashlight/lamp/bananalamp
 			var/mob/M = A
 			add_logs(M, user, "attacked", object="EMP-light")
 		to_chat(user, "\The [src] now has [emp_cur_charges] charge\s.")
-
 		A.emp_act(1)
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
-
 	return

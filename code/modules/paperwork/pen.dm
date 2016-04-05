@@ -26,7 +26,6 @@
 
 /obj/item/weapon/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over \himself with the [src.name]! It looks like \he's trying to commit sudoku.</span>")
-
 	return (BRUTELOSS)
 
 /obj/item/weapon/pen/blue
@@ -112,9 +111,7 @@
 	if(!force)
 		if(M.can_inject(user, 1))
 			to_chat(user, "<span class='warning'>You stab [M] with the pen.</span>")
-
 //			to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
-
 			. = 1
 
 		add_logs(M, user, "stabbed", object="[name]")
@@ -165,7 +162,6 @@
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
-
 	else
 		on = 1
 		force = 18
@@ -177,7 +173,6 @@
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
-
 	update_icon()
 
 /obj/item/weapon/pen/edagger/update_icon()

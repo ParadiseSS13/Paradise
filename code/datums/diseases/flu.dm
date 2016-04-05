@@ -17,7 +17,6 @@
 		if(2)
 			if(affected_mob.lying && prob(20))
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-
 				stage--
 				return
 			if(prob(1))
@@ -26,12 +25,10 @@
 				affected_mob.emote("cough")
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>Your muscles ache.</span>")
-
 				if(prob(20))
 					affected_mob.take_organ_damage(1)
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
-
 				if(prob(20))
 					affected_mob.adjustToxLoss(1)
 					affected_mob.updatehealth()
@@ -39,7 +36,6 @@
 		if(3)
 			if(affected_mob.lying && prob(15))
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-
 				stage--
 				return
 			if(prob(1))
@@ -48,12 +44,10 @@
 				affected_mob.emote("cough")
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>Your muscles ache.</span>")
-
 				if(prob(20))
 					affected_mob.take_organ_damage(1)
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
-
 				if(prob(20))
 					affected_mob.adjustToxLoss(1)
 					affected_mob.updatehealth()

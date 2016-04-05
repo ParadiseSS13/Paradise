@@ -25,18 +25,15 @@
 
 	if(!src.holder)
 		to_chat(src, "<font color='red'>Only Admins may use this command.</font>")
-
 		return
 
 	var/client/target = input(src,"Choose somebody to grant access to the server's runtime logs (permissions expire at the end of each round):","Grant Permissions",null) as null|anything in clients
 	if(!istype(target,/client))
 		to_chat(src, "<font color='red'>Error: giveruntimelog(): Client not found.</font>")
-
 		return
 
 	target.verbs |= /client/proc/getruntimelog
 	to_chat(target, "<font color='red'>You have been granted access to runtime logs. Please use them responsibly or risk being banned.</font>")
-
 	return
 
 
@@ -58,7 +55,6 @@
 	src << ftp(file(path))
 
 	to_chat(src, "Attempting to send file, this may take a fair few minutes if the file is very large.")
-
 	return
 
 
@@ -80,7 +76,6 @@
 	src << ftp(file(path))
 
 	to_chat(src, "Attempting to send file, this may take a fair few minutes if the file is very large.")
-
 	return
 
 
@@ -114,7 +109,6 @@
 
 	else
 		to_chat(src, "<font color='red'>Error: view_atk_log(): File not found/Invalid path([path]).</font>")
-
 		return
 	usr << run(file(path))
 

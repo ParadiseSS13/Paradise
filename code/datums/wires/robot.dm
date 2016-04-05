@@ -36,7 +36,6 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 			if(!mended)
 				if (R.lawupdate == 1)
 					to_chat(R, "LawSync protocol engaged.")
-
 					R.show_laws()
 			else
 				if (R.lawupdate == 0 && !R.emagged)
@@ -74,7 +73,6 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 				R.camera.toggle_cam(usr, 0) // Kick anyone watching the Cyborg's camera, doesn't display you disconnecting the camera.
 				R.visible_message("[R]'s camera lense focuses loudly.")
 				to_chat(R, "Your camera lense focuses loudly.")
-
 
 		if(BORG_WIRE_LOCKED_DOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle

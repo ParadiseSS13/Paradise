@@ -69,13 +69,11 @@
 			else
 				to_chat(user, "\red You must hold \the [P] steady to burn \the [src].")
 
-
 /obj/item/weapon/photo/examine(mob/user)
 	if(..(user, 1) || isobserver(user))
 		show(user)
 	else
 		to_chat(user, "<span class='notice'>It is too far away.</span>")
-
 
 /obj/item/weapon/photo/proc/show(mob/user as mob)
 	usr << browse_rsc(img, "tmp_photo.png")
@@ -179,7 +177,6 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		size = nsize
 		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
 
-
 /obj/item/device/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
 
@@ -190,17 +187,14 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	else
 		src.icon_state = icon_off
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
-
 	return
 
 /obj/item/device/camera/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/device/camera_film))
 		if(pictures_left)
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
-
 			return
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-
 		user.drop_item()
 		qdel(I)
 		pictures_left = pictures_max
@@ -311,7 +305,6 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
-
 	icon_state = icon_off
 	on = 0
 	if(user.mind && !(user.mind.assigned_role == "Chaplain"))
@@ -435,10 +428,8 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 /obj/item/device/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)
 		to_chat(user, "<span class='notice'>Maximum photo storage capacity reached.</span>")
-
 		return
 	to_chat(user, "Picture saved.")
-
 	var/x_c = target.x - (size-1)/2
 	var/y_c = target.y + (size-1)/2
 	var/z_c	= target.z
@@ -464,11 +455,9 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 
 	if(saved_pictures.len == 0)
 		to_chat(usr, "<span class='userdanger'>No images saved.</span>")
-
 		return
 	if(pictures_left == 0)
 		to_chat(usr, "<span class='userdanger'>There is no film left to print.</span>")
-
 		return
 
 	var/datum/picture/P = null
@@ -484,7 +473,6 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 
 	if(saved_pictures.len == 0)
 		to_chat(usr, "<span class='userdanger'>No images saved</span>")
-
 		return
 	var/datum/picture/P = null
 	P = input("Select image to delete:",P) as null|anything in saved_pictures
@@ -530,11 +518,9 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		camera.c_tag = user.name
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
-
 /obj/item/device/videocam/examine(mob/user)
 	if(..(user, 1))
 		to_chat(user, "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active.")
-
 
 /obj/item/device/videocam/hear_talk(mob/M as mob, msg)
 	if (camera && on)
@@ -560,4 +546,3 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
 			to_chat(user, pick(creepyasssounds))
-

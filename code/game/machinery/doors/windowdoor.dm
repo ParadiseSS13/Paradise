@@ -261,12 +261,10 @@
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(src.density || src.operating)
 			to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel.</span>")
-
 			return
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		src.p_open = !( src.p_open )
 		to_chat(user, "<span class='notice'>You [p_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
-
 		return
 
 	if(istype(I, /obj/item/weapon/crowbar))
@@ -297,12 +295,10 @@
 
 					if(emagged)
 						to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
-
 						qdel(src)
 						return
 
 					to_chat(user, "<span class='notice'>You removed the airlock electronics!</span>")
-
 
 					var/obj/item/weapon/airlock_electronics/ae
 					if(!electronics)

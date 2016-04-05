@@ -14,18 +14,15 @@
 	if(istype(I, /obj/item/weapon/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
-
 			anchored = 0
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-
 			anchored = 1
 	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
 			to_chat(user, "<span class='notice'>You add spikes to the frame.</span>")
-
 			new /obj/structure/kitchenspike(loc)
 			add_fingerprint(user)
 			qdel(src)
@@ -49,20 +46,17 @@
 			playsound(loc, 'sound/items/Crowbar.ogg', 100, 1)
 			if(do_after(user, 20, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
-
 				new /obj/item/stack/rods(loc, 4)
 				new /obj/structure/kitchenspike_frame(loc)
 				add_fingerprint(user)
 				qdel(src)
 		else
 			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
-
 		return
 	if(!istype(G, /obj/item/weapon/grab) || !G.affecting)
 		return
 	if(buckled_mob)
 		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
-
 	else
 		if(isliving(G.affecting))
 			if(!buckled_mob)
@@ -72,7 +66,6 @@
 						qdel(G)
 						return
 		to_chat(user, "<span class='danger'>You can't use that on the spike!</span>")
-
 		return
 
 /obj/structure/kitchenspike/proc/spike(var/mob/living/victim)
@@ -131,7 +124,6 @@
 			if(!do_after(M, 1200, target = src))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
-
 				return
 		if(!M.buckled)
 			return

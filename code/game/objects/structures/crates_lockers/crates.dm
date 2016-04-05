@@ -86,7 +86,6 @@
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
 			if(!(src.z in config.player_levels))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
-
 				return
 			if(E.mode == 0)
 				if(!E.teleporting)
@@ -105,7 +104,6 @@
 					E.pad = L[desc]
 					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
 					to_chat(user, "\blue Teleporting [src.name]...")
-
 					E.teleporting = 1
 					if(!do_after(user, 50, target = src))
 						E.teleporting = 0
@@ -117,7 +115,6 @@
 					do_teleport(src, E.pad, 0)
 					E.rcell.use(E.chargecost)
 					to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
-
 					return
 			else
 				E.rand_x = rand(50,200)
@@ -125,7 +122,6 @@
 				var/L = locate(E.rand_x, E.rand_y, 6)
 				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
 				to_chat(user, "\blue Teleporting [src.name]...")
-
 				E.teleporting = 1
 				if(!do_after(user, 50, target = src))
 					E.teleporting = 0
@@ -137,11 +133,9 @@
 				do_teleport(src, L)
 				E.rcell.use(E.chargecost)
 				to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
-
 				return
 		else
 			to_chat(user, "<span class='warning'>Out of charges.</span>")
-
 			return
 
 	if(opened)
@@ -149,7 +143,6 @@
 			return
 		if(!user.drop_item()) //couldn't drop the item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
-
 			return
 		if(W)
 			W.forceMove(loc)
@@ -158,10 +151,8 @@
 	else if(istype(W, /obj/item/stack/cable_coil))
 		if(rigged)
 			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
-
 			return
 		to_chat(user, "<span class='notice'>You rig [src].</span>")
-
 		user.drop_item()
 		qdel(W)
 		rigged = 1
@@ -169,14 +160,12 @@
 	else if(istype(W, /obj/item/device/radio/electropack))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-
 			user.drop_item()
 			W.forceMove(src)
 			return
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
-
 			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			rigged = 0
 			return
@@ -205,7 +194,6 @@
 /obj/structure/closet/crate/attack_hand(mob/user as mob)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
-
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -266,22 +254,18 @@
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user as mob)
 	if(src.opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
-
 		return
 	if(src.broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
-
 		return
 	if(src.allowed(user))
 		src.locked = !src.locked
 		for(var/mob/O in viewers(user, 3))
 			if((O.client && !( O.blinded )))
 				to_chat(O, "<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
-
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
-
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
@@ -297,11 +281,9 @@
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
-
 /obj/structure/closet/crate/secure/attack_hand(mob/user as mob)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
-
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -335,7 +317,6 @@
 		src.broken = 1
 		update_icon()
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
-
 		return
 
 /obj/structure/closet/crate/secure/emp_act(severity)

@@ -28,10 +28,8 @@ BONUS
 		switch(A.stage)
 			if(1)
 				to_chat(M, "<span class='notice'>You feel off, but no different from before.</span>")
-
 			if(5)
 				to_chat(M, "<span class='notice'>You feel better, but nothing interesting happens.</span>")
-
 
 /*
 //////////////////////////////////////
@@ -63,7 +61,5 @@ BONUS
 		switch(A.stage)
 			if(1)
 				to_chat(M, "<span class='notice'>You feel better, but no different from before.</span>")
-
 			if(5)
 				to_chat(M, "<span class='notice'>You feel off, but nothing interesting happens.</span>")
-

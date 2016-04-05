@@ -16,7 +16,6 @@
 	else
 		user.Paralyse(5)
 		to_chat(user, "\red An unexplicable force powerfully repels the sword from [target]!")
-
 		var/organ = ((user.hand ? "l_":"r_") + "arm")
 		var/obj/item/organ/external/affecting = user.get_organ(organ)
 		if(affecting.take_damage(rand(force/2, force))) //random amount of damage between half of the blade's force and the full force of the blade.
@@ -26,7 +25,6 @@
 /obj/item/weapon/melee/cultblade/pickup(mob/living/user as mob)
 	if(!iscultist(user))
 		to_chat(user, "\red An overwhelming feeling of dread comes over you as you pick up the cultist's sword. It would be wise to be rid of this blade quickly.")
-
 		user.Dizzy(120)
 
 

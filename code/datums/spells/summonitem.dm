@@ -107,4 +107,3 @@
 
 		if(message)
 			to_chat(user, message)
-

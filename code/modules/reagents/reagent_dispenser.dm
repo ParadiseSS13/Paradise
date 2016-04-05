@@ -27,14 +27,11 @@
 	if(!..(user, 2))
 		return
 	to_chat(user, "\blue It contains:")
-
 	if(reagents && reagents.reagent_list.len)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			to_chat(user, "\blue [R.volume] units of [R.name]")
-
 	else
 		to_chat(user, "\blue Nothing.")
-
 
 /obj/structure/reagent_dispensers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -120,7 +117,6 @@
 	if(rig)
 		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.")
 
-
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if (rig)
 		usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
@@ -134,7 +130,6 @@
 	if (istype(W,/obj/item/device/assembly_holder) && accepts_rig)
 		if (rig)
 			to_chat(user, "\red There is another device in the way.")
-
 			return ..()
 		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
 		if(do_after(user, 20, target = src))

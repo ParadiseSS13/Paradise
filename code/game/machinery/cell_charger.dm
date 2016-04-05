@@ -19,7 +19,6 @@
 				var/newlevel = 	round(charging.percent() * 4.0 / 99)
 //				to_chat(world, "nl: [newlevel]")
 
-
 				if(chargelevel != newlevel)
 
 					overlays.Cut()
@@ -31,10 +30,8 @@
 	examine(mob/user)
 		if(..(user, 5))
 			to_chat(user, "There's [charging ? "a" : "no"] cell in the charger.")
-
 			if(charging)
 				to_chat(user, "Current charge: [charging.charge]")
-
 
 	attackby(obj/item/weapon/W, mob/user, params)
 		if(stat & BROKEN)
@@ -43,7 +40,6 @@
 		if(istype(W, /obj/item/weapon/stock_parts/cell) && anchored)
 			if(charging)
 				to_chat(user, "\red There is already a cell in the charger.")
-
 				return
 			else
 				var/area/a = loc.loc // Gets our locations location, like a dream within a dream
@@ -51,7 +47,6 @@
 					return
 				if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
 					to_chat(user, "\red The [name] blinks red as you try to insert the cell!")
-
 					return
 
 				user.drop_item()
@@ -63,12 +58,10 @@
 		else if(istype(W, /obj/item/weapon/wrench))
 			if(charging)
 				to_chat(user, "\red Remove the cell first!")
-
 				return
 
 			anchored = !anchored
 			to_chat(user, "You [anchored ? "attach" : "detach"] the cell charger [anchored ? "to" : "from"] the ground")
-
 			playsound(get_turf(src), 'sound/items/Ratchet.ogg', 75, 1)
 
 	attack_hand(mob/user)
@@ -95,7 +88,6 @@
 
 	process()
 //		to_chat(world, "ccpt [charging] [stat]")
-
 		if(!charging || (stat & (BROKEN|NOPOWER)) || !anchored)
 			return
 

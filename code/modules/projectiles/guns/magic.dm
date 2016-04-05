@@ -34,7 +34,6 @@
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
 			to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].<span>")
-
 			return
 		else
 			no_den_usage = 0
@@ -64,5 +63,4 @@
 
 /obj/item/weapon/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, "<span class='warning'>The [name] whizzles quietly.<span>")
-
 	return

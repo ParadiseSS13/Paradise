@@ -33,7 +33,6 @@
 		update_icon()
 	else if(istype(O, /obj/item/weapon/wrench))
 		to_chat(user, "\blue Now disassembling bookcase")
-
 		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user,50, target = src))
 			new /obj/item/stack/sheet/wood(get_turf(src))
@@ -162,13 +161,11 @@
 	if(carved)
 		if(store)
 			to_chat(user, "<span class='notice'>[store] falls out of [title]!</span>")
-
 			store.loc = get_turf(src.loc)
 			store = null
 			return
 		else
 			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
-
 			return
 	if(src.dat)
 		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book")
@@ -176,7 +173,6 @@
 		onclose(user, "book")
 	else
 		to_chat(user, "This book is completely blank!")
-
 
 /obj/item/weapon/book/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(carved)
@@ -186,20 +182,16 @@
 				W.loc = src
 				store = W
 				to_chat(user, "<span class='notice'>You put [W] in [title].</span>")
-
 				return
 			else
 				to_chat(user, "<span class='notice'>[W] won't fit in [title].</span>")
-
 				return
 		else
 			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
-
 			return
 	if(istype(W, /obj/item/weapon/pen))
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
-
 			return
 		var/choice = input("What would you like to change?") in list("Title", "Contents", "Author", "Cancel")
 		switch(choice)
@@ -207,7 +199,6 @@
 				var/newtitle = reject_bad_text(stripped_input(usr, "Write a new title:"))
 				if(!newtitle)
 					to_chat(usr, "The title is invalid.")
-
 					return
 				else
 					src.name = newtitle
@@ -216,7 +207,6 @@
 				var/content = strip_html(input(usr, "Write your book's contents (HTML NOT allowed):"),8192) as message|null
 				if(!content)
 					to_chat(usr, "The content is invalid.")
-
 					return
 				else
 					src.dat += content
@@ -224,7 +214,6 @@
 				var/newauthor = stripped_input(usr, "Write the author's name:")
 				if(!newauthor)
 					to_chat(usr, "The name is invalid.")
-
 					return
 				else
 					src.author = newauthor
@@ -234,45 +223,36 @@
 		var/obj/item/weapon/barcodescanner/scanner = W
 		if(!scanner.computer)
 			to_chat(user, "[W]'s screen flashes: 'No associated computer found!'")
-
 		else
 			switch(scanner.mode)
 				if(0)
 					scanner.book = src
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer.'")
-
 				if(1)
 					scanner.book = src
 					scanner.computer.buffer_book = src.name
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Book title stored in associated computer buffer.'")
-
 				if(2)
 					scanner.book = src
 					for(var/datum/borrowbook/b in scanner.computer.checkouts)
 						if(b.bookname == src.name)
 							scanner.computer.checkouts.Remove(b)
 							to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Book has been checked in.'")
-
 							return
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. No active check-out record found for current title.'")
-
 				if(3)
 					scanner.book = src
 					for(var/obj/item/weapon/book in scanner.computer.inventory)
 						if(book == src)
 							to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title already present in inventory, aborting to avoid duplicate entry.'")
-
 							return
 					scanner.computer.inventory.Add(src)
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
-
 	else if(istype(W, /obj/item/weapon/kitchen/knife) || istype(W, /obj/item/weapon/wirecutters))
 		if(carved)	return
 		to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-
 		if(do_after(user, 30, target = src))
 			to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
-
 			carved = 1
 			return
 	else
@@ -298,7 +278,6 @@
 		if(mode > 3)
 			mode = 0
 		to_chat(user, "[src] Status Display:")
-
 		var/modedesc
 		switch(mode)
 			if(0)
@@ -312,12 +291,8 @@
 			else
 				modedesc = "ERROR"
 		to_chat(user, " - Mode [mode] : [modedesc]")
-
 		if(src.computer)
 			to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
-
 		else
 			to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
-
 		to_chat(user, "\n")
-

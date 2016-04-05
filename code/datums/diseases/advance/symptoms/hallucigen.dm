@@ -32,13 +32,10 @@ Bonus
 		switch(A.stage)
 			if(1, 2)
 				to_chat(M, "<span class='warning'>[pick("Something appears in your peripheral vision, then winks out.", "You hear a faint whispher with no source.", "Your head aches.")]</span>")
-
 			if(3, 4)
 				to_chat(M, "<span class='warning'><b>[pick("Something is following you.", "You are being watched.", "You hear a whisper in your ear.", "Thumping footsteps slam toward you from nowhere.")]</b></span>")
-
 			else
 				to_chat(M, "<span class='userdanger'>[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]</span>")
-
 				M.hallucination += 5
 
 	return

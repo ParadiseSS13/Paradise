@@ -59,7 +59,6 @@ var/syndicate_elite_shuttle_timeleft = 0
 
 	if (!syndicate_elite_can_move())
 		to_chat(usr, "\red The Syndicate Elite shuttle is unable to leave.")
-
 		return
 
 		sleep(600)
@@ -169,7 +168,6 @@ var/syndicate_elite_shuttle_timeleft = 0
 		var/mob/M = locate(/mob) in T
 		to_chat(M, "\red You have arrived to [station_name]. Commence operation!")
 
-
 /proc/syndicate_elite_can_move()
 	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return 0
 	else return 1
@@ -186,19 +184,16 @@ var/syndicate_elite_shuttle_timeleft = 0
 /obj/machinery/computer3/syndicate_elite_shuttle/attackby(I as obj, user as mob, params)
 	if(istype(I,/obj/item/card/emag))
 		to_chat(user, "\blue The electronic systems in this console are far too advanced for your primitive hacking peripherals.")
-
 	else
 		return attack_hand(user)
 
 /obj/machinery/computer3/syndicate_elite_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "\red Access Denied.")
-
 		return
 
 //	if (sent_syndicate_strike_team == 0)
 //		to_chat(usr, "\red The strike team has not yet deployed.")
-
 //		return
 
 	if(..())
@@ -232,7 +227,6 @@ var/syndicate_elite_shuttle_timeleft = 0
 		if(!syndicate_elite_shuttle_at_station|| syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return
 
 		to_chat(usr, "\blue The Syndicate will not allow the Elite Squad shuttle to return.")
-
 		return
 
 	else if (href_list["sendtostation"])
@@ -240,11 +234,9 @@ var/syndicate_elite_shuttle_timeleft = 0
 
 		if (!specops_can_move())
 			to_chat(usr, "\red The Syndicate Elite shuttle is unable to leave.")
-
 			return
 
 		to_chat(usr, "\blue The Syndicate Elite shuttle will arrive on [station_name] in [(SYNDICATE_ELITE_MOVETIME/10)] seconds.")
-
 
 		temp  = "Shuttle departing.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 		updateUsrDialog()

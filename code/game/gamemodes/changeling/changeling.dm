@@ -39,9 +39,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/game_mode/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Changeling!</B>")
-
 	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
-
 
 /datum/game_mode/changeling/pre_setup()
 
@@ -137,21 +135,16 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode/proc/greet_changeling(var/datum/mind/changeling, var/you_are=1)
 	if (you_are)
 		to_chat(changeling.current, "<B>\red You are a changeling!</B>")
-
 	to_chat(changeling.current, "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>")
-
 	to_chat(changeling.current, "<B>You must complete the following tasks:</B>")
-
 	if (changeling.current.mind)
 		if (changeling.current.mind.assigned_role == "Clown")
 			to_chat(changeling.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-
 			changeling.current.mutations.Remove(CLUMSY)
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in changeling.objectives)
 		to_chat(changeling.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 		obj_count++
 	return
 
@@ -165,12 +158,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling_mind.special_role = null
 		if(issilicon(changeling_mind))
 			to_chat(changeling_mind.current, "<span class='userdanger'>You have been robotized!</span>")
-
 			to_chat(changeling_mind.current, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
-
 		else
 			to_chat(changeling_mind.current, "<FONT color='red' size = 3><B>You lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
-
 		update_change_icons_removed(changeling_mind)
 
 /datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
@@ -255,7 +245,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		to_chat(world, text)
 
 
-
 	return 1
 
 /datum/changeling //stores changeling powers, changeling recharge thingie, changeling absorbed DNA and changeling ID (for changeling hivemind)
@@ -312,43 +301,35 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/changeling/proc/can_absorb_dna(var/mob/living/carbon/user, var/mob/living/carbon/target)
 	if(absorbed_dna[1] == user.dna)//If our current DNA is the stalest, we gotta ditch it.
 		to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
-
 		return
 
 	if(!target || !target.dna)
 		to_chat(user, "<span class='warning'>This creature does not have any DNA.</span>")
-
 		return
 
 	var/mob/living/carbon/human/T = target
 	if(!istype(T) || issmall(T))
 		to_chat(user, "<span class='warning'>[T] is not compatible with our biology.</span>")
-
 		return
 
 	if((NOCLONE || SKELETON || HUSK) in T.mutations)
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
-
 		return
 
 	if(T.species.flags & NO_DNA)
 		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
-
 		return
 
 	if(T.species.flags & NO_SCAN)
 		to_chat(user, "<span class='warning'>We do not know how to parse this creature's DNA!</span>")
-
 		return
 
 	if(T.species.flags & NO_BLOOD)
 		to_chat(user, "<span class='warning'>We are not able to use the DNA of a creature without a circulatory system.</span>")
-
 		return
 
 	if(has_dna(target.dna))
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
-
 
 	return 1
 

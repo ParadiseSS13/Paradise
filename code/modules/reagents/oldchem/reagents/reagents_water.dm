@@ -256,7 +256,6 @@
 	if(method == INGEST)
 		to_chat(M, "Oh god, why did you drink that?")
 
-
 /datum/reagent/fishwater/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
@@ -309,16 +308,13 @@
 		switch(data)
 			if(1 to 4)
 				to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-
 				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 			if(5 to 12)
 				to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
-
 				M.adjustFireLoss(1)
 				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 			if(13 to INFINITY)
 				to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
-
 				for(var/mob/O in viewers(M, null))
 					O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
 				M.fire_stacks = min(5,M.fire_stacks + 3)
@@ -335,15 +331,12 @@
 		if(method == TOUCH)
 			if(H.wear_mask)
 				to_chat(H, "\red Your mask protects you from the holy water!")
-
 				return
 			else if(H.head)
 				to_chat(H, "\red Your helmet protects you from the holy water!")
-
 				return
 			else
 				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
-
 				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
 

@@ -61,12 +61,10 @@
 	if(..(user, 2))
 		if(beakers.len)
 			to_chat(user, "<span class='notice>[src] contains:</span>")
-
 			for(var/obj/item/weapon/reagent_containers/glass/beaker/B in beakers)
 				if(B.reagents && B.reagents.reagent_list.len)
 					for(var/datum/reagent/R in B.reagents.reagent_list)
 						to_chat(user, "<span class='notice>[R.volume] units of [R.name]</span>")
-
 
 /obj/item/weapon/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/dart_cartridge))
@@ -75,7 +73,6 @@
 
 		if(!D.darts)
 			to_chat(user, "<span class='warning'>[D] is empty.</span>")
-
 			return 0
 
 		if(cartridge)
@@ -83,34 +80,28 @@
 				src.remove_cartridge()
 			else
 				to_chat(user, "<span class='warning'>There's already a cartridge in [src].</span>")
-
 				return 0
 
 		user.drop_item()
 		cartridge = D
 		D.forceMove(src)
 		to_chat(user, "<span class='notice'>You slot [D] into [src].</span>")
-
 		update_icon()
 		return
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(!istype(I, container_type))
 			to_chat(user, "<span class='warning'>[I] doesn't seem to fit into [src].</span>")
-
 			return
 		if(beakers.len >= max_beakers)
 			to_chat(user, "<span class='warning'>[src] already has [max_beakers] beakers in it - another one isn't going to fit!</span>")
-
 			return
 		var/obj/item/weapon/reagent_containers/glass/beaker/B = I
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
-
 			return
 		B.forceMove(src)
 		beakers += B
 		to_chat(user, "<span class='notice>You slot [B] into [src].</span>")
-
 		src.updateUsrDialog()
 
 /obj/item/weapon/gun/dartgun/can_fire()
@@ -125,7 +116,6 @@
 /obj/item/weapon/gun/dartgun/proc/remove_cartridge()
 	if(cartridge)
 		to_chat(usr, "<span class='notice'>You pop the cartridge out of [src].</span>")
-
 		var/obj/item/weapon/dart_cartridge/C = cartridge
 		C.forceMove(get_turf(src))
 		C.update_icon()
@@ -156,11 +146,9 @@
 		var/obj/item/weapon/reagent_containers/syringe/S = get_mixed_syringe()
 		if(!S)
 			to_chat(user, "<span class='warning'>There are no darts in [src]!</span>")
-
 			return
 		if(!S.reagents)
 			to_chat(user, "<span class='warning'>There are no reagents available!</span>")
-
 			return
 		cartridge.darts--
 		src.update_icon()
@@ -203,7 +191,6 @@
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
 					to_chat(M, "<span class='danger'>You feel a slight prick.</span>")
-
 
 					qdel(D)
 					break
@@ -285,7 +272,6 @@
 			if(beakers[index])
 				var/obj/item/weapon/reagent_containers/glass/beaker/B = beakers[index]
 				to_chat(usr, "<span class='notice'>You remove [B] from [src].</span>")
-
 				mixing -= B
 				beakers -= B
 				B.forceMove(get_turf(src))
@@ -299,7 +285,6 @@
 		spawn(0) fire_dart(target,user)
 	else
 		to_chat(usr, "<span class='warning'>[src] is empty.</span>")
-
 
 
 /obj/item/weapon/gun/dartgun/vox

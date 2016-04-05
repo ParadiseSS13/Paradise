@@ -25,7 +25,6 @@
 
 		if(L)
 			to_chat(L, "\icon[pda] [message]")
-
 			nanomanager.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
 	if(!notify_silent)

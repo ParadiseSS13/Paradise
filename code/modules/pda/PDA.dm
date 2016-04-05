@@ -297,10 +297,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		notifying_programs.Cut()
 		overlays.Cut()
 		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
-
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
-
 
 /obj/item/device/pda/proc/remove_id()
 	if (id)
@@ -308,7 +306,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			var/mob/M = loc
 			M.put_in_hands(id)
 			to_chat(usr, "<span class='notice'>You remove the ID from the [name].</span>")
-
 		else
 			id.forceMove(get_turf(src))
 		id = null
@@ -326,10 +323,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			remove_id()
 		else
 			to_chat(usr, "<span class='notice'>This PDA does not have an ID in it.</span>")
-
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
-
 
 
 /obj/item/device/pda/verb/verb_remove_pen()
@@ -348,15 +343,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O)
 					to_chat(usr, "<span class='notice'>You remove \the [O] from \the [src].</span>")
-
 					return
 			O.forceMove(get_turf(src))
 		else
 			to_chat(usr, "<span class='notice'>This PDA does not have a pen in it.</span>")
-
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
-
 
 
 /obj/item/device/pda/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
@@ -388,7 +380,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		cartridge.update_programs(src)
 		update_shortcuts()
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
-
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
 
@@ -396,7 +387,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		var/obj/item/weapon/card/id/idcard = C
 		if(!idcard.registered_name)
 			to_chat(user, "<span class='notice'>\The [src] rejects the ID.</span>")
-
 			return
 		if(!owner)
 			owner = idcard.registered_name
@@ -404,30 +394,25 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
 			to_chat(user, "<span class='notice'>Card scanned.</span>")
-
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
 			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.</span>")
-
 	else if(istype(C, /obj/item/device/paicard) && !src.pai)
 		user.drop_item()
 		C.forceMove(src)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
-
 	else if(istype(C, /obj/item/weapon/pen))
 		var/obj/item/weapon/pen/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
-
 		else
 			user.drop_item()
 			C.forceMove(src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
-
 
 /obj/item/device/pda/attack(mob/living/C as mob, mob/living/user as mob)
 	if (istype(C, /mob/living/carbon) && scanmode)
@@ -491,7 +476,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if (t)
 			if(hidden_uplink && hidden_uplink.check_trigger(usr, lowertext(t), lowertext(lock_code)))
 				to_chat(usr, "The PDA softly beeps.")
-
 				close(usr)
 			else
 				t = sanitize(copytext(t, 1, 20))

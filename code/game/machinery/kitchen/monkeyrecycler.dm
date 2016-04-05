@@ -54,12 +54,10 @@
 			if(issmall(target))
 				if(target.stat == 0)
 					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
-
 				else
 					user.drop_item()
 					qdel(target)
 					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
-
 					playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
 					var/offset = prob(50) ? -2 : 2
 					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
@@ -68,13 +66,10 @@
 					sleep(50)
 					pixel_x = initial(pixel_x)
 					to_chat(user, "<span class='notice'>The machine now has [grinded] monkey\s worth of material stored.</span>")
-
 			else
 				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-
 		else
 			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-
 	return
 
 /obj/machinery/monkey_recycler/attack_hand(var/mob/user as mob)
@@ -82,14 +77,11 @@
 		return
 	if(grinded >= required_grind)
 		to_chat(user, "<span class='notice'>The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube.</span>")
-
 		playsound(src.loc, 'sound/machines/hiss.ogg', 50, 1)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube(src.loc)
 		to_chat(user, "<span class='notice'>The machine's display flashes that it has [grinded] monkey\s worth of material left.</span>")
-
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
 		to_chat(user, "<span class='warning'>The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded].</span>")
-
 	return

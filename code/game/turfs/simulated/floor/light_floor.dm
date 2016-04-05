@@ -69,10 +69,8 @@
 				state = LIGHTFLOOR_ON
 				update_icon()
 				to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
-
 			else
 				to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-
 	if(istype(C,/obj/item/device/multitool))
 		if(state != 0)
 			if(state < LIGHTFLOOR_PURPLE)
@@ -80,8 +78,6 @@
 			else
 				state = LIGHTFLOOR_ON
 			to_chat(user, "<span class='notice'>You change \the [src]'s light bulb color.</span>")
-
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>\The [src]'s light bulb appears to have burned out.</span>")
-

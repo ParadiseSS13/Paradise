@@ -9,7 +9,6 @@
 		if(iscarbon(toucher) && prob(weakness * 100))
 			var/mob/living/carbon/C = toucher
 			to_chat(C, "\red A painful discharge of energy strikes you!")
-
 			C.adjustOxyLoss(rand(5,25) * weakness)
 			C.adjustToxLoss(rand(5,25) * weakness)
 			C.adjustBruteLoss(rand(5,25) * weakness)
@@ -28,7 +27,6 @@
 			if(prob(weakness * 100))
 				if(prob(10))
 					to_chat(C, "\red You feel a painful force radiating from something nearby.")
-
 				C.adjustBruteLoss(1 * weakness)
 				C.adjustFireLoss(1 * weakness)
 				C.adjustToxLoss(1 * weakness)
@@ -43,7 +41,6 @@
 			var/weakness = GetAnomalySusceptibility(C)
 			if(prob(weakness * 100))
 				to_chat(C, "\red A wave of painful energy strikes you!")
-
 				C.adjustBruteLoss(3 * weakness)
 				C.adjustFireLoss(3 * weakness)
 				C.adjustToxLoss(3 * weakness)

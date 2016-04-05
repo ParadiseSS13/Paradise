@@ -40,7 +40,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	if(!on)
 		return
 //	to_chat(world, "[src] ([src.id]) - [signal.debug_print()]")
-
 	var/send_count = 0
 
 

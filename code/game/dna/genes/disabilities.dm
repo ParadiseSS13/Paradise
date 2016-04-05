@@ -36,7 +36,6 @@
 		M.sdisabilities|=sdisability
 	if(activation_message)
 		to_chat(M, "\red [activation_message]")
-
 	else
 		testing("[name] has no activation message.")
 
@@ -49,7 +48,6 @@
 		M.sdisabilities &= ~sdisability
 	if(deactivation_message)
 		to_chat(M, "\red [deactivation_message]")
-
 	else
 		testing("[name] has no deactivation message.")
 

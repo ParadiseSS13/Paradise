@@ -27,13 +27,10 @@
 /obj/machinery/space_heater/air_conditioner/examine(mob/user)
 	..(user)
 	to_chat(user, "The air conditioner is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"].")
-
 	if(open)
 		to_chat(user, "The power cell is [cell ? "installed" : "missing"].")
-
 	else
 		to_chat(user, "The charge meter reads [cell ? round(cell.percent(),1) : 0]%")
-
 
 
 /obj/machinery/space_heater/air_conditioner/emp_act(severity)
@@ -49,7 +46,6 @@
 		if(open)
 			if(cell)
 				to_chat(user, "There is already a power cell inside.")
-
 				return
 			else
 				// insert cell
@@ -63,7 +59,6 @@
 					user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
 		else
 			to_chat(user, "The hatch must be open to insert a power cell.")
-
 			return
 	else if(istype(I, /obj/item/weapon/screwdriver))
 		open = !open

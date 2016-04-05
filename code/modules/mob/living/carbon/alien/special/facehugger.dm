@@ -50,13 +50,10 @@ var/const/MAX_ACTIVE_TIME = 400
 	switch(stat)
 		if(DEAD,UNCONSCIOUS)
 			to_chat(user, "<span class='boldannounce'>[src] is not moving.</span>")
-
 		if(CONSCIOUS)
 			to_chat(user, "<span class='boldannounce'>[src] seems to be active!</span>")
-
 	if (sterile)
 		to_chat(user, "<span class='boldannounce'>It looks like the proboscis has been removed.</span>")
-
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O,mob/m, params)
 	if(O.force)

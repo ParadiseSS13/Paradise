@@ -132,7 +132,6 @@
 		do_transform_mime(AM)
 	else
 		to_chat(AM, "Only items can be greyscaled.")
-
 		return
 
 /obj/machinery/transformer/proc/do_transform_mime(var/obj/item/I)

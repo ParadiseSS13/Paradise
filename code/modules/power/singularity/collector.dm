@@ -45,7 +45,6 @@ var/global/list/rad_collectors = list()
 			return
 		else
 			to_chat(user, "\red The controls are locked!")
-
 			return
 ..()
 
@@ -53,18 +52,15 @@ var/global/list/rad_collectors = list()
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/device/multitool))
 		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
-
 		return 1
 	else if(istype(W, /obj/item/device/analyzer) && P)
 		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/weapon/tank/plasma))
 		if(!src.anchored)
 			to_chat(user, "\red The [src] needs to be secured to the floor first.")
-
 			return 1
 		if(src.P)
 			to_chat(user, "\red There's already a plasma tank loaded.")
-
 			return 1
 		user.drop_item()
 		src.P = W
@@ -77,7 +73,6 @@ var/global/list/rad_collectors = list()
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(P)
 			to_chat(user, "\blue Remove the plasma tank first.")
-
 			return 1
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 		src.anchored = !src.anchored
@@ -93,14 +88,11 @@ var/global/list/rad_collectors = list()
 			if(active)
 				src.locked = !src.locked
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
-
 			else
 				src.locked = 0 //just in case it somehow gets locked
 				to_chat(user, "\red The controls can only be locked when the [src] is active")
-
 		else
 			to_chat(user, "\red Access denied!")
-
 			return 1
 	else
 		..()

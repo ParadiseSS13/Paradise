@@ -165,7 +165,6 @@
 		to_chat(user, msg)
 
 
-
 /obj/item/attack_hand(mob/user as mob)
 	if (!user) return 0
 	if (hasorgans(user))
@@ -175,11 +174,9 @@
 			temp = H.organs_by_name["l_hand"]
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
-
 			return 0
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
-
 			return 0
 
 	if (istype(src.loc, /obj/item/weapon/storage))
@@ -211,7 +208,6 @@
 			if(src in A.contents) // To stop Aliens having items stuck in their pockets
 				A.unEquip(src)
 			to_chat(user, "Your claws aren't capable of such fine manipulation.")
-
 			return
 
 	if (istype(src.loc, /obj/item/weapon/storage))
@@ -239,7 +235,6 @@
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.unEquip(src)
 		to_chat(user, "Your claws aren't capable of such fine manipulation.")
-
 		return
 	attack_hand(A)
 
@@ -274,13 +269,10 @@
 						S.handle_item_insertion(I, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
 						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
-
 					else if(success)
 						to_chat(user, "<span class='notice'>You put some things in [S].</span>")
-
 					else
 						to_chat(user, "<span class='notice'>You fail to pick anything up with [S].</span>")
-
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
@@ -352,27 +344,21 @@
 		return
 	if((!istype(usr, /mob/living/carbon)) || (istype(usr, /mob/living/carbon/brain)))//Is humanoid, and is not a brain
 		to_chat(usr, "\red You can't pick things up!")
-
 		return
 	if( usr.stat || usr.restrained() )//Is not asleep/dead and is not restrained
 		to_chat(usr, "\red You can't pick things up!")
-
 		return
 	if(src.anchored) //Object isn't anchored
 		to_chat(usr, "\red You can't pick that up!")
-
 		return
 	if(!usr.hand && usr.r_hand) //Right hand is not full
 		to_chat(usr, "\red Your right hand is full.")
-
 		return
 	if(usr.hand && usr.l_hand) //Left hand is not full
 		to_chat(usr, "\red Your left hand is full.")
-
 		return
 	if(!istype(src.loc, /turf)) //Object is on a turf
 		to_chat(usr, "\red You can't pick that up!")
-
 		return
 	//All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
@@ -407,12 +393,10 @@
 		))
 		// you can't stab someone in the eyes wearing a mask!
 		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
-
 		return
 
 	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/carbon/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
-
 		return
 
 	if(!iscarbon(user))
@@ -447,11 +431,9 @@
 			if(M.stat != 2)
 				if(!(eyes.status & ORGAN_ROBOT) || !(eyes.status & ORGAN_ASSISTED))  //robot eyes bleeding might be a bit silly
 					to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
-
 			if(prob(50))
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
-
 					M.drop_item()
 				M.eye_blurry += 10
 				M.Paralyse(1)
@@ -459,7 +441,6 @@
 			if (eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
-
 		var/obj/item/organ/external/affecting = H.get_organ("head")
 		if(affecting.take_damage(7))
 			H.UpdateDamageIcon()
@@ -536,7 +517,6 @@
 	if(flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
 	to_chat(user, "<span class='notice'>You start washing [src]...</span>")
-
 	if(!do_after(user, 40, target = source))
 		return
 	clean_blood()

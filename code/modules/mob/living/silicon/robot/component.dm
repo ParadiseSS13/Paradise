@@ -185,13 +185,9 @@
 	if(( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] has analyzed the floor's vitals!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
 		to_chat(user, "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Healthy</span>")
-
 		to_chat(user, "<span class='notice'>\t Damage Specifics: [0]-[0]-[0]-[0]</span>")
-
 		to_chat(user, "<span class='notice'>Key: Suffocation/Toxin/Burns/Brute</span>")
-
 		to_chat(user, "<span class='notice'>Body Temperature: ???</span>")
-
 		return
 
 	var/scan_type
@@ -201,7 +197,6 @@
 		scan_type = "prosthetics"
 	else
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
-
 		return
 
 	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components.</span>","<span class='notice'>You have analyzed [M]'s components.</span>")
@@ -210,18 +205,13 @@
 			var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
 			var/BR = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
 			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health]% functional"]</span>")
-
 			to_chat(user, "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
-
 			to_chat(user, "\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
-
 			if(M.timeofdeath && M.stat == DEAD)
 				to_chat(user, "<span class='notice'>Time of Disable: [M.timeofdeath]</span>")
-
 			var/mob/living/silicon/robot/H = M
 			var/list/damaged = H.get_damaged_components(1,1,1)
 			to_chat(user, "<span class='notice'>Localized Damage:</span>")
-
 			if(length(damaged)>0)
 				for(var/datum/robot_component/org in damaged)
 					user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
@@ -233,20 +223,15 @@
 					(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>"),1)
 			else
 				to_chat(user, "<span class='notice'>\t Components are OK.</span>")
-
 			if(H.emagged && prob(5))
 				to_chat(user, "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>")
-
 
 		if("prosthetics")
 			var/mob/living/carbon/human/H = M
 			to_chat(user, "<span class='notice'>Analyzing Results for \the [H]:</span>")
-
 			to_chat(user, "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
 
-
 			to_chat(user, "<span class='notice'>External prosthetics:</span>")
-
 			var/organ_found
 			if(H.internal_organs.len)
 				for(var/obj/item/organ/external/E in H.organs)
@@ -254,14 +239,10 @@
 						continue
 					organ_found = 1
 					to_chat(user, "[E.name]: <font color='red'>[round(E.brute_dam)]</font> <font color='#FFA500'>[round(E.burn_dam)]</font>")
-
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
-
 			to_chat(user, "<hr>")
-
 			to_chat(user, "<span class='notice'>Internal prosthetics:</span>")
-
 			organ_found = null
 			if(H.internal_organs.len)
 				for(var/obj/item/organ/internal/O in H.internal_organs)
@@ -269,9 +250,7 @@
 						continue
 					organ_found = 1
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
-
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
-
 
 	src.add_fingerprint(user)

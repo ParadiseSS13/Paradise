@@ -30,7 +30,6 @@
 	if(M.weakeyes)
 		M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
 		to_chat(M, "<span class='userdanger'><font size=3>AAAAGH!</font></span>")
-
 		M.Weaken(15) //hella stunned
 		M.Stun(15)
 		if(ishuman(M))
@@ -56,12 +55,9 @@
 		M.ear_deaf = max(M.ear_deaf,15)
 		if (M.ear_damage >= 15)
 			to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-
 			if(prob(M.ear_damage - 10 + 5))
 				to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-
 				M.disabilities |= DEAF
 		else
 			if (M.ear_damage >= 5)
 				to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
-

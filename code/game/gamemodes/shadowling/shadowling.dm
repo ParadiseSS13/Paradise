@@ -77,9 +77,7 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
-
 	to_chat(world, "<b>There are alien <span class='deadsay'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>")
-
 
 /datum/game_mode/shadowling/pre_setup()
 	if(config.protect_roles_from_antagonist)
@@ -108,9 +106,7 @@ Made by Xhuis
 		log_game("[shadow.key] (ckey) has been selected as a Shadowling.")
 		sleep(10)
 		to_chat(shadow.current, "<br>")
-
 		to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
-
 		greet_shadow(shadow)
 		finalize_shadowling(shadow)
 		process_shadow_objectives(shadow)
@@ -125,7 +121,6 @@ Made by Xhuis
 
 
 
-
 /datum/game_mode/proc/process_shadow_objectives(var/datum/mind/shadow_mind)
 	var/objective = "enthrall" //may be devour later, but for now it seems murderbone-y
 
@@ -136,7 +131,6 @@ Made by Xhuis
 		to_chat(shadow_mind.current, "<b>Objective #1</b>: [objective_explanation]<br>")
 
 
-
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch)
@@ -145,7 +139,6 @@ Made by Xhuis
 		update_shadow_icons_added(shadow_mind)
 		if(shadow_mind.assigned_role == "Clown")
 			to_chat(S, "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>")
-
 			S.mutations.Remove(CLUMSY)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
@@ -161,17 +154,11 @@ Made by Xhuis
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall)
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
-
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
-
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
-
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>Your body has been irreversibly altered. The attentive can see this - you may conceal it by wearing a mask.</span>")
-
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>")
-
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>")
-
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING))
 			replace_jobbaned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 
@@ -255,16 +242,12 @@ Made by Xhuis
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		to_chat(world, "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
-
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		to_chat(world, "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
-
 	else if(!check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		to_chat(world, "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
-
 	else
 		to_chat(world, "<span class='redtext'><b>The shadowlings have failed!</b></span>")
-
 	..()
 	return 1
 
@@ -304,7 +287,6 @@ Made by Xhuis
 	to_chat(world, text)
 
 
-
 /*
 	MISCELLANEOUS
 */
@@ -339,9 +321,7 @@ Made by Xhuis
 			if(H.stat != DEAD)
 				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"
 
-
 				to_chat(H, 'sound/weapons/sear.ogg')
-
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.heal_overall_damage(5, 5)
 			H.adjustToxLoss(-5)

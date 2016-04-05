@@ -38,7 +38,6 @@
 	var/mob/living/carbon/human/H = holder.wearer
 
 	to_chat(H, "<font color='blue'><b>You are now invisible to normal detection.</b></font>")
-
 	H.invisibility = INVISIBILITY_LEVEL_TWO
 
 	anim(get_turf(H), H, 'icons/effects/effects.dmi', "electricity",null,20,null)
@@ -53,7 +52,6 @@
 	var/mob/living/carbon/human/H = holder.wearer
 
 	to_chat(H, "<span class='danger'>You are now visible.</span>")
-
 	H.invisibility = 0
 
 	anim(get_turf(H), H,'icons/mob/mob.dmi',,"uncloak",,H.dir)
@@ -105,7 +103,6 @@
 
 	if(!istype(H.loc, /turf))
 		to_chat(H, "<span class='warning'>You cannot teleport out of your current location.</span>")
-
 		return 0
 
 	var/turf/T
@@ -116,12 +113,10 @@
 
 	/*if(!T || T.density)
 		to_chat(H, "<span class='warning'>You cannot teleport into solid walls.</span>")
-
 		return 0*///Who the fuck cares? Ninjas in walls are cool.
 
 	if(T.z in config.admin_levels)
 		to_chat(H, "<span class='warning'>You cannot use your teleporter on this Z-level.</span>")
-
 		return 0
 
 	phase_out(H,get_turf(H))

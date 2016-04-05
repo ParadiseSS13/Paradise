@@ -141,7 +141,6 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 	if(!.)
 		to_chat(usr, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
 
-
 /datum/data/pda/app/chatroom/Topic(href, list/href_list)
 	if(!pda.can_use())
 		return

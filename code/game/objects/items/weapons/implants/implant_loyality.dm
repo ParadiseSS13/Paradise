@@ -28,10 +28,8 @@
 			ticker.mode.remove_revolutionary(target.mind)
 		if(target.mind in ticker.mode.cult)
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
-
 		else
 			to_chat(target, "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>")
-
 		return 1
 	return 0
 
@@ -39,7 +37,6 @@
 	if(..())
 		if(target.stat != DEAD && !silent)
 			to_chat(target, "<span class='boldnotice'>You feel a sense of liberation as Nanotrasen's grip on your mind fades away.</span>")
-
 		return 1
 	return 0
 

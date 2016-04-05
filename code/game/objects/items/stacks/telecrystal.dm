@@ -18,7 +18,6 @@
 				use(1)
 				to_chat(user, "<span class='notice'>You press the [src] onto yourself and charge your hidden uplink.</span>")
 
-
 /obj/item/stack/telecrystal/afterattack(var/obj/item/I as obj, mob/user as mob, proximity)
 	if(!proximity)
 		return
@@ -27,4 +26,3 @@
 			I.hidden_uplink.uses +=1
 			use(1)
 			to_chat(user, "<span class='notice'>You slot the [src] into the [I] and charge its internal uplink.</span>")
-

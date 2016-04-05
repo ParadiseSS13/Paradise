@@ -262,7 +262,6 @@ obj/machinery/access_button/attack_hand(mob/user)
 	if(!allowed(user))
 		to_chat(user, "\red Access Denied")
 
-
 	else if(radio_connection)
 		var/datum/signal/signal = new
 		signal.transmission_method = 1 //radio signal

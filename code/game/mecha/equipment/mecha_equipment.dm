@@ -53,10 +53,8 @@
 		chassis.log_append_to_last("[src] is destroyed.",1)
 		if(istype(src, /obj/item/mecha_parts/mecha_equipment/weapon))
 			to_chat(chassis.occupant, sound('sound/mecha/weapdestr.ogg',volume=50))
-
 		else
 			to_chat(chassis.occupant, sound('sound/mecha/critdestr.ogg',volume=50))
-
 		chassis = null
 	return ..()
 

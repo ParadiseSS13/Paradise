@@ -3,7 +3,6 @@
 		return
 	if(!dbcon.IsConnected())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
-
 		return
 	if(!target_ckey)
 		var/new_ckey = ckey(input(usr,"Who would you like to add a note for?","Enter a ckey",null) as text|null)
@@ -17,7 +16,6 @@
 			return
 		if(!query_find_ckey.NextRow())
 			to_chat(usr, "<span class='redtext'>[new_ckey] has not been seen before, you can only add notes to known players.</span>")
-
 			return
 		else
 			target_ckey = new_ckey
@@ -56,7 +54,6 @@
 	var/adminckey
 	if(!dbcon.IsConnected())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
-
 		return
 	if(!note_id)
 		return
@@ -84,7 +81,6 @@
 		return
 	if(!dbcon.IsConnected())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
-
 		return
 	if(!note_id)
 		return

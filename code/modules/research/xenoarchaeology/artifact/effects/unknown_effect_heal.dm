@@ -11,7 +11,6 @@
 			var/mob/living/carbon/C = toucher
 			to_chat(C, "\blue You feel a soothing energy invigorate you.")
 
-
 			if(ishuman(toucher))
 				var/mob/living/carbon/human/H = toucher
 				for(var/obj/item/organ/external/affecting in H.organs)
@@ -44,7 +43,6 @@
 			if(prob(weakness * 100))
 				if(prob(10))
 					to_chat(C, "\blue You feel a soothing energy radiating from something nearby.")
-
 				C.adjustBruteLoss(-1 * weakness)
 				C.adjustFireLoss(-1 * weakness)
 				C.adjustToxLoss(-1 * weakness)
@@ -60,7 +58,6 @@
 			var/weakness = GetAnomalySusceptibility(C)
 			if(prob(weakness * 100))
 				to_chat(C, "\blue A wave of energy invigorates you.")
-
 				C.adjustBruteLoss(-5 * weakness)
 				C.adjustFireLoss(-5 * weakness)
 				C.adjustToxLoss(-5 * weakness)

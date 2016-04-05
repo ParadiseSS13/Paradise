@@ -686,7 +686,6 @@
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
-
 		updateUsrDialog()
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
@@ -694,7 +693,6 @@
 		src.req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
-
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"

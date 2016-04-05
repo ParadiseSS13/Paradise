@@ -18,7 +18,6 @@
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
-
 			return
 		invocation = "<B>[usr.real_name]</B> looks as if a wall is in front of them."
 	else
@@ -56,7 +55,5 @@
 		H.mind.miming=!H.mind.miming
 		if(H.mind.miming)
 			to_chat(H, "<span class='notice'>You make a vow of silence.</span>")
-
 		else
 			to_chat(H, "<span class='notice'>You break your vow of silence.</span>")
-

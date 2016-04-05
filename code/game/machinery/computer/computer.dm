@@ -121,13 +121,11 @@
 				C.loc = src.loc
 			if (src.stat & BROKEN)
 				to_chat(user, "\blue The broken glass falls out.")
-
 				new /obj/item/weapon/shard(loc)
 				A.state = 3
 				A.icon_state = "3"
 			else
 				to_chat(user, "\blue You disconnect the monitor.")
-
 				A.state = 4
 				A.icon_state = "4"
 			qdel(src)

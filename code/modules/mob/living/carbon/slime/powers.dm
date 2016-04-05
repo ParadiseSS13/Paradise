@@ -7,7 +7,6 @@
 
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
-
 		return
 
 	var/list/choices = list()
@@ -27,26 +26,19 @@
 						for(var/mob/living/carbon/slime/met in view())
 							if(met.Victim == M && met != src)
 								to_chat(src, "<i>The [met.name] is already feeding on this subject...</i>")
-
 								return
 						to_chat(src, "\blue <i>I have latched onto the subject and begun feeding...</i>")
-
 						to_chat(M, "\red <b>The [src.name] has latched onto your head!</b>")
-
 						Feedon(M)
 
 					else
 						to_chat(src, "<i>This subject does not have a strong enough life energy...</i>")
-
 				else
 					to_chat(src, "<i>This subject does not have an edible life energy...</i>")
-
 			else
 				to_chat(src, "<i>I must not feed on my brothers...</i>")
-
 		else
 			to_chat(src, "<i>This subject does not have an edible life energy...</i>")
-
 
 
 
@@ -155,16 +147,13 @@
 
 			if(client)
 				to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
-
 		else
 			M.canmove = 1
 			if(client)
 				to_chat(src, "<i>I have stopped feeding...</i>")
-
 	else
 		if(client)
 			to_chat(src, "<i>I have stopped feeding...</i>")
-
 
 	Victim = null
 
@@ -172,7 +161,6 @@
 	if(Victim)
 		if(Victim.client)
 			to_chat(Victim, "[src] has let go of your head!")
-
 		Victim = null
 
 /mob/living/carbon/slime/proc/UpdateFeed(var/mob/M)
@@ -187,7 +175,6 @@
 
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
-
 		return
 	if(!is_adult)
 		if(amount_grown >= 10)
@@ -198,10 +185,8 @@
 			name = text("[colour] [is_adult ? "adult" : "baby"] slime ([number])")
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
-
 	else
 		to_chat(src, "<i>I have already evolved...</i>")
-
 
 /mob/living/carbon/slime/verb/Reproduce()
 	set category = "Slime"
@@ -209,14 +194,12 @@
 
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
-
 		return
 
 	if(is_adult)
 		if(amount_grown >= 10)
 			if(stat)
 				to_chat(src, "<i>I must be conscious to do this...</i>")
-
 				return
 
 			var/list/babies = list()
@@ -244,7 +227,5 @@
 			qdel(src)
 		else
 			to_chat(src, "<i>I am not ready to reproduce yet...</i>")
-
 	else
 		to_chat(src, "<i>I am not old enough to reproduce yet...</i>")
-

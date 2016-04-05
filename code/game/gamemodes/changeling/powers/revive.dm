@@ -63,7 +63,6 @@
 		H.updatehealth()
 	to_chat(user, "<span class='notice'>We have regenerated.</span>")
 
-
 	user.regenerate_icons()
 
 	user.status_flags &= ~(FAKEDEATH)

@@ -7,7 +7,6 @@
 	
 	if(!istype(M))
 		to_chat(usr, "<span class='danger'>This can only be used on subtypes of /obj/machinery.</span>")
-
 		return
 	
 	var/new_rating = input("Enter new rating:","Num") as num

@@ -44,7 +44,6 @@
 			if(L == owner)
 				continue
 			to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [owner].</span>")
-
 			L.apply_effect(5, IRRADIATE)
 		return
 
@@ -290,10 +289,8 @@
 					continue
 				if (src.variant == 2)
 					to_chat(C, "\red [src.personalized_stink]")
-
 				else
 					to_chat(C, "\red [stinkString()]")
-
 */
 
 
@@ -335,7 +332,6 @@
 
 /*	if(!targets.len) Uncomment this to allow the power to be used on targets other than yourself. That said, if you uncomment this I will find you and hurt you. Uncounterable and untracable burn damage with a 60-second cooldown is fun for exactly one person, and that's the person who is using it.
 		to_chat(usr, "<span class='notice'>No target found in range.</span>")
-
 		return
 
 	var/mob/living/carbon/L = targets[1]

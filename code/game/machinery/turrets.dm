@@ -185,7 +185,6 @@
 
 	if(cur_target) //if it's found, proceed
 //		to_chat(world, "[cur_target]")
-
 		if(!isPopping())
 			if(isDown())
 				popUp()
@@ -338,7 +337,6 @@
 			src.die()
 	else
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
-
 	return
 
 
@@ -355,7 +353,6 @@
 			src.die()
 	else
 		to_chat(M, "\green That object is useless to you.")
-
 	return
 
 
@@ -366,7 +363,6 @@
 	if (src.locked)
 		if (!istype(usr, /mob/living/silicon))
 			to_chat(usr, "Control panel is locked!")
-
 			return
 	if (href_list["toggleOn"])
 		src.enabled = !src.enabled

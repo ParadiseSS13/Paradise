@@ -177,14 +177,11 @@ emp_act
 		return
 	if(!(affecting.status & ORGAN_ROBOT))
 		to_chat(user, "\red That limb isn't robotic.")
-
 		return
 	if(affecting.sabotaged)
 		to_chat(user, "\red [src]'s [affecting.name] is already sabotaged!")
-
 	else
 		to_chat(user, "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.")
-
 		affecting.sabotaged = 1
 	return 1
 
@@ -202,7 +199,6 @@ emp_act
 		src.loc.add_blood(src)
 		--src.meatleft
 		to_chat(user, "\red You hack off a chunk of meat from [src.name]")
-
 		if(!src.meatleft)
 			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[key_name(user)]</b>"
 			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[key_name(src)]</b> into meat</b>"
@@ -217,7 +213,6 @@ emp_act
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
 	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
-
 		return 1
 	var/hit_area = affecting.name
 

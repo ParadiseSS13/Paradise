@@ -94,7 +94,6 @@
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
 			bombers += "[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])"
 			to_chat(user, "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>")
-
 			active = 1
 			update_icon()
 			if(iscarbon(user))
@@ -115,13 +114,11 @@
 				label = null
 				update_icon()
 				to_chat(user, "You remove the label from [src].")
-
 				return 1
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(stage == WIRED)
 			if(beakers.len)
 				to_chat(user, "<span class='notice'>You lock the assembly.</span>")
-
 				playsound(loc, 'sound/items/Screwdriver.ogg', 25, -3)
 				stage = READY
 				update_icon()
@@ -144,30 +141,24 @@
 				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z].")
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
-
 		else if(stage == READY && !nadeassembly)
 			det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
 			to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
-
 		else if(stage == EMPTY)
 			to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
-
 
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
 		if(beakers.len == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
-
 			return
 		else
 			if(I.reagents.total_volume)
 				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
-
 				user.drop_item()
 				I.loc = src
 				beakers += I
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
-
 
 	else if(stage == EMPTY && istype(I, /obj/item/device/assembly_holder))
 		var/obj/item/device/assembly_holder/A = I
@@ -183,7 +174,6 @@
 		assemblyattacher = user.ckey
 		stage = WIRED
 		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
-
 		update_icon()
 
 	else if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil))
@@ -192,18 +182,15 @@
 
 		stage = WIRED
 		to_chat(user, "<span class='notice'>You rig [src].</span>")
-
 		update_icon()
 
 	else if(stage == READY && istype(I, /obj/item/weapon/wirecutters))
 		to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
-
 		stage = WIRED
 		update_icon()
 
 	else if(stage == WIRED && istype(I, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
-
 		stage = EMPTY
 		payload_name = null
 		label = null
@@ -396,7 +383,6 @@
 /obj/item/weapon/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
 		to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
-
 		user.drop_item()
 		I.loc = src
 		beakers += I

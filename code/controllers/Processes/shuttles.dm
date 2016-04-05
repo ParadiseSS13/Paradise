@@ -93,36 +93,29 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 
 	if(world.time - round_start_time < config.shuttle_refuel_delay)
 		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
-
 		return
 
 	switch(emergency.mode)
 		if(SHUTTLE_RECALL)
 			to_chat(user, "The emergency shuttle may not be called while returning to Centcom.")
-
 			return
 		if(SHUTTLE_CALL)
 			to_chat(user, "The emergency shuttle is already on its way.")
-
 			return
 		if(SHUTTLE_DOCKED)
 			to_chat(user, "The emergency shuttle is already here.")
-
 			return
 		if(SHUTTLE_ESCAPE)
 			to_chat(user, "The emergency shuttle is moving away to a safe distance.")
-
 			return
 		if(SHUTTLE_STRANDED)
 			to_chat(user, "The emergency shuttle has been disabled by Centcom.")
-
 			return
 
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
 		to_chat(user, "You must provide a reason.")
-
 		return
 
 	var/area/signal_origin = get_area(user)

@@ -19,11 +19,9 @@
 		var/obj/docking_port/mobile/M = shuttle_master.getShuttle("laborcamp")
 		if(!M)
 			to_chat(usr, "<span class='warning'>Cannot locate shuttle!</span>")
-
 			return 0
 		var/obj/docking_port/stationary/S = M.get_docked()
 		if(S && S.name == "laborcamp_away")
 			to_chat(usr, "<span class='warning'>Shuttle is already at the outpost!</span>")
-
 			return 0
 	..()

@@ -51,7 +51,6 @@
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
 	if(message)
 		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at":"slash at"] enemies!</span>")
-
 	else
 		return
 
@@ -67,7 +66,6 @@
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_at(var/atom/A)
 	if(pounce_cooldown)
 		to_chat(src, "<span class='alertalien'>You are too fatigued to pounce right now!</span>")
-
 		return
 
 	if(leaping) //Leap while you leap, so you can leap while you leap
@@ -75,7 +73,6 @@
 
 	if(!has_gravity(src) || !has_gravity(A))
 		to_chat(src, "<span class='alertalien'>It is unsafe to leap without gravity!</span>")
-
 		//It's also extremely buggy visually, so it's balance+bugfix
 		return
 	if(lying)

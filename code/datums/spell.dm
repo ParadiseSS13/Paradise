@@ -59,7 +59,6 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.spell_list))
 		to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
-
 		return 0
 	if (istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/caster = user
@@ -78,41 +77,33 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			if("recharge")
 				if(charge_counter < charge_max)
 					to_chat(user, still_recharging_msg)
-
 					return 0
 			if("charges")
 				if(!charge_counter)
 					to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
-
 					return 0
 
 	if(!ghost)
 		if(user.stat && !stat_allowed)
 			to_chat(user, "Not when you're incapacitated.")
-
 			return 0
 
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			to_chat(user, "Mmmf mrrfff!")
-
 			return 0
 	var/obj/effect/proc_holder/spell/noclothes/spell = locate() in (user.spell_list | (user.mind ? user.mind.spell_list : list()))
 	if(clothes_req && !(spell && istype(spell)))//clothes check
 		if(!istype(user, /mob/living/carbon/human))
 			to_chat(user, "You aren't a human, Why are you trying to cast a human spell, silly non-human? Casting human spells is for humans.")
-
 			return 0
 		if(!istype(user:wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(user:wear_suit, /obj/item/clothing/suit/space/rig/wizard))
 			to_chat(user, "I don't feel strong enough without my robe.")
-
 			return 0
 		if(!istype(user:shoes, /obj/item/clothing/shoes/sandal))
 			to_chat(user, "I don't feel strong enough without my sandals.")
-
 			return 0
 		if(!istype(user:head, /obj/item/clothing/head/wizard) && !istype(user:head, /obj/item/clothing/head/helmet/space/rig/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my hat.</span>")
-
 			return 0
 
 	if(!skipcharge)
@@ -203,7 +194,6 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			location = target
 		if(istype(target,/mob/living) && message)
 			to_chat(target, text("[message]"))
-
 		if(sparks_spread)
 			var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread()
 			sparks.set_up(sparks_amt, 0, location) //no idea what the 0 is

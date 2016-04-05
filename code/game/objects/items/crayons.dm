@@ -86,16 +86,13 @@
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
 		to_chat(user, "You start drawing a [temp] on the [target.name].")
-
 		if(instant || do_after(user, 50, target = target))
 			new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			to_chat(user, "You finish drawing [temp].")
-
 			if(uses)
 				uses--
 				if(!uses)
 					to_chat(user, "<span class='danger'>You used up your [src.name]!</span>")
-
 					qdel(src)
 	return
 
@@ -103,13 +100,11 @@
 	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
 		to_chat(user, "You take a [huffable ? "huff" : "bite"] of the [src.name]. Delicious!")
-
 		user.nutrition += 5
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
 				to_chat(user, "<span class='danger'>There is no more of [src.name] left!</span>")
-
 				qdel(src)
 	else
 		..()
@@ -220,7 +215,6 @@
 	switch(choice)
 		if("Toggle Cap")
 			to_chat(user, "<span class='notice'>You [capped ? "Remove" : "Replace"] the cap of the [src]</span>")
-
 			capped = capped ? 0 : 1
 			icon_state = "spraycan[capped ? "_cap" : ""]"
 			update_icon()

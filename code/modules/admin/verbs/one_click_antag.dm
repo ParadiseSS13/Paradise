@@ -379,7 +379,6 @@ client/proc/one_click_antag()
 
 				to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B> [input]</B>")
 
-
 				numagents--
 		if(numagents >= 6)
 			return 0
@@ -484,9 +483,7 @@ client/proc/one_click_antag()
 
 				new_vox.key = theghost.key
 				to_chat(new_vox, "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: \red<B> [input]</B>")
-
 				to_chat(new_vox, "\red Don't forget to turn on your nitrogen internals!")
-
 
 				raiders--
 			if(raiders > max_raiders)
@@ -617,7 +614,6 @@ client/proc/one_click_antag()
 				teamOneMembers--
 				to_chat(newMember, "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
 
-
 			if(L.name == "tdome2")
 				if(teamTwoMembers<=0)
 					break
@@ -639,7 +635,6 @@ client/proc/one_click_antag()
 				newMember.key = theghost.key
 				teamTwoMembers--
 				to_chat(newMember, "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
-
 	else
 		return 0
 	return 1

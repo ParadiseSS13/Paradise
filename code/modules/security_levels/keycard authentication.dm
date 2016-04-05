@@ -24,13 +24,11 @@
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
 	to_chat(user, "The station AI is not to interact with these devices.")
-
 	return
 
 /obj/machinery/keycard_auth/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
-
 		return
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/ID = W
@@ -43,7 +41,6 @@
 			else if(screen == 2)
 				if(event == "Emergency Response Team" && ert_reason == "Reason for ERT")
 					to_chat(user, "<span class='notice'>Supply a reason for calling the ERT first!</span>")
-
 					return
 				event_triggered_by = usr
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
@@ -63,11 +60,9 @@
 /obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(user.stat || stat & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
-
 		return
 	if(busy)
 		to_chat(user, "This device is busy.")
-
 		return
 
 	user.set_machine(src)
@@ -88,11 +83,9 @@
 		return
 	if(busy)
 		to_chat(usr, "This device is busy.")
-
 		return
 	if(usr.stat || stat & (BROKEN|NOPOWER))
 		to_chat(usr, "This device is without power.")
-
 		return
 	if(href_list["triggerevent"])
 		event = href_list["triggerevent"]
@@ -161,11 +154,9 @@
 		if("Emergency Response Team")
 			if(is_ert_blocked())
 				to_chat(usr, "\red All Emergency Response Teams are dispatched and can not be called at this time.")
-
 				return
 
 			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
-
 			if(admins.len)
 				ERT_Announce(ert_reason , event_triggered_by)
 				ert_reason = "Reason for ERT"

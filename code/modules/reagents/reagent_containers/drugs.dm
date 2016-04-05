@@ -25,33 +25,27 @@
 
 			if(!target.reagents.total_volume && target.reagents)
 				to_chat(user, "\red [target] is empty.")
-
 				return
 
 			if(reagents.total_volume >= reagents.maximum_volume)
 				to_chat(user, "\red [src] is full.")
-
 				return
 
 			for(var/datum/reagent/A in target.reagents.reagent_list)
 				if(A.reagent_state != 1)
 					to_chat(user, "\red You can only put powders in [src].")
-
 					return
 
 			var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
 			to_chat(user, "\blue You fill [src] with [trans] units of the contents of [target].")
 
-
 		else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
 			if(!reagents.total_volume)
 				to_chat(user, "\red [src] is empty.")
-
 				return
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
 				to_chat(user, "\red [target] is full.")
-
 				return
 
 			// /vg/: Logging transfers of bad things
@@ -68,7 +62,6 @@
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 			to_chat(user, "\blue You transfer [trans] units of the solution to [target].")
 
-
 		//Safety for dumping stuff into a ninja suit. It handles everything through attackby() and this is unnecessary.
 
 		/*else if(istype(target, /obj/machinery/bunsen_burner))
@@ -83,10 +76,8 @@
 			var/tmp_label = sanitize(input(user, "Enter a label for [src.name]","Label",src.label_text))
 			if(length(tmp_label) > 10)
 				to_chat(user, "\red The label can be at most 10 characters long.")
-
 			else
 				to_chat(user, "\blue You set the label to \"[tmp_label]\".")
-
 				src.label_text = tmp_label
 				src.update_name_label()
 

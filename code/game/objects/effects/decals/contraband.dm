@@ -60,7 +60,6 @@
 
 			if(check)
 				to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
-
 				return
 
 			resulting_poster.loc = W //Looks like it's uncluttered enough. Place the poster
@@ -312,11 +311,9 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 		playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 		if(ruined)
 			to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
-
 			qdel(src)
 		else
 			to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
-
 			roll_and_drop(user.loc)
 		return
 
@@ -358,16 +355,13 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O,/obj/structure/sign))
 			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
-
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
 			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
-
 			return
 
 		to_chat(user, "<span class='notice'>You start placing the poster on the wall...</span>")//Looks like it's uncluttered enough. Place the poster.
-
 
 
 	//declaring D because otherwise if P gets 'deconstructed' we lose our reference to P.resulting_poster
@@ -390,7 +384,6 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 			D.pixel_y = 0
 		else
 			to_chat(user, "<span class='notice'>You cannot reach the wall from here!</span>")
-
 			return
 
 	flick("poster_being_set",D)
@@ -404,7 +397,6 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 
 	if(istype(src,/turf/simulated/wall) && user && user.loc == temp_loc)	//Let's check if everything is still there
 		to_chat(user, "<span class='notice'>You place the poster!</span>")
-
 	else
 		D.roll_and_drop(temp_loc)
 	return

@@ -65,7 +65,6 @@
 /datum/reagent/slimejelly/on_mob_life(var/mob/living/M as mob)
 	if(prob(10))
 		to_chat(M, "\red Your insides are burning!")
-
 		M.adjustToxLoss(rand(20,60)*REM)
 	else if(prob(40))
 		M.adjustBruteLoss(-5*REM)
@@ -85,13 +84,9 @@
 		var/mob/living/carbon/human/human = M
 		if(human.species.name != "Shadow")
 			to_chat(M, "\red Your flesh rapidly mutates!")
-
 			to_chat(M, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-
 			to_chat(M, "\red Your body reacts violently to light. \green However, it naturally heals in darkness.")
-
 			to_chat(M, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-
 			human.set_species("Shadow")
 	..()
 	return
@@ -270,12 +265,10 @@
 
 				if(H.wear_mask)
 					to_chat(H, "\red Your mask protects you from the acid!")
-
 					return
 
 				if(H.head)
 					to_chat(H, "\red Your helmet protects you from the acid!")
-
 					return
 
 				if(!M.unacidable)
@@ -296,7 +289,6 @@
 
 			if(volume < 10)
 				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
-
 
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
@@ -322,7 +314,6 @@
 			I.desc = "Looks like this was \an [O] some time ago."
 			for(var/mob/M in viewers(5, O))
 				to_chat(M, "\red \the [O] melts.")
-
 			qdel(O)
 
 
@@ -441,11 +432,9 @@
 					safe_thing = victim.glasses
 			if ( eyes_covered && mouth_covered )
 				to_chat(victim, "\red Your [safe_thing] protects you from the pepperspray!")
-
 				return
 			else if ( mouth_covered )	// Reduced effects if partially protected
 				to_chat(victim, "\red Your [safe_thing] protect you from most of the pepperspray!")
-
 				if(prob(5))
 					victim.emote("scream")
 				victim.eye_blurry = max(M.eye_blurry, 3)
@@ -457,7 +446,6 @@
 				return
 			else if ( eyes_covered ) // Eye cover is better than mouth cover
 				to_chat(victim, "\red Your [safe_thing] protects your eyes from the pepperspray!")
-
 				victim.eye_blurry = max(M.eye_blurry, 3)
 				victim.damageoverlaytemp = 30
 				return
@@ -465,7 +453,6 @@
 				if(prob(5))
 					victim.emote("scream")
 				to_chat(victim, "\red You're sprayed directly in the eyes with pepperspray!")
-
 				victim.eye_blurry = max(M.eye_blurry, 5)
 				victim.eye_blind = max(M.eye_blind, 2)
 				victim.confused = max(M.confused, 6)

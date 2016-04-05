@@ -35,7 +35,6 @@
 	..(user)
 	to_chat(user, "It has [spikes] [spikes == 1 ? "spike" : "spikes"] remaining.")
 
-
 /obj/item/weapon/gun/launcher/spikethrower/update_icon()
 	icon_state = "spikethrower[spikes]"
 
@@ -47,7 +46,6 @@
 		var/mob/living/carbon/human/H = user
 		if(H.species && H.species.name != "Vox" && H.species.name != "Vox Armalis")
 			to_chat(user, "\red \The [src] does not respond to you!")
-
 			return 0
 	return 1
 
@@ -92,7 +90,6 @@
 				..()
 				return
 		to_chat(user, "\red \The [src] is far too large for you to pick up.")
-
 		return
 
 /obj/item/weapon/gun/energy/noisecannon/process_chambered() //Does not have ammo.

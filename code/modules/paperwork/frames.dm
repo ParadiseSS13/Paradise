@@ -71,7 +71,6 @@
 			update_icon()
 		else
 			to_chat(user, "<span class=notice>There is nothing to remove from \the [src].</span>")
-
 	else if(istype(I, /obj/item/weapon/crowbar))
 		playsound(src, 'sound/items/Crowbar.ogg', 100, 1)
 		user.visible_message("<span class=warning>[user] breaks down \the [src].</span>", "<span class=warning>You break down \the [src].</span>")
@@ -91,7 +90,6 @@
 			update_icon()
 		else
 			to_chat(user, "<span class=notice>\The [src] already contains \a [displayed].</span>")
-
 	else
 		return ..()
 
@@ -106,16 +104,13 @@
 	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign))
 			to_chat(user, "<span class='notice'>\The [T] is far too cluttered to place \a [src]!</span>")
-
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
 			to_chat(user, "<span class='notice'>\The [T] is far too cluttered to place \a [src]!</span>")
-
 			return
 
 	to_chat(user, "<span class='notice'>You start place \the [src] on \the [T].</span>")
-
 
 	var/px = 0
 	var/py = 0
@@ -132,7 +127,6 @@
 			px = -32
 		else
 			to_chat(user, "<span class='notice'>You cannot reach \the [T] from here!</span>")
-
 			return
 
 	user.unEquip(src)
@@ -233,11 +227,9 @@
 	if(istype(I, /obj/item/weapon/grenade) || istype(I, /obj/item/weapon/c4))
 		if(explosive)
 			to_chat(user, "<span class='warning'>There is already a device attached behind \the [src], remove it first.</span>")
-
 			return 1
 		if(!tilted)
 			to_chat(user, "<span class='warning'>\The [src] needs to be already tilted before being rigged with \the [I].</span>")
-
 			return 1
 		user.visible_message("<span class=warning>[user] is fiddling around behind \the [src].</span>", "<span class=warning>You begin to secure \the [I] behind \the [src].</span>")
 		if(do_after(user, 150, target = src))

@@ -26,7 +26,6 @@ datum/controller/vote
 			// 3 is GAME_STATE_PLAYING, but that #define is undefined for some reason
 			if(mode == "gamemode" && ticker.current_state >= 2)
 				to_chat(world, "<b>Voting aborted due to game start.</b>")
-
 				src.reset()
 				return
 
@@ -64,7 +63,6 @@ datum/controller/vote
 			auto_muted = 0
 			config.ooc_allowed = !( config.ooc_allowed )
 			to_chat(world, "<b>The OOC channel has been automatically enabled due to vote end.</b>")
-
 			log_admin("OOC was toggled automatically due to vote end.")
 			message_admins("OOC has been toggled on automatically.")
 
@@ -106,7 +104,6 @@ datum/controller/vote
 							factor = 1.4
 					choices["Initiate Crew Transfer"] = round(choices["Initiate Crew Transfer"] * factor)
 					to_chat(world, "<font color='purple'>Crew Transfer Factor: [factor]</font>")
-
 					greatest_votes = max(choices["Initiate Crew Transfer"], choices["Continue The Round"])
 
 
@@ -144,7 +141,6 @@ datum/controller/vote
 			text += "<b>Vote Result: Inconclusive - No Votes!</b>"
 		log_vote(text)
 		to_chat(world, "<font color='purple'>[text]</font>")
-
 		return .
 
 	proc/result()
@@ -165,7 +161,6 @@ datum/controller/vote
 					if(!going)
 						going = 1
 						to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
-
 				if("crew_transfer")
 					if(. == "Initiate Crew Transfer")
 						init_shift_change(null, 1)
@@ -232,40 +227,32 @@ datum/controller/vote
 
 			log_vote(text)
 			to_chat(world, "<font color='purple'><b>[text]</b>\nType vote to place your votes.\nYou have [config.vote_period/10] seconds to vote.</font>")
-
 			switch(vote_type)
 				if("crew_transfer")
 					to_chat(world, sound('sound/ambience/alarm4.ogg'))
-
 				if("gamemode")
 					to_chat(world, sound('sound/ambience/alarm4.ogg'))
-
 				if("custom")
 					to_chat(world, sound('sound/ambience/alarm4.ogg'))
-
 			if(mode == "gamemode" && going)
 				going = 0
 				to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")
-
 			if(mode == "crew_transfer" && config.ooc_allowed)
 				auto_muted = 1
 				config.ooc_allowed = !( config.ooc_allowed )
 				to_chat(world, "<b>The OOC channel has been automatically disabled due to a crew transfer vote.</b>")
-
 				log_admin("OOC was toggled automatically due to crew_transfer vote.")
 				message_admins("OOC has been toggled off automatically.")
 			if(mode == "gamemode" && config.ooc_allowed)
 				auto_muted = 1
 				config.ooc_allowed = !( config.ooc_allowed )
 				to_chat(world, "<b>The OOC channel has been automatically disabled due to the gamemode vote.</b>")
-
 				log_admin("OOC was toggled automatically due to gamemode vote.")
 				message_admins("OOC has been toggled off automatically.")
 			if(mode == "custom" && config.ooc_allowed)
 				auto_muted = 1
 				config.ooc_allowed = !( config.ooc_allowed )
 				to_chat(world, "<b>The OOC channel has been automatically disabled due to a custom vote.</b>")
-
 				log_admin("OOC was toggled automatically due to custom vote.")
 				message_admins("OOC has been toggled off automatically.")
 

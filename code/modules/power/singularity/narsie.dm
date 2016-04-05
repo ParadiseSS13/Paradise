@@ -25,9 +25,7 @@
 /obj/singularity/narsie/large/New()
 	..()
 	to_chat(world, "<font size='15' color='red'><b>NAR-SIE HAS RISEN</b></font>")
-
 	to_chat(world, pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg')))
-
 
 	var/area/A = get_area(src)
 	if(A)
@@ -41,7 +39,6 @@
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	if(!(src in view()))
 		to_chat(user, "Your soul is too far away.")
-
 		return
 	makeNewConstruct(/mob/living/simple_animal/construct/harvester, user, null, 1)
 	new /obj/effect/effect/sleep_smoke(user.loc)
@@ -80,7 +77,6 @@
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
 				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
-
 				M.apply_effect(3, STUN)
 
 
@@ -128,14 +124,11 @@
 
 /obj/singularity/narsie/proc/acquire(var/mob/food)
 	to_chat(target, "<span class='notice'>NAR-SIE HAS LOST INTEREST IN YOU</span>")
-
 	target = food
 	if(ishuman(target))
 		to_chat(target, "<span class ='userdanger'>NAR-SIE HUNGERS FOR YOUR SOUL</span>")
-
 	else
 		to_chat(target, "<span class ='userdanger'>NAR-SIE HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL</span>")
-
 
 //Wizard narsie
 /obj/singularity/narsie/wizard

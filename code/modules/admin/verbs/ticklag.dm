@@ -22,4 +22,3 @@
 		to_chat(src, "\red Error: ticklag(): Invalid world.ticklag value. No changes made.")
 
 
-

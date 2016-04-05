@@ -21,7 +21,6 @@
 	if(..(user, 2))
 		to_chat(user, "\blue [grenades.len] / [max_grenades] [ammo_name]s.")
 
-
 /obj/item/weapon/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 
 	if((istype(I, ammo_type)))
@@ -30,12 +29,9 @@
 			I.loc = src
 			grenades += I
 			to_chat(user, "\blue You put the [ammo_name] in the [name].")
-
 			to_chat(user, "\blue [grenades.len] / [max_grenades] [ammo_name]s.")
-
 		else
 			to_chat(usr, "\red The grenade launcher cannot hold more [ammo_name]s.")
-
 
 /obj/item/weapon/gun/grenadelauncher/afterattack(obj/target, mob/user , flag)
 
@@ -53,12 +49,10 @@
 	else
 		to_chat(usr, "\red The [name] is empty.")
 
-
 /obj/item/weapon/gun/grenadelauncher/proc/fire_grenade(atom/target, mob/user)
 	for(var/mob/O in viewers(world.view, user))
 		O.show_message(text("\red [] fired a [ammo_name]!", user), 1)
 	to_chat(user, "\red You fire the [name]!")
-
 	var/obj/item/weapon/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
 	grenades -= F
 	F.loc = user.loc
@@ -100,19 +94,15 @@
 			I.loc = src
 			grenades += I
 			to_chat(user, "\blue You put the [ammo_name] in the [name].")
-
 			to_chat(user, "\blue [grenades.len] / [max_grenades] [ammo_name]s.")
-
 			icon_state = "piecannon1"
 		else
 			to_chat(usr, "\red The grenade launcher cannot hold more [ammo_name]s.")
-
 
 /obj/item/weapon/gun/grenadelauncher/piecannon/fire_grenade(atom/target, mob/user)
 	for(var/mob/O in viewers(world.view, user))
 		O.show_message(text("\red [] fired a [ammo_name]!", user), 1)
 	to_chat(user, "\red You fire the [name]!")
-
 	var/obj/item/weapon/reagent_containers/food/snacks/pie/P = grenades[1] //Now with less copypasta!
 	grenades -= P
 	P.loc = user.loc

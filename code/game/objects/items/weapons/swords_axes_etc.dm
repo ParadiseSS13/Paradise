@@ -11,9 +11,7 @@
  */
 /obj/item/weapon/banhammer/attack(mob/M as mob, mob/user as mob)
 	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
-
 	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
-
 
 /*
  * Classic Baton
@@ -36,7 +34,6 @@
 		add_fingerprint(user)
 		if((CLUMSY in user.mutations) && prob(50))
 			to_chat(user, "<span class ='danger'>You club yourself over the head.</span>")
-
 			user.Weaken(3 * force)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -88,7 +85,6 @@
 	on = !on
 	if(on)
 		to_chat(user, "<span class ='warning'>You extend the baton.</span>")
-
 		icon_state = "telebaton_1"
 		item_state = "nullrod"
 		w_class = 4 //doesnt fit in backpack when its on for balance
@@ -96,7 +92,6 @@
 		attack_verb = list("smacked", "struck", "cracked", "beaten")
 	else
 		to_chat(user, "<span class ='notice'>You collapse the baton.</span>")
-
 		icon_state = "telebaton_0"
 		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT

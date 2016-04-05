@@ -151,7 +151,6 @@
 			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 
 
-
 /datum/action/monkey_recycle
 	name = "Recycle Monkeys"
 	action_type = AB_INNATE

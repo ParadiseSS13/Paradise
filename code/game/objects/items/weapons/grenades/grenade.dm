@@ -16,7 +16,6 @@
 /obj/item/weapon/grenade/proc/clown_check(var/mob/living/user)
 	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
-
 		active = 1
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -33,7 +32,6 @@
 	if (istype(target, /obj/item/weapon/gun/grenadelauncher)) return ..()
 	if((user.get_active_hand() == src) && (!active) && (clown_check(user)) && target.loc != src.loc)
 		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
-
 		active = 1
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -52,16 +50,13 @@
 	if(display_timer)
 		if(det_time > 1)
 			to_chat(user, "The timer is set to [det_time/10] second\s.")
-
 		else
 			to_chat(user, "\The [src] is set for instant detonation.")
-
 
 /obj/item/weapon/grenade/attack_self(mob/user as mob)
 	if(!active)
 		if(clown_check(user))
 			to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
-
 			active = 1
 			icon_state = initial(icon_state) + "_active"
 			add_fingerprint(user)
@@ -91,19 +86,15 @@
 			if ("1")
 				det_time = 10
 				to_chat(user, "<span class='notice'>You set the [name] for 1 second detonation time.</span>")
-
 			if ("10")
 				det_time = 30
 				to_chat(user, "<span class='notice'>You set the [name] for 3 second detonation time.</span>")
-
 			if ("30")
 				det_time = 50
 				to_chat(user, "<span class='notice'>You set the [name] for 5 second detonation time.</span>")
-
 			if ("50")
 				det_time = 1
 				to_chat(user, "<span class='notice'>You set the [name] for instant detonation.</span>")
-
 		add_fingerprint(user)
 	..()
 

@@ -23,7 +23,6 @@
 				if(armed)
 					armed = 0
 					to_chat(user, "\blue You disarm \the [src].")
-
 					return
 				timing = !timing
 				if(timing)
@@ -32,7 +31,6 @@
 					armed = 0
 					timepassed = 0
 				to_chat(H, "\blue You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]")
-
 
 		process()
 			if(!timing)

@@ -35,11 +35,9 @@
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.amount < 5)
 			to_chat(user, "\b There is not enough wire in this coil. You need 5 lengths.")
-
 			return
 		CC.use(5)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
-
 		new /obj/item/stack/light_w(user.loc)
 		src.use(1)
 	else if( istype(W, /obj/item/stack/rods) )
@@ -62,7 +60,6 @@
 	if(!istype(user.loc,/turf)) return 0
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
-
 		return 0
 	var/title = "Sheet-Glass"
 	title += " ([src.amount] sheet\s left)"
@@ -77,12 +74,10 @@
 				i++
 				if(i >= 4)
 					to_chat(user, "<span class='danger'>There are too many windows in this location.</span>")
-
 					return 1
 				directions-=win.dir
 				if(win.is_fulltile())
 					to_chat(user, "<span class='danger'>Can't let you do that.</span>")
-
 					return 1
 
 			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
@@ -109,11 +104,9 @@
 			if(src.loc != user)	return 1
 			if(src.amount < 2)
 				to_chat(user, "<span class='danger'>You need more glass to do that.</span>")
-
 				return 1
 			if(locate(/obj/structure/window/full) in user.loc)
 				to_chat(user, "<span class='danger'>There is a full window in the way.</span>")
-
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0
@@ -131,7 +124,6 @@
 			if(src.loc != user)	return 1
 			if(src.amount < 3)
 				to_chat(user, "<span class='danger'>You need more glass to do that.</span>")
-
 				return 1
 			var/obj/machinery/fishtank/F = new /obj/machinery/fishtank/tank(user.loc, 0)
 			F.air_update_turf(1)
@@ -141,7 +133,6 @@
 			if(src.loc != user)	return 1
 			if(src.amount < 4)
 				to_chat(user, "<span class='danger'>You need more glass to do that.</span>")
-
 				return 1
 			var/obj/machinery/fishtank/F = new /obj/machinery/fishtank/wall(user.loc, 0)
 			F.air_update_turf(1)
@@ -173,7 +164,6 @@
 	if(!istype(user.loc,/turf)) return 0
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
-
 		return 0
 	var/title = "Sheet Reinf. Glass"
 	title += " ([src.amount] sheet\s left)"
@@ -187,12 +177,10 @@
 				i++
 				if(i >= 4)
 					to_chat(user, "<span class='danger'>There are too many windows in this location.</span>")
-
 					return 1
 				directions-=win.dir
 				if(win.is_fulltile())
 					to_chat(user, "<span class='danger'>Can't let you do that.</span>")
-
 					return 1
 
 			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
@@ -219,11 +207,9 @@
 			if(src.loc != user)	return 1
 			if(src.amount < 2)
 				to_chat(user, "<span class='danger'>You need more glass to do that.</span>")
-
 				return 1
 			if(locate(/obj/structure/window/full) in user.loc)
 				to_chat(user, "<span class='danger'>There is a window in the way.</span>")
-
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0
@@ -235,17 +221,14 @@
 
 			if(isturf(user.loc) && locate(/obj/structure/windoor_assembly/, user.loc))
 				to_chat(user, "<span class='danger'>There is already a windoor assembly in that location.</span>")
-
 				return 1
 
 			if(isturf(user.loc) && locate(/obj/machinery/door/window/, user.loc))
 				to_chat(user, "<span class='danger'>There is already a windoor in that location.</span>")
-
 				return 1
 
 			if(src.amount < 5)
 				to_chat(user, "<span class='danger'>You need more glass to do that.</span>")
-
 				return 1
 
 			var/obj/structure/windoor_assembly/WD
@@ -309,7 +292,6 @@
 	if(!istype(user.loc,/turf)) return 0
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='danger'> You don't have the dexterity to do this!")
-
 		return 0
 	var/title = "Plasma-glass alloy"
 	title += " ([src.amount] sheet\s left)"
@@ -323,12 +305,10 @@
 				i++
 				if(i >= 4)
 					to_chat(user, "<span class='danger'>There are too many windows in this location.</span>")
-
 					return 1
 				directions-=win.dir
 				if(!(win.ini_dir in cardinal))
 					to_chat(user, "<span class='danger'>Can't let you do that.</span>")
-
 					return 1
 			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
 			var/dir_to_set = 2
@@ -352,11 +332,9 @@
 			if(src.loc != user)  return 1
 			if(src.amount < 2)
 				to_chat(user, "<span class='danger'>You need more glass to do that.</span>")
-
 				return 1
 			if(locate(/obj/structure/window) in user.loc)
 				to_chat(user, "<span class='danger'>There is a window in the way.</span>")
-
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0
@@ -386,7 +364,6 @@
 	if(!istype(user.loc,/turf)) return 0
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
-
 		return 0
 	var/title = "Reinforced plasma-glass alloy"
 	title += " ([src.amount] sheet\s left)"
@@ -400,12 +377,10 @@
 				i++
 				if(i >= 4)
 					to_chat(user, "<span class='danger'>There are too many windows in this location.</span>")
-
 					return 1
 				directions-=win.dir
 				if(!(win.ini_dir in cardinal))
 					to_chat(user, "<span class='danger'>Can't let you do that.</span>")
-
 					return 1
 			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
 			var/dir_to_set = 2
@@ -429,11 +404,9 @@
 			if(src.loc != user)  return 1
 			if(src.amount < 2)
 				to_chat(user, "<span class='danger'>You need more glass to do that.</span>")
-
 				return 1
 			if(locate(/obj/structure/window) in user.loc)
 				to_chat(user, "<span class='danger'>There is a window in the way.</span>")
-
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0

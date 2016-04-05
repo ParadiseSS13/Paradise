@@ -51,14 +51,12 @@
 			mode = 1
 			charge_cost = 1000
 			to_chat(user, "\red The [src.name] is now set to increase yield.")
-
 			projectile_type = "/obj/item/projectile/energy/florayield"
 			modifystate = "florayield"
 		if(1)
 			mode = 0
 			charge_cost = 1000
 			to_chat(user, "\red The [src.name] is now set to induce mutations.")
-
 			projectile_type = "/obj/item/projectile/energy/floramut"
 			modifystate = "floramut"
 	update_icon()
@@ -120,12 +118,10 @@ obj/item/weapon/gun/energy/staff/focus
 		if(projectile_type == "/obj/item/projectile/forcebolt")
 			charge_cost = 200
 			to_chat(user, "\red The [src.name] will now strike a small area.")
-
 			projectile_type = "/obj/item/projectile/forcebolt/strong"
 		else
 			charge_cost = 100
 			to_chat(user, "\red The [src.name] will now strike only a single person.")
-
 			projectile_type = "/obj/item/projectile/forcebolt"
 	*/
 
@@ -179,11 +175,9 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	set popup_menu = 0
 	if(usr.stat || !(istype(usr,/mob/living/carbon/human)))
 		to_chat(usr, "You are unable to focus down the scope of the rifle.")
-
 		return
 	if(!zoom && usr.get_active_hand() != src)
 		to_chat(usr, "You are too distracted to look down the scope, perhaps if it was in your active hand this might work better")
-
 		return
 
 	if(usr.client.view == world.view)
@@ -198,7 +192,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 			usr.button_pressed_F12(1)
 		zoom = 0
 	to_chat(usr, "<font color='[zoom?"blue":"red"]'>Zoom mode [zoom?"en":"dis"]abled.</font>")
-
 
 
 /obj/item/weapon/gun/energy/kinetic_accelerator
@@ -249,7 +242,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else if(user)
 		to_chat(usr, "<span class='warning'>You silently charge [src].<span>")
-
 	recently_fired = 0
 	update_icon()
 
@@ -302,19 +294,16 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	if(power_supply)
 		to_chat(user, "<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>")
 
-
 /obj/item/weapon/gun/energy/plasmacutter/attackby(var/obj/item/A, var/mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
 		power_supply.give(10000)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-
 	else if(istype(A, /obj/item/weapon/ore/plasma))
 		qdel(A)
 		power_supply.give(5000)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-
 	else
 		..()
 
@@ -388,13 +377,11 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 		if(0)
 			mode = 1
 			to_chat(user, "<span class='warning'>[name] is now set to orange.</span>")
-
 			projectile_type = "/obj/item/projectile/beam/wormhole/orange"
 			modifystate = "wormhole_projector_orange"
 		if(1)
 			mode = 0
 			to_chat(user, "<span class='warning'>[name] is now set to blue.</span>")
-
 			projectile_type = "/obj/item/projectile/beam/wormhole"
 			modifystate = "wormhole_projector"
 	update_icon()

@@ -40,7 +40,6 @@
 
 	if(reagents.total_volume < 1)
 		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
-
 		return
 
 	var/turf/simulated/turf = A
@@ -53,7 +52,6 @@
 
 		if(do_after(user, src.mopspeed, target = turf))
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
-
 			clean(turf)
 
 
@@ -70,7 +68,6 @@
 /obj/item/weapon/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
 	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
-
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 	return 1
 

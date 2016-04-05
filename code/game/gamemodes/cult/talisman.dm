@@ -29,7 +29,6 @@
 					call(/obj/effect/rune/proc/blind)()
 				if("runestun")
 					to_chat(user, "\red To use this talisman, attack your target directly.")
-
 					return
 				if("supply")
 					supply()
@@ -40,7 +39,6 @@
 			return
 		else
 			to_chat(user, "You see strange symbols on the paper. Are they supposed to mean something?")
-
 			return
 
 
@@ -102,10 +100,8 @@
 						var/where = M.equip_in_one_of_slots(T, slots)
 						if (!where)
 							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
-
 						else
 							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
-
 							M.update_icons()
 							src.uses--
 							supply()
@@ -127,10 +123,8 @@
 						var/where = M.equip_in_one_of_slots(T, slots)
 						if (!where)
 							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
-
 						else
 							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
-
 							M.update_icons()
 							src.uses--
 							supply()
@@ -150,10 +144,8 @@
 						var/where = M.equip_in_one_of_slots(T, slots)
 						if (!where)
 							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
-
 						else
 							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
-
 							M.update_icons()
 							src.uses--
 							supply()
@@ -173,10 +165,8 @@
 						var/where = M.equip_in_one_of_slots(T, slots)
 						if (!where)
 							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
-
 						else
 							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
-
 							M.update_icons()
 							src.uses--
 							supply()
@@ -196,10 +186,8 @@
 						var/where = M.equip_in_one_of_slots(T, slots)
 						if (!where)
 							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
-
 						else
 							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
-
 							M.update_icons()
 							src.uses--
 							supply()
@@ -219,10 +207,8 @@
 						var/where = M.equip_in_one_of_slots(T, slots)
 						if (!where)
 							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
-
 						else
 							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
-
 							M.update_icons()
 							src.uses--
 							supply()
@@ -242,10 +228,8 @@
 						var/where = M.equip_in_one_of_slots(T, slots)
 						if (!where)
 							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
-
 						else
 							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
-
 							M.update_icons()
 							src.uses--
 							supply()

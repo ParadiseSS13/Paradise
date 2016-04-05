@@ -27,7 +27,6 @@
 	set category = "Object"
 	if (usr.get_item_by_slot(slot_back) != src)
 		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
-
 		return
 	if(usr.incapacitated())
 		return
@@ -42,7 +41,6 @@
 		if(!user.put_in_hands(noz))
 			on = 0
 			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
-
 			return
 		noz.loc = user
 	else
@@ -128,7 +126,6 @@
 
 /obj/item/weapon/reagent_containers/spray/mister/dropped(mob/user as mob)
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
-
 	tank.on = 0
 	loc = tank
 
@@ -179,7 +176,6 @@
 /obj/item/weapon/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
-
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -245,25 +241,21 @@
 			nozzle_mode = NANOFROST
 			tank.icon_state = "waterbackpackatmos_1"
 			to_chat(user, "Swapped to nanofrost launcher")
-
 			return
 		if(NANOFROST)
 			nozzle_mode = METAL_FOAM
 			tank.icon_state = "waterbackpackatmos_2"
 			to_chat(user, "Swapped to metal foam synthesizer")
-
 			return
 		if(METAL_FOAM)
 			nozzle_mode = EXTINGUISHER
 			tank.icon_state = "waterbackpackatmos_0"
 			to_chat(user, "Swapped to water extinguisher")
-
 			return
 	return
 
 /obj/item/weapon/extinguisher/mini/nozzle/dropped(mob/user as mob)
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
-
 	tank.on = 0
 	loc = tank
 
@@ -280,11 +272,9 @@
 		var/datum/reagents/R = reagents
 		if(R.total_volume < 100)
 			to_chat(user, "You need at least 100 units of water to use the nanofrost launcher!")
-
 			return
 		if(nanofrost_cooldown)
 			to_chat(user, "Nanofrost launcher is still recharging")
-
 			return
 		nanofrost_cooldown = 1
 		R.remove_any(100)
@@ -311,7 +301,6 @@
 					metal_synthesis_cooldown--
 		else
 			to_chat(user, "Metal foam mix is still being synthesized.")
-
 			return
 
 /obj/effect/nanofrost_container

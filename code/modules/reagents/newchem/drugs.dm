@@ -18,7 +18,6 @@
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
-
 	if(prob(50))
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
@@ -51,16 +50,13 @@
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
 		to_chat(M, "<span class='notice'>You feel great!</span>")
-
 		M.reagents.add_reagent("methamphetamine", rand(1,2))
 		M.emote(pick("laugh", "giggle"))
 	if(prob(6))
 		to_chat(M, "<span class='notice'>You feel warm.</span>")
-
 		M.bodytemperature += rand(1,10)
 	if(prob(4))
 		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
-
 		M.adjustToxLoss(1)
 		M.jitteriness += 30
 		M.emote(pick("groan", "moan"))
@@ -109,12 +105,10 @@
 		M.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
 	if(prob(10))
 		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
-
 		M.bodytemperature--
 		M.emote("smile")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>You feel too chill!</span>")
-
 		M.emote(pick("yawn", "drool"))
 		M.Stun(1)
 		M.adjustToxLoss(1)
@@ -122,7 +116,6 @@
 		M.bodytemperature -= 20
 	if(prob(2))
 		to_chat(M, "<span class='warning'>Your skin feels all rough and dry.</span>")
-
 		M.adjustBruteLoss(2)
 	..()
 	return
@@ -239,7 +232,6 @@
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-
 	M.AdjustParalysis(-5)
 	M.AdjustStunned(-5)
 	M.AdjustWeakened(-5)
@@ -301,10 +293,8 @@
 	var/high_message = pick("really buff", "on top of the world","like you're made of steel", "energized", "invigorated", "full of energy")
 	if(prob(8))
 		to_chat(M, "<span class='notice'>[high_message]!</span>")
-
 	if(prob(5))
 		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
-
 		M.adjustOxyLoss(15)
 		M.Stun(1)
 		M.losebreath++
@@ -326,7 +316,6 @@
 		M.emote(pick("laugh","giggle","smile"))
 	if(prob(5))
 		to_chat(M, "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","You feel warm.")]")
-
 	if(prob(4))
 		M.confused = max(M.confused, 10)
 	if(volume >= 50 && prob(25))
@@ -401,12 +390,10 @@
 					M.adjustToxLoss(1)
 				if(2)
 					to_chat(M, "<span class='danger'>[M] can't seem to control their legs!</span>")
-
 					M.Weaken(8)
 					M.adjustToxLoss(1)
 				if(3)
 					to_chat(M, "<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
-
 					M.drop_l_hand()
 					M.drop_r_hand()
 					M.adjustToxLoss(1)
@@ -446,7 +433,6 @@
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-
 	M.AdjustParalysis(-2)
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
@@ -495,7 +481,6 @@
 			high_message = "01010100010100100100000101001110010100110100001101000101010011100100010001000101010011100100001101000101."
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-
 	..()
 	return
 
@@ -507,7 +492,6 @@
 	M.apply_effect(STUTTER, 5)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
-
 		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
 		//Lightning effect for electrical discharge visualization
 		var/icon/I=new('icons/obj/zap.dmi',"lightningend")

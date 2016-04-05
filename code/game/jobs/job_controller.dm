@@ -18,7 +18,6 @@ var/global/datum/controller/occupations/job_master
 		var/list/all_jobs = subtypesof(/datum/job)
 		if(!all_jobs.len)
 			to_chat(world, "\red \b Error setting up jobs, no job datums found")
-
 			return 0
 		for(var/J in all_jobs)
 			var/datum/job/job = new J()
@@ -386,7 +385,6 @@ var/global/datum/controller/occupations/job_master
 		else
 			to_chat(H, "Your job is [rank] and the game just can't handle it! Please report this bug to an administrator.")
 
-
 		H.job = rank
 
 		if(!joined_late)
@@ -435,7 +433,6 @@ var/global/datum/controller/occupations/job_master
 		spawn(0)
 			to_chat(H, "\blue<b>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</b>")
 
-
 		var/alt_title = null
 		if(H.mind)
 			H.mind.assigned_role = rank
@@ -468,12 +465,9 @@ var/global/datum/controller/occupations/job_master
 					H.species.equip(H)
 
 		to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
-
 		to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
-
 		if(job.req_admin_notify)
 			to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
-
 
 		spawnId(H, rank, alt_title)
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)

@@ -47,7 +47,6 @@
 					M.show_message("\red \b The [O] bounces harmlessly off of [src]. ")
 	else
 		to_chat(usr, "\red This weapon is ineffective, it does no damage.")
-
 		for(var/mob/M in viewers(src, null))
 			if ((M.client && !( M.blinded )))
 				M.show_message("\red [user] gently taps [src] with the [O]. ")
@@ -62,11 +61,9 @@
 		return
 
 	to_chat(src, "\red You launch a razor-sharp quill at [target]!")
-
 	for(var/mob/O in oviewers())
 		if ((O.client && !( O.blinded )))
 			to_chat(O, "\red [src] launches a razor-sharp quill at [target]!")
-
 
 	var/obj/item/weapon/arrow/quill/Q = new(loc)
 	Q.fingerprintslast = src.ckey
@@ -75,7 +72,6 @@
 
 	spawn(100)
 		to_chat(src, "\red You feel a fresh quill slide into place.")
-
 		quills++
 
 /mob/living/simple_animal/vox/armalis/verb/message_mob()
@@ -98,17 +94,14 @@
 
 	if(istype(M, /mob/dead/observer) || M.stat == DEAD)
 		to_chat(src, "Not even the armalis can speak to the dead.")
-
 		return
 
 	to_chat(M, "\blue Like lead slabs crashing into the ocean, alien thoughts drop into your mind: [text]")
-
 	if(istype(M,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		if(H.species.name == "Vox")
 			return
 		to_chat(H, "\red Your nose begins to bleed...")
-
 		H.drip(1)
 
 /mob/living/simple_animal/vox/armalis/verb/shriek()

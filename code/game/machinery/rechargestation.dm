@@ -90,7 +90,6 @@
 	if (istype(P, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-
 			return
 		default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", P)
 		return
@@ -219,12 +218,10 @@
 
 	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
 		to_chat(usr, "They are too far away to put inside")
-
 		return
 
 	if (panel_open)
 		to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
-
 		return
 
 	var/can_accept_user
@@ -236,11 +233,9 @@
 			return
 		if(occupant)
 			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
-
 			return
 		if(!R.cell)
 			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
-
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
 		can_accept_user = 1
@@ -252,7 +247,6 @@
 			return
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
-
 			return
 		if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			return
@@ -260,7 +254,6 @@
 
 	if(!can_accept_user)
 		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
-
 		return
 
 	user.stop_pulling()

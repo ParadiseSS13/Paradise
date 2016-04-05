@@ -67,7 +67,6 @@
 			if(istype(load, /mob/living/carbon/human))
 				var/mob/living/D = load
 				to_chat(D, "\red You hit [M]!")
-
 				msg_admin_attack("[key_name_admin(D)] hit [key_name_admin(M)] with [src].")
 
 
@@ -88,7 +87,6 @@
 	var/turf/T = get_step_to(src, get_step(src, direction))
 	if(!T)
 		to_chat(user, "You can't find a clear area to step onto.")
-
 		return 0
 
 	if(user != load)
@@ -101,7 +99,6 @@
 
 	to_chat(user, "\blue You climb down from [src].")
 
-
 	return 1
 
 /obj/vehicle/train/MouseDrop_T(var/atom/movable/C, mob/user as mob)
@@ -112,7 +109,6 @@
 	else
 		if(!load(C))
 			to_chat(user, "\red You were unable to load [C] on [src].")
-
 
 /obj/vehicle/train/attack_hand(mob/user as mob)
 	if(user.stat || user.restrained() || !Adjacent(user))
@@ -150,17 +146,14 @@
 /obj/vehicle/train/proc/attach_to(obj/vehicle/train/T, mob/user)
 	if (get_dist(src, T) > 1)
 		to_chat(user, "\red [src] is too far away from [T] to hitch them together.")
-
 		return
 
 	if (lead)
 		to_chat(user, "\red [src] is already hitched to something.")
-
 		return
 
 	if (T.tow)
 		to_chat(user, "\red [T] is already towing something.")
-
 		return
 
 	//check for cycles.
@@ -168,7 +161,6 @@
 	while (next_car)
 		if (next_car == src)
 			to_chat(user, "\red That seems very silly.")
-
 			return
 		next_car = next_car.lead
 
@@ -180,7 +172,6 @@
 	if(user)
 		to_chat(user, "\blue You hitch [src] to [T].")
 
-
 	update_stats()
 
 
@@ -188,7 +179,6 @@
 /obj/vehicle/train/proc/unattach(mob/user)
 	if (!lead)
 		to_chat(user, "\red [src] is not hitched to anything.")
-
 		return
 
 	lead.tow = null

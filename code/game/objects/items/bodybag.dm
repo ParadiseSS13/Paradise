@@ -58,7 +58,6 @@
 			return
 		else if(istype(W, /obj/item/weapon/wirecutters))
 			to_chat(user, "You cut the tag off the bodybag")
-
 			src.name = "body bag"
 			src.overlays.Cut()
 			return
@@ -91,7 +90,6 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
-
 
 /obj/item/bodybag/cryobag
 	name = "stasis bag"
@@ -129,7 +127,6 @@
 		if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
 			if(!ishuman(usr))	return
 			to_chat(usr, "\red You can't fold that up anymore..")
-
 		..()
 
 	attackby(W as obj, mob/user as mob, params)
@@ -137,8 +134,6 @@
 			if(src.allowed(user))
 				src.locked = !src.locked
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
-
 			else
 				to_chat(user, "\red Access denied.")
-
 			return

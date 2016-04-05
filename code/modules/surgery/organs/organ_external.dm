@@ -294,7 +294,6 @@
 		var/obj/item/organ/external/stump/S = locate() in children
 		if(S)
 //			to_chat(world, "Extra healing to go around ([brute+burn]) and [owner] needs a replacement limb.")
-
 */
 
 	//Sync the organ's damage with its wounds
@@ -530,7 +529,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if (!(status & ORGAN_DEAD))
 			status |= ORGAN_DEAD
 			to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
-
 			owner.update_body(1)
 
 		germ_level++

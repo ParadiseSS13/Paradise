@@ -36,17 +36,14 @@
 
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
 			to_chat(usr, "\red You can't do that.")
-
 			return
 
 		if(!Adjacent(usr))
 			to_chat(usr, "You can't reach it.")
-
 			return
 
 		if(!istype(loc,/turf))
 			to_chat(usr, "[src] is too bulky!  You'll have to set it down.")
-
 			return
 
 		if(!stored_computer)
@@ -54,7 +51,6 @@
 				for(var/obj/O in contents)
 					O.forceMove(loc)
 			to_chat(usr, "\The [src] crumbles to pieces.")
-
 			spawn(5)
 				qdel(src)
 			return
@@ -67,13 +63,11 @@
 			loc = null
 			to_chat(usr, "You open \the [src].")
 
-
 			spawn(5)
 				stored_computer.manipulating = 0
 				qdel(src)
 		else
 			to_chat(usr, "\red You are already opening the computer!")
-
 
 
 	AltClick()
@@ -102,7 +96,6 @@
 
 	if(!C)
 		to_chat(usr, "There is no card port on the laptop.")
-
 		return
 
 	var/obj/item/weapon/card/id/card
@@ -112,11 +105,9 @@
 		card = C.writer
 	else
 		to_chat(usr, "There is nothing to remove from the laptop card port.")
-
 		return
 
 	to_chat(usr, "You remove [card] from the laptop.")
-
 	C.remove(card)
 
 
@@ -145,12 +136,10 @@
 
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
 			to_chat(usr, "\red You can't do that.")
-
 			return
 
 		if(!Adjacent(usr))
 			to_chat(usr, "You can't reach it.")
-
 			return
 
 		if(istype(loc,/obj/item/device/laptop))
@@ -162,7 +151,6 @@
 
 		if(stat&BROKEN)
 			to_chat(usr, "\The [src] is broken!  You can't quite get it closed.")
-
 			return
 
 		if(!portable)
@@ -174,7 +162,6 @@
 			forceMove(portable)
 			stat |= MAINT
 			to_chat(usr, "You close \the [src].")
-
 
 	auto_use_power()
 		if(stat&MAINT)

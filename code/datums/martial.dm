@@ -85,12 +85,10 @@
 
 /datum/martial_art/boxing/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't disarm while boxing!</span>")
-
 	return 1
 
 /datum/martial_art/boxing/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't grab while boxing!</span>")
-
 	return 1
 
 /datum/martial_art/boxing/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
@@ -253,13 +251,9 @@
 	set category = "Wrestling"
 
 	to_chat(usr, "<b><i>You flex your muscles and have a revelation...</i></b>")
-
 	to_chat(usr, "<span class='notice'>Clinch</span>: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
-
 	to_chat(usr, "<span class='notice'>Suplex</span>: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
-
 	to_chat(usr, "<span class='notice'>Advanced grab</span>: Grab. Passively causes stamina damage when grabbing someone.")
-
 
 #define TORNADO_COMBO "HHD"
 #define THROWBACK_COMBO "DHD"
@@ -344,13 +338,9 @@
 	set category = "Plasma Fist"
 
 	to_chat(usr, "<b><i>You clench your fists and have a flashback of knowledge...</i></b>")
-
 	to_chat(usr, "<span class='notice'>Tornado Sweep</span>: Harm Harm Disarm. Repulses target and everyone back.")
-
 	to_chat(usr, "<span class='notice'>Throwback</span>: Disarm Harm Disarm. Throws the target and an item at them.")
-
 	to_chat(usr, "<span class='notice'>The Plasma Fist</span>: Harm Disarm Disarm Disarm Harm. Knocks the brain out of the opponent and gibs their body.")
-
 
 //Used by the gang of the same name. Uses combos. Basic attacks bypass armor and never miss
 #define WRIST_WRENCH_COMBO "DD"
@@ -484,17 +474,11 @@
 
 	to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Sleeping Carp...</i></b>")
 
-
 	to_chat(usr, "<span class='notice'>Wrist Wrench</span>: Disarm Disarm. Forces opponent to drop item in hand.")
-
 	to_chat(usr, "<span class='notice'>Back Kick</span>: Harm Grab. Opponent must be facing away. Knocks down.")
-
 	to_chat(usr, "<span class='notice'>Stomach Knee</span>: Grab Harm. Knocks the wind out of opponent and stuns.")
-
 	to_chat(usr, "<span class='notice'>Head Kick</span>: Disarm Harm Harm. Decent damage, forces opponent to drop item in hand.")
-
 	to_chat(usr, "<span class='notice'>Elbow Drop</span>: Harm Disarm Harm Disarm Harm. Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition.")
-
 
 //ITEMS
 
@@ -528,7 +512,6 @@
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
-
 	return
 
 /obj/item/weapon/storage/belt/champion/wrestling/dropped(mob/user)
@@ -538,7 +521,6 @@
 	if(H.get_item_by_slot(slot_belt) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
-
 	return
 
 /obj/item/weapon/plasma_fist_scroll
@@ -556,7 +538,6 @@
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
-
 		used = 1
 		desc = "It's completely blank."
 		name = "empty scroll"
@@ -607,7 +588,6 @@
 	add_fingerprint(user)
 	if((CLUMSY in user.disabilities) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
-
 		user.Weaken(3)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -622,7 +602,6 @@
 	var/mob/living/carbon/C = target
 	if(C.stat)
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while they cannot retaliate.</span>")
-
 		return
 	switch(user.a_intent)
 		if("disarm")

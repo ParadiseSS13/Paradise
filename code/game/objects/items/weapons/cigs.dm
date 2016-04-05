@@ -103,14 +103,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
 			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
-
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
 				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
-
 			else
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
-
 
 
 /obj/item/clothing/mask/cigarette/proc/light(var/flavor_text = "[usr] lights the [name].")
@@ -180,7 +177,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 			reagents.trans_to(C, REAGENTS_METABOLISM)
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
-
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 	return
@@ -193,7 +189,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
-
 		M.unEquip(src, 1)		//Force the un-equip so the overlays update
 	processing_objects.Remove(src)
 	qdel(src)
@@ -309,7 +304,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else
 		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such uncivilized means.</span>")
 
-
 /////////////////
 //SMOKING PIPES//
 /////////////////
@@ -345,7 +339,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(ismob(loc))
 			var/mob/living/M = loc
 			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
-
 			lit = 0
 			icon_state = icon_off
 			item_state = icon_off
@@ -365,7 +358,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	if(smoketime <= 0)
 		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
-
 		reagents.add_reagent("nicotine", chem_volume)
 		smoketime = initial(smoketime)
 	return
@@ -375,7 +367,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		..()
 	else
 		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such means.</span>")
-
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
@@ -411,13 +402,11 @@ obj/item/weapon/rollingpaperpack/attack_self(mob/user)
 		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
 		user.put_in_inactive_hand(P)
 		to_chat(user, "You take a paper out of the pack.")
-
 		papers --
 	else
 		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
 		user.put_in_inactive_hand(P)
 		to_chat(user, "You take the last paper out of the pack, and throw the pack away.")
-
 		qdel(src)
 
 /obj/item/weapon/rollingpaperpack/MouseDrop(atom/over_object)
@@ -440,4 +429,3 @@ obj/item/weapon/rollingpaperpack/attack_self(mob/user)
 /obj/item/weapon/rollingpaperpack/examine(mob/user)
 	..(user)
 	to_chat(user, "There are [src.papers] left")
-

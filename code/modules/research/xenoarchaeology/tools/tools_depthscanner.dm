@@ -48,7 +48,6 @@
 			for(var/mob/L in range(src, 1))
 				to_chat(L, "\blue \icon[src] [src] pings.")
 
-
 	else if(istype(A,/obj/structure/boulder))
 		var/obj/structure/boulder/B = A
 		if(B.artifact_find)
@@ -67,7 +66,6 @@
 
 			for(var/mob/L in range(src, 1))
 				to_chat(L, "\blue \icon[src] [src] pings [pick("madly","wildly","excitedly","crazily")]!.")
-
 
 /obj/item/device/depth_scanner/attack_self(var/mob/user as mob)
 	return src.interact(user)

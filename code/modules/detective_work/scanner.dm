@@ -18,7 +18,6 @@
 	if(log.len && !scanning)
 		scanning = 1
 		to_chat(user, "<span class='notice'>Printing report, please wait...</span>")
-
 		playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 		spawn(100)
 
@@ -35,13 +34,11 @@
 				M.put_in_hands(P)
 				to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
 
-
 			// Clear the logs
 			log = list()
 			scanning = 0
 	else
 		to_chat(user, "<span class='notice'>The scanner has no logs or is in use.</span>")
-
 
 /obj/item/device/detective_scanner/attack(mob/living/M as mob, mob/user as mob)
 	return
@@ -63,7 +60,6 @@
 
 		user.visible_message("\The [user] points the [src.name] at \the [A] and performs a forensic scan.")
 		to_chat(user, "<span class='notice'>You scan \the [A]. The scanner is now analysing the results...</span>")
-
 
 
 		// GATHER INFORMATION
@@ -157,11 +153,9 @@
 				add_log("<I># No forensic traces found #</I>", 0) // Don't display this to the holder user
 				if(holder)
 					to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>")
-
 			else
 				if(holder)
 					to_chat(holder, "<span class='notice'>You finish scanning \the [target_name].</span>")
-
 
 			add_log("---------------------------------------------------------", 0)
 			scanning = 0
@@ -172,7 +166,6 @@
 		if(broadcast && ismob(loc))
 			var/mob/M = loc
 			to_chat(M, msg)
-
 		log += "&nbsp;&nbsp;[msg]"
 	else
 		CRASH("[src] \ref[src] is adding a log when it was never put in scanning mode!")

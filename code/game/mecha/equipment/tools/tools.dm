@@ -546,7 +546,6 @@
 		chassis.log_message("Attacked by [W]. Attacker - [user]")
 		if(prob(chassis.deflect_chance*deflect_coeff))
 			to_chat(user, "\red The [W] bounces off [chassis] armor.")
-
 			chassis.log_append_to_last("Armor saved.")
 		else
 			chassis.occupant_message("<font color='red'><b>[user] hits [chassis] with [W].</b></font>")
@@ -934,7 +933,6 @@
 			user.visible_message("[user] tries to shove [weapon_name] into [src], but \the [src] rejects it.","<font color='red'>[fuel_name] traces in target minimal. [weapon_name] cannot be used as fuel.</font>")
 		else if(!result)
 			to_chat(user, "Unit is full.")
-
 		else
 			user.visible_message("[user] loads [src] with \the [weapon_name].","[result] unit\s of [fuel_name] successfully loaded.")
 		return

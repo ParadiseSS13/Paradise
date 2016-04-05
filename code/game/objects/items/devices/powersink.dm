@@ -37,7 +37,6 @@
 				attached = locate() in T
 				if(!attached)
 					to_chat(user, "No exposed cable here to attach to.")
-
 					return
 				else
 					anchored = 1
@@ -48,7 +47,6 @@
 					return
 			else
 				to_chat(user, "Device must be placed over an exposed cable to attach to it.")
-
 				return
 		else
 			if (mode == 2)

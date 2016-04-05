@@ -32,7 +32,6 @@
 	//  Returns: null
 	proc/fireEvent()
 //		to_chat(world, "Events in [args[1]] called")
-
 		var/list/event = listgetindex(events,args[1])
 		if(istype(event))
 			spawn(-1)
@@ -62,7 +61,6 @@
 
 	proc/Fire()
 //		to_chat(world, "Event fired")
-
 		if(listener)
 			call(listener,proc_name)(arglist(args))
 			return 1

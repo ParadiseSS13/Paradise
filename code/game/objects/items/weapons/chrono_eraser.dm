@@ -83,7 +83,6 @@
 	if(F.gun)
 		if(isliving(user) && F.captured)
 			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
-
 		src.field_disconnect(F)
 	else
 		startpos = get_turf(src)
@@ -93,7 +92,6 @@
 			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
 
 
-
 /obj/item/weapon/gun/energy/chrono_gun/proc/field_disconnect(var/obj/effect/chrono_field/F)
 	if(F && field == F)
 		var/mob/living/user = src.loc
@@ -101,7 +99,6 @@
 			F.gun = null
 		if(isliving(user) && F.captured)
 			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
-
 	field = null
 	startpos = null
 
@@ -198,7 +195,6 @@
 			qdel(src)
 		else if(tickstokill <= 0)
 			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>")
-
 			var/mob/dead/observer/ghost = captured.ghostize(1)
 			if(captured.mind)
 				if(ghost)

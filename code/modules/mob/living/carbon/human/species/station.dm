@@ -276,7 +276,6 @@
 	else
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
-
 	H.internal = H.l_hand
 	if (H.internals)
 		H.internals.icon_state = "internal1"
@@ -445,19 +444,16 @@
 	if(!istype(S))
 		if(!silent)
 			to_chat(src, "You're not a slime person!")
-
 		return
 
 	if(src in S.recolor_list)
 		S.recolor_list -= src
 		if(!silent)
 			to_chat(src, "You adjust your internal chemistry to filter out pigments from things you consume.")
-
 	else
 		S.recolor_list += src
 		if(!silent)
 			to_chat(src, "You adjust your internal chemistry to permit pigments in chemicals you consume to tint you.")
-
 
 /mob/living/carbon/human/verb/toggle_recolor_verb()
 	set category = "IC"
@@ -478,12 +474,10 @@
 
 	if(stat || paralysis || stunned)
 		to_chat(src, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
-
 		return
 
 	if(nutrition < SLIMEPERSON_MINHUNGER)
 		to_chat(src, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
-
 		return
 
 	var/list/missing_limbs = list()
@@ -500,7 +494,6 @@
 
 	if(!missing_limbs.len)
 		to_chat(src, "<span class='warning'>You're not missing any limbs!</span>")
-
 		return
 
 	var/limb_select = input(src, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
@@ -510,12 +503,10 @@
 	if(do_after(src, SLIMEPERSON_REGROWTHDELAY, needhand=0, target = src))
 		if(stat || paralysis || stunned)
 			to_chat(src, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
-
 			return
 
 		if(nutrition < SLIMEPERSON_MINHUNGER)
 			to_chat(src, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
-
 			return
 
 		var/obj/item/organ/external/O = organs_by_name[chosen_limb]
@@ -525,11 +516,9 @@
 		if(istype(O))
 			if(!O.is_stump())
 				to_chat(src, "<span class='warning'>Your limb has already been replaced in some way!</span>")
-
 				return
 			else
 				to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
-
 				var/obj/item/organ/external/doomedStump = O
 				stored_brute = doomedStump.brute_dam
 				stored_burn = doomedStump.burn_dam
@@ -541,7 +530,6 @@
 		var/obj/item/organ/external/potential_parent = organs_by_name[initial(limb_path.parent_organ)]
 		if(!istype(potential_parent) || potential_parent.is_stump())
 			to_chat(src, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
-
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
@@ -556,7 +544,6 @@
 		visible_message("<span class='notice'>[src] finishes regrowing their missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
 	else
 		to_chat(src, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
-
 	return
 
 #undef SLIMEPERSON_HUNGERCOST

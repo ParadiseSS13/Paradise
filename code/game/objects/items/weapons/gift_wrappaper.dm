@@ -31,7 +31,6 @@
 		src.gift.add_fingerprint(user)
 	else
 		to_chat(user, "\blue The gift was empty!")
-
 	qdel(src)
 	return
 
@@ -44,17 +43,14 @@
 		return
 	to_chat(user, "\blue You cant move.")
 
-
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if (!istype(W, /obj/item/weapon/wirecutters))
 		to_chat(user, "\blue I need wirecutters for that.")
-
 		return
 
 	to_chat(user, "\blue You cut open the present.")
-
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc
@@ -146,4 +142,3 @@
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
-

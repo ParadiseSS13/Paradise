@@ -20,7 +20,6 @@ var/global/list/default_pai_software = list()
 		if(pai_software_by_key[P.id])
 			var/datum/pai_software/O = pai_software_by_key[P.id]
 			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
-
 			r = 0
 			continue
 		pai_software_by_key[P.id] = P

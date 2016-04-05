@@ -415,10 +415,8 @@
 		if (prob(src.reliability))
 			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
 
-
 		else
 			to_chat(user, "\red The Bluespace generator malfunctions!")
-
 			for (var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
@@ -494,7 +492,6 @@
 	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/structure/table) || istype(target, /obj/structure/closet))
 		return
 	to_chat(user, "Planting explosives...")
-
 	user.visible_message("[user.name] is fiddling with their toolbelt.")
 	if(ismob(target))
 		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
@@ -513,7 +510,6 @@
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
 		to_chat(user, "You sacrifice your belt for the sake of justice. Timer counting down from 15.")
-
 		spawn(150)
 			if(target)
 				if(ismob(target) || isobj(target))

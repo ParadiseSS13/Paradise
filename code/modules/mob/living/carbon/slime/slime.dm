@@ -233,7 +233,6 @@
 /mob/living/carbon/slime/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
-
 		return
 
 	if (Victim) return // can't attack while eating!
@@ -295,12 +294,10 @@
 /mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M as mob)
 	if (!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
-
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
-
 		return
 
 	..()
@@ -375,7 +372,6 @@
 					return
 				else
 					to_chat(M, "\red Not enough charge! ")
-
 					return
 */
 
@@ -424,12 +420,10 @@
 /mob/living/carbon/slime/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
-
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
-
 		return
 
 	switch(M.a_intent)
@@ -510,7 +504,6 @@
 		else
 			Friends[user] = 1
 		to_chat(user, "You feed the slime the plasma. It chirps happily.")
-
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
 		return
@@ -518,7 +511,6 @@
 		attacked += 10
 		if(prob(25))
 			to_chat(user, "<span class='danger'>[W] passes right through [src]!</span>")
-
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
 			Discipline = 0
@@ -603,5 +595,4 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
 		return 1
 	to_chat(user, "This creature does not seem to have a mouth!")
-
 	return 0

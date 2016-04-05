@@ -148,15 +148,12 @@
 		return
 	if (!ishuman(usr)) //Make sure they're a mob that has dna
 		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
-
 		return
 	if (src.occupant)
 		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
-
 		return
 	if (usr.abiotic())
 		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-
 		return
 	usr.stop_pulling()
 	usr.client.perspective = EYE_PERSPECTIVE
@@ -188,19 +185,16 @@
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
-
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
-
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
 			to_chat(usr, "[L.name] will not fit into the [src] because they have a slime latched onto their head.")
-
 			return
 	if (L == user)
 		visible_message("[user] climbs into the [src].")
@@ -214,7 +208,6 @@
 	if(istype(item, /obj/item/weapon/screwdriver))
 		if(occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-
 			return
 		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", item)
 
@@ -230,12 +223,10 @@
 	else if(istype(item, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-
 			return
 
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [item] is stuck to you!</span>")
-
 			return
 
 		beaker = item
@@ -249,15 +240,12 @@
 		return
 	if (src.occupant)
 		to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
-
 		return
 	if (G.affecting.abiotic())
 		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-
 		return
 	if(panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-
 		return
 	put_in(G.affecting)
 	src.add_fingerprint(user)
@@ -286,20 +274,16 @@
 		var/mob/dead/observer/ghost = occupant.get_ghost()
 		if(ghost)
 			to_chat(ghost, "<span class='ghostalert'>Your corpse has been placed into a cloning scanner. Return to your body if you want to be cloned!</span> (Verbs -> Ghost -> Re-enter corpse)")
-
 			to_chat(ghost, sound('sound/effects/genetics.ogg'))
-
 	return
 
 /obj/machinery/dna_scannernew/proc/go_out()
 	if (!src.occupant)
 		to_chat(usr, "<span class='warning'>The scanner is empty!</span>")
-
 		return
 
 	if (src.locked)
 		to_chat(usr, "<span class='warning'>The scanner is locked!</span>")
-
 		return
 
 	if (src.occupant.client)
@@ -398,7 +382,6 @@
 			I.forceMove(src)
 			src.disk = I
 			to_chat(user, "You insert [I].")
-
 			nanomanager.update_uis(src) // update all UIs attached to src()
 			return
 	else

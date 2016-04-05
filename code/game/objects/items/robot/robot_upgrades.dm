@@ -13,7 +13,6 @@
 /obj/item/borg/upgrade/proc/action(var/mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
 		to_chat(usr, "\red The [src] will not function on a deceased robot.")
-
 		return 1
 	return 0
 
@@ -72,7 +71,6 @@
 /obj/item/borg/upgrade/restart/action(var/mob/living/silicon/robot/R)
 	if(R.health < 0)
 		to_chat(usr, "You have to repair the robot before using this module!")
-
 		return 0
 
 	if(!R.key)
@@ -115,9 +113,7 @@
 
 	if(!istype(R.module, /obj/item/weapon/robot_module/security))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
-
 		to_chat(usr, "There's no mounting point for the module!")
-
 		return 0
 
 	var/obj/item/weapon/gun/energy/disabler/cyborg/T = locate() in R.module
@@ -127,14 +123,11 @@
 		T = locate() in R.module.modules
 	if(!T)
 		to_chat(usr, "This robot has had its disabler removed!")
-
 		return 0
 
 	if(T.recharge_time <= 2)
 		to_chat(R, "Maximum cooling achieved for this hardpoint!")
-
 		to_chat(usr, "There's no room for another cooling unit!")
-
 		return 0
 
 	else
@@ -153,9 +146,7 @@
 
 	if(!istype(R.module, /obj/item/weapon/robot_module/miner))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
-
 		to_chat(usr, "There's no mounting point for the module!")
-
 		return 0
 	else
 		R.module.modules += new/obj/item/weapon/tank/jetpack/carbondioxide
@@ -176,9 +167,7 @@
 
 	if(!istype(R.module, /obj/item/weapon/robot_module/miner))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
-
 		to_chat(usr, "There's no mounting point for the module!")
-
 		return 0
 	else
 		for(var/obj/item/weapon/pickaxe/drill/cyborg/D in R.module.modules)
@@ -202,9 +191,7 @@
 
 	if(!istype(R.module, /obj/item/weapon/robot_module/miner))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
-
 		to_chat(usr, "There's no mounting point for the module!")
-
 		return 0
 	else
 		for(var/obj/item/weapon/storage/bag/ore/cyborg/S in R.module.modules)

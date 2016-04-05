@@ -199,7 +199,6 @@
 	to_chat(user, "It looks like it's of a [get_chem_name()] kind.")
 
 
-
 /obj/effect/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in mob_list)
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these

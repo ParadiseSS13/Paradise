@@ -151,7 +151,6 @@
 		return
 
 	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
-
 	src.attack_hand(CM)
 
 
@@ -194,7 +193,6 @@
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
 				to_chat(B, text("\red [] stuffs [] into []!", user, O, src))
-
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -277,7 +275,6 @@
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if (cremating)
 		to_chat(usr, "\red It's locked.")
-
 		return
 	if ((connected) && (locked == 0))
 		for(var/atom/movable/A as mob|obj in connected.loc)
@@ -392,7 +389,6 @@
 		return
 
 	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
-
 	src.attack_hand(CM)
 
 /*
@@ -434,7 +430,6 @@
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
 				to_chat(B, text("\red [] stuffs [] into []!", user, O, src))
-
 			//Foreach goto(99)
 	return
 
@@ -452,7 +447,6 @@
 					C.cremate(user)
 	else
 		to_chat(usr, "\red Access denied.")
-
 	return
 
 /hook/Login/proc/update_morgue(var/client/client, var/mob/L)

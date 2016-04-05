@@ -25,12 +25,10 @@
 		if(istype(O, /obj/item/clothing/glasses/regular))
 			if(prescription)
 				to_chat(H, "You can't possibly imagine how adding more lenses would improve \the [name].")
-
 				return
 			H.unEquip(O)
 			O.loc = src // Store the glasses for later removal
 			to_chat(H, "You fit \the [name] with lenses from \the [O].")
-
 			prescription = 1
 			name = "prescription [name]"
 			return
@@ -39,7 +37,6 @@
 			if(!G)
 				G = new(get_turf(H))
 			to_chat(H, "You salvage the prescription lenses from \the [name].")
-
 			prescription = 0
 			name = initial(name)
 			H.put_in_hands(G)
@@ -270,7 +267,6 @@
 		to_chat(usr, "The moment is gone.")
 
 
-
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
 	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
@@ -329,7 +325,6 @@
 			flags_inv |= HIDEEYES
 			icon_state = initial(icon_state)
 			to_chat(usr, "You flip the [src] down to protect your eyes.")
-
 			flash_protect = 2
 			tint = initial(tint) //better than istype
 		else
@@ -338,7 +333,6 @@
 			flags_inv &= ~HIDEEYES
 			icon_state = "[initial(icon_state)]up"
 			to_chat(usr, "You push the [src] up out of your face.")
-
 			flash_protect = 0
 			tint = 0
 
@@ -399,7 +393,6 @@
 		if(istype(src.loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/M = src.loc
 			to_chat(M, "\red The Optical Thermal Scanner overloads and blinds you!")
-
 			if(M.glasses == src)
 				M.eye_blind = 3
 				M.eye_blurry = 5

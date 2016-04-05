@@ -48,7 +48,6 @@
 	else
 		if(message)
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-
 		return 0
 
 /obj/machinery/computer/communications/Topic(href, href_list)
@@ -57,13 +56,11 @@
 
 	if ((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
 		to_chat(usr, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
-
 		return 1
 
 	if(href_list["login"])
 		if(!ishuman(usr))
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
-
 			return
 		var/mob/living/carbon/human/M = usr
 		var/obj/item/card = M.get_active_hand()
@@ -100,7 +97,6 @@
 		if("newalertlevel")
 			if(isAI(usr) || isrobot(usr))
 				to_chat(usr, "<span class='warning'>Firewalls prevent you from changing the alert level.</span>")
-
 				nanomanager.update_uis(src)
 				return 1
 			tmp_alertlevel = text2num(href_list["level"])
@@ -129,18 +125,15 @@
 					tmp_alertlevel = 0
 				else
 					to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")
-
 					tmp_alertlevel = 0
 				setMenuState(usr,COMM_SCREEN_MAIN)
 			else
 				to_chat(usr, "<span class='warning'>You need to swipe your ID.</span>")
 
-
 		if("announce")
 			if(is_authenticated(usr) == 2)
 				if(message_cooldown)
 					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
-
 					nanomanager.update_uis(src)
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
@@ -166,7 +159,6 @@
 		if("cancelshuttle")
 			if(isAI(usr) || isrobot(usr))
 				to_chat(usr, "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>")
-
 				nanomanager.update_uis(src)
 				return 1
 			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
@@ -224,7 +216,6 @@
 			if(is_authenticated(usr) == 2)
 				if(centcomm_message_cooldown)
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
-
 					nanomanager.update_uis(src)
 					return
 				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","") as text|null
@@ -233,7 +224,6 @@
 					return
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
-
 				log_say("[key_name(usr)] has requested the nuclear codes from Centcomm")
 				priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = 1
@@ -245,7 +235,6 @@
 			if(is_authenticated(usr) == 2)
 				if(centcomm_message_cooldown)
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
-
 					nanomanager.update_uis(src)
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
@@ -254,7 +243,6 @@
 					return
 				Centcomm_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-
 				log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = 1
 				spawn(6000)//10 minute cooldown
@@ -266,7 +254,6 @@
 			if((is_authenticated(usr) == 2) && (src.emagged))
 				if(centcomm_message_cooldown)
 					to_chat(usr, "Arrays recycling.  Please stand by.")
-
 					nanomanager.update_uis(src)
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
@@ -275,7 +262,6 @@
 					return
 				Syndicate_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-
 				log_say("[key_name(usr)] has made a Syndicate announcement: [input]")
 				centcomm_message_cooldown = 1
 				spawn(6000)//10 minute cooldown
@@ -284,7 +270,6 @@
 
 		if("RestoreBackup")
 			to_chat(usr, "Backup routing data restored!")
-
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
@@ -295,7 +280,6 @@
 	if(!emagged)
 		src.emagged = 1
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
-
 		nanomanager.update_uis(src)
 
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
@@ -310,7 +294,6 @@
 
 	if (!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
 		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
-
 		return
 
 	ui_interact(user)
@@ -415,22 +398,18 @@
 /proc/call_shuttle_proc(var/mob/user, var/reason)
 	if(sent_strike_team == 1)
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
-
 		return
 
 	if(shuttle_master.emergencyNoEscape)
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>")
-
 		return
 
 	if(shuttle_master.emergency.mode > SHUTTLE_ESCAPE)
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>")
-
 		return
 
 	if(ticker.mode.name == "blob")
 		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
-
 		return
 
 	shuttle_master.requestEvac(user, reason)
@@ -444,22 +423,18 @@
 	if(!force)
 		if(shuttle_master.emergencyNoEscape)
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
-
 			return
 
 		if(sent_strike_team == 1)
 			to_chat(user, "Central Command will not allow the shuttle to be called. Consider all contracts terminated.")
-
 			return
 
 		if(world.time < 54000) // 30 minute grace period to let the game get going
 			to_chat(user, "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again.")
-
 			return
 
 		if(ticker.mode.name == "epidemic")
 			to_chat(user, "Under directive 7-10, [station_name()] is quarantined until further notice.")
-
 			return
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.

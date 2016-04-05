@@ -36,7 +36,6 @@ Bonus
 		switch(A.stage)
 			if(1, 2, 3, 4)
 				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
-
 			else
 				Vomit(M)
 

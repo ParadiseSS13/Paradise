@@ -11,7 +11,6 @@ var/global/list/frozen_mob_list = list()
 	set name = "Freeze"
 	if(!holder)
 		to_chat(src, "<font color='red'>Error: Freeze: Only administrators may use this command.</font>")
-
 		return
 	if(!istype(M))	return
 	if(!check_rights(R_ADMIN))	return
@@ -28,7 +27,6 @@ var/global/list/frozen_mob_list = list()
 /mob/living/proc/admin_Freeze(var/client/admin)
 	if(istype(admin))
 		to_chat(src, "<b><font color= red>You have been frozen by [key_name(admin)]</b></font>")
-
 		message_admins("<span class='notice'>[key_name_admin(admin)]</span> froze [key_name_admin(src)]")
 		log_admin("[key_name(admin)] froze [key_name(src)]")
 
@@ -45,7 +43,6 @@ var/global/list/frozen_mob_list = list()
 /mob/living/proc/admin_unFreeze(var/client/admin)
 	if(istype(admin))
 		to_chat(src, "<b><font color= red>You have been unfrozen by [key_name(admin)]</b></font>")
-
 		message_admins("\blue [key_name_admin(admin)] unfroze [key_name_admin(src)]")
 		log_admin("[key_name(admin)] unfroze [key_name(src)]")
 
@@ -89,12 +86,10 @@ var/global/list/frozen_mob_list = list()
 	set name = "Freeze Mech"
 	if(!holder)
 		to_chat(src, "Only administrators may use this command.")
-
 		return
 	var/obj/mecha/M = O
 	if(!istype(M,/obj/mecha))
 		to_chat(src, "\red <b>This can only be used on Mechs!</b>")
-
 		return
 	else
 		if(usr)
@@ -107,7 +102,6 @@ var/global/list/frozen_mob_list = list()
 						if(M.occupant)
 							M.removeVerb(/obj/mecha/verb/eject)
 							to_chat(M.occupant, "<b><font color= red>You have been frozen by <a href='?priv_msg=\ref[usr.client]'>[key]</a></b></font>")
-
 							message_admins("\blue [key_name_admin(usr)] froze [key_name(M.occupant)] in a [M.name]")
 							log_admin("[key_name(usr)] froze [key_name(M.occupant)] in a [M.name]")
 						else
@@ -119,7 +113,6 @@ var/global/list/frozen_mob_list = list()
 						if(M.occupant)
 							M.addVerb(/obj/mecha/verb/eject)
 							to_chat(M.occupant, "<b><font color= red>You have been unfrozen by <a href='?priv_msg=\ref[usr.client]'>[key]</a></b></font>")
-
 							message_admins("\blue [key_name_admin(usr)] unfroze [key_name(M.occupant)] in a [M.name]")
 							log_admin("[key_name(usr)] unfroze [M.occupant.name]/[M.occupant.ckey] in a [M.name]")
 						else

@@ -122,7 +122,6 @@
 	if(istype(W, /obj/item/weapon/wrench))
 		anchored = !anchored
 		to_chat(user, "\blue You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.")
-
 		use_power = anchored
 		reconnect()
 	else

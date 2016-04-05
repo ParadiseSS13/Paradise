@@ -15,14 +15,11 @@
 		if(src.reagents && W.reagents && !noscoop)
 			if(!src.reagents.total_volume)
 				to_chat(user, "<span class='notice'>There isn't enough [src] to scoop up!</span>")
-
 				return
 			if(W.reagents.total_volume >= W.reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[W] is full!</span>")
-
 				return
 			to_chat(user, "<span class='notice'>You scoop the [src] into [W]!</span>")
-
 			reagents.trans_to(W, reagents.total_volume)
 			if(!reagents.total_volume && !noclear) //scooped up all of it
 				qdel(src)
@@ -33,7 +30,6 @@
 			src.reagents.chem_temp += 15
 			src.reagents.handle_reactions()
 			to_chat(user, "<span class='notice'>You heat [src] with [W]!</span>")
-
 
 /obj/effect/decal/cleanable/ex_act()
 	if(reagents)

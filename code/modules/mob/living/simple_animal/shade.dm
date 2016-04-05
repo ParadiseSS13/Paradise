@@ -49,7 +49,6 @@
 						M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
 			else
 				to_chat(usr, "\red This weapon is ineffective, it does no damage.")
-
 				for(var/mob/M in viewers(src, null))
 					if ((M.client && !( M.blinded )))
 						M.show_message("\red [user] gently taps [src] with the [O]. ")

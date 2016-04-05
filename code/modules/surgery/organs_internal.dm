@@ -88,17 +88,14 @@
 		I = tool
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
-
 			return -1
 
 		if(I.damage > (I.max_damage * 0.75))
 			to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
-
 			return -1
 
 		if(target.get_int_organ(I))
 			to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
-
 			return -1
 		if(affected)
 			user.visible_message("[user] starts transplanting \the [tool] into [target]'s [affected.name].", \
@@ -127,7 +124,6 @@
 		var/list/organs = target.get_organs_zone(target_zone)
 		if(!organs.len)
 			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
-
 			return -1
 		else
 			for(var/obj/item/organ/internal/O in organs)
@@ -158,7 +154,6 @@
 
 		if(!hasorgans(target))
 			to_chat(user, "They do not have organs to mend!")
-
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0)
@@ -172,12 +167,10 @@
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
 			to_chat(user, "[I] does not appear to be damaged.")
-
 		H.custom_pain("The pain in your [affected.name] is living hell!",1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
 		to_chat(user, "<span class='warning'>[tool] was biten by someone! It's too damaged to use!</span>")
-
 		return -1
 	..()
 
@@ -213,7 +206,6 @@
 		spread_germs_to_organ(I, user)
 		if(!user.canUnEquip(I, 0))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
-
 			return 0
 
 		if(affected)

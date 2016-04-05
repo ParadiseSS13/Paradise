@@ -28,16 +28,13 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(battery_panel)
 			to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
-
 			battery_panel = 0
 		else
 			to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
-
 			battery_panel = 1
 	if(battery_panel && !overcharged)
 		if(istype(W, /obj/item/weapon/stock_parts/cell))
 			to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
-
 			qdel(W)
 			overcharged = 1
 			overlays += "overcharge"
@@ -89,18 +86,14 @@
 			M.Stun(1)
 			visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 			to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
-
 			to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
-
 			if(M.weakeyes)
 				M.Stun(2)
 				M.visible_message("<span class='disarm'>[M] gasps and shields their eyes!</span>", "<span class='userdanger'>You gasp and shields your eyes!</span>")
 		else
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
-
 			to_chat(M, "<span class='danger'>[user] fails to blind you with the flash!</span>")
-
 	else
 		if(M.flash_eyes())
 			M.confused += power
@@ -168,13 +161,10 @@
 
 					if(resisted)
 						to_chat(user, "<span class='warning'>This mind seems resistant to the [src.name]!</span>")
-
 				else
 					to_chat(user, "<span class='warning'>They must be conscious before you can convert them!</span>")
-
 			else
 				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
-
 
 
 /obj/item/device/flash/cyborg

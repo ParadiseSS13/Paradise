@@ -13,7 +13,6 @@
 	..()
 	to_chat(world, "<B>Game mode is AutoTraitor. Traitors will be added to the round automagically as needed.</B>")
 
-
 /datum/game_mode/traitor/autotraitor/pre_setup()
 
 	if(config.protect_roles_from_antagonist)
@@ -135,9 +134,7 @@
 
 				traitors += newtraitor.mind
 				to_chat(newtraitor, "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate...")
-
 				to_chat(newtraitor, "<B>You are now a traitor.</B>")
-
 				newtraitor.mind.special_role = "traitor"
 				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 				tatorhud.join_hud(newtraitor)
@@ -145,10 +142,8 @@
 
 				var/obj_count = 1
 				to_chat(newtraitor, "\blue Your current objectives:")
-
 				for(var/datum/objective/objective in newtraitor.mind.objectives)
 					to_chat(newtraitor, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 					obj_count++
 			//else
 				//message_admins("No new traitor being added.")

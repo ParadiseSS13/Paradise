@@ -32,15 +32,12 @@ Bonus
 		switch(A.stage)
 			if(1, 2)
 				to_chat(M, "<span class='warning'>Your eyes itch.</span>")
-
 			if(3, 4)
 				to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
-
 				M.blur_eyes(10)
 				M.adjust_eye_damage(1)
 			else
 				to_chat(M, "<span class='userdanger'>Your eyes burn horrificly!</span>")
-
 				M.blur_eyes(20)
 				M.adjust_eye_damage(5)
 				if(M.eye_damage >= 10)
@@ -48,7 +45,6 @@ Bonus
 					if(prob(M.eye_damage - 10 + 1))
 						if(M.become_blind())
 							to_chat(M, "<span class='userdanger'>You go blind!</span>")
-
 
 
 /*
@@ -88,5 +84,4 @@ Bonus
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 					to_chat(M, "<span class='notice'>[pick("Your eyes feel great.", "You are now blinking manually.", "You don't feel the need to blink.")]</span>")
-
 	return

@@ -32,11 +32,9 @@
 		to_chat(C.connected_ai, "<span class='unconscious'>Image recorded and saved by [name]</span>")
 		to_chat(usr, "<span class='unconscious'>Image recorded and saved to remote database</span>")//feedback to the Cyborg player that the picture was taken
 
-
 	else
 		injectaialbum(P)
 		to_chat(usr, "<span class='unconscious'>Image recorded</span>")
-
 
 /obj/item/device/camera/siliconcam/proc/selectpicture(obj/item/device/camera/siliconcam/cam)
 	if(!cam)
@@ -46,7 +44,6 @@
 	var/find
 	if(cam.aipictures.len == 0)
 		to_chat(usr, "<span class='userdanger'>No images saved</span>")
-
 		return
 	for(var/datum/picture/t in cam.aipictures)
 		nametemp += t.fields["name"]
@@ -67,7 +64,6 @@
 	P.show(usr)
 	to_chat(usr, P.desc)
 
-
 	// TG uses a special garbage collector.. qdel(P)
 	qdel(P) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.
 
@@ -79,7 +75,6 @@
 
 	cam.aipictures -= selection
 	to_chat(usr, "<span class='unconscious'>Image deleted</span>")
-
 
 /obj/item/device/camera/siliconcam/ai_camera/can_capture_turf(turf/T, mob/user)
 	var/mob/living/silicon/ai = user
@@ -95,16 +90,13 @@
 	src.in_camera_mode = 0
 	to_chat(usr, "<B>Camera Mode deactivated</B>")
 
-
 /obj/item/device/camera/siliconcam/proc/camera_mode_on()
 	src.in_camera_mode = 1
 	to_chat(usr, "<B>Camera Mode activated</B>")
 
-
 /obj/item/device/camera/siliconcam/ai_camera/printpicture(mob/user, datum/picture/P)
 	injectaialbum(P)
 	to_chat(usr, "<span class='unconscious'>Image recorded</span>")
-
 
 /obj/item/device/camera/siliconcam/robot_camera/printpicture(mob/user, datum/picture/P)
 	injectmasteralbum(P)

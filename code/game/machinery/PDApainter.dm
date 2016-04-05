@@ -44,7 +44,6 @@
 	if(istype(O, /obj/item/device/pda))
 		if(storedpda)
 			to_chat(user, "There is already a PDA inside.")
-
 			return
 		else
 			var/obj/item/device/pda/P = usr.get_active_hand()
@@ -76,7 +75,6 @@
 		to_chat(user, "<span class='notice'>The [src] is empty.</span>")
 
 
-
 /obj/machinery/pdapainter/verb/ejectpda()
 	set name = "Eject PDA"
 	set category = "Object"
@@ -88,7 +86,6 @@
 		update_icon()
 	else
 		to_chat(usr, "<span class='notice'>The [src] is empty.</span>")
-
 
 
 /obj/machinery/pdapainter/power_change()

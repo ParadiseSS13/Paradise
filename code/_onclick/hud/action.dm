@@ -281,12 +281,10 @@
 	owner.research_scanner = 1
 	to_chat(owner, "<span class='notice'> Research analyzer is now active.</span>")
 
-
 /datum/action/scan_mode/Deactivate()
 	active = 0
 	owner.research_scanner = 0
 	to_chat(owner, "<span class='notice'> Research analyzer deactivated.</span>")
-
 
 /datum/action/scan_mode/Grant(mob/living/T)
 	devices += 1

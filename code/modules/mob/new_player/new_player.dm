@@ -121,12 +121,10 @@
 			to_chat(src, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))// MAD JAMS cant last forever yo
 
 
-
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
 			to_chat(src, "\blue Now teleporting.")
-
 			observer.loc = O.loc
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
@@ -147,14 +145,12 @@
 	if(href_list["late_join"])
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "\red The round is either not ready, or has already finished...")
-
 			return
 
 		if(client.prefs.species in whitelisted_species)
 
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-
 				return 0
 
 		LateChoices()
@@ -166,13 +162,11 @@
 
 		if(!enter_allowed)
 			to_chat(usr, "\blue There is an administrative lock on entering the game!")
-
 			return
 
 		if(client.prefs.species in whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-
 				return 0
 
 		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
@@ -214,7 +208,6 @@
 
 				if( (id_max - id_min) > 100 )	//Basic exploit prevention
 					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-
 					return
 
 				for(var/optionid = id_min; optionid <= id_max; optionid++)
@@ -234,7 +227,6 @@
 
 				if( (id_max - id_min) > 100 )	//Basic exploit prevention
 					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-
 					return
 
 				for(var/optionid = id_min; optionid <= id_max; optionid++)
@@ -267,15 +259,12 @@
 		return 0
 	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "\red The round is either not ready, or has already finished...")
-
 		return 0
 	if(!enter_allowed)
 		to_chat(usr, "\blue There is an administrative lock on entering the game!")
-
 		return 0
 	if(!IsJobAvailable(rank))
 		to_chat(src, alert("[rank] is not available. Please try another."))
-
 		return 0
 
 	job_master.AssignRole(src, rank, 1)
@@ -315,7 +304,6 @@
 			join_message = S.msg
 		else
 			to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-
 			character.loc = pick(latejoin)
 			join_message = "has arrived on the station"
 	else
@@ -429,7 +417,6 @@
 	client.prefs.copy_to(new_character)
 
 	to_chat(src, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))// MAD JAMS cant last forever yo
-
 
 
 	if(mind)

@@ -65,7 +65,6 @@
 		holder.del_reagent("spore") //apparently this never metabolizes and stays in forever unless you have 45 units of atrazine in you or some stupid thing like that.
 	if(prob(1))
 		to_chat(M, "<span class='danger'>Your mouth tastes funny.</span>")
-
 	if(prob(1) && prob(25))
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M

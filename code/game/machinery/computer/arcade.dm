@@ -369,7 +369,6 @@
 				if(emagged)
 					user.nutrition = 0 //yeah you pretty hongry
 					to_chat(user, "<span class='userdanger'><font size=3>Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor.</span>")
-
 			if(fuel <= 0)
 				dat += "<br>You ran out of fuel, and drift, slowly, into a star."
 				if(emagged)
@@ -377,12 +376,10 @@
 					M.adjust_fire_stacks(5)
 					M.IgniteMob() //flew into a star, so you're on fire
 					to_chat(user, "<span class='userdanger'><font size=3>You feel an immense wave of heat emanate from the arcade machine. Your skin bursts into flames.</span>")
-
 		dat += "<br><P ALIGN=Right><a href='byond://?src=\ref[src];menu=1'>OK...</a></P>"
 
 		if(emagged)
 			to_chat(user, "<span class='userdanger'><font size=3>You're never going to make it to Orion...</span></font>")
-
 			user.death()
 			emagged = 0 //removes the emagged status after you lose
 			playing = 0 //also a new game
@@ -451,11 +448,9 @@
 				if(ORION_TRAIL_RAIDERS)
 					if(prob(50))
 						to_chat(usr, "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>")
-
 						M.hallucination += 30
 					else
 						to_chat(usr, "<span class='userdanger'>Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there...</span>")
-
 						M.take_organ_damage(30)
 						playsound(loc, 'sound/weapons/genhit2.ogg', 100, 1)
 				if(ORION_TRAIL_ILLNESS)
@@ -463,14 +458,11 @@
 					if(severity == 1)
 						to_chat(M, "<span class='userdanger'>You suddenly feel slightly nauseous.</span>")//got off lucky
 
-
 					if(severity == 2)
 						to_chat(usr, "<span class='userdanger'>You suddenly feel extremely nauseous and hunch over until it passes.</span>")
-
 						M.Stun(3)
 					if(severity >= 3) //you didn't pray hard enough
 						to_chat(M, "<span class='warning'>An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit.</span>")
-
 						M.Stun(5)
 						sleep(30)
 						atom_say("[M] violently throws up!")
@@ -487,7 +479,6 @@
 						playsound(src.loc, 'sound/weapons/Genhit.ogg', 100, 1)
 					else
 						to_chat(M, "<span class='userdanger'>A violent gale blows past you, and you barely manage to stay standing!</span>")
-
 				if(ORION_TRAIL_COLLISION) //by far the most damaging event
 					if(prob(90))
 						playsound(src.loc, 'sound/effects/bang.ogg', 100, 1)
@@ -967,7 +958,6 @@
 /obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
 	if(!emagged)
 		to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
-
 		name = "The Orion Trail: Realism Edition"
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
 		newgame()
@@ -1007,10 +997,8 @@
 		return
 	if(!active)
 		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>")
-
 	else
 		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>")
-
 
 /obj/item/weapon/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)
@@ -1020,7 +1008,6 @@
 	log_game("[key_name(usr)] primed an explosive Orion ship for detonation.")
 
 	to_chat(user, "<span class='warning'>You flip the switch on the underside of [src].</span>")
-
 	active = 1
 	visible_message("<span class='notice'>[src] softly beeps and whirs to life!</span>")
 	playsound(src.loc, 'sound/machines/defib_SaftyOn.ogg', 25, 1)

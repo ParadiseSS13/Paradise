@@ -67,14 +67,12 @@ var/list/tape_roll_applications = list()
 	if(icon_state == "[icon_base]_start")
 		start = get_turf(src)
 		to_chat(usr, "\blue You place the first end of the [src].")
-
 		icon_state = "[icon_base]_stop"
 	else
 		icon_state = "[icon_base]_start"
 		end = get_turf(src)
 		if(start.y != end.y && start.x != end.x || start.z != end.z)
 			to_chat(usr, "\blue [src] can only be laid horizontally or vertically.")
-
 			return
 
 		var/turf/cur = start
@@ -104,7 +102,6 @@ var/list/tape_roll_applications = list()
 			cur = get_step_towards(cur,end)
 		if (!can_place)
 			to_chat(usr, "\blue You can't run \the [src] through that!")
-
 			return
 
 		cur = start
@@ -121,7 +118,6 @@ var/list/tape_roll_applications = list()
 			to_chat(usr, "\blue You finish placing the [src].")//Git Test
 
 
-
 /obj/item/taperoll/afterattack(var/atom/A, mob/user as mob, proximity)
 	if (!proximity)
 		return
@@ -133,7 +129,6 @@ var/list/tape_roll_applications = list()
 		P.icon_state = "[src.icon_base]_door"
 		P.layer = 3.2
 		to_chat(user, "\blue You finish placing the [src].")
-
 
 	if (istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
 		var/turf/F = A
@@ -184,7 +179,6 @@ var/list/tape_roll_applications = list()
 /obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
 	if(user.a_intent == I_HELP && ((!can_puncture(W) && src.allowed(user))))
 		to_chat(user, "You can't break the [src] with that!")
-
 		return
 	user.show_viewers("\blue [user] breaks the [src]!")
 

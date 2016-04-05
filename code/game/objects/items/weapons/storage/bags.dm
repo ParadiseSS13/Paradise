@@ -94,7 +94,6 @@
 
 	if(slot==slot_head && contents.len)
 		to_chat(M, "\red You need to empty the bag first!")
-
 		return 0
 	return ..()
 
@@ -228,7 +227,6 @@
 		if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
 			if(!stop_messages)
 				to_chat(usr, "The snatcher does not accept [W].")
-
 			return 0 //I don't care, but the existing code rejects them for not being "sheets" *shrug* -Sayu
 		var/current = 0
 		for(var/obj/item/stack/sheet/S in contents)
@@ -236,7 +234,6 @@
 		if(capacity == current)//If it's full, you're done
 			if(!stop_messages)
 				to_chat(usr, "\red The snatcher is full.")
-
 			return 0
 		return 1
 

@@ -21,7 +21,6 @@ mob/living/carbon/proc/dream()
 			var/dream_image = pick(dreams)
 			dreams -= dream_image
 			to_chat(src, "<span class='notice'><i>... [dream_image] ...</i></span>")
-
 			sleep(rand(40,70))
 			if(paralysis <= 0)
 				dreaming = 0

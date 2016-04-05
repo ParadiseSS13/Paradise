@@ -32,7 +32,6 @@
 		if(sortTag != O.currTag)
 			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
-
 			sortTag = O.currTag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
@@ -40,7 +39,6 @@
 		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
 		if(!str || !length(str))
 			to_chat(user, "<span class='notice'>Invalid text.</span>")
-
 			return
 		user.visible_message("<span class='notice'>[user] labels [src] as [str].</span>")
 		name = "[name] ([str])"
@@ -58,7 +56,6 @@
 				new /obj/item/weapon/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
-
 
 
 /obj/item/smallDelivery
@@ -89,7 +86,6 @@
 		if(sortTag != O.currTag)
 			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
-
 			sortTag = O.currTag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
@@ -97,7 +93,6 @@
 		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
 		if(!str || !length(str))
 			to_chat(user, "<span class='notice'>Invalid text.</span>")
-
 			return
 		user.visible_message("<span class='notice'>[user] labels [src] as [str].</span>")
 		name = "[name] ([str])"
@@ -112,7 +107,6 @@
 				new /obj/item/weapon/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
-
 
 
 
@@ -168,7 +162,6 @@
 			O.loc = P
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
-
 			return
 	else if(istype (target, /obj/structure/closet))
 		var/obj/structure/closet/O = target
@@ -182,11 +175,9 @@
 			O.loc = P
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
-
 			return
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
-
 		return
 
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
@@ -317,24 +308,20 @@
 				c_mode=1
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				to_chat(user, "You remove the screws around the power connection.")
-
 				return
 			else if(c_mode==1)
 				c_mode=0
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
-
 				return
 		else if(istype(I,/obj/item/weapon/weldingtool) && c_mode==1)
 			var/obj/item/weapon/weldingtool/W = I
 			if(W.remove_fuel(0,user))
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
 				to_chat(user, "You start slicing the floorweld off the delivery chute.")
-
 				if(do_after(user,20, target = src))
 					if(!src || !W.isOn()) return
 					to_chat(user, "You sliced the floorweld off the delivery chute.")
-
 					var/obj/structure/disposalconstruct/C = new (src.loc)
 					C.ptype = 8 // 8 =  Delivery chute
 					C.update()
@@ -344,5 +331,4 @@
 				return
 			else
 				to_chat(user, "You need more welding fuel to complete this task.")
-
 				return

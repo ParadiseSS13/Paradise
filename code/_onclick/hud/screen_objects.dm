@@ -96,7 +96,6 @@
 			if(C.internal)
 				C.internal = null
 				to_chat(C, "<span class='notice'>No longer running on internals.</span>")
-
 				if(C.internals)
 					C.internals.icon_state = "internal0"
 			else
@@ -110,7 +109,6 @@
 
 				if(no_mask)
 					to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
-
 					return 1
 				else
 					var/list/nicename = null
@@ -192,7 +190,6 @@
 
 					if(best)
 						to_chat(C, "<span class='notice'>You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].</span>")
-
 						C.internal = tankcheck[best]
 
 
@@ -201,7 +198,6 @@
 							C.internals.icon_state = "internal1"
 					else
 						to_chat(C, "<span class='notice'>You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>")
-
 
 /obj/screen/mov_intent
 	name = "run/walk toggle"
@@ -213,7 +209,6 @@
 		var/mob/living/carbon/C = usr
 		if(C.legcuffed)
 			to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
-
 			C.m_intent = "walk"	//Just incase
 			C.hud_used.move_intent.icon_state = "walking"
 			return 1
@@ -376,7 +371,6 @@
 		return
 	if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
 		to_chat(usr, "You need your gun in your active hand to do that!")
-
 		return
 	usr.client.AllowTargetClick()
 	gun_click_time = world.time

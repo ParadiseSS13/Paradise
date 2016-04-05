@@ -121,18 +121,14 @@
 		if(get_trait(TRAIT_CARNIVOROUS) == 2)
 			if(affecting)
 				to_chat(target, "<span class='danger'>\The [fruit]'s thorns pierce your [affecting.name] greedily!</span>")
-
 			else
 				to_chat(target, "<span class='danger'>\The [fruit]'s thorns pierce your flesh greedily!</span>")
-
 			damage = get_trait(TRAIT_POTENCY)/2
 		else
 			if(affecting)
 				to_chat(target, "<span class='danger'>\The [fruit]'s thorns dig deeply into your [affecting.name]!</span>")
-
 			else
 				to_chat(target, "<span class='danger'>\The [fruit]'s thorns dig deeply into your flesh!</span>")
-
 			damage = get_trait(TRAIT_POTENCY)/5
 	else
 		return
@@ -192,7 +188,6 @@
 			return
 
 		to_chat(target, "<span class='danger'>You are stung by \the [fruit]!</span>")
-
 		for(var/rid in chems)
 			var/injecting = min(5,max(1,get_trait(TRAIT_POTENCY)/5))
 			target.reagents.add_reagent(rid,injecting)
@@ -720,11 +715,9 @@
 	if(!force_amount && get_trait(TRAIT_YIELD) == 0 && !harvest_sample)
 		if(istype(user))
 			to_chat(user, "<span class='danger'>You fail to harvest anything useful.</span>")
-
 	else
 		if(istype(user))
 			to_chat(user, "You [harvest_sample ? "take a sample" : "harvest"] from the [display_name].")
-
 
 		//This may be a new line. Update the global if it is.
 		if(name == "new line" || !(name in plant_controller.seeds))

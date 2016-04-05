@@ -75,16 +75,13 @@
 		var/obj/item/weapon/paper/paperaffected = O
 		paperaffected.clearpaper()
 		to_chat(usr, "The solution melts away the ink on the paper.")
-
 	if(istype(O,/obj/item/weapon/book))
 		if(volume >= 5)
 			var/obj/item/weapon/book/affectedbook = O
 			affectedbook.dat = null
 			to_chat(usr, "The solution melts away the ink on the book.")
-
 		else
 			to_chat(usr, "It wasn't enough...")
-
 	return
 
 /datum/reagent/ethanol/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with ethanol isn't quite as good as fuel.

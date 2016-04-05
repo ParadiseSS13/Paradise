@@ -27,10 +27,8 @@
 					for(var/obj/effect/proc_holder/spell/S in M.mind.spell_list)
 						S.charge_counter = S.charge_max
 				to_chat(M, "<span class='notice'>you feel raw magic flowing through you, it feels good!</span>")
-
 			else
 				to_chat(M, "<span class='notice'>you feel very strange for a moment, but then it passes.</span>")
-
 				burnt_out = 1
 			charged_item = M
 			break
@@ -47,9 +45,7 @@
 						break
 				else
 					to_chat(L, "<span class='caution'>Glowing red letters appear on the front cover...</span>")
-
 					to_chat(L, "<span class='warning'>[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]</span>")
-
 					burnt_out = 1
 			else if(istype(item, /obj/item/weapon/gun/magic))
 				var/obj/item/weapon/gun/magic/I = item
@@ -90,10 +86,7 @@
 						break
 		if(!charged_item)
 			to_chat(L, "<span class='notice'>you feel magical power surging to your hands, but the feeling rapidly fades...</span>")
-
 		else if(burnt_out)
 			to_chat(L, "<span class='caution'>[charged_item] doesn't seem to be reacting to the spell...</span>")
-
 		else
 			to_chat(L, "<span class='notice'>[charged_item] suddenly feels very warm!</span>")
-

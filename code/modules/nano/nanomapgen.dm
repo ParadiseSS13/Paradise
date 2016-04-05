@@ -34,20 +34,17 @@
 	if (currentZ < 0 || currentZ > world.maxz)
 		to_chat(usr, "NanoMapGen: <B>ERROR: currentZ ([currentZ]) must be between 1 and [world.maxz]</B>")
 
-
 		sleep(3)
 		return NANOMAP_TERMINALERR
 
 	if (startX > endX)
 		to_chat(usr, "NanoMapGen: <B>ERROR: startX ([startX]) cannot be greater than endX ([endX])</B>")
 
-
 		sleep(3)
 		return NANOMAP_TERMINALERR
 
 	if (startY > endX)
 		to_chat(usr, "NanoMapGen: <B>ERROR: startY ([startY]) cannot be greater than endY ([endY])</B>")
-
 		sleep(3)
 		return NANOMAP_TERMINALERR
 
@@ -59,7 +56,6 @@
 
 	log_to_dd("NanoMapGen: <B>GENERATE MAP ([startX],[startY],[currentZ]) to ([endX],[endY],[currentZ])</B>")
 	to_chat(usr, "NanoMapGen: <B>GENERATE MAP ([startX],[startY],[currentZ]) to ([endX],[endY],[currentZ])</B>")
-
 
 	var/count = 0;
 	for(var/WorldX = startX, WorldX <= endX, WorldX++)
@@ -87,7 +83,6 @@
 	log_to_dd("NanoMapGen: <B>Done.</B>")
 
 	to_chat(usr, "NanoMapGen: <B>Done. File [mapFilename] uploaded to your cache.</B>")
-
 
 	if (Tile.Width() != NANOMAP_MAX_ICON_DIMENSION || Tile.Height() != NANOMAP_MAX_ICON_DIMENSION)
 		return NANOMAP_BADOUTPUT

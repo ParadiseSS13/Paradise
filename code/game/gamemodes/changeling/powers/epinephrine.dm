@@ -12,10 +12,8 @@
 
 	if(user.lying)
 		to_chat(user, "<span class='notice'>We arise.</span>")
-
 	else
 		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")
-
 	user.stat = 0
 	user.SetParalysis(0)
 	user.SetStunned(0)

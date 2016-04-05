@@ -127,7 +127,6 @@
 				else
 					to_chat(usr, "\red Access Denied.")
 
-
 		if ("stop" in href_list)
 			src.temp = {"
 			Stop Robot Destruction Sequence?<BR>
@@ -161,7 +160,6 @@
 						if(R && istype(R))
 							if(R.mind && R.mind.special_role && R.emagged)
 								to_chat(R, "Extreme danger.  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered.")
-
 								R.ResetSecurityCodes()
 
 							else
@@ -170,7 +168,6 @@
 								R.self_destruct()
 			else
 				to_chat(usr, "\red Access Denied.")
-
 
 		if ("stopbot" in href_list)
 			if(computer.allowed(usr))
@@ -186,16 +183,13 @@
 							//	R.cell.charge = R.lockcharge
 								R.lockcharge = !R.lockcharge
 								to_chat(R, "Your lockdown has been lifted!")
-
 							else
 								R.lockcharge = !R.lockcharge
 						//		R.cell.charge = 0
 								to_chat(R, "You have been locked down!")
 
-
 			else
 				to_chat(usr, "\red Access Denied.")
-
 
 		if ("magbot" in href_list)
 			if(computer.allowed(usr))

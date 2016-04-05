@@ -156,7 +156,6 @@
 //	to_chat(world, "OnClose [user]: [windowid] : ["on-close=\".windowclose [param]\""]")
 
 
-
 // the on-close client verb
 // called when a browser popup window is closed after registering with proc/onclose()
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
@@ -167,12 +166,10 @@
 	set name = ".windowclose"			// no autocomplete on cmd line
 
 //	to_chat(world, "windowclose: [atomref]")
-
 	if(atomref!="null")				// if passed a real atomref
 		var/hsrc = locate(atomref)	// find the reffed atom
 		if(hsrc)
 //			to_chat(world, "[src] Topic [href] [hsrc]")
-
 			usr = src.mob
 			src.Topic("close=1", list("close"="1"), hsrc)	// this will direct to the atom's
 			return										// Topic() proc via client.Topic()
@@ -181,6 +178,5 @@
 	// so just reset the user mob's machine var
 	if(src && src.mob)
 //		to_chat(world, "[src] was [src.mob.machine], setting to null")
-
 		src.mob.unset_machine()
 	return

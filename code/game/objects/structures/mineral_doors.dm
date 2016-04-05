@@ -112,15 +112,12 @@
 		if(istype(W,/obj/item/weapon/pickaxe))
 			var/obj/item/weapon/pickaxe/digTool = W
 			to_chat(user, "You start digging the [name].")
-
 			if(do_after(user,digTool.digspeed*hardness, target = src) && src)
 				to_chat(user, "You finished digging.")
-
 				Dismantle()
 		else if(istype(W,/obj/item/weapon)) //not sure, can't not just weapons get passed to this proc?
 			hardness -= W.force/100
 			to_chat(user, "You hit the [name] with your [W.name]!")
-
 			CheckHardness()
 		else
 			attack_hand(user)

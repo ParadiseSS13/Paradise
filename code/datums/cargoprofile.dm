@@ -643,7 +643,6 @@
 			//this is necessarily damaging
 			var/damage = rand(1,5)
 			to_chat(M, "\red <B>The unloading machine grabs you with a hard metallic claw!</B>")
-
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
@@ -662,7 +661,6 @@
 		if(bruteloss < 100) // requires tenderization
 			M.apply_damage(rand(5,15),BRUTE)
 			to_chat(M, "The machine is tearing you apart!")
-
 			master.visible_message("\red [master] makes a squishy grinding noise.")
 			return
 		M.loc = master.loc
@@ -701,7 +699,6 @@
 			//this is necessarily damaging
 			var/damage = rand(1,5)
 			to_chat(M, "\red <B>The unloading machine grabs you with a hard metallic claw!</B>")
-
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
@@ -794,7 +791,6 @@
 		var/mob/living/carbon/human/M = W
 		if((M.lying || (M.health - M.staminaloss < 25))&& !master.emagged)
 			to_chat(M, "\The [src] gives you a break.")
-
 			master.sleep+=5
 			return 0 // Be polite
 		var/punches = punch(M,remaining / PUNCH_WORK)

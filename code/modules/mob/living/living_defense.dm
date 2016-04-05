@@ -18,25 +18,19 @@
 		armor = max(0, armor - armour_penetration)
 		if(penetrated_text)
 			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
-
 		else
 			to_chat(src, "<span class='userdanger'>Your armor was penetrated!</span>")
-
 
 	if(armor >= 100)
 		if(absorb_text)
 			to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
-
 		else
 			to_chat(src, "<span class='userdanger'>Your armor absorbs the blow!</span>")
-
 	else if(armor > 0)
 		if(soften_text)
 			to_chat(src, "<span class='userdanger'>[soften_text]</span>")
-
 		else
 			to_chat(src, "<span class='userdanger'>Your armor softens the blow!</span>")
-
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
@@ -51,7 +45,6 @@
 		C.attack_self(src)//Should shut it off
 		update_icons()
 		to_chat(src, "\blue Your [C.name] was disrupted!")
-
 		Stun(2)
 
 	//Armor
@@ -249,7 +242,6 @@
 	for(var/obj/item/weapon/grab/G in src.grabbed_by)
 		if(G.assailant == user)
 			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
-
 			return
 
 	add_logs(src, user, "grabbed", addition="passively")
@@ -257,7 +249,6 @@
 	var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(user, src)
 	if(buckled)
 		to_chat(user, "<span class='notice'>You cannot grab [src], \he is buckled in!</span>")
-
 	if(!G)	//the grab will delete itself in New if src is anchored
 		return 0
 	user.put_in_active_hand(G)

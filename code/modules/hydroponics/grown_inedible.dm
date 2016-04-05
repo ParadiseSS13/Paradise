@@ -66,7 +66,6 @@
 	else
 		C.take_organ_damage(0,force)
 	to_chat(C, "<span class='userdanger'>The nettle burns your bare hand!</span>")
-
 	return 1
 
 /obj/item/weapon/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
@@ -75,7 +74,6 @@
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
 	else
 		to_chat(usr, "All the leaves have fallen off the nettle from violent whacking.")
-
 		usr.unEquip(src)
 		qdel(src)
 
@@ -94,11 +92,9 @@
 			user.Paralyse(5)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
-
 /obj/item/weapon/grown/nettle/death/afterattack(mob/living/carbon/M, mob/user)
 	if(istype(M, /mob/living))
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
-
 		add_logs(M, user, "attacked", src)
 
 		M.eye_blurry += force/7
@@ -123,7 +119,6 @@
 	..()
 	if(istype(W, /obj/item/weapon/circular_saw) || istype(W, /obj/item/weapon/hatchet) || istype(W, /obj/item/weapon/kitchen/knife))
 		to_chat(user, "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>")
-
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
 		qdel(src)
 		return
@@ -155,9 +150,7 @@
 
 /obj/item/weapon/grown/sunflower/attack(mob/M as mob, mob/user as mob)
 	to_chat(M, "<font color='green'><b> [user] smacks you with a [name]!</font><font color='yellow'><b>FLOWER POWER<b></font>")
-
 	to_chat(user, "<font color='green'> Your [name]'s </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
-
 
 
 // Novaflower
@@ -175,16 +168,12 @@
 
 /obj/item/weapon/grown/novaflower/attack(mob/living/carbon/M as mob, mob/user as mob)
 	to_chat(M, "<font color='green'>[user] smacks you with a [name]!</font><font color='yellow'><b>FLOWER POWER</b></font>")
-
 	to_chat(user, "<font color='green'> Your [name]'s </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
-
 	if(istype(M, /mob/living))
 		to_chat(M, "<span class='warning'>You are heated by the warmth of the of the [name]!</span>")
-
 		M.bodytemperature += potency/2 * TEMPERATURE_DAMAGE_COEFFICIENT
 
 /obj/item/weapon/grown/novaflower/pickup(mob/living/carbon/human/user as mob)
 	if(!user.gloves)
 		to_chat(user, "<span class='warning'>The [name] burns your bare hand!</span>")
-
 		user.adjustFireLoss(rand(1,5))

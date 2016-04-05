@@ -19,7 +19,6 @@
 	if(malfhack)
 		if(malfhack.aidisabled)
 			to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
-
 			malfhacking = 0
 			malfhack = null
 
@@ -49,12 +48,10 @@
 
 		if(aiRestorePowerRoutine == 2)
 			to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
-
 			aiRestorePowerRoutine = 0
 			clear_fullscreen("blind")
 		else if(aiRestorePowerRoutine == 3)
 			to_chat(src, "Alert cancelled. Power has been restored.")
-
 			aiRestorePowerRoutine = 0
 			clear_fullscreen("blind")
 
@@ -73,35 +70,28 @@
 			if(!aiRestorePowerRoutine)
 				aiRestorePowerRoutine = 1
 				to_chat(src, "<span class='danger'>You have lost power!</span>")
-
 				if(!is_special_character(src))
 					set_zeroth_law("")
 
 				spawn(20)
 					to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
-
 					sleep(50)
 					my_area = get_area(src)
 					T = get_turf(src)
 					if(my_area && my_area.power_equip && !istype(T, /turf/space))
 						to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
-
 						aiRestorePowerRoutine = 0
 						return
 					to_chat(src, "Fault confirmed: missing external power. Shutting down main control system to save power.")
-
 					sleep(20)
 					to_chat(src, "Emergency control system online. Verifying connection to power network.")
-
 					sleep(50)
 					T = get_turf(src)
 					if(istype(T, /turf/space))
 						to_chat(src, "Unable to verify! No power connection detected!")
-
 						aiRestorePowerRoutine = 2
 						return
 					to_chat(src, "Connection verified. Searching for APC in power network.")
-
 					sleep(50)
 
 					my_area = get_area(src)
@@ -122,14 +112,12 @@
 									to_chat(src, "Unable to locate APC!")
 								else
 									to_chat(src, "Lost connection with the APC!")
-
 							aiRestorePowerRoutine = 2
 							return
 
 						if(my_area.power_equip)
 							if (!istype(T, /turf/space))
 								to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
-
 								aiRestorePowerRoutine = 0
 								clear_fullscreen("blind")
 								return
@@ -143,16 +131,13 @@
 								to_chat(src, "Power port upload access confirmed. Loading control program into APC power port software.")
 							if(4)
 								to_chat(src, "Transfer complete. Forcing APC to execute program.")
-
 								sleep(50)
 								to_chat(src, "Receiving control information from APC.")
-
 								sleep(2)
 								//bring up APC dialog
 								aiRestorePowerRoutine = 3
 								theAPC.attack_ai(src)
 								to_chat(src, "Here are your current laws:")
-
 								src.show_laws() //WHY THE FUCK IS THIS HERE
 						sleep(50)
 						theAPC = null

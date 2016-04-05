@@ -15,14 +15,11 @@
 	active = !active
 	if(active)
 		to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")
-
 	else
 		user.status_flags &= ~GOTTAGOFAST
 		to_chat(user, "<span class='notice'>Our muscles relax.</span>")
-
 		if(stacks >= 10)
 			to_chat(user, "<span class='danger'>We collapse in exhaustion.</span>")
-
 			user.Weaken(3)
 			user.emote("gasp")
 
@@ -31,7 +28,6 @@
 		if(user.stat || user.staminaloss >= 90)
 			active = 0 //Let's use something exact instead of !active where we can.
 			to_chat(user, "<span class='notice'>Our muscles relax without the energy to strengthen them.</span>")
-
 			user.status_flags &= ~GOTTAGOFAST
 			user.Weaken(2)
 			user.emote("gasp")
@@ -43,7 +39,6 @@
 
 		if(stacks == 11) //Warning message that the stacks are getting too high
 			to_chat(user, "<span class='warning'>Our legs are really starting to hurt...</span>")
-
 
 		sleep(40)
 

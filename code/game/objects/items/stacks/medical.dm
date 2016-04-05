@@ -13,12 +13,10 @@
 /obj/item/stack/medical/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if (!istype(M))
 		to_chat(user, "<span class='danger'>\The [src] cannot be applied to [M]!</span>")
-
 		return 1
 
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
-
 		return 1
 
 
@@ -32,12 +30,10 @@
 
 		if(!affecting)
 			to_chat(user, "<span class='danger'>That limb is missing!</span>")
-
 			return 1
 
 		if(affecting.status & ORGAN_ROBOT)
 			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
-
 			return 1
 
 
@@ -68,7 +64,6 @@
 		if(affecting.open == 0)
 			if(!affecting.bandage())
 				to_chat(user, "\red The wounds on [M]'s [affecting.name] have already been bandaged.")
-
 				return 1
 			else
 				for (var/datum/wound/W in affecting.wounds)
@@ -110,7 +105,6 @@
 		if(affecting.open == 0)
 			if(!affecting.salve())
 				to_chat(user, "\red The wounds on [M]'s [affecting.name] have already been salved.")
-
 				return 1
 			else
 				user.visible_message( 	"\blue [user] salves the wounds on [M]'s [affecting.name].", \
@@ -119,7 +113,6 @@
 				use(1)
 		else
 			to_chat(user, "<span class='notice'>The [affecting.name] is cut open, you'll need more than some ointment!</span>")
-
 
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "\improper Comfrey leaf"
@@ -161,7 +154,6 @@
 
 			if(!(bandaged || disinfected))
 				to_chat(user, "\red The wounds on [M]'s [affecting.name] have already been treated.")
-
 				return 1
 			else
 				for (var/datum/wound/W in affecting.wounds)
@@ -183,7 +175,6 @@
 		else
 			to_chat(user, "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>")
 
-
 /obj/item/stack/medical/advanced/ointment
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
@@ -204,7 +195,6 @@
 		if(affecting.open == 0)
 			if(!affecting.salve())
 				to_chat(user, "\red The wounds on [M]'s [affecting.name] have already been salved.")
-
 				return 1
 			else
 				user.visible_message( 	"\blue [user] covers the wounds on [M]'s [affecting.name] with regenerative membrane.", \
@@ -213,7 +203,6 @@
 				use(1)
 		else
 			to_chat(user, "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>")
-
 
 /obj/item/stack/medical/splint
 	name = "medical splints"
@@ -236,22 +225,18 @@
 		var/limb = affecting.name
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
 			to_chat(user, "\red You can't apply a splint there!")
-
 			return
 		if(affecting.status & ORGAN_SPLINTED)
 			to_chat(user, "\red [M]'s [limb] is already splinted!")
-
 			if(alert(user, "Would you like to remove the splint from [M]'s [limb]?", "Removing.", "Yes", "No") == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
 				to_chat(user, "<span class='notice'>You remove the splint from [M]'s [limb].")
-
 			return
 		if (M != user)
 			user.visible_message("\red [user] starts to apply \the [src] to [M]'s [limb].", "\red You start to apply \the [src] to [M]'s [limb].", "\red You hear something being wrapped.")
 		else
 			if((!user.hand && affecting.limb_name in list("r_arm", "r_hand")) || (user.hand && affecting.limb_name in list("l_arm", "l_hand")))
 				to_chat(user, "\red You can't apply a splint to the arm you're using!")
-
 				return
 			user.visible_message("\red [user] starts to apply \the [src] to their [limb].", "\red You start to apply \the [src] to your [limb].", "\red You hear something being wrapped.")
 		if(do_after(user, 50, target = M))

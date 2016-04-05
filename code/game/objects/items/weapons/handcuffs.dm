@@ -22,7 +22,6 @@
 
 	if(CLUMSY in user.mutations && prob(50))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
-
 		apply_cuffs(user,user)
 
 	if(!C.handcuffed)
@@ -33,7 +32,6 @@
 		if(do_mob(user, C, 30))
 			apply_cuffs(C,user)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-
 			if(istype(src, /obj/item/weapon/restraints/handcuffs/cable))
 				feedback_add_details("handcuffs","C")
 			else
@@ -42,7 +40,6 @@
 			add_logs(C, user, "handcuffed", src)
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
-
 
 /obj/item/weapon/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user)
 	if(!target.handcuffed)
@@ -103,11 +100,9 @@
 				user.unEquip(src)
 			user.put_in_hands(W)
 			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
-
 			qdel(src)
 		else
 			to_chat(user, "<span class='warning'>You need one rod to make a wired rod.</span>")
-
 			return
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties
@@ -128,11 +123,9 @@
 					C.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(C)
 					C.update_inv_handcuffed(1)
 					to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-
 					add_logs(C, user, "ziptie-cuffed")
 			else
 				to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
-
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
@@ -182,18 +175,15 @@
 		icon_state = "beartrap[armed]"
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
-
 /obj/item/weapon/restraints/legcuffs/beartrap/attackby(var/obj/item/I, mob/user as mob) //Let's get explosive.
 	if(istype(I, /obj/item/weapon/grenade/iedcasing))
 		if(IED)
 			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
-
 			return
 		IED = I
 		switch(IED.assembled)
 			if(0,1) //if it's not fueled/hooked up
 				to_chat(user, "<span class='warning'>You haven't prepared this IED yet!</span>")
-
 				IED = null
 				return
 			if(2,3)
@@ -202,11 +192,9 @@
 				message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 				log_game("[key_name(user)] has rigged a beartrap with an IED.")
 				to_chat(user, "<span class='notice'>You sneak the [IED] underneath the pressure plate and connect the trigger wire.</span>")
-
 				desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
 			else
 				to_chat(user, "<span class='danger'>You shouldn't be reading this message! Contact a coder or someone, something broke!</span>")
-
 				IED = null
 				return
 	if(istype(I, /obj/item/weapon/screwdriver))
@@ -214,7 +202,6 @@
 			IED.forceMove(get_turf(src))
 			IED = null
 			to_chat(user, "<span class='notice'>You remove the IED from the [src].</span>")
-
 			return
 	..()
 

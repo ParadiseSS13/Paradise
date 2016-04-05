@@ -8,11 +8,8 @@
 
 	for(var/mob/living/silicon/ai/A in player_list)	//AIs are always aware of communication blackouts.
 		to_chat(A, "<br>")
-
 		to_chat(A, "<span class='warning'><b>[alert]</b></span>")
-
 		to_chat(A, "<br>")
-
 
 	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
 		command_announcement.Announce(alert)
@@ -27,10 +24,7 @@
 	else // AIs will always know if there's a comm blackout, rogue AIs could then lie about comm blackouts in the future while they shutdown comms
 		for(var/mob/living/silicon/ai/A in player_list)
 			to_chat(A, "<br>")
-
 			to_chat(A, "<span class='warning'><b>Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you-BZZT<b></span>")
-
 			to_chat(A, "<br>")
-
 	for(var/obj/machinery/telecomms/T in telecomms_list)
 		T.emp_act(1)

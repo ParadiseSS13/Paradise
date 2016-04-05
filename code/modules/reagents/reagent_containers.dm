@@ -81,11 +81,9 @@
 	if(is_open_container())
 		if(reagents.total_volume >= volume)
 			to_chat(user, "span class='warning'>\The [src] is full.</span>")
-
 			return
 		else
 			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
 			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
-
 			return
 	..()

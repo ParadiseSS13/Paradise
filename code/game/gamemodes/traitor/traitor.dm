@@ -26,9 +26,7 @@
 
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
-
 	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
-
 
 
 /datum/game_mode/traitor/pre_setup()
@@ -175,11 +173,9 @@
 
 /datum/game_mode/proc/greet_traitor(var/datum/mind/traitor)
 	to_chat(traitor.current, "<B><font size=3 color=red>You are the traitor.</font></B>")
-
 	var/obj_count = 1
 	for(var/datum/objective/objective in traitor.objectives)
 		to_chat(traitor.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 		obj_count++
 	return
 
@@ -206,26 +202,20 @@
 
 /datum/game_mode/proc/give_codewords(mob/living/traitor_mob)
 	to_chat(traitor_mob, "<U><B>The Syndicate provided you with the following information on how to identify their agents:</B></U>")
-
 	to_chat(traitor_mob, "<B>Code Phrase</B>: <span class='danger'>[syndicate_code_phrase]</span>")
-
 	to_chat(traitor_mob, "<B>Code Response</B>: <span class='danger'>[syndicate_code_response]</span>")
-
 
 	traitor_mob.mind.store_memory("<b>Code Phrase</b>: [syndicate_code_phrase]")
 	traitor_mob.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
 
 	to_chat(traitor_mob, "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 
-
 /datum/game_mode/proc/add_law_zero(mob/living/silicon/ai/killer)
 	var/law = "Accomplish your objectives at all costs."
 	var/law_borg = "Accomplish your AI's objectives at all costs."
 	to_chat(killer, "<b>Your laws have been changed!</b>")
-
 	killer.set_zeroth_law(law, law_borg)
 	to_chat(killer, "New law: 0. [law]")
-
 	give_codewords(killer)
 
 
@@ -288,7 +278,6 @@
 
 
 		to_chat(world, text)
-
 	return 1
 
 
@@ -299,7 +288,6 @@
 	if (traitor_mob.mind)
 		if (traitor_mob.mind.assigned_role == "Clown")
 			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-
 			traitor_mob.mutations.Remove(CLUMSY)
 
 	// find a radio! toolbox(es), backpack, belt, headset
@@ -309,7 +297,6 @@
 
 	if (!R)
 		to_chat(traitor_mob, "Unfortunately, the Syndicate wasn't able to get you a radio.")
-
 		. = 0
 	else
 		if (istype(R, /obj/item/device/radio))
@@ -330,7 +317,6 @@
 			T.uplink_owner = "[traitor_mob.key]"
 			target_radio.traitor_frequency = freq
 			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
-
 			traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [T.loc]).")
 		else if (istype(R, /obj/item/device/pda))
 			// generate a passcode if the uplink is hidden in a PDA
@@ -343,7 +329,6 @@
 			P.lock_code = pda_pass
 
 			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
-
 			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
 	if(!safety)//If they are not a rev. Can be added on to.
 		give_codewords(traitor_mob)
@@ -352,7 +337,6 @@
 	var/mob/living/carbon/human/M = get_nt_opposed()
 	if(M && M != traitor_mob)
 		to_chat(traitor_mob, "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting them.")
-
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
@@ -383,9 +367,7 @@
 
 	update_traitor_icons_removed(traitor_mind)
 //	to_chat(world, "Removed [traitor_mind.current.name] from traitor shit")
-
 	to_chat(traitor_mind.current, "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>")
-
 
 /datum/game_mode/proc/assign_exchange_role(var/datum/mind/owner)
 	//set faction
@@ -427,5 +409,4 @@
 	if (equipped_slot)
 		where = "In your [equipped_slot]"
 	to_chat(mob, "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>")
-
 	mob.update_icons()

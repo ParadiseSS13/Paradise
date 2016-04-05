@@ -167,5 +167,4 @@
 		if(istype(teleatom, /mob/living))
 			var/mob/living/MM = teleatom
 			to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
-
 	return 1

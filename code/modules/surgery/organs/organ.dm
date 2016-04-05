@@ -145,7 +145,6 @@ var/list/organ_cache = list()
 	if(status & ORGAN_DEAD)
 		to_chat(user, "<span class='notice'>The decay has set in.</span>")
 
-
 /obj/item/organ/proc/handle_germ_effects()
 	//** Handle the effects of infections
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")

@@ -53,7 +53,6 @@
 			w.Add("[lowertext(seperate[next])]")
 //		to_chat(world, "Adding [lowertext(seperate[next])] to [lowertext(seperate[Xa])]")
 
-
 	if(prob(30))
 		var/list/options = list("[holder_atom] seems to be listening intently to [source]...",\
 			"[holder_atom] seems to be focussing on [source]...",\
@@ -68,11 +67,9 @@
 	//set src in view()
 	for(var/v in heard_words)
 		to_chat(world, "[uppertext(v)]")
-
 		var/list/d = heard_words["[v]"]
 		for(var/X in d)
 			to_chat(world, "[X]")*/
-
 
 /datum/talking_atom/proc/SaySomething(var/word = null)
 	if(!holder_atom)
@@ -125,5 +122,4 @@
 
 	for(var/mob/M in listening)
 		to_chat(M, "\icon[holder_atom] <b>[holder_atom]</b> reverberates, \blue\"[msg]\"")
-
 	last_talk_time = world.time

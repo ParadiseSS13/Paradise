@@ -34,7 +34,6 @@ effective or pretty fucking useless.
 	if(!user) 	return
 	if(times_used >= max_uses)
 		to_chat(user, "\red The mind batterer has been burnt out!")
-
 		return
 
 	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used [src] to knock down people in the area.</font>")
@@ -47,7 +46,6 @@ effective or pretty fucking useless.
 				if(prob(25))
 					M.Stun(rand(5,10))
 				to_chat(M, "\red <b>You feel a tremendous, paralyzing wave flood your mind.</b>")
-
 				if(!iscarbon(user))
 					M.LAssailant = null
 				else
@@ -55,10 +53,8 @@ effective or pretty fucking useless.
 			else
 				to_chat(M, "\red <b>You feel a sudden, electric jolt travel through your head.</b>")
 
-
 	playsound(src.loc, 'sound/misc/interference.ogg', 50, 1)
 	to_chat(user, "\blue You trigger [src].")
-
 	times_used += 1
 	if(times_used >= max_uses)
 		icon_state = "battererburnt"
@@ -108,7 +104,6 @@ effective or pretty fucking useless.
 				M.apply_effect(intensity*10, IRRADIATE)
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
-
 
 /obj/item/device/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)

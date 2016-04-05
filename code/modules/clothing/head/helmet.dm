@@ -26,7 +26,6 @@
 			icon_state = "[initial(icon_state)][up ? "up" : ""]"
 			to_chat(user, "[up ? alt_toggle_message : toggle_message] \the [src]")
 
-
 			user.update_inv_head()
 
 			if(active_sound)

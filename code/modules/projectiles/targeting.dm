@@ -4,10 +4,8 @@
 	firerate = !firerate
 	if (firerate == 0)
 		to_chat(loc, "You will now continue firing when your target moves.")
-
 	else
 		to_chat(loc, "You will now only fire once, then lower your aim, when your target moves.")
-
 
 /obj/item/weapon/gun/verb/lower_aim()
 	set name = "Lower Aim"
@@ -87,7 +85,6 @@
 				Fire(T,usr, reflex = 1)
 		else if(!told_cant_shoot)
 			to_chat(M, "\red They can't be hit from here!")
-
 			told_cant_shoot = 1
 			spawn(30)
 				told_cant_shoot = 0
@@ -105,7 +102,6 @@
 
 proc/GunTrace(X1,Y1,X2,Y2,Z=1,exc_obj,PX1=16,PY1=16,PX2=16,PY2=16)
 //	to_chat(bluh, "Tracin' [X1],[Y1] to [X2],[Y2] on floor [Z].")
-
 	var/turf/T
 	var/mob/living/M
 	if(X1==X2)
@@ -157,13 +153,11 @@ mob/living/proc/Targeted(var/obj/item/weapon/gun/I) //Self explanitory.
 	else if(I.target.len >= 5)
 		if(ismob(I.loc))
 			to_chat(I.loc, "You can only target 5 people at once!")
-
 		return
 	else
 		return
 	for(var/mob/living/K in viewers(usr))
 		to_chat(K, 'sound/weapons/TargetOn.ogg')
-
 
 	if(!targeted_by) targeted_by = list()
 	targeted_by += I
@@ -194,7 +188,6 @@ mob/living/proc/Targeted(var/obj/item/weapon/gun/I) //Self explanitory.
 		/*if(m_intent == "run" && T.client.target_can_move == 1 && T.client.target_can_run == 0 && (ishuman(T)))
 			to_chat(src, "\red Your move intent is now set to walk, as your targeter permits it.")//Self explanitory.
 
-
 			set_m_intent("walk")*/
 
 		//Processing the aiming. Should be probably in separate object with process() but lasy.
@@ -223,7 +216,6 @@ mob/living/proc/NotTargeted(var/obj/item/weapon/gun/I)
 	if(!I.silenced)
 		for(var/mob/living/M in viewers(src))
 			to_chat(M, 'sound/weapons/TargetOff.ogg')
-
 	targeted_by -= I
 	I.target.Remove(src) //De-target them
 	if(!I.target.len)
@@ -276,10 +268,8 @@ client/verb/ToggleGunMode()
 	gun_mode = !gun_mode
 	if(gun_mode)
 		to_chat(usr, "You will now take people captive.")
-
 	else
 		to_chat(usr, "You will now shoot where you target.")
-
 		for(var/obj/item/weapon/gun/G in usr)
 			G.stop_aim()
 		remove_gun_icons()
@@ -294,12 +284,10 @@ client/verb/ToggleGunMode()
 	target_can_move = !target_can_move
 	if(target_can_move)
 		to_chat(usr, "Target may now walk.")
-
 		//usr.gun_run_icon = new /obj/screen/gun/run(null)	//adding icon for running permission
 		screen += usr.gun_run_icon
 	else
 		to_chat(usr, "Target may no longer move.")
-
 		target_can_run = 0
 		qdel(usr.gun_run_icon)	//no need for icon for running permission
 
@@ -315,14 +303,11 @@ client/verb/ToggleGunMode()
 			for(var/mob/living/M in G.target)
 				if(target_can_move)
 					to_chat(M, "Your character may now <b>walk</b> at the discretion of their targeter.")
-
 					if(!target_can_run && (ishuman(M)))
 						to_chat(M, "\red Your move intent is now set to walk, as your targeter permits it.")
-
 						M.set_m_intent("walk")
 				else
 					to_chat(M, "\red <b>Your character will now be shot if they move.</b>")
-
 
 mob/living/proc/set_m_intent(var/intent)
 	if (intent != "walk" && intent != "run")
@@ -339,10 +324,8 @@ client/verb/AllowTargetRun()
 	target_can_run = !target_can_run
 	if(target_can_run)
 		to_chat(usr, "Target may now run.")
-
 	else
 		to_chat(usr, "Target may no longer run.")
-
 
 	//Updating running permission button
 	if(usr.gun_run_icon)
@@ -356,10 +339,8 @@ client/verb/AllowTargetRun()
 			for(var/mob/living/M in G.target)
 				if(target_can_run)
 					to_chat(M, "Your character may now <b>run</b> at the discretion of their targeter.")
-
 				else
 					to_chat(M, "\red <b>Your character will now be shot if they run.</b>")*/
-
 
 client/verb/AllowTargetClick()
 	set hidden=1
@@ -368,10 +349,8 @@ client/verb/AllowTargetClick()
 	target_can_click = !target_can_click
 	if(target_can_click)
 		to_chat(usr, "Target may now use items.")
-
 	else
 		to_chat(usr, "Target may no longer use items.")
-
 
 	if(usr.item_use_icon)
 		usr.item_use_icon.icon_state = "no_item[target_can_click]"
@@ -384,7 +363,5 @@ client/verb/AllowTargetClick()
 			for(var/mob/living/M in G.target)
 				if(target_can_click)
 					to_chat(M, "Your character may now <b>use items</b> at the discretion of their targeter.")
-
 				else
 					to_chat(M, "\red <b>Your character will now be shot if they use items.</b>")
-

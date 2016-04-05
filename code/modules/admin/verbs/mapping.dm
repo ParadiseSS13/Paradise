@@ -189,7 +189,6 @@ var/list/admin_verbs_show_debug_verbs = list(
 					atom_list += A
 
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
-
 	feedback_add_details("admin_verb","mOBJZ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_all()
@@ -211,5 +210,4 @@ var/list/admin_verbs_show_debug_verbs = list(
 			count++
 
 	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
-
 	feedback_add_details("admin_verb","mOBJ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

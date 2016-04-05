@@ -169,7 +169,6 @@
 				if(tmob.pinned.len || (M.pulling == tmob && (tmob.restrained() && !M.restrained()) && M.stat == CONSCIOUS))
 					if(!(world.time % 5)) //tmob is pinned to wall, or is restrained and pulled by a concious unrestrained human
 						to_chat(src, "<span class='danger'>[tmob] is restrained, you cannot push past.</span>")
-
 					now_pushing = 0
 					return 0
 
@@ -181,7 +180,6 @@
 				if(tmob.pulling == M && (M.restrained() && !tmob.restrained()) && tmob.stat == CONSCIOUS)
 					if(!(world.time % 5))
 						to_chat(src, "<span class='danger'>[tmob] is restraining [M], you cannot push past.</span>")
-
 					now_pushing = 0
 					return 0
 
@@ -208,7 +206,6 @@
 		if(ishuman(tmob) && (FAT in tmob.mutations))
 			if(prob(40) && !(FAT in src.mutations))
 				to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
-
 				now_pushing = 0
 				return
 
@@ -759,7 +756,6 @@
 			heart_attack = 0
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
-
 	. = ..()
 
 
@@ -776,7 +772,6 @@
 			var/slot = text2num(href_list["item"])
 			if(slot in check_obscured_slots())
 				to_chat(usr, "<span class='warning'>You can't reach that! Something is covering it.</span>")
-
 				return
 
 		if(href_list["pockets"])
@@ -789,12 +784,9 @@
 			if(pocket_item && !(pocket_item.flags&ABSTRACT))
 				if(pocket_item.flags & NODROP)
 					to_chat(usr, "<span class='warning'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>")
-
 				to_chat(usr, "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>")
-
 			else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags&ABSTRACT))
 				to_chat(usr, "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>")
-
 				delay_denominator = 4
 			else
 				return
@@ -817,7 +809,6 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -879,7 +870,6 @@
 			if(!modified)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
 
-
 	if (href_list["secrecord"])
 		if(hasHUD(usr,"security"))
 			var/perpname = "wot"
@@ -910,7 +900,6 @@
 			if(!read)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
 
-
 	if (href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
 			var/perpname = "wot"
@@ -933,17 +922,13 @@
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
 									to_chat(usr, text("[]", R.fields[text("com_[]", counter)]))
-
 									counter++
 								if (counter == 1)
 									to_chat(usr, "No comment found")
-
 								to_chat(usr, "<a href='?src=\ref[src];secrecordadd=`'>\[Add comment\]</a>")
-
 
 			if(!read)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
-
 
 	if (href_list["secrecordadd"])
 		if(hasHUD(usr,"security"))
@@ -1015,7 +1000,6 @@
 			if(!modified)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
 
-
 	if (href_list["medrecord"])
 		if(hasHUD(usr,"medical"))
 			var/perpname = "wot"
@@ -1047,7 +1031,6 @@
 			if(!read)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
 
-
 	if (href_list["medrecordComment"])
 		if(hasHUD(usr,"medical"))
 			var/perpname = "wot"
@@ -1070,17 +1053,13 @@
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
 									to_chat(usr, text("[]", R.fields[text("com_[]", counter)]))
-
 									counter++
 								if (counter == 1)
 									to_chat(usr, "No comment found")
-
 								to_chat(usr, "<a href='?src=\ref[src];medrecordadd=`'>\[Add comment\]</a>")
-
 
 			if(!read)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
-
 
 	if (href_list["medrecordadd"])
 		if(hasHUD(usr,"medical"))
@@ -1236,7 +1215,6 @@
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"] to inject into."
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
-
 /mob/living/carbon/human/proc/check_obscured_slots()
 	var/list/obscured = list()
 
@@ -1335,22 +1313,18 @@
 			germs++
 		if (germs == 100)
 			to_chat(world, "Reached stage 1 in [ticks] ticks")
-
 		if (germs > 100)
 			if (prob(10))
 				damage++
 				germs++
 		if (germs == 1000)
 			to_chat(world, "Reached stage 2 in [ticks] ticks")
-
 		if (germs > 1000)
 			damage++
 			germs++
 		if (germs == 2500)
 			to_chat(world, "Reached stage 3 in [ticks] ticks")
-
 	to_chat(world, "Mob took [tdamage] tox damage")
-
 */
 //returns 1 if made bloody, returns 0 otherwise
 
@@ -1409,7 +1383,6 @@
 						msg ="<span class='warning'>[O] in your [organ.name] twists painfully as you move.</span>"
 				to_chat(src, msg)
 
-
 				organ.take_damage(rand(1,3), 0, 0)
 				if(!(organ.status & ORGAN_ROBOT)) //There is no blood in protheses.
 					organ.status |= ORGAN_BLEEDING
@@ -1435,23 +1408,18 @@
 
 	if(src.pulse)
 		to_chat(usr, "\blue [self ? "You have a" : "[src] has a"] pulse! Counting...")
-
 	else
 		to_chat(usr, "\red [src] has no pulse!")//it is REALLY UNLIKELY that a dead person would check his own pulse
-
 
 		return
 
 	to_chat(usr, "Don't move until counting is finished.")
-
 	var/time = world.time
 	sleep(60)
 	if(usr.l_move_time >= time)	//checks if our mob has moved during the sleep()
 		to_chat(usr, "You moved while counting. Try again.")
-
 	else
 		to_chat(usr, "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].")
-
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
 
@@ -1560,13 +1528,11 @@
 
 	if (src.gloves)
 		to_chat(src, "<span class='warning'>Your [src.gloves] are getting in the way.</span>")
-
 		return
 
 	var/turf/simulated/T = src.loc
 	if (!istype(T)) //to prevent doodling out of mechs and lockers
 		to_chat(src, "<span class='warning'>You cannot reach the floor.</span>")
-
 		return
 
 	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
@@ -1574,7 +1540,6 @@
 		T = get_step(T,text2dir(direction))
 	if (!istype(T))
 		to_chat(src, "<span class='warning'>You cannot doodle there.</span>")
-
 		return
 
 	var/num_doodles = 0
@@ -1582,7 +1547,6 @@
 		num_doodles++
 	if (num_doodles > 4)
 		to_chat(src, "<span class='warning'>There is no space to write on!</span>")
-
 		return
 
 	var/max_length = bloody_hands * 30 //tweeter style
@@ -1597,7 +1561,6 @@
 			message += "-"
 			to_chat(src, "<span class='warning'>You ran out of blood to write with!</span>")
 
-
 		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
 		W.message = message
 		W.add_fingerprint(src)
@@ -1610,7 +1573,6 @@
 
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You cannot change your monitor or optical display in your current state.</span>")
-
 		return
 
 	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
@@ -1649,7 +1611,6 @@
 
 	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
 		to_chat(src, "You cannot leap in your current state.")
-
 		return
 
 	var/list/choices = list()
@@ -1669,7 +1630,6 @@
 
 	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
 		to_chat(src, "You cannot leap in your current state.")
-
 		return
 
 	last_special = world.time + 75
@@ -1685,7 +1645,6 @@
 
 	if(!src.Adjacent(T))
 		to_chat(src, "\red You miss!")
-
 		return
 
 	T.Weaken(5)
@@ -1699,7 +1658,6 @@
 	if(l_hand)
 		if(r_hand)
 			to_chat(src, "\red You need to have one hand free to grab someone.")
-
 			return
 		else
 			use_hand = "right"
@@ -1726,18 +1684,15 @@
 
 	if(stat || paralysis || stunned || weakened || lying)
 		to_chat(src, "\red You cannot do that in your current state.")
-
 		return
 
 	var/obj/item/weapon/grab/G = locate() in src
 	if(!G || !istype(G))
 		to_chat(src, "\red You are not grabbing anyone.")
-
 		return
 
 	if(G.state < GRAB_AGGRESSIVE)
 		to_chat(src, "\red You must have an aggressive grab to gut your prey!")
-
 		return
 
 	last_special = world.time + 50
@@ -1843,7 +1798,6 @@
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && unEquip(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
-
 	apply_effect(current_size * 3, IRRADIATE)
 	if(mob_negates_gravity())
 		return
@@ -1897,7 +1851,6 @@
 /mob/living/carbon/human/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
-
 		return 0
 	return ..()
 
@@ -1905,7 +1858,6 @@
 	if(!check_has_mouth())
 		if(!((istype(toEat, /obj/item/weapon/reagent_containers/food/drinks) && (get_species() == "Machine"))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
-
 			return 0
 	return ..()
 
@@ -1913,14 +1865,11 @@
 	if(!check_has_mouth())
 		if(!get_species() == "Machine")
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
-
 			return 0
 		else
 			to_chat(src, "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>")
-
 	else
 		to_chat(src, "<span class='notice'>You swallow a gulp of [toDrink].</span>")
-
 	return 1
 
 /mob/living/carbon/human/can_track(mob/living/user)

@@ -17,7 +17,6 @@
 	changer.active = !changer.active
 	to_chat(usr, "<span class='notice'>You [changer.active ? "enable" : "disable"] the voice-changing module in \the [src].</span>")
 
-
 /obj/item/clothing/mask/gas/voice/verb/Set_Voice(name as text)
 	set category = "Object"
 	set src in usr
@@ -26,7 +25,6 @@
 	if(!voice || !length(voice)) return
 	changer.voice = voice
 	to_chat(usr, "<span class='notice'>You are now mimicking <B>[changer.voice]</B>.</span>")
-
 
 /obj/item/clothing/mask/gas/voice/New()
 	..()

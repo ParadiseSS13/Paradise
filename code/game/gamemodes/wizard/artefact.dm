@@ -48,7 +48,6 @@
 		if(href_list["school"])
 			if (used)
 				to_chat(H, "You already used this contract!")
-
 				return
 			used = 1
 			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, 1)
@@ -58,29 +57,24 @@
 				var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
 				M.key = C.key
 				to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow their orders and help them in accomplishing their goals.")
-
 				switch(href_list["school"])
 					if("destruction")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(M))
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/dumbfire/fireball(M))
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
-
 					if("bluespace")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(M))
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(M))
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.")
-
 					if("healing")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(M))
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall(M))
 						M.equip_to_slot_or_del(new /obj/item/weapon/gun/magic/staff/healing(M), slot_r_hand)
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
-
 					if("robeless")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(M))
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mind_transfer(M))
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
-
 
 				M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
@@ -112,7 +106,6 @@
 			else
 				used = 0
 				to_chat(H, "Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.")
-
 	return
 
 
@@ -141,7 +134,6 @@
 		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
 	else
 		to_chat(user, "<span class='danger'>The unearthly energies that powered the blade are now dormant.</span>")
-
 
 
 /obj/effect/rend
@@ -221,7 +213,6 @@
 
 /obj/item/weapon/scrying/attack_self(mob/user as mob)
 	to_chat(user, "<span class='notice'> You can see...everything!</span>")
-
 	visible_message("<span class='danger'>[user] stares into [src], their eyes glazing over.</span>")
 	user.ghostize(1)
 
@@ -264,14 +255,12 @@ var/global/list/multiverse = list()
 /obj/item/weapon/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
 	if(M.real_name == user.real_name)
 		to_chat(user, "<span class='warning'>The [src] detects benevolent energies in your target and redirects your attack!</span>")
-
 		return
 	..()
 
 /obj/item/weapon/multisword/attack_self(mob/user)
 	if(user.mind.special_role == "apprentice")
 		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
-
 		return
 	if(cooldown < world.time)
 		var/faction_check = 0
@@ -284,28 +273,23 @@ var/global/list/multiverse = list()
 			assigned = "[user.real_name]"
 			user.faction = list("[user.real_name]")
 			to_chat(user, "You bind the sword to yourself. You can now use it to summon help.")
-
 			if(!usr.mind.special_role)
 				if(prob(probability_evil))
 					to_chat(user, "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
-
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.owner = usr.mind
 					usr.mind.objectives += hijack_objective
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and their copies are on the shuttle!"
 					to_chat(usr, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
-
 					ticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
 					to_chat(user, "<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
-
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.owner = usr.mind
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
 					to_chat(usr, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
-
 					usr.mind.objectives += new_objective
 					ticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
@@ -322,13 +306,10 @@ var/global/list/multiverse = list()
 				spawn_copy(C.client, get_turf(user.loc), user)
 				to_chat(user, "<span class='warning'><B>The sword flashes, and you find yourself face to face with...you!</B></span>")
 
-
 			else
 				to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
-
 	else
 		to_chat(user, "<span class='warning'><B>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies.</span>")
-
 
 
 /obj/item/weapon/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
@@ -340,7 +321,6 @@ var/global/list/multiverse = list()
 	M.key = C.key
 	M.mind.name = user.real_name
 	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help them accomplish their goals at all costs.</B>")
-
 	M.faction = list("[user.real_name]")
 	if(duplicate_self)
 		M.set_species(user.get_species()) //duplicate the sword user's species.
@@ -366,7 +346,6 @@ var/global/list/multiverse = list()
 		M.mind.objectives += hijack_objective
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and their copies are on the shuttle!"
 		to_chat(M, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
-
 		M.mind.special_role = "multiverse traveller"
 		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.")
 	else
@@ -376,7 +355,6 @@ var/global/list/multiverse = list()
 		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help them defend the innocent from the mobs of multiverse clones."
 		M.mind.objectives += new_objective
 		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
-
 		M.mind.special_role = "multiverse traveller"
 		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.")
 
@@ -652,19 +630,16 @@ var/global/list/multiverse = list()
 
 	if(M.stat != DEAD)
 		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
-
 		return
 
 	if(!M.mind || !M.client)
 		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
-
 		return
 
 	check_spooky()//clean out/refresh the list
 
 	if(spooky_scaries.len >= 3 && !unlimited)
 		to_chat(user, "<span class='warning'>This artifact can only affect three undead at a time!</span>")
-
 		return
 	if(heresy)
 		spawnheresy(M)//oh god why
@@ -675,9 +650,7 @@ var/global/list/multiverse = list()
 		equip_skeleton(M)
 	spooky_scaries |= M
 	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
-
 	to_chat(M, "<span class='userdanger'>They are your master now, assist them even if it costs you your new life!</span>")
-
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 
 /obj/item/device/necromantic_stone/proc/check_spooky()
@@ -801,19 +774,15 @@ var/global/list/multiverse = list()
 	if(target && cooldown < world.time)
 		if(is_hot(I))
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
-
 			target.bodytemperature += 50
 			GiveHint(target)
 		else if(can_puncture(I))
 			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_sel.selecting)]!</span>")
-
 			target.Weaken(2)
 			GiveHint(target)
 		else if(istype(I,/obj/item/weapon/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
-
 			to_chat(target, 'sound/items/AirHorn.ogg')
-
 			target.ear_damage += rand(0,3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
@@ -824,7 +793,6 @@ var/global/list/multiverse = list()
 			I.loc = src
 			link = I
 			to_chat(user, "You attach [I] to the doll.")
-
 			update_targets()
 	..()
 /obj/item/voodoo/check_eye(mob/user as mob)
@@ -839,7 +807,6 @@ var/global/list/multiverse = list()
 			target = null
 			link.loc = get_turf(src)
 			to_chat(user, "<span class='notice'>You remove the [link] from the doll.</span>")
-
 			link = null
 			update_targets()
 			return
@@ -859,7 +826,6 @@ var/global/list/multiverse = list()
 					user.unset_machine()
 			if("r_leg","l_leg")
 				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")
-
 				var/turf/T = get_step(target,pick(cardinal))
 				target.Move(T)
 			if("r_arm","l_arm")
@@ -875,10 +841,8 @@ var/global/list/multiverse = list()
 					GiveHint(target)
 			if("head")
 				to_chat(user, "<span class='notice'>You smack the doll's head with your hand.</span>")
-
 				target.Dizzy(10)
 				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")
-
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time
 
@@ -894,11 +858,9 @@ var/global/list/multiverse = list()
 	if(prob(50) || force)
 		var/way = dir2text(get_dir(victim,get_turf(src)))
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [way]</span>")
-
 	if(prob(20) || force)
 		var/area/A = get_area(src)
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
-
 
 /obj/item/voodoo/fire_act()
 	if(target)

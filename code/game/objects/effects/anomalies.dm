@@ -36,7 +36,6 @@
 	if(istype(I, /obj/item/device/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [aSignal.code]:[format_frequency(aSignal.frequency)].</span>")
 
-
 ///////////////////////
 
 /obj/effect/anomaly/grav

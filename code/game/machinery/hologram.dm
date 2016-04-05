@@ -73,15 +73,12 @@ var/const/HOLOPAD_MODE = 0
 		if(last_request + 200 < world.time) //don't spam the AI with requests you jerk!
 			last_request = world.time
 			to_chat(user, "<span class='notice'>You request an AI's presence.</span>")
-
 			var/area/area = get_area(src)
 			for(var/mob/living/silicon/ai/AI in living_mob_list)
 				if(!AI.client)	continue
 				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=\ref[AI];jumptoholopad=\ref[src]'>\the [area]</a>.</span>")
-
 		else
 			to_chat(user, "<span class='notice'>A request for AI presence was already sent recently.</span>")
-
 
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
 	if (!istype(user))
@@ -104,10 +101,8 @@ var/const/HOLOPAD_MODE = 0
 			src.visible_message("A holographic image of [user] flicks to life right before your eyes!")
 		else
 			to_chat(user, "\red ERROR: \black Image feed in progress.")
-
 	else
 		to_chat(user, "\red ERROR: \black Unable to project hologram.")
-
 	return
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
@@ -258,7 +253,6 @@ Holographic project of everything else.
 		hologram.icon = flat_icon
 
 		to_chat(world, "Your icon should appear now.")
-
 	return
 */
 

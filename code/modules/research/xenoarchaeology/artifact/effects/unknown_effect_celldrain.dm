@@ -11,7 +11,6 @@
 			for (var/obj/item/weapon/stock_parts/cell/D in R.contents)
 				D.charge = max(D.charge - rand() * 100, 0)
 				to_chat(R, "\blue SYSTEM ALERT: Energy drain detected!")
-
 			return 1
 
 		return 1
@@ -28,7 +27,6 @@
 			for (var/obj/item/weapon/stock_parts/cell/D in M.contents)
 				D.charge = max(D.charge - 50,0)
 				to_chat(M, "\red SYSTEM ALERT: Energy drain detected!")
-
 	return 1
 
 /datum/artifact_effect/celldrain/DoEffectPulse()
@@ -43,5 +41,4 @@
 			for (var/obj/item/weapon/stock_parts/cell/D in M.contents)
 				D.charge = max(D.charge - rand() * 150,0)
 				to_chat(M, "\red SYSTEM ALERT: Energy drain detected!")
-
 	return 1

@@ -58,13 +58,10 @@
 	switch(damage)
 		if(0)
 			to_chat(usr, "It is undamaged.")
-
 		if(1)
 			to_chat(usr, "It is badly damaged.")
-
 		if(2)
 			to_chat(usr, "It is almost completely destroyed.")
-
 
 /obj/item/rig_module/attackby(obj/item/W as obj, mob/user as mob)
 
@@ -72,11 +69,9 @@
 
 		if(damage == 0)
 			to_chat(user, "There is no damage to mend.")
-
 			return
 
 		to_chat(user, "You start mending the damaged portions of \the [src]...")
-
 
 		if(!do_after(user,30, target = src) || !W || !src)
 			return
@@ -84,7 +79,6 @@
 		var/obj/item/stack/nanopaste/paste = W
 		damage = 0
 		to_chat(user, "You mend the damage to [src] with [W].")
-
 		paste.use(1)
 		return
 
@@ -93,27 +87,22 @@
 		switch(damage)
 			if(0)
 				to_chat(user, "There is no damage to mend.")
-
 				return
 			if(2)
 				to_chat(user, "There is no damage that you are capable of mending with such crude tools.")
-
 				return
 
 		var/obj/item/stack/cable_coil/cable = W
 		if(!cable.amount >= 5)
 			to_chat(user, "You need five units of cable to repair \the [src].")
-
 			return
 
 		to_chat(user, "You start mending the damaged portions of \the [src]...")
-
 		if(!do_after(user, 30, target = src) || !W || !src)
 			return
 
 		damage = 1
 		to_chat(user, "You mend some of damage to [src] with [W], but you will need more advanced tools to fix it completely.")
-
 		cable.use(5)
 		return
 	..()
@@ -154,32 +143,26 @@
 
 	if(damage >= 2)
 		to_chat(usr, "<span class='warning'>The [interface_name] is damaged beyond use!</span>")
-
 		return 0
 
 	if(world.time < next_use)
 		to_chat(usr, "<span class='warning'>You cannot use the [interface_name] again so soon.</span>")
-
 		return 0
 
 	if(!holder || (!(holder.flags & NODROP)))
 		to_chat(usr, "<span class='warning'>The suit is not initialized.</span>")
-
 		return 0
 
 	if(usr.lying || usr.stat || usr.stunned || usr.paralysis || usr.weakened)
 		to_chat(usr, "<span class='warning'>You cannot use the suit in this state.</span>")
-
 		return 0
 
 	if(holder.wearer && holder.wearer.lying)
 		to_chat(usr, "<span class='warning'>The suit cannot function while the wearer is prone.</span>")
-
 		return 0
 
 	if(holder.security_check_enabled && !holder.check_suit_access(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
-
 		return 0
 
 	if(!holder.check_power_cost(usr, use_power_cost, 0, src, (istype(usr,/mob/living/silicon ? 1 : 0) ) ) )

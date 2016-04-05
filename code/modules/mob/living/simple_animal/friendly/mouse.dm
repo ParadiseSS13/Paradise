@@ -38,7 +38,6 @@
 		for(var/mob/M in view())
 			to_chat(M, 'sound/effects/mousesqueek.ogg')
 
-
 /mob/living/simple_animal/mouse/Life()
 	. = ..()
 	if(stat == UNCONSCIOUS)
@@ -106,7 +105,6 @@
 
 /mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
 	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
-
 	return
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
@@ -114,9 +112,7 @@
 		if(!stat)
 			var/mob/M = AM
 			to_chat(M, "\blue \icon[src] Squeek!")
-
 			to_chat(M, 'sound/effects/mousesqueek.ogg')
-
 	..()
 
 /mob/living/simple_animal/mouse/death()

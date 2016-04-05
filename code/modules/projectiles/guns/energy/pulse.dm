@@ -22,21 +22,18 @@
 				charge_cost = 50
 				fire_sound = 'sound/weapons/Taser.ogg'
 				to_chat(user, "\red [src.name] is now set to stun.")
-
 				projectile_type = "/obj/item/projectile/energy/electrode"
 			if(0)
 				mode = 1
 				charge_cost = 100
 				fire_sound = 'sound/weapons/Laser.ogg'
 				to_chat(user, "\red [src.name] is now set to kill.")
-
 				projectile_type = "/obj/item/projectile/beam"
 			if(1)
 				mode = 2
 				charge_cost = 200
 				fire_sound = 'sound/weapons/pulse.ogg'
 				to_chat(user, "\red [src.name] is now set to DESTROY.")
-
 				projectile_type = "/obj/item/projectile/beam/pulse"
 		return
 
@@ -62,7 +59,6 @@
 
 	attack_self(mob/living/user as mob)
 		to_chat(user, "\red [src.name] has three settings, and they are all DESTROY.")
-
 
 /obj/item/weapon/gun/energy/pulse_rifle/carbine
 	name = "pulse carbine"

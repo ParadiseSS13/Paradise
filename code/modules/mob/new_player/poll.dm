@@ -60,7 +60,6 @@
 
 		if(!found)
 			to_chat(usr, "\red Poll question details not found.")
-
 			return
 
 		switch(polltype)
@@ -318,7 +317,6 @@
 
 		if(!validpoll)
 			to_chat(usr, "\red Poll is not valid.")
-
 			return
 
 		var/DBQuery/select_query2 = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_option")] WHERE id = [optionid] AND pollid = [pollid]")
@@ -332,7 +330,6 @@
 
 		if(!validoption)
 			to_chat(usr, "\red Poll option is not valid.")
-
 			return
 
 		var/alreadyvoted = 0
@@ -347,12 +344,10 @@
 
 		if(!multichoice && alreadyvoted)
 			to_chat(usr, "\red You already voted in this poll.")
-
 			return
 
 		if(multichoice && (alreadyvoted >= multiplechoiceoptions))
 			to_chat(usr, "\red You already have more than [multiplechoiceoptions] logged votes on this poll. Enough is enough. Contact the database admin if this is an error.")
-
 			return
 
 		var/adminrank = "Player"
@@ -364,7 +359,6 @@
 		insert_query.Execute()
 
 		to_chat(usr, "\blue Vote successful.")
-
 		usr << browse(null,"window=playerpoll")
 
 
@@ -390,7 +384,6 @@
 
 		if(!validpoll)
 			to_chat(usr, "\red Poll is not valid.")
-
 			return
 
 		var/alreadyvoted = 0
@@ -404,7 +397,6 @@
 
 		if(alreadyvoted)
 			to_chat(usr, "\red You already sent your feedback for this poll.")
-
 			return
 
 		var/adminrank = "Player"
@@ -419,14 +411,12 @@
 
 		if(!text_pass)
 			to_chat(usr, "The text you entered was blank, contained illegal characters or was too long. Please correct the text and submit again.")
-
 			return
 
 		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO [format_table_name("poll_textreply")] (id ,datetime ,pollid ,ckey ,ip ,replytext ,adminrank) VALUES (null, Now(), [pollid], '[usr.ckey]', '[usr.client.address]', '[replytext]', '[adminrank]')")
 		insert_query.Execute()
 
 		to_chat(usr, "\blue Feedback logging successful.")
-
 		usr << browse(null,"window=playerpoll")
 
 
@@ -452,7 +442,6 @@
 
 		if(!validpoll)
 			to_chat(usr, "\red Poll is not valid.")
-
 			return
 
 		var/DBQuery/select_query2 = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_option")] WHERE id = [optionid] AND pollid = [pollid]")
@@ -466,7 +455,6 @@
 
 		if(!validoption)
 			to_chat(usr, "\red Poll option is not valid.")
-
 			return
 
 		var/alreadyvoted = 0
@@ -480,7 +468,6 @@
 
 		if(alreadyvoted)
 			to_chat(usr, "\red You already voted in this poll.")
-
 			return
 
 		var/adminrank = "Player"
@@ -492,5 +479,4 @@
 		insert_query.Execute()
 
 		to_chat(usr, "\blue Vote successful.")
-
 		usr << browse(null,"window=playerpoll")

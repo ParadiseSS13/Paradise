@@ -141,22 +141,15 @@
 
 /datum/computer/file/embedded_program/docking/proc/print_state()
 	to_chat(world, "id_tag: [id_tag]")
-
 	to_chat(world, "dock_state: [dock_state]")
-
 	to_chat(world, "control_mode: [control_mode]")
-
 	to_chat(world, "tag_target: [tag_target]")
-
 	to_chat(world, "response_sent: [response_sent]")
-
 
 /datum/computer/file/embedded_program/docking/post_signal(datum/signal/signal, comm_line)
 	to_chat(world, "Program [id_tag] sent a message!")
-
 	print_state()
 	to_chat(world, "[id_tag] sent command \"[signal.data["command"]]\" to \"[signal.data["recipient"]]\"")
-
 	..(signal)
 
 /obj/machinery/embedded_controller/radio/airlock/docking_port/verb/view_state()

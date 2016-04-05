@@ -50,7 +50,6 @@ rcd light flash thingy on matter drain
 	src.verbs -= /mob/living/silicon/ai/proc/fireproof_core
 	to_chat(src, "<span class='notice'>Core fireproofed.</span>")
 
-
 /datum/AI_Module/large/upgrade_turrets
 	module_name = "AI Turret Upgrade"
 	mod_pick_name = "turret"
@@ -76,7 +75,6 @@ rcd light flash thingy on matter drain
 			turret.eprojectile = /obj/item/projectile/beam/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 	to_chat(src, "<span class='notice'>Turrets upgraded.</span>")
-
 /datum/AI_Module/large/destroy_rcd
 	module_name = "Destroy RCDs"
 	mod_pick_name = "rcd"
@@ -103,7 +101,6 @@ rcd light flash thingy on matter drain
 					qdel(RCD)
 
 	to_chat(src, "<span class='danger'>RCD detonation pulse emitted.</span>")
-
 	malf_cooldown = 1
 	spawn(100)
 		malf_cooldown = 0
@@ -165,7 +162,6 @@ rcd light flash thingy on matter drain
 	else
 		to_chat(src, "<span class='notice'>That's not a machine.</span>")
 
-
 /datum/AI_Module/small/override_machine
 	module_name = "Machine Override"
 	mod_pick_name = "override"
@@ -200,7 +196,6 @@ rcd light flash thingy on matter drain
 	else
 		to_chat(src, "<span class='notice'>That's not a machine.</span>")
 
-
 /datum/AI_Module/large/place_cyborg_transformer
 	module_name = "Robotic Factory (Removes Shunting)"
 	mod_pick_name = "cyborgtransformer"
@@ -233,7 +228,6 @@ rcd light flash thingy on matter drain
 		PCT.uses --
 		can_shunt = 0
 		to_chat(src, "<span class='warning'>You cannot shunt anymore.</span>")
-
 
 /mob/living/silicon/ai/proc/canPlaceTransformer()
 	if(!eyeobj || !isturf(src.loc))
@@ -300,10 +294,8 @@ rcd light flash thingy on matter drain
 				else
 					apc.overload++
 			to_chat(src, "<span class='notice'>Overcurrent applied to the powernet.</span>")
-
 		else
 			to_chat(src, "<span class='warning'>Out of uses.</span>")
-
 
 /datum/AI_Module/small/reactivate_cameras
 	module_name = "Reactivate Camera Network"
@@ -338,11 +330,9 @@ rcd light flash thingy on matter drain
 					//If a camera is both deactivated and has bad focus, it will cost two uses to fully fix!
 			else
 				to_chat(src, "<span class='warning'>Out of uses.</span>")
-
 				verbs -= /mob/living/silicon/ai/proc/reactivate_cameras //It is useless now, clean it up.
 				break
 	to_chat(src, "<span class='notice'>Diagnostic complete! Operations completed: [fixedcams].</span>")
-
 
 	malf_cooldown = 1
 	spawn(30) //Lag protection
@@ -386,7 +376,6 @@ rcd light flash thingy on matter drain
 				upgradedcams++
 
 	to_chat(src, "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: [upgradedcams]. Light amplification system online.</span>")
-
 	verbs -= /mob/living/silicon/ai/proc/upgrade_cameras
 
 /datum/module_picker

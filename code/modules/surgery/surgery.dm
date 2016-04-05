@@ -182,7 +182,6 @@
 /proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user)
 	if(!istype(user) || !istype(E)) return
 //	to_chat(world, "Germ spread: [E] : [E.owner]")
-
 	var/germ_level = user.germ_level
 	if(user.gloves)
 		germ_level = user.gloves.germ_level

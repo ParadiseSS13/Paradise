@@ -17,7 +17,6 @@
 	attack_hand(mob/user as mob)
 		to_chat(user, "Civilians: NT is recruiting! Please head SOUTH to the NT Recruitment office to join the station's crew!")
 
-
 /obj/structure/ninjatele
 
 	name = "Long-Distance Teleportation Console"
@@ -51,13 +50,10 @@
 
 					to_chat(user, "\blue <b>VOID-Shift</b> translocation successful")
 
-
 				if("No")
 
 					to_chat(user, "\red <b>Process aborted!</b>")
 
-
 					return
 		else
-			to_chat(user, "\red <B>FÄ†AL ï¿½Rrï¿½R</B>: µ§er n¤t rec¤gnized, c-c¤ntr-r¤£§-£§ £¤cked.")
-
+			to_chat(user, "\red <B>FÄ†AL ï¿½Rrï¿½R</B>: Å§er nt recgnized, c-cntr-rä£§-Ã§ Ã¤cked.")

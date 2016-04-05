@@ -20,7 +20,6 @@
 		return 0
 	if(!ishuman(user))
 		to_chat(user, "<span class='warning'>You are in too weak of a form to do this!</span>")
-
 		return 0
 
 	var/datum/vampire/vampire = user.mind.vampire
@@ -32,21 +31,17 @@
 
 	if(user.stat >= DEAD)
 		to_chat(user, "<span class='warning'>Not when you're dead!</span>")
-
 		return 0
 
 	if(vampire.nullified && !fullpower)
 		to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
-
 		return 0
 	if(vampire.bloodusable < required_blood)
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
-
 		return 0
 	//chapel check
 	if(istype(loc.loc, /area/chapel) && !fullpower)
 		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
-
 		return 0
 	return ..()
 
@@ -112,7 +107,6 @@
 	if(targets.len)
 		to_chat(usr, "<span class='notice'><b>You have [vampire.bloodusable] left to use.</b></span>")
 
-
 /obj/effect/proc_holder/spell/vampire/targetted/choose_targets(mob/user = usr)
 	var/list/possible_targets[0]
 	for(var/mob/living/carbon/C in oview_or_orange(range, user, selection_type))
@@ -164,7 +158,6 @@
 	usr.SetParalysis(0)
 	U.adjustStaminaLoss(-75)
 	to_chat(usr, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
-
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
 			for(var/i = 1 to 5)
@@ -186,21 +179,16 @@
 		if(do_mob(usr, target, 50))
 			if(!affects(target))
 				to_chat(usr, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
-
 				to_chat(target, "\blue [usr]'s feeble gaze is ineffective.")
-
 			else
 				to_chat(usr, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
-
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
-
 				target.Weaken(10)
 				target.Stun(10)
 				target.stuttering = 10
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>You broke your gaze.</span>")
-
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease
 	name = "Diseased Touch (100)"
@@ -212,11 +200,9 @@
 /obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets)
 	for(var/mob/living/carbon/target in targets)
 		to_chat(usr, "<span class='warning'>You stealthily infect [target] with your diseased touch.</span>")
-
 		target.help_shake_act(usr)
 		if(!affects(target))
 			to_chat(usr, "<span class='warning'>They seem to be unaffected.</span>")
-
 			continue
 		var/datum/disease/D = new /datum/disease/appendicitis //someone should probably make a better virus for this
 		target.ForceContractDisease(D)
@@ -232,7 +218,6 @@
 	usr.visible_message("<span class='warning'><b>[usr]'s eyes emit a blinding flash!</span>")
 	if(istype(usr:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 		to_chat(usr, "<span class='warning'>You're blindfolded!</span>")
-
 		return
 	for(var/mob/living/target in targets)
 		if(!affects(target))
@@ -241,7 +226,6 @@
 		target.Weaken(5)
 		target.stuttering = 20
 		to_chat(target, "<span class='warning'>You are blinded by [usr]'s glare.</span>")
-
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Shapeshift (50)"
@@ -274,7 +258,6 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-
 		C.Weaken(4)
 		C.ear_deaf = 20
 		C.stuttering = 20
@@ -295,10 +278,8 @@
 	for(var/mob/living/target in targets)
 		usr.visible_message("<span class='warning'>[usr] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
-
 		if(!ishuman(target))
 			to_chat(usr, "<span class='warning'>You can only enthrall humans.</span>")
-
 			break
 		if(do_mob(usr, target, 50))
 			if(can_enthrall(usr, target))
@@ -306,7 +287,6 @@
 			else
 				revert_cast(usr)
 				to_chat(usr, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
-
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
@@ -323,7 +303,6 @@
 		return 0
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
-
 		return 0
 	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.vampire_enthralled ))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
@@ -332,7 +311,6 @@
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [ticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>")
-
 		return 0
 	return 1
 
@@ -357,9 +335,7 @@
 	ticker.mode.vampire_enthralled[H.mind] = user.mind
 	H.mind.special_role = "VampThrall"
 	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>")
-
 	to_chat(src, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
-
 	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 
 /obj/effect/proc_holder/spell/vampire/self/cloak
@@ -384,7 +360,6 @@
 	V.iscloaking = !V.iscloaking
 	update_name()
 	to_chat(usr, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
-
 
 /obj/effect/proc_holder/spell/vampire/bats
 	name = "Summon Bats (75)"
@@ -451,7 +426,6 @@
 		var/mobloc = get_turf(usr.loc)
 		if(get_area(mobloc) == /area/security/armoury/gamma)
 			to_chat(usr, "A strange energy repels you!")
-
 			mobloc = originalloc
 		animation.loc = mobloc
 		steam.location = mobloc
@@ -512,7 +486,6 @@
 	if(!turfs.len)
 		revert_cast(user)
 		to_chat(user, "\red You cannot find darkness to step to.")
-
 		return
 
 	perform(turfs)

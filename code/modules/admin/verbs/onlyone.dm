@@ -22,11 +22,9 @@
 		H.mind.objectives += hijack_objective
 
 		to_chat(H, "<B>You are a Highlander. Kill all other Highlanders. There can be only one.</B>")
-
 		var/obj_count = 1
 		for(var/datum/objective/OBJ in H.mind.objectives)
 			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-
 			obj_count++
 
 		for (var/obj/item/I in H)
@@ -59,7 +57,6 @@
 	nologevent = 1
 	to_chat(world, sound('sound/music/THUNDERDOME.ogg'))
 
-
 /client/proc/only_me()
 	if(!ticker)
 		alert("The game hasn't started yet!")
@@ -77,11 +74,9 @@
 		H.mind.objectives += hijack_objective
 
 		to_chat(H, "<B>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</B>")
-
 		var/obj_count = 1
 		for(var/datum/objective/OBJ in H.mind.objectives)
 			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-
 			obj_count++
 
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)
@@ -107,4 +102,3 @@
 	log_admin("[key_name(usr)] used there can be only me.")
 	nologevent = 1
 	to_chat(world, sound('sound/music/THUNDERDOME.ogg'))
-

@@ -91,7 +91,6 @@ var/specops_shuttle_timeleft = 0
 		var/mob/M = locate(/mob) in T
 		to_chat(M, "\red You have arrived at Central Command. Operation has ended!")
 
-
 	specops_shuttle_at_station = 0
 
 	for(var/obj/machinery/computer/specops_shuttle/S in world)
@@ -139,7 +138,6 @@ var/specops_shuttle_timeleft = 0
 
 	if (!specops_can_move())
 		to_chat(usr, "\red The Special Operations shuttle is unable to leave.")
-
 		return
 
 	//Begin Marauder launchpad.
@@ -235,7 +233,6 @@ var/specops_shuttle_timeleft = 0
 		var/mob/M = locate(/mob) in T
 		to_chat(M, "\red You have arrived to [station_name]. Commence operation!")
 
-
 	for(var/obj/machinery/computer/specops_shuttle/S in world)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
 
@@ -251,26 +248,22 @@ var/specops_shuttle_timeleft = 0
 
 /obj/machinery/computer/specops_shuttle/attack_ai(var/mob/user as mob)
 	to_chat(user, "\red Access Denied.")
-
 	return 1
 
 /obj/machinery/computer/specops_shuttle/attackby(I as obj, user as mob, params)
 	if(istype(I,/obj/item/weapon/card/emag))
 		to_chat(user, "\blue The electronic systems in this console are far too advanced for your primitive hacking peripherals.")
-
 	else
 		return attack_hand(user)
 
 /obj/machinery/computer/specops_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "\red Access Denied.")
-
 		return
 
 //Commented out so admins can do shenanigans at their leisure. Also makes the force-spawned admin ERTs able to use the shuttle.
 //	if (sent_strike_team == 0 && send_emergency_team == 0)
 //		to_chat(usr, "\red The strike team has not yet deployed.")
-
 //		return
 
 	if(..())
@@ -302,17 +295,13 @@ var/specops_shuttle_timeleft = 0
 
 		if (!specops_can_move())
 			to_chat(usr, "\blue Central Command will not allow the Special Operations shuttle to return yet.")
-
 			if(world.timeofday <= specops_shuttle_timereset)
 				if (((world.timeofday - specops_shuttle_timereset)/10) > 60)
 					to_chat(usr, "\blue [-((world.timeofday - specops_shuttle_timereset)/10)/60] minutes remain!")
-
 				to_chat(usr, "\blue [-(world.timeofday - specops_shuttle_timereset)/10] seconds remain!")
-
 			return
 
 		to_chat(usr, "\blue The Special Operations shuttle will arrive at Central Command in [(SPECOPS_MOVETIME/10)] seconds.")
-
 
 		temp += "Shuttle departing.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 		updateUsrDialog()
@@ -327,11 +316,9 @@ var/specops_shuttle_timeleft = 0
 
 		if (!specops_can_move())
 			to_chat(usr, "\red The Special Operations shuttle is unable to leave.")
-
 			return
 
 		to_chat(usr, "\blue The Special Operations shuttle will arrive on [station_name] in [(SPECOPS_MOVETIME/10)] seconds.")
-
 
 		temp += "Shuttle departing.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 		updateUsrDialog()

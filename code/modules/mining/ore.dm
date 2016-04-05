@@ -14,7 +14,6 @@
 			qdel(src)
 		else if(W.isOn())
 			to_chat(user, "<span class='info'>Not enough fuel to smelt [src].</span>")
-
 	..()
 
 /obj/item/weapon/ore/Crossed(AM as mob|obj)
@@ -66,7 +65,6 @@
 
 /obj/item/weapon/ore/glass/attack_self(mob/living/user as mob)
 	to_chat(user, "<span class='notice'>You use the sand to make sandstone.</span>")
-
 	var/sandAmt = 1
 	for(var/obj/item/weapon/ore/glass/G in user.loc) // The sand on the floor
 		sandAmt += 1
@@ -97,7 +95,6 @@
 		var/obj/item/weapon/weldingtool/W = I
 		if(W.welding)
 			to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
-
 	else
 		..()
 

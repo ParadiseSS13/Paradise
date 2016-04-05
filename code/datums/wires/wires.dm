@@ -118,14 +118,12 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 				else
 					to_chat(L, "<span class='error'>You need wirecutters!</span>")
 
-
 			else if(href_list["pulse"])
 				if(istype(I, /obj/item/device/multitool))
 					var/colour = href_list["pulse"]
 					PulseColour(colour)
 				else
 					to_chat(L, "<span class='error'>You need a multitool!</span>")
-
 
 			else if(href_list["attach"])
 				var/colour = href_list["attach"]
@@ -142,7 +140,6 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 						Attach(colour, I)
 					else
 						to_chat(L, "<span class='error'>You need a remote signaller!</span>")
-
 
 
 

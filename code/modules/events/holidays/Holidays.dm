@@ -141,9 +141,7 @@ var/global/Holiday = null
 /proc/Holiday_Game_Start()
 	if(Holiday)
 		to_chat(world, "<font color='blue'>and...</font>")
-
 		to_chat(world, "<h4>Happy [Holiday] Everybody!</h4>")
-
 		switch(Holiday)			//special holidays
 			if("Easter")
 				//do easter stuff

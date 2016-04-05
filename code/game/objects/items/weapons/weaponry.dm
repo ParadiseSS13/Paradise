@@ -13,7 +13,6 @@
 
 /obj/item/weapon/banhammer/suicide_act(mob/user)
 		to_chat(viewers(user), "<span class='suicide'>[user] is hitting \himself with the [src.name]! It looks like \he's trying to ban \himself from life.</span>")
-
 		return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
 
 /obj/item/weapon/nullrod
@@ -33,7 +32,6 @@
 
 	suicide_act(mob/user)
 		to_chat(viewers(user), "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
-
 		return (BRUTELOSS|FIRELOSS)
 
 /obj/item/weapon/nullrod/attack(mob/M as mob, mob/living/user as mob) //Paste from old-code to decult with a null rod.
@@ -50,7 +48,6 @@
 
 	if ((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "\red The rod slips out of your hand and hits your head.")
-
 		user.take_organ_damage(10)
 		user.Paralyse(20)
 		return
@@ -60,7 +57,6 @@
 			if(ishuman(M))
 				if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
 					to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
 
@@ -72,7 +68,6 @@
 			if(!transformed) // can't turn a sword into a sword.
 				var/obj/item/S = new transform_into()
 				to_chat(user, "<span class='notice'>You sheath the [src] into the [I]'s scabbard, transforming it into \a [S].</span>")
-
 				user.unEquip(src)
 				qdel(src)
 				user.put_in_hands(S)
@@ -104,7 +99,6 @@
 
 	suicide_act(mob/user)
 		to_chat(viewers(user), "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
-
 		return(BRUTELOSS)
 
 /obj/item/weapon/sord/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
@@ -131,7 +125,6 @@
 
 	suicide_act(mob/user)
 		to_chat(viewers(user), "<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>")
-
 		return(BRUTELOSS)
 
 /obj/item/weapon/claymore/ceremonial
@@ -155,7 +148,6 @@
 
 	suicide_act(mob/user)
 		to_chat(viewers(user), "<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
-
 		return(BRUTELOSS)
 
 /obj/item/weapon/katana/IsShield()
@@ -201,7 +193,6 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 
 		user.put_in_hands(S)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
-
 		qdel(I)
 		qdel(src)
 
@@ -214,7 +205,6 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 
 		user.put_in_hands(P)
 		to_chat(user, "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>")
-
 		qdel(I)
 		qdel(src)
 

@@ -47,7 +47,6 @@
 
 	to_chat(H, "<B>You are now a [H.species.name].</B>")
 
-
 	return H
 
 /datum/dna/gene/monkey/deactivate(var/mob/living/carbon/human/H, var/connected, var/flags)
@@ -90,6 +89,5 @@
 		H.hud_used.instantiate()
 
 	to_chat(H, "<B>You are now a [H.species.name].</B>")
-
 
 	return H

@@ -24,7 +24,6 @@
 	if(!user)
 		return 0
 	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
-
 	user.dna.SetSEState(MONKEYBLOCK,0)
 	domutcheck(user, null) // Do a pre-mutcheck to cleanly switch from monkey form.
 	user.dna = chosen_dna

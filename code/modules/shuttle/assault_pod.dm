@@ -56,5 +56,4 @@
 
 	to_chat(user, "Landing zone set.")
 
-
 	qdel(src)

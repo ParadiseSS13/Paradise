@@ -20,7 +20,6 @@
 	if(tracking_entities)
 		to_chat(src, "<span class='warning'>Internal camera is currently being accessed.</span>")
 
-
 /mob/living/silicon/proc/add_ion_law(var/law)
 	laws_sanity_check()
 	laws.add_ion_law(law)
@@ -77,7 +76,6 @@
 /mob/living/silicon/proc/dostatelaws(var/method, var/prefix, var/datum/ai_laws/laws)
 	if(stating_laws[prefix])
 		to_chat(src, "<span class='notice'>[method]: Already stating laws using this communication method.</span>")
-
 		return
 
 	stating_laws[prefix] = 1
@@ -91,7 +89,6 @@
 
 	if(!can_state)
 		to_chat(src, "<span class='danger'>[method]: Unable to state laws. Communication method unavailable.</span>")
-
 	stating_laws[prefix] = 0
 
 /mob/living/silicon/proc/statelaw(var/law)

@@ -37,7 +37,6 @@
 					continue
 				G.attackby(NG, user, params)
 				to_chat(usr, "You add the newly-formed plasma glass to the stack. It now contains [NG.amount] sheets.")
-
 			//SN src = null
 			qdel(src)
 			return

@@ -37,7 +37,6 @@
 		if (src.allowed(usr))
 			locked = !locked
 			to_chat(user, "You [ locked ? "lock" : "unlock"] the device.")
-
 			if (locked)
 				if (user.machine==src)
 					user.unset_machine()
@@ -47,7 +46,6 @@
 					src.attack_hand(usr)
 		else
 			to_chat(user, "\red Access denied.")
-
 			return
 	return
 
@@ -60,7 +58,6 @@
 	if ( (get_dist(src, user) > 1 ))
 		if (!istype(user, /mob/living/silicon))
 			to_chat(user, text("Too far away."))
-
 			user.unset_machine()
 			user << browse(null, "window=ai_slipper")
 			return
@@ -71,7 +68,6 @@
 		loc = loc:loc
 	if (!istype(loc, /area))
 		to_chat(user, text("Turret badly positioned - loc.loc is [].", loc))
-
 		return
 	var/area/area = loc
 	var/t = "<TT><B>AI Liquid Dispenser</B> ([area.name])<HR>"
@@ -92,7 +88,6 @@
 	if (src.locked)
 		if (!istype(usr, /mob/living/silicon))
 			to_chat(usr, "Control panel is locked!")
-
 			return
 	if (href_list["toggleOn"])
 		src.disabled = !src.disabled

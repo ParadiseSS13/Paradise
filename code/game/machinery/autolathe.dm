@@ -109,7 +109,6 @@
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 	if (busy)
 		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
-
 		return 1
 
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
@@ -145,15 +144,12 @@
 	var/material_amount = materials.get_item_material_amount(O)
 	if(!material_amount)
 		to_chat(user, "<span class='warning'>This object does not contain sufficient amounts of metal or glass to be accepted by the autolathe.</span>")
-
 		return 1
 	if(!materials.has_space(material_amount))
 		to_chat(user, "<span class='warning'>The autolathe is full. Please remove metal or glass from the autolathe in order to insert more.</span>")
-
 		return 1
 	if(!user.unEquip(O))
 		to_chat(user, "<span class='warning'>\The [O] is stuck to you and cannot be placed into the autolathe.</span>")
-
 		return 1
 
 	busy = 1
@@ -165,11 +161,9 @@
 			if (O.materials[MAT_GLASS])
 				flick("autolathe_r",src)//plays glass insertion animation
 			to_chat(user, "<span class='notice'>You insert [inserted] sheet[inserted>1 ? "s" : ""] to the autolathe.</span>")
-
 			use_power(inserted*100)
 		else
 			to_chat(user, "<span class='notice'>You insert a material total of [inserted] to the autolathe.</span>")
-
 			use_power(max(500,inserted/10))
 			qdel(O)
 	busy = 0
@@ -220,7 +214,6 @@
 			add_to_queue(design_last_ordered,multiplier)
 		else
 			to_chat(usr, "\red The autolathe queue is full!")
-
 		if (!busy)
 			busy = 1
 			process_queue()

@@ -7,7 +7,6 @@
 	var/weakness = GetAnomalySusceptibility(user)
 	if(prob(100 * weakness))
 		to_chat(user, "\red You are suddenly zapped away elsewhere!")
-
 		if (user.buckled)
 			user.buckled.unbuckle_mob()
 
@@ -27,7 +26,6 @@
 			var/weakness = GetAnomalySusceptibility(M)
 			if(prob(100 * weakness))
 				to_chat(M, "\red You are displaced by a strange force!")
-
 				if(M.buckled)
 					M.buckled.unbuckle_mob()
 
@@ -47,7 +45,6 @@
 			var/weakness = GetAnomalySusceptibility(M)
 			if(prob(100 * weakness))
 				to_chat(M, "\red You are displaced by a strange force!")
-
 				if(M.buckled)
 					M.buckled.unbuckle_mob()
 

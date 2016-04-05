@@ -15,25 +15,19 @@
 
 /datum/game_mode/wizard/raginmages/announce()
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
-
 	to_chat(world, "<B>The \red Space Wizard Federation\black is pissed, help defeat all the space wizards!</B>")
-
 
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	if (you_are)
 		to_chat(wizard.current, "<B>\red You are the Space Wizard!</B>")
-
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
-
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 		obj_count++
 	to_chat(wizard.current, "<b>Objective Alpha</b>: Make sure the station pays for its actions against our diplomats")
-
 	return
 
 /datum/game_mode/wizard/raginmages/check_finished()
@@ -46,21 +40,18 @@
 		if(!istype(wizard.current,/mob/living/carbon))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(istype(wizard.current,/mob/living/carbon/brain))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-
 				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
@@ -68,17 +59,14 @@
 			if(wizard.current.health < 0)
 				if(istype(get_area(wizard.current), /area/wizard_station))
 					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-
 					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
 					end_squabble(get_area(wizard.current))
 				else
 					to_chat(wizard.current, "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>")
-
 					wizard.current.gib() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 			continue
 		if(wizard.current.client && wizard.current.client.is_afk() > 10 * 60 * 10) // 10 minutes
 			to_chat(wizard.current, "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>")
-
 			wizard.current.gib() // Let's keep the round moving
 			continue
 		if(!wizard.current.client)
@@ -113,7 +101,6 @@
 	for(var/mob/living/L in marked_for_death)
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
 			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
-
 		L.ghostize()
 		if(istype(L, /mob/living/carbon/brain))
 			// diediedie
@@ -198,5 +185,4 @@
 	if(finished)
 		feedback_set_details("round_end_result","loss - wizard killed")
 		to_chat(world, "\red <FONT size = 3><B> The crew has managed to hold off the wizard attack! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT>")
-
 	..(1)

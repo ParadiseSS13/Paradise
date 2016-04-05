@@ -32,10 +32,8 @@ Bonus
 		switch(A.stage)
 			if(2,3)
 				to_chat(M, "<span class='warning'>[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]</span>")
-
 			if(4,5)
 				to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
-
 				Flesheat(M, A)
 	return
 

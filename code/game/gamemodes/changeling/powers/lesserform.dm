@@ -13,20 +13,17 @@
 		return 0
 	if(user.has_brain_worms())
 		to_chat(user, "<span class='warning'>We cannot perform this ability at the present time!</span>")
-
 		return
 
 	var/mob/living/carbon/human/H = user
 
 	if(!istype(H) || !H.species.primitive_form)
 		to_chat(src, "<span class='warning'>We cannot perform this ability in this form!</span>")
-
 		return
 
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
 	changeling.geneticdamage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
-
 	var/list/implants = list() //Try to preserve implants.
 	for(var/obj/item/weapon/implant/W in H)
 		implants += W

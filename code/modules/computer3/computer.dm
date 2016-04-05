@@ -78,12 +78,10 @@
 
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
 			to_chat(usr, "\red You can't do that.")
-
 			return
 
 		if(!Adjacent(usr))
 			to_chat(usr, "You can't reach it.")
-
 			return
 
 		Reset()
@@ -369,7 +367,6 @@
 
 		to_chat(user, "\The [src] won't boot!")
 
-
 	attack_ai(var/mob/user as mob) // copypasta because server racks lose attack_hand()
 		if(stat)
 			Reset()
@@ -394,7 +391,6 @@
 			return
 
 		to_chat(user, "\The [src] won't boot!")
-
 
 	interact()
 		if(stat)

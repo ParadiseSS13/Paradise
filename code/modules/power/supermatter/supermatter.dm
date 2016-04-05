@@ -226,9 +226,7 @@
 	for(var/mob/M in mob_list)
 		to_chat(M, 'sound/effects/supermatter.ogg')//everyone goan know bout this
 
-
 		to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
-
 	qdel(src)
 	return(gain)
 

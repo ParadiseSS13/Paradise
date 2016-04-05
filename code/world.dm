@@ -83,18 +83,13 @@ var/global/datum/global_init/init = new ()
 
 //world/Topic(href, href_list[])
 //		to_chat(world, "Received a Topic() call!")
-
 //		to_chat(world, "[href]")
-
 //		for(var/a in href_list)
 //			to_chat(world, "[a]")
-
 //		if(href_list["hello"])
 //			to_chat(world, "Hello world!")
-
 //			return "Hello world!"
 //		to_chat(world, "End of Topic() call.")
-
 //		..()
 
 var/world_topic_spam_protect_ip = "0.0.0.0"
@@ -186,14 +181,11 @@ var/world_topic_spam_protect_time = world.timeofday
 		C.irc_admin = input["sender"]
 
 		to_chat(C, 'sound/effects/adminhelp.ogg')
-
 		to_chat(C, message)
-
 
 		for(var/client/A in admins)
 			if(A != C)
 				to_chat(A, amessage)
-
 
 		return "Message Successful"
 
@@ -217,7 +209,6 @@ var/world_topic_spam_protect_time = world.timeofday
 				for(var/client/C in clients)
 					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
 
-
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
@@ -235,7 +226,6 @@ var/world_topic_spam_protect_time = world.timeofday
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
-
 		return ..(1)
 	var/delay
 	if(!isnull(time))
@@ -244,16 +234,13 @@ var/world_topic_spam_protect_time = world.timeofday
 		delay = ticker.restart_timeout
 	if(ticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
-
 		return
 	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
-
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
 	if(ticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
-
 		return
 	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
@@ -261,7 +248,6 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	spawn(0)
 		to_chat(world, sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')))// random end sounds!! - LastyBatsy
-
 
 
 	processScheduler.stop()
@@ -289,7 +275,6 @@ var/world_topic_spam_protect_time = world.timeofday
 				if(!istype(C.mob, /mob/dead))
 					log_access("AFK: [key_name(C)]")
 					to_chat(C, "\red You have been inactive for more than 10 minutes and have been disconnected.")
-
 					del(C)
 		if ( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
 			sleep(sleep_length)
@@ -337,7 +322,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/F = file("data/mode.txt")
 	fdel(F)
 	to_chat(F, the_mode)
-
 
 /hook/startup/proc/loadMusic()
 	for(var/obj/machinery/media/jukebox/J in machines)

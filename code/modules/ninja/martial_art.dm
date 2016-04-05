@@ -23,7 +23,6 @@
 			  "<span class='warning'>[user] sticks the [src]'s needle \his arm and presses the button.")
 		to_chat(user, "<span class='info'>The nanomachines in the [src] flow through your bloodstream.")
 
-
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
 		N.teach(user)
 
@@ -33,7 +32,6 @@
 		return 0
 	else
 		to_chat(user, "<span class='warning'>The [src] has been used already!</span>")
-
 		return 1
 
 // Ninja martial art datum
@@ -48,7 +46,6 @@
 	..()
 	H.middleClickOverride = new /datum/middleClickOverride/ninja_martial_art()
 		to_chat(H, "You have been taugh the ways of the <i>Creeping Widow</i>.<br>\)
-
 			Your stikes on harm intent will deal more damage.<br>Using middle mouse button on a nearby person while on harm intent will send them flying backwards.<br>\
 			Your grabs will instantly be aggressive while you are using this style.<br>Using middle mouse button while on harm intent and behind a person will put them in a silencing choke hold.<br>\
 			Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
@@ -68,7 +65,6 @@
 			spawn(50) has_focus = 1
 			return 1
 		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
-
 		return 0
 	return A.pointed(D)
 
@@ -77,12 +73,10 @@
 		A.face_atom(D)
 		if(A.dir != D.dir) // If the user's direction is not the same as the target's after A.face_atom(D) you are not behind them, and cannot use this ability.
 			to_chat(A, "<span class='warning'>You cannot grab [D] from that angle!</span>")
-
 			return 0
 
 		if(has_choke_hold) // Are we already choking someone?
 			to_chat(A, "<span class='warning'>You are have a target in your grip!</span>")
-
 			return 0
 
 		has_choke_hold = 1
@@ -112,9 +106,7 @@
 			sleep(5)
 
 		to_chat(A, "<span class='warning'>You feel [D] go limp in your grip.</span>")
-
 		to_chat(D, "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>")
-
 		D.AdjustParalysis(20)
 
 		has_choke_hold = 0
@@ -140,7 +132,6 @@
 			spawn(50) has_focus = 1
 			return 1
 		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
-
 		return 0
 	return A.pointed(D)
 

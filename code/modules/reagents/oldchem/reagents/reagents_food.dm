@@ -451,7 +451,6 @@
 
 /datum/reagent/sugar/overdose_start(var/mob/living/M as mob)
 	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
-
 	M.emote("collapse")
 	..()
 

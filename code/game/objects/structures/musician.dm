@@ -80,21 +80,17 @@
 
 		for(var/line in lines)
 //			to_chat(world, line)
-
 			for(var/beat in splittext(lowertext(line), ","))
 //				to_chat(world, "beat: [beat]")
-
 				var/list/notes = splittext(beat, "/")
 				for(var/note in splittext(notes[1], "-"))
 //					to_chat(world, "note: [note]")
-
 					if(!playing || shouldStopPlaying(user))//If the instrument is playing, or special case
 						playing = 0
 						return
 					if(lentext(note) == 0)
 						continue
 //					to_chat(world, "Parse: [copytext(note,1,2)]")
-
 					var/cur_note = text2ascii(note) - 96
 					if(cur_note < 1 || cur_note > 7)
 						continue
@@ -177,13 +173,11 @@
 				tempo = sanitize_tempo(5) // default 120 BPM
 			if(lines.len > 50)
 				to_chat(usr, "Too many lines!")
-
 				lines.Cut(51)
 			var/linenum = 1
 			for(var/l in lines)
 				if(lentext(l) > 50)
 					to_chat(usr, "Line [linenum] too long!")
-
 					lines.Remove(l)
 				else
 					linenum++
@@ -308,7 +302,6 @@
 		if (!anchored && !isinspace())
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "<span class='notice'> You begin to tighten \the [src] to the floor...</span>")
-
 			if (do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] tightens \the [src]'s casters.", \
@@ -318,7 +311,6 @@
 		else if(anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "<span class='notice'> You begin to loosen \the [src]'s casters...</span>")
-
 			if (do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \

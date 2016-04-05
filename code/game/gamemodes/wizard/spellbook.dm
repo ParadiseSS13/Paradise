@@ -27,7 +27,6 @@
 		if(initial(S.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.level_max)
 				to_chat(user, "<span class='warning'>This spell cannot be improved further.</span>")
-
 				return 0
 			else
 				aspell.name = initial(aspell.name)
@@ -38,29 +37,23 @@
 				switch(aspell.spell_level)
 					if(1)
 						to_chat(user, "<span class='notice'>You have improved [aspell.name] into Efficient [aspell.name].</span>")
-
 						aspell.name = "Efficient [aspell.name]"
 					if(2)
 						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Quickened [aspell.name].</span>")
-
 						aspell.name = "Quickened [aspell.name]"
 					if(3)
 						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Free [aspell.name].</span>")
-
 						aspell.name = "Free [aspell.name]"
 					if(4)
 						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Instant [aspell.name].</span>")
-
 						aspell.name = "Instant [aspell.name]"
 				if(aspell.spell_level >= aspell.level_max)
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
-
 				return 1
 	//No same spell found - just learn it
 	feedback_add_details("wizard_spell_learned",log_name)
 	user.mind.AddSpell(S)
 	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
-
 	return 1
 
 /datum/spellbook_entry/proc/CanRefund(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
@@ -77,7 +70,6 @@
 	var/area/wizard_station/A = locate()
 	if(!(user in A.contents))
 		to_chat(user, "<span clas=='warning'>You can only refund spells at the wizard lair</span>")
-
 		return -1
 	if(!S)
 		S = new spell_type()
@@ -312,7 +304,6 @@
 			user.see_in_dark = 8
 			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
 			to_chat(user, "\blue The walls suddenly disappear.")
-
 	return 1
 
 
@@ -435,7 +426,6 @@
 	book.uses += 1
 	active = 1
 	to_chat(user, "<span class='notice'>You have cast summon guns and gained an extra charge for your spellbook.</span>")
-
 	return 1
 
 /datum/spellbook_entry/summon/magic
@@ -459,7 +449,6 @@
 	book.uses += 1
 	active = 1
 	to_chat(user, "<span class='notice'>You have cast summon magic and gained an extra charge for your spellbook.</span>")
-
 	return 1
 
 /obj/item/weapon/spellbook
@@ -498,10 +487,8 @@
 		var/obj/item/weapon/contract/contract = O
 		if(contract.used)
 			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
-
 		else
 			to_chat(user, "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>")
-
 
 			uses++
 
@@ -509,7 +496,6 @@
 
 	if(istype(O, /obj/item/weapon/antag_spawner/slaughter_demon))
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
-
 
 		uses++
 		for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
@@ -570,12 +556,10 @@
 /obj/item/weapon/spellbook/attack_self(mob/user as mob)
 	if(!owner)
 		to_chat(user, "<span class='notice'>You bind the spellbook to yourself.</span>")
-
 		owner = user
 		return
 	if(user != owner)
 		to_chat(user, "<span class='warning'>The [name] does not recognize you as it's owner and refuses to open!</span>")
-
 		return
 	user.set_machine(src)
 	var/dat = ""
@@ -673,17 +657,14 @@
 			if(user.mind)
 				if(user.mind.special_role == "apprentice" || user.mind.special_role == "Wizard")
 					to_chat(user, "<span class='notice'>You're already far more versed in this spell than this flimsy how-to book can provide.</span>")
-
 				else
 					to_chat(user, "<span class='notice'>You've already read this one.</span>")
-
 			return
 	if(used)
 		recoil(user)
 	else
 		user.mind.AddSpell(S)
 		to_chat(user, "<span class='notice'>you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!</span>")
-
 		user.attack_log += text("\[[time_stamp()]\] <font color='orange'>[user.real_name] ([user.ckey]) learned the spell [spellname] ([S]).</font>")
 		onlearned(user)
 
@@ -718,7 +699,6 @@
 /obj/item/weapon/spellbook/oneuse/smoke/recoil(mob/user as mob)
 	..()
 	to_chat(user, "<span class='caution'>Your stomach rumbles...</span>")
-
 	if(user.nutrition)
 		user.nutrition -= 200
 		if(user.nutrition <= 0)
@@ -733,7 +713,6 @@
 /obj/item/weapon/spellbook/oneuse/blind/recoil(mob/user as mob)
 	..()
 	to_chat(user, "<span class='warning'>You go blind!</span>")
-
 	user.eye_blind = 10
 
 /obj/item/weapon/spellbook/oneuse/mindswap
@@ -756,11 +735,9 @@
 	if(!stored_swap)
 		stored_swap = user
 		to_chat(user, "<span class='warning'>For a moment you feel like you don't even know who you are anymore.</span>")
-
 		return
 	if(stored_swap == user)
 		to_chat(user, "<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
-
 		return
 
 	if(user.mind.special_verbs.len)
@@ -790,9 +767,7 @@
 			user.verbs += V
 
 	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
-
 	to_chat(user, "<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")
-
 	stored_swap = null
 
 /obj/item/weapon/spellbook/oneuse/forcewall
@@ -804,7 +779,6 @@
 /obj/item/weapon/spellbook/oneuse/forcewall/recoil(mob/user as mob)
 	..()
 	to_chat(user, "<span class='warning'>You suddenly feel very solid!</span>")
-
 	var/obj/structure/closet/statue/S = new /obj/structure/closet/statue(user.loc, user)
 	S.timer = 30
 	user.drop_item()
@@ -819,7 +793,6 @@
 /obj/item/weapon/spellbook/oneuse/knock/recoil(mob/user as mob)
 	..()
 	to_chat(user, "<span class='warning'>You're knocked down!</span>")
-
 	user.Weaken(20)
 
 /obj/item/weapon/spellbook/oneuse/horsemask
@@ -831,7 +804,6 @@
 /obj/item/weapon/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user as mob)
 	if(istype(user, /mob/living/carbon/human))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
-
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		magichead.flags |= NODROP		//curses!
 		magichead.flags_inv = null	//so you can still see their face
@@ -843,7 +815,6 @@
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")
 
-
 /obj/item/weapon/spellbook/oneuse/charge
 	spell = /obj/effect/proc_holder/spell/targeted/charge
 	spellname = "charging"
@@ -853,7 +824,6 @@
 /obj/item/weapon/spellbook/oneuse/charge/recoil(mob/user as mob)
 	..()
 	to_chat(user, "<span class='warning'>[src] suddenly feels very warm!</span>")
-
 	empulse(src, 1, 1)
 
 /obj/item/weapon/spellbook/oneuse/summonitem
@@ -865,7 +835,6 @@
 /obj/item/weapon/spellbook/oneuse/summonitem/recoil(mob/user as mob)
 	..()
 	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
-
 	qdel(src)
 
 

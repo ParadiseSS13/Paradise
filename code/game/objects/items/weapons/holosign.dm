@@ -19,7 +19,6 @@
 		var/obj/effect/overlay/holograph/H = locate() in T
 		if(H)
 			to_chat(user, "<span class='notice'>You use [src] to destroy [H].</span>")
-
 			signs -= H
 			qdel(H)
 		else
@@ -27,10 +26,8 @@
 				H = new(get_turf(target))
 				signs += H
 				to_chat(user, "<span class='notice'>You create \a [H] with [src].</span>")
-
 			else
 				to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
-
 
 /obj/item/weapon/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
 	return
@@ -42,7 +39,6 @@
 			qdel(sign)
 			signs -= sign
 		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
-
 
 /obj/effect/overlay/holograph
 	name = "wet floor sign"

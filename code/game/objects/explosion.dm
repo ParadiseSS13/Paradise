@@ -75,7 +75,6 @@
 				if(M.ear_deaf <= 0 || !M.ear_deaf) if(!istype(M.loc,/turf/space))
 					to_chat(M, 'sound/effects/explosionfar.ogg')
 
-
 		if(heavy_impact_range > 1)
 			var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()
 			E.set_up(epicenter)

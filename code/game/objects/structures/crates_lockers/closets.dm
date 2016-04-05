@@ -136,7 +136,6 @@
 /obj/structure/closet/proc/toggle(mob/user as mob)
 	if(!(src.opened ? src.close() : src.open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
-
 	return
 
 // this should probably use dump_contents()
@@ -195,7 +194,6 @@
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
 			if(!(src.z in config.contact_levels))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
-
 				return
 			if(E.mode == 0)
 				if(!E.teleporting)
@@ -214,7 +212,6 @@
 					E.pad = L[desc]
 					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
 					to_chat(user, "\blue Teleporting [src.name]...")
-
 					E.teleporting = 1
 					if(!do_after(user, 50, target = src))
 						E.teleporting = 0
@@ -222,7 +219,6 @@
 					E.teleporting = 0
 					if(user in contents)
 						to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
-
 						playsound(E.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 						return
 					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -231,7 +227,6 @@
 					do_teleport(src, E.pad, 0)
 					E.rcell.use(E.chargecost)
 					to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
-
 					return
 			else
 				E.rand_x = rand(50,200)
@@ -239,7 +234,6 @@
 				var/L = locate(E.rand_x, E.rand_y, 6)
 				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
 				to_chat(user, "\blue Teleporting [src.name]...")
-
 				E.teleporting = 1
 				if(!do_after(user, 50, target = src))
 					E.teleporting = 0
@@ -247,7 +241,6 @@
 				E.teleporting = 0
 				if(user in contents)
 					to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
-
 					playsound(E.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 					return
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -256,11 +249,9 @@
 				do_teleport(src, L)
 				E.rcell.use(E.chargecost)
 				to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
-
 				return
 		else
 			to_chat(user, "<span class='warning'>Out of charges.</span>")
-
 			return
 
 	if(src.opened)
@@ -272,7 +263,6 @@
 			var/obj/item/weapon/weldingtool/WT = W
 			if(!WT.remove_fuel(0,user))
 				to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-
 				return
 			new /obj/item/stack/sheet/metal(src.loc)
 			for(var/mob/M in viewers(src))
@@ -291,11 +281,9 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(src == user.loc)
 			to_chat(user, "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>")
-
 			return
 		if(!WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-
 			return
 		src.welded = !src.welded
 		src.update_icon()
@@ -339,12 +327,10 @@
 
 	if(!src.open())
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
-
 		if(!lastbang)
 			lastbang = 1
 			for (var/mob/M in hearers(src, null))
 				to_chat(M, text("<FONT size=[]>BANG, bang!</FONT>", max(0, 5 - get_dist(src, M))))
-
 			spawn(30)
 				lastbang = 0
 
@@ -357,7 +343,6 @@
 	src.add_fingerprint(user)
 	if(!src.toggle())
 		to_chat(usr, "<span class='notice'>It won't budge!</span>")
-
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
@@ -372,7 +357,6 @@
 		src.toggle(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
-
 
 /obj/structure/closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	overlays.Cut()
@@ -406,7 +390,6 @@
 	L.changeNext_move(CLICK_CD_BREAKOUT)
 	L.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
-
 	for(var/mob/O in viewers(usr.loc))
 		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
 
@@ -424,7 +407,6 @@
 			welded = 0
 			update_icon()
 			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
-
 			for(var/mob/O in viewers(L.loc))
 				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
 			if(istype(src.loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above

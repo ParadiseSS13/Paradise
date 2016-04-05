@@ -31,23 +31,18 @@ Contents:
 	if(!suitActive)
 		if(!istype(user.wear_suit, /obj/item/clothing/suit/space/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate user.\nABORTING...</span>")
-
 			return 0
 		if(!istype(user.head, /obj/item/clothing/head/helmet/space/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate hood.\nABORTING...</span>")
-
 			return 0
 		if(!istype(user.gloves, /obj/item/clothing/gloves/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate gloves.\nABORTING...</span>")
-
 			return 0
 		if(!istype(user.shoes, /obj/item/clothing/shoes/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate foot gear.\nABORTING...</span>")
-
 			return 0
 		if(!istype(user.wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate mask.\nABORTING...</span>")
-
 			return 0
 
 		suitHood = user.head

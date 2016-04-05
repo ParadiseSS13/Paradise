@@ -83,21 +83,16 @@
 
 /obj/item/weapon/rig/examine()
 	to_chat(usr, "This is \icon[src][src.name].")
-
 	to_chat(usr, "[src.desc]")
-
 	if(wearer)
 		for(var/obj/item/piece in list(helmet,gloves,chest,boots))
 			if(!piece || piece.loc != wearer)
 				continue
 			to_chat(usr, "\icon[piece] \The [piece] [piece.gender == PLURAL ? "are" : "is"] deployed.")
 
-
 	if(src.loc == usr)
 		to_chat(usr, "The maintenance panel is [open ? "open" : "closed"].")
-
 		to_chat(usr, "Hardsuit systems are [offline ? "<font color='red'>offline</font>" : "<font color='green'>online</font>"].")
-
 
 /obj/item/weapon/rig/New()
 	..()
@@ -221,7 +216,6 @@
 			if(seal_delay && !do_after(user, seal_delay, target = M))
 				if(user)
 					to_chat(user, "<span class='warning'>You must remain still while the suit is adjusting the components.</span>")
-
 				failed_to_seal = 1
 
 		if(!M)
@@ -240,7 +234,6 @@
 				if(!istype(M) || !istype(piece) || !istype(compare_piece) || !msg_type)
 					if(M)
 						to_chat(M, "<span class='warning'>You must remain still while the suit is adjusting the components.</span>")
-
 					failed_to_seal = 1
 					break
 
@@ -253,19 +246,15 @@
 					switch(msg_type)
 						if("boots")
 							to_chat(M, "<font color='blue'>\The [piece] [!seal_target ? "seal around your feet" : "relax their grip on your legs"].</font>")
-
 							M.update_inv_shoes()
 						if("gloves")
 							to_chat(M, "<font color='blue'>\The [piece] [!seal_target ? "tighten around your fingers and wrists" : "become loose around your fingers"].</font>")
-
 							M.update_inv_gloves()
 						if("chest")
 							to_chat(M, "<font color='blue'>\The [piece] [!seal_target ? "cinches tight again your chest" : "releases your chest"].</font>")
-
 							M.update_inv_wear_suit()
 						if("helmet")
 							to_chat(M, "<font color='blue'>\The [piece] hisses [!seal_target ? "closed" : "open"].</font>")
-
 							M.update_inv_head()
 							if(helmet)
 								helmet.update_light(wearer)
@@ -304,7 +293,6 @@
 		flags |= NODROP
 	to_chat(M, "<font color='blue'><b>Your entire suit [!(flags & NODROP) ? "loosens as the components relax" : "tightens around you as the components lock into place"].</b></font>")
 
-
 	if(!(flags & NODROP))
 		for(var/obj/item/rig_module/module in installed_modules)
 			module.deactivate()
@@ -341,16 +329,12 @@
 					if(flags & NODROP)
 						if (offline_slowdown < 3)
 							to_chat(wearer, "<span class='danger'>Your suit beeps stridently, and suddenly goes dead.</span>")
-
 						else
 							to_chat(wearer, "<span class='danger'>Your suit beeps stridently, and suddenly you're wearing a leaden mass of metal and plastic composites instead of a powered suit.</span>")
-
 					if(offline_vision_restriction == 1)
 						to_chat(wearer, "<span class='danger'>The suit optics flicker and die, leaving you with restricted vision.</span>")
-
 					else if(offline_vision_restriction == 2)
 						to_chat(wearer, "<span class='danger'>The suit optics drop out completely, drowning you in darkness.</span>")
-
 		if(!offline)
 			offline = 1
 			if(istype(wearer) && wearer.wearing_rig)
@@ -406,7 +390,6 @@
 
 	if(fail_msg)
 		to_chat(user, "[fail_msg]")
-
 		return 0
 
 	// This is largely for cancelling stealth and whatever.
@@ -533,12 +516,10 @@
 			return 0
 		else if(!src.allowed(user))
 			to_chat(user, "<span class='danger'>Unauthorized user. Access denied.</span>")
-
 			return 0
 
 	else if(!ai_override_enabled)
 		to_chat(user, "<span class='danger'>Synthetic access disabled. Please consult hardware provider.</span>")
-
 		return 0
 
 	return 1
@@ -588,7 +569,6 @@
 		for(var/mob/living/silicon/ai/ai in module.contents)
 			if(ai && ai.client && !ai.stat)
 				to_chat(ai, "[message]")
-
 
 /obj/item/weapon/rig/equipped(mob/living/carbon/human/M)
 	..()
@@ -655,7 +635,6 @@
 				if(istype(holder))
 					if(use_obj && check_slot == use_obj)
 						to_chat(H, "<font color='blue'><b>Your [use_obj.name] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.</b></font>")
-
 						use_obj.flags &= ~NODROP
 						holder.unEquip(use_obj, 1)
 						use_obj.forceMove(src)
@@ -664,7 +643,6 @@
 			if(check_slot)
 				if(check_slot != use_obj)
 					to_chat(H, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
-
 				return
 			else
 				use_obj.forceMove(H)
@@ -673,7 +651,6 @@
 					use_obj.forceMove(src)
 				else
 					to_chat(H, "<span class='notice'>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</span>")
-
 					use_obj.flags |= NODROP
 
 	if(piece == "helmet" && helmet)
@@ -790,20 +767,16 @@
 	if(wearer)
 		if(dam_module.damage >= 2)
 			to_chat(wearer, "<span class='danger'>The [source] has disabled your [dam_module.interface_name]!</span>")
-
 		else
 			to_chat(wearer, "<span class='warning'>The [source] has damaged your [dam_module.interface_name]!</span>")
-
 	dam_module.deactivate()
 
 /obj/item/weapon/rig/proc/malfunction_check(var/mob/living/carbon/human/user)
 	if(malfunction_delay)
 		if(offline)
 			to_chat(user, "<span class='danger'>The suit is completely unresponsive.</span>")
-
 		else
 			to_chat(user, "<span class='danger'>ERROR: Hardware fault. Rebooting interface...</span>")
-
 		return 1
 	return 0
 
@@ -828,23 +801,19 @@
 		var/obj/item/rig_module/ai_container/module = user.loc.loc
 		if(!istype(module) || module.damage >= 2)
 			to_chat(user, "<span class='warning'>Your host module is unable to interface with the suit.</span>")
-
 			return 0
 
 	if(offline || !cell || !cell.charge || locked_down)
 		if(user)
 			to_chat(user, "<span class='warning'>Your host rig is unpowered and unresponsive.</span>")
-
 		return 0
 	if(!wearer || wearer.back != src)
 		if(user)
 			to_chat(user, "<span class='warning'>Your host rig is not being worn.</span>")
-
 		return 0
 	if(!wearer.stat && !control_overridden && !ai_override_enabled)
 		if(user)
 			to_chat(user, "<span class='warning'>You are locked out of the suit servo controller.</span>")
-
 		return 0
 	return 1
 
@@ -853,7 +822,6 @@
 		return
 	wearer.lay_down()
 	to_chat(user, "<span class='notice'>\The [wearer] is now [wearer.resting ? "resting" : "getting up"].</span>")
-
 
 /obj/item/weapon/rig/proc/forced_move(var/direction, var/mob/user)
 
@@ -894,14 +862,12 @@
 				if(M.pulling == wearer)
 					if(!M.restrained() && M.stat == 0 && M.canmove && wearer.Adjacent(M))
 						to_chat(user, "<span class='notice'>Your host is restrained! They can't move!</span>")
-
 						return 0
 					else
 						M.stop_pulling()
 
 	if(wearer.pinned.len)
 		to_chat(src, "<span class='notice'>Your host is pinned to a wall by [wearer.pinned[1]]</span>!")
-
 		return 0
 
 	// AIs are a bit slower than regular and ignore move intent.

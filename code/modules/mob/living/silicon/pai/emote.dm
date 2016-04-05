@@ -3,5 +3,4 @@
 		if ("help")
 			to_chat(src, "ping, beep, buzz.")
 
-
 	..(act, m_type, message)

@@ -31,7 +31,6 @@
 		O.loc = src
 		scan = O
 		to_chat(user, "You insert [O].")
-
 	..()
 
 /obj/machinery/computer/skills/attack_ai(mob/user as mob)
@@ -43,7 +42,6 @@
 		return
 	if (src.z > 6)
 		to_chat(user, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
-
 		return
 	var/dat
 

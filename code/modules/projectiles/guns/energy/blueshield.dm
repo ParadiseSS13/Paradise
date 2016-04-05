@@ -23,7 +23,6 @@
 
 		to_chat(user, "<span class = 'warning'>You adjust [src.name] to the kill setting.</span>")
 
-
 	else
 		fire_mode = 0
 		charge_cost = 2000
@@ -34,6 +33,5 @@
 		modifystate = "bsgun_stun"
 
 		to_chat(user, "<span class = 'info'>You adjust [src.name] to the stun setting.</span>")
-
 
 	update_icon()

@@ -23,18 +23,15 @@
 			W = pda.id
 		if (!W:access) //no access
 			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
-
 			return
 
 		var/list/cardaccess = W:access
 		if(!istype(cardaccess, /list) || !cardaccess.len) //no access
 			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
-
 			return
 
 		if(!(access_heads in W:access)) //doesn't have this access
 			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
-
 			return 0
 
 		var/choice = alert(user, text("Would you like to (un)authorize a shortened launch time? [] authorization\s are still needed. Use abort to cancel all authorizations.", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
@@ -202,7 +199,6 @@
 				for(var/area/shuttle/escape/E in world)
 					to_chat(E, 'sound/effects/hyperspace_begin.ogg')
 
-
 			if(time_left <= 0 && !shuttle_master.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
 				for(var/obj/docking_port/mobile/pod/M in shuttle_master.mobile)
@@ -211,7 +207,6 @@
 				//now move the actual emergency shuttle to its transit dock
 				for(var/area/shuttle/escape/E in world)
 					to_chat(E, 'sound/effects/hyperspace_progress.ogg')
-
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
@@ -224,7 +219,6 @@
 				//now move the actual emergency shuttle to centcomm
 				for(var/area/shuttle/escape/E in world)
 					to_chat(E, 'sound/effects/hyperspace_end.ogg')
-
 				dock(shuttle_master.getDock("emergency_away"))
 				mode = SHUTTLE_ENDGAME
 				timer = 0
@@ -276,7 +270,6 @@
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
 	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
-
 	admin_controlled = 0
 	icon_state = "dorm_emag"
 

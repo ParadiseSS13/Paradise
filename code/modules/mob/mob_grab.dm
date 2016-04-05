@@ -263,7 +263,6 @@
 	else if(state < GRAB_NECK)
 		if(isslime(affecting))
 			to_chat(assailant, "<span class='notice'>You squeeze [affecting], but nothing interesting happens.</span>")
-
 			return
 
 		assailant.visible_message("<span class='warning'>[assailant] has reinforced \his grip on [affecting] (now neck)!</span>")
@@ -320,7 +319,6 @@
 				if(I_HELP)
 					/*if(force_down)
 						to_chat(assailant, "<span class='warning'>You no longer pin [affecting] to the ground.</span>")
-
 						force_down = 0
 						return*///This is a very basic demonstration of a new feature based on attacking someone with the grab, based on intent.
 								//This specific example would allow you to stop pinning people to the floor without moving away from them.
@@ -348,21 +346,17 @@
 					/*if(last_hit_zone == "eyes")
 						if(state < GRAB_NECK)
 							to_chat(assailant, "<span class='warning'>You require a better grab to do this.</span>")
-
 							return
 						if((affected.head && affected.head.flags & HEADCOVERSEYES) || \
 							(affected.wear_mask && affected.wear_mask.flags & MASKCOVERSEYES) || \
 							(affected.glasses && affected.glasses.flags & GLASSESCOVERSEYES))
 							to_chat(assailant, "<span class='danger'>You're going to need to remove the eye covering first.</span>")
-
 							return
 						if(!affected.internal_organs_by_name["eyes"])
 							to_chat(assailant, "<span class='danger'>You cannot locate any eyes on [affecting]!</span>")
-
 							return
 						assailant.visible_message("<span class='danger'>[assailant] presses \his fingers into [affecting]'s eyes!</span>")
 						to_chat(affecting, "<span class='danger'>You feel immense pain as digits are being pressed into your eyes!</span>")
-
 						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Pressed fingers into the eyes of [affecting.name] ([affecting.ckey])</font>")
 						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Had fingers pressed into their eyes by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has pressed his fingers into [key_name(affecting)]'s eyes.")
@@ -372,13 +366,11 @@
 							if(M.stat != 2)
 								to_chat(M, "\red You go blind!")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 
-
 															//This specific example would allow you to squish people's eyes with a GRAB_NECK.
 
 				if(I_DISARM) //This checks that the user is on disarm intent.
 				/*	if(state < GRAB_AGGRESSIVE)
 						to_chat(assailant, "<span class='warning'>You require a better grab to do this.</span>")
-
 						return
 					if(!force_down)
 						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
@@ -391,7 +383,6 @@
 						return
 					else
 						to_chat(assailant, "<span class='warning'>You are already pinning [affecting] to the ground.</span>")
-
 						return*///This is an example of something being done with an agressive grab + disarm intent.
 					return
 

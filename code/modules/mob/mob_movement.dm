@@ -51,13 +51,11 @@
 		var/module = R.get_selected_module()
 		if(!module)
 			to_chat(usr, "\red You have no module selected.")
-
 			return
 		R.cycle_modules()
 		R.uneq_numbered(module)
 	else
 		to_chat(usr, "\red This mob type cannot throw items.")
-
 	return
 
 
@@ -66,19 +64,16 @@
 		var/mob/living/carbon/C = usr
 		if(!C.get_active_hand())
 			to_chat(usr, "\red You have nothing to drop in your hand.")
-
 			return
 		drop_item()
 	else if(isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		if(!R.get_selected_module())
 			to_chat(usr, "\red You have no module selected.")
-
 			return
 		R.deselect_module(R.get_selected_module())
 	else
 		to_chat(usr, "\red This mob type cannot drop items.")
-
 	return
 
 //This gets called when you press the delete button.
@@ -87,7 +82,6 @@
 
 	if(!usr.pulling)
 		to_chat(usr, "\blue You are not pulling anything.")
-
 		return
 	usr.stop_pulling()
 
@@ -234,14 +228,12 @@
 				if(M.pulling == mob)
 					if(!M.restrained() && M.stat == 0 && M.canmove && mob.Adjacent(M))
 						to_chat(src, "\blue You're restrained! You can't move!")
-
 						return 0
 					else
 						M.stop_pulling()
 
 		if(mob.pinned.len)
 			to_chat(src, "\blue You're pinned to a wall by [mob.pinned[1]]!")
-
 			return 0
 
 		var/turf/T = mob.loc
@@ -401,7 +393,6 @@
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
 				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
-
 				L.notransform = 1
 				spawn(2)
 					L.notransform = 0
@@ -449,7 +440,6 @@
 	if(movement_dir && dense_object_backup)
 		if(dense_object_backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
 			to_chat(src, "<span class='info'>You push off of [dense_object_backup] to propel yourself.</span>")
-
 
 
 		return 1

@@ -228,7 +228,6 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		else
 			to_chat(user, "You can't do much with that.")*/
 
-
 	if (istype(O, /obj/item/weapon/card/id))
 		if(inoperable(MAINT)) return
 		if(screen == RCS_MESSAUTH)
@@ -243,7 +242,6 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			else
 				reset_message()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
-
 			updateUsrDialog()
 	if (istype(O, /obj/item/weapon/stamp))
 		if(inoperable(MAINT)) return

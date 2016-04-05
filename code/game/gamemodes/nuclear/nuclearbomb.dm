@@ -56,23 +56,19 @@ var/bomb_set
 				panel_open = 1
 				overlays += image(icon, "npanel_open")
 				to_chat(user, "You unscrew the control panel of [src].")
-
 				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 			else
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
-
 				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 		else
 			if (panel_open == 0)
 				to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
-
 			if (panel_open == 1)
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
-
 				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 			flick("nuclearbombc", src)
 		return
@@ -96,7 +92,6 @@ var/bomb_set
 					if(!WT.isOn()) return
 					if (WT.get_fuel() < 5) // uses up 5 fuel.
 						to_chat(user, "\red You need more fuel to complete this task.")
-
 						return
 
 					user.visible_message("[user] starts cutting loose the anchoring bolt covers on [src].", "You start cutting loose the anchoring bolt covers with [O]...")
@@ -124,7 +119,6 @@ var/bomb_set
 					if(!WT.isOn()) return
 					if (WT.get_fuel() < 5) // uses up 5 fuel.
 						to_chat(user, "\red You need more fuel to complete this task.")
-
 						return
 
 					user.visible_message("[user] starts cutting apart the anchoring system sealant on [src].", "You start cutting apart the anchoring system's sealant with [O]...")
@@ -224,11 +218,9 @@ var/bomb_set
 
 	if (deployable)
 		to_chat(usr, "\red You close several panels to make [src] undeployable.")
-
 		deployable = 0
 	else
 		to_chat(usr, "\red You adjust some panels to make [src] deployable.")
-
 		deployable = 1
 	return
 
@@ -288,7 +280,6 @@ var/bomb_set
 					return
 				if (safety)
 					to_chat(usr, "\red The safety is still on.")
-
 					nanomanager.update_uis(src)
 					return
 				timing = !(timing)
@@ -330,7 +321,6 @@ var/bomb_set
 						visible_message("\red The anchoring bolts slide back into the depths of [src].")
 				else
 					to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
-
 
 	nanomanager.update_uis(src)
 
@@ -382,13 +372,10 @@ var/bomb_set
 				ticker.mode:nukes_left --
 			else if(off_station == 1)
 				to_chat(world, "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>")
-
 			else if(off_station == 2)
 				to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
-
 			else
 				to_chat(world, "<b>The station was destoyed by the nuclear blast!</b>")
-
 
 			ticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
@@ -416,7 +403,6 @@ var/bomb_set
 	var/turf/disk_loc = get_turf(src)
 	if(disk_loc.z != ZLEVEL_STATION && disk_loc.z != ZLEVEL_CENTCOMM)
 		to_chat(get(src, /mob), "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
-
 		qdel(src)
 
 /obj/item/weapon/disk/nuclear/Destroy()

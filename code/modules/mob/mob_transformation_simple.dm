@@ -6,7 +6,6 @@
 
 	if(istype(src,/mob/new_player))
 		to_chat(usr, "\red cannot convert players who have not entered yet.")
-
 		return
 
 	if(!new_type)
@@ -17,12 +16,10 @@
 
 	if( !ispath(new_type) )
 		to_chat(usr, "Invalid type path (new_type = [new_type]) in change_mob_type(). Contact a coder.")
-
 		return
 
 	if( new_type == /mob/new_player )
 		to_chat(usr, "\red cannot convert into a new_player mob type.")
-
 		return
 
 	var/mob/M
@@ -33,7 +30,6 @@
 
 	if(!M || !ismob(M))
 		to_chat(usr, "Type path is not a mob (new_type = [new_type]) in change_mob_type(). Contact a coder.")
-
 		qdel(M)
 		return
 

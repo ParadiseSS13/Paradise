@@ -17,5 +17,4 @@
 			to_chat(M, "<font color='#960018'><span class='ooc'><span class='prefix'>AOOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 
 
-
 	log_ooc("(ANTAG) [key] : [msg]")

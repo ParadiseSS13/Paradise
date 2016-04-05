@@ -16,10 +16,8 @@
 			burning = 1
 
 	to_chat(usr, "\blue @[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]")
-
 	for(var/datum/gas/trace_gas in GM.trace_gases)
 		to_chat(usr, "[trace_gas.type]: [trace_gas.moles]")
-
 		
 	message_admins("[key_name_admin(usr)] has checked the air status of [T]")
 	log_admin("[key_name(usr)] has checked the air status of [T]")	
@@ -133,10 +131,8 @@
 		return
 
 	to_chat(usr, "<b>Jobbans active in this round.</b>")
-
 	for(var/t in jobban_keylist)
 		to_chat(usr, "[t]")
-
 		
 	message_admins("[key_name_admin(usr)] has printed the jobban log")
 	log_admin("[key_name(usr)] has printed the jobban log")
@@ -154,11 +150,9 @@
 		return
 
 	to_chat(usr, "<b>Jobbans active in this round.</b>")
-
 	for(var/t in jobban_keylist)
 		if(findtext(t, filter))
 			to_chat(usr, "[t]")
-
 			
 	message_admins("[key_name_admin(usr)] has searched the jobban log for [filter]")
 	log_admin("[key_name(usr)] has searched the jobban log for [filter]")

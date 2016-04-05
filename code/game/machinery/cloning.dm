@@ -150,11 +150,9 @@
 	read_only = !read_only
 	to_chat(user, "You flip the write-protect tab to [read_only ? "protected" : "unprotected"].")
 
-
 /obj/item/weapon/disk/data/examine(mob/user)
 	..(user)
 	to_chat(user, "The write-protect tab is set to [read_only ? "protected" : "unprotected"].")
-
 
 
 //Health Tracker Implant
@@ -185,7 +183,6 @@
 	if ((!isnull(occupant)) && (occupant.stat != 2))
 		var/completion = (100 * ((occupant.health + 100) / (heal_level + 100)))
 		to_chat(user, "Current clone cycle is [round(completion)]% complete.")
-
 	return
 
 //Clonepod
@@ -243,7 +240,6 @@
 
 	clonemind.transfer_to(H)
 	to_chat(H, "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>")
-
 
 	// -- Mode/mind specific stuff goes here
 	callHook("clone", list(H))
@@ -349,7 +345,6 @@
 	if (istype(W, /obj/item/weapon/screwdriver))
 		if(occupant || mess || locked)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-
 			return
 		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", W)
 		return
@@ -365,23 +360,19 @@
 	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (!check_access(W))
 			to_chat(user, "\red Access Denied.")
-
 			return
 		if ((!locked) || (isnull(occupant)))
 			return
 		if ((occupant.health < -20) && (occupant.stat != 2))
 			to_chat(user, "\red Access Refused.")
-
 			return
 		else
 			locked = 0
 			to_chat(user, "System unlocked.")
 
-
 //Removing cloning pod biomass
 	else if (istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
 		to_chat(user, "\blue \The [src] processes \the [W].")
-
 		biomass += 50
 		user.drop_item()
 		qdel(W)
@@ -389,7 +380,6 @@
 	else if (istype(W, /obj/item/weapon/wrench))
 		if(locked && (anchored || occupant))
 			to_chat(user, "\red Can not do that while [src] is in use.")
-
 		else
 			if(anchored)
 				anchored = 0
@@ -406,7 +396,6 @@
 		var/obj/item/device/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You load connection data from [src] to [M].</span>")
-
 		return
 	else
 		..()
@@ -415,7 +404,6 @@
 	if (isnull(occupant))
 		return
 	to_chat(user, "You force an emergency ejection.")
-
 	locked = 0
 	go_out()
 	return
@@ -456,12 +444,10 @@
 
 	if (!(occupant))
 		to_chat(user, "<span class=\"warning\">The cloning pod is empty!</span>")
-
 		return
 
 	if (locked)
 		to_chat(user, "<span class=\"warning\">The cloning pod is locked!</span>")
-
 		return
 
 	if (occupant.client)

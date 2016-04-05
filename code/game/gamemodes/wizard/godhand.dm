@@ -23,7 +23,6 @@
 		return
 	if(user.lying || user.handcuffed)
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
-
 		return
 	..()
 
@@ -64,7 +63,6 @@
 		return
 	if(user.lying || user.handcuffed)
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
-
 		return
 	var/mob/M = target
 	M.Stun(2)

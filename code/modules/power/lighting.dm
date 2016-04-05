@@ -31,13 +31,10 @@
 		switch(src.stage)
 			if(1)
 				to_chat(usr, "It's an empty frame.")
-
 			if(2)
 				to_chat(usr, "It's wired.")
-
 			if(3)
 				to_chat(usr, "The casing is closed.")
-
 
 /obj/machinery/light_construct/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	src.add_fingerprint(user)
@@ -45,7 +42,6 @@
 		if (src.stage == 1)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 			to_chat(usr, "You begin deconstructing [src].")
-
 			if (!do_after(usr, 30, target = src))
 				return
 			new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
@@ -55,12 +51,10 @@
 			qdel(src)
 		if (src.stage == 2)
 			to_chat(usr, "You have to remove the wires first.")
-
 			return
 
 		if (src.stage == 3)
 			to_chat(usr, "You have to unscrew the case first.")
-
 			return
 
 	if(istype(W, /obj/item/weapon/wirecutters))
@@ -276,16 +270,12 @@
 		switch(status)
 			if(LIGHT_OK)
 				to_chat(user, "[desc] It is turned [on? "on" : "off"].")
-
 			if(LIGHT_EMPTY)
 				to_chat(user, "[desc] The [fitting] has been removed.")
-
 			if(LIGHT_BURNED)
 				to_chat(user, "[desc] The [fitting] is burnt out.")
-
 			if(LIGHT_BROKEN)
 				to_chat(user, "[desc] The [fitting] has been smashed.")
-
 
 
 
@@ -305,7 +295,6 @@
 	if(istype(W, /obj/item/weapon/light))
 		if(status != LIGHT_EMPTY)
 			to_chat(user, "There is a [fitting] already inserted.")
-
 			return
 		else
 			src.add_fingerprint(user)
@@ -313,7 +302,6 @@
 			if(istype(L, light_type))
 				status = L.status
 				to_chat(user, "You insert the [L.name].")
-
 				switchcount = L.switchcount
 				rigged = L.rigged
 				brightness_range = L.brightness_range
@@ -333,7 +321,6 @@
 					explode()
 			else
 				to_chat(user, "This type of light requires a [fitting].")
-
 				return
 
 		// attempt to break the light
@@ -345,7 +332,6 @@
 		if(prob(1+W.force * 5))
 
 			to_chat(user, "You hit the light, and it smashes!")
-
 			for(var/mob/M in viewers(src))
 				if(M == user)
 					continue
@@ -384,7 +370,6 @@
 			return
 
 		to_chat(user, "You stick \the [W] into the light socket!")
-
 		if(has_power() && (W.flags & CONDUCT))
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, src)
@@ -423,7 +408,6 @@
 /obj/machinery/light/attack_alien(mob/living/carbon/alien/humanoid/user)//So larva don't go breaking light bulbs.
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
 		to_chat(user, "\green That object is useless to you.")
-
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
 		user.do_attack_animation(src)
@@ -435,7 +419,6 @@
 	if(M.melee_damage_upper == 0)	return
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
 		to_chat(M, "\red That object is useless to you.")
-
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
 		M.do_attack_animation(src)
@@ -451,7 +434,6 @@
 
 	if(status == LIGHT_EMPTY)
 		to_chat(user, "There is no [fitting] in this light.")
-
 		return
 
 	// make it burn hands if not wearing fire-insulated gloves
@@ -470,13 +452,10 @@
 
 		if(prot > 0 || (RESIST_HEAT in user.mutations))
 			to_chat(user, "You remove the light [fitting]")
-
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
-
 		else
 			to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
-
 
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 			if(affecting.take_damage( 0, 5 ))		// 5 burn damage
@@ -485,7 +464,6 @@
 			return				// if burned, don't remove the light
 	else
 		to_chat(user, "You remove the light [fitting].")
-
 
 
 	// create a light tube/bulb item and put it in the user's hand
@@ -513,11 +491,9 @@
 /obj/machinery/light/attack_tk(mob/user)
 	if(status == LIGHT_EMPTY)
 		to_chat(user, "There is no [fitting] in this light.")
-
 		return
 
 	to_chat(user, "You telekinetically remove the light [fitting].")
-
 	// create a light tube/bulb item and put it in the user's hand
 	var/obj/item/weapon/light/L = new light_type()
 	L.status = status
@@ -696,7 +672,6 @@
 		var/obj/item/weapon/reagent_containers/syringe/S = I
 
 		to_chat(user, "You inject the solution into the [src].")
-
 
 		if(S.reagents.has_reagent("plasma", 5))
 

@@ -70,7 +70,6 @@
 						return
 				else
 					to_chat(M, "\red Your feet feel like they're on fire!")
-
 					M.take_overall_damage(0, max(0, (burned - 2)))
 
 			if(!istype(M, /mob/living/carbon/slime) && !isrobot(M))

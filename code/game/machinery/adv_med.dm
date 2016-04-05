@@ -43,7 +43,6 @@
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-
 			return
 		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", G)
 		return
@@ -51,11 +50,9 @@
 	if (istype(G, /obj/item/weapon/wrench))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
-
 			return
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 			return
 		if(dir == 4)
 			dir = 8
@@ -72,23 +69,19 @@
 		var/obj/item/weapon/grab/TYPECAST_YOUR_SHIT = G
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 			return
 		if(!ismob(TYPECAST_YOUR_SHIT.affecting))
 			return
 		if(occupant)
 			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
-
 			return
 		for(var/mob/living/carbon/slime/M in range(1, TYPECAST_YOUR_SHIT.affecting))
 			if(M.Victim == TYPECAST_YOUR_SHIT.affecting)
 				to_chat(user, "<span class='danger'>[TYPECAST_YOUR_SHIT.affecting.name] has a fucking slime attached to them, deal with that first.</span>")
-
 				return
 		var/mob/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
 			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
-
 			return
 		/*if(M.client)
 			M.client.perspective = EYE_PERSPECTIVE
@@ -113,23 +106,19 @@
 		return 0 //not a borg or human
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 		return 0 //panel open
 	if(occupant)
 		to_chat(user, "<span class='notice'>\The [src] is already occupied.</span>")
-
 		return 0 //occupied
 
 	if(O.buckled)
 		return 0
 	if(O.abiotic())
 		to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
-
 		return 0
 	for(var/mob/living/carbon/slime/M in range(1, O))
 		if(M.Victim == O)
 			to_chat(user, "<span class='danger'>[O] has a fucking slime attached to them, deal with that first.</span>")
-
 			return 0
 
 	if(O == user)
@@ -280,7 +269,6 @@
 	if (istype(G, /obj/item/weapon/wrench))
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 			return
 		if(dir == 4)
 			dir = 8
@@ -305,7 +293,6 @@
 
 	if (panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 		return
 
 	if(!src.connected)

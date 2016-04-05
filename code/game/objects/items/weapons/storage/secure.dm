@@ -31,7 +31,6 @@
 		if(..(user, 1))
 			to_chat(user, text("The service panel is [src.open ? "open" : "closed"]."))
 
-
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(locked)
 			if ((istype(W, /obj/item/weapon/melee/energy/blade)) && (!src.emagged))
@@ -80,10 +79,8 @@
 				playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
 				playsound(src.loc, "sparks", 50, 1)
 				to_chat(user, "You slice through the lock on [src].")
-
 			else
 				to_chat(user, "You short out the lock on [src].")
-
 			return
 
 
@@ -148,7 +145,6 @@
 		return ..()
 	if(!stop_messages)
 		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
-
 	return 0
 
 /obj/item/weapon/storage/secure/hear_talk(mob/living/M as mob, msg)
@@ -177,7 +173,6 @@
 	attack_hand(mob/user as mob)
 		if ((src.loc == user) && (src.locked == 1))
 			to_chat(usr, "\red [src] is locked and cannot be opened!")
-
 		else if ((src.loc == user) && (!src.locked))
 			playsound(src.loc, "rustle", 50, 1, -5)
 			if (user.s_active)

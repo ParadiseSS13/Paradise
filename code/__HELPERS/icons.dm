@@ -169,7 +169,6 @@ mob
 			set name = "2. Output Icon"
 			to_chat(src, "Icon is: \icon[getFlatIcon(src)]")
 
-
 		Label_Icon()
 			set name = "3. Label Icon"
 			// Give it a name for the cache

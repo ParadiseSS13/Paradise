@@ -31,7 +31,6 @@ var/const/VOX_PATH = "sound/vox_fem/"
 
 	if(announcing_vox > world.time)
 		to_chat(src, "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>")
-
 		return
 
 	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement) as text|null
@@ -60,7 +59,6 @@ var/const/VOX_PATH = "sound/vox_fem/"
 
 	if(incorrect_words.len)
 		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
-
 		return
 
 	announcing_vox = world.time + VOX_DELAY
@@ -86,10 +84,8 @@ var/const/VOX_PATH = "sound/vox_fem/"
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && !isdeaf(M))
 						to_chat(M, voice)
-
 		else
 			to_chat(only_listener, voice)
-
 		return 1
 	return 0
 
@@ -99,6 +95,5 @@ var/const/VOX_PATH = "sound/vox_fem/"
 	var/list/vox_files = flist(VOX_PATH)
 	for(var/file in vox_files)
 //	to_chat(src, "Downloading [file]")
-
 		var/sound/S = sound("[VOX_PATH][file]")
 		src << browse_rsc(S)

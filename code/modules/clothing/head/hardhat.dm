@@ -15,7 +15,6 @@
 		if(!isturf(user.loc))
 			to_chat(user, "You cannot turn the light on while in this [user.loc]")//To prevent some lighting anomalities.
 
-
 			return
 		on = !on
 		icon_state = "hardhat[on]_[item_color]"

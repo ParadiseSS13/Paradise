@@ -23,7 +23,6 @@
 		syndicate = 1
 		to_chat(user, "\blue The This beacon now only be locked on to by emagged teleporters!")
 
-
 /obj/item/device/radio/beacon/hear_talk()
 	return
 
@@ -60,7 +59,6 @@
 /obj/item/device/radio/beacon/syndicate/attack_self(mob/user as mob)
 	if(user)
 		to_chat(user, "\blue Locked In")
-
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
@@ -74,7 +72,6 @@
 /obj/item/device/radio/beacon/syndicate/bomb/attack_self(mob/user as mob)
 	if(user)
 		to_chat(user, "\blue Locked In")
-
 		new /obj/machinery/syndicatebomb( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)

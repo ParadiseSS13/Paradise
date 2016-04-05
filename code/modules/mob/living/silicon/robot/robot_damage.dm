@@ -9,9 +9,7 @@
 		var/mob/dead/observer/ghost = get_ghost()
 		if(ghost)
 			to_chat(ghost, "<span class='ghostalert'>Your cyborg shell has been repaired, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
-
 			to_chat(ghost, sound('sound/effects/genetics.ogg'))
-
 	return
 
 
@@ -93,12 +91,10 @@
 		if(cell.charge <= 0)
 			cell.charge = 0
 			to_chat(src, "\red Your shield has overloaded!")
-
 		else
 			brute -= absorb_brute
 			burn -= absorb_burn
 			to_chat(src, "\red Your shield absorbs some of the impact!")
-
 
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)
@@ -146,12 +142,10 @@
 		if(cell.charge <= 0)
 			cell.charge = 0
 			to_chat(src, "\red Your shield has overloaded!")
-
 		else
 			brute -= absorb_brute
 			burn -= absorb_burn
 			to_chat(src, "\red Your shield absorbs some of the impact!")
-
 
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)

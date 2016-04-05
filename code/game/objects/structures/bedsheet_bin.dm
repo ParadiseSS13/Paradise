@@ -170,14 +170,11 @@ LINEN BINS
 	..(user)
 	if(amount < 1)
 		to_chat(user, "There are no bed sheets in the bin.")
-
 		return
 	if(amount == 1)
 		to_chat(user, "There is one bed sheet in the bin.")
-
 		return
 	to_chat(user, "There are [amount] bed sheets in the bin.")
-
 
 
 /obj/structure/bedsheetbin/update_icon()
@@ -194,13 +191,11 @@ LINEN BINS
 		sheets.Add(I)
 		amount++
 		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-
 	else if(amount && !hidden && I.w_class < 4)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		user.drop_item()
 		I.loc = src
 		hidden = I
 		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
-
 
 
 
@@ -220,11 +215,9 @@ LINEN BINS
 		user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You take [B] out of [src].</span>")
 
-
 		if(hidden)
 			hidden.loc = user.loc
 			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
-
 			hidden = null
 
 
@@ -245,7 +238,6 @@ LINEN BINS
 
 		B.loc = loc
 		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
-
 		update_icon()
 
 		if(hidden)

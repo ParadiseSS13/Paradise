@@ -54,7 +54,6 @@
 
 	to_chat(user, msg)
 
-
 /mob/living/simple_animal/construct/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/construct/builder))
 		health += 5
@@ -256,7 +255,6 @@
 
 		if(usr.energy<300)
 			to_chat(usr, "\red You do not have enough power stored!")
-
 			return
 
 		if(usr.stat)

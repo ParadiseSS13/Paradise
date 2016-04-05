@@ -46,13 +46,11 @@
 			if(M.stat == CONSCIOUS && iscarbon(M))
 				to_chat(M, "<span class='notice'>You aren't dead enough to revive!</span>")//Usually a good problem to have
 
-
 				charge_counter = charge_max
 				return
 
 			if(!marked_item || qdeleted(marked_item)) //Wait nevermind
 				to_chat(M, "<span class='warning'>Your phylactery is gone!</span>")
-
 				return
 
 			var/turf/user_turf = get_turf(M)
@@ -60,7 +58,6 @@
 
 			if(user_turf.z != item_turf.z)
 				to_chat(M, "<span class='warning'>Your phylactery is out of range!</span>")
-
 				return
 
 			if(isobserver(M))
@@ -78,7 +75,6 @@
 			M.mind.transfer_to(lich)
 			lich.set_species("Skeleton")
 			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
-
 			charge_max += 600
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
@@ -103,18 +99,15 @@
 					continue
 				marked_item = item
 				to_chat(M, "<span class='warning'>You begin to focus your very being into the [item.name]...</span>")
-
 				break
 
 			if(!marked_item)
 				to_chat(M, "<span class='caution'>You must hold an item you wish to make your phylactery...</span>")
-
 				return
 
 			spawn(50)
 				if(marked_item.loc != M) //I changed my mind I don't want to put my soul in a cheeseburger!
 					to_chat(M, "<span class='warning'>Your soul snaps back to your body as you drop the [marked_item.name]!</span>")
-
 					marked_item = null
 					return
 				name = "RISE!"
@@ -126,7 +119,6 @@
 				marked_item.desc = "A terrible aura surrounds this item, its very existence is offensive to life itself..."
 				marked_item.color = "#003300"
 				to_chat(M, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!</span>")
-
 				current_body = M.mind.current
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M

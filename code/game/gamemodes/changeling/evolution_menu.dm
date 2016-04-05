@@ -308,32 +308,26 @@ var/list/sting_paths
 
 	if(thepower == null)
 		to_chat(user, "This is awkward. Changeling power purchase failed, please report this bug to a coder!")
-
 		return
 
 	if(absorbedcount < thepower.req_dna)
 		to_chat(user, "We lack the energy to evolve this ability!")
-
 		return
 
 	if(has_sting(thepower))
 		to_chat(user, "We have already evolved this ability!")
-
 		return
 
 	if(thepower.dna_cost < 0)
 		to_chat(user, "We cannot evolve this ability.")
-
 		return
 
 	if(geneticpoints < thepower.dna_cost)
 		to_chat(user, "We have reached our capacity for abilities.")
-
 		return
 
 	if(user.status_flags & FAKEDEATH)//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
 		to_chat(user, "We lack the energy to evolve new abilities right now.")
-
 		return
 
 	geneticpoints -= thepower.dna_cost
@@ -344,18 +338,15 @@ var/list/sting_paths
 /datum/changeling/proc/lingRespec(var/mob/user)
 	if(!ishuman(user) || issmall(user))
 		to_chat(user, "<span class='danger'>We can't remove our evolutions in this form!</span>")
-
 		return
 	if(canrespec)
 		to_chat(user, "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>")
-
 		user.remove_changeling_powers(1)
 		canrespec = 0
 		user.make_changeling()
 		return 1
 	else
 		to_chat(user, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
-
 		return 0
 
 /mob/proc/make_changeling()

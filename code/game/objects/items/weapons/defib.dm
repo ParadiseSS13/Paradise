@@ -78,7 +78,6 @@
 		toggle_paddles()
 	else
 		to_chat(usr, "<span class='warning'>Put the defibrillator on your back first!</span>")
-
 	return
 
 /obj/item/weapon/defibrillator/attackby(obj/item/weapon/W, mob/user, params)
@@ -86,17 +85,14 @@
 		var/obj/item/weapon/stock_parts/cell/C = W
 		if(bcell)
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-
 		else
 			if(C.maxcharge < paddles.revivecost)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
-
 				return
 			user.drop_item()
 			W.loc = src
 			bcell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-
 
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(bcell)
@@ -105,7 +101,6 @@
 			bcell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
 
-
 	update_icon()
 	return
 
@@ -113,11 +108,9 @@
 	if(safety)
 		safety = 0
 		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
-
 	else
 		safety = 1
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
-
 
 /obj/item/weapon/defibrillator/emp_act(severity)
 	if(bcell)
@@ -146,7 +139,6 @@
 		if(!usr.put_in_hands(paddles))
 			on = 0
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
-
 			update_icon()
 			return
 		paddles.loc = user
@@ -223,7 +215,6 @@
 		toggle_paddles()
 	else
 		to_chat(usr, "<span class='warning'>Strap the defibrillator's belt on first!</span>")
-
 	return
 
 /obj/item/weapon/defibrillator/compact/loaded/New()
@@ -297,7 +288,6 @@
 		if(istype(O))
 			O.unwield()
 		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
-
 		defib.on = 0
 		loc = defib
 		defib.update_icon()
@@ -324,15 +314,12 @@
 		return
 	if(!wielded)
 		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
-
 		return
 	if(cooldown)
 		to_chat(user, "<span class='notice'>[defib] is recharging.</span>")
-
 		return
 	if(!ishuman(M))
 		to_chat(user, "<span class='notice'>The instructions on [defib] don't mention how to revive that...</span>")
-
 		return
 	else
 		if(user.a_intent == I_HARM && !defib.safety)
@@ -414,9 +401,7 @@
 							else if(ghost)
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-
 								to_chat(ghost, sound('sound/effects/genetics.ogg'))
-
 							else
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
@@ -431,7 +416,6 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>You need to target your patient's chest with [src].</span>")
-
 			return
 
 /obj/item/weapon/borg_defib
@@ -457,10 +441,8 @@
 		return
 	if(cooldown)
 		to_chat(user, "<span class='notice'>[src] is recharging.</span>")
-
 	if(!ishuman(M))
 		to_chat(user, "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>")
-
 		return
 	else
 		if(user.a_intent == I_HARM  && !safety)
@@ -538,9 +520,7 @@
 							else if(ghost)
 								user.visible_message("<span class='notice'>[user] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-
 								to_chat(ghost, sound('sound/effects/genetics.ogg'))
-
 							else
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
@@ -559,5 +539,4 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>You need to target your patient's chest with [src].</span>")
-
 			return

@@ -115,7 +115,6 @@
 		holder = new/obj/item/device/assembly_holder(get_turf(src))
 		if(holder.attach(A,src,user))
 			to_chat(user, "\blue You attach \the [A] to \the [src]!")
-
 			return 1
 		return 0
 
@@ -129,10 +128,8 @@
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if(toggle_secure())
 				to_chat(user, "\blue \The [src] is ready!")
-
 			else
 				to_chat(user, "\blue \The [src] can now be attached!")
-
 			return
 		..()
 		return
@@ -148,10 +145,8 @@
 		if((in_range(src, user) || loc == user))
 			if(secured)
 				to_chat(user, "\The [src] is ready!")
-
 			else
 				to_chat(user, "\The [src] can be attached!")
-
 
 
 	attack_self(mob/user as mob)

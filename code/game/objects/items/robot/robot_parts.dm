@@ -119,7 +119,6 @@
 		var/obj/item/weapon/ed209_assembly/B = new /obj/item/weapon/ed209_assembly
 		B.loc = get_turf(src)
 		to_chat(user, "You armed the robot frame")
-
 		W:use(1)
 		if (user.get_inactive_hand()==src)
 			user.unEquip(src)
@@ -162,10 +161,8 @@
 			src.updateicon()
 		else if(!W:wires)
 			to_chat(user, "\blue You need to attach wires to it first!")
-
 		else
 			to_chat(user, "\blue You need to attach a cell to it first!")
-
 
 	if(istype(W, /obj/item/robot_parts/head))
 		if(src.head)	return
@@ -177,24 +174,20 @@
 		else
 			to_chat(user, "\blue You need to attach a flash to it first!")
 
-
 	if (istype(W, /obj/item/device/multitool))
 		if(check_completion())
 			Interact(user)
 		else
 			to_chat(user, "<span class='warning'>The endoskeleton must be assembled before debugging can begin!</span>")
 
-
 	if(istype(W, /obj/item/device/mmi))
 		var/obj/item/device/mmi/M = W
 		if(check_completion())
 			if(!istype(loc,/turf))
 				to_chat(user, "\red You can't put \the [W] in, the frame has to be standing on the ground to be perfectly precise.")
-
 				return
 			if(!M.brainmob)
 				to_chat(user, "\red Sticking an empty [W] into the frame would sort of defeat the purpose.")
-
 				return
 
 			if(!M.brainmob.key)
@@ -210,22 +203,18 @@
 							break
 				if(!ghost_can_reenter)
 					to_chat(user, "<span class='notice'>\The [W] is completely unresponsive; there's no point.</span>")
-
 					return
 
 			if(M.brainmob.stat == DEAD)
 				to_chat(user, "\red Sticking a dead [W] into the frame would sort of defeat the purpose.")
-
 				return
 
 			if(M.brainmob.mind in ticker.mode.head_revolutionaries)
 				to_chat(user, "\red The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [W].")
-
 				return
 
 			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
 				to_chat(user, "\red This [W] does not seem to fit.")
-
 				return
 
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1)
@@ -265,9 +254,7 @@
 			if(O.mind && O.mind.special_role)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
-
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
-
 
 			O.job = "Cyborg"
 
@@ -293,14 +280,11 @@
 				O.update_canmove()
 				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
 
-
 		else
 			to_chat(user, "<span class='warning'>The MMI must go in after everything else!</span>")
 
-
 	if(istype(W,/obj/item/weapon/pen))
 		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")
-
 	return
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
@@ -323,7 +307,6 @@
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(!istype(item_in_hand, /obj/item/device/multitool))
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
-
 		return
 
 	if(href_list["Name"])
@@ -339,7 +322,6 @@
 		forced_ai = select_active_ai(usr)
 		if(!forced_ai)
 			to_chat(usr, "<span class='error'>No active AIs detected.</span>")
-
 
 	else if(href_list["Law"])
 		lawsync = !lawsync
@@ -359,25 +341,21 @@
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(src.cell)
 			to_chat(user, "\blue You have already inserted a cell!")
-
 			return
 		else
 			user.drop_item()
 			W.loc = src
 			src.cell = W
 			to_chat(user, "\blue You insert the cell!")
-
 	if(istype(W, /obj/item/stack/cable_coil))
 		if(src.wires)
 			to_chat(user, "\blue You have already inserted wire!")
-
 			return
 		else
 			var/obj/item/stack/cable_coil/coil = W
 			coil.use(1)
 			src.wires = 1.0
 			to_chat(user, "\blue You insert the wire!")
-
 	return
 
 /obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -385,27 +363,22 @@
 	if(istype(W, /obj/item/device/flash))
 		if(istype(user,/mob/living/silicon/robot))
 			to_chat(user, "\red How do you propose to do that?")
-
 			return
 		else if(src.flash1 && src.flash2)
 			to_chat(user, "\blue You have already inserted the eyes!")
-
 			return
 		else if(src.flash1)
 			user.drop_item()
 			W.loc = src
 			src.flash2 = W
 			to_chat(user, "\blue You insert the flash into the eye socket!")
-
 		else
 			user.drop_item()
 			W.loc = src
 			src.flash1 = W
 			to_chat(user, "\blue You insert the flash into the eye socket!")
-
 	else if(istype(W, /obj/item/weapon/stock_parts/manipulator))
 		to_chat(user, "\blue You install some manipulators and modify the head, creating a functional spider-bot!")
-
 		new /mob/living/simple_animal/spiderbot(get_turf(loc))
 		user.drop_item()
 		qdel(W)
@@ -417,10 +390,8 @@
 	if(istype(W,/obj/item/weapon/card/emag))
 		if(sabotaged)
 			to_chat(user, "\red [src] is already sabotaged!")
-
 		else
 			to_chat(user, "\red You slide [W] into the dataport on [src] and short out the safeties.")
-
 			sabotaged = 1
 		return
 	..()

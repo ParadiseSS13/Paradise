@@ -36,7 +36,6 @@
 
 		if(get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least two rods to do this.</span>")
-
 			return
 
 		if(WT.remove_fuel(0,user))
@@ -78,17 +77,14 @@
 	else
 		if(amount < 2)
 			to_chat(user, "\blue You need at least two rods to do this.")
-
 			return
 		to_chat(usr, "\blue Assembling grille...")
-
 
 		if (!do_after(usr, 10, target = src))
 			return
 
 		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
 		to_chat(usr, "\blue You assemble a grille")
-
 		F.add_fingerprint(usr)
 		use(2)
 	return

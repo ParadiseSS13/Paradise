@@ -7,10 +7,8 @@
 
 	if(language)
 		to_chat(src, "<span class='notice'>You will now speak [language] if you do not specify a language when speaking.</span>")
-
 	else
 		to_chat(src, "<span class='notice'>You will now speak whatever your standard default language is if you do not specify one when speaking.</span>")
-
 	default_language = language
 
 // Silicons can't neccessarily speak everything in their languages list
@@ -23,7 +21,5 @@
 
 	if(default_language)
 		to_chat(src, "<span class='notice'>You are currently speaking [default_language] by default.</span>")
-
 	else
 		to_chat(src, "<span class='notice'>Your current default language is your species or mob type default.</span>")
-

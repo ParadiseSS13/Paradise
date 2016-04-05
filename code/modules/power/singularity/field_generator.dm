@@ -80,7 +80,6 @@ field_generator power level display
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on
 			if(src.active >= 1)
 				to_chat(user, "<span class='warning'>You are unable to turn off the [src.name] once it is online!</span>")
-
 				return 1
 			else
 				user.visible_message("[user.name] turns on the [src.name].", \
@@ -92,14 +91,12 @@ field_generator power level display
 				src.add_fingerprint(user)
 	else
 		to_chat(user, "<span class='warning'>The [src] needs to be firmly secured to the floor first!</span>")
-
 		return
 
 
 /obj/machinery/field/generator/attackby(obj/item/W, mob/user, params)
 	if(active)
 		to_chat(user, "<span class='warning'>The [src] needs to be off!</span>")
-
 		return
 	else if(istype(W, /obj/item/weapon/wrench))
 		switch(state)
@@ -120,14 +117,12 @@ field_generator power level display
 				src.anchored = 0
 			if(2)
 				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor!</span>")
-
 				return
 	else if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		switch(state)
 			if(0)
 				to_chat(user, "<span class='warning'>The [src.name] needs to be wrenched to the floor!</span>")
-
 				return
 			if(1)
 				if (WT.remove_fuel(0,user))
@@ -139,7 +134,6 @@ field_generator power level display
 						if(!src || !WT.isOn()) return
 						state = 2
 						to_chat(user, "<span class='notice'>You weld the field generator to the floor.</span>")
-
 				else
 					return
 			if(2)
@@ -152,7 +146,6 @@ field_generator power level display
 						if(!src || !WT.isOn()) return
 						state = 1
 						to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
-
 				else
 					return
 	else

@@ -20,14 +20,11 @@
 		if(istype(O, /obj/item/weapon/slimesteroid2))
 			if(enhanced == 1)
 				to_chat(user, "<span class='warning'> This extract has already been enhanced!</span>")
-
 				return ..()
 			if(Uses == 0)
 				to_chat(user, "<span class='warning'> You can't enhance a used extract!</span>")
-
 				return ..()
 			to_chat(user, "You apply the enhancer. It now has triple the amount of uses.")
-
 			Uses = 3
 			enhanced = 1
 			qdel(O)
@@ -157,15 +154,12 @@
 	attack(mob/living/carbon/slime/M as mob, mob/user as mob)
 		if(!istype(M, /mob/living/carbon/slime))//If target is not a slime.
 			to_chat(user, "<span class='warning'> The potion only works on slimes!</span>")
-
 			return ..()
 		if(M.stat)
 			to_chat(user, "<span class='warning'> The slime is dead!</span>")
-
 			return..()
 		if(M.mind)
 			to_chat(user, "<span class='warning'> The slime resists!</span>")
-
 			return ..()
 		if(M.is_adult)
 			var/mob/living/simple_animal/adultslime/pet = new /mob/living/simple_animal/adultslime(M.loc)
@@ -197,7 +191,6 @@
 			qdel(src)
 		to_chat(user, "You feed the slime the potion, removing it's powers and calming it.")
 
-
 /obj/item/weapon/sentience_potion
 	name = "sentience potion"
 	desc = "A miraculous chemical mix that can raise the intelligence of creatures to human levels. Unlike normal slime potions, it can be absorbed by any nonsentient being."
@@ -214,15 +207,12 @@
 		return
 	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
-
 		return ..()
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
-
 		return..()
 
 	to_chat(user, "<span class='notice'>You offer the sentience potion to [M]...</span>")
-
 	being_used = 1
 
 	var/list/candidates = pollCandidates("Do you want to play as [M.name]?", ROLE_SENTIENT, 0, 100)
@@ -236,18 +226,14 @@
 		M.universal_speak = 1
 		M.faction |= "sentient"
 		to_chat(M, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
-
 		to_chat(M, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>")
-
 		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
-
 		if(isanimal(M))
 			var/mob/living/simple_animal/S = M
 			S.master_commander = user
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
-
 		being_used = 0
 		..()
 
@@ -264,23 +250,18 @@
 	attack(mob/living/carbon/slime/M as mob, mob/user as mob)
 		if(!istype(M, /mob/living/carbon/slime))//If target is not a slime.
 			to_chat(user, "<span class='warning'> The steroid only works on baby slimes!</span>")
-
 			return ..()
 		if(M.is_adult) //Can't tame adults
 			to_chat(user, "<span class='warning'> Only baby slimes can use the steroid!</span>")
-
 			return..()
 		if(M.stat)
 			to_chat(user, "<span class='warning'> The slime is dead!</span>")
-
 			return..()
 		if(M.cores == 3)
 			to_chat(user, "<span class='warning'> The slime already has the maximum amount of extract!</span>")
-
 			return..()
 
 		to_chat(user, "You feed the slime the steroid. It now has triple the amount of extract.")
-
 		M.cores = 3
 		qdel(src)
 
@@ -305,14 +286,11 @@
 	..()
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
-
 		return
 	if(C.slowdown <= 0)
 		to_chat(user, "<span class='warning'>The [C] can't be made any faster!</span>")
-
 		return..()
 	to_chat(user, "<span class='notice'>You slather the red gunk over the [C], making it faster.</span>")
-
 	C.color = "#FF0000"
 	C.slowdown = 0
 	qdel(src)
@@ -334,14 +312,11 @@
 		return
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-
 		return
 	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
 		to_chat(user, "<span class='warning'>The [C] is already fireproof!</span>")
-
 		return..()
 	to_chat(user, "<span class='notice'>You slather the blue gunk over the [C], fireproofing it.</span>")
-
 	C.name = "fireproofed [C.name]"
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
@@ -507,20 +482,17 @@
 		for(var/mob/dead/observer/O in src.loc)
 			if(!check_observer(O))
 				to_chat(O, "\red You are not eligible to become a golem.")
-
 				continue
 			ghost = O
 			break
 		if(!ghost)
 			to_chat(user, "The rune fizzles uselessly. There is no spirit nearby.")
-
 			return
 		var/mob/living/carbon/human/golem/G = new /mob/living/carbon/human/golem
 		G.change_gender(pick(MALE,FEMALE))
 		G.loc = src.loc
 		G.key = ghost.key
 		to_chat(G, "You are an adamantine golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. Serve [user], and assist them in completing their goals at any cost.")
-
 		qdel(src)
 
 
@@ -530,7 +502,6 @@
 				var/area/A = get_area(src)
 				if(A)
 					to_chat(O, "\blue <b>Golem rune created in [A.name]. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>")
-
 
 	Topic(href,href_list)
 		if("signup" in href_list)
@@ -556,12 +527,9 @@
 		if(O in ghosts)
 			ghosts.Remove(O)
 			to_chat(O, "\red You are no longer signed up to be a golem.")
-
 		else
 			if(!check_observer(O))
 				to_chat(O, "\red You are not eligible to become a golem.")
-
 				return
 			ghosts.Add(O)
 			to_chat(O, "\blue You are signed up to be a golem.")
-

@@ -11,14 +11,12 @@
 		return
 
 	to_chat(src, "\blue You configure your internal beacon, tagging yourself for delivery to '[tag]'.")
-
 	mail_destination = TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
 	if(istype(D))
 		to_chat(src, "\blue \The [D] acknowledges your signal.")
-
 		D.flush_count = D.flush_every_ticks
 
 	return
@@ -31,11 +29,9 @@
 	if (layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
 		to_chat(src, text("\blue You are now hiding."))
-
 	else
 		layer = MOB_LAYER
 		to_chat(src, text("\blue You have stopped hiding."))
-
 
 /mob/living/silicon/robot/drone/verb/light()
 	set name = "Light On/Off"

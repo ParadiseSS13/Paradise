@@ -57,7 +57,6 @@
 				if(!M || !M.loc || count > 6)
 					//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
 					to_chat(src, "You are not being carried by anyone!")
-
 					return 0
 				M = M.loc
 				count++
@@ -70,16 +69,12 @@
 					v.show_message("<span class='notice'>[M] presses \his thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
 				var/datum/dna/dna = M.dna
 				to_chat(P, "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>")
-
 				if(dna.unique_enzymes == P.master_dna)
 					to_chat(P, "<b>DNA is a match to stored Master DNA.</b>")
-
 				else
 					to_chat(P, "<b>DNA does not match stored Master DNA.</b>")
-
 			else
 				to_chat(P, "[M] does not seem like \he is going to provide a DNA sample willingly.")
-
 			return 1
 
 /datum/pai_software/radio_config
@@ -508,10 +503,8 @@
 			break
 		if(T.loc)
 			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>")
-
 		else
 			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress. Unable to pinpoint location.</b></font>")
-
 	var/obj/machinery/door/D = cable.machine
 	if(!istype(D))
 		hack_aborted = 1
@@ -710,7 +703,6 @@
 			if(!held || !held.loc || count > 6)
 				//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
 				to_chat(src, "You are not being carried by anyone!")
-
 				return 0
 			held = held.loc
 			count++

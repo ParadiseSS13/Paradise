@@ -223,7 +223,6 @@ Class Procs:
 				return 1
 			if(!(href_list["set_tag"] in vars))
 				to_chat(usr, "<span class='warning'>Something went wrong: Unable to find [href_list["set_tag"]] in vars!</span>")
-
 				return 1
 			var/current_tag = src.vars[href_list["set_tag"]]
 			var/newid = copytext(reject_bad_text(input(usr, "Specify the new value", src, current_tag) as null|text),1,MAX_MESSAGE_LEN)
@@ -241,15 +240,12 @@ Class Procs:
 				return 1
 			if(!canLink(O))
 				to_chat(usr, "\red You can't link with that device.")
-
 				return 1
 
 			if(unlinkFrom(usr, O))
 				to_chat(usr, "\blue A green light flashes on \the [P], confirming the link was removed.")
-
 			else
 				to_chat(usr, "\red A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.")
-
 			update_mt_menu=1
 
 		if("link" in href_list)
@@ -258,30 +254,24 @@ Class Procs:
 				return 1
 			if(!canLink(O,href_list))
 				to_chat(usr, "\red You can't link with that device.")
-
 				return 1
 			if (isLinkedWith(O))
 				to_chat(usr, "\red A red light flashes on \the [P]. The two devices are already linked.")
-
 				return 1
 
 			if(linkWith(usr, O, href_list))
 				to_chat(usr, "\blue A green light flashes on \the [P], confirming the link was added.")
-
 			else
 				to_chat(usr, "\red A red light flashes on \the [P].  It appears something went wrong when linking the two devices.")
-
 			update_mt_menu=1
 
 		if("buffer" in href_list)
 			P.buffer = src
 			to_chat(usr, "\blue A green light flashes, and the device appears in the multitool buffer.")
-
 			update_mt_menu=1
 
 		if("flush" in href_list)
 			to_chat(usr, "\blue A green light flashes, and the device disappears from the multitool buffer.")
-
 			P.buffer = null
 			update_mt_menu=1
 
@@ -349,7 +339,6 @@ Class Procs:
 
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-
 		return 1
 
 	if (ishuman(user))
@@ -359,7 +348,6 @@ Class Procs:
 			return 1
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
-
 			return 1
 
 	if(panel_open)
@@ -404,12 +392,10 @@ Class Procs:
 			panel_open = 1
 			icon_state = icon_state_open
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
-
 		else
 			panel_open = 0
 			icon_state = icon_state_closed
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
-
 		return 1
 	return 0
 
@@ -418,18 +404,15 @@ Class Procs:
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		dir = turn(dir,-90)
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
-
 		return 1
 	return 0
 
 /obj/machinery/proc/default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
 	if(istype(W))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
-
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user, time, target = src))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
-
 			anchored = !anchored
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		return 1
@@ -468,7 +451,6 @@ Class Procs:
 							component_parts += B
 							B.loc = null
 							to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-
 							shouldplaysound = 1
 							break
 			RefreshParts()
@@ -482,10 +464,8 @@ Class Procs:
 
 /obj/machinery/proc/display_parts(mob/user)
 	to_chat(user, "<span class='notice'>Following parts detected in the machine:</span>")
-
 	for(var/obj/item/C in component_parts)
 		to_chat(user, "<span class='notice'>\icon[C] [C.name]</span>")
-
 
 /obj/machinery/examine(mob/user)
 	..(user)

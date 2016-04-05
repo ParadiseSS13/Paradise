@@ -160,20 +160,17 @@ proc/CallMaterialName(ID)
 	if(istype(D, /obj/item/weapon/disk))
 		if(t_disk || d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
-
 			return
 
 		if(istype(D, /obj/item/weapon/disk/tech_disk)) t_disk = D
 		else if (istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
-
 			return
 		if(!user.drop_item())
 			return
 		D.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
-
 	else
 		..()
 	src.updateUsrDialog()
@@ -185,7 +182,6 @@ proc/CallMaterialName(ID)
 		req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
-
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
 	if(..())
@@ -270,7 +266,6 @@ proc/CallMaterialName(ID)
 			if(linked_destroy.busy)
 				to_chat(usr, "<span class='danger'> The destructive analyzer is busy at the moment.</span>")
 
-
 			else if(linked_destroy.loaded_item)
 				linked_destroy.loaded_item.loc = linked_destroy.loc
 				linked_destroy.loaded_item = null
@@ -295,7 +290,6 @@ proc/CallMaterialName(ID)
 		if(linked_destroy)
 			if(linked_destroy.busy)
 				to_chat(usr, "<span class='danger'>The destructive analyzer is busy at the moment.</span>")
-
 			else
 				var/choice = input("Proceeding will destroy loaded item.") in list("Proceed", "Cancel")
 				if(choice == "Cancel" || !linked_destroy) return
@@ -309,7 +303,6 @@ proc/CallMaterialName(ID)
 						if(!linked_destroy.hacked)
 							if(!linked_destroy.loaded_item)
 								to_chat(usr, "<span class='danger'>The destructive analyzer appears to be empty.</span>")
-
 								screen = 1.0
 								return
 							if((linked_destroy.loaded_item.reliability >= 99 - (linked_destroy.decon_mod * 3)) || linked_destroy.loaded_item.crit_fail)
@@ -349,7 +342,6 @@ proc/CallMaterialName(ID)
 		screen = 0.0
 		if(!sync)
 			to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-
 		else
 			griefProtection() //Putting this here because I dont trust the sync process
 			spawn(30)
@@ -647,7 +639,6 @@ proc/CallMaterialName(ID)
 		return 1
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-
 		return 1
 	interact(user)
 

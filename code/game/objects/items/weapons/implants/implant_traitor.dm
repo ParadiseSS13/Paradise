@@ -32,7 +32,6 @@
 				return 0
 			if(M == user)
 				to_chat(user, "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot.</span>")
-
 				if(isliving(user))
 					var/mob/living/L = user
 					L.adjustBrainLoss(20)
@@ -46,7 +45,6 @@
 				return -1
 			H.implanting = 1
 			to_chat(H, "<span class='notice'>You feel completely loyal to [user.name].</span>")
-
 			if(!(user.mind in ticker.mode:implanter))
 				ticker.mode:implanter[ref] = list()
 			implanters = ticker.mode:implanter[ref]
@@ -58,7 +56,6 @@
 			ticker.mode.traitors += H.mind
 			H.mind.special_role = "traitor"
 			to_chat(H, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
-
 			var/datum/objective/protect/p = new
 			p.owner = H.mind
 			p.target = user:mind
@@ -66,7 +63,6 @@
 			H.mind.objectives += p
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
-
 
 			ticker.mode.update_traitor_icons_added(user.mind)
 			ticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds

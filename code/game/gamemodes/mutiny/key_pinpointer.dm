@@ -15,27 +15,21 @@
 			target = mutiny.captains_key
 			point_at(target)
 			to_chat(usr, "\blue You calibrate \the [src] to locate the Captain's Authentication Key.")
-
 		if (1)
 			mode = 2
 			target = mutiny.secondary_key
 			to_chat(usr, "\blue You calibrate \the [src] to locate the Emergency Secondary Authentication Key.")
-
 		else
 			mode = 0
 			active = 0
 			icon_state = "pinoff"
 			to_chat(usr, "\blue You switch \the [src] off.")
 
-
 /obj/item/weapon/pinpointer/advpinpointer/auth_key/examine(mob/user)
 	switch(mode)
 		if (1)
 			to_chat(user, "Is is calibrated for the Captain's Authentication Key.")
-
 		if (2)
 			to_chat(user, "It is calibrated for the Emergency Secondary Authentication Key.")
-
 		else
 			to_chat(user, "It is switched off.")
-

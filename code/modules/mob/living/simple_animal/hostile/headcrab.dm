@@ -45,11 +45,9 @@
 		if(C.stat == DEAD)
 			if(C.status_flags & XENO_HOST)
 				to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
-
 				return
 			Infect(target)
 			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
-
 			spawn(100)
 				death()
 			return

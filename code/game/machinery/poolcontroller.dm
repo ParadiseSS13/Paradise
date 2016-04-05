@@ -23,7 +23,6 @@
 	if(!emagged) //If it is not already emagged, emag it.
 		to_chat(user, "<span class='warning'>You disable \the [src]'s temperature safeguards.</span>")//Inform the mob of what emagging does.
 
-
 		emagged = 1 //Set the emag var to true.
 
 /obj/machinery/poolcontroller/attackby(obj/item/P as obj, mob/user as mob, params) //Proc is called when a user hits the pool controller with something.
@@ -31,11 +30,9 @@
 		if(emagged) //Check the emag status
 			to_chat(user, "<span class='warning'>You re-enable \the [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
 
-
 			emagged = 0 //Set the emagged var to false.
 		else
 			to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
-
 
 
 	else //If it's not a multitool, defer to /obj/machinery/attackby
@@ -72,12 +69,10 @@
 			M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
 			to_chat(M, "<span class='danger'>The water is searing hot!</span>")
 
-
 		if("warm") //Gently warm the mob.
 			M.bodytemperature = min(330, M.bodytemperature + 10) //Heats up mobs to just over normal, not enough to burn
 			if(prob(50)) //inform the mob of warm water half the time
 				to_chat(M, "<span class='warning'>The water is quite warm.</span>")//Inform the mob it's warm water.
-
 
 
 		if("cool") //Gently cool the mob.
@@ -86,11 +81,9 @@
 				to_chat(M, "<span class='warning'>The water is chilly.</span>")//Inform the mob it's chilly water.
 
 
-
 		if("frigid") //Freeze the mob.
 			M.bodytemperature = max(80, M.bodytemperature - 35) //cool mob at -35k per cycle
 			to_chat(M, "<span class='danger'>The water is freezing!</span>")
-
 	return
 
 /obj/machinery/poolcontroller/proc/handleDrowning(var/mob/living/carbon/human/drownee)

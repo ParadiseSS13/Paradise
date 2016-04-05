@@ -68,14 +68,12 @@
 		if(!user.drop_item())
 			return
 		to_chat(user, "<span class='notice'>You add the [C.name] into the bag.</span>")
-
 		contents += C
 	if (istype(W, /obj/item/weapon/moneybag))
 		var/obj/item/weapon/moneybag/C = W
 		for (var/obj/O in C.contents)
 			contents += O;
 		to_chat(user, "<span class='notice'>You empty the [C.name] into the bag.</span>")
-
 	return
 
 /obj/item/weapon/moneybag/Topic(href, href_list)

@@ -19,7 +19,6 @@
 
 	suicide_act(mob/user)
 		to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>")
-
 		return (FIRELOSS)
 
 /obj/item/weapon/stock_parts/cell/crap

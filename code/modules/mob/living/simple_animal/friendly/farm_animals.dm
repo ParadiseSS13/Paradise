@@ -82,10 +82,8 @@
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
 			to_chat(user, "\red \The [O] is full.")
-
 		else
 			to_chat(user, "\red The udder is dry. Wait a bit longer...")
-
 	else
 		..()
 
@@ -128,10 +126,8 @@
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
 			to_chat(user, "\red \The [O] is full.")
-
 		else
 			to_chat(user, "\red The udder is dry. Wait a bit longer...")
-
 	else
 		..()
 
@@ -153,7 +149,6 @@
 											"[src] looks at you with a resigned expression.",
 											"[src] seems resigned to its fate.")
 				to_chat(M, pick(responses))
-
 	else
 		..()
 
@@ -251,13 +246,10 @@ var/global/chicken_count = 0
 				qdel(O)
 				eggsleft += rand(1, 4)
 //				to_chat(world, eggsleft)
-
 			else
 				to_chat(user, "\blue [name] doesn't seem hungry!")
-
 		else
 			to_chat(user, "\blue [name] doesn't seem interested in [O]!")
-
 	else
 		..()
 

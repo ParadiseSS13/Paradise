@@ -24,22 +24,18 @@
 /obj/item/weapon/antag_spawner/borg_tele/attack_self(mob/user as mob)
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
-
 		return
 	if(!(user.mind in ticker.mode.syndicates))
 		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
-
 		return 0
 	if(checking)
 		to_chat(user, "<span class='warning'>[src] is already checking for possible borgs.</span>")
-
 		return
 	borg_to_spawn = input("What type of borg would you like to teleport?", "Cyborg Type", type) as null|anything in possible_types
 	if(!borg_to_spawn || checking || used)
 		return
 	checking = 1
 	to_chat(user, "<span class='notice'>The device is now checking for possible borgs.</span>")
-
 	var/list/borg_candidates = pollCandidates("Do you want to play as a Syndicate [borg_to_spawn] borg?", ROLE_OPERATIVE, 1)
 	if(borg_candidates.len > 0 && !used)
 		checking = 0
@@ -50,7 +46,6 @@
 	else
 		checking = 0
 		to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
-
 		return
 
 /obj/item/weapon/antag_spawner/borg_tele/spawn_antag(var/client/C, var/turf/T, var/type = "")
@@ -81,16 +76,13 @@
 /obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
 	if(user.z == ZLEVEL_CENTCOMM)//this is to make sure the wizard does NOT summon a demon from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
-
 		return
 
 	if(used)
 		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
-
 		return
 	used = 1
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
-
 
 	var/list/candidates = pollCandidates("Do you want to play as a slaughter demon summoned by [user.real_name]?", ROLE_DEMON, 1, 100)
 
@@ -98,15 +90,12 @@
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), "Slaughter Demon", user)
 		to_chat(user, "<span class='notice'>You shatter the bottle, no turning back now!</span>")
-
 		to_chat(user, "<span class='notice'>You sense a dark presence lurking just beyond the veil...</span>")
-
 		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
 		qdel(src)
 	else
 		used = 0
 		to_chat(user, "<span class='notice'>The demons do not respond to your summon. Perhaps you should try again later.</span>")
-
 
 /obj/item/weapon/antag_spawner/slaughter_demon/spawn_antag(var/client/C, var/turf/T, var/type = "", mob/user as mob)
 	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
@@ -128,6 +117,4 @@
 	S.mind.objectives += KillDaCrew
 	S.mind.objectives += KillDaCrew
 	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-
 	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
-

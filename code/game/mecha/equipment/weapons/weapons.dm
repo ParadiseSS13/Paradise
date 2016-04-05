@@ -141,7 +141,6 @@
 				if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
 					continue
 			to_chat(M, "<font color='red' size='7'>HONK</font>")
-
 			M.sleeping = 0
 			M.stuttering = 20
 			M.ear_deaf = 30

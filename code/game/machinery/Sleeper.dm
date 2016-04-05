@@ -84,7 +84,6 @@
 	if (istype(G, /obj/item/weapon/wrench))
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 			return
 		if(dir == 4)
 			orient = "LEFT"
@@ -111,7 +110,6 @@
 
 	if (panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 		return
 
 	if (!src.connected)
@@ -229,7 +227,6 @@
 
 	if(panel_open)
 		to_chat(usr, "<span class='notice'>Close the maintenance panel first.</span>")
-
 		return 0
 
 	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
@@ -238,12 +235,10 @@
 				if (src.connected.occupant)
 					if (src.connected.occupant.stat == DEAD)
 						to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take them to a department capable of reanimating them.</span>")
-
 					else if(src.connected.occupant.health > src.connected.min_health || (href_list["chemical"] in connected.emergency_chems))
 						src.connected.inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 					else
 						to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
-
 		if (href_list["removebeaker"])
 			src.connected.remove_beaker()
 		if (href_list["togglefilter"])
@@ -357,7 +352,6 @@
 				addiction_removal_chance = 10
 			if(prob(addiction_removal_chance))
 				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
-
 				occupant.reagents.addiction_list.Remove(R)
 
 	updateDialog()
@@ -378,7 +372,6 @@
 		if(!beaker)
 			if (!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [G] is stuck to you!</span>")
-
 				return
 
 			beaker = G
@@ -388,13 +381,11 @@
 
 		else
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
-
 			return
 
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-
 			return
 		default_deconstruction_screwdriver(user, "sleeper-o", "sleeper-open", G)
 		return
@@ -402,11 +393,9 @@
 	if (istype(G, /obj/item/weapon/wrench))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
-
 			return
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 			return
 		if(dir == 4)
 			orient = "LEFT"
@@ -424,18 +413,15 @@
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-
 			return
 		if(!ismob(G:affecting))
 			return
 		if(src.occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-
 			return
 		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
 			if(M.Victim == G:affecting)
 				to_chat(usr, "[G:affecting.name] will not fit into the sleeper because they have a slime latched onto their head.")
-
 				return
 
 		visible_message("[user] starts putting [G:affecting:name] into the sleeper.")
@@ -443,7 +429,6 @@
 		if(do_after(user, 20, target = G:affecting))
 			if(src.occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-
 				return
 			if(!G || !G:affecting) return
 			var/mob/M = G:affecting
@@ -454,7 +439,6 @@
 			src.occupant = M
 			src.icon_state = "sleeper"
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-
 
 			src.add_fingerprint(user)
 			qdel(G)
@@ -537,7 +521,6 @@
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if (!(chemical in injection_chems))
 		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</notice>")
-
 		return
 
 	if(src.occupant)
@@ -547,15 +530,12 @@
 				return
 			else
 				to_chat(user, "You can not inject any more of this chemical.")
-
 				return
 		else
 			to_chat(user, "The patient rejects the chemicals!")
-
 			return
 	else
 		to_chat(user, "There's no occupant in the sleeper!")
-
 		return
 
 /obj/machinery/sleeper/verb/eject()
@@ -601,23 +581,19 @@
 		return
 	if(panel_open)
 		to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
 			to_chat(usr, "[L.name] will not fit into the sleeper because they have a slime latched onto their head.")
-
 			return
 	if(L == user)
 		visible_message("[user] starts climbing into the sleeper.")
@@ -627,7 +603,6 @@
 	if(do_after(user, 20, target = L))
 		if(src.occupant)
 			to_chat(user, "<span class='boldnotice'>>The sleeper is already occupied!</span>")
-
 			return
 		if(!L) return
 
@@ -638,7 +613,6 @@
 		src.occupant = L
 		src.icon_state = "sleeper"
 		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-
 		src.add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
@@ -656,24 +630,20 @@
 		return
 	if(src.occupant)
 		to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-
 		return
 	if (panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-
 		return
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
 			to_chat(usr, "You're too busy getting your life sucked out of you.")
-
 			return
 	visible_message("[usr] starts climbing into the sleeper.")
 	if(do_after(usr, 20, target = usr))
 		if(src.occupant)
 			to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-
 			return
 		usr.stop_pulling()
 		usr.client.perspective = EYE_PERSPECTIVE

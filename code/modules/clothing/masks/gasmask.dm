@@ -46,7 +46,6 @@
 			flags_inv |= (HIDEEYES)
 			icon_state = initial(icon_state)
 			to_chat(usr, "You flip the [src] down to protect your eyes.")
-
 			flash_protect = 2
 			tint = 2
 		else
@@ -55,7 +54,6 @@
 			flags_inv &= ~(HIDEEYES)
 			icon_state = "[initial(icon_state)]up"
 			to_chat(usr, "You push the [src] up out of your face.")
-
 			flash_protect = 0
 			tint = 0
 		usr.update_inv_wear_mask()	//so our mob-overlays update
@@ -113,7 +111,6 @@
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
 		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
-
 		return 1
 
 /obj/item/clothing/mask/gas/clownwiz
@@ -251,23 +248,18 @@
 		switch(aggressiveness)
 			if(1)
 				to_chat(user, "\blue You set the restrictor to the middle position.")
-
 				aggressiveness = 2
 			if(2)
 				to_chat(user, "\blue You set the restrictor to the last position.")
-
 				aggressiveness = 3
 			if(3)
 				to_chat(user, "\blue You set the restrictor to the first position.")
-
 				aggressiveness = 1
 			if(4)
 				to_chat(user, "\red You adjust the restrictor but nothing happens, probably because its broken.")
-
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(aggressiveness != 4)
 			to_chat(user, "\red You broke it!")
-
 			aggressiveness = 4
 	else
 		..()
@@ -279,7 +271,6 @@
 	if(safety)
 		safety = 0
 		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
-
 	else
 		return
 

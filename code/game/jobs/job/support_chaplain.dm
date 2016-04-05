@@ -146,7 +146,6 @@
 					if("No")
 						if(outoftime)
 							to_chat(H, "Welp, out of time, buddy. You're stuck. Next time choose faster.")
-
 							accepted = 1
 
 			if(ticker)

@@ -75,14 +75,12 @@
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")
-
 			return
 
 		if(user.drop_item())
 			beaker = I
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
-
 			icon_state = "mixer1b"
 			nanomanager.update_uis(src)
 

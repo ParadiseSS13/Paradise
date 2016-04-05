@@ -94,7 +94,6 @@ obj/item/weapon/reagent_containers/glass/solution_tray/attackby(obj/item/weapon/
 		if(new_label)
 			name = "solution tray ([new_label])"
 			to_chat(user, "\blue You write on the label of the solution tray.")
-
 	else
 		..(W, user)
 

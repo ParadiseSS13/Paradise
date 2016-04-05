@@ -241,13 +241,11 @@
 	var/braincase = target.named_organ_parent("brain")
 	user.visible_message("[user] reaches into [target]'s head with [tool].", "<span class='notice'>You begin aligning [tool]'s light to the tumor on [target]'s brain...</span>")
 	to_chat(target, "<span class='boldannounce'>A small part of your [braincase] pulses with agony as the light impacts it.</span>")
-
 	..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(target.get_species() == "Lesser Shadowling") //Empowered thralls cannot be deconverted
 		to_chat(target, "<span class='shadowling'><b><i>NOT LIKE THIS!</i></b></span>")
-
 		user.visible_message("<span class='warning'>[target] suddenly slams upward and knocks down [user]!</span>", \
 							 "<span class='userdanger'>[target] suddenly bolts up and slams you with tremendous force!</span>")
 		user.resting = 0 //Remove all stuns

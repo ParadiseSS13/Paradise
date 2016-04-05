@@ -216,10 +216,8 @@
 			if(distance <= 1 && user.stat != 1)
 				if(pulse == PULSE_NONE)
 					to_chat(user, "<span class='deadsay'>[t_He] has no pulse[src.client ? "" : " and [t_his] soul has departed"]...</span>")
-
 				else
 					to_chat(user, "<span class='deadsay'>[t_He] has a pulse!</span>")
-
 
 	msg += "<span class='warning'>"
 	if(fire_stacks > 0)
@@ -487,7 +485,6 @@
 		msg += "\n[t_He] is [pose]"
 
 	to_chat(user, msg)
-
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M as mob, hudtype)

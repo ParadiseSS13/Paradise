@@ -29,13 +29,11 @@
 	..(user)
 	to_chat(user, "Has [charges] charge\s remaining.")
 
-
 /obj/item/weapon/gun/magic/wand/attack_self(mob/living/user as mob)
 	if(charges)
 		zap_self(user)
 	else
 		to_chat(user, "<span class='caution'>The [name] whizzles quietly.<span>")
-
 	..()
 
 /obj/item/weapon/gun/magic/wand/attack(atom/target as mob, mob/living/user as mob)
@@ -46,7 +44,6 @@
 /obj/item/weapon/gun/magic/wand/afterattack(atom/target as mob, mob/living/user as mob)
 	if(!charges && !drained)
 		to_chat(user, "<span class='warning'>The [name] whizzles quietly.<span>")
-
 		icon_state = "[icon_state]-drained"
 		drained = 1
 		return
@@ -55,7 +52,6 @@
 			var/area/A = get_area(user)
 			if(istype(A, /area/wizard_station))
 				to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].<span>")
-
 				return
 		else
 			no_den_usage = 0
@@ -78,7 +74,6 @@
 		var/message ="<span class='warning'>You irradiate yourself with pure energy! "
 		message += pick("Do not pass go. Do not collect 200 zorkmids.</span>","You feel more confident in your spell casting skills.</span>","You Die...</span>","Do you want your possessions identified?</span>")
 		to_chat(user, message)
-
 		user.adjustOxyLoss(500)
 		charges--
 		..()
@@ -101,7 +96,6 @@
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss())
 	user.reagents.clear_reagents()
 	to_chat(user, "<span class='notice'>You feel great!</span>")
-
 	charges--
 	..()
 

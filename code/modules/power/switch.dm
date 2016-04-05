@@ -25,21 +25,17 @@
 	..(user)
 	if(on)
 		to_chat(user, "The switch is in the on position")
-
 	else
 		to_chat(user, "The switch is in the off position")
 
-
 /obj/structure/powerswitch/attack_ai(mob/user)
 	to_chat(user, "\red You're an AI. This is a manual switch. It's not going to work.")
-
 	return
 
 /obj/structure/powerswitch/attack_hand(mob/user)
 
 	if(busy)
 		to_chat(user, "\red This switch is already being toggled.")
-
 		return
 
 	..()

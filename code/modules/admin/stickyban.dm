@@ -23,7 +23,6 @@
 			if (get_stickyban_from_ckey(ckey))
 				to_chat(usr, "<span class='adminnotice'>Error: Can not add a stickyban: User already has a current sticky ban</span>")
 
-
 			if (data["reason"])
 				ban["message"] = data["reason"]
 			else
@@ -45,13 +44,11 @@
 			var/ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
 				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>")
-
 				return
 			if (alert("Are you sure you want to remove the sticky ban on [ckey]?","Are you sure","Yes","No") == "No")
 				return
 			if (!get_stickyban_from_ckey(ckey))
 				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
-
 				return
 			world.SetConfig("ban", ckey, null)
 
@@ -68,7 +65,6 @@
 			var/ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
 				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>")
-
 				return
 
 			var/found = 0
@@ -80,7 +76,6 @@
 
 			if (!found)
 				to_chat(usr, "<span class='adminnotice'>Error: [alt] is not linked to [ckey]'s sticky ban!</span>")
-
 				return
 
 			if (alert("Are you sure you want to disassociate [alt] from [ckey]'s sticky ban? \nNote: Nothing stops byond from re-linking them","Are you sure","Yes","No") == "No")
@@ -90,7 +85,6 @@
 			ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
 				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
-
 				return
 
 			found = 0
@@ -102,7 +96,6 @@
 
 			if (!found)
 				to_chat(usr, "<span class='adminnotice'>Error: [alt] link to [ckey]'s sticky ban disappeared.</span>")
-
 				return
 
 			world.SetConfig("ban",ckey,list2stickyban(ban))
@@ -117,7 +110,6 @@
 			var/ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
 				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!")
-
 				return
 			var/oldreason = ban["message"]
 			var/reason = input(usr,"Reason","Reason","[ban["message"]]") as text|null
@@ -127,7 +119,6 @@
 			ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
 				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
-
 				return
 			ban["message"] = "[reason]"
 

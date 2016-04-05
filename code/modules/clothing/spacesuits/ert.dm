@@ -19,11 +19,9 @@
 		camera.c_tag = user.name
 		to_chat(user, "\blue User scanned as [camera.c_tag]. Camera activated.")
 
-
 /obj/item/clothing/head/helmet/space/rig/ert/examine(mob/user)
 	if(..(user, 1))
 		to_chat(user, "This helmet has a built-in camera. It's [camera ? "" : "in"]active.")
-
 
 /obj/item/clothing/suit/space/rig/ert
 	name = "emergency response team suit"

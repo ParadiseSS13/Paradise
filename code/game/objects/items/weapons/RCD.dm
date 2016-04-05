@@ -47,14 +47,12 @@ RCD
 			var/obj/item/weapon/rcd_ammo/R = W
 			if((matter + R.ammoamt) > max_matter)
 				to_chat(user, "<span class='notice'>The RCD cant hold any more matter-units.</span>")
-
 				return
 			matter += R.ammoamt
 			user.drop_item()
 			qdel(W)
 			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
-
 			desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 			return
 
@@ -66,21 +64,18 @@ RCD
 			if(1)
 				mode = 2
 				to_chat(user, "<span class='notice'>Changed mode to 'Airlock'</span>")
-
 				if(prob(20))
 					src.spark_system.start()
 				return
 			if(2)
 				mode = 3
 				to_chat(user, "<span class='notice'>Changed mode to 'Deconstruct'</span>")
-
 				if(prob(20))
 					src.spark_system.start()
 				return
 			if(3)
 				mode = 1
 				to_chat(user, "<span class='notice'>Changed mode to 'Floor & Walls'</span>")
-
 				if(prob(20))
 					src.spark_system.start()
 				return
@@ -101,7 +96,6 @@ RCD
 				if(istype(A, /turf/space))
 					if(useResource(1, user))
 						to_chat(user, "Building Floor...")
-
 						activate()
 						A:ChangeTurf(/turf/simulated/floor/plating)
 						return 1
@@ -110,7 +104,6 @@ RCD
 				if(istype(A, /turf/simulated/floor))
 					if(checkResource(3, user))
 						to_chat(user, "Building Wall ...")
-
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 						if(do_after(user, 20, target = A))
 							if(!useResource(3, user)) return 0
@@ -123,7 +116,6 @@ RCD
 				if(istype(A, /turf/simulated/floor))
 					if(checkResource(10, user))
 						to_chat(user, "Building Airlock...")
-
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 						if(do_after(user, 50, target = A))
 							if(!useResource(10, user)) return 0
@@ -140,7 +132,6 @@ RCD
 						return 0
 					if(checkResource(5, user))
 						to_chat(user, "Deconstructing Wall...")
-
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 						if(do_after(user, 40, target = A))
 							if(!useResource(5, user)) return 0
@@ -152,7 +143,6 @@ RCD
 				if(istype(A, /turf/simulated/floor))
 					if(checkResource(5, user))
 						to_chat(user, "Deconstructing Floor...")
-
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 						if(do_after(user, 50, target = A))
 							if(!useResource(5, user)) return 0
@@ -164,7 +154,6 @@ RCD
 				if(istype(A, /obj/machinery/door/airlock))
 					if(checkResource(20, user))
 						to_chat(user, "Deconstructing Airlock...")
-
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 						if(do_after(user, 50, target = A))
 							if(!useResource(20, user)) return 0
@@ -175,7 +164,6 @@ RCD
 				return 0
 			else
 				to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
-
 				return 0
 
 /obj/item/weapon/rcd/proc/useResource(var/amount, var/mob/user)

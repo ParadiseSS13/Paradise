@@ -21,7 +21,6 @@
 		to_chat(src, "You start following [cultist.get_display_name()].")
 
 
-
 /mob/spirit/mask/verb/urge_cultist()
 	set category = "Mask"
 	set name = "Urge cultist"
@@ -33,7 +32,6 @@
 			var/newUrge = stripped_input(usr, "", "Set Urge", "")
 			cultist.set_urge(newUrge)
 			to_chat(src, "You urge [cultist.owner.name] to [newUrge].")
-
 			cult_log("controlled by [key_name_admin(src)] has urged [key_name_admin(cultist.owner)] to [newUrge].")
 
 /mob/spirit/mask/verb/set_cult_name()
@@ -48,7 +46,6 @@
 			return
 		cultist.set_cult_name(newName)
 		to_chat(src, "You grant [cultist.owner.name] the secret name of [newName].")
-
 		if (cultist.owner)
 			cult_log("[key_name_admin(src)] has set [key_name_admin(cultist.owner)] to \'[newName]\'")
 
@@ -62,7 +59,6 @@
 	for(var/obj/cult_viewpoint/viewpoint in cult_viewpoints)
 		viewpoint.set_urge(newUrge)
 	to_chat(src, "You urge the entire cult to [newUrge].")
-
 	cult_log("[key_name_admin(src)] has urged the entire cult to [newUrge]")
 
 
@@ -93,7 +89,6 @@
 		var/newName = stripped_input(src, "Please pick a name.", "Pick Name for Mask", "")
 		name = newName ? newName : "Mask of Nar'sie"
 		to_chat(src, "You have set your name to [name].")
-
 
 
 /mob/spirit/mask/proc/pick_cultist()
@@ -139,10 +134,8 @@
 	for(var/datum/mind/H in ticker.mode.cult)
 		if (H.current)
 			to_chat(H.current, "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>")
-
 	for(var/mob/spirit/spirit in spirits)
 		to_chat(spirit, "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>")
-
 
 
 /obj/effect/proc_holder/spell/aoe_turf/shatter_lights
@@ -202,7 +195,6 @@
 	var/imbue_value = talismans[talisman]
 	if (!talisman)
 		to_chat(usr, "You choose not to create a talisman.")
-
 		revert_cast(usr)
 		return
 
@@ -215,7 +207,6 @@
 			var/target_rune = input("Pick a teleport target", "Teleport Rune", null, null) as null|anything in engwords
 			if (!target_rune)
 				to_chat(usr, "You choose not to create a talisman.")
-
 				revert_cast(usr)
 				return
 			summon_type = list(/obj/item/weapon/paper/talisman)

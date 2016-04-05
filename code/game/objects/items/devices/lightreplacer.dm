@@ -70,7 +70,6 @@
 	if(..(user, 2))
 		to_chat(user, "It has [uses] lights remaining.")
 
-
 /obj/item/device/lightreplacer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W
@@ -78,7 +77,6 @@
 			var/remaining = max(G.amount - decrement, 0)
 			if(!remaining && !(G.amount - decrement) == 0)
 				to_chat(user, "There isn't enough glass.")
-
 				return
 			G.amount = remaining
 			if(!G.amount)
@@ -86,7 +84,6 @@
 				qdel(G)
 			AddUses(increment)
 			to_chat(user, "You insert a piece of glass into the [src.name]. You have [uses] lights remaining.")
-
 			return
 
 	if(istype(W, /obj/item/weapon/light))
@@ -95,13 +92,11 @@
 			if(uses < max_uses)
 				AddUses(1)
 				to_chat(user, "You insert the [L.name] into the [src.name]. You have [uses] lights remaining.")
-
 				user.drop_item()
 				qdel(L)
 				return
 		else
 			to_chat(user, "You need a working light.")
-
 			return
 
 /obj/item/device/lightreplacer/emag_act(user as mob)
@@ -115,11 +110,9 @@
 		if(R.emagged)
 			src.Emag()
 			to_chat(usr, "You shortcircuit the [src].")
-
 			return
 	*/
 	to_chat(usr, "It has [uses] lights remaining.")
-
 
 /obj/item/device/lightreplacer/update_icon()
 	icon_state = "lightreplacer[emagged]"
@@ -147,7 +140,6 @@
 		if(CanUse(U))
 			if(!Use(U)) return
 			to_chat(U, "<span class='notice'>You replace the [target.fitting] with the [src].</span>")
-
 
 			if(target.status != LIGHT_EMPTY)
 
@@ -182,11 +174,9 @@
 
 		else
 			to_chat(U, failmsg)
-
 			return
 	else
 		to_chat(U, "There is a working [target.fitting] already inserted.")
-
 		return
 
 /obj/item/device/lightreplacer/proc/Emag()

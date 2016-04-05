@@ -46,11 +46,8 @@ var/const/SAFETY_COOLDOWN = 100
 /obj/machinery/recycler/examine(mob/user)
 	..(user)
 	to_chat(user, "The power light is [(stat & NOPOWER) ? "off" : "on"].")
-
 	to_chat(user, "The safety-mode light is [safety_mode ? "on" : "off"].")
-
 	to_chat(user, "The safety-sensors status light is [emagged ? "off" : "on"].")
-
 
 /obj/machinery/recycler/power_change()
 	..()
@@ -82,7 +79,6 @@ var/const/SAFETY_COOLDOWN = 100
 			update_icon()
 		playsound(src.loc, "sparks", 75, 1, -1)
 		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on the [src.name].</span>")
-
 
 /obj/machinery/recycler/update_icon()
 	..()
@@ -200,11 +196,9 @@ var/const/SAFETY_COOLDOWN = 100
 		return
 	if (src.anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
-
 		return 0
 	eat_dir = turn(eat_dir, 270)
 	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
-
 	return 1
 
 /obj/machinery/recycler/verb/rotateccw()
@@ -218,11 +212,9 @@ var/const/SAFETY_COOLDOWN = 100
 		return
 	if (src.anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
-
 		return 0
 	eat_dir = turn(eat_dir, 90)
 	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
-
 	return 1
 
 /obj/item/weapon/paper/recycler

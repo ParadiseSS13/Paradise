@@ -6,11 +6,9 @@ var/global/sent_strike_team = 0
 /client/proc/strike_team()
 	if(!ticker)
 		to_chat(usr, "<font color='red'>The game hasn't started yet!</font>")
-
 		return
 	if(sent_strike_team == 1)
 		to_chat(usr, "<font color='red'>CentComm is already sending a team.</font>")
-
 		return
 	if(alert("Do you want to send in the CentComm death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
@@ -25,7 +23,6 @@ var/global/sent_strike_team = 0
 
 	if(sent_strike_team)
 		to_chat(usr, "Looks like someone beat you to it.")
-
 		return
 
 	sent_strike_team = 1
@@ -75,7 +72,6 @@ var/global/sent_strike_team = 0
 			new_commando.mind.store_memory("<B>Mission:</B> \red [input].")
 
 			to_chat(new_commando, "\blue You are a Special Ops. [!leader_selected?"commando":"<B>LEADER</B>"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: \red<B>[input]</B>")
-
 
 			commando_number--
 

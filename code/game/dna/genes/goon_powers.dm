@@ -152,14 +152,12 @@
 /obj/effect/proc_holder/spell/targeted/cryokinesis/cast(list/targets)
 	if(!targets.len)
 		to_chat(usr, "<span class='notice'>No target found in range.</span>")
-
 		return
 
 	var/mob/living/carbon/C = targets[1]
 
 	if(!iscarbon(C))
 		to_chat(usr, "\red This will only work on normal organic beings.")
-
 		return
 
 	if (RESIST_COLD in C.mutations)
@@ -306,7 +304,6 @@
 	var/mob/user = usr
 	if(!targets.len)
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
-
 		return
 
 	var/atom/movable/the_item = targets[1]
@@ -323,32 +320,27 @@
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_sel.selecting)
 		if(!istype(limb))
 			to_chat(user, "<span class='warning'>You can't eat this part of them!</span>")
-
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
 			to_chat(user, "<span class='warning'>You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!</span>")
-
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
 			to_chat(user, "<span class='warning'>You try to put their [limb] in your mouth, but it's too big to fit!</span>")
-
 			revert_cast()
 			return 0
 		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</span>")
 		var/oldloc = H.loc
 		if(!do_mob(user,H,EAT_MOB_DELAY))
 			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
-
 		else
 			if(!limb || !H)
 				return
 			if(H.loc != oldloc)
 				to_chat(user, "<span class='danger'>\The [limb] moved away from your mouth!</span>")
-
 				return
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
@@ -399,7 +391,6 @@
 	var/failure = 0
 	if (istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
 		to_chat(usr, "\red You can't jump right now!")
-
 		return
 
 	if (istype(usr.loc,/turf/))
@@ -445,7 +436,6 @@
 	if (istype(usr.loc,/obj/))
 		var/obj/container = usr.loc
 		to_chat(usr, "\red You leap and slam your head against the inside of [container]! Ouch!")
-
 		usr.AdjustParalysis(3)
 		usr.AdjustWeakened(5)
 		container.visible_message("\red <b>[usr.loc]</b> emits a loud thump and rattles a bit.")
@@ -499,7 +489,6 @@
 	var/mob/living/M=targets[1]
 	if(!ishuman(M))
 		to_chat(usr, "\red You can only change your appearance to that of another human.")
-
 		return
 
 	if(!ishuman(usr)) return
@@ -561,25 +550,20 @@
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
 			to_chat(usr, "\red You may only use this on other organic beings.")
-
 			return
 
 		if (PSY_RESIST in M.mutations)
 			to_chat(usr, "\red You can't see into [M.name]'s mind at all!")
-
 			return
 
 		if (M.stat == 2)
 			to_chat(usr, "\red [M.name] is dead and cannot have their mind read.")
-
 			return
 		if (M.health < 0)
 			to_chat(usr, "\red [M.name] is dying, and their thoughts are too scrambled to read.")
-
 			return
 
 		to_chat(usr, "\blue Mind Reading of [M.name]:</b>")
-
 		var/pain_condition = M.health
 		// lower health means more pain
 		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
@@ -597,34 +581,25 @@
 		switch(pain_condition)
 			if (81 to INFINITY)
 				to_chat(usr, "\blue <b>Condition</b>: [M.name] feels good.")
-
 			if (61 to 80)
 				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering mild pain.")
-
 			if (41 to 60)
 				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering significant pain.")
-
 			if (21 to 40)
 				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering severe pain.")
-
 			else
 				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering excruciating pain.")
-
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
 			if (I_HELP)
 				to_chat(usr, "\blue <b>Mood</b>: You sense benevolent thoughts from [M.name].")
-
 			if (I_DISARM)
 				to_chat(usr, "\blue <b>Mood</b>: You sense cautious thoughts from [M.name].")
-
 			if (I_GRAB)
 				to_chat(usr, "\blue <b>Mood</b>: You sense hostile thoughts from [M.name].")
-
 			if (I_HARM)
 				to_chat(usr, "\blue <b>Mood</b>: You sense cruel thoughts from [M.name].")
-
 				for(var/mob/living/L in view(7,M))
 					if (L == M)
 						continue
@@ -632,7 +607,6 @@
 					break
 			else
 				to_chat(usr, "\blue <b>Mood</b>: You sense strange thoughts from [M.name].")
-
 
 		if (istype(M,/mob/living/carbon/human))
 			var/numbers[0]
@@ -642,16 +616,12 @@
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
 				to_chat(usr, "\blue <b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].")
-
 		to_chat(usr, "\blue <b>Thoughts</b>: [M.name] is currently [thoughts].")
-
 
 		if (EMPATH in M.mutations)
 			to_chat(M, "\red You sense [usr.name] reading your mind.")
-
 		else if (prob(5) || M.mind.assigned_role=="Chaplain")
 			to_chat(M, "\red You sense someone intruding upon your thoughts...")
-
 		return
 
 ////////////////////////////////////////////////////////////////////////
@@ -699,11 +669,9 @@
 				if (M == usr)
 					continue
 				to_chat(M, "<span class='warning'>You are sent flying!</span>")
-
 				M.Weaken(5)
 				step_away(M, UT, 15)
 				step_away(M, UT, 15)
 				step_away(M, UT, 15)
 	else
 		to_chat(usr, "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>")
-

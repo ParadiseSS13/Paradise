@@ -244,19 +244,16 @@
 		var/mob/M = usr
 		if(!istype(M, /mob/living/carbon))
 			to_chat(usr, "<font color=blue>You don't have any DNA, or your DNA is incompatible with this device.</font>")
-
 		else
 			var/datum/dna/dna = usr.dna
 			pai.master = M.real_name
 			pai.master_dna = dna.unique_enzymes
 			to_chat(pai, "<font color = red><h3>You have been bound to a new master.</h3></font>")
-
 	if(href_list["request"])
 		var/delta = (world.time / 10) - last_request
 		if(request_cooldown > delta)
 			var/cooldown_time = round(request_cooldown - ((world.time / 10) - last_request), 1)
 			to_chat(usr, "\red The request system is currently offline. Please wait another [cooldown_time] seconds.")
-
 			return
 		last_request = world.time / 10
 		src.looking_for_personality = 1
@@ -266,13 +263,9 @@
 		if(confirm == "Yes")
 			for(var/mob/M in src)
 				to_chat(M, "<font color = #ff0000><h2>You feel yourself slipping away from reality.</h2></font>")
-
 				to_chat(M, "<font color = #ff4d4d><h3>Byte by byte you lose your sense of self.</h3></font>")
-
 				to_chat(M, "<font color = #ff8787><h4>Your mental faculties leave you.</h4></font>")
-
 				to_chat(M, "<font color = #ffc4c4><h5>oblivion... </h5></font>")
-
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
 					if(P.resting || P.canmove)
@@ -291,11 +284,8 @@
 		if(newlaws)
 			pai.pai_laws = newlaws
 			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")
-
 			to_chat(pai, "Prime Directive: <br>[pai.pai_law0]")
-
 			to_chat(pai, "Supplemental Directives: <br>[pai.pai_laws]")
-
 	attack_self(usr)
 
 // 		WIRE_SIGNAL = 1

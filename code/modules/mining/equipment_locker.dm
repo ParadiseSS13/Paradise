@@ -210,7 +210,6 @@
 					points = 0
 				else
 					to_chat(usr, "<span class='warning'>Required access not found.</span>")
-
 		else if(href_list["choice"] == "insert")
 			var/obj/item/weapon/card/id/I = usr.get_active_hand()
 			if(istype(I))
@@ -220,7 +219,6 @@
 				inserted_id = I
 			else
 				to_chat(usr, "<span class='warning'>No valid ID.</span>")
-
 	if(href_list["release"])
 		if(check_access(inserted_id) || allowed(usr)) //Check the ID inside, otherwise check the user.
 			if(!(text2path(href_list["release"]) in stack_list)) return
@@ -235,7 +233,6 @@
 				stack_list -= text2path(href_list["release"])
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
-
 	if(href_list["plasteel"])
 		if(check_access(inserted_id) || allowed(usr))
 			if(!(/obj/item/stack/sheet/metal in stack_list)) return
@@ -252,7 +249,6 @@
 				unload_mineral(plasteelout)
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
-
 	if(href_list["plasglass"])
 		if(check_access(inserted_id) || allowed(usr))
 			if(!(/obj/item/stack/sheet/glass in stack_list)) return
@@ -269,7 +265,6 @@
 				unload_mineral(plasglassout)
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
-
 	updateUsrDialog()
 	return
 
@@ -422,7 +417,6 @@
 				inserted_id = I
 			else
 				to_chat(usr, "<span class='danger'>No valid ID.</span>")
-
 	if(href_list["purchase"])
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
@@ -504,17 +498,14 @@
 			var/obj/item/weapon/card/id/C = I
 			C.mining_points += points
 			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
-
 			points = 0
 		else
 			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
-
 	..()
 
 /obj/item/weapon/card/mining_point_card/examine(mob/user)
 	..(user)
 	to_chat(user, "There's [points] points on the card.")
-
 
 /**********************Jaunter**********************/
 
@@ -534,7 +525,6 @@
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf||device_turf.z==2||device_turf.z>=7)
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
-
 		return
 	else
 		user.visible_message("<span class='notice'>[user.name] activates the [src.name]!</span>")
@@ -545,7 +535,6 @@
 				L += B
 		if(!L.len)
 			to_chat(user, "<span class='notice'>The [src.name] failed to create a wormhole.</span>")
-
 			return
 		var/chosen_beacon = pick(L)
 		var/obj/effect/portal/wormhole/jaunt_tunnel/J = new /obj/effect/portal/wormhole/jaunt_tunnel(get_turf(src), chosen_beacon)
@@ -617,11 +606,9 @@
 	if(burst_time == 50)
 		burst_time = 30
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 3 seconds.</span>")
-
 	else
 		burst_time = 50
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 5 seconds.</span>")
-
 
 /obj/item/weapon/resonator/afterattack(atom/target, mob/user, proximity_flag)
 	if(proximity_flag)
@@ -659,12 +646,10 @@
 				for(var/mob/living/L in src.loc)
 					add_logs(L, creator, "used a resonator field on", object="resonator")
 					to_chat(L, "<span class='danger'>The [src.name] ruptured with you in it!</span>")
-
 					L.adjustBruteLoss(resonance_damage)
 			else
 				for(var/mob/living/L in src.loc)
 					to_chat(L, "<span class='danger'>The [src.name] ruptured with you in it!</span>")
-
 					L.adjustBruteLoss(resonance_damage)
 			qdel(src)
 
@@ -741,19 +726,15 @@
 		if(W.welding && !stat)
 			if(stance != HOSTILE_STANCE_IDLE)
 				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
-
 				return
 			if(maxHealth == health)
 				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
-
 			else
 				health += 10
 				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
-
 			return
 	if(istype(I, /obj/item/device/mining_scanner) || istype(I, /obj/item/device/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
-
 		DropOre()
 		return
 	..()
@@ -776,11 +757,9 @@
 			if(0)
 				SetCollectBehavior()
 				to_chat(M, "<span class='info'>[src] has been set to search and store loose ore.</span>")
-
 			if(2)
 				SetOffenseBehavior()
 				to_chat(M, "<span class='info'>[src] has been set to attack hostile wildlife.</span>")
-
 		return
 	..()
 
@@ -888,11 +867,9 @@
 				return
 			else
 				to_chat(user, "<span class='info'>[src] is only effective on the dead.</span>")
-
 				return
 		else
 			to_chat(user, "<span class='info'>[src] is only effective on lesser beings.</span>")
-
 			return
 
 /obj/item/weapon/lazarus_injector/emag_act()
@@ -907,10 +884,8 @@
 	..(user)
 	if(!loaded)
 		to_chat(user, "<span class='info'>[src] is empty.</span>")
-
 	if(malfunctioning)
 		to_chat(user, "<span class='info'>The display on [src] seems to be flickering.</span>")
-
 
 /**********************Mining Scanner**********************/
 
@@ -1017,9 +992,7 @@
 	var/obj/item/organ/internal/hivelord_core/C = M
 	if(!istype(C, /obj/item/organ/internal/hivelord_core))
 		to_chat(user, "<span class='warning'>The stabilizer only works on hivelord cores.</span>")
-
 		return ..()
 	C.preserved = 1
 	to_chat(user, "<span class='notice'>You inject the hivelord core with the stabilizer. It will no longer go inert.</span>")
-
 	qdel(src)

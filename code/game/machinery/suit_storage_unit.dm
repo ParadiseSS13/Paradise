@@ -249,16 +249,13 @@
 	if(!protected)
 		playsound(src.loc, "sparks", 75, 1, -1)
 		to_chat(user, "<font color='red'>You try to touch the controls but you get zapped. There must be a short circuit somewhere.</font>")
-
 		return*/
 	else  //welp, the guy is protected, we can continue
 		if(src.issuperUV)
 			to_chat(user, "You slide the dial back towards \"185nm\".")
-
 			src.issuperUV = 0
 		else
 			to_chat(user, "You crank the dial all the way up to \"15nm\".")
-
 			src.issuperUV = 1
 		return
 
@@ -278,11 +275,9 @@
 	if(!protected)
 		playsound(src.loc, "sparks", 75, 1, -1)
 		to_chat(user, "<font color='red'>You try to touch the controls but you get zapped. There must be a short circuit somewhere.</font>")
-
 		return*/
 	else
 		to_chat(user, "You push the button. The coloured LED next to it changes.")
-
 		src.safetieson = !src.safetieson
 
 
@@ -332,7 +327,6 @@
 /obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)
 	if(src.islocked || src.isUV)
 		to_chat(user, "<font color='red'>Unable to open unit.</font>")
-
 		return
 	if(src.OCCUPANT)
 		src.eject_occupant(user)
@@ -344,7 +338,6 @@
 /obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user as mob)
 	if(src.OCCUPANT && src.safetieson)
 		to_chat(user, "<font color='red'>The Unit's safety protocols disallow locking when a biological form is detected inside its compartments.</font>")
-
 		return
 	if(src.isopen)
 		return
@@ -357,14 +350,11 @@
 		return
 	if(src.OCCUPANT && src.safetieson)
 		to_chat(user, "<font color='red'><B>WARNING:</B> Biological entity detected in the confines of the Unit's storage. Cannot initiate cycle.</font>")
-
 		return
 	if(!src.HELMET && !src.MASK && !src.SUIT && !src.OCCUPANT ) //shit's empty yo
 		to_chat(user, "<font color='red'>Unit storage bays empty. Nothing to disinfect -- Aborting.</font>")
-
 		return
 	to_chat(user, "You start the Unit's cauterisation cycle.")
-
 	src.cycletime_left = 20
 	src.isUV = 1
 	if(src.OCCUPANT && !src.islocked)
@@ -427,11 +417,9 @@
 				if(src.issuperUV)
 					OCCUPANT.take_organ_damage(0,40)
 					to_chat(user, "Test. You gave him 40 damage")
-
 				else
 					OCCUPANT.take_organ_damage(0,8)
 					to_chat(user, "Test. You gave him 8 damage")
-
 	return*/
 
 
@@ -453,10 +441,8 @@
 	if (src.OCCUPANT.client)
 		if(user != OCCUPANT)
 			to_chat(OCCUPANT, "<font color='blue'>The machine kicks you out!</font>")
-
 		if(user.loc != src.loc)
 			to_chat(OCCUPANT, "<font color='blue'>You leave the not-so-cozy confines of the SSU.</font>")
-
 
 		src.OCCUPANT.client.eye = src.OCCUPANT.client.mob
 		src.OCCUPANT.client.perspective = MOB_PERSPECTIVE
@@ -491,15 +477,12 @@
 		return
 	if (!src.isopen)
 		to_chat(usr, "<font color='red'>The unit's doors are shut.</font>")
-
 		return
 	if (!src.ispowered || src.isbroken)
 		to_chat(usr, "<font color='red'>The unit is not operational.</font>")
-
 		return
 	if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) )
 		to_chat(usr, "<font color='red'>It's too cluttered inside for you to fit in!</font>")
-
 		return
 	visible_message("[usr] starts squeezing into the suit storage unit!")
 	if(do_after(usr, 10, target = usr))
@@ -530,7 +513,6 @@
 		src.panelopen = !src.panelopen
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 		to_chat(user, text("<font color='blue'>You [] the unit's maintenance panel.</font>",(src.panelopen ? "open up" : "close") ))
-
 		src.updateUsrDialog()
 		return
 	if ( istype(I, /obj/item/weapon/grab) )
@@ -539,15 +521,12 @@
 			return
 		if (!src.isopen)
 			to_chat(usr, "<font color='red'>The unit's doors are shut.</font>")
-
 			return
 		if (!src.ispowered || src.isbroken)
 			to_chat(usr, "<font color='red'>The unit is not operational.</font>")
-
 			return
 		if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) ) //Unit needs to be absolutely empty
 			to_chat(user, "<font color='red'>The unit's storage area is too cluttered.</font>")
-
 			return
 		visible_message("[user] starts putting [G.affecting.name] into the Suit Storage Unit.")
 		if(do_after(user, 20, target = G:affecting))
@@ -574,10 +553,8 @@
 		var/obj/item/clothing/suit/space/S = I
 		if(src.SUIT)
 			to_chat(user, "<font color='blue'>The unit already contains a suit.</font>")
-
 			return
 		to_chat(user, "You load the [S.name] into the storage compartment.")
-
 		user.drop_item()
 		S.loc = src
 		src.SUIT = S
@@ -590,10 +567,8 @@
 		var/obj/item/clothing/head/helmet/H = I
 		if(src.HELMET)
 			to_chat(user, "<font color='blue'>The unit already contains a helmet.</font>")
-
 			return
 		to_chat(user, "You load the [H.name] into the storage compartment.")
-
 		user.drop_item()
 		H.loc = src
 		src.HELMET = H
@@ -606,10 +581,8 @@
 		var/obj/item/clothing/mask/M = I
 		if(src.MASK)
 			to_chat(user, "<font color='blue'>The unit already contains a mask.</font>")
-
 			return
 		to_chat(user, "You load the [M.name] into the storage compartment.")
-
 		user.drop_item()
 		M.loc = src
 		src.MASK = M
@@ -706,12 +679,10 @@
 
 		if(locked)
 			to_chat(user, "\red The suit cycler is locked.")
-
 			return
 
 		if(src.contents.len > 0)
 			to_chat(user, "\red There is no room inside the cycler for [G.affecting.name].")
-
 			return
 
 		visible_message("[user] starts putting [G.affecting.name] into the suit cycler.")
@@ -735,7 +706,6 @@
 
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ?  "open" : "close"] the maintenance panel.")
-
 		src.updateUsrDialog()
 		return
 
@@ -743,16 +713,13 @@
 
 		if(locked)
 			to_chat(user, "\red The suit cycler is locked.")
-
 			return
 
 		if(helmet)
 			to_chat(user, "The cycler already contains a helmet.")
-
 			return
 
 		to_chat(user, "You fit \the [I] into the suit cycler.")
-
 		user.drop_item()
 		I.loc = src
 		helmet = I
@@ -765,28 +732,23 @@
 
 		if(locked)
 			to_chat(user, "\red The suit cycler is locked.")
-
 			return
 
 		if(suit)
 			to_chat(user, "The cycler already contains a hardsuit.")
-
 			return
 
 		var/obj/item/clothing/suit/space/rig/S = I
 
 		if(S.helmet)
 			to_chat(user, "\The [S] will not fit into the cycler with a helmet attached.")
-
 			return
 
 		if(S.boots)
 			to_chat(user, "\The [S] will not fit into the cycler with boots attached.")
-
 			return
 
 		to_chat(user, "You fit \the [I] into the suit cycler.")
-
 		user.drop_item()
 		I.loc = src
 		suit = I
@@ -800,12 +762,10 @@
 /obj/machinery/suit_cycler/emag_act(user as mob)
 	if(emagged)
 		to_chat(user, "\red The cycler has already been subverted.")
-
 		return
 
 	//Clear the access reqs, disable the safeties, and open up all paintjobs.
 	to_chat(user, "\red You run the sequencer across the interface, corrupting the operating protocols.")
-
 	departments = list("Engineering","Mining","Medical","Security","Atmos","^%###^%$")
 	emagged = 1
 	safeties = 0
@@ -926,16 +886,13 @@
 		if(src.allowed(usr))
 			locked = !locked
 			to_chat(usr, "You [locked ? "" : "un"]lock \the [src].")
-
 		else
 			to_chat(usr, "\red Access denied.")
-
 
 	else if(href_list["begin_decontamination"])
 
 		if(safeties && occupant)
 			to_chat(usr, "\red The cycler has detected an occupant. Please remove the occupant before commencing the decontamination cycle.")
-
 			return
 
 		active = 1
@@ -956,7 +913,6 @@
 		var/twire = text2num(href_list["cutwire"])
 		if (!( istype(usr.get_active_hand(), /obj/item/weapon/wirecutters) ))
 			to_chat(usr, "You need wirecutters!")
-
 			return
 		if (src.isWireColorCut(twire))
 			src.mend(twire)
@@ -967,11 +923,9 @@
 		var/twire = text2num(href_list["pulsewire"])
 		if (!istype(usr.get_active_hand(), /obj/item/device/multitool))
 			to_chat(usr, "You need a multitool!")
-
 			return
 		if (src.isWireColorCut(twire))
 			to_chat(usr, "You can't pulse a cut wire.")
-
 			return
 		else
 			src.pulse(twire)*/
@@ -1038,7 +992,6 @@
 
 	if(locked || active)
 		to_chat(user, "\red The cycler is locked.")
-
 		return
 
 	if (!occupant)

@@ -554,11 +554,9 @@
 	if(on)
 		on = 0
 		to_chat(usr, "You turn the suit's special processes off.")
-
 	else
 		on = 1
 		to_chat(usr, "You turn the suit's special processes on.")
-
 		processing_objects.Add(src)
 
 

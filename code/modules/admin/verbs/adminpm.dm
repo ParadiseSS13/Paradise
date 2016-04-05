@@ -4,7 +4,6 @@
 	set name = "Admin PM Mob"
 	if(!holder)
 		to_chat(src, "<font color='red'>Error: Admin-PM-Context: Only administrators may use this command.</font>")
-
 		return
 	if( !ismob(M) || !M.client )	return
 	cmd_admin_pm(M.client,null)
@@ -16,7 +15,6 @@
 	set name = "Admin PM Name"
 	if(!holder)
 		to_chat(src, "<font color='red'>Error: Admin-PM-Panel: Only administrators may use this command.</font>")
-
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
@@ -40,7 +38,6 @@
 	set name = "Admin PM Key"
 	if(!holder)
 		to_chat(src, "<font color='red'>Error: Admin-PM-Panel: Only administrators may use this command.</font>")
-
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
@@ -64,7 +61,6 @@
 /client/proc/cmd_admin_pm(whom, msg, type = "PM")
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
-
 		return
 
 	var/client/C
@@ -78,7 +74,6 @@
 	if(!C)
 		if(holder)
 			to_chat(src, "<span class='danger'>Error: Private-Message: Client not found.</span>")
-
 		else
 			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
@@ -87,7 +82,6 @@
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
 			to_chat(src, "\red <b>Simultaneous PMs warning:</b> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
-
 		else
 			if(alert("That player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]","Simultaneous PMs warning","Continue","Cancel") == "Cancel")
 				return*/
@@ -101,7 +95,6 @@
 		if(!C)
 			if(holder)
 				to_chat(src, "<span class='danger'>Error: Admin-PM: Client not found.</span>")
-
 			else
 				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
@@ -133,7 +126,6 @@
 
 	else if(!C.holder)
 		to_chat(src, "<font color='red'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</font>")
-
 		return
 
 	var/recieve_message = ""
@@ -142,7 +134,6 @@
 		recieve_message = "<span class='[recieve_span]' size='3'>-- Click the [recieve_pm_type]'s name to reply --</span>\n"
 		if(C.adminhelped)
 			to_chat(C, recieve_message)
-
 			C.adminhelped = 0
 
 		//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
@@ -160,9 +151,7 @@
 
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg]</span>"
 	to_chat(C, recieve_message)
-
 	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [msg]</font>")
-
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -172,7 +161,6 @@
 	//non-admins shouldn't be able to disable this
 	if(C.prefs.sound & SOUND_ADMINHELP)
 		to_chat(C, 'sound/effects/adminhelp.ogg')
-
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too
@@ -185,20 +173,16 @@
 				if("Mentorhelp")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
 						to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>")
-
 				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>")
-
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>")
 
-
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
-
 		return
 
 	var/msg = input(src,"Message:", "Private message to admins on IRC / 400 character limit") as text|null
@@ -210,15 +194,12 @@
 
 	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
 		to_chat(src, "\red Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting")
-
 		to_chat(src, "\blue [msg]")
-
 		return
 
 	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
 
 	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
-
 
 	log_admin("PM: [key_name(src)]->IRC: [msg]")
 	for(var/client/X in admins)
@@ -226,4 +207,3 @@
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
 			to_chat(X, "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> \blue [msg]</font>")
-

@@ -52,11 +52,9 @@
 
 	if(accepted_item.charges >= 5)
 		to_chat(user, "<span class='danger'>Another grenade of that type will not fit into the module.</span>")
-
 		return 0
 
 	to_chat(user, "<font color='blue'><b>You slot \the [input_device] into the suit module.</b></font>")
-
 	user.unEquip(input_device)
 	qdel(input_device)
 	accepted_item.charges++
@@ -74,7 +72,6 @@
 
 	if(!charge_selected)
 		to_chat(H, "<span class='danger'>You have not selected a grenade type.</span>")
-
 		return 0
 
 	var/datum/rig_charge/charge = charges[charge_selected]
@@ -84,7 +81,6 @@
 
 	if(charge.charges <= 0)
 		to_chat(H, "<span class='danger'>Insufficient grenades!</span>")
-
 		return 0
 
 	charge.charges--
@@ -191,7 +187,6 @@
 
 	if(M.l_hand && M.r_hand)
 		to_chat(M, "<span class='danger'>Your hands are full.</span>")
-
 		deactivate()
 		return
 
@@ -244,12 +239,10 @@
 	else
 		if(H.l_hand && H.r_hand)
 			to_chat(H, "<span class='danger'>Your hands are full.</span>")
-
 		else
 			var/obj/item/new_weapon = new fabrication_type()
 			new_weapon.forceMove(H)
 			to_chat(H, "<font color='blue'><b>You quickly fabricate \a [new_weapon].</b></font>")
-
 			H.put_in_hands(new_weapon)
 
 	return 1

@@ -58,7 +58,6 @@
 				if(current_surgery.status == 1 )
 					M.surgeries -= current_surgery
 					to_chat(user, "You stop the surgery.")
-
 					qdel(current_surgery)
 				else if(istype(user.get_inactive_hand(), /obj/item/weapon/cautery) && current_surgery.can_cancel)
 					M.surgeries -= current_surgery
@@ -71,7 +70,6 @@
 					qdel(current_surgery)
 				else if(current_surgery.can_cancel)
 					to_chat(user, "<span class='warning'>You need to hold a cautery in inactive hand to stop [M]'s surgery!</span>")
-
 
 
 			return 1

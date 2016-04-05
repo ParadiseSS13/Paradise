@@ -24,7 +24,6 @@
 	msg += "*---------*</span>"
 
 	to_chat(user, msg)
-
 	user.showLaws(src)
 
 

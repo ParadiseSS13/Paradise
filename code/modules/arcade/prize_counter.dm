@@ -39,13 +39,11 @@
 			qdel(T)
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
-
 		return
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-
 		update_icon()
 		return
 	if(panel_open)
@@ -182,10 +180,8 @@ td.cost.toomuch {
 			return
 		if(!global_prizes.PlaceOrder(src, itemID))
 			to_chat(usr, "<span class='warning'>Unable to complete the exchange.</span>")
-
 		else
 			to_chat(usr, "<span class='notice'>You've successfully purchased the item.</span>")
-
 
 	interact(usr)
 	return

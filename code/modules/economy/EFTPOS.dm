@@ -112,10 +112,8 @@
 				scan_card(I)
 			else
 				to_chat(usr, "\icon[src]<span class='warning'>Unable to connect to linked account.</span>")
-
 		else
 			to_chat(usr, "\icon[src]<span class='warning'>Unable to connect to accounts database.</span>")
-
 	else
 		..()
 
@@ -133,7 +131,6 @@
 					print_reference()
 				else
 					to_chat(usr, "\icon[src]<span class='warning'>Incorrect code entered.</span>")
-
 			if("change_id")
 				var/attempt_code = text2num(input("Re-enter the current EFTPOS access code", "Confirm EFTPOS code"))
 				if(attempt_code == access_code)
@@ -143,7 +140,6 @@
 						print_reference()
 				else
 					to_chat(usr, "\icon[src]<span class='warning'>Incorrect code entered.</span>")
-
 			if("link_account")
 				if(!linked_db)
 					reconnect_database()
@@ -153,7 +149,6 @@
 					linked_account = attempt_account_access(attempt_account_num, attempt_pin, 1)
 				else
 					to_chat(usr, "\icon[src]<span class='warning'>Unable to connect to accounts database.</span>")
-
 			if("trans_purpose")
 				var/purpose = input("Enter reason for EFTPOS transaction", "Transaction purpose") as text|null
 				if(purpose)
@@ -174,7 +169,6 @@
 					transaction_locked = 1
 				else
 					to_chat(usr, "\icon[src] <span class='warning'>No account connected to send transactions to.</span>")
-
 			if("scan_card")
 				//attempt to connect to a new db, and if that doesn't work then fail
 				if(!linked_db)
@@ -185,7 +179,6 @@
 						scan_card(I)
 				else
 					to_chat(usr, "\icon[src]<span class='warning'>Unable to link accounts.</span>")
-
 			if("reset")
 				//reset the access code - requires HoP/captain access
 				var/obj/item/I = usr.get_active_hand()
@@ -194,11 +187,9 @@
 					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)
 						access_code = 0
 						to_chat(usr, "\icon[src]<span class='info'>Access code reset to 0.</span>")
-
 				else if (istype(I, /obj/item/weapon/card/emag))
 					access_code = 0
 					to_chat(usr, "\icon[src]<span class='info'>Access code reset to 0.</span>")
-
 
 	src.attack_self(usr)
 
@@ -243,13 +234,10 @@
 						linked_account.transaction_log.Add(T)
 					else
 						to_chat(usr, "\icon[src]<span class='warning'>You don't have that much money!</span>")
-
 				else
 					to_chat(usr, "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
-
 			else
 				to_chat(usr, "\icon[src]<span class='warning'>EFTPOS is not connected to an account.</span>")
-
 	else
 		..()
 

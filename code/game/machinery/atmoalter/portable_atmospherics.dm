@@ -92,7 +92,6 @@
 		if(connected_port)
 			disconnect()
 			to_chat(user, "\blue You disconnect [name] from the port.")
-
 			update_icon()
 			return
 		else
@@ -100,16 +99,13 @@
 			if(possible_port)
 				if(connect(possible_port))
 					to_chat(user, "\blue You connect [name] to the port.")
-
 					update_icon()
 					return
 				else
 					to_chat(user, "\blue [name] failed to connect to the port.")
-
 					return
 			else
 				to_chat(user, "\blue Nothing happens.")
-
 				return
 
 	else if ((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)

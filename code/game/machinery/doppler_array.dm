@@ -25,12 +25,10 @@ var/list/doppler_arrays = list()
 			anchored = 1
 			power_change()
 			to_chat(user, "<span class='notice'>You fasten [src].</span>")
-
 		else if(anchored)
 			anchored = 0
 			power_change()
 			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
-
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 
 /obj/machinery/doppler_array/verb/rotate()

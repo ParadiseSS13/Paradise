@@ -76,10 +76,8 @@
 	var/obj_count = 1
 	if (you_are)
 		to_chat(rev_mind.current, "\blue You are a member of the revolutionaries' leadership!")
-
 	for(var/datum/objective/objective in rev_mind.objectives)
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 		rev_mind.special_role = "Head Revolutionary"
 		obj_count++
 
@@ -92,7 +90,6 @@
 		var/mob/living/carbon/human/M = get_nt_opposed()
 		if(M && !(M.mind in head_revolutionaries) && !(M in already_considered))
 			to_chat(rev_mob, "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting them.")
-
 			rev_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
 ///////////////////////////////////////////////////
@@ -107,7 +104,6 @@
 		return 0
 	revolutionaries += rev_mind
 	to_chat(rev_mind.current, "\red <FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill, capture or convert the heads to win the revolution!</FONT>")
-
 	rev_mind.special_role = "Revolutionary"
 	update_rev_icons_added(rev_mind)
 	return 1
@@ -132,9 +128,7 @@
 ///////////////////////////
 /datum/game_mode/revolution/rp_revolution/announce()
 	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-
 	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!</B>")
-
 
 
 //////////////////////////////////////////////////////////////////////
@@ -144,11 +138,9 @@
 	if(finished == 1)
 		feedback_set_details("round_end_result","win - heads overthrown")
 		to_chat(world, "\red <FONT size = 3><B> The heads of staff were overthrown! The revolutionaries win!</B></FONT>")
-
 	else if(finished == 2)
 		feedback_set_details("round_end_result","loss - revolution stopped")
 		to_chat(world, "\red <FONT size = 3><B> The heads of staff managed to stop the revolution!</B></FONT>")
-
 	..()
 	return 1
 
@@ -168,37 +160,28 @@
 			Possible += P
 	if(!Possible.len)
 		to_chat(src, "\red There doesn't appear to be anyone available for you to convert here.")
-
 		return
 	var/mob/living/carbon/human/M = input("Select a person to convert", "Viva la revolution!", null) as mob in Possible
 	if(((src.mind in ticker.mode:head_revolutionaries) || (src.mind in ticker.mode:revolutionaries)))
 		if((M.mind in ticker.mode:head_revolutionaries) || (M.mind in ticker.mode:revolutionaries))
 			to_chat(src, "\red <b>[M] is already be a revolutionary!</b>")
-
 		else if(!ticker.mode:is_convertible(M))
 			to_chat(src, "\red <b>[M] is implanted with a loyalty implant - Remove it first!</b>")
-
 		else
 			if(world.time < M.mind.rev_cooldown)
 				to_chat(src, "\red Wait five seconds before reconversion attempt.")
-
 				return
 			to_chat(src, "\red Attempting to convert [M]...")
-
 			log_admin("[src]([src.ckey]) attempted to convert [M].")
 			message_admins("\red [src]([src.ckey]) attempted to convert [M].")
 			var/choice = alert(M,"Asked by [src]: Do you want to join the revolution?","Align Thyself with the Revolution!","No!","Yes!")
 			if(choice == "Yes!")
 				ticker.mode:add_revolutionary(M.mind)
 				to_chat(M, "\blue You join the revolution!")
-
 				to_chat(src, "\blue <b>[M] joins the revolution!</b>")
-
 			else if(choice == "No!")
 				to_chat(M, "\red You reject this traitorous cause!")
-
 				to_chat(src, "\red <b>[M] does not support the revolution!</b>")
-
 			M.mind.rev_cooldown = world.time+50
 
 /datum/game_mode/revolution/rp_revolution/process()
@@ -226,7 +209,6 @@
 				H.verbs += /mob/living/carbon/human/proc/RevConvert
 
 				to_chat(H, "\red Congratulations, yer heads of revolution are all gone now, so yer earned yourself a promotion.")
-
 				added_heads = 1
 				break
 
@@ -261,7 +243,6 @@
 			comm.messagetext.Add(message)
 	to_chat(world, sound('sound/AI/commandreport.ogg'))
 
-
 /datum/game_mode/revolution/rp_revolution/latespawn(mob/M)
 	if(M.mind.assigned_role in command_positions)
 		log_debug("Adding head kill/capture/convert objective for [M.name]")
@@ -274,4 +255,3 @@
 			rev_obj.explanation_text = "Assassinate, convert or capture [M.real_name], the [M.mind.assigned_role]."
 			rev_mind.objectives += rev_obj
 			to_chat(rev_mind.current, "\red A new Head of Staff, [M.real_name], the [M.mind.assigned_role] has appeared. Your objectives have been updated.")
-

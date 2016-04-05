@@ -64,7 +64,6 @@ var/global/list/plant_seed_sprites = list()
 	if(seed && !seed.roundstart)
 		to_chat(user, "It's tagged as variety #[seed.uid].")
 
-
 /obj/item/seeds/cutting
 	name = "cuttings"
 	desc = "Some plant cuttings."

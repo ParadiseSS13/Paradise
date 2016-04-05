@@ -22,24 +22,20 @@
 	examine(mob/user)
 		..(user)
 		to_chat(user, "This one is made of [material].")
-
 		if(stud)
 			to_chat(user, "It is adorned with a single gem.")
-
 
 /obj/item/clothing/gloves/ring/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
 		var/obj/item/stack/sheet/mineral/diamond/D = I
 		if(stud)
 			to_chat(usr, "<span class='notice'>The [src] already has a gem.</span>")
-
 		else
 			if(D.amount >= 1)
 				D.use(1)
 				stud = 1
 				update_icon()
 				to_chat(usr, "<span class='notice'>You socket the diamond into the [src].</span>")
-
 
 // s'pensive
 /obj/item/clothing/gloves/ring/silver

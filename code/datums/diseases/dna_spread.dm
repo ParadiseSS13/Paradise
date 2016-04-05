@@ -35,12 +35,10 @@
 				affected_mob.emote("cough")
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>Your muscles ache.</span>")
-
 				if(prob(20))
 					affected_mob.take_organ_damage(1)
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
-
 				if(prob(20))
 					affected_mob.adjustToxLoss(2)
 					affected_mob.updatehealth()
@@ -51,7 +49,6 @@
 				affected_mob.dna.copy_dna(original_dna)
 
 				to_chat(affected_mob, "<span class='danger'>You don't feel like yourself..</span>")
-
 				var/datum/dna/transform_dna = strain_data["dna"]
 
 				transform_dna.transfer_identity(affected_mob, transfer_SE = 1)
@@ -72,5 +69,4 @@
 		affected_mob.domutcheck()
 
 		to_chat(affected_mob, "<span class='notice'>You feel more like yourself.</span>")
-
 	return ..()

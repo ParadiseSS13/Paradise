@@ -140,7 +140,6 @@ Data storage vars:
 			return 1
 		else
 //			to_chat(world, "\red Invalid arguments supplied for [src.type], ref = \ref[src]")
-
 			return 0
 
 	proc/toggle_null_checks()

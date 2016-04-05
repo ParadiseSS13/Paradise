@@ -46,7 +46,6 @@
 				M.apply_damage((round(feral/10,1)*(max((round(strength/20,1)),1)))+toxic, TOX) // Bee venom based on how angry I am and how many there are of me!
 				to_chat(M, "\red You have been stung!")
 
-
 	//if we're chasing someone, get a little bit angry
 	if(target_mob && prob(10))
 		feral++

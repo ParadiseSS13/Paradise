@@ -33,7 +33,6 @@ var/global/list/captain_display_cases = list()
 				circuit.forceMove(src)
 				state++
 				to_chat(user, "<span class='notice'>You add the airlock electronics to the frame.</span>")
-
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 			if(istype(W, /obj/item/weapon/crowbar))
 				new /obj/machinery/constructable_frame/machine_frame(T)
@@ -41,7 +40,6 @@ var/global/list/captain_display_cases = list()
 				G.amount = 5
 				qdel(src)
 				to_chat(user, "<span class='notice'>You pry the glass out of the frame.</span>")
-
 				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
 				return
 
@@ -67,14 +65,12 @@ var/global/list/captain_display_cases = list()
 					sensor = null
 				state--
 				to_chat(user, "<span class='notice'>You pry the electronics out of the frame.</span>")
-
 				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
 			if(isprox(W) && !isprox(sensor))
 				user.drop_item()
 				sensor = W
 				sensor.forceMove(src)
 				to_chat(user, "<span class='notice'>You add the proximity sensor to the frame.</span>")
-
 				playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 
 	if(pstate != state)
@@ -131,13 +127,10 @@ var/global/list/captain_display_cases = list()
 /obj/structure/displaycase/examine(mob/user)
 	..(user)
 	to_chat(user, "<span class='notice'>Peering through the glass, you see that it contains:</span>")
-
 	if(occupant)
 		to_chat(user, "\icon[occupant] <span class='notice'>\A [occupant].</span>")
-
 	else
 		to_chat(user, "Nothing.")
-
 
 /obj/structure/displaycase/proc/dump()
 	if(occupant)
@@ -221,15 +214,12 @@ var/global/list/captain_display_cases = list()
 		var/obj/item/weapon/card/id/I = W
 		if(!check_access(I))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-
 			return
 		locked = !locked
 		if(!locked)
 			to_chat(user, "\icon[src] <span class='notice'>\The [src] clicks as locks release, and it slowly opens for you.</span>")
-
 		else
 			to_chat(user, "\icon[src]  <span class='notice'>You close \the [src] and swipe your card, locking it.</span>")
-
 		update_icon()
 		return
 	if(istype(W,/obj/item/weapon/crowbar) && (!locked || destroyed))
@@ -270,16 +260,13 @@ var/global/list/captain_display_cases = list()
 		else if(!locked)
 			dump()
 			to_chat(user, "<span class='danger'>You smash \the [W] into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>")
-
 			update_icon()
 	else
 		if(locked)
 			to_chat(user, "<span class='warning'>It's locked, you can't put anything into it.</span>")
-
 			return
 		if(!occupant)
 			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src], and it floats as the hoverfield activates.</span>")
-
 			user.drop_item()
 			W.forceMove(src)
 			occupant=W
@@ -290,7 +277,6 @@ var/global/list/captain_display_cases = list()
 		if(occupant)
 			dump()
 			to_chat(user, "<span class='danger'>You smash your fist into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>")
-
 			src.add_fingerprint(user)
 			update_icon()
 	else
@@ -308,22 +294,18 @@ var/global/list/captain_display_cases = list()
 				var/print = H.get_full_print()
 				if(!ue)
 					to_chat(user, "<span class='notice'>Your press your thumb against the fingerprint scanner, registering your identity with the case.</span>")
-
 					ue = print
 					return
 				if(ue != print)
 					to_chat(user, "<span class='warning'>Access denied.</span>")
-
 					return
 
 				if(occupant)
 					to_chat(user, "<span class='notice'>Your press your thumb against the fingerprint scanner, and deactivate the hover field built into the case.</span>")
-
 					dump()
 					update_icon()
 				else
 					to_chat(src, "\icon[src] <span class='warning'>\The [src] is empty!</span>")
-
 		else
 			user.visible_message("[user.name] gently runs his hands over \the [src] in appreciation of its contents.", \
 				"You gently run your hands over \the [src] in appreciation of its contents.", \

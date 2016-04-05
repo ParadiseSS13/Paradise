@@ -151,7 +151,6 @@
 		if(zoom)
 			src.occupant.client.view = 12
 			to_chat(src.occupant, sound('sound/mecha/imag_enh.ogg',volume=50))
-
 		else
 			src.occupant.client.view = world.view//world.view - default mob view size
 	return

@@ -339,7 +339,6 @@ update_flag
 	if(iswelder(W) && src.destroyed)
 		if(weld(W, user))
 			to_chat(user, "\blue You salvage whats left of \the [src]")
-
 			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(src.loc)
 			M.amount = 3
 			qdel(src)
@@ -362,7 +361,6 @@ update_flag
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 			thejetpack.merge(removed)
 			to_chat(user, "You pulse-pressurize your jetpack from the tank.")
-
 		return
 
 	..()
@@ -481,7 +479,6 @@ update_flag
 					name = "canister"
 			else
 				to_chat(usr, "\red As you attempted to rename it the pressure rose!")
-
 
 	if (href_list["choice"] == "Primary color")
 		if (is_a_color(href_list["icon"],"prim"))
@@ -633,7 +630,6 @@ update_flag
 
 	// Do after stuff here
 	to_chat(user, "<span class='notice'>You start to slice away at \the [src]...</span>")
-
 	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 	busy = 1
 	if(do_after(user, 50, target = src))

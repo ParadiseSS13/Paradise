@@ -28,7 +28,6 @@
 			for(var/mob/M in player_list)
 				to_chat(M, sound('sound/AI/aliens.ogg'))
 
-
 /proc/lightsout(isEvent = 0, lightsoutAmount = 1,lightsoutRange = 25) //leave lightsoutAmount as 0 to break ALL lights
 	if(isEvent)
 		command_announcement.Announce("An Electrical storm has been detected in your area, please repair potential electronic overloads.","Electrical Storm Alert")

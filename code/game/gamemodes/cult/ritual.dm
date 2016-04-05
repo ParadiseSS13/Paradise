@@ -14,7 +14,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	for (var/word in engwords)
 		to_chat(usr, "[cultwords[word]] is [word]")
 
-
 /proc/runerandom() //randomizes word meaning
 	var/list/runewords=list("ire","ego","nahlizet","certum","veri","jatkaa","mgar","balaq", "karazet", "geeri") ///"orkan" and "allaq" removed.
 	for (var/word in engwords)
@@ -83,25 +82,20 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	..(user)
 	if(!iscultist(user) && !isSpirit(user))
 		to_chat(user, "A strange collection of symbols drawn in blood.")
-
 		return
 	if(!desc)
 		to_chat(user, "A spell circle drawn in blood. It reads: <i>[word1] [word2] [word3]</i>.")
-
 	else
 		to_chat(user, "Explosive Runes inscription in blood. It reads: <i>[desc]</i>.")
-
 
 
 /obj/effect/rune/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
 		to_chat(user, "You retrace your steps, carefully undoing the lines of the rune.")
-
 		qdel(src)
 		return
 	else if(istype(I, /obj/item/weapon/nullrod))
 		to_chat(user, "\blue You disrupt the vile magic with the deadening field of \the [I]!")
-
 		qdel(src)
 		return
 	return
@@ -145,15 +139,12 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 /obj/effect/rune/attack_hand(mob/living/user as mob)
 	if(!iscultist(user))
 		to_chat(user, "You can't mouth the arcane scratchings without fumbling over them.")
-
 		return
 	if(istype(user.wear_mask, /obj/item/clothing/mask/muzzle))
 		to_chat(user, "You are unable to speak the words of the rune.")
-
 		return
 	if(user.silent) // checking if we've been muted somehow
 		to_chat(user, "You are unable to speak at all! You cannot say the words of the rune.")
-
 	if(!word1 || !word2 || !word3 || prob(user.getBrainLoss()))
 		return fizzle()
 
@@ -318,7 +309,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 
 //	proc/edit_notes()     FUCK IT. Cant get it to work properly. - K0000
 //		to_chat(world, "its been called! [usr]")
-
 //		notedat = {"
 //		<br><b>Word translation notes</b> <br>
 //			[words[1]] is <a href='byond://?src=\ref[src];number=1;action=change'>[words[words[1]]]</A> <A href='byond://?src=\ref[src];number=1;action=clear'>Clear</A><BR>
@@ -333,7 +323,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 //			[words[10]] is <a href='byond://?src=\ref[src];number=10;action=change'>[words[words[10]]]</A> <A href='byond://?src=\ref[src];number=10;action=clear'>Clear</A><BR>
 //					"}
 //		to_chat(usr, "whatev")
-
 //		usr << browse(null, "window=tank")
 
 	attack(mob/living/M as mob, mob/living/user as mob)
@@ -359,7 +348,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		if(iscultist(M))
 			if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
 				to_chat(user, "<span class='notice'>You remove the taint from [M].</span>")
-
 				var/holy2unholy = M.reagents.get_reagent_amount("holywater")
 				M.reagents.del_reagent("holywater")
 				M.reagents.add_reagent("unholywater",holy2unholy)
@@ -369,7 +357,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		for(var/mob/O in viewers(M, null))
 			O.show_message(text("\red <B>[] beats [] with the arcane tome!</B>", user, M), 1)
 		to_chat(M, "\red You feel searing heat inside!")
-
 
 
 	attack_self(mob/living/user as mob)
@@ -385,7 +372,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				C++
 			if (!istype(user.loc,/turf))
 				to_chat(user, "\red You do not have enough space to write a proper rune.")
-
 				return
 
 
@@ -473,7 +459,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 					return
 				if (chosen_rune == "none")
 					to_chat(user, "\red You decide against scribing a rune, perhaps you should take this time to study your notes.")
-
 					return
 				if (chosen_rune == "teleport")
 					dictionary[chosen_rune] += input ("Choose a destination word") in english
@@ -486,7 +471,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			for (var/mob/V in viewers(src))
 				V.show_message("\red [user] slices open a finger and begins to chant and paint symbols on the floor.", 3, "\red You hear chanting.", 2)
 			to_chat(user, "\red You slice open one of your fingers and begin drawing a rune on the floor whilst chanting the ritual that binds your life essence with the dark arcane energies flowing through the surrounding world.")
-
 			user.take_overall_damage((rand(9)+1)/10) // 0.1 to 1.0 damage
 			if(do_after(user, 50, target = user))
 				if(usr.get_active_hand() != src)
@@ -494,7 +478,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				var/mob/living/carbon/human/H = user
 				var/obj/effect/rune/R = new /obj/effect/rune(user.loc)
 				to_chat(user, "\red You finish drawing the arcane markings of the Geometer.")
-
 				var/list/required = dictionary[chosen_rune]
 				R.word1 = english[required[1]]
 				R.word2 = english[required[2]]
@@ -506,7 +489,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			return
 		else
 			to_chat(user, "The book seems full of illegible scribbles. Is this a joke?")
-
 			return
 
 	attackby(obj/item/weapon/tome/T as obj, mob/living/user as mob, params)
@@ -524,14 +506,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			to_chat(user, "You copy the translation notes from your tome.")
 
 
-
 	examine(mob/user)
 		if(!iscultist(user))
 			to_chat(user, "An old, dusty tome with frayed edges and a sinister looking cover.")
-
 		else
 			to_chat(user, "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though.")
-
 
 /obj/item/weapon/tome/imbued //admin tome, spawns working runes without waiting
 	w_class = 2.0
@@ -545,7 +524,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			var/r
 			if (!istype(user.loc,/turf))
 				to_chat(user, "\red You do not have enough space to write a proper rune.")
-
 			var/list/runes = list("teleport", "itemport", "tome", "armor", "convert", "tear in reality", "emp", "drain", "seer", "raise", "obscure", "reveal", "astral journey", "manifest", "imbue talisman", "sacrifice", "wall", "freedom", "cultsummon", "deafen", "blind", "bloodboil", "communicate", "stun")
 			r = input("Choose a rune to scribe", "Rune Scribing") in runes //not cancellable.
 			var/obj/effect/rune/R = new /obj/effect/rune

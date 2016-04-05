@@ -96,7 +96,6 @@
 	if(src.is_muzzled())
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
-
 		return 0
 	if(stun)
 		Stun(4)
@@ -195,7 +194,6 @@
 		if(istype(item_in_hand,/obj/item/weapon/twohanded))
 			if(item_in_hand:wielded == 1)
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
-
 				return
 	src.hand = !( src.hand )
 	if(hud_used.l_hand_hud_object && hud_used.r_hand_hud_object)
@@ -263,10 +261,8 @@
 			if(staminaloss)
 				if(staminaloss > 30)
 					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
-
 				else
 					to_chat(src, "<span class='info'>You feel fatigued.</span>")
-
 			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
 		else
@@ -329,18 +325,15 @@
 		switch(damage)
 			if(1)
 				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
-
 				if(prob(40)) //waiting on carbon organs
 					E.damage += 1
 
 			if(2)
 				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
-
 				E.damage += rand(2, 4)
 
 			else
 				to_chat(src, "Your eyes itch and burn severely!</span>")
-
 				E.damage += rand(12, 16)
 
 		if(E.damage > E.min_bruised_damage)
@@ -350,24 +343,19 @@
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!(E.status & ORGAN_ROBOT))
 					to_chat(src, "<span class='warning'>Your eyes start to burn badly!</span>")
-
 				else //snowflake conditions piss me off for the record
 					to_chat(src, "<span class='warning'>The flash blinds you!</span>")
-
 
 			else if(E.damage >= E.min_broken_damage)
 				to_chat(src, "<span class='warning'>You can't see anything!</span>")
 
-
 			else
 				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
-
 		return 1
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
 			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
-
 
 
 /mob/living/carbon/proc/tintcheck()
@@ -399,17 +387,14 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 	if(stat)
 		to_chat(src, "You must be conscious to do this!")
-
 		return
 
 	if(lying)
 		to_chat(src, "You can't vent crawl while you're stunned!")
-
 		return
 
 	if(buckled_mob)
 		to_chat(src, "You can't vent crawl with [buckled_mob] on you!")
-
 		return
 
 	var/obj/machinery/atmospherics/unary/vent_found
@@ -454,7 +439,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 					if(failed)
 						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
-
 						return
 
 			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
@@ -463,7 +447,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 	else
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
-
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
@@ -677,7 +660,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 						no_mask = 1
 				if(no_mask)
 					to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
-
 					return
 
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
@@ -692,7 +674,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 								no_mask2 = 1
 						if(no_mask2)
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
-
 							return
 						internal = ITEM
 						if(internals)
@@ -820,7 +801,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			spawn (t) step(src, src.dir)
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
-
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	if (stun)
 		Stun(stun)
@@ -852,23 +832,17 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/proc/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/pill))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
-
 	else
 		if (fullness <= 50)
 			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
-
 		else if (fullness > 50 && fullness <= 150)
 			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
-
 		else if (fullness > 150 && fullness <= 350)
 			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
-
 		else if (fullness > 350 && fullness <= 550)
 			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
-
 		else if (fullness > (550 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
 			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
-
 			return 0
 	return 1
 

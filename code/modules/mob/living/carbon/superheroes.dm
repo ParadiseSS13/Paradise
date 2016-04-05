@@ -54,7 +54,6 @@
 
 	to_chat(H, desc)
 
-
 /datum/superheroes/owlman
 	name = "Owlman"
 	class = "Superhero"
@@ -151,86 +150,64 @@
 	for(var/mob/living/carbon/human/target in targets)
 		if(ticker.mode.greyshirts.len >= 3)
 			to_chat(usr, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
-
 		if(!in_range(usr, target))
 			to_chat(usr, "<span class='warning'>You need to be closer to enthrall [target].</span>")
-
 			charge_counter = charge_max
 			return
 		if(!target.ckey)
 			to_chat(usr, "<span class='warning'>The target has no mind.</span>")
-
 			charge_counter = charge_max
 			return
 		if(target.stat)
 			to_chat(usr, "<span class='warning'>The target must be conscious.</span>")
-
 			charge_counter = charge_max
 			return
 		if(!ishuman(target))
 			to_chat(usr, "<span class='warning'>You can only recruit humans.</span>")
-
 			charge_counter = charge_max
 			return
 		if(target.mind.assigned_role != "Civilian")
 			to_chat(usr, "<span class='warning'>You can only recruit Civilians.</span>")
-
 		if(recruiting)
 			to_chat(usr, "<span class='danger'>You are already recruiting!</span>")
-
 			charge_counter = charge_max
 			return
 		recruiting = 1
 		to_chat(usr, "<span class='danger'>This target is valid. You begin the recruiting process.</span>")
-
 		to_chat(target, "<span class='userdanger'>[usr] focuses in concentration. Your head begins to ache.</span>")
-
 
 		for(var/progress = 0, progress <= 3, progress++)
 			switch(progress)
 				if(1)
 					to_chat(usr, "<span class='notice'>You begin by introducing yourself and explaining what you're about.</span>")
-
 					usr.visible_message("<span class='danger'>[usr]'s introduces himself and explains his plans.</span>")
 				if(2)
 					to_chat(usr, "<span class='notice'>You begin the recruitment of [target].</span>")
-
 					usr.visible_message("<span class='danger'>[usr] leans over towards [target], whispering excitedly as he gives a speech.</span>")
 					to_chat(target, "<span class='danger'>You feel yourself agreeing with [usr], and a surge of loyalty begins building.</span>")
-
 					target.Weaken(12)
 					sleep(20)
 					if(isloyal(target))
 						to_chat(usr, "<span class='notice'>They are enslaved by Nanotrasen. You feel their interest in your cause wane and disappear.</span>")
-
 						usr.visible_message("<span class='danger'>[usr] stops talking for a moment, then moves back away from [target].</span>")
 						to_chat(target, "<span class='danger'>Your loyalty implant activates and a sharp pain reminds you of your loyalties to Nanotrasen.</span>")
-
 						return
 				if(3)
 					to_chat(usr, "<span class='notice'>You begin filling out the application form with [target].</span>")
-
 					usr.visible_message("<span class='danger'>[usr] pulls out a pen and paper and begins filling an application form with [target].</span>")
 					to_chat(target, "<span class='danger'>You are being convinced by [usr] to fill out an application form to become a henchman.</span>")//Ow the edge
 
-
 			if(!do_mob(usr, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a loyalty implant
 				to_chat(usr, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
-
 				to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [usr]. The application form is null and void.</span>")
-
 				recruiting = 0
 				return
 
 		recruiting = 0
 		to_chat(usr, "<span class='notice'>You have recruited <b>[target]</b> as your henchman!</span>")
-
 		to_chat(target, "<span class='deadsay'><b>You have decided to enroll as a henchman for [usr]. You are now part of the feared 'Greyshirts'.</b></span>")
-
 		to_chat(target, "<span class='deadsay'><b>You must follow the orders of [usr], and help him succeed in his dastardly schemes.</span>")
-
 		to_chat(target, "<span class='deadsay'>You may not harm other Greyshirt or [usr]. However, you do not need to obey other Greyshirts.</span>")
-
 		ticker.mode.greyshirts += target.mind
 		target.set_species("Human")
 		target.h_style = "Bald"

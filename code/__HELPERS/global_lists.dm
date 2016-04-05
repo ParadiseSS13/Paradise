@@ -59,7 +59,6 @@
 			for(var/t in L)
 				. += "    has: [t]\n"
 	to_chat(world, .)
-
 */
 
 

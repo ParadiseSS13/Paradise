@@ -71,10 +71,8 @@
 		if ((in_range(src, user) || src.loc == user))
 			if (src.secured)
 				to_chat(user, "\The [src] is ready!")
-
 			else
 				to_chat(user, "\The [src] can be attached!")
-
 
 
 	HasProximity(atom/movable/AM as mob|obj)
@@ -143,17 +141,14 @@
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if(!a_left || !a_right)
 				to_chat(user, "\red BUG:Assembly part missing, please report this!")
-
 				return
 			a_left.toggle_secure()
 			a_right.toggle_secure()
 			secured = !secured
 			if(secured)
 				to_chat(user, "\blue \The [src] is ready!")
-
 			else
 				to_chat(user, "\blue \The [src] can now be taken apart!")
-
 			update_icon()
 			return
 		else
@@ -166,7 +161,6 @@
 		if(src.secured)
 			if(!a_left || !a_right)
 				to_chat(user, "\red Assembly part missing!")
-
 				return
 			if(istype(a_left,a_right.type))//If they are the same type it causes issues due to window code
 				switch(alert("Which side would you like to use?",,"Left","Right"))

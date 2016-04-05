@@ -39,9 +39,7 @@
 
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Vampires!</B>")
-
 	to_chat(world, "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>")
-
 
 /datum/game_mode/vampire/pre_setup()
 
@@ -119,7 +117,6 @@
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				feedback_add_details("traitor_success","FAIL")
 		to_chat(world, text)
-
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
@@ -138,7 +135,6 @@
 				text += "body destroyed"
 			text += ")"
 		to_chat(world, text)
-
 	return 1
 
 /datum/game_mode/proc/forge_vampire_objectives(var/datum/mind/vampire)
@@ -185,20 +181,16 @@
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(vampire.current, dat)
-
 	to_chat(vampire.current, "<B>You must complete the following tasks:</B>")
-
 
 	if (vampire.current.mind)
 		if (vampire.current.mind.assigned_role == "Clown")
 			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
-
 			vampire.current.mutations.Remove(CLUMSY)
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in vampire.objectives)
 		to_chat(vampire.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 		obj_count++
 	return
 
@@ -289,13 +281,11 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	while(do_mob(owner, H, 50))
 		if(!(owner.mind in ticker.mode.vampires))
 			to_chat(owner, "<span class='warning'>Your fangs have disappeared!</span>")
-
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
 		if(!H.vessel.get_reagent_amount("blood"))
 			to_chat(src, "<span class='warning'>They've got no blood left to give.</span>")
-
 			break
 		if(H.stat < DEAD)
 			blood = min(20, H.vessel.get_reagent_amount("blood"))	// if they have less than 20 blood, give them the remnant else they get 20 blood
@@ -306,7 +296,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
 			to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
-
 		check_vampire_upgrade()
 		H.vessel.remove_reagent("blood", 25)
 		if(ishuman(owner))
@@ -315,7 +304,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 	draining = null
 	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")
-
 
 /datum/vampire/proc/check_vampire_upgrade(announce = 1)
 	var/list/old_powers = powers.Copy()
@@ -334,11 +322,9 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			if(istype(p, /obj/effect/proc_holder/spell/vampire))
 				var/obj/effect/proc_holder/spell/vampire/power = p
 				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
-
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
 				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
-
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
@@ -366,9 +352,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	slaved.leave_serv_hud(vampire_mind)
 	update_vampire_icons_removed(vampire_mind)
 //	to_chat(world, "Removed [vampire_mind.current.name] from vampire shit")
-
 	to_chat(vampire_mind.current, "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>")
-
 
 /datum/vampire/proc/check_sun()
 	var/ax = owner.x
@@ -429,17 +413,13 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		switch(owner.health)
 			if(80 to 100)
 				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>")
-
 			if(60 to 80)
 				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>")
-
 			if((-INFINITY) to 60)
 				if(!owner.on_fire)
 					to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
-
 				else
 					to_chat(owner, "<span class='danger'>You continue to burn!</span>")
-
 				owner.fire_stacks += 5
 				owner.IgniteMob()
 		owner.emote("scream")

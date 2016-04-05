@@ -105,12 +105,10 @@
 		if(istype(player,/mob/dead) && follow)
 			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [format_message(message, get_spoken_verb(message))]</span></i>"
 			to_chat(player, msg_dead)
-
 			continue
 
 		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player)))
 			to_chat(player, msg)
-
 
 /datum/language/proc/check_special_condition(var/mob/other)
 	return 1

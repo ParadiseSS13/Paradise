@@ -37,7 +37,6 @@
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(pod.contents.len)
 				to_chat(AM, "<span class=The pod is already occupied.</span>")
-
 				return
 			else if(!pod.moving && pod.dir in directions())
 				AM.forceMove(pod)

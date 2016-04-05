@@ -34,9 +34,7 @@
 ///////////////////////////
 /datum/game_mode/revolution/announce()
 	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-
 	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
-
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -130,7 +128,6 @@
 			rev_mind.objectives += rev_obj
 			to_chat(rev_mind.current, "Additional Objective: Assassinate [head_mind.name], the [head_mind.assigned_role].")
 
-
 	for(var/datum/mind/rev_mind in mode.revolutionaries)
 		for(var/datum/mind/head_mind in heads)
 			var/datum/objective/mutiny/rev_obj = new
@@ -139,7 +136,6 @@
 			rev_obj.explanation_text = "Assassinate [head_mind.name], the [head_mind.assigned_role]."
 			rev_mind.objectives += rev_obj
 			to_chat(rev_mind.current, "Additional Objective: Assassinate [head_mind.name], the [head_mind.assigned_role].")
-
 
 
 /datum/game_mode/proc/forge_revolutionary_objectives(var/datum/mind/rev_mind)
@@ -158,10 +154,8 @@
 	var/obj_count = 1
 	if (you_are)
 		to_chat(rev_mind.current, "\blue You are a member of the revolutionaries' leadership!")
-
 	for(var/datum/objective/objective in rev_mind.objectives)
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 		rev_mind.special_role = "Head Revolutionary"
 		obj_count++
 
@@ -175,7 +169,6 @@
 	if (mob.mind)
 		if (mob.mind.assigned_role == "Clown")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-
 			mob.mutations.Remove(CLUMSY)
 
 
@@ -191,10 +184,8 @@
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if (!where)
 		to_chat(mob, "The Syndicate were unfortunately unable to get you a flash.")
-
 	else
 		to_chat(mob, "The flash in your [where] will help you to persuade the crew to join your cause.")
-
 		mob.update_icons()
 		return 1
 
@@ -232,7 +223,6 @@
 		return 0
 	revolutionaries += rev_mind
 	to_chat(rev_mind.current, "\red <FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT>")
-
 	rev_mind.special_role = "Revolutionary"
 	update_rev_icons_added(rev_mind)
 	if(jobban_isbanned(rev_mind.current, ROLE_REV))
@@ -248,21 +238,17 @@
 
 		if(beingborged)
 			to_chat(rev_mind.current, "\red <FONT size = 3><B>The frame's firmware detects and deletes your neural reprogramming!  You remember nothing from the moment you were flashed until now.</B></FONT>")
-
 			message_admins("[key_name_admin(rev_mind.current)] has been borged while being a member of the revolution.")
 		else
 			to_chat(rev_mind.current, "\red <FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</B></FONT>")
-
 
 		update_rev_icons_removed(rev_mind)
 		for(var/mob/living/M in view(rev_mind.current))
 			if(beingborged)
 				to_chat(M, "The frame beeps contentedly, purging the hostile memory engram from the MMI before initalizing it.")
 
-
 			else
 				to_chat(M, "[rev_mind.current] looks like they just remembered their real allegiance!")
-
 
 
 /////////////////////////////////////
@@ -309,11 +295,9 @@
 	if(finished == 1)
 		feedback_set_details("round_end_result","win - heads killed")
 		to_chat(world, "\red <FONT size = 3><B> The heads of staff were killed or abandoned the station! The revolutionaries win!</B></FONT>")
-
 	else if(finished == 2)
 		feedback_set_details("round_end_result","loss - rev heads killed")
 		to_chat(world, "\red <FONT size = 3><B> The heads of staff managed to stop the revolution!</B></FONT>")
-
 	..()
 	return 1
 
@@ -343,7 +327,6 @@
 
 		to_chat(world, text)
 
-
 	if(revolutionaries.len || istype(ticker.mode,/datum/game_mode/revolution))
 		var/text = "<FONT size = 2><B>The revolutionaries were:</B></FONT>"
 
@@ -363,7 +346,6 @@
 			text += ")"
 
 		to_chat(world, text)
-
 
 
 	if( head_revolutionaries.len || revolutionaries.len || istype(ticker.mode,/datum/game_mode/revolution) )
@@ -393,7 +375,6 @@
 				text += "</font>"
 
 		to_chat(world, text)
-
 
 /proc/is_convertable_to_rev(datum/mind/mind)
 	return istype(mind) && \

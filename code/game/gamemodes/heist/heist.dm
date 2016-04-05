@@ -23,15 +23,10 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 /datum/game_mode/heist/announce()
 	to_chat(world, "<B>The current game mode is - Heist!</B>")
-
 	to_chat(world, "<B>An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!</B>")
-
 	to_chat(world, "Whoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!")
-
 	to_chat(world, "<B>Raiders:</B> Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.")
-
 	to_chat(world, "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
-
 
 /datum/game_mode/heist/can_start()
 
@@ -171,15 +166,10 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 /datum/game_mode/proc/greet_vox(var/datum/mind/raider)
 	to_chat(raider.current, "\blue <B>You are a Vox Raider, fresh from the Shoal!</b>")
-
 	to_chat(raider.current, "\blue The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both.")
-
 	to_chat(raider.current, "\blue Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious.")
-
 	to_chat(raider.current, "\blue Use :V to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!")
-
 	to_chat(raider.current, "\blue Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them.")
-
 	spawn(25)
 		show_objectives(raider)
 
@@ -234,20 +224,16 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 			win_msg += "<B>The Vox Raiders were repelled!</B>"
 
 	to_chat(world, "\red <FONT size = 3><B>[win_type] [win_group] victory!</B></FONT>")
-
 	to_chat(world, "[win_msg]")
-
 	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
 
 	var/count = 1
 	for(var/datum/objective/objective in raid_objectives)
 		if(objective.check_completion())
 			to_chat(world, "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>")
-
 			feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
 		else
 			to_chat(world, "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>")
-
 			feedback_add_details("traitor_objective","[objective.type]|FAIL")
 		count++
 
@@ -280,7 +266,6 @@ datum/game_mode/proc/auto_declare_completion_heist()
 
 		to_chat(world, text)
 
-
 	return 1
 
 /datum/game_mode/heist/check_finished()
@@ -304,7 +289,6 @@ datum/game_mode/proc/auto_declare_completion_heist()
 /obj/vox/win_button/attack_hand(mob/user)
 	if(!istype(ticker.mode, /datum/game_mode/heist) || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round
 		to_chat(user, "<span class='warning'>\The [src] does not appear to have a connection.</span>")
-
 		return 0
 
 	if(alert(user, "Warning: This will end the round. Are you sure you wish to end the round?", "Vox End", "Yes", "No") == "No")

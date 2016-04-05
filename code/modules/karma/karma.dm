@@ -55,12 +55,10 @@ var/list/karma_spenders = list()
 
 	if(!ticker || !player_list.len)
 		to_chat(usr, "\red You can't award karma until the game has started.")
-
 		return
 
 	if(ticker.current_state == GAME_STATE_PREGAME)
 		to_chat(usr, "\red You can't award karma until the game has started.")
-
 		return
 
 	var/list/karma_list = list("Cancel")
@@ -71,7 +69,6 @@ var/list/karma_spenders = list()
 
 	if(!karma_list.len || karma_list.len == 1)
 		to_chat(usr, "\red There's no-one to spend your karma on.")
-
 		return
 
 	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", "Cancel") as null|mob in karma_list
@@ -81,7 +78,6 @@ var/list/karma_spenders = list()
 
 	if(!istype(pickedmob, /mob))
 		to_chat(usr, "\red That's not a mob.")
-
 		return
 
 	spend_karma(pickedmob)
@@ -93,45 +89,36 @@ var/list/karma_spenders = list()
 
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
-
 		return
 	if(!istype(M, /mob))
 		to_chat(usr, "\red That's not a mob.")
-
 		return
 	if(!M.client)
 		to_chat(usr, "\red That mob has no client connected at the moment.")
-
 		return
 	if(src.client.karma_spent)
 		to_chat(usr, "\red You've already spent your karma for the round.")
-
 		return
 	for(var/a in karma_spenders)
 		if(a == src.key)
 			to_chat(usr, "\red You've already spent your karma for the round.")
-
 			return
 	if(M.key == src.key)
 		to_chat(usr, "\red You can't spend karma on yourself!")
-
 		return
 	if(M.client.address == src.client.address)
 		message_admins("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
 		log_game("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
 		to_chat(usr, "\red The karma system is not available to multi-accounters.")
-
 	var/choice = input("Give [M.name] good karma?", "Karma") in list("Good", "Cancel")
 	if(!choice || choice == "Cancel")
 		return
 	if(choice == "Good" && !(src.client.karma_spent))
 		if(src.client.karma_spent)
 			to_chat(usr, "\red You've already spent your karma for the round.")
-
 			return
 		M.client.karma += 1
 		to_chat(usr, "[choice] karma spent on [M.name].")
-
 		src.client.karma_spent = 1
 		karma_spenders.Add(src.key)
 	if(M.client.karma <= -2 || M.client.karma >= 2)
@@ -154,14 +141,12 @@ var/list/karma_spenders = list()
 
 	var/currentkarma=verify_karma()
 	to_chat(usr, {"<br>You have <b>[currentkarma]</b> available."})
-
 	return
 
 /client/proc/verify_karma()
 	var/currentkarma=0
 	if(!dbcon.IsConnected())
 		to_chat(usr, "\red Unable to connect to karma database. Please try again later.<br>")
-
 		return
 	else
 		var/DBQuery/query = dbcon.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey='[src.key]'")
@@ -175,11 +160,9 @@ var/list/karma_spenders = list()
 		currentkarma = (text2num(totalkarma) - text2num(karmaspent))
 /*		if(totalkarma)
 			to_chat(usr, {"<br>You have <b>[currentkarma]</b> available.<br>)
-
 You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		else
 			to_chat(usr, "<b>Your total karma is:</b> 0<br>")*/
-
 	return currentkarma
 
 /client/verb/karmashop()
@@ -283,7 +266,6 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			return
 		else
 			to_chat(usr, "You have unlocked [job].")
-
 			message_admins("[key_name(usr)] has unlocked [job].")
 			karmacharge(cost)
 
@@ -300,12 +282,10 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 				return
 			else
 				to_chat(usr, "You have unlocked [job].")
-
 				message_admins("[key_name(usr)] has unlocked [job].")
 				karmacharge(cost)
 		else
 			to_chat(usr, "You already have this job unlocked!")
-
 			return
 
 /client/proc/DB_species_unlock(var/species,var/cost)
@@ -326,7 +306,6 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			return
 		else
 			to_chat(usr, "You have unlocked [species].")
-
 			message_admins("[key_name(usr)] has unlocked [species].")
 			karmacharge(cost)
 
@@ -343,12 +322,10 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 				return
 			else
 				to_chat(usr, "You have unlocked [species].")
-
 				message_admins("[key_name(usr)] has unlocked [species].")
 				karmacharge(cost)
 		else
 			to_chat(usr, "You already have this species unlocked!")
-
 			return
 
 /client/proc/karmacharge(var/cost,var/refund = 0)
@@ -369,7 +346,6 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			return
 		else
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
-
 			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 			return
 
@@ -396,7 +372,6 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		cost = 10
 	else
 		to_chat(usr, "\red That job is not refundable.")
-
 		return
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")
@@ -419,7 +394,6 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		else
 			to_chat(usr, "\red Type [type] is not a valid column.")
 
-
 		if(name in typelist)
 			typelist -= name
 			var/newtypelist = jointext(typelist,",")
@@ -431,16 +405,13 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 				return
 			else
 				to_chat(usr, "You have been refunded [cost] karma for [type] [name].")
-
 				message_admins("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
 				karmacharge(text2num(cost),1)
 		else
 			to_chat(usr, "\red You have not bought [name].")
 
-
 	else
 		to_chat(usr, "\red Your ckey ([dbckey]) was not found.")
-
 
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")

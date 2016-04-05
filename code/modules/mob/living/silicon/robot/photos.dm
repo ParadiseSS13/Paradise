@@ -11,4 +11,3 @@
 			synced = 1
 	if(synced)
 		to_chat(src, "<span class='notice'>Locally saved images synced with AI. Images were retained in local database in case of loss of connection with the AI.</span>")
-

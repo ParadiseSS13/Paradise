@@ -31,12 +31,10 @@
 /obj/item/weapon/gun/syringe/examine(mob/user)
 	..(user)
 	to_chat(user, "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining.")
-
 	
 /obj/item/weapon/gun/syringe/attack_self(mob/living/user as mob)
 	if(!syringes.len)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
-
 		return 0
 
 	var/obj/item/weapon/reagent_containers/syringe/S = syringes[syringes.len]
@@ -47,7 +45,6 @@
 	syringes.Remove(S)
 	to_chat(user, "<span class='notice'>You unload [S] from \the [src]!</span>")
 
-
 	return 1
 
 /obj/item/weapon/gun/syringe/attackby(var/obj/item/A as obj, mob/user as mob, var/show_msg = 1, params)
@@ -55,13 +52,11 @@
 		if(syringes.len < max_syringes)
 			user.drop_item()
 			to_chat(user, "<span class='notice'>You load [A] into \the [src]!</span>")
-
 			syringes.Add(A)
 			A.forceMove(src)
 			return 1
 		else
 			to_chat(usr, "<span class='notice'>[src] cannot hold more syringes.</span>")
-
 	return 0
 
 /obj/item/weapon/gun/syringe/rapidsyringe

@@ -56,12 +56,10 @@
 
 	if(!wielded)
 		to_chat(user, "<span class = 'warning'>You must use both hands to garrote [M]!</span>")
-
 		return
 
 	if(!istype(M, /mob/living/carbon/human))
 		to_chat(user, "<span class = 'warning'>You don't think that garroting [M] would be very effective...</span>")
-
 		return
 
 	if(M == U)
@@ -70,16 +68,13 @@
 
 	if(M.dir != U.dir)
 		to_chat(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
-
 		return
 
 	if(improvised && ((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
 		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something they're wearing!</span>")
 
-
 	if(strangling)
 		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")
-
 		return
 
 	unwield(U)

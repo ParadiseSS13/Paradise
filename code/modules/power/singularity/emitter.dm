@@ -66,7 +66,6 @@
 
 	if (src.anchored || usr:stat)
 		to_chat(usr, "It is fastened to the floor!")
-
 		return 0
 	src.dir = turn(src.dir, 90)
 	return 1
@@ -129,20 +128,17 @@
 	if(state == 2)
 		if(!powernet)
 			to_chat(user, "The emitter isn't connected to a wire.")
-
 			return 1
 		if(!src.locked)
 			if(src.active==1)
 				src.active = 0
 				to_chat(user, "You turn off the [src].")
-
 				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 				log_game("Emitter turned off by [key_name(user)] in [x], [y], [z]")
 				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
 			else
 				src.active = 1
 				to_chat(user, "You turn on the [src].")
-
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
 				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
@@ -151,10 +147,8 @@
 			update_icon()
 		else
 			to_chat(user, "\red The controls are locked!")
-
 	else
 		to_chat(user, "\red The [src] needs to be firmly secured to the floor first.")
-
 		return 1
 
 
@@ -230,7 +224,6 @@
 	if(istype(W, /obj/item/weapon/wrench))
 		if(active)
 			to_chat(user, "Turn off the [src] first.")
-
 			return
 		switch(state)
 			if(0)
@@ -249,19 +242,16 @@
 				src.anchored = 0
 			if(2)
 				to_chat(user, "\red The [src.name] needs to be unwelded from the floor.")
-
 		return
 
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(active)
 			to_chat(user, "Turn off the [src] first.")
-
 			return
 		switch(state)
 			if(0)
 				to_chat(user, "\red The [src.name] needs to be wrenched to the floor.")
-
 			if(1)
 				if (WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
@@ -272,11 +262,9 @@
 						if(!src || !WT.isOn()) return
 						state = 2
 						to_chat(user, "You weld the [src] to the floor.")
-
 						connect_to_network()
 				else
 					to_chat(user, "\red You need more welding fuel to complete this task.")
-
 			if(2)
 				if (WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
@@ -287,30 +275,24 @@
 						if(!src || !WT.isOn()) return
 						state = 1
 						to_chat(user, "You cut the [src] free from the floor.")
-
 						disconnect_from_network()
 				else
 					to_chat(user, "\red You need more welding fuel to complete this task.")
-
 		return
 
 	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 		if(emagged)
 			to_chat(user, "\red The lock seems to be broken")
-
 			return
 		if(src.allowed(user))
 			if(active)
 				src.locked = !src.locked
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
-
 			else
 				src.locked = 0 //just in case it somehow gets locked
 				to_chat(user, "\red The controls can only be locked when the [src] is online")
-
 		else
 			to_chat(user, "\red Access denied.")
-
 		return
 
 	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))

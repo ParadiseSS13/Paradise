@@ -195,7 +195,6 @@
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-
 		overlays.Cut()
 		if(panel_open)
 			overlays += image(icon, "[initial(icon_state)]-panel")
@@ -217,18 +216,15 @@
 
 	if(stat & NOPOWER)
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
-
 		return
 
 	if(accept_check(O))
 		if(contents.len >= max_n_of_items)
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
-
 			return 1
 		else
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
-
 				return
 
 			O.forceMove(src)
@@ -247,7 +243,6 @@
 			if(accept_check(G))
 				if(contents.len >= max_n_of_items)
 					to_chat(user, "<span class='notice'>\The [src] is full.</span>")
-
 					return 1
 				else
 					P.remove_from_storage(G,src)
@@ -262,12 +257,10 @@
 			if(P.contents.len > 0)
 				to_chat(user, "<span class='notice'>Some items are refused.</span>")
 
-
 		nanomanager.update_uis(src)
 
 	else
 		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
-
 		return 1
 
 /obj/machinery/smartfridge/attack_ai(mob/user as mob)
@@ -289,7 +282,6 @@
 
 	if(stat & NOPOWER)
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
-
 		return
 
 	var/obj/item/weapon/storage/box/pillbottles/P = over_object
@@ -298,7 +290,6 @@
 		if(accept_check(G))
 			if(contents.len >= max_n_of_items)
 				to_chat(user, "<span class='notice'>\The [src] is full.</span>")
-
 				return 1
 			else
 				P.remove_from_storage(G,src)
@@ -313,14 +304,12 @@
 		"<span class='notice'>You empty \the [P] into \the [src].</span>")
 	if(P.contents.len > 0)
 		to_chat(user, "<span class='notice'>Some items are refused.</span>")
-
 	nanomanager.update_uis(src)
 
 /obj/machinery/smartfridge/secure/emag_act(user as mob)
 	emagged = 1
 	locked = -1
 	to_chat(user, "You short out the product lock on [src].")
-
 
 /*******************
 *   SmartFridge Menu
@@ -420,7 +409,6 @@
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
 		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
-
 			nanomanager.update_uis(src)
 			return 0
 	return ..()

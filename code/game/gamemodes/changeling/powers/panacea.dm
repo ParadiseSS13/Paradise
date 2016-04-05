@@ -11,7 +11,6 @@
 
 	to_chat(user, "<span class='notice'>We cleanse impurities from our form.</span>")
 
-
 	var/obj/item/organ/internal/body_egg/egg = user.get_int_organ(/obj/item/organ/internal/body_egg)
 	if(egg)
 		egg.remove(user)

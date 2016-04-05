@@ -263,7 +263,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			var/ind = 0
 			for(var/name in organ_data)
 //				to_chat(world, "[ind] \ [organ_data.len]")
-
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
@@ -675,7 +674,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if (!isnum(desiredLvl))
 		to_chat(user, "\red UpdateJobPreference - desired level was not a number. Please notify coders!")
-
 		ShowChoices(user)
 		return
 
@@ -1060,7 +1058,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							real_name = new_name
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
-
 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
@@ -1587,7 +1584,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(r != cleaned_r) // up to no good
 							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
 							to_chat(user, "<span class='userdanger'>Stop right there, criminal scum</span>")
-
 					else
 						be_special ^= r
 
@@ -1604,10 +1600,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					sound ^= SOUND_LOBBY
 					if(sound & SOUND_LOBBY)
 						to_chat(user, sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1))
-
 					else
 						to_chat(user, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))
-
 
 				if("ghost_ears")
 					toggles ^= CHAT_GHOSTEARS

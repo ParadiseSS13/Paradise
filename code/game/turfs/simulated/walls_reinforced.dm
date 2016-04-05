@@ -17,7 +17,6 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-
 		return
 
 	//get the user's location
@@ -28,7 +27,6 @@
 			var/obj/item/weapon/weldingtool/WT = W
 			if( WT.remove_fuel(0,user) )
 				to_chat(user, "<span class='notice'>You burn away the fungi with \the [WT].</span>")
-
 				playsound(src, 'sound/items/Welder.ogg', 10, 1)
 				for(var/obj/effect/E in src) if(E.name == "Wallrot")
 					qdel(E)
@@ -36,7 +34,6 @@
 				return
 		else if(!is_sharp(W) && W.force >= 10 || W.force >= 20)
 			to_chat(user, "<span class='notice'>\The [src] crumbles away under the force of your [W.name].</span>")
-
 			src.dismantle_wall()
 			return
 
@@ -57,7 +54,6 @@
 
 			EB.spark_system.start()
 			to_chat(user, "<span class='notice'>You slash \the [src] with \the [EB]; the thermite ignites!</span>")
-
 			playsound(src, "sparks", 50, 1)
 			playsound(src, 'sound/weapons/blade1.ogg', 50, 1)
 
@@ -66,23 +62,19 @@
 
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))
 		to_chat(user, "<span class='notice'>This wall is too thick to slice through. You will need to find a different path.</span>")
-
 		return
 
 	if(damage && istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>You start repairing the damage to [src].</span>")
-
 			playsound(src, 'sound/items/Welder.ogg', 100, 1)
 			if(do_after(user, max(5, damage / 5), target = src) && WT && WT.isOn())
 				to_chat(user, "<span class='notice'>You finish repairing the damage to [src].</span>")
-
 				take_damage(-damage)
 			return
 		else
 			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
-
 			return
 
 
@@ -95,20 +87,17 @@
 				update_icon()
 				new /obj/item/stack/rods(src)
 				to_chat(user, "<span class='notice'>You cut the outer grille.</span>")
-
 				return
 
 		if(1)
 			if (istype(W, /obj/item/weapon/screwdriver))
 				to_chat(user, "<span class='notice'>You begin removing the support lines.</span>")
-
 				playsound(src, 'sound/items/Screwdriver.ogg', 100, 1)
 
 				if(do_after(user, 40, target = src) && d_state == 1)
 					d_state = 2
 					update_icon()
 					to_chat(user, "<span class='notice'>You remove the support lines.</span>")
-
 				return
 
 			//REPAIRING (replacing the outer grille for cosmetic damage)
@@ -119,17 +108,14 @@
 					update_icon()
 					src.icon_state = "r_wall"
 					to_chat(user, "<span class='notice'>You replace the outer grille.</span>")
-
 				else
 					to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
-
 
 		if(2)
 			if(istype(W, /obj/item/weapon/weldingtool))
 				var/obj/item/weapon/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					to_chat(user, "<span class='notice'>You begin slicing through the metal cover.</span>")
-
 					playsound(src, 'sound/items/Welder.ogg', 100, 1)
 
 					if(do_after(user, 60, target = src) && d_state == 2)
@@ -137,48 +123,40 @@
 						update_icon()
 						to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
 
-
 				else
 					to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-
 				return
 
 			if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 				to_chat(user, "<span class='notice'>You begin slicing through the metal cover.</span>")
-
 				playsound(src, 'sound/items/Welder.ogg', 100, 1)
 
 				if(do_after(user, 40, target = src) && d_state == 2)
 					d_state = 3
 					update_icon()
 					to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
-
 				return
 
 		if(3)
 			if(istype(W, /obj/item/weapon/crowbar))
 				to_chat(user, "<span class='notice'>You struggle to pry off the cover.</span>")
-
 				playsound(src, 'sound/items/Crowbar.ogg', 100, 1)
 
 				if(do_after(user, 100, target = src) && d_state == 3)
 					d_state = 4
 					update_icon()
 					to_chat(user, "<span class='notice'>You pry off the cover.</span>")
-
 				return
 
 		if(4)
 			if(istype(W, /obj/item/weapon/wrench))
 				to_chat(user, "<span class='notice'>You start loosening the anchoring bolts which secure the support rods to their frame.</span>")
-
 				playsound(src, 'sound/items/Ratchet.ogg', 100, 1)
 
 				if(do_after(user, 40, target = src) && d_state == 4)
 					d_state = 5
 					update_icon()
 					to_chat(user, "<span class='notice'>You remove the bolts anchoring the support rods.</span>")
-
 				return
 
 		if(5)
@@ -186,7 +164,6 @@
 				var/obj/item/weapon/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					to_chat(user, "<span class='notice'>You begin slicing through the support rods.</span>")
-
 					playsound(src, 'sound/items/Welder.ogg', 100, 1)
 
 					if(do_after(user, 100, target = src) && d_state == 5)
@@ -194,15 +171,12 @@
 						update_icon()
 						new /obj/item/stack/rods(src)
 						to_chat(user, "<span class='notice'>The support rods drop out as you cut them loose from the frame.</span>")
-
 				else
 					to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-
 				return
 
 			if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 				to_chat(user, "<span class='notice'>You begin slicing through the support rods.</span>")
-
 				playsound(src, 'sound/items/Welder.ogg', 100, 1)
 
 				if(do_after(user, 70, target = src) && d_state == 5)
@@ -210,18 +184,15 @@
 					update_icon()
 					new /obj/item/stack/rods( src )
 					to_chat(user, "<span class='notice'>The support rods drop out as you cut them loose from the frame.</span>")
-
 				return
 
 		if(6)
 			if(istype(W, /obj/item/weapon/crowbar))
 				to_chat(user, "<span class='notice'>You struggle to pry off the outer sheath.</span>")
-
 				playsound(src, 'sound/items/Crowbar.ogg', 100, 1)
 
 				if(do_after(user, 100, target = src) && d_state == 6)
 					to_chat(user, "<span class='notice'>You pry off the outer sheath.</span>")
-
 					dismantle_wall()
 				return
 
@@ -231,19 +202,15 @@
 	if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
 
-
 		if(do_after(user, 200, target = src))
 			to_chat(user, "<span class='notice'>Your drill tears through the last of the reinforced plating.</span>")
-
 			dismantle_wall()
 
 	if(istype(W,/obj/item/weapon/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>You begin to disintegrate the wall.</span>")
 
-
 		if(do_after(user, 100, target = src))
 			to_chat(user, "<span class='notice'>Your sonic jackhammer disintegrates the reinforced plating.</span>")
-
 			dismantle_wall()
 
 	//REPAIRING
@@ -252,18 +219,15 @@
 
 		to_chat(user, "<span class='notice'>You begin patching-up the wall with \a [MS].</span>")
 
-
 		if(do_after(user, max(20 * d_state, 100), target = src) && d_state)
 			if(!MS.use(1))
 				to_chat(user, "<span class='warning'>You don't have enough metal for that!</span>")
-
 				return
 
 			d_state = 0
 			update_icon()
 			smooth_icon_neighbors(src)
 			to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
-
 
 
 	//APC

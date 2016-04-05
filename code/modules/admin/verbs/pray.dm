@@ -8,7 +8,6 @@
 	if(usr.client)
 		if(usr.client.prefs.muted & MUTE_PRAY)
 			to_chat(usr, "\red You cannot pray (muted).")
-
 			return
 		if(src.client.handle_spam_prevention(msg,MUTE_PRAY))
 			return
@@ -20,9 +19,7 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 
-
 	to_chat(usr, "Your prayers have been received by the gods.")
-
 
 	feedback_add_details("admin_verb","PR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	//log_admin("HELP: [key_name(src)]: [msg]")
@@ -35,7 +32,6 @@
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 
-
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color='#DC143C'>SYNDICATE: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;SyndicateReply=\ref[Sender]'>REPLY</A>):</b> [msg]"
@@ -43,7 +39,6 @@
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
-
 
 /proc/HONK_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -53,7 +48,6 @@
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 
-
 /proc/ERT_Announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;ErtReply=\ref[Sender]'>REPLY</A>):</b> [msg]"
@@ -61,7 +55,6 @@
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
-
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()

@@ -43,10 +43,8 @@ FLOOR SAFES
 	if(user && canhear)
 		if(tumbler_1_pos == tumbler_1_open)
 			to_chat(user, "<span class='italics'>You hear a [pick("tonk", "krunk", "plunk")] from [src].</span>")
-
 		if(tumbler_2_pos == tumbler_2_open)
 			to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
-
 	if(tumbler_1_pos == tumbler_1_open && tumbler_2_pos == tumbler_2_open)
 		if(user) visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
 		return 1
@@ -98,14 +96,12 @@ FLOOR SAFES
 	if(href_list["open"])
 		if(check_unlocked())
 			to_chat(user, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
-
 			open = !open
 			update_icon()
 			updateUsrDialog()
 			return
 		else
 			to_chat(user, "<span class='warning'>You can't [open ? "close" : "open"] [src], the lock is engaged!</span>")
-
 			return
 
 	if(href_list["decrement"])
@@ -114,12 +110,10 @@ FLOOR SAFES
 			tumbler_1_pos = decrement(tumbler_1_pos)
 			if(canhear)
 				to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
-
 			if(tumbler_1_pos == tumbler_2_pos + 37 || tumbler_1_pos == tumbler_2_pos - 35)
 				tumbler_2_pos = decrement(tumbler_2_pos)
 				if(canhear)
 					to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
-
 			check_unlocked(user, canhear)
 		updateUsrDialog()
 		return
@@ -130,12 +124,10 @@ FLOOR SAFES
 			tumbler_1_pos = increment(tumbler_1_pos)
 			if(canhear)
 				to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
-
 			if(tumbler_1_pos == tumbler_2_pos - 37 || tumbler_1_pos == tumbler_2_pos + 35)
 				tumbler_2_pos = increment(tumbler_2_pos)
 				if(canhear)
 					to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
-
 			check_unlocked(user, canhear)
 		updateUsrDialog()
 		return
@@ -156,21 +148,17 @@ FLOOR SAFES
 			space += I.w_class
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
-
 				return
 			I.loc = src
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-
 			updateUsrDialog()
 			return
 		else
 			to_chat(user, "<span class='notice'>[I] won't fit in [src].</span>")
-
 			return
 	else
 		if(istype(I, /obj/item/clothing/accessory/stethoscope))
 			to_chat(user, "<span class='warning'>Hold [I] in one of your hands while you manipulate the dial!</span>")
-
 			return
 
 

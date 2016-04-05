@@ -76,7 +76,6 @@
 			else
 				src.desc = "Incomplete skeleton, looks like it could use [src.breq-src.bnum] more bones."
 				to_chat(user, "Looks like it could use [src.breq-src.bnum] more bones.")
-
 		else
 			..()
 	else if(istype(W,/obj/item/weapon/pen))

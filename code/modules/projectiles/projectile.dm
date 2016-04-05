@@ -141,7 +141,6 @@
 			if(silenced)
 				playsound(loc, hitsound, 5, 1, -1)
 				to_chat(M, "\red You've been shot in the [parse_zone(def_zone)] by the [src.name]!")
-
 			else
 				playsound(loc, hitsound, 20, 1, -1)
 				visible_message("\red [A.name] is hit by the [src.name] in the [parse_zone(def_zone)]!")//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
@@ -211,7 +210,6 @@
 						if(!Angle)
 							Angle=round(Get_Angle(src,current))
 //						to_chat(world, "[Angle] angle")
-
 						//overlays.Cut()
 						//var/icon/I=new(initial(icon),icon_state) //using initial(icon) makes sure that the angle for that is reset as well
 						//I.Turn(Angle)
@@ -232,26 +230,22 @@
 						//Not sure if using whiles for this is good
 						while(pixel_x_offset > 16)
 //							to_chat(world, "Pre-adjust coords (x++): xy [pixel_x] xy offset [pixel_x_offset]")
-
 							pixel_x_offset -= 32
 							pixel_x -= 32
 							new_x++// x++
 						while(pixel_x_offset < -16)
 //							to_chat(world, "Pre-adjust coords (x--): xy [pixel_x] xy offset [pixel_x_offset]")
-
 							pixel_x_offset += 32
 							pixel_x += 32
 							new_x--
 
 						while(pixel_y_offset > 16)
 //							to_chat(world, "Pre-adjust coords (y++): py [pixel_y] py offset [pixel_y_offset]")
-
 							pixel_y_offset -= 32
 							pixel_y -= 32
 							new_y++
 						while(pixel_y_offset < -16)
 //							to_chat(world, "Pre-adjust coords (y--): py [pixel_y] py offset [pixel_y_offset]")
-
 							pixel_y_offset += 32
 							pixel_y += 32
 							new_y--

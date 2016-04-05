@@ -41,12 +41,10 @@ var/turf/T
 	if(istype(I, /obj/item/weapon/bananapeel))
 		if(fillamt < 9)
 			to_chat(usr, "<span  class='notice'>You add another banana peel to the assembly.</span>")
-
 			fillamt += 1
 			qdel(I)
 		else
 			to_chat(usr, "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>")
-
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(fillamt)
 			var/obj/item/weapon/grenade/bananade/G = new /obj/item/weapon/grenade/bananade
@@ -54,11 +52,8 @@ var/turf/T
 			user.put_in_hands(G)
 			G.deliveryamt = src.fillamt
 			to_chat(user, "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>")
-
 			qdel(src)
 		else
 			to_chat(usr, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
-
 	else
 		to_chat(usr, "<span class='notice'>Only banana peels fit in this assembly, up to 9.</span>")
-

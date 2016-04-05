@@ -41,7 +41,6 @@
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
 
-
 ///can_start()
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
 /datum/game_mode/proc/can_start()
@@ -397,7 +396,6 @@ proc/display_roundstart_logout_report()
 			to_chat(M, msg)
 
 
-
 proc/get_nt_opposed()
 	var/list/dudes = list()
 	for(var/mob/living/carbon/human/man in player_list)
@@ -424,10 +422,8 @@ proc/get_nt_opposed()
 
 	var/obj_count = 1
 	to_chat(player.current, "\blue Your current objectives:")
-
 	for(var/datum/objective/objective in player.objectives)
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 		obj_count++
 
 /proc/get_roletext(var/role)
@@ -446,11 +442,9 @@ proc/get_nt_opposed()
 	if(candidates.len)
 		theghost = pick(candidates)
 		to_chat(M, "<span class='userdanger'>Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!</span>")
-
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
 		M.ghostize()
 		M.key = theghost.key
 	else
 		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take their place.")
 		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
-

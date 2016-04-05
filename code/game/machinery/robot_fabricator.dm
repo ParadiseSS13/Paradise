@@ -29,12 +29,10 @@
 						qdel(O)
 
 					to_chat(user, "You insert [count] metal sheet\s into the fabricator.")
-
 					src.overlays -= "fab-load-metal"
 					updateDialog()
 		else
 			to_chat(user, "The robot part maker is full. Please remove metal from the robot part maker in order to insert more.")
-
 
 /obj/machinery/robotic_fabricator/power_change()
 	if (powered())

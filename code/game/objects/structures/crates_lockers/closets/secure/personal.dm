@@ -67,13 +67,11 @@
 	else if(istype(W, /obj/item/weapon/card/id))
 		if(src.broken)
 			to_chat(user, "\red It appears to be broken.")
-
 			return
 		var/obj/item/weapon/card/id/I = W
 		if(!I || !I.registered_name)	return
 		if(src == user.loc)
 			to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
-
 		else if(src.allowed(user) || !src.registered_name || (istype(I) && (src.registered_name == I.registered_name)))
 			//they can open all lockers, or nobody owns this, or they own this locker
 			src.locked = !( src.locked )
@@ -89,10 +87,8 @@
 				src.desc = "Owned by [I.registered_name]."
 		else
 			to_chat(user, "\red Access Denied")
-
 	else if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)) && !broken)
 		emag_act(user)
 	else
 		to_chat(user, "\red Access Denied")
-
 	return

@@ -136,7 +136,6 @@
 
 	if(src.processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-
 		return 1
 
 	if(default_deconstruction_screwdriver(user, "processor1", "processor", O))
@@ -160,7 +159,6 @@
 
 	if (!P)
 		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
-
 		return 1
 
 	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
@@ -177,12 +175,10 @@
 
 	if(src.processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-
 		return 1
 
 	if(src.contents.len == 0)
 		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
-
 		return 1
 	src.processing = 1
 	user.visible_message("[user] turns on [src].", \

@@ -117,7 +117,6 @@ var/datum/cameranet/cameranet = new()
 
 //		to_chat(world, "X1: [x1] - Y1: [y1] - X2: [x2] - Y2: [y2]")
 
-
 		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
 				if(chunkGenerated(x, y, T.z))

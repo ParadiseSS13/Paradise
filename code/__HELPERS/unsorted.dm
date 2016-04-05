@@ -252,7 +252,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/total_moles = air_contents.total_moles()
 
 	to_chat(user, "<span class='notice'>Results of analysis of \icon[icon] [target].</span>")
-
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -262,23 +261,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 
 		to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
-
 		to_chat(user, "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>")
-
 		to_chat(user, "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>")
-
 		to_chat(user, "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>")
-
 		to_chat(user, "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>")
-
 		if(unknown_concentration>0.01)
 			to_chat(user, "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>")
-
 		to_chat(user, "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>")
-
 	else
 		to_chat(user, "<span class='notice'>[target] is empty!</span>")
-
 	return
 
 //Picks a string of symbols to display as the law number for hacked or ion laws

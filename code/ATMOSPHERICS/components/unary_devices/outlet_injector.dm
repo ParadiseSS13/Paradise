@@ -172,7 +172,6 @@
 	if(istype(W, /obj/item/weapon/wrench))
 		if (!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
-
 			return 1
 	return ..()
 

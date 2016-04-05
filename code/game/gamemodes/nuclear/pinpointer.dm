@@ -22,12 +22,10 @@
 		active = 1
 		workdisk()
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
-
 	else
 		active = 0
 		icon_state = "pinoff"
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
-
 
 /obj/item/weapon/pinpointer/proc/scandisk()
 	if(!the_disk)
@@ -72,7 +70,6 @@
 		if(bomb.timing)
 			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
 
-
 /obj/item/weapon/pinpointer/advpinpointer
 	name = "advanced pinpointer"
 	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
@@ -90,12 +87,10 @@
 		if(mode == 2)
 			point_at(target)
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
-
 	else
 		active = 0
 		icon_state = "pinoff"
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
-
 
 /obj/item/weapon/pinpointer/advpinpointer/workdisk()
 	if(mode == 0)
@@ -135,7 +130,6 @@
 			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
 
-
 			return attack_self()
 
 		if("Disk Recovery")
@@ -159,10 +153,8 @@
 					target = locate(item_paths[targetitem])
 					if(!target)
 						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
-
 						return
 					to_chat(usr, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
-
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
 					if(!DNAstring)
@@ -190,16 +182,13 @@
 		if(!mode)
 			workdisk()
 			to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
-
 		else
 			worklocation()
 			to_chat(user, "<span class='notice'>Shuttle Locator active.</span>")
-
 	else
 		active = 0
 		icon_state = "pinoff"
 		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
-
 
 /obj/item/weapon/pinpointer/nukeop/workdisk()
 	if(!active) return
@@ -271,18 +260,15 @@
 /obj/item/weapon/pinpointer/operative/attack_self()
 	if(!usr.mind || !(usr.mind in ticker.mode.syndicates))
 		to_chat(usr, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
-
 		return 0
 	if(!active)
 		active = 1
 		workop()
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
-
 	else
 		active = 0
 		icon_state = "pinoff"
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
-
 
 /obj/item/weapon/pinpointer/operative/proc/scan_for_ops()
 	if(active)
@@ -307,7 +293,5 @@
 	if(active)
 		if(nearest_op)
 			to_chat(user, "Nearest operative detected is <i>[nearest_op.real_name].</i>")
-
 		else
 			to_chat(user, "No operatives detected within scanning range.")
-

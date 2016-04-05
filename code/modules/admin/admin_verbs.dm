@@ -259,7 +259,6 @@ var/list/admin_verbs_proccall = list (
 	verbs += /client/proc/show_verbs
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
-
 	feedback_add_details("admin_verb","TAVVH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
@@ -274,7 +273,6 @@ var/list/admin_verbs_proccall = list (
 	add_admin_verbs()
 
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
-
 	feedback_add_details("admin_verb","TAVVS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/admin_ghost()
@@ -293,7 +291,6 @@ var/list/admin_verbs_proccall = list (
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	else if(istype(mob,/mob/new_player))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
-
 	else
 		//ghostize
 		var/mob/body = mob
@@ -315,12 +312,10 @@ var/list/admin_verbs_proccall = list (
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
 			to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
-
 			//TODO: Make some kind of indication for the badmin that they are currently invisible
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
 			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
-
 
 /client/proc/player_panel()
 	set name = "Player Panel"
@@ -480,7 +475,6 @@ var/list/admin_verbs_proccall = list (
 	if(!warned_ckey || !istext(warned_ckey))	return
 	if(warned_ckey in admin_datums)
 		to_chat(usr, "<font color='red'>Error: warn(): You can't warn admins.</font>")
-
 		return
 
 	var/datum/preferences/D
@@ -490,7 +484,6 @@ var/list/admin_verbs_proccall = list (
 
 	if(!D)
 		to_chat(src, "<font color='red'>Error: warn(): No such ckey found.</font>")
-
 		return
 
 	if(++D.warns >= MAX_WARNS)					//uh ohhhh...you'reee iiiiin trouuuubble O:)
@@ -499,7 +492,6 @@ var/list/admin_verbs_proccall = list (
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
 			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-
 			del(C)
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
@@ -509,7 +501,6 @@ var/list/admin_verbs_proccall = list (
 	else
 		if(C)
 			to_chat(C, "<font color='red'><BIG><B>You have been formally warned by an administrator.</B></BIG><br>Further warnings will result in an autoban.</font>")
-
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
 			log_admin("[key_name(src)] has warned [key_name(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
 		else
@@ -653,11 +644,9 @@ var/list/admin_verbs_proccall = list (
 	if(air_processing_killed)
 		air_processing_killed = 0
 		to_chat(usr, "<b>Enabled air processing.</b>")
-
 	else
 		air_processing_killed = 1
 		to_chat(usr, "<b>Disabled air processing.</b>")
-
 	feedback_add_details("admin_verb","KA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] used 'kill air'.")
 	message_admins("\blue [key_name_admin(usr)] used 'kill air'.", 1)
@@ -675,7 +664,6 @@ var/list/admin_verbs_proccall = list (
 	verbs += /client/proc/readmin
 	deadmins += ckey
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
-
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/readmin()
@@ -699,7 +687,6 @@ var/list/admin_verbs_proccall = list (
 		if(!dbcon.IsConnected())
 			message_admins("Warning, MySQL database is not connected.")
 			to_chat(src, "Warning, MYSQL database is not connected.")
-
 			return
 		var/sql_ckey = sanitizeSQL(ckey)
 		var/DBQuery/query = dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
@@ -711,7 +698,6 @@ var/list/admin_verbs_proccall = list (
 			if(admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
-
 				return
 
 			D = new(rank, admin_ranks[rank], ckey)
@@ -725,11 +711,9 @@ var/list/admin_verbs_proccall = list (
 				var/flags = query.item[3]
 				if(!admin_ckey)
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.")
-
 					return
 				if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.")
-
 					return
 
 				if(istext(flags))
@@ -745,7 +729,6 @@ var/list/admin_verbs_proccall = list (
 		return
 	else
 		to_chat(src, "You are already an admin.")
-
 		verbs -= /client/proc/readmin
 		deadmins -= ckey
 		return
@@ -761,11 +744,9 @@ var/list/admin_verbs_proccall = list (
 		if(config.log_hrefs)
 			config.log_hrefs = 0
 			to_chat(src, "<b>Stopped logging hrefs</b>")
-
 		else
 			config.log_hrefs = 1
 			to_chat(src, "<b>Started logging hrefs</b>")
-
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
@@ -840,7 +821,6 @@ var/list/admin_verbs_proccall = list (
 
 	if(!H.client)
 		to_chat(usr, "Only mobs with clients can alter their own appearance.")
-
 		return
 
 	switch(alert("Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
@@ -865,7 +845,6 @@ var/list/admin_verbs_proccall = list (
 			jobs += J.title
 	if (!jobs.len)
 		to_chat(usr, "There are no fully staffed jobs.")
-
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
 	if (job)
@@ -884,10 +863,8 @@ var/list/admin_verbs_proccall = list (
 	prefs.save_preferences(src)
 	if (prefs.toggles & CHAT_ATTACKLOGS)
 		to_chat(usr, "You now will get attack log messages")
-
 	else
 		to_chat(usr, "You now won't get attack log messages")
-
 
 /client/proc/toggledrones()
 	set name = "Toggle Maintenance Drones"
@@ -911,10 +888,8 @@ var/list/admin_verbs_proccall = list (
 	prefs.save_preferences(src)
 	if (prefs.toggles & CHAT_DEBUGLOGS)
 		to_chat(usr, "You now will get debug log messages")
-
 	else
 		to_chat(usr, "You now won't get debug log messages")
-
 
 /client/proc/man_up(mob/T as mob in mob_list)
 	set category = "Admin"
@@ -925,9 +900,7 @@ var/list/admin_verbs_proccall = list (
 		return
 
 	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
-
 	to_chat(T, "<span class='notice'>Move on.</span>")
-
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
 	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
@@ -945,9 +918,7 @@ var/list/admin_verbs_proccall = list (
 	if(confirm == "Yes")
 		for (var/mob/T as mob in mob_list)
 			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
-
 			to_chat(T, 'sound/voice/ManUp1.ogg')
-
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")

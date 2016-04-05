@@ -32,7 +32,6 @@
 	medium = round(medium)
 	weak = round(weak)
 	to_chat(imp_in, "<span class='notice'>You activate your microbomb implant.</span>")
-
 //If the delay is short, just blow up already jeez
 	if(delay <= 7)
 		explosion(src,heavy,medium,weak,weak, flame_range = weak)
@@ -87,7 +86,6 @@
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb implant? This will cause you to explode and gib!", "Macrobomb Implant Confirmation", "Yes", "No") != "Yes")
 		return 0
 	to_chat(imp_in, "<span class='notice'>You activate your macrobomb implant.</span>")
-
 	timed_explosion()
 
 /obj/item/weapon/implant/explosive/macro/implant(mob/source)

@@ -28,11 +28,8 @@
 			if(message)
 				M.add_ion_law(message)
 				to_chat(M, "<br>")
-
 				to_chat(M, "<span class='danger'>[message] ...LAWS UPDATED</span>")
-
 				to_chat(M, "<br>")
-
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot in machines)

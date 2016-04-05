@@ -51,15 +51,12 @@
 			W.loc = src
 			diode = W
 			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
-
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-
 
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(diode)
 			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
-
 			diode.loc = get_turf(src.loc)
 			diode = null
 			return
@@ -76,11 +73,9 @@
 		return
 	if (!diode)
 		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
-
 		return
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-
 		return
 
 	add_fingerprint(user)
@@ -88,7 +83,6 @@
 	//nothing happens if the battery is drained
 	if(recharge_locked)
 		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
-
 		return
 
 	var/outmsg
@@ -122,7 +116,6 @@
 			S.flash_eyes(affect_silicon = 1)
 			S.Weaken(rand(5,10))
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at their sensors.</span>"
 
 			S.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had a laser pointer shone in their eyes by [user.name] ([user.ckey])</font>")
@@ -162,10 +155,8 @@
 
 	if(outmsg)
 		to_chat(user, outmsg)
-
 	else
 		to_chat(user, "<span class='info'>You point [src] at [target].</span>")
-
 
 	energy -= 1
 	if(energy <= max_energy)
@@ -174,7 +165,6 @@
 			processing_objects.Add(src)
 		if(energy <= 0)
 			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
-
 			recharge_locked = 1
 
 	flick_overlay(I, showto, 10)

@@ -266,7 +266,6 @@ datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
 			H.equip_to_slot(fakemoustache, slot_wear_mask)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
-
 	..()
 	return
 
@@ -294,7 +293,6 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 	if(holder.has_reagent("simethicone"))
 		if(prob(25))
 			to_chat(M, "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gonna die!")]</span>")
-
 			M.adjustBruteLoss(1)
 		if(prob(10))
 			M.custom_emote(1,"strains, but nothing happens.")

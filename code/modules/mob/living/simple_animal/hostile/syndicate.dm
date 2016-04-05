@@ -63,7 +63,6 @@
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
 		to_chat(usr, "\red This weapon is ineffective, it does no damage.")
-
 		visible_message("\red [user] gently taps [src] with the [O]. ")
 
 

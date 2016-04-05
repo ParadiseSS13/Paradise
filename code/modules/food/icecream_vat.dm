@@ -33,16 +33,13 @@
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='notice'>A container is already inside [src].</span>")
-
 			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
-
 			return
 		beaker = I
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add [I] to [src]</span>")
-
 		updateUsrDialog()
 		return
 	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/icecream))
@@ -57,14 +54,12 @@
 			to_chat(user, "<span class='notice'>This [I] already has sprinkles.</span>")
 
 
-
 /obj/machinery/icemachine/proc/validexchange(reag)
 	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "water")
 		return 1
 	else
 		if(reagents.total_volume < 500)
 			to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
-
 			playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
 		return 1
 

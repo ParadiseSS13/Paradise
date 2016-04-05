@@ -76,7 +76,6 @@
 
 
 
-
 /obj/machinery/mineral/labor_claim_console/Topic(href, href_list)
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
@@ -90,7 +89,6 @@
 				inserted_id.points += machine.points
 				machine.points = 0
 				to_chat(src, "Points transferred.")
-
 		else if(href_list["choice"] == "insert")
 			var/obj/item/weapon/card/id/prisoner/I = usr.get_active_hand()
 			if(istype(I))
@@ -99,28 +97,22 @@
 				inserted_id = I
 			else
 				to_chat(usr, "<span class='warning'>Invalid ID.</span>")
-
 		if(check_auth()) //Sanity check against hef spoofs
 			if(href_list["choice"] == "station")
 				if(!alone_in_area(get_area(src), usr))
 					to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
-
 				else
 					switch(shuttle_master.moveShuttle("laborcamp","laborcamp_home"))
 						if(1)
 							to_chat(usr, "<span class='notice'>Shuttle not found</span>")
-
 						if(2)
 							to_chat(usr, "<span class='notice'>Shuttle already at station</span>")
-
 						if(3)
 							to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
-
 						else
 							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 							announcer.autosay(message, "Labor Camp Controller", "Security")
 							to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
-
 
 			if(href_list["choice"] == "release")
 				if(alone_in_area(get_area(loc), usr))
@@ -130,10 +122,8 @@
 							release_door.open()
 					else
 						to_chat(usr, "<span class='warning'>Prisoners can only be released while docked with the station.</span>")
-
 				else
 					to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
-
 
 		src.updateUsrDialog()
 	return
@@ -180,15 +170,10 @@
 		if(istype(I, /obj/item/weapon/card/id/prisoner))
 			var/obj/item/weapon/card/id/prisoner/prisoner_id = I
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
-
 			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.points]</span>")
-
 			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
-
 			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
-
 		else
 			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
-
 		return
 	..()

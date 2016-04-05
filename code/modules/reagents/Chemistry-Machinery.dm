@@ -111,7 +111,6 @@
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main",var/datum/nanoui/ui = null, var/force_open = 1)
 	if(broken_requirements.len)
 		to_chat(user, "<span class='warning'>[src] is broken. [broken_requirements[broken_requirements[1]]]</span>")
-
 		return
 
 
@@ -209,28 +208,23 @@
 		else
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
-
 				return
 			qdel(B)
 		broken_requirements -= broken_requirements[1]
 		to_chat(user, "<span class='notice'>You fix [src].</span>")
-
 		return
 
 	if(src.beaker)
 		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
-
 		return
 
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks))
 		src.beaker =  B
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
-
 			return
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [B] on the machine.</span>")
-
 		nanomanager.update_uis(src) // update all UIs attached to src
 		if(!icon_beaker)
 			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
@@ -243,14 +237,12 @@
 	if(istype(B, /obj/item/device/multitool))
 		if(hackedcheck == 0)
 			to_chat(user, hack_message)
-
 			dispensable_reagents += hacked_reagents
 			hackedcheck = 1
 			return
 
 		else
 			to_chat(user, unhack_message)
-
 			dispensable_reagents -= hacked_reagents
 			hackedcheck = 0
 			return
@@ -353,7 +345,6 @@
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-
 			return
 		..()
 	else
@@ -370,11 +361,9 @@
 		if(anchored)
 			anchored = 0
 			to_chat(user, "<span class='caution'>\The [src] can now be moved.</span>")
-
 		else if(!anchored)
 			anchored = 1
 			to_chat(user, "<span class='caution'>\The [src] is now secured.</span>")
-
 
 	if(panel_open)
 		if(istype(I, /obj/item/weapon/crowbar))
@@ -441,16 +430,13 @@
 
 		if(src.beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-
 			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
-
 			return
 		src.beaker = B
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
-
 		src.updateUsrDialog()
 		icon_state = "mixer1"
 
@@ -458,17 +444,14 @@
 
 		if(src.loaded_pill_bottle)
 			to_chat(user, "<span class='warning'>A pill bottle is already loaded into the machine.</span>")
-
 			return
 
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
-
 			return
 		src.loaded_pill_bottle = B
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the pill bottle into the dispenser slot!</span>")
-
 		src.updateUsrDialog()
 	return
 
@@ -811,7 +794,6 @@
 			return 1
 		else
 			to_chat(user, "<span class='warning'>You can't use the [src.name] while it's panel is opened!</span>")
-
 			return 1
 	else
 		..()
@@ -902,7 +884,6 @@
 		else
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
-
 				return
 			src.beaker =  O
 			O.forceMove(src)
@@ -912,7 +893,6 @@
 
 	if(holdingitems && holdingitems.len >= limit)
 		to_chat(usr, "<span class='warning'>The machine cannot hold anymore items.</span>")
-
 		return 1
 
 	//Fill machine with the plantbag!
@@ -924,12 +904,10 @@
 			holdingitems += G
 			if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
 				to_chat(user, "<span class='notice>You fill the All-In-One grinder to the brim.</span>")
-
 				break
 
 		if(!O.contents.len)
 			to_chat(user, "<span class='notice'>You empty the plant bag into the All-In-One grinder.</span>")
-
 
 		src.updateUsrDialog()
 		return 0
@@ -937,7 +915,6 @@
 
 	if (!is_type_in_list(O, blend_items) && !is_type_in_list(O, juice_items))
 		to_chat(user, "<span class='warning'>Cannot refine into a reagent.</span>")
-
 		return 1
 
 	user.unEquip(O)

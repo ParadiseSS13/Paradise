@@ -60,7 +60,6 @@
 	if(welded)
 		to_chat(user, "It seems welded shut.")
 
-
 /obj/machinery/atmospherics/unary/vent_scrubber/auto_use_power()
 	if(!powered(power_channel))
 		return 0
@@ -374,7 +373,6 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if (WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>Now welding the scrubber.</span>")
-
 			if(do_after(user, 20, target = src))
 				if(!src || !WT.isOn()) return
 				playsound(get_turf(src), 'sound/items/Welder2.ogg', 50, 1)
@@ -388,11 +386,9 @@
 					update_icon()
 			else
 				to_chat(user, "<span class='notice'>The welding tool needs to be on to start this task.</span>")
-
 			return 1
 		else
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-
 			return 1
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
@@ -400,7 +396,6 @@
 	if (istype(W, /obj/item/weapon/wrench))
 		if (!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-
 			return 1
 
 	return ..()

@@ -24,13 +24,11 @@
 			playsound(holder, 'sound/items/Deconstruct.ogg', 50, 1)
 		else
 			to_chat(user, ("There's not enough cable to finish the task."))
-
 			return 0
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
 		if(S.amount < 5)
 			to_chat(user, ("There's not enough material in this stack."))
-
 			return 0
 		else
 			S.use(5)
@@ -58,13 +56,11 @@
 			playsound(holder, 'sound/items/Deconstruct.ogg', 50, 1)
 		else
 			to_chat(user, ("There's not enough cable to finish the task."))
-
 			return 0
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
 		if(S.amount < 5)
 			to_chat(user, ("There's not enough material in this stack."))
-
 			return 0
 		else
 			S.use(5)

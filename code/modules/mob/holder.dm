@@ -48,12 +48,9 @@
 	if(istype(M))
 		M.unEquip(src)
 		to_chat(M, "[src] wriggles out of your grip!")
-
 		to_chat(src, "You wriggle out of [M]'s grip!")
-
 	else if(istype(src.loc,/obj/item))
 		to_chat(src, "You struggle free of [src.loc].")
-
 		src.forceMove(get_turf(src))
 
 	if(istype(M))
@@ -78,9 +75,7 @@
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
-
 	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
-
 	grabber.status_flags |= PASSEMOTES
 	return H
 

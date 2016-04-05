@@ -36,12 +36,10 @@
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
-
 		return 0
 	if(istype(check, /obj/item/weapon/reagent_containers/food/snacks))
 		return 1
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
-
 	return 0
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
@@ -64,7 +62,6 @@
 	var/obj/item/weapon/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
 	to_chat(user, "<span class='warning'>You smell burning coming from the [src]!</span>")
-
 	var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()    // burning things makes smoke!
 	smoke.set_up(5, 0, src)
 	smoke.start()
@@ -84,7 +81,6 @@
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	icon_state = onicon
 	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
-
 	on = 1
 	chef.drop_item()
 	tocook.loc = src
@@ -103,7 +99,6 @@
 		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))
 			if(checkCooked(I))
 				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
-
 				return
 	putIn(I, user)
 	sleep(cooktime)

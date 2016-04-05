@@ -82,7 +82,6 @@
 		var/mob/M = G.affecting
 		if(M.buckled_mob)
 			to_chat(usr, "[M] will not fit into [src] because they have a slime latched onto their head.")
-
 			return
 		if(put_mob(M))
 			qdel(G)
@@ -110,11 +109,9 @@
 /obj/machinery/implantchair/put_mob(mob/living/carbon/M)
 	if(!iscarbon(M))
 		to_chat(usr, "<span class='warning'>The [src.name] cannot hold this!</span>")
-
 		return
 	if(src.occupant)
 		to_chat(usr, "<span class='warning'>The [src.name] is already occupied!</span>")
-
 		return
 	if(M.client)
 		M.client.perspective = EYE_PERSPECTIVE

@@ -63,12 +63,10 @@
 		incorporeal_move = 3
 		invisibility = INVISIBILITY_REVENANT
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
-
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
 		notransform = 0
 		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
-
 	update_spooky_icon()
 
 /mob/living/simple_animal/revenant/ex_act(severity)
@@ -92,7 +90,6 @@
 
 
 
-
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
@@ -101,10 +98,8 @@
 	for(var/mob/M in mob_list)
 		if(istype(M, /mob/living/simple_animal/revenant))
 			to_chat(M, rendered)
-
 		if(isobserver(M))
 			to_chat(M, "<a href='?src=\ref[M];follow=\ref[src]'>(F)</a> [rendered]")
-
 	return
 
 /mob/living/simple_animal/revenant/Stat()
@@ -125,7 +120,6 @@
 		if(src.mind)
 			src.mind.wipe_memory()
 			to_chat(src, 'sound/effects/ghost.ogg')
-
 			to_chat(src, "<br>")
 			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
@@ -135,17 +129,14 @@
 			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
 			to_chat(src, "<b>Be sure to read the wiki page at http://nanotrasen.se/wiki/index.php/Revenant to learn more.</b>")
 
-
 			var/datum/objective/revenant/objective = new
 			objective.owner = src.mind
 			src.mind.objectives += objective
 			to_chat(src, "<b>Objective #1</b>: [objective.explanation_text]")
-
 			var/datum/objective/revenantFluff/objective2 = new
 			objective2.owner = src.mind
 			src.mind.objectives += objective2
 			to_chat(src, "<b>Objective #2</b>: [objective2.explanation_text]")
-
 			ticker.mode.traitors |= src.mind //Necessary for announcing
 		if(!src.giveSpells())
 			message_admins("Revenant was created but has no mind. Trying again in five seconds.")
@@ -179,7 +170,6 @@
 	updateallghostimages()
 
 	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
-
 	notransform = 1
 	revealed = 1
 	invisibility = 0
@@ -216,15 +206,12 @@
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/wall))
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
-
 		return 0
 	if(src.inhibited)
 		to_chat(src, "<span class='revenwarning'>Your powers have been suppressed by nulling energy!</span>")
-
 		return 0
 	if(!src.change_essence_amount(essence_cost, 1))
 		to_chat(src, "<span class='revenwarning'>You lack the essence to use that ability.</span>")
-
 		return 0
 	return 1
 
@@ -239,10 +226,8 @@
 	if(!silent)
 		if(essence_amt > 0)
 			to_chat(src, "<span class='revennotice'>Gained [essence_amt]E from [source].</span>")
-
 		else
 			to_chat(src, "<span class='revenminor'>Lost [essence_amt]E from [source].</span>")
-
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
@@ -255,11 +240,9 @@
 	incorporeal_move = 0
 	if(!unreveal_time)
 		to_chat(src, "<span class='revendanger'>You have been revealed!</span>")
-
 		unreveal_time = world.time + time
 	else
 		to_chat(src, "<span class='revenwarning'>You have been revealed!</span>")
-
 		unreveal_time = unreveal_time + time
 	update_spooky_icon()
 
@@ -271,11 +254,9 @@
 	notransform = 1
 	if(!unstun_time)
 		to_chat(src, "<span class='revendanger'>You cannot move!</span>")
-
 		unstun_time = world.time + time
 	else
 		to_chat(src, "<span class='revenwarning'>You cannot move!</span>")
-
 		unstun_time = unstun_time + time
 	update_spooky_icon()
 
@@ -371,10 +352,8 @@
 	..(user)
 	if(inert)
 		to_chat(user, "<span class='revennotice'>It seems inert.</span>")
-
 	else if(reforming)
 		to_chat(user, "<span class='revenwarning'>It is shifting and distorted. It would be wise to destroy this.</span>")
-
 
 /obj/item/weapon/ectoplasm/revenant/proc/reform()
 	if(inert || !src)

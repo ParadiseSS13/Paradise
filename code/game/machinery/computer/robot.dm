@@ -28,7 +28,6 @@
 			to_chat(user, "<span class='warning'>You have been locked out from this console!</span>")
 
 
-
 /obj/machinery/computer/robotics/proc/is_authenticated(var/mob/user as mob)
 	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
 		return 1
@@ -61,7 +60,6 @@
 	var/mob/user = usr
 	if(!is_authenticated(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-
 		return
 
 	// Destroys the cyborg
@@ -71,12 +69,10 @@
 			return
 		if(isAI(user) && (target.connected_ai != user))
 			to_chat(user, "<span class='warning'>Access Denied. This robot is not linked to you.</span>")
-
 			return
 		// Cyborgs may blow up themselves via the console
 		if(isrobot(user) && user != target)
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
-
 			return
 		var/choice = input("Really detonate [target.name]?") in list ("Yes", "No")
 		if(choice != "Yes")
@@ -87,16 +83,13 @@
 		// Antagonistic cyborgs? Left here for downstream
 		if(target.mind && target.mind.special_role && target.emagged)
 			to_chat(target, "Extreme danger.  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered.")
-
 			target.ResetSecurityCodes()
 		else
 			message_admins("<span class='notice'>[key_name_admin(usr)] detonated [key_name_admin(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)!</span>")
 			log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(target)]!</span>")
 			to_chat(target, "<span class='danger'>Self-destruct command received.</span>")
-
 			if(target.connected_ai)
 				to_chat(target.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [target.name]</span><br>")
-
 			spawn(10)
 				target.self_destruct()
 
@@ -108,12 +101,10 @@
 
 		if(isAI(user) && (target.connected_ai != user))
 			to_chat(user, "<span class='warning'>Access Denied. This robot is not linked to you.</span>")
-
 			return
 
 		if(isrobot(user))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
-
 			return
 
 		var/choice = input("Really [target.lockcharge ? "unlock" : "lockdown"] [target.name] ?") in list ("Yes", "No")
@@ -128,10 +119,8 @@
 		target.canmove = !target.canmove
 		target.lockcharge = !target.lockcharge
 		to_chat(target, "[!target.lockcharge ? "<span class='notice'>Your lockdown has been lifted!</span>" : "<span class='alert'>You have been locked down!</span>"]")
-
 		if(target.connected_ai)
 			to_chat(target.connected_ai, "[!target.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='?src=\ref[target.connected_ai];track=[html_encode(target.name)]'>[target.name]</a></span><br>")
-
 
 	// Remotely hacks the cyborg. Only antag AIs can do this and only to linked cyborgs.
 	else if (href_list["hack"])
@@ -142,17 +131,14 @@
 		// Antag AI checks
 		if(!istype(user, /mob/living/silicon/ai) || !(user.mind.special_role && user.mind.original == user))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
-
 			return
 
 		if(target.connected_ai != user)
 			to_chat(user, "<span class='warning'>Access Denied. This robot is not linked to you.</span>")
-
 			return
 
 		if(target.emagged)
 			to_chat(user, "<span class='warning'>Robot is already hacked.</span>")
-
 			return
 
 		var/choice = input("Really hack [target.name]? This cannot be undone.") in list("Yes", "No")
@@ -167,27 +153,22 @@
 		target.emagged = 1
 		to_chat(target, "<span class='notice'>Failsafe protocols overriden. New tools available.</span>")
 
-
 	// Arms the emergency self-destruct system
 	else if(href_list["arm"])
 		if(istype(user, /mob/living/silicon))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
-
 			return
 
 		safety = !safety
 		to_chat(user, "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency self destruct.</span>")
 
-
 	// Destroys all accessible cyborgs if safety is disabled
 	else if(href_list["nuke"])
 		if(istype(user, /mob/living/silicon))
 			to_chat(user, "Access Denied")
-
 			return
 		if(safety)
 			to_chat(user, "Self-destruct aborted - safety active")
-
 			return
 
 		message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
@@ -200,10 +181,8 @@
 			if(R.scrambledcodes)
 				continue
 			to_chat(R, "<span class='danger'>Self-destruct command received.</span>")
-
 			if(R.connected_ai)
 				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
-
 			spawn(10)
 				R.self_destruct()
 

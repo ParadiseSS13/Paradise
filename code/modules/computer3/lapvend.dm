@@ -57,7 +57,6 @@
 			L.loc = src
 			vendmode = 3
 			to_chat(usr, "<span class='notice'>You slot your [L.name] into \The [src.name]</span>")
-
 	else
 		..()
 
@@ -264,13 +263,10 @@
 					power = 0
 				else
 					to_chat(usr, "\icon[src]<span class='warning'>You don't have that much money!</span>")
-
 			else
 				to_chat(usr, "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
-
 		else
 			to_chat(usr, "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>")
-
 
 /obj/machinery/lapvend/proc/total()
 	var/total = 0
@@ -410,7 +406,5 @@
 
 			else
 				to_chat(usr, "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
-
 		else
 			to_chat(usr, "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>")
-

@@ -120,7 +120,6 @@ proc/get_radio_key_from_channel(var/channel)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "\red You cannot speak in IC (Muted).")
-
 			return
 
 	message = trim_strip_html_properly(message)
@@ -162,7 +161,6 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(is_muzzled())
 		to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
-
 		return
 
 	message = trim_left(message)
@@ -315,7 +313,6 @@ proc/get_radio_key_from_channel(var/channel)
 		if(act == "help")	return //except help, because help is handled individually
 		to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
 
-
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message)
 
@@ -341,7 +338,6 @@ proc/get_radio_key_from_channel(var/channel)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
-
 			return
 
 	if(stat)
@@ -351,7 +347,6 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(is_muzzled())
 		to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
-
 		return
 
 	var/message_range = 1

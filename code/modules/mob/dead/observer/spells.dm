@@ -34,7 +34,6 @@ var/global/list/boo_phrases=list(
 				if(H && H.client)
 					to_chat(H, "<i>[pick(boo_phrases)]</i>")
 
-
 			// Flicker unblessed lights in range
 			if(istype(A,/obj/machinery/light))
 				var/obj/machinery/light/L = A

@@ -66,7 +66,6 @@
 	else if(istype(mover, /mob/living))
 		if(prob(50))
 			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
-
 			return 0
 	else if(istype(mover, /obj/item/projectile))
 		return prob(30)
@@ -209,7 +208,6 @@
 						S.key = C.key
 						if(master_commander)
 							to_chat(S, "<span class='userdanger'>You are a spider who is loyal to [master_commander], obey [master_commander]'s every order and assist them in completing their goals at any cost.</span>")
-
 			qdel(src)
 
 /obj/effect/decal/cleanable/spiderling_remains

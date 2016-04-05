@@ -3,7 +3,6 @@
 	if(join_motd)
 		to_chat(src, "<div class=\"motd\">[join_motd]</div>")
 
-
 	if(!mind)
 		mind = new /datum/mind(key)
 		mind.active = 1

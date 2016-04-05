@@ -20,7 +20,6 @@
 
 /datum/progressbar/proc/update(progress)
 //	to_chat(world, "Update [progress] - [goal] - [(progress / goal)] - [((progress / goal) * 100)] - [round(((progress / goal) * 100), 5)]")
-
 	if (!user || !user.client)
 		shown = 0
 		return

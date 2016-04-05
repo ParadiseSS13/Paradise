@@ -73,7 +73,6 @@ Be safe, friend.\" (Unable to Reply)</p>"}
 
 	proc/announce()
 		to_chat(world, "<B>The current game mode is - Mutiny!</B>")
-
 		to_chat(world, {"
 <p>The crew will be divided by their sense of ethics when a morally turbulent emergency directive arrives with an incomplete command validation code.<br><br>
 The [loyalist_tag("Head Loyalist")] is the Captain, who carries the [loyalist_tag("Captain's Authentication Key")] at all times.<br>

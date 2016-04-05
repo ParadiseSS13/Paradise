@@ -41,7 +41,6 @@
 					aiPlayer.set_zeroth_law(law)
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
-
 	for(var/obj/machinery/computer/communications/comm in world)
 		comm.messagetitle.Add(interceptname)
 		comm.messagetext.Add(intercepttext)

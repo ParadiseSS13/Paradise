@@ -8,7 +8,6 @@
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "\blue You inflate [src].")
-
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -152,7 +151,6 @@
 /obj/item/inflatable/door/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "\blue You inflate [src].")
-
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -265,7 +263,6 @@
 
 /obj/item/inflatable/torn/attack_self(mob/user)
 	to_chat(user, "<span class='warning'>The inflatable wall is too torn to be inflated!</span>")
-
 	add_fingerprint(user)
 
 /obj/item/inflatable/door/torn
@@ -276,7 +273,6 @@
 
 /obj/item/inflatable/door/torn/attack_self(mob/user)
 	to_chat(user, "<span class='warning'>The inflatable door is too torn to be inflated!</span>")
-
 	add_fingerprint(user)
 
 /obj/item/weapon/storage/briefcase/inflatable

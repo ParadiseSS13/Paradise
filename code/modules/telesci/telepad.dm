@@ -48,7 +48,6 @@
 			M.buffer = src
 			to_chat(user, "<span class = 'caution'>You save the data in the [I.name]'s buffer.</span>")
 
-
 	if(exchange_parts(user, I))
 		return
 
@@ -72,26 +71,21 @@
 		if(anchored)
 			anchored = 0
 			to_chat(user, "<span class = 'caution'> The [src] can now be moved.</span>")
-
 		else if(!anchored)
 			anchored = 1
 			to_chat(user, "<span class = 'caution'> The [src] is now secured.</span>")
-
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(stage == 0)
 			playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 			to_chat(user, "<span class = 'caution'> You unscrew the telepad's tracking beacon.</span>")
-
 			stage = 1
 		else if(stage == 1)
 			playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 			to_chat(user, "<span class = 'caution'> You screw in the telepad's tracking beacon.</span>")
-
 			stage = 0
 	if(istype(W, /obj/item/weapon/weldingtool) && stage == 1)
 		playsound(src, 'sound/items/Welder.ogg', 50, 1)
 		to_chat(user, "<span class = 'caution'> You disassemble the telepad.</span>")
-
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		new /obj/item/stack/sheet/glass(get_turf(src))
 		qdel(src)
@@ -108,7 +102,6 @@
 /obj/item/device/telepad_beacon/attack_self(mob/user as mob)
 	if(user)
 		to_chat(user, "<span class = 'caution'> Locked In</span>")
-
 		new /obj/machinery/telepad_cargo(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
@@ -144,7 +137,6 @@
 	..(user)
 	to_chat(user, "There are [round(rcell.charge/chargecost)] charge\s left.")
 
-
 /obj/item/weapon/rcs/Destroy()
 	if(rcell)
 		qdel(rcell)
@@ -157,12 +149,10 @@
 			mode = 1
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 			to_chat(user, "<span class = 'caution'> The telepad locator has become uncalibrated.</span>")
-
 		else
 			mode = 0
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 			to_chat(user, "<span class = 'caution'> You calibrate the telepad locator.</span>")
-
 
 /obj/item/weapon/rcs/emag_act(user as mob)
 	if(!emagged)
@@ -171,5 +161,4 @@
 		s.set_up(5, 1, src)
 		s.start()
 		to_chat(user, "<span class = 'caution'> You emag the RCS. Activate it to toggle between modes.</span>")
-
 		return

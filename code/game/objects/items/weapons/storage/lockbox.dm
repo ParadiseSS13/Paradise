@@ -21,24 +21,20 @@
 		if (istype(W, /obj/item/weapon/card/id))
 			if(src.broken)
 				to_chat(user, "\red It appears to be broken.")
-
 				return
 			if(src.allowed(user))
 				src.locked = !( src.locked )
 				if(src.locked)
 					src.icon_state = src.icon_locked
 					to_chat(user, "\red You lock the [src.name]!")
-
 					return
 				else
 					src.icon_state = src.icon_closed
 					to_chat(user, "\red You unlock the [src.name]!")
-
 					origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 					return
 			else
 				to_chat(user, "\red Access Denied")
-
 		else if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)) && !broken)
 			emag_act(user)
 			return
@@ -46,14 +42,12 @@
 			..()
 		else
 			to_chat(user, "\red Its locked!")
-
 		return
 
 
 	show_to(mob/user as mob)
 		if(locked)
 			to_chat(user, "\red Its locked!")
-
 		else
 			..()
 		return
@@ -63,7 +57,6 @@
 		return ..()
 	if(!stop_messages)
 		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
-
 	return 0
 
 /obj/item/weapon/storage/lockbox/emag_act(user as mob)
@@ -73,7 +66,6 @@
 		desc = "It appears to be broken."
 		icon_state = src.icon_broken
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
-
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return
 

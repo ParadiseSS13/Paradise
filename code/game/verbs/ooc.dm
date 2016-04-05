@@ -12,7 +12,6 @@ var/global/admin_ooc_colour = "#b82e00"
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
-
 		return
 
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
@@ -21,27 +20,22 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	if(!(prefs.toggles & CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
-
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!config.ooc_allowed)
 			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
-
 			return
 		if(!config.dooc_allowed && (mob.stat == DEAD))
 			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
-
 			return
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
-
 			return
 		if(handle_spam_prevention(msg, MUTE_OOC))
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, "<B>Advertising other servers is not allowed.</B>")
-
 			log_admin("[key_name(src)] has attempted to advertise in OOC: [msg]")
 			message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 			return
@@ -78,15 +72,12 @@ var/global/admin_ooc_colour = "#b82e00"
 						display_name = holder.fakekey
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 
-
 /proc/toggle_ooc()
 	config.ooc_allowed = ( !config.ooc_allowed )
 	if (config.ooc_allowed)
 		to_chat(world, "<B>The OOC channel has been globally enabled!</B>")
-
 	else
 		to_chat(world, "<B>The OOC channel has been globally disabled!</B>")
-
 
 /proc/auto_toggle_ooc(var/on)
 	if(config.auto_toggle_ooc_during_round && config.ooc_allowed != on)
@@ -132,7 +123,6 @@ var/global/admin_ooc_colour = "#b82e00"
 		prefs.save_preferences(src)
 		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
 
-
 	feedback_add_details("admin_verb","OC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/resetcolorooc()
@@ -146,7 +136,6 @@ var/global/admin_ooc_colour = "#b82e00"
 	prefs.save_preferences(src)
 	to_chat(usr, "Your OOC color has been reset.")
 
-
 	feedback_add_details("admin_verb","ROC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/looc(msg as text)
@@ -158,7 +147,6 @@ var/global/admin_ooc_colour = "#b82e00"
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
-
 		return
 
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
@@ -167,27 +155,22 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	if(!(prefs.toggles & CHAT_LOOC))
 		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
-
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!config.looc_allowed)
 			to_chat(src, "<span class='danger'>LOOC is globally muted.</span>")
-
 			return
 		if(!config.dooc_allowed && (mob.stat == DEAD))
 			to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>")
-
 			return
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
-
 			return
 		if(handle_spam_prevention(msg,MUTE_OOC))
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, "<B>Advertising other servers is not allowed.</B>")
-
 			log_admin("[key_name(src)] has attempted to advertise in LOOC: [msg]")
 			message_admins("[key_name_admin(src)] has attempted to advertise in LOOC: [msg]")
 			return
@@ -233,7 +216,6 @@ var/global/admin_ooc_colour = "#b82e00"
 
 			if(send)
 				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>")
-
 
 /mob/proc/get_looc_source()
 	return src

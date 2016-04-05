@@ -73,15 +73,12 @@
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
 		to_chat(user, "<span class='warning'>The injector is empty.</span>")
-
 		return
 	if (!istype(M))
 		return
 	if (R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
-
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
-
 
 		R.add_reagent(M)
 		if(M.reagents)
@@ -95,7 +92,6 @@
 
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
-
 	return
 
 /obj/item/weapon/reagent_containers/borghypo/attack_self(mob/user as mob)
@@ -107,7 +103,6 @@
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = chemical_reagents_list[reagent_ids[mode]]
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
-
 	return
 
 /obj/item/weapon/reagent_containers/borghypo/examine(mob/user)
@@ -120,9 +115,7 @@
 		var/datum/reagent/R = locate() in RS.reagent_list
 		if(R)
 			to_chat(user, "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>")
-
 			empty = 0
 
 	if(empty)
 		to_chat(user, "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>")
-

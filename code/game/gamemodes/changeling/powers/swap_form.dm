@@ -12,16 +12,13 @@
 	var/obj/item/weapon/grab/G = user.get_active_hand()
 	if(!istype(G) || (G.state < GRAB_AGGRESSIVE))
 		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
-
 		return
 	var/mob/living/carbon/human/target = G.affecting
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
-
 		return
 	if(!istype(target) || issmall(target) || target.species.flags & NO_DNA || target.species.flags & NO_SCAN || target.species.flags & NO_BLOOD)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
-
 		return
 	return 1
 
@@ -32,17 +29,14 @@
 	var/datum/changeling/changeling = user.mind.changeling
 
 	to_chat(user, "<span class='notice'>We tighen our grip. We must hold still....</span>")
-
 	target.do_jitter_animation(500)
 	user.do_jitter_animation(500)
 
 	if(!do_mob(user,target,20))
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
-
 		return
 
 	to_chat(target, "<span class='userdanger'>[user] tightens their grip as a painful sensation invades your body.</span>")
-
 
 	if(!changeling.has_dna(target.dna))
 		changeling.absorb_dna(target, user)
@@ -59,4 +53,3 @@
 	user.remove_language("Changeling")
 	target.add_language("Changeling")
 	to_chat(target, "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>")
-

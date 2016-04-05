@@ -65,7 +65,6 @@
 		icon_state = "angelseen"
 		if(client)
 			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
-
 		return 0
 	icon_state = "angel"
 	return ..()
@@ -103,7 +102,6 @@
 		icon_state = "angelseen"
 		if(client)
 			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
-
 		return
 	icon_state = "angelattack"
 	..()

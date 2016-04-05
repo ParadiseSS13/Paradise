@@ -16,7 +16,6 @@
 /obj/item/stack/tape_roll/attack_self(mob/user as mob)
 	to_chat(user, "You remove a length of tape from [src].")
 
-
 	var/obj/item/weapon/ducttape/tape = new()
 	user.put_in_hands(tape)
 */
@@ -73,7 +72,6 @@
 		return
 
 	to_chat(user, "You remove \the [initial(name)] from [stuck].")
-
 
 	user.unEquip(src)
 	stuck.forceMove(get_turf(src))

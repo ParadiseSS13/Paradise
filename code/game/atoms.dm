@@ -182,25 +182,19 @@
 			f_name += "oil-stained [name][infix]."
 
 	to_chat(user, "\icon[src] That's [f_name] [suffix]")
-
 	to_chat(user, desc)
-
 
 	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
 		to_chat(user, "It contains:")
-
 		if(reagents.reagent_list.len)
 			if(user.can_see_reagents()) //Show each individual reagent
 				for(var/datum/reagent/R in reagents.reagent_list)
 					to_chat(user, "[R.volume] units of [R.name]")
-
 			else //Otherwise, just show the total volume
 				if(reagents && reagents.reagent_list.len)
 					to_chat(user, "[reagents.total_volume] units of various reagents.")
-
 		else
 			to_chat(user, "Nothing.")
-
 
 	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
@@ -412,7 +406,6 @@
 		if(cur_y)
 			break
 //	to_chat(world, "X = [cur_x]; Y = [cur_y]")
-
 	if(cur_x && cur_y)
 		return list("x"=cur_x,"y"=cur_y)
 	else

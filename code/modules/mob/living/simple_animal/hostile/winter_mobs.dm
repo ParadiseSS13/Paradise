@@ -125,13 +125,9 @@
 
 /mob/living/simple_animal/hostile/winter/santa/stage_4/death()
 	to_chat(world, "<span class='notice'><hr></span>")
-
 	to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
-
 	to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")
-
 	to_chat(world, "<span class='notice'><hr></span>")
-
 	..()
 	var/obj/item/weapon/grenade/clusterbuster/xmas/X = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))
 	var/obj/item/weapon/grenade/clusterbuster/xmas/Y = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))

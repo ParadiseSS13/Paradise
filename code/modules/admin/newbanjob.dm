@@ -142,26 +142,18 @@ var/savefile/Banlistjob
 	Banlistjob.cd = "/base"
 	if ( Banlistjob.dir.Find("[ckey][computerid][rank]") )
 		to_chat(usr, text("\red Banjob already exists."))
-
 		return 0
 	else
 		Banlistjob.dir.Add("[ckey][computerid][rank]")
 		Banlistjob.cd = "/base/[ckey][computerid][rank]"
 		to_chat(Banlistjob["key"], ckey)
-
 		to_chat(Banlistjob["id"], computerid)
-
 		to_chat(Banlistjob["rank"], rank)
-
 		to_chat(Banlistjob["reason"], reason)
-
 		to_chat(Banlistjob["bannedby"], bannedby)
-
 		to_chat(Banlistjob["temp"], temp)
-
 		if (temp)
 			to_chat(Banlistjob["minutes"], bantimestamp)
-
 
 	return 1
 
@@ -228,29 +220,21 @@ var/savefile/Banlistjob
 /*/datum/admins/proc/permjobban(ckey, computerid, reason, bannedby, temp, minutes, rank)
 	if(AddBanjob(ckey, computerid, reason, usr.ckey, 0, 0, job))
 		to_chat(M, "\red<BIG><B>You have been banned from [job] by [usr.client.ckey].\nReason: [reason].</B></BIG>")
-
 		to_chat(M, "\red This is a permanent ban.")
-
 		if(config.banappeals)
 			to_chat(M, "\red To try to resolve this matter head to [config.banappeals]")
-
 		else
 			to_chat(M, "\red No ban appeals URL has been set.")
-
 		log_admin("[usr.client.ckey] has banned from [job] [ckey].\nReason: [reason]\nThis is a permanent ban.")
 		message_admins("\blue[usr.client.ckey] has banned from [job] [ckey].\nReason: [reason]\nThis is a permanent ban.")
 /datum/admins/proc/timejobban(ckey, computerid, reason, bannedby, temp, minutes, rank)
 	if(AddBanjob(ckey, computerid, reason, usr.ckey, 1, mins, job))
 		to_chat(M, "\red<BIG><B>You have been jobbanned from [job] by [usr.client.ckey].\nReason: [reason].</B></BIG>")
-
 		to_chat(M, "\red This is a temporary ban, it will be removed in [mins] minutes.")
-
 		if(config.banappeals)
 			to_chat(M, "\red To try to resolve this matter head to [config.banappeals]")
-
 		else
 			to_chat(M, "\red No ban appeals URL has been set.")
-
 		log_admin("[usr.client.ckey] has jobbanned from [job] [ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 		message_admins("\blue[usr.client.ckey] has banned from [job] [ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")*/
 //////////////////////////////////// DEBUG ////////////////////////////////////
@@ -270,23 +254,16 @@ var/savefile/Banlistjob
 			Banlistjob.dir.Add("trash[i]trashid[i]")
 			Banlistjob.cd = "/base/trash[i]trashid[i]"
 			to_chat(Banlistjob["key"], "trash[i]")
-
 		else
 			Banlistjob.cd = "/base"
 			Banlistjob.dir.Add("[last]trashid[i]")
 			Banlistjob.cd = "/base/[last]trashid[i]"
 			to_chat(Banlistjob["key"], last)
-
 		to_chat(Banlistjob["id"], "trashid[i]")
-
 		to_chat(Banlistjob["reason"], "Trashban[i].")
-
 		to_chat(Banlistjob["temp"], a)
-
 		to_chat(Banlistjob["minutes"], CMinutes + rand(1,2000))
-
 		to_chat(Banlistjob["bannedby"], "trashmin")
-
 		last = "trash[i]"
 
 	Banlistjob.cd = "/base"

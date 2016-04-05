@@ -18,9 +18,7 @@
 
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
-
 	to_chat(world, "<B>There is a \red SPACE WIZARD\black on the station. You can't let him achieve his objective!</B>")
-
 
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
@@ -38,7 +36,6 @@
 	wizard.original = wizard.current
 	if(wizardstart.len == 0)
 		to_chat(wizard.current, "<B>\red A starting location for you could not be found, please report this bug!</B>")
-
 		return 0
 	return 1
 
@@ -151,14 +148,11 @@
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	if (you_are)
 		to_chat(wizard.current, "<B>\red You are the Space Wizard!</B>")
-
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
-
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-
 		obj_count++
 	return
 
@@ -202,9 +196,7 @@
 	wizard_mob.species.equip(wizard_mob)
 
 	to_chat(wizard_mob, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
-
 	to_chat(wizard_mob, "In your pockets you will find a teleport scroll. Use it as needed.")
-
 	wizard_mob.mind.store_memory("<B>Remember:</B> do not forget to prepare your spells.")
 	wizard_mob.update_icons()
 	return 1
@@ -240,7 +232,6 @@
 	if(finished && !ragin)
 		feedback_set_details("round_end_result","loss - wizard killed")
 		to_chat(world, "\red <FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT>")
-
 	..()
 	return 1
 
@@ -292,7 +283,6 @@
 			text += "<br>"
 
 		to_chat(world, text)
-
 	return 1
 
 //OTHER PROCS
@@ -318,15 +308,12 @@ Made a proc so this is not repeated 14 (or more) times.*/
 //Removed the stat check because not all spells require clothing now.
 	if(!istype(usr:wear_suit, /obj/item/clothing/suit/wizrobe))
 		to_chat(usr, "I don't feel strong enough without my robe.")
-
 		return 0
 	if(!istype(usr:shoes, /obj/item/clothing/shoes/sandal))
 		to_chat(usr, "I don't feel strong enough without my sandals.")
-
 		return 0
 	if(!istype(usr:head, /obj/item/clothing/head/wizard))
 		to_chat(usr, "I don't feel strong enough without my hat.")
-
 		return 0
 	else
 		return 1

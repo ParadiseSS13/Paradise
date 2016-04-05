@@ -44,10 +44,8 @@
 		user.update_inv_l_hand()
 	if(isrobot(user))
 		to_chat(user, "<span class='notice'>You free up your module.</span>")
-
 	else
 		to_chat(user, "<span class='notice'>You are now carrying the [name] with one hand.</span>")
-
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
 	var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
@@ -61,11 +59,9 @@
 		var/mob/living/carbon/human/H = user
 		if(H.species.is_small)
 			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
-
 			return
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
-
 		return
 	wielded = 1
 	force = force_wielded
@@ -76,10 +72,8 @@
 		user.update_inv_l_hand()
 	if(isrobot(user))
 		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
-
 	else
 		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
-
 	if (wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
@@ -92,7 +86,6 @@
 	//Cannot equip wielded items.
 	if(wielded)
 		to_chat(M, "<span class='warning'>Unwield the [name] first!</span>")
-
 		return 0
 	return ..()
 
@@ -146,7 +139,6 @@
 /obj/item/weapon/twohanded/required/mob_can_equip(M as mob, slot)
 	if(wielded)
 		to_chat(M, "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>")
-
 		return 0
 	return ..()
 
@@ -233,7 +225,6 @@
 	..()
 	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
 		to_chat(user, "\red You twirl around a bit before losing your balance and impaling yourself on the [src].")
-
 		user.take_organ_damage(20,25)
 		return
 	if((wielded) && prob(50))
@@ -278,12 +269,10 @@
 		if(hacked == 0)
 			hacked = 1
 			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
-
 			blade_color = "rainbow"
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
-
 
 //spears
 /obj/item/weapon/twohanded/spear
@@ -313,7 +302,6 @@
 /obj/item/weapon/organ/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
 	if(istype(W, /obj/item/weapon/twohanded/spear))
 		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
-
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
 		var/matrix/M = matrix()
 		src.transform = M
@@ -329,7 +317,6 @@
 /obj/item/weapon/twohanded/spear/attackby(var/obj/item/I, var/mob/living/user)
 	if(istype(I, /obj/item/weapon/organ/head))
 		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
-
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
 		var/matrix/M = matrix()
 		I.transform = M

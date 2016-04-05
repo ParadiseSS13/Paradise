@@ -34,7 +34,6 @@
 	if(breath.temperature > (T0C + 66) && !(RESIST_COLD in mutations))
 		if(prob(20))
 			to_chat(src, "<span class='danger'>You feel a searing heat in your lungs!</span>")
-
 		fire_alert = max(fire_alert, 1)
 	else
 		fire_alert = 0

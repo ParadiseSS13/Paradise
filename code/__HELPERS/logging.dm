@@ -34,7 +34,6 @@
 			to_chat(C, "DEBUG: [text]")
 
 
-
 /proc/log_game(text)
 	if (config.log_game)
 		diary << "\[[time_stamp()]]GAME: [text]"
@@ -92,5 +91,4 @@
  */
 /proc/log_startup_progress(var/message)
 	to_chat(world, "<span class='danger'>[message]</span>")
-
 	log_to_dd(message)

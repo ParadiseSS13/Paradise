@@ -63,7 +63,6 @@
 /obj/machinery/radiocarbon_spectrometer/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(scanning)
 		to_chat(user, "<span class='warning'>You can't do that while [src] is scanning!</span>")
-
 	else
 		if(istype(I, /obj/item/stack/nanopaste))
 			var/choice = alert("What do you want to do with the nanopaste?","Radiometric Scanner","Scan nanopaste","Fix seal integrity")
@@ -80,7 +79,6 @@
 				var/amount_transferred = min(src.reagents.maximum_volume - src.reagents.total_volume, G.reagents.total_volume)
 				G.reagents.trans_to(src, amount_transferred)
 				to_chat(user, "<span class='info'>You empty [amount_transferred]u of coolant into [src].</span>")
-
 				update_coolant()
 				return
 			else if(choice == "Empty coolant")
@@ -88,7 +86,6 @@
 				var/amount_transferred = min(G.reagents.maximum_volume - G.reagents.total_volume, src.reagents.total_volume)
 				src.reagents.trans_to(G, amount_transferred)
 				to_chat(user, "<span class='info'>You remove [amount_transferred]u of coolant from [src].</span>")
-
 				update_coolant()
 				return
 		user.drop_item()
@@ -335,13 +332,10 @@
 					scanning = 1
 					t_left_radspike = pick(5,10,15)
 					to_chat(usr, "<span class='notice'>Scan initiated.</span>")
-
 				else
 					to_chat(usr, "<span class='warning'>Could not initiate scan, seal requires replacing.</span>")
-
 			else
 				to_chat(usr, "<span class='warning'>Insert an item to scan.</span>")
-
 
 	if(href_list["maserWavelength"])
 		maser_wavelength = max(min(maser_wavelength + 1000 * text2num(href_list["maserWavelength"]), 10000), 1)

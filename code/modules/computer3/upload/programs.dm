@@ -9,6 +9,5 @@
 			return 0
 		if(!computer.net)
 			to_chat(usr, "An indecipherable set of code flicks across the screen.  Nothing else happens.")
-
 			return
 		var/list/results = computer.net.get_machines

@@ -47,7 +47,6 @@
 					continue
 				G.attackby(NG, user)
 			to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
-
 			qdel(src)
 	..()
 
@@ -57,7 +56,6 @@
 		if (M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
 			return
 		to_chat(M, "\red <B>You step on \the [src]!</B>")
-
 		playsound(src.loc, 'sound/effects/glass_step.ogg', 50, 1) // not sure how to handle metal shards with sounds
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M

@@ -9,10 +9,8 @@
 
 	if(user.digitalcamo)
 		to_chat(user, "<span class='notice'>We return to normal.</span>")
-
 	else
 		to_chat(user, "<span class='notice'>We distort our form to prevent AI-tracking.</span>")
-
 	user.digitalcamo = !user.digitalcamo
 
 	feedback_add_details("changeling_powers","CAM")

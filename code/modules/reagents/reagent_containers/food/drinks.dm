@@ -23,7 +23,6 @@
 /obj/item/weapon/reagent_containers/food/drinks/attack(mob/M as mob, mob/user as mob, def_zone)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'> None of [src] left, oh no!</span>")
-
 		return 0
 
 	if(istype(M, /mob/living/carbon))
@@ -47,34 +46,28 @@
 		var/obj/item/weapon/reagent_containers/food/drinks/cans/cantarget = target
 		if(cantarget.canopened == 0)
 			to_chat(user, "<span class='notice'>You need to open the drink you want to pour into!</span>")
-
 			return
 
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 		if(!target.reagents.total_volume)
 			to_chat(user, "<span class='warning'> [target] is empty.</span>")
-
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
 			to_chat(user, "<span class='warning'> [src] is full.</span>")
-
 			return
 
 		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'> You fill [src] with [trans] units of the contents of [target].</span>")
 
-
 	else if(target.is_open_container()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'> [src] is empty.</span>")
-
 			return
 
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
-
 			return
 
 
@@ -88,7 +81,6 @@
 		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
 
-
 		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 			if(refill in drinks) // Only synthesize drinks
 				var/mob/living/silicon/robot/bro = user
@@ -97,11 +89,9 @@
 				to_chat(user, "Now synthesizing [trans] units of [refillName]...")
 
 
-
 				spawn(300)
 					reagents.add_reagent(refill, trans)
 					to_chat(user, "Cyborg [src] refilled.")
-
 
 	return
 
@@ -112,7 +102,6 @@
 		if(src.reagents)
 			src.reagents.chem_temp += 15
 			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
-
 			src.reagents.handle_reactions()
 
 /obj/item/weapon/reagent_containers/food/drinks/examine(mob/user)
@@ -120,20 +109,15 @@
 		return
 	if(!reagents || reagents.total_volume==0)
 		to_chat(user, "<span class='notice'> \The [src] is empty!</span>")
-
 	else if (reagents.total_volume<=src.volume/4)
 		to_chat(user, "<span class='notice'> \The [src] is almost empty!</span>")
-
 	else if (reagents.total_volume<=src.volume*0.66)
 		to_chat(user, "<span class='notice'> \The [src] is half full!</span>")// We're all optimistic, right?!
 
-
 	else if (reagents.total_volume<=src.volume*0.90)
 		to_chat(user, "<span class='notice'> \The [src] is almost full!</span>")
-
 	else
 		to_chat(user, "<span class='notice'> \The [src] is full!</span>")
-
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END

@@ -23,7 +23,6 @@
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
-
 	var/list/plist = M.available_pdas()
 	if (plist)
 		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
@@ -42,7 +41,6 @@
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
-
 	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
@@ -64,7 +62,6 @@
 	to_chat(usr, "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>")
 
 
-
 /obj/item/device/pda/ai/verb/cmd_toggle_pda_silent()
 	set category = "AI IM"
 	set name = "Toggle Ringer"
@@ -75,7 +72,6 @@
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.notify_silent = !M.notify_silent
 	to_chat(usr, "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>")
-
 
 /obj/item/device/pda/ai/can_use()
 	var/mob/living/silicon/ai/AI = usr

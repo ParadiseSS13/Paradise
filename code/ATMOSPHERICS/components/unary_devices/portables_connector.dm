@@ -37,7 +37,6 @@
 	if(istype(W, /obj/item/weapon/wrench))
 		if(connected_device)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], detach [connected_device] first.</span>")
-
 			return 1
 	return ..()
 	

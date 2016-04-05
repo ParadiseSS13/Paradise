@@ -45,10 +45,8 @@ var/list/alldepartments = list()
 	if(!emagged)
 		emagged = 1
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
-
 	else
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
-
 
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
@@ -103,7 +101,6 @@ var/list/alldepartments = list()
 			copyitem.loc = usr.loc
 			usr.put_in_hands(copyitem)
 			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
-
 			copyitem = null
 		else
 			var/obj/item/I = usr.get_active_hand()
@@ -112,7 +109,6 @@ var/list/alldepartments = list()
 				copyitem = I
 				I.loc = src
 				to_chat(usr, "<span class='notice'>You insert \the [I] into \the [src].</span>")
-
 				flick(insert_anim, src)
 
 	if(href_list["scan"])
@@ -270,4 +266,3 @@ var/list/alldepartments = list()
 	for(var/client/C in admins)
 		if(R_EVENT & C.holder.rights)
 			to_chat(C, msg)
-

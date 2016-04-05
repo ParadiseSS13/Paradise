@@ -10,7 +10,6 @@
 				silence_time = null
 				to_chat(src, "<font color=green>Communication circuit reinitialized. Speech and messaging functionality restored.</font>")
 
-
 		if(cable)
 			if(get_dist(src, cable) > 1)
 				var/turf/T = get_turf_or_move(loc)

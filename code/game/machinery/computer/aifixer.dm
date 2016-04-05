@@ -14,10 +14,8 @@
 	if(occupant && istype(I, /obj/item/weapon/screwdriver))
 		if(stat & (NOPOWER|BROKEN))
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge.</span>")
-
 		else
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep.</span>")
-
 		return
 	else
 		..()
@@ -32,7 +30,6 @@
 	else
 		if(mode.kickoff)
 			to_chat(user, "<span class='warning'>You have been locked out from this console!</span>")
-
 
 /obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
@@ -118,30 +115,23 @@
 	if(interaction == AI_TRANS_FROM_CARD)
 		if(stat & (NOPOWER|BROKEN))
 			to_chat(user, "[src] is offline and cannot take an AI at this time!")
-
 			return
 		AI.loc = src
 		occupant = AI
 		AI.control_disabled = 1
 		AI.aiRadio.disabledAi = 1
 		to_chat(AI, "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.")
-
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
-
 		update_icon()
 
 	else //Uploading AI from terminal to card
 		if(occupant && !active)
 			to_chat(occupant, "You have been downloaded to a mobile storage device. Still no remote access.")
-
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [occupant.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
-
 			occupant.loc = card
 			occupant = null
 			update_icon()
 		else if (active)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Reconstruction in progress.")
-
 		else if (!occupant)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Unable to locate artificial intelligence.")
-

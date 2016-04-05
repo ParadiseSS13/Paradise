@@ -35,12 +35,10 @@
 
 		if(src.has_brain_worms())
 			to_chat(src, "<span class='warning'>We cannot perform this ability at the present time!</span>")
-
 			return
 		if(no_queen)
 			adjustPlasma(-500)
 			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
-
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
 			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(loc)
@@ -49,5 +47,4 @@
 			qdel(src)
 		else
 			to_chat(src, "<span class='notice'>We already have an alive queen.</span>")
-
 	return

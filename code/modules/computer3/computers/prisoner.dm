@@ -96,7 +96,6 @@
 				log_say("PrisonComputer3 message: [key_name(usr)]->[key_name(R)] : [warning]")
 				to_chat(R, "\green You hear a voice in your head saying: '[warning]'")
 
-
 		interact()
 		return
 

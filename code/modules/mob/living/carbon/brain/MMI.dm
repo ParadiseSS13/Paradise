@@ -20,17 +20,14 @@
 /obj/item/device/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal ))
 		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
-
 		return
 	if(istype(O,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
 		var/obj/item/organ/internal/brain/B = O
 		if(!B.brainmob)
 			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>")
-
 			return
 		if(held_brain)
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
-
 			log_to_dd("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 			return
 		for(var/mob/V in viewers(src, null))
@@ -71,10 +68,8 @@
 /obj/item/device/mmi/attack_self(mob/user as mob)
 	if(!brainmob)
 		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
-
 	else
 		to_chat(user, "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>")
-
 		dropbrain(get_turf(user))
 		icon = 'icons/obj/assemblies.dmi'
 		icon_state = "mmi_empty"
@@ -107,7 +102,6 @@
 	if(isnull(held_brain))
 		log_to_dd("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)].")
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
-
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
 		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
@@ -145,10 +139,8 @@
 	if(brainmob.stat)
 		to_chat(brainmob, "Can't do that while incapacitated or dead.")
 
-
 	radio.listening = radio.listening==1 ? 0 : 1
 	to_chat(brainmob, "<span class='notice'>Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.</span>")
-
 
 /obj/item/device/mmi/emp_act(severity)
 	if(!brainmob)

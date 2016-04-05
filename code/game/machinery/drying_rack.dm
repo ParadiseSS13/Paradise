@@ -38,7 +38,6 @@
 				user.unEquip(W)
 				del(W)
 				to_chat(user, "You add the meat to the drying rack.")
-
 				src.running = 1
 				use_power = 2
 				icon_state = "drying_rack_on"
@@ -52,7 +51,6 @@
 				user.unEquip(W)
 				del(W)
 				to_chat(user, "You add the grapes to the drying rack.")
-
 				src.running = 1
 				use_power = 2
 				icon_state = "drying_rack_on"
@@ -66,7 +64,6 @@
 				user.unEquip(W)
 				del(W)
 				to_chat(user, "You add the green grapes to the drying rack.")
-
 				src.running = 1
 				use_power = 2
 				icon_state = "drying_rack_on"
@@ -82,7 +79,6 @@
 					var/obj/item/weapon/reagent_containers/food/snacks/grown/B = W
 					B.reagents.trans_to(src, B.reagents.total_volume)
 					to_chat(user, "You add the [W] to the drying rack.")
-
 					user.unEquip(W)
 					del(W)
 					src.running = 1
@@ -92,7 +88,6 @@
 					icon_state = "drying_rack"
 					var/obj/item/weapon/reagent_containers/food/snacks/grown/D = new J(src.loc)
 					to_chat(user, "\blue You finish drying the [D]")
-
 					D.icon_state = "[D.icon_state]_dry"
 					D.dry = 1
 					D.reagents.remove_any(50)
@@ -102,12 +97,9 @@
 					return
 				else
 					to_chat(user, "\red That has already been dried!")
-
 		else
 			to_chat(user, "\red Please wait until the last item has dried.")
-
 	else
 		to_chat(user, "\red You cannot add that to the drying rack.")
-
 
 

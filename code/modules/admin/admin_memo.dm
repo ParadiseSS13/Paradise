@@ -5,7 +5,6 @@
 		return
 	if(!dbcon.IsConnected())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
-
 		return
 	var/memotask = input(usr,"Choose task.","Memo") in list("Show","Write","Edit","Remove")
 	if(!memotask)
@@ -19,7 +18,6 @@
 		return
 	if(!dbcon.IsConnected())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
-
 		return
 	var/sql_ckey = sanitizeSQL(src.ckey)
 	switch(task)
@@ -31,7 +29,6 @@
 				return
 			if(query_memocheck.NextRow())
 				to_chat(src, "You already have set a memo.")
-
 				return
 			var/memotext = input(src,"Write your Memo","Memo") as message
 			if(!memotext)
@@ -57,7 +54,6 @@
 				memolist += "[lkey]"
 			if(!memolist.len)
 				to_chat(src, "No memos found in database.")
-
 				return
 			var/target_ckey = input(src, "Select whose memo to edit", "Select memo") as null|anything in memolist
 			if(!target_ckey)
@@ -105,7 +101,6 @@
 				output += "<br>[memotext]</span><br>"
 			if(!output && !silent)
 				to_chat(src, "No memos found in database.")
-
 				return
 			src << output
 		if("Remove")
@@ -120,7 +115,6 @@
 				memolist += "[ckey]"
 			if(!memolist.len)
 				to_chat(src, "No memos found in database.")
-
 				return
 			var/target_ckey = input(src, "Select whose memo to delete", "Select memo") as null|anything in memolist
 			if(!target_ckey)

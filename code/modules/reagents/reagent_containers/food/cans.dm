@@ -9,7 +9,6 @@
 		if (canopened == 0)
 			playsound(src.loc,'sound/effects/canopen.ogg', rand(10,50), 1)
 			to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
-
 			canopened = 1
 			flags |= OPENCONTAINER
 		else
@@ -18,7 +17,6 @@
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if (canopened == 0)
 			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-
 			return
 		return ..(M, user, def_zone)
 
@@ -27,11 +25,9 @@
 		if(!proximity) return
 		if(istype(target, /obj/structure/reagent_dispensers) && (canopened == 0))
 			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-
 			return
 		else if(target.is_open_container() && (canopened == 0))
 			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-
 			return
 		else
 			return ..(target, user, proximity)
@@ -41,19 +37,14 @@
 			return
 		if(!reagents || reagents.total_volume==0)
 			to_chat(user, "\blue \The [src] is empty!")
-
 		else if (reagents.total_volume<=src.volume/4)
 			to_chat(user, "\blue \The [src] is almost empty!")
-
 		else if (reagents.total_volume<=src.volume*0.66)
 			to_chat(user, "\blue \The [src] is half full!")
-
 		else if (reagents.total_volume<=src.volume*0.90)
 			to_chat(user, "\blue \The [src] is almost full!")
-
 		else
 			to_chat(user, "\blue \The [src] is full!")*/
-
 
 
 //DRINKS

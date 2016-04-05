@@ -37,10 +37,8 @@
 	..(user)
 	if(health >= maxHealth)
 		to_chat(user, "<span class='info'>It looks healthy.</span>")
-
 	else
 		to_chat(user, "<span class='info'>It looks like it's been roughed up.</span>")
-
 
 /mob/living/simple_animal/hostile/mushroom/Life()
 	..()
@@ -133,7 +131,6 @@
 			qdel(I)
 		else
 			to_chat(user, "<span class='notice'>[src] won't eat it!</span>")
-
 		return
 	if(I.force)
 		Bruise()

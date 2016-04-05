@@ -23,7 +23,6 @@
 				affected_mob.emote("gasp")
 			if(prob(10))
 				to_chat(affected_mob, "<span class='danger'>You're starting to feel very weak...</span>")
-
 		if(4)
 			if(prob(10))
 				affected_mob.emote("cough")

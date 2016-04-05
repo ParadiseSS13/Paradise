@@ -74,7 +74,6 @@
 
 //			to_chat(world, "POWER: [lastgen] W generated at [efficiency*100]% efficiency and sinks sizes [cold_air_heat_capacity], [hot_air_heat_capacity]")
 
-
 			input1.parent.update = 1
 			input2.parent.update = 1
 

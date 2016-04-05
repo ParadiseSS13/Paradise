@@ -65,7 +65,6 @@
 	msg += "<b>Total Players: [length(Lines)]</b>"
 	to_chat(src, msg)
 
-
 /client/verb/adminwho()
 	set category = "Admin"
 	set name = "Adminwho"
@@ -129,4 +128,3 @@
 
 	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg + "\n<b>Current Mods/Mentors ([num_mods_online]):</b>\n" + modmsg
 	to_chat(src, msg)
-

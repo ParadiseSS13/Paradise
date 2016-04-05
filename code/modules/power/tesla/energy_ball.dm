@@ -59,7 +59,6 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 		to_chat(user, "The amount of orbiting mini-balls is [orbiting_balls.len].")
 
 
-
 /obj/singularity/energy_ball/proc/move_the_basket_ball(var/move_amount)
 	for(var/i = 0, i < move_amount, i++)
 		var/move_dir = pick(alldirs)

@@ -116,7 +116,6 @@ var/global/loopModeNames=list(
 /obj/machinery/media/jukebox/attack_hand(var/mob/user)
 	if(stat & NOPOWER)
 		to_chat(usr, "\red You don't see anything to mess with.")
-
 		return
 	if(stat & BROKEN && playlist!=null)
 		user.visible_message("\red <b>[user.name] smacks the side of \the [src.name].</b>","\red You hammer the side of \the [src.name].")
@@ -182,7 +181,6 @@ var/global/loopModeNames=list(
 	..()
 	if(emagged)
 		to_chat(usr, "\red You touch the bluescreened menu. Nothing happens. You feel dumber.")
-
 		return
 
 	if (href_list["power"])
@@ -193,7 +191,6 @@ var/global/loopModeNames=list(
 	if (href_list["playlist"])
 		if(!check_reload())
 			to_chat(usr, "\red You must wait 60 seconds between playlist reloads.")
-
 			return
 		playlist_id=href_list["playlist"]
 		last_reload=world.time

@@ -64,12 +64,10 @@
 
 	if(operating)
 		to_chat(user, "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>")
-
 		return
 
 	if(locked)
 		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
-
 		return
 
 	else
@@ -80,7 +78,6 @@
 		var/obj/item/weapon/grab/G = P
 		if(G.state < 2)
 			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
-
 			return
 		move_into_gibber(user,G.affecting)
 		qdel(G)
@@ -114,22 +111,18 @@
 /obj/machinery/gibber/proc/move_into_gibber(var/mob/user,var/mob/living/victim)
 	if(occupant)
 		to_chat(user, "<span class='danger'>The gibber is full, empty it first!</span>")
-
 		return
 
 	if(operating)
 		to_chat(user, "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>")
-
 		return
 
 	if(!ishuman(victim) || issmall(victim))
 		to_chat(user, "<span class='danger'>This is not suitable for the gibber!</span>")
-
 		return
 
 	if(victim.abiotic(1))
 		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
-
 		return
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the gibber!</span>")

@@ -18,12 +18,10 @@
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
 				to_chat(user, "\red [target] is full.")
-
 				return
 
 			if(!target.is_open_container() && !ismob(target) && !istype(target,/obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/clothing/mask/cigarette)) //You can inject humans and food but you cant remove the shit.
 				to_chat(user, "\red You cannot directly fill this object.")
-
 				return
 
 			var/trans = 0
@@ -56,7 +54,6 @@
 
 
 						to_chat(user, "\blue You transfer [trans] units of the solution.")
-
 						if (src.reagents.total_volume<=0)
 							filled = 0
 							icon_state = "[initial(icon_state)]"
@@ -96,7 +93,6 @@
 
 			trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 			to_chat(user, "\blue You transfer [trans] units of the solution.")
-
 			if (src.reagents.total_volume<=0)
 				filled = 0
 				icon_state = "[initial(icon_state)]"
@@ -105,18 +101,15 @@
 
 			if(!target.is_open_container() && !istype(target,/obj/structure/reagent_dispensers))
 				to_chat(user, "\red You cannot directly remove reagents from [target].")
-
 				return
 
 			if(!target.reagents.total_volume)
 				to_chat(user, "\red [target] is empty.")
-
 				return
 
 			var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
 			to_chat(user, "\blue You fill the [src] with [trans] units of the solution.")
-
 
 			filled = 1
 			icon_state = "[initial(icon_state)][filled]"

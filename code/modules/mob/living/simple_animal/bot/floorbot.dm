@@ -98,12 +98,10 @@
 		amount += loaded
 		if(loaded > 0)
 			to_chat(user, "<span class='notice'>You load [loaded] tiles into the floorbot. He now contains [amount] tiles.</span>")
-
 			nagged = 0
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need at least one floor tile to put into [src]!</span>")
-
 	else
 		..()
 
@@ -112,7 +110,6 @@
 	if(emagged == 2)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
-
 
 /mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
 	if(..())

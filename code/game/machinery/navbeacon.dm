@@ -91,14 +91,11 @@
 			if (src.allowed(user))
 				src.locked = !src.locked
 				to_chat(user, "<span class='notice'>Controls are now [src.locked ? "locked" : "unlocked"].</span>")
-
 			else
 				to_chat(user, "<span class='danger'>Access denied.</span>")
-
 			updateDialog()
 		else
 			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
-
 	return
 
 /obj/machinery/navbeacon/attack_ai(mob/user)
@@ -117,7 +114,6 @@
 
 	if(!open && !ai)	// can't alter controls if not open, unless you're an AI
 		to_chat(user, "<span class='warning'>The beacon's control cover is closed!</span>")
-
 		return
 
 

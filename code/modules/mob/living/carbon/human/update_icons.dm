@@ -643,7 +643,6 @@ var/global/list/damage_icon_parts = list()
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
 				to_chat(src, "\red You burst out of \the [w_uniform]!")
-
 				unEquip(w_uniform)
 				return
 		else
@@ -859,7 +858,6 @@ var/global/list/damage_icon_parts = list()
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
 				to_chat(src, "\red You burst out of \the [wear_suit]!")
-
 				unEquip(wear_suit)
 				return
 		else

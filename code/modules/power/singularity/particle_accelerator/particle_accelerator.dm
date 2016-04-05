@@ -97,7 +97,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	if (src.anchored)
 		to_chat(usr, "It is fastened to the floor!")
-
 		return 0
 	src.dir = turn(src.dir, 270)
 	return 1
@@ -111,7 +110,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	if (src.anchored)
 		to_chat(usr, "It is fastened to the floor!")
-
 		return 0
 	src.dir = turn(src.dir, 90)
 	return 1
@@ -238,7 +236,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 					temp_state++
 				else
 					to_chat(user, "<span class='warning'>You need one length of cable to wire the [src.name]!</span>")
-
 					return
 		if(2)
 			if(iswirecutter(O))//TODO:Shock user if its on?
@@ -293,7 +290,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	if (src.anchored)
 		to_chat(usr, "It is fastened to the floor!")
-
 		return 0
 	src.dir = turn(src.dir, 270)
 	return 1
@@ -307,7 +303,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	if (src.anchored)
 		to_chat(usr, "It is fastened to the floor!")
-
 		return 0
 	src.dir = turn(src.dir, 90)
 	return 1

@@ -10,7 +10,6 @@
 
 	garbageCollector.del_everything = !garbageCollector.del_everything
 //	to_chat(world, "<b>GC: qdel turned [garbageCollector.del_everything ? "off" : "on"].</b>")
-
 	log_admin("[key_name(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].")
 	message_admins("\blue [key_name_admin(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].", 1)
 
@@ -46,14 +45,11 @@
 
 	if(!gc_hard_del_types || !gc_hard_del_types.len)
 		to_chat(usr, "<span class='notice'>No hard del()'d types found.</span>")
-
 		return
 
 	to_chat(usr, "Types hard del()'d by the GC:")
-
 	for(var/A in gc_hard_del_types)
 		to_chat(usr, "[A]")
-
 
 // Profiling stuff
 var/global/del_profiling = 0

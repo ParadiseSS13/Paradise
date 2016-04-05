@@ -11,7 +11,6 @@
 		charge_counter = charge_max
 		attached_hand = null
 		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
-
 		return 0
 	..()
 
@@ -40,10 +39,8 @@
 		charge_counter = charge_max
 		attached_hand = null
 		to_chat(user, "<span class='warning'>Your hands are full!</span>")
-
 		return 0
 	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
-
 	return 1
 
 

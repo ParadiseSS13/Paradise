@@ -11,12 +11,10 @@
 		
 	if(prefs.muted & MUTE_DEADCHAT)
 		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
-
 		return
 
 	if(!(prefs.toggles & CHAT_DEAD))
 		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
-
 		return
 
 	if (handle_spam_prevention(msg,MUTE_DEADCHAT))

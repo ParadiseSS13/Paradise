@@ -304,14 +304,12 @@ var/const/INGEST = 2
 						if(!C.no_message)
 							to_chat(M, "\blue \icon[my_atom] [C.mix_message]")
 
-
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/M in seen)
 								to_chat(M, "\blue \icon[my_atom] The [my_atom]'s power is consumed in the reaction.")
-
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 
@@ -555,14 +553,12 @@ var/const/INGEST = 2
 	for(var/datum/reagent/D in reagent_list)
 		if(D.id == reagent_id)
 //			to_chat(world, "proffering a data-carrying reagent ([reagent_id])")
-
 			return D.data
 
 /datum/reagents/proc/set_data(var/reagent_id, var/new_data)
 	for(var/datum/reagent/D in reagent_list)
 		if(D.id == reagent_id)
 //			to_chat(world, "reagent data set ([reagent_id])")
-
 			D.data = new_data
 
 /datum/reagents/proc/copy_data(var/datum/reagent/current_reagent)

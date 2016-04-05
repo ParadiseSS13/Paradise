@@ -30,7 +30,6 @@
 				if(B.powerneeded)
 					if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
 						to_chat(src, "Deactivating [B.name] due to lack of power!")
-
 						uneq_module(B)
 		if(cell.charge <= 0)
 			uneq_all()
@@ -105,16 +104,13 @@
 				if(uneq_module(module_state_3))
 					to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
 
-
 				if(health < 0)
 					if(uneq_module(module_state_2))
 						to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
 
-
 					if(health < -50)
 						if(uneq_module(module_state_1))
 							to_chat(src, "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>")
-
 
 		if(paralysis || stunned || weakened)
 			stat = UNCONSCIOUS
@@ -282,7 +278,6 @@
 		if(weaponlock_time <= 0)
 			if(src.client)
 				to_chat(src, "\red <B>Weapon Lock Timed Out!")
-
 			weapon_lock = 0
 			weaponlock_time = 120
 

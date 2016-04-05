@@ -147,7 +147,6 @@
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 	to_chat(user, "\red You slash at \the [src]!")
-
 	visible_message("\red The [user] slashes at [src.name]'s armor!")
 	return
 
@@ -162,20 +161,16 @@
 		S.channel = 0 //Any channel
 		S.volume = 50
 		to_chat(occupant, S)
-
 		if(occupant2)
 			to_chat(occupant2, S)
-
 	if(occupant && oldhealth > health && !health)
 		var/sound/S = sound('sound/effects/engine_alert1.ogg')
 		S.wait = 0
 		S.channel = 0
 		S.volume = 50
 		to_chat(occupant, S)
-
 		if(occupant2)
 			to_chat(occupant2, S)
-
 	if(!health)
 		spawn(0)
 			if(occupant)
@@ -183,13 +178,11 @@
 			if(occupant2)
 				to_chat(occupant2, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 
-
 			for(var/i = 10, i >= 0; --i)
 				if(occupant)
 					to_chat(occupant, "<span class='warning'>[i]</span>")
 				if(occupant2)
 					to_chat(occupant2, "<span class='warning'>[i]</span>")
-
 				if(i == 0)
 					explosion(loc, 2, 4, 8)
 					qdel(src)
@@ -213,12 +206,10 @@
 				H.forceMove(get_turf(src))
 				H.ex_act(severity + 1)
 				to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
-
 			if(H2)
 				H2.forceMove(get_turf(src))
 				H2.ex_act(severity + 1)
 				to_chat(H2, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
-
 			qdel(ion_trail)
 			qdel(src)
 		if(2)
@@ -237,7 +228,6 @@
 				to_chat(occupant2, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")//warn the occupants
 
 
-
 			if(battery)
 				battery.charge = max(0, battery.charge - 5000) //Cell EMP act is too weak, this pod needs to be sapped.
 			src.deal_damage(100)
@@ -251,7 +241,6 @@
 			if(occupant2)
 				to_chat(occupant2, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")//warn the occupants
 
-
 			deal_damage(40)
 			if(battery)
 				battery.charge = max(0, battery.charge - 2500) //Cell EMP act is too weak, this pod needs to be sapped.
@@ -264,15 +253,12 @@
 		hatch_open = !hatch_open
 		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
-
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!hatch_open)
 			to_chat(user, "\red The maintenance hatch is closed!")
-
 			return
 		if(battery)
 			to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
-
 			return
 		user.drop_item(W)
 		battery = W
@@ -281,20 +267,16 @@
 	if(istype(W, /obj/item/device/spacepod_equipment))
 		if(!hatch_open)
 			to_chat(user, "\red The maintenance hatch is closed!")
-
 			return
 		if(!equipment_system)
 			to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at pomf</span>")
-
 			return
 		if(istype(W, /obj/item/device/spacepod_equipment/weaponry))
 			if(equipment_system.weapon_system)
 				to_chat(user, "<span class='notice'>The pod already has a weapon system, remove it first.</span>")
-
 				return
 			else
 				to_chat(user, "<span class='notice'>You insert \the [W] into the equipment system.</span>")
-
 				user.drop_item(W)
 				W.forceMove(src)
 				equipment_system.weapon_system = W
@@ -304,11 +286,9 @@
 		if(istype(W, /obj/item/device/spacepod_equipment/misc))
 			if(equipment_system.misc_system)
 				to_chat(user, "<span class='notice'>The pod already has a miscellaneous system, remove it first.</span>")
-
 				return
 			else
 				to_chat(user, "<span class='notice'>You insert \the [W] into the equipment system.</span>")
-
 				user.drop_item(W)
 				W.forceMove(src)
 				equipment_system.misc_system = W
@@ -317,11 +297,9 @@
 		if(istype(W, /obj/item/device/spacepod_equipment/cargo))
 			if(equipment_system.cargo_system)
 				to_chat(user, "<span class='notice'>The pod already has a cargo system, remove it first.</span>")
-
 				return
 			else
 				to_chat(user, "<span class='notice'>You insert \the [W] into the cargo system.</span>")
-
 				user.drop_item(W)
 				W.forceMove(src)
 				equipment_system.cargo_system = W
@@ -331,25 +309,20 @@
 	if(istype(W, /obj/item/weapon/weldingtool))
 		if(!hatch_open)
 			to_chat(user, "\red You must open the maintenance hatch before attempting repairs.")
-
 			return
 		var/obj/item/weapon/weldingtool/WT = W
 		if(!WT.isOn())
 			to_chat(user, "\red The welder must be on for this task.")
-
 			return
 		if (health < initial(health))
 			to_chat(user, "\blue You start welding the spacepod...")
-
 			playsound(loc, 'sound/items/Welder.ogg', 50, 1)
 			if(do_after(user, 20, target = src))
 				if(!src || !WT.remove_fuel(3, user)) return
 				repair_damage(10)
 				to_chat(user, "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]")
-
 		else
 			to_chat(user, "\blue <b>\The [src] is fully repaired!</b>")
-
 
 
 /obj/spacepod/attack_hand(mob/user as mob)
@@ -357,7 +330,6 @@
 		return ..()
 	if(!equipment_system || !istype(equipment_system))
 		to_chat(user, "<span class='warning'>The pod has no equpment datum, or is the wrong type, yell at pomf.</span>")
-
 		return
 	var/list/possible = list()
 	if(battery)
@@ -379,60 +351,49 @@
 		if("Energy Cell")
 			if(user.put_in_any_hand_if_possible(battery))
 				to_chat(user, "<span class='notice'>You remove \the [battery] from the space pod</span>")
-
 				battery = null
 		if("Weapon System")
 			SPE = equipment_system.weapon_system
 			if(user.put_in_any_hand_if_possible(SPE))
 				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-
 				SPE.removed(user)
 				SPE.my_atom = null
 				equipment_system.weapon_system = null
 			else
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-
 		if("Misc. System")
 			SPE = equipment_system.misc_system
 			if(user.put_in_any_hand_if_possible(SPE))
 				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-
 				SPE.removed(user)
 				SPE.my_atom = null
 				equipment_system.misc_system = null
 			else
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-
 		if("Cargo System")
 			SPE = equipment_system.cargo_system
 			if(user.put_in_any_hand_if_possible(SPE))
 				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-
 				SPE.removed(user)
 				SPE.my_atom = null
 				equipment_system.cargo_system = null
 			else
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-
 		/*
 		if("engine system")
 			SPE = equipment_system.engine_system
 			if(user.put_in_any_hand_if_possible(SPE))
 				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-
 				equipment_system.engine_system = null
 			else
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-
 		if("shield system")
 			SPE = equipment_system.shield_system
 			if(user.put_in_any_hand_if_possible(SPE))
 				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-
 				equipment_system.shield_system = null
 			else
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-
 		*/
 
 	return
@@ -491,7 +452,6 @@
 		return
 	use_internal_tank = !use_internal_tank
 	to_chat(occupant, "<span class='notice'>Now taking air from [use_internal_tank?"internal airtank":"environment"].</span>")
-
 	return
 
 /obj/spacepod/proc/add_cabin()
@@ -567,7 +527,6 @@
 		if(M != user && M.stat == DEAD && allow2enter)
 			if(occupant2 && !occupant)
 				to_chat(usr, "<span class='danger'><b>You can't put a corpse into the driver's seat!</b></span>")
-
 				return 0
 			if(!occupant2)
 				visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
@@ -583,18 +542,14 @@
 			var/obj/item/device/spacepod_equipment/cargo/ore/C = equipment_system.cargo_system
 			if(!C.box)
 				to_chat(user, "<span class='notice'>You begin loading \the [O] into \the [src]'s [equipment_system.cargo_system]</span>")
-
 				if(do_after(user, 40, target = src))
 					C.box = O
 					O.forceMove(C)
 					to_chat(user, "<span class='notice'>You load \the [O] into \the [src]'s [equipment_system.cargo_system]!</span>")
-
 				else
 					to_chat(user, "<span class='warning'>You fail to load \the [O] into \the [src]'s [equipment_system.cargo_system]</span>")
-
 			else
 				to_chat(user, "<span class='warning'>\The [src] already has \an [C.box]</span>")
-
 
 /obj/spacepod/verb/enter_pod(mob/user = usr)
 	set category = "Object"
@@ -606,7 +561,6 @@
 
 	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
 		to_chat(usr, "They are too far away to put inside")
-
 		return
 
 	if(!istype(user))
@@ -621,13 +575,11 @@
 
 	if(fukkendisk)
 		to_chat(user, "<span class='danger'><B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b></span>")
-
 		return 0
 
 	for(var/mob/living/carbon/slime/S in range(1,usr))
 		if(S.Victim == user)
 			to_chat(user, "You're too busy getting your life sucked out of you.")
-
 			return 0
 
 	move_inside(user)
@@ -649,10 +601,8 @@
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 			else
 				to_chat(user, "<span class='notice'>[occupant] was faster. Try better next time, loser.</span>")
-
 		else
 			to_chat(user, "<span class='notice'>You stop entering \the [src].</span>")
-
 
 	else if(!occupant2)
 		visible_message("<span class='notice'>[user] starts to climb into \the [src].</span>")
@@ -665,13 +615,10 @@
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 			else
 				to_chat(user, "<span class='notice'>[occupant] was faster. Try better next time, loser.</span>")
-
 		else
 			to_chat(user, "<span class='notice'>You stop entering \the [src].</span>")
-
 	else
 		to_chat(user, "<span class='danger'>You can't fit in \the [src], it's full!</span>")
-
 
 /obj/spacepod/proc/occupant_sanity_check()
 	if(occupant)
@@ -715,19 +662,15 @@
 		if(1)
 			if(occupant2)
 				to_chat(occupant2, "<span class='notice'>[occupant.name] climbs out of the pod!</span>")
-
 			occupant.forceMove(src.loc)
 			occupant = null
 			to_chat(user, "<span class='notice'>You climb out of \the [src].</span>")
-
 		if(2)
 			if(occupant)
 				to_chat(occupant, "<span class='notice'>[occupant2.name] climbs out of the pod!</span>")
-
 			occupant2.forceMove(src.loc)
 			occupant2 = null
 			to_chat(user, "<span class='notice'>You climb out of \the [src].</span>")
-
 
 /obj/spacepod/verb/exit_pod2()
 	set name = "Eject Secondary Seat"
@@ -738,19 +681,15 @@
 
 	if(!occupant2)
 		to_chat(usr, "<span class='notice'>There is no one in the second seat.</span>")
-
 		return
 
 	if(usr == occupant2)
 		to_chat(usr, "<span class='notice'>How do you plan to do that? The eject button is out of reach.</span>")
-
 		return
 
 	if(usr == occupant)
 		to_chat(usr, "<span class='notice'>You eject [occupant2.name].</span>")
-
 		to_chat(occupant2, "<span class='danger'>\The [src] ejects you forcefully!</span>")
-
 		inertia_dir = 0
 		occupant2.forceMove(src.loc)
 		occupant2 = null
@@ -763,12 +702,10 @@
 	if(CheckIfOccupant2(usr))
 		if(!allow2enter)
 			to_chat(usr, "<span class='notice'>You can't [allow2enter ? "lock" : "unlock"] the doors from your seat.</span>")
-
 			return
 
 	allow2enter = !allow2enter
 	to_chat(usr, "<span class='warning'>You [allow2enter ? "unlock" : "lock"] the doors.</span>")
-
 
 
 /obj/spacepod/verb/toggleDoors()
@@ -792,11 +729,9 @@
 					P.close()
 					return 1
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
-
 			return
 
 	to_chat(usr, "<span class='warning'>You are not close to any pod doors.</span>")
-
 	return
 
 
@@ -808,7 +743,6 @@
 		set src = usr.loc
 		if(!equipment_system.weapon_system)
 			to_chat(usr, "<span class='warning'>\The [src] has no weapons!</span>")
-
 			return
 		equipment_system.weapon_system.fire_weapons()
 
@@ -820,7 +754,6 @@
 		set src = usr.loc
 		if(!equipment_system.cargo_system)
 			to_chat(usr, "<span class='warning'>\The [src] has no cargo system!</span>")
-
 			return
 		equipment_system.cargo_system.unload()
 
@@ -838,7 +771,6 @@
 	else
 		set_light(0)
 	to_chat(occupant, "Toggled lights [lights ? "on" : "off"].")
-
 	return
 
 /obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)
@@ -932,19 +864,14 @@
 	else
 		if(!battery)
 			to_chat(user, "<span class='warning'>No energy cell detected.</span>")
-
 		else if(battery.charge < 1)
 			to_chat(user, "<span class='warning'>Not enough charge left.</span>")
-
 		else if(!health)
 			to_chat(user, "<span class='warning'>She's dead, Jim</span>")
-
 		else if(empcounter != 0)
 			to_chat(user, "<span class='warning'>The pod control interface isn't responding. The console indicates [empcounter] seconds before reboot.</span>")
-
 		else
 			to_chat(user, "<span class='warning'>Unknown error has occurred, yell at the coders.</span>")
-
 		return 0
 	battery.charge = max(0, battery.charge - 1)
 	next_move = world.time + move_delay

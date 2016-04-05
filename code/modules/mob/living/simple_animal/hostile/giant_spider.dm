@@ -16,7 +16,6 @@
 			L.reagents.add_reagent("spidertoxin", poison_per_bite)
 			if(prob(poison_per_bite))
 				to_chat(L, "<span class='danger'>You feel a tiny prick.</span>")
-
 				L.reagents.add_reagent(poison_type, poison_per_bite)
 
 
@@ -232,10 +231,8 @@
 	var/obj/effect/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
 		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
-
 	else if(!fed)
 		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
-
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
 		src.visible_message("<span class='notice'>\the [src] begins to lay a cluster of eggs.</span>")

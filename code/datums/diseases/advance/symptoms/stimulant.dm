@@ -35,5 +35,4 @@ Bonus
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 					to_chat(M, "<span class='notice'>[pick("You feel restless.", "You feel like running laps around the station.")]</span>")
-
 	return

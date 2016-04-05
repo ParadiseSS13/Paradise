@@ -5,7 +5,6 @@
 		return
 	if(!dbcon.IsConnected())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
-
 		return
 	var/returned = create_poll_function()
 	if(returned)
@@ -28,7 +27,6 @@
 				message_admins("[key_name_admin(usr)] has created a new server poll. Poll Type: [polltype] - Admin Only: [adminonly ? "Yes" : "No"]<br>Question: [question]")
 		else
 			to_chat(src, "Poll question created without any options, poll will be deleted.")
-
 			var/DBQuery/query_del_poll = dbcon.NewQuery("DELETE FROM [format_table_name("poll_question")] WHERE id = [returned]")
 			if(!query_del_poll.Execute())
 				var/err = query_del_poll.ErrorMsg()
@@ -66,7 +64,6 @@
 		endtime = query_validate_time.item[1]
 		if(!endtime)
 			to_chat(src, "Datetime entered is invalid.")
-
 			return
 	var/DBQuery/query_time_later = dbcon.NewQuery("SELECT TIMESTAMP('[endtime]') < NOW()")
 	if(!query_time_later.Execute())
@@ -77,7 +74,6 @@
 		var/checklate = text2num(query_time_later.item[1])
 		if(checklate)
 			to_chat(src, "Datetime entered is not later than current server time.")
-
 			return
 	var/adminonly
 	switch(alert("Admin only poll?",,"Yes","No","Cancel"))
@@ -137,7 +133,6 @@
 				return pollid
 			if(minval >= maxval)
 				to_chat(src, "Minimum rating value can't be more than maximum rating value")
-
 				return pollid
 			descmin = input("Optional: Set description for minimum rating","Minimum rating description") as message|null
 			if(descmin)

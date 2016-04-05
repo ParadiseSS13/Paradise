@@ -36,7 +36,6 @@
 /obj/effect/proc_holder/changeling/weapon/sting_action(var/mob/user)
 	if(!user.drop_item())
 		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
-
 		return
 	var/obj/item/W = new weapon_type(user)
 	user.put_in_hands(W)
@@ -87,11 +86,9 @@
 /obj/effect/proc_holder/changeling/suit/sting_action(var/mob/living/carbon/human/user)
 	if(!user.unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
-
 		return
 	if(!user.unEquip(user.head))
 		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
-
 		return
 
 	user.unEquip(user.head)
@@ -164,12 +161,10 @@
 
 		if(A.arePowerSystemsOn())
 			to_chat(user, "<span class='notice'>The airlock's motors resist our efforts to force it.</span>")
-
 			return
 
 		else if(A.locked)
 			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
-
 			return
 
 		else

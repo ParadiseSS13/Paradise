@@ -56,7 +56,6 @@
 	else
 		to_chat(user, "The console is already in use!")
 
-
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
 	var/sprint = 10

@@ -134,7 +134,6 @@
 	if(!special)
 		to_chat(owner, "Error 404:Optical Sensors not found.")
 
-
 	. = ..()
 
 /obj/item/organ/internal/optical_sensor/surgeryize()

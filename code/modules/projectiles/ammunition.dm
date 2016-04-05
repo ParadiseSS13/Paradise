@@ -49,10 +49,8 @@
 			else
 				to_chat(user, "\blue You can only inscribe a metal bullet.")//because inscribing beanbags is silly
 
-
 		else
 			to_chat(user, "\blue There is no bullet in the casing to inscribe anything into.")
-
 
 /obj/item/ammo_casing/proc/newshot() //For energy weapons, shotgun shells and wands (!).
 	if (!BB)
@@ -125,7 +123,6 @@
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
-
 		A.update_icon()
 		update_icon()
 
@@ -134,7 +131,6 @@
 	if(A)
 		user.put_in_hands(A)
 		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
-
 		update_icon()
 
 /obj/item/ammo_box/update_icon()

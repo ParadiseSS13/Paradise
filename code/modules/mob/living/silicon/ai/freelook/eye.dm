@@ -102,7 +102,6 @@
 		src.eyeobj.loc = src.loc
 	else
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
-
 		src.eyeobj = new(src.loc)
 		src.eyeobj.ai = src
 		src.eyeobj.name = "[src.name] (AI Eye)" // Give it a name
@@ -117,4 +116,3 @@
 		return //won't work if dead
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
-

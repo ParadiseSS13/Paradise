@@ -29,34 +29,28 @@
 	if(user.a_intent == "harm")
 		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
 		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
-
 		return
 
 	if(used)
 		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
-
 		return
 
 	if(!istype(M, /mob/living/carbon/human))
 		to_chat(user, "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>")
-
 		return
 
 	var/mob/living/carbon/human/target = M
 
 	if(istype(target.species, /datum/species/machine))
 		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>")
-
 		return
 
 	if(target.m_style != "None")
 		to_chat(user, "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>")
-
 		return
 
 	if(target == user)
 		to_chat(user, "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>")
-
 
 	else
 		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
@@ -134,7 +128,6 @@
 		C.name = "Detective Sax"
 		C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 		to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
-
 		qdel(src)
 
 /obj/item/weapon/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
@@ -235,18 +228,14 @@
 		if("Kluysfluff1")
 			src.icon_state = "Kluysfluff2"
 			to_chat(usr, "The fibre unfolds into a jacket.")
-
 		if("Kluysfluff2")
 			src.icon_state = "Kluysfluff3"
 			to_chat(usr, "The fibre unfolds into a coat.")
-
 		if("Kluysfluff3")
 			src.icon_state = "Kluysfluff1"
 			to_chat(usr, "The fibre gets sucked back into its holder.")
-
 		else
 			to_chat(usr, "You attempt to hit the button but can't.")
-
 			return
 	usr.update_inv_wear_suit()
 
@@ -296,11 +285,9 @@
 	if(src.icon_state == "jane_sid_suit_down")
 		src.item_color = "jane_sid_suit"
 		to_chat(usr, "You zip up \the [src].")
-
 	else
 		src.item_color = "jane_sid_suit_down"
 		to_chat(usr, "You unzip and roll down \the [src].")
-
 
 	src.icon_state = "[item_color]"
 	src.item_state = "[item_color]"
@@ -384,13 +371,11 @@
 			icon_state = initial(icon_state)
 			item_state = initial(item_state)
 			to_chat(usr, "You untransform \the [src].")
-
 			adjusted = 0
 		else
 			icon_state += "_open"
 			item_state += "_open"
 			to_chat(usr, "You transform \the [src].")
-
 			adjusted = 1
 		usr.update_inv_head()
 

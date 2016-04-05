@@ -66,12 +66,10 @@
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(ailock && (isrobot(user) || isAI(user)))
 		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
-
 		return 1
 
 	if(locked && !(isrobot(user) || isAI(user) || isobserver(user)))
 		to_chat(user, "<span class='notice'>Access denied.</span>")
-
 		return 1
 
 	return 0
@@ -90,18 +88,15 @@
 		if(src.allowed(usr))
 			if(emagged)
 				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")
-
 			else
 				locked = !locked
 				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
-
 		return
 	return ..()
 
 /obj/machinery/turretid/emag_act(user as mob)
 	if(!emagged)
 		to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
-
 		emagged = 1
 		locked = 0
 		ailock = 0

@@ -24,10 +24,8 @@
 	..(user)
 	if(charges)
 		to_chat(user, "It can restock [charges] item(s).")
-
 	else
 		to_chat(user, "It's empty!")
-
 
 //NOTE I decided to go for about 1/3 of a machine's capacity
 

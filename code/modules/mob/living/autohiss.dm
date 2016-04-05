@@ -26,17 +26,13 @@
 	switch(autohiss_mode)
 		if(AUTOHISS_OFF)
 			to_chat(src, "Auto-hiss is now OFF.")
-
 		if(AUTOHISS_BASIC)
 			to_chat(src, "Auto-hiss is now BASIC.")
-
 		if(AUTOHISS_FULL)
 			to_chat(src, "Auto-hiss is now FULL.")
-
 		else
 			autohiss_mode = AUTOHISS_OFF
 			to_chat(src, "Auto-hiss is now OFF.")
-
 
 /datum/species
 	var/list/autohiss_basic_map = null

@@ -240,7 +240,6 @@ var/syndicate_code_response//Code response for traitors.
 	set category = "Debug"
 
 	to_chat(world, "\red Code Phrase is: \black [generate_code_phrase()]")
-
 	return
 
 

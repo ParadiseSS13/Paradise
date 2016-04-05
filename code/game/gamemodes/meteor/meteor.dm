@@ -12,9 +12,7 @@
 
 /datum/game_mode/meteor/announce()
 	to_chat(world, "<B>The current game mode is - Meteor!</B>")
-
 	to_chat(world, "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>")
-
 
 
 /datum/game_mode/meteor/post_setup()
@@ -57,10 +55,8 @@
 
 	if(survivors)
 		to_chat(world, "\blue <B>The following survived the meteor storm</B>:[text]")
-
 	else
 		to_chat(world, "\blue <B>Nobody survived the meteor storm!</B>")
-
 
 	feedback_set_details("round_end_result","end - evacuation")
 	feedback_set("round_end_result",survivors)

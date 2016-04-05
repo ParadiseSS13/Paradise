@@ -15,14 +15,12 @@
 
 /obj/effect/proc_holder/changeling/sting/proc/set_sting(var/mob/user)
 	to_chat(user, "<span class='notice'>We prepare our sting, use alt+click or middle mouse button on target to sting them.</span>")
-
 	user.mind.changeling.chosen_sting = src
 	user.hud_used.lingstingdisplay.icon_state = sting_icon
 	user.hud_used.lingstingdisplay.invisibility = 0
 
 /obj/effect/proc_holder/changeling/sting/proc/unset_sting(var/mob/user)
 	to_chat(user, "<span class='warning'>We retract our sting, we can't sting anyone for now.</span>")
-
 	user.mind.changeling.chosen_sting = null
 	user.hud_used.lingstingdisplay.icon_state = null
 	user.hud_used.lingstingdisplay.invisibility = 101
@@ -36,14 +34,12 @@
 		return
 	if(!user.mind.changeling.chosen_sting)
 		to_chat(user, "We haven't prepared our sting yet!")
-
 	if(!iscarbon(target))
 		return
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.isSynthetic())
 			to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
-
 			return
 	if(!isturf(user.loc))
 		return
@@ -59,10 +55,8 @@
 	if(!target)
 		return
 	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
-
 	if(target.mind && target.mind.changeling)
 		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
-
 		add_logs(target, user, "unsuccessfully stung")
 	return 1
 
@@ -92,17 +86,14 @@
 		return
 	if((HUSK in target.mutations) || (!ishuman(target)))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
-
 		return 0
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.species.flags & NO_SCAN) //Prevents transforming slimes and killing them instantly
 			to_chat(user, "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>")
-
 			return 0
 		if(H.species.flags & NO_BLOOD)
 			to_chat(user, "<span class='warning'>This won't work on a creature without a circulatory system.</span>")
-
 			return 0
 	return 1
 
@@ -111,7 +102,6 @@
 	var/datum/dna/NewDNA = selected_dna
 	if(issmall(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
-
 
 	if(iscarbon(target) && (target.status_flags & CANWEAKEN))
 		var/mob/living/carbon/C = target
@@ -174,7 +164,6 @@ obj/effect/proc_holder/changeling/sting/blind
 /obj/effect/proc_holder/changeling/sting/blind/sting_action(var/mob/user, var/mob/target)
 	add_logs(target, user, "stung", object="blind sting")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-
 	target.disabilities |= NEARSIGHTED
 	target.eye_blind = 20
 	target.eye_blurry = 40

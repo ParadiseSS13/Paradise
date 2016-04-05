@@ -55,9 +55,7 @@
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
-
 	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the convert rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever CentComm-allowed faith they had.</B>")
-
 
 
 /datum/game_mode/cult/pre_setup()
@@ -101,7 +99,6 @@
 		grant_runeword(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		to_chat(cult_mind.current, "\blue You are a member of the cult!")
-
 		memorize_cult_objectives(cult_mind)
 
 	..()
@@ -121,10 +118,8 @@
 			if("eldergod")
 				explanation = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
-
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 	to_chat(cult_mind.current, "The convert rune is join blood self")
-
 	cult_mind.memory += "The convert rune is join blood self<BR>"
 
 
@@ -135,7 +130,6 @@
 	if (mob.mind)
 		if (mob.mind.assigned_role == "Clown")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-
 			mob.mutations.Remove(CLUMSY)
 
 	add_cult_viewpoint(mob) // give them a viewpoint
@@ -151,10 +145,8 @@
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if (!where)
 		to_chat(mob, "Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.")
-
 	else
 		to_chat(mob, "You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.")
-
 		mob.update_icons()
 		return 1
 
@@ -174,7 +166,6 @@
 		word=pick(allwords)
 	var/wordexp = "[cultwords[word]] is [word]..."
 	to_chat(cult_mob, "\red [pick("You remember something from the dark teachings of your master","You hear a dark voice on the wind","Black blood oozes into your vision and forms into symbols","You have a vision of a [pick("crow","raven","vulture","parrot")] it squawks","You catch a brief glimmer of the otherside")]... [wordexp]")
-
 	cult_mob.mind.store_memory("<B>You remember that</B> [wordexp]", 0, 0)
 
 
@@ -209,7 +200,6 @@
 	if(cult_mind in cult)
 		cult -= cult_mind
 		to_chat(cult_mind.current, "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>")
-
 		cult_mind.memory = ""
 		cult_mind.special_role = null
 		// remove the cult viewpoint object
@@ -220,7 +210,6 @@
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
 				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>")
-
 
 
 /datum/game_mode/proc/add_cult_icon_to_spirit(mob/spirit/currentSpirit)
@@ -307,12 +296,10 @@
 		feedback_set_details("round_end_result","win - cult win")
 		feedback_set("round_end_result",acolytes_survived)
 		to_chat(world, "\red <FONT size = 3><B> The cult wins! It has succeeded in serving its dark masters!</B></FONT>")
-
 	else
 		feedback_set_details("round_end_result","loss - staff stopped the cult")
 		feedback_set("round_end_result",acolytes_survived)
 		to_chat(world, "\red <FONT size = 3><B> The staff managed to stop the cult!</B></FONT>")
-
 
 	var/text = "<b>Cultists escaped:</b> [acolytes_survived]"
 
@@ -349,7 +336,6 @@
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
 
 	to_chat(world, text)
-
 	..()
 	return 1
 
@@ -372,4 +358,3 @@
 			text += ")"
 
 		to_chat(world, text)
-

@@ -62,17 +62,13 @@
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
-
 		else
 			if(emagged)
 				to_chat(user, "<span class='warning'>ERROR</span>")
-
 			if(open)
 				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
-
 			else
 				to_chat(user, "<span class='notice'>\The [src] doesn't seem to respect your authority.</span>")
-
 	else
 		return ..()
 
@@ -81,7 +77,6 @@
 	if(emagged == 2)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
-
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	for(var/T in target_types)

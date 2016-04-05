@@ -404,7 +404,6 @@ var/const/POS_HEADER = {"<html>
 		return
 	if(usr != logged_in)
 		to_chat(usr, "\red [logged_in.name] is already logged in.  You cannot use this machine until they log out.")
-
 		return
 	if("act" in href_list)
 		switch(href_list["act"])
@@ -433,7 +432,6 @@ var/const/POS_HEADER = {"<html>
 					var/list/cells = splittext(line,",")
 					if(cells.len<2)
 						to_chat(usr, "\red The CSV must have at least two columns: Product Name, followed by Price (as a number).")
-
 						src.attack_hand(usr)
 						return
 					var/line_item/LI = new
@@ -448,7 +446,6 @@ var/const/POS_HEADER = {"<html>
 				var/datum/money_account/new_linked_account = get_money_account(text2num(href_list["payableto"]),z)
 				if(!new_linked_account)
 					to_chat(usr, "\red Unable to link new account.")
-
 				else
 					linked_account = new_linked_account
 				screen=POS_SCREEN_SETTINGS

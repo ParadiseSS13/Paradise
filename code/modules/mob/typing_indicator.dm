@@ -85,7 +85,6 @@ var/global/image/typing_indicator
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles & SHOW_TYPING) ? "no longer" : "now"] display a typing indicator.")
 
-
 	// Clear out any existing typing indicator.
 	if(prefs.toggles & SHOW_TYPING)
 		if(istype(mob)) mob.set_typing_indicator(0)

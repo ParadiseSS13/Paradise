@@ -18,13 +18,9 @@
 
 
 	to_chat(F["name"], src.name)
-
 	to_chat(F["description"], src.description)
-
 	to_chat(F["role"], src.role)
-
 	to_chat(F["comments"], src.comments)
-
 
 	F["version"] << 1
 

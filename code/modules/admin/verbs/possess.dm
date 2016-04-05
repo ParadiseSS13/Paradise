@@ -5,7 +5,6 @@
 	if(istype(O,/obj/singularity))
 		if(config.forbid_singulo_possession)
 			to_chat(usr, "It is forbidden to possess singularities.")
-
 			return
 
 	var/turf/T = get_turf(O)

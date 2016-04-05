@@ -18,7 +18,6 @@
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	if(!check_power_cost(usr))
@@ -26,7 +25,6 @@
 
 	if(!(flags & NODROP))
 		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
-
 		return
 
 	if(!check_suit_access(usr))
@@ -34,7 +32,6 @@
 
 	if(!visor)
 		to_chat(usr, "<span class='warning'>The hardsuit does not have a configurable visor.</span>")
-
 		return
 
 	var/mob/M = usr
@@ -55,7 +52,6 @@
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	if(!check_suit_access(usr))
@@ -92,7 +88,6 @@
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	if(!check_suit_access(usr))
@@ -113,7 +108,6 @@
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	if(!check_suit_access(usr))
@@ -134,7 +128,6 @@
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	if(!check_suit_access(usr))
@@ -158,7 +151,6 @@
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	if(!check_suit_access(usr))
@@ -185,12 +177,10 @@
 
 	if(!(flags & NODROP))
 		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
-
 		return
 
 	if(!visor)
 		to_chat(usr, "<span class='warning'>The hardsuit does not have a configurable visor.</span>")
-
 		return
 
 	var/mob/M = usr
@@ -202,7 +192,6 @@
 
 	if(!visor.active)
 		to_chat(usr, "<span class='warning'>The visor is suffering a hardware fault and cannot be configured.</span>")
-
 		return
 
 	visor.engage()
@@ -219,17 +208,14 @@
 
 	if(!(flags & NODROP))
 		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
-
 		return
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	if(!speech)
 		to_chat(usr, "<span class='warning'>The hardsuit does not have a speech synthesiser.</span>")
-
 		return
 
 	var/mob/M = usr
@@ -253,12 +239,10 @@
 
 	if(!(flags & NODROP))
 		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
-
 		return
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	var/mob/M = usr
@@ -275,12 +259,10 @@
 	if(!istype(module))
 		selected_module = null
 		to_chat(usr, "<font color='blue'><b>Primary system is now: deselected.</b></font>")
-
 		return
 
 	selected_module = module
 	to_chat(usr, "<font color='blue'><b>Primary system is now: [selected_module.interface_name].</b></font>")
-
 
 /obj/item/weapon/rig/verb/toggle_module()
 
@@ -297,12 +279,10 @@
 
 	if(!(flags & NODROP))
 		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
-
 		return
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	var/mob/M = usr
@@ -321,11 +301,9 @@
 
 	if(module.active)
 		to_chat(usr, "<font color='blue'><b>You attempt to deactivate \the [module.interface_name].</b></font>")
-
 		module.deactivate()
 	else
 		to_chat(usr, "<font color='blue'><b>You attempt to activate \the [module.interface_name].</b></font>")
-
 		module.activate()
 
 /obj/item/weapon/rig/verb/engage_module()
@@ -340,12 +318,10 @@
 
 	if(!(flags & NODROP))
 		to_chat(usr, "<span class='warning'>The suit is not active.</span>")
-
 		return
 
 	if(!istype(wearer) || !wearer.back == src)
 		to_chat(usr, "<span class='warning'>The hardsuit is not being worn.</span>")
-
 		return
 
 	if(!check_power_cost(usr, 0, 0, 0, 0))
@@ -366,5 +342,4 @@
 		return
 
 	to_chat(usr, "<font color='blue'><b>You attempt to engage the [module.interface_name].</b></font>")
-
 	module.engage()

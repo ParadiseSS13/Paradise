@@ -131,11 +131,9 @@
 				terminal = term
 				terminal.master = src
 				to_chat(user, "<span class='notice'>Terminal found.</span>")
-
 				break
 		if(!terminal)
 			to_chat(user, "<span class='alert'>No power source found.</span>")
-
 			return
 		stat &= ~BROKEN
 		update_icon()
@@ -153,24 +151,20 @@
 
 		if(terminal) //is there already a terminal ?
 			to_chat(user, "<span class='alert'>This SMES already has a power terminal!</span>")
-
 			return
 
 		if(!panel_open) //is the panel open ?
 			to_chat(user, "<span class='alert'>You must open the maintenance panel first!</span>")
-
 			return
 
 		var/turf/T = get_turf(user)
 		if (T.intact) //is the floor plating removed ?
 			to_chat(user, "<span class='alert'>You must first remove the floor plating!</span>")
-
 			return
 
 		var/obj/item/stack/cable_coil/C = I
 		if(C.amount < 10)
 			to_chat(user, "<span class='alert'>You need more wires.</span>")
-
 			return
 
 		//build the terminal and link it to the network
@@ -183,11 +177,9 @@
 		var/turf/T = get_turf(terminal)
 		if (T.intact) //is the floor plating removed ?
 			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
-
 			return
 
 		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
-
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 
 		if(do_after(user, 50, target = src))
@@ -311,7 +303,6 @@
 /obj/machinery/power/smes/proc/make_terminal(const/mob/user)
 	if (user.loc == loc)
 		to_chat(user, "<span class='warning'>You must not be on the same tile as the [src].</span>")
-
 		return 1
 
 	//Direction the terminal will face to
@@ -324,15 +315,12 @@
 	var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
 	if (istype(tempLoc, /turf/space))
 		to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
-
 		return 1
 	else if (istype(tempLoc))
 		if(tempLoc.intact)
 			to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
-
 			return 1
 	to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
-
 	if(do_after(user, 50, target = src))
 		var/turf/T = get_turf(user)
 		var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one

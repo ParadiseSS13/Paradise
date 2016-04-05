@@ -11,7 +11,6 @@
 			for (var/obj/item/weapon/stock_parts/cell/D in R.contents)
 				D.charge += rand() * 100 + 50
 				to_chat(R, "\blue SYSTEM ALERT: Large energy boost detected!")
-
 			return 1
 
 /datum/artifact_effect/cellcharge/DoEffectAura()
@@ -26,7 +25,6 @@
 			for (var/obj/item/weapon/stock_parts/cell/D in M.contents)
 				D.charge += 25
 				to_chat(M, "\blue SYSTEM ALERT: Energy boost detected!")
-
 		return 1
 
 /datum/artifact_effect/cellcharge/DoEffectPulse()
@@ -41,5 +39,4 @@
 			for (var/obj/item/weapon/stock_parts/cell/D in M.contents)
 				D.charge += rand() * 100
 				to_chat(M, "\blue SYSTEM ALERT: Energy boost detected!")
-
 		return 1

@@ -435,7 +435,6 @@
 	for(var/obj/machinery/atmospherics/M in src.loc)
 		if((M.initialize_directions & pipe_dir) && M.check_connect_types_construction(M,src))	// matches at least one direction on either type of pipe
 			to_chat(user, "<span class='warning'>There is already a pipe of the same type at this location.</span>")
-
 			return 1
 
 	switch(pipe_type) //What kind of heartless person thought of doing this?
@@ -621,12 +620,10 @@
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
 		to_chat(user, "\red You need to fasten it to a pipe")
-
 		return 1
 	new/obj/machinery/meter( src.loc )
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	to_chat(user, "\blue You have fastened the meter to the pipe")
-
 	qdel(src)
 
 /obj/item/pipe_gsensor
@@ -644,7 +641,6 @@
 	new/obj/machinery/air_sensor( src.loc )
 	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 	to_chat(user, "\blue You have fastened the gas sensor")
-
 	qdel(src)
 
 #undef PIPE_SIMPLE_STRAIGHT

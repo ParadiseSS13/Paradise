@@ -54,10 +54,8 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 /mob/living/simple_animal/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/scalpel))
 		to_chat(user, "<span class='notice'>You try to neuter the tribble, but it's moving too much and you fail!</span>")
-
 	else if(istype(O, /obj/item/weapon/cautery))
 		to_chat(user, "<span class='notice'>You try to un-neuter the tribble, but it's moving too much and you fail!</span>")
-
 	..()
 
 
@@ -100,7 +98,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	..()
 	to_chat(user, "<span class='notice'>You nuzzle the tribble and it trills softly.</span>")
 
-
 /obj/item/toy/tribble/dropped(mob/user as mob) //now you can't item form them to get rid of them all so easily
 	..()
 	new /mob/living/simple_animal/tribble(user.loc)
@@ -111,7 +108,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		T.gestation = src.gestation
 
 	to_chat(user, "<span class='notice'>The tribble gets up and wanders around.</span>")
-
 	qdel(src)
 
 /obj/item/toy/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob) //neutering and un-neutering
@@ -119,11 +115,9 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	if(istype(O, /obj/item/weapon/scalpel) && src.gestation != null)
 		gestation = null
 		to_chat(user, "<span class='notice'>You neuter the tribble so that it can no longer re-produce.</span>")
-
 	else if (istype(O, /obj/item/weapon/cautery) && src.gestation == null)
 		gestation = 0
 		to_chat(user, "<span class='notice'>You fuse some recently cut tubes together, it should be able to reproduce again.</span>")
-
 
 
 
@@ -202,11 +196,9 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		return
 	else
 		to_chat(usr, text("\blue You kick the lab cage."))
-
 		for(var/mob/O in oviewers())
 			if ((O.client && !( O.blinded )))
 				to_chat(O, text("\red [] kicks the lab cage.", usr))
-
 		src.health -= 2
 		healthcheck()
 		return

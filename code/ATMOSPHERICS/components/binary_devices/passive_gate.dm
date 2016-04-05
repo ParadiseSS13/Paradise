@@ -135,7 +135,6 @@
 	src.add_fingerprint(usr)
 	if(!src.allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
-
 		return
 	usr.set_machine(src)
 	interact(user)
@@ -160,7 +159,6 @@
 		return ..()
 	if (on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
-
 		return 1
 	return ..()
 	

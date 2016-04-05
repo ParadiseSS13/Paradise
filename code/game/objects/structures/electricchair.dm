@@ -41,10 +41,8 @@
 		return
 	if(last_time + delay_time > world.time)
 		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")
-
 		return
 	to_chat(usr, "<span class='notice'>You activate \the [src].</span>")
-
 	shock()
 	return
 
@@ -81,7 +79,6 @@
 	if(buckled_mob)
 		buckled_mob.burn_skin(90)
 		to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
-
 		sleep(1)
 		buckled_mob.burn_skin(90)
 		sleep(5)

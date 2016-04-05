@@ -31,7 +31,6 @@
 			W.layer = 3.1
 			pinned_target = W
 			to_chat(user, "You slide the target into the stake.")
-
 		return
 
 	attack_hand(mob/user as mob)
@@ -46,10 +45,8 @@
 				if(!user.get_active_hand())
 					user.put_in_hands(pinned_target)
 					to_chat(user, "You take the target out of the stake.")
-
 			else
 				pinned_target.loc = get_turf(user)
 				to_chat(user, "You take the target out of the stake.")
-
 
 			pinned_target = null

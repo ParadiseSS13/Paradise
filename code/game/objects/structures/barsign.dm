@@ -51,11 +51,9 @@
 /obj/structure/sign/barsign/attack_hand(mob/user as mob)
 	if (!src.allowed(user))
 		to_chat(user, "<span class = 'info'>Access denied.</span>")
-
 		return
 	if (broken)
 		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
-
 		return
 	pick_sign()
 
@@ -65,17 +63,14 @@
 /obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
 	if(!allowed(user))
 		to_chat(user, "<span class = 'info'>Access denied.</span>")
-
 		return
 	if( istype(I, /obj/item/weapon/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
-
 			set_sign(new /datum/barsign/hiddensigns/signoff)
 			panel_open = 1
 		else
 			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
-
 			if(!broken && !emagged)
 				set_sign(pick(barsigns))
 			else if(emagged)
@@ -88,20 +83,16 @@
 		var/obj/item/stack/cable_coil/C = I
 		if(emagged) //Emagged, not broken by EMP
 			to_chat(user, "<span class='warning'>Sign has been damaged beyond repair!</span>")
-
 			return
 		else if(!broken)
 			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
-
 			return
 
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
-
 			broken = 0
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
-
 
 
 
@@ -115,10 +106,8 @@
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
-
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-
 	sleep(100) //10 seconds
 	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 	emagged = 1

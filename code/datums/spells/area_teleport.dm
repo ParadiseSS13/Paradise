@@ -28,7 +28,6 @@
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
 		to_chat(usr, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
-
 		return
 
 	return thearea
@@ -48,7 +47,6 @@
 
 		if(!L.len)
 			to_chat(usr, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
-
 			return
 
 		if(target && target.buckled)

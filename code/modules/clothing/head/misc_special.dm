@@ -59,7 +59,6 @@
 			flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 			icon_state = initial(icon_state)
 			to_chat(usr, "You flip the [src] down to protect your eyes.")
-
 			flash_protect = 2
 			tint = 2
 		else
@@ -68,7 +67,6 @@
 			flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 			icon_state = "[initial(icon_state)]up"
 			to_chat(usr, "You push the [src] up out of your face.")
-
 			flash_protect = 0
 			tint = 0
 		usr.update_inv_head()	//so our mob-overlays update
@@ -133,12 +131,10 @@
 		src.icon_state = "ushankaup"
 		src.item_state = "ushankaup"
 		to_chat(user, "You raise the ear flaps on the ushanka.")
-
 	else
 		src.icon_state = "ushankadown"
 		src.item_state = "ushankadown"
 		to_chat(user, "You lower the ear flaps on the ushanka.")
-
 
 /*
  * Pumpkin head
