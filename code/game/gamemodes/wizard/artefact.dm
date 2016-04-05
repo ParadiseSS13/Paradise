@@ -782,7 +782,7 @@ var/global/list/multiverse = list()
 			GiveHint(target)
 		else if(istype(I,/obj/item/weapon/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
-			to_chat(target, 'sound/items/AirHorn.ogg')
+			target << 'sound/items/AirHorn.ogg'
 			target.ear_damage += rand(0,3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time

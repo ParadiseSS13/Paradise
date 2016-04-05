@@ -17,7 +17,7 @@
 		if(!C)
 			return
 
-		to_chat(C, 'sound/effects/adminhelp.ogg')
+		C << 'sound/effects/adminhelp.ogg'
 
 		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
 		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>")

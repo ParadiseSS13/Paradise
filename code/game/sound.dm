@@ -93,12 +93,12 @@ var/const/FALLOFF_SOUNDS = 0.5
 		S.falloff = (falloff ? falloff : FALLOFF_SOUNDS)
 	if(!is_global)
 		S.environment = 2
-	to_chat(src, S)
+	src << S
 
 /client/proc/playtitlemusic()
 	if(!ticker || !ticker.login_music || config.disable_lobby_music) return
 	if(prefs.sound & SOUND_LOBBY)
-		to_chat(src, sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1))// MAD JAMS
+		src << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS
 
 
 /proc/get_rand_frequency()

@@ -320,8 +320,7 @@ Made by Xhuis
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
 			if(H.stat != DEAD)
 				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"
-
-				to_chat(H, 'sound/weapons/sear.ogg')
+				H << 'sound/weapons/sear.ogg'
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.heal_overall_damage(5, 5)
 			H.adjustToxLoss(-5)

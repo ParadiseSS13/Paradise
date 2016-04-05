@@ -9,7 +9,7 @@
 			return kill()
 		var/mob/C = pick(candidates)
 		key_of_morph = C.key
-		
+
 		if(!key_of_morph)
 			return kill()
 
@@ -23,7 +23,7 @@
 		player_mind.special_role = "Morph"
 		ticker.mode.traitors |= player_mind
 		to_chat(S, S.playstyle_string)
-		to_chat(S, 'sound/magic/Mutate.ogg')
+		S << 'sound/magic/Mutate.ogg'
 		message_admins("[key_of_morph] has been made into morph by an event.")
 		log_game("[key_of_morph] was spawned as a morph by an event.")
 		return 1

@@ -156,7 +156,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 					M.Weaken(10)
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
 				to_chat(world, "<font size=5><span class='shadowling'><b>\"VYSHA NERADA YEKHEZET U'RUU!!\"</font></span>")
-				to_chat(world, 'sound/hallucinations/veryfar_noise.ogg')
+				world << 'sound/hallucinations/veryfar_noise.ogg'
 				for(var/obj/machinery/power/apc/A in apcs)
 					A.overload_lighting()
 				var/mob/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)

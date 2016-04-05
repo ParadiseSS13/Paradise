@@ -421,7 +421,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	step_away(src,my_target,2)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
-	to_chat(my_target, sound(pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg')))
+	my_target << sound(pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg'))
 	my_target.visible_message("<span class='danger'>[my_target] flails around wildly.</span>", \
 							"<span class='danger'>[my_target] has attacked [src]!</span>")
 
@@ -476,7 +476,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			if(prob(15))
 				src.do_attack_animation(my_target)
 				if(weapon_name)
-					to_chat(my_target, sound(pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg')))
+					my_target << sound(pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg'))
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
 					my_target.staminaloss += 30
 					if(prob(20))
@@ -485,7 +485,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)
 				else
-					to_chat(my_target, sound(pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')))
+					my_target << sound(pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg'))
 					my_target.show_message("<span class='userdanger'>[src.name] has punched [my_target]!</span>", 1)
 					my_target.staminaloss += 30
 					if(prob(33))
@@ -618,36 +618,36 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 //			to_chat(src, "Strange Audio")
 			switch(rand(1,18))
 				if(1)
-					to_chat(src, 'sound/machines/airlock.ogg')
+					src << 'sound/machines/airlock.ogg'
 				if(2)
 					if(prob(50))
-						to_chat(src, 'sound/effects/Explosion1.ogg')
+						src << 'sound/effects/Explosion1.ogg'
 					else
-						to_chat(src, 'sound/effects/Explosion2.ogg')
+						src << 'sound/effects/Explosion2.ogg'
 				if(3)
-					to_chat(src, 'sound/effects/explosionfar.ogg')
+					src << 'sound/effects/explosionfar.ogg'
 				if(4)
-					to_chat(src, 'sound/effects/Glassbr1.ogg')
+					src << 'sound/effects/Glassbr1.ogg'
 				if(5)
-					to_chat(src, 'sound/effects/Glassbr2.ogg')
+					src << 'sound/effects/Glassbr2.ogg'
 				if(6)
-					to_chat(src, 'sound/effects/Glassbr3.ogg')
+					src << 'sound/effects/Glassbr3.ogg'
 				if(7)
-					to_chat(src, 'sound/machines/twobeep.ogg')
+					src << 'sound/machines/twobeep.ogg'
 				if(8)
-					to_chat(src, 'sound/machines/windowdoor.ogg')
+					src << 'sound/machines/windowdoor.ogg'
 				if(9)
 					//To make it more realistic, I added two gunshots (enough to kill)
-					to_chat(src, 'sound/weapons/Gunshot.ogg')
+					src << 'sound/weapons/Gunshot.ogg'
 					spawn(rand(10,30))
-						to_chat(src, 'sound/weapons/Gunshot.ogg')
+						src << 'sound/weapons/Gunshot.ogg'
 				if(10)
-					to_chat(src, 'sound/weapons/smash.ogg')
+					src << 'sound/weapons/smash.ogg'
 				if(11)
 					//Same as above, but with tasers.
-					to_chat(src, 'sound/weapons/Taser.ogg')
+					src << 'sound/weapons/Taser.ogg'
 					spawn(rand(10,30))
-						to_chat(src, 'sound/weapons/Taser.ogg')
+						src << 'sound/weapons/Taser.ogg'
 			//Rare audio
 				if(12)
 			//These sounds are (mostly) taken from Hidden: Source
@@ -656,21 +656,21 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 						'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
 						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
-					to_chat(src, pick(creepyasssounds))
+					src << pick(creepyasssounds)
 				if(13)
 					to_chat(src, "<span class='warning'>You feel a tiny prick!</span>")
 				if(14)
 					to_chat(src, "<h1 class='alert'>Priority Announcement</h1>")
 					to_chat(src, "<br><br><span class='alert'>The Emergency Shuttle has docked with the station. You have 3 minutes to board the Emergency Shuttle.</span><br><br>")
-					to_chat(src, sound('sound/AI/shuttledock.ogg'))
+					src << sound('sound/AI/shuttledock.ogg')
 				if(15)
-					to_chat(src, 'sound/items/Welder.ogg')
+					src << 'sound/items/Welder.ogg'
 				if(16)
-					to_chat(src, 'sound/items/Screwdriver.ogg')
+					src << 'sound/items/Screwdriver.ogg'
 				if(17)
-					to_chat(src, 'sound/weapons/saberon.ogg')
+					src << 'sound/weapons/saberon.ogg'
 				if(18)
-					to_chat(src, 'sound/weapons/saberoff.ogg')
+					src << 'sound/weapons/saberoff.ogg'
 		if("hudscrew")
 			//Screwy HUD
 //			to_chat(src, "Screwy HUD")

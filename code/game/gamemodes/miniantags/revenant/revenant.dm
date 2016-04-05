@@ -119,7 +119,7 @@
 	spawn(5)
 		if(src.mind)
 			src.mind.wipe_memory()
-			to_chat(src, 'sound/effects/ghost.ogg')
+			src << 'sound/effects/ghost.ogg'
 			to_chat(src, "<br>")
 			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")

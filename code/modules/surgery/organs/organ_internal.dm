@@ -463,7 +463,7 @@
 		owner.stuttering = 20
 		owner.ear_deaf = 30
 		owner.Weaken(3)
-		to_chat(owner, 'sound/items/AirHorn.ogg')
+		owner << 'sound/items/AirHorn.ogg'
 		if(prob(30))
 			owner.Stun(10)
 			owner.Paralyse(4)

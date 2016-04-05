@@ -57,7 +57,7 @@
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>")
-		to_chat(src, 'sound/misc/demon_dies.ogg')
+		src << 'sound/misc/demon_dies.ogg'
 		mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new

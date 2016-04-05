@@ -1,7 +1,7 @@
 /client/proc/admin_memo()
 	set name = "Memo"
 	set category = "Server"
-	if(!check_rights(R_SERVER))	
+	if(!check_rights(R_SERVER))
 		return
 	if(!dbcon.IsConnected())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
@@ -102,7 +102,7 @@
 			if(!output && !silent)
 				to_chat(src, "No memos found in database.")
 				return
-			src << output
+			to_chat(src, output)
 		if("Remove")
 			var/DBQuery/query_memodellist = dbcon.NewQuery("SELECT ckey FROM [format_table_name("memo")]")
 			if(!query_memodellist.Execute())
@@ -131,4 +131,3 @@
 			else
 				log_admin("[key_name(src)] has removed [target_sql_ckey]'s memo.")
 				message_admins("[key_name_admin(src)] has removed [target_sql_ckey]'s memo.")
-				

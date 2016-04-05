@@ -160,7 +160,7 @@
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins shouldn't be able to disable this
 	if(C.prefs.sound & SOUND_ADMINHELP)
-		to_chat(C, 'sound/effects/adminhelp.ogg')
+		C << 'sound/effects/adminhelp.ogg'
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too

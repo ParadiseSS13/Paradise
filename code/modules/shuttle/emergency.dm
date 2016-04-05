@@ -197,7 +197,7 @@
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
 				for(var/area/shuttle/escape/E in world)
-					to_chat(E, 'sound/effects/hyperspace_begin.ogg')
+					E << 'sound/effects/hyperspace_begin.ogg'
 
 			if(time_left <= 0 && !shuttle_master.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
@@ -206,7 +206,7 @@
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
 				for(var/area/shuttle/escape/E in world)
-					to_chat(E, 'sound/effects/hyperspace_progress.ogg')
+					E << 'sound/effects/hyperspace_progress.ogg'
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
@@ -218,7 +218,7 @@
 					M.dock(shuttle_master.getDock("[M.id]_away"))
 				//now move the actual emergency shuttle to centcomm
 				for(var/area/shuttle/escape/E in world)
-					to_chat(E, 'sound/effects/hyperspace_end.ogg')
+					E << 'sound/effects/hyperspace_end.ogg'
 				dock(shuttle_master.getDock("emergency_away"))
 				mode = SHUTTLE_ENDGAME
 				timer = 0
