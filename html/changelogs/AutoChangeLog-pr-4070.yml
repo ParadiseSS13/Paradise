@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Removes an offset from the advanced virus stealth calculation, causing viruses to be more stealthy than the sum of their symptoms."
