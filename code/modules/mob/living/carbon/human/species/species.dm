@@ -55,9 +55,6 @@
 	var/brute_mod = null    // Physical damage reduction/malus.
 	var/burn_mod = null     // Burn damage reduction/malus.
 
-	var/light_dam //Light level above which species takes damage, and below which it heals.
-	var/light_effect_amp //If 0, takes/heals 1 burn and brute per tick. Otherwise, both healing and damage effects are amplified.
-
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -78,8 +75,6 @@
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
-	var/meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/human
-
 	var/base_color      //Used when setting species.
 
 	//Used in icon caching.
@@ -325,6 +320,8 @@
 	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
+	if(C.get_species() == "Monkey" || C.get_species() == "Farwa" || C.get_species() == "Stok" || C.get_species() == "Wolpin" || C.get_species() == "Neara")
+		C.butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5)
 	grant_abilities(C)
 	return
 
@@ -334,6 +331,8 @@
 	return
 
 /datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
+	if(!H.get_species() == "Monkey" || !H.get_species() == "Farwa" || !H.get_species() == "Stok" || !H.get_species() == "Wolpin" || !H.get_species() == "Neara")
+		H.butcher_results = null
 	remove_abilities(H)
 	return
 

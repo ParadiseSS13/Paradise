@@ -386,6 +386,9 @@
 		C.handcuffed = initial(C.handcuffed)
 		C.heart_attack = 0
 
+		for(var/datum/disease/D in C.viruses)
+			D.cure(0)
+
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
 			var/mob/living/carbon/human/human_mob = src
@@ -953,3 +956,14 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+/mob/living/proc/harvest(mob/living/user)
+	if(qdeleted(src))
+		return
+	if(butcher_results)
+		for(var/path in butcher_results)
+			for(var/i = 1, i <= butcher_results[path], i++)
+				new path(loc)
+			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+		visible_message("<span class='notice'>[user] butchers [src].</span>")
+		gib()

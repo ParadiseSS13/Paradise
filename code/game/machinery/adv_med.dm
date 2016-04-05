@@ -317,7 +317,7 @@
 			occupantData["health"] = H.health
 			occupantData["maxHealth"] = H.maxHealth
 
-			occupantData["hasVirus"] = H.virus2.len
+			occupantData["hasVirus"] = H.viruses.len
 
 			occupantData["bruteLoss"] = H.getBruteLoss()
 			occupantData["oxyLoss"] = H.getOxyLoss()
@@ -389,6 +389,8 @@
 					organStatus["splinted"] = 1
 				if(E.status & ORGAN_BLEEDING)
 					organStatus["bleeding"] = 1
+				if(E.status & ORGAN_DEAD)
+					organStatus["dead"] = 1
 
 				organData["status"] = organStatus
 
@@ -415,6 +417,7 @@
 				organData["bruised"] = I.min_broken_damage
 				organData["broken"] = I.min_bruised_damage
 				organData["robotic"] = I.robotic
+				organData["dead"] = (I.status & ORGAN_DEAD)
 
 				intOrganData.Add(list(organData))
 
@@ -473,7 +476,7 @@
 					t1 = "*dead*"
 			dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
-			if(occupant.virus2.len)
+			if(occupant.viruses.len)
 				dat += "<font color='red'>Viral pathogen detected in blood stream.</font><BR>"
 
 			var/extra_font = null

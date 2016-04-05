@@ -108,7 +108,6 @@
 
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
-	generate_req_lists()
 	//check if we don't require any access at all
 	if(check_access())
 		return 1
@@ -118,8 +117,8 @@
 	if(acc == IGNORE_ACCESS)
 		return 1 //Mob ignores access
 
-	if(istype(acc, /obj/item))
-		return check_access(acc)
+	else
+		return check_access_list(acc)
 
 	return 0
 
@@ -151,23 +150,12 @@
 					req_one_access += n
 
 /obj/proc/check_access(obj/item/I)
-	if(!istype(req_access, /list))
-		return 1
-
-	if(!req_access.len && (!req_one_access || !req_one_access.len))
-		return 1
-	if(!I)
-		return 0
-	for(var/req in src.req_access)
-		if(!(req in I.GetAccess())) //doesn't have this access
-			return 0
-	if(req_one_access && req_one_access.len)
-		for(var/req in req_one_access)
-			if(req in I.GetAccess()) //has an access from the single access list
-				return 1
-		return 0
-	return 1
-
+	var/list/L
+	if(I)
+		L = I.GetAccess()
+	else
+		L = list()
+	return check_access_list(L)
 
 /obj/proc/check_access_list(var/list/L)
 	generate_req_lists()

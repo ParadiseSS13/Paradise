@@ -6,25 +6,18 @@
 	response_help  = "passes through"
 	response_disarm = "flails at"
 	response_harm   = "punches"
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "stand"
-	icon_living = "stand"
-	icon_dead = "stand"
+	icon = 'icons/mob/guardian.dmi'
+	icon_state = "magicOrange"
+	icon_living = "magicOrange"
+	icon_dead = "magicOrange"
 	speed = 0
 	a_intent = I_HARM
 	stop_automated_movement = 1
 	floating = 1
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
-	maxbodytemp = 10000000
-	min_oxy = 0
-	max_oxy = INFINITY
-	min_tox = 0
-	max_tox = INFINITY
-	min_co2 = 0
-	max_co2 = INFINITY
-	min_n2  = 0
-	max_n2  = INFINITY
+	maxbodytemp = INFINITY
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attacktext = "punches"
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
@@ -32,8 +25,8 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE
-	var/animated_manifest = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
 	var/mob/living/summoner
@@ -60,7 +53,7 @@
 			src << "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]"
 			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
 			Recall()
-	if(summoned && !summoner)
+	if(summoned && !summoner && !adminseal)
 		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
 		ghostize()
 		qdel()
@@ -79,6 +72,17 @@
 	..()
 	summoner << "<span class='danger'><B>Your [name] died somehow!</span></B>"
 	summoner.death()
+
+
+/mob/living/simple_animal/hostile/guardian/handle_hud_icons_health()
+	if(summoner)
+		var/resulthealth
+		if(iscarbon(summoner))
+			resulthealth = round((abs(config.health_threshold_dead - summoner.health) / abs(config.health_threshold_dead - summoner.maxHealth)) * 100)
+		else
+			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
+		hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+
 
 /mob/living/simple_animal/hostile/guardian/adjustBruteLoss(amount) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
@@ -118,20 +122,16 @@
 		return
 	if(!summoner) return
 	if(loc == summoner)
-		loc = get_turf(summoner)
+		forceMove(get_turf(summoner))
 		src.client.eye = loc
 		cooldown = world.time + 30
-		if(animated_manifest)
-			var/end_icon = icon_state
-			icon_state = "parasite_forming"
-			spawn(6)
-			icon_state = end_icon
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall()
 	if(cooldown > world.time)
 		return
 	if(!summoner) return
-	loc = summoner
+	new /obj/effect/overlay/temp/guardian/phase/out(get_turf(src))
+	forceMove(summoner)
 	buckled = null
 	cooldown = world.time + 30
 
@@ -204,8 +204,10 @@
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!luminosity)
 		set_light(3)
+		src << "<span class='notice'>You activate your light.</span>"
 	else
 		set_light(0)
+		src << "<span class='notice'>You deactivate your light.</span>"
 
 
 //////////////////////////TYPES OF GUARDIANS
@@ -226,6 +228,7 @@
 	magic_fluff_string = "..And draw the Wizard, bringer of endless chaos!"
 	tech_fluff_string = "Boot sequence complete. Crowd control modules activated. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to sow havoc at random."
+	var/toggle = FALSE
 
 /mob/living/simple_animal/hostile/guardian/fire/Life() //Dies if the summoner dies
 	..()
@@ -233,13 +236,29 @@
 		summoner.ExtinguishMob()
 		summoner.adjust_fire_stacks(-20)
 
+/mob/living/simple_animal/hostile/guardian/fire/ToggleMode()
+	if(src.loc == summoner)
+		if(toggle)
+			src << "You switch to dispersion mode, and will teleport victims away from your master."
+			toggle = FALSE
+		else
+			src << "You  switch to deception mode, and will turn your victims against their allies."
+			toggle = TRUE
+
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
-	..()
-	if(prob(45))
-		if(istype(target, /atom/movable))
-			var/atom/movable/M = target
-			if(!M.anchored && M != summoner)
-				do_teleport(M, M, 10)
+	if(..())
+		if(toggle)
+			if(ishuman(target) && !summoner)
+				spawn(0)
+					new /obj/effect/hallucination/delusion(target.loc, target, force_kind="custom", duration=200, skip_nearby=0, custom_icon = src.icon_state, custom_icon_file = src.icon)
+		else
+			if(prob(45))
+				if(istype(target, /atom/movable))
+					var/atom/movable/M = target
+					if(!M.anchored && M != summoner)
+						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
+						do_teleport(M, M, 10)
+						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
 
 /mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj)
 	..()
@@ -446,7 +465,9 @@
 						if((Z.temperature > 270) && (Z.temperature < 360))
 							var/pressure = Z.return_pressure()
 							if((pressure > 20) && (pressure < 550))
+								new /obj/effect/overlay/temp/guardian/phase/out(get_turf(A))
 								do_teleport(A, beacon, 0)
+								new /obj/effect/overlay/temp/guardian/phase(get_turf(A))
 						else
 							src << "<span class='danger'><B>The beacon isn't in a safe location!</span></B>"
 					else
@@ -476,7 +497,10 @@
 	ranged_cooldown_cap = 1
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
+	rapid = 1
 	range = 13
+	see_invisible = SEE_INVISIBLE_MINIMUM
+	see_in_dark = 8
 	playstyle_string = "As a ranged type, you have only light damage resistance, but are capable of spraying shards of crystal at incredibly high speed. You can also deploy surveillance snares to monitor enemy movement. Finally, you can switch to scout mode, in which you can't attack, but can move without limit."
 	magic_fluff_string = "..And draw the Sentinel, an alien master of ranged combat."
 	tech_fluff_string = "Boot sequence complete. Ranged combat modules active. Holoparasite swarm online."
@@ -506,6 +530,14 @@
 			toggle = TRUE
 	else
 		src << "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>"
+
+/mob/living/simple_animal/hostile/guardian/ranged/ToggleLight()
+	if(see_invisible == SEE_INVISIBLE_MINIMUM)
+		src << "<span class='notice'>You deactivate your night vision.</span>"
+		see_invisible = SEE_INVISIBLE_LIVING
+	else
+		src << "<span class='notice'>You activate your night vision.</span>"
+		see_invisible = SEE_INVISIBLE_MINIMUM
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/Snare()
 	set name = "Set Surveillance Trap"
@@ -675,7 +707,6 @@
 	else
 		gaurdiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
-	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
 	switch(gaurdiantype)
 
 		if("Chaos")
@@ -705,29 +736,42 @@
 	user.verbs += /mob/living/proc/guardian_comm
 	user.verbs += /mob/living/proc/guardian_recall
 	user.verbs += /mob/living/proc/guardian_reset
-	var/magic_suite = pick("Wands","Cups","Swords","Pentacles")
-	var/picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
+
+	var/color
+	var/picked_name
+	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
+
 	switch (theme)
 		if("magic")
-			G.name = "[mob_name] of [magic_suite]"
-			G.color = picked_color
-			G.real_name = "[mob_name] of [magic_suite]"
+			color = pick("Pink", "Red", "Orange", "Green", "Blue")
+			picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
+
+			G.name = "[picked_name] [color]"
+			G.real_name = "[picked_name] [color]"
+			G.icon_living = "[theme][color]"
+			G.icon_state = "[theme][color]"
+			G.icon_dead = "[theme][color]"
+
 			user << "[G.magic_fluff_string]."
 		if("tech")
-			var/colour = pick("orange", "neon", "pink", "red", "blue", "green")
-			G.name = "[picked_name] [capitalize(colour)]"
-			G.real_name = "[picked_name] [capitalize(colour)]"
-			G.icon_living = "parasite[colour]"
-			G.icon_state = "parasite[colour]"
-			G.icon_dead = "parasite[colour]"
-			G.animated_manifest = TRUE
+			color = pick("Rose", "Peony", "Lily", "Daisy", "Zinnia", "Ivy", "Iris", "Petunia", "Violet", "Lilac", "Orchid") //technically not colors, just flowers that can be specific colors
+			picked_name = pick("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
+
+			G.name = "[picked_name] [color]"
+			G.real_name = "[picked_name] [color]"
+			G.icon_living = "[theme][color]"
+			G.icon_state = "[theme][color]"
+			G.icon_dead = "[theme][color]"
+
 			user << "[G.tech_fluff_string]."
 			G.speak_emote = list("states")
 		if("bio")
+			G.icon = 'icons/mob/mob.dmi'
+			picked_name = pick("brood", "hive", "nest")
 			user << "[G.bio_fluff_string]."
-			G.name = "[mob_name] [picked_name]"
+			G.name = "[picked_name] swarm"
 			G.color = picked_color
-			G.real_name = "[mob_name] [picked_name]"
+			G.real_name = "[picked_name] swarm"
 			G.icon_living = "headcrab"
 			G.icon_state = "headcrab"
 			G.attacktext = "swarms"
@@ -798,16 +842,16 @@
 
 
 
-
-
-
-
-///HUD
-
-/datum/hud/proc/guardian_hud(ui_style = 'icons/mob/screen1_midnight.dmi')
+/datum/hud/proc/guardian_hud(ui_style = 'icons/mob/screen1_Midnight.dmi')
 	adding = list()
 
 	var/obj/screen/using
+
+	guardianhealthdisplay = new /obj/screen/guardian()
+	guardianhealthdisplay.name = "summoner health"
+	guardianhealthdisplay.screen_loc = ui_health
+	guardianhealthdisplay.mouse_opacity = 0
+	adding += guardianhealthdisplay
 
 	using = new /obj/screen/guardian/Manifest()
 	using.screen_loc = ui_rhand
@@ -834,12 +878,11 @@
 	mymob.client.screen += adding
 
 
-
-
 //HUD BUTTONS
 
 /obj/screen/guardian
 	icon = 'icons/mob/guardian.dmi'
+	icon_state = "base"
 
 /obj/screen/guardian/Manifest
 	icon_state = "manifest"
@@ -881,6 +924,7 @@
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Communicate()
+
 
 /obj/screen/guardian/ToggleLight
 	icon_state = "light"

@@ -10,7 +10,8 @@ var/global/image/typing_indicator
 /mob/proc/set_typing_indicator(var/state)
 
 	if(!typing_indicator)
-		typing_indicator = image('icons/mob/talk.dmi',null,"typing")
+		typing_indicator = image('icons/mob/talk.dmi', null, "typing", MOB_LAYER + 1)
+		typing_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src

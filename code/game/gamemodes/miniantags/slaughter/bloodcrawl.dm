@@ -42,11 +42,13 @@
 				var/mob/living/victim = pulling
 				if(victim.stat == CONSCIOUS)
 					visible_message("<span class='warning'>[victim] kicks free of [B] just before entering it!</span>")
+					stop_pulling()
 				else
 					victim.forceMove(holder)//holder
 					victim.emote("scream")
 					visible_message("<span class='warning'><b>[src] drags [victim] into [B]!</b></span>")
 					kidnapped = victim
+					stop_pulling()
 		flick("jaunt",animation)
 		loc = holder
 		holder = holder
@@ -94,48 +96,53 @@
 	flags = NODROP|ABSTRACT
 
 /mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
+
 	if(notransform)
 		src << "<span class='warning'>Finish eating first!</span>"
 		return 0
-	else
-		var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
-		animation.name = "odd blood"
-		animation.density = 0
-		animation.anchored = 1
-		animation.icon = 'icons/mob/mob.dmi'
-		animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
-		animation.layer = 5
-		animation.master = B.loc
-		animation.dir = dir
-		B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
-		if(!do_after(src, 20, target = B))
-			return
-		if(!B)
-			return
-		forceMove(B.loc)
-		client.eye = src
-		if (prob(25) && istype(src, /mob/living/simple_animal/slaughter))
-			var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
-			playsound(get_turf(src), pick(voice),50, 1, -1)
-		visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")
-		playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
-		flick("jauntup",animation)
-		qdel(holder)
-		holder = null
-		if(iscarbon(src))
-			var/mob/living/carbon/C = src
-			for(var/obj/item/weapon/bloodcrawl/BC in C)
-				C.flags = null
-				C.unEquip(BC)
-				qdel(BC)
-		var/oldcolor = color
-		color = B.color
-		sleep(6)//wait for animation to finish
-		if(animation)
-			qdel(animation)
-		spawn(30)
-			color = oldcolor
-		return 1
+	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
+	if(!do_after(src, 20, target = B))
+		return
+	if(!B)
+		return
+	forceMove(B.loc)
+	client.eye = src
+
+	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
+	animation.name = "odd blood"
+	animation.density = 0
+	animation.anchored = 1
+	animation.icon = 'icons/mob/mob.dmi'
+	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
+	animation.layer = 5
+	animation.master = B.loc
+	animation.dir = dir
+
+	if(prob(25) && istype(src, /mob/living/simple_animal/slaughter))
+		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
+		playsound(get_turf(src), pick(voice),50, 1, -1)
+	visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")
+	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
+
+	flick("jauntup",animation)
+	qdel(holder)
+	holder = null
+
+	if(iscarbon(src))
+		var/mob/living/carbon/C = src
+		for(var/obj/item/weapon/bloodcrawl/BC in C)
+			C.flags = null
+			C.unEquip(BC)
+			qdel(BC)
+
+	var/oldcolor = color
+	color = B.color
+	sleep(6)//wait for animation to finish
+	if(animation)
+		qdel(animation)
+	spawn(30)
+		color = oldcolor
+	return 1
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
 	name = "odd blood"

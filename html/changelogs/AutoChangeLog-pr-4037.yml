@@ -1,0 +1,5 @@
+author: ProperPants
+delete-after: True
+changes: 
+  - rscadd: "Operating tables can be deconstructed with a wrench."
+  - spellcheck: "Fixed and shortened description of metal sheets."

@@ -140,6 +140,7 @@
 	force = 0
 	w_class = 2.0
 	throwforce = 1.0
+	origin_tech = "materials=1;biotech=1"
 
 /obj/item/weapon/FixOVein
 	name = "FixOVein"
@@ -147,9 +148,8 @@
 	icon_state = "fixovein"
 	force = 0
 	throwforce = 1.0
-	origin_tech = "materials=1;biotech=3"
+	origin_tech = "materials=1;biotech=1"
 	w_class = 2.0
-	var/usage_amount = 10
 
 /obj/item/weapon/bonesetter
 	name = "bone setter"
@@ -161,6 +161,7 @@
 	throw_range = 5
 	w_class = 2.0
 	attack_verb = list("attacked", "hit", "bludgeoned")
+	origin_tech = "materials=1;biotech=1"
 
 /obj/item/weapon/surgical_drapes
 	name = "surgical drapes"

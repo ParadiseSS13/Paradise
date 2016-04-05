@@ -359,8 +359,7 @@
 				var/mob/living/M = A
 				if(M in immune)
 					continue
-				M.stunned += 10
-				M.canmove = 0
+				M.notransform = 1
 				M.anchored = 1
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
@@ -388,7 +387,7 @@
 	return
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
-	M.AdjustStunned(-10)
+	M.notransform = 0
 	M.anchored = 0
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
@@ -439,6 +438,18 @@
 	max_amount = 60
 	turf_type = /turf/simulated/floor/sepia
 
+/obj/item/areaeditor/blueprints/slime
+	name = "cerulean prints"
+	desc = "A one use set of blueprints made of jelly like organic material. Renaming an area to 'Xenobiology Lab' will extend the reach of the management console."
+	color = "#2956B2"
+
+/obj/item/areaeditor/blueprints/slime/edit_area()
+	. = ..()
+	var/area/A = get_area(src)
+	if(.)
+		for(var/turf/T in A)
+			T.color = "#2956B2"
+		qdel(src)
 
 /turf/simulated/floor/sepia
 	slowdown = 2

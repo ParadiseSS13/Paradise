@@ -161,9 +161,6 @@
 	if(ismob(AM))
 		var/mob/tmob = AM
 
-		if(iscarbon(tmob) && prob(10))
-			spread_disease_to(tmob, "Contact")
-
 		//BubbleWrap - Should stop you pushing a restrained person out of the way
 		//i still don't get it, is this supposed to be 'bubblewrapping' or was it made by a guy named 'BubbleWrap'
 		if(ishuman(tmob))
@@ -636,10 +633,6 @@
 // called when something steps onto a human
 // this handles mulebots and vehicles
 /mob/living/carbon/human/Crossed(var/atom/movable/AM)
-	if(istype(AM, /obj/machinery/bot/mulebot))
-		var/obj/machinery/bot/mulebot/MB = AM
-		MB.RunOver(src)
-
 	if(istype(AM, /obj/vehicle))
 		var/obj/vehicle/V = AM
 		V.RunOver(src)
@@ -838,15 +831,6 @@
 						A.on_removed(usr)
 						U.accessories -= A
 						update_inv_w_uniform()
-
-	if (href_list["refresh"])
-		if((machine)&&(in_range(src, usr)))
-			show_inv(machine)
-
-	if (href_list["mach_close"])
-		var/t1 = text("window=[]", href_list["mach_close"])
-		unset_machine()
-		src << browse(null, t1)
 
 	if (href_list["criminal"])
 		if(hasHUD(usr,"security"))
@@ -1255,44 +1239,6 @@
 		return 0
 	return 1
 
-/mob/living/carbon/human/proc/vomit(hairball=0)
-	if(stat==DEAD)return
-
-	if(!check_has_mouth())
-		return
-
-	if(!lastpuke)
-		lastpuke = 1
-		src << "<spawn class='warning'>You feel nauseous..."
-		spawn(150)	//15 seconds until second warning
-			src << "<spawn class='warning'>You feel like you are about to throw up!"
-			spawn(100)	//and you have 10 more for mad dash to the bucket
-				Stun(5)
-
-				if(hairball)
-					src.visible_message("<span class='warning'>[src] hacks up a hairball!</span>","<span class='warning'>You hack up a hairball!</span>")
-				else
-					src.visible_message("<span class='warning'>[src] throws up!</span>","<span class='warning'>You throw up!</span>")
-				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-
-				var/turf/location = loc
-				if (istype(location, /turf/simulated))
-					location.add_vomit_floor(src, 1)
-
-				var/stomach_len = src.stomach_contents.len
-				if (stomach_len)
-					var/content = src.stomach_contents[stomach_len]
-					if (istype(content, /atom/movable))
-						var/atom/movable/AM = content
-						src.stomach_contents.Remove(AM)
-						AM.loc = location
-
-				if(!hairball)
-					nutrition -= 40
-					adjustToxLoss(-3)
-				spawn(350)	//wait 35 seconds before next volley
-					lastpuke = 0
-
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
@@ -1323,12 +1269,6 @@
 					if(H.brainmob.mind)
 						H.brainmob.mind.transfer_to(src)
 						qdel(H)
-
-
-
-	for (var/ID in virus2)
-		var/datum/disease2/disease/V = virus2[ID]
-		V.cure(src)
 
 	..()
 
@@ -1619,26 +1559,36 @@
 // Allows IPC's to change their monitor display
 /mob/living/carbon/human/proc/change_monitor()
 	set category = "IC"
-	set name = "Change Monitor Display"
-	set desc = "Change the display on your monitor."
+	set name = "Change Monitor/Optical Display"
+	set desc = "Change the display on your monitor or the colour of your optics."
 
-	if(stat || paralysis || stunned || weakened)
-		src << "<span class='warning'>You cannot change your monitor display in your current state.</span>"
+	if(incapacitated())
+		src << "<span class='warning'>You cannot change your monitor or optical display in your current state.</span>"
 		return
 
-	var/list/hair = list()
-	for(var/i in hair_styles_list)
-		var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
-		if(species.name in tmp_hair.species_allowed)
-			hair += i
+	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
+		if(client.prefs.rlimb_data["head"]) //If head is present here, that means it's not the default Morpheus. Thus, no screen to adjust. Instead, let them change the colour of their optics!
+			var/optic_colour = input(src, "Select optic colour", rgb(r_markings, g_markings, b_markings)) as color|null
+			if(optic_colour)
+				r_markings = hex2num(copytext(optic_colour, 2, 4))
+				g_markings = hex2num(copytext(optic_colour, 4, 6))
+				b_markings = hex2num(copytext(optic_colour, 6, 8))
 
-	var/new_style = input(src, "Select a monitor display", "Monitor Display")  as null|anything in hair
-	if(stat || paralysis || stunned || weakened)
-		return
-	if(new_style)
-		h_style = new_style
+			update_markings()
+		else if(!client.prefs.rlimb_data["head"])//Means that the character has the default Morpheus head, which has a screen. Time to customize.
+			var/list/hair = list()
+			for(var/i in hair_styles_list)
+				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
+				if(species.name in tmp_hair.species_allowed)
+					hair += i
 
-	update_hair()
+			var/new_style = input(src, "Select a monitor display", "Monitor Display", h_style)  as null|anything in hair
+			if(incapacitated())
+				return
+			if(new_style)
+				h_style = new_style
+
+		update_hair()
 
 //Putting a couple of procs here that I don't know where else to dump.
 //Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
@@ -1752,7 +1702,7 @@
 		if(M.stat == 2)
 			M.gib()
 
-/mob/living/carbon/human/assess_threat(var/obj/machinery/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 
@@ -1929,7 +1879,12 @@
 	return 1.0 + 0.5*(30 - age)/80
 
 /mob/living/carbon/human/get_access()
-	. = ..() //objects in hand
-	if(!. && wear_id) //nothing in hand, try ID
-		return wear_id
-	//otherwise return hand/nothing
+	. = ..()
+
+	if(wear_id)
+		. |= wear_id.GetAccess()
+	if(istype(w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = w_uniform
+		if(U.accessories)
+			for(var/obj/item/clothing/accessory/A in U.accessories)
+				. |= A.GetAccess()

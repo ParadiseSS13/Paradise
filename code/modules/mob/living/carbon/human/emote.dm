@@ -789,8 +789,6 @@
 				for(var/mob/M in range(location,aoe_range))
 					if (M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
 						continue
-					if(!airborne_can_reach(location,M,aoe_range))
-						continue
 					// Now, we don't have this:
 					//new /obj/effects/fart_cloud(T,L)
 					// But:
@@ -851,4 +849,4 @@
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text = TextPreview(input(usr, "Please enter your new flavour text.", "Flavour text", null) as text)
+	update_flavor_text()

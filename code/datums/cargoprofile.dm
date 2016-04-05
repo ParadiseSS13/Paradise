@@ -277,7 +277,7 @@
 	name = "Completed Robots"
 	id = "finished"
 	blacklist = null
-	whitelist = list(/obj/mecha,/obj/machinery/bot,/mob/living/silicon/robot)
+	whitelist = list(/obj/mecha,/mob/living/simple_animal/bot,/mob/living/silicon/robot)
 	mobcheck = 1
 	//todo: detect and allow finished cyborg endoskeletons with no brain
 	contains(var/atom/A)

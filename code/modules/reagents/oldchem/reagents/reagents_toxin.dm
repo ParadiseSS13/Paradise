@@ -67,7 +67,7 @@
 		M << "\red Your insides are burning!"
 		M.adjustToxLoss(rand(20,60)*REM)
 	else if(prob(40))
-		M.heal_organ_damage(5*REM,0)
+		M.adjustBruteLoss(-5*REM)
 	..()
 	return
 
@@ -98,33 +98,9 @@
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 
-/datum/reagent/aslimetoxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if(istype(M, /mob/living/carbon) && M.stat != DEAD)
-		M << "\red Your flesh rapidly mutates!"
-		if(M.notransform)	return
-		M.notransform = 1
-		M.canmove = 0
-		M.icon = null
-		M.overlays.Cut()
-		M.invisibility = 101
-		for(var/obj/item/W in M)
-			if(istype(W, /obj/item/weapon/implant))	//TODO: Carn. give implants a dropped() or something
-				qdel(W)
-				continue
-			W.layer = initial(W.layer)
-			W.loc = M.loc
-			W.dropped(M)
-		var/mob/living/carbon/slime/new_mob = new /mob/living/carbon/slime(M.loc)
-		new_mob.a_intent = I_HARM
-		new_mob.universal_speak = 1
-		if(M.mind)
-			M.mind.transfer_to(new_mob)
-		else
-			new_mob.key = M.key
-		qdel(M)
-	..()
-	return
+/datum/reagent/aslimetoxin/reaction_mob(mob/M, method=TOUCH, reac_volume)
+	if(method != TOUCH)
+		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
 
 
 /datum/reagent/mercury
@@ -189,19 +165,7 @@
 	if(!M) M = holder.my_atom
 	if(M.radiation < 80)
 		M.apply_effect(4, IRRADIATE, negate_armor = 1)
-	// radium may increase your chances to cure a disease
-	if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
-		var/mob/living/carbon/C = M
-		if(C.virus2.len)
-			for (var/ID in C.virus2)
-				var/datum/disease2/disease/V = C.virus2[ID]
-				if(prob(5))
-					if(prob(50))
-						M.apply_effect(50, IRRADIATE, negate_armor = 1) // curing it that way may kill you instead
-						M.adjustToxLoss(100)
-					C.antibodies |= V.antigen
 	..()
-	return
 
 /datum/reagent/radium/reaction_turf(var/turf/T, var/volume)
 	src = null
