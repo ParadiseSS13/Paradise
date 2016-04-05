@@ -681,34 +681,6 @@ datum/reagent/life
 /datum/chemical_reaction/life/on_reaction(var/datum/reagents/holder, var/created_volume)
 	chemical_mob_spawn(holder, 1, "Life")
 
-proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reaction_name, var/mob_faction = "chemicalsummon")
-	if(holder && holder.my_atom)
-		var/blocked =  blocked_mobs //global variable for blocked mobs
-
-		var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
-		var/atom/A = holder.my_atom
-		var/turf/T = get_turf(A)
-		var/area/my_area = get_area(T)
-		var/message = "A [reaction_name] reaction has occured in (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[my_area.name]</A>)"
-		var/mob/M = get(A, /mob)
-		if(M)
-			message += " - carried by: [key_name_admin(M)]"
-		else
-			message += " - last fingerprint: [(A.fingerprintslast ? A.fingerprintslast : "N/A")]"
-
-		message_admins(message, 0, 1)
-
-		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
-
-		for(var/i = 1, i <= amount_to_spawn, i++)
-			var/chosen = pick(critters)
-			var/mob/living/simple_animal/hostile/C = new chosen
-			C.faction |= mob_faction
-			C.loc = get_turf(holder.my_atom)
-			if(prob(50))
-				for(var/j = 1, j <= rand(1, 3), j++)
-					step(C, pick(NORTH,SOUTH,EAST,WEST))
-
 /datum/reagent/mannitol/on_mob_life(mob/living/M as mob)
 	M.adjustBrainLoss(-3)
 	..()

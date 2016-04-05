@@ -94,3 +94,7 @@
 #define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody
 
 #define IGNORE_ACCESS -1
+
+#define CHEM_MOB_SPAWN_INVALID   0
+#define CHEM_MOB_SPAWN_HOSTILE   1
+#define CHEM_MOB_SPAWN_FRIENDLY  2
