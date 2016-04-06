@@ -246,7 +246,7 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				desc += " This thing is all in Japanese."
 			if(15)
 				name += " - Get Your LEGS"
-				desc += " LEGS: Leadership, Experiance, Genius, S(Opportunity)."
+				desc += " LEGS: Leadership, Experience, Genius, S(Opportunity)."
 			if(16)
 				name += " - Do Not Question"
 				desc += " A poster instructing the viewer not to ask about things they aren't meant to know."

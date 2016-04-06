@@ -221,7 +221,7 @@
 				tried_to_add_revheads = world.time + 6000 // wait 10 minutes
 
 	if(last_command_report == 0 && world.time >= 10 * 60 * 10)
-		src.command_report("We are regrettably announcing that your performance has been disappointing, and we are thus forced to cut down on financial support to your station. To achieve this, the pay of all personnal, except the Heads of Staff, has been halved.")
+		src.command_report("We are regrettably announcing that your performance has been disappointing, and we are thus forced to cut down on financial support to your station. To achieve this, the pay of all personnel, except the Heads of Staff, has been halved.")
 		last_command_report = 1
 	else if(last_command_report == 1 && world.time >= 10 * 60 * 30)
 		src.command_report("Statistics hint that a high amount of leisure time, and associated activities, are responsible for the poor performance of many of our stations. You are to bolt and close down any leisure facilities, such as the holodeck, the theatre and the bar. Food can be distributed through vendors and the kitchen.")

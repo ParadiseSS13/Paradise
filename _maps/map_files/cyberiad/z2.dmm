@@ -1275,7 +1275,7 @@
 "IR" = (/obj/machinery/computer/security/telescreen{desc = "Used for watching the Thunderdome."; name = "Thunderdome Telescreen"; network = list("Thunderdome"); pixel_y = -30},/turf/unsimulated/floor{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/tdome/tdomeadmin)
 "IS" = (/turf/unsimulated/floor{icon_state = "floor"},/area/tdome/tdomeadmin)
 "IT" = (/obj/structure/table,/obj/machinery/door_control{desc = "A remote control switch for port-side blast doors."; icon_state = "doorctrl0"; id = "thunderdomehea"; name = "Ranged Gear"; pixel_x = 0; pixel_y = 5; req_access_txt = "104"},/turf/unsimulated/floor{icon_state = "floor"},/area/tdome/tdomeadmin)
-"IU" = (/obj/structure/table,/obj/machinery/door_control{desc = "A remote control switch for port-side blast doors."; icon_state = "doorctrl0"; id = "thunderdomegen"; name = "General Equiptment"; pixel_x = 0; pixel_y = 5; req_access_txt = "104"},/turf/unsimulated/floor{icon_state = "floor"},/area/tdome/tdomeadmin)
+"IU" = (/obj/structure/table,/obj/machinery/door_control{desc = "A remote control switch for port-side blast doors."; icon_state = "doorctrl0"; id = "thunderdomegen"; name = "General Equipment"; pixel_x = 0; pixel_y = 5; req_access_txt = "104"},/turf/unsimulated/floor{icon_state = "floor"},/area/tdome/tdomeadmin)
 "IV" = (/obj/structure/table,/obj/machinery/door_control{desc = "A remote control switch for port-side blast doors."; icon_state = "doorctrl0"; id = "thunderdomeaxe"; name = "Specialist Supply"; pixel_x = 0; pixel_y = 5; req_access_txt = "104"},/turf/unsimulated/floor{icon_state = "floor"},/area/tdome/tdomeadmin)
 "Jb" = (/mob/living/simple_animal/pet/cat/Syndi,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 
