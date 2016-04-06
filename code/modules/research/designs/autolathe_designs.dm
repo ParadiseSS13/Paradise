@@ -639,3 +639,11 @@
 	materials = list(MAT_METAL = 150, MAT_GLASS = 125)
 	build_path = /obj/item/weapon/hand_labeler
 	category = list("initial", "Electronics")
+
+/datum/design/logic_board
+	name = "Logic Circuit"
+	id = "logic_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	build_path = /obj/item/weapon/circuitboard/logic_gate
+	category = list("initial", "Electronics")
