@@ -171,9 +171,13 @@
 	if(prob(BEE_POLLINATE_PEST_CHANCE))
 		Hydro.pestlevel = max(0, --Hydro.pestlevel)
 	if(prob(BEE_POLLINATE_YIELD_CHANCE)) //Yield mod is HELLA powerful, but quite rare
+		if(!isnull(plant_controller.seeds[Hydro.seed.name]))
+			Hydro.seed = Hydro.seed.diverge()
 		var/seed_yield = Hydro.seed.get_trait(TRAIT_YIELD)
 		Hydro.seed.set_trait(TRAIT_YIELD, seed_yield + 1, 10, 0)
 	if(prob(BEE_POLLINATE_POTENTCY_CHANCE))
+		if(!isnull(plant_controller.seeds[Hydro.seed.name]))
+			Hydro.seed = Hydro.seed.diverge()
 		var/seed_potency = Hydro.seed.get_trait(TRAIT_POTENCY)
 		Hydro.seed.set_trait(TRAIT_POTENCY, seed_potency + 1, 200, 0)
 
