@@ -817,7 +817,7 @@
 	var/list/blend_items = list (
 
 		//Sheets
-		/obj/item/stack/sheet/mineral/plasma = list("plasma" = 20),
+		/obj/item/stack/sheet/mineral/plasma = list("plasma_dust" = 20),
 		/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
 		/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
 		/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
