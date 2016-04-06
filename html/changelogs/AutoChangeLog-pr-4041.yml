@@ -1,0 +1,6 @@
+author: FalseIncarnate
+delete-after: True
+changes: 
+  - rscadd: "Adds logic gates, for doing illogical things in a logical manner."
+  - rscadd: "Adds buildable light switches, for all your light toggling needs."
+  - bugfix: "Fixes a resource duplication bug with mass driver buttons."
