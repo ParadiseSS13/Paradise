@@ -40,7 +40,7 @@
 /obj/item/weapon/anodevice/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/anobattery))
 		if(!inserted_battery)
-			user << "\blue You insert the battery."
+			to_chat(user, "\blue You insert the battery.")
 			user.drop_item()
 			I.loc = src
 			inserted_battery = I
@@ -103,7 +103,7 @@
 					if(interval > 0)
 						//apply the touch effect to the holder
 						if(holder)
-							holder << "the \icon[src] [src] held by [holder] shudders in your grasp."
+							to_chat(holder, "the \icon[src] [src] held by [holder] shudders in your grasp.")
 						else
 							src.loc.visible_message("the \icon[src] [src] shudders.")
 						inserted_battery.battery_effect.DoEffectTouch(holder)

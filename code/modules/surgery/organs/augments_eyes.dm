@@ -36,7 +36,7 @@
 		HMN.b_eyes = eye_colour[3]
 		HMN.update_eyes()
 	if(aug_message && !special)
-		owner << "<span class='notice'>[aug_message]</span>"
+		to_chat(owner, "<span class='notice'>[aug_message]</span>")
 	M.sight |= vision_flags
 
 /obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
@@ -59,7 +59,7 @@
 	if(severity > 1)
 		if(prob(10 * severity))
 			return
-	owner << "<span class='warning'>Static obfuscates your vision!</span>"
+	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
 	owner.flash_eyes(visual = 1)
 
 

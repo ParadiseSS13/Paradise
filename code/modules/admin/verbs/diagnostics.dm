@@ -15,9 +15,9 @@
 		if(T.active_hotspot)
 			burning = 1
 
-	usr << "\blue @[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]"
+	to_chat(usr, "\blue @[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]")
 	for(var/datum/gas/trace_gas in GM.trace_gases)
-		usr << "[trace_gas.type]: [trace_gas.moles]"
+		to_chat(usr, "[trace_gas.type]: [trace_gas.moles]")
 		
 	message_admins("[key_name_admin(usr)] has checked the air status of [T]")
 	log_admin("[key_name(usr)] has checked the air status of [T]")	
@@ -130,9 +130,9 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	usr << "<b>Jobbans active in this round.</b>"
+	to_chat(usr, "<b>Jobbans active in this round.</b>")
 	for(var/t in jobban_keylist)
-		usr << "[t]"
+		to_chat(usr, "[t]")
 		
 	message_admins("[key_name_admin(usr)] has printed the jobban log")
 	log_admin("[key_name(usr)] has printed the jobban log")
@@ -149,10 +149,10 @@
 	if(!filter)
 		return
 
-	usr << "<b>Jobbans active in this round.</b>"
+	to_chat(usr, "<b>Jobbans active in this round.</b>")
 	for(var/t in jobban_keylist)
 		if(findtext(t, filter))
-			usr << "[t]"
+			to_chat(usr, "[t]")
 			
 	message_admins("[key_name_admin(usr)] has searched the jobban log for [filter]")
 	log_admin("[key_name(usr)] has searched the jobban log for [filter]")

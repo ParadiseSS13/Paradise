@@ -8,7 +8,7 @@
 
 /obj/item/organ/internal/body_egg/on_find(mob/living/finder)
 	..()
-	finder << "<span class='warning'>You found an unknown alien organism in [owner]'s [parent_organ]!</span>"
+	to_chat(finder, "<span class='warning'>You found an unknown alien organism in [owner]'s [parent_organ]!</span>")
 
 /obj/item/organ/internal/body_egg/insert(var/mob/living/carbon/M, special = 0)
 	..()

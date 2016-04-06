@@ -113,7 +113,7 @@
 
 /mob/living/carbon/alien/humanoid/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if(M.Victim) return // can't attack while eating!
@@ -184,11 +184,11 @@
 
 /mob/living/carbon/alien/humanoid/attack_hand(mob/living/carbon/human/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	if(..())	//to allow surgery to return properly.
@@ -252,11 +252,11 @@ In all, this is a lot like the monkey code. /N
 
 /mob/living/carbon/alien/humanoid/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	..()
@@ -282,7 +282,7 @@ In all, this is a lot like the monkey code. /N
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
-				M << "<span class='warning'>[name] is too injured for that.</span>"
+				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
 	return
 
 
@@ -304,7 +304,7 @@ In all, this is a lot like the monkey code. /N
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
-				L << "<span class='warning'>[name] is too injured for that.</span>"
+				to_chat(L, "<span class='warning'>[name] is too injured for that.</span>")
 	return
 
 

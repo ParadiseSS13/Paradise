@@ -39,7 +39,7 @@
 	if(!proximity) return
 
 	if(reagents.total_volume < 1)
-		user << "<span class='warning'>Your mop is dry!</span>"
+		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
 		return
 
 	var/turf/simulated/turf = A
@@ -51,7 +51,7 @@
 		user.visible_message("[user] begins to clean \the [turf] with [src].", "<span class='notice'>You begin to clean \the [turf] with [src]...</span>")
 
 		if(do_after(user, src.mopspeed, target = turf))
-			user << "<span class='notice'>You finish mopping.</span>"
+			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(turf)
 
 
@@ -67,7 +67,7 @@
 
 /obj/item/weapon/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
-	user << "<span class='notice'>You wet [src] in [source].</span>"
+	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 	return 1
 

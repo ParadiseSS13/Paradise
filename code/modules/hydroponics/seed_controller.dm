@@ -13,11 +13,11 @@
 	if(!holder)	return
 
 	if(!plant_controller || !plant_controller.gene_tag_list)
-		usr << "Gene tags not set."
+		to_chat(usr, "Gene tags not set.")
 		return
 
 	for(var/gene_tag in plant_controller.gene_tag_list)
-		usr << "[gene_tag]"
+		to_chat(usr, "[gene_tag]")
 
 var/global/datum/controller/plants/plant_controller // Set in New().
 
@@ -144,7 +144,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 
 /client/proc/list_plant_sprites()
 	if(!plant_controller || !plant_controller.plant_sprites || !plant_controller.plant_sprites.len)
-		world << "Cannot list plant sprites, plant controller or plant sprites list may not be initialized."
+		to_chat(world, "Cannot list plant sprites, plant controller or plant sprites list may not be initialized.")
 
 	for(var/base in plant_controller.plant_sprites)
-		world << "[base] : [plant_controller.plant_sprites[base]] growth states"
+		to_chat(world, "[base] : [plant_controller.plant_sprites[base]] growth states")

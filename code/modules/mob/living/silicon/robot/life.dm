@@ -29,7 +29,7 @@
 			for(var/obj/item/borg/B in get_all_slots())
 				if(B.powerneeded)
 					if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
-						src << "Deactivating [B.name] due to lack of power!"
+						to_chat(src, "Deactivating [B.name] due to lack of power!")
 						uneq_module(B)
 		if(cell.charge <= 0)
 			uneq_all()
@@ -102,15 +102,15 @@
 		if(!istype(src, /mob/living/silicon/robot/drone))
 			if(health < 50) //Gradual break down of modules as more damage is sustained
 				if(uneq_module(module_state_3))
-					src << "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>"
+					to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
 
 				if(health < 0)
 					if(uneq_module(module_state_2))
-						src << "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>"
+						to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
 
 					if(health < -50)
 						if(uneq_module(module_state_1))
-							src << "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>"
+							to_chat(src, "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>")
 
 		if(paralysis || stunned || weakened)
 			stat = UNCONSCIOUS
@@ -277,7 +277,7 @@
 		weaponlock_time --
 		if(weaponlock_time <= 0)
 			if(src.client)
-				src << "\red <B>Weapon Lock Timed Out!"
+				to_chat(src, "\red <B>Weapon Lock Timed Out!")
 			weapon_lock = 0
 			weaponlock_time = 120
 

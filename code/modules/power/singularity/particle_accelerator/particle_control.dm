@@ -86,7 +86,7 @@
 		return 1
 
 	if(!interface_control)
-		usr << "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>"
+		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
 		return
 
 	if( href_list["close"] )

@@ -246,11 +246,11 @@
 		r.client.screen += r.throw_icon	//"store" icon
 
 		if(!r.module)
-			usr << "\red No module selected"
+			to_chat(usr, "\red No module selected")
 			return
 
 		if(!r.module.modules)
-			usr << "\red Selected module has no modules to select"
+			to_chat(usr, "\red Selected module has no modules to select")
 			return
 
 		if(!r.robot_modules_background)

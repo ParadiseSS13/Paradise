@@ -77,7 +77,7 @@
 				if(5)
 					R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
-				M << "<span class='notice'>You no longer feel reliant on [R.name]!</span>"
+				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)
 	update_total()
 
@@ -132,7 +132,7 @@
 	if(prob(8))
 		M.emote("sneeze")
 	if(prob(4))
-		M << "<span class='notice'>You feel a dull headache.</span>"
+		to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
 
 /datum/reagent/proc/addiction_act_stage3(var/mob/living/M as mob)
 	if(prob(8))
@@ -140,28 +140,28 @@
 	if(prob(8))
 		M.emote("shiver")
 	if(prob(4))
-		M << "<span class='warning'>You begin craving [name]!</span>"
+		to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
 
 /datum/reagent/proc/addiction_act_stage4(var/mob/living/M as mob)
 	if(prob(8))
 		M.emote("twitch")
 	if(prob(4))
-		M << "<span class='warning'>You have the strong urge for some [name]!</span>"
+		to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
 	if(prob(4))
-		M << "<span class='warning'>You REALLY crave some [name]!</span>"
+		to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
 
 /datum/reagent/proc/addiction_act_stage5(var/mob/living/M as mob)
 	if(prob(8))
 		M.emote("twitch")
 	if(prob(6))
-		M << "<span class='warning'>Your stomach lurches painfully!</span>"
+		to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
 		M.visible_message("<span class='warning'>[M] gags and retches!</span>")
 		M.Stun(rand(2,4))
 		M.Weaken(rand(2,4))
 	if(prob(5))
-		M << "<span class='warning'>You feel like you can't live without [name]!</span>"
+		to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
 	if(prob(5))
-		M << "<span class='warning'>You would DIE for some [name] right now!</span>"
+		to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 
 /datum/reagent/proc/reagent_deleted()
 	return

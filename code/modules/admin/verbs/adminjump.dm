@@ -19,7 +19,7 @@
 
 	var/turf/T = pick_n_take(turfs)
 	if(!T)
-		src << "Nowhere to jump to!"
+		to_chat(src, "Nowhere to jump to!")
 		return
 		
 	admin_forcemove(usr, T)
@@ -56,7 +56,7 @@
 			feedback_add_details("admin_verb","JM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 			admin_forcemove(A, M.loc)
 		else
-			A << "This mob is not located in the game world."
+			to_chat(A, "This mob is not located in the game world.")
 
 /client/proc/jumptocoord(tx as num, ty as num, tz as num)
 	set category = "Admin"
@@ -85,7 +85,7 @@
 		keys += M.client
 	var/selection = input("Please, select a player!", "Admin Jumping", null, null) as null|anything in sortKey(keys)
 	if(!selection)
-		src << "No keys found."
+		to_chat(src, "No keys found.")
 		return
 	var/mob/M = selection:mob
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")

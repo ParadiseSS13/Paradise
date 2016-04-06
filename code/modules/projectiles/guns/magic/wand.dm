@@ -27,13 +27,13 @@
 
 /obj/item/weapon/gun/magic/wand/examine(mob/user)
 	..(user)
-	user << "Has [charges] charge\s remaining."
+	to_chat(user, "Has [charges] charge\s remaining.")
 
 /obj/item/weapon/gun/magic/wand/attack_self(mob/living/user as mob)
 	if(charges)
 		zap_self(user)
 	else
-		user << "<span class='caution'>The [name] whizzles quietly.<span>"
+		to_chat(user, "<span class='caution'>The [name] whizzles quietly.<span>")
 	..()
 
 /obj/item/weapon/gun/magic/wand/attack(atom/target as mob, mob/living/user as mob)
@@ -43,7 +43,7 @@
 
 /obj/item/weapon/gun/magic/wand/afterattack(atom/target as mob, mob/living/user as mob)
 	if(!charges && !drained)
-		user << "<span class='warning'>The [name] whizzles quietly.<span>"
+		to_chat(user, "<span class='warning'>The [name] whizzles quietly.<span>")
 		icon_state = "[icon_state]-drained"
 		drained = 1
 		return
@@ -51,7 +51,7 @@
 		if(no_den_usage)
 			var/area/A = get_area(user)
 			if(istype(A, /area/wizard_station))
-				user << "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].<span>"
+				to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].<span>")
 				return
 		else
 			no_den_usage = 0
@@ -73,7 +73,7 @@
 	if(alert(user, "You really want to zap yourself with the wand of death?",, "Yes", "No") == "Yes" && charges && user.get_active_hand() == src && isliving(user))
 		var/message ="<span class='warning'>You irradiate yourself with pure energy! "
 		message += pick("Do not pass go. Do not collect 200 zorkmids.</span>","You feel more confident in your spell casting skills.</span>","You Die...</span>","Do you want your possessions identified?</span>")
-		user << message
+		to_chat(user, message)
 		user.adjustOxyLoss(500)
 		charges--
 		..()
@@ -95,7 +95,7 @@
 	user.radiation = 0
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss())
 	user.reagents.clear_reagents()
-	user << "<span class='notice'>You feel great!</span>"
+	to_chat(user, "<span class='notice'>You feel great!</span>")
 	charges--
 	..()
 

@@ -194,7 +194,7 @@
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
-		user << "You [panel_open ? "open" : "close"] the maintenance panel."
+		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		overlays.Cut()
 		if(panel_open)
 			overlays += image(icon, "[initial(icon_state)]-panel")
@@ -215,16 +215,16 @@
 		return
 
 	if(stat & NOPOWER)
-		user << "<span class='notice'>\The [src] is unpowered and useless.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
 	if(accept_check(O))
 		if(contents.len >= max_n_of_items)
-			user << "<span class='notice'>\The [src] is full.</span>"
+			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return 1
 		else
 			if(!user.drop_item())
-				user << "<span class='warning'>\The [O] is stuck to you!</span>"
+				to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
 				return
 
 			O.forceMove(src)
@@ -242,7 +242,7 @@
 		for(var/obj/G in P.contents)
 			if(accept_check(G))
 				if(contents.len >= max_n_of_items)
-					user << "<span class='notice'>\The [src] is full.</span>"
+					to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 					return 1
 				else
 					P.remove_from_storage(G,src)
@@ -255,12 +255,12 @@
 
 			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
 			if(P.contents.len > 0)
-				user << "<span class='notice'>Some items are refused.</span>"
+				to_chat(user, "<span class='notice'>Some items are refused.</span>")
 
 		nanomanager.update_uis(src)
 
 	else
-		user << "<span class='notice'>\The [src] smartly refuses [O].</span>"
+		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
 		return 1
 
 /obj/machinery/smartfridge/attack_ai(mob/user as mob)
@@ -281,7 +281,7 @@
 		return
 
 	if(stat & NOPOWER)
-		user << "<span class='notice'>\The [src] is unpowered and useless.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
 	var/obj/item/weapon/storage/box/pillbottles/P = over_object
@@ -289,7 +289,7 @@
 	for(var/obj/G in P.contents)
 		if(accept_check(G))
 			if(contents.len >= max_n_of_items)
-				user << "<span class='notice'>\The [src] is full.</span>"
+				to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 				return 1
 			else
 				P.remove_from_storage(G,src)
@@ -303,13 +303,13 @@
 		"<span class='notice'>[user] empties \the [P] into \the [src].</span>", \
 		"<span class='notice'>You empty \the [P] into \the [src].</span>")
 	if(P.contents.len > 0)
-		user << "<span class='notice'>Some items are refused.</span>"
+		to_chat(user, "<span class='notice'>Some items are refused.</span>")
 	nanomanager.update_uis(src)
 
 /obj/machinery/smartfridge/secure/emag_act(user as mob)
 	emagged = 1
 	locked = -1
-	user << "You short out the product lock on [src]."
+	to_chat(user, "You short out the product lock on [src].")
 
 /*******************
 *   SmartFridge Menu
@@ -408,7 +408,7 @@
 		return 0
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
 		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])
-			usr << "<span class='warning'>Access denied.</span>"
+			to_chat(usr, "<span class='warning'>Access denied.</span>")
 			nanomanager.update_uis(src)
 			return 0
 	return ..()
