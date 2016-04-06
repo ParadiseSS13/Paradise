@@ -626,3 +626,33 @@ datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
 	return
+
+/datum/reagent/plasma_dust
+	name = "Plasma Dust"
+	id = "plasma_dust"
+	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
+	color = "#500064" // rgb: 80, 0, 100
+
+/datum/reagent/plasma_dust/on_mob_life(mob/living/M)
+	M.adjustToxLoss(3)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.adjustPlasma(20)
+	..()
+
+/datum/reagent/plasma_dust/reaction_obj(obj/O, volume)
+	if((!O) || (!volume))
+		return 0
+	O.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
+
+/datum/reagent/plasma_dust/reaction_turf(turf/simulated/T, volume)
+	if(istype(T))
+		T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
+
+/datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
+	if(!istype(M, /mob/living))
+		return
+	if(method == TOUCH)
+		M.adjust_fire_stacks(volume / 5)
+		return
+	..()
