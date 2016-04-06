@@ -176,7 +176,7 @@
 				equip_to_slot_if_possible(C, slot)
 		else
 			equip_to_slot_if_possible(W, slot)
-	else
+	else if(!restrained())
 		W = get_item_by_slot(slot)
 		if(W)
 			W.attack_hand(src)
