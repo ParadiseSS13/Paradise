@@ -66,7 +66,7 @@
 			M.apply_damages(22 / move_delay)	// and do damage according to how fast the train is going
 			if(istype(load, /mob/living/carbon/human))
 				var/mob/living/D = load
-				D << "\red You hit [M]!"
+				to_chat(D, "\red You hit [M]!")
 				msg_admin_attack("[key_name_admin(D)] hit [key_name_admin(M)] with [src].")
 
 
@@ -86,7 +86,7 @@
 /obj/vehicle/train/relaymove(mob/user, direction)
 	var/turf/T = get_step_to(src, get_step(src, direction))
 	if(!T)
-		user << "You can't find a clear area to step onto."
+		to_chat(user, "You can't find a clear area to step onto.")
 		return 0
 
 	if(user != load)
@@ -97,7 +97,7 @@
 
 	unload(user, direction)
 
-	user << "\blue You climb down from [src]."
+	to_chat(user, "\blue You climb down from [src].")
 
 	return 1
 
@@ -108,7 +108,7 @@
 		latch(C, user)
 	else
 		if(!load(C))
-			user << "\red You were unable to load [C] on [src]."
+			to_chat(user, "\red You were unable to load [C] on [src].")
 
 /obj/vehicle/train/attack_hand(mob/user as mob)
 	if(user.stat || user.restrained() || !Adjacent(user))
@@ -145,22 +145,22 @@
 //attempts to attach src as a follower of the train T
 /obj/vehicle/train/proc/attach_to(obj/vehicle/train/T, mob/user)
 	if (get_dist(src, T) > 1)
-		user << "\red [src] is too far away from [T] to hitch them together."
+		to_chat(user, "\red [src] is too far away from [T] to hitch them together.")
 		return
 
 	if (lead)
-		user << "\red [src] is already hitched to something."
+		to_chat(user, "\red [src] is already hitched to something.")
 		return
 
 	if (T.tow)
-		user << "\red [T] is already towing something."
+		to_chat(user, "\red [T] is already towing something.")
 		return
 
 	//check for cycles.
 	var/obj/vehicle/train/next_car = T
 	while (next_car)
 		if (next_car == src)
-			user << "\red That seems very silly."
+			to_chat(user, "\red That seems very silly.")
 			return
 		next_car = next_car.lead
 
@@ -170,7 +170,7 @@
 	dir = lead.dir
 
 	if(user)
-		user << "\blue You hitch [src] to [T]."
+		to_chat(user, "\blue You hitch [src] to [T].")
 
 	update_stats()
 
@@ -178,7 +178,7 @@
 //detaches the train from whatever is towing it
 /obj/vehicle/train/proc/unattach(mob/user)
 	if (!lead)
-		user << "\red [src] is not hitched to anything."
+		to_chat(user, "\red [src] is not hitched to anything.")
 		return
 
 	lead.tow = null

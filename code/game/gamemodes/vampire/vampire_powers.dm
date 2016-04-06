@@ -19,7 +19,7 @@
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))
-		user << "<span class='warning'>You are in too weak of a form to do this!</span>"
+		to_chat(user, "<span class='warning'>You are in too weak of a form to do this!</span>")
 		return 0
 
 	var/datum/vampire/vampire = user.mind.vampire
@@ -30,18 +30,18 @@
 	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
 	if(user.stat >= DEAD)
-		user << "<span class='warning'>Not when you're dead!</span>"
+		to_chat(user, "<span class='warning'>Not when you're dead!</span>")
 		return 0
 
 	if(vampire.nullified && !fullpower)
-		user << "<span class='warning'>Something is blocking your powers!</span>"
+		to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
 		return 0
 	if(vampire.bloodusable < required_blood)
-		user << "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>"
+		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
 		return 0
 	//chapel check
 	if(istype(loc.loc, /area/chapel) && !fullpower)
-		user << "<span class='warning'>Your powers are useless on this holy ground.</span>"
+		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 		return 0
 	return ..()
 
@@ -105,7 +105,7 @@
 		targets.Cut()
 
 	if(targets.len)
-		usr << "<span class='notice'><b>You have [vampire.bloodusable] left to use.</b></span>"
+		to_chat(usr, "<span class='notice'><b>You have [vampire.bloodusable] left to use.</b></span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/choose_targets(mob/user = usr)
 	var/list/possible_targets[0]
@@ -157,7 +157,7 @@
 	usr.SetStunned(0)
 	usr.SetParalysis(0)
 	U.adjustStaminaLoss(-75)
-	usr << "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>"
+	to_chat(usr, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
 			for(var/i = 1 to 5)
@@ -178,17 +178,17 @@
 		usr.visible_message("<span class='warning'>[usr]'s eyes flash briefly as he stares into [target]'s eyes</span>")
 		if(do_mob(usr, target, 50))
 			if(!affects(target))
-				usr << "<span class='warning'>Your piercing gaze fails to knock out [target].</span>"
-				target << "\blue [usr]'s feeble gaze is ineffective."
+				to_chat(usr, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
+				to_chat(target, "\blue [usr]'s feeble gaze is ineffective.")
 			else
-				usr << "<span class='warning'>Your piercing gaze knocks out [target].</span>"
-				target << "<span class='warning'>You find yourself unable to move and barely able to speak.</span>"
+				to_chat(usr, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
+				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
 				target.Weaken(10)
 				target.Stun(10)
 				target.stuttering = 10
 		else
 			revert_cast(usr)
-			usr << "<span class='warning'>You broke your gaze.</span>"
+			to_chat(usr, "<span class='warning'>You broke your gaze.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease
 	name = "Diseased Touch (100)"
@@ -199,10 +199,10 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets)
 	for(var/mob/living/carbon/target in targets)
-		usr << "<span class='warning'>You stealthily infect [target] with your diseased touch.</span>"
+		to_chat(usr, "<span class='warning'>You stealthily infect [target] with your diseased touch.</span>")
 		target.help_shake_act(usr)
 		if(!affects(target))
-			usr << "<span class='warning'>They seem to be unaffected.</span>"
+			to_chat(usr, "<span class='warning'>They seem to be unaffected.</span>")
 			continue
 		var/datum/disease/D = new /datum/disease/appendicitis //someone should probably make a better virus for this
 		target.ForceContractDisease(D)
@@ -217,7 +217,7 @@
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets)
 	usr.visible_message("<span class='warning'><b>[usr]'s eyes emit a blinding flash!</span>")
 	if(istype(usr:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-		usr << "<span class='warning'>You're blindfolded!</span>"
+		to_chat(usr, "<span class='warning'>You're blindfolded!</span>")
 		return
 	for(var/mob/living/target in targets)
 		if(!affects(target))
@@ -225,7 +225,7 @@
 		target.Stun(5)
 		target.Weaken(5)
 		target.stuttering = 20
-		target << "<span class='warning'>You are blinded by [usr]'s glare.</span>"
+		to_chat(target, "<span class='warning'>You are blinded by [usr]'s glare.</span>")
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Shapeshift (50)"
@@ -257,7 +257,7 @@
 			continue
 		if(!affects(C))
 			continue
-		C << "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>"
+		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
 		C.ear_deaf = 20
 		C.stuttering = 20
@@ -277,16 +277,16 @@
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets)
 	for(var/mob/living/target in targets)
 		usr.visible_message("<span class='warning'>[usr] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
-		target << "<span class='warning'>You feel the tendrils of evil invade your mind.</span>"
+		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
 		if(!ishuman(target))
-			usr << "<span class='warning'>You can only enthrall humans.</span>"
+			to_chat(usr, "<span class='warning'>You can only enthrall humans.</span>")
 			break
 		if(do_mob(usr, target, 50))
 			if(can_enthrall(usr, target))
 				handle_enthrall(usr, target)
 			else
 				revert_cast(usr)
-				usr << "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>"
+				to_chat(usr, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
@@ -302,7 +302,7 @@
 		log_to_dd("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]")
 		return 0
 	if(!C.mind)
-		user << "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>"
+		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
 		return 0
 	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.vampire_enthralled ))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
@@ -310,7 +310,7 @@
 	if(!affects(C))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [ticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
 	if(!ishuman(C))
-		user << "<span class='warning'>You can only enthrall humans!</span>"
+		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>")
 		return 0
 	return 1
 
@@ -334,8 +334,8 @@
 	ticker.mode.vampire_enthralled.Add(H.mind)
 	ticker.mode.vampire_enthralled[H.mind] = user.mind
 	H.mind.special_role = "VampThrall"
-	H << "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>"
-	src << "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>"
+	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>")
+	to_chat(src, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
 	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 
 /obj/effect/proc_holder/spell/vampire/self/cloak
@@ -359,7 +359,7 @@
 	var/datum/vampire/V = usr.mind.vampire
 	V.iscloaking = !V.iscloaking
 	update_name()
-	usr << "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>"
+	to_chat(usr, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
 	name = "Summon Bats (75)"
@@ -425,7 +425,7 @@
 		sleep(jaunt_duration)
 		var/mobloc = get_turf(usr.loc)
 		if(get_area(mobloc) == /area/security/armoury/gamma)
-			usr << "A strange energy repels you!"
+			to_chat(usr, "A strange energy repels you!")
 			mobloc = originalloc
 		animation.loc = mobloc
 		steam.location = mobloc
@@ -485,7 +485,7 @@
 
 	if(!turfs.len)
 		revert_cast(user)
-		user << "\red You cannot find darkness to step to."
+		to_chat(user, "\red You cannot find darkness to step to.")
 		return
 
 	perform(turfs)

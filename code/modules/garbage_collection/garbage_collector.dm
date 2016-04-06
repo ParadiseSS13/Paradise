@@ -142,7 +142,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 				#endif
 				garbageCollector.addTrash(D)
 			else
-				// world << "WARNING GC DID NOT GET A RETURN VALUE FOR [D], [D.type]!"
+//				to_chat(world, "WARNING GC DID NOT GET A RETURN VALUE FOR [D], [D.type]!")
 				garbageCollector.addTrash(D)
 
 

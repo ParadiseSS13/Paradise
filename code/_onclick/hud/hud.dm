@@ -195,6 +195,6 @@ datum/hud/New(mob/owner)
 			//hud_used.reorganize_alerts()
 
 		else
-			usr << "\red Inventory hiding is currently only supported for human mobs, sorry."
+			to_chat(usr, "\red Inventory hiding is currently only supported for human mobs, sorry.")
 	else
-		usr << "\red This mob type does not use a HUD."
+		to_chat(usr, "\red This mob type does not use a HUD.")

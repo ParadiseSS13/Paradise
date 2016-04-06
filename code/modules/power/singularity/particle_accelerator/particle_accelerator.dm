@@ -96,7 +96,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	if (src.anchored)
-		usr << "It is fastened to the floor!"
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 270)
 	return 1
@@ -109,7 +109,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	if (src.anchored)
-		usr << "It is fastened to the floor!"
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 90)
 	return 1
@@ -235,7 +235,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 						"You add some wires.")
 					temp_state++
 				else
-					user << "<span class='warning'>You need one length of cable to wire the [src.name]!</span>"
+					to_chat(user, "<span class='warning'>You need one length of cable to wire the [src.name]!</span>")
 					return
 		if(2)
 			if(iswirecutter(O))//TODO:Shock user if its on?
@@ -289,7 +289,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	if (src.anchored)
-		usr << "It is fastened to the floor!"
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 270)
 	return 1
@@ -302,7 +302,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	if (src.anchored)
-		usr << "It is fastened to the floor!"
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 90)
 	return 1

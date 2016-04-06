@@ -209,7 +209,7 @@
 	add_fingerprint(usr)
 	usr.set_machine(src)
 	if(!src.allowed(usr) && !emagged)
-		usr << "\red You do not have the required access level"
+		to_chat(usr, "\red You do not have the required access level")
 		return
 
 	if(href_list["main"])
@@ -337,7 +337,7 @@
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "\blue You you disable the security protocols"
+		to_chat(user, "\blue You you disable the security protocols")
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core

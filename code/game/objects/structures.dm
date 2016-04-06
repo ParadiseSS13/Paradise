@@ -68,11 +68,11 @@
 
 	for(var/obj/O in range(0, src))
 		if(O.density == 1 && O != src && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
-			user << "\red You cannot climb [src], as it is blocked by \a [O]!"
+			to_chat(user, "\red You cannot climb [src], as it is blocked by \a [O]!")
 			return
 	for(var/turf/T in range(0, src))
 		if(T.density == 1)
-			user << "\red You cannot climb [src], as it is blocked by \a [T]!"
+			to_chat(user, "\red You cannot climb [src], as it is blocked by \a [T]!")
 			return
 	var/turf/T = src.loc
 	if(!T || !istype(T)) return
@@ -108,14 +108,14 @@
 		if(M.lying) return //No spamming this on people.
 
 		M.Weaken(5)
-		M << "\red You topple as \the [src] moves under you!"
+		to_chat(M, "\red You topple as \the [src] moves under you!")
 
 		if(prob(25))
 
 			var/damage = rand(15,30)
 			var/mob/living/carbon/human/H = M
 			if(!istype(H))
-				H << "\red You land heavily!"
+				to_chat(H, "\red You land heavily!")
 				M.adjustBruteLoss(damage)
 				return
 
@@ -134,12 +134,12 @@
 					affecting = H.get_organ("head")
 
 			if(affecting)
-				M << "\red You land heavily on your [affecting.name]!"
+				to_chat(M, "\red You land heavily on your [affecting.name]!")
 				affecting.take_damage(damage, 0)
 				if(affecting.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
-				H << "\red You land heavily!"
+				to_chat(H, "\red You land heavily!")
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
@@ -152,12 +152,12 @@
 	if(!Adjacent(user))
 		return 0
 	if (user.restrained() || user.buckled)
-		user << "<span class='notice'>You need your hands and legs free for this.</span>"
+		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
 	if (user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
 		return 0
 	if (issilicon(user))
-		user << "<span class='notice'>You need hands for this.</span>"
+		to_chat(user, "<span class='notice'>You need hands for this.</span>")
 		return 0
 	return 1
 

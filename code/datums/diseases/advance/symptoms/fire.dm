@@ -31,16 +31,16 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3)
-				M << "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>"
+				to_chat(M, "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>")
 			if(4)
 				Firestacks_stage_4(M, A)
 				M.IgniteMob()
-				M << "<span class='userdanger'>Your skin bursts into flames!</span>"
+				to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
 				M.emote("scream")
 			if(5)
 				Firestacks_stage_5(M, A)
 				M.IgniteMob()
-				M << "<span class='userdanger'>Your skin erupts into an inferno!</span>"
+				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
 				M.emote("scream")
 	return
 

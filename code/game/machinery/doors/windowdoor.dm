@@ -260,11 +260,11 @@
 
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(src.density || src.operating)
-			user << "<span class='warning'>You need to open the door to access the maintenance panel.</span>"
+			to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel.</span>")
 			return
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		src.p_open = !( src.p_open )
-		user << "<span class='notice'>You [p_open ? "open":"close"] the maintenance panel of the [src.name].</span>"
+		to_chat(user, "<span class='notice'>You [p_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
 		return
 
 	if(istype(I, /obj/item/weapon/crowbar))
@@ -294,11 +294,11 @@
 					WA.created_name = src.name
 
 					if(emagged)
-						user << "<span class='warning'>You discard the damaged electronics.</span>"
+						to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
 						qdel(src)
 						return
 
-					user << "<span class='notice'>You removed the airlock electronics!</span>"
+					to_chat(user, "<span class='notice'>You removed the airlock electronics!</span>")
 
 					var/obj/item/weapon/airlock_electronics/ae
 					if(!electronics)
