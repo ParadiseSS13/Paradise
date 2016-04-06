@@ -17,6 +17,7 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	see_in_dark = 5
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/pet/pug/process_ai()
 	..()
