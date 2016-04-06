@@ -77,32 +77,16 @@
 		name = "Slime Crit"
 		id = "m_tele"
 		result = null
-		required_reagents = list("plasma" = 5)
+		required_reagents = list("plasma" = 1)
 		result_amount = 1
 		required_container = /obj/item/slime_extract/gold
 		required_other = 1
 		on_reaction(var/datum/reagents/holder)
-
-			var/blocked = blocked_mobs //global variable of blocked mobs
-
-			var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
-
-			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
-
-			for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
-				if(M:eyecheck() <= 0)
-					flick("e_flash", M.flash)
-
-			for(var/i = 1, i <= 5, i++)
-				var/chosen = pick(critters)
-				var/mob/living/simple_animal/hostile/C = new chosen
-				C.faction |= "slimesummon"
-				C.loc = get_turf(holder.my_atom)
-				if(prob(50))
-					for(var/j = 1, j <= rand(1, 3), j++)
-						step(C, pick(NORTH,SOUTH,EAST,WEST))
-//				for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-//					O.show_message(text("\red The slime core fizzles disappointingly,"), 1)
+			feedback_add_details("slime_cores_used","[type]")
+			var/turf/T = get_turf(holder.my_atom)
+			T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
+			spawn(50)
+				chemical_mob_spawn(holder, 5, "Gold Slime")
 
 
 	slimecritlesser
@@ -114,27 +98,28 @@
 		required_container = /obj/item/slime_extract/gold
 		required_other = 1
 		on_reaction(var/datum/reagents/holder)
-			feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
-			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-				O.show_message(text("<span class='danger'>The slime extract begins to vibrate violently!</span>"), 1)
+			feedback_add_details("slime_cores_used","[type]")
+			var/turf/T = get_turf(holder.my_atom)
+			T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
 			spawn(50)
+				chemical_mob_spawn(holder, 3, "Lesser Gold Slime", "neutral")
 
-			if(holder && holder.my_atom)
 
-				var/blocked = blocked_mobs
+	slimecritfriendly
+		name = "Slime Crit Friendly"
+		id = "m_tele5"
+		result = null
+		required_reagents = list("water" = 1)
+		result_amount = 1
+		required_container = /obj/item/slime_extract/gold
+		required_other = 1
+		on_reaction(datum/reagents/holder)
+			feedback_add_details("slime_cores_used","[type]")
+			var/turf/T = get_turf(holder.my_atom)
+			T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably !</span>")
+			spawn(50)
+				chemical_mob_spawn(holder, 1, "Friendly Gold Slime", "neutral")
 
-				var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
-
-				playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
-
-				for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
-					if(M:eyecheck() <= 0)
-						flick("e_flash", M.flash)
-
-				var/chosen = pick(critters)
-				var/mob/living/simple_animal/hostile/C = new chosen
-				C.faction |= "neutral"
-				C.loc = get_turf(holder.my_atom)
 
 //Silver
 	slimebork
@@ -153,9 +138,8 @@
 
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 
-			for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
-				if(M:eyecheck() <= 0)
-					flick("e_flash", M.flash)
+			for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
+				C.flash_eyes()
 
 			for(var/i = 1, i <= 4 + rand(1,2), i++)
 				var/chosen = pick(borks)
@@ -181,9 +165,8 @@
 
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 
-			for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
-				if(M:eyecheck() <= 0)
-					flick("e_flash", M.flash)
+			for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
+				C.flash_eyes()
 
 			for(var/i = 1, i <= 4 + rand(1,2), i++)
 				var/chosen = pick(borks)
@@ -492,6 +475,20 @@
 			feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
 			var/obj/item/weapon/slimesteroid2/P = new /obj/item/weapon/slimesteroid2
 			P.loc = get_turf(holder.my_atom)
+
+	slime_territory
+		name = "Slime Territory"
+		id = "s_territory"
+		result = null
+		required_reagents = list("blood" = 1)
+		result_amount = 1
+		required_container = /obj/item/slime_extract/cerulean
+		required_other = 1
+		on_reaction(datum/reagents/holder)
+			feedback_add_details("slime_cores_used","[type]")
+			var/obj/item/areaeditor/blueprints/slime/P = new /obj/item/areaeditor/blueprints/slime
+			P.forceMove(get_turf(holder.my_atom))
+
 //Sepia
 	slimestop
 		name = "Slime Stop"

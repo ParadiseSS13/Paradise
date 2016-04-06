@@ -12,17 +12,17 @@
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
 	speak_chance = 1
 	turns_per_move = 10
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/pug
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/pug = 3)
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	see_in_dark = 5
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/pet/pug/Life()
+/mob/living/simple_animal/pet/pug/process_ai()
 	..()
 
-	if(!stat && !resting && !buckled)
+	if(!resting && !buckled)
 		if(prob(1))
 			custom_emote(1, pick("chases its tail."))
 			spawn(0)

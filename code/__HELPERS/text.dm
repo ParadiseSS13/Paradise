@@ -59,7 +59,7 @@
 //Removes a few problematic characters
 /proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)
-		replacetext(t, char, repl_chars[char])
+		t = replacetext(t, char, repl_chars[char])
 	return t
 
 /proc/readd_quotes(var/t)

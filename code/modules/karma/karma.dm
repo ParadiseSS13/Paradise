@@ -270,10 +270,10 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			karmacharge(cost)
 
 	if(dbckey)
-		var/list/joblist = text2list(dbjob,",")
+		var/list/joblist = splittext(dbjob,",")
 		if(!(job in joblist))
 			joblist += job
-			var/newjoblist = list2text(joblist,",")
+			var/newjoblist = jointext(joblist,",")
 			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET job='[newjoblist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
@@ -310,10 +310,10 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			karmacharge(cost)
 
 	if(dbckey)
-		var/list/specieslist = text2list(dbspecies,",")
+		var/list/specieslist = splittext(dbspecies,",")
 		if(!(species in specieslist))
 			specieslist += species
-			var/newspecieslist = list2text(specieslist,",")
+			var/newspecieslist = jointext(specieslist,",")
 			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET species='[newspecieslist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
@@ -388,15 +388,15 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	if(dbckey)
 		var/list/typelist = list()
 		if(type == "job")
-			typelist = text2list(dbjob,",")
+			typelist = splittext(dbjob,",")
 		else if(type == "species")
-			typelist = text2list(dbspecies,",")
+			typelist = splittext(dbspecies,",")
 		else
 			usr << "\red Type [type] is not a valid column."
 
 		if(name in typelist)
 			typelist -= name
-			var/newtypelist = list2text(typelist,",")
+			var/newtypelist = jointext(typelist,",")
 			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET [type]='[newtypelist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
@@ -426,8 +426,8 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		dbspecies = query.item[4]
 
 	if(dbckey)
-		var/list/joblist = text2list(dbjob,",")
-		var/list/specieslist = text2list(dbspecies,",")
+		var/list/joblist = splittext(dbjob,",")
+		var/list/specieslist = splittext(dbspecies,",")
 		var/list/combinedlist = joblist + specieslist
 		if(name)
 			if(name in combinedlist)

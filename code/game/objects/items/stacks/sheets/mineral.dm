@@ -5,6 +5,7 @@ Mineral Sheets
 		- Diamond
 		- Uranium
 		- Plasma
+		- Plastic
 		- Gold
 		- Silver
 		- Bananium

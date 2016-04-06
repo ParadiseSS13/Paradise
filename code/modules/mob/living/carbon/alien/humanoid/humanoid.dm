@@ -2,6 +2,7 @@
 	name = "alien"
 	icon_state = "alien_s"
 
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/weapon/r_store = null
 	var/obj/item/weapon/l_store = null
 	var/caste = ""

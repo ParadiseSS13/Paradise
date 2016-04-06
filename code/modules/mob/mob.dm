@@ -6,6 +6,8 @@
 	hud_used = null
 	if(mind && mind.current == src)
 		spellremove(src)
+	for(var/infection in viruses)
+		qdel(infection)
 	ghostize()
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
@@ -174,6 +176,10 @@
 				equip_to_slot_if_possible(C, slot)
 		else
 			equip_to_slot_if_possible(W, slot)
+	else
+		W = get_item_by_slot(slot)
+		if(W)
+			W.attack_hand(src)
 
 	if(ishuman(src) && W == src:head)
 		src:update_hair()
@@ -749,16 +755,6 @@ var/list/slot_equipment_priority = list( \
 				namecounts[name] = 1
 			creatures[name] = O
 
-		if(istype(O, /obj/machinery/bot))
-			var/name = "BOT: [O.name]"
-			if (names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
 
 	for(var/mob/M in sortAtom(mob_list))
 		var/name = M.name
@@ -861,9 +857,9 @@ var/list/slot_equipment_priority = list( \
 	..()
 	if(M != usr) return
 	if(M.small) return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+	if(!M.can_strip) return
 	if(usr == src) return
 	if(!Adjacent(usr)) return
-	if(istype(M,/mob/living/silicon/ai)) return
 	show_inv(usr)
 
 //this and stop_pulling really ought to be /mob/living procs
@@ -997,30 +993,9 @@ var/list/slot_equipment_priority = list( \
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
-	var/obj/docking_port/mobile/emergency/E = shuttle_master.emergency
-
-	if(E.mode >= SHUTTLE_RECALL)
-		var/message = ""
-
-		var/timeleft = E.timeLeft()
-		message = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-
-		switch(E.mode)
-			if(SHUTTLE_RECALL, SHUTTLE_ESCAPE)
-				message = "ETR-[message]"
-			if(SHUTTLE_CALL)
-				message = "ETA-[message]"
-			if(SHUTTLE_DOCKED)
-				if(timeleft < 5)
-					message = "Departing..."
-				else
-					message = "ETD-[message]"
-			if(SHUTTLE_STRANDED)
-				message = "ETA-ERR"
-			if(SHUTTLE_ENDGAME)
-				return
-
-		stat(null, message)
+	var/ETA = shuttle_master.emergency.getModeStr()
+	if(ETA)
+		stat(null, "[ETA] [shuttle_master.emergency.getTimerStr()]")
 
 /mob/proc/add_stings_to_statpanel(var/list/stings)
 	for(var/obj/effect/proc_holder/changeling/S in stings)
@@ -1192,9 +1167,6 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/get_species()
 	return ""
 
-/mob/proc/flash_weak_pain()
-	flick("weak_pain",pain)
-
 /mob/proc/get_visible_implants(var/class = 0)
 	var/list/visible_implants = list()
 	for(var/obj/item/O in embedded)
@@ -1364,6 +1336,11 @@ mob/proc/yank_out_object()
 					return G
 				break
 
+/mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null)
+	var/mob/dead/observer/ghost = get_ghost()
+	if(ghost)
+		ghost.notify_cloning(message, sound, source)
+		return ghost
 
 /mob/proc/fakevomit(green=0) //for aesthetic vomits that need to be instant and do not stun. -Fox
 	if(stat==DEAD)
@@ -1377,16 +1354,6 @@ mob/proc/yank_out_object()
 			src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
-
-/mob/proc/fakepoop() //for aesthetic craps. Whyyyyy -Fox
-	if(stat==DEAD)
-		return
-	var/turf/location = loc
-	if (istype(location, /turf/simulated))
-		src.visible_message("<span class='warning'>[src] has explosive diarrhea all over the floor!</span>","<span class='warning'>You have explosive diarrhea all over the floor!</span>")
-		location.add_poop_floor()
-		playsound(location, 'sound/effects/splat.ogg', 50, 1)
-
 
 
 /mob/proc/adjustEarDamage()

@@ -11,8 +11,7 @@
 	emote_see = list("clacks")
 	speak_chance = 1
 	turns_per_move = 5
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "stomps the"
@@ -23,6 +22,7 @@
 	var/obj/item/inventory_mask
 	can_hide = 1
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement
@@ -47,6 +47,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 //LOOK AT THIS - ..()??
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob, params)

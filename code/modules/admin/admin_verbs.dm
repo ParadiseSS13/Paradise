@@ -70,7 +70,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/secrets,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
-	/client/proc/virus_2_creator,
 	/client/proc/debug_variables
 )
 var/list/admin_verbs_ban = list(
@@ -576,43 +575,16 @@ var/list/admin_verbs_proccall = list (
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
 	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
 
-
-/client/proc/give_disease2(mob/T as mob in mob_list) // -- Giacom
+/client/proc/give_disease(mob/T in mob_list)
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-
-	if(!check_rights(R_EVENT))
-		return
-
-	var/datum/disease2/disease/D = new /datum/disease2/disease()
-
-	var/severity = 1
-	var/greater = input("Is this a lesser, greater, or badmin disease?", "Give Disease") in list("Lesser", "Greater", "Badmin")
-	switch(greater)
-		if ("Lesser") severity = 1
-		if ("Greater") severity = 2
-		if ("Badmin") severity = 99
-
-	D.makerandom(severity)
-
-	D.spreadtype = input("What method of contagion should the disease have?", "Give Disease") in list("Airborne","Contact","Injection")
-
-	D.infectionchance = input("How virulent is this disease? (1-100)", "Give Disease", D.infectionchance) as num
-
-	if(istype(T,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = T
-		if (H.species)
-			D.affected_species = list(H.species.name)
-			if(H.species.primitive_form)
-				D.affected_species |= H.species.primitive_form
-			if(H.species.greater_form)
-				D.affected_species |= H.species.greater_form
-	infect_virus2(T,D,1)
-
-	feedback_add_details("admin_verb","GD2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] a [greater] disease2 with infection chance [D.infectionchance].")
-	message_admins("[key_name_admin(usr)] gave [key_name(T)] a [greater] disease2 with infection chance [D.infectionchance].")
+	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in diseases
+	if(!D) return
+	T.ForceContractDisease(new D)
+	feedback_add_details("admin_verb","GD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
 
 /client/proc/make_sound(var/obj/O in view()) // -- TLE
 	set category = "Event"
@@ -705,7 +677,7 @@ var/list/admin_verbs_proccall = list (
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
-			var/list/splitline = text2list(line, " - ")
+			var/list/splitline = splittext(line, " - ")
 			if(n_lower(splitline[1]) == ckey)
 				if(splitline.len >= 2)
 					rank = ckeyEx(splitline[2])
@@ -859,19 +831,6 @@ var/list/admin_verbs_proccall = list (
 			admin_log_and_message_admins("has allowed [H] to change \his appearance, with whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	feedback_add_details("admin_verb","CMAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/virus_2_creator()
-	set name = "Virus2 Creator"
-	set desc = "Allows you to create and spread custom viruses."
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/datum/nano_module/virus2/virus2 = new()
-	virus2.ui_interact(usr, state = admin_state)
-	log_and_message_admins("has opened the virus2 creator.")
-	feedback_add_details("admin_verb","VS2C")
 
 /client/proc/free_slot()
 	set name = "Free Job Slot"

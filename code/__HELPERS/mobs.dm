@@ -162,3 +162,97 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		if(!admin) return
 		msg_admin_attack("[key_name_admin(user)] [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
 
+/proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1)
+	if(!user || !target)
+		return 0
+	var/user_loc = user.loc
+
+	var/drifting = 0
+	if(!user.Process_Spacemove(0) && user.inertia_dir)
+		drifting = 1
+
+	var/target_loc = target.loc
+
+	var/holding = user.get_active_hand()
+	var/datum/progressbar/progbar
+	if (progress)
+		progbar = new(user, time, target)
+
+	var/endtime = world.time+time
+	var/starttime = world.time
+	. = 1
+	while (world.time < endtime)
+		sleep(1)
+		if (progress)
+			progbar.update(world.time - starttime)
+		if(!user || !target)
+			. = 0
+			break
+		if(uninterruptible)
+			continue
+
+		if(drifting && !user.inertia_dir)
+			drifting = 0
+			user_loc = user.loc
+
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying )
+			. = 0
+			break
+	if (progress)
+		qdel(progbar)
+
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1)
+	if(!user)
+		return 0
+	var/atom/Tloc = null
+	if(target)
+		Tloc = target.loc
+
+	var/atom/Uloc = user.loc
+
+	var/drifting = 0
+	if(!user.Process_Spacemove(0) && user.inertia_dir)
+		drifting = 1
+
+	var/holding = user.get_active_hand()
+
+	var/holdingnull = 1 //User's hand started out empty, check for an empty hand
+	if(holding)
+		holdingnull = 0 //Users hand started holding something, check to see if it's still holding that
+
+	var/datum/progressbar/progbar
+	if (progress)
+		progbar = new(user, delay, target)
+
+	var/endtime = world.time + delay
+	var/starttime = world.time
+	. = 1
+	while (world.time < endtime)
+		sleep(1)
+		if (progress)
+			progbar.update(world.time - starttime)
+
+		if(drifting && !user.inertia_dir)
+			drifting = 0
+			Uloc = user.loc
+
+		if(!user || user.stat || user.weakened || user.stunned  || (!drifting && user.loc != Uloc))
+			. = 0
+			break
+
+		if(Tloc && (!target || Tloc != target.loc))
+			. = 0
+			break
+
+		if(needhand)
+			//This might seem like an odd check, but you can still need a hand even when it's empty
+			//i.e the hand is used to pull some item/tool out of the construction
+			if(!holdingnull)
+				if(!holding)
+					. = 0
+					break
+			if(user.get_active_hand() != holding)
+				. = 0
+				break
+	if (progress)
+		qdel(progbar)

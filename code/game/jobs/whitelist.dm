@@ -34,7 +34,7 @@ var/list/whitelist = list()
 			while(query.NextRow())
 				var/joblist = query.item[1]
 				if(joblist!="*")
-					var/allowed_jobs = text2list(joblist,",")
+					var/allowed_jobs = splittext(joblist,",")
 					if(rank in allowed_jobs) return 1
 				else return 1
 			return 0
@@ -56,7 +56,7 @@ var/list/whitelist = list()
 	if (!text)
 		diary << "Failed to load config/alienwhitelist.txt\n"
 	else
-		alien_whitelist = text2list(text, "\n")
+		alien_whitelist = splittext(text, "\n")
 
 //todo: admin aliens
 /proc/is_alien_whitelisted(mob/M, var/species)
@@ -78,7 +78,7 @@ var/list/whitelist = list()
 		while(query.NextRow())
 			var/specieslist = query.item[1]
 			if(specieslist!="*")
-				var/allowed_species = text2list(specieslist,",")
+				var/allowed_species = splittext(specieslist,",")
 				if(species in allowed_species) return 1
 			else return 1
 		return 0

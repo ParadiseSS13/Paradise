@@ -29,7 +29,6 @@
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 
 	total_health = 75
 	brute_mod = 1.5

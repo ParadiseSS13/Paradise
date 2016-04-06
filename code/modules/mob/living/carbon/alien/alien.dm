@@ -67,7 +67,7 @@
 	return
 
 
-/mob/living/carbon/alien/eyecheck()
+/mob/living/carbon/alien/check_eye_prot()
 	return 2
 
 /mob/living/carbon/alien/updatehealth()
@@ -196,7 +196,7 @@
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 
 
-/mob/living/carbon/alien/assess_threat(var/obj/machinery/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/alien/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 	var/threatcount = 0

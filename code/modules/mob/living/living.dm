@@ -73,8 +73,7 @@
 
 /mob/living/ex_act(severity)
 	..()
-	if(client && !eye_blind)
-		flick("flash", src.flash)
+	flash_eyes()
 
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
@@ -385,6 +384,9 @@
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
 		C.heart_attack = 0
+
+		for(var/datum/disease/D in C.viruses)
+			D.cure(0)
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
@@ -806,6 +808,18 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
+//called when the mob receives a bright flash
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+	if(check_eye_prot() < intensity && (override_blindness_check || !(sdisabilities & BLIND)))
+		overlay_fullscreen("flash", type)
+		addtimer(src, "clear_fullscreen", 25, FALSE, "flash", 25)
+		return 1
+
+/mob/living/proc/check_eye_prot()
+	return 0
+
+/mob/living/proc/check_ear_prot()
+
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
@@ -953,3 +967,14 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+/mob/living/proc/harvest(mob/living/user)
+	if(qdeleted(src))
+		return
+	if(butcher_results)
+		for(var/path in butcher_results)
+			for(var/i = 1, i <= butcher_results[path], i++)
+				new path(loc)
+			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+		visible_message("<span class='notice'>[user] butchers [src].</span>")
+		gib()

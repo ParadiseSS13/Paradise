@@ -384,6 +384,7 @@
 		var/obj/structure/closet/crate/CR = Crate
 		CR.manifest = slip
 		CR.update_icon()
+		CR.announce_beacons = object.announce_beacons.Copy()
 	if(istype(Crate, /obj/structure/largecrate))
 		var/obj/structure/largecrate/LC = Crate
 		LC.manifest = slip
@@ -780,7 +781,8 @@
 	var/list/mobs_can_pass = list(
 		/mob/living/carbon/slime,
 		/mob/living/simple_animal/mouse,
-		/mob/living/silicon/robot/drone
+		/mob/living/silicon/robot/drone,
+		/mob/living/simple_animal/bot/mulebot
 		)
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
@@ -813,6 +815,18 @@
 		return 0
 
 	return ..()
+
+
+/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
+	if(istype(caller, /mob/living))
+		for(var/mob_type in mobs_can_pass)
+			if(istype(caller, mob_type))
+				return 1
+
+		var/mob/living/M = caller
+		if(!M.ventcrawler && !M.small)
+			return 0
+	return 1
 
 /obj/structure/plasticflaps/ex_act(severity)
 	switch(severity)

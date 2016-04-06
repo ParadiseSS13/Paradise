@@ -81,6 +81,10 @@
 /datum/reagent/proc/on_update(var/atom/A)
 	return
 
+// Called after add_reagents creates a new reagent.
+/datum/reagent/proc/on_new(data)
+	return
+
 /datum/reagent/Destroy()
 	. = ..()
 	holder = null

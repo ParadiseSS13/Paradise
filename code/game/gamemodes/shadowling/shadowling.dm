@@ -69,6 +69,7 @@ Made by Xhuis
 	name = "shadowling"
 	config_tag = "shadowling"
 	required_players = 30
+	required_players_secret = 30
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
@@ -87,7 +88,7 @@ Made by Xhuis
 	if(!possible_shadowlings.len)
 		return 0
 
-	var/shadowlings = max(2, round(num_players()/10)) //How many shadowlings there are; hardcoded to 2
+	var/shadowlings = max(3, round(num_players()/14))
 
 	while(shadowlings)
 		var/datum/mind/shadow = pick(possible_shadowlings)
@@ -114,7 +115,7 @@ Made by Xhuis
 
 /datum/game_mode/proc/greet_shadow(var/datum/mind/shadow)
 	shadow.current << "<b>Currently, you are disguised as an employee aboard [world.name].</b>"
-	shadow.current << "<b>In your limited state, you have three abilities: Enthrall, Hatch, and Shadowling Hivemind (:8).</b>"
+	shadow.current << "<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind (:8).</b>"
 	shadow.current << "<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>"
 	shadow.current << "<b>If you are new to shadowling, or want to read about abilities, check the wiki page at http://nanotrasen.se/wiki/index.php/Shadowling</b><br>"
 
@@ -132,8 +133,6 @@ Made by Xhuis
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch)
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall)
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision)
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
@@ -246,6 +245,8 @@ Made by Xhuis
 		world << "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>"
 	else if(!check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		world << "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>"
+	else
+		world << "<span class='redtext'><b>The shadowlings have failed!</b></span>"
 	..()
 	return 1
 
@@ -300,7 +301,7 @@ Made by Xhuis
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE | NO_INTORGANS
+	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	hot_env_multiplier = 1.5
 
@@ -326,6 +327,36 @@ Made by Xhuis
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)
 			H.SetStunned(0)
+
+
+/datum/species/shadow/ling/lesser //Empowered thralls. Obvious, but powerful
+	name = "Lesser Shadowling"
+
+	icobase = 'icons/mob/human_races/r_lshadowling.dmi'
+	deform = 'icons/mob/human_races/r_lshadowling.dmi'
+
+	blood_color = "#CCCCCC"
+	flesh_color = "#AAAAAA"
+
+	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
+	burn_mod = 1.1
+	hot_env_multiplier = 1.1
+
+/datum/species/shadow/ling/lesser/handle_life(var/mob/living/carbon/human/H)
+	if(!H.weakeyes)
+		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
+	var/light_amount = 0
+	H.nutrition = 450 //i aint never get hongry
+	if(isturf(H.loc))
+		var/turf/T = H.loc
+		light_amount = T.get_lumcount() * 10
+		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move)
+			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN/2)
+		else if (light_amount < LIGHT_HEAL_THRESHOLD)
+			H.heal_overall_damage(2,2)
+			H.adjustToxLoss(-5)
+			H.adjustBrainLoss(-25)
+			H.adjustCloneLoss(-1)
 
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
 	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]

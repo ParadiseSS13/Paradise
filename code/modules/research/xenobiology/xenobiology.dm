@@ -200,6 +200,7 @@
 	var/list/not_interested = list()
 	var/being_used = 0
 	w_class = 1
+	var/sentience_type = SENTIENCE_ORGANIC
 
 
 /obj/item/weapon/sentience_potion/afterattack(mob/living/M, mob/user)
@@ -210,27 +211,30 @@
 		return ..()
 	if(M.stat)
 		user << "<span class='warning'>[M] is dead!</span>"
-		return..()
+		return ..()
+	var/mob/living/simple_animal/SM = M
+	if(SM.sentience_type != sentience_type)
+		user << "<span class='warning'>The potion won't work on [SM].</span>"
+		return ..()
 
-	user << "<span class='notice'>You offer the sentience potion to [M]...</span>"
+	user << "<span class='notice'>You offer the sentience potion to [SM]...</span>"
 	being_used = 1
 
-	var/list/candidates = pollCandidates("Do you want to play as [M.name]?", ROLE_SENTIENT, 0, 100)
+	var/list/candidates = pollCandidates("Do you want to play as [SM.name]?", ROLE_SENTIENT, 0, 100)
 
 	if(!src)
 		return
 
 	if(candidates.len)
 		var/mob/C = pick(candidates)
-		M.key = C.key
-		M.universal_speak = 1
-		M.faction |= "sentient"
-		M << "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>"
-		M << "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>"
+		SM.key = C.key
+		SM.universal_speak = 1
+		SM.faction = user.faction
+		SM.master_commander = user
+		SM.sentience_act()
+		SM << "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>"
+		SM << "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>"
 		user << "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>"
-		if(isanimal(M))
-			var/mob/living/simple_animal/S = M
-			S.master_commander = user
 		qdel(src)
 	else
 		user << "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>"
@@ -330,7 +334,7 @@
 /obj/effect/timestop
 	anchored = 1
 	name = "chronofield"
-	desc = "TOKI WO TOMARE"
+	desc = "ZA WARUDO"
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "time"
 	layer = FLY_LAYER
@@ -340,7 +344,7 @@
 	mouse_opacity = 0
 	var/mob/living/immune = list() // the one who creates the timestop is immune
 	var/list/stopped_atoms = list()
-	var/freezerange = 7
+	var/freezerange = 2
 	var/duration = 140
 	alpha = 125
 
@@ -352,31 +356,15 @@
 
 
 /obj/effect/timestop/proc/timestop()
-	playsound(get_turf(src), 'sound/magic/timestop.ogg', 100, 0, -1)
-
+	playsound(get_turf(src), 'sound/magic/TIMEPARADOX2.ogg', 100, 1, -1)
 	for(var/i in 1 to duration-1)
-		for(var/A in range(freezerange, src.loc))
-			if(istype(A, /obj))
-				var/obj/O = A
-				invert_color(O)
-				if(istype(O, /obj/machinery/bot))
-					var/obj/machinery/bot/B = O
-					B.on = 0
-					stopped_atoms |= B
-			if (istype(A, /turf/simulated))
-				var/turf/simulated/S = A
-				invert_color(S)
-			else if(istype(A, /mob/living))
-				var/mob/living/M = A
-				invert_color(M)
+		for(var/A in orange (freezerange, src.loc))
 			if(istype(A, /mob/living))
 				var/mob/living/M = A
 				if(M in immune)
 					continue
-				M.stunned += 10
+				M.notransform = 1
 				M.anchored = 1
-				M.silent = 1
-				M.canmove = 0
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
@@ -388,25 +376,12 @@
 				stopped_atoms |= P
 
 		for(var/mob/living/M in stopped_atoms)
-			if(get_dist(get_turf(M),get_turf(src)) > freezerange) //If they lagged/ran past the timestop somehow, just ignore them (and invert their color)
+			if(get_dist(get_turf(M),get_turf(src)) > freezerange) //If they lagged/ran past the timestop somehow, just ignore them
 				unfreeze_mob(M)
-				revert_color(M)
 				stopped_atoms -= M
 		sleep(1)
 
 	//End
-	for(var/mob/living/M in range(freezerange, src.loc))
-		revert_color(M)
-
-	for(var/obj/O in range(freezerange, src.loc))
-		revert_color(O)
-		if(istype(O, /obj/machinery/bot))
-			var/obj/machinery/bot/B = O
-			B.on=1
-
-	for(var/turf/simulated/S in range(freezerange, src.loc))
-		revert_color(S)
-
 	for(var/mob/living/M in stopped_atoms)
 		unfreeze_mob(M)
 
@@ -416,21 +391,11 @@
 	return
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
-	M.SetStunned(0)
+	M.notransform = 0
 	M.anchored = 0
-	M.silent = 0
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)
-
-/obj/effect/timestop/proc/invert_color(var/atom/Inverted)
-	var/icon/i=new(initial(Inverted.icon))
-	i.MapColors(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1)
-	Inverted.icon=i
-
-/obj/effect/timestop/proc/revert_color(var/atom/Reverted)
-	 Reverted.icon=initial(Reverted.icon)
-
 
 /obj/effect/timestop/wizard
 	duration = 100
@@ -477,6 +442,18 @@
 	max_amount = 60
 	turf_type = /turf/simulated/floor/sepia
 
+/obj/item/areaeditor/blueprints/slime
+	name = "cerulean prints"
+	desc = "A one use set of blueprints made of jelly like organic material. Renaming an area to 'Xenobiology Lab' will extend the reach of the management console."
+	color = "#2956B2"
+
+/obj/item/areaeditor/blueprints/slime/edit_area()
+	. = ..()
+	var/area/A = get_area(src)
+	if(.)
+		for(var/turf/T in A)
+			T.color = "#2956B2"
+		qdel(src)
 
 /turf/simulated/floor/sepia
 	slowdown = 2

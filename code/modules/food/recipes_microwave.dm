@@ -663,13 +663,6 @@ datum/recipe/microwave/slimesandwich
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/pureshka
 
-// Fuck Science!
-/datum/recipe/microwave/ruinedvirusdish
-	items = list(
-		/obj/item/weapon/virusdish
-	)
-	result = /obj/item/weapon/ruinedvirusdish
-
 /datum/recipe/microwave/mashedtaters
 	fruit = list("potato" = 1)
 	reagents = list("gravy" = 5)

@@ -17,14 +17,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	min_oxy = 0
-	max_oxy = INFINITY
-	min_tox = 0
-	max_tox = INFINITY
-	min_co2 = 0
-	max_co2 = INFINITY
-	min_n2  = 0
-	max_n2  = INFINITY
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attacktext = "punches"
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
@@ -32,6 +25,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner

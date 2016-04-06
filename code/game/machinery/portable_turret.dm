@@ -556,7 +556,7 @@ var/list/turret_icons
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	if(!emagged && issilicon(L))	// Don't target silica
+	if(!emagged && (issilicon(L) || isbot(L)))	// Don't target silica
 		return TURRET_NOT_TARGET
 
 	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really

@@ -90,8 +90,11 @@
 							race = "Artificial Life"
 
 						else if(isslime(M)) // NT knows a lot about slimes, but not aliens. Can identify slimes
-							race = "slime"
+							race = "Slime"
 							language = race
+
+						else if(isbot(M))
+							race = "Bot"
 
 						else if(isanimal(M))
 							race = "Domestic Animal"

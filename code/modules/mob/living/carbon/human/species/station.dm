@@ -56,6 +56,9 @@
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -107,6 +110,9 @@
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
 
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
+								 /mob/living/simple_animal/tribble)
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -147,6 +153,9 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#B43214"
+
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -355,6 +364,8 @@
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
 
+	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
+
 	suicide_messages = list(
 		"is attempting to bite their antenna off!",
 		"is jamming their claws into their eye sockets!",
@@ -378,7 +389,7 @@
 	cold_env_multiplier = 3
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
-	clothing_flags = HAS_SOCKS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
