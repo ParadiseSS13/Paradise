@@ -207,15 +207,20 @@
 			var/new_powerlevel = round(powerlevel / 4)
 			for(var/i=1,i<=4,i++)
 				var/mob/living/carbon/slime/M = new /mob/living/carbon/slime/(loc)
-				if(prob(mutation_chance))
+				if(mutation_chance >= 100)
+					M.colour = "rainbow"
+				else if(prob(mutation_chance))
 					M.colour = slime_mutation[rand(1,4)]
 				else
 					M.colour = colour
-				if(ckey)	M.nutrition = new_nutrition //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
+				if(ckey)
+					M.nutrition = new_nutrition //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
 				M.powerlevel = new_powerlevel
-				if(i != 1) step_away(M,src)
+				if(i != 1)
+					step_away(M,src)
 				M.Friends = Friends.Copy()
 				babies += M
+				M.mutation_chance = Clamp(mutation_chance+(rand(5,-5)),0,100)
 				feedback_add_details("slime_babies_born","slimebirth_[replacetext(M.colour," ","_")]")
 
 			var/mob/living/carbon/slime/new_slime = pick(babies)
