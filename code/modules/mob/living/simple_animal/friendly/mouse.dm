@@ -31,6 +31,7 @@
 	can_hide = 1
 	holder_type = /obj/item/weapon/holder/mouse
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -104,14 +105,14 @@
 //	return 1
 
 /mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
-	src << "<span class='warning'>You are too small to pull anything.</span>"
+	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
 	return
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM
-			M << "\blue \icon[src] Squeek!"
+			to_chat(M, "\blue \icon[src] Squeek!")
 			M << 'sound/effects/mousesqueek.ogg'
 	..()
 
@@ -144,3 +145,4 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID

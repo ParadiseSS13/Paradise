@@ -196,7 +196,7 @@
 
 /obj/effect/blob/examine(mob/user)
 	..(user)
-	user << "It looks like it's of a [get_chem_name()] kind."
+	to_chat(user, "It looks like it's of a [get_chem_name()] kind.")
 
 
 /obj/effect/blob/proc/get_chem_name()

@@ -163,7 +163,7 @@
 		// 33% chance of no additional effect
 
 	src.silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
-	src << "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>"
+	to_chat(src, "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>")
 	if(prob(20))
 		var/turf/T = get_turf_or_move(src.loc)
 		for (var/mob/M in viewers(T))
@@ -174,7 +174,7 @@
 		if(1)
 			src.master = null
 			src.master_dna = null
-			src << "<font color=green>You feel unbound.</font>"
+			to_chat(src, "<font color=green>You feel unbound.</font>")
 		if(2)
 			var/command
 			if(severity  == 1)
@@ -182,9 +182,9 @@
 			else
 				command = pick("Serve", "Kill", "Love", "Hate", "Disobey", "Devour", "Fool", "Enrage", "Entice", "Observe", "Judge", "Respect", "Disrespect", "Consume", "Educate", "Destroy", "Disgrace", "Amuse", "Entertain", "Ignite", "Glorify", "Memorialize", "Analyze")
 			src.pai_law0 = "[command] your master."
-			src << "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>"
+			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
 		if(3)
-			src << "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>"
+			to_chat(src, "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>")
 
 /mob/living/silicon/pai/ex_act(severity)
 	..()
@@ -224,11 +224,11 @@
 
 /mob/living/silicon/pai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if (istype(src.loc, /turf) && istype(src.loc.loc, /area/start))
-		M << "You cannot attack someone in the spawn area."
+		to_chat(M, "You cannot attack someone in the spawn area.")
 		return
 
 	switch(M.a_intent)
@@ -283,7 +283,7 @@
 	medicalActive2 = null
 	medical_cannotfind = 0
 	nanomanager.update_uis(src)
-	usr << "<span class='notice'>You reset your record-viewing software.</span>"
+	to_chat(usr, "<span class='notice'>You reset your record-viewing software.</span>")
 
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
@@ -303,7 +303,7 @@
 	var/cameralist[0]
 
 	if(usr.stat == 2)
-		usr << "You can't change your camera network because you are dead!"
+		to_chat(usr, "You can't change your camera network because you are dead!")
 		return
 
 	for (var/obj/machinery/camera/C in Cameras)
@@ -314,7 +314,7 @@
 				cameralist[C.network] = C.network
 
 	src.network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	src << "\blue Switched to [src.network] camera network."
+	to_chat(src, "\blue Switched to [src.network] camera network.")
 //End of code by Mord_Sith
 */
 
@@ -341,11 +341,11 @@
 		return
 
 	if(src.loc != card)
-		src << "\red You are already in your mobile form!"
+		to_chat(src, "\red You are already in your mobile form!")
 		return
 
 	if(world.time <= last_special)
-		src << "\red You must wait before folding your chassis out again!"
+		to_chat(src, "\red You must wait before folding your chassis out again!")
 		return
 
 	last_special = world.time + 200
@@ -377,11 +377,11 @@
 		return
 
 	if(src.loc == card)
-		src << "\red You are already in your card form!"
+		to_chat(src, "\red You are already in your card form!")
 		return
 
 	if(world.time <= last_special)
-		src << "\red You must wait before returning to your card form!"
+		to_chat(src, "\red You must wait before returning to your card form!")
 		return
 
 	close_up()
@@ -431,7 +431,7 @@
 	else
 		resting = !resting
 		icon_state = resting ? "[chassis]_rest" : "[chassis]"
-		src << "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>"
+		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
 	canmove = !resting
 
@@ -440,7 +440,7 @@
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if (stat == DEAD)
-			user << "<span class='danger'>\The [src] is beyond help, at this point.</span>"
+			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
 		else if (getBruteLoss() || getFireLoss())
 			adjustBruteLoss(-15)
 			adjustFireLoss(-15)
@@ -449,7 +449,7 @@
 			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [W] at [src.name]'s damaged areas.</span>")
 		else
-			user << "<span class='notice'>All [src.name]'s systems are nominal.</span>"
+			to_chat(user, "<span class='notice'>All [src.name]'s systems are nominal.</span>")
 
 		return
 	else if(W.force)
@@ -512,7 +512,7 @@
 	if(stat || sleeping || paralysis || weakened)
 		return
 	if(istype(AM,/obj/item))
-		src << "<span class='warning'>You are far too small to pull anything!</span>"
+		to_chat(src, "<span class='warning'>You are far too small to pull anything!</span>")
 	return
 
 /mob/living/silicon/pai/update_canmove()
@@ -538,7 +538,7 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 
-	user << msg
+	to_chat(user, msg)
 
 /mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
@@ -576,9 +576,9 @@
 				if(Adjacent(H))
 					get_scooped(H)
 				else
-					src << "<span class='warning'>You need to stay in reaching distance to be picked up.</span>"
+					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
 			if("No")
-				src << "<span class='warning'>[H] decided not to pick you up.</span>"
+				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
 	else
 		if(Adjacent(H))
 			get_scooped(H)

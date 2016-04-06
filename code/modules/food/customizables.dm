@@ -324,12 +324,12 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
 	if(src.contents.len > sandwich_limit)
-		user << "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>"
+		to_chat(user, "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>")
 		return
 	if(!istype(I, /obj/item/weapon/reagent_containers/food/snacks))
-		user << "\The [I] isn't exactly something that you would want to eat."
+		to_chat(user, "\The [I] isn't exactly something that you would want to eat.")
 		return
-	user << "<span class='notice'>You add [I] to [src].</span>"
+	to_chat(user, "<span class='notice'>You add [I] to [src].</span>")
 	if(istype(I,  /obj/item/weapon/reagent_containers/))
 		var/obj/item/weapon/reagent_containers/F = I
 		F.reagents.trans_to(src, F.reagents.total_volume)
@@ -386,7 +386,7 @@
 	..(user)
 	var/whatsinside = pick(ingredients)
 
-	user << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+	to_chat(user, "<span class='notice'> You think you can see [whatsinside] in there.</span>")
 
 /*
 /obj/item/weapon/reagent_containers/food/snacks/customizable/attack(mob/M as mob, mob/user as mob, def_zone) //SNOOOOOOOWFLAAAAAAAAAAAAAAAAAKES
@@ -402,7 +402,7 @@
 		H = M
 
 	if(H && shard && M == user) //This needs a check for feeding the food to other people, but that could be abusable.
-		H << "\red You lacerate your mouth on a [shard.name] in the sandwich!"
+		to_chat(H, "\red You lacerate your mouth on a [shard.name] in the sandwich!")
 		H.adjustBruteLoss(5) //TODO: Target head if human.
 	..()
 */

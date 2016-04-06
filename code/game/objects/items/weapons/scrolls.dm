@@ -55,7 +55,7 @@
 		return
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
-		user << "A mysterious force disrupts your arcane spell matrix, and you remain where you are."
+		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
 		return
 
 	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
@@ -74,7 +74,7 @@
 				L+=T
 
 	if(!L.len)
-		user <<"The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."
+		to_chat(user, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
 		return
 
 	if(user && user.buckled)

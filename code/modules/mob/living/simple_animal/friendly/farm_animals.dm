@@ -81,9 +81,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			user << "\red \The [O] is full."
+			to_chat(user, "\red \The [O] is full.")
 		else
-			user << "\red The udder is dry. Wait a bit longer..."
+			to_chat(user, "\red The udder is dry. Wait a bit longer...")
 	else
 		..()
 
@@ -111,6 +111,7 @@
 	health = 50
 	var/milk_content = 0
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/cow/New()
 	..()
@@ -125,9 +126,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			user << "\red \The [O] is full."
+			to_chat(user, "\red \The [O] is full.")
 		else
-			user << "\red The udder is dry. Wait a bit longer..."
+			to_chat(user, "\red The udder is dry. Wait a bit longer...")
 	else
 		..()
 
@@ -148,7 +149,7 @@
 											"[src] looks at you pleadingly",
 											"[src] looks at you with a resigned expression.",
 											"[src] seems resigned to its fate.")
-				M << pick(responses)
+				to_chat(M, pick(responses))
 	else
 		..()
 
@@ -178,6 +179,7 @@
 	small = 1
 	can_hide = 1
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -220,6 +222,7 @@ var/global/chicken_count = 0
 	small = 1
 	can_hide = 1
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -245,11 +248,11 @@ var/global/chicken_count = 0
 				user.drop_item()
 				qdel(O)
 				eggsleft += rand(1, 4)
-				//world << eggsleft
+//				to_chat(world, eggsleft)
 			else
-				user << "\blue [name] doesn't seem hungry!"
+				to_chat(user, "\blue [name] doesn't seem hungry!")
 		else
-			user << "\blue [name] doesn't seem interested in [O]!"
+			to_chat(user, "\blue [name] doesn't seem interested in [O]!")
 	else
 		..()
 
@@ -297,6 +300,7 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
@@ -318,6 +322,7 @@ var/global/chicken_count = 0
 	attacktext = "pecks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -339,6 +344,7 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -360,6 +366,7 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/walrus
 	name = "walrus"
@@ -381,3 +388,4 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY

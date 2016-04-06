@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/artillerycontrol/attack_ai(user as mob)
-	user << "<span class='warning'>Access denied.</span>"
+	to_chat(user, "<span class='warning'>Access denied.</span>")
 	return
 	
 /obj/machinery/computer/artillerycontrol/attack_hand(user as mob)

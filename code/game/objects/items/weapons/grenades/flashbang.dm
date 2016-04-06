@@ -25,15 +25,24 @@
 //Checking for protections
 	var/ear_safety = M.check_ear_prot()
 	var/distance = max(1,get_dist(src,T))
+
 //Flash
-	if(M.flash_eyes(affect_silicon = 1))
+	if(M.weakeyes)
+		M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
+		to_chat(M, "<span class='userdanger'><font size=3>AAAAGH!</font></span>")
+		M.Weaken(15) //hella stunned
+		M.Stun(15)
 		if(ishuman(M))
+			M.emote("scream")
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(E)
-				E.damage += rand(1, 3)
+				E.damage += 8
+
+	if(M.flash_eyes(affect_silicon = 1))
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
+
 
 //Bang
 	if((loc == M) || loc == M.loc)//Holding on person or being exactly where lies is significantly more dangerous and voids protection
@@ -45,10 +54,10 @@
 		M.ear_damage += rand(0, 5)
 		M.ear_deaf = max(M.ear_deaf,15)
 		if (M.ear_damage >= 15)
-			M << "<span class='warning'>Your ears start to ring badly!</span>"
+			to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 			if(prob(M.ear_damage - 10 + 5))
-				M << "<span class='warning'>You can't hear anything!</span>"
+				to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 				M.disabilities |= DEAF
 		else
 			if (M.ear_damage >= 5)
-				M << "<span class='warning'>Your ears start to ring!</span>"
+				to_chat(M, "<span class='warning'>Your ears start to ring!</span>")

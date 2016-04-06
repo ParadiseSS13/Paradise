@@ -251,7 +251,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
-	user << "<span class='notice'>Results of analysis of \icon[icon] [target].</span>"
+	to_chat(user, "<span class='notice'>Results of analysis of \icon[icon] [target].</span>")
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -260,16 +260,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 
-		user << "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>"
-		user << "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>"
-		user << "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>"
-		user << "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>"
-		user << "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>"
+		to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
+		to_chat(user, "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>")
 		if(unknown_concentration>0.01)
-			user << "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>"
-		user << "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>"
+			to_chat(user, "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>")
 	else
-		user << "<span class='notice'>[target] is empty!</span>"
+		to_chat(user, "<span class='notice'>[target] is empty!</span>")
 	return
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -1666,3 +1666,7 @@ var/global/list/g_fancy_list_of_types = null
 		if(findtext("[key]", filter) || findtext("[value]", filter))
 			matches[key] = value
 	return matches
+
+// Use this to send to a client's chat, no exceptions (except this proc itself).
+/proc/to_chat(var/thing, var/output)
+	thing << output

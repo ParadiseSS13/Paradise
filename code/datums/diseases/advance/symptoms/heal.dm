@@ -73,7 +73,7 @@ Bonus
 			cured_diseases += D.GetDiseaseID()
 			D.cure()
 	if(cured)
-		M << "<span class='notice'>You feel much better.</span>"
+		to_chat(M, "<span class='notice'>You feel much better.</span>")
 
 /datum/symptom/heal/metabolism/End(datum/disease/advance/A)
 	// Remove all the diseases we cured.
@@ -83,7 +83,7 @@ Bonus
 			for(var/res in M.resistances)
 				if(res in cured_diseases)
 					M.resistances -= res
-		M << "<span class='warning'>You feel weaker.</span>"
+		to_chat(M, "<span class='warning'>You feel weaker.</span>")
 
 /*
 //////////////////////////////////////

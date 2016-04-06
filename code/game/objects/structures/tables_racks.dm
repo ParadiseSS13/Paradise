@@ -199,10 +199,10 @@
 	if(get_dist(src, user) < 2)
 		var/obj/item/weapon/grab/G = I
 		if(G.affecting.buckled)
-			user << "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>"
+			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
 			return 0
 		if(G.state < GRAB_AGGRESSIVE)
-			user << "<span class='warning'>You need a better grip to do that!</span>"
+			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return 0
 		if(!G.confirm())
 			return 0
@@ -221,7 +221,7 @@
 		return
 
 	if (istype(W, /obj/item/weapon/wrench))
-		user << "\blue Now disassembling table"
+		to_chat(user, "\blue Now disassembling table")
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user,50, target = src))
 			destroy()
@@ -279,7 +279,7 @@
 		return
 
 	if(!flip(get_cardinal_dir(usr,src)))
-		usr << "<span class='notice'>It won't budge.</span>"
+		to_chat(usr, "<span class='notice'>It won't budge.</span>")
 		return
 
 	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
@@ -296,7 +296,7 @@
 	set src in oview(1)
 
 	if (!unflip())
-		usr << "<span class='notice'>It won't budge.</span>"
+		to_chat(usr, "<span class='notice'>It won't budge.</span>")
 		return
 
 
@@ -383,7 +383,7 @@
 		return
 
 	if (istype(I, /obj/item/weapon/wrench))
-		user << "\blue Now disassembling the wooden table"
+		to_chat(user, "\blue Now disassembling the wooden table")
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		sleep(50)
 		new /obj/item/weapon/table_parts/wood( src.loc )
@@ -434,7 +434,7 @@
 		return
 
 	if (istype(W, /obj/item/weapon/wrench))
-		user << "\blue Now disassembling the wooden table"
+		to_chat(user, "\blue Now disassembling the wooden table")
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		sleep(50)
 		new /obj/item/weapon/table_parts/wood( src.loc )
@@ -482,23 +482,23 @@
 	if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.amount >= 2)
-			user << "<span class='notice'>You start to add the glass to \the [src].</span>"
+			to_chat(user, "<span class='notice'>You start to add the glass to \the [src].</span>")
 			if(do_after(user, 10, target = src))
 				G.use(2)
-				user << "<span class='notice'>You add the glass to \the [src].</span>"
+				to_chat(user, "<span class='notice'>You add the glass to \the [src].</span>")
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				new /obj/structure/table/glass(loc)
 				qdel(src)
 		else
-			user << "<span class='notice'>You don't have enough glass! You need at least 2 sheets.</span>"
+			to_chat(user, "<span class='notice'>You don't have enough glass! You need at least 2 sheets.</span>")
 			return
 
 	if(iswrench(I))
-		user << "<span class='notice'>You start to deconstruct \the [src].</span>"
+		to_chat(user, "<span class='notice'>You start to deconstruct \the [src].</span>")
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 		if(do_after(user, 10, target = src))
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
-			user << "<span class='notice'>You dismantle \the [src].</span>"
+			to_chat(user, "<span class='notice'>You dismantle \the [src].</span>")
 			new /obj/item/stack/sheet/metal(loc)
 			new /obj/item/stack/sheet/metal(loc)
 			qdel(src)
@@ -533,7 +533,7 @@
 		return
 
 	if (istype(I, /obj/item/weapon/wrench))
-		user << "\blue Now disassembling the glass table"
+		to_chat(user, "\blue Now disassembling the glass table")
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		sleep(50)
 		new /obj/item/weapon/table_parts/glass( src.loc )
@@ -595,18 +595,18 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			if(src.status == 2)
-				user << "\blue Now weakening the reinforced table"
+				to_chat(user, "\blue Now weakening the reinforced table")
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 				if (do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
-					user << "\blue Table weakened"
+					to_chat(user, "\blue Table weakened")
 					src.status = 1
 			else
-				user << "\blue Now strengthening the reinforced table"
+				to_chat(user, "\blue Now strengthening the reinforced table")
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 				if (do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
-					user << "\blue Table strengthened"
+					to_chat(user, "\blue Table strengthened")
 					src.status = 2
 			return
 		return

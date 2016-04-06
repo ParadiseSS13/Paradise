@@ -128,7 +128,7 @@ REAGENT SCANNER
 
 /obj/item/device/healthanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
 	if (( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
-		user << text("\red You try to analyze the floor's vitals!")
+		to_chat(user, text("\red You try to analyze the floor's vitals!"))
 		for(var/mob/O in viewers(M, null))
 			O.show_message(text("\red [user] has analyzed the floor's vitals!"), 1)
 		user.show_message(text("\blue Analyzing Results for The floor:\n\t Overall Status: Healthy"), 1)
@@ -189,7 +189,7 @@ REAGENT SCANNER
 			chemscan(user, M)
 		for(var/datum/disease/D in M.viruses)
 			if(!(D.visibility_flags & HIDDEN_SCANNER))
-				user << "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
+				to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
 	if(M.getStaminaLoss())
 		user.show_message("<span class='info'>Subject appears to be suffering from fatigue.</span>")
 	if (M.getCloneLoss())
@@ -257,16 +257,16 @@ REAGENT SCANNER
 	mode = !mode
 	switch (mode)
 		if(1)
-			usr << "The scanner now shows specific limb damage."
+			to_chat(usr, "The scanner now shows specific limb damage.")
 		if(0)
-			usr << "The scanner no longer shows limb damage."
+			to_chat(usr, "The scanner no longer shows limb damage.")
 
 /obj/item/device/healthanalyzer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/device/healthupgrade))
 		if(upgraded)
-			user << "<span class='notice'>You have already installed an upgraded in the [src].</span>"
+			to_chat(user, "<span class='notice'>You have already installed an upgraded in the [src].</span>")
 		else
-			user << "<span class='notice'>You install the upgrade in the [src].</span>"
+			to_chat(user, "<span class='notice'>You install the upgrade in the [src].</span>")
 			overlays += "advanced"
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 			upgraded = 1
@@ -384,17 +384,17 @@ REAGENT SCANNER
 	if (user.stat)
 		return
 	if (crit_fail)
-		user << "<span class='warning'>This device has critically failed and is no longer functional!</span>"
+		to_chat(user, "<span class='warning'>This device has critically failed and is no longer functional!</span>")
 		return
 	if (!user.IsAdvancedToolUser())
-		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(reagents.total_volume)
 		var/list/blood_traces = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.id != "blood")
 				reagents.clear_reagents()
-				user << "<span class='warning'>The sample was contaminated! Please insert another sample.</span>"
+				to_chat(user, "<span class='warning'>The sample was contaminated! Please insert another sample.</span>")
 				return
 			else
 				blood_traces = params2list(R.data["trace_chem"])
@@ -414,7 +414,7 @@ REAGENT SCANNER
 					return
 				else
 					recent_fail = 1
-		user << "[dat]"
+		to_chat(user, "[dat]")
 		reagents.clear_reagents()
 	return
 
@@ -444,12 +444,12 @@ REAGENT SCANNER
 	if (user.stat)
 		return
 	if (!user.IsAdvancedToolUser())
-		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(!istype(O))
 		return
 	if (crit_fail)
-		user << "<span class='warning'>This device has critically failed and is no longer functional!</span>"
+		to_chat(user, "<span class='warning'>This device has critically failed and is no longer functional!</span>")
 		return
 
 	if(!isnull(O.reagents))
@@ -467,11 +467,11 @@ REAGENT SCANNER
 				else
 					recent_fail = 1
 		if(dat)
-			user << "<span class='notice'>Chemicals found: [dat]</span>"
+			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 		else
-			user << "<span class='notice'>No active chemical agents found in [O].</span>"
+			to_chat(user, "<span class='notice'>No active chemical agents found in [O].</span>")
 	else
-		user << "<span class='notice'>No significant chemical agents found in [O].</span>"
+		to_chat(user, "<span class='notice'>No significant chemical agents found in [O].</span>")
 
 	return
 

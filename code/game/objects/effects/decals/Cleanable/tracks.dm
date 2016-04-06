@@ -78,7 +78,7 @@ var/global/list/image/fluidtrack_cache=list()
 
 		// Process 4 bits
 		for(var/bi=0;bi<4;bi++)
-			b=1<<bi
+			to_chat(b=1, bi)
 			// COMING BIT
 			// If setting
 			if(comingdir&b)

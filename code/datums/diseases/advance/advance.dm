@@ -161,7 +161,7 @@ var/list/advance_cures = 	list(
 	return generated
 
 /datum/disease/advance/proc/Refresh(new_name = 0)
-	//world << "[src.name] \ref[src] - REFRESH!"
+//	to_chat(world, "[src.name] \ref[src] - REFRESH!")
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties)
 	id = null
@@ -182,7 +182,7 @@ var/list/advance_cures = 	list(
 		CRASH("We did not have any symptoms before generating properties.")
 		return
 
-	var/list/properties = list("resistance" = 1, "stealth" = 1, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
 
 	for(var/datum/symptom/S in symptoms)
 
@@ -199,7 +199,7 @@ var/list/advance_cures = 	list(
 
 	if(properties && properties.len)
 		switch(properties["stealth"])
-			if(2 to 3)
+			if(2)
 				visibility_flags = HIDDEN_SCANNER
 			if(3 to INFINITY)
 				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
@@ -255,7 +255,7 @@ var/list/advance_cures = 	list(
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && properties.len)
 		var/res = Clamp(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
-		//world << "Res = [res]"
+//		to_chat(world, "Res = [res]")
 		cures = list(advance_cures[res])
 
 		// Get the cure name from the cure_id
@@ -327,7 +327,7 @@ var/list/advance_cures = 	list(
 // Mix a list of advance diseases and return the mixed result.
 /proc/Advance_Mix(var/list/D_list)
 
-	//world << "Mixing!!!!"
+//	to_chat(world, "Mixing!!!!")
 
 	var/list/diseases = list()
 
@@ -352,7 +352,7 @@ var/list/advance_cures = 	list(
 		D2.Mix(D1)
 
 	 // Should be only 1 entry left, but if not let's only return a single entry
-	//world << "END MIXING!!!!!"
+//	to_chat(world, "END MIXING!!!!!")
 	var/datum/disease/advance/to_return = pick(diseases)
 	to_return.Refresh(1)
 	return to_return
@@ -421,7 +421,7 @@ var/list/advance_cures = 	list(
 /mob/verb/test()
 
 	for(var/datum/disease/D in disease_master.processing)
-		src << "<a href='?_src_=vars;Vars=\ref[D]'>[D.name] - [D.holder]</a>"
+		to_chat(src, "<a href='?_src_=vars;Vars=\ref[D]'>[D.name] - [D.holder]</a>")
 */
 
 

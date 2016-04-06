@@ -46,13 +46,16 @@
 			if(istype(AM))
 				if(AM.anchored)
 					adjacencies |= 1 << direction
+
 			else
 				if(AM)
 					adjacencies |= 1 << direction
+
 	else
 		for(var/direction in alldirs)
 			if(find_type_in_direction(A, direction))
 				adjacencies |= 1 << direction
+
 	return adjacencies
 
 /proc/smooth_icon(atom/A)

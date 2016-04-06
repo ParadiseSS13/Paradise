@@ -7,7 +7,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		if(C.l_hand || C.r_hand)
-			C << "<span class='warning'>You may not hold items while blood crawling!</span>"
+			to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
 			return 0
 		var/obj/item/weapon/bloodcrawl/B1 = new(C)
 		var/obj/item/weapon/bloodcrawl/B2 = new(C)
@@ -54,7 +54,7 @@
 		holder = holder
 
 		if(kidnapped)
-			src << "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>"
+			to_chat(src, "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>")
 			visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
 			sleep(6)
 			if(animation)
@@ -63,7 +63,7 @@
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
 			if(kidnapped)
-				src << "<B>You devour [kidnapped]. Your health is fully restored.</B>"
+				to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
 				adjustBruteLoss(-1000)
 				adjustFireLoss(-1000)
 				adjustOxyLoss(-1000)
@@ -73,7 +73,7 @@
 
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
-					kidnapped << "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>"
+					to_chat(kidnapped, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
 					kidnapped.adjustBruteLoss(1000)
 					kidnapped.forceMove(src)
 					demon.consumed_mobs.Add(kidnapped)
@@ -81,7 +81,7 @@
 					kidnapped.ghostize()
 					qdel(kidnapped)
 			else
-				src << "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>"
+				to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		else
 			sleep(6)
 			if (animation)
@@ -98,7 +98,7 @@
 /mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
 
 	if(notransform)
-		src << "<span class='warning'>Finish eating first!</span>"
+		to_chat(src, "<span class='warning'>Finish eating first!</span>")
 		return 0
 	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
 	if(!do_after(src, 20, target = B))

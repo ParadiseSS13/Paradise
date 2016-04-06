@@ -235,7 +235,7 @@
 		return 0 //Means the item is already in the storage item
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
-			usr << "<span class='warning'>[W] won't fit in [src], make some space!</span>"
+			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
 		return 0 //Storage item is full
 
 	if(can_hold.len)
@@ -248,18 +248,18 @@
 			if(!stop_messages)
 				if (istype(W, /obj/item/weapon/hand_labeler))
 					return 0
-				usr << "<span class='notice'>[src] cannot hold [W].</span>"
+				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
 			return 0
 
 	for(var/A in cant_hold) //Check for specific items which this container can't hold.
 		if(istype(W, text2path(A) ))
 			if(!stop_messages)
-				usr << "<span class='notice'>[src] cannot hold [W].</span>"
+				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
 			return 0
 
 	if (W.w_class > max_w_class)
 		if(!stop_messages)
-			usr << "<span class='notice'>[W] is too big for this [src].</span>"
+			to_chat(usr, "<span class='notice'>[W] is too big for this [src].</span>")
 		return 0
 
 	var/sum_w_class = W.w_class
@@ -268,17 +268,17 @@
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			usr << "<span class='notice'>[src] is full, make some space.</span>"
+			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
 		return 0
 
 	if(W.w_class >= src.w_class && (istype(W, /obj/item/weapon/storage)))
 		if(!istype(src, /obj/item/weapon/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
-				usr << "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>"
+				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
 			return 0 //To prevent the stacking of same sized storage items.
 
 	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
-		usr << "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>"
+		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
 		return 0
 
 	return 1
@@ -306,7 +306,7 @@
 		if(!prevent_warning && !istype(W, /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow))
 			for(var/mob/M in viewers(usr, null))
 				if (M == usr)
-					usr << "<span class='notice'>You put the [W] into [src].</span>"
+					to_chat(usr, "<span class='notice'>You put the [W] into [src].</span>")
 				else if (M in range(1)) //If someone is standing close enough, they can tell what it is...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
 				else if (W && W.w_class >= 3.0) //Otherwise they can only see large or normal items from a distance...
@@ -359,7 +359,7 @@
 	..()
 
 	if(isrobot(user))
-		user << "\blue You're a robot. No."
+		to_chat(user, "\blue You're a robot. No.")
 		return 1//Robots can't interact with storage items.
 
 	if(!can_be_inserted(W))
@@ -406,9 +406,9 @@
 	collection_mode = !collection_mode
 	switch (collection_mode)
 		if(1)
-			usr << "[src] now picks up all items in a tile at once."
+			to_chat(usr, "[src] now picks up all items in a tile at once.")
 		if(0)
-			usr << "[src] now picks up one item at a time."
+			to_chat(usr, "[src] now picks up one item at a time.")
 
 
 /obj/item/weapon/storage/verb/quick_empty()
@@ -497,7 +497,7 @@
 	if ( !found )	// User is too far away
 		return
 	// Now make the cardboard
-	user << "<span class='notice'>You fold [src] flat.</span>"
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
 	new src.foldable(get_turf(src))
 	qdel(src)
 //BubbleWrap END

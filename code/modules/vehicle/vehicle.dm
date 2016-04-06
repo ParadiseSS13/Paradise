@@ -86,7 +86,7 @@
 		if(!locked)
 			open = !open
 			update_icon()
-			user << "<span class='notice'>Maintenance panel is now [open ? "opened" : "closed"].</span>"
+			to_chat(user, "<span class='notice'>Maintenance panel is now [open ? "opened" : "closed"].</span>")
 	else if(istype(W, /obj/item/weapon/crowbar) && cell && open)
 		remove_cell(user)
 
@@ -100,11 +100,11 @@
 					health = min(maxhealth, health+10)
 					user.visible_message("\red [user] repairs [src]!","\blue You repair [src]!")
 				else
-					user << "<span class='notice'>Unable to repair with the maintenance panel closed.</span>"
+					to_chat(user, "<span class='notice'>Unable to repair with the maintenance panel closed.</span>")
 			else
-				user << "<span class='notice'>[src] does not need a repair.</span>"
+				to_chat(user, "<span class='notice'>[src] does not need a repair.</span>")
 		else
-			user << "<span class='notice'>Unable to repair while [src] is off.</span>"
+			to_chat(user, "<span class='notice'>Unable to repair while [src] is off.</span>")
 	else if(hasvar(W,"force") && hasvar(W,"damtype"))
 		switch(W.damtype)
 			if("fire")
@@ -205,7 +205,7 @@
 
 	if(locked)
 		locked = 0
-		user << "<span class='warning'>You bypass [src]'s controls.</span>"
+		to_chat(user, "<span class='warning'>You bypass [src]'s controls.</span>")
 
 /obj/vehicle/proc/explode()
 	src.visible_message("\red <B>[src] blows apart!</B>", 1)
@@ -262,13 +262,13 @@
 	C.forceMove(src)
 	cell = C
 	powercheck()
-	usr << "<span class='notice'>You install [C] in [src].</span>"
+	to_chat(usr, "<span class='notice'>You install [C] in [src].</span>")
 
 /obj/vehicle/proc/remove_cell(var/mob/living/carbon/human/H)
 	if(!cell)
 		return
 
-	usr << "<span class='notice'>You remove [cell] from [src].</span>"
+	to_chat(usr, "<span class='notice'>You remove [cell] from [src].</span>")
 	cell.forceMove(get_turf(H))
 	H.put_in_hands(cell)
 	cell = null

@@ -21,7 +21,7 @@
 	spawn(0)
 		if(!reagents.total_volume)
 			if(M == usr)
-				usr << "<span class='notice'>You finish eating \the [src].</span>"
+				to_chat(usr, "<span class='notice'>You finish eating \the [src].</span>")
 			usr.visible_message("<span class='notice'>[usr] finishes eating \the [src].</span>")
 			usr.unEquip(src)	//so icons update :[
 
@@ -39,7 +39,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/attack(mob/M as mob, mob/user as mob, def_zone)
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
-		user << "<span class='warning'>None of [src] left, oh no!</span>"
+		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		M.unEquip(src)	//so icons update :[
 		qdel(src)
 		return 0
@@ -60,11 +60,11 @@
 		if (bitecount==0)
 			return
 		else if (bitecount==1)
-			user << "\blue \The [src] was bitten by someone!"
+			to_chat(user, "\blue \The [src] was bitten by someone!")
 		else if (bitecount<=3)
-			user << "\blue \The [src] was bitten [bitecount] times!"
+			to_chat(user, "\blue \The [src] was bitten [bitecount] times!")
 		else
-			user << "\blue \The [src] was bitten multiple times!"
+			to_chat(user, "\blue \The [src] was bitten multiple times!")
 
 
 /obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W, mob/user, params)
@@ -81,7 +81,7 @@
 		var/obj/item/weapon/kitchen/utensil/U = W
 
 		if(U.contents.len >= U.max_contents)
-			user << "<span class='warning'>You cannot fit anything else on your [U]."
+			to_chat(user, "<span class='warning'>You cannot fit anything else on your [U].")
 			return
 
 		user.visible_message( \
@@ -132,7 +132,7 @@
 	else if(W.w_class <= 2 && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
 		if(!iscarbon(user))
 			return 1
-		user << "\red You slip [W] inside [src]."
+		to_chat(user, "\red You slip [W] inside [src].")
 		user.unEquip(W)
 		if ((user.client && user.s_active != src))
 			user.client.screen -= W
@@ -148,7 +148,7 @@
 			!(locate(/obj/machinery/optable) in src.loc) && \
 			!(locate(/obj/item/weapon/storage/bag/tray) in src.loc) \
 		)
-		user << "\red You cannot slice [src] here! You need a table or at least a tray to do it."
+		to_chat(user, "\red You cannot slice [src] here! You need a table or at least a tray to do it.")
 		return 1
 	var/slices_lost = 0
 	if (!inaccurate)
@@ -193,7 +193,7 @@
 				bitecount++
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
-			N << text("\blue You nibble away at [src].")
+			to_chat(N, text("\blue You nibble away at [src]."))
 			if(prob(50))
 				N.visible_message("[N] nibbles away at [src].", "")
 			//N.emote("nibbles away at the [src]")
@@ -509,10 +509,10 @@
 			var/clr = C.colourName
 
 			if(!(clr in list("blue","green","mime","orange","purple","rainbow","red","yellow")))
-				usr << "\blue The egg refuses to take on this color!"
+				to_chat(usr, "\blue The egg refuses to take on this color!")
 				return
 
-			usr << "\blue You color \the [src] [clr]"
+			to_chat(usr, "\blue You color \the [src] [clr]")
 			icon_state = "egg-[clr]"
 			item_color = clr
 		else
@@ -1141,7 +1141,7 @@
 		bitesize = 0.1 //this snack is supposed to be eating during looooong time. And this it not dinner food! --rastaf0
 	On_Consume()
 		if(prob(unpopped))	//lol ...what's the point?
-			usr << "\red You bite down on an un-popped kernel!"
+			to_chat(usr, "\red You bite down on an un-popped kernel!")
 			unpopped = max(0, unpopped-1)
 		..()
 
@@ -1602,14 +1602,14 @@
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/afterattack(obj/O, mob/user, proximity)
 	if(!proximity) return
 	if(istype(O,/obj/structure/sink) && !wrapped)
-		user << "<span class='notice'>You place [src] under a stream of water...</span>"
+		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")
 		user.drop_item()
 		forceMove(get_turf(O))
 		return Expand()
 	if(istype(O, /obj/machinery/computer/camera_advanced/xenobio))
 		var/obj/machinery/computer/camera_advanced/xenobio/X = O
 		X.monkeys++
-		user << "<span class='notice'>You feed [src] to the [X]. It now has [X.monkeys] monkey cubes stored.</span>"
+		to_chat(user, "<span class='notice'>You feed [src] to the [X]. It now has [X.monkeys] monkey cubes stored.</span>")
 		qdel(src)
 		return
 	..()
@@ -1638,7 +1638,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Unwrap(mob/user)
 	icon_state = "monkeycube"
 	desc = "Just add water!"
-	user << "<span class='notice'>You unwrap the cube.</span>"
+	to_chat(user, "<span class='notice'>You unwrap the cube.</span>")
 	wrapped = 0
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped
@@ -2827,7 +2827,7 @@
 	if( open && pizza )
 		user.put_in_hands( pizza )
 
-		user << "\red You take the [src.pizza] out of the [src]."
+		to_chat(user, "\red You take the [src.pizza] out of the [src].")
 		src.pizza = null
 		update_icon()
 		return
@@ -2841,7 +2841,7 @@
 		boxes -= box
 
 		user.put_in_hands( box )
-		user << "\red You remove the topmost [src] from your hand."
+		to_chat(user, "\red You remove the topmost [src] from your hand.")
 		box.update_icon()
 		update_icon()
 		return
@@ -2880,11 +2880,11 @@
 				box.update_icon()
 				update_icon()
 
-				user << "\red You put the [box] ontop of the [src]!"
+				to_chat(user, "\red You put the [box] ontop of the [src]!")
 			else
-				user << "\red The stack is too high!"
+				to_chat(user, "\red The stack is too high!")
 		else
-			user << "\red Close the [box] first!"
+			to_chat(user, "\red Close the [box] first!")
 
 		return
 
@@ -2897,9 +2897,9 @@
 
 			update_icon()
 
-			user << "\red You put the [I] in the [src]!"
+			to_chat(user, "\red You put the [I] in the [src]!")
 		else
-			user << "\red You try to push the [I] through the lid but it doesn't work!"
+			to_chat(user, "\red You try to push the [I] through the lid but it doesn't work!")
 		return
 
 	if( istype(I, /obj/item/weapon/pen/) )
@@ -3202,10 +3202,10 @@
 	if(istype(I, /obj/item/weapon/kitchen/rollingpin))
 		if(isturf(loc))
 			new /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough(loc)
-			user << "<span class='notice'>You flatten [src].</span>"
+			to_chat(user, "<span class='notice'>You flatten [src].</span>")
 			qdel(src)
 		else
-			user << "<span class='notice'>You need to put [src] on a surface to roll it out!</span>"
+			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
 	else
 		..()
 

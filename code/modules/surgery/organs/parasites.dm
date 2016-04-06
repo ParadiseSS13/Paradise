@@ -19,7 +19,7 @@
 			if(prob(12))
 				owner.reagents.add_reagent("histamine", 5)
 		if(5)
-			owner << "<span class='danger'>You feel like something is tearing its way out of your skin...</span>"
+			to_chat(owner, "<span class='danger'>You feel like something is tearing its way out of your skin...</span>")
 			owner.reagents.add_reagent("histamine", 10)
 			if(prob(30))
 				owner.emote("scream")

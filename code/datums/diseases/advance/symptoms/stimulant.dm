@@ -34,5 +34,5 @@ Bonus
 					M.reagents.add_reagent("ephedrine", 10)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					M << "<span class='notice'>[pick("You feel restless.", "You feel like running laps around the station.")]</span>"
+					to_chat(M, "<span class='notice'>[pick("You feel restless.", "You feel like running laps around the station.")]</span>")
 	return

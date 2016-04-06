@@ -293,7 +293,7 @@
 	if((brute || burn) && children && children.len && (owner.species.flags & REGENERATES_LIMBS))
 		var/obj/item/organ/external/stump/S = locate() in children
 		if(S)
-			//world << "Extra healing to go around ([brute+burn]) and [owner] needs a replacement limb."
+//			to_chat(world, "Extra healing to go around ([brute+burn]) and [owner] needs a replacement limb.")
 */
 
 	//Sync the organ's damage with its wounds
@@ -528,7 +528,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(germ_level >= INFECTION_LEVEL_THREE && antibiotics < 30)	//overdosing is necessary to stop severe infections
 		if (!(status & ORGAN_DEAD))
 			status |= ORGAN_DEAD
-			owner << "<span class='notice'>You can't feel your [name] anymore...</span>"
+			to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
 			owner.update_body(1)
 
 		germ_level++

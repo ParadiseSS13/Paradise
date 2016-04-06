@@ -52,19 +52,19 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			if(R.use(1))
-				user << "<span class='notice'>You begin constructing catwalk...</span>"
+				to_chat(user, "<span class='notice'>You begin constructing catwalk...</span>")
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				qdel(L)
 				ChangeTurf(/turf/simulated/floor/plating/airless/catwalk)
 			else
-				user << "<span class='warning'>You need two rods to build a catwalk!</span>"
+				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
 			return
 		if(R.use(1))
-			user << "<span class='notice'>Constructing support lattice...</span>"
+			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
 			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 		else
-			user << "<span class='warning'>You need one rod to build a lattice.</span>"
+			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
 
 	if(istype(C, /obj/item/stack/tile/plasteel))
@@ -74,12 +74,12 @@
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
-				user << "<span class='notice'>You build a floor.</span>"
+				to_chat(user, "<span class='notice'>You build a floor.</span>")
 				ChangeTurf(/turf/simulated/floor/plating)
 			else
-				user << "<span class='warning'>You need one floor tile to build a floor!</span>"
+				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
-			user << "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>"
+			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 
 /turf/space/Entered(atom/movable/A as mob|obj)
 	..()
@@ -121,9 +121,9 @@
 		target_z = y_arr[cur_y]
 /*
 		//debug
-		world << "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]"
-		world << "Target Z = [target_z]"
-		world << "Next X = [next_x]"
+		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
+		to_chat(world, "Target Z = [target_z]")
+		to_chat(world, "Next X = [next_x]")
 		//debug
 */
 		if(target_z)
@@ -146,9 +146,9 @@
 		target_z = y_arr[cur_y]
 /*
 		//debug
-		world << "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]"
-		world << "Target Z = [target_z]"
-		world << "Next X = [next_x]"
+		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
+		to_chat(world, "Target Z = [target_z]")
+		to_chat(world, "Next X = [next_x]")
 		//debug
 */
 		if(target_z)
@@ -170,9 +170,9 @@
 		target_z = y_arr[next_y]
 /*
 		//debug
-		world << "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]"
-		world << "Next Y = [next_y]"
-		world << "Target Z = [target_z]"
+		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
+		to_chat(world, "Next Y = [next_y]")
+		to_chat(world, "Target Z = [target_z]")
 		//debug
 */
 		if(target_z)
@@ -195,9 +195,9 @@
 		target_z = y_arr[next_y]
 /*
 		//debug
-		world << "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]"
-		world << "Next Y = [next_y]"
-		world << "Target Z = [target_z]"
+		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
+		to_chat(world, "Next Y = [next_y]")
+		to_chat(world, "Target Z = [target_z]")
 		//debug
 */
 		if(target_z)

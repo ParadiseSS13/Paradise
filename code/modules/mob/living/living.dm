@@ -66,7 +66,7 @@
 				break
 			take_overall_damage(max(5, health - config.health_threshold_dead), 0)
 			updatehealth()
-		src << "<span class='notice'>You have given up life and succumbed to death.</span>"
+		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 /mob/living/proc/InCritical()
 	return (src.health < 0 && src.health > -95.0 && stat == UNCONSCIOUS)
@@ -92,7 +92,7 @@
 //sort of a legacy burn method for /electrocute, /shock, and the e_chair
 /mob/living/proc/burn_skin(burn_amount)
 	if(istype(src, /mob/living/carbon/human))
-		//world << "DEBUG: burn_skin(), mutations=[mutations]"
+//		to_chat(world, "DEBUG: burn_skin(), mutations=[mutations]")
 		if (RESIST_HEAT in src.mutations) //fireproof
 			return 0
 		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
@@ -124,7 +124,7 @@
 		if(actual < desired)
 			temperature = desired
 //	if(istype(src, /mob/living/carbon/human))
-//		world << "[src] ~ [src.bodytemperature] ~ [temperature]"
+//		to_chat(world, "[src] ~ [src.bodytemperature] ~ [temperature]")
 	return temperature
 
 
@@ -417,11 +417,11 @@
 
 	if(config.allow_Metadata)
 		if(client)
-			usr << "[src]'s Metainfo:<br>[client.prefs.metadata]"
+			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
 		else
-			usr << "[src] does not have any stored infomation!"
+			to_chat(usr, "[src] does not have any stored infomation!")
 	else
-		usr << "OOC Metadata is not supported by this server!"
+		to_chat(usr, "OOC Metadata is not supported by this server!")
 
 	return
 
@@ -570,8 +570,8 @@
 	var/mob/living/simple_animal/borer/B = src.loc
 	var/mob/living/captive_brain/H = src
 
-	H << "\red <B>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</B>"
-	B.host << "\red <B>You feel the captive mind of [src] begin to resist your control.</B>"
+	to_chat(H, "\red <B>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</B>")
+	to_chat(B.host, "\red <B>You feel the captive mind of [src] begin to resist your control.</B>")
 
 	spawn(rand(350,450)+B.host.brainloss)
 
@@ -579,8 +579,8 @@
 			return
 
 		B.host.adjustBrainLoss(rand(5,10))
-		H << "\red <B>With an immense exertion of will, you regain control of your body!</B>"
-		B.host << "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>"
+		to_chat(H, "\red <B>With an immense exertion of will, you regain control of your body!</B>")
+		to_chat(B.host, "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>")
 
 		B.detatch()
 
@@ -633,7 +633,7 @@
 			C.changeNext_move(CLICK_CD_BREAKOUT)
 			C.last_special = world.time + CLICK_CD_BREAKOUT
 
-			C << "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still)</span>"
+			to_chat(C, "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still)</span>")
 			for(var/mob/O in viewers(L))
 				O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
 
@@ -643,7 +643,7 @@
 						return
 					for(var/mob/O in viewers(C))
 						O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
-					C << "\blue You successfully unbuckle yourself."
+					to_chat(C, "\blue You successfully unbuckle yourself.")
 					C.buckled.user_unbuckle_mob(C,C)
 
 	else
@@ -686,7 +686,7 @@
 		breakouttime = 50
 		displaytime = 5
 
-	CM << "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)"
+	to_chat(CM, "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)")
 	for(var/mob/O in viewers(CM))
 		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
 	spawn(0)
@@ -697,7 +697,7 @@
 			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
 				O.show_message("\red <B>[CM] manages to [hulklien ? "break" : "remove"] the handcuffs!</B>", 1)
 
-			CM << "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.handcuffed]."
+			to_chat(CM, "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.handcuffed].")
 
 			if(hulklien)
 				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -729,7 +729,7 @@
 		breakouttime = 50
 		displaytime = 5
 
-	CM << "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)"
+	to_chat(CM, "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)")
 
 	for(var/mob/O in viewers(CM))
 		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
@@ -741,7 +741,7 @@
 			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
 				O.show_message("\red <B>[CM] manages to [hulklien ? "break" : "remove"] the legcuffs!</B>", 1)
 
-			CM << "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.legcuffed]."
+			to_chat(CM, "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.legcuffed].")
 
 			if(!hulklien)
 				CM.unEquip(CM.legcuffed)
@@ -780,7 +780,7 @@
 	return
 
 /mob/living/proc/Exhaust()
-	src << "<span class='notice'>You're too exhausted to keep going...</span>"
+	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 	Weaken(5)
 
 /mob/living/proc/get_visible_name()
@@ -824,7 +824,7 @@
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
 	if(what.flags & NODROP)
-		src << "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>"
+		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
 	if(!silent)
 		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
@@ -842,11 +842,11 @@
 /mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
 	what = src.get_active_hand()
 	if(what && (what.flags & NODROP))
-		src << "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>"
+		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
 		return
 	if(what)
 		if(!what.mob_can_equip(who, where, 1))
-			src << "<span class='warning'>\The [what.name] doesn't fit in that place!</span>"
+			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
 			return
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")

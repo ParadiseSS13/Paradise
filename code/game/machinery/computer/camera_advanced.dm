@@ -54,7 +54,7 @@
 		else
 			eyeobj.setLoc(eyeobj.loc)
 	else
-		user << "The console is already in use!"
+		to_chat(user, "The console is already in use!")
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
