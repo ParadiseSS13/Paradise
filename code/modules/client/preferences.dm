@@ -1580,7 +1580,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					UI_style_alpha = UI_style_alpha_new
 				if("parallax")
 					space_parallax = !space_parallax
-					user << "Space Parallax is now [space_parallax ? "on" : "off"]."
+					to_chat(user, "Space Parallax is now [space_parallax ? "on" : "off"].")
 
 				if("be_special")
 					var/r = href_list["role"]
