@@ -199,14 +199,14 @@
 
 /obj/machinery/logic_gate/attackby(obj/item/O, mob/user, params)
 	if(tamperproof)
-		user << "<span class='warning'>The [src] appears to be tamperproofed! You can't interact with it!</span>"
+		to_chat(user, "<span class='warning'>The [src] appears to be tamperproofed! You can't interact with it!</span>")
 		return 0
 	if(istype(O, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
 	if(istype(O, /obj/item/weapon/screwdriver))
 		panel_open = !panel_open
-		user << "<span class='notice'>You [panel_open ? "open" : "close"] the access panel.</span>"
+		to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the access panel.</span>")
 		return 1
 	if(panel_open && istype(O, /obj/item/weapon/crowbar))
 		default_deconstruction_crowbar(O)
@@ -218,20 +218,20 @@
 
 /obj/machinery/logic_gate/attack_ai(mob/user)
 	if(tamperproof)
-		user << "<span class='warning'>The [src] appears to be tamperproofed! You can't interface with it!</span>"
+		to_chat(user, "<span class='warning'>The [src] appears to be tamperproofed! You can't interface with it!</span>")
 		return 0
 	add_hiddenprint(user)
 	return ui_interact(user)
 
 /obj/machinery/logic_gate/attack_ghost(mob/user)
 	if(tamperproof)
-		user << "<span class='warning'>The [src] appears to be tamperproofed! You can't haunt it!</span>"
+		to_chat(user, "<span class='warning'>The [src] appears to be tamperproofed! You can't haunt it!</span>")
 		return 0
 	return ui_interact(user)
 
 /obj/machinery/logic_gate/attack_hand(mob/user)
 	if(tamperproof)
-		user << "<span class='warning'>The [src] appears to be tamperproofed! You can't interact with it!</span>"
+		to_chat(user, "<span class='warning'>The [src] appears to be tamperproofed! You can't interact with it!</span>")
 		return 0
 	. = ..()
 	if(.)
@@ -239,15 +239,15 @@
 	return interact(user)
 
 /obj/machinery/logic_gate/attack_alien(mob/user)		//No xeno logic, that's too silly.
-	user << "<span class='warning'>The [src] appears to be too complex! You can't comprehend it and back off in fear!</span>"
+	to_chat(user, "<span class='warning'>The [src] appears to be too complex! You can't comprehend it and back off in fear!</span>")
 	return 0
 
 /obj/machinery/logic_gate/attack_animal(mob/user)	//No animal logic either.
-	user << "<span class='warning'>The [src] appears to be beyond your comprehension! You can't fathom it!</span>"
+	to_chat(user, "<span class='warning'>The [src] appears to be beyond your comprehension! You can't fathom it!</span>")
 	return 0
 
 /obj/machinery/logic_gate/attack_slime(mob/user)		//No slime logic. Seriously.
-	user << "<span class='warning'>The [src] appears to be beyond your gelatinous understanding! You ignore it!</span>"
+	to_chat(user, "<span class='warning'>The [src] appears to be beyond your gelatinous understanding! You ignore it!</span>")
 	return 0
 
 /obj/machinery/logic_gate/emp_act(severity)

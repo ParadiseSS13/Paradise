@@ -32,10 +32,10 @@
 	if(istype(O, /obj/item/device/assembly/signaler))
 		var/obj/item/device/assembly/signaler/S = O
 		if(S.secured)
-			user << "<span class='warning'>The [S] is already secured.</span>"
+			to_chat(user, "<span class='warning'>The [S] is already secured.</span>")
 			return
 		if(attached_signaler)
-			user << "<span class='warning'>There is already a device attached, remove it first.</span>"
+			to_chat(user, "<span class='warning'>There is already a device attached, remove it first.</span>")
 			return
 		user.unEquip(S)
 		S.forceMove(src)
@@ -46,7 +46,7 @@
 		else
 			S.receiving = 0
 		attached_signaler = S
-		user << "<span class='notice'>You attach \the [S] to the I/O connection port and secure it.</span>"
+		to_chat(user, "<span class='notice'>You attach \the [S] to the I/O connection port and secure it.</span>")
 		return
 	if(attached_signaler && istype(O, /obj/item/weapon/screwdriver))		//Makes sure we remove the attached signaler before we can open up and deconstruct the machine
 		var/obj/item/device/assembly/signaler/S = attached_signaler
@@ -54,7 +54,7 @@
 		S.forceMove(get_turf(src))
 		S.holder = null
 		S.toggle_secure()
-		user << "<span class='notice'>You unsecure and detach \the [S] from the I/O connection port.</span>"
+		to_chat(user, "<span class='notice'>You unsecure and detach \the [S] from the I/O connection port.</span>")
 		return
 	..()
 

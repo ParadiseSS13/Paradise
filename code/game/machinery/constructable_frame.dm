@@ -924,4 +924,4 @@ obj/item/weapon/circuitboard/rdserver
 	build_path = typepath
 	name = "circuit board ([new_name])"
 	if(user)
-		user << "<span class='notice'>You set the board to [new_name].</span>"
+		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
