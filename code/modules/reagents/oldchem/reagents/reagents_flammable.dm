@@ -48,7 +48,7 @@
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(20)
+		C.adjustPlasma(10)
 	..()
 	return
 

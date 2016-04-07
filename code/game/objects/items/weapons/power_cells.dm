@@ -115,14 +115,12 @@
 	minor_fault = 1
 
 
-/obj/item/weapon/stock_parts/cell/slime
+/obj/item/weapon/stock_parts/cell/high/slime
 	name = "charged slime core"
 	desc = "A yellow slime core infused with plasma, it crackles with power."
 	origin_tech = "powerstorage=2;biotech=4"
-	icon = 'icons/mob/slimes.dmi' //'icons/obj/harvest.dmi'
-	icon_state = "yellow slime extract" //"potato_battery"
-	maxcharge = 10000
-	rating = 3
+	icon = 'icons/mob/slimes.dmi'
+	icon_state = "yellow slime extract"
 	materials = list()
 
 /obj/item/weapon/stock_parts/cell/pulse/carbine
