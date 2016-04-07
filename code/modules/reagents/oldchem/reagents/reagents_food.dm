@@ -16,7 +16,7 @@
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat())	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50)) M.heal_organ_damage(1,0)
+				if(prob(50)) M.adjustBruteLoss(-1)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
 			if(prob(50)) M.heal_organ_damage(1,0)
 	..()
@@ -38,7 +38,7 @@
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(DIET_CARN | DIET_OMNI))	//Make sure that it is not a herbivore
 				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50)) M.heal_organ_damage(1,0)
+				if(prob(50)) M.adjustBruteLoss(-1)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
 			if(prob(50)) M.heal_organ_damage(1,0)
 	..()
@@ -60,7 +60,7 @@
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(DIET_HERB | DIET_OMNI))	//Make sure that it is not a carnivore
 				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50)) M.heal_organ_damage(1,0)
+				if(prob(50)) M.adjustBruteLoss(-1)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
 			if(prob(50)) M.heal_organ_damage(1,0)
 	..()
@@ -257,7 +257,8 @@
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Security Officer", "Head of Security", "Detective", "Warden"))
 		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 		M.nutrition += nutriment_factor
 		..()
 		return
@@ -449,7 +450,7 @@
 	return
 
 /datum/reagent/sugar/overdose_start(var/mob/living/M as mob)
-	M << "<span class='danger'>You pass out from hyperglycemic shock!</span>"
+	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
 	M.emote("collapse")
 	..()
 

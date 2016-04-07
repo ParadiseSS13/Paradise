@@ -753,7 +753,7 @@
 					right_hand_good = 1
 
 				if (!left_hand_good && !right_hand_good)
-					usr << "You need at least one hand in good working order to snap your fingers."
+					to_chat(usr, "You need at least one hand in good working order to snap your fingers.")
 					return
 
 				message = "<b>[src]</b> snaps \his fingers."
@@ -769,8 +769,8 @@
 				return
 //			playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
-				viewers(src) << "<span class='warning'><b>[src] farts on the Bible!</b></span>"
-				viewers(src) << "<span class='notice'><b>A mysterious force smites [src]!</b></span>"
+				to_chat(viewers(src), "<span class='warning'><b>[src] farts on the Bible!</b></span>")
+				to_chat(viewers(src), "<span class='notice'><b>A mysterious force smites [src]!</b></span>")
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(3, 1, src)
 				s.start()
@@ -788,8 +788,6 @@
 			if(TOXIC_FARTS in mutations)
 				for(var/mob/M in range(location,aoe_range))
 					if (M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
-						continue
-					if(!airborne_can_reach(location,M,aoe_range))
 						continue
 					// Now, we don't have this:
 					//new /obj/effects/fart_cloud(T,L)
@@ -812,10 +810,10 @@
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob"
 			else if(species.name == "Slime People")
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
-			src << emotelist
+			to_chat(src, emotelist)
 
 		else
-			src << "\blue Unusable emote '[act]'. Say *help for a list."
+			to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
 
 
 

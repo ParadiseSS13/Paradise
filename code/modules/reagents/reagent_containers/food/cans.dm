@@ -8,7 +8,7 @@
 	attack_self(mob/user as mob)
 		if (canopened == 0)
 			playsound(src.loc,'sound/effects/canopen.ogg', rand(10,50), 1)
-			user << "<span class='notice'>You open the drink with an audible pop!</span>"
+			to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 			canopened = 1
 			flags |= OPENCONTAINER
 		else
@@ -16,7 +16,7 @@
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if (canopened == 0)
-			user << "<span class='notice'>You need to open the drink!</span>"
+			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 			return
 		return ..(M, user, def_zone)
 
@@ -24,10 +24,10 @@
 	afterattack(obj/target, mob/user, proximity)
 		if(!proximity) return
 		if(istype(target, /obj/structure/reagent_dispensers) && (canopened == 0))
-			user << "<span class='notice'>You need to open the drink!</span>"
+			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 			return
 		else if(target.is_open_container() && (canopened == 0))
-			user << "<span class='notice'>You need to open the drink!</span>"
+			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 			return
 		else
 			return ..(target, user, proximity)
@@ -36,15 +36,15 @@
 		if(!..(user, 1))
 			return
 		if(!reagents || reagents.total_volume==0)
-			user << "\blue \The [src] is empty!"
+			to_chat(user, "\blue \The [src] is empty!")
 		else if (reagents.total_volume<=src.volume/4)
-			user << "\blue \The [src] is almost empty!"
+			to_chat(user, "\blue \The [src] is almost empty!")
 		else if (reagents.total_volume<=src.volume*0.66)
-			user << "\blue \The [src] is half full!"
+			to_chat(user, "\blue \The [src] is half full!")
 		else if (reagents.total_volume<=src.volume*0.90)
-			user << "\blue \The [src] is almost full!"
+			to_chat(user, "\blue \The [src] is almost full!")
 		else
-			user << "\blue \The [src] is full!"*/
+			to_chat(user, "\blue \The [src] is full!")*/
 
 
 //DRINKS

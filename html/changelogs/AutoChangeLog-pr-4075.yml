@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Maps in the slime management console to Xenobio"
+  - tweak: "Reduces Xenobio monkey box count from 4 to 2"

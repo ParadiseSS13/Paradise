@@ -18,12 +18,11 @@
 	set name = "Send PDA Message"
 	set src in usr
 
-	if(usr.stat == DEAD)
-		usr << "You can't send PDA messages because you are dead!"
+	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		usr << "<span class='warning'>Cannot use messenger!</span>"
+		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
 	var/list/plist = M.available_pdas()
 	if (plist)
 		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
@@ -37,12 +36,11 @@
 	set name = "Show Message Log"
 	set src in usr
 
-	if(usr.stat == DEAD)
-		usr << "You can't do that because you are dead!"
+	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		usr << "<span class='warning'>Cannot use messenger!</span>"
+		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
 	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
@@ -57,12 +55,11 @@
 	set name = "Toggle Sender/Receiver"
 	set src in usr
 
-	if(usr.stat == DEAD)
-		usr << "You can't do that because you are dead!"
+	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
-	usr << "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>"
+	to_chat(usr, "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>")
 
 
 /obj/item/device/pda/ai/verb/cmd_toggle_pda_silent()
@@ -70,16 +67,17 @@
 	set name = "Toggle Ringer"
 	set src in usr
 
-	if(usr.stat == DEAD)
-		usr << "You can't do that because you are dead!"
+	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.notify_silent = !M.notify_silent
-	usr << "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>"
+	to_chat(usr, "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>")
 
 /obj/item/device/pda/ai/can_use()
-	return 1
-
+	var/mob/living/silicon/ai/AI = usr
+	if(!istype(AI))
+		return 0
+	return ..() && !AI.check_unable(AI_CHECK_WIRELESS)
 
 /obj/item/device/pda/ai/attack_self(mob/user as mob)
 	if ((honkamt > 0) && (prob(60)))//For clown virus.
@@ -87,5 +85,13 @@
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
 	return
 
-/obj/item/device/pda/ai/pai
+/obj/item/device/pda/pai
+	icon_state = "NONE"
+	detonate = 0
 	ttone = "assist"
+
+/obj/item/device/pda/pai/can_use()
+	var/mob/living/silicon/pai/pAI = usr
+	if(!istype(pAI))
+		return 0
+	return ..() && !pAI.silence_time

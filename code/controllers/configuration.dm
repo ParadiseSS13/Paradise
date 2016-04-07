@@ -167,8 +167,6 @@
 
 	var/disable_away_missions = 0 // disable away missions
 
-	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
-
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
 	var/dooc_allowed = 1
@@ -223,7 +221,7 @@
 		if(type == "config")
 			switch (name)
 				if ("resource_urls")
-					config.resource_urls = text2list(value, " ")
+					config.resource_urls = splittext(value, " ")
 
 				if ("admin_legacy_system")
 					config.admin_legacy_system = 1
@@ -458,7 +456,7 @@
 					config.comms_password = value
 
 				if("irc_bot_host")
-					config.irc_bot_host = text2list(value, ";")
+					config.irc_bot_host = splittext(value, ";")
 
 				if("main_irc")
 					config.main_irc = value
@@ -545,9 +543,6 @@
 
 				if("disable_away_missions")
 					config.disable_away_missions = 1
-
-				if("autoconvert_notes")
-					config.autoconvert_notes = 1
 
 				if("disable_lobby_music")
 					config.disable_lobby_music = 1
@@ -693,7 +688,7 @@
 	var/list/datum/game_mode/runnable_modes = new
 	for (var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
-		//world << "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]"
+//		to_chat(world, "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]")
 		if (!(M.config_tag in modes))
 			qdel(M)
 			continue
@@ -702,5 +697,5 @@
 			continue
 		if (M.can_start())
 			runnable_modes[M] = probabilities[M.config_tag]
-			//world << "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]"
+//			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes

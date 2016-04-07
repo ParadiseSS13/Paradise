@@ -92,6 +92,42 @@
 
 #undef STOMACH_ATTACK_DELAY
 
+/mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
+	if(src.is_muzzled())
+		if(message)
+			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
+		return 0
+	if(stun)
+		Stun(4)
+	if(nutrition < 100 && !blood)
+		if(message)
+			visible_message("<span class='warning'>[src] dry heaves!</span>", \
+							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
+		if(stun)
+			Weaken(10)
+	else
+		if(message)
+			visible_message("<span class='danger'>[src] throws up!</span>", \
+							"<span class='userdanger'>You throw up!</span>")
+		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
+		var/turf/T = get_turf(src)
+		for(var/i=0 to distance)
+			if(blood)
+				if(T)
+					T.add_blood_floor(src)
+				if(stun)
+					adjustBruteLoss(3)
+			else
+				if(T)
+					T.add_vomit_floor(src)
+				nutrition -= lost_nutrition
+				if(stun)
+					adjustToxLoss(-3)
+			T = get_step(T, dir)
+			if (is_blocked_turf(T))
+				break
+	return 1
+
 /mob/living/carbon/gib()
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
@@ -106,19 +142,6 @@
 		M.forceMove(get_turf(src))
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 	. = ..()
-
-
-/mob/living/carbon/attack_hand(mob/M as mob)
-	if(!istype(M, /mob/living/carbon)) return
-	if (ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (H.hand)
-			temp = H.organs_by_name["l_hand"]
-		if(temp && !temp.is_usable())
-			H << "\red You can't use your [temp.name]"
-			return
-	return
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, override = 0, tesla_shock = 0)
 	if(status_flags & GODMODE)	//godmode
@@ -170,7 +193,7 @@
 	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
 		if(istype(item_in_hand,/obj/item/weapon/twohanded))
 			if(item_in_hand:wielded == 1)
-				usr << "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>"
+				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
 	src.hand = !( src.hand )
 	if(hud_used.l_hand_hud_object && hud_used.r_hand_hud_object)
@@ -237,9 +260,9 @@
 				src.show_message(text("\t []My [] is [].",status=="OK"?"\blue ":"\red ",org.name,status),1)
 			if(staminaloss)
 				if(staminaloss > 30)
-					src << "<span class='info'>You're completely exhausted.</span>"
+					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
 				else
-					src << "<span class='info'>You feel fatigued.</span>"
+					to_chat(src, "<span class='info'>You feel fatigued.</span>")
 			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
 		else
@@ -286,9 +309,54 @@
 						if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
 
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+	. = ..()
+	var/damage = intensity - check_eye_prot()
+	if(.)
+		if(visual)
+			return
+		if(weakeyes)
+			Stun(2)
 
-/mob/living/carbon/proc/eyecheck()
-	return 0
+		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+		if(!E)
+			return
+
+		switch(damage)
+			if(1)
+				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
+				if(prob(40)) //waiting on carbon organs
+					E.damage += 1
+
+			if(2)
+				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
+				E.damage += rand(2, 4)
+
+			else
+				to_chat(src, "Your eyes itch and burn severely!</span>")
+				E.damage += rand(12, 16)
+
+		if(E.damage > E.min_bruised_damage)
+			eye_blind += damage
+			eye_blurry += damage * rand(3, 6)
+
+			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
+				if(!(E.status & ORGAN_ROBOT))
+					to_chat(src, "<span class='warning'>Your eyes start to burn badly!</span>")
+				else //snowflake conditions piss me off for the record
+					to_chat(src, "<span class='warning'>The flash blinds you!</span>")
+
+			else if(E.damage >= E.min_broken_damage)
+				to_chat(src, "<span class='warning'>You can't see anything!</span>")
+
+			else
+				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
+		return 1
+
+	else if(damage == 0) // just enough protection
+		if(prob(20))
+			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
+
 
 /mob/living/carbon/proc/tintcheck()
 	return 0
@@ -318,15 +386,15 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(!ventcrawlerlocal)	return
 
 	if(stat)
-		src << "You must be conscious to do this!"
+		to_chat(src, "You must be conscious to do this!")
 		return
 
 	if(lying)
-		src << "You can't vent crawl while you're stunned!"
+		to_chat(src, "You can't vent crawl while you're stunned!")
 		return
 
 	if(buckled_mob)
-		src << "You can't vent crawl with [buckled_mob] on you!"
+		to_chat(src, "You can't vent crawl with [buckled_mob] on you!")
 		return
 
 	var/obj/machinery/atmospherics/unary/vent_found
@@ -370,7 +438,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 						failed++
 
 					if(failed)
-						src << "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>"
+						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 						return
 
 			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
@@ -378,7 +446,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			add_ventcrawl(vent_found)
 
 	else
-		src << "<span class='warning'>This ventilation duct is not connected to anything!</span>"
+		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
@@ -546,12 +614,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/show_inv(mob/user)
 	user.set_machine(src)
-	
+
 	var/dat = {"<table>
 	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
-	
+
 	dat += "<tr><td><B>Back:</B></td><td><A href='?src=\ref[src];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
 	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank))
 		dat += "&nbsp;<A href='?src=\ref[src];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
@@ -591,7 +659,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 					if(!(head && head.flags & AIRTIGHT))
 						no_mask = 1
 				if(no_mask)
-					usr << "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>"
+					to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 					return
 
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
@@ -605,7 +673,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							if(!(head && head.flags & AIRTIGHT))
 								no_mask2 = 1
 						if(no_mask2)
-							usr << "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>"
+							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
 						internal = ITEM
 						if(internals)
@@ -732,7 +800,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
-	src << "<span class='notice'>You slipped on the [description]!</span>"
+	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	if (stun)
 		Stun(stun)
@@ -763,18 +831,18 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/proc/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/pill))
-		src << "<span class='notify'>You [toEat.apply_method] [toEat].</span>"
+		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
 		if (fullness <= 50)
-			src << "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>"
+			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
 		else if (fullness > 50 && fullness <= 150)
-			src << "<span class='notice'>You hungrily begin to eat [toEat].</span>"
+			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
 		else if (fullness > 150 && fullness <= 350)
-			src << "<span class='notice'>You take a bite of [toEat].</span>"
+			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
 		else if (fullness > 350 && fullness <= 550)
-			src << "<span class='notice'>You unwillingly chew a bit of [toEat].</span>"
+			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
 		else if (fullness > (550 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
-			src << "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>"
+			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
 			return 0
 	return 1
 
@@ -821,6 +889,10 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/get_access()
 	. = ..()
 
-	var/obj/item/I = get_active_hand()
-	if(I)
-		. |= I.GetAccess()
+	var/obj/item/RH = get_active_hand()
+	if(RH)
+		. |= RH.GetAccess()
+
+	var/obj/item/LH = get_inactive_hand()
+	if(LH)
+		. |= LH.GetAccess()

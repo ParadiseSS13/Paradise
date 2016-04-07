@@ -43,7 +43,7 @@
 	..()
 	if( href_list["on1"] )
 		if(src.playing == 0)
-			//world << "Should be working..."
+//			to_chat(world, "Should be working...")
 			var/sound/S = sound('sound/turntable/TestLoop1.ogg')
 			S.repeat = 1
 			S.channel = 10
@@ -52,8 +52,8 @@
 			S.environment = 0
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
+//					to_chat(world, "Found the song...")
+//					to_chat(M, S)
 			//		M.music = 1
 			var/area/A = src.loc.loc
 
@@ -63,19 +63,19 @@
 			while(playing == 1)
 				for(var/mob/M in world)
 					if((M.loc.loc in A) && M.music == 0)
-						//world << "Found the song..."
-						M << S
+//						to_chat(world, "Found the song...")
+						to_chat(M, S)
 						M.music = 1
 					else if(!(M.loc.loc in A) && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
-						M << Soff
+						to_chat(M, Soff)
 						M.music = 0
 				sleep(10)
 			return
 	if( href_list["on2"] )
 		if(src.playing == 0)
-			//world << "Should be working..."
+//			to_chat(world, "Should be working...")
 			var/sound/S = sound('sound/turntable/TestLoop2.ogg')
 			S.repeat = 1
 			S.channel = 10
@@ -84,8 +84,8 @@
 			S.environment = 0
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
+//					to_chat(world, "Found the song...")
+//					to_chat(M, S)
 			//		M.music = 1
 			var/area/A = src.loc.loc
 			for(var/obj/machinery/party/lasermachine/L in A)
@@ -94,19 +94,19 @@
 			while(playing == 1)
 				for(var/mob/M in world)
 					if(M.loc.loc == src.loc.loc && M.music == 0)
-						//world << "Found the song..."
-						M << S
+//						to_chat(world, "Found the song...")
+						to_chat(M, S)
 						M.music = 1
 					else if(M.loc.loc != src.loc.loc && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
-						M << Soff
+						to_chat(M, Soff)
 						M.music = 0
 				sleep(10)
 			return
 	if( href_list["on3"] )
 		if(src.playing == 0)
-			//world << "Should be working..."
+//			to_chat(world, "Should be working...")
 			var/sound/S = sound('sound/turntable/TestLoop3.ogg')
 			S.repeat = 1
 			S.channel = 10
@@ -115,8 +115,8 @@
 			S.environment = 0
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
+//					to_chat(world, "Found the song...")
+//					to_chat(M, S)
 			//		M.music = 1
 			var/area/A = src.loc.loc
 			for(var/obj/machinery/party/lasermachine/L in A)
@@ -125,13 +125,13 @@
 			while(playing == 1)
 				for(var/mob/M in world)
 					if(M.loc.loc == src.loc.loc && M.music == 0)
-						//world << "Found the song..."
-						M << S
+//						to_chat(world, "Found the song...")
+						to_chat(M, S)
 						M.music = 1
 					else if(M.loc.loc != src.loc.loc && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
-						M << Soff
+						to_chat(M, Soff)
 						M.music = 0
 				sleep(10)
 			return
@@ -143,7 +143,7 @@
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
-				M << S
+				to_chat(M, S)
 				M.music = 0
 			playing = 0
 			var/area/A = src.loc.loc

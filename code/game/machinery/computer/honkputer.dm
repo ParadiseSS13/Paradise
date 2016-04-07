@@ -21,7 +21,7 @@
 	if(..())
 		return 1
 	if (!(src.z in config.station_levels))
-		usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+		to_chat(usr, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
 		return
 	usr.set_machine(src)
 
@@ -46,13 +46,13 @@
 		if("MessageHonkplanet")
 			if(src.authenticated==1)
 				if(message_cooldown)
-					usr << "Arrays recycling.  Please stand by."
+					to_chat(usr, "Arrays recycling.  Please stand by.")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to your HONKbrothers on the homeworld. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || !(usr in view(1,src)))
 					return
 				HONK_announce(input, usr)
-				usr << "Message transmitted."
+				to_chat(usr, "Message transmitted.")
 				log_say("[key_name(usr)] has made a HONKplanet announcement: [input]")
 				message_cooldown = 1
 				spawn(6000)//10 minute cooldown
@@ -63,20 +63,20 @@
 /obj/machinery/computer/HONKputer/emag_act(user as mob)
 	if(!emagged)
 		src.emagged = 1
-		user << "You scramble the login circuits, allowing anyone to use the console!"
+		to_chat(user, "You scramble the login circuits, allowing anyone to use the console!")
 
 /obj/machinery/computer/HONKputer/attack_hand(var/mob/user as mob)
 	if(..())
 		return
 	if (src.z > 6)
-		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+		to_chat(user, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
 		return
 
 	user.set_machine(src)
 	var/dat = "<head><title>HONKputer Interface</title></head><body>"
 
 	if (istype(user, /mob/living/silicon))
-		user << "This console is not networked to the rest of the grid."
+		to_chat(user, "This console is not networked to the rest of the grid.")
 		return
 
 	switch(src.state)
@@ -104,12 +104,12 @@
 			for (var/obj/C in src)
 				C.loc = src.loc
 			if (src.stat & BROKEN)
-				user << "\blue The broken glass falls out."
+				to_chat(user, "\blue The broken glass falls out.")
 				new /obj/item/weapon/shard( src.loc )
 				A.state = 3
 				A.icon_state = "3"
 			else
-				user << "\blue You disconnect the monitor."
+				to_chat(user, "\blue You disconnect the monitor.")
 				A.state = 4
 				A.icon_state = "4"
 			qdel(src)

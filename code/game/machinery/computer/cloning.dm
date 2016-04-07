@@ -87,7 +87,7 @@
 			user.drop_item()
 			W.loc = src
 			src.diskette = W
-			user << "You insert [W]."
+			to_chat(user, "You insert [W].")
 			nanomanager.update_uis(src)
 			return
 	else if(istype(W, /obj/item/device/multitool))
@@ -98,7 +98,7 @@
 				pods += P
 				P.connected = src
 				P.name = "[initial(P.name)] #[pods.len]"
-				user << "<span class='notice'>You connect [P] to [src].</span>"
+				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
 	else
 		..()
 	return
@@ -326,7 +326,8 @@
 					var/mob/selected = find_dead_player("[C.ckey]")
 					if(!selected)
 						return
-					selected << 'sound/machines/chime.ogg'	//probably not the best sound but I think it's reasonable
+						selected << 'sound/machines/chime.ogg' //probably not the best sound but I think it's reasonable
+
 					var/answer = alert(selected,"Do you want to return to life?","Cloning","Yes","No")
 					if(answer != "No" && pod.growclone(C))
 						temp = "Initiating cloning cycle..."

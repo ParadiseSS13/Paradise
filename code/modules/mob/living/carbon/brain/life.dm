@@ -5,9 +5,9 @@
 			adjustToxLoss(3)
 			updatehealth()
 			if(!container)
-				src << "<span class='danger'>You feel weak.</span>"
+				to_chat(src, "<span class='danger'>You feel weak.</span>")
 			else
-				src << "<span class='danger'>STATUS: CRITICAL AMOUNTS OF RADIATION DETECTED.</span>"
+				to_chat(src, "<span class='danger'>STATUS: CRITICAL AMOUNTS OF RADIATION DETECTED.</span>")
 
 		switch(radiation)
 			if(0 to 49)
@@ -22,9 +22,9 @@
 				if(prob(5))
 					radiation -= 5
 					if(!container)
-						src << "<span class='danger'>You feel weak.</span>"
+						to_chat(src, "<span class='danger'>You feel weak.</span>")
 					else
-						src << "<span class='danger'>STATUS: DANGEROUS AMOUNTS OF RADIATION DETECTED.</span>"
+						to_chat(src, "<span class='danger'>STATUS: DANGEROUS AMOUNTS OF RADIATION DETECTED.</span>")
 				updatehealth()
 
 			if(75 to 100)

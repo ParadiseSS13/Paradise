@@ -19,14 +19,14 @@
 				mode = 1
 				charge_cost = 1000
 				fire_sound = 'sound/weapons/Laser.ogg'
-				user << "\red [src.name] is now set to kill."
+				to_chat(user, "\red [src.name] is now set to kill.")
 				projectile_type = "/obj/item/projectile/beam"
 				modifystate = "energykill"
 			if(1)
 				mode = 0
 				charge_cost = 500
 				fire_sound = 'sound/weapons/Taser2.ogg'
-				user << "\red [src.name] is now set to disable."
+				to_chat(user, "\red [src.name] is now set to disable.")
 				projectile_type = "/obj/item/projectile/beam/disabler"
 				modifystate = "energystun"
 		update_icon()
@@ -96,16 +96,16 @@
 			if (prob(src.reliability))
 				for (var/mob/living/M in range(0,src)) //Only a minor failure, enjoy your radiation if you're in the same tile or carrying it
 					if (src in M.contents)
-						M << "\red Your gun feels pleasantly warm for a moment."
+						to_chat(M, "\red Your gun feels pleasantly warm for a moment.")
 					else
-						M << "\red You feel a warm sensation."
+						to_chat(M, "\red You feel a warm sensation.")
 					M.apply_effect(rand(3,120), IRRADIATE)
 				lightfail = 1
 			else
 				for (var/mob/living/M in range(rand(1,4),src)) //Big failure, TIME FOR RADIATION BITCHES
 					if (src in M.contents)
-						M << "\red Your gun's reactor overloads!"
-					M << "\red You feel a wave of heat wash over you."
+						to_chat(M, "\red Your gun's reactor overloads!")
+					to_chat(M, "\red You feel a wave of heat wash over you.")
 					M.apply_effect(300, IRRADIATE)
 				crit_fail = 1 //break the gun so it stops recharging
 				processing_objects.Remove(src)
@@ -173,7 +173,7 @@
 			mode = 1
 			charge_cost = 500
 			fire_sound = 'sound/weapons/Laser.ogg'
-			user << "\red [src.name] is now set to kill."
+			to_chat(user, "\red [src.name] is now set to kill.")
 			projectile_type = /obj/item/projectile/beam
 			modifystate = "energykill"
 			fire_delay = 0
@@ -181,7 +181,7 @@
 			mode = 0
 			charge_cost = 1000
 			fire_sound = 'sound/weapons/Taser.ogg'
-			user << "\red [src.name] is now set to stun."
+			to_chat(user, "\red [src.name] is now set to stun.")
 			projectile_type = /obj/item/projectile/energy/electrode
 			modifystate = "energystun"
 			fire_delay = 15

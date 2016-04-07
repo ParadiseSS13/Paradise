@@ -1,0 +1,7 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Can spawn friendly animals with a new gold core reaction by injection with water"
+  - tweak: "Hostile animal spawn increased from 3 to 5 for hostile gold cores"
+  - tweak: "Swarmers, revenants, and morphs no longer gold core spawnable"
+  - bugfix: "Fixes invisible animal spawns from gold core/life reactions"

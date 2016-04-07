@@ -71,7 +71,7 @@ var/list/blob_nodes = list()
 	blobmind.special_role = "Blob"
 	log_game("[blob.key] (ckey) has been selected as a Blob")
 	greet_blob(blobmind)
-	blob << "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>"
+	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
 	spawn(600)
 		burst_blob(blobmind)
 	return 1
@@ -89,22 +89,22 @@ var/list/blob_nodes = list()
 
 
 /datum/game_mode/blob/announce()
-	world << "<B>The current game mode is - <font color='green'>Blob</font>!</B>"
-	world << "<B>A dangerous alien organism is rapidly spreading throughout the station!</B>"
-	world << "You must kill it all while minimizing the damage to the station."
+	to_chat(world, "<B>The current game mode is - <font color='green'>Blob</font>!</B>")
+	to_chat(world, "<B>A dangerous alien organism is rapidly spreading throughout the station!</B>")
+	to_chat(world, "You must kill it all while minimizing the damage to the station.")
 
 
 /datum/game_mode/blob/proc/greet_blob(var/datum/mind/blob)
-	blob.current << "<span class='userdanger'>You are infected by the Blob!</span>"
-	blob.current << "<b>Your body is ready to give spawn to a new blob core which will eat this station.</b>"
-	blob.current << "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>"
-	blob.current << "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>"
-	blob.current << "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>"
+	to_chat(blob.current, "<span class='userdanger'>You are infected by the Blob!</span>")
+	to_chat(blob.current, "<b>Your body is ready to give spawn to a new blob core which will eat this station.</b>")
+	to_chat(blob.current, "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>")
+	to_chat(blob.current, "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>")
+	to_chat(blob.current, "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>")
 	return
 
 /datum/game_mode/blob/proc/show_message(var/message)
 	for(var/datum/mind/blob in infected_crew)
-		blob.current << message
+		to_chat(blob.current, message)
 
 /datum/game_mode/blob/proc/burst_blobs()
 	for(var/datum/mind/blob in infected_crew)
@@ -121,7 +121,7 @@ var/list/blob_nodes = list()
 			location = get_turf(C)
 			if(location.z != ZLEVEL_STATION || istype(location, /turf/space))
 				if(!warned)
-					C << "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>"
+					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
 					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if he doesn't return to the station.")
 					spawn(300)
 						burst_blob(blob, 1)

@@ -338,7 +338,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if(iswelder(W) && src.destroyed)
 		if(weld(W, user))
-			user << "\blue You salvage whats left of \the [src]"
+			to_chat(user, "\blue You salvage whats left of \the [src]")
 			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(src.loc)
 			M.amount = 3
 			qdel(src)
@@ -360,7 +360,7 @@ update_flag
 			transfer_moles = pressure_delta*thejetpack.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)//Actually transfer the gas
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 			thejetpack.merge(removed)
-			user << "You pulse-pressurize your jetpack from the tank."
+			to_chat(user, "You pulse-pressurize your jetpack from the tank.")
 		return
 
 	..()
@@ -375,7 +375,7 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
 	return
-	
+
 /obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user as mob)
 	return src.ui_interact(user)
 
@@ -427,7 +427,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	if (href_list["choice"] == "menu")
 		menu = text2num(href_list["mode_target"])
 
@@ -478,7 +478,7 @@ update_flag
 				else
 					name = "canister"
 			else
-				usr << "\red As you attempted to rename it the pressure rose!"
+				to_chat(usr, "\red As you attempted to rename it the pressure rose!")
 
 	if (href_list["choice"] == "Primary color")
 		if (is_a_color(href_list["icon"],"prim"))
@@ -625,13 +625,12 @@ update_flag
 
 	if(busy)
 		return 0
-	if(!WT.isOn())
+	if(!WT.remove_fuel(0, user))
 		return 0
 
 	// Do after stuff here
-	user << "<span class='notice'>You start to slice away at \the [src]...</span>"
+	to_chat(user, "<span class='notice'>You start to slice away at \the [src]...</span>")
 	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-	WT.eyecheck(user)
 	busy = 1
 	if(do_after(user, 50, target = src))
 		busy = 0

@@ -293,7 +293,7 @@
 	if((brute || burn) && children && children.len && (owner.species.flags & REGENERATES_LIMBS))
 		var/obj/item/organ/external/stump/S = locate() in children
 		if(S)
-			//world << "Extra healing to go around ([brute+burn]) and [owner] needs a replacement limb."
+//			to_chat(world, "Extra healing to go around ([brute+burn]) and [owner] needs a replacement limb.")
 */
 
 	//Sync the organ's damage with its wounds
@@ -312,6 +312,7 @@ This function completely restores a damaged organ to perfect condition.
 		status = 128
 	else
 		status = 0
+	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
@@ -320,6 +321,8 @@ This function completely restores a damaged organ to perfect condition.
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
 		current_organ.rejuvenate()
 
+	for(var/obj/item/organ/external/EO in contents)
+		EO.rejuvenate()
 
 	// remove embedded objects and drop them on the floor
 	for(var/obj/implanted_object in implants)
@@ -329,6 +332,8 @@ This function completely restores a damaged organ to perfect condition.
 
 	owner.updatehealth()
 	update_icon()
+	if(!owner)
+		processing_objects |= src
 
 
 /obj/item/organ/external/proc/createwound(var/type = CUT, var/damage)
@@ -523,7 +528,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(germ_level >= INFECTION_LEVEL_THREE && antibiotics < 30)	//overdosing is necessary to stop severe infections
 		if (!(status & ORGAN_DEAD))
 			status |= ORGAN_DEAD
-			owner << "<span class='notice'>You can't feel your [name] anymore...</span>"
+			to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
 			owner.update_body(1)
 
 		germ_level++

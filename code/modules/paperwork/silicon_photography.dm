@@ -29,11 +29,12 @@
 	if(C.connected_ai)
 		var/mob/A = P.fields["author"]
 		C.connected_ai.aiCamera.injectaialbum(P, " (taken by [A.name])")
-		C.connected_ai << "<span class='unconscious'>Image recorded and saved by [name]</span>"
-		usr << "<span class='unconscious'>Image recorded and saved to remote database</span>"	//feedback to the Cyborg player that the picture was taken
+		to_chat(C.connected_ai, "<span class='unconscious'>Image recorded and saved by [name]</span>")
+		to_chat(usr, "<span class='unconscious'>Image recorded and saved to remote database</span>")//feedback to the Cyborg player that the picture was taken
+
 	else
 		injectaialbum(P)
-		usr << "<span class='unconscious'>Image recorded</span>"
+		to_chat(usr, "<span class='unconscious'>Image recorded</span>")
 
 /obj/item/device/camera/siliconcam/proc/selectpicture(obj/item/device/camera/siliconcam/cam)
 	if(!cam)
@@ -42,7 +43,7 @@
 	var/list/nametemp = list()
 	var/find
 	if(cam.aipictures.len == 0)
-		usr << "<span class='userdanger'>No images saved</span>"
+		to_chat(usr, "<span class='userdanger'>No images saved</span>")
 		return
 	for(var/datum/picture/t in cam.aipictures)
 		nametemp += t.fields["name"]
@@ -61,7 +62,7 @@
 	var/obj/item/weapon/photo/P = new/obj/item/weapon/photo()
 	P.construct(selection)
 	P.show(usr)
-	usr << P.desc
+	to_chat(usr, P.desc)
 
 	// TG uses a special garbage collector.. qdel(P)
 	qdel(P) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.
@@ -73,7 +74,7 @@
 		return
 
 	cam.aipictures -= selection
-	usr << "<span class='unconscious'>Image deleted</span>"
+	to_chat(usr, "<span class='unconscious'>Image deleted</span>")
 
 /obj/item/device/camera/siliconcam/ai_camera/can_capture_turf(turf/T, mob/user)
 	var/mob/living/silicon/ai = user
@@ -87,15 +88,15 @@
 
 /obj/item/device/camera/siliconcam/proc/camera_mode_off()
 	src.in_camera_mode = 0
-	usr << "<B>Camera Mode deactivated</B>"
+	to_chat(usr, "<B>Camera Mode deactivated</B>")
 
 /obj/item/device/camera/siliconcam/proc/camera_mode_on()
 	src.in_camera_mode = 1
-	usr << "<B>Camera Mode activated</B>"
+	to_chat(usr, "<B>Camera Mode activated</B>")
 
 /obj/item/device/camera/siliconcam/ai_camera/printpicture(mob/user, datum/picture/P)
 	injectaialbum(P)
-	usr << "<span class='unconscious'>Image recorded</span>"
+	to_chat(usr, "<span class='unconscious'>Image recorded</span>")
 
 /obj/item/device/camera/siliconcam/robot_camera/printpicture(mob/user, datum/picture/P)
 	injectmasteralbum(P)

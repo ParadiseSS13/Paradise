@@ -310,7 +310,7 @@
 		src.visible_message("A new [type] has hatched in \the [src]!")
 	//Null type fish are dud eggs, give a message to inform the player
 	else
-		usr << "The eggs disolve in the water. They were duds!"
+		to_chat(usr, "The eggs disolve in the water. They were duds!")
 
 /obj/machinery/fishtank/proc/select_egg_type()
 	var/fish = pick(fish_list)						//Select a fish from the fish in the tank
@@ -340,7 +340,7 @@
 
 /obj/machinery/fishtank/proc/harvest_fish(var/mob/user)
 	if(!fish_count)									//Can't catch non-existant fish!
-		usr << "There are no fish in \the [src] to catch!"
+		to_chat(usr, "There are no fish in \the [src] to catch!")
 		return
 
 	var/caught_fish
@@ -496,7 +496,7 @@
 
 
 	//Finally, report the full examine_message constructed from the above reports
-	user << "[examine_message]"
+	to_chat(user, "[examine_message]")
 	return examine_message
 
 //////////////////////////////
@@ -523,7 +523,7 @@
 							kill_fish()						//Kill a random fish
 							M.health = M.maxHealth			//Eating fish heals the predator
 				else
-					usr << "There are no fish in [src]!"
+					to_chat(usr, "There are no fish in [src]!")
 		else
 			attack_generic(M, M.harm_intent_damage)
 	else if(istype(M, /mob/living/simple_animal/hostile/bear))
@@ -541,7 +541,7 @@
 							kill_fish()						//Kill a random fish
 							M.health = M.maxHealth			//Eating fish heals the predator
 				else
-					usr << "There are no fish in [src]!"
+					to_chat(usr, "There are no fish in [src]!")
 		else
 			attack_generic(M, M.harm_intent_damage)
 	else
@@ -606,14 +606,14 @@
 		if(user.a_intent == I_HELP)
 			if(W.isOn())
 				if(cur_health < max_health)
-					usr << "You repair some of the cracks on \the [src]."
+					to_chat(usr, "You repair some of the cracks on \the [src].")
 					cur_health += 20
 					check_health()
 				else
-					usr << "There is no damage to fix!"
+					to_chat(usr, "There is no damage to fix!")
 			else
 				if(cur_health < max_health)
-					usr << "[W.name] must on to repair this damage."
+					to_chat(usr, "[W.name] must on to repair this damage.")
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
 			hit(W.force)
@@ -622,7 +622,7 @@
 	if(O.is_open_container())
 		if(istype(O, /obj/item/weapon/reagent_containers/glass))
 			if(lid_switch)
-				usr << "Open the lid on \the [src] first!"
+				to_chat(usr, "Open the lid on \the [src] first!")
 				return
 			var/obj/item/weapon/reagent_containers/glass/C = O
 			//Containers with any reagents will get dumped in
@@ -640,7 +640,7 @@
 					C.reagents.clear_reagents()
 				else
 					if(water_level == water_capacity)
-						usr << "[src] is already full!"
+						to_chat(usr, "[src] is already full!")
 						return
 					else
 						message = "The filtration process purifies the water, raising the water level."
@@ -656,7 +656,7 @@
 			//Empty containers will scoop out water, filling the container as much as possible from the water_level
 			else
 				if(water_level == 0)
-					usr << "[src] is empty!"
+					to_chat(usr, "[src] is empty!")
 				else
 					if(water_level >= C.volume)										//Enough to fill the container completely
 						C.reagents.add_reagent("fishwater", C.volume)
@@ -671,23 +671,23 @@
 	//Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
 	if(istype(O, /obj/item/weapon/wrench))
 		if(water_level == 0)
-			usr << "<span class='notice'>Now disassembling [src].</span>"
+			to_chat(usr, "<span class='notice'>Now disassembling [src].</span>")
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			if(do_after(user,50, target = src))
 				destroy(1)
 		else
-			usr << "[src] must be empty before you disassemble it!"
+			to_chat(usr, "[src] must be empty before you disassemble it!")
 		return
 	//Fish eggs
 	else if(istype(O, /obj/item/fish_eggs))
 		var/obj/item/fish_eggs/egg = O
 		//Don't add eggs if there is no water (they kinda need that to live)
 		if(water_level == 0)
-			usr << "[src] has no water; [egg.name] won't hatch without water!"
+			to_chat(usr, "[src] has no water; [egg.name] won't hatch without water!")
 		else
 			//Don't add eggs if the tank already has the max number of fish
 			if(fish_count >= max_fish)
-				usr << "[src] can't hold any more fish."
+				to_chat(usr, "[src] can't hold any more fish.")
 			else
 				add_fish(egg.fish_type)
 				qdel(egg)
@@ -703,9 +703,9 @@
 					user.visible_message("[user.name] feeds the fish in \the [src]. The fish look excited!", "You feed the fish in \the [src]. They look excited!")
 				food_level += 10
 			else
-				usr << "[src] already has plenty of food in it. You decide to not add more."
+				to_chat(usr, "[src] already has plenty of food in it. You decide to not add more.")
 		else
-			usr << "[src] doesn't have any water in it. You should fill it with water first."
+			to_chat(usr, "[src] doesn't have any water in it. You should fill it with water first.")
 		check_food_level()
 		return
 	//Fish egg scoop
@@ -723,7 +723,7 @@
 	//Tank brush
 	if(istype(O, /obj/item/weapon/tank_brush))
 		if(filth_level == 0)
-			usr << "[src] is already spotless!"
+			to_chat(usr, "[src] is already spotless!")
 		else
 			filth_level = 0
 			user.visible_message("[user.name] scrubs the inside of \the [src], cleaning the filth.", "You scrub the inside of \the [src], cleaning the filth.")

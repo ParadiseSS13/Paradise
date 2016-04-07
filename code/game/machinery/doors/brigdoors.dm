@@ -43,16 +43,20 @@
 
 	spawn(20)
 		for(var/obj/machinery/door/window/brigdoor/M in airlocks)
-			if (M.id == src.id)
+			if (M.id == id)
 				targets += M
 
 		for(var/obj/machinery/flasher/F in machines)
-			if(F.id == src.id)
+			if(F.id == id)
 				targets += F
 
 		for(var/obj/structure/closet/secure_closet/brig/C in world)
-			if(C.id == src.id)
+			if(C.id == id)
 				targets += C
+		
+		for(var/obj/machinery/treadmill_monitor/T in machines)
+			if(T.id == id)
+				targets += T
 
 		if(targets.len==0)
 			stat |= BROKEN
@@ -108,6 +112,11 @@
 		if(C.opened && !C.close())	continue
 		C.locked = 1
 		C.icon_state = C.icon_locked
+		
+	for(var/obj/machinery/treadmill_monitor/T in targets)
+		T.total_joules = 0
+		T.on = 1
+
 	return 1
 
 
@@ -128,6 +137,11 @@
 		if(C.opened)	continue
 		C.locked = 0
 		C.icon_state = C.icon_closed
+
+	for(var/obj/machinery/treadmill_monitor/T in targets)
+		if(!T.stat)
+			T.redeem()
+		T.on = 0
 
 	return 1
 

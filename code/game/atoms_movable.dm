@@ -1,5 +1,6 @@
 /atom/movable
 	layer = 3
+	appearance_flags = TILE_BOUND
 	var/last_move = null
 	var/anchored = 0
 	// var/elevation = 2    - not used anywhere
