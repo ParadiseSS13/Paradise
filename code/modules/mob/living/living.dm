@@ -484,11 +484,10 @@
 						var/atom/movable/t = M.pulling
 						M.stop_pulling()
 
-						//this is the gay blood on floor shit -- Added back -- Skie
 						if (M.lying && (prob(M.getBruteLoss() / 6)))
 							var/turf/location = M.loc
 							if (istype(location, /turf/simulated))
-								location.add_blood()
+								location.add_blood(M)
 						pulling.Move(T, get_dir(pulling, T))
 						if(M)
 							M.start_pulling(t)
