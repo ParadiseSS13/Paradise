@@ -723,11 +723,7 @@
 			else
 				P.close()
 				return 1
-<<<<<<< Updated upstream
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-=======
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
->>>>>>> Stashed changes
 		return
 
 	to_chat(usr, "<span class='warning'>You are not close to any pod doors.</span>")
