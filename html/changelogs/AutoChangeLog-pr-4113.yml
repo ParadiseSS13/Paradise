@@ -1,9 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Statues can no longer move/attack people unless they're in total darkness or all mobs viewing them are blinded"
-  - tweak: "statues are invincible to anything other than full out gibbing."
-  - tweak: "Statues flicker lights spell range increased"
-  - tweak: "Blind spell no longer impacts silicons"
-  - bugfix: "Fixes statues being able to attack/move whenever they feel like it, regardless of client statues"
-  - bugfix: "Fixes blind spell impacting the statue"
