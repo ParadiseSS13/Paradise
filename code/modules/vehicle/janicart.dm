@@ -52,7 +52,7 @@
 /obj/vehicle/janicart/examine(mob/user)
 	..()
 	if(floorbuffer)
-		user << "It has been upgraded with a floor buffer."
+		to_chat(user, "It has been upgraded with a floor buffer.")
 
 
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
@@ -60,14 +60,14 @@
 		if(keytype == /obj/item/key/janitor)
 			if(!user.drop_item())
 				return
-			user << "<span class='notice'>You hook the trashbag onto \the [name].</span>"
+			to_chat(user, "<span class='notice'>You hook the trashbag onto \the [name].</span>")
 			I.loc = src
 			mybag = I
 	else if(istype(I, /obj/item/janiupgrade))
 		if(keytype == /obj/item/key/janitor)
 			floorbuffer = 1
 			qdel(I)
-			user << "<span class='notice'>You upgrade \the [name] with the floor buffer.</span>"
+			to_chat(user,"<span class='notice'>You upgrade \the [name] with the floor buffer.</span>")
 	update_icon()
 
 	..()

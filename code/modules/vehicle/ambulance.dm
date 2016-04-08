@@ -3,6 +3,7 @@
 	desc = "what the paramedic uses to run over people to take to medbay."
 	icon_state = "docwagon2"
 	keytype = /obj/item/key/ambulance
+	var/obj/structure/stool/bed/amb_trolley/bed = null
 
 
 /obj/item/key/ambulance
@@ -28,22 +29,13 @@
 				buckled_mob.pixel_x = -13
 				buckled_mob.pixel_y = 7
 
-
-/obj/vehicle/ambulance/attackby(obj/item/I, mob/user, params)
-	//add ambulance bed hookup here
-	..()
-
-/obj/vehicle/ambulance/RunOver(var/mob/living/carbon/human/H)
-	var/mob/living/carbon/human/D = buckled_mob
-	var/list/parts = list("head", "chest", "l_leg", "r_leg", "l_arm", "r_arm")
-
-	H.apply_effects(5, 5)
-	for(var/i = 0, i < rand(1,3), i++)
-		H.apply_damage(rand(1,5), BRUTE, pick(parts))
-
-	visible_message("<span class='warning'> \The [src] ran over [H]!</span>")
-	msg_admin_attack("[key_name_admin(D)] ran over [key_name_admin(H)]")
-
+/obj/vehicle/ambulance/Move(newloc, Dir)
+	var/oldloc = loc
+	. = ..()
+	if(bed && get_dist(oldloc, loc) <= 2)
+		bed.Move(oldloc)
+		bed.dir = Dir
+		bed.buckled_mob.dir = Dir
 
 /obj/structure/stool/bed/amb_trolley
 	name = "ambulance train trolley"
@@ -53,3 +45,11 @@
 
 /obj/structure/stool/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()
+	if(istype(over_object, /obj/vehicle/ambulance))
+		var/obj/vehicle/ambulance/amb = over_object
+		if(amb.bed)
+			amb.bed = null
+			to_chat(usr, "You unhook the bed to the ambulance.")
+		else
+			amb.bed = src
+			to_chat(usr, "You hook the bed to the ambulance.")
