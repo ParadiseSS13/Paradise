@@ -322,8 +322,6 @@
 	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
-	if(C.get_species() == "Monkey" || C.get_species() == "Farwa" || C.get_species() == "Stok" || C.get_species() == "Wolpin" || C.get_species() == "Neara")
-		C.butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5)
 	grant_abilities(C)
 	return
 
