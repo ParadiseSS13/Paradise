@@ -225,28 +225,37 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/weapon/vending_refill/boozeomat = 3)
 
-	var/list/names_paths = list(/obj/machinery/vending/boozeomat = "Booze-O-Mat",
-							/obj/machinery/vending/coffee = "Solar's Best Hot Drinks",
-							/obj/machinery/vending/snack = "Getmore Chocolate Corp",
-							/obj/machinery/vending/cola = "Robust Softdrinks",
-							/obj/machinery/vending/cigarette = "ShadyCigs Deluxe",
-							/obj/machinery/vending/autodrobe = "AutoDrobe",
-							/obj/machinery/vending/hatdispenser = "Hatlord 9000",
-							/obj/machinery/vending/suitdispenser = "Suitlord 9000",
-							/obj/machinery/vending/shoedispenser = "Shoelord 9000",
-							/obj/machinery/vending/clothing = "ClothesMate",
-							/obj/machinery/vending/crittercare = "CritterCare")
+	var/list/names_paths = list("Booze-O-Mat" = /obj/machinery/vending/boozeomat,
+							"Solar's Best Hot Drinks" = /obj/machinery/vending/coffee,
+							"Getmore Chocolate Corp" = /obj/machinery/vending/snack,
+							"Robust Softdrinks" = /obj/machinery/vending/cola,
+							"ShadyCigs Deluxe" = /obj/machinery/vending/cigarette,
+							"AutoDrobe" = /obj/machinery/vending/autodrobe,
+							"Hatlord 9000" = /obj/machinery/vending/hatdispenser,
+							"Suitlord 9000" = /obj/machinery/vending/suitdispenser,
+							"Shoelord 9000" = /obj/machinery/vending/shoedispenser,
+							"ClothesMate" = /obj/machinery/vending/clothing,
+							"CritterCare" = /obj/machinery/vending/crittercare)
 
 /obj/item/weapon/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
-		set_type(pick(names_paths), user)
-
+		set_type(null, user)
 
 /obj/item/weapon/circuitboard/vendor/proc/set_type(typepath, mob/user)
-		build_path = typepath
-		name = "circuit board ([names_paths[build_path]] Vendor)"
-		to_chat(user, "<span class='notice'>You set the board to [names_paths[build_path]].</span>")
-		req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)
+	var/new_name = "Booze-O-Mat Vendor"
+	if(!typepath)
+		new_name = input("Circuit Setting", "What would you change the board setting to?") in names_paths
+		typepath = names_paths[new_name]
+	else
+		for(var/name in names_paths)
+			if(names_paths[name] == typepath)
+				new_name = name
+				break
+	build_path = typepath
+	name = "circuit board ([new_name])"
+	req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
 
 /obj/item/weapon/circuitboard/smes
 	name = "circuit board (SMES)"

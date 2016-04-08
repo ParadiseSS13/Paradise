@@ -691,6 +691,12 @@
 	vend_delay = 0
 */
 
+/obj/machinery/vending/assist
+	products = list(	/obj/item/device/assembly/prox_sensor = 5,/obj/item/device/assembly/igniter = 3,/obj/item/device/assembly/signaler = 4,
+						/obj/item/weapon/wirecutters = 1, /obj/item/weapon/cartridge/signal = 4)
+	contraband = list(/obj/item/device/flashlight = 5,/obj/item/device/assembly/timer = 2, /obj/item/device/assembly/voice = 2, /obj/item/device/assembly/health = 2)
+	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
+
 /obj/machinery/vending/boozeomat
 	name = "\improper Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
@@ -722,11 +728,6 @@
 	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?"
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"
 	refill_canister = /obj/item/weapon/vending_refill/boozeomat
-/obj/machinery/vending/assist
-	products = list(	/obj/item/device/assembly/prox_sensor = 5,/obj/item/device/assembly/igniter = 3,/obj/item/device/assembly/signaler = 4,
-						/obj/item/weapon/wirecutters = 1, /obj/item/weapon/cartridge/signal = 4)
-	contraband = list(/obj/item/device/flashlight = 5,/obj/item/device/assembly/timer = 2, /obj/item/device/assembly/voice = 2, /obj/item/device/assembly/health = 2)
-	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 
 /obj/machinery/vending/boozeomat/New()
 	..()
@@ -861,10 +862,18 @@
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/weapon/storage/fancy/cigarettes = 5,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 1,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 2, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4,/obj/item/weapon/rollingpaperpack = 5)
+	products = list(/obj/item/weapon/storage/fancy/cigarettes = 5, /obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 3,
+					/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 2, /obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 3,
+					/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 1, /obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 2,
+					/obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/weapon/storage/box/matches = 10,
+					/obj/item/weapon/lighter/random = 4, /obj/item/weapon/rollingpaperpack = 5, /obj/item/weapon/pipe_tobacco = 6)
 	contraband = list(/obj/item/weapon/lighter/zippo = 4)
-	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 150, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60, /obj/item/weapon/rollingpaperpack = 20)
+	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold = 1)
+	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60, /obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 60,
+				/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 60, /obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 60,
+				/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 60, /obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 150,
+				/obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/weapon/storage/box/matches = 10,
+				/obj/item/weapon/lighter/random = 60, /obj/item/weapon/rollingpaperpack = 20, /obj/item/weapon/pipe_tobacco = 40)
 	refill_canister = /obj/item/weapon/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/New()
