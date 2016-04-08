@@ -331,7 +331,7 @@
 	return
 
 /datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
-	if(!H.get_species() == "Monkey" || !H.get_species() == "Farwa" || !H.get_species() == "Stok" || !H.get_species() == "Wolpin" || !H.get_species() == "Neara")
+	if(H.butcher_results)//clear it out so we don't butcher a actual human.
 		H.butcher_results = null
 	remove_abilities(H)
 	return
