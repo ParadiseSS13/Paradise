@@ -267,13 +267,14 @@
 		else
 			text += "<a href='?src=\ref[src];vampire=vampire'>yes</a>|<b>NO</b>"
 
+		/** Enthralled ***/
+		text += "<br><b>enthralled</b>"
+		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.vampire_enthralled)
 			text += "<b><font color='#FF0000'>YES</font></b>|no"
 		else
 			text += "yes|<font color='#00FF00'>NO</font></b>"
 
-		/** Enthralled ***/
-		text += "<br><b>enthralled</b>"
 
 		sections["vampire"] = text
 
