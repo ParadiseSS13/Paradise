@@ -43,13 +43,12 @@
 	var/plant_cooldown = 30
 	var/plants_off = 0
 
-/mob/living/simple_animal/hostile/alien/drone/process_ai()
-	. = ..()
-	if(!.)
+/mob/living/simple_animal/hostile/alien/drone/handle_automated_action()
+	if(!..()) //AIStatus is off
 		return
 
 	plant_cooldown--
-	if(stance==HOSTILE_STANCE_IDLE)
+	if(AIStatus == AI_IDLE)
 		if(!plants_off && prob(10) && plant_cooldown<=0)
 			plant_cooldown = initial(plant_cooldown)
 			SpreadPlants()
@@ -90,12 +89,12 @@
 	var/egg_cooldown = 30
 	var/plant_cooldown = 30
 
-/mob/living/simple_animal/hostile/alien/queen/process_ai()
-	..()
-
+/mob/living/simple_animal/hostile/alien/queen/handle_automated_action()
+	if(!..())
+		return
 	egg_cooldown--
 	plant_cooldown--
-	if(stance==HOSTILE_STANCE_IDLE)
+	if(AIStatus == AI_IDLE)
 		if(!plants_off && prob(10) && plant_cooldown<=0)
 			plant_cooldown = initial(plant_cooldown)
 			SpreadPlants()

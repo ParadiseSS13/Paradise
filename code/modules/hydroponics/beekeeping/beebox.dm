@@ -14,6 +14,13 @@
 /mob/living/simple_animal/hostile/poison/bees/bee_friendly()
 	return 1
 
+/mob/living/simple_animal/bot/bee_friendly()
+	if(paicard)
+		return 0
+	return 1
+
+/mob/living/simple_animal/diona/bee_friendly()
+	return 1
 
 /mob/living/carbon/human/bee_friendly()
 	if(get_species() == "Diona") //bees pollinate plants, duh.
@@ -205,8 +212,8 @@
 			if(bees)
 				visible_message("<span class='danger'>[user] disturbs the bees!</span>")
 		else
-			var/option = alert(user, "What Action do you wish to perform?","Apiary","Remove a Honey Frame","Remove the Queen Bee")
-			if(!Adjacent(user))
+			var/option = input(user, "What Action do you wish to perform?", "Apiary") as null|anything in list("Remove a Honey Frame","Remove the Queen Bee")
+			if(!Adjacent(user) || !option)
 				return
 			switch(option)
 				if("Remove a Honey Frame")

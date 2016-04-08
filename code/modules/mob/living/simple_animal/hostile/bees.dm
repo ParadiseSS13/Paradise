@@ -33,6 +33,8 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	flying = 1
 	search_objects = 1 //have to find those plant trays!
+	density = 0
+	small = 1
 
 	//Spaceborn beings don't get hurt by space
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -57,7 +59,7 @@
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	if(beehome)
-		beehome.bees -= src
+		beehome.bees.Remove(src)
 		beehome = null
 	beegent = null
 	return ..()
@@ -65,7 +67,7 @@
 
 /mob/living/simple_animal/hostile/poison/bees/death(gibbed)
 	if(beehome)
-		beehome.bees -= src
+		beehome.bees.Remove(src)
 		beehome = null
 	beegent = null
 	..()
@@ -137,12 +139,13 @@
 		var/obj/structure/beebox/BB = target
 		forceMove(BB)
 		target = null
-		wanted_objects -= /obj/structure/beebox //so we don't attack beeboxes when not going home
+		wanted_objects.Remove(/obj/structure/beebox) //so we don't attack beeboxes when not going home
 	else
 		if(beegent && isliving(target))
 			var/mob/living/L = target
-			beegent.reaction_mob(L, TOUCH)
-			L.reagents.add_reagent(beegent.id, rand(1,5))
+			if(!isnull(target.reagents))
+				beegent.reaction_mob(L, TOUCH)
+				L.reagents.add_reagent(beegent.id, rand(1,5))
 		target.attack_animal(src)
 
 
@@ -159,7 +162,7 @@
 		return
 
 	target = null //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
-	wanted_objects -= /obj/machinery/portable_atmospherics/hydroponics //so we only hunt them while they're alive/seeded/not visisted
+	wanted_objects.Remove(/obj/machinery/portable_atmospherics/hydroponics) //so we only hunt them while they're alive/seeded/not visisted
 	Hydro.recent_bee_visit = TRUE
 	spawn(BEE_TRAY_RECENT_VISIT)
 		if(Hydro)
@@ -199,7 +202,7 @@
 			idle = max(0, --idle)
 			if(idle <= BEE_IDLE_GOHOME && prob(BEE_PROB_GOHOME))
 				if(!FindTarget())
-					wanted_objects += /obj/structure/beebox //so we don't attack beeboxes when not going home
+					wanted_objects.Add(/obj/structure/beebox) //so we don't attack beeboxes when not going home
 					target = beehome
 	if(!beehome) //add outselves to a beebox (of the same reagent) if we have no home
 		for(var/obj/structure/beebox/BB in view(vision_range, src))
@@ -281,7 +284,6 @@
 /obj/item/queen_bee/bought/New()
 	..()
 	queen = new(src)
-
 
 /obj/item/queen_bee/Destroy()
 	qdel(queen)
