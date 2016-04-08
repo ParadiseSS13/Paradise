@@ -25,9 +25,40 @@
 	var/list/stored_slimes = list()
 	var/max_slimes = 5
 	var/monkeys = 0
+	var/mob/living/carbon/human/monkey_type = /mob/living/carbon/human/monkey
+	var/monkey_name = "monkey" //because even abusing initial() isn't enough to get the species proper name, based on how monkey/species setting works.
+	var/cycle_through = 0
 
 	icon_screen = "slime_comp"
 	icon_keyboard = "rd_key"
+
+/obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user)
+	if(istype(O, /obj/item/device/multitool))
+		cycle_through++
+		switch(cycle_through)
+			if(1)
+				monkey_type = /mob/living/carbon/human/farwa
+				monkey_name = "farwa"
+			if(2)
+				monkey_type = /mob/living/carbon/human/wolpin
+				monkey_name = "wolpin"
+			if(3)
+				monkey_type = /mob/living/carbon/human/stok
+				monkey_name = "stok"
+			if(4)
+				monkey_type = /mob/living/carbon/human/neara
+				monkey_name = "neara"
+			if(5)
+				monkey_type = /mob/living/carbon/human/monkey
+				monkey_name = "monkey"
+				cycle_through = 0
+		to_chat(user, "<span class='notice'>You change the monkeycube type to [monkey_name].</span>")
+	else
+		..()
+
+/obj/machinery/computer/camera_advanced/xenobio/examine(mob/user)
+	..(user)
+	to_chat(user, "[src] has [monkeys] [monkey_name]s available for use.")
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/aiEye/remote/xenobio()
@@ -145,7 +176,7 @@
 
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)
+			var/mob/living/carbon/human/monkey/food = new X.monkey_type(remote_eye.loc)
 			food.LAssailant = C
 			X.monkeys --
 			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
@@ -168,4 +199,5 @@
 			if(issmall(M) && M.stat)
 				M.visible_message("[M] vanishes as they are reclaimed for recycling!")
 				X.monkeys += 0.2
+				to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 				qdel(M)
