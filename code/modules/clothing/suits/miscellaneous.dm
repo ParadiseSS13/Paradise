@@ -224,6 +224,14 @@
 	item_state = "ponchoshame"
 	flags = NODROP
 
+/obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
+	name = "bloated human suit"
+	desc = "A horribly bloated suit made from human skins."
+	icon_state = "lingspacesuit"
+	item_state = "lingspacesuit"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+
 /*
  * Misc
  */
@@ -545,10 +553,10 @@
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
 	if(on)
 		on = 0
-		usr << "You turn the suit's special processes off."
+		to_chat(usr, "You turn the suit's special processes off.")
 	else
 		on = 1
-		usr << "You turn the suit's special processes on."
+		to_chat(usr, "You turn the suit's special processes on.")
 		processing_objects.Add(src)
 
 

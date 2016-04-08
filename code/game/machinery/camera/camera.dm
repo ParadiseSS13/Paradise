@@ -92,7 +92,7 @@
 				if (O.client && O.client.eye == src)
 					O.unset_machine()
 					O.reset_view(null)
-					O << "The screen bursts into static."
+					to_chat(O, "The screen bursts into static.")
 			..()
 
 
@@ -128,7 +128,7 @@
 
 	// DECONSTRUCTION
 	if(istype(W, /obj/item/weapon/screwdriver))
-		//user << "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>"
+//		to_chat(user, "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>")
 		//if(toggle_panel(user)) // No delay because no one likes screwdrivers trying to be hip and have a duration cooldown
 		panel_open = !panel_open
 		user.visible_message("<span class='warning'>[user] screws the camera's panel [panel_open ? "open" : "closed"]!</span>",
@@ -140,7 +140,7 @@
 
 	else if(istype(W, /obj/item/weapon/weldingtool) && wires.CanDeconstruct())
 		if(weld(W, user))
-			user << "You unweld the camera leaving it as just a frame screwed to the wall."
+			to_chat(user, "You unweld the camera leaving it as just a frame screwed to the wall.")
 			if(!assembly)
 				assembly = new()
 			assembly.loc = src.loc
@@ -154,24 +154,24 @@
 		if(!isXRay())
 			upgradeXRay()
 			qdel(W)
-			user << "[msg]"
+			to_chat(user, "[msg]")
 		else
-			user << "[msg2]"
+			to_chat(user, "[msg2]")
 
 	else if(istype(W, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!isEmpProof())
 			upgradeEmpProof()
-			user << "[msg]"
+			to_chat(user, "[msg]")
 			qdel(W)
 		else
-			user << "[msg2]"
+			to_chat(user, "[msg2]")
 	else if(istype(W, /obj/item/device/assembly/prox_sensor) && panel_open)
 		if(!isMotion())
 			upgradeMotion()
-			user << "[msg]"
+			to_chat(user, "[msg]")
 			qdel(W)
 		else
-			user << "[msg2]"
+			to_chat(user, "[msg2]")
 
 	// OTHER
 	else if ((istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/device/pda)) && isliving(user))
@@ -191,7 +191,7 @@
 			if(N)
 				itemname = P.name
 				info = N.notehtml
-		U << "You hold \the [itemname] up to the camera ..."
+		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
 		for(var/mob/O in player_list)
 			if(istype(O, /mob/living/silicon/ai))
@@ -199,24 +199,24 @@
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
 				if(U.name == "Unknown")
-					AI << "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ..."
+					to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
-					AI << "<b><a href='?src=\ref[AI];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ..."
+					to_chat(AI, "<b><a href='?src=\ref[AI];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
 			else if (O.client && O.client.eye == src)
-				O << "[U] holds \a [itemname] up to one of the cameras ..."
+				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 
 	else if (istype(W, /obj/item/device/camera_bug))
 		if (!src.can_use())
-			user << "<span class='notice'>Camera non-functional.</span>"
+			to_chat(user, "<span class='notice'>Camera non-functional.</span>")
 			return
 		if(istype(src.bug))
-			user << "<span class='notice'>Camera bug removed.</span>"
+			to_chat(user, "<span class='notice'>Camera bug removed.</span>")
 			src.bug.bugged_cameras -= src.c_tag
 			src.bug = null
 		else
-			user << "<span class='notice'>Camera bugged.</span>"
+			to_chat(user, "<span class='notice'>Camera bugged.</span>")
 			src.bug = W
 			src.bug.bugged_cameras[src.c_tag] = src
 
@@ -271,7 +271,7 @@
 		if (O.client && O.client.eye == src)
 			O.unset_machine()
 			O.reset_view(null)
-			O << "The screen bursts into static."
+			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm(var/duration = 0)
 	alarm_on = 1
@@ -341,7 +341,7 @@
 	if(!WT.remove_fuel(0, user))
 		return 0
 
-	user << "<span class='notice'>You start to weld [src]...</span>"
+	to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
 	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 	busy = 1
 	if(do_after(user, 100, target = src))

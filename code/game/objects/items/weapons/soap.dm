@@ -28,11 +28,11 @@
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))
-		user << "<span class='notice'>You need to take that [target.name] off before 'cleaning' it.</span>"
+		to_chat(user, "<span class='notice'>You need to take that [target.name] off before 'cleaning' it.</span>")
 	else
 		user.visible_message("<span class='warning'>[user] begins to smear [src] on \the [target.name].</span>")
 		if(do_after(user, src.cleanspeed, target = target))
-			user << "<span class='notice'>You 'clean' \the [target.name].</span>"
+			to_chat(user, "<span class='notice'>You 'clean' \the [target.name].</span>")
 			if(istype(target, /turf/simulated))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if (istype(target,/mob/living/carbon))

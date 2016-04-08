@@ -190,61 +190,61 @@
 /datum/click_intercept/buildmode/proc/show_help(mob/user)
 	switch(mode)
 		if(BASIC_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button        = Construct / Upgrade</span>"
-			user << "<span class='notice'>Right Mouse Button       = Deconstruct / Delete / Downgrade</span>"
-			user << "<span class='notice'>Left Mouse Button + ctrl = R-Window</span>"
-			user << "<span class='notice'>Left Mouse Button + alt  = Airlock</span>"
-			user << ""
-			user << "<span class='notice'>Use the button in the upper left corner to</span>"
-			user << "<span class='notice'>change the direction of built objects.</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button        = Construct / Upgrade</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button       = Deconstruct / Delete / Downgrade</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button + ctrl = R-Window</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button + alt  = Airlock</span>")
+			to_chat(user, "")
+			to_chat(user, "<span class='notice'>Use the button in the upper left corner to</span>")
+			to_chat(user, "<span class='notice'>change the direction of built objects.</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(ADV_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Right Mouse Button on buildmode button = Set object type</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj          = Place objects</span>"
-			user << "<span class='notice'>Right Mouse Button                     = Delete objects</span>"
-			user << ""
-			user << "<span class='notice'>Use the button in the upper left corner to</span>"
-			user << "<span class='notice'>change the direction of built objects.</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Set object type</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj          = Place objects</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button                     = Delete objects</span>")
+			to_chat(user, "")
+			to_chat(user, "<span class='notice'>Use the button in the upper left corner to</span>")
+			to_chat(user, "<span class='notice'>change the direction of built objects.</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(VAR_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Right Mouse Button on buildmode button = Select var(type) & value</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Set var(type) & value</span>"
-			user << "<span class='notice'>Right Mouse Button on turf/obj/mob     = Reset var's value</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select var(type) & value</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Set var(type) & value</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on turf/obj/mob     = Reset var's value</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(THROW_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select</span>"
-			user << "<span class='notice'>Right Mouse Button on turf/obj/mob     = Throw</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on turf/obj/mob     = Throw</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(AREA_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>"
-			user << "<span class='notice'>Right Mouse Button on buildmode button = Select generator</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select generator</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(COPY_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on obj/turf/mob   = Spawn a Copy of selected target</span>"
-			user << "<span class='notice'>Right Mouse Button on obj/mob = Select target to copy</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on obj/turf/mob   = Spawn a Copy of selected target</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on obj/mob = Select target to copy</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(AREAEDIT_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on obj/turf/mob  = Paint area</span>"
-			user << "<span class='notice'>Right Mouse Button on obj/turf/mob = Select area to paint</span>"
-			user << "<span class='notice'>Right Mouse Button on buildmode button = Create new area</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on obj/turf/mob  = Paint area</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on obj/turf/mob = Select area to paint</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Create new area</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(FILL_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>"
-			user << "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(LINK_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on obj  = Select button to link</span>"
-			user << "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on obj  = Select button to link</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/click_intercept/buildmode/proc/change_settings(mob/user)
 	switch(mode)
@@ -442,13 +442,13 @@
 					log_admin("Build Mode: [key_name(user)] modified [object.name]'s [varholder] to [valueholder]")
 					object.vars[varholder] = valueholder
 				else
-					user << "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>"
+					to_chat(user, "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>")
 			if(right_click)
 				if(object.vars.Find(varholder))
 					log_admin("Build Mode: [key_name(user)] modified [object.name]'s [varholder] to [valueholder]")
 					object.vars[varholder] = initial(object.vars[varholder])
 				else
-					user << "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>"
+					to_chat(user, "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>")
 
 		if(THROW_BUILDMODE)
 			if(left_click)
@@ -468,7 +468,7 @@
 			if(left_click) //rectangular
 				if(cornerA && cornerB)
 					if(!generator_path)
-						user << "<span class='warning'>Select generator type first.</span>"
+						to_chat(user, "<span class='warning'>Select generator type first.</span>")
 					else
 						var/datum/mapGenerator/G = new generator_path
 						G.defineRegion(cornerA.loc,cornerB.loc,1)
@@ -485,7 +485,7 @@
 					DuplicateObject(stored, perfectcopy=1, sameloc=0,newloc=T)
 			else if(right_click)
 				if(ismovableatom(object)) // No copying turfs for now.
-					user << "<span class='notice'>[object] set as template.</span>"
+					to_chat(user, "<span class='notice'>[object] set as template.</span>")
 					stored = object
 		if(AREAEDIT_BUILDMODE)
 			if(left_click)

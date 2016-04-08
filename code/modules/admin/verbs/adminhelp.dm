@@ -9,7 +9,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 
 	//handle muting and automuting
 	if(prefs.muted & MUTE_ADMINHELP)
-		src << "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>"
+		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
 		return
 
 	adminhelped = 1 //Determines if they get the message to reply by clicking the name.
@@ -32,7 +32,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/original_msg = msg
 
 	//explode the input msg into a list
-	var/list/msglist = text2list(msg, " ")
+	var/list/msglist = splittext(msg, " ")
 
 	//generate keywords lookup
 	var/list/surnames = list()
@@ -43,7 +43,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		if(M.mind)	indexing += M.mind.name
 
 		for(var/string in indexing)
-			var/list/L = text2list(string, " ")
+			var/list/L = splittext(string, " ")
 			var/surname_found = 0
 			//surnames
 			for(var/i=L.len, i>=1, i--)
@@ -113,16 +113,16 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			for(var/client/X in mentorholders + modholders + adminholders)
 				if(X.prefs.sound & SOUND_ADMINHELP)
 					X << 'sound/effects/adminhelp.ogg'
-				X << msg
+				to_chat(X, msg)
 		if("Adminhelp")
 			msg = "<span class='adminhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, 1, 1, selected_type)] (<A HREF='?_src_=holder;adminmoreinfo=[ref_mob]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[ref_mob]'>PP</A>) (<A HREF='?_src_=vars;Vars=[ref_mob]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=[ref_mob]'>SM</A>) ([admin_jump_link(mob, "holder")]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;rejectadminhelp=[ref_client]'>REJT</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[ref_mob]'>CL</A>)" : ""]:</span> <span class='adminhelp'>[msg]</span>"
 			for(var/client/X in modholders + adminholders)
 				if(X.prefs.sound & SOUND_ADMINHELP)
 					X << 'sound/effects/adminhelp.ogg'
-				X << msg
+				to_chat(X, msg)
 
 	//show it to the person adminhelping too
-	src << "<span class='boldnotice'>[selected_type]</b>: [original_msg]</span>"
+	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [original_msg]</span>")
 
 	var/admin_number_present = adminholders.len - admin_number_afk
 	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")

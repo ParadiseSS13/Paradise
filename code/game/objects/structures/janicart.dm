@@ -32,24 +32,24 @@
 /obj/structure/stool/bed/chair/janicart/examine(mob/user)
 	..()
 	if(floorbuffer)
-		user << "It has been upgraded with a floor buffer."
+		to_chat(user, "It has been upgraded with a floor buffer.")
 
 
 /obj/structure/stool/bed/chair/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, keytype))
-		user << "Hold [I] in one of your hands while you drive this [callme]."
+		to_chat(user, "Hold [I] in one of your hands while you drive this [callme].")
 	else if(istype(I, /obj/item/weapon/storage/bag/trash))
 		if(keytype == /obj/item/key/janitor)
 			if(!user.drop_item())
 				return
-			user << "<span class='notice'>You hook the trashbag onto the [callme].</span>"
+			to_chat(user, "<span class='notice'>You hook the trashbag onto the [callme].</span>")
 			I.loc = src
 			mybag = I
 	else if(istype(I, /obj/item/janiupgrade))
 		if(keytype == /obj/item/key/janitor)
 			floorbuffer = 1
 			qdel(I)
-			user << "<span class='notice'>You upgrade the [callme] with the floor buffer.</span>"
+			to_chat(user, "<span class='notice'>You upgrade the [callme] with the floor buffer.</span>")
 	update_icon()
 
 /obj/structure/stool/bed/chair/janicart/update_icon()
@@ -90,7 +90,7 @@
 		spawn(2)
 			move_delay = 0
 	else
-		user << "<span class='notice'>You'll need the keys in one of your hands to drive this [callme].</span>"
+		to_chat(user, "<span class='notice'>You'll need the keys in one of your hands to drive this [callme].</span>")
 		
 /obj/structure/stool/bed/chair/janicart/Bump(atom/A)
 	if(buckled_mob && istype(A, /obj/machinery/door))
@@ -245,17 +245,17 @@
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/weapon/mop, mob/user)
 	if(reagents.total_volume < 1)
-		user << "[src] is out of water!</span>"
+		to_chat(user, "[src] is out of water!</span>")
 	else
 		reagents.trans_to(mop, 5)	//
-		user << "<span class='notice'>You wet [mop] in [src].</span>"
+		to_chat(user, "<span class='notice'>You wet [mop] in [src].</span>")
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
 	user.drop_item()
 	I.loc = src
 	updateUsrDialog()
-	user << "<span class='notice'>You put [I] into [src].</span>"
+	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
 
 
@@ -271,38 +271,38 @@
 			if(!mymop)
 				m.janicart_insert(user, src)
 			else
-				user << fail_msg
+				to_chat(user, fail_msg)
 
 		else if(istype(I, /obj/item/weapon/storage/bag/trash))
 			if(!mybag)
 				var/obj/item/weapon/storage/bag/trash/t=I
 				t.janicart_insert(user, src)
 			else
-				user <<  fail_msg
+				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/weapon/reagent_containers/spray/cleaner))
 			if(!myspray)
 				put_in_cart(I, user)
 				myspray=I
 				update_icon()
 			else
-				user << fail_msg
+				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/device/lightreplacer))
 			if(!myreplacer)
 				var/obj/item/device/lightreplacer/l=I
 				l.janicart_insert(user,src)
 			else
-				user << fail_msg
+				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/weapon/caution))
 			if(signs < max_signs)
 				put_in_cart(I, user)
 				signs++
 				update_icon()
 			else
-				user << "<span class='notice'>[src] can't hold any more signs.</span>"
+				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(istype(I, /obj/item/weapon/crowbar))
 			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
 			if(do_after(user, 30, target = src))
-				usr << "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>"
+				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 				reagents.reaction(src.loc)
 				src.reagents.clear_reagents()
 		else if(istype(I, /obj/item/weapon/wrench))
@@ -323,7 +323,7 @@
 		else if(mybag)
 			mybag.attackby(I, user, params)
 	else
-		usr << "<span class='warning'>You cannot interface your modules [src]!</span>"
+		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	user.set_machine(src)
@@ -352,29 +352,29 @@
 	if(href_list["garbage"])
 		if(mybag)
 			user.put_in_hands(mybag)
-			user << "<span class='notice'>You take [mybag] from [src].</span>"
+			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
 			mybag = null
 	if(href_list["mop"])
 		if(mymop)
 			user.put_in_hands(mymop)
-			user << "<span class='notice'>You take [mymop] from [src].</span>"
+			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
 			mymop = null
 	if(href_list["spray"])
 		if(myspray)
 			user.put_in_hands(myspray)
-			user << "<span class='notice'>You take [myspray] from [src].</span>"
+			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
 			myspray = null
 	if(href_list["replacer"])
 		if(myreplacer)
 			user.put_in_hands(myreplacer)
-			user << "<span class='notice'>You take [myreplacer] from [src].</span>"
+			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
 			myreplacer = null
 	if(href_list["sign"])
 		if(signs)
 			var/obj/item/weapon/caution/Sign = locate() in src
 			if(Sign)
 				user.put_in_hands(Sign)
-				user << "<span class='notice'>You take \a [Sign] from [src].</span>"
+				to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
 				signs--
 			else
 				WARNING("Signs ([signs]) didn't match contents")

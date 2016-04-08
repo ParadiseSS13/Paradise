@@ -18,14 +18,7 @@
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	min_oxy = 0
-	max_oxy = INFINITY
-	min_tox = 0
-	max_tox = INFINITY
-	min_co2 = 0
-	max_co2 = INFINITY
-	min_n2  = 0
-	max_n2  = INFINITY
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	faction = list("slaughter")
@@ -62,8 +55,8 @@
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = 1
 	if(mind)
-		src << src.playstyle_string
-		src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
+		to_chat(src, src.playstyle_string)
+		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>")
 		src << 'sound/misc/demon_dies.ogg'
 		mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 		if(!(vialspawned))
@@ -75,8 +68,8 @@
 			//Paradise Port:I added the objective for one spawned like this
 			mind.objectives += objective
 			mind.objectives += fluffObjective
-			src << "<B>Objective #[1]</B>: [objective.explanation_text]"
-			src << "<B>Objective #[2]</B>: [fluffObjective.explanation_text]"
+			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
+			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
 
 
 /mob/living/simple_animal/slaughter/Life()
@@ -107,7 +100,7 @@
 
 
 /mob/living/simple_animal/slaughter/phasein()
-	..()
+	. = ..()
 	speed = 0
 	boost = world.time + 60
 
@@ -132,8 +125,8 @@
 		if(!(msg))
 			return
 		log_say("Slaughter Demon Transmit: [key_name(usr)]->[key_name(M)]: [msg]")
-		usr << "<span class='info'><b>You whisper to [M]: </b>[msg]</span>"
-		M << "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>"
+		to_chat(usr, "<span class='info'><b>You whisper to [M]: </b>[msg]</span>")
+		to_chat(M, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
 		for(var/mob/dead/observer/G in player_list)
 			G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
 
@@ -168,10 +161,10 @@
 						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
 		user.bloodcrawl = BLOODCRAWL
 	else if(user.bloodcrawl == BLOODCRAWL)
-		user << "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>"
+		to_chat(user, "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>")
 		user.bloodcrawl = BLOODCRAWL_EAT
 	else
-		user <<"<span class='warning'>...and you don't feel any different.</span>"
+		to_chat(user, "<span class='warning'>...and you don't feel any different.</span>")
 
 	user.drop_item()
 	insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E

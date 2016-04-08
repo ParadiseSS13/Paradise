@@ -77,17 +77,17 @@
 
 /obj/structure/falsewall/attackby(obj/item/weapon/W, mob/user, params)
 	if(opening)
-		user << "<span class='warning'>You must wait until the door has stopped moving.</span>"
+		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
 		return
 
 	if(density)
 		var/turf/T = get_turf(src)
 		if(T.density)
-			user << "<span class='warning'>[src] is blocked!</span>"
+			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if (!istype(T, /turf/simulated/floor))
-				user << "<span class='warning'>[src] bolts must be tightened on the floor!</span>"
+				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
 				return
 			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
 			ChangeToWall()
@@ -96,7 +96,7 @@
 			if(WT.remove_fuel(0,user))
 				dismantle(user)
 	else
-		user << "<span class='warning'>You can't reach, close it first!</span>"
+		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 
 	if(istype(W, /obj/item/weapon/gun/energy/plasmacutter) || istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill) || istype(W, /obj/item/weapon/pickaxe/drill/jackhammer) || istype(W, /obj/item/weapon/melee/energy/blade))
 		dismantle(user)

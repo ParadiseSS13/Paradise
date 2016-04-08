@@ -68,9 +68,9 @@
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		if (!istype(H.dna, /datum/dna))
-			user << "<span class=notice>No fingerprints found on [H]</span>"
+			to_chat(user, "<span class=notice>No fingerprints found on [H]</span>")
 		else
-			user << "<span class=notice>[H]'s Fingerprints: [md5(H.dna.uni_identity)]</span>"
+			to_chat(user, "<span class=notice>[H]'s Fingerprints: [md5(H.dna.uni_identity)]</span>")
 	scan_blood(C, user)
 
 /datum/data/pda/utility/scanmode/dna/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
@@ -78,14 +78,14 @@
 
 /datum/data/pda/utility/scanmode/dna/proc/scan_blood(atom/A, mob/user)
 	if (!A.blood_DNA)
-		user << "<span class=notice>No blood found on [A]</span>"
+		to_chat(user, "<span class=notice>No blood found on [A]</span>")
 		if(A.blood_DNA)
 			qdel(A.blood_DNA)
 	else
-		user << "<span class=notice>Blood found on [A]. Analysing...</span>"
+		to_chat(user, "<span class=notice>Blood found on [A]. Analysing...</span>")
 		spawn(15)
 			for(var/blood in A.blood_DNA)
-				user << "<span class=notice>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>"
+				to_chat(user, "<span class=notice>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>")
 
 /datum/data/pda/utility/scanmode/halogen
 	base_name = "Halogen Counter"
@@ -108,13 +108,13 @@
 	if(!isnull(A.reagents))
 		if(A.reagents.reagent_list.len > 0)
 			var/reagents_length = A.reagents.reagent_list.len
-			user << "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>"
+			to_chat(user, "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>")
 			for(var/re in A.reagents.reagent_list)
-				user << "<span class='notice'>\t [re]</span>"
+				to_chat(user, "<span class='notice'>\t [re]</span>")
 		else
-			user << "<span class='notice'>No active chemical agents found in [A].</span>"
+			to_chat(user, "<span class='notice'>No active chemical agents found in [A].</span>")
 	else
-		user << "<span class='notice'>No significant chemical agents found in [A].</span>"
+		to_chat(user, "<span class='notice'>No significant chemical agents found in [A].</span>")
 
 /datum/data/pda/utility/scanmode/gas
 	base_name = "Gas Scanner"
@@ -194,6 +194,7 @@
 		// notehtml ISN'T set to allow user to get their old notes back. A better implementation would add a "scanned documents"
 		// feature to the PDA, which would better convey the availability of the feature, but this will work for now.
 		// Inform the user
-		user << "<span class=notice>Paper scanned and OCRed to notekeeper.</span>" //concept of scanning paper copyright brainoblivion 2009
+		to_chat(user, "<span class=notice>Paper scanned and OCRed to notekeeper.</span>")//concept of scanning paper copyright brainoblivion 2009
+
 	else
-		user << "<span class=warning>Error scanning [A].</span>"
+		to_chat(user, "<span class=warning>Error scanning [A].</span>")

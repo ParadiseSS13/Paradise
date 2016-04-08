@@ -123,10 +123,10 @@ What are the archived variables for?
 
 	fuel_burnt = 0
 	if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
-		//world << "pre [temperature], [oxygen], [toxins]"
+//		to_chat(world, "pre [temperature], [oxygen], [toxins]")
 		if(fire() > 0)
 			reacting = 1
-		//world << "post [temperature], [oxygen], [toxins]"
+//		to_chat(world, "post [temperature], [oxygen], [toxins]")
 
 	return reacting
 

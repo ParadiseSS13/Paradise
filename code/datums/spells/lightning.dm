@@ -30,7 +30,7 @@
 
 /obj/effect/proc_holder/spell/targeted/lightning/proc/StartChargeup(mob/user = usr)
 	ready = 1
-	user << "<span class='notice'>You start gathering the power.</span>"
+	to_chat(user, "<span class='notice'>You start gathering the power.</span>")
 	halo = image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = EFFECTS_LAYER)
 	user.overlays.Add(halo)
 	start_time = world.time
@@ -45,13 +45,13 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 		user.overlays.Remove(halo)
 
 /obj/effect/proc_holder/spell/targeted/lightning/revert_cast(mob/user = usr)
-	user << "<span class='notice'>No target found in range.</span>"
+	to_chat(user, "<span class='notice'>No target found in range.</span>")
 	Reset(user)
 	..()
 
 /obj/effect/proc_holder/spell/targeted/lightning/proc/Discharge(mob/user = usr)
 	var/mob/living/M = user
-	M << "<span class='danger'>You lose control over the spell.</span>"
+	to_chat(M, "<span class='danger'>You lose control over the spell.</span>")
 	Reset(user)
 	start_recharge()
 
@@ -60,7 +60,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	ready = 0
 	var/mob/living/carbon/target = targets[1]
 	if(get_dist(user,target)>range)
-		user << "<span class='notice'>They are too far away!</span>"
+		to_chat(user, "<span class='notice'>They are too far away!</span>")
 		Reset(user)
 		return
 
