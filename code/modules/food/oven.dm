@@ -17,7 +17,7 @@
 
 /obj/machinery/cooking/attackby(obj/item/I, mob/user, params)
 	if(on)
-		user << "The machine is already running."
+		to_chat(user, "The machine is already running.")
 		return
 	else
 		var/obj/item/F = I
@@ -26,7 +26,7 @@
 		if(!C)
 			return
 		else
-			user << "You put [F] into [src] for cooking."
+			to_chat(user, "You put [F] into [src] for cooking.")
 			user.drop_item()
 			F.loc = src
 			on = TRUE

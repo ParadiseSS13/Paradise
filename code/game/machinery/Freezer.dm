@@ -60,7 +60,7 @@
 
 	if (istype(I, /obj/item/weapon/wrench))
 		if(!panel_open)
-			user << "<span class='notice'>Open the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
 		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
@@ -92,7 +92,7 @@
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
 	if(panel_open)
-		user << "<span class='notice'>Close the maintenance panel first.</span>"
+		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
 	src.ui_interact(user)
@@ -220,7 +220,7 @@
 
 	if (istype(I, /obj/item/weapon/wrench))
 		if(!panel_open)
-			user << "<span class='notice'>Open the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
 		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
@@ -252,7 +252,7 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
 	if(panel_open)
-		user << "<span class='notice'>Close the maintenance panel first.</span>"
+		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 	src.ui_interact(user)
 

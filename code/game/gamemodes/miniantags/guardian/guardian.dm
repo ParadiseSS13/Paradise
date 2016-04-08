@@ -6,25 +6,18 @@
 	response_help  = "passes through"
 	response_disarm = "flails at"
 	response_harm   = "punches"
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "stand"
-	icon_living = "stand"
-	icon_dead = "stand"
+	icon = 'icons/mob/guardian.dmi'
+	icon_state = "magicOrange"
+	icon_living = "magicOrange"
+	icon_dead = "magicOrange"
 	speed = 0
 	a_intent = I_HARM
 	stop_automated_movement = 1
 	floating = 1
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
-	maxbodytemp = 10000000
-	min_oxy = 0
-	max_oxy = INFINITY
-	min_tox = 0
-	max_tox = INFINITY
-	min_co2 = 0
-	max_co2 = INFINITY
-	min_n2  = 0
-	max_n2  = INFINITY
+	maxbodytemp = INFINITY
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attacktext = "punches"
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
@@ -32,8 +25,8 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE
-	var/animated_manifest = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
 	var/mob/living/summoner
@@ -49,7 +42,7 @@
 	..()
 	if(summoner)
 		if(summoner.stat == DEAD)
-			src << "<span class='danger'>Your summoner has died!</span>"
+			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
 			visible_message("<span class='danger'><B>The [src] dies along with its user!</B></span>")
 			ghostize()
 			qdel(src)
@@ -57,11 +50,11 @@
 		if (get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			src << "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]"
+			to_chat(src, "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]")
 			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
 			Recall()
-	if(summoned && !summoner)
-		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
+	if(summoned && !summoner && !adminseal)
+		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")
 		ghostize()
 		qdel()
 
@@ -71,14 +64,25 @@
 		if (get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			src << "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]"
+			to_chat(src, "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]")
 			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
 			Recall()
 
 /mob/living/simple_animal/hostile/guardian/death()
 	..()
-	summoner << "<span class='danger'><B>Your [name] died somehow!</span></B>"
+	to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
 	summoner.death()
+
+
+/mob/living/simple_animal/hostile/guardian/handle_hud_icons_health()
+	if(summoner)
+		var/resulthealth
+		if(iscarbon(summoner))
+			resulthealth = round((abs(config.health_threshold_dead - summoner.health) / abs(config.health_threshold_dead - summoner.maxHealth)) * 100)
+		else
+			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
+		hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+
 
 /mob/living/simple_animal/hostile/guardian/adjustBruteLoss(amount) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
@@ -87,10 +91,10 @@
 			return
 		summoner.adjustBruteLoss(damage)
 		if(damage)
-			summoner << "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>"
+			to_chat(summoner, "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>")
 			summoner.visible_message("<span class='danger'><B>Blood sprays from [summoner] as [src] takes damage!</B></span>")
 		if(summoner.stat == UNCONSCIOUS)
-			summoner << "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>"
+			to_chat(summoner, "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>")
 			summoner.adjustCloneLoss(damage/2)
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
@@ -106,7 +110,7 @@
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
-		summoner << "<span class='danger'><B>Your [src] was blown up!</span></B>"
+		to_chat(summoner, "<span class='danger'><B>Your [src] was blown up!</span></B>")
 		summoner.Weaken(10)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
@@ -118,20 +122,16 @@
 		return
 	if(!summoner) return
 	if(loc == summoner)
-		loc = get_turf(summoner)
+		forceMove(get_turf(summoner))
 		src.client.eye = loc
 		cooldown = world.time + 30
-		if(animated_manifest)
-			var/end_icon = icon_state
-			icon_state = "parasite_forming"
-			spawn(6)
-			icon_state = end_icon
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall()
 	if(cooldown > world.time)
 		return
 	if(!summoner) return
-	loc = summoner
+	new /obj/effect/overlay/temp/guardian/phase/out(get_turf(src))
+	forceMove(summoner)
 	buckled = null
 	cooldown = world.time + 30
 
@@ -142,14 +142,14 @@
 
 	for(var/mob/M in mob_list)
 		if(M == summoner)
-			M << "<span class='changeling'><i>[src]:</i> [input]</span>"
+			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
 			log_say("Guardian Communication: [key_name(src)] -> [key_name(M)] : [input]")
 		else if (M in dead_mob_list)
-			M << "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
-	src << "<span class='changeling'><i>[src]:</i> [input]</span>"
+			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
+	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
-	src << "<span class='danger'><B>You dont have another mode!</span></B>"
+	to_chat(src, "<span class='danger'><B>You dont have another mode!</span></B>")
 
 
 /mob/living/proc/guardian_comm()
@@ -163,12 +163,12 @@
 		if(istype (M, /mob/living/simple_animal/hostile/guardian))
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
-				G << "<span class='changeling'><i>[src]:</i> [input]</span>"
+				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
 				log_say("Guardian Communication: [key_name(src)] -> [key_name(G)] : [input]")
 
 		else if (M in dead_mob_list)
-			M << "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
-	src << "<span class='changeling'><i>[src]:</i> [input]</span>"
+			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
+	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
 /mob/living/proc/guardian_recall()
 	set name = "Recall Guardian"
@@ -190,13 +190,13 @@
 			var/mob/dead/observer/new_stand = null
 			if(candidates.len)
 				new_stand = pick(candidates)
-				G << "Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance."
-				src << "Your guardian has been successfully reset."
+				to_chat(G, "Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.")
+				to_chat(src, "Your guardian has been successfully reset.")
 				message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(G)])")
 				G.ghostize(0)
 				G.key = new_stand.key
 			else
-				src << "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now."
+				to_chat(src, "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now.")
 				spawn(3000)
 					verbs += /mob/living/proc/guardian_reset
 
@@ -204,8 +204,10 @@
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!luminosity)
 		set_light(3)
+		to_chat(src, "<span class='notice'>You activate your light.</span>")
 	else
 		set_light(0)
+		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
 
 
 //////////////////////////TYPES OF GUARDIANS
@@ -226,6 +228,7 @@
 	magic_fluff_string = "..And draw the Wizard, bringer of endless chaos!"
 	tech_fluff_string = "Boot sequence complete. Crowd control modules activated. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to sow havoc at random."
+	var/toggle = FALSE
 
 /mob/living/simple_animal/hostile/guardian/fire/Life() //Dies if the summoner dies
 	..()
@@ -233,13 +236,29 @@
 		summoner.ExtinguishMob()
 		summoner.adjust_fire_stacks(-20)
 
+/mob/living/simple_animal/hostile/guardian/fire/ToggleMode()
+	if(src.loc == summoner)
+		if(toggle)
+			to_chat(src, "You switch to dispersion mode, and will teleport victims away from your master.")
+			toggle = FALSE
+		else
+			to_chat(src, "You  switch to deception mode, and will turn your victims against their allies.")
+			toggle = TRUE
+
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
-	..()
-	if(prob(45))
-		if(istype(target, /atom/movable))
-			var/atom/movable/M = target
-			if(!M.anchored && M != summoner)
-				do_teleport(M, M, 10)
+	if(..())
+		if(toggle)
+			if(ishuman(target) && !summoner)
+				spawn(0)
+					new /obj/effect/hallucination/delusion(target.loc, target, force_kind="custom", duration=200, skip_nearby=0, custom_icon = src.icon_state, custom_icon_file = src.icon)
+		else
+			if(prob(45))
+				if(istype(target, /atom/movable))
+					var/atom/movable/M = target
+					if(!M.anchored && M != summoner)
+						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
+						do_teleport(M, M, 10)
+						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
 
 /mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj)
 	..()
@@ -362,7 +381,7 @@
 	..()
 	if(toggle == TRUE)
 		if(src.loc == summoner)
-			src << "<span class='danger'><B>You must be manifested to heal!</span></B>"
+			to_chat(src, "<span class='danger'><B>You must be manifested to heal!</span></B>")
 			return
 		if(iscarbon(target))
 			src.changeNext_move(CLICK_CD_MELEE)
@@ -384,7 +403,7 @@
 				damage_transfer = 0
 			melee_damage_lower = 15
 			melee_damage_upper = 15
-			src << "<span class='danger'><B>You switch to combat mode.</span></B>"
+			to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
 			toggle = FALSE
 		else
 			a_intent = I_HELP
@@ -394,10 +413,10 @@
 				damage_transfer = 0
 			melee_damage_lower = 0
 			melee_damage_upper = 0
-			src << "<span class='danger'><B>You switch to healing mode.</span></B>"
+			to_chat(src, "<span class='danger'><B>You switch to healing mode.</span></B>")
 			toggle = TRUE
 	else
-		src << "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>"
+		to_chat(src, "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>")
 
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
@@ -412,31 +431,31 @@
 			F.name = "bluespace recieving pad"
 			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
 			F.icon_state = "light_on-w"
-			src << "<span class='danger'><B>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span></B>"
+			to_chat(src, "<span class='danger'><B>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span></B>")
 			if(beacon)
 				beacon.ChangeTurf(/turf/simulated/floor/plating)
 			beacon = F
 			beacon_cooldown = world.time+3000
 
 	else
-		src << "<span class='danger'><B>Your power is on cooldown. You must wait five minutes between placing beacons.</span></B>"
+		to_chat(src, "<span class='danger'><B>Your power is on cooldown. You must wait five minutes between placing beacons.</span></B>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
 	if(src.loc == summoner)
-		src << "<span class='danger'><B>You must be manifested to warp a target!</span></B>"
+		to_chat(src, "<span class='danger'><B>You must be manifested to warp a target!</span></B>")
 		return
 	if(!beacon)
-		src << "<span class='danger'><B>You need a beacon placed to warp things!</span></B>"
+		to_chat(src, "<span class='danger'><B>You need a beacon placed to warp things!</span></B>")
 		return
 	if(!Adjacent(A))
-		src << "<span class='danger'><B>You must be adjacent to your target!</span></B>"
+		to_chat(src, "<span class='danger'><B>You must be adjacent to your target!</span></B>")
 		return
 	if((A.anchored))
-		src << "<span class='danger'><B>Your target can not be anchored!</span></B>"
+		to_chat(src, "<span class='danger'><B>Your target can not be anchored!</span></B>")
 		return
-	src << "<span class='danger'><B>You begin to warp [A]</span></B>"
+	to_chat(src, "<span class='danger'><B>You begin to warp [A]</span></B>")
 	if(do_mob(src, A, 50))
 		if(!A.anchored)
 			if(src.beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
@@ -446,15 +465,17 @@
 						if((Z.temperature > 270) && (Z.temperature < 360))
 							var/pressure = Z.return_pressure()
 							if((pressure > 20) && (pressure < 550))
+								new /obj/effect/overlay/temp/guardian/phase/out(get_turf(A))
 								do_teleport(A, beacon, 0)
+								new /obj/effect/overlay/temp/guardian/phase(get_turf(A))
 						else
-							src << "<span class='danger'><B>The beacon isn't in a safe location!</span></B>"
+							to_chat(src, "<span class='danger'><B>The beacon isn't in a safe location!</span></B>")
 					else
-						src << "<span class='danger'><B>The beacon isn't in a safe location!</span></B>"
+						to_chat(src, "<span class='danger'><B>The beacon isn't in a safe location!</span></B>")
 			else
-				src << "<span class='danger'><B>You need a beacon to warp things!</span></B>"
+				to_chat(src, "<span class='danger'><B>You need a beacon to warp things!</span></B>")
 	else
-		src << "<span class='danger'><B>You need to hold still!</span></B>"
+		to_chat(src, "<span class='danger'><B>You need to hold still!</span></B>")
 
 
 ///////////////////Ranged
@@ -476,7 +497,10 @@
 	ranged_cooldown_cap = 1
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
+	rapid = 1
 	range = 13
+	see_invisible = SEE_INVISIBLE_MINIMUM
+	see_in_dark = 8
 	playstyle_string = "As a ranged type, you have only light damage resistance, but are capable of spraying shards of crystal at incredibly high speed. You can also deploy surveillance snares to monitor enemy movement. Finally, you can switch to scout mode, in which you can't attack, but can move without limit."
 	magic_fluff_string = "..And draw the Sentinel, an alien master of ranged combat."
 	tech_fluff_string = "Boot sequence complete. Ranged combat modules active. Holoparasite swarm online."
@@ -493,7 +517,7 @@
 			alpha = 255
 			range = 13
 			incorporeal_move = 0
-			src << "<span class='danger'><B>You switch to combat mode.</span></B>"
+			to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
 			toggle = FALSE
 		else
 			ranged = 0
@@ -502,10 +526,18 @@
 			alpha = 60
 			range = 255
 			incorporeal_move = 1
-			src << "<span class='danger'><B>You switch to scout mode.</span></B>"
+			to_chat(src, "<span class='danger'><B>You switch to scout mode.</span></B>")
 			toggle = TRUE
 	else
-		src << "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>"
+		to_chat(src, "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>")
+
+/mob/living/simple_animal/hostile/guardian/ranged/ToggleLight()
+	if(see_invisible == SEE_INVISIBLE_MINIMUM)
+		to_chat(src, "<span class='notice'>You deactivate your night vision.</span>")
+		see_invisible = SEE_INVISIBLE_LIVING
+	else
+		to_chat(src, "<span class='notice'>You activate your night vision.</span>")
+		see_invisible = SEE_INVISIBLE_MINIMUM
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/Snare()
 	set name = "Set Surveillance Trap"
@@ -517,9 +549,9 @@
 		S.spawner = src
 		S.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"
 		src.snares |= S
-		src << "<span class='danger'><B>Surveillance trap deployed!</span></B>"
+		to_chat(src, "<span class='danger'><B>Surveillance trap deployed!</span></B>")
 	else
-		src << "<span class='danger'><B>You have too many traps deployed. Delete some first.</span></B>"
+		to_chat(src, "<span class='danger'><B>You have too many traps deployed. Delete some first.</span></B>")
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/DisarmSnare()
 	set name = "Remove Surveillance Trap"
@@ -529,7 +561,7 @@
 	if(picked_snare)
 		src.snares -= picked_snare
 		qdel(picked_snare)
-		src << "<span class='danger'><B>Snare disarmed.</span></B>"
+		to_chat(src, "<span class='danger'><B>Snare disarmed.</span></B>")
 
 /obj/item/effect/snare
 	name = "snare"
@@ -542,11 +574,11 @@
 	if(istype(AM, /mob/living/))
 		var/turf/snare_loc = get_turf(src.loc)
 		if(spawner)
-			spawner << "<span class='danger'><B>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span></B>"
+			to_chat(spawner, "<span class='danger'><B>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span></B>")
 			if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 				var/mob/living/simple_animal/hostile/guardian/G = spawner
 				if(G.summoner)
-					G.summoner << "<span class='danger'><B>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span></B>"
+					to_chat(G.summoner, "<span class='danger'><B>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span></B>")
 
 ////Bomb
 
@@ -565,19 +597,19 @@
 	if(!istype(A))
 		return
 	if(src.loc == summoner)
-		src << "<span class='danger'><B>You must be manifested to create bombs!</B></span>"
+		to_chat(src, "<span class='danger'><B>You must be manifested to create bombs!</B></span>")
 		return
 	if(istype(A, /obj/))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/weapon/guardian_bomb/B = new /obj/item/weapon/guardian_bomb(get_turf(A))
-			src << "<span class='danger'><B>Success! Bomb on \the [A] armed!</B></span>"
+			to_chat(src, "<span class='danger'><B>Success! Bomb on \the [A] armed!</B></span>")
 			if(summoner)
-				summoner << "<span class='warning'>Your guardian has primed \the [A] to explode!</span>"
+				to_chat(summoner, "<span class='warning'>Your guardian has primed \the [A] to explode!</span>")
 			bomb_cooldown = world.time + 200
 			B.spawner = src
 			B.disguise (A)
 		else
-			src << "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>"
+			to_chat(src, "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>")
 
 /obj/item/weapon/guardian_bomb
 	name = "bomb"
@@ -595,19 +627,19 @@
 	spawn(600)
 		if(src)
 			stored_obj.loc = get_turf(src.loc)
-			spawner << "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>"
+			to_chat(spawner, "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>")
 			qdel(src)
 
 /obj/item/weapon/guardian_bomb/proc/detonate(var/mob/living/user)
-	user << "<span class='danger'><B>The [src] was boobytrapped!</B></span>"
+	to_chat(user, "<span class='danger'><B>The [src] was boobytrapped!</B></span>")
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
-			user << "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>"
+			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
 			stored_obj.loc = get_turf(src.loc)
 			qdel(src)
 			return
-	spawner << "<span class='danger'><B>Success! Your trap on \the [src] caught [user]!</B></span>"
+	to_chat(spawner, "<span class='danger'><B>Success! Your trap on \the [src] caught [user]!</B></span>")
 	stored_obj.loc = get_turf(src.loc)
 	playsound(get_turf(src),'sound/effects/Explosion2.ogg', 200, 1)
 	user.ex_act(2)
@@ -624,7 +656,7 @@
 /obj/item/weapon/guardian_bomb/examine(mob/user)
 	stored_obj.examine(user)
 	if(get_dist(user,src)<=2)
-		user << "<span class='notice'>Looks odd!</span>"
+		to_chat(user, "<span class='notice'>Looks odd!</span>")
 
 
 ////////Creation
@@ -647,16 +679,16 @@
 /obj/item/weapon/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
 		if (G.summoner == user)
-			user << "You already have a [mob_name]!"
+			to_chat(user, "You already have a [mob_name]!")
 			return
 	if(user.mind && user.mind.changeling)
-		user << "[ling_failure]"
+		to_chat(user, "[ling_failure]")
 		return
 	if(used == TRUE)
-		user << "[used_message]"
+		to_chat(user, "[used_message]")
 		return
 	used = TRUE
-	user << "[use_message]"
+	to_chat(user, "[use_message]")
 	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, 0, 100)
 	var/mob/dead/observer/theghost = null
 
@@ -664,7 +696,7 @@
 		theghost = pick(candidates)
 		spawn_guardian(user, theghost.key)
 	else
-		user << "[failure_message]"
+		to_chat(user, "[failure_message]")
 		used = FALSE
 
 
@@ -675,7 +707,6 @@
 	else
 		gaurdiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
-	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
 	switch(gaurdiantype)
 
 		if("Chaos")
@@ -697,37 +728,50 @@
 	G.summoner = user
 	G.summoned = TRUE
 	G.key = key
-	G << "You are a [mob_name] bound to serve [user.real_name]."
-	G << "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there."
-	G << "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself."
-	G << "[G.playstyle_string]"
+	to_chat(G, "You are a [mob_name] bound to serve [user.real_name].")
+	to_chat(G, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
+	to_chat(G, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
+	to_chat(G, "[G.playstyle_string]")
 	G.faction = user.faction
 	user.verbs += /mob/living/proc/guardian_comm
 	user.verbs += /mob/living/proc/guardian_recall
 	user.verbs += /mob/living/proc/guardian_reset
-	var/magic_suite = pick("Wands","Cups","Swords","Pentacles")
-	var/picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
+
+	var/color
+	var/picked_name
+	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
+
 	switch (theme)
 		if("magic")
-			G.name = "[mob_name] of [magic_suite]"
-			G.color = picked_color
-			G.real_name = "[mob_name] of [magic_suite]"
-			user << "[G.magic_fluff_string]."
+			color = pick("Pink", "Red", "Orange", "Green", "Blue")
+			picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
+
+			G.name = "[picked_name] [color]"
+			G.real_name = "[picked_name] [color]"
+			G.icon_living = "[theme][color]"
+			G.icon_state = "[theme][color]"
+			G.icon_dead = "[theme][color]"
+
+			to_chat(user, "[G.magic_fluff_string].")
 		if("tech")
-			var/colour = pick("orange", "neon", "pink", "red", "blue", "green")
-			G.name = "[picked_name] [capitalize(colour)]"
-			G.real_name = "[picked_name] [capitalize(colour)]"
-			G.icon_living = "parasite[colour]"
-			G.icon_state = "parasite[colour]"
-			G.icon_dead = "parasite[colour]"
-			G.animated_manifest = TRUE
-			user << "[G.tech_fluff_string]."
+			color = pick("Rose", "Peony", "Lily", "Daisy", "Zinnia", "Ivy", "Iris", "Petunia", "Violet", "Lilac", "Orchid") //technically not colors, just flowers that can be specific colors
+			picked_name = pick("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
+
+			G.name = "[picked_name] [color]"
+			G.real_name = "[picked_name] [color]"
+			G.icon_living = "[theme][color]"
+			G.icon_state = "[theme][color]"
+			G.icon_dead = "[theme][color]"
+
+			to_chat(user, "[G.tech_fluff_string].")
 			G.speak_emote = list("states")
 		if("bio")
-			user << "[G.bio_fluff_string]."
-			G.name = "[mob_name] [picked_name]"
+			G.icon = 'icons/mob/mob.dmi'
+			picked_name = pick("brood", "hive", "nest")
+			to_chat(user, "[G.bio_fluff_string].")
+			G.name = "[picked_name] swarm"
 			G.color = picked_color
-			G.real_name = "[mob_name] [picked_name]"
+			G.real_name = "[picked_name] swarm"
 			G.icon_living = "headcrab"
 			G.icon_state = "headcrab"
 			G.attacktext = "swarms"
@@ -798,16 +842,16 @@
 
 
 
-
-
-
-
-///HUD
-
-/datum/hud/proc/guardian_hud(ui_style = 'icons/mob/screen1_midnight.dmi')
+/datum/hud/proc/guardian_hud(ui_style = 'icons/mob/screen1_Midnight.dmi')
 	adding = list()
 
 	var/obj/screen/using
+
+	guardianhealthdisplay = new /obj/screen/guardian()
+	guardianhealthdisplay.name = "summoner health"
+	guardianhealthdisplay.screen_loc = ui_health
+	guardianhealthdisplay.mouse_opacity = 0
+	adding += guardianhealthdisplay
 
 	using = new /obj/screen/guardian/Manifest()
 	using.screen_loc = ui_rhand
@@ -834,12 +878,11 @@
 	mymob.client.screen += adding
 
 
-
-
 //HUD BUTTONS
 
 /obj/screen/guardian
 	icon = 'icons/mob/guardian.dmi'
+	icon_state = "base"
 
 /obj/screen/guardian/Manifest
 	icon_state = "manifest"
@@ -881,6 +924,7 @@
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Communicate()
+
 
 /obj/screen/guardian/ToggleLight
 	icon_state = "light"

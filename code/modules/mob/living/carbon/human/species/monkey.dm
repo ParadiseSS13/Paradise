@@ -29,7 +29,6 @@
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 
 	total_health = 75
 	brute_mod = 1.5
@@ -51,6 +50,8 @@
 /datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
+	H.butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5)
+
 	..()
 
 /datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)

@@ -27,14 +27,14 @@
 /obj/item/device/flash/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(battery_panel)
-			user << "<span class='notice'>You close the battery compartment on the [src].</span>"
+			to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
 			battery_panel = 0
 		else
-			user << "<span class='notice'>You open the battery compartment on the [src].</span>"
+			to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
 			battery_panel = 1
 	if(battery_panel && !overcharged)
 		if(istype(W, /obj/item/weapon/stock_parts/cell))
-			user << "<span class='notice'>You jam the cell into battery compartment on the [src].</span>"
+			to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
 			qdel(W)
 			overcharged = 1
 			overlays += "overcharge"
@@ -75,26 +75,28 @@
 	return 1
 
 
-/obj/item/device/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, convert = 1)
+/obj/item/device/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
 	add_logs(M, user, "flashed", object="[src.name]")
-	if(M.weakeyes)
-		M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
-	var/safety = M:eyecheck()
-	if(safety <= 0)
-		M.confused += power
-		flick("e_flash", M.flash)
-		if(user && convert)
+	if(user && targeted)
+		if(M.weakeyes)
+			M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
+		if(M.flash_eyes(1, 1))
+			M.confused += power
 			terrible_conversion_proc(M, user)
 			M.Stun(1)
-			user.visible_message("<span class='disarm'>[user] blinds [M] with the [src.name]!</span>")
+			visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+			to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
+			to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 			if(M.weakeyes)
 				M.Stun(2)
-				M.visible_message("<span class='disarm'><b>[M]</b> gasps and shields their eyes!</span>")
-		return 1
+				M.visible_message("<span class='disarm'>[M] gasps and shields their eyes!</span>", "<span class='userdanger'>You gasp and shields your eyes!</span>")
+		else
+			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
+			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
+			to_chat(M, "<span class='danger'>[user] fails to blind you with the flash!</span>")
 	else
-		if(user)
-			user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>")
-		return 0
+		if(M.flash_eyes())
+			M.confused += power
 
 /obj/item/device/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
@@ -111,16 +113,16 @@
 	else if(issilicon(M))
 		if(isrobot(M))
 			var/mob/living/silicon/robot/R = M
-
-			if (R.module) // Perhaps they didn't choose a module yet
+			if(R.module) // Perhaps they didn't choose a module yet
 				for(var/obj/item/borg/combat/shield/S in R.module.modules)
 					if(R.activated(S))
 						add_logs(M, user, "flashed", object="[src.name]")
 						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but if blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by his shield!</span>")
 						return 1
-		M.Weaken(rand(5,10))
 		add_logs(M, user, "flashed", object="[src.name]")
-		user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
+		if(M.flash_eyes(affect_silicon = 1))
+			M.Weaken(rand(5,10))
+			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
 		return 1
 
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>", "<span class='warning'>You fail to blind [M] with the [src.name]!</span>")
@@ -158,11 +160,11 @@
 						resisted = 1
 
 					if(resisted)
-						user << "<span class='warning'>This mind seems resistant to the [src.name]!</span>"
+						to_chat(user, "<span class='warning'>This mind seems resistant to the [src.name]!</span>")
 				else
-					user << "<span class='warning'>They must be conscious before you can convert them!</span>"
+					to_chat(user, "<span class='warning'>They must be conscious before you can convert them!</span>")
 			else
-				user << "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>"
+				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
 
 
 /obj/item/device/flash/cyborg

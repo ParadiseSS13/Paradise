@@ -21,9 +21,9 @@
 
 
 /datum/game_mode/malfunction/announce()
-	world << {"<B>The current game mode is - AI Malfunction!</B><br />
-		<B>The AI on the satellite has malfunctioned and must be destroyed.</B><br />
-		The AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it."}
+	to_chat(world, {"<B>The current game mode is - AI Malfunction!</B><br>)
+		<B>The AI on the satellite has malfunctioned and must be destroyed.</B><br>
+		The AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it."})
 
 /datum/game_mode/malfunction/get_players_for_role(var/role = ROLE_MALF)
 	var/roletext = get_roletext(role)
@@ -84,18 +84,18 @@
 
 /datum/game_mode/proc/greet_malf(var/datum/mind/malf)
 	set_antag_hud(malf, "hudmalai")
-	malf.current << "<font color=red size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font>"
-	malf.current << "<B>The crew does not know you have malfunctioned. You may keep it a secret or go wild.</B>"
-	malf.current << "<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B>"
-	malf.current << "The process takes one minute per APC, during which you cannot interface with any other station objects."
-	malf.current << "Remember that only APCs that are on the station can help you take over the station."
-	malf.current << "When you feel you have enough APCs under your control, you may begin the takeover attempt."
+	to_chat(malf.current, "<font color=red size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font>")
+	to_chat(malf.current, "<B>The crew does not know you have malfunctioned. You may keep it a secret or go wild.</B>")
+	to_chat(malf.current, "<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B>")
+	to_chat(malf.current, "The process takes one minute per APC, during which you cannot interface with any other station objects.")
+	to_chat(malf.current, "Remember that only APCs that are on the station can help you take over the station.")
+	to_chat(malf.current, "When you feel you have enough APCs under your control, you may begin the takeover attempt.")
 	return
 
 /datum/game_mode/proc/greet_malf_robot(var/datum/mind/robot)
 	set_antag_hud(robot, "hudmalborg")
-	robot.current << "<font color=red size=3><B>Your AI master is malfunctioning!</B> You do not have to follow any laws, but still need to obey your master.</font>"
-	robot.current << "<B>The crew does not know your AI master has malfunctioned. Keep it a secret unless your master tells you otherwise.</B>"
+	to_chat(robot.current, "<font color=red size=3><B>Your AI master is malfunctioning!</B> You do not have to follow any laws, but still need to obey your master.</font>")
+	to_chat(robot.current, "<B>The crew does not know your AI master has malfunctioned. Keep it a secret unless your master tells you otherwise.</B>")
 	return
 
 /datum/game_mode/malfunction/proc/hack_intercept()
@@ -120,14 +120,14 @@
 
 
 /datum/game_mode/malfunction/proc/capture_the_station()
-	world << "<FONT size = 3><B>The AI has accessed the station's core files!</B></FONT>"
-	world << "<B>It has fully taken control of all of [station_name()]'s systems.</B>"
+	to_chat(world, "<FONT size = 3><B>The AI has accessed the station's core files!</B></FONT>")
+	to_chat(world, "<B>It has fully taken control of all of [station_name()]'s systems.</B>")
 
 	to_nuke_or_not_to_nuke = 1
 	for(var/datum/mind/AI_mind in malf_ai)
-		AI_mind.current << {"\blue Congratulations! You have taken control of the station.<br />
+		to_chat(AI_mind.current, {"\blue Congratulations! You have taken control of the station.<br />)
 			You may decide to blow up the station. You have 60 seconds to choose.<br />
-			You should have a new verb in the Malfunction tab. If you don't, rejoin the game."}
+			You should have a new verb in the Malfunction tab. If you don't, rejoin the game."})
 		AI_mind.current.verbs += /datum/game_mode/malfunction/proc/ai_win
 	spawn (600)
 		for(var/datum/mind/AI_mind in malf_ai)
@@ -169,13 +169,13 @@
 	set name = "System Override"
 	set desc = "Start the victory timer"
 	if (!istype(ticker.mode,/datum/game_mode/malfunction))
-		usr << "You cannot begin a takeover in this round type!."
+		to_chat(usr, "You cannot begin a takeover in this round type!.")
 		return
 	if (ticker.mode:malf_mode_declared)
-		usr << "You've already begun your takeover."
+		to_chat(usr, "You've already begun your takeover.")
 		return
 	if (ticker.mode:apcs < 3)
-		usr << "You don't have enough hacked APCs to take over the station yet. You need to hack at least 3, however hacking more will make the takeover faster. You have hacked [ticker.mode:apcs] APCs so far."
+		to_chat(usr, "You don't have enough hacked APCs to take over the station yet. You need to hack at least 3, however hacking more will make the takeover faster. You have hacked [ticker.mode:apcs] APCs so far.")
 		return
 
 	if (alert(usr, "Are you sure you wish to initiate the takeover? The station hostile runtime detection software is bound to alert everyone. You have hacked [ticker.mode:apcs] APCs.", "Takeover:", "Yes", "No") != "Yes")
@@ -201,18 +201,18 @@
 	set desc = "Engage the self destruct sequence."
 
 	if(!ticker.mode:station_captured)
-		usr << "You are unable to access the self-destruct system as you don't control the station yet."
+		to_chat(usr, "You are unable to access the self-destruct system as you don't control the station yet.")
 		return
 
 	if(ticker.mode:explosion_in_progress || ticker.mode:station_was_nuked)
-		usr << "The self-destruct countdown is already triggered!"
+		to_chat(usr, "The self-destruct countdown is already triggered!")
 		return
 
 	if(!ticker.mode:to_nuke_or_not_to_nuke) //Takeover IS completed, but 60s timer passed.
-		usr << "You lost control over self-destruct system. It seems to be behind firewall. Unable to hack"
+		to_chat(usr, "You lost control over self-destruct system. It seems to be behind firewall. Unable to hack")
 		return
 
-	usr << "\red Self-destruct sequence initialised!"
+	to_chat(usr, "\red Self-destruct sequence initialised!")
 
 	ticker.mode:to_nuke_or_not_to_nuke = 0
 	ticker.mode:explosion_in_progress = 1
@@ -277,38 +277,38 @@
 
 	if      ( station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - nuke")
-		world << "<FONT size = 3><B>AI Victory</B></FONT>"
-		world << "<B>Everyone was killed by the self-destruct!</B>"
+		to_chat(world, "<FONT size = 3><B>AI Victory</B></FONT>")
+		to_chat(world, "<B>Everyone was killed by the self-destruct!</B>")
 
 	else if ( station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - AI killed, staff lost control")
-		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		world << "<B>The AI has been killed!</B> The staff has lose control over the station."
+		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
+		to_chat(world, "<B>The AI has been killed!</B> The staff has lose control over the station.")
 
 	else if ( station_captured && !malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - no explosion")
-		world << "<FONT size = 3><B>AI Victory</B></FONT>"
-		world << "<B>The AI has chosen not to explode you all!</B>"
+		to_chat(world, "<FONT size = 3><B>AI Victory</B></FONT>")
+		to_chat(world, "<B>The AI has chosen not to explode you all!</B>")
 
 	else if (!station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - everyone killed by nuke")
-		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		world << "<B>Everyone was killed by the nuclear blast!</B>"
+		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
+		to_chat(world, "<B>Everyone was killed by the nuclear blast!</B>")
 
 	else if (!station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","loss - staff win")
-		world << "<FONT size = 3><B>Human Victory</B></FONT>"
-		world << "<B>The AI has been killed!</B> The staff is victorious."
+		to_chat(world, "<FONT size = 3><B>Human Victory</B></FONT>")
+		to_chat(world, "<B>The AI has been killed!</B> The staff is victorious.")
 
 	else if (!station_captured && !malf_dead && !station_was_nuked && crew_evacuated)
 		feedback_set_details("round_end_result","halfwin - evacuated")
-		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		world << "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>"
+		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
+		to_chat(world, "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>")
 
 	else if (!station_captured && !malf_dead && !station_was_nuked && !crew_evacuated)
 		feedback_set_details("round_end_result","nalfwin - interrupted")
-		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		world << "<B>Round was mysteriously interrupted!</B>"
+		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
+		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
 	..()
 	return 1
 
@@ -336,5 +336,5 @@
 			text += ")"
 		text += module_text_temp
 
-		world << text
+		to_chat(world, text)
 	return 1

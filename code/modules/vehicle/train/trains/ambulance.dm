@@ -142,7 +142,7 @@
 
 	if(is_train_head() && istype(load, /mob/living/carbon/human))
 		var/mob/living/carbon/human/D = load
-		D << "\red \b You ran over [H]!"
+		to_chat(D, "\red \b You ran over [H]!")
 		visible_message("<B>\red \The [src] ran over [H]!</B>")
 		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [key_name(H)], driven by [key_name(D)]</font>")
 		msg_admin_attack("[key_name_admin(D)] ran over [key_name_admin(H)]")
@@ -168,7 +168,7 @@
 
 /obj/vehicle/train/ambulance/engine/examine(mob/user)
 	if(..(user, 1))
-		user << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
+		to_chat(user, "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition.")
 
 /obj/vehicle/train/ambulance/engine/verb/check_power()
 	set name = "Check power level"
@@ -179,10 +179,10 @@
 		return
 
 	if(!cell)
-		usr << "There is no power cell installed in [src]."
+		to_chat(usr, "There is no power cell installed in [src].")
 		return
 
-	usr << "The power meter reads [round(cell.percent(), 0.01)]%"
+	to_chat(usr, "The power meter reads [round(cell.percent(), 0.01)]%")
 
 /obj/vehicle/train/ambulance/engine/verb/start_engine()
 	set name = "Start engine"
@@ -193,17 +193,17 @@
 		return
 
 	if(on)
-		usr << "The engine is already running."
+		to_chat(usr, "The engine is already running.")
 		return
 
 	turn_on()
 	if (on)
-		usr << "You start [src]'s engine."
+		to_chat(usr, "You start [src]'s engine.")
 	else
 		if(cell.charge < charge_use)
-			usr << "[src] is out of power."
+			to_chat(usr, "[src] is out of power.")
 		else
-			usr << "[src]'s engine won't start."
+			to_chat(usr, "[src]'s engine won't start.")
 
 /obj/vehicle/train/ambulance/engine/verb/stop_engine()
 	set name = "Stop engine"
@@ -214,12 +214,12 @@
 		return
 
 	if(!on)
-		usr << "The engine is already stopped."
+		to_chat(usr, "The engine is already stopped.")
 		return
 
 	turn_off()
 	if (!on)
-		usr << "You stop [src]'s engine."
+		to_chat(usr, "You stop [src]'s engine.")
 
 /obj/vehicle/train/ambulance/engine/verb/remove_key()
 	set name = "Remove key"

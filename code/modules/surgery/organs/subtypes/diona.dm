@@ -194,6 +194,16 @@
 	parent_organ = "head"
 	slot = "eyes"
 
+
+/obj/item/organ/internal/diona_receptor/surgeryize()
+	if(!owner)
+		return
+	owner.disabilities &= ~NEARSIGHTED
+	owner.sdisabilities &= ~BLIND
+	owner.eye_blurry = 0
+	owner.eye_blind = 0
+
+
 //TODO:Make absorb rads on insert
 
 /obj/item/organ/internal/liver/diona

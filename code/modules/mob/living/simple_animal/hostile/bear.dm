@@ -13,8 +13,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/bearmeat
-	meat_amount = 5
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/bearmeat = 5, /obj/item/clothing/head/bearpelt = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -27,18 +26,12 @@
 	attack_sound = 'sound/weapons/genhit3.ogg'
 
 	//Space bears aren't affected by atmos.
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	var/stance_step = 0
 
 	faction = list("russian")
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson
@@ -56,11 +49,10 @@
 		else
 			icon_state = "bearfloor"
 
-/mob/living/simple_animal/hostile/bear/Life()
+/mob/living/simple_animal/hostile/bear/process_ai()
 	. = ..()
 	if(!.)
 		return
-
 
 	switch(stance)
 

@@ -67,7 +67,7 @@
 		if(S.mind)
 			for(var/mob/M in contents)
 				S.mind.transfer_to(M)
-				M << "As the animating magic wears off you feel yourself coming back to your senses. You are yourself again!"
+				to_chat(M, "As the animating magic wears off you feel yourself coming back to your senses. You are yourself again!")
 				break
 		qdel(S)
 

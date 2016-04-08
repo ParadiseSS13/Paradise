@@ -14,6 +14,7 @@
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
 	var/fire_alert = 0
+	var/healable = 1
 
 	var/list/speak = list()
 	var/speak_chance = 0
@@ -23,8 +24,6 @@
 	var/turns_per_move = 1
 	var/turns_since_move = 0
 	universal_speak = 0
-	var/meat_amount = 0
-	var/meat_type
 	var/stop_automated_movement = 0 //Use this to temporarely stop random movement or to if you write special movement code for animals.
 	var/wander = 1	// Does the mob wander around when idle?
 	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
@@ -43,14 +42,7 @@
 	var/cold_damage_per_tick = 2	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 
 	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
-	var/min_oxy = 5
-	var/max_oxy = 0					//Leaving something at 0 means it's off - has no maximum
-	var/min_tox = 0
-	var/max_tox = 1
-	var/min_co2 = 0
-	var/max_co2 = 5
-	var/min_n2 = 0
-	var/max_n2 = 0
+	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
 	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
 
 
@@ -58,7 +50,7 @@
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
-	var/list/ignored_damage_types = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 1, OXY = 0) //Set 0 to receive that damage type, 1 to ignore
+	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
 	var/attacktext = "attacks"
 	var/attack_sound = null
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
@@ -67,20 +59,37 @@
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 	var/can_hide    = 0
 
+	var/obj/item/clothing/accessory/petcollar/collar = null
+	var/can_collar = 0 // can add collar to mob or not
+
 //Hot simple_animal baby making vars
 	var/childtype = null
 	var/scan_ready = 1
 	var/simplespecies //Sorry, no spider+corgi buttbabies.
 
+	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
+
 	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 
 
 /mob/living/simple_animal/New()
 	..()
+	simple_animal_list += src
 	verbs -= /mob/verb/observe
 	if(!can_hide)
 		verbs -= /mob/living/simple_animal/verb/hide
+	if(collar)
+		if(!istype(collar))
+			collar = new(src)
+		regenerate_icons()
 
+/mob/living/simple_animal/Destroy()
+	if(collar)
+		collar.forceMove(loc)
+		collar = null
+	simple_animal_list -= src
+	return ..()
 
 /mob/living/simple_animal/Login()
 	if(src && src.client)
@@ -92,17 +101,39 @@
 	..()
 	health = Clamp(health, 0, maxHealth)
 
+/mob/living/simple_animal/handle_hud_icons()
+	..()
+	if(fire)
+		if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
+		else									fire.icon_state = "fire0"
+	if(oxygen)
+		if(oxygen_alert)						oxygen.icon_state = "oxy1"
+		else									oxygen.icon_state = "oxy0"
+	if(toxin)
+		if(toxins_alert)							toxin.icon_state = "tox1"
+		else									toxin.icon_state = "tox0"
+
+/mob/living/simple_animal/handle_hud_icons_health()
+	..()
+	if(healths && maxHealth > 0)
+		switch(health / maxHealth * 30)
+			if(30 to INFINITY)		healths.icon_state = "health0"
+			if(26 to 29)			healths.icon_state = "health1"
+			if(21 to 25)			healths.icon_state = "health2"
+			if(16 to 20)			healths.icon_state = "health3"
+			if(11 to 15)			healths.icon_state = "health4"
+			if(6 to 10)				healths.icon_state = "health5"
+			if(1 to 5)				healths.icon_state = "health6"
+			if(0)					healths.icon_state = "health7"
 
 /mob/living/simple_animal/Life()
-
-	if(..())
-		if(!ckey)
-			handle_automated_movement()
-			handle_automated_action()
-			handle_automated_speech()
-		. = 1
-
+	. = ..()
 	handle_state_icons()
+
+/mob/living/simple_animal/proc/process_ai()
+	handle_automated_movement()
+	handle_automated_action()
+	handle_automated_speech()
 
 /mob/living/simple_animal/proc/handle_state_icons()
 	if(resting && icon_resting && stat != DEAD)
@@ -176,38 +207,38 @@
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
-	
+
 	var/tox = environment.toxins
 	var/oxy = environment.oxygen
 	var/n2 = environment.nitrogen
 	var/co2 = environment.carbon_dioxide
 
-	if(min_oxy && oxy < min_oxy)
+	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = 0
 		oxygen_alert = 1
-	else if(max_oxy && oxy > max_oxy)
+	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 		atmos_suitable = 0
 		oxygen_alert = 1
 	else
 		oxygen_alert = 0
 
-	if(min_tox && tox < min_tox)
+	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = 0
 		toxins_alert = 1
-	else if(max_tox && tox > max_tox)
+	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 		atmos_suitable = 0
 		toxins_alert = 1
 	else
 		toxins_alert = 0
 
-	if(min_n2 && n2 < min_n2)
+	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
 		atmos_suitable = 0
-	else if(max_n2 && n2 > max_n2)
+	else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
 		atmos_suitable = 0
 
-	if(min_co2 && co2 < min_co2)
+	if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
 		atmos_suitable = 0
-	else if(max_co2 && co2 > max_co2)
+	else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
 		atmos_suitable = 0
 
 	if(!atmos_suitable)
@@ -238,9 +269,10 @@
 /mob/living/simple_animal/gib()
 	if(icon_gib)
 		flick(icon_gib, src)
-	if(meat_amount && meat_type)
-		for(var/i = 0; i < meat_amount; i++)
-			new meat_type(src.loc)
+	if(butcher_results)
+		for(var/path in butcher_results)
+			for(var/i = 1; i <= butcher_results[path];i++)
+				new path(src.loc)
 	..()
 
 
@@ -355,7 +387,7 @@
 
 /mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if(M.Victim) return // can't attack while eating!
@@ -378,7 +410,7 @@
 	return
 
 /mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
-	if(istype(O, /obj/item/stack/medical))
+	if(istype(O, /obj/item/stack/medical) && healable)
 		if(stat != DEAD)
 			var/obj/item/stack/medical/MED = O
 			if(health < maxHealth)
@@ -393,17 +425,26 @@
 								M.show_message("\blue [user] applies [MED] on [src]")
 						return
 					else
-						user << "\blue [MED] won't help at all."
+						to_chat(user, "\blue [MED] won't help at all.")
 						return
 			else
-				user << "\blue [src] is at full health."
+				to_chat(user, "\blue [src] is at full health.")
 				return
 		else
-			user << "\blue [src] is dead, medical items won't bring it back to life."
+			to_chat(user, "\blue [src] is dead, medical items won't bring it back to life.")
 			return
-	else if(meat_type && (stat == DEAD))	//if the animal has a meat, and if it is dead.
-		if(istype(O, /obj/item/weapon/kitchen/knife))
-			harvest()
+	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
+		var/obj/item/clothing/accessory/petcollar/C = O
+		user.drop_item()
+		C.forceMove(src)
+		collar = C
+		collar.equipped(src)
+		regenerate_icons()
+		to_chat(usr, "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>")
+		if(C.tagname)
+			name = C.tagname
+			real_name = C.tagname
+		return
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
@@ -424,6 +465,7 @@
 				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 			adjustBruteLoss(damage)
+	..()
 
 
 /mob/living/simple_animal/movement_delay()
@@ -462,21 +504,29 @@
 		if(3.0)
 			adjustBruteLoss(30)
 
-/mob/living/simple_animal/adjustBruteLoss(damage)
-	if(!ignored_damage_types[BRUTE])
-		..()
+/mob/living/simple_animal/adjustBruteLoss(amount)
+	if(damage_coeff[BRUTE])
+		return ..(amount * damage_coeff[BRUTE])
 
-/mob/living/simple_animal/adjustFireLoss(damage)
-	if(!ignored_damage_types[BURN])
-		..(damage)
+/mob/living/simple_animal/adjustFireLoss(amount)
+	if(damage_coeff[BURN])
+		return ..(amount * damage_coeff[BURN])
 
-/mob/living/simple_animal/adjustToxLoss(damage)
-	if(!ignored_damage_types[TOX])
-		..(damage)
+/mob/living/simple_animal/adjustOxyLoss(amount)
+	if(damage_coeff[OXY])
+		return ..(amount * damage_coeff[OXY])
 
-/mob/living/simple_animal/adjustCloneLoss(damage)
-	if(!ignored_damage_types[CLONE])
-		..(damage)
+/mob/living/simple_animal/adjustToxLoss(amount)
+	if(damage_coeff[TOX])
+		return ..(amount * damage_coeff[TOX])
+
+/mob/living/simple_animal/adjustCloneLoss(amount)
+	if(damage_coeff[CLONE])
+		return ..(amount * damage_coeff[CLONE])
+
+/mob/living/simple_animal/adjustStaminaLoss(amount)
+	if(damage_coeff[STAMINA])
+		return ..(amount*damage_coeff[STAMINA])
 
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -496,11 +546,10 @@
 	return 1
 
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
-	if(damage <= force_threshold || ignored_damage_types[damagetype])
+	if(damage <= force_threshold || !damage_coeff[damagetype])
 		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
 	else
-		adjustBruteLoss(damage)
-		updatehealth()
+		apply_damage(damage, damagetype)
 
 
 /mob/living/simple_animal/update_fire()
@@ -525,6 +574,21 @@
 	density = initial(density)
 	update_canmove()
 
+/mob/living/simple_animal/show_inv(mob/user as mob)
+	user.set_machine(src)
+	var/dat = {"<table>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td>&nbsp;</td></tr>"}
+	if(can_collar)
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += {"</table>
+	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	"}
+
+	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
+	popup.set_content(dat)
+	popup.open()
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(gender != FEMALE || stat || !scan_ready || !childtype || !simplespecies)
@@ -548,12 +612,6 @@
 			continue
 	if(alone && partner && children < 3)
 		new childtype(loc)
-
-
-// Harvest an animal's delicious byproducts
-/mob/living/simple_animal/proc/harvest()
-	gib()
-	return
 
 /mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"
@@ -586,3 +644,57 @@
 
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
+
+/mob/living/simple_animal/Topic(href, href_list)
+	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+		if(href_list["remove_inv"])
+			if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
+				return
+			var/remove_from = href_list["remove_inv"]
+			switch(remove_from)
+				if("collar")
+					if(!can_collar)
+						return
+					if(collar)
+						if(collar.flags & NODROP)
+							to_chat(usr, "<span class='warning'>\The [collar] is stuck too hard to [src] for you to remove!</span>")
+							return
+						collar.dropped(src)
+						collar.forceMove(src.loc)
+						collar = null
+						regenerate_icons()
+					else
+						to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
+						return
+			show_inv(usr)
+		else if(href_list["add_inv"])
+			if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
+				return
+
+			var/add_to = href_list["add_inv"]
+			switch(add_to)
+				if("collar")
+					if(!can_collar || collar)
+						return
+					var/obj/item/clothing/accessory/petcollar/C = usr.get_active_hand()
+					if(!C)
+						usr.visible_message("[usr] rubs [src]'s neck.","<span class='notice'>You rub [src]'s neck for a moment.</span>")
+						return
+					usr.drop_item()
+					C.forceMove(src)
+					collar = C
+					collar.equipped(src)
+					regenerate_icons()
+					to_chat(usr, "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>")
+					if(C.tagname)
+						name = C.tagname
+						real_name = C.tagname
+			show_inv(usr)
+
+/mob/living/simple_animal/get_access()
+	. = ..()
+	if(collar)
+		. |= collar.GetAccess()
+
+/mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
+	return

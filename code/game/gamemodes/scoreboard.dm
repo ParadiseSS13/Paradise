@@ -95,9 +95,6 @@
 		if(istype(M, /obj/effect/decal/cleanable/blood))
 			score_mess += 1
 
-		if(istype(M, /obj/effect/decal/cleanable/poop))
-			score_mess += 1
-
 		if(istype(M, /obj/effect/decal/cleanable/vomit))
 			score_mess += 1
 
@@ -151,8 +148,8 @@
 	score_crewscore -= plaguepoints
 
 	// Show the score - might add "ranks" later
-	world << "<b>The crew's final score is:</b>"
-	world << "<b><font size='4'>[score_crewscore]</font></b>"
+	to_chat(world, "<b>The crew's final score is:</b>")
+	to_chat(world, "<b><font size='4'>[score_crewscore]</font></b>")
 	for(var/mob/E in player_list)
 		if(E.client)
 			if(E.client.prefs && !(E.client.prefs.toggles & DISABLE_SCOREBOARD))

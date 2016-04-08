@@ -191,7 +191,7 @@
 "dI" = (/turf/simulated/floor/plasteel/airless{icon_state = "damaged2"},/area/derelict/singularity_engine)
 "dJ" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/derelict/bridge/access)
 "dK" = (/obj/machinery/door/window/eastleft{name = "Heads of Staff"; req_access_txt = "19"},/turf/simulated/floor/plasteel,/area/derelict/bridge/access)
-"dL" = (/obj/machinery/bot/secbot/buzzsky,/turf/simulated/floor/plasteel,/area/derelict/bridge)
+"dL" = (/mob/living/simple_animal/bot/secbot/buzzsky,/turf/simulated/floor/plasteel,/area/derelict/bridge)
 "dM" = (/obj/structure/table,/obj/item/device/paicard,/turf/simulated/floor/plasteel,/area/derelict/bridge)
 "dN" = (/obj/structure/stool,/turf/simulated/floor/plasteel,/area/derelict/bridge)
 "dO" = (/obj/structure/table,/obj/item/weapon/stock_parts/cell,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plasteel,/area/derelict/bridge)

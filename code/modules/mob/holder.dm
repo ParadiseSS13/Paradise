@@ -34,15 +34,23 @@
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
 
+/obj/item/weapon/holder/emp_act(var/intensity)
+	for(var/mob/living/M in contents)
+		M.emp_act(intensity)
+
+/obj/item/weapon/holder/ex_act(var/intensity)
+	for(var/mob/living/M in contents)
+		M.ex_act(intensity)
+
 /obj/item/weapon/holder/container_resist(var/mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
 		M.unEquip(src)
-		M << "[src] wriggles out of your grip!"
-		src << "You wriggle out of [M]'s grip!"
+		to_chat(M, "[src] wriggles out of your grip!")
+		to_chat(src, "You wriggle out of [M]'s grip!")
 	else if(istype(src.loc,/obj/item))
-		src << "You struggle free of [src.loc]."
+		to_chat(src, "You struggle free of [src.loc].")
 		src.forceMove(get_turf(src))
 
 	if(istype(M))
@@ -66,8 +74,8 @@
 	if(desc)	H.desc = desc
 	H.attack_hand(grabber)
 
-	grabber << "<span class='notice'>You scoop up \the [src]."
-	src << "<span class='notice'>\The [grabber] scoops you up.</span>"
+	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
+	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
 	grabber.status_flags |= PASSEMOTES
 	return H
 
@@ -91,4 +99,5 @@
 /obj/item/weapon/holder/mouse
 	name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"

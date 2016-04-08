@@ -22,7 +22,8 @@
 
 /obj/item/clothing/head/helmet/space/new_rig/attack_self(mob/user)
 	if(!isturf(user.loc))
-		user << "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>" //To prevent some lighting anomalities.
+		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>")//To prevent some lighting anomalities.
+
 		return
 	toggle_light(user)
 
