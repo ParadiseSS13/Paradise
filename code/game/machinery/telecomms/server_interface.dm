@@ -15,12 +15,12 @@
 
 /obj/machinery/computer/telecomms/server_interface/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/weapon/pen))
-		user << "<span class='notice'>You insert \the [W]'s tip into \the [src]'s reset hole.</span>"
+		to_chat(user, "<span class='notice'>You insert \the [W]'s tip into \the [src]'s reset hole.</span>")
 		if(do_after(user, 50, target=src))
-			user << "<span class='notice'>You reset \the [src].</span>"
-			ui_elements = initial(ui_elements)
+			to_chat(user, "<span class='notice'>You reset \the [src].</span>")
+			ui_elements = list("text~Welcome. The telecomms server has not been configured to display a UI on this server interface. Press init to send \"init\" signal to server.","button~Init~init")
 		else
-			user << "<span class='warning'>You pull \the [W] out too early, and fail to reset it</span>"
+			to_chat(user, "<span class='warning'>You pull \the [W] out too early, and fail to reset it</span>")
 	else
 		..()
 
@@ -32,7 +32,7 @@
 	for(var/element_text in ui_elements)
 		if(!istext(element_text))
 			return
-		var/list/element = text2list(element_text,"~")
+		var/list/element = splittext(element_text,"~")
 		if(element.len < 1)
 			continue
 		switch(element[1])
