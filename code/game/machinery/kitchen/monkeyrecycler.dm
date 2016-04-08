@@ -12,6 +12,8 @@
 	var/grinded = 0
 	var/required_grind = 5
 	var/cube_production = 1
+	var/cycle_through = 0
+	var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube
 
 /obj/machinery/monkey_recycler/New()
 	..()
@@ -43,6 +45,22 @@
 		return
 
 	default_deconstruction_crowbar(O)
+
+	if(istype(O, /obj/item/device/multitool))
+		cycle_through++
+		switch(cycle_through)
+			if(1)
+				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/farwacube
+			if(2)
+				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wolpincube
+			if(3)
+				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/stokcube
+			if(4)
+				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/neaeracube
+			if(5)
+				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube
+				cycle_through = 0
+		to_chat(user, "<span class='notice'>You change the monkeycube type to [cube_type.name].</span>")
 
 	if (src.stat != 0) //NOPOWER etc
 		return
@@ -80,7 +98,7 @@
 		playsound(src.loc, 'sound/machines/hiss.ogg', 50, 1)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube(src.loc)
+			new cube_type(src.loc)
 		to_chat(user, "<span class='notice'>The machine's display flashes that it has [grinded] monkey\s worth of material left.</span>")
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
 		to_chat(user, "<span class='warning'>The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded].</span>")
