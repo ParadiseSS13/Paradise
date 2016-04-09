@@ -324,7 +324,7 @@
 /obj/spacepod/emag_act(mob/user as mob)
 	if(!emagged)
 		emagged = 1
-		user << "<span class='notice'>You disable the safeties on \the [src]</span>"
+		to_chat(user, "<span class='notice'>You disable the safeties on \the [src]</span>")
 
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(!hatch_open)
