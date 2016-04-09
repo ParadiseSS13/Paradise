@@ -277,7 +277,7 @@
 	name = "Completed Robots"
 	id = "finished"
 	blacklist = null
-	whitelist = list(/obj/mecha,/obj/machinery/bot,/mob/living/silicon/robot)
+	whitelist = list(/obj/mecha,/mob/living/simple_animal/bot,/mob/living/silicon/robot)
 	mobcheck = 1
 	//todo: detect and allow finished cyborg endoskeletons with no brain
 	contains(var/atom/A)
@@ -557,7 +557,7 @@
 		return "[garbletext(copytext(Text,l/2,0))][pick("#","|","/","*",".","."," ","."," "," ")]"
 
 	proc/garble_keeptags(var/Text)
-		var/list/L = text2list(Text,">")
+		var/list/L = splittext(Text,">")
 		var/result = ""
 		for(var/string in L)
 			var/index = findtextEx(string,"<")
@@ -642,7 +642,7 @@
 		if(istype(M) && (remaining > MOB_WORK))
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			M << "\red <B>The unloading machine grabs you with a hard metallic claw!</B>"
+			to_chat(M, "\red <B>The unloading machine grabs you with a hard metallic claw!</B>")
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
@@ -660,7 +660,7 @@
 				bruteloss += L.brute_dam
 		if(bruteloss < 100) // requires tenderization
 			M.apply_damage(rand(5,15),BRUTE)
-			M << "The machine is tearing you apart!"
+			to_chat(M, "The machine is tearing you apart!")
 			master.visible_message("\red [master] makes a squishy grinding noise.")
 			return
 		M.loc = master.loc
@@ -698,7 +698,7 @@
 		if(remaining > MOB_WORK)
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			M << "\red <B>The unloading machine grabs you with a hard metallic claw!</B>"
+			to_chat(M, "\red <B>The unloading machine grabs you with a hard metallic claw!</B>")
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
@@ -790,7 +790,7 @@
 		//stolen from boxing gloves code
 		var/mob/living/carbon/human/M = W
 		if((M.lying || (M.health - M.staminaloss < 25))&& !master.emagged)
-			M << "\The [src] gives you a break."
+			to_chat(M, "\The [src] gives you a break.")
 			master.sleep+=5
 			return 0 // Be polite
 		var/punches = punch(M,remaining / PUNCH_WORK)

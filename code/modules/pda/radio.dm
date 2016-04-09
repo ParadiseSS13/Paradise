@@ -5,7 +5,7 @@
 	icon_state = "power_mod"
 	var/obj/item/device/pda/hostpda = null
 	var/list/botlist = null		// list of bots
-	var/obj/machinery/bot/active 	// the active bot; if null, show bot list
+	var/mob/living/simple_animal/bot/active 	// the active bot; if null, show bot list
 	var/list/botstatus			// the status signal sent by the bot
 	var/bot_type				//The type of bot it is.
 	var/bot_filter				//Determines which radio filter to use.
@@ -17,9 +17,9 @@
 
 /obj/item/radio/integrated/New()
 	..()
-	if (istype(loc.loc, /obj/item/device/pda))
+	if(istype(loc.loc, /obj/item/device/pda))
 		hostpda = loc.loc
-	if (bot_filter)
+	if(bot_filter)
 		spawn(5)
 			add_to_radio(bot_filter)
 
@@ -31,7 +31,7 @@
 
 /obj/item/radio/integrated/proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3,var/key4, var/value4, s_filter)
 
-	//world << "Post: [freq]: [key]=[value], [key2]=[value2]"
+//	to_chat(world, "Post: [freq]: [key]=[value], [key2]=[value2]")
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(freq)
 
 	if(!frequency)
@@ -51,31 +51,22 @@
 	frequency.post_signal(src, signal, filter = s_filter)
 
 /obj/item/radio/integrated/receive_signal(datum/signal/signal)
-	/*var/obj/item/device/pda/P = src.loc
-
-
-	world << "recvd:[P] : [signal.source]"
-	for(var/d in signal.data)
-		world << "- [d] = [signal.data[d]]"
-		*/
-
 	if (signal.data["type"] == bot_type)
 		if(!botlist)
 			botlist = new()
 
-		if(!(signal.source in botlist))
-			botlist += signal.source
+		var/obj/machinery/bot_core/core = signal.source
 
-		if(active == signal.source)
+		if(istype(core) && !(core.owner in botlist))
+			botlist += core.owner
+
+		if(active == core.owner)
 			var/list/b = signal.data
 			botstatus = b.Copy()
 
 /obj/item/radio/integrated/Topic(href, href_list)
 	..()
-	var/obj/item/device/pda/PDA = src.hostpda
-
 	switch(href_list["op"])
-
 		if("control")
 			active = locate(href_list["bot"])
 			spawn(0)
@@ -89,14 +80,14 @@
 		if("botlist")
 			active = null
 
-		if("stop", "go")
+		if("stop", "go", "home")
 			spawn(0)
 				post_signal(control_freq, "command", href_list["op"], "active", active, s_filter = bot_filter)
 				post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
 
 		if("summon")
 			spawn(0)
-				post_signal(control_freq, "command", "summon", "active", active, "target", get_turf(PDA) , "useraccess", PDA.GetAccess(), s_filter = bot_filter)
+				post_signal(control_freq, "command", "summon", "active", active, "target", get_turf(hostpda), "useraccess", hostpda.GetAccess(), "user", usr, s_filter = bot_filter)
 				post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
 
 /obj/item/radio/integrated/proc/add_to_radio(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
@@ -121,101 +112,45 @@
 	bot_type = CLEAN_BOT
 
 /obj/item/radio/integrated/mule
-	//var/list/botlist = null		// list of bots
-	//var/obj/machinery/bot/mulebot/active 	// the active bot; if null, show bot list
-	//var/list/botstatus			// the status signal sent by the bot
-	var/list/beacons
-
-	var/beacon_freq = 1400
-	control_freq = 1447
-
-// create a new QM cartridge, and register to receive bot control & beacon message
-/obj/item/radio/integrated/mule/New()
-	..()
-	spawn(5)
-		if(radio_controller)
-			radio_controller.add_object(src, control_freq, filter = RADIO_MULEBOT)
-			radio_controller.add_object(src, beacon_freq, filter = RADIO_NAVBEACONS)
-			spawn(10)
-				post_signal(beacon_freq, "findbeacon", "delivery", s_filter = RADIO_NAVBEACONS)
-
-/obj/item/radio/integrated/mule/Destroy()
-	if(radio_controller)
-		radio_controller.remove_object(src,beacon_freq)
-	return ..()
-
-// receive radio signals
-// can detect bot status signals
-// and beacon locations
-// create/populate lists as they are recvd
-
-/obj/item/radio/integrated/mule/receive_signal(datum/signal/signal)
-	if(signal.data["type"] == MULE_BOT)
-		if(!botlist)
-			botlist = new()
-
-		if(!(signal.source in botlist))
-			botlist += signal.source
-
-		if(active == signal.source)
-			var/list/b = signal.data
-			botstatus = b.Copy()
-
-	else if(signal.data["beacon"])
-		if(!beacons)
-			beacons = new()
-
-		beacons[signal.data["beacon"] ] = signal.source
+	bot_filter = RADIO_MULEBOT
+	bot_type = MULE_BOT
 
 /obj/item/radio/integrated/mule/Topic(href, href_list)
-	//..()
-	//var/obj/item/device/pda/PDA = src.hostpda
-	var/cmd = "command"
-	if(active)
-		cmd = "command [active.suffix]"
-
+	..()
 	switch(href_list["op"])
-		if("control")
-			active = locate(href_list["bot"])
-
-		if("scanbots")		// find all bots
-			botlist = null
-
-		if("botlist")
-			active = null
+		if("start")
+			spawn(0)
+				post_signal(control_freq, "command", "start", "active", active, s_filter = RADIO_MULEBOT)
 
 		if("unload")
 			spawn(0)
-				post_signal(control_freq, cmd, "unload", s_filter = RADIO_MULEBOT)
+				post_signal(control_freq, "command", "unload", "active", active, s_filter = RADIO_MULEBOT)
+
 		if("setdest")
-			if(beacons)
-				var/dest = input("Select Bot Destination", "Mulebot [active.suffix] Interlink", active.destination) as null|anything in beacons
+			if(deliverybeacons)
+				var/dest = input("Select Bot Destination", "Mulebot [active.suffix] Interlink", active.destination) as null|anything in deliverybeacontags
 				if(dest)
 					spawn(0)
-						post_signal(control_freq, cmd, "target", "destination", dest, s_filter = RADIO_MULEBOT)
+						post_signal(control_freq, "command", "target", "active", active, "destination", dest, s_filter = RADIO_MULEBOT)
 
 		if("retoff")
 			spawn(0)
-				post_signal(control_freq, cmd, "autoret", "value", 0, s_filter = RADIO_MULEBOT)
-				
+				post_signal(control_freq, "command", "autoret", "active", active, "value", 0, s_filter = RADIO_MULEBOT)
+
 		if("reton")
 			spawn(0)
-				post_signal(control_freq, cmd, "autoret", "value", 1, s_filter = RADIO_MULEBOT)
+				post_signal(control_freq, "command", "autoret", "active", active, "value", 1, s_filter = RADIO_MULEBOT)
 
 		if("pickoff")
 			spawn(0)
-				post_signal(control_freq, cmd, "autopick", "value", 0, s_filter = RADIO_MULEBOT)
+				post_signal(control_freq, "command", "autopick", "active", active, "value", 0, s_filter = RADIO_MULEBOT)
 
 		if("pickon")
 			spawn(0)
-				post_signal(control_freq, cmd, "autopick", "value", 1, s_filter = RADIO_MULEBOT)
-
-		if("stop", "go", "home")
-			spawn(0)
-				post_signal(control_freq, cmd, href_list["op"], s_filter = RADIO_MULEBOT)
+				post_signal(control_freq, "command", "autopick", "active", active, "value", 1, s_filter = RADIO_MULEBOT)
 
 	spawn(10)
-		post_signal(control_freq, cmd, "bot_status", s_filter = RADIO_MULEBOT)
+		post_signal(control_freq, "command", "bot_status", "active", active, s_filter = RADIO_MULEBOT)
 
 
 

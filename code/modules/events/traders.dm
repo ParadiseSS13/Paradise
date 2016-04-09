@@ -61,10 +61,10 @@ var/global/list/unused_trade_stations = list("sol")
 	return M
 
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
-	M << "<span class='boldnotice'>You are a trader!</span>"
-	M << "<span class='notice'>You are currently docked at [get_area(M)].</span>"
-	M << "<span class='notice'>You are about to trade with NSS Cyberiad.</span>"
-	M << "<span class='notice'>Negotiate an agreement, and request docking.</span>"
+	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
+	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
+	to_chat(M, "<span class='notice'>You are about to trade with NSS Cyberiad.</span>")
+	to_chat(M, "<span class='notice'>Negotiate an agreement, and request docking.</span>")
 	spawn(25)
 		show_objectives(M.mind)
 

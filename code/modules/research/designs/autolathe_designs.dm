@@ -447,6 +447,22 @@
 	build_path = /obj/item/weapon/bonesetter
 	category = list("initial", "Medical")
 
+/datum/design/fixovein
+	name = "FixOVein"
+	id = "fixovein"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
+	build_path = /obj/item/weapon/FixOVein
+	category = list("initial", "Medical")
+
+/datum/design/bonegel
+	name = "Bone Gel"
+	id = "bonegel"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 6000)
+	build_path = /obj/item/weapon/bonegel
+	category = list("initial", "Medical")
+
 /datum/design/syringe
 	name = "Syringe"
 	id = "syringe"
@@ -622,4 +638,12 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 125)
 	build_path = /obj/item/weapon/hand_labeler
+	category = list("initial", "Electronics")
+
+/datum/design/logic_board
+	name = "Logic Circuit"
+	id = "logic_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	build_path = /obj/item/weapon/circuitboard/logic_gate
 	category = list("initial", "Electronics")

@@ -1,10 +1,10 @@
 // Special AI/pAI PDAs that cannot explode.
-/obj/item/device/pda/ai
+/obj/item/device/pda/silicon
 	icon_state = "NONE"
 	detonate = 0
 	ttone = "data"
 
-/obj/item/device/pda/ai/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
+/obj/item/device/pda/silicon/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
 	owner = newname
 	ownjob = newjob
 	if(newrank)
@@ -13,17 +13,16 @@
 		ownrank = ownjob
 	name = newname + " (" + ownjob + ")"
 
-/obj/item/device/pda/ai/verb/cmd_send_pdamesg()
+/obj/item/device/pda/silicon/verb/cmd_send_pdamesg()
 	set category = "AI IM"
 	set name = "Send PDA Message"
 	set src in usr
 
-	if(usr.stat == DEAD)
-		usr << "You can't send PDA messages because you are dead!"
+	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		usr << "<span class='warning'>Cannot use messenger!</span>"
+		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
 	var/list/plist = M.available_pdas()
 	if (plist)
 		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
@@ -32,17 +31,16 @@
 		var/selected = plist[c]
 		M.create_message(usr, selected)
 
-/obj/item/device/pda/ai/verb/cmd_show_message_log()
+/obj/item/device/pda/silicon/verb/cmd_show_message_log()
 	set category = "AI IM"
 	set name = "Show Message Log"
 	set src in usr
 
-	if(usr.stat == DEAD)
-		usr << "You can't do that because you are dead!"
+	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		usr << "<span class='warning'>Cannot use messenger!</span>"
+		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
 	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
@@ -52,40 +50,55 @@
 	HTML +="</body></html>"
 	usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 
-/obj/item/device/pda/ai/verb/cmd_toggle_pda_receiver()
+/obj/item/device/pda/silicon/verb/cmd_toggle_pda_receiver()
 	set category = "AI IM"
 	set name = "Toggle Sender/Receiver"
 	set src in usr
 
-	if(usr.stat == DEAD)
-		usr << "You can't do that because you are dead!"
+	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
-	usr << "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>"
+	to_chat(usr, "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>")
 
 
-/obj/item/device/pda/ai/verb/cmd_toggle_pda_silent()
+/obj/item/device/pda/silicon/verb/cmd_toggle_pda_silent()
 	set category = "AI IM"
 	set name = "Toggle Ringer"
 	set src in usr
 
-	if(usr.stat == DEAD)
-		usr << "You can't do that because you are dead!"
+	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.notify_silent = !M.notify_silent
-	usr << "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>"
+	to_chat(usr, "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>")
 
-/obj/item/device/pda/ai/can_use()
-	return 1
-
-
-/obj/item/device/pda/ai/attack_self(mob/user as mob)
+/obj/item/device/pda/silicon/attack_self(mob/user as mob)
 	if ((honkamt > 0) && (prob(60)))//For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
 	return
 
-/obj/item/device/pda/ai/pai
+/obj/item/device/pda/silicon/ai/can_use()
+	var/mob/living/silicon/ai/AI = usr
+	if(!istype(AI))
+		return 0
+	return ..() && !AI.check_unable(AI_CHECK_WIRELESS)
+
+/obj/item/device/pda/silicon/robot/can_use()
+	var/mob/living/silicon/robot/R = usr
+	if(!istype(R))
+		return 0
+	return ..() && R.cell.charge > 0
+
+/obj/item/device/pda/silicon/pai
 	ttone = "assist"
+
+/obj/item/device/pda/silicon/pai/can_use()
+	var/mob/living/silicon/pai/pAI = usr
+	if(!istype(pAI))
+		return 0
+	if(!pAI.software["messenger"])
+		usr << "<span class='warning'>You have not purchased the digital messenger!</span>"
+		return 0
+	return ..() && !pAI.silence_time

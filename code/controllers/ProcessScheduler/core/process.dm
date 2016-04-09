@@ -69,10 +69,10 @@
 	 * recordkeeping vars
 	 */
 
-	// Records the time (1/10s timeofday) at which the process last finished sleeping
+	// Records the time (1/10s timeoftick) at which the process last finished sleeping
 	var/tmp/last_slept = 0
 
-	// Records the time (1/10s timeofday) at which the process last began running
+	// Records the time (1/10s timeofgame) at which the process last began running
 	var/tmp/run_start = 0
 
 	// Records the number of times this process has been killed and restarted
@@ -106,12 +106,8 @@
 	last_object = null
 
 /datum/controller/process/proc/started()
-	var/timeofhour = TimeOfHour
-	// Initialize last_slept so we can know when to sleep
-	last_slept = timeofhour
-
 	// Initialize run_start so we can detect hung processes.
-	run_start = timeofhour
+	run_start = TimeOfGame
 
 	// Initialize defer count
 	cpu_defer_count = 0
@@ -163,18 +159,13 @@
 	setStatus(PROCESS_STATUS_HUNG)
 
 /datum/controller/process/proc/handleHung()
-	var/timeofhour = TimeOfHour
 	var/datum/lastObj = last_object
 	var/lastObjType = "null"
 	if(istype(lastObj))
 		lastObjType = lastObj.type
 
-	// If timeofhour has rolled over, then we need to adjust.
-	if (timeofhour < run_start)
-		run_start -= 36000
-	var/msg = "[name] process hung at tick #[ticks]. Process was unresponsive for [(timeofhour - run_start) / 10] seconds and was restarted. Last task: [last_task]. Last Object Type: [lastObjType]"
-	logTheThing("debug", null, null, msg)
-	logTheThing("diary", null, null, msg, "debug")
+	var/msg = "[name] process hung at tick #[ticks]. Process was unresponsive for [(TimeOfGame - run_start) / 10] seconds and was restarted. Last task: [last_task]. Last Object Type: [lastObjType]"
+	log_debug(msg)
 	message_admins(msg)
 
 	main.restartProcess(src.name)
@@ -182,8 +173,8 @@
 /datum/controller/process/proc/kill()
 	if (!killed)
 		var/msg = "[name] process was killed at tick #[ticks]."
-		logTheThing("debug", null, null, msg)
-		logTheThing("diary", null, null, msg, "debug")
+		log_debug(msg)
+		message_admins(msg)
 		//finished()
 
 		// Allow inheritors to clean up if needed
@@ -208,17 +199,12 @@
 	if (main.getCurrentTickElapsedTime() > main.timeAllowance)
 		sleep(world.tick_lag)
 		cpu_defer_count++
-		last_slept = TimeOfHour
+		last_slept = 0
 	else
-		var/timeofhour = TimeOfHour
-		// If timeofhour has rolled over, then we need to adjust.
-		if (timeofhour < last_slept)
-			last_slept -= 36000
-
-		if (timeofhour > last_slept + sleep_interval)
+		if (TimeOfTick > last_slept + sleep_interval)
 			// If we haven't slept in sleep_interval deciseconds, sleep to allow other work to proceed.
 			sleep(0)
-			last_slept = TimeOfHour
+			last_slept = TimeOfTick
 
 /datum/controller/process/proc/update()
 	// Clear delta
@@ -239,10 +225,7 @@
 
 
 /datum/controller/process/proc/getElapsedTime()
-	var/timeofhour = TimeOfHour
-	if (timeofhour < run_start)
-		return timeofhour - (run_start - 36000)
-	return timeofhour - run_start
+	return TimeOfGame - run_start
 
 /datum/controller/process/proc/tickDetail()
 	return

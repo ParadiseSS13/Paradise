@@ -20,7 +20,7 @@
 
 /obj/item/weaponcrafting/receiver/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/pipe))
-		user << "You attach the shotgun barrel to the receiver. The pins seem loose."
+		to_chat(user, "You attach the shotgun barrel to the receiver. The pins seem loose.")
 		var/obj/item/weaponcrafting/ishotgunconstruction/I = new /obj/item/weaponcrafting/ishotgunconstruction
 		user.unEquip(src)
 		user.put_in_hands(I)
@@ -42,7 +42,7 @@
 		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
 		user.unEquip(src)
 		user.put_in_hands(C)
-		user << "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>"
+		to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
 		qdel(src)
 
 /obj/item/weaponcrafting/ishotgunconstruction2
@@ -53,7 +53,7 @@
 
 /obj/item/weaponcrafting/ishotgunconstruction2/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weaponcrafting/stock))
-		user << "You attach the stock to the receiver-barrel assembly."
+		to_chat(user, "You attach the stock to the receiver-barrel assembly.")
 		var/obj/item/weaponcrafting/ishotgunconstruction3/I = new /obj/item/weaponcrafting/ishotgunconstruction3
 		user.unEquip(src)
 		user.put_in_hands(I)
@@ -75,9 +75,9 @@
 			var/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised
 			user.unEquip(src)
 			user.put_in_hands(W)
-			user << "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>"
+			to_chat(user, "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>")
 			qdel(src)
 		else
-			user << "<span class='warning'>You need at least five feet of wrapping paper to secure the stock.</span>"
+			to_chat(user, "<span class='warning'>You need at least five feet of wrapping paper to secure the stock.</span>")
 			return
 

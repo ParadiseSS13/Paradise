@@ -249,13 +249,12 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	s.set_up(2, 1, location)
 	s.start()
 	for(var/mob/living/carbon/C in viewers(5, location))
-		if(C.eyecheck())
-			continue
-		flick("e_flash", C.flash)
-		if(get_dist(C, location) < 4)
-			C.Weaken(5)
-			continue
-		C.Stun(5)
+		if(C.flash_eyes())
+			if(get_dist(C, location) < 4)
+				C.Weaken(5)
+				continue
+			C.Stun(5)
+
 
 /datum/chemical_reaction/flash_powder/on_reaction(var/datum/reagents/holder, var/created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
@@ -265,13 +264,11 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	s.set_up(2, 1, location)
 	s.start()
 	for(var/mob/living/carbon/C in viewers(5, location))
-		if(C.eyecheck())
-			continue
-		flick("e_flash", C.flash)
-		if(get_dist(C, location) < 4)
-			C.Weaken(5)
-			continue
-		C.Stun(5)
+		if(C.flash_eyes())
+			if(get_dist(C, location) < 4)
+				C.Weaken(5)
+				continue
+			C.Stun(5)
 	holder.remove_reagent("flash_powder", created_volume)
 
 /datum/reagent/smoke_powder
@@ -365,20 +362,20 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 				var/mob/living/carbon/human/H = C
 				if((H.r_ear && (H.r_ear.flags & EARBANGPROTECT)) || (H.l_ear && (H.l_ear.flags & EARBANGPROTECT)) || (H.head && (H.head.flags & HEADBANGPROTECT)))
 					ear_safety++
-		M << "<span class='warning'>BANG</span>"
+		to_chat(M, "<span class='warning'>BANG</span>")
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
 			M.ear_damage += rand(0, 5)
 			M.ear_deaf = max(M.ear_deaf,15)
 			if (M.ear_damage >= 15)
-				M << "<span class='warning'>Your ears start to ring badly!</span>"
+				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 				if(prob(M.ear_damage - 10 + 5))
-					M << "<span class='warning'>You can't hear anything!</span>"
+					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 					M.disabilities |= DEAF
 			else
 				if (M.ear_damage >= 5)
-					M << "<span class='warning'>Your ears start to ring!</span>"
+					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
 
 /datum/chemical_reaction/sonic_powder/on_reaction(var/datum/reagents/holder, var/created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
@@ -394,20 +391,20 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 				var/mob/living/carbon/human/H = C
 				if((H.r_ear && (H.r_ear.flags & EARBANGPROTECT)) || (H.l_ear && (H.l_ear.flags & EARBANGPROTECT)) || (H.head && (H.head.flags & HEADBANGPROTECT)))
 					ear_safety++
-			C << "<span class='warning'>BANG</span>"
+			to_chat(C, "<span class='warning'>BANG</span>")
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
 			M.ear_damage += rand(0, 5)
 			M.ear_deaf = max(M.ear_deaf,15)
 			if (M.ear_damage >= 15)
-				M << "<span class='warning'>Your ears start to ring badly!</span>"
+				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 				if(prob(M.ear_damage - 10 + 5))
-					M << "<span class='warning'>You can't hear anything!</span>"
+					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 					M.disabilities |= DEAF
 			else
 				if (M.ear_damage >= 5)
-					M << "<span class='warning'>Your ears start to ring!</span>"
+					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
 	holder.remove_reagent("sonic_powder", created_volume)
 
 /datum/reagent/phlogiston
@@ -629,3 +626,33 @@ datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
 	return
+
+/datum/reagent/plasma_dust
+	name = "Plasma Dust"
+	id = "plasma_dust"
+	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
+	color = "#500064" // rgb: 80, 0, 100
+
+/datum/reagent/plasma_dust/on_mob_life(mob/living/M)
+	M.adjustToxLoss(3)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.adjustPlasma(20)
+	..()
+
+/datum/reagent/plasma_dust/reaction_obj(obj/O, volume)
+	if((!O) || (!volume))
+		return 0
+	O.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
+
+/datum/reagent/plasma_dust/reaction_turf(turf/simulated/T, volume)
+	if(istype(T))
+		T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
+
+/datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
+	if(!istype(M, /mob/living))
+		return
+	if(method == TOUCH)
+		M.adjust_fire_stacks(volume / 5)
+		return
+	..()

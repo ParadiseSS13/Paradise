@@ -28,7 +28,8 @@
 
 /mob/proc/AIize()
 	if(client)
-		src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // stop the jams for AIs
+		to_chat(src, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))// stop the jams for AIs
+
 	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
 	O.invisibility = 0
 	O.aiRestorePowerRoutine = 0
@@ -53,7 +54,7 @@
 					continue
 				loc_landmark = tripai
 	if (!loc_landmark)
-		O << "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone."
+		to_chat(O, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.")
 		for(var/obj/effect/landmark/start/sloc in landmarks_list)
 			if (sloc.name == "AI")
 				loc_landmark = sloc
@@ -106,8 +107,8 @@
 				"You hear strange noise, you can't quite place it.")
 			qdel(src)
 
-	new_spirit << "<font color=\"purple\"><b><i>You are a Mask of Nar'sie now. You are a tiny fragment of the unknowable entity that is the god.</b></i></font>"
-	new_spirit << "<font color=\"purple\"><b><i>Your job is to help your acolytes complete their goals. Be spooky. Do evil.</b></i></font>"
+	to_chat(new_spirit, "<font color=\"purple\"><b><i>You are a Mask of Nar'sie now. You are a tiny fragment of the unknowable entity that is the god.</b></i></font>")
+	to_chat(new_spirit, "<font color=\"purple\"><b><i>Your job is to help your acolytes complete their goals. Be spooky. Do evil.</b></i></font>")
 
 	new_spirit.set_name()
 
@@ -208,7 +209,7 @@
 	new_xeno.a_intent = I_HARM
 	new_xeno.key = key
 
-	new_xeno << "<B>You are now an alien.</B>"
+	to_chat(new_xeno, "<B>You are now an alien.</B>")
 	new_xeno.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
 		qdel(src)
@@ -244,7 +245,7 @@
 		else
 	new_slime.key = key
 
-	new_slime << "<B>You are now a slime. Skreee!</B>"
+	to_chat(new_slime, "<B>You are now a slime. Skreee!</B>")
 	new_slime.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
 		qdel(src)
@@ -267,7 +268,7 @@
 	new_corgi.a_intent = I_HARM
 	new_corgi.key = key
 
-	new_corgi << "<B>You are now a Corgi. Yap Yap!</B>"
+	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
 	new_corgi.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
 		qdel(src)
@@ -298,7 +299,7 @@
 	new_mob.a_intent = I_HARM
 
 
-	new_mob << "You suddenly feel more... animalistic."
+	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	new_mob.update_pipe_vision()
 	spawn()
 		qdel(src)
@@ -313,7 +314,7 @@
 
 	new_mob.key = key
 	new_mob.a_intent = I_HARM
-	new_mob << "You feel more... animalistic"
+	to_chat(new_mob, "You feel more... animalistic")
 	new_mob.update_pipe_vision()
 
 	qdel(src)

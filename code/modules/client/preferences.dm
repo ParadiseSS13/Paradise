@@ -59,8 +59,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define BE_CIVILIAN 1
 #define RETURN_TO_LOBBY 2
 
-#define MAX_SAVE_SLOTS 10 // Save slots for regular players
-#define MAX_SAVE_SLOTS_MEMBER 10 // Save slots for BYOND members
+#define MAX_SAVE_SLOTS 20 // Save slots for regular players
+#define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
 
 /datum/preferences
 	//doohickeys for savefiles
@@ -262,7 +262,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			//display limbs below
 			var/ind = 0
 			for(var/name in organ_data)
-				//world << "[ind] \ [organ_data.len]"
+//				to_chat(world, "[ind] \ [organ_data.len]")
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
@@ -673,7 +673,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return
 
 	if (!isnum(desiredLvl))
-		user << "\red UpdateJobPreference - desired level was not a number. Please notify coders!"
+		to_chat(user, "\red UpdateJobPreference - desired level was not a number. Please notify coders!")
 		ShowChoices(user)
 		return
 
@@ -1057,7 +1057,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(new_name)
 							real_name = new_name
 						else
-							user << "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>"
+							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
@@ -1583,7 +1583,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/cleaned_r = sql_sanitize_text(r)
 						if(r != cleaned_r) // up to no good
 							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
-							user << "<span class='userdanger'>Stop right there, criminal scum</span>"
+							to_chat(user, "<span class='userdanger'>Stop right there, criminal scum</span>")
 					else
 						be_special ^= r
 
@@ -1599,9 +1599,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY
 					if(sound & SOUND_LOBBY)
-						user << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1)
+						to_chat(user, sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1))
 					else
-						user << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)
+						to_chat(user, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))
 
 				if("ghost_ears")
 					toggles ^= CHAT_GHOSTEARS
@@ -1645,6 +1645,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
+	var/datum/species/S = all_species[species]
 	character.change_species(species) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
@@ -1657,7 +1658,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else if(firstspace == name_length)
 			real_name += "[pick(last_names)]"
 
+	character.add_language(language)
+
 	character.real_name = real_name
+	character.dna.real_name = real_name
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
@@ -1717,15 +1721,30 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				else if(status == "mechanical")
 					I.robotize()
 
+	character.dna.b_type = b_type
 	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
+		character.dna.SetSEState(FATBLOCK,1,1)
 		character.mutations += FAT
 		character.mutations += OBESITY
+		character.overeatduration = 600
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		character.dna.SetSEState(GLASSESBLOCK,1,1)
 		character.disabilities|=NEARSIGHTED
 	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
+		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
 		character.disabilities|=EPILEPSY
 	if(disabilities & DISABILITY_FLAG_DEAF)
+		character.dna.SetSEState(DEAFBLOCK,1,1)
 		character.sdisabilities|=DEAF
+	if(disabilities & DISABILITY_FLAG_MUTE)
+		character.dna.SetSEState(MUTEBLOCK,1,1)
+		character.sdisabilities |= MUTE
+
+	S.handle_dna(character)
+
+	if(character.dna.dirtySE)
+		character.dna.UpdateSE()
+	domutcheck(character)
 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
@@ -1766,8 +1785,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
 
-	character.dna.ready_dna(character)
+	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
+	character.UpdateAppearance()
+
+	// Do the initial caching of the player's body icons.
+	character.force_update_limbs()
+	character.update_eyes()
+	character.regenerate_icons()
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 

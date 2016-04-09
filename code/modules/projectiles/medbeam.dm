@@ -67,7 +67,7 @@
 
 	if(get_dist(H,current_target)>max_range || !los_check(H,current_target))
 		LoseTarget()
-		H << "<span class='warning'>You lose control of the beam!</span>"
+		to_chat(H, "<span class='warning'>You lose control of the beam!</span>")
 		return
 
 	if(current_target)

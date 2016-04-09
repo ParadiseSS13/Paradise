@@ -63,7 +63,7 @@
 	set desc = "Lay an egg to produce huggers to impregnate prey with."
 	set category = "Alien"
 	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		src << "<span class='noticealien'>There's already an egg here.</span>"
+		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
 		return
 
 	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
@@ -111,7 +111,7 @@
 
 		if(no_queen)
 			adjustToxLoss(-1000)
-			src << "<span class='noticealien'>You begin to evolve!</span>"
+			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
 			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new(loc)
@@ -122,7 +122,7 @@
 			new_xeno.mind.name = new_xeno.name
 			qdel(src)
 		else
-			src << "<span class='notice'>We already have an alive empress.</span>"
+			to_chat(src, "<span class='notice'>We already have an alive empress.</span>")
 	return
 
 */

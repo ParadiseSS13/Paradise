@@ -192,7 +192,7 @@
 "dJ" = (/obj/structure/rack,/obj/item/toy/sword,/obj/item/weapon/gun/projectile/revolver/capgun,/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/ninja/holding)
 "dK" = (/obj/structure/stool/bed,/turf/unsimulated/floor{icon_state = "panelscorched"},/area/prison/solitary)
 "dL" = (/obj/structure/stool/bed,/obj/effect/decal/cleanable/cobweb,/turf/unsimulated/floor{name = "plating"},/area/prison/solitary)
-"dM" = (/obj/machinery/prize_counter/upgraded,/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/ninja/holding)
+"dM" = (/obj/machinery/prize_counter,/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/ninja/holding)
 "dN" = (/turf/simulated/floor/holofloor{tag = "icon-asteroid3 (EAST)"; icon_state = "asteroid3"; dir = 4},/area/holodeck/source_desert)
 "dO" = (/turf/simulated/floor/holofloor{tag = "icon-carpet1-0 (EAST)"; icon_state = "carpet1-0"; dir = 4},/area/holodeck/source_theatre)
 "dP" = (/obj/structure/stool,/turf/simulated/floor/holofloor{tag = "icon-carpet5-1 (EAST)"; icon_state = "carpet5-1"; dir = 4},/area/holodeck/source_theatre)

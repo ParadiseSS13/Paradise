@@ -23,9 +23,10 @@
 	owner.ear_deaf = 0
 
 /obj/item/organ/internal/brain/xeno
-	name = "thinkpan"
-	desc = "It looks kind of like an enormous wad of purple bubblegum."
-	icon_state = "brain-x-d"
+	name = "xenomorph brain"
+	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
+	icon_state = "brain-x"
+	origin_tech = "biotech=7"
 
 /obj/item/organ/internal/brain/New()
 	..()
@@ -47,15 +48,15 @@
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 
-	brainmob << "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>"
+	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>")
 	callHook("debrain", list(brainmob))
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	..(user)
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
-		user << "You can feel the small spark of life still left in this one."
+		to_chat(user, "You can feel the small spark of life still left in this one.")
 	else
-		user << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
+		to_chat(user, "This one seems particularly lifeless. Perhaps it will regain some of its luster later..")
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
 

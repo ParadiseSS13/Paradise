@@ -9,7 +9,6 @@
 	use_power = 1
 	idle_power_usage = 40
 	var/tickets = 0
-	var/prize_tier = 1		//Increased by matter bin rating, unlocks more prize options per tier
 
 /obj/machinery/prize_counter/New()
 	..()
@@ -20,20 +19,6 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
-
-/obj/machinery/prize_counter/upgraded/New()
-	..()
-	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/prize_counter(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/bluespace(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	RefreshParts()
-
-/obj/machinery/prize_counter/RefreshParts()
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
-		prize_tier = B.rating
 
 /obj/machinery/prize_counter/update_icon()
 	if(stat & BROKEN)
@@ -53,12 +38,12 @@
 			tickets += T.amount
 			qdel(T)
 		else
-			user << "<span class='warning'>\The [T] seems stuck to your hand!</span>"
+			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
 		return
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
-		user << "You [panel_open ? "open" : "close"] the maintenance panel."
+		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		update_icon()
 		return
 	if(panel_open)
@@ -161,19 +146,11 @@ td.cost.toomuch {
 					<p>[item.desc]</p>
 				</td>
 		"}
-		if(prize_tier >= item.tier_unlocked)
-			dat += {"
-				<td class="cost [cost_class]">
-					<a href="byond://?src=\ref[src];buy=[itemID]">[item.cost] Tickets</a>
-				</td>
-			</tr>
-		"}
-		else
-			dat += {"
-				<td>
-					LOCKED.
-				</td>
-			</tr>
+		dat += {"
+			<td class="cost [cost_class]">
+				<a href="byond://?src=\ref[src];buy=[itemID]">[item.cost] Tickets</a>
+			</td>
+		</tr>
 		"}
 
 	dat += {"
@@ -202,9 +179,9 @@ td.cost.toomuch {
 			updateUsrDialog()
 			return
 		if(!global_prizes.PlaceOrder(src, itemID))
-			usr << "<span class='warning'>Unable to complete the exchange.</span>"
+			to_chat(usr, "<span class='warning'>Unable to complete the exchange.</span>")
 		else
-			usr << "<span class='notice'>You've successfully purchased the item.</span>"
+			to_chat(usr, "<span class='notice'>You've successfully purchased the item.</span>")
 
 	interact(usr)
 	return

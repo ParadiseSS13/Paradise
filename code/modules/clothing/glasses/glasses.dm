@@ -24,11 +24,11 @@
 	if(prescription_upgradable)
 		if(istype(O, /obj/item/clothing/glasses/regular))
 			if(prescription)
-				H << "You can't possibly imagine how adding more lenses would improve \the [name]."
+				to_chat(H, "You can't possibly imagine how adding more lenses would improve \the [name].")
 				return
 			H.unEquip(O)
 			O.loc = src // Store the glasses for later removal
-			H << "You fit \the [name] with lenses from \the [O]."
+			to_chat(H, "You fit \the [name] with lenses from \the [O].")
 			prescription = 1
 			name = "prescription [name]"
 			return
@@ -36,7 +36,7 @@
 			var/obj/item/clothing/glasses/regular/G = locate() in src
 			if(!G)
 				G = new(get_turf(H))
-			H << "You salvage the prescription lenses from \the [name]."
+			to_chat(H, "You salvage the prescription lenses from \the [name].")
 			prescription = 0
 			name = initial(name)
 			H.put_in_hands(G)
@@ -264,7 +264,7 @@
 		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
 		usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
 	else
-		usr << "The moment is gone."
+		to_chat(usr, "The moment is gone.")
 
 
 /obj/item/clothing/glasses/sunglasses/reagent
@@ -309,9 +309,6 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/welding/proc/getMask()
-	return global_hud.darkMask
-
 /obj/item/clothing/glasses/welding/attack_self()
 	toggle()
 
@@ -327,7 +324,7 @@
 			src.flags |= GLASSESCOVERSEYES
 			flags_inv |= HIDEEYES
 			icon_state = initial(icon_state)
-			usr << "You flip the [src] down to protect your eyes."
+			to_chat(usr, "You flip the [src] down to protect your eyes.")
 			flash_protect = 2
 			tint = initial(tint) //better than istype
 		else
@@ -335,7 +332,7 @@
 			src.flags &= ~HEADCOVERSEYES
 			flags_inv &= ~HIDEEYES
 			icon_state = "[initial(icon_state)]up"
-			usr << "You push the [src] up out of your face."
+			to_chat(usr, "You push the [src] up out of your face.")
 			flash_protect = 0
 			tint = 0
 
@@ -353,9 +350,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/welding/superior/getMask()
-	return null
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
@@ -398,7 +392,7 @@
 	emp_act(severity)
 		if(istype(src.loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/M = src.loc
-			M << "\red The Optical Thermal Scanner overloads and blinds you!"
+			to_chat(M, "\red The Optical Thermal Scanner overloads and blinds you!")
 			if(M.glasses == src)
 				M.eye_blind = 3
 				M.eye_blurry = 5

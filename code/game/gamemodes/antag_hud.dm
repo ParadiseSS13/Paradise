@@ -1,5 +1,9 @@
 /datum/atom_hud/antag
 	hud_icons = list(SPECIALROLE_HUD,NATIONS_HUD)
+	var/self_visible = 1
+
+/datum/atom_hud/antag/hidden
+	self_visible = 0
 
 /datum/atom_hud/antag/proc/join_hud(mob/M,var/slave)
 	if(!istype(M))
@@ -8,15 +12,8 @@
 		M.mind.antag_hud.leave_hud(M)
 	if(!ismask(M))//FUCK YOU MASK OF NARNAR!
 		add_to_hud(M)
-	add_hud_to(M)
-	M.mind.antag_hud = src
-
-/datum/atom_hud/antag/proc/join_solo_hud(mob/M,var/slave)//for non team antags and for observer huds
-	if(!istype(M))
-		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
-	if(M.mind.antag_hud && !slave) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
-		M.mind.antag_hud.leave_hud(M)
-	add_to_hud(M)
+	if(self_visible)
+		add_hud_to(M)
 	M.mind.antag_hud = src
 
 /datum/atom_hud/antag/proc/leave_hud(mob/M)
@@ -49,22 +46,13 @@
 	if(M.mind || new_icon_state) //in mindless mobs, only null is acceptable, otherwise we're antagging a mindless mob, meaning we should runtime
 		M.mind.antag_hud_icon_state = new_icon_state
 
-/datum/atom_hud/antag/proc/is_solo_antag(mob/M)
-	if(M.mind.special_role == "traitor" || M.mind.special_role == "vampire" || M.mind.special_role == "Changeling")
-		return 1
-	return 0
-
-
 //MIND PROCS
 //these are called by mind.transfer_to()
 /datum/mind/proc/transfer_antag_huds(var/datum/atom_hud/antag/newhud)
 	leave_all_huds()
 	ticker.mode.set_antag_hud(current, antag_hud_icon_state)
 	if(newhud)
-		if(newhud.is_solo_antag(current))
-			newhud.join_solo_hud(current)
-		else
-			newhud.join_hud(current)
+		newhud.join_hud(current)
 
 /datum/mind/proc/leave_all_huds()
 	for(var/datum/atom_hud/antag/hud in huds)

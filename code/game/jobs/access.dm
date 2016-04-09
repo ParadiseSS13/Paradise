@@ -112,7 +112,6 @@ var/const/access_trade_sol = 160
 
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
-	generate_req_lists()
 	//check if we don't require any access at all
 	if(check_access())
 		return 1
@@ -139,7 +138,7 @@ var/const/access_trade_sol = 160
 	if(!req_access)
 		req_access = list()
 		if(req_access_txt)
-			var/list/req_access_str = text2list(req_access_txt, ";")
+			var/list/req_access_str = splittext(req_access_txt, ";")
 			for(var/x in req_access_str)
 				var/n = text2num(x)
 				if(n)
@@ -148,30 +147,19 @@ var/const/access_trade_sol = 160
 	if(!req_one_access)
 		req_one_access = list()
 		if(req_one_access_txt)
-			var/list/req_one_access_str = text2list(req_one_access_txt,";")
+			var/list/req_one_access_str = splittext(req_one_access_txt,";")
 			for(var/x in req_one_access_str)
 				var/n = text2num(x)
 				if(n)
 					req_one_access += n
 
 /obj/proc/check_access(obj/item/I)
-	if(!istype(req_access, /list))
-		return 1
-
-	if(!req_access.len && (!req_one_access || !req_one_access.len))
-		return 1
-	if(!I)
-		return 0
-	for(var/req in src.req_access)
-		if(!(req in I.GetAccess())) //doesn't have this access
-			return 0
-	if(req_one_access && req_one_access.len)
-		for(var/req in req_one_access)
-			if(req in I.GetAccess()) //has an access from the single access list
-				return 1
-		return 0
-	return 1
-
+	var/list/L
+	if(I)
+		L = I.GetAccess()
+	else
+		L = list()
+	return check_access_list(L)
 
 /obj/proc/check_access_list(var/list/L)
 	generate_req_lists()

@@ -39,7 +39,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	throw_range = 7
 
 	suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-		viewers(user) << "<span class='warning'>[user] places the [src.name] on top of \his head, \his fingers tangled in the netting! It looks like \he's trying to commit suicide.</span>"
+		to_chat(viewers(user), "<span class='warning'>[user] places the [src.name] on top of \his head, \his fingers tangled in the netting! It looks like \he's trying to commit suicide.</span>")
 		return(OXYLOSS)
 
 /obj/item/weapon/fishfood
@@ -65,7 +65,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	attack_verb = list("scrubbed", "brushed", "scraped")
 
 	suicide_act(mob/user)
-		viewers(user) << "<span class='warning'>[user] is vigorously scrubbing \himself raw with the [src.name]! It looks like \he's trying to commit suicide.</span>"
+		to_chat(viewers(user), "<span class='warning'>[user] is vigorously scrubbing \himself raw with the [src.name]! It looks like \he's trying to commit suicide.</span>")
 		return(BRUTELOSS|FIRELOSS)
 
 //////////////////////////////////////////////
@@ -133,7 +133,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 
 /obj/item/weapon/fish/shark/attackby(var/obj/item/O, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/wirecutters))
-		user << "You rip out the teeth of \the [src.name]!"
+		to_chat(user, "You rip out the teeth of \the [src.name]!")
 		new /obj/item/weapon/fish/toothless_shark(get_turf(src))
 		new /obj/item/weapon/shard/shark_teeth(get_turf(src))
 		qdel(src)
@@ -166,7 +166,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 
 /obj/item/weapon/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
 	if(is_sharp(O))
-		user << "You carefully clean and gut \the [src.name]."
+		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/weapon/reagent_containers/food/snacks/catfishmeat(get_turf(src))
 		new /obj/item/weapon/reagent_containers/food/snacks/catfishmeat(get_turf(src))
 		qdel(src)
@@ -185,7 +185,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 
 /obj/item/weapon/fish/salmon/attackby(var/obj/item/O, var/mob/user as mob)
 	if(is_sharp(O))
-		user << "You carefully clean and gut \the [src.name]."
+		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/weapon/reagent_containers/food/snacks/salmonmeat(get_turf(src))
 		new /obj/item/weapon/reagent_containers/food/snacks/salmonmeat(get_turf(src))
 		qdel(src)
@@ -201,7 +201,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 
 /obj/item/weapon/fish/babycarp/attackby(var/obj/item/O, var/mob/user as mob)
 	if(is_sharp(O))
-		user << "You carefully clean and gut \the [src.name]."
+		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/weapon/reagent_containers/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
 		qdel(src)
 		return

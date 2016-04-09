@@ -332,10 +332,10 @@
 	var/turf/U = get_turf(A)
 	var/obj/structure/cable/cable = locate() in T
 	if(!cable || !istype(cable))
-		src << "<span class='warning'>There is no cable here to power the gloves.</span>"
+		to_chat(src, "<span class='warning'>There is no cable here to power the gloves.</span>")
 		return
 	if(world.time < G.next_shock)
-		src << "<span class='warning'>[G] aren't ready to shock again!</span>"
+		to_chat(src, "<span class='warning'>[G] aren't ready to shock again!</span>")
 		return
 	src.visible_message("<span class='warning'>[name] fires an arc of electricity!</span>", \
 	"<span class='warning'>You fire an arc of electricity!</span>", \
@@ -405,9 +405,9 @@
 		buckled.handle_rotation()*/
 
 /obj/screen/click_catcher
-	icon = 'icons/mob/screen1_full.dmi'
+	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "passage0"
-	layer = 0
+	plane = CLICKCATCHER_PLANE
 	mouse_opacity = 2
 	screen_loc = "CENTER-7,CENTER-7"
 

@@ -195,14 +195,6 @@
 	slot = "eyes"
 
 
-/obj/item/organ/internal/diona_receptor/remove(var/mob/living/user,special = 0)
-	if(!special)
-		owner.disabilities |= NEARSIGHTED
-		owner.sdisabilities |= BLIND
-		owner.eye_blind = 20
-		owner.eye_blurry = 40
-	..()
-
 /obj/item/organ/internal/diona_receptor/surgeryize()
 	if(!owner)
 		return

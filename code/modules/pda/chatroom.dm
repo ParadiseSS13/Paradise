@@ -28,8 +28,9 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 	logs += list(list(username = username, message = message))
 
 	for(var/datum/data/pda/app/chatroom/u in users)
-		if(!u.toff && user != u)
-			u.notify("<b>Post from [username] in #[name], </b>\"[message]\" (<a href='?src=\ref[u];choice=Post;target=\ref[src]'>Post</a>)")
+		spawn()
+			if(u.messaging_available() && !u.toff && user != u)
+				u.notify("<b>Post from [username] in #[name], </b>\"[message]\" (<a href='?src=\ref[u];choice=Post;target=\ref[src]'>Post</a>)")
 
 /datum/chatroom/proc/announce(user, message)
 	post(user, "<span class='average'>[message]</span>", announcer)
@@ -44,7 +45,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 	if(!is_public && !(user in invites))
 		return 0
 
-	users += user
+	users |= user
 	announce(user, "[user.pda.owner] has entered #[name].")
 	return 1
 
@@ -68,6 +69,15 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 	var/max_channels_created = 3
 	var/latest_post = 0
 	var/auto_scroll = 1
+	var/disconnected = 0
+
+/datum/data/pda/app/chatroom/Destroy()
+	for(var/C in chatrooms)
+		var/datum/chatroom/ch = C
+		if(src in ch.users)
+			ch.users -= src
+		if(src in ch.invites)
+			ch.invites -= src
 
 /datum/data/pda/app/chatroom/start()
 	. = ..()
@@ -77,7 +87,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 /datum/data/pda/app/chatroom/update_ui(mob/user as mob, list/data)
 	data["silent"] = notify_silent
 	data["toff"] = toff
-	if(!messaging_available())
+	if(disconnected || !messaging_available(1))
 		data["no_server"] = 1
 		has_back = 0
 	else if(current_room)
@@ -117,20 +127,23 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 		data["rooms"] = rooms
 		has_back = 0
 
-/datum/data/pda/app/chatroom/proc/messaging_available()
+/datum/data/pda/app/chatroom/proc/messaging_available(cheap = 0)
+	. = 0
 	if(message_servers)
 		for(var/A in message_servers)
 			var/obj/machinery/message_server/MS = A
 			if(MS.active)
-				return 1
-	return 0
+				. = cheap || pda.test_telecomms()
+	disconnected = !.
 
 /datum/data/pda/app/chatroom/proc/check_messaging_available()
 	. = messaging_available()
 	if(!.)
-		usr << "<span class='notice'>ERROR: Messaging server is not responding.</span>"
+		to_chat(usr, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
 
 /datum/data/pda/app/chatroom/Topic(href, list/href_list)
+	if(!pda.can_use())
+		return
 	unnotify()
 
 	switch(href_list["choice"])
@@ -145,9 +158,6 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				current_room = null
 				latest_post = 0
 		if("Join")
-			if(!check_messaging_available())
-				return
-
 			if(href_list["room"])
 				current_room = locate(href_list["room"])
 			if(!(src in current_room.users))
@@ -155,9 +165,6 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 					current_room = null
 			latest_post = 0
 		if("Post")
-			if(!check_messaging_available())
-				return
-
 			var/datum/chatroom/target
 			if(href_list["target"])
 				target = locate(href_list["target"])
@@ -168,28 +175,30 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				return
 
 			var/t = input("Please enter message", target) as text|null
-			if(!t)
-				return
-			t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
-			t = readd_quotes(t)
-			if (!t || (!in_range(pda, usr) && pda.loc != usr))
-				return
+			spawn()
+				if(!t || !check_messaging_available())
+					return
+				t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+				t = readd_quotes(t)
+				if (!t || !pda.can_use())
+					return
 
-			target.post(src, t)
+				target.post(src, t)
 		if("Topic")
-			if(!check_messaging_available() || !current_room)
+			if(!current_room)
 				return
 
 			var/t = input("Enter new topic:", current_room, current_room.topic) as text|null
-			if(!t)
-				return
-			t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
-			t = readd_quotes(t)
-			if (!t || (!in_range(pda, usr) && pda.loc != usr))
-				return
+			spawn()
+				if(!t || !check_messaging_available() || !pda.can_use())
+					return
+				t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+				t = readd_quotes(t)
+				if (!t)
+					return
 
-			current_room.topic = t
-			current_room.announce(src, "Topic has been changed to '[t]' by [pda.owner].")
+				current_room.topic = t
+				current_room.announce(src, "Topic has been changed to '[t]' by [pda.owner].")
 		if("Leave")
 			if(!current_room)
 				return
@@ -198,23 +207,22 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 			current_room = null
 			latest_post = 0
 		if("Invite")
-			if(!check_messaging_available() || !current_room)
+			if(!current_room)
 				return
 
 			inviting = 1
 		if("Invite PDA")
-			if(!check_messaging_available() || !current_room || !href_list["user"])
-				return
+			spawn()
+				if(!check_messaging_available() || !current_room || !href_list["user"])
+					return
 
-			var/datum/data/pda/app/chatroom/C = locate(href_list["user"])
-			if(C)
-				current_room.invites += C
-				if(!C.toff)
-					C.notify("<b>Invite to #[current_room]</b> (<a href='?src=\ref[C];choice=Join;room=\ref[current_room]'>Join</a>)")
+				var/datum/data/pda/app/chatroom/C = locate(href_list["user"])
+				if(C)
+					current_room.invites |= C
+					spawn()
+						if(C.messaging_available() && !C.toff)
+							C.notify("<b>Invite to #[current_room]</b> (<a href='?src=\ref[C];choice=Join;room=\ref[current_room]'>Join</a>)")
 		if("New Room")
-			if(!check_messaging_available())
-				return
-
 			if(channels_created >= max_channels_created)
 				alert("This PDA has already reached its maximum channels created.", name)
 				return
@@ -229,24 +237,28 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 			if(!access)
 				return
 
-			if (!t || (!in_range(pda, usr) && pda.loc != usr))
-				return
-
-			// check if already taken
-			for(var/datum/chatroom/C in chatrooms)
-				if(C.name == t)
-					alert("Channel with that name already exists.", name)
+			spawn()
+				if (!t || !check_messaging_available() || !pda.can_use())
 					return
 
-			channels_created++
-			current_room = new /datum/chatroom(t)
-			chatrooms += current_room
-			latest_post = 0
+				// check if already taken
+				for(var/datum/chatroom/C in chatrooms)
+					if(C.name == t)
+						alert("Channel with that name already exists.", name)
+						return
 
-			current_room.invites += src
-			current_room.is_public = access == "Public"
-			current_room.login(src)
-			if(!current_room.is_public)
-				current_room.announce(src, "Users must be invited to join this room.")
+				channels_created++
+				current_room = new /datum/chatroom(t)
+				chatrooms += current_room
+				latest_post = 0
+
+				current_room.invites |= src
+				current_room.is_public = access == "Public"
+				current_room.login(src)
+				if(!current_room.is_public)
+					current_room.announce(src, "Users must be invited to join this room.")
 		if("Autoscroll")
 			auto_scroll = !auto_scroll
+		if("Reconnect")
+			spawn()
+				messaging_available()
