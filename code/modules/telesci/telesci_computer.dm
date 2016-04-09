@@ -31,6 +31,11 @@
 	var/list/crystals = list()
 	var/obj/item/device/gps/inserted_gps
 
+	// Assembly shit
+	var/obj/item/device/assembly/attached_device = null
+	var/device_mode = 0
+	var/remote_cooldown = 1
+
 /obj/machinery/computer/telescience/New()
 	..()
 	recalibrate()
@@ -75,6 +80,21 @@
 			M.buffer = null
 			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
 			updateUsrDialog()
+	else if(isassembly(W))
+		var/obj/item/device/assembly/A = W
+		if(A.secured)
+			user << "<span class='notice'>The device is secured.</span>"
+			return
+		if(attached_device)
+			user << "<span class='warning'>There is already a device attached to the valve, remove it first.</span>"
+			return
+		user.remove_from_mob(W)
+		attached_device = A
+		A.loc = src
+		user << "<span class='notice'>You attach the [W] to the [src]'s controls and secure it.</span>"
+		A.holder = src
+		A.toggle_secure()
+		updateUsrDialog()
 	else
 		..()
 
@@ -130,6 +150,11 @@
 		t += "<BR><A href='?src=\ref[src];send=1'>Send</A>"
 		t += " <A href='?src=\ref[src];receive=1'>Receive</A>"
 		t += "<BR><A href='?src=\ref[src];recal=1'>Recalibrate Crystals</A> <A href='?src=\ref[src];eject=1'>Eject Crystals</A>"
+		if(attached_device)
+			t += "<BR>[attached_device] settings: "
+			t += "<BR><A href='?src=\ref[src];toggle_device_mode=1'>[device_mode ? "Send" : "Receive"]</A>"
+			t += "<A href='?src=\ref[src];edit_device=1'>Edit</A>"
+			t += "<A href='?src=\ref[src];remove_device=1'>Remove</A>"
 
 		// Information about the last teleport
 		t += "<BR><div class='statusDisplay'>"
@@ -390,7 +415,40 @@
 		eject()
 		temp_msg = "NOTICE:<BR>Bluespace crystals ejected."
 
+	if(href_list["toggle_device_mode"])
+		device_mode = !device_mode
+
+	if(href_list["edit_device"])
+		if(attached_device)
+			attached_device.attack_self(usr)
+	if(href_list["remove_device"])
+		attached_device.loc = get_turf(src)
+		attached_device.holder = null
+		attached_device = null
+
 	updateUsrDialog()
+
+/obj/machinery/computer/telescience/HasProximity(atom/movable/AM as mob|obj)
+	if(!attached_device)	return
+	attached_device.HasProximity(AM)
+	return
+
+/obj/machinery/computer/telescience/hear_talk(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_talk(M, msg)
+
+/obj/machinery/computer/telescience/hear_message(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_message(M, msg)
+
+/obj/machinery/computer/telescience/proc/process_activation(var/obj/item/device/D)
+    if(remote_cooldown > world.time)
+        return 0
+    remote_cooldown = world.time + 30
+    sending = device_mode
+    teleport(usr)
 
 /obj/machinery/computer/telescience/proc/recalibrate()
 	teles_left = rand(30, 40)
