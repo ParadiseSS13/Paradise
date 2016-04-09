@@ -205,7 +205,7 @@
 	<b>AI Destroyed:</b> [score_deadaipenalty ? "Yes" : "No"] (-[score_deadaipenalty * 250] Points)<br><br>
 	<U>The Weird</U><br>
 
-	<b>Food Eaten:</b> [score_foodeaten]<br>
+	<b>Food Eaten:</b> [score_foodeaten] bites/sips<br>
 	<b>Times a Clown was Abused:</b> [score_clownabuse]<br><br>
 	"}
 	if (score_escapees)
