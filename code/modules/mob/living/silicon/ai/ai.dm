@@ -51,7 +51,7 @@ var/list/ai_verbs_default = list(
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
-	var/obj/item/device/pda/ai/aiPDA = null
+	var/obj/item/device/pda/silicon/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
 
@@ -126,7 +126,7 @@ var/list/ai_verbs_default = list(
 				possibleNames -= pickedName
 				pickedName = null
 
-	aiPDA = new/obj/item/device/pda/ai(src)
+	aiPDA = new/obj/item/device/pda/silicon/ai(src)
 	rename_character(null, pickedName)
 	anchored = 1
 	canmove = 0
