@@ -12,7 +12,7 @@
 /datum/surgery/cybernetic_repair/internal
 	name = "Internal Cybernetic Mainpulation"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/manipulate_robotic_organs)
-	possible_locs = list("chest","head","groin")
+	possible_locs = list("eyes", "chest","head","groin")
 	requires_organic_bodypart = 0
 
 /datum/surgery/cybernetic_amputation
