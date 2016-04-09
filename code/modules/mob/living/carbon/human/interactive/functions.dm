@@ -49,7 +49,7 @@
 					for(var/i = 0; i < 5; i++)
 						curse_words = pick_list(speak_file, "curse_words")
 						toSay += "[curse_words] "
-					chatmsg += "Hey [nouns_generic], why dont you go [copytext(toSay, 1, length(toSay))], you [nouns_insult]!"
+					chatmsg += "Hey [nouns_generic], why don't you go [copytext(toSay, 1, length(toSay))], you [nouns_insult]!"
 	else if(prob(chattyness))
 		chatmsg += pick(knownStrings)
 		if(prob(25)) // cut out some phrases now and then to make sure we're fresh and new

@@ -2,10 +2,6 @@
 	..(loc, "Tajaran")
 	rename_character(name, "Tigercat")
 
-/mob/living/carbon/human/interactive/tigercat/random()
-	..()
-	gender = "male"
-
 /mob/living/carbon/human/interactive/tigercat/Life()
 	reagents.add_reagent("sodiumchloride", 1)
 	..()
