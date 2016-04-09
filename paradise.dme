@@ -1456,7 +1456,6 @@
 #include "code\modules\mob\living\carbon\human\interactive\functions.dm"
 #include "code\modules\mob\living\carbon\human\interactive\interactive.dm"
 #include "code\modules\mob\living\carbon\human\interactive\prefabs.dm"
-#include "code\modules\mob\living\carbon\human\interactive\thisisdumb.dm"
 #include "code\modules\mob\living\carbon\human\species\apollo.dm"
 #include "code\modules\mob\living\carbon\human\species\golem.dm"
 #include "code\modules\mob\living\carbon\human\species\monkey.dm"
