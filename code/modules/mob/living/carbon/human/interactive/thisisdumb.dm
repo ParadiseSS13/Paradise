@@ -57,6 +57,8 @@
 	if(prob(50))
 		if(prob(50))
 			custom_emote(2, "[pick("mutters", "gibbers")] something about a box.")
+		else if(prob(50))
+			say("GOD FUCKING DAMNIT FUCKING FUCKING GODDAMN CODE FUCK")
 	else
 		..()
 
