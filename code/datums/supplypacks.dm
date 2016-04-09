@@ -893,27 +893,27 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/organic/farwa
 	name = "Farwa Crate"
-	contains = list (/obj/item/weapon/storage/box/farwacubes)
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/farwacubes)
 	cost = 30
 	containername = "farwa crate"
 
 
 /datum/supply_packs/organic/wolpin
 	name = "Wolpin Crate"
-	contains = list (/obj/item/weapon/storage/box/wolpincubes)
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/wolpincubes)
 	cost = 30
 	containername = "wolpin crate"
 
 
 /datum/supply_packs/organic/skrell
 	name = "Neaera Crate"
-	contains = list (/obj/item/weapon/storage/box/neaeracubes)
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/neaeracubes)
 	cost = 30
 	containername = "neaera crate"
 
 /datum/supply_packs/organic/stok
 	name = "Stok Crate"
-	contains = list (/obj/item/weapon/storage/box/stokcubes)
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/stokcubes)
 	cost = 30
 	containername = "stok crate"
 
