@@ -56,10 +56,6 @@
 
 /turf/simulated/New()
 	..()
-	levelupdate()
-	if(smooth)
-		smooth_icon(src)
-	visibilityChanged()
 	if(!blocks_air)
 		air = new
 
@@ -259,7 +255,7 @@
 	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
 	if (atmos_overlay)
 		overlays += atmos_overlay
-	atmos_overlay_type = new_overlay_type
+		atmos_overlay_type = new_overlay_type
 
 /turf/simulated/proc/get_atmos_overlay_by_name(var/name)
 	switch(name)
