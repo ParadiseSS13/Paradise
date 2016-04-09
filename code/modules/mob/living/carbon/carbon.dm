@@ -827,6 +827,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(!forceFed(toEat, user, fullness))
 			return 0
 	consume(toEat)
+	score_foodeaten++
 	return 1
 
 /mob/living/carbon/proc/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)

@@ -199,6 +199,26 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 
+/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
+	..()
+	if(slot == slot_wear_suit)
+		disguise(user)
+
+/obj/item/clothing/suit/cardborg/dropped(mob/living/user)
+	..()
+	user.remove_alt_appearance("standard_borg_disguise")
+
+/obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
+	if(istype(H))
+		if(!borghead)
+			borghead = H.head
+		if(istype(borghead, /obj/item/clothing/head/cardborg)) //why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY
+			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
+			I.override = 1
+			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
+			H.add_alt_appearance("standard_borg_disguise", I, silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
+
+
 /obj/item/clothing/suit/poncho
 	name = "poncho"
 	desc = "Your classic, non-racist poncho."

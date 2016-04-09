@@ -308,6 +308,7 @@
 #include "code\defines\procs\radio.dm"
 #include "code\defines\procs\records.dm"
 #include "code\defines\procs\statistics.dm"
+#include "code\game\alternate_appearance.dm"
 #include "code\game\asteroid.dm"
 #include "code\game\atoms.dm"
 #include "code\game\atoms_movable.dm"
