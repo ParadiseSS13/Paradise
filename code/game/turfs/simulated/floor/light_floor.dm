@@ -68,16 +68,16 @@
 				qdel(C)
 				state = LIGHTFLOOR_ON
 				update_icon()
-				user << "<span class='notice'>You replace the light bulb.</span>"
+				to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
 			else
-				user << "<span class='notice'>The light bulb seems fine, no need to replace it.</span>"
+				to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
 	if(istype(C,/obj/item/device/multitool))
 		if(state != 0)
 			if(state < LIGHTFLOOR_PURPLE)
 				state++
 			else
 				state = LIGHTFLOOR_ON
-			user << "<span class='notice'>You change \the [src]'s light bulb color.</span>"
+			to_chat(user, "<span class='notice'>You change \the [src]'s light bulb color.</span>")
 			update_icon()
 		else
-			user << "<span class='warning'>\The [src]'s light bulb appears to have burned out.</span>"
+			to_chat(user, "<span class='warning'>\The [src]'s light bulb appears to have burned out.</span>")

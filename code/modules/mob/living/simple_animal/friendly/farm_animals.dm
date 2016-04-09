@@ -12,8 +12,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 4
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -82,9 +81,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			user << "\red \The [O] is full."
+			to_chat(user, "\red \The [O] is full.")
 		else
-			user << "\red The udder is dry. Wait a bit longer..."
+			to_chat(user, "\red The udder is dry. Wait a bit longer...")
 	else
 		..()
 
@@ -103,8 +102,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/slab = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -113,6 +111,7 @@
 	health = 50
 	var/milk_content = 0
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/cow/New()
 	..()
@@ -127,9 +126,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			user << "\red \The [O] is full."
+			to_chat(user, "\red \The [O] is full.")
 		else
-			user << "\red The udder is dry. Wait a bit longer..."
+			to_chat(user, "\red The udder is dry. Wait a bit longer...")
 	else
 		..()
 
@@ -150,7 +149,7 @@
 											"[src] looks at you pleadingly",
 											"[src] looks at you with a resigned expression.",
 											"[src] seems resigned to its fate.")
-				M << pick(responses)
+				to_chat(M, pick(responses))
 	else
 		..()
 
@@ -168,8 +167,7 @@
 	density = 0
 	speak_chance = 2
 	turns_per_move = 2
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 1
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -181,6 +179,7 @@
 	small = 1
 	can_hide = 1
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -211,8 +210,7 @@ var/global/chicken_count = 0
 	density = 0
 	speak_chance = 2
 	turns_per_move = 3
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 2
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 2)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -224,6 +222,7 @@ var/global/chicken_count = 0
 	small = 1
 	can_hide = 1
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -249,11 +248,11 @@ var/global/chicken_count = 0
 				user.drop_item()
 				qdel(O)
 				eggsleft += rand(1, 4)
-				//world << eggsleft
+//				to_chat(world, eggsleft)
 			else
-				user << "\blue [name] doesn't seem hungry!"
+				to_chat(user, "\blue [name] doesn't seem hungry!")
 		else
-			user << "\blue [name] doesn't seem interested in [O]!"
+			to_chat(user, "\blue [name] doesn't seem interested in [O]!")
 	else
 		..()
 
@@ -294,14 +293,14 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/ham
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/ham = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
@@ -316,14 +315,14 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat //enough to make one turkey
-	meat_amount = 4
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "pecks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -338,14 +337,14 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -360,14 +359,14 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/walrus
 	name = "walrus"
@@ -382,11 +381,11 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 6
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
 	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY

@@ -34,7 +34,7 @@
 		if(method == TOUCH)
 			M.reagents.add_reagent("histamine",10)
 		else
-			M << "<span class='danger'>You feel a burning sensation in your throat...</span>"
+			to_chat(M, "<span class='danger'>You feel a burning sensation in your throat...</span>")
 			M.emote("drool")
 
 /datum/reagent/histamine/on_mob_life(var/mob/living/M as mob)
@@ -42,7 +42,7 @@
 	if(prob(20))
 		M.emote(pick("twitch", "grumble", "sneeze", "cough"))
 	if(prob(10))
-		M << "<span class='notice'>Your eyes itch.</span>"
+		to_chat(M, "<span class='notice'>Your eyes itch.</span>")
 		M.emote(pick("blink", "sneeze"))
 		M.eye_blurry += 3
 	if(prob(10))
@@ -50,14 +50,14 @@
 		M.adjustBruteLoss(1)
 		M.emote("grumble")
 	if(prob(5))
-		M << "<span class='danger'>You're getting a rash!</span>"
+		to_chat(M, "<span class='danger'>You're getting a rash!</span>")
 		M.adjustBruteLoss(2)
 	..()
 	return
 
 /datum/reagent/histamine/overdose_process(var/mob/living/M as mob)
 	if(prob(2))
-		M << "<span class='danger'>You feel mucus running down the back of your throat.</span>"
+		to_chat(M, "<span class='danger'>You feel mucus running down the back of your throat.</span>")
 		M.adjustToxLoss(1)
 		M.jitteriness += 4
 		M.emote("sneeze", "cough")
@@ -67,7 +67,7 @@
 			M.emote(pick("choke","gasp"))
 			M.adjustOxyLoss(5)
 	else if(prob(7))
-		M << "<span class='danger'>Your chest hurts!</span>"
+		to_chat(M, "<span class='danger'>Your chest hurts!</span>")
 		M.emote(pick("cough","gasp"))
 		M.adjustOxyLoss(3)
 	..()
@@ -196,11 +196,11 @@
 	if(prob(5))
 		M.emote("drool")
 	if(prob(10))
-		M << "<span class='danger'>You cannot breathe!</span>"
+		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
 		M.losebreath += 1
 		M.emote("gasp")
 	if(prob(8))
-		M << "<span class='danger'>You feel horrendously weak!</span>"
+		to_chat(M, "<span class='danger'>You feel horrendously weak!</span>")
 		M.Stun(2)
 		M.adjustToxLoss(2)
 	..()
@@ -237,7 +237,7 @@
 	if(prob(25))
 		M.emote(pick("twitch", "laugh", "sneeze", "cry"))
 	if(prob(20))
-		M << "<span class='notice'>Something tickles!</span>"
+		to_chat(M, "<span class='notice'>Something tickles!</span>")
 		M.emote(pick("laugh", "giggle"))
 	if(prob(15))
 		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
@@ -245,12 +245,12 @@
 		M.Stun(rand(0,1))
 		M.emote("grumble")
 	if(prob(10))
-		M << "<span class='danger'>So itchy!</span>"
+		to_chat(M, "<span class='danger'>So itchy!</span>")
 		M.adjustBruteLoss(2)
 	if(prob(6))
 		M.reagents.add_reagent("histamine", rand(1,3))
 	if(prob(2))
-		M << "<span class='danger'>AHHHHHH!</span>"
+		to_chat(M, "<span class='danger'>AHHHHHH!</span>")
 		M.adjustBruteLoss(5)
 		M.Weaken(5)
 		M.jitteriness += 6
@@ -291,7 +291,7 @@
 			var/mob/living/carbon/human/H = M
 
 			if(volume < 5)
-				M << "<span class='danger'>The blueish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
+				to_chat(M, "<span class='danger'>The blueish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
 
 			if(volume >=5 && volume <=10)
 				if(!H.unacidable)
@@ -306,18 +306,18 @@
 						if(!H.wear_mask.unacidable)
 							qdel(H.wear_mask)
 							H.update_inv_wear_mask()
-							H << "\red Your mask melts away but protects you from the acid!"
+							to_chat(H, "\red Your mask melts away but protects you from the acid!")
 						else
-							H << "\red Your mask protects you from the acid!"
+							to_chat(H, "\red Your mask protects you from the acid!")
 						return
 
 					if(H.head)
 						if(!H.head.unacidable)
 							qdel(H.head)
 							H.update_inv_head()
-							H << "\red Your helmet melts away but protects you from the acid"
+							to_chat(H, "\red Your helmet melts away but protects you from the acid")
 						else
-							H << "\red Your helmet protects you from the acid!"
+							to_chat(H, "\red Your helmet protects you from the acid!")
 						return
 
 				if(!H.unacidable)
@@ -333,7 +333,7 @@
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			for(var/mob/M in viewers(5, O))
-				M << "\red \the [O] melts."
+				to_chat(M, "\red \the [O] melts.")
 			qdel(O)
 
 /datum/chemical_reaction/facid
@@ -358,14 +358,14 @@
 	if(prob(33))
 		M.adjustToxLoss(rand(5,25))
 	if(prob(33))
-		M << "<span class='danger'>You feel horribly weak.</span>"
+		to_chat(M, "<span class='danger'>You feel horribly weak.</span>")
 		M.Stun(2)
 	if(prob(10))
-		M << "<span class='danger'>You cannot breathe!</span>"
+		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
 		M.adjustOxyLoss(10)
 		M.losebreath++
 	if(prob(10))
-		M << "<span class='danger'>Your chest is burning with pain!</span>"
+		to_chat(M, "<span class='danger'>Your chest is burning with pain!</span>")
 		M.adjustOxyLoss(10)
 		M.losebreath++
 		M.Stun(3)
@@ -409,7 +409,7 @@
 				M.emote(pick("drool", "tremble"))
 		if(6 to 10)
 			if(prob(8))
-				M << "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>"
+				to_chat(M, "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>")
 				M.Stun(1)
 			else if(prob(8))
 				M.emote(pick("drool", "tremble"))
@@ -420,9 +420,9 @@
 				M.emote(pick("drool", "tremble", "gasp"))
 				M.losebreath++
 			if(prob(9))
-				M << "<span class='danger'>You can't [pick("move", "feel your legs", "feel your face", "feel anything")]!</span>"
+				to_chat(M, "<span class='danger'>You can't [pick("move", "feel your legs", "feel your face", "feel anything")]!</span>")
 			if(prob(7))
-				M << "<span class='danger'>You can't breathe!</span>"
+				to_chat(M, "<span class='danger'>You can't breathe!</span>")
 				M.losebreath += 3
 	..()
 	return
@@ -557,10 +557,10 @@
 	if(!M.nutrition)
 		switch(rand(1,3))
 			if(1)
-				M << "<span class='warning'>You feel hungry...</span>"
+				to_chat(M, "<span class='warning'>You feel hungry...</span>")
 			if(2)
 				M.adjustToxLoss(1)
-				M << "<span class='warning'>Your stomach grumbles painfully!</span>"
+				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
 	else
 		if(prob(60))
 			var/fat_to_burn = max(round(M.nutrition/100,1), 5)
@@ -604,7 +604,7 @@
 		if(6 to 10)
 			M.eye_blurry += 5
 			if(prob(8))
-				M << "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>"
+				to_chat(M, "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>")
 				M.Stun(1)
 			else if(prob(8))
 				M.emote(pick("drool","pale", "gasp"))
@@ -614,7 +614,7 @@
 			if(prob(20))
 				M.emote(pick("drool", "faint", "pale", "gasp", "collapse"))
 			else if(prob(8))
-				M << "<span class='danger'>You can't [pick("breathe", "move", "feel your legs", "feel your face", "feel anything")]!</span>"
+				to_chat(M, "<span class='danger'>You can't [pick("breathe", "move", "feel your legs", "feel your face", "feel anything")]!</span>")
 				M.losebreath++
 	..()
 	return
@@ -675,7 +675,7 @@
 				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
 				M.jitteriness = 1000
 			if(prob(5))
-				M << "<span class='warning'>You can't breathe!</span>"
+				to_chat(M, "<span class='warning'>You can't breathe!</span>")
 				M.emote(pick("gasp", "choke", "cough"))
 				M.losebreath++
 		if(61 to INFINITY)
@@ -822,7 +822,7 @@
 	if(prob(10))
 		M.adjustToxLoss(rand(2.4))
 	if(prob(7))
-		M << "<span class='danger'>A horrible migraine overpowers you.</span>"
+		to_chat(M, "<span class='danger'>A horrible migraine overpowers you.</span>")
 		M.Stun(rand(2,5))
 	if(prob(7))
 		M.fakevomit(1)
@@ -869,7 +869,7 @@
 /datum/reagent/ants/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume) //NOT THE ANTS
 	if(iscarbon(M))
 		if(method == TOUCH || method==INGEST)
-			M << "<span class='warning'>OH SHIT ANTS!!!!</span>"
+			to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
 			M.emote("scream")
 			M.adjustBruteLoss(4)
 

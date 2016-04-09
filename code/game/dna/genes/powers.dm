@@ -162,7 +162,7 @@
 			M.update_mutations()		//update our mutation overlays
 			M.update_body()
 			M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
-			M << "<span class='danger'>You suddenly feel very weak.</span>"
+			to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
 
 /datum/dna/gene/basic/xray
 	name="X-Ray Vision"

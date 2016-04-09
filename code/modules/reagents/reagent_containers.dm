@@ -7,6 +7,9 @@
 	var/amount_per_transfer_from_this = 5
 	var/possible_transfer_amounts = list(5,10,15,25,30)
 	var/volume = 30
+	var/list/list_reagents = null
+	var/spawned_disease = null
+	var/disease_amount = 20
 
 /obj/item/weapon/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -30,6 +33,12 @@
 	reagents = R
 	R.my_atom = src
 	processing_objects.Add(src)
+	if(spawned_disease)
+		var/datum/disease/F = new spawned_disease(0)
+		var/list/data = list("viruses" = list(F), "blood_colour" = "#A10808")
+		reagents.add_reagent("blood", disease_amount, data)
+	if(list_reagents)
+		reagents.add_reagent_list(list_reagents)
 
 /obj/item/weapon/reagent_containers/process()
 	if(reagents)
@@ -70,7 +79,11 @@
 
 /obj/item/weapon/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
-		reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
-		user << "<span class='notice'>You fill [src] from [source].</span>"
-		return
+		if(reagents.total_volume >= volume)
+			to_chat(user, "span class='warning'>\The [src] is full.</span>")
+			return
+		else
+			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
+			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
+			return
 	..()

@@ -113,22 +113,19 @@
 
 
 //returns 1 if made bloody, returns 0 otherwise
-/turf/simulated/add_blood(mob/living/carbon/human/M as mob)
+/turf/simulated/add_blood(mob/living/carbon/human/M)
 	if (!..())
 		return 0
 
-	if(istype(M))
-		for(var/obj/effect/decal/cleanable/blood/B in contents)
-			if(!B.blood_DNA[M.dna.unique_enzymes])
-				B.blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-				B.virus2 = virus_copylist(M.virus2)
-			return 1 //we bloodied the floor
+	var/obj/effect/decal/cleanable/blood/B = locate() in contents	//check for existing blood splatter
+	if(!B)
 		blood_splatter(src,M.get_blood(M.vessel),1)
-		return 1 //we bloodied the floor
-	return 0
+		B = locate(/obj/effect/decal/cleanable/blood) in contents
+	B.add_blood_list(M)
+	return 1 //we bloodied the floor
 
 // Only adds blood on the floor -- Skie
-/turf/simulated/proc/add_blood_floor(mob/living/carbon/M as mob)
+/turf/simulated/add_blood_floor(mob/living/carbon/M as mob)
 	if(ishuman(M))
 		blood_splatter(src,M,1)
 	if( istype(M, /mob/living/carbon/alien ))

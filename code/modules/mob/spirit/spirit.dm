@@ -57,12 +57,12 @@ mob/spirit/Topic(href, href_list)
 		return
 	..()
 
-	usr << "Spirit Href = [href]"
+	to_chat(usr, "Spirit Href = [href]")
 	for (var/tempref in href_list)
-		usr << "Spirit href list [tempref] = [href_list[tempref]]"
+		to_chat(usr, "Spirit href list [tempref] = [href_list[tempref]]")
 
 	if (href_list["track"])
-		usr << "Got to tracking."
+		to_chat(usr, "Got to tracking.")
 		var/mob/target = locate(href_list["track"]) in mob_list
 		var/mob/spirit/A = locate(href_list["track2"]) in spirits
 		if(A && target)

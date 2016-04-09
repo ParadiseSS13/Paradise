@@ -8,7 +8,7 @@
 
 /obj/item/device/autoimplanter/attack_self(mob/user)//when the object it used...
 	if(!storedorgan)
-		user << "<span class='notice'>[src] currently has no implant stored.</span>"
+		to_chat(user, "<span class='notice'>[src] currently has no implant stored.</span>")
 		return
 	storedorgan.insert(user)//insert stored organ into the user
 	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
@@ -18,18 +18,18 @@
 /obj/item/device/autoimplanter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
 		if(storedorgan)
-			user << "<span class='notice'>[src] already has an implant stored.</span>"
+			to_chat(user, "<span class='notice'>[src] already has an implant stored.</span>")
 			return
 		if(!user.drop_item())
 			return
 		I.forceMove(src)
 		storedorgan = I
-		user << "<span class='notice'>You insert the [I] into [src].</span>"
+		to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
 	else if(istype(I, /obj/item/weapon/screwdriver))
 		if(!storedorgan)
-			user << "<span class='notice'>There's no implant in [src] for you to remove.</span>"
+			to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
 		else
 			storedorgan.forceMove(get_turf(user))
 			storedorgan = null
-			user << "<span class='notice'>You remove the [storedorgan] from [src].</span>"
+			to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
 			playsound(get_turf(user), 'sound/items/Screwdriver.ogg', 50, 1)

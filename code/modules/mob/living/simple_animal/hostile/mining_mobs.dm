@@ -1,13 +1,6 @@
 /mob/living/simple_animal/hostile/asteroid/
 	vision_range = 2
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	faction = list("mining")
 	environment_smash = 2
@@ -303,16 +296,16 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(inert)
-			user << "<span class='notice'>[src] have become inert, its healing properties are no more.</span>"
+			to_chat(user, "<span class='notice'>[src] have become inert, its healing properties are no more.</span>")
 			return
 		else
 			if(H.stat == DEAD)
-				user << "<span class='notice'>[src] are useless on the dead.</span>"
+				to_chat(user, "<span class='notice'>[src] are useless on the dead.</span>")
 				return
 			if(H != user)
 				H.visible_message("<span class='notice'>[user] forces [H] to eat [src]... they quickly regenerate all injuries!</span>")
 			else
-				user << "<span class='notice'>You chomp into [src], barely managing to hold it down, but feel amazingly refreshed in mere moments.</span>"
+				to_chat(user, "<span class='notice'>You chomp into [src], barely managing to hold it down, but feel amazingly refreshed in mere moments.</span>")
 			playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 			H.revive()
 			qdel(src)
@@ -387,7 +380,7 @@
 	anchored = 1 //Stays anchored until death as to be unpullable
 	var/pre_attack = 0
 
-/mob/living/simple_animal/hostile/asteroid/goliath/Life()
+/mob/living/simple_animal/hostile/asteroid/goliath/process_ai()
 	..()
 	handle_preattack()
 
@@ -490,10 +483,10 @@
 			var/current_armor = C.armor
 			if(current_armor.["melee"] < 80)
 				current_armor.["melee"] = min(current_armor.["melee"] + 10, 80)
-				user << "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>"
+				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 				qdel(src)
 			else
-				user << "<span class='info'>You can't improve [C] any further.</span>"
+				to_chat(user, "<span class='info'>You can't improve [C] any further.</span>")
 				return
 		if(istype(target, /obj/mecha/working/ripley))
 			var/obj/mecha/D = target
@@ -503,19 +496,19 @@
 				damage_absorption["bullet"] = damage_absorption["bullet"] - 0.05
 				damage_absorption["fire"] = damage_absorption["fire"] - 0.05
 				damage_absorption["laser"] = damage_absorption["laser"] - 0.025
-				user << "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>"
+				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 				qdel(src)
 				if(D.icon_state == "ripley-open")
 					D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-open")
 					D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 				else
-					user << "<span class='info'>You can't add armour onto the mech while someone is inside!</span>"
+					to_chat(user, "<span class='info'>You can't add armour onto the mech while someone is inside!</span>")
 				if(damage_absorption.["brute"] == 0.3)
 					if(D.icon_state == "ripley-open")
 						D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-full-open")
 						D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - the pilot must be an experienced monster hunter."
 					else
-						user << "<span class='warning'>You can't add armour onto the mech while someone is inside!</span>"
+						to_chat(user, "<span class='warning'>You can't add armour onto the mech while someone is inside!</span>")
 			else
-				user << "<span class='warning'>You can't improve [D] any further!</span>"
+				to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 				return

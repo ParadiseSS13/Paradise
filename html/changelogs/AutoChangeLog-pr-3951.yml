@@ -1,5 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "Adjusted masks no longer block CPR (including bandanas)."
-  - bugfix: "You can no longer run internals from adjusted breath masks (or airtight adjustable masks in general)."

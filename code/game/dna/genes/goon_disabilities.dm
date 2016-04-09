@@ -43,7 +43,7 @@
 		for(var/mob/living/L in range(1, owner))
 			if(L == owner)
 				continue
-			L << "<span class='danger'>You are enveloped by a soft green glow emanating from [owner].</span>"
+			to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [owner].</span>")
 			L.apply_effect(5, IRRADIATE)
 		return
 
@@ -205,7 +205,7 @@
 		else
 			prefix=""
 
-		var/list/words = text2list(message," ")
+		var/list/words = splittext(message," ")
 		var/list/rearranged = list()
 		for(var/i=1;i<=words.len;i++)
 			var/cword = pick(words)
@@ -216,7 +216,7 @@
 				suffix = copytext(cword,length(cword)-1,length(cword)  )
 			if(length(cword))
 				rearranged += cword
-		return "[prefix][uppertext(list2text(rearranged," "))]!!"
+		return "[prefix][uppertext(jointext(rearranged," "))]!!"
 
 // WAS: /datum/bioEffect/toxic_farts
 /datum/dna/gene/disability/toxic_farts
@@ -288,9 +288,9 @@
 				if (C == owner)
 					continue
 				if (src.variant == 2)
-					C << "\red [src.personalized_stink]"
+					to_chat(C, "\red [src.personalized_stink]")
 				else
-					C << "\red [stinkString()]"
+					to_chat(C, "\red [stinkString()]")
 */
 
 
@@ -331,7 +331,7 @@
 /obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets)
 
 /*	if(!targets.len) Uncomment this to allow the power to be used on targets other than yourself. That said, if you uncomment this I will find you and hurt you. Uncounterable and untracable burn damage with a 60-second cooldown is fun for exactly one person, and that's the person who is using it.
-		usr << "<span class='notice'>No target found in range.</span>"
+		to_chat(usr, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/mob/living/carbon/L = targets[1]

@@ -28,7 +28,7 @@
 	if(!plant_controller)
 		sleep(250) // ugly hack, should mean roundstart plants are fine.
 	if(!plant_controller)
-		world << "<span class='danger'>Plant controller does not exist and [src] requires it. Aborting.</span>"
+		to_chat(world, "<span class='danger'>Plant controller does not exist and [src] requires it. Aborting.</span>")
 		qdel(src)
 		return
 
@@ -83,7 +83,7 @@
 	if(!plant_controller)
 		sleep(250) // ugly hack, should mean roundstart plants are fine.
 	if(!plant_controller)
-		world << "<span class='danger'>Plant controller does not exist and [src] requires it. Aborting.</span>"
+		to_chat(world, "<span class='danger'>Plant controller does not exist and [src] requires it. Aborting.</span>")
 		qdel(src)
 		return
 
@@ -182,7 +182,7 @@
 					return
 
 			M.stop_pulling()
-			M << "<span class='notice'>You slipped on the [name]!</span>"
+			to_chat(M, "<span class='notice'>You slipped on the [name]!</span>")
 			playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 			M.Stun(8)
 			M.Weaken(5)
@@ -202,7 +202,7 @@
 			var/obj/item/stack/cable_coil/C = W
 			if(C.use(5))
 				//TODO: generalize this.
-				user << "<span class='notice'>You add some cable to the [src.name] and slide it inside the battery casing.</span>"
+				to_chat(user, "<span class='notice'>You add some cable to the [src.name] and slide it inside the battery casing.</span>")
 				var/obj/item/weapon/stock_parts/cell/potato/pocell = new /obj/item/weapon/stock_parts/cell/potato(get_turf(user))
 				if(src.loc == user && !(user.l_hand && user.r_hand) && istype(user,/mob/living/carbon/human))
 					user.put_in_hands(pocell)
@@ -219,21 +219,21 @@
 				qdel(src)
 				return
 			else if(seed.kitchen_tag == "potato")
-				user << "You slice \the [src] into sticks."
+				to_chat(user, "You slice \the [src] into sticks.")
 				reagents_per_slice = reagents.total_volume
 				slice = new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(get_turf(src))
 				reagents.trans_to(slice, reagents_per_slice)
 				qdel(src)
 				return
 			else if(seed.kitchen_tag == "carrot")
-				user << "You slice \the [src] into sticks."
+				to_chat(user, "You slice \the [src] into sticks.")
 				reagents_per_slice = reagents.total_volume
 				slice = new /obj/item/weapon/reagent_containers/food/snacks/carrotfries(get_turf(src))
 				reagents.trans_to(slice, reagents_per_slice)
 				qdel(src)
 				return
 			else if(seed.kitchen_tag == "watermelon")
-				user << "You slice \the [src] into large slices."
+				to_chat(user, "You slice \the [src] into large slices.")
 				reagents_per_slice = reagents.total_volume/5
 				for(var/i=0,i<5,i++)
 					slice = new /obj/item/weapon/reagent_containers/food/snacks/watermelonslice(get_turf(src))
@@ -241,7 +241,7 @@
 				qdel(src)
 				return
 			else if(seed.kitchen_tag == "soybeans")
-				user << "You roughly chop up \the [src]."
+				to_chat(user, "You roughly chop up \the [src].")
 				reagents_per_slice = reagents.total_volume
 				slice = new /obj/item/weapon/reagent_containers/food/snacks/soydope(get_turf(src))
 				reagents.trans_to(slice, reagents_per_slice)
@@ -259,7 +259,7 @@
 							if(G.amount>=G.max_amount)
 								continue
 							G.attackby(NG, user)
-						user << "You add the newly-formed wood to the stack. It now contains [NG.amount] planks."
+						to_chat(user, "You add the newly-formed wood to the stack. It now contains [NG.amount] planks.")
 					qdel(src)
 					return
 		else if(istype(W, /obj/item/weapon/rollingpaper))
@@ -283,10 +283,10 @@
 					src.reagents.trans_to(J, J.chem_volume)
 					qdel(W)
 					user.put_in_active_hand(J)
-				user << "\blue You roll the [src] into a rolling paper."
+				to_chat(user, "\blue You roll the [src] into a rolling paper.")
 				qdel(src)
 			else
-				user << "\red You can't roll a smokable from the [src]."
+				to_chat(user, "\red You can't roll a smokable from the [src].")
 
 	..()
 
@@ -347,12 +347,12 @@
 				return
 			if(reagents && reagents.total_volume <= 0)		//used-up fruit will be destroyed
 				if(user)
-					user << "<span class='danger'>\The [src] has dried out and crumbles to dust.</span>"
+					to_chat(user, "<span class='danger'>\The [src] has dried out and crumbles to dust.</span>")
 					//user.drop_from_inventory(src)
 				qdel(src)
 			else if(prob(35))		//fruit that still has reagents has a chance of breaking each time it stings on hit
 				if(user)
-					user << "<span class='danger'>\The [src] has fallen to bits.</span>"
+					to_chat(user, "<span class='danger'>\The [src] has fallen to bits.</span>")
 					//user.drop_from_inventory(src)
 				qdel(src)
 
@@ -378,7 +378,7 @@
 		return
 
 	if(user.a_intent == I_DISARM && seed.get_trait(TRAIT_SPREAD) > 0)		//Using disarm so we can tell if you want to plant or convert non-final plants
-		user << "<span class='notice'>You plant the [src.name].</span>"
+		to_chat(user, "<span class='notice'>You plant the [src.name].</span>")
 		new /obj/machinery/portable_atmospherics/hydroponics/soil/invisible(get_turf(user),src.seed)
 		new /obj/effect/plant(get_turf(user), src.seed)
 		qdel(src)
@@ -390,13 +390,13 @@
 			if("comfrey")
 				var/obj/item/stack/medical/bruise_pack/comfrey/poultice = new /obj/item/stack/medical/bruise_pack/comfrey(user.loc)
 				poultice.heal_brute = potency
-				user << "<span class='notice'>You mash the leaves into a poultice.</span>"
+				to_chat(user, "<span class='notice'>You mash the leaves into a poultice.</span>")
 				qdel(src)
 				return
 			if("aloe")
 				var/obj/item/stack/medical/ointment/aloe/poultice = new /obj/item/stack/medical/ointment/aloe(user.loc)
 				poultice.heal_burn = potency
-				user << "<span class='notice'>You mash the petals into a poultice.</span>"
+				to_chat(user, "<span class='notice'>You mash the petals into a poultice.</span>")
 				qdel(src)
 				return
 			if("grass")
@@ -410,7 +410,7 @@
 						if(NG.amount>=NG.max_amount)
 							continue
 						NG.attackby(G, user)
-					user << "You add the newly-formed grass to the stack. It now contains [G.amount] tiles."
+					to_chat(user, "You add the newly-formed grass to the stack. It now contains [G.amount] tiles.")
 				qdel(src)
 				return
 			if("sunflower")
@@ -424,7 +424,7 @@
 				if(prob(10))
 					user.say("PRAISE THE SUN!")
 				else
-					user << "PRAISE THE SUN!"
+					to_chat(user, "PRAISE THE SUN!")
 				user.unEquip(src)
 				user.put_in_hands(NF)
 				qdel(src)
@@ -432,7 +432,7 @@
 			if("nettle")
 				var/obj/item/weapon/grown/nettle/nettle = new /obj/item/weapon/grown/nettle(user.loc)
 				nettle.force = round((5 + potency / 5), 1)
-				user << "You straighten up the plant."
+				to_chat(user, "You straighten up the plant.")
 				user.unEquip(src)
 				user.put_in_hands(nettle)
 				qdel(src)
@@ -440,41 +440,41 @@
 			if("deathnettle")
 				var/obj/item/weapon/grown/nettle/death/DN = new /obj/item/weapon/grown/nettle/death(user.loc)
 				DN.force = round((5 + potency / 2.5), 1)
-				user << "You straighten up the plant."
+				to_chat(user, "You straighten up the plant.")
 				user.unEquip(src)
 				user.put_in_hands(DN)
 				qdel(src)
 				return
 			if("cashpod")
-				user << "You crack open the cash pod..."
+				to_chat(user, "You crack open the cash pod...")
 				var/value = round(seed.get_trait(TRAIT_POTENCY))
 				user.unEquip(src)
 				switch(value)
 					if(0)
-						user << "It's empty! What a waste..."
+						to_chat(user, "It's empty! What a waste...")
 					if(1 to 10)
-						user << "It has a space dollar inside. Woo."
+						to_chat(user, "It has a space dollar inside. Woo.")
 						new /obj/item/weapon/spacecash(get_turf(user))
 					if(11 to 20)
-						user << "It has 10 space dollars inside!"
+						to_chat(user, "It has 10 space dollars inside!")
 						new /obj/item/weapon/spacecash/c10(get_turf(user))
 					if(21 to 30)
-						user << "It has 20 space dollars inside! Cool!"
+						to_chat(user, "It has 20 space dollars inside! Cool!")
 						new /obj/item/weapon/spacecash/c20(get_turf(user))
 					if(31 to 40)
-						user << "It has 50 space dollars inside! Nice!"
+						to_chat(user, "It has 50 space dollars inside! Nice!")
 						new /obj/item/weapon/spacecash/c50(get_turf(user))
 					if(41 to 50)
-						user << "It has 100 space dollars inside! Sweet!"
+						to_chat(user, "It has 100 space dollars inside! Sweet!")
 						new /obj/item/weapon/spacecash/c100(get_turf(user))
 					if(51 to 60)
-						user << "It has 200 space dollars inside! Awesome!"
+						to_chat(user, "It has 200 space dollars inside! Awesome!")
 						new /obj/item/weapon/spacecash/c200(get_turf(user))
 					if(61 to 80)
-						user << "It has 500 space dollars inside! CHA-CHING!"
+						to_chat(user, "It has 500 space dollars inside! CHA-CHING!")
 						new /obj/item/weapon/spacecash/c500(get_turf(user))
 					else
-						user << "It has 1000 space dollars inside! JACKPOT!"
+						to_chat(user, "It has 1000 space dollars inside! JACKPOT!")
 						new /obj/item/weapon/spacecash/c1000(get_turf(user))
 				qdel(src)
 				return
@@ -507,5 +507,5 @@
 						O.update_icon() //update power meters and such
 					batteries_recharged = 1
 			if(batteries_recharged)
-				usr << "<span class='notice'>Battery has recovered.</span>"
+				to_chat(usr, "<span class='notice'>Battery has recovered.</span>")
 	..()

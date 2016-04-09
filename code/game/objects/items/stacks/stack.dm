@@ -28,7 +28,7 @@
 
 /obj/item/stack/examine(mob/user)
 	if(..(user, 1))
-		user << "There are [src.amount] [src.singular_name]\s in the stack."
+		to_chat(user, "There are [src.amount] [src.singular_name]\s in the stack.")
 
 
 /obj/item/stack/attack_self(mob/user as mob)
@@ -118,18 +118,18 @@
 		if (!multiplier) multiplier = 1
 		if (src.amount < R.req_amount*multiplier)
 			if (R.req_amount*multiplier>1)
-				usr << "\red You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!"
+				to_chat(usr, "\red You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!")
 			else
-				usr << "\red You haven't got enough [src] to build \the [R.title]!"
+				to_chat(usr, "\red You haven't got enough [src] to build \the [R.title]!")
 			return
 		if (R.one_per_turf && (locate(R.result_type) in usr.loc))
-			usr << "\red There is another [R.title] here!"
+			to_chat(usr, "\red There is another [R.title] here!")
 			return
 		if (R.on_floor && !istype(usr.loc, /turf/simulated))
-			usr << "\red \The [R.title] must be constructed on the floor!"
+			to_chat(usr, "\red \The [R.title] must be constructed on the floor!")
 			return
 		if (R.time)
-			usr << "\blue Building [R.title] ..."
+			to_chat(usr, "\blue Building [R.title] ...")
 			if (!do_after(usr, R.time, target = src))
 				return
 		if (src.amount < R.req_amount*multiplier)
@@ -183,7 +183,7 @@
 		if (item.amount>=item.max_amount)
 			continue
 		oldsrc.attackby(item, usr)
-		usr << "You add new [item.singular_name] to the stack. It now contains [item.amount] [item.singular_name]\s."
+		to_chat(usr, "You add new [item.singular_name] to the stack. It now contains [item.amount] [item.singular_name]\s.")
 		if(oldsrc.amount <= 0)
 			break
 	oldsrc.update_icon()

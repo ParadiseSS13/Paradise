@@ -11,8 +11,6 @@ var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
 var/global/list/airlocks = list()					//list of all airlocks
 var/global/list/singularities = list()				//list of all singularities
 var/global/list/janitorial_equipment = list()		//list of janitorial equipment
-
-var/global/list/aibots = list() // AI controlled bots
 var/global/list/table_recipes = list() //list of all table craft recipes
 
 var/global/list/all_areas = list()
@@ -23,6 +21,10 @@ var/global/list/rcd_list = list() //list of Rapid Construction Devices.
 var/global/list/apcs = list()
 var/global/list/air_alarms = list()
 var/global/list/power_monitors = list()
+
+var/global/list/navbeacons = list()					//list of all bot nagivation beacons, used for patrolling.
+var/global/list/deliverybeacons = list()			//list of all MULEbot delivery beacons.
+var/global/list/deliverybeacontags = list()			//list of all tags associated with delivery beacons.
 
 var/global/list/beacons = list()
 var/global/list/shuttle_caller_list = list()  		//list of all communication consoles and AIs, for automatic shuttle calls when there are none.

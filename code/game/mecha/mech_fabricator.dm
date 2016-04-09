@@ -293,7 +293,7 @@
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		user << "<span class='warning'>Access denied.</span>"
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
 	return interact(user)
 
@@ -505,7 +505,7 @@
 			default_deconstruction_crowbar(W)
 			return 1
 		else
-			user << "<span class='danger'>You can't load \the [name] while it's opened.</span>"
+			to_chat(user, "<span class='danger'>You can't load \the [name] while it's opened.</span>")
 			return 1
 
 	if(istype(W, /obj/item/stack))
@@ -533,10 +533,10 @@
 				return ..()
 
 		if(being_built)
-			user << "\The [src] is currently processing. Please wait until completion."
+			to_chat(user, "\The [src] is currently processing. Please wait until completion.")
 			return
 		if(res_max_amount - resources[material] < MINERAL_MATERIAL_AMOUNT) //overstuffing the fabricator
-			user << "\The [src] [material2name(material)] storage is full."
+			to_chat(user, "\The [src] [material2name(material)] storage is full.")
 			return
 		var/obj/item/stack/sheet/stack = W
 		var/sname = "[stack.name]"
@@ -546,12 +546,12 @@
 			var/transfer_amount = min(stack.amount, round((res_max_amount - resources[material])/MINERAL_MATERIAL_AMOUNT,1))
 			resources[material] += transfer_amount * MINERAL_MATERIAL_AMOUNT
 			stack.use(transfer_amount)
-			user << "You insert [transfer_amount] [sname] sheet\s into \the [src]."
+			to_chat(user, "You insert [transfer_amount] [sname] sheet\s into \the [src].")
 			sleep(10)
 			updateUsrDialog()
 			overlays -= "fab-load-[material2name(material)]" //No matter what the overlay shall still be deleted
 		else
-			user << "\The [src] cannot hold any more [sname] sheet\s."
+			to_chat(user, "\The [src] cannot hold any more [sname] sheet\s.")
 		return
 
 /obj/machinery/mecha_part_fabricator/proc/material2name(var/ID)

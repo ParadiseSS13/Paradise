@@ -102,7 +102,7 @@
 	wires = new(src)
 	spawn(50)
 		if(product_slogans)
-			slogan_list += text2list(product_slogans, ";")
+			slogan_list += splittext(product_slogans, ";")
 
 			// So not all machines speak at the exact same time.
 			// The first time this machine says something will be at slogantime + this random value,
@@ -110,7 +110,7 @@
 			last_slogan = world.time + rand(0, slogan_delay)
 
 		if(product_ads)
-			ads_list += text2list(product_ads, ";")
+			ads_list += splittext(product_ads, ";")
 
 		build_inventory()
 		power_change()
@@ -188,7 +188,7 @@
 		for(var/datum/data/vending_product/machine_content in machine)
 			if(machine_content.amount != machine_content.max_amount)
 				if(user)
-					user << "<span class='notice'>[machine_content.max_amount - machine_content.amount] of [machine_content.product_name]</span>"
+					to_chat(user, "<span class='notice'>[machine_content.max_amount - machine_content.amount] of [machine_content.product_name]</span>")
 				machine_content.amount = machine_content.max_amount
 		refill.charges -= to_restock
 		total = to_restock
@@ -203,7 +203,7 @@
 			total += restock
 			if(restock)
 				if(user)
-					user << "<span class='notice'>[restock] of [machine_content.product_name]</span>"
+					to_chat(user, "<span class='notice'>[restock] of [machine_content.product_name]</span>")
 			if(refill.charges == 0) //due to rounding, we ran out of refill charges, exit.
 				break
 	return total
@@ -234,7 +234,7 @@
 	if(istype(W, /obj/item/weapon/screwdriver) && anchored)
 		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
-		user << "You [panel_open ? "open" : "close"] the maintenance panel."
+		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		overlays.Cut()
 		if(panel_open)
 			overlays += image(icon, "[initial(icon_state)]-panel")
@@ -259,32 +259,32 @@
 		W.loc = src
 		coin = W
 		categories |= CAT_COIN
-		user << "\blue You insert the [W] into the [src]"
+		to_chat(user, "\blue You insert the [W] into the [src]")
 		nanomanager.update_uis(src)
 		return
 	else if(istype(W, refill_canister) && refill_canister != null)
 		if(stat & (BROKEN|NOPOWER))
-			user << "<span class='notice'>It does nothing.</span>"
+			to_chat(user, "<span class='notice'>It does nothing.</span>")
 		else if(panel_open)
 			//if the panel is open we attempt to refill the machine
 			var/obj/item/weapon/vending_refill/canister = W
 			if(canister.charges == 0)
-				user << "<span class='notice'>This [canister.name] is empty!</span>"
+				to_chat(user, "<span class='notice'>This [canister.name] is empty!</span>")
 			else
 				var/transfered = refill_inventory(canister,product_records,user)
 				if(transfered)
-					user << "<span class='notice'>You loaded [transfered] items in \the [name].</span>"
+					to_chat(user, "<span class='notice'>You loaded [transfered] items in \the [name].</span>")
 				else
-					user << "<span class='notice'>The [name] is fully stocked.</span>"
+					to_chat(user, "<span class='notice'>The [name] is fully stocked.</span>")
 			return;
 		else
-			user << "<span class='notice'>You should probably unscrew the service panel first.</span>"
+			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
 	else
 		..()
 
 /obj/machinery/vending/emag_act(user as mob)
 	emagged = 1
-	user << "You short out the product lock on [src]"
+	to_chat(user, "You short out the product lock on [src]")
 	return
 
 /**
@@ -296,7 +296,7 @@
 	if(currently_vending.price > cashmoney.get_total())
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
-		usr << "\icon[cashmoney] <span class='warning'>That is not enough money.</span>"
+		to_chat(usr, "\icon[cashmoney] <span class='warning'>That is not enough money.</span>")
 		return 0
 
 	// Bills (banknotes) cannot really have worth different than face value,
@@ -454,12 +454,12 @@
 
 	if(href_list["remove_coin"] && !istype(usr,/mob/living/silicon))
 		if(!coin)
-			usr << "There is no coin in this machine."
+			to_chat(usr, "There is no coin in this machine.")
 			return
 
 		usr.put_in_hands(coin)
 		coin = null
-		usr << "\blue You remove the [coin] from the [src]"
+		to_chat(usr, "\blue You remove the [coin] from the [src]")
 		categories &= ~CAT_COIN
 
 	if (href_list["pay"])
@@ -484,11 +484,12 @@
 		if ((href_list["vend"]) && (src.vend_ready) && (!currently_vending))
 
 			if(issilicon(usr) && !isrobot(usr))
-				usr << "<span class=warning>The vending machine refuses to interface with you, as you are not in its target demographic!</span>"
+				to_chat(usr, "<span class=warning>The vending machine refuses to interface with you, as you are not in its target demographic!</span>")
 				return
 
 			if((!allowed(usr)) && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
-				usr << "<span class='warning'>Access denied.</span>"	//Unless emagged of course
+				to_chat(usr, "<span class='warning'>Access denied.</span>")//Unless emagged of course
+
 				flick(icon_deny,src)
 				return
 
@@ -521,11 +522,12 @@
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if((!allowed(usr)) && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
-		usr << "<span class='warning'>Access denied.</span>"	//Unless emagged of course
+		to_chat(usr, "<span class='warning'>Access denied.</span>")//Unless emagged of course
+
 		flick(src.icon_deny,src)
 		return
 	if(!R.amount)
-		user << "\red The vending machine has ran out of that product."
+		to_chat(user, "\red The vending machine has ran out of that product.")
 		return
 	src.vend_ready = 0 //One thing at a time!!
 	src.status_message = "Vending..."
@@ -534,13 +536,13 @@
 
 	if (R.category & CAT_COIN)
 		if(!coin)
-			user << "\blue You need to insert a coin to get this item."
+			to_chat(user, "\blue You need to insert a coin to get this item.")
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				user << "\blue You successfully pull the coin out before the [src] could swallow it."
+				to_chat(user, "\blue You successfully pull the coin out before the [src] could swallow it.")
 			else
-				user << "\blue You weren't able to pull the coin out fast enough, the machine ate it, string and all."
+				to_chat(user, "\blue You weren't able to pull the coin out fast enough, the machine ate it, string and all.")
 				coin = null
 				qdel(coin)
 				categories &= ~CAT_COIN
@@ -569,7 +571,7 @@
 
 /obj/machinery/vending/proc/stock(var/datum/data/vending_product/R, var/mob/user)
 	if(src.panel_open)
-		user << "\blue You stock the [src] with \a [R.product_name]"
+		to_chat(user, "\blue You stock the [src] with \a [R.product_name]")
 		R.amount++
 	src.updateUsrDialog()
 
@@ -1008,7 +1010,13 @@
 	vend_delay = 15
 	vend_reply = "Have an enchanted evening!"
 	product_ads = "FJKLFJSD;AJKFLBJAKL;1234 LOONIES LOL!;>MFW;Kill them fuckers!;GET DAT FUKKEN DISK;HONK!;EI NATH;Destroy the station!;Admin conspiracies since forever!;Space-time bending hardware!"
-	products = list(/obj/item/clothing/head/wizard = 1,/obj/item/clothing/suit/wizrobe = 1,/obj/item/clothing/head/wizard/red = 1,/obj/item/clothing/suit/wizrobe/red = 1,/obj/item/clothing/shoes/sandal = 1,/obj/item/weapon/twohanded/staff = 2)
+	products = list(/obj/item/clothing/head/wizard = 1,
+					/obj/item/clothing/suit/wizrobe = 1,
+					/obj/item/clothing/head/wizard/red = 1,
+					/obj/item/clothing/suit/wizrobe/red = 1,
+					/obj/item/clothing/shoes/sandal = 1,
+					/obj/item/weapon/twohanded/staff = 2)
+	contraband = list(/obj/item/weapon/reagent_containers/glass/bottle/wizarditis = 1)
 
 /obj/machinery/vending/autodrobe
 	name = "\improper AutoDrobe"
@@ -1244,7 +1252,7 @@
 	vend_delay = 15
 	icon_state = "artvend"
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/device/camera = 4,/obj/item/device/camera_film = 6,
-	/obj/item/weapon/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/packageWrap = 4,
+	/obj/item/weapon/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/tape_roll = 5,/obj/item/stack/packageWrap = 4,
 	/obj/item/weapon/storage/fancy/crayons = 4,/obj/item/weapon/hand_labeler = 4,/obj/item/weapon/paper = 10,
 	/obj/item/weapon/c_tube = 10,/obj/item/weapon/pen = 5,/obj/item/weapon/pen/blue = 5,
 	/obj/item/weapon/pen/red = 5)

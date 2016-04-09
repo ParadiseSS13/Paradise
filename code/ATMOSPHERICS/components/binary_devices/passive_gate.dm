@@ -134,7 +134,7 @@
 		return
 	src.add_fingerprint(usr)
 	if(!src.allowed(user))
-		user << "<span class='alert'>Access denied.</span>"
+		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	usr.set_machine(src)
 	interact(user)
@@ -158,7 +158,7 @@
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if (on)
-		user << "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>"
+		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
 		return 1
 	return ..()
 	

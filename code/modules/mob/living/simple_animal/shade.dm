@@ -18,9 +18,7 @@
 	attacktext = "drains the life from"
 	minbodytemp = 0
 	maxbodytemp = 4000
-	min_oxy = 0
-	max_co2 = 0
-	max_tox = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speed = -1
 	stop_automated_movement = 1
 	status_flags = 0
@@ -50,7 +48,7 @@
 					if ((M.client && !( M.blinded )))
 						M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
 			else
-				usr << "\red This weapon is ineffective, it does no damage."
+				to_chat(usr, "\red This weapon is ineffective, it does no damage.")
 				for(var/mob/M in viewers(src, null))
 					if ((M.client && !( M.blinded )))
 						M.show_message("\red [user] gently taps [src] with the [O]. ")

@@ -6,6 +6,7 @@
 // No comment
 /atom/proc/attackby(obj/item/W, mob/living/user, params)
 	return
+
 /atom/movable/attackby(obj/item/W, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -14,8 +15,14 @@
 
 /mob/living/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(istype(I) && ismob(user))
-		I.attack(src, user)
+	if(stat == DEAD && !isnull(butcher_results)) //can we butcher it?
+		if(istype(I, /obj/item/weapon/kitchen/knife))
+			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+			if(do_mob(user, src, 80))
+				harvest(user)
+			return
+	I.attack(src, user)
 
 
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
@@ -72,7 +79,7 @@
 		if(istype(M, /mob/living/carbon/slime))
 			var/mob/living/carbon/slime/slime = M
 			if(prob(25))
-				user << "\red [src] passes right through [M]!"
+				to_chat(user, "\red [src] passes right through [M]!")
 				return
 
 			if(power > 0)
@@ -155,7 +162,7 @@
 
 		if(!showname && user)
 			if(user.client)
-				user << "\red <B>You attack [M] with [src]. </B>"
+				to_chat(user, "\red <B>You attack [M] with [src]. </B>")
 
 
 
@@ -177,7 +184,7 @@
 			if("fire")
 				if (!(RESIST_COLD in M.mutations))
 					M.take_organ_damage(0, power)
-					M << "Aargh it burns!"
+					to_chat(M, "Aargh it burns!")
 		M.updatehealth()
 	add_fingerprint(user)
 	return 1

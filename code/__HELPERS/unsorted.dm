@@ -251,7 +251,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
-	user << "<span class='notice'>Results of analysis of \icon[icon] [target].</span>"
+	to_chat(user, "<span class='notice'>Results of analysis of \icon[icon] [target].</span>")
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -260,16 +260,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 
-		user << "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>"
-		user << "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>"
-		user << "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>"
-		user << "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>"
-		user << "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>"
+		to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
+		to_chat(user, "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>")
 		if(unknown_concentration>0.01)
-			user << "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>"
-		user << "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>"
+			to_chat(user, "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>")
 	else
-		user << "<span class='notice'>[target] is empty!</span>"
+		to_chat(user, "<span class='notice'>[target] is empty!</span>")
 	return
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -601,95 +601,6 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 	else return get_step(ref, base_dir)
 
-/proc/do_mob(var/mob/user , var/mob/target, var/time = 30, numticks = 5, var/uninterruptible = 0) //This is quite an ugly solution but i refuse to use the old request system.
-	if(!user || !target)
-		return 0
-	if(numticks == 0)
-		return 0
-	var/user_loc = user.loc
-	var/target_loc = target.loc
-	var/holding = user.get_active_hand()
-	var/timefraction = round(time/numticks)
-	var/image/progbar
-	for(var/i = 1 to numticks)
-		if(user.client)
-			progbar = make_progress_bar(i, numticks, target)
-			user.client.images |= progbar
-		sleep(timefraction)
-		if(!user || !target)
-			if(user && user.client)
-				user.client.images -= progbar
-			return 0
-		if (!uninterruptible && (user.loc != user_loc || target.loc != target_loc || user.get_active_hand() != holding || user.stat || user.stunned || user.weakened || user.paralysis || user.lying))
-			if(user && user.client)
-				user.client.images -= progbar
-			return 0
-		if(user && user.client)
-			user.client.images -= progbar
-	if(user && user.client)
-		user.client.images -= progbar
-	return 1
-
-/proc/make_progress_bar(var/current_number, var/goal_number, var/atom/target)
-	if(current_number && goal_number && target)
-		var/image/progbar
-		progbar = image("icon" = 'icons/effects/doafter_icon.dmi', "loc" = target, "icon_state" = "prog_bar_0")
-		progbar.icon_state = "prog_bar_[round(((current_number / goal_number) * 100), 10)]"
-		progbar.pixel_y = 32
-		return progbar
-
-/proc/do_after(mob/user, delay, numticks = 5, needhand = 1, atom/target = null)
-	if(!user)
-		return 0
-
-	if(numticks == 0)
-		return 0
-
-	var/atom/Tloc = null
-	if(target)
-		Tloc = target.loc
-
-	var/delayfraction = round(delay/numticks)
-	var/atom/Uloc = user.loc
-	var/holding = user.get_active_hand()
-	var/holdingnull = 1 //User is not holding anything
-	if(holding)
-		holdingnull = 0 //User is holding a tool of some kind
-	var/image/progbar
-	for (var/i = 1 to numticks)
-		if(user.client)
-			progbar = make_progress_bar(i, numticks, target)
-			user.client.images |= progbar
-		sleep(delayfraction)
-		if(!user || user.stat || user.weakened || user.stunned  || !(user.loc == Uloc))
-			if(user && user.client)
-				user.client.images -= progbar
-			return 0
-
-		if(Tloc && (!target || Tloc != target.loc)) //Tloc not set when we don't want to track target
-			if(user && user.client)
-				user.client.images -= progbar
-			return 0 // Target no longer exists or has moved
-
-		if(needhand)
-			//This might seem like an odd check, but you can still need a hand even when it's empty
-			//i.e the hand is used to insert some item/tool into the construction
-			if(!holdingnull)
-				if(!holding)
-					if(user && user.client)
-						user.client.images -= progbar
-					return 0
-			if(user.get_active_hand() != holding)
-				if(user && user.client)
-					user.client.images -= progbar
-				return 0
-			if(user && user.client)
-				user.client.images -= progbar
-		if(user && user.client)
-			user.client.images -= progbar
-	if(user && user.client)
-		user.client.images -= progbar
-	return 1
 //Takes: Anything that could possibly have variables and a varname to check.
 //Returns: 1 if found, 0 if not.
 /proc/hasvar(var/datum/A, var/varname)
@@ -1690,11 +1601,11 @@ var/mob/dview/dview_mob = new
 	return 1
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
-	var/tX = text2list(scr_loc, ",")
-	var/tY = text2list(tX[2], ":")
+	var/tX = splittext(scr_loc, ",")
+	var/tY = splittext(tX[2], ":")
 	var/tZ = origin.z
 	tY = tY[1]
-	tX = text2list(tX[1], ":")
+	tX = splittext(tX[1], ":")
 	tX = tX[1]
 	tX = max(1, min(world.maxx, origin.x + (text2num(tX) - (world.view + 1))))
 	tY = max(1, min(world.maxy, origin.y + (text2num(tY) - (world.view + 1))))
@@ -1755,3 +1666,7 @@ var/global/list/g_fancy_list_of_types = null
 		if(findtext("[key]", filter) || findtext("[value]", filter))
 			matches[key] = value
 	return matches
+
+// Use this to send to a client's chat, no exceptions (except this proc itself).
+/proc/to_chat(var/thing, var/output)
+	thing << output

@@ -132,26 +132,26 @@
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
-				usr << "<span class='warning'>The new area must be completely airtight.</span>"
+				to_chat(usr, "<span class='warning'>The new area must be completely airtight.</span>")
 				return
 			if(ROOM_ERR_TOOLARGE)
-				usr << "<span class='warning'>The new area is too large.</span>"
+				to_chat(usr, "<span class='warning'>The new area is too large.</span>")
 				return
 			else
-				usr << "<span class='warning'>Error! Please notify administration.</span>"
+				to_chat(usr, "<span class='warning'>Error! Please notify administration.</span>")
 				return
 	var/list/turf/turfs = res
 	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", "", MAX_NAME_LEN))
 	if(!str || !length(str)) //cancel
 		return
 	if(length(str) > 50)
-		usr << "<span class='warning'>The given name is too long.  The area remains undefined.</span>"
+		to_chat(usr, "<span class='warning'>The given name is too long.  The area remains undefined.</span>")
 		return
 	var/area/A = new
 	A.name = str
 	//var/ma
 	//ma = A.master ? "[A.master]" : "(null)"
-	//world << "DEBUG: create_area: <br>A.name=[A.name]<br>A.tag=[A.tag]<br>A.master=[ma]"
+//	to_chat(world, "DEBUG: create_area: <br>A.name=[A.name]<br>A.tag=[A.tag]<br>A.master=[ma]")
 	A.power_equip = 0
 	A.power_light = 0
 	A.power_environ = 0
@@ -173,13 +173,13 @@
 	if(!str || !length(str) || str==prevname) //cancel
 		return
 	if(length(str) > 50)
-		usr << "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>"
+		to_chat(usr, "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>")
 		return
 	set_area_machinery_title(A,str,prevname)
 	A.name = str
-	usr << "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>"
+	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
 	interact()
-	return
+	return 1
 
 
 /obj/item/areaeditor/proc/set_area_machinery_title(var/area/A,var/title,var/oldtitle)

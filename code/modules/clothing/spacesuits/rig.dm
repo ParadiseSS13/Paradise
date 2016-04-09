@@ -31,7 +31,8 @@
 
 /obj/item/clothing/head/helmet/space/rig/attack_self(mob/user)
 	if(!isturf(user.loc))
-		user << "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>" //To prevent some lighting anomalities.
+		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>")//To prevent some lighting anomalities.
+
 		return
 	toggle_light(user)
 
@@ -104,9 +105,9 @@
 
 		if(attached_helmet && helmet)
 			if(H.head)
-				M << "You are unable to deploy your suit's helmet as \the [H.head] is in the way."
+				to_chat(M, "You are unable to deploy your suit's helmet as \the [H.head] is in the way.")
 			else
-				M << "Your suit's helmet deploys with a hiss."
+				to_chat(M, "Your suit's helmet deploys with a hiss.")
 				//TODO: Species check, skull damage for forcing an unfitting helmet on?
 				helmet.forceMove(H)
 				H.equip_to_slot(helmet, slot_head)
@@ -114,9 +115,9 @@
 
 		if(attached_boots && boots)
 			if(H.shoes)
-				M << "You are unable to deploy your suit's magboots as \the [H.shoes] are in the way."
+				to_chat(M, "You are unable to deploy your suit's magboots as \the [H.shoes] are in the way.")
 			else
-				M << "Your suit's boots deploy with a hiss."
+				to_chat(M, "Your suit's boots deploy with a hiss.")
 				boots.forceMove(H)
 				H.equip_to_slot(boots, slot_shoes)
 				boots.flags |= NODROP
@@ -151,7 +152,7 @@
 		return
 
 	if(!helmet)
-		usr << "There is no helmet installed."
+		to_chat(usr, "There is no helmet installed.")
 		return
 
 	var/mob/living/carbon/human/H = usr
@@ -164,17 +165,17 @@
 		helmet.flags &= ~NODROP
 		H.unEquip(helmet)
 		helmet.loc = src
-		H << "<span class='notice'>You retract your hardsuit helmet.</span>"
+		to_chat(H, "<span class='notice'>You retract your hardsuit helmet.</span>")
 	else
 		if(H.head)
-			H << "<span class='warning'>You cannot deploy your helmet while wearing another helmet.</span>"
+			to_chat(H, "<span class='warning'>You cannot deploy your helmet while wearing another helmet.</span>")
 			return
 		//TODO: Species check, skull damage for forcing an unfitting helmet on?
 		helmet.loc = H
 		helmet.pickup(H)
 		H.equip_to_slot(helmet, slot_head)
 		helmet.flags |= NODROP
-		H << "<span class='notice'>You deploy your hardsuit helmet, sealing you off from the world.</span>"
+		to_chat(H, "<span class='notice'>You deploy your hardsuit helmet, sealing you off from the world.</span>")
 	H.update_inv_head()
 
 /obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -182,33 +183,33 @@
 		return
 
 	if(istype(src.loc,/mob/living))
-		user << "How do you propose to modify a hardsuit while it is being worn?"
+		to_chat(user, "How do you propose to modify a hardsuit while it is being worn?")
 		return
 
 	if(istype(W,/obj/item/weapon/screwdriver))
 		if(!helmet)
-			user << "\The [src] does not have a helmet installed."
+			to_chat(user, "\The [src] does not have a helmet installed.")
 		else
-			user << "You detach \the [helmet] from \the [src]'s helmet mount."
+			to_chat(user, "You detach \the [helmet] from \the [src]'s helmet mount.")
 			helmet.loc = get_turf(src)
 			src.helmet = null
 			return
 		if(!boots)
-			user << "\The [src] does not have any boots installed."
+			to_chat(user, "\The [src] does not have any boots installed.")
 		else
-			user << "You detach \the [boots] from \the [src]'s boot mounts."
+			to_chat(user, "You detach \the [boots] from \the [src]'s boot mounts.")
 			boots.loc = get_turf(src)
 			boots = null
 		return
 
 	else if(istype(W,/obj/item/clothing/head/helmet/space))
 		if(!attached_helmet)
-			user << "\The [src] does not have a helmet mount."
+			to_chat(user, "\The [src] does not have a helmet mount.")
 			return
 		if(helmet)
-			user << "\The [src] already has a helmet installed."
+			to_chat(user, "\The [src] already has a helmet installed.")
 		else
-			user << "You attach \the [W] to \the [src]'s helmet mount."
+			to_chat(user, "You attach \the [W] to \the [src]'s helmet mount.")
 			user.drop_item()
 			W.loc = src
 			src.helmet = W
@@ -216,13 +217,13 @@
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots))
 		if(!attached_boots)
-			user << "\The [src] does not have boot mounts."
+			to_chat(user, "\The [src] does not have boot mounts.")
 			return
 
 		if(boots)
-			user << "\The [src] already has magboots installed."
+			to_chat(user, "\The [src] already has magboots installed.")
 		else
-			user << "You attach \the [W] to \the [src]'s boot mounts."
+			to_chat(user, "You attach \the [W] to \the [src]'s boot mounts.")
 			user.drop_item()
 			W.loc = src
 			boots = W
@@ -304,12 +305,13 @@
 
 /obj/item/clothing/head/helmet/space/rig/syndi/attack_self(mob/user)
 	if(!isturf(user.loc))
-		user << "You cannot toggle your helmet while in this [user.loc]." //To prevent some lighting anomalities.
+		to_chat(user, "You cannot toggle your helmet while in this [user.loc].")//To prevent some lighting anomalities.
+
 		return
 
 	on = !on
 	if(on)
-		user << "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>"
+		to_chat(user, "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>")
 		name = "blood-red hardsuit helmet"
 		desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 		flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
@@ -317,7 +319,7 @@
 		cold_protection = HEAD
 		set_light(brightness_on)
 	else
-		user << "<span class='notice'>You switch your helmet to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>"
+		to_chat(user, "<span class='notice'>You switch your helmet to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>")
 		name = "blood-red hardsuit helmet (combat)"
 		desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 		flags = BLOCKHAIR | THICKMATERIAL | NODROP
@@ -348,7 +350,7 @@
 /obj/item/clothing/suit/space/rig/syndi/attack_self(mob/user)
 	on = !on
 	if(on)
-		user << "<span class='notice'>You switch your hardsuit to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>"
+		to_chat(user, "<span class='notice'>You switch your hardsuit to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>")
 		name = "blood-red hardsuit"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 		slowdown = 1
@@ -356,7 +358,7 @@
 		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	else
-		user << "<span class='notice'>You switch your hardsuit to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>"
+		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>")
 		name = "blood-red hardsuit (combat)"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 		slowdown = 0
