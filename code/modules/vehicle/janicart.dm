@@ -44,9 +44,14 @@
 		var/turf/tile = loc
 		if(isturf(tile))
 			tile.clean_blood()
+			if(istype(tile, /turf/simulated/floor))
+				var/turf/simulated/floor/F = tile
+				F.dirt = 0
 			for(var/A in tile)
-				if(is_cleanable(A))
-					qdel(A)
+				if(istype(A, /obj/effect))
+					if(is_cleanable(A))
+						qdel(A)
+
 
 
 /obj/vehicle/janicart/examine(mob/user)

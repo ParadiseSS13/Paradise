@@ -12,6 +12,7 @@
 	var/next_vehicle_move = 0 //used for move delays
 	var/vehicle_move_delay = 2 //tick delay between movements, lower = faster, higher = slower
 	var/auto_door_open = TRUE
+	var/needs_gravity = 0//To allow non-space vehicles to move in no gravity or not, mostly for adminbus
 
 	//Pixels
 	var/generic_pixel_x = 0 //All dirs show this pixel_x for the driver
@@ -83,6 +84,10 @@
 	handle_vehicle_offsets()
 
 
+/obj/vehicle/bullet_act(obj/item/projectile/Proj)
+	if(buckled_mob)
+		buckled_mob.bullet_act(Proj)
+
 //MOVEMENT
 /obj/vehicle/relaymove(mob/user, direction)
 	if(user.incapacitated())
@@ -98,6 +103,15 @@
 			if(buckled_mob.loc != loc)
 				buckled_mob.buckled = null //Temporary, so Move() succeeds.
 				buckled_mob.buckled = src //Restoring
+
+			if(istype(src.loc, /turf/simulated))
+				var/turf/simulated/T = src.loc
+				if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
+					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+					buckled_mob.Stun(7)
+					buckled_mob.Weaken(7)
+					unbuckle_mob()
+					step(src, dir)
 
 		handle_vehicle_layer()
 		handle_vehicle_offsets()
@@ -131,6 +145,9 @@
 		return 1
 
 	if(pulledby)
+		return 1
+
+	if(needs_gravity)
 		return 1
 
 	return 0

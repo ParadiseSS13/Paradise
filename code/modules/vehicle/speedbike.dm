@@ -2,27 +2,25 @@
 	name = "Speedbike"
 	icon = 'icons/obj/bike.dmi'
 	icon_state = "speedbike_blue"
-	layer = OBJ_LAYER
+	layer = MOB_LAYER - 0.1
 	keytype = null
 	vehicle_move_delay = 0
 	var/overlay_state = "cover_blue"
 	var/image/overlay = null
-	var/datum/effect/system/ion_trail_follow/space_trail/ion_trail
 
 /obj/vehicle/space/speedbike/New()
 	..()
 	overlay = image("icons/obj/bike.dmi", overlay_state)
 	overlay.layer = MOB_LAYER + 0.1
 	overlays += overlay
-	ion_trail = new /datum/effect/system/ion_trail_follow/space_trail()
-	ion_trail.set_up(src)
-	ion_trail.start()
 
 /obj/effect/overlay/temp/speedbike_trail
 	name = "speedbike trails"
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "ion_fade"
-	duration = 20
+	duration = 10
 	randomdir = 0
+	layer = MOB_LAYER - 0.2
 
 /obj/effect/overlay/temp/speedbike_trail/New(loc,move_dir)
 	..()
