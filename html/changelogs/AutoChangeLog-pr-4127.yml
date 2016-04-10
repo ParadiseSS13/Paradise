@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in TraitorVamp; game mode that's essentially like TraitorChan, but with a Vampire instead of a Changeling"
+  - tweak: "Vampires cannot use holoparasites"

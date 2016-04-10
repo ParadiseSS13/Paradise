@@ -139,7 +139,7 @@
 		"cult",
 		"wizard",
 		"changeling",
-		"vampire",
+		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
 		"malfunction",
@@ -257,7 +257,7 @@
 
 		/** VAMPIRE ***/
 		text = "vampire"
-		if (ticker.mode.config_tag=="vampire")
+		if (ticker.mode.config_tag=="vampire" || ticker.mode.config_tag=="traitorvamp")
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if (src in ticker.mode.vampires)
@@ -267,13 +267,14 @@
 		else
 			text += "<a href='?src=\ref[src];vampire=vampire'>yes</a>|<b>NO</b>"
 
+		/** Enthralled ***/
+		text += "<br><b>enthralled</b>"
+		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.vampire_enthralled)
 			text += "<b><font color='#FF0000'>YES</font></b>|no"
 		else
 			text += "yes|<font color='#00FF00'>NO</font></b>"
 
-		/** Enthralled ***/
-		text += "<br><b>enthralled</b>"
 
 		sections["vampire"] = text
 
@@ -305,7 +306,7 @@
 
 		/** TRAITOR ***/
 		text = "traitor"
-		if (ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan")
+		if (ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan" || ticker.mode.config_tag=="traitorvamp")
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if (isloyal(H))
@@ -375,6 +376,14 @@
 			out += sections["changeling"]+"<br>"
 		sections -= "traitor"
 		sections -= "changeling"
+
+	if (ticker.mode.config_tag == "traitorvamp")
+		if (sections["traitor"])
+			out += sections["traitor"]+"<br>"
+		if (sections["vampire"])
+			out += sections["vampire"]+"<br>"
+		sections -= "traitor"
+		sections -= "vampire"
 	else
 		if (sections[ticker.mode.config_tag])
 			out += sections[ticker.mode.config_tag]+"<br>"

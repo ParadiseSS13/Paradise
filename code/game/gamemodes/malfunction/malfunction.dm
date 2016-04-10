@@ -143,11 +143,17 @@
 			all_dead = 0
 	return all_dead
 
+/datum/game_mode/proc/check_ai_loc()
+	for(var/datum/mind/AI_mind in malf_ai)
+		var/turf/ai_location = get_turf(AI_mind.current)
+		if(ai_location && (ai_location.z == ZLEVEL_STATION))
+			return 1
+	return 0
 
 /datum/game_mode/malfunction/check_finished()
 	if (station_captured && !to_nuke_or_not_to_nuke)
 		return 1
-	if (is_malf_ai_dead())
+	if (is_malf_ai_dead() || !check_ai_loc())
 		if(config.continuous_rounds)
 			if(shuttle_master && shuttle_master.emergencyNoEscape)
 				shuttle_master.emergencyNoEscape = 0
@@ -299,6 +305,11 @@
 		feedback_set_details("round_end_result","loss - staff win")
 		to_chat(world, "<FONT size = 3><B>Human Victory</B></FONT>")
 		to_chat(world, "<B>The AI has been killed!</B> The staff is victorious.")
+
+	else if(!station_captured && !malf_dead && !check_ai_loc())
+		feedback_set_details("round_end_result", "loss - malf ai left zlevel")
+		to_chat(world, "<font size=3><b>Minor Human Victory</b></font>")
+		to_chat(world, "<b>The malfunctioning AI has left the station's z-level and was disconnected from its systems!</b> The crew are victorious.")
 
 	else if (!station_captured && !malf_dead && !station_was_nuked && crew_evacuated)
 		feedback_set_details("round_end_result","halfwin - evacuated")
