@@ -29,9 +29,9 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0
-		if((target.get_species() == "Machine"))
+		if(target.get_species() == "Machine")
 			return 0
-		if((target.get_species() == "Diona"))
+		if(target.get_species() == "Diona")
 			return 0
 		return 1
 
@@ -39,9 +39,11 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+
 		if(affected && (affected.status & ORGAN_ROBOT))
-			return 0
-		if(target.get_species() == "Diona")
+			return 0//no operating on robotic limbs in an organic surgery
+
+		if(!affected.encased)//no bones no problem.
 			return 1
 		return 0
 
