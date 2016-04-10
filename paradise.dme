@@ -438,6 +438,7 @@
 #include "code\game\gamemodes\shadowling\special_shadowling_abilities.dm"
 #include "code\game\gamemodes\traitor\traitor.dm"
 #include "code\game\gamemodes\vampire\hud.dm"
+#include "code\game\gamemodes\vampire\traitor_vamp.dm"
 #include "code\game\gamemodes\vampire\vampire.dm"
 #include "code\game\gamemodes\vampire\vampire_powers.dm"
 #include "code\game\gamemodes\wizard\artefact.dm"
