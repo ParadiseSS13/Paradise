@@ -274,7 +274,7 @@
 				<body>
 
 				<H3>How to Clone People</H3>
-				So there’s 50 dead people lying on the floor, chairs are spinning like no tomorrow and you haven’t the foggiest idea of what to do? Not to worry! This guide is intended to teach you how to clone people and how to do it right, in a simple step-by-step process! If at any point of the guide you have a mental meltdown, genetics probably isn’t for you and you should get a job-change as soon as possible before you’re sued for malpractice.
+				So thereÂ’s 50 dead people lying on the floor, chairs are spinning like no tomorrow and you havenÂ’t the foggiest idea of what to do? Not to worry! This guide is intended to teach you how to clone people and how to do it right, in a simple step-by-step process! If at any point of the guide you have a mental meltdown, genetics probably isnÂ’t for you and you should get a job-change as soon as possible before youÂ’re sued for malpractice.
 
 				<ol>
 					<li><a href='#1'>Acquire body</a></li>
@@ -294,36 +294,36 @@
 				This is pretty much vital for the process because without a body, you cannot clone it. Usually, bodies will be brought to you, so you do not need to worry so much about this step. If you already have a body, great! Move on to the next step.
 
 				<a name='2'><H4>Step 2: Strip body</H4>
-				The cloning machine does not like abiotic items. What this means is you can’t clone anyone if they’re wearing clothes, so take all of it off. If it’s just one person, it’s courteous to put their possessions in the closet. If you have about seven people awaiting cloning, just leave the piles where they are, but don’t mix them around and for God’s sake don’t let people in to steal them.
+				The cloning machine does not like abiotic items. What this means is you canÂ’t clone anyone if theyÂ’re wearing clothes, so take all of it off. If itÂ’s just one person, itÂ’s courteous to put their possessions in the closet. If you have about seven people awaiting cloning, just leave the piles where they are, but donÂ’t mix them around and for GodÂ’s sake donÂ’t let people in to steal them.
 
 				<a name='3'><H4>Step 3: Put body in cloning machine</H4>
 				Grab the body and then put it inside the DNA modifier. If you cannot do this, then you messed up at Step 2. Go back and check you took EVERYTHING off - a commonly missed item is their headset.
 
 				<a name='4'><H4>Step 4: Scan body</H4>
-				Go onto the computer and scan the body by pressing ‘Scan - <Subject Name Here>’. If you’re successful, they will be added to the records (note that this can be done at any time, even with living people, so that they can be cloned without a body in the event that they are lying dead on port solars and didn‘t turn on their suit sensors)! If not, and it says “Error: Mental interface failure.”, then they have left their bodily confines and are one with the spirits. If this happens, just shout at them to get back in their body, click ‘Refresh‘ and try scanning them again. If there’s no success, threaten them with gibbing. Still no success? Skip over to Step 7 and don‘t continue after it, as you have an unresponsive body and it cannot be cloned. If you got “Error: Unable to locate valid genetic data.“, you are trying to clone a monkey - start over.
+				Go onto the computer and scan the body by pressing Â‘Scan - <Subject Name Here>Â’. If youÂ’re successful, they will be added to the records (note that this can be done at any time, even with living people, so that they can be cloned without a body in the event that they are lying dead on port solars and didnÂ‘t turn on their suit sensors)! If not, and it says Â“Error: Mental interface failure.Â”, then they have left their bodily confines and are one with the spirits. If this happens, just shout at them to get back in their body, click Â‘RefreshÂ‘ and try scanning them again. If thereÂ’s no success, threaten them with gibbing. Still no success? Skip over to Step 7 and donÂ‘t continue after it, as you have an unresponsive body and it cannot be cloned. If you got Â“Error: Unable to locate valid genetic data.Â“, you are trying to clone a monkey - start over.
 
 				<a name='5'><H4>Step 5: Clone body</H4>
-				Now that the body has a record, click ’View Records’, click the subject’s name, and then click ‘Clone’ to start the cloning process. Congratulations! You’re halfway there. Remember not to ‘Eject’ the cloning pod as this will kill the developing clone and you’ll have to start the process again.
+				Now that the body has a record, click Â’View RecordsÂ’, click the subjectÂ’s name, and then click Â‘CloneÂ’ to start the cloning process. Congratulations! YouÂ’re halfway there. Remember not to Â‘EjectÂ’ the cloning pod as this will kill the developing clone and youÂ’ll have to start the process again.
 
 				<a name='6'><H4>Step 6: Get clean SEs for body</H4>
-				Cloning is a finicky and unreliable process. Whilst it will most certainly bring someone back from the dead, they can have any number of nasty disabilities given to them during the cloning process! For this reason, you need to prepare a clean, defect-free Structural Enzyme (SE) injection for when they’re done. If you’re a competent Geneticist, you will already have one ready on your working computer. If, for any reason, you do not, then eject the body from the DNA modifier (NOT THE CLONING POD) and take it next door to the Genetics research room. Put the body in one of those DNA modifiers and then go onto the console. Go into View/Edit/Transfer Buffer, find an open slot and click “SE“ to save it. Then click ‘Injector’ to get the SEs in syringe form. Put this in your pocket or something for when the body is done.
+				Cloning is a finicky and unreliable process. Whilst it will most certainly bring someone back from the dead, they can have any number of nasty disabilities given to them during the cloning process! For this reason, you need to prepare a clean, defect-free Structural Enzyme (SE) injection for when theyÂ’re done. If youÂ’re a competent Geneticist, you will already have one ready on your working computer. If, for any reason, you do not, then eject the body from the DNA modifier (NOT THE CLONING POD) and take it next door to the Genetics research room. Put the body in one of those DNA modifiers and then go onto the console. Go into View/Edit/Transfer Buffer, find an open slot and click Â“SEÂ“ to save it. Then click Â‘InjectorÂ’ to get the SEs in syringe form. Put this in your pocket or something for when the body is done.
 
 				<a name='7'><H4>Step 7: Put body in morgue</H4>
-				Now that the cloning process has been initiated and you have some clean Structural Enzymes, you no longer need the body! Drag it to the morgue and tell the Chef over the radio that they have some fresh meat waiting for them in there. To put a body in a morgue bed, simply open the tray, grab the body, put it on the open tray, then close the tray again. Use one of the nearby pens to label the bed “CHEF MEAT” in order to avoid confusion.
+				Now that the cloning process has been initiated and you have some clean Structural Enzymes, you no longer need the body! Drag it to the morgue and tell the Chef over the radio that they have some fresh meat waiting for them in there. To put a body in a morgue bed, simply open the tray, grab the body, put it on the open tray, then close the tray again. Use one of the nearby pens to label the bed Â“CHEF MEATÂ” in order to avoid confusion.
 
 				<a name='8'><H4>Step 8: Await cloned body</H4>
-				Now go back to the lab and wait for your patient to be cloned. It won’t be long now, I promise.
+				Now go back to the lab and wait for your patient to be cloned. It wonÂ’t be long now, I promise.
 
 				<a name='9'><H4>Step 9: Use the clean SE injector on person</H4>
-				Has your body been cloned yet? Great! As soon as the guy pops out, grab your injector and jab it in them. Once you’ve injected them, they now have clean Structural Enzymes and their defects, if any, will disappear in a short while.
+				Has your body been cloned yet? Great! As soon as the guy pops out, grab your injector and jab it in them. Once youÂ’ve injected them, they now have clean Structural Enzymes and their defects, if any, will disappear in a short while.
 
 				<a name='10'><H4>Step 10: Give person clothes back</H4>
-				Obviously the person will be naked after they have been cloned. Provided you weren’t an irresponsible little shit, you should have protected their possessions from thieves and should be able to give them back to the patient. No matter how cruel you are, it’s simply against protocol to force your patients to walk outside naked.
+				Obviously the person will be naked after they have been cloned. Provided you werenÂ’t an irresponsible little shit, you should have protected their possessions from thieves and should be able to give them back to the patient. No matter how cruel you are, itÂ’s simply against protocol to force your patients to walk outside naked.
 
 				<a name='11'><H4>Step 11: Send person on their way</H4>
-				Give the patient one last check-over - make sure they don’t still have any defects and that they have all their possessions. Ask them how they died, if they know, so that you can report any foul play over the radio. Once you’re done, your patient is ready to go back to work! Chances are they do not have Medbay access, so you should let them out of Genetics and the Medbay main entrance.
+				Give the patient one last check-over - make sure they donÂ’t still have any defects and that they have all their possessions. Ask them how they died, if they know, so that you can report any foul play over the radio. Once youÂ’re done, your patient is ready to go back to work! Chances are they do not have Medbay access, so you should let them out of Genetics and the Medbay main entrance.
 
-				<p>If you’ve gotten this far, congratulations! You have mastered the art of cloning. Now, the real problem is how to resurrect yourself after that traitor had his way with you for cloning his target.
+				<p>If youÂ’ve gotten this far, congratulations! You have mastered the art of cloning. Now, the real problem is how to resurrect yourself after that traitor had his way with you for cloning his target.
 
 
 
@@ -1206,12 +1206,12 @@
 
 				<h1><a name="Contents">Contents</a></h1>
 				<ol>
-					<li><a href="#foreword">Foreword</a></li><br>
-					<li><a href="#rd">Research Director</a></li><br>
-					<li><a href="#robo">Roboticist</a></li><br>
-					<li><a href="#sci">Scientist</a></li><br>
-					<li><a href="#gen">Geneticist</a></li><br>
-                    <li><a href="#exo">Exotic Implants</a></li><br>
+					<li><a href="#foreword">Foreword</a></li>
+					<li><a href="#rd">Research Director</a></li>
+					<li><a href="#robo">Roboticist</a></li>
+					<li><a href="#sci">Scientist</a></li>
+					<li><a href="#gen">Geneticist</a></li>
+                    <li><a href="#exo">Exotic Implants</a></li>
 				</ol>
 				<br><BR>
 
@@ -1223,117 +1223,117 @@
 				<h1><a name="rd"><B>Research Director</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Research Director must make sure Research is being done. Research must be completed by the end of the shift, assuming Science is provided the materials for it by Supply;</li><br>
-					<li>The Research Director is permitted to carry a telescopic baton;</li><br>
-					<li>The Research Director is permitted to carry their Reactive Teleport Armour on their person. However, it is highly recommended they keep it inactive unless necessary, for personal safety;</li><br>
-					<li>The Research Director is not permitted to authorize the construction of AI Units without the Captain's approval. An exception is made if the station was not provided with an AI Unit, or a previous AI Unit had to be destroyed.</li><br>
-					<li>The Research Director is not permitted to authorize Anomalous Artifacts to be brought onto the station prior to full testing and cataloguing;</li><br>
-					<li>The Research Director must keep the Communications Decryption Key on their person at all times, or at least somewhere safe and out of reach;</li><br>
-					<li>The Research Director is permitted to add beneficial scripts to Telecommunications;</li><br>
-					<li>The Research Director is permitted to change the AI Unit's lawset, provided they receive general approval from the Captain and another Head of Staff. If there are no other Heads of Staff available, Captain approval will suffice;</li><br>
-					<li>The Research Director must work with Robotics to make sure all Cyborgs remain slaved to the station's AI Unit, except in such a situation where the AI Unit has been subverted or is malfunctioning.</li><br>
+					<li>The Research Director must make sure Research is being done. Research must be completed by the end of the shift, assuming Science is provided the materials for it by Supply;</li>
+					<li>The Research Director is permitted to carry a telescopic baton;</li>
+					<li>The Research Director is permitted to carry their Reactive Teleport Armour on their person. However, it is highly recommended they keep it inactive unless necessary, for personal safety;</li>
+					<li>The Research Director is not permitted to authorize the construction of AI Units without the Captain's approval. An exception is made if the station was not provided with an AI Unit, or a previous AI Unit had to be destroyed.</li>
+					<li>The Research Director is not permitted to authorize Anomalous Artifacts to be brought onto the station prior to full testing and cataloguing;</li>
+					<li>The Research Director must keep the Communications Decryption Key on their person at all times, or at least somewhere safe and out of reach;</li>
+					<li>The Research Director is permitted to add beneficial scripts to Telecommunications;</li>
+					<li>The Research Director is permitted to change the AI Unit's lawset, provided they receive general approval from the Captain and another Head of Staff. If there are no other Heads of Staff available, Captain approval will suffice;</li>
+					<li>The Research Director must work with Robotics to make sure all Cyborgs remain slaved to the station's AI Unit, except in such a situation where the AI Unit has been subverted or is malfunctioning.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>All Guidelines carry over from Code Green</li><br>
+					<li>All Guidelines carry over from Code Green</li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>Guidelines 1, 3, 4, 6, 7, 8 and 9 carry over from Code Green;</li><br>
-					<li>In addition to the a telescopic baton, the Research Director is permitted to carry a single weapon created in the Protolathe, provided they receive authorization from the Head of Security. Exception is made during extreme emergencies, such as Nuclear Operatives or Blob Organisms.</li><br>
+					<li>Guidelines 1, 3, 4, 6, 7, 8 and 9 carry over from Code Green;</li>
+					<li>In addition to the a telescopic baton, the Research Director is permitted to carry a single weapon created in the Protolathe, provided they receive authorization from the Head of Security. Exception is made during extreme emergencies, such as Nuclear Operatives or Blob Organisms.</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="robo"><B>Roboticist</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Roboticist is not permitted to construct Combat Mechs without express permission from the Captain and/or Head of Security. This refers to the Durand, Gygax and Phazon. If permitted, the Mechs is to be delivered to the Armory for storage. The Research Director is placed under the same restrictions;</li><br>
-					<li>The Roboticist is freely permitted to construct Utility Mechs, along with any assorted Utility Equipment. This refers to Ripleys (to be handed to Mining), Firefighting Ripleys (to be handed to Atmospherics) and the Odysseus Medical Mech (to be handed to Medical). The HONK Mech is not to be constructed without <b>full approval by the Research Director and Captain</b>;</li><br>
-					<li>The Roboticist is freely permitted to construct Cyborgs and all assorted equipment; </li><br>
-					<li>The Roboticist is not permitted to transfer personnel MMIs into Cyborgs without express written consent from the person in question. The consent form should be kept safe;</li><br>
-					<li>The Roboticist is not permitted to construct AI Units without express consent from the Captain;</li><br>
-					<li>The Roboticist must place a Tracking Beacon on all constructed Mechs; </li><br>
-					<li>The Roboticist must work together with the Research Director to make sure all Cyborgs remain slaved to the station's AI Unit, except in such a situation where the AI Unit has been subverted or is malfunctioning;</li><br>
-					<li>The Roboticist must DNA-Lock all parked Mechs prior to delivery. DNA-Lock must be removed when the Mech is delivered to its final destination </li><br>
+					<li>The Roboticist is not permitted to construct Combat Mechs without express permission from the Captain and/or Head of Security. This refers to the Durand, Gygax and Phazon. If permitted, the Mechs is to be delivered to the Armory for storage. The Research Director is placed under the same restrictions;</li>
+					<li>The Roboticist is freely permitted to construct Utility Mechs, along with any assorted Utility Equipment. This refers to Ripleys (to be handed to Mining), Firefighting Ripleys (to be handed to Atmospherics) and the Odysseus Medical Mech (to be handed to Medical). The HONK Mech is not to be constructed without <b>full approval by the Research Director and Captain</b>;</li>
+					<li>The Roboticist is freely permitted to construct Cyborgs and all assorted equipment; </li>
+					<li>The Roboticist is not permitted to transfer personnel MMIs into Cyborgs without express written consent from the person in question. The consent form should be kept safe;</li>
+					<li>The Roboticist is not permitted to construct AI Units without express consent from the Captain;</li>
+					<li>The Roboticist must place a Tracking Beacon on all constructed Mechs; </li>
+					<li>The Roboticist must work together with the Research Director to make sure all Cyborgs remain slaved to the station's AI Unit, except in such a situation where the AI Unit has been subverted or is malfunctioning;</li>
+					<li>The Roboticist must DNA-Lock all parked Mechs prior to delivery. DNA-Lock must be removed when the Mech is delivered to its final destination </li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>Guidelines 2, 3, 4, 5, 6, 7 and 8 carry over from Code Green;</li><br>
-                    <li>The Roboticist is permitted to construct Combat Mechs without prior consent, but must deliver them to the Armory for storage. Failure to comply will result in the Combat Mech being destroyed. Exception is made for extreme emergencies, such as a Blob Organism or Nuclear Operatives, where the Roboticist may pilot the Mech themselves. However, even in these circumstances, the Mech must be delivered to the Armory after the emergency is over. The Research Director is placed under the same restrictions;</li><br>
+					<li>Guidelines 2, 3, 4, 5, 6, 7 and 8 carry over from Code Green;</li>
+                    <li>The Roboticist is permitted to construct Combat Mechs without prior consent, but must deliver them to the Armory for storage. Failure to comply will result in the Combat Mech being destroyed. Exception is made for extreme emergencies, such as a Blob Organism or Nuclear Operatives, where the Roboticist may pilot the Mech themselves. However, even in these circumstances, the Mech must be delivered to the Armory after the emergency is over. The Research Director is placed under the same restrictions;</li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>Guidelines 3, 4, 5, 6, 7, 8 and 9 carry over from Code Green;</li><br>
-					<li>All Guidelines carry over from Code Blue.</li><br>
+					<li>Guidelines 3, 4, 5, 6, 7, 8 and 9 carry over from Code Green;</li>
+					<li>All Guidelines carry over from Code Blue.</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="sci"><B>Scientist</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>Scientists are not permitted to bring Grenades outside of Science;</li><br>
-					<li>Scientists are not permitted to bring Toxins Bombs outside of Science. Exception is made if the Toxins Bomb is handed to Mining, as it can be useful for mining operations;</li><br>
-					<li>While not mandatory, it is highly recommended that Scientists give a prior warning before a Toxins Test. This must be done via the Common Communication Channel, with at least ten (10) seconds between the warning and detonation;</li><br>
-					<li>Scientists are not permitted to use Telescience equipment to acquire objects, items or personnel they do not have access to;</li><br>
-					<li>Scientists are, however, permitted to use Telescience equipment to recover dead personnel, provided Medical cannot reach them;</li><br>
-					<li>Scientists must, at all times, keep live slimes and Golden Extract-based lifeforms inside Xenobiology pens, except when transporting them to new cells. Peaceful Golden Extract lifeforms may be released with the express permission of the Research Director. In addition, injecting plasma into Golden Extract is strictly forbidden;</li><br>
-					<li>Scientists are not permitted to bring Anomalous Artifacts aboard the station without express verbal consent from the Research Director. Regular Xenoarchaeological artifacts are permitted;</li><br>
-					<li>Scientists are not permitted to construct the Portable Wormhole Generator without express permission from the Research Director. In addition, Scientists are not to hand out Weapon Lockboxes to any non-Security or non-Command personnel without express permission from the Head of Security;</li><br>
+					<li>Scientists are not permitted to bring Grenades outside of Science;</li>
+					<li>Scientists are not permitted to bring Toxins Bombs outside of Science. Exception is made if the Toxins Bomb is handed to Mining, as it can be useful for mining operations;</li>
+					<li>While not mandatory, it is highly recommended that Scientists give a prior warning before a Toxins Test. This must be done via the Common Communication Channel, with at least ten (10) seconds between the warning and detonation;</li>
+					<li>Scientists are not permitted to use Telescience equipment to acquire objects, items or personnel they do not have access to;</li>
+					<li>Scientists are, however, permitted to use Telescience equipment to recover dead personnel, provided Medical cannot reach them;</li>
+					<li>Scientists must, at all times, keep live slimes and Golden Extract-based lifeforms inside Xenobiology pens, except when transporting them to new cells. Peaceful Golden Extract lifeforms may be released with the express permission of the Research Director. In addition, injecting plasma into Golden Extract is strictly forbidden;</li>
+					<li>Scientists are not permitted to bring Anomalous Artifacts aboard the station without express verbal consent from the Research Director. Regular Xenoarchaeological artifacts are permitted;</li>
+					<li>Scientists are not permitted to construct the Portable Wormhole Generator without express permission from the Research Director. In addition, Scientists are not to hand out Weapon Lockboxes to any non-Security or non-Command personnel without express permission from the Head of Security;</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>Guidelines 3, 4, 5, 6, 7 and 9 carry over from Code Green;</li><br>
-                    <li>Scientists are permitted to bring Grenades outside of Science, but only for delivery to the Armory;</li><br>
-                    <li>Scientists are permitted to bring Toxins Bombs outside of Science, but only for delivery to the Armory. In addition, the Mining exception still applies</li><br>
+					<li>Guidelines 3, 4, 5, 6, 7 and 9 carry over from Code Green;</li>
+                    <li>Scientists are permitted to bring Grenades outside of Science, but only for delivery to the Armory;</li>
+                    <li>Scientists are permitted to bring Toxins Bombs outside of Science, but only for delivery to the Armory. In addition, the Mining exception still applies</li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>Guidelines, 3, 4, 5, 6, 7 and 9 carry over from Code Green; </li><br>
-					<li>All Guidelines carry over from Code Blue.</li><br>
+					<li>Guidelines, 3, 4, 5, 6, 7 and 9 carry over from Code Green; </li>
+					<li>All Guidelines carry over from Code Blue.</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="gen"><B>Geneticist</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Geneticist is not permitted to ignore Cloning, and must provide Clean SE Injectors when required, as well as humanized animals if required for Surgery. In addition, the Geneticist must make sure that Cloning is stocked with Biomass; </li><br>
-					<li>The Geneticist is permitted to test Genetic Powers on themselves. However, they are not to utilize these powers on any crewmembers, nor abuse them to obtain items/personnel outside their access;</li><br>
-					<li>The Geneticist is permitted to grant Genetic Powers to Command Staff at their discretion, provided prior permission is requested and granted. All staff must be warned of the full effects of the SE Injector. The Geneticist is not, however, obligated to grant powers, unless the Research Director issues a direct order;</li><br>
-					<li>The Geneticist is not permitted to grant Powers to non-Command Staff without express verbal consent from the Research Director. Both the Chief Medical Officer and the Research Director maintain full authority to forcefully remove these Powers if they are abused;</li><br>
-					<li>The Geneticist must place all discarded humanized animals in the Morgue. It is recommended that said discarded humanized animals be directed to the Crematorium;</li><br>
-					<li>The Geneticist is not permitted to provide body doubles, unless the Research Director approves it. In addition, Security is to be notified of all doubles;</li><br>
-					<li>The Geneticist is not permitted to alter personnel's UI Status, unless it has been previously tampered with by hostile elements, or permission is given;</li><br>
-					<li>The Geneticist is not permitted to use sentient humanoids as test subjects unless the sentient humanoid has granted their permission, on paper.</li><br>
+					<li>The Geneticist is not permitted to ignore Cloning, and must provide Clean SE Injectors when required, as well as humanized animals if required for Surgery. In addition, the Geneticist must make sure that Cloning is stocked with Biomass; </li>
+					<li>The Geneticist is permitted to test Genetic Powers on themselves. However, they are not to utilize these powers on any crewmembers, nor abuse them to obtain items/personnel outside their access;</li>
+					<li>The Geneticist is permitted to grant Genetic Powers to Command Staff at their discretion, provided prior permission is requested and granted. All staff must be warned of the full effects of the SE Injector. The Geneticist is not, however, obligated to grant powers, unless the Research Director issues a direct order;</li>
+					<li>The Geneticist is not permitted to grant Powers to non-Command Staff without express verbal consent from the Research Director. Both the Chief Medical Officer and the Research Director maintain full authority to forcefully remove these Powers if they are abused;</li>
+					<li>The Geneticist must place all discarded humanized animals in the Morgue. It is recommended that said discarded humanized animals be directed to the Crematorium;</li>
+					<li>The Geneticist is not permitted to provide body doubles, unless the Research Director approves it. In addition, Security is to be notified of all doubles;</li>
+					<li>The Geneticist is not permitted to alter personnel's UI Status, unless it has been previously tampered with by hostile elements, or permission is given;</li>
+					<li>The Geneticist is not permitted to use sentient humanoids as test subjects unless the sentient humanoid has granted their permission, on paper.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>All Guidelines carry over from Code Green </li><br>
+					<li>All Guidelines carry over from Code Green </li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>All Guidelines carry over from Code Green. In regards to Guideline 4, the Geneticist is now permitted to grant Powers to Security personnel, under the same conditions as detailed in Guideline 3.</li><br>
+					<li>All Guidelines carry over from Code Green. In regards to Guideline 4, the Geneticist is now permitted to grant Powers to Security personnel, under the same conditions as detailed in Guideline 3.</li>
 				</ol><BR>
                 <br><br>
 
 	            <h1><a name="exo"><B>Exotic Implants</B></a></h1><BR>
 				<i>Exotic Implants refer to Xeno Organs, Cybernetic Implants or any such exotic materials.</i><br>
 				<ol>
-					<li>General utility implants (such as Welding Shield, Nutriment or Reviver) are unregulated, and may be handed out freely;</li><br>
-					<li>X-Ray Vision and Thermal Vision implants may be handed out freely, but may have their implantation vetoed by the Chief Medical Officer and/or Research Director (see below); </li><br>
-                    <li>Medical HUDs must be approved by the Chief Medical Officer before implantation, and Security HUDs require express permission from the Head of Security or Warden;</li><br>
-                    <li>Combat-capable Implants (such as the CNS Rebooter or Anti-Drop) are not be handed out without express permission from the Head of Security; </li><br>
-                    <li>Cybernetic Implantation should be performed in Surgery or any such sterilized environment, to reduce the risk of internal infection. If no Surgeons or Doctors are available, the Roboticist can fill in;</li><br>
-                    <li>The Chief Medical Officer and Research Director have the power to veto any Cybernetic Implantation or Xeno Organ Implantation if they believe it threatens the stability of the station or crew. Only the Captain may override this veto;</li><br>
-                    <li>Xeno Organs may be harvested at will, but may not be implanted without express permission from the Chief Medical Officer. Egg-Laying Organs from Xenomorph Lifeforms are strictly forbidden;</li><br>
-                    <li>Failure to follow these Guidelines makes the offending party liable to having their Exotic Implants forcefully removed.</li><br>
+					<li>General utility implants (such as Welding Shield, Nutriment or Reviver) are unregulated, and may be handed out freely;</li>
+					<li>X-Ray Vision and Thermal Vision implants may be handed out freely, but may have their implantation vetoed by the Chief Medical Officer and/or Research Director (see below); </li>
+                    <li>Medical HUDs must be approved by the Chief Medical Officer before implantation, and Security HUDs require express permission from the Head of Security or Warden;</li>
+                    <li>Combat-capable Implants (such as the CNS Rebooter or Anti-Drop) are not be handed out without express permission from the Head of Security; </li>
+                    <li>Cybernetic Implantation should be performed in Surgery or any such sterilized environment, to reduce the risk of internal infection. If no Surgeons or Doctors are available, the Roboticist can fill in;</li>
+                    <li>The Chief Medical Officer and Research Director have the power to veto any Cybernetic Implantation or Xeno Organ Implantation if they believe it threatens the stability of the station or crew. Only the Captain may override this veto;</li>
+                    <li>Xeno Organs may be harvested at will, but may not be implanted without express permission from the Chief Medical Officer. Egg-Laying Organs from Xenomorph Lifeforms are strictly forbidden;</li>
+                    <li>Failure to follow these Guidelines makes the offending party liable to having their Exotic Implants forcefully removed.</li>
 				</ol><BR>
 				</body>
 				</html>
@@ -1362,18 +1362,18 @@
 
 				<h1><a name="Contents">Contents</a></h1>
 				<ol>
-					<li><a href="#foreword">Foreword</a></li><br>
-					<li><a href="#cmo">Chief Medical Officer</a></li><br>
-					<li><a href="#doc">Medical Doctor</a></li><br>
-					<li><a href="#chem">Chemist</a></li><br>
-					<li><a href="#gen">Geneticist</a></li><br>
-                    <li><a href="#viro">Virologist</a></li><br>
-                    <li><a href="#para">Paramedic</a></li><br>
-                    <li><a href="#psy">Psychologist</a></li><br>
-                    <li><a href="#surg">Surgery</a></li><br>
-                    <li><a href="#viral">Viral Outbreak Procedures</a></li><br>
-                    <li><a href="#cor">Coroner Procedures</a></li><br>
-                    <li><a href="#exo">Exotic Implants</a></li><br>
+					<li><a href="#foreword">Foreword</a></li>
+					<li><a href="#cmo">Chief Medical Officer</a></li>
+					<li><a href="#doc">Medical Doctor</a></li>
+					<li><a href="#chem">Chemist</a></li>
+					<li><a href="#gen">Geneticist</a></li>
+                    <li><a href="#viro">Virologist</a></li>
+                    <li><a href="#para">Paramedic</a></li>
+                    <li><a href="#psy">Psychologist</a></li>
+                    <li><a href="#surg">Surgery</a></li>
+                    <li><a href="#viral">Viral Outbreak Procedures</a></li>
+                    <li><a href="#cor">Coroner Procedures</a></li>
+                    <li><a href="#exo">Exotic Implants</a></li>
 				</ol>
 				<br><BR>
 
@@ -1384,150 +1384,150 @@
 
 				<h1><a name="cmo"><B>Chief Medical Officer</B></a></h1><BR>
 				<ol>
-					<li>The Chief Medical Officer is permitted to carry a regular Defibrillator or a Compact Defibrillator on their person at all times;</li><br>
-                    <li>The Chief Medical Officer is permitted to carry a telescopic baton. In case Genetic Powers need to be forcefully removed, they are cleared to carry a Syringe Gun;</li><br>
-                    <li>The Chief Medical Officer is not permitted to allow the creation of poisonous or explosive mixtures in Chemistry without express consent from the Captain or, failing that, the presence of a clear and urgent danger to the integrity of the station, except of course in situations where Chemical Implants are required;</li><br>
-                    <li>The Chief Medical Officer is not permitted to allow the release of any virus without a full list of its symptoms, as well as the creation of a vial of antibodies, to be kept in a secure location. The virus may not have any harmful symptoms whatsoever, though neutral/harmless symptoms are permitted;</li><br>
-                    <li>The Chief Medical Officer must make sure that any cloneable corpses are, in fact, clone.</li><br>
+					<li>The Chief Medical Officer is permitted to carry a regular Defibrillator or a Compact Defibrillator on their person at all times;</li>
+                    <li>The Chief Medical Officer is permitted to carry a telescopic baton. In case Genetic Powers need to be forcefully removed, they are cleared to carry a Syringe Gun;</li>
+                    <li>The Chief Medical Officer is not permitted to allow the creation of poisonous or explosive mixtures in Chemistry without express consent from the Captain or, failing that, the presence of a clear and urgent danger to the integrity of the station, except of course in situations where Chemical Implants are required;</li>
+                    <li>The Chief Medical Officer is not permitted to allow the release of any virus without a full list of its symptoms, as well as the creation of a vial of antibodies, to be kept in a secure location. The virus may not have any harmful symptoms whatsoever, though neutral/harmless symptoms are permitted;</li>
+                    <li>The Chief Medical Officer must make sure that any cloneable corpses are, in fact, clone.</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="doc"><B>Medical Doctor</B></a></h1><BR>
 				<ol>
-					<li>Though not mandatory, it is recommended that Doctors wear Sterile Masks and Latex/Nitrile gloves when handling patients. This Guideline becomes <b>mandatory</b> during Viral Outbreaks;</li><br>
-                    <li>Nurses should focus on helping Medical Doctors and Surgeons in whatever they require, and tending to patients that require light care. If necessary, they can stand in for regular Medical Doctor duties;</li><br>
-                    <li>Surgeons are expected to fulfill the duties of regular Medical Doctors if there are no active Surgical Procedures undergoing; </li><br>
-                    <li>Medical Doctors must ensure there is at least one (1) Defibrillator available for use, at all times, next to or near the Cryotubes;</li><br>
-                    <li>Medical Doctors must maintain the entirety of Medbay in an hygienic state. This includes, but is not limited to, cleaning organic residue, fluids and corpses;</li><br>
-                    <li>Medical Doctors must place all corpses inside body bags. If there is an assigned Coroner, the Morgue Trays must be correctly tagged;</li><br>
-                    <li>Medical Doctors must, together with Geneticists and Chemists, make sure that Cloning is stocked with Biomass. In addition, Medical Doctors must make sure that the Morgue does not contain cloneable corpses;</li><br>
-                    <li>Medical Doctors must certify that all cloned personnel are put in the Cryotubes after Cloning, and receive either a dose of Mutadone or a Clean SE Injector, in addition to Mannitol. An exception is made if the Cloning Pod was fully upgraded by Science;</li><br>
-                    <li>Medical Doctors are not permitted to leave Medbay to perform recreational activities if there are unattended patients requiring treatment;</li><br>
-                    <li>Medical Doctors must stabilize patients before delivering them to Surgery. If the patient presents Internal Bleeding, they are to be rushed to Surgery <b>post haste.</b></li><br>
+					<li>Though not mandatory, it is recommended that Doctors wear Sterile Masks and Latex/Nitrile gloves when handling patients. This Guideline becomes <b>mandatory</b> during Viral Outbreaks;</li>
+                    <li>Nurses should focus on helping Medical Doctors and Surgeons in whatever they require, and tending to patients that require light care. If necessary, they can stand in for regular Medical Doctor duties;</li>
+                    <li>Surgeons are expected to fulfill the duties of regular Medical Doctors if there are no active Surgical Procedures undergoing; </li>
+                    <li>Medical Doctors must ensure there is at least one (1) Defibrillator available for use, at all times, next to or near the Cryotubes;</li>
+                    <li>Medical Doctors must maintain the entirety of Medbay in an hygienic state. This includes, but is not limited to, cleaning organic residue, fluids and corpses;</li>
+                    <li>Medical Doctors must place all corpses inside body bags. If there is an assigned Coroner, the Morgue Trays must be correctly tagged;</li>
+                    <li>Medical Doctors must, together with Geneticists and Chemists, make sure that Cloning is stocked with Biomass. In addition, Medical Doctors must make sure that the Morgue does not contain cloneable corpses;</li>
+                    <li>Medical Doctors must certify that all cloned personnel are put in the Cryotubes after Cloning, and receive either a dose of Mutadone or a Clean SE Injector, in addition to Mannitol. An exception is made if the Cloning Pod was fully upgraded by Science;</li>
+                    <li>Medical Doctors are not permitted to leave Medbay to perform recreational activities if there are unattended patients requiring treatment;</li>
+                    <li>Medical Doctors must stabilize patients before delivering them to Surgery. If the patient presents Internal Bleeding, they are to be rushed to Surgery <b>post haste.</b></li>
 
 				</ol>
                 <br><br>
 
                 <h1><a name="chem"><B>Chemist</B></a></h1><BR>
 				<ol>
-					<li>The Chemist is not permitted to experiment with explosive mixtures;</li><br>
-                    <li>The Chemist is not permitted to experiment with poisonous mixtures and/or narcotics;</li><br>
-                    <li>The Chemist is not permitted to experiment with Life or other Omnizine-derived mixtures apart from Omnizine or Strange Reagent;</li><br>
-                    <li>The Chemist is not permitted to produce alcoholic beverages;</li><br>
-                    <li>Chemists must, together with Geneticists and Medical Doctors, make sure that Cloning is stocked with Biomass;</li><br>
-                    <li>The Chemist must ensure that the Medical Fridge is stocked with at least enough medication to handle Brute, Burn, Respiratory, Toxic and Brain damage. Failure to follow this Guideline within thirty (30) minutes is to be considered a breach of Standard Operating Procedure</li><br>
-                    <li>The Chemist is not allowed to leave Chemistry unattended if the Medical Fridge is devoid of Medication, except in such a case as Chemistry is unusable or if Fungus needs to be collected</li><br>
+					<li>The Chemist is not permitted to experiment with explosive mixtures;</li>
+                    <li>The Chemist is not permitted to experiment with poisonous mixtures and/or narcotics;</li>
+                    <li>The Chemist is not permitted to experiment with Life or other Omnizine-derived mixtures apart from Omnizine or Strange Reagent;</li>
+                    <li>The Chemist is not permitted to produce alcoholic beverages;</li>
+                    <li>Chemists must, together with Geneticists and Medical Doctors, make sure that Cloning is stocked with Biomass;</li>
+                    <li>The Chemist must ensure that the Medical Fridge is stocked with at least enough medication to handle Brute, Burn, Respiratory, Toxic and Brain damage. Failure to follow this Guideline within thirty (30) minutes is to be considered a breach of Standard Operating Procedure</li>
+                    <li>The Chemist is not allowed to leave Chemistry unattended if the Medical Fridge is devoid of Medication, except in such a case as Chemistry is unusable or if Fungus needs to be collected</li>
                 </ol>
                 <br><br>
 
                 <h1><a name="gen"><B>Geneticist</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Geneticist is not permitted to ignore Cloning, and must provide Clean SE Injectors when required, as well as humanized animals if required for Surgery. In addition, the Geneticist must make sure that Cloning is stocked with Biomass; </li><br>
-					<li>The Geneticist is permitted to test Genetic Powers on themselves. However, they are not to utilize these powers on any crewmembers, nor abuse them to obtain items/personnel outside their access;</li><br>
-					<li>The Geneticist is permitted to grant Genetic Powers to Command Staff at their discretion, provided prior permission is requested and granted. All staff must be warned of the full effects of the SE Injector. The Geneticist is not, however, obligated to grant powers, unless the Research Director issues a direct order;</li><br>
-					<li>The Geneticist is not permitted to grant Powers to non-Command Staff without express verbal consent from the Research Director. Both the Chief Medical Officer and the Research Director maintain full authority to forcefully remove these Powers if they are abused;</li><br>
-					<li>The Geneticist must place all discarded humanized animals in the Morgue. It is recommended that said discarded humanized animals be directed to the Crematorium;</li><br>
-					<li>The Geneticist is not permitted to provide body doubles, unless the Research Director approves it. In addition, Security is to be notified of all doubles;</li><br>
-					<li>The Geneticist is not permitted to alter personnel's UI Status, unless it has been previously tampered with by hostile elements, or permission is given;</li><br>
-					<li>The Geneticist is not permitted to use sentient humanoids as test subjects unless the sentient humanoid has granted their permission, on paper.</li><br>
+					<li>The Geneticist is not permitted to ignore Cloning, and must provide Clean SE Injectors when required, as well as humanized animals if required for Surgery. In addition, the Geneticist must make sure that Cloning is stocked with Biomass; </li>
+					<li>The Geneticist is permitted to test Genetic Powers on themselves. However, they are not to utilize these powers on any crewmembers, nor abuse them to obtain items/personnel outside their access;</li>
+					<li>The Geneticist is permitted to grant Genetic Powers to Command Staff at their discretion, provided prior permission is requested and granted. All staff must be warned of the full effects of the SE Injector. The Geneticist is not, however, obligated to grant powers, unless the Research Director issues a direct order;</li>
+					<li>The Geneticist is not permitted to grant Powers to non-Command Staff without express verbal consent from the Research Director. Both the Chief Medical Officer and the Research Director maintain full authority to forcefully remove these Powers if they are abused;</li>
+					<li>The Geneticist must place all discarded humanized animals in the Morgue. It is recommended that said discarded humanized animals be directed to the Crematorium;</li>
+					<li>The Geneticist is not permitted to provide body doubles, unless the Research Director approves it. In addition, Security is to be notified of all doubles;</li>
+					<li>The Geneticist is not permitted to alter personnel's UI Status, unless it has been previously tampered with by hostile elements, or permission is given;</li>
+					<li>The Geneticist is not permitted to use sentient humanoids as test subjects unless the sentient humanoid has granted their permission, on paper.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>All Guidelines carry over from Code Green </li><br>
+					<li>All Guidelines carry over from Code Green </li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>All Guidelines carry over from Code Green. In regards to Guideline 4, the Geneticist is now permitted to grant Powers to Security personnel, under the same conditions as detailed in Guideline 3.</li><br>
+					<li>All Guidelines carry over from Code Green. In regards to Guideline 4, the Geneticist is now permitted to grant Powers to Security personnel, under the same conditions as detailed in Guideline 3.</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="viro"><B>Virologist</B></a></h1><BR>
 				<ol>
-					<li>The Virologist must always wear adequate protection (such as a Biosuit and Internals for Airborne Viruses) when handling infected personnel and Test Animals. Exception is made for IPC Virologists, for obvious reasons;</li><br>
-                    <li>The Virologist must only test viral samples on the provided Test Animals. Said Test Animals are to be maintained inside their pen, and disposed of via Virology's Disposals Chutes if dead, to prevent possible contamination. In addition, the Virologist may not, <b>under any circumstances whatsoever</b>, leave Virology while infected by a Viral Pathogen that spreads by Contact or Airborne means, unless permitted by the Chief Medical Officer;</li><br>
-                    <li>The Virologist may not, <b>under any circumstance whatsoever</b>, release an active virus without prior consent from Chief Medical Officer. Contact and/or Airborne viruses may only be released with consent from the Chief Medical officer <b>and</b> Captain. In the event a Contact and/or Airborne virus is released, the crew <b>must be informed</b>, and Vaccines should be ready for any personnel that choose to opt out of being infected;</li><br>
-                    <li>The Virologist must ensure that all Viral Samples are kept on their person at all times, or at the very least in a secure location (such as the Virology Fridge);</li><br>
-                    <li>The Virologist must work together with Medical Staff, especially Chemistry, if there is a cure that requires manufacturing;</li><br>
-                    <li>In the event of a lethal Viral Outbreak, the Virologist must work together with the Chief Medical Officer and/or Chemists and/or Bartender to produce a cure. Failure to keep casualties down to, at most, 25% of the station's crew is to be considered a breach of Standard Operating Procedure for everyone involved.</li><br>
+					<li>The Virologist must always wear adequate protection (such as a Biosuit and Internals for Airborne Viruses) when handling infected personnel and Test Animals. Exception is made for IPC Virologists, for obvious reasons;</li>
+                    <li>The Virologist must only test viral samples on the provided Test Animals. Said Test Animals are to be maintained inside their pen, and disposed of via Virology's Disposals Chutes if dead, to prevent possible contamination. In addition, the Virologist may not, <b>under any circumstances whatsoever</b>, leave Virology while infected by a Viral Pathogen that spreads by Contact or Airborne means, unless permitted by the Chief Medical Officer;</li>
+                    <li>The Virologist may not, <b>under any circumstance whatsoever</b>, release an active virus without prior consent from Chief Medical Officer. Contact and/or Airborne viruses may only be released with consent from the Chief Medical officer <b>and</b> Captain. In the event a Contact and/or Airborne virus is released, the crew <b>must be informed</b>, and Vaccines should be ready for any personnel that choose to opt out of being infected;</li>
+                    <li>The Virologist must ensure that all Viral Samples are kept on their person at all times, or at the very least in a secure location (such as the Virology Fridge);</li>
+                    <li>The Virologist must work together with Medical Staff, especially Chemistry, if there is a cure that requires manufacturing;</li>
+                    <li>In the event of a lethal Viral Outbreak, the Virologist must work together with the Chief Medical Officer and/or Chemists and/or Bartender to produce a cure. Failure to keep casualties down to, at most, 25% of the station's crew is to be considered a breach of Standard Operating Procedure for everyone involved.</li>
                 </ol>
                 <br><br>
 
                 <h1><a name="para"><B>Paramedic</B></a></h1><BR>
 				<ol>
-					<li>The Paramedic is not permitted to perform Field Surgery unless there are no available Medical Doctors or the Operating Rooms are unusable; </li><br>
-                    <li>The Paramedic is permitted to perform Surgical Procedures inside an Operating Room. However, Doctors/Surgeons should take precedence;</li><br>
-                    <li>The Paramedic is fully permitted to carry a Defibrillator on their person at all times, provided they leave at least one (1) Defibrillator for use in Medbay;</li><br>
-                    <li>The Paramedic must stabilize all patients before bringing them to the Medical Bay. If the patient presents with Internal Bleeding, they are to be rushed to Surgery post haste;</li><br>
-                    <li>In such a case as a patient is found dead, and cannot be brought back via Defibrillation, the Paramedic must ensure that said patient is brought to Cloning, and Medbay is notified;</li><br>
-                    <li>The Paramedic must carry, at all times, enough materials to provide for adequate first aid of all Major Injury Types (Brute, Burn, Toxic, Respiratory and Brain)</li><br>
+					<li>The Paramedic is not permitted to perform Field Surgery unless there are no available Medical Doctors or the Operating Rooms are unusable; </li>
+                    <li>The Paramedic is permitted to perform Surgical Procedures inside an Operating Room. However, Doctors/Surgeons should take precedence;</li>
+                    <li>The Paramedic is fully permitted to carry a Defibrillator on their person at all times, provided they leave at least one (1) Defibrillator for use in Medbay;</li>
+                    <li>The Paramedic must stabilize all patients before bringing them to the Medical Bay. If the patient presents with Internal Bleeding, they are to be rushed to Surgery post haste;</li>
+                    <li>In such a case as a patient is found dead, and cannot be brought back via Defibrillation, the Paramedic must ensure that said patient is brought to Cloning, and Medbay is notified;</li>
+                    <li>The Paramedic must carry, at all times, enough materials to provide for adequate first aid of all Major Injury Types (Brute, Burn, Toxic, Respiratory and Brain)</li>
                 </ol>
                 <br><br>
 
                 <h1><a name="psy"><B>Psychologist</B></a></h1><BR>
 				<ol>
-					<li>The Psychologist may perform a full psychological evaluation on anyone, along with any potential treatment, provided the person in question seeks them out;</li><br>
-                    <li>The Psychologist may not force someone to receive therapy if the person does not want it. Exception is made for violent criminals, if the Head of Security or Magistrate orders it;</li><br>
-                    <li>The Psychologist is not permitted to administer any medication without consent from their patient;</li><br>
-                    <li>The Psychologist is not permitted to muzzle or straightjacket anyone without express permission from the Chief Medical Officer or Head of Security. An exception is made for violent and/or out of control patients;</li><br>
-                    <li>The Psychologist may recommend a patient's demotion if they find their psychological condition to be unfit;</li><br>
-                    <li>The Psychologist may request to consult prisoners in Permanent Imprisonment. This must happen inside the Brig, preferably inside the Permabrig, and only with Warden and/or Head of Security authorization. This should be done under the supervision of a member of Security with Permabrig access</li><br>
+					<li>The Psychologist may perform a full psychological evaluation on anyone, along with any potential treatment, provided the person in question seeks them out;</li>
+                    <li>The Psychologist may not force someone to receive therapy if the person does not want it. Exception is made for violent criminals, if the Head of Security or Magistrate orders it;</li>
+                    <li>The Psychologist is not permitted to administer any medication without consent from their patient;</li>
+                    <li>The Psychologist is not permitted to muzzle or straightjacket anyone without express permission from the Chief Medical Officer or Head of Security. An exception is made for violent and/or out of control patients;</li>
+                    <li>The Psychologist may recommend a patient's demotion if they find their psychological condition to be unfit;</li>
+                    <li>The Psychologist may request to consult prisoners in Permanent Imprisonment. This must happen inside the Brig, preferably inside the Permabrig, and only with Warden and/or Head of Security authorization. This should be done under the supervision of a member of Security with Permabrig access</li>
                 </ol>
                 <br><br>
 
                 <h1><a name="surg"><B>Surgery</B></a></h1><BR>
 				<ol>
-					<li>Attending Surgeon must use Latex/Nitrile gloves in order to prevent infection. Though not mandatory, a Sterile Mask is recommended;</li><br>
-                    <li>Attending Surgeon is to keep the Operating Room in an hygienic condition at all times, <b>again</b>, to prevent infection;</li><br>
-                    <li>Attending Surgeon is to wash his/her hands between different patients, again, to prevent infection;</li><br>
-                    <li>Attending Surgeon is to use either Anesthetics or Sedatives (for species that cannot breathe Anesthetics) during Surgical Procedures. Exception is made if the patient requests otherwise;</li><br>
-                    <li>Attending Surgeon is not to remove any legal Implants (such as Loyalty or Tracking Implants) from the patient, unless requested by Security;</li><br>
-                    <li>If a patient requests that a lost limb be replaced with an organic, rather than mechanical, substitute, said limb must be harvested from a compatible humanized Test Animal (such as Monkeys for Humans, or Farwas for Tajarans). Exception is made if the patient deliberately requests otherwise;</li><br>
-                    <li>Attending Surgeon is not to bring any of the Surgical Tools outside of their respective Operating Room, and must in fact ensure the Operating Room maintains its proper inventory. This includes ensuring that the Anesthetics Equipment be kept inside the OR</li><br>
+					<li>Attending Surgeon must use Latex/Nitrile gloves in order to prevent infection. Though not mandatory, a Sterile Mask is recommended;</li>
+                    <li>Attending Surgeon is to keep the Operating Room in an hygienic condition at all times, <b>again</b>, to prevent infection;</li>
+                    <li>Attending Surgeon is to wash his/her hands between different patients, again, to prevent infection;</li>
+                    <li>Attending Surgeon is to use either Anesthetics or Sedatives (for species that cannot breathe Anesthetics) during Surgical Procedures. Exception is made if the patient requests otherwise;</li>
+                    <li>Attending Surgeon is not to remove any legal Implants (such as Loyalty or Tracking Implants) from the patient, unless requested by Security;</li>
+                    <li>If a patient requests that a lost limb be replaced with an organic, rather than mechanical, substitute, said limb must be harvested from a compatible humanized Test Animal (such as Monkeys for Humans, or Farwas for Tajarans). Exception is made if the patient deliberately requests otherwise;</li>
+                    <li>Attending Surgeon is not to bring any of the Surgical Tools outside of their respective Operating Room, and must in fact ensure the Operating Room maintains its proper inventory. This includes ensuring that the Anesthetics Equipment be kept inside the OR</li>
                 </ol>
                 <br><br>
 
                 <h1><a name="viral"><b>Viral Outbreak Procedures</b></a></h1><BR>
                 <i><b>Definition: </b>A Viral Outbreak is defined as a situation where a Viral Pathogen has infected a significant portion of the crew (>10%)</i>
 				<ol>
-					<li>All Medbay personnel are to contribute in fighting the outbreak if there are no other critical patients requiring assistance. Eliminating the Viral Threat becomes <b>number one priority;</b></li><br>
-                    <li>Personnel are to be informed of known symptoms, and directed to Medbay immediately if they are suffering from them;</li><br>
-                    <li>All infected personnel are to be confined to either an Isolated Room, or Virology;</li><br>
-                    <li>A blood sample is to be taken from an infected person, for study;</li><br>
-                    <li>If any infected personnel attempt to leave containment, Medbay Quarantine is to be <b>initiated immediately</b>, and only lifted when more patients need to be admitted, or the Viral Outbreak is over;</li><br>
-                    <li>A single infected person may volunteer to receive a dose of Radium in order to develop Antibodies. Radium must not be administered without consent. Otherwise, animal testing is to be conducted in order to obtain Antibodies;</li><br>
-                    <li>Once Antibodies are produced, they are to be diluted, then handed out to all infected personnel. Injecting infected personnel with Radium after Antibodies have been extracted is <b>forbidden</b>. In the event of a large enough crisis, directly injecting blood with the relevant Antibodies is permissible;</li><br>
-                    <li>Viral Pathogen should be cataloged and analyzed, in case any stray cases remained untreated;</li><br>
-                    <li>Cured personnel should have a sample of their blood removed for the purpose of creating antibodies, until there are no infected personnel left;</li><br>
-                    <li>In case the Viral Pathogen leads to fluid leakage, cleaning these fluids is to be considered top priority;</li><br>
-                    <li>Once the Viral Outbreak is over, all personnel are to return to regular duties.</li><br>
+					<li>All Medbay personnel are to contribute in fighting the outbreak if there are no other critical patients requiring assistance. Eliminating the Viral Threat becomes <b>number one priority;</b></li>
+                    <li>Personnel are to be informed of known symptoms, and directed to Medbay immediately if they are suffering from them;</li>
+                    <li>All infected personnel are to be confined to either an Isolated Room, or Virology;</li>
+                    <li>A blood sample is to be taken from an infected person, for study;</li>
+                    <li>If any infected personnel attempt to leave containment, Medbay Quarantine is to be <b>initiated immediately</b>, and only lifted when more patients need to be admitted, or the Viral Outbreak is over;</li>
+                    <li>A single infected person may volunteer to receive a dose of Radium in order to develop Antibodies. Radium must not be administered without consent. Otherwise, animal testing is to be conducted in order to obtain Antibodies;</li>
+                    <li>Once Antibodies are produced, they are to be diluted, then handed out to all infected personnel. Injecting infected personnel with Radium after Antibodies have been extracted is <b>forbidden</b>. In the event of a large enough crisis, directly injecting blood with the relevant Antibodies is permissible;</li>
+                    <li>Viral Pathogen should be cataloged and analyzed, in case any stray cases remained untreated;</li>
+                    <li>Cured personnel should have a sample of their blood removed for the purpose of creating antibodies, until there are no infected personnel left;</li>
+                    <li>In case the Viral Pathogen leads to fluid leakage, cleaning these fluids is to be considered top priority;</li>
+                    <li>Once the Viral Outbreak is over, all personnel are to return to regular duties.</li>
                 </ol>
                 <br><br>
 
                 <h1><a name="cor"><B>Coroner Procedures</B></a></h1><BR>
                 <ol>
-					<li>For the sake of hygiene, the Coroner should wear a Sterile Mask when handling corpses;</b></li><br>
-                    <li>The Coroner must inject/apply Formaldehyde to all corpses, and place them in body bags;</li><br>
-                    <li>The Coroner must perform a full autopsy on all corpses, and keep a record of it, in written format. If foul play is suspected, Security must be contacted;</li><br>
-                    <li>The Coroner must correctly tag the Morgue Trays in order to identify the corpse within, as well as Cause of Death;</li><br>
-                    <li>The Coroner must ensure Security-based DNR Notices (such as executed personnel, for instance) are respected;</li><br>
-                    <li>The Coroner must ensure that every ID from unclonable bodies is delivered to either the relevant Head of Staff, or the Head of Personnel. This applies to any Medbay personnel placing a body in the Morgue</li><br>
+					<li>For the sake of hygiene, the Coroner should wear a Sterile Mask when handling corpses;</b></li>
+                    <li>The Coroner must inject/apply Formaldehyde to all corpses, and place them in body bags;</li>
+                    <li>The Coroner must perform a full autopsy on all corpses, and keep a record of it, in written format. If foul play is suspected, Security must be contacted;</li>
+                    <li>The Coroner must correctly tag the Morgue Trays in order to identify the corpse within, as well as Cause of Death;</li>
+                    <li>The Coroner must ensure Security-based DNR Notices (such as executed personnel, for instance) are respected;</li>
+                    <li>The Coroner must ensure that every ID from unclonable bodies is delivered to either the relevant Head of Staff, or the Head of Personnel. This applies to any Medbay personnel placing a body in the Morgue</li>
                 </ol>
                 <br><br>
 
 	            <h1><a name="exo"><B>Exotic Implants</B></a></h1><BR>
 				<i>Exotic Implants refer to Xeno Organs, Cybernetic Implants or any such exotic materials.</i><br>
 				<ol>
-					<li>General utility implants (such as Welding Shield, Nutriment or Reviver) are unregulated, and may be handed out freely;</li><br>
-					<li>X-Ray Vision and Thermal Vision implants may be handed out freely, but may have their implantation vetoed by the Chief Medical Officer and/or Research Director (see below); </li><br>
-                    <li>Medical HUDs must be approved by the Chief Medical Officer before implantation, and Security HUDs require express permission from the Head of Security or Warden;</li><br>
-                    <li>Combat-capable Implants (such as the CNS Rebooter or Anti-Drop) are not be handed out without express permission from the Head of Security; </li><br>
-                    <li>Cybernetic Implantation should be performed in Surgery or any such sterilized environment, to reduce the risk of internal infection. If no Surgeons or Doctors are available, the Roboticist can fill in;</li><br>
-                    <li>The Chief Medical Officer and Research Director have the power to veto any Cybernetic Implantation or Xeno Organ Implantation if they believe it threatens the stability of the station or crew. Only the Captain may override this veto;</li><br>
-                    <li>Xeno Organs may be harvested at will, but may not be implanted without express permission from the Chief Medical Officer. Egg-Laying Organs from Xenomorph Lifeforms are strictly forbidden;</li><br>
-                    <li>Failure to follow these Guidelines makes the offending party liable to having their Exotic Implants forcefully removed.</li><br>
+					<li>General utility implants (such as Welding Shield, Nutriment or Reviver) are unregulated, and may be handed out freely;</li>
+					<li>X-Ray Vision and Thermal Vision implants may be handed out freely, but may have their implantation vetoed by the Chief Medical Officer and/or Research Director (see below); </li>
+                    <li>Medical HUDs must be approved by the Chief Medical Officer before implantation, and Security HUDs require express permission from the Head of Security or Warden;</li>
+                    <li>Combat-capable Implants (such as the CNS Rebooter or Anti-Drop) are not be handed out without express permission from the Head of Security; </li>
+                    <li>Cybernetic Implantation should be performed in Surgery or any such sterilized environment, to reduce the risk of internal infection. If no Surgeons or Doctors are available, the Roboticist can fill in;</li>
+                    <li>The Chief Medical Officer and Research Director have the power to veto any Cybernetic Implantation or Xeno Organ Implantation if they believe it threatens the stability of the station or crew. Only the Captain may override this veto;</li>
+                    <li>Xeno Organs may be harvested at will, but may not be implanted without express permission from the Chief Medical Officer. Egg-Laying Organs from Xenomorph Lifeforms are strictly forbidden;</li>
+                    <li>Failure to follow these Guidelines makes the offending party liable to having their Exotic Implants forcefully removed.</li>
 				</ol><BR>
  				</body>
 				</html>
@@ -1556,11 +1556,11 @@
 
 				<h1><a name="Contents">Contents</a></h1>
 				<ol>
-					<li><a href="#foreword">Foreword</a></li><br>
-					<li><a href="#ce">Chief Engineer</a></li><br>
-					<li><a href="#eng">Station Engineer</a></li><br>
-					<li><a href="#atmos">Atmospherics Technician</a></li><br>
-					<li><a href="#mech">Mechanic</a></li><br>
+					<li><a href="#foreword">Foreword</a></li>
+					<li><a href="#ce">Chief Engineer</a></li>
+					<li><a href="#eng">Station Engineer</a></li>
+					<li><a href="#atmos">Atmospherics Technician</a></li>
+					<li><a href="#mech">Mechanic</a></li>
 				</ol>
 				<br><BR>
 
@@ -1571,51 +1571,51 @@
 
 				<h1><a name="ce"><B>Chief Engineer</B></a></h1><BR>
 				<ol>
-					<li>The Chief Engineer must make sure that the Gravitational Singularity Engine and/or Tesla Engine and/or Solar Panels are fully set up and wired before any further action is taken by themselves or their team; </li><br>
-                    <li>The Chief Engineer, along with the Research Director, is responsible for maintaining the integrity of Telecommunications. The Chief Engineer may not upload malicious scripts or in any way hinder the proper functionality of Telecommunications, and must diagnose and repair any issues that arise;</li><br>
-                    <li>The Chief Engineer is not to authorize the ordering of a Supermatter Shard before any power source is fully set up;</li><br>
-                    <li>The Chief Engineer is bound to the same rules regarding the axe as Atmospheric Technicians;</li><br>
-                    <li>The Chief Engineer is permitted to carry a telescopic baton and a flash; </li><br>
-                    <li>The Chief Engineer is responsible for maintaining the integrity of the Gravitational Singularity Engine and/or the Supermatter Engine and/or the Tesla Engine. Neglecting this duty is grounds for termination should the Engine malfunction;</li><br>
-                    <li>The Chief Engineer is responsible for maintaining the integrity of the Cyberiad's Atmospherics System. Failure to maintain this integrity is grounds for termination;</li><br>
-                    <li>The Chief Engineer may declare an area "Condemned", if it is damaged to the point where repairs cannot reasonably be completed within an acceptable frame of time;</li><br>
-                    <li>The Chief Engineer is permitted to grant Building Permits to crewmembers, but must keep the Station Blueprints in a safe location at all times.</li><br>
+					<li>The Chief Engineer must make sure that the Gravitational Singularity Engine and/or Tesla Engine and/or Solar Panels are fully set up and wired before any further action is taken by themselves or their team; </li>
+                    <li>The Chief Engineer, along with the Research Director, is responsible for maintaining the integrity of Telecommunications. The Chief Engineer may not upload malicious scripts or in any way hinder the proper functionality of Telecommunications, and must diagnose and repair any issues that arise;</li>
+                    <li>The Chief Engineer is not to authorize the ordering of a Supermatter Shard before any power source is fully set up;</li>
+                    <li>The Chief Engineer is bound to the same rules regarding the axe as Atmospheric Technicians;</li>
+                    <li>The Chief Engineer is permitted to carry a telescopic baton and a flash; </li>
+                    <li>The Chief Engineer is responsible for maintaining the integrity of the Gravitational Singularity Engine and/or the Supermatter Engine and/or the Tesla Engine. Neglecting this duty is grounds for termination should the Engine malfunction;</li>
+                    <li>The Chief Engineer is responsible for maintaining the integrity of the Cyberiad's Atmospherics System. Failure to maintain this integrity is grounds for termination;</li>
+                    <li>The Chief Engineer may declare an area "Condemned", if it is damaged to the point where repairs cannot reasonably be completed within an acceptable frame of time;</li>
+                    <li>The Chief Engineer is permitted to grant Building Permits to crewmembers, but must keep the Station Blueprints in a safe location at all times.</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="eng"><B>Station Engineer</B></a></h1><BR>
 				<ol>
-					<li>Engineers must properly activate and wire the Gravitational Singularity Engine and/or Tesla Engine and/or the Solar Panels at the start of the shift, before any other actions are undertaken;</li><br>
-                    <li>Engineers are responsible for maintaining the integrity of the Gravitational Singularity Engine and/or the Supermatter Engine and/or the Tesla Engine. Neglecting this duty is grounds for termination should the Engine malfunction;</li><br>
-                    <li>Engineers are not permitted to construct additional power sources (Supermatter Engines, additional Tesla Engines, additional Gravitational Singularity Engines or additional Solar Panels) until at least one (1) power source is correctly wired and set up;</li><br>
-                    <li>Engineers are permitted to carry out solo reconstruction/rebuilding/personal projects if there is no damage to the station that requires fixing;</li><br>
-                    <li>Engineers must periodically check on the Gravitational Singularity Engine, if it is the chosen method of power generation, in intervals of, at most, thirty (30) minutes. While the Tesla Engine is not as prone to malfunction, this action should still be undertaken for it;</li><br>
-                    <li>Engineers must constantly monitor the Supermatter Engine, if it is the chosen method of power generation, if it is currently active (ie, under Emitter Fire). This is not negotiable;</li><br>
-                    <li>Engineers must respond promptly to breaches, regardless of size. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Engineers to report or an Atmospheric Technician has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else;</li><br>
-                    <li>Engineers are permitted to hack doors to gain unauthorized access to locations if said locations happen to require urgent repairs;</li><br>
-                    <li>Engineers are to maintain the integrity of the Cyberiad's Power Network. In addition, hotwiring the Gravitational Singularity Engine, Supermatter Engine or Tesla Engine is strictly forbidden;</li><br>
-                    <li>Engineers must ensure there is at least one (1) engineering hardsuit available on the station at all times, unless there is an emergency that requires the use of all suits.</li><br>
+					<li>Engineers must properly activate and wire the Gravitational Singularity Engine and/or Tesla Engine and/or the Solar Panels at the start of the shift, before any other actions are undertaken;</li>
+                    <li>Engineers are responsible for maintaining the integrity of the Gravitational Singularity Engine and/or the Supermatter Engine and/or the Tesla Engine. Neglecting this duty is grounds for termination should the Engine malfunction;</li>
+                    <li>Engineers are not permitted to construct additional power sources (Supermatter Engines, additional Tesla Engines, additional Gravitational Singularity Engines or additional Solar Panels) until at least one (1) power source is correctly wired and set up;</li>
+                    <li>Engineers are permitted to carry out solo reconstruction/rebuilding/personal projects if there is no damage to the station that requires fixing;</li>
+                    <li>Engineers must periodically check on the Gravitational Singularity Engine, if it is the chosen method of power generation, in intervals of, at most, thirty (30) minutes. While the Tesla Engine is not as prone to malfunction, this action should still be undertaken for it;</li>
+                    <li>Engineers must constantly monitor the Supermatter Engine, if it is the chosen method of power generation, if it is currently active (ie, under Emitter Fire). This is not negotiable;</li>
+                    <li>Engineers must respond promptly to breaches, regardless of size. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Engineers to report or an Atmospheric Technician has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else;</li>
+                    <li>Engineers are permitted to hack doors to gain unauthorized access to locations if said locations happen to require urgent repairs;</li>
+                    <li>Engineers are to maintain the integrity of the Cyberiad's Power Network. In addition, hotwiring the Gravitational Singularity Engine, Supermatter Engine or Tesla Engine is strictly forbidden;</li>
+                    <li>Engineers must ensure there is at least one (1) engineering hardsuit available on the station at all times, unless there is an emergency that requires the use of all suits.</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="atmos"><B>Atmospherics Technician</B></a></h1><BR>
 				<ol>
-					<li>Atmospheric Technicians are permitted to completely repipe the Atmospherics Piping Setup, provided they do not pump harmful gases into anywhere except the Turbine;</li><br>
-                    <li>Atmospheric Technicians are not permitted to create volatile mixes using Plasma and Oxygen, nor are they permitted to create any potentially harmful mixes with Carbon Dioxide and/or Nitrous Oxide. An exception is made when working with the Turbine;</li><br>
-                    <li>Atmospheric Technicians are permitted to cool Plasma and store it for later use in Radiation Collectors. Likewise, they are permitted to cool Nitrogen or Carbon Dioxide and store it for use as coolant for the Supermatter Engine;</li><br>
-                    <li>Atmospheric Technicians are not permitted to take the axe out of its case unless there is an immediate and urgent threat to their life or urgent access to crisis locations is necessary. The axe must be returned to the case afterwards, and the case locked;</li><br>
-                    <li>Atmospheric Technicians are not permitted to tamper with the default values on Air Alarms. They are, however, permitted to create small, acclimatized rooms for species that require special atmospheric conditions (such as Plasmamen and Vox), provided they receive express permission from the Chief Engineer;</li><br>
-                    <li>Atmospheric Technicians must periodically check on the Central Alarms Computer, in periods of, at most, thirty (30) minutes;</li><br>
-                    <li>Atmospheric Technicians must respond promptly to piping and station breaches. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Atmospheric Technicians to report, or an Engineer has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else</li><br>
+					<li>Atmospheric Technicians are permitted to completely repipe the Atmospherics Piping Setup, provided they do not pump harmful gases into anywhere except the Turbine;</li>
+                    <li>Atmospheric Technicians are not permitted to create volatile mixes using Plasma and Oxygen, nor are they permitted to create any potentially harmful mixes with Carbon Dioxide and/or Nitrous Oxide. An exception is made when working with the Turbine;</li>
+                    <li>Atmospheric Technicians are permitted to cool Plasma and store it for later use in Radiation Collectors. Likewise, they are permitted to cool Nitrogen or Carbon Dioxide and store it for use as coolant for the Supermatter Engine;</li>
+                    <li>Atmospheric Technicians are not permitted to take the axe out of its case unless there is an immediate and urgent threat to their life or urgent access to crisis locations is necessary. The axe must be returned to the case afterwards, and the case locked;</li>
+                    <li>Atmospheric Technicians are not permitted to tamper with the default values on Air Alarms. They are, however, permitted to create small, acclimatized rooms for species that require special atmospheric conditions (such as Plasmamen and Vox), provided they receive express permission from the Chief Engineer;</li>
+                    <li>Atmospheric Technicians must periodically check on the Central Alarms Computer, in periods of, at most, thirty (30) minutes;</li>
+                    <li>Atmospheric Technicians must respond promptly to piping and station breaches. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Atmospheric Technicians to report, or an Engineer has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="mech"><B>Mechanic</B></a></h1><BR>
 				<ol>
-					<li>The Mechanic is not permitted to fit any weaponry onto constructed Space Pods without express permission by the Head of Security;</li><br>
-                    <li>The Mechanic is permitted to construct Space Pods for any crewmember that requests one, provided the Pods do not have any weaponry. Anyone possessing a Pod is to follow Mechanic SOP, Civilians included;</li><br>
-                    <li>The Mechanic is not permitted to enter the Security Pod Bay, unless the Security Pod Pilot or Head of Security permit it;</li><br>
-                    <li>The Mechanic is not permitted to bring any Space Pod into the actual station</li><br>
+					<li>The Mechanic is not permitted to fit any weaponry onto constructed Space Pods without express permission by the Head of Security;</li>
+                    <li>The Mechanic is permitted to construct Space Pods for any crewmember that requests one, provided the Pods do not have any weaponry. Anyone possessing a Pod is to follow Mechanic SOP, Civilians included;</li>
+                    <li>The Mechanic is not permitted to enter the Security Pod Bay, unless the Security Pod Pilot or Head of Security permit it;</li>
+                    <li>The Mechanic is not permitted to bring any Space Pod into the actual station</li>
 				</ol>
                 <br><br>
 				</body>
@@ -1645,16 +1645,16 @@
 
 				<h1><a name="Contents">Contents</a></h1>
 				<ol>
-					<li><a href="#foreword">Foreword</a></li><br>
-					<li><a href="#chef">Chef</a></li><br>
-					<li><a href="#bar">Bartender</a></li><br>
-					<li><a href="#bot">Botanist</a></li><br>
-					<li><a href="#honk">Clown</a></li><br>
-                    <li><a href="#mime">Mime</a></li><br>
-                    <li><a href="#chap">Chaplain</a></li><br>
-                    <li><a href="#jani">Janitor</a></li><br>
-                    <li><a href="#barb">Barber</a></li><br>
-                    <li><a href="#lib">Librarian</a></li><br>
+					<li><a href="#foreword">Foreword</a></li>
+					<li><a href="#chef">Chef</a></li>
+					<li><a href="#bar">Bartender</a></li>
+					<li><a href="#bot">Botanist</a></li>
+					<li><a href="#honk">Clown</a></li>
+                    <li><a href="#mime">Mime</a></li>
+                    <li><a href="#chap">Chaplain</a></li>
+                    <li><a href="#jani">Janitor</a></li>
+                    <li><a href="#barb">Barber</a></li>
+                    <li><a href="#lib">Librarian</a></li>
 				</ol>
 				<br><BR>
 
@@ -1665,85 +1665,85 @@
 
 				<h1><a name="chef"><B>Chef</B></a></h1><BR>
 				<ol>
-					<li>The Chef is not permitted to use the corpses of deceased personnel for meat unless given specific permission from the Chief Medical Officer. Exception is made for changelings and any other executed personnel not slated for Borgifications;</li><br>
-                    <li>The Chef is permitted to use Ambrosia and other such light narcotics in the production of food;</li><br>
-                    <li>The Chef must produce at least three (3) dishes of any food within twenty (20) minutes. Failure to do so is to be considered a breach of Standard Operating Procedure;</li><br>
-                    <li>The Chef is not permitted to leave the kitchen unattended for longer than fifteen (15) minutes if there is no food available for consumption. Exception is made if there are no ingredients, or if the Kitchen is unusable/a hazard zone</li><br>
+					<li>The Chef is not permitted to use the corpses of deceased personnel for meat unless given specific permission from the Chief Medical Officer. Exception is made for changelings and any other executed personnel not slated for Borgifications;</li>
+                    <li>The Chef is permitted to use Ambrosia and other such light narcotics in the production of food;</li>
+                    <li>The Chef must produce at least three (3) dishes of any food within twenty (20) minutes. Failure to do so is to be considered a breach of Standard Operating Procedure;</li>
+                    <li>The Chef is not permitted to leave the kitchen unattended for longer than fifteen (15) minutes if there is no food available for consumption. Exception is made if there are no ingredients, or if the Kitchen is unusable/a hazard zone</li>
                 </ol>
                 <br><br>
 
                 <h1><a name="bar"><B>Bartender</B></a></h1><BR>
 				<ol>
-					<li>The Bartender is not permitted to carry their shotgun outside the bar. However, they may obtain permission from the Head of Security to shorten the barrel for easier transportation. Shortening the barrel without authorization is grounds for confiscation of the Bartender's shotgun;</li><br>
-                    <li>The Bartender is permitted to use their shotgun on unruly bar patrons in order to throw them out if they are being disruptive. They are not, however, permitted to apply lethal, or near-lethal force;</li><br>
-                    <li>The Bartender is exempt from legal ramifications when dutifully removing unruly (ie, overtly hostile) patrons from the Bar, provided, of course, they followed Guideline 2;</li><br>
-                    <li>The Bartender is not permitted to possess regular (ie, lethal) shotgun ammunition. Only beanbag slugs are permitted. Exception is made during major emergencies, such as Nuclear Operatives or Blob Organisms;</li><br>
-                    <li>The Bartender has full permission to forcefully throw out anyone who climbs over the bar counter without permission, up to and including personnel who may have access to the side windoor. They are not, however, permitted to do so if the person in question uses the door, or is on an active investigation;</li><br>
-                    <li>The Bartender is permitted to ask for monetary payment in exchange for drinks</li><br>
+					<li>The Bartender is not permitted to carry their shotgun outside the bar. However, they may obtain permission from the Head of Security to shorten the barrel for easier transportation. Shortening the barrel without authorization is grounds for confiscation of the Bartender's shotgun;</li>
+                    <li>The Bartender is permitted to use their shotgun on unruly bar patrons in order to throw them out if they are being disruptive. They are not, however, permitted to apply lethal, or near-lethal force;</li>
+                    <li>The Bartender is exempt from legal ramifications when dutifully removing unruly (ie, overtly hostile) patrons from the Bar, provided, of course, they followed Guideline 2;</li>
+                    <li>The Bartender is not permitted to possess regular (ie, lethal) shotgun ammunition. Only beanbag slugs are permitted. Exception is made during major emergencies, such as Nuclear Operatives or Blob Organisms;</li>
+                    <li>The Bartender has full permission to forcefully throw out anyone who climbs over the bar counter without permission, up to and including personnel who may have access to the side windoor. They are not, however, permitted to do so if the person in question uses the door, or is on an active investigation;</li>
+                    <li>The Bartender is permitted to ask for monetary payment in exchange for drinks</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="bot"><B>Botanist</B></a></h1><BR>
 				<ol>
-					<li>Botanists are permitted to grow narcotics, presuming they do not distribute it; </li><br>
-                    <li>Botanists must provide the Chef with adequate Botanical Supplies, per the Chef's request;</li><br>
-                    <li>Botanists are not permitted to cause unregulated plantlife to spread outside of Hydroponics or other such designated locations;</li><br>
-                    <li>Botanists are not permitted to hand out (spatially) unstable Botanical Supplies to non-Hydroponics personnel;</li><br>
-                    <li>Botanists are not permitted to harvest Amanitin or other such plant/fungi-derived poisons, unless specifically requested by the Head of Security and/or Captain.</li><br>
+					<li>Botanists are permitted to grow narcotics, presuming they do not distribute it; </li>
+                    <li>Botanists must provide the Chef with adequate Botanical Supplies, per the Chef's request;</li>
+                    <li>Botanists are not permitted to cause unregulated plantlife to spread outside of Hydroponics or other such designated locations;</li>
+                    <li>Botanists are not permitted to hand out (spatially) unstable Botanical Supplies to non-Hydroponics personnel;</li>
+                    <li>Botanists are not permitted to harvest Amanitin or other such plant/fungi-derived poisons, unless specifically requested by the Head of Security and/or Captain.</li>
 				</ol>
                 <br><br>
 
                 <div style="font-family: Comic Sans MS"><h1><a name="honk"><B>Clown</B></a></h1><BR>
 				<ol>
-					<li>The Clown is permitted to, and freely exempt from any consequences of, slipping literally anyone, assuming it does not interfere with active Security duty, or in any way endangers other personnel (such as slipping a Paramedic who's dragging a wounded person to Medbay);</li><br>
-                    <li>The Clown is not permitted to remove their Clown Shoes or Clown Mask. Exception is made if removing them is truly necessary for the sake of their clowning performance (such as being a satire of bad clowns);</li><br>
-                    <li>The Clown is not permitted to hold anything but water in their Sunflower;</li><br>
-                    <li>The Clown is not permitted to use Space Lube on anything. Exception is made during major emergencies involving hostile humanoids, whereby use of Space Lube may be condoned to help the crew;</li><br>
-                    <li>The Clown must legitimately attempt to be funny and/or entertaining at least once every fifteen (15) minutes. A simple pun will suffice. Continuously slipping people for no reason does not constitute humour. The joke is supposed to be funny for everyone;</li><br>
-                    <li>The Clown is permitted to, and freely exempt from any consequences of, performing any harmless prank that does not directly conflict with the above Guidelines</li><br>
+					<li>The Clown is permitted to, and freely exempt from any consequences of, slipping literally anyone, assuming it does not interfere with active Security duty, or in any way endangers other personnel (such as slipping a Paramedic who's dragging a wounded person to Medbay);</li>
+                    <li>The Clown is not permitted to remove their Clown Shoes or Clown Mask. Exception is made if removing them is truly necessary for the sake of their clowning performance (such as being a satire of bad clowns);</li>
+                    <li>The Clown is not permitted to hold anything but water in their Sunflower;</li>
+                    <li>The Clown is not permitted to use Space Lube on anything. Exception is made during major emergencies involving hostile humanoids, whereby use of Space Lube may be condoned to help the crew;</li>
+                    <li>The Clown must legitimately attempt to be funny and/or entertaining at least once every fifteen (15) minutes. A simple pun will suffice. Continuously slipping people for no reason does not constitute humour. The joke is supposed to be funny for everyone;</li>
+                    <li>The Clown is permitted to, and freely exempt from any consequences of, performing any harmless prank that does not directly conflict with the above Guidelines</li>
 				</ol>
                 </div>
                 <br><br>
 
                 <h1><a name="mime"><B>Mime</B></a></h1><BR>
 				<ol>
-					<li>The Mime is not permitted to talk, under any circumstance whatsoever. A Mime who breaks the Vow of Silence is to be stripped of their rank post haste;</li><br>
-                    <li>The Mime is permitted to use written words to communicate, either via paper or PDA, but are discouraged from automatically resorting to it when miming will suffice;</li><br>
-                    <li>The Mime must actually mime something at least once every thirty (30) minutes. Standing against an invisible wall will suffice.</li><br>
+					<li>The Mime is not permitted to talk, under any circumstance whatsoever. A Mime who breaks the Vow of Silence is to be stripped of their rank post haste;</li>
+                    <li>The Mime is permitted to use written words to communicate, either via paper or PDA, but are discouraged from automatically resorting to it when miming will suffice;</li>
+                    <li>The Mime must actually mime something at least once every thirty (30) minutes. Standing against an invisible wall will suffice.</li>
                 </ol>
                 <br><br>
 
                 <h1><a name="chap"><B>Chaplain</B></a></h1><BR>
 				<ol>
-					<li>The Chaplain is not permitted to execute Bible Healing without consent, unless the person in question is in Critical Condition and there are no doctors, as doing so incurs the risk of causing brain damage;</li><br>
-                    <li>The Chaplain may not draw the Null Rod or Holy Sword on any personnel. Using these items on any personnel is grounds to have these items confiscated, unless there is a clear and present danger to their life;</li><br>
-                    <li>The Chaplain may not actively discriminate against any personnel on the grounds that it is a religious tenet of their particular faith;</li><br>
-                    <li>The Chaplain may not perform funerals for any personnel that have since been cloned;</li><br>
-                    <li>The Chaplain may, however, freely conduct funerals for non-cloneable personnel. All funerals must be concluded with the use of the Mass Driver or Crematorium.</li><br>
+					<li>The Chaplain is not permitted to execute Bible Healing without consent, unless the person in question is in Critical Condition and there are no doctors, as doing so incurs the risk of causing brain damage;</li>
+                    <li>The Chaplain may not draw the Null Rod or Holy Sword on any personnel. Using these items on any personnel is grounds to have these items confiscated, unless there is a clear and present danger to their life;</li>
+                    <li>The Chaplain may not actively discriminate against any personnel on the grounds that it is a religious tenet of their particular faith;</li>
+                    <li>The Chaplain may not perform funerals for any personnel that have since been cloned;</li>
+                    <li>The Chaplain may, however, freely conduct funerals for non-cloneable personnel. All funerals must be concluded with the use of the Mass Driver or Crematorium.</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="jani"><B>Janitor</B></a></h1><BR>
 				<ol>
-					<li>The Janitor must promptly respond to any call from the crew for them to clean. Failure to respond within fifteen (15) minutes is to be considered a breach of Standard Operating Procedure;</li><br>
-                    <li>If the Janitor's work leaves any surface slippery, they are to place wet floor signs, either physical or holographic. During major crises, such as Nuclear Operatives or Blob Organisms, the Janitor is to refrain from creating any slippery surfaces whatsoever;</li><br>
-                    <li>The Janitor is not to use Cleaning Foam Grenades as pranking implements. Cleaning Foam Grenades are to be used to clean large surfaces at once, only;</li><br>
-                    <li>During Viral Outbreaks, the Janitors must don their Biosuit, and focus on cleaning any biological waste, until such a point as the Viral Pathogen is deemed eliminated;</li><br>
-                    <li>The Janitor may not deploy bear traps anywhere, unless there are actually large wild animals on the station.</li><br>
+					<li>The Janitor must promptly respond to any call from the crew for them to clean. Failure to respond within fifteen (15) minutes is to be considered a breach of Standard Operating Procedure;</li>
+                    <li>If the Janitor's work leaves any surface slippery, they are to place wet floor signs, either physical or holographic. During major crises, such as Nuclear Operatives or Blob Organisms, the Janitor is to refrain from creating any slippery surfaces whatsoever;</li>
+                    <li>The Janitor is not to use Cleaning Foam Grenades as pranking implements. Cleaning Foam Grenades are to be used to clean large surfaces at once, only;</li>
+                    <li>During Viral Outbreaks, the Janitors must don their Biosuit, and focus on cleaning any biological waste, until such a point as the Viral Pathogen is deemed eliminated;</li>
+                    <li>The Janitor may not deploy bear traps anywhere, unless there are actually large wild animals on the station.</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="barb"><B>Barber</B></a></h1><BR>
 				<ol>
-					<li>The Barber may not give unsolicited haircuts/dye jobs to any personnel;</li><br>
-                    <li>The Barber must perform haircuts/dye jobs as per the request of personnel, and not from personal taste</li><br>
+					<li>The Barber may not give unsolicited haircuts/dye jobs to any personnel;</li>
+                    <li>The Barber must perform haircuts/dye jobs as per the request of personnel, and not from personal taste</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="lib"><B>Librarian</B></a></h1><BR>
 				<ol>
-					<li>The Librarian is to keep at least one (1) shelf stocked with books for the station's personnel;</li><br>
-                    <li>The Librarian is permitted to conduct journalism on any part of the station. However, they are not entitled to participation in trials, and must receive authorization from the Head of Security or Magistrate.</li><br>
+					<li>The Librarian is to keep at least one (1) shelf stocked with books for the station's personnel;</li>
+                    <li>The Librarian is permitted to conduct journalism on any part of the station. However, they are not entitled to participation in trials, and must receive authorization from the Head of Security or Magistrate.</li>
 				</ol>
                 <br><br>
 				</body>
@@ -1773,10 +1773,10 @@
 
 				<h1><a name="Contents">Contents</a></h1>
 				<ol>
-					<li><a href="#foreword">Foreword</a></li><br>
-					<li><a href="#qm">Quarter Master</a></li><br>
-					<li><a href="#ct">Cargo Technician</a></li><br>
-					<li><a href="#sf">Shaft Miner</a></li><br>
+					<li><a href="#foreword">Foreword</a></li>
+					<li><a href="#qm">Quarter Master</a></li>
+					<li><a href="#ct">Cargo Technician</a></li>
+					<li><a href="#sf">Shaft Miner</a></li>
 				</ol>
 				<br><BR>
 
@@ -1787,54 +1787,54 @@
 
 				<h1><a name="qm"><B>Quarter Master</B></a></h1><BR>
 				<ol>
-					<li>The Quartermaster must ensure that every approved order is delivered within 15 minutes of having been placed and approved;</li><br>
-                    <li>In the event of a major crisis, such as Nuclear Operatives or a Blob Organism, expediency is to be favored over paperwork, as excessive bureaucracy may be detrimental to the well-being of the station;</li><br>
-                    <li>The Quartermaster is permitted to hack the Autolathe, or to have a Cargo Tech do so, assuming they do not produce illegal materials;</li><br>
-                    <li>The Quartermaster is not permitted to authorize the ordering of Security equipment and/or gear without express permission from the Head of Security and/or Captain. An exception is made during extreme emergencies, such as Nuclear Operatives or a Blob Organism, where said equipment is to be delivered to Security, post haste;</li><br>
-                    <li>The Quartermaster must ensure at least one copy of every Order Form (ie, the forms produced by the Requests Console) is kept inside Cargo. The same applies for Cargo Technicians;</li><br>
-                    <li>The Quartermaster is not permitted to produce .357 speedloaders for the Detective without express permission from the Head of Security;</li><br>
-                    <li>The Quartermaster is not to keep any illegal items that are flushed down Disposals, and must deliver them to Security. The same applies for Cargo Technicians and Shaft Miners;</li><br>
-                    <li>The Quartermaster is not permitted to hack the MULE Delivery Bots so that they may ride them, or that they may go faster. The same applies for Cargo Technicians and Shaft Miners;</li><br>
-                    <li>The Quartermaster is permitted to authorize non-departmental orders (such as a Medical Doctor asking for Insulated Gloves) without express permission from the respective Head of Staff (in this example, the Chief Engineer), utilizing their best judgement, although they may still request a stamped form. However, any breach of Standard Operating Procedure and/or Space Law that results from said order will also implicate the Quartermaster;</li><br>
-                    <li>The Quartermaster is not permitted to authorize a Supermatter Crate without express permission from the Chief Engineer.</li><br>
+					<li>The Quartermaster must ensure that every approved order is delivered within 15 minutes of having been placed and approved;</li>
+                    <li>In the event of a major crisis, such as Nuclear Operatives or a Blob Organism, expediency is to be favored over paperwork, as excessive bureaucracy may be detrimental to the well-being of the station;</li>
+                    <li>The Quartermaster is permitted to hack the Autolathe, or to have a Cargo Tech do so, assuming they do not produce illegal materials;</li>
+                    <li>The Quartermaster is not permitted to authorize the ordering of Security equipment and/or gear without express permission from the Head of Security and/or Captain. An exception is made during extreme emergencies, such as Nuclear Operatives or a Blob Organism, where said equipment is to be delivered to Security, post haste;</li>
+                    <li>The Quartermaster must ensure at least one copy of every Order Form (ie, the forms produced by the Requests Console) is kept inside Cargo. The same applies for Cargo Technicians;</li>
+                    <li>The Quartermaster is not permitted to produce .357 speedloaders for the Detective without express permission from the Head of Security;</li>
+                    <li>The Quartermaster is not to keep any illegal items that are flushed down Disposals, and must deliver them to Security. The same applies for Cargo Technicians and Shaft Miners;</li>
+                    <li>The Quartermaster is not permitted to hack the MULE Delivery Bots so that they may ride them, or that they may go faster. The same applies for Cargo Technicians and Shaft Miners;</li>
+                    <li>The Quartermaster is permitted to authorize non-departmental orders (such as a Medical Doctor asking for Insulated Gloves) without express permission from the respective Head of Staff (in this example, the Chief Engineer), utilizing their best judgement, although they may still request a stamped form. However, any breach of Standard Operating Procedure and/or Space Law that results from said order will also implicate the Quartermaster;</li>
+                    <li>The Quartermaster is not permitted to authorize a Supermatter Crate without express permission from the Chief Engineer.</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="ct"><B>Cargo Technician</B></a></h1><BR>
 				<ol>
-					<li>Cargo Technicians are bound to the same rules as the Quartermaster regarding restricted crates (see above); </li><br>
-                    <li>Cargo Technicians are not permitted to order items for sole personal use without express consent from the Quartermaster. Exception is made if there are more than 500 Supply Requisition Points available and no outstanding orders. Cargo Technicians may not deplete the entire stock of Requisition Points with this;</li><br>
-                    <li>Cargo Technicians are not permitted to order non-essential items (such as cats, or clothing) without express consent from the Quartermaster;</li><br>
-                    <li>Cargo Technicians are not permitted to force and/or break open locked crates. The same applies to the Quartermaster. Exception is made for Abandoned Crates found by Mining;</li><br>
-                    <li>Cargo Technicians are not permitted to authorize non-departmental orders (such as a Medical Doctor asking for Insulated Gloves) without express permission from the Quartermaster;</li><br>
-                    <li>Cargo Technicians must ensure that every approved order is delivered within 15 minutes of having been placed and approved;</li><br>
-                    <li>Cargo Technicians must send back all crates that have been ordered, with accompanying stamped manifest inside the crate;</li><br>
-                    <li>Cargo Technicians should ensure that a single Department does not fully drain the Ore Redemption Machine, as it can be utilized by multiple Departments;</li><br>
-                    <li>Cargo Technicians are not permitted to ask for money in exchange for legal orders. The same applies to the Quartermaster;</li><br>
-                    <li>Cargo Technicians are not permitted to trade items and/or favors in exchange for items with regular personnel without express consent from the Quartermaster.</li><br>
+					<li>Cargo Technicians are bound to the same rules as the Quartermaster regarding restricted crates (see above); </li>
+                    <li>Cargo Technicians are not permitted to order items for sole personal use without express consent from the Quartermaster. Exception is made if there are more than 500 Supply Requisition Points available and no outstanding orders. Cargo Technicians may not deplete the entire stock of Requisition Points with this;</li>
+                    <li>Cargo Technicians are not permitted to order non-essential items (such as cats, or clothing) without express consent from the Quartermaster;</li>
+                    <li>Cargo Technicians are not permitted to force and/or break open locked crates. The same applies to the Quartermaster. Exception is made for Abandoned Crates found by Mining;</li>
+                    <li>Cargo Technicians are not permitted to authorize non-departmental orders (such as a Medical Doctor asking for Insulated Gloves) without express permission from the Quartermaster;</li>
+                    <li>Cargo Technicians must ensure that every approved order is delivered within 15 minutes of having been placed and approved;</li>
+                    <li>Cargo Technicians must send back all crates that have been ordered, with accompanying stamped manifest inside the crate;</li>
+                    <li>Cargo Technicians should ensure that a single Department does not fully drain the Ore Redemption Machine, as it can be utilized by multiple Departments;</li>
+                    <li>Cargo Technicians are not permitted to ask for money in exchange for legal orders. The same applies to the Quartermaster;</li>
+                    <li>Cargo Technicians are not permitted to trade items and/or favors in exchange for items with regular personnel without express consent from the Quartermaster.</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="atmos"><B>Atmospherics Technician</B></a></h1><BR>
 				<ol>
-					<li>Atmospheric Technicians are permitted to completely repipe the Atmospherics Piping Setup, provided they do not pump harmful gases into anywhere except the Turbine;</li><br>
-                    <li>Atmospheric Technicians are not permitted to create volatile mixes using Plasma and Oxygen, nor are they permitted to create any potentially harmful mixes with Carbon Dioxide and/or Nitrous Oxide. An exception is made when working with the Turbine;</li><br>
-                    <li>Atmospheric Technicians are permitted to cool Plasma and store it for later use in Radiation Collectors. Likewise, they are permitted to cool Nitrogen or Carbon Dioxide and store it for use as coolant for the Supermatter Engine;</li><br>
-                    <li>Atmospheric Technicians are not permitted to take the axe out of its case unless there is an immediate and urgent threat to their life or urgent access to crisis locations is necessary. The axe must be returned to the case afterwards, and the case locked;</li><br>
-                    <li>Atmospheric Technicians are not permitted to tamper with the default values on Air Alarms. They are, however, permitted to create small, acclimatized rooms for species that require special atmospheric conditions (such as Plasmamen and Vox), provided they receive express permission from the Chief Engineer;</li><br>
-                    <li>Atmospheric Technicians must periodically check on the Central Alarms Computer, in periods of, at most, thirty (30) minutes;</li><br>
-                    <li>Atmospheric Technicians must respond promptly to piping and station breaches. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Atmospheric Technicians to report, or an Engineer has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else</li><br>
+					<li>Atmospheric Technicians are permitted to completely repipe the Atmospherics Piping Setup, provided they do not pump harmful gases into anywhere except the Turbine;</li>
+                    <li>Atmospheric Technicians are not permitted to create volatile mixes using Plasma and Oxygen, nor are they permitted to create any potentially harmful mixes with Carbon Dioxide and/or Nitrous Oxide. An exception is made when working with the Turbine;</li>
+                    <li>Atmospheric Technicians are permitted to cool Plasma and store it for later use in Radiation Collectors. Likewise, they are permitted to cool Nitrogen or Carbon Dioxide and store it for use as coolant for the Supermatter Engine;</li>
+                    <li>Atmospheric Technicians are not permitted to take the axe out of its case unless there is an immediate and urgent threat to their life or urgent access to crisis locations is necessary. The axe must be returned to the case afterwards, and the case locked;</li>
+                    <li>Atmospheric Technicians are not permitted to tamper with the default values on Air Alarms. They are, however, permitted to create small, acclimatized rooms for species that require special atmospheric conditions (such as Plasmamen and Vox), provided they receive express permission from the Chief Engineer;</li>
+                    <li>Atmospheric Technicians must periodically check on the Central Alarms Computer, in periods of, at most, thirty (30) minutes;</li>
+                    <li>Atmospheric Technicians must respond promptly to piping and station breaches. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Atmospheric Technicians to report, or an Engineer has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else</li>
 				</ol>
                 <br><br>
 
                 <h1><a name="sf"><B>Shaft Miner</B></a></h1><BR>
 				<ol>
-					<li>Shaft Miners are not permitted to bring Gibtonite aboard the station;</li><br>
-                    <li>Shaft Miners must deliver at least 1000 Points of mined material to the Ore Redemption Machine within one (1) hour;</li><br>
-                    <li>Shaft Miners are not permitted to hoard materials. All mined materials are to be left in the Ore Redemption Machine;</li><br>
-                    <li>Shaft Miners are not permitted to throw people into manufactured wormholes, nor are they permitted to trick people into using Bluespace Crystals, or throwing Bluespace Crystals at anyone;</li><br>
-                    <li>Shaft Miners are not permitted to mine their way into the Labor Camp;</li><br>
-                    <li>Should Shaft Miners encounter Xenomorph lifeforms, they are to report to Medbay immediately</li><br>
+					<li>Shaft Miners are not permitted to bring Gibtonite aboard the station;</li>
+                    <li>Shaft Miners must deliver at least 1000 Points of mined material to the Ore Redemption Machine within one (1) hour;</li>
+                    <li>Shaft Miners are not permitted to hoard materials. All mined materials are to be left in the Ore Redemption Machine;</li>
+                    <li>Shaft Miners are not permitted to throw people into manufactured wormholes, nor are they permitted to trick people into using Bluespace Crystals, or throwing Bluespace Crystals at anyone;</li>
+                    <li>Shaft Miners are not permitted to mine their way into the Labor Camp;</li>
+                    <li>Should Shaft Miners encounter Xenomorph lifeforms, they are to report to Medbay immediately</li>
 				</ol>
                 <br><br>
 				</body>
@@ -1864,13 +1864,13 @@
 
 				<h1><a name="Contents">Contents</a></h1>
 				<ol>
-					<li><a href="#foreword">Foreword</a></li><br>
-					<li><a href="#hos">Head of Security</a></li><br>
-					<li><a href="#officer">Security Officer</a></li><br>
-					<li><a href="#ward">Warden</a></li><br>
-					<li><a href="#det">Detective</a></li><br>
-                    <li><a href="#pilot">Security Pod Pilot</a></li><br>
-                    <li><a href="#phys">Brig Physician</a></li><br>
+					<li><a href="#foreword">Foreword</a></li>
+					<li><a href="#hos">Head of Security</a></li>
+					<li><a href="#officer">Security Officer</a></li>
+					<li><a href="#ward">Warden</a></li>
+					<li><a href="#det">Detective</a></li>
+                    <li><a href="#pilot">Security Pod Pilot</a></li>
+                    <li><a href="#phys">Brig Physician</a></li>
 				</ol>
 				<br><BR>
 
@@ -1882,188 +1882,188 @@
 				<h1><a name="hos"><B>Head of Security</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Head of Security is permitted to carry out arrests under the same conditions as their Security Officers; </li><br>
-					<li>The Head of Security is permitted to carry a taser, a flash, a flashbang, a stunbaton and a can of pepperspray. While permitted to carry their unique Energy Gun, they are discouraged from doing so for safety concerns, and should keep it on Stun/Disable;</li><br>
-					<li>The Head of Security is not obligated to provide a trial, but is encouraged to allow legal representation should the suspect request it. This only applies to Capital Crimes;</li><br>
-					<li>The Head of Security may not, under any circumstance, overrule a Magistrate, unless their decisions are blatantly breaking Standard Operating Procedure and/or Space Law, in which case Central Command is to be contacted as well;</li><br>
-					<li>The Head of Security must follow the same guidelines as the Warden for Armory equipment, portable flashers and deployable barriers;</li><br>
-					<li>The Head of Security is not permitted to collect equipment from the Armory to carry on their person;</li><br>
-					<li>The Head of Security is permitted to either use their regular coat, or armored trenchcoat;</li><br>
-					<li>The Head of Security is permitted to wear their unique gas mask;</li><br>
-					<li>The Head of Security may not overrule established sentences, unless further evidence is brought to light or the prisoner in question attempts to escape</li><br>
+					<li>The Head of Security is permitted to carry out arrests under the same conditions as their Security Officers; </li>
+					<li>The Head of Security is permitted to carry a taser, a flash, a flashbang, a stunbaton and a can of pepperspray. While permitted to carry their unique Energy Gun, they are discouraged from doing so for safety concerns, and should keep it on Stun/Disable;</li>
+					<li>The Head of Security is not obligated to provide a trial, but is encouraged to allow legal representation should the suspect request it. This only applies to Capital Crimes;</li>
+					<li>The Head of Security may not, under any circumstance, overrule a Magistrate, unless their decisions are blatantly breaking Standard Operating Procedure and/or Space Law, in which case Central Command is to be contacted as well;</li>
+					<li>The Head of Security must follow the same guidelines as the Warden for Armory equipment, portable flashers and deployable barriers;</li>
+					<li>The Head of Security is not permitted to collect equipment from the Armory to carry on their person;</li>
+					<li>The Head of Security is permitted to either use their regular coat, or armored trenchcoat;</li>
+					<li>The Head of Security is permitted to wear their unique gas mask;</li>
+					<li>The Head of Security may not overrule established sentences, unless further evidence is brought to light or the prisoner in question attempts to escape</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>All Guidelines carry over from Code Green. In regards to Guideline 2, the Head of Security is now encouraged to carry their unique Energy Gun</li><br>
+					<li>All Guidelines carry over from Code Green. In regards to Guideline 2, the Head of Security is now encouraged to carry their unique Energy Gun</li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>Guidelines 1, 3, 4, 5, 7, 8 and 9 are carried over from Code Green;</li><br>
-					<li>The Head of Security is permitted to take whatever equipment they require from the Armory, provided they leave enough equipment for the rest of the Security force;</li><br>
-                    <li>The Head of Security is required to produce a Station Announcement regarding the nature of the confirmed threat that caused Code Red;</li><br>
-                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest</li><br>
+					<li>Guidelines 1, 3, 4, 5, 7, 8 and 9 are carried over from Code Green;</li>
+					<li>The Head of Security is permitted to take whatever equipment they require from the Armory, provided they leave enough equipment for the rest of the Security force;</li>
+                    <li>The Head of Security is required to produce a Station Announcement regarding the nature of the confirmed threat that caused Code Red;</li>
+                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="officer"><B>Security Officer</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>Security Officers are required to state the reasons behind an arrest before any further action is taken. Exception is made if the suspect refuses to stop;</li><br>
-					<li>Security Officers must attempt to bring all suspects or witnesses to the Brig without handcuffing or incapacitating them. Should the suspect not cooperate, the officer may proceed as usual;</li><br>
-					<li>No weapons are to be unholstered until the suspect attempts to run away or becomes actively hostile;</li><br>
-					<li>Security Officers are permitted to carry a taser, a flash, a flashbang, a stunbaton and a can of pepperspray;</li><br>
-					<li>Security Officers may not demand access to the interior of other Departments during regular patrols. However, asking for access from the Head of Personnel is still acceptable;</li><br>
-					<li>Security officers are not permitted to have weapons drawn during regular patrols;</li><br>
-					<li>Security officers are permitted to conduct searches, provided there is reasonable evidence/suspicion that the person in question has committed a crime. Any further searches require a warrant from the Head of Security, Captain or Magistrate;</li><br>
-					<li>Lethal Force is not authorized unless there is a clear and immediate threat to the station's integrity or the Officer's life</li><br>
+					<li>Security Officers are required to state the reasons behind an arrest before any further action is taken. Exception is made if the suspect refuses to stop;</li>
+					<li>Security Officers must attempt to bring all suspects or witnesses to the Brig without handcuffing or incapacitating them. Should the suspect not cooperate, the officer may proceed as usual;</li>
+					<li>No weapons are to be unholstered until the suspect attempts to run away or becomes actively hostile;</li>
+					<li>Security Officers are permitted to carry a taser, a flash, a flashbang, a stunbaton and a can of pepperspray;</li>
+					<li>Security Officers may not demand access to the interior of other Departments during regular patrols. However, asking for access from the Head of Personnel is still acceptable;</li>
+					<li>Security officers are not permitted to have weapons drawn during regular patrols;</li>
+					<li>Security officers are permitted to conduct searches, provided there is reasonable evidence/suspicion that the person in question has committed a crime. Any further searches require a warrant from the Head of Security, Captain or Magistrate;</li>
+					<li>Lethal Force is not authorized unless there is a clear and immediate threat to the station's integrity or the Officer's life</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>Guidelines 1, 2, 4 and 8 are carried over from Code Green;</li><br>
-                    <li>Security Officers are permitted to carry around any weapons or equipment available in the Armory, at the Warden's discretion, but never more than one at a time. Exception is made for severe emergencies, such as Blob Organisms or Nuclear Operatives; </li><br>
-                    <li>Security Officers are permitted to carry weapons in hand during regular patrols, although this is not advised;</li><br>
-                    <li>Security Officers are permitted to present weapons during arrests;</li><br>
-                    <li>Security Officers may demand entry to specific Departments during regular patrols;</li><br>
-                    <li>Security Officers may randomly search crewmembers, but are not allowed to apply any degree of force unless said crewmember acts overtly hostile. Crew who refuse to be searched may be stunned and cuffed for the search;</li><br>
-                    <li>Security Officers are permitted to leave prisoners bucklecuffed should they act hostile.</li><br>
+					<li>Guidelines 1, 2, 4 and 8 are carried over from Code Green;</li>
+                    <li>Security Officers are permitted to carry around any weapons or equipment available in the Armory, at the Warden's discretion, but never more than one at a time. Exception is made for severe emergencies, such as Blob Organisms or Nuclear Operatives; </li>
+                    <li>Security Officers are permitted to carry weapons in hand during regular patrols, although this is not advised;</li>
+                    <li>Security Officers are permitted to present weapons during arrests;</li>
+                    <li>Security Officers may demand entry to specific Departments during regular patrols;</li>
+                    <li>Security Officers may randomly search crewmembers, but are not allowed to apply any degree of force unless said crewmember acts overtly hostile. Crew who refuse to be searched may be stunned and cuffed for the search;</li>
+                    <li>Security Officers are permitted to leave prisoners bucklecuffed should they act hostile.</li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>Guidelines 2, 3, 4, 5, 6 and 7 are carried over from Code Blue;</li><br>
-					<li>Security Officers may arrest crewmembers with no stated reason if there is evidence they are involved in criminal activities;</li><br>
-                    <li>Security Officers may forcefully relocate crewmembers to their respective Departments if necessary;</li><br>
-                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest.</li><br>
+					<li>Guidelines 2, 3, 4, 5, 6 and 7 are carried over from Code Blue;</li>
+					<li>Security Officers may arrest crewmembers with no stated reason if there is evidence they are involved in criminal activities;</li>
+                    <li>Security Officers may forcefully relocate crewmembers to their respective Departments if necessary;</li>
+                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest.</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="ward"><B>Warden</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Warden may not perform arrests if there are Security Officers active;</li><br>
-					<li>The Warden must conduct a thorough search of every prisoner's belongings, including pockets, PDA slots, any coat pockets and suit storage slots;</li><br>
-					<li>The Warden is not obligated to provide a trial, but is encouraged to allow legal representation should the suspect request it. This only applies to Capital Crimes;</li><br>
-					<li>The Warden may not hand out any weapons or armour from the Armory, except for extra tasers. Hardsuits may be issued if emergency E.V.A action is required. Exception is made if there is an immediate threat that requires attention, such as Nuclear Operatives, or rioters;</li><br>
-					<li>The Warden is permitted to carry a taser, a flash, a stunbaton, a flashbang and a can of pepperspray;</li><br>
-					<li>The Warden may not place the portable flashers within the Brig;</li><br>
-					<li>The Warden may not place the deployable barriers within the Brig;</li><br>
-					<li>The Warden must read to every prisoner the crimes they are sentenced to;</li><br>
-                    <li>The Warden is not permitted to leave prisoners bucklecuffed to their beds. An exception is made if the prisoners acts overtly hostile or attempts to breach the cell in order to escape.</li><br>
+					<li>The Warden may not perform arrests if there are Security Officers active;</li>
+					<li>The Warden must conduct a thorough search of every prisoner's belongings, including pockets, PDA slots, any coat pockets and suit storage slots;</li>
+					<li>The Warden is not obligated to provide a trial, but is encouraged to allow legal representation should the suspect request it. This only applies to Capital Crimes;</li>
+					<li>The Warden may not hand out any weapons or armour from the Armory, except for extra tasers. Hardsuits may be issued if emergency E.V.A action is required. Exception is made if there is an immediate threat that requires attention, such as Nuclear Operatives, or rioters;</li>
+					<li>The Warden is permitted to carry a taser, a flash, a stunbaton, a flashbang and a can of pepperspray;</li>
+					<li>The Warden may not place the portable flashers within the Brig;</li>
+					<li>The Warden may not place the deployable barriers within the Brig;</li>
+					<li>The Warden must read to every prisoner the crimes they are sentenced to;</li>
+                    <li>The Warden is not permitted to leave prisoners bucklecuffed to their beds. An exception is made if the prisoners acts overtly hostile or attempts to breach the cell in order to escape.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>Guidelines 1, 2, 3, 5 and 8 are carried over from Code Green;</li><br>
-                    <li>The Warden is permitted to hand out all equipment from the Armory. Energy and Laser guns are only to be handed out with Head of Security or Captain's approval, as they present a lethal risk, or if there is an immediate threat, such as Blob Organisms or Nuclear Operatives;</li><br>
-                    <li>The Warden is permitted to place the portable flashers inside the Brig;</li><br>
-                    <li>The Warden is permitted to place the deployable barriers inside the Brig</li><br>
+					<li>Guidelines 1, 2, 3, 5 and 8 are carried over from Code Green;</li>
+                    <li>The Warden is permitted to hand out all equipment from the Armory. Energy and Laser guns are only to be handed out with Head of Security or Captain's approval, as they present a lethal risk, or if there is an immediate threat, such as Blob Organisms or Nuclear Operatives;</li>
+                    <li>The Warden is permitted to place the portable flashers inside the Brig;</li>
+                    <li>The Warden is permitted to place the deployable barriers inside the Brig</li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>Guidelines 2, 3, 5 and 8 are carried over from Code Green;</li><br>
-					<li>Guidelines 3 and 4 are carried over from Code Blue. In addition, the Warden may also carry any weapon from the Armory, but never more than one at a time;</li><br>
-                    <li>The Warden is permitted to distribute any weapon or piece of equipment in the Armory. This includes whatever Research has provided;</li><br>
-                    <li>The Warden is permitted to carry out arrests freely;</li><br>
-                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest.</li><br>
+					<li>Guidelines 2, 3, 5 and 8 are carried over from Code Green;</li>
+					<li>Guidelines 3 and 4 are carried over from Code Blue. In addition, the Warden may also carry any weapon from the Armory, but never more than one at a time;</li>
+                    <li>The Warden is permitted to distribute any weapon or piece of equipment in the Armory. This includes whatever Research has provided;</li>
+                    <li>The Warden is permitted to carry out arrests freely;</li>
+                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest.</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="det"><B>Detective</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Detective may not perform arrests or searches unless given specific permission by the Head of Security or Warden. Exception is made if there are no active Officers or Warden;</li><br>
-					<li>The Detective may not intentionally go around Security officers to perform arrests. If Officers are available, arrests may only be performed if there is an immediate violent threat to the Detective or anyone around them;</li><br>
-					<li>The Detective may not unholster their revolver unless a clear and present danger to their life is present;</li><br>
-					<li>The Detective may carry their revolver, along with spare ammunition;</li><br>
-					<li>The Detective may carry their telescopic baton;</li><br>
-					<li>Should the Detective be assaulted by a crewmember, they must use the issued Telescopic Baton to apprehend them. Using the revolver is permitted only if the crewmember attempts to escape and there are no Officers available for backup;</li><br>
-					<li>The Detective may not search anyone in the Brig without permission from the Warden or Head of Security;</li><br>
-					<li>The Detective is not permitted to modify their revolver to chamber lethal rounds, under any circumstance;</li><br>
-                    <li>The Detective must compile all evidence gathered into organized dossiers, and have at least one copy available at all times.</li><br>
+					<li>The Detective may not perform arrests or searches unless given specific permission by the Head of Security or Warden. Exception is made if there are no active Officers or Warden;</li>
+					<li>The Detective may not intentionally go around Security officers to perform arrests. If Officers are available, arrests may only be performed if there is an immediate violent threat to the Detective or anyone around them;</li>
+					<li>The Detective may not unholster their revolver unless a clear and present danger to their life is present;</li>
+					<li>The Detective may carry their revolver, along with spare ammunition;</li>
+					<li>The Detective may carry their telescopic baton;</li>
+					<li>Should the Detective be assaulted by a crewmember, they must use the issued Telescopic Baton to apprehend them. Using the revolver is permitted only if the crewmember attempts to escape and there are no Officers available for backup;</li>
+					<li>The Detective may not search anyone in the Brig without permission from the Warden or Head of Security;</li>
+					<li>The Detective is not permitted to modify their revolver to chamber lethal rounds, under any circumstance;</li>
+                    <li>The Detective must compile all evidence gathered into organized dossiers, and have at least one copy available at all times.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>Guidelines 4, 5, and 9 are carried over from Code Green;</li><br>
-                    <li>If sufficient forensic evidence is collected, and there are no Security Officers available at the time, the Detective is permitted to carry out arrests if a prior warning is given via Security Comms;</li><br>
-                    <li>The Detective is obligated to inform the suspect of the crimes they are accused;</li><br>
-                    <li>The Detective may search any suspect in the Brig;</li><br>
-                    <li>The Detective may pull aside any suspect for an interrogation, provided they receive authorization from the Head of Security or the Warden;</li><br>
-                    <li>The Detective may unholster their revolver whenever they deem it necessary, though it is recommended they do so sparsely</li><br>
-                    <li>Lethal Force is not permitted, unless there is a clear and immediate danger to the Detective's life </li><br>
+					<li>Guidelines 4, 5, and 9 are carried over from Code Green;</li>
+                    <li>If sufficient forensic evidence is collected, and there are no Security Officers available at the time, the Detective is permitted to carry out arrests if a prior warning is given via Security Comms;</li>
+                    <li>The Detective is obligated to inform the suspect of the crimes they are accused;</li>
+                    <li>The Detective may search any suspect in the Brig;</li>
+                    <li>The Detective may pull aside any suspect for an interrogation, provided they receive authorization from the Head of Security or the Warden;</li>
+                    <li>The Detective may unholster their revolver whenever they deem it necessary, though it is recommended they do so sparsely</li>
+                    <li>Lethal Force is not permitted, unless there is a clear and immediate danger to the Detective's life </li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>Guidelines 4, 5 and 9 carry over from Code Green;</li><br>
-                    <li>Guidelines 2, 3, 4, 5, 6 and 7 carry over from Code Blue;</li><br>
-                    <li>The Detective may freely discharge his revolver when handling confirmed threats;</li><br>
-                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest.</li><br>
+					<li>Guidelines 4, 5 and 9 carry over from Code Green;</li>
+                    <li>Guidelines 2, 3, 4, 5, 6 and 7 carry over from Code Blue;</li>
+                    <li>The Detective may freely discharge his revolver when handling confirmed threats;</li>
+                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest.</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="pilot"><B>Security Pod Pilot</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Security Pod Pilot is permitted to carry out arrests under the same conditions as a Security Officer;</li><br>
-					<li>The Security Pod Pilot is permitted to carry a taser, a flash, a stunbaton, a flashbang and a can of pepperspray;</li><br>
-					<li>The Security Pod Pilot is not permitted to bring the Security Pod inside the station, except for designated Pod Bays;</li><br>
-					<li>The Security Pod Pilot is not permitted to swap the Security Pod's weapon systems to the Laser Module unless a lethal threat, such as Space Carp or Attack Drones, is present;</li><br>
-					<li>The Security Pod Pilot is not permitted to use the Laser Module during arrests, and must switch to the Disabler Module;</li><br>
-					<li>The Security Pod Pilot must carry around a spare set of tools and energy cell, for their own sake;</li><br>
-					<li>The Security Pod Pilot may immediately, and without warning, conduct arrests on individuals attempting to perform E.V.A actions near the AI Satellite. Exception is made if the AI Unit is malfunctioning;</li><br>
-					<li>The Security Pod Pilot is not permitted to explore the area surrounding the station, and must therefore be confined to the immediate orbital area of the NSS Cyberiad, the NXS Klapaucius (the Telecomms Satellite) and the Mining/Research Asteroid. Exception is made if the Head of Security permits otherwise.</li><br>
+					<li>The Security Pod Pilot is permitted to carry out arrests under the same conditions as a Security Officer;</li>
+					<li>The Security Pod Pilot is permitted to carry a taser, a flash, a stunbaton, a flashbang and a can of pepperspray;</li>
+					<li>The Security Pod Pilot is not permitted to bring the Security Pod inside the station, except for designated Pod Bays;</li>
+					<li>The Security Pod Pilot is not permitted to swap the Security Pod's weapon systems to the Laser Module unless a lethal threat, such as Space Carp or Attack Drones, is present;</li>
+					<li>The Security Pod Pilot is not permitted to use the Laser Module during arrests, and must switch to the Disabler Module;</li>
+					<li>The Security Pod Pilot must carry around a spare set of tools and energy cell, for their own sake;</li>
+					<li>The Security Pod Pilot may immediately, and without warning, conduct arrests on individuals attempting to perform E.V.A actions near the AI Satellite. Exception is made if the AI Unit is malfunctioning;</li>
+					<li>The Security Pod Pilot is not permitted to explore the area surrounding the station, and must therefore be confined to the immediate orbital area of the NSS Cyberiad, the NXS Klapaucius (the Telecomms Satellite) and the Mining/Research Asteroid. Exception is made if the Head of Security permits otherwise.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>Guidelines 1, 2, 7 and 8 are carried over from Code Green. In regards to Guideline 2, Pod Pilots are now also permitted to carry around Bulletproof Armour or Riot Gear; </li><br>
-                    <li>Pod Pilots are permitted to carry weapons in hand during regular patrols;</li><br>
-                    <li>Pod Pilots are permitted to present weapons during arrests;</li><br>
-                    <li>Pod Pilots may demand entry to specific Departments during regular patrols;</li><br>
-                    <li>Pod Pilots may randomly search crewmembers, but are not allowed to apply any degree of force unless said crewmember acts overtly hostile;;</li><br>
-                    <li>Pod Pilots are permitted to leave prisoners bucklecuffed should they act hostile.</li><br>
+					<li>Guidelines 1, 2, 7 and 8 are carried over from Code Green. In regards to Guideline 2, Pod Pilots are now also permitted to carry around Bulletproof Armour or Riot Gear; </li>
+                    <li>Pod Pilots are permitted to carry weapons in hand during regular patrols;</li>
+                    <li>Pod Pilots are permitted to present weapons during arrests;</li>
+                    <li>Pod Pilots may demand entry to specific Departments during regular patrols;</li>
+                    <li>Pod Pilots may randomly search crewmembers, but are not allowed to apply any degree of force unless said crewmember acts overtly hostile;;</li>
+                    <li>Pod Pilots are permitted to leave prisoners bucklecuffed should they act hostile.</li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>Guidelines 1, 2, 7 and 8 carry over from Code Green; </li><br>
-                    <li>All Guidelines carry over from Code Blue;</li><br>
-                    <li>The Security Pod Pilot is permitted to carry any weapon from the Armory, but never more than one at a time. Exception is made for severe emergencies, such as Blob Organisms or Nuclear Operatives;</li><br>
-                    <li>The Security Pod Pilot is permitted to bring the Security Pod inside the station in extreme emergencies;</li><br>
-                    <li>The Security Pod Pilot is permitted to permanently install the Laser Module onto the Security Pod;</li><br>
-                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest.</li><br>
+					<li>Guidelines 1, 2, 7 and 8 carry over from Code Green; </li>
+                    <li>All Guidelines carry over from Code Blue;</li>
+                    <li>The Security Pod Pilot is permitted to carry any weapon from the Armory, but never more than one at a time. Exception is made for severe emergencies, such as Blob Organisms or Nuclear Operatives;</li>
+                    <li>The Security Pod Pilot is permitted to bring the Security Pod inside the station in extreme emergencies;</li>
+                    <li>The Security Pod Pilot is permitted to permanently install the Laser Module onto the Security Pod;</li>
+                    <li>Lethal Force is permitted if the target is confirmed to be guilty of Capital Crimes and actively, and aggressively, resists arrest.</li>
 				</ol><BR>
                 <br><br>
 
                 <h1><a name="phys"><B>Brig Physician</B></a></h1><BR>
 				<h style='color: darkgreen'>Code Green</h>
 				<ol>
-					<li>The Brig Physician may not, under any circumstance, arrest anyone;</li><br>
-					<li>The Brig Physician may not, under any circumstance, interfere with Security's duties;</li><br>
-					<li>The Brig Physician may not, under any circumstance, directly alter a sentence, or attempt to contest one with Security personnel. Contacting a Magistrate/IAA/NT Representative is still acceptable;</li><br>
-					<li>The Brig Physician must wait until someone is brigged and their timer starts before bringing them to the Brig Medbay. Exception is made if the Head of Security or Warden allows it, or there is a problem that requires immediate medical aid to prevent death;</li><br>
-					<li>The Brig Physician may not stop a timer if a prisoner is brought into the Brig Medbay for treatment. The timer is to continue while they are treated. If the timer runs out during medical treatment, the prisoner is to be released;</li><br>
-					<li>The Brig Physician may not restrain a prisoner unless they are actively hostile;</li><br>
-					<li>The Brig Physician is permitted to carry a flash and a can of pepperspray;</li><br>
-					<li>The Brig Physician must maintain the Brig Medbay, himself and all treated prisoners in a hygienic condition. Should the need arise, this extends to the rest of the Brig as well;</li><br>
-                    <li>The Brig Physician must escort all prisoners requiring surgery to Medbay personally, and make sure that they are returned to the Brig before being released. The Brig Physician may also choose to construct a smaller surgery room inside the Brig Medbay.</li><br>
+					<li>The Brig Physician may not, under any circumstance, arrest anyone;</li>
+					<li>The Brig Physician may not, under any circumstance, interfere with Security's duties;</li>
+					<li>The Brig Physician may not, under any circumstance, directly alter a sentence, or attempt to contest one with Security personnel. Contacting a Magistrate/IAA/NT Representative is still acceptable;</li>
+					<li>The Brig Physician must wait until someone is brigged and their timer starts before bringing them to the Brig Medbay. Exception is made if the Head of Security or Warden allows it, or there is a problem that requires immediate medical aid to prevent death;</li>
+					<li>The Brig Physician may not stop a timer if a prisoner is brought into the Brig Medbay for treatment. The timer is to continue while they are treated. If the timer runs out during medical treatment, the prisoner is to be released;</li>
+					<li>The Brig Physician may not restrain a prisoner unless they are actively hostile;</li>
+					<li>The Brig Physician is permitted to carry a flash and a can of pepperspray;</li>
+					<li>The Brig Physician must maintain the Brig Medbay, himself and all treated prisoners in a hygienic condition. Should the need arise, this extends to the rest of the Brig as well;</li>
+                    <li>The Brig Physician must escort all prisoners requiring surgery to Medbay personally, and make sure that they are returned to the Brig before being released. The Brig Physician may also choose to construct a smaller surgery room inside the Brig Medbay.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
 				<ol>
-					<li>All Guidelines carry over from Code Green;</li><br>
-                    <li>Additional equipment may be provided by the Warden for self-defense;</li><br>
+					<li>All Guidelines carry over from Code Green;</li>
+                    <li>Additional equipment may be provided by the Warden for self-defense;</li>
 				</ol><BR>
 
 				<h style='color: darkred'>Code Red</h>
 				<ol>
-					<li>All guidelines carry over from Code Green;</li><br>
-                    <li>All guidelines carry over from Code Blue.</li><br>
+					<li>All guidelines carry over from Code Green;</li>
+                    <li>All guidelines carry over from Code Blue.</li>
 				</ol><BR>
                 <br><br>
 
