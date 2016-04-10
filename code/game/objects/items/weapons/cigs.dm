@@ -78,7 +78,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	else if(istype(W, /obj/item/weapon/match))
 		var/obj/item/weapon/match/M = W
-		if(M.lit == 1)		//No more lighting stuff with burnt out matches
+		if(M.lit)
 			light("<span class='notice'>[user] lights their [name] with their [W].</span>")
 
 	else if(istype(W, /obj/item/weapon/melee/energy/sword/saber))
@@ -217,8 +217,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 	var/list/jointnames = list("joint","doobie","spliff","blunt")
 	name = pick(jointnames)
-	pixel_x = rand(-5.0, 5)
-	pixel_y = rand(-5.0, 5)
+	src.pixel_x = rand(-5.0, 5)
+	src.pixel_y = rand(-5.0, 5)
 
 /obj/item/clothing/mask/cigarette/joint/deus
 	desc = "A roll of ambrosium deus wrapped in a thin paper. Dude."
@@ -230,8 +230,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/weapon/cigbutt/roach/New()
 	..()
-	pixel_x = rand(-5.0, 5)
-	pixel_y = rand(-5.0, 5)
+	src.pixel_x = rand(-5.0, 5)
+	src.pixel_y = rand(-5.0, 5)
 
 /obj/item/clothing/mask/cigarette/handroll
 	name = "hand-rolled cigarette"
@@ -315,7 +315,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "pipeon"  //Note - these are in masks.dmi
 	icon_off = "pipeoff"
 	smoketime = 500
-	chem_volume = 100
+	chem_volume = 200
 
 /obj/item/clothing/mask/cigarette/pipe/New()
 	..()
@@ -356,37 +356,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 		item_state = icon_off
 		processing_objects.Remove(src)
 		return
-	if(smoketime > 0)
-		to_chat(user, "<span class='notice'>You empty the pipe to make room for fresh filling.</span>")
-		reagents.clear_reagents()
-		smoketime = 0
+	if(smoketime <= 0)
+		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
+		reagents.add_reagent("nicotine", chem_volume)
+		smoketime = initial(smoketime)
 	return
 
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(smoketime <= 0 && !lit)		//Filling a lit pipe is probably a bad idea, so don't do it.
-		if(istype(W, /obj/item/weapon/pipe_tobacco))
-			var/obj/item/weapon/pipe_tobacco/PT = W
-			PT.pipefuls -= 1
-			smoketime = initial(smoketime)
-			reagents.add_reagent("nicotine", chem_volume)
-			if(PT.pipefuls < 1)
-				to_chat(user, "<span class='notice'>You empty the last of \the [PT] into \the [src], and toss away the tin.</span>")
-				user.unEquip(PT)
-				qdel(PT)
-			else
-				to_chat(user, "<span class='notice'>You fill \the [src] from \the [PT] and pack it gently.</span>")
-		if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/grown))
-			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = W
-			if(G.seed && G.seed.kitchen_tag)
-				if(G.seed.kitchen_tag == "tobacco" || G.seed.kitchen_tag == "stobacco" || G.seed.kitchen_tag == "ambrosia" || G.seed.kitchen_tag == "ambrosiadeus")
-					to_chat(user, "<span class='notice'>You shred \the [G] and pack it into \the [src].</span>")
-					G.reagents.trans_to(src, G.reagents.total_volume)
-					smoketime = initial(smoketime)
-					user.unEquip(G)
-					qdel(G)
-				else
-					to_chat(user, "<span class='warning'>You don't think this [G] would make a fine smokable.</span>")
-	else if(istype(W, /obj/item/weapon/match))
+	if(istype(W, /obj/item/weapon/match))
 		..()
 	else
 		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such means.</span>")
@@ -398,25 +375,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "cobpipeoff"
 	icon_on = "cobpipeon"  //Note - these are in masks.dmi
 	icon_off = "cobpipeoff"
-	smoketime = 400
+	smoketime = 800
 	chem_volume = 40
-
-/obj/item/clothing/mask/cigarette/pipe/New()
-	..()
-	smoketime = 0			//Corn pipes shouldn't come magically pre-filled when you carve them.
-	reagents.clear_reagents()
-
-/obj/item/weapon/pipe_tobacco
-	name = "pipe tobacco tin"
-	desc = "A tin of pipe-ready tobacco, for the more dignified nicotine addict."
-	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "tobacco_tin"
-	w_class = 2
-	var/pipefuls = 5
-
-/obj/item/weapon/pipe_tobacco/examine(mob/user)
-	..(user)
-	to_chat(user, "There are [pipefuls] pipefuls left in the tin.")
 
 ///////////
 //ROLLING//
@@ -468,4 +428,4 @@ obj/item/weapon/rollingpaperpack/attack_self(mob/user)
 
 /obj/item/weapon/rollingpaperpack/examine(mob/user)
 	..(user)
-	to_chat(user, "There are [papers] left")
+	to_chat(user, "There are [src.papers] left")

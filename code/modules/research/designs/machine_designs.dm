@@ -442,6 +442,16 @@
 	build_path = /obj/item/weapon/circuitboard/programmable
 	category = list("Misc. Machinery")
 
+/datum/design/vendor
+	name = "Machine Board (Vendor)"
+	desc = "The circuit board for a Vendor."
+	id = "vendor"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/vendor
+	category = list("Misc. Machinery")
+
 /datum/design/pod
 	name = "Machine Board (Mass Driver and Pod Doors Control)"
 	desc = "Allows for the construction of circuit boards used to build a Mass Driver and Pod Doors Control."
