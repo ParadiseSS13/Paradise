@@ -1388,7 +1388,7 @@
                     <li>The Chief Medical Officer is permitted to carry a telescopic baton. In case Genetic Powers need to be forcefully removed, they are cleared to carry a Syringe Gun;</li>
                     <li>The Chief Medical Officer is not permitted to allow the creation of poisonous or explosive mixtures in Chemistry without express consent from the Captain or, failing that, the presence of a clear and urgent danger to the integrity of the station, except of course in situations where Chemical Implants are required;</li>
                     <li>The Chief Medical Officer is not permitted to allow the release of any virus without a full list of its symptoms, as well as the creation of a vial of antibodies, to be kept in a secure location. The virus may not have any harmful symptoms whatsoever, though neutral/harmless symptoms are permitted;</li>
-                    <li>The Chief Medical Officer must make sure that any cloneable corpses are, in fact, clone.</li>
+                    <li>The Chief Medical Officer must make sure that any cloneable corpses are, in fact, cloned.</li>
 				</ol>
                 <br><br>
 
