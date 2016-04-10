@@ -647,3 +647,13 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/circuitboard/logic_gate
 	category = list("initial", "Electronics")
+
+/datum/design/vendor
+	name = "Machine Board (Vendor)"
+	desc = "The circuit board for a Vendor."
+	id = "vendor"
+	req_tech = list("programming" = 1)
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 750, MAT_METAL = 250)
+	build_path = /obj/item/weapon/circuitboard/vendor
+	category = list("initial", "Electronics")
