@@ -137,8 +137,6 @@
 	for(var/mob/M in GetAllContents()) // Update parallax of contents
 		if(M.hud_used)
 			M.hud_used.update_parallax()
-	if(ismob(src) && src:hud_used)
-		src:hud_used.update_parallax()
 
 	return 1
 

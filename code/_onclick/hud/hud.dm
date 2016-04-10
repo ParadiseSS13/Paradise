@@ -138,10 +138,9 @@ var/area/global_space_area = null
 /obj/screen/spessbg
 	var/offset_x = 0
 	var/offset_y = 0
-/datum/hud/var/showing_parallax
+
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
-	showing_parallax = C.prefs.space_parallax
 	if (C.prefs.space_parallax)
 		parallax_on_clients |= C
 	else
