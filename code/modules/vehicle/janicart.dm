@@ -48,9 +48,8 @@
 				var/turf/simulated/floor/F = tile
 				F.dirt = 0
 			for(var/A in tile)
-				if(istype(A, /obj/effect))
-					if(is_cleanable(A))
-						qdel(A)
+				if(is_cleanable(A))
+					qdel(A)
 
 
 
