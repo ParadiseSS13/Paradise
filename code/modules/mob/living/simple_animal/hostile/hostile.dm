@@ -15,6 +15,7 @@
 	var/ranged_message = "fires" //Fluff text for ranged mobs
 	var/ranged_cooldown = 0 //What the starting cooldown is on ranged attacks
 	var/ranged_cooldown_cap = 3 //What ranged attacks, after being used are set to, to go back on cooldown, defaults to 3 life() ticks
+	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
 	var/minimum_distance = 1 //Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set higher to make mobs keep distance
 
@@ -38,7 +39,7 @@
 		return 0
 	if(ranged)
 		ranged_cooldown--
-		
+
 /mob/living/simple_animal/hostile/process_ai()
 	..()
 	if(!AICanContinue())
@@ -250,8 +251,14 @@
 	walk(src, 0)
 
 /mob/living/simple_animal/hostile/proc/OpenFire(var/the_target)
-
 	var/target = the_target
+	if(check_friendly_fire)
+		for(var/turf/T in getline(src, target)) // Not 100% reliable but this is faster than simulating actual trajectory
+			for(var/mob/living/L in T)
+				if(L == src || L == target)
+					continue
+				if(faction_check(L) && !attack_same)
+					return
 	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [target]!</span>")
 
 	if(rapid)
