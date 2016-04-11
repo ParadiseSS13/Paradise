@@ -232,3 +232,6 @@
 	if(isalien(target))
 		return 0
 	..() // Execute the rest of the code.
+
+/obj/item/projectile/bullet/a762
+	damage = 25
