@@ -17,9 +17,9 @@
 	if(M.environment_smash >= 1)
 		if(M.environment_smash == 3)
 			ex_act(2)
-			visible_message("<span class='warning'>You smash through \the [src].</span>", "<span class='warning'>[M] smashes through \the [src].</span>")
+			M.visible_message("<span class='warning'>[M] smashes through \the [src].</span>", "<span class='warning'>You smash through \the [src].</span>")
 		else
-			visible_message("<span class='warning'>You smash against \the [src].</span>", "<span class='warning'>[M] smash against \the [src].</span>")
+			M.visible_message("<span class='warning'>[M] smashes against \the [src].</span>", "<span class='warning'>You smash against \the [src].</span>")
 			take_damage(rand(25, 75))
 			return
 
