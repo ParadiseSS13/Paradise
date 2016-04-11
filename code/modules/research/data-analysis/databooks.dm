@@ -1,5 +1,28 @@
+/obj/item/weapon/book/databook
+	var/keyfragA = "A"
+	var/keyfragB = "B"
+	var/keyfragC = "C"
+	var/keyfragD = "D"
+	var/keyfragE = "E"
+	var/list/keyfraglist()
 
-// 7 unique databooks with unique rewards, very rare spawn chance. Not guarenteed to spawn during rounds.
+
+
+/obj/item/weapon/book/databook/New()
+	..()
+
+
+	keyfraglist=list("fortress","olive","ruler","bit","powder",
+	"drip","gargoyle","swindler","village","grinning","predator",
+	"echo","bauble","alley","wastes","coil","red","raisins","pass","card")
+
+	keyfragA = keyfraglist[rand(1,20)]
+	keyfragB = keyfraglist[rand(1,20)]
+	keyfragC = keyfraglist[rand(1,20)]
+	keyfragD = keyfraglist[rand(1,20)]
+	keyfragE = keyfraglist[rand(1,20)]
+
+//  unique databooks with unique rewards, very rare spawn chance. Not guarenteed to spawn during rounds.
 /obj/item/weapon/book/databook/rare/codex
 	name = "Ham-U-Rabi codex"
 	icon_state = "book6"
@@ -36,17 +59,8 @@
 				</p>
 				</body>
 		</html>"}
+	var/poop = 1
 
-/* No idea what to do with this one
-/obj/item/weapon/book/databook/rare/tome
-	name = "Tome"
-	icon_state = "book4"
-	title = "The laws of the hampire"
-	author = "The hamperor of the hampire"
-	dat = {"<html>
-
-		</html>"}
-*/
 
 /obj/item/weapon/book/databook/rare/chart
 	name = "Some old chart"
@@ -99,17 +113,6 @@
 				</body>
 	</html>"}
 
-/* out of ideas for this one, shelfing it. I also find it kinda lame
-/obj/item/weapon/book/databook/rare/scroll
-	name = "Ded se scrolls"
-	icon_state = "book7"
-	title = "The laws of the hampire"
-	author = "Randy Birch, The hamperor of the hampire"
-	dat = {"<html>
-	</html>"}
-
-*/
-
 // frequent spawning books, randomizing the more than just the names would be neat
 
 /obj/item/weapon/book/databook/generic/coordinates
@@ -128,12 +131,12 @@
 	</html>"}
 
 /obj/item/weapon/book/databook/generic/coordinates/New()
-
+	..()
 	var/name_part1
 	var/name_part2
 
 	name_part1 = pick("The journey","The kingdom","The lost legion","The final voyage","The grand expedition","The Chronicles","The myth","The last stand","The legacy")
-	name_part2 = pick("Captain Krellian","Kirgon Blackguard","Numun Util","Odhu Ereh","Kisma Vradelm","Tahi Bhunbin","Cheasren Ilgom","Svodfa","Taursi Honeyward","Queen Yanra",)
+	name_part2 = pick("Captain Krellian","Kirgon Blackguard","Numun Util","Odhu Ereh","Kisma Vradelm","Tahi Bhunbin","Cheasren Ilgom","Svodfa","Taursi Honeyward","Queen Yanra")
 	name = name_part1+" of "+name_part2
 	author = name_part2 +"'s personal servant"
 	title = name
@@ -160,7 +163,7 @@
 
 
 /obj/item/weapon/book/databook/generic/food/New()
-
+	..()
 	var/name_part1
 	var/name_part2
 
@@ -189,7 +192,7 @@
 
 
 /obj/item/weapon/book/databook/generic/clothes/New()
-
+	..()
 	var/name_part1
 	var/name_part2
 
