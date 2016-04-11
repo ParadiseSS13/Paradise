@@ -33,13 +33,13 @@
 	var/where = 0
 	if(query)
 		if(query.title && query.title != "")
-			searchquery += " WHERE title LIKE '%[query.title]%'"
+			searchquery += " WHERE title LIKE '%[sanitizeSQL(query.title)]%'"
 			where = 1
 		if(query.author && query.author != "")
-			searchquery += " [!where ? "WHERE" : "AND"] author LIKE '%[query.author]%'"
+			searchquery += " [!where ? "WHERE" : "AND"] author LIKE '%[sanitizeSQL(query.author)]%'"
 			where = 1
 		if(query.category && query.category != "")
-			searchquery += " [!where ? "WHERE" : "AND"] category LIKE '%[query.category]%'"
+			searchquery += " [!where ? "WHERE" : "AND"] category LIKE '%[sanitizeSQL(query.category)]%'"
 			if(query.category == "Fiction")
 				searchquery += " AND category NOT LIKE '%Non-Fiction%'"
 			where = 1
