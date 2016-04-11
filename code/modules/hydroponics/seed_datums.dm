@@ -207,7 +207,7 @@
 	display_name = "killer tomato plant"
 	mutants = null
 	can_self_harvest = 1
-	preset_product = /mob/living/simple_animal/tomato
+	preset_product = /mob/living/simple_animal/hostile/killertomato
 	preset_icon = "killertomato"
 
 /datum/seed/tomato/killer/New()
