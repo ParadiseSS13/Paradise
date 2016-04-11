@@ -29,9 +29,9 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0
-		if(target.get_species() == "Machine")
+		if(target.get_species() == "Machine")//i know organ robot might be enough but i am not taking chances...
 			return 0
-		if(target.get_species() == "Diona")
+		if(!affected.encased)//no bone, problem.
 			return 0
 		return 1
 
