@@ -2071,3 +2071,349 @@
 				</html>
 
 		"}
+
+/obj/item/weapon/book/manual/sop_legal
+	name = "Legal Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all legal activities."
+	icon_state = "book1"
+	author = "Nanotrasen"
+	title = "Legal Standard Operating Procedures"
+	dat = {"
+
+		<html>
+				<head>
+				<style>
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<font face="Verdana" color=black>
+
+				<h1><a name="Contents">Contents</a></h1>
+				<ol>
+					<li><a href="#pun">Punishments</a></li>
+					<li><a href="#brig">Brigging</a></li>
+					<li><a href="#perma">Permabrigging</a></li>
+					<li><a href="#exe">Execution: General</a></li>
+                    <li><a href="#elec">Execution: Electric Chair</a></li>
+                    <li><a href="#inject">Execution: Lethal Injection</a></li>
+                    <li><a href="#squad">Execution:Firing Squad</a></li>
+				</ol>
+				<br><BR>
+
+				<h1><a name="pun"><U><B>Punishments</B></U></a></h1><BR>
+				These are the procedures for standard punishments, and should be followed unless an emergency makes them unable to be followed.<BR><BR>
+
+				<h1><a name="brig"><B>Brigging</B></a></h1><BR>
+				<ol>
+					<li>No prisoner is to be held for longer than ten (10) minutes in Processing if no evidence against them is readily available. Should the ten (10) minutes expire without any evidence of any crimes coming to light, the prisoner is to be released. Otherwise, proceed with the following guidelines:</li>
+                    <li>The prisoner is to be cuffed, and brought to their cell.</li>
+                    <li>The prisoner is to be stripped of all belongings, save for their uniform, headset, ID, PDA and shoes. Vox are to retain their internals, plasmamen are to retain internals and their suit.</li>
+                    <li>The prisoner is then to be uncuffed. If they are a violent risk, they may be bucklecuffed, flashed, then have their cuffs removed.</li>
+                    <li>The timer for the cell is to be set, and the charges declared.</li>
+                    <li>Prisoners attempting to break the windows of the cell are to be flashed and their timers reset.</li>
+                    <li>Removal of the prisoner's headset may ONLY occur if the prisoner is using the headset to encourage further crimes or co-ordinate an escape attempt.</li>
+				</ol>
+                <br><br>
+
+                <h1><a name="perma"><B>Permabrigging</B></a></h1><BR>
+				<ol>
+					<li>Prisoner must be cuffed, and their ID must be terminated.</li>
+                    <li>Prisoner must be stripped of all belongings, except for his/her headset and ID Card. Said belongings must be placed in one of the lockers next to the Interrogation Room.</li>
+                    <li>Prisoner must be clothed in a Prison Uniform and Orange Shoes.</li>
+                    <li>Prisoner must be brought to the Permabrig area, and the doors behind closed properly.</li>
+                    <li>Prisoner must be bucklecuffed to one of the beds.</li>
+                    <li>Prisoner must have his cuffs removed, then be flashed or stunned, and the cuffs recovered.</li>
+                    <li>All Security agents must then leave the Permabrig.</li>
+                    <li>In the case of an attempted escape or riot, the Nitrous Oxide control is to be used.</li>
+				</ol>
+                <br><br>
+
+                <h1><a name="exec"><B>Execution: General</B></a></h1><BR>
+				<ol>
+					<li>Prisoner must be cuffed, and their ID must be terminated.</li>
+                    <li>Prisoner must be stripped of all belongings, except for his/her headset and ID Card. Said belongings must be placed in one of the lockers next to the Interrogation Room.</li>
+                    <li>Prisoner must be clothed in a Prison Uniform and Orange Shoes.</li>
+                    <li>Prisoner must be brought to the Prisoner Transfer room.</li>
+                    <li>A Chaplain may be present if requested, and allowed by the HoS.</li>
+                    <li>It is advised, but not required, to have a Brig Physician or other medical personell in attendance to verify death.</li>
+                    <li>Authorization must be given by the Captain and/or Magistrate. Without authorization, executions are murder.</li>
+                    <li>Though not obligatory, it is recommended that all executed prisoners be considered for borgification post-execution.</li>
+				</ol>
+                <br><br>
+
+                <h1><a name="elec"><B>Execution: Electric Chair</B></a></h1><BR>
+				<ol>
+					<li>Prisoner must be bucklecuffed to the electric chair.</li>
+                    <li>Prisoner must be allowed his/her final words, after which the chair will be activated.</li>
+                    <li>Prisoner's pulse is to be checked to confirm death.</li>
+                    <li>Prisoner must then be borged, fired into space via mass driver, cremated, or placed in the morgue with a DNR Notice, at the discretion of the Magistrate, Captain or Head of Security.</li>
+				</ol>
+                <br><br>
+                
+                <h1><a name="elec"><B>Execution: Lethal Injection</B></a></h1><BR>
+				<ol>
+					<li>Prisoner must be bucklecuffed to the electric chair or bed.</li>
+                    <li>Prisoner must be allowed his/her final words, after which the injection will be applied.</li>
+                    <li>Prisoner's pulse is to be checked to confirm death.</li>
+                    <li>Prisoner must then be borged, fired into space via mass driver, cremated, or placed in the morgue with a DNR Notice, at the discretion of the Magistrate, Captain or Head of Security.</li>
+				</ol>
+                <br><br>
+                
+                 <h1><a name="elec"><B>Execution: Firing Squad</B></a></h1><BR>
+				<ol>
+					<li>Prisoner must be brought to the Firing Range.</li>
+                    <li>Prisoner must be bucklecuffed to a chair.</li>
+                    <li>Prisoner must be allowed his/her final words, after which authorised security personell are to open fire with any of the following: Energy Gun, Advanced Energy Gun, Laser Gun, Revolver, Shotgun, or any ranged weapon manufactured by Research.</li>
+                    <li>Prisoner's pulse is to be checked to confirm death.</li>
+                    <li>Prisoner must then be borged, fired into space via mass driver, cremated, or placed in the morgue with a DNR Notice, at the discretion of the Magistrate, Captain or Head of Security.</li>
+				</ol>
+                <br><br>
+				</body>
+				</html>
+
+		"}
+        
+/obj/item/weapon/book/manual/sop_general
+	name = "Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all station activities."
+	icon_state = "book1"
+	author = "Nanotrasen"
+	title = "Standard Operating Procedures"
+	dat = {"
+
+		<html>
+				<head>
+				<style>
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<font face="Verdana" color=black>
+
+				<h1><a name="Contents">Contents</a></h1>
+				<ol>
+					<li><a href="#foreword">FOREWORD</a></li>
+					<li><a href="#green">Code Green</a></li>
+					<li><a href="#blue">Code Blue</a></li>
+					<li><a href="#red">Code Red</a></li>
+                    <li><a href="#gamma">Code Gamma</a></li>
+                    <li><a href="#hiring">Hiring Policies</a></li>
+                    <li><a href="#firing">Firing Policies</a></li>
+                    <li><a href="#causes">Causes for Demotion and Dismissal</a></li>
+                    <li><a href="#sit">Situational SoP</a></li>
+                    <li><a href="#evac">Evacuation</a></li>
+                    <li><a href="#viral">Viral Outbreak Procedures</a></li>
+                    <li><a href="#fire">Fire and Environmental Hazards</a></li>
+                    <li><a href="#meteor">Meteor Storm</a></li>
+                    <li><a href="#sing">Singularity Containment Failure</a></li>
+				</ol>
+				<br><BR>
+
+				<h1><a name="foreword"><U><B>FOREWORD</B></U></a></h1><BR>
+				Job SOP should not be a considered a checklist of conditions to fire someone over, and should not be rigidly followed to the letter in detriment of circumstances and context.
+				As always, SOP can be malleable if the situation so requires, and the decision to punish a crewmember for breaching it ultimately falls onto the relevant Head of Staff,
+				for Department Members, or Captain, for the Head of Staff.<BR><BR>
+
+
+				<h1><a name="green"><B>Code Green</B></a></h1><BR>
+                <i>All clear.</i><br>
+                Default operating level. No immediate or clear threat to the station. All departments may carry out work as normal. 
+                This alert level can be set at the Communications Console with a Captain level ID.<br>
+                <i>All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.</i><br>
+                <br>
+                Security:<br>
+                <ul>
+                    <li>Weapons worn by security/headstaff are to be holstered, except in emergencies.</li>
+                    <li>Security must respect the privacy of crew members and no unauthorized searches are allowed. Searches of any kind may only be done with a signed warrant by the Head of Security or higher, or if there's evidence of criminal activity.</li>
+                </ul>
+                <br>
+                Locations:<br>
+                <ul>
+                    <li>Secure areas are recommended to be left unbolted. This includes EVA, Teleporter, AI Upload, Engineering Secure Storage, and Tech Storage.</li>
+                </ul>
+                <br>
+                Crew:<br>
+                <ul>
+                    <li>Crew members may freely walk in the hallways</li>
+                    <li>Suit sensors are not mandatory.</li>   
+                </ul>
+                <br><br>
+                
+                <h1><a name="blue"><B>Code Blue</B></a></h1><BR>
+                <i>There is a suspected threat.</i><br>
+                Raised alert level. Suspected threat to the station. Issued by Central Command, the Captain, or a Head of Staff vote. This alert level can be set at the Communications Console with a Captain level ID.<br>
+                <i>Security staff may have weapons visible, random searches are permitted.</i><br>
+                <br>
+                Security:<br>
+                <ul>
+                    <li>Security may have weapons visible, but not drawn unless needed.</li>
+                    <li>Energy guns, laser guns and riot gear are allowed to be given out to security personnel with clearance from the Warden or HoS.</li>
+                    <li>Body Armour and helmets are recommended but not mandatory.</li>
+                    <li> Random body and workplace searches are allowed without warrant.</li>
+                </ul>
+                <br>
+                Locations:<br>
+                <ul>
+                    <li>Secure areas may be bolted down. This includes EVA, Teleporter, AI Upload, Engineering Secure Storage, and Tech Storage.</li>
+                </ul>
+                <br>
+                Crew:<br>
+                <ul>
+                    <li>Employees are recommended to comply with all security requests.</li>
+                    <li>Suit sensors are mandatory, but coordinate positions are not required.</li>   
+                </ul>
+                <br><br>
+                
+                <h1><a name="red"><B>Code Red</B></a></h1><BR>
+                <i>There is a confirmed threat.</i><br>
+                Maximum alert level. Confirmed threat to the station or severe damage. Issued by Central Command, the Captain, or a Head of Staff vote. This alert level can only be set via the Keycard Authentication Devices in each Heads of Staff office and by swiping two Heads of Staff ID cards simultaneously.<br>
+                <i>Security staff to be on high alert, random searches are permitted and recommended.</i><br>
+                <br>
+                Security:<br>
+                <ul>
+                    <li>Security may have weapons drawn at all times.</li>
+                    <li>Body Armour and helmets are mandatory. Riot gear is also recommended for appropriate situations.</li>
+                    <li>Random body and workplace searches are allowed and recommended.</li>
+                </ul>
+                <br>
+                Locations:<br>
+                <ul>
+                    <li>Secure areas are recommended to be bolted.</li>
+                </ul>
+                <br>
+                Crew:<br>
+                <ul>
+                    <li>Suit sensors and coordinate positions are mandatory.</li>
+                    <li>All crew members must remain in their departments.</li>   
+                    <li>Employees are required to comply with all security requests.</li>  
+                    <li>Emergency Response Team may be authorised. All crew are to comply with their direction.</li>  
+                </ul>
+                <br><br>
+                
+                <h1><a name="gamma"><B>Code Gamma</B></a></h1><BR>
+                <i>Extremely hostile threat onboard the station.</i><br>
+                GAMMA Security level has been set by Centcom.<br>
+                <b>Security is to have weapons at hand at all time, random searches are permitted and Martial Law is declared.</b><br>
+                <br>
+                Security:<br>
+                <ul>
+                    <li>Security may have weapons drawn at all times.</li>
+                    <li>Body Armour and helmets are mandatory. Riot gear is also recommended for appropriate situations.</li>
+                    <li>Random body and workplace searches are allowed and recommended.</li>
+                    <li>GAMMA Armory unlocked for security personnel.</li>
+                </ul>
+                <br>
+                Locations:<br>
+                <ul>
+                    <li>Secure areas are to be bolted.</li>
+                </ul>
+                <br>
+                Crew:<br>
+                <ul>
+                    <li>Employees are required to comply with all security requests.</li>
+                    <li>All civilians are to seek their nearest head for transportation to a safe location.</li>   
+                    <li>All personnel are required to defend the station and help security with dealing with the threat. All crew must follow direct orders from Security Personell or Head of Staff.</li>
+                </ul>
+                <br><br>
+                
+                <h1><a name="hiring"><B>Hiring Policies</B></a></h1><BR>
+                <ul>
+                    <li>Authorisation from the relevant Department Head is required to be hired into a Department. If none exists, the HoP or Captain's authorisation is required.</li>
+                    <li>Promotion to a Department Head requires authorisation from the Captain or Acting Captain.</li>
+                    <li>CentComm Authorisation is required for hiring the following: Blueshield, Security Pod Pilot, Magistrate, Brig Physician, Nanotrasen Representative, Mechanic.</li>
+                    <li>If no Department Head has yet been sent, any promotion to said position is on a temporary basis until one arrives. </li>
+                    <li>All Security personnel are to be loyalty implanted.</li>
+                </ul>
+                <br><br>
+                
+                <h1><a name="firing"><B>Firing Policies</B></a></h1><BR>
+                <ul>
+                    <li>If a crew is to be dismissed, their ID is to be terminated.</li>
+                    <li>Demotion may be to any rank lower than their current. Assistant or Janitor are recommended for punishments.</li>
+                    <li>Demotion or Dismissal must be authorised by the relevant department head, or Captain.</li>
+                    <li>Demotion or Dismissal must have due cause.</li>
+                </ul>
+                <br><br>
+                
+                <h1><a name="causes"><B>Causes for Demotion and Dismissal</B></a></h1><BR>
+                <ul>
+                    <li>A medium or higher crime may be grounds for dismissal, at the department head's discretion.</li>
+                    <li>A Capital Crime requires dismissal.</li>
+                    <li>Any crew shown not to have the skills or knowledge necessary for the position should be dismissed.</li>
+                    <li>Failure to follow SoP may be grounds for dismissal, at the Department Head's discretion.</li>
+                    <li>Failure to follow SoP causing harm to crew requires dismissal, and brig time.</li>
+                    <li> Refusal to follow reasonable and legal orders from relevant department head is grounds for dismissal. Their status as reasonable and legal is to be judged by the HoP or Captain.</li>
+                    <li>A crew member creating an abusive and hostile work environment may be dismissed or demoted. This is to be judged by the Department Head and HoP.</li>
+                    <li>Demotion or dismissal may be in person, or declared on a radio channel. If demoted or dismissed, an employee is required to attend the HoP office to hand in their ID, and to leave all items as part of their job at their workplace.</li>
+                    <li> Reasonable time is to be allowed for the fired persons to obtain a new set of clothing from the locker room.</li>
+                    <li>Failure or refusal to hand in any items, ID, etc, of their previous job, is to be considered theft.</li>
+                </ul>
+                <br><br>
+                
+                <h1><a name="sit"><B>Situational SoP</B></a></h1><BR>
+                The following situations have specific SoP. Failure to follow these may result in demotion/dismissal, or detaining by security if failure to follow them presents a significant risk.
+                <br><br>
+                
+                <h1><a name="causes"><B>Evacuation</B></a></h1><BR>
+                <ul>
+                    <li>All personnel are required to assist with evacuation. All crew must be evacuated, regardless of conscious state.</li>
+                    <li>A Capital Crime requires dismissal.</li>
+                    <li>All prisoners are to be brought to the secure area of the escape shuttle, unless doing so would cause unnecessary risk for crew.</li>
+                    <li>Bodies are to be brought back to Central Command for processing.</li>
+                    <li> AI units may be brought to Central Command on portable card devices (Intelicards) if structural failure is likely.</li>
+                    <li>Shortening time to shuttle launch may be authorised if a clear threat to life, limb, or shuttle integrity is present.</li>
+                </ul>
+                <br><br>
+                
+                <h1><a name="viral"><b>Viral Outbreak Procedures</b></a></h1><BR>
+                <i><b>Definition: </b>A Viral Outbreak is defined as a situation where a Viral Pathogen has infected a significant portion of the crew (>10%)</i>
+				<ol>
+					<li>All Medbay personnel are to contribute in fighting the outbreak if there are no other critical patients requiring assistance. Eliminating the Viral Threat becomes <b>number one priority;</b></li>
+                    <li>Personnel are to be informed of known symptoms, and directed to Medbay immediately if they are suffering from them;</li>
+                    <li>All infected personnel are to be confined to either an Isolated Room, or Virology;</li>
+                    <li>A blood sample is to be taken from an infected person, for study;</li>
+                    <li>If any infected personnel attempt to leave containment, Medbay Quarantine is to be <b>initiated immediately</b>, and only lifted when more patients need to be admitted, or the Viral Outbreak is over;</li>
+                    <li>A single infected person may volunteer to receive a dose of Radium in order to develop Antibodies. Radium must not be administered without consent. Otherwise, animal testing is to be conducted in order to obtain Antibodies;</li>
+                    <li>Once Antibodies are produced, they are to be diluted, then handed out to all infected personnel. Injecting infected personnel with Radium after Antibodies have been extracted is <b>forbidden</b>. In the event of a large enough crisis, directly injecting blood with the relevant Antibodies is permissible;</li>
+                    <li>Viral Pathogen should be cataloged and analyzed, in case any stray cases remained untreated;</li>
+                    <li>Cured personnel should have a sample of their blood removed for the purpose of creating antibodies, until there are no infected personnel left;</li>
+                    <li>In case the Viral Pathogen leads to fluid leakage, cleaning these fluids is to be considered top priority;</li>
+                    <li>Once the Viral Outbreak is over, all personnel are to return to regular duties.</li>
+                </ol>
+                <br><br>
+                
+                <h1><a name="evac"><B>Evacuation</B></a></h1><BR>
+                <ul>
+                    <li>Immediate evacuation of all untrained personnel.</li>
+                    <li>Fire alarms to be used to control hazard.</li>
+                    <li>Atmospheric Technicians are to remove hazard.</li>
+                </ul>
+                <br><br>
+                
+                <h1><a name="meteor"><B>Meteor Storm</B></a></h1><BR>
+                <ul>
+                    <li>All crew to move to central parts of the station.</li>
+                    <li>Damage is to be repaired by engineering personnel after the threat has passed.</li>
+                    <li>Personel that are doing EVA maintenance should seek shelter immediately.</li>
+                </ul>
+                <br><br>
+                
+                <h1><a name="sing"><B>Singularity Containment Failure</B></a></h1><BR>
+                <ul>
+                    <li>Observation of Singularity movement.</li>
+                    <li>Evacuation to be called if deemed a major threat to station integrity.</li>
+                    <li>Demotion of Chief Engineer and reparation of Engine if no threat manifests.</li>
+                </ul>
+                <br><br>
+				
+				</body>
+				</html>
+
+		"}
