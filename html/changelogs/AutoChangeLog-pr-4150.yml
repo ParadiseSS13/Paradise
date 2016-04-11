@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - tweak: "Startup time is now shorter."
+  - rscdel: "Removed the Station Collision away mission from rotation, due to multiple conceptual and technical issues."
