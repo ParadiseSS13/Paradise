@@ -33,7 +33,8 @@
 	for(var/obj/structure/table/T in src.loc)
 		if(T != src)
 			qdel(T)
-	update_icon()
+	if(flipped)
+		update_icon()
 
 /obj/structure/table/proc/destroy()
 	new parts(loc)
@@ -221,9 +222,10 @@
 		return
 
 	if (istype(W, /obj/item/weapon/wrench))
-		to_chat(user, "\blue Now disassembling table")
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user,50, target = src))
+		user.visible_message("<span class='notice'>[user] is disassembling \a [src].</span>", "<span class='notice'>You start disassembling \the [src].</span>")
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		if(do_after(user, 50, target = src))
+			playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 			destroy()
 		return
 
@@ -367,55 +369,18 @@
 	parts = /obj/item/weapon/table_parts/wood
 	health = 50
 	canSmoothWith = list(/obj/structure/table/woodentable, /obj/structure/table/woodentable/poker)
+	var/canPokerize = 1
 
 /obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob, params)
-
-	if (istype(I, /obj/item/stack/tile/grass))
+	if(canPokerize && istype(I, /obj/item/stack/tile/grass))
 		var/obj/item/stack/tile/grass/gr = I
 		gr.use(1)
 		new /obj/structure/table/woodentable/poker( src.loc )
 		qdel(src)
 		visible_message("<span class='notice'>[user] adds the grass to the wooden table</span>")
-
-
-	if (istype(I, /obj/item/weapon/grab))
-		tablepush(I, user)
-		return
-
-	if (istype(I, /obj/item/weapon/wrench))
-		to_chat(user, "\blue Now disassembling the wooden table")
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		sleep(50)
-		new /obj/item/weapon/table_parts/wood( src.loc )
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		qdel(src)
-		return
-
-	if(isrobot(user))
-		return
-	if(istype(I, /obj/item/weapon/melee/energy/blade))
-		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
-		spark_system.set_up(5, 0, src.loc)
-		spark_system.start()
-		playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
-		playsound(src.loc, "sparks", 50, 1)
-		for(var/mob/O in viewers(user, 4))
-			O.show_message("\blue The wooden table was sliced apart by [user]!", 1, "\red You hear wood coming apart.", 2)
-		new /obj/item/weapon/table_parts/wood( src.loc )
-		qdel(src)
-		return
-
-	if(!(I.flags & ABSTRACT) && !(istype(I, /obj/item/stack/tile/grass)))
-		if(user.drop_item())
-			I.Move(loc)
-			var/list/click_params = params2list(params)
-			//Center the icon where the user clicked.
-			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
-				return
-			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-
+		return 1
+	else
+		return ..()
 
 	return 1
 
@@ -425,51 +390,11 @@
 	icon = 'icons/obj/smooth_structures/poker_table.dmi'
 	icon_state = "pokertable"
 	canSmoothWith = list(/obj/structure/table/woodentable/poker, /obj/structure/table/woodentable)
+	canPokerize = 0
 
-
-/obj/structure/table/woodentable/poker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-
-	if (istype(W, /obj/item/weapon/grab))
-		tablepush(W, user)
-		return
-
-	if (istype(W, /obj/item/weapon/wrench))
-		to_chat(user, "\blue Now disassembling the wooden table")
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		sleep(50)
-		new /obj/item/weapon/table_parts/wood( src.loc )
-		new /obj/item/stack/tile/grass( src.loc)
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		qdel(src)
-		return
-
-	if(isrobot(user))
-		return
-	if(istype(W, /obj/item/weapon/melee/energy/blade))
-		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
-		spark_system.set_up(5, 0, src.loc)
-		spark_system.start()
-		playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
-		playsound(src.loc, "sparks", 50, 1)
-		for(var/mob/O in viewers(user, 4))
-			O.show_message("\blue The wooden table was sliced apart by [user]!", 1, "\red You hear wood coming apart.", 2)
-		new /obj/item/weapon/table_parts/wood( src.loc )
-		new /obj/item/stack/tile/grass( src.loc)
-		qdel(src)
-		return
-
-	if(!(W.flags & ABSTRACT))
-		if(user.drop_item())
-			W.Move(loc)
-			var/list/click_params = params2list(params)
-			//Center the icon where the user clicked.
-			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
-				return
-			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			W.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			W.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-
-	return 1
+/obj/structure/table/woodentable/poker/destroy()
+	new /obj/item/stack/tile/grass(loc)
+	..()
 
 /obj/structure/glasstable_frame
 	name = "glass table frame"
@@ -513,63 +438,23 @@
 	canSmoothWith = null
 
 /obj/structure/table/glass/flip(var/direction)
-	src.collapse()
+	collapse()
 
 /obj/structure/table/glass/proc/collapse() //glass table collapse is called twice in this code, more efficent to just have a proc
 	src.visible_message("<span class='warning'>\The [src] shatters, and the frame collapses!</span>", "<span class='warning'>You hear metal collapsing and glass shattering.</span>")
 	playsound(src.loc, "shatter", 50, 1)
-	new /obj/item/weapon/table_parts/glass(loc)
-	new /obj/item/weapon/shard(loc)
-	qdel(src)
+	destroy(1)
+
+/obj/structure/table/glass/destroy(dirty)
+	if(dirty)
+		new /obj/item/weapon/shard(loc)
+	else
+		new /obj/item/stack/sheet/glass(loc)
+	..()
 
 /obj/structure/table/glass/tablepush(obj/item/I, mob/user)
 	if(..())
 		collapse()
-
-/obj/structure/table/glass/attackby(obj/item/I as obj, mob/user as mob, params)
-
-	if (istype(I, /obj/item/weapon/grab))
-		tablepush(I, user)
-		return
-
-	if (istype(I, /obj/item/weapon/wrench))
-		to_chat(user, "\blue Now disassembling the glass table")
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		sleep(50)
-		new /obj/item/weapon/table_parts/glass( src.loc )
-		new /obj/item/stack/sheet/glass( src.loc )
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		qdel(src)
-		return
-
-	if(isrobot(user))
-		return
-	if(istype(I, /obj/item/weapon/melee/energy/blade))
-		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
-		spark_system.set_up(5, 0, src.loc)
-		spark_system.start()
-		playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
-		playsound(src.loc, "sparks", 50, 1)
-		for(var/mob/O in viewers(user, 4))
-			O.show_message("<span class='notice'>\The [src] was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear glass being sliced apart.</span>", 2)
-		new /obj/item/weapon/table_parts/glass( src.loc )
-		new /obj/item/stack/sheet/glass( src.loc )
-		qdel(src)
-		return
-
-	if(!(I.flags & ABSTRACT))
-		if(user.drop_item())
-			I.Move(loc)
-			var/list/click_params = params2list(params)
-			//Center the icon where the user clicked.
-			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
-				return
-			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-
-	return 1
-
 
 /*
  * Reinforced tables

@@ -62,8 +62,8 @@
 
 /turf/simulated/floor/carpet/New()
 	..()
-	spawn(1)
-		update_icon()
+	if(broken || burnt)
+		make_plating()
 
 /turf/simulated/floor/carpet/update_icon()
 	if(!..())
