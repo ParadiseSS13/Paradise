@@ -60,7 +60,7 @@
 			if(5)
 				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube
 				cycle_through = 0
-		to_chat(user, "<span class='notice'>You change the monkeycube type to [cube_type.name].</span>")
+		to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
 
 	if (src.stat != 0) //NOPOWER etc
 		return
