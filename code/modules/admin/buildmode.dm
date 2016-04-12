@@ -113,9 +113,13 @@
 	cl.images += I
 
 /obj/effect/buildmode_line/Destroy()
-	cl.images -= I 
-	cl = null
-	qdel(I)
+	if(I)
+		if(istype(cl))
+			cl.image -= I
+			cl = null
+		qdel(I)
+		I = null
+	return ..()
 
 /datum/click_intercept
 	var/client/holder = null
@@ -316,8 +320,7 @@
 			else
 				if(ispath(objholder,/mob) && !check_rights(R_DEBUG,0))
 					objholder = /obj/structure/closet
-			cornerA = null
-			cornerB = null
+			deselect_region()
 
 /datum/click_intercept/buildmode/proc/change_dir()
 	switch(build_dir)
@@ -507,7 +510,7 @@
 			if(left_click) //rectangular
 				if(cornerA && cornerB)
 					if(!objholder)
-						user << "<span class='warning'>Select object type first.</span>"
+						to_chat(user, "<span class='warning'>Select object type first.</span>")
 					else
 						for(var/turf/T in block(get_turf(cornerA),get_turf(cornerB)))
 							if(ispath(objholder,/turf))
@@ -533,7 +536,7 @@
 							goto(line_jump)
 					if(P.id_tag == M.id && (P in range(M.range, M)) && P.id_tag && P.id_tag != "")
 						P.id_tag = null
-						holder << "[P] unlinked."
+						to_chat(holder, "[P] unlinked.")
 						goto(line_jump)
 					if(!M.normaldoorcontrol)
 						if(link_lines.len && alert(holder, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
@@ -551,7 +554,7 @@
 							goto(line_jump)
 					if(P.id_tag == M.id && P.id_tag && P.id_tag != "")
 						P.id_tag = null
-						holder << "[P] unlinked."
+						to_chat(holder, "[P] unlinked.")
 						goto(line_jump)
 					if(M.normaldoorcontrol)
 						if(link_lines.len && alert(holder, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
