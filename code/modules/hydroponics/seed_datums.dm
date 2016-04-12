@@ -168,7 +168,7 @@
 	name = "tomato"
 	seed_name = "tomato"
 	display_name = "tomato plant"
-	mutants = list("bluetomato","bloodtomato")
+	mutants = list("bluetomato","bloodtomato","killertomato")
 	chems = list("plantmatter" = list(1,10))
 	kitchen_tag = "tomato"
 	preset_icon = "tomato"
@@ -179,7 +179,7 @@
 	set_trait(TRAIT_JUICY,1)
 	set_trait(TRAIT_MATURATION,8)
 	set_trait(TRAIT_PRODUCTION,6)
-	set_trait(TRAIT_YIELD,2)
+	set_trait(TRAIT_YIELD,3)
 	set_trait(TRAIT_POTENCY,10)
 	set_trait(TRAIT_PRODUCT_ICON,"tomato")
 	set_trait(TRAIT_PRODUCT_COLOUR,"#D10000")
@@ -189,7 +189,7 @@
 	name = "bloodtomato"
 	seed_name = "blood tomato"
 	display_name = "blood tomato plant"
-	mutants = list("killertomato")
+	mutants = null
 	chems = list("protein" = list(1,10), "blood" = list(1,5))
 	splat_type = /obj/effect/decal/cleanable/blood/splatter
 	kitchen_tag = "bloodtomato"
@@ -197,7 +197,6 @@
 
 /datum/seed/tomato/blood/New()
 	..()
-	set_trait(TRAIT_YIELD,3)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#FF0000")
 	set_trait(TRAIT_RARITY,20)
 
@@ -206,12 +205,14 @@
 	seed_name = "killer tomato"
 	display_name = "killer tomato plant"
 	mutants = null
-	can_self_harvest = 1
-	preset_product = /mob/living/simple_animal/hostile/killertomato
+	kitchen_tag = "killertomato"
 	preset_icon = "killertomato"
+	final_form = 0
 
 /datum/seed/tomato/killer/New()
 	..()
+	set_trait(TRAIT_ENDURANCE,15)
+	set_trait(TRAIT_HARVEST_REPEAT,0)
 	set_trait(TRAIT_YIELD,2)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#A86747")
 	set_trait(TRAIT_RARITY,30)
@@ -226,6 +227,7 @@
 
 /datum/seed/tomato/blue/New()
 	..()
+	set_trait(TRAIT_YIELD,2)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#4D86E8")
 	set_trait(TRAIT_PLANT_COLOUR,"#070AAD")
 	set_trait(TRAIT_RARITY,20)
