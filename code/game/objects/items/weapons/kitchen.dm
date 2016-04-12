@@ -52,7 +52,7 @@
 		var/obj/item/weapon/reagent_containers/food/snacks/toEat = contents[1]
 		if(istype(toEat))
 			if(M.eat(toEat, user))
-				toEat.On_Consume(M)
+				toEat.On_Consume(M, user)
 				spawn(0)
 					if(toEat)
 						qdel(toEat)

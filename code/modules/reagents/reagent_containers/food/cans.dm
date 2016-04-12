@@ -1,36 +1,53 @@
 /obj/item/weapon/reagent_containers/food/drinks/cans
 	var canopened = 0
 
-	New()
-		..()
-		flags ^= OPENCONTAINER
+/obj/item/weapon/reagent_containers/food/drinks/cans/New()
+	..()
+	flags &= ~OPENCONTAINER
 
-	attack_self(mob/user as mob)
-		if (canopened == 0)
-			playsound(src.loc,'sound/effects/canopen.ogg', rand(10,50), 1)
-			to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
-			canopened = 1
-			flags |= OPENCONTAINER
-		else
-			return
+/obj/item/weapon/reagent_containers/food/drinks/cans/attack_self(mob/user as mob)
+	if (canopened == 0)
+		playsound(src.loc,'sound/effects/canopen.ogg', rand(10,50), 1)
+		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+		canopened = 1
+		flags |= OPENCONTAINER
 
-	attack(mob/M as mob, mob/user as mob, def_zone)
-		if (canopened == 0)
-			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-			return
-		return ..(M, user, def_zone)
+/obj/item/weapon/reagent_containers/food/drinks/cans/proc/crush(mob/user)
+	playsound(user.loc, 'sound/weapons/pierce.ogg', rand(10, 50), 1)
+	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
+	crushed_can.icon_state = icon_state
+	qdel(src)
+	return crushed_can
 
+/obj/item/weapon/reagent_containers/food/drinks/cans/attack(mob/M as mob, mob/user as mob, proximity)
+	if(canopened == 0)
+		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
+		return
+	else if(M == user && !src.reagents.total_volume && user.a_intent == "harm" && user.zone_sel.selecting == "head")
+		user.visible_message("<span class='warning'>[user] crushes the can of [src] on \his forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
+		crush(user)
+		return
+	return ..()
 
-	afterattack(obj/target, mob/user, proximity)
-		if(!proximity) return
-		if(istype(target, /obj/structure/reagent_dispensers) && (canopened == 0))
-			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-			return
-		else if(target.is_open_container() && (canopened == 0))
-			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-			return
-		else
-			return ..(target, user, proximity)
+/obj/item/weapon/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/storage/bag/trash/cyborg))
+		user.visible_message("<span class='notice'>[user] crushes the can of [src] in their trash compactor.</span>", "<span class='notice'>You crush the can of [src] in your trash compactor.</span>")
+		var/obj/can = crush(user)
+		can.attackby(I, user, params)
+		return 1
+	..()
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity)
+	if(!proximity)
+		return
+	if(istype(target, /obj/structure/reagent_dispensers) && (canopened == 0))
+		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
+		return
+	else if(target.is_open_container() && (canopened == 0))
+		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
+		return
+	else
+		return ..(target, user, proximity)
 
 /*	examine(mob/user)
 		if(!..(user, 1))

@@ -59,6 +59,16 @@
 
 	device_type = /obj/item/weapon/pickaxe/diamonddrill
 
+/obj/item/rig_module/device/anomaly_scanner
+	name = "hardsuit anomaly scanner"
+	desc = "You think it's called an Elder Sarsparilla or something."
+	icon_state = "eldersasparilla"
+	interface_name = "Alden-Saraspova counter"
+	interface_desc = "An exotic particle detector commonly used by xenoarchaeologists."
+	engage_string = "Begin Scan"
+	usable = 1
+	selectable = 0
+	device_type = /obj/item/device/ano_scanner
 
 /obj/item/rig_module/device/orescanner
 	name = "ore scanner module"

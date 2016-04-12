@@ -37,6 +37,21 @@
 	..()
 	for(var/atom/movable/AM in src)
 		Entered(AM)
+	if(smooth && ticker && ticker.current_state == GAME_STATE_PLAYING)
+		smooth_icon(src)
+
+/hook/startup/proc/smooth_world()
+	var/watch = start_watch()
+	log_startup_progress("Smoothing atoms...")
+	for(var/turf/T in world)
+		if(T.smooth)
+			smooth_icon(T)
+		for(var/A in T)
+			var/atom/AA = A
+			if(AA.smooth)
+				smooth_icon(AA)
+	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
+	return 1
 
 /turf/Destroy()
 // Adds the adjacent turfs to the current atmos processing

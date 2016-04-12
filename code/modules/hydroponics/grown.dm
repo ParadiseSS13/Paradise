@@ -494,11 +494,11 @@
 		seed.do_sting(H,src,pick("r_hand","l_hand"))
 
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/On_Consume()
+/obj/item/weapon/reagent_containers/food/snacks/grown/On_Consume(mob/M, mob/user)
 	if(seed && seed.get_trait(TRAIT_BATTERY_RECHARGE))
 		if(!reagents.total_volume)
 			var/batteries_recharged = 0
-			for(var/obj/item/weapon/stock_parts/cell/C in usr.GetAllContents())
+			for(var/obj/item/weapon/stock_parts/cell/C in user.GetAllContents())
 				var/newcharge = (potency*0.01)*C.maxcharge
 				if(C.charge < newcharge)
 					C.charge = newcharge
@@ -507,5 +507,5 @@
 						O.update_icon() //update power meters and such
 					batteries_recharged = 1
 			if(batteries_recharged)
-				to_chat(usr, "<span class='notice'>Battery has recovered.</span>")
+				to_chat(user, "<span class='notice'>Battery has recovered.</span>")
 	..()
