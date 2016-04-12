@@ -26,7 +26,7 @@
 	examine(mob/user)
 		if(..(user, 0))
 			if(air_contents.oxygen < 10)
-				user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+				to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"))
 				//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
 
@@ -71,8 +71,8 @@
 	examine(mob/user)
 		if(..(user, 0))
 			if(air_contents.oxygen < 1 && loc==usr)
-				user << "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"
-				user << sound('sound/effects/alert.ogg')
+				to_chat(user, "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+				to_chat(user, sound('sound/effects/alert.ogg'))
 
 /obj/item/weapon/tank/air/New()
 	..()
@@ -123,8 +123,8 @@
 /obj/item/weapon/tank/plasma/plasmaman/examine(mob/user)
 	if(..(user, 0))
 		if(air_contents.toxins < 0.2 && loc==usr)
-			user << text("\red <B>The meter on the [src.name] indicates you are almost out of plasma!</B>")
-			user << sound('sound/effects/alert.ogg')
+			to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of plasma!</B>"))
+			to_chat(user, sound('sound/effects/alert.ogg'))
 
 /*
  * Emergency Oxygen
@@ -150,8 +150,8 @@
 	examine(mob/user)
 		if(..(user, 0))
 			if(air_contents.oxygen < 0.2 && loc==usr)
-				user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
-				user << sound('sound/effects/alert.ogg')
+				to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"))
+				to_chat(user, sound('sound/effects/alert.ogg'))
 
 /obj/item/weapon/tank/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
@@ -191,7 +191,7 @@
 /obj/item/weapon/tank/nitrogen/examine(mob/user)
 	if(..(user, 0))
 		if(air_contents.nitrogen < 10)
-			user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+			to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"))
 			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
 

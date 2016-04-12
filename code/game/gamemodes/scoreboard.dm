@@ -148,8 +148,8 @@
 	score_crewscore -= plaguepoints
 
 	// Show the score - might add "ranks" later
-	world << "<b>The crew's final score is:</b>"
-	world << "<b><font size='4'>[score_crewscore]</font></b>"
+	to_chat(world, "<b>The crew's final score is:</b>")
+	to_chat(world, "<b><font size='4'>[score_crewscore]</font></b>")
 	for(var/mob/E in player_list)
 		if(E.client)
 			if(E.client.prefs && !(E.client.prefs.toggles & DISABLE_SCOREBOARD))
@@ -205,7 +205,7 @@
 	<b>AI Destroyed:</b> [score_deadaipenalty ? "Yes" : "No"] (-[score_deadaipenalty * 250] Points)<br><br>
 	<U>The Weird</U><br>
 
-	<b>Food Eaten:</b> [score_foodeaten]<br>
+	<b>Food Eaten:</b> [score_foodeaten] bites/sips<br>
 	<b>Times a Clown was Abused:</b> [score_clownabuse]<br><br>
 	"}
 	if (score_escapees)

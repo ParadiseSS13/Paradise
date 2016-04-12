@@ -220,10 +220,10 @@
 
 	proc/BruteForce(mob/usr as mob)
 		if(isnull(linkedServer))
-			usr << "<span class='warning'>Could not complete brute-force: Linked Server Disconnected!</span>"
+			to_chat(usr, "<span class='warning'>Could not complete brute-force: Linked Server Disconnected!</span>")
 		else
 			var/currentKey = src.linkedServer.decryptkey
-			usr << "<span class='warning'>Brute-force completed! The key is '[currentKey]'.</span>"
+			to_chat(usr, "<span class='warning'>Brute-force completed! The key is '[currentKey]'.</span>")
 		src.hacking = 0
 		src.active_state = normal_icon
 		src.screen = 0 // Return the screen back to normal
@@ -414,7 +414,8 @@
 									O.show_message(text("\icon[customrecepient] *[customrecepient.ttone]*"))
 								if( customrecepient.loc && ishuman(customrecepient.loc) )
 									var/mob/living/carbon/human/H = customrecepient.loc
-									H << "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[src];choice=Message;skiprefresh=1;target=\ref[src]'>Reply</a>)"
+									to_chat(H, "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond:)//?src=\ref[src];choice=Message;skiprefresh=1;target=\ref[src]'>Reply</a>)"
+
 								log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
 								customrecepient.overlays.Cut()
 								customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
@@ -428,7 +429,8 @@
 									O.show_message(text("\icon[customrecepient] *[customrecepient.ttone]*"))
 								if( customrecepient.loc && ishuman(customrecepient.loc) )
 									var/mob/living/carbon/human/H = customrecepient.loc
-									H << "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[customrecepient];choice=Message;skiprefresh=1;target=\ref[PDARec]'>Reply</a>)"
+									to_chat(H, "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond:)//?src=\ref[customrecepient];choice=Message;skiprefresh=1;target=\ref[PDARec]'>Reply</a>)"
+
 								log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
 								customrecepient.overlays.Cut()
 								customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
@@ -443,7 +445,7 @@
 				if(auth)
 					src.screen = 4
 
-			//usr << href_list["select"]
+//			to_chat(usr, href_list["select"])
 
 		if ("back" in href_list)
 			src.screen = 0

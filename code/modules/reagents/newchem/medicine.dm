@@ -17,11 +17,11 @@ datum/reagent/silver_sulfadiazine/reaction_mob(var/mob/living/M as mob, var/meth
 		if(method == TOUCH)
 			M.adjustFireLoss(-volume)
 			if(show_message)
-				M << "<span class='notice'>The silver sulfadiazine soothes your burns.</span>"
+				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
-				M << "<span class='warning'>You feel sick...</span>"
+				to_chat(M, "<span class='warning'>You feel sick...</span>")
 	..()
 	return
 
@@ -44,12 +44,12 @@ datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TO
 		if(method == TOUCH)
 			M.adjustBruteLoss(-volume)
 			if(show_message)
-				M << "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>"
+				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
 			M.emote("scream")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
-				M << "<span class='warning'>You feel gross!</span>"
+				to_chat(M, "<span class='warning'>You feel gross!</span>")
 	..()
 	return
 
@@ -89,7 +89,7 @@ datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vo
 			M.adjustBruteLoss(-1.5*volume)
 			M.adjustFireLoss(-1.5*volume)
 			if(show_message)
-				M << "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>"
+				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
 	..()
 	return
 
@@ -631,8 +631,8 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
-					ghost << "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
-					ghost << sound('sound/effects/genetics.ogg')
+					to_chat(ghost, "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					to_chat(ghost, sound('sound/effects/genetics.ogg'))
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
@@ -680,34 +680,6 @@ datum/reagent/life
 
 /datum/chemical_reaction/life/on_reaction(var/datum/reagents/holder, var/created_volume)
 	chemical_mob_spawn(holder, 1, "Life")
-
-proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reaction_name, var/mob_faction = "chemicalsummon")
-	if(holder && holder.my_atom)
-		var/blocked =  blocked_mobs //global variable for blocked mobs
-
-		var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
-		var/atom/A = holder.my_atom
-		var/turf/T = get_turf(A)
-		var/area/my_area = get_area(T)
-		var/message = "A [reaction_name] reaction has occured in (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[my_area.name]</A>)"
-		var/mob/M = get(A, /mob)
-		if(M)
-			message += " - carried by: [key_name_admin(M)]"
-		else
-			message += " - last fingerprint: [(A.fingerprintslast ? A.fingerprintslast : "N/A")]"
-
-		message_admins(message, 0, 1)
-
-		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
-
-		for(var/i = 1, i <= amount_to_spawn, i++)
-			var/chosen = pick(critters)
-			var/mob/living/simple_animal/hostile/C = new chosen
-			C.faction |= mob_faction
-			C.loc = get_turf(holder.my_atom)
-			if(prob(50))
-				for(var/j = 1, j <= rand(1, 3), j++)
-					step(C, pick(NORTH,SOUTH,EAST,WEST))
 
 /datum/reagent/mannitol/on_mob_life(mob/living/M as mob)
 	M.adjustBrainLoss(-3)

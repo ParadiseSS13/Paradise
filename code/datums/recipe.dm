@@ -102,6 +102,7 @@
 		O.reagents.trans_to(result_obj, O.reagents.total_volume)
 		qdel(O)
 	container.reagents.clear_reagents()
+	score_meals++
 	return result_obj
 
 // food-related
@@ -114,6 +115,7 @@
 			O.reagents.trans_to(result_obj, O.reagents.total_volume)
 		qdel(O)
 	container.reagents.clear_reagents()
+	score_meals++
 	return result_obj
 
 /proc/select_recipe(var/list/datum/recipe/avaiable_recipes, var/obj/obj as obj, var/exact = 1 as num)

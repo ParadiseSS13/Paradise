@@ -34,7 +34,7 @@
 		return
 	var/stun_amount = 5 + (severity-1 ? 0 : 5)
 	owner.Stun(stun_amount)
-	owner << "<span class='warning'>Your body seizes up!</span>"
+	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
 	return stun_amount
 
 
@@ -71,7 +71,7 @@
 				r_hand_ignore = 0
 
 		if(!l_hand_obj && !r_hand_obj)
-			owner << "<span class='notice'>You are not holding any items, your hands relax...</span>"
+			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
 			active = 0
 		else
 			var/msg = 0
@@ -79,14 +79,14 @@
 			msg += !r_hand_ignore && r_hand_obj ? 2 : 0
 			switch(msg)
 				if(1)
-					owner << "<span class='notice'>Your left hand's grip tightens.</span>"
+					to_chat(owner, "<span class='notice'>Your left hand's grip tightens.</span>")
 				if(2)
-					owner << "<span class='notice'>Your right hand's grip tightens.</span>"
+					to_chat(owner, "<span class='notice'>Your right hand's grip tightens.</span>")
 				if(3)
-					owner << "<span class='notice'>Both of your hand's grips tighten.</span>"
+					to_chat(owner, "<span class='notice'>Both of your hand's grips tighten.</span>")
 	else
 		release_items()
-		owner << "<span class='notice'>Your hands relax...</span>"
+		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
 		l_hand_obj = null
 		r_hand_obj = null
 
@@ -103,11 +103,11 @@
 	if(L_item)
 		A = pick(oview(range))
 		L_item.throw_at(A, range, 2)
-		owner << "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>"
+		to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>")
 	if(R_item)
 		A = pick(oview(range))
 		R_item.throw_at(A, range, 2)
-		owner << "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>"
+		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	if(!l_hand_ignore && l_hand_obj in owner.contents)
@@ -172,7 +172,7 @@
 		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = 1
-		owner << "<span class='notice'>You feel less hungry...</span>"
+		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
 		owner.nutrition += 50
 		spawn(50)
 			synthesizing = 0
@@ -181,7 +181,7 @@
 	if(!owner)
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
-	owner << "<span class='warning'>You feel like your insides are burning.</span>"
+	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
@@ -246,7 +246,7 @@
 			spawn(600 / severity)
 				H.heart_attack = 0
 				if(H.stat == CONSCIOUS)
-					H << "<span class='notice'>You feel your heart beating again!</span>"
+					to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
 //ARM...THAT GO IN THE CHEST
 /obj/item/organ/internal/cyberimp/chest/arm_mod//dummy parent item for making arm-mod implants. works best with nodrop items that are sent to nullspace upon being dropped.
@@ -264,7 +264,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/ui_action_click()
 	if(overloaded)//ensure the implant isn't broken
-		owner << "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>"
+		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 	if(out)//check if the owner has the item out already
 		owner.unEquip(holder, 1)//if he does, take it away. then,
@@ -280,7 +280,7 @@
 			playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 		else//if this fails to put the item in his hands,
 			holder.loc = null//keep it in nullspace
-			owner << "<span class='warning'>You can't extend [holder] if you can't use your hands!</span>"
+			to_chat(owner, "<span class='warning'>You can't extend [holder] if you can't use your hands!</span>")
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/emp_act(severity)//if the implant gets EMPed...
 	if(!owner || overloaded)//ensure that it's in an owner and that it's not already EMPed, then...
@@ -292,7 +292,7 @@
 		owner.visible_message("<span class='notice'>[holder] forcibly retracts into [owner]'s arm.</span>")
 	owner.visible_message("<span class='danger'>A loud bang comes from [owner]...</span>")
 	playsound(get_turf(owner), 'sound/effects/bang.ogg', 100, 1)
-	owner << "<span class='warning'>You feel an explosion erupt inside you as your chest implant breaks. Is it hot in here?</span>"
+	to_chat(owner, "<span class='warning'>You feel an explosion erupt inside you as your chest implant breaks. Is it hot in here?</span>")
 	owner.adjust_fire_stacks(20)
 	owner.IgniteMob()//ignite the owner, as well as
 	owner.say("AUUUUUUUUUUUUUUUUUUGH!!")

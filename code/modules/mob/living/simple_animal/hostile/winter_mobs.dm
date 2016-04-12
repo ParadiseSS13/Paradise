@@ -33,6 +33,7 @@
 	bodytemperature = 73.0		//it's made of snow and hatred, so it's pretty cold.
 	maxbodytemp = 280.15		//at roughly 7 C, these will start melting (dying) from the warmth. Mind over matter or something.
 	heat_damage_per_tick = 10	//Now With Rapid Thawing Action!
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 
 /mob/living/simple_animal/hostile/winter/snowman/death()
@@ -63,6 +64,7 @@
 
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/winter/santa
 	maxHealth = 150		//if this seems low for a "boss", it's because you have to fight him multiple times, with him fully healing between stages
@@ -124,10 +126,10 @@
 	melee_damage_upper = 25		//that's gonna leave a mark, for sure
 
 /mob/living/simple_animal/hostile/winter/santa/stage_4/death()
-	world << "<span class='notice'><hr></span>"
-	world << "<span class='notice'>THE FAT MAN HAS FALLEN!</span>"
-	world << "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>"
-	world << "<span class='notice'><hr></span>"
+	to_chat(world, "<span class='notice'><hr></span>")
+	to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
+	to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")
+	to_chat(world, "<span class='notice'><hr></span>")
 	..()
 	var/obj/item/weapon/grenade/clusterbuster/xmas/X = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))
 	var/obj/item/weapon/grenade/clusterbuster/xmas/Y = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))

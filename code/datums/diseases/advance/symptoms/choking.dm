@@ -31,13 +31,13 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2)
-				M << "<span class='warning'>[pick("You're having difficulty breathing.", "Your breathing becomes heavy.")]</span>"
+				to_chat(M, "<span class='warning'>[pick("You're having difficulty breathing.", "Your breathing becomes heavy.")]</span>")
 			if(3, 4)
-				M << "<span class='warning'><b>[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]</span>"
+				to_chat(M, "<span class='warning'><b>[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]</span>")
 				Choke_stage_3_4(M, A)
 				M.emote("gasp")
 			else
-				M << "<span class='userdanger'>[pick("You're choking!", "You can't breathe!")]</span>"
+				to_chat(M, "<span class='userdanger'>[pick("You're choking!", "You can't breathe!")]</span>")
 				Choke(M, A)
 				M.emote("gasp")
 	return

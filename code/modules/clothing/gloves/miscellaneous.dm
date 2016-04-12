@@ -10,6 +10,7 @@
 	species_restricted = null
 	strip_delay = 40
 	put_on_delay = 20
+	clipped = 1
 
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"

@@ -17,11 +17,13 @@
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 //Captain fox
 /mob/living/simple_animal/pet/fox/Renault
 	name = "Renault"
 	desc = "Renault, the Captain's trustworthy fox. I wonder what it says?"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 //Syndi fox
 /mob/living/simple_animal/pet/fox/Syndifox
@@ -33,3 +35,6 @@
 	icon_resting = "Syndifox_rest"
 	flags = NO_BREATHE
 	faction = list("syndicate")
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0

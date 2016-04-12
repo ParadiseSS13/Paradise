@@ -62,7 +62,7 @@
 			visible_message("\red \b [src] blocks the [O] with its shield! ")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
-		usr << "\red This weapon is ineffective, it does no damage."
+		to_chat(usr, "\red This weapon is ineffective, it does no damage.")
 		visible_message("\red [user] gently taps [src] with the [O]. ")
 
 
@@ -132,6 +132,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	flying = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/viscerator/death()
 	..()

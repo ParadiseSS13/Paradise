@@ -13,16 +13,16 @@
 	add_fingerprint(user)
 	if(istype(I, /obj/item/weapon/wrench))
 		if(anchored)
-			user << "<span class='notice'>You unwrench [src] from the floor.</span>"
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
 			anchored = 0
 		else
-			user << "<span class='notice'>You wrench [src] into place.</span>"
+			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
 			anchored = 1
 	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
-			user << "<span class='notice'>You add spikes to the frame.</span>"
+			to_chat(user, "<span class='notice'>You add spikes to the frame.</span>")
 			new /obj/structure/kitchenspike(loc)
 			add_fingerprint(user)
 			qdel(src)
@@ -45,18 +45,18 @@
 		if(!buckled_mob)
 			playsound(loc, 'sound/items/Crowbar.ogg', 100, 1)
 			if(do_after(user, 20, target = src))
-				user << "<span class='notice'>You pry the spikes out of the frame.</span>"
+				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
 				new /obj/item/stack/rods(loc, 4)
 				new /obj/structure/kitchenspike_frame(loc)
 				add_fingerprint(user)
 				qdel(src)
 		else
-			user << "<span class='notice'>You can't do that while something's on the spike!</span>"
+			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
 	if(!istype(G, /obj/item/weapon/grab) || !G.affecting)
 		return
 	if(buckled_mob)
-		user << "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>"
+		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
 	else
 		if(isliving(G.affecting))
 			if(!buckled_mob)
@@ -65,7 +65,7 @@
 						G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
 						qdel(G)
 						return
-		user << "<span class='danger'>You can't use that on the spike!</span>"
+		to_chat(user, "<span class='danger'>You can't use that on the spike!</span>")
 		return
 
 /obj/structure/kitchenspike/proc/spike(var/mob/living/victim)
@@ -123,7 +123,7 @@
 			M.adjustBruteLoss(30)
 			if(!do_after(M, 1200, target = src))
 				if(M && M.buckled)
-					M << "<span class='warning'>You fail to free yourself!</span>"
+					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return
 		if(!M.buckled)
 			return

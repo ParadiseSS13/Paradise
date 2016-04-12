@@ -223,8 +223,8 @@
 
 
 	// Try to find all the players who can hear the message
-	for(var/i = 1; i <= player_list.len; i++)
-		var/mob/M = player_list[i]
+	for(var/A in player_list + hear_radio_list)
+		var/mob/M = A
 		if(M)
 			var/turf/ear = get_turf(M)
 			if(ear)
@@ -486,17 +486,18 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 		if(G.has_enabled_antagHUD)
 			continue
 		spawn(0)
-			G << 'sound/misc/notice2.ogg' //Alerting them to their consideration
+			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
+
 			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No"))
 				if("Yes")
-					G << "<span class='notice'>Choice registered: Yes.</span>"
+					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
 					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
-						G << "<span class='danger'>Sorry, you were too late for the consideration!</span>"
+						to_chat(G, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
 						G << 'sound/machines/buzz-sigh.ogg'
 						return
 					candidates += G
 				if("No")
-					G << "<span class='danger'>Choice registered: No.</span>"
+					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
 					return
 				else
 					return

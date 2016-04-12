@@ -16,7 +16,7 @@
 /obj/machinery/computer/shuttle/syndicate/Topic(href, href_list)
 	if(href_list["move"])
 		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-			usr << "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>"
+			to_chat(usr, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
 			return 0
 	..()
 
@@ -31,7 +31,7 @@
 /obj/machinery/computer/shuttle/syndicate/drop_pod/Topic(href, href_list)
 	if(href_list["move"])
 		if(z != ZLEVEL_CENTCOMM)
-			usr << "<span class='warning'>Pods are one way!</span>"
+			to_chat(usr, "<span class='warning'>Pods are one way!</span>")
 			return 0
 	..()
 

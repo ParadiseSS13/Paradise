@@ -262,7 +262,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			//display limbs below
 			var/ind = 0
 			for(var/name in organ_data)
-				//world << "[ind] \ [organ_data.len]"
+//				to_chat(world, "[ind] \ [organ_data.len]")
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
@@ -673,7 +673,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return
 
 	if (!isnum(desiredLvl))
-		user << "\red UpdateJobPreference - desired level was not a number. Please notify coders!"
+		to_chat(user, "\red UpdateJobPreference - desired level was not a number. Please notify coders!")
 		ShowChoices(user)
 		return
 
@@ -1057,7 +1057,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(new_name)
 							real_name = new_name
 						else
-							user << "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>"
+							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
@@ -1583,7 +1583,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/cleaned_r = sql_sanitize_text(r)
 						if(r != cleaned_r) // up to no good
 							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
-							user << "<span class='userdanger'>Stop right there, criminal scum</span>"
+							to_chat(user, "<span class='userdanger'>Stop right there, criminal scum</span>")
 					else
 						be_special ^= r
 
@@ -1599,9 +1599,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY
 					if(sound & SOUND_LOBBY)
-						user << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1)
+						to_chat(user, sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1))
 					else
-						user << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)
+						to_chat(user, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))
 
 				if("ghost_ears")
 					toggles ^= CHAT_GHOSTEARS

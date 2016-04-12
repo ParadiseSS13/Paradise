@@ -20,6 +20,11 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+
+	var/turns_since_scan = 0
+	var/mob/living/simple_animal/mouse/movement_target
+	var/eats_mice = 1
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
@@ -30,29 +35,27 @@
 	icon_dead = "cat_dead"
 	icon_resting = "cat_rest"
 	gender = FEMALE
-	var/turns_since_scan = 0
-	var/mob/living/simple_animal/mouse/movement_target
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
-/mob/living/simple_animal/pet/cat/Runtime/handle_automated_action()
+/mob/living/simple_animal/pet/cat/handle_automated_action()
 	..()
 
 	//MICE!
-	if(loc && isturf(loc))
-		if(!incapacitated())
-			for(var/mob/living/simple_animal/mouse/M in view(1,src))
-				if(!M.stat && Adjacent(M))
-					custom_emote(1, "splats \the [M]!")
-					M.splat()
-					movement_target = null
-					stop_automated_movement = 0
-					break
+	if(eats_mice && loc && isturf(loc) && !incapacitated())
+		for(var/mob/living/simple_animal/mouse/M in view(1,src))
+			if(!M.stat && Adjacent(M))
+				custom_emote(1, "splats \the [M]!")
+				M.splat()
+				movement_target = null
+				stop_automated_movement = 0
+				break
 
 	//attempt to mate
 	make_babies()
 
-/mob/living/simple_animal/pet/cat/Runtime/handle_automated_movement()
+/mob/living/simple_animal/pet/cat/handle_automated_movement()
 	..()
-	if(!incapacitated())
+	if(eats_mice && !incapacitated())
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			walk_to(src,0)
@@ -95,5 +98,7 @@
 	gender = FEMALE
 	flags = NO_BREATHE
 	faction = list("syndicate")
-	var/turns_since_scan = 0
-	var/mob/living/simple_animal/mouse/movement_target
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	eats_mice = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0

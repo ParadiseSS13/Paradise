@@ -77,7 +77,7 @@
 				if(5)
 					R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
-				M << "<span class='notice'>You no longer feel reliant on [R.name]!</span>"
+				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)
 	update_total()
 
@@ -132,7 +132,7 @@
 	if(prob(8))
 		M.emote("sneeze")
 	if(prob(4))
-		M << "<span class='notice'>You feel a dull headache.</span>"
+		to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
 
 /datum/reagent/proc/addiction_act_stage3(var/mob/living/M as mob)
 	if(prob(8))
@@ -140,30 +140,73 @@
 	if(prob(8))
 		M.emote("shiver")
 	if(prob(4))
-		M << "<span class='warning'>You begin craving [name]!</span>"
+		to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
 
 /datum/reagent/proc/addiction_act_stage4(var/mob/living/M as mob)
 	if(prob(8))
 		M.emote("twitch")
 	if(prob(4))
-		M << "<span class='warning'>You have the strong urge for some [name]!</span>"
+		to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
 	if(prob(4))
-		M << "<span class='warning'>You REALLY crave some [name]!</span>"
+		to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
 
 /datum/reagent/proc/addiction_act_stage5(var/mob/living/M as mob)
 	if(prob(8))
 		M.emote("twitch")
 	if(prob(6))
-		M << "<span class='warning'>Your stomach lurches painfully!</span>"
+		to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
 		M.visible_message("<span class='warning'>[M] gags and retches!</span>")
 		M.Stun(rand(2,4))
 		M.Weaken(rand(2,4))
 	if(prob(5))
-		M << "<span class='warning'>You feel like you can't live without [name]!</span>"
+		to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
 	if(prob(5))
-		M << "<span class='warning'>You would DIE for some [name] right now!</span>"
+		to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 
 /datum/reagent/proc/reagent_deleted()
 	return
+
+var/list/chemical_mob_spawn_meancritters = list() // list of possible hostile mobs
+var/list/chemical_mob_spawn_nicecritters = list() // and possible friendly mobs
+/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_faction = "chemicalsummon")
+	if(holder && holder.my_atom)
+		if(chemical_mob_spawn_meancritters.len <= 0 || chemical_mob_spawn_nicecritters.len <= 0)
+			for(var/T in typesof(/mob/living/simple_animal))
+				var/mob/living/simple_animal/SA = T
+				switch(initial(SA.gold_core_spawnable))
+					if(CHEM_MOB_SPAWN_HOSTILE)
+						chemical_mob_spawn_meancritters += T
+					if(CHEM_MOB_SPAWN_FRIENDLY)
+						chemical_mob_spawn_nicecritters += T
+		var/atom/A = holder.my_atom
+		var/turf/T = get_turf(A)
+		var/area/my_area = get_area(T)
+		var/message = "A [reaction_name] reaction has occured in [my_area.name]. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</A>)"
+		message += " (<A HREF='?_src_=vars;Vars=\ref[A]'>VV</A>)"
+
+		var/mob/M = get(A, /mob)
+		if(M)
+			message += " - Carried By: [key_name_admin(M)](<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[M]'>FLW</A>)"
+		else
+			message += " - Last Fingerprint: [(A.fingerprintslast ? A.fingerprintslast : "N/A")]"
+
+		message_admins(message, 0, 1)
+
+		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
+
+		for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
+			C.flash_eyes()
+		for(var/i = 1, i <= amount_to_spawn, i++)
+			var/chosen
+			if(reaction_name == "Friendly Gold Slime")
+				chosen = pick(chemical_mob_spawn_nicecritters)
+			else
+				chosen = pick(chemical_mob_spawn_meancritters)
+			var/mob/living/simple_animal/C = new chosen
+			C.faction |= mob_faction
+			C.forceMove(get_turf(holder.my_atom))
+			if(prob(50))
+				for(var/j = 1, j <= rand(1, 3), j++)
+					step(C, pick(NORTH,SOUTH,EAST,WEST))
 
 #undef ADDICTION_TIME

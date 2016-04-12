@@ -14,6 +14,7 @@
 /turf/simulated/New()
 	..()
 	levelupdate()
+	visibilityChanged()
 
 /turf/simulated/proc/burn_tile()
 

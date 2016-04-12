@@ -24,7 +24,7 @@ var/list/whitelist = list()
 		if(check_rights(R_ADMIN, 0))
 			return 1
 		if(!dbcon.IsConnected())
-			usr << "\red Unable to connect to whitelist database. Please try again later.<br>"
+			to_chat(usr, "\red Unable to connect to whitelist database. Please try again later.<br>")
 			return 0
 		else
 			var/DBQuery/query = dbcon.NewQuery("SELECT job FROM [format_table_name("whitelist")] WHERE ckey='[M.key]'")
@@ -69,7 +69,7 @@ var/list/whitelist = list()
 	if(!alien_whitelist)
 		return 0
 	if(!dbcon.IsConnected())
-		usr << "\red Unable to connect to whitelist database. Please try again later.<br>"
+		to_chat(usr, "\red Unable to connect to whitelist database. Please try again later.<br>")
 		return 0
 	else
 		var/DBQuery/query = dbcon.NewQuery("SELECT species FROM [format_table_name("whitelist")] WHERE ckey='[M.key]'")

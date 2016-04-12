@@ -18,7 +18,7 @@
 
 /obj/effect/proc_holder/spell/targeted/horsemask/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		user << "<span class='notice'>No target found in range.</span>"
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/mob/living/carbon/target = targets[1]
@@ -27,11 +27,11 @@
 		return
 
 	if((target.type in compatible_mobs) || ishuman(target))
-		user << "<span class='notice'>It'd be stupid to curse [target] with a horse's head!</span>"
+		to_chat(user, "<span class='notice'>It'd be stupid to curse [target] with a horse's head!</span>")
 		return
 
 	if(!(target in oview(range)))//If they are not  in overview after selection.
-		user << "<span class='notice'>They are too far away!</span>"
+		to_chat(user, "<span class='notice'>They are too far away!</span>")
 		return
 
 	var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead

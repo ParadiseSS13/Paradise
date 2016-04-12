@@ -55,11 +55,11 @@
 	var/mob/living/carbon/human/U = user
 
 	if(!wielded)
-		user << "<span class = 'warning'>You must use both hands to garrote [M]!</span>"
+		to_chat(user, "<span class = 'warning'>You must use both hands to garrote [M]!</span>")
 		return
 
 	if(!istype(M, /mob/living/carbon/human))
-		user << "<span class = 'warning'>You don't think that garroting [M] would be very effective...</span>"
+		to_chat(user, "<span class = 'warning'>You don't think that garroting [M] would be very effective...</span>")
 		return
 
 	if(M == U)
@@ -67,14 +67,14 @@
 		return
 
 	if(M.dir != U.dir)
-		user << "<span class='warning'>You cannot use [src] on [M] from that angle!</span>"
+		to_chat(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
 		return
 
 	if(improvised && ((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
-		user << "<span class = 'warning'>[M]'s neck is blocked by something they're wearing!</span>"
+		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something they're wearing!</span>")
 
 	if(strangling)
-		user << "<span class = 'warning'>You cannot use [src] on two people at once!</span>"
+		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")
 		return
 
 	unwield(U)

@@ -288,10 +288,10 @@
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
-				H << "\red You feel your face freezing and an icicle forming in your lungs!"
+				to_chat(H, "\red You feel your face freezing and an icicle forming in your lungs!")
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				H << "\red You feel your face burning and a searing heat in your lungs!"
+				to_chat(H, "\red You feel your face burning and a searing heat in your lungs!")
 
 
 
@@ -322,8 +322,6 @@
 	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
-	if(C.get_species() == "Monkey" || C.get_species() == "Farwa" || C.get_species() == "Stok" || C.get_species() == "Wolpin" || C.get_species() == "Neara")
-		C.butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5)
 	grant_abilities(C)
 	return
 
@@ -333,7 +331,7 @@
 	return
 
 /datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
-	if(!H.get_species() == "Monkey" || !H.get_species() == "Farwa" || !H.get_species() == "Stok" || !H.get_species() == "Wolpin" || !H.get_species() == "Neara")
+	if(H.butcher_results)//clear it out so we don't butcher a actual human.
 		H.butcher_results = null
 	remove_abilities(H)
 	return

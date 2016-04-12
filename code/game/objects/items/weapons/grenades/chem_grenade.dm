@@ -93,7 +93,7 @@
 			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
 			bombers += "[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])"
-			user << "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>"
+			to_chat(user, "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>")
 			active = 1
 			update_icon()
 			if(iscarbon(user))
@@ -113,12 +113,12 @@
 			if(label)
 				label = null
 				update_icon()
-				user << "You remove the label from [src]."
+				to_chat(user, "You remove the label from [src].")
 				return 1
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(stage == WIRED)
 			if(beakers.len)
-				user << "<span class='notice'>You lock the assembly.</span>"
+				to_chat(user, "<span class='notice'>You lock the assembly.</span>")
 				playsound(loc, 'sound/items/Screwdriver.ogg', 25, -3)
 				stage = READY
 				update_icon()
@@ -140,25 +140,25 @@
 				message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
 				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z].")
 			else
-				user << "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>"
+				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
 		else if(stage == READY && !nadeassembly)
 			det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
-			user << "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>"
+			to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
 		else if(stage == EMPTY)
-			user << "<span class='notice'>You need to add an activation mechanism.</span>"
+			to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
 
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
 		if(beakers.len == 2)
-			user << "<span class='notice'>[src] can not hold more containers.</span>"
+			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
 			return
 		else
 			if(I.reagents.total_volume)
-				user << "<span class='notice'>You add [I] to the assembly.</span>"
+				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
 				user.drop_item()
 				I.loc = src
 				beakers += I
 			else
-				user << "<span class='notice'>[I] is empty.</span>"
+				to_chat(user, "<span class='notice'>[I] is empty.</span>")
 
 	else if(stage == EMPTY && istype(I, /obj/item/device/assembly_holder))
 		var/obj/item/device/assembly_holder/A = I
@@ -173,7 +173,7 @@
 		A.loc = src
 		assemblyattacher = user.ckey
 		stage = WIRED
-		user << "<span class='notice'>You add [A] to [src]!</span>"
+		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
 		update_icon()
 
 	else if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil))
@@ -181,16 +181,16 @@
 		C.use(1)
 
 		stage = WIRED
-		user << "<span class='notice'>You rig [src].</span>"
+		to_chat(user, "<span class='notice'>You rig [src].</span>")
 		update_icon()
 
 	else if(stage == READY && istype(I, /obj/item/weapon/wirecutters))
-		user << "<span class='notice'>You unlock the assembly.</span>"
+		to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
 		stage = WIRED
 		update_icon()
 
 	else if(stage == WIRED && istype(I, /obj/item/weapon/wrench))
-		user << "<span class='notice'>You open the grenade and remove the contents.</span>"
+		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
 		stage = EMPTY
 		payload_name = null
 		label = null
@@ -382,7 +382,7 @@
 	//make a special case you might as well do it explicitly. -Sayu
 /obj/item/weapon/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
-		user << "<span class='notice'>You add [I] to the assembly.</span>"
+		to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
 		user.drop_item()
 		I.loc = src
 		beakers += I

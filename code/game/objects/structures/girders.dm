@@ -17,9 +17,9 @@
 	if(M.environment_smash >= 1)
 		if(M.environment_smash == 3)
 			ex_act(2)
-			visible_message("<span class='warning'>You smash through \the [src].</span>", "<span class='warning'>[M] smashes through \the [src].</span>")
+			M.visible_message("<span class='warning'>[M] smashes through \the [src].</span>", "<span class='warning'>You smash through \the [src].</span>")
 		else
-			visible_message("<span class='warning'>You smash against \the [src].</span>", "<span class='warning'>[M] smash against \the [src].</span>")
+			M.visible_message("<span class='warning'>[M] smashes against \the [src].</span>", "<span class='warning'>You smash against \the [src].</span>")
 			take_damage(rand(25, 75))
 			return
 
@@ -32,62 +32,62 @@
 	if(istype(W, /obj/item/weapon/wrench) && state == 0)
 		if(anchored && !istype(src,/obj/structure/girder/displaced))
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue Now disassembling the girder"
+			to_chat(user, "\blue Now disassembling the girder")
 			if(do_after(user,40, target = src))
 				if(!src) return
-				user << "\blue You dissasembled the girder!"
+				to_chat(user, "\blue You dissasembled the girder!")
 				refundMetal(metalUsed)
 				qdel(src)
 		else if(!anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue Now securing the girder"
+			to_chat(user, "\blue Now securing the girder")
 			if(get_turf(user, 40))
-				user << "\blue You secured the girder!"
+				to_chat(user, "\blue You secured the girder!")
 				new/obj/structure/girder( src.loc )
 				qdel(src)
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
-		user << "\blue Now slicing apart the girder"
+		to_chat(user, "\blue Now slicing apart the girder")
 		if(do_after(user,30, target = src))
 			if(!src) return
-			user << "\blue You slice apart the girder!"
+			to_chat(user, "\blue You slice apart the girder!")
 			refundMetal(metalUsed)
 			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
-		user << "\blue You drill through the girder!"
+		to_chat(user, "\blue You drill through the girder!")
 		refundMetal(metalUsed)
 		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
 		playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 100, 1)
-		user << "<span class='notice'>You Disintegrate the girder!</span>"
+		to_chat(user, "<span class='notice'>You Disintegrate the girder!</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/screwdriver) && state == 2 && istype(src,/obj/structure/girder/reinforced))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
-		user << "\blue Now unsecuring support struts"
+		to_chat(user, "\blue Now unsecuring support struts")
 		if(do_after(user,40, target = src))
 			if(!src) return
-			user << "\blue You unsecured the support struts!"
+			to_chat(user, "\blue You unsecured the support struts!")
 			state = 1
 
 	else if(istype(W, /obj/item/weapon/wirecutters) && istype(src,/obj/structure/girder/reinforced) && state == 1)
 		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
-		user << "\blue Now removing support struts"
+		to_chat(user, "\blue Now removing support struts")
 		if(do_after(user,40, target = src))
 			if(!src) return
-			user << "\blue You removed the support struts!"
+			to_chat(user, "\blue You removed the support struts!")
 			new/obj/structure/girder( src.loc )
 			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/crowbar) && state == 0 && anchored )
 		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
-		user << "\blue Now dislodging the girder"
+		to_chat(user, "\blue Now dislodging the girder")
 		if(do_after(user, 40, target = src))
 			if(!src) return
-			user << "\blue You dislodged the girder!"
+			to_chat(user, "\blue You dislodged the girder!")
 			new/obj/structure/girder/displaced( src.loc )
 			qdel(src)
 
@@ -100,16 +100,16 @@
 				if(!anchored)
 					if(S.amount < 2) return
 					S.use(2)
-					user << "\blue You create a false wall! Push on it to open or close the passage."
+					to_chat(user, "\blue You create a false wall! Push on it to open or close the passage.")
 					new /obj/structure/falsewall (src.loc)
 					qdel(src)
 				else
 					if(S.amount < 2) return ..()
-					user << "\blue Now adding plating..."
+					to_chat(user, "\blue Now adding plating...")
 					if (do_after(user,40, target = src))
 						if(!src || !S || S.amount < 2) return
 						S.use(2)
-						user << "\blue You added the plating!"
+						to_chat(user, "\blue You added the plating!")
 						var/turf/Tsrc = get_turf(src)
 						Tsrc.ChangeTurf(/turf/simulated/wall)
 						for(var/turf/simulated/wall/X in Tsrc.loc)
@@ -121,17 +121,17 @@
 				if(!anchored)
 					if(S.amount < 2) return
 					S.use(2)
-					user << "\blue You create a false wall! Push on it to open or close the passage."
+					to_chat(user, "\blue You create a false wall! Push on it to open or close the passage.")
 					new /obj/structure/falsewall/reinforced (src.loc)
 					qdel(src)
 				else
 					if (src.icon_state == "reinforced") //I cant believe someone would actually write this line of code...
 						if(S.amount < 1) return ..()
-						user << "\blue Now finalising reinforced wall."
+						to_chat(user, "\blue Now finalising reinforced wall.")
 						if(do_after(user, 50, target = src))
 							if(!src || !S || S.amount < 1) return
 							S.use(1)
-							user << "\blue Wall fully reinforced!"
+							to_chat(user, "\blue Wall fully reinforced!")
 							var/turf/Tsrc = get_turf(src)
 							Tsrc.ChangeTurf(/turf/simulated/wall/r_wall)
 							for(var/turf/simulated/wall/r_wall/X in Tsrc.loc)
@@ -140,11 +140,11 @@
 						return
 					else
 						if(S.amount < 1) return ..()
-						user << "\blue Now reinforcing girders"
+						to_chat(user, "\blue Now reinforcing girders")
 						if (do_after(user,60, target = src))
 							if(!src || !S || S.amount < 1) return
 							S.use(1)
-							user << "\blue Girders reinforced!"
+							to_chat(user, "\blue Girders reinforced!")
 							new/obj/structure/girder/reinforced( src.loc )
 							qdel(src)
 						return
@@ -154,17 +154,17 @@
 			if(!anchored)
 				if(S.amount < 2) return
 				S.use(2)
-				user << "\blue You create a false wall! Push on it to open or close the passage."
+				to_chat(user, "\blue You create a false wall! Push on it to open or close the passage.")
 				var/F = text2path("/obj/structure/falsewall/[M]")
 				new F (src.loc)
 				qdel(src)
 			else
 				if(S.amount < 2) return ..()
-				user << "\blue Now adding plating..."
+				to_chat(user, "\blue Now adding plating...")
 				if (do_after(user,40, target = src))
 					if(!src || !S || S.amount < 2) return
 					S.use(2)
-					user << "\blue You added the plating!"
+					to_chat(user, "\blue You added the plating!")
 					var/turf/Tsrc = get_turf(src)
 					Tsrc.ChangeTurf(text2path("/turf/simulated/wall/mineral/[M]"))
 					for(var/turf/simulated/wall/mineral/X in Tsrc.loc)
@@ -179,7 +179,7 @@
 		if (P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
 			user.drop_item()
 			P.loc = src.loc
-			user << "\blue You fit the pipe into the [src]!"
+			to_chat(user, "\blue You fit the pipe into the [src]!")
 	else
 		..()
 
@@ -241,19 +241,19 @@
 /obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-		user << "\blue Now disassembling the girder"
+		to_chat(user, "\blue Now disassembling the girder")
 		if(do_after(user,40, target = src))
-			user << "\blue You dissasembled the girder!"
+			to_chat(user, "\blue You dissasembled the girder!")
 			dismantle()
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
-		user << "\blue Now slicing apart the girder"
+		to_chat(user, "\blue Now slicing apart the girder")
 		if(do_after(user,30, target = src))
-			user << "\blue You slice apart the girder!"
+			to_chat(user, "\blue You slice apart the girder!")
 			dismantle()
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
-		user << "\blue You drill through the girder!"
+		to_chat(user, "\blue You drill through the girder!")
 		dismantle()
 
 /obj/structure/cultgirder/proc/dismantle()

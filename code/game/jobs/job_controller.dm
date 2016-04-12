@@ -17,7 +17,7 @@ var/global/datum/controller/occupations/job_master
 		occupations = list()
 		var/list/all_jobs = subtypesof(/datum/job)
 		if(!all_jobs.len)
-			world << "\red \b Error setting up jobs, no job datums found"
+			to_chat(world, "\red \b Error setting up jobs, no job datums found")
 			return 0
 		for(var/J in all_jobs)
 			var/datum/job/job = new J()
@@ -383,7 +383,7 @@ var/global/datum/controller/occupations/job_master
 			job.equip(H)
 			job.apply_fingerprints(H)
 		else
-			H << "Your job is [rank] and the game just can't handle it! Please report this bug to an administrator."
+			to_chat(H, "Your job is [rank] and the game just can't handle it! Please report this bug to an administrator.")
 
 		H.job = rank
 
@@ -431,7 +431,7 @@ var/global/datum/controller/occupations/job_master
 			H.mind.store_memory(remembered_info)
 
 		spawn(0)
-			H << "\blue<b>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</b>"
+			to_chat(H, "\blue<b>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</b>")
 
 		var/alt_title = null
 		if(H.mind)
@@ -464,10 +464,10 @@ var/global/datum/controller/occupations/job_master
 							H.equip_to_slot_or_del(BPK, slot_back,1)
 					H.species.equip(H)
 
-		H << "<B>You are the [alt_title ? alt_title : rank].</B>"
-		H << "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>"
+		to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
+		to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
 		if(job.req_admin_notify)
-			H << "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>"
+			to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
 		spawnId(H, rank, alt_title)
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)

@@ -15,7 +15,7 @@
 		if(L.reagents)
 			L.reagents.add_reagent("spidertoxin", poison_per_bite)
 			if(prob(poison_per_bite))
-				L << "<span class='danger'>You feel a tiny prick.</span>"
+				to_chat(L, "<span class='danger'>You feel a tiny prick.</span>")
 				L.reagents.add_reagent(poison_type, poison_per_bite)
 
 
@@ -49,6 +49,7 @@
 	move_to_delay = 6
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -230,9 +231,9 @@
 
 	var/obj/effect/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
-		src << "<span class='notice'>There is already a cluster of eggs here!</span>"
+		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
 	else if(!fed)
-		src << "<span class='warning'>You are too hungry to do this!</span>"
+		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
 		src.visible_message("<span class='notice'>\the [src] begins to lay a cluster of eggs.</span>")

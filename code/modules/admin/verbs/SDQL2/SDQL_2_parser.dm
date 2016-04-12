@@ -60,7 +60,7 @@
 
 /datum/SDQL_parser/proc/parse_error(error_message)
 	error = 1
-	usr << "<span class='danger'>SQDL2 Parsing Error: [error_message]</span>"
+	to_chat(usr, "<span class='danger'>SQDL2 Parsing Error: [error_message]</span>")
 	return query.len + 1
 
 /datum/SDQL_parser/proc/parse()
@@ -207,12 +207,10 @@
 //call_query:	'CALL' call_function ['ON' select_list [('FROM' | 'IN') from_list] ['WHERE' bool_expression]]
 	call_query(i, list/node)
 		var/list/func = list()
-		var/list/arguments = list()
-		i = call_function(i + 1, func, arguments)
+		i = variable(i + 1, func)
 
 		node += "call"
 		node["call"] = func
-		node["args"] = arguments
 
 		if(tokenl(i) != "on")
 			return i
@@ -317,15 +315,17 @@
 
 
 //assignment:	<variable name> '=' expression
-	assignment(i, list/node)
+	assignment(var/i, var/list/node, var/list/assignment_list = list())
+		assignment_list += token(i)
 
-		node += token(i)
+		if(token(i + 1) == ".")
+			i = assignment(i + 2, node, assignment_list)
 
-		if(token(i + 1) == "=")
-			var/varname = token(i)
-			node[varname] = list()
+		else if(token(i + 1) == "=")
+			var/exp_list = list()
+			node[assignment_list] = exp_list
 
-			i = expression(i + 2, node[varname])
+			i = expression(i + 2, exp_list)
 
 		else
 			parse_error("Assignment expected, but no = found")
@@ -348,6 +348,22 @@
 		if(token(i + 1) == ".")
 			L += "."
 			i = variable(i + 2, L)
+
+		else if(token(i + 1) == "(") // OH BOY PROC
+			var/list/arguments = list()
+			i = call_function(i, null, arguments)
+			L += ":"
+			L[++L.len] = arguments
+
+		else if(token(i + 1) == "\[")	// list index
+			var/list/expression = list()
+			i = expression(i + 2, expression)
+			if (token(i) != "]")
+				parse_error("Missing ] at the end of list access.")
+
+			L += "\["
+			L[++L.len] = expression
+			i++
 
 		else
 			i++

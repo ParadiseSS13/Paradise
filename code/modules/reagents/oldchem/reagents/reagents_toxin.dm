@@ -64,7 +64,7 @@
 
 /datum/reagent/slimejelly/on_mob_life(var/mob/living/M as mob)
 	if(prob(10))
-		M << "\red Your insides are burning!"
+		to_chat(M, "\red Your insides are burning!")
 		M.adjustToxLoss(rand(20,60)*REM)
 	else if(prob(40))
 		M.adjustBruteLoss(-5*REM)
@@ -83,10 +83,10 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
 		if(human.species.name != "Shadow")
-			M << "\red Your flesh rapidly mutates!"
-			M << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
-			M << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
-			M << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
+			to_chat(M, "\red Your flesh rapidly mutates!")
+			to_chat(M, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
+			to_chat(M, "\red Your body reacts violently to light. \green However, it naturally heals in darkness.")
+			to_chat(M, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 			human.set_species("Shadow")
 	..()
 	return
@@ -264,11 +264,11 @@
 			if(volume > 25)
 
 				if(H.wear_mask)
-					H << "\red Your mask protects you from the acid!"
+					to_chat(H, "\red Your mask protects you from the acid!")
 					return
 
 				if(H.head)
-					H << "\red Your helmet protects you from the acid!"
+					to_chat(H, "\red Your helmet protects you from the acid!")
 					return
 
 				if(!M.unacidable)
@@ -288,7 +288,7 @@
 			var/mob/living/carbon/human/H = M
 
 			if(volume < 10)
-				M << "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
+				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
 
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
@@ -313,7 +313,7 @@
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			for(var/mob/M in viewers(5, O))
-				M << "\red \the [O] melts."
+				to_chat(M, "\red \the [O] melts.")
 			qdel(O)
 
 
@@ -431,10 +431,10 @@
 				if ( !safe_thing )
 					safe_thing = victim.glasses
 			if ( eyes_covered && mouth_covered )
-				victim << "\red Your [safe_thing] protects you from the pepperspray!"
+				to_chat(victim, "\red Your [safe_thing] protects you from the pepperspray!")
 				return
 			else if ( mouth_covered )	// Reduced effects if partially protected
-				victim << "\red Your [safe_thing] protect you from most of the pepperspray!"
+				to_chat(victim, "\red Your [safe_thing] protect you from most of the pepperspray!")
 				if(prob(5))
 					victim.emote("scream")
 				victim.eye_blurry = max(M.eye_blurry, 3)
@@ -445,14 +445,14 @@
 				victim.drop_item()
 				return
 			else if ( eyes_covered ) // Eye cover is better than mouth cover
-				victim << "\red Your [safe_thing] protects your eyes from the pepperspray!"
+				to_chat(victim, "\red Your [safe_thing] protects your eyes from the pepperspray!")
 				victim.eye_blurry = max(M.eye_blurry, 3)
 				victim.damageoverlaytemp = 30
 				return
 			else // Oh dear :D
 				if(prob(5))
 					victim.emote("scream")
-				victim << "\red You're sprayed directly in the eyes with pepperspray!"
+				to_chat(victim, "\red You're sprayed directly in the eyes with pepperspray!")
 				victim.eye_blurry = max(M.eye_blurry, 5)
 				victim.eye_blind = max(M.eye_blind, 2)
 				victim.confused = max(M.confused, 6)

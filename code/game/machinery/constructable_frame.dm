@@ -59,7 +59,7 @@
 
 /obj/machinery/constructable_frame/machine_frame/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(P.crit_fail)
-		user << "<span class='danger'>This part is faulty, you cannot add this to the machine!</span>"
+		to_chat(user, "<span class='danger'>This part is faulty, you cannot add this to the machine!</span>")
 		return
 	switch(state)
 		if(1)
@@ -67,23 +67,23 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.amount >= 5)
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					user << "<span class='notice'>You start to add cables to the frame.</span>"
+					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 					if(do_after(user, 20, target = src))
 						if(C.amount >= 5 && state == 1)
 							C.use(5)
-							user << "<span class='notice'>You add cables to the frame.</span>"
+							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 2
 							icon_state = "box_1"
 				else
-					user << "<span class='warning'>You need five length of cable to wire the frame.</span>"
+					to_chat(user, "<span class='warning'>You need five length of cable to wire the frame.</span>")
 					return
 			else if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.amount<5)
-					user << "\red You do not have enough glass to build a display case."
+					to_chat(user, "\red You do not have enough glass to build a display case.")
 					return
 				G.use(5)
-				user << "\blue You add the glass to the frame."
+				to_chat(user, "\blue You add the glass to the frame.")
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				new /obj/structure/displaycase_frame(src.loc)
 				qdel(src)
@@ -91,7 +91,7 @@
 
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-				user << "<span class='notice'>You dismantle the frame.</span>"
+				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				new /obj/item/stack/sheet/metal(src.loc, 5)
 				qdel(src)
 		if(2)
@@ -99,7 +99,7 @@
 				var/obj/item/weapon/circuitboard/B = P
 				if(B.board_type == "machine")
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					user << "<span class='notice'>You add the circuit board to the frame.</span>"
+					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
 					user.drop_item()
 					P.loc = src
@@ -110,10 +110,10 @@
 					update_namelist()
 					update_req_desc()
 				else
-					user << "<span class='danger'>This frame does not accept circuit boards of this type!</span>"
+					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
 			if(istype(P, /obj/item/weapon/wirecutters))
 				playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
-				user << "<span class='notice'>You remove the cables.</span>"
+				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 1
 				icon_state = "box_0"
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
@@ -126,9 +126,9 @@
 				circuit.loc = src.loc
 				circuit = null
 				if(components.len == 0)
-					user << "<span class='notice'>You remove the circuit board.</span>"
+					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				else
-					user << "<span class='notice'>You remove the circuit board and other components.</span>"
+					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
 					for(var/obj/item/I in components)
 						I.loc = src.loc
 				desc = initial(desc)
@@ -177,7 +177,7 @@
 
 				for(var/obj/item/weapon/stock_parts/part in added_components)
 					components += part
-					user << "<span class='notice'>[part.name] applied.</span>"
+					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
 				replacer.play_rped_sound()
 
 				update_req_desc()
@@ -207,7 +207,7 @@
 						update_req_desc()
 						return 1
 				if(!success)
-					user << "<span class='danger'>You cannot add that to the machine!</span>"
+					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
 					return 0
 
 //Machine Frame Circuit Boards
@@ -225,28 +225,38 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/weapon/vending_refill/boozeomat = 3)
 
-	var/list/names_paths = list(/obj/machinery/vending/boozeomat = "Booze-O-Mat",
-							/obj/machinery/vending/coffee = "Solar's Best Hot Drinks",
-							/obj/machinery/vending/snack = "Getmore Chocolate Corp",
-							/obj/machinery/vending/cola = "Robust Softdrinks",
-							/obj/machinery/vending/cigarette = "ShadyCigs Deluxe",
-							/obj/machinery/vending/autodrobe = "AutoDrobe",
-							/obj/machinery/vending/hatdispenser = "Hatlord 9000",
-							/obj/machinery/vending/suitdispenser = "Suitlord 9000",
-							/obj/machinery/vending/shoedispenser = "Shoelord 9000",
-							/obj/machinery/vending/clothing = "ClothesMate",
-							/obj/machinery/vending/crittercare = "CritterCare")
+	var/list/names_paths = list("Booze-O-Mat" = /obj/machinery/vending/boozeomat,
+							"Solar's Best Hot Drinks" = /obj/machinery/vending/coffee,
+							"Getmore Chocolate Corp" = /obj/machinery/vending/snack,
+							"Robust Softdrinks" = /obj/machinery/vending/cola,
+							"ShadyCigs Deluxe" = /obj/machinery/vending/cigarette,
+							"AutoDrobe" = /obj/machinery/vending/autodrobe,
+							"Hatlord 9000" = /obj/machinery/vending/hatdispenser,
+							"Suitlord 9000" = /obj/machinery/vending/suitdispenser,
+							"Shoelord 9000" = /obj/machinery/vending/shoedispenser,
+							"ClothesMate" = /obj/machinery/vending/clothing,
+							"CritterCare" = /obj/machinery/vending/crittercare)
 
 /obj/item/weapon/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
-		set_type(pick(names_paths), user)
+		set_type(null, user)
 
 
 /obj/item/weapon/circuitboard/vendor/proc/set_type(typepath, mob/user)
-		build_path = typepath
-		name = "circuit board ([names_paths[build_path]] Vendor)"
-		user << "<span class='notice'>You set the board to [names_paths[build_path]].</span>"
-		req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)
+	var/new_name = "Booze-O-Mat Vendor"
+	if(!typepath)
+		new_name = input("Circuit Setting", "What would you change the board setting to?") in names_paths
+		typepath = names_paths[new_name]
+	else
+		for(var/name in names_paths)
+			if(names_paths[name] == typepath)
+				new_name = name
+				break
+	build_path = typepath
+	name = "circuit board ([new_name])"
+	req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
 
 /obj/item/weapon/circuitboard/smes
 	name = "circuit board (SMES)"
@@ -304,11 +314,11 @@ to destroy them and players will be able to make replacements.
 		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
 			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 			name = "circuit board (Heater)"
-			user << "<span class='notice'>You set the board to heating.</span>"
+			to_chat(user, "<span class='notice'>You set the board to heating.</span>")
 		else
 			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 			name = "circuit board (Freezer)"
-			user << "<span class='notice'>You set the board to cooling.</span>"
+			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
 
 /obj/item/weapon/circuitboard/biogenerator
 	name = "circuit board (Biogenerator)"
@@ -879,3 +889,49 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/matter_bin = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1)
+
+
+//Selectable mode board, like vending machine boards
+/obj/item/weapon/circuitboard/logic_gate
+	name = "circuit board (Logic Connector)"
+	build_path = /obj/machinery/logic_gate
+	board_type = "machine"
+	origin_tech = "programming=1"		//This stuff is pretty much the absolute basis of programming, so it's mostly useless for research
+	req_components = list(/obj/item/stack/cable_coil = 1)
+
+	var/list/names_paths = list(
+							"NOT Gate" = /obj/machinery/logic_gate/not,
+							"OR Gate" = /obj/machinery/logic_gate/or,
+							"AND Gate" = /obj/machinery/logic_gate/and,
+							"NAND Gate" = /obj/machinery/logic_gate/nand,
+							"NOR Gate" = /obj/machinery/logic_gate/nor,
+							"XOR Gate" = /obj/machinery/logic_gate/xor,
+							"XNOR Gate" = /obj/machinery/logic_gate/xnor,
+							"STATUS Gate" = /obj/machinery/logic_gate/status,
+							"CONVERT Gate" = /obj/machinery/logic_gate/convert
+	)
+
+/obj/item/weapon/circuitboard/logic_gate/New()
+	..()
+	if(build_path == /obj/machinery/logic_gate)			//If we spawn the base type board (determined by the base type machine as the build path), become a random gate board
+		var/new_path = names_paths[pick(names_paths)]
+		set_type(new_path)
+
+/obj/item/weapon/circuitboard/logic_gate/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/screwdriver))
+		set_type(null, user)
+
+/obj/item/weapon/circuitboard/logic_gate/proc/set_type(typepath, mob/user)
+	var/new_name = "Logic Base"
+	if(!typepath)
+		new_name = input("Circuit Setting", "What would you change the board setting to?") in names_paths
+		typepath = names_paths[new_name]
+	else
+		for(var/name in names_paths)
+			if(names_paths[name] == typepath)
+				new_name = name
+				break
+	build_path = typepath
+	name = "circuit board ([new_name])"
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")

@@ -39,12 +39,12 @@
 
 			if(can_become_addicted)
 				if(prob(self.addiction_chance) && !is_type_in_list(self, M.reagents.addiction_list))
-					M << "<span class='danger'>You suddenly feel invigorated and guilty...</span>"
+					to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
 					var/datum/reagent/new_reagent = new self.type()
 					new_reagent.last_addiction_dose = world.timeofday
 					M.reagents.addiction_list.Add(new_reagent)
 				else if(is_type_in_list(self, M.reagents.addiction_list))
-					M << "<span class='notice'>You feel slightly better, but for how long?</span>"
+					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>")
 					for(var/A in M.reagents.addiction_list)
 						var/datum/reagent/AD = A
 						if(AD && istype(AD, self))

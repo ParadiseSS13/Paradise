@@ -15,7 +15,7 @@
 				return
 			if (src.client)
 				if (client.prefs.muted & MUTE_IC)
-					src << "\red You cannot send IC messages (muted)."
+					to_chat(src, "\red You cannot send IC messages (muted).")
 					return
 				if (src.client.handle_spam_prevention(message,MUTE_IC))
 					return
@@ -110,9 +110,9 @@
 			message = text("<B>[]</B> collapses!", src)
 			m_type = 2
 		if("help")
-			src << "burp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roll, scratch,\nscretch, shake, sign-#, sulk, sway, tail, twitch, whimper"
+			to_chat(src, "burp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roll, scratch,\nscretch, shake, sign-#, sulk, sway, tail, twitch, whimper")
 		else
-			src << text("Invalid Emote: []", act)
+			to_chat(src, text("Invalid Emote: []", act))
 	if ((message && src.stat == 0))
 		log_emote("[name]/[key] : [message]")
 		if (m_type & 1)

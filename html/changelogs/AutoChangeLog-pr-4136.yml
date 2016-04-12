@@ -1,0 +1,6 @@
+author: FalseIncarnate
+delete-after: True
+changes: 
+  - tweak: "Adjusting the setting of a vendor circuit board is no longer random, but instead provides a select-able list."
+  - tweak: "Vendor Circuit Board design moved from the Circuit Imprinter to the Autolathe, acid requirement replaced by metal."
+  - bugfix: "Burnt matches can no longer light cigarettes, pipes, or joints."

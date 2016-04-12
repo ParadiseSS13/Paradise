@@ -62,7 +62,7 @@ var/global/list/plant_seed_sprites = list()
 /obj/item/seeds/examine(mob/user)
 	..(user)
 	if(seed && !seed.roundstart)
-		user << "It's tagged as variety #[seed.uid]."
+		to_chat(user, "It's tagged as variety #[seed.uid].")
 
 /obj/item/seeds/cutting
 	name = "cuttings"

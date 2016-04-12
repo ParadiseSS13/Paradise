@@ -14,13 +14,13 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	if(usr.stat || !ishuman(usr) || !usr || !is_shadow(usr || isinspace(usr)))
 		return
 	if(!isturf(usr.loc))
-		usr << "<span class='warning'>You can't hatch here!</span>"
+		to_chat(usr, "<span class='warning'>You can't hatch here!</span>")
 		return
 	for(var/mob/living/carbon/human/H in targets)
 		var/hatch_or_no = alert(H,"Are you sure you want to hatch? You cannot undo this!",,"Yes","No")
 		switch(hatch_or_no)
 			if("No")
-				H << "<span class='warning'>You decide against hatching for now."
+				to_chat(H, "<span class='warning'>You decide against hatching for now.")
 				charge_counter = charge_max
 				return
 			if("Yes")
@@ -55,13 +55,13 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 
 				sleep(80)
 				playsound(H.loc, 'sound/weapons/slash.ogg', 25, 1)
-				H << "<i><b>You rip and slice.</b></i>"
+				to_chat(H, "<i><b>You rip and slice.</b></i>")
 				sleep(10)
 				playsound(H.loc, 'sound/weapons/slashmiss.ogg', 25, 1)
-				H << "<i><b>The chrysalis falls like water before you.</b></i>"
+				to_chat(H, "<i><b>The chrysalis falls like water before you.</b></i>")
 				sleep(10)
 				playsound(H.loc, 'sound/weapons/slice.ogg', 25, 1)
-				H << "<i><b>You are free!</b></i>"
+				to_chat(H, "<i><b>You are free!</b></i>")
 				H.status_flags = temp_flags
 				sleep(10)
 				playsound(H.loc, 'sound/effects/ghost.ogg', 100, 1)
@@ -70,7 +70,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.real_name = newNameId
 				H.name = usr.real_name
 				H.SetStunned(0)
-				H << "<i><b><font size=3>YOU LIVE!!!</i></b></font>"
+				to_chat(H, "<i><b><font size=3>YOU LIVE!!!</i></b></font>")
 
 				for(var/obj/structure/alien/resin/wall/shadowling/W in orange(H, 1))
 					playsound(W, 'sound/effects/splat.ogg', 50, 1)
@@ -95,7 +95,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.mind.remove_spell(src)
 
 				sleep(10)
-				H << "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>"
+				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare)
@@ -124,7 +124,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 		var/hatch_or_no = alert(H,"It is time to ascend. Are you sure about this?",,"Yes","No")
 		switch(hatch_or_no)
 			if("No")
-				H << "<span class='warning'>You decide against ascending for now."
+				to_chat(H, "<span class='warning'>You decide against ascending for now.")
 				charge_counter = charge_max
 				return
 			if("Yes")
@@ -146,16 +146,16 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 								  "<span class='shadowling'>You begin to rend apart the final barries to godhood.</span>")
 
 				sleep(40)
-				H << "<i><b>Yes!</b></i>"
+				to_chat(H, "<i><b>Yes!</b></i>")
 				sleep(10)
-				H << "<i><b><span class='big'>YES!!</span></b></i>"
+				to_chat(H, "<i><b><span class='big'>YES!!</span></b></i>")
 				sleep(10)
-				H << "<i><b><span class='reallybig'>YE--</span></b></i>"
+				to_chat(H, "<i><b><span class='reallybig'>YE--</span></b></i>")
 				sleep(1)
 				for(var/mob/living/M in orange(7, H))
 					M.Weaken(10)
-					M << "<span class='userdanger'>An immense pressure slams you onto the ground!</span>"
-				world << "<font size=5><span class='shadowling'><b>\"VYSHA NERADA YEKHEZET U'RUU!!\"</font></span>"
+					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
+				to_chat(world, "<font size=5><span class='shadowling'><b>\"VYSHA NERADA YEKHEZET U'RUU!!\"</font></span>")
 				world << 'sound/hallucinations/veryfar_noise.ogg'
 				for(var/obj/machinery/power/apc/A in apcs)
 					A.overload_lighting()
