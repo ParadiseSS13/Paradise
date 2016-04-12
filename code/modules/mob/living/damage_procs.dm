@@ -23,22 +23,19 @@
 			adjustOxyLoss(damage * blocked)
 		if(CLONE)
 			adjustCloneLoss(damage * blocked)
-		if(HALLOSS)
-			adjustHalLoss(damage * blocked)
 		if(STAMINA)
 			adjustStaminaLoss(damage * blocked)
 	updatehealth()
 	return 1
 
 
-/mob/living/proc/apply_damages(var/brute = 0, var/burn = 0, var/tox = 0, var/oxy = 0, var/clone = 0, var/halloss = 0, var/def_zone = null, var/blocked = 0, var/stamina = 0)
+/mob/living/proc/apply_damages(var/brute = 0, var/burn = 0, var/tox = 0, var/oxy = 0, var/clone = 0, var/def_zone = null, var/blocked = 0, var/stamina = 0)
 	if(blocked >= 100)	return 0
 	if(brute)	apply_damage(brute, BRUTE, def_zone, blocked)
 	if(burn)	apply_damage(burn, BURN, def_zone, blocked)
 	if(tox)		apply_damage(tox, TOX, def_zone, blocked)
 	if(oxy)		apply_damage(oxy, OXY, def_zone, blocked)
 	if(clone)	apply_damage(clone, CLONE, def_zone, blocked)
-	if(halloss) apply_damage(halloss, HALLOSS, def_zone, blocked)
 	if(stamina) apply_damage(stamina, STAMINA, def_zone, blocked)
 	return 1
 
@@ -55,8 +52,6 @@
 			Weaken(effect * blocked)
 		if(PARALYZE)
 			Paralyse(effect * blocked)
-		if(AGONY)
-			halloss += effect // Useful for objects that cause "subdual" damage. PAIN!
 		if(IRRADIATE)
 			var/rad_damage = effect
 			if(!negate_armor) // Setting negate_armor overrides radiation armor checks, which are automatic otherwise
@@ -82,7 +77,7 @@
 		return 0
 	return ..()
 
-/mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/agony = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
+/mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
 	if(blocked >= 100)	return 0
 	if(stun)		apply_effect(stun, STUN, blocked)
 	if(weaken)		apply_effect(weaken, WEAKEN, blocked)
@@ -92,7 +87,6 @@
 	if(stutter)		apply_effect(stutter, STUTTER, blocked)
 	if(eyeblur)		apply_effect(eyeblur, EYE_BLUR, blocked)
 	if(drowsy)		apply_effect(drowsy, DROWSY, blocked)
-	if(agony)		apply_effect(agony, AGONY, blocked)
 	if(stamina)		apply_damage(stamina, STAMINA, null, blocked)
 	if(jitter) 		apply_effect(jitter, JITTER, blocked)
 	return 1

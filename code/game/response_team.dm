@@ -19,15 +19,15 @@ var/send_emergency_team
 		return
 
 	if(!ticker)
-		usr << "\red The game hasn't started yet!"
+		to_chat(usr, "\red The game hasn't started yet!")
 		return
 
 	if(ticker.current_state == 1)
-		usr << "\red The round hasn't started yet!"
+		to_chat(usr, "\red The round hasn't started yet!")
 		return
 
 	if(send_emergency_team)
-		usr << "\red Central Command has already dispatched an emergency response team!"
+		to_chat(usr, "\red Central Command has already dispatched an emergency response team!")
 		return
 
 	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
@@ -39,7 +39,7 @@ var/send_emergency_team
 				return
 
 	if(send_emergency_team)
-		usr << "\red Central Command has already dispatched an emergency response team!"
+		to_chat(usr, "\red Central Command has already dispatched an emergency response team!")
 		return
 
 	var/ert_type = pick_ert_type()
@@ -76,28 +76,28 @@ var/send_emergency_team
 	set desc = "Join the Emergency Response Team. Only possible if it has been called by the crew."
 
 	if(!istype(usr,/mob/dead/observer) && !istype(usr,/mob/new_player))
-		usr << "You need to be an observer or new player to use this."
+		to_chat(usr, "You need to be an observer or new player to use this.")
 		return
 
 	if(!send_emergency_team)
-		usr << "No emergency response team is currently being sent."
+		to_chat(usr, "No emergency response team is currently being sent.")
 		return
 
 	if(jobban_isbanned(usr, "Emergency Response Team"))
-		usr << "<span class='warning'>You are jobbanned from the emergency reponse team!</span>"
+		to_chat(usr, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
 		return
 
 	var/player_age_check = check_client_age(usr.client, responseteam_age)
 	if(player_age_check && config.use_age_restriction_for_antags)
-		usr << "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>"
+		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		usr << "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>"
+		to_chat(usr, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
 		return
 
 	if(response_team_members.len > 6)
-		usr << "The emergency response team is already full!"
+		to_chat(usr, "The emergency response team is already full!")
 		return
 
 	for (var/obj/effect/landmark/L in landmarks_list)
@@ -153,9 +153,9 @@ var/send_emergency_team
 	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
 	if (new_gender)
 		if(new_gender == "Male")
-			M.gender = MALE
+			M.change_gender(MALE)
 		else
-			M.gender = FEMALE
+			M.change_gender(FEMALE)
 
 	M.set_species("Human",1)
 	M.dna.ready_dna(M)
@@ -607,6 +607,6 @@ var/send_emergency_team
 	new /obj/item/device/flashlight/flare( src )
 	new /obj/item/weapon/kitchen/knife/combat( src )
 	new /obj/item/device/radio/centcom( src )
-	new /obj/item/weapon/reagent_containers/pill/salicylic( src )
-	new /obj/item/weapon/reagent_containers/pill/patch/synthflesh( src )
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic( src )
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh( src )
 	return

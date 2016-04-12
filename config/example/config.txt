@@ -77,6 +77,7 @@ PROBABILITY CHANGELING 3
 PROBABILITY CULT 4
 PROBABILITY EXTEND-A-TRAITORMONGOUS 5
 PROBABILITY TRAITORCHAN 4
+PROBABILITY TRAITORVAMP 4
 PROBABILITY BLOB 2
 PROBABILITY REVOLUTION 0
 PROBABILITY HEIST 1
@@ -301,9 +302,6 @@ PLAYER_REROUTE_CAP 0
 
 ## Disable the loading of away missions
 #DISABLE_AWAY_MISSIONS
-
-## Uncomment this if you still use the old .sav file based notes system and haven't used the mass conversion proc
-#AUTOCONVERT_NOTES
 
 ## Uncomment to disable the OOC/LOOC channel by default.
 #DISABLE_OOC

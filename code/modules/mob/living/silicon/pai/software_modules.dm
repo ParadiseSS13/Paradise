@@ -56,7 +56,7 @@
 			while(!istype(M, /mob/living))
 				if(!M || !M.loc || count > 6)
 					//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
-					src << "You are not being carried by anyone!"
+					to_chat(src, "You are not being carried by anyone!")
 					return 0
 				M = M.loc
 				count++
@@ -68,13 +68,13 @@
 				for (var/mob/v in viewers(T))
 					v.show_message("<span class='notice'>[M] presses \his thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
 				var/datum/dna/dna = M.dna
-				P << "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>"
+				to_chat(P, "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>")
 				if(dna.unique_enzymes == P.master_dna)
-					P << "<b>DNA is a match to stored Master DNA.</b>"
+					to_chat(P, "<b>DNA is a match to stored Master DNA.</b>")
 				else
-					P << "<b>DNA does not match stored Master DNA.</b>"
+					to_chat(P, "<b>DNA does not match stored Master DNA.</b>")
 			else
-				P << "[M] does not seem like \he is going to provide a DNA sample willingly."
+				to_chat(P, "[M] does not seem like \he is going to provide a DNA sample willingly.")
 			return 1
 
 /datum/pai_software/radio_config
@@ -149,7 +149,7 @@
 			return
 
 		data["receiver_off"] = M.toff
-		data["ringer_off"] = M.silent
+		data["ringer_off"] = M.notify_silent
 		data["current_ref"] = null
 		data["current_name"] = user.current_pda_messaging
 
@@ -205,7 +205,7 @@
 				M.toff = href_list["toggler"] != "1"
 				return 1
 			else if(href_list["ringer"])
-				M.silent = href_list["ringer"] != "1"
+				M.notify_silent = href_list["ringer"] != "1"
 				return 1
 			else if(href_list["select"])
 				var/s = href_list["select"]
@@ -220,6 +220,123 @@
 
 				var/target = locate(href_list["target"])
 				M.create_message(P, target, 1)
+				return 1
+
+/datum/pai_software/chatroom
+	name = "Digital Chatroom"
+	ram_cost = 5
+	id = "chatroom"
+	toggle = 0
+
+	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+		var/data[0]
+
+		if(!user.pda)
+			return
+		var/datum/data/pda/app/chatroom/M = user.pda.find_program(/datum/data/pda/app/chatroom)
+		if(!M)
+			return
+
+		data["receiver_off"] = M.toff
+		data["ringer_off"] = M.notify_silent
+
+		var/list/rooms[0]
+		for(var/datum/chatroom/c in chatrooms)
+			if((M in c.users) || (M in c.invites) || c.is_public)
+				rooms += list(list(name = "[c]", ref = "\ref[c]"))
+		data["rooms"] = rooms
+
+		if(M.disconnected || !M.messaging_available(1))
+			data["disconnected"] = 1
+		else if(M.current_room)
+			data["current_room"] = "\ref[M.current_room]"
+			data["current_room_name"] = M.current_room.name
+			data["current_room_topic"] = M.current_room.topic
+			data["messages"] = M.current_room.logs
+			var/list/users[0]
+			for(var/U in M.current_room.users)
+				var/datum/data/pda/app/chatroom/ch = U
+				users += "<span class='good'>[ch.pda.owner]</span>"
+			for(var/U in (M.current_room.invites - M.current_room.users))
+				var/datum/data/pda/app/chatroom/ch = U
+				users += "<span class='average'>[ch.pda.owner]</span>"
+			data["users"] = users
+
+		ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+		if(!ui)
+			// Don't copy-paste this unless you're making a pAI software module!
+			ui = new(user, user, id, "pai_chatroom.tmpl", "Digital Chatroom", 450, 600)
+			ui.set_initial_data(data)
+			ui.open()
+			ui.set_auto_update(1)
+
+	Topic(href, href_list)
+		var/mob/living/silicon/pai/P = usr
+		if(!istype(P))
+			return
+
+		if(!isnull(P.pda) && P.pda.can_use())
+			var/datum/data/pda/app/chatroom/M = P.pda.find_program(/datum/data/pda/app/chatroom)
+			if(!M)
+				return
+
+			if(href_list["toggler"])
+				M.toff = href_list["toggler"] != "1"
+				return 1
+			else if(href_list["ringer"])
+				M.notify_silent = href_list["ringer"] != "1"
+				return 1
+			else if(href_list["topic"])
+				if(!M.current_room)
+					return 1
+
+				var/t = input("Enter new topic:", M.current_room, M.current_room.topic) as text|null
+				spawn()
+					if(!t || !M.check_messaging_available() || !P.pda.can_use())
+						return
+					t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+					t = readd_quotes(t)
+					if (!t)
+						return
+
+					M.current_room.topic = t
+					M.current_room.announce(M, "Topic has been changed to '[t]' by [P.pda.owner].")
+				return 1
+			else if(href_list["select"])
+				var/s = href_list["select"]
+				if(s == "*NONE*")
+					M.current_room = null
+				else
+					var/datum/chatroom/CR = locate(s)
+					if(istype(CR))
+						if(!(M in CR.users))
+							if(!CR.login(M))
+								return
+						M.current_room = CR
+				return 1
+			else if(href_list["target"])
+				if(P.silence_time)
+					return alert("Communications circuits remain uninitialized.")
+
+				var/datum/chatroom/target = locate(href_list["target"])
+				if(istype(target))
+					if(!(M in target.users))
+						if(!target.login(M))
+							return
+					var/t = input("Please enter message", target) as text|null
+					spawn()
+						if(!t || !M.check_messaging_available())
+							return
+						t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+						t = readd_quotes(t)
+						if (!t || !P.pda.can_use())
+							return
+
+						target.post(M, t)
+				return 1
+			else if(href_list["reconnect"])
+				spawn()
+					M.messaging_available()
 				return 1
 
 /datum/pai_software/med_records
@@ -385,9 +502,9 @@
 		if(!T || !(T.z in config.contact_levels))
 			break
 		if(T.loc)
-			AI << "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>"
+			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>")
 		else
-			AI << "<font color = red><b>Network Alert: Brute-force encryption crack in progress. Unable to pinpoint location.</b></font>"
+			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress. Unable to pinpoint location.</b></font>")
 	var/obj/machinery/door/D = cable.machine
 	if(!istype(D))
 		hack_aborted = 1
@@ -585,7 +702,7 @@
 		while(!isliving(held))
 			if(!held || !held.loc || count > 6)
 				//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
-				src << "You are not being carried by anyone!"
+				to_chat(src, "You are not being carried by anyone!")
 				return 0
 			held = held.loc
 			count++

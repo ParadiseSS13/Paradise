@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes the \"yeah\" glasses so the sound doesn't vary and a message is displayed, on use"
-  - bugfix: "Noir mode only activates when the glasses are equipped to your actual eyes"
-  - rscadd: "Noir Glasses mode can be toggled on or off (defaults to off)"

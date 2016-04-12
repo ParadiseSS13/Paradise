@@ -7,14 +7,12 @@
 #define TOX			"tox"
 #define OXY			"oxy"
 #define CLONE		"clone"
-#define HALLOSS		"halloss"
 #define STAMINA 	"stamina"
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
 #define PARALYZE	"paralize"
 #define IRRADIATE	"irradiate"
-#define AGONY		"agony" // Added in PAIN!
 #define STUTTER		"stutter"
 #define SLUR		"slur"
 #define EYE_BLUR	"eye_blur"

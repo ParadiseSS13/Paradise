@@ -99,6 +99,7 @@ datum/reagent/acetone
 	required_reagents = list("water" = 1, "chlorine" = 1, "oil" = 1)
 	result_amount = 3
 	mix_message = "The mixture bubbles and gives off an unpleasant medicinal odor."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/ash
 	name = "Ash"
@@ -264,7 +265,7 @@ datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
 				H.unEquip(H.wear_mask)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
 			H.equip_to_slot(fakemoustache, slot_wear_mask)
-			H << "<span class = 'notice'>Hair bursts forth from your every follicle!"
+			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
 	return
 
@@ -285,25 +286,20 @@ datum/reagent/fartonium
 
 datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.emote("fart")
+
+	if(prob(66))
+		M.emote("fart")
+
 	if(holder.has_reagent("simethicone"))
-		if(prob(30))
-			switch(pick(1,2))
-				if(1)
-					M << "<span class = 'danger'>Something isn't right!"
-					M.adjustBruteLoss(1)
-				if(2)
-					M.custom_emote(1,"strains, but nothing happens.")
-					M.adjustBruteLoss(2)
-				if(3)
-					M.emote("scream")
-					M.adjustBruteLoss(2)
-				if(4)
-					M << "<span class = 'danger'>Oh gosh, the pain!"
-					M.adjustBruteLoss(1)
-				if(5)
-					M << "<span class = 'danger'>THE PAIN!"
-					M.adjustBruteLoss(1)
+		if(prob(25))
+			to_chat(M, "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gonna die!")]</span>")
+			M.adjustBruteLoss(1)
+		if(prob(10))
+			M.custom_emote(1,"strains, but nothing happens.")
+			M.adjustBruteLoss(2)
+		if(prob(5))
+			M.emote("scream")
+			M.adjustBruteLoss(4)
 	..()
 	return
 

@@ -154,7 +154,7 @@
 		return 0
 
 	if(!input_item.reagents || !input_item.reagents.total_volume)
-		user << "\The [input_item] is empty."
+		to_chat(user, "\The [input_item] is empty.")
 		return 0
 
 	// Magical chemical filtration system, do not question it.
@@ -176,9 +176,9 @@
 				break
 
 	if(total_transferred)
-		user << "<font color='blue'>You transfer [total_transferred] units into the suit reservoir.</font>"
+		to_chat(user, "<font color='blue'>You transfer [total_transferred] units into the suit reservoir.</font>")
 	else
-		user << "<span class='danger'>None of the reagents seem suitable.</span>"
+		to_chat(user, "<span class='danger'>None of the reagents seem suitable.</span>")
 	return 1
 
 /obj/item/rig_module/chem_dispenser/engage(atom/target)
@@ -189,7 +189,7 @@
 	var/mob/living/carbon/human/H = holder.wearer
 
 	if(!charge_selected)
-		H << "<span class='danger'>You have not selected a chemical type.</span>"
+		to_chat(H, "<span class='danger'>You have not selected a chemical type.</span>")
 		return 0
 
 	var/datum/rig_charge/charge = charges[charge_selected]
@@ -199,7 +199,7 @@
 
 	var/chems_to_use = 10
 	if(charge.charges <= 0)
-		H << "<span class='danger'>Insufficient chems!</span>"
+		to_chat(H, "<span class='danger'>Insufficient chems!</span>")
 		return 0
 	else if(charge.charges < chems_to_use)
 		chems_to_use = charge.charges
@@ -214,8 +214,8 @@
 		target_mob = H
 
 	if(target_mob != H)
-		H << "<span class='danger'>You inject [target_mob] with [chems_to_use] unit\s of [charge.display_name].</span>"
-	target_mob << "<span class='danger'>You feel a rushing in your veins as [chems_to_use] unit\s of [charge.display_name] [chems_to_use == 1 ? "is" : "are"] injected.</span>"
+		to_chat(H, "<span class='danger'>You inject [target_mob] with [chems_to_use] unit\s of [charge.display_name].</span>")
+	to_chat(target_mob, "<span class='danger'>You feel a rushing in your veins as [chems_to_use] unit\s of [charge.display_name] [chems_to_use == 1 ? "is" : "are"] injected.</span>")
 	target_mob.reagents.add_reagent(charge.display_name, chems_to_use)
 
 	charge.charges -= chems_to_use
@@ -289,17 +289,17 @@
 		if("Enable")
 			active = 1
 			voice_holder.active = 1
-			usr << "<font color='blue'>You enable the speech synthesiser.</font>"
+			to_chat(usr, "<font color='blue'>You enable the speech synthesiser.</font>")
 		if("Disable")
 			active = 0
 			voice_holder.active = 0
-			usr << "<font color='blue'>You disable the speech synthesiser.</font>"
+			to_chat(usr, "<font color='blue'>You disable the speech synthesiser.</font>")
 		if("Set Name")
 			var/raw_choice = sanitize(input(usr, "Please enter a new name.")  as text|null, MAX_NAME_LEN)
 			if(!raw_choice)
 				return 0
 			voice_holder.voice = raw_choice
-			usr << "<font color='blue'>You are now mimicking <B>[voice_holder.voice]</B>.</font>"
+			to_chat(usr, "<font color='blue'>You are now mimicking <B>[voice_holder.voice]</B>.</font>")
 	return 1
 
 /obj/item/rig_module/maneuvering_jets
@@ -425,10 +425,10 @@
 	if(!target)
 		if(device == iastamp)
 			device = deniedstamp
-			holder.wearer << "<span class='notice'>Switched to denied stamp.</span>"
+			to_chat(holder.wearer, "<span class='notice'>Switched to denied stamp.</span>")
 		else if(device == deniedstamp)
 			device = iastamp
-			holder.wearer << "<span class='notice'>Switched to internal affairs stamp.</span>"
+			to_chat(holder.wearer, "<span class='notice'>Switched to internal affairs stamp.</span>")
 		return 1
 
 /obj/item/rig_module/welding_tank
@@ -462,9 +462,9 @@
 				if(istype(W))
 					fill_welder(W)
 		else
-			holder.wearer << "<span class='danger'>Your welding tank is out of fuel!</span>"
+			to_chat(holder.wearer, "<span class='danger'>Your welding tank is out of fuel!</span>")
 	else
-		holder.wearer << "<span class='notice'>You need to have a welding tool in one of your hands to dispense fuel.</span>"
+		to_chat(holder.wearer, "<span class='notice'>You need to have a welding tool in one of your hands to dispense fuel.</span>")
 
 /obj/item/rig_module/welding_tank/proc/fill_welder(var/obj/item/weapon/weldingtool/W)
 	if(!istype(W))
@@ -473,10 +473,10 @@
 	if(reagents)
 		if(get_fuel() >= W.max_fuel)
 			reagents.trans_to(W, W.max_fuel)
-			holder.wearer << "<span class='notice'>Your [holder] dispenses some of the contents of the welding fuel tank into \the [W].</span>"
+			to_chat(holder.wearer, "<span class='notice'>Your [holder] dispenses some of the contents of the welding fuel tank into \the [W].</span>")
 		else
 			reagents.trans_to(W, W.max_fuel)
-			holder.wearer << "<span class='notice'>You hear a faint dripping as your hardsuit welding tank completely empties.</span>"
+			to_chat(holder.wearer, "<span class='notice'>You hear a faint dripping as your hardsuit welding tank completely empties.</span>")
 		W.update_icon()
 
 /obj/item/rig_module/welding_tank/proc/get_fuel()

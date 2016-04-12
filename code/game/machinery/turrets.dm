@@ -184,7 +184,7 @@
 		cur_target = get_new_target() //get new target
 
 	if(cur_target) //if it's found, proceed
-//		world << "[cur_target]"
+//		to_chat(world, "[cur_target]")
 		if(!isPopping())
 			if(isDown())
 				popUp()
@@ -336,7 +336,7 @@
 		if (src.health <= 0)
 			src.die()
 	else
-		M << "<span class='danger'>That object is useless to you.</span>"
+		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
 
 
@@ -352,7 +352,7 @@
 		if (src.health <= 0)
 			src.die()
 	else
-		M << "\green That object is useless to you."
+		to_chat(M, "\green That object is useless to you.")
 	return
 
 
@@ -362,7 +362,7 @@
 		return 1
 	if (src.locked)
 		if (!istype(usr, /mob/living/silicon))
-			usr << "Control panel is locked!"
+			to_chat(usr, "Control panel is locked!")
 			return
 	if (href_list["toggleOn"])
 		src.enabled = !src.enabled
@@ -431,18 +431,22 @@
 
 /obj/machinery/gun_turret/proc/take_damage(damage)
 	health -= damage
-	switch(health)
-		if(101 to INFINITY)
-			state = 0
-		if(1 to 100)
-			state = 1
-		if(-INFINITY to 0)
+	var/orig_health = initial(health)
+	var/health_percent = (health/orig_health) * 100
+
+	if(health_percent > 50)
+		state = 0
+	else
+		state = 1
+		if(health_percent <= 0)
 			if(state != 2)
 				die()
 				return
 			state = 2
+
 	update_icon()
-	return
+
+
 
 
 /obj/machinery/gun_turret/bullet_act(var/obj/item/projectile/Proj)
@@ -567,3 +571,9 @@
 	name = "mounted grenade launcher (40mm)"
 	desc = "Syndicate 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."
 	bullet_type = /obj/item/projectile/bullet/a40mm
+
+/obj/machinery/gun_turret/assault_pod
+	name = "machine gun turret (4.6x30mm)"
+	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
+	health = 100
+	bullet_type = /obj/item/projectile/bullet/weakbullet3

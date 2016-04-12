@@ -16,6 +16,7 @@
 								MAT_METAL=0,
 								MAT_GLASS=0,
 								MAT_BANANIUM=0,
+								MAT_TRANQUILLITE=0,
 								MAT_DIAMOND=0,
 								MAT_GOLD=0,
 								MAT_PLASMA=0,
@@ -41,6 +42,7 @@
 								"Gygax",
 								"Durand",
 								"H.O.N.K",
+								"Recitence",
 								"Phazon",
 								"Exosuit Equipment",
 								"Cyborg Upgrade Modules",
@@ -291,7 +293,7 @@
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		user << "<span class='warning'>Access denied.</span>"
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
 	return interact(user)
 
@@ -350,7 +352,7 @@
 				</table>
 				</body>
 				</html>"}
-	user << browse(dat, "window=mecha_fabricator;size=1000x430")
+	user << browse(dat, "window=mecha_fabricator;size=1000x490")
 	onclose(user, "mecha_fabricator")
 	return
 
@@ -468,6 +470,8 @@
 			type = /obj/item/stack/sheet/mineral/uranium
 		if(MAT_BANANIUM)
 			type = /obj/item/stack/sheet/mineral/bananium
+		if(MAT_TRANQUILLITE)
+			type = /obj/item/stack/sheet/mineral/tranquillite
 		else
 			return 0
 	var/result = 0
@@ -501,7 +505,7 @@
 			default_deconstruction_crowbar(W)
 			return 1
 		else
-			user << "<span class='danger'>You can't load \the [name] while it's opened.</span>"
+			to_chat(user, "<span class='danger'>You can't load \the [name] while it's opened.</span>")
 			return 1
 
 	if(istype(W, /obj/item/stack))
@@ -521,16 +525,18 @@
 				material = MAT_GLASS
 			if(/obj/item/stack/sheet/mineral/bananium)
 				material = MAT_BANANIUM
+			if(/obj/item/stack/sheet/mineral/tranquillite)
+				material = MAT_TRANQUILLITE
 			if(/obj/item/stack/sheet/mineral/uranium)
 				material = MAT_URANIUM
 			else
 				return ..()
 
 		if(being_built)
-			user << "\The [src] is currently processing. Please wait until completion."
+			to_chat(user, "\The [src] is currently processing. Please wait until completion.")
 			return
 		if(res_max_amount - resources[material] < MINERAL_MATERIAL_AMOUNT) //overstuffing the fabricator
-			user << "\The [src] [material2name(material)] storage is full."
+			to_chat(user, "\The [src] [material2name(material)] storage is full.")
 			return
 		var/obj/item/stack/sheet/stack = W
 		var/sname = "[stack.name]"
@@ -540,12 +546,12 @@
 			var/transfer_amount = min(stack.amount, round((res_max_amount - resources[material])/MINERAL_MATERIAL_AMOUNT,1))
 			resources[material] += transfer_amount * MINERAL_MATERIAL_AMOUNT
 			stack.use(transfer_amount)
-			user << "You insert [transfer_amount] [sname] sheet\s into \the [src]."
+			to_chat(user, "You insert [transfer_amount] [sname] sheet\s into \the [src].")
 			sleep(10)
 			updateUsrDialog()
 			overlays -= "fab-load-[material2name(material)]" //No matter what the overlay shall still be deleted
 		else
-			user << "\The [src] cannot hold any more [sname] sheet\s."
+			to_chat(user, "\The [src] cannot hold any more [sname] sheet\s.")
 		return
 
 /obj/machinery/mecha_part_fabricator/proc/material2name(var/ID)

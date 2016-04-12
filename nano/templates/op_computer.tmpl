@@ -111,7 +111,14 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 					<div class="statusLabel">Pulse:</div> <div class="statusValue">{{:data.occupant.pulse}} bpm</div>
 				</div>
 				{{/if}}
-			
+				{{if data.occupant.inSurgery}}
+				<div class="line">
+					<div class="statusLabel">Initiated Surgery Procedure:</div> <div class="statusValue">{{:data.occupant.surgeryName}}</div>
+					<br>
+					<div class="statusLabel">Next Step:</div> <div class="statusValue">{{:data.occupant.stepName}}</div>
+
+				</div>
+				{{/if}}
 				<br>
 				<br>				
 		{{/if}}

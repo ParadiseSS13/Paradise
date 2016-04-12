@@ -89,14 +89,6 @@
 	item_state = "greenbandana"
 	flags_inv = 0
 
-/obj/item/clothing/head/cardborg
-	name = "cardborg helmet"
-	desc = "A helmet made out of a box."
-	icon_state = "cardborg_h"
-	item_state = "cardborg_h"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-
 /obj/item/clothing/head/justice
 	name = "justice hat"
 	desc = "Fight for what's righteous!"
@@ -338,7 +330,6 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR|NODROP
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	var/cooldown = 0
 	action_button_name = "Caw"
 
 /obj/item/clothing/head/griffin/attack_self()
@@ -362,3 +353,9 @@
 	desc = "A hat suitable for any man of high and exalted rank."
 	icon_state = "lordadmiralhat"
 	item_state = "lordadmiralhat"
+
+/obj/item/clothing/head/human_head
+	name = "bloated human head"
+	desc = "A horribly bloated and mismatched human head."
+	icon_state = "lingspacehelmet"
+	item_state = "lingspacehelmet"

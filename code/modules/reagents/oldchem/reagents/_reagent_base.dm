@@ -33,18 +33,23 @@
 					if(amount >= 1)
 						L.reagents.add_reagent(self.id,amount)
 
-/*
-		if(method == INGEST && istype(M, /mob/living/carbon))
-			if(prob(self.addictiveness))
-				var/datum/disease/addiction/A = new /datum/disease/addiction
-				A.addicted_to = self
-				A.name = "[self.name] Addiction"
-				A.addiction ="[self.name]"
-				A.cure = self.id
-				M.viruses += A
-				A.affected_mob = M
-				A.holder = M
-*/
+
+		if(method == INGEST) //Yes, even Xenos can get addicted to drugs.
+			var/can_become_addicted = M.reagents.reaction_check(M, self)
+
+			if(can_become_addicted)
+				if(prob(self.addiction_chance) && !is_type_in_list(self, M.reagents.addiction_list))
+					to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
+					var/datum/reagent/new_reagent = new self.type()
+					new_reagent.last_addiction_dose = world.timeofday
+					M.reagents.addiction_list.Add(new_reagent)
+				else if(is_type_in_list(self, M.reagents.addiction_list))
+					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>")
+					for(var/A in M.reagents.addiction_list)
+						var/datum/reagent/AD = A
+						if(AD && istype(AD, self))
+							AD.last_addiction_dose = world.timeofday
+							AD.addiction_stage = 1
 		return 1
 
 /datum/reagent/proc/reaction_obj(var/obj/O, var/volume) //By default we transfer a small part of the reagent to the object
@@ -74,6 +79,10 @@
 	return
 
 /datum/reagent/proc/on_update(var/atom/A)
+	return
+
+// Called after add_reagents creates a new reagent.
+/datum/reagent/proc/on_new(data)
 	return
 
 /datum/reagent/Destroy()

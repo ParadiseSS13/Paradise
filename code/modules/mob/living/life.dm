@@ -161,7 +161,7 @@
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
-	if(disabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
+	if(sdisabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
 		eye_blind = max(eye_blind, 1)
 	else if(eye_blind)			//blindness, heals slowly over time
 		eye_blind = max(eye_blind-1,0)
@@ -187,33 +187,40 @@
 	return 1
 
 /mob/living/proc/handle_vision()
-
-	client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask)
-
 	update_sight()
 
-	if(stat != DEAD)
-		if(blind)
-			if(eye_blind)
-				blind.layer = 18
-			else
-				blind.layer = 0
+	if(stat == DEAD)
+		return
+	if(blinded || eye_blind)
+		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+		//throw_alert("blind", /obj/screen/alert/blind)
+	else
+		clear_fullscreen("blind")
+		//clear_alert("blind")
 
-				if (disabilities & NEARSIGHTED)
-					client.screen += global_hud.vimpaired
-
-				if (eye_blurry)
-					client.screen += global_hud.blurry
-
-				if (druggy)
-					client.screen += global_hud.druggy
-
-		if(machine)
-			if (!( machine.check_eye(src) ))
-				reset_view(null)
+		if(disabilities & NEARSIGHTED)
+			overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 		else
-			if(!client.adminobs)
-				reset_view(null)
+			clear_fullscreen("nearsighted")
+
+		if(eye_blurry)
+			overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+		else
+			clear_fullscreen("blurry")
+
+		if(druggy)
+			overlay_fullscreen("high", /obj/screen/fullscreen/high)
+			//throw_alert("high", /obj/screen/alert/high)
+		else
+			clear_fullscreen("high")
+			//clear_alert("high")
+
+	if(machine)
+		if(!machine.check_eye(src))
+			reset_view(null)
+	else
+		if(!remote_view && !client.adminobs)
+			reset_view(null)
 
 /mob/living/proc/update_sight()
 	return
@@ -231,31 +238,25 @@
 		if(A.CheckRemoval(src))
 			A.Remove(src)
 	for(var/obj/item/I in src)
-		if(istype(I,/obj/item/clothing/under))
-			var/obj/item/clothing/under/U = I
-			for(var/obj/item/IU in U)
-				if(istype(IU, /obj/item/clothing/accessory))
-					var/obj/item/clothing/accessory/A = IU
-					if(A.action_button_name)
-						if(!A.action)
-							if(A.action_button_is_hands_free)
-								A.action = new/datum/action/item_action/hands_free
-							else
-								A.action = new/datum/action/item_action
-							A.action.name = A.action_button_name
-							A.action.target = A
-						A.action.check_flags &= ~AB_CHECK_INSIDE
-						A.action.Grant(src)
-		if(I.action_button_name)
-			if(!I.action)
-				if(I.action_button_is_hands_free)
-					I.action = new/datum/action/item_action/hands_free
-				else
-					I.action = new/datum/action/item_action
-				I.action.name = I.action_button_name
-				I.action.target = I
-			I.action.Grant(src)
+		give_action_button(I, 1)
 	return
+
+/mob/living/proc/give_action_button(var/obj/item/I, recursive = 0)
+	if(I.action_button_name)
+		if(!I.action)
+			if(istype(I, /obj/item/organ/internal))
+				I.action = new/datum/action/item_action/organ_action
+			else if(I.action_button_is_hands_free)
+				I.action = new/datum/action/item_action/hands_free
+			else
+				I.action = new/datum/action/item_action
+			I.action.name = I.action_button_name
+			I.action.target = I
+		I.action.Grant(src)
+
+	if(recursive)
+		for(var/obj/item/T in I)
+			give_action_button(I, recursive - 1)
 
 /mob/living/update_action_buttons()
 	if(!hud_used) return

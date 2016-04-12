@@ -44,9 +44,9 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		user << "<span class='notice'>The transmitters realign to an unknown source!</span>"
+		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
 	else
-		user << "<span class='warning'>You swipe the card through [src], but nothing happens.</span>"
+		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
@@ -100,7 +100,7 @@ var/list/alldepartments = list()
 		if(copyitem)
 			copyitem.loc = usr.loc
 			usr.put_in_hands(copyitem)
-			usr << "<span class='notice'>You take \the [copyitem] out of \the [src].</span>"
+			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 			copyitem = null
 		else
 			var/obj/item/I = usr.get_active_hand()
@@ -108,7 +108,7 @@ var/list/alldepartments = list()
 				usr.drop_item()
 				copyitem = I
 				I.loc = src
-				usr << "<span class='notice'>You insert \the [I] into \the [src].</span>"
+				to_chat(usr, "<span class='notice'>You insert \the [I] into \the [src].</span>")
 				flick(insert_anim, src)
 
 	if(href_list["scan"])
@@ -203,7 +203,8 @@ var/list/alldepartments = list()
 		return 0	//You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
-	playsound(loc, "sound/items/polaroid1.ogg", 50, 1)
+
+	playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 
 	// give the sprite some time to flick
 	sleep(20)
@@ -264,4 +265,4 @@ var/list/alldepartments = list()
 
 	for(var/client/C in admins)
 		if(R_EVENT & C.holder.rights)
-			C << msg
+			to_chat(C, msg)

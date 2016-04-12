@@ -17,6 +17,7 @@ The currently supporting non-reagent materials:
 - MAT_URANIUM (/obj/item/stack/uranium).
 - MAT_DIAMOND (/obj/item/stack/diamond).
 - MAT_BANANIUM (/obj/item/stack/bananium).
+- MAT_TRANQUILLITE (/obj/item/stack/tranquillite).
 (Insert new ones here)
 
 Don't add new keyword/IDs if they are made from an existing one (such as rods which are made from metal). Only add raw materials.
@@ -47,6 +48,7 @@ other types of metals and chemistry for reagents).
 	var/access_requirement = list(access_armory) //What special access requirements will the lockbox have? Defaults to armory.
 	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
 	var/list/reagents = list()			//List of reagents. Format: "id" = amount.
+	var/maxstack = 1
 
 //A proc to calculate the reliability of a design based on tech levels and innate modifiers.
 //Input: A list of /datum/tech; Output: The new reliabilty.

@@ -129,33 +129,33 @@
 		return
 
 	if(!checkCircumstances(O))
-		user << "<span class='warning'>The [O] is not yet valid for the [src] and must be completed!</span>"
+		to_chat(user, "<span class='warning'>The [O] is not yet valid for the [src] and must be completed!</span>")
 		return
 
 	if (disabled)
 		return
 	if (!linked_console)
-		user << "<span class='warning'>The [src] must be linked to an R&D console first!</span>"
+		to_chat(user, "<span class='warning'>The [src] must be linked to an R&D console first!</span>")
 		return
 	if (loaded_item)
-		user << "<span class='warning'>The [src] is already loaded.</span>"
+		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
 		return
 	if (istype(O, /obj/item))
 		if(!O.origin_tech)
-			user << "<span class='warning'>This doesn't seem to have a tech origin!</span>"
+			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
 		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
 		if (temp_tech.len == 0)
-			user << "<span class='warning'>You cannot experiment on this item!</span>"
+			to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
 			return
 		if(O.reliability < 90 && O.crit_fail == 0)
-			usr << "<span class='warning'>Item is neither reliable enough or broken enough to learn from.</span>"
+			to_chat(usr, "<span class='warning'>Item is neither reliable enough or broken enough to learn from.</span>")
 			return
 		if(!user.drop_item())
 			return
 		loaded_item = O
 		O.loc = src
-		user << "<span class='notice'>You add the [O.name] to the machine.</span>"
+		to_chat(user, "<span class='notice'>You add the [O.name] to the machine.</span>")
 		flick("h_lathe_load", src)
 
 	return
@@ -170,28 +170,25 @@
 	if(!linked_console)
 		dat += "<b><a href='byond://?src=\ref[src];function=search'>Scan for R&D Console</A></b><br>"
 	if(loaded_item)
-		if(recentlyExperimented)
-			dat += "<b>The [src] is still resetting!</b>"
-		else
-			dat += "<b>Loaded Item:</b> [loaded_item]<br>"
-			dat += "<b>Technology</b>:<br>"
-			var/list/D = ConvertReqString2List(loaded_item.origin_tech)
-			for(var/T in D)
-				dat += "[T]<br>"
-			dat += "<br><br>Available tests:"
-			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
-			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
-			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</A></b>"
-			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</A></b>"
-			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</A></b>"
-			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</A></b><br>"
-			if(istype(loaded_item,/obj/item/weapon/relic))
-				dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_DISCOVER]'>Discover</A></b><br>"
-			dat += "<br><b><a href='byond://?src=\ref[src];function=eject'>Eject</A>"
+		dat += "<b>Loaded Item:</b> [loaded_item]<br>"
+		dat += "<b>Technology</b>:<br>"
+		var/list/D = ConvertReqString2List(loaded_item.origin_tech)
+		for(var/T in D)
+			dat += "[T]<br>"
+		dat += "<br><br>Available tests:"
+		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
+		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
+		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</A></b>"
+		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</A></b>"
+		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</A></b>"
+		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</A></b><br>"
+		if(istype(loaded_item,/obj/item/weapon/relic))
+			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_DISCOVER]'>Discover</A></b><br>"
+		dat += "<br><b><a href='byond://?src=\ref[src];function=eject'>Eject</A>"
 	else
 		dat += "<b>Nothing loaded.</b>"
 	dat += "<br><a href='byond://?src=\ref[src];function=refresh'>Refresh</A><br>"
-	dat += "<br><a href='byond://?src=\ref[src];function=close'>Close</A><br></center>"
+	dat += "<br><a href='byond://?src=\ref[src];close=1'>Close</A><br></center>"
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
@@ -329,7 +326,7 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s chemical chamber has sprung a leak!</span>")
-			chosenchem = pick("mutationtoxin","itching_powder","sacid")
+			chosenchem = pick("mutationtoxin","nanomachines","sacid")
 			var/datum/reagents/R = new/datum/reagents(15)
 			R.my_atom = src
 			R.add_reagent(chosenchem , 15)
@@ -460,27 +457,23 @@
 			visible_message("<span class='danger'>[src]'s crusher goes way too many levels too high, crushing right through space-time!</span>")
 			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
 			investigate_log("Experimentor has triggered the 'throw things' reaction.", "experimentor")
-			var/list/throwAt = list()
-			for(var/i in oview(7,src))
-				if(istype(i,/obj/item) || istype(i,/mob/living))
-					throwAt.Add(i)
-			var/counter
-			for(counter = 1, counter < throwAt.len, ++counter)
-				var/cast = throwAt[counter]
-				cast:throw_at(src,10,1)
+			for(var/atom/movable/AM in oview(7,src))
+				if(!AM.anchored)
+					spawn(0)
+						AM.throw_at(src,10,1)
+
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s crusher goes one level too high, crushing right into space-time!</span>")
 			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
 			investigate_log("Experimentor has triggered the 'minor throw things' reaction.", "experimentor")
-			var/list/oViewStuff = oview(7,src)
 			var/list/throwAt = list()
-			for(var/i in oViewStuff)
-				if(istype(i,/obj/item) || istype(i,/mob/living))
-					throwAt.Add(i)
-			var/counter
-			for(counter = 1, counter < throwAt.len, ++counter)
-				var/cast = throwAt[counter]
-				cast:throw_at(pick(throwAt),10,1)
+			for(var/atom/movable/AM in oview(7,src))
+				if(!AM.anchored)
+					throwAt.Add(AM)
+			for(var/counter = 1, counter < throwAt.len, ++counter)
+				var/atom/movable/cast = throwAt[counter]
+				spawn(0)
+					cast.throw_at(pick(throwAt),10,1)
 		ejectItem(TRUE)
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == FAIL)
@@ -517,7 +510,7 @@
 		if(globalMalf > 36 && globalMalf < 50)
 			visible_message("<span class='warning'>[src] improves [exp_on], drawing the life essence of those nearby!</span>")
 			for(var/mob/living/m in view(4,src))
-				m << "<span class='danger'>You feel your flesh being torn from you, mists of blood drifting to [src]!</span>"
+				to_chat(m, "<span class='danger'>You feel your flesh being torn from you, mists of blood drifting to [src]!</span>")
 				m.take_overall_damage(50)
 				investigate_log("Experimentor has taken 50 brute a blood sacrifice from [m]", "experimentor")
 			var/list/reqs = ConvertReqString2List(exp_on.origin_tech)
@@ -553,8 +546,9 @@
 	var/scantype = href_list["function"]
 	var/obj/item/process = locate(href_list["item"]) in src
 
-	if(scantype == "close")
+	if(href_list["close"])
 		usr << browse(null, "window=experimentor")
+		return
 	else if(scantype == "search")
 		var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(3,src)
 		if(D)
@@ -565,7 +559,15 @@
 		src.updateUsrDialog()
 	else
 		if(recentlyExperimented)
-			usr << "<span class='warning'>[src] has been used too recently!</span>"
+			to_chat(usr, "<span class='warning'>[src] has been used too recently!</span>")
+			return
+		else if(!loaded_item)
+			updateUsrDialog() //Set the interface to unloaded mode
+			to_chat(usr, "<span class='warning'>[src] is not currently loaded!</span>")
+			return
+		else if(!process || process != loaded_item) //Interface exploit protection (such as hrefs or swapping items with interface set to old item)
+			updateUsrDialog() //Refresh interface to update interface hrefs
+			to_chat(usr, "<span class='danger'>Interface failure detected in [src]. Please try again.</span>")
 			return
 		var/dotype
 		if(text2num(scantype) == SCANTYPE_DISCOVER)
@@ -579,9 +581,8 @@
 				var/list/temp_tech = ConvertReqString2List(process.origin_tech)
 				for(var/T in temp_tech)
 					linked_console.files.UpdateTech(T, temp_tech[T])
-				linked_console.files.UpdateDesigns(process,process.type)
-	if(scantype != "close")
-		src.updateUsrDialog()
+				linked_console.files.UpdateDesigns(process,temp_tech)
+	src.updateUsrDialog()
 	return
 
 //~~~~~~~~Admin logging proc, aka the Powergamer Alarm~~~~~~~~
@@ -638,7 +639,7 @@
 /obj/item/weapon/relic/attack_self(mob/user)
 	if(revealed)
 		if(cooldown)
-			user << "<span class='warning'>[src] does not react!</span>"
+			to_chat(user, "<span class='warning'>[src] does not react!</span>")
 			return
 		else if(src.loc == user)
 			cooldown = TRUE
@@ -646,7 +647,7 @@
 			spawn(cooldownMax)
 				cooldown = FALSE
 	else
-		user << "<span class='notice'>You aren't quite sure what to do with this, yet.</span>"
+		to_chat(user, "<span class='notice'>You aren't quite sure what to do with this, yet.</span>")
 
 //////////////// RELIC PROCS /////////////////////////////
 
@@ -677,7 +678,7 @@
 /obj/item/weapon/relic/proc/petSpray(mob/user)
 	var/message = "<span class='danger'>[src] begans to shake, and in the distance the sound of rampaging animals arises!</span>"
 	visible_message(message)
-	user << message
+	to_chat(user, message)
 	var/animals = rand(1,25)
 	var/counter
 	var/list/valid_animals = list(/mob/living/simple_animal/parrot,/mob/living/simple_animal/butterfly,/mob/living/simple_animal/pet/cat,/mob/living/simple_animal/pet/corgi,/mob/living/simple_animal/crab,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/lizard,/mob/living/simple_animal/mouse,/mob/living/simple_animal/pet/pug,/mob/living/simple_animal/hostile/bear,/mob/living/simple_animal/hostile/poison/bees,/mob/living/simple_animal/hostile/carp)
@@ -686,7 +687,7 @@
 		new mobType(get_turf(src))
 	warn_admins(user, "Mass Mob Spawn")
 	if(prob(60))
-		user << "<span class='warning'>[src] falls apart!</span>"
+		to_chat(user, "<span class='warning'>[src] falls apart!</span>")
 		qdel(src)
 
 /obj/item/weapon/relic/proc/rapidDupe(mob/user)
@@ -712,7 +713,7 @@
 	warn_admins(user, "Rapid duplicator", 0)
 
 /obj/item/weapon/relic/proc/explode(mob/user)
-	user << "<span class='danger'>[src] begins to heat up!</span>"
+	to_chat(user, "<span class='danger'>[src] begins to heat up!</span>")
 	spawn(rand(35,100))
 		if(src.loc == user)
 			visible_message("<span class='notice'>The [src]'s top opens, releasing a powerful blast!</span>")
@@ -721,7 +722,7 @@
 			qdel(src) //Comment this line to produce a light grenade (the bomb that keeps on exploding when used)!!
 
 /obj/item/weapon/relic/proc/teleport(mob/user)
-	user << "<span class='notice'>The [src] begins to vibrate!</span>"
+	to_chat(user, "<span class='notice'>The [src] begins to vibrate!</span>")
 	spawn(rand(10,30))
 		var/turf/userturf = get_turf(user)
 		if(src.loc == user && userturf.z != ZLEVEL_CENTCOMM) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!

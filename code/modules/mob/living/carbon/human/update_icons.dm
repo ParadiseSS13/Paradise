@@ -177,11 +177,10 @@ Please contact me on #coderbus IRC. ~Carn x
 		if(istype(I))  overlays += I
 	else
 		icon = stand_icon
-		if(overlays.len != overlays_standing.len)
-			overlays.Cut()
+		overlays.Cut()
 
-			for(var/thing in overlays_standing)
-				if(thing)	overlays += thing
+		for(var/thing in overlays_standing)
+			if(thing)	overlays += thing
 
 	update_transform()
 
@@ -251,7 +250,7 @@ var/global/list/damage_icon_parts = list()
 		qdel(stand_icon)
 	stand_icon = new(species.icon_template ? species.icon_template : 'icons/mob/human.dmi',"blank")
 	var/icon_key = ""
-	var/obj/item/organ/eyes/eyes = internal_organs_by_name["eyes"]
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 
 	if(eyes)
 		icon_key += "[rgb(eyes.eye_colour[1], eyes.eye_colour[2], eyes.eye_colour[3])]"
@@ -286,7 +285,7 @@ var/global/list/damage_icon_parts = list()
 	else
 		//BEGIN CACHED ICON GENERATION.
 		var/obj/item/organ/external/chest = get_organ("chest")
-		base_icon = chest.get_icon()
+		base_icon = chest.get_icon(skeleton)
 
 		for(var/obj/item/organ/external/part in organs)
 			var/icon/temp = part.get_icon(skeleton)
@@ -390,14 +389,13 @@ var/global/list/damage_icon_parts = list()
 	//base icons
 	var/icon/markings_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
 
-	if(m_style && (src.species.bodyflags & HAS_MARKINGS))
+	if(m_style && m_style != "None")
 		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
-		if(marking_style && marking_style.species_allowed)
-			if(src.species.name in marking_style.species_allowed)
-				var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
-				if(marking_style.do_colouration)
-					markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
-				markings_standing.Blend(markings_s, ICON_OVERLAY)
+		if(marking_style)
+			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
+			if(marking_style.do_colouration)
+				markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
+			markings_standing.Blend(markings_s, ICON_OVERLAY)
 		else
 			//warning("Invalid m_style for [species.name]: [m_style]")
 
@@ -456,11 +454,14 @@ var/global/list/damage_icon_parts = list()
 
 	//base icons
 	var/icon/hair_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
+	//var/icon/debrained_s = new /icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
 
 	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
+		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
-			if(src.species.name in hair_style.species_allowed)
+			if((src.species.name in hair_style.species_allowed) || (src.species.flags & ALL_RPARTS))
 				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 				if(src.get_species() == "Slime People") // I am el worstos
 					hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
@@ -470,6 +471,7 @@ var/global/list/damage_icon_parts = list()
 				hair_standing.Blend(hair_s, ICON_OVERLAY)
 		else
 			//warning("Invalid h_style for [species.name]: [h_style]")
+		//hair_standing.Blend(debrained_s, ICON_OVERLAY)//how does i overlay for fish?
 
 	overlays_standing[HAIR_LAYER]	= image(hair_standing)
 
@@ -497,7 +499,7 @@ var/global/list/damage_icon_parts = list()
 	if(f_style)
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
-			if(src.species.name in facial_hair_style.species_allowed)
+			if((src.species.name in facial_hair_style.species_allowed) || (src.species.flags & ALL_RPARTS))
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 				if(src.get_species() == "Slime People") // I am el worstos
 					facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
@@ -640,7 +642,7 @@ var/global/list/damage_icon_parts = list()
 			if(w_uniform.flags&ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
-				src << "\red You burst out of \the [w_uniform]!"
+				to_chat(src, "\red You burst out of \the [w_uniform]!")
 				unEquip(w_uniform)
 				return
 		else
@@ -855,7 +857,7 @@ var/global/list/damage_icon_parts = list()
 			if(wear_suit.flags&ONESIZEFITSALL)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
-				src << "\red You burst out of \the [wear_suit]!"
+				to_chat(src, "\red You burst out of \the [wear_suit]!")
 				unEquip(wear_suit)
 				return
 		else
@@ -955,7 +957,8 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/update_hud()	//TODO: do away with this if possible
 	if(client)
-		client.screen |= contents
+		for(var/obj/item/I in get_all_slots())
+			client.screen |= I // Items only please, no arms allowed
 		if(hud_used)
 			hud_used.hidden_inventory_update() 	//Updates the screenloc of the items on the 'other' inventory bar
 			update_inv_handcuffed(0) // update handcuff overlay

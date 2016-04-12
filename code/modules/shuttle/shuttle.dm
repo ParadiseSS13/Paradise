@@ -186,7 +186,8 @@
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
 	var/callTime = 50				//time spent in transit (deciseconds)
 	var/roundstart_move				//id of port to send shuttle to at roundstart
-	var/travelDir = 0			//direction the shuttle would travel in
+	var/travelDir = 0				//direction the shuttle would travel in
+	var/rebuildable = 0				//can build new shuttle consoles for this one
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -395,7 +396,7 @@
 				var/obj/O = AM
 				if(istype(O, /obj/docking_port/stationary))
 					continue
-				O.loc = T1
+				O.forceMove(T1)
 
 				//close open doors
 				if(istype(O, /obj/machinery/door))
@@ -414,7 +415,7 @@
 				var/mob/M = AM
 				if(!M.move_on_shuttle)
 					continue
-				M.loc = T1
+				M.forceMove(T1)
 
 				//docking turbulence
 				if(M.client)
@@ -432,15 +433,12 @@
 			T1.shuttleRotate(rotation)
 
 		//lighting stuff
-		T1.reconsider_lights()
-		T1.lighting_build_overlays()
 		air_master.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
 		air_master.add_to_active(T1,1)
 
 		T0.ChangeTurf(turf_type)
 
-		T0.reconsider_lights()
 		air_master.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
@@ -483,7 +481,7 @@
 	if(!istype(S0))
 		return 1
 
-	for(var/obj/machinery/door/airlock/A in machines)
+	for(var/obj/machinery/door/airlock/A in airlocks)
 		if(A.id_tag == S0.id)
 			spawn(-1)
 				A.close()
@@ -493,7 +491,7 @@
 	if(!istype(S1))
 		return 0
 
-	for(var/obj/machinery/door/airlock/A in machines)
+	for(var/obj/machinery/door/airlock/A in airlocks)
 		if(A.id_tag == S1.id)
 			spawn(-1)
 				if(A.locked)
@@ -514,7 +512,8 @@
 			if(!AM.anchored)
 				step(AM, dir)
 			else
-				qdel(AM)
+				if(AM.simulated) //lighting overlays are static
+					qdel(AM)
 /*
 //used to check if atom/A is within the shuttle's bounding box
 /obj/docking_port/mobile/proc/onShuttleCheck(atom/A)
@@ -564,6 +563,32 @@
 		return round(callTime/divisor, 1)
 	return max( round((timer+callTime-world.time)/divisor,1), 0 )
 
+// returns 3-letter mode string, used by status screens and mob status panel
+/obj/docking_port/mobile/proc/getModeStr()
+	switch(mode)
+		if(SHUTTLE_RECALL)
+			return "RCL"
+		if(SHUTTLE_CALL)
+			return "ETA"
+		if(SHUTTLE_DOCKED)
+			return "ETD"
+		if(SHUTTLE_ESCAPE)
+			return "ESC"
+		if(SHUTTLE_STRANDED)
+			return "ERR"
+	return ""
+
+// returns 5-letter timer string, used by status screens and mob status panel
+/obj/docking_port/mobile/proc/getTimerStr()
+	if(mode == SHUTTLE_STRANDED)
+		return "--:--"
+
+	var/timeleft = timeLeft()
+	if(timeleft > 0)
+		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+	else
+		return "00:00"
+
 /obj/docking_port/mobile/proc/getStatusText()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
 	. = (dockedAt && dockedAt.name) ? dockedAt.name : "unknown"
@@ -584,6 +609,7 @@
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
+	var/max_connect_range = 7
 
 /obj/machinery/computer/shuttle/New(location, obj/item/weapon/circuitboard/shuttle/C)
 	..()
@@ -591,10 +617,33 @@
 		possible_destinations = C.possible_destinations
 		shuttleId = C.shuttleId
 
+	connect()
+
+/obj/machinery/computer/shuttle/proc/connect()
+	var/obj/docking_port/mobile/M
+	if(!shuttleId)
+		// find close shuttle that is ok to mess with
+		for(var/obj/docking_port/mobile/D in shuttle_master.mobile)
+			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
+				M = D
+				shuttleId = M.id
+				break
+	else if(!possible_destinations && shuttle_master) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
+		M = shuttle_master.getShuttle(shuttleId)
+
+	if(M && !possible_destinations)
+		// find perfect fits
+		possible_destinations = ""
+		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
+			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
+				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
+
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
 	if(..(user))
 		return
 	src.add_fingerprint(usr)
+
+	connect()
 
 	var/list/options = params2list(possible_destinations)
 	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
@@ -626,21 +675,24 @@
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(!allowed(usr))
-		usr << "<span class='danger'>Access denied.</span>"
+		to_chat(usr, "<span class='danger'>Access denied.</span>")
 		return
 
 	if(href_list["move"])
 		switch(shuttle_master.moveShuttle(shuttleId, href_list["move"], 1))
-			if(0)	usr << "<span class='notice'>Shuttle received message and will be sent shortly.</span>"
-			if(1)	usr << "<span class='warning'>Invalid shuttle requested.</span>"
-			else	usr << "<span class='notice'>Unable to comply.</span>"
+			if(0)
+				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+			if(1)
+				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+			else
+				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 		updateUsrDialog()
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		src.req_access = list()
 		emagged = 1
-		user << "<span class='notice'>You fried the consoles ID checking system.</span>"
+		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"
@@ -662,8 +714,8 @@
 		if(cooldown)
 			return
 		cooldown = 1
-		usr << "<span class='notice'>Your request has been recieved by Centcom.</span>"
-		admins << "<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>"
+		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
+		to_chat(admins, "<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		spawn(600) //One minute cooldown
 			cooldown = 0
 
@@ -681,30 +733,6 @@
 	circuit = /obj/item/weapon/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
-
-#define SYNDICATE_CHALLENGE_TIMER 12000 //20 minutes
-
-/obj/machinery/computer/shuttle/syndicate
-	name = "syndicate shuttle terminal"
-	icon_screen = "syndishuttle"
-	icon_keyboard = "syndie_key"
-	req_access = list(access_syndicate)
-	shuttleId = "syndicate"
-	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
-	var/challenge = FALSE
-
-/obj/machinery/computer/shuttle/syndicate/recall
-	name = "syndicate shuttle recall terminal"
-	possible_destinations = "syndicate_away"
-
-/obj/machinery/computer/shuttle/syndicate/Topic(href, href_list)
-	if(href_list["move"])
-		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-			usr << "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>"
-			return 0
-	..()
-
-#undef SYNDICATE_CHALLENGE_TIMER
 
 /obj/machinery/computer/shuttle/vox
 	name = "skipjack control console"
@@ -739,7 +767,7 @@
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
 			O.underlays.Add(T)
-		T = new type(T)
+		T.ChangeTurf(type)
 		if(underlays.len)
 			T.underlays = O.underlays
 	if(T.icon_state != icon_state)

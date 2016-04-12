@@ -13,7 +13,11 @@ var/datum/atom_hud/huds = list( \
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_SHADOW  = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_SOLO = new/datum/atom_hud/antag(), \
+	ANTAG_HUD_TRAITOR = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_NINJA = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_CHANGELING = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),\
  	)
 
 /datum/atom_hud
@@ -24,8 +28,8 @@ var/datum/atom_hud/huds = list( \
 /datum/atom_hud/proc/remove_hud_from(mob/M)
 	if(!M)
 		return
-	//if(src in M.permanent_huds)//I will deal with you later -Fethas
-	//	return
+	if(src in M.permanent_huds)
+		return
 	for(var/atom/A in hudatoms)
 		remove_from_single_hud(M, A)
 	hudusers -= M

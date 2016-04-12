@@ -6,15 +6,15 @@ These are general powers. Specific powers are stored under the appropriate alien
 Doesn't work on other aliens/AI.*/
 
 
-/mob/living/carbon/alien/proc/powerc(X, Y)//Y is optional, checks for weed planting. X can be null.
+/mob/living/carbon/proc/powerc(X, Y)//Y is optional, checks for weed planting. X can be null.
 	if(stat)
-		src << "<span class='noticealien'>You must be conscious to do this.</span>"
+		to_chat(src, "<span class='noticealien'>You must be conscious to do this.</span>")
 		return 0
 	else if(X && getPlasma() < X)
-		src << "<span class='noticealien'>Not enough plasma stored.</span>"
+		to_chat(src, "<span class='noticealien'>Not enough plasma stored.</span>")
 		return 0
 	else if(Y && (!isturf(src.loc) || istype(src.loc, /turf/space)))
-		src << "<span class='noticealien'>You can't place that here!</span>"
+		to_chat(src, "<span class='noticealien'>You can't place that here!</span>")
 		return 0
 	else	return 1
 
@@ -24,11 +24,11 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
-		src << "<span class='noticealien'>There's already a weed node here.</span>"
+		to_chat(src, "<span class='noticealien'>There's already a weed node here.</span>")
 		return
 
 	if(powerc(50,1))
-		adjustToxLoss(-50)
+		adjustPlasma(-50)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
 		new /obj/structure/alien/weeds/node(loc)
@@ -40,12 +40,12 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(powerc(10))
-		adjustToxLoss(-10)
+		adjustPlasma(-10)
 		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
 		if(msg)
 			log_say("Alien Whisper: [key_name(src)]->[key_name(M)]: [msg]")
-			M << "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]"
-			src << "<span class='noticealien'>You said: [msg] to [M]</span>"
+			to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")
+			to_chat(src, "<span class='noticealien'>You said: [msg] to [M]</span>")
 			for(var/mob/dead/observer/G in player_list)
 				G.show_message("<i>Alien message from <b>[src]</b> ([ghost_follow_link(src, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
 	return
@@ -61,12 +61,12 @@ Doesn't work on other aliens/AI.*/
 			amount = abs(round(amount))
 			if(powerc(amount))
 				if (get_dist(src,M) <= 1)
-					M.adjustToxLoss(amount)
-					adjustToxLoss(-amount)
-					M << "<span class='noticealien'>[src] has transfered [amount] plasma to you.</span>"
-					src << {"<span class='noticealien'>You have trasferred [amount] plasma to [M]</span>"}
+					M.adjustPlasma(amount)
+					adjustPlasma(-amount)
+					to_chat(M, "<span class='noticealien'>[src] has transfered [amount] plasma to you.</span>")
+					to_chat(src, {"<span class='noticealien'>You have trasferred [amount] plasma to [M]</span>"})
 				else
-					src << "<span class='noticealien'>You need to be closer.</span>"
+					to_chat(src, "<span class='noticealien'>You need to be closer.</span>")
 	return
 
 
@@ -81,27 +81,27 @@ Doesn't work on other aliens/AI.*/
 			if(isobj(O))
 				var/obj/I = O
 				if(I.unacidable)	//So the aliens don't destroy energy fields/singularies/other aliens/etc with their acid.
-					src << "<span class='noticealien'>You cannot dissolve this object.</span>"
+					to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 					return
 			// TURF CHECK
 			else if(istype(O, /turf/simulated))
 				var/turf/T = O
 				// R WALL
 				if(istype(T, /turf/simulated/wall/r_wall))
-					src << "<span class='noticealien'>You cannot dissolve this object.</span>"
+					to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 					return
 				// R FLOOR
 				if(istype(T, /turf/simulated/floor/engine))
-					src << "<span class='noticealien'>You cannot dissolve this object.</span>"
+					to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 					return
 			else// Not a type we can acid.
 				return
 
-			adjustToxLoss(-200)
+			adjustPlasma(-200)
 			new /obj/effect/acid(get_turf(O), O)
 			visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [O]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
 		else
-			src << "<span class='noticealien'>Target is too far away.</span>"
+			to_chat(src, "<span class='noticealien'>Target is too far away.</span>")
 	return
 
 /mob/living/carbon/alien/humanoid/proc/neurotoxin() // ok
@@ -110,7 +110,7 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(powerc(50))
-		adjustToxLoss(-50)
+		adjustPlasma(-50)
 		src.visible_message("<span class='danger'>[src] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
 
 		var/turf/T = loc
@@ -136,7 +136,7 @@ Doesn't work on other aliens/AI.*/
 		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
 
 		if(!choice || !powerc(55))	return
-		adjustToxLoss(-55)
+		adjustPlasma(-55)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)
 		switch(choice)
@@ -162,3 +162,27 @@ Doesn't work on other aliens/AI.*/
 					//Paralyse(10)
 			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of their stomach!</span>")
 	return
+
+/mob/living/carbon/proc/getPlasma()
+ 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+ 	if(!vessel) return 0
+ 	return vessel.stored_plasma
+
+
+/mob/living/carbon/proc/adjustPlasma(amount)
+ 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+ 	if(!vessel) return
+ 	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
+ 	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
+ 	return 1
+
+/mob/living/carbon/alien/adjustPlasma(amount)
+	. = ..()
+	updatePlasmaDisplay()
+
+/mob/living/carbon/proc/usePlasma(amount)
+	if(getPlasma() >= amount)
+		adjustPlasma(-amount)
+		return 1
+
+ 	return 0

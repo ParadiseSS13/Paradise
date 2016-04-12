@@ -221,6 +221,22 @@
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_ALIVE|AB_CHECK_INSIDE
 
+///prset for organ actions
+/datum/action/item_action/organ_action
+	check_flags = AB_CHECK_ALIVE
+
+/datum/action/item_action/organ_action/CheckRemoval(mob/living/carbon/user)
+	if(!iscarbon(user))
+		return 1
+	if(target in user.internal_organs)
+		return 0
+	return 1
+
+/datum/action/item_action/organ_action/IsAvailable()
+	var/obj/item/organ/internal/I = target
+	if(!I.owner)
+		return 0
+	return ..()
 
 //Preset for spells
 /datum/action/spell_action
@@ -263,12 +279,12 @@
 /datum/action/scan_mode/Activate()
 	active = 1
 	owner.research_scanner = 1
-	owner << "<span class='notice'> Research analyzer is now active.</span>"
+	to_chat(owner, "<span class='notice'> Research analyzer is now active.</span>")
 
 /datum/action/scan_mode/Deactivate()
 	active = 0
 	owner.research_scanner = 0
-	owner << "<span class='notice'> Research analyzer deactivated.</span>"
+	to_chat(owner, "<span class='notice'> Research analyzer deactivated.</span>")
 
 /datum/action/scan_mode/Grant(mob/living/T)
 	devices += 1

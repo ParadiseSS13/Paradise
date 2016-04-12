@@ -13,6 +13,7 @@
 	var/heating_power = 40000
 	var/delay = 10
 	req_access = list(access_rd) //Only the R&D can change server settings.
+	var/plays_sound = 0
 
 /obj/machinery/r_n_d/server/New()
 	..()
@@ -48,16 +49,19 @@
 	var/list/temp_list
 	if(!id_with_upload.len)
 		temp_list = list()
-		temp_list = text2list(id_with_upload_string, ";")
+		temp_list = splittext(id_with_upload_string, ";")
 		for(var/N in temp_list)
 			id_with_upload += text2num(N)
 	if(!id_with_download.len)
 		temp_list = list()
-		temp_list = text2list(id_with_download_string, ";")
+		temp_list = splittext(id_with_download_string, ";")
 		for(var/N in temp_list)
 			id_with_download += text2num(N)
 
 /obj/machinery/r_n_d/server/process()
+	if(prob(3) && plays_sound)
+		playsound(loc, "computer_ambience", 50, 1)
+
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)
 		if(0 to T0C)
@@ -205,7 +209,7 @@
 	add_fingerprint(usr)
 	usr.set_machine(src)
 	if(!src.allowed(usr) && !emagged)
-		usr << "\red You do not have the required access level"
+		to_chat(usr, "\red You do not have the required access level")
 		return
 
 	if(href_list["main"])
@@ -333,7 +337,7 @@
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "\blue You you disable the security protocols"
+		to_chat(user, "\blue You you disable the security protocols")
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core
@@ -341,6 +345,7 @@
 	id_with_upload_string = "1;3"
 	id_with_download_string = "1;3"
 	server_id = 1
+	plays_sound = 1
 
 /obj/machinery/r_n_d/server/robotics
 	name = "Robotics and Mechanic R&D Server"

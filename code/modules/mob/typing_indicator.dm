@@ -10,7 +10,8 @@ var/global/image/typing_indicator
 /mob/proc/set_typing_indicator(var/state)
 
 	if(!typing_indicator)
-		typing_indicator = image('icons/mob/talk.dmi',null,"typing")
+		typing_indicator = image('icons/mob/talk.dmi', null, "typing", MOB_LAYER + 1)
+		typing_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
@@ -82,7 +83,7 @@ var/global/image/typing_indicator
 	set desc = "Toggles showing an indicator when you are typing emote or say message."
 	prefs.toggles ^= SHOW_TYPING
 	prefs.save_preferences(src)
-	src << "You will [(prefs.toggles & SHOW_TYPING) ? "no longer" : "now"] display a typing indicator."
+	to_chat(src, "You will [(prefs.toggles & SHOW_TYPING) ? "no longer" : "now"] display a typing indicator.")
 
 	// Clear out any existing typing indicator.
 	if(prefs.toggles & SHOW_TYPING)

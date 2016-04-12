@@ -17,25 +17,28 @@
 	var/amt_plasma = 0
 	var/amt_uranium = 0
 	var/amt_clown = 0
+	var/amt_mime = 0
 	var/amt_adamantine = 0
 
 	for (var/obj/item/weapon/coin/C in contents)
 		if (istype(C,/obj/item/weapon/coin/diamond))
-			amt_diamond++;
+			amt_diamond++
 		if (istype(C,/obj/item/weapon/coin/plasma))
-			amt_plasma++;
+			amt_plasma++
 		if (istype(C,/obj/item/weapon/coin/iron))
-			amt_iron++;
+			amt_iron++
 		if (istype(C,/obj/item/weapon/coin/silver))
-			amt_silver++;
+			amt_silver++
 		if (istype(C,/obj/item/weapon/coin/gold))
-			amt_gold++;
+			amt_gold++
 		if (istype(C,/obj/item/weapon/coin/uranium))
-			amt_uranium++;
+			amt_uranium++
 		if (istype(C,/obj/item/weapon/coin/clown))
-			amt_clown++;
+			amt_clown++
+		if (istype(C,/obj/item/weapon/coin/mime))
+			amt_mime++
 		if (istype(C,/obj/item/weapon/coin/adamantine))
-			amt_adamantine++;
+			amt_adamantine++
 
 	var/dat = text("<b>The contents of the moneybag reveal...</b><br>")
 	if (amt_gold)
@@ -52,6 +55,8 @@
 		dat += text("Uranium coins: [amt_uranium] <A href='?src=\ref[src];remove=uranium'>Remove one</A><br>")
 	if (amt_clown)
 		dat += text("Bananium coins: [amt_clown] <A href='?src=\ref[src];remove=clown'>Remove one</A><br>")
+	if (amt_mime)
+		dat += text("Tranquillite coins: [amt_mime] <A href='?src=\ref[src];remove=mime'>Remove one</A><br>")
 	if (amt_adamantine)
 		dat += text("Adamantine coins: [amt_adamantine] <A href='?src=\ref[src];remove=adamantine'>Remove one</A><br>")
 	user << browse("[dat]", "window=moneybag")
@@ -62,13 +67,13 @@
 		var/obj/item/weapon/coin/C = W
 		if(!user.drop_item())
 			return
-		user << "<span class='notice'>You add the [C.name] into the bag.</span>"
+		to_chat(user, "<span class='notice'>You add the [C.name] into the bag.</span>")
 		contents += C
 	if (istype(W, /obj/item/weapon/moneybag))
 		var/obj/item/weapon/moneybag/C = W
 		for (var/obj/O in C.contents)
 			contents += O;
-		user << "<span class='notice'>You empty the [C.name] into the bag.</span>"
+		to_chat(user, "<span class='notice'>You empty the [C.name] into the bag.</span>")
 	return
 
 /obj/item/weapon/moneybag/Topic(href, href_list)
@@ -93,6 +98,8 @@
 				COIN = locate(/obj/item/weapon/coin/uranium,src.contents)
 			if("clown")
 				COIN = locate(/obj/item/weapon/coin/clown,src.contents)
+			if("mime")
+				COIN = locate(/obj/item/weapon/coin/mime,src.contents)
 			if("adamantine")
 				COIN = locate(/obj/item/weapon/coin/adamantine,src.contents)
 		if(!COIN)

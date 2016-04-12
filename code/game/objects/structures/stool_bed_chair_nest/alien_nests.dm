@@ -16,7 +16,7 @@
 	if(buckled_mob && buckled_mob.buckled == src)
 		var/mob/living/M = buckled_mob
 
-		if(isalien(user))
+		if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 			unbuckle_mob()
 			add_fingerprint(user)
 			return
@@ -34,7 +34,7 @@
 				"<span class='notice'>You hear squelching...</span>")
 			if(!do_after(M, 1200, target = src))
 				if(M && M.buckled)
-					M << "<span class='warning'>You fail to escape \the [src]!</span>"
+					to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
 				return
 			if(!M.buckled)
 				return
@@ -50,9 +50,9 @@
 	if ( !ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.restrained() || usr.stat || M.buckled || istype(user, /mob/living/silicon/pai) )
 		return
 
-	if(isalien(M))
+	if(M.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		return
-	if(!isalien(user))
+	if(!user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		return
 
 	unbuckle_mob()

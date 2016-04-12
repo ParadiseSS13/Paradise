@@ -8,8 +8,7 @@
 	1	* src.getToxLoss() + 		\
 	1	* src.getFireLoss() + 		\
 	1	* src.getBruteLoss() + 		\
-	1	* src.getCloneLoss() + 		\
-	1	* src.halloss
+	1	* src.getCloneLoss()
 
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)

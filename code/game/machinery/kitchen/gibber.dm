@@ -63,11 +63,11 @@
 		return
 
 	if(operating)
-		user << "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>"
+		to_chat(user, "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>")
 		return
 
 	if(locked)
-		user << "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>"
+		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
 		return
 
 	else
@@ -77,7 +77,7 @@
 	if(istype(P, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = P
 		if(G.state < 2)
-			user << "<span class='danger'>You need a better grip to do that!</span>"
+			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
 			return
 		move_into_gibber(user,G.affecting)
 		qdel(G)
@@ -110,19 +110,19 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(var/mob/user,var/mob/living/victim)
 	if(occupant)
-		user << "<span class='danger'>The gibber is full, empty it first!</span>"
+		to_chat(user, "<span class='danger'>The gibber is full, empty it first!</span>")
 		return
 
 	if(operating)
-		user << "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>"
+		to_chat(user, "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>")
 		return
 
 	if(!ishuman(victim) || issmall(victim))
-		user << "<span class='danger'>This is not suitable for the gibber!</span>"
+		to_chat(user, "<span class='danger'>This is not suitable for the gibber!</span>")
 		return
 
 	if(victim.abiotic(1))
-		user << "<span class='danger'>Subject may not have abiotic items on.</span>"
+		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
 		return
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the gibber!</span>")
@@ -245,9 +245,12 @@
 		new_meat.name = "[slab_name] [new_meat.name]"
 		new_meat.reagents.add_reagent("nutriment",slab_nutrition)
 
+
 		if(occupant.reagents)
 			occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count,1))
 
+	if(occupant.get_species() == "Human")
+		new /obj/item/stack/sheet/animalhide/human(src)
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
@@ -266,7 +269,7 @@
 		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>an autogibber (\the [src])</b>"
 
 	occupant.emote("scream")
-	playsound(get_turf(src), 'sound/effects/gib.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
 
 	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed by [UserOverride ? "Autogibbing" : "[user] ([user.ckey])"]" //have to do this before ghostizing
 	occupant.death(1)

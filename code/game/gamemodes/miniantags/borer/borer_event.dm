@@ -22,14 +22,15 @@
 			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent
 
-	var/list/candidates = get_candidates(ROLE_BORER,ALIEN_AFK_BRACKET)
-	while(spawncount > 0 && vents.len && candidates.len)
-		var/obj/vent = pick_n_take(vents)
-		var/client/C = pick_n_take(candidates)
+	spawn(0)
+		var/list/candidates = pollCandidates("Do you want to play as a cortical borer?", ROLE_BORER, 1)
+		while(spawncount > 0 && vents.len && candidates.len)
+			var/obj/vent = pick_n_take(vents)
+			var/mob/C = pick_n_take(candidates)
 
-		var/mob/living/simple_animal/borer/new_borer = new(vent.loc)
-		new_borer.key = C.key
+			var/mob/living/simple_animal/borer/new_borer = new(vent.loc)
+			new_borer.key = C.key
 
-		spawncount--
-		successSpawn = 1
+			spawncount--
+			successSpawn = 1
 

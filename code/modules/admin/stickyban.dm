@@ -21,7 +21,7 @@
 					return
 				ckey = ckey(ckey)
 			if (get_stickyban_from_ckey(ckey))
-				usr << "<span class='adminnotice'>Error: Can not add a stickyban: User already has a current sticky ban</span>"
+				to_chat(usr, "<span class='adminnotice'>Error: Can not add a stickyban: User already has a current sticky ban</span>")
 
 			if (data["reason"])
 				ban["message"] = data["reason"]
@@ -43,12 +43,12 @@
 
 			var/ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
-				usr << "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>"
+				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>")
 				return
 			if (alert("Are you sure you want to remove the sticky ban on [ckey]?","Are you sure","Yes","No") == "No")
 				return
 			if (!get_stickyban_from_ckey(ckey))
-				usr << "<span class='adminnotice'>Error: The ban disappeared.</span>"
+				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
 				return
 			world.SetConfig("ban", ckey, null)
 
@@ -64,7 +64,7 @@
 			var/alt = ckey(data["alt"])
 			var/ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
-				usr << "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>"
+				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>")
 				return
 
 			var/found = 0
@@ -75,7 +75,7 @@
 					break
 
 			if (!found)
-				usr << "<span class='adminnotice'>Error: [alt] is not linked to [ckey]'s sticky ban!</span>"
+				to_chat(usr, "<span class='adminnotice'>Error: [alt] is not linked to [ckey]'s sticky ban!</span>")
 				return
 
 			if (alert("Are you sure you want to disassociate [alt] from [ckey]'s sticky ban? \nNote: Nothing stops byond from re-linking them","Are you sure","Yes","No") == "No")
@@ -84,7 +84,7 @@
 			//we have to do this again incase something changes
 			ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
-				usr << "<span class='adminnotice'>Error: The ban disappeared.</span>"
+				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
 				return
 
 			found = 0
@@ -95,7 +95,7 @@
 					break
 
 			if (!found)
-				usr << "<span class='adminnotice'>Error: [alt] link to [ckey]'s sticky ban disappeared.</span>"
+				to_chat(usr, "<span class='adminnotice'>Error: [alt] link to [ckey]'s sticky ban disappeared.</span>")
 				return
 
 			world.SetConfig("ban",ckey,list2stickyban(ban))
@@ -109,7 +109,7 @@
 			var/ckey = data["ckey"]
 			var/ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
-				usr << "<span class='adminnotice'>Error: No sticky ban for [ckey] found!"
+				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!")
 				return
 			var/oldreason = ban["message"]
 			var/reason = input(usr,"Reason","Reason","[ban["message"]]") as text|null
@@ -118,7 +118,7 @@
 			//we have to do this again incase something changed while we waited for input
 			ban = get_stickyban_from_ckey(ckey)
 			if (!ban)
-				usr << "<span class='adminnotice'>Error: The ban disappeared.</span>"
+				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
 				return
 			ban["message"] = "[reason]"
 
@@ -126,7 +126,7 @@
 
 			log_admin("[key_name(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]</span>")
-	
+
 	spawn(10)
 		stickyban_show()
 
@@ -147,7 +147,7 @@
 /datum/admins/proc/stickyban_show()
 	if(!check_rights(R_BAN))
 		return
-		
+
 	var/list/bans = sortList(world.GetConfig("ban"))
 	var/banhtml = ""
 	for(var/key in bans)
@@ -181,23 +181,23 @@
 	if (!ban)
 		return null
 	. = params2list(ban)
-	.["keys"] = text2list(.["keys"], ",")
-	.["type"] = text2list(.["type"], ",")
-	.["IP"] = text2list(.["IP"], ",")
-	.["computer_id"] = text2list(.["computer_id"], ",")
+	.["keys"] = splittext(.["keys"], ",")
+	.["type"] = splittext(.["type"], ",")
+	.["IP"] = splittext(.["IP"], ",")
+	.["computer_id"] = splittext(.["computer_id"], ",")
 
 /proc/list2stickyban(var/list/ban)
 	if (!ban || !islist(ban))
 		return null
 	. = ban.Copy()
 	if (.["keys"])
-		.["keys"] = list2text(.["keys"], ",")
+		.["keys"] = jointext(.["keys"], ",")
 	if (.["type"])
-		.["type"] = list2text(.["type"], ",")
+		.["type"] = jointext(.["type"], ",")
 	if (.["IP"])
-		.["IP"] = list2text(.["IP"], ",")
+		.["IP"] = jointext(.["IP"], ",")
 	if (.["computer_id"])
-		.["computer_id"] = list2text(.["computer_id"], ",")
+		.["computer_id"] = jointext(.["computer_id"], ",")
 	. = list2params(.)
 
 /client/proc/stickybanpanel()
@@ -206,6 +206,5 @@
 
 	if(!check_rights(R_BAN))
 		return
-	
+
 	holder.stickyban_show()
-	

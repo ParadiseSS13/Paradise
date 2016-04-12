@@ -68,7 +68,7 @@
 
 
 	proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-		user << "<span class='warning'>*click*</span>"
+		to_chat(user, "<span class='warning'>*click*</span>")
 		playsound(user, 'sound/weapons/emptyclick.ogg', 40, 1)
 		return
 
@@ -98,30 +98,30 @@
 		if(istype(user, /mob/living))
 			var/mob/living/M = user
 			if ((CLUMSY in M.mutations) && prob(50))
-				M << "<span class='danger'>[src] blows up in your face.</span>"
+				to_chat(M, "<span class='danger'>[src] blows up in your face.</span>")
 				M.take_organ_damage(0,20)
 				M.drop_item()
 				qdel(src)
 				return
 
 	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/simple_animal/diona))
-		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
+		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
 		return
 	if(istype(user, /mob/living))
 		var/mob/living/M = user
 		if (HULK in M.mutations)
-			M << "<span class='danger'>Your meaty finger is much too large for the trigger guard!</span>"
+			to_chat(M, "<span class='danger'>Your meaty finger is much too large for the trigger guard!</span>")
 			return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.get_species() == "Golem")
-			user << "<span class='danger'>Your metal fingers don't fit in the trigger guard!</span>"
+			to_chat(user, "<span class='danger'>Your metal fingers don't fit in the trigger guard!</span>")
 			return
 		if(H.get_species() == "Shadowling")
-			user << "<span class='danger'>The muzzle flash would cause damage to your form!</span>"
+			to_chat(user, "<span class='danger'>The muzzle flash would cause damage to your form!</span>")
 			return
 		if(H.martial_art && H.martial_art.name == "The Sleeping Carp") //great dishonor to famiry
-			user << "<span class='danger'>Use of ranged weaponry would bring dishonor to the clan.</span>"
+			to_chat(user, "<span class='danger'>Use of ranged weaponry would bring dishonor to the clan.</span>")
 			return
 
 	add_fingerprint(user)
@@ -131,7 +131,7 @@
 
 	if (!ready_to_fire())
 		if (world.time % 3) //to prevent spam
-			user << "<span class='warning'>[src] is not ready to fire again!"
+			to_chat(user, "<span class='warning'>[src] is not ready to fire again!")
 		return
 
 	if(heavy_weapon)
@@ -230,13 +230,13 @@
 			in_chamber.p_y = text2num(mouse_control["icon-y"])
 		if(mouse_control["screen-loc"])
 			//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-			var/list/screen_loc_params = text2list(mouse_control["screen-loc"], ",")
+			var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
 
 			//Split X+Pixel_X up into list(X, Pixel_X)
-			var/list/screen_loc_X = text2list(screen_loc_params[1],":")
+			var/list/screen_loc_X = splittext(screen_loc_params[1],":")
 
 			//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-			var/list/screen_loc_Y = text2list(screen_loc_params[2],":")
+			var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
 
 			var/x = text2num(screen_loc_X[1]) * 32 + text2num(screen_loc_X[2]) - 32
 			var/y = text2num(screen_loc_Y[1]) * 32 + text2num(screen_loc_Y[2]) - 32
@@ -299,8 +299,8 @@
 				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
 				user.death()
 			else
-				user << "<span class = 'notice'>Ow...</span>"
-				user.apply_effect(110,AGONY,0)
+				to_chat(user, "<span class = 'notice'>Ow...</span>")
+				user.apply_effect(110,STAMINA,0)
 			del(in_chamber)
 			mouthshoot = 0
 			return
@@ -329,10 +329,10 @@
 		if(can_flashlight)
 			if(!F)
 				if(user.l_hand != src && user.r_hand != src)
-					user << "<span class='notice'>You'll need [src] in your hands to do that.</span>"
+					to_chat(user, "<span class='notice'>You'll need [src] in your hands to do that.</span>")
 					return
 				user.drop_item()
-				user << "<span class='notice'>You click [S] into place on [src].</span>"
+				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				if(S.on)
 					set_light(0)
 				F = S
@@ -343,10 +343,10 @@
 	if(istype(A, /obj/item/weapon/screwdriver))
 		if(F)
 			if(user.l_hand != src && user.r_hand != src)
-				user << "<span class='notice'>You'll need [src] in your hands to do that.</span>"
+				to_chat(user, "<span class='notice'>You'll need [src] in your hands to do that.</span>")
 				return
 			for(var/obj/item/device/flashlight/seclite/S in src)
-				user << "<span class='notice'>You unscrew the seclite from [src].</span>"
+				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
 				F = null
 				S.loc = get_turf(user)
 				update_gunlight(user)
@@ -366,9 +366,9 @@
 
 	var/mob/living/carbon/human/user = usr
 	if(!isturf(user.loc))
-		user << "You cannot turn the light on while in this [user.loc]."
+		to_chat(user, "You cannot turn the light on while in this [user.loc].")
 	F.on = !F.on
-	user << "<span class='notice'>You toggle the gunlight [F.on ? "on":"off"].</span>"
+	to_chat(user, "<span class='notice'>You toggle the gunlight [F.on ? "on":"off"].</span>")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_gunlight(user)

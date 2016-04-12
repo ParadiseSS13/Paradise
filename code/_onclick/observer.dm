@@ -1,7 +1,8 @@
 /mob/dead/observer/DblClickOn(var/atom/A, var/params)
-	if(client.buildmode)
-		build_click(src, client.buildmode, params, A)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
 		return
+
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
@@ -17,8 +18,8 @@
 		forceMove(get_turf(A))
 
 /mob/dead/observer/ClickOn(var/atom/A, var/params)
-	if(client.buildmode)
-		build_click(src, client.buildmode, params, A)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 	if(world.time <= next_move)
 		return
@@ -60,10 +61,10 @@
 	if(awaygate)
 		user.forceMove(awaygate.loc)
 	else
-		user << "[src] has no destination."
+		to_chat(user, "[src] has no destination.")
 
 /obj/machinery/gateway/centeraway/attack_ghost(mob/user as mob)
 	if(stationgate)
 		user.forceMove(stationgate.loc)
 	else
-		user << "[src] has no destination."
+		to_chat(user, "[src] has no destination.")

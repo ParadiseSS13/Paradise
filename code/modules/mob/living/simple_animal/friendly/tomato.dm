@@ -8,11 +8,11 @@
 	turns_per_move = 5
 	maxHealth = 15
 	health = 15
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/tomatomeat
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/tomatomeat = 3)
 	response_help  = "prods the"
 	response_disarm = "pushes aside the"
 	response_harm   = "smacks the"
 	harm_intent_damage = 5
 	pass_flags = PASSTABLE
 	can_hide = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY

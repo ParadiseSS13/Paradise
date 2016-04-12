@@ -10,6 +10,28 @@
 		if(rig)
 			SetupStat(rig)
 
+/mob/living/proc/can_track(mob/living/user)
+	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
+	var/turf/T = get_turf(src)
+	if(!T)
+		return 0
+	if(T.z == ZLEVEL_CENTCOMM) //dont detect mobs on centcomm
+		return 0
+	if(T.z >= MAX_Z)
+		return 0
+	if(user != null && src == user)
+		return 0
+	if(invisibility || alpha == 0)//cloaked
+		return 0
+	if(digitalcamo)
+		return 0
+
+	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
+	if(!near_camera(src))
+		return 0
+
+	return 1
+
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
@@ -44,15 +66,14 @@
 				break
 			take_overall_damage(max(5, health - config.health_threshold_dead), 0)
 			updatehealth()
-		src << "<span class='notice'>You have given up life and succumbed to death.</span>"
+		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 /mob/living/proc/InCritical()
 	return (src.health < 0 && src.health > -95.0 && stat == UNCONSCIOUS)
 
 /mob/living/ex_act(severity)
 	..()
-	if(client && !eye_blind)
-		flick("flash", src.flash)
+	flash_eyes()
 
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
@@ -71,7 +92,7 @@
 //sort of a legacy burn method for /electrocute, /shock, and the e_chair
 /mob/living/proc/burn_skin(burn_amount)
 	if(istype(src, /mob/living/carbon/human))
-		//world << "DEBUG: burn_skin(), mutations=[mutations]"
+//		to_chat(world, "DEBUG: burn_skin(), mutations=[mutations]")
 		if (RESIST_HEAT in src.mutations) //fireproof
 			return 0
 		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
@@ -103,7 +124,7 @@
 		if(actual < desired)
 			temperature = desired
 //	if(istype(src, /mob/living/carbon/human))
-//		world << "[src] ~ [src.bodytemperature] ~ [temperature]"
+//		to_chat(world, "[src] ~ [src.bodytemperature] ~ [temperature]")
 	return temperature
 
 
@@ -180,17 +201,6 @@
 /mob/living/proc/setStaminaLoss(var/amount)
 	if(status_flags & GODMODE)	return 0
 	staminaloss = amount
-
-/mob/living/proc/getHalLoss()
-	return halloss
-
-/mob/living/proc/adjustHalLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	halloss = min(max(halloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/setHalLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	halloss = amount
 
 /mob/living/proc/getMaxHealth()
 	return maxHealth
@@ -345,7 +355,6 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	setHalLoss(0)
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
@@ -375,7 +384,9 @@
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
 		C.heart_attack = 0
-		C.brain_op_stage = 0
+
+		for(var/datum/disease/D in C.viruses)
+			D.cure(0)
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
@@ -406,11 +417,11 @@
 
 	if(config.allow_Metadata)
 		if(client)
-			usr << "[src]'s Metainfo:<br>[client.prefs.metadata]"
+			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
 		else
-			usr << "[src] does not have any stored infomation!"
+			to_chat(usr, "[src] does not have any stored infomation!")
 	else
-		usr << "OOC Metadata is not supported by this server!"
+		to_chat(usr, "OOC Metadata is not supported by this server!")
 
 	return
 
@@ -473,11 +484,10 @@
 						var/atom/movable/t = M.pulling
 						M.stop_pulling()
 
-						//this is the gay blood on floor shit -- Added back -- Skie
 						if (M.lying && (prob(M.getBruteLoss() / 6)))
 							var/turf/location = M.loc
 							if (istype(location, /turf/simulated))
-								location.add_blood()
+								location.add_blood(M)
 						pulling.Move(T, get_dir(pulling, T))
 						if(M)
 							M.start_pulling(t)
@@ -559,8 +569,8 @@
 	var/mob/living/simple_animal/borer/B = src.loc
 	var/mob/living/captive_brain/H = src
 
-	H << "\red <B>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</B>"
-	B.host << "\red <B>You feel the captive mind of [src] begin to resist your control.</B>"
+	to_chat(H, "\red <B>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</B>")
+	to_chat(B.host, "\red <B>You feel the captive mind of [src] begin to resist your control.</B>")
 
 	spawn(rand(350,450)+B.host.brainloss)
 
@@ -568,8 +578,8 @@
 			return
 
 		B.host.adjustBrainLoss(rand(5,10))
-		H << "\red <B>With an immense exertion of will, you regain control of your body!</B>"
-		B.host << "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>"
+		to_chat(H, "\red <B>With an immense exertion of will, you regain control of your body!</B>")
+		to_chat(B.host, "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>")
 
 		B.detatch()
 
@@ -622,7 +632,7 @@
 			C.changeNext_move(CLICK_CD_BREAKOUT)
 			C.last_special = world.time + CLICK_CD_BREAKOUT
 
-			C << "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still)</span>"
+			to_chat(C, "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still)</span>")
 			for(var/mob/O in viewers(L))
 				O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
 
@@ -632,7 +642,7 @@
 						return
 					for(var/mob/O in viewers(C))
 						O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
-					C << "\blue You successfully unbuckle yourself."
+					to_chat(C, "\blue You successfully unbuckle yourself.")
 					C.buckled.user_unbuckle_mob(C,C)
 
 	else
@@ -675,7 +685,7 @@
 		breakouttime = 50
 		displaytime = 5
 
-	CM << "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)"
+	to_chat(CM, "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)")
 	for(var/mob/O in viewers(CM))
 		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
 	spawn(0)
@@ -686,7 +696,7 @@
 			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
 				O.show_message("\red <B>[CM] manages to [hulklien ? "break" : "remove"] the handcuffs!</B>", 1)
 
-			CM << "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.handcuffed]."
+			to_chat(CM, "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.handcuffed].")
 
 			if(hulklien)
 				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -718,7 +728,7 @@
 		breakouttime = 50
 		displaytime = 5
 
-	CM << "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)"
+	to_chat(CM, "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)")
 
 	for(var/mob/O in viewers(CM))
 		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
@@ -730,7 +740,7 @@
 			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
 				O.show_message("\red <B>[CM] manages to [hulklien ? "break" : "remove"] the legcuffs!</B>", 1)
 
-			CM << "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.legcuffed]."
+			to_chat(CM, "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.legcuffed].")
 
 			if(!hulklien)
 				CM.unEquip(CM.legcuffed)
@@ -769,8 +779,11 @@
 	return
 
 /mob/living/proc/Exhaust()
-	src << "<span class='notice'>You're too exhausted to keep going...</span>"
+	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 	Weaken(5)
+
+/mob/living/proc/get_visible_name()
+	return name
 
 /mob/living/update_gravity(has_gravity)
 	if(!ticker)
@@ -794,11 +807,23 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
+//called when the mob receives a bright flash
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+	if(check_eye_prot() < intensity && (override_blindness_check || !(sdisabilities & BLIND)))
+		overlay_fullscreen("flash", type)
+		addtimer(src, "clear_fullscreen", 25, FALSE, "flash", 25)
+		return 1
+
+/mob/living/proc/check_eye_prot()
+	return 0
+
+/mob/living/proc/check_ear_prot()
+
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
 	if(what.flags & NODROP)
-		src << "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>"
+		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
 	if(!silent)
 		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
@@ -816,11 +841,11 @@
 /mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
 	what = src.get_active_hand()
 	if(what && (what.flags & NODROP))
-		src << "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>"
+		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
 		return
 	if(what)
 		if(!what.mob_can_equip(who, where, 1))
-			src << "<span class='warning'>\The [what.name] doesn't fit in that place!</span>"
+			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
 			return
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
@@ -941,3 +966,14 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+/mob/living/proc/harvest(mob/living/user)
+	if(qdeleted(src))
+		return
+	if(butcher_results)
+		for(var/path in butcher_results)
+			for(var/i = 1, i <= butcher_results[path], i++)
+				new path(loc)
+			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+		visible_message("<span class='notice'>[user] butchers [src].</span>")
+		gib()

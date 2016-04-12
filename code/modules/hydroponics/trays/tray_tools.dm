@@ -29,8 +29,9 @@
 
 /obj/item/device/analyzer/plant_analyzer/proc/print_report(var/mob/living/user)
 	if(!last_data)
-		user << "There is no scan data to print."
+		to_chat(user, "There is no scan data to print.")
 		return
+	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	P.name = "paper - [form_title]"
 	P.info = "[last_data]"
@@ -98,7 +99,7 @@
 		grown_reagents = H.reagents
 
 	if(!grown_seed)
-		user << "<span class='danger'>[src] can tell you nothing about \the [target].</span>"
+		to_chat(user, "<span class='danger'>[src] can tell you nothing about \the [target].</span>")
 		return
 
 	form_title = "[grown_seed.seed_name] (#[grown_seed.uid])"
@@ -343,7 +344,7 @@
 /obj/item/weapon/scythe/tele/attack_self(mob/user as mob)
 	extend = !extend
 	if(extend)
-		user << "<span class ='warning'>With a flick of the wrist, you extend the scythe. It's reaping time!</span>"
+		to_chat(user, "<span class ='warning'>With a flick of the wrist, you extend the scythe. It's reaping time!</span>")
 		icon_state = "tscythe1"
 		item_state = "scythe0"
 		slot_flags &= ~SLOT_BELT
@@ -354,7 +355,7 @@
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else
-		user << "<span class ='notice'>You collapse the scythe, folding it for easy storage.</span>"
+		to_chat(user, "<span class ='notice'>You collapse the scythe, folding it for easy storage.</span>")
 		icon_state = "tscythe0"
 		item_state = "tscythe0" //no sprite in other words
 		slot_flags |= SLOT_BELT

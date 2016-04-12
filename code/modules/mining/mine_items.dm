@@ -73,7 +73,7 @@
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
 	var/drill_verb = "picking"
 	sharp = 1
-
+	edge = 1
 	var/excavation_amount = 100
 
 /obj/item/weapon/pickaxe/proc/playDigSound()
@@ -211,7 +211,7 @@
 	return ..()
 
 /obj/item/device/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
-	if(!istype(A, /mob/living/simple_animal))
+	if(!istype(A, /mob/living/simple_animal) || isbot(A))
 		return ..()
 	capture(A, user)
 	return 1
@@ -219,17 +219,17 @@
 /obj/item/device/mobcapsule/proc/capture(var/mob/target, var/mob/U as mob)
 	var/mob/living/simple_animal/T = target
 	if(captured)
-		U << "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!"
+		to_chat(U, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
 	else
 		if(istype(T) && "neutral" in T.faction)
 			T.forceMove(src)
 			T.name = "[U.name]'s [initial(T.name)]"
 			T.cancel_camera()
 			name = "Lazarus Capsule: [initial(T.name)]"
-			U << "<span class='notice'>You placed a [T.name] inside the Lazarus Capsule!</span>"
+			to_chat(U, "<span class='notice'>You placed a [T.name] inside the Lazarus Capsule!</span>")
 			captured = T
 		else
-			U << "You can't capture that mob!"
+			to_chat(U, "You can't capture that mob!")
 
 /obj/item/device/mobcapsule/throw_impact(atom/A, mob/user)
 	..()

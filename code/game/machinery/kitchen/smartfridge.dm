@@ -78,7 +78,7 @@
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/pill/))
+	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
 		return 1
 	return 0
 
@@ -104,22 +104,7 @@
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/pill/))
-		return 1
-	return 0
-
-/obj/machinery/smartfridge/secure/virology
-	name = "\improper Refrigerated Virus Storage"
-	desc = "A refrigerated storage unit for storing viral material."
-	req_access_txt = "39"
-	icon_state = "smartfridge_virology"
-	icon_on = "smartfridge_virology"
-	icon_off = "smartfridge_virology-off"
-
-/obj/machinery/smartfridge/secure/virology/accept_check(var/obj/item/O as obj)
-	if(istype(O,/obj/item/weapon/reagent_containers/glass/beaker/vial/))
-		return 1
-	if(istype(O,/obj/item/weapon/virusdish/))
+	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
 		return 1
 	return 0
 
@@ -129,16 +114,48 @@
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	icon_on = "smartfridge_chem"
 	req_access_txt = "33"
+	var/list/spawn_meds = list()
+
+/obj/machinery/smartfridge/secure/chemistry/New()
+	..()
+	for(var/typekey in spawn_meds)
+		var/amount = spawn_meds[typekey]
+		if(isnull(amount)) amount = 1
+		while(amount)
+			var/obj/item/I = new typekey(src)
+			if(item_quants[I.name])
+				item_quants[I.name]++
+			else
+				item_quants[I.name] = 1
+			nanomanager.update_uis(src)
+			amount--
 
 /obj/machinery/smartfridge/chemistry/accept_check(var/obj/item/O as obj)
 	if(istype(O,/obj/item/weapon/storage/pill_bottle) || istype(O,/obj/item/weapon/reagent_containers))
 		return 1
 	return 0
 
+
+// ----------------------------
+// Virology Medical Smartfridge
+// ----------------------------
 /obj/machinery/smartfridge/secure/chemistry/virology
-	name = "\improper Smart Virus Storage"
+	name = "smart virus storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
 	req_access_txt = "39"
+	spawn_meds = list(/obj/item/weapon/reagent_containers/syringe/antiviral = 4,
+					  /obj/item/weapon/reagent_containers/glass/bottle/cold = 1,
+					  /obj/item/weapon/reagent_containers/glass/bottle/flu_virion = 1,
+					  /obj/item/weapon/reagent_containers/glass/bottle/mutagen = 1,
+					  /obj/item/weapon/reagent_containers/glass/bottle/plasma = 1,
+					  /obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine = 1)
+
+/obj/machinery/smartfridge/secure/chemistry/virology/accept_check(obj/item/O)
+	if(..(O))
+		return 1
+	if(istype(O, /obj/item/weapon/reagent_containers/syringe))
+		return 1
+	return 0
 
 /obj/machinery/smartfridge/drinks
 	name = "\improper Drink Showcase"
@@ -177,7 +194,7 @@
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
-		user << "You [panel_open ? "open" : "close"] the maintenance panel."
+		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		overlays.Cut()
 		if(panel_open)
 			overlays += image(icon, "[initial(icon_state)]-panel")
@@ -198,16 +215,16 @@
 		return
 
 	if(stat & NOPOWER)
-		user << "<span class='notice'>\The [src] is unpowered and useless.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
 	if(accept_check(O))
 		if(contents.len >= max_n_of_items)
-			user << "<span class='notice'>\The [src] is full.</span>"
+			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return 1
 		else
 			if(!user.drop_item())
-				user << "<span class='warning'>\The [O] is stuck to you!</span>"
+				to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
 				return
 
 			O.forceMove(src)
@@ -225,7 +242,7 @@
 		for(var/obj/G in P.contents)
 			if(accept_check(G))
 				if(contents.len >= max_n_of_items)
-					user << "<span class='notice'>\The [src] is full.</span>"
+					to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 					return 1
 				else
 					P.remove_from_storage(G,src)
@@ -238,12 +255,12 @@
 
 			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
 			if(P.contents.len > 0)
-				user << "<span class='notice'>Some items are refused.</span>"
+				to_chat(user, "<span class='notice'>Some items are refused.</span>")
 
 		nanomanager.update_uis(src)
 
 	else
-		user << "<span class='notice'>\The [src] smartly refuses [O].</span>"
+		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
 		return 1
 
 /obj/machinery/smartfridge/attack_ai(mob/user as mob)
@@ -264,7 +281,7 @@
 		return
 
 	if(stat & NOPOWER)
-		user << "<span class='notice'>\The [src] is unpowered and useless.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
 	var/obj/item/weapon/storage/box/pillbottles/P = over_object
@@ -272,7 +289,7 @@
 	for(var/obj/G in P.contents)
 		if(accept_check(G))
 			if(contents.len >= max_n_of_items)
-				user << "<span class='notice'>\The [src] is full.</span>"
+				to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 				return 1
 			else
 				P.remove_from_storage(G,src)
@@ -286,13 +303,13 @@
 		"<span class='notice'>[user] empties \the [P] into \the [src].</span>", \
 		"<span class='notice'>You empty \the [P] into \the [src].</span>")
 	if(P.contents.len > 0)
-		user << "<span class='notice'>Some items are refused.</span>"
+		to_chat(user, "<span class='notice'>Some items are refused.</span>")
 	nanomanager.update_uis(src)
 
 /obj/machinery/smartfridge/secure/emag_act(user as mob)
 	emagged = 1
 	locked = -1
-	user << "You short out the product lock on [src]."
+	to_chat(user, "You short out the product lock on [src].")
 
 /*******************
 *   SmartFridge Menu
@@ -391,7 +408,7 @@
 		return 0
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
 		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])
-			usr << "<span class='warning'>Access denied.</span>"
+			to_chat(usr, "<span class='warning'>Access denied.</span>")
 			nanomanager.update_uis(src)
 			return 0
 	return ..()

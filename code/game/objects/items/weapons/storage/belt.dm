@@ -87,7 +87,7 @@
 		"/obj/item/weapon/reagent_containers/dropper",
 		"/obj/item/weapon/reagent_containers/glass/beaker",
 		"/obj/item/weapon/reagent_containers/glass/bottle",
-		"/obj/item/weapon/reagent_containers/pill",
+		"/obj/item/weapon/reagent_containers/food/pill",
 		"/obj/item/weapon/reagent_containers/syringe",
 		"/obj/item/weapon/reagent_containers/glass/dispenser",
 		"/obj/item/weapon/lighter/zippo",
@@ -106,13 +106,13 @@
 
 /obj/item/weapon/storage/belt/medical/response_team/New()
 	..()
-	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
-	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
-	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
-	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 
 
 /obj/item/weapon/storage/belt/botany
@@ -413,9 +413,10 @@
 	proc/failcheck(mob/user as mob)
 		if (prob(src.reliability)) return 1 //No failure
 		if (prob(src.reliability))
-			user << "\red The Bluespace portal resists your attempt to add another item." //light failure
+			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
+
 		else
-			user << "\red The Bluespace generator malfunctions!"
+			to_chat(user, "\red The Bluespace generator malfunctions!")
 			for (var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
@@ -490,7 +491,7 @@
 		return
 	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/structure/table) || istype(target, /obj/structure/closet))
 		return
-	user << "Planting explosives..."
+	to_chat(user, "Planting explosives...")
 	user.visible_message("[user.name] is fiddling with their toolbelt.")
 	if(ismob(target))
 		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
@@ -508,7 +509,7 @@
 			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
-		user << "You sacrifice your belt for the sake of justice. Timer counting down from 15."
+		to_chat(user, "You sacrifice your belt for the sake of justice. Timer counting down from 15.")
 		spawn(150)
 			if(target)
 				if(ismob(target) || isobj(target))

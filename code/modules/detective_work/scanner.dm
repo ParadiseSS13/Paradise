@@ -17,28 +17,28 @@
 /obj/item/device/detective_scanner/attack_self(var/mob/user)
 	if(log.len && !scanning)
 		scanning = 1
-		user << "<span class='notice'>Printing report, please wait...</span>"
-
+		to_chat(user, "<span class='notice'>Printing report, please wait...</span>")
+		playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 		spawn(100)
 
 			// Create our paper
 			var/obj/item/weapon/paper/P = new(get_turf(src))
 			P.name = "paper- 'Scanner Report'"
 			P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
-			P.info += list2text(log, "<BR>")
+			P.info += jointext(log, "<BR>")
 			P.info += "<HR><B>Notes:</B><BR>"
 			P.info_links = P.info
 
 			if(ismob(loc))
 				var/mob/M = loc
 				M.put_in_hands(P)
-				M << "<span class='notice'>Report printed. Log cleared.<span>"
+				to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
 
 			// Clear the logs
 			log = list()
 			scanning = 0
 	else
-		user << "<span class='notice'>The scanner has no logs or is in use.</span>"
+		to_chat(user, "<span class='notice'>The scanner has no logs or is in use.</span>")
 
 /obj/item/device/detective_scanner/attack(mob/living/M as mob, mob/user as mob)
 	return
@@ -59,7 +59,7 @@
 		scanning = 1
 
 		user.visible_message("\The [user] points the [src.name] at \the [A] and performs a forensic scan.")
-		user << "<span class='notice'>You scan \the [A]. The scanner is now analysing the results...</span>"
+		to_chat(user, "<span class='notice'>You scan \the [A]. The scanner is now analysing the results...</span>")
 
 
 		// GATHER INFORMATION
@@ -152,10 +152,10 @@
 			if(!found_something)
 				add_log("<I># No forensic traces found #</I>", 0) // Don't display this to the holder user
 				if(holder)
-					holder << "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>"
+					to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>")
 			else
 				if(holder)
-					holder << "<span class='notice'>You finish scanning \the [target_name].</span>"
+					to_chat(holder, "<span class='notice'>You finish scanning \the [target_name].</span>")
 
 			add_log("---------------------------------------------------------", 0)
 			scanning = 0
@@ -165,7 +165,7 @@
 	if(scanning)
 		if(broadcast && ismob(loc))
 			var/mob/M = loc
-			M << msg
+			to_chat(M, msg)
 		log += "&nbsp;&nbsp;[msg]"
 	else
 		CRASH("[src] \ref[src] is adding a log when it was never put in scanning mode!")

@@ -22,7 +22,7 @@
 	if(!iscarbon(user)) //Look ma, no hands
 		return
 	if(user.lying || user.handcuffed)
-		user << "<span class='warning'>You can't reach out!</span>"
+		to_chat(user, "<span class='warning'>You can't reach out!</span>")
 		return
 	..()
 
@@ -62,7 +62,7 @@
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //getting hard after touching yourself would also be bad
 		return
 	if(user.lying || user.handcuffed)
-		user << "<span class='warning'>You can't reach out!</span>"
+		to_chat(user, "<span class='warning'>You can't reach out!</span>")
 		return
 	var/mob/M = target
 	M.Stun(2)
@@ -83,5 +83,5 @@
 	var/datum/effect/system/spark_spread/sparks = new
 	sparks.set_up(4, 0, target.loc) //no idea what the 0 is
 	sparks.start()
-	playsound(target.loc, 'sound/effects/gib.ogg', 100, 1, 10)
+	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 	..()

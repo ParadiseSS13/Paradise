@@ -77,29 +77,29 @@
 	if(usr.get_item_by_slot(slot_back) == src)
 		toggle_paddles()
 	else
-		usr << "<span class='warning'>Put the defibrillator on your back first!</span>"
+		to_chat(usr, "<span class='warning'>Put the defibrillator on your back first!</span>")
 	return
 
 /obj/item/weapon/defibrillator/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		var/obj/item/weapon/stock_parts/cell/C = W
 		if(bcell)
-			user << "<span class='notice'>[src] already has a cell.</span>"
+			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 		else
 			if(C.maxcharge < paddles.revivecost)
-				user << "<span class='notice'>[src] requires a higher capacity cell.</span>"
+				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
 			user.drop_item()
 			W.loc = src
 			bcell = W
-			user << "<span class='notice'>You install a cell in [src].</span>"
+			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(bcell)
 			bcell.updateicon()
 			bcell.loc = get_turf(src.loc)
 			bcell = null
-			user << "<span class='notice'>You remove the cell from the [src].</span>"
+			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
 
 	update_icon()
 	return
@@ -107,10 +107,10 @@
 /obj/item/weapon/defibrillator/emag_act(user as mob)
 	if(safety)
 		safety = 0
-		user << "<span class='warning'>You silently disable [src]'s safety protocols with the card."
+		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
 	else
 		safety = 1
-		user << "<span class='notice'>You silently enable [src]'s safety protocols with the card."
+		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
 
 /obj/item/weapon/defibrillator/emp_act(severity)
 	if(bcell)
@@ -138,7 +138,7 @@
 		//Detach the paddles into the user's hands
 		if(!usr.put_in_hands(paddles))
 			on = 0
-			user << "<span class='warning'>You need a free hand to hold the paddles!</span>"
+			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
 			update_icon()
 			return
 		paddles.loc = user
@@ -214,7 +214,7 @@
 	if(usr.get_item_by_slot(slot_belt) == src)
 		toggle_paddles()
 	else
-		usr << "<span class='warning'>Strap the defibrillator's belt on first!</span>"
+		to_chat(usr, "<span class='warning'>Strap the defibrillator's belt on first!</span>")
 	return
 
 /obj/item/weapon/defibrillator/compact/loaded/New()
@@ -287,7 +287,7 @@
 		var/obj/item/weapon/twohanded/O = user.get_inactive_hand()
 		if(istype(O))
 			O.unwield()
-		user << "<span class='notice'>The paddles snap back into the main unit.</span>"
+		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
 		defib.on = 0
 		loc = defib
 		defib.update_icon()
@@ -313,13 +313,13 @@
 		playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		return
 	if(!wielded)
-		user << "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>"
+		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
 		return
 	if(cooldown)
-		user << "<span class='notice'>[defib] is recharging.</span>"
+		to_chat(user, "<span class='notice'>[defib] is recharging.</span>")
 		return
 	if(!ishuman(M))
-		user << "<span class='notice'>The instructions on [defib] don't mention how to revive that...</span>"
+		to_chat(user, "<span class='notice'>The instructions on [defib] don't mention how to revive that...</span>")
 		return
 	else
 		if(user.a_intent == I_HARM && !defib.safety)
@@ -394,14 +394,14 @@
 							defib.deductcharge(revivecost)
 							add_logs(M, user, "revived", object="defibrillator")
 						else
-							if(tplus > tlimit)
+							if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 							else if(total_burn >= 180 || total_brute >= 180)
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
 							else if(ghost)
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
-								ghost << "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
-								ghost << sound('sound/effects/genetics.ogg')
+								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+								to_chat(ghost, sound('sound/effects/genetics.ogg'))
 							else
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
@@ -415,7 +415,7 @@
 			busy = 0
 			update_icon()
 		else
-			user << "<span class='notice'>You need to target your patient's chest with [src].</span>"
+			to_chat(user, "<span class='notice'>You need to target your patient's chest with [src].</span>")
 			return
 
 /obj/item/weapon/borg_defib
@@ -440,9 +440,9 @@
 	if(busy)
 		return
 	if(cooldown)
-		user << "<span class='notice'>[src] is recharging.</span>"
+		to_chat(user, "<span class='notice'>[src] is recharging.</span>")
 	if(!ishuman(M))
-		user << "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>"
+		to_chat(user, "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>")
 		return
 	else
 		if(user.a_intent == I_HARM  && !safety)
@@ -519,8 +519,8 @@
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
 							else if(ghost)
 								user.visible_message("<span class='notice'>[user] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
-								ghost << "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
-								ghost << sound('sound/effects/genetics.ogg')
+								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+								to_chat(ghost, sound('sound/effects/genetics.ogg'))
 							else
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
@@ -538,5 +538,5 @@
 			busy = 0
 			update_icon()
 		else
-			user << "<span class='notice'>You need to target your patient's chest with [src].</span>"
+			to_chat(user, "<span class='notice'>You need to target your patient's chest with [src].</span>")
 			return

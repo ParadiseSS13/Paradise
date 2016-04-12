@@ -30,11 +30,11 @@
 	body_temperature = 286
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/heart,
-		"brain" =    /obj/item/organ/brain,
-		"eyes" =     /obj/item/organ/eyes,
-		"appendix" = /obj/item/organ/appendix,
-		"antennae" =    /obj/item/organ/wryn/hivenode
+		"heart" =    /obj/item/organ/internal/heart,
+		"brain" =    /obj/item/organ/internal/brain,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
 
 	flags = IS_WHITELISTED | HAS_LIPS | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | NO_SCAN | HIVEMIND
@@ -49,27 +49,28 @@
 
 /datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in living_mob_list)
-		if(locate(/obj/item/organ/wryn/hivenode) in C.internal_organs)
-			C << "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>"
-			C << "<span class='danger'>It feels like part of you has died.</span>"
+		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
+			to_chat(C, "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>")
+			to_chat(C, "<span class='danger'>It feels like part of you has died.</span>")
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
 	if(M.a_intent == I_HARM)
 		if(H.handcuffed)
-			if(!(locate(H.internal_organs_by_name["antennae"]) in H.internal_organs))	return
+			if(!H.get_int_organ(/obj/item/organ/internal/wryn/hivenode))	return
 			var/turf/p_loc = M.loc
 			var/turf/p_loc_m = H.loc
 
 			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
-			H << "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>"
+			to_chat(H, "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>")
 			do_after(H, 250, target = src)
 			if(p_loc == M.loc && p_loc_m == H.loc)
-				qdel(H.internal_organs_by_name["antennae"])
+				var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
 				H.remove_language("Wryn Hivemind")
-				new /obj/item/organ/wryn/hivenode(M.loc)
-				M << "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>"
-				H << "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>"
-				H << "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>"
+				node.remove(H)
+				node.loc = M.loc
+				to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
+				to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
+				to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
 				H.h_style = "Bald"
 				H.update_hair()
 
@@ -98,12 +99,13 @@
 
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/heart,
-		"crystalized brain" =    /obj/item/organ/brain/crystal,
-		"eyes" =     /obj/item/organ/eyes/luminescent_crystal,
-		"strange crystal" = /obj/item/organ/nucleation/strange_crystal,
-		"resonant crystal" = /obj/item/organ/nucleation/resonant_crystal
+		"heart" =    /obj/item/organ/internal/heart,
+		"crystalized brain" =    /obj/item/organ/internal/brain/crystal,
+		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal,
+		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal,
+		"resonant crystal" = /obj/item/organ/internal/nucleation/resonant_crystal
 		)
+	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
 /datum/species/nucleation/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.light_color = "#1C1C00"

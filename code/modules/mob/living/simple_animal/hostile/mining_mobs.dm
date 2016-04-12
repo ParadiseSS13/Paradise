@@ -1,13 +1,6 @@
 /mob/living/simple_animal/hostile/asteroid/
 	vision_range = 2
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	faction = list("mining")
 	environment_smash = 2
@@ -268,41 +261,58 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/death()
 	if(stat != DEAD)
-		new /obj/item/asteroid/hivelord_core(src.loc)
+		new /obj/item/organ/internal/hivelord_core(src.loc)
 	..()
 
-/obj/item/asteroid/hivelord_core
+/obj/item/organ/internal/hivelord_core
 	name = "hivelord remains"
 	desc = "All that remains of a hivelord, it seems to be what allows it to break pieces of itself off without being hurt... its healing properties will soon become inert if not used quickly. Try not to think about what you're eating."
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "boiledrorocore"
+	slot = "hivecore"
 	var/inert = 0
 	var/preserved = 0
 
-/obj/item/asteroid/hivelord_core/New()
+/obj/item/organ/internal/hivelord_core/New()
 	spawn(2400)
 		if(!preserved)
 			inert = 1
 			desc = "The remains of a hivelord that have become useless, having been left alone too long after being harvested."
 
-/obj/item/asteroid/hivelord_core/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/organ/internal/hivelord_core/on_life()
+	..()
+	if(owner)
+		owner.adjustBruteLoss(-1)
+		owner.adjustFireLoss(-1)
+		owner.adjustOxyLoss(-2)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		var/datum/reagent/blood/B = locate() in H.vessel.reagent_list //Grab some blood
+		var/blood_volume = round(H.vessel.get_reagent_amount("blood"))
+		if(B && blood_volume < H.max_blood && blood_volume)
+			B.volume += 2 // Fast blood regen
+
+/obj/item/organ/internal/hivelord_core/attack(mob/living/M as mob, mob/living/user as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(inert)
-			user << "<span class='notice'>[src] have become inert, its healing properties are no more.</span>"
+			to_chat(user, "<span class='notice'>[src] have become inert, its healing properties are no more.</span>")
 			return
 		else
 			if(H.stat == DEAD)
-				user << "<span class='notice'>[src] are useless on the dead.</span>"
+				to_chat(user, "<span class='notice'>[src] are useless on the dead.</span>")
 				return
 			if(H != user)
 				H.visible_message("<span class='notice'>[user] forces [H] to eat [src]... they quickly regenerate all injuries!</span>")
 			else
-				user << "<span class='notice'>You chomp into [src], barely managing to hold it down, but feel amazingly refreshed in mere moments.</span>"
+				to_chat(user, "<span class='notice'>You chomp into [src], barely managing to hold it down, but feel amazingly refreshed in mere moments.</span>")
 			playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 			H.revive()
 			qdel(src)
 	..()
+
+/obj/item/organ/internal/hivelord_core/prepare_eat()
+	return null
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	name = "hivelord brood"
@@ -370,7 +380,7 @@
 	anchored = 1 //Stays anchored until death as to be unpullable
 	var/pre_attack = 0
 
-/mob/living/simple_animal/hostile/asteroid/goliath/Life()
+/mob/living/simple_animal/hostile/asteroid/goliath/process_ai()
 	..()
 	handle_preattack()
 
@@ -473,10 +483,10 @@
 			var/current_armor = C.armor
 			if(current_armor.["melee"] < 80)
 				current_armor.["melee"] = min(current_armor.["melee"] + 10, 80)
-				user << "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>"
+				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 				qdel(src)
 			else
-				user << "<span class='info'>You can't improve [C] any further.</span>"
+				to_chat(user, "<span class='info'>You can't improve [C] any further.</span>")
 				return
 		if(istype(target, /obj/mecha/working/ripley))
 			var/obj/mecha/D = target
@@ -486,19 +496,19 @@
 				damage_absorption["bullet"] = damage_absorption["bullet"] - 0.05
 				damage_absorption["fire"] = damage_absorption["fire"] - 0.05
 				damage_absorption["laser"] = damage_absorption["laser"] - 0.025
-				user << "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>"
+				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 				qdel(src)
 				if(D.icon_state == "ripley-open")
 					D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-open")
 					D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 				else
-					user << "<span class='info'>You can't add armour onto the mech while someone is inside!</span>"
+					to_chat(user, "<span class='info'>You can't add armour onto the mech while someone is inside!</span>")
 				if(damage_absorption.["brute"] == 0.3)
 					if(D.icon_state == "ripley-open")
 						D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-full-open")
 						D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - the pilot must be an experienced monster hunter."
 					else
-						user << "<span class='warning'>You can't add armour onto the mech while someone is inside!</span>"
+						to_chat(user, "<span class='warning'>You can't add armour onto the mech while someone is inside!</span>")
 			else
-				user << "<span class='warning'>You can't improve [D] any further!</span>"
+				to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 				return

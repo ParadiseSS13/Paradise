@@ -3,7 +3,6 @@
 		//ADMIN THINGS//
 		////////////////
 	var/datum/admins/holder = null
-	var/buildmode		= 0
 
 	var/last_message	= "" //Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contins a number of how many times a message identical to last_message was sent.
@@ -81,3 +80,5 @@
 	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
 
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
+
+	var/datum/click_intercept/click_intercept = null

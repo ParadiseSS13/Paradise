@@ -34,6 +34,7 @@
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
 	small = 1
+	can_collar = 1
 
 	speak = list("Hi","Hello!","Cracker?","BAWWWWK george mellons griffing me")
 	speak_emote = list("squawks","says","yells")
@@ -42,8 +43,7 @@
 
 	speak_chance = 1//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
 	turns_per_move = 5
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/cracker/
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/cracker = 3)
 
 	response_help  = "pets the"
 	response_disarm = "gently moves aside the"
@@ -52,12 +52,12 @@
 	universal_speak = 1
 
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
-	var/parrot_sleep_max = 25 //The time the parrot sits while perched before looking around. Mosly a way to avoid the parrot's AI in life() being run every single tick.
+	var/parrot_sleep_max = 25 //The time the parrot sits while perched before looking around. Mosly a way to avoid the parrot's AI in process_ai() being run every single tick.
 	var/parrot_sleep_dur = 25 //Same as above, this is the var that physically counts down
 	var/parrot_dam_zone = list("chest", "head", "l_arm", "l_leg", "r_arm", "r_leg") //For humans, select a bodypart to attack
 
 	var/parrot_speed = 5 //"Delay in world ticks between movement." according to byond. Yeah, that's BS but it does directly affect movement. Higher number = slower.
-	var/parrot_been_shot = 0 //Parrots get a speed bonus after being shot. This will deincrement every Life() and at 0 the parrot will return to regular speed.
+	var/parrot_been_shot = 0 //Parrots get a speed bonus after being shot. This will deincrement every process_ai() and at 0 the parrot will return to regular speed.
 
 	var/list/speech_buffer = list()
 	var/list/available_channels = list()
@@ -82,6 +82,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 
 /mob/living/simple_animal/parrot/New()
@@ -118,17 +119,21 @@
  */
 /mob/living/simple_animal/parrot/show_inv(mob/user as mob)
 	user.set_machine(src)
-	if(user.stat) return
 
-	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
-	if(ears)
-		dat +=	"<br><b>Headset:</b> [ears] (<a href='?src=\ref[src];remove_inv=ears'>Remove</a>)"
-	else
-		dat +=	"<br><b>Headset:</b> <a href='?src=\ref[src];add_inv=ears'>Nothing</a>"
+	var/dat = {"<table>"}
 
-	user << browse(dat, text("window=mob[];size=325x500", name))
-	onclose(user, "mob[real_name]")
-	return
+	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=\ref[src];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? ears : "<font color=grey>Empty</font>"]</A></td></tr>"
+	if(can_collar)
+		dat += "<tr><td>&nbsp;</td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+
+	dat += {"</table>
+	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	"}
+
+	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
+	popup.set_content(dat)
+	popup.open()
 
 /mob/living/simple_animal/parrot/Topic(href, href_list)
 
@@ -138,15 +143,13 @@
 
 	//Is the usr's mob type able to do this?
 	if(ishuman(usr) || isrobot(usr))
-
-		//Removing from inventory
 		if(href_list["remove_inv"])
 			var/remove_from = href_list["remove_inv"]
 			switch(remove_from)
 				if("ears")
 					if(ears)
 						if(available_channels.len)
-							src.say("[pick(available_channels)] BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							src.say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 						else
 							src.say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 						ears.loc = src.loc
@@ -155,19 +158,18 @@
 							if(copytext(possible_phrase,1,3) in department_radio_keys)
 								possible_phrase = copytext(possible_phrase,3,length(possible_phrase))
 					else
-						usr << "\red There is nothing to remove from its [remove_from]."
+						to_chat(usr, "\red There is nothing to remove from its [remove_from].")
 						return
-
-		//Adding things to inventory
+			show_inv(usr)
 		else if(href_list["add_inv"])
 			var/add_to = href_list["add_inv"]
 			if(!usr.get_active_hand())
-				usr << "\red You have nothing in your hand to put on its [add_to]."
+				to_chat(usr, "\red You have nothing in your hand to put on its [add_to].")
 				return
 			switch(add_to)
 				if("ears")
 					if(ears)
-						usr << "\red It's already wearing something."
+						to_chat(usr, "\red It's already wearing something.")
 						return
 					else
 						var/obj/item/item_to_add = usr.get_active_hand()
@@ -175,7 +177,7 @@
 							return
 
 						if( !istype(item_to_add,  /obj/item/device/radio/headset) )
-							usr << "\red This object won't fit."
+							to_chat(usr, "\red This object won't fit.")
 							return
 
 						var/obj/item/device/radio/headset/headset_to_add = item_to_add
@@ -183,7 +185,7 @@
 						usr.drop_item()
 						headset_to_add.loc = src
 						src.ears = headset_to_add
-						usr << "You fit the headset onto [src]."
+						to_chat(usr, "You fit the headset onto [src].")
 
 						clearlist(available_channels)
 						for(var/ch in headset_to_add.channels)
@@ -205,6 +207,7 @@
 
 						if(headset_to_add.translate_binary)
 							available_channels.Add(":b")
+			show_inv(usr)
 		else
 			..()
 
@@ -271,12 +274,11 @@
 	//Sprite and AI update for when a parrot gets pulled
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
-		if(!client)
-			parrot_state = PARROT_WANDER
-		return
 
-	if(client || stat)
-		return //Lets not force players or dead/incap parrots to move
+/mob/living/simple_animal/parrot/process_ai()
+	if(pulledby)
+		parrot_state = PARROT_WANDER
+		return
 
 	if(!isturf(src.loc) || !canmove || buckled)
 		return //If it can't move, dont let it move. (The buckled check probably isn't necessary thanks to canmove)
@@ -327,9 +329,9 @@
 							useradio = 1
 
 						if(copytext(possible_phrase,1,3) in department_radio_keys)
-							possible_phrase = "[useradio?pick(available_channels):""] [copytext(possible_phrase,3,length(possible_phrase)+1)]" //crop out the channel prefix
+							possible_phrase = "[useradio?pick(available_channels):""][copytext(possible_phrase,3,length(possible_phrase)+1)]" //crop out the channel prefix
 						else
-							possible_phrase = "[useradio?pick(available_channels):""] [possible_phrase]"
+							possible_phrase = "[useradio?pick(available_channels):""][possible_phrase]"
 
 						newspeak.Add(possible_phrase)
 
@@ -567,7 +569,7 @@
 		return -1
 
 	if(held_item)
-		src << "\red You are already holding the [held_item]"
+		to_chat(src, "\red You are already holding the [held_item]")
 		return 1
 
 	for(var/obj/item/I in view(1,src))
@@ -583,7 +585,7 @@
 			visible_message("[src] grabs the [held_item]!", "\blue You grab the [held_item]!", "You hear the sounds of wings flapping furiously.")
 			return held_item
 
-	src << "\red There is nothing of interest to take."
+	to_chat(src, "\red There is nothing of interest to take.")
 	return 0
 
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
@@ -595,7 +597,7 @@
 		return -1
 
 	if(held_item)
-		src << "\red You are already holding the [held_item]"
+		to_chat(src, "\red You are already holding the [held_item]")
 		return 1
 
 	var/obj/item/stolen_item = null
@@ -614,7 +616,7 @@
 			visible_message("[src] grabs the [held_item] out of [C]'s hand!", "\blue You snag the [held_item] out of [C]'s hand!", "You hear the sounds of wings flapping furiously.")
 			return held_item
 
-	src << "\red There is nothing of interest to take."
+	to_chat(src, "\red There is nothing of interest to take.")
 	return 0
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
@@ -638,7 +640,7 @@
 		return -1
 
 	if(!held_item)
-		usr << "\red You have nothing to drop!"
+		to_chat(usr, "\red You have nothing to drop!")
 		return 0
 
 	if(!drop_gently)
@@ -646,11 +648,11 @@
 			var/obj/item/weapon/grenade/G = held_item
 			G.loc = src.loc
 			G.prime()
-			src << "You let go of the [held_item]!"
+			to_chat(src, "You let go of the [held_item]!")
 			held_item = null
 			return 1
 
-	src << "You drop the [held_item]."
+	to_chat(src, "You drop the [held_item].")
 
 	held_item.loc = src.loc
 	held_item = null
@@ -671,7 +673,7 @@
 					src.loc = AM.loc
 					icon_state = "parrot_sit"
 					return
-	src << "\red There is no perch nearby to sit on."
+	to_chat(src, "\red There is no perch nearby to sit on.")
 	return
 
 /*
@@ -680,40 +682,18 @@
 /mob/living/simple_animal/parrot/Poly
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
-	speak = list("Poly wanna cracker!", ":e Check the singlo, you chucklefucks!",":e Check the tesla, you shits!",":e STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",":e Wire the solars, you lazy bums!",":e WHO TOOK THE DAMN HARDSUITS?",":e OH GOD ITS FREE CALL THE SHUTTLE")
+	speak = list("Poly wanna cracker!", ":eCheck the singlo, you chucklefucks!",":eCheck the tesla, you shits!",":eSTOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",":eWire the solars, you lazy bums!",":eWHO TOOK THE DAMN HARDSUITS?",":eOH GOD ITS FREE CALL THE SHUTTLE")
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/parrot/Poly/New()
 	ears = new /obj/item/device/radio/headset/headset_eng(src)
 	available_channels = list(":e")
 	..()
 
-/mob/living/simple_animal/parrot/say(var/message)
-
-	if(stat)
-		return
-
-	var/verb = "says"
-	if(speak_emote.len)
-		verb = pick(speak_emote)
-
-	var/message_mode = null
-	if(copytext(message,1,2) == ";")
-		message_mode = "headset"
-		message = copytext(message,2)
-
-	if(copytext(message,1,2) == ":")
-		var/channel_prefix = copytext(message, 1 ,3)
-		message_mode = department_radio_keys[channel_prefix]
-		var/positioncut = 3
-		message = trim(copytext(message,positioncut))
-
-	message = capitalize(trim_left(message))
-	if(message_mode)
-		if(ears && istype(ears,/obj/item/device/radio))
-			ears.talk_into(src, message, message_mode, verb, null)
-
-	..(message)
-
+/mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios, var/alt_name)
+	if(message_mode && istype(ears))
+		ears.talk_into(src, message, message_mode, verb, speaking)
+		used_radios += ears
 
 /mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null)
 	if(prob(50))
@@ -724,7 +704,7 @@
 
 /mob/living/simple_animal/parrot/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
 	if(prob(50))
-		parrot_hear("[pick(available_channels)] [message]")
+		parrot_hear("[pick(available_channels)][message]")
 	..()
 
 

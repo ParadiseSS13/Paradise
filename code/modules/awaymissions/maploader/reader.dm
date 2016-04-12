@@ -143,7 +143,7 @@ var/global/dmm_suite/preloader/_preloader = null
 		var/variables_start = findtext(full_def,"{")
 		if(variables_start)//if there's any variable
 			full_def = copytext(full_def,variables_start+1,length(full_def))//removing the last '}'
-			fields = text2list(full_def,";")
+			fields = dmm_splittext(full_def,";")
 
 		//then fill the members_attributes list with the corresponding variables
 		members_attributes.len++
@@ -245,7 +245,7 @@ var/global/dmm_suite/preloader/_preloader = null
 
 //build a list from variables in text form (e.g {var1="derp"; var2; var3=7} => list(var1="derp", var2, var3=7))
 //return the filled list
-/dmm_suite/proc/text2list(var/text as text,var/delimiter=",")
+/dmm_suite/proc/dmm_splittext(var/text as text,var/delimiter=",")
 
 	var/list/to_return = list()
 
@@ -279,7 +279,7 @@ var/global/dmm_suite/preloader/_preloader = null
 
 			//Check for list
 			else if(copytext(trim_right,1,5) == "list")
-				trim_right = text2list(copytext(trim_right,6,length(trim_right)))
+				trim_right = dmm_splittext(copytext(trim_right,6,length(trim_right)))
 
 			//Check for file
 			else if(copytext(trim_right,1,2) == "'")

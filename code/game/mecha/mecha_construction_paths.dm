@@ -23,12 +23,12 @@
 		if(C.use(4))
 			playsound(holder, 'sound/items/Deconstruct.ogg', 50, 1)
 		else
-			user << ("There's not enough cable to finish the task.")
+			to_chat(user, ("There's not enough cable to finish the task."))
 			return 0
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
 		if(S.amount < 5)
-			user << ("There's not enough material in this stack.")
+			to_chat(user, ("There's not enough material in this stack."))
 			return 0
 		else
 			S.use(5)
@@ -55,12 +55,12 @@
 		if (C.use(4))
 			playsound(holder, 'sound/items/Deconstruct.ogg', 50, 1)
 		else
-			user << ("There's not enough cable to finish the task.")
+			to_chat(user, ("There's not enough cable to finish the task."))
 			return 0
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
 		if(S.amount < 5)
-			user << ("There's not enough material in this stack.")
+			to_chat(user, ("There's not enough material in this stack."))
 			return 0
 		else
 			S.use(5)
@@ -97,6 +97,7 @@
 
 /datum/construction/reversible/mecha/ripley
 	result = "/obj/mecha/working/ripley"
+	taskpath = /datum/job_objective/make_ripley
 	steps = list(
 					//1
 					list("key"=/obj/item/weapon/weldingtool,
@@ -585,6 +586,7 @@
 
 /datum/construction/reversible/mecha/firefighter
 	result = "/obj/mecha/working/ripley/firefighter"
+	taskpath = /datum/job_objective/make_ripley
 	steps = list(
 					//1
 					list("key"=/obj/item/weapon/weldingtool,
@@ -853,6 +855,83 @@
 /datum/construction/mecha/honker/spawn_result()
 	..()
 	feedback_inc("mecha_honker_created",1)
+	return
+
+/datum/construction/mecha/recitence_chassis
+	steps = list(list("key"=/obj/item/mecha_parts/part/recitence_torso),//1
+					 list("key"=/obj/item/mecha_parts/part/recitence_left_arm),//2
+					 list("key"=/obj/item/mecha_parts/part/recitence_right_arm),//3
+					 list("key"=/obj/item/mecha_parts/part/recitence_left_leg),//4
+					 list("key"=/obj/item/mecha_parts/part/recitence_right_leg),//5
+					 list("key"=/obj/item/mecha_parts/part/recitence_head)
+					)
+
+/datum/construction/mecha/recitence_chassis/action(atom/used_atom,mob/user as mob)
+	return check_all_steps(used_atom,user)
+
+/datum/construction/mecha/recitence_chassis/custom_action(step, atom/used_atom, mob/user)
+	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
+	holder.overlays += used_atom.icon_state + "+o"
+	qdel(used_atom)
+	return 1
+
+/datum/construction/mecha/recitence_chassis/spawn_result()
+	var/obj/item/mecha_parts/chassis/const_holder = holder
+	const_holder.construct = new /datum/construction/mecha/recitence(const_holder)
+	const_holder.density = 1
+	qdel(src)
+	return
+
+/datum/construction/mecha/recitence
+	result = "/obj/mecha/combat/recitence"
+	steps = list(list("key"=/obj/effect/dummy/mecha_emote_step),//1
+					 list("key"=/obj/item/clothing/suit/suspenders),//2
+					 list("key"=/obj/effect/dummy/mecha_emote_step),//3
+					 list("key"=/obj/item/clothing/mask/gas/mime),//4
+					 list("key"=/obj/effect/dummy/mecha_emote_step),//5
+					 list("key"=/obj/item/clothing/head/beret),//6
+					 list("key"=/obj/item/weapon/circuitboard/mecha/recitence/targeting),//7
+					 list("key"=/obj/item/weapon/circuitboard/mecha/recitence/peripherals),//8
+					 list("key"=/obj/item/weapon/circuitboard/mecha/recitence/main),//9
+					 )
+
+/datum/construction/mecha/recitence/action(atom/used_atom,mob/user)
+	return check_step(used_atom,user)
+
+/datum/construction/mecha/recitence/custom_action(step, atom/used_atom, mob/user)
+	if(!..())
+		return 0
+
+	if(istype(used_atom, /obj/effect/dummy/mecha_emote_step))
+		var/obj/effect/dummy/mecha_emote_step/E = used_atom
+		holder.visible_message("<span class='game say'><span class='name'>[holder]</span> likewise [E.emote]</span>")
+		qdel(used_atom)
+
+	//TODO: better messages.
+	switch(step)
+		if(9)
+			user.visible_message("[user] installs the central control module into the [holder].", "<span class='notice'>You install the central control module into the [holder].</span>")
+			qdel(used_atom)
+		if(8)
+			user.visible_message("[user] installs the peripherals control module into the [holder].", "<span class='notice'>You install the peripherals control module into the [holder].</span>")
+			qdel(used_atom)
+		if(7)
+			user.visible_message("[user] installs the weapon control module into the [holder].", "<span class='notice'>You install the weapon control module into the [holder].</span>")
+			qdel(used_atom)
+		if(6)
+			user.visible_message("[user] puts beret on the [holder].", "<span class='notice'>You put beret on the [holder].</span>")
+			qdel(used_atom)
+		if(4)
+			user.visible_message("[user] puts mime mask on the [holder].", "<span class='notice'>You put mime mask on the [holder].</span>")
+			qdel(used_atom)
+		if(2)
+			user.visible_message("[user] puts suspenders on the [holder].", "<span class='notice'>You put suspenders on the [holder].</span>")
+			qdel(used_atom)
+	return 1
+
+/datum/construction/mecha/recitence/spawn_result()
+	..()
+	feedback_inc("mecha_recitence_created",1)
 	return
 
 /datum/construction/mecha/durand_chassis

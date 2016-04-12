@@ -63,15 +63,24 @@
 /obj/item/weapon/dnainjector/proc/inject(mob/living/M as mob, mob/user as mob)
 	if(istype(M,/mob/living))
 		M.apply_effect(rand(10,25),IRRADIATE,0,1)
+	var/mob/living/carbon/human/H
+	if(istype(M, /mob/living/carbon/human))
+		H = M
 
-	if (!(NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
+	if (!(NOCLONE in M.mutations) && !(H && (H.species.flags & NO_DNA))) // prevents drained people from having their DNA changed
+		var/prev_ue = M.dna.unique_enzymes
 		// UI in syringe.
 		if (buf.types & DNA2_BUF_UI)
 			if (!block) //isolated block?
-				M.UpdateAppearance(buf.dna.UI.Copy())
+				M.dna.UI = buf.dna.UI.Copy()
+				M.dna.UpdateUI()
+				M.UpdateAppearance()
 				if (buf.types & DNA2_BUF_UE) //unique enzymes? yes
+
 					M.real_name = buf.dna.real_name
 					M.name = buf.dna.real_name
+					M.dna.real_name = buf.dna.real_name
+					M.dna.unique_enzymes = buf.dna.unique_enzymes
 				uses--
 			else
 				M.dna.SetUIValue(block,src.GetValue())
@@ -86,6 +95,8 @@
 			domutcheck(M, null, block!=null)
 			uses--
 			M.update_mutations()
+		if(H)
+			H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 
 	spawn(0)//this prevents the collapse of space-time continuum
 		if (user)
