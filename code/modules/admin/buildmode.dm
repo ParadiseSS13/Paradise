@@ -115,7 +115,7 @@
 /obj/effect/buildmode_line/Destroy()
 	if(I)
 		if(istype(cl))
-			cl.image -= I
+			cl.images -= I
 			cl = null
 		qdel(I)
 		I = null
