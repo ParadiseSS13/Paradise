@@ -659,12 +659,12 @@ BLIND     // can't see anything
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
+
+	if(!istype(usr, /mob/living) || usr.incapacitated())
+		return
 
 	if(copytext(item_color,-2) != "_d")
 		basecolor = item_color
-	to_chat(usr, "DEBUG:[basecolor]")
 	if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
 		item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 		usr.update_inv_w_uniform()
