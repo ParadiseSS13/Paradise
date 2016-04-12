@@ -127,16 +127,16 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		destroy()
-	else if (usr.a_intent == I_HARM)
+	else if (user.a_intent == I_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
-		usr.visible_message("\red [usr.name] bangs against the [src.name]!", \
+		user.visible_message("\red [user.name] bangs against the [src.name]!", \
 							"\red You bang against the [src.name]!", \
 							"You hear a banging sound.")
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, 'sound/effects/glassknock.ogg', 80, 1)
-		usr.visible_message("[usr.name] knocks on the [src.name].", \
+		user.visible_message("[user.name] knocks on the [src.name].", \
 							"You knock on the [src.name].", \
 							"You hear a knocking sound.")
 	return
