@@ -139,6 +139,10 @@
 	h_style = "Nucleation Crystals"
 	..(new_loc, "Nucleation")
 
+/mob/living/carbon/human/drask/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Drask")
+
 /mob/living/carbon/human/monkey/New(var/new_loc)
 	..(new_loc, "Monkey")
 
