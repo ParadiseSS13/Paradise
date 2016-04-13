@@ -61,10 +61,10 @@
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < 260)
 			if(prob(20))
-				H.to_chat("<span class='notice'> You feel an invigorating coldness in your lungs!</span>")
+				to_chat(H, "<span class='notice'> You feel an invigorating coldness in your lungs!</span>")
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				H.to_chat("<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
+				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
 		switch(breath.temperature)
 			if(-INFINITY to 120)
