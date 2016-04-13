@@ -18,7 +18,6 @@
 	burn_mod = 4
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
-	can_revive_by_healing // Doesn't seem to do much for non-robots, still needs a defib
 
 	blurb = "Hailing from Hoorlm, planet outside what is usually considered a habitable \
 	orbit, the Drask evolved to live in extreme cold. Their strange bodies seem \

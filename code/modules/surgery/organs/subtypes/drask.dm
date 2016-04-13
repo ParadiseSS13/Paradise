@@ -32,10 +32,6 @@
 	parent_organ = "groin"
 	slot = "kidneys"
 
-///obj/item/organ/internal/liver/drask/process() //If we ever want to do the "implant them to keep a livable body temp thing." For now, I'd rather not
-//	if(owner.bodytemperature >= 283)
-//		src.damage += 0.2
-
 /obj/item/organ/internal/brain/drask
 	name = "brain"
 	icon = 'icons/obj/surgery_drask.dmi'
@@ -52,14 +48,3 @@
 	parent_organ = "head"
 	slot = "eyes"
 	desc = "Drask eyes. They look even stranger disembodied"
-
-/obj/item/organ/internal/cyberimp/drask_comfort
-	name = "cryonic homeostasis implant"
-	icon = 'icons/obj/grenade.dmi'
-	icon_state = "rocket_chem"
-	parent_organ = "chest"
-	desc = "This cybernetic implant will attempt to maintain the user's body heat at a freezing temperature. Probably very dangerous unless the user is a Drask."
-
-/obj/item/organ/internal/cyberimp/drask_comfort/process() //Not used for now, seems like a lot of hassle for not much point.
-	if(owner.bodytemperature >= 273)
-		owner.bodytemperature = (273)
