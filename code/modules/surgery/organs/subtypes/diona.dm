@@ -157,6 +157,7 @@
 	origin_tech = "biotech=3"
 	parent_organ = "chest"
 	slot = "heart"
+	vital = 1
 
 /obj/item/organ/internal/brain/diona
 	name = "gas bladder"

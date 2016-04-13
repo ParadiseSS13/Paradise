@@ -192,7 +192,7 @@
 
 			if (radiation > 100)
 				radiation = 100
-				if(!(species.flags & RAD_ABSORB))
+				if(!get_int_organ(/obj/item/organ/internal/heart/diona))
 					Weaken(10)
 					if(!lying)
 						to_chat(src, "<span class='alert'>You feel weak.</span>")
@@ -202,14 +202,7 @@
 				radiation = 0
 
 			else
-				if(species.flags & RAD_ABSORB)
-					var/rads = radiation/25
-					radiation -= rads
-					nutrition += rads
-					adjustBruteLoss(-(rads))
-					adjustOxyLoss(-(rads))
-					adjustToxLoss(-(rads))
-					updatehealth()
+				if(get_int_organ(/obj/item/organ/internal/heart/diona))
 					return
 
 				var/damage = 0
@@ -676,24 +669,6 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(species.flags & REQUIRE_LIGHT)
-		var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-		if(isturf(loc)) //else, there's considered to be no light
-			var/turf/T = loc
-			light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-		nutrition += light_amount
-		traumatic_shock -= light_amount
-
-		if(species.flags & IS_PLANT)
-			if(nutrition > 450)
-				nutrition = 450
-			if((light_amount >= 5) && !suiciding) //if there's enough light, heal
-				adjustBruteLoss(-(light_amount/2))
-				adjustFireLoss(-(light_amount/4))
-				//adjustToxLoss(-(light_amount))
-				adjustOxyLoss(-(light_amount))
-				//TODO: heal wounds, heal broken limbs.
-
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
@@ -727,11 +702,6 @@
 				overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 			else
 				overeatduration -= 2
-
-	if(species.flags & REQUIRE_LIGHT)
-		if(nutrition < 200)
-			take_overall_damage(10,0)
-			traumatic_shock++
 
 	if (drowsyness)
 		drowsyness--

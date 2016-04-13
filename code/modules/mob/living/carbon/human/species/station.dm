@@ -622,7 +622,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | NO_PAIN
+	flags = NO_BREATHE | IS_PLANT | NO_BLOOD | NO_PAIN
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
@@ -672,23 +672,32 @@
 
 	return ..()
 
-/*        //overpowered and dumb as hell; they get cloning back, though.
-/datum/species/diona/handle_death(var/mob/living/carbon/human/H)
+/datum/species/diona/handle_life(var/mob/living/carbon/human/H)
+	var/rads = H.radiation/25
+	H.radiation -= rads
+	H.nutrition += rads
+	H.adjustBruteLoss(-(rads))
+	H.adjustOxyLoss(-(rads))
+	H.adjustToxLoss(-(rads))
 
-	var/mob/living/simple_animal/diona/S = new(get_turf(H))
+	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
+	if(isturf(H.loc)) //else, there's considered to be no light
+		var/turf/T = H.loc
+		light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
+	H.nutrition += light_amount
+	H.traumatic_shock -= light_amount
 
-	if(H.mind)
-		H.mind.transfer_to(S)
-	else
-		S.key = H.key
+	if(H.nutrition > 450)
+		H.nutrition = 450
 
-	for(var/mob/living/simple_animal/diona/D in H.contents)
-		if(D.client)
-			D.loc = H.loc
-		else
-			qdel(D)
+	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
+		H.adjustBruteLoss(-(light_amount/2))
+		H.adjustFireLoss(-(light_amount/4))
+		H.adjustOxyLoss(-(light_amount))
 
-	H.visible_message("<span class='danger">[H] splits apart with a wet slithering noise!"</span>) */
+	if(H.nutrition < 200)
+		H.take_overall_damage(10,0)
+		H.traumatic_shock++
 
 /datum/species/machine
 	name = "Machine"
