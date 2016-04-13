@@ -66,8 +66,6 @@
 			if(prob(20))
 				H.to_chat("<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
-
-
 		switch(breath.temperature)
 			if(-INFINITY to 120)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
