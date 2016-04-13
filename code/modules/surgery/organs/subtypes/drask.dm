@@ -3,11 +3,7 @@
 	name = "drask organ"
 	icon = 'icons/obj/surgery_drask.dmi'
 	icon_state = "innards"
-<<<<<<< HEAD
 	desc = "A greenish, slightly translucent organ. It is extremely cold."
-=======
-	desc = "A greenish, slightly translucent organ. /red It is extremely cold."
->>>>>>> 46bd72ac5e61af45f173d2c705563ed10b898819
 
 /obj/item/organ/internal/heart/drask
 	name = "drask heart"
