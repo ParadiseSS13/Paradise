@@ -276,6 +276,23 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
 
+/datum/language/drask
+	name = "Orluum"
+	desc = "The droning, vibrous language of the Drask. It sounds somewhat like whalesong"
+	speech_verb = "drones"
+	ask_verb = "hums"
+	exclaim_verb = "rumbles"
+	colour = "slime"
+	key = "%"
+	flags = RESTRICTED
+	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
+
+/datum/language/drask/get_random_name()
+	var/new_name = "[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
+	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
+	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
+	return new_name
+
 /datum/language/common
 	name = "Galactic Common"
 	desc = "The common galactic tongue."
