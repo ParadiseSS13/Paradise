@@ -622,7 +622,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	flags = NO_BREATHE | IS_PLANT | NO_BLOOD | NO_PAIN
+	flags = NO_BREATHE | RADIMMUNE | IS_PLANT | NO_BLOOD | NO_PAIN
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
@@ -674,7 +674,7 @@
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
 	var/rads = H.radiation/25
-	H.radiation -= rads
+	H.radiation = Clamp(H.radiation - rads, 0, 100)
 	H.nutrition += rads
 	H.adjustBruteLoss(-(rads))
 	H.adjustOxyLoss(-(rads))

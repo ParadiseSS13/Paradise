@@ -192,19 +192,15 @@
 
 			if (radiation > 100)
 				radiation = 100
-				if(!get_int_organ(/obj/item/organ/internal/heart/diona))
-					Weaken(10)
-					if(!lying)
-						to_chat(src, "<span class='alert'>You feel weak.</span>")
-						emote("collapse")
+				Weaken(10)
+				if(!lying)
+					to_chat(src, "<span class='alert'>You feel weak.</span>")
+					emote("collapse")
 
 			if (radiation < 0)
 				radiation = 0
 
 			else
-				if(get_int_organ(/obj/item/organ/internal/heart/diona))
-					return
-
 				var/damage = 0
 				switch(radiation)
 					if(0 to 49)
