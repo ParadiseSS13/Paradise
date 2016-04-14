@@ -1,0 +1,4 @@
+author: monster860
+delete-after: True
+changes: 
+  - rscadd: "Adds area editing, link mode, and fill mode to the buildmode tool"
