@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "ups nuke ops game mode population requirement from 20 to 30"
