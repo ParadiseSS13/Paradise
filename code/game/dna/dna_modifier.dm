@@ -946,6 +946,8 @@
 				if(success)
 					I.forceMove(src.loc)
 					I.name += " ([buf.name])"
+					if(connected)
+						I.damage_coeff = connected.damage_coeff
 					src.injector_ready = 0
 					spawn(300)
 						src.injector_ready = 1

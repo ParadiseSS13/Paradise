@@ -3,20 +3,20 @@
 	desc = "This injects the person with DNA."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "dnainjector"
-	var/block=0
+	item_state = "dnainjector"
+	var/block = 0
 	var/datum/dna2/record/buf=null
-	var/s_time = 10.0
-	throw_speed = 1
+	throw_speed = 3
 	throw_range = 5
-	w_class = 1.0
-	var/uses = 1
-	var/nofail
-	var/is_bullet = 0
-	var/inuse = 0
+	w_class = 1
+	origin_tech = "biotech=1"
+
+	var/damage_coeff = 1
+	var/used = 0
 
 	// USE ONLY IN PREMADE SYRINGES.  WILL NOT WORK OTHERWISE.
-	var/datatype=0
-	var/value=0
+	var/datatype = 0
+	var/value = 0
 
 /obj/item/weapon/dnainjector/New()
 	if(datatype && block)
@@ -61,50 +61,47 @@
 		return buf.dna.SetUIValue(real_block,val)
 
 /obj/item/weapon/dnainjector/proc/inject(mob/living/M as mob, mob/user as mob)
+	if(used)
+		return
 	if(istype(M,/mob/living))
-		M.apply_effect(rand(10,25),IRRADIATE,0,1)
+		M.apply_effect(rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2)),IRRADIATE,0,1)
 	var/mob/living/carbon/human/H
 	if(istype(M, /mob/living/carbon/human))
 		H = M
 
-	if (!(NOCLONE in M.mutations) && !(H && (H.species.flags & NO_DNA))) // prevents drained people from having their DNA changed
-		var/prev_ue = M.dna.unique_enzymes
-		// UI in syringe.
-		if (buf.types & DNA2_BUF_UI)
-			if (!block) //isolated block?
-				M.dna.UI = buf.dna.UI.Copy()
-				M.dna.UpdateUI()
-				M.UpdateAppearance()
-				if (buf.types & DNA2_BUF_UE) //unique enzymes? yes
+	spawn(0) //Some mutations have sleeps in them, like monkey
+		if(!(NOCLONE in M.mutations) && !(H && (H.species.flags & NO_DNA))) // prevents drained people from having their DNA changed
+			var/prev_ue = M.dna.unique_enzymes
+			// UI in syringe.
+			if (buf.types & DNA2_BUF_UI)
+				if (!block) //isolated block?
+					M.dna.UI = buf.dna.UI.Copy()
+					M.dna.UpdateUI()
+					M.UpdateAppearance()
+					if (buf.types & DNA2_BUF_UE) //unique enzymes? yes
 
-					M.real_name = buf.dna.real_name
-					M.name = buf.dna.real_name
-					M.dna.real_name = buf.dna.real_name
-					M.dna.unique_enzymes = buf.dna.unique_enzymes
-				uses--
-			else
-				M.dna.SetUIValue(block,src.GetValue())
-				M.UpdateAppearance()
-				uses--
-		if (buf.types & DNA2_BUF_SE)
-			if (!block) //isolated block?
-				M.dna.SE = buf.dna.SE.Copy()
-				M.dna.UpdateSE()
-			else
-				M.dna.SetSEValue(block,src.GetValue())
-			domutcheck(M, null, block!=null)
-			uses--
-			M.update_mutations()
-		if(H)
-			H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
-
-	spawn(0)//this prevents the collapse of space-time continuum
-		if (user)
-			user.unEquip(src)
-		qdel(src)
-	return uses
+						M.real_name = buf.dna.real_name
+						M.name = buf.dna.real_name
+						M.dna.real_name = buf.dna.real_name
+						M.dna.unique_enzymes = buf.dna.unique_enzymes
+				else
+					M.dna.SetUIValue(block,src.GetValue())
+					M.UpdateAppearance()
+			if (buf.types & DNA2_BUF_SE)
+				if (!block) //isolated block?
+					M.dna.SE = buf.dna.SE.Copy()
+					M.dna.UpdateSE()
+				else
+					M.dna.SetSEValue(block,src.GetValue())
+				domutcheck(M, null, block!=null)
+				M.update_mutations()
+			if(H)
+				H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
+	if(used)
+		user << "<span class='warning'>This injector is used up!</span>"
+		return
 	if(!M.dna) //You know what would be nice? If the mob you're injecting has DNA, and so doesn't cause runtimes.
 		return 0
 
@@ -114,9 +111,6 @@
 			return 0
 
 	if (!user.IsAdvancedToolUser())
-		return 0
-
-	if(inuse)
 		return 0
 
 	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [user.name] ([user.ckey])</font>")
@@ -149,17 +143,20 @@
 	else
 		log_attack("[key_name(user)] injected [key_name(M)] with the [name]")
 
-	user.visible_message("<span class='danger'>\The [user] starts injecting \the [M] with \the [src]!</span>", "<span class='notice'>You start injecting \the [M] with \the [src].</span>")
-	if(do_after(user, 50, target = M))
-		inject(M, user)//Now we actually do the heavy lifting
-		user.visible_message("<span class='danger'>\The [user] injects \the [M] with \the [src]!</span>", "<span class='danger'>You inject \the [M] with \the [src].</span>")
+	if(M != user)
+		M.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
+		if(!do_mob(user, M))
+			return
+		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
+						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")
 
-	if(user)//If the user still exists. Their mob may not.
-		if(M)//Runtime fix: If the mob doesn't exist, mob.name doesnt work. - Nodrak
-			user.show_message("<span class='alert'>You inject [M.name]</span>")
-		else
-			user.show_message("<span class='alert'>You finish the injection.</span>")
+	else
+		user << "<span class='notice'>You inject yourself with [src].</span>"
 
+	inject(M, user)
+	used = 1
+	icon_state = "dnainjector0"
+	desc += " This one is used up."
 
 /obj/item/weapon/dnainjector/hulkmut
 	name = "DNA-Injector (Hulk)"
