@@ -1,6 +1,6 @@
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass
 	name = "shot glass"
-	desc = "A smaller glass for bigger beverages."
+	desc = "It's not the size tha matters; it's how you use it."
 	icon_state = "shotglass"
 	amount_per_transfer_from_this = 10
 	volume = 15
