@@ -774,15 +774,6 @@
 		//the analgesic effect wears off slowly
 		analgesic = max(0, analgesic - 1)
 
-		if(hallucination)
-			spawn()
-				handle_hallucinations()
-
-			if(hallucination <= 2)
-				hallucination = 0
-			else
-				hallucination -= 2
-
 		if(paralysis)
 			blinded = 1
 			stat = UNCONSCIOUS
