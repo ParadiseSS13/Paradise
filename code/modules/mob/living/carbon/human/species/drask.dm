@@ -15,7 +15,7 @@
 	male_scream_sound = 'sound/voice/DraskTalk2.ogg'
 	female_scream_sound = 'sound/voice/DraskTalk2.ogg'
 
-	burn_mod = 4
+	burn_mod = 2
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
 
@@ -40,6 +40,7 @@
 	heat_level_2 = 340 //Default 400
 	heat_level_3 = 400 //Default 460
 	heat_level_3_breathe = 600 //Default 1000
+	hot_env_multiplier = 2
 
 	flesh_color = "#a3d4eb"
 	reagent_tag = PROCESS_ORG
@@ -66,18 +67,18 @@
 				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
 		switch(breath.temperature)
-			if(-INFINITY to 120)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
+			if(-INFINITY to 65)
+				H.adjustFireLoss(cold_env_multiplier*5) //Has to be half the brute, since it has a 2x multiplier from burn_mod
 				H.adjustBruteLoss(cold_env_multiplier*10)
 				H.fire_alert = max(H.fire_alert, 1)		//To alert that their breath is cold enough for healing. Does not seem to affect cold movement slowdown
 
-			if(121 to 200)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2)
+			if(66 to 200)
+				H.adjustFireLoss(cold_env_multiplier*3)
 				H.adjustBruteLoss(cold_env_multiplier*6)
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(201 to 260)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1)
+				H.adjustFireLoss(cold_env_multiplier*1.5)
 				H.adjustBruteLoss(cold_env_multiplier*3)
 				H.fire_alert = max(H.fire_alert, 1)
 
