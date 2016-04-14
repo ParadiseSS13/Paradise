@@ -256,7 +256,6 @@
 		/mob/living/carbon/alien/larva,
 		/mob/living/simple_animal/slime,
 		/mob/living/simple_animal/adultslime,
-		/mob/living/simple_animal/tomato,
 		/mob/living/simple_animal/chick,
 		/mob/living/simple_animal/chicken,
 		/mob/living/simple_animal/lizard,
