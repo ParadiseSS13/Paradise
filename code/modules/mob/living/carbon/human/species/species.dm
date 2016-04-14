@@ -537,7 +537,9 @@
 	if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
 		if(H.glasses)					//to every /obj/item
 			var/obj/item/clothing/glasses/G = H.glasses
-			if(!G.prescription)
+			if(G.prescription)
+				H.clear_fullscreen("nearsighted")
+			else
 				H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 		else
 			H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
