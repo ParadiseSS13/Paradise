@@ -282,14 +282,16 @@
 
 /mob/living/simple_animal/emote(var/act, var/m_type=1, var/message = null)
 	if(stat)	return
+	..()
 
+/*
 	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("scream")
 			message = "<B>\The [src]</B> whimpers."
 			m_type = 2
 
 	..(act, m_type, message)
-
+*/
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src]")

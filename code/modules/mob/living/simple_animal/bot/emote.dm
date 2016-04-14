@@ -1,3 +1,4 @@
+/*
 /mob/living/simple_animal/bot/emote(var/act, var/m_type=1, var/message = null)
 	var/param = null
 	if (findtext(act, "-", 1, null))
@@ -117,3 +118,4 @@
 			m_type = 2
 
 	..(act, m_type, message)
+*/

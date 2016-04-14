@@ -1,3 +1,4 @@
+/*
 /mob/living/carbon/brain/emote(var/act,var/m_type=1,var/message = null)
 	if(!(container && istype(container, /obj/item/device/mmi)))//No MMI, no emotes
 		return
@@ -48,3 +49,4 @@
 
 	if(message && !stat)
 		..(act, m_type, message)
+*/
