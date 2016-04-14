@@ -1,15 +1,12 @@
 /mob/living/carbon/human
 	var/obj/structure/machinegun/mounted
 
-	ClickOn(var/atom/A, params)
-		if(mounted)
-			if(mounted.loc == src.loc)
-				if(A && mounted.nextshot <= world.time && mounted.anchored)
-					mounted.shoot(get_turf(A))
-			else
-				mounted = null
-		else
-			..()
+/mob/living/carbon/human/ClickOn(atom/A, params)
+    if(mounted && Adjacent(mounted))
+        if(next_move < world.time)
+            mounted.shoot(get_turf(A))
+    else
+        . = ..()
 
 
 /obj/structure/machinegun
@@ -26,7 +23,6 @@
 	var/list/row2 = list()
 	var/list/row3 = list()
 	var/mob/living/carbon/human/user
-	var/nextshot = 0
 	var/FIRETIME = 1 //tenths of seconds
 	density = 1
 	anchored = 0
@@ -60,7 +56,7 @@
 			to_chat(user, "This machine gun is out of ammo!")
 
 		return
-	if(T && user && user.stat == CONSCIOUS)
+	if(T && user && !user.incapacitated())
 		var/row = 0
 		if(row1.Find(T))
 			row = 1
@@ -106,7 +102,7 @@
 				spawn()
 					if(bullet)
 						bullet.process()
-				nextshot = world.time + FIRETIME
+				user.changeNext_move(CLICK_CD_MOUNTED)
 
 
 /obj/structure/machinegun/proc/update_rows()
@@ -173,7 +169,6 @@
 
 
 /obj/structure/machinegun/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if (get_dir(loc, target) == dir)
