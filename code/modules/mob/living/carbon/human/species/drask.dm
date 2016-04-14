@@ -56,8 +56,8 @@
 		)
 
 
-/datum/species/drask/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H) // called by human/life, handles temperatures
-	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations)) // Hot air hurts :(
+/datum/species/drask/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H)
+	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations))
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < 260)
 			if(prob(20))
@@ -67,19 +67,24 @@
 				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
 		switch(breath.temperature)
-			if(-INFINITY to 65)
+			if(-INFINITY to 30)			// This'll make the tank pressure drop really low, won't last very long
 				H.adjustFireLoss(cold_env_multiplier*5) //Has to be half the brute, since it has a 2x multiplier from burn_mod
 				H.adjustBruteLoss(cold_env_multiplier*10)
 				H.fire_alert = max(H.fire_alert, 1)		//To alert that their breath is cold enough for healing. Does not seem to affect cold movement slowdown
 
-			if(66 to 200)
+			if(31 to 75)
 				H.adjustFireLoss(cold_env_multiplier*3)
 				H.adjustBruteLoss(cold_env_multiplier*6)
 				H.fire_alert = max(H.fire_alert, 1)
 
-			if(201 to 260)
+			if(76 to 200)				// A bit slower than Diona. More per increment, but increments much slower than Diona
 				H.adjustFireLoss(cold_env_multiplier*1.5)
 				H.adjustBruteLoss(cold_env_multiplier*3)
+				H.fire_alert = max(H.fire_alert, 1)
+
+			if(201 to 260)				// Much slower than Diona
+				H.adjustFireLoss(cold_env_multiplier*0.5)
+				H.adjustBruteLoss(cold_env_multiplier*1)
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(heat_level_1 to heat_level_2)

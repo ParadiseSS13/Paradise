@@ -282,7 +282,7 @@
 	speech_verb = "drones"
 	ask_verb = "hums"
 	exclaim_verb = "rumbles"
-	colour = "slime"
+	colour = "drask"
 	key = "%"
 	flags = RESTRICTED
 	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
