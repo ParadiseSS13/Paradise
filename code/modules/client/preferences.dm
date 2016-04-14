@@ -1727,15 +1727,23 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.mutations += FAT
 		character.mutations += OBESITY
 		character.overeatduration = 600
+
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 		character.dna.SetSEState(GLASSESBLOCK,1,1)
 		character.disabilities|=NEARSIGHTED
+
 	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
 		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
 		character.disabilities|=EPILEPSY
+
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(DEAFBLOCK,1,1)
 		character.sdisabilities|=DEAF
+
+	if(disabilities & DISABILITY_FLAG_BLIND)
+		character.dna.SetSEState(BLINDBLOCK,1,1)
+		character.sdisabilities|=BLIND
+
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
 		character.sdisabilities |= MUTE

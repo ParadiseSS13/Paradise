@@ -1,0 +1,4 @@
+author: Meisaka
+delete-after: True
+changes: 
+  - bugfix: "law manager no longer freaks out with Malf law"

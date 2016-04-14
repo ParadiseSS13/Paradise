@@ -62,7 +62,7 @@
 
 
 	proc/special_check(var/mob/M) //Placeholder for any special checks, like detective's revolver.
-		if(!usr.IsAdvancedToolUser())
+		if(!M.IsAdvancedToolUser())
 			return 0
 		return 1
 

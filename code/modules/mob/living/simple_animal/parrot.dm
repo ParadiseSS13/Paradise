@@ -87,6 +87,7 @@
 
 /mob/living/simple_animal/parrot/New()
 	..()
+	hear_radio_list += src
 	if(!ears)
 		var/headset = pick(/obj/item/device/radio/headset/headset_sec, \
 						/obj/item/device/radio/headset/headset_eng, \
@@ -102,6 +103,9 @@
 			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
 			  /mob/living/simple_animal/parrot/proc/perch_player)
 
+/mob/living/simple_animal/parrot/Destroy()
+	hear_radio_list -= src
+	return ..()
 
 /mob/living/simple_animal/parrot/death()
 	if(held_item)
@@ -697,14 +701,14 @@
 
 /mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null)
 	if(prob(50))
-		parrot_hear(message)
-	..(message,verb,language,alt_name,italics,speaker)
+		parrot_hear(html_decode(message))
+	..()
 
 
 
 /mob/living/simple_animal/parrot/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
 	if(prob(50))
-		parrot_hear("[pick(available_channels)][message]")
+		parrot_hear("[pick(available_channels)][html_decode(message)]")
 	..()
 
 

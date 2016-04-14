@@ -55,7 +55,6 @@
 
 /turf/unsimulated/beach/water/drop/New()
 	..()
-	smooth_icon(src)
 	spawn(1)
 		overlays += image(icon, "[top_left_corner]-o", MOB_LAYER + 0.1)
 		overlays += image(icon, "[top_right_corner]-o", MOB_LAYER + 0.1)
