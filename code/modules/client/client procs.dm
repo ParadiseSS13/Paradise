@@ -163,20 +163,26 @@
 							src.DB_species_unlock("Grey",30)
 							return
 					if("4")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Drask",30)
+					if("5")
 						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
 							src.DB_species_unlock("Vox",45)
 							return
-					if("5")
+					if("6")
 						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
 							src.DB_species_unlock("Slime People",45)
 							return
-					if("6")
+					if("7")
 						if(karma <100)
 							to_chat(usr, "You do not have enough karma!")
 							return

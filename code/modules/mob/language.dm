@@ -284,7 +284,7 @@
 	exclaim_verb = "rumbles"
 	colour = "drask"
 	key = "%"
-	flags = RESTRICTED
+	flags = RESTRICTED | WHITELISTED
 	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
 
 /datum/language/drask/get_random_name()

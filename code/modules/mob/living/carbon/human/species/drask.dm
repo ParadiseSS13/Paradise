@@ -26,7 +26,7 @@
 	in their labyrinthine settlements, carved out beneath Hoorlm's icy surface, where the air \
 	is of breathable density."
 
-	flags = HAS_LIPS
+	flags = IS_WHITELISTED | HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = FEET_CLAWS | HAS_SKIN_TONE
 	dietflags = DIET_OMNI
