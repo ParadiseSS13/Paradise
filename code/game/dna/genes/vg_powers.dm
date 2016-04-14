@@ -196,24 +196,15 @@
 
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = living_mob_list
-	var/list/validtargets = new /list()
+	var/list/remoteviewers = new /list()
 	for(var/mob/M in targets)
-		if(M && M.mind)
-			if(M.z != user.z || isNonCrewAntag(M))
-				continue
-
-			validtargets += M
-
-	if(!validtargets.len || validtargets.len == 1)
+		if(REMOTE_VIEW in M.mutations)
+			remoteviewers += M
+	if(!remoteviewers.len || remoteviewers.len == 1)
 		to_chat(usr, "<span class='warning'>No valid targets with remote view were found!</span>")
 		start_recharge()
 		return
-
-	targets += input("Choose the target to spy on.", "Targeting") as null|mob in validtargets
-
-	if(!targets.len || !targets[targets.len]) //doesn't waste the spell
-		revert_cast(user)
-		return
+	targets += input("Choose the target to spy on.", "Targeting") as mob in remoteviewers
 
 	perform(targets)
 
