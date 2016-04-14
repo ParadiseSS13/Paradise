@@ -920,7 +920,7 @@
 					src.connected.occupant.name = buf.dna.real_name
 				src.connected.occupant.UpdateAppearance(buf.dna.UI.Copy())
 			else if (buf.types & DNA2_BUF_SE)
-				src.connected.occupant.dna.SE = buf.dna.SE
+				src.connected.occupant.dna.SE = buf.dna.SE.Copy()
 				src.connected.occupant.dna.UpdateSE()
 				domutcheck(src.connected.occupant,src.connected)
 			return 1
@@ -931,6 +931,7 @@
 				var/success = 1
 				var/obj/item/weapon/dnainjector/I = new /obj/item/weapon/dnainjector
 				var/datum/dna2/record/buf = src.buffers[bufferId]
+				buf = buf.copy()
 				if(href_list["createBlockInjector"])
 					waiting_for_user_input=1
 					var/list/selectedbuf
@@ -941,7 +942,7 @@
 					var/blk = input(usr,"Select Block","Block") in all_dna_blocks(selectedbuf)
 					success = setInjectorBlock(I,blk,buf)
 				else
-					I.buf = buf.copy()
+					I.buf = buf
 				waiting_for_user_input=0
 				if(success)
 					I.forceMove(src.loc)
