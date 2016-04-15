@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - soundadd: "Added in sounds (instead of a chat-based message) for when airlocks are bolted/unbolted"
-  - soundadd: "Added in sound for when airlocks deny access"
-  - tweak: "cutting/pulsing wires will play a sound"

@@ -1,5 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - tweak: "Head accessories now behave like facial hair: They will no longer be hidden by clothing items that BLOCKHEADHAIR (have the BLOCKHEADHAIR flag)."
-  - bugfix: "Wearing a piece of clothing that blocks head hair will no longer make head accessories (facial markings/horns/antennae) invisible until an icon update is triggered while the headwear is off."
