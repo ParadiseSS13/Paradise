@@ -116,19 +116,16 @@ datum/reagent/vhfcs/on_mob_life(var/mob/living/M as mob)
 	id = "honey"
 	description = "A sweet substance produced by bees through partial digestion. Bee barf."
 	reagent_state = LIQUID
-	color = "#CFCF1F"
+	color = "#d3a308"
 
 datum/reagent/honey/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+	if(!M)
+		M = holder.my_atom
 	M.reagents.add_reagent("sugar", 0.4)
+	if(prob(20))
+		M.heal_organ_damage(3,1)
 	..()
 	return
-
-datum/reagent/honey/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5)
-		new /obj/item/weapon/reagent_containers/food/snacks/honeycomb(T)
-		return
 
 /datum/reagent/chocolate
 	name = "Chocolate"

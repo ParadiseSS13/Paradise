@@ -70,9 +70,9 @@
 		return 0
 	return ..()
 
-
-/mob/living/simple_animal/hostile/statue/process_ai()
-	..()
+/mob/living/simple_animal/hostile/statue/handle_automated_action()
+	if(!..())
+		return
 	if(target) // If we have a target and we're AI controlled
 		var/mob/watching = can_be_seen()
 		// If they're not our target
@@ -210,7 +210,6 @@
 			target.see_invisible = SEE_INVISIBLE_LIVING
 			name = "Toggle Nightvision \[OFF\]"
 	return
-
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
