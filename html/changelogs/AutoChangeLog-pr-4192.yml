@@ -1,0 +1,9 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Can have hulk+dwarf mutations together"
+  - tweak: "Can have heat+cold resist together"
+  - tweak: "Can only remotely view people who also have remote view"
+  - bugfix: "Fixes cold mutation not having an overlay"
+  - bugfix: "Hallucinations will no longer tick down twice as fast as they should nor will they spawn twice as many hallucinations as they should"
+  - bugfix: "Incendiary mitochondria no longer asks who you want to cast it on (it always is meant to be cast on yourself)"
