@@ -1802,7 +1802,6 @@
 #include "code\modules\reagents\reagent_containers\glass_containers.dm"
 #include "code\modules\reagents\reagent_containers\hypospray.dm"
 #include "code\modules\reagents\reagent_containers\pill.dm"
-#include "code\modules\reagents\reagent_containers\robodropper.dm"
 #include "code\modules\reagents\reagent_containers\spray.dm"
 #include "code\modules\reagents\reagent_containers\syringes.dm"
 #include "code\modules\reagents\reagent_containers\food\cans.dm"
