@@ -23,9 +23,6 @@
 	// Any of a number of GENE_ flags.
 	var/flags=0
 
-	// Chance of the gene to cause adverse effects when active
-	var/instability=0
-
 /**
 * Is the gene active in this mob's DNA?
 */
