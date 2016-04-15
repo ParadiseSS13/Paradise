@@ -52,6 +52,9 @@
 	var/move_delay = 2
 	var/next_move = 0
 
+	var/emagged = 0
+	var/last_move_success = 1
+
 /obj/spacepod/New()
 	. = ..()
 	if(!pod_overlays)
@@ -249,6 +252,9 @@
 			processing_objects.Add(src)
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade))
+		emag_act(user)
+		return
 	if(iscrowbar(W))
 		hatch_open = !hatch_open
 		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
@@ -324,6 +330,10 @@
 		else
 			to_chat(user, "\blue <b>\The [src] is fully repaired!</b>")
 
+/obj/spacepod/emag_act(mob/user as mob)
+	if(!emagged)
+		emagged = 1
+		to_chat(user, "<span class='notice'>You disable the safeties on \the [src]</span>")
 
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(!hatch_open)
@@ -855,7 +865,70 @@
 					inertia_dir = 0
 					moveship = 0
 		if(moveship)
-			Move(get_step(src, direction), direction)
+			var/move_success = Move(get_step(src, direction), direction)
+
+			if(!move_success && emagged && last_move_success)
+				var/selfdamage = 5
+				var/turf/firstloc
+				var/turf/secondloc
+				var/turf/thirdloc // This and next are for pesky windows.
+				var/turf/fourthloc
+				switch(direction)
+					if(NORTH)
+						firstloc = get_step(get_step(src, NORTH), NORTH)
+						secondloc = get_step(firstloc, EAST)
+						thirdloc = get_step(src, NORTH)
+						fourthloc = get_step(thirdloc, EAST)
+					if(SOUTH)
+						firstloc = get_step(src, SOUTH)
+						secondloc = get_step(firstloc, EAST)
+						thirdloc = get_turf(src)
+						fourthloc = get_step(thirdloc, EAST)
+					if(EAST)
+						firstloc = get_step(get_step(src, EAST), EAST)
+						secondloc = get_step(firstloc, NORTH)
+						thirdloc = get_step(src, EAST)
+						fourthloc = get_step(thirdloc, NORTH)
+					if(WEST)
+						firstloc = get_step(src, WEST)
+						secondloc = get_step(firstloc, NORTH)
+						thirdloc = get_turf(src)
+						fourthloc = get_step(thirdloc, NORTH)
+				var/list/todamage = list()
+				todamage += firstloc.contents
+				todamage += firstloc
+				todamage += secondloc.contents
+				todamage += secondloc
+				todamage += thirdloc.contents
+				todamage += fourthloc.contents
+				for(var/atom/A in todamage)
+					if(istype(A, /mob/living))
+						if(A.density)
+							var/mob/living/L = A
+							if(isalien(L))  //For xenos
+								L.adjustBruteLoss(30)
+								L.emote("roar")
+							else if(ishuman(L)) //For humans
+								L.adjustBruteLoss(20)
+								if(L.stat == CONSCIOUS)
+									L.emote("scream")
+								L.Weaken(5)
+							else //For simple_animals & borgs
+								L.adjustBruteLoss(20)
+					else
+						if(A.density)
+							if(istype(A,/turf))
+								if(selfdamage < 20)
+									selfdamage = 20
+							else
+								if(selfdamage < 10)
+									selfdamage = 10
+							A.ex_act(pick(3,3,2))
+				deal_damage(selfdamage)
+				Move(get_step(src, direction), direction) // Try moving again - If whatever we ran into is gone, we ought to be busting through it.
+
+			last_move_success = move_success
+
 			if(equipment_system.cargo_system)
 				for (var/turf/T in locs)
 					for (var/obj/item/I in T.contents)
