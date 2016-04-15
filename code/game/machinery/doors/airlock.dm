@@ -58,7 +58,6 @@
 	var/doorDeni = 'sound/machines/DeniedBeep.ogg' // i'm thinkin' Deni's
 	var/boltUp = 'sound/machines/BoltsUp.ogg'
 	var/boltDown = 'sound/machines/BoltsDown.ogg'
-	var/noPower = 'sound/machines/DoorClick.ogg'
 
 /obj/machinery/door/airlock/command
 	name = "Airlock"
