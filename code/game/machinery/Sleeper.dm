@@ -353,6 +353,9 @@
 			if(prob(addiction_removal_chance))
 				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				occupant.reagents.addiction_list.Remove(R)
+			//because why the hell not
+		if (occupant.reagents.get_reagent_amount("salglu_solution") < 5)
+			occupant.reagents.add_reagent("salglu_solution", 5)
 
 	updateDialog()
 	return
