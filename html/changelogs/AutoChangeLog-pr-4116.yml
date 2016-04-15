@@ -1,0 +1,13 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - rscdel: "Removes shitty Caelcode bees."
+  - rscadd: "Hydroponics can now manage bee colonies, bees produce honeycombs that can be ground to obtain honey, a decent nutriment+healing chemical"
+  - rscadd: "Hydroponics can inject a queen bee with a syringe of a reagent to alter her DNA to match that reagent, meaning all honeycombs produced will contain that reagent in small amounts"
+  - rscadd: "Bees with reagents will attack with that reagent. It takes 5u of a reagent to give a bee that reagent."
+  - rscadd: "Added the ability to make Apiaries and Honey frames with wood"
+  - rscadd: "Added the ability to make Royal Bee Jelly from 10 Mutagen and 40 Honey"
+  - rscadd: "Added the ability to make more Queen Bees from Royal Bee Jelly by using it on an existing Queen, to split her into two Queens"
+  - rscdel: "Removes some snowflakey mob behavior from bears, snakes and panthers."
+  - rscadd: "Hudson is feeling punny."
+  - experiment: "Hostile mob AI should now be a bit more cost-efficient."
