@@ -1,8 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Killer tomatoes actually live up to their name now and are hostile mobs"
-  - tweak: "Killer tomatoes are an actual fruit now; activate it in your hands to make them into a mob"
-  - tweak: "Killer tomatoes are directly mutated from regular tomatoes instead of blood tomatoes"
-  - tweak: "Increased the yield of regular tomatoes by 1"
-  - tweak: "Tweak some stats on the killer tomato seeds"
