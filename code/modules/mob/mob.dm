@@ -1269,8 +1269,8 @@ mob/proc/yank_out_object()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
 
-	if(jobban_isbanned(usr, "NPC"))
-		to_chat(usr, "<span class='warning'>You are banned from playing as NPC's.</span>")
+	if(jobban_isbanned(usr, ROLE_SENTIENT))
+		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
 	if(!ticker || ticker.current_state < 3)

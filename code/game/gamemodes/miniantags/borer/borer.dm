@@ -625,7 +625,7 @@
 		if(jobban_isbanned(O, "Syndicate"))
 			continue
 		if(O.client)
-			if((ROLE_BORER in O.client.prefs.be_special) && !jobban_isbanned(O, "alien"))
+			if((ROLE_BORER in O.client.prefs.be_special) && !jobban_isbanned(O, ROLE_BORER))
 				question(O.client)
 
 /mob/living/simple_animal/borer/proc/question(var/client/C)
