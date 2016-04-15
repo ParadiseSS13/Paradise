@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - tweak: "The /vg/ library computer interface has been ported, giving a much better use experience."
+  - rscadd: "Books can now be flagged for inappropriate content."
