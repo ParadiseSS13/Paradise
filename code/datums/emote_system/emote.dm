@@ -8,32 +8,32 @@ VampyrBytes
 *******************************************************************************************************/
 
 /datum/emote
-	var/name
+	var/name = ""
 	var/list/commands[0]  // commands that trigger the emote. Set these in New()
-	var/text
-	var/startText		// if you need to put something in before [user]. Should end with a space
-	var/mimeText
-	var/sound
+	var/text = ""
+	var/startText = ""		// if you need to put something in before [user]. Should end with a space
+	var/mimeText = ""
+	var/sound				// sound file
 	var/vol = 50
-	var/audible
-	var/muzzledNoise	// if the emote is audible and you're muzzled, this is what type of noise you make (eg weak, loud). End with a space
-	var/restrained		// 1 if being restrained prevents this emote
-	var/cooldown
+	var/audible = 0
+	var/muzzledNoise = ""	// if the emote is audible and you're muzzled, this is what type of noise you make (eg weak, loud). End with a space
+	var/restrained = ""		// 1 if being restrained prevents this emote
+	var/cooldown = 0
 
-	var/canTarget		// 1 if the emote accepts a target			Emotes only recieve 1 parameter, so its either or with these 2
-	var/takesParam		// 1 if the emote uses a non target parameter
+	var/canTarget = 0		// 1 if the emote accepts a target			Emotes only recieve 1 parameter, so its either or with these 2
+	var/takesParam	= 0	// 1 if the emote uses a non target parameter
 
-	var/targetMob		// 0 if target can be any atom, 1 if it has to be a mob
+	var/targetMob = 0		// 0 if target can be any atom, 1 if it has to be a mob
 	var/targetText = "at" // what goes inbetween user and target
 	var/spanClass = "notice"
 	var/baseLevel = 1
-	var/baseSet
+	var/baseSet = 0
 
 
 /datum/emote/New()
 	var/pathString = "[type]"
 	var/count
-	for(var/i = 1, i<=lentext(pathString), i++)
+	for(var/i in 1 to lentext(pathString))
 		var/char = copytext(pathString, i, i+1)
 		if(char == "/")
 			count++
@@ -89,18 +89,18 @@ VampyrBytes
 	else if(takesParam && param)
 		message = paramMessage(user, param)
 	else
-		message = "<span class = '[spanClass]'>[startText][user] [text]"
+		message = "<span class = '[spanClass]'>[startText + " "][user] [text]"
 	return message
 
 /datum/emote/proc/mimeMessage(var/mob/user)
 	if(!mimeText)
 		return
 
-	var/message = "<span class = '[spanClass]'>[startText][user] [mimeText]"
+	var/message = "<span class = '[spanClass]'>[startText + " "][user] [mimeText]"
 	return message
 
 /datum/emote/proc/muzzleMessage(var/mob/user)
-	var/message = "<span class = '[spanClass]'>makes a [muzzledNoise]noise"
+	var/message = "<span class = '[spanClass]'>makes a [muzzledNoise + " "]noise"
 	return message
 
 // if the emote takes a non target parameter, set up  and return the with parameter version in here
