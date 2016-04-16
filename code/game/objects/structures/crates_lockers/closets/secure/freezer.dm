@@ -28,7 +28,7 @@
 
 	New()
 		..()
-		for(var/i = 0, i < 3, i++)
+		for(var/i in 1 to 3)
 			new /obj/item/weapon/reagent_containers/food/condiment/flour(src)
 		new /obj/item/weapon/reagent_containers/food/condiment/rice(src)
 		new /obj/item/weapon/reagent_containers/food/condiment/sugar(src)
@@ -52,7 +52,7 @@
 
 	New()
 		..()
-		for(var/i = 1 to 4)
+		for(var/i in 1 to 4)
 			new /obj/item/weapon/reagent_containers/food/snacks/meat/monkey(src)
 
 
@@ -69,10 +69,10 @@
 
 	New()
 		..()
-		for(var/i = 1 to 5)
+		for(var/i in 1 to 5)
 			new /obj/item/weapon/reagent_containers/food/drinks/milk(src)
 			new /obj/item/weapon/reagent_containers/food/drinks/soymilk(src)
-		for(var/i = 1 to 2)
+		for(var/i in 1 to 2)
 			new /obj/item/weapon/storage/fancy/egg_box(src)
 
 

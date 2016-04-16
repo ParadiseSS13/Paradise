@@ -125,7 +125,7 @@
 		/obj/item/stack/rods
 		)
 
-		for(var/i = 1 to 2)
+		for(var/i in 1 to 2)
 			for(var/res in resources)
 				var/obj/item/stack/R = new res(src)
 				R.amount = R.max_amount
