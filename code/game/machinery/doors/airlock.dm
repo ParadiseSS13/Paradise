@@ -299,6 +299,16 @@
 	icon = 'icons/obj/doors/doorshuttle.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_shuttle
 
+/obj/machinery/door/airlock/abductor
+	name = "alien airlock"
+	desc = "With humanity's current technological level, it could take years to hack this advanced airlock... or maybe we should give a screwdriver a try?"
+	icon = 'icons/obj/doors/abductor/abductor_airlock.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_abductor
+	opacity = 1
+	explosion_block = 3
+	hackProof = 1
+	aiControlDisabled = 1
+
 /obj/machinery/door/airlock/alien
 	name = "Alien Airlock"
 	desc = "A mysterious alien airlock with a complicated opening mechanism."
