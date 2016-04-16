@@ -271,10 +271,7 @@
 		|| locate(/obj/machinery/computer/cloning, get_step(src, EAST)) \
 		|| locate(/obj/machinery/computer/cloning, get_step(src, WEST)))
 
-		var/mob/dead/observer/ghost = occupant.get_ghost()
-		if(ghost)
-			to_chat(ghost, "<span class='ghostalert'>Your corpse has been placed into a cloning scanner. Return to your body if you want to be cloned!</span> (Verbs -> Ghost -> Re-enter corpse)")
-			to_chat(ghost, sound('sound/effects/genetics.ogg'))
+		occupant.notify_ghost_cloning(source = src)
 	return
 
 /obj/machinery/dna_scannernew/proc/go_out()

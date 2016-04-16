@@ -53,6 +53,7 @@
 
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
+	var/breakouttime = 0
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:

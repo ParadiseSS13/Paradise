@@ -12,7 +12,7 @@
 	. = ..()
 	if(can_buckle && buckled_mob)
 		return user_unbuckle_mob(user)
-		
+
 /atom/movable/attack_robot(mob/living/user)
 	. = ..()
 	if(can_buckle && buckled_mob && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
@@ -46,6 +46,7 @@
 	buckled_mob = M
 	M.update_canmove()
 	post_buckle_mob(M)
+	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled, new_master = src)
 	return 1
 
 /atom/movable/proc/unbuckle_mob()
@@ -54,6 +55,7 @@
 		buckled_mob.buckled = null
 		buckled_mob.anchored = initial(buckled_mob.anchored)
 		buckled_mob.update_canmove()
+		buckled_mob.clear_alert("buckled")
 		buckled_mob = null
 
 		post_buckle_mob(.)

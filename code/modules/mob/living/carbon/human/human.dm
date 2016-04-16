@@ -1348,6 +1348,15 @@
 		update_inv_shoes(1)
 		return 1
 
+/mob/living/carbon/human/cuff_resist(obj/item/I)
+	if(HULK in mutations)
+		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+		if(..(I, cuff_break = 1))
+			unEquip(I)
+	else
+		if(..())
+			unEquip(I)
+
 /mob/living/carbon/human/get_visible_implants(var/class = 0)
 
 	var/list/visible_implants = list()
