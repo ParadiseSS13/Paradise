@@ -21,7 +21,6 @@
 	ventcrawler = 2
 	var/datum/mind/origin
 	var/egg_lain = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)

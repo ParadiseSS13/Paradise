@@ -1,0 +1,4 @@
+author: FalseIncarnate
+delete-after: True
+changes: 
+  - bugfix: "Anomalies will now be properly neutralized by signals that match their code and frequency, instead of using the default frequency and their code."

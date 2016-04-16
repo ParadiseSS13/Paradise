@@ -421,7 +421,7 @@ var/global/list/damage_icon_parts = list()
 	//base icons
 	var/icon/head_accessory_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
 
-	if(ha_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic()) && (src.species.bodyflags & HAS_HEAD_ACCESSORY)))
+	if(ha_style && (src.species.bodyflags & HAS_HEAD_ACCESSORY))
 		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			if(src.species.name in head_accessory_style.species_allowed)

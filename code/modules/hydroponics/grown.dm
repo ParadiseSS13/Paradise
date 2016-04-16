@@ -9,6 +9,7 @@
 	var/plantname
 	var/datum/seed/seed
 	var/potency = -1
+	var/awakening = 0
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/New(newloc,planttype)
 
@@ -291,6 +292,9 @@
 	..()
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/attack(var/mob/living/carbon/M, var/mob/user, var/def_zone)
+	if(awakening)
+		user << "<span class='warning'>The [src] is twitching and shaking, preventing you from eating it.</span>"
+		return
 	if(user == M)
 		return ..()
 
@@ -445,6 +449,26 @@
 				user.put_in_hands(DN)
 				qdel(src)
 				return
+			if("killertomato")
+				if(awakening || istype(user.loc,/turf/space))
+					return
+				user << "<span class='notice'>You begin to awaken the Killer Tomato...</span>"
+				awakening = 1
+
+				spawn(30)
+					if(!qdeleted(src))
+						var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(get_turf(src.loc))
+						var/endurance_value = seed.get_trait(TRAIT_ENDURANCE)
+						K.maxHealth += round(endurance_value / 3)
+						K.melee_damage_lower += round(potency / 10)
+						K.melee_damage_upper += round(potency / 10)
+						var/production_value = seed.get_trait(TRAIT_PRODUCTION)
+						K.move_to_delay -= round(production_value / 50)
+						K.health = K.maxHealth
+						K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
+						if(user)
+							user.unEquip(src)
+						qdel(src)
 			if("cashpod")
 				to_chat(user, "You crack open the cash pod...")
 				var/value = round(seed.get_trait(TRAIT_POTENCY))
@@ -494,11 +518,11 @@
 		seed.do_sting(H,src,pick("r_hand","l_hand"))
 
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/On_Consume()
+/obj/item/weapon/reagent_containers/food/snacks/grown/On_Consume(mob/M, mob/user)
 	if(seed && seed.get_trait(TRAIT_BATTERY_RECHARGE))
 		if(!reagents.total_volume)
 			var/batteries_recharged = 0
-			for(var/obj/item/weapon/stock_parts/cell/C in usr.GetAllContents())
+			for(var/obj/item/weapon/stock_parts/cell/C in user.GetAllContents())
 				var/newcharge = (potency*0.01)*C.maxcharge
 				if(C.charge < newcharge)
 					C.charge = newcharge
@@ -507,5 +531,5 @@
 						O.update_icon() //update power meters and such
 					batteries_recharged = 1
 			if(batteries_recharged)
-				to_chat(usr, "<span class='notice'>Battery has recovered.</span>")
+				to_chat(user, "<span class='notice'>Battery has recovered.</span>")
 	..()

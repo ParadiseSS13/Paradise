@@ -1,7 +1,0 @@
-author: Fethas
-delete-after: True
-changes: 
-  - rscdel: "Nukes the cargo train code
-rscadd:Adds simple vehicle framework and converts secway/janicart/snowmobiles/bikes/cars/ambulance to it
-rscadd:Adds space speedbike, red and blue versions, yes you WILL need a spacesuit
-rscadd:Maps janicart and secway onto metastation (but not ambulance no pareamedic garage, no i am not mapping that)"

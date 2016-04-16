@@ -223,8 +223,8 @@
 
 
 	// Try to find all the players who can hear the message
-	for(var/i = 1; i <= player_list.len; i++)
-		var/mob/M = player_list[i]
+	for(var/A in player_list + hear_radio_list)
+		var/mob/M = A
 		if(M)
 			var/turf/ear = get_turf(M)
 			if(ear)
