@@ -49,6 +49,8 @@
 
 	var/last_plant_ikey		//This is for debugging reference, and is otherwise useless. --FalseIncarnate
 
+	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpolinate one plant
+
 /*
 *	process() can be found in \code\modules\hydroponics\tray\tray_process.dm
 *	reagent handling can be found in \code\modules\hydroponics\tray\tray_reagents.dm
@@ -586,19 +588,6 @@
 		anchored = !anchored
 		to_chat(user, "You [anchored ? "wrench" : "unwrench"] \the [src].")
 
-	else if(istype(O, /obj/item/apiary))
-
-		if(seed)
-			to_chat(user, "<span class='danger'>[src] is already occupied!</span>")
-		else
-			user.drop_item()
-			qdel(O)
-
-			var/obj/machinery/apiary/A = new(src.loc)
-			A.icon = src.icon
-			A.icon_state = src.icon_state
-			A.hydrotray_type = src.type
-			qdel(src)
 	else if ((istype(O, /obj/item/weapon/tank) && !( src.destroyed )))
 		if (src.holding)
 			to_chat(user, "\blue There is alreadu a tank loaded into the [src].")

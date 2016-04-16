@@ -713,23 +713,18 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	var/list/pod_door_types = list(/obj/machinery/door/poddoor/two_tile_hor/, /obj/machinery/door/poddoor/two_tile_ver/, \
-									/obj/machinery/door/poddoor/three_tile_hor, /obj/machinery/door/poddoor/three_tile_ver, \
-									/obj/machinery/door/poddoor/four_tile_hor, /obj/machinery/door/poddoor/four_tile_ver)
-
 	if(CheckIfOccupant2(usr))	return
-	for(var/obj/machinery/door/poddoor/P in orange(3,src))
-		if(is_type_in_list(P,pod_door_types))
-			var/mob/living/carbon/human/L = usr
-			if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
-				if(P.density)
-					P.open()
-					return 1
-				else
-					P.close()
-					return 1
-			to_chat(usr, "<span class='warning'>Access denied.</span>")
-			return
+	for(var/obj/machinery/door/poddoor/multi_tile/P in orange(3,src))
+		var/mob/living/carbon/human/L = usr
+		if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
+			if(P.density)
+				P.open()
+				return 1
+			else
+				P.close()
+				return 1
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return
 
 	to_chat(usr, "<span class='warning'>You are not close to any pod doors.</span>")
 	return

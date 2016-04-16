@@ -205,9 +205,13 @@ var/const/RADIO_MAGNETS = "radio_magnet"
 var/const/RADIO_LOGIC = "radio_logic"
 
 var/global/datum/controller/radio/radio_controller
+var/global/list/headsets[0]
 
 /hook/startup/proc/createRadioController()
 	radio_controller = new /datum/controller/radio()
+	for(var/A in headsets)
+		var/obj/item/device/radio/headset/H = A
+		H.initialize()
 	return 1
 
 //callback used by objects to react to incoming radio signals

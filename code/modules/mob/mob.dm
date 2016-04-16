@@ -1430,3 +1430,9 @@ mob/proc/yank_out_object()
 	..()
 	if(hud_used)
 		hud_used.update_parallax()
+
+/mob/proc/faction_check(mob/target)
+	for(var/F in faction)
+		if(F in target.faction)
+			return 1
+	return 0

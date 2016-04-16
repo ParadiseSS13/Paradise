@@ -303,10 +303,10 @@
 
 
 /obj/item/weapon/reagent_containers/glass/bottle/plasma
-	name = "liquid plasma bottle"
-	desc = "A small bottle of liquid plasma. Extremely toxic and reacts with micro-organisms inside blood."
+	name = "plasma dust bottle"
+	desc = "A small bottle of plasma in dust form. Extremely toxic and reacts with micro-organisms inside blood."
 	icon_state = "bottle8"
-	list_reagents = list("plasma" = 30)
+	list_reagents = list("plasma_dust" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine
 	name = "diphenhydramine bottle"

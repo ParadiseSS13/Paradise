@@ -817,7 +817,7 @@
 	var/list/blend_items = list (
 
 		//Sheets
-		/obj/item/stack/sheet/mineral/plasma = list("plasma" = 20),
+		/obj/item/stack/sheet/mineral/plasma = list("plasma_dust" = 20),
 		/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
 		/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
 		/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
@@ -831,7 +831,8 @@
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/weapon/reagent_containers/food/pill = list(),
-		/obj/item/weapon/reagent_containers/food = list()
+		/obj/item/weapon/reagent_containers/food = list(),
+		/obj/item/weapon/reagent_containers/honeycomb = list()
 	)
 
 	var/list/blend_tags = list (
