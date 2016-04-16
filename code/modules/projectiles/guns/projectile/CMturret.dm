@@ -16,7 +16,7 @@
 	icon_state = "mgun+barrier"
 	var/fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	var/empty_sound = 'sound/weapons/empty.ogg'
-	var/ammo_type = "/obj/item/projectile/bullet/a762"
+	var/ammo_type = "/obj/item/projectile/bullet/midbullet2"
 	var/ammo = 500
 	var/ammomax = 500
 	var/list/row1 = list()
@@ -44,6 +44,11 @@
 		if(user)
 			user.mounted = null
 			user = null
+
+/obj/structure/machinegun/Destroy()
+	user.mounted = null
+	user = null
+	return ..()
 
 /obj/structure/machinegun/New()
 	..()
@@ -87,7 +92,7 @@
 				if (!istype(targloc) || !istype(curloc))
 					return
 				playsound(src, fire_sound, 50, 1)
-				var/obj/item/projectile/bullet/a762/bullet = new ammo_type(shootfrom)
+				var/obj/item/projectile/bullet = new ammo_type(shootfrom)
 				bullet.firer = user
 				bullet.def_zone = user.zone_sel.selecting
 				bullet.original = T
@@ -135,25 +140,9 @@
 
 /obj/structure/machinegun/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/machinegunammo/Ammo = W
-	if(istype(W, /obj/item/weapon/wrench))
-		if(anchored)
-			user.visible_message("<span class = 'notice'> \The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user,40))
-				user.visible_message("<span class = 'notice'> \The [user] decides not to unbolt \the [src].</span>")
-				return
-			user.visible_message("<span class = 'notice'> \The [user] finishes unfastening \the [src]!</span>")
-			anchored = 0
-			return
-		else
-			user.visible_message("<span class = 'notice'> \The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user,40))
-				user.visible_message("<span class = 'notice'> \The [user] decides not to bolt \the [src].</span>")
-				return
-			user.visible_message("<span class = 'notice'> \The [user] finishes fastening down \the [src]!</span>")
-			anchored = 1
-			update_rows()
-			return
-	else if(Ammo)
+	default_unfasten_wrench(user, W, 40)
+	update_rows()
+	if(Ammo)
 		if(ammo < ammomax)
 			var/amt = ammomax - ammo
 			if(Ammo.count > amt)
@@ -180,8 +169,6 @@
 //checks if projectile 'P' from turf 'from' can hit whatever is behind the table. Returns 1 if it can, 0 if bullet stops.
 /obj/structure/machinegun/proc/check_cover(obj/item/projectile/P, turf/from)
 	var/turf/cover = get_turf(src)
-/*	if(istype(P, /obj/item/projectile/energy/acid))
-		return 0*/
 	if (get_dist(P.starting, loc) <= 1) //Tables won't help you if people are THIS close
 		return 1
 	if (get_turf(P.original) == cover)
