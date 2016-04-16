@@ -556,18 +556,20 @@
 	for(var/X in grabbed_by)
 		var/obj/item/weapon/grab/G = X
 		resisting++
-		if(G.state == GRAB_PASSIVE)
-			qdel(G)
-		else
-			if(G.state == GRAB_AGGRESSIVE)
-				if(prob(25))
+		switch(G.state)
+			if(GRAB_PASSIVE)
+				qdel(G)
+
+			if(GRAB_AGGRESSIVE)
+				if(prob(60))
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
-			else
-				if(G.state == GRAB_NECK)
-					if(prob(5))
-						visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
-						qdel(G)
+
+			if(GRAB_NECK)
+				if(prob(5))
+					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
+					qdel(G)
+
 	if(resisting)
 		visible_message("<span class='danger'>[src] resists!</span>")
 		return 1

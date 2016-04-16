@@ -54,9 +54,9 @@
 
 	var/list/atmos_requirements = list(
 		"min_oxy" = 16,
-		"max_oxy" = INFINITY,
+		"max_oxy" = 0,
 		"min_nitro" = 0,
-		"max_nitro" = INFINITY,
+		"max_nitro" = 0,
 		"min_tox" = 0,
 		"max_tox" = 0.005,
 		"min_co2" = 0,
@@ -303,7 +303,6 @@
 		if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
 			spawn(0)
 				H.emote("cough")
-		//throw_alert("co2", /obj/screen/alert/too_much_co2) //we're gonna leave this one as a silent killer for now
 	else
 		H.clear_alert("co2")
 		if(atmos_requirements["min_co2"]) //species breathes this gas, so they got their air

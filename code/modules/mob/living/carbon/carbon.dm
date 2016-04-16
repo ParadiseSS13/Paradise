@@ -777,7 +777,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		visible_message("<span class='danger'>[src] has successfully extinguished themselves!</span>", \
 			"<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
-	return
 
 
 /mob/living/carbon/resist_restraints()
