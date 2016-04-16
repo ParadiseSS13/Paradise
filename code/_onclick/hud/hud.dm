@@ -138,6 +138,13 @@ var/area/global_space_area = null
 /obj/screen/spessbg
 	var/offset_x = 0
 	var/offset_y = 0
+	bgobj.blend_mode = BLEND_MULTIPLY
+	bgobj.mouse_opacity = 0
+	bgobj.icon = 'icons/mob/screen_full.dmi'
+	bgobj.icon_state = "spess"
+	bgobj.name = "spess"
+	bgobj.layer = AREA_LAYER
+	bgobj.plane = SPACE_LAYER_PLANE
 
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
@@ -153,8 +160,10 @@ var/area/global_space_area = null
 				C.images -= A.white_overlay
 	if (C.spessbg.len)
 		for(var/obj/screen/spessbg/bgobj in C.spessbg)
-			bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
-			C.screen |= bgobj
+			if(C.prefs.space_parallax)
+				C.screen |= bgobj
+			else
+				C.screen -= bgobj
 		return
 	for(var/i in 0 to 3)
 		var/obj/screen/spessbg/bgobj = new /obj/screen/spessbg()
@@ -162,17 +171,12 @@ var/area/global_space_area = null
 			bgobj.offset_x = 480
 		if(i & 2)
 			bgobj.offset_y = 480
-		bgobj.icon = 'icons/mob/screen_full.dmi'
-		bgobj.icon_state = "spess"
-		bgobj.name = "spess"
 		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x],CENTER-7:[bgobj.offset_y]"
-		bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
-		bgobj.blend_mode = BLEND_MULTIPLY
-		bgobj.mouse_opacity = 0
-		bgobj.plane = C.prefs.space_parallax ? SPACE_LAYER_PLANE : HIDDEN_PLANE
 		C.spessbg += bgobj
-		C.screen += bgobj
+		if(C.prefs.space_parallax)
+			C.screen += bgobj
 	update_parallax()
+
 /datum/hud/proc/update_parallax()
 	var/atom/posobj = get_turf(mymob)
 	for(var/obj/screen/spessbg/bgobj in mymob.client.spessbg)
