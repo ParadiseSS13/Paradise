@@ -43,6 +43,7 @@
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
+	var/models_allowed = list() //Specifies which, if any, hairstyles can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -57,7 +58,6 @@
 */
 
 /datum/sprite_accessory/hair
-
 	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
 
 	bald
@@ -379,105 +379,169 @@
 //////END VG HAIRSTYLES///////
 //////////////////////////////
 
+
 	ipc_screen_pink
-		name = "pink IPC screen"
+		name = "Pink IPC Screen"
 		icon_state = "ipc_pink"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_red
-		name = "red IPC screen"
+		name = "Red IPC Screen"
 		icon_state = "ipc_red"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_green
-		name = "green IPC screen"
+		name = "Green IPC Screen"
 		icon_state = "ipc_green"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_blue
-		name = "blue IPC screen"
+		name = "Blue IPC Screen"
 		icon_state = "ipc_blue"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_breakout
-		name = "breakout IPC screen"
+		name = "Breakout IPC Screen"
 		icon_state = "ipc_breakout"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_eight
-		name = "eight IPC screen"
+		name = "Eight IPC Screen"
 		icon_state = "ipc_eight"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_rainbow
-		name = "rainbow IPC screen"
+		name = "Rainbow IPC Screen"
 		icon_state = "ipc_rainbow"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_goggles
-		name = "goggles IPC screen"
+		name = "Goggles IPC Screen"
 		icon_state = "ipc_goggles"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_heart
-		name = "heart IPC screen"
+		name = "Heart IPC Screen"
 		icon_state = "ipc_heart"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_monoeye
-		name = "monoeye IPC screen"
+		name = "Monoeye IPC Screen"
 		icon_state = "ipc_monoeye"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_nature
-		name = "nature IPC screen"
+		name = "Nature IPC Screen"
 		icon_state = "ipc_nature"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_orange
-		name = "orange IPC screen"
+		name = "Orange IPC Screen"
 		icon_state = "ipc_orange"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_purple
-		name = "purple IPC screen"
+		name = "Purple IPC Screen"
 		icon_state = "ipc_purple"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_shower
-		name = "shower IPC screen"
+		name = "Shower IPC Screen"
 		icon_state = "ipc_shower"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_static
-		name = "static IPC screen"
+		name = "Static IPC Screen"
 		icon_state = "ipc_static"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_yellow
-		name = "yellow IPC screen"
+		name = "Yellow IPC Screen"
 		icon_state = "ipc_yellow"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_scrolling
-		name = "scanline IPC screen"
+		name = "Scanline IPC Screen"
 		icon_state = "ipc_scroll"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_console
-		name = "console IPC screen"
+		name = "Console IPC Screen"
 		icon_state = "ipc_console"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_rgb
-		name = "rgb IPC screen"
+		name = "RGB IPC Screen"
 		icon_state = "ipc_rgb"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 	ipc_screen_glider
-		name = "glider IPC screen"
+		name = "Glider IPC Screen"
 		icon_state = "ipc_gol_glider"
 		species_allowed = list("Machine")
+		models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
+
+	hesphiastos_alt_off
+		name = "Dark Hesphiastos Screen"
+		icon_state = "hesphiastos_alt_off"
+		species_allowed = list("Machine")
+		models_allowed = list("Hesphiastos Industries alt.")
+
+	hesphiastos_alt_pink
+		name = "Pink Hesphiastos Screen"
+		icon_state = "hesphiastos_alt_pink"
+		species_allowed = list("Machine")
+		models_allowed = list("Hesphiastos Industries alt.")
+
+	hesphiastos_alt_orange
+		name = "Orange Hesphiastos Screen"
+		icon_state = "hesphiastos_alt_orange"
+		species_allowed = list("Machine")
+		models_allowed = list("Hesphiastos Industries alt.")
+
+	hesphiastos_alt_goggle
+		name = "Goggles Hesphiastos Screen"
+		icon_state = "hesphiastos_alt_goggles"
+		species_allowed = list("Machine")
+		models_allowed = list("Hesphiastos Industries alt.")
+
+	hesphiastos_alt_scroll
+		name = "Scrolling Hesphiastos Screen"
+		icon_state = "hesphiastos_alt_scroll"
+		species_allowed = list("Machine")
+		models_allowed = list("Hesphiastos Industries alt.")
+
+	hesphiastos_alt_rgb
+		name = "RGB Hesphiastos Screen"
+		icon_state = "hesphiastos_alt_rgb"
+		species_allowed = list("Machine")
+		models_allowed = list("Hesphiastos Industries alt.")
+
+	hesphiastos_alt_rainbow
+		name = "Rainbow Hesphiastos Screen"
+		icon_state = "hesphiastos_alt_rainbow"
+		species_allowed = list("Machine")
+		models_allowed = list("Hesphiastos Industries alt.")
+
 
 /*
 ///////////////////////////////////
@@ -496,8 +560,7 @@
 		name = "Shaved"
 		icon_state = "bald"
 		gender = NEUTER
-		species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Machine", "Vulpkanin", "Slime People")
-
+		species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People")
 
 	watson
 		name = "Watson Mustache"
@@ -1785,6 +1848,21 @@
 	icon_state = "antennae"
 	species_allowed = list("Machine")
 
+/datum/sprite_accessory/head_accessory/ipc_tv_antennae
+	name = "T.V. Antennae"
+	icon_state = "tvantennae"
+	species_allowed = list("Machine")
+
+/datum/sprite_accessory/head_accessory/ipc_tesla_antennae
+	name = "Tesla Antennae"
+	icon_state = "tesla"
+	species_allowed = list("Machine")
+
+/datum/sprite_accessory/head_accessory/ipc_light
+	name = "Head Light"
+	icon_state = "light"
+	species_allowed = list("Machine")
+
 
 /* BODY MARKINGS */
 
@@ -1832,6 +1910,31 @@
 	name = "Humanoid Optics"
 	species_allowed = list("Machine")
 	icon_state = "optics"
+	models_allowed = list("Bishop Cybernetics", "Hesphiastos Industries", "Ward-Takahashi", "Xion Manufacturing Group", "Zeng-Hu Pharmaceuticals") //Should be the same as the manufacturing company of the limb in robolimbs.dm
+
+/datum/sprite_accessory/body_markings/optics/bishop_alt
+	name = "Bishop Alt. Optics"
+	species_allowed = list("Machine")
+	icon_state = "bishop_alt_optics"
+	models_allowed = list("Bishop Cybernetics alt.")
+
+/datum/sprite_accessory/body_markings/optics/morpheus_alt
+	name = "Morpheus Alt. Optics"
+	species_allowed = list("Machine")
+	icon_state = "morpheus_alt_optics"
+	models_allowed = list("Morpheus Cyberkinetics alt.")
+
+/datum/sprite_accessory/body_markings/optics/wardtakahashi_alt
+	name = "Ward-Takahashi Alt. Optics"
+	species_allowed = list("Machine")
+	icon_state = "wardtakahashi_alt_optics"
+	models_allowed = list("Ward-Takahashi alt.")
+
+/datum/sprite_accessory/body_markings/optics/xion_alt
+	name = "Xion Alt. Optics"
+	species_allowed = list("Machine")
+	icon_state = "xion_alt_optics"
+	models_allowed = list("Xion Manufacturing Group alt.")
 
 /datum/sprite_accessory/body_markings/tattoo // Tattoos applied post-round startup with tattoo guns in item_defines.dm
 	name = "base tattoo"

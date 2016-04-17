@@ -1590,7 +1590,11 @@
 		return
 
 	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
-		if(client.prefs.rlimb_data["head"]) //If head is present here, that means it's not the default Morpheus. Thus, no screen to adjust. Instead, let them change the colour of their optics!
+		var/obj/item/organ/external/head/H = organs_by_name["head"]
+		var/datum/robolimb/robohead = all_robolimbs[H.model]
+		if(!H)
+			return
+		if(!robohead.is_monitor) //If head is present here, that means it's not the default Morpheus. Thus, no screen to adjust. Instead, let them change the colour of their optics!
 			var/optic_colour = input(src, "Select optic colour", rgb(r_markings, g_markings, b_markings)) as color|null
 			if(optic_colour)
 				r_markings = hex2num(copytext(optic_colour, 2, 4))
@@ -1598,7 +1602,7 @@
 				b_markings = hex2num(copytext(optic_colour, 6, 8))
 
 			update_markings()
-		else if(!client.prefs.rlimb_data["head"])//Means that the character has the default Morpheus head, which has a screen. Time to customize.
+		else if(robohead.is_monitor)//Means that the character has the default Morpheus head, which has a screen. Time to customize.
 			var/list/hair = list()
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
