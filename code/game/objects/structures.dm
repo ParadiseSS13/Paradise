@@ -30,8 +30,9 @@
 /obj/structure/New()
 	..()
 	if(smooth)
-		smooth_icon(src)
-		smooth_icon_neighbors(src)
+		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
+			smooth_icon(src)
+			smooth_icon_neighbors(src)
 		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
@@ -42,7 +43,9 @@
 	if(ticker)
 		cameranet.updateVisibility(src)
 	if(smooth)
-		smooth_icon_neighbors(src)
+		var/turf/T = get_turf(src)
+		spawn(0)
+			smooth_icon_neighbors(T)
 	return ..()
 
 /obj/structure/proc/climb_on()

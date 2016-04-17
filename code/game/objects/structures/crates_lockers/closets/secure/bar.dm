@@ -11,7 +11,6 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
@@ -22,7 +21,6 @@
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		return
 
 /obj/structure/closet/secure_closet/bar/update_icon()
 	if(broken)

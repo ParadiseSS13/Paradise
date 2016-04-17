@@ -67,6 +67,12 @@
 	return 0
 
 /atom/Destroy()
+	if(alternate_appearances)
+		for(var/aakey in alternate_appearances)
+			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
+			qdel(AA)
+		alternate_appearances = null
+
 	if(reagents)
 		qdel(reagents)
 		reagents = null

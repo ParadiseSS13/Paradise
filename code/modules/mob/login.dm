@@ -70,6 +70,12 @@
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
 
+	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
+		for(var/aakey in viewing_alternate_appearances)
+			var/datum/alternate_appearance/AA = viewing_alternate_appearances[aakey]
+			if(AA)
+				AA.display_to(list(src))
+
 	CallHook("Login", list("client" = src.client, "mob" = src))
 
 // Calling update_interface() in /mob/Login() causes the Cyborg to immediately be ghosted; because of winget().

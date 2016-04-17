@@ -17,7 +17,6 @@
 	desc = "Boosts efficiency in sectors of the brain commonly associated with meta-mental energies."
 	activation_messages = list("Your mind feels closed.")
 	deactivation_messages = list("You feel oddly exposed.")
-	instability=2
 
 	mutation=PSY_RESIST
 
@@ -29,7 +28,6 @@
 /////////////////////////
 
 /datum/dna/gene/basic/stealth
-	instability=7
 	can_activate(var/mob/M, var/flags)
 		// Can only activate one of these at a time.
 		if(is_type_in_list(/datum/dna/gene/basic/stealth,M.active_genes))
@@ -73,7 +71,7 @@
 	name = "Chameleon"
 	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
 	activation_messages = list("You feel one with your surroundings.")
-	deactivation_messages = list("You feel oddly exposed.")
+	deactivation_messages = list("You feel oddly visible.")
 	activation_prob=10
 	mutation = CHAMELEON
 
@@ -121,7 +119,6 @@
 	desc = "Allows the subject to lower the body temperature of others."
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
-	instability=10
 	mutation = CRYO
 
 	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
@@ -144,7 +141,6 @@
 	range = 7
 	selection_type = "range"
 	include_user = 1
-//	centcomm_cancast = 0
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
@@ -219,7 +215,6 @@
 	desc = "Allows the subject to eat just about anything without harm."
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
-	instability=3
 	mutation = EATER
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/eat
@@ -256,7 +251,6 @@
 		/mob/living/carbon/alien/larva,
 		/mob/living/simple_animal/slime,
 		/mob/living/simple_animal/adultslime,
-		/mob/living/simple_animal/tomato,
 		/mob/living/simple_animal/chick,
 		/mob/living/simple_animal/chicken,
 		/mob/living/simple_animal/lizard,
@@ -362,7 +356,6 @@
 	//cooldown = 30
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
-	instability=2
 	mutation = JUMPY
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/leap
@@ -464,7 +457,6 @@
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
-	instability=5
 	mutation = POLYMORPH
 
 	New()
@@ -491,19 +483,20 @@
 		to_chat(usr, "\red You can only change your appearance to that of another human.")
 		return
 
-	if(!ishuman(usr)) return
-
-
-	//playsound(usr.loc, 'blobattack.ogg', 50, 1)
+	if(!ishuman(usr))
+		return
 
 	usr.visible_message("\red [usr]'s body shifts and contorts.")
 
 	spawn(10)
 		if(M && usr)
 			playsound(usr.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
-			usr.UpdateAppearance(M.dna.UI)
-			usr:real_name = M:real_name
-			usr:name = M:name
+			var/mob/living/carbon/human/H = usr
+			var/mob/living/carbon/human/target = M
+			H.UpdateAppearance(target.dna.UI)
+			H.real_name = target.real_name
+			H.name = target.name
+
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/empath
@@ -514,7 +507,6 @@
 	spelltype = /obj/effect/proc_holder/spell/targeted/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
-	instability=1
 	mutation=EMPATH
 
 	New()
@@ -632,7 +624,6 @@
 	desc = "Vastly increases the gas capacity of the subject's digestive tract."
 	activation_messages = list("You feel bloated and gassy.")
 	deactivation_messages = list("You no longer feel gassy. What a relief!")
-	instability=1
 
 	mutation = SUPER_FART
 	spelltype = /obj/effect/proc_holder/spell/aoe_turf/superfart

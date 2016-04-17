@@ -43,7 +43,7 @@ var/list/robot_verbs_default = list(
 
 	var/obj/item/device/mmi/mmi = null
 
-	var/obj/item/device/pda/ai/rbPDA = null
+	var/obj/item/device/pda/silicon/robot/rbPDA = null
 
 	var/datum/wires/robot/wires = null
 
@@ -223,7 +223,7 @@ var/list/robot_verbs_default = list(
 // setup the PDA and its name
 /mob/living/silicon/robot/proc/setup_PDA()
 	if (!rbPDA)
-		rbPDA = new/obj/item/device/pda/ai(src)
+		rbPDA = new(src)
 	rbPDA.set_name_and_job(real_name, braintype)
 	if(scrambledcodes)
 		var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)

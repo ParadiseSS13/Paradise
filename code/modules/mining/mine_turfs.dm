@@ -1,10 +1,15 @@
 /**********************Mineral deposits**************************/
 
-var/global/list/rockTurfEdgeCache
 #define NORTH_EDGING	"north"
 #define SOUTH_EDGING	"south"
 #define EAST_EDGING		"east"
 #define WEST_EDGING		"west"
+
+var/global/list/rockTurfEdgeCache = list(
+	NORTH_EDGING = image('icons/turf/mining.dmi', "rock_side_n", layer = 6),
+	SOUTH_EDGING =  image('icons/turf/mining.dmi', "rock_side_s"),
+	EAST_EDGING = image('icons/turf/mining.dmi', "rock_side_e", layer = 6),
+	WEST_EDGING = image('icons/turf/mining.dmi', "rock_side_w", layer = 6))
 
 /turf/simulated/mineral //wall piece
 	name = "Rock"
@@ -50,32 +55,8 @@ var/global/list/rockTurfEdgeCache
 	return
 
 /turf/simulated/mineral/New()
-	if(!rockTurfEdgeCache || !rockTurfEdgeCache.len)
-		rockTurfEdgeCache = list()
-		rockTurfEdgeCache.len = 4
-		rockTurfEdgeCache[NORTH_EDGING] = image('icons/turf/mining.dmi', "rock_side_n", layer = 6)
-		rockTurfEdgeCache[SOUTH_EDGING] = image('icons/turf/mining.dmi', "rock_side_s")
-		rockTurfEdgeCache[EAST_EDGING] = image('icons/turf/mining.dmi', "rock_side_e", layer = 6)
-		rockTurfEdgeCache[WEST_EDGING] = image('icons/turf/mining.dmi', "rock_side_w", layer = 6)
-
-	spawn(1)
-		var/turf/T
-		if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
-			T = get_step(src, NORTH)
-			if (T)
-				T.overlays += rockTurfEdgeCache[SOUTH_EDGING]
-		if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)))
-			T = get_step(src, SOUTH)
-			if (T)
-				T.overlays += rockTurfEdgeCache[NORTH_EDGING]
-		if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)))
-			T = get_step(src, EAST)
-			if (T)
-				T.overlays += rockTurfEdgeCache[WEST_EDGING]
-		if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)))
-			T = get_step(src, WEST)
-			if (T)
-				T.overlays += rockTurfEdgeCache[EAST_EDGING]
+	..()
+	mineral_turfs += src
 
 	if (mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in cardinal)
@@ -85,7 +66,6 @@ var/global/list/rockTurfEdgeCache
 					Spread(T)
 
 	HideRock()
-	return
 
 /turf/simulated/mineral/proc/HideRock()
 	if(hidden)
@@ -95,6 +75,33 @@ var/global/list/rockTurfEdgeCache
 
 /turf/simulated/mineral/proc/Spread(var/turf/T)
 	new src.type(T)
+
+/hook/startup/proc/add_mineral_edges()
+	var/watch = start_watch()
+	log_startup_progress("Reticulating splines...")
+	for(var/turf/simulated/mineral/M in mineral_turfs)
+		M.add_edges()
+	log_startup_progress(" Splines reticulated in [stop_watch(watch)]s.")
+	return 1
+
+/turf/simulated/mineral/proc/add_edges()
+	var/turf/T
+	if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
+		T = get_step(src, NORTH)
+		if (T)
+			T.overlays += rockTurfEdgeCache[SOUTH_EDGING]
+	if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)))
+		T = get_step(src, SOUTH)
+		if (T)
+			T.overlays += rockTurfEdgeCache[NORTH_EDGING]
+	if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)))
+		T = get_step(src, EAST)
+		if (T)
+			T.overlays += rockTurfEdgeCache[WEST_EDGING]
+	if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)))
+		T = get_step(src, WEST)
+		if (T)
+			T.overlays += rockTurfEdgeCache[EAST_EDGING]
 
 /turf/simulated/mineral/random
 	name = "mineral deposit"

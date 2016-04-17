@@ -38,6 +38,7 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/Taser.ogg'
+	allow_pai = 0
 
 
 /mob/living/simple_animal/bot/ed209/New(loc,created_name,created_lasercolor)

@@ -187,8 +187,8 @@
 		. = ..()
 		if (.)
 			var/obj/item/weapon/paper/paper = locate() in container
-			if (!paper.info)
-				return 0
+			if (!paper || !paper.info)
+				return -1
 		return .
 
 /datum/recipe/oven/pizzamargherita

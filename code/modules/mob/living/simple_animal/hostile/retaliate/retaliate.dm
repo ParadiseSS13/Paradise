@@ -5,19 +5,16 @@
 	if(isliving(A))
 		var/mob/living/L = A
 		if(!L.stat)
-			stance = HOSTILE_STANCE_ATTACK
 			return L
 		else
 			enemies -= L
 	else if(istype(A, /obj/mecha))
 		var/obj/mecha/M = A
 		if(M.occupant)
-			stance = HOSTILE_STANCE_ATTACK
 			return A
 	else if(istype(A, /obj/spacepod))
 		var/obj/spacepod/M = A
 		if(M.occupant || M.occupant2)
-			stance = HOSTILE_STANCE_ATTACK
 			return A
 
 /mob/living/simple_animal/hostile/retaliate/ListTargets()

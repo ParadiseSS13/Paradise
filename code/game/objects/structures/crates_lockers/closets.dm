@@ -136,7 +136,6 @@
 /obj/structure/closet/proc/toggle(mob/user as mob)
 	if(!(src.opened ? src.close() : src.open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
-	return
 
 // this should probably use dump_contents()
 /obj/structure/closet/ex_act(severity)
@@ -169,7 +168,6 @@
 			for(var/atom/movable/A as mob|obj in src)
 				A.forceMove(loc)
 			qdel(src)
-	return
 
 /obj/structure/closet/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.environment_smash)
@@ -291,7 +289,6 @@
 			M.show_message("<span class='warning'>[src] has been [welded?"welded shut":"unwelded"] by [user.name].</span>", 3, "You hear welding.", 2)
 	else
 		src.attack_hand(user)
-	return
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	..()
@@ -315,7 +312,6 @@
 	if(user != O)
 		user.show_viewers("<span class='danger'>[user] stuffs [O] into [src]!</span>")
 	src.add_fingerprint(user)
-	return
 
 /obj/structure/closet/attack_ai(mob/user)
 	if(istype(user, /mob/living/silicon/robot) && Adjacent(user)) //Robots can open/close it, but not the AI

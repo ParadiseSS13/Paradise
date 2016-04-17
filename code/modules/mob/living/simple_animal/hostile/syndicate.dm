@@ -24,6 +24,7 @@
 	var/weapon2
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
+	check_friendly_fire = 1
 	status_flags = CANPUSH
 
 /mob/living/simple_animal/hostile/syndicate/death()
