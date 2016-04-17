@@ -1,6 +1,6 @@
 /datum/surgery/organ_extraction
 	name = "experimental dissection"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest")
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target)

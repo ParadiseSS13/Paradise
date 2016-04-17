@@ -1,14 +1,14 @@
 /datum/species/abductor
 	name = "Abductor"
 	name_plural = "Abductors"
-	icobase = 'icons/mob/human_races/r_grey.dmi'
-	deform = 'icons/mob/human_races/r_def_grey.dmi'
+	icobase = 'icons/mob/human_races/r_abductor.dmi'
+	deform = 'icons/mob/human_races/r_abductor.dmi'
 	path = /mob/living/carbon/human/abductor
 	language = "Abductor Mindlink"
 	default_language = "Abductor Mindlink"
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 3
-	eyes = "grey_eyes_s"
+	eyes = "blank_eyes"
 
 	flags = HAS_LIPS | NO_BLOOD | NO_BREATHE
 	virus_immune = 1

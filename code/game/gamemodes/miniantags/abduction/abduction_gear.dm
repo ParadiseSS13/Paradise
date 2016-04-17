@@ -308,6 +308,14 @@
 	item_state = "alienpistol"
 	origin_tech = "combat=5;materials=4;powerstorage=3;abductor=3"
 
+/obj/item/weapon/gun/energy/decloner/alien/special_check(user)
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.get_species() != "Abductor")
+			to_chat(user, "<span class='userdanger'>UNAUTHORIZED -- UNAUTHORIZED</span>")
+			return 0
+	return 1
+
 /obj/item/weapon/paper/abductor
 	name = "Dissection Guide"
 	icon_state = "alienpaper_words"
@@ -318,15 +326,16 @@
  2.Put the specimen on operating table<br>
  3.Apply scalpel to the chest, preparing for dissection<br>
  4.Apply scalpel to specimen torso<br>
- 5.Clamp bleeders on the specimen's torso
+ 5.Clamp bleeders on the specimen's torso<br>
  6.Retract skin from specimen's torso<br>
  7.Saw through the specimen's torso<br>
  8.Retract skin from specimen's torso again<br>
- 9.Search through the specimen's torso with your hands to remove any organs<br>
+ 9.Search through the specimen's torso with your hands to remove their heart<br>
  10.Insert replacement gland (Retrieve one from gland storage)<br>
- 11.Consider dressing the specimen back to not disturb the habitat <br>
- 12.Put the specimen in the experiment machinery<br>
- 13.Choose one of the machine options and follow displayed instructions<br>
+ 11.Cauterize the patient's torso<br>
+ 12.Consider dressing the specimen back to not disturb the habitat <br>
+ 13.Put the specimen in the experiment machinery<br>
+ 14.Choose one of the machine options and follow displayed instructions<br>
 <br>
 Congratulations! You are now trained for xenobiology research!"}
 
@@ -418,6 +427,10 @@ Congratulations! You are now trained for xenobiology research!"}
 
 /obj/item/weapon/abductor_baton/attack_self(mob/living/user)
 	toggle(user)
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
 
 /obj/item/weapon/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
 	user.lastattacked = L
@@ -435,7 +448,7 @@ Congratulations! You are now trained for xenobiology research!"}
 		var/mob/living/carbon/human/H = L
 		H.forcesay(hit_appends)
 
-	add_logs(user, L, "stunned")
+	add_logs(L, user, "stunned")
 	return
 
 /obj/item/weapon/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
@@ -444,7 +457,7 @@ Congratulations! You are now trained for xenobiology research!"}
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 		L.Sleeping(60)
-		add_logs(user, L, "put to sleep")
+		add_logs(L, user, "put to sleep")
 	else
 		L.drowsyness += 1
 		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
@@ -465,7 +478,7 @@ Congratulations! You are now trained for xenobiology research!"}
 				C.handcuffed = new /obj/item/weapon/restraints/handcuffs/energy/used(C)
 				C.update_inv_handcuffed()
 				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-				add_logs(user, C, "handcuffed")
+				add_logs(C, user, "handcuffed")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 	return
@@ -488,7 +501,7 @@ Congratulations! You are now trained for xenobiology research!"}
 		else
 			helptext = "<span class='notice'>Subject suitable for experiments.</span>"
 
-	to_chat(user,"<span class='notice'>Probing result:</span>[species]")
+	to_chat(user,"<span class='notice'>Probing result: </span>[species]")
 	to_chat(user, "[helptext]")
 
 /obj/item/weapon/restraints/handcuffs/energy
