@@ -71,6 +71,14 @@ var/global/list/limb_icon_cache = list()
 		overlays |= lip_icon
 		mob_icon.Blend(lip_icon, ICON_OVERLAY)
 
+	if(owner.ha_style)
+		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[owner.ha_style]
+		if(head_accessory_style && head_accessory_style.species_allowed && (species.name in head_accessory_style.species_allowed))
+			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
+			if(head_accessory_style.do_colouration)
+				head_accessory_s.Blend(rgb(owner.r_headacc, owner.g_headacc, owner.b_headacc), ICON_ADD)
+			overlays |= head_accessory_s
+
 	if(owner.f_style)
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[owner.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed))

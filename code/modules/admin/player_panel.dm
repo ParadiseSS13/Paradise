@@ -394,6 +394,16 @@
 
 
 
+/proc/check_antagonists_line(mob/M, caption = "", close = 1)
+	var/logout_status
+	if(istype(M, /mob/living/carbon/human/interactive))
+		logout_status = " <i>(snpc)</i>"
+	else
+		logout_status = M.client ? "" : " <i>(logged out)</i>"
+
+	return {"<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+		<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>[close ? "</tr>" : ""]"}
+
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))	return
 	if (ticker && ticker.current_state >= GAME_STATE_PLAYING)
@@ -417,8 +427,7 @@
 			for(var/datum/mind/N in ticker.mode.syndicates)
 				var/mob/M = N.current
 				if(M)
-					dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td></tr>"
+					dat += check_antagonists_line(M)
 				else
 					dat += "<tr><td><i>Nuclear Operative not found!</i></td></tr>"
 			dat += "</table><br><table><tr><td><B>Nuclear Disk(s)</B></td></tr>"
@@ -443,19 +452,16 @@
 				if(!M)
 					dat += "<tr><td><i>Head Revolutionary not found!</i></td></tr>"
 				else
-					dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a> <b>(Leader)</b>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td></tr>"
+					dat += check_antagonists_line(M, "(leader)")
 			for(var/datum/mind/N in ticker.mode.revolutionaries)
 				var/mob/M = N.current
 				if(M)
-					dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td></tr>"
+					dat += check_antagonists_line(M)
 			dat += "</table><table cellspacing=5><tr><td><B>Target(s)</B></td><td></td><td><B>Location</B></td></tr>"
 			for(var/datum/mind/N in ticker.mode.get_living_heads())
 				var/mob/M = N.current
 				if(M)
-					dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>"
+					dat += check_antagonists_line(M)
 					var/turf/mob_loc = get_turf(M)
 					dat += "<td>[mob_loc.loc]</td></tr>"
 				else
@@ -464,8 +470,7 @@
 				for(var/datum/mind/N in ticker.mode.get_extra_living_heads())
 					var/mob/M = N.current
 					if(M)
-						dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-						dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>"
+						dat += check_antagonists_line(M)
 						var/turf/mob_loc = get_turf(M)
 						dat += "<td>[mob_loc.loc]</td></tr>"
 					else
@@ -548,17 +553,7 @@
 	if (!istype(M))
 		return "<tr><td><i>Not found!</i></td></tr>"
 
-	var/txt = {"
-		<tr>
-			<td>
-				<a href='?src=\ref[admins];adminplayeropts=\ref[M]'>[M.real_name]</a>
-				[M.client ? "" : " <i>(logged out)</i>"]
-				[M.is_dead() ? " <b><font color='red'>(DEAD)</font></b>" : ""]
-			</td>
-			<td>
-				<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>
-			</td>
-	"}
+	var/txt = check_antagonists_line(M, close = 0)
 
 	if (show_objectives)
 		txt += {"

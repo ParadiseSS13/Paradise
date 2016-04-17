@@ -1,0 +1,7 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "DNA injectors no longer have a delay when used on yourself"
+  - tweak: "DNA injectors no longer delete on use, but become used, much like auto-injectors"
+  - bugfix: "Fixes a bug where you can exploit the genetic scanner to get multiple injectors"
+  - bugfix: "Fixes not being able to cancel creating an DNA injector"

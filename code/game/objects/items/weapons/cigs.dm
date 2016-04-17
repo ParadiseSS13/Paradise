@@ -78,7 +78,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	else if(istype(W, /obj/item/weapon/match))
 		var/obj/item/weapon/match/M = W
-		if(M.lit)
+		if(M.lit == 1)
 			light("<span class='notice'>[user] lights their [name] with their [W].</span>")
 
 	else if(istype(W, /obj/item/weapon/melee/energy/sword/saber))

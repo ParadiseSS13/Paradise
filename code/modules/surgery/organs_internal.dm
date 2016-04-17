@@ -15,7 +15,6 @@
 	possible_locs = list("chest","head","groin", "eyes", "mouth")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
-	allowed_mob = list(/mob/living/carbon/human/diona)
 
 /datum/surgery/organ_manipulation/alien
 	name = "alien organ manipulation"
@@ -30,11 +29,23 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0
-		if((target.get_species() == "Machine"))
+		if(target.get_species() == "Machine")//i know organ robot might be enough but i am not taking chances...
 			return 0
-		if((target.get_species() == "Diona"))
+		if(!affected.encased)//no bone, problem.
 			return 0
 		return 1
+
+/datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
+	if(istype(target,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+
+		if(affected && (affected.status & ORGAN_ROBOT))
+			return 0//no operating on robotic limbs in an organic surgery
+
+		if(!affected.encased)//no bones no problem.
+			return 1
+		return 0
 
 /datum/surgery/organ_manipulation/alien/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/alien/humanoid))

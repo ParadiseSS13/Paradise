@@ -525,8 +525,8 @@ var/list/turret_icons
 	for(var/obj/spacepod/SP in view(7,src))
 		assess_and_assign(SP.occupant, targets, secondarytargets)
 
-	for(var/obj/vehicle/train/T in view(7,src))
-		assess_and_assign(T.load, targets, secondarytargets)
+	for(var/obj/vehicle/T in view(7,src))
+		assess_and_assign(T.buckled_mob, targets, secondarytargets)
 
 	for(var/mob/living/C in view(7,src))	//loops through all living lifeforms in view
 		assess_and_assign(C, targets, secondarytargets)

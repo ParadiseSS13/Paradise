@@ -74,7 +74,7 @@
 			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access) || emergency == 1))
 				open()
 			else
-				flick("door_deny", src)
+				do_animate("deny")
 		return
 	return
 
@@ -102,7 +102,7 @@
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
-			flick("door_deny", src)
+			do_animate("deny")
 	return
 
 /obj/machinery/door/attack_ai(mob/user as mob)
@@ -135,7 +135,7 @@
 			close()
 		return
 	if(src.density)
-		flick("door_deny", src)
+		do_animate("deny")
 	return
 
 /obj/machinery/door/emag_act(user as mob)

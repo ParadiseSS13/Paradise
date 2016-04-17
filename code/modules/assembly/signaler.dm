@@ -110,7 +110,7 @@
 
 	if(href_list["send"])
 		spawn( 0 )
-		signal()
+			signal()
 
 	if(usr)
 		attack_self(usr)
@@ -169,6 +169,7 @@
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
 	icon_state = "anomaly core"
 	item_state = "electronic"
+	receiving = 1
 
 /obj/item/device/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
 	..()

@@ -6,9 +6,11 @@
 
 /obj/item/device/analyzer/plant_analyzer
 	name = "plant analyzer"
+	desc = "A scanner used to evaluate a plant's various areas of growth."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
+	origin_tech = "magnets=1;biotech=1"
 	var/form_title
 	var/last_data
 
@@ -266,11 +268,12 @@
 	icon_state = "hoe"
 	item_state = "hoe"
 	flags = CONDUCT | NOBLUDGEON
-	force = 5.0
-	throwforce = 7.0
-	w_class = 2.0
+	force = 5
+	throwforce = 7
+	w_class = 2
 	materials = list(MAT_METAL=50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
 //Hatchets and things to kill kudzu
 /obj/item/weapon/hatchet
@@ -279,11 +282,11 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hatchet"
 	flags = CONDUCT
-	force = 12.0
+	force = 12
 	sharp = 1
 	edge = 1
-	w_class = 2.0
-	throwforce = 15.0
+	w_class = 2
+	throwforce = 15
 	throw_speed = 4
 	throw_range = 4
 	materials = list(MAT_METAL=15000)
@@ -302,15 +305,15 @@
 	icon_state = "scythe0"
 	name = "scythe"
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
-	force = 13.0
-	throwforce = 5.0
+	force = 13
+	throwforce = 5
 	sharp = 1
 	edge = 1
 	throw_speed = 2
 	throw_range = 3
-	w_class = 4.0
+	w_class = 4
 	var/extend = 1
-	flags = NOSHIELD
+	flags = NOSHIELD | CONDUCT
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")

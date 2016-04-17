@@ -41,49 +41,49 @@
 		return ionMessage
 
 	//Threats are generally bad things, silly or otherwise. Plural.
-	var/ionthreats = pick_list("ion_laws.txt", "ionthreats")
+	var/ionthreats = pick_list("ion_laws.json", "ionthreats")
 	//Objects are anything that can be found on the station or elsewhere, plural.
-	var/ionobjects = pick_list("ion_laws.txt", "ionobjects")
+	var/ionobjects = pick_list("ion_laws.json", "ionobjects")
 	//Crew is any specific job. Specific crewmembers aren't used because of capitalization
 	//issues. There are two crew listings for laws that require two different crew members
 	//and I can't figure out how to do it better.
-	var/ioncrew1 = pick_list("ion_laws.txt", "ioncrew")
-	var/ioncrew2 = pick_list("ion_laws.txt", "ioncrew")
+	var/ioncrew1 = pick_list("ion_laws.json", "ioncrew")
+	var/ioncrew2 = pick_list("ion_laws.json", "ioncrew")
 	//Adjectives are adjectives. Duh. Half should only appear sometimes. Make sure both
 	//lists are identical! Also, half needs a space at the end for nicer blank calls.
-	var/ionadjectives = pick_list("ion_laws.txt", "ionadjectives")
-	var/ionadjectiveshalf = pick("", 400;(pick_list("ion_laws.txt", "ionadjectives") + " "))
+	var/ionadjectives = pick_list("ion_laws.json", "ionadjectives")
+	var/ionadjectiveshalf = pick("", 400;(pick_list("ion_laws.json", "ionadjectives") + " "))
 	//Verbs are verbs
-	var/ionverb = pick_list("ion_laws.txt", "ionverb")
+	var/ionverb = pick_list("ion_laws.json", "ionverb")
 	//Number base and number modifier are combined. Basehalf and mod are unused currently.
 	//Half should only appear sometimes. Make sure both lists are identical! Also, half
 	//needs a space at the end to make it look nice and neat when it calls a blank.
-	var/ionnumberbase = pick_list("ion_laws.txt", "ionnumberbase")
-	//var/ionnumbermod = pick_list("ion_laws.txt", "ionnumbermod")
-	var/ionnumbermodhalf = pick(900;"",(pick_list("ion_laws.txt", "ionnumbermod") + " "))
+	var/ionnumberbase = pick_list("ion_laws.json", "ionnumberbase")
+	//var/ionnumbermod = pick_list("ion_laws.json", "ionnumbermod")
+	var/ionnumbermodhalf = pick(900;"",(pick_list("ion_laws.json", "ionnumbermod") + " "))
 	//Areas are specific places, on the station or otherwise.
-	var/ionarea = pick_list("ion_laws.txt", "ionarea")
+	var/ionarea = pick_list("ion_laws.json", "ionarea")
 	//Thinksof is a bit weird, but generally means what X feels towards Y.
-	var/ionthinksof = pick_list("ion_laws.txt", "ionthinksof")
+	var/ionthinksof = pick_list("ion_laws.json", "ionthinksof")
 	//Musts are funny things the AI or crew has to do.
-	var/ionmust = pick_list("ion_laws.txt", "ionmust")
+	var/ionmust = pick_list("ion_laws.json", "ionmust")
 	//Require are basically all dumb internet memes.
-	var/ionrequire = pick_list("ion_laws.txt", "ionrequire")
+	var/ionrequire = pick_list("ion_laws.json", "ionrequire")
 	//Things are NOT objects; instead, they're specific things that either harm humans or
 	//must be done to not harm humans. Make sure they're plural and "not" can be tacked
 	//onto the front of them.
-	var/ionthings = pick_list("ion_laws.txt", "ionthings")
+	var/ionthings = pick_list("ion_laws.json", "ionthings")
 	//Allergies should be broad and appear somewhere on the station for maximum fun. Severity
 	//is how bad the allergy is.
-	var/ionallergy = pick_list("ion_laws.txt", "ionallergy")
-	var/ionallergysev = pick_list("ion_laws.txt", "ionallergysev")
+	var/ionallergy = pick_list("ion_laws.json", "ionallergy")
+	var/ionallergysev = pick_list("ion_laws.json", "ionallergysev")
 	//Species, for when the AI has to commit genocide. Plural.
-	var/ionspecies = pick_list("ion_laws.txt", "ionspecies")
+	var/ionspecies = pick_list("ion_laws.json", "ionspecies")
 	//Abstract concepts for the AI to decide on it's own definition of.
-	var/ionabstract = pick_list("ion_laws.txt", "ionabstract")
+	var/ionabstract = pick_list("ion_laws.json", "ionabstract")
 	//Foods. Drinks aren't included due to grammar; if you want to add drinks, make a new set
 	//of possible laws for best effect. Unless you want the crew having to drink hamburgers.
-	var/ionfood = pick_list("ion_laws.txt", "ionfood")
+	var/ionfood = pick_list("ion_laws.json", "ionfood")
 
 	var/message = ""
 
