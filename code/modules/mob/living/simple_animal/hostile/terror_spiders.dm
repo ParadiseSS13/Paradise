@@ -103,6 +103,7 @@ var/global/list/spider_ckey_blacklist = list()
 	faction = list("terrorspiders")
 	var/spider_awaymission = 0 // if 1, limits certain behavior in away missions
 	var/spider_uo71 = 0 // if 1, spider is in the UO71 away mission
+	var/spider_unlock_id_tag = "" // if defined, unlock awaymission blast doors with this tag on death
 	var/spider_queen_declared_war = 0 // if 1, mobs more aggressive
 	var/spider_role_summary = "UNDEFINED"
 
@@ -144,7 +145,7 @@ var/global/list/spider_ckey_blacklist = list()
 
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = 0 // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
-	var/spider_debug = 1
+	var/spider_debug = 0
 
 
 // --------------------------------------------------------------------------------
@@ -260,10 +261,6 @@ var/global/list/spider_ckey_blacklist = list()
 	attackstep = 0
 	attackcycles = 0
 	..()
-
-///mob/living/simple_animal/hostile/poison/terror_spider/GiveTarget(var/new_target)
-//	visible_message("<span class='danger'>\the [src] hisses at [new_target]!</span>")
-//	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/AttackingTarget()
 	if (istype(target,/mob/living/simple_animal/hostile/poison/terror_spider/))
@@ -523,8 +520,8 @@ var/global/list/spider_ckey_blacklist = list()
 		if (!degenerate && prob(20))
 			visible_message("<span class='danger'> \icon[src] [src] looks staggered by the bioweapon! </span>")
 			if (spider_tier < 3)
-				ai_type = 1
-				enemies = list()
+				//ai_type = 1
+				//enemies = list()
 				degenerate=1
 	else if (istype(Proj, /obj/item/projectile/energy/declone_spider))
 		if (!degenerate)
@@ -846,17 +843,20 @@ var/global/list/spider_ckey_blacklist = list()
 	// AWAY MISSION LOOT, AND RP FEEL-GOOD LOOT GOES HERE
 	if (spider_uo71)
 		if (istype(src,/mob/living/simple_animal/hostile/poison/terror_spider/white))
-			var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away02(get_turf(src))
-			I.layer = 4.2
-			visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
+			//var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away02(get_turf(src))
+			//I.layer = 4.2
+			//visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
+			UnlockBlastDoors("UO71_Bridge", "UO71 Bridge is now unlocked!")
 		else if (istype(src,/mob/living/simple_animal/hostile/poison/terror_spider/prince))
-			var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away04(get_turf(src))
-			I.layer = 4.2
-			visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
+			//var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away04(get_turf(src))
+			//I.layer = 4.2
+			//visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
+			UnlockBlastDoors("UO71_SciStorage", "UO71 Secure Science Storage is now unlocked!")
 		else if (istype(src,/mob/living/simple_animal/hostile/poison/terror_spider/queen))
-			var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away05(get_turf(src))
-			I.layer = 4.2
-			visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
+			//var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away05(get_turf(src))
+			//I.layer = 4.2
+			//visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
+			UnlockBlastDoors("UO71_Caves", "UO71 Caves are now unlocked!")
 	if (istype(src,/mob/living/simple_animal/hostile/poison/terror_spider/white))
 		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/silver(get_turf(src))
 		M.layer = 4.1
@@ -870,6 +870,20 @@ var/global/list/spider_ckey_blacklist = list()
 		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold/heroism(get_turf(src))
 		M.layer = 4.1
 	return
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(var/target_id_tag,var/msg_to_send)
+	var/unlocked_something = 0
+	for (var/obj/machinery/door/poddoor/P in world)
+		if (P.density && P.id_tag == target_id_tag && P.z == src.z)
+			P.open()
+			unlocked_something = 1
+	if (unlocked_something)
+		for(var/mob/living/carbon/human/H in player_list)
+			if (H.z != src.z)
+				continue
+			H << "<span class='notice'>----------</span>"
+			H << "<span class='notice'>" + msg_to_send + "</span>"
+			H << "<span class='notice'>----------</span>"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoHiveSense()
 	var/hsline = ""
@@ -2335,6 +2349,31 @@ var/global/list/spider_ckey_blacklist = list()
 			H << "<span class='userdanger'> Your head hurts! </span>"
 	src << "You reach through bluespace into the minds of the crew, making their fears come to life. Many of them start to hallucinate."
 
+/mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressToggleDebug()
+	set name = "Toggle Debug"
+	set category = "Spider"
+	set desc = "Enables/disables debug mode for spiders."
+	if (spider_debug)
+		spider_debug = 0
+		src << "Debug: DEBUG MODE is now <b>OFF</b> for all spiders in world."
+	else
+		spider_debug = 1
+		src << "Debug: DEBUG MODE is now <b>ON</b> for all spiders in world."
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+		T.spider_debug = spider_debug
+
+/mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressToggleInstant()
+	set name = "Toggle Instant"
+	set category = "Spider"
+	set desc = "Enables/disables instant growth for spiders."
+	if (spider_growinstantly)
+		spider_growinstantly = 0
+		src << "Debug: INSTANT GROWTH is now <b>OFF</b> for all spiders in world."
+	else
+		spider_growinstantly = 1
+		src << "Debug: INSTANT GROWTH is now <b>ON</b> for all spiders in world."
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+		T.spider_growinstantly = spider_growinstantly
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressKillSpider()
 	set name = "Erase Spider"

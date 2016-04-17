@@ -18,6 +18,8 @@
 				L << "<span class='danger'>You feel a tiny prick.</span>"
 				L.reagents.add_reagent(poison_type, poison_per_bite)
 
+
+
 //basic spider mob, these generally guard nests
 /mob/living/simple_animal/hostile/poison/giant_spider
 	name = "giant spider"

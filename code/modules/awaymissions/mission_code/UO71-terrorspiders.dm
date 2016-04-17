@@ -48,12 +48,14 @@
 /area/awaymission/UO71/bridge
 	name = "UO71 Bridge"
 	icon_state = "awaycontent21"
+	fire = 1
 	requires_power = 0
 	tele_proof = 1
 
 /area/awaymission/UO71/queen
 	name = "UO71 Queen Lair"
 	icon_state = "awaycontent9"
+	fire = 1
 	requires_power = 0
 	tele_proof = 1
 
@@ -162,10 +164,10 @@
 	name = "paper= 'Security Orders'"
 	info = "<b>Directives for Officer James</b><br>\
 	<br>\
-	Find the Strange Spider that killed the CE. Recover the ID that it took off him during the fight.<br>\
-	I am no scientist, but without that thing we're locked out of the bridge. Everyone else evacuated already.<br>\
-	We need to get out, and we need to get out now. Find it. Kill the thing and recover the ID.<br>\
-	It is the only way we are getting home.<br>\
+	1. Find a way to lift the bridge lockdown.<br>\
+	2. Kill any spiders you encounter.<br>\
+	3. Once on the bridge, open a path to the Queen in the south, and find a way to kill her, ending the infestation. <br>\
+	Good luck, Officer.<br>\
 	"
 
 /obj/item/weapon/paper/terrorspiders8
@@ -178,6 +180,7 @@
 	(the writing trails off, as if the writer was interrupted)<br>\
 	"
 
+/*
 /obj/item/weapon/card/id/away01
 	name = "UO71 Access Card"
 	desc = "Grants general access to UO71. Cannot be removed from UO71."
@@ -214,8 +217,8 @@
 /obj/item/weapon/card/id/away03
 	name = "UO71 Bridge Officer Access Card"
 	desc = "Grants access to general areas, the bridge, and secure areas of UO71. "
-	icon_state = "data"
-	item_state = "data_id"
+	icon_state = "silver"
+	item_state = "silver_id"
 	registered_name = "UO71 Staff"
 	assignment = ""
 	access = list(271,272,273)
@@ -223,8 +226,8 @@
 /obj/item/weapon/card/id/away04
 	name = "UO71 Research Storage Access Card"
 	desc = "Grants access to the highly restricted Secure Research Storage area of UO71. "
-	icon_state = "data"
-	item_state = "data_id"
+	icon_state = "rd"
+	item_state = "rd_id"
 	registered_name = "UO71 Staff"
 	assignment = ""
 	access = list(274)
@@ -232,12 +235,13 @@
 /obj/item/weapon/card/id/away05
 	name = "UO71 All-Access Card"
 	desc = "Grants access everything on UO71. "
-	icon_state = "data"
-	item_state = "data_id"
+	icon_state = "gold"
+	item_state = "gold_id"
 	registered_name = "UO71 Staff"
 	assignment = ""
 	access = list(271,272,273,274,275)
 
+*/
 
 /obj/item/weapon/gun/energy/awaymission_aeg
 	name = "Wireless Energy Gun"
@@ -305,7 +309,7 @@
 		update_reactor()
 		update_mode()
 	attack_self(mob/living/user as mob)
-		user << "\red [src.name] appears to only have one setting, scrawled hastily on it in pen: 'SPIDERS!!!'. This is probably a bad sign."
+		user << "<span class='danger'> [src.name] appears to only have one setting, scrawled hastily on it in pen: 'SPIDERS!!!'. This is probably a bad sign.</span>"
 
 /obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
@@ -323,7 +327,7 @@
 
 /obj/item/weapon/gun/energy/awaymission_spidergun
 	name = "Modified Decloner"
-	desc = "A modified biological decloner, tweaked to destroy spiders more effectively."
+	desc = "A modified biological decloner, tweaked to destroy terror spiders more effectively."
 	icon_state = "decloner"
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	origin_tech = "combat=5;materials=4;powerstorage=3"
@@ -334,3 +338,35 @@
 	icon_state = "declone"
 	damage = 20
 	damage_type = CLONE
+
+/obj/machinery/computer/id_upgrader
+	name = "ID Upgrade Machine"
+	icon_state = "guest"
+	icon_screen = "pass"
+	//icon = 'icons/obj/computer.dmi'
+	var/list/access_to_give = list()
+
+/obj/machinery/computer/id_upgrader/attackby(obj/O, mob/user, params)
+	if(istype(O, /obj/item/weapon/card/id))
+		var/obj/item/weapon/card/id/I = O
+		if (!access_to_give.len)
+			user << "<span class='notice'>This machine appears to be configured incorrectly.</span>"
+			return
+		var/did_upgrade = 0
+		for (var/this_access in access_to_give)
+			if (this_access in I.GetAccess())
+				// already have this access
+			else
+				// don't have it - add it
+				I.access |= this_access
+				user << "<span class='notice'>An access type was added to your ID card.</span>"
+				did_upgrade = 1
+		if (!did_upgrade)
+			user << "<span class='notice'>Your ID card already has all the access this machine can give.</span>"
+	else
+		user << "<span class='notice'>Use an ID card on the [src] instead.</span>"
+
+/obj/machinery/computer/id_upgrader/away01
+	// General access, in gateway room
+	name = "ID Upgrade Machine"
+	access_to_give = list(271)

@@ -16,4 +16,3 @@ data/
 /_maps/map_files/**/*.dmm.backup
 /nano/debug.html
 *.db
-_maps/map_files/RandomZLevels/fileList.txt
