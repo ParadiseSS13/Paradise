@@ -914,6 +914,7 @@
 #include "code\game\objects\structures\crates_lockers\closets\malfunction.dm"
 #include "code\game\objects\structures\crates_lockers\closets\statue.dm"
 #include "code\game\objects\structures\crates_lockers\closets\syndicate.dm"
+#include "code\game\objects\structures\crates_lockers\closets\tardis.dm"
 #include "code\game\objects\structures\crates_lockers\closets\utility_closets.dm"
 #include "code\game\objects\structures\crates_lockers\closets\wardrobe.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\bar.dm"
