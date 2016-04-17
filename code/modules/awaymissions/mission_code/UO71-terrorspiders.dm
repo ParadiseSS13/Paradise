@@ -180,68 +180,6 @@
 	(the writing trails off, as if the writer was interrupted)<br>\
 	"
 
-/*
-/obj/item/weapon/card/id/away01
-	name = "UO71 Access Card"
-	desc = "Grants general access to UO71. Cannot be removed from UO71."
-	icon_state = "data"
-	item_state = "data_id"
-	registered_name = "UO71 Staff"
-	assignment = ""
-	access = list(271)
-	var/turf/myhome = null
-	var/turf/menow = null
-	New()
-		..()
-		myhome = get_turf(src)
-		processing_objects.Add(src)
-	process()
-		menow = get_turf(src)
-		//if (src.z != 0 && src.z != myhome.z) // z=0 means it is in a container.
-		if (menow.z != myhome.z) // the hope is that menow=get_turf(src) will mean menow is always the ultimate turf the object is on, even figuring out containers.
-			visible_message("<span class='notice'>The [src] is recalled to UO71 by its homing beacon.</span>")
-			new /obj/item/weapon/card/id/away01(myhome)
-			qdel(src)
-
-
-/obj/item/weapon/card/id/away02
-	name = "UO71 CE Access Card"
-	desc = "Grants access to general areas, as well as the bridge, of UO71. "
-	icon_state = "data"
-	item_state = "data_id"
-	registered_name = "UO71 Staff"
-	assignment = ""
-	access = list(271,272)
-
-
-/obj/item/weapon/card/id/away03
-	name = "UO71 Bridge Officer Access Card"
-	desc = "Grants access to general areas, the bridge, and secure areas of UO71. "
-	icon_state = "silver"
-	item_state = "silver_id"
-	registered_name = "UO71 Staff"
-	assignment = ""
-	access = list(271,272,273)
-
-/obj/item/weapon/card/id/away04
-	name = "UO71 Research Storage Access Card"
-	desc = "Grants access to the highly restricted Secure Research Storage area of UO71. "
-	icon_state = "rd"
-	item_state = "rd_id"
-	registered_name = "UO71 Staff"
-	assignment = ""
-	access = list(274)
-
-/obj/item/weapon/card/id/away05
-	name = "UO71 All-Access Card"
-	desc = "Grants access everything on UO71. "
-	icon_state = "gold"
-	item_state = "gold_id"
-	registered_name = "UO71 Staff"
-	assignment = ""
-	access = list(271,272,273,274,275)
-
-*/
 
 /obj/item/weapon/gun/energy/awaymission_aeg
 	name = "Wireless Energy Gun"
@@ -255,75 +193,84 @@
 	can_charge = 0
 	charge_cost = 1000
 
-	New()
-		..()
-		processing_objects.Add(src)
-	Destroy()
-		processing_objects.Remove(src)
-		return ..()
-	process()
-		var/turf/my_loc = get_turf(src)
-		if(my_loc.z == 8)
-			if (inawaymission)
-				charge_tick++
-				if(charge_tick < 4) return 0
-				charge_tick = 0
-				if(!power_supply) return 0
-				if((power_supply.charge / power_supply.maxcharge) != 1)
-					power_supply.give(1000)
-					update_icon()
-				return 1
-			else
-				get(src, /mob) << "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>"
-				inawaymission=1
-				return 1
-		else
-			if (inawaymission)
-				get(src, /mob) << "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>"
-				//qdel(src)
-				power_supply.charge = 0
-				inawaymission=0
+/obj/item/weapon/gun/energy/awaymission_aeg/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/weapon/gun/energy/awaymission_aeg/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/item/weapon/gun/energy/awaymission_aeg/process()
+	var/turf/my_loc = get_turf(src)
+	if(my_loc.z == 8)
+		if (inawaymission)
+			charge_tick++
+			if(charge_tick < 4) return 0
+			charge_tick = 0
+			if(!power_supply) return 0
+			if((power_supply.charge / power_supply.maxcharge) != 1)
+				power_supply.give(1000)
 				update_icon()
-				return 1
-			else
-				// gun is useless here.
-				return 1
-	proc
-		update_charge()
-			var/ratio = power_supply.charge / power_supply.maxcharge
-			ratio = round(ratio, 0.25) * 100
-			overlays += "nucgun-[ratio]"
-		update_reactor()
-			if ((power_supply.charge/power_supply.maxcharge) <= 0.5)
-				overlays += "nucgun-light"
-			else
-				overlays += "nucgun-clean"
-		update_mode()
-			overlays += "nucgun-kill"
-	emp_act(severity)
-		..()
-		reliability = max(reliability - round(15/severity), 0) //Do not allow it to go negative!
-	update_icon()
-		overlays.Cut()
-		update_charge()
-		update_reactor()
-		update_mode()
-	attack_self(mob/living/user as mob)
-		user << "<span class='danger'> [src.name] appears to only have one setting, scrawled hastily on it in pen: 'SPIDERS!!!'. This is probably a bad sign.</span>"
+			return 1
+		else
+			to_chat(get(src, /mob),"<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+			inawaymission=1
+			return 1
+	else
+		if (inawaymission)
+			to_chat(get(src, /mob),"<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+			//qdel(src)
+			power_supply.charge = 0
+			inawaymission=0
+			update_icon()
+			return 1
+		else
+			// gun is useless here.
+			return 1
+
+/obj/item/weapon/gun/energy/awaymission_aeg/proc/update_charge()
+	var/ratio = power_supply.charge / power_supply.maxcharge
+	ratio = round(ratio, 0.25) * 100
+	overlays += "nucgun-[ratio]"
+
+/obj/item/weapon/gun/energy/awaymission_aeg/proc/update_reactor()
+	if ((power_supply.charge/power_supply.maxcharge) <= 0.5)
+		overlays += "nucgun-light"
+	else
+		overlays += "nucgun-clean"
+
+/obj/item/weapon/gun/energy/awaymission_aeg/proc/update_mode()
+	overlays += "nucgun-kill"
+
+/obj/item/weapon/gun/energy/awaymission_aeg/emp_act(severity)
+	..()
+	reliability = max(reliability - round(15/severity), 0) //Do not allow it to go negative!
+
+/obj/item/weapon/gun/energy/awaymission_aeg/update_icon()
+	overlays.Cut()
+	update_charge()
+	update_reactor()
+	update_mode()
+
+/obj/item/weapon/gun/energy/awaymission_aeg/attack_self(mob/living/user as mob)
+	to_chat(user,"<span class='danger'>[name] appears to only have one setting, scrawled hastily on it in pen: 'SPIDERS!!!'. This is probably a bad sign.</span>")
 
 /obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
-	New()
-		..()
-		reagents.add_reagent("terror_black_toxin",50)
-		update_icon()
+
+/obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin/New()
+	..()
+	reagents.add_reagent("terror_black_toxin",50)
+	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/beaker/terror_green_toxin
 	name = "beaker 'Green Terror Pheromone'"
-	New()
-		..()
-		reagents.add_reagent("terror_green_toxin",50)
-		update_icon()
+
+/obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin/New()
+	..()
+	reagents.add_reagent("terror_green_toxin",50)
+	update_icon()
 
 /obj/item/weapon/gun/energy/awaymission_spidergun
 	name = "Modified Decloner"
@@ -350,7 +297,7 @@
 	if(istype(O, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = O
 		if (!access_to_give.len)
-			user << "<span class='notice'>This machine appears to be configured incorrectly.</span>"
+			to_chat(user,"<span class='notice'>This machine appears to be configured incorrectly.</span>")
 			return
 		var/did_upgrade = 0
 		for (var/this_access in access_to_give)
@@ -359,12 +306,12 @@
 			else
 				// don't have it - add it
 				I.access |= this_access
-				user << "<span class='notice'>An access type was added to your ID card.</span>"
+				to_chat(user,"<span class='notice'>An access type was added to your ID card.</span>")
 				did_upgrade = 1
 		if (!did_upgrade)
-			user << "<span class='notice'>Your ID card already has all the access this machine can give.</span>"
+			to_chat(user,"<span class='notice'>Your ID card already has all the access this machine can give.</span>")
 	else
-		user << "<span class='notice'>Use an ID card on the [src] instead.</span>"
+		to_chat(user,"<span class='notice'>Use an ID card on the [src] instead.</span>")
 
 /obj/machinery/computer/id_upgrader/away01
 	// General access, in gateway room

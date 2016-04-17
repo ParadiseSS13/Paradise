@@ -121,13 +121,13 @@
 	// What would make most sense, I suppose, is surgery... but... surgery is easy...
 	if (wdtreated)
 		if (prob(30))
-			M << "<span class='notice'> You feel better, as your black flesh begins to heal.</span>"
+			to_chat(M,"<span class='notice'> You feel better, as your black flesh begins to heal.</span>")
 			M.reagents.remove_reagent("terror_white_toxin", 100)
 	else
 		if (holder.has_reagent("terror_white_antitoxin",1))
 			if (wdstage < 150)
 				wdtreated = 1
-				M << "<span class='notice'> The antivenom burns in your veins!</span>"
+				to_chat(M,"<span class='notice'> The antivenom burns in your veins!</span>")
 				M.adjustToxLoss(40)
 		else
 			wdstage += 1 // since charcoal, calomel, and dialysis can't purge us... only option left is our unique antidote
@@ -139,36 +139,36 @@
 		volume += 0.1
 	M.reagents.remove_reagent("terror_black_toxin", 30)
 	if(M.health < -25)
-		M << "<span class='notice'> You feel a strange, blissful senstation.</span>"
+		to_chat(M,"<span class='notice'> You feel a strange, blissful senstation.</span>")
 		M.adjustBruteLoss(-5)
 		M.adjustFireLoss(-5)
 		M.adjustToxLoss(-5)
 		// the spider eggs secrete stimulants/etc to keep their host alive until they hatch
 	if (wdstage == 1) // immediately
-		M << "<span class='danger'> Your spider bite wound hurts horribly! </span>"
+		to_chat(M,"<span class='danger'> Your spider bite wound hurts horribly! </span>")
 		if(istype(get_area(M), /area/awaycontent) || istype(get_area(M),/area/awaymission/))
 			awaymission_infection = 1
 	if (wdstage == 15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
-		M << "<span class='notice'> The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>"
+		to_chat(M,"<span class='notice'> The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>")
 		M.adjustBruteLoss(-10)
 		M.adjustToxLoss(-10)
 	if (wdstage == 60) // 2 minutes... the point where the venom uses and accellerates the healing process, to feed the eggs
-		M << "<span class='notice'> Your bite wound has completely sealed up, though the skin is still black. You feel significantly better.</span>"
+		to_chat(M,"<span class='notice'> Your bite wound has completely sealed up, though the skin is still black. You feel significantly better.</span>")
 		M.adjustBruteLoss(-20)
 		M.adjustToxLoss(-20)
 	if (wdstage == 120) // 4 minutes... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
-		M << "<span class='notice'> The black flesh around your old spider bite wound has started to peel off.</span>"
+		to_chat(M,"<span class='notice'> The black flesh around your old spider bite wound has started to peel off.</span>")
 	if (wdstage == 150) // 5 minutes... where the victim realizes something is wrong - this is not a normal wound
-		M << "<span class='danger'> The black flesh around your spider bite wound has cracked, and started to split open!</span>"
+		to_chat(M,"<span class='danger'> The black flesh around your spider bite wound has cracked, and started to split open!</span>")
 	if (wdstage == 165) // 5m 30s
-		M << "<span class='danger'> The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>"
+		to_chat(M,"<span class='danger'> The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>")
 	if (wdstage == 180) // 6m
 		if (awaymission_infection && !istype(get_area(M), /area/awaycontent) && !istype(get_area(M),/area/awaymission/))
 			// we started in the awaymission, we ended on the station.
 			// To prevent someone bringing an infection back, we're going to trigger an alternate, equally-bad result here.
 			// Actually, let's make it slightly worse... just to discourage people from bringing back infections.
 			alternate_ending = 1
-		M << "<span class='danger'> The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, biting you all over!</span>"
+		to_chat(M,"<span class='danger'> The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, biting you all over!</span>")
 		M.visible_message("<span class='danger'>[M] flails around on the floor as spiderlings erupt from their skin and swarm all over them! </span>")
 		M.Stun(20)
 		M.Weaken(20)
@@ -193,7 +193,7 @@
 			S3.stillborn = 1
 			M.adjustToxLoss(60)
 	if (wdstage == 190) // 6m 30s
-		M << "\red The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting."
+		to_chat(M,"<span class='danger'>The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting.</span>")
 		M.reagents.remove_reagent("terror_white_toxin", 100)
 	..()
 	return
