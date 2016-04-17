@@ -202,6 +202,10 @@ VampyrBytes
 				break
 		if(!found)
 			return
+	if(recipient.sdisabilities & DEAF || recipient.ear_deaf)
+		var/msg = createDeafMessage(user, message)
+		if(msg)
+			message = msg
 	if(recipient.stat == UNCONSCIOUS || (recipient.sleeping > 0 && recipient.stat != 2))
 		to_chat(recipient, "<I>... You can almost hear someone talking ...</I>")
 	else
@@ -218,6 +222,10 @@ VampyrBytes
 				break
 		if(!found)
 			return
+	if(recipient.sdisabilities & BLIND || recipient.blinded || recipient.paralysis)
+		var/msg = createBlindMessage(user, message)
+		if(msg)
+			message = msg
 	if(recipient.stat == UNCONSCIOUS || (recipient.sleeping > 0 && recipient.stat != 2))
 		to_chat(recipient, "<I>... You can almost hear someone talking ...</I>")
 	else
