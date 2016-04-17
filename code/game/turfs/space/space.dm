@@ -17,8 +17,9 @@
 	. = ..()
 	if(!global_space_area)
 		global_space_area = new /area/space()
-		global_space_area.white_overlay = image(loc=global_space_area, icon='icons/turf/space.dmi', icon_state="white")
+		global_space_area.white_overlay = image(loc = global_space_area, icon='icons/turf/space.dmi', icon_state="white")
 		global_space_area.white_overlay.plane = SPACE_WHITE_PLANE
+
 	if(istype(loc,/area/space))
 		global_space_area.contents += src
 	else
