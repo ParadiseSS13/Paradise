@@ -1252,6 +1252,7 @@
 #include "code\modules\events\spider_infestation.dm"
 #include "code\modules\events\spontaneous_appendicitis.dm"
 #include "code\modules\events\tear.dm"
+#include "code\modules\events\traders.dm"
 #include "code\modules\events\undead.dm"
 #include "code\modules\events\vent_clog.dm"
 #include "code\modules\events\wallrot.dm"
