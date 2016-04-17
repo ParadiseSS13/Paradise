@@ -24,7 +24,8 @@ var/global/obj/effect/tardis_exit/the_tardis_exit
 		A.forceMove(get_turf(W))
 		if(ismob(A))
 			var/mob/M = A
-			M.reset_eye()
+			M.client.eye = M.client.mob
+			M.client.perspective = MOB_PERSPECTIVE
 	if(.)
 		if(sound)
 			playsound(the_tardis_exit.loc, src.sound, 15, 1, -3)
