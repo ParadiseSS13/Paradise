@@ -203,7 +203,7 @@
 
 /obj/item/weapon/gun/energy/awaymission_aeg/process()
 	var/turf/my_loc = get_turf(src)
-	if(my_loc.z == 8)
+	if(my_loc.z == (MAX_Z + 1))
 		if (inawaymission)
 			charge_tick++
 			if(charge_tick < 4) return 0
@@ -212,22 +212,15 @@
 			if((power_supply.charge / power_supply.maxcharge) != 1)
 				power_supply.give(1000)
 				update_icon()
-			return 1
 		else
-			to_chat(get(src, /mob),"<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
-			inawaymission=1
-			return 1
+			to_chat(get(src, /mob), "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+			inawaymission = 1
 	else
 		if (inawaymission)
-			to_chat(get(src, /mob),"<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
-			//qdel(src)
+			to_chat(get(src, /mob), "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
 			power_supply.charge = 0
-			inawaymission=0
+			inawaymission = 0
 			update_icon()
-			return 1
-		else
-			// gun is useless here.
-			return 1
 
 /obj/item/weapon/gun/energy/awaymission_aeg/proc/update_charge()
 	var/ratio = power_supply.charge / power_supply.maxcharge
@@ -254,14 +247,14 @@
 	update_mode()
 
 /obj/item/weapon/gun/energy/awaymission_aeg/attack_self(mob/living/user as mob)
-	to_chat(user,"<span class='danger'>[name] appears to only have one setting, scrawled hastily on it in pen: 'SPIDERS!!!'. This is probably a bad sign.</span>")
+	to_chat(user, "<span class='danger'>[name] appears to only have one setting, scrawled hastily on it in pen: 'SPIDERS!!!'. This is probably a bad sign.</span>")
 
 /obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
 
 /obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin/New()
 	..()
-	reagents.add_reagent("terror_black_toxin",50)
+	reagents.add_reagent("terror_black_toxin", 50)
 	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/beaker/terror_green_toxin
@@ -269,7 +262,7 @@
 
 /obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin/New()
 	..()
-	reagents.add_reagent("terror_green_toxin",50)
+	reagents.add_reagent("terror_green_toxin", 50)
 	update_icon()
 
 /obj/item/weapon/gun/energy/awaymission_spidergun
@@ -297,21 +290,19 @@
 	if(istype(O, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = O
 		if (!access_to_give.len)
-			to_chat(user,"<span class='notice'>This machine appears to be configured incorrectly.</span>")
+			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
 			return
 		var/did_upgrade = 0
 		for (var/this_access in access_to_give)
-			if (this_access in I.GetAccess())
-				// already have this access
-			else
+			if (!(this_access in I.GetAccess()))
 				// don't have it - add it
 				I.access |= this_access
-				to_chat(user,"<span class='notice'>An access type was added to your ID card.</span>")
+				to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
 				did_upgrade = 1
 		if (!did_upgrade)
-			to_chat(user,"<span class='notice'>Your ID card already has all the access this machine can give.</span>")
+			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
 	else
-		to_chat(user,"<span class='notice'>Use an ID card on the [src] instead.</span>")
+		to_chat(user, "<span class='notice'>Use an ID card on the [src] instead.</span>")
 
 /obj/machinery/computer/id_upgrader/away01
 	// General access, in gateway room

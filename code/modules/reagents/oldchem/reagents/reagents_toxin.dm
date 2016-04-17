@@ -146,7 +146,7 @@
 		// the spider eggs secrete stimulants/etc to keep their host alive until they hatch
 	if (wdstage == 1) // immediately
 		to_chat(M,"<span class='danger'> Your spider bite wound hurts horribly! </span>")
-		if(istype(get_area(M), /area/awaycontent) || istype(get_area(M),/area/awaymission/))
+		if(istype(get_area(M), /area/awaycontent) || istype(get_area(M), /area/awaymission/))
 			awaymission_infection = 1
 	if (wdstage == 15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
 		to_chat(M,"<span class='notice'> The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>")
@@ -163,7 +163,7 @@
 	if (wdstage == 165) // 5m 30s
 		to_chat(M,"<span class='danger'> The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>")
 	if (wdstage == 180) // 6m
-		if (awaymission_infection && !istype(get_area(M), /area/awaycontent) && !istype(get_area(M),/area/awaymission/))
+		if (awaymission_infection && !istype(get_area(M), /area/awaycontent) && !istype(get_area(M), /area/awaymission/))
 			// we started in the awaymission, we ended on the station.
 			// To prevent someone bringing an infection back, we're going to trigger an alternate, equally-bad result here.
 			// Actually, let's make it slightly worse... just to discourage people from bringing back infections.
@@ -527,7 +527,7 @@
 						M.take_organ_damage(0,20)
 
 /datum/reagent/sacid/reaction_obj(var/obj/O, var/volume)
-	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
+	if((istype(O, /obj/item) || istype(O, /obj/effect/glowshroom)) && prob(40))
 		if(!O.unacidable)
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
