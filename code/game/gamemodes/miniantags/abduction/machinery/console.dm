@@ -8,14 +8,12 @@
 
 /obj/machinery/abductor/proc/IsAgent(mob/living/carbon/human/H)
 	if(H.get_species() == "Abductor")
-		var/datum/species/abductor/S = H.dna.species
-		return S.agent
+		return H.mind.abductor.agent
 	return 0
 
 /obj/machinery/abductor/proc/IsScientist(mob/living/carbon/human/H)
 	if(H.get_species() == "Abductor")
-		var/datum/species/abductor/S = H.dna.species
-		return S.scientist
+		return H.mind.abductor.scientist
 	return 0
 
 //Console
@@ -33,6 +31,10 @@
 	var/obj/machinery/abductor/pad/pad
 	var/obj/machinery/computer/camera_advanced/abductor/camera
 	var/list/datum/icon_snapshot/disguises = list()
+
+/obj/machinery/abductor/console/initialize()
+	..()
+	Link_Abduction_Equipment()
 
 /obj/machinery/abductor/console/attack_hand(mob/user)
 	if(..())
@@ -153,7 +155,7 @@
 		to_chat(user, "<span class='notice'>Location marked as test subject release point.</span>")
 
 
-/obj/machinery/abductor/console/proc/Initialize()
+/obj/machinery/abductor/console/proc/Link_Abduction_Equipment()
 
 	for(var/obj/machinery/abductor/pad/p in machines)
 		if(p.team == team)

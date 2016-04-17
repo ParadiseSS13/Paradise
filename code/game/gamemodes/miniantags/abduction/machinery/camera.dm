@@ -49,8 +49,7 @@
 	return H.get_species() == "Abductor"
 
 /obj/machinery/computer/camera_advanced/abductor/proc/IsScientist(mob/living/carbon/human/H)
-	var/datum/species/abductor/S = H.dna.species
-	return S.scientist
+	return H.mind.abductor.scientist
 
 /obj/machinery/computer/camera_advanced/abductor/attack_hand(mob/user)
 	if(!iscarbon(user) || !IsAbductor(user))

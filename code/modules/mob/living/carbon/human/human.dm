@@ -112,6 +112,9 @@
 /mob/living/carbon/human/grey/New(var/new_loc)
 	..(new_loc, "Grey")
 
+/mob/living/carbon/human/abductor/New(var/new_loc)
+	..(new_loc, "Abductor")
+
 /mob/living/carbon/human/human/New(var/new_loc)
 	..(new_loc, "Human")
 

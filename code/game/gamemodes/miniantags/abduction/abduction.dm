@@ -106,7 +106,6 @@
 	var/datum/mind/scientist
 	var/team_name
 	var/mob/living/carbon/human/H
-	var/datum/species/abductor/S
 	for(var/team_number=1,team_number<=abductor_teams,team_number++)
 		team_name = team_names[team_number]
 		agent = agents[team_number]
@@ -114,9 +113,8 @@
 		L = agent_landmarks[team_number]
 		H.loc = L.loc
 		H.set_species("Abductor")
-		S = H.dna.species
-		S.agent = 1
-		S.team = team_number
+		H.mind.abductor.agent = 1
+		H.mind.abductor.team = team_number
 		H.real_name = team_name + " Agent"
 		equip_common(H,team_number)
 		equip_agent(H,team_number)
@@ -127,9 +125,8 @@
 		L = scientist_landmarks[team_number]
 		H.loc = L.loc
 		H.set_species("Abductor")
-		S = H.dna.species
-		S.scientist = 1
-		S.team = team_number
+		H.mind.abductor.scientist = 1
+		H.mind.abductor.team = team_number
 		H.real_name = team_name + " Scientist"
 		equip_common(H,team_number)
 		equip_scientist(H,team_number)
@@ -153,7 +150,6 @@
 	var/datum/mind/scientist
 	var/team_name
 	var/mob/living/carbon/human/H
-	var/datum/species/abductor/S
 
 	team_name = team_names[team_number]
 	agent = agents[team_number]
@@ -161,9 +157,8 @@
 	L = agent_landmarks[team_number]
 	H.loc = L.loc
 	H.set_species("Abductor")
-	S = H.dna.species
-	S.agent = 1
-	S.team = team_number
+	H.mind.abductor.agent = 1
+	H.mind.abductor.team = team_number
 	H.real_name = team_name + " Agent"
 	equip_common(H,team_number)
 	equip_agent(H,team_number)
@@ -175,15 +170,18 @@
 	L = scientist_landmarks[team_number]
 	H.loc = L.loc
 	H.set_species("Abductor")
-	S = H.dna.species
-	S.scientist = 1
-	S.team = team_number
+	H.mind.abductor.scientist = 1
+	H.mind.abductor.team = team_number
 	H.real_name = team_name + " Scientist"
 	equip_common(H,team_number)
 	equip_scientist(H,team_number)
 	greet_scientist(scientist,team_number)
 
 
+/datum/abductor //stores abductor's team and whether they're a scientist or agent; since species datums are global, we have to use this, instead.
+	var/scientist = 0
+	var/agent = 0
+	var/team = 1
 
 /datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor,team_number)
 	abductor.objectives += team_objectives[team_number]
@@ -233,8 +231,7 @@
 
 /datum/game_mode/abduction/proc/equip_agent(mob/living/carbon/human/agent,team_number)
 	if(!team_number)
-		var/datum/species/abductor/S = agent.dna.species
-		team_number = S.team
+		team_number = agent.mind.abductor.team
 
 	var/obj/machinery/abductor/console/console = get_team_console(team_number)
 	var/obj/item/clothing/suit/armor/abductor/vest/V = new /obj/item/clothing/suit/armor/abductor/vest(agent)
@@ -250,8 +247,7 @@
 
 /datum/game_mode/abduction/proc/equip_scientist(var/mob/living/carbon/human/scientist,var/team_number)
 	if(!team_number)
-		var/datum/species/abductor/S = scientist.dna.species
-		team_number = S.team
+		team_number = scientist.mind.abductor.team
 
 	var/obj/machinery/abductor/console/console = get_team_console(team_number)
 	var/obj/item/device/abductor/gizmo/G = new /obj/item/device/abductor/gizmo(scientist)
@@ -299,15 +295,6 @@
 /obj/effect/landmark/abductor
 	var/team = 1
 
-/obj/effect/landmark/abductor/console/New()
-	var/obj/machinery/abductor/console/c = new /obj/machinery/abductor/console(src.loc)
-	c.team = team
-
-	spawn(5) // I'd do this properly when i got some time, temporary hack for mappers
-		c.Initialize()
-	qdel(src)
-
-
 /obj/effect/landmark/abductor/agent
 /obj/effect/landmark/abductor/scientist
 
@@ -328,8 +315,7 @@
 		var/mob/living/carbon/human/H = owner.current
 		if(H.get_species() != "Abductor")
 			return 0
-		var/datum/species/abductor/S = H.dna.species
-		ab_team = S.team
+		ab_team = H.mind.abductor.team
 	for(var/obj/machinery/abductor/experiment/E in machines)
 		if(E.team == ab_team)
 			if(E.points >= target_amount)

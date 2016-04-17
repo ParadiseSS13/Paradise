@@ -58,6 +58,7 @@
 	var/datum/changeling/changeling		//changeling holder
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/nations/nation			//nation holder
+	var/datum/abductor/abductor			//abductor holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD

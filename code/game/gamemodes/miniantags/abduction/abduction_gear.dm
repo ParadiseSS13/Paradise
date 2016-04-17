@@ -13,6 +13,7 @@
 	blood_overlay_type = "armor"
 	origin_tech = "materials=5;biotech=4;powerstorage=5;abductor=3"
 	armor = list(melee = 15, bullet = 15, laser = 15, energy = 15, bomb = 15, bio = 15, rad = 15)
+	action_button_name = "Activate"
 	action_button_is_hands_free = 1
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
@@ -96,6 +97,7 @@
 	if(istype(src.loc, /mob/living/carbon/human))
 		if(combat_cooldown != initial(combat_cooldown))
 			to_chat(src.loc, "<span class='warning'>Combat injection is still recharging.</span>")
+			return
 		var/mob/living/carbon/human/M = src.loc
 		M.adjustStaminaLoss(-75)
 		M.SetParalysis(0)
@@ -125,8 +127,7 @@
 
 /obj/item/device/abductor/proc/ScientistCheck(user)
 	var/mob/living/carbon/human/H = user
-	var/datum/species/abductor/S = H.dna.species
-	return S.scientist
+	return H.mind.abductor.scientist
 
 /obj/item/device/abductor/gizmo
 	name = "science tool"
@@ -284,8 +285,7 @@
 		if(ishuman(source))
 			var/mob/living/carbon/human/H = source
 			if(H.get_species() == "Abductor")
-				var/datum/species/abductor/S = H.dna.species
-				console = get_team_console(S.team)
+				console = get_team_console(H.mind.abductor.team)
 				home = console.pad
 
 		if(!home)
@@ -316,15 +316,17 @@
 <br>
  1.Acquire fresh specimen.<br>
  2.Put the specimen on operating table<br>
- 3.Apply surgical drapes preparing for dissection<br>
+ 3.Apply scalpel to the chest, preparing for dissection<br>
  4.Apply scalpel to specimen torso<br>
- 5.Retract skin from specimen's torso<br>
- 6.Apply scalpel to specimen's torso<br>
- 7.Search through the specimen's torso with your hands to remove any organs<br>
- 8.Insert replacement gland (Retrieve one from gland storage)<br>
- 9.Consider dressing the specimen back to not disturb the habitat <br>
- 10.Put the specimen in the experiment machinery<br>
- 11.Choose one of the machine options and follow displayed instructions<br>
+ 5.Clamp bleeders on the specimen's torso
+ 6.Retract skin from specimen's torso<br>
+ 7.Saw through the specimen's torso<br>
+ 8.Retract skin from specimen's torso again<br>
+ 9.Search through the specimen's torso with your hands to remove any organs<br>
+ 10.Insert replacement gland (Retrieve one from gland storage)<br>
+ 11.Consider dressing the specimen back to not disturb the habitat <br>
+ 12.Put the specimen in the experiment machinery<br>
+ 13.Choose one of the machine options and follow displayed instructions<br>
 <br>
 Congratulations! You are now trained for xenobiology research!"}
 
@@ -461,7 +463,7 @@ Congratulations! You are now trained for xenobiology research!"}
 		if(do_mob(user, C, 30))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/weapon/restraints/handcuffs/energy/used(C)
-				C.update_inv_handcuffed(0)
+				C.update_inv_handcuffed()
 				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 				add_logs(user, C, "handcuffed")
 		else
@@ -566,6 +568,7 @@ Congratulations! You are now trained for xenobiology research!"}
 /obj/machinery/optable/abductor
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
+	no_icon_updates = 1 //no icon updates for this; it's static.
 
 /obj/structure/stool/bed/abductor
 	name = "resting contraption"
@@ -612,33 +615,6 @@ Congratulations! You are now trained for xenobiology research!"}
 	name = "alien locker"
 	desc = "Contains secrets of the universe."
 	icon_state = "abductor"
+	icon_closed = "abductor"
+	icon_opened = "abductoropen"
 	material_drop = /obj/item/stack/sheet/mineral/abductor
-
-/obj/structure/door_assembly/door_assembly_abductor
-	name = "alien airlock assembly"
-	icon = 'icons/obj/doors/abductor/abductor_airlock.dmi'
-	base_name = "abductor"
-	base_icon_state = "abductor"
-	airlock_type = "/abductor"
-	anchored = 1
-	state = 1
-
-/obj/structure/door_assembly/door_assembly_abductor/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/weldingtool) && !anchored )
-		var/obj/item/weapon/weldingtool/WT = W
-		if(WT.remove_fuel(0,user))
-			user.visible_message("<span class='warning'>[user] disassembles the airlock assembly.</span>", \
-								"You start to disassemble the airlock assembly...")
-			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
-			if(do_after(user, 40, target = src))
-				if( !WT.isOn() )
-					return
-				to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
-				new /obj/item/stack/sheet/mineral/abductor(get_turf(src), 4)
-				qdel(src)
-		else
-			return
-	else if(istype(W, /obj/item/stack/sheet))
-		return // no material modding
-	else
-		..()

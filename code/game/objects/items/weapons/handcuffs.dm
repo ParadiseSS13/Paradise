@@ -85,6 +85,9 @@
 /obj/item/weapon/restraints/handcuffs/cable/white
 	color = COLOR_WHITE
 
+/obj/item/weapon/restraints/handcuffs/alien
+	icon_state = "handcuffAlien"
+
 /obj/item/weapon/restraints/handcuffs/pinkcuffs
 	name = "fluffy pink handcuffs"
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."

@@ -4,6 +4,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "experiment-open"
 	anchored = 1
+	density = 1
 	var/points = 0
 	var/list/history = list()
 	var/list/abductee_minds = list()
@@ -71,7 +72,7 @@
 	dat += "[flash]"
 	dat += "<br>"
 	dat += "<a href='?src=\ref[src];refresh=1'>Scan</a>"
-	dat += "<a href='?src=\ref[src];[occupant ? "occupied=1'>Occupied</a>" : "eject=1'>Eject</a>"]"
+	dat += "<a href='?src=\ref[src];[occupant ? "eject=1'>Eject Occupant</a>" : "unoccupied=1'>Unoccupied</a>"]"
 	var/datum/browser/popup = new(user, "experiment", "Probing Console", 300, 300)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
