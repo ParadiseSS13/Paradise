@@ -135,7 +135,7 @@
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
-	var/parallax_icon_state = "spess"
+	var/parallax_icon_state = "space"
 
 /obj/docking_port/stationary/register()
 	if(!shuttle_master)
@@ -166,7 +166,7 @@
 /obj/docking_port/stationary/transit
 	name = "In Transit"
 	turf_type = /turf/space/transit
-	parallax_icon_state = "speedspess_ns"
+	parallax_icon_state = "speedspace_ns"
 
 /obj/docking_port/stationary/transit/register()
 	if(!..())

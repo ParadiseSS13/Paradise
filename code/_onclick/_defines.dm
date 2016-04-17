@@ -1,5 +1,3 @@
-#define HIDDEN_PLANE -100
-
 #define CLICKCATCHER_PLANE -99
 
 #define SPACE_TURF_PLANE -5
