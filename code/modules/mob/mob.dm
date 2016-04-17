@@ -1426,11 +1426,6 @@ mob/proc/yank_out_object()
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
 
-/mob/forceMove(atom/destination)
-	..()
-	if(hud_used)
-		hud_used.update_parallax()
-
 /mob/proc/faction_check(mob/target)
 	for(var/F in faction)
 		if(F in target.faction)

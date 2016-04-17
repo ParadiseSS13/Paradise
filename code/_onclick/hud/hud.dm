@@ -189,11 +189,6 @@ var/area/global_space_area = null
 		else
 			bgobj.icon_state = "space"
 
-/mob/Move(atom/newloc, direct = 0)
-	. = ..()
-	if(hud_used)
-		hud_used.update_parallax()
-
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)
 	set name = "F12"
