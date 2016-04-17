@@ -62,7 +62,7 @@
 	if (has_suit)	//if we are part of a suit
 		hold.open(user)
 	else
-		user << "<span class='notice'>You empty [src].</span>"
+		to_chat(user, "<span class='notice'>You empty [src].</span>")
 		var/turf/T = get_turf(src)
 		hold.hide_from(usr)
 		for(var/obj/item/I in hold.contents)
@@ -100,10 +100,7 @@
 	..()
 	hold.max_combined_w_class = 4
 	hold.can_hold = list("/obj/item/weapon/hatchet/unathiknife",\
-	"/obj/item/weapon/kitchen/utensil/knife",\
-	"/obj/item/weapon/kitchen/utensil/pknife",\
-	"/obj/item/weapon/kitchenknife",\
-	"/obj/item/weapon/kitchenknife/ritual")
+	"/obj/item/weapon/kitchen/knife")
 
 	new /obj/item/weapon/hatchet/unathiknife(hold)
 	new /obj/item/weapon/hatchet/unathiknife(hold)

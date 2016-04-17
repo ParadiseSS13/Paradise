@@ -24,11 +24,11 @@
 	if(prescription_upgradable)
 		if(istype(O, /obj/item/clothing/glasses/regular))
 			if(prescription)
-				H << "You can't possibly imagine how adding more lenses would improve \the [name]."
+				to_chat(H, "You can't possibly imagine how adding more lenses would improve \the [name].")
 				return
 			H.unEquip(O)
 			O.loc = src // Store the glasses for later removal
-			H << "You fit \the [name] with lenses from \the [O]."
+			to_chat(H, "You fit \the [name] with lenses from \the [O].")
 			prescription = 1
 			name = "prescription [name]"
 			return
@@ -36,7 +36,7 @@
 			var/obj/item/clothing/glasses/regular/G = locate() in src
 			if(!G)
 				G = new(get_turf(H))
-			H << "You salvage the prescription lenses from \the [name]."
+			to_chat(H, "You salvage the prescription lenses from \the [name].")
 			prescription = 0
 			name = initial(name)
 			H.put_in_hands(G)
@@ -207,6 +207,66 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+
+/obj/item/clothing/glasses/sunglasses/noir
+	name = "noir sunglasses"
+	desc = "Somehow these seem even more out-of-date than normal sunglasses."
+	action_button_name = "Noir Mode"
+	var/noir_mode = 0
+	color_view = list(0.3, 0.3, 0.3, 0,\
+						0.3, 0.3, 0.3, 0,\
+ 						0.3, 0.3, 0.3, 0,\
+ 						0.0, 0.0, 0.0, 1,) //greyscale
+
+/obj/item/clothing/glasses/sunglasses/noir/attack_self()
+	if(is_equipped())
+		toggle_noir()
+
+/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
+	if(!noir_mode)
+		if(color_view && usr.client && !usr.client.color)
+			animate(usr.client, color = color_view, time = 10)
+			noir_mode = 1
+	else
+		if(usr.client && usr.client.color)
+			animate(usr.client, color = null, time = 10)
+			noir_mode = 0
+
+/obj/item/clothing/glasses/sunglasses/noir/equipped(mob/user, slot)
+	if(slot == slot_glasses)
+		if(noir_mode)
+			if(color_view && user.client && !user.client.color)
+				animate(user.client, color = color_view, time = 10)
+	..(user, slot)
+
+/obj/item/clothing/glasses/sunglasses/noir/dropped(mob/living/carbon/human/user)
+	if(istype(user) && user.glasses == src)
+		if(user.client && user.client.color)
+			animate(user.client, color = null, time = 10)
+	..(user)
+
+/obj/item/clothing/glasses/sunglasses/yeah
+	name = "agreeable glasses"
+	desc = "H.C Limited edition."
+	var/punused = null
+	action_button_name = "YEAH!"
+
+/obj/item/clothing/glasses/sunglasses/yeah/attack_self()
+	pun()
+
+
+/obj/item/clothing/glasses/sunglasses/yeah/verb/pun()
+	set category = "Object"
+	set name = "YEAH!"
+	set src in usr
+	if(!punused)//one per round
+		punused = 1
+		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
+		usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
+	else
+		to_chat(usr, "The moment is gone.")
+
+
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
 	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
@@ -242,16 +302,12 @@
 	icon_state = "welding-g"
 	item_state = "welding-g"
 	action_button_name = "Flip welding goggles"
-	var/up = 0
 	flash_protect = 2
 	tint = 2
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/welding/proc/getMask()
-	return global_hud.darkMask
 
 /obj/item/clothing/glasses/welding/attack_self()
 	toggle()
@@ -268,7 +324,7 @@
 			src.flags |= GLASSESCOVERSEYES
 			flags_inv |= HIDEEYES
 			icon_state = initial(icon_state)
-			usr << "You flip the [src] down to protect your eyes."
+			to_chat(usr, "You flip the [src] down to protect your eyes.")
 			flash_protect = 2
 			tint = initial(tint) //better than istype
 		else
@@ -276,7 +332,7 @@
 			src.flags &= ~HEADCOVERSEYES
 			flags_inv &= ~HIDEEYES
 			icon_state = "[initial(icon_state)]up"
-			usr << "You push the [src] up out of your face."
+			to_chat(usr, "You push the [src] up out of your face.")
 			flash_protect = 0
 			tint = 0
 
@@ -294,9 +350,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/welding/superior/getMask()
-	return null
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
@@ -339,7 +392,7 @@
 	emp_act(severity)
 		if(istype(src.loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/M = src.loc
-			M << "\red The Optical Thermal Scanner overloads and blinds you!"
+			to_chat(M, "\red The Optical Thermal Scanner overloads and blinds you!")
 			if(M.glasses == src)
 				M.eye_blind = 3
 				M.eye_blurry = 5

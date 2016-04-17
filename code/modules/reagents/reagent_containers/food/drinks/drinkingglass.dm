@@ -4,8 +4,11 @@
 	name = "glass"
 	desc = "Your standard drinking glass."
 	icon_state = "glass_empty"
+	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
 	volume = 50
+	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
 
 
@@ -564,6 +567,40 @@
 					icon_state = "patronglass"
 					name = "Jack Rose"
 					desc = "Drinking this makes you feel like you belong in a luxury hotel bar during the 1920s."
+				if("synthanol")
+					icon_state = "synthanolglass"
+					name = "Glass of Synthanol"
+					desc = "The equivalent of alcohol for synthetic crewmembers. They'd find it awful if they had tastebuds too."
+				if("robottears")
+					icon_state = "robottearsglass"
+					name = "Glass of Robot Tears"
+					desc = "No robots were hurt in the making of this drink."
+				if("trinary")
+					icon_state = "trinaryglass"
+					name = "Glass of Trinary"
+					desc = "Colorful drink made for synthetic crewmembers. It doesn't seem like it would taste well."
+				if("servo")
+					icon_state = "servoglass"
+					name = "Glass of Servo"
+					desc = "Chocolate - based drink made for IPCs. Not sure if anyone's actually tried out the recipe."
+				if("synthnsoda")
+					icon_state = "synthnsodaglass"
+					name = "Glass of Synth 'n Soda"
+					desc = "Classic drink altered to fit the tastes of a robot. Bad idea to drink if you're made of carbon."
+				if("synthignon")
+					icon_state = "synthignonglass"
+					name = "Glass of Synthignon"
+					desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
+				if("uplink")
+					icon_state = "uplinkglass"
+					name = "Glass of Uplink"
+					desc = "An exquisite mix of the finest liquoirs and synthanol. Meant only for synthetics."
+				if("holywater")
+					icon_state = "glass_clear"
+					name = "Glass of Water"
+					desc = "The father of all refreshments."
+
+
 				else
 					icon_state ="glass_brown"
 					name = "Glass of ..what?"

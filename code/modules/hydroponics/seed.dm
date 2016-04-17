@@ -120,15 +120,15 @@
 	if(get_trait(TRAIT_CARNIVOROUS))
 		if(get_trait(TRAIT_CARNIVOROUS) == 2)
 			if(affecting)
-				target << "<span class='danger'>\The [fruit]'s thorns pierce your [affecting.name] greedily!</span>"
+				to_chat(target, "<span class='danger'>\The [fruit]'s thorns pierce your [affecting.name] greedily!</span>")
 			else
-				target << "<span class='danger'>\The [fruit]'s thorns pierce your flesh greedily!</span>"
+				to_chat(target, "<span class='danger'>\The [fruit]'s thorns pierce your flesh greedily!</span>")
 			damage = get_trait(TRAIT_POTENCY)/2
 		else
 			if(affecting)
-				target << "<span class='danger'>\The [fruit]'s thorns dig deeply into your [affecting.name]!</span>"
+				to_chat(target, "<span class='danger'>\The [fruit]'s thorns dig deeply into your [affecting.name]!</span>")
 			else
-				target << "<span class='danger'>\The [fruit]'s thorns dig deeply into your flesh!</span>"
+				to_chat(target, "<span class='danger'>\The [fruit]'s thorns dig deeply into your flesh!</span>")
 			damage = get_trait(TRAIT_POTENCY)/5
 	else
 		return
@@ -144,6 +144,8 @@
 // Adds reagents to a target.
 /datum/seed/proc/do_sting(var/mob/living/carbon/human/target, var/obj/item/fruit, var/target_limb)
 	if(!get_trait(TRAIT_STINGS))
+		return
+	if(!istype(target))
 		return
 	if(!target_limb)		//if we weren't given a target_limb, pick a random one to try stinging
 		target_limb = pick("l_foot","r_foot","l_leg","r_leg","l_hand","r_hand","l_arm", "r_arm","head","chest","groin")
@@ -185,7 +187,7 @@
 		if(!protection_needed)		//properly protected, good job!
 			return
 
-		target << "<span class='danger'>You are stung by \the [fruit]!</span>"
+		to_chat(target, "<span class='danger'>You are stung by \the [fruit]!</span>")
 		for(var/rid in chems)
 			var/injecting = min(5,max(1,get_trait(TRAIT_POTENCY)/5))
 			target.reagents.add_reagent(rid,injecting)
@@ -711,9 +713,11 @@
 		return
 
 	if(!force_amount && get_trait(TRAIT_YIELD) == 0 && !harvest_sample)
-		if(istype(user)) user << "<span class='danger'>You fail to harvest anything useful.</span>"
+		if(istype(user))
+			to_chat(user, "<span class='danger'>You fail to harvest anything useful.</span>")
 	else
-		if(istype(user)) user << "You [harvest_sample ? "take a sample" : "harvest"] from the [display_name]."
+		if(istype(user))
+			to_chat(user, "You [harvest_sample ? "take a sample" : "harvest"] from the [display_name].")
 
 		//This may be a new line. Update the global if it is.
 		if(name == "new line" || !(name in plant_controller.seeds))
@@ -771,7 +775,7 @@
 // When the seed in this machine mutates/is modified, the tray seed value
 // is set to a new datum copied from the original. This datum won't actually
 // be put into the global datum list until the product is harvested, though.
-/datum/seed/proc/diverge(var/modified)
+/datum/seed/proc/diverge(var/modified = 0)
 
 	if(get_trait(TRAIT_IMMUTABLE) > 0) return
 
@@ -793,8 +797,17 @@
 	new_seed.modular_icon = modular_icon
 	new_seed.preset_icon = preset_icon
 
-	new_seed.seed_name =            "[(roundstart ? "[(modified ? "modified" : "mutant")] " : "")][seed_name]"
-	new_seed.display_name =         "[(roundstart ? "[(modified ? "modified" : "mutant")] " : "")][display_name]"
+	switch(modified)
+		if(0)	//Mutant (default)
+			new_seed.seed_name = "mutant [seed_name]"
+			new_seed.display_name = "mutant [seed_name]"
+		if(1)	//Modified
+			new_seed.seed_name = "modified [seed_name]"
+			new_seed.display_name = "modified [seed_name]"
+		if(2)	//Enhanced
+			new_seed.seed_name = "enhanced [seed_name]"
+			new_seed.display_name = "enhanced [seed_name]"
+
 	new_seed.seed_noun =            seed_noun
 	new_seed.traits = traits.Copy()
 	new_seed.update_growth_stages()

@@ -35,18 +35,9 @@
 	mymob.toxin.name = "toxin"
 	mymob.toxin.screen_loc = ui_toxin
 
-	mymob.client.screen = null
+	mymob.client.screen = list()
 
 	mymob.client.screen += list(mymob.fire, mymob.healths, mymob.pullin, mymob.oxygen, mymob.toxin)
-
-/datum/hud/proc/brain_hud(ui_style = 'icons/mob/screen1_Midnight.dmi')
-	mymob.blind = new /obj/screen()
-	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
-	mymob.blind.icon_state = "blackimageoverlay"
-	mymob.blind.name = " "
-	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
-	mymob.blind.layer = 0
-	mymob.blind.mouse_opacity = 0
 
 
 /datum/hud/proc/blob_hud(ui_style = 'icons/mob/screen1_Midnight.dmi')

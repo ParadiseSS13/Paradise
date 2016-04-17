@@ -3,7 +3,8 @@
   "license": "AGPLv3",
   "private": true,
   "dependencies": {
-    "font-awesome": "~4.5.0"
+    "font-awesome": "~4.5.0",
+    "jsurl": "*"
   },
   "overrides": {
     "font-awesome": {
@@ -11,6 +12,11 @@
         "css/font-awesome.css",
         "fonts/*"
       ]
+    },
+    "jsurl": {
+      "dependencies": {
+        "es5-shim": "*"
+      }
     }
   }
 }

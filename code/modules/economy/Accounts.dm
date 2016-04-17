@@ -89,6 +89,7 @@ var/global/list/all_money_accounts = list()
 		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(source_db.loc)
 
 		var/obj/item/weapon/paper/R = new /obj/item/weapon/paper(P)
+		playsound(source_db.loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 		P.wrapped = R
 		R.name = "Account information: [M.owner_name]"
 

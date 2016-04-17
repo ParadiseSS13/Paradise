@@ -57,8 +57,8 @@
 	return 1
 
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
-	move_inside(AM)	
-	
+	move_inside(AM)
+
 /obj/machinery/recharge_station/allow_drop()
 	return 0
 
@@ -89,7 +89,7 @@
 /obj/machinery/recharge_station/attackby(obj/item/P as obj, mob/user as mob, params)
 	if (istype(P, /obj/item/weapon/screwdriver))
 		if(src.occupant)
-			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", P)
 		return
@@ -115,7 +115,7 @@
 					R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
-			if(!isnull(H.internal_organs_by_name["cell"]) && H.nutrition < 450)
+			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
 				if(repairs)
 					H.heal_overall_damage(repairs, repairs, 0, 1)
@@ -145,7 +145,7 @@
 				// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
 				for(var/obj/O in um)
 					// Engineering
-					if(istype(O,/obj/item/stack/sheet/metal) || istype(O,/obj/item/stack/sheet/rglass) || istype(O,/obj/item/stack/cable_coil))
+					if(istype(O,/obj/item/stack/sheet))
 						var/obj/item/stack/sheet/S = O
 						if(S.amount < 50)
 							S.amount += 1 * coeff
@@ -210,14 +210,20 @@
 /obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
-	
 	if(!user)
 		return
-	
+
+	if (usr.stat != CONSCIOUS)
+		return
+
+	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
+		to_chat(usr, "They are too far away to put inside")
+		return
+
 	if (panel_open)
-		usr << "<span class='warning'>Close the maintenance panel first.</span>"
-		return	
-	
+		to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
+		return
+
 	var/can_accept_user
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
@@ -226,28 +232,28 @@
 			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
 			return
 		if(occupant)
-			R << "<span class='warning'>The cell is already occupied!</span>"
+			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
 		if(!R.cell)
-			R << "<span class='warning'>Without a power cell, you can't be recharged.</span>"
+			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
-		can_accept_user = 1	
-	
+		can_accept_user = 1
+
 	else if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		
+
 		if(H.stat == DEAD)
-			return		
+			return
 		if(occupant)
-			H << "<span class='warning'>The cell is already occupied!</span>"
-			return			
-		if(isnull(H.internal_organs_by_name["cell"]))
+			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
+			return
+		if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			return
 		can_accept_user = 1
 
 	if(!can_accept_user)
-		user << "<span class='notice'>Only non-organics may enter the recharger!</span>"
+		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 		return
 
 	user.stop_pulling()
@@ -261,4 +267,3 @@
 	build_icon()
 	update_use_power(1)
 	return
-	

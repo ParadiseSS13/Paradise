@@ -68,20 +68,13 @@
 			bumpopen(M)
 		return
 
-	if(istype(AM, /obj/machinery/bot))
-		var/obj/machinery/bot/bot = AM
-		if(src.check_access(bot.botcard) || emergency == 1)
-			if(density)
-				open()
-		return
-
 	if(istype(AM, /obj/mecha))
 		var/obj/mecha/mecha = AM
 		if(density)
 			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access) || emergency == 1))
 				open()
 			else
-				flick("door_deny", src)
+				do_animate("deny")
 		return
 	return
 
@@ -95,22 +88,21 @@
 /obj/machinery/door/CanAtmosPass()
 	return !density
 
-//used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/proc/CanAStarPass(var/obj/item/weapon/card/id/ID)
-	return !density
-
 /obj/machinery/door/proc/bumpopen(mob/user as mob)
 	if(operating)
 		return
-	src.add_fingerprint(user)
-	if(!src.requiresID())
+	add_fingerprint(user)
+	if(!requiresID())
 		user = null
 
 	if(density)
-		if(allowed(user) || src.emergency == 1)
+		if(allowed(user) || emergency == 1)
 			open()
+			if(istype(user, /mob/living/simple_animal/bot))
+				var/mob/living/simple_animal/bot/B = user
+				B.door_opened(src)
 		else
-			flick("door_deny", src)
+			do_animate("deny")
 	return
 
 /obj/machinery/door/attack_ai(mob/user as mob)
@@ -143,7 +135,7 @@
 			close()
 		return
 	if(src.density)
-		flick("door_deny", src)
+		do_animate("deny")
 	return
 
 /obj/machinery/door/emag_act(user as mob)

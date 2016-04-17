@@ -89,32 +89,30 @@
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear")
-	var/head = 0
 
 /obj/item/weapon/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
 	if(slot==slot_head && contents.len)
-		M << "\red You need to empty the bag first!"
+		to_chat(M, "\red You need to empty the bag first!")
 		return 0
 	return ..()
 
 
 /obj/item/weapon/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
 	if(slot==slot_head)
-		head = 1
 		storage_slots = 0
 		processing_objects.Add(src)
 	return
 
 /obj/item/weapon/storage/bag/plasticbag/process()
-	if(is_equipped() && head)
+	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.internal)
-				return
-			H.losebreath += 1
+			if(H.get_item_by_slot(slot_head) == src)
+				if(H.internal)
+					return
+				H.losebreath += 1
 	else
-		head = 0
 		storage_slots = 7
 		processing_objects.Remove(src)
 	return
@@ -163,7 +161,7 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = 3
 	w_class = 1
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass","/obj/item/stack/medical/ointment/aloe","/obj/item/stack/medical/bruise_pack/comfrey")
+	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass","/obj/item/stack/medical/ointment/aloe","/obj/item/stack/medical/bruise_pack/comfrey", "/obj/item/weapon/reagent_containers/honeycomb")
 
 
 /obj/item/weapon/storage/bag/plants/portaseeder
@@ -228,14 +226,14 @@
 	can_be_inserted(obj/item/W as obj, stop_messages = 0)
 		if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
 			if(!stop_messages)
-				usr << "The snatcher does not accept [W]."
+				to_chat(usr, "The snatcher does not accept [W].")
 			return 0 //I don't care, but the existing code rejects them for not being "sheets" *shrug* -Sayu
 		var/current = 0
 		for(var/obj/item/stack/sheet/S in contents)
 			current += S.amount
 		if(capacity == current)//If it's full, you're done
 			if(!stop_messages)
-				usr << "\red The snatcher is full."
+				to_chat(usr, "\red The snatcher is full.")
 			return 0
 		return 1
 
@@ -485,7 +483,7 @@
 	storage_slots = 50
 	max_combined_w_class = 200
 	w_class = 1
-	can_hold = list("/obj/item/weapon/reagent_containers/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
+	can_hold = list("/obj/item/weapon/reagent_containers/food/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
 
 /*
  *  Biowaste bag (mostly for xenobiologists)

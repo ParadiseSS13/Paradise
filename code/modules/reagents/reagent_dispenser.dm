@@ -26,12 +26,12 @@
 /obj/structure/reagent_dispensers/examine(mob/user)
 	if(!..(user, 2))
 		return
-	user << "\blue It contains:"
+	to_chat(user, "\blue It contains:")
 	if(reagents && reagents.reagent_list.len)
 		for(var/datum/reagent/R in reagents.reagent_list)
-			user << "\blue [R.volume] units of [R.name]"
+			to_chat(user, "\blue [R.volume] units of [R.name]")
 	else
-		user << "\blue Nothing."
+		to_chat(user, "\blue Nothing.")
 
 /obj/structure/reagent_dispensers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -92,6 +92,7 @@
 	icon_state = "weldtank"
 	amount_per_transfer_from_this = 10
 	var/obj/item/device/assembly_holder/rig = null
+	var/accepts_rig = 1
 
 /obj/structure/reagent_dispensers/fueltank/New()
 	..()
@@ -114,7 +115,7 @@
 	if(!..(user, 2))
 		return
 	if(rig)
-		usr << "<span class='notice'>There is some kind of device rigged to the tank."
+		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.")
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if (rig)
@@ -126,9 +127,9 @@
 			overlays = new/list()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W,/obj/item/device/assembly_holder))
+	if (istype(W,/obj/item/device/assembly_holder) && accepts_rig)
 		if (rig)
-			user << "\red There is another device in the way."
+			to_chat(user, "\red There is another device in the way.")
 			return ..()
 		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
 		if(do_after(user, 20, target = src))
@@ -254,3 +255,9 @@
 /obj/structure/reagent_dispensers/spacecleanertank/New()
 	..()
 	reagents.add_reagent("cleaner",5000)
+
+/obj/structure/reagent_dispensers/fueltank/chem
+	icon_state = "weldingtank_chem"
+	anchored = 1
+	density = 0
+	accepts_rig = 0

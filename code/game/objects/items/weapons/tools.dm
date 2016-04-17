@@ -50,8 +50,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 	suicide_act(mob/user)
-		viewers(user) << pick("<span class='suicide'>[user] is stabbing the [src.name] into \his temple! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is stabbing the [src.name] into \his heart! It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(user), pick("<span class='suicide'>[user] is stabbing the [src.name] into \his temple! It looks like \he's trying to commit suicide.</span>", \
+									"<span class='suicide'>[user] is stabbing the [src.name] into \his heart! It looks like \he's trying to commit suicide.</span>"))
 		return(BRUTELOSS)
 
 /obj/item/weapon/screwdriver/New()
@@ -173,7 +173,7 @@
 
 /obj/item/weapon/weldingtool/examine(mob/user)
 	if(..(user, 0))
-		user << "It contains [get_fuel()] unit\s of fuel out of [max_fuel]."
+		to_chat(user, "It contains [get_fuel()] unit\s of fuel out of [max_fuel].")
 
 /obj/item/weapon/weldingtool/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] welds \his every orifice closed! It looks like \he's trying to commit suicide..</span>")
@@ -248,13 +248,13 @@
 					S.heal_damage(15,0,0,1)
 					user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
 				else if(S.open != 2)
-					user << "<span class='warning'>Need more welding fuel!</span>"
+					to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
 					return 1
 			else
-				user << "<span class='danger'>The damage is far too severe to patch over externally.</span>"
+				to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
 			return 1
 		else if(S.open != 2)
-			user << "<span class='notice'>Nothing to fix!</span>"
+			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 	else
 		return ..()
 
@@ -263,14 +263,14 @@
 	if(istype(O, /obj/structure/reagent_dispensers/fueltank) && in_range(src, O))
 		if(!welding)
 			O.reagents.trans_to(src, max_fuel)
-			user << "<span class='notice'>[src] refueled.</span>"
+			to_chat(user, "<span class='notice'>[src] refueled.</span>")
 			playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 			update_icon()
 			return
 		else
 			message_admins("[key_name_admin(user)] triggered a fueltank explosion.")
 			log_game("[key_name(user)] triggered a fueltank explosion.")
-			user << "<span class='warning'>That was stupid of you.</span>"
+			to_chat(user, "<span class='warning'>That was stupid of you.</span>")
 			O.ex_act()
 			return
 
@@ -291,19 +291,19 @@
 /obj/item/weapon/weldingtool/proc/get_fuel()
 	return reagents.get_reagent_amount("fuel")
 
-//Removes fuel from the welding tool. If a mob is passed, it will perform an eyecheck on the mob. This should probably be renamed to use()
-/obj/item/weapon/weldingtool/proc/remove_fuel(var/amount = 1, var/mob/M = null)
+//Removes fuel from the welding tool. If a mob is passed, it will try to flash the mob's eyes. This should probably be renamed to use()
+/obj/item/weapon/weldingtool/proc/remove_fuel(var/amount = 1, var/mob/living/M = null)
 	if(!welding || !check_fuel())
 		return 0
 	if(get_fuel() >= amount)
 		reagents.remove_reagent("fuel", amount)
 		check_fuel()
 		if(M)
-			eyecheck(M)
+			M.flash_eyes(light_intensity)
 		return 1
 	else
 		if(M)
-			M << "\blue You need more welding fuel to complete this task."
+			to_chat(M, "\blue You need more welding fuel to complete this task.")
 		return 0
 
 //Returns whether or not the welding tool is currently on.
@@ -327,79 +327,39 @@
 //Toggles the welder off and on
 /obj/item/weapon/weldingtool/proc/toggle(mob/user, message = 0)
 	if(!status)
-		user << "<span class='warning'>[src] can't be turned on while unsecured!</span>"
+		to_chat(user, "<span class='warning'>[src] can't be turned on while unsecured!</span>")
 		return
 	welding = !welding
 	if(welding)
 		if(get_fuel() >= 1)
-			user << "<span class='notice'>You switch [src] on.</span>"
+			to_chat(user, "<span class='notice'>You switch [src] on.</span>")
 			force = 15
 			damtype = "fire"
 			hitsound = 'sound/items/welder.ogg'
 			update_icon()
 			processing_objects |= src
 		else
-			user << "<span class='warning'>You need more fuel!</span>"
+			to_chat(user, "<span class='warning'>You need more fuel!</span>")
 			welding = 0
 	else
 		if(!message)
-			user << "<span class='notice'>You switch [src] off.</span>"
+			to_chat(user, "<span class='notice'>You switch [src] off.</span>")
 		else
-			user << "<span class='warning'>[src] shuts off!</span>"
+			to_chat(user, "<span class='warning'>[src] shuts off!</span>")
 		force = 3
 		damtype = "brute"
 		hitsound = "swing_hit"
 		update_icon()
 
-//Decides whether or not to damage a player's eyes based on what they're wearing as protection
-//Note: This should probably be moved to mob
-/obj/item/weapon/weldingtool/proc/eyecheck(mob/user as mob)
-	if(!iscarbon(user))	return 1
-	var/safety = user:eyecheck()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
-		if(!istype(E)) // No eyes? No problem!
-			return
-		switch(safety)
-			if(1)
-				usr << "<span class='danger'>Your eyes sting a little.</span>"
-				E.damage += rand(1, 2)
-				if(E.damage > 12)
-					user.eye_blurry += rand(3,6)
-			if(0)
-				usr << "<span class='danger'>Your eyes burn.</span>"
-				E.damage += rand(2, 4)
-				if(E.damage > 10)
-					E.damage += rand(4,10)
-			if(-1)
-				usr << "<span class='danger'>Your thermals intensify the welder's glow. Your eyes itch and burn severely.</span>"
-				user.eye_blurry += rand(12,20)
-				E.damage += rand(12, 16)
-		if(safety<2)
-			if(E.damage > 10)
-				user << "<span class='danger'>Your eyes are really starting to hurt. This can't be good for you!</span>"
-			if (E.damage >= E.min_broken_damage)
-				user << "<span class='danger'>You go blind!</span>"
-				user.sdisabilities |= BLIND
-			else if (E.damage >= E.min_bruised_damage)
-				user << "<span class='danger'>You go blind!</span>"
-				user.eye_blind = 5
-				user.eye_blurry = 5
-				user.disabilities |= NEARSIGHTED
-				spawn(100)
-					user.disabilities &= ~NEARSIGHTED
-	return
-
 /obj/item/weapon/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
 	if(welding)
-		user << "<span class='warning'>Turn it off first!</span>"
+		to_chat(user, "<span class='warning'>Turn it off first!</span>")
 		return
 	status = !status
 	if(status)
-		user << "<span class='notice'>You resecure [src].</span>"
+		to_chat(user, "<span class='notice'>You resecure [src].</span>")
 	else
-		user << "<span class='notice'>[src] can now be attached and modified.</span>"
+		to_chat(user, "<span class='notice'>[src] can now be attached and modified.</span>")
 	add_fingerprint(user)
 
 /obj/item/weapon/weldingtool/proc/flamethrower_rods(obj/item/I, mob/user)
@@ -412,10 +372,10 @@
 				loc = F
 			F.weldtool = src
 			add_fingerprint(user)
-			user << "<span class='notice'>You add a rod to a welder, starting to build a flamethrower.</span>"
+			to_chat(user, "<span class='notice'>You add a rod to a welder, starting to build a flamethrower.</span>")
 			user.put_in_hands(F)
 		else
-			user << "<span class='warning'>You need one rod to start building a flamethrower!</span>"
+			to_chat(user, "<span class='warning'>You need one rod to start building a flamethrower!</span>")
 			return
 
 /obj/item/weapon/weldingtool/largetank
@@ -461,7 +421,7 @@
 	max_fuel = 40
 	w_class = 3.0
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
-	origin_tech = "engineering=4;plasma=3"
+	origin_tech = "engineering=4;plasmatech=3"
 	var/last_gen = 0
 	change_icons = 0
 	can_off_process = 1
@@ -532,5 +492,5 @@
 
 	attack_self(mob/user as mob)
 		open = !open
-		user << "\blue You [open?"open" : "close"] the conversion kit."
+		to_chat(user, "\blue You [open?"open" : "close"] the conversion kit.")
 		update_icon()

@@ -18,8 +18,8 @@
 	var/gammaratio = 4 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
 
 /datum/game_mode/xenos/announce()
-	world << "<B>The current game mode is - Xenos!</B>"
-	world << "<B>There is an Xenomorph attack on the station.<BR>Aliens - Kill or infect the crew. Protect the Queen. <BR>Crew - Protect the station. Exterminate all aliens.</B>"
+	to_chat(world, "<B>The current game mode is - Xenos!</B>")
+	to_chat(world, "<B>There is an Xenomorph attack on the station.<BR>Aliens - Kill or infect the crew. Protect the Queen. <BR>Crew - Protect the station. Exterminate all aliens.</B>")
 
 /datum/game_mode/xenos/can_start()
 	if(!..())
@@ -135,15 +135,7 @@
 		return ..()
 
 /datum/game_mode/xenos/check_finished()
-	if(config.continous_rounds)
-		if(result)
-			return ..()
-	if(shuttle_master && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
-		return ..()
-	if(result || station_was_nuked)
-		return 1
-	else
-		return 0
+	return result != 0
 
 /datum/game_mode/xenos/proc/xenos_alive()
 	var/list/livingxenos = list()
@@ -165,20 +157,20 @@
 /datum/game_mode/xenos/declare_completion()
 	if(station_was_nuked)
 		feedback_set_details("round_end_result","win - xenos nuked")
-		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
-		world << "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>"
+		to_chat(world, "<FONT size = 3><B>Crew Victory</B></FONT>")
+		to_chat(world, "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>")
 	else if(result == 1)
 		feedback_set_details("round_end_result","win - xenos killed")
-		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
-		world << "<B>The aliens did not succeed and were exterminated by the crew!</B>"
+		to_chat(world, "<FONT size = 3><B>Crew Victory</B></FONT>")
+		to_chat(world, "<B>The aliens did not succeed and were exterminated by the crew!</B>")
 	else if(result == 2)
 		feedback_set_details("round_end_result","win - crew killed")
-		world << "<FONT size = 3><B>Alien Victory</B></FONT>"
-		world << "<B>The aliens were successful and slaughtered the crew!</B>"
+		to_chat(world, "<FONT size = 3><B>Alien Victory</B></FONT>")
+		to_chat(world, "<B>The aliens were successful and slaughtered the crew!</B>")
 	else
 		feedback_set_details("round_end_result","win - crew escaped")
-		world << "<FONT size = 3><B>Draw</B></FONT>"
-		world << "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"
+		to_chat(world, "<FONT size = 3><B>Draw</B></FONT>")
+		to_chat(world, "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>")
 
 	var/text = "<br><FONT size=3><B>There were [xenos.len] aliens.</B></FONT>"
 	text += "<br><FONT size=3><B>The aliens were:</B></FONT>"
@@ -194,7 +186,7 @@
 		else
 			text += "body destroyed"
 		text += ")"
-	world << text
+	to_chat(world, text)
 
 	..()
 	return 1

@@ -2,6 +2,7 @@
 	gender = NEUTER
 	robot_talk_understand = 1
 	voice_name = "synthesized voice"
+	has_unlimited_silicon_privilege = 1
 	var/syndicate = 0
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
@@ -50,9 +51,14 @@
 		AH.unregister(src)
 	return ..()
 
-/mob/living/silicon/proc/SetName(pickedName as text)
-	real_name = pickedName
+/mob/living/silicon/rename_character(oldname, newname)
+	// we actually don't want it changing minds and stuff
+	if(!newname)
+		return 0
+
+	real_name = newname
 	name = real_name
+	return 1
 
 /mob/living/silicon/proc/show_laws()
 	return
@@ -68,9 +74,9 @@
 		if(2)
 			src.take_organ_damage(10)
 			Stun(3)
-	flick("noise", src:flash)
-	src << "\red <B>*BZZZT*</B>"
-	src << "\red Warning: Electromagnetic pulse detected."
+	flash_eyes(affect_silicon = 1)
+	to_chat(src, "\red <B>*BZZZT*</B>")
+	to_chat(src, "\red Warning: Electromagnetic pulse detected.")
 	..()
 
 
@@ -79,7 +85,7 @@
 
 /mob/living/silicon/can_inject(var/mob/user, var/error_msg)
 	if(error_msg)
-		user << "<span class='alert'>Their outer shell is too tough.</span>"
+		to_chat(user, "<span class='alert'>Their outer shell is too tough.</span>")
 	return 0
 
 /mob/living/silicon/IsAdvancedToolUser()
@@ -105,11 +111,11 @@
 	if(!effect || (blocked >= 2))	return 0
 	switch(effecttype)
 		if(STUN)
-			stunned = max(stunned,(effect/(blocked+1)))
+			Stun(effect / (blocked + 1))
 		if(WEAKEN)
-			weakened = max(weakened,(effect/(blocked+1)))
+			Weaken(effect / (blocked + 1))
 		if(PARALYZE)
-			paralysis = max(paralysis,(effect/(blocked+1)))
+			Paralyse(effect / (blocked + 1))
 		if(IRRADIATE)
 			radiation += min((effect - (effect*getarmor(null, "rad"))), 0)//Rads auto check armor
 		if(STUTTER)
@@ -142,25 +148,11 @@
 	return 0
 
 
-// this function displays the station time in the status panel
-/mob/living/silicon/proc/show_station_time()
-	stat(null, "Station Time: [worldtime2text()]")
-
-
-// this function displays the shuttles ETA in the status panel if the shuttle has been called
-/mob/living/silicon/proc/show_emergency_shuttle_eta()
-	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
-		var/timeleft = shuttle_master.emergency.timeLeft()
-		if(timeleft > 0)
-			stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
-
-
-
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()
 	if(statpanel("Status"))
-		show_station_time()
-		show_emergency_shuttle_eta()
+		show_stat_station_time()
+		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
 		show_malf_ai()
 	..()
@@ -288,15 +280,15 @@
 	switch(sensor_type)
 		if ("Security")
 			add_sec_hud()
-			src << "<span class='notice'>Security records overlay enabled.</span>"
+			to_chat(src, "<span class='notice'>Security records overlay enabled.</span>")
 		if ("Medical")
 			add_med_hud()
-			src << "<span class='notice'>Life signs monitor overlay enabled.</span>"
+			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
 		if ("Diagnostic")
 			add_diag_hud()
-			src << "<span class='notice'>Robotics diagnostic overlay enabled.</span>"
+			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
 		if ("Disable")
-			src << "Sensor augmentations disabled."
+			to_chat(src, "Sensor augmentations disabled.")
 
 /mob/living/silicon/proc/receive_alarm(var/datum/alarm_handler/alarm_handler, var/datum/alarm/alarm, was_raised)
 	if(!next_alarm_notice)
@@ -326,7 +318,7 @@
 				if(alarms[A] == 1)
 					if(!reported)
 						reported = 1
-						src << "<span class='warning'>--- [AH.category] Detected ---</span>"
+						to_chat(src, "<span class='warning'>--- [AH.category] Detected ---</span>")
 					raised_alarm(A)
 
 		for(var/datum/alarm_handler/AH in queued_alarms)
@@ -336,21 +328,31 @@
 				if(alarms[A] == -1)
 					if(!reported)
 						reported = 1
-						src << "<span class='notice'>--- [AH.category] Cleared ---</span>"
-					src << "\The [A.alarm_name()]."
+						to_chat(src, "<span class='notice'>--- [AH.category] Cleared ---</span>")
+					to_chat(src, "\The [A.alarm_name()].")
 
 		if(alarm_raised)
-			src << "<A HREF=?src=\ref[src];showalerts=1>\[Show Alerts\]</A>"
+			to_chat(src, "<A HREF=?src=\ref[src];showalerts=1>\[Show Alerts\]</A>")
 
 		for(var/datum/alarm_handler/AH in queued_alarms)
 			var/list/alarms = queued_alarms[AH]
 			alarms.Cut()
 
 /mob/living/silicon/proc/raised_alarm(var/datum/alarm/A)
-	src << "[A.alarm_name()]!"
+	to_chat(src, "[A.alarm_name()]!")
 
 /mob/living/silicon/ai/raised_alarm(var/datum/alarm/A)
 	var/cameratext = ""
 	for(var/obj/machinery/camera/C in A.cameras())
 		cameratext += "[(cameratext == "")? "" : "|"]<A HREF=?src=\ref[src];switchcamera=\ref[C]>[C.c_tag]</A>"
-	src << "[A.alarm_name()]! ([(cameratext)? cameratext : "No Camera"])"
+	to_chat(src, "[A.alarm_name()]! ([(cameratext)? cameratext : "No Camera"])")
+
+/mob/living/silicon/adjustToxLoss(var/amount)
+	return
+
+/mob/living/silicon/get_access()
+	return IGNORE_ACCESS //silicons always have access
+
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
+	if(affect_silicon)
+		return ..()

@@ -62,27 +62,19 @@
 
 	Crossed(AM as mob|obj)
 		var/burned = rand(2,5)
-		if(istype(AM, /mob/living))
-			var/mob/living/M = AM
+		if(istype(AM, /mob/living/carbon))
+			var/mob/living/carbon/M = AM
 			if(ishuman(M))
 				if(isobj(M:shoes))
 					if((M:shoes.flags&NOSLIP) || (M:species.bodyflags & FEET_NOSLIP))
 						return
 				else
-					M << "\red Your feet feel like they're on fire!"
+					to_chat(M, "\red Your feet feel like they're on fire!")
 					M.take_overall_damage(0, max(0, (burned - 2)))
 
 			if(!istype(M, /mob/living/carbon/slime) && !isrobot(M))
-				M.stop_pulling()
-				step(M, M.dir)
-				spawn(1) step(M, M.dir)
-				spawn(2) step(M, M.dir)
-				spawn(3) step(M, M.dir)
-				spawn(4) step(M, M.dir)
+				M.slip("banana peel!", 0, 7, 4)
 				M.take_organ_damage(2) // Was 5 -- TLE
-				M << "\blue You slipped on \the [name]!"
-				playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-				M.Weaken(7)
 				M.take_overall_damage(0, burned)
 
 	throw_impact(atom/hit_atom)

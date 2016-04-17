@@ -5,6 +5,22 @@
 	icon_state = "sheet-hide"
 	origin_tech = ""
 
+var/global/list/datum/stack_recipe/human_recipes = list( \
+	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = 1), \
+	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = 1), \
+	)
+
+/obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
+	recipes = human_recipes
+	return ..()
+
+/obj/item/stack/sheet/animalhide/generic
+	name = "generic skin"
+	desc = "A piece of generic skin."
+	singular_name = "generic skin piece"
+	icon_state = "sheet-hide"
+	origin_tech = null
+
 /obj/item/stack/sheet/animalhide/corgi
 	name = "corgi hide"
 	desc = "The by-product of corgi farming."
@@ -91,15 +107,14 @@
 //Step one - dehairing.
 
 /obj/item/stack/sheet/animalhide/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(	istype(W, /obj/item/weapon/kitchenknife) || \
-		istype(W, /obj/item/weapon/kitchen/utensil/knife) || \
+	if(	istype(W, /obj/item/weapon/kitchen/knife) || \
 		istype(W, /obj/item/weapon/twohanded/fireaxe) || \
 		istype(W, /obj/item/weapon/hatchet) )
 
 		//visible message on mobs is defined as visible_message(var/message, var/self_message, var/blind_message)
 		usr.visible_message("\blue \the [usr] starts cutting hair off \the [src]", "\blue You start cutting the hair off \the [src]", "You hear the sound of a knife rubbing against flesh")
 		if(do_after(user,50, target = src))
-			usr << "\blue You cut the hair from this [src.singular_name]"
+			to_chat(usr, "\blue You cut the hair from this [src.singular_name]")
 			//Try locating an exisitng stack on the tile and add to there if possible
 			for(var/obj/item/stack/sheet/hairlesshide/HS in usr.loc)
 				if(HS.amount < 50)

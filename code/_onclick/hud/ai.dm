@@ -15,10 +15,9 @@
 	icon_state = "camera"
 
 /obj/screen/ai/camera_list/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		var/camera = input(AI) in AI.get_camera_list()
-		AI.ai_camera_list(camera)
+	var/mob/living/silicon/ai/AI = usr
+	var/camera = input(AI, "Choose which camera you want to view", "Cameras") as null|anything in AI.get_camera_list()
+	AI.ai_camera_list(camera)
 
 /obj/screen/ai/camera_track
 	name = "Track With Camera"
@@ -100,7 +99,7 @@
 /obj/screen/ai/pda_msg_send/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.cmd_send_pdamesg(usr)
+		AI.aiPDA.cmd_send_pdamesg()
 
 /obj/screen/ai/pda_msg_show
 	name = "PDA - Show Message Log"
@@ -109,7 +108,7 @@
 /obj/screen/ai/pda_msg_show/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.cmd_show_message_log(usr)
+		AI.aiPDA.cmd_show_message_log()
 
 /obj/screen/ai/image_take
 	name = "Take Image"
@@ -221,7 +220,7 @@
 	adding += using
 
 //Shuttle
-	using = new /obj/screen/ai/announcement()
+	using = new /obj/screen/ai/call_shuttle()
 	using.name = "Call Emergency Shuttle"
 	using.icon = 'icons/mob/screen_ai.dmi'
 	using.icon_state = "call_shuttle"

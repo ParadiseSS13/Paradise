@@ -251,7 +251,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
-	user << "<span class='notice'>Results of analysis of \icon[icon] [target].</span>"
+	to_chat(user, "<span class='notice'>Results of analysis of \icon[icon] [target].</span>")
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -260,119 +260,17 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 
-		user << "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>"
-		user << "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>"
-		user << "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>"
-		user << "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>"
-		user << "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>"
+		to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
+		to_chat(user, "<span class='notice'>Nitrogen: [round(n2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Oxygen: [round(o2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>CO2: [round(co2_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Plasma: [round(plasma_concentration*100)] %</span>")
 		if(unknown_concentration>0.01)
-			user << "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>"
-		user << "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>"
+			to_chat(user, "<span class='danger'>Unknown: [round(unknown_concentration*100)] %</span>")
+		to_chat(user, "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>")
 	else
-		user << "<span class='notice'>[target] is empty!</span>"
+		to_chat(user, "<span class='notice'>[target] is empty!</span>")
 	return
-
-//This will update a mob's name, real_name, mind.name, data_core records, pda and id
-//Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
-/mob/proc/fully_replace_character_name(var/oldname,var/newname)
-	if(!newname)	return 0
-	real_name = newname
-	name = newname
-	if(mind)
-		mind.name = newname
-	if(dna)
-		dna.real_name = real_name
-
-	if(isrobot(src))
-		var/mob/living/silicon/robot/R = src
-		if(oldname != real_name)
-			R.notify_ai(3, oldname, newname)
-		R.custom_name = newname
-		R.updatename()
-	if(oldname)
-		//update the datacore records! This is goig to be a bit costly.
-		for(var/list/L in list(data_core.general,data_core.medical,data_core.security,data_core.locked))
-			for(var/datum/data/record/R in L)
-				if(R.fields["name"] == oldname)
-					R.fields["name"] = newname
-					break
-
-		//update our pda and id if we have them on our person
-		var/list/searching = GetAllContents(searchDepth = 3)
-		var/search_id = 1
-		var/search_pda = 1
-
-		for(var/A in searching)
-			if( search_id && istype(A,/obj/item/weapon/card/id) )
-				var/obj/item/weapon/card/id/ID = A
-				if(ID.registered_name == oldname)
-					ID.registered_name = newname
-					ID.name = "[newname]'s ID Card ([ID.assignment])"
-					if(!search_pda)	break
-					search_id = 0
-
-			else if( search_pda && istype(A,/obj/item/device/pda) )
-				var/obj/item/device/pda/PDA = A
-				if(PDA.owner == oldname)
-					PDA.owner = newname
-					PDA.name = "PDA-[newname] ([PDA.ownjob])"
-					if(!search_id)	break
-					search_pda = 0
-
-		//Fixes renames not being reflected in objective text
-		var/list/O = subtypesof(/datum/objective)
-		var/length
-		var/pos
-		for(var/datum/objective/objective in O)
-			if(objective.target != mind) continue
-			length = lentext(oldname)
-			pos = findtextEx(objective.explanation_text, oldname)
-			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
-	return 1
-
-
-
-//Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
-//Last modified by Carn
-/mob/proc/rename_self(var/role, var/allow_numbers=0)
-	spawn(0)
-		var/oldname = real_name
-
-		var/time_passed = world.time
-		var/newname
-
-		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
-			newname = input(src,"You are a [role]. Would you like to change your name to something else?", "Name change",oldname) as text
-			if((world.time-time_passed)>300)
-				return	//took too long
-			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
-
-			for(var/mob/living/M in player_list)
-				if(M == src)
-					continue
-				if(!newname || M.real_name == newname)
-					newname = null
-					break
-			if(newname)
-				break	//That's a suitable name!
-			src << "Sorry, that [role]-name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken."
-
-		if(!newname)	//we'll stick with the oldname then
-			return
-
-		if(cmptext("ai",role))
-			if(isAI(src))
-				var/mob/living/silicon/ai/A = src
-				oldname = null//don't bother with the records update crap
-				//world << "<b>[newname] is the AI!</b>"
-				//world << sound('sound/AI/newAI.ogg')
-				// Set eyeobj name
-				A.SetName(newname)
-
-
-		fully_replace_character_name(oldname,newname)
-
-
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
@@ -703,95 +601,6 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 	else return get_step(ref, base_dir)
 
-/proc/do_mob(var/mob/user , var/mob/target, var/time = 30, numticks = 5, var/uninterruptible = 0) //This is quite an ugly solution but i refuse to use the old request system.
-	if(!user || !target)
-		return 0
-	if(numticks == 0)
-		return 0
-	var/user_loc = user.loc
-	var/target_loc = target.loc
-	var/holding = user.get_active_hand()
-	var/timefraction = round(time/numticks)
-	var/image/progbar
-	for(var/i = 1 to numticks)
-		if(user.client)
-			progbar = make_progress_bar(i, numticks, target)
-			user.client.images |= progbar
-		sleep(timefraction)
-		if(!user || !target)
-			if(user && user.client)
-				user.client.images -= progbar
-			return 0
-		if (!uninterruptible && (user.loc != user_loc || target.loc != target_loc || user.get_active_hand() != holding || user.stat || user.stunned || user.weakened || user.paralysis || user.lying))
-			if(user && user.client)
-				user.client.images -= progbar
-			return 0
-		if(user && user.client)
-			user.client.images -= progbar
-	if(user && user.client)
-		user.client.images -= progbar
-	return 1
-
-/proc/make_progress_bar(var/current_number, var/goal_number, var/atom/target)
-	if(current_number && goal_number && target)
-		var/image/progbar
-		progbar = image("icon" = 'icons/effects/doafter_icon.dmi', "loc" = target, "icon_state" = "prog_bar_0")
-		progbar.icon_state = "prog_bar_[round(((current_number / goal_number) * 100), 10)]"
-		progbar.pixel_y = 32
-		return progbar
-
-/proc/do_after(mob/user, delay, numticks = 5, needhand = 1, atom/target = null)
-	if(!user)
-		return 0
-
-	if(numticks == 0)
-		return 0
-
-	var/atom/Tloc = null
-	if(target)
-		Tloc = target.loc
-
-	var/delayfraction = round(delay/numticks)
-	var/atom/Uloc = user.loc
-	var/holding = user.get_active_hand()
-	var/holdingnull = 1 //User is not holding anything
-	if(holding)
-		holdingnull = 0 //User is holding a tool of some kind
-	var/image/progbar
-	for (var/i = 1 to numticks)
-		if(user.client)
-			progbar = make_progress_bar(i, numticks, target)
-			user.client.images |= progbar
-		sleep(delayfraction)
-		if(!user || user.stat || user.weakened || user.stunned  || !(user.loc == Uloc))
-			if(user && user.client)
-				user.client.images -= progbar
-			return 0
-
-		if(Tloc && (!target || Tloc != target.loc)) //Tloc not set when we don't want to track target
-			if(user && user.client)
-				user.client.images -= progbar
-			return 0 // Target no longer exists or has moved
-
-		if(needhand)
-			//This might seem like an odd check, but you can still need a hand even when it's empty
-			//i.e the hand is used to insert some item/tool into the construction
-			if(!holdingnull)
-				if(!holding)
-					if(user && user.client)
-						user.client.images -= progbar
-					return 0
-			if(user.get_active_hand() != holding)
-				if(user && user.client)
-					user.client.images -= progbar
-				return 0
-			if(user && user.client)
-				user.client.images -= progbar
-		if(user && user.client)
-			user.client.images -= progbar
-	if(user && user.client)
-		user.client.images -= progbar
-	return 1
 //Takes: Anything that could possibly have variables and a varname to check.
 //Returns: 1 if found, 0 if not.
 /proc/hasvar(var/datum/A, var/varname)
@@ -998,7 +807,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 
 
-proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
+/proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0, var/atom/newloc = null)
 	if(!original)
 		return null
 
@@ -1007,15 +816,23 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 	if(sameloc)
 		O=new original.type(original.loc)
 	else
-		O=new original.type(locate(0,0,0))
+		O=new original.type(newloc)
 
 	if(perfectcopy)
 		if((O) && (original))
-			for(var/V in original.vars)
-				if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key")))
-					O.vars[V] = original.vars[V]
-	return O
+			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group")
 
+			for(var/V in original.vars - forbidden_vars)
+				if(istype(original.vars[V],/list))
+					var/list/L = original.vars[V]
+					O.vars[V] = L.Copy()
+				else if(istype(original.vars[V],/datum))
+					continue	// this would reference the original's object, that will break when it is used or deleted.
+				else
+					O.vars[V] = original.vars[V]
+	if(istype(O))
+		O.update_icon()
+	return O
 
 /area/proc/copy_contents_to(var/area/A , var/platingRequired = 0 )
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
@@ -1121,7 +938,7 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","contents", "luminosity")))
+						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
 //					var/area/AR = X.loc
@@ -1758,6 +1575,25 @@ var/mob/dview/dview_mob = new
 
 	return I
 
+//ultra range (no limitations on distance, faster than range for distances > 8); including areas drastically decreases performance
+/proc/urange(dist=0, atom/center=usr, orange=0, areas=0)
+	if(!dist)
+		if(!orange)
+			return list(center)
+		else
+			return list()
+
+	var/list/turfs = RANGE_TURFS(dist, center)
+	if(orange)
+		turfs -= get_turf(center)
+	. = list()
+	for(var/V in turfs)
+		var/turf/T = V
+		. += T
+		. += T.contents
+		if(areas)
+			. |= T.loc
+
 /proc/turf_clear(turf/T)
 	for(var/atom/A in T)
 		if(A.simulated)
@@ -1765,13 +1601,72 @@ var/mob/dview/dview_mob = new
 	return 1
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
-	var/tX = text2list(scr_loc, ",")
-	var/tY = text2list(tX[2], ":")
+	var/tX = splittext(scr_loc, ",")
+	var/tY = splittext(tX[2], ":")
 	var/tZ = origin.z
 	tY = tY[1]
-	tX = text2list(tX[1], ":")
+	tX = splittext(tX[1], ":")
 	tX = tX[1]
 	tX = max(1, min(world.maxx, origin.x + (text2num(tX) - (world.view + 1))))
 	tY = max(1, min(world.maxy, origin.y + (text2num(tY) - (world.view + 1))))
 	return locate(tX, tY, tZ)
 
+/proc/pick_closest_path(value)
+	var/list/matches = get_fancy_list_of_types()
+	if (!isnull(value) && value!="")
+		matches = filter_fancy_list(matches, value)
+
+	if(matches.len==0)
+		return
+
+	var/chosen
+	if(matches.len==1)
+		chosen = matches[1]
+	else
+		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
+		if(!chosen)
+			return
+	chosen = matches[chosen]
+	return chosen
+
+
+var/list/TYPES_SHORTCUTS = list(
+	/obj/effect/decal/cleanable = "CLEANABLE",
+	/obj/item/device/radio/headset = "HEADSET",
+	/obj/item/clothing/head/helmet/space = "SPESSHELMET",
+	/obj/item/weapon/book/manual = "MANUAL",
+	/obj/item/weapon/reagent_containers/food/drinks = "DRINK", //longest paths comes first
+	/obj/item/weapon/reagent_containers/food = "FOOD",
+	/obj/item/weapon/reagent_containers = "REAGENT_CONTAINERS",
+	/obj/machinery/atmospherics = "ATMOS",
+	/obj/machinery/portable_atmospherics = "PORT_ATMOS",
+//	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/missile_rack = "MECHA_MISSILE_RACK",
+	/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
+//	/obj/item/organ/internal = "ORGAN_INT",
+)
+
+var/global/list/g_fancy_list_of_types = null
+/proc/get_fancy_list_of_types()
+	if (isnull(g_fancy_list_of_types)) //init
+		var/list/temp = sortList(subtypesof(/atom) - typesof(/area) - /atom/movable)
+		g_fancy_list_of_types = new(temp.len)
+		for(var/type in temp)
+			var/typename = "[type]"
+			for (var/tn in TYPES_SHORTCUTS)
+				if (copytext(typename,1, length("[tn]/")+1)=="[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
+					typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
+					break
+			g_fancy_list_of_types[typename] = type
+	return g_fancy_list_of_types
+
+/proc/filter_fancy_list(list/L, filter as text)
+	var/list/matches = new
+	for(var/key in L)
+		var/value = L[key]
+		if(findtext("[key]", filter) || findtext("[value]", filter))
+			matches[key] = value
+	return matches
+
+// Use this to send to a client's chat, no exceptions (except this proc itself).
+/proc/to_chat(var/thing, var/output)
+	thing << output

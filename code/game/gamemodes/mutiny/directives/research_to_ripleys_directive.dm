@@ -41,7 +41,7 @@ datum/directive/research_to_ripleys/initialize()
 
 	special_orders = list(
 		"Reassign all research personnel, excluding the Research Director, to Shaft Miner.",
-		"Deliver [MATERIALS_REQUIRED] sheets of metal or minerals via the supply shuttle to CentCom.")
+		"Deliver [MATERIALS_REQUIRED] sheets of metal or minerals via the supply shuttle to CentComm.")
 
 datum/directive/research_to_ripleys/directives_complete()
 	if (materials_shipped < MATERIALS_REQUIRED) return 0

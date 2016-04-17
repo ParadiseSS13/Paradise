@@ -3,15 +3,15 @@
 	config_tag = "traitorchan"
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
 	restricted_jobs = list("AI", "Cyborg")
-	required_players = 3
+	required_players = 10
 	required_players_secret = 10
-	required_enemies = 2
+	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	var/protected_species_changeling = list("Machine", "Slime People")
 
 /datum/game_mode/traitor/changeling/announce()
-	world << "<B>The current game mode is - Traitor+Changeling!</B>"
-	world << "<B>There is an alien creature on the station along with some syndicate operatives out for their own gain! Do not let the changeling and the traitors succeed!</B>"
+	to_chat(world, "<B>The current game mode is - Traitor+Changeling!</B>")
+	to_chat(world, "<B>There is an alien creature on the station along with some syndicate operatives out for their own gain! Do not let the changeling and the traitors succeed!</B>")
 
 
 /datum/game_mode/traitor/changeling/pre_setup()
@@ -24,9 +24,8 @@
 		if((player.mind in possible_changelings) && (player.client.prefs.species in protected_species_changeling))
 			possible_changelings -= player.mind
 
-	if(possible_changelings.len>0)
+	if(possible_changelings.len > 0)
 		var/datum/mind/changeling = pick(possible_changelings)
-		//possible_changelings-=changeling
 		changelings += changeling
 		modePlayer += changelings
 		changeling.restricted_roles = restricted_jobs

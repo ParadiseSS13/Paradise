@@ -101,14 +101,14 @@
 		if(..(target, blocked))
 			var/mob/living/M = target
 			M.dizziness += 20
-			M:slurring += 20
+			M.slurring += 20
 			M.confused += 20
 			M.eye_blurry += 20
 			M.drowsyness += 20
 			for(var/datum/reagent/ethanol/A in M.reagents.reagent_list)
-				M.paralysis += 2
+				M.AdjustParalysis(2)
 				M.dizziness += 10
-				M:slurring += 10
+				M.slurring += 10
 				M.confused += 10
 				M.eye_blurry += 10
 				M.drowsyness += 10
@@ -160,15 +160,23 @@
 
 
 /obj/item/projectile/bullet/mime
-	damage = 20
+	damage = 0
+	stun = 5
+	weaken = 5
+	slur = 20
+	stutter = 20
 
 /obj/item/projectile/bullet/mime/on_hit(var/atom/target, var/blocked = 0)
-		if(istype(target, /mob/living/carbon))
-				var/mob/living/carbon/M = target
-				M.silent = max(M.silent, 10)
-
-
-
+	..(target, blocked)
+	if(istype(target, /mob/living/carbon))
+		var/mob/living/carbon/M = target
+		M.silent = max(M.silent, 10)
+	else if(istype(target, /obj/mecha/combat/honker))
+		var/obj/mecha/chassis = target
+		chassis.occupant_message("A mimetech anti-honk bullet has hit \the [chassis]!")
+		chassis.use_power(chassis.get_charge() / 2)
+		for(var/obj/item/mecha_parts/mecha_equipment/weapon/honker in chassis.equipment)
+			honker.set_ready_state(0)
 
 /obj/item/projectile/bullet/dart
 	name = "dart"

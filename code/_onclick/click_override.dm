@@ -27,10 +27,10 @@
 
 /obj/item/weapon/badminBook/attack_self(mob/living/user as mob)
 	if(user.middleClickOverride)
-		user<< "<span class='warning'>You try to draw power from the [src], but you cannot hold the power at this time!</span>"
+		to_chat(user, "<span class='warning'>You try to draw power from the [src], but you cannot hold the power at this time!</span>")
 		return
 	user.middleClickOverride = clickBehavior
-	user << "<span class='notice'>You draw a bit of power from the [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>"
+	to_chat(user, "<span class='notice'>You draw a bit of power from the [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
 
 /datum/middleClickOverride/badminClicker
 	var/summon_path = /obj/item/weapon/reagent_containers/food/snacks/cookie
@@ -38,6 +38,6 @@
 /datum/middleClickOverride/badminClicker/onClick(var/atom/A, var/mob/living/user)
 	var/atom/movable/newObject = new summon_path
 	newObject.loc = get_turf(A)
-	user << "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]! </span>"
+	to_chat(user, "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]! </span>")
 	usr.loc.visible_message("<span class='notice'>[user] waves \his hand and summons \a [newObject.name]</span>")
 	..()

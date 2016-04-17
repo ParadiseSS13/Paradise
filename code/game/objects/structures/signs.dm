@@ -25,7 +25,7 @@
 
 /obj/structure/sign/attackby(obj/item/tool as obj, mob/user as mob)	//deconstruction
 	if(istype(tool, /obj/item/weapon/screwdriver) && !istype(src, /obj/structure/sign/double))
-		user << "You unfasten the sign with your [tool]."
+		to_chat(user, "You unfasten the sign with your [tool].")
 		var/obj/item/sign/S = new(src.loc)
 		S.name = name
 		S.desc = desc
@@ -61,7 +61,7 @@
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state
-		user << "You fasten \the [S] with your [tool]."
+		to_chat(user, "You fasten \the [S] with your [tool].")
 		qdel(src)
 	else ..()
 
@@ -201,17 +201,17 @@
 	icon_state = "chinese"
 
 /obj/structure/sign/directions/science
-	name = "\improper Science department"
-	desc = "A direction sign, pointing out which way the Science department is."
+	name = "\improper Research Division"
+	desc = "A direction sign, pointing out which way the Research Division is."
 	icon_state = "direction_sci"
 
 /obj/structure/sign/directions/engineering
-	name = "\improper Engineering department"
+	name = "\improper Engineering Department"
 	desc = "A direction sign, pointing out which way the Engineering department is."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
-	name = "\improper Security department"
+	name = "\improper Security Department"
 	desc = "A direction sign, pointing out which way the Security department is."
 	icon_state = "direction_sec"
 

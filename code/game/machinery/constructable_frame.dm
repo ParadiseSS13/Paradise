@@ -59,7 +59,7 @@
 
 /obj/machinery/constructable_frame/machine_frame/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(P.crit_fail)
-		user << "<span class='danger'>This part is faulty, you cannot add this to the machine!</span>"
+		to_chat(user, "<span class='danger'>This part is faulty, you cannot add this to the machine!</span>")
 		return
 	switch(state)
 		if(1)
@@ -67,23 +67,23 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.amount >= 5)
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					user << "<span class='notice'>You start to add cables to the frame.</span>"
+					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 					if(do_after(user, 20, target = src))
 						if(C.amount >= 5 && state == 1)
 							C.use(5)
-							user << "<span class='notice'>You add cables to the frame.</span>"
+							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 2
 							icon_state = "box_1"
 				else
-					user << "<span class='warning'>You need five length of cable to wire the frame.</span>"
+					to_chat(user, "<span class='warning'>You need five length of cable to wire the frame.</span>")
 					return
 			else if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.amount<5)
-					user << "\red You do not have enough glass to build a display case."
+					to_chat(user, "\red You do not have enough glass to build a display case.")
 					return
 				G.use(5)
-				user << "\blue You add the glass to the frame."
+				to_chat(user, "\blue You add the glass to the frame.")
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				new /obj/structure/displaycase_frame(src.loc)
 				qdel(src)
@@ -91,7 +91,7 @@
 
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-				user << "<span class='notice'>You dismantle the frame.</span>"
+				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				new /obj/item/stack/sheet/metal(src.loc, 5)
 				qdel(src)
 		if(2)
@@ -99,7 +99,7 @@
 				var/obj/item/weapon/circuitboard/B = P
 				if(B.board_type == "machine")
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					user << "<span class='notice'>You add the circuit board to the frame.</span>"
+					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
 					user.drop_item()
 					P.loc = src
@@ -110,10 +110,10 @@
 					update_namelist()
 					update_req_desc()
 				else
-					user << "<span class='danger'>This frame does not accept circuit boards of this type!</span>"
+					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
 			if(istype(P, /obj/item/weapon/wirecutters))
 				playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
-				user << "<span class='notice'>You remove the cables.</span>"
+				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 1
 				icon_state = "box_0"
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
@@ -126,9 +126,9 @@
 				circuit.loc = src.loc
 				circuit = null
 				if(components.len == 0)
-					user << "<span class='notice'>You remove the circuit board.</span>"
+					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				else
-					user << "<span class='notice'>You remove the circuit board and other components.</span>"
+					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
 					for(var/obj/item/I in components)
 						I.loc = src.loc
 				desc = initial(desc)
@@ -177,7 +177,7 @@
 
 				for(var/obj/item/weapon/stock_parts/part in added_components)
 					components += part
-					user << "<span class='notice'>[part.name] applied.</span>"
+					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
 				replacer.play_rped_sound()
 
 				update_req_desc()
@@ -207,7 +207,7 @@
 						update_req_desc()
 						return 1
 				if(!success)
-					user << "<span class='danger'>You cannot add that to the machine!</span>"
+					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
 					return 0
 
 //Machine Frame Circuit Boards
@@ -225,28 +225,38 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/weapon/vending_refill/boozeomat = 3)
 
-	var/list/names_paths = list(/obj/machinery/vending/boozeomat = "Booze-O-Mat",
-							/obj/machinery/vending/coffee = "Solar's Best Hot Drinks",
-							/obj/machinery/vending/snack = "Getmore Chocolate Corp",
-							/obj/machinery/vending/cola = "Robust Softdrinks",
-							/obj/machinery/vending/cigarette = "ShadyCigs Deluxe",
-							/obj/machinery/vending/autodrobe = "AutoDrobe",
-							/obj/machinery/vending/hatdispenser = "Hatlord 9000",
-							/obj/machinery/vending/suitdispenser = "Suitlord 9000",
-							/obj/machinery/vending/shoedispenser = "Shoelord 9000",
-							/obj/machinery/vending/clothing = "ClothesMate",
-							/obj/machinery/vending/crittercare = "CritterCare")
+	var/list/names_paths = list("Booze-O-Mat" = /obj/machinery/vending/boozeomat,
+							"Solar's Best Hot Drinks" = /obj/machinery/vending/coffee,
+							"Getmore Chocolate Corp" = /obj/machinery/vending/snack,
+							"Robust Softdrinks" = /obj/machinery/vending/cola,
+							"ShadyCigs Deluxe" = /obj/machinery/vending/cigarette,
+							"AutoDrobe" = /obj/machinery/vending/autodrobe,
+							"Hatlord 9000" = /obj/machinery/vending/hatdispenser,
+							"Suitlord 9000" = /obj/machinery/vending/suitdispenser,
+							"Shoelord 9000" = /obj/machinery/vending/shoedispenser,
+							"ClothesMate" = /obj/machinery/vending/clothing,
+							"CritterCare" = /obj/machinery/vending/crittercare)
 
 /obj/item/weapon/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
-		set_type(pick(names_paths), user)
+		set_type(null, user)
 
 
 /obj/item/weapon/circuitboard/vendor/proc/set_type(typepath, mob/user)
-		build_path = typepath
-		name = "circuit board ([names_paths[build_path]] Vendor)"
-		user << "<span class='notice'>You set the board to [names_paths[build_path]].</span>"
-		req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)
+	var/new_name = "Booze-O-Mat Vendor"
+	if(!typepath)
+		new_name = input("Circuit Setting", "What would you change the board setting to?") in names_paths
+		typepath = names_paths[new_name]
+	else
+		for(var/name in names_paths)
+			if(names_paths[name] == typepath)
+				new_name = name
+				break
+	build_path = typepath
+	name = "circuit board ([new_name])"
+	req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
 
 /obj/item/weapon/circuitboard/smes
 	name = "circuit board (SMES)"
@@ -304,11 +314,11 @@ to destroy them and players will be able to make replacements.
 		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
 			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 			name = "circuit board (Heater)"
-			user << "<span class='notice'>You set the board to heating.</span>"
+			to_chat(user, "<span class='notice'>You set the board to heating.</span>")
 		else
 			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 			name = "circuit board (Freezer)"
-			user << "<span class='notice'>You set the board to cooling.</span>"
+			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
 
 /obj/item/weapon/circuitboard/biogenerator
 	name = "circuit board (Biogenerator)"
@@ -499,7 +509,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/destructive_analyzer
 	name = "Circuit board (Destructive Analyzer)"
-	build_path = "/obj/machinery/r_n_d/destructive_analyzer"
+	build_path = /obj/machinery/r_n_d/destructive_analyzer
 	board_type = "machine"
 	origin_tech = "magnets=2;engineering=2;programming=2"
 	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, and 1 Micro-Laser."
@@ -510,7 +520,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/autolathe
 	name = "Circuit board (Autolathe)"
-	build_path = "/obj/machinery/autolathe"
+	build_path = /obj/machinery/autolathe
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	frame_desc = "Requires 3 Matter Bins, 1 Manipulator, and 1 Console Screen."
@@ -521,7 +531,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/protolathe
 	name = "Circuit board (Protolathe)"
-	build_path = "/obj/machinery/r_n_d/protolathe"
+	build_path = /obj/machinery/r_n_d/protolathe
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	frame_desc = "Requires 2 Matter Bins, 2 Manipulators, and 2 Beakers."
@@ -533,7 +543,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/circuit_imprinter
 	name = "Circuit board (Circuit Imprinter)"
-	build_path = "/obj/machinery/r_n_d/circuit_imprinter"
+	build_path = /obj/machinery/r_n_d/circuit_imprinter
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, and 2 Beakers."
@@ -544,7 +554,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/pacman
 	name = "Circuit Board (PACMAN-type Generator)"
-	build_path = "/obj/machinery/power/port_gen/pacman"
+	build_path = /obj/machinery/power/port_gen/pacman
 	board_type = "machine"
 	origin_tech = "programming=3:powerstorage=3;plasmatech=3;engineering=3"
 	frame_desc = "Requires 1 Matter Bin, 1 Micro-Laser, 2 Pieces of Cable, and 1 Capacitor."
@@ -556,17 +566,17 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/pacman/super
 	name = "Circuit Board (SUPERPACMAN-type Generator)"
-	build_path = "/obj/machinery/power/port_gen/pacman/super"
+	build_path = /obj/machinery/power/port_gen/pacman/super
 	origin_tech = "programming=3;powerstorage=4;engineering=4"
 
 /obj/item/weapon/circuitboard/pacman/mrs
 	name = "Circuit Board (MRSPACMAN-type Generator)"
-	build_path = "/obj/machinery/power/port_gen/pacman/mrs"
+	build_path = /obj/machinery/power/port_gen/pacman/mrs
 	origin_tech = "programming=3;powerstorage=5;engineering=5"
 
 obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (R&D Server)"
-	build_path = "/obj/machinery/r_n_d/server"
+	build_path = /obj/machinery/r_n_d/server
 	board_type = "machine"
 	origin_tech = "programming=3"
 	frame_desc = "Requires 2 pieces of cable, and 1 Scanning Module."
@@ -576,7 +586,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/mechfab
 	name = "Circuit board (Exosuit Fabricator)"
-	build_path = "/obj/machinery/mecha_part_fabricator"
+	build_path = /obj/machinery/mecha_part_fabricator
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=3"
 	frame_desc = "Requires 2 Matter Bins, 1 Manipulator, 1 Micro-Laser and 1 Console Screen."
@@ -588,7 +598,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/podfab
 	name = "Circuit board (Spacepod Fabricator)"
-	build_path = "/obj/machinery/spod_part_fabricator" //ah fuck my life
+	build_path = /obj/machinery/spod_part_fabricator //ah fuck my life
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=3"
 	frame_desc = "Requires 3 Matter Bins, 2 Manipulators, 2 Micro-Lasers, and 1 Console Screen."
@@ -601,7 +611,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/clonepod
 	name = "Circuit board (Clone Pod)"
-	build_path = "/obj/machinery/clonepod"
+	build_path = /obj/machinery/clonepod
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=3"
 	frame_desc = "Requires 2 Manipulator, 2 Scanning Module, 2 pieces of cable and 1 Console Screen."
@@ -613,7 +623,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/clonescanner
 	name = "Circuit board (Cloning Scanner)"
-	build_path = "/obj/machinery/dna_scannernew"
+	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
 	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, 1 Micro-Laser, 2 pieces of cable and 1 Console Screen."
@@ -844,7 +854,84 @@ obj/item/weapon/circuitboard/rdserver
 	board_type = "machine"
 	origin_tech = "programming=2"
 	req_components = list(
-							/obj/item/weapon/stock_parts.matter_bin = 1,
+							/obj/item/weapon/stock_parts/matter_bin = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/weapon/circuitboard/prize_counter
+	name = "circuit board (Prize Counter)"
+	build_path = /obj/machinery/prize_counter
+	board_type = "machine"
+	origin_tech = "programming=2;materials=2"
+	req_components = list(
+							/obj/item/weapon/stock_parts/matter_bin = 1,
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/weapon/stock_parts/console_screen = 1,
+							/obj/item/stack/cable_coil = 1)
+
+/obj/item/weapon/circuitboard/botany_extractor
+	name = "circuit board (Lysis-Isolation Centrifuge)"
+	build_path = /obj/machinery/botany/extractor
+	board_type = "machine"
+	origin_tech = "biotech=3;programming=3"
+	req_components = list(
+							/obj/item/weapon/stock_parts/matter_bin = 1,
+							/obj/item/weapon/stock_parts/scanning_module = 1,
+							/obj/item/weapon/stock_parts/console_screen = 1)
+
+/obj/item/weapon/circuitboard/botany_editor
+	name = "circuit board (Bioballistic Delivery System)"
+	build_path = /obj/machinery/botany/editor
+	board_type = "machine"
+	origin_tech = "biotech=3;programming=3"
+	req_components = list(
+							/obj/item/weapon/stock_parts/matter_bin = 1,
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/weapon/stock_parts/console_screen = 1)
+
+
+//Selectable mode board, like vending machine boards
+/obj/item/weapon/circuitboard/logic_gate
+	name = "circuit board (Logic Connector)"
+	build_path = /obj/machinery/logic_gate
+	board_type = "machine"
+	origin_tech = "programming=1"		//This stuff is pretty much the absolute basis of programming, so it's mostly useless for research
+	req_components = list(/obj/item/stack/cable_coil = 1)
+
+	var/list/names_paths = list(
+							"NOT Gate" = /obj/machinery/logic_gate/not,
+							"OR Gate" = /obj/machinery/logic_gate/or,
+							"AND Gate" = /obj/machinery/logic_gate/and,
+							"NAND Gate" = /obj/machinery/logic_gate/nand,
+							"NOR Gate" = /obj/machinery/logic_gate/nor,
+							"XOR Gate" = /obj/machinery/logic_gate/xor,
+							"XNOR Gate" = /obj/machinery/logic_gate/xnor,
+							"STATUS Gate" = /obj/machinery/logic_gate/status,
+							"CONVERT Gate" = /obj/machinery/logic_gate/convert
+	)
+
+/obj/item/weapon/circuitboard/logic_gate/New()
+	..()
+	if(build_path == /obj/machinery/logic_gate)			//If we spawn the base type board (determined by the base type machine as the build path), become a random gate board
+		var/new_path = names_paths[pick(names_paths)]
+		set_type(new_path)
+
+/obj/item/weapon/circuitboard/logic_gate/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/screwdriver))
+		set_type(null, user)
+
+/obj/item/weapon/circuitboard/logic_gate/proc/set_type(typepath, mob/user)
+	var/new_name = "Logic Base"
+	if(!typepath)
+		new_name = input("Circuit Setting", "What would you change the board setting to?") in names_paths
+		typepath = names_paths[new_name]
+	else
+		for(var/name in names_paths)
+			if(names_paths[name] == typepath)
+				new_name = name
+				break
+	build_path = typepath
+	name = "circuit board ([new_name])"
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")

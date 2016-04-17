@@ -1,10 +1,33 @@
-proc/createRandomZlevel()
+/proc/late_setup_level(turfs, smoothTurfs)
+	if(!smoothTurfs)
+		smoothTurfs = turfs
+
+	if(air_master)
+		air_master.setup_allturfs(turfs)
+	for(var/turf/T in turfs)
+		if(T.dynamic_lighting)
+			T.lighting_build_overlays()
+		for(var/obj/structure/cable/PC in T)
+			makepowernet_for(PC)
+	for(var/turf/T in smoothTurfs)
+		if(T.smooth)
+			smooth_icon(T)
+		for(var/R in T)
+			var/atom/A = R
+			if(A.smooth)
+				smooth_icon(A)
+
+/proc/createRandomZlevel()
 	if(awaydestinations.len)	//crude, but it saves another var!
 		return
 
 	var/list/potentialRandomZlevels = list()
 	log_startup_progress("Searching for away missions...")
-	var/list/Lines = file2list("_maps/map_files/RandomZLevels/fileList.txt")
+	var/list/Lines
+	if(fexists("config/away_mission_config.txt"))
+		Lines = file2list("config/away_mission_config.txt")
+	else
+		Lines = file2list("config/example/away_mission_config.txt")
 
 	if(!Lines.len)	return
 	for (var/t in Lines)
@@ -35,15 +58,14 @@ proc/createRandomZlevel()
 
 	if(potentialRandomZlevels.len)
 		var/watch = start_watch()
-		log_startup_progress("  Loading away mission...")
+		log_startup_progress("Loading away mission...")
 
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
-			maploader.load_map(file)
-			if(air_master)
-				air_master.setup_allturfs(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
-			log_to_dd("Away mission loaded: [map]")
+			maploader.load_map(file, do_sleep = 0)
+			late_setup_level(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
+			log_to_dd("  Away mission loaded: [map]")
 
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if (L.name != "awaystart")

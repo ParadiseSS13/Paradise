@@ -11,11 +11,12 @@
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.master = src
 
-		playsound(src.loc, 'sound/effects/gib.ogg', 100, 1, 10)
+		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 
-	for(var/obj/item/organ/I in internal_organs)
-		if(istype(loc,/turf))
-			I.removed()
+	for(var/obj/item/organ/internal/I in internal_organs)
+		if(isturf(loc))
+			I.remove(src)
+			I.forceMove(get_turf(src))
 			spawn()
 				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
@@ -26,6 +27,12 @@
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
 			E.droplimb(DROPLIMB_EDGE)
+
+	for(var/mob/M in src)
+		if(M in stomach_contents)
+			stomach_contents.Remove(M)
+		M.forceMove(get_turf(src))
+		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 	if(!isSynthetic())
 		flick("gibbed-h", animation)
@@ -90,6 +97,7 @@
 	stat = DEAD
 	dizziness = 0
 	jitteriness = 0
+	heart_attack = 0
 
 	//Handle species-specific deaths.
 	if(species) species.handle_death(src)
@@ -104,13 +112,7 @@
 				B = I
 	if(B)
 		if(!B.ckey && ckey && B.controlling)
-			B.ckey = ckey
-			B.controlling = 0
-		if(B.host_brain.ckey)
-			ckey = B.host_brain.ckey
-			B.host_brain.ckey = null
-			B.host_brain.name = "host brain"
-			B.host_brain.real_name = "host brain"
+			B.detatch()
 
 		verbs -= /mob/living/carbon/proc/release_control
 
@@ -127,7 +129,6 @@
 
 	if(!gibbed)
 		update_canmove()
-		if(client) blind.layer = 0
 
 	timeofdeath = worldtime2text()
 	med_hud_set_health()

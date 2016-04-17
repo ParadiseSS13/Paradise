@@ -7,7 +7,7 @@
 	invocation = "GAR YOK"
 	invocation_type = "whisper"
 	range = -1
-	level_max = 1 //cannot be improved
+	level_max = 0 //cannot be improved
 	cooldown_min = 100
 	include_user = 1
 
@@ -24,7 +24,7 @@
 		if(!marked_item) //linking item to the spell
 			message = "<span class='notice'>"
 			for(var/obj/item in hand_items)
-				if(istype(item, /obj/item/organ/brain)) //Yeah, sadly this doesn't work due to the organ system.
+				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
 				marked_item = 		item
 				message += "You mark [item] for recall.</span>"
@@ -106,4 +106,4 @@
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears in [user]'s hand!</span>")
 
 		if(message)
-			user << message
+			to_chat(user, message)

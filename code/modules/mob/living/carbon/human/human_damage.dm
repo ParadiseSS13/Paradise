@@ -1,7 +1,7 @@
 //Updates the mob's health from organs and mob damage variables
 /mob/living/carbon/human/updatehealth()
 	if(status_flags & GODMODE)
-		health = 100
+		health = maxHealth
 		stat = CONSCIOUS
 		return
 
@@ -12,15 +12,15 @@
 		total_brute += O.brute_dam //calculates health based on organ brute and burn
 		total_burn += O.burn_dam
 
-	health = 100 - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
+	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
 	//TODO: fix husking
-	if(((100 - total_burn) < config.health_threshold_dead) && stat == DEAD) //100 is the magic human max health number
-		ChangeToHusk()                                                      //BECAUSE NO ONE THOUGHT TO USE LIVING/VAR/MAXHEALTH I GUESS
+	if(((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD)
+		ChangeToHusk()
 	if(species.can_revive_by_healing)
-		var/obj/item/organ/brain/B = internal_organs_by_name["brain"]
+		var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
 		if(B)
-			if((health >= (config.health_threshold_dead / 100 * 75)) && stat == DEAD)
+			if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && stat == DEAD)
 				update_revive()
 	if(stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
@@ -32,7 +32,7 @@
 		return 0	//godmode
 
 	if(species && species.has_organ["brain"])
-		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			sponge.take_damage(amount, 1)
 			brainloss = sponge.damage
@@ -46,7 +46,7 @@
 		return 0	//godmode
 
 	if(species && species.has_organ["brain"])
-		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			sponge.damage = min(max(amount, 0),(maxHealth*2))
 			brainloss = sponge.damage
@@ -60,7 +60,7 @@
 		return 0	//godmode
 
 	if(species && species.has_organ["brain"])
-		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			brainloss = min(sponge.damage,maxHealth*2)
 		else
@@ -127,12 +127,6 @@
 			O.heal_damage(0, -amount, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
 
 
-/mob/living/carbon/human/Stun(amount)
-	..()
-
-/mob/living/carbon/human/Weaken(amount)
-	..()
-
 /mob/living/carbon/human/Paralyse(amount)
 	// Notify our AI if they can now control the suit.
 	if(wearing_rig && !stat && paralysis < amount) //We are passing out right this second.
@@ -142,7 +136,7 @@
 /mob/living/carbon/human/adjustCloneLoss(var/amount)
 	..()
 
-	if(species.flags & (NO_DNA_RAD))
+	if(species.flags & (NO_DNA))
 		cloneloss = 0
 		return
 
@@ -160,7 +154,7 @@
 			if(candidates.len)
 				var/obj/item/organ/external/O = pick(candidates)
 				O.mutate()
-				src << "<span class='notice'>Something is not right with your [O.name]...</span>"
+				to_chat(src, "<span class='notice'>Something is not right with your [O.name]...</span>")
 				O.add_autopsy_data("Mutation", amount)
 				return
 
@@ -169,7 +163,7 @@
 			for(var/obj/item/organ/external/O in organs)
 				if(O.status & ORGAN_MUTATED)
 					O.unmutate()
-					src << "<span class='notice'>Your [O.name] is shaped normally again.</span>"
+					to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
 					return
 
 
@@ -177,7 +171,7 @@
 		for(var/obj/item/organ/external/O in organs)
 			if(O.status & ORGAN_MUTATED)
 				O.unmutate()
-				src << "<span class='notice'>Your [O.name] is shaped normally again.</span>"
+				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
 
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.

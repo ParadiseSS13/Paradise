@@ -91,12 +91,27 @@ var/const/INGEST = 2
 
 	return the_id
 
-/datum/reagents/proc/trans_to(var/obj/target, var/amount=1, var/multiplier=1, var/preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
-	if (!target )
+/datum/reagents/proc/trans_to(var/target, var/amount=1, var/multiplier=1, var/preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
+	if (!target)
 		return
-	if (!target.reagents || src.total_volume<=0)
+	if(src.total_volume <= 0)
 		return
-	var/datum/reagents/R = target.reagents
+	var/datum/reagents/R
+	if(istype(target, /obj))
+		var/obj/O = target
+		if (!O.reagents )
+			return
+		R = O.reagents
+	else if (istype(target, /mob/living))
+		var/mob/living/M = target
+		if(!M.reagents)
+			return
+		R = M.reagents
+	else if(istype(target, /datum/reagents))
+		R = target
+	else
+		return
+
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
 	var/part = amount / src.total_volume
 	var/trans_data = null
@@ -287,21 +302,14 @@ var/const/INGEST = 2
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/M in seen)
 						if(!C.no_message)
-							M << "\blue \icon[my_atom] [C.mix_message]"
+							to_chat(M, "\blue \icon[my_atom] [C.mix_message]")
 
-				/*	if(istype(my_atom, /obj/item/slime_core))
-						var/obj/item/slime_core/ME = my_atom
-						ME.Uses--
-						if(ME.Uses <= 0) // give the notification that the slime core is dead
-							for(var/mob/M in viewers(4, get_turf(my_atom)) )
-								M << "\blue \icon[my_atom] The innards begin to boil!"
-					*/
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/M in seen)
-								M << "\blue \icon[my_atom] The [my_atom]'s power is consumed in the reaction."
+								to_chat(M, "\blue \icon[my_atom] The [my_atom]'s power is consumed in the reaction.")
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 
@@ -333,7 +341,6 @@ var/const/INGEST = 2
 			qdel(A)
 			update_total()
 			my_atom.on_reagent_change()
-			check_ignoreslow(my_atom)
 			check_gofast(my_atom)
 			check_goreallyfast(my_atom)
 			return 0
@@ -421,6 +428,11 @@ var/const/INGEST = 2
 						else R.reaction_obj(A, R.volume+volume_modifier)
 	return
 
+/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list("toxin" = 10, "beer" = 15)
+	for(var/r_id in list_reagents)
+		var/amt = list_reagents[r_id]
+		add_reagent(r_id, amt, data)
+
 /datum/reagents/proc/add_reagent(var/reagent, var/amount, var/list/data=null, var/reagtemp = 300)
 	if(!isnum(amount)) return 1
 	update_total()
@@ -435,33 +447,7 @@ var/const/INGEST = 2
 			R.volume += amount
 			update_total()
 			my_atom.on_reagent_change()
-/*
-			// mix dem viruses
-			if(R.id == "blood" && reagent == "blood")
-				if(R.data && data)
-
-					if(R.data["viruses"] || data["viruses"])
-
-						var/list/mix1 = R.data["viruses"]
-						var/list/mix2 = data["viruses"]
-
-						// Stop issues with the list changing during mixing.
-						var/list/to_mix = list()
-
-						for(var/datum/disease/advance/AD in mix1)
-							to_mix += AD
-						for(var/datum/disease/advance/AD in mix2)
-							to_mix += AD
-
-						var/datum/disease/advance/AD = Advance_Mix(to_mix)
-						if(AD)
-							var/list/preserve = list(AD)
-							for(var/D in R.data["viruses"])
-								if(!istype(D, /datum/disease/advance))
-									preserve += D
-							R.data["viruses"] = preserve
-*/
-
+			R.on_merge(data)
 			handle_reactions()
 			return 0
 
@@ -472,13 +458,10 @@ var/const/INGEST = 2
 		reagent_list += R
 		R.holder = src
 		R.volume = amount
-//					SetViruses(R, data) // Includes setting data
-		if(data) R.data = data
-		//debug
-		//world << "Adding data"
-		//for(var/D in R.data)
-		//	world << "Container data: [D] = [R.data[D]]"
-		//debug
+		if(data)
+			R.data = data
+			R.on_new(data)
+
 		update_total()
 		my_atom.on_reagent_change()
 		handle_reactions()
@@ -569,13 +552,13 @@ var/const/INGEST = 2
 /datum/reagents/proc/get_data(var/reagent_id)
 	for(var/datum/reagent/D in reagent_list)
 		if(D.id == reagent_id)
-			//world << "proffering a data-carrying reagent ([reagent_id])"
+//			to_chat(world, "proffering a data-carrying reagent ([reagent_id])")
 			return D.data
 
 /datum/reagents/proc/set_data(var/reagent_id, var/new_data)
 	for(var/datum/reagent/D in reagent_list)
 		if(D.id == reagent_id)
-			//world << "reagent data set ([reagent_id])"
+//			to_chat(world, "reagent data set ([reagent_id])")
 			D.data = new_data
 
 /datum/reagents/proc/copy_data(var/datum/reagent/current_reagent)
@@ -591,9 +574,9 @@ var/const/INGEST = 2
 	// Technically we should probably copy all data lists, but
 	// that could possibly eat up a lot of memory needlessly
 	// if most data lists are read-only.
-	if (trans_data["virus2"])
-		var/list/v = trans_data["virus2"]
-		trans_data["virus2"] = v.Copy()
+	if(trans_data["viruses"])
+		var/list/v = trans_data["viruses"]
+		trans_data["viruses"] = v.Copy()
 
 	return trans_data
 
@@ -605,6 +588,14 @@ var/const/INGEST = 2
 atom/proc/create_reagents(var/max_vol)
 	reagents = new/datum/reagents(max_vol)
 	reagents.my_atom = src
+
+/datum/reagents/proc/get_reagent_from_id(var/id)
+	var/datum/reagent/result = null
+	for(var/datum/reagent/R in reagent_list)
+		if(R.id == id)
+			result = R
+			break
+	return result
 
 /datum/reagents/Destroy()
 	. = ..()

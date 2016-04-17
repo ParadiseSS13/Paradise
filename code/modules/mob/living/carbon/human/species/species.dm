@@ -32,10 +32,12 @@
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.
 	var/cold_level_3 = 120  // Cold damage level 3 below this point.
+	var/cold_env_multiplier = 1 // Damage multiplier for being in a cold environment
 
 	var/heat_level_1 = 360  // Heat damage level 1 above this point.
 	var/heat_level_2 = 400  // Heat damage level 2 above this point.
 	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
+	var/hot_env_multiplier = 1 // Damage multiplier for being in a hot environment
 	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
@@ -53,15 +55,16 @@
 	var/brute_mod = null    // Physical damage reduction/malus.
 	var/burn_mod = null     // Burn damage reduction/malus.
 
-	var/light_dam //Light level above which species takes damage, and below which it heals.
-	var/light_effect_amp //If 0, takes/heals 1 burn and brute per tick. Otherwise, both healing and damage effects are amplified.
-
 	var/total_health = 100
-	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
+	var/punchdamagelow = 0       //lowest possible punch damage
+	var/punchdamagehigh = 9      //highest possible punch damage
+	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/list/default_genes = list()
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+
+	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
 	var/flags = 0       // Various specific features.
 	var/clothing_flags = 0 // Underwear and socks.
@@ -74,8 +77,6 @@
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
-	var/meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/human
-
 	var/base_color      //Used when setting species.
 
 	//Used in icon caching.
@@ -88,6 +89,11 @@
 
 	//Death vars.
 	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
+	var/list/suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their thumbs into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!")
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
@@ -95,16 +101,19 @@
 	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
+	var/scream_verb = "screams"
+	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
+	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
 
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
-		"heart" =    /obj/item/organ/heart,
-		"lungs" =    /obj/item/organ/lungs,
-		"liver" =    /obj/item/organ/liver,
-		"kidneys" =  /obj/item/organ/kidneys,
-		"brain" =    /obj/item/organ/brain,
-		"appendix" = /obj/item/organ/appendix,
-		"eyes" =     /obj/item/organ/eyes
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes
 		)
 	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/list/has_limbs = list(
@@ -121,11 +130,12 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
 	var/cyborg_type = "Cyborg"
+	var/list/proc/species_abilities = list()
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
-		vision_organ = "eyes"
+		vision_organ = /obj/item/organ/internal/eyes
 
 	unarmed = new unarmed_type()
 
@@ -135,19 +145,21 @@
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 
+
+	for(var/obj/item/organ/internal/iorgan in H.internal_organs)
+		if(iorgan in H.internal_organs)
+			qdel(iorgan)
+
 	for(var/obj/item/organ/organ in H.contents)
-		if((organ in H.organs) || (organ in H.internal_organs))
+		if(organ in H.organs)
 			qdel(organ)
 
 	if(H.organs)                  H.organs.Cut()
-	if(H.internal_organs)         H.internal_organs.Cut()
 	if(H.organs_by_name)          H.organs_by_name.Cut()
-	if(H.internal_organs_by_name) H.internal_organs_by_name.Cut()
 
 	H.organs = list()
 	H.internal_organs = list()
 	H.organs_by_name = list()
-	H.internal_organs_by_name = list()
 
 	for(var/limb_type in has_limbs)
 		var/list/organ_data = has_limbs[limb_type]
@@ -155,9 +167,12 @@
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
-	for(var/organ in has_organ)
-		var/organ_type = has_organ[organ]
-		H.internal_organs_by_name[organ] = new organ_type(H,1)
+	for(var/index in has_organ)
+		var/organ = has_organ[index]
+		H.internal_organs |= new organ(H)
+
+	for(var/obj/item/organ/internal/I in H.internal_organs)
+		I.insert(H)
 
 	for(var/name in H.organs_by_name)
 		H.organs |= H.organs_by_name[name]
@@ -273,44 +288,72 @@
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
-				H << "\red You feel your face freezing and an icicle forming in your lungs!"
+				to_chat(H, "\red You feel your face freezing and an icicle forming in your lungs!")
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				H << "\red You feel your face burning and a searing heat in your lungs!"
+				to_chat(H, "\red You feel your face burning and a searing heat in your lungs!")
 
 
 
 		switch(breath.temperature)
 			if(-INFINITY to cold_level_3)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(cold_level_3 to cold_level_2)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(cold_level_2 to cold_level_1)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(heat_level_1 to heat_level_2)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 
 			if(heat_level_2 to heat_level_3_breathe)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 
 			if(heat_level_3_breathe to INFINITY)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
-	handle_dna(C)
+	grant_abilities(C)
 	return
 
-/datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init.
+/datum/species/proc/grant_abilities(var/mob/living/carbon/human/H)
+	for(var/proc/ability in species_abilities)
+		H.verbs += ability
+	return
+
+/datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
+	if(H.butcher_results)//clear it out so we don't butcher a actual human.
+		H.butcher_results = null
+	remove_abilities(H)
+	return
+
+/datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
+	for (var/proc/ability in species_abilities)
+		H.verbs -= ability
+	return
+
+// Do species-specific reagent handling here
+// Return 1 if it should do normal processing too
+// Return 0 if it shouldn't deplete and do its normal effect
+// Other return values will cause weird badness
+/datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	return 1
+
+// For special snowflake species effects
+// (Slime People changing color based on the reagents they consume)
+/datum/species/proc/handle_life(var/mob/living/carbon/human/H)
+	return 1
+
+/datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
 // Used for species-specific names (Vox, etc)
@@ -341,7 +384,7 @@
 
 /datum/unarmed_attack
 	var/attack_verb = list("attack")	// Empty hand hurt intent verb.
-	var/damage = 0						// Extra empty hand attack damage.
+	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = 0
@@ -352,7 +395,6 @@
 
 /datum/unarmed_attack/punch/weak
 	attack_verb = list("flail")
-	damage = 1
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
@@ -366,141 +408,155 @@
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
-	damage = 6	//they're huge! they should do a little more damage, i'd even go for 15-20 maybe...
+	damage = 6
 
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return 0
 
 /datum/species/proc/handle_vision(mob/living/carbon/human/H)
-	if( H.stat == DEAD )
+	if(H.stat == DEAD)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		H.see_in_dark = 8
-		if(!H.druggy)		H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else
-		H.sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		if(!H.druggy)
+			H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		return
 
-		H.see_in_dark = darksight //set their variables to default, modify them later
-		H.see_invisible = SEE_INVISIBLE_LIVING
+	H.sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
-		if(H.mind && H.mind.vampire)
-			if(VAMP_VISION in H.mind.vampire.powers && !(VAMP_FULL in H.mind.vampire.powers))
-				H.sight |= SEE_MOBS
+	H.see_in_dark = darksight //set their variables to default, modify them later
+	H.see_invisible = SEE_INVISIBLE_LIVING
 
-			else if(VAMP_FULL in H.mind.vampire.powers)
-				H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-				H.see_in_dark = 8
-				H.see_invisible = SEE_INVISIBLE_MINIMUM
-
-
-		if(XRAY in H.mutations)
+	if(H.mind && H.mind.vampire)
+		if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark = 8
-
 			H.see_invisible = SEE_INVISIBLE_MINIMUM
+		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
+			H.sight |= SEE_MOBS
 
 
-		if(H.seer == 1)
-			var/obj/effect/rune/R = locate() in H.loc
-			if(R && R.word1 == cultwords["see"] && R.word2 == cultwords["hell"] && R.word3 == cultwords["join"])
-				H.see_invisible = SEE_INVISIBLE_OBSERVER
+	if(XRAY in H.mutations)
+		H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+		H.see_in_dark = 8
+
+		H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+
+	if(H.seer == 1)
+		var/obj/effect/rune/R = locate() in H.loc
+		if(R && R.word1 == cultwords["see"] && R.word2 == cultwords["hell"] && R.word3 == cultwords["join"])
+			H.see_invisible = SEE_INVISIBLE_OBSERVER
+		else
+			H.see_invisible = SEE_INVISIBLE_LIVING
+			H.seer = 0
+
+	//This checks how much the mob's eyewear impairs their vision
+	if(H.tinttotal >= TINT_IMPAIR)
+		if(tinted_weldhelh)
+			H.overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+		if(H.tinttotal >= TINT_BLIND)
+			H.eye_blind = max(H.eye_blind, 1)
+	else
+		H.clear_fullscreen("tint")
+
+	var/minimum_darkness_view = INFINITY
+	if(H.glasses)
+		if(istype(H.glasses, /obj/item/clothing/glasses))
+			var/obj/item/clothing/glasses/G = H.glasses
+			H.sight |= G.vision_flags
+
+			if(G.darkness_view)
+				H.see_in_dark = G.darkness_view
+				minimum_darkness_view = G.darkness_view
+
+			if(!G.see_darkness)
+				H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+	if(H.head)
+		if(istype(H.head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = H.head
+			H.sight |= hat.vision_flags
+
+			if(hat.darkness_view && hat.darkness_view < minimum_darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
+				H.see_in_dark = hat.darkness_view
+
+			if(!hat.see_darkness)
+				H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+			//switch(hat.HUDType)
+			//	if(SECHUD)
+			//		process_sec_hud(H,1)
+			//	if(MEDHUD)
+			//		process_med_hud(H,1)
+			//	if(ANTAGHUD)
+			//		process_antag_hud(H)
+
+	if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
+		var/obj/item/weapon/rig/rig = H.back
+		if(rig.visor)
+			if(!rig.helmet || (H.head && rig.helmet == H.head))
+				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
+					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
+					if(istype(G))
+						H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
+						if(G.vision_flags)		// MESONS
+							H.sight |= G.vision_flags
+
+						if(!G.see_darkness)
+							H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+						//switch(G.HUDType)
+						//	if(SECHUD)
+						//		process_sec_hud(H,1)
+						//	if(MEDHUD)
+						//		process_med_hud(H,1)
+						//	if(ANTAGHUD)
+						//		process_antag_hud(H)
+
+	if(H.vision_type)
+		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)
+		H.see_invisible = H.vision_type.see_invisible
+		if(H.vision_type.light_sensitive)
+			H.weakeyes = 1
+		H.sight |= H.vision_type.sight_flags
+
+	if(H.see_override)	//Override all
+		H.see_invisible = H.see_override
+
+	if(!H.client)
+		return 1
+
+	if(H.blinded || H.eye_blind)
+		H.overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+		//H.throw_alert("blind", /obj/screen/alert/blind)
+	else
+		H.clear_fullscreen("blind")
+		//H.clear_alert("blind")
+
+
+	if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
+		if(H.glasses)					//to every /obj/item
+			var/obj/item/clothing/glasses/G = H.glasses
+			if(G.prescription)
+				H.clear_fullscreen("nearsighted")
 			else
-				H.see_invisible = SEE_INVISIBLE_LIVING
-				H.seer = 0
+				H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+		else
+			H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+	else
+		H.clear_fullscreen("nearsighted")
 
-		//This checks how much the mob's eyewear impairs their vision
-		if(H.tinttotal >= TINT_IMPAIR)
-			if(tinted_weldhelh)
-				if(H.tinttotal >= TINT_BLIND)
-					H.eye_blind = max(H.eye_blind, 1)
-				if(H.client)
-					H.client.screen += global_hud.darkMask
+	if(H.eye_blurry)
+		H.overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+	else
+		H.clear_fullscreen("blurry")
 
-		var/minimum_darkness_view = INFINITY
-		if(H.glasses)
-			if(istype(H.glasses, /obj/item/clothing/glasses))
-				var/obj/item/clothing/glasses/G = H.glasses
-				H.sight |= G.vision_flags
-
-				if(G.darkness_view)
-					H.see_in_dark = G.darkness_view
-					minimum_darkness_view = G.darkness_view
-
-				if(!G.see_darkness)
-					H.see_invisible = SEE_INVISIBLE_MINIMUM
-
-				//switch(G.HUDType)
-				//	if(SECHUD)
-				//		process_sec_hud(H,1)
-				//	if(MEDHUD)
-				//		process_med_hud(H,1)
-				//	if(ANTAGHUD)
-				//		process_antag_hud(H)
-
-		if(H.head)
-			if(istype(H.head, /obj/item/clothing/head))
-				var/obj/item/clothing/head/hat = H.head
-				H.sight |= hat.vision_flags
-
-				if(hat.darkness_view && hat.darkness_view < minimum_darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
-					H.see_in_dark = hat.darkness_view
-
-				if(!hat.see_darkness)
-					H.see_invisible = SEE_INVISIBLE_MINIMUM
-
-				//switch(hat.HUDType)
-				//	if(SECHUD)
-				//		process_sec_hud(H,1)
-				//	if(MEDHUD)
-				//		process_med_hud(H,1)
-				//	if(ANTAGHUD)
-				//		process_antag_hud(H)
-
-		if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
-			var/obj/item/weapon/rig/rig = H.back
-			if(rig.visor)
-				if(!rig.helmet || (H.head && rig.helmet == H.head))
-					if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
-						var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
-						if(istype(G))
-							H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
-							if(G.vision_flags)		// MESONS
-								H.sight |= G.vision_flags
-
-							if(!G.see_darkness)
-								H.see_invisible = SEE_INVISIBLE_MINIMUM
-
-							//switch(G.HUDType)
-							//	if(SECHUD)
-							//		process_sec_hud(H,1)
-							//	if(MEDHUD)
-							//		process_med_hud(H,1)
-							//	if(ANTAGHUD)
-							//		process_antag_hud(H)
-
-		if(H.vision_type)
-			H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)
-			H.see_invisible = H.vision_type.see_invisible
-			if(H.vision_type.light_sensitive)
-				H.weakeyes = 1
-			H.sight |= H.vision_type.sight_flags
-
-		if(H.see_override)	//Override all
-			H.see_invisible = H.see_override
-
-		if(H.blind)
-			if(H.blinded)		H.blind.layer = 18
-			else				H.blind.layer = 0
-
-		if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
-			if(H.glasses)					//to every /obj/item
-				var/obj/item/clothing/glasses/G = H.glasses
-				if(!G.prescription)
-					H.client.screen += global_hud.vimpaired
-			else
-				H.client.screen += global_hud.vimpaired
-
-		if(H.eye_blurry)			H.client.screen += global_hud.blurry
-		if(H.druggy)				H.client.screen += global_hud.druggy
+	if(H.druggy)
+		H.overlay_fullscreen("high", /obj/screen/fullscreen/high)
+		//H.throw_alert("high", /obj/screen/alert/high)
+	else
+		H.clear_fullscreen("high")
+		//H.clear_alert("high")
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(H.healths)
@@ -606,6 +662,7 @@
 Returns the path corresponding to the corresponding organ
 It'll return null if the organ doesn't correspond, so include null checks when using this!
 */
+//Fethas Todo:Do i need to redo this?
 /datum/species/proc/return_organ(var/organ_slot)
 	if(!(organ_slot in has_organ))
 		return null

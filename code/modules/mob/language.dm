@@ -19,10 +19,11 @@
 	var/list/syllables               // Used when scrambling text for a non-speaker.
 	var/list/space_chance = 55       // Likelihood of getting a space in the random scramble string.
 	var/follow = 0					 // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
+	var/english_names = 0			 // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
 
 /datum/language/proc/get_random_name(var/gender, name_count=2, syllable_count=4)
-	if(!syllables || !syllables.len)
+	if(!syllables || !syllables.len || english_names)
 		if(gender==FEMALE)
 			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
 		else
@@ -103,11 +104,11 @@
 	for(var/mob/player in player_list)
 		if(istype(player,/mob/dead) && follow)
 			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [format_message(message, get_spoken_verb(message))]</span></i>"
-			player << msg_dead
+			to_chat(player, msg_dead)
 			continue
 
 		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player)))
-			player << msg
+			to_chat(player, msg)
 
 /datum/language/proc/check_special_condition(var/mob/other)
 	return 1
@@ -283,6 +284,7 @@
 	key = "9"
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
+	english_names = 1
 
 //TODO flag certain languages to use the mob-type specific say_quote and then get rid of these.
 /datum/language/common/get_spoken_verb(var/msg_end)
@@ -302,6 +304,7 @@
 	key = "1"
 	flags = RESTRICTED
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
+	english_names = 1
 
 /datum/language/human/get_spoken_verb(var/msg_end)
 	switch(msg_end)
@@ -363,7 +366,7 @@
 	var/mob/living/carbon/M = other
 	if(!istype(M))
 		return 1
-	if(locate(/obj/item/organ/wryn/hivenode) in M.internal_organs)
+	if(locate(/obj/item/organ/internal/wryn/hivenode) in M.internal_organs)
 		return 1
 
 	return 0

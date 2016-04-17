@@ -43,9 +43,9 @@
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
 	if(isrobot(user))
-		user << "<span class='notice'>You free up your module.</span>"
+		to_chat(user, "<span class='notice'>You free up your module.</span>")
 	else
-		user << "<span class='notice'>You are now carrying the [name] with one hand.</span>"
+		to_chat(user, "<span class='notice'>You are now carrying the [name] with one hand.</span>")
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
 	var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
@@ -58,10 +58,10 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.species.is_small)
-			user << "<span class='warning'>It's too heavy for you to wield fully.</span>"
+			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
 			return
 	if(user.get_inactive_hand())
-		user << "<span class='warning'>You need your other hand to be empty!</span>"
+		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return
 	wielded = 1
 	force = force_wielded
@@ -71,9 +71,9 @@
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
 	if(isrobot(user))
-		user << "<span class='notice'>You dedicate your module to [name].</span>"
+		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
 	else
-		user << "<span class='notice'>You grab the [name] with both hands.</span>"
+		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
 	if (wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
@@ -85,7 +85,7 @@
 /obj/item/weapon/twohanded/mob_can_equip(mob/M, slot)
 	//Cannot equip wielded items.
 	if(wielded)
-		M << "<span class='warning'>Unwield the [name] first!</span>"
+		to_chat(M, "<span class='warning'>Unwield the [name] first!</span>")
 		return 0
 	return ..()
 
@@ -138,7 +138,7 @@
 
 /obj/item/weapon/twohanded/required/mob_can_equip(M as mob, slot)
 	if(wielded)
-		M << "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>"
+		to_chat(M, "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>")
 		return 0
 	return ..()
 
@@ -224,7 +224,7 @@
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
 	..()
 	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
-		user << "\red You twirl around a bit before losing your balance and impaling yourself on the [src]."
+		to_chat(user, "\red You twirl around a bit before losing your balance and impaling yourself on the [src].")
 		user.take_organ_damage(20,25)
 		return
 	if((wielded) && prob(50))
@@ -268,11 +268,11 @@
 	if(istype(W, /obj/item/device/multitool))
 		if(hacked == 0)
 			hacked = 1
-			user << "<span class='warning'>2XRNBW_ENGAGE</span>"
+			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
 			blade_color = "rainbow"
 			update_icon()
 		else
-			user << "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>"
+			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
 
 //spears
 /obj/item/weapon/twohanded/spear
@@ -301,7 +301,7 @@
 //Putting heads on spears
 /obj/item/weapon/organ/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
 	if(istype(W, /obj/item/weapon/twohanded/spear))
-		user << "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>"
+		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
 		var/matrix/M = matrix()
 		src.transform = M
@@ -316,7 +316,7 @@
 
 /obj/item/weapon/twohanded/spear/attackby(var/obj/item/I, var/mob/living/user)
 	if(istype(I, /obj/item/weapon/organ/head))
-		user << "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>"
+		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
 		var/matrix/M = matrix()
 		I.transform = M
@@ -466,7 +466,7 @@
 			vortex(target,user)
 
 /obj/item/weapon/twohanded/mjollnir
-	name = "Mjollnir"
+	name = "Mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir0"
 	flags = CONDUCT
@@ -474,7 +474,7 @@
 	no_embed = 1
 	force = 5
 	force_unwielded = 5
-	force_wielded = 20
+	force_wielded = 25
 	throwforce = 30
 	throw_range = 7
 	w_class = 5
@@ -485,24 +485,29 @@
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread()
 	s.set_up(5, 1, target.loc)
 	s.start()
-	target.take_organ_damage(0,30)
 	target.visible_message("<span class='danger'>[target.name] was shocked by the [src.name]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
-		"<span class='danger'>You hear a heavy electrical crack.</span>")
+		"<span class='italics'>You hear a heavy electrical crack!</span>")
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 	return
 
 /obj/item/weapon/twohanded/mjollnir/attack(mob/M as mob, mob/user as mob)
 	..()
-	spawn(0)
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
 		playsound(src.loc, "sparks", 50, 1)
 		if(istype(M, /mob/living))
-			M.Stun(10)
+			M.Stun(3)
 			shock(M)
+
+/obj/item/weapon/twohanded/mjollnir/throw_impact(atom/target)
+	. = ..()
+	if(istype(target, /mob/living))
+		var/mob/living/L = target
+		L.Stun(3)
+		shock(L)
 
 /obj/item/weapon/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"

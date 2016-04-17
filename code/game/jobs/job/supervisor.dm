@@ -38,11 +38,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		captain_announcement.Announce("All hands, captain [H.real_name] on deck!")
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
+		captain_announcement.Announce("All hands, captain [H.real_name] on deck!")
 		callHook("captain_spawned", list("captain" = H))
 		return 1
 
@@ -137,9 +134,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1
 
@@ -187,9 +181,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1
 
@@ -231,9 +222,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1
 
@@ -274,8 +262,5 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1

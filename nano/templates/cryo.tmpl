@@ -9,7 +9,7 @@
 			<div class="line">Cell Unoccupied</div>
 		{{else}}
 			<div class="line">
-				{{:data.occupant.name}}&nbsp;=>&nbsp;
+				{{:data.occupant.name}}&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;
 				{{if data.occupant.stat == 0}}
 					<span class="good">Conscious</span>
 				{{else data.occupant.stat == 1}}
@@ -31,25 +31,25 @@
 				</div>
 			
 				<div class="line">
-					<div class="statusLabel">=&gt; Brute Damage:</div>
+					<div class="statusLabel"><i class="fa fa-arrow-right"></i> Brute Damage:</div>
 					{{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth, 'bad')}}
 					<div class="statusValue">{{:helper.round(data.occupant.bruteLoss)}}</div>
 				</div>
 			
 				<div class="line">
-					<div class="statusLabel">=&gt; Resp. Damage:</div>
+					<div class="statusLabel"><i class="fa fa-arrow-right"></i> Resp. Damage:</div>
 					{{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth, 'bad')}}
 					<div class="statusValue">{{:helper.round(data.occupant.oxyLoss)}}</div>
 				</div>
 			
 				<div class="line">
-					<div class="statusLabel">=&gt; Toxin Damage:</div>
+					<div class="statusLabel"><i class="fa fa-arrow-right"></i> Toxin Damage:</div>
 					{{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth, 'bad')}}
 					<div class="statusValue">{{:helper.round(data.occupant.toxLoss)}}</div>
 				</div>
 			
 				<div class="line">
-					<div class="statusLabel">=&gt; Burn Severity:</div>
+					<div class="statusLabel"><i class="fa fa-arrow-right"></i> Burn Severity:</div>
 					{{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad')}}
 					<div class="statusValue">{{:helper.round(data.occupant.fireLoss)}}</div>
 				</div>

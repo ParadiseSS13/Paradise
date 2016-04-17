@@ -18,6 +18,12 @@
 	heat_level_2 = 400  // Heat damage level 2 above this point.
 	heat_level_3 = 500  // Heat damage level 3 above this point.
 
+	suicide_messages = list(
+		"is twisting their own neck!",
+		"is letting some O2 in!",
+		"realizes the existential problem of being made out of plasma!",
+		"shows their true colors, which happens to be the color of plasma!")
+
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
 		message = replacetext(message, "s", stutter("ss"))
@@ -106,7 +112,7 @@
 	H.equip_or_collect(new suit(H), slot_wear_suit)
 	H.equip_or_collect(new helm(H), slot_head)
 	H.equip_or_collect(new/obj/item/weapon/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
-	H << "<span class='notice'>You are now running on plasma internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable.</span>"
+	to_chat(H, "<span class='notice'>You are now running on plasma internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable.</span>")
 	H.internal = H.get_item_by_slot(tank_slot)
 	if (H.internals)
 		H.internals.icon_state = "internal1"
@@ -185,10 +191,10 @@
 			return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
-				src << "\red You feel your face freezing and an icicle forming in your lungs!"
+				to_chat(src, "\red You feel your face freezing and an icicle forming in your lungs!")
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				src << "\red You feel your face burning and a searing heat in your lungs!"
+				to_chat(src, "\red You feel your face burning and a searing heat in your lungs!")
 
 		switch(breath.temperature)
 			if(-INFINITY to cold_level_3)
@@ -216,7 +222,7 @@
 				H.fire_alert = max(H.fire_alert, 2)
 
 	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
-		H << "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>"
+		to_chat(H, "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>")
 		H.adjust_fire_stacks(0.5)
 		H.IgniteMob()
 

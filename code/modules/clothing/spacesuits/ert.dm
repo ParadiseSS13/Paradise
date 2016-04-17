@@ -17,11 +17,11 @@
 		camera.network = list("ERT")
 		cameranet.removeCamera(camera)
 		camera.c_tag = user.name
-		user << "\blue User scanned as [camera.c_tag]. Camera activated."
+		to_chat(user, "\blue User scanned as [camera.c_tag]. Camera activated.")
 
 /obj/item/clothing/head/helmet/space/rig/ert/examine(mob/user)
 	if(..(user, 1))
-		user << "This helmet has a built-in camera. It's [camera ? "" : "in"]active."
+		to_chat(user, "This helmet has a built-in camera. It's [camera ? "" : "in"]active.")
 
 /obj/item/clothing/suit/space/rig/ert
 	name = "emergency response team suit"
@@ -101,3 +101,24 @@
 	name = "emergency response team janitor suit"
 	desc = "A suit worn by the janitorial of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_janitor"
+
+/obj/item/clothing/head/helmet/space/rig/ert/paranormal
+	name = "paranormal response unit helmet"
+	desc = "A helmet worn by those who deal with paranormal threats for a living."
+	icon_state = "rig0-ert_paranormal"
+	item_color = "ert_paranormal"
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	sprite_sheets = null
+
+/obj/item/clothing/suit/space/rig/ert/paranormal
+	name = "paranormal response team suit"
+	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats."
+	icon_state = "knight_grey"
+	item_state = "knight_grey"
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	sprite_sheets = null
+
+
+/obj/item/clothing/suit/space/rig/ert/paranormal/New()
+	..()
+	new /obj/item/weapon/nullrod(src)

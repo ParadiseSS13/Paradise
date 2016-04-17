@@ -14,7 +14,7 @@ var/list/heartstopper = list("capulettium", "capulettium_plus") //this stops the
 var/list/cheartstopper = list() //this stops the heart when overdose is met -- c = conditional
 
 var/list/restricted_camera_networks = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
-	"CentCom",
+	"CentComm",
 	"ERT",
 	"NukeOps",
 	"Thunderdome",
@@ -24,3 +24,6 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"UO71R",
 	"Xeno"
 	)
+
+var/list/map_templates = list()
+var/list/mineral_turfs = list()

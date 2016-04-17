@@ -41,6 +41,7 @@
 	origin_tech = "materials=2;biotech=3;powerstorage=3"
 	modifystate = "floramut"
 	var/mode = 0 //0 = mutate, 1 = yield boost
+	needs_permit = 0
 
 	self_recharge = 1
 
@@ -49,13 +50,13 @@
 		if(0)
 			mode = 1
 			charge_cost = 1000
-			user << "\red The [src.name] is now set to increase yield."
+			to_chat(user, "\red The [src.name] is now set to increase yield.")
 			projectile_type = "/obj/item/projectile/energy/florayield"
 			modifystate = "florayield"
 		if(1)
 			mode = 0
 			charge_cost = 1000
-			user << "\red The [src.name] is now set to induce mutations."
+			to_chat(user, "\red The [src.name] is now set to induce mutations.")
 			projectile_type = "/obj/item/projectile/energy/floramut"
 			modifystate = "floramut"
 	update_icon()
@@ -116,11 +117,11 @@ obj/item/weapon/gun/energy/staff/focus
 	attack_self(mob/living/user as mob)
 		if(projectile_type == "/obj/item/projectile/forcebolt")
 			charge_cost = 200
-			user << "\red The [src.name] will now strike a small area."
+			to_chat(user, "\red The [src.name] will now strike a small area.")
 			projectile_type = "/obj/item/projectile/forcebolt/strong"
 		else
 			charge_cost = 100
-			user << "\red The [src.name] will now strike only a single person."
+			to_chat(user, "\red The [src.name] will now strike only a single person.")
 			projectile_type = "/obj/item/projectile/forcebolt"
 	*/
 
@@ -140,7 +141,7 @@ obj/item/weapon/gun/energy/staff/focus
 	icon_state = "toxgun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	w_class = 3.0
-	origin_tech = "combat=5;plasmatech=4"
+	origin_tech = "combat=4;plasmatech=3"
 	projectile_type = "/obj/item/projectile/energy/plasma"
 
 /obj/item/weapon/gun/energy/sniperrifle
@@ -173,10 +174,10 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	set name = "Use Sniper Scope"
 	set popup_menu = 0
 	if(usr.stat || !(istype(usr,/mob/living/carbon/human)))
-		usr << "You are unable to focus down the scope of the rifle."
+		to_chat(usr, "You are unable to focus down the scope of the rifle.")
 		return
 	if(!zoom && usr.get_active_hand() != src)
-		usr << "You are too distracted to look down the scope, perhaps if it was in your active hand this might work better"
+		to_chat(usr, "You are too distracted to look down the scope, perhaps if it was in your active hand this might work better")
 		return
 
 	if(usr.client.view == world.view)
@@ -190,7 +191,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 		if(!usr.hud_used.hud_shown)
 			usr.button_pressed_F12(1)
 		zoom = 0
-	usr << "<font color='[zoom?"blue":"red"]'>Zoom mode [zoom?"en":"dis"]abled.</font>"
+	to_chat(usr, "<font color='[zoom?"blue":"red"]'>Zoom mode [zoom?"en":"dis"]abled.</font>")
 
 
 /obj/item/weapon/gun/energy/kinetic_accelerator
@@ -202,17 +203,15 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
 	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
+	needs_permit = 0 // Aparently these are safe to carry? I'm sure Golliaths would disagree.
 	fire_delay = 16 //Because guncode is bad and you can bug the reload for rapid fire otherwise.
-	var/overheat = 0
-	var/overheat_time = 16
-	var/recent_reload = 1
+	var/recently_fired = 0
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/super
 	name = "super-kinetic accelerator"
 	desc = "An upgraded, superior version of the proto-kinetic accelerator."
 	icon_state = "kineticgun_u"
 	projectile_type = "/obj/item/projectile/kinetic/super"
-	overheat_time = 15
 	fire_delay = 15
 	origin_tech = "combat=3;powerstorage=2"
 
@@ -221,7 +220,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	desc = "An upgraded, even more superior version of the proto-kinetic accelerator."
 	icon_state = "kineticgun_h"
 	projectile_type = "/obj/item/projectile/kinetic/hyper"
-	overheat_time = 13
 	fire_delay = 13
 	origin_tech = "combat=4;powerstorage=3"
 
@@ -229,26 +227,23 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	flags = NODROP
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/Fire()
-	overheat = 1
-	spawn(overheat_time)
-		overheat = 0
-		recent_reload = 0
+	if(!recently_fired)
+		recently_fired = 1
+		spawn(fire_delay)
+			reload(usr)
 	..()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/emp_act(severity)
 	return
 
-/obj/item/weapon/gun/energy/kinetic_accelerator/attack_self(var/mob/living/user/L)
-	if(overheat || recent_reload)
-		return
+/obj/item/weapon/gun/energy/kinetic_accelerator/proc/reload(mob/living/user)
 	power_supply.give(5000)
 	if(!silenced)
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	else
-		usr << "<span class='warning'>You silently charge [src].<span>"
-	recent_reload = 1
+	else if(user)
+		to_chat(usr, "<span class='warning'>You silently charge [src].<span>")
+	recently_fired = 0
 	update_icon()
-	return
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
@@ -261,7 +256,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	silenced = 1
 	projectile_type = "/obj/item/projectile/energy/bolt"
 	fire_sound = 'sound/weapons/Genhit.ogg'
-	overheat_time = 20
 	fire_delay = 20
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
@@ -298,18 +292,18 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 /obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)
 	..(user)
 	if(power_supply)
-		user <<"<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>"
+		to_chat(user, "<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>")
 
 /obj/item/weapon/gun/energy/plasmacutter/attackby(var/obj/item/A, var/mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
 		power_supply.give(10000)
-		user << "<span class='notice'>You insert [A] in [src], recharging it.</span>"
+		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else if(istype(A, /obj/item/weapon/ore/plasma))
 		qdel(A)
 		power_supply.give(5000)
-		user << "<span class='notice'>You insert [A] in [src], recharging it.</span>"
+		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
 		..()
 
@@ -382,12 +376,12 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	switch(mode)
 		if(0)
 			mode = 1
-			user << "<span class='warning'>[name] is now set to orange.</span>"
+			to_chat(user, "<span class='warning'>[name] is now set to orange.</span>")
 			projectile_type = "/obj/item/projectile/beam/wormhole/orange"
 			modifystate = "wormhole_projector_orange"
 		if(1)
 			mode = 0
-			user << "<span class='warning'>[name] is now set to blue.</span>"
+			to_chat(user, "<span class='warning'>[name] is now set to blue.</span>")
 			projectile_type = "/obj/item/projectile/beam/wormhole"
 			modifystate = "wormhole_projector"
 	update_icon()

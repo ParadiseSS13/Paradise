@@ -57,11 +57,11 @@
 	if (istype(W, /obj/item/stack/rods))
 		if (W:amount >= 4)
 			new /obj/item/weapon/table_parts/reinforced( user.loc )
-			user << "\blue You reinforce the [name]."
+			to_chat(user, "\blue You reinforce the [name].")
 			W:use(4)
 			qdel(src)
 		else if (W:amount < 4)
-			user << "\red You need at least four rods to do this."
+			to_chat(user, "\red You need at least four rods to do this.")
 
 /obj/item/weapon/table_parts/attack_self(mob/user as mob)
 	new /obj/structure/table( user.loc )

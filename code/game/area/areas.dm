@@ -322,14 +322,14 @@
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))	//split off the white noise from the rest of the ambience because of annoyance complaints - Kluys
 		L.client.ambience_playing = 1
-		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)
+		to_chat(L, sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2))
 	else if (L && L.client && !(L.client.prefs.sound & SOUND_BUZZ)) L.client.ambience_playing = 0
 
 	if(prob(35) && !newarea.media_source && L && L.client && (L.client.prefs.sound & SOUND_AMBIENCE))
 		var/sound = pick(ambientsounds)
 
 		if(!L.client.played)
-			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
+			to_chat(L, sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1))
 			L.client.played = 1
 			spawn(600)			//ewww - this is very very bad
 				if(L.&& L.client)
@@ -354,21 +354,15 @@
 		return
 
 	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == "run")).
-		//M.AdjustStunned(5)
-		//M.AdjustWeakened(5)
-
-		if(M.stunned <= 5) M.stunned = 5
-		if(M.weakened <= 5) M.weakened = 5
+		M.Stun(5)
+		M.Weaken(5)
 
 	else if (istype(M,/mob/living/carbon/human/))
-		//M.AdjustStunned(2)
-		//M.AdjustWeakened(2)
-
-		if(M.stunned <= 2) M.stunned = 2
-		if(M.weakened <= 2) M.weakened = 2
+		M.Stun(2)
+		M.Weaken(2)
 
 
-	M << "Gravity!"
+	to_chat(M, "Gravity!")
 
 /proc/has_gravity(atom/AT, turf/T)
 	if(!T)

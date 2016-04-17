@@ -37,6 +37,7 @@
 	dat += "<A href='?src=\ref[src];snowfield=1'>((Snow Field)</font>)</A><BR>"
 	dat += "<A href='?src=\ref[src];theatre=1'>((Theatre)</font>)</A><BR>"
 	dat += "<A href='?src=\ref[src];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
+	dat += "<A href='?src=\ref[src];knightarena=1'>((Knight Arena)</font>)</A><BR>"
 //		dat += "<A href='?src=\ref[src];turnoff=1'>((Shutdown System)</font>)</A><BR>"
 
 	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
@@ -120,6 +121,11 @@
 		if(target)
 			loadProgram(target)
 
+	else if(href_list["knightarena"])
+		target = locate(/area/holodeck/source_knightarena)
+		if(target)
+			loadProgram(target)
+
 	else if(href_list["turnoff"])
 		target = locate(/area/holodeck/source_plating)
 		if(target)
@@ -142,7 +148,7 @@
 		emagged = !emagged
 		if(emagged)
 			message_admins("[key_name_admin(usr)] overrode the holodeck's safeties")
-			log_game("[key_name(usr)] overrided the holodeck's safeties")
+			log_game("[key_name(usr)] overrode the holodeck's safeties")
 		else
 			message_admins("[key_name_admin(usr)] restored the holodeck's safeties")
 			log_game("[key_name(usr)] restored the holodeck's safeties")
@@ -158,8 +164,8 @@
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "\blue You vastly increase projector power and override the safety and security protocols."
-		user << "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator."
+		to_chat(user, "\blue You vastly increase projector power and override the safety and security protocols.")
+		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		log_game("[key_name(usr)] emagged the Holodeck Control Computer")
 		src.updateUsrDialog()
 
@@ -290,7 +296,7 @@
 	holographic_items = A.copy_contents_to(linkedholodeck , 1)
 
 	if(emagged)
-		for(var/obj/item/weapon/holo/esword/H in linkedholodeck)
+		for(var/obj/item/weapon/holo/H in linkedholodeck)
 			H.damtype = BRUTE
 
 	spawn(30)
@@ -361,7 +367,7 @@
 		return ..()
 
 	if (istype(W, /obj/item/weapon/wrench))
-		user << "<span class='warning'>It's a holotable! There are no bolts!</span>"
+		to_chat(user, "<span class='warning'>It's a holotable! There are no bolts!</span>")
 		return
 
 /obj/structure/table/holotable/wood
@@ -401,11 +407,33 @@
 
 /obj/structure/rack/holorack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
-		user << "<span class='warning'>It's a holorack! There are no bolts!</span>"
+		to_chat(user, "<span class='warning'>It's a holorack! There are no bolts!</span>")
 		return
 
 /obj/item/weapon/holo
 	damtype = STAMINA
+
+/obj/item/weapon/holo/claymore
+	name = "claymore"
+	desc = "What are you standing around staring at this for? Get to killing!"
+	icon_state = "claymore"
+	item_state = "claymore"
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	force = 40
+	throwforce = 10
+	w_class = 4
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+
+/obj/item/weapon/holo/claymore/blue
+	icon_state = "claymoreblue"
+	item_state = "claymoreblue"
+
+/obj/item/weapon/holo/claymore/red
+	icon_state = "claymorered"
+	item_state = "claymorered"
+
+/obj/item/weapon/holo/claymore/IsShield()
+	return 1
 
 /obj/item/weapon/holo/esword
 	desc = "May the force be within you. Sorta"
@@ -439,13 +467,13 @@
 		icon_state = "sword[item_color]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
-		user << "<span class='notice'>[src] is now active.</span>"
+		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = 3
 		icon_state = "sword0"
 		w_class = 2
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
-		user << "<span class='notice'>[src] can now be concealed.</span>"
+		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -475,7 +503,7 @@
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if(G.state<2)
-			user << "<span class='warning'>You need a better grip to do that!</span>"
+			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return
 		G.affecting.loc = src.loc
 		G.affecting.Weaken(5)
@@ -517,15 +545,15 @@
 	power_channel = ENVIRON
 
 /obj/machinery/readybutton/attack_ai(mob/user as mob)
-	user << "The station AI is not to interact with these devices"
+	to_chat(user, "The station AI is not to interact with these devices")
 	return
 
 /obj/machinery/readybutton/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	user << "The device is a solid button, there's nothing you can do with it!"
+	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	if(user.stat || stat & (NOPOWER|BROKEN))
-		user << "This device is not powered."
+		to_chat(user, "This device is not powered.")
 		return
 
 	currentarea = get_area(src.loc)
@@ -533,7 +561,7 @@
 		qdel(src)
 
 	if(eventstarted)
-		usr << "The event has already begun!"
+		to_chat(usr, "The event has already begun!")
 		return
 
 	ready = !ready
@@ -563,4 +591,4 @@
 		qdel(W)
 
 	for(var/mob/M in currentarea)
-		M << "FIGHT!"
+		to_chat(M, "FIGHT!")

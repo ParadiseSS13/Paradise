@@ -11,6 +11,8 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+
 	flick("gibbed-a", animation)
 	xgibs(loc, viruses)
 	dead_mob_list -= src
@@ -50,7 +52,6 @@
 		for(var/mob/O in viewers(src, null))
 			O.show_message("<B>[src]</B> lets out a waning guttural screech, green blood bubbling from its maw...", 1)
 		update_canmove()
-		if(client)	blind.layer = 0
 		update_icons()
 
 	timeofdeath = worldtime2text()

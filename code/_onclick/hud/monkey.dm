@@ -19,59 +19,6 @@
 	src.adding += using
 	action_intent = using
 
-//intent small hud objects
-/*	var/icon/ico
-
-	ico = new(ui_style, "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),1,ico.Height()/2,ico.Width()/2,ico.Height())
-	using = new /obj/screen( src )
-	using.name = "help"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.alpha = ui_alpha
-	using.layer = 21
-	src.adding += using
-	help_intent = using
-
-	ico = new(ui_style, "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),ico.Width()/2,ico.Height()/2,ico.Width(),ico.Height())
-	using = new /obj/screen( src )
-	using.name = "disarm"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.alpha = ui_alpha
-	using.layer = 21
-	src.adding += using
-	disarm_intent = using
-
-	ico = new(ui_style, "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),ico.Width()/2,1,ico.Width(),ico.Height()/2)
-	using = new /obj/screen( src )
-	using.name = "grab"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.alpha = ui_alpha
-	using.layer = 21
-	src.adding += using
-	grab_intent = using
-
-	ico = new(ui_style, "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),1,1,ico.Width()/2,ico.Height()/2)
-	using = new /obj/screen( src )
-	using.name = "harm"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.alpha = ui_alpha
-	using.layer = 21
-	src.adding += using
-	hurt_intent = using
-*/
-//end intent small hud objects
-
 	using = new /obj/screen/mov_intent()
 	using.name = "mov_intent"
 	using.dir = SOUTHWEST
@@ -239,31 +186,11 @@
 	mymob.pullin.screen_loc = ui_pull_resist
 	src.hotkeybuttons += mymob.pullin
 
-	mymob.blind = new /obj/screen()
-	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
-	mymob.blind.icon_state = "blackimageoverlay"
-	mymob.blind.name = "blind"
-	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
-	mymob.blind.mouse_opacity = 0
-	mymob.blind.layer = 0
-	mymob.blind.mouse_opacity = 0
+	lingchemdisplay = new /obj/screen/ling/chems()
+	lingchemdisplay.screen_loc = ui_lingchemdisplay
 
-	mymob.damageoverlay = new /obj/screen()
-	mymob.damageoverlay.icon = 'icons/mob/screen1_full.dmi'
-	mymob.damageoverlay.icon_state = "oxydamageoverlay0"
-	mymob.damageoverlay.name = "dmg"
-	mymob.damageoverlay.screen_loc = "CENTER-7,CENTER-7"
-	mymob.damageoverlay.mouse_opacity = 0
-	mymob.damageoverlay.layer = 18.1 //The black screen overlay sets layer to 18 to display it, this one has to be just on top.
-
-	mymob.flash = new /obj/screen()
-	mymob.flash.icon = ui_style
-	mymob.flash.icon_state = "blank"
-	mymob.flash.name = "flash"
-	mymob.flash.screen_loc = "WEST,SOUTH to EAST,NORTH"
-	mymob.flash.layer = 17
-
-	mymob.pain = new /obj/screen( null )
+	lingstingdisplay = new /obj/screen/ling/sting()
+	lingstingdisplay.screen_loc = ui_lingstingdisplay
 
 	mymob.zone_sel = new /obj/screen/zone_sel( null )
 	mymob.zone_sel.icon = ui_style
@@ -296,7 +223,7 @@
 
 	mymob.client.screen = list()
 
-	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.healthdoll, mymob.nutrition_icon, mymob.pullin, mymob.blind, mymob.flash, mymob.damageoverlay, mymob.gun_setting_icon) //, mymob.hands, mymob.rest, mymob.sleep) //, mymob.mach )
+	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.healthdoll, mymob.nutrition_icon, mymob.pullin, mymob.gun_setting_icon, lingchemdisplay, lingstingdisplay) //, mymob.hands, mymob.rest, mymob.sleep) //, mymob.mach )
 	mymob.client.screen += src.adding + src.hotkeybuttons
 	mymob.client.screen += mymob.client.void
 

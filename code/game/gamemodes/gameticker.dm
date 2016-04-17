@@ -7,7 +7,6 @@ var/round_start_time = 0
 
 	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
 	var/datum/game_mode/mode = null
-	var/post_game = 0
 	var/event_time = null
 	var/event = 0
 
@@ -44,8 +43,8 @@ var/round_start_time = 0
 	'sound/music/Title3.ogg',)
 	do
 		pregame_timeleft = 180
-		world << "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>"
-		world << "Please, setup your character and select ready. Game will start in [pregame_timeleft] seconds"
+		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
+		to_chat(world, "Please, setup your character and select ready. Game will start in [pregame_timeleft] seconds")
 		while(current_state == GAME_STATE_PREGAME)
 			for(var/i=0, i<10, i++)
 				sleep(1)
@@ -77,7 +76,7 @@ var/round_start_time = 0
 		runnable_modes = config.get_runnable_modes()
 		if (runnable_modes.len==0)
 			current_state = GAME_STATE_PREGAME
-			world << "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby."
+			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			return 0
 		if(secret_force_mode != "secret")
 			var/datum/game_mode/M = config.pick_mode(secret_force_mode)
@@ -92,7 +91,7 @@ var/round_start_time = 0
 	else
 		src.mode = config.pick_mode(master_mode)
 	if (!src.mode.can_start())
-		world << "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby."
+		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
 		job_master.ResetOccupations()
@@ -106,7 +105,7 @@ var/round_start_time = 0
 	if(!can_continue)
 		qdel(mode)
 		current_state = GAME_STATE_PREGAME
-		world << "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby."
+		to_chat(world, "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby.")
 		job_master.ResetOccupations()
 		return 0
 
@@ -115,8 +114,8 @@ var/round_start_time = 0
 		for (var/datum/game_mode/M in runnable_modes)
 			modes+=M.name
 		modes = sortList(modes)
-		world << "<B>The current game mode is - Secret!</B>"
-		world << "<B>Possibilities:</B> [english_list(modes)]"
+		to_chat(world, "<B>The current game mode is - Secret!</B>")
+		to_chat(world, "<B>Possibilities:</B> [english_list(modes)]")
 	else
 		src.mode.announce()
 
@@ -152,13 +151,14 @@ var/round_start_time = 0
 			for(var/obj/effect/landmark/spacepod/random/R in L)
 				qdel(R)
 
-		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
-		world << sound('sound/AI/welcome.ogg') // Skie
+		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
+		to_chat(world, sound('sound/AI/welcome.ogg'))// Skie
+
 		if(holiday_master.holidays)
-			world << "<font color='blue'>and...</font>"
+			to_chat(world, "<font color='blue'>and...</font>")
 			for(var/holidayname in holiday_master.holidays)
 				var/datum/holiday/holiday = holiday_master.holidays[holidayname]
-				world << "<h4>[holiday.greet()]</h4>"
+				to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	spawn(0) // Forking dynamic room selection
 		var/list/area/dynamic/source/available_source_candidates = subtypesof(/area/dynamic/source)
@@ -289,19 +289,19 @@ var/round_start_time = 0
 					if("nuclear emergency") //Nuke wasn't on station when it blew up
 						flick("intro_nuke",cinematic)
 						sleep(35)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						flick("station_intact_fade_red",cinematic)
 						cinematic.icon_state = "summary_nukefail"
 					else
 						flick("intro_nuke",cinematic)
 						sleep(35)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						//flick("end",cinematic)
 
 
 			if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
 				sleep(50)
-				world << sound('sound/effects/explosionfar.ogg')
+				to_chat(world, sound('sound/effects/explosionfar.ogg'))
 
 
 			else	//station was destroyed
@@ -312,25 +312,25 @@ var/round_start_time = 0
 						flick("intro_nuke",cinematic)
 						sleep(35)
 						flick("station_explode_fade_red",cinematic)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						cinematic.icon_state = "summary_nukewin"
 					if("AI malfunction") //Malf (screen,explosion,summary)
 						flick("intro_malf",cinematic)
 						sleep(76)
 						flick("station_explode_fade_red",cinematic)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						cinematic.icon_state = "summary_malf"
 					if("blob") //Station nuked (nuke,explosion,summary)
 						flick("intro_nuke",cinematic)
 						sleep(35)
 						flick("station_explode_fade_red",cinematic)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						cinematic.icon_state = "summary_selfdes"
 					else //Station nuked (nuke,explosion,summary)
 						flick("intro_nuke",cinematic)
 						sleep(35)
 						flick("station_explode_fade_red", cinematic)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						cinematic.icon_state = "summary_selfdes"
 				for(var/mob/living/M in living_mob_list)
 					if((M.loc.z in config.station_levels))
@@ -374,7 +374,7 @@ var/round_start_time = 0
 		if(captainless)
 			for(var/mob/M in player_list)
 				if(!istype(M,/mob/new_player))
-					M << "Captainship not forced on anyone."
+					to_chat(M, "Captainship not forced on anyone.")
 
 
 	proc/process()
@@ -386,16 +386,13 @@ var/round_start_time = 0
 
 		//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
 
-		var/game_finished = 0
-		var/mode_finished = 0
-		if (config.continous_rounds)
-			game_finished = (mode.station_was_nuked)
-			mode_finished = (!post_game && mode.check_finished())
+		var/game_finished = shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
+		if (config.continuous_rounds)
+			mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 		else
-			game_finished = (mode.check_finished())
-			mode_finished = game_finished
+			game_finished |= mode.check_finished()
 
-		if(!mode.explosion_in_progress && game_finished && (mode_finished || post_game))
+		if(!mode.explosion_in_progress && game_finished)
 			current_state = GAME_STATE_FINISHED
 			auto_toggle_ooc(1) // Turn it on
 			spawn
@@ -408,18 +405,6 @@ var/round_start_time = 0
 					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
 				else
 					world.Reboot("Round ended.", "end_proper", "proper completion")
-
-		else if (mode_finished)
-			post_game = 1
-
-			mode.cleanup()
-
-			//call a transfer shuttle vote
-			spawn(50)
-				if(!round_end_announced) // Spam Prevention. Now it should announce only once.
-					world << "\red The round has ended!"
-					round_end_announced = 1
-				vote.autotransfer()
 
 		return 1
 
@@ -449,23 +434,23 @@ var/round_start_time = 0
 	end_state.count()
 	var/station_integrity = min(round( 100.0 *  start_state.score(end_state), 0.1), 100.0)
 
-	world << "<BR>[TAB]Shift Duration: <B>[round(world.time / 36000)]:[add_zero("[world.time / 600 % 60]", 2)]:[world.time / 100 % 6][world.time / 100 % 10]</B>"
-	world << "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
-	world << "<BR>"
+	to_chat(world, "<BR>[TAB]Shift Duration: <B>[round(world.time / 36000)]:[add_zero("[world.time / 600 % 60]", 2)]:[world.time / 100 % 6][world.time / 100 % 10]</B>")
+	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
+	to_chat(world, "<BR>")
 
 	//Silicon laws report
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)
-			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>"
+			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>")
 		else
-			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>"
+			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>")
 		aiPlayer.show_laws(1)
 
 		if (aiPlayer.connected_robots.len)
 			var/robolist = "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				robolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.key]), ":" (Played by: [robo.key]), "]"
-			world << "[robolist]"
+			to_chat(world, "[robolist]")
 
 	var/dronecount = 0
 
@@ -477,15 +462,15 @@ var/round_start_time = 0
 
 		if (!robo.connected_ai)
 			if (robo.stat != 2)
-				world << "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>"
+				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>")
 			else
-				world << "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>"
+				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)
 
 	if(dronecount)
-		world << "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round."
+		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
 
 	mode.declare_completion()//To declare normal completion.
 

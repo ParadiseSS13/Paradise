@@ -3,7 +3,6 @@
 	mouse_opacity = 2 //This makes it easier to hit hostile mobs, you only need to click on their tile, and is set back to 1 when they die
 	stop_automated_movement_when_pulled = 0
 	environment_smash = 1 //Set to 1 to break closets,tables,racks, etc; 2 for walls; 3 for rwalls
-	var/stance = HOSTILE_STANCE_IDLE	//Used to determine behavior
 	var/atom/target
 	var/ranged = 0
 	var/rapid = 0
@@ -15,6 +14,7 @@
 	var/ranged_message = "fires" //Fluff text for ranged mobs
 	var/ranged_cooldown = 0 //What the starting cooldown is on ranged attacks
 	var/ranged_cooldown_cap = 3 //What ranged attacks, after being used are set to, to go back on cooldown, defaults to 3 life() ticks
+	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
 	var/minimum_distance = 1 //Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set higher to make mobs keep distance
 
@@ -29,38 +29,35 @@
 	var/stat_exclusive = 0 //Mobs with this set to 1 will exclusively attack things defined by stat_attack, stat_attack 2 means they will only attack corpses
 	var/attack_same = 0 //Set us to 1 to allow us to attack our own faction, or 2, to only ever attack our own faction
 
-	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_SLEEP (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
+	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
 
 /mob/living/simple_animal/hostile/Life()
-
 	. = ..()
 	if(!.)
 		walk(src, 0)
 		return 0
-	if(ranged)
-		ranged_cooldown--
-	if(client)
-		return 0
+
+/mob/living/simple_animal/hostile/process_ai()
+	..()
 	if(!AICanContinue())
 		return 0
-	if(!stat)
-		switch(stance)
-			if(HOSTILE_STANCE_IDLE)
-				var/new_target = FindTarget()
-				GiveTarget(new_target)
+	return 1
 
-			if(HOSTILE_STANCE_ATTACK)
-				MoveToTarget()
-				DestroySurroundings()
+/mob/living/simple_animal/hostile/handle_automated_action()
+	if(AIStatus == AI_OFF)
+		return 0
+	if(ranged)
+		ranged_cooldown--
+	var/list/possible_targets = ListTargets() //we look around for potential targets and make it a list for later use.
+	if(environment_smash)
+		EscapeConfinement()
 
-			if(HOSTILE_STANCE_ATTACKING)
-				AttackTarget()
-				DestroySurroundings()
-
-		if(AIShouldSleep())
-			AIStatus = AI_SLEEP
-
-
+	if(AICanContinue(possible_targets))
+		DestroySurroundings()
+		if(!MoveToTarget(possible_targets))     //if we lose our target
+			if(AIShouldSleep(possible_targets))	// we try to acquire a new one
+				AIStatus = AI_IDLE				// otherwise we go idle
+	return 1
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 
@@ -80,19 +77,18 @@
 		L += Objects
 	return L
 
-/mob/living/simple_animal/hostile/proc/FindTarget()//Step 2, filter down possible targets to things we actually care about
+/mob/living/simple_animal/hostile/proc/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
 	var/list/Targets = list()
-	var/Target
-	for(var/atom/A in ListTargets())
+	if(!HasTargetsList)
+		possible_targets = ListTargets()
+	for(var/atom/A in possible_targets)
 		if(Found(A))//Just in case people want to override targetting
-			var/list/FoundTarget = list()
-			FoundTarget += A
-			Targets = FoundTarget
+			Targets = list(A)
 			break
 		if(CanAttack(A))//Can we attack it?
 			Targets += A
 			continue
-	Target = PickTarget(Targets)
+	var/Target = PickTarget(Targets)
 	GiveTarget(Target)
 	return Target //We now have a target
 
@@ -100,14 +96,14 @@
 	return
 
 /mob/living/simple_animal/hostile/proc/PickTarget(var/list/Targets)//Step 3, pick amongst the possible, attackable targets
+	if(!Targets.len)//We didnt find nothin!
+		return
 	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
 		for(var/atom/A in Targets)
 			var/target_dist = get_dist(src, target)
 			var/possible_target_distance = get_dist(src, A)
 			if(target_dist < possible_target_distance)
 				Targets -= A
-	if(!Targets.len)//We didnt find nothin!
-		return
 	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
 	return chosen_target
 
@@ -146,23 +142,21 @@
 					return 0
 			return 1
 	if(isobj(the_target))
-		if(the_target.type in wanted_objects)
+		if(is_type_in_list(the_target, wanted_objects))
 			return 1
 	return 0
 
 /mob/living/simple_animal/hostile/proc/GiveTarget(var/new_target)//Step 4, give us our selected target
 	target = new_target
 	if(target != null)
-		Aggro()
-		stance = HOSTILE_STANCE_ATTACK
-	return
+		return 1
 
-/mob/living/simple_animal/hostile/proc/MoveToTarget()//Step 5, handle movement between us and our target
+/mob/living/simple_animal/hostile/proc/MoveToTarget(var/list/possible_targets)//Step 5, handle movement between us and our target
 	stop_automated_movement = 1
 	if(!target || !CanAttack(target))
 		LoseTarget()
-		return
-	if(target in ListTargets())
+		return 0
+	if(target in possible_targets)
 		var/target_distance = get_dist(src,target)
 		if(ranged)//We ranged? Shoot at em
 			if(target_distance >= 2 && ranged_cooldown <= 0)//But make sure they're a tile away at least, and our range attack is off cooldown
@@ -176,17 +170,18 @@
 			Goto(target,move_to_delay,minimum_distance)
 		if(isturf(loc) && target.Adjacent(src))	//If they're next to us, attack
 			AttackingTarget()
-		return
+		return 1
 	if(environment_smash)
 		if(target.loc != null && get_dist(src, target.loc) <= vision_range)//We can't see our target, but he's in our vision range still
 			if(environment_smash >= 2)//If we're capable of smashing through walls, forget about vision completely after finding our target
 				Goto(target,move_to_delay,minimum_distance)
 				FindHidden()
-				return
+				return 1
 			else
 				if(FindHidden())
-					return
+					return 1
 	LostTarget()
+	return 0
 
 /mob/living/simple_animal/hostile/proc/Goto(var/target, var/delay, var/minimum_distance)
 	walk_to(src, target, minimum_distance, delay)
@@ -197,27 +192,11 @@
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
 			search_objects = 0
 			target = null
-		if(stance == HOSTILE_STANCE_IDLE)//If we took damage while idle, immediately attempt to find the source of it so we find a living target
-			Aggro()
-			var/new_target = FindTarget()
-			GiveTarget(new_target)
-		if(stance == HOSTILE_STANCE_ATTACK)//No more pulling a mob forever and having a second player attack it, it can switch targets now if it finds a more suitable one
-			if(target != null && prob(25))
-				var/new_target = FindTarget()
-				GiveTarget(new_target)
-
-/mob/living/simple_animal/hostile/proc/AttackTarget()
-
-	stop_automated_movement = 1
-	if(!target || !CanAttack(target))
-		LoseTarget()
-		return 0
-	if(!(target in ListTargets()))
-		LostTarget()
-		return 0
-	if(isturf(loc) && target.Adjacent(src))
-		AttackingTarget()
-		return 1
+		if(AIStatus == AI_IDLE)
+			AIStatus = AI_ON
+			FindTarget()
+		else if(target != null && prob(40))//No more pulling a mob forever and having a second player attack it, it can switch targets now if it finds a more suitable one
+			FindTarget()
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	target.attack_animal(src)
@@ -230,13 +209,11 @@
 	vision_range = idle_vision_range
 
 /mob/living/simple_animal/hostile/proc/LoseTarget()
-	stance = HOSTILE_STANCE_IDLE
 	target = null
 	walk(src, 0)
 	LoseAggro()
 
 /mob/living/simple_animal/hostile/proc/LostTarget()
-	stance = HOSTILE_STANCE_IDLE
 	walk(src, 0)
 	LoseAggro()
 
@@ -249,8 +226,14 @@
 	walk(src, 0)
 
 /mob/living/simple_animal/hostile/proc/OpenFire(var/the_target)
-
 	var/target = the_target
+	if(check_friendly_fire)
+		for(var/turf/T in getline(src, target)) // Not 100% reliable but this is faster than simulating actual trajectory
+			for(var/mob/living/L in T)
+				if(L == src || L == target)
+					continue
+				if(faction_check(L) && !attack_same)
+					return
 	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [target]!</span>")
 
 	if(rapid)
@@ -332,28 +315,16 @@
 
 
 ////// AI Status ///////
-/mob/living/simple_animal/hostile/proc/AICanContinue()
+/mob/living/simple_animal/hostile/proc/AICanContinue(var/list/possible_targets)
 	switch(AIStatus)
 		if(AI_ON)
 			. = 1
-		if(AI_SLEEP)
-			if(AIShouldWake())
+		if(AI_IDLE)
+			if(FindTarget(possible_targets, 1))
 				. = 1
 				AIStatus = AI_ON //Wake up for more than one Life() cycle.
 			else
 				. = 0
-		if(AI_OFF)
-			. = 0
 
-
-//Returns 1 if the AI should wake up
-//Returns 0 if the AI should remain asleep
-/mob/living/simple_animal/hostile/proc/AIShouldWake()
-	. = 0
-	if(FindTarget())
-		. = 1
-
-
-//Convenience
-/mob/living/simple_animal/hostile/proc/AIShouldSleep()
-	. = !(AIShouldWake())
+/mob/living/simple_animal/hostile/proc/AIShouldSleep(var/list/possible_targets)
+	return !FindTarget(possible_targets, 1)

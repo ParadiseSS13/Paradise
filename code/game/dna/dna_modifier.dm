@@ -36,6 +36,18 @@
 			ser["type"] = "se"
 	return ser
 
+/datum/dna2/record/proc/copy()
+	var/datum/dna2/record/newrecord = new /datum/dna2/record
+	newrecord.dna = dna.Clone()
+	newrecord.types = types
+	newrecord.name = name
+	newrecord.mind = mind
+	newrecord.ckey = ckey
+	newrecord.languages = languages
+	newrecord.implant = implant
+	return newrecord
+
+
 /////////////////////////// DNA MACHINES
 /obj/machinery/dna_scannernew
 	name = "\improper DNA modifier"
@@ -135,13 +147,13 @@
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return
 	if (!ishuman(usr)) //Make sure they're a mob that has dna
-		usr << "<span class='notice'>Try as you might, you can not climb up into the [src].</span>"
+		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
 		return
 	if (src.occupant)
-		usr << "<span class='boldnotice'>The [src] is already occupied!</span>"
+		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
 		return
 	if (usr.abiotic())
-		usr << "<span class='boldnotice'>Subject cannot have abiotic items on.</span>"
+		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 		return
 	usr.stop_pulling()
 	usr.client.perspective = EYE_PERSPECTIVE
@@ -172,17 +184,17 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		user << "<span class='boldnotice'>The [src] is already occupied!</span>"
+		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		user << "<span class='danger'>Subject cannot have abiotic items on.</span>"
+		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			usr << "[L.name] will not fit into the [src] because they have a slime latched onto their head."
+			to_chat(usr, "[L.name] will not fit into the [src] because they have a slime latched onto their head.")
 			return
 	if (L == user)
 		visible_message("[user] climbs into the [src].")
@@ -195,7 +207,7 @@
 /obj/machinery/dna_scannernew/attackby(var/obj/item/weapon/item as obj, var/mob/user as mob, params)
 	if(istype(item, /obj/item/weapon/screwdriver))
 		if(occupant)
-			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", item)
 
@@ -210,11 +222,11 @@
 		return
 	else if(istype(item, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			user << "<span class='warning'>A beaker is already loaded into the machine.</span>"
+			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 
 		if(!user.drop_item())
-			user << "<span class='warning'>\The [item] is stuck to you!</span>"
+			to_chat(user, "<span class='warning'>\The [item] is stuck to you!</span>")
 			return
 
 		beaker = item
@@ -227,13 +239,13 @@
 	if (!ismob(G.affecting))
 		return
 	if (src.occupant)
-		user << "<span class='boldnotice'>The scanner is already occupied!</span>"
+		to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
 		return
 	if (G.affecting.abiotic())
-		user << "<span class='boldnotice'>Subject cannot have abiotic items on.</span>"
+		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 		return
 	if(panel_open)
-		usr << "<span class='boldnotice'>Close the maintenance panel first.</span>"
+		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
 	put_in(G.affecting)
 	src.add_fingerprint(user)
@@ -261,17 +273,17 @@
 
 		var/mob/dead/observer/ghost = occupant.get_ghost()
 		if(ghost)
-			ghost << "<span class='ghostalert'>Your corpse has been placed into a cloning scanner. Return to your body if you want to be cloned!</span> (Verbs -> Ghost -> Re-enter corpse)"
-			ghost << sound('sound/effects/genetics.ogg')
+			to_chat(ghost, "<span class='ghostalert'>Your corpse has been placed into a cloning scanner. Return to your body if you want to be cloned!</span> (Verbs -> Ghost -> Re-enter corpse)")
+			to_chat(ghost, sound('sound/effects/genetics.ogg'))
 	return
 
 /obj/machinery/dna_scannernew/proc/go_out()
 	if (!src.occupant)
-		usr << "<span class='warning'>The scanner is empty!</span>"
+		to_chat(usr, "<span class='warning'>The scanner is empty!</span>")
 		return
 
 	if (src.locked)
-		usr << "<span class='warning'>The scanner is locked!</span>"
+		to_chat(usr, "<span class='warning'>The scanner is locked!</span>")
 		return
 
 	if (src.occupant.client)
@@ -326,7 +338,7 @@
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
-		if((H.species.flags & NO_DNA_RAD))
+		if((H.species.flags & NO_DNA))
 			return 1
 
 	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")
@@ -369,7 +381,7 @@
 			user.drop_item()
 			I.forceMove(src)
 			src.disk = I
-			user << "You insert [I]."
+			to_chat(user, "You insert [I].")
 			nanomanager.update_uis(src) // update all UIs attached to src()
 			return
 	else
@@ -518,7 +530,7 @@
 		occupantData["structuralEnzymes"] = null
 		occupantData["radiationLevel"] = null
 	else
-		occupantData["name"] = connected.occupant.name
+		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
 		if ((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
@@ -853,7 +865,7 @@
 				databuf.types = DNA2_BUF_UI|DNA2_BUF_UE
 				databuf.dna = src.connected.occupant.dna.Clone()
 				if(ishuman(connected.occupant))
-					databuf.dna.real_name=connected.occupant.name
+					databuf.dna.real_name=connected.occupant.dna.real_name
 				databuf.name = "Unique Identifier + Unique Enzymes"
 				src.buffers[bufferId] = databuf
 			return 1
@@ -864,7 +876,7 @@
 				databuf.types = DNA2_BUF_SE
 				databuf.dna = src.connected.occupant.dna.Clone()
 				if(ishuman(connected.occupant))
-					databuf.dna.real_name=connected.occupant.name
+					databuf.dna.real_name=connected.occupant.dna.real_name
 				databuf.name = "Structural Enzymes"
 				src.buffers[bufferId] = databuf
 			return 1
@@ -908,17 +920,18 @@
 					src.connected.occupant.name = buf.dna.real_name
 				src.connected.occupant.UpdateAppearance(buf.dna.UI.Copy())
 			else if (buf.types & DNA2_BUF_SE)
-				src.connected.occupant.dna.SE = buf.dna.SE
+				src.connected.occupant.dna.SE = buf.dna.SE.Copy()
 				src.connected.occupant.dna.UpdateSE()
 				domutcheck(src.connected.occupant,src.connected)
 			return 1
 
 		if (bufferOption == "createInjector")
-			if (src.injector_ready || waiting_for_user_input)
+			if(injector_ready && !waiting_for_user_input)
 
 				var/success = 1
 				var/obj/item/weapon/dnainjector/I = new /obj/item/weapon/dnainjector
 				var/datum/dna2/record/buf = src.buffers[bufferId]
+				buf = buf.copy()
 				if(href_list["createBlockInjector"])
 					waiting_for_user_input=1
 					var/list/selectedbuf
@@ -926,14 +939,16 @@
 						selectedbuf=buf.dna.SE
 					else
 						selectedbuf=buf.dna.UI
-					var/blk = input(usr,"Select Block","Block") in all_dna_blocks(selectedbuf)
+					var/blk = input(usr,"Select Block","Block") as null|anything in all_dna_blocks(selectedbuf)
 					success = setInjectorBlock(I,blk,buf)
 				else
 					I.buf = buf
-				waiting_for_user_input=0
+				waiting_for_user_input = 0
 				if(success)
 					I.forceMove(src.loc)
 					I.name += " ([buf.name])"
+					if(connected)
+						I.damage_coeff = connected.damage_coeff
 					src.injector_ready = 0
 					spawn(300)
 						src.injector_ready = 1
@@ -944,7 +959,7 @@
 				//src.temphtml = "Invalid disk. Please try again."
 				return 0
 
-			src.buffers[bufferId]=src.disk.buf
+			src.buffers[bufferId]=src.disk.buf.copy()
 			//src.temphtml = "Data loaded."
 			return 1
 
@@ -955,7 +970,7 @@
 
 			var/datum/dna2/record/buf = src.buffers[bufferId]
 
-			src.disk.buf = buf
+			src.disk.buf = buf.copy()
 			src.disk.name = "data disk - '[buf.dna.real_name]'"
 			//src.temphtml = "Data saved."
 			return 1

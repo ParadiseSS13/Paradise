@@ -23,7 +23,7 @@
 	loc = has_suit
 	has_suit.overlays += inv_overlay
 
-	user << "<span class='notice'>You attach [src] to [has_suit].</span>"
+	to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
 
 /obj/item/clothing/accessory/proc/on_removed(mob/user as mob)
@@ -33,6 +33,23 @@
 	has_suit = null
 	usr.put_in_hands(src)
 	src.add_fingerprint(user)
+
+/obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
+	// This code lets you put accessories on other people by attacking their sprite with the accessory
+	if(istype(H))
+		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
+			to_chat(user, "[H]'s body is covered, and you cannot attach \the [src].")
+			return 1
+		var/obj/item/clothing/under/U = H.w_uniform
+		if(istype(U))
+			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
+			if(do_after(user,40,target=H) && H.w_uniform == U)
+				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
+				U.attackby(src, user)
+		else
+			to_chat(user, "[H] is not wearing anything to attach \the [src] to.")
+		return 1
+	return ..()
 
 //default attackby behaviour
 /obj/item/clothing/accessory/attackby(obj/item/I, mob/user, params)
@@ -186,7 +203,7 @@
 
 /obj/item/clothing/accessory/holobadge/attack_self(mob/user as mob)
 	if(!stored_name)
-		user << "Waving around a badge before swiping an ID would be pretty pointless."
+		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
 		user.visible_message("\red [user] displays their NanoTrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.","\red You display your NanoTrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.")
@@ -203,22 +220,22 @@
 			id_card = pda.id
 
 		if(access_security in id_card.access || emagged)
-			user << "You imprint your ID details onto the badge."
+			to_chat(user, "You imprint your ID details onto the badge.")
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
 		else
-			user << "[src] rejects your insufficient access rights."
+			to_chat(user, "[src] rejects your insufficient access rights.")
 		return
 	..()
 
 /obj/item/clothing/accessory/holobadge/emag_act(user as mob)
 	if (emagged)
-		user << "\red [src] is already cracked."
+		to_chat(user, "\red [src] is already cracked.")
 		return
 	else
 		emagged = 1
-		user << "\red You swipe the card and crack the holobadge security checks."
+		to_chat(user, "\red You swipe the card and crack the holobadge security checks.")
 		return
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)
@@ -322,13 +339,79 @@
 
 /obj/item/clothing/accessory/petcollar
 	name = "pet collar"
+	desc = "The latest fashion accessory for your favorite pets!"
 	icon_state = "petcollar"
 	item_color = "petcollar"
 	var/tagname = null
+	var/obj/item/weapon/card/id/access_id
+
+/obj/item/clothing/accessory/petcollar/Destroy()
+	if(access_id)
+		qdel(access_id)
+		access_id = null
+	processing_objects -= src
+	return ..()
 
 /obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
-	tagname = copytext(sanitize(input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot") as null|text),1,MAX_NAME_LEN)
-	name = "[initial(name)] - [tagname]"
+	var/option = "Change Name"
+	if(access_id)
+		option = input(user, "What do you want to do?", "[src]", option) as null|anything in list("Change Name", "Remove ID")
+
+	switch(option)
+		if("Change Name")
+			var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
+			if(t)
+				tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
+				name = "[initial(name)] - [tagname]"
+		if("Remove ID")
+			if(access_id)
+				user.visible_message("<span class='warning'>[user] starts unclipping \the [access_id] from \the [src].</span>")
+				if(do_after(user, 50, target = user) && access_id)
+					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
+					access_id.forceMove(get_turf(user))
+					user.put_in_hands(access_id)
+					access_id = null
+
+/obj/item/clothing/accessory/petcollar/attackby(obj/item/weapon/card/id/W, mob/user, params)
+	if(!istype(W))
+		return ..()
+	if(access_id)
+		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>")
+	user.drop_item()
+	W.forceMove(src)
+	access_id = W
+	to_chat(user, "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>")
+
+/obj/item/clothing/accessory/petcollar/GetAccess()
+	return access_id ? access_id.GetAccess() : ..()
+
+/obj/item/clothing/accessory/petcollar/examine(mob/user)
+	..()
+	if(access_id)
+		to_chat(user, "There is \icon[access_id] \a [access_id] clipped onto it.")
+
+/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
+	if(istype(user))
+		processing_objects |= src
+
+/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
+	processing_objects -= src
+
+/obj/item/clothing/accessory/petcollar/process()
+	var/mob/living/simple_animal/M = loc
+	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
+	if(istype(M) && src == M.collar && M.stat != DEAD)
+		return
+
+	var/area/t = get_area(M)
+	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+	if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
+		//give the syndicats a bit of stealth
+		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
+	else
+		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
+	qdel(a)
+	processing_objects -= src
 
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !U.accessories.len)

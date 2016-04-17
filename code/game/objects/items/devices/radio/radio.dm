@@ -238,7 +238,7 @@ var/global/list/default_medbay_channels = list(
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if (channel == "department")
-			//world << "DEBUG: channel=\"[channel]\" switching to \"[channels[1]]\""
+//			to_chat(world, "DEBUG: channel=\"[channel]\" switching to \"[channels[1]]\"")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
 	else
@@ -250,7 +250,7 @@ var/global/list/default_medbay_channels = list(
 		return
 
 	var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(src, null, null, 1)
-	A.SetName(from)
+	A.rename_character(A.real_name, from)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
@@ -283,6 +283,9 @@ var/global/list/default_medbay_channels = list(
 	//  Uncommenting this. To the above comment:
 	// 	The permacell radios aren't suppose to be able to transmit, this isn't a bug and this "fix" is just making radio wires useless. -Giacom
 	if(wires.IsIndexCut(WIRE_TRANSMIT)) // The device has to have all its wires and shit intact
+		return 0
+
+	if(!M.IsVocal())
 		return 0
 
 	M.last_target_click = world.time
@@ -634,14 +637,14 @@ var/global/list/default_medbay_channels = list(
 					keyslot = null
 
 			recalculateChannels()
-			user << "You pop out the encryption key in the radio!"
+			to_chat(user, "You pop out the encryption key in the radio!")
 
 		else
-			user << "This radio doesn't have any encryption keys!"
+			to_chat(user, "This radio doesn't have any encryption keys!")
 
 	if(istype(W, /obj/item/device/encryptionkey/))
 		if(keyslot)
-			user << "The radio can't hold another key!"
+			to_chat(user, "The radio can't hold another key!")
 			return
 
 		if(!keyslot)
@@ -694,9 +697,9 @@ var/global/list/default_medbay_channels = list(
 		if(enable_subspace_transmission != subspace_transmission)
 			subspace_transmission = !subspace_transmission
 			if(subspace_transmission)
-				usr << "<span class='notice'>Subspace Transmission is enabled.</span>"
+				to_chat(usr, "<span class='notice'>Subspace Transmission is enabled.</span>")
 			else
-				usr << "<span class='notice'>Subspace Transmission is disabled.</span>"
+				to_chat(usr, "<span class='notice'>Subspace Transmission is disabled.</span>")
 
 			if(subspace_transmission == 0)//Simple as fuck, clears the channel list to prevent talking/listening over them if subspace transmission is disabled
 				channels = list()
@@ -709,10 +712,10 @@ var/global/list/default_medbay_channels = list(
 			shut_up = !shut_up
 			if(shut_up)
 				canhear_range = 0
-				usr << "<span class='notice'>Loudspeaker disabled.</span>"
+				to_chat(usr, "<span class='notice'>Loudspeaker disabled.</span>")
 			else
 				canhear_range = 3
-				usr << "<span class='notice'>Loudspeaker enabled.</span>"
+				to_chat(usr, "<span class='notice'>Loudspeaker enabled.</span>")
 		. = 1
 
 

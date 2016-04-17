@@ -8,7 +8,7 @@
 	icon_state = "paramedic-vest"
 	item_state = "paramedic-vest"
 	allowed = list(/obj/item/stack/medical, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/hypospray, /obj/item/weapon/reagent_containers/syringe, \
-	/obj/item/device/healthanalyzer, /obj/item/device/antibody_scanner, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
+	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10)
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -22,7 +22,7 @@
 	icon_state = "brigphysician-vest"
 	item_state = "brigphysician-vest"
 	allowed = list(/obj/item/stack/medical, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/hypospray, /obj/item/weapon/reagent_containers/syringe, \
-	/obj/item/device/healthanalyzer, /obj/item/device/antibody_scanner, /obj/item/device/flashlight, \
+	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, \
 	/obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 
@@ -97,14 +97,14 @@
 
 //Chef
 /obj/item/clothing/suit/chef
-	name = "Chef's apron"
+	name = "chef's apron"
 	desc = "An apron used by a high class chef."
 	icon_state = "chef"
 	item_state = "chef"
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list (/obj/item/weapon/kitchenknife,/obj/item/weapon/butch)
+	allowed = list (/obj/item/weapon/kitchen/knife)
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -112,13 +112,13 @@
 
 //Chef
 /obj/item/clothing/suit/chef/classic
-	name = "A classic chef's apron."
+	name = "classic chef's apron"
 	desc = "A basic, dull, white chef's apron."
 	icon_state = "apronchef"
 	item_state = "apronchef"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list(/obj/item/weapon/kitchenknife,/obj/item/weapon/butch)
+	allowed = list(/obj/item/weapon/kitchen/knife)
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -166,7 +166,7 @@
 	name = "blueshield coat"
 	desc = "NT deluxe ripoff. You finally have your own coat."
 	icon_state = "blueshieldcoat"
-	item_state = "det_suit"
+	item_state = "blueshieldcoat"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/classic_baton/telescopic)
@@ -190,23 +190,31 @@
 
 //Lawyer
 /obj/item/clothing/suit/storage/lawyer/blackjacket
-	name = "Black Suit Jacket"
+	name = "black suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_black_open"
 	item_state = "suitjacket_black_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	action_button_name = "Button/Unbutton Jacket"
+	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/lawyer/bluejacket
-	name = "Blue Suit Jacket"
+	name = "blue suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_blue_open"
 	item_state = "suitjacket_blue_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	action_button_name = "Button/Unbutton Jacket"
+	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/lawyer/purpjacket
-	name = "Purple Suit Jacket"
+	name = "purple suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_purp"
 	item_state = "suitjacket_purp"
@@ -215,87 +223,41 @@
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
-	name = "Internal Affairs Jacket"
+	name = "\improper Internal Affairs jacket"
 	desc = "A smooth black jacket."
 	icon_state = "ia_jacket_open"
-	item_state = "ia_jacket"
+	item_state = "ia_jacket_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-
-	verb/toggle()
-		set name = "Toggle Coat Buttons"
-		set category = "Object"
-		set src in usr
-
-		if(!usr.canmove || usr.stat || usr.restrained())
-			return 0
-
-		switch(icon_state)
-			if("ia_jacket_open")
-				src.icon_state = "ia_jacket"
-				usr << "You button up the jacket."
-			if("ia_jacket")
-				src.icon_state = "ia_jacket_open"
-				usr << "You unbutton the jacket."
-			else
-				usr << "You attempt to button-up the velcro on your [src], before promptly realising how retarded you are."
-				return
-		usr.update_inv_wear_suit()	//so our overlays update
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	action_button_name = "Button/Unbutton Jacket"
+	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/ntrep
-	name = "NanoTrasen Representative Jacket"
+	name = "\improper NanoTrasen Representative jacket"
 	desc = "A fancy black jacket, standard issue to NanoTrasen Represenatives."
 	icon_state = "ntrep"
-	item_state = "ia_jacket"
+	item_state = "ntrep"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-
-	verb/toggle()
-		set name = "Toggle Coat Buttons"
-		set category = "Object"
-		set src in usr
-
-		if(!usr.canmove || usr.stat || usr.restrained())
-			return 0
-
-		switch(icon_state)
-			if("ntrep_open")
-				src.icon_state = "ntrep"
-				usr << "You button up the jacket."
-			if("ntrep")
-				src.icon_state = "ntrep_open"
-				usr << "You unbutton the jacket."
-			else
-				usr << "You attempt to button-up the velcro on your [src], before promptly realising how retarded you are."
-				return
-		usr.update_inv_wear_suit()	//so our overlays update
+	ignore_suitadjust = 0
+	action_button_name = "Button/Unbutton Jacket"
+	adjust_flavour = "unbutton"
 
 //Medical
 /obj/item/clothing/suit/storage/fr_jacket
 	name = "first responder jacket"
 	desc = "A high-visibility jacket worn by medical first responders."
 	icon_state = "fr_jacket_open"
-	item_state = "fr_jacket"
+	item_state = "fr_jacket_open"
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/stack/medical, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/hypospray, /obj/item/weapon/reagent_containers/syringe, \
-	/obj/item/device/healthanalyzer, /obj/item/device/antibody_scanner, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
-
-	verb/toggle()
-		set name = "Toggle Jacket Buttons"
-		set category = "Object"
-		set src in usr
-
-		if(!usr.canmove || usr.stat || usr.restrained())
-			return 0
-
-		switch(icon_state)
-			if("fr_jacket_open")
-				src.icon_state = "fr_jacket"
-				usr << "You button up the jacket."
-			if("fr_jacket")
-				src.icon_state = "fr_jacket_open"
-				usr << "You unbutton the jacket."
-		usr.update_inv_wear_suit()	//so our overlays update
+	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	action_button_name = "Button/Unbutton Jacket"
+	adjust_flavour = "unbutton"
 
 //Mime
 /obj/item/clothing/suit/suspenders

@@ -145,63 +145,103 @@
 
 
 /datum/reagent/blood
-	data = new/list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"= "#A10808","resistances"=null,"trace_chem"=null, "antibodies" = null)
+	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null, "antibodies" = null)
 	name = "Blood"
 	id = "blood"
 	reagent_state = LIQUID
 	color = "#C80000" // rgb: 200, 0, 0
 
-/datum/reagent/blood/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	var/datum/reagent/blood/self = src
-	src = null
-	if(self.data && self.data["virus2"] && istype(M, /mob/living/carbon))//infecting...
-		var/list/vlist = self.data["virus2"]
-		if (vlist.len)
-			for (var/ID in vlist)
-				var/datum/disease2/disease/V = vlist[ID]
+/datum/reagent/blood/reaction_mob(mob/M, method=TOUCH, reac_volume)
+	if(data && data["viruses"])
+		for(var/datum/disease/D in data["viruses"])
 
-				if(method == TOUCH)
-					infect_virus2(M,V.getcopy())
-				else
-					infect_virus2(M,V.getcopy(),1) //injected, force infection!
-	if(self.data && self.data["antibodies"] && istype(M, /mob/living/carbon))//... and curing
-		var/mob/living/carbon/C = M
-		C.antibodies |= self.data["antibodies"]
+			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
+				continue
 
-/datum/reagent/blood/on_merge(var/data)
-	if(data["blood_colour"])
-		color = data["blood_colour"]
-	return ..()
+			if(method == TOUCH)
+				M.ContractDisease(D)
+			else //ingest, patch or inject
+				M.ForceContractDisease(D)
+
+/datum/reagent/blood/on_new(list/data)
+	if(istype(data))
+		SetViruses(src, data)
+
+/datum/reagent/blood/on_merge(list/mix_data)
+	if(data && mix_data)
+		if(data["viruses"] || mix_data["viruses"])
+
+			var/list/mix1 = data["viruses"]
+			var/list/mix2 = mix_data["viruses"]
+
+			// Stop issues with the list changing during mixing.
+			var/list/to_mix = list()
+
+			for(var/datum/disease/advance/AD in mix1)
+				to_mix += AD
+			for(var/datum/disease/advance/AD in mix2)
+				to_mix += AD
+
+			var/datum/disease/advance/AD = Advance_Mix(to_mix)
+			if(AD)
+				var/list/preserve = list(AD)
+				for(var/D in data["viruses"])
+					if(!istype(D, /datum/disease/advance))
+						preserve += D
+				data["viruses"] = preserve
+
+		if(mix_data["blood_colour"])
+			color = mix_data["blood_colour"]
+	return 1
 
 /datum/reagent/blood/on_update(var/atom/A)
 	if(data["blood_colour"])
 		color = data["blood_colour"]
 	return ..()
 
-
-
-/datum/reagent/blood/reaction_turf(var/turf/simulated/T, var/volume)//splash the blood all over the place
-	if(!istype(T)) return
-	var/datum/reagent/blood/self = src
-	src = null
-	if(!(volume >= 3)) return
-	//var/datum/disease/D = self.data["virus"]
-	if(!self.data["donor"] || istype(self.data["donor"], /mob/living/carbon/human))
+/datum/reagent/blood/reaction_turf(turf/simulated/T, reac_volume)//splash the blood all over the place
+	if(!istype(T))
+		return
+	if(reac_volume < 3)
+		return
+	if(!data["donor"] || istype(data["donor"], /mob/living/carbon/human))
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
 		if(!blood_prop) //first blood!
 			blood_prop = new(T)
-			blood_prop.blood_DNA[self.data["blood_DNA"]] = self.data["blood_type"]
+			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-		if(self.data["virus2"])
-			blood_prop.virus2 = virus_copylist(self.data["virus2"])
+		for(var/datum/disease/D in data["viruses"])
+			var/datum/disease/newVirus = D.Copy(1)
+			blood_prop.viruses += newVirus
+			newVirus.holder = blood_prop
 
-	else if(istype(self.data["donor"], /mob/living/carbon/alien))
+	else if(istype(data["donor"], /mob/living/carbon/alien))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
 			blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
-	return
 
+		for(var/datum/disease/D in data["viruses"])
+			var/datum/disease/newVirus = D.Copy(1)
+			blood_prop.viruses += newVirus
+			newVirus.holder = blood_prop
+
+/datum/reagent/vaccine
+	//data must contain virus type
+	name = "Vaccine"
+	id = "vaccine"
+	color = "#C81040" // rgb: 200, 16, 64
+
+/datum/reagent/vaccine/reaction_mob(mob/M, method=TOUCH, reac_volume)
+	if(islist(data) && (method == INGEST))
+		for(var/datum/disease/D in M.viruses)
+			if(D.GetDiseaseID() in data)
+				D.cure()
+		M.resistances |= data
+
+/datum/reagent/vaccine/on_merge(list/data)
+	if(istype(data))
+		src.data |= data.Copy()
 
 /datum/reagent/fishwater
 	name = "Fish Water"
@@ -214,7 +254,7 @@
 	if(!istype(M, /mob/living))
 		return
 	if(method == INGEST)
-		M << "Oh god, why did you drink that?"
+		to_chat(M, "Oh god, why did you drink that?")
 
 /datum/reagent/fishwater/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -223,9 +263,18 @@
 			M.fakevomit(1)
 		else
 			M.fakevomit(0)
-		..()
+	..()
 	return
 
+/datum/reagent/fishwater/toiletwater
+	name = "Toilet Water"
+	id = "toiletwater"
+	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
+	reagent_state = LIQUID
+	color = "#757547"
+
+/datum/reagent/fishwater/toiletwater/reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //For shennanigans
+	return
 
 /datum/reagent/holywater
 	name = "Water"
@@ -255,44 +304,40 @@
 			M.stuttering = 0
 			M.confused = 0
 			return
-	if(ishuman(M) && M.mind)				.
-		if(((M.mind in ticker.mode.vampires) || M.mind.vampire) && (!(VAMP_FULL in M.mind.vampire.powers)) && prob(80))
-			switch(data)
-				if(1 to 4)
-					M << "<span class = 'warning'>Something sizzles in your veins!</span>"
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-				if(5 to 12)
-					M << "<span class = 'danger'>You feel an intense burning inside of you!</span>"
-					M.adjustFireLoss(1)
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-				if(13 to INFINITY)
-					M << "<span class = 'danger'>You suddenly ignite in a holy fire!</span>"
-					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
-					M.fire_stacks = min(5,M.fire_stacks + 3)
-					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-					M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
+		switch(data)
+			if(1 to 4)
+				to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
+				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			if(5 to 12)
+				to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+				M.adjustFireLoss(1)
+				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			if(13 to INFINITY)
+				to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
+				for(var/mob/O in viewers(M, null))
+					O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
+				M.fire_stacks = min(5,M.fire_stacks + 3)
+				M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+				M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
+				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
-	return
 
 
 /datum/reagent/holywater/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	if(ishuman(M))
-		if((M.mind in ticker.mode.vampires) && !(VAMP_FULL in M.mind.vampire.powers))
-			var/mob/living/carbon/human/H=M
-			if(method == TOUCH)
-				if(H.wear_mask)
-					H << "\red Your mask protects you from the holy water!"
-					return
-				else if(H.head)
-					H << "\red Your helmet protects you from the holy water!"
-					return
-				else
-					M << "<span class='warning'>Something holy interferes with your powers!</span>"
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-	return
+	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
+		var/mob/living/carbon/human/H=M
+		if(method == TOUCH)
+			if(H.wear_mask)
+				to_chat(H, "\red Your mask protects you from the holy water!")
+				return
+			else if(H.head)
+				to_chat(H, "\red Your helmet protects you from the holy water!")
+				return
+			else
+				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
+				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
 
 /datum/reagent/holywater/reaction_turf(var/turf/simulated/T, var/volume)
@@ -343,28 +388,3 @@
 		var/t_loc = get_turf(O)
 		qdel(O)
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
-
-/*
-/datum/reagent/vaccine
-	//data must contain virus type
-	name = "Vaccine"
-	id = "vaccine"
-	reagent_state = LIQUID
-	color = "#C81040" // rgb: 200, 16, 64
-
-/datum/reagent/vaccine/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	var/datum/reagent/vaccine/self = src
-	src = null
-	if(self.data&&method == INGEST)
-		for(var/datum/disease/D in M.viruses)
-			if(istype(D, /datum/disease/advance))
-				var/datum/disease/advance/A = D
-				if(A.GetDiseaseID() == self.data)
-					D.cure()
-			else
-				if(D.type == self.data)
-					D.cure()
-
-		M.resistances += self.data
-	return
-*/

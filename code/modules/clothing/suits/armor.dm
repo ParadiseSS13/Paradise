@@ -1,6 +1,6 @@
 
 /obj/item/clothing/suit/armor
-	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/classic_baton/telescopic)
+	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/classic_baton/telescopic,/obj/item/weapon/kitchen/knife/combat)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
@@ -67,26 +67,13 @@
 /obj/item/clothing/suit/armor/hos/alt
 	name = "armored trenchoat"
 	desc = "A trenchcoat enchanced with a special lightweight kevlar. The epitome of tactical plainclothes."
-	icon_state = "hostrench"
-	item_state = "hostrench"
+	icon_state = "hostrench_open"
+	item_state = "hostrench_open"
 	flags_inv = 0
-
-	verb/toggle()
-		set name = "Toggle Trenchcoat Buttons"
-		set category = "Object"
-
-		if(!usr.canmove || usr.stat || usr.restrained())
-			return 0
-		if(icon_state == "hostrench")
-			icon_state = "hostrench_button"
-			item_state = "hostrench_button"
-			usr<< "You button the [src]."
-		else
-			icon_state = "hostrench"
-			item_state = "hostrench"
-			usr<< "You unbutton the [src]."
-
-		usr.update_inv_wear_suit()
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	action_button_name = "Open/Close Trenchcoat"
+	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/armor/hos/jensen
 	name = "armored trenchcoat"
@@ -187,11 +174,11 @@
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user as mob)
 	src.active = !( src.active )
 	if (src.active)
-		user << "\blue The reactive armor is now active."
+		to_chat(user, "\blue The reactive armor is now active.")
 		src.icon_state = "reactive"
 		src.item_state = "reactive"
 	else
-		user << "\blue The reactive armor is now inactive."
+		to_chat(user, "\blue The reactive armor is now inactive.")
 		src.icon_state = "reactiveoff"
 		src.item_state = "reactiveoff"
 		src.add_fingerprint(user)
@@ -252,6 +239,33 @@
 	desc = "Armor worn by the green Thunderodome team"
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
+
+/obj/item/clothing/suit/armor/riot/knight
+	name = "plate armour"
+	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
+	icon_state = "knight_green"
+	item_state = "knight_green"
+	slowdown = 0
+	armor = list(melee = 50, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
+
+/obj/item/clothing/suit/armor/riot/knight/yellow
+	icon_state = "knight_yellow"
+	item_state = "knight_yellow"
+
+/obj/item/clothing/suit/armor/riot/knight/blue
+	icon_state = "knight_blue"
+	item_state = "knight_blue"
+
+/obj/item/clothing/suit/armor/riot/knight/red
+	icon_state = "knight_red"
+	item_state = "knight_red"
+
+/obj/item/clothing/suit/armor/riot/knight/templar
+	name = "crusader armour"
+	desc = "God wills it!"
+	icon_state = "knight_templar"
+	item_state = "knight_templar"
+	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/classic_baton/telescopic,/obj/item/weapon/nullrod/sword)
 
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert

@@ -35,7 +35,7 @@
 	if(sdisability)
 		M.sdisabilities|=sdisability
 	if(activation_message)
-		M << "\red [activation_message]"
+		to_chat(M, "\red [activation_message]")
 	else
 		testing("[name] has no activation message.")
 
@@ -47,7 +47,7 @@
 	if(sdisability)
 		M.sdisabilities &= ~sdisability
 	if(deactivation_message)
-		M << "\red [deactivation_message]"
+		to_chat(M, "\red [deactivation_message]")
 	else
 		testing("[name] has no deactivation message.")
 
@@ -142,6 +142,7 @@
 	desc = "I wonder wath thith doeth."
 	activation_message = "Thomething doethn't feel right."
 	deactivation_message = "You now feel able to pronounce consonants."
+	mutation = LISP
 
 	New()
 		..()

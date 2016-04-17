@@ -8,9 +8,12 @@
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -21,11 +24,9 @@
 	icon_state = "weldingmask"
 	item_state = "weldingmask"
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
-	var/up = 0
 	flash_protect = 2
 	tint = 2
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
-	species_fit = list("Vox")
 	origin_tech = "materials=2;engineering=2"
 	action_button_name = "Toggle Welding Helmet"
 
@@ -44,7 +45,7 @@
 			src.flags |= (MASKCOVERSEYES)
 			flags_inv |= (HIDEEYES)
 			icon_state = initial(icon_state)
-			usr << "You flip the [src] down to protect your eyes."
+			to_chat(usr, "You flip the [src] down to protect your eyes.")
 			flash_protect = 2
 			tint = 2
 		else
@@ -52,7 +53,7 @@
 			src.flags &= ~(MASKCOVERSEYES)
 			flags_inv &= ~(HIDEEYES)
 			icon_state = "[initial(icon_state)]up"
-			usr << "You push the [src] up out of your face."
+			to_chat(usr, "You push the [src] up out of your face.")
 			flash_protect = 0
 			tint = 0
 		usr.update_inv_wear_mask()	//so our mob-overlays update
@@ -77,27 +78,23 @@
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
 	armor = list(melee = 0, bullet = 0, laser = 2,energy = 2, bomb = 0, bio = 75, rad = 0)
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
 	strip_delay = 60
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	icon_state = "clown"
 	item_state = "clown_hat"
-	species_fit = list("Vox")
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
@@ -113,7 +110,7 @@
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
-		M << "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!"
+		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
 		return 1
 
 /obj/item/clothing/mask/gas/clownwiz
@@ -128,55 +125,46 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	icon_state = "clown"
 	item_state = "clown_hat"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/sexyclown
 	name = "sexy-clown wig and mask"
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
 	desc = "The traditional mime's mask. It has an eerie facial posture."
 	icon_state = "mime"
 	item_state = "mime"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
 	desc = "A mask used when acting as a monkey."
 	icon_state = "monkeymask"
 	item_state = "monkeymask"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/sexymime
 	name = "sexy mime mask"
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
 	item_state = "sexymime"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
 	icon_state = "death_commando_mask"
 	item_state = "death_commando_mask"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Beep boop"
 	icon_state = "death"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/owl_mask
 	name = "owl mask"
 	desc = "Twoooo!"
 	icon_state = "owl"
-	species_fit = list("Vox")
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
-	var/cooldown = 0
 	action_button_name = "Hoot"
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
@@ -203,13 +191,25 @@
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	action_button_name = "HALT!"
 	icon_state = "sechailer"
-	var/cooldown = 0
 	var/aggressiveness = 2
 	var/safety = 1
 	ignore_maskadjust = 0
-	species_fit = list()
-	species_fit = list("Vox")
 	action_button_name = "HALT!"
+
+/obj/item/clothing/mask/gas/sechailer/hos
+	name = "\improper HOS SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
+	icon_state = "hosmask"
+	aggressiveness = 3
+	ignore_maskadjust = 1
+
+/obj/item/clothing/mask/gas/sechailer/warden
+	name = "\improper Warden SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
+	icon_state = "wardenmask"
+	aggressiveness = 3
+	ignore_maskadjust = 1
+
 
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
@@ -247,19 +247,19 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		switch(aggressiveness)
 			if(1)
-				user << "\blue You set the restrictor to the middle position."
+				to_chat(user, "\blue You set the restrictor to the middle position.")
 				aggressiveness = 2
 			if(2)
-				user << "\blue You set the restrictor to the last position."
+				to_chat(user, "\blue You set the restrictor to the last position.")
 				aggressiveness = 3
 			if(3)
-				user << "\blue You set the restrictor to the first position."
+				to_chat(user, "\blue You set the restrictor to the first position.")
 				aggressiveness = 1
 			if(4)
-				user << "\red You adjust the restrictor but nothing happens, probably because its broken."
+				to_chat(user, "\red You adjust the restrictor but nothing happens, probably because its broken.")
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(aggressiveness != 4)
-			user << "\red You broke it!"
+			to_chat(user, "\red You broke it!")
 			aggressiveness = 4
 	else
 		..()
@@ -270,7 +270,7 @@
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
 	if(safety)
 		safety = 0
-		user << "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer."
+		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
 	else
 		return
 

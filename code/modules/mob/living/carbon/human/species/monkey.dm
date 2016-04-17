@@ -19,13 +19,16 @@
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."
 
+	scream_verb = "screeches"
+	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
 	reagent_tag = PROCESS_ORG
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 
 	total_health = 75
 	brute_mod = 1.5
@@ -41,16 +44,19 @@
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
 
-datum/species/monkey/get_random_name(var/gender)
-	return
+/datum/species/monkey/get_random_name()
+	return "[lowertext(name)] ([rand(100,999)])"
 
 /datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
+	H.butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5)
+
 	..()
 
 /datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
 	H.dna.SetSEState(MONKEYBLOCK,1)
+	genemutcheck(H, MONKEYBLOCK)
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	switch(slot)

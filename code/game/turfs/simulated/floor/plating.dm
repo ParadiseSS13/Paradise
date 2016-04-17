@@ -27,21 +27,21 @@
 
 	if(istype(C, /obj/item/stack/rods))
 		if(broken || burnt)
-			user << "<span class='warning'>Repair the plating first!</span>"
-			return
+			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			return 1
 		var/obj/item/stack/rods/R = C
 		if (R.get_amount() < 2)
-			user << "<span class='warning'>You need two rods to make a reinforced floor!</span>"
-			return
+			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
+			return 1
 		else
-			user << "<span class='notice'>You begin reinforcing the floor...</span>"
+			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30, target = src))
 				if (R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, 'sound/items/Deconstruct.ogg', 80, 1)
 					R.use(2)
-					user << "<span class='notice'>You reinforce the floor.</span>"
-				return
+					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
+				return 1
 
 	else if(istype(C, /obj/item/stack/tile))
 		if(!broken && !burnt)
@@ -51,17 +51,19 @@
 			ChangeTurf(W.turf_type)
 			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 		else
-			user << "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>"
+			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
+		return 1
 
 	else if(istype(C, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/welder = C
 		if( welder.isOn() && (broken || burnt) )
 			if(welder.remove_fuel(0,user))
-				user << "<span class='danger'>You fix some dents on the broken plating.</span>"
+				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
 				playsound(src, 'sound/items/Welder.ogg', 80, 1)
 				icon_state = icon_plating
 				burnt = 0
 				broken = 0
+			return 1
 
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
@@ -102,7 +104,7 @@
 	if(!C || !user)
 		return
 	if(istype(C, /obj/item/weapon/wrench))
-		user << "<span class='notice'>You begin removing rods...</span>"
+		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
 		playsound(src, 'sound/items/Ratchet.ogg', 80, 1)
 		if(do_after(user, 30, target = src))
 			if(!istype(src, /turf/simulated/floor/engine))
@@ -222,8 +224,8 @@
 		return
 
 	if(!broken && isscrewdriver(C))
-		user << "<span class='notice'>You unscrew the catwalk's rods.</span>"
-		new /obj/item/stack/rods(src, 2)
+		to_chat(user, "<span class='notice'>You unscrew the catwalk's rods.</span>")
+		new /obj/item/stack/rods(src, 1)
 		ReplaceWithLattice()
 		for(var/direction in cardinal)
 			var/turf/T = get_step(src,direction)
@@ -232,13 +234,62 @@
 				CW.update_icon(0)
 		playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
 
-/turf/simulated/floor/airless
-	icon_state = "floor"
+/turf/simulated/floor/plating/metalfoam
+	name = "foamed metal plating"
+	icon_state = "metalfoam"
+	var/metal = MFOAM_ALUMINUM
+
+/turf/simulated/floor/plating/metalfoam/iron
+	icon_state = "ironfoam"
+	metal = MFOAM_IRON
+
+/turf/simulated/floor/plating/metalfoam/update_icon()
+	switch(metal)
+		if(MFOAM_ALUMINUM)
+			icon_state = "metalfoam"
+		if(MFOAM_IRON)
+			icon_state = "ironfoam"
+
+/turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
+	if(..())
+		return 1
+	if(istype(C) && C.force)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
+		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
+		if(prob(smash_prob))
+			// YAR BE CAUSIN A HULL BREACH
+			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")
+			smash()
+		else
+			visible_message("<span class='warning'>[user]'s [C.name] bounces against \the [src]!</span>")
+
+/turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
+	M.do_attack_animation(src)
+	if(M.melee_damage_upper == 0)
+		M.visible_message("<span class='notice'>[M] nudges \the [src].</span>")
+	else
+		if(M.attack_sound)
+			playsound(loc, M.attack_sound, 50, 1, 1)
+		M.visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
+		smash(src)
+
+/turf/simulated/floor/plating/metalfoam/attack_alien(mob/living/carbon/alien/humanoid/M)
+	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>")
+	smash(src)
+
+/turf/simulated/floor/plating/metalfoam/burn_tile()
+	smash()
+
+/turf/simulated/floor/plating/metalfoam/proc/smash()
+	ChangeTurf(/turf/space)
+
+/turf/simulated/floor/plasteel/airless
 	name = "airless floor"
 	oxygen = 0.01
 	nitrogen = 0.01
 	temperature = TCMB
 
-/turf/simulated/floor/airless/New()
+/turf/simulated/floor/plasteel/airless/New()
 	..()
 	name = "floor"

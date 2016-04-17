@@ -182,6 +182,16 @@
 	build_path = /obj/item/weapon/circuitboard/operating
 	category = list("Computer Boards")
 
+/datum/design/pandemic
+	name = "Computer Design (PanD.E.M.I.C. 2200)"
+	desc = "Allows for the construction of circuit boards used to build a PanD.E.M.I.C. 2200 console."
+	id = "pandemic"
+	req_tech = list("programming" = 2, "biotech" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/pandemic
+	category = list("Computer Boards")
+
 /datum/design/powermonitor
 	name = "Console Board (Power Monitor)"
 	desc = "Allows for the construction of circuit boards used to build a new power monitor"
@@ -358,33 +368,3 @@ datum/design/AAC
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/atmos_automation
-
-
-//Shield Generators//
-
-/datum/design/shield_gen_ex
-	name = "Circuit Design (Experimental hull shield generator)"
-	desc = "Allows for the construction of circuit boards used to build an experimental hull shield generator."
-	id = "shield_gen_ex"
-	req_tech = list("bluespace" = 4, "plasmatech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 2000, "sacid" = 20, MAT_DIAMOND = 10000, MAT_GOLD = 10000)
-	build_path = /obj/item/weapon/circuitboard/shield_gen_ex
-
-/datum/design/shield_gen
-	name = "Circuit Design (Experimental shield generator)"
-	desc = "Allows for the construction of circuit boards used to build an experimental shield generator."
-	id = "shield_gen"
-	req_tech = list("bluespace" = 4, "plasmatech" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 2000, "sacid" = 20, MAT_DIAMOND = 10000, MAT_GOLD = 10000)
-	build_path = /obj/item/weapon/circuitboard/shield_gen
-
-/datum/design/shield_cap
-	name = "Circuit Design (Experimental shield capacitor)"
-	desc = "Allows for the construction of circuit boards used to build an experimental shielding capacitor."
-	id = "shield_cap"
-	req_tech = list("magnets" = 3, "powerstorage" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 2000, "sacid" = 20, MAT_DIAMOND = 10000, MAT_GOLD = 10000)
-	build_path = /obj/item/weapon/circuitboard/shield_cap

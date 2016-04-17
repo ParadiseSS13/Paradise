@@ -15,6 +15,7 @@
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
 	projectile_type = "/obj/item/projectile/practice"
 	clumsy_check = 0
+	needs_permit = 0
 
 obj/item/weapon/gun/energy/laser/retro
 	name ="retro laser gun"
@@ -97,6 +98,15 @@ obj/item/weapon/gun/energy/laser/retro
 	projectile_type = "/obj/item/projectile/beam/xray"
 	charge_cost = 500
 
+/obj/item/weapon/gun/energy/immolator
+	name = "Immolator laser gun"
+	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
+	icon_state = "immolator"
+	item_state = "laser"
+	fire_sound = 'sound/weapons/laser3.ogg'
+	projectile_type = "/obj/item/projectile/beam/immolator"
+	origin_tech = "combat=4;materials=4;magnets=3;plasmatech=2"
+	charge_cost = 1250
 
 ////////Laser Tag////////////////////
 
@@ -107,6 +117,7 @@ obj/item/weapon/gun/energy/laser/retro
 	projectile_type = "/obj/item/projectile/lasertag/blue"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
+	needs_permit = 0
 
 	self_recharge = 1
 
@@ -114,7 +125,7 @@ obj/item/weapon/gun/energy/laser/retro
 	if(ishuman(M))
 		if(istype(M.wear_suit, /obj/item/clothing/suit/bluetag))
 			return 1
-		M << "\red You need to be wearing your laser tag vest!"
+		to_chat(M, "\red You need to be wearing your laser tag vest!")
 	return 0
 
 /obj/item/weapon/gun/energy/laser/redtag
@@ -124,6 +135,7 @@ obj/item/weapon/gun/energy/laser/retro
 	projectile_type = "/obj/item/projectile/lasertag/red"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
+	needs_permit = 0
 
 	self_recharge = 1
 
@@ -131,5 +143,5 @@ obj/item/weapon/gun/energy/laser/retro
 	if(ishuman(M))
 		if(istype(M.wear_suit, /obj/item/clothing/suit/redtag))
 			return 1
-		M << "\red You need to be wearing your laser tag vest!"
+		to_chat(M, "\red You need to be wearing your laser tag vest!")
 	return 0

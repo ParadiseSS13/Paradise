@@ -30,23 +30,11 @@
 		return STATUS_INTERACTIVE	// interactive (green visibility)
 	return STATUS_DISABLED			// no updates, completely disabled (red visibility)
 
-/mob/living/silicon/robot/syndicate/default_can_use_topic(var/src_object)
-	. = ..()
-	if(. != STATUS_INTERACTIVE)
-		return
-
-	if(z in config.admin_levels)						// Syndicate borgs can interact with everything on the admin level
-		return STATUS_INTERACTIVE
-	if(istype(get_area(src), /area/syndicate_station))	// If elsewhere, they can interact with everything on the syndicate shuttle
-		return STATUS_INTERACTIVE
-	if(istype(src_object, /obj/machinery))				// Otherwise they can only interact with emagged machinery
-		var/obj/machinery/Machine = src_object
-		if(Machine.emagged)
-			return STATUS_INTERACTIVE
-	return STATUS_UPDATE
-
 /mob/living/silicon/ai/default_can_use_topic(var/src_object)
 	. = shared_nano_interaction()
+	// Fix the weird hacking blurb to actually let them restore power
+	if(aiRestorePowerRoutine == 3 && istype(src_object, /obj/machinery/power/apc))
+		return STATUS_INTERACTIVE
 	if(. != STATUS_INTERACTIVE)
 		return
 
@@ -108,4 +96,10 @@
 	if(. != STATUS_CLOSE)
 		. = min(., shared_living_nano_distance(src_object))
 		if(!IsAdvancedToolUser())
+			. = STATUS_CLOSE
+
+/mob/living/simple_animal/bot/default_can_use_topic(var/src_object)
+	. = shared_nano_interaction(src_object)
+	if(. != STATUS_CLOSE)
+		if(!(src_object in contents))
 			. = STATUS_CLOSE

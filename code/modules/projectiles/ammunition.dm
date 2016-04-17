@@ -38,18 +38,19 @@
 				var/tmp_label = ""
 				var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
 				if(length(label_text) > 20)
-					user << "\red The inscription can be at most 20 characters long."
+					to_chat(user, "\red The inscription can be at most 20 characters long.")
 				else
 					if(label_text == "")
-						user << "\blue You scratch the inscription off of [initial(BB)]."
+						to_chat(user, "\blue You scratch the inscription off of [initial(BB)].")
 						BB.name = initial(BB.name)
 					else
-						user << "\blue You inscribe \"[label_text]\" into \the [initial(BB.name)]."
+						to_chat(user, "\blue You inscribe \"[label_text]\" into \the [initial(BB.name)].")
 						BB.name = "[initial(BB.name)] \"[label_text]\""
 			else
-				user << "\blue You can only inscribe a metal bullet."	//because inscribing beanbags is silly
+				to_chat(user, "\blue You can only inscribe a metal bullet.")//because inscribing beanbags is silly
+
 		else
-			user << "\blue There is no bullet in the casing to inscribe anything into."
+			to_chat(user, "\blue There is no bullet in the casing to inscribe anything into.")
 
 /obj/item/ammo_casing/proc/newshot() //For energy weapons, shotgun shells and wands (!).
 	if (!BB)
@@ -121,7 +122,7 @@
 			num_loaded++
 	if(num_loaded)
 		if(!silent)
-			user << "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>"
+			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
 		A.update_icon()
 		update_icon()
 
@@ -129,7 +130,7 @@
 	var/obj/item/ammo_casing/A = get_round()
 	if(A)
 		user.put_in_hands(A)
-		user << "<span class='notice'>You remove a round from \the [src]!</span>"
+		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
 		update_icon()
 
 /obj/item/ammo_box/update_icon()

@@ -30,6 +30,50 @@ var NanoUtility = function () {
                 }
             }
             return queryString;
+        },
+        winset: function (key, value, window) {
+            var obj, params, winsetRef;
+            if (window == null) {
+                window = NanoStateManager.getData().config.window.ref;
+            }
+            params = (
+                obj = {},
+                obj[window + "." + key] = value,
+                obj
+            );
+            return location.href = NanoUtility.href("winset", params);
+        },
+        extend: function(first, second) {
+            Object.keys(second).forEach(function(key) {
+                var secondVal;
+                secondVal = second[key];
+                if (secondVal && Object.prototype.toString.call(secondVal) === "[object Object]") {
+                    first[key] = first[key] || {};
+                    return NanoUtility.extend(first[key], secondVal);
+                } else {
+                    return first[key] = secondVal;
+                }
+            });
+            return first;
+        },
+        href: function(url, params) {
+            if (url == null) {
+                url = "";
+            }
+            if (params == null) {
+                params = {};
+            }
+            url = new Url("byond://" + url);
+            NanoUtility.extend(url.query, params);
+            return url;
+        },
+        close: function() {
+            var params;
+            params = {
+                command: "nanoclose " + _urlParameters.src
+            };
+            this.winset("is-visible", "false");
+            return location.href = NanoUtility.href("winset", params);
         }
     }
 } ();
@@ -51,6 +95,7 @@ $(document).ready(function () {
     NanoUtility.init();
     NanoStateManager.init();
     NanoTemplate.init();
+    NanoWindow.init();
 });
 
 if (!Array.prototype.indexOf)

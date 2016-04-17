@@ -13,12 +13,6 @@
 		return
 	..()
 
-/datum/reagent/fuel/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.adjustToxLoss(1)
-	..()
-	return
-
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
 	id = "unholywater"
@@ -52,6 +46,9 @@
 	M.adjustToxLoss(1*REM)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.adjustPlasma(10)
 	..()
 	return
 
@@ -80,13 +77,6 @@
 			T.overlays.Cut()
 			T.overlays = image('icons/effects/effects.dmi',icon_state = "thermite")
 	return
-
-/datum/reagent/thermite/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.adjustFireLoss(1)
-	..()
-	return
-
 
 /datum/reagent/glycerol
 	name = "Glycerol"

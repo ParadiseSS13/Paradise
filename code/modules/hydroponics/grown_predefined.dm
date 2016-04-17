@@ -6,8 +6,14 @@
 /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiavulgaris
 	plantname = "ambrosia"
 
+/obj/item/weapon/reagent_containers/food/snacks/grown/potato
+	plantname = "potato"
+
 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato
 	plantname = "tomato"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/tomato/killer
+	plantname = "killertomato"
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
 	plantname = "carrot"

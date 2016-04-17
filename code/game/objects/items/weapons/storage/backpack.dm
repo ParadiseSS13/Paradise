@@ -15,6 +15,10 @@
 	max_w_class = 3
 	max_combined_w_class = 21
 	storage_slots = 21
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/back.dmi'
+		)
 
 /obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
@@ -29,8 +33,8 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	origin_tech = "bluespace=4"
 	icon_state = "holdingpack"
-	max_w_class = 4
-	max_combined_w_class = 28
+	max_w_class = 5
+	max_combined_w_class = 35
 
 	New()
 		..()
@@ -38,15 +42,15 @@
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(crit_fail)
-			user << "\red The Bluespace generator isn't working."
+			to_chat(user, "\red The Bluespace generator isn't working.")
 			return
 		else if(istype(W, /obj/item/weapon/storage/backpack/holding) && !W.crit_fail)
 			var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
 			if(response == "Yes")
-				user.visible_message("<span class='warning'>[user] grins as he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
+				user.visible_message("<span class='warning'>[user] grins as \he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 				if(do_after(user,30,target=src))
 					investigate_log("has become a singularity. Caused by [user.key]","singulo")
-					user.visible_message("<span class='warning'>[user] erupts in evil laughter as he puts the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help yourself from laughing as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
+					user.visible_message("<span class='warning'>[user] erupts in evil laughter as \he puts the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
 					qdel(W)
 					var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 					singulo.energy = 300 //To give it a small boost
@@ -54,16 +58,17 @@
 					log_game("[key_name(user)] detonated a bag of holding")
 					qdel(src)
 				else
-					user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome","You come to the realization that this might not be the greatest idea")
+					user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
 		else
 			. = ..()
 
 	proc/failcheck(mob/user as mob)
 		if (prob(src.reliability)) return 1 //No failure
 		if (prob(src.reliability))
-			user << "\red The Bluespace portal resists your attempt to add another item." //light failure
+			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
+
 		else
-			user << "\red The Bluespace generator malfunctions!"
+			to_chat(user, "\red The Bluespace generator malfunctions!")
 			for (var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
@@ -77,7 +82,7 @@
 
 /obj/item/weapon/storage/backpack/santabag
 	name = "Santa's Gift Bag"
-	desc = "Space Santa uses this to deliver toys to all the nice children in space in Christmas! Wow, it's pretty big!"
+	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
 	w_class = 4.0
@@ -168,7 +173,6 @@
 	name = "leather satchel"
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
 	icon_state = "nt_deluxe"
-
 
 /obj/item/weapon/storage/backpack/satchel/withwallet
 	New()
@@ -324,7 +328,6 @@
 	icon_state = "duffel-captain"
 	item_state = "duffel-captain"
 
-
 /obj/item/weapon/storage/backpack/duffel/security
 	name = "security duffelbag"
 	desc = "A duffelbag built with robust fabric!"
@@ -344,13 +347,13 @@
 	item_state = "duffel-toxins"
 
 /obj/item/weapon/storage/backpack/duffel/genetics
-	name = "scientist duffelbag"
+	name = "geneticist duffelbag"
 	desc = "A duffelbag designed to hold gibbering monkies."
-	icon_state = "duffel-toxins"
-	item_state = "duffel-toxins"
+	icon_state = "duffel-gene"
+	item_state = "duffel-gene"
 
 /obj/item/weapon/storage/backpack/duffel/chemistry
-	name = "scientist duffelbag"
+	name = "chemist duffelbag"
 	desc = "A duffelbag designed to hold corrosive substances."
 	icon_state = "duffel-chemistry"
 	item_state = "duffel-chemistry"

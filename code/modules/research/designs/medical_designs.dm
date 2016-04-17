@@ -129,7 +129,7 @@
 	name = "Nanopaste"
 	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."
 	id = "nanopaste"
-	req_tech = list("materials" = 4, "engineering" = 3)
+	req_tech = list("materials" = 3, "engineering" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 7000)
 	build_path = /obj/item/stack/nanopaste
@@ -197,6 +197,121 @@
 	materials = list (MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
 	build_path = /obj/item/weapon/scalpel/manager
 	category = list("Medical")
+
+
+/////////////////////////////////////////
+//////////Cybernetic Implants////////////
+/////////////////////////////////////////
+
+/datum/design/cyberimp_welding
+	name = "Welding Shield implant"
+	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
+	id = "ci-welding"
+	req_tech = list("materials" = 4, "biotech" = 2)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 40
+	materials = list(MAT_METAL = 200, MAT_GLASS = 400)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/shield
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_medical_hud
+	name = "Medical HUD implant"
+	desc = "These cybernetic eyes will display a medical HUD over everything you see. Wiggle eyes to control."
+	id = "ci-medhud"
+	req_tech = list("materials" = 6, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_security_hud
+	name = "Security HUD implant"
+	desc = "These cybernetic eyes will display a security HUD over everything you see. Wiggle eyes to control."
+	id = "ci-sechud"
+	req_tech = list("materials" = 6, "programming" = 5, "biotech" = 4, "combat" = 2)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 750, MAT_GOLD = 750)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/security
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_xray
+	name = "X-Ray implant"
+	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile."
+	id = "ci-xray"
+	req_tech = list("materials" = 7, "programming" = 5, "biotech" = 6, "magnets" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_URANIUM = 1000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/xray
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_thermals
+	name = "Thermals implant"
+	desc = "These cybernetic eyes will give you Thermal vision. Vertical slit pupil included."
+	id = "ci-thermals"
+	req_tech = list("materials" = 7, "programming" = 5, "biotech" = 5, "magnets" = 5, "syndicate" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/thermals
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_antidrop
+	name = "Anti-Drop implant"
+	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
+	id = "ci-antidrop"
+	req_tech = list("materials" = 7, "programming" = 5, "biotech" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 400, MAT_GOLD = 400)
+	build_path = /obj/item/organ/internal/cyberimp/brain/anti_drop
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_antistun
+	name = "CNS Rebooter implant"
+	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
+	id = "ci-antistun"
+	req_tech = list("materials" = 7, "programming" = 5, "biotech" = 6)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 500, MAT_GOLD = 1000)
+	build_path = /obj/item/organ/internal/cyberimp/brain/anti_stun
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_nutriment
+	name = "Nutriment pump implant"
+	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
+	id = "ci-nutriment"
+	req_tech = list("materials" = 6, "programming" = 4, "biotech" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 40
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 500, MAT_URANIUM = 500)
+	build_path = /obj/item/organ/internal/cyberimp/chest/nutriment
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_nutriment_plus
+	name = "Nutriment pump implant PLUS"
+	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
+	id = "ci-nutrimentplus"
+	req_tech = list("materials" = 6, "programming" = 4, "biotech" = 6)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 500, MAT_URANIUM = 750)
+	build_path = /obj/item/organ/internal/cyberimp/chest/nutriment/plus
+	category = list("Misc", "Medical")
+
+/datum/design/cyberimp_reviver
+	name = "Reviver implant"
+	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
+	id = "ci-reviver"
+	req_tech = list("materials" = 6, "programming" = 4, "biotech" = 7, "syndicate" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 500, MAT_URANIUM = 1000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/reviver
+	category = list("Misc", "Medical")
 
 /////////////////////////////////////////
 ////////////Regular Implants/////////////

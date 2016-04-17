@@ -583,6 +583,7 @@
 			W.lit = 1
 			W.icon_state = "match_lit"
 			processing_objects.Add(W)
+			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 		W.update_icon()
 		return
 
@@ -674,3 +675,14 @@
 	new /obj/item/weapon/lipstick/green(src)
 	new /obj/item/weapon/lipstick/blue(src)
 	new /obj/item/weapon/lipstick/white(src)
+
+/obj/item/weapon/storage/box/foam_darts
+	name = "Foam Dart Pack"
+	desc = "Extra ammo for foam dart launchers. Contains 10 darts."
+	storage_slots = 10
+	max_combined_w_class = 10
+
+/obj/item/weapon/storage/box/foam_darts/New()
+	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/toy/ammo/crossbow(src)

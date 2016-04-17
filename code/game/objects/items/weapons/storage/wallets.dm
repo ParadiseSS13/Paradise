@@ -1,7 +1,8 @@
 /obj/item/weapon/storage/wallet
-	name = "wallet"
-	desc = "It can hold a few small and personal things."
+	name = "leather wallet"
+	desc = "Made from genuine leather, it is of the highest quality."
 	storage_slots = 10
+	icon = 'icons/obj/wallets.dmi'
 	icon_state = "wallet"
 	w_class = 2
 	can_hold = list(
@@ -95,3 +96,61 @@
 			new item2_type(src)
 		if(item3_type)
 			new item3_type(src)
+
+//////////////////////////////////////
+//			Color Wallets			//
+//////////////////////////////////////
+
+/obj/item/weapon/storage/wallet/color
+	name = "cheap wallet"
+	desc = "A cheap wallet from the arcade."
+	storage_slots = 5		//smaller storage than normal wallets
+
+/obj/item/weapon/storage/wallet/color/New()
+	..()
+	if(!item_color)
+		var/color_wallet = pick(subtypesof(/obj/item/weapon/storage/wallet/color))
+		new color_wallet(src.loc)
+		qdel(src)
+		return
+	UpdateDesc()
+
+/obj/item/weapon/storage/wallet/color/proc/UpdateDesc()
+	name = "cheap [item_color] wallet"
+	desc = "A cheap, [item_color] wallet from the arcade."
+	icon_state = "[item_color]_wallet"
+
+/obj/item/weapon/storage/wallet/color/update_icon()
+	if(front_id)
+		switch(front_id.icon_state)
+			if("id")
+				icon_state = "[item_color]_walletid"
+				return
+			if("silver")
+				icon_state = "[item_color]_walletid_silver"
+				return
+			if("gold")
+				icon_state = "[item_color]_walletid_gold"
+				return
+			if("centcom")
+				icon_state = "[item_color]_walletid_centcom"
+				return
+	icon_state = "[item_color]_wallet"
+
+/obj/item/weapon/storage/wallet/color/blue
+	item_color = "blue"
+
+/obj/item/weapon/storage/wallet/color/red
+	item_color = "red"
+
+/obj/item/weapon/storage/wallet/color/yellow
+	item_color = "yellow"
+
+/obj/item/weapon/storage/wallet/color/green
+	item_color = "green"
+
+/obj/item/weapon/storage/wallet/color/pink
+	item_color = "pink"
+
+/obj/item/weapon/storage/waller/color/brown
+	item_color = "brown"

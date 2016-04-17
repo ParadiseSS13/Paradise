@@ -187,8 +187,8 @@
 		. = ..()
 		if (.)
 			var/obj/item/weapon/paper/paper = locate() in container
-			if (!paper.info)
-				return 0
+			if (!paper || !paper.info)
+				return -1
 		return .
 
 /datum/recipe/oven/pizzamargherita
@@ -253,6 +253,11 @@
 		/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/plump_pie
+
+/datum/recipe/oven/plumphelmetbiscuit
+	fruit = list("plumphelmet" = 1)
+	reagents = list("water" = 5, "flour" = 5)
+	result = /obj/item/weapon/reagent_containers/food/snacks/plumphelmetbiscuit
 
 /datum/recipe/oven/creamcheesebread
 	items = list(
@@ -352,7 +357,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/dough,
 		/obj/item/weapon/reagent_containers/food/snacks/dough,
 		/obj/item/weapon/reagent_containers/food/snacks/dough,
-		/obj/item/organ/brain
+		/obj/item/organ/internal/brain
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/braincake
 

@@ -2,14 +2,14 @@
 "ab" = (/turf/unsimulated/wall,/area/space)
 "ac" = (/turf/unsimulated/wall,/area/awaymission)
 "ad" = (/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/wall,/area/awaymission)
-"ae" = (/obj/machinery/power/apc/noalarm,/obj/structure/cable{icon_state = "0-2"; d2 = 2},/turf/unsimulated/wall,/area/awaymission)
-"af" = (/obj/machinery/power/terminal,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/awaymission)
-"ag" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating,/area/awaymission)
+"ae" = (/obj/machinery/power/terminal,/turf/simulated/floor/plating,/area/awaymission)
+"af" = (/obj/machinery/power/apc/noalarm{dir = 1; pixel_y = 32},/obj/structure/cable{d2 = 2; icon_state = "0-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission)
+"ag" = (/mob/living/simple_animal/hostile/alien/queen,/turf/simulated/floor/carpet,/area/awaymission)
 "ah" = (/obj/item/stack/cable_coil/random,/obj/effect/decal/remains/human,/turf/simulated/floor/plating,/area/awaymission)
 "ai" = (/turf/simulated/floor/plating,/area/awaymission)
-"aj" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/awaymission)
-"ak" = (/obj/machinery/power/smes/magical,/turf/simulated/shuttle/plating,/area/awaymission)
-"al" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0},/obj/structure/cable,/turf/simulated/floor/plating,/area/awaymission)
+"aj" = (/obj/machinery/power/smes/magical,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/awaymission)
+"ak" = (/obj/structure/toilet{dir = 1},/obj/structure/alien/weeds{icon_state = "weeds2"},/obj/item/organ/internal/body_egg/alien_embryo,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
+"al" = (/obj/machinery/shower{dir = 8},/obj/structure/alien/weeds{icon_state = "weeds1"},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
 "am" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0},/turf/simulated/floor/plating,/area/awaymission)
 "an" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating,/area/awaymission)
 "ao" = (/turf/simulated/wall,/area/awaymission)
@@ -145,7 +145,6 @@
 "cO" = (/obj/machinery/door_control{id = "Room103"; name = "Room103 Bolt Control"; normaldoorcontrol = 1; pixel_x = 25; pixel_y = 0; req_access_txt = "0"; specialfunctions = 4},/turf/simulated/floor/carpet{icon_state = "carpetnoconnect"},/area/awaymission)
 "cP" = (/turf/simulated/floor/plasteel,/area/awaymission)
 "cQ" = (/mob/living/simple_animal/hostile/retaliate/goat,/turf/simulated/floor/plasteel,/area/awaymission)
-"cR" = (/mob/living/carbon/alien/humanoid/queen{bodytemperature = 31000.1; maxHealth = 0; suiciding = 0},/turf/simulated/floor/carpet,/area/awaymission)
 "cS" = (/obj/structure/stool/bed/nest,/turf/simulated/floor/carpet,/area/awaymission)
 "cT" = (/obj/structure/stool/bed/alien,/obj/item/xenos_claw,/turf/simulated/floor/carpet,/area/awaymission)
 "cU" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/yellow,/turf/simulated/floor/carpet,/area/awaymission)
@@ -175,9 +174,7 @@
 "ds" = (/obj/machinery/door/window/southright,/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/carpet,/area/awaymission)
 "dt" = (/obj/machinery/vending/dinnerware,/turf/simulated/floor/plasteel,/area/awaymission)
 "du" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/alien/weeds,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
-"dv" = (/obj/structure/toilet{dir = 1},/obj/structure/alien/weeds{icon_state = "weeds2"},/obj/item/alien_embryo,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
 "dw" = (/obj/machinery/door/window/eastleft,/obj/structure/alien/weeds,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
-"dx" = (/obj/machinery/shower{dir = 8},/obj/structure/alien/egg,/obj/structure/alien/weeds{icon_state = "weeds1"},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
 "dy" = (/obj/machinery/light,/turf/simulated/floor/plasteel,/area/awaymission)
 "dz" = (/obj/machinery/processor,/turf/simulated/floor/plasteel,/area/awaymission)
 "dA" = (/obj/machinery/chem_master/condimaster,/turf/simulated/floor/plasteel,/area/awaymission)
@@ -232,7 +229,7 @@
 "ex" = (/obj/structure/table/woodentable,/turf/simulated/floor/carpet,/area/awaymission)
 "ey" = (/obj/structure/table,/obj/machinery/computer/security/telescreen{desc = "Not used to spy on hotel rooms."; dir = 1; network = "Hotel"; use_power = 0},/turf/simulated/floor/carpet,/area/awaymission)
 "ez" = (/obj/item/weapon/melee/cultblade,/turf/simulated/floor/engine/cult,/area/awaymission)
-"eA" = (/obj/item/weapon/butch{blood_DNA = 1e+009},/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/engine/cult,/area/awaymission)
+"eA" = (/obj/item/weapon/kitchen/knife/butcher{blood_DNA = 1e+009},/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/engine/cult,/area/awaymission)
 "eB" = (/obj/structure/table/woodentable,/obj/item/weapon/pen,/turf/simulated/floor/carpet,/area/awaymission)
 "eC" = (/obj/structure/stool/bed/chair{dir = 8},/obj/effect/decal/remains/human,/turf/simulated/floor/carpet{icon_state = "carpetnoconnect"},/area/awaymission)
 "eD" = (/obj/structure/table/woodentable,/obj/item/weapon/clipboard,/obj/item/weapon/paper,/turf/simulated/floor/carpet,/area/awaymission)
@@ -264,9 +261,9 @@
 "fd" = (/turf/simulated/shuttle/wall{icon_state = "swall_s9"; dir = 2},/area/awaymission)
 
 (1,1,1) = {"
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacadacacacaeacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacafagahaiaiaiajaiaiaiaiaiaiacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaabababababababababababababababababababacakalamamamamanaiaiaiaiaiaiacababababababababababababababababababaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacadacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacaeaiahaiaiaiafaiaiaiaiaiaiacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaabababababababababababababababababababacajamamamamamanaiaiaiaiaiaiacababababababababababababababababababaaaaaaaaaa
 aaaaaaabaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoapaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoabaaaaaaaaaa
 aaaaaaabaoaqaqarasatauavawaoaqaqaraxayauavawaoazazazazazazazazazazazazazaoaAaoaBaoaCaCaCaDaCaCaCaoaEaoaFaoaoabaaaaaaaaaa
 aaaaaaabaoaqaqaGaHaHaHaHaIaoaqaqaGaHaHaHaHaJaoaHazazazazaKaLaMazazazazaoaoaNaoaNaoaOaNaNaNaNaNaPaoaNaoaNaoaoabaaaaaaaaaa
@@ -298,10 +295,10 @@ aaaaaaaaboaHbpaHaHaHbpaHaHaHbpaHaHaHbpaHaHaHbpaHaHaHaHbtaobuaobvaHaHaobvaHaHaHaH
 aaaaaaaabsaHaHaHaHaHbqaHaHaHaHaHbqaHaHaHaHaHaHaHaHaHaHaHbnaHbnaHaHaHaHaHcDcDcDcDcDcDcDcDcDcDcDcDcDcDcDcDcDbtaoabaaaaaaaa
 aaaaaaabaoaoaocEaoaoaoaoaocFaoaoaoaoaocGaoaoaoaHaHaHaHaHbpaHbpaHaHaHaHcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBaoabaaaaaaaa
 aaaaaaabaoaHcHcIaHcJaoaHcKcLaHavaocMcNcOaHavaoaHaHaHaHaHaHaHaHaHaHaHaHcBcPcPcPcQcPcPcPcPcPcPcPcPcPcPcPcQcPcPaoabaaaaaaaa
-aaaaaaabaoaHcRaHcScTaobvaHaHaHcUaocVcWcWaHcXaoaHaHaHaHaHaHaHaHaHaHaHaHaocYcPcZdadbdbcPcPcPcPcPdadadadadacPcYaoabaaaaaaaa
+aaaaaaabaoaHaHagcScTaobvaHaHaHcUaocVcWcWaHcXaoaHaHaHaHaHaHaHaHaHaHaHaHaocYcPcZdadbdbcPcPcPcPcPdadadadadacPcYaoabaaaaaaaa
 aaaaaaaabRaHdcddcSdeaoaHaHaHaHcUaocWdfcWaHdgaoaHaHaHaHaHbpaHbpaHaHaHaHaodhcPdadidjdkcPcPcPcQcPdadadldadacPdhaoabaaaaaaaa
 aaaaaaabaodmdndodndpaobTbTbUbTbVaodqdrdsdrbVaoaHaHaHaHaHaHaHaHaHaHaHaHaodtcPcQcPcPcPcPcPcPcPcPcPcPcPcPcPcPdtaoabaaaaaaaa
-aaaaaaabbWdudvdwdxaobWbXaYaZbYaobWbXaYaZbYaoaoaHaHaHaHaHbqaHbqaHaHaHaHaocPdydzdAdBdCcQdycPdycPcPdDdEdFcPdycQaoabaaaaaaaa
+aaaaaaabbWduakdwalaobWbXaYaZbYaobWbXaYaZbYaoaoaHaHaHaHaHbqaHbqaHaHaHaHaocPdydzdAdBdCcQdycPdycPcPdDdEdFcPdycQaoabaaaaaaaa
 aaaaaaabaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaoaHaHaHaHbtaobuaobvaHaHaHaoaoaoaoaoaoaoaoaodGaoaoaoaoaoaoaoaoaoaoabaaaaaaaa
 aaaaaaabaoaHaHaHaHaHaHaHaHaHdHaHaHaHaHaHdIdIdIaHaHaHaHaHbnaHbnaHaHaHaHaHaHaHaHbnaHaHaHaHaHaHaHaHaHaHcWaHaHcWbmaaaaaaaaaa
 aaaaaaabaodJaHdKaHaHaHaHaHaHaHdHaHaHaHaHdIdIdIaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHcWcWcWcWaHboaaaaaaaaaa
@@ -325,3 +322,4 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabReWeXbDbDbDbDbDeSeSeSbDbDbDbDeYeUeVaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZbRfabDeSeWeSbDbDeRbDbDfbfceSeTeUeVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZeNeMeHeIeNeLeLeLeNeMeHeIeNfdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

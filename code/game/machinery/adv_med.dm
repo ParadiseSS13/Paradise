@@ -42,17 +42,17 @@
 /obj/machinery/bodyscanner/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(src.occupant)
-			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", G)
 		return
 
 	if (istype(G, /obj/item/weapon/wrench))
 		if(src.occupant)
-			user << "<span class='notice'>The scanner is occupied.</span>"
+			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
 		if(panel_open)
-			user << "<span class='notice'>Close the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
 		if(dir == 4)
 			dir = 8
@@ -68,20 +68,20 @@
 	if(istype(G, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/TYPECAST_YOUR_SHIT = G
 		if(panel_open)
-			user << "<span class='notice'>Close the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
 		if(!ismob(TYPECAST_YOUR_SHIT.affecting))
 			return
 		if(occupant)
-			user << "<span class='notice'>The scanner is already occupied!</span>"
+			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
 			return
 		for(var/mob/living/carbon/slime/M in range(1, TYPECAST_YOUR_SHIT.affecting))
 			if(M.Victim == TYPECAST_YOUR_SHIT.affecting)
-				user << "<span class='danger'>[TYPECAST_YOUR_SHIT.affecting.name] has a fucking slime attached to them, deal with that first.</span>"
+				to_chat(user, "<span class='danger'>[TYPECAST_YOUR_SHIT.affecting.name] has a fucking slime attached to them, deal with that first.</span>")
 				return
 		var/mob/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
-			user << "<span class='notice'>Subject cannot have abiotic items on.</span>"
+			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
 			return
 		/*if(M.client)
 			M.client.perspective = EYE_PERSPECTIVE
@@ -105,20 +105,20 @@
 	if(!ishuman(user) && !isrobot(user))
 		return 0 //not a borg or human
 	if(panel_open)
-		user << "<span class='notice'>Close the maintenance panel first.</span>"
+		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return 0 //panel open
 	if(occupant)
-		user << "<span class='notice'>\The [src] is already occupied.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is already occupied.</span>")
 		return 0 //occupied
 
 	if(O.buckled)
 		return 0
 	if(O.abiotic())
-		user << "<span class='notice'>Subject cannot have abiotic items on.</span>"
+		to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
 		return 0
 	for(var/mob/living/carbon/slime/M in range(1, O))
 		if(M.Victim == O)
-			user << "<span class='danger'>[O] has a fucking slime attached to them, deal with that first.</span>"
+			to_chat(user, "<span class='danger'>[O] has a fucking slime attached to them, deal with that first.</span>")
 			return 0
 
 	if(O == user)
@@ -196,7 +196,6 @@
 
 /obj/machinery/body_scanconsole
 	var/obj/machinery/bodyscanner/connected
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
 	var/delete
 	var/temphtml
 	name = "Body Scanner Console"
@@ -209,6 +208,7 @@
 	active_power_usage = 500
 	var/printing = null
 	var/printing_text = null
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -268,7 +268,7 @@
 
 	if (istype(G, /obj/item/weapon/wrench))
 		if(panel_open)
-			user << "<span class='notice'>Close the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
 		if(dir == 4)
 			dir = 8
@@ -292,7 +292,7 @@
 		return
 
 	if (panel_open)
-		user << "<span class='notice'>Close the maintenance panel first.</span>"
+		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
 	if(!src.connected)
@@ -317,7 +317,7 @@
 			occupantData["health"] = H.health
 			occupantData["maxHealth"] = H.maxHealth
 
-			occupantData["hasVirus"] = H.virus2.len
+			occupantData["hasVirus"] = H.viruses.len
 
 			occupantData["bruteLoss"] = H.getBruteLoss()
 			occupantData["oxyLoss"] = H.getOxyLoss()
@@ -346,6 +346,15 @@
 				bloodData["bloodMax"] = H.max_blood
 			occupantData["blood"] = bloodData
 
+			var/implantData[0]
+			for(var/obj/item/weapon/implant/I in H)
+				if(I.implanted && is_type_in_list(I, known_implants))
+					var/implantSubData[0]
+					implantSubData["name"] = sanitize(I.name)
+					implantData.Add(list(implantSubData))
+			occupantData["implant"] = implantData
+			occupantData["implant_len"] = implantData.len
+
 			var/extOrganData[0]
 			for(var/obj/item/organ/external/E in H.organs)
 				var/organData[0]
@@ -359,17 +368,15 @@
 				organData["bruised"] = E.min_bruised_damage
 				organData["broken"] = E.min_broken_damage
 
-				var/implantData[0]
+				var/shrapnelData[0]
 				for(var/obj/I in E.implants)
-					var/implantSubData[0]
-					implantSubData["name"] = I.name
-					if(is_type_in_list(I, known_implants))
-						implantSubData["known"] = 1
+					var/shrapnelSubData[0]
+					shrapnelSubData["name"] = I.name
 
-					implantData.Add(list(implantSubData))
+					shrapnelData.Add(list(shrapnelSubData))
 
-				organData["implants"] = implantData
-				organData["implants_len"] = implantData.len
+				organData["shrapnel"] = shrapnelData
+				organData["shrapnel_len"] = shrapnelData.len
 
 				var/organStatus[0]
 				if(E.status & ORGAN_DESTROYED)
@@ -382,6 +389,8 @@
 					organStatus["splinted"] = 1
 				if(E.status & ORGAN_BLEEDING)
 					organStatus["bleeding"] = 1
+				if(E.status & ORGAN_DEAD)
+					organStatus["dead"] = 1
 
 				organData["status"] = organStatus
 
@@ -398,7 +407,7 @@
 			occupantData["extOrgan"] = extOrganData
 
 			var/intOrganData[0]
-			for(var/obj/item/organ/I in H.internal_organs)
+			for(var/obj/item/organ/internal/I in H.internal_organs)
 				var/organData[0]
 				organData["name"] = I.name
 				organData["desc"] = I.desc
@@ -408,6 +417,7 @@
 				organData["bruised"] = I.min_broken_damage
 				organData["broken"] = I.min_bruised_damage
 				organData["robotic"] = I.robotic
+				organData["dead"] = (I.status & ORGAN_DEAD)
 
 				intOrganData.Add(list(organData))
 
@@ -440,6 +450,7 @@
 			printing = 1
 			visible_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>")
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
 			P.info += "<b>Time of scan:</b> [worldtime2text(world.time)]<br><br>"
 			P.info += "[printing_text]"
@@ -465,7 +476,7 @@
 					t1 = "*dead*"
 			dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
-			if(occupant.virus2.len)
+			if(occupant.viruses.len)
 				dat += "<font color='red'>Viral pathogen detected in blood stream.</font><BR>"
 
 			var/extra_font = null
@@ -571,10 +582,7 @@
 
 				var/unknown_body = 0
 				for(var/I in e.implants)
-					if(is_type_in_list(I,known_implants))
-						imp += "[I] implanted:"
-					else
-						unknown_body++
+					unknown_body++
 
 				if(unknown_body || e.hidden)
 					imp += "Unknown body present:"
@@ -585,7 +593,7 @@
 				else
 					dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
 				dat += "</tr>"
-			for(var/obj/item/organ/i in occupant.internal_organs)
+			for(var/obj/item/organ/internal/i in occupant.internal_organs)
 				var/mech = i.desc
 				var/infection = "None"
 				switch (i.germ_level)

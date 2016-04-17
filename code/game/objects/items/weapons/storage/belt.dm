@@ -87,7 +87,7 @@
 		"/obj/item/weapon/reagent_containers/dropper",
 		"/obj/item/weapon/reagent_containers/glass/beaker",
 		"/obj/item/weapon/reagent_containers/glass/bottle",
-		"/obj/item/weapon/reagent_containers/pill",
+		"/obj/item/weapon/reagent_containers/food/pill",
 		"/obj/item/weapon/reagent_containers/syringe",
 		"/obj/item/weapon/reagent_containers/glass/dispenser",
 		"/obj/item/weapon/lighter/zippo",
@@ -106,13 +106,13 @@
 
 /obj/item/weapon/storage/belt/medical/response_team/New()
 	..()
-	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
-	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
-	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
-	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 
 
 /obj/item/weapon/storage/belt/botany
@@ -159,6 +159,7 @@
 		"/obj/item/ammo_box",
 		"/obj/item/weapon/reagent_containers/food/snacks/donut/normal",
 		"/obj/item/weapon/reagent_containers/food/snacks/donut/jelly",
+		"/obj/item/weapon/kitchen/knife/combat",
 		"/obj/item/weapon/melee/baton",
 		"/obj/item/weapon/melee/classic_baton",
 		"/obj/item/device/flashlight/seclite",
@@ -172,7 +173,7 @@
 
 /obj/item/weapon/storage/belt/security/response_team/New()
 	..()
-	new /obj/item/weapon/kitchenknife/combat(src)
+	new /obj/item/weapon/kitchen/knife/combat(src)
 	new /obj/item/weapon/melee/baton/loaded(src)
 	new /obj/item/device/flash(src)
 	new /obj/item/weapon/melee/classic_baton/telescopic(src)
@@ -215,6 +216,13 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 
+/obj/item/weapon/storage/belt/military/assault
+	name = "assault belt"
+	desc = "A tactical assault belt."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+	storage_slots = 6
+
 /obj/item/weapon/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -240,18 +248,51 @@
 	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
 	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
 
+/obj/item/weapon/storage/belt/lazarus
+	name = "trainer's belt"
+	desc = "For the mining master, holds your lazarus capsules."
+	icon_state = "lazarusbelt"
+	item_state = "lazbelt"
+	w_class = 4
+	max_w_class = 1
+	max_combined_w_class = 6
+	storage_slots = 6
+	can_hold = list("/obj/item/device/mobcapsule")
+
+/obj/item/weapon/storage/belt/lazarus/New()
+	..()
+	update_icon()
+
+
+/obj/item/weapon/storage/belt/lazarus/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]_[contents.len]"
+
+/obj/item/weapon/storage/belt/lazarus/attackby(obj/item/W, mob/user)
+	var/amount = contents.len
+	. = ..()
+	if(amount != contents.len)
+		update_icon()
+
+/obj/item/weapon/storage/belt/lazarus/remove_from_storage(obj/item/W as obj, atom/new_location)
+	..()
+	update_icon()
+
+
 /obj/item/weapon/storage/belt/bandolier
 	name = "bandolier"
 	desc = "A bandolier for holding shotgun ammunition."
 	icon_state = "bandolier"
 	item_state = "bandolier"
-	storage_slots = 6
+	storage_slots = 8
 	can_hold = list(
 		"/obj/item/ammo_casing/shotgun"
 		)
 
 /obj/item/weapon/storage/belt/bandolier/full/New()
 	..()
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
@@ -372,9 +413,10 @@
 	proc/failcheck(mob/user as mob)
 		if (prob(src.reliability)) return 1 //No failure
 		if (prob(src.reliability))
-			user << "\red The Bluespace portal resists your attempt to add another item." //light failure
+			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
+
 		else
-			user << "\red The Bluespace generator malfunctions!"
+			to_chat(user, "\red The Bluespace generator malfunctions!")
 			for (var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
@@ -449,7 +491,7 @@
 		return
 	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/structure/table) || istype(target, /obj/structure/closet))
 		return
-	user << "Planting explosives..."
+	to_chat(user, "Planting explosives...")
 	user.visible_message("[user.name] is fiddling with their toolbelt.")
 	if(ismob(target))
 		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
@@ -467,7 +509,7 @@
 			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
-		user << "You sacrifice your belt for the sake of justice. Timer counting down from 15."
+		to_chat(user, "You sacrifice your belt for the sake of justice. Timer counting down from 15.")
 		spawn(150)
 			if(target)
 				if(ismob(target) || isobj(target))

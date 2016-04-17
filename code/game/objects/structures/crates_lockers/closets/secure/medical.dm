@@ -12,7 +12,6 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/storage/box/autoinjectors(src)
 		new /obj/item/weapon/storage/box/syringes(src)
 		new /obj/item/weapon/reagent_containers/dropper(src)
@@ -23,7 +22,6 @@
 		new /obj/item/weapon/reagent_containers/glass/bottle/epinephrine(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/charcoal(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/charcoal(src)
-		return
 
 
 
@@ -41,14 +39,12 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/tank/anesthetic(src)
 		new /obj/item/weapon/tank/anesthetic(src)
 		new /obj/item/weapon/tank/anesthetic(src)
 		new /obj/item/clothing/mask/breath/medical(src)
 		new /obj/item/clothing/mask/breath/medical(src)
 		new /obj/item/clothing/mask/breath/medical(src)
-		return
 
 
 
@@ -64,7 +60,6 @@
 
 	New()
 		..()
-		sleep(2)
 		if(prob(50))
 			new /obj/item/weapon/storage/backpack/medic(src)
 		else
@@ -78,7 +73,7 @@
 		new /obj/item/weapon/defibrillator/loaded(src)
 		new /obj/item/weapon/storage/belt/medical(src)
 		new /obj/item/clothing/glasses/hud/health(src)
-		return
+		new /obj/item/clothing/shoes/sandal/white(src)
 
 //Exam Room
 /obj/structure/closet/secure_closet/exam
@@ -95,7 +90,6 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/storage/box/syringes(src)
 		new /obj/item/weapon/reagent_containers/dropper(src)
 		new /obj/item/weapon/storage/belt/medical(src)
@@ -110,7 +104,6 @@
 		new /obj/item/weapon/storage/firstaid/fire(src)
 		new /obj/item/weapon/storage/firstaid/o2(src)
 		new /obj/item/weapon/storage/firstaid/toxin(src)
-		return
 
 
 // Psychiatrist's pill bottle
@@ -120,10 +113,10 @@
 
 /obj/item/weapon/storage/pill_bottle/psychiatrist/New()
 	..()
-	new /obj/item/weapon/reagent_containers/pill/haloperidol(src)
-	new /obj/item/weapon/reagent_containers/pill/haloperidol(src)
-	new /obj/item/weapon/reagent_containers/pill/methamphetamine(src)
-	new /obj/item/weapon/reagent_containers/pill/methamphetamine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/haloperidol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/haloperidol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/methamphetamine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/methamphetamine(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
@@ -137,13 +130,10 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/clothing/suit/straight_jacket(src)
 		new /obj/item/weapon/reagent_containers/syringe(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/ether(src)
 		new /obj/item/weapon/storage/pill_bottle/psychiatrist(src)
-
-		return
 
 /obj/structure/closet/secure_closet/CMO
 	name = "chief medical officer's locker"
@@ -157,7 +147,6 @@
 
 	New()
 		..()
-		sleep(2)
 		if(prob(50))
 			new /obj/item/weapon/storage/backpack/medic(src)
 		else
@@ -185,7 +174,7 @@
 		new /obj/item/weapon/storage/belt/medical(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/reagent_containers/hypospray/CMO(src)
-		return
+		new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 
 
 
@@ -196,12 +185,10 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/device/assembly/signaler(src)
 		new /obj/item/device/radio/electropack(src)
 		new /obj/item/device/radio/electropack(src)
 		new /obj/item/device/radio/electropack(src)
-		return
 
 
 
@@ -219,10 +206,8 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/storage/box/pillbottles(src)
 		new /obj/item/weapon/storage/box/pillbottles(src)
-		return
 
 /obj/structure/closet/secure_closet/medical_wall
 	name = "first aid closet"
@@ -264,12 +249,10 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/clothing/suit/space/eva/paramedic(src)
 		new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
 		new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
 		new /obj/item/device/sensor_device(src)
-		return
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
@@ -285,11 +268,9 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/phenol(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/ammonia(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/oil(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acid(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine(src)
-		return

@@ -53,6 +53,8 @@
 				return 1
 		if (istype(other, /mob/living/silicon))
 			return 1
+		if (istype(other, /mob/living/simple_animal/bot))
+			return 1
 		if (istype(other, /mob/living/carbon/brain))
 			return 1
 		if (istype(other, /mob/living/carbon/slime))
@@ -89,6 +91,11 @@
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
 	return real_name
+
+/mob/living/carbon/human/IsVocal()
+	if(mind)
+		return !mind.miming
+	return 1
 
 /mob/living/carbon/human/proc/SetSpecialVoice(var/new_voice)
 	if(new_voice)

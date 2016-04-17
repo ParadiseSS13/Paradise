@@ -17,7 +17,7 @@
 
 /datum/reagent/drink/tomatojuice/on_mob_life(var/mob/living/M as mob)
 	..()
-	if(M.getFireLoss() && prob(20)) M.heal_organ_damage(0,1)
+	if(M.getFireLoss() && prob(20)) M.adjustFireLoss(-1)
 	return
 
 /datum/reagent/drink/limejuice
@@ -110,7 +110,8 @@
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Clown"))
 		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 		M.nutrition += nutriment_factor
 		..()
 		return
@@ -125,7 +126,8 @@
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
 		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 		M.nutrition += nutriment_factor
 		..()
 		return
@@ -145,7 +147,7 @@
 	color = "#DFDFDF" // rgb: 223, 223, 223
 
 /datum/reagent/drink/milk/on_mob_life(var/mob/living/M as mob)
-	if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
+	if(M.getBruteLoss() && prob(20)) M.adjustBruteLoss(-1)
 	if(holder.has_reagent("capsaicin"))
 		holder.remove_reagent("capsaicin", 2)
 	..()
@@ -187,6 +189,7 @@
 	adj_sleepy = -2
 	adj_temp = 25
 	overdose_threshold = 45
+	addiction_chance = 1 // It's true.
 
 /datum/reagent/drink/coffee/on_mob_life(var/mob/living/M as mob)
 	if(holder.has_reagent("frostoil"))
@@ -223,7 +226,7 @@
 /datum/reagent/drink/coffee/soy_latte/on_mob_life(var/mob/living/M as mob)
 	..()
 	M.sleeping = 0
-	if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
+	if(M.getBruteLoss() && prob(20)) M.adjustBruteLoss(-1)
 	return
 
 /datum/reagent/drink/coffee/cafe_latte
@@ -238,7 +241,7 @@
 	..()
 	M.sleeping = 0
 	if(M.getBruteLoss() && prob(20))
-		M.heal_organ_damage(1,0)
+		M.adjustBruteLoss(-1)
 		return
 
 /datum/reagent/drink/tea
@@ -264,16 +267,38 @@
 	color = "#104038" // rgb: 16, 64, 56
 	adj_temp = -5
 
-/datum/reagent/drink/kahlua
-	name = "Kahlua"
-	id = "kahlua"
-	description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
+/datum/reagent/drink/bananahonk
+	name = "Banana Mama"
+	id = "bananahonk"
+	description = "A drink from Clown Heaven."
+	nutriment_factor = 1 * FOOD_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
-	adj_dizzy = -5
-	adj_drowsy = -3
-	adj_sleepy = -2
 
-/datum/reagent/drink/kahlua/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/drink/bananahonk/on_mob_life(var/mob/living/M as mob)
+	M.nutrition += nutriment_factor
+	if(istype(M, /mob/living/carbon/human) && M.job in list("Clown"))
+		if(!M) M = holder.my_atom
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
+		M.nutrition += nutriment_factor
+		..()
+		return
 	..()
-	M.Jitter(5)
-	return
+
+/datum/reagent/drink/silencer
+	name = "Silencer"
+	id = "silencer"
+	description = "A drink from Mime Heaven."
+	nutriment_factor = 1 * FOOD_METABOLISM
+	color = "#664300" // rgb: 102, 67, 0
+
+/datum/reagent/drink/silencer/on_mob_life(var/mob/living/M as mob)
+	M.nutrition += nutriment_factor
+	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
+		if(!M) M = holder.my_atom
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
+		M.nutrition += nutriment_factor
+		..()
+		return
+	..()

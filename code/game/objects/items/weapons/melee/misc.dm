@@ -1,3 +1,6 @@
+/obj/item/weapon/melee
+	needs_permit = 1
+
 /obj/item/weapon/melee/chainofcommand
 	name = "chain of command"
 	desc = "A tool used by great men to placate the frothing masses."
@@ -14,7 +17,7 @@
 
 
 /obj/item/weapon/melee/chainofcommand/suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>"
+		to_chat(viewers(user), "<span class='suicide'>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
 		return (OXYLOSS)
 
 

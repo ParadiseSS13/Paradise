@@ -6,7 +6,6 @@
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	heal_rate = 5
-	plasma_rate = 20
 	large = 1
 	ventcrawler = 0
 
@@ -24,7 +23,11 @@
 			break
 
 	real_name = src.name
-	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/neurotoxin,/mob/living/carbon/alien/humanoid/proc/resin)
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
+	internal_organs += new /obj/item/organ/internal/xenos/acidgland
+	internal_organs += new /obj/item/organ/internal/xenos/eggsac
+	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
+	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 
@@ -60,11 +63,11 @@
 	set desc = "Lay an egg to produce huggers to impregnate prey with."
 	set category = "Alien"
 	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		src << "<span class='noticealien'>There's already an egg here.</span>"
+		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
 		return
 
 	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustToxLoss(-75)
+		adjustPlasma(-75)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
 		new /obj/structure/alien/egg(loc)
@@ -108,7 +111,7 @@
 
 		if(no_queen)
 			adjustToxLoss(-1000)
-			src << "<span class='noticealien'>You begin to evolve!</span>"
+			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
 			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new(loc)
@@ -119,7 +122,7 @@
 			new_xeno.mind.name = new_xeno.name
 			qdel(src)
 		else
-			src << "<span class='notice'>We already have an alive empress.</span>"
+			to_chat(src, "<span class='notice'>We already have an alive empress.</span>")
 	return
 
 */

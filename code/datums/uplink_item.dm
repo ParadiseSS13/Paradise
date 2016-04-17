@@ -135,7 +135,7 @@ var/list/uplink_items = list()
 	name = "Meat Cleaver"
 	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died and the chance to stun when thrown."
 	reference = "MC"
-	item = /obj/item/weapon/butch/meatcleaver
+	item = /obj/item/weapon/kitchen/knife/butcher/meatcleaver
 	cost = 10
 	job = list("Chef")
 
@@ -191,7 +191,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
-	desc = "A pair of sleek gloves to aid in pickpocketing, while wearing these you can see inside the pockets of any unsuspecting mark, loot the ID or pockets without them knowing, and pickpocketing puts the item directly into your hand."
+	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
@@ -355,21 +355,22 @@ var/list/uplink_items = list()
 	cost = 6
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/dangerous/tabungrenades
-	name = "Tabun Gas Grenades"
-	desc = "A box of four (4) grenades filled with Tabun, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
+/datum/uplink_item/dangerous/saringrenades
+	name = "Sarin Gas Grenades"
+	desc = "A box of four (4) grenades filled with Sarin, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
 	reference = "TGG"
-	item = /obj/item/weapon/storage/box/syndie_kit/tabun
+	item = /obj/item/weapon/storage/box/syndie_kit/sarin
 	cost = 15
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/dangerous/emp
-	name = "EMP Kit"
-	desc = "A box that contains two EMP grenades, an EMP implant and a short ranged recharging device disguised as a flashlight. Useful to disrupt communication and silicon lifeforms."
-	reference = "EMP"
+	name = "EMP Grenades and Implanter Kit"
+	desc = "A box that contains two EMP grenades and an EMP implant. Useful to disrupt communication, \
+			security's energy weapons, and silicon lifeforms when you're in a tight spot."
+	reference = "EMPK"
 	item = /obj/item/weapon/storage/box/syndie_kit/emp
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/dangerous/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -517,6 +518,23 @@ var/list/uplink_items = list()
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
 
+/datum/uplink_item/stealthy_weapons/garrote
+	name = "Fiber Wire Garrote"
+	desc = "A length of fiber wire between two wooden handles, perfect for the discrete assassin. This weapon, when used on a target from behind \
+			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
+	reference = "GAR"
+	item = /obj/item/weapon/twohanded/garrote
+	cost = 12
+
+/datum/uplink_item/stealthy_weapons/martialarts
+	name = "Martial Arts Scroll"
+	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
+			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry."
+	reference = "SCS"
+	item = /obj/item/weapon/sleeping_carp_scroll
+	cost = 17
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/stealthy_weapons/edagger
 	name = "Energy Dagger"
 	desc = "A dagger made of energy that looks and functions as a pen when off."
@@ -655,6 +673,15 @@ var/list/uplink_items = list()
 	desc = "This satchel is thin enough to be hidden in the gap between plating and tiling, great for stashing your stolen goods. Comes with a crowbar and a floor tile inside."
 	reference = "SMSA"
 	item = /obj/item/weapon/storage/backpack/satchel_flat
+	cost = 2
+	surplus = 30
+
+/datum/uplink_item/stealthy_tools/emplight
+	name = "EMP Flashlight"
+	desc = "A small, self-charging, short-ranged EMP device disguised as a flashlight. \
+		Useful for disrupting headsets, cameras, and borgs during stealth operations."
+	reference = "EMPL"
+	item = /obj/item/device/flashlight/emp
 	cost = 2
 	surplus = 30
 
@@ -837,6 +864,15 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
+/datum/uplink_item/device_tools/assault_pod
+	name = "Assault Pod Targetting Device"
+	desc = "Use to select the landing zone of your assault pod."
+	item = /obj/item/device/assault_pod
+	reference = "APT"
+	cost = 30
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
 /datum/uplink_item/device_tools/shield
 	name = "Energy Shield"
 	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles and defending against other attacks."
@@ -904,6 +940,56 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/implanter/explosive
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
+
+// Cybernetics
+/datum/uplink_item/cyber_implants
+	category = "Cybernetic Implants"
+	surplus = 0
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/device/uplink/U)
+	if(item)
+		if(findtext(item, /obj/item/organ/internal/cyberimp))
+			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
+		else
+			return ..()
+
+/datum/uplink_item/cyber_implants/thermals
+	name = "Thermal Vision Implant"
+	desc = "These cybernetic eyes will give you thermal vision. Comes with an automated implanting tool."
+	reference = "CIT"
+	item = /obj/item/organ/internal/cyberimp/eyes/thermals
+	cost = 8
+
+/datum/uplink_item/cyber_implants/xray
+	name = "X-Ray Vision Implant"
+	desc = "These cybernetic eyes will give you X-ray vision. Comes with an automated implanting tool."
+	reference = "CIX"
+	item = /obj/item/organ/internal/cyberimp/eyes/xray
+	cost = 10
+
+/datum/uplink_item/cyber_implants/antistun
+	name = "CNS Rebooter Implant"
+	desc = "This implant will help you get back up on your feet faster after being stunned. \
+			Comes with an automated implanting tool."
+	reference = "CIAS"
+	item = /obj/item/organ/internal/cyberimp/brain/anti_stun
+	cost = 12
+
+/datum/uplink_item/cyber_implants/reviver
+	name = "Reviver Implant"
+	desc = "This implant will attempt to revive you if you lose consciousness. Comes with an automated implanting tool."
+	reference = "CIR"
+	item = /obj/item/organ/internal/cyberimp/chest/reviver
+	cost = 8
+
+/datum/uplink_item/cyber_implants/bundle
+	name = "Cybernetic Implants Bundle"
+	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. \
+			Comes with an automated implanting tool."
+	reference = "CIB"
+	item = /obj/item/weapon/storage/box/cyber_implants/bundle
+	cost = 40
 
 // POINTLESS BADASSERY
 

@@ -35,14 +35,7 @@
 	var/exploding = 0
 
 	//Drones aren't affected by atmos.
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	var/has_loot = 1
@@ -258,7 +251,7 @@
 		if(spawnees & 128)
 			C = new(src.loc)
 			C.name = "Drone plasma overcharge counter"
-			C.origin_tech = "plasma=[rand(3,6)]"
+			C.origin_tech = "plasmatech=[rand(3,6)]"
 
 		if(spawnees & 256)
 			C = new(src.loc)

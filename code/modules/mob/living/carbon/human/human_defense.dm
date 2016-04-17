@@ -176,12 +176,12 @@ emp_act
 	if(!istype(affecting))
 		return
 	if(!(affecting.status & ORGAN_ROBOT))
-		user << "\red That limb isn't robotic."
+		to_chat(user, "\red That limb isn't robotic.")
 		return
 	if(affecting.sabotaged)
-		user << "\red [src]'s [affecting.name] is already sabotaged!"
+		to_chat(user, "\red [src]'s [affecting.name] is already sabotaged!")
 	else
-		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties."
+		to_chat(user, "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.")
 		affecting.sabotaged = 1
 	return 1
 
@@ -189,7 +189,7 @@ emp_act
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	if((istype(I, /obj/item/weapon/butch/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == I_HARM)
+	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == I_HARM)
 		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(src.loc))
 		newmeat.name = src.real_name + newmeat.name
 		newmeat.subjectname = src.real_name
@@ -198,7 +198,7 @@ emp_act
 		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
 		src.loc.add_blood(src)
 		--src.meatleft
-		user << "\red You hack off a chunk of meat from [src.name]"
+		to_chat(user, "\red You hack off a chunk of meat from [src.name]")
 		if(!src.meatleft)
 			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[key_name(user)]</b>"
 			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[key_name(src)]</b> into meat</b>"
@@ -212,7 +212,7 @@ emp_act
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
 	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
-		user << "<span class='danger'>They are missing that limb!</span>"
+		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
 		return 1
 	var/hit_area = affecting.name
 
@@ -244,7 +244,7 @@ emp_act
 	apply_damage(I.force, I.damtype, affecting, armor, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
 
 	var/bloody = 0
-	if(((I.damtype == BRUTE) || (I.damtype == HALLOSS)) && prob(25 + (I.force * 2)))
+	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
 		I.add_blood(src)	//Make the weapon bloody, not the person.
 //		if(user.hand)	user.update_inv_l_hand()	//updates the attacker's overlay for the (now bloodied) weapon
 //		else			user.update_inv_r_hand()	//removed because weapons don't have on-mob blood overlays
@@ -281,7 +281,7 @@ emp_act
 							glasses.add_blood(src)
 							update_inv_glasses(0)
 
-				if("chest")//Easier to score a stun but lasts less time
+				if("upper body")//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='danger'>[src] has been knocked down!</span>", \
 										"<span class='userdanger'>[src] has been knocked down!</span>")

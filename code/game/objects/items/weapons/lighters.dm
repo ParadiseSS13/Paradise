@@ -9,7 +9,7 @@
 	item_state = "lighter-g"
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
-	w_class = 1
+	w_class = 2
 	throwforce = 4
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -45,7 +45,7 @@
 				if(prob(75))
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src].</span>")
 				else
-					user << "<span class='warning'>You burn yourself while lighting the lighter.</span>"
+					to_chat(user, "<span class='warning'>You burn yourself while lighting the lighter.</span>")
 					user.adjustFireLoss(5)
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
 

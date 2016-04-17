@@ -5,9 +5,11 @@ Mineral Sheets
 		- Diamond
 		- Uranium
 		- Plasma
+		- Plastic
 		- Gold
 		- Silver
 		- Bananium
+		- Tranqillite
 		- Enriched Uranium
 		- Platinum
 		- Metallic Hydrogen
@@ -45,7 +47,7 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 	new/datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic fork", /obj/item/weapon/kitchen/utensil/pfork, 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic spoon", /obj/item/weapon/kitchen/utensil/pspoon, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic knife", /obj/item/weapon/kitchen/utensil/pknife, 1, on_floor = 1), \
+	new/datum/stack_recipe("plastic knife", /obj/item/weapon/kitchen/knife/plastic, 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic bag", /obj/item/weapon/storage/bag/plasticbag, 3, on_floor = 1), \
 	new/datum/stack_recipe("bear mould", /obj/item/weapon/kitchen/mould/bear, 1, on_floor = 1), \
 	new/datum/stack_recipe("worm mould", /obj/item/weapon/kitchen/mould/worm, 1, on_floor = 1), \
@@ -60,6 +62,11 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	new/datum/stack_recipe("bananium computer frame", /obj/structure/computerframe/HONKputer, 50, time = 25, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bananium grenade casing", /obj/item/weapon/grenade/bananade/casing, 4, on_floor = 1), \
+	)
+
+var/global/list/datum/stack_recipe/mime_recipes = list ( \
+	new/datum/stack_recipe("silent tile", /obj/item/stack/tile/silent, 1, 4, 20), \
+	new/datum/stack_recipe("invisible wall", /obj/structure/barricade/mime, 5, one_per_turf = 1, on_floor = 1, time = 50), \
 	)
 
 /obj/item/stack/sheet/mineral
@@ -168,6 +175,18 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 /obj/item/stack/sheet/mineral/bananium/New(var/loc, var/amount=null)
 	..()
 	recipes = bananium_recipes
+
+/obj/item/stack/sheet/mineral/tranquillite
+	name = "tranquillite"
+	singular_name = "beret"
+	icon_state = "sheet-mime"
+	origin_tech = "materials=4"
+	sheettype = "mime"
+	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/sheet/mineral/tranquillite/New(var/loc, var/amount=null)
+	..()
+	recipes = mime_recipes
 
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"

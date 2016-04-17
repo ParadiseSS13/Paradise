@@ -14,9 +14,9 @@
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.species && H.species.dietflags)	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+			if(H.can_eat())	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50)) M.heal_organ_damage(1,0)
+				if(prob(50)) M.adjustBruteLoss(-1)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
 			if(prob(50)) M.heal_organ_damage(1,0)
 	..()
@@ -36,9 +36,9 @@
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_HERB))	//Make sure the species has it's dietflag set, and that it is not a herbivore
+			if(H.can_eat(DIET_CARN | DIET_OMNI))	//Make sure that it is not a herbivore
 				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50)) M.heal_organ_damage(1,0)
+				if(prob(50)) M.adjustBruteLoss(-1)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
 			if(prob(50)) M.heal_organ_damage(1,0)
 	..()
@@ -58,9 +58,9 @@
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_CARN))	//Make sure the species has it's dietflag set, and that it is not a carnivore
+			if(H.can_eat(DIET_HERB | DIET_OMNI))	//Make sure that it is not a carnivore
 				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50)) M.heal_organ_damage(1,0)
+				if(prob(50)) M.adjustBruteLoss(-1)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
 			if(prob(50)) M.heal_organ_damage(1,0)
 	..()
@@ -185,15 +185,15 @@
 	reagent_state = SOLID
 	// no color (ie, black)
 
-/datum/reagent/coco
-	name = "Coco Powder"
-	id = "coco"
-	description = "A fatty, bitter paste made from coco beans."
+/datum/reagent/cocoa
+	name = "Cocoa Powder"
+	id = "cocoa"
+	description = "A fatty, bitter paste made from cocoa beans."
 	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
-/datum/reagent/coco/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/cocoa/on_mob_life(var/mob/living/M as mob)
 	M.nutrition += nutriment_factor
 	..()
 	return
@@ -201,7 +201,7 @@
 /datum/reagent/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
-	description = "Made with love! And coco beans."
+	description = "Made with love! And cocoa beans."
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
@@ -257,7 +257,8 @@
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Security Officer", "Head of Security", "Detective", "Warden"))
 		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 		M.nutrition += nutriment_factor
 		..()
 		return
@@ -436,22 +437,28 @@
 	overdose_threshold = 200 // Hyperglycaemic shock
 
 /datum/reagent/sugar/on_mob_life(var/mob/living/M as mob)
-	if(prob(4))
-		M.reagents.add_reagent("epinephrine", 1.2)
+	M.drowsyness = max(0, M.drowsyness-5)
+	if(current_cycle >= 90)
+		M.jitteriness += 2
 	if(prob(50))
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
-	if(current_cycle >= 90)
-		M.jitteriness += 10
+	if(prob(4))
+		M.reagents.add_reagent("epinephrine", 1.2)
 	..()
 	return
 
+/datum/reagent/sugar/overdose_start(var/mob/living/M as mob)
+	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
+	M.emote("collapse")
+	..()
+
 /datum/reagent/sugar/overdose_process(var/mob/living/M as mob)
 	if(volume > 200)
-		M << "<span class = 'danger'>You pass out from hyperglycemic shock!</span>"
-		M.Paralyse(1)
+		M.Paralyse(3)
+		M.Weaken(4)
 		if(prob(8))
-			M.adjustToxLoss(rand(1,2))
+			M.adjustToxLoss(1)
 	..()
 	return

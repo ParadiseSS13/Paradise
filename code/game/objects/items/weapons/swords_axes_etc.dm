@@ -10,8 +10,8 @@
  * Banhammer
  */
 /obj/item/weapon/banhammer/attack(mob/M as mob, mob/user as mob)
-	M << "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>"
-	user << "<font color='red'> You have <b>BANNED</b> [M]</font>"
+	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
+	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
 
 /*
  * Classic Baton
@@ -33,7 +33,7 @@
 	if(on)
 		add_fingerprint(user)
 		if((CLUMSY in user.mutations) && prob(50))
-			user << "<span class ='danger'>You club yourself over the head.</span>"
+			to_chat(user, "<span class ='danger'>You club yourself over the head.</span>")
 			user.Weaken(3 * force)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -77,26 +77,30 @@
 	item_state = null
 	slot_flags = SLOT_BELT
 	w_class = 2
+	needs_permit = 0
 	force = 0
 	on = 0
 
 /obj/item/weapon/melee/classic_baton/telescopic/attack_self(mob/user as mob)
 	on = !on
 	if(on)
-		user << "<span class ='warning'>You extend the baton.</span>"
+		to_chat(user, "<span class ='warning'>You extend the baton.</span>")
 		icon_state = "telebaton_1"
 		item_state = "nullrod"
 		w_class = 4 //doesnt fit in backpack when its on for balance
 		force = 10 //stunbaton damage
 		attack_verb = list("smacked", "struck", "cracked", "beaten")
 	else
-		user << "<span class ='notice'>You collapse the baton.</span>"
+		to_chat(user, "<span class ='notice'>You collapse the baton.</span>")
 		icon_state = "telebaton_0"
 		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
 		w_class = 2
 		force = 0 //not so robust now
 		attack_verb = list("hit", "poked")
-
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	add_fingerprint(user)

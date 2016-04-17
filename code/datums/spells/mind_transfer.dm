@@ -21,29 +21,34 @@ Also, you never added distance checking after target is selected. I've went ahea
 */
 /obj/effect/proc_holder/spell/targeted/mind_transfer/cast(list/targets,mob/user = usr)
 	if(!targets.len)
-		user << "No mind found."
+		to_chat(user, "No mind found.")
 		return
 
 	if(targets.len > 1)
-		user << "Too many minds! You're not a hive damnit!"//Whaa...aat?
+		to_chat(user, "Too many minds! You're not a hive damnit!")//Whaa...aat?
+
 		return
 
 	var/mob/living/target = targets[1]
 
 	if(!(target in oview(range)))//If they are not in overview after selection. Do note that !() is necessary for in to work because ! takes precedence over it.
-		user << "They are too far away!"
+		to_chat(user, "They are too far away!")
 		return
 
 	if(target.stat == DEAD)
-		user << "You don't particularly want to be dead."
+		to_chat(user, "You don't particularly want to be dead.")
 		return
 
 	if(!target.key || !target.mind)
-		user << "They appear to be catatonic. Not even magic can affect their vacant mind."
+		to_chat(user, "They appear to be catatonic. Not even magic can affect their vacant mind.")
+		return
+
+	if(user.suiciding)
+		to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
 		return
 
 	if(target.mind.special_role in protected_roles)
-		user << "Their mind is resisting your spell."
+		to_chat(user, "Their mind is resisting your spell.")
 		return
 
 	var/mob/living/victim = target//The target of the spell whos body will be transferred to.

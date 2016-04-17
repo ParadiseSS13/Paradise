@@ -7,13 +7,14 @@
 */
 
 /mob/living/silicon/robot/ClickOn(var/atom/A, var/params)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
+		return
+
 	if(world.time <= next_click)
 		return
 	next_click = world.time + 1
 
-	if(client.buildmode) // comes after object.Click to allow buildmode gui objects to be clicked
-		build_click(src, client.buildmode, params, A)
-		return
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])
@@ -52,7 +53,7 @@
 			if(is_component_functioning("camera"))
 				aiCamera.captureimage(A, usr)
 			else
-				src << "<span class='userdanger'>Your camera isn't functional.</span>"
+				to_chat(src, "<span class='userdanger'>Your camera isn't functional.</span>")
 			return
 
 	/*

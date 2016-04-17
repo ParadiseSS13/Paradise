@@ -6,7 +6,7 @@
 #define EAT_TIME_FAT 100
 
 //time it takes for a mob to be eaten (in deciseconds) (overrides mob eat time)
-#define EAT_TIME_MOUSE 30
+#define EAT_TIME_ANIMAL 30
 
 /obj/item/weapon/grab
 	name = "grab"
@@ -262,7 +262,7 @@
 		hud.icon_state = "reinforce1"
 	else if(state < GRAB_NECK)
 		if(isslime(affecting))
-			assailant << "<span class='notice'>You squeeze [affecting], but nothing interesting happens.</span>"
+			to_chat(assailant, "<span class='notice'>You squeeze [affecting], but nothing interesting happens.</span>")
 			return
 
 		assailant.visible_message("<span class='warning'>[assailant] has reinforced \his grip on [affecting] (now neck)!</span>")
@@ -318,7 +318,7 @@
 			switch(assailant.a_intent)
 				if(I_HELP)
 					/*if(force_down)
-						assailant << "<span class='warning'>You no longer pin [affecting] to the ground.</span>"
+						to_chat(assailant, "<span class='warning'>You no longer pin [affecting] to the ground.</span>")
 						force_down = 0
 						return*///This is a very basic demonstration of a new feature based on attacking someone with the grab, based on intent.
 								//This specific example would allow you to stop pinning people to the floor without moving away from them.
@@ -345,31 +345,32 @@
 
 					/*if(last_hit_zone == "eyes")
 						if(state < GRAB_NECK)
-							assailant << "<span class='warning'>You require a better grab to do this.</span>"
+							to_chat(assailant, "<span class='warning'>You require a better grab to do this.</span>")
 							return
 						if((affected.head && affected.head.flags & HEADCOVERSEYES) || \
 							(affected.wear_mask && affected.wear_mask.flags & MASKCOVERSEYES) || \
 							(affected.glasses && affected.glasses.flags & GLASSESCOVERSEYES))
-							assailant << "<span class='danger'>You're going to need to remove the eye covering first.</span>"
+							to_chat(assailant, "<span class='danger'>You're going to need to remove the eye covering first.</span>")
 							return
 						if(!affected.internal_organs_by_name["eyes"])
-							assailant << "<span class='danger'>You cannot locate any eyes on [affecting]!</span>"
+							to_chat(assailant, "<span class='danger'>You cannot locate any eyes on [affecting]!</span>")
 							return
 						assailant.visible_message("<span class='danger'>[assailant] presses \his fingers into [affecting]'s eyes!</span>")
-						affecting << "<span class='danger'>You feel immense pain as digits are being pressed into your eyes!</span>"
+						to_chat(affecting, "<span class='danger'>You feel immense pain as digits are being pressed into your eyes!</span>")
 						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Pressed fingers into the eyes of [affecting.name] ([affecting.ckey])</font>")
 						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Had fingers pressed into their eyes by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has pressed his fingers into [key_name(affecting)]'s eyes.")
-						var/obj/item/organ/eyes/eyes = affected.internal_organs_by_name["eyes"]
+						var/obj/item/organ/internal/eyes/eyes = affected.get_int_organ(/obj/item/organ/internal/eyes)
 						eyes.damage += rand(3,4)
 						if (eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
-								M << "\red You go blind!"*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
+								to_chat(M, "\red You go blind!")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
+
 															//This specific example would allow you to squish people's eyes with a GRAB_NECK.
 
 				if(I_DISARM) //This checks that the user is on disarm intent.
 				/*	if(state < GRAB_AGGRESSIVE)
-						assailant << "<span class='warning'>You require a better grab to do this.</span>"
+						to_chat(assailant, "<span class='warning'>You require a better grab to do this.</span>")
 						return
 					if(!force_down)
 						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
@@ -381,7 +382,7 @@
 						affecting.set_dir(SOUTH) //face up
 						return
 					else
-						assailant << "<span class='warning'>You are already pinning [affecting] to the ground.</span>"
+						to_chat(assailant, "<span class='warning'>You are already pinning [affecting] to the ground.</span>")
 						return*///This is an example of something being done with an agressive grab + disarm intent.
 					return
 
@@ -394,22 +395,27 @@
 			if(!do_after(user, checktime(user, affecting), target = affecting)) return
 
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
+			if(affecting.mind)
+				affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been devoured by [attacker.name] ([attacker.ckey])</font>"
+				attacker.attack_log += "\[[time_stamp()]\] <font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>"
+				msg_admin_attack("[key_name(attacker)] devoured [key_name(affecting)]")
 
 			affecting.loc = user
 			attacker.stomach_contents.Add(affecting)
 			qdel(src)
 
 /obj/item/weapon/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
+	if(ishuman(attacker) && (/datum/dna/gene/basic/grant_spell/mattereater in attacker.active_genes)) // MATTER EATER CARES NOT OF YOUR FORM
+		return 1
+
 	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
 		return 1
 
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
-	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/simple_animal/diona)) //Kidan eating nymphs
-		return 1
-
-	if(ishuman(attacker) && attacker.get_species() == "Tajaran"  && istype(prey,/mob/living/simple_animal/mouse)) //Tajaran eating mice. Meow!
+	var/mob/living/carbon/human/H = attacker
+	if(ishuman(H) && is_type_in_list(prey,  H.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
 
 	return 0
@@ -418,8 +424,8 @@
 	if(isalien(attacker))
 		return EAT_TIME_XENO //xenos get a speed boost
 
-	if(istype(prey,/mob/living/simple_animal/mouse)) //mice get eaten at xeno-eating-speed regardless
-		return EAT_TIME_MOUSE
+	if(istype(prey,/mob/living/simple_animal)) //simple animals get eaten at xeno-eating-speed regardless
+		return EAT_TIME_ANIMAL
 
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
 
@@ -440,4 +446,4 @@
 #undef EAT_TIME_XENO
 #undef EAT_TIME_FAT
 
-#undef EAT_TIME_MOUSE
+#undef EAT_TIME_ANIMAL

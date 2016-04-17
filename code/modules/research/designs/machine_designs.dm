@@ -442,16 +442,6 @@
 	build_path = /obj/item/weapon/circuitboard/programmable
 	category = list("Misc. Machinery")
 
-/datum/design/vendor
-	name = "Machine Board (Vendor)"
-	desc = "The circuit board for a Vendor."
-	id = "vendor"
-	req_tech = list("programming" = 1)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/vendor
-	category = list("Misc. Machinery")
-
 /datum/design/pod
 	name = "Machine Board (Mass Driver and Pod Doors Control)"
 	desc = "Allows for the construction of circuit boards used to build a Mass Driver and Pod Doors Control."
@@ -491,3 +481,33 @@
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/clawgame
 	category = list ("Misc. Machinery")
+
+/datum/design/prize_counter
+	name = "Machine Design (Prize Counter)"
+	desc = "The circuit board for an arcade Prize Counter."
+	id = "prize_counter"
+	req_tech = list("programming" = 2, "materials" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/prize_counter
+	category = list("Misc. Machinery")
+
+/datum/design/botany_extractor
+	name = "Machine Design (Lysis-Isolation Centrifuge)"
+	desc = "The circuit board for a lysis-isolation centrifuge."
+	id = "botany_extractor"
+	req_tech = list("biotech" = 3, "programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/botany_extractor
+	category = list("Hydroponics Machinery")
+
+/datum/design/botany_editor
+	name = "Machine Design (Bioballistic Delivery System)"
+	desc = "The circuit board for a bioballistic delivery system."
+	id = "botany_editor"
+	req_tech = list("biotech" = 3, "programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/botany_editor
+	category = list("Hydroponics Machinery")

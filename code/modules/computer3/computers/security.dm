@@ -58,7 +58,7 @@
 			return
 
 		if (computer.z > 6)
-			usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+			to_chat(usr, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
 			return
 		var/dat
 
@@ -305,7 +305,7 @@ What a mess.*/
 					return
 				Perp = new/list()
 				t1 = lowertext(t1)
-				var/list/components = text2list(t1, " ")
+				var/list/components = splittext(t1, " ")
 				if(components.len > 5)
 					return //Lets not let them search too greedily.
 				for(var/datum/data/record/R in data_core.general)

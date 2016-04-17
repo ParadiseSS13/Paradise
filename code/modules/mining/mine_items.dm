@@ -73,7 +73,7 @@
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
 	var/drill_verb = "picking"
 	sharp = 1
-
+	edge = 1
 	var/excavation_amount = 100
 
 /obj/item/weapon/pickaxe/proc/playDigSound()
@@ -192,3 +192,61 @@
 	icon_opened = "miningcaropen"
 	icon_closed = "miningcar"
 
+/*********************Mob Capsule*************************/
+
+/obj/item/device/mobcapsule
+	name = "lazarus capsule"
+	desc = "It allows you to store and deploy lazarus-injected creatures easier."
+	icon = 'icons/obj/mobcap.dmi'
+	icon_state = "mobcap0"
+	w_class = 1.0
+	throw_range = 20
+	var/mob/living/simple_animal/captured = null
+	var/colorindex = 0
+
+/obj/item/device/mobcapsule/Destroy()
+	if(captured)
+		qdel(captured)
+		captured = null
+	return ..()
+
+/obj/item/device/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
+	if(!istype(A, /mob/living/simple_animal) || isbot(A))
+		return ..()
+	capture(A, user)
+	return 1
+
+/obj/item/device/mobcapsule/proc/capture(var/mob/target, var/mob/U as mob)
+	var/mob/living/simple_animal/T = target
+	if(captured)
+		to_chat(U, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
+	else
+		if(istype(T) && "neutral" in T.faction)
+			T.forceMove(src)
+			T.name = "[U.name]'s [initial(T.name)]"
+			T.cancel_camera()
+			name = "Lazarus Capsule: [initial(T.name)]"
+			to_chat(U, "<span class='notice'>You placed a [T.name] inside the Lazarus Capsule!</span>")
+			captured = T
+		else
+			to_chat(U, "You can't capture that mob!")
+
+/obj/item/device/mobcapsule/throw_impact(atom/A, mob/user)
+	..()
+	if(captured)
+		dump_contents(user)
+
+/obj/item/device/mobcapsule/proc/dump_contents(mob/user)
+	if(captured)
+		captured.forceMove(get_turf(src))
+		if(captured.client)
+			captured.client.eye = captured.client.mob
+			captured.client.perspective = MOB_PERSPECTIVE
+		captured = null
+
+/obj/item/device/mobcapsule/attack_self(mob/user)
+	colorindex += 1
+	if(colorindex >= 6)
+		colorindex = 0
+	icon_state = "mobcap[colorindex]"
+	update_icon()

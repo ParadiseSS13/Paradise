@@ -19,6 +19,10 @@
 //Lower left, persistant menu
 #define ui_inventory "WEST:6,SOUTH:5"
 
+//Middle left indicators
+#define ui_lingchemdisplay "WEST:6,CENTER-1:15"
+#define ui_lingstingdisplay "WEST:6,CENTER-3:11"
+
 //Lower center, persistant menu
 #define ui_sstore1 "CENTER-5:10,SOUTH:5"
 #define ui_id "CENTER-4:12,SOUTH:5"
@@ -127,3 +131,7 @@
 #define ui_ai_take_picture "SOUTH:6,WEST+12"
 #define ui_ai_view_images "SOUTH:6,WEST+13"
 #define ui_ai_sensor "SOUTH:6,WEST+14"
+
+// Bots
+#define ui_bot_radio "EAST-1:28,SOUTH:7"
+#define ui_bot_pull "EAST-2:26,SOUTH:7"

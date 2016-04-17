@@ -68,7 +68,7 @@
 
 /obj/item/clothing/head/cueball
 	name = "cueball helmet"
-	desc = "A large, featureless white orb mean to be worn on your head. How do you even see out of this thing?"
+	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
 	icon_state = "cueball"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	item_state="cueball"
@@ -89,17 +89,9 @@
 	item_state = "greenbandana"
 	flags_inv = 0
 
-/obj/item/clothing/head/cardborg
-	name = "cardborg helmet"
-	desc = "A helmet made out of a box."
-	icon_state = "cardborg_h"
-	item_state = "cardborg_h"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-
 /obj/item/clothing/head/justice
 	name = "justice hat"
-	desc = "fight for what's righteous!"
+	desc = "Fight for what's righteous!"
 	icon_state = "justicered"
 	item_state = "justicered"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
@@ -122,7 +114,7 @@
 
 /obj/item/clothing/head/rabbitears
 	name = "rabbit ears"
-	desc = "Wearing these makes you looks useless, and only good for your sex appeal."
+	desc = "Wearing these makes you look useless, and only good for your sex appeal."
 	icon_state = "bunny"
 
 /obj/item/clothing/head/flatcap
@@ -284,6 +276,15 @@
 	name = "officers beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer"
+	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/centcom/officer/navy
+	name = "navy blue officers beret"
+	desc = "A navy blue beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
+	icon_state = "beret_centcom_officer_navy"
+	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
+	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/captain
 	name = "captains beret"
@@ -329,7 +330,6 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR|NODROP
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	var/cooldown = 0
 	action_button_name = "Caw"
 
 /obj/item/clothing/head/griffin/attack_self()
@@ -353,3 +353,9 @@
 	desc = "A hat suitable for any man of high and exalted rank."
 	icon_state = "lordadmiralhat"
 	item_state = "lordadmiralhat"
+
+/obj/item/clothing/head/human_head
+	name = "bloated human head"
+	desc = "A horribly bloated and mismatched human head."
+	icon_state = "lingspacehelmet"
+	item_state = "lingspacehelmet"

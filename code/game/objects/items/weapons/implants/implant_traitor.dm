@@ -17,62 +17,64 @@
 	return dat
 
 /obj/item/weapon/implant/traitor/implant(mob/M, mob/user)
-	var/mob/living/carbon/human/H = M
-	if(ismindslave(H))
-		H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
-		qdel(src)
-		return -1
-	if(..())
-		var/list/implanters
-		var/ref = "\ref[user.mind]"
-		if(!ishuman(M))
-			return 0
-		if(!M.mind)
-			return 0
-		if(M == user)
-			user << "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot.</span>"
-			if(isliving(user))
-				var/mob/living/L = user
-				L.adjustBrainLoss(20)
-			removed(M)
-			qdel(src)
-			return -1
-		if(isloyal(H))
+	if(!activated) //So you can't just keep taking it out and putting it back into other people.
+		var/mob/living/carbon/human/H = M
+		if(ismindslave(H))
 			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
-			removed(M)
 			qdel(src)
 			return -1
-		H.implanting = 1
-		H << "<span class='notice'>You feel completely loyal to [user.name].</span>"
-		if(!(user.mind in ticker.mode:implanter))
-			ticker.mode:implanter[ref] = list()
-		implanters = ticker.mode:implanter[ref]
-		implanters.Add(H.mind)
-		ticker.mode.implanted.Add(H.mind)
-		ticker.mode.implanted[H.mind] = user.mind
-		//ticker.mode:implanter[user.mind] += H.mind
-		ticker.mode:implanter[ref] = implanters
-		ticker.mode.traitors += H.mind
-		H.mind.special_role = "traitor"
-		H << "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>"
-		var/datum/objective/protect/p = new
-		p.owner = H.mind
-		p.target = user:mind
-		p.explanation_text = "Obey every order from and protect [user:real_name], the [user:mind:assigned_role=="MODE" ? (user:mind:special_role) : (user:mind:assigned_role)]."
-		H.mind.objectives += p
-		for(var/datum/objective/objective in H.mind.objectives)
-			H << "<B>Objective #1</B>: [objective.explanation_text]"
+		if(..())
+			var/list/implanters
+			var/ref = "\ref[user.mind]"
+			if(!ishuman(M))
+				return 0
+			if(!M.mind)
+				return 0
+			if(M == user)
+				to_chat(user, "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot.</span>")
+				if(isliving(user))
+					var/mob/living/L = user
+					L.adjustBrainLoss(20)
+				removed(M)
+				qdel(src)
+				return -1
+			if(isloyal(H))
+				H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
+				removed(M)
+				qdel(src)
+				return -1
+			H.implanting = 1
+			to_chat(H, "<span class='notice'>You feel completely loyal to [user.name].</span>")
+			if(!(user.mind in ticker.mode:implanter))
+				ticker.mode:implanter[ref] = list()
+			implanters = ticker.mode:implanter[ref]
+			implanters.Add(H.mind)
+			ticker.mode.implanted.Add(H.mind)
+			ticker.mode.implanted[H.mind] = user.mind
+			//ticker.mode:implanter[user.mind] += H.mind
+			ticker.mode:implanter[ref] = implanters
+			ticker.mode.traitors += H.mind
+			H.mind.special_role = "traitor"
+			to_chat(H, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
+			var/datum/objective/protect/p = new
+			p.owner = H.mind
+			p.target = user:mind
+			p.explanation_text = "Obey every order from and protect [user:real_name], the [user:mind:assigned_role=="MODE" ? (user:mind:special_role) : (user:mind:assigned_role)]."
+			H.mind.objectives += p
+			for(var/datum/objective/objective in H.mind.objectives)
+				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
 
-		ticker.mode.update_traitor_icons_added(user.mind)
-		ticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds
+			ticker.mode.update_traitor_icons_added(user.mind)
+			ticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds
 
-		if(user.mind.som)//do not add if not a traitor..and you just picked up an implanter in the hall...
-			var/datum/mindslaves/slaved = user.mind.som
-			H.mind.som = slaved
-			slaved.serv += H
-			slaved.add_serv_hud(user.mind,"syndicate")//handles master servent icons
-			slaved.add_serv_hud(H.mind,"mindslave")
+			if(user.mind.som)//do not add if not a traitor..and you just picked up an implanter in the hall...
+				var/datum/mindslaves/slaved = user.mind.som
+				H.mind.som = slaved
+				slaved.serv += H
+				slaved.add_serv_hud(user.mind,"syndicate")//handles master servent icons
+				slaved.add_serv_hud(H.mind,"mindslave")
 
-		log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
-		return 1
-	return 0
+			log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
+			activated = 1
+			return 1
+		return 0

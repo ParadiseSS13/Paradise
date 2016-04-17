@@ -36,18 +36,18 @@
 
 #define NO_BLOOD		1
 #define NO_BREATHE 		2
-#define NO_DNA_RAD		4
-#define RAD_ABSORB		8
-#define NO_SCAN 		16
-#define NO_PAIN 		32
-#define REQUIRE_LIGHT 	64
-#define IS_WHITELISTED 	128
-#define HAS_LIPS 		256
-#define IS_PLANT 		512
-#define CAN_BE_FAT 		1024
-#define IS_RESTRICTED 	2048
-#define NO_INTORGANS	4096
-#define NO_POISON		8192
+#define NO_DNA			4
+#define NO_SCAN 		8
+#define NO_PAIN 		16
+#define IS_WHITELISTED 	32
+#define HAS_LIPS 		64
+#define IS_PLANT 		128
+#define CAN_BE_FAT 		256
+#define IS_RESTRICTED 	512
+#define NO_INTORGANS	1024
+#define NO_POISON		2048
+#define RADIMMUNE		4096
+#define ALL_RPARTS		8192
 
 //Species clothing flags
 #define HAS_UNDERWEAR 	1

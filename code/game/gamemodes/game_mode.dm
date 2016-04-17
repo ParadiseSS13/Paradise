@@ -38,7 +38,7 @@
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 
 /datum/game_mode/proc/announce() //to be calles when round starts
-	world << "<B>Notice</B>: [src] did not define announce()"
+	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
 
 ///can_start()
@@ -114,17 +114,18 @@
 					msg="We see that you completed [newunits] new unit[newunits>1?"s":""] for Task #[count]! "
 					pay=objective.completion_payment * newunits
 					objective.units_compensated += newunits
+					objective.is_completed() // So we don't get many messages regarding completion
 				else if(!objective.completed)
 					if(objective.is_completed())
 						pay=objective.completion_payment
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.money += objective.completion_payment
+						M.mind.initial_account.money += pay
 						var/datum/transaction/T = new()
 						T.target_name = "[command_name()] Payroll"
 						T.purpose = "Payment"
-						T.amount = objective.completion_payment
+						T.amount = pay
 						T.date = current_date_string
 						T.time = worldtime2text()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
@@ -133,21 +134,10 @@
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
 					if(useMS && P)
-						// THIS SHOULD HAVE DONE EVERYTHING FOR ME
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
-						// BUT NOPE, NEED TO DO THIS BULLSHIT.
-						P.play_ringtone()
-						//Search for holder of the PDA.
-						var/mob/living/L = null
-						if(P.loc && isliving(P.loc))
-							L = P.loc
-						//Maybe they are a pAI!
-						else
-							L = get(P, /mob/living/silicon)
-
-						if(L)
-							L << "\icon[P] <b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)"
+						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
@@ -403,7 +393,7 @@ proc/display_roundstart_logout_report()
 
 	for(var/mob/M in mob_list)
 		if(M.client && M.client.holder)
-			M << msg
+			to_chat(M, msg)
 
 
 proc/get_nt_opposed()
@@ -420,21 +410,20 @@ proc/get_nt_opposed()
 //Announces objectives/generic antag text.
 /proc/show_generic_antag_text(var/datum/mind/player)
 	if(player.current)
-		player.current << \
-		"You are an antagonist! <font color=blue>Within the rules,</font> \
+		to_chat(player.current, "You are an antagonist! <font color=blue>Within the rules,</font> \
 		try to act as an opposing force to the crew. Further RP and try to make sure \
 		other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
 		and before taking extreme actions, please try to also contact the administration! \
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
-		rules aside from those without explicit exceptions apply to antagonists.</b>"
+		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
 /proc/show_objectives(var/datum/mind/player)
 	if(!player || !player.current) return
 
 	var/obj_count = 1
-	player.current << "\blue Your current objectives:"
+	to_chat(player.current, "\blue Your current objectives:")
 	for(var/datum/objective/objective in player.objectives)
-		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
 /proc/get_roletext(var/role)
@@ -446,3 +435,16 @@ proc/get_nt_opposed()
 		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
 			nukecode = bomb.r_code
 	return nukecode
+
+/datum/game_mode/proc/replace_jobbaned_player(mob/living/M, role_type)
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [role_type]?", role_type, 0, 100)
+	var/mob/dead/observer/theghost = null
+	if(candidates.len)
+		theghost = pick(candidates)
+		to_chat(M, "<span class='userdanger'>Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!</span>")
+		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
+		M.ghostize()
+		M.key = theghost.key
+	else
+		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take their place.")
+		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")

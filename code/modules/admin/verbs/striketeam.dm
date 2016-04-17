@@ -5,12 +5,12 @@ var/global/sent_strike_team = 0
 
 /client/proc/strike_team()
 	if(!ticker)
-		usr << "<font color='red'>The game hasn't started yet!</font>"
+		to_chat(usr, "<font color='red'>The game hasn't started yet!</font>")
 		return
 	if(sent_strike_team == 1)
-		usr << "<font color='red'>CentCom is already sending a team.</font>"
+		to_chat(usr, "<font color='red'>CentComm is already sending a team.</font>")
 		return
-	if(alert("Do you want to send in the CentCom death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
+	if(alert("Do you want to send in the CentComm death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. Assigning the team's detailed task is recommended from there. While you will be able to manually pick the candidates from active ghosts, their assignment in the squad will be random.")
 
@@ -22,7 +22,7 @@ var/global/sent_strike_team = 0
 				return
 
 	if(sent_strike_team)
-		usr << "Looks like someone beat you to it."
+		to_chat(usr, "Looks like someone beat you to it.")
 		return
 
 	sent_strike_team = 1
@@ -71,7 +71,7 @@ var/global/sent_strike_team = 0
 				new_commando.mind.store_memory("<B>Nuke Code:</B> \red [nuke_code].")
 			new_commando.mind.store_memory("<B>Mission:</B> \red [input].")
 
-			new_commando << "\blue You are a Special Ops. [!leader_selected?"commando":"<B>LEADER</B>"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: \red<B>[input]</B>"
+			to_chat(new_commando, "\blue You are a Special Ops. [!leader_selected?"commando":"<B>LEADER</B>"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: \red<B>[input]</B>")
 
 			commando_number--
 
@@ -92,7 +92,7 @@ var/global/sent_strike_team = 0
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("\blue [key_name_admin(usr)] has spawned a CentCom strike squad.", 1)
+	message_admins("\blue [key_name_admin(usr)] has spawned a CentComm strike squad.", 1)
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 
@@ -160,8 +160,7 @@ var/global/sent_strike_team = 0
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(src)//Here you go Deuryn
 	L.imp_in = src
 	L.implanted = 1
-
-
+	sec_hud_set_implants()
 
 	var/obj/item/weapon/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card"

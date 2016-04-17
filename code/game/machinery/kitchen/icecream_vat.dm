@@ -12,7 +12,7 @@
 
 var/list/ingredients_source = list(
 "berryjuice" = FLAVOUR_STRAWBERRY,\
-"coco" = FLAVOUR_CHOCOLATE,\
+"cocoa" = FLAVOUR_CHOCOLATE,\
 "singulo" = FLAVOUR_BLUE,\
 "milk" = INGR_MILK,\
 "soymilk" = INGR_MILK,\
@@ -107,20 +107,20 @@ var/list/ingredients_source = list(
 						if(I.reagents.total_volume < 10)
 							I.reagents.add_reagent("sugar", 10 - I.reagents.total_volume)
 					else
-						user << "<span class='warning'>There is not enough [flavour_name] flavouring left! Insert more of the required ingredients.</span>"
+						to_chat(user, "<span class='warning'>There is not enough [flavour_name] flavouring left! Insert more of the required ingredients.</span>")
 				else
-					user << "<span class='warning'>There is not enough icecream left! Insert more milk and ice.</span>"
+					to_chat(user, "<span class='warning'>There is not enough icecream left! Insert more milk and ice.</span>")
 			else
-				user << "<span class='notice'>[O] already has icecream in it.</span>"
+				to_chat(user, "<span class='notice'>[O] already has icecream in it.</span>")
 		else if(istype(O, /obj/item/weapon/reagent_containers/glass))
 			if(held_container)
-				user << "<span class='notice'>You must remove [held_container] from [src] first.</span>"
+				to_chat(user, "<span class='notice'>You must remove [held_container] from [src] first.</span>")
 			else
 				if(!user.drop_item())
-					user << "<span class='warning'>\The [O] is stuck to your hand!</span>"
+					to_chat(user, "<span class='warning'>\The [O] is stuck to your hand!</span>")
 					return
 				O.forceMove(src)
-				user << "<span class='info'>You insert [O] into [src].</span>"
+				to_chat(user, "<span class='info'>You insert [O] into [src].</span>")
 				held_container = O
 		else
 			var/obj/item/weapon/reagent_containers/R = O
@@ -151,7 +151,7 @@ var/list/ingredients_source = list(
 				ingredients[CONE_WAFFLE] += amount
 				src.visible_message("<span class='info'>[user] cooks up some waffle cones.</span>")
 			else
-				user << "<span class='notice'>You require sugar and flour to make waffle cones.</span>"
+				to_chat(user, "<span class='notice'>You require sugar and flour to make waffle cones.</span>")
 		if(CONE_CHOC)
 			if(ingredients[FLAVOUR_CHOCOLATE] > 0 && ingredients[CONE_WAFFLE] > 0)
 				var/amount = min(ingredients[CONE_WAFFLE], ingredients[FLAVOUR_CHOCOLATE])
@@ -160,7 +160,7 @@ var/list/ingredients_source = list(
 				ingredients[CONE_CHOC] += amount
 				src.visible_message("<span class='info'>[user] cooks up some chocolate cones.</span>")
 			else
-				user << "<span class='notice'>You require waffle cones and chocolate flavouring to make chocolate cones.</span>"
+				to_chat(user, "<span class='notice'>You require waffle cones and chocolate flavouring to make chocolate cones.</span>")
 		if(ICECREAM_VANILLA)
 			if(ingredients[INGR_ICE] > 0 && ingredients[INGR_MILK] > 0)
 				var/amount = min(ingredients[INGR_ICE], ingredients[INGR_MILK])
@@ -169,7 +169,7 @@ var/list/ingredients_source = list(
 				ingredients[ICECREAM_VANILLA] += amount
 				src.visible_message("<span class='info'>[user] whips up some vanilla icecream.</span>")
 			else
-				user << "<span class='notice'>You require milk and ice to make vanilla icecream.</span>"
+				to_chat(user, "<span class='notice'>You require milk and ice to make vanilla icecream.</span>")
 	updateDialog()
 
 /obj/machinery/icecream_vat/Topic(href, href_list)
@@ -191,7 +191,7 @@ var/list/ingredients_source = list(
 				I.desc = "Delicious [cone_name] cone, but no ice cream."
 				src.visible_message("<span class='info'>[usr] dispenses a crunchy [cone_name] cone from [src].</span>")
 			else
-				usr << "<span class='warning'>There are no [cone_name] cones left!</span>"
+				to_chat(usr, "<span class='warning'>There are no [cone_name] cones left!</span>")
 		updateDialog()
 
 	if(href_list["make"])

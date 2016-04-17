@@ -52,8 +52,6 @@ var/global/datum/global_init/init = new ()
 
 	. = ..()
 
-	sleep_offline = 1
-
 	plant_controller = new()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
@@ -67,6 +65,7 @@ var/global/datum/global_init/init = new ()
 		processScheduler.setup()
 
 		master_controller.setup()
+		sleep_offline = 1
 
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
@@ -82,14 +81,14 @@ var/global/datum/global_init/init = new ()
 	return
 
 //world/Topic(href, href_list[])
-//		world << "Received a Topic() call!"
-//		world << "[href]"
+//		to_chat(world, "Received a Topic() call!")
+//		to_chat(world, "[href]")
 //		for(var/a in href_list)
-//			world << "[a]"
+//			to_chat(world, "[a]")
 //		if(href_list["hello"])
-//			world << "Hello world!"
+//			to_chat(world, "Hello world!")
 //			return "Hello world!"
-//		world << "End of Topic() call."
+//		to_chat(world, "End of Topic() call.")
 //		..()
 
 var/world_topic_spam_protect_ip = "0.0.0.0"
@@ -98,20 +97,23 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/Topic(T, addr, master, key)
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
 
-	if (T == "ping")
+	var/list/input = params2list(T)
+	var/key_valid = (config.comms_password && input["key"] == config.comms_password) //no password means no comms, not any password
+
+	if ("ping" in input)
 		var/x = 1
 		for (var/client/C)
 			x++
 		return x
 
-	else if(T == "players")
+	else if("players" in input)
 		var/n = 0
 		for(var/mob/M in player_list)
 			if(M.client)
 				n++
 		return n
 
-	else if (T == "status")
+	else if ("status" in input)
 		var/list/s = list()
 		s["version"] = game_version
 		s["mode"] = master_mode
@@ -122,25 +124,35 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["host"] = host ? host : null
 		s["players"] = list()
 		s["stationtime"] = worldtime2text()
-		var/n = 0
-		var/admins = 0
+		var/player_count = 0
+		var/admin_count = 0
 
 		for(var/client/C in clients)
 			if(C.holder)
 				if(C.holder.fakekey)
 					continue	//so stealthmins aren't revealed by the hub
-				admins++
-			s["player[n]"] = C.key
-			n++
-		s["players"] = n
-
-//		if(revdata)	s["revision"] = revdata.revision
-		s["admins"] = admins
+				admin_count++
+			s["player[player_count]"] = C.key
+			player_count++
+		s["players"] = player_count
+		s["admins"] = admin_count
 		s["map_name"] = map_name ? map_name : "Unknown"
+
+		if(key_valid)
+			if(ticker && ticker.mode)
+				s["real_mode"] = ticker.mode.name
+
+			s["security_level"] = get_security_level()
+
+			if(shuttle_master && shuttle_master.emergency)
+				// Shuttle status, see /__DEFINES/stat.dm
+				s["shuttle_mode"] = shuttle_master.emergency.mode
+				// Shuttle timer, in seconds
+				s["shuttle_timer"] = shuttle_master.emergency.timeLeft()
 
 		return list2params(s)
 
-	else if(copytext(T,1,9) == "adminmsg")
+	else if("adminmsg" in input)
 		/*
 			We got an adminmsg from IRC bot lets split the input then validate the input.
 			expected output:
@@ -149,20 +161,8 @@ var/world_topic_spam_protect_time = world.timeofday
 				3. validatationkey = the key the bot has, it should match the gameservers commspassword in it's configuration.
 				4. sender = the ircnick that send the message.
 		*/
-
-
-		var/input[] = params2list(T)
-		if(input["key"] != config.comms_password)
-			if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
-
-				spawn(50)
-					world_topic_spam_protect_time = world.time
-					return "Bad Key (Throttled)"
-
-			world_topic_spam_protect_time = world.time
-			world_topic_spam_protect_ip = addr
-
-			return "Bad Key"
+		if(!key_valid)
+			return keySpamProtect(addr)
 
 		var/client/C
 
@@ -180,35 +180,43 @@ var/world_topic_spam_protect_time = world.timeofday
 		C.irc_admin = input["sender"]
 
 		C << 'sound/effects/adminhelp.ogg'
-		C << message
-
+		to_chat(C, message)
 
 		for(var/client/A in admins)
 			if(A != C)
-				A << amessage
+				to_chat(A, amessage)
 
 		return "Message Successful"
 
-	else if(copytext(T,1,6) == "notes")
+	else if("notes" in input)
 		/*
 			We got a request for notes from the IRC Bot
 			expected output:
 				1. notes = ckey of person the notes lookup is for
 				2. validationkey = the key the bot has, it should match the gameservers commspassword in it's configuration.
 		*/
-		var/input[] = params2list(T)
-		if(input["key"] != config.comms_password)
-			if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
-
-				spawn(50)
-					world_topic_spam_protect_time = world.time
-					return "Bad Key (Throttled)"
-
-			world_topic_spam_protect_time = world.time
-			world_topic_spam_protect_ip = addr
-			return "Bad Key"
+		if(!key_valid)
+			return keySpamProtect(addr)
 
 		return show_player_info_irc(input["notes"])
+
+	else if("announce" in input)
+		if(config.comms_password)
+			if(input["key"] != config.comms_password)
+				return "Bad Key"
+			else
+				for(var/client/C in clients)
+					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
+
+/proc/keySpamProtect(var/addr)
+	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
+		spawn(50)
+			world_topic_spam_protect_time = world.time
+			return "Bad Key (Throttled)"
+
+	world_topic_spam_protect_time = world.time
+	world_topic_spam_protect_ip = addr
+	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	if (reason == 1) //special reboot, do none of the normal stuff
@@ -216,7 +224,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
-			world << "<span class='boldannounce'>Rebooting world immediately due to host request</span>"
+			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		return ..(1)
 	var/delay
 	if(!isnull(time))
@@ -224,21 +232,22 @@ var/world_topic_spam_protect_time = world.timeofday
 	else
 		delay = ticker.restart_timeout
 	if(ticker.delay_end)
-		world << "<span class='boldannounce'>An admin has delayed the round end.</span>"
+		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
-	world << "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>"
+	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
 	if(ticker.delay_end)
-		world << "<span class='boldannounce'>Reboot was cancelled by an admin.</span>"
+		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
 	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	spawn(0)
-		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
+		to_chat(world, sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')))// random end sounds!! - LastyBatsy
+
 
 	processScheduler.stop()
 
@@ -264,7 +273,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(C.is_afk(INACTIVITY_KICK))
 				if(!istype(C.mob, /mob/dead))
 					log_access("AFK: [key_name(C)]")
-					C << "\red You have been inactive for more than 10 minutes and have been disconnected."
+					to_chat(C, "\red You have been inactive for more than 10 minutes and have been disconnected.")
 					del(C)
 		if ( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
 			sleep(sleep_length)
@@ -311,7 +320,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/save_mode(var/the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
-	F << the_mode
+	to_chat(F, the_mode)
 
 /hook/startup/proc/loadMusic()
 	for(var/obj/machinery/media/jukebox/J in machines)
@@ -390,7 +399,7 @@ var/world_topic_spam_protect_time = world.timeofday
 //		features += "hosted by <b>[config.hostedby]</b>"
 
 	if (features)
-		s += ": [list2text(features, ", ")]"
+		s += ": [jointext(features, ", ")]"
 
 	/* does this help? I do not know */
 	if (src.status != s)

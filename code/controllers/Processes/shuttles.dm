@@ -92,35 +92,35 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		return
 
 	if(world.time - round_start_time < config.shuttle_refuel_delay)
-		user << "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again."
+		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
 		return
 
 	switch(emergency.mode)
 		if(SHUTTLE_RECALL)
-			user << "The emergency shuttle may not be called while returning to Centcom."
+			to_chat(user, "The emergency shuttle may not be called while returning to Centcom.")
 			return
 		if(SHUTTLE_CALL)
-			user << "The emergency shuttle is already on its way."
+			to_chat(user, "The emergency shuttle is already on its way.")
 			return
 		if(SHUTTLE_DOCKED)
-			user << "The emergency shuttle is already here."
+			to_chat(user, "The emergency shuttle is already here.")
 			return
 		if(SHUTTLE_ESCAPE)
-			user << "The emergency shuttle is moving away to a safe distance."
+			to_chat(user, "The emergency shuttle is moving away to a safe distance.")
 			return
 		if(SHUTTLE_STRANDED)
-			user << "The emergency shuttle has been disabled by Centcom."
+			to_chat(user, "The emergency shuttle has been disabled by Centcom.")
 			return
 
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
-		user << "You must provide a reason."
+		to_chat(user, "You must provide a reason.")
 		return
 
 	var/area/signal_origin = get_area(user)
 	var/emergency_reason = "\nNature of emergency:\n\n[call_reason]"
-	if(seclevel2num(get_security_level()) == SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		emergency.request(null, 0.5, signal_origin, html_decode(emergency_reason), 1)
 	else
 		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
@@ -142,7 +142,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		return
 	if(ticker.mode.name == "meteor")
 		return
-	if(seclevel2num(get_security_level()) == SEC_LEVEL_RED)
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)
 			return
 	else

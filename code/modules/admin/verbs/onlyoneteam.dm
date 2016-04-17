@@ -21,7 +21,7 @@
 				continue
 			qdel(I)
 
-		H << "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>"
+		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
 		H.equip_to_slot_or_del(new /obj/item/weapon/beach_ball/dodgeball(H), slot_r_hand)
@@ -75,13 +75,13 @@
 		if(H.l_hand == src) return
 		var/mob/A = H.LAssailant
 		if((H in team_alpha) && (A in team_alpha))
-			A << "<span class='warning'>He's on your team!</span>"
+			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
 		else if((H in team_bravo) && (A in team_bravo))
-			A << "<span class='warning'>He's on your team!</span>"
+			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
 		else if(!A in team_alpha && !A in team_bravo)
-			A << "<span class='warning'>You're not part of the dodgeball game, sorry!</span>"
+			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)

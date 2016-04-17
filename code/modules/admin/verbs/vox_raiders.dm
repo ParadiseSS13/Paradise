@@ -63,9 +63,6 @@ var/global/vox_tick = 1
 	var/obj/item/weapon/implant/cortical/I = new(src)
 	I.imp_in = src
 	I.implanted = 1
-	var/obj/item/organ/external/affected = src.get_organ("head")
-	affected.implants += I
-	I.part = affected
 
 	if(ticker.mode && ( istype(ticker.mode,/datum/game_mode/vox/heist) ) )
 		var/datum/game_mode/vox/heist/M = ticker.mode

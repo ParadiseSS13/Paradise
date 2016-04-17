@@ -131,7 +131,7 @@
 		AM.loc = src.loc
 		do_transform_mime(AM)
 	else
-		AM << "Only items can be greyscaled."
+		to_chat(AM, "Only items can be greyscaled.")
 		return
 
 /obj/machinery/transformer/proc/do_transform_mime(var/obj/item/I)
@@ -242,9 +242,7 @@
 		badcount++
 	for(var/obj/item/device/transfer_valve/B in src.loc)
 		badcount++
-	for(var/obj/item/weapon/kitchen/utensil/knife/K in src.loc)
-		badcount++
-	for(var/obj/item/weapon/kitchenknife/KK in src.loc)
+	for(var/obj/item/weapon/kitchen/knife/K in src.loc)
 		badcount++
 	for(var/obj/item/weapon/c4/KK in src.loc)
 		badcount++

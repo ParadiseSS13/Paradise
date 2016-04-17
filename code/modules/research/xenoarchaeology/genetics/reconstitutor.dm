@@ -196,13 +196,13 @@ datum/genesequence
 				//pod1.occupant.name = "[pod1.occupant.name] ([rand(0,999)])"
 				pod1.biomass -= CLONE_BIOMASS
 		else
-			usr << "\red \icon[src] Unable to locate cloning pod!"
+			to_chat(usr, "\red \icon[src] Unable to locate cloning pod!")
 	else
 		..()
 
 /obj/machinery/computer/reconstitutor/Topic(href, href_list)
 	if(href_list["insertpos"])
-		//world << "inserting gene for genesequence [href_list["insertgenome"]] at pos [text2num(href_list["insertpos"])]"
+//		to_chat(world, "inserting gene for genesequence [href_list["insertgenome"]] at pos [text2num(href_list["insertpos"])]")
 		var/sequence_num = text2num(href_list["sequence_num"])
 		var/insertpos = text2num(href_list["insertpos"])
 
@@ -300,7 +300,7 @@ datum/genesequence
 /obj/item/weapon/circuitboard/reconstitutor
 	name = "Circuit board (Flora Reconstitution Console)"
 	build_path = "/obj/machinery/computer/reconstitutor"
-	origin_tech = "programming=2;biotech=4;materials=6"
+	origin_tech = "programming=2;biotech=3;materials=4"
 	frame_desc = "Requires 2 Advanced Scanning Module, 1 Nano Manipulator, 1 Matter Bin and 1 Advanced Capacitor."
 	req_components = list(
 							"/obj/item/weapon/stock_parts/scanning_module/adv" = 2,

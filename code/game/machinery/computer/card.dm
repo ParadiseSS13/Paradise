@@ -101,19 +101,19 @@ var/time_last_changed_position = 0
 	if(!usr || usr.stat || usr.lying)	return
 
 	if(scan)
-		usr << "You remove \the [scan] from \the [src]."
+		to_chat(usr, "You remove \the [scan] from \the [src].")
 		scan.loc = get_turf(src)
 		if(!usr.get_active_hand())
 			usr.put_in_hands(scan)
 		scan = null
 	else if(modify)
-		usr << "You remove \the [modify] from \the [src]."
+		to_chat(usr, "You remove \the [modify] from \the [src].")
 		modify.loc = get_turf(src)
 		if(!usr.get_active_hand())
 			usr.put_in_hands(modify)
 		modify = null
 	else
-		usr << "There is nothing to remove from the console."
+		to_chat(usr, "There is nothing to remove from the console.")
 	return
 
 /obj/machinery/computer/card/attackby(obj/item/weapon/card/id/id_card, mob/user, params)
@@ -322,7 +322,7 @@ var/time_last_changed_position = 0
 								jobdatum = J
 								break
 						if(!jobdatum)
-							usr << "\red No log exists for this job: [t1]"
+							to_chat(usr, "\red No log exists for this job: [t1]")
 							return
 
 						access = jobdatum.get_access()
@@ -358,6 +358,7 @@ var/time_last_changed_position = 0
 		if ("print")
 			if (!printing)
 				printing = 1
+				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 				spawn(50)
 					printing = null
 					nanomanager.update_uis(src)
@@ -372,17 +373,20 @@ var/time_last_changed_position = 0
 					else if (modify && !mode)
 						P.name = "access report"
 						P.info = {"<h4>Access Report</h4>
-							<u>Prepared By:</u> [scan.registered_name ? scan.registered_name : "Unknown"]<br>
+							<u>Prepared By:</u> [scan && scan.registered_name ? scan.registered_name : "Unknown"]<br>
 							<u>For:</u> [modify.registered_name ? modify.registered_name : "Unregistered"]<br>
 							<hr>
 							<u>Assignment:</u> [modify.assignment]<br>
 							<u>Account Number:</u> #[modify.associated_account_number]<br>
 							<u>Blood Type:</u> [modify.blood_type]<br><br>
-							<u>Access:</u><br>
+							<u>Access:</u><div style="margin-left:1em">
 						"}
 
+						var/first = 1
 						for(var/A in modify.access)
-							P.info += "  [get_access_desc(A)]"
+							P.info += "[first ? "" : ", "][get_access_desc(A)]"
+							first = 0
+						P.info += "</div>"
 
 		if ("terminate")
 			if (is_authenticated(usr))
@@ -428,6 +432,6 @@ var/time_last_changed_position = 0
 	return 1
 
 /obj/machinery/computer/card/centcom
-	name = "\improper CentCom identification computer"
+	name = "\improper CentComm identification computer"
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)

@@ -215,9 +215,9 @@
 		spawn(15)
 			if(distance <= 1 && user.stat != 1)
 				if(pulse == PULSE_NONE)
-					user << "<span class='deadsay'>[t_He] has no pulse[src.client ? "" : " and [t_his] soul has departed"]...</span>"
+					to_chat(user, "<span class='deadsay'>[t_He] has no pulse[src.client ? "" : " and [t_his] soul has departed"]...</span>")
 				else
-					user << "<span class='deadsay'>[t_He] has a pulse!</span>"
+					to_chat(user, "<span class='deadsay'>[t_He] has a pulse!</span>")
 
 	msg += "<span class='warning'>"
 	if(fire_stacks > 0)
@@ -253,11 +253,16 @@
 	if(getBrainLoss() >= 60)
 		msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
-	if(species.show_ssd && (!species.has_organ["brain"] || brain_op_stage != 4) && stat != DEAD)
-		if(!key)
+	if(species.show_ssd && (!species.has_organ["brain"] || get_int_organ(/obj/item/organ/internal/brain)) && stat != DEAD)
+		if(istype(src, /mob/living/carbon/human/interactive))
+			msg += "<span class='deadsay'>[t_He] appears to be some sort of sick automaton: [t_his] eyes are glazed over and [t_his] mouth is slightly agape.</span>\n"
+		else if(!key)
 			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
 		else if(!client)
 			msg += "[t_He] [t_has] suddenly fallen asleep.\n"
+
+	if(!get_int_organ(/obj/item/organ/internal/brain))
+		msg += "<span class='deadsay'>It appears that [t_his] brain is missing...</span>\n"
 
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()
@@ -481,17 +486,18 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[t_He] is [pose]"
 
-	user << msg
+	to_chat(user, msg)
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M as mob, hudtype)
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		switch(hudtype)
 			if("security")
-				return istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/hud/security/sunglasses)
+				return istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/hud/security/sunglasses) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/security)
 			if("medical")
-				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(H.glasses, /obj/item/clothing/glasses/hud/health/health_advanced)
+				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(H.glasses, /obj/item/clothing/glasses/hud/health/health_advanced) ||  istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
 			else
 				return 0
 	else if(istype(M, /mob/living/silicon))

@@ -10,101 +10,6 @@
 	origin_tech = "materials=1"
 	var/breakouttime = 300	//Deciseconds = 30s = 0.5 minute
 
-/obj/item/weapon/legcuffs/beartrap
-	name = "bear trap"
-	throw_speed = 1
-	throw_range = 1
-	icon_state = "beartrap0"
-	desc = "A trap used to catch bears and other legged creatures."
-	var/armed = 0
-	var/obj/item/weapon/grenade/iedcasing/IED = null
-
-	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is putting the [src.name] on \his head! It looks like \he's trying to commit suicide.</span>"
-		return (BRUTELOSS)
-
-/obj/item/weapon/legcuffs/beartrap/attack_self(mob/user as mob)
-	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
-		armed = !armed
-		icon_state = "beartrap[armed]"
-		user << "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>"
-
-/obj/item/weapon/legcuffs/beartrap/attackby(var/obj/item/I, mob/user as mob) //Let's get explosive.
-	if(istype(I, /obj/item/weapon/grenade/iedcasing))
-		if(IED)
-			user << "<span class='warning'>This beartrap already has an IED hooked up to it!</span>"
-			return
-		IED = I
-		switch(IED.assembled)
-			if(0,1) //if it's not fueled/hooked up
-				user << "<span class='warning'>You haven't prepared this IED yet!</span>"
-				IED = null
-				return
-			if(2,3)
-				user.drop_item(src)
-				I.loc = src
-				message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
-				log_game("[key_name(user)] has rigged a beartrap with an IED.")
-				user << "<span class='notice'>You sneak the [IED] underneath the pressure plate and connect the trigger wire.</span>"
-				desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
-			else
-				user << "<span class='danger'>You shouldn't be reading this message! Contact a coder or someone, something broke!</span>"
-				IED = null
-				return
-	if(istype(I, /obj/item/weapon/screwdriver))
-		if(IED)
-			IED.loc = get_turf(src.loc)
-			IED = null
-			user << "<span class='notice'>You remove the IED from the [src].</span>"
-			return
-	..()
-
-/obj/item/weapon/legcuffs/beartrap/Crossed(AM as mob|obj)
-	if(armed)
-		if(IED && isturf(src.loc))
-			IED.active = 1
-			IED.overlays -= image('icons/obj/grenade.dmi', icon_state = "improvised_grenade_filled")
-			IED.icon_state = initial(icon_state) + "_active"
-			IED.assembled = 3
-			message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
-			log_game("[key_name(usr)] has triggered an IED-rigged [name].")
-			spawn(IED.det_time)
-				IED.prime()
-		if(ishuman(AM))
-			if(isturf(src.loc))
-				var/mob/living/carbon/H = AM
-				if(H.m_intent == "run")
-					if(H.lying)
-						H.apply_damage(20,BRUTE,"chest")
-					else
-						H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
-					armed = 0
-					icon_state = "beartrap0"
-					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-					H.visible_message("<span class='danger'>[H] triggers \the [src].</span>", \
-					"<span class='userdanger'>You trigger \the [src]!</span>")
-					H.legcuffed = src
-					src.loc = H
-					H.update_inv_legcuffed()
-					H << "<span class='danger'>You step on \the [src]!</span>"
-					if(IED && IED.active)
-						H << "<span class='danger'>\The [src]'s IED has been activated!</span>"
-					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
-					for(var/mob/O in viewers(H, null))
-						if(O == H)
-							continue
-						O.show_message("\red <B>[H] steps on \the [src].</B>", 1)
-		if(isanimal(AM) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-			armed = 0
-			icon_state = "beartrap0"
-			var/mob/living/simple_animal/SA = AM
-			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			SA.visible_message("<span class='danger'>[SA] triggers \the [src].</span>", \
-			"<span class='userdanger'>You trigger \the [src]!</span>")
-			SA.health -= 20
-	..()
-
 /obj/item/weapon/legcuffs/bolas
 	name = "bolas"
 	desc = "An entangling bolas. Throw at your foes to trip them and prevent them from running."
@@ -126,7 +31,7 @@
 	var/thrown_from
 
 /obj/item/weapon/legcuffs/bolas/suicide_act(mob/living/user)
-		viewers(user) << "<span class='danger'>[user] is wrapping the [src.name] around \his neck! It looks like \he's trying to commit suicide.</span>"
+		to_chat(viewers(user), "<span class='danger'>[user] is wrapping the [src.name] around \his neck! It looks like \he's trying to commit suicide.</span>")
 		return(OXYLOSS)
 
 /obj/item/weapon/legcuffs/bolas/throw_at(var/atom/A, throw_range, throw_speed)
@@ -134,7 +39,7 @@
 		if(istype(usr, /mob/living/carbon/human)) //if the user is human
 			var/mob/living/carbon/human/H = usr
 			if((CLUMSY in H.mutations) && prob(50))
-				H <<"<span class='warning'>You smack yourself in the face while swinging the [src]!</span>"
+				to_chat(H, "<span class='warning'>You smack yourself in the face while swinging the [src]!</span>")
 				H.Stun(2)
 				H.drop_item(src)
 				return
@@ -167,26 +72,19 @@
 		var/mob/living/M = hit_atom
 		if(ishuman(M)) //if they're a human species
 			var/mob/living/carbon/human/H = M
-			if(H.m_intent == "run") //if they're set to run (though not necessarily running at that moment)
-				if(prob(trip_prob)) //this probability is up for change and mostly a placeholder - Comic
-					step(H, H.dir)
-					H.visible_message("<span class='warning'>[H] was tripped by the bolas!</span>","<span class='warning'>Your legs have been tangled!</span>");
-					H.Stun(2) //used instead of setting damage in vars to avoid non-human targets being affected
-					H.Weaken(4)
-					H.legcuffed = src //applies legcuff properties inherited through legcuffs
-					src.loc = H
-					H.update_inv_legcuffed()
-					if(!H.legcuffed) //in case it didn't happen, we need a safety net
-						throw_failed()
-			else if(H.legcuffed) //if the target is already legcuffed (has to be walking)
+			if(H.legcuffed) //if the target is already legcuffed (has to be walking)
 				throw_failed()
 				return
-			else //walking, but uncuffed, or the running prob() failed
-				H << "<span class='notice'>You stumble over the thrown bolas</span>"
+			if(prob(trip_prob)) //this probability is up for change and mostly a placeholder - Comic
 				step(H, H.dir)
-				H.Stun(1)
-				throw_failed()
-				return
+				H.visible_message("<span class='warning'>[H] was tripped by the bolas!</span>","<span class='warning'>Your legs have been tangled!</span>");
+				H.Stun(2) //used instead of setting damage in vars to avoid non-human targets being affected
+				H.Weaken(4)
+				H.legcuffed = src //applies legcuff properties inherited through legcuffs
+				src.loc = H
+				H.update_inv_legcuffed()
+				if(!H.legcuffed) //in case it didn't happen, we need a safety net
+					throw_failed()
 		else
 			M.Stun(2) //minor stun damage to anything not human
 			throw_failed()

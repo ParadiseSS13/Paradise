@@ -16,6 +16,9 @@
 	var/loading = 0 // Nice loading text
 	var/autoprocess = 0
 	var/obj/machinery/clonepod/selected_pod
+	// 0: Standard body scan
+	// 1: The "Best" scan available
+	var/scan_mode = 1
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
@@ -31,7 +34,7 @@
 	if(!scanner || !pods.len || !autoprocess || stat & NOPOWER)
 		return
 
-	if(scanner.occupant && (scanner.scan_level > 2))
+	if(scanner.occupant && can_autoprocess())
 		scan_mob(scanner.occupant)
 
 	for (var/obj/machinery/clonepod/pod in pods)
@@ -84,7 +87,7 @@
 			user.drop_item()
 			W.loc = src
 			src.diskette = W
-			user << "You insert [W]."
+			to_chat(user, "You insert [W].")
 			nanomanager.update_uis(src)
 			return
 	else if(istype(W, /obj/item/device/multitool))
@@ -95,7 +98,7 @@
 				pods += P
 				P.connected = src
 				P.name = "[initial(P.name)] #[pods.len]"
-				user << "<span class='notice'>You connect [P] to [src].</span>"
+				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
 	else
 		..()
 	return
@@ -135,6 +138,8 @@
 
 	data["loading"] = loading
 	data["autoprocess"] = autoprocess
+	data["can_brainscan"] = can_brainscan() // You'll need tier 4s for this
+	data["scan_mode"] = scan_mode
 
 	if(scanner && pods.len && ((scanner.scan_level > 2) || canpodautoprocess))
 		data["autoallowed"] = 1
@@ -184,13 +189,16 @@
 	if(loading)
 		return
 
-	if ((href_list["scan"]) && (!isnull(src.scanner)))
+	if (href_list["scan"] && scanner && scanner.occupant)
 		scantemp = "Scanner ready."
 
 		loading = 1
 
 		spawn(20)
-			src.scan_mob(src.scanner.occupant)
+			if(can_brainscan() && scan_mode)
+				scan_mob(scanner.occupant, scan_brain = 1)
+			else
+				scan_mob(scanner.occupant)
 
 			loading = 0
 			nanomanager.update_uis(src)
@@ -254,7 +262,7 @@
 					nanomanager.update_uis(src)
 					return
 
-				src.active_record = src.diskette.buf
+				src.active_record = src.diskette.buf.copy()
 
 				src.temp = "Load successful."
 
@@ -270,7 +278,7 @@
 			return
 
 		// DNA2 makes things a little simpler.
-		src.diskette.buf=src.active_record
+		src.diskette.buf=src.active_record.copy()
 		src.diskette.buf.types=0
 		switch(href_list["save_disk"]) //Save as Ui/Ui+Ue/Se
 			if("ui")
@@ -318,7 +326,8 @@
 					var/mob/selected = find_dead_player("[C.ckey]")
 					if(!selected)
 						return
-					selected << 'sound/machines/chime.ogg'	//probably not the best sound but I think it's reasonable
+						selected << 'sound/machines/chime.ogg' //probably not the best sound but I think it's reasonable
+
 					var/answer = alert(selected,"Do you want to return to life?","Cloning","Yes","No")
 					if(answer != "No" && pod.growclone(C))
 						temp = "Initiating cloning cycle..."
@@ -335,21 +344,36 @@
 		src.menu = text2num(href_list["menu"])
 		temp = ""
 		scantemp = "Scanner ready."
+	else if (href_list["toggle_mode"])
+		if(can_brainscan())
+			scan_mode = !scan_mode
+		else
+			scan_mode = 0
 
 	src.add_fingerprint(usr)
 	nanomanager.update_uis(src)
 	return
 
-/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob)
+/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, var/scan_brain = 0)
 	if (stat & NOPOWER)
 		return
 	if (scanner.stat & (NOPOWER|BROKEN))
+		return
+	if (scan_brain && !can_brainscan())
 		return
 	if ((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (subject.species.flags & NO_SCAN))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		nanomanager.update_uis(src)
 		return
-	if (subject.brain_op_stage == 4.0)
+	if(subject.get_int_organ(/obj/item/organ/internal/brain))
+		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
+		if(istype(Brn))
+			var/datum/species/S = all_species[Brn.dna.species] // stepladder code wooooo
+			if(S.flags & NO_SCAN)
+				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
+				nanomanager.update_uis(src)
+				return
+	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
 		scantemp = "<span class=\"bad\">Error: No signs of intelligence detected.</span>"
 		nanomanager.update_uis(src)
 		return
@@ -365,6 +389,10 @@
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)
 		return
+	if (scan_brain && !subject.get_int_organ(/obj/item/organ/internal/brain))
+		scantemp = "<span class=\"bad\">Error: No brain found.</span>"
+		nanomanager.update_uis(src)
+		return
 	if (!isnull(find_record(subject.ckey)))
 		scantemp = "Subject already in database."
 		nanomanager.update_uis(src)
@@ -373,13 +401,25 @@
 	subject.dna.check_integrity()
 
 	var/datum/dna2/record/R = new /datum/dna2/record()
-	R.dna=subject.dna
 	R.ckey = subject.ckey
-	R.id= copytext(md5(subject.real_name), 2, 6)
-	R.name=R.dna.real_name
+	var/extra_info = ""
+	if(scan_brain)
+		var/obj/item/organ/B = subject.get_int_organ(/obj/item/organ/internal/brain)
+		B.dna.check_integrity()
+		R.dna=B.dna.Clone()
+		var/datum/species/S = all_species[R.dna.species]
+		if(S.flags & NO_SCAN)
+			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
+			R.dna.species = subject.species.name
+		R.id= copytext(md5(B.dna.real_name), 2, 6)
+		R.name=B.dna.real_name
+	else
+		R.dna=subject.dna.Clone()
+		R.id= copytext(md5(subject.real_name), 2, 6)
+		R.name=R.dna.real_name
+
 	R.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
 	R.languages=subject.languages
-
 	//Add an implant if needed
 	var/obj/item/weapon/implant/health/imp = locate(/obj/item/weapon/implant/health, subject)
 	if (isnull(imp))
@@ -394,7 +434,7 @@
 		R.mind = "\ref[subject.mind]"
 
 	src.records += R
-	scantemp = "Subject successfully scanned."
+	scantemp = "Subject successfully scanned. " + extra_info
 	nanomanager.update_uis(src)
 
 //Find a specific record by key.
@@ -405,3 +445,9 @@
 			selected_record = R
 			break
 	return selected_record
+
+/obj/machinery/computer/cloning/proc/can_autoprocess()
+	return (scanner && scanner.scan_level > 2)
+
+/obj/machinery/computer/cloning/proc/can_brainscan()
+	return (scanner && scanner.scan_level > 3)

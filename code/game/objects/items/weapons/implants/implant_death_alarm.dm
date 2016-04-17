@@ -16,6 +16,10 @@
 				<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
 	return dat
 
+/obj/item/weapon/implant/death_alarm/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
 /obj/item/weapon/implant/death_alarm/process()
 	if(!implanted)
 		return
@@ -38,7 +42,7 @@
 			else
 				a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
 			qdel(a)
-			processing_objects.Remove(src)
+			qdel(src)
 		if ("emp")
 			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 			var/name = prob(50) ? t.name : pick(teleportlocs)
@@ -48,7 +52,7 @@
 			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
 			qdel(a)
-			processing_objects.Remove(src)
+			qdel(src)
 
 /obj/item/weapon/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
 	activate("emp")	//let's shout that this dude is dead

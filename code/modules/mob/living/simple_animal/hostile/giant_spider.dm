@@ -15,7 +15,7 @@
 		if(L.reagents)
 			L.reagents.add_reagent("spidertoxin", poison_per_bite)
 			if(prob(poison_per_bite))
-				L << "<span class='danger'>You feel a tiny prick.</span>"
+				to_chat(L, "<span class='danger'>You feel a tiny prick.</span>")
 				L.reagents.add_reagent(poison_type, poison_per_bite)
 
 
@@ -33,8 +33,7 @@
 	speak_chance = 5
 	turns_per_move = 5
 	see_in_dark = 10
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/spidermeat
-	meat_amount = 2
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/spidermeat = 2, /obj/item/weapon/reagent_containers/food/snacks/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -50,6 +49,7 @@
 	move_to_delay = 6
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -57,8 +57,8 @@
 	icon_state = "nurse"
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/spidereggs
-	meat_amount = 4
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/spidermeat = 2, /obj/item/weapon/reagent_containers/food/snacks/spiderleg = 8, /obj/item/weapon/reagent_containers/food/snacks/spidereggs = 4)
+
 	maxHealth = 40
 	health = 40
 	melee_damage_lower = 5
@@ -82,31 +82,17 @@
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_action()
-	if(!stat)
-		if(stance == HOSTILE_STANCE_IDLE)
-			//1% chance to skitter madly away
-			if(!busy && prob(1))
-				/*var/list/move_targets = list()
-				for(var/turf/T in orange(20, src))
-					move_targets.Add(T)*/
-				stop_automated_movement = 1
-				Goto(pick(orange(20, src)), move_to_delay)
-				spawn(50)
-					stop_automated_movement = 0
-					walk(src,0)
-
-// Chops off each leg with a 50/50 chance of harvesting one, until finally calling
-// default harvest action
-/mob/living/simple_animal/hostile/poison/giant_spider/harvest()
-	if(butcher_state > 0)
-		butcher_state--
-		icon_state = icon_dead + "[butcher_state]"
-
-		if(prob(50))
-			new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(src.loc)
+	if(!..()) //AIStatus is off
 		return
-	else
-		return ..()
+	if(AIStatus == AI_IDLE)
+		//1% chance to skitter madly away
+		if(!busy && prob(1))
+			stop_automated_movement = 1
+			Goto(pick(orange(20, src)), move_to_delay)
+			spawn(50)
+				stop_automated_movement = 0
+				walk(src,0)
+		return 1
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(var/C)
 	spawn(100)
@@ -117,36 +103,31 @@
 			stop_automated_movement = 0
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
-	if(!stat && !ckey)
-		if(stance == HOSTILE_STANCE_IDLE)
-			var/list/can_see = view(src, 10)
-			//30% chance to stop wandering and do something
-			if(!busy && prob(30))
-				//first, check for potential food nearby to cocoon
-				for(var/mob/living/C in can_see)
-					if(C.stat && !istype(C,/mob/living/simple_animal/hostile/poison/giant_spider))
-						cocoon_target = C
-						busy = MOVING_TO_TARGET
-						Goto(C, move_to_delay)
-						//give up if we can't reach them after 10 seconds
-						GiveUp(C)
-						return
-
-				//second, spin a sticky spiderweb on this tile
-				var/obj/effect/spider/stickyweb/W = locate() in get_turf(src)
-				if(!W)
-					Web()
+	if(..())
+		var/list/can_see = view(src, 10)
+		if(!busy && prob(30))	//30% chance to stop wandering and do something
+		//first, check for potential food nearby to cocoon
+			for(var/mob/living/C in can_see)
+				if(C.stat && !istype(C,/mob/living/simple_animal/hostile/poison/giant_spider))
+					cocoon_target = C
+					busy = MOVING_TO_TARGET
+					Goto(C, move_to_delay)
+					//give up if we can't reach them after 10 seconds
+					GiveUp(C)
+					return
+			//second, spin a sticky spiderweb on this tile
+			var/obj/effect/spider/stickyweb/W = locate() in get_turf(src)
+			if(!W)
+				Web()
+			else
+				//third, lay an egg cluster there
+				if(fed)
+					LayEggs()
 				else
-					//third, lay an egg cluster there
-					if(fed)
-						LayEggs()
-					else
-						//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
-						for(var/obj/O in can_see)
-
-							if(O.anchored)
-								continue
-
+					//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
+					for(var/obj/O in can_see)
+						if(O.anchored)
+							continue
 							if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
 								cocoon_target = O
 								busy = MOVING_TO_TARGET
@@ -155,13 +136,13 @@
 								//give up if we can't reach them after 10 seconds
 								GiveUp(O)
 
-			else if(busy == MOVING_TO_TARGET && cocoon_target)
-				if(get_dist(src, cocoon_target) <= 1)
-					Wrap()
+		else if(busy == MOVING_TO_TARGET && cocoon_target)
+			if(get_dist(src, cocoon_target) <= 1)
+				Wrap()
 
-		else
-			busy = 0
-			stop_automated_movement = 0
+	else
+		busy = 0
+		stop_automated_movement = 0
 
 /mob/living/simple_animal/hostile/poison/giant_spider/verb/Web()
 	set name = "Lay Web"
@@ -244,9 +225,9 @@
 
 	var/obj/effect/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
-		src << "<span class='notice'>There is already a cluster of eggs here!</span>"
+		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
 	else if(!fed)
-		src << "<span class='warning'>You are too hungry to do this!</span>"
+		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
 		src.visible_message("<span class='notice'>\the [src] begins to lay a cluster of eggs.</span>")

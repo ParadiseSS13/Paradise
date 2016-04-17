@@ -114,13 +114,17 @@
 				lastwarning = world.timeofday
 
 		if(damage > explosion_point)
-			for(var/mob/living/mob in living_mob_list)
-				if(istype(mob, /mob/living/carbon/human))
-					//Hilariously enough, running into a closet should make you get hit the hardest.
-					var/mob/living/carbon/human/H = mob
-					H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
-				var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
-				mob.apply_effect(rads, IRRADIATE)
+			if(get_turf(src))
+				var/turf/position = get_turf(src)
+				for(var/mob/living/mob in living_mob_list)
+					var/turf/mob_pos = get_turf(mob)
+					if(mob_pos && mob_pos.z == position.z)
+						if(ishuman(mob))
+							//Hilariously enough, running into a closet should make you get hit the hardest.
+							var/mob/living/carbon/human/H = mob
+							H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
+						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
+						mob.apply_effect(rads, IRRADIATE)
 
 			explode()
 
@@ -182,7 +186,7 @@
 			continue
 		// Where we're going, we don't need eyes.
 		// Prosthetic eyes will also protect against this business.
-		var/obj/item/organ/eyes = l.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
 			continue
 		l.hallucination = max(0, min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)) ) ) )
@@ -220,8 +224,8 @@
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in mob_list)
-		M << 'sound/effects/supermatter.ogg' //everyone goan know bout this
-		M << "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>"
+		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
+		to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
 	qdel(src)
 	return(gain)
 

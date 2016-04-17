@@ -22,52 +22,32 @@
 
 /obj/item/weapon/bananapeel/Crossed(AM as mob|obj)
 	if (istype(AM, /mob/living/carbon))
-		var/mob/M =	AM
-		if (istype(M, /mob/living/carbon/human) && (isobj(M:shoes) && M:shoes.flags&NOSLIP) || M.buckled)
-			return
-		if(istype(M, /mob/living/carbon/human) && M:species.bodyflags & FEET_NOSLIP)
-			return
-		if(M.flying)
-			return
-
-		M.stop_pulling()
-		M << "\blue You slipped on the [name]!"
-		playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-		M.Stun(4)
-		M.Weaken(2)
+		var/mob/living/carbon/M =	AM
+		M.slip("banana peel", 4, 2)
 
 /*
  * Soap
  */
 /obj/item/weapon/soap/Crossed(AM as mob|obj) //EXACTLY the same as bananapeel for now, so it makes sense to put it in the same dm -- Urist
 	if (istype(AM, /mob/living/carbon))
-		var/mob/M =	AM
-		if (istype(M, /mob/living/carbon/human) && (isobj(M:shoes) && M:shoes.flags&NOSLIP) || M.buckled)
-			return
-		if(M.flying)
-			return
-
-		M.stop_pulling()
-		M << "\blue You slipped on the [name]!"
-		playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-		M.Stun(4)
-		M.Weaken(2)
+		var/mob/living/carbon/M = AM
+		M.slip("soap", 4, 2)
 
 /obj/item/weapon/soap/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity) return
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
-		user << "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>"
+		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
 	else if(istype(target,/obj/effect/decal/cleanable))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, src.cleanspeed, target = target) && target)
-			user << "<span class='notice'>You scrub \the [target.name] out.</span>"
+			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
 			qdel(target)
 	else
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
 		if(do_after(user, src.cleanspeed, target = target))
-			user << "<span class='notice'>You clean \the [target.name].</span>"
+			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
 			target.clean_blood()

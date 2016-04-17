@@ -20,10 +20,15 @@
 /obj/item/device/radio/headset/New()
 	..()
 	internal_channels.Cut()
+
+/obj/item/device/radio/headset/initialize()
+	..()
+
 	if(ks1type)
 		keyslot1 = new ks1type(src)
 	if(ks2type)
 		keyslot2 = new ks2type(src)
+
 	recalculateChannels(1)
 
 /obj/item/device/radio/headset/Destroy()
@@ -42,8 +47,8 @@
 	if(!(..(user, 1) && radio_desc))
 		return
 
-	user << "The following channels are available:"
-	user << radio_desc
+	to_chat(user, "The following channels are available:")
+	to_chat(user, radio_desc)
 
 /obj/item/device/radio/headset/handle_message_mode(mob/living/M as mob, message, channel)
 	if (channel == "special")
@@ -58,12 +63,15 @@
 	return ..()
 
 /obj/item/device/radio/headset/receive_range(freq, level, aiOverride = 0)
-	if (aiOverride)
+	if(aiOverride)
 		return ..(freq, level)
-	if(ishuman(src.loc))
-		var/mob/living/carbon/human/H = src.loc
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..(freq, level)
+	else if(isanimal(loc))
+		// frankly, all the ones with inventory are small enough to not warrant snowflaking the slot check somehow
+		return ..(freq, level)
 	return -1
 
 /obj/item/device/radio/headset/alt
@@ -318,13 +326,13 @@
 					keyslot2 = null
 
 			recalculateChannels()
-			user << "You pop out the encryption keys in the headset!"
+			to_chat(user, "You pop out the encryption keys in the headset!")
 		else
-			user << "This headset doesn't have any encryption keys!  How useless..."
+			to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
 
 	if(istype(W, /obj/item/device/encryptionkey/))
 		if(keyslot1 && keyslot2)
-			user << "The headset can't hold another key!"
+			to_chat(user, "The headset can't hold another key!")
 			return
 
 		if(!keyslot1)
@@ -380,8 +388,6 @@
 
 
 	for (var/ch_name in channels)
-		if(!radio_controller)
-			sleep(30) // Waiting for the radio_controller to be created.
 		if(!radio_controller)
 			src.name = "broken radio headset"
 			return

@@ -36,7 +36,7 @@
 	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
-	var/continous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
+	var/continuous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
 	var/Ticklag = 0.9
@@ -135,7 +135,7 @@
 	var/comms_password = ""
 
 	var/use_irc_bot = 0
-	var/irc_bot_host = ""
+	var/list/irc_bot_host = list()
 	var/main_irc = ""
 	var/admin_irc = ""
 	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
@@ -166,8 +166,6 @@
 	var/list/overflow_whitelist = list() //whitelist for overflow
 
 	var/disable_away_missions = 0 // disable away missions
-
-	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -223,7 +221,7 @@
 		if(type == "config")
 			switch (name)
 				if ("resource_urls")
-					config.resource_urls = text2list(value, " ")
+					config.resource_urls = splittext(value, " ")
 
 				if ("admin_legacy_system")
 					config.admin_legacy_system = 1
@@ -449,7 +447,7 @@
 					config.gateway_delay = text2num(value)
 
 				if("continuous_rounds")
-					config.continous_rounds = 1
+					config.continuous_rounds = 1
 
 				if("ghost_interaction")
 					config.ghost_interaction = 1
@@ -458,7 +456,7 @@
 					config.comms_password = value
 
 				if("irc_bot_host")
-					config.irc_bot_host = value
+					config.irc_bot_host = splittext(value, ";")
 
 				if("main_irc")
 					config.main_irc = value
@@ -545,9 +543,6 @@
 
 				if("disable_away_missions")
 					config.disable_away_missions = 1
-
-				if("autoconvert_notes")
-					config.autoconvert_notes = 1
 
 				if("disable_lobby_music")
 					config.disable_lobby_music = 1
@@ -693,7 +688,7 @@
 	var/list/datum/game_mode/runnable_modes = new
 	for (var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
-		//world << "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]"
+//		to_chat(world, "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]")
 		if (!(M.config_tag in modes))
 			qdel(M)
 			continue
@@ -702,5 +697,5 @@
 			continue
 		if (M.can_start())
 			runnable_modes[M] = probabilities[M.config_tag]
-			//world << "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]"
+//			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes
