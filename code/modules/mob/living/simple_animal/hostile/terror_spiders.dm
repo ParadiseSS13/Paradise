@@ -104,6 +104,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/spider_unlock_id_tag = "" // if defined, unlock awaymission blast doors with this tag on death
 	var/spider_queen_declared_war = 0 // if 1, mobs more aggressive
 	var/spider_role_summary = "UNDEFINED"
+	var/spider_placed = 0
 
 	// AI variables designed for use in procs
 	var/atom/cocoon_target // for queen and nurse
@@ -235,12 +236,43 @@ var/global/list/spider_ckey_blacklist = list()
 				targets1 += M
 		for(var/obj/spacepod/S in spacepods_list)
 			if(S in enemies && get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
-				targets3 += S
+				targets1 += S
 		return targets1
 	else if (ai_type == 2)
 		// COMPLETELY PASSIVE
 		return list()
 
+/mob/living/simple_animal/hostile/poison/terror_spider/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)
+	var/list/Targets = list()
+	if(!HasTargetsList)
+		possible_targets = ListTargets()
+	for(var/atom/A in possible_targets)
+		if(Found(A))//Just in case people want to override targetting
+			Targets = list(A)
+			break
+		if(CanAttack(A))//Can we attack it?
+			Targets += A
+			continue
+	if (Targets.len)
+		var/Target = PickTarget(Targets)
+		GiveTarget(Target)
+		return Target //We now have a target
+	else
+		return
+
+/mob/living/simple_animal/hostile/poison/terror_spider/PickTarget(var/list/Targets)
+	if(!Targets.len)//We didnt find nothin!
+		return
+	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
+		for(var/atom/A in Targets)
+			var/target_dist = get_dist(src, target)
+			var/possible_target_distance = get_dist(src, A)
+			if(target_dist < possible_target_distance)
+				Targets -= A
+	if(!Targets.len)//We didnt find nothin!
+		return
+	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
+	return chosen_target
 
 /mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
 	if (target && isliving(target))
@@ -588,6 +620,8 @@ var/global/list/spider_ckey_blacklist = list()
 				if (world.time < 600)
 					// spider is spawning in the first 60 seconds of the round, asssume its an awaymission spider placed there with the intention of staying there.
 					ai_ventcrawls = 0
+					spider_placed = 1
+					wander = 0
 				if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/white))
 					name = "Strange Spider"
 					desc = ""
@@ -640,7 +674,7 @@ var/global/list/spider_ckey_blacklist = list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/handle_automated_action()
 	if(!stat && !ckey) // if we are not dead, and we're not player controlled
-		if(AIStatus != AI_OFF)
+		if(AIStatus != AI_OFF && !target)
 			if (cocoon_target)
 				if(get_dist(src, cocoon_target) <= 1)
 					spider_steps_taken = 0
@@ -1770,12 +1804,13 @@ var/global/list/spider_ckey_blacklist = list()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
+	..()
 	if (stat != DEAD)
 		if (!canlay)
 			if (world.time > (spider_lastspawn + spider_spawnfrequency))
 				canlay++
 				to_chat(src, "<span class='notice'>You are able to lay eggs again.</span>")
-	..()
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	// When a queen dies, so do ALL her guardians. Intended as a motivator to ensure they keep her alive.
@@ -1789,7 +1824,8 @@ var/global/list/spider_ckey_blacklist = list()
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/handle_automated_action()
-	if(!stat && !ckey && AIStatus != AI_OFF)
+	..()
+	if(!stat && !ckey && AIStatus != AI_OFF && !target && !path_to_vent)
 		if (neststep >= 1 && prob(33))
 			if (get_dist(src,nest_vent) > 6)
 				spider_steps_taken++
@@ -1827,8 +1863,9 @@ var/global/list/spider_ckey_blacklist = list()
 				neststep = 1
 				visible_message("<span class='danger'>\the [src] settles down, starting to build a nest.</span>")
 			else if (entry_vent)
-				visible_message("<span class='danger'>\the [src] looks around warily - then retreats.</span>")
-				path_to_vent = 1
+				if (!path_to_vent)
+					visible_message("<span class='danger'>\the [src] looks around warily - then retreats.</span>")
+					path_to_vent = 1
 			else
 				visible_message("<span class='danger'>\the [src] looks around, searching for the vent that should be there, but isn't. A bluespace portal forms on her, and she is gone.</span>")
 				qdel(src)
@@ -1938,7 +1975,7 @@ var/global/list/spider_ckey_blacklist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/CountSpiders()
 	var/numspiders = 0
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
-		if (T.health > 0)
+		if (T.health > 0 && !spider_placed)
 			numspiders++
 	return numspiders
 
@@ -2425,6 +2462,8 @@ var/global/list/spider_ckey_blacklist = list()
 		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/white, /mob/living/simple_animal/hostile/poison/terror_spider/black)
 		if (prob(sbpc))
 			S.stillborn = 1
+		if (spider_growinstantly)
+			S.amount_grown = 250
 
 
 // --------------------------------------------------------------------------------
@@ -2542,6 +2581,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/use_vents = 1
 	var/ai_playercontrol_allowingeneral = 1
 	var/list/enemies = list()
+	var/stat = 0 // necessary, because without it spiderlings moving into borg rechargers create a runtime error.
 
 
 /obj/effect/spider/terror_spiderling/New()
@@ -2553,6 +2593,8 @@ var/global/list/spider_ckey_blacklist = list()
 /obj/effect/spider/terror_spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
 		loc = user.loc
+	else if (istype(user, /obj/machinery/recharge_station))
+		qdel(src)
 	else
 		..()
 
