@@ -1589,6 +1589,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\tree.dm"
 #include "code\modules\mob\living\simple_animal\hostile\winter_mobs.dm"
 #include "code\modules\mob\living\simple_animal\hostile\retaliate\clown.dm"
+#include "code\modules\mob\living\simple_animal\hostile\retaliate\dalek.dm"
 #include "code\modules\mob\living\simple_animal\hostile\retaliate\drone.dm"
 #include "code\modules\mob\living\simple_animal\hostile\retaliate\fish.dm"
 #include "code\modules\mob\living\simple_animal\hostile\retaliate\pet.dm"
