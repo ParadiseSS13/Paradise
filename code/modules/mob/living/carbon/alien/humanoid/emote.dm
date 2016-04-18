@@ -1,3 +1,4 @@
+/*
 /mob/living/carbon/alien/humanoid/emote(var/act,var/m_type=1,var/message = null)
 	var/param = null
 	if (findtext(act, "-", 1, null))
@@ -113,3 +114,5 @@
 		if (act == "deathgasp")
 			playsound(src.loc, 'sound/voice/hiss6.ogg', 80, 1, 1)
 		..(act, m_type, message)
+
+*/

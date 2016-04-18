@@ -102,10 +102,10 @@
 	for (var/mob/M in mob_list)
 		if(isovermind(M) || isobserver(M))
 			M.show_message(rendered, 2)
-
+/*
 /mob/camera/blob/emote(var/act,var/m_type=1,var/message = null)
 	return
-
+*/
 /mob/camera/blob/blob_act()
 	return
 

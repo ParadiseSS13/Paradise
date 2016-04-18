@@ -1,6 +1,7 @@
 #define EMOTE_COOLDOWN 20		//Time in deciseconds that the cooldown lasts
 
 //Emote Cooldown System (it's so simple!)
+/*
 /mob/proc/handle_emote_CD(cooldown = EMOTE_COOLDOWN)
 	if(emote_cd == 2) return 1			// Cooldown emotes were disabled by an admin, prevent use
 	if(src.emote_cd == 1) return 1		// Already on CD, prevent use
@@ -12,10 +13,11 @@
 
 	return 0		// Proceed with emote
 //--FalseIncarnate
-
+*/
 // All mobs should have custom emote, really..
 /mob/proc/custom_emote(var/m_type=1,var/message = null)
-
+	emoteHandler.runEmote("me", null, message, m_type)
+/*
 	if(stat || !use_me && usr == src)
 		to_chat(usr, "You are unable to emote.")
 		return
@@ -122,3 +124,4 @@
 
 			else if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
 				M.show_message(message, 2)
+*/

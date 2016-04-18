@@ -32,10 +32,10 @@
 		log_to_dd("Trapped mind found without a borer!")
 		return 0
 	return B.host.say_understands(other, speaking)
-
+/*
 /mob/living/captive_brain/emote(var/message)
 	return
-
+*/
 /mob/living/simple_animal/borer
 	name = "cortical borer"
 	real_name = "cortical borer"
