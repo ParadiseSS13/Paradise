@@ -58,6 +58,8 @@
 		handle_regular_hud_updates() //IT JUST REMOVES FUCKING HUD IMAGES
 	if(get_nations_mode())
 		process_nations()
+	
+	..()
 
 /mob/living/proc/handle_breathing()
 	return

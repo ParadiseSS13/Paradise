@@ -549,14 +549,6 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 	return toReturn
 
-/atom/proc/get_mobs_in_contents() //returns mobs recursively inside the atom
-	. = list()
-	for(var/M in contents)
-		. += M:get_mobs_in_contents() //colon operator is faster than assigning a variable to every atom
-
-/mob/get_mobs_in_contents()
-	. = ..() + src
-
 //Step-towards method of determining whether one atom can see another. Similar to viewers()
 /proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
