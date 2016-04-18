@@ -433,6 +433,9 @@
 	key = "zw" //doesn't matter, this is their default and only language
 	flags = RESTRICTED | HIVEMIND
 
+/datum/language/abductor/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+	..(speaker,message,speaker.real_name)
+
 /datum/language/abductor/check_special_condition(var/mob/living/carbon/human/other, var/mob/living/carbon/human/speaker)
 	if(other.mind && other.mind.abductor)
 		if(other.mind.abductor.team == speaker.mind.abductor.team)
