@@ -111,7 +111,7 @@
 		agent = agents[team_number]
 		H = agent.current
 		L = agent_landmarks[team_number]
-		H.loc = L.loc
+		H.forceMove(get_turf(L))
 		H.set_species("Abductor")
 		H.mind.abductor.agent = 1
 		H.mind.abductor.team = team_number
@@ -123,7 +123,7 @@
 		scientist = scientists[team_number]
 		H = scientist.current
 		L = scientist_landmarks[team_number]
-		H.loc = L.loc
+		H.forceMove(get_turf(L))
 		H.set_species("Abductor")
 		H.mind.abductor.scientist = 1
 		H.mind.abductor.team = team_number
@@ -155,7 +155,7 @@
 	agent = agents[team_number]
 	H = agent.current
 	L = agent_landmarks[team_number]
-	H.loc = L.loc
+	H.forceMove(get_turf(L))
 	H.set_species("Abductor")
 	H.mind.abductor.agent = 1
 	H.mind.abductor.team = team_number
@@ -168,7 +168,7 @@
 	scientist = scientists[team_number]
 	H = scientist.current
 	L = scientist_landmarks[team_number]
-	H.loc = L.loc
+	H.forceMove(get_turf(L))
 	H.set_species("Abductor")
 	H.mind.abductor.scientist = 1
 	H.mind.abductor.team = team_number
@@ -243,6 +243,7 @@
 	agent.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/decloner/alien(agent), slot_belt)
 	agent.equip_to_slot_or_del(new /obj/item/device/abductor/silencer(agent), slot_in_backpack)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/abductor(agent), slot_head)
+	agent.update_icons()
 
 
 /datum/game_mode/abduction/proc/equip_scientist(var/mob/living/carbon/human/scientist,var/team_number)
@@ -258,6 +259,7 @@
 
 	var/obj/item/weapon/implant/abductor/beamplant = new /obj/item/weapon/implant/abductor(scientist)
 	beamplant.implant(scientist)
+	scientist.update_icons()
 
 
 /datum/game_mode/abduction/check_finished()

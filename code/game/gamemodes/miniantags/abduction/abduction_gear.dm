@@ -49,7 +49,7 @@
 	if(disguise == null)
 		return
 	stealth_active = 1
-	if(istype(src.loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/M = src.loc
 		spawn(0)
 			anim(M.loc,M,'icons/mob/mob.dmi',,"cloak",,M.dir)
@@ -66,7 +66,7 @@
 	if(!stealth_active)
 		return
 	stealth_active = 0
-	if(istype(src.loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/M = src.loc
 		spawn(0)
 			anim(M.loc,M,'icons/mob/mob.dmi',,"uncloak",,M.dir)
@@ -94,7 +94,7 @@
 				ActivateStealth()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
-	if(istype(src.loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		if(combat_cooldown != initial(combat_cooldown))
 			to_chat(src.loc, "<span class='warning'>Combat injection is still recharging.</span>")
 			return
@@ -232,7 +232,7 @@
 	radio_off(target, user)
 
 /obj/item/device/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
-	if( !(user in (viewers(7,target))) )
+	if(!(user in (viewers(7,target))))
 		return
 
 	var/turf/targloc = get_turf(target)

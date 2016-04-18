@@ -6,10 +6,7 @@
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target)
 	if(!ishuman(user))
 		return 0
-	if(target.get_species() == "Machine")
-		return 0
-	var/mob/living/carbon/human/AB = target
-	if(AB.species.flags & NO_INTORGANS)
+	if(target.get_species() == "Machine") //Maybe add in a machine version, later?
 		return 0
 	var/mob/living/carbon/human/H = user
 	if(H.get_species() == "Abductor")
@@ -35,6 +32,10 @@
 	..()
 
 /datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/mob/living/carbon/human/AB = target
+	if(AB.species.flags & NO_INTORGANS)
+		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
+		return 1
 	if(IC)
 		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
 		user.put_in_hands(IC)
