@@ -128,18 +128,26 @@ Please contact me on #coderbus IRC. ~Carn x
 	update_hud()		//TODO: remove the need for this
 
 	var/stealth = 0
-	for(var/obj/item/weapon/cloaking_device/S in list(l_hand,r_hand,belt,l_store,r_store))
-		if(S.active)
+	var/obj/item/clothing/suit/armor/abductor/vest/V // Begin the most snowflakey bullshit code I've ever written. I'm so sorry, but there was no other way.
+	for(V in list(wear_suit))
+		if(V.stealth_active)
 			stealth = 1
 			break
 
 	if(stealth)
-		icon = 'icons/mob/human.dmi'
-		icon_state = "body_cloaked"
-		var/image/I  = overlays_standing[L_HAND_LAYER]
-		if(istype(I))  overlays += I
-		I       = overlays_standing[R_HAND_LAYER]
-		if(istype(I))  overlays += I
+		icon = V.disguise.icon //if the suit is active, reference the suit's current loaded icon and overlays; this does not include hand overlays
+		overlays.Cut()
+
+		for(var/thing in V.disguise.overlays)
+			if(thing)
+				overlays += thing
+
+		var/image/I  = overlays_standing[L_HAND_LAYER] //manually add both left and right hand, so its independently updated
+		if(istype(I))
+			overlays += I
+		I = overlays_standing[R_HAND_LAYER]
+		if(istype(I))
+			overlays += I
 	else
 		icon = stand_icon
 		overlays.Cut()

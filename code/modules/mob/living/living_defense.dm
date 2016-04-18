@@ -39,14 +39,6 @@
 
 
 /mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
-	//Being hit while using a cloaking device
-	var/obj/item/weapon/cloaking_device/C = locate((/obj/item/weapon/cloaking_device) in src)
-	if(C && C.active)
-		C.attack_self(src)//Should shut it off
-		update_icons()
-		to_chat(src, "\blue Your [C.name] was disrupted!")
-		Stun(2)
-
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
