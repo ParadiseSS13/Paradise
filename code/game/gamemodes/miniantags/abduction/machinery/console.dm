@@ -3,17 +3,27 @@
 /obj/machinery/abductor
 	var/team = 0
 
+/obj/machinery/abductor/New()
+	abductor_equipment.Add(src)
+	..()
+
+/obj/machinery/abductor/Destroy()
+	abductor_equipment.Remove(src)
+	return ..()
+
 /obj/machinery/abductor/proc/IsAbductor(mob/living/carbon/human/H)
 	return H.get_species() == "Abductor"
 
 /obj/machinery/abductor/proc/IsAgent(mob/living/carbon/human/H)
 	if(H.get_species() == "Abductor")
-		return H.mind.abductor.agent
+		if(H.mind && H.mind.abductor)
+			return H.mind.abductor.agent
 	return 0
 
 /obj/machinery/abductor/proc/IsScientist(mob/living/carbon/human/H)
 	if(H.get_species() == "Abductor")
-		return H.mind.abductor.scientist
+		if(H.mind && H.mind.abductor)
+			return H.mind.abductor.scientist
 	return 0
 
 //Console
@@ -155,7 +165,7 @@
 		to_chat(user, "<span class='notice'>Location marked as test subject release point.</span>")
 
 
-/obj/machinery/abductor/console/proc/Link_Abduction_Equipment()
+/obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
 
 	for(var/obj/machinery/abductor/pad/p in machines)
 		if(p.team == team)

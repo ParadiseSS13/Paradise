@@ -127,7 +127,8 @@
 
 /obj/item/device/abductor/proc/ScientistCheck(user)
 	var/mob/living/carbon/human/H = user
-	return H.mind.abductor.scientist
+	if(H.mind && H.mind.abductor)
+		return H.mind.abductor.scientist
 
 /obj/item/device/abductor/gizmo
 	name = "science tool"
@@ -295,7 +296,7 @@
 
 /obj/item/weapon/implant/abductor/proc/get_team_console(var/team)
 	var/obj/machinery/abductor/console/console
-	for(var/obj/machinery/abductor/console/c in machines)
+	for(var/obj/machinery/abductor/console/c in abductor_equipment)
 		if(c.team == team)
 			console = c
 			break

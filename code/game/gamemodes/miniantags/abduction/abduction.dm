@@ -223,7 +223,7 @@
 
 /datum/game_mode/abduction/proc/get_team_console(team)
 	var/obj/machinery/abductor/console/console
-	for(var/obj/machinery/abductor/console/c in machines)
+	for(var/obj/machinery/abductor/console/c in abductor_equipment)
 		if(c.team == team)
 			console = c
 			break
@@ -316,7 +316,7 @@
 		if(H.get_species() != "Abductor")
 			return 0
 		ab_team = H.mind.abductor.team
-	for(var/obj/machinery/abductor/experiment/E in machines)
+	for(var/obj/machinery/abductor/experiment/E in abductor_equipment)
 		if(E.team == ab_team)
 			if(E.points >= target_amount)
 				return 1

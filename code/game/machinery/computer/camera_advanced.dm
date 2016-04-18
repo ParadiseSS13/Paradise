@@ -34,6 +34,7 @@
 	var/mob/living/carbon/L = user
 
 	if(!current_user)
+		user.set_machine(src)
 		if(!eyeobj)
 			CreateEye()
 		GrantActions(user)

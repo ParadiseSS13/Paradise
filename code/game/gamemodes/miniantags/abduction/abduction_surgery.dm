@@ -6,6 +6,11 @@
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target)
 	if(!ishuman(user))
 		return 0
+	if(target.get_species() == "Machine")
+		return 0
+	var/mob/living/carbon/human/AB = target
+	if(AB.species.flags & NO_INTORGANS)
+		return 0
 	var/mob/living/carbon/human/H = user
 	if(H.get_species() == "Abductor")
 		return 1
