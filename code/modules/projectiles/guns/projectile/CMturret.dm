@@ -46,8 +46,9 @@
 			user = null
 
 /obj/structure/machinegun/Destroy()
-	user.mounted = null
-	user = null
+	if(user)
+		user.mounted = null
+		user = null
 	return ..()
 
 /obj/structure/machinegun/New()
