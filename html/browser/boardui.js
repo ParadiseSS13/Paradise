@@ -29,6 +29,10 @@ function UINewGame() {
     }
 }
 
+function UIClose() {
+	window.location = "byond://?src=" + hSrc + ";close=1";
+}
+
 function EnsureAnalysisStopped() {
     if (g_analyzing && g_backgroundEngine != null) {
         g_backgroundEngine.terminate();
@@ -95,7 +99,7 @@ function FinishMove(bestMove, value, timeTaken, ply) {
     if (bestMove != null) {
         UIPlayMove(bestMove, BuildPVMessage(bestMove, value, timeTaken, ply));
     } else {
-        alert("Checkmate!");
+        window.location = "byond://?src=" + hSrc + ";checkmate=1";
     }
 }
 

@@ -221,7 +221,8 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"sprites.png"			    = 'icons/chess_pieces/sprites.png',
 		"blank.gif"                 = 'icons/chess_pieces/blank.gif',
 		"background.png"            = 'nano/images/uiBackground.png',
-		"garbochess.js"             = 'html/browser/garbochess.js'
+		"garbochess.js"             = 'html/browser/garbochess.js',
+		"boardui.js"                = 'html/browser/boardui.js'
 	)
 
 /datum/asset/nanoui
