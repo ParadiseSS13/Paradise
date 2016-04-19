@@ -135,7 +135,7 @@
 	desc = "A dual-mode tool for retrieving specimens and scanning appearances. Scanning can be done through cameras."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gizmo_scan"
-	item_state = "silencer"
+	item_state = "gizmo"
 	origin_tech = "materials=5;magnets=5;bluespace=6;abductor=4"
 	var/mode = GIZMO_SCAN
 	var/mob/living/marked = null
@@ -216,7 +216,7 @@
 	desc = "A compact device used to shut down communications equipment."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "silencer"
-	item_state = "gizmo"
+	item_state = "silencer"
 	origin_tech = "materials=5;magnets=5;abductor=3"
 
 /obj/item/device/abductor/silencer/attack(mob/living/M, mob/user)

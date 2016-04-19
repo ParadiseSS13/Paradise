@@ -286,11 +286,20 @@
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_abduction()
+	var/text = ""
 	if(abductors.len)
-		to_chat(world, "Abductors:")
-		for(var/datum/mind/M in abductors)
-			to_chat(world, "<font size = 2><b>Abductor [M.current ? M.current.name : "Abductor"]([M.key])</b></font>")
-	return
+		text += "<br><span class='big'><b>The abductors were:</b></span>"
+		for(var/datum/mind/abductor_mind in abductors)
+			text += printplayer(abductor_mind)
+			text += printobjectives(abductor_mind)
+		text += "<br>"
+		if(abductees.len)
+			text += "<br><span class='big'><b>The abductees were:</b></span>"
+			for(var/datum/mind/abductee_mind in abductees)
+				text += printplayer(abductee_mind)
+				text += printobjectives(abductee_mind)
+	text += "<br>"
+	to_chat(world, text)
 
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships

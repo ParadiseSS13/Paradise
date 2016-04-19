@@ -1,6 +1,8 @@
 /datum/event/abductor
 
 /datum/event/abductor/start()
+	//spawn abductor team
+	processing = 0 //so it won't fire again in next tick
 	if(!makeAbductorTeam())
 		message_admins("Abductor event failed to find players. Retrying in 30s.")
 		spawn(300)
@@ -44,6 +46,7 @@
 
 		if(ticker.mode.config_tag != "abduction")
 			ticker.mode.abductors |= temp.abductors
+		processing = 1 //So it will get gc'd
 		return 1
 	else
 		return 0
