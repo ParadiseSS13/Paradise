@@ -231,13 +231,12 @@
 /obj/effect/cocoon/abductor/proc/Copy(mob/living/carbon/human/H)
 	var/mob/living/carbon/human/interactive/greytide/clone = new(src)
 	var/datum/dna/owner_dna = H.dna
-	clone.real_name = owner_dna.real_name
+	clone.rename_character(clone.name, owner_dna.real_name)
 	clone.set_species(H.species.name)
 	clone.body_accessory = H.body_accessory
 	clone.dna = owner_dna.Clone()
 	clone.UpdateAppearance()
 	domutcheck(clone)
-	clone.rename_character(clone.name, owner_dna.real_name)
 
 	//There's no define for this / get all items ?
 	var/list/slots = list(slot_back,slot_w_uniform,slot_wear_suit,\
@@ -258,7 +257,7 @@
 		processing_objects.Remove(src)
 		for(var/mob/M in contents)
 			src.visible_message("<span class='warning'>[src] hatches!</span>")
-			M.loc = src.loc
+			M.forceMove(get_turf(src))
 		qdel(src)
 
 /obj/item/organ/internal/gland/plasma
