@@ -237,6 +237,7 @@
 	clone.dna = owner_dna.Clone()
 	clone.UpdateAppearance()
 	domutcheck(clone)
+	clone.rename_character(clone.name, owner_dna.real_name)
 
 	//There's no define for this / get all items ?
 	var/list/slots = list(slot_back,slot_w_uniform,slot_wear_suit,\

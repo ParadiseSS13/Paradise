@@ -399,7 +399,7 @@ client/proc/one_click_antag()
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
 
-	var/datum/preferences/A = new()
+	var/datum/preferences/A = new(G_found.client)
 	A.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
