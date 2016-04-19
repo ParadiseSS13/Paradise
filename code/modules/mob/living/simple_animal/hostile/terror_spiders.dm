@@ -118,7 +118,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/path_to_vent = 0
 	var/killcount = 0
 	var/busy = 0 // leave this alone!
-	var/spider_tier = 1 // 1 for red,gray,green. 2 for purple,black,white, 3 for queen, mother. 4 for empress.
+	var/spider_tier = 1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen, 5 for empress.
 	var/hasdroppedloot = 0
 	var/list/spider_special_drops = list()
 	var/attackstep = 0
@@ -133,6 +133,11 @@ var/global/list/spider_ckey_blacklist = list()
 	minbodytemp = 0
 	maxbodytemp = 1500
 	heat_damage_per_tick = 5 //amount of damage applied if animal's body temperature is higher than maxbodytemp
+
+	// Xenobio Interactions
+	sentience_type = SENTIENCE_OTHER // prevents people from using a sentience potion on a TS to tame it
+	//gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE // this doesn't prevent a version with the "neutral" faction from gold slime extract + blood.
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID // prevents this mob from being spawned by any xenobio or chem reactions.
 
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = 0 // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
@@ -293,7 +298,7 @@ var/global/list/spider_ckey_blacklist = list()
 			visible_message("<span class='notice'> \icon[src] [src] bows in respect for the terrifying presence of [target] </span>")
 		else if (T.spider_tier == spider_tier)
 			visible_message("<span class='notice'> \icon[src] [src] harmlessly nuzzles [target]. </span>")
-		else if (T.spider_tier < spider_tier && spider_tier >= 3)
+		else if (T.spider_tier < spider_tier && spider_tier >= 4)
 			visible_message("<span class='notice'> \icon[src] [src] gives [target] a stern look. </span>")
 		else
 			visible_message("<span class='notice'> \icon[src] [src] harmlessly nuzzles [target]. </span>")
@@ -570,30 +575,30 @@ var/global/list/spider_ckey_blacklist = list()
 		msg += "<span class='deadsay'>It appears to be dead.</span>\n"
 	else
 		if (src.key)
-			msg += "<span class='warning'>Its eyes regard you with a curious intelligence.</span>"
+			msg += "<BR><span class='warning'>Its eyes regard you with a curious intelligence.</span>"
 		if (src.ai_type == 0)
-			msg += "<span class='warning'>It appears aggressive.</span>"
+			msg += "<BR><span class='warning'>It appears aggressive.</span>"
 		else if (src.ai_type == 0)
-			msg += "<span class='notice'>It appears defensive.</span>"
+			msg += "<BR><span class='notice'>It appears defensive.</span>"
 		else if (src.ai_type == 2)
-			msg += "<span class='notice'>It appears passive.</span>"
+			msg += "<BR><span class='notice'>It appears passive.</span>"
 
 		if (health > (maxHealth*0.95))
-			msg += "<span class='notice'>It is in excellent health.</span>"
+			msg += "<BR><span class='notice'>It is in excellent health.</span>"
 		else if (health > (maxHealth*0.75))
-			msg += "<span class='notice'>It has a few injuries.</span>"
+			msg += "<BR><span class='notice'>It has a few injuries.</span>"
 		else if (health > (maxHealth*0.55))
-			msg += "<span class='warning'>It has many injuries.</span>"
+			msg += "<BR><span class='warning'>It has many injuries.</span>"
 		else if (health > (maxHealth*0.25))
-			msg += "<span class='warning'>It is barely clinging on to life!</span>"
+			msg += "<BR><span class='warning'>It is barely clinging on to life!</span>"
 		if (degenerate)
-			msg += "<span class='warning'>It appears to be dying.</span>"
+			msg += "<BR><span class='warning'>It appears to be dying.</span>"
 		else if (health < maxHealth && regen_points > regen_points_per_kill)
-			msg += "<span class='notice'>It appears to be regenerating quickly</span>"
+			msg += "<BR><span class='notice'>It appears to be regenerating quickly</span>"
 		if (killcount == 1)
-			msg += "<span class='warning'>It is soaked in the blood of its prey.</span>"
+			msg += "<BR><span class='warning'>It is soaked in the blood of its prey.</span>"
 		else if (killcount > 1)
-			msg += "<span class='warning'>It is soaked with the blood of " + killcount + " prey it has killed.</span>"
+			msg += "<BR><span class='warning'>It is soaked with the blood of " + num2text(killcount) + " prey it has killed.</span>"
 	to_chat(usr,msg)
 
 
@@ -614,7 +619,7 @@ var/global/list/spider_ckey_blacklist = list()
 		if(istype(get_area(src), /area/awaycontent) || istype(get_area(src), /area/awaymission/))
 			spider_awaymission = 1
 			if (spider_tier >= 3)
-				ai_ventcrawls = 0 // means that pre-spawned T3 bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
+				ai_ventcrawls = 0 // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
 			if (istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
 				spider_uo71 = 1
 				if (world.time < 600)
@@ -622,11 +627,13 @@ var/global/list/spider_ckey_blacklist = list()
 					ai_ventcrawls = 0
 					spider_placed = 1
 					wander = 0
-				if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/white))
-					name = "Strange Spider"
-					desc = ""
 		// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
 		spawn(300) // deciseconds!
+			if ("neutral" in faction)
+				// no, xenobiologists, you cannot have tame terror spiders to screw around with.
+				//faction -= "neutral"
+				visible_message("<span class='notice'>[src] is absorbed through a bluespace portal, and vanishes!</span>")
+				qdel(src)
 			if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
 				if (ckey)
 					notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled")
@@ -1366,10 +1373,10 @@ var/global/list/spider_ckey_blacklist = list()
 	set name = "Suicide"
 	set category = "Spider"
 	set desc = "Kills you, and spawns a spiderling. Use this if you need to leave the round for a considerable time."
-	if (spider_tier == 4)
+	if (spider_tier == 5)
 		visible_message("<span class='danger'> [src] summons a bluespace portal, and steps into it. She has vanished!</span>")
 		qdel(src)
-	else if (spider_tier == 3)
+	else if (spider_tier >= 3)
 		to_chat(src, "Your type of spider is too important to the round to be allowed to suicide. Instead, you will be ghosted, and the spider controlled by AI.")
 		spider_ckey_blacklist += ckey
 		ghostize()
@@ -1392,14 +1399,14 @@ var/global/list/spider_ckey_blacklist = list()
 
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: GUARD CLASS, TIER 1, RED TERROR --------------
+// ----------------- TERROR SPIDERS: T1 RED TERROR --------------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: generic attack spider
-// -------------: AI: uses its very powerful fangs to wreck people in melee
-// -------------: SPECIAL: none
+// -------------: AI: uses very powerful fangs to wreck people in melee
+// -------------: SPECIAL: the more you hurt it, the harder it bites you
 // -------------: TO FIGHT IT: shoot it from range. Kite it.
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/MightyGlacier
-// -------------: SPRITES FROM: FoS http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/red
 	name = "red terror spider"
@@ -1453,14 +1460,14 @@ var/global/list/spider_ckey_blacklist = list()
 	..()
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: GUARD CLASS, TIER 2, PRAETORIAN --------------
+// ----------------- TERROR SPIDERS: T2 PURPLE TERROR -----------------------------
 // --------------------------------------------------------------------------------
-// -------------: ROLE: guard for nests of a queen
-// -------------: AI: stuns you at times, returns to queen if too far from her.
+// -------------: ROLE: guarding queen nests
+// -------------: AI: returns to queen if too far from her.
 // -------------: SPECIAL: chance to stun on hit
 // -------------: TO FIGHT IT: shoot it from range, bring friends!
 // -------------: CONCEPT:http://tvtropes.org/pmwiki/pmwiki.php/Main/PraetorianGuard
-// -------------: SPRITES FROM: FoS http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple
 	name = "praetorian spider"
@@ -1472,8 +1479,8 @@ var/global/list/spider_ckey_blacklist = list()
 	icon_dead = "terror_purple_dead"
 	maxHealth = 300
 	health = 300
-	melee_damage_lower = 10
-	melee_damage_upper = 15
+	melee_damage_lower = 15
+	melee_damage_upper = 20
 	move_to_delay = 6
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	spider_tier = 2
@@ -1484,14 +1491,14 @@ var/global/list/spider_ckey_blacklist = list()
 
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: STRIKE CLASS, TIER 1, GRAY GHOST ------------
+// ----------------- TERROR SPIDERS: T1 GRAY TERROR -------------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: ambusher
 // -------------: AI: hides in vents, emerges when prey is near to kill it, then hides again. Intended to scare normal crew.
-// -------------: SPECIAL: invisible when in a vent
+// -------------: SPECIAL: invisible when on top of a vent, emerges when prey approaches or gets trapped in webs
 // -------------: TO FIGHT IT: shoot it through a window, or make it regret ambushing you
-// -------------: CONCEPT:http://tvtropes.org/pmwiki/pmwiki.php/Main/StealthExpert
-// -------------: SPRITES FROM: FoS http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/StealthExpert
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray
 	name = "gray terror spider"
@@ -1557,13 +1564,6 @@ var/global/list/spider_ckey_blacklist = list()
 		GrayDeCloak()
 	else
 		..()
-
-///mob/living/simple_animal/hostile/poison/terror_spider/gray/LoseTarget()
-//	var/currentchance = idle_ventcrawl_chance
-//	idle_ventcrawl_chance = 20
-//	spawn (30)
-//		idle_ventcrawl_chance = currentchance
-//	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/proc/ListValidTurfs()
 	var/list/potentials = list()
@@ -1638,14 +1638,14 @@ var/global/list/spider_ckey_blacklist = list()
 
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: STRIKE CLASS, TIER 2, BLACK WIDOW -----------
+// ----------------- TERROR SPIDERS: T2 BLACK TERROR ------------------------------
 // --------------------------------------------------------------------------------
-// -------------: ROLE: assassin
+// -------------: ROLE: assassin, poisoner, DoT expert
 // -------------: AI: attacks to inject its venom, then retreats. Will inject its enemies multiple times then hang back to ensure they die.
 // -------------: SPECIAL: venom that does more damage the more of it is in you
 // -------------: TO FIGHT IT: if bitten once, retreat, get charcoal/etc treatment, and come back with a gun.
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/GradualGrinder
-// -------------: SPRITES FROM: Travelling Merchant http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=2766
+// -------------: SPRITES FROM: Travelling Merchant, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=2766
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black
 	name = "black widow spider"
@@ -1666,11 +1666,11 @@ var/global/list/spider_ckey_blacklist = list()
 
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: SWARM CLASS, TIER 1, GREEN NURSE -------------
+// ----------------- TERROR SPIDERS: T1 GREEN TERROR ------------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: reproduction
-// -------------: AI: after it kills you, coccoons you and lays new terror eggs on your body
-// -------------: SPECIAL: can also create webs, coccoon normal objects, etc
+// -------------: AI: after it kills you, it webs you and lays new terror eggs on your body
+// -------------: SPECIAL: can also create webs, web normal objects, etc
 // -------------: TO FIGHT IT: kill it however you like - just don't die to it!
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/EnemySummoner
 // -------------: SPRITES FROM: Codersprites :(
@@ -1707,14 +1707,14 @@ var/global/list/spider_ckey_blacklist = list()
 
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: SWARM CLASS, TIER 2, WHITE DEATH --------
+// ----------------- TERROR SPIDERS: T2 WHITE TERROR ------------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: stealthy reproduction
 // -------------: AI: injects a venom that makes you grow spiders in your body, then retreats
 // -------------: SPECIAL: stuns you on first attack - vulnerable to groups while it does this
 // -------------: TO FIGHT IT: have antivenom in your body - this will instakill it if it bites someone with antivenom in them
-// -------------: http://tvtropes.org/pmwiki/pmwiki.php/Main/BodyHorror
-// -------------: SPRITES FROM: FoS http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/BodyHorror
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white
 	name = "white death spider"
@@ -1738,16 +1738,103 @@ var/global/list/spider_ckey_blacklist = list()
 	stop_automated_movement = 0
 	..()
 
+// --------------------------------------------------------------------------------
+// ----------------- TERROR SPIDERS: T3 MOTHER OF TERROR --------------------------
+// --------------------------------------------------------------------------------
+// -------------: ROLE: living schmuck bait
+// -------------: AI: no special ai
+// -------------: SPECIAL: spawns an ungodly number of spiderlings when killed
+// -------------: TO FIGHT IT: don't! Just leave it alone! It is harmless by itself... but god help you if you aggro it.
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/MotherOfAThousandYoung
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/SchmuckBait
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+
+/mob/living/simple_animal/hostile/poison/terror_spider/mother
+	name = "mother of terror spider"
+	desc = "An enormous spider. Its back is a crawling mass of spiderlings. All of them look around with beady little eyes. The horror!"
+	spider_role_summary = "Schmuck bait. Extremely weak in combat, but spawns many spiderlings when it dies."
+
+	altnames = list("Seemingly Harmless spider","Strange spider","Wolf Mother spider")
+	icon_state = "terror_queen"
+	icon_living = "terror_queen"
+	icon_dead = "terror_queen_dead"
+	maxHealth = 50
+	health = 50
+	melee_damage_lower = 10
+	melee_damage_upper = 20
+	move_to_delay = 5
+	ventcrawler = 1
+	idle_ventcrawl_chance = 5
+
+	ai_type = 1 // defend self only!
+
+	spider_tier = 3
+	spider_opens_doors = 2
+
+	var/canspawn = 1
+
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
+	if (canspawn)
+		canspawn = 0
+		for(var/i=0, i<30, i++)
+			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+			if (prob(50))
+				S.stillborn = 1
+			else if (prob(10))
+				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/white)
+		visible_message("<span class='userdanger'>\the [src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
+		degenerate = 1
+		loot = 0
+	..()
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: T3 NIGHTMARE CLASS, QUEEN SPIDER ------------
+// ----------------- TERROR SPIDERS: T3 PRINCE OF TERROR --------------------------
+// --------------------------------------------------------------------------------
+// -------------: ROLE: boss
+// -------------: AI: no special ai
+// -------------: SPECIAL: massive health
+// -------------: TO FIGHT IT: a squad of at least 4 people with laser rifles.
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/LightningBruiser
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/WakeupCallBoss
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince
+	name = "prince of terror spider"
+	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Extremely dangerous."
+	spider_role_summary = "Boss-level terror spider. Lightning bruiser. Capable of taking on a squad by itself."
+
+	altnames = list("Prince of Terror","Terror Prince")
+	icon_state = "terror_queen"
+	icon_living = "terror_queen"
+	icon_dead = "terror_queen_dead"
+	maxHealth = 600 // 30 laser shots. 15 cannon shots
+	health = 600
+	melee_damage_lower = 15
+	melee_damage_upper = 25
+	move_to_delay = 5
+	ventcrawler = 1
+
+	ai_ventcrawls = 0 // no override, never ventcrawls. Ever.
+	idle_ventcrawl_chance = 0
+
+	//ai_type = 1 // won't attack unless you attack it first.
+
+	ai_breaks_lights = 1
+	ai_breaks_cameras = 1
+
+	spider_tier = 3
+	spider_opens_doors = 2
+
+// --------------------------------------------------------------------------------
+// ----------------- TERROR SPIDERS: T4 QUEEN OF TERROR ---------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: gamma-level threat to the whole station, like a blob
 // -------------: AI: builds a nest, lays many eggs, attempts to take over the station
-// -------------: SPECIAL: spins webs, breaks lights, breaks cameras, coccoons objects, lays eggs, commands other spiders...
+// -------------: SPECIAL: spins webs, breaks lights, breaks cameras, webs objects, lays eggs, commands other spiders...
 // -------------: TO FIGHT IT: bring an army, and take no prisoners. Mechs and/or decloner guns are a very good idea.
-// -------------: http://tvtropes.org/pmwiki/pmwiki.php/Main/HiveQueen
-// -------------: SPRITES FROM: FoS http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/HiveQueen
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen
 	name = "Queen of Terror spider"
@@ -1789,8 +1876,10 @@ var/global/list/spider_ckey_blacklist = list()
 	projectilesound = 'sound/weapons/pierce.ogg'
 	projectiletype = /obj/item/projectile/terrorqueenspit
 
-	spider_tier = 3
+	spider_tier = 4
 	spider_opens_doors = 1
+
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
@@ -1806,10 +1895,16 @@ var/global/list/spider_ckey_blacklist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
 	..()
 	if (stat != DEAD)
-		if (!canlay)
+		if (ckey && canlay < 12) // max 15 eggs worth stored at any one time, realistically that's tons.
 			if (world.time > (spider_lastspawn + spider_spawnfrequency))
 				canlay++
-				to_chat(src, "<span class='notice'>You are able to lay eggs again.</span>")
+				spider_lastspawn = world.time
+				if (canlay == 1)
+					to_chat(src, "<span class='notice'>You are able to lay eggs again.</span>")
+				else if (canlay == 12)
+					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay. You won't grow any more eggs until you lay some of your existing ones.</span>")
+				else
+					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
@@ -2039,10 +2134,24 @@ var/global/list/spider_ckey_blacklist = list()
 			to_chat(src, "Too soon to attempt that again. Wait just a few more seconds...")
 		return
 	var/list/eggtypes = list("red - assault","gray - ambush", "green - nurse", "black - poison","purple - guard")
+	if (canlay >= 12)
+		eggtypes |= "MOTHER - ELITE HORROR"
+		eggtypes |= "PRINCE - ELITE WARRIOR"
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
 	if (!(eggtype in eggtypes))
 		to_chat(src, "Unrecognized egg type.")
 		return 0
+	if (eggtype == "MOTHER - ELITE HORROR" || eggtype == "PRINCE - ELITE WARRIOR")
+		if (canlay < 12)
+			to_chat(src, "Insufficient strength. It takes as much effort to lay one of those as it does to lay 12 normal eggs.")
+		else
+			if (eggtype == "MOTHER - ELITE HORROR")
+				canlay -= 12
+				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother,1,0)
+			else if (eggtype == "PRINCE - ELITE WARRIOR")
+				canlay -= 12
+				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince,1,0)
+		return
 	var/numlings = 1
 	if (canlay >= 5)
 		numlings = input("How many in the batch?") as null|anything in list(1,2,3,4,5)
@@ -2053,7 +2162,7 @@ var/global/list/spider_ckey_blacklist = list()
 	if (eggtype == null || numlings == null)
 		to_chat(src, "Cancelled.")
 		return
-	spider_lastspawn = world.time
+	//spider_lastspawn = world.time // don't think we actually need this, if queen is laying manually canlay controls her rate.
 	canlay -= numlings
 	if (eggtype == "red - assault")
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,numlings,1)
@@ -2147,101 +2256,19 @@ var/global/list/spider_ckey_blacklist = list()
 	else
 		to_chat(src, "You have run out of uses of this ability.")
 
-// --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: T3 NIGHTMARE CLASS, MOTHER WOLF SPIDER -------
-// --------------------------------------------------------------------------------
-// -------------: ROLE: living schmuck bait
-// -------------: AI: no special ai
-// -------------: SPECIAL: spawns an ungodly number of spiderlings when killed
-// -------------: TO FIGHT IT: don't! Just leave it alone! It is harmless by itself... but god help you if you aggro it.
-// -------------: http://tvtropes.org/pmwiki/pmwiki.php/Main/MotherOfAThousandYoung
-// -------------: SPRITES FROM: FoS http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mother
-	name = "mother of terror spider"
-	desc = "An enormous spider. Its back is a crawling mass of spiderlings. All of them look around with beady little eyes. The horror!"
-	spider_role_summary = "Schmuck bait. Extremely weak in combat, but spawns many spiderlings when it dies."
-
-	altnames = list("Seemingly Harmless spider","Strange spider","Wolf Mother spider")
-	icon_state = "terror_queen"
-	icon_living = "terror_queen"
-	icon_dead = "terror_queen_dead"
-	maxHealth = 50
-	health = 50
-	melee_damage_lower = 10
-	melee_damage_upper = 20
-	move_to_delay = 5
-	ventcrawler = 1
-	idle_ventcrawl_chance = 5
-
-	ai_type = 1 // defend self only!
-
-	spider_tier = 3
-	spider_opens_doors = 2
-
-	var/canspawn = 1
-
-/mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
-	if (canspawn)
-		canspawn = 0
-		for(var/i=0, i<30, i++)
-			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
-			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
-			if (prob(50))
-				S.stillborn = 1
-			else if (prob(10))
-				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/white)
-		visible_message("<span class='userdanger'>\the [src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
-		degenerate = 1
-		loot = 0
-	..()
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: T3 NIGHTMARE CLASS, PRINCE SPIDER ------------
-// --------------------------------------------------------------------------------
-// -------------: ROLE: boss
-// -------------: AI: no special ai
-// -------------: SPECIAL: massive health
-// -------------: TO FIGHT IT: a squad of at least 4 people with laser rifles.
-// -------------: http://tvtropes.org/pmwiki/pmwiki.php/Main/WakeUpCallBoss
-// -------------: SPRITES FROM: FoS http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
-
-/mob/living/simple_animal/hostile/poison/terror_spider/prince
-	name = "prince of terror spider"
-	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Extremely dangerous."
-	spider_role_summary = "Boss-level terror spider. Lightning bruiser. Capable of taking on a squad by itself."
-
-	altnames = list("Prince of Terror","Terror Prince")
-	icon_state = "terror_queen"
-	icon_living = "terror_queen"
-	icon_dead = "terror_queen_dead"
-	maxHealth = 600 // 30 laser shots. 15 cannon shots
-	health = 600
-	melee_damage_lower = 15
-	melee_damage_upper = 20
-	move_to_delay = 5
-	ventcrawler = 1
-
-	ai_ventcrawls = 0 // no override, never ventcrawls. Ever.
-	idle_ventcrawl_chance = 0
-
-	//ai_type = 1 // won't attack unless you attack it first.
-
-	ai_breaks_lights = 1
-	ai_breaks_cameras = 1
-
-	spider_tier = 3
-	spider_opens_doors = 2
-
-// --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: T4 LOVECRAFT CLASS, SPIDER EMPRESS -----------
+// ----------------- TERROR SPIDERS: T5 EMPRESS OF TERROR -------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: ruling over planets of uncountable spiders, like Xenomorph Empresses.
 // -------------: AI: none - this is strictly adminspawn-only and intended for RP events, coder testing, and teaching people 'how to queen'
 // -------------: SPECIAL: Lay Eggs ability that allows laying queen-level eggs. Wide-area EMP and light-breaking abilities.
-// -------------: TO FIGHT IT: uh... call the shuttle?
-// -------------: TROPE: http://tvtropes.org/pmwiki/pmwiki.php/Main/AuthorityEqualsAsskicking
-// -------------: SPRITES FROM: FoS http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: TO FIGHT IT: run away screaming?
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/EldritchAbomination
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/BiggerBad
+// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/AuthorityEqualsAsskicking
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress
 	name = "Empress of Terror"
@@ -2260,14 +2287,14 @@ var/global/list/spider_ckey_blacklist = list()
 	//icon = 'icons/mob/terrorspiderlarge.dmi'
 	//pixel_x = -32
 
-	maxHealth = 700
-	health = 700
+	maxHealth = 1000
+	health = 1000
 
 	melee_damage_lower = 10
 	melee_damage_upper = 40
 
 	move_to_delay = 5
-	ventcrawler = 0 // TOO BIG!
+	ventcrawler = 1 // Adminbus.
 
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
@@ -2280,11 +2307,21 @@ var/global/list/spider_ckey_blacklist = list()
 	projectiletype = /obj/item/projectile/terrorempressspit
 	force_threshold = 18 // same as queen, but a lot more health
 
-	spider_tier = 4
+	spider_tier = 5
 	spider_opens_doors = 2
 
 	var/shown_guide = 0 // has the empress player been warned of the chaos that can result from the use of their powers?
 
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/empress/New()
+	..()
+	spawn(600)
+		if (!ckey)
+			// idea being that if someone spawns her, and she isn't player controlled within 60 seconds, it was probably a mistake and she should be despawned.
+			visible_message("[src] steps into a bluespace portal, and is gone!")
+			qdel(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/Life()
 	if (stat != DEAD)
@@ -2362,6 +2399,7 @@ var/global/list/spider_ckey_blacklist = list()
 	set name = "Mass Hallucinate"
 	set category = "Spider"
 	set desc = "Causes widespread, terrifying hallucinations amongst many crew as you assault their minds."
+	var/numaffected = 0
 	for(var/mob/living/carbon/human/H in player_list)
 		if (H.z != src.z)
 			continue
@@ -2373,11 +2411,17 @@ var/global/list/spider_ckey_blacklist = list()
 			// weak
 			H.hallucination = max(300, H.hallucination)
 			to_chat(H,"<span class='userdanger'> Your head hurts! </span>")
+			numaffected++
 		else
 			// strong
 			H.hallucination = max(600, H.hallucination)
 			to_chat(H,"<span class='userdanger'> Your head hurts! </span>")
-	to_chat(src, "You reach through bluespace into the minds of the crew, making their fears come to life. Many of them start to hallucinate.")
+			numaffected++
+	if (numaffected)
+		to_chat(src, "You reach through bluespace into the minds of " + num2text(numaffected) + " crew, making their fears come to life. They start to hallucinate.")
+	else
+		to_chat(src, "You reach through bluespace, searching for organic minds... but find none nearby.")
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressToggleDebug()
 	set name = "Toggle Debug"
@@ -2437,7 +2481,7 @@ var/global/list/spider_ckey_blacklist = list()
 	set category = "Spider"
 	set desc = "Debug: kill off all other spiders in the world. Takes two minutes to work."
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
-		if (T.spider_tier < 4)
+		if (T.spider_tier < 5)
 			T.degenerate = 1
 			T.loot = 0
 			to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
@@ -2704,7 +2748,7 @@ var/global/list/spider_ckey_blacklist = list()
 
 /obj/item/projectile/terrorempressspit
 	name = "poisonous spit"
-	damage = 30
+	damage = 60
 	icon_state = "toxin"
 	damage_type = TOX
 
