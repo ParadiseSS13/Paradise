@@ -455,12 +455,8 @@
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
 		else
-			to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
-
-			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-			if(affecting.take_damage( 0, 5 ))		// 5 burn damage
-				H.UpdateDamageIcon()
-			H.updatehealth()
+			to_chat(user, "You try to remove the light [fitting], but it's too hot! You should get some better gloves.")
+			//no light burning
 			return				// if burned, don't remove the light
 	else
 		to_chat(user, "You remove the light [fitting].")
