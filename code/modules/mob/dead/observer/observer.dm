@@ -248,6 +248,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source)
 	if(message)
 		to_chat(src, "<span class='ghostalert'>[message]</span>")
+		if(source)
+			var/obj/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /obj/screen/alert/notify_cloning)
+			if(A)
+				if(client && client.prefs && client.prefs.UI_style)
+					A.icon = ui_style2icon(client.prefs.UI_style)
+				A.desc = message
+				var/old_layer = source.layer
+				source.layer = FLOAT_LAYER
+				A.overlays += source
+				source.layer = old_layer
 	to_chat(src, "<span class='ghostalert'><a href=?src=\ref[src];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
 		to_chat(src, sound(sound))
@@ -563,6 +573,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 						return
 					forceMove(T)
 				following = null
+
+	if(href_list["reenter"])
+		reenter_corpse()
+
 	..()
 //END TELEPORT HREF CODE
 

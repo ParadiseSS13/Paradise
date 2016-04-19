@@ -173,6 +173,7 @@
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
 		set_light(light_range + 3,l_color = "#ED9200")
+		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
 
 /mob/living/proc/ExtinguishMob()
@@ -180,6 +181,7 @@
 		on_fire = 0
 		fire_stacks = 0
 		set_light(max(0,light_range - 3))
+		clear_alert("fire")
 		update_fire()
 
 /mob/living/proc/update_fire()

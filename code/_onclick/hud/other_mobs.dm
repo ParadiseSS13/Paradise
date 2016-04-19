@@ -6,12 +6,6 @@
 	return
 
 /datum/hud/proc/corgi_hud(u)
-	mymob.fire = new /obj/screen()
-	mymob.fire.icon = 'icons/mob/screen1_corgi.dmi'
-	mymob.fire.icon_state = "fire0"
-	mymob.fire.name = "fire"
-	mymob.fire.screen_loc = ui_fire
-
 	mymob.healths = new /obj/screen()
 	mymob.healths.icon = 'icons/mob/screen1_corgi.dmi'
 	mymob.healths.icon_state = "health0"
@@ -23,21 +17,8 @@
 	mymob.pullin.update_icon(mymob)
 	mymob.pullin.screen_loc = ui_construct_pull
 
-	mymob.oxygen = new /obj/screen()
-	mymob.oxygen.icon = 'icons/mob/screen1_corgi.dmi'
-	mymob.oxygen.icon_state = "oxy0"
-	mymob.oxygen.name = "oxygen"
-	mymob.oxygen.screen_loc = ui_oxygen
-
-	mymob.toxin = new /obj/screen()
-	mymob.toxin.icon = 'icons/mob/screen1_corgi.dmi'
-	mymob.toxin.icon_state = "tox0"
-	mymob.toxin.name = "toxin"
-	mymob.toxin.screen_loc = ui_toxin
-
 	mymob.client.screen = list()
-
-	mymob.client.screen += list(mymob.fire, mymob.healths, mymob.pullin, mymob.oxygen, mymob.toxin)
+	mymob.client.screen += list(mymob.healths, mymob.pullin)
 
 
 /datum/hud/proc/blob_hud(ui_style = 'icons/mob/screen1_Midnight.dmi')
