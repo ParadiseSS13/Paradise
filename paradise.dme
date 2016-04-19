@@ -1339,7 +1339,6 @@
 #include "code\modules\Martial Arts\adminfu.dm"
 #include "code\modules\Martial Arts\brawling.dm"
 #include "code\modules\Martial Arts\krav_maga.dm"
-#include "code\modules\Martial Arts\mimejutsu.dm"
 #include "code\modules\Martial Arts\plasma_fist.dm"
 #include "code\modules\Martial Arts\sleeping_carp.dm"
 #include "code\modules\Martial Arts\wrestleing.dm"
