@@ -387,7 +387,6 @@ This function restores all organs.
 						dmgIcon.pixel_y = (!lying) ? rand(-11,9) : rand(-10,1)
 						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
 
-			receive_damage()
 
 		if(BURN)
 			damageoverlaytemp = 20
