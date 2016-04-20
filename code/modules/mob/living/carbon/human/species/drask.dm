@@ -68,23 +68,23 @@
 
 		switch(breath.temperature)
 			if(-INFINITY to 30)			// This'll make the tank pressure drop really low, won't last very long
-				H.adjustFireLoss(cold_env_multiplier*5) //Has to be half the brute, since it has a 2x multiplier from burn_mod
-				H.adjustBruteLoss(cold_env_multiplier*10)
+				H.adjustFireLoss(cold_env_multiplier*4) //Has to be half the brute, since it has a 2x multiplier from burn_mod
+				H.adjustBruteLoss(cold_env_multiplier*8)
 				H.fire_alert = max(H.fire_alert, 1)		//To alert that their breath is cold enough for healing. Does not seem to affect cold movement slowdown
 
 			if(31 to 75)
-				H.adjustFireLoss(cold_env_multiplier*3)
-				H.adjustBruteLoss(cold_env_multiplier*6)
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 seconds
+				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
 				H.fire_alert = max(H.fire_alert, 1)
 
-			if(76 to 200)				// A bit slower than Diona. More per increment, but increments much slower than Diona
-				H.adjustFireLoss(cold_env_multiplier*1.5)
-				H.adjustBruteLoss(cold_env_multiplier*3)
+			if(76 to 200)
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 seconds
+				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2)
 				H.fire_alert = max(H.fire_alert, 1)
 
-			if(201 to 260)				// Much slower than Diona
-				H.adjustFireLoss(cold_env_multiplier*0.5)
-				H.adjustBruteLoss(cold_env_multiplier*1)
+			if(201 to 260)
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //0.5 healed every 4 seconds
+				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(heat_level_1 to heat_level_2)
