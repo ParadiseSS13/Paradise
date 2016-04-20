@@ -90,10 +90,10 @@ h1.alert, h2.alert		{color: #000000;}
 .trinary				{color: #727272;}
 .kidan					{color: #664205;}
 .slime					{color: #0077AA;}
+.drask					{color: #a3d4eb; font-family: "Arial Black";}
 .clown					{color: #ff0000;}
 .shadowling				{color: #3b2769;}
 .vulpkanin				{color: #B97A57;}
-.drask					{color: #a3d4eb; font-family: "Arial Black";}
 .abductor				{color: #800080;}
 .rough					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
