@@ -506,23 +506,6 @@ var/global/list/damage_icon_parts = list()
 				add_image = 1
 	for(var/mut in mutations)
 		switch(mut)
-			/*
-			if(HULK)
-				if(fat)
-					standing.underlays	+= "hulk_[fat]_s"
-				else
-					standing.underlays	+= "hulk_[g]_s"
-				add_image = 1
-			if(RESIST_COLD)
-				standing.underlays	+= "fire[fat]_s"
-				add_image = 1
-			if(RESIST_HEAT)
-				standing.underlays	+= "cold[fat]_s"
-				add_image = 1
-			if(TK)
-				standing.underlays	+= "telekinesishead[fat]_s"
-				add_image = 1
-			*/
 			if(LASER)
 				standing.overlays	+= "lasereyes_s"
 				add_image = 1

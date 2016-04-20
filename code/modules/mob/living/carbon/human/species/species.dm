@@ -333,7 +333,7 @@
 	return 1
 
 /datum/species/proc/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H) // called by human/life, handles temperatures
-	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations)) // Hot air hurts :(
+	if(abs(310.15 - breath.temperature) > 50) // Hot air hurts :(
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))

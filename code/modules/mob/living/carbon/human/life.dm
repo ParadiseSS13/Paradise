@@ -448,9 +448,12 @@
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= species.hazard_high_pressure)
-		var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
-		take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
-		throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+		if(!(RESIST_HEAT in mutations))
+			var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
+			take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
+			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+		else
+			clear_alert("pressure")
 	else if(adjusted_pressure >= species.warning_high_pressure)
 		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
 	else if(adjusted_pressure >= species.warning_low_pressure)
@@ -468,6 +471,8 @@
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
 	if(..())
+		return
+	if(RESIST_HEAT in mutations)
 		return
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
@@ -547,11 +552,13 @@
 	return thermal_protection_flags
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
+
+	if(RESIST_HEAT in mutations)
+		return 1
+
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
 
 	var/thermal_protection = 0.0
-	if(RESIST_HEAT in mutations)
-		return 1
 	if(thermal_protection_flags)
 		if(thermal_protection_flags & HEAD)
 			thermal_protection += THERMAL_PROTECTION_HEAD
