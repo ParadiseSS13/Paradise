@@ -44,6 +44,7 @@
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
 	var/models_allowed = list() //Specifies which, if any, hairstyles can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
+	var/marking_location //Specifies which bodypart a body marking is located on.
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -1911,6 +1912,7 @@
 	species_allowed = list("Machine")
 	icon_state = "optics"
 	models_allowed = list("Bishop Cybernetics", "Hesphiastos Industries", "Ward-Takahashi", "Xion Manufacturing Group", "Zeng-Hu Pharmaceuticals") //Should be the same as the manufacturing company of the limb in robolimbs.dm
+	marking_location = "head"
 
 /datum/sprite_accessory/body_markings/optics/bishop_alt
 	name = "Bishop Alt. Optics"

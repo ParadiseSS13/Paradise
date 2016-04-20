@@ -365,6 +365,9 @@ var/global/list/damage_icon_parts = list()
 	if(m_style && m_style != "None")
 		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
 		if(marking_style)
+			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			if((!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED)) && marking_style.marking_location == "head")
+				return //If the head is destroyed and it is the organ the marking is located on, get us out of here. This prevents floating optical markings on decapitated IPCs, for example.
 			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
 			if(marking_style.do_colouration)
 				markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)

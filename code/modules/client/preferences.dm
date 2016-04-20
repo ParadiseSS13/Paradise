@@ -1204,12 +1204,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							H.model = rlimb_data["head"]
 							var/datum/robolimb/robohead = all_robolimbs[H.model]
 							if(species in S.species_allowed)
-								if((!rlimb_data["head"] || robohead.is_monitor) && (robohead.company in S.models_allowed)) //If the Machine character has the default Morpheus screen head or another screen head
+								if(robohead.is_monitor && (robohead.company in S.models_allowed)) //If the Machine character has the default Morpheus screen head or another screen head
 																														   //and said head is in the hair style's allowed models list...
 									valid_hairstyles[hairstyle] = S //Allow them to select the hairstyle.
 								continue
 							else
-								if(!rlimb_data["head"] || robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human hairstyles).
+								if(robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human hairstyles).
 									continue
 								else if(!robohead.is_monitor && ("Human" in S.species_allowed) || S.name == "Bald")
 									valid_hairstyles[hairstyle] = S
@@ -1268,9 +1268,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								var/obj/item/organ/external/head/H = new()
 								H.model = rlimb_data["head"]
 								var/datum/robolimb/robohead = all_robolimbs[H.model]
-								if((!("head" in rlimb_data) || robohead.is_monitor) && M.name != "None") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
+								if(robohead.is_monitor && M.name != "None") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
 									continue
-								else if(("head" in rlimb_data || !robohead.is_monitor) && M.name != "None") //Otherwise, if they DON'T have the default head and the head's not a monitor but the head's not in the style's list of allowed models, skip.
+								else if(!robohead.is_monitor && M.name != "None") //Otherwise, if they DON'T have the default head and the head's not a monitor but the head's not in the style's list of allowed models, skip.
 									if(!(robohead.company in M.models_allowed))
 										continue
 
@@ -1317,11 +1317,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							H.model = rlimb_data["head"]
 							var/datum/robolimb/robohead = all_robolimbs[H.model]
 							if(species in S.species_allowed)
-								if(!rlimb_data["head"] || robohead.is_monitor) //If the Machine character has the default Morpheus screen head or another screen head and they're allowed to have the style, let them have it.
+								if(robohead.is_monitor) //If the Machine character has the default Morpheus screen head or another screen head and they're allowed to have the style, let them have it.
 									valid_facialhairstyles[facialhairstyle] = S
 								continue
 							else
-								if(!rlimb_data["head"] || robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human facial hairstyles).
+								if(robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human facial hairstyles).
 									continue
 								else if(!robohead.is_monitor && ("Human" in S.species_allowed) || S.name == "Shaved")
 									valid_facialhairstyles[facialhairstyle] = S
