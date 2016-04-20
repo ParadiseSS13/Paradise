@@ -57,7 +57,7 @@
 
 
 /datum/species/drask/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H)
-	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations))
+	if( (abs(310.15 - breath.temperature) > 50)
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < 260)
 			if(prob(20))
