@@ -477,7 +477,7 @@ Congratulations! You are now trained for xenobiology research!"}
 		if(do_mob(user, C, 30))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/weapon/restraints/handcuffs/energy/used(C)
-				C.update_inv_handcuffed()
+				C.update_handcuffed()
 				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 				add_logs(C, user, "handcuffed")
 		else
