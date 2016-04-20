@@ -108,8 +108,6 @@
 	health -= Proj.damage
 	check_health()
 
-	return
-
 /obj/structure/closet/statue/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.environment_smash)
 		for(var/mob/M in src)

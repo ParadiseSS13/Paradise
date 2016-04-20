@@ -58,6 +58,7 @@
 	var/datum/changeling/changeling		//changeling holder
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/nations/nation			//nation holder
+	var/datum/abductor/abductor			//abductor holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -344,6 +345,26 @@
 			text += "|Disabled in Prefs"
 
 		sections["shadowling"] = text
+
+		/** Abductors **/
+
+		text = "Abductor"
+		if(ticker.mode.config_tag == "abductor")
+			text = uppertext(text)
+		text = "<i><b>[text]</b></i>: "
+		if(src in ticker.mode.abductors)
+			text += "<b>Abductor</b>|<a href='?src=\ref[src];abductor=clear'>human</a>"
+			text += "|<a href='?src=\ref[src];common=undress'>undress</a>|<a href='?src=\ref[src];abductor=equip'>equip</a>"
+		else
+			text += "<a href='?src=\ref[src];abductor=abductor'>Abductor</a>|<b>human</b>"
+
+		if(current && current.client && (ROLE_ABDUCTOR in current.client.prefs.be_special))
+			text += "|Enabled in Prefs"
+		else
+			text += "|Disabled in Prefs"
+
+
+		sections["Abductor"] = text
 
 	/** SILICON ***/
 
@@ -1068,6 +1089,28 @@
 				message_admins("[key_name_admin(usr)] has thralled [current].")
 				log_admin("[key_name(usr)] has thralled [current].")
 
+	else if(href_list["abductor"])
+		switch(href_list["abductor"])
+			if("clear")
+				to_chat(usr, "Not implemented yet. Sorry!")
+				//ticker.mode.update_abductor_icons_removed(src)
+			if("abductor")
+				if(!ishuman(current))
+					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
+					return
+				make_Abductor()
+				log_admin("[key_name(usr)] turned [current] into abductor.")
+				ticker.mode.update_abductor_icons_added(src)
+			if("equip")
+				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
+				if(gear)
+					var/datum/game_mode/abduction/temp = new
+					temp.equip_common(current)
+					if(gear=="Agent")
+						temp.equip_agent(current)
+					else
+						temp.equip_scientist(current)
+
 	else if (href_list["silicon"])
 		switch(href_list["silicon"])
 			if("unmalf")
@@ -1371,6 +1414,57 @@
 	var/fail = 0
 //	fail |= !ticker.mode.equip_traitor(current, 1)
 	fail |= !ticker.mode.equip_revolutionary(current)
+
+/datum/mind/proc/make_Abductor()
+	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
+	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
+	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
+
+	if(!role || !team || !teleport)
+		return
+
+	if(!ishuman(current))
+		return
+
+	ticker.mode.abductors |= src
+
+	var/datum/objective/experiment/O = new
+	O.owner = src
+	objectives += O
+
+	var/mob/living/carbon/human/H = current
+
+	H.set_species("Abductor")
+
+	switch(role)
+		if("Agent")
+			H.mind.abductor.agent = 1
+		if("Scientist")
+			H.mind.abductor.scientist = 1
+	H.mind.abductor.team = team
+
+	var/list/obj/effect/landmark/abductor/agent_landmarks = new
+	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
+	agent_landmarks.len = 4
+	scientist_landmarks.len = 4
+	for(var/obj/effect/landmark/abductor/A in landmarks_list)
+		if(istype(A,/obj/effect/landmark/abductor/agent))
+			agent_landmarks[text2num(A.team)] = A
+		else if(istype(A,/obj/effect/landmark/abductor/scientist))
+			scientist_landmarks[text2num(A.team)] = A
+
+	var/obj/effect/landmark/L
+	if(teleport=="Yes")
+		switch(role)
+			if("Agent")
+				H.mind.abductor.agent = 1
+				L = agent_landmarks[team]
+				H.loc = L.loc
+			if("Scientist")
+				H.mind.abductor.scientist = 1
+				L = agent_landmarks[team]
+				H.loc = L.loc
+
 
 // check whether this mind's mob has been brigged for the given duration
 // have to call this periodically for the duration to work properly

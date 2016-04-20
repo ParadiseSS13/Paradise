@@ -11,9 +11,11 @@
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/health = 100
 	var/lastbang
+	var/cutting_tool = /obj/item/weapon/weldingtool
 	var/sound = 'sound/machines/click.ogg'
-	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate
-							  //then open it in a populated area to crash clients.
+	var/cutting_sound = 'sound/items/Welder.ogg'
+	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
+	var/material_drop = /obj/item/stack/sheet/metal
 
 /obj/structure/closet/New()
 	..()
@@ -136,7 +138,6 @@
 /obj/structure/closet/proc/toggle(mob/user as mob)
 	if(!(src.opened ? src.close() : src.open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
-	return
 
 // this should probably use dump_contents()
 /obj/structure/closet/ex_act(severity)
@@ -169,7 +170,6 @@
 			for(var/atom/movable/A as mob|obj in src)
 				A.forceMove(loc)
 			qdel(src)
-	return
 
 /obj/structure/closet/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.environment_smash)
@@ -259,16 +259,24 @@
 			src.MouseDrop_T(W:affecting, user)      //act like they were dragged onto the closet
 		if(istype(W,/obj/item/tk_grab))
 			return 0
-		if(istype(W, /obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/WT = W
-			if(!WT.remove_fuel(0,user))
-				to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-				return
-			new /obj/item/stack/sheet/metal(src.loc)
-			for(var/mob/M in viewers(src))
-				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WT].</span>", 3, "You hear welding.", 2)
-			qdel(src)
-			return
+		if(istype(W, cutting_tool))
+			if(istype(W, /obj/item/weapon/weldingtool))
+				var/obj/item/weapon/weldingtool/WT = W
+				if(!WT.remove_fuel(0, user))
+					return
+				to_chat(user, "<span class='notice'>You begin cutting \the [src] apart...</span>")
+				playsound(loc, cutting_sound, 40, 1)
+				if(do_after(user, 40, 1, target = src))
+					if(!opened || !WT.isOn())
+						return
+					playsound(loc, cutting_sound, 50, 1)
+					visible_message("<span class='notice'>[user] slices apart \the [src].</span>",
+									"<span class='notice'>You cut \the [src] apart with \the [WT].</span>",
+									"<span class='italics'>You hear welding.</span>")
+					var/turf/T = get_turf(src)
+					new material_drop(T)
+					qdel(src)
+					return
 		if(isrobot(user))
 			return
 		if(!usr.drop_item())
@@ -291,7 +299,6 @@
 			M.show_message("<span class='warning'>[src] has been [welded?"welded shut":"unwelded"] by [user.name].</span>", 3, "You hear welding.", 2)
 	else
 		src.attack_hand(user)
-	return
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	..()
@@ -315,7 +322,6 @@
 	if(user != O)
 		user.show_viewers("<span class='danger'>[user] stuffs [O] into [src]!</span>")
 	src.add_fingerprint(user)
-	return
 
 /obj/structure/closet/attack_ai(mob/user)
 	if(istype(user, /mob/living/silicon/robot) && Adjacent(user)) //Robots can open/close it, but not the AI

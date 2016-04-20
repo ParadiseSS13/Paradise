@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - rscadd: "Bureaucracy crates now contain granted and denied stamps."

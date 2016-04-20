@@ -212,7 +212,6 @@
 					return
 		src.add_fingerprint(user)
 		src.toggle(user)
-	return
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(var/destination)
@@ -317,7 +316,6 @@
 		src.broken = 1
 		update_icon()
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
-		return
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/O in src)
@@ -513,7 +511,6 @@
 				if(!M.anchored)
 					M.forceMove(src)
 					break
-	return
 
 /obj/structure/closet/crate/secure/large
 	name = "large crate"
@@ -541,7 +538,6 @@
 				if(!M.anchored)
 					M.forceMove(src)
 					break
-	return
 
 //fluff variant
 /obj/structure/closet/crate/secure/large/reinforced

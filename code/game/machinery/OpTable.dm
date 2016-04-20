@@ -13,6 +13,7 @@
 
 	var/obj/machinery/computer/operating/computer = null
 	buckle_lying = 90
+	var/no_icon_updates = 0 //set this to 1 if you don't want the icons ever changing
 
 /obj/machinery/optable/New()
 	..()
@@ -79,10 +80,12 @@
 		var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, src.loc)
 		if(M.lying)
 			src.victim = M
-			icon_state = M.pulse ? "table2-active" : "table2-idle"
+			if(!no_icon_updates)
+				icon_state = M.pulse ? "table2-active" : "table2-idle"
 			return 1
 	src.victim = null
-	icon_state = "table2-idle"
+	if(!no_icon_updates)
+		icon_state = "table2-idle"
 	return 0
 
 /obj/machinery/optable/process()
@@ -106,9 +109,11 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		src.victim = H
-		icon_state = H.pulse ? "table2-active" : "table2-idle"
+		if(!no_icon_updates)
+			icon_state = H.pulse ? "table2-active" : "table2-idle"
 	else
-		icon_state = "table2-idle"
+		if(!no_icon_updates)
+			icon_state = "table2-idle"
 
 /obj/machinery/optable/verb/climb_on()
 	set name = "Climb On Table"

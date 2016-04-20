@@ -52,8 +52,6 @@ var/global/datum/global_init/init = new ()
 
 	. = ..()
 
-	sleep_offline = 1
-
 	plant_controller = new()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
@@ -67,6 +65,7 @@ var/global/datum/global_init/init = new ()
 		processScheduler.setup()
 
 		master_controller.setup()
+		sleep_offline = 1
 
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
