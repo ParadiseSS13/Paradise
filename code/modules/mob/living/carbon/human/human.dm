@@ -112,6 +112,9 @@
 /mob/living/carbon/human/grey/New(var/new_loc)
 	..(new_loc, "Grey")
 
+/mob/living/carbon/human/abductor/New(var/new_loc)
+	..(new_loc, "Abductor")
+
 /mob/living/carbon/human/human/New(var/new_loc)
 	..(new_loc, "Human")
 
@@ -688,6 +691,8 @@
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name()
+	if(name_override)
+		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name("Unknown")
 	if(head && (head.flags_inv & HIDEFACE))
