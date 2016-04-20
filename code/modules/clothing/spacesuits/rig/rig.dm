@@ -741,11 +741,18 @@
 				to_chat(user, "<span class='warning'>You can't retract \the [use_obj] while the suit is sealed!</span>")
 				return
 
-			if(isliving(use_obj.loc))
-				var/mob/living/L = use_obj.loc
-				use_obj.flags &= ~NODROP
-				L.unEquip(use_obj, 1)
-				use_obj.forceMove(src)
+			var/mob/living/to_strip
+			if(wearer)
+				to_strip = wearer
+			else if(isliving(use_obj.loc))
+				to_strip = use_obj.loc
+
+			if(to_strip)
+				to_strip.unEquip(use_obj, 1)
+
+			use_obj.flags &= ~NODROP
+			use_obj.forceMove(src)
+			if(wearer)
 				to_chat(wearer, "<span class='notice'>Your [use_obj] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.")
 
 		else if(deploy_mode != ONLY_RETRACT)
@@ -757,7 +764,8 @@
 			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))
 				use_obj.forceMove(src)
 			else
-				to_chat(wearer, "<span class='notice'>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</span>")
+				if(wearer)
+					to_chat(wearer, "<span class='notice'>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</span>")
 				use_obj.flags |= NODROP
 
 	if(piece == "helmet" && helmet)
