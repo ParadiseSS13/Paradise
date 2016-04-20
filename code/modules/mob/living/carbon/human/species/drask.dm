@@ -73,17 +73,17 @@
 				H.fire_alert = max(H.fire_alert, 1)		//To alert that their breath is cold enough for healing. Does not seem to affect cold movement slowdown
 
 			if(31 to 75)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 seconds
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(76 to 200)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 seconds
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2)
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(201 to 260)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //0.5 healed every 4 seconds
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //0.5 healed every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
 				H.fire_alert = max(H.fire_alert, 1)
 
