@@ -1425,3 +1425,9 @@ mob/proc/yank_out_object()
 
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
+
+/mob/proc/faction_check(mob/target)
+	for(var/F in faction)
+		if(F in target.faction)
+			return 1
+	return 0

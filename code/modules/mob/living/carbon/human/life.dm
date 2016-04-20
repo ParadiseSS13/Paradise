@@ -192,26 +192,15 @@
 
 			if (radiation > 100)
 				radiation = 100
-				if(!(species.flags & RAD_ABSORB))
-					Weaken(10)
-					if(!lying)
-						to_chat(src, "<span class='alert'>You feel weak.</span>")
-						emote("collapse")
+				Weaken(10)
+				if(!lying)
+					to_chat(src, "<span class='alert'>You feel weak.</span>")
+					emote("collapse")
 
 			if (radiation < 0)
 				radiation = 0
 
 			else
-				if(species.flags & RAD_ABSORB)
-					var/rads = radiation/25
-					radiation -= rads
-					nutrition += rads
-					adjustBruteLoss(-(rads))
-					adjustOxyLoss(-(rads))
-					adjustToxLoss(-(rads))
-					updatehealth()
-					return
-
 				var/damage = 0
 				switch(radiation)
 					if(0 to 49)
@@ -380,8 +369,7 @@
 
 		var/obj/item/organ/external/affected = get_organ("chest")
 		affected.add_autopsy_data("Suffocation", oxyloss)
-
-		oxygen_alert = max(oxygen_alert, 1)
+		throw_alert("oxy", /obj/screen/alert/oxy)
 
 		return 0
 
@@ -395,7 +383,7 @@
 //	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
-	if(stat != 2)
+	if(stat != DEAD)
 		stabilize_temperature_from_calories()
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
@@ -414,41 +402,43 @@
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > species.heat_level_1)
 		//Body temperature is too hot.
-		fire_alert = max(fire_alert, 1)
 		if(status_flags & GODMODE)	return 1	//godmode
 		var/mult = species.hot_env_multiplier
 
 		if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
+			throw_alert("temp", /obj/screen/alert/hot, 1)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
-			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_2 && bodytemperature <= species.heat_level_3)
+			throw_alert("temp", /obj/screen/alert/hot, 2)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
+			throw_alert("temp", /obj/screen/alert/hot, 3)
 			if(on_fire)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
-				fire_alert = max(fire_alert, 2)
 			else
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-				fire_alert = max(fire_alert, 2)
 
 	else if(bodytemperature < species.cold_level_1)
-		fire_alert = max(fire_alert, 1)
-		if(status_flags & GODMODE)	return 1	//godmode
-
-		if(stat == DEAD) return 1 //ZomgPonies -- No need for cold burn damage if dead
+		if(status_flags & GODMODE)
+			return 1
+		if(stat == DEAD)
+			return 1
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = species.cold_env_multiplier
 			if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
+				throw_alert("temp", /obj/screen/alert/cold, 1)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
 			if(bodytemperature >= species.cold_level_3 && bodytemperature < species.cold_level_2)
+				throw_alert("temp", /obj/screen/alert/cold, 2)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
 			if(bodytemperature > -INFINITY && bodytemperature < species.cold_level_3)
+				throw_alert("temp", /obj/screen/alert/cold, 3)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
+			else
+				clear_alert("temp")
+	else
+		clear_alert("temp")
 
 	// Account for massive pressure differences.  Done by Polymorph
 	// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
@@ -460,21 +450,20 @@
 	if(adjusted_pressure >= species.hazard_high_pressure)
 		var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
 		take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
-		pressure_alert = 2
+		throw_alert("pressure", /obj/screen/alert/highpressure, 2)
 	else if(adjusted_pressure >= species.warning_high_pressure)
-		pressure_alert = 1
+		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
 	else if(adjusted_pressure >= species.warning_low_pressure)
-		pressure_alert = 0
+		clear_alert("pressure")
 	else if(adjusted_pressure >= species.hazard_low_pressure)
-		pressure_alert = -1
+		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
 		if(RESIST_COLD in mutations)
-			pressure_alert = -1
+			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
-			pressure_alert = -2
+			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
-	return
 
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
@@ -676,24 +665,6 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(species.flags & REQUIRE_LIGHT)
-		var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-		if(isturf(loc)) //else, there's considered to be no light
-			var/turf/T = loc
-			light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-		nutrition += light_amount
-		traumatic_shock -= light_amount
-
-		if(species.flags & IS_PLANT)
-			if(nutrition > 450)
-				nutrition = 450
-			if((light_amount >= 5) && !suiciding) //if there's enough light, heal
-				adjustBruteLoss(-(light_amount/2))
-				adjustFireLoss(-(light_amount/4))
-				//adjustToxLoss(-(light_amount))
-				adjustOxyLoss(-(light_amount))
-				//TODO: heal wounds, heal broken limbs.
-
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
@@ -727,11 +698,6 @@
 				overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 			else
 				overeatduration -= 2
-
-	if(species.flags & REQUIRE_LIGHT)
-		if(nutrition < 200)
-			take_overall_damage(10,0)
-			traumatic_shock++
 
 	if (drowsyness)
 		drowsyness--
@@ -773,15 +739,6 @@
 
 		//the analgesic effect wears off slowly
 		analgesic = max(0, analgesic - 1)
-
-		if(hallucination)
-			spawn()
-				handle_hallucinations()
-
-			if(hallucination <= 2)
-				hallucination = 0
-			else
-				hallucination -= 2
 
 		if(paralysis)
 			blinded = 1

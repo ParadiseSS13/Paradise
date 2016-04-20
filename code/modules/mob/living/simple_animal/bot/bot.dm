@@ -84,6 +84,20 @@
 
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD) //Diagnostic HUD views
 
+/obj/item/device/radio/headset/bot
+	subspace_transmission = 1
+	canhear_range = 0
+
+/obj/item/device/radio/headset/bot/recalculateChannels()
+	var/mob/living/simple_animal/bot/B = loc
+	if(istype(B))
+		if(!B.radio_config)
+			B.radio_config = list("AI Private" = 1)
+			if(!(B.radio_channel in B.radio_config)) // put it first so it's the :h channel
+				B.radio_config.Insert(1, "[B.radio_channel]")
+				B.radio_config["[B.radio_channel]"] = 1
+		config(B.radio_config)
+
 /mob/living/simple_animal/bot/proc/get_mode()
 	if(client) //Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.
 		if(paicard)
@@ -123,15 +137,7 @@
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += access_robotics
 	set_custom_texts()
-	Radio = new/obj/item/device/radio/headset(src)
-	Radio.subspace_transmission = 1
-	Radio.canhear_range = 0 // anything greater will have the bot broadcast the channel as if it were saying it out loud.
-	if(!radio_config)
-		radio_config = list("AI Private" = 1)
-		if(!(radio_channel in radio_config)) // put it first so it's the :h channel
-			radio_config.Insert(1, "[radio_channel]")
-			radio_config["[radio_channel]"] = 1
-	Radio.config(radio_config)
+	Radio = new/obj/item/device/radio/headset/bot(src)
 
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
@@ -1000,15 +1006,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/handle_hud_icons_health()
 	..()
-	if(bodytemp)
-		switch(bodytemperature) //310.055 optimal body temp
-			if(335 to INFINITY)
-				bodytemp.icon_state = "temp2"
-			if(320 to 335)
-				bodytemp.icon_state = "temp1"
-			if(300 to 320)
-				bodytemp.icon_state = "temp0"
-			if(260 to 300)
-				bodytemp.icon_state = "temp-1"
-			else
-				bodytemp.icon_state = "temp-2"
+	switch(bodytemperature) //310.055 optimal body temp
+		if(335 to INFINITY)
+			throw_alert("temp", /obj/screen/alert/hot/robot, 2)
+		if(320 to 335)
+			throw_alert("temp", /obj/screen/alert/hot/robot, 1)
+		if(300 to 320)
+			clear_alert("temp")
+		if(260 to 300)
+			throw_alert("temp", /obj/screen/alert/cold/robot, 1)
+		else
+			throw_alert("temp", /obj/screen/alert/cold/robot, 2)

@@ -664,12 +664,14 @@ BLIND     // can't see anything
 	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
 
-	if(copytext(item_color,-2) != "_d")
-		basecolor = item_color
-	to_chat(usr, "DEBUG:[basecolor]")
-	if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
-		item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-		usr.update_inv_w_uniform()
+	if(!usr.incapacitated())
+		if(copytext(item_color,-2) != "_d")
+			basecolor = item_color
+		if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
+			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+			usr.update_inv_w_uniform()
+		else
+			to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
 	else
 		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
 

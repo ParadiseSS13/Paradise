@@ -1,0 +1,4 @@
+author: tigercat2000
+delete-after: True
+changes: 
+  - rscadd: "-tg- thrown alerts have been added. This means you get an alert when buckled or handcuffed or many many other things happen to you. It then gives you a tool tip when you hover over it, and it may or may not do something when you click it. Have fun!"

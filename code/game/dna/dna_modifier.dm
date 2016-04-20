@@ -271,10 +271,7 @@
 		|| locate(/obj/machinery/computer/cloning, get_step(src, EAST)) \
 		|| locate(/obj/machinery/computer/cloning, get_step(src, WEST)))
 
-		var/mob/dead/observer/ghost = occupant.get_ghost()
-		if(ghost)
-			to_chat(ghost, "<span class='ghostalert'>Your corpse has been placed into a cloning scanner. Return to your body if you want to be cloned!</span> (Verbs -> Ghost -> Re-enter corpse)")
-			to_chat(ghost, sound('sound/effects/genetics.ogg'))
+		occupant.notify_ghost_cloning(source = src)
 	return
 
 /obj/machinery/dna_scannernew/proc/go_out()
@@ -920,17 +917,18 @@
 					src.connected.occupant.name = buf.dna.real_name
 				src.connected.occupant.UpdateAppearance(buf.dna.UI.Copy())
 			else if (buf.types & DNA2_BUF_SE)
-				src.connected.occupant.dna.SE = buf.dna.SE
+				src.connected.occupant.dna.SE = buf.dna.SE.Copy()
 				src.connected.occupant.dna.UpdateSE()
 				domutcheck(src.connected.occupant,src.connected)
 			return 1
 
 		if (bufferOption == "createInjector")
-			if (src.injector_ready || waiting_for_user_input)
+			if(injector_ready && !waiting_for_user_input)
 
 				var/success = 1
 				var/obj/item/weapon/dnainjector/I = new /obj/item/weapon/dnainjector
 				var/datum/dna2/record/buf = src.buffers[bufferId]
+				buf = buf.copy()
 				if(href_list["createBlockInjector"])
 					waiting_for_user_input=1
 					var/list/selectedbuf
@@ -938,14 +936,16 @@
 						selectedbuf=buf.dna.SE
 					else
 						selectedbuf=buf.dna.UI
-					var/blk = input(usr,"Select Block","Block") in all_dna_blocks(selectedbuf)
+					var/blk = input(usr,"Select Block","Block") as null|anything in all_dna_blocks(selectedbuf)
 					success = setInjectorBlock(I,blk,buf)
 				else
-					I.buf = buf.copy()
-				waiting_for_user_input=0
+					I.buf = buf
+				waiting_for_user_input = 0
 				if(success)
 					I.forceMove(src.loc)
 					I.name += " ([buf.name])"
+					if(connected)
+						I.damage_coeff = connected.damage_coeff
 					src.injector_ready = 0
 					spawn(300)
 						src.injector_ready = 1

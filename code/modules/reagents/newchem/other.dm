@@ -387,3 +387,21 @@ datum/reagent/triplepiss
 	description = "Ewwwwwwwww."
 	reagent_state = LIQUID
 	color = "#857400"
+
+/datum/reagent/royal_bee_jelly
+	name = "royal bee jelly"
+	id = "royal_bee_jelly"
+	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
+	color = "#00ff80"
+
+/datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
+	if(prob(2))
+		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
+	..()
+
+/datum/chemical_reaction/royal_bee_jelly
+	name = "royal bee jelly"
+	id = "royal_bee_jelly"
+	result = "royal_bee_jelly"
+	required_reagents = list("mutagen" = 10, "honey" = 40)
+	result_amount = 5
