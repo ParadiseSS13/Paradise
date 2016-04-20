@@ -232,10 +232,9 @@
 	var/mob/living/carbon/human/interactive/greytide/clone = new(src)
 	var/datum/dna/owner_dna = H.dna
 	clone.rename_character(clone.name, owner_dna.real_name)
-	clone.set_species(H.species.name)
 	clone.body_accessory = H.body_accessory
 	clone.dna = owner_dna.Clone()
-	clone.UpdateAppearance()
+	clone.set_species(H.species.name)
 	domutcheck(clone)
 
 	//There's no define for this / get all items ?
