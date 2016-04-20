@@ -50,8 +50,9 @@
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-						if(affecting.take_damage( 0, 1 ))		//INFERNO
+						if(affecting.take_damage( 0, 5 ))		//INFERNO
 							H.UpdateDamageIcon()
+							H.updatehealth()
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
 
 			set_light(2)
