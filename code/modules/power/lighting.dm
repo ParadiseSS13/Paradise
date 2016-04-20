@@ -455,7 +455,7 @@
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
 		else
-			to_chat(user, "You try to remove the light [fitting], but it's too hot! You should get some better gloves.")
+			to_chat(user, "You try to remove the light [fitting], but it's too hot!")
 			//no light burning
 			return				// if burned, don't remove the light
 	else
