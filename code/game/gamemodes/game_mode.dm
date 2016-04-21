@@ -297,37 +297,38 @@
 //Keeps track of all living heads//
 ///////////////////////////////////
 /datum/game_mode/proc/get_living_heads()
-	var/list/heads = list()
+	. = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat!=2 && player.mind && (player.mind.assigned_role in command_positions))
-			heads += player.mind
-	return heads
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in command_positions))
+			. |= player.mind
 
-/datum/game_mode/proc/get_extra_living_heads()
-	var/list/heads = list()
-	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
-	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat!=2 && player.mind && (player.mind.assigned_role in alt_positions))
-			heads += player.mind
-	return heads
 
 ////////////////////////////
 //Keeps track of all heads//
 ////////////////////////////
 /datum/game_mode/proc/get_all_heads()
-	var/list/heads = list()
+	. = list()
 	for(var/mob/player in mob_list)
 		if(player.mind && (player.mind.assigned_role in command_positions))
-			heads += player.mind
-	return heads
+			. |= player.mind
 
-/datum/game_mode/proc/get_extra_heads()
-	var/list/heads = list()
-	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
-	for(var/mob/player in mob_list)
-		if(player.mind && (player.mind.assigned_role in alt_positions))
-			heads += player.mind
-	return heads
+//////////////////////////////////////////////
+//Keeps track of all living security members//
+//////////////////////////////////////////////
+/datum/game_mode/proc/get_living_sec()
+	. = list()
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in security_positions))
+			. |= player.mind
+
+////////////////////////////////////////
+//Keeps track of all  security members//
+////////////////////////////////////////
+/datum/game_mode/proc/get_all_sec()
+	. = list()
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.mind && (player.mind.assigned_role in security_positions))
+			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
 	return 0
