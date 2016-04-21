@@ -32,7 +32,7 @@ VampyrBytes
 
 /datum/emote/New()
 	var/pathString = "[type]"
-	var/count
+	var/count = 0
 	for(var/i in 1 to lentext(pathString))
 		var/char = copytext(pathString, i, i+1)
 		if(char == "/")
@@ -42,6 +42,8 @@ VampyrBytes
 				break
 
 /datum/emote/proc/doEmote(var/mob/user, var/param)
+	if(!istype(user))
+		return 0
 	if(cooldown)
 		if(handle_emote_CD(user))
 			return 0
@@ -107,7 +109,7 @@ VampyrBytes
 /datum/emote/proc/paramMessage(var/mob/user, var/param)
 	return
 
-/datum/emote/proc/addTarget(var/mob/user, var/target, var/message)
+/datum/emote/proc/addTarget(var/mob/user, var/target = "", var/message = "")
 	if(!canTarget)
 		return message
 	target = getTarget(user, target)
@@ -119,7 +121,7 @@ VampyrBytes
 		message += " [targetText] \the [target]"
 	return message
 
-/datum/emote/proc/getTarget(var/mob/user, var/target)
+/datum/emote/proc/getTarget(var/mob/user, var/target = "")
 	if(!target)
 		return
 	if(targetMob)
@@ -127,18 +129,18 @@ VampyrBytes
 	else
 		return getAtomTarget(user, target)
 
-/datum/emote/proc/getMobTarget(var/mob/user, var/target)
+/datum/emote/proc/getMobTarget(var/mob/user, var/target = "")
 	for (var/mob/M in view(null, user))
 		if (target == M.name)
 			return M
 
-/datum/emote/proc/getAtomTarget(var/mob/user, var/target)
+/datum/emote/proc/getAtomTarget(var/mob/user, var/target = "")
 	if (target)
 		for (var/atom/A as mob|obj|turf in view(null, user))
 			if (target == A.name)
 				return A
 
-/datum/emote/proc/outputMessage(var/mob/user, var/message)
+/datum/emote/proc/outputMessage(var/mob/user, var/message = "")
 	if(!message)
 		return
 	log_emote("[user.name]/[user.key] : [message]")
@@ -149,7 +151,7 @@ VampyrBytes
 	sendToDead(message)
 
 // What you should see when you perform the emote
-/datum/emote/proc/createSelfMessage(var/mob/user, var/message)
+/datum/emote/proc/createSelfMessage(var/mob/user, var/message = "")
 	var/selfMessage
 	if(startText)
 		selfMessage = replacetext(message, "[user]", "you")
@@ -157,7 +159,7 @@ VampyrBytes
 		selfMessage = replacetext(message, "[user]", "You")
 	return selfMessage
 
-/datum/emote/proc/visible_message(var/message, var/mob/user)
+/datum/emote/proc/visible_message(var/message = "", var/mob/user)
 	var/selfMessage = createSelfMessage(user, message)
 	for(var/mob/M in viewers(user))
 		if(M.see_invisible < user.invisibility)
@@ -172,9 +174,9 @@ VampyrBytes
 			if(msg)
 				outputAudibleMessage(msg, M, user, 1)
 		else
-			outputVisibleMessage(msg, M)
+			outputVisibleMessage(msg, M, user)
 
-/datum/emote/proc/audible_message(var/message, var/mob/user)
+/datum/emote/proc/audible_message(var/message = "", var/mob/user)
 	var/selfMessage = createSelfMessage(user, message)
 	for(var/mob/M in get_mobs_in_view(7, user))
 		var/msg = message
@@ -187,7 +189,7 @@ VampyrBytes
 			if(msg)
 				outputVisibleMessage(msg, M, user, 1)
 		else
-			outputAudibleMessage(msg, M)
+			outputAudibleMessage(msg, M, user)
 
 /datum/emote/proc/outputVisibleMessage(var/message, var/mob/recipient, var/mob/user, var/retest = 0)
 	if(retest)
@@ -211,7 +213,7 @@ VampyrBytes
 	else
 		to_chat(recipient, message)
 
-/datum/emote/proc/outputAudibleMessage(var/message, var/mob/recipient, var/mob/user, var/retest = 0)
+/datum/emote/proc/outputAudibleMessage(var/message = "", var/mob/recipient, var/mob/user, var/retest = 0)
 	if(retest)
 		if(!user)
 			return
@@ -278,7 +280,7 @@ available, but if you do, make sure you return ..() so the check for use_me is s
 	name = "Custom emote"
 	baseLevel = 0
 
-/datum/emote/custom/New(var/mob/user, var/message, var/isAudible)
+/datum/emote/custom/New(var/mob/user, var/message = "", var/isAudible)
 	if(!message)
 		message = getMessage(user)
 	text = message
@@ -308,7 +310,7 @@ available, but if you do, make sure you return ..() so the check for use_me is s
 		if(!config.dsay_allowed)
 			return "deadchat is globally muted"
 
-/datum/emote/custom/ghost/outputMessage(var/mob/user, var/message)
+/datum/emote/custom/ghost/outputMessage(var/mob/user, var/message = "")
 	if(!message)
 		return
 	log_emote("Ghost/[user.key] : [message]")

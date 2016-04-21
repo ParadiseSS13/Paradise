@@ -16,7 +16,7 @@
 				for(var/command in found.commands)
 					commands[command] = found
 
-/datum/emoteHandler/proc/runEmote(var/command, var/param, var/message, var/audible) // message and audible only used in custom emotes
+/datum/emoteHandler/proc/runEmote(var/command = "", var/param = "", var/message = "", var/audible = 0) // message and audible only used in custom emotes
 	if(!command)
 		return 0
 	if(command == "help")
@@ -24,6 +24,7 @@
 		return 1
 
 	var/datum/emote/emote
+	testing("[command]")
 	if(command == "me")
 		emote = customEmote(message, audible)
 		if(!emote)
