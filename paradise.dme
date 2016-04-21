@@ -1251,7 +1251,7 @@
 #include "code\modules\events\slaughterevent.dm"
 #include "code\modules\events\spacevine.dm"
 #include "code\modules\events\spider_infestation.dm"
-#include "code\modules\events\spider_invasion.dm"
+#include "code\modules\events\spider_terror.dm"
 #include "code\modules\events\spontaneous_appendicitis.dm"
 #include "code\modules\events\tear.dm"
 #include "code\modules\events\undead.dm"

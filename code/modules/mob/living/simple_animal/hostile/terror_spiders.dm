@@ -367,7 +367,14 @@ var/global/list/spider_ckey_blacklist = list()
 						H.attack_animal(src)
 						return
 			var/inject_target = pick("chest","head") // Yes, there are other body parts. No, the code won't work if we pick any of them. Grrr.
-			if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/purple))
+			if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/prince))
+				if (prob(15))
+					visible_message("<span class='danger'> \icon[src] [src] rams into [L], knocking them to the floor! </span>")
+					L.Weaken(5)
+					L.Stun(5)
+				else
+					L.attack_animal(src)
+			else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/purple))
 				if (prob(10))
 					visible_message("<span class='danger'> \icon[src] [src] rams into [L], knocking them to the floor! </span>")
 					L.Weaken(5)
@@ -546,8 +553,6 @@ var/global/list/spider_ckey_blacklist = list()
 		if (!degenerate && prob(20))
 			visible_message("<span class='danger'> \icon[src] [src] looks staggered by the bioweapon! </span>")
 			if (spider_tier < 3)
-				//ai_type = 1
-				//enemies = list()
 				degenerate=1
 	else if (istype(Proj, /obj/item/projectile/energy/declone_spider))
 		if (!degenerate)
@@ -634,15 +639,12 @@ var/global/list/spider_ckey_blacklist = list()
 				//faction -= "neutral"
 				visible_message("<span class='notice'>[src] is absorbed through a bluespace portal, and vanishes!</span>")
 				qdel(src)
-			if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
-				if (ckey)
-					notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled")
-				else if (spider_awaymission)
-					// don't announce awaymission spiders.
-				else
-					notify_ghosts("[src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
-			if (spider_tier >= 3 && !spider_awaymission)
-				notify_ghosts("EVENT: [src] has appeared in [get_area(src)].")
+			if (spider_awaymission)
+				// never announce awaymission spiders.
+			else if (ckey)
+				notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled")
+			else if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
+				notify_ghosts("[src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
 
 
 
@@ -1186,6 +1188,8 @@ var/global/list/spider_ckey_blacklist = list()
 	to_chat(src, "------------------------")
 	// T1
 	to_chat(src, "Basic Guide:")
+	to_chat(src, "- Terror Spiders are a bioweapon that escaped their creators.")
+	// T1
 	if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/red))
 		to_chat(src, "- You are the red terror spider.")
 		to_chat(src, "- A straightforward fighter, you have high health, and high melee damage, but are slow-moving.")
@@ -1201,18 +1205,32 @@ var/global/list/spider_ckey_blacklist = list()
 		to_chat(src, "- You are an assassin. Even 2-3 bites from you is fatal to organic humanoids - if you back off and let your poison work. You are very vulnurable to borgs.")
 	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/purple))
 		to_chat(src, "- You are the purple terror spider.")
-		to_chat(src, "- You guard the nest of the all important Terror Queen! You are very robust, but should not leave her side.")
+		to_chat(src, "- You guard the nest of the all important Terror Queen! You are very robust, with a chance to stun on hit, but should stay with the queen at all times.")
 		to_chat(src, "- <b>If the queen dies, you die!</b>")
 	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/white))
 		to_chat(src, "- You are the white terror spider.")
 		to_chat(src, "- Amongst the most feared of all terror spiders, your multi-stage bite attack injects tiny spider eggs into a host, which will make spiders grow out of their skin in time.")
 		to_chat(src, "- You should advance quickly, attack three times, then retreat, letting your venom of tiny eggs do its work.")
+		to_chat(src, "- <span class='notice'>Your main objective is to infect humanoids with your egg venom, so that you can start a hive.</span>")
+		to_chat(src, "- <span class='notice'>Once the hive has started, they will look to you for leadership.</span>")
 	// T3
+	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/prince))
+		to_chat(src, "- You are the Prince of Terror!")
+		to_chat(src, "- A ferocious warrior, you wander the stars, identifying potential nest sites, and threats, for your fellow Terror Spiders.")
+		to_chat(src, "- You have been sent to this remote station to determine if it would make a suitable nest.")
+		to_chat(src, "- <b>You have lots of health, and decent attacks, but can be killed by a well-armed group.</b>")
+	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/mother))
+		to_chat(src, "- You are the Mother of Terror!")
+		to_chat(src, "- A form of living schmuck bait, you are fairly harmless while alive.")
+		to_chat(src, "- <b>If you die, dozens of spiderlings will come swarming off your back, infesting the whole station.</b>")
+	// T4
 	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/queen))
-		to_chat(src, "- You are the terror queen spider!")
+		to_chat(src, "- You are the Queen of Terror!")
 		to_chat(src, "- Your goal is to build a nest, Lay Eggs to make more spiders, and ultimately exterminate all non-spider life on the station!")
-		to_chat(src, "- You can use HiveCommand to issue orders to your spiders (both AI, and player-controlled)")
-		to_chat(src, "- The success or failure of the entire hive depends on you, so whatever you do, do not die!")
+		to_chat(src, "- You can use HiveCommand to issue orders to your spiders (both AI, and player-controlled)!")
+		to_chat(src, "- The success or failure of the entire hive depends on you, so whatever you do, <b>do not die!</b>")
+		to_chat(src, "- To start, find a safe, dark location to nest in, then lay some purple (praetorian) eggs so you will have guards to defend you.")
+	// T5
 	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/empress))
 		to_chat(src, "- You are the Empress of Terror!")
 		to_chat(src, "- ICly, you are an aged and battle-hardened Queen, and one of the rulers of the Terror Spider species.")
@@ -1380,7 +1398,7 @@ var/global/list/spider_ckey_blacklist = list()
 		to_chat(src, "Your type of spider is too important to the round to be allowed to suicide. Instead, you will be ghosted, and the spider controlled by AI.")
 		spider_ckey_blacklist += ckey
 		ghostize()
-		ckey = null // *** need to test if this actually works.
+		ckey = null
 	else
 		visible_message("<span class='notice'>\the [src] awakens the remaining eggs in its body, which hatch and start consuming it from the inside out!</span>")
 		spawn(100)
@@ -1729,7 +1747,7 @@ var/global/list/spider_ckey_blacklist = list()
 	health = 100
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	move_to_delay = 5
+	move_to_delay = 4
 	ventcrawler = 1
 	spider_tier = 2
 
@@ -1766,8 +1784,6 @@ var/global/list/spider_ckey_blacklist = list()
 	ventcrawler = 1
 	idle_ventcrawl_chance = 5
 
-	ai_type = 1 // defend self only!
-
 	spider_tier = 3
 	spider_opens_doors = 2
 
@@ -1778,11 +1794,11 @@ var/global/list/spider_ckey_blacklist = list()
 		canspawn = 0
 		for(var/i=0, i<30, i++)
 			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
-			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray)
 			if (prob(50))
 				S.stillborn = 1
 			else if (prob(10))
-				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/white)
+				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 		visible_message("<span class='userdanger'>\the [src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
 		degenerate = 1
 		loot = 0
@@ -1817,8 +1833,6 @@ var/global/list/spider_ckey_blacklist = list()
 
 	ai_ventcrawls = 0 // no override, never ventcrawls. Ever.
 	idle_ventcrawl_chance = 0
-
-	//ai_type = 1 // won't attack unless you attack it first.
 
 	ai_breaks_lights = 1
 	ai_breaks_cameras = 1
@@ -1957,6 +1971,7 @@ var/global/list/spider_ckey_blacklist = list()
 				nest_vent = entry_vent
 				neststep = 1
 				visible_message("<span class='danger'>\the [src] settles down, starting to build a nest.</span>")
+				ai_ventcrawls = 0
 			else if (entry_vent)
 				if (!path_to_vent)
 					visible_message("<span class='danger'>\the [src] looks around warily - then retreats.</span>")
@@ -2070,7 +2085,7 @@ var/global/list/spider_ckey_blacklist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/CountSpiders()
 	var/numspiders = 0
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
-		if (T.health > 0 && !spider_placed)
+		if (T.health > 0 && !spider_placed && spider_awaymission == T.spider_awaymission)
 			numspiders++
 	return numspiders
 
