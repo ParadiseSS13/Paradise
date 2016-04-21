@@ -445,6 +445,45 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 1)
+	var/list/fridge_names_paths = list(
+							"\improper SmartFridge" = /obj/machinery/smartfridge,
+							"\improper MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
+							"\improper Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
+							"\improper Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
+							"\improper Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
+							"\improper Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
+							"smart virus storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
+							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks
+	)
+
+
+/obj/item/weapon/circuitboard/smartfridge/New()
+	..()
+	if(build_path == /obj/machinery/smartfridge)			//If we spawn the base type board (determined by the base type machine as the build path), become a random fridge board
+		var/new_path = fridge_names_paths[pick(fridge_names_paths)]
+		set_type(new_path)
+
+
+/obj/item/weapon/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/screwdriver))
+		set_type(null, user)
+
+/obj/item/weapon/circuitboard/smartfridge/proc/set_type(typepath, mob/user)
+	var/new_name = ""
+	if(!typepath)
+		new_name = input("Circuit Setting", "What would you change the board setting to?") in fridge_names_paths
+		typepath = fridge_names_paths[new_name]
+	else
+		for(var/name in fridge_names_paths)
+			if(fridge_names_paths[name] == typepath)
+				new_name = name
+				break
+	build_path = typepath
+	name = new_name
+	if(findtextEx(new_name, "\improper"))
+		new_name = replacetext(new_name, "\improper", "")
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
 
 /obj/item/weapon/circuitboard/monkey_recycler
 	name = "circuit board (Monkey Recycler)"
