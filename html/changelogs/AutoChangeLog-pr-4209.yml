@@ -1,5 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "FIxes heat resist mutation not making you immune to high pressure, fire, or high temperatures"
-  - tweak: "removes some not-well-known damage resists from cold/heat mutations"
