@@ -106,11 +106,13 @@ var/global/datum/robolimb/basic_robolimb
 /datum/robolimb/xion/alt1
 	company = "Xion Manufacturing Group alt."
 	icon = 'icons/mob/human_races/cyberlimbs/xion/xion_alt1.dmi'
+	parts = list("head")
 	has_subtypes = null
 
 /datum/robolimb/xion/monitor
 	company = "Xion Manufacturing Group mtr."
 	icon = 'icons/mob/human_races/cyberlimbs/xion/xion_monitor.dmi'
+	parts = list("head")
 	is_monitor = 1
 	has_subtypes = null
 

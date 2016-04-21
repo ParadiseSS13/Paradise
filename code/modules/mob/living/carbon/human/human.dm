@@ -1614,7 +1614,7 @@
 			var/list/hair = list()
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
-				if(species.name in tmp_hair.species_allowed)
+				if((species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 					hair += i
 
 			var/new_style = input(src, "Select a monitor display", "Monitor Display", h_style)  as null|anything in hair
