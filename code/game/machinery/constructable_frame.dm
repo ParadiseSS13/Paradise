@@ -457,12 +457,6 @@ to destroy them and players will be able to make replacements.
 	)
 
 
-/obj/item/weapon/circuitboard/smartfridge/New()
-	..()
-	if(build_path == /obj/machinery/smartfridge)			//If we spawn the base type board (determined by the base type machine as the build path), become a random fridge board
-		var/new_path = fridge_names_paths[pick(fridge_names_paths)]
-		set_type(new_path)
-
 
 /obj/item/weapon/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
