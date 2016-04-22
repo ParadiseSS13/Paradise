@@ -103,7 +103,7 @@
 	icon_state ="scroll2"
 	var/used = 0
 
-/obj/item/weapon/plasma_fist_scroll/attack_self(mob/user as mob)
+/obj/item/weapon/adminfu_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
 		return
 	if(!used)
