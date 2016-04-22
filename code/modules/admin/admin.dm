@@ -750,6 +750,10 @@ var/global/nologevent = 0
 		if (ticker.mode.config_tag == "changeling")
 			return 2
 		return 1
+	if(M.mind in ticker.mode.abductors)
+		if (ticker.mode.config_tag == "abduction")
+			return 2
+		return 1
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(R.emagged)

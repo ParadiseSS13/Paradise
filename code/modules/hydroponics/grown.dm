@@ -334,8 +334,7 @@
 						var/turf/simulated/location = get_turf(M)
 						if(istype(location)) location.add_blood_floor(M)
 				if("fire")
-					if (!(RESIST_COLD in M.mutations))
-						M.take_organ_damage(0, force)
+					M.take_organ_damage(0, force)
 			M.updatehealth()
 
 		if(seed && seed.get_trait(TRAIT_CARNIVOROUS))

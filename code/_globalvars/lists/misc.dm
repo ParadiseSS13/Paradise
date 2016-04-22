@@ -23,4 +23,5 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"Xeno"
 	)
 
-var/list/datum/map_template/map_templates = list()
+var/list/map_templates = list()
+var/list/mineral_turfs = list()

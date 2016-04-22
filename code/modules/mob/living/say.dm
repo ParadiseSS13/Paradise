@@ -336,6 +336,10 @@ proc/get_radio_key_from_channel(var/channel)
 
 	whisper_say(message, speaking)
 
+// for weird circumstances where you're inside an atom that is also you, like pai's
+/mob/living/proc/get_whisper_loc()
+	return src
+
 /mob/living/proc/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
@@ -384,7 +388,8 @@ proc/get_radio_key_from_channel(var/channel)
 	if(!message || message=="")
 		return
 
-	var/list/listening = hearers(message_range, src)
+	var/atom/whisper_loc = get_whisper_loc()
+	var/list/listening = hearers(message_range, whisper_loc)
 	listening |= src
 
 	//ghosts
@@ -401,16 +406,16 @@ proc/get_radio_key_from_channel(var/channel)
 				listening += C
 
 	//pass on the message to objects that can hear us.
-	for(var/obj/O in view(message_range, src))
+	for(var/obj/O in view(message_range, whisper_loc))
 		spawn(0)
 			if(O)
 				O.hear_talk(src, message, verb, speaking)
 
-	var/list/eavesdropping = hearers(eavesdropping_range, src)
+	var/list/eavesdropping = hearers(eavesdropping_range, whisper_loc)
 	eavesdropping -= src
 	eavesdropping -= listening
 
-	var/list/watching = hearers(watching_range, src)
+	var/list/watching = hearers(watching_range, whisper_loc)
 	watching  -= src
 	watching  -= listening
 	watching  -= eavesdropping

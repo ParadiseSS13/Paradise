@@ -20,10 +20,15 @@
 /obj/item/device/radio/headset/New()
 	..()
 	internal_channels.Cut()
+
+/obj/item/device/radio/headset/initialize()
+	..()
+
 	if(ks1type)
 		keyslot1 = new ks1type(src)
 	if(ks2type)
 		keyslot2 = new ks2type(src)
+
 	recalculateChannels(1)
 
 /obj/item/device/radio/headset/Destroy()
@@ -383,8 +388,6 @@
 
 
 	for (var/ch_name in channels)
-		if(!radio_controller)
-			sleep(30) // Waiting for the radio_controller to be created.
 		if(!radio_controller)
 			src.name = "broken radio headset"
 			return

@@ -39,14 +39,6 @@
 
 
 /mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
-	//Being hit while using a cloaking device
-	var/obj/item/weapon/cloaking_device/C = locate((/obj/item/weapon/cloaking_device) in src)
-	if(C && C.active)
-		C.attack_self(src)//Should shut it off
-		update_icons()
-		to_chat(src, "\blue Your [C.name] was disrupted!")
-		Stun(2)
-
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
@@ -173,6 +165,7 @@
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
 		set_light(light_range + 3,l_color = "#ED9200")
+		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
 
 /mob/living/proc/ExtinguishMob()
@@ -180,6 +173,7 @@
 		on_fire = 0
 		fire_stacks = 0
 		set_light(max(0,light_range - 3))
+		clear_alert("fire")
 		update_fire()
 
 /mob/living/proc/update_fire()

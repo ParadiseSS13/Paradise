@@ -193,7 +193,6 @@
 				to_chat(user, "\red Cabinet locked.")
 			else
 				to_chat(user, "\blue Cabinet unlocked.")
-			return
 
 	update_icon() //Template: fireaxe[has fireaxe][is opened][hits taken][is smashed]. If you want the opening or closing animations, add "opening" or "closing" right after the numbers
 		var/hasaxe = 0

@@ -30,7 +30,10 @@
 /mob/living/silicon/pai/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
 	if(..())
 		return 1
-	if(message_mode)
+	else if(message_mode == "whisper")
+		whisper_say(message, speaking, alt_name)
+		return 1
+	else if(message_mode)
 		if(message_mode == "general")
 			message_mode = null
 		return radio.talk_into(src,message,message_mode,verb,speaking)

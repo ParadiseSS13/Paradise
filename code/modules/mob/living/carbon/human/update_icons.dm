@@ -104,41 +104,6 @@ If you have any questions/constructive-comments/bugs-to-report/or have a massivl
 Please contact me on #coderbus IRC. ~Carn x
 */
 
-//Human Overlays Indexes/////////
-#define MUTANTRACE_LAYER		1
-#define TAIL_UNDERLIMBS_LAYER	2
-#define LIMBS_LAYER				3
-#define MARKINGS_LAYER			4
-#define UNDERWEAR_LAYER			5
-#define MUTATIONS_LAYER			6
-#define DAMAGE_LAYER			7
-#define UNIFORM_LAYER			8
-#define ID_LAYER				9
-#define SHOES_LAYER				10
-#define GLOVES_LAYER			11
-#define EARS_LAYER				12
-#define SUIT_LAYER				13
-#define GLASSES_LAYER			14
-#define BELT_LAYER				15	//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		16
-#define BACK_LAYER				17
-#define TAIL_LAYER				18	//bs12 specific. this hack is probably gonna come back to haunt me
-#define HAIR_LAYER				19	//TODO: make part of head layer?
-#define HEAD_ACCESSORY_LAYER	20
-#define FHAIR_LAYER				21
-#define FACEMASK_LAYER			22
-#define HEAD_LAYER				23
-#define COLLAR_LAYER			24
-#define HANDCUFF_LAYER			25
-#define LEGCUFF_LAYER			26
-#define L_HAND_LAYER			27
-#define R_HAND_LAYER			28
-#define TARGETED_LAYER			29	//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				30	//If you're on fire
-#define TOTAL_LAYERS			30
-
-
-
 /mob/living/carbon/human
 	var/list/overlays_standing[TOTAL_LAYERS]
 	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed
@@ -163,18 +128,26 @@ Please contact me on #coderbus IRC. ~Carn x
 	update_hud()		//TODO: remove the need for this
 
 	var/stealth = 0
-	for(var/obj/item/weapon/cloaking_device/S in list(l_hand,r_hand,belt,l_store,r_store))
-		if(S.active)
+	var/obj/item/clothing/suit/armor/abductor/vest/V // Begin the most snowflakey bullshit code I've ever written. I'm so sorry, but there was no other way.
+	for(V in list(wear_suit))
+		if(V.stealth_active)
 			stealth = 1
 			break
 
 	if(stealth)
-		icon = 'icons/mob/human.dmi'
-		icon_state = "body_cloaked"
-		var/image/I  = overlays_standing[L_HAND_LAYER]
-		if(istype(I))  overlays += I
-		I       = overlays_standing[R_HAND_LAYER]
-		if(istype(I))  overlays += I
+		icon = V.disguise.icon //if the suit is active, reference the suit's current loaded icon and overlays; this does not include hand overlays
+		overlays.Cut()
+
+		for(var/thing in V.disguise.overlays)
+			if(thing)
+				overlays += thing
+
+		var/image/I  = overlays_standing[L_HAND_LAYER] //manually add both left and right hand, so its independently updated
+		if(istype(I))
+			overlays += I
+		I = overlays_standing[R_HAND_LAYER]
+		if(istype(I))
+			overlays += I
 	else
 		icon = stand_icon
 		overlays.Cut()
@@ -533,23 +506,6 @@ var/global/list/damage_icon_parts = list()
 				add_image = 1
 	for(var/mut in mutations)
 		switch(mut)
-			/*
-			if(HULK)
-				if(fat)
-					standing.underlays	+= "hulk_[fat]_s"
-				else
-					standing.underlays	+= "hulk_[g]_s"
-				add_image = 1
-			if(RESIST_COLD)
-				standing.underlays	+= "fire[fat]_s"
-				add_image = 1
-			if(RESIST_HEAT)
-				standing.underlays	+= "cold[fat]_s"
-				add_image = 1
-			if(TK)
-				standing.underlays	+= "telekinesishead[fat]_s"
-				add_image = 1
-			*/
 			if(LASER)
 				standing.overlays	+= "lasereyes_s"
 				add_image = 1
@@ -989,16 +945,19 @@ var/global/list/damage_icon_parts = list()
 		update_icons()
 
 /mob/living/carbon/human/update_inv_legcuffed(var/update_icons=1)
+	clear_alert("legcuffed")
 	if(legcuffed)
 		overlays_standing[LEGCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "legcuff1")
-		if(src.m_intent != "walk")
-			src.m_intent = "walk"
-			if(src.hud_used && src.hud_used.move_intent)
-				src.hud_used.move_intent.icon_state = "walking"
+		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = src.legcuffed)
+		if(m_intent != "walk")
+			m_intent = "walk"
+			if(hud_used && hud_used.move_intent)
+				hud_used.move_intent.icon_state = "walking"
 
 	else
 		overlays_standing[LEGCUFF_LAYER]	= null
-	if(update_icons)   update_icons()
+	if(update_icons)
+		update_icons()
 
 
 /mob/living/carbon/human/update_inv_r_hand(var/update_icons=1)
@@ -1237,34 +1196,11 @@ var/global/list/damage_icon_parts = list()
 		O.sync_colour_to_human(src)
 	update_body(0)
 
-//Human Overlays Indexes/////////
-#undef MUTANTRACE_LAYER
-#undef TAIL_UNDERLIMBS_LAYER
-#undef LIMBS_LAYER
-#undef MARKINGS_LAYER
-#undef MUTATIONS_LAYER
-#undef DAMAGE_LAYER
-#undef UNIFORM_LAYER
-#undef ID_LAYER
-#undef SHOES_LAYER
-#undef GLOVES_LAYER
-#undef EARS_LAYER
-#undef SUIT_LAYER
-#undef GLASSES_LAYER
-#undef FACEMASK_LAYER
-#undef BELT_LAYER
-#undef SUIT_STORE_LAYER
-#undef BACK_LAYER
-#undef TAIL_LAYER
-#undef HAIR_LAYER
-#undef HEAD_LAYER
-#undef HEAD_ACCESSORY_LAYER
-#undef FHAIR_LAYER
-#undef COLLAR_LAYER
-#undef HANDCUFF_LAYER
-#undef LEGCUFF_LAYER
-#undef L_HAND_LAYER
-#undef R_HAND_LAYER
-#undef TARGETED_LAYER
-#undef FIRE_LAYER
-#undef TOTAL_LAYERS
+/mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
+	var/list/out = new
+	for(var/i=1;i<=TOTAL_LAYERS;i++)
+		if(overlays_standing[i])
+			if(i in unwantedLayers)
+				continue
+			out += overlays_standing[i]
+	return out

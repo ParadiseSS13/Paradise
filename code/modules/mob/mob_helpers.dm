@@ -556,12 +556,28 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
-/proc/notify_ghosts(var/message, var/ghost_sound = null) //Easy notification of ghosts.
+/proc/notify_ghosts(var/message, var/ghost_sound = null, var/enter_link = null, var/atom/source = null, var/image/alert_overlay = null, var/attack_not_jump = 0) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in player_list)
 		if(O.client)
-			to_chat(O, "<span class='ghostalert'>[message]<span>")
+			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]<span>")
 			if(ghost_sound)
-				to_chat(O, sound(ghost_sound))
+				O << sound(ghost_sound)
+			if(source)
+				var/obj/screen/alert/notify_jump/A = O.throw_alert("\ref[source]_notify_jump", /obj/screen/alert/notify_jump)
+				if(A)
+					if(O.client.prefs && O.client.prefs.UI_style)
+						A.icon = ui_style2icon(O.client.prefs.UI_style)
+					A.desc = message
+					A.attack_not_jump = attack_not_jump
+					A.jump_target = source
+					if(!alert_overlay)
+						var/old_layer = source.layer
+						source.layer = FLOAT_LAYER
+						A.overlays += source
+						source.layer = old_layer
+					else
+						alert_overlay.layer = FLOAT_LAYER
+						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
 	if (!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
