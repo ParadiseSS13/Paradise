@@ -1006,15 +1006,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/handle_hud_icons_health()
 	..()
-	if(bodytemp)
-		switch(bodytemperature) //310.055 optimal body temp
-			if(335 to INFINITY)
-				bodytemp.icon_state = "temp2"
-			if(320 to 335)
-				bodytemp.icon_state = "temp1"
-			if(300 to 320)
-				bodytemp.icon_state = "temp0"
-			if(260 to 300)
-				bodytemp.icon_state = "temp-1"
-			else
-				bodytemp.icon_state = "temp-2"
+	switch(bodytemperature) //310.055 optimal body temp
+		if(335 to INFINITY)
+			throw_alert("temp", /obj/screen/alert/hot/robot, 2)
+		if(320 to 335)
+			throw_alert("temp", /obj/screen/alert/hot/robot, 1)
+		if(300 to 320)
+			clear_alert("temp")
+		if(260 to 300)
+			throw_alert("temp", /obj/screen/alert/cold/robot, 1)
+		else
+			throw_alert("temp", /obj/screen/alert/cold/robot, 2)

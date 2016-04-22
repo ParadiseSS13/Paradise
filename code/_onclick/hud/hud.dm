@@ -127,6 +127,9 @@ datum/hud/New(mob/owner)
 		corgi_hud()
 
 	reload_fullscreen()
+	persistant_inventory_update()
+	mymob.update_action_buttons()
+	reorganize_alerts()
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)
@@ -192,7 +195,7 @@ datum/hud/New(mob/owner)
 			hud_used.hidden_inventory_update()
 			hud_used.persistant_inventory_update()
 			update_action_buttons()
-			//hud_used.reorganize_alerts()
+			hud_used.reorganize_alerts()
 
 		else
 			to_chat(usr, "\red Inventory hiding is currently only supported for human mobs, sorry.")
