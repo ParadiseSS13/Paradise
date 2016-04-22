@@ -273,7 +273,7 @@
 		icon_state = "foamdart_empty"
 		desc = "Its nerf or nothing! ...Although, this one doesn't look too safe."
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/ammo_casing/caseless/foam_dart/attackby(var/obj/item/weapon/A as obj, mob/user as mob, params)
 	..()
 	if (istype(A, /obj/item/weapon/screwdriver) && !modified)
 		modified = 1
