@@ -144,19 +144,18 @@
 	sharp = 1
 	edge = 1
 	w_class = 3
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-	suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
-		return(BRUTELOSS)
+/obj/item/weapon/katana/cursed
+	slot_flags = null
+
+/obj/item/weapon/katana/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
+	return(BRUTELOSS)
 
 /obj/item/weapon/katana/IsShield()
 		return 1
-
-/obj/item/weapon/katana/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
-
 
 /obj/item/weapon/harpoon
 	name = "harpoon"
