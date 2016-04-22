@@ -28,3 +28,11 @@
 	spawn(1)
 		smooth_icon(src)
 		smooth_icon_neighbors(src)
+
+/turf/unsimulated/floor/abductor
+	name = "alien floor"
+	icon_state = "alienpod1"
+
+/turf/unsimulated/floor/abductor/New()
+	..()
+	icon_state = "alienpod[rand(1,9)]"

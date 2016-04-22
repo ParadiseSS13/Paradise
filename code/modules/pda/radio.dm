@@ -51,7 +51,7 @@
 	frequency.post_signal(src, signal, filter = s_filter)
 
 /obj/item/radio/integrated/receive_signal(datum/signal/signal)
-	if (signal.data["type"] == bot_type)
+	if (bot_type && istype(signal.source, /obj/machinery/bot_core) && signal.data["type"] == bot_type)
 		if(!botlist)
 			botlist = new()
 

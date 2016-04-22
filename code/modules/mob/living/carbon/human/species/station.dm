@@ -226,6 +226,19 @@
 	cold_level_2 = 50
 	cold_level_3 = 0
 
+	atmos_requirements = list(
+		"min_oxy" = 0,
+		"max_oxy" = 1,
+		"min_nitro" = 16,
+		"max_nitro" = 0,
+		"min_tox" = 0,
+		"max_tox" = 0.005,
+		"min_co2" = 0,
+	 	"max_co2" = 10,
+	 	"sa_para" = 1,
+		"sa_sleep" = 5
+		)
+
 	eyes = "vox_eyes_s"
 
 	breath_type = "nitrogen"

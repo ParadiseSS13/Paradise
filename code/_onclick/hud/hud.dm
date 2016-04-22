@@ -127,6 +127,9 @@ datum/hud/New(mob/owner)
 		corgi_hud()
 
 	reload_fullscreen()
+	persistant_inventory_update()
+	mymob.update_action_buttons()
+	reorganize_alerts()
 	create_parallax()
 
 /client/var/list/spacebg = list()
@@ -253,7 +256,7 @@ var/area/global_space_area = null
 			hud_used.hidden_inventory_update()
 			hud_used.persistant_inventory_update()
 			update_action_buttons()
-			//hud_used.reorganize_alerts()
+			hud_used.reorganize_alerts()
 
 		else
 			to_chat(usr, "\red Inventory hiding is currently only supported for human mobs, sorry.")
