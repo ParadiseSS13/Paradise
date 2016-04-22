@@ -101,18 +101,6 @@
 	..()
 	health = Clamp(health, 0, maxHealth)
 
-/mob/living/simple_animal/handle_hud_icons()
-	..()
-	if(fire)
-		if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
-		else									fire.icon_state = "fire0"
-	if(oxygen)
-		if(oxygen_alert)						oxygen.icon_state = "oxy1"
-		else									oxygen.icon_state = "oxy0"
-	if(toxin)
-		if(toxins_alert)							toxin.icon_state = "tox1"
-		else									toxin.icon_state = "tox0"
-
 /mob/living/simple_animal/handle_hud_icons_health()
 	..()
 	if(healths && maxHealth > 0)
@@ -215,21 +203,21 @@
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = 0
-		oxygen_alert = 1
+		throw_alert("oxy", /obj/screen/alert/oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 		atmos_suitable = 0
-		oxygen_alert = 1
+		throw_alert("oxy", /obj/screen/alert/too_much_oxy)
 	else
-		oxygen_alert = 0
+		clear_alert("oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = 0
-		toxins_alert = 1
+		throw_alert("tox_in_air", /obj/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 		atmos_suitable = 0
-		toxins_alert = 1
+		throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
 	else
-		toxins_alert = 0
+		clear_alert("tox_in_air")
 
 	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
 		atmos_suitable = 0

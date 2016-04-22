@@ -776,7 +776,7 @@ var/list/sacrificed = list()
 		if (cultist.handcuffed)
 			cultist.handcuffed.loc = cultist.loc
 			cultist.handcuffed = null
-			cultist.update_inv_handcuffed()
+			cultist.update_handcuffed()
 		if (cultist.legcuffed)
 			cultist.legcuffed.loc = cultist.loc
 			cultist.legcuffed = null

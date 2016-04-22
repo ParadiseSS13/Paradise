@@ -182,9 +182,8 @@
 						if (istype(location, /turf/simulated))
 							location.add_blood_floor(M)
 			if("fire")
-				if (!(RESIST_COLD in M.mutations))
-					M.take_organ_damage(0, power)
-					to_chat(M, "Aargh it burns!")
+				M.take_organ_damage(0, power)
+				to_chat(M, "Aargh it burns!")
 		M.updatehealth()
 	add_fingerprint(user)
 	return 1

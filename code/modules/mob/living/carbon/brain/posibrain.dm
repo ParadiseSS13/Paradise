@@ -47,8 +47,6 @@
 	for(var/mob/dead/observer/O in player_list)
 		if(check_observer(O))
 			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</span>")
-//			if(ROLE_POSIBRAIN in O.client.prefs.be_special) The Guardian implementation looks cleaner
-//				question(O.client)
 
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)

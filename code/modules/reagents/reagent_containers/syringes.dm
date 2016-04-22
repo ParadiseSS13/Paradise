@@ -96,14 +96,12 @@
 						return
 
 
-					var/time = 30 //Injecting through a hardsuit takes longer due to needing to find a port.
+					var/time = 30
 					if(istype(target,/mob/living/carbon/human))
 						var/mob/living/carbon/human/H = T
 						if(H.species.flags & NO_BLOOD)
 							to_chat(usr, "<span class='warning'>You are unable to locate any blood.</span>")
 							return
-						if(H.wear_suit && istype(H.wear_suit,/obj/item/clothing/suit/space))
-							time = 60
 					if(target == user)
 						time = 0
 					else
@@ -185,18 +183,10 @@
 					return */
 
 			if(ismob(target) && target != user)
-				var/time = 30 //Injecting through a hardsuit takes longer due to needing to find a port.
-				if(istype(target,/mob/living/carbon/human))
-					if(H.wear_suit && istype(H.wear_suit,/obj/item/clothing/suit/space))
-						time = 60
-
 				for(var/mob/O in viewers(world.view, user))
-					if(time == 30)
-						O.show_message(text("\red <B>[] is trying to inject []!</B>", user, target), 1)
-					else
-						O.show_message(text("\red <B>[] begins hunting for an injection port on []'s suit!</B>", user, target), 1)
+					O.show_message(text("\red <B>[] is trying to inject []!</B>", user, target), 1)
 
-				if(!do_mob(user, target, time)) return
+				if(!do_mob(user, target, 30)) return
 
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message(text("\red [] injects [] with the syringe!", user, target), 1)

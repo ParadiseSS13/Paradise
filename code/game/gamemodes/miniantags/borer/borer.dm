@@ -36,6 +36,27 @@
 /mob/living/captive_brain/emote(var/message)
 	return
 
+/mob/living/captive_brain/resist_borer()
+	var/mob/living/simple_animal/borer/B = loc
+
+	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
+	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
+
+	spawn(rand(350,450) + B.host.brainloss)
+
+		if(!B || !B.controlling)
+			return
+
+		B.host.adjustBrainLoss(rand(5,10))
+		to_chat(src, "<span class='danger'>With an immense exertion of will, you regain control of your body!</span>")
+		to_chat(B.host, "<span class='danger'>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</span>")
+
+		B.detatch()
+
+		verbs -= /mob/living/carbon/proc/release_control
+		verbs -= /mob/living/carbon/proc/punish_host
+		verbs -= /mob/living/carbon/proc/spawn_larvae
+
 /mob/living/simple_animal/borer
 	name = "cortical borer"
 	real_name = "cortical borer"
