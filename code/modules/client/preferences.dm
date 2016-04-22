@@ -1187,8 +1187,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("hair")
 					if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Vulpkanin")
 						var/input = "Choose your character's hair colour:"
-						if(species == "Machine" && !("head" in rlimb_data))
-							input = "Choose your character's frame colour:"
 						var/new_hair = input(user, input, "Character Preference", rgb(r_hair, g_hair, b_hair)) as color|null
 						if(new_hair)
 							r_hair = hex2num(copytext(new_hair, 2, 4))
@@ -1201,7 +1199,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
 						if(species == "Machine") //Species that can use prosthetic heads.
 							var/obj/item/organ/external/head/H = new()
-							H.model = rlimb_data["head"]
+							if(S.name == "Bald")
+								valid_hairstyles[hairstyle] = S
+							if(!rlimb_data["head"]) //Handle situations where the head is default.
+								H.model = "Morpheus Cyberkinetics"
+							else
+								H.model = rlimb_data["head"]
 							var/datum/robolimb/robohead = all_robolimbs[H.model]
 							if(species in S.species_allowed)
 								if(robohead.is_monitor && (robohead.company in S.models_allowed)) //If the Machine character has the default Morpheus screen head or another screen head
@@ -1211,7 +1214,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							else
 								if(robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human hairstyles).
 									continue
-								else if(!robohead.is_monitor && ("Human" in S.species_allowed) || S.name == "Bald")
+								else if(!robohead.is_monitor && ("Human" in S.species_allowed))
 									valid_hairstyles[hairstyle] = S
 								continue
 						else
@@ -1266,7 +1269,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 							if(species == "Machine") //Species that can use prosthetic heads.
 								var/obj/item/organ/external/head/H = new()
-								H.model = rlimb_data["head"]
+								if(!rlimb_data["head"]) //Handle situations where the head is default.
+									H.model = "Morpheus Cyberkinetics"
+								else
+									H.model = rlimb_data["head"]
 								var/datum/robolimb/robohead = all_robolimbs[H.model]
 								if(robohead.is_monitor && M.name != "None") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
 									continue
@@ -1308,13 +1314,18 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/list/valid_facialhairstyles = list()
 					for(var/facialhairstyle in facial_hair_styles_list)
 						var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
+						if(S.name == "Shaved")
+							valid_facialhairstyles[facialhairstyle] = S
 						if(gender == MALE && S.gender == FEMALE)
 							continue
 						if(gender == FEMALE && S.gender == MALE)
 							continue
 						if(species == "Machine") //Species that can use prosthetic heads.
 							var/obj/item/organ/external/head/H = new()
-							H.model = rlimb_data["head"]
+							if(!rlimb_data["head"]) //Handle situations where the head is default.
+								H.model = "Morpheus Cyberkinetics"
+							else
+								H.model = rlimb_data["head"]
 							var/datum/robolimb/robohead = all_robolimbs[H.model]
 							if(species in S.species_allowed)
 								if(robohead.is_monitor) //If the Machine character has the default Morpheus screen head or another screen head and they're allowed to have the style, let them have it.
@@ -1323,7 +1334,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							else
 								if(robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human facial hairstyles).
 									continue
-								else if(!robohead.is_monitor && ("Human" in S.species_allowed) || S.name == "Shaved")
+								else if(!robohead.is_monitor && ("Human" in S.species_allowed))
 									valid_facialhairstyles[facialhairstyle] = S
 								continue
 						else
@@ -1503,10 +1514,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							var/robolimb_companies = list()
 							for(var/limb_type in typesof(/datum/robolimb)) //This loop populates a list of companies that offer the limb the user selected previously as one of their cybernetic products.
 								R = new limb_type()
-								if(!R.unavailable_at_chargen)
-									if(limb in R.parts) //Ensures users can only choose companies that offer the parts they want.
-										if(R.has_subtypes) //Ensures singular models get added to the list as well companies that offer more than one model.
-											robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
+								if(!R.unavailable_at_chargen && (limb in R.parts) && R.has_subtypes) //Ensures users can only choose companies that offer the parts they want, that singular models get added to the list as well companies that offer more than one model, and...
+									robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
 							choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in robolimb_companies //Choose from a list of companies that offer the part the user wants.
