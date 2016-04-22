@@ -242,5 +242,3 @@
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
 	var/list/permanent_huds = list()
-	
-	var/atom/movable/movable_container

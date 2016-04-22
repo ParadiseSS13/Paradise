@@ -19,8 +19,6 @@
 	var/area/areaMaster
 
 	var/auto_init = 1
-	
-	var/list/contents_mobs = list() // This list is maintained by /mob/proc/update_movable_container(), called by /mob/proc/Life()
 
 /atom/movable/New()
 	. = ..()
@@ -91,7 +89,7 @@
 			if(loc == newloc) //Remove this check and people can accelerate. Not opening that can of worms just yet.
 				newtonian_move(last_move)
 
-	for(var/mob/M in contents_mobs)
+	for(var/mob/M in get_mobs_in_contents())
 		if(M.hud_used)
 			M.hud_used.update_parallax()
 
@@ -136,7 +134,7 @@
 	for(var/datum/light_source/L in light_sources)
 		L.source_atom.update_light()
 	
-	for(var/mob/M in contents_mobs) // Update parallax of contents
+	for(var/mob/M in get_mobs_in_contents()) // Update parallax of contents
 		if(M.hud_used)
 			M.hud_used.update_parallax()
 

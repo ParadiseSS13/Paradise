@@ -154,18 +154,8 @@
 //	handle_typing_indicator()
 //	if(organStructure)
 //		organStructure.ProcessOrgans()
-	update_movable_container()
 	return
 
-/mob/proc/update_movable_container()
-	var/atom/movable/M = src
-	while(istype(M.loc, /atom/movable))
-		M = M.loc
-	if(M != movable_container)
-		if(movable_container)
-			movable_container.contents_mobs -= src
-		M.contents_mobs += src
-		movable_container = M
 
 /mob/proc/restrained()
 	return
