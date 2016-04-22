@@ -190,112 +190,217 @@
 			piece.flags &= ~(STOPSPRESSUREDMAGE|AIRTIGHT)
 	update_icon(1)
 
-/obj/item/weapon/rig/proc/toggle_seals(var/mob/living/carbon/human/M, var/mob/living/user, var/instant)
-
-	if(sealing) return
-
-	if(!check_power_cost(M, 1)) //costs tiny amount of power to unseal/seal
+/obj/item/weapon/rig/proc/seal(mob/living/user)
+	if(sealing)
 		return 0
 
-	deploy(M, instant)
+	if(!wearer || !user)
+		return
 
-	var/seal_target = (flags & NODROP)
-	var/failed_to_seal
+	var/sealed = (flags & NODROP)
+	if(sealed)
+		to_chat(user, "<span class='danger'>\The [src] is already sealed!</span>")
+		return 0
 
-	flags |= NODROP // No removing the suit while unsealing.
-	sealing = 1
+	if(!check_power_cost(user, 1)) //need power to seal the suit
+		return 0
 
-	if(!seal_target && !suit_is_deployed())
-		M.visible_message("<span class='danger'>[M]'s suit flashes an error light.</span>","<span class='danger'>Your suit flashes an error light. It can't function properly without being fully deployed.</span>")
-		failed_to_seal = 1
+	var/failed_to_seal = FALSE
+
+	if(!suit_is_deployed())
+		to_chat(user, "<span class='danger'>\The [src] cannot seal, as it is not fully deployed!</span>")
+		return 0
+
+	flags |= NODROP
+	sealing = TRUE
+
+	to_chat(user, "<span class='notice'>\The [src] begins to tighten it's seals.</span>")
+	wearer.visible_message("<span class='notice'>\The [wearer]'s suit emits a quiet hum as it begins to tighten it's seals.</span>",
+					  	   "<span class='notice'>With a quiet hum, your suit begins to seal.")
+
+	if(seal_delay && !do_after(user, seal_delay, target = wearer))
+		to_chat(user, "<span class='warning'>You must remain still to seal \the [src]!</span>")
+		failed_to_seal = TRUE
 
 	if(!failed_to_seal)
+		deploy(user)
 
-		if(!instant)
-			M.visible_message("<font color='blue'>[M]'s suit emits a quiet hum as it begins to adjust its seals.</font>","<font color='blue'>With a quiet hum, the suit begins running checks and adjusting components.</font>")
-			if(seal_delay && !do_after(user, seal_delay, target = M))
-				if(user)
-					to_chat(user, "<span class='warning'>You must remain still while the suit is adjusting the components.</span>")
-				failed_to_seal = 1
+		var/list/pieces_data = list(list(wearer.shoes, boots, "boots", boot_type),
+									list(wearer.gloves, gloves, "gloves", glove_type),
+									list(wearer.head, helmet, "helmet", helm_type),
+									list(wearer.wear_suit, chest, "chest", chest_type))
 
-		if(!M)
-			failed_to_seal = 1
-		else
-			for(var/list/piece_data in list(list(M.shoes,boots,"boots",boot_type),list(M.gloves,gloves,"gloves",glove_type),list(M.head,helmet,"helmet",helm_type),list(M.wear_suit,chest,"chest",chest_type)))
+		for(var/list/piece_data in pieces_data)
+			var/obj/item/user_piece = piece_data[1]
+			var/obj/item/correct_piece = piece_data[2]
+			var/msg_type = piece_data[3]
+			var/piece_type = piece_data[4]
 
-				var/obj/item/piece = piece_data[1]
-				var/obj/item/compare_piece = piece_data[2]
-				var/msg_type = piece_data[3]
-				var/piece_type = piece_data[4]
+			if(!user_piece || !piece_type)
+				continue
 
-				if(!piece || !piece_type)
-					continue
+			if(user_piece != correct_piece)
+				to_chat(user, "<span class='danger'>\The [user_piece] is blocking \the [src] from deploying.</span>")
+				failed_to_seal = TRUE
 
-				if(!istype(M) || !istype(piece) || !istype(compare_piece) || !msg_type)
-					if(M)
-						to_chat(M, "<span class='warning'>You must remain still while the suit is adjusting the components.</span>")
-					failed_to_seal = 1
-					break
+			if(seal_delay && !do_after(user, seal_delay, needhand = 0, target = wearer))
+				to_chat(user, "<span class='warning'>You must remain still to seal \the [src]!</span>")
+				failed_to_seal = TRUE
 
-				if(!failed_to_seal && M.back == src && piece == compare_piece)
+			if(failed_to_seal)
+				break
 
-					if(seal_delay && !instant && !do_after(user, seal_delay, needhand = 0, target = M))
-						failed_to_seal = 1
+			correct_piece.icon_state = "[initial(icon_state)]_sealed"
+			switch(msg_type)
+				if("boots")
+					to_chat(wearer, "<font color='blue'>\The [correct_piece] seal around your feet.</font>")
+					if(user != wearer)
+						to_chat(user, "<span class='notice'>\The [correct_piece] has been sealed.</span>")
+					wearer.update_inv_shoes()
+				if("gloves")
+					to_chat(wearer, "<font color='blue'>\The [correct_piece] tighten around your fingers and wrists.</font>")
+					if(user != wearer)
+						to_chat(user, "<span class='notice'>\The [correct_piece] has been sealed.</span>")
+					wearer.update_inv_gloves()
+				if("chest")
+					to_chat(wearer, "<font color='blue'>\The [correct_piece] cinches tight again your chest.</font>")
+					if(user != wearer)
+						to_chat(user, "<span class='notice'>\The [correct_piece] has been sealed.</span>")
+					wearer.update_inv_wear_suit()
+				if("helmet")
+					to_chat(wearer, "<font color='blue'>\The [correct_piece] hisses closed.</font>")
+					if(user != wearer)
+						to_chat(user, "<span class='notice'>\The [correct_piece] has been sealed.</span>")
+					wearer.update_inv_head()
+					if(helmet)
+						helmet.update_light(wearer)
 
-					piece.icon_state = "[initial(icon_state)][!seal_target ? "_sealed" : ""]"
-					switch(msg_type)
-						if("boots")
-							to_chat(M, "<font color='blue'>\The [piece] [!seal_target ? "seal around your feet" : "relax their grip on your legs"].</font>")
-							M.update_inv_shoes()
-						if("gloves")
-							to_chat(M, "<font color='blue'>\The [piece] [!seal_target ? "tighten around your fingers and wrists" : "become loose around your fingers"].</font>")
-							M.update_inv_gloves()
-						if("chest")
-							to_chat(M, "<font color='blue'>\The [piece] [!seal_target ? "cinches tight again your chest" : "releases your chest"].</font>")
-							M.update_inv_wear_suit()
-						if("helmet")
-							to_chat(M, "<font color='blue'>\The [piece] hisses [!seal_target ? "closed" : "open"].</font>")
-							M.update_inv_head()
-							if(helmet)
-								helmet.update_light(wearer)
+			correct_piece.armor["bio"] = 100
 
-					//sealed pieces become airtight, protecting against diseases
-					if (!seal_target)
-						piece.armor["bio"] = 100
-					else
-						piece.armor["bio"] = src.armor["bio"]
-
-				else
-					failed_to_seal = 1
-
-		if((M && !(istype(M) && M.back == src) && !istype(M,/mob/living/silicon)) || (!seal_target && !suit_is_deployed()))
-			failed_to_seal = 1
-
-	sealing = null
+	sealing = FALSE
 
 	if(failed_to_seal)
-		for(var/obj/item/piece in list(helmet,boots,gloves,chest))
-			if(!piece) continue
-			piece.icon_state = "[initial(icon_state)][!seal_target ? "" : "_sealed"]"
-		if(seal_target)
-			flags |= NODROP
-		else
-			flags &= ~NODROP
+		for(var/obj/item/piece in list(helmet, boots, gloves, chest))
+			if(!piece)
+				continue
+			piece.icon_state = "[initial(icon_state)]"
+		flags &= ~NODROP
 		if(airtight)
 			update_component_sealed()
 		update_icon(1)
 		return 0
 
-	// Success!
-	if(seal_target)
-		flags &= ~NODROP
-	else
-		flags |= NODROP
-	to_chat(M, "<font color='blue'><b>Your entire suit [!(flags & NODROP) ? "loosens as the components relax" : "tightens around you as the components lock into place"].</b></font>")
+	if(user != wearer)
+		to_chat(user, "<span class='notice'>\The [src] has been loosened.</span>")
+	to_chat(wearer, "<span class='notice'>Your entire suit tightens around you as the components lock into place.</span>")
+	if(airtight)
+		update_component_sealed()
+	update_icon(1)
 
-	if(!(flags & NODROP))
-		for(var/obj/item/rig_module/module in installed_modules)
-			module.deactivate()
+/obj/item/weapon/rig/proc/unseal(mob/living/user)
+	if(sealing)
+		return 0
+
+	if(!wearer || !user)
+		return
+
+	var/sealed = (flags & NODROP)
+	if(!sealed)
+		to_chat(user, "<span class='danger'>\The [src] is already unsealed!</span>")
+		return 0
+
+	sealing = TRUE
+
+	var/failed_to_seal = FALSE
+
+	if(!suit_is_deployed())
+		to_chat(user, "<span class='danger'>\The [src] cannot unseal, as it is not fully deployed!</span>")
+		failed_to_seal = TRUE
+
+	if(!failed_to_seal)
+		if(user != wearer)
+			to_chat(user, "<span class='notice'>\The [src] begins to loosen it's seals.</span>")
+		wearer.visible_message("<span class='notice'>\The [wearer]'s suit emits a quiet hum as it begins to loosen it's seals.</span>",
+						  	   "<span class='notice'>With a quiet hum, your suit begins to unseal.")
+
+		if(seal_delay && !do_after(user, seal_delay, target = wearer))
+			to_chat(user, "<span class='warning'>You must remain still to unseal \the [src]!</span>")
+			failed_to_seal = TRUE
+
+		if(!failed_to_seal)
+			var/list/pieces_data = list(list(wearer.shoes, boots, "boots", boot_type),
+										list(wearer.gloves, gloves, "gloves", glove_type),
+										list(wearer.head, helmet, "helmet", helm_type),
+										list(wearer.wear_suit, chest, "chest", chest_type))
+
+			for(var/list/piece_data in pieces_data)
+				var/obj/item/user_piece = piece_data[1]
+				var/obj/item/correct_piece = piece_data[2]
+				var/msg_type = piece_data[3]
+				var/piece_type = piece_data[4]
+
+				if(!correct_piece || !piece_type)
+					continue
+
+				if(user_piece != correct_piece)
+					to_chat(user, "<span class='danger'>\The [user_piece] is blocking \the [src] from deploying.</span>")
+					failed_to_seal = TRUE
+
+				if(seal_delay && !do_after(user, seal_delay, needhand = 0, target = wearer))
+					to_chat(user, "<span class='warning'>You must remain still to unseal \the [src]!</span>")
+					failed_to_seal = TRUE
+
+				if(failed_to_seal)
+					break
+
+				correct_piece.icon_state = "[initial(icon_state)]"
+				switch(msg_type)
+					if("boots")
+						to_chat(wearer, "<font color='blue'>\The [correct_piece] relax their grip on your legs.</font>")
+						if(user != wearer)
+							to_chat(user, "<span class='notice'>\The [correct_piece] has been unsealed.</span>")
+						wearer.update_inv_shoes()
+					if("gloves")
+						to_chat(wearer, "<font color='blue'>\The [correct_piece] become loose around your fingers.</font>")
+						if(user != wearer)
+							to_chat(user, "<span class='notice'>\The [correct_piece] has been unsealed.</span>")
+						wearer.update_inv_gloves()
+					if("chest")
+						to_chat(wearer, "<font color='blue'>\The [correct_piece] releases your chest.</font>")
+						if(user != wearer)
+							to_chat(user, "<span class='notice'>\The [correct_piece] has been unsealed.</span>")
+						wearer.update_inv_wear_suit()
+					if("helmet")
+						to_chat(wearer, "<font color='blue'>\The [correct_piece] hisses open.</font>")
+						if(user != wearer)
+							to_chat(user, "<span class='notice'>\The [correct_piece] has been unsealed.</span>")
+						wearer.update_inv_head()
+						if(helmet)
+							helmet.update_light(wearer)
+
+				correct_piece.armor["bio"] = armor["bio"]
+
+	sealing = FALSE
+
+	if(failed_to_seal)
+		for(var/obj/item/piece in list(helmet, boots, gloves, chest))
+			if(!piece)
+				continue
+			piece.icon_state = "[initial(icon_state)]_sealed"
+		if(airtight)
+			update_component_sealed()
+		update_icon(1)
+		return 0
+
+	if(user != wearer)
+		to_chat(user, "<span class='notice'>\The [src] has been unsealed.</span>")
+	to_chat(wearer, "<span class='notice'>Your entire suit loosens as the components relax.</span>")
+
+	flags &= ~NODROP
+
+	for(var/obj/item/rig_module/module in installed_modules)
+		module.deactivate()
+
 	if(airtight)
 		update_component_sealed()
 	update_icon(1)
@@ -310,7 +415,6 @@
 			piece.flags |= AIRTIGHT
 
 /obj/item/weapon/rig/process()
-
 	// If we've lost any parts, grab them back.
 	var/mob/living/M
 	for(var/obj/item/piece in list(gloves,boots,helmet,chest))
@@ -367,7 +471,6 @@
 		cell.use(module.process()*10)
 
 /obj/item/weapon/rig/proc/check_power_cost(var/mob/living/user, var/cost, var/use_unconcious, var/obj/item/rig_module/mod, var/user_is_ai)
-
 	if(!istype(user))
 		return 0
 
@@ -524,7 +627,6 @@
 
 	return 1
 
-//TODO: Fix Topic vulnerabilities for malfunction and AI override.
 /obj/item/weapon/rig/Topic(href,href_list)
 	if(!check_suit_access(usr))
 		return 0
@@ -532,11 +634,13 @@
 	if(href_list["toggle_piece"])
 		if(ishuman(usr) && (usr.stat || usr.stunned || usr.lying))
 			return 0
-		toggle_piece(href_list["toggle_piece"], wearer, user = usr)
+		toggle_piece(href_list["toggle_piece"], usr)
 	else if(href_list["toggle_seals"])
-		toggle_seals(wearer, usr)
+		if(flags & NODROP)
+			unseal(usr)
+		else
+			seal(usr)
 	else if(href_list["interact_module"])
-
 		var/module_index = text2num(href_list["interact_module"])
 
 		if(module_index > 0 && module_index <= installed_modules.len)
@@ -559,7 +663,7 @@
 		locked = !locked
 
 	usr.set_machine(src)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	return 0
 
 /obj/item/weapon/rig/proc/notify_ai(var/message)
@@ -570,8 +674,11 @@
 			if(ai && ai.client && !ai.stat)
 				to_chat(ai, "[message]")
 
-/obj/item/weapon/rig/equipped(mob/living/carbon/human/M)
+/obj/item/weapon/rig/equipped(mob/living/carbon/human/M, slot)
 	..()
+	if(!istype(M) || slot != slot_back)
+		return //we don't care about picking up/nonhumans
+
 	spawn(1) //equipped() is called BEFORE the item is actually set as the slot
 
 		if(seal_delay > 0 && istype(M) && M.back == src)
@@ -588,115 +695,108 @@
 			wearer.wearing_rig = src
 			update_icon()
 
-/obj/item/weapon/rig/proc/toggle_piece(var/piece, var/mob/living/carbon/human/H, var/deploy_mode, var/force, var/mob/living/user)
+/obj/item/weapon/rig/proc/toggle_piece(var/piece, var/mob/living/user, var/deploy_mode, var/force)
+	if(!istype(wearer) || wearer.back != src)
+		if(force) //can only force retracting sorry
+			for(var/obj/item/uneq_piece in list(helmet, gloves, boots, chest))
+				if(uneq_piece)
+					if(isliving(uneq_piece.loc))
+						var/mob/living/L = uneq_piece.loc
+						L.unEquip(uneq_piece, 1)
+					uneq_piece.flags &= ~NODROP
+					uneq_piece.forceMove(src)
+		return 0
 
-	if(!force) //forces the hardsuit to ignore most checks, as the suit being dropped should retract all pieces regardless of power status
-		if(sealing || !cell || !cell.charge) //or else you have issues with shit getting stuck
-			return
+	if(sealing || !cell || !cell.charge)
+		return 0
 
-		if(!istype(wearer) || !wearer.back == src)
-			return
-
-		if(usr == wearer && (usr.stat||usr.paralysis||usr.stunned)) // If the usr isn't wearing the suit it's probably an AI.
-			return
+	if(user == wearer && user.incapacitated()) // If the user isn't wearing the suit it's probably an AI.
+		return 0
 
 	var/obj/item/check_slot
 	var/equip_to
 	var/obj/item/use_obj
 
-	if(!H)
-		return
-
 	switch(piece)
 		if("helmet")
 			equip_to = slot_head
 			use_obj = helmet
-			check_slot = H.head
+			check_slot = wearer.head
 		if("gauntlets")
 			equip_to = slot_gloves
 			use_obj = gloves
-			check_slot = H.gloves
+			check_slot = wearer.gloves
 		if("boots")
 			equip_to = slot_shoes
 			use_obj = boots
-			check_slot = H.shoes
+			check_slot = wearer.shoes
 		if("chest")
 			equip_to = slot_wear_suit
 			use_obj = chest
-			check_slot = H.wear_suit
+			check_slot = wearer.wear_suit
 
 	if(use_obj)
-		if(check_slot == use_obj && deploy_mode != ONLY_DEPLOY)
-
-			var/mob/living/carbon/human/holder
-
-			if(use_obj)
-				holder = use_obj.loc
-				if(istype(holder))
-					if(use_obj && check_slot == use_obj)
-						to_chat(H, "<font color='blue'><b>Your [use_obj.name] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.</b></font>")
-						use_obj.flags &= ~NODROP
-						holder.unEquip(use_obj, 1)
-						use_obj.forceMove(src)
-
-		else if (deploy_mode != ONLY_RETRACT)
-			if(check_slot)
-				if(check_slot != use_obj)
-					to_chat(H, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
+		if(check_slot == use_obj && deploy_mode != ONLY_DEPLOY) //user is wearing it, retract it if not forced to deploy
+			if((flags & NODROP) && equip_to != slot_head && !force) //you can only retract the helmet if the suit isn't unsealed
+				to_chat(user, "<span class='warning'>You can't retract \the [use_obj] while the suit is sealed!</span>")
 				return
+
+			var/mob/living/to_strip
+			if(wearer)
+				to_strip = wearer
+			else if(isliving(use_obj.loc))
+				to_strip = use_obj.loc
+
+			if(to_strip)
+				to_strip.unEquip(use_obj, 1)
+
+			use_obj.flags &= ~NODROP
+			use_obj.forceMove(src)
+			if(wearer)
+				to_chat(wearer, "<span class='notice'>Your [use_obj] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.")
+
+		else if(deploy_mode != ONLY_RETRACT)
+			if(check_slot && check_slot != use_obj)
+				to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
+				return
+			use_obj.forceMove(wearer)
+			use_obj.flags &= ~NODROP
+			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))
+				use_obj.forceMove(src)
 			else
-				use_obj.forceMove(H)
-				use_obj.flags &= ~NODROP
-				if(!H.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))
-					use_obj.forceMove(src)
-				else
-					to_chat(H, "<span class='notice'>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</span>")
-					use_obj.flags |= NODROP
+				if(wearer)
+					to_chat(wearer, "<span class='notice'>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</span>")
+				use_obj.flags |= NODROP
 
 	if(piece == "helmet" && helmet)
-		helmet.update_light(H)
+		helmet.update_light(wearer)
 
-/obj/item/weapon/rig/proc/deploy(mob/M,var/sealed, mob/user)
+/obj/item/weapon/rig/proc/deploy(mob/user)
+	if(!wearer || !user)
+		return 0
 
-	var/mob/living/carbon/human/H = M
+	if(flags & NODROP)
+		if(wearer.head && wearer.head != helmet)
+			to_chat(user, "<span class='danger'>\The [wearer.head] is blocking \the [src] from deploying!</span>")
+			return 0
+		if(wearer.gloves && wearer.gloves != gloves)
+			to_chat(user, "<span class='danger'>\The [wearer.gloves] is preventing \the [src] from deploying!</span>")
+			return 0
+		if(wearer.shoes && wearer.shoes != boots)
+			to_chat(user, "<span class='danger'>\The [wearer.shoes] is preventing \the [src] from deploying!</span>")
+			return 0
+		if(wearer.wear_suit && wearer.wear_suit != chest)
+			to_chat(user, "<span class='danger'>\The [wearer.wear_suit] is preventing \the [src] from deploying!</span>")
+			return 0
 
-	if(!H || !istype(H)) return
 
-	if(H.back != src)
-		return
-
-	if(sealed)
-		if(H.head)
-			var/obj/item/garbage = H.head
-			H.unEquip(garbage)
-			H.head = null
-			qdel(garbage)
-
-		if(H.gloves)
-			var/obj/item/garbage = H.gloves
-			H.unEquip(garbage)
-			H.gloves = null
-			qdel(garbage)
-
-		if(H.shoes)
-			var/obj/item/garbage = H.shoes
-			H.unEquip(garbage)
-			H.shoes = null
-			qdel(garbage)
-
-		if(H.wear_suit)
-			var/obj/item/garbage = H.wear_suit
-			H.unEquip(garbage)
-			H.wear_suit = null
-			qdel(garbage)
-
-	for(var/piece in list("helmet","gauntlets","chest","boots"))
-		toggle_piece(piece, wearer, ONLY_DEPLOY, user = user)
+	for(var/piece in list("helmet", "gauntlets", "chest", "boots"))
+		toggle_piece(piece, user, ONLY_DEPLOY)
 
 /obj/item/weapon/rig/dropped(var/mob/user)
 	..()
 	for(var/piece in list("helmet","gauntlets","chest","boots"))
-		toggle_piece(piece, wearer, ONLY_RETRACT, 1, user = user)
+		toggle_piece(piece, user, ONLY_RETRACT, 1)
 	if(wearer)
 		wearer.wearing_rig = null
 		wearer = null

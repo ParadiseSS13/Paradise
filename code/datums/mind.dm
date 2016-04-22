@@ -919,6 +919,7 @@
 					if(vampire)
 						vampire.remove_vampire_powers()
 						qdel(vampire)
+						vampire = null
 					ticker.mode.update_vampire_icons_removed(src)
 					to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>")
 					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
