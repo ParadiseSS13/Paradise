@@ -353,6 +353,13 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	update_vampire_icons_removed(vampire_mind)
 //	to_chat(world, "Removed [vampire_mind.current.name] from vampire shit")
 	to_chat(vampire_mind.current, "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>")
+	if(vampire_mind.current.hud_used)
+		var/datum/hud/H = vampire_mind.current.hud_used
+		if(H.vampire_blood_display)
+			H.static_inventory -= H.vampire_blood_display
+			qdel(H.vampire_blood_display)
+			H.vampire_blood_display = null
+
 
 /datum/vampire/proc/check_sun()
 	var/ax = owner.x
@@ -375,7 +382,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(owner.hud_used)
 		var/datum/hud/hud = owner.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_hud()
+			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display.name = "Usable Blood"
+			hud.vampire_blood_display.icon_state = "power_display"
+			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
+			hud.static_inventory += hud.vampire_blood_display
+			hud.show_hud(hud.hud_version)
 		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
 	if(istype(owner.loc, /turf/space))

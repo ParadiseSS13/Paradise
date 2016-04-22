@@ -8,11 +8,11 @@
 */
 /obj/screen
 	name = ""
-	icon = 'icons/mob/screen1.dmi'
-	layer = 20.0
+	icon = 'icons/mob/screen_gen.dmi'
+	layer = 20
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
-	var/gun_click_time = -100 //I'm lazy.
+	var/datum/hud/hud = null
 
 /obj/screen/Destroy()
 	master = null
@@ -26,11 +26,6 @@
 	maptext_height = 480
 	maptext_width = 480
 
-
-/obj/screen/inventory
-	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
-
-
 /obj/screen/close
 	name = "close"
 
@@ -43,7 +38,6 @@
 
 /obj/screen/drop
 	name = "drop"
-	icon = 'icons/mob/screen1_midnight.dmi'
 	icon_state = "act_drop"
 	layer = 19
 
@@ -66,6 +60,7 @@
 /obj/screen/act_intent
 	name = "intent"
 	icon_state = "help"
+	screen_loc = ui_acti
 
 /obj/screen/act_intent/Click(location, control, params)
 	if(ishuman(usr))
@@ -85,9 +80,18 @@
 	else
 		usr.a_intent_change("right")
 
+/obj/screen/act_intent/alien
+	icon = 'icons/mob/screen_alien.dmi'
+	screen_loc = ui_acti
+
+/obj/screen/act_intent/robot
+	icon = 'icons/mob/screen_robot.dmi'
+	screen_loc = ui_borg_intents
+
 /obj/screen/internals
 	name = "toggle internals"
 	icon_state = "internal0"
+	screen_loc = ui_internal
 
 /obj/screen/internals/Click()
 	if(iscarbon(usr))
@@ -201,7 +205,6 @@
 
 /obj/screen/mov_intent
 	name = "run/walk toggle"
-	icon = 'icons/mob/screen1_midnight.dmi'
 	icon_state = "running"
 
 /obj/screen/mov_intent/Click()
@@ -226,7 +229,6 @@
 
 /obj/screen/pull
 	name = "stop pulling"
-	icon = 'icons/mob/screen1_Midnight.dmi'
 	icon_state = "pull"
 
 /obj/screen/pull/Click()
@@ -241,7 +243,7 @@
 
 /obj/screen/resist
 	name = "resist"
-	icon = 'icons/mob/screen1_midnight.dmi'
+	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_resist"
 	layer = 19
 
@@ -252,7 +254,7 @@
 
 /obj/screen/throw_catch
 	name = "throw/catch"
-	icon = 'icons/mob/screen1_midnight.dmi'
+	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_throw_off"
 
 /obj/screen/throw_catch/Click()
@@ -347,59 +349,126 @@
 	overlays.Cut()
 	overlays += image('icons/mob/zone_sel.dmi', "[selecting]")
 
-/obj/screen/gun
-	name = "gun"
-	icon = 'icons/mob/screen1.dmi'
-	master = null
-	dir = 2
+/obj/screen/zone_sel/alien
+	icon = 'icons/mob/screen_alien.dmi'
 
-/obj/screen/gun/mode
-		name = "Toggle Gun Mode"
-		icon_state = "gun0"
-		screen_loc = ui_gun_select
+/obj/screen/zone_sel/alien/update_icon(mob/user)
+	overlays.Cut()
+	overlays += image('icons/mob/screen_alien.dmi', "[selecting]")
 
-/obj/screen/gun/mode/Click()
-	usr.client.ToggleGunMode()
+/obj/screen/zone_sel/robot
+	icon = 'icons/mob/screen_robot.dmi'
 
-/obj/screen/gun/item
-		name = "Allow Item Use"
-		icon_state = "no_item0"
-		screen_loc = ui_gun1
-
-/obj/screen/gun/item/Click()
-	if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
-		return
-	if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
-		to_chat(usr, "You need your gun in your active hand to do that!")
-		return
-	usr.client.AllowTargetClick()
-	gun_click_time = world.time
-
+/obj/screen/inventory
+	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
+	layer = 19
 
 /obj/screen/inventory/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
 	if(world.time <= usr.next_move)
 		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
+	if(usr.incapacitated())
 		return 1
 	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
-	switch(name)
-		if("r_hand")
-			if(iscarbon(usr))
-				var/mob/living/carbon/C = usr
-				C.activate_hand("r")
-		if("l_hand")
-			if(iscarbon(usr))
-				var/mob/living/carbon/C = usr
-				C.activate_hand("l")
-		if("swap")
-			usr:swap_hand()
-		if("hand")
-			usr:swap_hand()
-		else
-			if(usr.attack_ui(slot_id))
-				usr.update_inv_l_hand(0)
-				usr.update_inv_r_hand(0)
+	if(usr.attack_ui(slot_id))
+		usr.update_inv_l_hand(0)
+		usr.update_inv_r_hand(0)
 	return 1
+
+/obj/screen/inventory/hand
+	var/image/active_overlay
+	var/image/handcuff_overlay
+
+/obj/screen/inventory/hand/update_icon()
+	..()
+	if(!active_overlay)
+		active_overlay = image("icon"=icon, "icon_state"="hand_active")
+	if(!handcuff_overlay)
+		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
+		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
+
+	overlays.Cut()
+
+	if(hud && hud.mymob)
+		if(iscarbon(hud.mymob))
+			var/mob/living/carbon/C = hud.mymob
+			if(C.handcuffed)
+				overlays += handcuff_overlay
+
+		if(slot_id == slot_l_hand && hud.mymob.hand)
+			overlays += active_overlay
+		else if(slot_id == slot_r_hand && !hud.mymob.hand)
+			overlays += active_overlay
+
+/obj/screen/inventory/hand/Click()
+	// At this point in client Click() code we have passed the 1/10 sec check and little else
+	// We don't even know if it's a middle click
+	if(world.time <= usr.next_move)
+		return 1
+	if(usr.incapacitated())
+		return 1
+	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+		return 1
+
+	if(ismob(usr))
+		var/mob/M = usr
+		switch(name)
+			if("right hand", "r_hand")
+				M.activate_hand("r")
+			if("left hand", "l_hand")
+				M.activate_hand("l")
+	return 1
+
+/obj/screen/swap_hand
+	layer = 19
+	name = "swap hand"
+
+/obj/screen/swap_hand/Click()
+	// At this point in client Click() code we have passed the 1/10 sec check and little else
+	// We don't even know if it's a middle click
+	if(world.time <= usr.next_move)
+		return 1
+
+	if(usr.incapacitated())
+		return 1
+
+	if(ismob(usr))
+		var/mob/M = usr
+		M.swap_hand()
+	return 1
+
+/obj/screen/healths
+	name = "health"
+	icon_state = "health0"
+	screen_loc = ui_health
+
+/obj/screen/healths/alien
+	icon = 'icons/mob/screen_alien.dmi'
+	screen_loc = ui_alien_health
+
+/obj/screen/healths/bot
+	icon = 'icons/mob/screen_bot.dmi'
+	screen_loc = ui_borg_health
+
+/obj/screen/healths/robot
+	icon = 'icons/mob/screen_robot.dmi'
+	screen_loc = ui_borg_health
+
+/obj/screen/healths/corgi
+	icon = 'icons/mob/screen_corgi.dmi'
+
+
+/obj/screen/healths/guardian
+	name = "summoner health"
+	icon = 'icons/mob/guardian.dmi'
+	icon_state = "base"
+	screen_loc = ui_health
+	mouse_opacity = 0
+
+/obj/screen/healthdoll
+	name = "health doll"
+	icon_state = "healthdoll_DEAD"
+	screen_loc = ui_healthdoll
+

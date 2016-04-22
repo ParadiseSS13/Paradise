@@ -288,8 +288,6 @@ var/global/list/default_medbay_channels = list(
 	if(!M.IsVocal())
 		return 0
 
-	M.last_target_click = world.time
-
 	/* Quick introduction:
 		This new radio system uses a very robust FTL signaling technology unoriginally
 		dubbed "subspace" which is somewhat similar to 'blue-space' but can't

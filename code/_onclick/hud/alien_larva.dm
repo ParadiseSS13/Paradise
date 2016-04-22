@@ -1,53 +1,35 @@
-/datum/hud/proc/larva_hud()
-	src.adding = list()
-	src.other = list()
+/mob/living/carbon/alien/larva/create_mob_hud()
+	if(client && !hud_used)
+		hud_used = new /datum/hud/larva(src)
+
+/datum/hud/larva/New(mob/owner)
+	..()
 
 	var/obj/screen/using
 
-	using = new /obj/screen/act_intent()
-	using.name = "act_intent"
-	using.dir = SOUTHWEST
-	using.icon = 'icons/mob/screen1_alien.dmi'
-	using.icon_state = (mymob.a_intent == "harm" ? "harm" : mymob.a_intent)
-	using.screen_loc = ui_acti
-	using.layer = 20
-	src.adding += using
+	using = new /obj/screen/act_intent/alien()
+	using.icon_state = mymob.a_intent
+	static_inventory += using
 	action_intent = using
 
 	using = new /obj/screen/mov_intent()
-	using.name = "mov_intent"
-	using.dir = SOUTHWEST
-	using.icon = 'icons/mob/screen1_alien.dmi'
+	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = (mymob.m_intent == "run" ? "running" : "walking")
-	using.screen_loc = ui_movi
-	using.layer = 20
-	src.adding += using
+	static_inventory += using
 	move_intent = using
 
-	mymob.healths = new /obj/screen()
-	mymob.healths.icon = 'icons/mob/screen1_alien.dmi'
-	mymob.healths.icon_state = "health0"
-	mymob.healths.name = "health"
-	mymob.healths.screen_loc = ui_alien_health
+	mymob.healths = new /obj/screen/healths/alien()
+	infodisplay += mymob.healths
 
 	nightvisionicon = new /obj/screen/alien/nightvision()
-	nightvisionicon.icon = 'icons/mob/screen1_alien.dmi'
-	nightvisionicon.icon_state = "nightvision1"
-	nightvisionicon.name = "night vision"
-	nightvisionicon.screen_loc = ui_alien_nightvision
+	infodisplay += nightvisionicon
 
 	mymob.pullin = new /obj/screen/pull()
-	mymob.pullin.icon = 'icons/mob/screen1_alien.dmi'
+	mymob.pullin.icon = 'icons/mob/screen_alien.dmi'
 	mymob.pullin.update_icon(mymob)
 	mymob.pullin.screen_loc = ui_pull_resist
+	hotkeybuttons += mymob.pullin
 
-	mymob.zone_sel = new /obj/screen/zone_sel()
-	mymob.zone_sel.icon = 'icons/mob/screen1_alien.dmi'
-	mymob.zone_sel.overlays.Cut()
-	mymob.zone_sel.overlays += image("icon" = 'icons/mob/zone_sel.dmi', "icon_state" = text("[]", mymob.zone_sel.selecting))
-
-	mymob.client.screen = list()
-
-	mymob.client.screen += list( mymob.zone_sel, mymob.healths, nightvisionicon, mymob.pullin) //, mymob.rest, mymob.sleep, mymob.mach )
-	mymob.client.screen += src.adding + src.other
-	mymob.client.screen += mymob.client.void
+	mymob.zone_sel = new /obj/screen/zone_sel/alien()
+	mymob.zone_sel.update_icon(mymob)
+	static_inventory += mymob.zone_sel

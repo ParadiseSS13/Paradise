@@ -871,7 +871,6 @@
 		return 0
 
 	// AIs are a bit slower than regular and ignore move intent.
-	wearer.last_move_intent = world.time + ai_controlled_move_delay
 	wearer_move_delay = world.time + ai_controlled_move_delay
 
 	var/tickcomp = 0
