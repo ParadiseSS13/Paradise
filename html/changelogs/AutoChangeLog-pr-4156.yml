@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds in mining drone upgrade modules to increase their health, combat capability, or reduce their ranged cooldowns"
-  - rscadd: "Adds in mining drone \"AI upgrade\" a sentience potion that only works on mining bots"
-  - tweak: "Mining bots should be less likely to shoot you when attacking hostile mobs"

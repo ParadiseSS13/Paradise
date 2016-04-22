@@ -1,7 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds portaseeder to R&D"
-  - tweak: "Scythes will conduct electricity now"
-  - tweak: "Mini hoes play a slice sound instead of bludgeon sound"
-  - tweak: "Plant analyzer properly has a description and origin tech"

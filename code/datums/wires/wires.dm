@@ -113,6 +113,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 			holder.add_hiddenprint(L)
 			if(href_list["cut"]) // Toggles the cut/mend status
 				if(istype(I, /obj/item/weapon/wirecutters))
+					playsound(holder, 'sound/items/Wirecutter.ogg', 20, 1)
 					var/colour = href_list["cut"]
 					CutWireColour(colour)
 				else
@@ -120,6 +121,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 
 			else if(href_list["pulse"])
 				if(istype(I, /obj/item/device/multitool))
+					playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
 					var/colour = href_list["pulse"]
 					PulseColour(colour)
 				else

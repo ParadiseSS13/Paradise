@@ -25,5 +25,4 @@
 		new /obj/item/clothing/mask/bandana/botany(src)
 		new /obj/item/weapon/minihoe(src)
 		new /obj/item/weapon/hatchet(src)
-		new /obj/item/weapon/bee_net(src)
 		return
