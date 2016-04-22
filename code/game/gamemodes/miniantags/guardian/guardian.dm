@@ -29,6 +29,8 @@
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
+	var/light_on = 0
+	var/luminosity_on = 3
 	var/mob/living/summoner
 	var/range = 10 //how far from the user the spirit can be
 	var/playstyle_string = "You are a standard Guardian. You shouldn't exist!"
@@ -202,13 +204,13 @@
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
-	if(!luminosity)
-		set_light(3)
+	if(!light_on)
+		set_light(luminosity_on)
 		to_chat(src, "<span class='notice'>You activate your light.</span>")
 	else
 		set_light(0)
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
-
+	light_on = !light_on
 
 //////////////////////////TYPES OF GUARDIANS
 
