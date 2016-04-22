@@ -153,18 +153,18 @@
 
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
 	if(locked)
-		user << "<span class='notice'>The crate is locked with a Deca-code lock.</span>"
+		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
 		var/input = input(usr, "Enter [codelen] digits.", "Deca-Code Lock", "") as text
 		if(in_range(src, user))
 			if (input == code)
-				user << "<span class='notice'>The crate unlocks!</span>"
+				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
 				locked = 0
 				overlays.Cut()
 				overlays += "securecrateg"
 			else if (input == null || length(input) != codelen)
-				user << "<span class='notice'>You leave the crate alone.</span>"
+				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
 			else
-				user << "<span class='warning'>A red light flashes.</span>"
+				to_chat(user, "<span class='warning'>A red light flashes.</span>")
 				lastattempt = replacetext(input, 0, "z")
 				attempts--
 				if(attempts == 0)
@@ -180,11 +180,11 @@
 		if(istype(W, /obj/item/weapon/card/emag))
 			boom(user)
 		if(istype(W, /obj/item/device/multitool))
-			user << "<span class='notice'>DECA-CODE LOCK REPORT:</span>"
+			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
 			if(attempts == 1)
-				user << "<span class='warning'>* Anti-Tamper Bomb will activate on next failed access attempt.</span>"
+				to_chat(user, "<span class='warning'>* Anti-Tamper Bomb will activate on next failed access attempt.</span>")
 			else
-				user << "<span class='notice'>* Anti-Tamper Bomb will activate after [src.attempts] failed access attempts.</span>"
+				to_chat(user, "<span class='notice'>* Anti-Tamper Bomb will activate after [src.attempts] failed access attempts.</span>")
 			if(lastattempt != null)
 				var/list/guess = list()
 				var/bulls = 0
@@ -199,7 +199,7 @@
 						++bulls
 					else if(a)
 						++cows
-				user << "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>"
+				to_chat(user, "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
 		else ..()
 	else ..()
 
@@ -210,7 +210,7 @@
 		..()
 
 /obj/structure/closet/crate/secure/loot/proc/boom(mob/user)
-	user << "<span class='danger'>The crate's anti-tamper system activates!</span>"
+	to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
 	for(var/atom/movable/AM in src)
 		qdel(AM)
 	var/turf/T = get_turf(src)
