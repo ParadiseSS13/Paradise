@@ -93,8 +93,8 @@ var/global/datum/prizes/global_prizes = new
 
 /datum/prize_item/foam_darts
 	name = "Pack of Foam Darts"
-	desc = "A refill pack of 10 foam darts."
-	typepath = /obj/item/weapon/storage/box/foam_darts
+	desc = "A refill pack with foam darts."
+	typepath = /obj/item/ammo_box/foambox
 	cost = 20
 
 /datum/prize_item/minigibber
@@ -174,8 +174,9 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/crossbow
 	name = "Foam Dart Crossbow"
 	desc = "A toy crossbow that fires foam darts."
-	typepath = /obj/item/toy/crossbow
+	typepath = /obj/item/weapon/gun/projectile/shotgun/toy/crossbow
 	cost = 100
+
 
 /datum/prize_item/toy_xeno
 	name = "Xeno Action Figure"
@@ -252,8 +253,9 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/tommygun
 	name = "Tommygun"
 	desc = "A replica tommygun that fires foam darts."
-	typepath = /obj/item/toy/crossbow/tommygun
+	typepath = /obj/item/weapon/gun/projectile/automatic/tommygun/toy
 	cost = 175
+
 
 /datum/prize_item/esword
 	name = "Toy Energy Sword"

@@ -279,19 +279,19 @@
 	//Suicide handling.
 	if (M == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
 		mouthshoot = 1
-		M.visible_message("\red [user] sticks their gun in their mouth, ready to pull the trigger...")
+		M.visible_message("<span class='warning'> [user] sticks their gun in their mouth, ready to pull the trigger...</span>")
 		if(!do_after(user, 40, target = M))
-			M.visible_message("\blue [user] decided life was worth living")
+			M.visible_message("<span class='warning'> [user] decided life was worth living</span>")
 			mouthshoot = 0
 			return
 		if (process_chambered())
-			user.visible_message("<span class = 'warning'>[user] pulls the trigger.</span>")
+			user.visible_message("<span class='warning'>[user] pulls the trigger.</span>")
 			if(silenced)
 				playsound(user, fire_sound, 10, 1)
 			else
 				playsound(user, fire_sound, 50, 1)
-			if(istype(in_chamber, /obj/item/projectile/lasertag))
-				user.show_message("<span class = 'warning'>You feel rather silly, trying to commit suicide with a toy.</span>")
+			if(istype(in_chamber, /obj/item/projectile/lasertag) || istype(in_chamber, /obj/item/projectile/bullet/reusable/foam_dart))
+				user.show_message("<span class='warning'>You feel rather silly, trying to commit suicide with a toy.</span>")
 				mouthshoot = 0
 				return
 			in_chamber.on_hit(M)
@@ -299,7 +299,7 @@
 				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
 				user.death()
 			else
-				to_chat(user, "<span class = 'notice'>Ow...</span>")
+				to_chat(user, "<span class='notice'>Ow...</span>")
 				user.apply_effect(110,STAMINA,0)
 			del(in_chamber)
 			mouthshoot = 0

@@ -16,15 +16,18 @@
 
 
 
+
+
 /obj/item/weapon/gun/projectile/New()
 	..()
-	magazine = new mag_type(src)
+	if (!magazine)
+		magazine = new mag_type(src)
 	chamber_round()
 	update_icon()
 	return
 
 
-/obj/item/weapon/gun/projectile/process_chambered(var/eject_casing = 1, var/empty_chamber = 1)
+/obj/item/weapon/gun/projectile/process_chambered(var/eject_casing = 1, var/empty_chamber = 1 )
 //	if(in_chamber)
 //		return 1
 

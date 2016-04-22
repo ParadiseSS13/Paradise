@@ -189,7 +189,7 @@
 "dJ" = (/obj/item/target/syndicate,/turf/simulated/floor/carpet,/area/awaymission)
 "dK" = (/obj/item/trash/candy,/turf/simulated/floor/carpet,/area/awaymission)
 "dL" = (/obj/item/toy/spinningtoy,/turf/simulated/floor/carpet,/area/awaymission)
-"dM" = (/obj/item/toy/crossbow,/turf/simulated/floor/carpet,/area/awaymission)
+"dM" = (/obj/item/weapon/gun/projectile/shotgun/toy/crossbow,/turf/simulated/floor/carpet,/area/awaymission)
 "dN" = (/obj/structure/barricade/wooden,/obj/structure/barricade/wooden,/turf/simulated/floor/carpet,/area/awaymission)
 "dO" = (/obj/machinery/door/airlock,/turf/simulated/floor/carpet,/area/awaymission)
 "dP" = (/obj/effect/decal/cleanable/blood/old,/turf/simulated/wall,/area/awaymission)
@@ -322,4 +322,3 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabReWeXbDbDbDbDbDeSeSeSbDbDbDbDeYeUeVaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZbRfabDeSeWeSbDbDeRbDbDfbfceSeTeUeVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZeNeMeHeIeNeLeLeLeNeMeHeIeNfdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
-
