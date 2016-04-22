@@ -1505,7 +1505,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								R = new limb_type()
 								if(!R.unavailable_at_chargen)
 									if(limb in R.parts) //Ensures users can only choose companies that offer the parts they want.
-										robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
+										if(R.has_subtypes) //Ensures singular models get added to the list as well companies that offer more than one model.
+											robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
 							choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in robolimb_companies //Choose from a list of companies that offer the part the user wants.
