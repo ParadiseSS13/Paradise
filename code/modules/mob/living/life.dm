@@ -155,6 +155,9 @@
 /mob/living/proc/handle_sleeping()
 	if(sleeping)
 		AdjustSleeping(-1)
+		throw_alert("asleep", /obj/screen/alert/asleep)
+	else
+		clear_alert("asleep")
 	return sleeping
 
 
@@ -193,10 +196,10 @@
 		return
 	if(blinded || eye_blind)
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		//throw_alert("blind", /obj/screen/alert/blind)
+		throw_alert("blind", /obj/screen/alert/blind)
 	else
 		clear_fullscreen("blind")
-		//clear_alert("blind")
+		clear_alert("blind")
 
 		if(disabilities & NEARSIGHTED)
 			overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
@@ -210,10 +213,10 @@
 
 		if(druggy)
 			overlay_fullscreen("high", /obj/screen/fullscreen/high)
-			//throw_alert("high", /obj/screen/alert/high)
+			throw_alert("high", /obj/screen/alert/high)
 		else
 			clear_fullscreen("high")
-			//clear_alert("high")
+			clear_alert("high")
 
 	if(machine)
 		if(!machine.check_eye(src))

@@ -121,7 +121,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, author, title, category, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
+	var/DBQuery/query = dbcon.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
 	query.Execute()
 
 	var/list/results=list()
@@ -132,8 +132,9 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 			"author"  =query.item[2],
 			"title"   =query.item[3],
 			"category"=query.item[4],
-			"ckey"    =query.item[5],
-			"flagged" =query.item[6]
+			"content" =query.item[5],
+			"ckey"    =query.item[6],
+			"flagged" =query.item[7]
 		))
 		results += CB
 		cached_books["[id]"]=CB

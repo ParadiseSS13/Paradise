@@ -81,6 +81,8 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/hand_blood_color
 
+	var/name_override //For temporary visible name changes
+
 	var/xylophone = 0 //For the spoooooooky xylophone cooldown
 
 	var/mob/remoteview_target = null

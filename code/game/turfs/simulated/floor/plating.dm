@@ -293,3 +293,11 @@
 /turf/simulated/floor/plasteel/airless/New()
 	..()
 	name = "floor"
+
+/turf/simulated/floor/plating/abductor
+	name = "alien floor"
+	icon_state = "alienpod1"
+
+/turf/simulated/floor/plating/abductor/New()
+	..()
+	icon_state = "alienpod[rand(1,9)]"

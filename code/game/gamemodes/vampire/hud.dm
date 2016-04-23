@@ -7,3 +7,11 @@
 	vampire_blood_display.layer = 20
 
 	mymob.client.screen += list(vampire_blood_display)
+
+/datum/hud/proc/remove_vampire_hud()
+	if(!vampire_blood_display)
+		return
+
+	mymob.client.screen -= list(vampire_blood_display)
+	qdel(vampire_blood_display)
+	vampire_blood_display = null

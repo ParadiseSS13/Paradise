@@ -239,12 +239,11 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(!get_ability(path))
 		force_add_ability(path)
 
-/datum/vampire/proc/remove_ability(path)
-	var/A = get_ability(path)
-	if(A)
-		powers -= A
-		owner.mind.spell_list.Remove(A)
-		qdel(A)
+/datum/vampire/proc/remove_ability(ability)
+	if(ability && (ability in powers))
+		powers -= ability
+		owner.mind.spell_list.Remove(ability)
+		qdel(ability)
 
 /mob/proc/make_vampire()
 	if(!mind)
@@ -263,6 +262,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 /datum/vampire/proc/remove_vampire_powers()
 	for(var/P in powers)
 		remove_ability(P)
+	if(owner.hud_used)
+		var/datum/hud/hud = owner.hud_used
+		if(hud.vampire_blood_display)
+			hud.remove_vampire_hud()
 	owner.alpha = 255
 
 /datum/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H)

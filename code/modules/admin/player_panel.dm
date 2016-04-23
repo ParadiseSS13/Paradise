@@ -515,6 +515,12 @@
 		if(ticker.mode.shadowling_thralls.len)
 			dat += check_role_table("Shadowling Thralls", ticker.mode.shadowling_thralls, src)
 
+		if(ticker.mode.abductors.len)
+			dat += check_role_table("Abductors", ticker.mode.abductors, src)
+
+		if(ticker.mode.abductees.len)
+			dat += check_role_table("Abductees", ticker.mode.abductees, src)
+
 		if(ticker.mode.vampires.len)
 			dat += check_role_table("Vampires", ticker.mode.vampires, src)
 
