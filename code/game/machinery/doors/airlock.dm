@@ -1087,7 +1087,7 @@ About the new airlock wires panel:
 					loseBackupPower()
 			if("bolts")
 				if(!isWireCut(AIRLOCK_WIRE_DOOR_BOLTS))
-					else if(activate)
+					if(activate)
 						lock()
 					else if(!activate)
 						unlock()
