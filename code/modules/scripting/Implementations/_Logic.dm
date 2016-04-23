@@ -269,7 +269,7 @@ proc/n_round(var/num)
 		var/rank = sanitize(R.fields["rank"])
 		var/real_rank = R.fields["real_rank"]
 		var/isactive = R.fields["p_stat"]
-		returned_list[++returned_list.len] = list("name"=name,"rank"=rank,"real_rank"=real_rank,"active"=isactive);
+		returned_list[++returned_list.len] = list("name"=name,"rank"=rank,"real_rank"=real_rank,"active"=isactive)
 	return returned_list
 
 /proc/n_replacetext(text, r, with)

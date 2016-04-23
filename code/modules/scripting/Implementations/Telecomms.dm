@@ -363,4 +363,4 @@
 			if (P.owner==recipient)
 				useMS.send_pda_message("[P.owner]", "[S.id] Automated Broadcast", message)
 				var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-				PM:notify("<b>Message from [S.id] (Automated Message), </b>\"[message]\" (<i>Unable to Reply</i>)", 0)
+				PM.notify("<b>Message from [S.id] (Automated Message), </b>\"[message]\" (<i>Unable to Reply</i>)", 0)

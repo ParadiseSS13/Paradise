@@ -1074,11 +1074,11 @@ About the new airlock wires panel:
 		var/activate = argslist[2]
 		switch(argslist[1])
 			if("idscan")
-				if(isWireCut(AIRLOCK_WIRE_IDSCAN))
-				else if(activate && aiDisabledIdScanner)
-					aiDisabledIdScanner = 0
-				else if(!activate && !aiDisabledIdScanner)
-					aiDisabledIdScanner = 1
+				if(!isWireCut(AIRLOCK_WIRE_IDSCAN))
+					if(activate && aiDisabledIdScanner)
+						aiDisabledIdScanner = 0
+					else if(!activate && !aiDisabledIdScanner)
+						aiDisabledIdScanner = 1
 			if("main_power")
 				if(!main_power_lost_until)
 					loseMainPower()
@@ -1086,50 +1086,50 @@ About the new airlock wires panel:
 				if(!backup_power_lost_until)
 					loseBackupPower()
 			if("bolts")
-				if(isWireCut(AIRLOCK_WIRE_DOOR_BOLTS))
-				else if(activate)
-					lock()
-				else if(!activate)
-					unlock()
+				if(!isWireCut(AIRLOCK_WIRE_DOOR_BOLTS))
+					else if(activate)
+						lock()
+					else if(!activate)
+						unlock()
 			if("electrify_temporary")
-				if(activate && isWireCut(AIRLOCK_WIRE_ELECTRIFY))
-				else if(!activate && electrified_until != 0)
-					electrify(0)
-				else if(activate)	//electrify door for 30 seconds
-					electrify(30)
+				if(!(activate && isWireCut(AIRLOCK_WIRE_ELECTRIFY)))
+					if(!activate && electrified_until != 0)
+						electrify(0)
+					else if(activate)	//electrify door for 30 seconds
+						electrify(30)
 			if("electrify_permanently")
-				if(isWireCut(AIRLOCK_WIRE_ELECTRIFY))
-				else if(!activate && electrified_until != 0)
-					electrify(0)
-				else if(activate)
-					electrify(-1)
+				if(!isWireCut(AIRLOCK_WIRE_ELECTRIFY))
+					if(!activate && electrified_until != 0)
+						electrify(0)
+					else if(activate)
+						electrify(-1)
 			if("open")
-				if(welded || locked)
-				else if(activate && density)
-					open()
-				else if(!activate && !density)
-					close()
+				if(!welded && !locked)
+					if(activate && density)
+						open()
+					else if(!activate && !density)
+						close()
 			if("safeties")
 				// Safeties!  We don't need no stinking safeties!
-				if (isWireCut(AIRLOCK_WIRE_SAFETY))
-				else if (!activate && safe)
-					safe = 0
-				else if (activate && !safe)
-					safe = 1
+				if (!isWireCut(AIRLOCK_WIRE_SAFETY))
+					if (!activate && safe)
+						safe = 0
+					else if (activate && !safe)
+						safe = 1
 			if("fast")
 				// Door speed control
-				if(isWireCut(AIRLOCK_WIRE_SPEED))
-				else if (activate && src.normalspeed)
-					normalspeed = 0
-				else if (!activate && !src.normalspeed)
-					normalspeed = 1
+				if(!isWireCut(AIRLOCK_WIRE_SPEED))
+					if (activate && src.normalspeed)
+						normalspeed = 0
+					else if (!activate && !src.normalspeed)
+						normalspeed = 1
 			if("bolt_lights")
 				// Bolt lights
-				if(src.isWireCut(AIRLOCK_WIRE_LIGHT))
-				else if (!activate && src.lights)
-					lights = 0
-				else if (activate && !src.lights)
-					lights = 1
+				if(!isWireCut(AIRLOCK_WIRE_LIGHT))
+					if (!activate && src.lights)
+						lights = 0
+					else if (activate && !src.lights)
+						lights = 1
 			if("emergency")
 				// Emergency access
 				if (!activate && emergency)
