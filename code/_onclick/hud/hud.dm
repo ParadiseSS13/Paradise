@@ -133,10 +133,9 @@ datum/hud/New(mob/owner)
 	create_parallax()
 
 /client/var/list/spacebg = list()
+/client/var/obj/screen/pmaster_whitespace/pmaster_whitespace
 
 var/list/parallax_on_clients = list()
-
-var/area/global_space_area = null
 
 /obj/screen/spacebg
 	var/offset_x = 0
@@ -149,26 +148,31 @@ var/area/global_space_area = null
 	layer = AREA_LAYER
 	plane = SPACE_LAYER_PLANE
 
+/obj/screen/pmaster_whitespace
+	plane = SPACE_TURF_PLANE
+	color = list(0, 0, 0, \
+				0, 0, 0, \
+				0, 0, 0, \
+				1, 1, 1) // This will cause space to be solid white
+	appearance_flags = PLANE_MASTER
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
-	if (C.prefs.space_parallax)
-		parallax_on_clients |= C
-	else
-		parallax_on_clients -= C
-	for(var/area/A in all_areas)
-		if(A.white_overlay)
-			if (C.prefs.space_parallax)
-				C.images |= A.white_overlay
-			else
-				C.images -= A.white_overlay
 	if(C.prefs.space_parallax)
 		for(var/obj/screen/spacebg/bgobj in C.spacebg)
 			C.screen |= bgobj
+		if(C.pmaster_whitespace)
+			C.screen |= C.pmaster_whitespace
 	else
 		for(var/obj/screen/spacebg/bgobj in C.spacebg)
 			C.screen -= bgobj
 			qdel(bgobj)
 			C.spacebg -= bgobj
+		if(C.pmaster_whitespace)
+			C.screen -= C.pmaster_whitespace
+			qdel(C.pmaster_whitespace)
+			C.pmaster_whitespace = null
 		return
 	if(!C.spacebg.len)
 		for(var/i in 0 to 3)
@@ -180,6 +184,8 @@ var/area/global_space_area = null
 			bgobj.screen_loc = "CENTER-7:[bgobj.offset_x],CENTER-7:[bgobj.offset_y]"
 			C.spacebg += bgobj
 			C.screen += bgobj
+		C.pmaster_whitespace = new
+		C.screen += C.pmaster_whitespace
 	update_parallax()
 
 /datum/hud/proc/update_parallax()

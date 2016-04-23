@@ -4,6 +4,7 @@
 	icon_state = "0"
 	dynamic_lighting = 0
 	luminosity = 1
+	plane = SPACE_TURF_PLANE
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
@@ -15,22 +16,7 @@
 
 /turf/space/New()
 	. = ..()
-	if(!global_space_area)
-		global_space_area = new /area/space()
-		global_space_area.white_overlay = image(loc = global_space_area, icon='icons/turf/space.dmi', icon_state="white")
-		global_space_area.white_overlay.plane = SPACE_WHITE_PLANE
-
-	if(istype(loc,/area/space))
-		global_space_area.contents += src
-	else
-		var/area/A = loc
-		if(!A.white_overlay)
-			A.white_overlay = image(loc=A, icon='icons/turf/space.dmi', icon_state="white")
-			A.white_overlay.plane = SPACE_WHITE_PLANE
-			for(var/client/C in parallax_on_clients)
-				C.images |= A.white_overlay
 	
-	plane = SPACE_TURF_PLANE
 	if(!istype(src, /turf/space/transit))
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()

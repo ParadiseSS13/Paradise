@@ -11,7 +11,6 @@
 								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
-	var/image/white_overlay
 	var/parallax_icon_state = "space"
 
 /area/New()
