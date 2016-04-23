@@ -564,6 +564,8 @@ Class Procs:
 /obj/machinery/proc/notify_subscribers(var/message)
 	spawn(0)
 		for(var/datum/server_machine_link/L in tcomms_subscribers)
+			if(!L.is_valid())
+				continue
 			var/obj/machinery/telecomms/server/S = L.server
 			var/datum/signal/signal = new
 			signal.data["message"] = message

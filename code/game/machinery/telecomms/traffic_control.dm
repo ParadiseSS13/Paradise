@@ -172,18 +172,28 @@
 		// Operations to linked machines!
 		for(var/datum/server_machine_link/L in SelectedServer.linked_machines)
 			var/obj/machinery/M = L.machine
-			dat += "<br>[M](\ref[M]) (Tag: [L.machine_tag]) "
-			if(L.subscribed)
-				dat += "<a href='?src=\ref[src];togglesubscribe=\ref[L]'>\[Unsubscribe\]</a>"
+			if(L.is_valid())
+				dat += "<br>[M](\ref[M]) (Tag: [L.machine_tag]) "
+				if(L.subscribed)
+					dat += "<a href='?src=\ref[src];togglesubscribe=\ref[L]'>\[Unsubscribe\]</a>"
+				else
+					dat += "<a href='?src=\ref[src];togglesubscribe=\ref[L]'>\[Subscribe\]</a>"
 			else
-				dat += "<a href='?src=\ref[src];togglesubscribe=\ref[L]'>\[Subscribe\]</a>"
+				dat += "<br><font color = #D70B00>INTERFACE ERROR</font> (Tag: [L.machine_tag])"
 			dat += " <a href='?src=\ref[src];unlink=\ref[L]'>\[Unlink\]</a>"
 
 		dat += "<br><br>Unlinked Machines:"
 		// Iterate through all the machines
-		for(var/obj/machinery/M in SelectedServer.loc.loc.contents)
-			if(M.tcomms_linkable && !(M in SelectedServer.linked_machines_refs))
-				dat += "<br>[M](\ref[M]) <a href='?src=\ref[src];linkmachine=\ref[M]'>\[Link\]</a>"
+		var/list/valid_z = list(SelectedServer.z)
+		for(var/obj/machinery/telecomms/hub/H in SelectedServer.get_links("/obj/machinery/telecomms/hub"))
+			for(var/obj/machinery/telecomms/relay/R in H.get_links("/obj/machinery/telecomms/relay"))
+				valid_z |= R.listening_level
+			for(var/obj/machinery/telecomms/m_relay/R in H.get_links("/obj/machinery/telecomms/m_relay"))
+				for(var/obj/machinery/M in R.loc.loc.contents)
+					if(M.stat & (NOPOWER|BROKEN|EMPED))
+						continue
+					if(M.tcomms_linkable && !(M in SelectedServer.linked_machines_refs))
+						dat += "<br>Relay [sanitize(R.id)]: [sanitize(M.name)](\ref[M]) <a href='?src=\ref[src];linkmachine=\ref[M];use_relay=\ref[R];use_hub=\ref[H]'>\[Link\]</a>"
 
 	var/datum/browser/popup = new(user, "traffic_control", "Telecommunication Traffic Control", 700, 500)
 	//codemirror
@@ -364,6 +374,10 @@
 
 	if(href_list["linkmachine"])
 		var/obj/machinery/M = locate(href_list["linkmachine"])
+		var/obj/machinery/telecomms/hub/H = locate(href_list["use_hub"])
+		var/obj/machinery/telecomms/m_relay/R = locate(href_list["use_relay"])
+		if(!istype(H) || !istype(R))
+			return // The 
 		var/machine_tag = input("Please input a tag for \the [M].", name, "\ref[M]")
 		if(..())
 			return
@@ -375,6 +389,8 @@
 			temp = "<font color = #D70B00>- FAILED: TAG IS ALREADY TAKEN -</font>"
 			return
 		var/datum/server_machine_link/L = new /datum/server_machine_link(M,SelectedServer,machine_tag)
+		L.hub = H
+		L.relay = R
 		SelectedServer.linked_machines += L
 		SelectedServer.linked_machines_by_tag[machine_tag] = L
 		SelectedServer.linked_machines_refs += M

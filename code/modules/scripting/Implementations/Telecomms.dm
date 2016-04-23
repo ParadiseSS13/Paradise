@@ -340,13 +340,9 @@
 	var/datum/server_machine_link/L = S.linked_machines_by_tag[machine_tag]
 	if(L == null)
 		return
+	if(!L.is_valid())
+		return
 	var/obj/machinery/M = L.machine
-
-	if(M.loc.loc != S.loc.loc)
-		return
-
-	if(!M.interact_offline && (M.stat & (NOPOWER|BROKEN)))
-		return
 
 	return M.server_interface(arglist)
 
