@@ -52,16 +52,16 @@
 				t_his = "her"
 				t_him = "her"
 
-	msg += "<EM>[src.name]</EM>"
+	msg += "<EM>[name]</EM>"
 
 	var/list/nospecies = list("Abductor", "Shadowling", "Neara", "Monkey", "Stok", "Farwa", "Wolpin") //species that won't show their race no matter what
 
-	if (skipjumpsuit && skipface || (src.species.name in nospecies)) //either obscured or on the nospecies list
+	if (skipjumpsuit && skipface || (species.name in nospecies)) //either obscured or on the nospecies list
 		msg += "!\n"	//omit the species when examining
-	else if (src.species.name == "Slime People") //snowflakey because Slime People are defined as a plural
+	else if (species.name == "Slime People") //snowflakey because Slime People are defined as a plural
 		msg += ", a Slime Person!\n"
 	else
-		msg += ", a [src.species]!\n"
+		msg += ", \a [lowertext(species.name)]!\n"
 
 	//uniform
 	if(w_uniform && !skipjumpsuit)
