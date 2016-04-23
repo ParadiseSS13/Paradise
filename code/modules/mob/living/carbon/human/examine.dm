@@ -33,7 +33,7 @@
 
 	var/msg = "<span class='info'>*---------*\nThis is "
 
-	if( skipjumpsuit && skipface ) //big suits/masks/helmets make it hard to tell their gender
+	if(skipjumpsuit && skipface) //big suits/masks/helmets make it hard to tell their gender
 		t_He = "They"
 		t_his = "their"
 		t_him = "them"
@@ -52,7 +52,16 @@
 				t_his = "her"
 				t_him = "her"
 
-	msg += "<EM>[src.name]</EM>!\n"
+	msg += "<EM>[src.name]</EM>"
+
+	var/list/nospecies = list("Abductor", "Shadowling", "Neara", "Monkey", "Stok", "Farwa", "Wolpin") //species that won't show their race no matter what
+
+	if (skipjumpsuit && skipface || (src.species.name in nospecies)) //either obscured or on the nospecies list
+		msg += "!\n"	//omit the species when examining
+	else if (src.species.name == "Slime People") //snowflakey because Slime People are defined as a plural
+		msg += ", a Slime Person!\n"
+	else
+		msg += ", a [src.species]!\n"
 
 	//uniform
 	if(w_uniform && !skipjumpsuit)
