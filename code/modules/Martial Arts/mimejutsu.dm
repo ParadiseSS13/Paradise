@@ -24,7 +24,7 @@
 /datum/martial_art/mimejutsu/proc/mimeChuck(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.stunned && !D.weakened)
 		var/damage = rand(5, 8) + A.species.punchdamagelow
-		if(!damage || prob(20))//just cuase i think missing with an invisible weapon is FUNNY
+		if(!damage)
 			playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 			D.visible_message("<span class='warning'>[A] swings invisible nunchcuks at [D]..and misses?</span>")
 			return 0
