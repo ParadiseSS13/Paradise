@@ -1360,7 +1360,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/under/mafia/sue,
 					/obj/item/clothing/under/mafia/tan,
 					/obj/item/weapon/gun/projectile/automatic/tommygun/toy,
-					/obj/item/weapon/gun/projectile/automatic/tommygun/toy) 
+					/obj/item/weapon/gun/projectile/automatic/tommygun/toy)
 	cost = 15
 	containername = "mafia supply crate"
 
@@ -1405,7 +1405,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/gun/projectile/shotgun/toy,
 					/obj/item/weapon/gun/projectile/shotgun/toy,
 					/obj/item/weapon/gun/projectile/shotgun/toy)
-	cost = 25
+	cost = 10
 	containername = "foam force crate"
 
 /datum/supply_packs/misc/foamforce/bonus

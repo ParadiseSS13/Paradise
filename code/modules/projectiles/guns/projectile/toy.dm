@@ -94,7 +94,6 @@
 /obj/item/weapon/gun/projectile/shotgun/toy/crossbow
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
-	icon = 'icons/obj/gun.dmi'
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	mag_type = "/obj/item/ammo_box/magazine/internal/shot/toy/crossbow"
