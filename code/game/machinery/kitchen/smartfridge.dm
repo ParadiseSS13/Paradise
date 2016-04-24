@@ -152,10 +152,8 @@
 					  /obj/item/weapon/reagent_containers/glass/bottle/plasma = 1,
 					  /obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine = 1)
 
-/obj/machinery/smartfridge/secure/chemistry/virology/accept_check(obj/item/O)
-	if(..(O))
-		return 1
-	if(istype(O, /obj/item/weapon/reagent_containers/syringe))
+/obj/machinery/smartfridge/secure/chemistry/virology/accept_check(var/obj/item/O as obj)
+	if(istype(O, /obj/item/weapon/reagent_containers/syringe) || istype(O, /obj/item/weapon/reagent_containers/glass/bottle) || istype(O, /obj/item/weapon/reagent_containers/glass/beaker))
 		return 1
 	return 0
 
