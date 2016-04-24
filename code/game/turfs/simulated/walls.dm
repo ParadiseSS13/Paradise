@@ -135,7 +135,18 @@
 		else
 			new /obj/effect/decal/cleanable/blood(src)
 			new /obj/effect/decal/remains/human(src)
-
+	else if(istype(src,/turf/simulated/wall/shuttle))
+		if(!devastated)
+			playsound(src, 'sound/items/Welder.ogg', 100, 1)
+			new /obj/structure/girder/shuttle(src)
+			new /obj/item/stack/sheet/metal(src)
+			new /obj/item/stack/sheet/metal(src)
+		else
+			new /obj/item/stack/sheet/metal(src)
+			new /obj/item/stack/sheet/metal(src)
+			new /obj/item/stack/sheet/metal(src)
+			new /obj/item/stack/rods(src)
+			new /obj/item/stack/rods(src)
 	else
 		if(!devastated)
 			playsound(src, 'sound/items/Welder.ogg', 100, 1)

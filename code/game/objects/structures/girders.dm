@@ -29,7 +29,7 @@
 		qdel(src)
 
 /obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench) && state == 0)
+	if(istype(W, /obj/item/weapon/wrench) && state == 0 && icon_state != "shuttlegirder")
 		if(anchored && !istype(src,/obj/structure/girder/displaced))
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
 			to_chat(user, "\blue Now disassembling the girder")
@@ -81,6 +81,17 @@
 			to_chat(user, "\blue You removed the support struts!")
 			new/obj/structure/girder( src.loc )
 			qdel(src)
+	
+	else if(istype(W, /obj/item/weapon/wirecutters) && istype(src, /obj/structure/girder/shuttle))
+		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		to_chat(user, "<span class='notice'>Now removing rods'</span>")
+		if(do_after(user, 30, target = src))
+			if(!src) return
+			to_chat(user, "<span class='notice'>You removed the rods!</span>")
+			new /obj/structure/girder(src.loc)
+			new /obj/item/stack/rods(src.loc)
+			new /obj/item/stack/rods(src.loc)
+			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/crowbar) && state == 0 && anchored )
 		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
@@ -111,7 +122,10 @@
 						S.use(2)
 						to_chat(user, "\blue You added the plating!")
 						var/turf/Tsrc = get_turf(src)
-						Tsrc.ChangeTurf(/turf/simulated/wall)
+						if(icon_state == "shuttlegirder")
+							Tsrc.ChangeTurf(/turf/simulated/wall/shuttle)
+						else
+							Tsrc.ChangeTurf(/turf/simulated/wall)
 						for(var/turf/simulated/wall/X in Tsrc.loc)
 							if(X)	X.add_hiddenprint(usr)
 						qdel(src)
@@ -173,6 +187,20 @@
 				return
 
 		add_hiddenprint(usr)
+	else if(istype(W, /obj/item/stack/rods))
+		var/obj/item/stack/rods/R = W
+		if(R.amount < 2)
+			return
+		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		to_chat(user, "<span class='notice'>Now adding rods...</span>")
+		if(do_after(user, 20, target=src))
+			if(!src || !R || R.amount < 2)
+				return
+			R.use(2)
+			to_chat(user, "<span class='notice'>You added the rods!</span>")
+			new /obj/structure/girder/shuttle(src.loc)
+			qdel(src)
+		return
 
 	else if(istype(W, /obj/item/pipe))
 		var/obj/item/pipe/P = W
@@ -229,6 +257,10 @@
 	icon_state = "reinforced"
 	state = 2
 	health = 500
+
+/obj/structure/girder/shuttle
+	icon_state = "shuttlegirder"
+	health = 100
 
 /obj/structure/cultgirder
 	icon= 'icons/obj/cult.dmi'

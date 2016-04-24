@@ -66,6 +66,27 @@
 	health = 40
 	reinf = 1
 
+/obj/structure/window/full/reinforced/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/stack/rods) && state == 0)
+		var/obj/item/stack/rods/R = W
+		if(R.amount < 2)
+			return
+		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		to_chat(user, "<span class='notice'>Now adding rods...</span>")
+		if(do_after(user, 20, target=src))
+			if(!src || !R || R.amount < 2)
+				return
+			R.use(2)
+			to_chat(user, "<span class='notice'>You added the rods!</span>")
+			var/obj/structure/window/full/shuttle/N = new(src.loc)
+			N.state = 0
+			N.anchored = 0
+			N.air_update_turf(1)
+			disassembled = 1
+			qdel(src)
+		return
+	. = ..()
+
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
@@ -83,24 +104,38 @@
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
-	icon = 'icons/obj/podwindows.dmi'
-	icon_state = "window"
-	basestate = "window"
+	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
+	icon_state = "shuttle_window"
+	basestate = "shuttle_window"
 	health = 160
 	reinf = 1
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/obj/structure/window/full/shuttle)
 
 /obj/structure/window/full/shuttle/New()
 	..()
 	color = null
+	if(icon != 'icons/obj/smooth_structures/shuttle_window.dmi')
+		smooth = SMOOTH_FALSE
+	update_icon()
 
 /obj/structure/window/full/shuttle/update_icon() //icon_state has to be set manually
+	if(smooth)
+		icon_state = ""
+		smooth_icon(src)
+		smooth_icon_neighbors(src)
+	update_walls() // Update smoothwalls, since they use shuttle windows as smoothables.
 	return
 
-/obj/structure/window/full/shuttle/shuttleRotate(rotation)
-	..()
-	var/matrix/M = transform
-	M.Turn(rotation)
-	transform = M
+/obj/structure/window/full/shuttle/proc/update_walls()
+	for(var/cdir in cardinal)
+		var/turf/simulated/wall/shuttle/T = get_step(src, cdir)
+		if(istype(T))
+			T.do_old_smooth()
+
+/obj/structure/window/full/shuttle/Move()
+	. = ..()
+	update_icon()
 
 /obj/structure/window/full/shuttle/dark
 	icon = 'icons/turf/shuttle.dmi'

@@ -77,6 +77,23 @@
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
 
+/obj/item/stack/tile/plasteel/attackby(obj/item/W, mob/user, params)
+	..()
+	if(istype(W, /obj/item/stack/rods)) // Blatantly copy-pasted from glass sheets.
+		var/obj/item/stack/rods/V  = W
+		var/obj/item/stack/tile/shuttle/ST = new (user.loc)
+		ST.add_fingerprint(user)
+		ST.add_to_stacks(user)
+		V.use(1)
+		var/obj/item/stack/tile/plasteel/G = src
+		src = null
+		var/replace = (user.get_inactive_hand()==G)
+		G.use(1)
+		if (!G && !ST && replace)
+			user.put_in_hands(ST)
+	else
+		return ..()
+
 /*
  * Light
  */
@@ -125,3 +142,18 @@
 	turf_type = /turf/simulated/floor/silent
 	mineralType = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=500)
+
+/obj/item/stack/tile/shuttle
+	name = "shuttle tiles"
+	gender = PLURAL
+	singular_name = "shuttle tile"
+	desc = "A floor tile designed to work with a shuttle's bluespace field"
+	icon_state = "tile-shuttle"
+	force = 6
+	materials = list(MAT_METAL=500)
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	flags = CONDUCT
+	turf_type = /turf/simulated/floor/shuttle
+	mineralType = "metal"
