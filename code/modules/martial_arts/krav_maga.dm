@@ -9,7 +9,10 @@
 	button_icon_state = "neckchop"
 
 /datum/action/neck_chop/Trigger()
-	owner << "<b><i>Your next attack will be a Neck Chop.</i></b>"
+	if(owner.incapacitated())
+		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
+		return
+	to_chat(owner, "<b><i>Your next attack will be a Neck Chop.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Neck Chop stance!</span>")
 	var/mob/living/carbon/human/H = owner
 	H.martial_art.streak = "neck_chop"
@@ -19,7 +22,10 @@
 	button_icon_state = "legsweep"
 
 /datum/action/leg_sweep/Trigger()
-	owner << "<b><i>Your next attack will be a Leg Sweep.</i></b>"
+	if(owner.incapacitated())
+		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
+		return
+	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
 	var/mob/living/carbon/human/H = owner
 	H.martial_art.streak = "leg_sweep"
@@ -29,22 +35,25 @@
 	button_icon_state = "lungpunch"
 
 /datum/action/lung_punch/Trigger()
-	owner << "<b><i>Your next attack will be a Lung Punch.</i></b>"
+	if(owner.incapacitated())
+		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
+		return
+	to_chat(owner, "<b><i>Your next attack will be a Lung Punch.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Lung Punch stance!</span>")
 	var/mob/living/carbon/human/H = owner
 	H.martial_art.streak = "quick_choke"//internal name for lung punch
 
 /datum/martial_art/krav_maga/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
 	..()
-	H << "<span class = 'userdanger'>You know the arts of Krav Maga!</span>"
-	H << "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>"
+	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
+	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
 	neckchop.Grant(H)
 	legsweep.Grant(H)
 	lungpunch.Grant(H)
 
 /datum/martial_art/krav_maga/remove(var/mob/living/carbon/human/H)
 	..()
-	H << "<span class = 'userdanger'>You suddenly forget the arts of Krav Maga...</span>"
+	to_chat(H, "<span class = 'userdanger'>You suddenly forget the arts of Krav Maga...</span>")
 	neckchop.Remove(H)
 	legsweep.Remove(H)
 	lungpunch.Remove(H)
