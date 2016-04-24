@@ -150,9 +150,9 @@ var/list/parallax_on_clients = list()
 
 /obj/screen/pmaster_whitespace
 	plane = SPACE_TURF_PLANE
-	color = list(0, 0, 0, \
-				0, 0, 0, \
-				0, 0, 0, \
+	color = list(0, 0, 0,
+				0, 0, 0,
+				0, 0, 0,
 				1, 1, 1) // This will cause space to be solid white
 	appearance_flags = PLANE_MASTER
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
