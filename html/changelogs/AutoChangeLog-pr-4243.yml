@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Improves attack animations with items, making it more clear who's attacking you and with what"
