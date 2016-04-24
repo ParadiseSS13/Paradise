@@ -1,0 +1,4 @@
+author: CrAzYPiLoT
+delete-after: True
+changes: 
+  - rscadd: "Adds buildable holographic gameboards that, when opened, produce a fully-functional JavaScript chess interface, which includes a chess AI. If you win, it will produce 80 tickets for your spending!"

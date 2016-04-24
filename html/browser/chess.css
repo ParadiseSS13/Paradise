@@ -1,0 +1,23 @@
+ #FenTextBox {
+              width: 400px;
+          }
+          #TimePerMove {
+              width: 50px;
+          }
+          .no-highlight {
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+          }
+          .sprite-bishop_black{ background-position: 0 0; width: 45px; height: 45px; } 
+          .sprite-bishop_white{ background-position: 0 -95px; width: 45px; height: 45px; } 
+          .sprite-king_black{ background-position: 0 -190px; width: 45px; height: 45px; } 
+          .sprite-king_white{ background-position: 0 -285px; width: 45px; height: 45px; } 
+          .sprite-knight_black{ background-position: 0 -380px; width: 45px; height: 45px; } 
+          .sprite-knight_white{ background-position: 0 -475px; width: 45px; height: 45px; } 
+          .sprite-pawn_black{ background-position: 0 -570px; width: 45px; height: 45px; } 
+          .sprite-pawn_white{ background-position: 0 -665px; width: 45px; height: 45px; } 
+          .sprite-queen_black{ background-position: 0 -760px; width: 45px; height: 45px; } 
+          .sprite-queen_white{ background-position: 0 -855px; width: 45px; height: 45px; } 
+          .sprite-rook_black{ background-position: 0 -950px; width: 45px; height: 45px; } 
+          .sprite-rook_white{ background-position: 0 -1045px; width: 45px; height: 45px; }
+		   background-image:url(background.png) no-repeat center center fixed;
+		   background-size:cover;

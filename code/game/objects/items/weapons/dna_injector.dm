@@ -100,7 +100,7 @@
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
 	if(used)
-		user << "<span class='warning'>This injector is used up!</span>"
+		to_chat(user, "<span class='warning'>This injector is used up!</span>")
 		return
 	if(!M.dna) //You know what would be nice? If the mob you're injecting has DNA, and so doesn't cause runtimes.
 		return 0
@@ -151,7 +151,7 @@
 						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")
 
 	else
-		user << "<span class='notice'>You inject yourself with [src].</span>"
+		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
 
 	inject(M, user)
 	used = 1
