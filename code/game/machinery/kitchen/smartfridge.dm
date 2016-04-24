@@ -26,7 +26,9 @@
 /obj/machinery/smartfridge/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/smartfridge(null)
+	var/obj/item/weapon/circuitboard/smartfridge/board = new(null)
+	board.set_type(type)
+	component_parts += board
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	RefreshParts()
 
