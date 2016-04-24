@@ -761,7 +761,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			buckled.user_unbuckle_mob(src,src)
 		else
 			if(src && buckled)
-				src << "<span class='warning'>You fail to unbuckle yourself!</span>"
+				to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
 		buckled.user_unbuckle_mob(src,src)
 
