@@ -346,10 +346,10 @@
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1
 
-	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
+	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))
 		return 1
 
-	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, "Dionaea"))
+	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))
 		return 1
 
 	return 0

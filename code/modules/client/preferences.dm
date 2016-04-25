@@ -1666,9 +1666,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
-	character.med_record = med_record
-	character.sec_record = sec_record
-	character.gen_record = gen_record
+	if(character.ckey && !jobban_isbanned(character, "Records"))
+		character.med_record = med_record
+		character.sec_record = sec_record
+		character.gen_record = gen_record
 
 	character.change_gender(gender)
 	character.age = age
