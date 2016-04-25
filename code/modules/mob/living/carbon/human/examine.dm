@@ -59,7 +59,7 @@
 	if (skipjumpsuit && skipface || (species.name in nospecies)) //either obscured or on the nospecies list
 		msg += "!\n"	//omit the species when examining
 	else if (species.name == "Slime People") //snowflakey because Slime People are defined as a plural
-		msg += ", a Slime Person!\n"
+		msg += ", a slime person!\n"
 	else
 		msg += ", \a [lowertext(species.name)]!\n"
 
