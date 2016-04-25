@@ -15,7 +15,7 @@
  #define FILE_DRM      16  // Some files want to not be copied/moved.  This is them complaining that you tried.
  #define NETWORK_FAILURE  32
 
-#define MINERAL_MATERIAL_AMOUNT 2000 //The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
+#define MINERAL_MATERIAL_AMOUNT 1000 //The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
 
 #define	IMPRINTER	1	//For circuits. Uses glass/chemicals.
 #define PROTOLATHE	2	//New stuff. Uses glass/metal/chemicals
