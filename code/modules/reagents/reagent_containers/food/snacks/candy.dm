@@ -66,6 +66,9 @@
 	..()
 	reagents.add_reagent("nutriment", 3)
 	reagents.add_reagent("sugar", 3)
+	spawn(1)
+		reagents.del_reagent("egg")
+		reagents.update_total()
 	bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/taffy
@@ -287,8 +290,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/poison/New()
 	..()
 	reagents.add_reagent("poisonberryjuice", 12)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/green
@@ -381,8 +385,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/poison/New()
 	..()
 	reagents.add_reagent("poisonberryjuice", 12)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/green
@@ -475,8 +480,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/poison/New()
 	..()
 	reagents.add_reagent("poisonberryjuice", 12)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/green
@@ -627,8 +633,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/poison/New()
 	..()
 	reagents.add_reagent("poisonberryjuice", 20)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/green
@@ -701,8 +708,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/rainbow/New()
 	..()
 	reagents.add_reagent("omnizine", 20)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/bad_rainbow
@@ -715,8 +723,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/bad_rainbow/New()
 	..()
 	reagents.add_reagent("sulfonal", 20)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 4
 
 // ***********************************************************
