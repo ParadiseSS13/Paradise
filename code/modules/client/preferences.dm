@@ -1563,9 +1563,21 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("ui")
 					switch(UI_style)
 						if("Midnight")
+							UI_style = "Plasmafire"
+						if("Plasmafire")
+							UI_style = "Retro"
+						if("Retro")
+							UI_style = "Slimecore"
+						if("Slimecore")
+							UI_style = "Operative"
+						if("Operative")
 							UI_style = "White"
 						else
 							UI_style = "Midnight"
+
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
 
 				if("nanoui")
 					nanoui_fancy = !nanoui_fancy
@@ -1578,10 +1590,18 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(!UI_style_color_new) return
 					UI_style_color = UI_style_color_new
 
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
+
 				if("UIalpha")
 					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
 					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
 					UI_style_alpha = UI_style_alpha_new
+
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
 
 				if("be_special")
 					var/r = href_list["role"]

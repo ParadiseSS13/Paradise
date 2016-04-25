@@ -72,7 +72,6 @@ There are several things that need to be remembered:
 		update_body()	//Handles updating your mob's icon to reflect their gender/race/complexion etc
 		update_hair()	//Handles updating your hair overlay (used to be update_face, but mouth and
 																			...eyes were merged into update_body)
-		update_targeted() // Updates the target overlay when someone points a gun at you
 
 >	All of these procs update our overlays_lying and overlays_standing, and then call update_icons() by default.
 	If you wish to update several overlays at once, you can set the argument to 0 to disable the update and call
@@ -124,9 +123,6 @@ Please contact me on #coderbus IRC. ~Carn x
 //this proc is messy as I was forced to include some old laggy cloaking code to it so that I don't break cloakers
 //I'll work on removing that stuff by rewriting some of the cloaking stuff at a later date.
 /mob/living/carbon/human/update_icons()
-
-	update_hud()		//TODO: remove the need for this
-
 	var/stealth = 0
 	var/obj/item/clothing/suit/armor/abductor/vest/V // Begin the most snowflakey bullshit code I've ever written. I'm so sorry, but there was no other way.
 	for(V in list(wear_suit))
@@ -532,15 +528,6 @@ var/global/list/damage_icon_parts = list()
 	update_fhair(0)
 	if(update_icons)   update_icons()
 
-//Call when target overlay should be added/removed
-/mob/living/carbon/human/update_targeted(var/update_icons=1)
-	if (targeted_by && target_locked)
-		overlays_standing[TARGETED_LAYER]	= target_locked
-	else if (!targeted_by && target_locked)
-		qdel(target_locked)
-	if (!targeted_by)
-		overlays_standing[TARGETED_LAYER]	= null
-	if(update_icons)		update_icons()
 
 /mob/living/carbon/human/update_fire()
 	remove_overlay(FIRE_LAYER)
@@ -581,15 +568,23 @@ var/global/list/damage_icon_parts = list()
 	update_inv_wear_pda(0)
 	UpdateDamageIcon()
 	update_icons()
-	//Hud Stuff
-	update_hud()
 	update_fire()
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
 /mob/living/carbon/human/update_inv_w_uniform(var/update_icons=1)
-	if(w_uniform && istype(w_uniform, /obj/item/clothing/under) )
-		w_uniform.screen_loc = ui_iclothing
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
+		if(inv)
+			inv.update_icon()
+
+	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)			//if the inventory is open ...
+				w_uniform.screen_loc = ui_iclothing //...draw the item in the inventory screen
+			client.screen += w_uniform				//Either way, add the item to the HUD
+
 		var/t_color = w_uniform.item_color
 		if(!t_color)		t_color = icon_state
 		var/image/standing	= image("icon_state" = "[t_color]_s")
@@ -637,8 +632,17 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_wear_id(var/update_icons=1)
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_id]
+		if(inv)
+			inv.update_icon()
+
 	if(wear_id)
-		wear_id.screen_loc = ui_id	//TODO
+		if(client && hud_used && hud_used.hud_shown)
+			wear_id.screen_loc = ui_id
+			client.screen += wear_id
+
 		if(w_uniform && w_uniform:displays_id)
 			overlays_standing[ID_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "id")
 		else
@@ -649,7 +653,18 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_gloves(var/update_icons=1)
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_gloves]
+		if(inv)
+			inv.update_icon()
+
 	if(gloves)
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)			//if the inventory is open ...
+				gloves.screen_loc = ui_gloves		//...draw the item in the inventory screen
+			client.screen += gloves					//Either way, add the item to the HUD
+
 		var/t_state = gloves.item_state
 		if(!t_state)	t_state = gloves.icon_state
 
@@ -678,7 +693,17 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/update_inv_glasses(var/update_icons=1)
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_glasses]
+		if(inv)
+			inv.update_icon()
+
 	if(glasses)
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)			//if the inventory is open ...
+				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
+			client.screen += glasses				//Either way, add the item to the HUD
 
 		if(glasses.icon_override)
 			overlays_standing[GLASSES_LAYER] = image("icon" = glasses.icon_override, "icon_state" = "[glasses.icon_state]")
@@ -692,8 +717,23 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_ears(var/update_icons=1)
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_l_ear]
+		if(inv)
+			inv.update_icon()
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_r_ear]
+		if(inv)
+			inv.update_icon()
+
 	if(l_ear || r_ear)
 		if(l_ear)
+			if(client && hud_used && hud_used.hud_shown)
+				if(hud_used.inventory_shown)			//if the inventory is open ...
+					l_ear.screen_loc = ui_l_ear			//...draw the item in the inventory screen
+				client.screen += l_ear					//Either way, add the item to the HUD
 
 			var/t_type = l_ear.icon_state
 			if(l_ear.icon_override)
@@ -706,6 +746,10 @@ var/global/list/damage_icon_parts = list()
 				overlays_standing[EARS_LAYER] = image("icon" = 'icons/mob/ears.dmi', "icon_state" = "[t_type]")
 
 		if(r_ear)
+			if(client && hud_used && hud_used.hud_shown)
+				if(hud_used.inventory_shown)			//if the inventory is open ...
+					r_ear.screen_loc = ui_r_ear			//...draw the item in the inventory screen
+				client.screen += r_ear					//Either way, add the item to the HUD
 
 			var/t_type = r_ear.icon_state
 			if(r_ear.icon_override)
@@ -722,7 +766,17 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_shoes(var/update_icons=1)
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_shoes]
+		if(inv)
+			inv.update_icon()
+
 	if(shoes)
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)			//if the inventory is open ...
+				shoes.screen_loc = ui_shoes			//...draw the item in the inventory screen
+			client.screen += shoes					//Either way, add the item to the HUD
 
 		var/image/standing
 		if(shoes.icon_override)
@@ -748,7 +802,17 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_s_store(var/update_icons=1)
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_s_store]
+		if(inv)
+			inv.update_icon()
+
 	if(s_store)
+		if(client && hud_used && hud_used.hud_shown)
+			s_store.screen_loc = ui_sstore1
+			client.screen += s_store
+
 		var/t_state = s_store.item_state
 		if(!t_state)
 			t_state = s_store.icon_state
@@ -761,8 +825,13 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/update_inv_head(var/update_icons=1)
+	..()
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_head]
+		if(inv)
+			inv.update_icon()
+
 	if(head)
-		head.screen_loc = ui_head		//TODO
 		var/image/standing
 		if(head.icon_override)
 			standing = image("icon" = head.icon_override, "icon_state" = "[head.icon_state]")
@@ -783,8 +852,17 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_belt(var/update_icons=1)
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_belt]
+		if(inv)
+			inv.update_icon()
+
+		if(hud_used.hud_shown && belt)
+			client.screen += belt
+			belt.screen_loc = ui_belt
+
 	if(belt)
-		belt.screen_loc = ui_belt	//TODO
 		var/t_state = belt.item_state
 		if(!t_state)	t_state = belt.icon_state
 
@@ -801,8 +879,17 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/update_inv_wear_suit(var/update_icons=1)
-	if( wear_suit && istype(wear_suit, /obj/item/clothing/suit) )	//TODO check this
-		wear_suit.screen_loc = ui_oclothing	//TODO
+
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
+		if(inv)
+			inv.update_icon()
+
+	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit))
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)					//if the inventory is open ...
+				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
+			client.screen += wear_suit						//Either way, add the item to the HUD
 
 		var/image/standing
 		if(wear_suit.icon_override)
@@ -846,19 +933,44 @@ var/global/list/damage_icon_parts = list()
 
 	if(update_icons)   update_icons()
 
-/mob/living/carbon/human/update_inv_pockets(var/update_icons=1)
-	if(l_store)			l_store.screen_loc = ui_storage1	//TODO
-	if(r_store)			r_store.screen_loc = ui_storage2	//TODO
-	if(update_icons)	update_icons()
+/mob/living/carbon/human/update_inv_pockets()
+	if(client && hud_used)
+		var/obj/screen/inventory/inv
 
-/mob/living/carbon/human/update_inv_wear_pda(var/update_icons=1)
-	if(wear_pda)			wear_pda.screen_loc = ui_pda
-	if(update_icons)	update_icons()
+		inv = hud_used.inv_slots[slot_l_store]
+		if(inv)
+			inv.update_icon()
 
-/mob/living/carbon/human/update_inv_wear_mask(var/update_icons=1)
-	if( wear_mask && ( istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory) ) )
-		wear_mask.screen_loc = ui_mask	//TODO
+		inv = hud_used.inv_slots[slot_r_store]
+		if(inv)
+			inv.update_icon()
 
+		if(hud_used.hud_shown)
+			if(l_store)
+				client.screen += l_store
+				l_store.screen_loc = ui_storage1
+
+			if(r_store)
+				client.screen += r_store
+				r_store.screen_loc = ui_storage2
+
+/mob/living/carbon/human/update_inv_wear_pda()
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_pda]
+		if(inv)
+			inv.update_icon()
+
+		if(wear_pda)
+			client.screen += wear_pda
+			wear_pda.screen_loc = ui_pda
+
+/mob/living/carbon/human/update_inv_wear_mask(var/update_icons = 1)
+	..()
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_mask]
+		if(inv)
+			inv.update_icon()
+	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		var/image/standing
 		if(wear_mask.icon_override)
 			standing = image("icon" = wear_mask.icon_override, "icon_state" = "[wear_mask.icon_state]")
@@ -867,10 +979,10 @@ var/global/list/damage_icon_parts = list()
 		else
 			standing = image("icon" = 'icons/mob/mask.dmi', "icon_state" = "[wear_mask.icon_state]")
 
-		if( !istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA )
+		if(!istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA)
 			var/image/bloodsies = image("icon" = species.blood_mask, "icon_state" = "maskblood")
 			bloodsies.color = wear_mask.blood_color
-			standing.overlays	+= bloodsies
+			standing.overlays += bloodsies
 		overlays_standing[FACEMASK_LAYER]	= standing
 	else
 		overlays_standing[FACEMASK_LAYER]	= null
@@ -878,9 +990,8 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/update_inv_back(var/update_icons=1)
+	..()
 	if(back)
-		back.screen_loc = ui_back	//TODO
-
 		//determine the icon to use
 		var/icon/standing
 		if(back.icon_override)
@@ -894,15 +1005,6 @@ var/global/list/damage_icon_parts = list()
 		else
 			standing = image("icon" = 'icons/mob/back.dmi', "icon_state" = "[back.icon_state]")
 
-		/*
-		//determine state to use
-		var/overlay_state
-		if(back.item_state)
-			overlay_state = back.item_state
-		else
-			overlay_state = back.icon_state
-		*/
-
 		//create the image
 		overlays_standing[BACK_LAYER] = standing
 	else
@@ -910,37 +1012,14 @@ var/global/list/damage_icon_parts = list()
 
 	if(update_icons)   update_icons()
 
-
-/mob/living/carbon/human/update_hud()	//TODO: do away with this if possible
-	if(client)
-		for(var/obj/item/I in get_all_slots())
-			client.screen |= I // Items only please, no arms allowed
-		if(hud_used)
-			hud_used.hidden_inventory_update() 	//Updates the screenloc of the items on the 'other' inventory bar
-			update_inv_handcuffed(0) // update handcuff overlay
-
-
 /mob/living/carbon/human/update_inv_handcuffed(var/update_icons=1)
+	overlays_standing[HANDCUFF_LAYER] = null
 	if(handcuffed)
-		drop_r_hand()
-		drop_l_hand()
-		stop_pulling()	//TODO: should be handled elsewhere
-		if(hud_used)	//hud handcuff icons
-			var/obj/screen/inventory/R = hud_used.r_hand_hud_object
-			var/obj/screen/inventory/L = hud_used.l_hand_hud_object
-			R.overlays += image("icon"='icons/mob/screen_gen.dmi', "icon_state"="markus")
-			L.overlays += image("icon"='icons/mob/screen_gen.dmi', "icon_state"="gabrielle")
 		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/pinkcuffs))
 			overlays_standing[HANDCUFF_LAYER] = image("icon" = 'icons/mob/mob.dmi', "icon_state" = "pinkcuff1")
 		else
 			overlays_standing[HANDCUFF_LAYER] = image("icon" = 'icons/mob/mob.dmi', "icon_state" = "handcuff1")
-	else
-		overlays_standing[HANDCUFF_LAYER] = null
-		if(hud_used)
-			var/obj/screen/inventory/R = hud_used.r_hand_hud_object
-			var/obj/screen/inventory/L = hud_used.l_hand_hud_object
-			R.overlays.Cut()
-			L.overlays.Cut()
+
 	if(update_icons)
 		update_icons()
 
@@ -961,36 +1040,57 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/update_inv_r_hand(var/update_icons=1)
+	..()
 	if(r_hand)
-		r_hand.screen_loc = ui_rhand	//TODO
 		var/t_state = r_hand.item_state
-		if(!t_state)	t_state = r_hand.icon_state
+		if(!t_state)
+			t_state = r_hand.icon_state
 
-		var/image/I = image("icon" = r_hand.righthand_file, "icon_state"="[t_state]")
+		var/image/I = image("icon" = r_hand.righthand_file, "icon_state" = "[t_state]")
 		I = center_image(I, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
 		overlays_standing[R_HAND_LAYER] = I
-
-		if (handcuffed) drop_r_hand()
 	else
 		overlays_standing[R_HAND_LAYER] = null
-	if(update_icons)   update_icons()
+	if(update_icons)
+		update_icons()
 
 
 /mob/living/carbon/human/update_inv_l_hand(var/update_icons=1)
+	..()
 	if(l_hand)
-		l_hand.screen_loc = ui_lhand	//TODO
 		var/t_state = l_hand.item_state
-		if(!t_state)	t_state = l_hand.icon_state
+		if(!t_state)
+			t_state = l_hand.icon_state
 
-		var/image/I = image("icon" = l_hand.lefthand_file, "icon_state"="[t_state]")
+		var/image/I = image("icon" = l_hand.lefthand_file, "icon_state" = "[t_state]")
 		I = center_image(I, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
 		overlays_standing[L_HAND_LAYER] = I
-
-		if (handcuffed) drop_l_hand()
 	else
 		overlays_standing[L_HAND_LAYER] = null
-	if(update_icons)   update_icons()
+	if(update_icons)
+		update_icons()
 
+//human HUD updates for items in our inventory
+
+//update whether our head item appears on our hud.
+/mob/living/carbon/human/update_hud_head(obj/item/I)
+	if(client && hud_used && hud_used.hud_shown)
+		if(hud_used.inventory_shown)
+			I.screen_loc = ui_head
+		client.screen += I
+
+//update whether our mask item appears on our hud.
+/mob/living/carbon/human/update_hud_wear_mask(obj/item/I)
+	if(client && hud_used && hud_used.hud_shown)
+		if(hud_used.inventory_shown)
+			I.screen_loc = ui_mask
+		client.screen += I
+
+//update whether our back item appears on our hud.
+/mob/living/carbon/human/update_hud_back(obj/item/I)
+	if(client && hud_used && hud_used.hud_shown)
+		I.screen_loc = ui_back
+		client.screen += I
 
 
 /mob/living/carbon/human/proc/update_tail_layer(var/update_icons=1)
