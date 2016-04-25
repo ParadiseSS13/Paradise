@@ -357,11 +357,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 //	to_chat(world, "Removed [vampire_mind.current.name] from vampire shit")
 	to_chat(vampire_mind.current, "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>")
 	if(vampire_mind.current.hud_used)
-		var/datum/hud/H = vampire_mind.current.hud_used
-		if(H.vampire_blood_display)
-			H.static_inventory -= H.vampire_blood_display
-			qdel(H.vampire_blood_display)
-			H.vampire_blood_display = null
+		vampire_mind.current.hud_used.remove_vampire_hud()
 
 
 /datum/vampire/proc/check_sun()
