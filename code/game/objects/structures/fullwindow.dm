@@ -124,14 +124,7 @@
 		icon_state = ""
 		smooth_icon(src)
 		smooth_icon_neighbors(src)
-	update_walls() // Update smoothwalls, since they use shuttle windows as smoothables.
 	return
-
-/obj/structure/window/full/shuttle/proc/update_walls()
-	for(var/cdir in cardinal)
-		var/turf/simulated/wall/shuttle/T = get_step(src, cdir)
-		if(istype(T))
-			T.do_old_smooth()
 
 /obj/structure/window/full/shuttle/Move()
 	. = ..()

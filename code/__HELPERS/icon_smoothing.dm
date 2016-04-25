@@ -11,6 +11,8 @@
 #define SMOOTH_FALSE	0 //not smooth
 #define SMOOTH_TRUE		1 //smooths with exact specified types or just itself
 #define SMOOTH_MORE		2 //smooths with all subtypes of specified types or just itself
+#define SMOOTH_OLD_TRUE	3 //SMOOTH_TRUE using the old method of smoothing
+#define SMOOTH_OLD_MORE	4 //SMOOTH_MORE using the old method of smoothing
 
 /atom/var/smooth = SMOOTH_FALSE
 /atom/var/top_left_corner
@@ -30,7 +32,7 @@
 	Each atom has its own icon file with all the possible corner states. See 'smooth_wall.dmi' for a template.
 */
 
-/proc/calculate_adjacencies(atom/A)
+/proc/calculate_adjacencies(atom/A, diagonals = 1)
 	if(!A.loc)
 		return 0
 
@@ -41,28 +43,37 @@
 		if(!AM.anchored)
 			return 0
 
-		for(var/direction in alldirs)
+		for(var/direction in (diagonals ? alldirs : cardinal))
 			AM = find_type_in_direction(A, direction)
 			if(istype(AM))
 				if(AM.anchored)
-					adjacencies |= 1 << direction
+					if(diagonals)
+						adjacencies |= 1 << direction
+					else
+						adjacencies |= direction
 
 			else
 				if(AM)
-					adjacencies |= 1 << direction
+					if(diagonals)
+						adjacencies |= 1 << direction
+					else
+						adjacencies |= direction
 
 	else
-		for(var/direction in alldirs)
+		for(var/direction in (diagonals ? alldirs : cardinal))
 			if(find_type_in_direction(A, direction))
-				adjacencies |= 1 << direction
+				if(diagonals)
+					adjacencies |= 1 << direction
+				else
+					adjacencies |= direction
 
 	return adjacencies
 
 /proc/smooth_icon(atom/A)
 	if(qdeleted(A))
 		return
-	if(A && A.smooth)
-		var/adjacencies = calculate_adjacencies(A)
+	if(A && (A.smooth == SMOOTH_TRUE || A.smooth == SMOOTH_MORE))
+		var/adjacencies = calculate_adjacencies(A, 1)
 
 		//NW CORNER
 		var/nw = "1-i"
@@ -135,6 +146,11 @@
 			A.overlays -= A.bottom_left_corner
 			A.bottom_left_corner = se
 			A.overlays += se
+		A.after_smooth()
+	else if(A && (A.smooth == SMOOTH_OLD_TRUE || A.smooth == SMOOTH_OLD_MORE))
+		var/adjacencies = calculate_adjacencies(A, 0)
+		A.icon_state = "[adjacencies]"
+		A.after_smooth()
 
 /proc/find_type_in_direction(atom/source, direction, range=1)
 	var/x_offset = 0
@@ -155,7 +171,7 @@
 		return null
 	if(source.canSmoothWith)
 		var/atom/A
-		if(source.smooth == SMOOTH_MORE)
+		if(source.smooth == SMOOTH_MORE || source.smooth == SMOOTH_OLD_MORE)
 			for(var/a_type in source.canSmoothWith)
 				if( istype(target_turf, a_type) )
 					return target_turf
@@ -205,3 +221,6 @@
 	bottom_right_corner = null
 	overlays -= bottom_left_corner
 	bottom_left_corner = null
+
+/atom/proc/after_smooth()
+	return

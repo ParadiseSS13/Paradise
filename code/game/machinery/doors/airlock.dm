@@ -350,10 +350,7 @@ About the new airlock wires panel:
 		electrified_timer = null
 	return ..()
 	spawn(1)
-		for(var/cdir in cardinal)
-			var/turf/simulated/wall/shuttle/T = get_step(src, cdir)
-			if(istype(T))
-				T.do_old_smooth()
+		smooth_icon_neighbors(src)
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user as mob) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
@@ -990,10 +987,7 @@ About the new airlock wires panel:
 		welded = 1
 		update_icon()
 	
-	for(var/cdir in cardinal)
-		var/turf/simulated/wall/shuttle/T = get_step(src, cdir)
-		if(istype(T))
-			T.do_old_smooth()
+	smooth_icon_neighbors()
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)
 //	to_chat(world, text("airlock attackby src [] obj [] mob []", src, C, user))

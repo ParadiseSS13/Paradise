@@ -71,7 +71,7 @@
 	icon = 'icons/turf/walls.dmi'
 	walltype = "shuttle"
 	icon_state = "shuttle0"
-	smooth = SMOOTH_FALSE // Use old smoothwall.
+	smooth = SMOOTH_OLD_MORE
 	canSmoothWith = list(
 	/turf/simulated/wall/shuttle,
 	/obj/structure/window/full/shuttle,
@@ -81,17 +81,8 @@
 	/obj/structure/shuttle)
 	var/fullcorner = 0
 
-/turf/simulated/wall/shuttle/proc/do_old_smooth()
-	var/junction = 0
-	for(var/cdir in cardinal)
-		var/turf/T = get_step(src, cdir)
-		if(is_type_in_list(T, canSmoothWith))
-			junction |= cdir
-			continue
-		for(var/atom/A in T)
-			if(is_type_in_list(A, canSmoothWith))
-				junction |= cdir
-				break
+/turf/simulated/wall/shuttle/after_smooth()
+	var/junction = text2num(icon_state)
 	icon_state = "[walltype][junction]"
 	
 	underlays.Cut()
@@ -158,23 +149,13 @@
 			underlays += image(icon = underlay.icon, icon_state = underlay.icon_state, dir = underlay.dir)
 
 /turf/simulated/wall/shuttle/update_icon()
-	do_old_smooth()
-	for(var/cdir in cardinal)
-		var/turf/simulated/wall/shuttle/T = get_step(src, cdir)
-		if(istype(T))
-			T.do_old_smooth()
+	smooth_icon(src)
+	smooth_icon_neighbors(src)
 
 /turf/simulated/wall/shuttle/New()
 	. = ..()
 	spawn(1)
 		update_icon()
-
-/turf/simulated/wall/shuttle/ChangeTurf()
-	. = ..()
-	for(var/cdir in cardinal)
-		var/turf/simulated/wall/shuttle/T = get_step(src, cdir)
-		if(istype(T))
-			T.do_old_smooth()
 
 /turf/simulated/shuttle/wall/interior/copyTurf(turf/T)
 	if(T.type != type)
