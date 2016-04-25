@@ -253,9 +253,8 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/tommygun
 	name = "Tommygun"
 	desc = "A replica tommygun that fires foam darts."
-	typepath = /obj/item/weapon/gun/projectile/automatic/tommygun/toy
+	typepath = /obj/item/weapon/gun/projectile/shotgun/toy/tommygun
 	cost = 175
-
 
 /datum/prize_item/esword
 	name = "Toy Energy Sword"

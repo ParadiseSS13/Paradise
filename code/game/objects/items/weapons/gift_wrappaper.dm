@@ -115,7 +115,7 @@
 		/obj/item/toy/AI,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/weapon/storage/box/fakesyndiesuit,
-		/obj/item/weapon/gun/projectile/automatic/tommygun/toy,
+		/obj/item/weapon/gun/projectile/shotgun/toy/tommygun,
 		/obj/item/stack/tile/fakespace/loaded,
 		)
 

@@ -20,7 +20,7 @@
 
 /obj/item/weapon/gun/projectile/New()
 	..()
-	if (!magazine)
+	if(!magazine)
 		magazine = new mag_type(src)
 	chamber_round()
 	update_icon()
@@ -53,9 +53,9 @@
 
 
 /obj/item/weapon/gun/projectile/proc/chamber_round()
-	if (chambered || !magazine)
+	if(chambered || !magazine)
 		return
-	else if (magazine.ammo_count())
+	else if(magazine.ammo_count())
 		chambered = magazine.get_round()
 		chambered.loc = src
 	return
@@ -63,9 +63,9 @@
 
 /obj/item/weapon/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
-	if (istype(A, /obj/item/ammo_box/magazine))
+	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
-		if (!magazine && istype(AM, text2path(mag_type)))
+		if(!magazine && istype(AM, text2path(mag_type)))
 			user.remove_from_mob(AM)
 			magazine = AM
 			magazine.loc = src
@@ -74,7 +74,7 @@
 			A.update_icon()
 			update_icon()
 			return 1
-		else if (magazine)
+		else if(magazine)
 			to_chat(user, "<span class='notice'>There's already a magazine in \the [src].</span>")
 	if(istype(A, /obj/item/weapon/suppressor))
 		var/obj/item/weapon/suppressor/S = A
@@ -135,9 +135,9 @@
 
 /obj/item/weapon/gun/projectile/proc/get_ammo(var/countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
-	if (chambered && countchambered)
+	if(chambered && countchambered)
 		boolets++
-	if (magazine)
+	if(magazine)
 		boolets += magazine.ammo_count()
 	return boolets
 

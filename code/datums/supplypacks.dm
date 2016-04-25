@@ -1359,8 +1359,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/under/mafia/white,
 					/obj/item/clothing/under/mafia/sue,
 					/obj/item/clothing/under/mafia/tan,
-					/obj/item/weapon/gun/projectile/automatic/tommygun/toy,
-					/obj/item/weapon/gun/projectile/automatic/tommygun/toy)
+					/obj/item/weapon/gun/projectile/shotgun/toy/tommygun,
+					/obj/item/weapon/gun/projectile/shotgun/toy/tommygun)
 	cost = 15
 	containername = "mafia supply crate"
 

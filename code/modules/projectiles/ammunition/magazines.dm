@@ -109,6 +109,9 @@
 /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
  	max_ammo = 5
 
+/obj/item/ammo_box/magazine/internal/shot/toy/tommygun
+ 	max_ammo = 10
+
 ///////////EXTERNAL MAGAZINES////////////////
 
 /obj/item/ammo_box/magazine/m10mm
@@ -344,8 +347,3 @@
 /obj/item/ammo_box/magazine/toy/m762/update_icon()
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
-
-/obj/item/ammo_box/magazine/toy/tommygunm45
-	name = "little tommy's mag"
-	icon_state = "drum45"
-	max_ammo = 50
