@@ -58,12 +58,20 @@
 		if("Life Support Specialist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/atmostech
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
-		if("Warden","Detective","Security Officer","Security Pod Pilot")
+		if("Detective")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
-		if("Head of Security", "Magistrate")
+		if("Warden","Security Officer","Security Pod Pilot")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
+			H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_in_backpack)
+		if("Magistrate")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
+		if("Head of Security")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
+			H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_in_backpack)
 		if("Captain", "Blueshield")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/captain
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/captain
@@ -73,6 +81,7 @@
 		if("Medical Doctor","Brig Physician")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical
+			H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_in_backpack)
 		if("Paramedic")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/paramedic
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/paramedic
