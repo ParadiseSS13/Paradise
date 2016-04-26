@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Updates Revolution game mode so it better scales with total player population"
-  - tweak: "Head revs start off with a flash, spraycan, and chameleon security HUD"
-  - rscadd: "Add chameleon security hud, which is basically sec shades with the ability to disguise as a number of regular glasses"

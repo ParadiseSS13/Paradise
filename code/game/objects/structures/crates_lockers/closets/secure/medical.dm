@@ -175,6 +175,7 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/reagent_containers/hypospray/CMO(src)
 		new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
+		new /obj/item/weapon/door_remote/chief_medical_officer(src)
 
 
 

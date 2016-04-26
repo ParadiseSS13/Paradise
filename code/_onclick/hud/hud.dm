@@ -8,6 +8,7 @@
 	var/mob/mymob
 
 	var/hud_shown = 1			//Used for the HUD toggle (F12)
+	var/hud_version = 1			//Current displayed version of the HUD
 	var/inventory_shown = 1		//the inventory
 	var/show_intent_icons = 0
 	var/hotkey_ui_hidden = 0	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
@@ -22,182 +23,167 @@
 	var/obj/screen/vampire_blood_display
 	var/obj/screen/alien_plasma_display
 	var/obj/screen/nightvisionicon
-	var/obj/screen/r_hand_hud_object
-	var/obj/screen/l_hand_hud_object
 	var/obj/screen/action_intent
 	var/obj/screen/move_intent
+	var/obj/screen/module_store_icon
 
-	var/list/adding
-	var/list/other
-	var/list/obj/screen/hotkeybuttons
+	var/list/static_inventory = list()		//the screen objects which are static
+	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
+	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
+	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
+	var/list/inv_slots[slots_amt]			// /obj/screen/inventory objects, ordered by their slot ID.
 
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
 
-datum/hud/New(mob/owner)
+/mob/proc/create_mob_hud()
+	if(client && !hud_used)
+		hud_used = new /datum/hud(src)
+
+/datum/hud/New(mob/owner)
 	mymob = owner
-	instantiate()
-	..()
 
+/datum/hud/Destroy()
+	if(mymob.hud_used == src)
+		mymob.hud_used = null
 
-/datum/hud/proc/hidden_inventory_update()
-	if(!mymob) return
-	if(ishuman(mymob))
-		var/mob/living/carbon/human/H = mymob
-		if(inventory_shown && hud_shown)
-			if(H.shoes)		H.shoes.screen_loc = ui_shoes
-			if(H.gloves)	H.gloves.screen_loc = ui_gloves
-			if(H.l_ear)		H.l_ear.screen_loc = ui_l_ear
-			if(H.r_ear)		H.r_ear.screen_loc = ui_r_ear
-			if(H.glasses)	H.glasses.screen_loc = ui_glasses
-			if(H.w_uniform)	H.w_uniform.screen_loc = ui_iclothing
-			if(H.wear_suit)	H.wear_suit.screen_loc = ui_oclothing
-			if(H.wear_mask)	H.wear_mask.screen_loc = ui_mask
-			if(H.head)		H.head.screen_loc = ui_head
-		else
-			if(H.shoes)		H.shoes.screen_loc = null
-			if(H.gloves)	H.gloves.screen_loc = null
-			if(H.l_ear)		H.l_ear.screen_loc = null
-			if(H.r_ear)		H.r_ear.screen_loc = null
-			if(H.glasses)	H.glasses.screen_loc = null
-			if(H.w_uniform)	H.w_uniform.screen_loc = null
-			if(H.wear_suit)	H.wear_suit.screen_loc = null
-			if(H.wear_mask)	H.wear_mask.screen_loc = null
-			if(H.head)		H.head.screen_loc = null
+	qdel(hide_actions_toggle)
+	hide_actions_toggle = null
 
+	qdel(module_store_icon)
+	module_store_icon = null
 
-/datum/hud/proc/persistant_inventory_update()
-	if(!mymob)
-		return
+	if(static_inventory.len)
+		for(var/thing in static_inventory)
+			qdel(thing)
+		static_inventory.Cut()
 
-	if(ishuman(mymob))
-		var/mob/living/carbon/human/H = mymob
-		if(hud_shown)
-			if(H.s_store)	H.s_store.screen_loc = ui_sstore1
-			if(H.wear_id)	H.wear_id.screen_loc = ui_id
-			if(H.wear_pda)	H.wear_pda.screen_loc = ui_pda
-			if(H.belt)		H.belt.screen_loc = ui_belt
-			if(H.back)		H.back.screen_loc = ui_back
-			if(H.l_store)	H.l_store.screen_loc = ui_storage1
-			if(H.r_store)	H.r_store.screen_loc = ui_storage2
-		else
-			if(H.s_store)	H.s_store.screen_loc = null
-			if(H.wear_id)	H.wear_id.screen_loc = null
-			if(H.wear_pda)	H.wear_pda.screen_loc = null
-			if(H.belt)		H.belt.screen_loc = null
-			if(H.back)		H.back.screen_loc = null
-			if(H.l_store)	H.l_store.screen_loc = null
-			if(H.r_store)	H.r_store.screen_loc = null
+	inv_slots.Cut()
+	action_intent = null
+	move_intent = null
 
+	if(toggleable_inventory.len)
+		for(var/thing in toggleable_inventory)
+			qdel(thing)
+		toggleable_inventory.Cut()
 
-/datum/hud/proc/instantiate()
-	if(!ismob(mymob)) return 0
-	if(!mymob.client) return 0
-	var/ui_style = ui_style2icon(mymob.client.prefs.UI_style)
-	var/ui_color = mymob.client.prefs.UI_style_color
-	var/ui_alpha = mymob.client.prefs.UI_style_alpha
+	if(hotkeybuttons.len)
+		for(var/thing in hotkeybuttons)
+			qdel(thing)
+		hotkeybuttons.Cut()
 
-	if(issmall(mymob))
-		monkey_hud(ui_style, ui_color, ui_alpha)
-	else if(ishuman(mymob))
-		human_hud(ui_style, ui_color, ui_alpha) // Pass the player the UI style chosen in preferences
-	else if( islarva(mymob) || isfacehugger(mymob) )
-		larva_hud()
-	else if (isembryo(mymob))
-		embryo_hud()
-	else if(isalien(mymob))
-		alien_hud()
-	else if(isAI(mymob))
-		ai_hud()
-	else if(isrobot(mymob))
-		robot_hud()
-	else if(isbot(mymob))
-		bot_hud()
-	else if(isobserver(mymob))
-		ghost_hud()
-	else if(isovermind(mymob))
-		blob_hud()
-	else if(mymob.mind && mymob.mind.vampire)
-		vampire_hud()
-	else if(isswarmer(mymob))
-		swarmer_hud()
-	else if(isguardian(mymob))
-		guardian_hud()
-	else if(ispet(mymob))
-		corgi_hud()
+	if(infodisplay.len)
+		for(var/thing in infodisplay)
+			qdel(thing)
+		infodisplay.Cut()
 
-	reload_fullscreen()
+	//clear mob refs to screen objects
+	mymob.throw_icon = null
+	mymob.internals = null
+	mymob.healths = null
+	mymob.healthdoll = null
+	mymob.pullin = null
+	mymob.zone_sel = null
+
+	//clear the rest of our reload_fullscreen
+	lingchemdisplay = null
+	lingstingdisplay = null
+	blobpwrdisplay = null
+	alien_plasma_display = null
+	vampire_blood_display = null
+	nightvisionicon = null
+
+	mymob = null
+	return ..()
+
+/datum/hud/proc/show_hud(version = 0)
+	if(!ismob(mymob))
+		return 0
+	if(!mymob.client)
+		return 0
+
+	mymob.client.screen = list()
+
+	var/display_hud_version = version
+	if(!display_hud_version)	//If 0 or blank, display the next hud version
+		display_hud_version = hud_version + 1
+	if(display_hud_version > HUD_VERSIONS)	//If the requested version number is greater than the available versions, reset back to the first version
+		display_hud_version = 1
+
+	switch(display_hud_version)
+		if(HUD_STYLE_STANDARD)	//Default HUD
+			hud_shown = 1	//Governs behavior of other procs
+			if(static_inventory.len)
+				mymob.client.screen += static_inventory
+			if(toggleable_inventory.len && inventory_shown)
+				mymob.client.screen += toggleable_inventory
+			if(hotkeybuttons.len && !hotkey_ui_hidden)
+				mymob.client.screen += hotkeybuttons
+			if(infodisplay.len)
+				mymob.client.screen += infodisplay
+
+			if(action_intent)
+				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
+
+		if(HUD_STYLE_REDUCED)	//Reduced HUD
+			hud_shown = 0	//Governs behavior of other procs
+			if(static_inventory.len)
+				mymob.client.screen -= static_inventory
+			if(toggleable_inventory.len)
+				mymob.client.screen -= toggleable_inventory
+			if(hotkeybuttons.len)
+				mymob.client.screen -= hotkeybuttons
+			if(infodisplay.len)
+				mymob.client.screen += infodisplay
+
+			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
+			if(inv_slots[slot_l_hand])
+				mymob.client.screen += inv_slots[slot_l_hand]	//we want the hands to be visible
+			if(inv_slots[slot_r_hand])
+				mymob.client.screen += inv_slots[slot_r_hand]	//we want the hands to be visible
+			if(action_intent)
+				mymob.client.screen += action_intent		//we want the intent switcher visible
+				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
+
+		if(HUD_STYLE_NOHUD)	//No HUD
+			hud_shown = 0	//Governs behavior of other procs
+			if(static_inventory.len)
+				mymob.client.screen -= static_inventory
+			if(toggleable_inventory.len)
+				mymob.client.screen -= toggleable_inventory
+			if(hotkeybuttons.len)
+				mymob.client.screen -= hotkeybuttons
+			if(infodisplay.len)
+				mymob.client.screen -= infodisplay
+
+	hud_version = display_hud_version
 	persistant_inventory_update()
 	mymob.update_action_buttons()
 	reorganize_alerts()
+	reload_fullscreen()
+
+/datum/hud/human/show_hud(version = 0)
+	..()
+	hidden_inventory_update()
+
+/datum/hud/robot/show_hud(version = 0)
+	..()
+	update_robot_modules_display()
+
+/datum/hud/proc/hidden_inventory_update()
+	return
+
+/datum/hud/proc/persistant_inventory_update()
+	return
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
-/mob/verb/button_pressed_F12(var/full = 0 as null)
+/mob/verb/button_pressed_F12()
 	set name = "F12"
 	set hidden = 1
 
-	if(hud_used)
-		if(ishuman(src))
-			if(!client) return
-			if(client.view != world.view)
-				return
-			if(hud_used.hud_shown)
-				hud_used.hud_shown = 0
-				if(src.hud_used.adding)
-					src.client.screen -= src.hud_used.adding
-				if(src.hud_used.other)
-					src.client.screen -= src.hud_used.other
-				if(src.hud_used.hotkeybuttons)
-					src.client.screen -= src.hud_used.hotkeybuttons
-
-				//Due to some poor coding some things need special treatment:
-				//These ones are a part of 'adding', 'other' or 'hotkeybuttons' but we want them to stay
-				if(!full)
-					src.client.screen += src.hud_used.l_hand_hud_object	//we want the hands to be visible
-					src.client.screen += src.hud_used.r_hand_hud_object	//we want the hands to be visible
-					src.client.screen += src.hud_used.action_intent		//we want the intent swticher visible
-					src.hud_used.action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
-				else
-					src.client.screen -= src.healths
-					src.client.screen -= src.internals
-					src.client.screen  -= src.healthdoll
-					src.client.screen -= src.gun_setting_icon
-					src.client.screen -= src.hud_used.lingstingdisplay
-					src.client.screen -= src.hud_used.lingchemdisplay
-
-				//These ones are not a part of 'adding', 'other' or 'hotkeybuttons' but we want them gone.
-				src.client.screen -= src.zone_sel	//zone_sel is a mob variable for some reason.
-
-			else
-				hud_used.hud_shown = 1
-				if(src.hud_used.adding)
-					src.client.screen += src.hud_used.adding
-				if(src.hud_used.other && src.hud_used.inventory_shown)
-					src.client.screen += src.hud_used.other
-				if(src.hud_used.hotkeybuttons && !src.hud_used.hotkey_ui_hidden)
-					src.client.screen += src.hud_used.hotkeybuttons
-				if(src.healths)
-					src.client.screen |= src.healths
-				if(src.healthdoll)
-					src.client.screen |= src.healthdoll
-				if(src.internals)
-					src.client.screen |= src.internals
-				if(src.gun_setting_icon)
-					src.client.screen |= src.gun_setting_icon
-				if(src.hud_used.lingstingdisplay)
-					src.client.screen |= src.hud_used.lingstingdisplay
-				if(src.hud_used.lingchemdisplay)
-					src.client.screen |= src.hud_used.lingchemdisplay
-
-				src.hud_used.action_intent.screen_loc = ui_acti //Restore intent selection to the original position
-				src.client.screen += src.zone_sel				//This one is a special snowflake
-
-			hud_used.hidden_inventory_update()
-			hud_used.persistant_inventory_update()
-			update_action_buttons()
-			hud_used.reorganize_alerts()
-
-		else
-			to_chat(usr, "\red Inventory hiding is currently only supported for human mobs, sorry.")
+	if(hud_used && client)
+		hud_used.show_hud() //Shows the next hud preset
+		to_chat(usr, "<span class ='info'>Switched HUD mode. Press F12 to toggle.</span>")
 	else
-		to_chat(usr, "\red This mob type does not use a HUD.")
+		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
+

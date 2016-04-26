@@ -1,6 +1,0 @@
-author: Meisaka
-delete-after: True
-changes: 
-  - bugfix: "AI, pAI, robots and drones can now use *yes emote without extra ss on the end."
-  - rscadd: "emote *help for silicons updated/added."
-  - tweak: "*twitch_s emote changed to *twitches, incorrect variations of some emotes can no longer be used."

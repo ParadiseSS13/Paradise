@@ -83,7 +83,7 @@ var/send_emergency_team
 		to_chat(usr, "No emergency response team is currently being sent.")
 		return
 
-	if(jobban_isbanned(usr, "Emergency Response Team"))
+	if(jobban_isbanned(usr, ROLE_ERT))
 		to_chat(usr, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
 		return
 

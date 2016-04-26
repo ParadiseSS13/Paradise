@@ -2,11 +2,6 @@
 	var/canEnterVentWith = "/obj/item/weapon/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/device/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
 
-/mob/living/carbon/Login()
-	..()
-	update_hud()
-	return
-
 /mob/living/carbon/prepare_huds()
 	..()
 	prepare_data_huds()
@@ -188,7 +183,7 @@
 
 
 
-/mob/living/carbon/proc/swap_hand()
+/mob/living/carbon/swap_hand()
 	var/obj/item/item_in_hand = src.get_active_hand()
 	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
 		if(istype(item_in_hand,/obj/item/weapon/twohanded))
@@ -196,20 +191,15 @@
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
 	src.hand = !( src.hand )
-	if(hud_used.l_hand_hud_object && hud_used.r_hand_hud_object)
-		if(hand)	//This being 1 means the left hand is in use
-			hud_used.l_hand_hud_object.icon_state = "hand_active"
-			hud_used.r_hand_hud_object.icon_state = "hand_inactive"
-		else
-			hud_used.l_hand_hud_object.icon_state = "hand_inactive"
-			hud_used.r_hand_hud_object.icon_state = "hand_active"
-	/*if (!( src.hand ))
-		src.hands.dir = NORTH
-	else
-		src.hands.dir = SOUTH*/
-	return
+	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
+		var/obj/screen/inventory/hand/H
+		H = hud_used.inv_slots[slot_l_hand]
+		H.update_icon()
+		H = hud_used.inv_slots[slot_r_hand]
+		H.update_icon()
 
-/mob/living/carbon/proc/activate_hand(var/selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
+
+/mob/living/carbon/activate_hand(var/selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
 
 	if(istext(selhand))
 		selhand = lowertext(selhand)
@@ -761,7 +751,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			buckled.user_unbuckle_mob(src,src)
 		else
 			if(src && buckled)
-				src << "<span class='warning'>You fail to unbuckle yourself!</span>"
+				to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
 		buckled.user_unbuckle_mob(src,src)
 
@@ -856,6 +846,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		clear_alert("handcuffed")
 	update_action_buttons() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
+	update_hud_handcuffed()
 
 /mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
 	if(lying)
