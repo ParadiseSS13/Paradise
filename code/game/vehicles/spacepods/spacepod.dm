@@ -318,10 +318,13 @@
 				equipment_system.lock_system = W
 				equipment_system.lock_system.my_atom = src
 				return
+				
 	if(istype(W, /obj/item/device/spacepod_key) && istype(equipment_system.lock_system, /obj/item/device/spacepod_equipment/lock/keyed))
 		var/obj/item/device/spacepod_key/key = W
 		if (key.id == equipment_system.lock_system.id)
 			locksecondseat()
+		else
+			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
 		return
 
 	if(istype(W, /obj/item/weapon/weldingtool))
