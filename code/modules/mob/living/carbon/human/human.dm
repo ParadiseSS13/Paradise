@@ -37,6 +37,8 @@
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
+	martial_art = default_martial_art
+
 	var/mob/M = src
 	faction |= "\ref[M]" //what
 

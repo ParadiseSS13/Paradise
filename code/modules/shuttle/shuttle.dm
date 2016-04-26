@@ -304,10 +304,6 @@
 	//rotate our direction
 	dir = angle2dir(rotation+dir2angle(dir))
 
-	//resmooth if need be.
-	if(smooth)
-		smooth_icon(src)
-
 	//rotate the pixel offsets too.
 	if (pixel_x || pixel_y)
 		if (rotation < 0)
@@ -318,6 +314,9 @@
 			pixel_x = oldPY
 			pixel_y = (oldPX*(-1))
 
+/atom/proc/postDock()
+	if(smooth)
+		smooth_icon(src)
 
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
@@ -370,7 +369,7 @@
 
 	var/list/door_unlock_list = list()
 
-	for(var/i=1, i<=L0.len, ++i)
+	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
 		if(!T0)
 			continue
@@ -447,6 +446,12 @@
 		air_master.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
+
+	for(var/A1 in L1)
+		var/turf/T1 = A1
+		T1.postDock()
+		for(var/atom/movable/M in T1)
+			M.postDock()
 
 	loc = S1.loc
 	dir = S1.dir

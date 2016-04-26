@@ -12,7 +12,11 @@
 					randomslot,
 					volume,
 					nanoui_fancy,
+<<<<<<< HEAD
 					space_parallax
+=======
+					show_ghostitem_attack
+>>>>>>> master
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -37,6 +41,7 @@
 		randomslot = text2num(query.item[9])
 		volume = text2num(query.item[10])
 		nanoui_fancy = text2num(query.item[11])
+		show_ghostitem_attack = text2num(query.item[12])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -50,7 +55,11 @@
 	randomslot		= sanitize_integer(randomslot, 0, 1, initial(randomslot))
 	volume			= sanitize_integer(volume, 0, 100, initial(volume))
 	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
+<<<<<<< HEAD
 	space_parallax	= sanitize_integer(space_parallax, 0, 1, initial(space_parallax))
+=======
+	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
+>>>>>>> master
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -74,7 +83,11 @@
 					randomslot='[randomslot]',
 					volume='[volume]',
 					nanoui_fancy='[nanoui_fancy]',
+<<<<<<< HEAD
 					space_parallax='[space_parallax]'
+=======
+					show_ghostitem_attack='[show_ghostitem_attack]'
+>>>>>>> master
 					WHERE ckey='[C.ckey]'"}
 					)
 

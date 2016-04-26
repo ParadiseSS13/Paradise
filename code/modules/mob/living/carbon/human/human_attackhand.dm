@@ -55,6 +55,8 @@
 
 	switch(M.a_intent)
 		if(I_HELP)
+			if(attacker_style && attacker_style.help_act(H, src))//adminfu only...
+				return 1
 			if(can_operate(src))
 				if(health >= config.health_threshold_crit)
 					if(src.surgeries.len)

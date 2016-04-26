@@ -84,6 +84,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
 	var/sound = SOUND_DEFAULT
+	var/show_ghostitem_attack = TRUE
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
 	var/space_parallax = 1
@@ -398,6 +399,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Ghost-Item Attack Animation:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += "<b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'><tr><td>__</td></tr></table><br>"
 			dat += "<b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
@@ -1563,26 +1565,51 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("ui")
 					switch(UI_style)
 						if("Midnight")
+							UI_style = "Plasmafire"
+						if("Plasmafire")
+							UI_style = "Retro"
+						if("Retro")
+							UI_style = "Slimecore"
+						if("Slimecore")
+							UI_style = "Operative"
+						if("Operative")
 							UI_style = "White"
 						else
 							UI_style = "Midnight"
 
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
+
 				if("nanoui")
 					nanoui_fancy = !nanoui_fancy
+
+				if("ghost_att_anim")
+					show_ghostitem_attack = !show_ghostitem_attack
 
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
 					if(!UI_style_color_new) return
 					UI_style_color = UI_style_color_new
 
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
+
 				if("UIalpha")
 					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
 					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
 					UI_style_alpha = UI_style_alpha_new
 
+<<<<<<< HEAD
 				if("parallax")
 					space_parallax = !space_parallax
 					to_chat(user, "Space Parallax is now [space_parallax ? "on" : "off"].")
+=======
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
+>>>>>>> master
 
 				if("be_special")
 					var/r = href_list["role"]
@@ -1672,9 +1699,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
-	character.med_record = med_record
-	character.sec_record = sec_record
-	character.gen_record = gen_record
+	if(character.ckey && !jobban_isbanned(character, "Records"))
+		character.med_record = med_record
+		character.sec_record = sec_record
+		character.gen_record = gen_record
 
 	character.change_gender(gender)
 	character.age = age
