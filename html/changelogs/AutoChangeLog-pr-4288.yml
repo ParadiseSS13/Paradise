@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in door wands--control doors from range"
+  - rscadd: "Each head of staff (and the QM) starts off with a door wand to control the doors in their respective departments"
