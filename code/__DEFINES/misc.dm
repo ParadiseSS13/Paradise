@@ -221,3 +221,13 @@
 #define TARGETED_LAYER			29	//BS12: Layer for the target overlay from weapon targeting system
 #define FIRE_LAYER				30	//If you're on fire
 #define TOTAL_LAYERS			30
+
+///Access Region Codes///
+#define REGION_ALL			0
+#define REGION_GENERAL		1
+#define REGION_SECURITY		2
+#define REGION_MEDBAY		3
+#define REGION_RESEARCH		4
+#define REGION_ENGINEERING	5
+#define REGION_SUPPLY		6
+#define REGION_COMMAND		7
