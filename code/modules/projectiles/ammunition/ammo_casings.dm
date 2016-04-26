@@ -268,7 +268,7 @@
 	var/modified = 0
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
-	..()
+	....() //to omit adding "-live" to the ammo casing
 	if(modified)
 		icon_state = "foamdart_empty"
 		desc = "Its nerf or nothing! ...Although, this one doesn't look too safe."
@@ -289,6 +289,7 @@
 		BB.nodamage = 0
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
 	return
+
 
 /obj/item/ammo_casing/caseless/foam_dart/riot
 	name = "riot foam dart"
