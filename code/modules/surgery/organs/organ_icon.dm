@@ -71,6 +71,14 @@ var/global/list/limb_icon_cache = list()
 		overlays |= lip_icon
 		mob_icon.Blend(lip_icon, ICON_OVERLAY)
 
+	if(owner.m_style)
+		var/datum/sprite_accessory/marking_style = marking_styles_list[owner.m_style]
+		if(marking_style && marking_style.species_allowed && (species.name in marking_style.species_allowed) && marking_style.marking_location == "head")
+			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
+			if(marking_style.do_colouration)
+				markings_s.Blend(rgb(owner.r_markings, owner.g_markings, owner.b_markings), ICON_ADD)
+			overlays |= markings_s
+
 	if(owner.ha_style)
 		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[owner.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed && (species.name in head_accessory_style.species_allowed))
@@ -81,7 +89,7 @@ var/global/list/limb_icon_cache = list()
 
 	if(owner.f_style)
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[owner.f_style]
-		if(facial_hair_style && facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed))
+		if(facial_hair_style && ((facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed)) || (src.species.flags & ALL_RPARTS)))
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 			if(species.name == "Slime People") // I am el worstos
 				facial_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
@@ -91,7 +99,7 @@ var/global/list/limb_icon_cache = list()
 
 	if(owner.h_style && !(owner.head && (owner.head.flags & BLOCKHEADHAIR)))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[owner.h_style]
-		if(hair_style && (species.name in hair_style.species_allowed))
+		if(hair_style && ((species.name in hair_style.species_allowed) || (src.species.flags & ALL_RPARTS)))
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 			if(species.name == "Slime People") // I am el worstos
 				hair_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
