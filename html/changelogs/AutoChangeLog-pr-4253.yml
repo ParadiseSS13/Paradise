@@ -1,5 +1,0 @@
-author: Meisaka
-delete-after: True
-changes: 
-  - bugfix: "The light on/off function for drones works again, toggling between lowest setting and off."
-  - bugfix: "Guardians can toggle their lights off and on again."
