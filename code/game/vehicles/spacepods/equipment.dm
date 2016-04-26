@@ -49,6 +49,7 @@
 	var/obj/item/device/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/device/spacepod_equipment/misc/misc_system // misc system
 	var/obj/item/device/spacepod_equipment/cargo/cargo_system // cargo system
+	var/obj/item/device/spacepod_equipment/lock/lock_system // lock system
 	//var/obj/item/device/spacepod_equipment/engine/engine_system // engine system
 	//var/obj/item/device/spacepod_equipment/shield/shield_system // shielding system
 
@@ -186,3 +187,40 @@
 /obj/item/device/spacepod_equipment/cargo/ore/removed(var/mob/user)
 	. = ..()
 	unload()
+
+/obj/item/device/spacepod_equipment/lock
+	name = "pod lock"
+	desc = "You shouldn't be seeing this"
+	icon = 'icons/goonstation/pods/ship.dmi'
+	icon_state = "blank"
+	var/mode = 0
+	var/id = null
+
+// Key and Tumbler System
+/obj/item/device/spacepod_equipment/lock/keyed
+	name = "\improper spacepod tumbler lock"
+	desc = "A locking system to stop podjacking. This version uses a standalone key."
+	icon_state = "pod_locator"
+
+/obj/item/device/spacepod_equipment/lock/keyed/New()
+	..()
+	id = rand(1, 99999)
+
+// The key
+/obj/item/device/spacepod_key
+	name = "\improper spacepod key"
+	desc = "A key for a spacepod lock."
+	icon_state = "podkey"
+	var/id = 0
+
+// Key - Lock Interactions
+/obj/item/device/spacepod_equipment/lock/keyed/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I, /obj/item/device/spacepod_key))
+		var/obj/item/device/spacepod_key/key = I
+		if(!key.id)
+			key.id = id
+			to_chat(user, "<span class='notice'>You grind the blank key to fit the lock.</span>")
+		else
+			to_chat(user, "<span class='warning'>This key is already ground!</span>")
+	else
+		..()

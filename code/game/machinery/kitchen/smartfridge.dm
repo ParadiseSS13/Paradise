@@ -26,7 +26,9 @@
 /obj/machinery/smartfridge/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/smartfridge(null)
+	var/obj/item/weapon/circuitboard/smartfridge/board = new(null)
+	board.set_type(type)
+	component_parts += board
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	RefreshParts()
 
@@ -150,10 +152,8 @@
 					  /obj/item/weapon/reagent_containers/glass/bottle/plasma = 1,
 					  /obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine = 1)
 
-/obj/machinery/smartfridge/secure/chemistry/virology/accept_check(obj/item/O)
-	if(..(O))
-		return 1
-	if(istype(O, /obj/item/weapon/reagent_containers/syringe))
+/obj/machinery/smartfridge/secure/chemistry/virology/accept_check(var/obj/item/O as obj)
+	if(istype(O, /obj/item/weapon/reagent_containers/syringe) || istype(O, /obj/item/weapon/reagent_containers/glass/bottle) || istype(O, /obj/item/weapon/reagent_containers/glass/beaker))
 		return 1
 	return 0
 
