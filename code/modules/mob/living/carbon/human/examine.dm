@@ -60,6 +60,8 @@
 		msg += "!\n"	//omit the species when examining
 	else if (species.name == "Slime People") //snowflakey because Slime People are defined as a plural
 		msg += ", a slime person!\n"
+	else if (species.name == "Unathi") //DAMN YOU, VOWELS
+		msg += ", a unathi!\n"
 	else
 		msg += ", \a [lowertext(species.name)]!\n"
 
