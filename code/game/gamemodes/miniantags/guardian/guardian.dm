@@ -29,6 +29,8 @@
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
+	var/light_on = 0
+	var/luminosity_on = 3
 	var/mob/living/summoner
 	var/range = 10 //how far from the user the spirit can be
 	var/playstyle_string = "You are a standard Guardian. You shouldn't exist!"
@@ -202,13 +204,13 @@
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
-	if(!luminosity)
-		set_light(3)
+	if(!light_on)
+		set_light(luminosity_on)
 		to_chat(src, "<span class='notice'>You activate your light.</span>")
 	else
 		set_light(0)
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
-
+	light_on = !light_on
 
 //////////////////////////TYPES OF GUARDIANS
 
@@ -839,99 +841,3 @@
 	new /obj/item/weapon/guardiancreator/tech/choose(src)
 	new /obj/item/weapon/paper/guardian(src)
 	return
-
-
-
-/datum/hud/proc/guardian_hud(ui_style = 'icons/mob/screen1_Midnight.dmi')
-	adding = list()
-
-	var/obj/screen/using
-
-	guardianhealthdisplay = new /obj/screen/guardian()
-	guardianhealthdisplay.name = "summoner health"
-	guardianhealthdisplay.screen_loc = ui_health
-	guardianhealthdisplay.mouse_opacity = 0
-	adding += guardianhealthdisplay
-
-	using = new /obj/screen/guardian/Manifest()
-	using.screen_loc = ui_rhand
-	adding += using
-
-	using = new /obj/screen/guardian/Recall()
-	using.screen_loc = ui_lhand
-	adding += using
-
-	using = new /obj/screen/guardian/ToggleMode()
-	using.screen_loc = ui_storage1
-	adding += using
-
-	using = new /obj/screen/guardian/ToggleLight()
-	using.screen_loc = ui_inventory
-	adding += using
-
-	using = new /obj/screen/guardian/Communicate()
-	using.screen_loc = ui_back
-	adding += using
-
-	mymob.client.screen = list()
-	mymob.client.screen += mymob.client.void
-	mymob.client.screen += adding
-
-
-//HUD BUTTONS
-
-/obj/screen/guardian
-	icon = 'icons/mob/guardian.dmi'
-	icon_state = "base"
-
-/obj/screen/guardian/Manifest
-	icon_state = "manifest"
-	name = "Manifest"
-	desc = "Spring forth into battle!"
-
-/obj/screen/guardian/Manifest/Click()
-	if(isguardian(usr))
-		var/mob/living/simple_animal/hostile/guardian/G = usr
-		G.Manifest()
-
-
-/obj/screen/guardian/Recall
-	icon_state = "recall"
-	name = "Recall"
-	desc = "Return to your user."
-
-/obj/screen/guardian/Recall/Click()
-	if(isguardian(usr))
-		var/mob/living/simple_animal/hostile/guardian/G = usr
-		G.Recall()
-
-/obj/screen/guardian/ToggleMode
-	icon_state = "toggle"
-	name = "Toggle Mode"
-	desc = "Switch between ability modes."
-
-/obj/screen/guardian/ToggleMode/Click()
-	if(isguardian(usr))
-		var/mob/living/simple_animal/hostile/guardian/G = usr
-		G.ToggleMode()
-
-/obj/screen/guardian/Communicate
-	icon_state = "communicate"
-	name = "Communicate"
-	desc = "Communicate telepathically with your user."
-
-/obj/screen/guardian/Communicate/Click()
-	if(isguardian(usr))
-		var/mob/living/simple_animal/hostile/guardian/G = usr
-		G.Communicate()
-
-
-/obj/screen/guardian/ToggleLight
-	icon_state = "light"
-	name = "Toggle Light"
-	desc = "Glow like star dust."
-
-/obj/screen/guardian/ToggleLight/Click()
-	if(isguardian(usr))
-		var/mob/living/simple_animal/hostile/guardian/G = usr
-		G.ToggleLight()

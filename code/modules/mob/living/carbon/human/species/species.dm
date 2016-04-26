@@ -52,6 +52,19 @@
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
 	var/hazard_low_pressure = HAZARD_LOW_PRESSURE     // Dangerously low pressure.
 
+	var/list/atmos_requirements = list(
+		"min_oxy" = 16,
+		"max_oxy" = 0,
+		"min_nitro" = 0,
+		"max_nitro" = 0,
+		"min_tox" = 0,
+		"max_tox" = 0.005,
+		"min_co2" = 0,
+		"max_co2" = 10,
+		"sa_para" = 1,
+		"sa_sleep" = 5
+		)
+
 	var/brute_mod = null    // Physical damage reduction/malus.
 	var/burn_mod = null     // Burn damage reduction/malus.
 
@@ -181,66 +194,105 @@
 		O.owner = H
 
 /datum/species/proc/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
-	var/safe_oxygen_min = 16 // Minimum safe partial pressure of O2, in kPa
-	//var/safe_oxygen_max = 140 // Maximum safe partial pressure of O2, in kPa (Not used for now)
-	var/safe_co2_max = 10 // Yes it's an arbitrary value who cares?
-	var/safe_toxins_max = 0.005
-	var/SA_para_min = 1
-	var/SA_sleep_min = 5
-	var/oxygen_used = 0
-	var/nitrogen_used = 0
 	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
-	var/vox_oxygen_max = 1 // For vox.
+
+	var/O2_used = 0
+	var/N2_used = 0
+	var/Tox_used = 0
+	var/CO2_used = 0
 
 	//Partial pressure of the O2 in our breath
-	var/O2_pp = (breath.oxygen/breath.total_moles())*breath_pressure
-	// Same, but for the toxins
-	var/Toxins_pp = (breath.toxins/breath.total_moles())*breath_pressure
-	// And CO2, lets say a PP of more than 10 will be bad (It's a little less really, but eh, being passed out all round aint no fun)
-	var/CO2_pp = (breath.carbon_dioxide/breath.total_moles())*breath_pressure // Tweaking to fit the hacky bullshit I've done with atmo -- TLE
-	// Nitrogen, for Vox.
-	var/Nitrogen_pp = (breath.nitrogen/breath.total_moles())*breath_pressure
+	var/O2_pp = (breath.oxygen/breath.total_moles()) * breath_pressure
+	// Partial pressure of Nitrogen
+	var/N2_pp = (breath.nitrogen/breath.total_moles()) * breath_pressure
+	// Partial pressure of plasma
+	var/Tox_pp = (breath.toxins/breath.total_moles()) * breath_pressure
+	// Partial pressure of CO2
+	var/CO2_pp = (breath.carbon_dioxide/breath.total_moles()) * breath_pressure
 
-	// TODO: Split up into Voxs' own proc.
-	if(O2_pp < safe_oxygen_min && name != "Vox") 	// Too little oxygen
+	if(O2_pp < atmos_requirements["min_oxy"])
 		if(prob(20))
 			spawn(0)
 				H.emote("gasp")
+
+		H.failed_last_breath = 1
 		if(O2_pp > 0)
-			var/ratio = safe_oxygen_min/O2_pp
-			H.adjustOxyLoss(min(5*ratio, HUMAN_MAX_OXYLOSS)) // Don't fuck them up too fast (space only does HUMAN_MAX_OXYLOSS after all!)
-			H.failed_last_breath = 1
-			oxygen_used = breath.oxygen*ratio/6
+			var/ratio = atmos_requirements["min_oxy"] / O2_pp
+			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
 		else
 			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-			H.failed_last_breath = 1
-		H.oxygen_alert = max(H.oxygen_alert, 1)
-	else if(Nitrogen_pp < safe_oxygen_min && name == "Vox")  //Vox breathe nitrogen, not oxygen.
+		H.throw_alert("oxy", /obj/screen/alert/oxy)
+	else if(atmos_requirements["max_oxy"] && O2_pp > atmos_requirements["max_oxy"])
+		var/ratio = (breath.oxygen / atmos_requirements["max_oxy"]) * 1000
+		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
+		H.throw_alert("oxy", /obj/screen/alert/too_much_oxy)
+	else
+		H.clear_alert("oxy")
+		if(atmos_requirements["min_oxy"]) //species breathes this gas, so, they got their air
+			H.failed_last_breath = 0
+			H.adjustOxyLoss(-5)
+			O2_used = breath.oxygen / 6
 
+	if(N2_pp < atmos_requirements["min_nitro"])
 		if(prob(20))
-			spawn(0) H.emote("gasp")
-		if(Nitrogen_pp > 0)
-			var/ratio = safe_oxygen_min/Nitrogen_pp
-			H.adjustOxyLoss(min(5*ratio, HUMAN_MAX_OXYLOSS))
-			H.failed_last_breath = 1
-			nitrogen_used = breath.nitrogen*ratio/6
+			spawn(0)
+				H.emote("gasp")
+
+		H.failed_last_breath = 1
+		if(N2_pp > 0)
+			var/ratio = atmos_requirements["min_nitro"] / N2_pp
+			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
 		else
 			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-			H.failed_last_breath = 1
-		H.oxygen_alert = max(H.oxygen_alert, 1)
+		H.throw_alert("nitro", /obj/screen/alert/nitro)
+	else if(atmos_requirements["max_nitro"] && N2_pp > atmos_requirements["max_nitro"])
+		var/ratio = (breath.nitrogen / atmos_requirements["max_nitro"]) * 1000
+		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
+		H.throw_alert("nitro", /obj/screen/alert/too_much_nitro)
+	else
+		H.clear_alert("nitro")
+		if(atmos_requirements["min_nitro"]) //species breathes this gas, so they got their air
+			H.failed_last_breath = 0
+			H.adjustOxyLoss(-5)
+			N2_used = breath.nitrogen / 6
 
-	else								// We're in safe limits
-		H.failed_last_breath = 0
-		H.adjustOxyLoss(-5)
-		oxygen_used = breath.oxygen/6
-		H.oxygen_alert = 0
+	if(Tox_pp < atmos_requirements["min_tox"])
+		if(prob(20))
+			spawn(0)
+				H.emote("gasp")
 
-	breath.oxygen -= oxygen_used
-	breath.nitrogen -= nitrogen_used
-	breath.carbon_dioxide += oxygen_used
+		H.failed_last_breath = 1
+		if(Tox_pp > 0)
+			var/ratio = atmos_requirements["min_tox"] / Tox_pp
+			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
+		else
+			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+		H.throw_alert("tox_in_air", /obj/screen/alert/not_enough_tox)
+	else if(atmos_requirements["max_tox"] && Tox_pp > atmos_requirements["max_tox"])
+		var/ratio = (breath.toxins / atmos_requirements["max_tox"]) * 10
+		if(H.reagents)
+			H.reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
+		H.throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
+	else
+		H.clear_alert("tox_in_air")
+		if(atmos_requirements["min_tox"]) //species breathes this gas, so, they got their air
+			H.failed_last_breath = 0
+			H.adjustOxyLoss(-5)
+			Tox_used = breath.toxins / 6
 
-	//CO2 does not affect failed_last_breath. So if there was enough oxygen in the air but too much co2, this will hurt you, but only once per 4 ticks, instead of once per tick.
-	if(CO2_pp > safe_co2_max)
+	if(CO2_pp < atmos_requirements["min_co2"])
+		if(prob(20))
+			spawn(0)
+				H.emote("gasp")
+
+		H.failed_last_breath = 1
+		if(CO2_pp)
+			var/ratio = atmos_requirements["min_co2"] / CO2_pp
+			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
+		else
+			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+		H.throw_alert("co2", /obj/screen/alert/not_enough_co2)
+	else if(atmos_requirements["max_co2"] && CO2_pp > atmos_requirements["max_co2"])
 		if(!H.co2overloadtime) // If it's the first breath with too much CO2 in it, lets start a counter, then have them pass out after 12s or so.
 			H.co2overloadtime = world.time
 		else if(world.time - H.co2overloadtime > 120)
@@ -249,77 +301,67 @@
 			if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 				H.adjustOxyLoss(8)
 		if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
-			spawn(0) H.emote("cough")
-
+			spawn(0)
+				H.emote("cough")
 	else
-		H.co2overloadtime = 0
+		H.clear_alert("co2")
+		if(atmos_requirements["min_co2"]) //species breathes this gas, so they got their air
+			H.failed_last_breath = 0
+			H.adjustOxyLoss(-5)
+			CO2_used = breath.carbon_dioxide / 6
 
-	if(Toxins_pp > safe_toxins_max) // Too much toxins
-		var/ratio = (breath.toxins/safe_toxins_max) * 10
-		//adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))	//Limit amount of damage toxin exposure can do per second
-		if(H.reagents)
-			H.reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		H.toxins_alert = max(H.toxins_alert, 1)
+	breath.oxygen   		-= O2_used
+	breath.nitrogen 		-= N2_used
+	breath.toxins   		-= Tox_used
+	breath.carbon_dioxide 	-= CO2_used
+	breath.carbon_dioxide 	+= O2_used
 
-	else if(O2_pp > vox_oxygen_max && name == "Vox") //Oxygen is toxic to vox.
-		var/ratio = (breath.oxygen/vox_oxygen_max) * 1000
-		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		H.toxins_alert = max(H.toxins_alert, 1)
-	else
-		H.toxins_alert = 0
 
 	if(breath.trace_gases.len)	// If there's some other shit in the air lets deal with it here.
 		for(var/datum/gas/sleeping_agent/SA in breath.trace_gases)
-			var/SA_pp = (SA.moles/breath.total_moles())*breath_pressure
-			if(SA_pp > SA_para_min) // Enough to make us paralysed for a bit
+			var/SA_pp = (SA.moles / breath.total_moles()) * breath_pressure
+			if(SA_pp > atmos_requirements["sa_para"]) // Enough to make us paralysed for a bit
 				H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
-				if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-					H.sleeping = max(H.sleeping+2, 10)
+				if(SA_pp > atmos_requirements["sa_sleep"]) // Enough to make us sleep as well
+					H.sleeping = max(H.sleeping + 2, 10)
 			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
-					spawn(0) H.emote(pick("giggle", "laugh"))
+					spawn(0)
+						H.emote(pick("giggle", "laugh"))
 
 	handle_temperature(breath, H)
-
 	return 1
 
 /datum/species/proc/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H) // called by human/life, handles temperatures
-	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations)) // Hot air hurts :(
+	if(abs(310.15 - breath.temperature) > 50) // Hot air hurts :(
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
-				to_chat(H, "\red You feel your face freezing and an icicle forming in your lungs!")
+				to_chat(H, "<span class='warning'>You feel your face freezing and an icicle forming in your lungs!</span>")
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				to_chat(H, "\red You feel your face burning and a searing heat in your lungs!")
+				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
 
 
 		switch(breath.temperature)
 			if(-INFINITY to cold_level_3)
 				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
-				H.fire_alert = max(H.fire_alert, 1)
 
 			if(cold_level_3 to cold_level_2)
 				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
-				H.fire_alert = max(H.fire_alert, 1)
 
 			if(cold_level_2 to cold_level_1)
 				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
-				H.fire_alert = max(H.fire_alert, 1)
 
 			if(heat_level_1 to heat_level_2)
 				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
-				H.fire_alert = max(H.fire_alert, 2)
 
 			if(heat_level_2 to heat_level_3_breathe)
 				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
-				H.fire_alert = max(H.fire_alert, 2)
 
 			if(heat_level_3_breathe to INFINITY)
 				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
-				H.fire_alert = max(H.fire_alert, 2)
-	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	grant_abilities(C)
@@ -528,10 +570,10 @@
 
 	if(H.blinded || H.eye_blind)
 		H.overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		//H.throw_alert("blind", /obj/screen/alert/blind)
+		H.throw_alert("blind", /obj/screen/alert/blind)
 	else
 		H.clear_fullscreen("blind")
-		//H.clear_alert("blind")
+		H.clear_alert("blind")
 
 
 	if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
@@ -553,10 +595,10 @@
 
 	if(H.druggy)
 		H.overlay_fullscreen("high", /obj/screen/fullscreen/high)
-		//H.throw_alert("high", /obj/screen/alert/high)
+		H.throw_alert("high", /obj/screen/alert/high)
 	else
 		H.clear_fullscreen("high")
-		//H.clear_alert("high")
+		H.clear_alert("high")
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(H.healths)
@@ -603,59 +645,15 @@
 				if(icon_num)
 					H.healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.limb_name][icon_num]")
 
-	if(H.nutrition_icon)
-		switch(H.nutrition)
-			if(450 to INFINITY)				H.nutrition_icon.icon_state = "nutrition0"
-			if(350 to 450)					H.nutrition_icon.icon_state = "nutrition1"
-			if(250 to 350)					H.nutrition_icon.icon_state = "nutrition2"
-			if(150 to 250)					H.nutrition_icon.icon_state = "nutrition3"
-			else							H.nutrition_icon.icon_state = "nutrition4"
-
-
-	// BAY SHIT
-	if(H.pressure)
-		H.pressure.icon_state = "pressure[H.pressure_alert]"
-
-	if(H.toxin)
-		if(H.hal_screwyhud == 4 || H.toxins_alert)	H.toxin.icon_state = "tox1"
-		else										H.toxin.icon_state = "tox0"
-	if(H.oxygen)
-		if(H.hal_screwyhud == 3 || H.oxygen_alert)	H.oxygen.icon_state = "oxy1"
-		else										H.oxygen.icon_state = "oxy0"
-	if(H.fire)
-		if(H.fire_alert)							H.fire.icon_state = "fire[H.fire_alert]" //fire_alert is either 0 if no alert, 1 for cold and 2 for heat.
-		else										H.fire.icon_state = "fire0"
-
-	if(H.bodytemp)
-		var/temp_step
-		if(H.bodytemperature >= body_temperature)
-			temp_step = (heat_level_1 - body_temperature)/4
-
-			if(H.bodytemperature >= heat_level_1)
-				H.bodytemp.icon_state = "temp4"
-			else if(H.bodytemperature >= body_temperature + temp_step*3)
-				H.bodytemp.icon_state = "temp3"
-			else if(H.bodytemperature >= body_temperature + temp_step*2)
-				H.bodytemp.icon_state = "temp2"
-			else if(H.bodytemperature >= body_temperature + temp_step*1)
-				H.bodytemp.icon_state = "temp1"
-			else
-				H.bodytemp.icon_state = "temp0"
-
-		else if(H.bodytemperature < body_temperature)
-			temp_step = (body_temperature - cold_level_1)/4
-
-			if(H.bodytemperature <= cold_level_1)
-				H.bodytemp.icon_state = "temp-4"
-			else if(H.bodytemperature <= body_temperature - temp_step*3)
-				H.bodytemp.icon_state = "temp-3"
-			else if(H.bodytemperature <= body_temperature - temp_step*2)
-				H.bodytemp.icon_state = "temp-2"
-			else if(H.bodytemperature <= body_temperature - temp_step*1)
-				H.bodytemp.icon_state = "temp-1"
-			else
-				H.bodytemp.icon_state = "temp0"
-
+	switch(H.nutrition)
+		if(NUTRITION_LEVEL_FULL to INFINITY)
+			H.throw_alert("nutrition", /obj/screen/alert/fat)
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
+			H.clear_alert("nutrition")
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			H.throw_alert("nutrition", /obj/screen/alert/hungry)
+		else
+			H.throw_alert("nutrition", /obj/screen/alert/starving)
 	return 1
 
 /*

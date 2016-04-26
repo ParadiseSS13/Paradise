@@ -1097,6 +1097,11 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
 	return 0
 
+/mob/proc/swap_hand()
+	return
+
+/mob/proc/activate_hand(selhand)
+	return
 
 /mob/proc/Jitter(amount)
 	jitteriness = max(jitteriness, amount, 0)
@@ -1269,8 +1274,8 @@ mob/proc/yank_out_object()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
 
-	if(jobban_isbanned(usr, "NPC"))
-		to_chat(usr, "<span class='warning'>You are banned from playing as NPC's.</span>")
+	if(jobban_isbanned(usr, ROLE_SENTIENT))
+		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
 	if(!ticker || ticker.current_state < 3)

@@ -193,3 +193,31 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	icon_state = "sheet-enruranium"
 	origin_tech = "materials=6"
 	materials = list(MAT_URANIUM=3000)
+
+/*
+ * Alien Alloy
+ */
+/obj/item/stack/sheet/mineral/abductor
+	name = "alien alloy"
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "sheet-abductor"
+	singular_name = "alien alloy sheet"
+	force = 5
+	throwforce = 5
+	w_class = 3
+	throw_speed = 1
+	throw_range = 3
+	origin_tech = "materials=6;abductor=1"
+	sheettype = "abductor"
+
+var/global/list/datum/stack_recipe/abductor_recipes = list ( \
+	new/datum/stack_recipe("alien bed", /obj/structure/stool/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien table frame", /obj/structure/abductor_tableframe, 1, time = 15, one_per_turf = 1, on_floor = 1), \
+	null, \
+	new/datum/stack_recipe("alien floor tile", /obj/item/stack/tile/mineral/abductor, 1, 4, 20), \
+	)
+
+/obj/item/stack/sheet/mineral/abductor/New(var/loc, var/amount=null)
+	recipes = abductor_recipes
+	..()

@@ -1,0 +1,5 @@
+author: pinatacolada
+delete-after: True
+changes: 
+  - tweak: "Makes fridge boards be selectable by screwdriving them"
+  - bugfix: "Virology fridge now accepts  syringes, beakers, and bottles"

@@ -466,15 +466,6 @@
 					dat += "<td>[mob_loc.loc]</td></tr>"
 				else
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
-			if(ticker.mode.num_players_started() >= 30)
-				for(var/datum/mind/N in ticker.mode.get_extra_living_heads())
-					var/mob/M = N.current
-					if(M)
-						dat += check_antagonists_line(M)
-						var/turf/mob_loc = get_turf(M)
-						dat += "<td>[mob_loc.loc]</td></tr>"
-					else
-						dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 
 		if(istype(ticker.mode, /datum/game_mode/blob))
@@ -514,6 +505,12 @@
 
 		if(ticker.mode.shadowling_thralls.len)
 			dat += check_role_table("Shadowling Thralls", ticker.mode.shadowling_thralls, src)
+
+		if(ticker.mode.abductors.len)
+			dat += check_role_table("Abductors", ticker.mode.abductors, src)
+
+		if(ticker.mode.abductees.len)
+			dat += check_role_table("Abductees", ticker.mode.abductees, src)
 
 		if(ticker.mode.vampires.len)
 			dat += check_role_table("Vampires", ticker.mode.vampires, src)

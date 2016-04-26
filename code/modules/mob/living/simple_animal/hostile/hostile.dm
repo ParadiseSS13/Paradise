@@ -33,6 +33,8 @@
 
 /mob/living/simple_animal/hostile/Life()
 	. = ..()
+	if(ranged)
+		ranged_cooldown--
 	if(!.)
 		walk(src, 0)
 		return 0
@@ -46,8 +48,6 @@
 /mob/living/simple_animal/hostile/handle_automated_action()
 	if(AIStatus == AI_OFF)
 		return 0
-	if(ranged)
-		ranged_cooldown--
 	var/list/possible_targets = ListTargets() //we look around for potential targets and make it a list for later use.
 	if(environment_smash)
 		EscapeConfinement()

@@ -92,9 +92,6 @@
 //sort of a legacy burn method for /electrocute, /shock, and the e_chair
 /mob/living/proc/burn_skin(burn_amount)
 	if(istype(src, /mob/living/carbon/human))
-//		to_chat(world, "DEBUG: burn_skin(), mutations=[mutations]")
-		if (RESIST_HEAT in src.mutations) //fireproof
-			return 0
 		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
 		var/divided_damage = (burn_amount)/(H.organs.len)
 		var/extradam = 0	//added to when organ is at max dam
@@ -522,261 +519,73 @@
 	set name = "Resist"
 	set category = "IC"
 
-	if(!isliving(usr) || usr.next_move > world.time)
+	if(!isliving(src) || next_move > world.time || stat || weakened || stunned || paralysis)
 		return
-	usr.changeNext_move(CLICK_CD_RESIST)
+	changeNext_move(CLICK_CD_RESIST)
 
-	var/mob/living/L = usr
-
-	//Resisting control by an alien mind.
-	if(istype(src.loc,/mob/living/simple_animal/borer))
-		resist_borer()
-
-	//resisting grabs (as if it helps anyone...)
-	if ((!(L.stat) && !(L.restrained())))
-		resist_grab(L) //this passes L because the proc requires a typecasted mob/living instead of just 'src'
+	if(!restrained())
+		if(resist_grab())
+			return
 
 	//unbuckling yourself
-	if(L.buckled && (L.last_special <= world.time) )
-		resist_buckle(L) //this passes L because the proc requires a typecasted mob/living instead of just 'src'
+	if(buckled && last_special <= world.time)
+		resist_buckle()
 
-	//Breaking out of an object?
-	else if(src.loc && istype(src.loc, /obj) && (!isturf(src.loc)))
-		if(stat == CONSCIOUS && !stunned && !weakened && !paralysis)
-			var/obj/C = loc
-			C.container_resist(L)
+	//Breaking out of a container (Locker, sleeper, cryo...)
+	else if(isobj(loc))
+		var/obj/C = loc
+		C.container_resist(src)
 
-	//breaking out of handcuffs
-	else if(iscarbon(L))
-		var/mob/living/carbon/CM = L
-
-		if(CM.on_fire && CM.canmove)
-			resist_stop_drop_roll(CM) //this passes CM because the proc requires a typecasted mob/living/carbon instead of just 'src'
-
-		if(CM.handcuffed && CM.canmove && (CM.last_special <= world.time))//this passes CM because the proc requires a typecasted mob/living/carbon instead of just 'src'
-			resist_handcuffs(CM)
-
-		else if(CM.legcuffed && CM.canmove && (CM.last_special <= world.time)) //this passes CM because the proc requires a typecasted mob/living/carbon instead of just 'src'
-			resist_legcuffs(CM)
+	else if(canmove)
+		if(on_fire)
+			resist_fire() //stop, drop, and roll
+		else if(last_special <= world.time)
+			resist_restraints() //trying to remove cuffs.
 
 /*////////////////////
 	RESIST SUBPROCS
 */////////////////////
-
-/* resist_borer allows a mob to regain control of their body after a borer has assumed control.
-*/////
-/mob/living/proc/resist_borer()
-	var/mob/living/simple_animal/borer/B = src.loc
-	var/mob/living/captive_brain/H = src
-
-	to_chat(H, "\red <B>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</B>")
-	to_chat(B.host, "\red <B>You feel the captive mind of [src] begin to resist your control.</B>")
-
-	spawn(rand(350,450)+B.host.brainloss)
-
-		if(!B || !B.controlling)
-			return
-
-		B.host.adjustBrainLoss(rand(5,10))
-		to_chat(H, "\red <B>With an immense exertion of will, you regain control of your body!</B>")
-		to_chat(B.host, "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>")
-
-		B.detatch()
-
-		verbs -= /mob/living/carbon/proc/release_control
-		verbs -= /mob/living/carbon/proc/punish_host
-		verbs -= /mob/living/carbon/proc/spawn_larvae
-
-		return
-
-/* resist_grab allows a mob to resist a grab from another mob when disarming is not an option/neckgrabbed.
-*/////
-/mob/living/proc/resist_grab(var/mob/living/L)
+/mob/living/proc/resist_grab()
 	var/resisting = 0
-
-	for(var/obj/O in L.requests)
-		L.requests.Remove(O)
+	for(var/obj/O in requests)
 		qdel(O)
 		resisting++
-
-	for(var/obj/item/weapon/grab/G in usr.grabbed_by)
+	for(var/X in grabbed_by)
+		var/obj/item/weapon/grab/G = X
 		resisting++
-		if (G.state == 1)
-			qdel(G)
+		switch(G.state)
+			if(GRAB_PASSIVE)
+				qdel(G)
 
-		else
-			if(G.state == 2)
+			if(GRAB_AGGRESSIVE)
 				if(prob(60))
-					for(var/mob/O in viewers(L, null))
-						O.show_message(text("\red [] has broken free of []'s grip!", L, G.assailant), 1)
+					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
-			else
-				if(G.state == 3)
-					if(prob(5))
-						for(var/mob/O in viewers(usr, null))
-							O.show_message(text("\red [] has broken free of []'s headlock!", L, G.assailant), 1)
-						qdel(G)
+			if(GRAB_NECK)
+				if(prob(5))
+					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
+					qdel(G)
 
 	if(resisting)
-		for(var/mob/O in viewers(usr, null))
-			O.show_message(text("\red <B>[] resists!</B>", L), 1)
+		visible_message("<span class='danger'>[src] resists!</span>")
+		return 1
 
-/* resist_buckle allows a mob that is bucklecuffed to break free of the chair/bed/whatever
-*/////
-/mob/living/proc/resist_buckle(var/mob/living/L)
-	if(iscarbon(L))
-		var/mob/living/carbon/C = L
-
-		if(C.handcuffed)
-			C.changeNext_move(CLICK_CD_BREAKOUT)
-			C.last_special = world.time + CLICK_CD_BREAKOUT
-
-			to_chat(C, "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still)</span>")
-			for(var/mob/O in viewers(L))
-				O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
-
-			spawn(0)
-				if(do_after(usr, 1200, target = C))
-					if(!C.buckled)
-						return
-					for(var/mob/O in viewers(C))
-						O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
-					to_chat(C, "\blue You successfully unbuckle yourself.")
-					C.buckled.user_unbuckle_mob(C,C)
-
-	else
-		L.buckled.user_unbuckle_mob(L,L)
-
-/* resist_stop_drop_roll allows a mob to stop, drop, and roll in order to put out a fire burning on them.
-*/////
-/mob/living/proc/resist_stop_drop_roll(var/mob/living/carbon/CM)
-	CM.fire_stacks -= 5
-	CM.weakened = max(CM.weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
-	CM.update_canmove()
-	CM.spin(32,2)
-	CM.visible_message("<span class='danger'>[CM] rolls on the floor, trying to put themselves out!</span>", \
-		"<span class='notice'>You stop, drop, and roll!</span>")
-	sleep(30)
-	if(fire_stacks <= 0)
-		CM.visible_message("<span class='danger'>[CM] has successfully extinguished themselves!</span>", \
-			"<span class='notice'>You extinguish yourself.</span>")
-		ExtinguishMob()
+/mob/living/proc/resist_borer()
 	return
 
-/* resist_handcuffs allows a mob to break/remove their handcuffs after a delay
-*/////
-/mob/living/proc/resist_handcuffs(var/mob/living/carbon/CM)
-	CM.changeNext_move(CLICK_CD_BREAKOUT)
-	CM.last_special = world.time + CLICK_CD_BREAKOUT
-	var/obj/item/weapon/restraints/handcuffs/HC = CM.handcuffed
+/mob/living/proc/resist_buckle()
+	buckled.user_unbuckle_mob(src,src)
 
-	var/breakouttime = 1200 //A default in case you are somehow handcuffed with something that isn't an obj/item/weapon/restraints/handcuffs type
-	var/displaytime = 2 //Minutes to display in the "this will take X minutes."
+/mob/living/proc/resist_fire()
+	return
 
-	var/hulklien = 0 //variable used to define if someone is a hulk or alien
-
-	if(istype(HC)) //If you are handcuffed with actual handcuffs... Well what do I know, maybe someone will want to handcuff you with toilet paper in the future...
-		breakouttime = HC.breakouttime
-		displaytime = breakouttime / 600 //Minutes
-
-	if(isalienadult(CM) || (HULK in usr.mutations))
-		hulklien = 1
-		breakouttime = 50
-		displaytime = 5
-
-	to_chat(CM, "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)")
-	for(var/mob/O in viewers(CM))
-		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
-	spawn(0)
-		if(do_after(CM, breakouttime, target = src))
-			if(!CM.handcuffed || CM.buckled)
-				return // time leniency for lag which also might make this whole thing pointless but the server
-
-			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
-				O.show_message("\red <B>[CM] manages to [hulklien ? "break" : "remove"] the handcuffs!</B>", 1)
-
-			to_chat(CM, "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.handcuffed].")
-
-			if(hulklien)
-				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-				qdel(CM.handcuffed)
-				CM.handcuffed = null
-				if(CM.buckled && CM.buckled.buckle_requires_restraints)
-					CM.buckled.unbuckle_mob()
-				CM.update_inv_handcuffed()
-				return
-
-			CM.unEquip(CM.handcuffed)
-
-/* resist_legcuffs allows a mob to break/remove their legcuffs after a delay
-*/////
-/mob/living/proc/resist_legcuffs(var/mob/living/carbon/CM)
-	var/obj/item/weapon/restraints/legcuffs/HC = CM.legcuffed
-
-	var/breakouttime = 1200 //A default in case you are somehow legcuffed with something that isn't an obj/item/weapon/legcuffs type
-	var/displaytime = 2 //Minutes to display in the "this will take X minutes."
-
-	var/hulklien = 0 //variable used to define if someone is a hulk or alien
-
-	if(istype(HC)) //If you are legcuffed with actual legcuffs... Well what do I know, maybe someone will want to legcuff you with toilet paper in the future...
-		breakouttime = HC.breakouttime
-		displaytime = breakouttime / 600 //Minutes
-
-	if(isalienadult(CM) || (HULK in usr.mutations))
-		hulklien = 1
-		breakouttime = 50
-		displaytime = 5
-
-	to_chat(CM, "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)")
-
-	for(var/mob/O in viewers(CM))
-		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
-
-	spawn(0)
-		if(do_after(CM, breakouttime, target = src))
-			if(!CM.legcuffed || CM.buckled)
-				return // time leniency for lag which also might make this whole thing pointless but the server
-			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
-				O.show_message("\red <B>[CM] manages to [hulklien ? "break" : "remove"] the legcuffs!</B>", 1)
-
-			to_chat(CM, "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.legcuffed].")
-
-			if(!hulklien)
-				CM.unEquip(CM.legcuffed)
-
-			if(hulklien)
-				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-				qdel(CM.legcuffed)
-
-			CM.legcuffed = null
-			CM.update_inv_legcuffed()
+/mob/living/proc/resist_restraints()
+	return
 
 /*//////////////////////
 	END RESIST PROCS
 *///////////////////////
-
-
-
-
-
-/mob/living/carbon/proc/spin(spintime, speed)
-	spawn()
-		var/D = dir
-		while(spintime >= speed)
-			sleep(speed)
-			switch(D)
-				if(NORTH)
-					D = EAST
-				if(SOUTH)
-					D = WEST
-				if(EAST)
-					D = SOUTH
-				if(WEST)
-					D = NORTH
-			dir = D
-			spintime -= speed
-	return
 
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
@@ -788,6 +597,10 @@
 /mob/living/update_gravity(has_gravity)
 	if(!ticker)
 		return
+	if(has_gravity)
+		clear_alert("weightless")
+	else
+		throw_alert("weightless", /obj/screen/alert/weightless)
 	float(!has_gravity)
 
 /mob/living/proc/float(on)
@@ -872,38 +685,71 @@
 	gib()
 	return
 
-/atom/movable/proc/do_attack_animation(atom/A)
+/atom/movable/proc/do_attack_animation(atom/A, end_pixel_y)
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
+	var/final_pixel_y = initial(pixel_y)
+	if(end_pixel_y)
+		final_pixel_y = end_pixel_y
+
 	var/direction = get_dir(src, A)
-	switch(direction)
-		if(NORTH)
-			pixel_y_diff = 8
-		if(SOUTH)
-			pixel_y_diff = -8
-		if(EAST)
-			pixel_x_diff = 8
-		if(WEST)
-			pixel_x_diff = -8
-		if(NORTHEAST)
-			pixel_x_diff = 8
-			pixel_y_diff = 8
-		if(NORTHWEST)
-			pixel_x_diff = -8
-			pixel_y_diff = 8
-		if(SOUTHEAST)
-			pixel_x_diff = 8
-			pixel_y_diff = -8
-		if(SOUTHWEST)
-			pixel_x_diff = -8
-			pixel_y_diff = -8
+	if(direction & NORTH)
+		pixel_y_diff = 8
+	else if(direction & SOUTH)
+		pixel_y_diff = -8
+
+	if(direction & EAST)
+		pixel_x_diff = 8
+	else if(direction & WEST)
+		pixel_x_diff = -8
+
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
+	animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
+
 
 /mob/living/do_attack_animation(atom/A)
-	..()
+	var/final_pixel_y = get_standard_pixel_y_offset(lying)
+	..(A, final_pixel_y)
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
+	// What icon do we use for the attack?
+	var/image/I
+	if(hand && l_hand) // Attacked with item in left hand.
+		I = image(l_hand.icon, A, l_hand.icon_state, A.layer + 1)
+	else if(!hand && r_hand) // Attacked with item in right hand.
+		I = image(r_hand.icon, A, r_hand.icon_state, A.layer + 1)
+	else // Attacked with a fist?
+		return
+
+	// Who can see the attack?
+	var/list/viewing = list()
+	for(var/mob/M in viewers(A))
+		if(M.client && M.client.prefs.show_ghostitem_attack)
+			viewing |= M.client
+	flick_overlay(I, viewing, 5) // 5 ticks/half a second
+
+	// Scale the icon.
+	I.transform *= 0.75
+	// The icon should not rotate.
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+	// Set the direction of the icon animation.
+	var/direction = get_dir(src, A)
+	if(direction & NORTH)
+		I.pixel_y = -16
+	else if(direction & SOUTH)
+		I.pixel_y = 16
+
+	if(direction & EAST)
+		I.pixel_x = -16
+	else if(direction & WEST)
+		I.pixel_x = 16
+
+	if(!direction) // Attacked self?!
+		I.pixel_z = 16
+
+	// And animate the attack!
+	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
 
 /atom/movable/proc/receive_damage(atom/A)
 	var/pixel_x_diff = rand(-3,3)

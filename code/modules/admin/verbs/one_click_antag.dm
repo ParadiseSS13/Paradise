@@ -21,6 +21,7 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=7'>Make Vampires</a><br>
 		<a href='?src=\ref[src];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -308,8 +309,10 @@ client/proc/one_click_antag()
 	return 1
 
 
-
-
+//Abductors
+/datum/admins/proc/makeAbductorTeam()
+	new /datum/event/abductor
+	return 1
 
 /datum/admins/proc/makeAliens()
 	alien_infestation(3)
@@ -396,7 +399,7 @@ client/proc/one_click_antag()
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
 
-	var/datum/preferences/A = new()
+	var/datum/preferences/A = new(G_found.client)
 	A.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)

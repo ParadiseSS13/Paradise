@@ -297,37 +297,38 @@
 //Keeps track of all living heads//
 ///////////////////////////////////
 /datum/game_mode/proc/get_living_heads()
-	var/list/heads = list()
+	. = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat!=2 && player.mind && (player.mind.assigned_role in command_positions))
-			heads += player.mind
-	return heads
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in command_positions))
+			. |= player.mind
 
-/datum/game_mode/proc/get_extra_living_heads()
-	var/list/heads = list()
-	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
-	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat!=2 && player.mind && (player.mind.assigned_role in alt_positions))
-			heads += player.mind
-	return heads
 
 ////////////////////////////
 //Keeps track of all heads//
 ////////////////////////////
 /datum/game_mode/proc/get_all_heads()
-	var/list/heads = list()
+	. = list()
 	for(var/mob/player in mob_list)
 		if(player.mind && (player.mind.assigned_role in command_positions))
-			heads += player.mind
-	return heads
+			. |= player.mind
 
-/datum/game_mode/proc/get_extra_heads()
-	var/list/heads = list()
-	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
-	for(var/mob/player in mob_list)
-		if(player.mind && (player.mind.assigned_role in alt_positions))
-			heads += player.mind
-	return heads
+//////////////////////////////////////////////
+//Keeps track of all living security members//
+//////////////////////////////////////////////
+/datum/game_mode/proc/get_living_sec()
+	. = list()
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in security_positions))
+			. |= player.mind
+
+////////////////////////////////////////
+//Keeps track of all  security members//
+////////////////////////////////////////
+/datum/game_mode/proc/get_all_sec()
+	. = list()
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.mind && (player.mind.assigned_role in security_positions))
+			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
 	return 0
@@ -448,3 +449,29 @@ proc/get_nt_opposed()
 	else
 		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take their place.")
 		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+
+/datum/game_mode/proc/printplayer(datum/mind/ply, fleecheck)
+	var/text = "<br><b>[ply.key]</b> was <b>[ply.name]</b> the <b>[ply.assigned_role]</b> and"
+	if(ply.current)
+		if(ply.current.stat == DEAD)
+			text += " <span class='boldannounce'>died</span>"
+		else
+			text += " <span class='greenannounce'>survived</span>"
+		if(fleecheck && ply.current.z > ZLEVEL_STATION)
+			text += " while <span class='boldannounce'>fleeing the station</span>"
+		if(ply.current.real_name != ply.name)
+			text += " as <b>[ply.current.real_name]</b>"
+	else
+		text += " <span class='boldannounce'>had their body destroyed</span>"
+	return text
+
+/datum/game_mode/proc/printobjectives(datum/mind/ply)
+	var/text = ""
+	var/count = 1
+	for(var/datum/objective/objective in ply.objectives)
+		if(objective.check_completion())
+			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='greenannounce'>Success!</span>"
+		else
+			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='boldannounce'>Fail.</span>"
+		count++
+	return text

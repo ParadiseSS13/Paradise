@@ -10,13 +10,6 @@
 	var/planchette = "A"
 	var/lastuser = null
 
-/obj/structure/spirit_board/proc/announce_to_ghosts()
-	for(var/mob/dead/observer/O in player_list)
-		if(O.client)
-			var/area/A = get_area(src)
-			if(A)
-				to_chat(O, "\blue <b>Someone has begun playing with a [src.name] in [A.name]!. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a>)</b>")
-
 /obj/structure/spirit_board/examine(mob/user)
 	..(user)
 	to_chat(user, "[initial(desc)] The planchette is sitting at \"[planchette]\".")
@@ -37,7 +30,7 @@
 
 	if(virgin)
 		virgin = 0
-		announce_to_ghosts()
+		notify_ghosts("Someone has begun playing with a [src.name] in [get_area(src)]!", source = src)
 
 	planchette = input("Choose the letter.", "Seance!") in list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
 	add_logs(M, src, "picked a letter on", addition="which was \"[planchette]\".")

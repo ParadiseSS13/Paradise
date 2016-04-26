@@ -1,3 +1,4 @@
+var/global/default_martial_art = new/datum/martial_art
 /mob/living/carbon/human
 
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
@@ -79,6 +80,8 @@
 	var/list/bad_external_organs = list()// organs we check until they are good.
 
 	var/hand_blood_color
+
+	var/name_override //For temporary visible name changes
 
 	var/xylophone = 0 //For the spoooooooky xylophone cooldown
 

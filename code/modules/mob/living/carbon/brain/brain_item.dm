@@ -59,8 +59,8 @@
 		to_chat(user, "This one seems particularly lifeless. Perhaps it will regain some of its luster later..")
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
-
-	name = "[dna.real_name]'s [initial(name)]"
+	if(dna)
+		name = "[dna.real_name]'s [initial(name)]"
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
 
