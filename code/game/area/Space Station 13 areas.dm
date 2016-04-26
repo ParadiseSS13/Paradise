@@ -535,6 +535,11 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Asteroid - Artifact"
 	icon_state = "cave"
 
+/area/tardis
+	name = "\improper T.A.R.D.I.S."
+	requires_power = 0
+	icon_state = "green"
+
 /area/tdome
 	name = "\improper Thunderdome"
 	icon_state = "thunder"
