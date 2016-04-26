@@ -26,6 +26,12 @@
 	in their labyrinthine settlements, carved out beneath Hoorlm's icy surface, where the air \
 	is of breathable density."
 
+	suicide_messages = list(
+		"is self-warming with friction!",
+		"is jamming fingers through their big eyes!",
+		"is sucking in warm air!",
+		"is holding their breath!")
+
 	flags = IS_WHITELISTED | HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = FEET_CLAWS | HAS_SKIN_TONE
@@ -67,23 +73,19 @@
 				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
 		switch(breath.temperature)
-			if(-INFINITY to 30)			// This'll make the tank pressure drop really low, won't last very long
-				H.adjustFireLoss(cold_env_multiplier*4) //Has to be half the brute, since it has a 2x multiplier from burn_mod
-				H.adjustBruteLoss(cold_env_multiplier*8)
-				H.fire_alert = max(H.fire_alert, 1)		//To alert that their breath is cold enough for healing. Does not seem to affect cold movement slowdown
 
-			if(31 to 75)
+			if(-INFINITY to 60)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
 				H.fire_alert = max(H.fire_alert, 1)
 
-			if(76 to 200)
+			if(61 to 200)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2)
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(201 to 260)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //0.5 healed every 4 ticks
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1*0.5) //0.5 healed every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
 				H.fire_alert = max(H.fire_alert, 1)
 
