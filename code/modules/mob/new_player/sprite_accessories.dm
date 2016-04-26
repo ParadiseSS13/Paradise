@@ -340,6 +340,11 @@
 		icon_state = "hair_e"
 		gender = MALE // turnoff!
 
+	longemo
+		name = "Long Emo"
+		icon_state = "hair_emolong"
+		gender = FEMALE
+
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////
