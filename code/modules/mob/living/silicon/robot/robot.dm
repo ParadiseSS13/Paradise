@@ -1023,14 +1023,6 @@ var/list/robot_verbs_default = list(
 		overlays += "minerjetpack-[icon_state]"
 	update_fire()
 
-//Call when target overlay should be added/removed
-/mob/living/silicon/robot/update_targeted()
-	if(!targeted_by && target_locked)
-		qdel(target_locked)
-	update_icons()
-	if (targeted_by && target_locked)
-		overlays += target_locked
-
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
 		to_chat(src, "\red Weapon lock active, unable to use modules! Count:[weaponlock_time]")

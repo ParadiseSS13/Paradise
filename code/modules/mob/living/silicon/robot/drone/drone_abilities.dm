@@ -38,10 +38,9 @@
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
 	set category = "Drone"
 
-	if(luminosity)
-		set_light(0)
-		return
-	set_light(2)
+	if(lamp_intensity)
+		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
+	control_headlamp()
 
 //Actual picking-up event.
 /mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M as mob)

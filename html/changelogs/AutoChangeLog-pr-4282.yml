@@ -1,0 +1,4 @@
+author: QuinnAggeler
+delete-after: True
+changes: 
+  - bugfix: "Adds a check for brain death (brain damage of 120 or more) to the proc responsible for reviving IPCs"

@@ -306,6 +306,9 @@
 			if(!locked && !open)
 				var/obj/item/device/paicard/card = W
 				if(card.pai && card.pai.mind)
+					if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
+						to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
+						return
 					if(!user.drop_item())
 						return
 					W.forceMove(src)
@@ -322,7 +325,7 @@
 			else
 				to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
 		else
-			to_chat(user, "<span class='warning'>[src] is not compatible with [W]</span>")
+			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
 	else if(istype(W, /obj/item/weapon/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")

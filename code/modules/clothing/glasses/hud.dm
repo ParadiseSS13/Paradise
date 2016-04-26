@@ -68,6 +68,14 @@
 	flash_protect = 1
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 
+/obj/item/clothing/glasses/hud/security/chameleon
+	name = "Chamleon Security HUD"
+	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Toggle to disguise the HUD. Provides flash protection."
+	flash_protect = 1
+
+/obj/item/clothing/glasses/hud/security/chameleon/attack_self(mob/user)
+	chameleon(user)
+
 /obj/item/clothing/glasses/hud/security/jensenshades
 	name = "augmented shades"
 	desc = "Polarized bioneural eyewear, designed to augment your vision."

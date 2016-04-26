@@ -184,8 +184,18 @@
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
-		if("Midnight")  return 'icons/mob/screen1_Midnight.dmi'
-		else      return 'icons/mob/screen1_White.dmi'
+		if("Retro")
+			return 'icons/mob/screen_retro.dmi'
+		if("Plasmafire")
+			return 'icons/mob/screen_plasmafire.dmi'
+		if("Slimecore")
+			return 'icons/mob/screen_slimecore.dmi'
+		if("Operative")
+			return 'icons/mob/screen_operative.dmi'
+		if("White")
+			return 'icons/mob/screen_white.dmi'
+		else
+			return 'icons/mob/screen_midnight.dmi'
 
 //colour formats
 /proc/rgb2hsl(red, green, blue)

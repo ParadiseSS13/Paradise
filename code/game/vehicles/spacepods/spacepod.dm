@@ -883,7 +883,7 @@
 /obj/effect/landmark/spacepod/random
 	name = "spacepod spawner"
 	invisibility = 101
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	anchored = 1
 
