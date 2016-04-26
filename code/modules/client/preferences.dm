@@ -1600,16 +1600,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
 					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
 					UI_style_alpha = UI_style_alpha_new
-
-<<<<<<< HEAD
-				if("parallax")
-					space_parallax = !space_parallax
-					to_chat(user, "Space Parallax is now [space_parallax ? "on" : "off"].")
-=======
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
->>>>>>> master
+
+				if("parallax")
+					space_parallax = !space_parallax
+					to_chat(user, "Space Parallax is now [space_parallax ? "on" : "off"].")
 
 				if("be_special")
 					var/r = href_list["role"]

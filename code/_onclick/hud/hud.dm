@@ -42,6 +42,7 @@
 
 /datum/hud/New(mob/owner)
 	mymob = owner
+	create_parallax()
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -174,10 +175,6 @@
 	return
 
 /datum/hud/proc/persistant_inventory_update()
-	return
-
-/datum/hud/proc/instantiate()
-	create_parallax()
 	return
 
 /client/var/list/spacebg = list()
