@@ -144,7 +144,7 @@
 		if(beegent && isliving(target))
 			var/mob/living/L = target
 			if(!isnull(target.reagents))
-				beegent.reaction_mob(L, TOUCH)
+				beegent.reaction_mob(L, INGEST)
 				L.reagents.add_reagent(beegent.id, rand(1,5))
 		target.attack_animal(src)
 

@@ -37,6 +37,8 @@
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
 #define ROLE_MORPH				"morph"
+#define ROLE_ERT				"emergency response team"
+#define ROLE_NYMPH				"Dionaea"
 
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.

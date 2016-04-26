@@ -90,7 +90,7 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 		a_ckey = src.owner:ckey
 		a_computerid = src.owner:computer_id
 		a_ip = src.owner:address
-		
+
 	if(blockselfban)
 		if(a_ckey == ckey)
 			to_chat(usr, "<span class='danger'>You cannot apply this ban type on yourself.</span>")
@@ -111,7 +111,7 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 			adminwho += ", [C]"
 
 	reason = sql_sanitize_text(reason)
-	
+
 	if(maxadminbancheck)
 		var/DBQuery/adm_query = dbcon.NewQuery("SELECT count(id) AS num FROM [format_table_name("ban")] WHERE (a_ckey = '[a_ckey]') AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)")
 		adm_query.Execute()
@@ -362,11 +362,11 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in nonhuman_positions)
 		output += "<option value='[j]'>[j]</option>"
-	for(var/j in list("Dionaea","NPC","AntagHUD","Emergency Response Team"))
+	for(var/j in other_roles)
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
 		output += "<option value='[j]'>[j]</option>"
-	for(var/j in list("Syndicate","traitor","changeling","operative","revolutionary","cultist","wizard","alien","ninja","raider","mutineer","blob"))
+	for(var/j in list("Syndicate") + antag_roles)
 		output += "<option value='[j]'>[j]</option>"
 	output += "</select></td></tr></table>"
 	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='50'></textarea><br>"
