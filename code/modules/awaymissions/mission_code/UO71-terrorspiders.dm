@@ -95,13 +95,13 @@
 	All the spiders are deadly. We know this much already. Within an hour of their appearance, they have killed several staff.<br>\
 	Three, however, bear particular mention, as they appear to be leading the spider hivemind.<br>\
 	<br>\
-	The Mother is held in containment 1. She appears docile and harmless, but we are not taking any chances. Advise leaving her alone.<br>\
+	The Mother is held in containment 1. Advise leaving her alone.<br>\
 	It is likely that the hundreds of tiny spiders swarming over her back would come to her defense if she was threatened.<br>\
 	<br>\
 	The Prince is held in containment 2. He appears very aggressive, incredibly fast, strong, and durable. Extreme force and agility would be required to neutralize him.<br>\
 	It is likely the appearance of the prince was related to our initial aggression against the Queen. These things can THINK.<br>\
 	<br>\
-	The Queen cannot be contained, as she smashes through doors like paper. She lives in the old bar, south of mining. She continues to breed dangerous spiders at an alarming rate.<br>\
+	The Queen cannot be contained. She lives in the old bar, south of mining. She continues to breed dangerous spiders at an alarming rate.<br>\
 	Many of her offspring are already roaming the compound, traveling through the vents. Contact with the team sent to subdue her has been lost.<br>\
 	<br>\
 	<br>\
@@ -146,8 +146,8 @@
 	<p>Black<br>Even a single bite is enough to kill a humanoid, given time.</p>\
 	<p>White<br>Injects a parasitic agent. Deemed to pose too great an infection risk to study.</p>\
 	<p>Purple<br>Only seen guarding the nest of the Queen to the south. Appear to be territorial, and very dangerous.</p>\
-	<p>Prince<br>Held in containment. Appears to be a sort of super-warrior. Fast, strong, and extremely resistant to damage.</p>\
-	<p>Mother<br>Passive mother of many young. Also held in containment. Appears benign if undisturbed.</p>\
+	<p>Prince<br>Held in containment 2. Appears to be a sort of super-warrior. Fast, strong, and thickly armored.</p>\
+	<p>Mother<br>Carries hordes of spiderlings on its back. Held in containment 1. </p>\
 	<p>Queen<br>Unable to contain. Present south of Cargo before contact was lost. Presumed ruler of the local hive.</p>\
 	"
 

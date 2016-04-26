@@ -573,6 +573,19 @@ var/global/list/spider_ckey_blacklist = list()
 			to_chat(T, "<span class='alien'>TerrorSpider: " + msgtext + "</span>")
 
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpiders()
+	var/numspiders = 0
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+		if (T.health > 0 && !T.spider_placed && spider_awaymission == T.spider_awaymission)
+			numspiders += 1
+	return numspiders
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/CountAllSpiders()
+	var/numspiders = 0
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+		numspiders += 1
+	return numspiders
+
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
 	..()
 	var/msg = ""
@@ -617,8 +630,8 @@ var/global/list/spider_ckey_blacklist = list()
 		qdel(src)
 	else
 		add_language("TerrorSpider")
-		msg_terrorspiders("[src] has grown in [get_area(src)].")
 		name += " ([rand(1, 1000)])"
+		msg_terrorspiders("[src] has grown in [get_area(src)].")
 		if (name_usealtnames)
 			name = pick(altnames)
 		if(istype(get_area(src), /area/awaycontent) || istype(get_area(src), /area/awaymission/))
@@ -980,6 +993,7 @@ var/global/list/spider_ckey_blacklist = list()
 
 	to_chat(src, "<B><span class='notice'> [commanded] spiders recieved your orders.</span></B>")
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/SetHiveCommand(var/set_ai, var/set_ventcrawl, var/set_pc)
 	var/numspiders = 0
 	//var/orderschanged = 0
@@ -998,7 +1012,7 @@ var/global/list/spider_ckey_blacklist = list()
 			if (T.idle_ventcrawl_chance != set_ventcrawl)
 				T.idle_ventcrawl_chance = set_ventcrawl
 			if (T.ai_playercontrol_allowingeneral != set_pc)
-				if (set_pc == 1)
+				if (set_pc == 1 && !spider_awaymission)
 					notify_ghosts("[T.name] in [get_area(T)] can be controlled! <a href=?src=\ref[T];activate=1>(Click to play)</a>")
 				T.ai_playercontrol_allowingeneral = set_pc
 	for(var/obj/effect/spider/terror_eggcluster/T in world)
@@ -1359,7 +1373,7 @@ var/global/list/spider_ckey_blacklist = list()
 			stop_automated_movement = 0
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/verb/EatCorpse() // var/mob/living/carbon/nibbletarget in oview(1)
+/mob/living/simple_animal/hostile/poison/terror_spider/verb/EatCorpse()
 	set name = "Eat Corpse"
 	set category = "Spider"
 	set desc = "Takes a bite out of a humanoid. Increases regeneration. Use on dead bodies is preferable!"
@@ -1871,7 +1885,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/nestfrequency = 150 // 15 seconds
 	var/lastnestsetup = 0
 	var/neststep = 0
-	var/spider_max_per_nest = 25 // above this, queen stops spawning more, and declares war.
+	var/spider_max_per_nest = 20 // above this, queen stops spawning more, and declares war.
 
 	var/canlay = 0 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/spider_can_hallucinate = 5 // single target hallucinate, atmosphere
@@ -1909,7 +1923,7 @@ var/global/list/spider_ckey_blacklist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
 	..()
 	if (stat != DEAD)
-		if (ckey && canlay < 12) // max 15 eggs worth stored at any one time, realistically that's tons.
+		if (ckey && canlay < 12) // max 12 eggs worth stored at any one time, realistically that's tons.
 			if (world.time > (spider_lastspawn + spider_spawnfrequency))
 				canlay++
 				spider_lastspawn = world.time
@@ -1922,7 +1936,7 @@ var/global/list/spider_ckey_blacklist = list()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
-	// When a queen dies, so do ALL her guardians. Intended as a motivator to ensure they keep her alive.
+	// When a queen dies, so do ALL her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
 	if (!gibbed)
 		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in mob_list)
 			if (ckey)
@@ -1983,8 +1997,6 @@ var/global/list/spider_ckey_blacklist = list()
 		else if (neststep == 1)
 			if (world.time > (lastnestsetup + nestfrequency))
 				lastnestsetup = world.time
-				// Could use prison break to lock open doors, but not really in character.
-				// prison_break (area proc): https://github.com/ParadiseSS13/Paradise/blob/c7ae1fef0db8acfe4111036d5ff337507b2538ab/code/game/area/areas.dm
 				visible_message("<span class='danger'>\the [src] emits a bone-chilling shriek that shatters nearby glass!</span>")
 				for(var/obj/machinery/light/L in range(7,src))
 					L.on = 1
@@ -1998,7 +2010,8 @@ var/global/list/spider_ckey_blacklist = list()
 				neststep = 2
 		else if (neststep == 2)
 			if (world.time > (lastnestsetup + nestfrequency))
-				QueenHallucinate()
+				if (!spider_awaymission)
+					QueenHallucinate()
 				lastnestsetup = world.time
 				spider_lastspawn = world.time
 				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,2,0)
@@ -2008,7 +2021,8 @@ var/global/list/spider_ckey_blacklist = list()
 				if (prob(20))
 					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
-						QueenHallucinate()
+						if (!spider_awaymission)
+							QueenHallucinate()
 						spider_lastspawn = world.time
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,2,0)
 						neststep = 4
@@ -2017,7 +2031,8 @@ var/global/list/spider_ckey_blacklist = list()
 				if (prob(20))
 					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
-						QueenHallucinate()
+						if (!spider_awaymission)
+							QueenHallucinate()
 						spider_lastspawn = world.time
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black,2,1)
 						neststep = 4
@@ -2026,7 +2041,8 @@ var/global/list/spider_ckey_blacklist = list()
 				if (prob(20))
 					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
-						QueenFakeLings()
+						if (!spider_awaymission)
+							QueenFakeLings()
 						spider_lastspawn = world.time
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,2,1)
 						neststep = 5
@@ -2035,7 +2051,8 @@ var/global/list/spider_ckey_blacklist = list()
 				if (prob(20))
 					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
-						QueenFakeLings()
+						if (!spider_awaymission)
+							QueenFakeLings()
 						spider_lastspawn = world.time
 						if (prob(33))
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray,2,1)
@@ -2082,12 +2099,6 @@ var/global/list/spider_ckey_blacklist = list()
 					neststep = 6
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/CountSpiders()
-	var/numspiders = 0
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
-		if (T.health > 0 && !spider_placed && spider_awaymission == T.spider_awaymission)
-			numspiders++
-	return numspiders
 
 
 
@@ -2258,8 +2269,7 @@ var/global/list/spider_ckey_blacklist = list()
 	set name = "Fake Spiderlings"
 	set category = "Spider"
 	set desc = "Animates some damaged spiderlings to crawl throughout the station and panic the crew. Sows fear. These spiderlings never mature. Ability can only be used 3 times."
-	if (spider_awaymission)
-	else if (spider_can_fakelings)
+	if (spider_can_fakelings)
 		spider_can_fakelings--
 		var/numlings = 15
 		for(var/i=0, i<numlings, i++)
@@ -2824,22 +2834,6 @@ var/global/list/spider_ckey_blacklist = list()
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: LOOT DROPS -----------------------------------
 // --------------------------------------------------------------------------------
-
-// https://en.wikipedia.org/wiki/Chelicerae
-/obj/item/weapon/terrorspider_fang
-	name = "terror fang"
-	desc = "An enormous fang, sharp as a good sword and far creepier."
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "terror_fang"
-	sharp = 1
-	edge = 1
-	w_class = 1.0
-	force = 15.0 // quite robust. This can get upgraded to 20 for red fangs.
-	throwforce = 5.0 // weak - it is too heavy.
-	throw_speed = 3
-	throw_range = 5
-	attack_verb = list("stabbed", "slashed", "sliced", "cut")
-	hitsound = 'sound/weapons/bladeslice.ogg'
 
 
 /obj/item/clothing/suit/armor/terrorspider_carapace
