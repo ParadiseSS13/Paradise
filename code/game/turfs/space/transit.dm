@@ -90,6 +90,8 @@
 		return
 	if(istype(AM, /obj/docking_port) || !AM.simulated)
 		return //this was fucking hilarious, the docking ports were getting thrown to random Z-levels
+	if(istype(AM, /mob/dead))
+		return
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 

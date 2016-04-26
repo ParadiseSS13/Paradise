@@ -34,6 +34,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	var/list/supply_packs = list()
 	var/datum/round_event/shuttle_loan/shuttle_loan
 	var/sold_atoms = ""
+	
+	var/datum/transit_allocator/allocator
 
 /datum/controller/process/shuttle/setup()
 	name = "shuttle"
@@ -59,6 +61,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		if(P.name == "HEADER") continue		// To filter out group headers
 		supply_packs["[P.type]"] = P
 	initial_move()
+	
+	allocator = new()
 
 /datum/controller/process/shuttle/doWork()
 	points += points_per_decisecond * schedule_interval
@@ -84,7 +88,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	for(var/obj/docking_port/stationary/S in stationary)
 		if(S.id == id)
 			return S
-	WARNING("couldn't find dock with id: [id]")
+	//WARNING("couldn't find dock with id: [id]")
 
 /datum/controller/process/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
@@ -215,3 +219,116 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 				S.dwidth = M.dwidth
 				S.dheight = M.dheight
 		moveShuttle(M.id, "[M.roundstart_move]", 0)
+
+/datum/transit_allocator
+	var/x1
+	var/x2
+	var/y1
+	var/y2
+	var/z
+	var/list/allocated = list()
+
+/datum/transit_allocator/New()
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == "transit_lower")
+			x1 = L.x
+			y1 = L.y
+			z = L.z
+		else if(L.name == "transit_upper")
+			x2 = L.x
+			y2 = L.y
+			z = L.z
+
+// This proc attempts to allocate a transit area, and returns the registered docking port.
+/datum/transit_allocator/proc/allocate(obj/docking_port/mobile/D)
+	var/datum/allocated_transit/A = new(D, src)
+	if(!A.try_to_position())
+		return null
+	for(var/turf/T in block(locate(A.x,A.y,z),locate(A.x+A.w,A.y+A.h,z)))
+		T.ChangeTurf(D.transit_type)
+	var/obj/docking_port/stationary/transit/temporary/P = new(locate(A.x+A.xOffset,A.y+A.yOffset,z))
+	P.dir = D.dir
+	P.width = D.width
+	P.height = D.height
+	P.dwidth = D.dwidth
+	P.dheight = D.dheight
+	P.turf_type = D.transit_type
+	P.register()
+	A.the_port = P
+	allocated += A
+	return P
+
+/datum/transit_allocator/proc/deallocate(obj/docking_port/stationary/transit/temporary/P)
+	if(!istype(P))
+		return
+	for(var/datum/allocated_transit/A in allocated)
+		if(A.the_port == P)
+			allocated -= A
+			qdel(A)
+	P.unregister_and_destroy()
+
+/datum/allocated_transit
+	var/x
+	var/y
+	var/w
+	var/h
+	var/xOffset = 0 // Offsets to place docking port at.
+	var/yOffset = 0
+	var/datum/transit_allocator/allocator
+	var/obj/docking_port/mobile/mobile
+	var/obj/docking_port/stationary/transit/temporary/the_port
+	
+/datum/allocated_transit/New(obj/docking_port/mobile/D, datum/transit_allocator/T)
+	var/list/coords = D.return_coords()
+	var/x1 = coords[1]
+	var/x2 = coords[3]
+	var/y1 = coords[2]
+	var/y2 = coords[4]
+	if(x1 > x2)
+		x1 = coords[3]
+		x2 = coords[1]
+	if(y1 > y2)
+		y1 = coords[4]
+		y2 = coords[2]
+	allocator = T
+	mobile = D
+	
+	x1 -= 7
+	x2 += 7
+	y1 -= 7
+	y2 += 7
+	
+	xOffset = D.x - x1
+	yOffset = D.y - y1
+	
+	x = x1
+	y = y1
+	w = x2-x1
+	h = y2-y1
+
+/datum/allocated_transit/proc/intersects(datum/allocated_transit/O)
+	if(O.mobile.transit_type == mobile.transit_type) // They can share some transit space. Yey!
+		return !(O.x > (w+x-7) \
+			|| (O.w+O.x-7) < x \
+			|| (O.h+O.y-7) < y \
+			|| O.y > (h+y-7))
+	return !(O.x > (w+x) \
+		|| (O.w+O.x) < x \
+		|| (O.h+O.y) < y \
+		|| O.y > (h+y))
+
+/datum/allocated_transit/proc/try_to_position() // This algorithm works by trying every single position until it gets a transit space. It's not very efficient, but it's doesn't interact with the world.
+	for(var/tryX in allocator.x1 to allocator.x2-w)
+		for(var/tryY in allocator.y1 to allocator.y2-h)
+			x = tryX
+			y = tryY
+			var/valid = 1
+			for(var/datum/allocated_transit/O in allocator.allocated)
+				if(intersects(O))
+					valid = 0
+					break
+			if(!valid)
+				continue
+			return 1
+	return 0
+	//x <= allocator.x2-w
