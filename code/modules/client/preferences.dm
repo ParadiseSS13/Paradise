@@ -1607,6 +1607,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("parallax")
 					space_parallax = !space_parallax
 					to_chat(user, "Space Parallax is now [space_parallax ? "on" : "off"].")
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
 
 				if("be_special")
 					var/r = href_list["role"]

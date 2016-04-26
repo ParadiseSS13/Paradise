@@ -42,7 +42,6 @@
 
 /datum/hud/New(mob/owner)
 	mymob = owner
-	create_parallax()
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -162,6 +161,7 @@
 	mymob.update_action_buttons()
 	reorganize_alerts()
 	reload_fullscreen()
+	create_parallax()
 
 /datum/hud/human/show_hud(version = 0)
 	..()
