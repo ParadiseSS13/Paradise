@@ -62,42 +62,42 @@
 	name = "omni door remote"
 	desc = "This control wand can access any door on the station."
 	icon_state = "gangtool-yellow"
-	region_access = 0
+	region_access = REGION_ALL
 
 /obj/item/weapon/door_remote/captain
 	name = "command door remote"
 	icon_state = "gangtool-yellow"
-	region_access = 7
+	region_access = REGION_COMMAND
 
 /obj/item/weapon/door_remote/chief_engineer
 	name = "engineering door remote"
 	icon_state = "gangtool-orange"
-	region_access = 5
+	region_access = REGION_ENGINEERING
 
 /obj/item/weapon/door_remote/research_director
 	name = "research door remote"
 	icon_state = "gangtool-purple"
-	region_access = 4
+	region_access = REGION_RESEARCH
 
 /obj/item/weapon/door_remote/head_of_security
 	name = "security door remote"
 	icon_state = "gangtool-red"
-	region_access = 2
+	region_access = REGION_SECURITY
 
 /obj/item/weapon/door_remote/quartermaster
 	name = "supply door remote"
 	icon_state = "gangtool-green"
-	region_access = 6
+	region_access = REGION_SUPPLY
 
 /obj/item/weapon/door_remote/chief_medical_officer
 	name = "medical door remote"
 	icon_state = "gangtool-blue"
-	region_access = 3
+	region_access = REGION_MEDBAY
 
 /obj/item/weapon/door_remote/civillian
 	name = "civillian door remote"
 	icon_state = "gangtool-white"
-	region_access = 1
+	region_access = REGION_GENERAL
 
 #undef WAND_OPEN
 #undef WAND_BOLT
