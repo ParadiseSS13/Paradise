@@ -683,3 +683,19 @@
 	icon_state = "noble_clothes"
 	item_color = "noble_clothes"
 	item_state = "noble_clothes"
+
+/obj/item/clothing/under/contortionist
+	name = "Contortionist's Jumpsuit"
+	desc = "A light jumpsuit useful for squeezing through narrow vents."
+	icon_state = "atmos"
+	item_state = "atmos_suit"
+	item_color = "atmos"
+
+/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user as mob)
+	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
+	var/list/slot_must_be_empty = list(slot_back,slot_handcuffed,slot_legcuffed,slot_l_hand,slot_r_hand,slot_belt,slot_head,slot_wear_suit)
+	for(var/slot_id in slot_must_be_empty)
+		if(user.get_item_by_slot(slot_id))
+			user << "<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>"
+			return 0
+	return 1

@@ -173,3 +173,26 @@
 		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
 		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
 		return
+
+/obj/item/weapon/storage/box/syndie_kit/caneshotgun
+	name = "cane gun kit"
+
+
+/obj/item/weapon/storage/box/syndie_kit/caneshotgun/New()
+	..()
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane(src)
+
+/obj/item/weapon/storage/box/syndie_kit/explosive_hug
+	name = "box"
+
+/obj/item/weapon/storage/box/syndie_kit/explosive_hug/New()
+	..()
+	new /obj/item/weapon/reagent_containers/glass/bottle/antisocial(src)
+	new /obj/item/weapon/reagent_containers/syringe(src)
+	return

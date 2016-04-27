@@ -294,3 +294,11 @@
 	desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
 	projectile_type = "/obj/item/projectile/bullet/reusable/foam_dart/riot"
 	icon_state = "foamdart_riot"
+
+/obj/item/ammo_casing/shotgun/dart/assassination
+	desc = "A specialist shotgun dart designed to inncapacitate and kill the target over time, so you can get very far away from your target"
+
+/obj/item/ammo_casing/shotgun/dart/assassination/New()
+	..()
+	reagents.add_reagent("neurotoxin", 6)
+	reagents.add_reagent("lexorin", 6)

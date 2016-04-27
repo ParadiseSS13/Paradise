@@ -156,41 +156,8 @@ obj/item/weapon/gun/energy/staff/focus
 	charge_cost = 2500
 	fire_delay = 50
 	w_class = 4.0
-	var/zoom = 0
-
-/obj/item/weapon/gun/energy/sniperrifle/dropped(mob/user)
-	user.client.view = world.view
-
-
-
-/*
-This is called from
-modules/mob/mob_movement.dm if you move you will be zoomed out
-modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
-*/
-
-/obj/item/weapon/gun/energy/sniperrifle/verb/zoom()
-	set category = "Object"
-	set name = "Use Sniper Scope"
-	set popup_menu = 0
-	if(usr.stat || !(istype(usr,/mob/living/carbon/human)))
-		to_chat(usr, "You are unable to focus down the scope of the rifle.")
-		return
-	if(!zoom && usr.get_active_hand() != src)
-		to_chat(usr, "You are too distracted to look down the scope, perhaps if it was in your active hand this might work better")
-		return
-
-	if(usr.client.view == world.view)
-		if(usr.hud_used)
-			usr.hud_used.show_hud(HUD_STYLE_NOHUD)
-		usr.client.view = 12
-		zoom = 1
-	else
-		usr.client.view = world.view
-		if(usr.hud_used)
-			usr.hud_used.show_hud(HUD_STYLE_STANDARD)
-		zoom = 0
-	to_chat(usr, "<font color='[zoom?"blue":"red"]'>Zoom mode [zoom?"en":"dis"]abled.</font>")
+	zoomable = TRUE
+	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 
 
 /obj/item/weapon/gun/energy/kinetic_accelerator

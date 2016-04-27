@@ -315,3 +315,29 @@
 	origin_tech = "combat=5;materials=2"
 	mag_type = "/obj/item/ammo_box/magazine/internal/shotcom"
 	w_class = 5
+
+//caneshotgun
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane
+	name = "cane"
+	desc = "A cane used by a true gentlemen. Or a clown."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "cane"
+	item_state = "stick"
+	sawn_state = SAWN_OFF
+	w_class = 2
+	force = 10
+	can_unsuppress = 0
+	slot_flags = null
+	origin_tech = "" // NO GIVAWAYS
+	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/improvised"
+	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
+	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+	silenced = 1
+	needs_permit = 0 //its just a cane beepsky.....
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/stack/cable_coil))
+		return
