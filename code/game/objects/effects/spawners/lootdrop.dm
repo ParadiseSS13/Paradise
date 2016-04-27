@@ -126,13 +126,10 @@
 
 	loot = list(
 				/obj/item/weapon/card/emag_broken = 2,
-				/obj/item/weapon/defibrillator/compact/combat/loaded = 1,
 				/obj/item/weapon/defibrillator/compact/loaded = 2,
 				/obj/item/weapon/gun/energy/laser/retro = 2,
 				/obj/item/weapon/rcd/combat = 1,
 				/obj/item/weapon/rcd = 2,
-				/obj/item/weapon/pinpointer/advpinpointer = 3,
-				/obj/item/weapon/gun/medbeam = 2,
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol_common
