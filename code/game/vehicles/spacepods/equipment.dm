@@ -211,6 +211,7 @@
 	name = "\improper spacepod key"
 	desc = "A key for a spacepod lock."
 	icon_state = "podkey"
+	w_class = 1.0
 	var/id = 0
 
 // Key - Lock Interactions
