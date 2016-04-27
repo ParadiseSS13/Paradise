@@ -29,7 +29,7 @@
 		qdel(src)
 
 /obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench) && state == 0 && icon_state != "shuttlegirder")
+	if(istype(W, /obj/item/weapon/wrench) && state == 0 && !istype(src, /obj/structure/girder/shuttle))
 		if(anchored && !istype(src,/obj/structure/girder/displaced))
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
 			to_chat(user, "\blue Now disassembling the girder")
@@ -122,7 +122,7 @@
 						S.use(2)
 						to_chat(user, "\blue You added the plating!")
 						var/turf/Tsrc = get_turf(src)
-						if(icon_state == "shuttlegirder")
+						if(istype(src, /obj/structure/girder/shuttle))
 							Tsrc.ChangeTurf(/turf/simulated/wall/shuttle)
 						else
 							Tsrc.ChangeTurf(/turf/simulated/wall)
