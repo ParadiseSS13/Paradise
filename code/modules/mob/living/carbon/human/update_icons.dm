@@ -361,6 +361,9 @@ var/global/list/damage_icon_parts = list()
 	if(m_style && m_style != "None")
 		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
 		if(marking_style)
+			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			if((!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED)) && marking_style.marking_location == "head")
+				return //If the head is destroyed and it is the organ the marking is located on, get us out of here. This prevents floating optical markings on decapitated IPCs, for example.
 			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
 			if(marking_style.do_colouration)
 				markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
@@ -397,7 +400,8 @@ var/global/list/damage_icon_parts = list()
 				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(rgb(r_headacc, g_headacc, b_headacc), ICON_ADD)
-				head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
+				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
+														   //Having it this way preserves animations. Useful for animated antennae.
 		else
 			//warning("Invalid ha_style for [species.name]: [ha_style]")
 
@@ -437,7 +441,8 @@ var/global/list/damage_icon_parts = list()
 				else if(hair_style.do_colouration)
 					hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
 
-				hair_standing.Blend(hair_s, ICON_OVERLAY)
+				hair_standing = hair_s //hair_standing.Blend(hair_s, ICON_OVERLAY)
+									   //Having it this way preserves animations. Useful for IPC screens.
 		else
 			//warning("Invalid h_style for [species.name]: [h_style]")
 		//hair_standing.Blend(debrained_s, ICON_OVERLAY)//how does i overlay for fish?
