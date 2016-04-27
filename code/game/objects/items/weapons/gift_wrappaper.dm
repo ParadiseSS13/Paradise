@@ -80,7 +80,7 @@
 		/obj/item/weapon/banhammer,
 		/obj/item/toy/balloon,
 		/obj/item/toy/blink,
-		/obj/item/toy/crossbow,
+		/obj/item/weapon/gun/projectile/shotgun/toy/crossbow,
 		/obj/item/weapon/gun/projectile/revolver/capgun,
 		/obj/item/toy/katana,
 		/obj/random/mech,
@@ -115,7 +115,7 @@
 		/obj/item/toy/AI,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/weapon/storage/box/fakesyndiesuit,
-		/obj/item/toy/crossbow/tommygun,
+		/obj/item/weapon/gun/projectile/shotgun/toy/tommygun,
 		/obj/item/stack/tile/fakespace/loaded,
 		)
 
