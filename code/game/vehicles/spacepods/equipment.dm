@@ -201,10 +201,11 @@
 	name = "\improper spacepod tumbler lock"
 	desc = "A locking system to stop podjacking. This version uses a standalone key."
 	icon_state = "pod_locator"
+	var/static/id_source = 0
 
 /obj/item/device/spacepod_equipment/lock/keyed/New()
 	..()
-	id = rand(1, 99999)
+	id = ++id_source
 
 // The key
 /obj/item/device/spacepod_key
