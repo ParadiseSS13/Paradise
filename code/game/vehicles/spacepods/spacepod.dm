@@ -256,6 +256,12 @@
 			to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
 		else
 			to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
+	if(iscrowbar(W) && (!equipment_system.lock_system || allow2enter || hatch_open))
+		hatch_open = !hatch_open
+		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+		to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
+	else
+		to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!hatch_open)
 			to_chat(user, "\red The maintenance hatch is closed!")
