@@ -223,7 +223,6 @@
 		being_used = 0
 		..()
 
-
 /obj/item/slimepotion/steroid
 	name = "slime steroid"
 	desc = "A potent chemical mix that will cause a baby slime to generate more extract."
