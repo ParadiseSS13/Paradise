@@ -198,7 +198,7 @@
 
 // Key and Tumbler System
 /obj/item/device/spacepod_equipment/lock/keyed
-	name = "\improper spacepod keyed lock system"
+	name = "\improper spacepod tumbler lock"
 	desc = "A locking system to stop podjacking. This version uses a standalone key."
 	icon_state = "pod_locator"
 
@@ -210,7 +210,7 @@
 /obj/item/device/spacepod_key
 	name = "\improper spacepod key"
 	desc = "A key for a spacepod lock."
-	icon_state = "podkey_blank"
+	icon_state = "podkey"
 	var/id = 0
 
 // Key - Lock Interactions
@@ -219,7 +219,6 @@
 		var/obj/item/device/spacepod_key/key = I
 		if(!key.id)
 			key.id = id
-			key.icon_state = "podkey_ground"
 			to_chat(user, "<span class='notice'>You grind the blank key to fit the lock.</span>")
 		else
 			to_chat(user, "<span class='warning'>This key is already ground!</span>")
