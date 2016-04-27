@@ -148,7 +148,6 @@
 								// this is used to calc the probability the light burns out
 
 	var/rigged = 0				// true if rigged to explode
-	var/last_clicked = 0		// for attacking cooldown
 
 // the smaller bulb light fixture
 
@@ -443,10 +442,6 @@
 			to_chat(user, "The light [fitting] feels cold.")
 		return
 
-	if(world.time - last_clicked < 10) //makes the whole thing impossible to spam
-		return
-	last_clicked = world.time
-
 	if(user.a_intent == "disarm" || user.a_intent == "grab") //trying to grab the bulb
 
 	// make it burn hands if not wearing fire-insulated gloves
@@ -500,6 +495,7 @@
 		update()
 
 	if(user.a_intent == "harm")	//hitting the bulb
+		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
 		if(prob(10))	//10% chance to break a light with bare hands
 			to_chat(user, "You hit the light, and it smashes!")
