@@ -1,5 +1,0 @@
-author: MarsM0nd
-delete-after: True
-changes: 
-  - tweak: "Embeded object removal is now done with hemostat again"
-  - rscadd: "Borgs are able to do embeded object surgery"

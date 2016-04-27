@@ -63,6 +63,9 @@
 		..()
 		reagents.add_reagent("nutriment", 4)
 		reagents.add_reagent("carpotoxin", 3)
+		spawn(1)
+			reagents.del_reagent("egg")
+			reagents.update_total()
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/fishburger

@@ -89,12 +89,18 @@
 	health = 160
 	reinf = 1
 
-	New()
-		..()
-		color = null
+/obj/structure/window/full/shuttle/New()
+	..()
+	color = null
 
-	update_icon() //icon_state has to be set manually
-		return
+/obj/structure/window/full/shuttle/update_icon() //icon_state has to be set manually
+	return
+
+/obj/structure/window/full/shuttle/shuttleRotate(rotation)
+	..()
+	var/matrix/M = transform
+	M.Turn(rotation)
+	transform = M
 
 /obj/structure/window/full/shuttle/dark
 	icon = 'icons/turf/shuttle.dmi'

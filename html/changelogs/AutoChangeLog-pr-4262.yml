@@ -1,0 +1,14 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - bugfix: "Disembodied prosthetic heads that aren't monitors won't make you go bald when they're re-attached."
+  - bugfix: "'Optic' markings will disappear when your head gets removed, and reappear if it gets re-attached."
+  - bugfix: "Disembodied prosthetic heads that aren't monitors will now be rendered with hair & facial hair."
+  - bugfix: "Disembodied prosthetic heads with optical markings (markings with the head set as the origin) will be rendered with those markings."
+  - bugfix: "Animated hair styles (e.g. screens) and head accessories (e.g. 2/3 new antennae) will now be animated properly."
+  - rscadd: "3 more antennae."
+  - rscadd: "An alt. and monitor head model for every prosthetic brand but Zeng-hu. Morpheus only gets an alt model, not another monitor."
+  - rscadd: "Animated optical markings to fit the new alt. heads."
+  - rscadd: "Screen styles for the alt. Hesphiastos head."
+  - tweak: "Companies that make prosthetic body parts can (and do) now offer separate models for qualified recipients."
+  - tweak: "Removed the frames from screen styles in order to allow the same styles to be applied to all monitor heads."

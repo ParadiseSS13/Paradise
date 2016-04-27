@@ -333,7 +333,7 @@
 	return 1
 
 /datum/species/proc/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H) // called by human/life, handles temperatures
-	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations)) // Hot air hurts :(
+	if(abs(310.15 - breath.temperature) > 50) // Hot air hurts :(
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
@@ -646,11 +646,11 @@
 					H.healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.limb_name][icon_num]")
 
 	switch(H.nutrition)
-		if(450 to INFINITY)
+		if(NUTRITION_LEVEL_FULL to INFINITY)
 			H.throw_alert("nutrition", /obj/screen/alert/fat)
-		if(350 to 450)
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
 			H.clear_alert("nutrition")
-		if(250 to 350)
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
 			H.throw_alert("nutrition", /obj/screen/alert/hungry)
 		else
 			H.throw_alert("nutrition", /obj/screen/alert/starving)
