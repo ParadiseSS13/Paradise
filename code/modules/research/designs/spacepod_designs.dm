@@ -182,3 +182,28 @@
 	materials = list(MAT_METAL=20000, MAT_GLASS=2000)
 	build_path = /obj/item/device/spacepod_equipment/cargo/ore
 	category = list("Pod_Parts")
+
+//////////////////////////////////////////
+//////SPACEPOD LOCK ITEMS////////////////
+//////////////////////////////////////////
+/datum/design/pod_lock_keyed
+	construction_time = 100
+	name = "Spacepod Tumbler Lock"
+	desc = "Allows for the construction of a tumbler style podlock."
+	id = "podlock_keyed"
+	req_tech = list("materials" = 1) //The most basic kind of locking system
+	build_type = PODFAB
+	materials = list(MAT_METAL=4500)
+	build_path = /obj/item/device/spacepod_equipment/lock/keyed
+	category = list("Pod_Parts")
+
+/datum/design/pod_key
+	construction_time = 100
+	name = "Spacepod Tumbler Lock Key"
+	desc = "Allows for the construction of a blank key for a podlock."
+	id = "podkey"
+	req_tech = list("materials" = 1) //The most basic kind of locking system
+	build_type = PODFAB
+	materials = list(MAT_METAL=500)
+	build_path = /obj/item/device/spacepod_key
+	category = list("Pod_Parts")
