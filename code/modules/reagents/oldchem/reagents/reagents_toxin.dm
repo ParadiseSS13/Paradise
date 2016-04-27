@@ -227,29 +227,7 @@
 	return
 
 
-// Terror Spider, Empress
 
-/datum/reagent/terror_empress_toxin
-	name = "Terror Empress venom"
-	id = "terror_empress_toxin"
-	description = "Distilled evil."
-	reagent_state = LIQUID
-	color = "#CF3600" // rgb: 207, 54, 0
-	metabolization_rate = 0.5 // like ketamine, but lasts longer.
-
-/datum/reagent/terror_empress_toxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	// long-lasting paralysis
-	if(current_cycle == 6)
-		M.eye_blurry = max(M.eye_blurry, 5)
-	if(current_cycle >= 10)
-		M.Paralyse(10)
-	return
-
-/datum/reagent/terror_empress_toxin/reagent_deleted(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	//M.reagents.add_reagent("terror_white_toxin", 10)
-	return
 
 // End Spiders.
 

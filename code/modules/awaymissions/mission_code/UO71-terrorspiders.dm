@@ -181,27 +181,18 @@
 	"
 
 
-/obj/item/weapon/gun/energy/awaymission_aeg
+/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg
 	name = "Wireless Energy Gun"
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
 	icon_state = "nucgun"
 	projectile_type = "/obj/item/projectile/beam"
 	fire_sound = 'sound/weapons/Laser.ogg'
-	origin_tech = "combat=5;materials=5;powerstorage=5;engineering=3;"
 	var/inawaymission = 1
 	can_flashlight = 0
 	can_charge = 0
 	charge_cost = 1000
 
-/obj/item/weapon/gun/energy/awaymission_aeg/New()
-	..()
-	processing_objects.Add(src)
-
-/obj/item/weapon/gun/energy/awaymission_aeg/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/weapon/gun/energy/awaymission_aeg/process()
+/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/process()
 	var/turf/my_loc = get_turf(src)
 	if(my_loc.z == (MAX_Z + 1))
 		if (inawaymission)
@@ -222,32 +213,27 @@
 			inawaymission = 0
 			update_icon()
 
-/obj/item/weapon/gun/energy/awaymission_aeg/proc/update_charge()
+/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/update_charge()
 	var/ratio = power_supply.charge / power_supply.maxcharge
 	ratio = round(ratio, 0.25) * 100
 	overlays += "nucgun-[ratio]"
 
-/obj/item/weapon/gun/energy/awaymission_aeg/proc/update_reactor()
+/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/update_reactor()
 	if ((power_supply.charge/power_supply.maxcharge) <= 0.5)
 		overlays += "nucgun-light"
 	else
 		overlays += "nucgun-clean"
 
-/obj/item/weapon/gun/energy/awaymission_aeg/proc/update_mode()
+/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/update_mode()
 	overlays += "nucgun-kill"
 
-/obj/item/weapon/gun/energy/awaymission_aeg/emp_act(severity)
-	..()
-	reliability = max(reliability - round(15/severity), 0) //Do not allow it to go negative!
 
-/obj/item/weapon/gun/energy/awaymission_aeg/update_icon()
-	overlays.Cut()
-	update_charge()
-	update_reactor()
-	update_mode()
 
-/obj/item/weapon/gun/energy/awaymission_aeg/attack_self(mob/living/user as mob)
+/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/attack_self(mob/living/user as mob)
 	to_chat(user, "<span class='danger'>[name] appears to only have one setting, scrawled hastily on it in pen: 'SPIDERS!!!'. This is probably a bad sign.</span>")
+
+
+
 
 /obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
@@ -265,15 +251,15 @@
 	reagents.add_reagent("terror_green_toxin", 50)
 	update_icon()
 
-/obj/item/weapon/gun/energy/awaymission_spidergun
+/obj/item/weapon/gun/energy/decloner/awaymission_spidergun
 	name = "Modified Decloner"
 	desc = "A modified biological decloner, tweaked to destroy terror spiders more effectively."
 	icon_state = "decloner"
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	origin_tech = "combat=5;materials=4;powerstorage=3"
-	projectile_type = "/obj/item/projectile/energy/declone_spider"
+	projectile_type = "/obj/item/projectile/energy/declone/declone_spider"
+	can_charge = 0
 
-/obj/item/projectile/energy/declone_spider
+/obj/item/projectile/energy/declone/declone_spider
 	name = "declone"
 	icon_state = "declone"
 	damage = 20

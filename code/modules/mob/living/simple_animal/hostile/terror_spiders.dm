@@ -549,17 +549,21 @@ var/global/list/spider_ckey_blacklist = list()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/bullet_act(var/obj/item/projectile/Proj)
-	if (istype(Proj, /obj/item/projectile/energy/declone))
+	if (istype(Proj, /obj/item/projectile/energy/declone/declone_spider))
+		if (!degenerate)
+			if (spider_tier < 2)
+				if (ckey)
+					degenerate = 1
+				else
+					gib()
+			else
+				visible_message("<span class='danger'> \icon[src] [src] resists the bioweapon! </span>")
+	else if (istype(Proj, /obj/item/projectile/energy/declone))
 		if (!degenerate && prob(20))
 			visible_message("<span class='danger'> \icon[src] [src] looks staggered by the bioweapon! </span>")
 			if (spider_tier < 3)
-				degenerate=1
-	else if (istype(Proj, /obj/item/projectile/energy/declone_spider))
-		if (!degenerate)
-			if (spider_tier < 2)
-				gib()
-			else
-				visible_message("<span class='danger'> \icon[src] [src] resists the bioweapon! </span>")
+				degenerate = 1
+
 	..()
 
 
@@ -2782,7 +2786,7 @@ var/global/list/spider_ckey_blacklist = list()
 	if(istype(target, /mob))
 		var/mob/living/L = target
 		if(L.reagents)
-			L.reagents.add_reagent("terror_empress_toxin",15)
+			L.reagents.add_reagent("ketamine",30)
 		//options:
 		//               terror_white_tranq, 0.1 metabolism, paralysis, cycle >= 10
 		//               sodium_thiopental, 0.7 metabolism, paralysis, cycle >= 5
