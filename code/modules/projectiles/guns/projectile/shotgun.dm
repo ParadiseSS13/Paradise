@@ -341,3 +341,17 @@
 	..()
 	if(istype(A, /obj/item/stack/cable_coil))
 		return
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
+	var/f_name = "\a [src]."
+	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+		if(gender == PLURAL)
+			f_name = "some "
+		else
+			f_name = "a "
+		f_name += "<span class='danger'>blood-stained</span> [name]!"
+
+	to_chat(user, "\icon[src] That's [f_name]")
+
+	if(desc)
+		to_chat(user, desc)
