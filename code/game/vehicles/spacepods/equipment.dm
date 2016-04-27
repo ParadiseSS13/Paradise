@@ -49,6 +49,7 @@
 	var/obj/item/device/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/device/spacepod_equipment/misc/misc_system // misc system
 	var/obj/item/device/spacepod_equipment/cargo/cargo_system // cargo system
+	var/obj/item/device/spacepod_equipment/lock/lock_system // lock system
 	//var/obj/item/device/spacepod_equipment/engine/engine_system // engine system
 	//var/obj/item/device/spacepod_equipment/shield/shield_system // shielding system
 
@@ -186,7 +187,7 @@
 /obj/item/device/spacepod_equipment/cargo/ore/removed(var/mob/user)
 	. = ..()
 	unload()
-	
+
 /obj/item/device/spacepod_equipment/lock
 	name = "pod lock"
 	desc = "You shouldn't be seeing this"
