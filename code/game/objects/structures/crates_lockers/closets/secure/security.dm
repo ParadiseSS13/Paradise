@@ -26,6 +26,7 @@
 		new /obj/item/device/radio/headset/heads/captain/alt(src)
 		new /obj/item/clothing/gloves/color/captain(src)
 		new /obj/item/weapon/gun/energy/gun(src)
+		new /obj/item/weapon/door_remote/captain(src)
 
 
 
@@ -52,6 +53,7 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/mining_voucher(src)
 		new /obj/item/clothing/accessory/petcollar(src)
+		new /obj/item/weapon/door_remote/civillian(src)
 
 /obj/structure/closet/secure_closet/hop2
 	name = "head of personnel's attire"
@@ -114,6 +116,7 @@
 		new /obj/item/weapon/storage/belt/security/sec(src)
 		new /obj/item/taperoll/police(src)
 		new /obj/item/weapon/gun/energy/hos(src)
+		new /obj/item/weapon/door_remote/head_of_security(src)
 
 
 

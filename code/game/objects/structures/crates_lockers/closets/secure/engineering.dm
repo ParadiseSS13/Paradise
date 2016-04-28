@@ -31,6 +31,7 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/taperoll/engineering(src)
 		new /obj/item/clothing/head/beret/eng(src)
+		new /obj/item/weapon/door_remote/chief_engineer(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"

@@ -327,10 +327,13 @@
 		if (C.handcuffed && !initial(C.handcuffed))
 			C.unEquip(C.handcuffed)
 		C.handcuffed = initial(C.handcuffed)
+		C.update_handcuffed()
 
 		if (C.legcuffed && !initial(C.legcuffed))
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
+		C.update_inv_legcuffed()
+		
 		if(C.reagents)
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
