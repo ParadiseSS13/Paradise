@@ -492,6 +492,17 @@
 	build_path = /obj/item/weapon/circuitboard/prize_counter
 	category = list("Misc. Machinery")
 
+/datum/design/gameboard
+	name = "Machine Design (Virtual Gameboard)"
+	desc = "The circuit board for a Virtual Gameboard."
+	id = "gameboard"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/gameboard
+	category = list("Misc. Machinery")
+
+
 /datum/design/botany_extractor
 	name = "Machine Design (Lysis-Isolation Centrifuge)"
 	desc = "The circuit board for a lysis-isolation centrifuge."

@@ -256,3 +256,41 @@
 	caliber = "40mm"
 	icon_state = "40mmHE"
 	projectile_type = "/obj/item/projectile/bullet/a40mm"
+
+//FOAM DARTS
+/obj/item/ammo_casing/caseless/foam_dart
+	name = "foam dart"
+	desc = "It's nerf or nothing! Ages 8 and up."
+	projectile_type = "/obj/item/projectile/bullet/reusable/foam_dart"
+	caliber = "foam_force"
+	icon = 'icons/obj/toyguns.dmi'
+	icon_state = "foamdart"
+	var/modified = 0
+
+/obj/item/ammo_casing/caseless/foam_dart/update_icon()
+	if(modified)
+		icon_state = "foamdart_empty"
+
+/obj/item/ammo_casing/caseless/foam_dart/attackby(var/obj/item/weapon/A as obj, mob/user as mob, params)
+	..()
+	if(istype(A, /obj/item/weapon/screwdriver) && !modified)
+		modified = 1
+		BB.damage_type = BRUTE
+		icon_state = "foamdart_empty"
+		desc = "It's nerf or nothing! ...Although, this one doesn't look too safe."
+		to_chat(user, "<span class='notice'>You pop the safety cap off of [src].</span>")
+	else if((istype(A, /obj/item/weapon/pen)) && modified && !BB.contents.len)
+		if(!user.unEquip(A))
+			return
+		A.forceMove(BB)
+		BB.damage = 5
+		BB.nodamage = 0
+		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
+	return
+
+
+/obj/item/ammo_casing/caseless/foam_dart/riot
+	name = "riot foam dart"
+	desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
+	projectile_type = "/obj/item/projectile/bullet/reusable/foam_dart/riot"
+	icon_state = "foamdart_riot"
