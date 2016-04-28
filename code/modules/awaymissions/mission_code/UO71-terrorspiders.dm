@@ -181,28 +181,19 @@
 	"
 
 
-/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg
+/obj/item/weapon/gun/energy/laser/awaymission_aeg
 	name = "Wireless Energy Gun"
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
-	icon_state = "nucgun"
-	projectile_type = "/obj/item/projectile/beam"
-	fire_sound = 'sound/weapons/Laser.ogg'
+	force = 10
+	origin_tech = null
+	self_recharge = 1
 	var/inawaymission = 1
-	can_flashlight = 0
-	can_charge = 0
-	charge_cost = 1000
 
-/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/process()
+/obj/item/weapon/gun/energy/laser/awaymission_aeg/process()
 	var/turf/my_loc = get_turf(src)
 	if(my_loc.z == (MAX_Z + 1))
 		if (inawaymission)
-			charge_tick++
-			if(charge_tick < 4) return 0
-			charge_tick = 0
-			if(!power_supply) return 0
-			if((power_supply.charge / power_supply.maxcharge) != 1)
-				power_supply.give(1000)
-				update_icon()
+			..()
 		else
 			to_chat(get(src, /mob), "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
 			inawaymission = 1
@@ -212,26 +203,6 @@
 			power_supply.charge = 0
 			inawaymission = 0
 			update_icon()
-
-/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/update_charge()
-	var/ratio = power_supply.charge / power_supply.maxcharge
-	ratio = round(ratio, 0.25) * 100
-	overlays += "nucgun-[ratio]"
-
-/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/update_reactor()
-	if ((power_supply.charge/power_supply.maxcharge) <= 0.5)
-		overlays += "nucgun-light"
-	else
-		overlays += "nucgun-clean"
-
-/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/update_mode()
-	overlays += "nucgun-kill"
-
-
-
-/obj/item/weapon/gun/energy/gun/nuclear/awaymission_aeg/attack_self(mob/living/user as mob)
-	to_chat(user, "<span class='danger'>[name] appears to only have one setting, scrawled hastily on it in pen: 'SPIDERS!!!'. This is probably a bad sign.</span>")
-
 
 
 
@@ -294,3 +265,4 @@
 	// General access, in gateway room
 	name = "ID Upgrade Machine"
 	access_to_give = list(271)
+

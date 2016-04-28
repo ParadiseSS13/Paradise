@@ -397,11 +397,11 @@
 /datum/language/terrorspider
 	name = "TerrorSpider"
 	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
-	speech_verb = "hisses"
-	ask_verb = "hisses"
-	exclaim_verb = "hisses"
+	speech_verb = "chitters"
+	ask_verb = "chitters"
+	exclaim_verb = "chitters"
 	colour = "alien"
-	key = "a"
+	key = "~"
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
 
