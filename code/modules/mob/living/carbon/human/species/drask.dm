@@ -77,15 +77,17 @@
 			if(-INFINITY to 60)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
-				//H.fire_alert = max(H.fire_alert, 1) I'd like to have an indicator for when its cold enough for regen, but this is outmoded
+				H.throw_alert("temp", /obj/screen/alert/cold/drask, 2)
 
 			if(61 to 200)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2)
+				H.throw_alert("temp", /obj/screen/alert/cold/drask, 2)
 
 			if(201 to 260)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1*0.5) //0.5 healed every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1)
+				H.throw_alert("temp", /obj/screen/alert/cold/drask, 2)
 
 			if(heat_level_1 to heat_level_2)
 				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
