@@ -1,5 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Updates mining loot crates to feature far more actual loot"
-  - tweak: "Mining loot crates are now opened by inputting a 4 digit password and have 10 tries to guess the password string"

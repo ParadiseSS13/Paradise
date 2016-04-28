@@ -23,7 +23,6 @@
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/large/update_icons()
-	update_hud()		//TODO: remove the need for this to be here
 	overlays.Cut()
 	if(stat == DEAD)
 		icon_state = "prat_dead"
