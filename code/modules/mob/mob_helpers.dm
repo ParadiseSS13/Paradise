@@ -179,6 +179,11 @@ proc/isovermind(A)
 		return 1
 	return 0
 
+/proc/isAutoAnnouncer(A)
+	if(istype(A, /mob/living/automatedannouncer))
+		return 1
+	return 0
+
 /proc/isorgan(A)
 	if(istype(A, /obj/item/organ/external))
 		return 1
