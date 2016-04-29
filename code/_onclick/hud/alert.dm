@@ -162,6 +162,10 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	name = "Too Cold"
 	desc = "You're freezing cold! Get somewhere warmer and take off any insulating clothing like a space suit."
 	icon_state = "cold"
+	
+/obj/screen/alert/cold/drask
+    name = "Cold"
+    desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
 
 /obj/screen/alert/cold/robot
     desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this enviroment."

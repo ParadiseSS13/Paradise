@@ -8,7 +8,7 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(species == "Human")
+	if(species in list("Human", "Drask"))
 		s_tone = random_skin_tone()
 	h_style = random_hair_style(gender, species)
 	f_style = random_facial_hair_style(gender, species)
