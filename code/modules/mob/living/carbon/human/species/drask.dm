@@ -68,7 +68,7 @@
 		if(breath.temperature < 260)
 			if(prob(20))
 				to_chat(H, "<span class='notice'> You feel an invigorating coldness in your lungs!</span>")
-		else if(breath.temperature > heat_level_1)
+		if(breath.temperature > heat_level_1)
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
@@ -77,7 +77,7 @@
 			if(-INFINITY to 60)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
-				H.throw_alert("temp", /obj/screen/alert/cold/drask, 2)
+				H.throw_alert("temp", /obj/screen/alert/cold/drask, 3)
 
 			if(61 to 200)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 ticks
@@ -87,7 +87,7 @@
 			if(201 to 260)
 				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1*0.5) //0.5 healed every 4 ticks
 				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1)
-				H.throw_alert("temp", /obj/screen/alert/cold/drask, 2)
+				H.throw_alert("temp", /obj/screen/alert/cold/drask, 1)
 
 			if(heat_level_1 to heat_level_2)
 				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
