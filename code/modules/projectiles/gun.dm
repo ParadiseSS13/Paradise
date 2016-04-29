@@ -87,7 +87,7 @@
 		proj.silenced = silenced
 		return
 
-/obj/item/weapon/gun/energy/New()
+/obj/item/weapon/gun/New()
 	build_zooming()
 
 /obj/item/weapon/gun/pickup(mob/user)

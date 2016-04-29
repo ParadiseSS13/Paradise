@@ -131,6 +131,13 @@ var/list/uplink_items = list()
 	cost = 15
 	job = list("Mime")
 
+/datum/uplink_item/dangerous/cat_grenade
+	name = "Feral Cat Delivery Grenade"
+	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	item = /obj/item/weapon/grenade/spawnergrenade/feral_cats
+	cost = 5
+	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
+
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
 	name = "Chef Excellence's Special Sauce"
@@ -266,16 +273,6 @@ var/list/uplink_items = list()
 	cost = 2
 	job = list("Botanist")
 
-
-//Chemist
-
-/datum/uplink_item/jobspecific/antisocial
-	name = "Explosive Hug Chemical"
-	desc = "30 units of Bicarodyne, a chemical that causes a devastating explosion when exposed to endorphins released in the body by a hug. Metabolizes quite slowly."
-	reference = "HUG"
-	item = /obj/item/weapon/storage/box/syndie_kit/explosive_hug //Had to be put in a box because it didn't play well with reagent creation
-	cost = 4
-	job = list("Chemist", "Chief Medical Officer")
 
 //Atmos Tech
 /datum/uplink_item/jobspecific/contortionist

@@ -394,14 +394,6 @@
 	..()
 	return
 
-/datum/reagent/bicarodyne
-	name = "Bicarodyne"
-	id = "bicarodyne"
-	description = "Not to be confused with the old chemical Bicaridine, Bicarodyne is a volatile chemical that reacts violently in the presence of most human endorphins."
-	reagent_state = LIQUID
-	color = "#C8A5DC" // rgb: 200, 165, 220
-	metabolization_rate = 0.01
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /datum/reagent/condensedcapsaicin
 	name = "Condensed Capsaicin"

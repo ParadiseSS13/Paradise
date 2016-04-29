@@ -73,16 +73,3 @@
 	required_reagents = list("capsaicin" = 2)
 	required_catalysts = list("plasma" = 5)
 	result_amount = 1
-
-/datum/chemical_reaction/explosion_bicarodyne
-	name = "Explosion"
-	id = "explosion_bicarodyne"
-	result = null
-	required_reagents = list("bicarodyne" = 1, "sal_acid" = 1)
-	result_amount = 1
-
-/datum/chemical_reaction/explosion_bicarodyne/on_reaction(var/datum/reagents/holder, var/created_volume)
-	var/datum/effect/system/reagents_explosion/e = new()
-	e.set_up(created_volume, holder.my_atom, 0, 0)
-	e.start()
-	return

@@ -90,7 +90,8 @@
 
 
 /obj/item/weapon/dice/d20/e20/diceroll(mob/user as mob, thrown)
-	if(triggered) return
+	if(triggered)
+		return
 	..()
 	if(result == 1)
 		to_chat(user, "<span class='danger'>Rocks fall, you die.</span>")

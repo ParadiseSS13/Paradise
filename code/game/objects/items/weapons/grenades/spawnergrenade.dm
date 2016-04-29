@@ -41,3 +41,27 @@
 	spawner_type = /mob/living/simple_animal/hostile/carp
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=4"
+
+/obj/item/weapon/grenade/spawnergrenade/feral_cats
+	name = "feral cat delivery grenade"
+	desc = "This grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	spawner_type = /mob/living/simple_animal/hostile/feral_cat
+	deliveryamt = 8
+	origin_tech = "materials=3;magnets=4;syndicate=4"
+
+/obj/item/weapon/grenade/spawnergrenade/feral_cats/prime()			//Own proc for this because the regular one would flash people which was dumb.
+	update_mob()
+	if(spawner_type && deliveryamt)
+		var/turf/T = get_turf(src)
+		playsound(T, 'sound/effects/phasein.ogg', 100, 1)
+
+		for(var/i=1, i<=deliveryamt, i++)
+			var/atom/movable/x = new spawner_type
+			x.loc = T
+			if(prob(50))
+				for(var/j = 1, j <= rand(1, 3), j++)
+					step(x, pick(NORTH,SOUTH,EAST,WEST))
+
+
+	qdel(src)
+	return

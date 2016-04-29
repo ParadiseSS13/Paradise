@@ -301,15 +301,6 @@
 		..()
 		reagents.add_reagent(pick("polonium","initropidril","concentrated_initro","pancuronium","sodium_thiopental","ketamine","sulfonal","amanitin","coniine","curare","sarin","histamine","venom","cyanide","spidereggs","nanomachines"), 40)
 
-/obj/item/weapon/reagent_containers/glass/bottle/antisocial
-	desc = "It has a skull and heart on the bottle..what?"
-	possible_transfer_amounts = list(5,10,15,25,30)
-	volume = 30
-
-	New()
-		..()
-		reagents.add_reagent("bicarodyne", 30)
-
 /obj/item/weapon/reagent_containers/glass/bottle/plasma
 	name = "plasma dust bottle"
 	desc = "A small bottle of plasma in dust form. Extremely toxic and reacts with micro-organisms inside blood."

@@ -301,4 +301,3 @@
 /obj/item/ammo_casing/shotgun/dart/assassination/New()
 	..()
 	reagents.add_reagent("neurotoxin", 6)
-	reagents.add_reagent("lexorin", 6)

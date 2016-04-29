@@ -119,7 +119,7 @@
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		H.drip(100)
+		H.drip(1000)
 
 	return ..()
 
