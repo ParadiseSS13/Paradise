@@ -46,7 +46,13 @@
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src].</span>")
 				else
 					to_chat(user, "<span class='warning'>You burn yourself while lighting the lighter.</span>")
-					user.adjustFireLoss(5)
+					var/mob/living/M = user
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+						if(affecting.take_damage( 0, 5 ))		//INFERNO
+							H.UpdateDamageIcon()
+							H.updatehealth()
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
 
 			set_light(2)
