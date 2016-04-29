@@ -1581,6 +1581,14 @@
 		W.message = message
 		W.add_fingerprint(src)
 
+/mob/living/carbon/human/proc/ayylmao()
+	set category = "IC"
+	set name = "Ayy lmao"
+	set desc = "AYY LMAAAO"
+
+	playsound(src.loc, 'sound/voice/ayylmao.ogg', 20, 1)
+	usr.say("Ayy Lmao!")
+
 // Allows IPC's to change their monitor display
 /mob/living/carbon/human/proc/change_monitor()
 	set category = "IC"
