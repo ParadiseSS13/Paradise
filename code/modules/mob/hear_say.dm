@@ -151,6 +151,9 @@
 			jobname = "Cyborg"
 		else if (ispAI(speaker))
 			jobname = "Personal AI"
+		else if (isAutoAnnouncer(speaker))
+			var/mob/living/automatedannouncer/AA = speaker
+			jobname = AA.role
 		else
 			jobname = "Unknown"
 

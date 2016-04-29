@@ -254,6 +254,8 @@
 					temp_img = icon('icons/obj/butts.dmi', "machine")
 				if("Plasmaman")
 					temp_img = icon('icons/obj/butts.dmi', "plasma")
+				if("Drask")
+					temp_img = icon('icons/obj/butts.dmi', "drask")
 				else
 					temp_img = icon('icons/obj/butts.dmi', "human")
 		else if(istype(ass,/mob/living/silicon/robot/drone))

@@ -20,6 +20,7 @@
 		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
+		"Drask" = 'icons/mob/species/drask/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Unathi" = 'icons/obj/clothing/species/unathi/hats.dmi',
@@ -66,6 +67,7 @@
 		"Skrell" = 'icons/mob/species/skrell/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
