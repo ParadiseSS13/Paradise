@@ -25,16 +25,30 @@
 	self_recharge = 1
 	recharge_time = 10 //Time it takes for shots to recharge (in ticks)
 
-/obj/item/weapon/gun/energy/stunrevolver
-	name = "stun revolver"
-	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. Holds twice as much ammo as a standard taser."
+/obj/item/weapon/gun/energy/shock_revolver
+	name = "tesla revolver"
+	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
 	icon_state = "stunrevolver"
-	fire_sound = "sound/weapons/gunshot.ogg"
-	projectile_type = "/obj/item/projectile/energy/electrode"
-	cell_type = "/obj/item/weapon/stock_parts/cell"
-	fire_delay = 15
+	item_state = "gun"
+	fire_sound = 'sound/weapons/gunshot.ogg'
+	projectile_type = "/obj/item/projectile/shock_revolver"
+	charge_cost = 2000
+	can_flashlight = 0
 
+/obj/item/projectile/shock_revolver
+	name = "shock bolt"
+	icon_state = "purple_laser"
+	var/chain
 
+/obj/item/projectile/shock_revolver/OnFired()
+	spawn(1)
+		chain = Beam(firer, icon_state="purple_lightning", icon = 'icons/effects/effects.dmi',time=1000, maxdistance = 30)
+
+/obj/item/projectile/shock_revolver/on_hit(atom/target)
+	. = ..()
+	if(isliving(target))
+		tesla_zap(src, 3, 10000)
+	qdel(chain)
 
 /obj/item/weapon/gun/energy/crossbow
 	name = "mini energy-crossbow"
