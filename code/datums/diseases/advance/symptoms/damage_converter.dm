@@ -40,7 +40,7 @@ Bonus
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 
-		var/list/parts = H.get_damaged_organs(1,1) //1,1 because it needs inputs.
+		var/list/parts = H.get_damaged_organs(1,1, AFFECT_ORGANIC_ORGAN) //1,1 because it needs inputs.
 
 		if(!parts.len)
 			return
