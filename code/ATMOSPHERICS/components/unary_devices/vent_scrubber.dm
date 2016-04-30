@@ -12,7 +12,7 @@
 	active_power_usage = 60
 
 	can_unwrench = 1
-	
+
 	var/area/initial_loc
 	var/id_tag = null
 	var/frequency = 1439
@@ -175,7 +175,8 @@
 	check_turfs()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process()
-	..()
+	if(!..())
+		return 0
 
 	if (widenet)
 		check_turfs()
@@ -364,7 +365,7 @@
 		return MT_UPDATE
 
 	return ..()
-	
+
 /obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
 	return !welded
 

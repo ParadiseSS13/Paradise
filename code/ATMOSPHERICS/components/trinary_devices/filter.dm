@@ -3,7 +3,7 @@
 	icon_state = "map"
 
 	can_unwrench = 1
-	
+
 	name = "gas filter"
 
 	var/temp = null // -- TLE
@@ -23,7 +23,7 @@ Filter types:
 
 	var/frequency = 0
 	var/datum/radio_frequency/radio_connection
-	
+
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
 	flipped = 1
@@ -71,8 +71,7 @@ Filter types:
 		update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process()
-	..()
-	if(!on)
+	if(!..() || !on)
 		return 0
 
 	var/output_starting_pressure = air3.return_pressure()
@@ -223,4 +222,3 @@ Filter types:
 			src.attack_hand(M)
 */
 	return
-	

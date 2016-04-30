@@ -5,7 +5,7 @@
 	layer = 3
 
 	can_unwrench = 1
-	
+
 	name = "air injector"
 	desc = "Has a valve and pump attached to it"
 
@@ -22,7 +22,7 @@
 	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")
-	
+
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = 1
 
@@ -52,7 +52,9 @@
 		update_icon()
 
 /obj/machinery/atmospherics/unary/outlet_injector/process()
-	..()
+	if(!..())
+		return 0
+	
 	injecting = 0
 
 	if(!on || stat & NOPOWER)
