@@ -86,7 +86,7 @@ nanoui is used to open and update nano browser uis
 	add_template("main", ntemplate_filename)
 
 	if (ntitle)
-		title = sanitize(ntitle)
+		title = ntitle
 	if (nwidth)
 		width = nwidth
 	if (nheight)
@@ -176,7 +176,6 @@ nanoui is used to open and update nano browser uis
   */
 /datum/nanoui/proc/get_config_data()
 	var/name = "[src_object]"
-	name = sanitize(name) //jQuery's parseJSON fails with byond formatting characters in the JSON
 	var/list/config_data = list(
 			"title" = title,
 			"srcObject" = list("name" = name),
@@ -187,7 +186,7 @@ nanoui is used to open and update nano browser uis
 			"showMap" = show_map,
 			"mapZLevel" = map_z_level,
 			"user" = list(
-				"name" = sanitize(user.name),
+				"name" = user.name,
 				"fancy" = user.client.prefs.nanoui_fancy
 			),
 			"window" = list(
@@ -354,12 +353,12 @@ nanoui is used to open and update nano browser uis
 
 	var/template_data_json = "{}" // An empty JSON object
 	if (templates.len > 0)
-		template_data_json = list2json(templates)
+		template_data_json = json_encode(templates)
 
 	var/list/send_data = get_send_data(initial_data)
-	var/initial_data_json = replacetext(replacetext(list2json_usecache(send_data), "&#34;", "&amp;#34;"), "'", "&#39;")
+	var/initial_data_json = replacetext(replacetext(json_encode(send_data), "&#34;", "&amp;#34;"), "'", "&#39;")
 
-	var/url_parameters_json = list2json(list("src" = "\ref[src]"))
+	var/url_parameters_json = json_encode(list("src" = "\ref[src]"))
 
 	return {"
 <!DOCTYPE html>
@@ -458,7 +457,7 @@ nanoui is used to open and update nano browser uis
 
 //	to_chat(user, list2json_usecache(send_data))// used for debugging //NANO DEBUG HOOK
 
-	user << output(list2params(list(list2json_usecache(send_data))),"[window_id].browser:receiveUpdateData")
+	user << output(list2params(list(json_encode(send_data))),"[window_id].browser:receiveUpdateData")
 
  /**
   * This Topic() proc is called whenever a user clicks on a link within a Nano UI
