@@ -1611,6 +1611,22 @@ var/mob/dview/dview_mob = new
 	tY = max(1, min(world.maxy, origin.y + (text2num(tY) - (world.view + 1))))
 	return locate(tX, tY, tZ)
 
+/proc/get_closest_atom(type, list, source)
+	var/closest_atom
+	var/closest_distance
+	for(var/A in list)
+		if(!istype(A, type))
+			continue
+		var/distance = get_dist(source, A)
+		if(!closest_distance)
+			closest_distance = distance
+			closest_atom = A
+		else
+			if(closest_distance > distance)
+				closest_distance = distance
+				closest_atom = A
+	return closest_atom
+
 /proc/pick_closest_path(value)
 	var/list/matches = get_fancy_list_of_types()
 	if (!isnull(value) && value!="")
