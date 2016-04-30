@@ -6,8 +6,8 @@
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
 	gender = MALE
-	maxHealth = 30
-	health = 30
+	maxHealth = 20
+	health = 20
 	melee_damage_lower = 10
 	melee_damage_upper = 5
 	attacktext = "claws"

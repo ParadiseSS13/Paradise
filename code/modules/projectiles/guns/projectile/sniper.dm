@@ -24,13 +24,13 @@
 /obj/item/weapon/gun/projectile/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
-	origin_tech = "combat=8;illigal=4"
+	origin_tech = "combat=8;syndicate=4"
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
 	name = "sniper rounds (.50)"
 	icon_state = ".50mag"
-	origin_tech = "combat=6;illigal=2"
+	origin_tech = "combat=6;syndicate=2"
 	ammo_type = /obj/item/ammo_casing/point50
 	max_ammo = 6
 	caliber = ".50"
@@ -66,7 +66,7 @@
 	name = "sniper rounds (Zzzzz)"
 	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
 	icon_state = "soporific"
-	origin_tech = "combat=6;illigal=3"
+	origin_tech = "combat=6;syndicate=3"
 	ammo_type = /obj/item/ammo_casing/soporific
 	max_ammo = 3
 	caliber = ".50"
@@ -76,6 +76,7 @@
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/soporific
 	nodamage = 1
@@ -108,6 +109,7 @@
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
+	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/haemorrhage
 	damage = 15

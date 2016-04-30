@@ -135,6 +135,7 @@ var/list/uplink_items = list()
 	name = "Feral Cat Delivery Grenade"
 	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/weapon/grenade/spawnergrenade/feral_cats
+	reference = "CCLG"
 	cost = 5
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
@@ -599,6 +600,7 @@ var/list/uplink_items = list()
 	name = "Sniper Magazine - .50"
 	desc = "An additional 6-round .50 magazine for use in the syndicate sniper rifle."
 	item = /obj/item/ammo_box/magazine/sniper_rounds
+	reference = "SAMO"
 	cost = 4 //70dmg rounds are no joke
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -606,22 +608,26 @@ var/list/uplink_items = list()
 	name = "Sniper Magazine - Soporific Rounds"
 	desc = "A 3-round magazine of soporific ammo designed for use in the syndicate sniper rifle, put your enemies to sleep today!"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
+	reference = "SOPA"
 	cost = 6
 
 /datum/uplink_item/ammo/sniper/haemorrhage
 	name = "Sniper Magazine - Haemorrhage Rounds"
 	desc = "A 5-round magazine of haemorrhage ammo designed for use in the syndicate sniper rifle, causes heavy bleeding in the target."
+	reference = "BLUDA"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
 
 /datum/uplink_item/ammo/sniper/penetrator
 	name = "Sniper Magazine - Penetrator Rounds"
 	desc = "A 5-round magazine of penetrator ammo designed for use in the syndicate sniper rifle. Can pierce walls and multiple enemies."
+	reference = "PENAMO"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
 	cost = 5
 
 /datum/uplink_item/ammo/sniper/accelerator
 	name = "Sniper Magazine - Accelerator Rounds"
 	desc = "A 5-round magazine of accelerator ammo designed for use in the syndicate sniper rifle. The shot is weak at close range, but gains more power the farther it flies."
+	reference = "ACELAMO"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/accelerator
 	cost = 4
 

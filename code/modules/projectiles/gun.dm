@@ -89,17 +89,20 @@
 
 /obj/item/weapon/gun/New()
 	build_zooming()
+	..()
 
 /obj/item/weapon/gun/pickup(mob/user)
 
 	if(azoom)
 		azoom.Grant(user)
+	..()
 
 /obj/item/weapon/gun/dropped(mob/user)
 
 	zoom(user,FALSE)
 	if(azoom)
 		azoom.Remove(user)
+	..()
 
 /obj/item/weapon/gun/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 	if(flag)    return //we're placing gun on a table or in backpack
