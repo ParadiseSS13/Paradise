@@ -212,10 +212,14 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs
-/mob/living/carbon/human/proc/get_damaged_organs(var/brute, var/burn)
+/mob/living/carbon/human/proc/get_damaged_organs(var/brute, var/burn, var/flags = AFFECT_ALL_ORGANS)
 	var/list/obj/item/organ/external/parts = list()
 	for(var/obj/item/organ/external/O in organs)
 		if((brute && O.brute_dam) || (burn && O.burn_dam))
+			if(!(flags & AFFECT_ROBOTIC_ORGAN) && O.status & ORGAN_ROBOT)
+				continue
+			if(!(flags & AFFECT_ORGANIC_ORGAN) && !(O.status & ORGAN_ROBOT))
+				continue
 			parts += O
 	return parts
 
