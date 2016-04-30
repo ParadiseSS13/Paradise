@@ -70,7 +70,7 @@
 /obj/item/device/spacepod_equipment/weaponry
 	name = "pod weapon"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/goonstation/pods/ship.dmi'
+	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 	var/projectile_type
 	var/shot_cost = 0
@@ -81,7 +81,7 @@
 /obj/item/device/spacepod_equipment/weaponry/taser
 	name = "disabler system"
 	desc = "A weak taser system for space pods, fires disabler beams."
-	icon_state = "pod_taser"
+	icon_state = "weapon_taser"
 	projectile_type = "/obj/item/projectile/beam/disabler"
 	shot_cost = 400
 	fire_sound = "sound/weapons/Taser.ogg"
@@ -89,7 +89,7 @@
 /obj/item/device/spacepod_equipment/weaponry/burst_taser
 	name = "burst taser system"
 	desc = "A weak taser system for space pods, this one fires 3 at a time."
-	icon_state = "pod_b_taser"
+	icon_state = "weapon_burst_taser"
 	projectile_type = "/obj/item/projectile/beam/disabler"
 	shot_cost = 1200
 	shots_per = 3
@@ -99,7 +99,7 @@
 /obj/item/device/spacepod_equipment/weaponry/laser
 	name = "laser system"
 	desc = "A weak laser system for space pods, fires concentrated bursts of energy"
-	icon_state = "pod_w_laser"
+	icon_state = "weapon_laser"
 	projectile_type = "/obj/item/projectile/beam"
 	shot_cost = 600
 	fire_sound = 'sound/weapons/Laser.ogg'
@@ -108,6 +108,7 @@
 /obj/item/device/spacepod_equipment/weaponry/mining_laser_basic
 	name = "weak mining laser system"
 	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock"
+	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_taser"
 	projectile_type = "/obj/item/projectile/kinetic"
 	shot_cost = 300
@@ -117,6 +118,7 @@
 /obj/item/device/spacepod_equipment/weaponry/mining_laser
 	name = "mining laser system"
 	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock"
+	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_m_laser"
 	projectile_type = "/obj/item/projectile/kinetic/super"
 	shot_cost = 250
@@ -126,6 +128,7 @@
 /obj/item/device/spacepod_equipment/weaponry/mining_laser_hyper
 	name = "enhanced mining laser system"
 	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock"
+	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_w_laser"
 	projectile_type = "/obj/item/projectile/kinetic/hyper"
 	shot_cost = 200
@@ -160,7 +163,7 @@
 /obj/item/device/spacepod_equipment/cargo
 	name = "pod cargo"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/goonstation/pods/ship.dmi'
+	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 
 /obj/item/device/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
@@ -172,7 +175,7 @@
 /obj/item/device/spacepod_equipment/cargo/ore
 	name = "\improper spacepod ore storage system"
 	desc = "An ore storage system for spacepods. Scoops up any ore you drive over."
-	icon_state = "pod_locator"
+	icon_state = "cargo_ore"
 	var/obj/structure/ore_box/box
 
 /obj/item/device/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
@@ -191,7 +194,7 @@
 /obj/item/device/spacepod_equipment/lock
 	name = "pod lock"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/goonstation/pods/ship.dmi'
+	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 	var/mode = 0
 	var/id = null
@@ -200,7 +203,7 @@
 /obj/item/device/spacepod_equipment/lock/keyed
 	name = "\improper spacepod tumbler lock"
 	desc = "A locking system to stop podjacking. This version uses a standalone key."
-	icon_state = "pod_locator"
+	icon_state = "lock_tumbler"
 	var/static/id_source = 0
 
 /obj/item/device/spacepod_equipment/lock/keyed/New()
@@ -211,6 +214,7 @@
 /obj/item/device/spacepod_key
 	name = "\improper spacepod key"
 	desc = "A key for a spacepod lock."
+	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "podkey"
 	w_class = 1.0
 	var/id = 0
