@@ -60,7 +60,7 @@
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
-			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Wryn")
+			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Wryn","Drask")
 		else
 			species_restricted = list(target_species)
 
@@ -184,7 +184,8 @@ BLIND     // can't see anything
 	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
+		"Vox" = 'icons/mob/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
 
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
@@ -562,7 +563,8 @@ BLIND     // can't see anything
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/species/drask/uniform.dmi'
 		)
 	var/has_sensor = 1//For the crew computer 2 = unable to change mode
 	var/sensor_mode = 0

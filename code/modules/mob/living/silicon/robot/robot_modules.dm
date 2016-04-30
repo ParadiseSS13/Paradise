@@ -93,6 +93,7 @@
 	R.add_language("Trinary", 1)
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
+	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
 
 /obj/item/weapon/robot_module/proc/add_subsystems(var/mob/living/silicon/robot/R)
