@@ -137,7 +137,7 @@
 		for(var/type in uninsertable_types)
 			if(istype(W, type))
 				return 1
-		if(contents.len > 1)
+		if(contents.len >= 1)
 			// No more bluespace cake
 			to_chat(user, "<span class='warning'>Something is already in the [src]!</span>")
 			return 1
