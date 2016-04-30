@@ -9,24 +9,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/b_markings = 0
 	var/m_style = "None"
 
-	//Hair colour and style
-	var/r_hair = 0
-	var/g_hair = 0
-	var/b_hair = 0
-	var/h_style = "Bald"
-
-	//Head accessory colour and style
-	var/r_headacc = 0
-	var/g_headacc = 0
-	var/b_headacc = 0
-	var/ha_style = "None"
-
-	//Facial hair colour and style
-	var/r_facial = 0
-	var/g_facial = 0
-	var/b_facial = 0
-	var/f_style = "Shaved"
-
 	//Eye colour
 	var/r_eyes = 0
 	var/g_eyes = 0

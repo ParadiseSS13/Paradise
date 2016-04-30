@@ -54,6 +54,7 @@
 			to_chat(C, "<span class='danger'>It feels like part of you has died.</span>")
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	if(M.a_intent == I_HARM)
 		if(H.handcuffed)
 			if(!H.get_int_organ(/obj/item/organ/internal/wryn/hivenode))	return
@@ -71,7 +72,7 @@
 				to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
 				to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
 				to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
-				H.h_style = "Bald"
+				head_organ.h_style = "Bald"
 				H.update_hair()
 
 				M.attack_log += text("\[[time_stamp()]\] <font color='red'>removed antennae [H.name] ([H.ckey])</font>")
@@ -87,7 +88,7 @@
 	blurb = "A sub-race of unforunates who have been exposed to too much supermatter radiation. As a result, \
 	supermatter crystal clusters have begun to grow across their bodies. Research to find a cure for this ailment \
 	has been slow, and so this is a common fate for veteran engineers. The supermatter crystals produce oxygen, \
-	negating the need for the individual to breath. Their massive change in biology, however, renders most medicines \
+	negating the need for the individual to breathe. Their massive change in biology, however, renders most medicines \
 	obselete. Ionizing radiation seems to cause resonance in some of their crystals, which seems to encourage regeneration \
 	and produces a calming effect on the individual. Nucleations are highly stigmatized, and are treated much in the same \
 	way as lepers were back on Earth."

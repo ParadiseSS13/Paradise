@@ -198,12 +198,13 @@ datum/reagent/hair_dye
 datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.r_facial = rand(0,255)
-		H.g_facial = rand(0,255)
-		H.b_facial = rand(0,255)
-		H.r_hair = rand(0,255)
-		H.g_hair = rand(0,255)
-		H.b_hair = rand(0,255)
+		var/obj/item/organ/external/head/head_organ = H.organs_by_name["head"]
+		head_organ.r_facial = rand(0,255)
+		head_organ.g_facial = rand(0,255)
+		head_organ.b_facial = rand(0,255)
+		head_organ.r_hair = rand(0,255)
+		head_organ.g_hair = rand(0,255)
+		head_organ.b_hair = rand(0,255)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -228,8 +229,9 @@ datum/reagent/hairgrownium
 datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.h_style = random_hair_style(H.gender, H.species)
-		H.f_style = random_facial_hair_style(H.gender, H.species)
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		head_organ.h_style = random_hair_style(H.gender, head_organ.species)
+		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -256,8 +258,9 @@ datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.h_style = "Very Long Hair"
-		H.f_style = "Very Long Beard"
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		head_organ.h_style = "Very Long Hair"
+		head_organ.f_style = "Very Long Beard"
 		H.update_hair()
 		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))

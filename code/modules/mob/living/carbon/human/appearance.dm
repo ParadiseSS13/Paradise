@@ -18,16 +18,17 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_gender(var/gender, var/update_dna = 1)
+	var/obj/item/organ/external/head/H = organs_by_name["head"]
 	if(src.gender == gender)
 		return
 
 	src.gender = gender
 
-	var/datum/sprite_accessory/hair/current_hair = hair_styles_list[h_style]
+	var/datum/sprite_accessory/hair/current_hair = hair_styles_list[H.h_style]
 	if(current_hair.gender != NEUTER && current_hair.gender != src.gender)
 		reset_head_hair()
 
-	var/datum/sprite_accessory/hair/current_fhair = facial_hair_styles_list[f_style]
+	var/datum/sprite_accessory/hair/current_fhair = facial_hair_styles_list[H.f_style]
 	if(current_fhair.gender != NEUTER && current_fhair.gender != src.gender)
 		reset_facial_hair()
 
@@ -38,31 +39,33 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_hair(var/hair_style)
+	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!hair_style)
 		return
 
-	if(h_style == hair_style)
+	if(H.h_style == hair_style)
 		return
 
 	if(!(hair_style in hair_styles_list))
 		return
 
-	h_style = hair_style
+	H.h_style = hair_style
 
 	update_hair()
 	return 1
 
 /mob/living/carbon/human/proc/change_facial_hair(var/facial_hair_style)
+	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!facial_hair_style)
 		return
 
-	if(f_style == facial_hair_style)
+	if(H.f_style == facial_hair_style)
 		return
 
 	if(!(facial_hair_style in facial_hair_styles_list))
 		return
 
-	f_style = facial_hair_style
+	H.f_style = facial_hair_style
 
 	update_fhair()
 	return 1
@@ -72,23 +75,24 @@
 	reset_facial_hair()
 
 /mob/living/carbon/human/proc/reset_head_hair()
+	var/obj/item/organ/external/head/H = get_organ("head")
 	var/list/valid_hairstyles = generate_valid_hairstyles()
-
 	if(valid_hairstyles.len)
-		h_style = pick(valid_hairstyles)
+		H.h_style = pick(valid_hairstyles)
 	else
 		//this shouldn't happen
-		h_style = "Bald"
+		H.h_style = "Bald"
 
 	update_hair()
 
 /mob/living/carbon/human/proc/reset_facial_hair()
+	var/obj/item/organ/external/head/H = get_organ("head")
 	var/list/valid_facial_hairstyles = generate_valid_facial_hairstyles()
 	if(valid_facial_hairstyles.len)
-		f_style = pick(valid_facial_hairstyles)
+		H.f_style = pick(valid_facial_hairstyles)
 	else
 		//this shouldn't happen
-		f_style = "Shaved"
+		H.f_style = "Shaved"
 	update_fhair()
 
 /mob/living/carbon/human/proc/change_eye_color(var/red, var/green, var/blue)
@@ -104,23 +108,25 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_hair_color(var/red, var/green, var/blue)
-	if(red == r_eyes && green == g_eyes && blue == b_eyes)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(red == H.r_hair && green == H.g_hair && blue == H.b_hair)
 		return
 
-	r_hair = red
-	g_hair = green
-	b_hair = blue
+	H.r_hair = red
+	H.g_hair = green
+	H.b_hair = blue
 
 	update_hair()
 	return 1
 
 /mob/living/carbon/human/proc/change_facial_hair_color(var/red, var/green, var/blue)
-	if(red == r_facial && green == g_facial && blue == b_facial)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(red == H.r_facial && green == H.g_facial && blue == H.b_facial)
 		return
 
-	r_facial = red
-	g_facial = green
-	b_facial = blue
+	H.r_facial = red
+	H.g_facial = green
+	H.b_facial = blue
 
 	update_fhair()
 	return 1
@@ -172,17 +178,17 @@
 	var/list/valid_hairstyles = new()
 	for(var/hairstyle in hair_styles_list)
 		var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
+		var/obj/item/organ/external/head/H = organs_by_name["head"]
 
 		if(gender == MALE && S.gender == FEMALE)
 			continue
 		if(gender == FEMALE && S.gender == MALE)
 			continue
-		if(species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			var/obj/item/organ/external/head/H = organs_by_name["head"]
+		if(H.species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if(!H)
 				return
-			if(species.name in S.species_allowed) //If this is a hairstyle native to the user's species...
+			if(H.species.name in S.species_allowed) //If this is a hairstyle native to the user's species...
 				if(robohead.is_monitor && (robohead.company in S.models_allowed)) //Check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 					continue
@@ -195,8 +201,8 @@
 					if("Human" in S.species_allowed) //If the user has a robotic head and the hairstyle can fit humans, let them use it as a wig for their humanoid robot head.
 						valid_hairstyles += hairstyle
 					continue
-		else
-			if(!(species.name in S.species_allowed)) //If the user is not a species who can have robotic heads, use the default handling.
+		else //If the user is not a species who can have robotic heads, use the default handling.
+			if(!(H.species.name in S.species_allowed)) //If the user's head is not of a species the hair style allows, skip it. Otherwise, add it to the list.
 				continue
 			valid_hairstyles += hairstyle
 
@@ -206,17 +212,17 @@
 	var/list/valid_facial_hairstyles = new()
 	for(var/facialhairstyle in facial_hair_styles_list)
 		var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
+		var/obj/item/organ/external/head/H = organs_by_name["head"]
 
 		if(gender == MALE && S.gender == FEMALE)
 			continue
 		if(gender == FEMALE && S.gender == MALE)
 			continue
-		if(species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			var/obj/item/organ/external/head/H = organs_by_name["head"]
+		if(H.species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if(!H)
 				continue // No head, no hair
-			if(species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
+			if(H.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if(robohead.is_monitor && (robohead.company in S.models_allowed)) //Check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_facial_hairstyles += facialhairstyle //Give them their facial hair styles if they do.
 					continue
@@ -231,7 +237,7 @@
 						valid_facial_hairstyles += facialhairstyle
 					continue
 		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(!(species.name in S.species_allowed))
+			if(!(H.species.name in S.species_allowed)) //If the user's head is not of a species the facial hair style allows, skip it. Otherwise, add it to the list.
 				continue
 			valid_facial_hairstyles += facialhairstyle
 

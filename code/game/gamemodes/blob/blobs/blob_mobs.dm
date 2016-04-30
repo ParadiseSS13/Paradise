@@ -68,6 +68,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(var/mob/living/carbon/human/H)
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	is_zombie = 1
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
@@ -82,7 +83,7 @@
 	icon = H.icon
 	speak_emote = list("groans")
 	icon_state = "zombie2_s"
-	H.h_style = null
+	head_organ.h_style = null
 	H.update_hair()
 	human_overlays = H.overlays
 	update_icons()

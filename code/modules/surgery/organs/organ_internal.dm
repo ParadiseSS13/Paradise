@@ -499,18 +499,19 @@
 
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
-		if(!(H.h_style == "Very Long Hair" || H.h_style == "Mowhawk"))
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mowhawk"))
 			if(prob(10))
-				H.h_style = "Mohawk"
+				head_organ.h_style = "Mohawk"
 			else
-				H.h_style = "Very Long Hair"
-			H.r_hair = 216
-			H.g_hair = 192
-			H.b_hair = 120
+				head_organ.h_style = "Very Long Hair"
+			head_organ.r_hair = 216
+			head_organ.g_hair = 192
+			head_organ.b_hair = 120
 			H.update_hair()
-		if(!(H.f_style == "Very Long Beard"))
-			H.f_style = "Very Long Beard"
-			H.r_facial = 216
-			H.g_facial = 192
-			H.b_facial = 120
+		if(!(head_organ.f_style == "Very Long Beard"))
+			head_organ.f_style = "Very Long Beard"
+			head_organ.r_facial = 216
+			head_organ.g_facial = 192
+			head_organ.b_facial = 120
 			H.update_fhair()

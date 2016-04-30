@@ -886,12 +886,12 @@
 		species_allowed = list("Vox")
 
 	vox_quills_fluff
-		name = "Fluffy Quills"
+		name = "Fluffy Vox Quills"
 		icon_state = "vox_afro"
 		species_allowed = list("Vox")
 
 	vox_quills_mohawk
-		name = "Quill Mohawk"
+		name = "Vox Quill Mohawk"
 		icon_state = "vox_mohawk"
 		species_allowed = list("Vox")
 
@@ -908,6 +908,11 @@
 	vox_nights
 		name = "Vox Pigtails"
 		icon_state = "vox_nights"
+		species_allowed = list("Vox")
+
+	vox_razor
+		name = "Vox Razorback"
+		icon_state = "vox_razor"
 		species_allowed = list("Vox")
 
 // Apollo-specific

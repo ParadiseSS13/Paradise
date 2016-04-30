@@ -791,6 +791,8 @@
 		)
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
-	H.h_style = ""
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	head_organ.h_style = "Bald"
+	head_organ.f_style = "Shaved"
 	spawn(100)
 		if(H) H.update_hair()

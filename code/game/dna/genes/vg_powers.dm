@@ -37,18 +37,19 @@
 		to_chat(usr, "\red You can't change your appearance right now!")
 		return
 	var/mob/living/carbon/human/M=usr
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
-	var/new_facial = input("Please select facial hair color.", "Character Generation",rgb(M.r_facial,M.g_facial,M.b_facial)) as null|color
+	var/new_facial = input("Please select facial hair color.", "Character Generation",rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial)) as null|color
 	if(new_facial)
-		M.r_facial = hex2num(copytext(new_facial, 2, 4))
-		M.g_facial = hex2num(copytext(new_facial, 4, 6))
-		M.b_facial = hex2num(copytext(new_facial, 6, 8))
+		head_organ.r_facial = hex2num(copytext(new_facial, 2, 4))
+		head_organ.g_facial = hex2num(copytext(new_facial, 4, 6))
+		head_organ.b_facial = hex2num(copytext(new_facial, 6, 8))
 
-	var/new_hair = input("Please select hair color.", "Character Generation",rgb(M.r_hair,M.g_hair,M.b_hair)) as null|color
+	var/new_hair = input("Please select hair color.", "Character Generation",rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair)) as null|color
 	if(new_facial)
-		M.r_hair = hex2num(copytext(new_hair, 2, 4))
-		M.g_hair = hex2num(copytext(new_hair, 4, 6))
-		M.b_hair = hex2num(copytext(new_hair, 6, 8))
+		head_organ.r_hair = hex2num(copytext(new_hair, 2, 4))
+		head_organ.g_hair = hex2num(copytext(new_hair, 4, 6))
+		head_organ.b_hair = hex2num(copytext(new_hair, 6, 8))
 
 	var/new_eyes = input("Please select eye color.", "Character Generation",rgb(M.r_eyes,M.g_eyes,M.b_eyes)) as null|color
 	if(new_eyes)
@@ -73,11 +74,11 @@
 		hairs.Add(H.name) // add hair name to hairs
 		qdel(H) // delete the hair after it's all done
 
-	var/new_style = input("Please select hair style", "Character Generation",M.h_style)  as null|anything in hairs
+	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style)  as null|anything in hairs
 
 	// if new style selected (not cancel)
 	if (new_style)
-		M.h_style = new_style
+		head_organ.h_style = new_style
 
 	// facial hair
 	var/list/all_fhairs = subtypesof(/datum/sprite_accessory/facial_hair)
@@ -88,10 +89,10 @@
 		fhairs.Add(H.name)
 		qdel(H)
 
-	new_style = input("Please select facial style", "Character Generation",M.f_style)  as null|anything in fhairs
+	new_style = input("Please select facial style", "Character Generation", head_organ.f_style)  as null|anything in fhairs
 
 	if(new_style)
-		M.f_style = new_style
+		head_organ.f_style = new_style
 
 	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
 	if (new_gender)

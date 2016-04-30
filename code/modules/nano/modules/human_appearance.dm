@@ -2,6 +2,7 @@
 	name = "Appearance Editor"
 	var/flags = APPEARANCE_ALL_HAIR
 	var/mob/living/carbon/human/owner = null
+	var/obj/item/organ/external/head/head_organ = null
 	var/list/valid_species = list()
 	var/list/valid_hairstyles = list()
 	var/list/valid_facial_hairstyles = list()
@@ -13,6 +14,7 @@
 /datum/nano_module/appearance_changer/New(var/location, var/mob/living/carbon/human/H, var/check_species_whitelist = 1, var/list/species_whitelist = list(), var/list/species_blacklist = list())
 	..()
 	owner = H
+	head_organ = owner.get_organ("head")
 	src.check_whitelist = check_species_whitelist
 	src.whitelist = species_whitelist
 	src.blacklist = species_blacklist
@@ -54,7 +56,7 @@
 				return 1
 	if(href_list["hair_color"])
 		if(can_change(APPEARANCE_HAIR_COLOR))
-			var/new_hair = input("Please select hair color.", "Hair Color", rgb(owner.r_hair, owner.g_hair, owner.b_hair)) as color|null
+			var/new_hair = input("Please select hair color.", "Hair Color", rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair)) as color|null
 			if(new_hair && can_still_topic(state))
 				var/r_hair = hex2num(copytext(new_hair, 2, 4))
 				var/g_hair = hex2num(copytext(new_hair, 4, 6))
@@ -69,7 +71,7 @@
 				return 1
 	if(href_list["facial_hair_color"])
 		if(can_change(APPEARANCE_FACIAL_HAIR_COLOR))
-			var/new_facial = input("Please select facial hair color.", "Facial Hair Color", rgb(owner.r_facial, owner.g_facial, owner.b_facial)) as color|null
+			var/new_facial = input("Please select facial hair color.", "Facial Hair Color", rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial)) as color|null
 			if(new_facial && can_still_topic(state))
 				var/r_facial = hex2num(copytext(new_facial, 2, 4))
 				var/g_facial = hex2num(copytext(new_facial, 4, 6))
@@ -113,7 +115,7 @@
 		for(var/hair_style in valid_hairstyles)
 			hair_styles[++hair_styles.len] = list("hairstyle" = hair_style)
 		data["hair_styles"] = hair_styles
-		data["hair_style"] = owner.h_style
+		data["hair_style"] = head_organ.h_style
 
 	data["change_facial_hair"] = can_change(APPEARANCE_FACIAL_HAIR)
 	if(data["change_facial_hair"])
@@ -121,7 +123,7 @@
 		for(var/facial_hair_style in valid_facial_hairstyles)
 			facial_hair_styles[++facial_hair_styles.len] = list("facialhairstyle" = facial_hair_style)
 		data["facial_hair_styles"] = facial_hair_styles
-		data["facial_hair_style"] = owner.f_style
+		data["facial_hair_style"] = head_organ.f_style
 
 	data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
 	data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
