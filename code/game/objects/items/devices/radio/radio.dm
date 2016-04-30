@@ -262,7 +262,21 @@ var/global/list/default_medbay_channels = list(
 // I'm not sure who thought that was a good idea. -- Crazylemon
 /mob/living/automatedannouncer
 	var/role = ""
+	var/lifetime_timer
 	universal_speak = 1
+
+/mob/living/automatedannouncer/New()
+	lifetime_timer = addtimer(src, "autocleanup", SecondsToTicks(10))
+	..()
+
+/mob/living/automatedannouncer/Destroy()
+	if(lifetime_timer)
+		deltimer(lifetime_timer)
+	..()
+
+/mob/living/automatedannouncer/proc/autocleanup()
+	log_debug("An announcer somehow managed to outlive the radio! Deleting! Area: [get_area(src)], Loc: [src.locs[1]]"
+	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/device/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
