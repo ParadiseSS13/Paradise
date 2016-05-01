@@ -89,6 +89,7 @@
 				C.h_style = h_new_style
 
 		H.update_hair()
+		H.update_fhair()
 		user.visible_message("<span class='notice'>[user] finishes cutting [M]'s hair!</span>")
 
 /obj/item/weapon/scissors/safety //Totally safe, I assure you.
