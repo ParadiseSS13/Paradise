@@ -83,10 +83,12 @@
 					resultlvl = "good"
 					win_money(100, 'sound/goonstation/misc/bell.ogg')
 				else if (roll > 100 && roll <= 200)
+					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won fifty credits!'")
 					result = "You win fifty credits!"
 					resultlvl = "good"
 					win_money(50)
 				else if (roll > 200 && roll <= 500)
+					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won ten credits!'")
 					result = "You win ten credits!"
 					resultlvl = "good"
 					win_money(10)
