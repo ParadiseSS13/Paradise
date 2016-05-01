@@ -15,10 +15,10 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump
 	icon = 'icons/atmos/pump.dmi'
 	icon_state = "map_off"
-	
+
 	name = "gas pump"
 	desc = "A pump"
-	
+
 	can_unwrench = 1
 
 	var/on = 0
@@ -54,10 +54,7 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/pump/process()
-//		..()
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!on)
+	if(!..() || (stat & (NOPOWER|BROKEN)) || !on)
 		return 0
 
 	var/output_starting_pressure = air2.return_pressure()
@@ -123,7 +120,7 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
-	
+
 	var/old_on = on //for logging
 
 	if(signal.data["power"])
@@ -138,7 +135,7 @@ Thus, the two variables affect pump operation are set in New():
 			text2num(signal.data["set_output_pressure"]),
 			ONE_ATMOSPHERE*50
 		)
-		
+
 	if(on != old_on)
 		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
 
@@ -164,7 +161,7 @@ Thus, the two variables affect pump operation are set in New():
 	return
 
 /obj/machinery/atmospherics/binary/pump/Topic(href,href_list)
-	if(..()) 
+	if(..())
 		return 1
 	if(href_list["power"])
 		on = !on

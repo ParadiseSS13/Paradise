@@ -1,0 +1,4 @@
+author: Norgad
+delete-after: True
+changes: 
+  - rscadd: "Adds a disposals chute to the Mechanic's Workshop"

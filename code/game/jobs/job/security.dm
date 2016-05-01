@@ -249,7 +249,7 @@
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/security(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black(H), slot_gloves)
-		H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_belt)
+		H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_l_store)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)

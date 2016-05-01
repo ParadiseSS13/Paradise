@@ -387,7 +387,7 @@
 				var/turf/simulated/S = T
 				S.MakeSlippery()
 		if("wall")										//Wall-tank: Wets it's own tile and the surrounding 8 tiles (3x3 square)
-			for(var/turf/T in trange(1, src.loc))
+			for(var/turf/T in spiral_range_turfs(1, src.loc))
 				if(!istype(T, /turf/simulated)) continue
 				var/turf/simulated/S = T
 				S.MakeSlippery()

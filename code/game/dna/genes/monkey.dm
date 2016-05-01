@@ -43,7 +43,11 @@
 	H.set_species(H.species.primitive_form)
 
 	if(H.hud_used)
-		H.hud_used.instantiate()
+		qdel(H.hud_used)
+		H.hud_used = null
+
+	if(H.client)
+		H.hud_used = new /datum/hud/monkey(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
 
 	to_chat(H, "<B>You are now a [H.species.name].</B>")
 
@@ -86,7 +90,11 @@
 	H.name = H.real_name
 
 	if(H.hud_used)
-		H.hud_used.instantiate()
+		qdel(H.hud_used)
+		H.hud_used = null
+
+	if(H.client)
+		H.hud_used = new /datum/hud/human(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
 
 	to_chat(H, "<B>You are now a [H.species.name].</B>")
 

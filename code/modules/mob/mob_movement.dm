@@ -149,11 +149,8 @@
 		winset(src, "mapwindow.map", "icon-size=[src.reset_stretch]")
 		viewingCanvas = 0
 		mob.reset_view()
-		mob.button_pressed_F12()
-		if(!mob.hud_used.hud_shown)
-			mob.button_pressed_F12()
-		mob.update_hud()
-		mob.update_action_buttons()
+		if(mob.hud_used)
+			mob.hud_used.show_hud(HUD_STYLE_STANDARD)
 
 	if(mob.control_object)	Move_object(direct)
 
@@ -240,7 +237,6 @@
 		move_delay = world.time//set move delay
 		move_delay += T.slowdown
 		mob.last_movement = world.time
-		mob.last_move_intent = world.time + 10
 		switch(mob.m_intent)
 			if("run")
 				if(mob.drowsyness > 0)

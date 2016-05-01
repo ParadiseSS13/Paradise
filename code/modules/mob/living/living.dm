@@ -327,10 +327,13 @@
 		if (C.handcuffed && !initial(C.handcuffed))
 			C.unEquip(C.handcuffed)
 		C.handcuffed = initial(C.handcuffed)
+		C.update_handcuffed()
 
 		if (C.legcuffed && !initial(C.legcuffed))
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
+		C.update_inv_legcuffed()
+		
 		if(C.reagents)
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
@@ -724,7 +727,7 @@
 	// Who can see the attack?
 	var/list/viewing = list()
 	for(var/mob/M in viewers(A))
-		if(M.client)
+		if(M.client && M.client.prefs.show_ghostitem_attack)
 			viewing |= M.client
 	flick_overlay(I, viewing, 5) // 5 ticks/half a second
 

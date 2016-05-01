@@ -433,56 +433,83 @@
 	if(status == LIGHT_EMPTY)
 		to_chat(user, "There is no [fitting] in this light.")
 		return
+	if(user.a_intent == "help")
+		if(on)
+			to_chat(user, "This light [fitting] feels hot!")
+		else
+			to_chat(user, "The light [fitting] feels cold.")
+		return
+
+	if(user.a_intent == "disarm" || user.a_intent == "grab") //trying to grab the bulb
 
 	// make it burn hands if not wearing fire-insulated gloves
-	if(on)
-		var/prot = 0
-		var/mob/living/carbon/human/H = user
+		if(on)
+			var/prot = 0
+			var/mob/living/carbon/human/H = user
 
-		if(istype(H))
+			if(istype(H))
 
-			if(H.gloves)
-				var/obj/item/clothing/gloves/G = H.gloves
-				if(G.max_heat_protection_temperature)
-					prot = (G.max_heat_protection_temperature > 360)
+				if(H.gloves)
+					var/obj/item/clothing/gloves/G = H.gloves
+					if(G.max_heat_protection_temperature)
+						prot = (G.max_heat_protection_temperature > 360)
+			else
+				prot = 1
+
+			if(prot > 0 || (RESIST_HEAT in user.mutations))
+				to_chat(user, "You remove the light [fitting]")
+			else if(TK in user.mutations)
+				to_chat(user, "You telekinetically remove the light [fitting].")
+			else
+				to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
+
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+				if(affecting.take_damage( 0, 5 ))		// 5 burn damage
+					H.UpdateDamageIcon()
+				H.updatehealth()
+				return				// if burned, don't remove the light
 		else
-			prot = 1
-
-		if(prot > 0 || (RESIST_HEAT in user.mutations))
-			to_chat(user, "You remove the light [fitting]")
-		else if(TK in user.mutations)
-			to_chat(user, "You telekinetically remove the light [fitting].")
-		else
-			to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
-
-			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-			if(affecting.take_damage( 0, 5 ))		// 5 burn damage
-				H.UpdateDamageIcon()
-			H.updatehealth()
-			return				// if burned, don't remove the light
-	else
-		to_chat(user, "You remove the light [fitting].")
+			to_chat(user, "You remove the light [fitting].")
 
 
-	// create a light tube/bulb item and put it in the user's hand
-	var/obj/item/weapon/light/L = new light_type()
-	L.status = status
-	L.rigged = rigged
-	L.brightness_range = brightness_range
-	L.brightness_power = brightness_power
-	L.brightness_color = brightness_color
+			// create a light tube/bulb item and put it in the user's hand
+		var/obj/item/weapon/light/L = new light_type()
+		L.status = status
+		L.rigged = rigged
+		L.brightness_range = brightness_range
+		L.brightness_power = brightness_power
+		L.brightness_color = brightness_color
 
 	// light item inherits the switchcount, then zero it
-	L.switchcount = switchcount
-	switchcount = 0
+		L.switchcount = switchcount
+		switchcount = 0
 
-	L.update()
-	L.add_fingerprint(user)
+		L.update()
+		L.add_fingerprint(user)
 
-	user.put_in_active_hand(L)	//puts it in our active hand
+		user.put_in_active_hand(L)	//puts it in our active hand
 
-	status = LIGHT_EMPTY
-	update()
+		status = LIGHT_EMPTY
+		update()
+
+	if(user.a_intent == "harm")	//hitting the bulb
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
+		if(prob(10))	//10% chance to break a light with bare hands
+			to_chat(user, "You hit the light, and it smashes!")
+			for(var/mob/M in viewers(src))
+				if(M == user)
+					continue
+				M.show_message("[user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
+			if(on)
+				electrocute_mob(user, get_area(src), src, 0.3)
+			broken()
+		else
+			user.visible_message("<span class='danger'>[user.name] hits the light.</span>")
+			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+
+		return
+
 
 // break the light and make sparks if was on
 

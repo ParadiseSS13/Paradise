@@ -179,6 +179,11 @@ proc/isovermind(A)
 		return 1
 	return 0
 
+/proc/isAutoAnnouncer(A)
+	if(istype(A, /mob/living/automatedannouncer))
+		return 1
+	return 0
+
 /proc/isorgan(A)
 	if(istype(A, /obj/item/organ/external))
 		return 1
@@ -451,7 +456,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 			if("left")
 				a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
 		if(hud_used && hud_used.action_intent)
-			hud_used.action_intent.icon_state = "intent_[a_intent]"
+			hud_used.action_intent.icon_state = "[a_intent]"
 
 	else if(isrobot(src) || islarva(src))
 		switch(input)

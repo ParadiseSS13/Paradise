@@ -293,7 +293,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/attack(var/mob/living/carbon/M, var/mob/user, var/def_zone)
 	if(awakening)
-		user << "<span class='warning'>The [src] is twitching and shaking, preventing you from eating it.</span>"
+		to_chat(user, "<span class='warning'>The [src] is twitching and shaking, preventing you from eating it.</span>")
 		return
 	if(user == M)
 		return ..()
@@ -451,7 +451,7 @@
 			if("killertomato")
 				if(awakening || istype(user.loc,/turf/space))
 					return
-				user << "<span class='notice'>You begin to awaken the Killer Tomato...</span>"
+				to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
 				awakening = 1
 
 				spawn(30)

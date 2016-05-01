@@ -15,7 +15,7 @@
 // Version check, terminates compilation if someone is using a version of BYOND that's too old
 #if DM_VERSION < 510
 #error OUTDATED VERSION ERROR - \
-Due to BYOND features used in this codebase, you must update to version 508 or later to compile. \
+Due to BYOND features used in this codebase, you must update to version 510 or later to compile. \
 This may require updating to a beta release.
 #endif
 

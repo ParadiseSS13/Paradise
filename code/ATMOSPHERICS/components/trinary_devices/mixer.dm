@@ -3,7 +3,7 @@
 	icon_state = "map"
 
 	can_unwrench = 1
-	
+
 	name = "gas mixer"
 
 	var/target_pressure = ONE_ATMOSPHERE
@@ -11,15 +11,15 @@
 	var/node2_concentration = 0.5
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
-	
+
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
 	flipped = 1
 
 /obj/machinery/atmospherics/trinary/mixer/update_icon(var/safety = 0)
 	if(flipped)
-		icon_state = "m"	
-	else	
+		icon_state = "m"
+	else
 		icon_state = ""
 
 	if(!powered())
@@ -57,8 +57,7 @@
 	air3.volume = 300
 
 /obj/machinery/atmospherics/trinary/mixer/process()
-	..()
-	if(!on)
+	if(!..() || !on)
 		return 0
 
 	var/output_starting_pressure = air3.return_pressure()
@@ -141,7 +140,7 @@
 	return
 
 /obj/machinery/atmospherics/trinary/mixer/Topic(href,href_list)
-	if(..()) 
+	if(..())
 		return 1
 	if(href_list["power"])
 		on = !on
