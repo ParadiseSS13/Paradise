@@ -1,4 +1,4 @@
-/datum/game_mode/mutiny/proc/check_antagonists_ui(admins)
+/datum/game_mode/mutiny/proc/check_antagonists_ui(datum/admins/admins)
   var/turf/captains_key_loc = captains_key ? captains_key.get_loc_turf() : "Lost or Destroyed"
   var/turf/secondary_key_loc = secondary_key ? secondary_key.get_loc_turf() : "Lost or Destroyed"
   var/remaining_objectives = current_directive.get_remaining_orders()
@@ -29,22 +29,22 @@
 
   txt += "<a href='?src=\ref[admins];choice=reassign_head_loyalist'>Reassign Head Loyalist</a><br>"
   if(head_loyalist)
-    txt += check_role_table("Head Loyalist", list(head_loyalist), admins, 0)
+    txt += admins.check_role_table("Head Loyalist", list(head_loyalist), 0)
 
   var/list/loyal_crew = loyalists - head_loyalist
   if(loyal_crew.len)
-    txt += check_role_table("Loyalists", loyal_crew, admins, 0)
+    txt += admins.check_role_table("Loyalists", loyal_crew, 0)
 
   txt += "<a href='?src=\ref[admins];choice=reassign_head_mutineer'>Reassign Head Mutineer</a><br>"
   if(head_mutineer)
-    txt += check_role_table("Head Mutineer", list(head_mutineer), admins, 0)
+    txt += admins.check_role_table("Head Mutineer", list(head_mutineer), 0)
 
   var/list/mutiny_crew = mutineers - head_mutineer
   if(mutiny_crew.len)
-    txt += check_role_table("Mutineers", mutiny_crew, admins, 0)
+    txt += admins.check_role_table("Mutineers", mutiny_crew, 0)
 
   if(body_count.len)
-    txt += check_role_table("Casualties", body_count, admins, 0)
+    txt += admins.check_role_table("Casualties", body_count, 0)
 
   return txt
 

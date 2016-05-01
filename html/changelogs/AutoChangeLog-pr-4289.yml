@@ -1,0 +1,7 @@
+author: pinatacolada
+delete-after: True
+changes: 
+  - bugfix: "Plasmamen security now spawn with their suit slot items in their
+bags"
+  - tweak: "Pod pilots spawn with taser in the suit slot"
+  - tweak: "removes armor from plasmamen magistrate suits"

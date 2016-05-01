@@ -13,7 +13,8 @@
 	strip_delay = 60
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Drask" = 'icons/mob/species/drask/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/attack_self(mob/user)
@@ -71,7 +72,8 @@
 	armor = list(melee = 25, bullet = 80, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0)
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Drask" = 'icons/mob/species/drask/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot
@@ -118,7 +120,8 @@
 	strip_delay = 80
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Drask" = 'icons/mob/species/drask/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/swat/syndicate
