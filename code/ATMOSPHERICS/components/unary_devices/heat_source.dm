@@ -23,8 +23,7 @@
 	return
 
 /obj/machinery/atmospherics/unary/heat_reservoir/process()
-	..()
-	if(!on)
+	if(!..() || !on)
 		return 0
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = current_heat_capacity + air_heat_capacity

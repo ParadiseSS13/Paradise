@@ -32,28 +32,24 @@
 		. = PROCESS_KILL
 
 /obj/machinery/atmospherics/pipe/manifold4w/Destroy()
+	. = ..()
+
 	if(node1)
-		var/obj/machinery/atmospherics/A = node1
 		node1.disconnect(src)
+		node1.defer_build_network()
 		node1 = null
-		A.build_network()
 	if(node2)
-		var/obj/machinery/atmospherics/A = node2
 		node2.disconnect(src)
+		node2.defer_build_network()
 		node2 = null
-		A.build_network()
 	if(node3)
-		var/obj/machinery/atmospherics/A = node3
 		node3.disconnect(src)
+		node3.defer_build_network()
 		node3 = null
-		A.build_network()
 	if(node4)
-		var/obj/machinery/atmospherics/A = node4
 		node4.disconnect(src)
+		node4.defer_build_network()
 		node4 = null
-		A.build_network()
-	releaseAirToTurf()
-	return ..()
 
 /obj/machinery/atmospherics/pipe/manifold4w/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
@@ -174,9 +170,9 @@
 				else if(D == WEST)
 					target.connected_to = c
 					connected_to = c
-					node4 = target				
+					node4 = target
 				break
-			
+
 	var/turf/T = src.loc			// hide if turf is not intact
 	hide(T.intact)
 	update_icon()

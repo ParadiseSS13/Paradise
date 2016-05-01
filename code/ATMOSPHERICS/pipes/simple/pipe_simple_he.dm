@@ -16,6 +16,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/process()
 	var/environment_temperature = 0
 	var/datum/gas_mixture/pipe_air = return_air()
+	if(!pipe_air)
+		return
 
 	var/turf/simulated/T = loc
 	if(istype(T))

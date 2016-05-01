@@ -251,6 +251,7 @@ var/global/list/default_medbay_channels = list(
 	var/mob/living/automatedannouncer/A = new /mob/living/automatedannouncer(src)
 	A.name = from
 	A.role = role
+	A.message = message
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
@@ -262,7 +263,22 @@ var/global/list/default_medbay_channels = list(
 // I'm not sure who thought that was a good idea. -- Crazylemon
 /mob/living/automatedannouncer
 	var/role = ""
+	var/lifetime_timer
+	var/message = ""
 	universal_speak = 1
+
+/mob/living/automatedannouncer/New()
+	lifetime_timer = addtimer(src, "autocleanup", SecondsToTicks(10))
+	..()
+
+/mob/living/automatedannouncer/Destroy()
+	if(lifetime_timer)
+		deltimer(lifetime_timer)
+	..()
+
+/mob/living/automatedannouncer/proc/autocleanup()
+	log_debug("An announcer somehow managed to outlive the radio! Deleting! Area: [get_area(src)], Name: \"[name]\", Message: \"[message]\"")
+	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/device/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
