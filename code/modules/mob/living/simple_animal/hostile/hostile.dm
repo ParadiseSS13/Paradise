@@ -104,7 +104,7 @@
 			var/possible_target_distance = get_dist(src, A)
 			if(target_dist < possible_target_distance)
 				Targets -= A
-	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
+	var/chosen_target = safepick(Targets)//Pick the remaining targets (if any) at random
 	return chosen_target
 
 /mob/living/simple_animal/hostile/CanAttack(var/atom/the_target)//Can we actually attack a possible target?

@@ -26,12 +26,12 @@
 			initialize_directions = SOUTH|WEST|NORTH
 		if(WEST)
 			initialize_directions = NORTH|EAST|SOUTH
-			
+
 	..()
-	
+
 	alpha = 255
 	icon = null
-	
+
 /obj/machinery/atmospherics/pipe/manifold/initialize()
 	..()
 	for(var/D in cardinal)
@@ -74,23 +74,20 @@
 		. = PROCESS_KILL
 
 /obj/machinery/atmospherics/pipe/manifold/Destroy()
+	. = ..()
+
 	if(node1)
-		var/obj/machinery/atmospherics/A = node1
 		node1.disconnect(src)
+		node1.defer_build_network()
 		node1 = null
-		A.build_network()
 	if(node2)
-		var/obj/machinery/atmospherics/A = node2
 		node2.disconnect(src)
+		node2.defer_build_network()
 		node2 = null
-		A.build_network()
 	if(node3)
-		var/obj/machinery/atmospherics/A = node3
 		node3.disconnect(src)
+		node3.defer_build_network()
 		node3 = null
-		A.build_network()
-	releaseAirToTurf()
-	return ..()
 
 /obj/machinery/atmospherics/pipe/manifold/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)

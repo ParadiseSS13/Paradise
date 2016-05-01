@@ -251,7 +251,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "N2 Tank: <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
-			if(species == "Human")
+			if(species in list("Human", "Drask"))
 				dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
 
 	//		dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
@@ -1038,7 +1038,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					g_eyes = rand(0,255)
 					b_eyes = rand(0,255)
 				if("s_tone")
-					if(species == "Human")
+					if(species in list("Human", "Drask"))
 						s_tone = random_skin_tone()
 				if("s_color")
 					if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wyrn", "Vulpkanin", "Machine"))
@@ -1395,7 +1395,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
 				if("s_tone")
-					if(species != "Human")
+					if(species != "Human" && species != "Drask")
 						return
 					var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
 					if(new_s_tone)
