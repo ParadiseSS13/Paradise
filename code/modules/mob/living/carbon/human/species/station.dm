@@ -805,4 +805,6 @@
 	head_organ.h_style = "Bald"
 	head_organ.f_style = "Shaved"
 	spawn(100)
-		if(H) H.update_hair()
+		if(H)
+			H.update_hair()
+			H.update_fhair()
