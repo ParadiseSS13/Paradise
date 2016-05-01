@@ -45,6 +45,8 @@
 	base_color = "#704300"
 	flesh_color = "#704300"
 	blood_color = "#FFFF99"
+	//Default styles for created mobs.
+	default_hair = "Antennae"
 
 
 /datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
@@ -97,6 +99,9 @@
 	brute_mod = 2 // damn, double wham, double dam
 	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
+
+	//Default styles for created mobs.
+	default_hair = "Nucleation Crystals"
 
 	reagent_tag = PROCESS_ORG
 	has_organ = list(

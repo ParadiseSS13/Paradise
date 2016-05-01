@@ -74,46 +74,30 @@
 	status_flags = GODMODE|CANPUSH
 
 /mob/living/carbon/human/skrell/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Skrell Male Tentacles"
 	..(new_loc, "Skrell")
 
 /mob/living/carbon/human/tajaran/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.ha_style = "Tajaran Ears"
 	..(new_loc, "Tajaran")
 
 /mob/living/carbon/human/vulpkanin/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Bald"
 	..(new_loc, "Vulpkanin")
 
 /mob/living/carbon/human/unathi/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Unathi Horns"
 	..(new_loc, "Unathi")
 
 /mob/living/carbon/human/vox/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Short Vox Quills"
 	..(new_loc, "Vox")
 
 /mob/living/carbon/human/voxarmalis/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Bald"
 	..(new_loc, "Vox Armalis")
 
 /mob/living/carbon/human/skeleton/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Bald"
 	..(new_loc, "Skeleton")
 
 /mob/living/carbon/human/kidan/New(var/new_loc)
 	..(new_loc, "Kidan")
 
 /mob/living/carbon/human/plasma/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Bald"
 	..(new_loc, "Plasmaman")
 
 /mob/living/carbon/human/slime/New(var/new_loc)
@@ -129,38 +113,24 @@
 	..(new_loc, "Human")
 
 /mob/living/carbon/human/diona/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Bald"
 	..(new_loc, "Diona")
 
 /mob/living/carbon/human/machine/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Blue IPC Screen"
 	..(new_loc, "Machine")
 
 /mob/living/carbon/human/shadow/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Bald"
 	..(new_loc, "Shadow")
 
 /mob/living/carbon/human/golem/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Bald"
 	..(new_loc, "Golem")
 
 /mob/living/carbon/human/wryn/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Antennae"
 	..(new_loc, "Wryn")
 
 /mob/living/carbon/human/nucleation/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Nucleation Crystals"
 	..(new_loc, "Nucleation")
 
 /mob/living/carbon/human/drask/New(var/new_loc)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	H.h_style = "Bald"
 	..(new_loc, "Drask")
 
 /mob/living/carbon/human/monkey/New(var/new_loc)
@@ -1519,6 +1489,15 @@
 		b_skin = 0
 
 	species.create_organs(src)
+
+	//Handle default hair/head accessories for created mobs.
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(species.default_hair)
+		H.h_style = species.default_hair
+	if(species.default_fhair)
+		H.f_style = species.default_fhair
+	if(species.default_headacc)
+		H.ha_style = species.default_headacc
 
 	if(!dna)
 		dna = new /datum/dna(null)
