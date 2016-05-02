@@ -267,9 +267,12 @@
 		to_chat(src, alert("[rank] is not available. Please try another."))
 		return 0
 
+
 	job_master.AssignRole(src, rank, 1)
 
-	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
+	var/mob/living/character = new /mob/living/simple_animal/pet/corgi
+	/* Useless, we won't need this ever
+	create_character()	//creates the human and transfers vars and mind
 	character = job_master.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
 
@@ -290,7 +293,7 @@
 		qdel(C)
 		qdel(src)
 		return
-
+	*/
 	//Find our spawning point.
 	var/join_message
 	var/datum/spawnpoint/S
@@ -408,6 +411,13 @@
 	close_spawn_windows()
 
 	check_prefs_are_sane()
+	var/mob/living/character = new /mob/living/simple_animal/pet/corgi(loc)
+	character.loc = pick(latejoin)
+	character.lastarea = get_area(loc)
+	/*
+	pff humans who uses these - full of badcode, not needed, and cause all sorts of design problems
+	like clicking lamps or brigging
+	dogs are so much easier to handle
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
@@ -429,11 +439,11 @@
 			new_character.rename_self("diona")
 		mind.original = new_character
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
+	*/
 
+	character.key = key		//Manually transfer the key to log them in
 
-	new_character.key = key		//Manually transfer the key to log them in
-
-	return new_character
+	return character
 
 // This is to check that the player only has preferences set that they're supposed to
 /mob/new_player/proc/check_prefs_are_sane()
