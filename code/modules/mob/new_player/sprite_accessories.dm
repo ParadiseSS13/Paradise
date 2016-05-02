@@ -1898,22 +1898,22 @@
 	icon_state = "markings_tiger"
 
 /datum/sprite_accessory/body_markings/tigerhead
-	name = "Tiger Body + Head"
+	name = "Tiger Body and Head"
 	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
 	icon_state = "markings_tigerhead"
 
 /datum/sprite_accessory/body_markings/tigerheadface_taj
-	name = "Tajaran Tiger Body + Head + Face"
+	name = "Tajaran Tiger Body, Head and Face"
 	species_allowed = list("Tajaran")
 	icon_state = "markings_tigerheadface_taj"
 
 /datum/sprite_accessory/body_markings/tigerheadface_vulp
-	name = "Vulpkanin Tiger Body + Head + Face"
+	name = "Vulpkanin Tiger Body, Head and Face"
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_tigerheadface_vulp"
 
 /datum/sprite_accessory/body_markings/tigerheadface_una
-	name = "Unathi Tiger Body + Head + Face"
+	name = "Unathi Tiger Body, Head and Face"
 	species_allowed = list("Unathi")
 	icon_state = "markings_tigerheadface_una"
 

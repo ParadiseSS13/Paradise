@@ -70,6 +70,57 @@
 	update_fhair()
 	return 1
 
+/mob/living/carbon/human/proc/change_head_accessory(var/head_accessory_style)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(!head_accessory_style)
+		return
+
+	if(H.ha_style == head_accessory_style)
+		return
+
+	if(!(head_accessory_style in head_accessory_styles_list))
+		return
+
+	H.ha_style = head_accessory_style
+
+	update_head_accessory()
+	return 1
+
+/mob/living/carbon/human/proc/change_markings(var/marking_style)
+	if(!marking_style)
+		return
+
+	if(src.m_style == marking_style)
+		return
+
+	if(!(marking_style in marking_styles_list))
+		return
+
+	src.m_style = marking_style
+
+	update_markings()
+	return 1
+
+/mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style)
+	var/found
+	if(!body_accessory_style)
+		return
+
+	if(src.body_accessory)
+		if(src.body_accessory.name == body_accessory_style)
+			return
+
+	for(var/B in body_accessory_by_name)
+		if(B == body_accessory_style)
+			src.body_accessory = body_accessory_by_name[body_accessory_style]
+			found = 1
+
+	if(!found)
+		return
+
+	update_tail_layer()
+	return 1
+
 /mob/living/carbon/human/proc/reset_hair()
 	reset_head_hair()
 	reset_facial_hair()
@@ -131,6 +182,30 @@
 	update_fhair()
 	return 1
 
+/mob/living/carbon/human/proc/change_head_accessory_color(var/red, var/green, var/blue)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(red == H.r_headacc && green == H.g_headacc && blue == H.b_headacc)
+		return
+
+	H.r_headacc = red
+	H.g_headacc = green
+	H.b_headacc = blue
+
+	update_head_accessory()
+	return 1
+
+/mob/living/carbon/human/proc/change_marking_color(var/red, var/green, var/blue)
+	if(red == r_markings && green == g_markings && blue == b_markings)
+		return
+
+	r_markings = red
+	g_markings = green
+	b_markings = blue
+
+	update_markings()
+	return 1
+
+
 /mob/living/carbon/human/proc/change_skin_color(var/red, var/green, var/blue)
 	if(red == r_skin && green == g_skin && blue == b_skin || !(species.bodyflags & HAS_SKIN_COLOR))
 		return
@@ -176,9 +251,9 @@
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
 	var/list/valid_hairstyles = new()
+	var/obj/item/organ/external/head/H = get_organ("head")
 	for(var/hairstyle in hair_styles_list)
 		var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
-		var/obj/item/organ/external/head/H = organs_by_name["head"]
 
 		if(gender == MALE && S.gender == FEMALE)
 			continue
@@ -210,9 +285,9 @@
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
 	var/list/valid_facial_hairstyles = new()
+	var/obj/item/organ/external/head/H = get_organ("head")
 	for(var/facialhairstyle in facial_hair_styles_list)
 		var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
-		var/obj/item/organ/external/head/H = organs_by_name["head"]
 
 		if(gender == MALE && S.gender == FEMALE)
 			continue
@@ -242,3 +317,47 @@
 			valid_facial_hairstyles += facialhairstyle
 
 	return valid_facial_hairstyles
+
+/mob/living/carbon/human/proc/generate_valid_head_accessories()
+	var/list/valid_head_accessories = new()
+	var/obj/item/organ/external/head/H = get_organ("head")
+	for(var/head_accessory in head_accessory_styles_list)
+		var/datum/sprite_accessory/S = head_accessory_styles_list[head_accessory]
+
+		if(!(H.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
+			continue
+		valid_head_accessories += head_accessory
+
+	return valid_head_accessories
+
+/mob/living/carbon/human/proc/generate_valid_markings()
+	var/list/valid_markings = new()
+	var/obj/item/organ/external/head/H = get_organ("head")
+	for(var/marking in marking_styles_list)
+		var/datum/sprite_accessory/S = marking_styles_list[marking]
+
+		if(!(species.name in S.species_allowed)) //If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+			continue
+		if(H.species.flags & ALL_RPARTS) //If the user is a species that can have a robotic head...
+			var/datum/robolimb/robohead = all_robolimbs[H.model]
+			if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
+				continue
+		valid_markings += marking
+
+	return valid_markings
+
+/mob/living/carbon/human/proc/generate_valid_body_accessories()
+	var/list/valid_body_accessories = new()
+	for(var/B in body_accessory_by_name)
+		var/datum/body_accessory/A = body_accessory_by_name[B]
+		if(check_rights(R_ADMIN, 1, src))
+			valid_body_accessories = body_accessory_by_name.Copy()
+		else
+			if(!istype(A))
+				valid_body_accessories += "None" //The only null entry should be the "None" option.
+				continue
+			if(!(species.name in A.allowed_species)) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+				continue
+			valid_body_accessories += B
+
+	return valid_body_accessories
