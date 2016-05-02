@@ -6,8 +6,7 @@
 /datum/game_mode/borer
 	name = "corticalborers"
 	config_tag = "borer"
-	required_players = 3
-	required_players_secret = 10
+	required_players = 10
 	restricted_jobs = list("AI", "Cyborg", "Mobile MMI")
 	recommended_enemies = 2 // need at least a borer and a host
 	votable = 0 // temporarily disable this mode for voting

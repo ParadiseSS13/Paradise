@@ -2,7 +2,6 @@
 	name = "ragin' mages"
 	config_tag = "raginmages"
 	required_players = 20
-	required_players_secret = 20
 	use_huds = 1
 	var/max_mages = 0
 	var/making_mage = 0

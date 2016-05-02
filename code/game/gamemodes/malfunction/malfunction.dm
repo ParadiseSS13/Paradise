@@ -5,7 +5,6 @@
 	name = "AI malfunction"
 	config_tag = "malfunction"
 	required_players = 25
-	required_players_secret = 25
 	required_enemies = 1
 	recommended_enemies = 1
 

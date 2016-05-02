@@ -11,7 +11,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent")
 	protected_species = list("Machine", "Slime People", "Plasmaman")
 	required_players = 15
-	required_players_secret = 15
 	required_enemies = 1
 	recommended_enemies = 4
 
