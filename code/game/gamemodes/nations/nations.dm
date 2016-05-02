@@ -1,6 +1,7 @@
 datum/game_mode/nations
 	name = "nations"
 	config_tag = "nations"
+	required_players = 25
 	required_players_secret = 25
 	var/kickoff = 0
 	var/victory = 0
@@ -221,7 +222,7 @@ datum/game_mode/nations
 			H.mind.nation.membership += H.mind.current
 			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
-			
+
 		if(H.mind.assigned_role in civilian_positions)
 			to_chat(H, "You do not belong to any nation and are free to sell your services to the highest bidder.")
 			return 1

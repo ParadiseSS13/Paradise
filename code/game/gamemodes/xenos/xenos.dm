@@ -5,9 +5,9 @@
 /datum/game_mode/xenos
 	name = "xenos"
 	config_tag = "xenos"
-	required_players = 0
+	required_players = 30
 	recommended_players = 30
-	required_players_secret = 20
+	required_players_secret = 30
 	required_enemies = 3
 	recommended_enemies = 3
 	var/result = 0
