@@ -80,7 +80,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(slurring)
 		if(robot)
-			message = roboslur(message)
+			message = slur(message, list("@", "!", "#", "$", "%", "&", "?"))
 		else
 			message = slur(message)
 		verb = "slurs"

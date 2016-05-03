@@ -323,7 +323,7 @@ proc/getsensorlevel(A)
 		p++
 	return t
 
-proc/slur(phrase)
+proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
@@ -339,34 +339,12 @@ proc/slur(phrase)
 		switch(rand(1,15))
 			if(1,3,5,8)	newletter="[lowertext(newletter)]"
 			if(2,4,6,15)	newletter="[uppertext(newletter)]"
-			if(7)	newletter+="'"
+			if(7)	newletter+=pick(slurletters)
 			//if(9,10)	newletter="<b>[newletter]</b>"
 			//if(11,12)	newletter="<big>[newletter]</big>"
 			//if(13)	newletter="<small>[newletter]</small>"
-		newphrase+="[newletter]";counter-=1
-	return newphrase
-
-proc/roboslur(phrase) //for robutts
-	phrase = html_decode(phrase)
-	var/leng=lentext(phrase)
-	var/counter=lentext(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(rand(1,3)==3)
-			if(lowertext(newletter)=="o")	newletter="u"
-			if(lowertext(newletter)=="s")	newletter="ch"
-			if(lowertext(newletter)=="a")	newletter="ah"
-			if(lowertext(newletter)=="c")	newletter="k"
-		switch(rand(1,15))
-			if(1,3,5,)	newletter="[lowertext(newletter)]"
-			if(2,4,6,)	newletter="[uppertext(newletter)]"
-			if(7, 8, 15)	newletter+=pick("@", "!", "#", "$", "%", "&", "?")
-			//if(9,10)	newletter="<b>[newletter]</b>"
-			//if(11,12)	newletter="<big>[newletter]</big>"
-			//if(13)	newletter="<small>[newletter]</small>"
-		newphrase+="[newletter]";counter-=1
+		newphrase+="[newletter]"
+		counter-=1
 	return newphrase
 
 /proc/stutter(n)
@@ -406,12 +384,12 @@ proc/roboslur(phrase) //for robutts
 				n_letter = text("[n_letter]-[robotletter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
 				if (prob(20))
-					n_letter = text("[robotletter]-[n_letter]-[n_letter]")
+					n_letter = text("[n_letter]-[robotletter]-[n_letter]")
 				else
 					if (prob(5))
 						n_letter = robotletter
 					else
-						n_letter = text("[robotletter]-[n_letter]")
+						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
 	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
