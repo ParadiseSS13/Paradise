@@ -35,7 +35,7 @@
 	if(wires & 2)
 		return src.attack_hand(user)
 	else
-		user << "Error, no route to host."
+		to_chat(user, "Error, no route to host.")
 
 /obj/machinery/door_control/attackby(obj/item/weapon/W, mob/user as mob, params)
 	/* For later implementation
@@ -69,7 +69,7 @@
 		return
 
 	if(!allowed(user) && (wires & 1))
-		user << "\red Access Denied"
+		to_chat(user, "\red Access Denied")
 		flick("doorctrl-denied",src)
 		return
 

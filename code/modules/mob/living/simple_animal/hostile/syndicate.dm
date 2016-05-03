@@ -24,6 +24,7 @@
 	var/weapon2
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
+	check_friendly_fire = 1
 	status_flags = CANPUSH
 
 /mob/living/simple_animal/hostile/syndicate/death()
@@ -62,7 +63,7 @@
 			visible_message("\red \b [src] blocks the [O] with its shield! ")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
-		usr << "\red This weapon is ineffective, it does no damage."
+		to_chat(usr, "\red This weapon is ineffective, it does no damage.")
 		visible_message("\red [user] gently taps [src] with the [O]. ")
 
 

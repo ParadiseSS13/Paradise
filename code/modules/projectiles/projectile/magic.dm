@@ -67,9 +67,9 @@
 					ghost.reenter_corpse()
 					break
 		if(old_stat != DEAD)
-			target << "<span class='notice'>You feel great!</span>"
+			to_chat(target, "<span class='notice'>You feel great!</span>")
 		else
-			target << "<span class='notice'>You rise with a start, you're alive!!!</span>"
+			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
 
 /obj/item/projectile/magic/teleport
 	name = "bolt of teleportation"
@@ -185,7 +185,7 @@ proc/wabbajack(mob/living/M)
 					new_mob.universal_speak = 1*/
 				if("animal")
 					if(prob(50))
-						var/beast = pick("carp","bear","mushroom","statue", "bat", "goat")
+						var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")
 						switch(beast)
 							if("carp")		new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
 							if("bear")		new_mob = new /mob/living/simple_animal/hostile/bear(M.loc)
@@ -193,14 +193,14 @@ proc/wabbajack(mob/living/M)
 							if("statue")	new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
 							if("bat") 		new_mob = new /mob/living/simple_animal/hostile/scarybat(M.loc)
 							if("goat")		new_mob = new /mob/living/simple_animal/hostile/retaliate/goat(M.loc)
+							if("tomato")	new_mob = new /mob/living/simple_animal/hostile/killertomato(M.loc)
 					else
-						var/animal = pick("parrot","corgi","crab","pug","cat","tomato","mouse","chicken","cow","lizard","chick","fox")
+						var/animal = pick("parrot","corgi","crab","pug","cat","mouse","chicken","cow","lizard","chick","fox")
 						switch(animal)
 							if("parrot")	new_mob = new /mob/living/simple_animal/parrot(M.loc)
 							if("corgi")		new_mob = new /mob/living/simple_animal/pet/corgi(M.loc)
 							if("crab")		new_mob = new /mob/living/simple_animal/crab(M.loc)
 							if("cat")		new_mob = new /mob/living/simple_animal/pet/cat(M.loc)
-							if("tomato")	new_mob = new /mob/living/simple_animal/tomato(M.loc)
 							if("mouse")		new_mob = new /mob/living/simple_animal/mouse(M.loc)
 							if("chicken")	new_mob = new /mob/living/simple_animal/chicken(M.loc)
 							if("cow")		new_mob = new /mob/living/simple_animal/cow(M.loc)
@@ -238,7 +238,7 @@ proc/wabbajack(mob/living/M)
 			else
 				new_mob.key = M.key
 
-			new_mob << "<B>Your form morphs into that of a [randomize].</B>"
+			to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")
 
 			qdel(M)
 			return new_mob
@@ -262,8 +262,8 @@ proc/wabbajack(mob/living/M)
 				S.icon = change.icon
 				if(H.mind)
 					H.mind.transfer_to(S)
-					S << "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>"
-					S << "<span class='userdanger'>Do not harm [firer.name], your creator.</span>"
+					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
+					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
 				H = change
 				H.loc = S
 				qdel(src)

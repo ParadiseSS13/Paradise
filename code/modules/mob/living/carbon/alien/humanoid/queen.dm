@@ -31,29 +31,26 @@
 	..()
 
 
-/mob/living/carbon/alien/humanoid/queen
+/mob/living/carbon/alien/humanoid/queen/handle_regular_hud_updates()
+	..() //-Yvarov
 
-	handle_regular_hud_updates()
-
-		..() //-Yvarov
-
-		if (src.healths)
-			if (src.stat != 2)
-				switch(health)
-					if(250 to INFINITY)
-						src.healths.icon_state = "health0"
-					if(175 to 250)
-						src.healths.icon_state = "health1"
-					if(100 to 175)
-						src.healths.icon_state = "health2"
-					if(50 to 100)
-						src.healths.icon_state = "health3"
-					if(0 to 50)
-						src.healths.icon_state = "health4"
-					else
-						src.healths.icon_state = "health5"
-			else
-				src.healths.icon_state = "health6"
+	if (healths)
+		if (stat != DEAD)
+			switch(health)
+				if(250 to INFINITY)
+					healths.icon_state = "health0"
+				if(175 to 250)
+					healths.icon_state = "health1"
+				if(100 to 175)
+					healths.icon_state = "health2"
+				if(50 to 100)
+					healths.icon_state = "health3"
+				if(0 to 50)
+					healths.icon_state = "health4"
+				else
+					healths.icon_state = "health5"
+		else
+			healths.icon_state = "health6"
 
 
 //Queen verbs
@@ -63,7 +60,7 @@
 	set desc = "Lay an egg to produce huggers to impregnate prey with."
 	set category = "Alien"
 	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		src << "<span class='noticealien'>There's already an egg here.</span>"
+		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
 		return
 
 	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
@@ -81,7 +78,6 @@
 	large = 1
 
 /mob/living/carbon/alien/humanoid/queen/large/update_icons()
-	update_hud()		//TODO: remove the need for this to be here
 	overlays.Cut()
 
 	if(stat == DEAD)
@@ -111,7 +107,7 @@
 
 		if(no_queen)
 			adjustToxLoss(-1000)
-			src << "<span class='noticealien'>You begin to evolve!</span>"
+			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
 			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new(loc)
@@ -122,7 +118,7 @@
 			new_xeno.mind.name = new_xeno.name
 			qdel(src)
 		else
-			src << "<span class='notice'>We already have an alive empress.</span>"
+			to_chat(src, "<span class='notice'>We already have an alive empress.</span>")
 	return
 
 */

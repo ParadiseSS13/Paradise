@@ -89,14 +89,6 @@
 	item_state = "greenbandana"
 	flags_inv = 0
 
-/obj/item/clothing/head/cardborg
-	name = "cardborg helmet"
-	desc = "A helmet made out of a box."
-	icon_state = "cardborg_h"
-	item_state = "cardborg_h"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-
 /obj/item/clothing/head/justice
 	name = "justice hat"
 	desc = "Fight for what's righteous!"
@@ -210,9 +202,14 @@
 	desc = "Woof!"
 	icon_state = "corgihead"
 	item_state = "chickensuit"
+	flags = BLOCKHAIR
+
+/obj/item/clothing/head/corgi/super_hero
+	name = "super-hero corgi suit head"
+	desc = "Woof! This one seems to pulse with a strange power"
 	flags = BLOCKHAIR | NODROP
 
-/obj/item/clothing/head/corgi/en
+/obj/item/clothing/head/corgi/super_hero/en
 	name = "E-N suit head"
 	icon_state = "enhead"
 

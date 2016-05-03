@@ -131,7 +131,7 @@
 		AM.loc = src.loc
 		do_transform_mime(AM)
 	else
-		AM << "Only items can be greyscaled."
+		to_chat(AM, "Only items can be greyscaled.")
 		return
 
 /obj/machinery/transformer/proc/do_transform_mime(var/obj/item/I)

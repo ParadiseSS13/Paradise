@@ -48,7 +48,7 @@ rcd light flash thingy on matter drain
 	for(var/mob/living/silicon/ai/ai in player_list)
 		ai.fire_res_on_core = 1
 	src.verbs -= /mob/living/silicon/ai/proc/fireproof_core
-	src << "<span class='notice'>Core fireproofed.</span>"
+	to_chat(src, "<span class='notice'>Core fireproofed.</span>")
 
 /datum/AI_Module/large/upgrade_turrets
 	module_name = "AI Turret Upgrade"
@@ -74,80 +74,7 @@ rcd light flash thingy on matter drain
 			turret.health += initial(turret.health) * 3 / 8
 			turret.eprojectile = /obj/item/projectile/beam/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
-	src << "<span class='notice'>Turrets upgraded.</span>"
-/*
-/datum/AI_Module/large/lockdown
-	module_name = "Hostile Station Lockdown"
-	mod_pick_name = "lockdown"
-	description = "Overload the airlock, blast door and fire control networks, locking them down. Caution! This command also electrifies all airlocks. The networks will automatically reset after 120 seconds."
-	cost = 20
-
-	power_type = /mob/living/silicon/ai/proc/lockdown
-
-/mob/living/silicon/ai/proc/lockdown()
-	set category = "Malfunction"
-	set name = "Initiate Hostile Lockdown"
-
-	if(stat)
-		return
-
-	for(var/datum/AI_Module/large/lockdown/lockdown in current_modules)
-		if(lockdown.uses > 0)
-			lockdown.uses --
-
-			var/obj/machinery/door/airlock/AL
-			for(var/obj/machinery/door/D in airlocks)
-				if(!(D.z in config.contact_levels))
-					continue
-				spawn()
-					if(istype(D, /obj/machinery/door/airlock))
-						AL = D
-						if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
-							AL.locked = 0 //For airlocks that were bolted open.
-							AL.safe = 0 //DOOR CRUSH
-							AL.close()
-							AL.lock()
-							AL.electrified_until = -1  //Shock it!
-					else if(!D.stat) //So that only powered doors are closed.
-						D.close() //Close ALL the doors!
-
-			var/obj/machinery/computer/communications/C = locate() in machines
-			if(C)
-				C.post_status("alert", "lockdown")
-
-			minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert")
-			src << "<span class='danger'>Lockdown initiated. Network reset in two minutes.</span>"
-			spawn(1200) //120 Seconds.
-				disablelockdown() //Reset the lockdown after 120 seconds.
-		else
-			src << "<span class='warning'>Out of uses.</span>"
-
-/mob/living/silicon/ai/proc/disablelockdown()
-	set category = "Malfunction"
-	set name = "Disable Lockdown"
-
-	var/obj/machinery/door/airlock/AL
-	for(var/obj/machinery/door/D in airlocks)
-		if(!(D.z in config.contact_levels))
-			continue
-		spawn()
-			if(istype(D, /obj/machinery/door/airlock))
-				AL = D
-				if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
-					AL.unlock()
-					AL.electrified_until = 0
-					AL.open()
-					AL.safe = 1
-			else if(!D.stat) //Opens only powered doors.
-				D.open() //Open everything!
-
-	var/obj/machinery/computer/communications/C = locate() in machines
-	if(C)
-		C.post_status("alert", "default")
-
-	minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network Reset")
-*/
-
+	to_chat(src, "<span class='notice'>Turrets upgraded.</span>")
 /datum/AI_Module/large/destroy_rcd
 	module_name = "Destroy RCDs"
 	mod_pick_name = "rcd"
@@ -173,7 +100,7 @@ rcd light flash thingy on matter drain
 					explosion(RCD, 0, 0, 3, 1, flame_range = 1)
 					qdel(RCD)
 
-	src << "<span class='danger'>RCD detonation pulse emitted.</span>"
+	to_chat(src, "<span class='danger'>RCD detonation pulse emitted.</span>")
 	malf_cooldown = 1
 	spawn(100)
 		malf_cooldown = 0
@@ -197,7 +124,9 @@ rcd light flash thingy on matter drain
 		return
 
 	can_dominate_mechs = 1 //Yep. This is all it does. Honk!
-	src << "Virus package compiled. Select a target mech at any time. <b>You must remain on the station at all times. Loss of signal will result in total system lockout.</b>"
+	to_chat(src, "Virus package compiled. Select a target mech at any time. \
+	<b>You must remain on the station at all times. Loss of signal will result in total system lockout.</b>")
+
 	verbs -= /mob/living/silicon/ai/proc/mech_takeover
 
 /datum/AI_Module/small/overload_machine
@@ -218,7 +147,7 @@ rcd light flash thingy on matter drain
 
 	if (istype(M, /obj/machinery))
 		if(istype(M,/obj/machinery/field/generator))
-			src << "This machine can not be overloaded due to a firewall."
+			to_chat(src, "This machine can not be overloaded due to a firewall.")
 			return
 		for(var/datum/AI_Module/small/overload_machine/overload in current_modules)
 			if(overload.uses > 0)
@@ -228,8 +157,10 @@ rcd light flash thingy on matter drain
 				spawn(50)
 					explosion(get_turf(M), 0,1,1,0)
 					qdel(M)
-			else src << "<span class='warning'>Out of uses.</span>"
-	else src << "<span class='notice'>That's not a machine.</span>"
+			else
+				to_chat(src, "<span class='warning'>Out of uses.</span>")
+	else
+		to_chat(src, "<span class='notice'>That's not a machine.</span>")
 
 /datum/AI_Module/small/override_machine
 	module_name = "Machine Override"
@@ -240,7 +171,6 @@ rcd light flash thingy on matter drain
 
 	power_type = /mob/living/silicon/ai/proc/override_machine
 
-
 /mob/living/silicon/ai/proc/override_machine(obj/machinery/M as obj in world)
 	set name = "Override Machine"
 	set category = "Malfunction"
@@ -248,21 +178,23 @@ rcd light flash thingy on matter drain
 	if(stat)
 		return
 
-	if (istype(M, /obj/machinery))
+	if(istype(M, /obj/machinery))
 		if(istype(M,/obj/machinery/field/generator))
-			src << "This machine can not be overloaded due to a firewall."
+			to_chat(src, "This machine can not be overloaded due to a firewall.")
 			return
 		for(var/datum/AI_Module/small/override_machine/override in current_modules)
 			if(override.uses > 0)
 				override.uses --
 				for(var/mob/V in hearers(M, null))
 					V.show_message("<span class='notice'>You hear a loud electrical buzzing sound!</span>", 2)
-				src << "<span class='warning'>Reprogramming machine behaviour...</span>"
+				to_chat(src, "<span class='warning'>Reprogramming machine behaviour...</span>")
 				spawn(50)
 					if(M)
 						new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
-			else src << "<span class='warning'>Out of uses.</span>"
-	else src << "<span class='notice'>That's not a machine.</span>"
+			else
+				to_chat(src, "<span class='warning'>Out of uses.</span>")
+	else
+		to_chat(src, "<span class='notice'>That's not a machine.</span>")
 
 /datum/AI_Module/large/place_cyborg_transformer
 	module_name = "Robotic Factory (Removes Shunting)"
@@ -295,7 +227,7 @@ rcd light flash thingy on matter drain
 		var/datum/AI_Module/large/place_cyborg_transformer/PCT = locate() in current_modules
 		PCT.uses --
 		can_shunt = 0
-		src << "<span class='warning'>You cannot shunt anymore.</span>"
+		to_chat(src, "<span class='warning'>You cannot shunt anymore.</span>")
 
 /mob/living/silicon/ai/proc/canPlaceTransformer()
 	if(!eyeobj || !isturf(src.loc))
@@ -359,9 +291,11 @@ rcd light flash thingy on matter drain
 			for(var/obj/machinery/power/apc/apc in world)
 				if(prob(30*apc.overload))
 					apc.overload_lighting()
-				else apc.overload++
-			src << "<span class='notice'>Overcurrent applied to the powernet.</span>"
-		else src << "<span class='warning'>Out of uses.</span>"
+				else
+					apc.overload++
+			to_chat(src, "<span class='notice'>Overcurrent applied to the powernet.</span>")
+		else
+			to_chat(src, "<span class='warning'>Out of uses.</span>")
 
 /datum/AI_Module/small/reactivate_cameras
 	module_name = "Reactivate Camera Network"
@@ -395,10 +329,10 @@ rcd light flash thingy on matter drain
 					fixedcams++
 					//If a camera is both deactivated and has bad focus, it will cost two uses to fully fix!
 			else
-				src << "<span class='warning'>Out of uses.</span>"
+				to_chat(src, "<span class='warning'>Out of uses.</span>")
 				verbs -= /mob/living/silicon/ai/proc/reactivate_cameras //It is useless now, clean it up.
 				break
-	src << "<span class='notice'>Diagnostic complete! Operations completed: [fixedcams].</span>"
+	to_chat(src, "<span class='notice'>Diagnostic complete! Operations completed: [fixedcams].</span>")
 
 	malf_cooldown = 1
 	spawn(30) //Lag protection
@@ -441,7 +375,7 @@ rcd light flash thingy on matter drain
 			if(upgraded)
 				upgradedcams++
 
-	src << "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: [upgradedcams]. Light amplification system online.</span>"
+	to_chat(src, "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: [upgradedcams]. Light amplification system online.</span>")
 	verbs -= /mob/living/silicon/ai/proc/upgrade_cameras
 
 /datum/module_picker

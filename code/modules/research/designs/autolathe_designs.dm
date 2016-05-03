@@ -195,6 +195,46 @@
 	build_path = /obj/item/weapon/kitchen/knife
 	category = list("initial","Miscellaneous")
 
+/datum/design/minihoe
+	name = "Mini hoe"
+	id = "mini_hoe"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50)
+	build_path = /obj/item/weapon/minihoe
+	category = list("initial","Miscellaneous")
+
+/datum/design/plant_analyzer
+	name = "Plant analyzer"
+	id = "plant_analyzer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	build_path = /obj/item/device/analyzer/plant_analyzer
+	category = list("initial","Miscellaneous")
+
+/datum/design/shovel
+	name = "Shovel"
+	id = "shovel"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50)
+	build_path = /obj/item/weapon/shovel
+	category = list("initial","Miscellaneous")
+
+/datum/design/spade
+	name = "Spade"
+	id = "spade"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50)
+	build_path = /obj/item/weapon/shovel/spade
+	category = list("initial","Miscellaneous")
+
+/datum/design/hatchet
+	name = "Hatchet"
+	id = "hatchet"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 15000)
+	build_path = /obj/item/weapon/hatchet
+	category = list("initial","Miscellaneous")
+
 /datum/design/pipe_painter
 	name = "Pipe Painter"
 	id = "pipe_painter"
@@ -282,6 +322,14 @@
 	materials = list(MAT_METAL = 70)
 	build_path = /obj/item/weapon/canvas/twentythreeXnineteen
 	category = list("initial", "Miscellaneous")
+
+/datum/design/foambox
+		name = "Box of Foam Force darts"
+		id = "foamforce"
+		build_type = AUTOLATHE
+		materials = list(MAT_METAL = 2000)
+		build_path = /obj/item/ammo_box/foambox
+		category = list("initial", "Miscellaneous")
 
 /datum/design/canvas/twentythreeXtwentythree
 	name = "23px by 23px Canvas"
@@ -646,4 +694,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/circuitboard/logic_gate
+	category = list("initial", "Electronics")
+
+/datum/design/vendor
+	name = "Machine Board (Vendor)"
+	desc = "The circuit board for a Vendor."
+	id = "vendor"
+	req_tech = list("programming" = 1)
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 750, MAT_METAL = 250)
+	build_path = /obj/item/weapon/circuitboard/vendor
 	category = list("initial", "Electronics")

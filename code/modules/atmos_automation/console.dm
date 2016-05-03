@@ -206,11 +206,11 @@
 		var/list/json[0]
 		for(var/datum/automation/A in automations)
 			json += list(A.Export())
-		return list2json(json)
+		return json_encode(json)
 
 	proc/ReadCode(var/jsonStr)
 		automations.Cut()
-		var/list/json=json2list(jsonStr)
+		var/list/json = json_decode(jsonStr)
 		if(json.len>0)
 			for(var/list/cData in json)
 				if(isnull(cData) || !("type" in cData))

@@ -93,6 +93,7 @@
 	R.add_language("Trinary", 1)
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
+	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
 
 /obj/item/weapon/robot_module/proc/add_subsystems(var/mob/living/silicon/robot/R)
@@ -256,7 +257,7 @@
 	M.matter = 30
 	src.modules += M
 
-	src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
+	src.modules += new /obj/item/weapon/reagent_containers/dropper/cyborg(src)
 	src.modules += new /obj/item/weapon/lighter/zippo(src)
 	src.modules += new /obj/item/weapon/storage/bag/tray/cyborg(src)
 	src.modules += new /obj/item/weapon/reagent_containers/food/drinks/shaker(src)

@@ -52,15 +52,26 @@
 		/turf/unsimulated/beach/water/drop, /turf/unsimulated/beach/water/drop/dense,
 		/turf/unsimulated/beach/water, /turf/unsimulated/beach/water/dense,
 		/turf/unsimulated/beach/water/edge_drop)
+	var/obj/effect/effect/beach_drop_overlay/water_overlay
 
 /turf/unsimulated/beach/water/drop/New()
 	..()
-	smooth_icon(src)
-	spawn(1)
-		overlays += image(icon, "[top_left_corner]-o", MOB_LAYER + 0.1)
-		overlays += image(icon, "[top_right_corner]-o", MOB_LAYER + 0.1)
-		overlays += image(icon, "[bottom_left_corner]-o", MOB_LAYER + 0.1)
-		overlays += image(icon, "[bottom_right_corner]-o", MOB_LAYER + 0.1)
+	water_overlay = new(src)
+
+/turf/unsimulated/beach/water/drop/Destroy()
+	qdel(water_overlay)
+	water_overlay = null
+	return ..()
+
+/obj/effect/effect/beach_drop_overlay
+	name = "Water"
+	icon = 'icons/turf/floors/seadrop-o.dmi'
+	layer = MOB_LAYER + 0.1
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+		/turf/unsimulated/beach/water/drop, /turf/unsimulated/beach/water/drop/dense,
+		/turf/unsimulated/beach/water, /turf/unsimulated/beach/water/dense,
+		/turf/unsimulated/beach/water/edge_drop)
 
 /turf/unsimulated/beach/water/drop/dense
 	density = 1

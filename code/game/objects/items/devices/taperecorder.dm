@@ -22,7 +22,7 @@
 
 /obj/item/device/taperecorder/examine(mob/user)
 	if(..(user, 1))
-		user << "The wire panel is [open_panel ? "opened" : "closed"]."
+		to_chat(user, "The wire panel is [open_panel ? "opened" : "closed"].")
 
 
 /obj/item/device/taperecorder/attackby(obj/item/I, mob/user)
@@ -30,12 +30,12 @@
 		user.drop_item()
 		I.loc = src
 		mytape = I
-		user << "<span class='notice'>You insert [I] into [src].</span>"
+		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		update_icon()
 
 /obj/item/device/taperecorder/proc/eject(mob/user)
 	if(mytape)
-		user << "<span class='notice'>You remove [mytape] from [src].</span>"
+		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
 		stop()
 		user.put_in_hands(mytape)
 		mytape = null
@@ -113,7 +113,7 @@
 		return
 
 	if(mytape.used_capacity < mytape.max_capacity)
-		usr << "<span class='notice'>Recording started.</span>"
+		to_chat(usr, "<span class='notice'>Recording started.</span>")
 		recording = 1
 		update_icon()
 		mytape.timestamp += mytape.used_capacity
@@ -129,7 +129,7 @@
 		recording = 0
 		update_icon()
 	else
-		usr << "<span class='notice'>The tape is full.</span>"
+		to_chat(usr, "<span class='notice'>The tape is full.</span>")
 
 
 /obj/item/device/taperecorder/verb/stop()
@@ -143,7 +143,7 @@
 		recording = 0
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] Recording stopped."
-		usr << "<span class='notice'>Recording stopped.</span>"
+		to_chat(usr, "<span class='notice'>Recording stopped.</span>")
 		return
 	else if(playing)
 		playing = 0
@@ -167,7 +167,7 @@
 
 	playing = 1
 	update_icon()
-	usr << "<span class='notice'>Playing started.</span>"
+	to_chat(usr, "<span class='notice'>Playing started.</span>")
 	var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
 	var/max = mytape.max_capacity
 	for(var/i = 1, used < max, sleep(10 * playsleepseconds))
@@ -215,12 +215,12 @@
 	if(!mytape)
 		return
 	if(!canprint)
-		usr << "<span class='notice'>The recorder can't print that fast!</span>"
+		to_chat(usr, "<span class='notice'>The recorder can't print that fast!</span>")
 		return
 	if(recording || playing)
 		return
 
-	usr << "<span class='notice'>Transcript printed.</span>"
+	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
 	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
@@ -257,7 +257,7 @@
 
 /obj/item/device/tape/attack_self(mob/user)
 	if(!ruined)
-		user << "<span class='notice'>You pull out all the tape!</span>"
+		to_chat(user, "<span class='notice'>You pull out all the tape!</span>")
 		ruin()
 
 
@@ -273,9 +273,9 @@
 
 /obj/item/device/tape/attackby(obj/item/I, mob/user)
 	if(ruined && istype(I, /obj/item/weapon/screwdriver))
-		user << "<span class='notice'>You start winding the tape back in.</span>"
+		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
 		if(do_after(user, 120, target = src))
-			user << "<span class='notice'>You wound the tape back in!</span>"
+			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
 
 

@@ -33,6 +33,7 @@
 	var/harmbaton = 0 //If true, beat instead of stun
 	var/flashing_lights = 0 //If true, flash lights
 	var/prev_flashing_lights = 0
+	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
@@ -40,7 +41,6 @@
 	idcheck = 0
 	weaponscheck = 0
 	auto_patrol = 1
-	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/turf/Tsec = get_turf(src)
@@ -54,7 +54,6 @@
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	radio_channel = "AI Private"
-	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
@@ -62,7 +61,6 @@
 	idcheck = 0
 	weaponscheck = 1
 	auto_patrol = 1
-	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
@@ -183,7 +181,7 @@ Auto Patrol: []"},
 	..()
 	if(emagged == 2)
 		if(user)
-			user << "<span class='danger'>You short out [src]'s target assessment circuits.</span>"
+			to_chat(user, "<span class='danger'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = 0
@@ -229,7 +227,7 @@ Auto Patrol: []"},
 			return
 		if(!C.handcuffed)
 			C.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(C)
-			C.update_inv_handcuffed(1)
+			C.update_handcuffed()
 			playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
 			back_to_idle()
 

@@ -51,7 +51,7 @@
 					wearable = 1
 
 			if(!wearable)
-				M << "\red Your species cannot wear [src]."
+				to_chat(M, "\red Your species cannot wear [src].")
 				return 0
 
 	return 1
@@ -60,7 +60,7 @@
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
-			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Wryn")
+			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Wryn","Drask")
 		else
 			species_restricted = list(target_species)
 
@@ -119,7 +119,7 @@
 /obj/item/clothing/ears/offear
 	name = "Other ear"
 	w_class = 5.0
-	icon = 'icons/mob/screen1_Midnight.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
 
@@ -184,7 +184,8 @@ BLIND     // can't see anything
 	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
+		"Vox" = 'icons/mob/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
 
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
@@ -200,7 +201,7 @@ BLIND     // can't see anything
 				species_restricted -= "Tajaran"
 			update_icon()
 		else
-			user << "<span class='notice'>[src] have already been clipped!</span>"
+			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
 		return
 	else
 		..()
@@ -213,29 +214,29 @@ BLIND     // can't see anything
 	if (istype(M, /mob/dead/)) return
 	if (user.stat || user.restrained()) return
 	if(has_sensor >= 2)
-		user << "The controls are locked."
+		to_chat(user, "The controls are locked.")
 		return 0
 	if(has_sensor <= 0)
-		user << "This suit does not have any sensors."
+		to_chat(user, "This suit does not have any sensors.")
 		return 0
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
 	if(get_dist(user, src) > 1)
-		user << "You have moved too far away."
+		to_chat(user, "You have moved too far away.")
 		return
 	sensor_mode = modes.Find(switchMode) - 1
 
 	if (src.loc == user)
 		switch(sensor_mode)
 			if(0)
-				user << "You disable your suit's remote sensing equipment."
+				to_chat(user, "You disable your suit's remote sensing equipment.")
 			if(1)
-				user << "Your suit will now report whether you are live or dead."
+				to_chat(user, "Your suit will now report whether you are live or dead.")
 			if(2)
-				user << "Your suit will now report your vital lifesigns."
+				to_chat(user, "Your suit will now report your vital lifesigns.")
 			if(3)
-				user << "Your suit will now report your vital lifesigns as well as your coordinate position."
+				to_chat(user, "Your suit will now report your vital lifesigns as well as your coordinate position.")
 		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			if(H.w_uniform == src)
@@ -303,7 +304,7 @@ BLIND     // can't see anything
 																				Had to use this instead of initial() because initial reverted to the wrong state.*/
 			gas_transfer_coefficient = initial(gas_transfer_coefficient)
 			permeability_coefficient = initial(permeability_coefficient)
-			user << "You push \the [src] back into place."
+			to_chat(user, "You push \the [src] back into place.")
 			mask_adjusted = 0
 			slot_flags = initial(slot_flags)
 			if(flags_inv != initial(flags_inv))
@@ -324,7 +325,7 @@ BLIND     // can't see anything
 						user.put_in_hands(src)
 		else
 			icon_state += "_up"
-			user << "You push \the [src] out of the way."
+			to_chat(user, "You push \the [src] out of the way.")
 			gas_transfer_coefficient = null
 			permeability_coefficient = null
 			mask_adjusted = 1
@@ -393,7 +394,7 @@ BLIND     // can't see anything
 			M.dropped()
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
 		else // Match has been previously lit and extinguished.
-			user << "<span class='notice'>The [M] has already been extinguished.</span>"
+			to_chat(user, "<span class='notice'>The [M] has already been extinguished.</span>")
 		return
 
 	if(istype(I, /obj/item/weapon/wirecutters))
@@ -411,7 +412,7 @@ BLIND     // can't see anything
 					species_restricted -= "Tajaran"
 				update_icon()
 			else
-				user << "<span class='notice'>[src] have already had their toes cut open!</span>"
+				to_chat(user, "<span class='notice'>[src] have already had their toes cut open!</span>")
 			return
 	else
 		..()
@@ -463,7 +464,7 @@ BLIND     // can't see anything
 					item_state = copytext(item_state, 1, findtext(item_state, "_open"))
 					if(adjust_flavour)
 						flavour = "[copytext(adjust_flavour, 3, lentext(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
-					user << "You [flavour] \the [src]."
+					to_chat(user, "You [flavour] \the [src].")
 					suit_adjusted = 0 //Suit is no longer adjusted.
 				else
 					var/flavour = "open"
@@ -471,7 +472,7 @@ BLIND     // can't see anything
 					item_state += "_open"
 					if(adjust_flavour)
 						flavour = "[adjust_flavour]"
-					user << "You [flavour] \the [src]."
+					to_chat(user, "You [flavour] \the [src].")
 					suit_adjusted = 1 //Suit's adjusted.
 			else
 				if(user.canUnEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
@@ -487,11 +488,12 @@ BLIND     // can't see anything
 					qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 					user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 				else
-					user << "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>" //Yep, that's all they get. Avoids having to snowflake in a cooldown.
+					to_chat(user, "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>")//Yep, that's all they get. Avoids having to snowflake in a cooldown.
+
 					return
 			user.update_inv_wear_suit()
 	else
-		user << "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>"
+		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>")
 
 /obj/item/clothing/suit/verb/openjacket(var/mob/user) //The verb you can use to adjust jackets.
 	set name = "Open/Close Jacket"
@@ -561,7 +563,8 @@ BLIND     // can't see anything
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/species/drask/uniform.dmi'
 		)
 	var/has_sensor = 1//For the crew computer 2 = unable to change mode
 	var/sensor_mode = 0
@@ -599,7 +602,7 @@ BLIND     // can't see anything
 
 			return
 		else
-			user << "<span class='notice'>You cannot attach more accessories of this type to [src].</span>"
+			to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
@@ -642,16 +645,16 @@ BLIND     // can't see anything
 	..(user)
 	switch(src.sensor_mode)
 		if(0)
-			user << "Its sensors appear to be disabled."
+			to_chat(user, "Its sensors appear to be disabled.")
 		if(1)
-			user << "Its binary life sensors appear to be enabled."
+			to_chat(user, "Its binary life sensors appear to be enabled.")
 		if(2)
-			user << "Its vital tracker appears to be enabled."
+			to_chat(user, "Its vital tracker appears to be enabled.")
 		if(3)
-			user << "Its vital tracker and tracking beacon appear to be enabled."
+			to_chat(user, "Its vital tracker and tracking beacon appear to be enabled.")
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			user << "\A [A] is attached to it."
+			to_chat(user, "\A [A] is attached to it.")
 
 
 /obj/item/clothing/under/verb/rollsuit()
@@ -661,14 +664,16 @@ BLIND     // can't see anything
 	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
 
-	if(copytext(item_color,-2) != "_d")
-		basecolor = item_color
-	usr << "DEBUG:[basecolor]"
-	if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
-		item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-		usr.update_inv_w_uniform()
+	if(!usr.incapacitated())
+		if(copytext(item_color,-2) != "_d")
+			basecolor = item_color
+		if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
+			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+			usr.update_inv_w_uniform()
+		else
+			to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
 	else
-		usr << "<span class='notice'>You cannot roll down the uniform!</span>"
+		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
 
 /obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/A)
 	if(!(A in accessories))

@@ -72,7 +72,7 @@
 		return
 
 	if(!silent)
-		src.loc << "<span class='warning'>You drop \the [wrapped].</span>"
+		to_chat(src.loc, "<span class='warning'>You drop \the [wrapped].</span>")
 	wrapped.forceMove(get_turf(src))
 	wrapped = null
 
@@ -125,12 +125,12 @@
 
 		//We can grab the item, finally.
 		if(grab)
-			user << "You collect \the [I]."
+			to_chat(user, "You collect \the [I].")
 			I.forceMove(src)
 			wrapped = I
 			return
 		else
-			user << "<span class='warning'>Your gripper cannot hold \the [target].</span>"
+			to_chat(user, "<span class='warning'>Your gripper cannot hold \the [target].</span>")
 
 	else if(istype(target,/obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
@@ -198,15 +198,15 @@
 			if(!istype(D))
 				return
 
-			D << "<span class='warning'>You begin decompiling the other drone.</span>"
+			to_chat(D, "<span class='warning'>You begin decompiling the other drone.</span>")
 
 			if(!do_after(D,50, target = target))
-				D << "<span class='warning'>You need to remain still while decompiling such a large object.</span>"
+				to_chat(D, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 				return
 
 			if(!M || !D) return
 
-			D << "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>"
+			to_chat(D, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
 
 			qdel(M)
 			new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
@@ -279,16 +279,16 @@
 		grabbed_something = 1
 
 	if(grabbed_something)
-		user << "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].<span>"
+		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].<span>")
 	else
-		user << "<span class='warning'>Nothing on \the [T] is useful to you.</span>"
+		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
 	return
 
 //PRETTIER TOOL LIST.
 /mob/living/silicon/robot/drone/installed_modules()
 
 	if(weapon_lock)
-		src << "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>"
+		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
 		return
 
 	if(!module)

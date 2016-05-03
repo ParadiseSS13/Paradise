@@ -21,7 +21,6 @@
 	ventcrawler = 2
 	var/datum/mind/origin
 	var/egg_lain = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
@@ -45,10 +44,10 @@
 		var/mob/living/carbon/C = target
 		if(C.stat == DEAD)
 			if(C.status_flags & XENO_HOST)
-				src << "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>"
+				to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 				return
 			Infect(target)
-			src << "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>"
+			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
 			spawn(100)
 				death()
 			return

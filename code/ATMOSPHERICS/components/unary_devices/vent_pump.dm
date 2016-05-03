@@ -119,9 +119,8 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/unary/vent_pump/process()
-	..()
-	if(stat & (NOPOWER|BROKEN))
-		return
+	if(!..() || (stat & (NOPOWER|BROKEN)))
+		return 0
 	if (!node)
 		on = 0
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
@@ -322,7 +321,7 @@
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if (WT.remove_fuel(0,user))
-			user << "<span class='notice'>Now welding the vent.</span>"
+			to_chat(user, "<span class='notice'>Now welding the vent.</span>")
 			if(do_after(user, 20, target = src))
 				if(!src || !WT.isOn()) return
 				playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
@@ -336,19 +335,19 @@
 					update_icon()
 			else
 
-				user << "<span class='notice'>The welding tool needs to be on to start this task.</span>"
+				to_chat(user, "<span class='notice'>The welding tool needs to be on to start this task.</span>")
 		else
-			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 			return 1
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!welded)
 			if(open)
-				user << "<span class='notice'> Now closing the vent.</span>"
+				to_chat(user, "<span class='notice'> Now closing the vent.</span>")
 				if (do_after(user, 20, target = src))
 					open = 0
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 			else
-				user << "<span class='notice'> Now opening the vent.</span>"
+				to_chat(user, "<span class='notice'> Now opening the vent.</span>")
 				if (do_after(user, 20, target = src))
 					open = 1
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
@@ -359,16 +358,16 @@
 				user.drop_item(W)
 				W.forceMove(src)
 			if(!open)
-				user << "You can't shove that down there when it is closed"
+				to_chat(user, "You can't shove that down there when it is closed")
 		else
-			user << "The vent is welded."
+			to_chat(user, "The vent is welded.")
 		return
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
 	if (istype(W, /obj/item/weapon/wrench))
 		if (!(stat & NOPOWER) && on)
-			user << "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>"
+			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1
 
 	return ..()
@@ -383,7 +382,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
 	..(user)
 	if(welded)
-		user << "It seems welded shut."
+		to_chat(user, "It seems welded shut.")
 
 /obj/machinery/atmospherics/unary/vent_pump/power_change()
 	var/old_stat = stat

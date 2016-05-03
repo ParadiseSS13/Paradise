@@ -60,11 +60,11 @@
 /obj/item/weapon/gun/dartgun/examine(mob/user)
 	if(..(user, 2))
 		if(beakers.len)
-			user << "<span class='notice>[src] contains:</span>"
+			to_chat(user, "<span class='notice>[src] contains:</span>")
 			for(var/obj/item/weapon/reagent_containers/glass/beaker/B in beakers)
 				if(B.reagents && B.reagents.reagent_list.len)
 					for(var/datum/reagent/R in B.reagents.reagent_list)
-						user << "<span class='notice>[R.volume] units of [R.name]</span>"
+						to_chat(user, "<span class='notice>[R.volume] units of [R.name]</span>")
 
 /obj/item/weapon/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/dart_cartridge))
@@ -72,36 +72,36 @@
 		var/obj/item/weapon/dart_cartridge/D = I
 
 		if(!D.darts)
-			user << "<span class='warning'>[D] is empty.</span>"
+			to_chat(user, "<span class='warning'>[D] is empty.</span>")
 			return 0
 
 		if(cartridge)
 			if(cartridge.darts <= 0)
 				src.remove_cartridge()
 			else
-				user << "<span class='warning'>There's already a cartridge in [src].</span>"
+				to_chat(user, "<span class='warning'>There's already a cartridge in [src].</span>")
 				return 0
 
 		user.drop_item()
 		cartridge = D
 		D.forceMove(src)
-		user << "<span class='notice'>You slot [D] into [src].</span>"
+		to_chat(user, "<span class='notice'>You slot [D] into [src].</span>")
 		update_icon()
 		return
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(!istype(I, container_type))
-			user << "<span class='warning'>[I] doesn't seem to fit into [src].</span>"
+			to_chat(user, "<span class='warning'>[I] doesn't seem to fit into [src].</span>")
 			return
 		if(beakers.len >= max_beakers)
-			user << "<span class='warning'>[src] already has [max_beakers] beakers in it - another one isn't going to fit!</span>"
+			to_chat(user, "<span class='warning'>[src] already has [max_beakers] beakers in it - another one isn't going to fit!</span>")
 			return
 		var/obj/item/weapon/reagent_containers/glass/beaker/B = I
 		if(!user.drop_item())
-			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
 		B.forceMove(src)
 		beakers += B
-		user << "<span class='notice>You slot [B] into [src].</span>"
+		to_chat(user, "<span class='notice>You slot [B] into [src].</span>")
 		src.updateUsrDialog()
 
 /obj/item/weapon/gun/dartgun/can_fire()
@@ -115,7 +115,7 @@
 
 /obj/item/weapon/gun/dartgun/proc/remove_cartridge()
 	if(cartridge)
-		usr << "<span class='notice'>You pop the cartridge out of [src].</span>"
+		to_chat(usr, "<span class='notice'>You pop the cartridge out of [src].</span>")
 		var/obj/item/weapon/dart_cartridge/C = cartridge
 		C.forceMove(get_turf(src))
 		C.update_icon()
@@ -145,10 +145,10 @@
 		var/obj/effect/syringe_gun_dummy/D = new/obj/effect/syringe_gun_dummy(get_turf(src))
 		var/obj/item/weapon/reagent_containers/syringe/S = get_mixed_syringe()
 		if(!S)
-			user << "<span class='warning'>There are no darts in [src]!</span>"
+			to_chat(user, "<span class='warning'>There are no darts in [src]!</span>")
 			return
 		if(!S.reagents)
-			user << "<span class='warning'>There are no reagents available!</span>"
+			to_chat(user, "<span class='warning'>There are no reagents available!</span>")
 			return
 		cartridge.darts--
 		src.update_icon()
@@ -190,7 +190,7 @@
 
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
-					M << "<span class='danger'>You feel a slight prick.</span>"
+					to_chat(M, "<span class='danger'>You feel a slight prick.</span>")
 
 					qdel(D)
 					break
@@ -271,7 +271,7 @@
 		if(index <= beakers.len)
 			if(beakers[index])
 				var/obj/item/weapon/reagent_containers/glass/beaker/B = beakers[index]
-				usr << "<span class='notice'>You remove [B] from [src].</span>"
+				to_chat(usr, "<span class='notice'>You remove [B] from [src].</span>")
 				mixing -= B
 				beakers -= B
 				B.forceMove(get_turf(src))
@@ -284,7 +284,7 @@
 	if(cartridge)
 		spawn(0) fire_dart(target,user)
 	else
-		usr << "<span class='warning'>[src] is empty.</span>"
+		to_chat(usr, "<span class='warning'>[src] is empty.</span>")
 
 
 /obj/item/weapon/gun/dartgun/vox

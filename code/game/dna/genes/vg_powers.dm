@@ -1,89 +1,3 @@
-/*
-This is /vg/'s nerf for hulk.  Feel free to steal it.
-
-Obviously, requires DNA2.
-
-
-// When hulk was first applied (world.time).
-/mob/living/carbon/human/var/hulk_time=0
-
-// In decaseconds.
-#define HULK_DURATION 300
-#define HULK_COOLDOWN 600
-
-/datum/dna/gene/basic/grant_spell/hulk
-	name = "Hulk"
-	desc = "Allows the subject to become the motherfucking Hulk."
-	activation_messages = list("Your muscles hurt.")
-	deactivation_messages = list("Your muscles quit tensing.")
-	instability=7
-
-	spelltype = /obj/effect/proc_holder/spell/targeted/hulk
-
-	New()
-		..()
-		block = HULKBLOCK
-
-	can_activate(var/mob/M,var/flags)
-		// Can't be big AND small.
-		if(DWARF in M.mutations)
-			return 0
-		return ..(M,flags)
-
-	OnDrawUnderlays(var/mob/M,var/g,var/fat)
-		if(HULK in M.mutations)
-			if(fat)
-				return "hulk_[fat]_s"
-			else
-				return "hulk_[g]_s"
-		return 0
-
-	OnMobLife(var/mob/living/carbon/human/M)
-		if(!istype(M)) return
-		if(HULK in M.mutations)
-			var/timeleft=M.hulk_time - world.time
-			if(M.health <= 0 || timeleft <= 0)
-				M.hulk_time=0 // Just to be sure.
-				M.mutations.Remove(HULK)
-				//M.dna.SetSEState(HULKBLOCK,0)
-				M.update_mutations()		//update our mutation overlays
-				M.update_body()
-				M << "\red You suddenly feel very weak."
-
-/obj/effect/proc_holder/spell/targeted/hulk
-	name = "Hulk Out"
-	panel = "Abilities"
-	range = -1
-	include_user = 1
-
-	charge_type = "recharge"
-	charge_max = HULK_COOLDOWN
-
-	clothes_req = 0
-	stat_allowed = 0
-
-	invocation_type = "none"
-
-	action_icon_state = "genetic_hulk"
-
-/obj/effect/proc_holder/spell/targeted/hulk/New()
-	desc = "Get mad!  For [HULK_DURATION/10] seconds, anyway."
-	..()
-
-/obj/effect/proc_holder/spell/targeted/hulk/cast(list/targets)
-	if (istype(usr.loc,/mob/))
-		usr << "\red You can't hulk out right now!"
-		return
-	var/mob/living/carbon/human/M=usr
-	M.hulk_time = world.time + HULK_DURATION
-	M.mutations.Add(HULK)
-	M.update_mutations()		//update our mutation overlays
-	M.update_body()
-	//M.say(pick("",";")+pick("HULK MAD","YOU MADE HULK ANGRY")) // Just a note to security.
-	message_admins("[key_name_admin(usr)] has hulked out! ([formatJumpTo(usr)])")
-	return
-*/
-
 ///////////////////Vanilla Morph////////////////////////////////////
 
 /datum/dna/gene/basic/grant_spell/morph
@@ -91,13 +5,11 @@ Obviously, requires DNA2.
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/morph
-	//cooldown = 1800
-	activation_messages=list("Your body feels funny.")
-	deactivation_messages = list("You body feels normal.")
+	activation_messages=list("Your body feels if can alter its appearance.")
+	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 
 
 	mutation=MORPH
-	instability=2
 
 	New()
 		..()
@@ -122,7 +34,7 @@ Obviously, requires DNA2.
 	if(!ishuman(usr))	return
 
 	if (istype(usr.loc,/mob/))
-		usr << "\red You can't change your appearance right now!"
+		to_chat(usr, "\red You can't change your appearance right now!")
 		return
 	var/mob/living/carbon/human/M=usr
 
@@ -194,9 +106,9 @@ Obviously, requires DNA2.
 
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name="Telepathy"
-	activation_messages=list("You expand your mind outwards.")
+	activation_messages=list("You feel you can project your thoughts.")
+	deactivation_messages=list("You no longer feel you can project your thoughts.")
 	mutation=REMOTE_TALK
-	instability=1
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
@@ -228,7 +140,7 @@ Obviously, requires DNA2.
 			validtargets += M
 
 	if(!validtargets.len)
-		usr << "<span class='warning'>There are no valid targets!</span>"
+		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
 		start_recharge()
 		return
 
@@ -259,9 +171,9 @@ Obviously, requires DNA2.
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name="Remote Viewing"
-	activation_messages=list("Your mind expands.")
+	activation_messages=list("Your mind can see things from afar.")
+	deactivation_messages=list("Your mind can no longer can see things from afar.")
 	mutation=REMOTE_VIEW
-	instability=3
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
 
@@ -284,24 +196,15 @@ Obviously, requires DNA2.
 
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = living_mob_list
-	var/list/validtargets = new /list()
+	var/list/remoteviewers = new /list()
 	for(var/mob/M in targets)
-		if(M && M.mind)
-			if(M.z != user.z || isNonCrewAntag(M))
-				continue
-
-			validtargets += M
-
-	if(!validtargets.len || validtargets.len == 1)
-		usr << "<span class='warning'>No valid targets with remote view were found!</span>"
+		if(REMOTE_VIEW in M.mutations)
+			remoteviewers += M
+	if(!remoteviewers.len || remoteviewers.len == 1)
+		to_chat(usr, "<span class='warning'>No valid targets with remote view were found!</span>")
 		start_recharge()
 		return
-
-	targets += input("Choose the target to spy on.", "Targeting") as null|mob in validtargets
-
-	if(!targets.len || !targets[targets.len]) //doesn't waste the spell
-		revert_cast(user)
-		return
+	targets += input("Choose the target to spy on.", "Targeting") as mob in remoteviewers
 
 	perform(targets)
 
@@ -315,7 +218,7 @@ Obviously, requires DNA2.
 	var/mob/target
 
 	if(istype(user.l_hand, /obj/item/tk_grab) || istype(user.r_hand, /obj/item/tk_grab/))
-		user << "\red Your mind is too busy with that telekinetic grab."
+		to_chat(user, "\red Your mind is too busy with that telekinetic grab.")
 		user.remoteview_target = null
 		user.reset_view(0)
 		return

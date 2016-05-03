@@ -95,8 +95,7 @@
 	if(!breath || (breath.total_moles() == 0))
 		adjustOxyLoss(1)
 		failed_last_breath = 1
-
-		oxygen_alert = max(oxygen_alert, 1)
+		throw_alert("oxy", /obj/screen/alert/oxy)
 		return 0
 
 	var/safe_oxy_min = 16
@@ -125,13 +124,13 @@
 		else
 			adjustOxyLoss(3)
 			failed_last_breath = 1
-		oxygen_alert = max(oxygen_alert, 1)
+		throw_alert("oxy", /obj/screen/alert/oxy)
 
 	else //Enough oxygen
 		failed_last_breath = 0
 		adjustOxyLoss(-5)
 		oxygen_used = breath.oxygen/6
-		oxygen_alert = 0
+		clear_alert("oxy")
 
 	breath.oxygen -= oxygen_used
 	breath.carbon_dioxide += oxygen_used
@@ -147,9 +146,7 @@
 				adjustOxyLoss(8)
 		if(prob(20))
 			spawn(0) emote("cough")
-		co2_alert = max(co2_alert, 1)
 	else
-		co2_alert = 0
 		co2overloadtime = 0
 
 	//TOXINS/PLASMA
@@ -157,9 +154,9 @@
 		var/ratio = (breath.toxins/safe_tox_max) * 10
 		if(reagents)
 			reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		toxins_alert = max(toxins_alert, 1)
+		throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
 	else
-		toxins_alert = 0
+		clear_alert("tox_in_air")
 
 	//TRACE GASES
 	if(breath.trace_gases.len)
@@ -278,7 +275,7 @@
 	if(staminaloss)
 		var/total_health = (health - staminaloss)
 		if(total_health <= config.health_threshold_softcrit && !stat)
-			src << "<span class='notice'>You're too exhausted to keep going...</span>"
+			to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 			Weaken(5)
 			setStaminaLoss(health - 2)
 			return

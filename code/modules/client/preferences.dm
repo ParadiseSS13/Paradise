@@ -25,6 +25,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	ROLE_NINJA = 21,
 	ROLE_MUTINEER = 21,
 	ROLE_MALF = 30,
+	ROLE_ABDUCTOR = 30,
 )
 
 /proc/player_old_enough_antag(client/C, role)
@@ -83,6 +84,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
 	var/sound = SOUND_DEFAULT
+	var/show_ghostitem_attack = TRUE
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
 
@@ -249,7 +251,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "N2 Tank: <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
-			if(species == "Human")
+			if(species in list("Human", "Drask"))
 				dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
 
 	//		dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
@@ -262,7 +264,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			//display limbs below
 			var/ind = 0
 			for(var/name in organ_data)
-				//world << "[ind] \ [organ_data.len]"
+//				to_chat(world, "[ind] \ [organ_data.len]")
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
@@ -396,6 +398,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Ghost-Item Attack Animation:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += "<b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'><tr><td>__</td></tr></table><br>"
 			dat += "<b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
@@ -673,7 +676,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return
 
 	if (!isnum(desiredLvl))
-		user << "\red UpdateJobPreference - desired level was not a number. Please notify coders!"
+		to_chat(user, "\red UpdateJobPreference - desired level was not a number. Please notify coders!")
 		ShowChoices(user)
 		return
 
@@ -1035,7 +1038,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					g_eyes = rand(0,255)
 					b_eyes = rand(0,255)
 				if("s_tone")
-					if(species == "Human")
+					if(species in list("Human", "Drask"))
 						s_tone = random_skin_tone()
 				if("s_color")
 					if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wyrn", "Vulpkanin", "Machine"))
@@ -1057,7 +1060,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(new_name)
 							real_name = new_name
 						else
-							user << "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>"
+							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
@@ -1186,8 +1189,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("hair")
 					if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Vulpkanin")
 						var/input = "Choose your character's hair colour:"
-						if(species == "Machine" && !("head" in rlimb_data))
-							input = "Choose your character's frame colour:"
 						var/new_hair = input(user, input, "Character Preference", rgb(r_hair, g_hair, b_hair)) as color|null
 						if(new_hair)
 							r_hair = hex2num(copytext(new_hair, 2, 4))
@@ -1199,18 +1200,25 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					for(var/hairstyle in hair_styles_list)
 						var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
 						if(species == "Machine") //Species that can use prosthetic heads.
-							if(species in S.species_allowed)
-								if(!rlimb_data["head"])
-									valid_hairstyles[hairstyle] = S
-									continue
-								else
-									continue
+							var/obj/item/organ/external/head/H = new()
+							if(S.name == "Bald")
+								valid_hairstyles[hairstyle] = S
+							if(!rlimb_data["head"]) //Handle situations where the head is default.
+								H.model = "Morpheus Cyberkinetics"
 							else
-								if(!rlimb_data["head"])
+								H.model = rlimb_data["head"]
+							var/datum/robolimb/robohead = all_robolimbs[H.model]
+							if(species in S.species_allowed)
+								if(robohead.is_monitor && (robohead.company in S.models_allowed)) //If the Machine character has the default Morpheus screen head or another screen head
+																														   //and said head is in the hair style's allowed models list...
+									valid_hairstyles[hairstyle] = S //Allow them to select the hairstyle.
+								continue
+							else
+								if(robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human hairstyles).
 									continue
-								else if("Human" in S.species_allowed)
+								else if(!robohead.is_monitor && ("Human" in S.species_allowed))
 									valid_hairstyles[hairstyle] = S
-									continue
+								continue
 						else
 							if(!(species in S.species_allowed))
 								continue
@@ -1222,7 +1230,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						h_style = new_h_style
 
 				if("headaccessory")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with head accessories
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with head accessories.
 						var/input = "Choose the colour of your your character's head accessory:"
 						var/new_head_accessory = input(user, input, "Character Preference", rgb(r_headacc, g_headacc, b_headacc)) as color|null
 						if(new_head_accessory)
@@ -1231,7 +1239,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_headacc = hex2num(copytext(new_head_accessory, 6, 8))
 
 				if("ha_style")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with head accessories
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with head accessories.
 						var/list/valid_head_accessory_styles = list()
 						for(var/head_accessory_style in head_accessory_styles_list)
 							var/datum/sprite_accessory/H = head_accessory_styles_list[head_accessory_style]
@@ -1245,7 +1253,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							ha_style = new_head_accessory_style
 
 				if("markings")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with markings
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with markings.
 						var/input = "Choose the colour of your your character's markings:"
 						var/new_markings = input(user, input, "Character Preference", rgb(r_markings, g_markings, b_markings)) as color|null
 						if(new_markings)
@@ -1254,7 +1262,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_markings = hex2num(copytext(new_markings, 6, 8))
 
 				if("m_style")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran")) // Species with markings
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with markings.
 						var/list/valid_markings = list()
 						for(var/markingstyle in marking_styles_list)
 							var/datum/sprite_accessory/M = marking_styles_list[markingstyle]
@@ -1262,10 +1270,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								continue
 
 							if(species == "Machine") //Species that can use prosthetic heads.
-								if(!("head" in rlimb_data) && M.name != "None") //If the character can have prosthetic heads and they have the default head (with screen), no optic markings.
+								var/obj/item/organ/external/head/H = new()
+								if(!rlimb_data["head"]) //Handle situations where the head is default.
+									H.model = "Morpheus Cyberkinetics"
+								else
+									H.model = rlimb_data["head"]
+								var/datum/robolimb/robohead = all_robolimbs[H.model]
+								if(robohead.is_monitor && M.name != "None") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
 									continue
-								else if(("head" in rlimb_data) && M.name == "None") //Otherwise, if they DON'T have the default head and since they must have optics, give them a list of styles excluding the "None" option.
-									continue
+								else if(!robohead.is_monitor && M.name != "None") //Otherwise, if they DON'T have the default head and the head's not a monitor but the head's not in the style's list of allowed models, skip.
+									if(!(robohead.company in M.models_allowed))
+										continue
 
 							valid_markings[markingstyle] = marking_styles_list[markingstyle]
 
@@ -1301,25 +1316,29 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/list/valid_facialhairstyles = list()
 					for(var/facialhairstyle in facial_hair_styles_list)
 						var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
+						if(S.name == "Shaved")
+							valid_facialhairstyles[facialhairstyle] = S
 						if(gender == MALE && S.gender == FEMALE)
 							continue
 						if(gender == FEMALE && S.gender == MALE)
 							continue
 						if(species == "Machine") //Species that can use prosthetic heads.
-							if(species in S.species_allowed)
-								if(!rlimb_data["head"])
-									valid_facialhairstyles[facialhairstyle] = S
-									continue
-								else
-									continue
+							var/obj/item/organ/external/head/H = new()
+							if(!rlimb_data["head"]) //Handle situations where the head is default.
+								H.model = "Morpheus Cyberkinetics"
 							else
-								if(!rlimb_data["head"])
-									continue
-								else if("Human" in S.species_allowed)
+								H.model = rlimb_data["head"]
+							var/datum/robolimb/robohead = all_robolimbs[H.model]
+							if(species in S.species_allowed)
+								if(robohead.is_monitor) //If the Machine character has the default Morpheus screen head or another screen head and they're allowed to have the style, let them have it.
 									valid_facialhairstyles[facialhairstyle] = S
+								continue
+							else
+								if(robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human facial hairstyles).
 									continue
-								else
-									continue
+								else if(!robohead.is_monitor && ("Human" in S.species_allowed))
+									valid_facialhairstyles[facialhairstyle] = S
+								continue
 						else
 							if(!(species in S.species_allowed))
 								continue
@@ -1376,7 +1395,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
 				if("s_tone")
-					if(species != "Human")
+					if(species != "Human" && species != "Drask")
 						return
 					var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
 					if(new_s_tone)
@@ -1490,18 +1509,51 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									organ_data[second_limb] = "amputated"
 									rlimb_data[second_limb] = null
 						if("Prosthesis")
-							var/choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in chargen_robolimbs
+							var/choice
+							var/subchoice
+							var/datum/robolimb/R = new()
+							var/in_model
+							var/robolimb_companies = list()
+							for(var/limb_type in typesof(/datum/robolimb)) //This loop populates a list of companies that offer the limb the user selected previously as one of their cybernetic products.
+								R = new limb_type()
+								if(!R.unavailable_at_chargen && (limb in R.parts) && R.has_subtypes) //Ensures users can only choose companies that offer the parts they want, that singular models get added to the list as well companies that offer more than one model, and...
+									robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
+							R = new() //Re-initialize R.
+
+							choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in robolimb_companies //Choose from a list of companies that offer the part the user wants.
 							if(!choice)
 								return
+							R.company = choice
+							R = all_robolimbs[R.company]
+							if(R.has_subtypes == 1) //If the company the user selected provides more than just one base model, lets handle it.
+								var/list/robolimb_models = list()
+								for(var/limb_type in typesof(R)) //Handling the different models of parts that manufacturers can provide.
+									var/datum/robolimb/L = new limb_type()
+									if(limb in L.parts) //Make sure that only models that provide the parts the user needs populate the list.
+										robolimb_models[L.company] = L
+										if(robolimb_models.len == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
+											subchoice = L.company //If there ends up being more than one model populating the list, subchoice will be overwritten later anyway, so this isn't a problem.
+										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
+											in_model = 1
+								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
+									subchoice = input(user, "Which model of [choice] [limb_name] do you wish to use?") as null|anything in robolimb_models
+								if(subchoice)
+									choice = subchoice
 							if(limb == "head")
-								m_style = "Humanoid Optics"
 								ha_style = "None"
 								h_style = hair_styles_list["Bald"]
+								f_style = facial_hair_styles_list["Shaved"]
+								m_style = "None"
 							rlimb_data[limb] = choice
 							organ_data[limb] = "cyborg"
 							if(second_limb)
-								rlimb_data[second_limb] = choice
-								organ_data[second_limb] = "cyborg"
+								if(subchoice)
+									if(in_model)
+										rlimb_data[second_limb] = choice
+										organ_data[second_limb] = "cyborg"
+								else
+									rlimb_data[second_limb] = choice
+									organ_data[second_limb] = "cyborg"
 
 				if("organs")
 					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Heart", "Eyes")
@@ -1560,22 +1612,45 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("ui")
 					switch(UI_style)
 						if("Midnight")
+							UI_style = "Plasmafire"
+						if("Plasmafire")
+							UI_style = "Retro"
+						if("Retro")
+							UI_style = "Slimecore"
+						if("Slimecore")
+							UI_style = "Operative"
+						if("Operative")
 							UI_style = "White"
 						else
 							UI_style = "Midnight"
 
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
+
 				if("nanoui")
 					nanoui_fancy = !nanoui_fancy
+
+				if("ghost_att_anim")
+					show_ghostitem_attack = !show_ghostitem_attack
 
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
 					if(!UI_style_color_new) return
 					UI_style_color = UI_style_color_new
 
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
+
 				if("UIalpha")
 					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
 					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
 					UI_style_alpha = UI_style_alpha_new
+
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
 
 				if("be_special")
 					var/r = href_list["role"]
@@ -1583,7 +1658,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/cleaned_r = sql_sanitize_text(r)
 						if(r != cleaned_r) // up to no good
 							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
-							user << "<span class='userdanger'>Stop right there, criminal scum</span>"
+							to_chat(user, "<span class='userdanger'>Stop right there, criminal scum</span>")
 					else
 						be_special ^= r
 
@@ -1599,9 +1674,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY
 					if(sound & SOUND_LOBBY)
-						user << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1)
+						to_chat(user, sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1))
 					else
-						user << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)
+						to_chat(user, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))
 
 				if("ghost_ears")
 					toggles ^= CHAT_GHOSTEARS
@@ -1665,9 +1740,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
-	character.med_record = med_record
-	character.sec_record = sec_record
-	character.gen_record = gen_record
+	if(character.ckey && !jobban_isbanned(character, "Records"))
+		character.med_record = med_record
+		character.sec_record = sec_record
+		character.gen_record = gen_record
 
 	character.change_gender(gender)
 	character.age = age
@@ -1727,15 +1803,23 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.mutations += FAT
 		character.mutations += OBESITY
 		character.overeatduration = 600
+
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 		character.dna.SetSEState(GLASSESBLOCK,1,1)
 		character.disabilities|=NEARSIGHTED
+
 	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
 		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
 		character.disabilities|=EPILEPSY
+
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(DEAFBLOCK,1,1)
 		character.sdisabilities|=DEAF
+
+	if(disabilities & DISABILITY_FLAG_BLIND)
+		character.dna.SetSEState(BLINDBLOCK,1,1)
+		character.sdisabilities|=BLIND
+
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
 		character.sdisabilities |= MUTE

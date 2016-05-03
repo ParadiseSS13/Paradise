@@ -8,7 +8,7 @@
 
 	var/obj/machinery/atmospherics/node1
 	var/obj/machinery/atmospherics/node2
-	
+
 	var/datum/pipeline/parent1
 	var/datum/pipeline/parent2
 
@@ -23,7 +23,7 @@
 			initialize_directions = EAST|WEST
 		if(WEST)
 			initialize_directions = EAST|WEST
-		
+
 	air1 = new
 	air2 = new
 
@@ -89,6 +89,8 @@
 
 /obj/machinery/atmospherics/binary/nullifyPipenet(datum/pipeline/P)
 	..()
+	if(!P)
+		return
 	if(P == parent1)
 		parent1.other_airs -= air1
 		parent1 = null
@@ -128,7 +130,7 @@
 		parent1 = New
 	else if(Old == parent2)
 		parent2 = New
-	
+
 /obj/machinery/atmospherics/binary/unsafe_pressure_release(var/mob/user,var/pressures)
 	..()
 
@@ -144,4 +146,7 @@
 		to_release.merge(air2.remove(shared_loss))
 		T.assume_air(to_release)
 		air_update_turf(1)
-	
+
+/obj/machinery/atmospherics/binary/process()
+	..()
+	return parent1 && parent2

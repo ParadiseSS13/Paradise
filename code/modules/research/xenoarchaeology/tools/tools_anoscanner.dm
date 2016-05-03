@@ -26,7 +26,7 @@
 	else
 		message = "Scanning array is recharging."
 
-	user << "<span class='info'>[message]</span>"
+	to_chat(user, "<span class='info'>[message]</span>")
 
 /obj/item/device/ano_scanner/proc/scan()
 	last_scan_time = world.time

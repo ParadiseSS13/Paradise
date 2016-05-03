@@ -351,10 +351,10 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 				if(player_old_enough_antag(O.client,ROLE_PAI))
 					if(check_recruit(O))
-						O << "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[O];jump=\ref[P]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>"
+						to_chat(O, "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[O];jump=\ref[P]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>")
 						//question(O.client)
 	proc/check_recruit(var/mob/dead/observer/O)
-		if(jobban_isbanned(O, "pAI") || jobban_isbanned(O,"nonhumandept"))
+		if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O,"nonhumandept"))
 			return 0
 		if(!player_old_enough_antag(O.client,ROLE_PAI))
 			return 0

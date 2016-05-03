@@ -21,7 +21,7 @@
 
 /obj/machinery/atmospherics/trinary/New()
 	..()
-	
+
 	if(!flipped)
 		switch(dir)
 			if(NORTH)
@@ -41,8 +41,8 @@
 			if(EAST)
 				initialize_directions = WEST|EAST|NORTH
 			if(WEST)
-				initialize_directions = EAST|WEST|SOUTH		
-		
+				initialize_directions = EAST|WEST|SOUTH
+
 	air1 = new
 	air2 = new
 	air3 = new
@@ -65,7 +65,7 @@
 		node3 = null
 		nullifyPipenet(parent3)
 	return ..()
-	
+
 /obj/machinery/atmospherics/trinary/initialize()
 	..()
 	//Mixer:
@@ -134,6 +134,8 @@
 
 /obj/machinery/atmospherics/trinary/nullifyPipenet(datum/pipeline/P)
 	..()
+	if(!P)
+		return
 	if(P == parent1)
 		parent1.other_airs -= air1
 		parent1 = null
@@ -185,7 +187,7 @@
 		parent2 = New
 	else if(Old == parent3)
 		parent3 = New
-	
+
 /obj/machinery/atmospherics/trinary/unsafe_pressure_release(var/mob/user,var/pressures)
 	..()
 
@@ -203,4 +205,7 @@
 		to_release.merge(air3.remove(shared_loss))
 		T.assume_air(to_release)
 		air_update_turf(1)
-		
+
+/obj/machinery/atmospherics/trinary/process()
+	..()
+	return parent1 && parent2 && parent3

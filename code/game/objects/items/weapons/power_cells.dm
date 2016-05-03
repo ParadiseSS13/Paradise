@@ -16,10 +16,18 @@
 	materials = list(MAT_METAL=700, MAT_GLASS=50)
 	var/rigged = 0		// true if rigged to explode
 	var/minor_fault = 0 //If not 100% reliable, it will build up faults.
+	var/chargerate = 1000 //how much power is given every tick in a recharger
+	var/self_recharge = 0 //does it self recharge, over time, or not?
 
-	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>"
-		return (FIRELOSS)
+/obj/item/weapon/stock_parts/cell/suicide_act(mob/user)
+	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>")
+	return (FIRELOSS)
+
+/obj/item/weapon/stock_parts/cell/process()
+	if(self_recharge)
+		give(chargerate * 0.25)
+	else
+		return PROCESS_KILL
 
 /obj/item/weapon/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargable AA battery"
@@ -51,6 +59,7 @@
 	maxcharge = 15000
 	rating = 3
 	materials = list(MAT_GLASS=60)
+	chargerate = 1500
 
 /obj/item/weapon/stock_parts/cell/high/empty/New()
 	..()
@@ -63,6 +72,7 @@
 	maxcharge = 20000
 	materials = list(MAT_GLASS=70)
 	rating = 4
+	chargerate = 2000
 
 /obj/item/weapon/stock_parts/cell/super/empty/New()
 	..()
@@ -75,6 +85,7 @@
 	maxcharge = 30000
 	rating = 5
 	materials = list(MAT_GLASS=80)
+	chargerate = 3000
 
 /obj/item/weapon/stock_parts/cell/hyper/empty/New()
 	..()
@@ -87,6 +98,7 @@
 	maxcharge = 40000
 	materials = list(MAT_GLASS=80)
 	rating = 6
+	chargerate = 4000
 
 /obj/item/weapon/stock_parts/cell/bluespace/empty/New()
 	..()
@@ -99,8 +111,10 @@
 	maxcharge = 30000
 	rating = 6
 	materials = list(MAT_GLASS=80)
-	use()
-		return 1
+	chargerate = 30000
+
+/obj/item/weapon/stock_parts/cell/infinite/use()
+	return 1
 
 /obj/item/weapon/stock_parts/cell/potato
 	name = "potato battery"
@@ -115,15 +129,14 @@
 	minor_fault = 1
 
 
-/obj/item/weapon/stock_parts/cell/slime
+/obj/item/weapon/stock_parts/cell/high/slime
 	name = "charged slime core"
 	desc = "A yellow slime core infused with plasma, it crackles with power."
 	origin_tech = "powerstorage=2;biotech=4"
-	icon = 'icons/mob/slimes.dmi' //'icons/obj/harvest.dmi'
-	icon_state = "yellow slime extract" //"potato_battery"
-	maxcharge = 10000
-	rating = 3
+	icon = 'icons/mob/slimes.dmi'
+	icon_state = "yellow slime extract"
 	materials = list()
+	self_recharge = 1 // Infused slime cores self-recharge, over time
 
 /obj/item/weapon/stock_parts/cell/pulse/carbine
 	name = "pulse carbine power cell"

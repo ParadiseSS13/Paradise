@@ -64,6 +64,7 @@ h1.alert, h2.alert		{color: #000000;}
 .warning				{color: #ff0000;	font-style: italic;}
 .announce 				{color: #228b22;	font-weight: bold;}
 .boldannounce			{color: #ff0000;	font-weight: bold;}
+.greenannounce			{color: #00ff00;	font-weight: bold;}
 .rose					{color: #ff5050;}
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
@@ -90,9 +91,11 @@ h1.alert, h2.alert		{color: #000000;}
 .trinary				{color: #727272;}
 .kidan					{color: #664205;}
 .slime					{color: #0077AA;}
+.drask					{color: #a3d4eb; font-family: "Arial Black";}
 .clown					{color: #ff0000;}
 .shadowling				{color: #3b2769;}
 .vulpkanin				{color: #B97A57;}
+.abductor				{color: #800080;}
 .rough					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 .sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}

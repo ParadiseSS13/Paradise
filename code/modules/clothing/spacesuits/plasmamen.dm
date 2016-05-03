@@ -22,7 +22,7 @@
 
 /obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
 	..(user)
-	user << "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>"
+	to_chat(user, "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>")
 
 /obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(var/mob/user)
 	var/mob/living/carbon/human/H=user
@@ -32,7 +32,7 @@
 
 		next_extinguish = world.time + extinguish_cooldown
 		extinguishes_left--
-		H << "<span class='warning'>Your suit automatically extinguishes the fire.</span>"
+		to_chat(H, "<span class='warning'>Your suit automatically extinguishes the fire.</span>")
 		H.ExtinguishMob()
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman
@@ -50,7 +50,8 @@
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/attack_self(mob/user)
 	if(!isturf(user.loc))
-		user << "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>" //To prevent some lighting anomalities.
+		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>")//To prevent some lighting anomalities.
+
 		return
 	toggle_light(user)
 
@@ -250,6 +251,15 @@
 	icon_state = "plasmaman_RD_helmet0"
 	base_state = "plasmaman_RD_helmet"
 
+//MAGISTRATE
+/obj/item/clothing/suit/space/eva/plasmaman/magistrate
+	name = "plasmaman magistrate suit"
+	icon_state = "plasmaman_HoS"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/magistrate
+	name = "plasmaman magistrate helmet"
+	icon_state = "plasmaman_HoS_helmet0"
+	base_state = "plasmaman_HoS_helmet"
 
 //SECURITY
 

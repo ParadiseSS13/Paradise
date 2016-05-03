@@ -25,7 +25,7 @@
 	if(!query_text || length(query_text) < 1)
 		return
 
-	//world << query_text
+//	to_chat(world, query_text)
 
 	var/list/query_list = SDQL2_tokenize(query_text)
 
@@ -84,22 +84,8 @@
 
 			switch(query_tree[1])
 				if("call")
-					var/list/call_list = query_tree["call"]
-					var/list/args_list = query_tree["args"]
-
 					for(var/datum/d in objs)
-						for(var/v in call_list)
-							var/list/arguments[0]
-							for(var/list/arg in args_list)
-								arguments += SDQL_expression(d, arg)
-
-							if(copytext(v, 1, 8) == "global.") // Global proc.
-								spawn()
-									call("/proc/[copytext(v, 8)]")(arglist(arguments))
-							else if(d)
-								if(hascall(d, v))
-									spawn()
-										call(d, v)(arglist(arguments)) // Spawn in case the function sleeps.
+						SDQL_var(d, query_tree["call"][1], source = d)
 
 				if("delete")
 					for(var/datum/d in objs)
@@ -130,25 +116,26 @@
 					if("set" in query_tree)
 						var/list/set_list = query_tree["set"]
 						for(var/datum/d in objs)
-							var/list/vals = list()
-							for(var/v in set_list)
-								if(v in d.vars)
-									vals += v
-									vals[v] = SDQL_expression(d, set_list[v])
+							for(var/list/sets in set_list)
+								var/datum/temp = d
+								var/i = 0
+								for(var/v in sets)
+									if(++i == sets.len)
+										if(istype(temp, /turf) && (v == "x" || v == "y" || v == "z"))
+											continue
+										if(istype(temp.vars[v], /datum/admins))
+											continue
+										temp.vars[v] = SDQL_expression(d, set_list[sets])
+										break
+									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || istype(temp.vars[v], /client)) && !istype(temp.vars[v], /datum/admins))
+										temp = temp.vars[v]
+									else
+										break
 
-							if(istype(d, /turf))
-								for(var/v in vals)
-									if(v == "x" || v == "y" || v == "z")
-										continue
-
-									d.vars[v] = vals[v]
-
-							else
-								for(var/v in vals)
-									d.vars[v] = vals[v]
 	catch(var/exception/e)
-		usr << "<span class='warning'>A runtime error has occured during the execution of your query and your query has been aborted.</span>"
-		usr << "[e]"
+		to_chat(usr, "<span class='danger'>An exception has occured during the execution of your query and your query has been aborted.</span>")
+		to_chat(usr, "  [e.name]")
+		to_chat(usr, "  at: [e.file]:[e.line]")
 
 /proc/SDQL_parse(list/query_list)
 	var/datum/SDQL_parser/parser = new()
@@ -174,7 +161,7 @@
 				querys[querys_pos] = parsed_tree
 				querys_pos++
 			else //There was an error so don't run anything, and tell the user which query has errored.
-				usr << "<span class='danger'>Parsing error on [querys_pos]\th query. Nothing was executed.</span>"
+				to_chat(usr, "<span class='danger'>Parsing error on [querys_pos]\th query. Nothing was executed.</span>")
 				return list()
 			query_tree = list()
 			do_parse = 0
@@ -191,26 +178,26 @@
 /proc/SDQL_testout(list/query_tree, indent = 0)
 	var/spaces = ""
 	for(var/s = 0, s < indent, s++)
-		spaces += "    "
+		spaces += "&nbsp;&nbsp;&nbsp;&nbsp;"
 
 	for(var/item in query_tree)
 		if(istype(item, /list))
-			usr << "[spaces]("
+			to_chat(usr, "[spaces](")
 			SDQL_testout(item, indent + 1)
-			usr << "[spaces])"
+			to_chat(usr, "[spaces])")
 
 		else
-			usr << "[spaces][item]"
+			to_chat(usr, "[spaces][item]")
 
 		if(!isnum(item) && query_tree[item])
 
 			if(istype(query_tree[item], /list))
-				usr << "[spaces]    ("
+				to_chat(usr, "[spaces]&nbsp;&nbsp;&nbsp;&nbsp;(")
 				SDQL_testout(query_tree[item], indent + 2)
-				usr << "[spaces]    )"
+				to_chat(usr, "[spaces]&nbsp;&nbsp;&nbsp;&nbsp;)")
 
 			else
-				usr << "[spaces]    [query_tree[item]]"
+				to_chat(usr, "[spaces]&nbsp;&nbsp;&nbsp;&nbsp;[query_tree[item]]")
 
 /proc/SDQL_from_objs(list/tree)
 	if("world" in tree)
@@ -320,7 +307,7 @@
 				if("or", "||")
 					result = (result || val)
 				else
-					usr << "<span class='danger'>SDQL2: Unknown op [op]</span>"
+					to_chat(usr, "<span class='danger'>SDQL2: Unknown op [op]</span>")
 					result = null
 		else
 			result = val
@@ -368,40 +355,80 @@
 			val += SDQL_expression(object, expression_list)
 
 	else
-		val = SDQL_var(object, expression, i)
+		val = SDQL_var(object, expression, i, object)
 		i = expression.len
 
 	return list("val" = val, "i" = i)
 
-/proc/SDQL_var(datum/object, list/expression, start = 1)
+/proc/SDQL_var(datum/object, list/expression, start = 1, source)
 	var/v
-	if(expression[start] in object.vars)
-		v = object.vars[expression[start]]
-	else if(expression[start] == "src")
-		v = object
-	else if(expression[start] == "usr")
-		v = usr
-	else if(expression[start] == "marked")
-		if(usr.client && usr.client.holder && usr.client.holder.marked_datum)
-			v = usr.client.holder.marked_datum
-		else
-			return null
-	else if(expression[start] == "\[" && start < expression.len)
+
+	var/long = start < expression.len
+
+	if(object == world && long && expression[start + 1] == ".")
+		to_chat(usr, "Sorry, but global variables are not supported at the moment.")
+		return null
+
+	if(expression[start] == "\[" && long)
 		if(lowertext(copytext(expression[start + 1], 1, 3)) != "0x")
-			usr << "<span class='danger'>Invalid ref syntax: [expression[start + 1]]</span>"
+			to_chat(usr, "<span class='danger'>Invalid ref syntax: [expression[start + 1]]</span>")
 			return null
 		v = locate("\[[expression[start + 1]]\]")
 		if(!v)
-			usr << "<span class='danger'>Invalid ref: [expression[start + 1]]</span>"
+			to_chat(usr, "<span class='danger'>Invalid ref: [expression[start + 1]]</span>")
 			return null
 		start++
-	else
-		return null
 
-	if(start < expression.len && expression[start + 1] == ".")
-		return SDQL_var(v, expression[start + 2])
-	else
-		return v
+	else if((!long || expression[start + 1] == "." || expression[start + 1] == "\[") && (expression[start] in object.vars))
+		v = object.vars[expression[start]]
+
+	else if(long && expression[start + 1] == ":" && hascall(object, expression[start]))
+		v = expression[start]
+
+	else if(!long || expression[start + 1] == ".")
+		switch(expression[start])
+			if("usr")
+				v = usr
+			if("src")
+				v = source
+			if("marked")
+				if(usr.client && usr.client.holder && usr.client.holder.marked_datum)
+					v = usr.client.holder.marked_datum
+				else
+					return null
+			if("global")
+				v = world // World is mostly a token, really.
+			else
+				return null
+
+	else if(object == world)
+		v = expression[start]
+
+	if(long)
+		if(expression[start + 1] == ".")
+			return SDQL_var(v, expression[start + 2], source = source)
+		else if(expression[start + 1] == ":")
+			return SDQL_function(object, v, expression[start + 2], source)
+		else if(expression[start + 1] == "\[" && islist(v))
+			var/list/L = v
+			var/index = SDQL_expression(source, expression[start + 2])
+			if (isnum(index) && (!IsInteger(index) || L.len < index))
+				to_chat(world, "<span class='danger'>Invalid list index: [index]</span>")
+				return null
+			return L[index]
+
+	return v
+
+/proc/SDQL_function(var/datum/object, var/procname, var/list/arguments, source)
+	var/list/new_args = list()
+	for(var/arg in arguments)
+		new_args[++new_args.len] = SDQL_expression(source, arg)
+
+	if (object == world) // Global proc.
+		procname = "/proc/[procname]"
+		return call(procname)(arglist(new_args))
+
+	return call(object, procname)(arglist(new_args))
 
 /proc/SDQL2_tokenize(query_text)
 
@@ -448,7 +475,7 @@
 
 		else if(char == "'")
 			if(word != "")
-				usr << "<span class='danger'>SDQL2: You have an error in your SDQL syntax, unexpected ' in query: \"<font color=gray>[query_text]</font>\" following \"<font color=gray>[word]</font>\". Please check your syntax, and try again.</span>"
+				to_chat(usr, "<span class='danger'>SDQL2: You have an error in your SDQL syntax, unexpected ' in query: \"<font color=gray>[query_text]</font>\" following \"<font color=gray>[word]</font>\". Please check your syntax, and try again.</span>")
 				return null
 
 			word = "'"
@@ -468,7 +495,7 @@
 					word += char
 
 			if(i > len)
-				usr << "<span class='danger'>SDQL2: You have an error in your SDQL syntax, unmatched ' in query: \"<font color=gray>[query_text]</font>\". Please check your syntax, and try again.</span>"
+				to_chat(usr, "<span class='danger'>SDQL2: You have an error in your SDQL syntax, unmatched ' in query: \"<font color=gray>[query_text]</font>\". Please check your syntax, and try again.</span>")
 				return null
 
 			query_list += "[word]'"
@@ -476,7 +503,7 @@
 
 		else if(char == "\"")
 			if(word != "")
-				usr << "<span class='danger'>SDQL2: You have an error in your SDQL syntax, unexpected \" in query: \"<font color=gray>[query_text]</font>\" following \"<font color=gray>[word]</font>\". Please check your syntax, and try again.</span>"
+				to_chat(usr, "<span class='danger'>SDQL2: You have an error in your SDQL syntax, unexpected \" in query: \"<font color=gray>[query_text]</font>\" following \"<font color=gray>[word]</font>\". Please check your syntax, and try again.</span>")
 				return null
 
 			word = "\""
@@ -496,7 +523,7 @@
 					word += char
 
 			if(i > len)
-				usr << "<span class='danger'>SDQL2: You have an error in your SDQL syntax, unmatched \" in query: \"<font color=gray>[query_text]</font>\". Please check your syntax, and try again.</span>"
+				to_chat(usr, "<span class='danger'>SDQL2: You have an error in your SDQL syntax, unmatched \" in query: \"<font color=gray>[query_text]</font>\". Please check your syntax, and try again.</span>")
 				return null
 
 			query_list += "[word]\""

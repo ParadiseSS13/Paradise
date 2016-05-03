@@ -30,7 +30,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 		return
 
 	if(announcing_vox > world.time)
-		src << "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>"
+		to_chat(src, "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>")
 		return
 
 	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement) as text|null
@@ -58,7 +58,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 			incorrect_words += word
 
 	if(incorrect_words.len)
-		src << "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>"
+		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
 
 	announcing_vox = world.time + VOX_DELAY
@@ -83,9 +83,9 @@ var/const/VOX_PATH = "sound/vox_fem/"
 				if(M.client)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && !isdeaf(M))
-						M << voice
+						to_chat(M, voice)
 		else
-			only_listener << voice
+			to_chat(only_listener, voice)
 		return 1
 	return 0
 
@@ -94,6 +94,6 @@ var/const/VOX_PATH = "sound/vox_fem/"
 /client/proc/preload_vox()
 	var/list/vox_files = flist(VOX_PATH)
 	for(var/file in vox_files)
-	//  src << "Downloading [file]"
+//	to_chat(src, "Downloading [file]")
 		var/sound/S = sound("[VOX_PATH][file]")
 		src << browse_rsc(S)

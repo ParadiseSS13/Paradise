@@ -59,7 +59,7 @@
 					break
 
 			if(check)
-				user << "<span class='notice'>The wall is far too cluttered to place a poster!</span>"
+				to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
 				return
 
 			resulting_poster.loc = W //Looks like it's uncluttered enough. Place the poster
@@ -130,11 +130,11 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - RIP Badger"
 				desc += " This poster commemorates the day hundreds of badgers worldwide were sacrificed for the greater good."
 			if(12)
-				name += " - Ambrosia Vulgaris"
-				desc += " This poster is lookin' pretty trippy man."
+				name += " - Mom, pizza!"
+				desc += " This poster is lookin' pretty tasty. Only at a price of 38 tallers."
 			if(13)
-				name += " - Donut Corp."
-				desc += " This poster is an advertisement for Donut Corp."
+				name += " - Is this...?"
+				desc += " This poster is kinda LOST."
 			if(14)
 				name += " - EAT"
 				desc += " This poster is advising that you eat."
@@ -230,8 +230,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Obey"
 				desc += " A poster instructing the viewer to obey authority."
 			if(10)
-				name += " - Walk"
-				desc += " A poster instructing the viewer to walk instead of running."
+				name += " - Ayy Lmao"
+				desc += " A poster instructing the viewer to be aware of anal probes."
 			if(11)
 				name += " - State Laws"
 				desc += " A poster instructing cyborgs to state their laws."
@@ -251,8 +251,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Do Not Question"
 				desc += " A poster instructing the viewer not to ask about things they aren't meant to know."
 			if(17)
-				name += " - Work for a Future"
-				desc += " A poster encouraging you to work for your future, what it is, no one is really sure."
+				name += " - Work for a Pruglo"
+				desc += " A poster encouraging you to work for our founder and good friend, Daneel Pruglo."
 			if(18)
 				name += " - Soft Cap Pop Art"
 				desc += " A poster reprint of some cheap pop art."
@@ -275,8 +275,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Foam Force Advertisment"
 				desc += " Foam Force, it's Foam or be Foamed!"
 			if(25)
-				name += " - Cohiba Robusto Advertisment"
-				desc += " Cohiba Robusto, the classy cigar."
+				name += " - Vape nation"
+				desc += " so lit."
 			if(26)
 				name += " - 50th Aniversery Vintage Reprint"
 				desc += " A reprint of a poster from 2504, commemorating the 50th Aniversery of Nanoposters Manufacturing, a subsidary of Nanotrasen."
@@ -287,8 +287,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - NanoPDA 1000 Advertisment"
 				desc += " A poster advertising the latest PDA from Nanotrasen."
 			if(29)
-				name += " - Enlist"
-				desc += " Enlist in the Nanotrasen ERT reserves today!"
+				name += " - Don't eat!"
+				desc += " Think twice before eating your morning toasts."
 			if(30)
 				name += " - Nanomichi Advertisment"
 				desc += " A poster advertising Nanomichi brand audio cassettes."
@@ -310,10 +310,10 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/wirecutters))
 		playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 		if(ruined)
-			user << "<span class='notice'>You remove the remnants of the poster.</span>"
+			to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
 			qdel(src)
 		else
-			user << "<span class='notice'>You carefully remove the poster from the wall.</span>"
+			to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
 			roll_and_drop(user.loc)
 		return
 
@@ -354,14 +354,15 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	var/stuff_on_wall = 0
 	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O,/obj/structure/sign))
-			user << "<span class='notice'>The wall is far too cluttered to place a poster!</span>"
+			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
-			user << "<span class='notice'>The wall is far too cluttered to place a poster!</span>"
+			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
 			return
 
-	user << "<span class='notice'>You start placing the poster on the wall...</span>"	//Looks like it's uncluttered enough. Place the poster.
+		to_chat(user, "<span class='notice'>You start placing the poster on the wall...</span>")//Looks like it's uncluttered enough. Place the poster.
+
 
 	//declaring D because otherwise if P gets 'deconstructed' we lose our reference to P.resulting_poster
 	var/obj/structure/sign/poster/D = P.resulting_poster
@@ -382,7 +383,7 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 			D.pixel_x = -32
 			D.pixel_y = 0
 		else
-			user << "<span class='notice'>You cannot reach the wall from here!</span>"
+			to_chat(user, "<span class='notice'>You cannot reach the wall from here!</span>")
 			return
 
 	flick("poster_being_set",D)
@@ -395,7 +396,7 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	if(!D)	return
 
 	if(istype(src,/turf/simulated/wall) && user && user.loc == temp_loc)	//Let's check if everything is still there
-		user << "<span class='notice'>You place the poster!</span>"
+		to_chat(user, "<span class='notice'>You place the poster!</span>")
 	else
 		D.roll_and_drop(temp_loc)
 	return

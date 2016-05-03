@@ -17,7 +17,6 @@
 	desc = "Boosts efficiency in sectors of the brain commonly associated with meta-mental energies."
 	activation_messages = list("Your mind feels closed.")
 	deactivation_messages = list("You feel oddly exposed.")
-	instability=2
 
 	mutation=PSY_RESIST
 
@@ -29,7 +28,6 @@
 /////////////////////////
 
 /datum/dna/gene/basic/stealth
-	instability=7
 	can_activate(var/mob/M, var/flags)
 		// Can only activate one of these at a time.
 		if(is_type_in_list(/datum/dna/gene/basic/stealth,M.active_genes))
@@ -73,7 +71,7 @@
 	name = "Chameleon"
 	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
 	activation_messages = list("You feel one with your surroundings.")
-	deactivation_messages = list("You feel oddly exposed.")
+	deactivation_messages = list("You feel oddly visible.")
 	activation_prob=10
 	mutation = CHAMELEON
 
@@ -121,7 +119,6 @@
 	desc = "Allows the subject to lower the body temperature of others."
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
-	instability=10
 	mutation = CRYO
 
 	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
@@ -144,20 +141,19 @@
 	range = 7
 	selection_type = "range"
 	include_user = 1
-//	centcomm_cancast = 0
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
 
 /obj/effect/proc_holder/spell/targeted/cryokinesis/cast(list/targets)
 	if(!targets.len)
-		usr << "<span class='notice'>No target found in range.</span>"
+		to_chat(usr, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/mob/living/carbon/C = targets[1]
 
 	if(!iscarbon(C))
-		usr << "\red This will only work on normal organic beings."
+		to_chat(usr, "\red This will only work on normal organic beings.")
 		return
 
 	if (RESIST_COLD in C.mutations)
@@ -219,7 +215,6 @@
 	desc = "Allows the subject to eat just about anything without harm."
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
-	instability=3
 	mutation = EATER
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/eat
@@ -256,7 +251,6 @@
 		/mob/living/carbon/alien/larva,
 		/mob/living/simple_animal/slime,
 		/mob/living/simple_animal/adultslime,
-		/mob/living/simple_animal/tomato,
 		/mob/living/simple_animal/chick,
 		/mob/living/simple_animal/chicken,
 		/mob/living/simple_animal/lizard,
@@ -303,7 +297,7 @@
 /obj/effect/proc_holder/spell/targeted/eat/cast(list/targets)
 	var/mob/user = usr
 	if(!targets.len)
-		user << "<span class='notice'>No target found in range.</span>"
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/atom/movable/the_item = targets[1]
@@ -319,28 +313,28 @@
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_sel.selecting)
 		if(!istype(limb))
-			user << "<span class='warning'>You can't eat this part of them!</span>"
+			to_chat(user, "<span class='warning'>You can't eat this part of them!</span>")
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
-			user << "<span class='warning'>You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!</span>"
+			to_chat(user, "<span class='warning'>You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!</span>")
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
-			user << "<span class='warning'>You try to put their [limb] in your mouth, but it's too big to fit!</span>"
+			to_chat(user, "<span class='warning'>You try to put their [limb] in your mouth, but it's too big to fit!</span>")
 			revert_cast()
 			return 0
 		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</span>")
 		var/oldloc = H.loc
 		if(!do_mob(user,H,EAT_MOB_DELAY))
-			user << "<span class='danger'>You were interrupted before you could eat [the_item]!</span>"
+			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
 		else
 			if(!limb || !H)
 				return
 			if(H.loc != oldloc)
-				user << "<span class='danger'>\The [limb] moved away from your mouth!</span>"
+				to_chat(user, "<span class='danger'>\The [limb] moved away from your mouth!</span>")
 				return
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
@@ -362,7 +356,6 @@
 	//cooldown = 30
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
-	instability=2
 	mutation = JUMPY
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/leap
@@ -390,7 +383,7 @@
 /obj/effect/proc_holder/spell/targeted/leap/cast(list/targets)
 	var/failure = 0
 	if (istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
-		usr << "\red You can't jump right now!"
+		to_chat(usr, "\red You can't jump right now!")
 		return
 
 	if (istype(usr.loc,/turf/))
@@ -435,7 +428,7 @@
 
 	if (istype(usr.loc,/obj/))
 		var/obj/container = usr.loc
-		usr << "\red You leap and slam your head against the inside of [container]! Ouch!"
+		to_chat(usr, "\red You leap and slam your head against the inside of [container]! Ouch!")
 		usr.AdjustParalysis(3)
 		usr.AdjustWeakened(5)
 		container.visible_message("\red <b>[usr.loc]</b> emits a loud thump and rattles a bit.")
@@ -464,7 +457,6 @@
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
-	instability=5
 	mutation = POLYMORPH
 
 	New()
@@ -488,22 +480,23 @@
 /obj/effect/proc_holder/spell/targeted/polymorph/cast(list/targets)
 	var/mob/living/M=targets[1]
 	if(!ishuman(M))
-		usr << "\red You can only change your appearance to that of another human."
+		to_chat(usr, "\red You can only change your appearance to that of another human.")
 		return
 
-	if(!ishuman(usr)) return
-
-
-	//playsound(usr.loc, 'blobattack.ogg', 50, 1)
+	if(!ishuman(usr))
+		return
 
 	usr.visible_message("\red [usr]'s body shifts and contorts.")
 
 	spawn(10)
 		if(M && usr)
 			playsound(usr.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
-			usr.UpdateAppearance(M.dna.UI)
-			usr:real_name = M:real_name
-			usr:name = M:name
+			var/mob/living/carbon/human/H = usr
+			var/mob/living/carbon/human/target = M
+			H.UpdateAppearance(target.dna.UI)
+			H.real_name = target.real_name
+			H.name = target.name
+
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/empath
@@ -514,7 +507,6 @@
 	spelltype = /obj/effect/proc_holder/spell/targeted/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
-	instability=1
 	mutation=EMPATH
 
 	New()
@@ -549,21 +541,21 @@
 
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
-			usr << "\red You may only use this on other organic beings."
+			to_chat(usr, "\red You may only use this on other organic beings.")
 			return
 
 		if (PSY_RESIST in M.mutations)
-			usr << "\red You can't see into [M.name]'s mind at all!"
+			to_chat(usr, "\red You can't see into [M.name]'s mind at all!")
 			return
 
 		if (M.stat == 2)
-			usr << "\red [M.name] is dead and cannot have their mind read."
+			to_chat(usr, "\red [M.name] is dead and cannot have their mind read.")
 			return
 		if (M.health < 0)
-			usr << "\red [M.name] is dying, and their thoughts are too scrambled to read."
+			to_chat(usr, "\red [M.name] is dying, and their thoughts are too scrambled to read.")
 			return
 
-		usr << "\blue Mind Reading of [M.name]:</b>"
+		to_chat(usr, "\blue Mind Reading of [M.name]:</b>")
 		var/pain_condition = M.health
 		// lower health means more pain
 		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
@@ -580,33 +572,33 @@
 
 		switch(pain_condition)
 			if (81 to INFINITY)
-				usr << "\blue <b>Condition</b>: [M.name] feels good."
+				to_chat(usr, "\blue <b>Condition</b>: [M.name] feels good.")
 			if (61 to 80)
-				usr << "\blue <b>Condition</b>: [M.name] is suffering mild pain."
+				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering mild pain.")
 			if (41 to 60)
-				usr << "\blue <b>Condition</b>: [M.name] is suffering significant pain."
+				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering significant pain.")
 			if (21 to 40)
-				usr << "\blue <b>Condition</b>: [M.name] is suffering severe pain."
+				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering severe pain.")
 			else
-				usr << "\blue <b>Condition</b>: [M.name] is suffering excruciating pain."
+				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering excruciating pain.")
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
 			if (I_HELP)
-				usr << "\blue <b>Mood</b>: You sense benevolent thoughts from [M.name]."
+				to_chat(usr, "\blue <b>Mood</b>: You sense benevolent thoughts from [M.name].")
 			if (I_DISARM)
-				usr << "\blue <b>Mood</b>: You sense cautious thoughts from [M.name]."
+				to_chat(usr, "\blue <b>Mood</b>: You sense cautious thoughts from [M.name].")
 			if (I_GRAB)
-				usr << "\blue <b>Mood</b>: You sense hostile thoughts from [M.name]."
+				to_chat(usr, "\blue <b>Mood</b>: You sense hostile thoughts from [M.name].")
 			if (I_HARM)
-				usr << "\blue <b>Mood</b>: You sense cruel thoughts from [M.name]."
+				to_chat(usr, "\blue <b>Mood</b>: You sense cruel thoughts from [M.name].")
 				for(var/mob/living/L in view(7,M))
 					if (L == M)
 						continue
 					thoughts = "thinking about punching [L.name]"
 					break
 			else
-				usr << "\blue <b>Mood</b>: You sense strange thoughts from [M.name]."
+				to_chat(usr, "\blue <b>Mood</b>: You sense strange thoughts from [M.name].")
 
 		if (istype(M,/mob/living/carbon/human))
 			var/numbers[0]
@@ -615,13 +607,13 @@
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
-				usr << "\blue <b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name]."
-		usr << "\blue <b>Thoughts</b>: [M.name] is currently [thoughts]."
+				to_chat(usr, "\blue <b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].")
+		to_chat(usr, "\blue <b>Thoughts</b>: [M.name] is currently [thoughts].")
 
 		if (EMPATH in M.mutations)
-			M << "\red You sense [usr.name] reading your mind."
+			to_chat(M, "\red You sense [usr.name] reading your mind.")
 		else if (prob(5) || M.mind.assigned_role=="Chaplain")
-			M << "\red You sense someone intruding upon your thoughts..."
+			to_chat(M, "\red You sense someone intruding upon your thoughts...")
 		return
 
 ////////////////////////////////////////////////////////////////////////
@@ -632,7 +624,6 @@
 	desc = "Vastly increases the gas capacity of the subject's digestive tract."
 	activation_messages = list("You feel bloated and gassy.")
 	deactivation_messages = list("You no longer feel gassy. What a relief!")
-	instability=1
 
 	mutation = SUPER_FART
 	spelltype = /obj/effect/proc_holder/spell/aoe_turf/superfart
@@ -668,10 +659,10 @@
 				shake_camera(M, 10, 5)
 				if (M == usr)
 					continue
-				M << "<span class='warning'>You are sent flying!</span>"
+				to_chat(M, "<span class='warning'>You are sent flying!</span>")
 				M.Weaken(5)
 				step_away(M, UT, 15)
 				step_away(M, UT, 15)
 				step_away(M, UT, 15)
 	else
-		usr << "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>"
+		to_chat(usr, "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>")

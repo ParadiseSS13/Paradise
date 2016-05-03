@@ -21,6 +21,7 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=7'>Make Vampires</a><br>
 		<a href='?src=\ref[src];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -308,8 +309,10 @@ client/proc/one_click_antag()
 	return 1
 
 
-
-
+//Abductors
+/datum/admins/proc/makeAbductorTeam()
+	new /datum/event/abductor
+	return 1
 
 /datum/admins/proc/makeAliens()
 	alien_infestation(3)
@@ -377,7 +380,7 @@ client/proc/one_click_antag()
 				//So they don't forget their code or mission.
 
 
-				new_syndicate_commando << "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B> [input]</B>"
+				to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B> [input]</B>")
 
 				numagents--
 		if(numagents >= 6)
@@ -396,7 +399,7 @@ client/proc/one_click_antag()
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
 
-	var/datum/preferences/A = new()
+	var/datum/preferences/A = new(G_found.client)
 	A.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
@@ -482,8 +485,8 @@ client/proc/one_click_antag()
 					break
 
 				new_vox.key = theghost.key
-				new_vox << "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: \red<B> [input]</B>"
-				new_vox << "\red Don't forget to turn on your nitrogen internals!"
+				to_chat(new_vox, "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: \red<B> [input]</B>")
+				to_chat(new_vox, "\red Don't forget to turn on your nitrogen internals!")
 
 				raiders--
 			if(raiders > max_raiders)
@@ -612,7 +615,7 @@ client/proc/one_click_antag()
 
 				newMember.key = theghost.key
 				teamOneMembers--
-				newMember << "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!"
+				to_chat(newMember, "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
 
 			if(L.name == "tdome2")
 				if(teamTwoMembers<=0)
@@ -634,7 +637,7 @@ client/proc/one_click_antag()
 
 				newMember.key = theghost.key
 				teamTwoMembers--
-				newMember << "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!"
+				to_chat(newMember, "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
 	else
 		return 0
 	return 1

@@ -22,16 +22,16 @@
 			var/obj/item/device/pda/pda = W
 			W = pda.id
 		if (!W:access) //no access
-			user << "The access level of [W:registered_name]\'s card is not high enough. "
+			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
 			return
 
 		var/list/cardaccess = W:access
 		if(!istype(cardaccess, /list) || !cardaccess.len) //no access
-			user << "The access level of [W:registered_name]\'s card is not high enough. "
+			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
 			return
 
 		if(!(access_heads in W:access)) //doesn't have this access
-			user << "The access level of [W:registered_name]\'s card is not high enough. "
+			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
 			return 0
 
 		var/choice = alert(user, text("Would you like to (un)authorize a shortened launch time? [] authorization\s are still needed. Use abort to cancel all authorizations.", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
@@ -242,9 +242,9 @@
 	height = 4
 
 /obj/docking_port/mobile/pod/New()
+	..()
 	if(id == "pod")
 		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
-	..()
 
 /obj/docking_port/mobile/pod/cancel()
 	return
@@ -269,7 +269,7 @@
 	return
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
-	user << "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>"
+	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
 	admin_controlled = 0
 	icon_state = "dorm_emag"
 

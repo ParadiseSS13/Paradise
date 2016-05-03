@@ -14,20 +14,10 @@
 	var/obj/screen/hands = null
 	var/obj/screen/pullin = null
 	var/obj/screen/internals = null
-	var/obj/screen/oxygen = null
 	var/obj/screen/i_select = null
 	var/obj/screen/m_select = null
-	var/obj/screen/toxin = null
-	var/obj/screen/fire = null
-	var/obj/screen/bodytemp = null
 	var/obj/screen/healths = null
 	var/obj/screen/throw_icon = null
-	var/obj/screen/nutrition_icon = null
-	var/obj/screen/pressure = null
-	var/obj/screen/gun/item/item_use_icon = null
-	var/obj/screen/gun/move/gun_move_icon = null
-	var/obj/screen/gun/run/gun_run_icon = null
-	var/obj/screen/gun/mode/gun_setting_icon = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -202,6 +192,8 @@
 
 	var/digitalcamo = 0 // Can they be tracked by the AI?
 	var/weakeyes = 0 //Are they vulnerable to flashes?
+
+	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
 
 	var/list/radar_blips = list() // list of screen objects, radar blips
 	var/radar_open = 0 	// nonzero is radar is open

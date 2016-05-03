@@ -302,10 +302,6 @@
 	//rotate our direction
 	dir = angle2dir(rotation+dir2angle(dir))
 
-	//resmooth if need be.
-	if(smooth)
-		smooth_icon(src)
-
 	//rotate the pixel offsets too.
 	if (pixel_x || pixel_y)
 		if (rotation < 0)
@@ -316,6 +312,9 @@
 			pixel_x = oldPY
 			pixel_y = (oldPX*(-1))
 
+/atom/proc/postDock()
+	if(smooth)
+		smooth_icon(src)
 
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
@@ -368,7 +367,7 @@
 
 	var/list/door_unlock_list = list()
 
-	for(var/i=1, i<=L0.len, ++i)
+	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
 		if(!T0)
 			continue
@@ -442,6 +441,12 @@
 		air_master.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
+
+	for(var/A1 in L1)
+		var/turf/T1 = A1
+		T1.postDock()
+		for(var/atom/movable/M in T1)
+			M.postDock()
 
 	loc = S1.loc
 	dir = S1.dir
@@ -675,21 +680,24 @@
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(!allowed(usr))
-		usr << "<span class='danger'>Access denied.</span>"
+		to_chat(usr, "<span class='danger'>Access denied.</span>")
 		return
 
 	if(href_list["move"])
 		switch(shuttle_master.moveShuttle(shuttleId, href_list["move"], 1))
-			if(0)	usr << "<span class='notice'>Shuttle received message and will be sent shortly.</span>"
-			if(1)	usr << "<span class='warning'>Invalid shuttle requested.</span>"
-			else	usr << "<span class='notice'>Unable to comply.</span>"
+			if(0)
+				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+			if(1)
+				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+			else
+				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 		updateUsrDialog()
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		src.req_access = list()
 		emagged = 1
-		user << "<span class='notice'>You fried the consoles ID checking system.</span>"
+		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"
@@ -711,8 +719,8 @@
 		if(cooldown)
 			return
 		cooldown = 1
-		usr << "<span class='notice'>Your request has been recieved by Centcom.</span>"
-		admins << "<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>"
+		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
+		to_chat(admins, "<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		spawn(600) //One minute cooldown
 			cooldown = 0
 

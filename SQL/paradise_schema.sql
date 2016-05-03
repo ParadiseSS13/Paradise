@@ -247,6 +247,7 @@ CREATE TABLE `player` (
   `randomslot` tinyint(1) DEFAULT '0',
   `volume` smallint(4) DEFAULT '100',
   `nanoui_fancy` smallint(4) DEFAULT '1',
+  `show_ghostitem_attack` smallint(4) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
@@ -401,6 +402,7 @@ CREATE TABLE `library` (
   `content` text NOT NULL,
   `category` text NOT NULL,
   `ckey` varchar(45) NOT NULL,
+  `flagged` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=929 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

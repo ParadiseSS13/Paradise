@@ -266,7 +266,7 @@
 	blacklist = null
 	whitelist = list(/obj/item/device,/obj/item/weapon/card,/obj/item/weapon/cartridge,/obj/item/weapon/cautery,/obj/item/weapon/stock_parts/cell,/obj/item/weapon/circuitboard,
 					/obj/item/weapon/aiModule,/obj/item/weapon/airalarm_electronics,/obj/item/weapon/airlock_electronics,/obj/item/weapon/circular_saw,
-					/obj/item/weapon/cloaking_device,/obj/item/weapon/crowbar,/obj/item/weapon/disk,/obj/item/weapon/firealarm_electronics,/obj/item/weapon/hand_tele,
+					/obj/item/weapon/crowbar,/obj/item/weapon/disk,/obj/item/weapon/firealarm_electronics,/obj/item/weapon/hand_tele,
 					/obj/item/weapon/hand_labeler,/obj/item/weapon/hemostat,/obj/item/weapon/mop,/obj/item/weapon/locator,/obj/item/weapon/minihoe,
 					/obj/item/stack/packageWrap,/obj/item/weapon/pen,/obj/item/weapon/pickaxe,/obj/item/weapon/pinpointer,
 					/obj/item/weapon/rcd,/obj/item/weapon/rcd_ammo,/obj/item/weapon/retractor,/obj/item/weapon/rsf,/obj/item/weapon/rsp,/obj/item/weapon/scalpel,
@@ -642,7 +642,7 @@
 		if(istype(M) && (remaining > MOB_WORK))
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			M << "\red <B>The unloading machine grabs you with a hard metallic claw!</B>"
+			to_chat(M, "\red <B>The unloading machine grabs you with a hard metallic claw!</B>")
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
@@ -660,7 +660,7 @@
 				bruteloss += L.brute_dam
 		if(bruteloss < 100) // requires tenderization
 			M.apply_damage(rand(5,15),BRUTE)
-			M << "The machine is tearing you apart!"
+			to_chat(M, "The machine is tearing you apart!")
 			master.visible_message("\red [master] makes a squishy grinding noise.")
 			return
 		M.loc = master.loc
@@ -698,7 +698,7 @@
 		if(remaining > MOB_WORK)
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			M << "\red <B>The unloading machine grabs you with a hard metallic claw!</B>"
+			to_chat(M, "\red <B>The unloading machine grabs you with a hard metallic claw!</B>")
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
@@ -790,7 +790,7 @@
 		//stolen from boxing gloves code
 		var/mob/living/carbon/human/M = W
 		if((M.lying || (M.health - M.staminaloss < 25))&& !master.emagged)
-			M << "\The [src] gives you a break."
+			to_chat(M, "\The [src] gives you a break.")
 			master.sleep+=5
 			return 0 // Be polite
 		var/punches = punch(M,remaining / PUNCH_WORK)

@@ -25,7 +25,7 @@ datum/controller/vote
 			// No more change mode votes after the game has started.
 			// 3 is GAME_STATE_PLAYING, but that #define is undefined for some reason
 			if(mode == "gamemode" && ticker.current_state >= 2)
-				world << "<b>Voting aborted due to game start.</b>"
+				to_chat(world, "<b>Voting aborted due to game start.</b>")
 				src.reset()
 				return
 
@@ -62,7 +62,7 @@ datum/controller/vote
 		if(auto_muted && !config.ooc_allowed)
 			auto_muted = 0
 			config.ooc_allowed = !( config.ooc_allowed )
-			world << "<b>The OOC channel has been automatically enabled due to vote end.</b>"
+			to_chat(world, "<b>The OOC channel has been automatically enabled due to vote end.</b>")
 			log_admin("OOC was toggled automatically due to vote end.")
 			message_admins("OOC has been toggled on automatically.")
 
@@ -103,7 +103,7 @@ datum/controller/vote
 						else
 							factor = 1.4
 					choices["Initiate Crew Transfer"] = round(choices["Initiate Crew Transfer"] * factor)
-					world << "<font color='purple'>Crew Transfer Factor: [factor]</font>"
+					to_chat(world, "<font color='purple'>Crew Transfer Factor: [factor]</font>")
 					greatest_votes = max(choices["Initiate Crew Transfer"], choices["Continue The Round"])
 
 
@@ -140,7 +140,7 @@ datum/controller/vote
 		else
 			text += "<b>Vote Result: Inconclusive - No Votes!</b>"
 		log_vote(text)
-		world << "<font color='purple'>[text]</font>"
+		to_chat(world, "<font color='purple'>[text]</font>")
 		return .
 
 	proc/result()
@@ -160,7 +160,7 @@ datum/controller/vote
 							master_mode = .
 					if(!going)
 						going = 1
-						world << "<font color='red'><b>The round will start soon.</b></font>"
+						to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
 				if("crew_transfer")
 					if(. == "Initiate Crew Transfer")
 						init_shift_change(null, 1)
@@ -226,33 +226,33 @@ datum/controller/vote
 				text += "\n[question]"
 
 			log_vote(text)
-			world << "<font color='purple'><b>[text]</b>\nType vote to place your votes.\nYou have [config.vote_period/10] seconds to vote.</font>"
+			to_chat(world, "<font color='purple'><b>[text]</b>\nType vote to place your votes.\nYou have [config.vote_period/10] seconds to vote.</font>")
 			switch(vote_type)
 				if("crew_transfer")
-					world << sound('sound/ambience/alarm4.ogg')
+					to_chat(world, sound('sound/ambience/alarm4.ogg'))
 				if("gamemode")
-					world << sound('sound/ambience/alarm4.ogg')
+					to_chat(world, sound('sound/ambience/alarm4.ogg'))
 				if("custom")
-					world << sound('sound/ambience/alarm4.ogg')
+					to_chat(world, sound('sound/ambience/alarm4.ogg'))
 			if(mode == "gamemode" && going)
 				going = 0
-				world << "<font color='red'><b>Round start has been delayed.</b></font>"
+				to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")
 			if(mode == "crew_transfer" && config.ooc_allowed)
 				auto_muted = 1
 				config.ooc_allowed = !( config.ooc_allowed )
-				world << "<b>The OOC channel has been automatically disabled due to a crew transfer vote.</b>"
+				to_chat(world, "<b>The OOC channel has been automatically disabled due to a crew transfer vote.</b>")
 				log_admin("OOC was toggled automatically due to crew_transfer vote.")
 				message_admins("OOC has been toggled off automatically.")
 			if(mode == "gamemode" && config.ooc_allowed)
 				auto_muted = 1
 				config.ooc_allowed = !( config.ooc_allowed )
-				world << "<b>The OOC channel has been automatically disabled due to the gamemode vote.</b>"
+				to_chat(world, "<b>The OOC channel has been automatically disabled due to the gamemode vote.</b>")
 				log_admin("OOC was toggled automatically due to gamemode vote.")
 				message_admins("OOC has been toggled off automatically.")
 			if(mode == "custom" && config.ooc_allowed)
 				auto_muted = 1
 				config.ooc_allowed = !( config.ooc_allowed )
-				world << "<b>The OOC channel has been automatically disabled due to a custom vote.</b>"
+				to_chat(world, "<b>The OOC channel has been automatically disabled due to a custom vote.</b>")
 				log_admin("OOC was toggled automatically due to custom vote.")
 				message_admins("OOC has been toggled off automatically.")
 

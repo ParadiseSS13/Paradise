@@ -52,7 +52,7 @@
 		else
 			..()
 		if(get_dist(user,src)<=3)
-			user << "<span class='warning'>It doesn't look quite right...</span>"
+			to_chat(user, "<span class='warning'>It doesn't look quite right...</span>")
 	else
 		..()
 	return
@@ -81,7 +81,7 @@
 		if(istype(A) && allowed(A))
 			assume(A)
 	else
-		src << "<span class='warning'>Your chameleon skin is still repairing itself!</span>"
+		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
 		..()
 
 /mob/living/simple_animal/hostile/morph/proc/assume(atom/movable/target)

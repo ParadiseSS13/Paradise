@@ -16,7 +16,6 @@
 
 /obj/structure/closet/gmcloset/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/device/radio/headset/headset_service(src)
@@ -45,7 +44,6 @@
 
 /obj/structure/closet/chefcloset/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/under/waiter(src)
 	new /obj/item/clothing/under/waiter(src)
 	new /obj/item/device/radio/headset/headset_service(src)
@@ -74,7 +72,6 @@
 
 /obj/structure/closet/jcloset/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/under/rank/janitor(src)
 	new /obj/item/device/radio/headset/headset_service(src)
 	new /obj/item/weapon/cartridge/janitor(src)
@@ -104,7 +101,6 @@
 
 /obj/structure/closet/lawcloset/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/under/lawyer/female(src)
 	new /obj/item/clothing/under/lawyer/black(src)
 	new /obj/item/clothing/under/lawyer/red(src)

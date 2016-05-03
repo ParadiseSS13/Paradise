@@ -63,7 +63,7 @@
 				copyass()
 				sleep(15)
 			else
-				usr << "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>"
+				to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
 				break
 
 			use_power(active_power_usage)
@@ -72,11 +72,11 @@
 		if(copyitem)
 			copyitem.loc = usr.loc
 			usr.put_in_hands(copyitem)
-			usr << "<span class='notice'>You take \the [copyitem] out of \the [src].</span>"
+			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 			copyitem = null
 			updateUsrDialog()
 		else if(check_ass())
-			ass << "<span class='notice'>You feel a slight pressure on your ass.</span>"
+			to_chat(ass, "<span class='notice'>You feel a slight pressure on your ass.</span>")
 			updateUsrDialog()
 	else if(href_list["min"])
 		if(copies > 1)
@@ -117,25 +117,25 @@
 			user.drop_item()
 			copyitem = O
 			O.loc = src
-			user << "<span class='notice'>You insert \the [O] into \the [src].</span>"
+			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
 			flick(insert_anim, src)
 			updateUsrDialog()
 		else
-			user << "<span class='notice'>There is already something in \the [src].</span>"
+			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
 	else if(istype(O, /obj/item/device/toner))
 		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
 			user.drop_item()
-			user << "<span class='notice'>You insert the toner cartridge into \the [src].</span>"
+			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
 			var/obj/item/device/toner/T = O
 			toner += T.toner_amount
 			qdel(O)
 			updateUsrDialog()
 		else
-			user << "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>"
+			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
 	else if(istype(O, /obj/item/weapon/wrench))
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
-		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 	else if(istype(O, /obj/item/weapon/grab)) //For ass-copying.
 		var/obj/item/weapon/grab/G = O
 		if(ismob(G.affecting) && G.affecting != ass)
@@ -254,6 +254,8 @@
 					temp_img = icon('icons/obj/butts.dmi', "machine")
 				if("Plasmaman")
 					temp_img = icon('icons/obj/butts.dmi', "plasma")
+				if("Drask")
+					temp_img = icon('icons/obj/butts.dmi', "drask")
 				else
 					temp_img = icon('icons/obj/butts.dmi', "human")
 		else if(istype(ass,/mob/living/silicon/robot/drone))

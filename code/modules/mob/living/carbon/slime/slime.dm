@@ -46,6 +46,7 @@
 	var/is_adult = 0
 
 	var/core_removal_stage = 0 //For removing cores.
+	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 
 	///////////TIME FOR SUBSPECIES
 
@@ -61,7 +62,6 @@
 		icon_state = "[colour] [is_adult ? "adult" : "baby"] slime"
 		real_name = name
 		slime_mutation = mutation_table(colour)
-		mutation_chance = rand(25, 35)
 		var/sanitizedcolour = replacetext(colour, " ", "")
 		coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	..()
@@ -232,7 +232,7 @@
 
 /mob/living/carbon/slime/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if (Victim) return // can't attack while eating!
@@ -293,11 +293,11 @@
 
 /mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	..()
@@ -371,7 +371,7 @@
 					visible_message("<span class='warning'>[src] has been touched with the stun gloves by [M]!</span>")
 					return
 				else
-					M << "\red Not enough charge! "
+					to_chat(M, "\red Not enough charge! ")
 					return
 */
 
@@ -419,11 +419,11 @@
 
 /mob/living/carbon/slime/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
-		M << "You cannot attack people before the game has started."
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	switch(M.a_intent)
@@ -503,14 +503,14 @@
 			++Friends[user]
 		else
 			Friends[user] = 1
-		user << "You feed the slime the plasma. It chirps happily."
+		to_chat(user, "You feed the slime the plasma. It chirps happily.")
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
 		return
 	else if(W.force > 0)
 		attacked += 10
 		if(prob(25))
-			user << "<span class='danger'>[W] passes right through [src]!</span>"
+			to_chat(user, "<span class='danger'>[W] passes right through [src]!</span>")
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
 			Discipline = 0
@@ -594,5 +594,5 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 /mob/living/carbon/slime/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
 		return 1
-	user << "This creature does not seem to have a mouth!"
+	to_chat(user, "This creature does not seem to have a mouth!")
 	return 0

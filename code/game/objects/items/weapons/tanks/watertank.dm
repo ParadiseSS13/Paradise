@@ -26,7 +26,7 @@
 	set name = "Toggle Mister"
 	set category = "Object"
 	if (usr.get_item_by_slot(slot_back) != src)
-		usr << "<span class='notice'>The watertank needs to be on your back to use.</span>"
+		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
 		return
 	if(usr.incapacitated())
 		return
@@ -40,7 +40,7 @@
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
 			on = 0
-			user << "<span class='notice'>You need a free hand to hold the mister.</span>"
+			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
 			return
 		noz.loc = user
 	else
@@ -125,7 +125,7 @@
 	return
 
 /obj/item/weapon/reagent_containers/spray/mister/dropped(mob/user as mob)
-	user << "<span class='notice'>The mister snaps back onto the watertank.</span>"
+	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
 	tank.on = 0
 	loc = tank
 
@@ -175,7 +175,7 @@
 
 /obj/item/weapon/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	user << "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>"
+	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -240,22 +240,22 @@
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
 			tank.icon_state = "waterbackpackatmos_1"
-			user << "Swapped to nanofrost launcher"
+			to_chat(user, "Swapped to nanofrost launcher")
 			return
 		if(NANOFROST)
 			nozzle_mode = METAL_FOAM
 			tank.icon_state = "waterbackpackatmos_2"
-			user << "Swapped to metal foam synthesizer"
+			to_chat(user, "Swapped to metal foam synthesizer")
 			return
 		if(METAL_FOAM)
 			nozzle_mode = EXTINGUISHER
 			tank.icon_state = "waterbackpackatmos_0"
-			user << "Swapped to water extinguisher"
+			to_chat(user, "Swapped to water extinguisher")
 			return
 	return
 
 /obj/item/weapon/extinguisher/mini/nozzle/dropped(mob/user as mob)
-	user << "<span class='notice'>The nozzle snaps back onto the tank!</span>"
+	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = 0
 	loc = tank
 
@@ -271,10 +271,10 @@
 			return //Safety check so you don't blast yourself trying to refill your tank
 		var/datum/reagents/R = reagents
 		if(R.total_volume < 100)
-			user << "You need at least 100 units of water to use the nanofrost launcher!"
+			to_chat(user, "You need at least 100 units of water to use the nanofrost launcher!")
 			return
 		if(nanofrost_cooldown)
-			user << "Nanofrost launcher is still recharging"
+			to_chat(user, "Nanofrost launcher is still recharging")
 			return
 		nanofrost_cooldown = 1
 		R.remove_any(100)
@@ -300,7 +300,7 @@
 				if(src)
 					metal_synthesis_cooldown--
 		else
-			user << "Metal foam mix is still being synthesized."
+			to_chat(user, "Metal foam mix is still being synthesized.")
 			return
 
 /obj/effect/nanofrost_container
@@ -342,7 +342,7 @@
 		F.set_up(amount, 0, src.loc)
 		F.start()
 	if(blast)
-		for(var/turf/T in trange(2, src.loc))
+		for(var/turf/T in spiral_range_turfs(2, src.loc))
 			Chilled(T)
 	return
 

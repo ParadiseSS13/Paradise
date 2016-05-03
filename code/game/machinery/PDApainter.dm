@@ -28,7 +28,7 @@
 
 /obj/machinery/pdapainter/New()
 	..()
-	var/blocked = list(/obj/item/device/pda/pai, /obj/item/device/pda/ai, /obj/item/device/pda/heads,
+	var/blocked = list(/obj/item/device/pda/silicon/ai, /obj/item/device/pda/silicon/robot, /obj/item/device/pda/silicon/pai, /obj/item/device/pda/heads,
 						/obj/item/device/pda/clear, /obj/item/device/pda/syndicate)
 
 	for(var/P in typesof(/obj/item/device/pda)-blocked)
@@ -43,7 +43,7 @@
 /obj/machinery/pdapainter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/device/pda))
 		if(storedpda)
-			user << "There is already a PDA inside."
+			to_chat(user, "There is already a PDA inside.")
 			return
 		else
 			var/obj/item/device/pda/P = usr.get_active_hand()
@@ -72,7 +72,7 @@
 		storedpda.desc = P.desc
 
 	else
-		user << "<span class='notice'>The [src] is empty.</span>"
+		to_chat(user, "<span class='notice'>The [src] is empty.</span>")
 
 
 /obj/machinery/pdapainter/verb/ejectpda()
@@ -85,7 +85,7 @@
 		storedpda = null
 		update_icon()
 	else
-		usr << "<span class='notice'>The [src] is empty.</span>"
+		to_chat(usr, "<span class='notice'>The [src] is empty.</span>")
 
 
 /obj/machinery/pdapainter/power_change()

@@ -38,6 +38,7 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/Taser.ogg'
+	allow_pai = 0
 
 
 /mob/living/simple_animal/bot/ed209/New(loc,created_name,created_lasercolor)
@@ -177,7 +178,7 @@ Auto Patrol[]"},
 	..()
 	if(emagged == 2)
 		if(user)
-			user << "<span class='warning'>You short out [src]'s target assessment circuits.</span>"
+			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = 0
@@ -565,5 +566,5 @@ Auto Patrol[]"},
 			return
 		if(!C.handcuffed)
 			C.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(C)
-			C.update_inv_handcuffed(1)
+			C.update_handcuffed()
 			back_to_idle()

@@ -24,12 +24,13 @@
 
 /obj/singularity/narsie/large/New()
 	..()
-	world << "<font size='15' color='red'><b>NAR-SIE HAS RISEN</b></font>"
-	world << pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg'))
+	to_chat(world, "<font size='15' color='red'><b>NAR-SIE HAS RISEN</b></font>")
+	to_chat(world, pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg')))
 
 	var/area/A = get_area(src)
 	if(A)
-		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.")
+		var/image/alert_overlay = image('icons/effects/effects.dmi', "ghostalertsie")
+		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
 
 	narsie_spawn_animation()
 
@@ -37,9 +38,6 @@
 	shuttle_master.emergency.request(null, 0.3) // Cannot recall
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
-	if(!(src in view()))
-		user << "Your soul is too far away."
-		return
 	makeNewConstruct(/mob/living/simple_animal/construct/harvester, user, null, 1)
 	new /obj/effect/effect/sleep_smoke(user.loc)
 
@@ -76,7 +74,7 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
-				M << "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>"
+				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
 				M.apply_effect(3, STUN)
 
 
@@ -123,12 +121,12 @@
 
 
 /obj/singularity/narsie/proc/acquire(var/mob/food)
-	target << "<span class='notice'>NAR-SIE HAS LOST INTEREST IN YOU</span>"
+	to_chat(target, "<span class='notice'>NAR-SIE HAS LOST INTEREST IN YOU</span>")
 	target = food
 	if(ishuman(target))
-		target << "<span class ='userdanger'>NAR-SIE HUNGERS FOR YOUR SOUL</span>"
+		to_chat(target, "<span class ='userdanger'>NAR-SIE HUNGERS FOR YOUR SOUL</span>")
 	else
-		target << "<span class ='userdanger'>NAR-SIE HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL</span>"
+		to_chat(target, "<span class ='userdanger'>NAR-SIE HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL</span>")
 
 //Wizard narsie
 /obj/singularity/narsie/wizard

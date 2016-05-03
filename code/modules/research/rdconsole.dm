@@ -159,18 +159,18 @@ proc/CallMaterialName(ID)
 	//Loading a disk into it.
 	if(istype(D, /obj/item/weapon/disk))
 		if(t_disk || d_disk)
-			user << "A disk is already loaded into the machine."
+			to_chat(user, "A disk is already loaded into the machine.")
 			return
 
 		if(istype(D, /obj/item/weapon/disk/tech_disk)) t_disk = D
 		else if (istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
 		else
-			user << "<span class='danger'>Machine cannot accept disks in that format.</span>"
+			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
 			return
 		if(!user.drop_item())
 			return
 		D.loc = src
-		user << "<span class='notice'>You add the disk to the machine!</span>"
+		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else
 		..()
 	src.updateUsrDialog()
@@ -181,7 +181,7 @@ proc/CallMaterialName(ID)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
 		emagged = 1
-		user << "<span class='notice'>You disable the security protocols</span>"
+		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
 	if(..())
@@ -264,7 +264,7 @@ proc/CallMaterialName(ID)
 	else if(href_list["eject_item"]) //Eject the item inside the destructive analyzer.
 		if(linked_destroy)
 			if(linked_destroy.busy)
-				usr << "<span class='danger'> The destructive analyzer is busy at the moment.</span>"
+				to_chat(usr, "<span class='danger'> The destructive analyzer is busy at the moment.</span>")
 
 			else if(linked_destroy.loaded_item)
 				linked_destroy.loaded_item.loc = linked_destroy.loc
@@ -289,7 +289,7 @@ proc/CallMaterialName(ID)
 	else if(href_list["deconstruct"]) //Deconstruct the item in the destructive analyzer and update the research holder.
 		if(linked_destroy)
 			if(linked_destroy.busy)
-				usr << "<span class='danger'>The destructive analyzer is busy at the moment.</span>"
+				to_chat(usr, "<span class='danger'>The destructive analyzer is busy at the moment.</span>")
 			else
 				var/choice = input("Proceeding will destroy loaded item.") in list("Proceed", "Cancel")
 				if(choice == "Cancel" || !linked_destroy) return
@@ -302,7 +302,7 @@ proc/CallMaterialName(ID)
 						linked_destroy.busy = 0
 						if(!linked_destroy.hacked)
 							if(!linked_destroy.loaded_item)
-								usr <<"<span class='danger'>The destructive analyzer appears to be empty.</span>"
+								to_chat(usr, "<span class='danger'>The destructive analyzer appears to be empty.</span>")
 								screen = 1.0
 								return
 							if((linked_destroy.loaded_item.reliability >= 99 - (linked_destroy.decon_mod * 3)) || linked_destroy.loaded_item.crit_fail)
@@ -341,7 +341,7 @@ proc/CallMaterialName(ID)
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 		screen = 0.0
 		if(!sync)
-			usr << "<span class='danger'>You must connect to the network first!</span>"
+			to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
 		else
 			griefProtection() //Putting this here because I dont trust the sync process
 			spawn(30)
@@ -438,8 +438,9 @@ proc/CallMaterialName(ID)
 								if( new_item.type == /obj/item/weapon/storage/backpack/holding )
 									new_item.investigate_log("built by [key]","singulo")
 								new_item.reliability = 100
-								new_item.materials[MAT_METAL] /= coeff
-								new_item.materials[MAT_GLASS] /= coeff
+								if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
+									new_item.materials[MAT_METAL] /= coeff
+									new_item.materials[MAT_GLASS] /= coeff
 								if(O)
 									var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(linked_lathe.loc)
 									new_item.loc = L
@@ -638,7 +639,7 @@ proc/CallMaterialName(ID)
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		user << "<span class='warning'>Access denied.</span>"
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
 	interact(user)
 
@@ -706,6 +707,8 @@ proc/CallMaterialName(ID)
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
 			dat += "<h3>Current Research Levels:</h3><BR><div class='statusDisplay'>"
 			for(var/datum/tech/T in files.known_tech)
+				if(T.level <= 0)
+					continue
 				dat += "[T.name]<BR>"
 				dat +=  "* Level: [T.level]<BR>"
 				dat +=  "* Summary: [T.desc]<HR>"
@@ -733,6 +736,8 @@ proc/CallMaterialName(ID)
 			dat += "<A href='?src=\ref[src];menu=1.2'>Return to Disk Operations</A><div class='statusDisplay'>"
 			dat += "<h3>Load Technology to Disk:</h3><BR>"
 			for(var/datum/tech/T in files.known_tech)
+				if(T.level <= 0)
+					continue
 				dat += "[T.name] "
 				dat += "<A href='?src=\ref[src];copy_tech=1;copy_tech_ID=[T.id]'>Copy to Disk</A><BR>"
 			dat += "</div>"

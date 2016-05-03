@@ -152,17 +152,25 @@
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
+
+/obj/item/clothing/suit/corgisuit/super_hero
+	name = "super-hero corgi suit"
+	desc = "A suit made long ago by the ancient empire KFC. This one pulses with a strange power."
 	flags = NODROP
 
-/obj/item/clothing/suit/corgisuit/en
-	name = "\improper E-N suit"
+/obj/item/clothing/suit/corgisuit/super_hero/en
+	name = "\improper super-hero E-N suit"
 	icon_state = "ensuit"
 
-/obj/item/clothing/suit/corgisuit/en/New()
+/obj/item/clothing/suit/corgisuit/super_hero/en/New()
 	..()
 	processing_objects.Add(src)
 
-/obj/item/clothing/suit/corgisuit/en/process()
+/obj/item/clothing/suit/corgisuit/super_hero/en/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/item/clothing/suit/corgisuit/super_hero/en/process()
 	if(prob(2))
 		for(var/obj/M in orange(2,src))
 			if(!M.anchored && (M.flags & CONDUCT))
@@ -198,6 +206,26 @@
 	item_state = "cardborg"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
+
+/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
+	..()
+	if(slot == slot_wear_suit)
+		disguise(user)
+
+/obj/item/clothing/suit/cardborg/dropped(mob/living/user)
+	..()
+	user.remove_alt_appearance("standard_borg_disguise")
+
+/obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
+	if(istype(H))
+		if(!borghead)
+			borghead = H.head
+		if(istype(borghead, /obj/item/clothing/head/cardborg)) //why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY
+			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
+			I.override = 1
+			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
+			H.add_alt_appearance("standard_borg_disguise", I, silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
+
 
 /obj/item/clothing/suit/poncho
 	name = "poncho"
@@ -553,10 +581,10 @@
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
 	if(on)
 		on = 0
-		usr << "You turn the suit's special processes off."
+		to_chat(usr, "You turn the suit's special processes off.")
 	else
 		on = 1
-		usr << "You turn the suit's special processes on."
+		to_chat(usr, "You turn the suit's special processes on.")
 		processing_objects.Add(src)
 
 

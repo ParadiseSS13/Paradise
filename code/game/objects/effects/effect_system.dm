@@ -1092,7 +1092,7 @@ steam.start() -- spawns the effect
 		user.visible_message("<span class='warning'>[user] smashes through \the [src].</span>", "<span class='notice'>You smash through \the [src].</span>")
 		qdel(src)
 	else
-		user << "<span class='notice'>You hit the metal foam but bounce off it.</span>"
+		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
 
 /obj/structure/foamedmetal/attackby(var/obj/item/I, var/mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -1109,7 +1109,7 @@ steam.start() -- spawns the effect
 		user.visible_message("<span class='warning'>[user] smashes through the foamed metal with \the [I].</span>", "<span class='notice'>You smash through the foamed metal with \the [I].</span>")
 		qdel(src)
 	else
-		user << "<span class='warning'>You hit the metal foam to no effect.</span>"
+		to_chat(user, "<span class='warning'>You hit the metal foam to no effect.</span>")
 
 /obj/structure/foamedmetal/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)
@@ -1156,10 +1156,10 @@ steam.start() -- spawns the effect
 			s.start()
 
 			for(var/mob/M in viewers(5, location))
-				M << "\red The solution violently explodes."
+				to_chat(M, "\red The solution violently explodes.")
 			for(var/mob/M in viewers(1, location))
 				if (prob (50 * amount))
-					M << "\red The explosion knocks you down."
+					to_chat(M, "\red The explosion knocks you down.")
 					M.Weaken(rand(1,5))
 			return
 		else
@@ -1182,7 +1182,7 @@ steam.start() -- spawns the effect
 				flash += (round(amount/4) * flashing_factor)
 
 			for(var/mob/M in viewers(8, location))
-				M << "\red The solution violently explodes."
+				to_chat(M, "\red The solution violently explodes.")
 
 			explosion(location, devastation, heavy, light, flash)
 

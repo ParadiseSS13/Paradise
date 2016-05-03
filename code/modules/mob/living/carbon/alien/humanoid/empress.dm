@@ -17,8 +17,6 @@
 	pixel_x = -32
 
 /mob/living/carbon/alien/humanoid/empress/large/update_icons()
-
-	update_hud()		//TODO: remove the need for this to be here
 	overlays.Cut()
 
 	if(stat == DEAD)
@@ -82,7 +80,7 @@
 	set category = "Alien"
 
 	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		src << "<span class='noticealien'>There's already an egg here.</span>"
+		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
 		return
 
 	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.

@@ -187,31 +187,20 @@
 				radiation -= 0.1
 				reagents.add_reagent("radium", rads/10)
 				if( prob(10) )
-					src << "<span class='notice'>You feel relaxed.</span>"
+					to_chat(src, "<span class='notice'>You feel relaxed.</span>")
 				return
 
 			if (radiation > 100)
 				radiation = 100
-				if(!(species.flags & RAD_ABSORB))
-					Weaken(10)
-					if(!lying)
-						src << "<span class='alert'>You feel weak.</span>"
-						emote("collapse")
+				Weaken(10)
+				if(!lying)
+					to_chat(src, "<span class='alert'>You feel weak.</span>")
+					emote("collapse")
 
 			if (radiation < 0)
 				radiation = 0
 
 			else
-				if(species.flags & RAD_ABSORB)
-					var/rads = radiation/25
-					radiation -= rads
-					nutrition += rads
-					adjustBruteLoss(-(rads))
-					adjustOxyLoss(-(rads))
-					adjustToxLoss(-(rads))
-					updatehealth()
-					return
-
 				var/damage = 0
 				switch(radiation)
 					if(0 to 49)
@@ -229,7 +218,7 @@
 							radiation -= 5
 							Weaken(3)
 							if(!lying)
-								src << "<span class='alert'>You feel weak.</span>"
+								to_chat(src, "<span class='alert'>You feel weak.</span>")
 								emote("collapse")
 						updatehealth()
 
@@ -238,7 +227,7 @@
 						adjustToxLoss(3)
 						damage = 3
 						if(prob(1))
-							src << "<span class='alert'>You mutate!</span>"
+							to_chat(src, "<span class='alert'>You mutate!</span>")
 							randmutb(src)
 							domutcheck(src,null)
 							emote("gasp")
@@ -249,7 +238,7 @@
 						adjustToxLoss(5)
 						damage = 5
 						if(prob(1))
-							src << "<span class='alert'>You mutate!</span>"
+							to_chat(src, "<span class='alert'>You mutate!</span>")
 							randmutb(src)
 							domutcheck(src,null)
 							emote("gasp")
@@ -380,8 +369,7 @@
 
 		var/obj/item/organ/external/affected = get_organ("chest")
 		affected.add_autopsy_data("Suffocation", oxyloss)
-
-		oxygen_alert = max(oxygen_alert, 1)
+		throw_alert("oxy", /obj/screen/alert/oxy)
 
 		return 0
 
@@ -392,10 +380,10 @@
 		return
 
 	var/loc_temp = get_temperature(environment)
-	//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]"
+//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
-	if(stat != 2)
+	if(stat != DEAD)
 		stabilize_temperature_from_calories()
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
@@ -414,41 +402,43 @@
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > species.heat_level_1)
 		//Body temperature is too hot.
-		fire_alert = max(fire_alert, 1)
 		if(status_flags & GODMODE)	return 1	//godmode
 		var/mult = species.hot_env_multiplier
 
 		if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
+			throw_alert("temp", /obj/screen/alert/hot, 1)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
-			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_2 && bodytemperature <= species.heat_level_3)
+			throw_alert("temp", /obj/screen/alert/hot, 2)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
+			throw_alert("temp", /obj/screen/alert/hot, 3)
 			if(on_fire)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
-				fire_alert = max(fire_alert, 2)
 			else
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-				fire_alert = max(fire_alert, 2)
 
 	else if(bodytemperature < species.cold_level_1)
-		fire_alert = max(fire_alert, 1)
-		if(status_flags & GODMODE)	return 1	//godmode
-
-		if(stat == DEAD) return 1 //ZomgPonies -- No need for cold burn damage if dead
+		if(status_flags & GODMODE)
+			return 1
+		if(stat == DEAD)
+			return 1
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = species.cold_env_multiplier
 			if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
+				throw_alert("temp", /obj/screen/alert/cold, 1)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
 			if(bodytemperature >= species.cold_level_3 && bodytemperature < species.cold_level_2)
+				throw_alert("temp", /obj/screen/alert/cold, 2)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
 			if(bodytemperature > -INFINITY && bodytemperature < species.cold_level_3)
+				throw_alert("temp", /obj/screen/alert/cold, 3)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
+			else
+				clear_alert("temp")
+	else
+		clear_alert("temp")
 
 	// Account for massive pressure differences.  Done by Polymorph
 	// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
@@ -458,27 +448,31 @@
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= species.hazard_high_pressure)
-		var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
-		take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
-		pressure_alert = 2
+		if(!(RESIST_HEAT in mutations))
+			var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
+			take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
+			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+		else
+			clear_alert("pressure")
 	else if(adjusted_pressure >= species.warning_high_pressure)
-		pressure_alert = 1
+		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
 	else if(adjusted_pressure >= species.warning_low_pressure)
-		pressure_alert = 0
+		clear_alert("pressure")
 	else if(adjusted_pressure >= species.hazard_low_pressure)
-		pressure_alert = -1
+		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
 		if(RESIST_COLD in mutations)
-			pressure_alert = -1
+			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
-			pressure_alert = -2
+			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
-	return
 
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
 	if(..())
+		return
+	if(RESIST_HEAT in mutations)
 		return
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
@@ -558,11 +552,13 @@
 	return thermal_protection_flags
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
+
+	if(RESIST_HEAT in mutations)
+		return 1
+
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
 
 	var/thermal_protection = 0.0
-	if(RESIST_HEAT in mutations)
-		return 1
 	if(thermal_protection_flags)
 		if(thermal_protection_flags & HEAD)
 			thermal_protection += THERMAL_PROTECTION_HEAD
@@ -676,29 +672,11 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(species.flags & REQUIRE_LIGHT)
-		var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-		if(isturf(loc)) //else, there's considered to be no light
-			var/turf/T = loc
-			light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-		nutrition += light_amount
-		traumatic_shock -= light_amount
-
-		if(species.flags & IS_PLANT)
-			if(nutrition > 450)
-				nutrition = 450
-			if((light_amount >= 5) && !suiciding) //if there's enough light, heal
-				adjustBruteLoss(-(light_amount/2))
-				adjustFireLoss(-(light_amount/4))
-				//adjustToxLoss(-(light_amount))
-				adjustOxyLoss(-(light_amount))
-				//TODO: heal wounds, heal broken limbs.
-
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
 			if(overeatduration < 100)
-				src << "<span class='notice'>You feel fit again!</span>"
+				to_chat(src, "<span class='notice'>You feel fit again!</span>")
 				mutations.Remove(FAT)
 				update_mutantrace(0)
 				update_mutations(0)
@@ -706,7 +684,7 @@
 				update_inv_wear_suit()
 		else
 			if(overeatduration > 500)
-				src << "<span class='alert'>You suddenly feel blubbery!</span>"
+				to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
 				mutations.Add(FAT)
 				update_mutantrace(0)
 				update_mutations(0)
@@ -727,11 +705,6 @@
 				overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 			else
 				overeatduration -= 2
-
-	if(species.flags & REQUIRE_LIGHT)
-		if(nutrition < 200)
-			take_overall_damage(10,0)
-			traumatic_shock++
 
 	if (drowsyness)
 		drowsyness--
@@ -773,15 +746,6 @@
 
 		//the analgesic effect wears off slowly
 		analgesic = max(0, analgesic - 1)
-
-		if(hallucination)
-			spawn()
-				handle_hallucinations()
-
-			if(hallucination <= 2)
-				hallucination = 0
-			else
-				hallucination -= 2
 
 		if(paralysis)
 			blinded = 1
@@ -888,17 +852,17 @@
 			isRemoteObserve = 1
 
 			if(remoteview_target.stat != CONSCIOUS)
-				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
+				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
 
 			if(PSY_RESIST in remoteview_target.mutations)
-				src << "<span class='alert'>Your mind is shut out!</span>"
+				to_chat(src, "<span class='alert'>Your mind is shut out!</span>")
 				isRemoteObserve = 0
 
 			// Not on the station or mining?
 			var/turf/temp_turf = get_turf(remoteview_target)
 			if(!temp_turf in config.contact_levels)
-				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
+				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
 
 		if(remote_view)
@@ -969,7 +933,7 @@
 		return
 
 	if(shock_stage == 10)
-		src << "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!")
+		to_chat(src, "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!"))
 
 	if(shock_stage >= 30)
 		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
@@ -977,22 +941,22 @@
 		stuttering = max(stuttering, 5)
 
 	if(shock_stage == 40)
-		src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+		to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 
 	if(shock_stage >=60)
 		if(shock_stage == 60) custom_emote(1,"falls limp.")
 		if (prob(2))
-			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 			Weaken(20)
 
 	if(shock_stage >= 80)
 		if (prob(5))
-			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 			Weaken(20)
 
 	if(shock_stage >= 120)
 		if (prob(2))
-			src << "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness.")
+			to_chat(src, "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness."))
 			Paralyse(5)
 
 	if(shock_stage == 150)
@@ -1082,7 +1046,7 @@
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!
-			H << "<spawn class='warning'>You smell something foul..."
+			to_chat(H, "<spawn class='warning'>You smell something foul...")
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
@@ -1102,7 +1066,8 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,0,30) //Credit to GhostHack (www.ghosthack.de) for sound.
+					to_chat(src, sound('sound/effects/electheart.ogg',0,0,0,30))//Credit to GhostHack (www.ghosthack.de) for sound.
+
 				else
 					heartbeat++
 				return
@@ -1120,9 +1085,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
 				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
 			else
 				heartbeat++
 

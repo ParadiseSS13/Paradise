@@ -69,10 +69,10 @@
 		//helmet and armor = 100% protection
 		if( istype(inventory_head,/obj/item/clothing/head/helmet) && istype(inventory_back,/obj/item/clothing/suit/armor) )
 			if( O.force )
-				user << "<span class='warning'>[src] is wearing too much armor! You can't cause \him any damage.</span>"
+				to_chat(user, "<span class='warning'>[src] is wearing too much armor! You can't cause \him any damage.</span>")
 				visible_message("<span class='danger'> [user] hits [src] with [O], however [src] is too armored.</span>")
 			else
-				user << "<span class='warning'>[src] is wearing too much armor! You can't reach \his skin.<span>"
+				to_chat(user, "<span class='warning'>[src] is wearing too much armor! You can't reach \his skin.<span>")
 				visible_message("[user] gently taps [src] with [O].")
 			if(health>0 && prob(15))
 				custom_emote(1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")
@@ -80,7 +80,7 @@
 
 	if (istype(O, /obj/item/weapon/razor))
 		if (shaved)
-			user << "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>"
+			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
 			return
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
 		if(do_after(user, 50, target = src))
@@ -108,7 +108,7 @@
 			if("head")
 				if(inventory_head)
 					if(inventory_head.flags & NODROP)
-						usr << "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>"
+						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					name = real_name
 					desc = initial(desc)
@@ -122,18 +122,18 @@
 					inventory_head = null
 					regenerate_icons()
 				else
-					usr << "<span class='danger'>There is nothing to remove from its [remove_from].</span>"
+					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
 					return
 			if("back")
 				if(inventory_back)
 					if(inventory_back.flags & NODROP)
-						usr << "<span class='warning'>\The [inventory_back] is stuck too hard to [src] for you to remove!</span>"
+						to_chat(usr, "<span class='warning'>\The [inventory_back] is stuck too hard to [src] for you to remove!</span>")
 						return
 					inventory_back.loc = src.loc
 					inventory_back = null
 					regenerate_icons()
 				else
-					usr << "<span class='danger'>There is nothing to remove from its [remove_from].</span>"
+					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
 					return
 
 		show_inv(usr)
@@ -151,7 +151,7 @@
 
 			if("back")
 				if(inventory_back)
-					usr << "<span class='warning'>It's already wearing something!</span>"
+					to_chat(usr, "<span class='warning'>It's already wearing something!</span>")
 					return
 				else
 					var/obj/item/item_to_add = usr.get_active_hand()
@@ -177,9 +177,9 @@
 					)
 
 					if( ! ( item_to_add.type in allowed_types ) )
-						usr << "<span class='warning'>You set [item_to_add] on [src]'s back, but \he shakes it off!</span>"
+						to_chat(usr, "<span class='warning'>You set [item_to_add] on [src]'s back, but \he shakes it off!</span>")
 						if(!usr.drop_item())
-							usr << "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s back!</span>"
+							to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s back!</span>")
 							return
 						item_to_add.loc = loc
 						if(prob(25))
@@ -208,7 +208,8 @@
 		return
 
 	if(inventory_head)
-		if(user)	user << "<span class='warning'>You can't put more than one hat on [src]!</span>"
+		if(user)
+			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
 		return
 	if(!item_to_add)
 		user.visible_message("[user] pets [src].","<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
@@ -360,10 +361,10 @@
 
 	if(valid)
 		if(user && !user.drop_item())
-			user << "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>"
+			to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 			return 0
 		if(health <= 0)
-			user << "<span class ='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on \him.</span>"
+			to_chat(user, "<span class ='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on \him.</span>")
 		else if(user)
 			user.visible_message("[user] puts [item_to_add] on [real_name]'s head.  [src] looks at [user] and barks once.",
 				"<span class='notice'>You put [item_to_add] on [real_name]'s head.  [src] gives you a peculiar look, then wags \his tail once and barks.</span>",
@@ -374,9 +375,9 @@
 
 	else
 		if(user && !user.drop_item())
-			user << "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>"
+			to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 			return 0
-		user << "<span class='warning'>You set [item_to_add] on [src]'s head, but \he shakes it off!</span>"
+		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but \he shakes it off!</span>")
 		item_to_add.loc = loc
 		if(prob(25))
 			step_rand(item_to_add)
@@ -469,7 +470,7 @@
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
-					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
+					to_chat(src, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
 					now_pushing = 0
 					return
 			if(!(tmob.status_flags & CANPUSH))
@@ -535,7 +536,7 @@
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/corgi/puppy/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		usr << "<span class='warning'>You can't fit this on [src]!</span>"
+		to_chat(usr, "<span class='warning'>You can't fit this on [src]!</span>")
 		return
 	..()
 
@@ -560,7 +561,7 @@
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/corgi/Lisa/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		usr << "\red [src] already has a cute bow!"
+		to_chat(usr, "\red [src] already has a cute bow!")
 		return
 	..()
 
@@ -600,6 +601,8 @@
 	icon_state = "borgi"
 	icon_living = "borgi"
 	var/emagged = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/emag_act(user as mob)
 	if(!emagged)

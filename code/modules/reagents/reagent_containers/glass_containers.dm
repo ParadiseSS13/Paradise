@@ -33,7 +33,6 @@
 		/obj/machinery/iv_drip,
 		/obj/machinery/computer/pandemic,
 		/obj/machinery/disposal,
-		/obj/machinery/apiary,
 		/mob/living/simple_animal/cow,
 		/mob/living/simple_animal/hostile/retaliate/goat,
 		/obj/machinery/sleeper,
@@ -50,15 +49,15 @@
 	if(!..(user, 2))
 		return
 	if (!is_open_container())
-		user << "<span class='notice'>Airtight lid seals it completely.</span>"
+		to_chat(user, "<span class='notice'>Airtight lid seals it completely.</span>")
 
 /obj/item/weapon/reagent_containers/glass/attack_self()
 	..()
 	if (is_open_container())
-		usr << "<span class='notice'>You put the lid on \the [src].</span>"
+		to_chat(usr, "<span class='notice'>You put the lid on \the [src].</span>")
 		flags ^= OPENCONTAINER
 	else
-		usr << "<span class='notice'>You take the lid off \the [src].</span>"
+		to_chat(usr, "<span class='notice'>You take the lid off \the [src].</span>")
 		flags |= OPENCONTAINER
 	update_icon()
 
@@ -72,7 +71,7 @@
 			return
 
 	if(ismob(target) && target.reagents && reagents.total_volume)
-		user << "<span class='notice'>You splash the solution onto [target].</span>"
+		to_chat(user, "<span class='notice'>You splash the solution onto [target].</span>")
 
 		var/mob/living/M = target
 		var/list/injected = list()
@@ -96,23 +95,23 @@
 	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 		if(!target.reagents.total_volume && target.reagents)
-			user << "<span class='warning'>[target] is empty.</span>"
+			to_chat(user, "<span class='warning'>[target] is empty.</span>")
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			user << "<span class='warning'>[src] is full.</span>"
+			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 
 		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-		user << "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>"
+		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
 
 	else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
-			user << "<span class='warning'>[src] is empty.</span>"
+			to_chat(user, "<span class='warning'>[src] is empty.</span>")
 			return
 
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			user << "<span class='warning'>[target] is full.</span>"
+			to_chat(user, "<span class='warning'>[target] is full.</span>")
 			return
 
 		// /vg/: Logging transfers of bad things
@@ -127,10 +126,10 @@
 				log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		user << "<span class='notice'>You transfer [trans] units of the solution to [target].</span>"
+		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
 
 	else if(istype(target, /obj/item/weapon/reagent_containers/glass) && !target.is_open_container())
-		user << "<span class='warning'>You cannot fill [target] while it is sealed.</span>"
+		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
 		return
 
 	/*else if(istype(target, /obj/machinery/bunsen_burner))
@@ -143,7 +142,7 @@
 		return
 
 	else if(reagents.total_volume)
-		user << "<span class='notice'>You splash the solution onto [target].</span>"
+		to_chat(user, "<span class='notice'>You splash the solution onto [target].</span>")
 		reagents.reaction(target, TOUCH)
 		spawn(5) reagents.clear_reagents()
 		return
@@ -155,14 +154,14 @@
 	if(is_hot(I))
 		if(reagents)
 			reagents.chem_temp += 15
-			user << "<span class='notice'>You heat [src] with [I].</span>"
+			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
 			reagents.handle_reactions()
 	if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
 		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)
-			user << "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>"
+			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
 		else
-			user << "<span class='notice'>You set the label to \"[tmp_label]\".</span>"
+			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
 			label_text = tmp_label
 			update_name_label()
 	if(istype(I,/obj/item/weapon/storage/bag))
@@ -230,12 +229,12 @@
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	if (assembly)
-		usr << "<span class='notice'>You detach [assembly] from \the [src]</span>"
+		to_chat(usr, "<span class='notice'>You detach [assembly] from \the [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
 		update_icon()
 	else
-		usr << "<span class='notice'>There is no assembly to remove.</span>"
+		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
 
 /obj/item/weapon/reagent_containers/glass/beaker/proc/heat_beaker()
 	if(reagents)
@@ -245,7 +244,7 @@
 /obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W,/obj/item/device/assembly_holder))
 		if (assembly)
-			usr << "<span class='warning'>The [src] already has an assembly.</span>"
+			to_chat(usr, "<span class='warning'>The [src] already has an assembly.</span>")
 			return ..()
 		assembly = W
 		user.drop_item()
@@ -343,7 +342,7 @@
 
 /obj/item/weapon/reagent_containers/glass/bucket/attackby(var/obj/D, mob/user as mob, params)
 	if(isprox(D))
-		user << "You add [D] to [src]."
+		to_chat(user, "You add [D] to [src].")
 		qdel(D)
 		user.put_in_hands(new /obj/item/weapon/bucket_sensor)
 		user.unEquip(src)

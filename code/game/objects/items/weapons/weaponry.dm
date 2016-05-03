@@ -12,7 +12,7 @@
 
 
 /obj/item/weapon/banhammer/suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is hitting \himself with the [src.name]! It looks like \he's trying to ban \himself from life.</span>"
+		to_chat(viewers(user), "<span class='suicide'>[user] is hitting \himself with the [src.name]! It looks like \he's trying to ban \himself from life.</span>")
 		return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
 
 /obj/item/weapon/nullrod
@@ -31,7 +31,7 @@
 	var/transform_via = list(/obj/item/clothing/suit/armor/riot/knight/templar, /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx)
 
 	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>"
+		to_chat(viewers(user), "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
 		return (BRUTELOSS|FIRELOSS)
 
 /obj/item/weapon/nullrod/attack(mob/M as mob, mob/living/user as mob) //Paste from old-code to decult with a null rod.
@@ -47,7 +47,7 @@
 	msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])")
 
 	if ((CLUMSY in user.mutations) && prob(50))
-		user << "\red The rod slips out of your hand and hits your head."
+		to_chat(user, "\red The rod slips out of your hand and hits your head.")
 		user.take_organ_damage(10)
 		user.Paralyse(20)
 		return
@@ -56,7 +56,7 @@
 		if(M.mind.vampire)
 			if(ishuman(M))
 				if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
-					M << "<span class='warning'>The nullrod's power interferes with your own!</span>"
+					to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
 
@@ -67,7 +67,7 @@
 		if(istype(I, T)) //Only the Chaplain's holy armor is capable fo performing this feat.
 			if(!transformed) // can't turn a sword into a sword.
 				var/obj/item/S = new transform_into()
-				user << "<span class='notice'>You sheath the [src] into the [I]'s scabbard, transforming it into \a [S].</span>"
+				to_chat(user, "<span class='notice'>You sheath the [src] into the [I]'s scabbard, transforming it into \a [S].</span>")
 				user.unEquip(src)
 				qdel(src)
 				user.put_in_hands(S)
@@ -98,7 +98,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>"
+		to_chat(viewers(user), "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
 		return(BRUTELOSS)
 
 /obj/item/weapon/sord/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
@@ -124,7 +124,7 @@
 		return 1
 
 	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>"
+		to_chat(viewers(user), "<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>")
 		return(BRUTELOSS)
 
 /obj/item/weapon/claymore/ceremonial
@@ -144,19 +144,18 @@
 	sharp = 1
 	edge = 1
 	w_class = 3
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>"
-		return(BRUTELOSS)
+/obj/item/weapon/katana/cursed
+	slot_flags = null
+
+/obj/item/weapon/katana/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
+	return(BRUTELOSS)
 
 /obj/item/weapon/katana/IsShield()
 		return 1
-
-/obj/item/weapon/katana/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
-
 
 /obj/item/weapon/harpoon
 	name = "harpoon"
@@ -192,7 +191,7 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 		user.unEquip(I)
 
 		user.put_in_hands(S)
-		user << "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>"
+		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
 		qdel(I)
 		qdel(src)
 
@@ -204,7 +203,7 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 		user.unEquip(I)
 
 		user.put_in_hands(P)
-		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
+		to_chat(user, "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>")
 		qdel(I)
 		qdel(src)
 

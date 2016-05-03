@@ -209,7 +209,7 @@
 	add_fingerprint(usr)
 	usr.set_machine(src)
 	if(!src.allowed(usr) && !emagged)
-		usr << "\red You do not have the required access level"
+		to_chat(usr, "\red You do not have the required access level")
 		return
 
 	if(href_list["main"])
@@ -315,6 +315,8 @@
 			dat += "[temp_server.name] Data ManagementP<BR><BR>"
 			dat += "Known Technologies<BR>"
 			for(var/datum/tech/T in temp_server.files.known_tech)
+				if(T.level <= 0)
+					continue
 				dat += "* [T.name] "
 				dat += "<A href='?src=\ref[src];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
 			dat += "Known Designs<BR>"
@@ -337,7 +339,7 @@
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "\blue You you disable the security protocols"
+		to_chat(user, "\blue You you disable the security protocols")
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core

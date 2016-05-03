@@ -50,7 +50,7 @@
 			isactive[name] = active ? "Active" : "Inactive"
 		else
 			isactive[name] = t.fields["p_stat"]
-			//world << "[name]: [rank]"
+//			to_chat(world, "[name]: [rank]")
 			//cael - to prevent multiple appearances of a player/job combination, add a continue after each line
 		var/department = 0
 		if(real_rank in command_positions)
@@ -198,7 +198,7 @@ var/global/ManifestJSON
 			department = 1
 			if(depthead && ser.len != 1)
 				ser.Swap(1,ser.len)
-		
+
 		if(real_rank in supply_positions)
 			sup[++sup.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
@@ -224,6 +224,6 @@ var/global/ManifestJSON
 		"bot" = bot,\
 		"misc" = misc\
 		)
-	ManifestJSON = list2json(PDA_Manifest)
+	ManifestJSON = json_encode(PDA_Manifest)
 	return
 

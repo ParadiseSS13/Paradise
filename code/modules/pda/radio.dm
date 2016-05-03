@@ -31,7 +31,7 @@
 
 /obj/item/radio/integrated/proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3,var/key4, var/value4, s_filter)
 
-	//world << "Post: [freq]: [key]=[value], [key2]=[value2]"
+//	to_chat(world, "Post: [freq]: [key]=[value], [key2]=[value2]")
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(freq)
 
 	if(!frequency)
@@ -51,7 +51,7 @@
 	frequency.post_signal(src, signal, filter = s_filter)
 
 /obj/item/radio/integrated/receive_signal(datum/signal/signal)
-	if (signal.data["type"] == bot_type)
+	if (bot_type && istype(signal.source, /obj/machinery/bot_core) && signal.data["type"] == bot_type)
 		if(!botlist)
 			botlist = new()
 

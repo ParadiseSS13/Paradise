@@ -20,11 +20,21 @@
 	jump_action.Grant(user)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if (get_dist(user, src) > 1 || user.eye_blind)
-		if(user == current_user)
-			off_action.Activate()
+	if((stat & (NOPOWER|BROKEN)) || !Adjacent(user) || user.eye_blind || user.incapacitated())
+		user.unset_machine()
 		return 0
 	return 1
+
+/obj/machinery/computer/camera_advanced/Destroy()
+	if(current_user)
+		current_user.unset_machine()
+	if(eyeobj)
+		qdel(eyeobj)
+	return ..()
+
+/obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
+	if(M == current_user)
+		off_action.Activate()
 
 /obj/machinery/computer/camera_advanced/attack_hand(mob/user)
 	if(..())
@@ -34,6 +44,7 @@
 	var/mob/living/carbon/L = user
 
 	if(!current_user)
+		user.set_machine(src)
 		if(!eyeobj)
 			CreateEye()
 		GrantActions(user)
@@ -54,7 +65,7 @@
 		else
 			eyeobj.setLoc(eyeobj.loc)
 	else
-		user << "The console is already in use!"
+		to_chat(user, "The console is already in use!")
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"

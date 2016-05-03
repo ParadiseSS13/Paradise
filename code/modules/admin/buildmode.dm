@@ -4,7 +4,10 @@
 #define THROW_BUILDMODE 4
 #define AREA_BUILDMODE 5
 #define COPY_BUILDMODE 6
-#define NUM_BUILDMODES 6
+#define AREAEDIT_BUILDMODE 7
+#define FILL_BUILDMODE 8
+#define LINK_BUILDMODE 9
+#define NUM_BUILDMODES 9
 
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
@@ -88,6 +91,36 @@
 	cl = null
 	qdel(I)
 
+/obj/effect/buildmode_line
+	var/image/I 
+	var/client/cl
+
+/obj/effect/buildmode_line/New(var/client/c, var/atom/atom_a, var/atom/atom_b, var/linename)
+	name = linename
+	loc = get_turf(atom_a)
+	I = image('icons/misc/mark.dmi', src, "line", 19.0)
+	var/x_offset = ((atom_b.x * 32) + atom_b.pixel_x) - ((atom_a.x * 32) + atom_a.pixel_x)
+	var/y_offset = ((atom_b.y * 32) + atom_b.pixel_y) - ((atom_a.y * 32) + atom_a.pixel_y)
+	
+	var/matrix/M = matrix()
+	M.Translate(0, 16)
+	M.Scale(1, sqrt((x_offset * x_offset) + (y_offset * y_offset)) / 32)
+	M.Turn(90 - Atan2(x_offset, y_offset)) // So... You pass coords in order x,y to this version of atan2. It should be called acsc2.
+	M.Translate(atom_a.pixel_x, atom_a.pixel_y)
+	
+	transform = M
+	cl = c
+	cl.images += I
+
+/obj/effect/buildmode_line/Destroy()
+	if(I)
+		if(istype(cl))
+			cl.images -= I
+			cl = null
+		qdel(I)
+		I = null
+	return ..()
+
 /datum/click_intercept
 	var/client/holder = null
 	var/list/obj/screen/buttons = list()
@@ -128,11 +161,23 @@
 	var/varholder = "name"
 	var/valueholder = "derp"
 	var/objholder = /obj/structure/closet
+	var/area/storedarea = null
+	var/image/areaimage
 	var/atom/movable/stored = null
+	var/list/link_lines = list()
+	var/obj/link_obj
+	var/valid_links = 0
+
+/datum/click_intercept/buildmode/New(client/c)
+	..()
+	areaimage = image('icons/turf/areas.dmi',null,"yellow")
+	holder.images += areaimage
 
 /datum/click_intercept/buildmode/Destroy()
 	stored = null
 	Reset()
+	areaimage.loc = null
+	qdel(areaimage)
 	..()
 
 /datum/click_intercept/buildmode/create_buttons()
@@ -149,45 +194,61 @@
 /datum/click_intercept/buildmode/proc/show_help(mob/user)
 	switch(mode)
 		if(BASIC_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button        = Construct / Upgrade</span>"
-			user << "<span class='notice'>Right Mouse Button       = Deconstruct / Delete / Downgrade</span>"
-			user << "<span class='notice'>Left Mouse Button + ctrl = R-Window</span>"
-			user << "<span class='notice'>Left Mouse Button + alt  = Airlock</span>"
-			user << ""
-			user << "<span class='notice'>Use the button in the upper left corner to</span>"
-			user << "<span class='notice'>change the direction of built objects.</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button        = Construct / Upgrade</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button       = Deconstruct / Delete / Downgrade</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button + ctrl = R-Window</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button + alt  = Airlock</span>")
+			to_chat(user, "")
+			to_chat(user, "<span class='notice'>Use the button in the upper left corner to</span>")
+			to_chat(user, "<span class='notice'>change the direction of built objects.</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(ADV_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Right Mouse Button on buildmode button = Set object type</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj          = Place objects</span>"
-			user << "<span class='notice'>Right Mouse Button                     = Delete objects</span>"
-			user << ""
-			user << "<span class='notice'>Use the button in the upper left corner to</span>"
-			user << "<span class='notice'>change the direction of built objects.</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Set object type</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj          = Place objects</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button                     = Delete objects</span>")
+			to_chat(user, "")
+			to_chat(user, "<span class='notice'>Use the button in the upper left corner to</span>")
+			to_chat(user, "<span class='notice'>change the direction of built objects.</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(VAR_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Right Mouse Button on buildmode button = Select var(type) & value</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Set var(type) & value</span>"
-			user << "<span class='notice'>Right Mouse Button on turf/obj/mob     = Reset var's value</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select var(type) & value</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Set var(type) & value</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on turf/obj/mob     = Reset var's value</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(THROW_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select</span>"
-			user << "<span class='notice'>Right Mouse Button on turf/obj/mob     = Throw</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on turf/obj/mob     = Throw</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(AREA_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>"
-			user << "<span class='notice'>Right Mouse Button on buildmode button = Select generator</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select generator</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(COPY_BUILDMODE)
-			user << "<span class='notice'>***********************************************************</span>"
-			user << "<span class='notice'>Left Mouse Button on obj/turf/mob   = Spawn a Copy of selected target</span>"
-			user << "<span class='notice'>Right Mouse Button on obj/mob = Select target to copy</span>"
-			user << "<span class='notice'>***********************************************************</span>"
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on obj/turf/mob   = Spawn a Copy of selected target</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on obj/mob = Select target to copy</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+		if(AREAEDIT_BUILDMODE)
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on obj/turf/mob  = Paint area</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on obj/turf/mob = Select area to paint</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Create new area</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+		if(FILL_BUILDMODE)
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+		if(LINK_BUILDMODE)
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on obj  = Select button to link</span>")
+			to_chat(user, "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/click_intercept/buildmode/proc/change_settings(mob/user)
 	switch(mode)
@@ -199,7 +260,7 @@
 			objholder = text2path(target_path)
 			if(!ispath(objholder))
 				objholder = pick_closest_path(target_path)
-				if(!objholder)
+				if(!objholder || ispath(objholder, /area))
 					objholder = /obj/structure/closet
 					alert("That path is not allowed.")
 			else
@@ -234,6 +295,32 @@
 			generator_path = type
 			cornerA = null
 			cornerB = null
+		if(AREAEDIT_BUILDMODE)
+			var/target_path = input(user,"Enter typepath:", "Typepath", "/area")
+			var/areatype = text2path(target_path)
+			if(ispath(areatype,/area))
+				var/areaname = input(user,"Enter area name:", "Area name", "Area")
+				if(!areaname || !length(areaname))
+					return
+				storedarea = new areatype
+				storedarea.power_equip = 0
+				storedarea.power_light = 0
+				storedarea.power_environ = 0
+				storedarea.always_unpowered = 0
+				storedarea.name = areaname
+				areaimage.loc = storedarea
+		if(FILL_BUILDMODE)
+			var/target_path = input(user,"Enter typepath:" ,"Typepath","/obj/structure/closet")
+			objholder = text2path(target_path)
+			if(!ispath(objholder))
+				objholder = pick_closest_path(target_path)
+				if(!objholder || ispath(objholder, /area))
+					objholder = /obj/structure/closet
+					return
+			else
+				if(ispath(objholder,/mob) && !check_rights(R_DEBUG,0))
+					objholder = /obj/structure/closet
+			deselect_region()
 
 /datum/click_intercept/buildmode/proc/change_dir()
 	switch(build_dir)
@@ -257,6 +344,13 @@
 
 /datum/click_intercept/buildmode/proc/Reset()//Reset temporary variables
 	deselect_region()
+	if(mode == AREAEDIT_BUILDMODE)
+		areaimage.loc = storedarea
+	else
+		areaimage.loc = null
+	for(var/obj/effect/buildmode_line/L in link_lines)
+		qdel(L)
+		link_lines -= L
 
 /datum/click_intercept/buildmode/proc/select_tile(var/turf/T)
 	return new /obj/effect/buildmode_reticule(T, holder)
@@ -351,13 +445,13 @@
 					log_admin("Build Mode: [key_name(user)] modified [object.name]'s [varholder] to [valueholder]")
 					object.vars[varholder] = valueholder
 				else
-					user << "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>"
+					to_chat(user, "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>")
 			if(right_click)
 				if(object.vars.Find(varholder))
 					log_admin("Build Mode: [key_name(user)] modified [object.name]'s [varholder] to [valueholder]")
 					object.vars[varholder] = initial(object.vars[varholder])
 				else
-					user << "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>"
+					to_chat(user, "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>")
 
 		if(THROW_BUILDMODE)
 			if(left_click)
@@ -377,7 +471,7 @@
 			if(left_click) //rectangular
 				if(cornerA && cornerB)
 					if(!generator_path)
-						user << "<span class='warning'>Select generator type first.</span>"
+						to_chat(user, "<span class='warning'>Select generator type first.</span>")
 					else
 						var/datum/mapGenerator/G = new generator_path
 						G.defineRegion(cornerA.loc,cornerB.loc,1)
@@ -394,5 +488,111 @@
 					DuplicateObject(stored, perfectcopy=1, sameloc=0,newloc=T)
 			else if(right_click)
 				if(ismovableatom(object)) // No copying turfs for now.
-					user << "<span class='notice'>[object] set as template.</span>"
+					to_chat(user, "<span class='notice'>[object] set as template.</span>")
 					stored = object
+		if(AREAEDIT_BUILDMODE)
+			if(left_click)
+				if(!storedarea)
+					return
+				var/turf/T = get_turf(object)
+				if(get_area(T) != storedarea)
+					storedarea.contents.Add(T)
+			else if(right_click)
+				var/turf/T = get_turf(object)
+				storedarea = get_area(T)
+				areaimage.loc = storedarea
+		if(FILL_BUILDMODE)
+			if(!cornerA)
+				cornerA = select_tile(get_turf(object))
+				return
+			if(cornerA && !cornerB)
+				cornerB = select_tile(get_turf(object))
+			if(left_click) //rectangular
+				if(cornerA && cornerB)
+					if(!objholder)
+						to_chat(user, "<span class='warning'>Select object type first.</span>")
+					else
+						for(var/turf/T in block(get_turf(cornerA),get_turf(cornerB)))
+							if(ispath(objholder,/turf))
+								T.ChangeTurf(objholder)
+							else
+								var/obj/A = new objholder(T)
+								A.dir = build_dir
+					deselect_region()
+					return
+
+			//Something wrong - Reset
+			deselect_region()
+		if(LINK_BUILDMODE)
+			if(left_click && istype(object, /obj/machinery))
+				link_obj = object
+			if(right_click && istype(object, /obj/machinery))
+				if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/airlock))
+					var/obj/machinery/door_control/M = link_obj
+					var/obj/machinery/door/airlock/P = object
+					if(!M.id || M.id == "")
+						M.id = input(holder, "Please select an ID for the button", "Buildmode", "")
+						if(!M.id || M.id == "")
+							goto(line_jump)
+					if(P.id_tag == M.id && (P in range(M.range, M)) && P.id_tag && P.id_tag != "")
+						P.id_tag = null
+						to_chat(holder, "[P] unlinked.")
+						goto(line_jump)
+					if(!M.normaldoorcontrol)
+						if(link_lines.len && alert(holder, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
+							goto(line_jump)
+						M.normaldoorcontrol = 1
+					if(P.id_tag && alert(holder, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
+						goto(line_jump)
+					P.id_tag = M.id
+				if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/poddoor))
+					var/obj/machinery/door_control/M = link_obj
+					var/obj/machinery/door/poddoor/P = object
+					if(!M.id || M.id == "")
+						M.id = input(holder, "Please select an ID for the button", "Buildmode", "")
+						if(!M.id || M.id == "")
+							goto(line_jump)
+					if(P.id_tag == M.id && P.id_tag && P.id_tag != "")
+						P.id_tag = null
+						to_chat(holder, "[P] unlinked.")
+						goto(line_jump)
+					if(M.normaldoorcontrol)
+						if(link_lines.len && alert(holder, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
+							goto(line_jump)
+						M.normaldoorcontrol = 0
+					if(!M.id || M.id == "")
+						M.id = input(holder, "Please select an ID for the button", "Buildmode", "")
+						if(!M.id || M.id == "")
+							goto(line_jump)
+					if(P.id_tag && P.id_tag != 1 && alert(holder, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
+						goto(line_jump)
+					P.id_tag = M.id
+			
+			line_jump // For the goto
+			valid_links = 0
+			for(var/obj/effect/buildmode_line/L in link_lines)
+				qdel(L)
+				link_lines -= L
+			
+			if(istype(link_obj, /obj/machinery/door_control))
+				var/obj/machinery/door_control/M = link_obj
+				for(var/obj/machinery/door/airlock/P in range(M.range,M))
+					if(P.id_tag == M.id)
+						var/obj/effect/buildmode_line/L = new(holder, M, P, "[M.name] to [P.name]")
+						L.color = M.normaldoorcontrol ? "#339933" : "#993333"
+						if(M.normaldoorcontrol)
+							valid_links = 1
+						link_lines += L
+						var/obj/effect/buildmode_line/L2 = new(holder, P, M, "[M.name] to [P.name]") // Yes, reversed one so that you can see it from both sides.
+						L2.color = L.color
+						link_lines += L2
+				for(var/obj/machinery/door/poddoor/P in world)
+					if(P.id_tag == M.id)
+						var/obj/effect/buildmode_line/L = new(holder, M, P, "[M.name] to [P.name]")
+						L.color = M.normaldoorcontrol ? "#993333" : "#339933"
+						if(M.normaldoorcontrol)
+							valid_links = 0
+						link_lines += L
+						var/obj/effect/buildmode_line/L2 = new(holder, P, M, "[M.name] to [P.name]") // Yes, reversed one so that you can see it from both sides.
+						L2.color = L.color
+						link_lines += L2

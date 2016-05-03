@@ -23,7 +23,6 @@
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/large/update_icons()
-	update_hud()		//TODO: remove the need for this to be here
 	overlays.Cut()
 	if(stat == DEAD)
 		icon_state = "prat_dead"
@@ -76,7 +75,7 @@
 
 	if(powerc(250))
 		adjustToxLoss(-250)
-		src << "\green You begin to evolve!"
+		to_chat(src, "\green You begin to evolve!")
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
 		var/mob/living/carbon/alien/humanoid/sentinel/praetorian/new_xeno = new(loc)

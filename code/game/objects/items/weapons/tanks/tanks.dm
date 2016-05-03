@@ -44,7 +44,8 @@
 	if (istype(src.loc, /obj/item/assembly))
 		icon = src.loc
 	if (!in_range(src, user))
-		if (icon == src) user << "\blue It's \a \icon[icon][src]! If you want any more information you'll need to get closer."
+		if (icon == src)
+			to_chat(user, "\blue It's \a \icon[icon][src]! If you want any more information you'll need to get closer.")
 		return
 
 	var/celsius_temperature = src.air_contents.temperature-T0C
@@ -63,7 +64,7 @@
 	else
 		descriptive = "furiously hot"
 
-	user << "\blue \The \icon[icon][src] feels [descriptive]"
+	to_chat(user, "\blue \The \icon[icon][src] feels [descriptive]")
 
 	return
 
@@ -166,7 +167,7 @@
 			if(location.internal == src)
 				location.internal = null
 				location.internals.icon_state = "internal0"
-				usr << "\blue You close the tank release valve."
+				to_chat(usr, "\blue You close the tank release valve.")
 				if (location.internals)
 					location.internals.icon_state = "internal0"
 			else
@@ -181,11 +182,11 @@
 
 				if(can_open_valve)
 					location.internal = src
-					usr << "\blue You open \the [src] valve."
+					to_chat(usr, "\blue You open \the [src] valve.")
 					if (location.internals)
 						location.internals.icon_state = "internal1"
 				else
-					usr << "\blue You need something to connect to \the [src]."
+					to_chat(usr, "\blue You need something to connect to \the [src].")
 
 	src.add_fingerprint(usr)
 	return 1
@@ -232,7 +233,7 @@
 		if(!istype(src.loc,/obj/item/device/transfer_valve))
 			message_admins("Explosive tank rupture! last key to touch the tank was [src.fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			log_game("Explosive tank rupture! last key to touch the tank was [src.fingerprintslast] at [x], [y], [z]")
-		//world << "\blue[x],[y] tank is exploding: [pressure] kPa"
+//		to_chat(world, "\blue[x],[y] tank is exploding: [pressure] kPa")
 		//Give the gas a chance to build up more pressure through reacting
 		air_contents.react()
 		air_contents.react()
@@ -241,7 +242,7 @@
 		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 		var/turf/epicenter = get_turf(loc)
 
-		//world << "\blue Exploding Pressure: [pressure] kPa, intensity: [range]"
+//		to_chat(world, "\blue Exploding Pressure: [pressure] kPa, intensity: [range]")
 
 		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
 		if(istype(src.loc,/obj/item/device/transfer_valve))
@@ -250,7 +251,7 @@
 			qdel(src)
 
 	else if(pressure > TANK_RUPTURE_PRESSURE)
-		//world << "\blue[x],[y] tank is rupturing: [pressure] kPa, integrity [integrity]"
+//		to_chat(world, "\blue[x],[y] tank is rupturing: [pressure] kPa, integrity [integrity]")
 		if(integrity <= 0)
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
@@ -262,7 +263,7 @@
 			integrity--
 
 	else if(pressure > TANK_LEAK_PRESSURE)
-		//world << "\blue[x],[y] tank is leaking: [pressure] kPa, integrity [integrity]"
+//		to_chat(world, "\blue[x],[y] tank is leaking: [pressure] kPa, integrity [integrity]")
 		if(integrity <= 0)
 			var/turf/simulated/T = get_turf(src)
 			if(!T)

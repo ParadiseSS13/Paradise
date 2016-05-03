@@ -119,7 +119,7 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/say(var/message, var/datum/language/speaking = null, var/verb = "says", var/alt_name="")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
-			src << "\red You cannot speak in IC (Muted)."
+			to_chat(src, "\red You cannot speak in IC (Muted).")
 			return
 
 	message = trim_strip_html_properly(message)
@@ -162,7 +162,7 @@ proc/get_radio_key_from_channel(var/channel)
 	verb = say_quote(message, speaking)
 
 	if(is_muzzled())
-		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
+		to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 		return
 
 	message = trim_left(message)
@@ -313,7 +313,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	else //everything else failed, emote is probably invalid
 		if(act == "help")	return //except help, because help is handled individually
-		src << "\blue Unusable emote '[act]'. Say *help for a list."
+		to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
 
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message)
@@ -336,10 +336,14 @@ proc/get_radio_key_from_channel(var/channel)
 
 	whisper_say(message, speaking)
 
+// for weird circumstances where you're inside an atom that is also you, like pai's
+/mob/living/proc/get_whisper_loc()
+	return src
+
 /mob/living/proc/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
-			src << "<span class='danger'>You cannot speak in IC (Muted).</span>"
+			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 
 	if(stat)
@@ -348,7 +352,7 @@ proc/get_radio_key_from_channel(var/channel)
 		return
 
 	if(is_muzzled())
-		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
+		to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 		return
 
 	var/message_range = 1
@@ -384,7 +388,8 @@ proc/get_radio_key_from_channel(var/channel)
 	if(!message || message=="")
 		return
 
-	var/list/listening = hearers(message_range, src)
+	var/atom/whisper_loc = get_whisper_loc()
+	var/list/listening = hearers(message_range, whisper_loc)
 	listening |= src
 
 	//ghosts
@@ -401,16 +406,16 @@ proc/get_radio_key_from_channel(var/channel)
 				listening += C
 
 	//pass on the message to objects that can hear us.
-	for(var/obj/O in view(message_range, src))
+	for(var/obj/O in view(message_range, whisper_loc))
 		spawn(0)
 			if(O)
 				O.hear_talk(src, message, verb, speaking)
 
-	var/list/eavesdropping = hearers(eavesdropping_range, src)
+	var/list/eavesdropping = hearers(eavesdropping_range, whisper_loc)
 	eavesdropping -= src
 	eavesdropping -= listening
 
-	var/list/watching = hearers(watching_range, src)
+	var/list/watching = hearers(watching_range, whisper_loc)
 	watching  -= src
 	watching  -= listening
 	watching  -= eavesdropping

@@ -52,8 +52,6 @@ var/global/datum/global_init/init = new ()
 
 	. = ..()
 
-	sleep_offline = 1
-
 	plant_controller = new()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
@@ -67,6 +65,7 @@ var/global/datum/global_init/init = new ()
 		processScheduler.setup()
 
 		master_controller.setup()
+		sleep_offline = 1
 
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
@@ -82,14 +81,14 @@ var/global/datum/global_init/init = new ()
 	return
 
 //world/Topic(href, href_list[])
-//		world << "Received a Topic() call!"
-//		world << "[href]"
+//		to_chat(world, "Received a Topic() call!")
+//		to_chat(world, "[href]")
 //		for(var/a in href_list)
-//			world << "[a]"
+//			to_chat(world, "[a]")
 //		if(href_list["hello"])
-//			world << "Hello world!"
+//			to_chat(world, "Hello world!")
 //			return "Hello world!"
-//		world << "End of Topic() call."
+//		to_chat(world, "End of Topic() call.")
 //		..()
 
 var/world_topic_spam_protect_ip = "0.0.0.0"
@@ -181,11 +180,11 @@ var/world_topic_spam_protect_time = world.timeofday
 		C.irc_admin = input["sender"]
 
 		C << 'sound/effects/adminhelp.ogg'
-		C << message
+		to_chat(C, message)
 
 		for(var/client/A in admins)
 			if(A != C)
-				A << amessage
+				to_chat(A, amessage)
 
 		return "Message Successful"
 
@@ -207,7 +206,7 @@ var/world_topic_spam_protect_time = world.timeofday
 				return "Bad Key"
 			else
 				for(var/client/C in clients)
-					C << "<span class='announce'>PR: [input["announce"]]</span>"
+					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
 
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
@@ -225,7 +224,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
-			world << "<span class='boldannounce'>Rebooting world immediately due to host request</span>"
+			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		return ..(1)
 	var/delay
 	if(!isnull(time))
@@ -233,21 +232,22 @@ var/world_topic_spam_protect_time = world.timeofday
 	else
 		delay = ticker.restart_timeout
 	if(ticker.delay_end)
-		world << "<span class='boldannounce'>An admin has delayed the round end.</span>"
+		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
-	world << "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>"
+	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
 	if(ticker.delay_end)
-		world << "<span class='boldannounce'>Reboot was cancelled by an admin.</span>"
+		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
 	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	spawn(0)
-		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
+		to_chat(world, sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')))// random end sounds!! - LastyBatsy
+
 
 	processScheduler.stop()
 
@@ -273,7 +273,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(C.is_afk(INACTIVITY_KICK))
 				if(!istype(C.mob, /mob/dead))
 					log_access("AFK: [key_name(C)]")
-					C << "\red You have been inactive for more than 10 minutes and have been disconnected."
+					to_chat(C, "\red You have been inactive for more than 10 minutes and have been disconnected.")
 					del(C)
 		if ( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
 			sleep(sleep_length)
@@ -320,7 +320,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/save_mode(var/the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
-	F << the_mode
+	to_chat(F, the_mode)
 
 /hook/startup/proc/loadMusic()
 	for(var/obj/machinery/media/jukebox/J in machines)

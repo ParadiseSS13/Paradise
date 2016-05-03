@@ -67,7 +67,7 @@
 		if(S.mind)
 			for(var/mob/M in contents)
 				S.mind.transfer_to(M)
-				M << "As the animating magic wears off you feel yourself coming back to your senses. You are yourself again!"
+				to_chat(M, "As the animating magic wears off you feel yourself coming back to your senses. You are yourself again!")
 				break
 		qdel(S)
 
@@ -107,8 +107,6 @@
 /obj/structure/closet/statue/bullet_act(var/obj/item/projectile/Proj)
 	health -= Proj.damage
 	check_health()
-
-	return
 
 /obj/structure/closet/statue/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.environment_smash)

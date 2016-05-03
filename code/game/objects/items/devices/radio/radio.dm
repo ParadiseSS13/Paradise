@@ -234,11 +234,11 @@ var/global/list/default_medbay_channels = list(
 
 	add_fingerprint(usr)
 
-/obj/item/device/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels) //BS12 EDIT
+/obj/item/device/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels, var/role = "Unknown") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if (channel == "department")
-			//world << "DEBUG: channel=\"[channel]\" switching to \"[channels[1]]\""
+//			to_chat(world, "DEBUG: channel=\"[channel]\" switching to \"[channels[1]]\"")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
 	else
@@ -248,15 +248,37 @@ var/global/list/default_medbay_channels = list(
 		return
 	if (!connection)
 		return
-
-	var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(src, null, null, 1)
-	A.rename_character(A.real_name, from)
+	var/mob/living/automatedannouncer/A = new /mob/living/automatedannouncer(src)
+	A.name = from
+	A.role = role
+	A.message = message
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
 						4, 0, zlevel, connection.frequency, follow_target=follow_target)
 	qdel(A)
 	return
+
+// Just a dummy mob used for making announcements, so we don't create AIs to do this
+// I'm not sure who thought that was a good idea. -- Crazylemon
+/mob/living/automatedannouncer
+	var/role = ""
+	var/lifetime_timer
+	var/message = ""
+	universal_speak = 1
+
+/mob/living/automatedannouncer/New()
+	lifetime_timer = addtimer(src, "autocleanup", SecondsToTicks(10))
+	..()
+
+/mob/living/automatedannouncer/Destroy()
+	if(lifetime_timer)
+		deltimer(lifetime_timer)
+	..()
+
+/mob/living/automatedannouncer/proc/autocleanup()
+	log_debug("An announcer somehow managed to outlive the radio! Deleting! Area: [get_area(src)], Name: \"[name]\", Message: \"[message]\"")
+	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/device/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
@@ -287,8 +309,6 @@ var/global/list/default_medbay_channels = list(
 
 	if(!M.IsVocal())
 		return 0
-
-	M.last_target_click = world.time
 
 	/* Quick introduction:
 		This new radio system uses a very robust FTL signaling technology unoriginally
@@ -637,14 +657,14 @@ var/global/list/default_medbay_channels = list(
 					keyslot = null
 
 			recalculateChannels()
-			user << "You pop out the encryption key in the radio!"
+			to_chat(user, "You pop out the encryption key in the radio!")
 
 		else
-			user << "This radio doesn't have any encryption keys!"
+			to_chat(user, "This radio doesn't have any encryption keys!")
 
 	if(istype(W, /obj/item/device/encryptionkey/))
 		if(keyslot)
-			user << "The radio can't hold another key!"
+			to_chat(user, "The radio can't hold another key!")
 			return
 
 		if(!keyslot)
@@ -697,9 +717,9 @@ var/global/list/default_medbay_channels = list(
 		if(enable_subspace_transmission != subspace_transmission)
 			subspace_transmission = !subspace_transmission
 			if(subspace_transmission)
-				usr << "<span class='notice'>Subspace Transmission is enabled.</span>"
+				to_chat(usr, "<span class='notice'>Subspace Transmission is enabled.</span>")
 			else
-				usr << "<span class='notice'>Subspace Transmission is disabled.</span>"
+				to_chat(usr, "<span class='notice'>Subspace Transmission is disabled.</span>")
 
 			if(subspace_transmission == 0)//Simple as fuck, clears the channel list to prevent talking/listening over them if subspace transmission is disabled
 				channels = list()
@@ -712,10 +732,10 @@ var/global/list/default_medbay_channels = list(
 			shut_up = !shut_up
 			if(shut_up)
 				canhear_range = 0
-				usr << "<span class='notice'>Loudspeaker disabled.</span>"
+				to_chat(usr, "<span class='notice'>Loudspeaker disabled.</span>")
 			else
 				canhear_range = 3
-				usr << "<span class='notice'>Loudspeaker enabled.</span>"
+				to_chat(usr, "<span class='notice'>Loudspeaker enabled.</span>")
 		. = 1
 
 

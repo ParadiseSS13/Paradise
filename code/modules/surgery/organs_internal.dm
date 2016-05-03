@@ -15,7 +15,6 @@
 	possible_locs = list("chest","head","groin", "eyes", "mouth")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
-	allowed_mob = list(/mob/living/carbon/human/diona)
 
 /datum/surgery/organ_manipulation/alien
 	name = "alien organ manipulation"
@@ -30,11 +29,23 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0
-		if((target.get_species() == "Machine"))
+		if(target.get_species() == "Machine")//i know organ robot might be enough but i am not taking chances...
 			return 0
-		if((target.get_species() == "Diona"))
+		if(!affected.encased)//no bone, problem.
 			return 0
 		return 1
+
+/datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
+	if(istype(target,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+
+		if(affected && (affected.status & ORGAN_ROBOT))
+			return 0//no operating on robotic limbs in an organic surgery
+
+		if(!affected.encased)//no bones no problem.
+			return 1
+		return 0
 
 /datum/surgery/organ_manipulation/alien/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/alien/humanoid))
@@ -87,15 +98,15 @@
 		current_type = "insert"
 		I = tool
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
-			user << "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>"
+			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 
 		if(I.damage > (I.max_damage * 0.75))
-			user << "<span class='notice'> \The [I] is in no state to be transplanted.</span>"
+			to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
 			return -1
 
 		if(target.get_int_organ(I))
-			user << "<span class='warning'> \The [target] already has [I].</span>"
+			to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
 			return -1
 		if(affected)
 			user.visible_message("[user] starts transplanting \the [tool] into [target]'s [affected.name].", \
@@ -123,7 +134,7 @@
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
 		if(!organs.len)
-			user << "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>"
+			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 		else
 			for(var/obj/item/organ/internal/O in organs)
@@ -153,7 +164,7 @@
 			tool_name = "\the [tool]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
-			user << "They do not have organs to mend!"
+			to_chat(user, "They do not have organs to mend!")
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0)
@@ -166,11 +177,11 @@
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
-			user << "[I] does not appear to be damaged."
+			to_chat(user, "[I] does not appear to be damaged.")
 		H.custom_pain("The pain in your [affected.name] is living hell!",1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
-		user << "<span class='warning'>[tool] was biten by someone! It's too damaged to use!</span>"
+		to_chat(user, "<span class='warning'>[tool] was biten by someone! It's too damaged to use!</span>")
 		return -1
 	..()
 
@@ -205,7 +216,7 @@
 		I.insert(target)
 		spread_germs_to_organ(I, user)
 		if(!user.canUnEquip(I, 0))
-			user << "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>"
+			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 			return 0
 
 		if(affected)

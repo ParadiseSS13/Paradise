@@ -46,8 +46,14 @@
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src].</span>")
 					playsound(src.loc, 'sound/items/cheaplighter.ogg', 25, 1)
 				else
-					user << "<span class='warning'>You burn yourself while lighting the lighter.</span>"
-					user.adjustFireLoss(5)
+					to_chat(user, "<span class='warning'>You burn yourself while lighting the lighter.</span>")
+					var/mob/living/M = user
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+						if(affecting.take_damage( 0, 5 ))		//INFERNO
+							H.UpdateDamageIcon()
+							H.updatehealth()
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
 					playsound(src.loc, 'sound/items/cheaplighter.ogg', 25, 1)
 
@@ -87,6 +93,7 @@
 				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. Their arm is as steady as the unflickering flame they light \the [cig] with.</span>")
 			else
 				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
+			M.update_inv_wear_mask()
 	else
 		..()
 

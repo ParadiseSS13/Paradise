@@ -558,7 +558,7 @@
 
 /obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
-		user << "<span class='warning'>Access denied.</span>"
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
 
 	post_signal("supply")
@@ -567,7 +567,7 @@
 
 /obj/machinery/computer/supplycomp/emag_act(user as mob)
 	if(!hacked)
-		user << "<span class='notice'>Special supplies unlocked.</span>"
+		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = 1
 		return
 
@@ -651,7 +651,7 @@
 
 	if(href_list["send"])
 		if(shuttle_master.supply.canMove())
-			usr << "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>"
+			to_chat(usr, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
 		else if(shuttle_master.supply.getDockedId() == "supply_home")
 			shuttle_master.toggleShuttle("supply", "supply_home", "supply_away", 1)
 			investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [shuttle_master.points]. Shuttle contents: [shuttle_master.sold_atoms]", "cargo")
@@ -718,7 +718,7 @@
 					shuttle_master.shoppinglist += O
 					investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [shuttle_master.points].", "cargo")
 				else
-					usr << "<span class='warning'>There are insufficient supply points for this request.</span>"
+					to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
 				break
 
 	else if (href_list["rreq"])

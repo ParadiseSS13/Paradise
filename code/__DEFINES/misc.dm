@@ -188,3 +188,46 @@
 // teehee no one will find these here
 #define MFOAM_ALUMINUM 	1
 #define MFOAM_IRON 		2
+
+//Human Overlays Indexes/////////
+#define MUTANTRACE_LAYER		1
+#define TAIL_UNDERLIMBS_LAYER	2
+#define LIMBS_LAYER				3
+#define MARKINGS_LAYER			4
+#define UNDERWEAR_LAYER			5
+#define MUTATIONS_LAYER			6
+#define DAMAGE_LAYER			7
+#define UNIFORM_LAYER			8
+#define ID_LAYER				9
+#define SHOES_LAYER				10
+#define GLOVES_LAYER			11
+#define EARS_LAYER				12
+#define SUIT_LAYER				13
+#define GLASSES_LAYER			14
+#define BELT_LAYER				15	//Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		16
+#define BACK_LAYER				17
+#define TAIL_LAYER				18	//bs12 specific. this hack is probably gonna come back to haunt me
+#define HAIR_LAYER				19	//TODO: make part of head layer?
+#define HEAD_ACCESSORY_LAYER	20
+#define FHAIR_LAYER				21
+#define FACEMASK_LAYER			22
+#define HEAD_LAYER				23
+#define COLLAR_LAYER			24
+#define HANDCUFF_LAYER			25
+#define LEGCUFF_LAYER			26
+#define L_HAND_LAYER			27
+#define R_HAND_LAYER			28
+#define TARGETED_LAYER			29	//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				30	//If you're on fire
+#define TOTAL_LAYERS			30
+
+///Access Region Codes///
+#define REGION_ALL			0
+#define REGION_GENERAL		1
+#define REGION_SECURITY		2
+#define REGION_MEDBAY		3
+#define REGION_RESEARCH		4
+#define REGION_ENGINEERING	5
+#define REGION_SUPPLY		6
+#define REGION_COMMAND		7

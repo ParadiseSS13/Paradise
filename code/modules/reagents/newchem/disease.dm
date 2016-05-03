@@ -64,7 +64,7 @@
 	if(holder.has_reagent("atrazine",45))
 		holder.del_reagent("spore") //apparently this never metabolizes and stays in forever unless you have 45 units of atrazine in you or some stupid thing like that.
 	if(prob(1))
-		M << "<span class='danger'>Your mouth tastes funny.</span>"
+		to_chat(M, "<span class='danger'>Your mouth tastes funny.</span>")
 	if(prob(1) && prob(25))
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
@@ -106,13 +106,13 @@
 	description = "mutates blood"
 	color = "#D18AA5" // rgb: 209,138,165
 
-/datum/reagent/plasma/plasmavirusfood
+/datum/reagent/plasma_dust/plasmavirusfood
 	name = "virus plasma"
 	id = "plasmavirusfood"
 	description = "mutates blood"
 	color = "#A69DA9" // rgb: 166,157,169
 
-/datum/reagent/plasma/plasmavirusfood/weak
+/datum/reagent/plasma_dust/plasmavirusfood/weak
 	name = "weakened virus plasma"
 	id = "weakplasmavirusfood"
 	color = "#CEC3C6" // rgb: 206,195,198
@@ -143,7 +143,7 @@
 	name = "virus plasma"
 	id = "plasmavirusfood"
 	result = "plasmavirusfood"
-	required_reagents = list("plasma" = 1, "virusfood" = 1)
+	required_reagents = list("plasma_dust" = 1, "virusfood" = 1)
 	result_amount = 1
 
 /datum/chemical_reaction/virus_food_plasma_diphenhydramine
@@ -195,7 +195,7 @@
 /datum/chemical_reaction/mix_virus/mix_virus_3
 	name = "Mix Virus 3"
 	id = "mixvirus3"
-	required_reagents = list("plasma" = 1)
+	required_reagents = list("plasma_dust" = 1)
 	level_min = 4
 	level_max = 6
 

@@ -92,7 +92,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	if(!unreceived || !unreceived.len)
 		return 0
 	if (unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
-		client << "Sending Resources..."
+		to_chat(client, "Sending Resources...")
 	for(var/asset in unreceived)
 		if (asset in asset_cache)
 			client << browse_rsc(asset_cache[asset], asset)
@@ -202,6 +202,27 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
+	)
+
+/datum/asset/simple/chess
+	assets = list(
+		"bishop_black.png"			= 'icons/chess_pieces/bishop_black.png',
+		"bishop_white.png"			= 'icons/chess_pieces/bishop_white.png',
+		"king_black.png"			= 'icons/chess_pieces/king_black.png',
+		"king_white.png"			= 'icons/chess_pieces/king_white.png',
+		"knight_black.png"			= 'icons/chess_pieces/knight_black.png',
+		"knight_white.png"			= 'icons/chess_pieces/knight_white.png',
+		"pawn_black.png"			= 'icons/chess_pieces/pawn_black.png',
+		"pawn_white.png"			= 'icons/chess_pieces/pawn_white.png',
+		"queen_black.png"			= 'icons/chess_pieces/queen_black.png',
+		"queen_white.png"			= 'icons/chess_pieces/queen_white.png',
+		"rook_black.png"			= 'icons/chess_pieces/rook_black.png',
+		"rook_white.png"			= 'icons/chess_pieces/rook_white.png',
+		"sprites.png"			    = 'icons/chess_pieces/sprites.png',
+		"blank.gif"                 = 'icons/chess_pieces/blank.gif',
+		"background.png"            = 'nano/images/uiBackground.png',
+		"garbochess.js"             = 'html/browser/garbochess.js',
+		"boardui.js"                = 'html/browser/boardui.js'
 	)
 
 /datum/asset/nanoui

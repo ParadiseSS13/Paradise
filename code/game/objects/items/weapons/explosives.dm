@@ -25,24 +25,24 @@
 
 /obj/item/weapon/c4/suicide_act(var/mob/user)
 	. = (BRUTELOSS)
-	viewers(user) << "<span class='suicide'>[user] activates the C4 and holds it above his head! It looks like \he's going out with a bang!</span>"
+	to_chat(viewers(user), "<span class='suicide'>[user] activates the C4 and holds it above his head! It looks like \he's going out with a bang!</span>")
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
 		if(user.mind.special_role)
 			var/role = lowertext(user.mind.special_role)
-			if(role == "traitor" || role == "syndicate" || role == "syndicate commando")
+			if(role == ROLE_TRAITOR || role == "syndicate" || role == "syndicate commando")
 				message_say = "FOR THE SYNDICATE!"
-			else if(role == "changeling")
+			else if(role == ROLE_CHANGELING)
 				message_say = "FOR THE HIVE!"
-			else if(role == "cultist")
+			else if(role == ROLE_CULTIST)
 				message_say = "FOR NARSIE!"
-			else if(role == "ninja")
+			else if(role == ROLE_NINJA)
 				message_say = "FOR THE CLAN!"
-			else if(role == "wizard")
+			else if(role == ROLE_WIZARD)
 				message_say = "FOR THE FEDERATION!"
-			else if(role =="revolutionary" || role == "head revolutionary")
+			else if(role == ROLE_REV || role == "head revolutionary")
 				message_say = "FOR THE REVOLOUTION!"
-			else if(role == "death commando" || role == "emergency response team")
+			else if(role == "death commando" || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
 
 	user.say(message_say)
@@ -55,7 +55,7 @@
 /obj/item/weapon/c4/attackby(var/obj/item/I, var/mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		open_panel = !open_panel
-		user << "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>"
+		to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
 	else if(istype(I, /obj/item/weapon/wirecutters) || istype(I, /obj/item/device/multitool) || istype(I, /obj/item/device/assembly/signaler ))
 		wires.Interact(user)
 	else
@@ -70,7 +70,7 @@
 	if(newtime > 60000)
 		newtime = 60000
 	timer = newtime
-	user << "Timer set for [timer] seconds."
+	to_chat(user, "Timer set for [timer] seconds.")
 
 
 /obj/item/weapon/c4/afterattack(atom/target as obj|turf, mob/user as mob, flag)
@@ -78,7 +78,7 @@
 		return
 	if (ismob(target) || istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/item/clothing/accessory/storage) || istype(target, /obj/item/clothing/under))
 		return
-	user << "Planting explosives..."
+	to_chat(user, "Planting explosives...")
 
 	if(do_after(user, 50, target = target) && in_range(user, target))
 		user.drop_item()
@@ -96,7 +96,7 @@
 			log_game("[key_name(user)] planted [src.name] on [target.name] at ([target.x],[target.y],[target.z]) with [timer] second fuse")
 
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
-		user << "Bomb has been planted. Timer counting down from [timer]."
+		to_chat(user, "Bomb has been planted. Timer counting down from [timer].")
 		spawn(timer*10)
 			explode(get_turf(target))
 

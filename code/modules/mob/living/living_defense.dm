@@ -17,20 +17,20 @@
 	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
 		armor = max(0, armor - armour_penetration)
 		if(penetrated_text)
-			src << "<span class='userdanger'>[penetrated_text]</span>"
+			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
 		else
-			src << "<span class='userdanger'>Your armor was penetrated!</span>"
+			to_chat(src, "<span class='userdanger'>Your armor was penetrated!</span>")
 
 	if(armor >= 100)
 		if(absorb_text)
-			src << "<span class='userdanger'>[absorb_text]</span>"
+			to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
 		else
-			src << "<span class='userdanger'>Your armor absorbs the blow!</span>"
+			to_chat(src, "<span class='userdanger'>Your armor absorbs the blow!</span>")
 	else if(armor > 0)
 		if(soften_text)
-			src << "<span class='userdanger'>[soften_text]</span>"
+			to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 		else
-			src << "<span class='userdanger'>Your armor softens the blow!</span>"
+			to_chat(src, "<span class='userdanger'>Your armor softens the blow!</span>")
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
@@ -39,14 +39,6 @@
 
 
 /mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
-	//Being hit while using a cloaking device
-	var/obj/item/weapon/cloaking_device/C = locate((/obj/item/weapon/cloaking_device) in src)
-	if(C && C.active)
-		C.attack_self(src)//Should shut it off
-		update_icons()
-		src << "\blue Your [C.name] was disrupted!"
-		Stun(2)
-
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
@@ -173,6 +165,7 @@
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
 		set_light(light_range + 3,l_color = "#ED9200")
+		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
 
 /mob/living/proc/ExtinguishMob()
@@ -180,6 +173,7 @@
 		on_fire = 0
 		fire_stacks = 0
 		set_light(max(0,light_range - 3))
+		clear_alert("fire")
 		update_fire()
 
 /mob/living/proc/update_fire()
@@ -241,14 +235,14 @@
 
 	for(var/obj/item/weapon/grab/G in src.grabbed_by)
 		if(G.assailant == user)
-			user << "<span class='notice'>You already grabbed [src].</span>"
+			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
 			return
 
 	add_logs(src, user, "grabbed", addition="passively")
 
 	var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(user, src)
 	if(buckled)
-		user << "<span class='notice'>You cannot grab [src], \he is buckled in!</span>"
+		to_chat(user, "<span class='notice'>You cannot grab [src], \he is buckled in!</span>")
 	if(!G)	//the grab will delete itself in New if src is anchored
 		return 0
 	user.put_in_active_hand(G)
