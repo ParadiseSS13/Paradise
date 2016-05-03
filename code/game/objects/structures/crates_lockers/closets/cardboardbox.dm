@@ -6,6 +6,8 @@
 	icon_closed = "cardboard"
 	health = 10
 	sound = 'sound/effects/rustle2.ogg'
+	material_drop = /obj/item/stack/sheet/cardboard
+	cutting_sound = 'sound/items/poster_ripped.ogg'
 	var/move_delay = 0
 	var/egged = 0
 

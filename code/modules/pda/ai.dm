@@ -99,6 +99,6 @@
 	if(!istype(pAI))
 		return 0
 	if(!pAI.software["messenger"])
-		usr << "<span class='warning'>You have not purchased the digital messenger!</span>"
+		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!</span>")
 		return 0
 	return ..() && !pAI.silence_time

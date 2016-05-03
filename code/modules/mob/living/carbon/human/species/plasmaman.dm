@@ -58,12 +58,20 @@
 		if("Life Support Specialist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/atmostech
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
-		if("Warden","Detective","Security Officer","Security Pod Pilot")
+		if("Detective")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
-		if("Head of Security", "Magistrate")
+		if("Warden","Security Officer","Security Pod Pilot")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
+			H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_in_backpack)
+		if("Magistrate")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/magistrate
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/magistrate
+		if("Head of Security")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
+			H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_in_backpack)
 		if("Captain", "Blueshield")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/captain
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/captain
@@ -73,6 +81,7 @@
 		if("Medical Doctor","Brig Physician")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical
+			H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_in_backpack)
 		if("Paramedic")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/paramedic
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/paramedic
@@ -186,7 +195,7 @@
 						H.emote(pick("giggle", "laugh"))
 			SA.moles = 0
 
-	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations)) // Hot air hurts :(
+	if(abs(310.15 - breath.temperature) > 50) // Hot air hurts :(
 		if(H.status_flags & GODMODE)
 			return 1	//godmode
 		if(breath.temperature < cold_level_1)

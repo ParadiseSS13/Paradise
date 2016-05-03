@@ -323,6 +323,14 @@
 	build_path = /obj/item/weapon/canvas/twentythreeXnineteen
 	category = list("initial", "Miscellaneous")
 
+/datum/design/foambox
+		name = "Box of Foam Force darts"
+		id = "foamforce"
+		build_type = AUTOLATHE
+		materials = list(MAT_METAL = 2000)
+		build_path = /obj/item/ammo_box/foambox
+		category = list("initial", "Miscellaneous")
+
 /datum/design/canvas/twentythreeXtwentythree
 	name = "23px by 23px Canvas"
 	id = "canvas23x23"

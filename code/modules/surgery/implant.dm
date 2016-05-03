@@ -329,7 +329,12 @@
 /datum/surgery_step/remove_object
 	name = "remove embedded objects"
 	time = 32
-	accept_hand = 1
+	allowed_tools = list(
+	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/hemostat = 100,	\
+	/obj/item/stack/cable_coil = 75, 	\
+	/obj/item/device/assembly/mousetrap = 20
+	)
 	var/obj/item/organ/external/L = null
 
 

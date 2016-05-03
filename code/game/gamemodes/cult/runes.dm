@@ -373,7 +373,7 @@ var/list/sacrificed = list()
 		break
 	if(!ghost)
 		return this_rune.fizzle()
-	if(jobban_isbanned(ghost, "cultist") || jobban_isbanned(ghost,"Syndicate"))
+	if(jobban_isbanned(ghost, ROLE_CULTIST) || jobban_isbanned(ghost,"Syndicate"))
 		return this_rune.fizzle()
 
 	usr.say("Gal'h'rfikk harfrandid mud[pick("'","`")]gib!")
@@ -776,7 +776,7 @@ var/list/sacrificed = list()
 		if (cultist.handcuffed)
 			cultist.handcuffed.loc = cultist.loc
 			cultist.handcuffed = null
-			cultist.update_inv_handcuffed()
+			cultist.update_handcuffed()
 		if (cultist.legcuffed)
 			cultist.legcuffed.loc = cultist.loc
 			cultist.legcuffed = null

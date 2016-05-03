@@ -29,7 +29,8 @@
 
 	var/area/A = get_area(src)
 	if(A)
-		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.")
+		var/image/alert_overlay = image('icons/effects/effects.dmi', "ghostalertsie")
+		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
 
 	narsie_spawn_animation()
 
@@ -37,9 +38,6 @@
 	shuttle_master.emergency.request(null, 0.3) // Cannot recall
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
-	if(!(src in view()))
-		to_chat(user, "Your soul is too far away.")
-		return
 	makeNewConstruct(/mob/living/simple_animal/construct/harvester, user, null, 1)
 	new /obj/effect/effect/sleep_smoke(user.loc)
 

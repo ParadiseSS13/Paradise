@@ -54,7 +54,8 @@
 	species_fit = list("Vox")
 	see_darkness = 0 //don't render darkness while wearing mesons
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/meson/night
@@ -130,7 +131,8 @@
 	see_darkness = 0
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/eyepatch
@@ -146,7 +148,8 @@
 	item_state = "headset" // lol
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material
@@ -158,7 +161,8 @@
 	vision_flags = SEE_OBJS
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material/cyber
@@ -204,7 +208,8 @@
 	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 
@@ -282,7 +287,8 @@
 	tint = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/sunglasses/lasers
@@ -306,7 +312,8 @@
 	tint = 2
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/welding/attack_self()
@@ -439,3 +446,54 @@
 	icon_state = "cybereye-red"
 	item_state = "eyepatch"
 	flags = NODROP
+
+/obj/item/clothing/glasses/proc/chameleon(var/mob/user)
+	var/input_glasses = input(user, "Choose a piece of eyewear to disguise as.", "Choose glasses style.") as null|anything in list("Sunglasses", "Medical HUD", "Mesons", "Science Goggles", "Glasses", "Security Sunglasses","Eyepatch","Welding","Gar")
+
+	if(user && src in user.contents)
+		switch(input_glasses)
+			if("Sunglasses")
+				desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
+				name = "sunglasses"
+				icon_state = "sun"
+				item_state = "sunglasses"
+			if("Medical HUD")
+				name = "Health Scanner HUD"
+				desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
+				icon_state = "healthhud"
+				item_state = "healthhud"
+			if("Mesons")
+				name = "Optical Meson Scanner"
+				desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
+				icon_state = "meson"
+				item_state = "meson"
+			if("Science Goggles")
+				name = "Science Goggles"
+				desc = "A pair of snazzy goggles used to protect against chemical spills."
+				icon_state = "purple"
+				item_state = "glasses"
+			if("Glasses")
+				name = "Prescription Glasses"
+				desc = "Made by Nerd. Co."
+				icon_state = "glasses"
+				item_state = "glasses"
+			if("Security Sunglasses")
+				name = "HUDSunglasses"
+				desc = "Sunglasses with a HUD."
+				icon_state = "sunhud"
+				item_state = "sunglasses"
+			if("Eyepatch")
+				name = "eyepatch"
+				desc = "Yarr."
+				icon_state = "eyepatch"
+				item_state = "eyepatch"
+			if("Welding")
+				name = "welding goggles"
+				desc = "Protects the eyes from welders; approved by the mad scientist association."
+				icon_state = "welding-g"
+				item_state = "welding-g"
+			if("Gar")
+				desc = "Just who the hell do you think I am?!"
+				name = "gar glasses"
+				icon_state = "gar"
+				item_state = "gar"

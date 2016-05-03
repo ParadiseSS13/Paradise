@@ -627,6 +627,7 @@
 			user.add_language("Rootspeak")
 			user.add_language("Chittin")
 			user.add_language("Bubblish")
+			user.add_language("Orluum")
 			user.add_language("Clownish")
 		else
 			user.remove_language("Sinta'unathi")
@@ -637,6 +638,7 @@
 			user.remove_language("Rootspeak")
 			user.remove_language("Chittin")
 			user.remove_language("Bubblish")
+			user.remove_language("Orluum")
 			user.remove_language("Clownish")
 
 	is_active(mob/living/silicon/pai/user)

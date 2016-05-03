@@ -1348,9 +1348,19 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/mafia
 	name = "Mafia Supply Crate"
-	contains = list(/obj/item/clothing/suit/browntrenchcoat =1,/obj/item/clothing/suit/blacktrenchcoat =1,/obj/item/clothing/head/fedora/whitefedora =1,
-					/obj/item/clothing/head/fedora/brownfedora =1,/obj/item/clothing/head/fedora =1,/obj/item/clothing/under/flappers =1,/obj/item/clothing/under/mafia =1,/obj/item/clothing/under/mafia/vest =1,/obj/item/clothing/under/mafia/white =1,
-					/obj/item/clothing/under/mafia/sue =1,/obj/item/clothing/under/mafia/tan =1, /obj/item/toy/crossbow/tommygun =2)
+	contains = list(/obj/item/clothing/suit/browntrenchcoat,
+					/obj/item/clothing/suit/blacktrenchcoat,
+					/obj/item/clothing/head/fedora/whitefedora,
+					/obj/item/clothing/head/fedora/brownfedora,
+					/obj/item/clothing/head/fedora,
+					/obj/item/clothing/under/flappers,
+					/obj/item/clothing/under/mafia,
+					/obj/item/clothing/under/mafia/vest,
+					/obj/item/clothing/under/mafia/white,
+					/obj/item/clothing/under/mafia/sue,
+					/obj/item/clothing/under/mafia/tan,
+					/obj/item/weapon/gun/projectile/shotgun/toy/tommygun,
+					/obj/item/weapon/gun/projectile/shotgun/toy/tommygun)
 	cost = 15
 	containername = "mafia supply crate"
 
@@ -1384,6 +1394,29 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	manifest += "Contains any [num_contained] of:"
 	..()
 
+
+/datum/supply_packs/misc/foamforce
+	name = "Foam Force Crate"
+	contains = list(/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy)
+	cost = 10
+	containername = "foam force crate"
+
+/datum/supply_packs/misc/foamforce/bonus
+	name = "Foam Force Pistols Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/toy/pistol,
+					/obj/item/weapon/gun/projectile/automatic/toy/pistol,
+					/obj/item/ammo_box/magazine/toy/pistol,
+					/obj/item/ammo_box/magazine/toy/pistol)
+	cost = 40
+	containername = "foam force pistols crate"
+	contraband = 1
 
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5

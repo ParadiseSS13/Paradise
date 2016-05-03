@@ -396,16 +396,15 @@
 	faction -= "neutral"
 	faction += "hostile"
 
+/mob/living/carbon/human/interactive/create_mob_hud()
+	if(!hud_used)
+		hud_used = new /datum/hud/human(src)
+
 /mob/living/carbon/human/interactive/New()
 	..()
 	snpc_list += src
 
-	// setup screen HUD because the game expects user mobs to have zone_sel etc
-	if(hud_used)
-		qdel(hud_used)		//remove the hud objects
-		hud_used = null
-	hud_used = new /datum/hud(src)
-	hud_used.human_hud()
+	create_mob_hud()
 
 	sync_mind()
 	random()

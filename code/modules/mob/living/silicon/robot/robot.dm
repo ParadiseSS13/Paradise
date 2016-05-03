@@ -17,7 +17,6 @@ var/list/robot_verbs_default = list(
 
 //Hud stuff
 
-	var/obj/screen/cells = null
 	var/obj/screen/inv1 = null
 	var/obj/screen/inv2 = null
 	var/obj/screen/inv3 = null
@@ -786,6 +785,7 @@ var/list/robot_verbs_default = list(
 		else
 			sleep(6)
 			emagged = 1
+			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			disconnect_from_ai()
@@ -814,6 +814,7 @@ var/list/robot_verbs_default = list(
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
 			to_chat(src, "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands.")
+			SetLockdown(0)
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
 				for(var/obj/item/weapon/pickaxe/drill/cyborg/D in src.module.modules)
 					qdel(D)
@@ -1021,14 +1022,6 @@ var/list/robot_verbs_default = list(
 	if(jetpackoverlay)
 		overlays += "minerjetpack-[icon_state]"
 	update_fire()
-
-//Call when target overlay should be added/removed
-/mob/living/silicon/robot/update_targeted()
-	if(!targeted_by && target_locked)
-		qdel(target_locked)
-	update_icons()
-	if (targeted_by && target_locked)
-		overlays += target_locked
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
@@ -1256,6 +1249,10 @@ var/list/robot_verbs_default = list(
 	// They stay locked down if their wire is cut.
 	if(wires.LockedCut())
 		state = 1
+	if(state)
+		throw_alert("locked", /obj/screen/alert/locked)
+	else
+		clear_alert("locked")
 	lockcharge = state
 	update_canmove()
 

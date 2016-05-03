@@ -30,19 +30,19 @@
 	if(user.mind)
 		if(user.mind.special_role)
 			var/role = lowertext(user.mind.special_role)
-			if(role == "traitor" || role == "syndicate" || role == "syndicate commando")
+			if(role == ROLE_TRAITOR || role == "syndicate" || role == "syndicate commando")
 				message_say = "FOR THE SYNDICATE!"
-			else if(role == "changeling")
+			else if(role == ROLE_CHANGELING)
 				message_say = "FOR THE HIVE!"
-			else if(role == "cultist")
+			else if(role == ROLE_CULTIST)
 				message_say = "FOR NARSIE!"
-			else if(role == "ninja")
+			else if(role == ROLE_NINJA)
 				message_say = "FOR THE CLAN!"
-			else if(role == "wizard")
+			else if(role == ROLE_WIZARD)
 				message_say = "FOR THE FEDERATION!"
-			else if(role =="revolutionary" || role == "head revolutionary")
+			else if(role == ROLE_REV || role == "head revolutionary")
 				message_say = "FOR THE REVOLOUTION!"
-			else if(role == "death commando" || role == "emergency response team")
+			else if(role == "death commando" || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
 
 	user.say(message_say)

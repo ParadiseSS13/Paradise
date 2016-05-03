@@ -84,7 +84,7 @@
 		AI.ai_call_shuttle()
 
 /obj/screen/ai/state_laws
-	name = "State Laws"
+	name = "Law Manager"
 	icon_state = "state_laws"
 
 /obj/screen/ai/state_laws/Click()
@@ -129,7 +129,7 @@
 		AI.aiCamera.viewpictures()
 
 /obj/screen/ai/sensors
-	name = "Sensor Augmentation"
+	name = "Toggle Sensor Augmentation"
 	icon_state = "ai_sensor"
 
 /obj/screen/ai/sensors/Click()
@@ -141,146 +141,86 @@
 		borg.sensor_mode()
 
 
-/datum/hud/proc/ai_hud()
-	adding = list()
-	other = list()
+/mob/living/silicon/ai/create_mob_hud()
+	if(client && !hud_used)
+		hud_used = new /datum/hud/ai(src)
+
+/datum/hud/ai/New(mob/owner)
+	..()
 
 	var/obj/screen/using
 
 //AI core
 	using = new /obj/screen/ai/aicore()
-	using.name = "AI Core"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "ai_core"
 	using.screen_loc = ui_ai_core
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Camera list
 	using = new /obj/screen/ai/camera_list()
-	using.name = "Show Camera List"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "camera"
 	using.screen_loc = ui_ai_camera_list
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Track
 	using = new /obj/screen/ai/camera_track()
-	using.name = "Track With Camera"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "track"
 	using.screen_loc = ui_ai_track_with_camera
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Camera light
 	using = new /obj/screen/ai/camera_light()
-	using.name = "Toggle Camera Light"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "camera_light"
 	using.screen_loc = ui_ai_camera_light
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Crew Monitorting
 	using = new  /obj/screen/ai/crew_monitor()
-	using.name = "Crew Monitoring"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "crew_monitor"
 	using.screen_loc = ui_ai_crew_monitor
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Crew Manifest
 	using = new /obj/screen/ai/crew_manifest()
-	using.name = "Show Crew Manifest"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "manifest"
 	using.screen_loc = ui_ai_crew_manifest
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Alerts
 	using = new /obj/screen/ai/alerts()
-	using.name = "Show Alerts"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "alerts"
 	using.screen_loc = ui_ai_alerts
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Announcement
 	using = new /obj/screen/ai/announcement()
-	using.name = "Announcement"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "announcement"
 	using.screen_loc = ui_ai_announcement
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Shuttle
 	using = new /obj/screen/ai/call_shuttle()
-	using.name = "Call Emergency Shuttle"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "call_shuttle"
 	using.screen_loc = ui_ai_shuttle
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Laws
 	using = new /obj/screen/ai/state_laws()
-	using.name = "Law Manager"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "state_laws"
 	using.screen_loc = ui_ai_state_laws
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //PDA message
 	using = new /obj/screen/ai/pda_msg_send()
-	using.name = "PDA - Send Message"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "pda_send"
 	using.screen_loc = ui_ai_pda_send
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //PDA log
 	using = new /obj/screen/ai/pda_msg_show()
-	using.name = "PDA - Show Message Log"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "pda_receive"
 	using.screen_loc = ui_ai_pda_log
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Take image
 	using = new /obj/screen/ai/image_take()
-	using.name = "Take Image"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "take_picture"
 	using.screen_loc = ui_ai_take_picture
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //View images
 	using = new /obj/screen/ai/image_view()
-	using.name = "View Images"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "view_images"
 	using.screen_loc = ui_ai_view_images
-	using.layer = 20
-	adding += using
+	static_inventory += using
 
 //Medical/Security sensors
 	using = new /obj/screen/ai/sensors()
-	using.name = "Set Sensor Augmentation"
-	using.icon = 'icons/mob/screen_ai.dmi'
-	using.icon_state = "ai_sensor"
 	using.screen_loc = ui_ai_sensor
-	using.layer = 20
-	adding += using
-
-	mymob.client.screen += adding + other
-	return
+	static_inventory += using

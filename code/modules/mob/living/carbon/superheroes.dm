@@ -107,8 +107,8 @@
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/orange(H), slot_back)
 
@@ -126,8 +126,8 @@
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/en(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/en(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/cult(H), slot_back)
 
 

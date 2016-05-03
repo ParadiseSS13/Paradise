@@ -117,7 +117,7 @@ research holder datum.
 		if(DesignHasReqs(PD))
 			AddDesign2Known(PD)
 	for(var/datum/tech/T in known_tech)
-		T = Clamp(T.level, 1, 20)
+		T = Clamp(T.level, 0, 20)
 	for(var/datum/design/D in known_designs)
 		D.CalcReliability(known_tech)
 	return
@@ -242,6 +242,13 @@ datum/tech/syndicate
 	max_level = 0 // Don't count towards maxed research, since it's illegal.
 	rare = 4
 
+/datum/tech/abductor
+	name = "Alien Technologies Research"
+	desc = "The study of technologies used by the advanced alien race known as Abductors."
+	id = "abductor"
+	rare = 5
+	level = 0
+
 /*
 datum/tech/arcane
 	name = "Arcane Research"
@@ -278,8 +285,7 @@ datum/tech/robotics
 		return 0
 
 	var/cost = 0
-	var/i
-	for(i=current_level+1, i<=level, i++)
+	for(var/i=current_level+1, i<=level, i++)
 		if(i == initial(level))
 			continue
 		cost += i*5*rare
