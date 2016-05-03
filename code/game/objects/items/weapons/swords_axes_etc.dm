@@ -10,8 +10,8 @@
  * Banhammer
  */
 /obj/item/weapon/banhammer/attack(mob/M as mob, mob/user as mob)
-	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
-	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
+	to_chat(M, "<font color='red'><b> You have been banned FOR SHITPOSTING by [user]<b></font>")
+	to_chat(user, "<font color='red'> You have <b>BANNED</b> from ATMTA public page. Go check it! [M]</font>")
 
 /*
  * Classic Baton
