@@ -175,15 +175,12 @@ datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
 	metabolization_rate = 0.2
 	overdose_threshold = 133
 
-datum/reagent/porktonium/overdose_process(var/mob/living/M as mob)
-	if(volume > 133)
-		if(prob(15))
-			M.reagents.add_reagent("cholesterol", rand(1,3))
-		if(prob(8))
-			M.reagents.add_reagent("radium", 15)
-			M.reagents.add_reagent("cyanide", 10)
-	..()
-	return
+/datum/reagent/porktonium/overdose_process(var/mob/living/M as mob, severity)
+	if(prob(15))
+		M.reagents.add_reagent("cholesterol", rand(1,3))
+	if(prob(8))
+		M.reagents.add_reagent("radium", 15)
+		M.reagents.add_reagent("cyanide", 10)
 
 /datum/reagent/fungus
 	name = "Space fungus"
@@ -283,11 +280,10 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	color = "#B2B139"
 	overdose_threshold = 50
 
-/datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob)
+/datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob, severity)
 	if(prob(8))
 		to_chat(M, "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>")
 		M.adjustToxLoss(rand(1,2))
-	..()
 
 /datum/reagent/weird_cheese
 	name = "Weird cheese"
@@ -442,7 +438,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	..()
 	return
 
-/datum/reagent/hydrogenated_soybeanoil/overdose_process(var/mob/living/M as mob)
+/datum/reagent/hydrogenated_soybeanoil/overdose_process(var/mob/living/M as mob, severity)
 	if(prob(33))
 		to_chat(M, "<span class='warning'>You feel horribly weak.</span>")
 	if(prob(10))
@@ -453,7 +449,6 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 		M.adjustOxyLoss(25)
 		M.Stun(5)
 		M.Paralyse(10)
-	..()
 
 /datum/chemical_reaction/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"
