@@ -1760,6 +1760,17 @@
 		..()
 		reagents.add_reagent("nutriment", 10)		//Local meme with kotletki.
 
+/obj/item/weapon/reagent_containers/food/snacks/catbread
+	name = "Cat Bread"
+	desc = "Whoever made this, was not thinking about consequences."
+	icon_state = "catbread"
+
+	New()
+		..()
+		reagents.add_reagent("nutriment", 15)
+		reagents.add_reagent("protein", 5)
+		bitesize = 15
+
 /obj/item/weapon/reagent_containers/food/snacks/monkeysdelight
 	name = "monkey's Delight"
 	desc = "Eeee Eee!"
