@@ -500,7 +500,7 @@
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mowhawk"))
+		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))
 			if(prob(10))
 				head_organ.h_style = "Mohawk"
 			else
