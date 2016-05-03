@@ -247,37 +247,7 @@ var/global/list/spider_ckey_blacklist = list()
 		// COMPLETELY PASSIVE
 		return list()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)
-	var/list/Targets = list()
-	if(!HasTargetsList)
-		possible_targets = ListTargets()
-	for(var/atom/A in possible_targets)
-		if(Found(A))//Just in case people want to override targetting
-			Targets = list(A)
-			break
-		if(CanAttack(A))//Can we attack it?
-			Targets += A
-			continue
-	if (Targets.len)
-		var/Target = PickTarget(Targets)
-		GiveTarget(Target)
-		return Target //We now have a target
-	else
-		return
 
-/mob/living/simple_animal/hostile/poison/terror_spider/PickTarget(var/list/Targets)
-	if(!Targets.len)//We didnt find nothin!
-		return
-	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
-		for(var/atom/A in Targets)
-			var/target_dist = get_dist(src, target)
-			var/possible_target_distance = get_dist(src, A)
-			if(target_dist < possible_target_distance)
-				Targets -= A
-	if(!Targets.len)//We didnt find nothin!
-		return
-	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
-	return chosen_target
 
 /mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
 	if (target && isliving(target))
@@ -312,8 +282,6 @@ var/global/list/spider_ckey_blacklist = list()
 				C.toggle_cam(src,0)
 				visible_message("<span class='danger'>\the [src] smashes the [C.name].</span>")
 				playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
-				//C.icon_state = "[initial(C.icon_state)]1"
-				//C.add_hiddenprint(src)
 			else
 				to_chat(src, "The camera is already deactivated.")
 		else
@@ -2421,8 +2389,7 @@ var/global/list/spider_ckey_blacklist = list()
 	for(var/obj/machinery/camera/C in range(14,src))
 		if (C.status)
 			C.toggle_cam(src,0)
-			//C.icon_state = "[initial(C.icon_state)]1"
-			//C.add_hiddenprint(src)
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressMassHallucinate()
 	set name = "Mass Hallucinate"
