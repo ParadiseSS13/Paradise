@@ -60,7 +60,7 @@
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
-			M << 'sound/effects/Heart Beat.ogg'
+			M << 'sound/effects/singlebeat.ogg'
 			M.Paralyse(5)
 			M.Jitter(30)
 			M.adjustToxLoss(6)
@@ -326,30 +326,97 @@
 	name = "Bath Salts"
 	id = "bath_salts"
 	description = "Sometimes packaged as a refreshing bathwater additive, these crystals are definitely not for human consumption."
-	reagent_state = LIQUID
-	color = "#60A584" // rgb: 96, 165, 132
+	reagent_state = SOLID
+	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_chance = 80
 	metabolization_rate = 0.6
 
-
 /datum/reagent/bath_salts/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
-	if(prob(5))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
-	M.AdjustParalysis(-5)
-	M.AdjustStunned(-5)
-	M.AdjustWeakened(-5)
-	M.adjustStaminaLoss(-10)
-	M.adjustBrainLoss(1)
-	M.adjustToxLoss(0.1)
-	M.hallucination += 10
-	if(M.canmove && !istype(M.loc, /turf/space))
-		step(M, pick(cardinal))
-		step(M, pick(cardinal))
+	var/check = rand(0,100)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(check < 8 && H.h_style != "Very Long Beard")
+			H.h_style = "Very Long Hair"
+			H.f_style = "Very Long Beard"
+			H.update_hair()
+			H.update_fhair()
+			H.visible_message("<span class='warning'>[H] has a wild look in their eyes!</span>")
+	if(check < 60)
+		M.SetParalysis(0)
+		M.SetStunned(0)
+		M.SetWeakened(0)
+	if(check < 30)
+		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
+	M.druggy = max(M.druggy, 15)
+	if(check < 20)
+		M.confused += 10
+	if(check < 8)
+		M.reagents.add_reagent(pick("methamphetamine", "crank", "neurotoxin"), rand(1,5))
+		M.visible_message("<span class='warning'>[M] scratches at something under their skin!</span>")
+		M.adjustBruteLoss(5)
+	else if(check < 16)
+		M.hallucination += 30
+	else if(check < 24)
+		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
+	else if(check < 28)
+		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
 	..()
-	return
+
+/datum/reagent/bath_salts/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+	if(method == INGEST)
+		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
+		M << 'sound/effects/singlebeat.ogg'
+		M.emote("faint")
+		M.apply_effect(5, IRRADIATE, negate_armor = 1)
+		M.adjustToxLoss(5)
+		M.adjustBrainLoss(10)
+	else
+		to_chat(M, "<span class='notice'>You feel a bit more salty than usual.</span>")
+
+/datum/reagent/bath_salts/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='danger'>[M] flails around like a lunatic!</span>")
+			M.confused += 25
+			M.Jitter(10)
+			M.emote("scream")
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 4)
+			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
+			M.emote("twitch_s")
+			M.adjustToxLoss(2)
+			M.adjustBrainLoss(1)
+			M.Stun(3)
+			M.eye_blurry = max(M.eye_blurry, 7)
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 7)
+			M.emote("faint")
+			M.reagents.add_reagent("jagged_crystals", 5)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
+			M.adjustToxLoss(2)
+			M.adjustBrainLoss(1)
+			M.Stun(3)
+			M.eye_blurry = max(M.eye_blurry, 7)
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 4)
+			M.visible_message("<span class='danger'>[M] convulses violently and falls to the floor!</span>")
+			M.Jitter(50)
+			M.adjustToxLoss(2)
+			M.adjustBrainLoss(1)
+			M.Weaken(8)
+			M.emote("gasp")
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 7)
+			M.emote("scream")
+			M.visible_message("<span class='danger'>[M] tears at their own skin!</span>")
+			M.adjustBruteLoss(5)
+			M.reagents.add_reagent("jagged_crystals", 5)
+			M.emote("twitch")
 
 /datum/chemical_reaction/bath_salts
 	name = "bath_salts"
@@ -361,18 +428,37 @@
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
-/datum/reagent/bath_salts/overdose_process(var/mob/living/M as mob, severity)
-	M.hallucination += 10
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 8, i++)
-			step(M, pick(cardinal))
-	if(prob(20))
-		M.emote(pick("twitch","drool","moan"))
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-	return
+/datum/chemical_reaction/jenkem
+	name = "Jenkem"
+	id = "jenkem"
+	result = "jenkem"
+	required_reagents = list("toiletwater" = 1, "ammonia" = 1, "water" = 1)
+	result_amount = 3
+	mix_message = "The mixture ferments into a filthy morass."
+	mix_sound = 'sound/effects/blobattack.ogg'
+
+/datum/chemical_reaction/jenkem/on_reaction(var/datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	for(var/mob/living/carbon/C in range(T, 1))
+		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+			C.reagents.add_reagent("jenkem", 25)
+
+/datum/reagent/jenkem
+	name = "Jenkem"
+	id = "jenkem"
+	description = "Jenkem is a prison drug made from fermenting feces in a solution of urine. Extremely disgusting."
+	reagent_state = LIQUID
+	color = "#644600"
+	addiction_chance = 30
+
+/datum/reagent/jenkem/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.Dizzy(5)
+	if(prob(10))
+		M.emote(pick("twitch_s","drool","moan"))
+		M.adjustToxLoss(1)
+	..()
 
 /datum/chemical_reaction/aranesp
 	name = "Aranesp"

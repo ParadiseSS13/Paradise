@@ -87,7 +87,7 @@
 			M.Weaken(8)
 		else if(effect <= 7)
 			to_chat(M, "<span class='warning'>Your heartbeat is pounding inside your head!</span>")
-			M << 'sound/effects/Heart Beat.ogg'
+			M << 'sound/effects/singlebeat.ogg'
 			M.emote("collapse")
 			M.adjustOxyLoss(8)
 			M.adjustToxLoss(3)
