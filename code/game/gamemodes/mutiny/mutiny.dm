@@ -16,7 +16,7 @@ datum/game_mode/mutiny
 
 	name = "mutiny"
 	config_tag = "mutiny"
-	required_players = 7
+	required_players = 20
 	ert_disabled = 1
 
 	uplink_welcome = "Mutineers Uplink Console:"

@@ -69,7 +69,6 @@ Made by Xhuis
 	name = "shadowling"
 	config_tag = "shadowling"
 	required_players = 30
-	required_players_secret = 30
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
