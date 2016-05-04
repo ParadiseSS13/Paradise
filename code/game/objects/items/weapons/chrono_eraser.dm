@@ -156,7 +156,7 @@
 
 /obj/effect/chrono_field/New(loc, var/mob/living/target, var/obj/item/weapon/gun/energy/chrono_gun/G)
 	if(target && isliving(target) && G)
-		target.loc = src
+		target.forceMove(src)
 		src.captured = target
 		var/icon/mob_snapshot = getFlatIcon(target)
 		var/icon/cached_icon = new()
@@ -191,7 +191,7 @@
 	if(captured)
 		if(tickstokill > initial(tickstokill))
 			for(var/atom/movable/AM in contents)
-				AM.loc = loc
+				AM.forceMove(loc)
 			qdel(src)
 		else if(tickstokill <= 0)
 			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>")
@@ -208,7 +208,7 @@
 			if(captured.reagents)
 				captured.reagents.del_reagent("synaptizine") //you pesky thing you
 			if(captured.loc != src) //If they manage to escape, immediately kill them, this is so that even if there IS a way to get out, they won't use it
-				captured.loc = src
+				captured.forceMove(src)
 				tickstokill = 0
 				return .()
 			update_icon()

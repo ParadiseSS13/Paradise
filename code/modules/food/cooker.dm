@@ -70,7 +70,7 @@
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(location)
 		oil.name = "fat"
 		oil.desc = "uh oh, looks like some fat from the [src]"
-		oil.loc = location
+		oil.forceMove(location)
 		location.hotspot_expose(700, 50, 1)
 		//TODO have a chance of setting the tile on fire
 
@@ -83,7 +83,7 @@
 	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
 	on = 1
 	chef.drop_item()
-	tocook.loc = src
+	tocook.forceMove(src)
 
 // Override this with the correct snack type
 /obj/machinery/cooker/proc/gettype()

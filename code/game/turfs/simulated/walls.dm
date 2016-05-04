@@ -163,7 +163,7 @@
 			var/obj/structure/sign/poster/P = O
 			P.roll_and_drop(src)
 		else
-			O.loc = src
+			O.forceMove(src)
 
 	ChangeTurf(/turf/simulated/floor/plating)
 
@@ -447,7 +447,7 @@
 				P.x = src.x
 				P.y = src.y
 				P.z = src.z
-				P.loc = src
+				P.forceMove(src)
 				P.level = 2
 		return
 	// The magnetic gripper does a separate attackby, so bail from this one

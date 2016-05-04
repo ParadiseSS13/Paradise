@@ -48,7 +48,7 @@
 	if(istype(W, /obj/item/weapon/stock_parts/micro_laser))
 		if(!diode)
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			diode = W
 			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
 		else
@@ -57,7 +57,7 @@
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(diode)
 			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
-			diode.loc = get_turf(src.loc)
+			diode.forceMove(get_turf(src.loc))
 			diode = null
 			return
 		..()

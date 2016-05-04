@@ -51,7 +51,7 @@
 		if(w.isOn())
 			if(w.get_fuel() >= 4 && !src.method)
 				if(inside)
-					inside.loc = get_turf(src)
+					inside.forceMove(get_turf(src))
 					for(var/mob/M in viewers(world.view, user))
 						M.show_message("<span class='info'>[src] burns away revealing [inside].</span>",1)
 				else
@@ -387,14 +387,14 @@
 						if(new_gun.loaded.len > num_bullets)
 							if(I in new_gun.loaded)
 								new_gun.loaded.Remove(I)
-								I.loc = null
+								I.forceMove(null)
 						else
 							break
 			else
 				for(var/obj/item/I in new_gun)
 					if(I in new_gun.loaded)
 						new_gun.loaded.Remove(I)
-						I.loc = null
+						I.forceMove(null)
 
 			item_type = "gun"*/
 		if(28)

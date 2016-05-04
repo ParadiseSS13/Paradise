@@ -745,13 +745,13 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/proc/AttachPhoto(mob/user as mob)
 	if(photo)
 		if(!issilicon(user))
-			photo.loc = src.loc
+			photo.forceMove(src.loc)
 			user.put_in_inactive_hand(photo)
 		photo = null
 	if(istype(user.get_active_hand(), /obj/item/weapon/photo))
 		photo = user.get_active_hand()
 		user.drop_item()
-		photo.loc = src
+		photo.forceMove(src)
 	else if(istype(user,/mob/living/silicon))
 		var/mob/living/silicon/tempAI = user
 		var/obj/item/device/camera/siliconcam/camera = tempAI.aiCamera
@@ -947,7 +947,7 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob, pa
 		NEWSPAPER.news_content += FC
 	if(news_network.wanted_issue)
 		NEWSPAPER.important_message = news_network.wanted_issue
-	NEWSPAPER.loc = get_turf(src)
+	NEWSPAPER.forceMove(get_turf(src))
 	src.paper_remaining--
 	return
 

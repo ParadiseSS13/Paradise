@@ -66,7 +66,7 @@
 
 /mob/living/carbon/brain/on_forcemove(atom/newloc)
 	if(container)
-		container.loc = newloc
+		container.forceMove(newloc)
 	else //something went very wrong.
 		CRASH("Brainmob without container.")
 	loc = container

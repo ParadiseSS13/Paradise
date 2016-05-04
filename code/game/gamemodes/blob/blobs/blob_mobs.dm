@@ -86,7 +86,7 @@
 	H.update_hair()
 	human_overlays = H.overlays
 	update_icons()
-	H.loc = src
+	H.forceMove(src)
 	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death()
@@ -116,7 +116,7 @@
 	factory = null
 	if(contents)
 		for(var/mob/M in contents)
-			M.loc = get_turf(src)
+			M.forceMove(get_turf(src))
 	return ..()
 
 

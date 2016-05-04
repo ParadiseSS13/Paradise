@@ -44,7 +44,7 @@
 
 /mob/living/carbon/slime/proc/Feedon(var/mob/living/M)
 	Victim = M
-	src.loc = M.loc
+	src.forceMove(M.loc)
 	canmove = 0
 	anchored = 1
 	var/lastnut = nutrition

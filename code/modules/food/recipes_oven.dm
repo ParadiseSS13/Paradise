@@ -178,9 +178,9 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/fortunecookie
 	make_food(var/obj/container as obj)
 		var/obj/item/weapon/paper/paper = locate() in container
-		paper.loc = null //prevent deletion
+		paper.forceMove(null) //prevent deletion
 		var/obj/item/weapon/reagent_containers/food/snacks/fortunecookie/being_cooked = ..(container)
-		paper.loc = being_cooked
+		paper.forceMove(being_cooked)
 		being_cooked.trash = paper //so the paper is left behind as trash without special-snowflake(TM Nodrak) code ~carn
 		return being_cooked
 	check_items(var/obj/container as obj)

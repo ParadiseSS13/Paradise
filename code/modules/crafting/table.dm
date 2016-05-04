@@ -80,7 +80,7 @@
 			for(var/A in parts)
 				if(istype(A, /obj/item))
 					var/atom/movable/B = A
-					B.loc = I
+					B.forceMove(I)
 				else
 					if(!I.reagents)
 						I.reagents = new /datum/reagents()
@@ -103,7 +103,7 @@
 				for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in loc)
 					if(G.seed && G.seed.kitchen_tag && (G.seed.kitchen_tag == A))
 						amt--
-						G.loc = null	//remove it from the table loc so that we don't locate the same fruit every time
+						G.forceMove(null)	//remove it from the table loc so that we don't locate the same fruit every time
 						if(reagenttransfer)
 							G.reagents.trans_to(resultobject, G.reagents.total_volume)
 						qdel(G)
@@ -132,7 +132,7 @@
 						while(amt > 0)
 							I = locate(B) in loc
 							Deletion.Add(I)
-							I.loc = null //remove it from the table loc so that we don't locate the same item every time (will be relocated inside the crafted item in construct_item())
+							I.forceMove(null) //remove it from the table loc so that we don't locate the same item every time (will be relocated inside the crafted item in construct_item())
 							amt--
 							if(reagenttransfer && istype(I,/obj/item/weapon/reagent_containers))
 								var/obj/item/weapon/reagent_containers/RC = I

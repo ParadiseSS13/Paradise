@@ -205,7 +205,7 @@
 			if((canmove && tmob.canmove) && (!tmob.buckled && !tmob.buckled_mob))
 				var/turf/oldloc = loc
 				loc = tmob.loc
-				tmob.loc = oldloc
+				tmob.forceMove(oldloc)
 				now_pushing = 0
 				for(var/mob/living/carbon/slime/slime in view(1,tmob))
 					if(slime.Victim == tmob)

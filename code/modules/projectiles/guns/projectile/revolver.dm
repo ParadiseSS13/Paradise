@@ -29,7 +29,7 @@
 		var/obj/item/ammo_casing/AC = A
 		if(magazine.give_round(AC))
 			user.drop_item()
-			AC.loc = src
+			AC.forceMove(src)
 			num_loaded++
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
@@ -43,7 +43,7 @@
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
 		chambered = null
-		CB.loc = get_turf(src.loc)
+		CB.forceMove(get_turf(src.loc))
 		CB.SpinAnimation(10, 1)
 		CB.update_icon()
 		num_unloaded++

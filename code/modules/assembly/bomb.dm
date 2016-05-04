@@ -31,11 +31,11 @@
 
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 
-		bombassembly.loc = user.loc
+		bombassembly.forceMove(user.loc)
 		bombassembly.master = null
 		bombassembly = null
 
-		bombtank.loc = user.loc
+		bombtank.forceMove(user.loc)
 		bombtank.master = null
 		bombtank = null
 
@@ -107,11 +107,11 @@
 
 	R.bombassembly = S	//Tell the bomb about its assembly part
 	S.master = R		//Tell the assembly about its new owner
-	S.loc = R			//Move the assembly out of the fucking way
+	S.forceMove(R)			//Move the assembly out of the fucking way
 
 	R.bombtank = src	//Same for tank
 	master = R
-	loc = R
+	forceMove(R)
 	R.update_icon()
 	return
 

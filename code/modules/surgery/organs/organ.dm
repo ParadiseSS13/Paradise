@@ -316,7 +316,7 @@ var/list/organ_cache = list()
 	affected.internal_organs |= src
 	if (!target.get_int_organ(src))
 		target.internal_organs += src
-	src.loc = target
+	src.forceMove(target)
 	if(robotic)
 		status |= ORGAN_ROBOT
 

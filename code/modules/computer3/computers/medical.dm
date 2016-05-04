@@ -170,7 +170,7 @@
 				if(istype(usr,/mob/living/carbon/human) && !usr.get_active_hand())
 					computer.cardslot.remove(1)
 				else
-					scan.loc = get_turf(src)
+					scan.forceMove(get_turf(src))
 				scan = null
 			else
 				var/obj/item/I = usr.get_active_hand()
@@ -183,7 +183,7 @@
 				if(istype(usr,/mob/living/carbon/human) && !usr.get_active_hand())
 					computer.cardslot.remove(2)
 				else
-					scan2.loc = get_turf(src)
+					scan2.forceMove(get_turf(src))
 				scan2 = null
 			else
 				var/obj/item/I = usr.get_active_hand()

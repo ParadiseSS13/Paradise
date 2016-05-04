@@ -17,7 +17,7 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 
 /obj/cult_viewpoint/New(var/mob/target)
 	owner = target
-	//src.loc = owner
+	//src.forceMove(owner)
 	cult_viewpoints+=src
 	//handle_missing_mask()
 	..()

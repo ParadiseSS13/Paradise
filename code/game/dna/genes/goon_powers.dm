@@ -202,7 +202,7 @@
 
 	New(var/atom/location, var/icon/I, var/duration = 20, var/oname = "something")
 		src.name = oname
-		loc=location
+		loc = location
 		src.icon = I
 		spawn(duration)
 			qdel(src)

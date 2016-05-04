@@ -105,7 +105,7 @@
 				spread_germs_to_organ(src,user)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
-					removing.loc = get_turf(user.loc)
+					removing.forceMove(get_turf(user.loc))
 					var/obj/item/organ/internal/O = removing
 					if(istype(O))
 						O.status |= ORGAN_CUT_AWAY
@@ -327,7 +327,7 @@ This function completely restores a damaged organ to perfect condition.
 	// remove embedded objects and drop them on the floor
 	for(var/obj/implanted_object in implants)
 		if(!istype(implanted_object,/obj/item/weapon/implant))	// We don't want to remove REAL implants. Just shrapnel etc.
-			implanted_object.loc = owner.loc
+			implanted_object.forceMove(owner.loc)
 			implants -= implanted_object
 
 	owner.updatehealth()
@@ -880,7 +880,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(ismob(W.loc))
 		var/mob/living/H = W.loc
 		H.drop_item()
-	W.loc = owner
+	W.forceMove(owner)
 
 /obj/item/organ/external/proc/open_enough_for_surgery()
 	return (encased ? (open == 3) : (open == 2))

@@ -321,7 +321,7 @@
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
 	if(!buckled_mob.Move(newloc, direct))
-		loc = buckled_mob.loc
+		forceMove(buckled_mob.loc)
 		last_move = buckled_mob.last_move
 		inertia_dir = last_move
 		buckled_mob.inertia_dir = last_move

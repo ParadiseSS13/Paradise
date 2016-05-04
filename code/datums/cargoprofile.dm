@@ -53,7 +53,7 @@
 			var/obj/item/I = W
 			if(I.w_class > remaining)
 				return 0
-			I.loc = master
+			I.forceMove(master)
 			master.types[W.type] = src
 			return I.w_class
 
@@ -62,7 +62,7 @@
 			if(remaining < BIG_OBJECT_WORK)
 				return 0
 			var/obj/O = W
-			O.loc = master
+			O.forceMove(master)
 			master.types[O.type] = src
 			return BIG_OBJECT_WORK
 
@@ -89,7 +89,7 @@
 
 		if(istype(W,/obj))
 			var/obj/O = W
-			O.loc = master.loc
+			O.forceMove(master.loc)
 			O.dir = master.outdir
 			O.throw_at(D,eject_speed,eject_speed)
 			return
@@ -356,7 +356,7 @@
 				return
 			if(O.w_class > (remaining - I))
 				continue
-			O.loc = master
+			O.forceMove(master)
 			master.types[O.type] = src
 			if(O.w_class > 0)
 				I += O.w_class
@@ -397,7 +397,7 @@
 					I.amount = leftover
 					continue
 			//end for
-			I.loc = master
+			I.forceMove(master)
 			master.types[I.type] = src
 			return I.w_class
 		if(istype(W,/obj/item/stack/cable_coil))
@@ -416,7 +416,7 @@
 					I.amount = leftover
 					continue
 			//end for
-			I.loc = master
+			I.forceMove(master)
 			master.types[I.type] = src
 			return I.w_class
 
@@ -480,7 +480,7 @@
 					I.amount = leftover
 					continue
 			//end for
-			I.loc = D
+			I.forceMove(D)
 			return
 		if(istype(W,/obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/I = W
@@ -496,7 +496,7 @@
 					I.amount = leftover
 					continue
 			//end for
-			I.loc = D
+			I.forceMove(D)
 			return
 
 
@@ -646,7 +646,7 @@
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
-			M.loc = master
+			M.forceMove(master)
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
 			M.visible_message("\red [M.name] gets pulled into the machine!")
@@ -663,7 +663,7 @@
 			to_chat(M, "The machine is tearing you apart!")
 			master.visible_message("\red [master] makes a squishy grinding noise.")
 			return
-		M.loc = master.loc
+		M.forceMove(master.loc)
 		M.gib()
 		return
 
@@ -702,7 +702,7 @@
 			if(M.client)
 				M.client.eye = master
 				M.client.perspective = EYE_PERSPECTIVE
-			M.loc = master
+			M.forceMove(master)
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
 			M.visible_message("\red [M.name] gets pulled into the machine!")
@@ -710,7 +710,7 @@
 
 	outlet_reaction(var/atom/W,var/turf/D)
 		var/mob/living/M = W
-		M.loc = master.loc
+		M.forceMove(master.loc)
 		M.dir = master.outdir
 		if(M.client)
 			M.client.eye = M.client.mob

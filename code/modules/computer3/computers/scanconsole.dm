@@ -1012,7 +1012,7 @@
 			var/obj/item/tool/medical/dnainjector/I = new /obj/item/tool/medical/dnainjector
 			I.dna = buffer1
 			I.dnatype = buffer1type
-			I.loc = loc
+			I.forceMove(loc)
 			I.name += " ([buffer1label])"
 			if (buffer1iue) I.ue = buffer1owner //lazy haw haw
 			temp_html = "Injector created."
@@ -1028,7 +1028,7 @@
 			var/obj/item/tool/medical/dnainjector/I = new /obj/item/tool/medical/dnainjector
 			I.dna = buffer2
 			I.dnatype = buffer2type
-			I.loc = loc
+			I.forceMove(loc)
 			I.name += " ([buffer2label])"
 			if (buffer2iue) I.ue = buffer2owner //lazy haw haw
 			temp_html = "Injector created."
@@ -1044,7 +1044,7 @@
 			var/obj/item/tool/medical/dnainjector/I = new /obj/item/tool/medical/dnainjector
 			I.dna = buffer3
 			I.dnatype = buffer3type
-			I.loc = loc
+			I.forceMove(loc)
 			I.name += " ([buffer3label])"
 			if (buffer3iue) I.ue = buffer3owner //lazy haw haw
 			temp_html = "Injector created."
@@ -1109,7 +1109,7 @@
 	if (href_list["eject_disk"])
 		if (!diskette)
 			return
-		diskette.loc = get_turf(src)
+		diskette.forceMove(get_turf(src))
 		diskette = null
 	////////////////////////////////////////////////////////
 

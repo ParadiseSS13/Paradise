@@ -790,7 +790,7 @@ var/global/list/multiverse = list()
 	if(!link)
 		if(I.loc == user && istype(I) && I.w_class <= 2)
 			user.drop_item()
-			I.loc = src
+			I.forceMove(src)
 			link = I
 			to_chat(user, "You attach [I] to the doll.")
 			update_targets()
@@ -805,7 +805,8 @@ var/global/list/multiverse = list()
 	if(user.zone_sel.selecting == "chest")
 		if(link)
 			target = null
-			link.loc = get_turf(src)
+			var/obj/item/L = link
+			L.forceMove(get_turf(src))
 			to_chat(user, "<span class='notice'>You remove the [link] from the doll.</span>")
 			link = null
 			update_targets()

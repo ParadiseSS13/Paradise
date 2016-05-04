@@ -269,7 +269,7 @@ var/global/list/all_money_accounts = list()
 		var/obj/item/weapon/card/id/idcard = O
 		if(!held_card)
 			usr.drop_item()
-			idcard.loc = src
+			idcard.forceMove(src)
 			held_card = idcard
 
 			if(access_cent_captain in idcard.access)
@@ -309,7 +309,7 @@ var/global/list/all_money_accounts = list()
 				creating_new_account = 0
 			if("insert_card")
 				if(held_card)
-					held_card.loc = src.loc
+					held_card.forceMove(src.loc)
 
 					if(ishuman(usr) && !usr.get_active_hand())
 						usr.put_in_hands(held_card)
@@ -321,7 +321,7 @@ var/global/list/all_money_accounts = list()
 					if (istype(I, /obj/item/weapon/card/id))
 						var/obj/item/weapon/card/id/C = I
 						usr.drop_item()
-						C.loc = src
+						C.forceMove(src)
 						held_card = C
 
 						if(access_cent_captain in C.access)

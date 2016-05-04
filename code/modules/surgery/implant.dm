@@ -199,7 +199,7 @@
 				affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
 			user.drop_item()
 			target.internal_organs += tool
-			tool.loc = target
+			tool.forceMove(target)
 			affected.cavity = 0
 			return 1
 	else
@@ -274,7 +274,7 @@
 
 		if(case && !case.imp)
 			case.imp = I
-			I.loc = case
+			I.forceMove(case)
 			case.update_icon()
 			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
 		else

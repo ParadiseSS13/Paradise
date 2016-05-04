@@ -269,7 +269,7 @@
 			if(!S.amount)
 				qdel(S)
 			else
-				S.loc = src
+				S.forceMove(src)
 
 		orient2hud(usr)
 		if(usr.s_active)
@@ -452,7 +452,7 @@
 		var droppedSomething = 0
 
 		for(var/obj/item/I in contents)
-			I.loc = dropspot
+			I.forceMove(dropspot)
 			contents.Remove(I)
 			droppedSomething = 1
 			if(!foundtable && isturf(dropspot))

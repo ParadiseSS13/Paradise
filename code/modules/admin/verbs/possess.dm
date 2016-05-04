@@ -19,7 +19,7 @@
 	if(!usr.control_object) //If you're not already possessing something...
 		usr.name_archive = usr.real_name
 
-	usr.loc = O
+	usr.forceMove(O)
 	usr.real_name = O.name
 	usr.name = O.name
 	usr.client.eye = O
@@ -29,7 +29,7 @@
 /proc/release(obj/O as obj in world)
 	set name = "Release Obj"
 	set category = null
-	//usr.loc = get_turf(usr)
+	//usr.forceMove(get_turf(usr))
 
 	if(usr.control_object && usr.name_archive) //if you have a name archived and if you are actually relassing an object
 		usr.real_name = usr.name_archive
@@ -39,7 +39,7 @@
 			H.name = H.get_visible_name()
 //		usr.regenerate_icons() //So the name is updated properly
 
-	usr.loc = O.loc // Appear where the object you were controlling is -- TLE
+	usr.forceMove(O.loc) // Appear where the object you were controlling is -- TLE
 	usr.client.eye = usr
 	usr.control_object = null
 	feedback_add_details("admin_verb","RO") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

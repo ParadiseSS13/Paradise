@@ -143,10 +143,10 @@
 #define STAGE_SIX 11 //From supermatter shard
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
-	dview_mob.loc = center; \
+	dview_mob.forceMove(center); \
 	dview_mob.see_invisible = invis_flags; \
 	for(type in view(range, dview_mob))
-#define END_FOR_DVIEW dview_mob.loc = null
+#define END_FOR_DVIEW dview_mob.forceMove(null)
 
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50

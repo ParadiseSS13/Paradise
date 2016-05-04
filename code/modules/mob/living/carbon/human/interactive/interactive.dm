@@ -224,7 +224,7 @@
 
 	var/doTele = input("Place the SNPC in their department?") as anything in list("Yes", "No")
 	if(doTele == "Yes")
-		T.loc = pick(get_area_turfs(T.job2area(T.myjob)))
+		T.forceMove(pick(get_area_turfs(T.job2area(T.myjob))))
 
 	T.revive()
 
@@ -542,7 +542,7 @@
 	var/list/slots = list("left pocket" = slot_l_store, "right pocket" = slot_r_store, "left hand" = slot_l_hand, "right hand" = slot_r_hand)
 	if(hands)
 		slots = list("left hand" = slot_l_hand, "right hand" = slot_r_hand)
-	G.loc = src
+	G.forceMove(src)
 	if(G.force && G.force > best_force)
 		best_force = G.force
 	equip_in_one_of_slots(G, slots)

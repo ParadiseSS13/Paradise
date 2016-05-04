@@ -445,7 +445,7 @@
 			spread_germs_to_organ(I, user)
 			I.status |= ORGAN_CUT_AWAY
 			I.remove(target)
-			I.loc = get_turf(target)
+			I.forceMove(get_turf(target))
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")

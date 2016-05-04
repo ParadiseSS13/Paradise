@@ -42,7 +42,7 @@
 		if (H==usr && !H.restrained() && !H.stat && in_range(src, over_object))
 			var/obj/item/weapon/stool/S = new/obj/item/weapon/stool()
 			S.origin = src
-			src.loc = S
+			src.forceMove(S)
 			H.put_in_hands(S)
 			H.visible_message("\red [H] grabs [src] from the floor!", "\red You grab [src] from the floor!")
 
@@ -58,7 +58,7 @@
 
 /obj/item/weapon/stool/attack_self(mob/user as mob)
 	..()
-	origin.loc = get_turf(src)
+	origin.forceMove(get_turf(src))
 	user.unEquip(src)
 	user.visible_message("\blue [user] puts [src] down.", "\blue You put [src] down.")
 	qdel(src)
@@ -68,7 +68,7 @@
 		user.visible_message("\red [user] breaks [src] over [M]'s back!.")
 		user.unEquip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
-		m.loc = get_turf(src)
+		m.forceMove(get_turf(src))
 		qdel(src)
 		var/mob/living/T = M
 		T.Weaken(5)

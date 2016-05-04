@@ -32,7 +32,7 @@
 		new prize(get_turf(src), prize_amount)
 	else
 		var/atom/movable/prize = pick(contents)
-		prize.loc = get_turf(src)
+		prize.forceMove(get_turf(src))
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	..(severity)

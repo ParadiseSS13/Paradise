@@ -102,13 +102,13 @@ var/time_last_changed_position = 0
 
 	if(scan)
 		to_chat(usr, "You remove \the [scan] from \the [src].")
-		scan.loc = get_turf(src)
+		scan.forceMove(get_turf(src))
 		if(!usr.get_active_hand())
 			usr.put_in_hands(scan)
 		scan = null
 	else if(modify)
 		to_chat(usr, "You remove \the [modify] from \the [src].")
-		modify.loc = get_turf(src)
+		modify.forceMove(get_turf(src))
 		if(!usr.get_active_hand())
 			usr.put_in_hands(modify)
 		modify = null
@@ -122,11 +122,11 @@ var/time_last_changed_position = 0
 
 	if(!scan && access_change_ids in id_card.access)
 		user.drop_item()
-		id_card.loc = src
+		id_card.forceMove(src)
 		scan = id_card
 	else if(!modify)
 		user.drop_item()
-		id_card.loc = src
+		id_card.forceMove(src)
 		modify = id_card
 
 	nanomanager.update_uis(src)
@@ -256,35 +256,35 @@ var/time_last_changed_position = 0
 				data_core.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
-					modify.loc = usr.loc
+					modify.forceMove(usr.loc)
 					if(!usr.get_active_hand())
 						usr.put_in_hands(modify)
 					modify = null
 				else
-					modify.loc = loc
+					modify.forceMove(loc)
 					modify = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
-					I.loc = src
+					I.forceMove(src)
 					modify = I
 
 		if ("scan")
 			if (scan)
 				if(ishuman(usr))
-					scan.loc = usr.loc
+					scan.forceMove(usr.loc)
 					if(!usr.get_active_hand())
 						usr.put_in_hands(scan)
 					scan = null
 				else
-					scan.loc = src.loc
+					scan.forceMove(src.loc)
 					scan = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
-					I.loc = src
+					I.forceMove(src)
 					scan = I
 
 		if("access")

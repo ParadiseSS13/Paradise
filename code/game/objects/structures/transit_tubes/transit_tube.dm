@@ -30,7 +30,7 @@ obj/structure/transit_tube/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/AM in contents)
-				AM.loc = loc
+				AM.forceMove(loc)
 				AM.ex_act(severity++)
 
 			qdel(src)
@@ -38,7 +38,7 @@ obj/structure/transit_tube/ex_act(severity)
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/AM in contents)
-					AM.loc = loc
+					AM.forceMove(loc)
 					AM.ex_act(severity++)
 
 				qdel(src)

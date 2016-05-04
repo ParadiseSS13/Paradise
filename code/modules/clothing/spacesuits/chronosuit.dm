@@ -83,7 +83,7 @@
 		user.ExtinguishMob()
 		if(user.buckled)
 			user.buckled.unbuckle_mob()
-		user.loc = holder
+		user.forceMove(holder)
 		flick("chronophase", phaseanim)
 		spawn(7)
 			if(user)
@@ -93,11 +93,11 @@
 						flick("chronounphase", phaseanim)
 					else
 						flick("chronostuck", phaseanim)
-					phaseanim.loc = to_turf
+					phaseanim.forceMove(to_turf)
 					sleep(7)
 			if(holder)
 				if(user && user in holder.contents)
-					user.loc = to_turf
+					user.forceMove(to_turf)
 					if(user.client)
 						if(camera)
 							user.client.eye = camera
@@ -105,12 +105,12 @@
 							user.client.eye = user
 				qdel(holder)
 			else if(user)
-				user.loc = from_turf
+				user.forceMove(from_turf)
 			if(phaseanim)
 				qdel(phaseanim)
 			teleporting = 0
 			if(user && !user.loc) //ubersanity
-				user.loc = locate(0,0,1)
+				user.forceMove(locate(0,0,1))
 				user.gib()
 
 /obj/item/clothing/suit/space/chronos/process()
@@ -191,15 +191,15 @@
 	if(holder)
 		if(user == holder)
 			if(user.client && user.client.eye != src)
-				src.loc = get_turf(user)
+				src.forceMove(get_turf(user))
 				user.client.eye = src
 			var/step = get_step(src, direction)
 			if(step)
 				if(istype(step, /turf/space))
 					if(!src.Move(step))
-						src.loc = step
+						src.forceMove(step)
 				else
-					src.loc = step
+					src.forceMove(step)
 	else
 		qdel(src)
 

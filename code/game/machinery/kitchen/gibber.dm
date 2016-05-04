@@ -23,7 +23,7 @@
 /obj/machinery/gibber/Destroy()
 	if(contents.len)
 		for(var/atom/movable/A in contents)
-			A.loc = get_turf(src)
+			A.forceMove(get_turf(src))
 	if(occupant)	occupant = null
 	return ..()
 
@@ -155,7 +155,7 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
@@ -184,14 +184,14 @@
 	holder.overlays += feedee //add occupant to holder overlays
 	holder.pixel_y = 25 //above the gibber
 	holder.pixel_x = 2
-	holder.loc = get_turf(src)
+	holder.forceMove(get_turf(src))
 	holder.layer = MOB_LAYER //simulate mob-like layering
 	holder.anchored = 1
 
 	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
 	holder2.name = null
 	holder2.overlays += gibberoverlay
-	holder2.loc = get_turf(src)
+	holder2.forceMove(get_turf(src))
 	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
 	holder2.anchored = 1
 
@@ -282,12 +282,12 @@
 		operating = 0
 
 		for (var/obj/item/thing in contents) //Meat is spawned inside the gibber and thrown out afterwards.
-			thing.loc = get_turf(thing) // Drop it onto the turf for throwing.
+			thing.forceMove(get_turf(thing)) // Drop it onto the turf for throwing.
 			thing.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15) // Being pelted with bits of meat and bone would hurt.
 			sleep(1)
 
 		for (var/obj/effect/gibs in contents) //throw out the gibs too
-			gibs.loc = get_turf(gibs) //drop onto turf for throwing
+			gibs.forceMove(get_turf(gibs)) //drop onto turf for throwing
 			gibs.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 			sleep(1)
 
@@ -367,7 +367,7 @@
 		if(O.flags & NODROP)
 			qdel(O) //they are already dead by now
 		H.unEquip(O)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 		O.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 		sleep(1)
 
@@ -375,7 +375,7 @@
 		if(C.flags & NODROP)
 			qdel(C)
 		H.unEquip(C)
-		C.loc = src.loc
+		C.forceMove(src.loc)
 		C.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 		sleep(1)
 
@@ -385,7 +385,7 @@
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
 	for(var/obj/O in src)
 		if(istype(O))
-			O.loc = src.loc
+			O.forceMove(src.loc)
 			O.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 			spats++
 			sleep(1)

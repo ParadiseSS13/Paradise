@@ -119,7 +119,7 @@
 /mob/camera/blob/Move(var/NewLoc, var/Dir = 0)
 	var/obj/effect/blob/B = locate() in range("3x3", NewLoc)
 	if(B)
-		loc = NewLoc
+		forceMove(NewLoc)
 	else
 		return 0
 

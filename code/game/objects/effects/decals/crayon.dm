@@ -9,7 +9,7 @@
 
 /obj/effect/decal/cleanable/crayon/New(location, main = "#FFFFFF", var/type = "rune1", var/e_name = "rune")
 	..()
-	loc = location
+	forceMove(location)
 
 	name = e_name
 	desc = "A [name] drawn in crayon."

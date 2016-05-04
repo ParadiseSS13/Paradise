@@ -26,7 +26,7 @@
 	if((istype(I, ammo_type)))
 		if(grenades.len < max_grenades)
 			user.drop_item()
-			I.loc = src
+			I.forceMove(src)
 			grenades += I
 			to_chat(user, "\blue You put the [ammo_name] in the [name].")
 			to_chat(user, "\blue [grenades.len] / [max_grenades] [ammo_name]s.")
@@ -55,7 +55,7 @@
 	to_chat(user, "\red You fire the [name]!")
 	var/obj/item/weapon/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
 	grenades -= F
-	F.loc = user.loc
+	F.forceMove(user.loc)
 	F.throw_at(target, 30, 2, user)
 	message_admins("[key_name_admin(user)] fired a [ammo_name] ([F.name]) from a launcher ([name]).")
 	log_game("[key_name_admin(user)] used a [ammo_name] ([name]).")
@@ -91,7 +91,7 @@
 	if((istype(I, ammo_type)))
 		if(grenades.len < max_grenades)
 			user.drop_item()
-			I.loc = src
+			I.forceMove(src)
 			grenades += I
 			to_chat(user, "\blue You put the [ammo_name] in the [name].")
 			to_chat(user, "\blue [grenades.len] / [max_grenades] [ammo_name]s.")
@@ -105,7 +105,7 @@
 	to_chat(user, "\red You fire the [name]!")
 	var/obj/item/weapon/reagent_containers/food/snacks/pie/P = grenades[1] //Now with less copypasta!
 	grenades -= P
-	P.loc = user.loc
+	P.forceMove(user.loc)
 	P.throw_at(target, 30, 2, user)
 	if(!grenades.len)
 		icon_state = "piecannon0"

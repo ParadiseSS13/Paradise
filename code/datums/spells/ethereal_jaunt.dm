@@ -44,11 +44,11 @@
 			if(phaseshift == 1)
 				animation.dir = target.dir
 				flick("phase_shift",animation)
-				target.loc = holder
+				target.forceMove(holder)
 				target.client.eye = holder
 				sleep(jaunt_duration)
 				mobloc = get_turf(target.loc)
-				animation.loc = mobloc
+				animation.forceMove(mobloc)
 				target.canmove = 0
 				sleep(20)
 				animation.dir = target.dir
@@ -66,14 +66,14 @@
 				qdel(holder)
 			else
 				flick("liquify",animation)
-				target.loc = holder
+				target.forceMove(holder)
 				target.client.eye = holder
 				var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
 				steam.set_up(10, 0, mobloc)
 				steam.start()
 				sleep(jaunt_duration)
 				mobloc = get_turf(target.loc)
-				animation.loc = mobloc
+				animation.forceMove(mobloc)
 				steam.location = mobloc
 				steam.start()
 				target.canmove = 0
@@ -102,14 +102,14 @@
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow
 	for(var/atom/movable/AM in src)
-		AM.loc = get_turf(src)
+		AM.forceMove(get_turf(src))
 	return ..()
 
 /obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
 	if (!src.canmove) return
 	var/turf/newLoc = get_step(src,direction)
 	if(!(newLoc.flags & NOJAUNT))
-		loc = newLoc
+		forceMove(newLoc)
 	else
 		to_chat(user, "<span class='warning'>Some strange aura is blocking the way!</span>")
 	src.canmove = 0

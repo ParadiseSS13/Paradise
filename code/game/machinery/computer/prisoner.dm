@@ -89,12 +89,12 @@
 				var/obj/item/weapon/card/id/prisoner/I = usr.get_active_hand()
 				if(istype(I))
 					usr.drop_item()
-					I.loc = src
+					I.forceMove(src)
 					inserted_id = I
 				else
 					to_chat(usr, "\red No valid ID.")
 			if("1")
-				inserted_id.loc = get_step(src,get_turf(usr))
+				inserted_id.forceMove(get_step(src,get_turf(usr)))
 				inserted_id = null
 			if("2")
 				inserted_id.points = 0

@@ -68,7 +68,7 @@
 		for(var/obj/item/pod_parts/pod_frame/F in linkedparts)
 			if(1 == turn(F.dir, -F.link_angle)) //if the part links north during construction, as the bottom left part always does
 				//log_admin("Repositioning")
-				pod.loc = F.loc
+				pod.forceMove(F.loc)
 			qdel(F)
 		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 	if(istype(O, /obj/item/weapon/wrench))

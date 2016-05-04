@@ -338,7 +338,7 @@
 		ingredients += origin.ingredients
 	user.drop_item()
 	cooktype[basename] = 1
-	I.loc = src
+	I.forceMove(src)
 	if(!istype(I, toptype))
 		ingredients += I
 	updateicon()

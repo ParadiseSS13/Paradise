@@ -49,9 +49,9 @@
 			if(iscorgi(O))
 				var/mob/living/simple_animal/pet/corgi/C = O
 				if(C.inventory_head)
-					C.inventory_head.loc = C.loc
+					C.inventory_head.forceMove(C.loc)
 				if(C.inventory_back)
-					C.inventory_back.loc = C.loc
+					C.inventory_back.forceMove(C.loc)
 			if(O.mind)
 				O.mind.transfer_to(A)
 			else
@@ -265,7 +265,7 @@ proc/wabbajack(mob/living/M)
 					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
 					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
 				H = change
-				H.loc = S
+				H.forceMove(S)
 				qdel(src)
 		else
 			var/obj/O = change

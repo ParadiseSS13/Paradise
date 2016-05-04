@@ -169,7 +169,7 @@ proc/CallMaterialName(ID)
 			return
 		if(!user.drop_item())
 			return
-		D.loc = src
+		D.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else
 		..()
@@ -214,7 +214,7 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["eject_tech"]) //Eject the technology disk.
 		if(t_disk)
-			t_disk.loc = src.loc
+			t_disk.forceMove(src.loc)
 			t_disk = null
 		screen = 1.0
 
@@ -239,7 +239,7 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["eject_design"]) //Eject the design disk.
 		if(d_disk)
-			d_disk.loc = src.loc
+			d_disk.forceMove(src.loc)
 			d_disk = null
 		screen = 1.0
 
@@ -267,7 +267,7 @@ proc/CallMaterialName(ID)
 				to_chat(usr, "<span class='danger'> The destructive analyzer is busy at the moment.</span>")
 
 			else if(linked_destroy.loaded_item)
-				linked_destroy.loaded_item.loc = linked_destroy.loc
+				linked_destroy.loaded_item.forceMove(linked_destroy.loc)
 				linked_destroy.loaded_item = null
 				linked_destroy.icon_state = "d_analyzer"
 				screen = 2.1
@@ -443,7 +443,7 @@ proc/CallMaterialName(ID)
 									new_item.materials[MAT_GLASS] /= coeff
 								if(O)
 									var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(linked_lathe.loc)
-									new_item.loc = L
+									new_item.forceMove(L)
 									L.name += " ([new_item.name])"
 									L.origin_tech = new_item.origin_tech
 									L.req_access = being_built.access_requirement
@@ -452,7 +452,7 @@ proc/CallMaterialName(ID)
 										lockbox_access += "[get_access_desc(A)] "
 									L.desc = "A locked box. It is locked to [lockbox_access]access."
 								else
-									new_item.loc = linked_lathe.loc
+									new_item.forceMove(linked_lathe.loc)
 						linked_lathe.busy = 0
 						screen = old_screen
 						updateUsrDialog()
@@ -504,7 +504,7 @@ proc/CallMaterialName(ID)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
 							new_item.reliability = 100
-							new_item.loc = linked_imprinter.loc
+							new_item.forceMove(linked_imprinter.loc)
 						linked_imprinter.busy = 0
 						screen = old_screen
 						updateUsrDialog()

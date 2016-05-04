@@ -16,7 +16,7 @@
 
 /obj/structure/engineeringcart/proc/put_in_cart(obj/item/I, mob/user)
 	user.drop_item()
-	I.loc = src
+	I.forceMove(src)
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return

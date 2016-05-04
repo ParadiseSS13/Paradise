@@ -135,7 +135,7 @@
 		usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
 		if(do_after(usr, 20, target = src))
 			usr.visible_message("\blue [usr] detaches [rig] from \the [src].", "\blue  You detach [rig] from \the [src]")
-			rig.loc = get_turf(usr)
+			rig.forceMove(get_turf(usr))
 			rig = null
 			overlays = new/list()
 
@@ -155,7 +155,7 @@
 
 				rig = W
 				user.drop_item()
-				W.loc = src
+				W.forceMove(src)
 
 				var/icon/test = getFlatIcon(W)
 				test.Shift(NORTH,1)

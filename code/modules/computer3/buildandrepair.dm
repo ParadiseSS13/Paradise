@@ -111,7 +111,7 @@
 					src.icon_state = "1"
 					src.circuit = P
 					user.drop_item()
-					P.loc = src
+					P.forceMove(src)
 				else
 					to_chat(user, "\red This frame does not accept circuit boards of this type!")
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
@@ -124,7 +124,7 @@
 				to_chat(user, "\blue You remove the circuit board.")
 				src.state = 1
 				src.icon_state = "0"
-				circuit.loc = src.loc
+				circuit.forceMove(src.loc)
 				src.circuit = null
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
@@ -137,7 +137,7 @@
 				if(battery)
 					playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
 					if(do_after(10, target = src))
-						battery.loc = loc
+						battery.forceMove(loc)
 						to_chat(user, "\blue You remove [battery].")
 						battery = null
 				else
@@ -148,7 +148,7 @@
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 					if(do_after(5, target = src))
 						battery = P
-						P.loc = src
+						P.forceMove(src)
 						to_chat(user, "\blue You insert [battery].")
 				else
 					to_chat(user, "\red There's already \an [battery] in [src]!")
@@ -208,7 +208,7 @@
 					var/obj/item/weapon/circuitboard/supplycomp/C = circuit
 					SC.can_order_contraband = C.contraband_enabled*/
 				B.circuit = circuit
-				circuit.loc = B
+				circuit.forceMove(B)
 				if(circuit.OS)
 					circuit.OS.computer = B
 				B.RefreshParts()		// todo
@@ -230,35 +230,35 @@
 		if(do_after(usr,25, target = src))
 			if(I==hdd)
 				components -= hdd
-				hdd.loc = loc
+				hdd.forceMove(loc)
 				hdd = null
 			else if(I==floppy)
 				components -= floppy
-				floppy.loc = loc
+				floppy.forceMove(loc)
 				floppy = null
 			else if(I==radio)
 				components -= radio
-				radio.loc = loc
+				radio.forceMove(loc)
 				radio = null
 			else if(I==camnet)
 				components -= camnet
-				camnet.loc = loc
+				camnet.forceMove(loc)
 				camnet = null
 			else if(I==net)
 				components -= net
-				net.loc = loc
+				net.forceMove(loc)
 				net = null
 			else if(I==cradle)
 				components -= cradle
-				cradle.loc = loc
+				cradle.forceMove(loc)
 				cradle = null
 			else if(I==toybox)
 				components -= toybox
-				toybox.loc = loc
+				toybox.forceMove(loc)
 				toybox = null
 			else
 				warning("Erronous component in computerframe/remove_peripheral: [I]")
-				I.loc = loc
+				I.forceMove(loc)
 			to_chat(usr, "\blue You remove [I]")
 			return 1
 	return 0
@@ -273,28 +273,28 @@
 				return 0
 			hdd = I
 			components += hdd
-			hdd.loc = src
+			hdd.forceMove(src)
 		if(/obj/item/part/computer/storage/removable)
 			if(floppy)
 				to_chat(usr, "There is already \an [floppy] in [src]!")
 				return 0
 			floppy = I
 			components += floppy
-			floppy.loc = src
+			floppy.forceMove(src)
 		if(/obj/item/part/computer/networking/radio)
 			if(radio)
 				to_chat(usr, "There is already \an [radio] in [src]!")
 				return 0
 			radio = I
 			components += radio
-			radio.loc = src
+			radio.forceMove(src)
 		if(/obj/item/part/computer/networking/cameras)
 			if(camnet)
 				to_chat(usr, "There is already \an [camnet] in [src]!")
 				return 0
 			camnet = I
 			components += camnet
-			camnet.loc = src
+			camnet.forceMove(src)
 		if(/obj/item/part/computer/networking)
 			if(net)
 				to_chat(usr, "There is already \an [net] in [src]!")

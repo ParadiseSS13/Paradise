@@ -104,7 +104,7 @@
 				COIN = locate(/obj/item/weapon/coin/adamantine,src.contents)
 		if(!COIN)
 			return
-		COIN.loc = src.loc
+		COIN.forceMove(src.loc)
 	return
 
 /obj/item/weapon/moneybag/vault

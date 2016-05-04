@@ -16,7 +16,7 @@
 		else
 			user.drop_item(src)
 			held_container = W
-			held_container.loc = src
+			held_container.forceMove(src)
 			to_chat(user, "\blue You put the [held_container] onto the [src].")
 			var/image/I = image("icon"=W, "layer"=FLOAT_LAYER)
 			underlays += I
@@ -30,7 +30,7 @@
 	if(held_container)
 		underlays = null
 		to_chat(user, "\blue You remove the [held_container] from the [src].")
-		held_container.loc = src.loc
+		held_container.forceMove(src.loc)
 		held_container.attack_hand(user)
 		held_container = null
 	else

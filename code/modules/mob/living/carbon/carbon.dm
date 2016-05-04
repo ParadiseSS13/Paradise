@@ -81,7 +81,7 @@
 
 			if(prob(src.getBruteLoss() - 50))
 				for(var/atom/movable/A in stomach_contents)
-					A.loc = loc
+					A.forceMove(loc)
 					stomach_contents.Remove(A)
 				src.gib()
 
@@ -438,7 +438,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 						return
 
 			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-			src.loc = vent_found
+			src.forceMove(vent_found)
 			add_ventcrawl(vent_found)
 
 	else
@@ -554,7 +554,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	update_icons()
 
 	if (istype(src, /mob/living/carbon)) //Check if a carbon mob is throwing. Modify/remove this line as required.
-		item.loc = loc
+		item.forceMove(loc)
 		if(client)
 			client.screen -= item
 		if(istype(item, /obj/item))
@@ -801,7 +801,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				handcuffed.loc = loc
+				handcuffed.forceMove(loc)
 				handcuffed.dropped(src)
 				handcuffed = null
 				if(buckled && buckled.buckle_requires_restraints)
@@ -809,7 +809,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				update_handcuffed()
 				return
 			if(I == legcuffed)
-				legcuffed.loc = loc
+				legcuffed.forceMove(loc)
 				legcuffed.dropped()
 				legcuffed = null
 				update_inv_legcuffed()
@@ -891,7 +891,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if (client)
 			client.screen -= W
 		if (W)
-			W.loc = loc
+			W.forceMove(loc)
 			W.dropped(src)
 			if (W)
 				W.layer = initial(W.layer)
@@ -902,7 +902,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if (client)
 			client.screen -= W
 		if (W)
-			W.loc = loc
+			W.forceMove(loc)
 			W.dropped(src)
 			if (W)
 				W.layer = initial(W.layer)

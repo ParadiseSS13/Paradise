@@ -96,7 +96,7 @@
 					H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
 				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 					H.legcuffed = src
-					src.loc = H
+					src.forceMove(H)
 					H.update_inv_legcuffed(0)
 					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
 
@@ -176,7 +176,7 @@
 				H.Stun(2) //used instead of setting damage in vars to avoid non-human targets being affected
 				H.Weaken(4)
 				H.legcuffed = src //applies legcuff properties inherited through legcuffs
-				src.loc = H
+				src.forceMove(H)
 				H.update_inv_legcuffed()
 				if(!H.legcuffed) //in case it didn't happen, we need a safety net
 					throw_failed()

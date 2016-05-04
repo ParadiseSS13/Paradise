@@ -31,7 +31,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/destination
 
 /obj/effect/immovablerod/New(atom/start, atom/end)
-	loc = start
+	forceMove(start)
 	z_original = z
 	destination = end
 	if(end && end.z==z_original)

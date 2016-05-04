@@ -454,7 +454,7 @@
 				to_chat(user, "<span class='warning'>There is no connector for your power cell.</span>")
 				return
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			cell = W
 			user.visible_message(\
 				"<span class='warning'>[user.name] has inserted the power cell to [src.name]!</span>",\
@@ -688,7 +688,7 @@
 	if(usr == user && opened && (!issilicon(user)))
 		if(cell)
 			if(issilicon(user))
-				cell.loc=src.loc // Drop it, whoops.
+				cell.forceMove(src.loc) // Drop it, whoops.
 			else
 				user.put_in_hands(cell)
 			cell.add_fingerprint(user)
@@ -1071,7 +1071,7 @@
 	else
 		to_chat(src.occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
 		if(forced)
-			src.occupier.loc = src.loc
+			src.occupier.forceMove(src.loc)
 			src.occupier.death()
 			src.occupier.gib()
 			for(var/obj/item/weapon/pinpointer/point in world)

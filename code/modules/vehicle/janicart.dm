@@ -65,7 +65,7 @@
 			if(!user.drop_item())
 				return
 			to_chat(user, "<span class='notice'>You hook the trashbag onto \the [name].</span>")
-			I.loc = src
+			I.forceMove(src)
 			mybag = I
 	else if(istype(I, /obj/item/janiupgrade))
 		if(keytype == /obj/item/key/janitor)
@@ -89,7 +89,7 @@
 	if(..())
 		return 1
 	else if(mybag)
-		mybag.loc = get_turf(user)
+		mybag.forceMove(get_turf(user))
 		user.put_in_hands(mybag)
 		mybag = null
 		update_icon()

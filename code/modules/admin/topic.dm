@@ -1181,7 +1181,7 @@
 		for(var/obj/item/I in M)
 			M.unEquip(I)
 			if(I)
-				I.loc = locker
+				I.forceMove(locker)
 				I.layer = initial(I.layer)
 				I.dropped(M)
 		M.update_icons()
@@ -1191,7 +1191,7 @@
 		sleep(5)
 		if(!M)	return
 
-		M.loc = prison_cell
+		M.forceMove(prison_cell)
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
@@ -1242,13 +1242,13 @@
 		for(var/obj/item/I in M)
 			M.unEquip(I)
 			if(I)
-				I.loc = M.loc
+				I.forceMove(M.loc)
 				I.layer = initial(I.layer)
 				I.dropped(M)
 
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(tdome1)
+		M.forceMove(pick(tdome1))
 		spawn(50)
 			to_chat(M, "\blue You have been sent to the Thunderdome.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 1)")
@@ -1271,13 +1271,13 @@
 		for(var/obj/item/I in M)
 			M.unEquip(I)
 			if(I)
-				I.loc = M.loc
+				I.forceMove(M.loc)
 				I.layer = initial(I.layer)
 				I.dropped(M)
 
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(tdome2)
+		M.forceMove(pick(tdome2))
 		spawn(50)
 			to_chat(M, "\blue You have been sent to the Thunderdome.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 2)")
@@ -1299,7 +1299,7 @@
 
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(tdomeadmin)
+		M.forceMove(pick(tdomeadmin))
 		spawn(50)
 			to_chat(M, "\blue You have been sent to the Thunderdome.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Admin.)")
@@ -1322,7 +1322,7 @@
 		for(var/obj/item/I in M)
 			M.unEquip(I)
 			if(I)
-				I.loc = M.loc
+				I.forceMove(M.loc)
 				I.layer = initial(I.layer)
 				I.dropped(M)
 
@@ -1332,7 +1332,7 @@
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(tdomeobserve)
+		M.forceMove(pick(tdomeobserve))
 		spawn(50)
 			to_chat(M, "\blue You have been sent to the Thunderdome.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)")
@@ -1354,7 +1354,7 @@
 
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(aroomwarp)
+		M.forceMove(pick(aroomwarp))
 		spawn(50)
 			to_chat(M, "\blue You have been sent to the <b>Admin Room!</b>.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the Admin Room")
@@ -1612,7 +1612,7 @@
 		var/obj/effect/stop/S
 		S = new /obj/effect/stop
 		S.victim = M
-		S.loc = M.loc
+		S.forceMove(M.loc)
 		spawn(20)
 			qdel(S)
 
@@ -2063,7 +2063,7 @@
 									var/mob/living/silicon/robot/R = L
 									if(R.module)
 										R.module.modules += I
-										I.loc = R.module
+										I.forceMove(R.module)
 										R.module.rebuild()
 										R.activate_module(I)
 										R.module.fix_modules()
@@ -2137,7 +2137,7 @@
 					qdel(O)
 /*					for(var/obj/machinery/vehicle/pod/O in world)
 					for(var/mob/M in src)
-						M.loc = src.loc
+						M.forceMove(src.loc)
 						if (M.client)
 							M.client.perspective = MOB_PERSPECTIVE
 							M.client.eye = M
@@ -2239,16 +2239,16 @@
 							if (H.client)
 								H.client.screen -= W
 							if (W)
-								W.loc = H.loc
+								W.forceMove(H.loc)
 								W.dropped(H)
 								W.layer = initial(W.layer)
 						//teleport person to cell
-						H.loc = pick(prisonwarp)
+						H.forceMove(pick(prisonwarp))
 						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)
 						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
 					else
 						//teleport security person
-						H.loc = pick(prisonsecuritywarp)
+						H.forceMove(pick(prisonsecuritywarp))
 					prisonwarped += H
 			if("traitor_all")
 				if(!ticker)

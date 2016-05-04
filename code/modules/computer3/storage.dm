@@ -103,7 +103,7 @@
 		if(!forced)
 			return
 		files = list()
-		inserted.loc = computer.loc
+		inserted.forceMove(computer.loc)
 		if(usr)
 			if(!usr.get_active_hand())
 				usr.put_in_active_hand(inserted)
@@ -127,7 +127,7 @@
 
 			to_chat(usr, "You insert [O] into [src].")
 			usr.drop_item()
-			O.loc = src
+			O.forceMove(src)
 			inserted = O
 			writeprotect = inserted.writeprotect
 

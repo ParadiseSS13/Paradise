@@ -386,39 +386,39 @@
 				break
 			if (istype(O,/obj/item/weapon/ore/iron))
 				ore_iron++;
-				O.loc = null
+				O.forceMove(null)
 				continue
 			if (istype(O,/obj/item/weapon/ore/glass))
 				ore_glass++;
-				O.loc = null
+				O.forceMove(null)
 				continue
 			if (istype(O,/obj/item/weapon/ore/diamond))
 				ore_diamond++;
-				O.loc = null
+				O.forceMove(null)
 				continue
 			if (istype(O,/obj/item/weapon/ore/plasma))
 				ore_plasma++
-				O.loc = null
+				O.forceMove(null)
 				continue
 			if (istype(O,/obj/item/weapon/ore/gold))
 				ore_gold++
-				O.loc = null
+				O.forceMove(null)
 				continue
 			if (istype(O,/obj/item/weapon/ore/silver))
 				ore_silver++
-				O.loc = null
+				O.forceMove(null)
 				continue
 			if (istype(O,/obj/item/weapon/ore/uranium))
 				ore_uranium++
-				O.loc = null
+				O.forceMove(null)
 				continue
 			if (istype(O,/obj/item/weapon/ore/bananium))
 				ore_clown++
-				O.loc = null
+				O.forceMove(null)
 				continue
 			if (istype(O,/obj/item/weapon/ore/tranquillite))
 				ore_mime++
-				O.loc = null
+				O.forceMove(null)
 				continue
 			unload_mineral(O)
 

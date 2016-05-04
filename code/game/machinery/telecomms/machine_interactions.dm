@@ -69,7 +69,7 @@
 						for(var/obj/I in component_parts)
 							if(I.reliability != 100 && crit_fail)
 								I.crit_fail = 1
-							I.loc = src.loc
+							I.forceMove(src.loc)
 					else
 						// If the machine wasn't made during runtime, probably doesn't have components:
 						// manually find the components and drop them!
@@ -77,17 +77,17 @@
 						for(var/I in C.req_components)
 							for(var/i = 1, i <= C.req_components[I], i++)
 								var/obj/item/s = new I
-								s.loc = src.loc
+								s.forceMove(src.loc)
 								if(istype(s, /obj/item/stack/cable_coil))
 									var/obj/item/stack/cable_coil/A = s
 									A.amount = 1
 
 						// Drop a circuit board too
-						C.loc = src.loc
+						C.forceMove(src.loc)
 
 					// Create a machine frame and delete the current machine
 					var/obj/machinery/constructable_frame/machine_frame/F = new
-					F.loc = src.loc
+					F.forceMove(src.loc)
 					qdel(src)
 
 /obj/machinery/telecomms/proc/formatInput(var/label,var/varname, var/input)

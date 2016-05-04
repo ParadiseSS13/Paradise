@@ -35,7 +35,7 @@
 			if(can_move)
 				can_move = 0
 				flick("phazon-phase", src)
-				src.loc = get_step(src,src.dir)
+				src.forceMove(get_step(src,src.dir))
 				src.use_power(phasing_energy_drain)
 				sleep(step_in*3)
 				can_move = 1

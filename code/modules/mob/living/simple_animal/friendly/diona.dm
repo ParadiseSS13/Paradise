@@ -91,7 +91,7 @@
 		M.status_flags |= PASSEMOTES
 
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-		src.loc = M
+		src.forceMove(M)
 		src.verbs += /mob/living/simple_animal/diona/proc/split
 		src.verbs -= /mob/living/simple_animal/diona/proc/merge
 	else
@@ -111,7 +111,7 @@
 
 	var/mob/living/M = src.loc
 
-	src.loc = get_turf(src)
+	src.forceMove(get_turf(src))
 	src.verbs -= /mob/living/simple_animal/diona/proc/split
 	src.verbs += /mob/living/simple_animal/diona/proc/merge
 
@@ -178,7 +178,7 @@
 
 	if(istype(loc,/obj/item/weapon/holder/diona))
 		var/obj/item/weapon/holder/diona/L = loc
-		src.loc = L.loc
+		src.forceMove(L.loc)
 		qdel(L)
 
 	for(var/datum/language/L in languages)
@@ -241,7 +241,7 @@
 
 
 /mob/living/simple_animal/diona/put_in_hands(obj/item/W)
-	W.loc = get_turf(src)
+	W.forceMove(get_turf(src))
 	W.layer = initial(W.layer)
 	W.dropped()
 

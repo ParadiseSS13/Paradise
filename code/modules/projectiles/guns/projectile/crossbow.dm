@@ -44,7 +44,7 @@
 	if(throwforce == 15) // The rod has been superheated - we don't want it to be useable when removed from the bow.
 		to_chat(user, "[src] shatters into a scattering of overstressed metal shards as it leaves the crossbow.")
 		var/obj/item/weapon/shard/shrapnel/S = new()
-		S.loc = get_turf(src)
+		S.forceMove(get_turf(src))
 		qdel(src)
 
 /obj/item/weapon/arrow/baguette
@@ -97,7 +97,7 @@
 	if(tension)
 		if(in_chamber && in_chamber.loc == src) //Just in case they click it the tick after firing.
 			user.visible_message("[user] relaxes the tension on [src]'s string and removes [in_chamber].","You relax the tension on [src]'s string and remove [in_chamber].")
-			in_chamber.loc = get_turf(src)
+			in_chamber.forceMove(get_turf(src))
 			var/obj/item/weapon/arrow/A = in_chamber
 			in_chamber = null
 			A.removed(user)
@@ -142,7 +142,7 @@
 		if (istype(W,/obj/item/weapon/arrow))
 			user.drop_item()
 			in_chamber = W
-			in_chamber.loc = src
+			in_chamber.forceMove(src)
 			user.visible_message("[user] slides [in_chamber] into [src].","You slide [in_chamber] into [src].")
 			icon_state = "crossbow-nocked"
 			return
@@ -151,7 +151,7 @@
 			R.use(1)
 			in_chamber = new /obj/item/weapon/arrow/rod(src)
 			in_chamber.fingerprintslast = src.fingerprintslast
-			in_chamber.loc = src
+			in_chamber.forceMove(src)
 			icon_state = "crossbow-nocked"
 			user.visible_message("[user] jams [in_chamber] into [src].","You jam [in_chamber] into [src].")
 			superheat_rod(user)
@@ -160,7 +160,7 @@
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!cell)
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			cell = W
 			to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
 			superheat_rod(user)
@@ -170,7 +170,7 @@
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(cell)
 			var/obj/item/C = cell
-			C.loc = get_turf(user)
+			C.forceMove(get_turf(user))
 			to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [W].</span>")
 			cell = null
 		else
@@ -200,7 +200,7 @@
 		if (istype(W,/obj/item/weapon/reagent_containers/food/snacks/baguette))
 			user.drop_item()
 			in_chamber = W
-			in_chamber.loc = src
+			in_chamber.forceMove(src)
 			user.visible_message("[user] slides [in_chamber] into [src].","You slide [in_chamber] into [src].")
 			icon_state = "crossbow-nocked"
 			return

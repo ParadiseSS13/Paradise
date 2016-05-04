@@ -26,7 +26,7 @@
 		if(!inserted_battery)
 			to_chat(user, "\blue You insert [I] into [src].")
 			user.drop_item()
-			I.loc = src
+			I.forceMove(src)
 			src.inserted_battery = I
 			updateDialog()
 		else
@@ -225,7 +225,7 @@
 			icon_state = "incubator"
 
 	if (href_list["ejectbattery"])
-		src.inserted_battery.loc = src.loc
+		src.inserted_battery.forceMove(src.loc)
 		src.inserted_battery = null
 
 	if (href_list["drainbattery"])

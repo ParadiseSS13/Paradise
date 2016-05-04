@@ -266,7 +266,7 @@
 			to_chat(user, "There is already a circuitboard present!")
 			return
 		circuit_removed = 0
-		I.loc = src
+		I.forceMove(src)
 		RefreshParts()
 
 /obj/machinery/programmable/emag_act(user as mob)
@@ -293,9 +293,9 @@
 
 		//Do not let things get stuck inside.  That's broken behavior.
 		for(var/obj/O in contents)
-			O.loc = loc
+			O.forceMove(loc)
 		for(var/mob/M in contents)
-			M.loc = loc
+			M.forceMove(loc)
 			if(M.client)
 				M.client.eye = M.client.mob
 				M.client.perspective = MOB_PERSPECTIVE
@@ -310,7 +310,7 @@
 			if(p)
 				p.outlet_reaction(A,output)
 			else
-				A.loc = output // may have been dropped by a mob, etc
+				A.forceMove(output) // may have been dropped by a mob, etc
 
 	if(types.len > 50)
 		types = list() // good luck mr. garbage collector

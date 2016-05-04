@@ -98,7 +98,7 @@ var/list/alldepartments = list()
 
 	if(href_list["paper"])
 		if(copyitem)
-			copyitem.loc = usr.loc
+			copyitem.forceMove(usr.loc)
 			usr.put_in_hands(copyitem)
 			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 			copyitem = null
@@ -107,7 +107,7 @@ var/list/alldepartments = list()
 			if (istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/paper_bundle))
 				usr.drop_item()
 				copyitem = I
-				I.loc = src
+				I.forceMove(src)
 				to_chat(usr, "<span class='notice'>You insert \the [I] into \the [src].</span>")
 				flick(insert_anim, src)
 
@@ -148,24 +148,24 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/weapon/card/id/card = null)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
-			scan.loc = usr.loc
+			scan.forceMove(usr.loc)
 			if(!usr.get_active_hand())
 				usr.put_in_hands(scan)
 			scan = null
 		else
-			scan.loc = src.loc
+			scan.forceMove(src.loc)
 			scan = null
 	else
 		if(!card)
 			var/obj/item/I = usr.get_active_hand()
 			if (istype(I, /obj/item/weapon/card/id))
 				usr.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				scan = I
 		else
 			if(istype(card))
 				usr.drop_item()
-				card.loc = src
+				card.forceMove(src)
 				scan = card
 	nanomanager.update_uis(src)
 
@@ -238,7 +238,7 @@ var/list/alldepartments = list()
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 		return
 
-	rcvdcopy.loc = null //hopefully this shouldn't cause trouble
+	rcvdcopy.forceMove(null) //hopefully this shouldn't cause trouble
 
 	var/datum/fax/admin/A = new /datum/fax/admin()
 	A.name = rcvdcopy.name

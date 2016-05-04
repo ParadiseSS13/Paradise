@@ -47,7 +47,7 @@
 						target.r_hand = I
 					else
 						target.l_hand = I
-				I.loc = target
+				I.forceMove(target)
 				I.layer = 20
 				I.add_fingerprint(target)
 				src.update_inv_l_hand()

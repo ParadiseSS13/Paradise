@@ -53,7 +53,7 @@
 				if(istype(C))
 					user.drop_item()
 					cell = C
-					C.loc = src
+					C.forceMove(src)
 					C.add_fingerprint(usr)
 
 					user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
@@ -133,7 +133,7 @@
 					if(istype(C))
 						usr.drop_item()
 						cell = C
-						C.loc = src
+						C.forceMove(src)
 						C.add_fingerprint(usr)
 
 						usr.visible_message("<span class='notice'>[usr] inserts a power cell into \the [src].</span>", "<span class='notice'>You insert the power cell into \the [src].</span>")

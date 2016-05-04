@@ -10,7 +10,7 @@
 		if (src.contents.len)
 			var/obj/content
 			for(content in src.contents)
-				content.loc = src.loc
+				content.forceMove(src.loc)
 		else
 			new ammo_type(src.loc)
 	..()
@@ -20,7 +20,7 @@
 		if (src.contents.len)
 			var/obj/content
 			for(content in src.contents)
-				content.loc = src.loc
+				content.forceMove(src.loc)
 		else
 			new ammo_type(src.loc)
 	..()

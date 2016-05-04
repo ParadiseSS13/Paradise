@@ -116,10 +116,10 @@
 	B.density = 1
 	if(T.Enter(B,src))//Attempt to move into the tile
 		B.density = initial(B.density)
-		B.loc = T
+		B.forceMove(T)
 	else
 		T.blob_act()//If we cant move in hit the turf
-		B.loc = null //So we don't play the splat sound, see Destroy()
+		B.forceMove(null) //So we don't play the splat sound, see Destroy()
 		qdel(B)
 
 	for(var/atom/A in T)//Hit everything in the turf

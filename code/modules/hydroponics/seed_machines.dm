@@ -75,7 +75,7 @@
 	if(eject_disk)
 		eject_disk = 0
 		if(loaded_disk)
-			loaded_disk.loc = get_turf(src)
+			loaded_disk.forceMove(get_turf(src))
 			visible_message("\icon[src] [src] beeps and spits out [loaded_disk].")
 			loaded_disk = null
 
@@ -89,7 +89,7 @@
 			to_chat(user, "That seed is not compatible with our genetics technology.")
 		else
 			user.drop_item(W)
-			W.loc = src
+			W.forceMove(src)
 			seed = W
 			to_chat(user, "You load [W] into [src].")
 		return
@@ -121,7 +121,7 @@
 					return
 
 			user.drop_item(W)
-			W.loc = src
+			W.forceMove(src)
 			loaded_disk = W
 			to_chat(user, "You load [W] into [src].")
 
@@ -204,7 +204,7 @@
 
 	if(href_list["eject_packet"])
 		if(!seed) return
-		seed.loc = get_turf(src)
+		seed.forceMove(get_turf(src))
 
 		if(seed.seed.name == "new line" || isnull(plant_controller.seeds[seed.seed.name]))
 			seed.seed.uid = plant_controller.seeds.len + 1
@@ -218,7 +218,7 @@
 
 	if(href_list["eject_disk"])
 		if(!loaded_disk) return
-		loaded_disk.loc = get_turf(src)
+		loaded_disk.forceMove(get_turf(src))
 		visible_message("\icon[src] [src] beeps and spits out [loaded_disk].")
 		loaded_disk = null
 

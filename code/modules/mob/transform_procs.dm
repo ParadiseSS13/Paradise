@@ -59,7 +59,7 @@
 			if (sloc.name == "AI")
 				loc_landmark = sloc
 
-	O.loc = loc_landmark.loc
+	O.forceMove(loc_landmark.loc)
 
 	O.on_mob_init()
 
@@ -94,7 +94,7 @@
 		new_spirit.mind.original = new_spirit
 
 	new_spirit.key = key
-	new_spirit.loc=loc
+	new_spirit.forceMove(loc)
 
 	if (should_gib)
 		spawn(0)
@@ -158,7 +158,7 @@
 	else
 		O.key = key
 
-	O.loc = loc
+	O.forceMove(loc)
 	O.job = "Cyborg"
 	O.notify_ai(1)
 

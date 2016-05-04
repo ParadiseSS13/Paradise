@@ -214,7 +214,7 @@ obj/structure/door_assembly/multi_tile/Move()
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly.")
 		user.drop_item()
-		W.loc = src
+		W.forceMove(src)
 
 		if(do_after(user, 40, target = src))
 			if(!src) return
@@ -223,7 +223,7 @@ obj/structure/door_assembly/multi_tile/Move()
 			src.name = "Near finished Airlock Assembly"
 			src.electronics = W
 		else
-			W.loc = src.loc
+			W.forceMove(src.loc)
 
 	else if(istype(W, /obj/item/weapon/crowbar) && state == 2 )
 		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
@@ -240,7 +240,7 @@ obj/structure/door_assembly/multi_tile/Move()
 			else
 				ae = electronics
 				electronics = null
-				ae.loc = src.loc
+				ae.forceMove(src.loc)
 
 	else if(istype(W, /obj/item/stack/sheet) && !glass)
 		var/obj/item/stack/sheet/S = W
@@ -289,7 +289,7 @@ obj/structure/door_assembly/multi_tile/Move()
 				door.name = created_name
 			else
 				door.name = "[istext(glass) ? "[glass] airlock" : base_name]"
-			src.electronics.loc = door
+			src.electronics.forceMove(door)
 			qdel(src)
 	else
 		..()

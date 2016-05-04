@@ -152,7 +152,7 @@
 	if (src.occupant.client)
 		src.occupant.client.eye = src.occupant.client.mob
 		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
+	src.occupant.forceMove(src.loc)
 	src.occupant = null
 	src.icon_state = "body_scanner_0"
 	return
@@ -161,7 +161,7 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = src.loc
+				A.forceMove(src.loc)
 				ex_act(severity)
 				//Foreach goto(35)
 			//SN src = null
@@ -170,7 +170,7 @@
 		if(2.0)
 			if (prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
+					A.forceMove(src.loc)
 					ex_act(severity)
 					//Foreach goto(108)
 				//SN src = null
@@ -179,7 +179,7 @@
 		if(3.0)
 			if (prob(25))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
+					A.forceMove(src.loc)
 					ex_act(severity)
 					//Foreach goto(181)
 				//SN src = null
@@ -191,7 +191,7 @@
 /obj/machinery/bodyscanner/blob_act()
 	if(prob(50))
 		for(var/atom/movable/A as mob|obj in src)
-			A.loc = src.loc
+			A.forceMove(src.loc)
 		qdel(src)
 
 /obj/machinery/body_scanconsole

@@ -162,11 +162,11 @@
 	if(istype(usr,/mob/living/carbon))
 		// place the item in the usr's hand if possible
 		if(!usr.r_hand)
-			P.loc = usr
+			P.forceMove(usr)
 			usr.r_hand = P
 			P.layer = 20
 		else if(!usr.l_hand)
-			P.loc = usr
+			P.forceMove(usr)
 			usr.l_hand = P
 			P.layer = 20
 

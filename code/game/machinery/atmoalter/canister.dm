@@ -261,7 +261,7 @@ update_flag
 		update_icon()
 
 		if (src.holding)
-			src.holding.loc = src.loc
+			src.holding.forceMove(src.loc)
 			src.holding = null
 
 		return 1
@@ -459,7 +459,7 @@ update_flag
 			if (valve_open)
 				valve_open = 0
 				release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
-			holding.loc = loc
+			holding.forceMove(loc)
 			holding = null
 
 	if (href_list["pressure_adj"])

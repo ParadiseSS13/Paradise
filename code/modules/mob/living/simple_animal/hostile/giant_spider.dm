@@ -192,20 +192,20 @@
 					C.pixel_x = cocoon_target.pixel_x
 					C.pixel_y = cocoon_target.pixel_y
 					for(var/obj/item/I in C.loc)
-						I.loc = C
+						I.forceMove(C)
 					for(var/obj/structure/S in C.loc)
 						if(!S.anchored)
-							S.loc = C
+							S.forceMove(C)
 							large_cocoon = 1
 					for(var/obj/machinery/M in C.loc)
 						if(!M.anchored)
-							M.loc = C
+							M.forceMove(C)
 							large_cocoon = 1
 					for(var/mob/living/L in C.loc)
 						if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
 							continue
 						large_cocoon = 1
-						L.loc = C
+						L.forceMove(C)
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
 						fed++

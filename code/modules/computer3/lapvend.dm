@@ -54,7 +54,7 @@
 			relap = L
 			calc_reimburse(L)
 			usr.drop_item()
-			L.loc = src
+			L.forceMove(src)
 			vendmode = 3
 			to_chat(usr, "<span class='notice'>You slot your [L.name] into \The [src.name]</span>")
 	else
@@ -174,7 +174,7 @@
 			vendmode = 1
 
 		if("cancel")
-			relap.loc = src.loc
+			relap.forceMove(src.loc)
 			relap = null
 			vendmode = 0
 

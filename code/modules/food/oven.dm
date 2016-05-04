@@ -28,7 +28,7 @@
 		else
 			to_chat(user, "You put [F] into [src] for cooking.")
 			user.drop_item()
-			F.loc = src
+			F.forceMove(src)
 			on = TRUE
 			if(!candy)
 				icon_state = "oven_on"
@@ -40,7 +40,7 @@
 				icon_state = "oven_off"
 			else
 				icon_state = "mixer_off"
-			C.loc = get_turf(src)
+			C.forceMove(get_turf(src))
 			C.attackby(F,user, params)
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 			updatefood()

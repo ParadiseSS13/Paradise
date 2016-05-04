@@ -177,7 +177,7 @@ swapmap
 					for(var/obj/O in A) qdel(O)
 					for(var/mob/M in A)
 						if(!M.key) qdel(M)
-						else M.loc=null
+						else M.forceMove(null)
 					areas[A.loc]=null
 					qdel(A)
 				// delete areas that belong only to this map
@@ -290,7 +290,7 @@ swapmap
 					for(var/obj/O in T) qdel(O)
 					for(var/mob/M in T)
 						if(!M.key) qdel(M)
-						else M.loc=null
+						else M.forceMove(null)
 					// finish the read
 					T.Read(S)
 					S.cd=".."

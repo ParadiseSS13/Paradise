@@ -176,7 +176,7 @@
 				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class=userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 				if(ismob(noms))
 					var/mob/M = noms //typecast because noms isn't movable
-					M.loc = src //because just setting a mob loc to null breaks the camera and such
+					M.forceMove(src) //because just setting a mob loc to null breaks the camera and such
 		else
 			currentlyEating = null
 	else
@@ -315,12 +315,12 @@
 			contents -= stomachContent
 			previousWorm.contents += stomachContent
 			if(ismob(stomachContent))
-				stomachContent.loc = previousWorm //weird shit happens otherwise
+				stomachContent.forceMove(previousWorm) //weird shit happens otherwise
 	else
 		var/turf/T = get_turf(src)
 		for(var/atom/movable/stomachContent in contents)
 			contents -= stomachContent
-			stomachContent.loc = T
+			stomachContent.forceMove(T)
 
 
 //Looks weird otherwise.

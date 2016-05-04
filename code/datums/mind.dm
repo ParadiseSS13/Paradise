@@ -1244,7 +1244,7 @@
 		else if (istype(t, /obj/item/weapon/SWF_uplink) || istype(t, /obj/item/weapon/syndicate_uplink))
 			if (t:origradio)
 				var/obj/item/device/radio/R = t:origradio
-				R.loc = current.loc
+				R.forceMove(current.loc)
 				R.traitorradio = null
 				R.traitor_frequency = 0.0
 			qdel(t)
@@ -1307,7 +1307,7 @@
 		ticker.mode.forge_syndicate_objectives(src)
 		ticker.mode.greet_syndicate(src)
 
-		current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
+		current.forceMove(get_turf(locate("landmark*Syndicate-Spawn")))
 
 		var/mob/living/carbon/human/H = current
 		qdel(H.belt)
@@ -1340,10 +1340,10 @@
 		assigned_role = "MODE"
 		//ticker.mode.learn_basic_spells(current)
 		if(!wizardstart.len)
-			current.loc = pick(latejoin)
+			current.forceMove(pick(latejoin))
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
-			current.loc = pick(wizardstart)
+			current.forceMove(pick(wizardstart))
 
 		ticker.mode.equip_wizard(current)
 		for(var/obj/item/weapon/spellbook/S in current.contents)
@@ -1461,11 +1461,11 @@
 			if("Agent")
 				H.mind.abductor.agent = 1
 				L = agent_landmarks[team]
-				H.loc = L.loc
+				H.forceMove(L.loc)
 			if("Scientist")
 				H.mind.abductor.scientist = 1
 				L = agent_landmarks[team]
-				H.loc = L.loc
+				H.forceMove(L.loc)
 
 
 // check whether this mind's mob has been brigged for the given duration

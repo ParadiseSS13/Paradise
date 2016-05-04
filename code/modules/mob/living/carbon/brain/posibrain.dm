@@ -178,7 +178,7 @@
 	src.brainmob = new(src)
 	src.brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
 	src.brainmob.real_name = src.brainmob.name
-	src.brainmob.loc = src
+	src.brainmob.forceMove(src)
 	src.brainmob.container = src
 	src.brainmob.stat = 0
 	src.brainmob.silent = 0

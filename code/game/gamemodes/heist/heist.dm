@@ -72,7 +72,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		if(index > raider_spawn.len)
 			index = 1
 
-		raider.current.loc = raider_spawn[index]
+		raider.current.forceMove(raider_spawn[index])
 		index++
 
 		create_vox(raider)

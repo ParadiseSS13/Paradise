@@ -41,7 +41,7 @@
 					if(user.z != src.z)        return
 
 					user.loc.loc.Exited(user)
-					user.loc = pick(carplist) // In the future, possibly make specific NinjaTele landmarks, and give him an option to teleport to North/South/East/West of SS13 instead of just hijacking a carpspawn.
+					user.forceMove(pick(carplist)) // In the future, possibly make specific NinjaTele landmarks, and give him an option to teleport to North/South/East/West of SS13 instead of just hijacking a carpspawn.
 
 
 					playsound(user.loc, 'sound/effects/phasein.ogg', 25, 1)

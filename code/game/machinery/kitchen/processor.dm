@@ -82,7 +82,7 @@
 	var/mob/living/carbon/slime/S = what
 	var/C = S.cores
 	if(S.stat != DEAD)
-		S.loc = loc
+		S.forceMove(loc)
 		S.visible_message("<span class='notice'>[S] crawls free of the processor!</span>")
 		return
 	for(var/i in 1 to (C+processor.rating_amount-1))
@@ -97,7 +97,7 @@
 /datum/food_processor_process/mob/monkey/process_food(loc, what, processor)
 	var/mob/living/carbon/human/monkey/O = what
 	if (O.client) //grief-proof
-		O.loc = loc
+		O.forceMove(loc)
 		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
 				"<span class='notice'>You jump out of \the [src].</span>", \
 				"<span class='notice'>You hear a chimp.</span>")
@@ -166,7 +166,7 @@
 
 	user.drop_item()
 
-	what.loc = src
+	what.forceMove(src)
 	return
 
 /obj/machinery/processor/attack_hand(var/mob/user as mob)

@@ -9,7 +9,7 @@
 /obj/structure/coatrack/attack_hand(mob/user as mob)
 	user.visible_message("[user] takes [coat] off \the [src].", "You take [coat] off the \the [src]")
 	if(!user.put_in_active_hand(coat))
-		coat.loc = get_turf(user)
+		coat.forceMove(get_turf(user))
 	coat = null
 	update_icon()
 
@@ -22,7 +22,7 @@
 		user.visible_message("[user] hangs [W] on \the [src].", "You hang [W] on the \the [src]")
 		coat = W
 		user.drop_item(src)
-		coat.loc = src
+		coat.forceMove(src)
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>You cannot hang [W] on [src]</span>")
@@ -37,7 +37,7 @@
 	if (can_hang && !coat)
 		src.visible_message("[mover] lands on \the [src].")
 		coat = mover
-		coat.loc = src
+		coat.forceMove(src)
 		update_icon()
 		return 0
 	else

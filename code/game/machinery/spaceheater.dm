@@ -55,7 +55,7 @@
 				if(istype(C))
 					user.drop_item()
 					cell = C
-					C.loc = src
+					C.forceMove(src)
 					C.add_fingerprint(usr)
 
 					user.visible_message("\blue [user] inserts a power cell into [src].", "\blue You insert the power cell into [src].")
@@ -135,7 +135,7 @@
 					if(istype(C))
 						usr.drop_item()
 						cell = C
-						C.loc = src
+						C.forceMove(src)
 						C.add_fingerprint(usr)
 
 						usr.visible_message("\blue [usr] inserts a power cell into \the [src].", "\blue You insert the power cell into \the [src].")

@@ -166,14 +166,14 @@
 	if(H.head == helmet)
 		helmet.flags &= ~NODROP
 		H.unEquip(helmet)
-		helmet.loc = src
+		helmet.forceMove(src)
 		to_chat(H, "<span class='notice'>You retract your hardsuit helmet.</span>")
 	else
 		if(H.head)
 			to_chat(H, "<span class='warning'>You cannot deploy your helmet while wearing another helmet.</span>")
 			return
 		//TODO: Species check, skull damage for forcing an unfitting helmet on?
-		helmet.loc = H
+		helmet.forceMove(H)
 		helmet.pickup(H)
 		H.equip_to_slot(helmet, slot_head)
 		helmet.flags |= NODROP
@@ -193,14 +193,14 @@
 			to_chat(user, "\The [src] does not have a helmet installed.")
 		else
 			to_chat(user, "You detach \the [helmet] from \the [src]'s helmet mount.")
-			helmet.loc = get_turf(src)
+			helmet.forceMove(get_turf(src))
 			src.helmet = null
 			return
 		if(!boots)
 			to_chat(user, "\The [src] does not have any boots installed.")
 		else
 			to_chat(user, "You detach \the [boots] from \the [src]'s boot mounts.")
-			boots.loc = get_turf(src)
+			boots.forceMove(get_turf(src))
 			boots = null
 		return
 
@@ -213,7 +213,7 @@
 		else
 			to_chat(user, "You attach \the [W] to \the [src]'s helmet mount.")
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			src.helmet = W
 		return
 
@@ -227,7 +227,7 @@
 		else
 			to_chat(user, "You attach \the [W] to \the [src]'s boot mounts.")
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			boots = W
 	else
 		return ..()

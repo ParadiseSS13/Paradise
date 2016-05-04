@@ -143,7 +143,7 @@
 			to_chat(user, "You unweld the camera leaving it as just a frame screwed to the wall.")
 			if(!assembly)
 				assembly = new()
-			assembly.loc = src.loc
+			assembly.forceMove(src.loc)
 			assembly.state = 1
 			assembly.dir = src.dir
 			assembly.update_icon()

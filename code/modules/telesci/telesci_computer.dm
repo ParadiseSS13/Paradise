@@ -38,7 +38,7 @@
 /obj/machinery/computer/telescience/Destroy()
 	eject()
 	if(inserted_gps)
-		inserted_gps.loc = loc
+		inserted_gps.forceMove(loc)
 		inserted_gps = null
 	return ..()
 
@@ -58,14 +58,14 @@
 			return
 		user.drop_item()
 		crystals += W
-		W.loc = null
+		W.forceMove(null)
 		user.visible_message("<span class='notice'>[user] inserts [W] into \the [src]'s crystal slot.</span>")
 		updateUsrDialog()
 	else if(istype(W, /obj/item/device/gps))
 		if(!inserted_gps)
 			inserted_gps = W
 			user.unEquip(W)
-			W.loc = src
+			W.forceMove(src)
 			user.visible_message("<span class='notice'>[user] inserts [W] into \the [src]'s GPS device slot.</span>")
 			updateUsrDialog()
 	else if(istype(W, /obj/item/device/multitool))
@@ -321,7 +321,7 @@
 /obj/machinery/computer/telescience/proc/eject()
 
 	for(var/obj/item/I in crystals)
-		I.loc = loc
+		I.forceMove(loc)
 		I.pixel_y = -9
 		crystals -= I
 	power = 0

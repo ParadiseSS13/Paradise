@@ -71,7 +71,7 @@
 	"<span class='warning'>You fire [src][reflex ? "by reflex":""]!</span>", \
 	"You hear [fire_sound_text]!")
 
-	in_chamber.loc = get_turf(user)
+	in_chamber.forceMove(get_turf(user))
 	in_chamber.throw_at(target,10,release_force)
 
 	sleep(1)

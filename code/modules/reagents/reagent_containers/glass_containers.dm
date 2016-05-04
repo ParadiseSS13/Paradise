@@ -248,7 +248,7 @@
 			return ..()
 		assembly = W
 		user.drop_item()
-		W.loc = src
+		W.forceMove(src)
 		overlays += "assembly"
 	else
 		..()

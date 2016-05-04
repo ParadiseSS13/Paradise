@@ -192,17 +192,17 @@ obj/structure/windoor_assembly/Destroy()
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 				user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly.")
 				user.drop_item()
-				W.loc = src
+				W.forceMove(src)
 
 				if(do_after(user, 40, target = src))
 					if(!src || src.electronics)
-						W.loc = src.loc
+						W.forceMove(src.loc)
 						return
 					to_chat(user, "<span class='notice'>You've installed the airlock electronics!</span>")
 					src.name = "near finished windoor assembly"
 					src.electronics = W
 				else
-					W.loc = src.loc
+					W.forceMove(src.loc)
 
 			//Screwdriver to remove airlock electronics. Step 6 undone.
 			else if(istype(W, /obj/item/weapon/screwdriver))
@@ -220,7 +220,7 @@ obj/structure/windoor_assembly/Destroy()
 					var/obj/item/weapon/airlock_electronics/ae
 					ae = electronics
 					electronics = null
-					ae.loc = src.loc
+					ae.forceMove(src.loc)
 
 			else if(istype(W, /obj/item/weapon/pen))
 				var/t = stripped_input(user, "Enter the name for the door.", src.name, src.created_name,MAX_NAME_LEN)
@@ -265,7 +265,7 @@ obj/structure/windoor_assembly/Destroy()
 							else
 								windoor.req_access = src.electronics.conf_access
 							windoor.electronics = src.electronics
-							src.electronics.loc = windoor
+							src.electronics.forceMove(windoor)
 							if(created_name)
 								windoor.name = created_name
 							windoor.close()
@@ -284,7 +284,7 @@ obj/structure/windoor_assembly/Destroy()
 
 							windoor.req_access = src.electronics.conf_access
 							windoor.electronics = src.electronics
-							src.electronics.loc = windoor
+							src.electronics.forceMove(windoor)
 							if(created_name)
 								windoor.name = created_name
 							windoor.close()

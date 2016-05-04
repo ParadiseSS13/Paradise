@@ -173,7 +173,7 @@
 	for(var/obj/cult_viewpoint/viewpoint in target)
 		return
 	var/obj/cult_viewpoint/viewpoint = new(target)
-	viewpoint.loc = target
+	viewpoint.forceMove(target)
 	return viewpoint
 
 

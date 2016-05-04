@@ -103,7 +103,7 @@
 						spawned_obj.desc += " It is made of [source_material]."
 					else
 						spawned_obj.desc = "It is made of [source_material]."
-				source_material.loc = null
+				source_material.forceMove(null)
 
 			spawn_progress_time = 0
 			max_spawn_time = rand(30,100)
@@ -130,7 +130,7 @@
 
 /obj/machinery/replicator/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	user.drop_item()
-	W.loc = src
+	W.forceMove(src)
 	stored_materials.Add(W)
 	src.visible_message("\blue [user] inserts [W] into [src].")
 

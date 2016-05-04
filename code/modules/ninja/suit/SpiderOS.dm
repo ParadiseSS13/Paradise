@@ -262,7 +262,7 @@
 				t_disk = null
 			else
 				if(T)
-					t_disk.loc = T
+					t_disk.forceMove(T)
 					t_disk = null
 				else
 					to_chat(U, "<span class='userdanger'>ERROR</span>: Could not eject disk.")

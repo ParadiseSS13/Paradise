@@ -594,7 +594,7 @@
 			return
 		var/obj/item/weapon/tank/T = O
 		user.drop_item()
-		T.loc = src
+		T.forceMove(src)
 		src.holding = T
 		update_icon()
 		return
@@ -703,5 +703,5 @@
 
 	if(istype(holding, /obj/item/weapon/tank))
 		to_chat(usr, "\blue You eject [holding.name] from [src].")
-		holding.loc = loc
+		holding.forceMove(loc)
 		holding = null

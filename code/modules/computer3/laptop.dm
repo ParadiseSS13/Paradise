@@ -57,7 +57,7 @@
 
 		if(!stored_computer.manipulating)
 			stored_computer.manipulating = 1
-			stored_computer.loc = loc
+			stored_computer.forceMove(loc)
 			stored_computer.stat &= ~MAINT
 			stored_computer.update_icon()
 			loc = null

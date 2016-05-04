@@ -58,5 +58,5 @@
 		var/impact_area = findEventArea()
 		var/turf/T = pick(get_area_turfs(impact_area))
 		if(T)
-			src.loc = T
+			src.forceMove(T)
 	return

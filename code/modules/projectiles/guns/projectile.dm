@@ -35,7 +35,7 @@
 	if(isnull(AC) || !istype(AC))
 		return 0
 	if(eject_casing)
-		AC.loc = get_turf(src) //Eject casing onto ground.
+		AC.forceMove(get_turf(src)) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
 	if(empty_chamber)
 		chambered = null
@@ -46,7 +46,7 @@
 			casting_reagents.trans_to(AC.BB, casting_reagents.total_volume) //For chemical darts/bullets
 			qdel(casting_reagents)
 		in_chamber = AC.BB //Load projectile into chamber.
-		AC.BB.loc = src //Set projectile loc to gun.
+		AC.BB.forceMove(src) //Set projectile loc to gun.
 		AC.update_icon()
 		return 1
 	return 0
@@ -57,7 +57,7 @@
 		return
 	else if(magazine.ammo_count())
 		chambered = magazine.get_round()
-		chambered.loc = src
+		chambered.forceMove(src)
 	return
 
 
@@ -68,7 +68,7 @@
 		if(!magazine && istype(AM, text2path(mag_type)))
 			user.remove_from_mob(AM)
 			magazine = AM
-			magazine.loc = src
+			magazine.forceMove(src)
 			to_chat(user, "<span class='notice'>You load a new magazine into \the [src].</span>")
 			chamber_round()
 			A.update_icon()
@@ -90,7 +90,7 @@
 				S.initial_w_class = w_class
 				fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 				w_class = 3 //so pistols do not fit in pockets when suppressed
-				A.loc = src
+				A.forceMove(src)
 				update_icon()
 				return
 			else
@@ -119,7 +119,7 @@
 
 /obj/item/weapon/gun/projectile/attack_self(mob/living/user as mob)
 	if(magazine)
-		magazine.loc = get_turf(src.loc)
+		magazine.forceMove(get_turf(src.loc))
 		user.put_in_hands(magazine)
 		magazine.update_icon()
 		magazine = null

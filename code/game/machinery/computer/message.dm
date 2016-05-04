@@ -62,7 +62,7 @@
 			spark_system.set_up(5, 0, src)
 			src.spark_system.start()
 			var/obj/item/weapon/paper/monitorkey/MK = new/obj/item/weapon/paper/monitorkey
-			MK.loc = src.loc
+			MK.forceMove(src.loc)
 			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			// Will help make emagging the console not so easy to get away with.
 			MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"

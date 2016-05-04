@@ -159,10 +159,10 @@
 	var/O = D.locked
 	if(O)
 		var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(exit)
-		I.loc = L
+		I.forceMove(L)
 		L.name += " ([I.name])"
 	else
-		I.loc = exit
+		I.forceMove(exit)
 	I.materials[MAT_METAL] = get_resource_cost_w_coeff(D,MAT_METAL)
 	I.materials[MAT_GLASS] = get_resource_cost_w_coeff(D,MAT_GLASS)
 	visible_message("\icon[src] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")

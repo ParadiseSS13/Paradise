@@ -1099,7 +1099,7 @@ steam.start() -- spawns the effect
 	user.do_attack_animation(src)
 	if (istype(I, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = I
-		G.affecting.loc = src.loc
+		G.affecting.forceMove(src.loc)
 		user.visible_message("<span class='warning'>[G.assailant] smashes [G.affecting] through the foamed metal wall.</span>")
 		qdel(I)
 		qdel(src)

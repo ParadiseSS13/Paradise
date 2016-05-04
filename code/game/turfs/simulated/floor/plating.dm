@@ -122,7 +122,7 @@
 				qdel(src)
 			else
 				if(builtin_tile)
-					builtin_tile.loc = src
+					builtin_tile.forceMove(src)
 					builtin_tile = null
 				make_plating(1)
 		if(2)

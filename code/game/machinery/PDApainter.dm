@@ -50,7 +50,7 @@
 			if(istype(P))
 				user.drop_item()
 				storedpda = P
-				P.loc = src
+				P.forceMove(src)
 				P.add_fingerprint(usr)
 				update_icon()
 
@@ -81,7 +81,7 @@
 	set src in oview(1)
 
 	if(storedpda)
-		storedpda.loc = get_turf(src.loc)
+		storedpda.forceMove(get_turf(src.loc))
 		storedpda = null
 		update_icon()
 	else

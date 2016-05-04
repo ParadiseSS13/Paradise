@@ -62,7 +62,7 @@
 				to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
 				return
 
-			resulting_poster.loc = W //Looks like it's uncluttered enough. Place the poster
+			resulting_poster.forceMove(W) //Looks like it's uncluttered enough. Place the poster
 			W.contents += resulting_poster
 
 			qdel(src)*/
@@ -343,8 +343,8 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	else
 		P = new(src, serial_number)
 	P.resulting_poster = src
-	P.loc = location
-	loc = P
+	P.forceMove(location)
+	forceMove(P)
 
 
 //seperated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby()
@@ -387,7 +387,7 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 			return
 
 	flick("poster_being_set",D)
-	D.loc = temp_loc
+	D.forceMove(temp_loc)
 
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
 	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)

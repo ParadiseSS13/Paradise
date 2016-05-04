@@ -369,7 +369,7 @@
 			var/obj/item/weapon/flamethrower/F = new /obj/item/weapon/flamethrower(user.loc)
 			if(!remove_item_from_storage(F))
 				user.unEquip(src)
-				loc = F
+				forceMove(F)
 			F.weldtool = src
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You add a rod to a welder, starting to build a flamethrower.</span>")

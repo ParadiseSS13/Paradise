@@ -79,7 +79,7 @@ var/bomb_set
 	if (extended)
 		if (istype(O, /obj/item/weapon/disk/nuclear))
 			usr.drop_item()
-			O.loc = src
+			O.forceMove(src)
 			auth = O
 			add_fingerprint(user)
 			return attack_hand(user)
@@ -238,14 +238,14 @@ var/bomb_set
 
 	if (href_list["auth"])
 		if (auth)
-			auth.loc = loc
+			auth.forceMove(loc)
 			yes_code = 0
 			auth = null
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if (istype(I, /obj/item/weapon/disk/nuclear))
 				usr.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				auth = I
 	if (is_auth(usr))
 		if (href_list["type"])

@@ -82,7 +82,7 @@
 	if(href_list["choice"])
 		if(istype(inserted_id)) //Sanity check against href spoofs
 			if(href_list["choice"] == "eject")
-				inserted_id.loc = loc
+				inserted_id.forceMove(loc)
 				inserted_id.verb_pickup()
 				inserted_id = null
 			if(href_list["choice"] == "claim")
@@ -93,7 +93,7 @@
 			var/obj/item/weapon/card/id/prisoner/I = usr.get_active_hand()
 			if(istype(I))
 				usr.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				inserted_id = I
 			else
 				to_chat(usr, "<span class='warning'>Invalid ID.</span>")

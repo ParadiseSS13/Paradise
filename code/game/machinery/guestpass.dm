@@ -52,7 +52,7 @@
 	if(istype(O, /obj/item/weapon/card/id))
 		if(!giver)
 			user.drop_item()
-			O.loc = src
+			O.forceMove(src)
 			giver = O
 			updateUsrDialog()
 		else
@@ -130,19 +130,19 @@
 			if ("id")
 				if (giver)
 					if(ishuman(usr))
-						giver.loc = usr.loc
+						giver.forceMove(usr.loc)
 						if(!usr.get_active_hand())
 							usr.put_in_hands(giver)
 						giver = null
 					else
-						giver.loc = src.loc
+						giver.forceMove(src.loc)
 						giver = null
 					accesses.Cut()
 				else
 					var/obj/item/I = usr.get_active_hand()
 					if (istype(I, /obj/item/weapon/card/id))
 						usr.drop_item()
-						I.loc = src
+						I.forceMove(src)
 						giver = I
 				updateUsrDialog()
 

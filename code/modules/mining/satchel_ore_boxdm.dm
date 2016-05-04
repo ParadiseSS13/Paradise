@@ -13,7 +13,7 @@
 	if (istype(W, /obj/item/weapon/ore))
 		if(!user.drop_item())
 			return
-		W.loc = src
+		W.forceMove(src)
 	if (istype(W, /obj/item/weapon/storage))
 		var/obj/item/weapon/storage/S = W
 		S.hide_from(usr)
@@ -90,7 +90,7 @@
 	if(href_list["removeall"])
 		for (var/obj/item/weapon/ore/O in contents)
 			contents -= O
-			O.loc = src.loc
+			O.forceMove(src.loc)
 		to_chat(usr, "<span class='notice'>You empty the box.</span>")
 	src.updateUsrDialog()
 	return
@@ -124,7 +124,7 @@ obj/structure/ore_box/ex_act(severity, target)
 
 	for (var/obj/item/weapon/ore/O in contents)
 		contents -= O
-		O.loc = src.loc
+		O.forceMove(src.loc)
 	to_chat(usr, "<span class='notice'>You empty the ore box.</span>")
 
 	return

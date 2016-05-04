@@ -236,7 +236,7 @@
 		update_icon()
 		return 1
 
-	in_chamber.loc = get_turf(user)
+	in_chamber.forceMove(get_turf(user))
 	in_chamber.starting = get_turf(user)
 	in_chamber.current = curloc
 	in_chamber.OnFired()
@@ -356,7 +356,7 @@
 				if(S.on)
 					set_light(0)
 				F = S
-				A.loc = src
+				A.forceMove(src)
 				update_icon()
 				update_gunlight(user)
 				verbs += /obj/item/weapon/gun/proc/toggle_gunlight
@@ -368,7 +368,7 @@
 			for(var/obj/item/device/flashlight/seclite/S in src)
 				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
 				F = null
-				S.loc = get_turf(user)
+				S.forceMove(get_turf(user))
 				update_gunlight(user)
 				S.update_brightness(user)
 				update_icon()

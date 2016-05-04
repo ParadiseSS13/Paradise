@@ -42,7 +42,7 @@
 		if(I.imp)
 			if(imp || I.imp.implanted)
 				return
-			I.imp.loc = src
+			I.imp.forceMove(src)
 			imp = I.imp
 			I.imp = null
 			update_icon()
@@ -51,7 +51,7 @@
 			if(imp)
 				if(I.imp)
 					return
-				imp.loc = I
+				imp.forceMove(I)
 				I.imp = imp
 				imp = null
 				update_icon()

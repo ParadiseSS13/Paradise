@@ -152,7 +152,7 @@
 
 	if(href_list["remove_tank"])
 		if(holding)
-			holding.loc = loc
+			holding.forceMove(loc)
 			holding = null
 
 	if(href_list["volume_adj"])

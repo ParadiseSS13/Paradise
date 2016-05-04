@@ -379,7 +379,7 @@
 	//manifest finalisation
 	slip.info += "</ul><br>"
 	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
-	slip.loc = Crate
+	slip.forceMove(Crate)
 	if(istype(Crate, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/CR = Crate
 		CR.manifest = slip

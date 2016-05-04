@@ -43,13 +43,13 @@
 		else if(istype(M.back, /obj/item/weapon/storage)) // Try to place it in something on the mob's back
 			var/obj/item/weapon/storage/S = M.back
 			if(S.contents.len < S.storage_slots)
-				Item.loc = M.back
+				Item.forceMove(M.back)
 				ok = 1
 				to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [M.back.name].</span>")
 		if(ok == 0)
 			for(var/obj/item/weapon/storage/S in M.contents) // Try to place it in any item that can store stuff, on the mob.
 				if (S.contents.len < S.storage_slots)
-					Item.loc = S
+					Item.forceMove(S)
 					ok = 1
 					to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [S.name].</span>")
 					break
@@ -59,7 +59,7 @@
 			Item.name = newname
 
 		if (ok == 0) // Finally, since everything else failed, place it on the ground
-			Item.loc = get_turf(M.loc)
+			Item.forceMove(get_turf(M.loc))
 
 		HackProperties(Item,propadjust)
 		M.regenerate_icons()

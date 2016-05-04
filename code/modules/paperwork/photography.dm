@@ -321,7 +321,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		viewer = user.client.eye
 	var/can_see = (dummy in viewers(world.view, viewer)) != null
 
-	dummy.loc = null
+	dummy.forceMove(null)
 	dummy = null	//Alas, nameless creature	//garbage collect it instead
 	return can_see
 
@@ -375,7 +375,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 
 /obj/item/device/camera/proc/printpicture(mob/user, var/datum/picture/P)
 	var/obj/item/weapon/photo/Photo = new/obj/item/weapon/photo()
-	Photo.loc = user.loc
+	Photo.forceMove(user.loc)
 	if(!user.get_inactive_hand())
 		user.put_in_inactive_hand(Photo)
 	Photo.construct(P)

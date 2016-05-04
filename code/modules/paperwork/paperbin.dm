@@ -73,7 +73,7 @@
 					P.rigged = 1
 					P.updateinfolinks()
 
-		P.loc = user.loc
+		P.forceMove(user.loc)
 		user.put_in_hands(P)
 		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
 	else
@@ -88,7 +88,7 @@
 		return
 
 	user.drop_item()
-	i.loc = src
+	i.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
 	papers.Add(i)
 	amount++
@@ -125,7 +125,7 @@
 			papers.Remove(P)
 		else
 			P = new /obj/item/weapon/paper/carbon
-		P.loc = user.loc
+		P.forceMove(user.loc)
 		user.put_in_hands(P)
 		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
 	else

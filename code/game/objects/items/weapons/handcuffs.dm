@@ -48,7 +48,7 @@
 			target.handcuffed = new trashtype(target)
 			qdel(src)
 		else
-			loc = target
+			forceMove(target)
 			target.handcuffed = src
 		target.update_handcuffed()
 		return

@@ -116,14 +116,14 @@
 		speed = 1
 		maxHealth += 200
 		health += 200
-		O.loc = src
+		O.forceMove(src)
 		visible_message("\blue [src] is quickly outfitted in [O] by [user].","\blue You quickly outfit [src] in [O].")
 		regenerate_icons()
 		return
 	if(istype(O,/obj/item/vox/armalis_amp))
 		user.drop_item()
 		amp = O
-		O.loc = src
+		O.forceMove(src)
 		visible_message("\blue [src] is quickly outfitted in [O] by [user].","\blue You quickly outfit [src] in [O].")
 		regenerate_icons()
 		return

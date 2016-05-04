@@ -376,7 +376,7 @@
 					src.icon_state = "1"
 					src.circuit = P
 					user.drop_item()
-					P.loc = src
+					P.forceMove(src)
 				else
 					to_chat(user, "\red This frame does not accept circuit boards of this type!")
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
@@ -389,7 +389,7 @@
 				to_chat(user, "\blue You remove the circuit board.")
 				src.state = 1
 				src.icon_state = "0"
-				circuit.loc = src.loc
+				circuit.forceMove(src.loc)
 				src.circuit = null
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
@@ -487,7 +487,7 @@
 					src.icon_state = "1"
 					src.circuit = P
 					user.drop_item()
-					P.loc = src
+					P.forceMove(src)
 				else
 					to_chat(user, "\red This frame does not accept circuit boards of this type!")
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
@@ -500,7 +500,7 @@
 				to_chat(user, "\blue You remove the circuit board.")
 				src.state = 1
 				src.icon_state = "0"
-				circuit.loc = src.loc
+				circuit.forceMove(src.loc)
 				src.circuit = null
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
