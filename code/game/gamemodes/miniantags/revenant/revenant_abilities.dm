@@ -269,7 +269,7 @@
 				if(!istype(T, /turf/simulated/floor/plating) && !istype(T, /turf/simulated/floor/engine/cult) && istype(T, /turf/simulated/floor) && prob(15))
 					var/turf/simulated/floor/floor = T
 					if(floor.intact)
-						floor.builtin_tile.loc = floor
+						floor.builtin_tile.forceMove(floor)
 					floor.broken = 0
 					floor.burnt = 0
 					floor.make_plating(1)

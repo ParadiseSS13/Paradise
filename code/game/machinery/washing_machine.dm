@@ -190,7 +190,7 @@
 
 	sleep(20)
 	if(state in list(1,3,6) )
-		usr.loc = src.loc
+		usr.forceMove(src.loc)
 
 
 /obj/machinery/washing_machine/update_icon()
@@ -205,7 +205,7 @@
 			if(!crayon)
 				user.drop_item()
 				crayon = W
-				crayon.loc = src
+				crayon.forceMove(src)
 			else
 				..()
 		else
@@ -214,7 +214,7 @@
 		if( (state == 1) && hacked)
 			var/obj/item/weapon/grab/G = W
 			if(ishuman(G.assailant) && iscorgi(G.affecting))
-				G.affecting.loc = src
+				G.affecting.forceMove(src)
 				qdel(G)
 				state = 3
 		else
@@ -275,7 +275,7 @@
 		if(contents.len < 5)
 			if ( state in list(1, 3) )
 				user.drop_item()
-				W.loc = src
+				W.forceMove(src)
 				state = 3
 			else
 				to_chat(user, "\blue You can't put the item in right now.")
@@ -292,13 +292,13 @@
 		if(2)
 			state = 1
 			for(var/atom/movable/O in contents)
-				O.loc = src.loc
+				O.forceMove(src.loc)
 		if(3)
 			state = 4
 		if(4)
 			state = 3
 			for(var/atom/movable/O in contents)
-				O.loc = src.loc
+				O.forceMove(src.loc)
 			crayon = null
 			state = 1
 		if(5)
@@ -312,7 +312,7 @@
 					var/mob/M = locate(/mob,contents)
 					M.gib()
 			for(var/atom/movable/O in contents)
-				O.loc = src.loc
+				O.forceMove(src.loc)
 			crayon = null
 			state = 1
 

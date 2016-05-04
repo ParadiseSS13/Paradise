@@ -193,7 +193,7 @@
 
 	if(building)
 		if(loc)
-			src.loc = loc
+			src.forceMove(loc)
 
 		if(dir)
 			src.dir = dir
@@ -1017,7 +1017,7 @@
 				if (wires.wires_status == 31) // all wires cut
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
 					new_coil.amount = 5
-					new_coil.loc = user.loc
+					new_coil.forceMove(user.loc)
 					buildstage = 1
 					update_icon()
 					return
@@ -1063,7 +1063,7 @@
 				if(do_after(user,20, target = src))
 					to_chat(user, "You pry out the circuit!")
 					var/obj/item/weapon/airalarm_electronics/circuit = new /obj/item/weapon/airalarm_electronics()
-					circuit.loc = user.loc
+					circuit.forceMove(user.loc)
 					buildstage = 0
 					update_icon()
 				return

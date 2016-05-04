@@ -84,7 +84,7 @@
 		if(open_panel && isWireCut(WIRE_BOOM) && isWireCut(WIRE_UNBOLT) && isWireCut(WIRE_DELAY) && isWireCut(WIRE_PROCEED) && isWireCut(WIRE_ACTIVATE))
 			if(payload)
 				to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
-				payload.loc = user.loc
+				payload.forceMove(user.loc)
 				payload = null
 			else
 				to_chat(user, "<span class='notice'>There isn't anything in here to remove!</span>")
@@ -97,7 +97,7 @@
 			payload = I
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 			user.drop_item()
-			payload.loc = src
+			payload.forceMove(src)
 		else
 			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
 	else
@@ -256,7 +256,7 @@
 	var/obj/machinery/syndicatebomb/B = src.loc
 	for(var/i = 0; i < amt_summon; i++)
 		var/atom/movable/X = new summon_path
-		X.loc = get_turf(src)
+		X.forceMove(get_turf(src))
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
 				step(X, pick(NORTH,SOUTH,EAST,WEST))

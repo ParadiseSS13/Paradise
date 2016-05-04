@@ -449,7 +449,7 @@ Class Procs:
 							W.handle_item_insertion(A, 1)
 							component_parts -= A
 							component_parts += B
-							B.loc = null
+							B.forceMove(null)
 							to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
 							shouldplaysound = 1
 							break
@@ -480,7 +480,7 @@ Class Procs:
 	for(var/obj/I in component_parts)
 		if(I.reliability != 100 && crit_fail)
 			I.crit_fail = 1
-		I.loc = loc
+		I.forceMove(loc)
 	qdel(src)
 	return 1
 

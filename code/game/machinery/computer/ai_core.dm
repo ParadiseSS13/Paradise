@@ -51,7 +51,7 @@
 				icon_state = "1"
 				circuit = P
 				user.drop_item()
-				P.loc = src
+				P.forceMove(src)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
 				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				to_chat(user, "\blue You screw the circuit board into place.")
@@ -62,7 +62,7 @@
 				to_chat(user, "\blue You remove the circuit board.")
 				state = 1
 				icon_state = "0"
-				circuit.loc = loc
+				circuit.forceMove(loc)
 				circuit = null
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
@@ -141,7 +141,7 @@
 					ticker.mode.remove_revolutionary(P:brainmob.mind, 1)
 
 				user.drop_item()
-				P.loc = src
+				P.forceMove(src)
 				brain = P
 				to_chat(usr, "Added [P].")
 				icon_state = "3b"
@@ -149,7 +149,7 @@
 			if(istype(P, /obj/item/weapon/crowbar) && brain)
 				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 				to_chat(user, "\blue You remove the brain.")
-				brain.loc = loc
+				brain.forceMove(loc)
 				brain = null
 				icon_state = "3"
 
@@ -264,7 +264,7 @@ atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/A
 	if(interaction == AI_TRANS_FROM_CARD)
 		AI.control_disabled = 0
 		AI.aiRadio.disabledAi = 0
-		AI.loc = loc//To replace the terminal.
+		AI.forceMove(loc)//To replace the terminal.
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		qdel(src)

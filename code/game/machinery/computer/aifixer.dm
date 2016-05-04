@@ -116,7 +116,7 @@
 		if(stat & (NOPOWER|BROKEN))
 			to_chat(user, "[src] is offline and cannot take an AI at this time!")
 			return
-		AI.loc = src
+		AI.forceMove(src)
 		occupant = AI
 		AI.control_disabled = 1
 		AI.aiRadio.disabledAi = 1
@@ -128,7 +128,7 @@
 		if(occupant && !active)
 			to_chat(occupant, "You have been downloaded to a mobile storage device. Still no remote access.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [occupant.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
-			occupant.loc = card
+			occupant.forceMove(card)
 			occupant = null
 			update_icon()
 		else if (active)

@@ -39,7 +39,7 @@
 		var/move_dir = get_dir(loc, AM.loc)
 		var/mob/living/carbon/human/H = AM
 		if((transform_standing || H.lying) && move_dir == EAST)// || move_dir == WEST)
-			AM.loc = src.loc
+			AM.forceMove(src.loc)
 			do_transform(AM)
 
 /obj/machinery/transformer/proc/do_transform(var/mob/living/carbon/human/H)
@@ -128,7 +128,7 @@
 
 	// Crossed didn't like people lying down.
 	if(isobject(AM))
-		AM.loc = src.loc
+		AM.forceMove(src.loc)
 		do_transform_mime(AM)
 	else
 		to_chat(AM, "Only items can be greyscaled.")
@@ -212,11 +212,11 @@
 		var/move_dir = get_dir(loc, AM.loc)
 		var/mob/living/carbon/human/H = AM
 		if(H.lying && move_dir == WEST)// || move_dir == WEST)
-			AM.loc = src.loc
+			AM.forceMove(src.loc)
 			irradiate(AM)
 
 	else if(isobject(AM))
-		AM.loc = src.loc
+		AM.forceMove(src.loc)
 		scan(AM)
 
 /obj/machinery/transformer/xray/proc/irradiate(var/mob/living/carbon/human/H)

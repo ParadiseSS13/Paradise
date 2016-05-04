@@ -139,7 +139,7 @@
 			if (src.scan)
 
 				if(ishuman(usr))
-					scan.loc = usr.loc
+					scan.forceMove(usr.loc)
 
 					if(!usr.get_active_hand())
 						usr.put_in_hands(scan)
@@ -147,14 +147,14 @@
 					scan = null
 
 				else
-					src.scan.loc = src.loc
+					src.scan.forceMove(src.loc)
 					src.scan = null
 
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
-					I.loc = src
+					I.forceMove(src)
 					src.scan = I
 
 		else if (href_list["logout"])

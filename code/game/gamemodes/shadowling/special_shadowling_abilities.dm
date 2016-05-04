@@ -174,7 +174,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				if(A.real_name)
 					A.real_name = H.real_name
 				H.invisibility = 60 //This is pretty bad, but is also necessary for the shuttle call to function properly
-				H.loc = A
+				H.forceMove(A)
 				sleep(50)
 				if(!ticker.mode.shadowling_ascended)
 					shuttle_master.emergency.request(null, 0.3)

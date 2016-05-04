@@ -145,7 +145,7 @@
 
 	if (href_list["remove_tank"])
 		if(holding)
-			holding.loc = loc
+			holding.forceMove(loc)
 			holding = null
 		update_icon()
 

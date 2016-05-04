@@ -134,7 +134,7 @@ Please wait until completion...</TT><BR>
 
 					spawn (build_time)
 						if (!isnull(src.being_built))
-							src.being_built.loc = get_turf(src)
+							src.being_built.forceMove(get_turf(src))
 							src.being_built = null
 						src.use_power = 1
 						src.operating = 0

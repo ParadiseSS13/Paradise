@@ -102,7 +102,7 @@
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
 					user.drop_item()
-					P.loc = src
+					P.forceMove(src)
 					icon_state = "box_2"
 					state = 3
 					components = list()
@@ -123,14 +123,14 @@
 			if(istype(P, /obj/item/weapon/crowbar))
 				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
 				state = 2
-				circuit.loc = src.loc
+				circuit.forceMove(src.loc)
 				circuit = null
 				if(components.len == 0)
 					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				else
 					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
 					for(var/obj/item/I in components)
-						I.loc = src.loc
+						I.forceMove(src.loc)
 				desc = initial(desc)
 				req_components = null
 				components = null
@@ -150,9 +150,9 @@
 						qdel(O)
 					new_machine.component_parts = list()
 					for(var/obj/O in src)
-						O.loc = null
+						O.forceMove(null)
 						new_machine.component_parts += O
-					circuit.loc = null
+					circuit.forceMove(null)
 					new_machine.RefreshParts()
 					qdel(src)
 					return
@@ -201,7 +201,7 @@
 							update_req_desc()
 							break
 						user.drop_item()
-						P.loc = src
+						P.forceMove(src)
 						components += P
 						req_components[I]--
 						update_req_desc()

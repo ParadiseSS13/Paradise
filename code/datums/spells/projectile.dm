@@ -39,7 +39,7 @@
 
 			var/current_loc = usr.loc
 
-			projectile.loc = current_loc
+			projectile.forceMove(current_loc)
 
 			for(var/i = 0,i < proj_lifespan,i++)
 				if(!projectile)
@@ -48,12 +48,12 @@
 				if(proj_homing)
 					if(proj_insubstantial)
 						projectile.dir = get_dir(projectile,target)
-						projectile.loc = get_step_to(projectile,target)
+						projectile.forceMove(get_step_to(projectile,target))
 					else
 						step_to(projectile,target)
 				else
 					if(proj_insubstantial)
-						projectile.loc = get_step(projectile,dir)
+						projectile.forceMove(get_step(projectile,dir))
 					else
 						step(projectile,dir)
 

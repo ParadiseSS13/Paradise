@@ -50,7 +50,7 @@
 					kidnapped = victim
 					stop_pulling()
 		flick("jaunt",animation)
-		loc = holder
+		forceMove(holder)
 		holder = holder
 
 		if(kidnapped)

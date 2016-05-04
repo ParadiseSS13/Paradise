@@ -256,7 +256,7 @@
 			default_deconstruction_crowbar(W)
 	if(istype(W, /obj/item/weapon/coin) && premium.len > 0)
 		user.drop_item()
-		W.loc = src
+		W.forceMove(src)
 		coin = W
 		categories |= CAT_COIN
 		to_chat(user, "\blue You insert the [W] into the [src]")

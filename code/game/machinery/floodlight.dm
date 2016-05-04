@@ -41,7 +41,7 @@
 			if(!user.get_active_hand())
 				user.put_in_hands(cell)
 		else
-			cell.loc = loc
+			cell.forceMove(loc)
 
 		cell.add_fingerprint(user)
 		cell.updateicon()
@@ -109,7 +109,7 @@
 				to_chat(user, "There is a power cell already installed.")
 			else
 				user.drop_item()
-				W.loc = src
+				W.forceMove(src)
 				cell = W
 				to_chat(user, "You insert the power cell.")
 	updateicon()

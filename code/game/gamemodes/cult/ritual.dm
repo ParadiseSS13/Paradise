@@ -540,7 +540,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 					R.word1=cultwords["travel"]
 					R.word2=cultwords["self"]
 					R.word3=beacon
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("itemport")
 					var/list/words = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri")
@@ -550,137 +550,137 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 					R.word1=cultwords["travel"]
 					R.word2=cultwords["other"]
 					R.word3=beacon
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("tome")
 					R.word1=cultwords["see"]
 					R.word2=cultwords["blood"]
 					R.word3=cultwords["hell"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("armor")
 					R.word1=cultwords["hell"]
 					R.word2=cultwords["destroy"]
 					R.word3=cultwords["other"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("convert")
 					R.word1=cultwords["join"]
 					R.word2=cultwords["blood"]
 					R.word3=cultwords["self"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("tear in reality")
 					R.word1=cultwords["hell"]
 					R.word2=cultwords["join"]
 					R.word3=cultwords["self"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("emp")
 					R.word1=cultwords["destroy"]
 					R.word2=cultwords["see"]
 					R.word3=cultwords["technology"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("drain")
 					R.word1=cultwords["travel"]
 					R.word2=cultwords["blood"]
 					R.word3=cultwords["self"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("seer")
 					R.word1=cultwords["see"]
 					R.word2=cultwords["hell"]
 					R.word3=cultwords["join"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("raise")
 					R.word1=cultwords["blood"]
 					R.word2=cultwords["join"]
 					R.word3=cultwords["hell"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("obscure")
 					R.word1=cultwords["hide"]
 					R.word2=cultwords["see"]
 					R.word3=cultwords["blood"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("astral journey")
 					R.word1=cultwords["hell"]
 					R.word2=cultwords["travel"]
 					R.word3=cultwords["self"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("manifest")
 					R.word1=cultwords["blood"]
 					R.word2=cultwords["see"]
 					R.word3=cultwords["travel"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("imbue talisman")
 					R.word1=cultwords["hell"]
 					R.word2=cultwords["technology"]
 					R.word3=cultwords["join"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("sacrifice")
 					R.word1=cultwords["hell"]
 					R.word2=cultwords["blood"]
 					R.word3=cultwords["join"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("reveal")
 					R.word1=cultwords["blood"]
 					R.word2=cultwords["see"]
 					R.word3=cultwords["hide"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("wall")
 					R.word1=cultwords["destroy"]
 					R.word2=cultwords["travel"]
 					R.word3=cultwords["self"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("freedom")
 					R.word1=cultwords["travel"]
 					R.word2=cultwords["technology"]
 					R.word3=cultwords["other"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("cultsummon")
 					R.word1=cultwords["join"]
 					R.word2=cultwords["other"]
 					R.word3=cultwords["self"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("deafen")
 					R.word1=cultwords["hide"]
 					R.word2=cultwords["other"]
 					R.word3=cultwords["see"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("blind")
 					R.word1=cultwords["destroy"]
 					R.word2=cultwords["see"]
 					R.word3=cultwords["other"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("bloodboil")
 					R.word1=cultwords["destroy"]
 					R.word2=cultwords["see"]
 					R.word3=cultwords["blood"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("communicate")
 					R.word1=cultwords["self"]
 					R.word2=cultwords["other"]
 					R.word3=cultwords["technology"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()
 				if("stun")
 					R.word1=cultwords["join"]
 					R.word2=cultwords["hide"]
 					R.word3=cultwords["technology"]
-					R.loc = user.loc
+					R.forceMove(user.loc)
 					R.check_icon()

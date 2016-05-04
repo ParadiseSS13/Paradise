@@ -45,7 +45,7 @@
 			if(!user.unEquip(L))
 				to_chat(user, "<span class='warning'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 				return
-			L.loc = src
+			L.forceMove(src)
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into the [name]'s slot.</span>")
 	else
@@ -169,7 +169,7 @@
 
 /obj/machinery/computer/teleporter/proc/eject()
 	if(locked)
-		locked.loc = loc
+		locked.forceMove(loc)
 		locked = null
 
 /obj/machinery/computer/teleporter/proc/set_target(mob/user)

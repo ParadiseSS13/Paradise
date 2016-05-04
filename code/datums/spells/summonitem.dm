@@ -56,7 +56,7 @@
 
 					if(issilicon(M)) //Items in silicons warp the whole silicon
 						M.loc.visible_message("<span class='warning'>[M] suddenly disappears!</span>")
-						M.loc = user.loc
+						M.forceMove(user.loc)
 						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
 						item_to_retrive = null
 						break
@@ -100,7 +100,7 @@
 					if(!user.equip_to_slot_if_possible(item_to_retrive, slot_l_hand, 0, 1, 1))
 						butterfingers = 1
 			if(butterfingers)
-				item_to_retrive.loc = user.loc
+				item_to_retrive.forceMove(user.loc)
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears!</span>")
 			else
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears in [user]'s hand!</span>")

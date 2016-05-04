@@ -29,7 +29,7 @@
 /obj/machinery/computer/secure_data/attackby(obj/item/O as obj, user as mob, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
 		usr.drop_item()
-		O.loc = src
+		O.forceMove(src)
 		scan = O
 		to_chat(user, "You insert [O].")
 	..()
@@ -246,13 +246,13 @@ What a mess.*/
 					if(istype(usr,/mob/living/carbon/human) && !usr.get_active_hand())
 						usr.put_in_hands(scan)
 					else
-						scan.loc = get_turf(src)
+						scan.forceMove(get_turf(src))
 					scan = null
 				else
 					var/obj/item/I = usr.get_active_hand()
 					if (istype(I, /obj/item/weapon/card/id))
 						usr.drop_item()
-						I.loc = src
+						I.forceMove(src)
 						scan = I
 
 			if("Log Out")

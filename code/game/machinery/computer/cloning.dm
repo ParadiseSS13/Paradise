@@ -85,7 +85,7 @@
 	if (istype(W, /obj/item/weapon/disk/data)) //INSERT SOME DISKETTES
 		if (!src.diskette)
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			src.diskette = W
 			to_chat(user, "You insert [W].")
 			nanomanager.update_uis(src)
@@ -268,7 +268,7 @@
 
 			if("eject")
 				if (!isnull(src.diskette))
-					src.diskette.loc = src.loc
+					src.diskette.forceMove(src.loc)
 					src.diskette = null
 
 	else if (href_list["save_disk"]) //Save to disk!

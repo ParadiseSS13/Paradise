@@ -93,7 +93,7 @@ FIRE ALARM
 					playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
 					new_coil.amount = 5
-					new_coil.loc = user.loc
+					new_coil.forceMove(user.loc)
 					buildstage = 1
 					update_icon()
 			if(1)
@@ -112,7 +112,7 @@ FIRE ALARM
 					playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
 					spawn(20)
 						var/obj/item/weapon/firealarm_electronics/circuit = new /obj/item/weapon/firealarm_electronics()
-						circuit.loc = user.loc
+						circuit.forceMove(user.loc)
 						buildstage = 0
 						update_icon()
 			if(0)
@@ -280,7 +280,7 @@ FIRE ALARM
 	..()
 
 	if(loc)
-		src.loc = loc
+		src.forceMove(loc)
 
 	if(dir)
 		src.dir = dir

@@ -15,7 +15,7 @@
 	set desc = "Transport back to your core."
 
 	if(blob_core)
-		src.loc = blob_core.loc
+		src.forceMove(blob_core.loc)
 
 /mob/camera/blob/verb/jump_to_node()
 	set category = "Blob"
@@ -29,7 +29,7 @@
 		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
 		var/obj/effect/blob/node/chosen_node = nodes[node_name]
 		if(chosen_node)
-			src.loc = chosen_node.loc
+			src.forceMove(chosen_node.loc)
 
 /mob/camera/blob/verb/create_shield_power()
 	set category = "Blob"
@@ -220,8 +220,8 @@
 
 	// The old switcharoo.
 	var/turf/old_turf = blob_core.loc
-	blob_core.loc = T
-	B.loc = old_turf
+	blob_core.forceMove(T)
+	B.forceMove(old_turf)
 	return
 
 

@@ -621,14 +621,14 @@
 
 
 /obj/item/weapon/guardian_bomb/proc/disguise(var/obj/A)
-	A.loc = src
+	A.forceMove(src)
 	stored_obj = A
 	anchored = A.anchored
 	density = A.density
 	appearance = A.appearance
 	spawn(600)
 		if(src)
-			stored_obj.loc = get_turf(src.loc)
+			stored_obj.forceMove(get_turf(src.loc))
 			to_chat(spawner, "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>")
 			qdel(src)
 
@@ -638,11 +638,11 @@
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
-			stored_obj.loc = get_turf(src.loc)
+			stored_obj.forceMove(get_turf(src.loc))
 			qdel(src)
 			return
 	to_chat(spawner, "<span class='danger'><B>Success! Your trap on \the [src] caught [user]!</B></span>")
-	stored_obj.loc = get_turf(src.loc)
+	stored_obj.forceMove(get_turf(src.loc))
 	playsound(get_turf(src),'sound/effects/Explosion2.ogg', 200, 1)
 	user.ex_act(2)
 	qdel(src)

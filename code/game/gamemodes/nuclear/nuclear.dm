@@ -99,7 +99,7 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/synd_mind in syndicates)
 		if(spawnpos > synd_spawn.len)
 			spawnpos = 2
-		synd_mind.current.loc = synd_spawn[spawnpos]
+		synd_mind.current.forceMove(synd_spawn[spawnpos])
 
 		forge_syndicate_objectives(synd_mind)
 		create_syndicate(synd_mind)
@@ -199,10 +199,10 @@ proc/issyndicate(mob/living/M as mob)
 		qdel(stamp)
 
 		if (ticker.mode.config_tag=="nuclear")
-			P.loc = synd_mind.current.loc
+			P.forceMove(synd_mind.current.loc)
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
-			P.loc = H.loc
+			P.forceMove(H.loc)
 			H.equip_to_slot_or_del(P, slot_r_store, 0)
 			H.update_icons()
 
