@@ -367,6 +367,26 @@
 	..()
 	set_trait(TRAIT_RARITY,40)
 
+/datum/seed/ambrosia/cruciatus
+	name = "ambrosia"
+	seed_name = "ambrosia vulgaris"
+	display_name = "ambrosia vulgaris"
+	mutants = null
+	chems = list("plantmatter" = list(1), "thc" = list(1,8), "silver_sulfadiazine" = list(1,8,1), "styptic_powder" = list(1,10,1), "bath salts" = list(10))
+	kitchen_tag = "ambrosia"
+	preset_icon = "ambrosiavulgaris"
+
+/datum/seed/ambrosia/cruciatus/New()
+	..()
+	set_trait(TRAIT_HARVEST_REPEAT,1)
+	set_trait(TRAIT_MATURATION,6)
+	set_trait(TRAIT_PRODUCTION,6)
+	set_trait(TRAIT_YIELD,6)
+	set_trait(TRAIT_POTENCY,10)
+	set_trait(TRAIT_PRODUCT_ICON,"ambrosia")
+	set_trait(TRAIT_PRODUCT_COLOUR,"#9FAD55")
+	set_trait(TRAIT_PLANT_ICON,"ambrosia")
+
 //Tobacco/varieties
 /datum/seed/tobacco
 	name = "tobacco"
