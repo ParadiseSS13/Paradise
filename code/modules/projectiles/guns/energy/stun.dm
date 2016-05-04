@@ -31,20 +31,20 @@
 	icon_state = "stunrevolver"
 	item_state = "gun"
 	fire_sound = 'sound/weapons/gunshot.ogg'
-	projectile_type = "/obj/item/projectile/shock_revolver"
+	projectile_type = "/obj/item/projectile/energy/shock_revolver"
 	charge_cost = 2000
 	can_flashlight = 0
 
-/obj/item/projectile/shock_revolver
+/obj/item/projectile/energy/shock_revolver
 	name = "shock bolt"
 	icon_state = "purple_laser"
 	var/chain
 
-/obj/item/projectile/shock_revolver/OnFired()
+/obj/item/projectile/energy/shock_revolver/OnFired()
 	spawn(1)
 		chain = Beam(firer, icon_state="purple_lightning", icon = 'icons/effects/effects.dmi',time=1000, maxdistance = 30)
 
-/obj/item/projectile/shock_revolver/on_hit(atom/target)
+/obj/item/projectile/energy/shock_revolver/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
 		tesla_zap(src, 3, 10000)
