@@ -204,7 +204,7 @@
 									// ------- YOU TRIED TO CLICK ON AN ITEM THROUGH A WINDOW (OR SIMILAR THING THAT LIMITS ON BORDERS) ON THE TILE YOU'RE ON -------
 									check_1 = 0
 
-					D.loc = usr.loc
+					D.forceMove(usr.loc)
 					if(step_to(D, Step_2))
 						check_2 = 1
 
@@ -255,7 +255,7 @@
 
 			//del(D)
 			// Garbage Collect Dummy
-			D.loc = null
+			D.forceMove(null)
 			D = null
 
 			// ------- DUMMY OBJECT'S SERVED IT'S PURPOSE, IT'S REWARDED WITH A SWIFT DELETE -------

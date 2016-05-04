@@ -162,7 +162,7 @@ emp_act
 			if(!isturf(picked)) return
 			if(buckled)
 				buckled.unbuckle_mob()
-			src.loc = picked
+			src.forceMove(picked)
 			return 1
 	return 0
 
@@ -394,7 +394,7 @@ emp_act
 				var/turf/T = near_wall(dir,2)
 
 				if(T)
-					src.loc = T
+					src.forceMove(T)
 					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
 					src.anchored = 1
 					src.pinned += O

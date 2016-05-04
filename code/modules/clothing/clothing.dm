@@ -320,7 +320,7 @@ BLIND     // can't see anything
 					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 						user.unEquip(src)
 					else //Otherwise, put it in an available hand, the active one preferentially.
-						src.loc = user
+						src.forceMove(user)
 						H.head = null
 						user.put_in_hands(src)
 		else
@@ -350,7 +350,7 @@ BLIND     // can't see anything
 					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 						user.unEquip(src)
 					else //Otherwise, put it in an available hand, the active one preferentially.
-						src.loc = user
+						src.forceMove(user)
 						user.wear_mask = null
 						user.put_in_hands(src)
 		usr.update_inv_wear_mask()

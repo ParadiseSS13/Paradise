@@ -125,7 +125,7 @@ var/list/tape_roll_applications = list()
 	if(istype(A, /obj/machinery/door/airlock))
 		var/turf/T = get_turf(A)
 		var/obj/item/tape/P = new tape_type(T.x,T.y,T.z)
-		P.loc = locate(T.x,T.y,T.z)
+		P.forceMove(locate(T.x,T.y,T.z))
 		P.icon_state = "[src.icon_base]_door"
 		P.layer = 3.2
 		to_chat(user, "\blue You finish placing the [src].")

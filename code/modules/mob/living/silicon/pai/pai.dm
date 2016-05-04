@@ -83,7 +83,7 @@
 	var/current_pda_messaging = null
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
-	src.loc = paicard
+	src.forceMove(paicard)
 	card = paicard
 	sradio = new(src)
 	if(card)
@@ -491,13 +491,13 @@
 		var/mob/living/M = H.loc
 		if(istype(M))
 			M.unEquip(H)
-		H.loc = get_turf(src)
-		src.loc = get_turf(H)
+		H.forceMove(get_turf(src))
+		src.forceMove(get_turf(H))
 
 	// Move us into the card and move the card to the ground
 	//This seems redundant but not including the forced loc setting messes the behavior up.
-	src.loc = card
-	card.loc = get_turf(card)
+	src.forceMove(card)
+	card.forceMove(get_turf(card))
 	src.forceMove(card)
 	card.forceMove(card.loc)
 	icon_state = "[chassis]"
@@ -587,7 +587,7 @@
 
 /mob/living/silicon/pai/on_forcemove(atom/newloc)
 	if(card)
-		card.loc = newloc
+		card.forceMove(newloc)
 	else //something went very wrong.
 		CRASH("pAI without card")
 	loc = card

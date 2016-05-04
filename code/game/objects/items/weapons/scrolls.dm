@@ -92,7 +92,7 @@
 			break
 
 	if(!success)
-		user.loc = pick(L)
+		user.forceMove(pick(L))
 
 	smoke.start()
 	src.uses -= 1

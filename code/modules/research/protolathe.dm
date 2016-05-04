@@ -105,7 +105,7 @@ Note: Must be placed west/left of and R&D console to function.
 					reagents.trans_to(I, reagents.total_volume)
 				if(I.reliability != 100 && crit_fail)
 					I.crit_fail = 1
-				I.loc = src.loc
+				I.forceMove(src.loc)
 			for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
 				reagents.trans_to(G, G.reagents.maximum_volume)
 			materials.retrieve_all()

@@ -72,7 +72,7 @@
 		if(!isemptylist(crowbar_salvage))
 			var/obj/S = pick(crowbar_salvage)
 			if(S)
-				S.loc = get_turf(user)
+				S.forceMove(get_turf(user))
 				crowbar_salvage -= S
 				user.visible_message("[user] pries [S] from [src].", "You pry [S] from [src].")
 		else

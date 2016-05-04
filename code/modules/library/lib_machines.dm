@@ -190,7 +190,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 		cache = null
 	if(href_list["eject"])
 		for(var/obj/item/weapon/book/B in contents)
-			B.loc = src.loc
+			B.forceMove(src.loc)
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
 	return

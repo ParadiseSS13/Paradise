@@ -191,7 +191,7 @@ var/list/ai_verbs_default = list(
 
 	eyeobj.ai = src
 	eyeobj.name = "[src.name] (AI Eye)" // Give it a name
-	eyeobj.loc = src.loc
+	eyeobj.forceMove(src.loc)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
 	builtInCamera.c_tag = name

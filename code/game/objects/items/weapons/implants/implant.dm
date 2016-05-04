@@ -43,7 +43,7 @@
 
 	if(activated)
 		action_button_name = "Activate [src.name]"
-	src.loc = source
+	src.forceMove(source)
 	imp_in = source
 	implanted = 1
 	if(istype(source, /mob/living/carbon/human))
@@ -56,7 +56,7 @@
 	return 1
 
 /obj/item/weapon/implant/proc/removed(var/mob/source)
-	src.loc = null
+	src.forceMove(null)
 	imp_in = null
 	implanted = 0
 

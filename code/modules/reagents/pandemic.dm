@@ -280,14 +280,14 @@
 			return
 
 		beaker =  I
-		beaker.loc = src
+		beaker.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		src.updateUsrDialog()
 		icon_state = "mixer1"
 
 	else if(istype(I, /obj/item/weapon/screwdriver))
 		if(src.beaker)
-			beaker.loc = get_turf(src)
+			beaker.forceMove(get_turf(src))
 		..()
 		return
 	else

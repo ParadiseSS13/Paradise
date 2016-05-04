@@ -396,13 +396,13 @@
 				h_user.put_in_l_hand(B)
 			else if (h_user.l_store == src)
 				h_user.unEquip(src)
-				B.loc = h_user
+				B.forceMove(h_user)
 				B.layer = 20
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if (h_user.r_store == src)
 				h_user.unEquip(src)
-				B.loc = h_user
+				B.forceMove(h_user)
 				B.layer = 20
 				h_user.r_store = B
 				h_user.update_inv_pockets()
@@ -410,12 +410,12 @@
 				h_user.unEquip(src)
 				h_user.put_in_hands(B)
 			else if (!istype(src.loc, /turf))
-				src.loc = get_turf(h_user)
+				src.forceMove(get_turf(h_user))
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>")
-		src.loc = B
-		P.loc = B
+		src.forceMove(B)
+		P.forceMove(B)
 		B.amount++
 		B.update_icon()
 

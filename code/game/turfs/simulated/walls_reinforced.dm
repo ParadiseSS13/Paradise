@@ -270,7 +270,7 @@
 				P.x = src.x
 				P.y = src.y
 				P.z = src.z
-				P.loc = src
+				P.forceMove(src)
 				P.level = 2
 		return
 

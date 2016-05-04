@@ -415,11 +415,11 @@
 /obj/spacepod/sec/New()
 	..()
 	var/obj/item/device/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/device/spacepod_equipment/weaponry/taser
-	T.loc = equipment_system
+	T.forceMove(equipment_system)
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = src
 	var/obj/item/device/spacepod_equipment/misc/tracker/L = new /obj/item/device/spacepod_equipment/misc/tracker
-	L.loc = equipment_system
+	L.forceMove(equipment_system)
 	equipment_system.misc_system = L
 	equipment_system.misc_system.my_atom = src
 	equipment_system.misc_system.enabled = 1

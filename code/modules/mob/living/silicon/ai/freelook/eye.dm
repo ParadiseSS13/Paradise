@@ -99,7 +99,7 @@
 	unset_machine()
 
 	if(src.eyeobj && src.loc)
-		src.eyeobj.loc = src.loc
+		src.eyeobj.forceMove(src.loc)
 	else
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
 		src.eyeobj = new(src.loc)

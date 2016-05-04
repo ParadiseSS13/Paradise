@@ -249,7 +249,7 @@
 	if(isturf(src.loc))
 		if((status_flags & CANPUSH) && ismob(AM))
 			var/newamloc = src.loc
-			src.loc = AM:loc
+			src.forceMove(AM:loc)
 			AM:loc = newamloc
 		else
 			..()

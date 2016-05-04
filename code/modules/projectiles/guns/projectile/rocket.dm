@@ -24,7 +24,7 @@
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		if(rockets.len < max_rockets)
 			user.drop_item()
-			I.loc = src
+			I.forceMove(src)
 			rockets += I
 			to_chat(user, "\blue You put the rocket in [src].")
 			to_chat(user, "\blue [rockets.len] / [max_rockets] rockets.")

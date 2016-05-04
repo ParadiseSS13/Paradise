@@ -69,7 +69,7 @@
 		to_chat(user, "<span class='notice'>You load \the [IW] into \the [src].</span>")
 		loadedItems.Add(IW)
 		loadedWeightClass += IW.w_class
-		IW.loc = src
+		IW.forceMove(src)
 		return
 
 
@@ -117,7 +117,7 @@
 			loadedItems.Remove(ITD)
 			loadedWeightClass -= ITD.w_class
 			ITD.throw_speed = pressureSetting * 2
-			ITD.loc = get_turf(src)
+			ITD.forceMove(get_turf(src))
 			ITD.throw_at(target, pressureSetting * 5, pressureSetting * 2,user)
 	if(pressureSetting >= 3 && user)
 		user.visible_message("<span class='warning'>[user] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
@@ -147,7 +147,7 @@
 		if(!src.tank)
 			return
 		to_chat(user, "<span class='notice'>You detach \the [thetank] from \the [src].</span>")
-		src.tank.loc = get_turf(user)
+		src.tank.forceMove(get_turf(user))
 		user.put_in_hands(tank)
 		src.tank = null
 	if(!removing)
@@ -158,7 +158,7 @@
 			return
 		to_chat(user, "<span class='notice'>You hook \the [thetank] up to \the [src].</span>")
 		src.tank = thetank
-		thetank.loc = src
+		thetank.forceMove(src)
 	src.update_icons()
 
 /obj/item/weapon/pneumatic_cannon/proc/update_icons()

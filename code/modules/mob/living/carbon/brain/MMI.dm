@@ -34,7 +34,7 @@
 			V.show_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 		brainmob = B.brainmob
 		B.brainmob = null
-		brainmob.loc = src
+		brainmob.forceMove(src)
 		brainmob.container = src
 		brainmob.stat = CONSCIOUS
 		respawnable_list -= brainmob
@@ -107,7 +107,7 @@
 		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
 
 	brainmob.container = null//Reset brainmob mmi var.
-	brainmob.loc = held_brain//Throw mob into brain.
+	brainmob.forceMove(held_brain)//Throw mob into brain.
 	respawnable_list += brainmob
 	living_mob_list -= brainmob//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob

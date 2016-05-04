@@ -297,7 +297,7 @@ field_generator power level display
 			CF.set_master(src,G)
 			fields += CF
 			G.fields += CF
-			CF.loc = T
+			CF.forceMove(T)
 			CF.dir = field_dir
 			for(var/mob/living/L in CF.loc)
 				CF.Crossed(L)

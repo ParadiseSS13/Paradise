@@ -91,13 +91,13 @@
 
 /obj/item/weapon/tongs/proc/pick_up( var/obj/item/I )
 	held = I
-	I.loc = src
+	I.forceMove(src)
 	playsound(loc, 'sound/effects/tong_pickup.ogg', 50, 1, -1)
 
 /obj/item/weapon/tongs/attack_self(var/mob/user as mob)
 	if( held )
 		var/turf/T = get_turf(user.loc)
-		held.loc = T
+		held.forceMove(T)
 		held = null
 		icon_state = initial(icon_state)
 	..()

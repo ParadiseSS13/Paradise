@@ -394,7 +394,7 @@
 			s.start()
 			var/turf/picked = get_turf(pick(turfs))                      // Just in case...
 			new/obj/effect/decal/cleanable/molten_item(get_turf(target)) // Leave a pile of goo behind for dramatic effect...
-			target.loc = picked                                          // And teleport them to the chosen location.
+			target.forceMove(picked)                                          // And teleport them to the chosen location.
 
 			impact = 1
 

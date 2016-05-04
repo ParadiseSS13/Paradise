@@ -78,7 +78,7 @@
 			last_delay = current_tube.enter_delay(src, next_dir)
 			sleep(last_delay)
 			dir = next_dir
-			loc = next_loc // When moving from one tube to another, skip collision and such.
+			forceMove(next_loc) // When moving from one tube to another, skip collision and such.
 			density = current_tube.density
 
 			if(current_tube && current_tube.should_stop_pod(src, next_dir))
@@ -145,7 +145,7 @@
 	if(istype(mob, /mob) && mob.client)
 		// If the pod is not in a tube at all, you can get out at any time.
 		if(!(locate(/obj/structure/transit_tube) in loc))
-			mob.loc = loc
+			mob.forceMove(loc)
 			mob.client.Move(get_step(loc, direction), direction)
 			mob.reset_view(null)
 
@@ -159,7 +159,7 @@
 					if(!station.pod_moving)
 						if(direction == station.dir)
 							if(station.icon_state == "open")
-								mob.loc = loc
+								mob.forceMove(loc)
 								mob.client.Move(get_step(loc, direction), direction)
 								mob.reset_view(null)
 

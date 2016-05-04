@@ -268,7 +268,7 @@
 		return
 	if(out)//check if the owner has the item out already
 		owner.unEquip(holder, 1)//if he does, take it away. then,
-		holder.loc = null//stash it in nullspace
+		holder.forceMove(null)//stash it in nullspace
 		out = 0//and set this to clarify the item isn't out.
 		owner.visible_message("<span class='notice'>[owner] retracts [holder].</span>","<span class='notice'>You retract [holder].</span>")
 		playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
@@ -279,7 +279,7 @@
 			owner.visible_message("<span class='notice'>[owner] extends [holder]!</span>","<span class='notice'>You extend [holder]!</span>")
 			playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 		else//if this fails to put the item in his hands,
-			holder.loc = null//keep it in nullspace
+			holder.forceMove(null)//keep it in nullspace
 			to_chat(owner, "<span class='warning'>You can't extend [holder] if you can't use your hands!</span>")
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/emp_act(severity)//if the implant gets EMPed...
@@ -287,7 +287,7 @@
 		return
 	if(out)//check if he has the item out...
 		owner.unEquip(holder, 1)//if he does, take it away.
-		holder.loc = null
+		holder.forceMove(null)
 		out = 0
 		owner.visible_message("<span class='notice'>[holder] forcibly retracts into [owner]'s arm.</span>")
 	owner.visible_message("<span class='danger'>A loud bang comes from [owner]...</span>")

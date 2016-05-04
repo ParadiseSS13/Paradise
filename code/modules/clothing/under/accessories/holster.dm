@@ -45,7 +45,7 @@
 
 	holstered = W
 	user.unEquip(holstered)
-	holstered.loc = src
+	holstered.forceMove(src)
 	holstered.add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")
 

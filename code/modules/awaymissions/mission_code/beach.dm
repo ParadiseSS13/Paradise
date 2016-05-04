@@ -23,5 +23,5 @@
 	var/obj/effect/effect/water/W = new(loc)
 	W.dir = dir
 	spawn(1)
-		W.loc = get_step(W, dir)
+		W.forceMove(get_step(W, dir))
 	water_timer = addtimer(src, "drip", water_frequency)

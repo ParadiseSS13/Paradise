@@ -161,7 +161,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 				return 1
 			else
 				to_chat(user, "<span class='danger'>You remove \the [builtin_tile.singular_name].</span>")
-				builtin_tile.loc = src
+				builtin_tile.forceMove(src)
 				builtin_tile = null //deassociate tile, it no longer belongs to this turf
 		make_plating()
 		playsound(src, 'sound/items/Crowbar.ogg', 80, 1)
@@ -187,7 +187,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 			P.x = src.x
 			P.y = src.y
 			P.z = src.z
-			P.loc = src
+			P.forceMove(src)
 			return 1
 	return 0
 
@@ -195,19 +195,19 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	if(current_size == STAGE_THREE)
 		if(prob(30))
 			if(builtin_tile)
-				builtin_tile.loc = src
+				builtin_tile.forceMove(src)
 				builtin_tile = null
 				make_plating()
 	else if(current_size == STAGE_FOUR)
 		if(prob(50))
 			if(builtin_tile)
-				builtin_tile.loc = src
+				builtin_tile.forceMove(src)
 				builtin_tile = null
 				make_plating()
 	else if(current_size >= STAGE_FIVE)
 		if(builtin_tile)
 			if(prob(70))
-				builtin_tile.loc = src
+				builtin_tile.forceMove(src)
 				builtin_tile = null
 				make_plating()
 		else if(prob(50))

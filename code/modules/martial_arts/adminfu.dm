@@ -62,9 +62,9 @@
 			if(iscorgi(O))
 				var/mob/living/simple_animal/pet/corgi/C = O
 				if(C.inventory_head)
-					C.inventory_head.loc = C.loc
+					C.inventory_head.forceMove(C.loc)
 				if(C.inventory_back)
-					C.inventory_back.loc = C.loc
+					C.inventory_back.forceMove(C.loc)
 			if(O.mind)
 				O.mind.transfer_to(P)
 			else

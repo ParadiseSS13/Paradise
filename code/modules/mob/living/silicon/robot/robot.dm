@@ -241,7 +241,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/Destroy()
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-		if(T)	mmi.loc = T
+		if(T)	mmi.forceMove(T)
 		if(mmi.brainmob)
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
@@ -587,7 +587,7 @@ var/list/robot_verbs_default = list(
 				C.wrapped = W
 				C.install()
 				user.drop_item()
-				W.loc = null
+				W.forceMove(null)
 
 				var/obj/item/robot_parts/robot_component/WC = W
 				if(istype(WC))
@@ -673,7 +673,7 @@ var/list/robot_verbs_default = list(
 					I.brute = C.brute_damage
 					I.burn = C.electronics_damage
 
-				I.loc = src.loc
+				I.forceMove(src.loc)
 
 				if(C.installed == 1)
 					C.uninstall()
@@ -695,7 +695,7 @@ var/list/robot_verbs_default = list(
 			to_chat(user, "There is a power cell already installed.")
 		else
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			cell = W
 			to_chat(user, "You insert the power cell.")
 

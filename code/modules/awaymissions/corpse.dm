@@ -83,7 +83,7 @@
 		M.equip_to_slot_or_del(W, slot_wear_id)
 	if(src.coffin == 1)
 		var/obj/structure/closet/coffin/sarcophagus/sarc = locate(/obj/structure/closet/coffin/sarcophagus) in loc
-		if(sarc) M.loc = sarc
+		if(sarc) M.forceMove(sarc)
 	qdel(src)
 
 

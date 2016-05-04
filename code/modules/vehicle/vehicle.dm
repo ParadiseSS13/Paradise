@@ -79,7 +79,7 @@
 		if(A.density)
 			if(A != src && A != M)
 				return
-	M.loc = get_turf(src)
+	M.forceMove(get_turf(src))
 	..()
 	handle_vehicle_offsets()
 

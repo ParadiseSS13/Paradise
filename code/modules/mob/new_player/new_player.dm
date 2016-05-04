@@ -125,7 +125,7 @@
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
 			to_chat(src, "\blue Now teleporting.")
-			observer.loc = O.loc
+			observer.forceMove(O.loc)
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
 			observer.icon = client.prefs.preview_icon
@@ -282,7 +282,7 @@
 		var/obj/structure/AIcore/deactivated/C = empty_playable_ai_cores[1]
 		empty_playable_ai_cores -= C
 
-		character.loc = C.loc
+		character.forceMove(C.loc)
 
 		AnnounceCyborg(character, rank, "has been downloaded to the empty core in \the [get_area(character)]")
 		ticker.mode.latespawn(character)
@@ -300,20 +300,20 @@
 
 	if(S && istype(S))
 		if(S.check_job_spawning(rank))
-			character.loc = pick(S.turfs)
+			character.forceMove(pick(S.turfs))
 			join_message = S.msg
 		else
 			to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-			character.loc = pick(latejoin)
+			character.forceMove(pick(latejoin))
 			join_message = "has arrived on the station"
 	else
-		character.loc = pick(latejoin)
+		character.forceMove(pick(latejoin))
 		join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
 	if(character.buckled && istype(character.buckled, /obj/structure/stool/bed/chair/wheelchair))
-		character.buckled.loc = character.loc
+		character.buckled.forceMove(character.loc)
 		character.buckled.dir = character.dir
 
 	ticker.mode.latespawn(character)

@@ -212,12 +212,12 @@
 			shift = -10
 			adir = assailant.dir
 			affecting.set_dir(assailant.dir)
-			affecting.loc = assailant.loc
+			affecting.forceMove(assailant.loc)
 		if(GRAB_KILL)
 			shift = 0
 			adir = 1
 			affecting.set_dir(SOUTH)//face up
-			affecting.loc = assailant.loc
+			affecting.forceMove(assailant.loc)
 
 	switch(adir)
 		if(NORTH)
@@ -401,7 +401,7 @@
 				attacker.attack_log += "\[[time_stamp()]\] <font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>"
 				msg_admin_attack("[key_name(attacker)] devoured [key_name(affecting)]")
 
-			affecting.loc = user
+			affecting.forceMove(user)
 			attacker.stomach_contents.Add(affecting)
 			qdel(src)
 

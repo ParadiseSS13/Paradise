@@ -141,7 +141,7 @@ var/send_emergency_team
 	qdel(stamp)
 	for (var/obj/effect/landmark/A in world)
 		if (A.name == "nukecode")
-			P.loc = A.loc
+			P.forceMove(A.loc)
 			qdel(A)
 			continue
 */
@@ -198,7 +198,7 @@ var/send_emergency_team
 	M.mind.special_role = "Response Team"
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
-	M.loc = spawn_location
+	M.forceMove(spawn_location)
 
 	var/class = 0
 	while (!class)

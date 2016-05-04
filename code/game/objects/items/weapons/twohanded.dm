@@ -306,7 +306,7 @@
 		var/matrix/M = matrix()
 		src.transform = M
 		user.drop_item()
-		src.loc = HS
+		src.forceMove(HS)
 		var/image/IM = image(src.icon,src.icon_state)
 		IM.overlays = src.overlays.Copy()
 		HS.overlays += IM
@@ -321,7 +321,7 @@
 		var/matrix/M = matrix()
 		I.transform = M
 		usr.drop_item()
-		I.loc = HS
+		I.forceMove(HS)
 		var/image/IM = image(I.icon,I.icon_state)
 		IM.overlays = I.overlays.Copy()
 		HS.overlays += IM
@@ -340,7 +340,7 @@
 	user.visible_message("<span class='warning'>[user] kicks over \the [src]!</span>", "<span class='danger'>You kick down \the [src]!</span>")
 	new /obj/item/weapon/twohanded/spear(user.loc)
 	for(var/obj/item/organ/external/head/H in src)
-		H.loc = user.loc
+		H.forceMove(user.loc)
 	qdel(src)
 
 /obj/item/weapon/twohanded/spear/kidan

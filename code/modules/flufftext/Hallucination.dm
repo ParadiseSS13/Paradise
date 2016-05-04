@@ -126,7 +126,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	target = T
 	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(7,target))
 		if(!U.welded)
-			src.loc = U.loc
+			src.forceMove(U.loc)
 			break
 	image_state = pick("plasma","sleeping_agent")
 	flood_images += image(image_icon,src,image_state,MOB_LAYER)
@@ -264,7 +264,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	s = new(start,target)
 	for(var/i = 0,i<11,i++)
 		sleep(5)
-		s.loc = get_step(get_turf(s),get_dir(s,target))
+		s.forceMove(get_step(get_turf(s),get_dir(s,target)))
 		s.Show()
 		s.Eat()
 	qdel(s)

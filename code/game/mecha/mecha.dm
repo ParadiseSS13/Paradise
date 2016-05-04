@@ -975,7 +975,7 @@
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
 			AI.control_disabled = 1
 			AI.aiRadio.disabledAi = 1
-			AI.loc = card
+			AI.forceMove(card)
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
@@ -1010,7 +1010,7 @@
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(var/mob/living/silicon/ai/AI, var/interaction)
 	AI.aiRestorePowerRoutine = 0
-	AI.loc = src
+	AI.forceMove(src)
 	occupant = AI
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
@@ -1273,9 +1273,9 @@
 		brainmob.client.perspective = EYE_PERSPECTIVE
 	*/
 		occupant = brainmob
-		brainmob.loc = src //should allow relaymove
+		brainmob.forceMove(src) //should allow relaymove
 		brainmob.canmove = 1
-		mmi_as_oc.loc = src
+		mmi_as_oc.forceMove(src)
 		mmi_as_oc.mecha = src
 		src.verbs -= /obj/mecha/verb/eject
 		src.Entered(mmi_as_oc)
@@ -1380,7 +1380,7 @@
 		if(istype(mob_container, /obj/item/device/mmi) || istype(mob_container, /obj/item/device/mmi/posibrain))
 			var/obj/item/device/mmi/mmi = mob_container
 			if(mmi.brainmob)
-				occupant.loc = mmi
+				occupant.forceMove(mmi)
 			mmi.mecha = null
 			src.occupant.canmove = 0
 			src.verbs += /obj/mecha/verb/eject

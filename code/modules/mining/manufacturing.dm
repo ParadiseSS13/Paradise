@@ -235,7 +235,7 @@
 				for(var/obj/item/weapon/ore/O in src.contents)
 					if (ejectamt <= 0) break
 					if (istype(O, ejecting))
-						O.loc = usr.loc
+						O.forceMove(usr.loc)
 						ejectamt--
 
 			if (href_list["disp"])
@@ -360,7 +360,7 @@
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] uses the []'s automatic ore loader on []!", user, src, W), 1)
 			var/amtload = 0
 			for (var/obj/item/weapon/ore/M in W.contents)
-				M.loc = src
+				M.forceMove(src)
 				amtload++
 			to_chat(if (amtload) user, "\blue [amtload] pieces of ore loaded from [W]!")
 			to_chat(else user, "\red No ore loaded!")
@@ -371,7 +371,7 @@
 
 		if (load == 1)
 			user.unEquip(W)
-			W.loc = src
+			W.forceMove(src)
 			if ((user.client && user.s_active != src))
 				user.client.screen -= W
 			W.dropped()
@@ -389,7 +389,7 @@
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] uses the []'s automatic ore loader on []!", user, src, O), 1)
 			var/amtload = 0
 			for (var/obj/item/weapon/ore/M in O.contents)
-				M.loc = src
+				M.forceMove(src)
 				amtload++
 			to_chat(if (amtload) user, "\blue [amtload] pieces of ore loaded from [O]!")
 			to_chat(else user, "\red No ore loaded!")
@@ -397,7 +397,7 @@
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] begins quickly stuffing ore into []!", user, src), 1)
 			var/staystill = user.loc
 			for(var/obj/item/weapon/ore/M in view(1,user))
-				M.loc = src
+				M.forceMove(src)
 				sleep(3)
 				if (user.loc != staystill) break
 			to_chat(user, "\blue You finish stuffing ore into [src]!")

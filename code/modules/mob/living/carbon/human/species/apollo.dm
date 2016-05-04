@@ -67,7 +67,7 @@
 				var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
 				H.remove_language("Wryn Hivemind")
 				node.remove(H)
-				node.loc = M.loc
+				node.forceMove(M.loc)
 				to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
 				to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
 				to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")

@@ -79,7 +79,7 @@
 							retal_target = traitorTarget
 						else
 							var/obj/item/I = traitorTarget
-							I.loc = get_turf(traitorTarget) // pull it outta them
+							I.forceMove(get_turf(traitorTarget)) // pull it outta them
 					else
 						take_to_slot(traitorTarget)
 				if(SNPC_MARTYR)
@@ -373,7 +373,7 @@
 // START COOKING MODULE
 /mob/living/carbon/human/interactive/proc/refundrecipe(list/ingredients)
 	for(var/obj/I in ingredients)
-		I.loc = contents
+		I.forceMove(contents)
 
 // Ingredients may be in the rangeCheck or inside the chef's inventory.
 // As they are checked off, they are moved to a seperate list as to not be counted twice

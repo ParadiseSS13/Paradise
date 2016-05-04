@@ -350,7 +350,7 @@
 			status = BURST
 			var/obj/item/clothing/mask/facehugger/child = GetFacehugger()
 			if(child)
-				child.loc = get_turf(src)
+				child.forceMove(get_turf(src))
 				if(kill && istype(child))
 					child.Die()
 				else

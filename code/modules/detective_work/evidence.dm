@@ -61,7 +61,7 @@
 	overlays += "evidence"	//should look nicer for transparent stuff. not really that important, but hey.
 
 	desc = "An evidence bag containing [I]. [I.desc]"
-	I.loc = src
+	I.forceMove(src)
 	w_class = I.w_class
 	return 1
 

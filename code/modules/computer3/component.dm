@@ -127,7 +127,7 @@
 	proc/equip_to_reader(var/obj/item/weapon/card/card, var/mob/living/L)
 		if(!reader)
 			L.drop_item()
-			card.loc = src
+			card.forceMove(src)
 			reader = card
 			return 1
 		return 0
@@ -135,7 +135,7 @@
 	proc/equip_to_writer(var/obj/item/weapon/card/card, var/mob/living/L)
 		if(!writer && dualslot)
 			L.drop_item()
-			card.loc = src
+			card.forceMove(src)
 			writer = card
 			return 1
 		return 0
@@ -180,22 +180,22 @@
 
 	proc/remove_reader(var/mob/living/L)
 		if(reader)
-			reader.loc = loc
+			reader.forceMove(loc)
 			if(istype(L) && !L.get_active_hand())
 				L.put_in_hands(reader)
 			else
-				reader.loc = computer.loc
+				reader.forceMove(computer.loc)
 			reader = null
 			return 1
 		return 0
 
 	proc/remove_writer(var/mob/living/L)
 		if(writer && dualslot)
-			writer.loc = loc
+			writer.forceMove(loc)
 			if(istype(L) && !L.get_active_hand())
 				L.put_in_hands(writer)
 			else
-				writer.loc = computer.loc
+				writer.forceMove(computer.loc)
 			writer = null
 			return 1
 		return 0
@@ -243,7 +243,7 @@
 				return 0
 			var/mob/living/L = usr
 			L.drop_item()
-			card.loc = src
+			card.forceMove(src)
 			writer = card
 			return 1
 		else if(slot == 2)			// 2: reader
@@ -252,7 +252,7 @@
 				return 0
 			var/mob/living/L = usr
 			L.drop_item()
-			card.loc = src
+			card.forceMove(src)
 			reader = card
 			return 1
 		else						// 0: auto
@@ -261,7 +261,7 @@
 				return 0
 			var/mob/living/L = usr
 			L.drop_item()
-			card.loc = src
+			card.forceMove(src)
 			if(reader)
 				writer = card
 				computer.updateUsrDialog()
@@ -282,13 +282,13 @@
 
 		if(card == reader) reader = null
 		if(card == writer) writer = null
-		card.loc = loc
+		card.forceMove(loc)
 
 		var/mob/living/carbon/human/user = usr
 		if(ishuman(user) && !user.get_active_hand())
 			user.put_in_hands(card)
 		else
-			card.loc = computer.loc
+			card.forceMove(computer.loc)
 */
 
 

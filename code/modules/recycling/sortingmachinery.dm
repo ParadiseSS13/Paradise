@@ -14,13 +14,13 @@
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
-		wrapped.loc = get_turf(src)
+		wrapped.forceMove(get_turf(src))
 		if(istype(wrapped, /obj/structure/closet))
 			var/obj/structure/closet/O = wrapped
 			O.welded = init_welded
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in src)
-		AM.loc = T
+		AM.forceMove(T)
 
 	qdel(src)
 
@@ -70,11 +70,11 @@
 
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0
-		wrapped.loc = user.loc
+		wrapped.forceMove(user.loc)
 		if(ishuman(user))
 			user.put_in_hands(wrapped)
 		else
-			wrapped.loc = get_turf(src)
+			wrapped.forceMove(get_turf(src))
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
@@ -141,7 +141,7 @@
 				if(user.client)
 					user.client.screen -= O
 			P.wrapped = O
-			O.loc = P
+			O.forceMove(P)
 			var/i = round(O.w_class)
 			if(i in list(1,2,3,4,5))
 				P.icon_state = "deliverycrate[i]"
@@ -159,7 +159,7 @@
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
 			P.icon_state = "deliverycrate"
 			P.wrapped = O
-			O.loc = P
+			O.forceMove(P)
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 			return
@@ -172,7 +172,7 @@
 			P.wrapped = O
 			P.init_welded = O.welded
 			O.welded = 1
-			O.loc = P
+			O.forceMove(P)
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 			return
@@ -261,10 +261,10 @@
 
 		if(istype(AM, /obj))
 			var/obj/O = AM
-			O.loc = src
+			O.forceMove(src)
 		else if(istype(AM, /mob))
 			var/mob/M = AM
-			M.loc = src
+			M.forceMove(src)
 		src.flush()
 
 	flush()

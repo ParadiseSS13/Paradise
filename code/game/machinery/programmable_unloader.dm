@@ -310,6 +310,7 @@
 			if(p)
 				p.outlet_reaction(A,output)
 			else
+				A.forceMove(output) // may have been dropped by a mob, etc
 
 	if(types.len > 50)
 		types = list() // good luck mr. garbage collector

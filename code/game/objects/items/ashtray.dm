@@ -22,7 +22,7 @@
 			to_chat(user, "This ashtray is full.")
 			return
 		user.unEquip(W)
-		W.loc = src
+		W.forceMove(src)
 
 		if (istype(W,/obj/item/clothing/mask/cigarette))
 			var/obj/item/clothing/mask/cigarette/cig = W
@@ -61,14 +61,14 @@
 		if (contents.len)
 			src.visible_message("\red [src] slams into [hit_atom] spilling its contents!")
 		for (var/obj/item/clothing/mask/cigarette/O in contents)
-			O.loc = src.loc
+			O.forceMove(src.loc)
 		icon_state = icon_empty
 	return ..()
 
 /obj/item/ashtray/proc/die()
 	src.visible_message("\red [src] shatters spilling its contents!")
 	for (var/obj/item/clothing/mask/cigarette/O in contents)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 	icon_state = icon_broken
 
 /obj/item/ashtray/plastic

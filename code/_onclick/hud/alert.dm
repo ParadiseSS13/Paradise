@@ -330,7 +330,7 @@ so as to remain in compliance with the most up-to-date laws."
 	else
 		var/turf/T = get_turf(jump_target)
 		if(T && isturf(T))
-			G.loc = T
+			G.forceMove(T)
 
 //OBJECT-BASED
 

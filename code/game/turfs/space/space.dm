@@ -79,7 +79,7 @@
 			var/mob/living/L = A
 			if(L.pulling)
 				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.loc = T
+				L.pulling.forceMove(T)
 
 		//now we're on the new z_level, proceed the space drifting
 		sleep(0)//Let a diagonal move finish, if necessary

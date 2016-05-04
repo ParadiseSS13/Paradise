@@ -118,7 +118,7 @@
 	if(rb)
 		if(stored_ammo.len < max_ammo && rb.caliber == caliber)
 			stored_ammo += rb
-			rb.loc = src
+			rb.forceMove(src)
 			return 1
 	return 0
 
@@ -137,7 +137,7 @@
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC))
 			user.drop_item()
-			AC.loc = src
+			AC.forceMove(src)
 			num_loaded++
 	if(num_loaded)
 		if(!silent)

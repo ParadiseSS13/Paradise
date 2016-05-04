@@ -64,7 +64,7 @@ obj/vehicle/atv/post_buckle_mob(mob/living/M)
 /obj/vehicle/atv/turret/handle_vehicle_offsets()
 	..()
 	if(turret)
-		turret.loc = loc
+		turret.forceMove(loc)
 		switch(dir)
 			if(NORTH)
 				turret.pixel_x = 0

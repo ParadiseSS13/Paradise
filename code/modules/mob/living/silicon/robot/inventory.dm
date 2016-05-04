@@ -22,7 +22,7 @@
 		client.screen -= O
 	contents -= O
 	if(module)
-		O.loc = module	//Return item to module so it appears in its contents, so it can be taken out again.
+		O.forceMove(module)	//Return item to module so it appears in its contents, so it can be taken out again.
 
 	if(module_active == O)
 		module_active = null

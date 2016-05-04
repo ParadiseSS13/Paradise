@@ -51,7 +51,7 @@ datum/genesequence
 /obj/machinery/computer/reconstitutor/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/weapon/fossil))
 		user.drop_item()
-		W.loc = src.loc
+		W.forceMove(src.loc)
 		switch(scan_fossil(W))
 			if(1)
 				src.visible_message("\red \icon[src] [src] scans the fossil and rejects it.")

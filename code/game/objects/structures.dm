@@ -98,7 +98,7 @@
 		climber = null
 		return
 
-	usr.loc = get_turf(src)
+	usr.forceMove(get_turf(src))
 	if (get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 

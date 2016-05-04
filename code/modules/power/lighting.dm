@@ -533,7 +533,7 @@
 
 	L.update()
 	L.add_fingerprint(user)
-	L.loc = loc
+	L.forceMove(loc)
 
 	status = LIGHT_EMPTY
 	update()

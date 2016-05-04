@@ -285,4 +285,4 @@
 	..()
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)
-	src.loc = T
+	src.forceMove(T)

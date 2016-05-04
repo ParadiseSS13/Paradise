@@ -215,7 +215,7 @@
 		update_inv_r_hand()
 
 	W.screen_loc = null
-	W.loc = src
+	W.forceMove(src)
 	W.equipped(src, slot)
 	W.layer = 20
 
@@ -257,7 +257,7 @@
 			l_ear = W
 			if(l_ear.slot_flags & SLOT_TWOEARS)
 				var/obj/item/clothing/ears/offear/O = new(W)
-				O.loc = src
+				O.forceMove(src)
 				r_ear = O
 				O.layer = 20
 			update_inv_ears(redraw_mob)
@@ -265,7 +265,7 @@
 			r_ear = W
 			if(r_ear.slot_flags & SLOT_TWOEARS)
 				var/obj/item/clothing/ears/offear/O = new(W)
-				O.loc = src
+				O.forceMove(src)
 				l_ear = O
 				O.layer = 20
 			update_inv_ears(redraw_mob)
@@ -303,7 +303,7 @@
 		if(slot_in_backpack)
 			if(get_active_hand() == W)
 				unEquip(W)
-			W.loc = back
+			W.forceMove(back)
 		if(slot_tie)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby(W,src)

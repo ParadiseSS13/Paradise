@@ -70,7 +70,7 @@
 				return
 			if(!user.unEquip(W))
 				return
-			W.loc = src
+			W.forceMove(src)
 			bcell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon()
@@ -78,7 +78,7 @@
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(bcell)
 			bcell.updateicon()
-			bcell.loc = get_turf(src.loc)
+			bcell.forceMove(get_turf(src.loc))
 			bcell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
 			status = 0

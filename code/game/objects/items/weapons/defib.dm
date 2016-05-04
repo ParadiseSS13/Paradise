@@ -90,14 +90,14 @@
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			bcell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(bcell)
 			bcell.updateicon()
-			bcell.loc = get_turf(src.loc)
+			bcell.forceMove(get_turf(src.loc))
 			bcell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
 
@@ -141,7 +141,7 @@
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
 			update_icon()
 			return
-		paddles.loc = user
+		paddles.forceMove(user)
 	else
 		//Remove from their hands and back onto the defib unit
 		remove_paddles(user)
@@ -265,7 +265,7 @@
 	..()
 	if(check_defib_exists(mainunit, src))
 		defib = mainunit
-		loc = defib
+		forceMove(defib)
 		busy = 0
 		update_icon()
 	return
@@ -289,7 +289,7 @@
 			O.unwield()
 		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
 		defib.on = 0
-		loc = defib
+		forceMove(defib)
 		defib.update_icon()
 	return	unwield()
 

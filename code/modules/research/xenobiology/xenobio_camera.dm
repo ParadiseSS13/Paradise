@@ -31,7 +31,7 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/aiEye/remote/xenobio()
-	eyeobj.loc = get_turf(src)
+	eyeobj.forceMove(get_turf(src))
 	eyeobj.origin = src
 	eyeobj.visible_icon = 1
 	eyeobj.icon = 'icons/obj/abductor.dmi'

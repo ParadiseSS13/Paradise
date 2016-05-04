@@ -16,7 +16,7 @@
 
 /obj/effect/portal/New(loc, turf/target, creator)
 	portals += src
-	src.loc = loc
+	src.forceMove(loc)
 	src.target = target
 	src.creator = creator
 	spawn(300)

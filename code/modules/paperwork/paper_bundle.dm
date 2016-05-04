@@ -33,7 +33,7 @@
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(P)
-		P.loc = src
+		P.forceMove(src)
 		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
@@ -44,13 +44,13 @@
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
-		W.loc = src
+		W.forceMove(src)
 	else if(istype(W, /obj/item/weapon/lighter))
 		burnpaper(W, user)
 	else if(istype(W, /obj/item/weapon/paper_bundle))
 		user.unEquip(W)
 		for(var/obj/O in W)
-			O.loc = src
+			O.forceMove(src)
 			O.add_fingerprint(usr)
 			src.amount++
 			if(screen == 2)
@@ -202,7 +202,7 @@
 
 	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
 	for(var/obj/O in src)
-		O.loc = usr.loc
+		O.forceMove(usr.loc)
 		O.layer = initial(O.layer)
 		O.add_fingerprint(usr)
 	usr.unEquip(src)

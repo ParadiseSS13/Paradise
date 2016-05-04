@@ -34,7 +34,7 @@
 						if("2")		// Eject pAI device
 							var/turf/T = get_turf_or_move(pda.loc)
 							if(T)
-								pda.pai.loc = T
+								pda.pai.forceMove(T)
 								pda.pai = null
 
 /datum/data/pda/app/notekeeper

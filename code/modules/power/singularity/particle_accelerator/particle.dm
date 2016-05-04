@@ -24,7 +24,7 @@
 
 
 /obj/effect/accelerated_particle/New(loc, dir = 2)
-	src.loc = loc
+	src.forceMove(loc)
 	src.dir = dir
 
 	if(movement_range > 20)
@@ -63,7 +63,7 @@
 
 /obj/effect/accelerated_particle/proc/move(var/lag)
 	if(!step(src,dir))
-		src.loc = get_step(src,dir)
+		src.forceMove(get_step(src,dir))
 	movement_range--
 	if(movement_range <= 0)
 		qdel(src)

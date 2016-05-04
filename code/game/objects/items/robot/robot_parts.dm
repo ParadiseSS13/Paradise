@@ -117,7 +117,7 @@
 	..()
 	if(istype(W, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 		var/obj/item/weapon/ed209_assembly/B = new /obj/item/weapon/ed209_assembly
-		B.loc = get_turf(src)
+		B.forceMove(get_turf(src))
 		to_chat(user, "You armed the robot frame")
 		W:use(1)
 		if (user.get_inactive_hand()==src)
@@ -127,28 +127,28 @@
 	if(istype(W, /obj/item/robot_parts/l_leg))
 		if(src.l_leg)	return
 		user.drop_item()
-		W.loc = src
+		W.forceMove(src)
 		src.l_leg = W
 		src.updateicon()
 
 	if(istype(W, /obj/item/robot_parts/r_leg))
 		if(src.r_leg)	return
 		user.drop_item()
-		W.loc = src
+		W.forceMove(src)
 		src.r_leg = W
 		src.updateicon()
 
 	if(istype(W, /obj/item/robot_parts/l_arm))
 		if(src.l_arm)	return
 		user.drop_item()
-		W.loc = src
+		W.forceMove(src)
 		src.l_arm = W
 		src.updateicon()
 
 	if(istype(W, /obj/item/robot_parts/r_arm))
 		if(src.r_arm)	return
 		user.drop_item()
-		W.loc = src
+		W.forceMove(src)
 		src.r_arm = W
 		src.updateicon()
 
@@ -156,7 +156,7 @@
 		if(src.chest)	return
 		if(W:wires && W:cell)
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			src.chest = W
 			src.updateicon()
 		else if(!W:wires)
@@ -168,7 +168,7 @@
 		if(src.head)	return
 		if(W:flash2 && W:flash1)
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			src.head = W
 			src.updateicon()
 		else
@@ -259,9 +259,9 @@
 			O.job = "Cyborg"
 
 			O.cell = chest.cell
-			chest.cell.loc = O
+			chest.cell.forceMove(O)
 			chest.cell = null
-			W.loc = O//Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
+			W.forceMove(O)//Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
 			// Since we "magically" installed a cell, we also have to update the correct component.
 			if(O.cell)
 				var/datum/robot_component/cell_component = O.components["power cell"]
@@ -273,7 +273,7 @@
 			feedback_inc("cyborg_birth",1)
 			callHook("borgify", list(O))
 
-			src.loc = O
+			src.forceMove(O)
 
 			if(!locomotion)
 				O.lockcharge = 1
@@ -344,7 +344,7 @@
 			return
 		else
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			src.cell = W
 			to_chat(user, "\blue You insert the cell!")
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -369,12 +369,12 @@
 			return
 		else if(src.flash1)
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			src.flash2 = W
 			to_chat(user, "\blue You insert the flash into the eye socket!")
 		else
 			user.drop_item()
-			W.loc = src
+			W.forceMove(src)
 			src.flash1 = W
 			to_chat(user, "\blue You insert the flash into the eye socket!")
 	else if(istype(W, /obj/item/weapon/stock_parts/manipulator))

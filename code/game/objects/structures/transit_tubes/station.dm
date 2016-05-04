@@ -57,7 +57,7 @@
 						if(do_after(user, 40, target = src)) //So it doesn't default to close_animation() on fail
 							if(pod.loc == loc)
 								for(var/atom/movable/AM in pod)
-									AM.loc = get_turf(user)
+									AM.forceMove(get_turf(user))
 									if(ismob(AM))
 										var/mob/M = AM
 										M.Weaken(5)

@@ -118,7 +118,7 @@
 					emote_see = list("shakes its head", "shivers")
 					desc = "It's a corgi."
 					set_light(0)
-					inventory_head.loc = src.loc
+					inventory_head.forceMove(src.loc)
 					inventory_head = null
 					regenerate_icons()
 				else
@@ -129,7 +129,7 @@
 					if(inventory_back.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_back] is stuck too hard to [src] for you to remove!</span>")
 						return
-					inventory_back.loc = src.loc
+					inventory_back.forceMove(src.loc)
 					inventory_back = null
 					regenerate_icons()
 				else
@@ -181,7 +181,7 @@
 						if(!usr.drop_item())
 							to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s back!</span>")
 							return
-						item_to_add.loc = loc
+						item_to_add.forceMove(loc)
 						if(prob(25))
 							step_rand(item_to_add)
 						for(var/i in list(1,2,4,8,4,8,4,dir))
@@ -190,7 +190,7 @@
 						return
 
 					usr.drop_item()
-					item_to_add.loc = src
+					item_to_add.forceMove(src)
 					src.inventory_back = item_to_add
 					regenerate_icons()
 
@@ -369,7 +369,7 @@
 			user.visible_message("[user] puts [item_to_add] on [real_name]'s head.  [src] looks at [user] and barks once.",
 				"<span class='notice'>You put [item_to_add] on [real_name]'s head.  [src] gives you a peculiar look, then wags \his tail once and barks.</span>",
 				"<span class='italics'>You hear a friendly-sounding bark.</span>")
-		item_to_add.loc = src
+		item_to_add.forceMove(src)
 		src.inventory_head = item_to_add
 		regenerate_icons()
 
@@ -378,7 +378,7 @@
 			to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 			return 0
 		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but \he shakes it off!</span>")
-		item_to_add.loc = loc
+		item_to_add.forceMove(loc)
 		if(prob(25))
 			step_rand(item_to_add)
 		for(var/i in list(1,2,4,8,4,8,4,dir))

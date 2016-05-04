@@ -66,7 +66,7 @@
 
 	if(!held_card)
 		user.drop_item()
-		O.loc = src
+		O.forceMove(src)
 		held_card = O
 
 		nanomanager.update_uis(src)

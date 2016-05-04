@@ -155,7 +155,7 @@
 			if(I.reagents.total_volume)
 				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
 				user.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				beakers += I
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
@@ -170,7 +170,7 @@
 		user.drop_item()
 		nadeassembly = A
 		A.master = src
-		A.loc = src
+		A.forceMove(src)
 		assemblyattacher = user.ckey
 		stage = WIRED
 		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
@@ -195,12 +195,12 @@
 		payload_name = null
 		label = null
 		if(nadeassembly)
-			nadeassembly.loc = get_turf(src)
+			nadeassembly.forceMove(get_turf(src))
 			nadeassembly.master = null
 			nadeassembly = null
 		if(beakers.len)
 			for(var/obj/O in beakers)
-				O.loc = get_turf(src)
+				O.forceMove(get_turf(src))
 			beakers = list()
 		update_icon()
 
@@ -384,7 +384,7 @@
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
 		to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
 		user.drop_item()
-		I.loc = src
+		I.forceMove(src)
 		beakers += I
 	else
 		return ..()

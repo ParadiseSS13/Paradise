@@ -12,7 +12,7 @@
 	can_flashlight = 0
 
 /obj/item/weapon/gun/energy/advtaser/mounted/dropped()//if somebody manages to drop this somehow...
-	src.loc = null//send it to nullspace to get retrieved by the implant later on. gotta cover those edge cases.
+	src.forceMove(null)//send it to nullspace to get retrieved by the implant later on. gotta cover those edge cases.
 
 /obj/item/weapon/gun/energy/laser/mounted
 	name = "mounted laser"
@@ -28,4 +28,4 @@
 	materials = null
 
 /obj/item/weapon/gun/energy/laser/mounted/dropped()
-	src.loc = null
+	src.forceMove(null)

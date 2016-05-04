@@ -23,7 +23,7 @@
 	if(istype(O,/obj/structure/sink))
 		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")
 		user.drop_item()
-		loc = get_turf(O)
+		forceMove(get_turf(O))
 		return Swell()
 	..()
 

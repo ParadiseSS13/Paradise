@@ -27,7 +27,7 @@
 				to_chat(H, "You can't possibly imagine how adding more lenses would improve \the [name].")
 				return
 			H.unEquip(O)
-			O.loc = src // Store the glasses for later removal
+			O.forceMove(src) // Store the glasses for later removal
 			to_chat(H, "You fit \the [name] with lenses from \the [O].")
 			prescription = 1
 			name = "prescription [name]"

@@ -144,7 +144,7 @@ var/const/MAX_ACTIVE_TIME = 400
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
-		src.loc = target
+		src.forceMove(target)
 		target.equip_to_slot(src, slot_wear_mask,,0)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
@@ -188,7 +188,7 @@ var/const/MAX_ACTIVE_TIME = 400
 
 		if(iscorgi(target))
 			var/mob/living/simple_animal/pet/corgi/C = target
-			src.loc = get_turf(C)
+			src.forceMove(get_turf(C))
 			C.facehugger = null
 	else
 		target.visible_message("<span class='danger'>[src] violates [target]'s face!</span>", \

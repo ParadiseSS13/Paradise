@@ -38,11 +38,11 @@
 		if(!D.remove_item_from_storage(src))
 			if(user)
 				user.remove_from_mob(D)
-			D.loc = src
+			D.forceMove(src)
 		if(!D2.remove_item_from_storage(src))
 			if(user)
 				user.remove_from_mob(D2)
-			D2.loc = src
+			D2.forceMove(src)
 		D:holder = src
 		D2:holder = src
 		a_left = D
@@ -175,10 +175,10 @@
 			if(!T)	return 0
 			if(a_left)
 				a_left:holder = null
-				a_left.loc = T
+				a_left.forceMove(T)
 			if(a_right)
 				a_right:holder = null
-				a_right.loc = T
+				a_right.forceMove(T)
 			spawn(0)
 				qdel(src)
 		return
