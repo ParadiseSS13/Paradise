@@ -494,15 +494,6 @@ var/list/uplink_items = list()
 	excludefrom = list(/datum/game_mode/nuclear)
 	cost = 12
 
-/datum/uplink_item/dangerous/sniper
-	name = "Sniper Rifle"
-	desc = "Ranged fury, syndicate style. guaranteed to cause shock and awe or your TC back!"
-	item = /obj/item/weapon/gun/projectile/sniper_rifle/syndicate
-	cost = 16
-	reference = "SNIPE"
-	gamemodes = list(/datum/game_mode/nuclear)
-	surplus = 25
-
 // Ammunition
 
 /datum/uplink_item/ammo
@@ -595,34 +586,6 @@ var/list/uplink_items = list()
 	cost = 12
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
-
-/datum/uplink_item/ammo/sniper
-	name = "Sniper Magazine - .50"
-	desc = "An additional 6-round .50 magazine for use in the syndicate sniper rifle."
-	item = /obj/item/ammo_box/magazine/sniper_rounds
-	reference = "SAMO"
-	cost = 4 //70dmg rounds are no joke
-	gamemodes = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/ammo/sniper/soporific
-	name = "Sniper Magazine - Soporific Rounds"
-	desc = "A 3-round magazine of soporific ammo designed for use in the syndicate sniper rifle, put your enemies to sleep today!"
-	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
-	reference = "SOPA"
-	cost = 6
-
-/datum/uplink_item/ammo/sniper/haemorrhage
-	name = "Sniper Magazine - Haemorrhage Rounds"
-	desc = "A 5-round magazine of haemorrhage ammo designed for use in the syndicate sniper rifle, causes heavy bleeding in the target."
-	reference = "BLUDA"
-	item = /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
-
-/datum/uplink_item/ammo/sniper/penetrator
-	name = "Sniper Magazine - Penetrator Rounds"
-	desc = "A 5-round magazine of penetrator ammo designed for use in the syndicate sniper rifle. Can pierce walls and multiple enemies."
-	reference = "PENAMO"
-	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
-	cost = 5
 
 // STEALTHY WEAPONS
 

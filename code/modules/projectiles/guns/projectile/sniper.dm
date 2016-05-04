@@ -1,8 +1,8 @@
 /obj/item/weapon/gun/projectile/sniper_rifle
 	name = "sniper rifle"
 	desc = "the kind of gun that will leave you crying for mummy before you even realise your leg's missing"
-	icon_state = "snipertg"
-	item_state = "snipertg"
+	icon_state = "sniper"
+	item_state = "sniper"
 	recoil = 2
 	heavy_weapon = 1
 	mag_type = "/obj/item/ammo_box/magazine/sniper_rounds"
@@ -19,7 +19,7 @@
 	if(magazine)
 		icon_state = "sniper-mag"
 	else
-		icon_state = "snipertg"
+		icon_state = "sniper"
 
 /obj/item/weapon/gun/projectile/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"

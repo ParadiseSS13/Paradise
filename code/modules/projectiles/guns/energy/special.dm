@@ -148,7 +148,7 @@ obj/item/weapon/gun/energy/staff/focus
 	name = "L.W.A.P. Sniper Rifle"
 	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
 	icon = 'icons/obj/gun.dmi'
-	icon_state = "sniper"
+	icon_state = "esniper"
 	fire_sound = 'sound/weapons/marauder.ogg'
 	origin_tech = "combat=6;materials=5;powerstorage=4"
 	projectile_type = "/obj/item/projectile/beam/sniper"
