@@ -204,6 +204,14 @@ obj/item/clothing/head/blob
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	strip_delay = 80
 
+/obj/item/clothing/head/helmet/hunter
+	name = "Hunter's hat"
+	desc = "A fine piece of hunter attire that provides stable defence to anyone facing Yharnam's beastly threat."
+	icon_state = "hunter_hat"
+	item_state = "hunter_hat"
+	armor = list(melee = 30, bullet = 5, laser = 15,energy = 0, bomb = 0, bio = 50, rad = 50)
+	flags_inv = HIDEEARS|HIDEEYES
+
 /obj/item/clothing/head/helmet/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
