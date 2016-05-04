@@ -10,8 +10,10 @@ datum/reagent/questionmark/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
 		return
 	if(method == INGEST)
+		M.Stun(2)
 		M.Weaken(2)
 		to_chat(M, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
+		M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 
 datum/reagent/egg
 	name = "Egg"
@@ -199,6 +201,7 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 			M.reagents.add_reagent("toxin", rand(1,5))
 		else if(ranchance <= 5)
 			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
+			M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 		else
 			to_chat(M, "<span class='warning'>Yuck!</span>")
 

@@ -62,6 +62,17 @@
 	M.ForceContractDisease(new /datum/disease/berserker(0))
 	..()
 
+/datum/reagent/salmonella
+	name = "Salmonella "
+	id = "salmonella "
+	description = "A nasty bacteria found in spoiled food."
+	reagent_state = LIQUID
+	color = "#1E4600"
+
+/datum/reagent/salmonella/on_mob_life(var/mob/living/carbon/M as mob)
+	if(!M) M = holder.my_atom
+	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
+	..()
 
 /datum/reagent/spore
 	name = "Blob Spores"
