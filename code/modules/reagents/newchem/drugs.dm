@@ -60,7 +60,7 @@
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
-			M << sound('sound/goonstation/effects/heartbeat.ogg')
+			M << 'sound/effects/Heart Beat.ogg'
 			M.Paralyse(5)
 			M.Jitter(30)
 			M.adjustToxLoss(6)
