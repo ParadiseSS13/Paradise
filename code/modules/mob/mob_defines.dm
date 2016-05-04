@@ -232,3 +232,5 @@
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
 	var/list/permanent_huds = list()
+
+	var/datum/emoteHandler/emoteHandler

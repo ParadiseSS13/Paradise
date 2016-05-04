@@ -1,3 +1,4 @@
+/*
 /mob/living/silicon/robot/emote(var/act, var/m_type=1, var/message = null)
 	var/param = null
 	if (findtext(act, "-", 1, null))
@@ -160,3 +161,4 @@
 			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt")
 
 	..(act, m_type, message)
+*/

@@ -1,3 +1,4 @@
+/*
 /mob/living/silicon/emote(var/act, var/m_type=1, var/message = null)
 	var/param = null
 	if (findtext(act, "-", 1, null))
@@ -118,3 +119,4 @@
 			to_chat(src, "yes, no, beep, ping, buzz")
 
 	..(act, m_type, message)
+*/

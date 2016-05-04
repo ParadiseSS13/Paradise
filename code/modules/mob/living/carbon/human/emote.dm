@@ -1,3 +1,4 @@
+/*
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
 
 	if (stat == DEAD)
@@ -836,7 +837,7 @@
 				visible_message(message)
 			if(2)
 				audible_message(message)
-
+*/
 /mob/living/carbon/human/verb/pose()
 	set name = "Set Pose"
 	set desc = "Sets a description which will be shown when someone examines you."

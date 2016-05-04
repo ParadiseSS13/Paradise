@@ -34,10 +34,7 @@
 	message = strip_html_properly(message)
 
 	set_typing_indicator(0)
-	if(use_me)
-		custom_emote(usr.emote_type, message)
-	else
-		usr.emote(message)
+	emoteHandler.runEmote("me", null, message)
 
 /mob/proc/say_dead(var/message)
 	if(!src.client.holder)
@@ -98,8 +95,15 @@
 
 
 /mob/proc/emote(var/act, var/type, var/message)
-	if(act == "me")
-		return custom_emote(type, message)
+	var/param
+	if (findtext(act, "-", 1, null))
+		var/t1 = findtext(act, "-", 1, null)
+		param = copytext(act, t1 + 1, length(act) + 1)
+		act = copytext(act, 1, t1)
+
+	emoteHandler.runEmote(act, param, message, type)
+
+
 
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this

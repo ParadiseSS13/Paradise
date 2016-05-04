@@ -4,6 +4,7 @@ var/global/list/all_languages[0]
 var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_superheroes[0]
 var/global/list/all_nations[0]
+var/global/list/emotes[0]
 var/global/list/whitelisted_species = list()
 
 var/list/clients = list()							//list of all clients
