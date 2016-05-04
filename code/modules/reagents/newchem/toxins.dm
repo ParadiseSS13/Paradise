@@ -647,6 +647,7 @@
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
 	penetrates_skin = 1
+	overdose_threshold = 25
 
 /datum/chemical_reaction/sarin
 	name = "sarin"
