@@ -175,6 +175,12 @@
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>")
 		return 0//fail
 
+	if(istype(tool, /obj/item/weapon/storage/box))
+		for(var/obj/item/I in tool.contents)
+			if(istype(I, /obj/item/weapon/disk/nuclear))
+				to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box.</span>")
+				return 0//fail
+
 	if(istype(tool,/obj/item/organ))
 		to_chat(user, "<span class='warning'>This isn't the type of surgery for organ transplants!</span>")
 		return 0//fail
