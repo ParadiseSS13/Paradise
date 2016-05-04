@@ -46,4 +46,5 @@ BONUS
 							head_organ.f_style = "Shaved"
 							head_organ.h_style = "Bald"
 							H.update_hair()
+							H.update_fhair()
 	return
