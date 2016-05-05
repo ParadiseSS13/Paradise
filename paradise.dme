@@ -770,6 +770,7 @@
 #include "code\game\objects\items\stacks\tiles\tile_types.dm"
 #include "code\game\objects\items\weapons\AI_modules.dm"
 #include "code\game\objects\items\weapons\alien_specific.dm"
+#include "code\game\objects\items\weapons\bee_briefcase.dm"
 #include "code\game\objects\items\weapons\cards_ids.dm"
 #include "code\game\objects\items\weapons\cash.dm"
 #include "code\game\objects\items\weapons\caution.dm"
