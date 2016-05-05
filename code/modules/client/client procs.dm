@@ -311,7 +311,7 @@
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		winset(src, "rpane.changelog", "background-color=#f4aa94;font-style=bold")
 		prefs.SetChangelog(src,changelog_hash)
-		src << "<span class='info'>Changelog has changed since your last visit.</span>"
+		to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
 
 	if(!void)
 		void = new()
