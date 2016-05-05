@@ -78,7 +78,7 @@
 					volume='[volume]',
 					nanoui_fancy='[nanoui_fancy]',
 					show_ghostitem_attack='[show_ghostitem_attack]',
-					lastchangelog='[lastchangelog]',
+					lastchangelog='[lastchangelog]'
 					WHERE ckey='[C.ckey]'"}
 					)
 
@@ -456,7 +456,7 @@
 
 /datum/preferences/proc/SetChangelog(client/C,hash)
 	lastchangelog=hash
-	var/DBQuery/query = dbcon.NewQuery("UPDATE client SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
