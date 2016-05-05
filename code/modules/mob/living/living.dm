@@ -333,7 +333,7 @@
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 		C.update_inv_legcuffed()
-		
+
 		if(C.reagents)
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
@@ -358,12 +358,14 @@
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
+	slowed = 0
 	losebreath = 0
 	dizziness = 0
 	jitteriness = 0
 	confused = 0
 	drowsyness = 0
 	radiation = 0
+	druggy = 0
 	nutrition = 400
 	bodytemperature = 310
 	sdisabilities = 0
