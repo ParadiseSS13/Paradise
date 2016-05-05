@@ -131,9 +131,22 @@
 		)
 		inaccurate = 1
 	else if(W.w_class <= 2 && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
+		// ow this is bad
+		// In a nice world I'd have it check for things with an afterattack, but there's no way to detect that soooo
+		var/list/uninsertable_types = list(/obj/item/weapon/reagent_containers/syringe, /obj/item/weapon/reagent_containers/glass)
+		for(var/type in uninsertable_types)
+			if(istype(W, type))
+				return 1
+		if(contents.len >= 1)
+			// No more bluespace cake
+			to_chat(user, "<span class='warning'>Something is already in the [src]!</span>")
+			return 1
 		if(!iscarbon(user))
 			return 1
-		to_chat(user, "\red You slip [W] inside [src].")
+		if(!user.canUnEquip(W, 0))
+			to_chat(user, "<span class='warning'>The [W] is stuck to your hand, you cannot insert it in the cake!</span>")
+			return
+		to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")
 		user.unEquip(W)
 		if ((user.client && user.s_active != src))
 			user.client.screen -= W
