@@ -29,7 +29,7 @@
 
 /mob/verb/me_verb(message as text)
 	set name = "Me"
-	set category = "IC"
+	set category = "Emotes"
 
 	message = strip_html_properly(message)
 
@@ -95,13 +95,8 @@
 
 
 /mob/proc/emote(var/act, var/type, var/message)
-	var/param
-	if (findtext(act, "-", 1, null))
-		var/t1 = findtext(act, "-", 1, null)
-		param = copytext(act, t1 + 1, length(act) + 1)
-		act = copytext(act, 1, t1)
 
-	emoteHandler.runEmote(act, param, message, type)
+	emoteHandler.runEmote(act, message, type)
 
 
 

@@ -88,4 +88,38 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 	return message
 
 
+/datum/emote/signal
+	name = "signal"
+	desc = "raise x number of fingers"
+	text = "raises"
+	selfText = "raise"
+	canTarget = 1
+	restrained = 1
+	targetMob = 1
+	takesNumber = 1
 
+/datum/emote/signal/New()
+	..()
+	commands += "signal"
+	commands += "signals"
+
+/datum/emote/signal/available(var/mob/user)
+	if(ishuman(user))
+		return 1
+
+/datum/emote/signal/getNumber(var/mob/user)
+	var/number = ..()
+	var/fingersAvailable = 0
+	if(!user.r_hand)
+		fingersAvailable += 5
+	if(!user.l_hand)
+		fingersAvailable += 5
+	if(fingersAvailable < number)
+		to_chat(user, "You don't have enough fingers free")
+		return "failed"
+	return number
+
+/datum/emote/signal/paramMessage(var/mob/user, var/param)
+	var/message = "[user] raises [param] finger\s"
+	testing(message)
+	return message

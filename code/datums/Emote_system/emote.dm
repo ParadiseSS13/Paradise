@@ -22,11 +22,11 @@ VampyrBytes
 	var/restrained = ""		// 1 if being restrained prevents this emote
 	var/cooldown = 0
 
-	var/canTarget = 0		// 1 if the emote accepts a target			Emotes only recieve 1 parameter, so its either or with these 2
-	var/takesParam	= 0	// 1 if the emote uses a non target parameter
-
-	var/targetMob = 0		// 0 if target can be any atom, 1 if it has to be a mob
+	var/canTarget = 0		// 1 if the emote accepts a target
+	var/targetMob = 0		// 0 if target can be any atom, 1 if it has to be a mob,
 	var/targetText = "at" // what goes inbetween user and target
+	var/takesNumber	= 0	// 1 if the emote uses a number parameter
+
 	var/spanClass = "notice"
 	var/baseLevel = 1
 	var/baseSet = 0
@@ -43,20 +43,31 @@ VampyrBytes
 				baseLevel = 0
 				break
 
-/datum/emote/proc/doEmote(var/mob/user, var/param)
+/datum/emote/proc/doEmote(var/mob/user)
 	if(!istype(user))
 		return 0
 	if(cooldown)
 		if(handle_emote_CD(user))
 			return 0
 
-	var/message = createMessage(user, param)
+	var/number
+	var/target
 
-	if(canTarget && param)
-		param = getTarget(user, param)
+	if(takesNumber)
+		number = getNumber(user)
+
+	if(canTarget)
+		target = getTarget(user)
+
+	if(number == "failed" || target == "failed")	// If you need to test the input, override the appopriate get proc, call the parent,
+		return									// then test it. If it fails, tell the user why, then return "failed" to halt the emote
+
+	var/message = createMessage(user, number)
+
+	if(canTarget && message)
+		message = addTarget(user, target, message)
 
 	if(message)
-		message = addTarget(user, param, message)
 		message += "</span>"
 		outputMessage(user, message)
 
@@ -64,12 +75,29 @@ VampyrBytes
 		if(!(user.mind && user.mind.miming))
 			playSound(user, vol)
 
-	doAction(user, param)
+	doAction(user, target, number)
 	return 1
 
 // for things that the emote does that aren't text or sound based
-/datum/emote/proc/doAction(var/mob/user, var/param)
+/datum/emote/proc/doAction(var/mob/user, var/atom/target, var/number)
 	return
+
+/datum/emote/proc/getNumber(var/mob/user)
+	var/number = input("How many") as null|num
+	return number
+
+/datum/emote/proc/getTarget(var/mob/user)
+	if(targetMob)
+		return getMobTarget()
+	return getAtomTarget()
+
+/datum/emote/proc/getMobTarget()
+	var/mob/target = input("Select target", "Target Mob") as null|mob in view()
+	return target
+
+/datum/emote/proc/getAtomTarget()
+	var/atom/target = input("Select target", "Target") as null|mob|obj|turf in oview()
+	return target
 
 // returns the reason the user can't currently do the emote
 /datum/emote/proc/prevented(var/mob/user)
@@ -82,39 +110,58 @@ VampyrBytes
 /datum/emote/proc/available(var/mob/user)
 	return
 
-/datum/emote/proc/createMessage(var/mob/user, var/param)
+/datum/emote/proc/createMessage(var/mob/user, var/number)
 	if(!text)
 		return
 	var/message
-	if(audible && user.mind && user.mind.miming)
+	if(takesNumber && number)
+		message = getParamMessage(user, number)
+	else if(audible && user.mind && user.mind.miming)
 		message = mimeMessage(user)
 	else if(audible && user.is_muzzled())
 		message = muzzleMessage(user)
-	else if(takesParam && param)
-		message = paramMessage(user, param)
 	else
-		message = "<span class = '[spanClass]'>[startText + " "][user] [text]"
+		message = "[user] [text]"
+	if(startText)
+		message = "[startText] [message]"
+	message = "<span class = '[spanClass]'>[message]"
 	return message
 
 /datum/emote/proc/mimeMessage(var/mob/user)
 	if(!mimeText)
 		return
 
-	var/message = "<span class = '[spanClass]'>[startText + " "][user] [mimeText]"
+	var/message = "[user] [mimeText]"
 	return message
 
 /datum/emote/proc/muzzleMessage(var/mob/user)
-	var/message = "<span class = '[spanClass]'>makes a [muzzledNoise + " "]noise"
+	var/message = "[user] makes a "
+	if(muzzledNoise)
+		message += "[muzzledNoise] "
+	message += "noise"
+	return message
+
+/datum/emote/proc/getParamMessage(var/mob/user, var/param)
+	var/message
+	if(audible && user.mind && user.mind.miming)
+		message = paramMimeMessage(user, param)
+	else if (audible && user.is_muzzled())
+		message = muzzleMessage(user)
+	else
+		message = paramMessage(user, param)
 	return message
 
 // if the emote takes a non target parameter, set up  and return the with parameter version in here
 /datum/emote/proc/paramMessage(var/mob/user, var/param)
 	return
 
-/datum/emote/proc/addTarget(var/mob/user, var/target = "", var/message = "")
+// as above, but for mimes trying to do audible messages
+/datum/emote/proc/paramMimeMessage(var/mob/user, var/param)
+	return
+
+/datum/emote/proc/addTarget(var/mob/user, var/atom/target, var/message = "")
 	if(!canTarget)
 		return message
-	target = getTarget(user, target)
 	if(!target)
 		return message
 	if(ismob(target))
@@ -122,35 +169,6 @@ VampyrBytes
 	else
 		message += " [targetText] \the [target]"
 	return message
-
-/datum/emote/proc/getTarget(var/mob/user, var/target = "")
-	if(!target)
-		return
-	if(targetMob)
-		return getMobTarget(user, target)
-	else
-		return getAtomTarget(user, target)
-
-/datum/emote/proc/getMobTarget(var/mob/user, var/target = "")
-	for (var/mob/M in view(null, user))
-		if (target == M.name)
-			return M
-
-/datum/emote/proc/getAtomTarget(var/mob/user, var/target = "")
-	if (target)
-		for (var/atom/A as mob|obj|turf in view(null, user))
-			if (target == A.name)
-				return A
-
-/datum/emote/proc/outputMessage(var/mob/user, var/message = "")
-	if(!message)
-		return
-	log_emote("[user.name]/[user.key] : [message]")
-	if(audible)
-		audible_message(message, user)
-	else
-		visible_message(message, user)
-	sendToDead(message)
 
 // What you should see when you perform the emote
 /datum/emote/proc/createSelfMessage(var/mob/user, var/message = "")
@@ -162,6 +180,16 @@ VampyrBytes
 	if(selfText)
 		selfMessage = replacetext(selfMessage, text, selfText)
 	return selfMessage
+
+/datum/emote/proc/outputMessage(var/mob/user, var/message = "")
+	if(!message)
+		return
+	log_emote("[user.name]/[user.key] : [message]")
+	if(audible)
+		audible_message(message, user)
+	else
+		visible_message(message, user)
+	sendToDead(message)
 
 /datum/emote/proc/visible_message(var/message = "", var/mob/user)
 	var/selfMessage = createSelfMessage(user, message)
@@ -182,7 +210,6 @@ VampyrBytes
 
 /datum/emote/proc/audible_message(var/message = "", var/mob/user)
 	var/selfMessage = createSelfMessage(user, message)
-	testing(selfMessage)
 	for(var/mob/M in get_mobs_in_view(7, user))
 		var/msg = message
 		if(selfMessage && M==src)
@@ -272,6 +299,11 @@ VampyrBytes
 	return 0		// Proceed with emote
 //--FalseIncarnate
 
+
+/******************************************************************************************
+								Emote Verbs
+******************************************************************************************/
+
 /datum/emote/proc/addVerbs(var/mob/user)
 	if(!istype(user))
 		return
@@ -318,6 +350,7 @@ obj/emoteVerb/custom/New(var/mob/user)
 	set category = "Emotes"
 	usr.emoteHandler.runEmote("me", null, message, audible)
 
+
 /**************************************************************************************************************************
 												Custom Emotes
 As these are made as needed, they aren't searched for the appropriate one. As such, you need to specify conditions for which
@@ -345,6 +378,10 @@ available, but if you do, make sure you return ..() so the check for use_me is s
 /datum/emote/custom/available(var/mob/user)
 	if(user.use_me)
 		return 1
+
+// Yeah, no
+/datum/emote/custom/createSelfMessage(var/mob/user, var/message = "")
+	return message
 
 /datum/emote/custom/ghost
 	name = "Ghost emote"

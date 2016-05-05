@@ -19,11 +19,12 @@
 					commands[command] = found
 				found.addVerbs(owner)
 
+
 /datum/emoteHandler/proc/deleteEmoteVerbs()
 	for(var/obj/emoteVerb/E in owner.contents)
 		qdel(E)
 
-/datum/emoteHandler/proc/runEmote(var/command = "", var/param = "", var/message = "", var/audible = 0) // message and audible only used in custom emotes
+/datum/emoteHandler/proc/runEmote(var/command = "", var/message = "", var/audible = 0) // message and audible only used in custom emotes
 	if(!command)
 		return 0
 	if(command == "help")
@@ -43,7 +44,7 @@
 		emote = commands[command]
 	if(!emote.available(owner))	// something's changed, remake the commands list, then try again to see if they've got a different version
 		setupCommands()
-		return runEmote(command, param, message)
+		return runEmote(command, message, audible)
 
 	var/prevented = emote.prevented(owner)
 	if(prevented)
