@@ -79,7 +79,7 @@ obj/item/weapon/gun/energy/laser/retro
 
 /obj/item/projectile/beam/laser/accelerator/Range()
 	..()
-	damage += 7
+	damage = min(damage+7, 100)
 
 /obj/item/weapon/gun/energy/lasercannon/mounted
 	name = "mounted laser cannon"
