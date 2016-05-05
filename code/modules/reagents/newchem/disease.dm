@@ -50,6 +50,30 @@
 		M.ForceContractDisease(new /datum/disease/tuberculosis(0))
 	..()
 
+/datum/reagent/jagged_crystals
+	name = "Jagged Crystals"
+	id = "jagged_crystals"
+	description = "Rapid chemical decomposition has warped these crystals into twisted spikes."
+	reagent_state = SOLID
+	color = "#FA0000" // rgb: 250, 0, 0
+
+/datum/reagent/jagged_crystals/on_mob_life(var/mob/living/carbon/M as mob)
+	if(!M) M = holder.my_atom
+	M.ForceContractDisease(new /datum/disease/berserker(0))
+	..()
+
+/datum/reagent/salmonella
+	name = "Salmonella "
+	id = "salmonella "
+	description = "A nasty bacteria found in spoiled food."
+	reagent_state = LIQUID
+	color = "#1E4600"
+
+/datum/reagent/salmonella/on_mob_life(var/mob/living/carbon/M as mob)
+	if(!M) M = holder.my_atom
+	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
+	..()
+
 /datum/reagent/spore
 	name = "Blob Spores"
 	id = "spore"
