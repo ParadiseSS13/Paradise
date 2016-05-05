@@ -77,7 +77,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/last_id
 
 	//game-preferences
-//	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/lastchangelog = ""				//Saved changelog filesize to detect if there was a change
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
