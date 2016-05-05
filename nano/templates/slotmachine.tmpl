@@ -8,14 +8,14 @@ Used In File(s): /code/game/machinery/slotmachine.dm
 	</div>
 	<div class="line">
 		<div class="statusLabel">Credits Remaining:</div>
-		{{:helper.string("<div class='statusValue {0}'>{1}</div>", data.money >= 5 ? "" : "bad", data.money)}}
+		{{:helper.string("<div class='statusValue {0}'>{1}</div>", data.money >= 10 ? "" : "bad", data.money)}}
 	</div>
 	<div class="item">
 		<div class="statusLabel">
 			Ten credits to play!
 		</div>
 		<div class="statusValue">
-			{{:helper.link('SPIN!', 'refresh', {'ops' : 1}, data.money >= 5 && !data.working ? null : 'disabled')}}
+			{{:helper.link('SPIN!', 'refresh', {'ops' : 1}, data.money >= 10 && !data.working ? null : 'disabled')}}
 		</div>
 	</div>
 	{{if data.result}}
