@@ -65,6 +65,7 @@ datum/reagent/salglu_solution
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	penetrates_skin = 1
 	metabolization_rate = 0.15
 
 datum/reagent/salglu_solution/on_mob_life(var/mob/living/M as mob)
@@ -170,7 +171,7 @@ datum/reagent/omnizine
 	overdose_threshold = 30
 	addiction_chance = 5
 
-datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1*REM)
 	M.adjustOxyLoss(-1*REM)
@@ -181,13 +182,39 @@ datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/omnizine/overdose_process(var/mob/living/M as mob)
-	M.adjustToxLoss(3*REM)
-	M.adjustOxyLoss(3*REM)
-	M.adjustBruteLoss(3*REM)
-	M.adjustFireLoss(3*REM)
-	..()
-	return
+/datum/reagent/omnizine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1) //lesser
+		M.stuttering += 1
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.emote("scream")
+			M.Stun(4)
+			M.Weaken(4)
+		else if(effect <= 3)
+			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
+			M.confused += 15
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.Dizzy(5)
+			M.Weaken(3)
+		else if(effect <= 7)
+			M.visible_message("<span class='warning'>[M] shakes uncontrollably.</span>")
+			M.Jitter(30)
+	else if(severity == 2) // greater
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.emote("scream")
+			M.Stun(7)
+			M.Weaken(7)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
+			M.Paralyse(5)
+			M.Weaken(4)
+		else if(effect <= 8)
+			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.Dizzy(5)
+			M.Weaken(3)
 
 datum/reagent/calomel
 	name = "Calomel"
@@ -290,13 +317,6 @@ datum/reagent/sal_acid/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/sal_acid/overdose_process(var/mob/living/M as mob)
-	if(volume > 25)
-		if(prob(8))
-			M.adjustToxLoss(rand(1,2))
-	..()
-	return
-
 /datum/chemical_reaction/sal_acid
 	name = "Salicyclic Acid"
 	id = "sal_acid"
@@ -361,17 +381,17 @@ datum/reagent/perfluorodecalin/on_mob_life(var/mob/living/carbon/human/M as mob)
 	mix_message = "The mixture rapidly turns into a dense pink liquid."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-datum/reagent/ephedrine
+/datum/reagent/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
 	description = "Ephedrine is a plant-derived stimulant."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.3
-	overdose_threshold = 45
+	overdose_threshold = 35
 	addiction_chance = 25
 
-datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
@@ -389,12 +409,26 @@ datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/ephedrine/overdose_process(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(1*REM)
-		M.losebreath++
-	..()
-	return
+/datum/reagent/ephedrine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 3)
+			M.emote(pick("groan","moan"))
+		if(effect <= 8)
+			M.emote("collapse")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M.name] staggers and drools, their eyes bloodshot!</span>")
+			M.Dizzy(2)
+			M.Weaken(3)
+		if(effect <= 15)
+			M.emote("collapse")
 
 /datum/chemical_reaction/ephedrine
 	name = "Ephedrine"
@@ -441,7 +475,7 @@ datum/reagent/morphine
 	description = "A strong but highly addictive opiate painkiller with sedative side effects."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	overdose_threshold = 30
+	overdose_threshold = 20
 	addiction_chance = 50
 	shock_reduction = 50
 
@@ -461,16 +495,6 @@ datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 		var/mob/living/carbon/human/H = M
 		if(H.traumatic_shock < 100)
 			H.shock_stage = 0
-	..()
-	return
-
-datum/reagent/morphine/overdose_process(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.Dizzy(1)
-		M.Jitter(1)
 	..()
 	return
 
@@ -519,7 +543,7 @@ datum/reagent/atropine
 	reagent_state = LIQUID
 	color = "#000000"
 	metabolization_rate = 0.2
-	overdose_threshold = 35
+	overdose_threshold = 25
 
 datum/reagent/atropine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -541,14 +565,6 @@ datum/reagent/atropine/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/atropine/overdose_process(var/mob/living/M as mob)
-	if(prob(50))
-		M.adjustToxLoss(2*REM)
-		M.Dizzy(1)
-		M.Jitter(1)
-	..()
-	return
-
 /datum/chemical_reaction/atropine
 	name = "Atropine"
 	id = "atropine"
@@ -564,7 +580,7 @@ datum/reagent/epinephrine
 	reagent_state = LIQUID
 	color = "#96B1AE"
 	metabolization_rate = 0.2
-	overdose_threshold = 30
+	overdose_threshold = 20
 
 datum/reagent/epinephrine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -591,13 +607,26 @@ datum/reagent/epinephrine/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/epinephrine/overdose_process(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustStaminaLoss(5*REM)
-		M.adjustToxLoss(2*REM)
-		M.losebreath++
-	..()
-	return
+/datum/reagent/epinephrine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if (severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 3)
+			M.emote(pick("groan","moan"))
+		if(effect <= 8)
+			M.emote("collapse")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.Dizzy(2)
+			M.Weaken(3)
+		if(effect <= 15)
+			M.emote("collapse")
 
 /datum/chemical_reaction/epinephrine
 	name = "Epinephrine"
@@ -812,13 +841,11 @@ datum/reagent/stimulants/reagent_deleted(var/mob/living/M as mob)
 	M.adjustStaminaLoss(-5*REM)
 	..()
 
-/datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M)
+/datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	if(prob(33))
 		M.adjustStaminaLoss(2.5*REM)
 		M.adjustToxLoss(1*REM)
 		M.losebreath++
-	..()
-	return
 
 datum/reagent/insulin
 	name = "Insulin"
@@ -855,6 +882,7 @@ datum/reagent/teporone
 	reagent_state = LIQUID
 	color = "#D782E6"
 	addiction_chance = 20
+	overdose_threshold = 50
 
 datum/reagent/teporone/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom

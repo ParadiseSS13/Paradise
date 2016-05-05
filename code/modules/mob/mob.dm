@@ -1349,16 +1349,18 @@ mob/proc/yank_out_object()
 		ghost.notify_cloning(message, sound, source)
 		return ghost
 
-/mob/proc/fakevomit(green=0) //for aesthetic vomits that need to be instant and do not stun. -Fox
+/mob/proc/fakevomit(green = 0, no_text = 0) //for aesthetic vomits that need to be instant and do not stun. -Fox
 	if(stat==DEAD)
 		return
 	var/turf/location = loc
 	if (istype(location, /turf/simulated))
 		if(green)
-			src.visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
+			if(!no_text)
+				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
 			new /obj/effect/decal/cleanable/vomit/green(location)
 		else
-			src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
+			if(!no_text)
+				visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
 

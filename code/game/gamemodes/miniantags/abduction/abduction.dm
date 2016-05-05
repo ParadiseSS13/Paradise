@@ -8,7 +8,6 @@
 	config_tag = "abduction"
 	recommended_enemies = 2
 	required_players = 15
-	required_players_secret = 15
 	var/max_teams = 4
 	abductor_teams = 1
 	var/list/datum/mind/scientists = list()

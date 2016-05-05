@@ -1,6 +1,0 @@
-author: Fethas
-delete-after: True
-changes: 
-  - rscadd: "Sniper Rifles for nuke ops
-bugfix:you can now actually shove heads on spears again
-tweak:Before i removed the traitor chemist item i cleaned up the harm reaction code paths."

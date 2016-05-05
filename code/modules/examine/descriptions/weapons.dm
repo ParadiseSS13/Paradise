@@ -31,10 +31,6 @@
 	then click where you want to fire. To recharge this weapon, use a weapon recharger. \
 	To switch between insta-stun and disabler beams, click the weapon in your hand. This weapon can only fire through glass if it is set to disabler beams."
 
-/obj/item/weapon/gun/energy/stunrevolver
-	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire. To recharge this weapon, use a weapon recharger."
-
 /obj/item/weapon/gun/energy/nuclear
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
 	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \

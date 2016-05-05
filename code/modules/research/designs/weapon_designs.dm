@@ -125,48 +125,6 @@
 	locked = 1
 	category = list("Weapons")
 
-/datum/design/smg
-	name = "Nanotrasen Saber SMG"
-	desc = "A prototype weapon made using lightweight materials on a traditional frame, designed to fire standard 9mm rounds."
-	id = "smg"
-	req_tech = list("combat" = 4, "materials" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 8000, MAT_SILVER = 2000, MAT_DIAMOND = 1000)
-	build_path = /obj/item/weapon/gun/projectile/automatic/proto
-	locked = 1
-	category = list("Weapons")
-
-/datum/design/mag_smg
-	name = "Saber Submachine Gun Magazine (9mm)"
-	desc = "A 30-round magazine for the Saber submachine gun."
-	id = "mag_smg"
-	req_tech = list("combat" = 4, "materials" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000)
-	build_path = /obj/item/ammo_box/magazine/smgm9mm
-	category = list("Weapons")
-
-/datum/design/mag_smg/ap_mag
-	name = "Saber Submachine Gun Magazine (9mmAP)"
-	desc = "A 30-round armour piercing magazine for the Saber submachine gun. Deals slightly less damage but bypasses most armor."
-	id = "mag_smg_ap"
-	materials = list(MAT_METAL = 3000, MAT_SILVER = 100)
-	build_path = /obj/item/ammo_box/magazine/smgm9mm/ap
-
-/datum/design/mag_smg/incin_mag
-	name = "Saber Submachine Gun Magazine (9mmIC)"
-	desc = "A 30-round incendiary round magazine for the Saber submachine gun. Deals significantly less damage but sets the target on fire."
-	id = "mag_smg_ic"
-	materials = list(MAT_METAL = 3000, MAT_SILVER = 100, MAT_GLASS = 400)
-	build_path = /obj/item/ammo_box/magazine/smgm9mm/fire
-
-/datum/design/mag_smg/incin_tox
-	name = "Saber Submachine Gun Magazine (9mmTX)"
-	desc = "A 30-round uranium tipped round magazine for the Saber submachine gun. Deals toxin damage, but less overall damage."
-	id = "mag_smg_tx"
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 200, MAT_URANIUM = 1000)
-	build_path = /obj/item/ammo_box/magazine/smgm9mm/toxin
-
 //WT550 Mags
 
 /datum/design/mag_oldsmg
@@ -221,13 +179,13 @@
 	category = list("Weapons")
 
 /datum/design/stunrevolver
-	name = "Stun Revolver"
-	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. The stun cartridges can be recharged using a conventional energy weapon recharger."
+	name = "Tesla Revolver"
+	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
 	id = "stunrevolver"
-	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 2)
+	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
-	build_path = /obj/item/weapon/gun/energy/stunrevolver
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
+	build_path = /obj/item/weapon/gun/energy/shock_revolver
 	locked = 1
 	category = list("Weapons")
 
