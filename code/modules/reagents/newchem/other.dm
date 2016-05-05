@@ -351,6 +351,52 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("sodium" = 1, "hydrogen" = 1, "oxygen" = 1)
 	result_amount = 3
 
+/datum/reagent/hugs
+	name = "Pure hugs"
+	id = "hugs"
+	description = "Hugs, in liquid form.  Yes, the concept of a hug.  As a liquid.  This makes sense in the future."
+	reagent_state = LIQUID
+	color = "#FF97B9"
+
+/datum/reagent/love
+	name = "Pure love"
+	id = "love"
+	description = "What is this emotion you humans call \"love?\"  Oh, it's this?  This is it? Huh, well okay then, thanks."
+	reagent_state = LIQUID
+	color = "#FF83A5"
+
+/datum/reagent/love/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+	to_chat(M, "<span class='notice'>You feel loved!</span>")
+
+/datum/reagent/love/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+
+	if(M.a_intent == I_HARM)
+		M.a_intent = I_HELP
+
+	if(prob(8))
+		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
+		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
+
+	else if(!M.restrained())
+		for(var/mob/living/carbon/C in orange(1, M))
+			if(C)
+				if(C == M)
+					continue
+				if(!C.stat)
+					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
+					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+					break
+	..()
+
+/datum/chemical_reaction/love
+	name = "pure love"
+	id = "love"
+	result = "love"
+	required_reagents = list("hugs" = 1, "chocolate" = 1)
+	result_amount = 2
+	mix_message = "The substance gives off a lovely scent!"
+
 ///Alchemical Reagents
 
 datum/reagent/eyenewt
