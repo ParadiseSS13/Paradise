@@ -99,9 +99,6 @@
 	return .
 
 /mob/living/simple_animal/hostile/poison/bees/Found(atom/A)
-	if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		return !H.bee_friendly()
 	if(isliving(A))
 		var/mob/living/L = A
 		return !L.bee_friendly()
@@ -173,11 +170,7 @@
 		return 0
 	if(isliving(the_target))		//Should ignore ghosts and camera mobs already, but just in case
 		var/mob/living/L = the_target
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			return !H.bee_friendly()
-		else
-			return !L.bee_friendly()
+		return !L.bee_friendly()
 
 /mob/living/simple_animal/hostile/poison/bees/worker/AttackingTarget()
 	//Pollinate
@@ -265,11 +258,7 @@
 		return 0
 	if(isliving(the_target))		//Should ignore ghosts and camera mobs already, but just in case
 		var/mob/living/L = the_target
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			return !H.bee_friendly()
-		else
-			return !L.bee_friendly()
+		return !L.bee_friendly()
 
 /obj/item/queen_bee
 	name = "queen bee"
@@ -339,8 +328,6 @@
 		return 0
 	if(isliving(the_target))
 		var/mob/living/L = the_target
-		if(L.stat)
-			return 0	//ignore dead and unconcious mobs
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
 			if(H in master_and_friends)

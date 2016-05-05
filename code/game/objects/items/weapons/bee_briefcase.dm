@@ -7,10 +7,10 @@
 	item_state = "briefcase"
 	flags = CONDUCT
 	hitsound = "swing_hit"
-	force = 10.0
+	force = 10
 	throw_speed = 2
 	throw_range = 4
-	w_class = 4.0
+	w_class = 4
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 	var/bees_left = 10
 	var/list/blood_list = list()
@@ -23,7 +23,7 @@
 		if(bees_left)
 			to_chat(user, "<span class='warning'>There are [bees_left] bees still inside in briefcase!</span>")
 		else
-			to_chat(user, "<span class='danger'>The bees are gone... Colony collapse syndrome?</span>")
+			to_chat(user, "<span class='danger'>The bees are gone... Colony collapse disorder?</span>")
 
 /obj/item/weapon/bee_briefcase/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/syringe))
@@ -38,7 +38,7 @@
 				if(A.id == "blood")
 					if(!(A.data["donor"] in blood_list))
 						blood_list += A.data["donor"]
-				if(A.id == "strange_reagent")		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees
+				if(A.id == "strange_reagent")		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
 					if(bees_left < 15)
 						bees_left = min(15, round((bees_left + A.volume), 1))	//No partial bees, max 15 bees in case at any given time
 						to_chat(user, "<span class='warning'>The buzzing inside the briefcase intensifies as new bees form inside.</span>")
