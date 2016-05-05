@@ -73,6 +73,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(findtext(message, "~"))
 		adjustBrainLoss(10) // tildes actually cause brain damage, it's a fact of nature.
+		to_chat(src, "<span class='warning'>You feel dumber for having spoken in such a mannerism.</span>")
 
 	if((HULK in mutations) && health >= 25 && length(message))
 		message = "[uppertext(message)]!!!"
