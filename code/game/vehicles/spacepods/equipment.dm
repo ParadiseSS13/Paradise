@@ -201,7 +201,7 @@
 
 // Key and Tumbler System
 /obj/item/device/spacepod_equipment/lock/keyed
-	name = "\improper spacepod tumbler lock"
+	name = "spacepod tumbler lock"
 	desc = "A locking system to stop podjacking. This version uses a standalone key."
 	icon_state = "lock_tumbler"
 	var/static/id_source = 0
@@ -212,7 +212,7 @@
 
 // The key
 /obj/item/device/spacepod_key
-	name = "\improper spacepod key"
+	name = "spacepod key"
 	desc = "A key for a spacepod lock."
 	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "podkey"
