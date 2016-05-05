@@ -1,0 +1,10 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Reworks overdosing to have more unique effects and also scale, in part, on volume"
+  - tweak: "Epinephrine, Atropine, and Ephedrine have a lower OD threshold"
+  - tweak: "Saline penetrates the skin"
+  - tweak: "Synaptizine and Teporone now have OD threshold"
+  - rscadd: "Adds in berserker disease (treat with haloperidol)"
+  - rscadd: "Adds in Jenkem, a nasty gross drug made with toilet water"
+  - rscadd: "Adds in food poisoning; get it from eating poorly made food, from salmonella, or fungus"
