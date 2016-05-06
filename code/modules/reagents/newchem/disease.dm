@@ -113,6 +113,24 @@
 		M.ForceContractDisease(new /datum/disease/vampire(0))
 	..()
 
+/datum/reagent/heartworms
+	name = "Space heartworms"
+	id = "heartworms"
+	description = "Aww, gross! These things can't be good for your heart. They're gunna eat it!"
+	reagent_state = SOLID
+	color = "#925D6C"
+
+/datum/reagent/heartworms/on_mob_life(var/mob/living/carbon/M as mob)
+	if(!M) M = holder.my_atom
+	if(volume > 4.5)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/internal/heart/ate_heart = H.get_int_organ(/obj/item/organ/internal/heart)
+			if(ate_heart)
+				ate_heart.remove(H)
+				qdel(ate_heart)
+	..()
+
 /datum/reagent/spore
 	name = "Blob Spores"
 	id = "spore"
