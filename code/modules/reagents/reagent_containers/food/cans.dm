@@ -1,5 +1,6 @@
 /obj/item/weapon/reagent_containers/food/drinks/cans
 	var canopened = 0
+	var is_glass = 0
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/New()
 	..()
@@ -13,9 +14,13 @@
 		flags |= OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/proc/crush(mob/user)
-	playsound(user.loc, 'sound/weapons/pierce.ogg', rand(10, 50), 1)
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
 	crushed_can.icon_state = icon_state
+	if(is_glass)
+		playsound(user.loc, 'sound/effects/Glassbr3.ogg', rand(10, 50), 1)
+		crushed_can.name = "broken bottle"
+	else
+		playsound(user.loc, 'sound/weapons/pierce.ogg', rand(10, 50), 1)
 	qdel(src)
 	return crushed_can
 
@@ -24,14 +29,14 @@
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
 	else if(M == user && !src.reagents.total_volume && user.a_intent == "harm" && user.zone_sel.selecting == "head")
-		user.visible_message("<span class='warning'>[user] crushes the can of [src] on \his forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
+		user.visible_message("<span class='warning'>[user] crushes ["\the [src]"] on \his forehead!</span>", "<span class='notice'>You crush \the [src] on your forehead.</span>")
 		crush(user)
 		return
 	return ..()
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/storage/bag/trash/cyborg))
-		user.visible_message("<span class='notice'>[user] crushes the can of [src] in their trash compactor.</span>", "<span class='notice'>You crush the can of [src] in your trash compactor.</span>")
+		user.visible_message("<span class='notice'>[user] crushes \the [src] in their trash compactor.</span>", "<span class='notice'>You crush \the [src] in your trash compactor.</span>")
 		var/obj/can = crush(user)
 		can.attackby(I, user, params)
 		return 1
@@ -90,6 +95,7 @@
 	name = "Space Beer"
 	desc = "Contains only water, malt and hops."
 	icon_state = "beer"
+	is_glass = 1
 	New()
 		..()
 		reagents.add_reagent("beer", 30)
@@ -100,6 +106,7 @@
 	name = "Admin Booze"
 	desc = "Bottled Griffon tears. Drink with caution."
 	icon_state = "adminbooze"
+	is_glass = 1
 	New()
 		..()
 		reagents.add_reagent("adminordrazine", 5)
@@ -113,6 +120,7 @@
 	name = "Madmin Malt"
 	desc = "Bottled essence of angry admins. Drink with <i>EXTREME</i> caution."
 	icon_state = "madminmalt"
+	is_glass = 1
 	New()
 		..()
 		reagents.add_reagent("hell_water", 20)
@@ -125,6 +133,7 @@
 	name = "Badmin Brew"
 	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
 	icon_state = "badminbrew"
+	is_glass = 1
 	New()
 		..()
 		reagents.add_reagent("mutagen", 25)
@@ -138,6 +147,7 @@
 	desc = "A true dorf's drink of choice."
 	icon_state = "alebottle"
 	item_state = "beer"
+	is_glass = 1
 	New()
 		..()
 		reagents.add_reagent("ale", 30)

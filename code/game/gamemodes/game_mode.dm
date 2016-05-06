@@ -25,9 +25,7 @@
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	var/list/protected_species = list() // Species that can't be traitors
 	var/required_players = 0
-	var/required_players_secret = 0 //Minimum number of players for that game mode to be chose in Secret
 	var/required_enemies = 0
-	var/recommended_players = 0
 	var/recommended_enemies = 0
 	var/newscaster_announcements = null
 	var/ert_disabled = 0
@@ -49,12 +47,8 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(master_mode=="secret")
-		if(playerC >= required_players_secret)
-			return 1
-	else
-		if(playerC >= required_players)
-			return 1
+	if(playerC >= required_players)
+		return 1
 	return 0
 
 //pre_pre_setup() For when you really don't want certain jobs ingame.

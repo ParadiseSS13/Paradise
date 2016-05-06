@@ -5,10 +5,15 @@
 
 /obj/item/weapon/stock_parts/cell/New()
 	..()
+	processing_objects.Add(src)
 	charge = maxcharge
 
 	spawn(5)
 		updateicon()
+
+/obj/item/weapon/stock_parts/cell/Destroy()
+	processing_objects.Remove(src)
+	return ..()
 
 /obj/item/weapon/stock_parts/cell/proc/updateicon()
 	if(isnull(src.overlay_image))

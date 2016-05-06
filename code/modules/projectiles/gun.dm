@@ -50,6 +50,12 @@
 
 	var/burst_size = 1
 
+	//Zooming
+	var/zoomable = FALSE //whether the gun generates a Zoom action on creation
+	var/zoomed = FALSE //Zoom toggle
+	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
+	var/datum/action/toggle_scope_zoom/azoom
+
 	proc/ready_to_fire()
 		if(world.time >= last_fired + fire_delay)
 			last_fired = world.time
@@ -80,6 +86,23 @@
 		proj.shot_from = src
 		proj.silenced = silenced
 		return
+
+/obj/item/weapon/gun/New()
+	build_zooming()
+	..()
+
+/obj/item/weapon/gun/pickup(mob/user)
+
+	if(azoom)
+		azoom.Grant(user)
+	..()
+
+/obj/item/weapon/gun/dropped(mob/user)
+
+	zoom(user,FALSE)
+	if(azoom)
+		azoom.Remove(user)
+	..()
 
 /obj/item/weapon/gun/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 	if(flag)    return //we're placing gun on a table or in backpack
@@ -276,19 +299,19 @@
 	//Suicide handling.
 	if (M == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
 		mouthshoot = 1
-		M.visible_message("\red [user] sticks their gun in their mouth, ready to pull the trigger...")
+		M.visible_message("<span class='warning'> [user] sticks their gun in their mouth, ready to pull the trigger...</span>")
 		if(!do_after(user, 40, target = M))
-			M.visible_message("\blue [user] decided life was worth living")
+			M.visible_message("<span class='warning'> [user] decided life was worth living</span>")
 			mouthshoot = 0
 			return
 		if (process_chambered())
-			user.visible_message("<span class = 'warning'>[user] pulls the trigger.</span>")
+			user.visible_message("<span class='warning'>[user] pulls the trigger.</span>")
 			if(silenced)
 				playsound(user, fire_sound, 10, 1)
 			else
 				playsound(user, fire_sound, 50, 1)
-			if(istype(in_chamber, /obj/item/projectile/lasertag))
-				user.show_message("<span class = 'warning'>You feel rather silly, trying to commit suicide with a toy.</span>")
+			if(istype(in_chamber, /obj/item/projectile/lasertag) || istype(in_chamber, /obj/item/projectile/bullet/reusable/foam_dart))
+				user.show_message("<span class='warning'>You feel rather silly, trying to commit suicide with a toy.</span>")
 				mouthshoot = 0
 				return
 			in_chamber.on_hit(M)
@@ -296,7 +319,7 @@
 				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
 				user.death()
 			else
-				to_chat(user, "<span class = 'notice'>Ow...</span>")
+				to_chat(user, "<span class='notice'>Ow...</span>")
 				user.apply_effect(110,STAMINA,0)
 			del(in_chamber)
 			mouthshoot = 0
@@ -381,3 +404,68 @@
 	else
 		set_light(0)
 		return
+
+/////////////
+// ZOOMING //
+/////////////
+
+/datum/action/toggle_scope_zoom
+	name = "Toggle Scope"
+	check_flags = AB_CHECK_ALIVE|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
+	button_icon_state = "sniper_zoom"
+	var/obj/item/weapon/gun/gun = null
+
+/datum/action/toggle_scope_zoom/Trigger()
+	gun.zoom(owner)
+
+/datum/action/toggle_scope_zoom/IsAvailable()
+	. = ..()
+	if(!. && gun)
+		gun.zoom(owner, FALSE)
+
+/datum/action/toggle_scope_zoom/Remove(mob/living/L)
+	gun.zoom(L, FALSE)
+	..()
+
+
+
+/obj/item/weapon/gun/proc/zoom(mob/living/user, forced_zoom)
+	if(!user || !user.client)
+		return
+
+	switch(forced_zoom)
+		if(FALSE)
+			zoomed = FALSE
+		if(TRUE)
+			zoomed = TRUE
+		else
+			zoomed = !zoomed
+
+	if(zoomed)
+		var/_x = 0
+		var/_y = 0
+		switch(user.dir)
+			if(NORTH)
+				_y = zoom_amt
+			if(EAST)
+				_x = zoom_amt
+			if(SOUTH)
+				_y = -zoom_amt
+			if(WEST)
+				_x = -zoom_amt
+
+		user.client.pixel_x = world.icon_size*_x
+		user.client.pixel_y = world.icon_size*_y
+	else
+		user.client.pixel_x = 0
+		user.client.pixel_y = 0
+
+
+//Proc, so that gun accessories/scopes/etc. can easily add zooming.
+/obj/item/weapon/gun/proc/build_zooming()
+	if(azoom)
+		return
+
+	if(zoomable)
+		azoom = new()
+		azoom.gun = src

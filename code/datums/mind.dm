@@ -792,6 +792,7 @@
 			if("clear")
 				if(src in ticker.mode.cult)
 					ticker.mode.remove_cultist(src)
+					special_role = null
 					log_admin("[key_name(usr)] has de-culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")

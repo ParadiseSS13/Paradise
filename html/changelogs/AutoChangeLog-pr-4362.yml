@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes UI On slot machine saying it costs 5 credits when it's 10"

@@ -181,12 +181,6 @@
 		if(L.incorporeal_move)//Move though walls
 			Process_Incorpmove(direct)
 			return
-		if(mob.client)
-			if(mob.client.view != world.view)
-				if(locate(/obj/item/weapon/gun/energy/sniperrifle, mob.contents))		// If mob moves while zoomed in with sniper rifle, unzoom them.
-					var/obj/item/weapon/gun/energy/sniperrifle/s = locate() in mob
-					if(s.zoom)
-						s.zoom()
 
 	if(Process_Grab())	return
 

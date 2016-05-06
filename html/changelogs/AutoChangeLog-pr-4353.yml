@@ -1,0 +1,7 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "removes fungus from mushrooms"
+  - tweak: "adds fungus to \"mold\" plant"
+  - tweak: "adds mold seeds to hydro vendor"
+  - tweak: "bumps up ???? reagent from 1 to 5 on bad recipes"

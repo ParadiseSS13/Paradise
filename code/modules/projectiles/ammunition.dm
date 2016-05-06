@@ -38,22 +38,41 @@
 				var/tmp_label = ""
 				var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
 				if(length(label_text) > 20)
-					to_chat(user, "\red The inscription can be at most 20 characters long.")
+					to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
 				else
 					if(label_text == "")
-						to_chat(user, "\blue You scratch the inscription off of [initial(BB)].")
+						to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
 						BB.name = initial(BB.name)
 					else
-						to_chat(user, "\blue You inscribe \"[label_text]\" into \the [initial(BB.name)].")
+						to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
 						BB.name = "[initial(BB.name)] \"[label_text]\""
 			else
-				to_chat(user, "\blue You can only inscribe a metal bullet.")//because inscribing beanbags is silly
+				to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
 
 		else
-			to_chat(user, "\blue There is no bullet in the casing to inscribe anything into.")
+			to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+
+/obj/item/ammo_casing/attackby(obj/item/ammo_box/box as obj, mob/user as mob, params)
+	if(!istype(box, /obj/item/ammo_box))
+		return
+	if(isturf(loc))
+		var/boolets = 0
+		for(var/obj/item/ammo_casing/pew in loc)
+			if(box.stored_ammo.len >= box.max_ammo)
+				break
+			if(pew.BB)
+				if(box.give_round(pew))
+					boolets++
+			else
+				continue
+		if(boolets > 0)
+			box.update_icon()
+			to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
+		else
+			to_chat(user, "<span class='notice'>You fail to collect anything.</span>")
 
 /obj/item/ammo_casing/proc/newshot() //For energy weapons, shotgun shells and wands (!).
-	if (!BB)
+	if(!BB)
 		BB = new projectile_type(src)
 	return
 
@@ -85,19 +104,19 @@
 	update_icon()
 
 /obj/item/ammo_box/proc/get_round(var/keep = 0)
-	if (!stored_ammo.len)
+	if(!stored_ammo.len)
 		return null
 	else
 		var/b = stored_ammo[stored_ammo.len]
 		stored_ammo -= b
-		if (keep)
+		if(keep)
 			stored_ammo.Insert(1,b)
 		return b
 
 /obj/item/ammo_box/proc/give_round(var/obj/item/ammo_casing/r)
 	var/obj/item/ammo_casing/rb = r
-	if (rb)
-		if (stored_ammo.len < max_ammo && rb.caliber == caliber)
+	if(rb)
+		if(stored_ammo.len < max_ammo && rb.caliber == caliber)
 			stored_ammo += rb
 			rb.loc = src
 			return 1

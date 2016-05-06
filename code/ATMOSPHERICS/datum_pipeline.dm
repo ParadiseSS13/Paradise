@@ -1,4 +1,5 @@
-var/global/list/datum/pipeline/pipe_networks = list()
+var/global/list/pipe_networks = list()
+var/global/list/deferred_pipenet_rebuilds = list()
 
 /datum/pipeline
 	var/datum/gas_mixture/air

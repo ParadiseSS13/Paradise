@@ -251,6 +251,15 @@
 	icon_state = "plasmaman_RD_helmet0"
 	base_state = "plasmaman_RD_helmet"
 
+//MAGISTRATE
+/obj/item/clothing/suit/space/eva/plasmaman/magistrate
+	name = "plasmaman magistrate suit"
+	icon_state = "plasmaman_HoS"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/magistrate
+	name = "plasmaman magistrate helmet"
+	icon_state = "plasmaman_HoS_helmet0"
+	base_state = "plasmaman_HoS_helmet"
 
 //SECURITY
 

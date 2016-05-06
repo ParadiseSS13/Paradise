@@ -28,7 +28,8 @@ var/global/datum/controller/process/timer/timer_master
 
 /datum/controller/process/timer/proc/runevent(datum/timedevent/event)
 	set waitfor = 0
-	call(event.thingToCall, event.procToCall)(arglist(event.argList))
+	if(event.thingToCall)
+		call(event.thingToCall, event.procToCall)(arglist(event.argList))
 
 /datum/timedevent
 	var/thingToCall

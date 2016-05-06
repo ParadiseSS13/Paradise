@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Updates the laser cannon to be range based: the further its projectile travels, the more damage it does. Base damage greatly reduced."

@@ -141,6 +141,9 @@ Pipelines + Other Objects -> Pipe network
 	// Called to build a network from this node
 	return
 
+/obj/machinery/atmospherics/proc/defer_build_network()
+	deferred_pipenet_rebuilds += src
+
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return
 
