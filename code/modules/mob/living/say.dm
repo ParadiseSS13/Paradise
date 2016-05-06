@@ -75,17 +75,25 @@ proc/get_radio_key_from_channel(var/channel)
 		adjustBrainLoss(10) // tildes actually cause brain damage, it's a fact of nature.
 		to_chat(src, "<span class='warning'>You feel dumber for having spoken in such a mannerism.</span>")
 
+	var/robot = isSynthetic()
+
 	if((HULK in mutations) && health >= 25 && length(message))
 		message = "[uppertext(message)]!!!"
 		verb = pick("yells","roars","hollers")
 		speech_problem_flag = 1
 
 	if(slurring)
-		message = slur(message)
+		if(robot)
+			message = slur(message, list("@", "!", "#", "$", "%", "&", "?"))
+		else
+			message = slur(message)
 		verb = "slurs"
 		speech_problem_flag = 1
 	if(stuttering)
-		message = stutter(message)
+		if(robot)
+			message = robostutter(message)
+		else
+			message = stutter(message)
 		verb = "stammers"
 		speech_problem_flag = 1
 

@@ -250,9 +250,12 @@
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(iscrowbar(W))
-		hatch_open = !hatch_open
-		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
+		if(!equipment_system.lock_system || allow2enter || hatch_open)
+			hatch_open = !hatch_open
+			playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+			to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
+		else
+			to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!hatch_open)
 			to_chat(user, "\red The maintenance hatch is closed!")
@@ -305,6 +308,25 @@
 				equipment_system.cargo_system = W
 				equipment_system.cargo_system.my_atom = src
 				return
+		if(istype(W, /obj/item/device/spacepod_equipment/lock))
+			if(equipment_system.lock_system)
+				to_chat(user, "<span class='notice'>The pod already has a lock system, remove it first.</span>")
+				return
+			else
+				to_chat(user, "<span class='notice'>You insert \the [W] into the lock system.</span>")
+				user.drop_item(W)
+				W.forceMove(src)
+				equipment_system.lock_system = W
+				equipment_system.lock_system.my_atom = src
+				return
+
+	if(istype(W, /obj/item/device/spacepod_key) && istype(equipment_system.lock_system, /obj/item/device/spacepod_equipment/lock/keyed))
+		var/obj/item/device/spacepod_key/key = W
+		if (key.id == equipment_system.lock_system.id)
+			locksecondseat()
+		else
+			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
+		return
 
 	if(istype(W, /obj/item/weapon/weldingtool))
 		if(!hatch_open)
@@ -340,6 +362,8 @@
 		possible.Add("Misc. System")
 	if(equipment_system.cargo_system)
 		possible.Add("Cargo System")
+	if(equipment_system.lock_system)
+		possible.Add("Lock System")
 	/* Not yet implemented
 	if(equipment_system.engine_system)
 		possible.Add("Engine System")
@@ -377,6 +401,15 @@
 				SPE.removed(user)
 				SPE.my_atom = null
 				equipment_system.cargo_system = null
+			else
+				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+		if("Lock System")
+			SPE = equipment_system.lock_system
+			if(user.put_in_any_hand_if_possible(SPE))
+				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
+				SPE.removed(user)
+				SPE.my_atom = null
+				equipment_system.lock_system = null
 			else
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
 		/*
@@ -423,6 +456,11 @@
 	equipment_system.misc_system = L
 	equipment_system.misc_system.my_atom = src
 	equipment_system.misc_system.enabled = 1
+	var/obj/item/device/spacepod_equipment/lock/keyed/K = new /obj/item/device/spacepod_equipment/lock/keyed
+	K.loc = equipment_system
+	equipment_system.lock_system = K
+	equipment_system.lock_system.my_atom = src
+	equipment_system.lock_system.id = 100000
 	return
 
 /obj/spacepod/random/New()
@@ -534,7 +572,11 @@
 				moved_other_inside(M)
 
 		if(M == user)
-			enter_pod(user)
+			if(!equipment_system.lock_system || allow2enter)
+				enter_pod(user)
+			else
+				to_chat(user, "<span class='warning'>\The [src]'s doors are locked!</span>")
+
 
 	if(istype(A, /obj/structure/ore_box)) // For loading ore boxes
 		var/obj/structure/ore_box/O = A
@@ -637,10 +679,6 @@
 		else if(occupant2.loc != src)
 			log_debug("##SPACEPOD WARNING: OCCUPANT [occupant2] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 			occupant2 = null
-
-	if(!occupant && !allow2enter)
-		allow2enter = 1
-		log_debug("##SPACEPOD WARNING: DOORS WERE STILL LOCKED WITH NO OCCUPANT, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 
 /obj/spacepod/verb/exit_pod()
 	set name = "Exit pod"

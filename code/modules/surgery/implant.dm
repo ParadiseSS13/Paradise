@@ -175,6 +175,11 @@
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>")
 		return 0//fail
 
+	var/obj/item/weapon/disk/nuclear/datdisk = locate() in tool
+	if(datdisk)
+		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box.</span>")
+		return 0//fail
+
 	if(istype(tool,/obj/item/organ))
 		to_chat(user, "<span class='warning'>This isn't the type of surgery for organ transplants!</span>")
 		return 0//fail
