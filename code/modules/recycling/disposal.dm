@@ -14,6 +14,7 @@
 	icon_state = "disposal"
 	anchored = 1
 	density = 1
+	on_blueprints = TRUE
 	var/datum/gas_mixture/air_contents	// internal reservoir
 	var/mode = 1	// item mode 0=off 1=charging 2=charged
 	var/flush = 0	// true if flush handle is pulled
@@ -656,6 +657,7 @@
 	anchored = 1
 	density = 0
 
+	on_blueprints = TRUE
 	level = 1			// underfloor only
 	var/dpdir = 0		// bitmask of pipe directions
 	dir = 0				// dir will contain dominant direction for junction pipes
