@@ -178,12 +178,13 @@
 		S1.name = "red spiderling"
 		var/obj/effect/spider/terror_spiderling/S2 = new(get_turf(M))
 		S2.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
-		S2.name = "black spiderling"
+		S2.name = "gray spiderling"
 		var/obj/effect/spider/terror_spiderling/S3 = new(get_turf(M))
 		S3.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 		S3.name = "green spiderling"
+		wdtreated = 1 // to ensure it is removed from their system.
 		M.adjustBruteLoss(20)
-		M.adjustToxLoss(40)
+		M.adjustToxLoss(80)
 		if (alternate_ending)
 			// This is the alternate ending of the infestation, triggered above by someone bringing back an infection from a gateway mission to the main station.
 			// In this ending, we still spawn spiderlings - but we make sure they're stillborn, and don't grow up.
@@ -191,7 +192,7 @@
 			S1.stillborn = 1
 			S2.stillborn = 1
 			S3.stillborn = 1
-			M.adjustToxLoss(60)
+			M.adjustToxLoss(30)
 	if (wdstage == 190) // 6m 30s
 		to_chat(M,"<span class='danger'>The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting.</span>")
 		M.reagents.remove_reagent("terror_white_toxin", 100)

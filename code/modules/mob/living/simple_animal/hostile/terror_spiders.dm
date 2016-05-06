@@ -54,6 +54,8 @@ var/global/list/spider_ckey_blacklist = list()
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
 
+	// Languages are handled in terror_spider/New()
+
 	// Interaction keywords
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -602,6 +604,9 @@ var/global/list/spider_ckey_blacklist = list()
 		qdel(src)
 	else
 		add_language("TerrorSpider")
+		add_language("Galactic Common")
+		default_language = all_languages["TerrorSpider"]
+
 		name += " ([rand(1, 1000)])"
 		msg_terrorspiders("[src] has grown in [get_area(src)].")
 		if (name_usealtnames)
@@ -1224,7 +1229,7 @@ var/global/list/spider_ckey_blacklist = list()
 		to_chat(src, "- OOCly, Empresses are used by coders (to test), senior admins (to run events) and normal admins (to act as higher authority for spiders, similar to how CC is for crew).")
 		to_chat(src, "- Your abilities are game-breakingly OP, and should NOT be used lightly. You are a terrifying lovecraftian spider from the depths of space. Act like it.")
 	to_chat(src, " ")
-	to_chat(src, "<B>Use :~ or .~ to talk to your fellow spiders over the spider hivemind.</B>")
+	to_chat(src, "<B>You speak over the Terror Spider hivemind by default. To speak common, use :9 or .9 </B>")
 	to_chat(src, " ")
 	to_chat(src, "Standard Verbs:")
 	to_chat(src, " - Show Guide - Shows this guide.")
