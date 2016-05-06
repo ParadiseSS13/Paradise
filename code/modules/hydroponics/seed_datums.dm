@@ -513,7 +513,7 @@
 	seed_noun = "spores"
 	display_name = "chanterelle mushrooms"
 	mutants = list("reishi","amanita","plumphelmet")
-	chems = list("plantmatter" = list(1,25), "fungus" = list(1,10))
+	chems = list("plantmatter" = list(1,25))
 	splat_type = /obj/effect/plant
 	kitchen_tag = "mushroom"
 	preset_icon = "chanterelle"
@@ -534,6 +534,7 @@
 	seed_name = "brown mold"
 	display_name = "brown mold"
 	mutants = null
+	chems = list("fungus" = list(1,10))
 
 /datum/seed/mushroom/mold/New()
 	..()
