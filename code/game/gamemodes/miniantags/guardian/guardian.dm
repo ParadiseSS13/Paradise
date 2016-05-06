@@ -385,14 +385,21 @@
 		if(src.loc == summoner)
 			to_chat(src, "<span class='danger'><B>You must be manifested to heal!</span></B>")
 			return
+		if(issythetic(target))
+			src.changeNext_move(CLICK_CD_MELEE)
+			if(heal_cooldown <= world.time && !stat)
+				var/mob/living/synthetic/I = target
+				if (I && I.damage >= 0)
+					I.damage = -10
+					heal_cooldown = world.time + 20
 		if(iscarbon(target))
 			src.changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
 				var/mob/living/carbon/C = target
-				C.adjustBruteLoss(-5)
-				C.adjustFireLoss(-5)
-				C.adjustOxyLoss(-5)
-				C.adjustToxLoss(-5)
+				C.adjustBruteLoss(-10)
+				C.adjustFireLoss(-10)
+				C.adjustOxyLoss(-10)
+				C.adjustToxLoss(-10)
 				heal_cooldown = world.time + 20
 
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
@@ -485,7 +492,7 @@
 /obj/item/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
-	damage = 5
+	damage = 10
 	damage_type = BRUTE
 	armour_penetration = 100
 
@@ -517,7 +524,7 @@
 			melee_damage_lower = 10
 			melee_damage_upper = 10
 			alpha = 255
-			range = 13
+			range = 20
 			incorporeal_move = 0
 			to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
 			toggle = FALSE
@@ -612,6 +619,12 @@
 			B.disguise (A)
 		else
 			to_chat(src, "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>")
+			
+/mob/living/simple_animal/hostile/guardian/bomb/verb/Detonate
+	stored_obj.loc = get_turf(src.loc)
+	explosion(src.loc,1,2,4,flame_range = 2)
+	qdel(src)
+	
 
 /obj/item/weapon/guardian_bomb
 	name = "bomb"
@@ -626,7 +639,7 @@
 	anchored = A.anchored
 	density = A.density
 	appearance = A.appearance
-	spawn(600)
+	spawn(1200)
 		if(src)
 			stored_obj.loc = get_turf(src.loc)
 			to_chat(spawner, "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>")
@@ -637,9 +650,7 @@
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
-			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
-			stored_obj.loc = get_turf(src.loc)
-			qdel(src)
+			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you carefully avoid disturbing the effects.</span>")
 			return
 	to_chat(spawner, "<span class='danger'><B>Success! Your trap on \the [src] caught [user]!</B></span>")
 	stored_obj.loc = get_turf(src.loc)
@@ -650,7 +661,6 @@
 /obj/item/weapon/guardian_bomb/attackby(mob/living/user)
 	detonate(user)
 	return
-
 /obj/item/weapon/guardian_bomb/pickup(mob/living/user)
 	detonate(user)
 	return
