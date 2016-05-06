@@ -389,7 +389,7 @@
 			src.changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
 				var/mob/living/carbon/C = target
-				C.heal_overall_damage(amount, amount, 10, 10)
+				C.heal_overall_damage(amount, amount, 10, 10,0,1)
 				C.adjustOxyLoss(-10)
 				C.adjustToxLoss(-10)
 				heal_cooldown = world.time + 20
