@@ -39,6 +39,13 @@
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
+	else if(target == user && user.a_intent == "grab")
+		var/mob/living/carbon/human/muncher = user
+		var/species = muncher.get_species()
+		if(species == "Drask")
+			to_chat(user, "You take a bite of the [src.name]. Delicious!")
+			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+			user.nutrition += 5
 	else if(istype(target,/obj/effect/decal/cleanable))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, src.cleanspeed, target = target) && target)
