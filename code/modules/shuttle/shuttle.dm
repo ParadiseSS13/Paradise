@@ -138,6 +138,12 @@
 	var/turf_type = /turf/space
 	var/area_type = /area/space
 
+/obj/docking_port/stationary/proc/on_docked(mobile)
+	return
+
+/obj/docking_port/stationary/proc/on_undocked(mobile)
+	return
+
 /obj/docking_port/stationary/register()
 	if(!shuttle_master)
 		throw EXCEPTION("docking port [src] could not initialize.")
@@ -183,6 +189,9 @@
 	return 1
 
 /obj/docking_port/stationary/transit/temporary
+
+/obj/docking_port/stationary/transit/temporary/on_docked(mobile)
+	shuttle_master.allocator.deallocate(src)
 
 /obj/docking_port/mobile
 	icon_state = "mobile"
@@ -459,9 +468,6 @@
 		T1.postDock()
 		for(var/atom/movable/M in T1)
 			M.postDock()
-	
-	if(istype(S0, /obj/docking_port/stationary/transit/temporary))
-		shuttle_master.allocator.deallocate(S0)
 
 	loc = S1.loc
 	dir = S1.dir
@@ -471,7 +477,9 @@
 		for(var/obj/machinery/door/airlock/A in door_unlock_list)
 			spawn(-1)
 				A.unlock()
-
+				
+	S1.on_docked(src)
+	S0.on_undocked(src)
 /*
 	if(istype(S1, /obj/docking_port/stationary/transit))
 		var/d = turn(dir, 180 + travelDir)
