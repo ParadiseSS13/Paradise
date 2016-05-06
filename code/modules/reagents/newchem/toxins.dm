@@ -397,6 +397,15 @@
 	..()
 	return
 
+/datum/chemical_reaction/initropidril
+	name = "Initropidril"
+	id = "initropidril"
+	result = "initropidril"
+	required_reagents = list("crank" = 1, "histamine" = 1, "krokodil" = 1, "bath_salts" = 1, "atropine" = 1, "nicotine" = 1, "morphine" = 1)
+	result_amount = 4
+	mix_message = "A sweet and sugary scent drifts from the unpleasant milky substance."
+
+
 /datum/reagent/concentrated_initro
 	name = "Concentrated Initropidril"
 	id = "concentrated_initro"

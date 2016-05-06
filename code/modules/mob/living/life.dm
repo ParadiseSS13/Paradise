@@ -111,6 +111,7 @@
 	handle_slurring()
 	handle_paralysed()
 	handle_sleeping()
+	handle_slowed()
 
 
 /mob/living/proc/handle_stunned()
@@ -160,7 +161,10 @@
 		clear_alert("asleep")
 	return sleeping
 
-
+/mob/living/proc/handle_slowed()
+	if(slowed)
+		slowed = max(slowed-1, 0)
+	return slowed
 
 /mob/living/proc/handle_disabilities()
 	//Eyes

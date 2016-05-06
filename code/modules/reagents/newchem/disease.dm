@@ -63,8 +63,8 @@
 	..()
 
 /datum/reagent/salmonella
-	name = "Salmonella "
-	id = "salmonella "
+	name = "Salmonella"
+	id = "salmonella"
 	description = "A nasty bacteria found in spoiled food."
 	reagent_state = LIQUID
 	color = "#1E4600"
@@ -72,6 +72,63 @@
 /datum/reagent/salmonella/on_mob_life(var/mob/living/carbon/M as mob)
 	if(!M) M = holder.my_atom
 	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
+	..()
+
+/datum/reagent/gibbis
+	name = "Gibbis"
+	id = "gibbis"
+	description = "Liquid gibbis."
+	reagent_state = LIQUID
+	color = "#FF0000"
+
+/datum/reagent/gibbis/on_mob_life(var/mob/living/carbon/M as mob)
+	if(!M) M = holder.my_atom
+	if(volume > 2.5)
+		M.ForceContractDisease(new /datum/disease/gbs/curable(0))
+	..()
+
+/datum/reagent/prions
+	name = "Prions"
+	id = "prions"
+	description = "A disease-causing agent that is neither bacterial nor fungal nor viral and contains no genetic material."
+	reagent_state = LIQUID
+	color = "#FFFFFF"
+
+/datum/reagent/prions/on_mob_life(var/mob/living/carbon/M as mob)
+	if(!M) M = holder.my_atom
+	if(volume > 4.5)
+		M.ForceContractDisease(new /datum/disease/kuru(0))
+	..()
+
+/datum/reagent/grave_dust
+	name = "Grave Dust"
+	id = "grave_dust"
+	description = "Moldy old dust taken from a grave site."
+	reagent_state = LIQUID
+	color = "#465046"
+
+/datum/reagent/grave_dust/on_mob_life(var/mob/living/carbon/M as mob)
+	if(!M) M = holder.my_atom
+	if(volume > 4.5)
+		M.ForceContractDisease(new /datum/disease/vampire(0))
+	..()
+
+/datum/reagent/heartworms
+	name = "Space heartworms"
+	id = "heartworms"
+	description = "Aww, gross! These things can't be good for your heart. They're gunna eat it!"
+	reagent_state = SOLID
+	color = "#925D6C"
+
+/datum/reagent/heartworms/on_mob_life(var/mob/living/carbon/M as mob)
+	if(!M) M = holder.my_atom
+	if(volume > 4.5)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/internal/heart/ate_heart = H.get_int_organ(/obj/item/organ/internal/heart)
+			if(ate_heart)
+				ate_heart.remove(H)
+				qdel(ate_heart)
 	..()
 
 /datum/reagent/spore
