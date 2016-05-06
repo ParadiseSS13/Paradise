@@ -385,19 +385,11 @@
 		if(src.loc == summoner)
 			to_chat(src, "<span class='danger'><B>You must be manifested to heal!</span></B>")
 			return
-		if(issythetic(target))
-			src.changeNext_move(CLICK_CD_MELEE)
-			if(heal_cooldown <= world.time && !stat)
-				var/mob/living/synthetic/I = target
-				if (I && I.damage >= 0)
-					I.damage = -10
-					heal_cooldown = world.time + 20
 		if(iscarbon(target))
 			src.changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
 				var/mob/living/carbon/C = target
-				C.adjustBruteLoss(-10)
-				C.adjustFireLoss(-10)
+				C.heal_overall_damage(amount, amount, 10, 10)
 				C.adjustOxyLoss(-10)
 				C.adjustToxLoss(-10)
 				heal_cooldown = world.time + 20
