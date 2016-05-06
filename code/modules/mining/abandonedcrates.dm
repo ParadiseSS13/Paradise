@@ -190,6 +190,7 @@
 				var/bulls = 0
 				var/cows = 0
 				var/list/banned = list()
+				for(var/i; i <= length(lastattempt); i++)
 					var/list/a = strip_first(guess)
 					if(a[1] in banned)
 						continue
