@@ -15,7 +15,7 @@
 	var/bees_left = 10
 	var/list/blood_list = list()
 	var/sound_file = 'sound/misc/briefcase_bees.ogg'
-	var/sound_cooldown = 0
+	var/next_sound = 0
 
 /obj/item/weapon/bee_briefcase/examine(mob/user)
 	..()
@@ -50,9 +50,7 @@
 	else if(istype(I, /obj/item/weapon/plantspray))
 		var/obj/item/weapon/plantspray/PS = I
 		user.drop_item(PS)
-		bees_left -= PS.pest_kill_str
-		if(bees_left < 0)
-			bees_left = 0
+		bees_left = max(0, (bees_left - PS.pest_kill_str))
 		to_chat(user, "You spray [PS] into \the [src].")
 		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 		qdel(PS)
@@ -62,30 +60,20 @@
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
 		return
 	else
-		if(!sound_cooldown)		//The cooldown doesn't prevent us from releasing bees, just stops the sound
-			sound_cooldown = 1
-			spawn(90)
-				sound_cooldown = 0
+		if(world.time >= next_sound)		//This cooldown doesn't prevent us from releasing bees, just stops the sound
+			next_sound = world.time + 90
 			//Play sound through the station intercomms, so everyone knows the doom you have wrought.
-			var/list/intercomms = list()
-			for(var/obj/item/device/radio/intercom/I in world)
-				if(I.z != ZLEVEL_STATION)	continue
-				intercomms += I
-
-			if(intercomms.len)
-				for(var/obj/item/device/radio/intercom/I in intercomms)
-					playsound(I, sound_file, 35)
+			for(var/O in global_intercoms)
+				var/obj/item/device/radio/intercom/I = O
+				if(I.z != ZLEVEL_STATION)	//Only broadcast to the station intercoms
+					continue
+				if(!I.on)					//Only broadcast to active intercoms (powered, switched on)
+					continue
+				playsound(I, sound_file, 35)
 
 		//Release up to 5 bees per use. Without using strange reagent, that means two uses. WITH strange reagent, you can get more if you don't release the last bee
-		if(bees_left >= 5)
-			for(var/bee = 5, bee > 0, bee--)
-				var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(null)
-				B.master_and_friends = blood_list	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
-				B.forceMove(get_turf(user))			//RELEASE THE BEES!
-			bees_left -= 5
-		else
-			for(var/bee = bees_left, bee > 0, bee--)
-				var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(null)
-				B.master_and_friends = blood_list	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
-				B.forceMove(get_turf(user))			//RELEASE THE BEES!
-			bees_left = 0
+		for(var/bee = min(5, bees_left), bee > 0, bee--)
+			var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(null)
+			B.master_and_friends = blood_list	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
+			B.forceMove(get_turf(user))			//RELEASE THE BEES!
+		bees_left -= 5
