@@ -828,3 +828,11 @@
 			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()
+
+/mob/living/movement_delay()
+	var/tally = 0
+
+	if(slowed)
+		tally += 10
+
+	return tally
