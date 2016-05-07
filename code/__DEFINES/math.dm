@@ -20,7 +20,6 @@
 #define Cot(x)						(1 / Tan(x))
 #define Csc(x)						(1 / sin(x))
 #define Sec(x)						(1 / cos(x))
-#define Default(a, b)				((a) ? (a) : (b))
 #define Floor(x)					(round(x))
 #define Inverse(x)					(1 / (x))
 #define IsEven(x)					((x) % 2 == 0)
