@@ -44,7 +44,7 @@
 		if(muncher && muncher.get_species() == "Drask")
 			to_chat(user, "You take a bite of the [src.name]. Delicious!")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-			user.nutrition += 5
+			user.nutrition += 2
 	else if(istype(target,/obj/effect/decal/cleanable))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, src.cleanspeed, target = target) && target)
