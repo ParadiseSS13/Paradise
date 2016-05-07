@@ -39,10 +39,9 @@
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
-	else if(target == user && user.a_intent == "grab")
+	else if(target == user && user.a_intent == I_GRAB)
 		var/mob/living/carbon/human/muncher = user
-		var/species = muncher.get_species()
-		if(species == "Drask")
+		if(muncher && muncher.get_species() == "Drask")
 			to_chat(user, "You take a bite of the [src.name]. Delicious!")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.nutrition += 5
