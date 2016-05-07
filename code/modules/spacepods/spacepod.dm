@@ -15,7 +15,6 @@
 	infra_luminosity = 15
 
 	var/mob/living/carbon/occupant
-	var/mob/living/carbon/occupant2 //two seaters
 
 	var/datum/spacepod/equipment/equipment_system
 
@@ -94,9 +93,6 @@
 	if(occupant)
 		occupant.forceMove(get_turf(src))
 		occupant = null
-	if(occupant2)
-		occupant2.forceMove(get_turf(src))
-		occupant2 = null
 	spacepods_list -= src
 	return ..()
 
@@ -161,28 +157,19 @@
 		S.channel = 0 //Any channel
 		S.volume = 50
 		to_chat(occupant, S)
-		if(occupant2)
-			to_chat(occupant2, S)
 	if(occupant && oldhealth > health && !health)
 		var/sound/S = sound('sound/effects/engine_alert1.ogg')
 		S.wait = 0
 		S.channel = 0
 		S.volume = 50
 		to_chat(occupant, S)
-		if(occupant2)
-			to_chat(occupant2, S)
 	if(!health)
 		spawn(0)
 			if(occupant)
 				to_chat(occupant, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
-			if(occupant2)
-				to_chat(occupant2, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
-
 			for(var/i = 10, i >= 0; --i)
 				if(occupant)
 					to_chat(occupant, "<span class='warning'>[i]</span>")
-				if(occupant2)
-					to_chat(occupant2, "<span class='warning'>[i]</span>")
 				if(i == 0)
 					explosion(loc, 2, 4, 8)
 					qdel(src)
@@ -201,15 +188,10 @@
 	switch(severity)
 		if(1)
 			var/mob/living/carbon/human/H = occupant
-			var/mob/living/carbon/human/H2 = occupant2
 			if(H)
 				H.forceMove(get_turf(src))
 				H.ex_act(severity + 1)
 				to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
-			if(H2)
-				H2.forceMove(get_turf(src))
-				H2.ex_act(severity + 1)
-				to_chat(H2, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
 			qdel(ion_trail)
 			qdel(src)
 		if(2)
@@ -224,8 +206,6 @@
 		if(1)
 			if(occupant)
 				to_chat(occupant, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")//warn the occupants
-			if(occupant2)
-				to_chat(occupant2, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")//warn the occupants
 
 
 			if(battery)
@@ -238,8 +218,6 @@
 		if(2)
 			if(occupant)
 				to_chat(occupant, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")//warn the occupants
-			if(occupant2)
-				to_chat(occupant2, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")//warn the occupants
 
 			deal_damage(40)
 			if(battery)
@@ -544,6 +522,7 @@
 			. = t_air.return_temperature()
 	return
 
+/*	Save for cargo refactor
 /obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
 	occupant_sanity_check()
 	if(!occupant2)
@@ -553,6 +532,7 @@
 		H.forceMove(src)
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		return 1
+*/
 
 /obj/spacepod/MouseDrop_T(atom/A, mob/user)
 	if(istype(A,/mob))
@@ -562,6 +542,7 @@
 
 		occupant_sanity_check()
 
+/*	save for cargo refactor
 		if(M != user && M.stat == DEAD && allow2enter)
 			if(occupant2 && !occupant)
 				to_chat(usr, "<span class='danger'><b>You can't put a corpse into the driver's seat!</b></span>")
@@ -570,6 +551,7 @@
 				visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
 				sleep(10)
 				moved_other_inside(M)
+*/
 
 		if(M == user)
 			if(!equipment_system.lock_system || allow2enter)
@@ -645,24 +627,10 @@
 				to_chat(user, "<span class='notice'>[occupant] was faster. Try better next time, loser.</span>")
 		else
 			to_chat(user, "<span class='notice'>You stop entering \the [src].</span>")
-
-	else if(!occupant2)
-		visible_message("<span class='notice'>[user] starts to climb into \the [src].</span>")
-		if(do_after(user, 40, target = src))
-			if(!occupant2)
-				user.stop_pulling()
-				occupant2 = user
-				user.forceMove(src)
-				add_fingerprint(user)
-				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-			else
-				to_chat(user, "<span class='notice'>[occupant] was faster. Try better next time, loser.</span>")
-		else
-			to_chat(user, "<span class='notice'>You stop entering \the [src].</span>")
 	else
 		to_chat(user, "<span class='danger'>You can't fit in \the [src], it's full!</span>")
 
-/obj/spacepod/proc/occupant_sanity_check()
+/obj/spacepod/proc/occupant_sanity_check()  // going to have to adjust this later for cargo refactor
 	if(occupant)
 		if(!ismob(occupant))
 			occupant.forceMove(get_turf(src))
@@ -671,14 +639,6 @@
 		else if(occupant.loc != src)
 			log_debug("##SPACEPOD WARNING: OCCUPANT [occupant] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 			occupant = null
-	if(occupant2)
-		if(!ismob(occupant2))
-			occupant2.forceMove(get_turf(src))
-			log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [occupant2], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-			occupant2 = null
-		else if(occupant2.loc != src)
-			log_debug("##SPACEPOD WARNING: OCCUPANT [occupant2] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-			occupant2 = null
 
 /obj/spacepod/verb/exit_pod()
 	set name = "Exit pod"
@@ -693,54 +653,18 @@
 	occupant_sanity_check()
 
 	if(occupant == user)	spos = 1
-	if(occupant2 == user)	spos = 2
 
 	switch(spos)
 		if(0)	return
 		if(1)
-			if(occupant2)
-				to_chat(occupant2, "<span class='notice'>[occupant.name] climbs out of the pod!</span>")
 			occupant.forceMove(src.loc)
 			occupant = null
 			to_chat(user, "<span class='notice'>You climb out of \the [src].</span>")
-		if(2)
-			if(occupant)
-				to_chat(occupant, "<span class='notice'>[occupant2.name] climbs out of the pod!</span>")
-			occupant2.forceMove(src.loc)
-			occupant2 = null
-			to_chat(user, "<span class='notice'>You climb out of \the [src].</span>")
-
-/obj/spacepod/verb/exit_pod2()
-	set name = "Eject Secondary Seat"
-	set category = "Spacepod"
-	set src = usr.loc
-
-	occupant_sanity_check()
-
-	if(!occupant2)
-		to_chat(usr, "<span class='notice'>There is no one in the second seat.</span>")
-		return
-
-	if(usr == occupant2)
-		to_chat(usr, "<span class='notice'>How do you plan to do that? The eject button is out of reach.</span>")
-		return
-
-	if(usr == occupant)
-		to_chat(usr, "<span class='notice'>You eject [occupant2.name].</span>")
-		to_chat(occupant2, "<span class='danger'>\The [src] ejects you forcefully!</span>")
-		inertia_dir = 0
-		occupant2.forceMove(src.loc)
-		occupant2 = null
 
 /obj/spacepod/verb/locksecondseat()
 	set name = "Lock Doors"
 	set category = "Spacepod"
 	set src = usr.loc
-
-	if(CheckIfOccupant2(usr))
-		if(!allow2enter)
-			to_chat(usr, "<span class='notice'>You can't [allow2enter ? "lock" : "unlock"] the doors from your seat.</span>")
-			return
 
 	allow2enter = !allow2enter
 	to_chat(usr, "<span class='warning'>You [allow2enter ? "unlock" : "lock"] the doors.</span>")
@@ -751,7 +675,6 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(CheckIfOccupant2(usr))	return
 	for(var/obj/machinery/door/poddoor/multi_tile/P in orange(3,src))
 		var/mob/living/carbon/human/L = usr
 		if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
@@ -769,33 +692,30 @@
 
 
 /obj/spacepod/verb/fireWeapon()
-	if(!CheckIfOccupant2(usr))
-		set name = "Fire Pod Weapons"
-		set desc = "Fire the weapons."
-		set category = "Spacepod"
-		set src = usr.loc
-		if(!equipment_system.weapon_system)
-			to_chat(usr, "<span class='warning'>\The [src] has no weapons!</span>")
-			return
-		equipment_system.weapon_system.fire_weapons()
+	set name = "Fire Pod Weapons"
+	set desc = "Fire the weapons."
+	set category = "Spacepod"
+	set src = usr.loc
+	if(!equipment_system.weapon_system)
+		to_chat(usr, "<span class='warning'>\The [src] has no weapons!</span>")
+		return
+	equipment_system.weapon_system.fire_weapons()
 
 /obj/spacepod/verb/unload()
-	if(!CheckIfOccupant2(usr))
-		set name = "Unload Cargo"
-		set desc = "Unloads the cargo"
-		set category = "Spacepod"
-		set src = usr.loc
-		if(!equipment_system.cargo_system)
-			to_chat(usr, "<span class='warning'>\The [src] has no cargo system!</span>")
-			return
-		equipment_system.cargo_system.unload()
+	set name = "Unload Cargo"
+	set desc = "Unloads the cargo"
+	set category = "Spacepod"
+	set src = usr.loc
+	if(!equipment_system.cargo_system)
+		to_chat(usr, "<span class='warning'>\The [src] has no cargo system!</span>")
+		return
+	equipment_system.cargo_system.unload()
 
 /obj/spacepod/verb/toggleLights()
 	set name = "Toggle Lights"
 	set category = "Spacepod"
 	set src = usr.loc
-	if(!CheckIfOccupant2(usr))
-		lightsToggle()
+	lightsToggle()
 
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
@@ -861,8 +781,7 @@
 	return
 
 /obj/spacepod/relaymove(mob/user, direction)
-	if(!CheckIfOccupant2(user))
-		handlerelaymove(user, direction)
+	handlerelaymove(user, direction)
 
 /obj/spacepod/proc/handlerelaymove(mob/user, direction)
 	if(world.time < next_move)
@@ -908,15 +827,6 @@
 		return 0
 	battery.charge = max(0, battery.charge - 1)
 	next_move = world.time + move_delay
-
-/obj/spacepod/proc/CheckIfOccupant2(mob/user)
-	if(!src.occupant2)
-		return 0
-	if(src.occupant2)
-		if(user == src.occupant2)
-			return 1
-		else
-			return 0
 
 /obj/effect/landmark/spacepod/random
 	name = "spacepod spawner"
