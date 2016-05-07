@@ -47,10 +47,9 @@
 	R.loc = T
 	transfer_fingerprints_to(R)
 	playsound(src,'sound/items/poster_ripped.ogg',40,1)
-	spawn(0)
-		qdel(src)
+	spawn(0) // Because of how dropping is done, if the muzzle gets deleted now, icons won't properly update and the whole unEquip() proc will break stuff.
+		qdel(src) // This makes sure it gets deleted AFTER all that has to be done is done.
 		user.emote("scream")
-		user.update_inv_wear_mask()
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
