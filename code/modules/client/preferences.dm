@@ -261,7 +261,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(species in list("Human", "Drask"))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
-			dat += "<br>"
+			dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'>Set Flavor Text</a><br>"
+			if(lentext(flavor_text) <= 40)
+				if(!lentext(flavor_text))	dat += "\[...\]<br>"
+				else						dat += "[flavor_text]<br>"
+			else dat += "[TextPreview(flavor_text)]...<br>"
+			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 
 			dat += "<h2>Hair & Accessories</h2>"
 
@@ -294,6 +299,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>Body Color:</b> "
 				dat += "<a href='?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(r_skin, g_skin, b_skin)]<br>"
 
+			if(body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
+				dat += "<b>Body Accessory:</b> "
+				dat += "<a href='?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
+
 			dat += "</td><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Occupation Choices</h2>"
 			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br>"
@@ -301,11 +310,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from using character records.</b><br>"
 			else
 				dat += "<a href=\"byond://?src=\ref[user];preference=records;record=1\">Character Records</a><br>"
-			dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'>Set Flavor Text</a><br>"
-			if(lentext(flavor_text) <= 40)
-				if(!lentext(flavor_text))	dat += "\[...\]"
-				else						dat += "[flavor_text]"
-			else dat += "[TextPreview(flavor_text)]...<br>"
 
 			dat += "<h2>Limbs</h2>"
 			dat += "<b>Limbs and Parts:</b> <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
@@ -360,11 +364,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
 			dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><br>"
-			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
-
-			if(body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
-				dat += "<b>Body Accessory:</b> "
-				dat += "<a href='?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
 
 			dat += "</td></tr></table>"
 
