@@ -404,22 +404,18 @@
 			if(health < maxHealth)
 				if(MED.amount >= 1)
 					if(MED.heal_brute >= 1)
-						adjustBruteLoss(-MED.heal_brute)
-						MED.amount -= 1
-						if(MED.amount <= 0)
-							qdel(MED)
-						for(var/mob/M in viewers(src, null))
-							if ((M.client && !( M.blinded )))
-								M.show_message("\blue [user] applies [MED] on [src]")
+						heal_organ_damage((MED.heal_brute * 1.66), (MED.heal_burn * 1.66))
+						MED.use(1)
+						visible_message("<span class='notice'>[user] applies [MED] on [src]</span>")
 						return
 					else
-						to_chat(user, "\blue [MED] won't help at all.")
+						to_chat(user, "<span class='notice'>[MED] won't help at all.</span>")
 						return
 			else
-				to_chat(user, "\blue [src] is at full health.")
+				to_chat(user, "<span class='notice'>[src] is at full health.</span>")
 				return
 		else
-			to_chat(user, "\blue [src] is dead, medical items won't bring it back to life.")
+			to_chat(user, "<span class='notice'>[src] is dead, medical items won't bring it back to life.</span>")
 			return
 	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
