@@ -25,6 +25,7 @@
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0
+	act = lowertext(act)
 	switch(act)
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no")
