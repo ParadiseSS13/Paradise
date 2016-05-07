@@ -492,25 +492,31 @@
 		if(3.0)
 			adjustBruteLoss(30)
 
+/mob/living/simple_animal/proc/adjustHealth(amount)
+	if(status_flags & GODMODE)
+		return 0
+	bruteloss = Clamp(bruteloss + amount, 0, maxHealth)
+	handle_regular_status_updates()
+
 /mob/living/simple_animal/adjustBruteLoss(amount)
 	if(damage_coeff[BRUTE])
-		return ..(amount * damage_coeff[BRUTE])
+		adjustHealth(amount * damage_coeff[BRUTE])
 
 /mob/living/simple_animal/adjustFireLoss(amount)
 	if(damage_coeff[BURN])
-		return ..(amount * damage_coeff[BURN])
+		adjustHealth(amount * damage_coeff[BURN])
 
 /mob/living/simple_animal/adjustOxyLoss(amount)
 	if(damage_coeff[OXY])
-		return ..(amount * damage_coeff[OXY])
+		adjustHealth(amount * damage_coeff[OXY])
 
 /mob/living/simple_animal/adjustToxLoss(amount)
 	if(damage_coeff[TOX])
-		return ..(amount * damage_coeff[TOX])
+		adjustHealth(amount * damage_coeff[TOX])
 
 /mob/living/simple_animal/adjustCloneLoss(amount)
 	if(damage_coeff[CLONE])
-		return ..(amount * damage_coeff[CLONE])
+		adjustHealth(amount * damage_coeff[CLONE])
 
 /mob/living/simple_animal/adjustStaminaLoss(amount)
 	if(damage_coeff[STAMINA])
