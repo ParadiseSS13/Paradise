@@ -8,6 +8,7 @@
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 20
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
+	var/mute = 1 // 1 - completely mutes you, 0 - muffles everything you say "MHHPHHMMM!!!"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
@@ -32,6 +33,7 @@
 	item_state = null
 	w_class = 1
 	resist_time = 150
+	mute = 0
 	species_fit = list("Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',

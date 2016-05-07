@@ -412,6 +412,24 @@ proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 fo
 
 	return returntext
 
+proc/muffledspeech(phrase)
+	phrase = html_decode(phrase)
+	var/leng=lentext(phrase)
+	var/counter=lentext(phrase)
+	var/newphrase=""
+	var/newletter=""
+	while(counter>=1)
+		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		if(newletter in list(" ", "!", "?", ".", ","))
+			//do nothing
+		else if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y"))
+			newletter = "h"
+		else
+			newletter = "m"
+		newphrase+="[newletter]"
+		counter-=1
+	return newphrase
+
 
 /proc/shake_camera(mob/M, duration, strength=1)
 	if(!M || !M.client || M.shakecamera)
