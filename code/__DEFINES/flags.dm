@@ -66,6 +66,7 @@
 #define HAS_MARKINGS		256
 #define TAIL_WAGGING    	512
 #define NO_EYES				1024
+#define HAS_FUR				2048
 
 //Species Diet Flags
 #define DIET_CARN		1

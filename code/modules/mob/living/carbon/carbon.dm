@@ -786,6 +786,21 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		last_special = world.time + CLICK_CD_BREAKOUT
 		cuff_resist(I)
 
+/mob/living/carbon/resist_muzzle()
+	if(!istype(wear_mask, /obj/item/clothing/mask/muzzle))
+		return
+	var/obj/item/clothing/mask/muzzle/I = wear_mask
+	var/time = I.resist_time
+	if(I.resist_time == 0)//if it's 0, you can't get out of it
+		to_chat(src, "[I] is too well made, you'll need hands for this one!")
+	else
+		visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
+		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
+		if(do_after(src, time, 0, target = src))
+			visible_message("<span class='warning'>[src] removes [I]!</span>")
+			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+			unEquip(I)
+
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
 	breakouttime = I.breakouttime
