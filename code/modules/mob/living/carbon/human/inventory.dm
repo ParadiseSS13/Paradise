@@ -169,10 +169,6 @@
 			if(internals)
 				internals.icon_state = "internal0"
 			internal = null
-		if(istype(I, /obj/item/clothing/mask/muzzle/tapegag))//snowflakey tape gag. Literally no other place to put this.
-			var/obj/item/clothing/mask/muzzle/tapegag/H = I
-			H.tear_off(src)
-			emote("scream")
 		sec_hud_set_ID()
 		update_inv_wear_mask()
 	else if(I == wear_id)

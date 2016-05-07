@@ -25,7 +25,7 @@
 		else
 			to_chat(user, "You try to tape [M]'s mouth shut.")
 			M.visible_message("<span class='warning'>[user] tries to tape [M]'s mouth closed!</span>")
-		if(do_after(user, 30, target = M))
+		if(do_after(user, 50, target = M))
 			if(M == user)
 				to_chat(user, "You cover your own mouth with a piece of duct tape.")
 			else

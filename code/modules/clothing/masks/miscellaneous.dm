@@ -31,7 +31,7 @@
 	icon_state = "tapegag"
 	item_state = null
 	w_class = 1
-	resist_time = 200
+	resist_time = 150
 	species_fit = list("Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
@@ -39,16 +39,18 @@
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
 
-/obj/item/clothing/mask/muzzle/tapegag/proc/tear_off(mob/living/carbon/human/user) //snowflaek, called in /mob/living/carbon/human/unEquip() in mob/living/carbon/human/inventory.dm
+/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/living/carbon/human/user)
 	var/atom/movable/R = new /obj/item/trash/tapetrash
 	if(user.species.bodyflags & HAS_FUR)
 		R.desc += " Is that...fur?"
 	var/turf/T = get_turf(src)
 	R.loc = T
 	transfer_fingerprints_to(R)
-	playsound(src,'sound/effects/papertear.ogg',40,1)
-	del(src)
-
+	playsound(src,'sound/items/poster_ripped.ogg',40,1)
+	spawn(0)
+		qdel(src)
+		user.emote("scream")
+		user.update_inv_wear_mask()
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
