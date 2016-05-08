@@ -7,17 +7,18 @@
 	setupCommands()
 
 /datum/emoteHandler/proc/setupCommands(var/reset = 0)
-	if(reset)
-		deleteEmoteVerbs()
-	commands = new/list()
-	for(var/e in emotes)
-		var/datum/emote/emote = e
-		if(emote.baseLevel)
-			var/datum/emote/found = searchTree(emote)
-			if(found)
-				for(var/command in found.commands)
-					commands[lowertext(command)] = found
-				found.addVerbs(owner)
+	spawn(0)			// needed so at mob creation species is set before emotes are allocated
+		if(reset)
+			deleteEmoteVerbs()
+		commands = new/list()
+		for(var/e in emotes)
+			var/datum/emote/emote = e
+			if(emote.baseLevel)
+				var/datum/emote/found = searchTree(emote)
+				if(found)
+					for(var/command in found.commands)
+						commands[lowertext(command)] = found
+					found.addVerbs(owner)
 
 
 /datum/emoteHandler/proc/deleteEmoteVerbs()
