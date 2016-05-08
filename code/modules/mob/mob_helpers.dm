@@ -423,7 +423,7 @@ proc/muffledspeech(phrase)
 		if(newletter in list(" ", "!", "?", ".", ","))
 			//do nothing
 		else if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y"))
-			newletter = "h"
+			newletter = "ph"
 		else
 			newletter = "m"
 		newphrase+="[newletter]"

@@ -746,6 +746,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			spintime -= speed
 
 /mob/living/carbon/resist_buckle()
+	spawn(0)
+		resist_muzzle()
 	if(restrained())
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
@@ -776,6 +778,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 
 /mob/living/carbon/resist_restraints()
+	spawn(0)
+		resist_muzzle()
 	var/obj/item/I = null
 	if(handcuffed)
 		I = handcuffed

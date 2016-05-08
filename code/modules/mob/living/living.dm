@@ -536,10 +536,6 @@
 	if(buckled && last_special <= world.time)
 		resist_buckle()
 
-	//unmuzzling yourself
-	if(is_muzzled())
-		resist_muzzle()
-
 	//Breaking out of a container (Locker, sleeper, cryo...)
 	else if(isobj(loc))
 		var/obj/C = loc
@@ -584,6 +580,8 @@
 	return
 
 /mob/living/proc/resist_buckle()
+	spawn(0)
+		resist_muzzle()
 	buckled.user_unbuckle_mob(src,src)
 
 /mob/living/proc/resist_muzzle()
@@ -593,6 +591,8 @@
 	return
 
 /mob/living/proc/resist_restraints()
+	spawn(0)
+		resist_muzzle()
 	return
 
 /*//////////////////////
