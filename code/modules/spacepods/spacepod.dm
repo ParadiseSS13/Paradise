@@ -48,7 +48,7 @@
 									 "pod_black" = "#3B8FE5", \
 									 "pod_industrial" = "#CCCC00")
 
-	var/allow2enter = 1
+	var/unlocked = 1
 
 	var/move_delay = 2
 	var/next_move = 0
@@ -238,7 +238,7 @@
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(iscrowbar(W))
-		if(!equipment_system.lock_system || allow2enter || hatch_open)
+		if(!equipment_system.lock_system || unlocked || hatch_open)
 			hatch_open = !hatch_open
 			playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
@@ -475,6 +475,7 @@
 	set src = usr.loc
 	set popup_menu = 0
 	if(usr != src.occupants[PILOT])
+		to_chat(usr, "<span class='notice'You can't reach the controls from your chair")
 		return
 	use_internal_tank = !use_internal_tank
 	for(var/mob/M in occupants)
@@ -554,7 +555,7 @@
 		occupant_sanity_check()
 
 /*	save for cargo refactor
-		if(M != user && M.stat == DEAD && allow2enter)
+		if(M != user && M.stat == DEAD && unlocked)
 			if(occupant2 && !occupant)
 				to_chat(usr, "<span class='danger'><b>You can't put a corpse into the driver's seat!</b></span>")
 				return 0
@@ -565,7 +566,7 @@
 */
 
 		if(M == user)
-			if(!equipment_system.lock_system || allow2enter)
+			if(!equipment_system.lock_system || unlocked)
 				enter_pod(user)
 			else
 				to_chat(user, "<span class='warning'>\The [src]'s doors are locked!</span>")
@@ -647,7 +648,9 @@
 /obj/spacepod/proc/occupant_sanity_check()  // going to have to adjust this later for cargo refactor
 	if(occupants)
 		if(occupants.len == max_occupants && !occupants[PILOT])
-			occupants[PILOT] = occupants[1]
+			var/occ = occupants[1]
+			occupants -= occ
+			occupants[PILOT] = occ
 			log_debug("##SPACEPOD WARNING: IMPOSSIBLE SEATING ARRANGEMENT: OCCUPANTS [english_list(occupants)], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 		if(occupants.len > max_occupants)
 			for(var/i = occupants.len; i <= max_occupants; i--)
@@ -673,27 +676,41 @@
 	if(!istype(user))
 		return
 
+	if (usr.stat != CONSCIOUS) // unconscious people can't let themselves out
+		return
+
 	occupant_sanity_check()
 
-	for(var/mob/M in occupants)
-		if(M == user)
-			M.forceMove(src.loc)
-			occupants -= M
-			to_chat(user, "<span class='notice'>You climb out of \the [src].</span>")
+	if(user in occupants)
+		user.forceMove(get_turf(src))
+		occupants -= user
+		to_chat(user, "<span class='notice'>You climb out of \the [src].</span>")
+	if(user == occupants[PILOT])
+		user.forceMove(get_turf(src))
+		occupants[PILOT] = null
+		to_chat(user, "<span class='notice'>You climb out of \the [src].</span>")
 
 /obj/spacepod/verb/lock_pod()
 	set name = "Lock Doors"
 	set category = "Spacepod"
 	set src = usr.loc
 
-	allow2enter = !allow2enter
-	to_chat(usr, "<span class='warning'>You [allow2enter ? "unlock" : "lock"] the doors.</span>")
+	if(usr in occupants && usr != src.occupants[PILOT])
+		to_chat(usr, "<span class='notice'You can't reach the controls from your chair")
+		return
+
+	unlocked = !unlocked
+	to_chat(usr, "<span class='warning'>You [unlocked ? "unlock" : "lock"] the doors.</span>")
 
 
 /obj/spacepod/verb/toggleDoors()
 	set name = "Toggle Nearby Pod Doors"
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr != src.occupants[PILOT])
+		to_chat(usr, "<span class='notice'You can't reach the controls from your chair")
+		return
 
 	for(var/obj/machinery/door/poddoor/multi_tile/P in orange(3,src))
 		var/mob/living/carbon/human/L = usr
@@ -716,6 +733,9 @@
 	set desc = "Fire the weapons."
 	set category = "Spacepod"
 	set src = usr.loc
+	if(usr != src.occupants[PILOT])
+		to_chat(usr, "<span class='notice'You can't reach the controls from your chair")
+		return
 	if(!equipment_system.weapon_system)
 		to_chat(usr, "<span class='warning'>\The [src] has no weapons!</span>")
 		return
@@ -726,6 +746,9 @@
 	set desc = "Unloads the cargo"
 	set category = "Spacepod"
 	set src = usr.loc
+	if(usr != src.occupants[PILOT])
+		to_chat(usr, "<span class='notice'You can't reach the controls from your chair")
+		return
 	if(!equipment_system.cargo_system)
 		to_chat(usr, "<span class='warning'>\The [src] has no cargo system!</span>")
 		return
@@ -735,6 +758,9 @@
 	set name = "Toggle Lights"
 	set category = "Spacepod"
 	set src = usr.loc
+	if(usr != src.occupants[PILOT])
+		to_chat(usr, "<span class='notice'You can't reach the controls from your chair")
+		return
 	lightsToggle()
 
 /obj/spacepod/proc/lightsToggle()
@@ -802,6 +828,8 @@
 	return
 
 /obj/spacepod/relaymove(mob/user, direction)
+	if(usr != src.occupants[PILOT])
+		return
 	handlerelaymove(user, direction)
 
 /obj/spacepod/proc/handlerelaymove(mob/user, direction)
