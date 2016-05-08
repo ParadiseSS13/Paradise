@@ -1,5 +1,6 @@
 #define DAMAGE			1
 #define FIRE			2
+#define PILOT			"pilot"
 
 /obj/spacepod
 	name = "\improper space pod"
@@ -14,7 +15,8 @@
 	layer = 3.9
 	infra_luminosity = 15
 
-	var/mob/living/carbon/occupant
+	var/list/mob/occupants = list() //uses [PILOT] index for pilot and numerics for passangers
+	var/max_occupants = 1
 
 	var/datum/spacepod/equipment/equipment_system
 
@@ -90,9 +92,10 @@
 	qdel(ion_trail)
 	ion_trail = null
 	occupant_sanity_check()
-	if(occupant)
-		occupant.forceMove(get_turf(src))
-		occupant = null
+	if(occupants)
+		for(var/mob/M in occupants)
+			M.forceMove(get_turf(src))
+			occupants -= M
 	spacepods_list -= src
 	return ..()
 
@@ -151,25 +154,29 @@
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
 	occupant_sanity_check()
-	if(occupant && oldhealth > health && percentage <= 25 && percentage > 0)
+	if(occupants && oldhealth > health && percentage <= 25 && percentage > 0)
 		var/sound/S = sound('sound/effects/engine_alert2.ogg')
 		S.wait = 0 //No queue
 		S.channel = 0 //Any channel
 		S.volume = 50
-		to_chat(occupant, S)
-	if(occupant && oldhealth > health && !health)
+		for(var/mob/M in occupants)
+			to_chat(M, S)
+	if(occupants && oldhealth > health && !health)
 		var/sound/S = sound('sound/effects/engine_alert1.ogg')
 		S.wait = 0
 		S.channel = 0
 		S.volume = 50
-		to_chat(occupant, S)
+		for(var/mob/M in occupants)
+			to_chat(M, S)
 	if(!health)
 		spawn(0)
-			if(occupant)
-				to_chat(occupant, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
+			if(occupants)
+				for(var/mob/M in occupants)
+					to_chat(M, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 			for(var/i = 10, i >= 0; --i)
-				if(occupant)
-					to_chat(occupant, "<span class='warning'>[i]</span>")
+				if(occupants)
+					for(var/mob/M in occupants)
+						to_chat(M, "<span class='warning'>[i]</span>")
 				if(i == 0)
 					explosion(loc, 2, 4, 8)
 					qdel(src)
@@ -187,11 +194,12 @@
 	occupant_sanity_check()
 	switch(severity)
 		if(1)
-			var/mob/living/carbon/human/H = occupant
-			if(H)
-				H.forceMove(get_turf(src))
-				H.ex_act(severity + 1)
-				to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
+			for(var/mob/M in occupants)
+				var/mob/living/carbon/human/H = M
+				if(H)
+					H.forceMove(get_turf(src))
+					H.ex_act(severity + 1)
+					to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
 			qdel(ion_trail)
 			qdel(src)
 		if(2)
@@ -204,8 +212,9 @@
 	occupant_sanity_check()
 	switch(severity)
 		if(1)
-			if(occupant)
-				to_chat(occupant, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")//warn the occupants
+			if(occupants)
+				for(var/mob/M in occupants)
+					to_chat(M, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")//warn the occupants
 
 
 			if(battery)
@@ -216,8 +225,9 @@
 			processing_objects.Add(src)
 
 		if(2)
-			if(occupant)
-				to_chat(occupant, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")//warn the occupants
+			if(occupants)
+				for(var/mob/M in occupants)
+					to_chat(M, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")//warn the occupants
 
 			deal_damage(40)
 			if(battery)
@@ -301,7 +311,7 @@
 	if(istype(W, /obj/item/device/spacepod_key) && istype(equipment_system.lock_system, /obj/item/device/spacepod_equipment/lock/keyed))
 		var/obj/item/device/spacepod_key/key = W
 		if (key.id == equipment_system.lock_system.id)
-			locksecondseat()
+			lock_pod()
 		else
 			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
 		return
@@ -464,10 +474,11 @@
 	set category = "Spacepod"
 	set src = usr.loc
 	set popup_menu = 0
-	if(usr!=src.occupant)
+	if(usr != src.occupants[PILOT])
 		return
 	use_internal_tank = !use_internal_tank
-	to_chat(occupant, "<span class='notice'>Now taking air from [use_internal_tank?"internal airtank":"environment"].</span>")
+	for(var/mob/M in occupants)
+		to_chat(M, "<span class='notice'>Now taking air from [use_internal_tank?"internal airtank":"environment"].</span>")
 	return
 
 /obj/spacepod/proc/add_cabin()
@@ -614,31 +625,44 @@
 
 	occupant_sanity_check()
 
-	if(!occupant)
+	if(occupants.len < max_occupants)
 		visible_message("<span class='notice'>[user] starts to climb into \the [src].</span>")
 		if(do_after(user, 40, target = src))
-			if(!occupant)
+			if(occupants.len < max_occupants)
 				user.stop_pulling()
-				occupant = user
+				if(!occupants[PILOT])
+					occupants[PILOT] = user
+				else
+					occupants += user
 				user.forceMove(src)
 				add_fingerprint(user)
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 			else
-				to_chat(user, "<span class='notice'>[occupant] was faster. Try better next time, loser.</span>")
+				to_chat(user, "<span class='notice'>You were too slow. Try better next time, loser.</span>")
 		else
 			to_chat(user, "<span class='notice'>You stop entering \the [src].</span>")
 	else
 		to_chat(user, "<span class='danger'>You can't fit in \the [src], it's full!</span>")
 
 /obj/spacepod/proc/occupant_sanity_check()  // going to have to adjust this later for cargo refactor
-	if(occupant)
-		if(!ismob(occupant))
-			occupant.forceMove(get_turf(src))
-			log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [occupant], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-			occupant = null
-		else if(occupant.loc != src)
-			log_debug("##SPACEPOD WARNING: OCCUPANT [occupant] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-			occupant = null
+	if(occupants)
+		if(occupants.len == max_occupants && !occupants[PILOT])
+			occupants[PILOT] = occupants[1]
+			log_debug("##SPACEPOD WARNING: IMPOSSIBLE SEATING ARRANGEMENT: OCCUPANTS [english_list(occupants)], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+		if(occupants.len > max_occupants)
+			for(var/i = occupants.len; i <= max_occupants; i--)
+				var/mob/occupant = occupants[i - 1]
+				occupant.forceMove(get_turf(src))
+				log_debug("##SPACEPOD WARNING: OCCUPANTS EXCEED CAP: MAX OCCUPANTS [max_occupants], OCCUPANTS [english_list(occupants)], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+				occupants[i - 1] = null
+		for(var/mob/M in occupants)
+			if(!ismob(M))
+				M.forceMove(get_turf(src))
+				log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [M], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+				occupants -= M
+			else if(M.loc != src)
+				log_debug("##SPACEPOD WARNING: OCCUPANT [M] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+				occupants -= M
 
 /obj/spacepod/verb/exit_pod()
 	set name = "Exit pod"
@@ -646,22 +670,18 @@
 	set src = usr.loc
 
 	var/mob/user = usr
-	var/spos = 0
 	if(!istype(user))
 		return
 
 	occupant_sanity_check()
 
-	if(occupant == user)	spos = 1
-
-	switch(spos)
-		if(0)	return
-		if(1)
-			occupant.forceMove(src.loc)
-			occupant = null
+	for(var/mob/M in occupants)
+		if(M == user)
+			M.forceMove(src.loc)
+			occupants -= M
 			to_chat(user, "<span class='notice'>You climb out of \the [src].</span>")
 
-/obj/spacepod/verb/locksecondseat()
+/obj/spacepod/verb/lock_pod()
 	set name = "Lock Doors"
 	set category = "Spacepod"
 	set src = usr.loc
@@ -723,7 +743,8 @@
 		set_light(lights_power)
 	else
 		set_light(0)
-	to_chat(occupant, "Toggled lights [lights ? "on" : "off"].")
+	for(var/mob/M in occupants)
+		to_chat(M, "Lights toggled [lights ? "on" : "off"].")
 	return
 
 /obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)

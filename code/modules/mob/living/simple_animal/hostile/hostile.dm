@@ -118,9 +118,10 @@
 					return 1
 		if(istype(the_target, /obj/spacepod))
 			var/obj/spacepod/S = the_target
-			if(S.occupant || S.occupant2)//Just so we don't attack empty mechs
-				if(CanAttack(S.occupant) || CanAttack(S.occupant2))
-					return 1
+			if(S.occupants) //Just so we don't attack empty pods
+				for(var/mob/M in S.occupants)
+					if(CanAttack(M))
+						return 1
 		if(isliving(the_target))
 			var/mob/living/L = the_target
 			var/faction_check = 0

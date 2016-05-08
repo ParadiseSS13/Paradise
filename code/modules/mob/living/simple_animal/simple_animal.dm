@@ -529,7 +529,7 @@
 			return 0
 	if (istype(the_target,/obj/spacepod))
 		var/obj/spacepod/S = the_target
-		if (S.occupant || S.occupant2)
+		if (S.occupants)
 			return 0
 	return 1
 
