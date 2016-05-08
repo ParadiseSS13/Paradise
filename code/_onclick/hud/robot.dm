@@ -209,6 +209,7 @@
 				else
 					A.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
 				A.layer = 20
+				A.plane = 20
 
 				x++
 				if(x == 4)
@@ -225,4 +226,3 @@
 				R.client.screen -= A
 		R.shown_robot_modules = 0
 		R.client.screen -= R.robot_modules_background
-				A.plane = 20
