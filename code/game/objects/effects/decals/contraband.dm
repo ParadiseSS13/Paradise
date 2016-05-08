@@ -254,8 +254,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Work for a Pruglo"
 				desc += " A poster encouraging you to work for our founder and good friend, Daneel Pruglo."
 			if(18)
-				name += " - Soft Cap Pop Art"
-				desc += " A poster reprint of some cheap pop art."
+				name += " - Here comes the Dat Boi"
+				desc += " Oh shit whaddup."
 			if(19)
 				name += " - Saftey: Internals"
 				desc += " A poster instructing the viewer to wear internals in environments where there is no oxygen or the air has been rendered toxic."

@@ -206,7 +206,8 @@
 		/obj/item/clothing/shoes/magboots,
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
-		/obj/item/weapon/storage/internal
+		/obj/item/weapon/storage/internal,
+		/obj/item/device/spacepod_key
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (

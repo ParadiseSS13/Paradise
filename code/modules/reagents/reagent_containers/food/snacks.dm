@@ -787,7 +787,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
-		reagents.add_reagent("mannitol", 6)
+		reagents.add_reagent("prions", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/ghostburger
@@ -1339,7 +1339,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("????", 1)
+		reagents.add_reagent("????", 5)
 		reagents.add_reagent("carbon", 3)
 		bitesize = 2
 
@@ -1759,6 +1759,17 @@
 /obj/item/weapon/reagent_containers/food/snacks/pureshka_cutlet/New()
 		..()
 		reagents.add_reagent("nutriment", 10)		//Local meme with kotletki.
+
+/obj/item/weapon/reagent_containers/food/snacks/catbread
+	name = "Cat Bread"
+	desc = "Whoever made this, was not thinking about consequences."
+	icon_state = "catbread"
+
+	New()
+		..()
+		reagents.add_reagent("nutriment", 15)
+		reagents.add_reagent("protein", 5)
+		bitesize = 15
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeysdelight
 	name = "monkey's Delight"

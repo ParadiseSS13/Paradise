@@ -64,6 +64,7 @@
 /datum/food_processor_process/spaghetti
 	input = /obj/item/weapon/reagent_containers/food/snacks/doughslice
 	output = /obj/item/weapon/reagent_containers/food/snacks/spagetti
+
 /////////////////////////
 ///END OBJECT RECIPIES///
 /////////////////////////
@@ -88,6 +89,23 @@
 	for(var/i in 1 to (C+processor.rating_amount-1))
 		new S.coretype(loc)
 		feedback_add_details("slime_core_harvested","[replacetext(S.colour," ","_")]")
+	..()
+
+/datum/food_processor_process/mob/cat
+	input = /mob/living/simple_animal/pet/cat
+	output = null
+
+/datum/food_processor_process/mob/cat/process_food(loc, what, processor)
+	var/mob/living/simple_animal/pet/cat/C = what
+	if (C.client)
+		C.loc = loc
+		C.visible_message("<span class='notice'>[C] with a loud meowing jumped out of the processor!</span>")
+		return
+	var/obj/item/weapon/reagent_containers/food/snacks/catbread/Podumoi = new(loc) //Вы наверное решили что я snack!
+	var/datum/reagent/psilocybin/Neesh = new() // Но я не snack
+	Neesh.holder = Podumoi //Я catbread
+	Neesh.volume = 10 //Ешьте Podumoi
+	Podumoi.reagents.reagent_list += Neesh
 	..()
 
 /datum/food_processor_process/mob/monkey

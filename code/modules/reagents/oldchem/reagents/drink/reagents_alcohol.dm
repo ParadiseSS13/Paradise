@@ -151,10 +151,8 @@
 	..()
 	return
 
-/datum/reagent/ethanol/absinthe/overdose_process(mob/living/M)
+/datum/reagent/ethanol/absinthe/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
-	..()
-	return
 
 /datum/reagent/ethanol/rum
 	name = "Rum"
@@ -169,10 +167,8 @@
 	M.dizziness +=5
 	return
 
-/datum/reagent/ethanol/rum/overdose_process(mob/living/M)
+/datum/reagent/ethanol/rum/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
-	..()
-	return
 
 /datum/reagent/ethanol/mojito
 	name = "Mojito"

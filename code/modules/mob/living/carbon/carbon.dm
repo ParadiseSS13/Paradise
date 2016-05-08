@@ -386,6 +386,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(buckled_mob)
 		to_chat(src, "You can't vent crawl with [buckled_mob] on you!")
 		return
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
+			var/obj/item/clothing/under/contortionist/C = H.w_uniform
+			if(!C.check_clothing(src))//return values confuse me right now
+				return
 
 	var/obj/machinery/atmospherics/unary/vent_found
 
