@@ -225,3 +225,4 @@
 				R.client.screen -= A
 		R.shown_robot_modules = 0
 		R.client.screen -= R.robot_modules_background
+				A.plane = 20

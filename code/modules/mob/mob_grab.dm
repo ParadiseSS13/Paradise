@@ -23,6 +23,7 @@
 	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
 
 	layer = 21
+	plane = 21
 	item_state = "nothing"
 	icon = 'icons/mob/screen_gen.dmi'
 	w_class = 5.0
@@ -439,6 +440,7 @@
 		affecting.pixel_x = 0
 		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
 		affecting.layer = initial(affecting.layer)
+		affecting.plane = initial(affecting.plane)
 		affecting.grabbed_by -= src
 	qdel(hud)
 	return ..()

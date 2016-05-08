@@ -25,6 +25,7 @@ LINEN BINS
 		layer = 5
 	else
 		layer = initial(layer)
+		plane = initial(plane)
 	add_fingerprint(user)
 	return
 

@@ -204,6 +204,7 @@
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)
+		O.plane = initial(O.plane)
 		O.add_fingerprint(usr)
 	usr.unEquip(src)
 	qdel(src)

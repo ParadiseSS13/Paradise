@@ -243,6 +243,7 @@
 /mob/living/simple_animal/diona/put_in_hands(obj/item/W)
 	W.loc = get_turf(src)
 	W.layer = initial(W.layer)
+	W.plane = initial(W.plane)
 	W.dropped()
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)

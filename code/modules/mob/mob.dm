@@ -1059,6 +1059,7 @@ var/list/slot_equipment_priority = list( \
 	else
 		if(layer == MOB_LAYER - 0.2)
 			layer = initial(layer)
+			plane = initial(plane)
 
 	update_transform()
 	return canmove
@@ -1413,6 +1414,7 @@ mob/proc/yank_out_object()
 			M.layer = layer + 0.1
 	else //post unbuckling
 		M.layer = initial(M.layer)
+		M.plane = initial(M.plane)
 		M.pixel_y = initial(M.pixel_y)
 
 /mob/proc/can_unbuckle(mob/user)
