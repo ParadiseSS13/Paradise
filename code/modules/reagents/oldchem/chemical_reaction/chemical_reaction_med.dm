@@ -42,10 +42,3 @@
 		result = "sterilizine"
 		required_reagents = list("antihol" = 2, "chlorine" = 1)
 		result_amount = 3
-
-/datum/chemical_reaction/wdantitoxin
-		name = "White Spider Antitoxin"
-		id = "terror_white_antitoxin"
-		result = "terror_white_antitoxin"
-		required_reagents = list("terror_white_toxin" = 5, "mutagen" = 5, "spaceacillin" = 1)
-		result_amount = 5

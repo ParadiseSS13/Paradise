@@ -66,7 +66,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/regen_points_max = 100 // max number of points they can accumulate
 	var/regen_points_per_tick = 1 // gain one regen point per tick
 	var/regen_points_per_kill = 100 // gain extra regen points if you kill something
-	var/regen_points_per_hp = 2 // every 5 regen points = 1 health point you can regen
+	var/regen_points_per_hp = 2 // every X regen points = 1 health point you can regen
 	// desired: 30hp/minute unmolested, 60hp/min on food boost, assuming one tick every 2 seconds
 	//          100/kill means bonus 50hp/kill regenerated over the next 1-2 minutes
 
@@ -96,8 +96,10 @@ var/global/list/spider_ckey_blacklist = list()
 	var/idle_spinwebs_chance = 5
 	var/ai_cocoons_objects = 0
 	var/idle_cocoon_chance = 10
-	var/ai_guards_queen = 0
-	var/ai_stays_on_vents = 0
+	var/ai_guards_queen = 0 // for purples
+	var/ai_hides_in_vents = 0 // for grays only
+	var/ai_randomly_opens_adjacent_doors = 1
+	var/idle_door_chance = 5
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
@@ -162,22 +164,21 @@ var/global/list/spider_ckey_blacklist = list()
 		//for(var/mob/H in Mobs)
 			if (H.stat == 2)
 				// dead mobs are ALWAYS ignored.
+			else if (H.flags & GODMODE)
+				// if it is literally invincible, ignore it.
 			else if (!stat_attack && H.stat == 1)
 				// unconscious mobs are ignored unless spider has stat_attack
-			else if(istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
+			else if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
 				// fellow terror spiders are never valid targets unless they deliberately attack us, even then, low priority
 				if (H in enemies)
 					targets3 += H
-			else if(istype(H, /mob/living/simple_animal/hostile/poison/giant_spider))
-				// we eat normal spiders for breakfast.
-				targets3 += H
-			else if(H.reagents)
+			else if (H.reagents)
 				if (H.paralysis && H.reagents.has_reagent("terror_white_tranq"))
 					// let's not target completely paralysed mobs.
 					if (H in enemies)
 						targets3 += H
 						// unless we hate their guts
-				if (H.reagents.has_reagent("terror_white_toxin")) // target them if they attack us
+				if (IsInfected(H)) // target them if they attack us
 					if (H in enemies)
 						targets3 += H
 				else if (H.reagents.has_reagent("terror_green_toxin")) // target them if they get close or attack us
@@ -206,6 +207,14 @@ var/global/list/spider_ckey_blacklist = list()
 					// targets with no venom are priority targets, always pick these first
 					// yeah, we could try to prioritize PROCESS_ORGANIC targets, ie: people we can poison...
 					// -- but that might lead to a situation where we fail to handle the bigger threat before it kills us.
+			else if (istype(H, /mob/living/simple_animal))
+				var/mob/living/simple_animal/hostile/poison/terror_spider/M = H
+				if (M.force_threshold > melee_damage_upper)
+					// If it has such high armor it can ignore any attack we make on it, ignore it.
+				else if (M in enemies)
+					targets2 += M
+				else
+					targets3 += M
 			else
 				if (H in enemies)
 					targets2 += H
@@ -249,6 +258,15 @@ var/global/list/spider_ckey_blacklist = list()
 		// COMPLETELY PASSIVE
 		return list()
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/B)
+	if (istype(B,/mob/living/carbon))
+		var/mob/living/carbon/C = B
+		if(C.get_int_organ(/obj/item/organ/internal/body_egg))
+			return 1
+		else
+			return 0
+	else
+		return 0
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
@@ -299,22 +317,9 @@ var/global/list/spider_ckey_blacklist = list()
 		else
 			to_chat(src, "Closing fire doors does not help.")
 	else if (istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/D = target
-		if (D.density)
-			if (D.locked || D.welded)
-				to_chat(src, "The door is bolted or welded shut.")
-			else if (D.operating)
-			else if ( (!istype(D.req_access) || !D.req_access.len) && (!istype(D.req_one_access) || !D.req_one_access.len) && (D.req_access_txt == "0") && (D.req_one_access_txt == "0") )
-				visible_message("<span class='danger'>\the [src] opens the public-access door [D]!</span>")
-				D.open(1)
-			else if (D.arePowerSystemsOn() && (spider_opens_doors != 2))
-				to_chat(src, "The door's motors resist your efforts to force it.")
-			else if (!spider_opens_doors)
-				to_chat(src, "Your type of spider is not strong enough to force open a depowered door.")
-			else
-				visible_message("<span class='danger'>\the [src] pries open the door!</span>")
-				playsound(src.loc, "sparks", 100, 1)
-				D.open(1)
+		var/obj/machinery/door/airlock/A = target
+		if (A.density)
+			try_open_airlock(A)
 	else if (ai_type == 2)
 		to_chat(src, "Your current orders forbid you from attacking anyone.")
 	else if (ai_type == 1 && !(target in enemies))
@@ -329,7 +334,7 @@ var/global/list/spider_ckey_blacklist = list()
 		else if (istype(L, /mob/living/silicon/))
 			L.attack_animal(src)
 			return
-		else if(L.reagents)
+		else if(L.reagents && (iscarbon(L)))
 			if (istype(L, /mob/living/carbon/human/))
 				var/mob/living/carbon/human/H = L
 				if(H.dna)
@@ -393,15 +398,13 @@ var/global/list/spider_ckey_blacklist = list()
 					attackstep = 2
 				else if (attackstep == 2)
 					do_attack_animation(L)
-					if (L.reagents.has_reagent("terror_white_antitoxin"))
-						visible_message("<span class='danger'> \icon[src] [src] recoils in horror from [target] as its fangs burn!</span>")
-						death()
-					else if (!L.reagents.has_reagent("terror_white_toxin",5) && !degenerate)
-						if (L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
-							L.reagents.add_reagent("terror_white_toxin", 10)
-							visible_message("<span class='danger'> \icon[src] [src] injects a green venom into the [inject_target] of [target]!</span>")
-						else
-							visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
+					if (degenerate)
+						visible_message("<span class='danger'> \icon[src] [src] does not have the strength to bite [target]!</span>")
+					else if (L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
+						L.reagents.add_reagent("terror_white_toxin", 10)
+						visible_message("<span class='danger'> \icon[src] [src] injects a green venom into the [inject_target] of [target]!</span>")
+					else
+						visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
 					attackstep = 3
 				else if (attackstep == 3)
 					if (L in enemies)
@@ -420,7 +423,7 @@ var/global/list/spider_ckey_blacklist = list()
 					attackstep = 0
 					attackcycles++
 					if (ckey)
-						if (L.reagents.has_reagent("terror_white_toxin",5))
+						if (IsInfected(L))
 							to_chat(src, "<span class='notice'> [L] is infected. Find another host to attack/infect, or leave the area.</span>")
 						else
 							L.attack_animal(src)
@@ -429,7 +432,7 @@ var/global/list/spider_ckey_blacklist = list()
 							attackstep = 5
 							L.attack_animal(src)
 							return
-						if (!L.reagents.has_reagent("terror_white_toxin"))
+						if (!IsInfected(L))
 							visible_message("<span class='notice'> \icon[src] [src] takes a moment to recover. </span>")
 							return
 						var/vdistance = 99
@@ -702,12 +705,16 @@ var/global/list/spider_ckey_blacklist = list()
 						path_to_vent = 0
 						stop_automated_movement = 1
 						spider_steps_taken = 0
-						spawn(10)
+						spawn(50)
 							stop_automated_movement = 0
 						TSVentCrawlRandom(entry_vent)
 					else
 						spider_steps_taken++
 						ClearObstacle(get_turf(entry_vent))
+						if (spider_opens_doors)
+							for(var/obj/machinery/door/airlock/A in view(1,src))
+								if (A.density)
+									try_open_airlock(A)
 						step_to(src,entry_vent)
 						if (spider_debug > 0)
 							visible_message("<span class='notice'>\the [src] moves towards the vent [entry_vent].</span>")
@@ -777,18 +784,57 @@ var/global/list/spider_ckey_blacklist = list()
 										cocoon_target = O
 										stop_automated_movement = 1
 										spider_steps_taken = 0
-			else if (ai_stays_on_vents && invisibility == 0 && prob(20))
-				var/vdistance = 99
-				var/temp_vent = null
-				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
-					if(!v.welded)
-						if (get_dist(src,v) < vdistance)
-							temp_vent = v
-							vdistance = get_dist(src,v)
-				if (temp_vent)
-					if (get_dist(src,temp_vent) > 0 && get_dist(src,temp_vent) < 5)
-						step_to(src,temp_vent)
-						// for grays, so they can stay cloaked even if bumped.
+			else if (ai_hides_in_vents && prob(25))
+				var/obj/machinery/atmospherics/unary/vent_pump/e = locate() in get_turf(src)
+				if (e)
+					if (!e.welded || spider_awaymission)
+						if (invisibility != SEE_INVISIBLE_LEVEL_ONE) // aka: 35. ghosts have 15 with no darkness, 60 with darkness. Weird...
+							var/list/g_turfs_webbed = ListWebbedTurfs()
+							var/webcount = g_turfs_webbed.len
+							if (webcount >= 4)
+								// if there are already at least 4 webs around us, then we have a good web setup already. Cloak.
+								GrayCloak()
+								// I wonder if we should settle down here forever?
+								var/foundqueen = 0
+								for(var/mob/living/H in view(src, 10))
+									if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/queen))
+										foundqueen = 1
+										break
+								if (!foundqueen)
+									var/list/g_turfs_visible = ListVisibleTurfs()
+									if (g_turfs_visible.len >= 12)
+										// So long as the room isn't tiny, and it has no queen in it, sure, settle there
+										ai_ventcrawls = 0
+										visible_message("<span class='notice'> [src] finishes setting up its trap in [get_area(src)].</span>")
+							else
+								var/list/g_turfs_valid = ListValidTurfs()
+								var/turfcount = g_turfs_valid.len
+								if (turfcount == 0)
+									// if there is literally nowhere else we could put a web, cloak.
+									GrayCloak()
+								else
+									// otherwise, pick one of the valid turfs with no web to create a web there.
+									new /obj/effect/spider/terrorweb(pick(g_turfs_valid))
+									visible_message("<span class='notice'> [src] spins a web.</span>")
+					else
+						if (invisibility == SEE_INVISIBLE_LEVEL_ONE)
+							// if our vent is welded, decloak
+							GrayDeCloak()
+				else
+					if (invisibility == SEE_INVISIBLE_LEVEL_ONE)
+						// if there is no vent under us, and we are cloaked, decloak
+						GrayDeCloak()
+					var/vdistance = 99
+					var/temp_vent = null
+					for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
+						if(!v.welded)
+							if (get_dist(src,v) < vdistance)
+								temp_vent = v
+								vdistance = get_dist(src,v)
+					if (temp_vent)
+						if (get_dist(src,temp_vent) > 0 && get_dist(src,temp_vent) < 5)
+							step_to(src,temp_vent)
+							// if you're bumped off your vent, try to get back to it
 			else if (ai_ventcrawls && world.time > (lastventcrawltime + minventcrawlfrequency))
 				if (prob(idle_ventcrawl_chance))
 					var/vdistance = 99
@@ -800,6 +846,10 @@ var/global/list/spider_ckey_blacklist = list()
 					if(entry_vent)
 						path_to_vent = 1
 						lastventcrawltime = world.time
+			else if (ai_randomly_opens_adjacent_doors && prob(idle_door_chance))
+				for(var/obj/machinery/door/airlock/A in view(1,src))
+					if (A.density)
+						try_open_airlock(A)
 		else if (AIStatus != AI_OFF && target)
 			var/tgt_dir = get_dir(src,target)
 			for(var/obj/machinery/door/firedoor/F in view(1,src))
@@ -807,14 +857,9 @@ var/global/list/spider_ckey_blacklist = list()
 					visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
 					F.open()
 			if (spider_opens_doors)
-				for(var/obj/machinery/door/airlock/D in view(1,src))
-					if (tgt_dir == get_dir(src,D) && D.density && !D.locked && !D.welded && !D.operating)
-						if (spider_opens_doors == 2 || !D.arePowerSystemsOn())
-							visible_message("<span class='danger'> [src] pries open the door!</span>")
-							D.open(1)
-						else if ( (!istype(D.req_access) || !D.req_access.len) && (!istype(D.req_one_access) || !D.req_one_access.len) && (D.req_access_txt == "0") && (D.req_one_access_txt == "0") )
-							visible_message("<span class='danger'> [src] opens the door!</span>")
-							D.open(1)
+				for(var/obj/machinery/door/airlock/A in view(1,src))
+					if (tgt_dir == get_dir(src,A) && A.density)
+						try_open_airlock(A)
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ClearObstacle(var/turf/target_turf)
@@ -1000,6 +1045,26 @@ var/global/list/spider_ckey_blacklist = list()
 			T.ai_playercontrol_allowingeneral = set_pc
 	return numspiders
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(var/obj/machinery/door/airlock/D)
+	if (!D.density)
+		to_chat(src, "Closing doors does not help us.")
+	else if (D.welded)
+		to_chat(src, "The door is welded shut.")
+	else if (D.locked)
+		to_chat(src, "The door is bolted shut.")
+	else if (D.operating)
+	else if ( (!istype(D.req_access) || !D.req_access.len) && (!istype(D.req_one_access) || !D.req_one_access.len) && (D.req_access_txt == "0") && (D.req_one_access_txt == "0") )
+		visible_message("<span class='danger'>\the [src] opens the public-access door [D]!</span>")
+		D.open(1)
+	else if (D.arePowerSystemsOn() && (spider_opens_doors != 2))
+		to_chat(src, "The door's motors resist your efforts to force it.")
+	else if (!spider_opens_doors)
+		to_chat(src, "Your type of spider is not strong enough to force open doors.")
+	else
+		visible_message("<span class='danger'>\the [src] pries open the door!</span>")
+		playsound(src.loc, "sparks", 100, 1)
+		D.open(1)
+
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/TSVentCrawlRandom(/var/entry_vent)
 	if(entry_vent)
 		if(get_dist(src, entry_vent) <= 2)
@@ -1060,7 +1125,7 @@ var/global/list/spider_ckey_blacklist = list()
 		humanize_prompt += "Orders: PASSIVE/TAME. "
 	humanize_prompt += "Role: " + spider_role_summary
 	if (user.ckey in spider_ckey_blacklist)
-		error_on_humanize = "You are temporarily blacklisted from controlling any type of terror spider."
+		error_on_humanize = "You are not able to control any terror spider this round."
 	else if (!ai_playercontrol_allowingeneral)
 		error_on_humanize = "Terror spiders cannot currently be player-controlled."
 	else if (spider_awaymission)
@@ -1186,7 +1251,7 @@ var/global/list/spider_ckey_blacklist = list()
 		to_chat(src, "- A straightforward fighter, you have high health, and high melee damage, but are slow-moving.")
 	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/gray))
 		to_chat(src, "- You are the gray terror spider.")
-		to_chat(src, "- You are an ambusher. Invisible near vents, you hunt unequipped and vulnerable humanoids.")
+		to_chat(src, "- You are an ambusher. Springing out of vents, you hunt unequipped and vulnerable humanoids.")
 	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/green))
 		to_chat(src, "- You are the green terror spider.")
 		to_chat(src, "- You are a breeding spider. Only average in combat, you can (and should) use 'Wrap' on any dead humaniod you kill, or see. These eggs will hatch into more spiders!")
@@ -1378,7 +1443,7 @@ var/global/list/spider_ckey_blacklist = list()
 		if (spider_debug)
 			to_chat(src, "You now have " + num2text(regen_points) + " regeneration points.")
 
-/mob/living/simple_animal/hostile/poison/terror_spider/verb/Suicide()
+/mob/living/simple_animal/hostile/poison/terror_spider/verb/KillMe()
 	set name = "Suicide"
 	set category = "Spider"
 	set desc = "Kills you, and spawns a spiderling. Use this if you need to leave the round for a considerable time."
@@ -1392,7 +1457,7 @@ var/global/list/spider_ckey_blacklist = list()
 		ckey = null
 	else
 		visible_message("<span class='notice'>\the [src] awakens the remaining eggs in its body, which hatch and start consuming it from the inside out!</span>")
-		spawn(100)
+		spawn(50)
 			if (health > 0)
 				var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
 				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
@@ -1402,6 +1467,7 @@ var/global/list/spider_ckey_blacklist = list()
 				S.master_commander = master_commander
 				S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 				S.enemies = enemies
+				spider_ckey_blacklist += ckey
 				loot = 0
 				death()
 				gib()
@@ -1529,30 +1595,8 @@ var/global/list/spider_ckey_blacklist = list()
 	wander = 0 // wandering defeats the purpose of stealth
 	idle_vision_range = 3 // very low idle vision range
 	ai_spins_webs = 0
-	ai_stays_on_vents = 1
-
-	var/grayticks = 0
+	ai_hides_in_vents = 1
 	vision_type = null // prevent them seeing through walls when doing AOE web.
-
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/proc/GrayCloak()
-	visible_message("<span class='notice'> [src] hides in the vent.</span>")
-	invisibility = INVISIBILITY_LEVEL_ONE
-	icon_state = "terror_gray_cloaked"
-	icon_living = "terror_gray_cloaked"
-	if (!ckey)
-		vision_range = 3
-		idle_vision_range = 3
-	// Bugged, does not work yet. Also spams webs. Also doesn't look great. But... planned.
-	move_to_delay = 15 // while invisible, slow.
-
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/proc/GrayDeCloak()
-	invisibility = 0
-	icon_state = "terror_gray"
-	icon_living = "terror_gray"
-	vision_range = 9
-	idle_vision_range = 9
-	move_to_delay = 5
-	grayticks = 0
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/adjustBruteLoss(var/damage)
 	..(damage)
@@ -1574,7 +1618,26 @@ var/global/list/spider_ckey_blacklist = list()
 	else
 		..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/proc/ListValidTurfs()
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/GrayCloak()
+	visible_message("<span class='notice'> [src] hides in the vent.</span>")
+	invisibility = SEE_INVISIBLE_LEVEL_ONE
+	icon_state = "terror_gray_cloaked"
+	icon_living = "terror_gray_cloaked"
+	if (!ckey)
+		vision_range = 3
+		idle_vision_range = 3
+	// Bugged, does not work yet. Also spams webs. Also doesn't look great. But... planned.
+	move_to_delay = 15 // while invisible, slow.
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/GrayDeCloak()
+	invisibility = 0
+	icon_state = "terror_gray"
+	icon_living = "terror_gray"
+	vision_range = 9
+	idle_vision_range = 9
+	move_to_delay = 5
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/ListValidTurfs()
 	var/list/potentials = list()
 	for (var/turf/simulated/T in oview(3,get_turf(src)))
 		if (T.density == 0 && get_dist(get_turf(src),T) == 3)
@@ -1587,7 +1650,7 @@ var/global/list/spider_ckey_blacklist = list()
 						potentials += T
 	return potentials
 
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/proc/ListWebbedTurfs()
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/ListWebbedTurfs()
 	var/list/webbed = list()
 	for (var/turf/simulated/T in oview(3,get_turf(src)))
 		if (T.density == 0 && get_dist(get_turf(src),T) == 3)
@@ -1596,54 +1659,12 @@ var/global/list/spider_ckey_blacklist = list()
 				webbed += T
 	return webbed
 
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/proc/ListVisibleTurfs()
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/ListVisibleTurfs()
 	var/list/vturfs = list()
 	for (var/turf/simulated/T in oview(7,get_turf(src)))
 		if (T.density == 0)
 			vturfs += T
 	return vturfs
-
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/Life()
-	..()
-	if (stat != DEAD)
-		grayticks++
-		if (grayticks > 2)
-			grayticks = 0
-			var/obj/machinery/atmospherics/unary/vent_pump/V = locate() in get_turf(src)
-			if ((V && !V.welded) || (V && spider_awaymission && !ckey)) // spiders can cloak up if on a normal unwelded vent OR on any vent as an awaymission AI spider
-				if (invisibility != INVISIBILITY_LEVEL_ONE)
-					var/list/g_turfs_webbed = ListWebbedTurfs()
-					var/webcount = g_turfs_webbed.len
-					if (webcount >= 4)
-						// if there are already at least 4 webs around us, then we have a good web setup already. Cloak.
-						GrayCloak()
-						// I wonder if we should settle down here forever?
-						var/foundqueen = 0
-						for(var/mob/living/H in view(src, 10))
-							if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/queen))
-								foundqueen = 1
-								break
-						if (!foundqueen)
-							var/list/g_turfs_visible = ListVisibleTurfs()
-							if (g_turfs_visible.len >= 12)
-								// So long as the room isn't tiny, and it has no queen in it, sure, settle there
-								ai_ventcrawls = 0
-								visible_message("<span class='notice'> [src] finishes setting up its trap in [get_area(src)].</span>")
-					else
-						var/list/g_turfs_valid = ListValidTurfs()
-						var/turfcount = g_turfs_valid.len
-						if (turfcount == 0)
-							// if there is literally nowhere else we could put a web, cloak.
-							GrayCloak()
-						else
-							// otherwise, pick one of the valid turfs with no web to create a web there.
-							new /obj/effect/spider/terrorweb(pick(g_turfs_valid))
-							visible_message("<span class='notice'> [src] spins a web.</span>")
-			else
-				if (invisibility == INVISIBILITY_LEVEL_ONE)
-					// if cloaked, and either not standing on a vent, or standing on a welded vent, uncloak
-					GrayDeCloak()
-
 
 
 // --------------------------------------------------------------------------------
@@ -1721,7 +1742,7 @@ var/global/list/spider_ckey_blacklist = list()
 // -------------: ROLE: stealthy reproduction
 // -------------: AI: injects a venom that makes you grow spiders in your body, then retreats
 // -------------: SPECIAL: stuns you on first attack - vulnerable to groups while it does this
-// -------------: TO FIGHT IT: have antivenom in your body - this will instakill it if it bites someone with antivenom in them
+// -------------: TO FIGHT IT: blast it before it can get away
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/BodyHorror
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
@@ -2216,7 +2237,7 @@ var/global/list/spider_ckey_blacklist = list()
 			// cancel
 		else
 			var/mob/living/carbon/human/H = madnesstarget
-			H.hallucination = max(H.hallucination,600)
+			H.hallucination = max(H.hallucination,300)
 			to_chat(H,"<span class='danger'>Your head throbs in pain.</span>")
 			to_chat(src, "You reach through bluespace into the mind of [madnesstarget], making their fears come to life. They start to hallucinate.")
 	else

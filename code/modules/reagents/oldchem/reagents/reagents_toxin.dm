@@ -105,110 +105,14 @@
 	description = "A venom consisting of thousands of tiny spider eggs. When injected under the skin, they feed on living flesh and grow into new spiders."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
-	metabolization_rate = 0.1
-	var/wdstage = 0
-	var/wdtreated = 0
-	var/awaymission_infection = 0
-	var/alternate_ending = 0
+	metabolization_rate = 1
 
 /datum/reagent/terror_white_toxin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	// I want there to be a (difficult, little-known) treatment for this, but nothing fits!
-	//	spaceacillin doesn't work because its an antibiotic not an antiparasite
-	//	charcoal doesn't work because its a toxin scrubber not an antiparasite
-	//	calomel doesn't work because its a purgative not an antiparasite
-	//	...
-	// What would make most sense, I suppose, is surgery... but... surgery is easy...
-	if (wdtreated)
-		if (prob(30))
-			to_chat(M,"<span class='notice'> You feel better, as your black flesh begins to heal.</span>")
-			M.reagents.remove_reagent("terror_white_toxin", 100)
-	else
-		if (holder.has_reagent("terror_white_antitoxin",1))
-			if (wdstage < 150)
-				wdtreated = 1
-				to_chat(M,"<span class='notice'> The antivenom burns in your veins!</span>")
-				M.adjustToxLoss(40)
-		else
-			wdstage += 1 // since charcoal, calomel, and dialysis can't purge us... only option left is our unique antidote
-	if (volume < 30)
-		volume += 10 // this is more than dialysis (-3) calomel (-5) and charcoal -1) combined could pump out in a tick.
-	else if (volume < 50)
-		volume += 1
-	else if (volume < 100)
-		volume += 0.1
-	M.reagents.remove_reagent("terror_black_toxin", 30)
-	if(M.health < -25)
-		to_chat(M,"<span class='notice'> You feel a strange, blissful senstation.</span>")
-		M.adjustBruteLoss(-5)
-		M.adjustFireLoss(-5)
-		M.adjustToxLoss(-5)
-		// the spider eggs secrete stimulants/etc to keep their host alive until they hatch
-	if (wdstage == 1) // immediately
-		to_chat(M,"<span class='danger'> Your spider bite wound hurts horribly! </span>")
-		if(istype(get_area(M), /area/awaycontent) || istype(get_area(M), /area/awaymission/))
-			awaymission_infection = 1
-	if (wdstage == 15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
-		to_chat(M,"<span class='notice'> The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>")
-		M.adjustBruteLoss(-10)
-		M.adjustToxLoss(-10)
-	if (wdstage == 60) // 2 minutes... the point where the venom uses and accellerates the healing process, to feed the eggs
-		to_chat(M,"<span class='notice'> Your bite wound has completely sealed up, though the skin is still black. You feel significantly better.</span>")
-		M.adjustBruteLoss(-20)
-		M.adjustToxLoss(-20)
-	if (wdstage == 120) // 4 minutes... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
-		to_chat(M,"<span class='notice'> The black flesh around your old spider bite wound has started to peel off.</span>")
-	if (wdstage == 150) // 5 minutes... where the victim realizes something is wrong - this is not a normal wound
-		to_chat(M,"<span class='danger'> The black flesh around your spider bite wound has cracked, and started to split open!</span>")
-	if (wdstage == 165) // 5m 30s
-		to_chat(M,"<span class='danger'> The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>")
-	if (wdstage == 180) // 6m
-		if (awaymission_infection && !istype(get_area(M), /area/awaycontent) && !istype(get_area(M), /area/awaymission/))
-			// we started in the awaymission, we ended on the station.
-			// To prevent someone bringing an infection back, we're going to trigger an alternate, equally-bad result here.
-			// Actually, let's make it slightly worse... just to discourage people from bringing back infections.
-			alternate_ending = 1
-		to_chat(M,"<span class='danger'> The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, biting you all over!</span>")
-		M.visible_message("<span class='danger'>[M] flails around on the floor as spiderlings erupt from their skin and swarm all over them! </span>")
-		M.Stun(20)
-		M.Weaken(20)
-		// yes, this is a hella long stun - that's intentional. Gotta give the spiderlings time to escape.
-		var/obj/effect/spider/terror_spiderling/S1 = new(get_turf(M))
-		S1.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
-		S1.name = "red spiderling"
-		var/obj/effect/spider/terror_spiderling/S2 = new(get_turf(M))
-		S2.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
-		S2.name = "gray spiderling"
-		var/obj/effect/spider/terror_spiderling/S3 = new(get_turf(M))
-		S3.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
-		S3.name = "green spiderling"
-		wdtreated = 1 // to ensure it is removed from their system.
-		M.adjustBruteLoss(20)
-		M.adjustToxLoss(80)
-		if (alternate_ending)
-			// This is the alternate ending of the infestation, triggered above by someone bringing back an infection from a gateway mission to the main station.
-			// In this ending, we still spawn spiderlings - but we make sure they're stillborn, and don't grow up.
-			// In addition, we give you an extra 60 toxin... enough to crit most people.
-			S1.stillborn = 1
-			S2.stillborn = 1
-			S3.stillborn = 1
-			M.adjustToxLoss(30)
-	if (wdstage == 190) // 6m 30s
-		to_chat(M,"<span class='danger'>The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting.</span>")
-		M.reagents.remove_reagent("terror_white_toxin", 100)
-	..()
+	if(iscarbon(M))
+		if(!M.get_int_organ(/obj/item/organ/internal/body_egg))
+			new/obj/item/organ/internal/body_egg/terror_eggs(M)
 	return
-
-// Terror Spider, White, Anti Toxin
-
-/datum/reagent/terror_white_antitoxin
-	name = "White Spider Antitoxin"
-	id = "terror_white_antitoxin"
-	description = "A strange serum that destroys spider eggs."
-	reagent_state = LIQUID
-	color = "#CF3600" // rgb: 207, 54, 0
-	metabolization_rate = 0.1
-
 
 // Terror Spider, Queen
 
