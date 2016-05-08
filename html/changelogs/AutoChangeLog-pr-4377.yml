@@ -1,0 +1,7 @@
+author: QuinnAggeler
+delete-after: True
+changes: 
+  - rscadd: "Adds a sound emote for the Drask"
+  - rscadd: "Gives Drask the ability to eat soap"
+  - rscadd: "Adds a racial flag for the Drask"
+  - bugfix: "Makes syndicate, paramedic, clown, and EVA helmets display correctly on Drask"
