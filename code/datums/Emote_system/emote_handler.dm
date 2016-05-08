@@ -16,7 +16,7 @@
 			var/datum/emote/found = searchTree(emote)
 			if(found)
 				for(var/command in found.commands)
-					commands[command] = found
+					commands[lowertext(command)] = found
 				found.addVerbs(owner)
 
 

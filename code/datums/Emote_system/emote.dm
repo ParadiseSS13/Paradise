@@ -103,6 +103,8 @@ VampyrBytes
 /datum/emote/proc/prevented(var/mob/user)
 	if(user.stat == DEAD)
 		return "you are dead"
+	if(user.stat == UNCONSCIOUS)
+		return "you are unconscious"
 	if(restrained && user.restrained())
 		return "you are restrained"
 

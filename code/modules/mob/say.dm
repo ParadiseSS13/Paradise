@@ -96,6 +96,7 @@
 
 /mob/proc/emote(var/act, var/type, var/message)
 
+	act = lowertext(act)
 	emoteHandler.runEmote(act, message, type)
 
 
