@@ -185,11 +185,11 @@
 		to_chat(owner, "<span class='warning'>\The [src] is still cooling down!")
 		return
 	playsound(owner.loc, 'sound/weapons/flash.ogg', 25, 1)
+	cooldown = world.time + 300
 	sleep(20)
 	if(owner.incapacitated())
 		return
 	do_teleport(owner, teleport_target, 1)
-	cooldown = world.time + 300
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
