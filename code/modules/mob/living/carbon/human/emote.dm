@@ -32,6 +32,11 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
 				return
+		if("drone","drones","hum","hums","rumble","rumbles")
+			if (species.name == "Drask")		//Only Drask can make whale noises
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+			else
+				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
@@ -112,6 +117,23 @@
 			else
 				message = "<B>[src]</B> beeps."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+			m_type = 2
+
+		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> drones at [param]."
+			else
+				message = "<B>[src]</B> rumbles."
+			playsound(src.loc, 'sound/voice/DraskTalk.ogg', 50, 0)
 			m_type = 2
 
 		if("squish", "squishes")
