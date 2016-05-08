@@ -169,13 +169,8 @@ proc/isembryo(A)
 		return 1
 	return 0
 
-proc/isovermind(A)
+/proc/isovermind(A)
 	if(istype(A, /mob/camera/blob))
-		return 1
-	return 0
-
-/proc/ismask(A)
-	if(istype(A, /mob/spirit/mask))
 		return 1
 	return 0
 

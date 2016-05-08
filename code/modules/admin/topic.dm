@@ -1385,15 +1385,6 @@
 		log_admin("[key_name(usr)] AIized [key_name(H)]")
 		H.AIize()
 
-
-	else if(href_list["makemask"])
-		if(!check_rights(R_SPAWN))	return
-		var/mob/currentMob = locate(href_list["makemask"])
-		message_admins("\red Admin [key_name_admin(usr)] made [key_name_admin(currentMob)] into a Mask of Nar'Sie!", 1)
-		log_admin("[key_name(usr)] made [key_name(currentMob)] into a Mask of Nar'Sie!")
-		currentMob.make_into_mask(0,0)
-
-
 	else if(href_list["makealien"])
 		if(!check_rights(R_SPAWN))	return
 

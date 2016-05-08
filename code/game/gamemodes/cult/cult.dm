@@ -131,8 +131,6 @@
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 
-	add_cult_viewpoint(mob) // give them a viewpoint
-
 	var/obj/item/weapon/paper/talisman/supply/T = new(mob)
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,
@@ -167,21 +165,11 @@
 	to_chat(cult_mob, "\red [pick("You remember something from the dark teachings of your master","You hear a dark voice on the wind","Black blood oozes into your vision and forms into symbols","You have a vision of a [pick("crow","raven","vulture","parrot")] it squawks","You catch a brief glimmer of the otherside")]... [wordexp]")
 	cult_mob.mind.store_memory("<B>You remember that</B> [wordexp]", 0, 0)
 
-
-/datum/game_mode/proc/add_cult_viewpoint(var/mob/target)
-	for(var/obj/cult_viewpoint/viewpoint in target)
-		return
-	var/obj/cult_viewpoint/viewpoint = new(target)
-	viewpoint.loc = target
-	return viewpoint
-
-
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
 	if (!istype(cult_mind))
 		return 0
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
-		add_cult_viewpoint(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
@@ -201,9 +189,6 @@
 		to_chat(cult_mind.current, "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>")
 		cult_mind.memory = ""
 		cult_mind.special_role = null
-		// remove the cult viewpoint object
-		var/obj/viewpoint = getCultViewpoint(cult_mind.current)
-		qdel(viewpoint)
 
 		update_cult_icons_removed(cult_mind)
 		if(show_message)
@@ -211,27 +196,7 @@
 				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>")
 
 
-/datum/game_mode/proc/add_cult_icon_to_spirit(mob/spirit/currentSpirit)
-	if(!istype(currentSpirit))
-		return FALSE
-	if (currentSpirit.client)
-		var/datum/atom_hud/antag/maskhud = huds[ANTAG_HUD_CULT]
-		maskhud.join_hud(currentSpirit)
-		set_antag_hud(currentSpirit,"hudcultist")
-
-
-/datum/game_mode/proc/remove_cult_icon_from_spirit(mob/spirit/currentSpirit)
-	if(!istype(currentSpirit))
-		return FALSE
-	if (currentSpirit.client)
-		var/datum/atom_hud/antag/maskhud = huds[ANTAG_HUD_CULT]
-		maskhud.leave_hud(currentSpirit)
-		set_antag_hud(currentSpirit, null)
-
-
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
-	for(var/mob/spirit/currentSpirit in spirits)
-		add_cult_icon_to_spirit(currentSpirit,cult_mind)
 
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.join_hud(cult_mind.current)
@@ -239,9 +204,6 @@
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
-
-	for(var/mob/spirit/currentSpirit in spirits)
-		remove_cult_icon_from_spirit(currentSpirit,cult_mind)
 
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)

@@ -541,13 +541,6 @@ var/list/sacrificed = list()
 		return 0
 	to_chat(F, "<small>[time2text(world.timeofday,"hh:mm")] \ref[usr] ([usr.x],[usr.y],[usr.z])</small> || [usr] communicates: [input]<br>")
 
-	var/obj/cult_viewpoint/vp = getCultViewpoint(usr)
-	if (!vp)
-		return 0
-
-	var/displayName = vp.get_display_name()
-	var/cultName = vp.get_cult_name()
-
 	if(istype(src,/obj/effect/rune))
 		usr.say("O bidai nabora se[pick("'","`")]sma!")
 	else
@@ -561,14 +554,14 @@ var/list/sacrificed = list()
 	log_say("Cult Message: [key_name(usr)]: [input]")
 	for(var/datum/mind/H in ticker.mode.cult)
 		if (H.current)
-			to_chat(H.current, "<span class='cultspeech'><span class='name'>[cultName]: </span><span class='message'>[input]</span></span>")
+			to_chat(H.current, "<span class='cultspeech'><span class='name'>PLACEHOLDER CHANGE ME: </span><span class='message'>[input]</span></span>")
 
 	for(var/mob/spirit/spirit in spirits)
-		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>[displayName]: </a></span><span class='message'>[input]</span></span>")
+		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>PLACEHOLDER: </a></span><span class='message'>[input]</span></span>")
 
 
 	for(var/mob/dead/observer/G in player_list)
-		G.show_message("<span class='cultspeech'><span class='name'>[displayName] ([cultName]) ([ghost_follow_link(usr, ghost=G)]): </span><span class='message'>[input]</span></span>")
+		G.show_message("<span class='cultspeech'><span class='name'>PLACEHOLDER ([ghost_follow_link(usr, ghost=G)]): </span><span class='message'>[input]</span></span>")
 
 	qdel(src)
 	return 1

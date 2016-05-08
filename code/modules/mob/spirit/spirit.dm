@@ -64,7 +64,5 @@ mob/spirit/Topic(href, href_list)
 	if (href_list["track"])
 		to_chat(usr, "Got to tracking.")
 		var/mob/target = locate(href_list["track"]) in mob_list
-		var/mob/spirit/A = locate(href_list["track2"]) in spirits
-		if(A && target)
-			A.follow_cultist(target)
+		var/mob/spirit/A = locate(href_list["track2"]) in spirits//should i keep this or no?
 		return

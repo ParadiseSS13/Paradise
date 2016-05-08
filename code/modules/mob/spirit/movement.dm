@@ -29,26 +29,6 @@ mob/spirit/proc/Spirit_Move(direct)
 	// if we're trying to move, we want to stop following our target
 	follow_target = null
 
-
-/mob/spirit/proc/follow_cultist(mob/living/target as mob)
-	if(!istype(target))	return
-	var/obj/cult_viewpoint/currentView = getCultViewpoint(target)
-	var/mob/spirit/U = usr
-
-	if (!currentView)
-		to_chat(U, "As a spirit, you may only track cultists.")
-
-	U.follow_target = target
-	to_chat(U, "Now following [currentView.get_cult_name()].")
-
-	spawn (0)
-		while (U.follow_target == target)
-			if (U.follow_target == null)
-				return
-			U.setLoc(get_turf(target))
-			sleep(10)
-
-
 mob/spirit/setLoc(var/T)
 	T = get_turf(T)
 	loc = T

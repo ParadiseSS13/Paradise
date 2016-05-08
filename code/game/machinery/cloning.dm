@@ -249,7 +249,6 @@
 	if(H.mind in ticker.mode.syndicates)
 		ticker.mode.update_synd_icons_added()
 	if (H.mind in ticker.mode.cult)
-		ticker.mode.add_cult_viewpoint(H)
 		ticker.mode.add_cultist(occupant.mind)
 		ticker.mode.update_cult_icons_added() //So the icon actually appears
 	if(("\ref[H.mind]" in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))

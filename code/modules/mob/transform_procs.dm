@@ -70,57 +70,6 @@
 		qdel(src)
 	return O
 
-/mob/living/carbon/human/make_into_mask(var/should_gib = 0)
-	for(var/t in organs)
-		qdel(t)
-	return ..(should_gib)
-
-
-/mob/proc/make_into_mask(var/should_gib = 0, var/should_remove_items = 0)
-
-	if(!should_gib)
-		icon = null
-		invisibility = 101
-
-	if(!should_remove_items)
-		for(var/obj/item/W in src)
-			unEquip(W)
-
-	var/mob/spirit/mask/new_spirit = new()
-
-	if(mind)
-		new_spirit.mind = mind
-		new_spirit.mind.assigned_role = "Mask"
-		new_spirit.mind.original = new_spirit
-
-	new_spirit.key = key
-	new_spirit.loc=loc
-
-	if (should_gib)
-		spawn(0)
-			src.gib() // gib the body
-	else
-		spawn(0)//To prevent the proc from returning null.
-			src.visible_message( \
-				"[src] disappears into the shadows, never to be seen again.", \
-				"You disappear into the shadows, never to be seen again.", \
-				"You hear strange noise, you can't quite place it.")
-			qdel(src)
-
-	to_chat(new_spirit, "<font color=\"purple\"><b><i>You are a Mask of Nar'sie now. You are a tiny fragment of the unknowable entity that is the god.</b></i></font>")
-	to_chat(new_spirit, "<font color=\"purple\"><b><i>Your job is to help your acolytes complete their goals. Be spooky. Do evil.</b></i></font>")
-
-	new_spirit.set_name()
-
-	// let spirits identify cultists
-	if(ticker.mode)
-		ticker.mode.add_cult_icon_to_spirit(new_spirit)
-
-	// highlander test
-	there_can_be_only_one_mask(new_spirit)
-
-	return new_spirit
-
 
 //human -> robot
 /mob/living/carbon/human/proc/Robotize()
