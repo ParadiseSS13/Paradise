@@ -29,6 +29,8 @@
 
 	var/image/obscured	//camerachunks
 
+	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
+
 	var/list/footstep_sounds = list()
 	var/shoe_running_volume = 50
 	var/shoe_walking_volume = 20
@@ -161,6 +163,7 @@
 	var/old_dynamic_lighting = dynamic_lighting
 	var/list/old_affecting_lights = affecting_lights
 	var/old_lighting_overlay = lighting_overlay
+	var/old_blueprint_data = blueprint_data
 
 	if(air_master)
 		air_master.remove_from_active(src)
@@ -170,6 +173,7 @@
 	if(istype(W, /turf/simulated))
 		W:Assimilate_Air()
 		W.RemoveLattice()
+	W.blueprint_data = old_blueprint_data
 
 	for(var/turf/space/S in range(W,1))
 		S.update_starlight()
@@ -385,3 +389,19 @@
 
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
+
+/turf/proc/add_blueprints(atom/movable/AM)
+	var/image/I = new
+	I.appearance = AM.appearance
+	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
+	I.loc = src
+	I.dir = AM.dir
+	I.alpha = 128
+
+	if(!blueprint_data)
+		blueprint_data = list()
+	blueprint_data += I
+
+/turf/proc/add_blueprints_preround(atom/movable/AM)
+	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+		add_blueprints(AM)
