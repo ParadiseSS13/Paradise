@@ -280,6 +280,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/brain/anti_stun
 	category = list("Misc", "Medical")
 
+/datum/design/cyberimp_teleport
+	name = "Teleporter implant"
+	desc = "This implant will teleport you to a selected beacon when triggered."
+	id = "ci-teleporter"
+	req_tech = list("materials" = 7, "programming" = 5, "biotech" = 6, "bluespace" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/brain/teleport
+	category = list("Misc", "Medical")
+
 /datum/design/cyberimp_nutriment
 	name = "Nutriment pump implant"
 	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."

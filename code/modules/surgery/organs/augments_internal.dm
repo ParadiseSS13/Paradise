@@ -144,6 +144,53 @@
 	spawn(90 / severity)
 		crit_fail = 0
 
+/obj/item/organ/internal/cyberimp/brain/teleport
+	name = "teleporter implant"
+	desc = "Allows you to teleport yourself to a tracking beacon."
+	var/cooldown = 0
+	implant_color = "#007eDe"
+	organ_action_name = "Teleport"
+	slot = "brain_teleport"
+	origin_tech = "materials=5;programming=4;biotech=4;bluespace=5"
+	var/atom/teleport_target
+
+/obj/item/organ/internal/cyberimp/brain/teleport/attack_self(mob/living/user as mob) // Blatantly copy-pasted from teleguns.
+	var/list/L = list()
+	var/list/areaindex = list()
+
+	for(var/obj/item/device/radio/beacon/R in beacons)
+		var/turf/T = get_turf(R)
+		if (!T)
+			continue
+		if((T.z in config.admin_levels) || T.z > 7)
+			continue
+		if(R.syndicate == 1)
+			continue
+		var/tmpname = T.loc.name
+		if(areaindex[tmpname])
+			tmpname = "[tmpname] ([++areaindex[tmpname]])"
+		else
+			areaindex[tmpname] = 1
+		L[tmpname] = R
+
+	var/desc = input("Please select a location to lock in.", "[src]") as null|anything in L
+	if(!desc)
+		return
+	teleport_target = L[desc]
+
+/obj/item/organ/internal/cyberimp/brain/teleport/ui_action_click()
+	if(owner.incapacitated())
+		return
+	if(world.time < cooldown)
+		to_chat(owner, "<span class='warning'>\The [src] is still cooling down!")
+		return
+	playsound(owner.loc, 'sound/weapons/flash.ogg', 25, 1)
+	cooldown = world.time + 300
+	sleep(20)
+	if(owner.incapacitated())
+		return
+	do_teleport(owner, teleport_target, 1)
+
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
