@@ -1,0 +1,10 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in 3 disease: Grave Fever, Space Kuru, and Non-contagious GBS"
+  - rscadd: "Adds Reagent to cause Space Kuru and Non-contagious GBS to traitor poison bottles"
+  - rscadd: "Initropidril now has a recipe"
+  - rscadd: "Adds a number of new reagents"
+  - tweak: "Brain burgers now contain prions instead of mannitol"
+  - tweak: "Scientists and chemists can no longer purchase traitor poison bottles"
+  - tweak: "random drug bottles now have a much wider range of reagents in them"

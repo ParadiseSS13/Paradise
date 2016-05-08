@@ -787,7 +787,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
-		reagents.add_reagent("mannitol", 6)
+		reagents.add_reagent("prions", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/ghostburger

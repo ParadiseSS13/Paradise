@@ -235,6 +235,16 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Barber")
 
+//Botanist
+
+/datum/uplink_item/jobspecific/bee_briefcase
+	name = "Briefcase Full of Bees"
+	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
+	reference = "BEE"
+	item = /obj/item/weapon/bee_briefcase
+	cost = 10
+	job = list("Botanist")
+
 //Engineer
 
 /datum/uplink_item/jobspecific/powergloves
@@ -302,7 +312,7 @@ var/list/uplink_items = list()
 	reference = "TPB"
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Scientist","Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Chemist","Paramedic","Virologist","Bartender")
+	job = list("Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Virologist","Bartender")
 
 // DANGEROUS WEAPONS
 
