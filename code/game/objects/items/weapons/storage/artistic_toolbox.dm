@@ -21,7 +21,7 @@
 
 /obj/item/weapon/storage/toolbox/green/memetic/attack_hand(mob/living/carbon/user)
 	if(!activated)
-		if(ishuman(user))
+		if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
 			activated = 1
 			user.ForceContractDisease(new /datum/disease/memetic_madness(0))
 			for(var/datum/disease/memetic_madness/DD in user.viruses)
@@ -42,6 +42,9 @@
 		if(istype(I, /obj/item/weapon/grab/))
 			var/obj/item/weapon/grab/G = I
 			if(!G.affecting)
+				return
+			if(!user.HasDisease(new /datum/disease/memetic_madness(0)))
+				to_chat(user, "<span class='warning'>You can't seem to find the latch to open this.</span>")
 				return
 			if(!ishuman(G.affecting) || issmall(G.affecting))
 				to_chat(user, "<span class='warning'>His Grace will not accept such a meager offering!</span>")
