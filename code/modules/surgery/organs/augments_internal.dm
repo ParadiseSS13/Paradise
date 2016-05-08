@@ -173,7 +173,9 @@
 			areaindex[tmpname] = 1
 		L[tmpname] = R
 
-	var/desc = input("Please select a location to lock in.", "[src]") in L
+	var/desc = input("Please select a location to lock in.", "[src]") as null|anything in L
+	if(!desc)
+		return
 	teleport_target = L[desc]
 
 /obj/item/organ/internal/cyberimp/brain/teleport/ui_action_click()
