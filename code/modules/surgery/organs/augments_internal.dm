@@ -177,6 +177,8 @@
 	teleport_target = L[desc]
 
 /obj/item/organ/internal/cyberimp/brain/teleport/ui_action_click()
+	if(owner.incapacitated())
+		return
 	if(world.time < cooldown)
 		to_chat(owner, "<span class='warning'>\The [src] is still cooling down!")
 		return
