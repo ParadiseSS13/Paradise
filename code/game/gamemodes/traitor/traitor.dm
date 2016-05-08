@@ -74,101 +74,102 @@
 	..()
 
 
-/datum/game_mode/proc/forge_traitor_objectives(var/datum/mind/traitor)
+/datum/game_mode/proc/forge_traitor_objectives(datum/mind/traitor)
 	if(istype(traitor.current, /mob/living/silicon))
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = traitor
-		kill_objective.find_target()
-		traitor.objectives += kill_objective
+		var/objective_count = 0
+
+		if(prob(30))
+			var/special_pick = rand(1,2)
+			switch(special_pick)
+				if(1)
+					var/datum/objective/block/block_objective = new
+					block_objective.owner = traitor
+					traitor.objectives += block_objective
+					objective_count++
+				if(2) //Protect and strand a target
+					var/datum/objective/protect/yandere_one = new
+					yandere_one.owner = traitor
+					traitor.objectives += yandere_one
+					yandere_one.find_target()
+					objective_count++
+					var/datum/objective/maroon/yandere_two = new
+					yandere_two.owner = traitor
+					yandere_two.target = yandere_one.target
+					traitor.objectives += yandere_two
+					objective_count++
+
+		for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = traitor
+			kill_objective.find_target()
+			traitor.objectives += kill_objective
 
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = traitor
 		traitor.objectives += survive_objective
 
-		if(prob(10))
-			var/datum/objective/block/block_objective = new
-			block_objective.owner = traitor
-			traitor.objectives += block_objective
-
 	else
-		if(!exchange_blue && traitors.len >= 5 && name != "AutoTraitor") 	//Set up an exchange if there are enough traitors, turned off during autotraitor temporarily due to bugs.
+		var/is_hijacker = prob(10)
+		var/martyr_chance = prob(20)
+		var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
+		if(!exchange_blue && traitors.len >= 8) 	//Set up an exchange if there are enough traitors
 			if(!exchange_red)
 				exchange_red = traitor
 			else
 				exchange_blue = traitor
 				assign_exchange_role(exchange_red)
 				assign_exchange_role(exchange_blue)
-		else
-			var/list/active_ais = active_ais()
-			if(active_ais.len && prob(4)) // Leaving this at a flat chance for now, problems with the num_players() proc due to latejoin antags.
-				var/datum/objective/destroy/destroy_objective = new
-				destroy_objective.owner = traitor
-				destroy_objective.find_target()
-				traitor.objectives += destroy_objective
-			else
-				switch(rand(1,100))
-					if(1 to 30)
-						var/datum/objective/assassinate/kill_objective = new
-						kill_objective.owner = traitor
-						kill_objective.find_target()
-						traitor.objectives += kill_objective
-					if(31 to 40)
-						var/datum/objective/debrain/debrain_objective = new
-						debrain_objective.owner = traitor
-						debrain_objective.find_target()
-						traitor.objectives += debrain_objective
-					if(41 to 50)
-						var/datum/objective/protect/protect_objective = new
-						protect_objective.owner = traitor
-						protect_objective.find_target_with_special_role(null,0)
-						if (!protect_objective.target)
-							protect_objective.find_target()					//We could not find any traitors, protect somebody
-						traitor.objectives += protect_objective
-					if(51 to 61)
-						var/datum/objective/harm/harm_objective = new
-						harm_objective.owner = traitor
-						harm_objective.find_target()
-						traitor.objectives += harm_objective
-					else
-						var/datum/objective/steal/steal_objective = new
-						steal_objective.owner = traitor
-						steal_objective.find_target()
-						traitor.objectives += steal_objective
-		switch(rand(1,100))
-			if(1 to 30) // Die glorious death
-				if (!(locate(/datum/objective/die) in traitor.objectives) && !(locate(/datum/objective/steal) in traitor.objectives) && !(locate(/datum/objective/steal/exchange) in traitor.objectives) && !(locate(/datum/objective/steal/exchange/backstab) in traitor.objectives))
-					var/datum/objective/die/die_objective = new
-					die_objective.owner = traitor
-					traitor.objectives += die_objective
+			objective_count += 1					//Exchange counts towards number of objectives
+		var/list/active_ais = active_ais()
+		for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
+			if(prob(50))
+				if(active_ais.len && prob(100/player_list.len))
+					var/datum/objective/destroy/destroy_objective = new
+					destroy_objective.owner = traitor
+					destroy_objective.find_target()
+					traitor.objectives += destroy_objective
+				else if(prob(30))
+					var/datum/objective/maroon/maroon_objective = new
+					maroon_objective.owner = traitor
+					maroon_objective.find_target()
+					traitor.objectives += maroon_objective
 				else
-					if(prob(85))
-						if (!(locate(/datum/objective/escape) in traitor.objectives))
-							var/datum/objective/escape/escape_objective = new
-							escape_objective.owner = traitor
-							traitor.objectives += escape_objective
-					else
-						if(prob(50))
-							if (!(locate(/datum/objective/hijack) in traitor.objectives))
-								var/datum/objective/hijack/hijack_objective = new
-								hijack_objective.owner = traitor
-								traitor.objectives += hijack_objective
-						else
-							if (!(locate(/datum/objective/minimize_casualties) in traitor.objectives))
-								var/datum/objective/minimize_casualties/escape_objective = new
-								escape_objective.owner = traitor
-								traitor.objectives += escape_objective
-			if(31 to 85)
-				if (!(locate(/datum/objective/escape) in traitor.objectives))
-					var/datum/objective/escape/escape_objective = new
-					escape_objective.owner = traitor
-					traitor.objectives += escape_objective
+					var/datum/objective/assassinate/kill_objective = new
+					kill_objective.owner = traitor
+					kill_objective.find_target()
+					traitor.objectives += kill_objective
 			else
-				if (!(locate(/datum/objective/hijack) in traitor.objectives))
-					var/datum/objective/hijack/hijack_objective = new
-					hijack_objective.owner = traitor
-					traitor.objectives += hijack_objective
+				var/datum/objective/steal/steal_objective = new
+				steal_objective.owner = traitor
+				steal_objective.find_target()
+				traitor.objectives += steal_objective
 
-	return
+		if(is_hijacker && objective_count <= config.traitor_objectives_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
+			if (!(locate(/datum/objective/hijack) in traitor.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = traitor
+				traitor.objectives += hijack_objective
+				return
+
+
+		var/martyr_compatibility = 1 //You can't succeed in stealing if you're dead.
+		for(var/datum/objective/O in traitor.objectives)
+			if(!O.martyr_compatible)
+				martyr_compatibility = 0
+				break
+
+		if(martyr_compatibility && martyr_chance)
+			var/datum/objective/die/martyr_objective = new
+			martyr_objective.owner = traitor
+			traitor.objectives += martyr_objective
+			return
+
+		else
+			if(!(locate(/datum/objective/escape) in traitor.objectives))
+				var/datum/objective/escape/escape_objective = new
+				escape_objective.owner = traitor
+				traitor.objectives += escape_objective
+				return
 
 
 /datum/game_mode/proc/greet_traitor(var/datum/mind/traitor)

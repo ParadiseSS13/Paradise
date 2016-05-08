@@ -8,12 +8,13 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 	- /datum/theft_objective/number/special \
 	- /datum/theft_objective/number/coins
 
-datum/objective
+/datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
 	var/datum/mind/target = null		//If they are focused on a particular person.
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
+	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 
 	New(var/text)
 		all_objectives |= src
@@ -53,7 +54,9 @@ datum/objective
 			target = pick(possible_targets)
 
 
-datum/objective/assassinate
+/datum/objective/assassinate
+	martyr_compatible = 1
+
 	find_target()
 		..()
 		if(target && target.current)
@@ -81,7 +84,9 @@ datum/objective/assassinate
 
 
 
-datum/objective/mutiny
+/datum/objective/mutiny
+	martyr_compatible = 1
+
 	find_target()
 		..()
 		if(target && target.current)
@@ -109,7 +114,7 @@ datum/objective/mutiny
 			return 0
 		return 1
 
-datum/objective/mutiny/rp
+/datum/objective/mutiny/rp
 	find_target()
 		..()
 		if(target && target.current)
@@ -144,97 +149,9 @@ datum/objective/mutiny/rp
 			return 0
 		return rval
 
-datum/objective/anti_revolution/execute
-	find_target()
-		..()
-		if(target && target.current)
-			explanation_text = "[target.current.real_name], the [target.assigned_role] has extracted confidential information above their clearance. Execute \him[target.current]."
-		else
-			explanation_text = "Free Objective"
-		return target
+/datum/objective/maroon
+	martyr_compatible = 1
 
-
-	find_target_by_role(role, role_type=0)
-		..(role, role_type)
-		if(target && target.current)
-			explanation_text = "[target.current.real_name], the [!role_type ? target.assigned_role : target.special_role] has extracted confidential information above their clearance. Execute \him[target.current]."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-	check_completion()
-		if(target && target.current)
-			if(target.current.stat == DEAD || !ishuman(target.current))
-				return 1
-			return 0
-		return 1
-
-datum/objective/anti_revolution/brig
-	var/already_completed = 0
-
-	find_target()
-		..()
-		if(target && target.current)
-			explanation_text = "Brig [target.current.real_name], the [target.assigned_role] for 20 minutes to set an example."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-
-	find_target_by_role(role, role_type=0)
-		..(role, role_type)
-		if(target && target.current)
-			explanation_text = "Brig [target.current.real_name], the [!role_type ? target.assigned_role : target.special_role] for 20 minutes to set an example."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-	check_completion()
-		if(already_completed)
-			return 1
-
-		if(target && target.current)
-			if(target.current.stat == DEAD)
-				return 0
-			if(target.is_brigged(10 * 60 * 10))
-				already_completed = 1
-				return 1
-			return 0
-		return 0
-
-datum/objective/anti_revolution/demote
-	find_target()
-		..()
-		if(target && target.current)
-			explanation_text = "[target.current.real_name], the [target.assigned_role]  has been classified as harmful to Nanotrasen's goals. Demote \him[target.current] to assistant."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-	find_target_by_role(role, role_type=0)
-		..(role, role_type)
-		if(target && target.current)
-			explanation_text = "[target.current.real_name], the [!role_type ? target.assigned_role : target.special_role] has been classified as harmful to Nanotrasen's goals. Demote \him[target.current] to assistant."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-	check_completion()
-		if(target && target.current && istype(target,/mob/living/carbon/human))
-			var/obj/item/weapon/card/id/I = target.current:wear_id
-			if(istype(I, /obj/item/device/pda))
-				var/obj/item/device/pda/P = I
-				I = P.id
-
-			if(!istype(I)) return 1
-
-			if(I.assignment == "Civilian")
-				return 1
-			else
-				return 0
-		return 1
-
-datum/objective/maroon
 	find_target()
 		..()
 		if(target && target.current)
@@ -259,7 +176,7 @@ datum/objective/maroon
 				return 0
 		return 1
 
-datum/objective/debrain//I want braaaainssss
+/datum/objective/debrain //I want braaaainssss
 	find_target()
 		..()
 		if(target && target.current)
@@ -292,7 +209,9 @@ datum/objective/debrain//I want braaaainssss
 		return 0
 
 
-datum/objective/protect//The opposite of killing a dude.
+/datum/objective/protect //The opposite of killing a dude.
+	martyr_compatible = 1
+
 	find_target()
 		..()
 		if(target && target.current)
@@ -327,7 +246,8 @@ datum/objective/protect//The opposite of killing a dude.
 		return 0
 
 
-datum/objective/hijack
+/datum/objective/hijack
+	martyr_compatible = 0 //Technically you won't get both anyway.
 	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive."
 
 	check_completion()
@@ -358,6 +278,7 @@ datum/objective/hijack
 
 /datum/objective/hijackclone
 	explanation_text = "Hijack the emergency shuttle by ensuring only you (or your copies) escape."
+	martyr_compatible = 0
 
 	check_completion()
 		if(!owner.current)
@@ -386,8 +307,9 @@ datum/objective/hijack
 							return 1
 		return 0
 
-datum/objective/block
+/datum/objective/block
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
+	martyr_compatible = 1
 
 	check_completion()
 		if(!istype(owner.current, /mob/living/silicon))
@@ -410,9 +332,7 @@ datum/objective/block
 
 		return 1
 
-
-
-datum/objective/escape
+/datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 	var/escape_areas = list(/area/shuttle/escape,
 		/area/shuttle/escape_pod1/centcom,
@@ -447,7 +367,7 @@ datum/objective/escape
 		return 0
 
 
-datum/objective/escape/escape_with_identity
+/datum/objective/escape/escape_with_identity
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 
 	find_target()
@@ -477,7 +397,7 @@ datum/objective/escape/escape_with_identity
 					return 1
 		return 0
 
-datum/objective/die
+/datum/objective/die
 	explanation_text = "Die a glorious death."
 
 	check_completion()
@@ -489,7 +409,7 @@ datum/objective/die
 
 
 
-datum/objective/survive
+/datum/objective/survive
 	explanation_text = "Stay alive until the end."
 
 	check_completion()
@@ -499,98 +419,15 @@ datum/objective/survive
 			return 0
 		return 1
 
-// Similar to the anti-rev objective, but for traitors
-datum/objective/brig
-	var/already_completed = 0
-
-	find_target()
-		..()
-		if(target && target.current)
-			explanation_text = "Have [target.current.real_name], the [target.assigned_role] brigged for 10 minutes."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-
-	find_target_by_role(role, role_type=0)
-		..(role, role_type)
-		if(target && target.current)
-			explanation_text = "Have [target.current.real_name], the [!role_type ? target.assigned_role : target.special_role] brigged for 10 minutes."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-	check_completion()
-		if(already_completed)
-			return 1
-
-		if(target && target.current)
-			if(target.current.stat == DEAD)
-				return 0
-			// Make the actual required time a bit shorter than the official time
-			if(target.is_brigged(10 * 60 * 5))
-				already_completed = 1
-				return 1
-			return 0
-		return 0
-
-// Harm a crew member, making an example of them
-datum/objective/harm
-	var/already_completed = 0
-
-	find_target()
-		..()
-		if(target && target.current)
-			explanation_text = "Make an example of [target.current.real_name], the [target.assigned_role]. Break one of their bones, detach one of their limbs or disfigure their face. Make sure they're alive when you do it."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-
-	find_target_by_role(role, role_type=0)
-		..(role, role_type)
-		if(target && target.current)
-			explanation_text = "Make an example of [target.current.real_name], the [!role_type ? target.assigned_role : target.special_role]. Break one of their bones, detach one of their limbs or disfigure their face. Make sure they're alive when you do it."
-		else
-			explanation_text = "Free Objective"
-		return target
-
-	check_completion()
-		if(already_completed)
-			return 1
-
-		if(target && target.current && istype(target.current, /mob/living/carbon/human))
-			if(target.current.stat == DEAD)
-				return 0
-
-			var/mob/living/carbon/human/H = target.current
-			for(var/obj/item/organ/external/E in H.organs)
-				if(E.status & ORGAN_BROKEN)
-					return 1
-			for(var/limb_tag in H.species.has_limbs) //todo check prefs for robotic limbs and amputations.
-				var/list/organ_data = H.species.has_limbs[limb_tag]
-				var/limb_type = organ_data["path"]
-				var/found
-				for(var/obj/item/organ/external/E in H.organs)
-					if(limb_type == E.type)
-						found = 1
-						break
-				if(!found)
-					return 1
-
-			var/obj/item/organ/external/head/head = H.get_organ("head")
-			if(head.disfigured)
-				return 1
-		return 0
-
-
-datum/objective/nuclear
+/datum/objective/nuclear
 	explanation_text = "Destroy the station with a nuclear device."
+	martyr_compatible = 1
 
 
 
-datum/objective/steal
+/datum/objective/steal
 	var/datum/theft_objective/steal_target
+	martyr_compatible = 0
 
 	find_target(var/special_only=0)
 		var/loop=50
@@ -638,7 +475,8 @@ datum/objective/steal
 		if(!steal_target) return 1 // Free Objective
 		return steal_target.check_completion(owner)
 
-datum/objective/steal/exchange
+/datum/objective/steal/exchange
+	martyr_compatible = 0
 
 	proc/set_faction(var/faction,var/otheragent)
 		target = otheragent
@@ -650,7 +488,7 @@ datum/objective/steal/exchange
 		explanation_text = "Acquire [targetinfo.name] held by [target.current.real_name], the [target.assigned_role] and syndicate agent"
 		steal_target = targetinfo
 
-datum/objective/steal/exchange/backstab
+/datum/objective/steal/exchange/backstab
 
 	set_faction(var/faction)
 		var/datum/theft_objective/unique/targetinfo
@@ -661,7 +499,7 @@ datum/objective/steal/exchange/backstab
 		explanation_text = "Do not give up or lose [targetinfo.name]."
 		steal_target = targetinfo
 
-datum/objective/download
+/datum/objective/download
 	proc/gen_amount_goal()
 		target_amount = rand(10,20)
 		explanation_text = "Download [target_amount] research levels."
@@ -673,7 +511,7 @@ datum/objective/download
 
 
 
-datum/objective/capture
+/datum/objective/capture
 	proc/gen_amount_goal()
 		target_amount = rand(5,10)
 		explanation_text = "Accumulate [target_amount] capture points."
@@ -686,7 +524,7 @@ datum/objective/capture
 
 
 
-datum/objective/absorb
+/datum/objective/absorb
 	proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
 		target_amount = rand (lowbound,highbound)
 		if (ticker)
@@ -714,8 +552,10 @@ datum/objective/absorb
 		else
 			return 0
 
-datum/objective/destroy
+/datum/objective/destroy
+	martyr_compatible = 1
 	var/target_real_name
+
 	find_target()
 		var/list/possible_targets = active_ais(1)
 		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
@@ -734,71 +574,7 @@ datum/objective/destroy
 			return 0
 		return 1
 
-/* Isn't suited for global objectives
-/*---------CULTIST----------*/
-
-		eldergod
-			explanation_text = "Summon Nar-Sie via the use of an appropriate rune. It will only work if nine cultists stand on and around it."
-
-			check_completion()
-				if(!eldergod) //global var, defined in rune4.dm
-					return 1
-				return 0
-
-		survivecult
-			var/num_cult
-			var/cult_needed = 4 + round((num_players_started() / 10))
-
-			explanation_text = "Our knowledge must live on. Make sure at least [cult_needed] acolytes escape on the shuttle to spread their work on an another station."
-
-			check_completion()
-				if(!emergency_shuttle.returned())
-					return 0
-
-				var/cultists_escaped = 0
-
-				var/area/shuttle/escape/centcom/C = /area/shuttle/escape/centcom
-				for(var/turf/T in	get_area_turfs(C.type))
-					for(var/mob/living/carbon/H in T)
-						if(iscultist(H))
-							cultists_escaped++
-
-				if(cultists_escaped >= cult_needed)
-					return 1
-
-				return 0
-
-		sacrifice //stolen from traitor target objective
-
-			proc/find_target() //I don't know how to make it work with the rune otherwise, so I'll do it via a global var, sacrifice_target, defined in rune15.dm
-				var/datum/game_mode/cult/C = ticker.mode
-				var/list/possible_targets = C.get_unconvertables()
-
-				if(!possible_targets.len)
-					for(var/mob/living/carbon/human/player in player_list)
-						if(player.mind && !(player.mind in cult))
-							possible_targets += player.mind
-
-				if(possible_targets.len > 0)
-					sacrifice_target = pick(possible_targets)
-
-				if(sacrifice_target && sacrifice_target.current)
-					explanation_text = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (hell join blood) and three acolytes to do so."
-				else
-					explanation_text = "Free Objective"
-
-				return sacrifice_target
-
-			check_completion() //again, calling on a global list defined in rune15.dm
-				if(sacrifice_target in sacrificed)
-					return 1
-				else
-					return 0
-
-/*-------ENDOF CULTIST------*/
-*/
-
-datum/objective/blood
+/datum/objective/blood
 	proc/gen_amount_goal(low = 150, high = 400)
 		target_amount = rand(low,high)
 		target_amount = round(round(target_amount/5)*5)
@@ -812,7 +588,7 @@ datum/objective/blood
 			return 0
 
 // /vg/; Vox Inviolate for humans :V
-datum/objective/minimize_casualties
+/datum/objective/minimize_casualties
 	explanation_text = "Minimise casualties."
 	check_completion()
 		if(owner.kills.len>5) return 0
@@ -820,11 +596,11 @@ datum/objective/minimize_casualties
 
 //Vox heist objectives.
 
-datum/objective/heist
+/datum/objective/heist
 	proc/choose_target()
 		return
 
-datum/objective/heist/kidnap
+/datum/objective/heist/kidnap
 	choose_target()
 		var/list/roles = list("Chief Engineer","Research Director","Roboticist","Chemist","Station Engineer")
 		var/list/possible_targets = list()
@@ -866,7 +642,7 @@ datum/objective/heist/kidnap
 		else
 			return 0
 
-datum/objective/heist/loot
+/datum/objective/heist/loot
 	choose_target()
 		var/loot = "an object"
 		switch(rand(1,8))
@@ -937,7 +713,7 @@ datum/objective/heist/loot
 
 		return 0
 
-datum/objective/heist/salvage
+/datum/objective/heist/salvage
 	choose_target()
 		switch(rand(1,8))
 			if(1)
@@ -1009,7 +785,7 @@ datum/objective/heist/salvage
 		return 0
 
 
-datum/objective/heist/inviolate_crew
+/datum/objective/heist/inviolate_crew
 	explanation_text = "Do not leave any Vox behind, alive or dead."
 
 	check_completion()
@@ -1022,7 +798,7 @@ datum/objective/heist/inviolate_crew
 						 //Would be nice to use vox-specific kills but is currently not feasible.
 var/global/vox_kills = 0 //Used to check the Inviolate.
 
-datum/objective/heist/inviolate_death
+/datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
 	check_completion()
 		if(vox_kills > MAX_VOX_KILLS) return 0
