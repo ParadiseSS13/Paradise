@@ -632,7 +632,7 @@ var/global/list/spider_ckey_blacklist = list()
 			if (spider_awaymission)
 				// never announce awaymission spiders.
 			else if (ckey)
-				notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled")
+				notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)")
 			else if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
 				notify_ghosts("[src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
 
@@ -663,8 +663,8 @@ var/global/list/spider_ckey_blacklist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if (!gibbed)
 		msg_terrorspiders("[src] has died in [get_area(src)].")
-		if (!ckey && spider_tier < 3)
-			say(pick("Mistresssss will end you...", "Doom waitssss... for you...","She comessssss for your flesh..."))
+		//if (!ckey && spider_tier < 3)
+		//	say(pick("Mistresssss will end you...", "Doom waitssss... for you...","She comessssss for your flesh..."))
 	if (!hasdroppedloot)
 		hasdroppedloot = 1
 		droploot()
@@ -2198,12 +2198,15 @@ var/global/list/spider_ckey_blacklist = list()
 		for(var/mob/living/carbon/human/H in player_list)
 			if (H.z != src.z)
 				continue
-			if(H == src)
+			if (H == src)
 				continue
 			if (H.health < 1)
 				continue
+			if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/))
+				continue
 			choices += H
 		if (choices.len < 1)
+			to_chat(src,"No valid minds were found in this area.")
 			return
 		var/madnesstarget = pick(choices)
 		if (ckey)
@@ -2211,10 +2214,6 @@ var/global/list/spider_ckey_blacklist = list()
 			madnesstarget = input(src,"Which person should fear?") in null|choices
 		if (!madnesstarget)
 			// cancel
-		else if (!isliving(madnesstarget))
-			to_chat(src, "[madnesstarget] is not living.")
-		else if (!istype(madnesstarget, /mob/living/simple_animal/hostile/poison/terror_spider/))
-			to_chat(src, "[madnesstarget] is not a terror spider.")
 		else
 			var/mob/living/carbon/human/H = madnesstarget
 			H.hallucination = max(H.hallucination,600)
@@ -2699,8 +2698,8 @@ var/global/list/spider_ckey_blacklist = list()
 		if(nearby.len)
 			var/target_atom = pick(nearby)
 			walk_to(src, target_atom)
-			if(prob(40))
-				visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
+			//if(prob(40))
+			//	visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
 	else if(prob(10) && use_vents)
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
