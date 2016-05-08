@@ -106,6 +106,37 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
 
+/obj/screen/fullscreen/pmaster_c_default
+	plane = PLANE_LIGHTING_C
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_MULTIPLY
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+
+/obj/screen/fullscreen/pmaster_g_default
+	plane = PLANE_LIGHTING_G
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
+	color = "#000000"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+
+/obj/screen/fullscreen/pmaster_c_shadowling
+	plane = PLANE_LIGHTING_C
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_ADD
+	color = "#E6E6E6" // 90%
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+
+/obj/screen/fullscreen/pmaster_g_shadowling
+	plane = PLANE_LIGHTING_G
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_ADD
+	color = list(	0,	0,	0,	0.9, 
+					0,	0,	0,	0,
+					0,	0,	0,	0,
+					0,	0,	0,	-0.9,
+					1,	1,	1,	0)
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef DAMAGE_LAYER

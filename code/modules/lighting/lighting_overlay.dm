@@ -6,8 +6,9 @@
 	flags = NOREACT
 	icon = LIGHTING_ICON
 	layer = LIGHTING_LAYER
+	plane = PLANE_LIGHTING_G
 	invisibility = INVISIBILITY_LIGHTING
-	color = "#000000"
+	color = "#ffffff"
 	icon_state = "light1"
 
 	var/lum_r
@@ -68,24 +69,26 @@
 			blend_mode = BLEND_OVERLAY
 			if(lum_r <= 0)
 				T.luminosity = 0
-				color = "#000000"
+				color = "#ffffff"
 				alpha = 255
 			else
 				T.luminosity = 1
-				color = "#000000"
-				alpha = (1 - min(lum_r, 1)) * 255
+				color = "#ffffff"
+				alpha = (1 - min(lum_r, 0.996)) * 255 // 0.996 is 254/255
+			plane = PLANE_LIGHTING_G
 		else
 			alpha = 255
 			var/mx = max(lum_r, lum_g, lum_b)
 			. = 1 // factor
 			if(mx > 1)
 				. = 1/mx
-			blend_mode = BLEND_MULTIPLY
+			blend_mode = BLEND_OVERLAY
 			color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .)
 			if(color != "#000000")
 				T.luminosity = 1
 			else  //No light, set the turf's luminosity to 0 to remove it from view()
 				T.luminosity = 0
+			plane = PLANE_LIGHTING_C
 	else
 		//warning("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!") //fucking bullshit bugs means this spams when shuttles move, feel free to fix
 		log_debug("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!")

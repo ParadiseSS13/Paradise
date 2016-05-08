@@ -461,7 +461,13 @@
 		H.see_in_dark = 8
 		if(!H.druggy)
 			H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		if(H.client)
+			H.overlay_fullscreen("pmaster_lighting_g", /obj/screen/fullscreen/pmaster_g_default, 1)
+			H.overlay_fullscreen("pmaster_lighting_c", /obj/screen/fullscreen/pmaster_c_default, 1)
 		return
+	
+	var/pmaster_g_type = /obj/screen/fullscreen/pmaster_g_default
+	var/pmaster_c_type = /obj/screen/fullscreen/pmaster_c_default
 
 	H.sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
@@ -561,6 +567,10 @@
 		if(H.vision_type.light_sensitive)
 			H.weakeyes = 1
 		H.sight |= H.vision_type.sight_flags
+		if(H.vision_type.pmaster_g_type)
+			pmaster_g_type = H.vision_type.pmaster_g_type
+		if(H.vision_type.pmaster_c_type)
+			pmaster_c_type = H.vision_type.pmaster_c_type
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
@@ -574,7 +584,9 @@
 	else
 		H.clear_fullscreen("blind")
 		H.clear_alert("blind")
-
+		
+	H.overlay_fullscreen("pmaster_lighting_g", pmaster_g_type)
+	H.overlay_fullscreen("pmaster_lighting_c", pmaster_c_type)
 
 	if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
 		if(H.glasses)					//to every /obj/item
