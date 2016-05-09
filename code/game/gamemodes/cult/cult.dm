@@ -1,6 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /datum/game_mode
+	var/datum/cult_info/cult = pick(subtypesof(/datum/cult))
 	var/list/datum/mind/cult = list()
 	var/list/allwords = list("travel","self","see","hell","blood","join","tech","destroy", "other", "hide")
 
@@ -115,7 +116,7 @@
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
+				explanation = "Summon [cult.entity_name] via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 	to_chat(cult_mind.current, "The convert rune is join blood self")
@@ -289,10 +290,10 @@
 							feedback_add_details("cult_objective","cult_sacrifice|FAIL|GIBBED")
 				if("eldergod")
 					if(!eldergod)
-						explanation = "Summon Nar-Sie. <font color='green'><B>Success!</B></font>"
+						explanation = "Summon [cult.entity_name]. <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_narsie|SUCCESS")
 					else
-						explanation = "Summon Nar-Sie. <font color='red'>Fail.</font>"
+						explanation = "Summon [cult.entity_name]. <font color='red'>Fail.</font>"
 						feedback_add_details("cult_objective","cult_narsie|FAIL")
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
 
