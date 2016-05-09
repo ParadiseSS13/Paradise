@@ -19,9 +19,6 @@
  * Areas
  */
  //Gateroom gets its own APC specifically for the gate
- /area/awaymission
-	report_alerts = 0
-
  /area/awaymission/gateroom
 
  //Library, medbay, storage room
