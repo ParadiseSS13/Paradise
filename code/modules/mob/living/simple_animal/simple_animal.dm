@@ -269,8 +269,9 @@
 	return
 
 /mob/living/simple_animal/emote(var/act, var/m_type=1, var/message = null)
-	if(stat)	return
-
+	if(stat)
+		return
+	act = lowertext(act)
 	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("scream")
 			message = "<B>\The [src]</B> whimpers."
