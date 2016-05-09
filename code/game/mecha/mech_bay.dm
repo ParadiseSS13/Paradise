@@ -22,7 +22,7 @@
 	recharging_mecha = null
 	return ..()
 
-/turf/simulated/floor/mech_bay_recharge_floor/Entered(var/obj/mecha/mecha)
+/turf/simulated/floor/mech_bay_recharge_floor/Entered(var/obj/mecha/mecha, atom/OL, ignoreRest = 0)
 	. = ..()
 	if(istype(mecha))
 		mecha.occupant_message("<b>Initializing power control devices.</b>")

@@ -1,0 +1,7 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Removes material efficiency upgrades from the mech fab and protolathe"
+  - tweak: "Ore redemption machine sheets/points per ore scaled from 1 up to 2 (down from 1 up to 4)"
+  - bugfix: "Fixes materials exploit duplication"
+  - bugfix: "Fixes the protolathe locking up under some circumstances"

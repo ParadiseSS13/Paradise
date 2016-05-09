@@ -121,7 +121,7 @@
 	return 1 //Nothing found to block so return success!
 
 
-/turf/Entered(atom/movable/M)
+/turf/Entered(atom/movable/M, atom/OL, ignoreRest = 0)
 	if(ismob(M))
 		var/mob/O = M
 		if(!O.lastarea)
