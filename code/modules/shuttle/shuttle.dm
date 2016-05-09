@@ -189,6 +189,7 @@
 	return 1
 
 /obj/docking_port/stationary/transit/temporary
+	name = "Temprary transit" // To satisy tigercat2000's OCD.
 
 /obj/docking_port/stationary/transit/temporary/on_docked(mobile)
 	shuttle_master.allocator.deallocate(src)
@@ -491,7 +492,7 @@
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
-	var/obj/docking_port/stationary/transit/T = shuttle_master.getDock("[id]_transit")
+	var/obj/docking_port/stationary/transit/T = shuttle_master.getDock("[id]_transit", 0)
 	if(!T || canDock(T))
 		T = shuttle_master.allocator.allocate(src) // Allocate a transit dock
 	if(T && !canDock(T))

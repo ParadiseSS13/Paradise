@@ -84,11 +84,12 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			return M
 	WARNING("couldn't find shuttle with id: [id]")
 
-/datum/controller/process/shuttle/proc/getDock(id)
+/datum/controller/process/shuttle/proc/getDock(id, warn = 1)
 	for(var/obj/docking_port/stationary/S in stationary)
 		if(S.id == id)
 			return S
-	//WARNING("couldn't find dock with id: [id]")
+	if(warn)
+		WARNING("couldn't find dock with id: [id]")
 
 /datum/controller/process/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
@@ -243,6 +244,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 /datum/transit_allocator/proc/allocate(obj/docking_port/mobile/D)
 	var/datum/allocated_transit/A = new(D, src)
 	if(!A.try_to_position())
+		to_chat(usr, "<span class='warning'>Error - Shuttle cannot enter transit due to high traffic</span>")
 		return null
 	for(var/turf/T in block(locate(A.x,A.y,z),locate(A.x+A.w,A.y+A.h,z)))
 		T.ChangeTurf(D.transit_type)
@@ -254,7 +256,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	P.dheight = D.dheight
 	P.turf_type = D.transit_type
 	P.register()
-	A.the_port = P
+	A.temporary = P
 	allocated += A
 	return P
 
@@ -262,7 +264,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	if(!istype(P))
 		return
 	for(var/datum/allocated_transit/A in allocated)
-		if(A.the_port == P)
+		if(A.temporary == P)
 			allocated -= A
 			qdel(A)
 	P.unregister_and_destroy()
@@ -276,7 +278,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	var/yOffset = 0
 	var/datum/transit_allocator/allocator
 	var/obj/docking_port/mobile/mobile
-	var/obj/docking_port/stationary/transit/temporary/the_port
+	var/obj/docking_port/stationary/transit/temporary/temporary
 	
 /datum/allocated_transit/New(obj/docking_port/mobile/D, datum/transit_allocator/T)
 	var/list/coords = D.return_coords()
