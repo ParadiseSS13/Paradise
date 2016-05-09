@@ -359,7 +359,7 @@
 	var/datum/vampire/V = usr.mind.vampire
 	V.iscloaking = !V.iscloaking
 	update_name()
-	to_chat(usr, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
+	to_chat(usr, "<span class='notice'>You will now be [V.iscloaking ? "seen" : "hidden"] in darkness.</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
 	name = "Summon Bats (75)"
