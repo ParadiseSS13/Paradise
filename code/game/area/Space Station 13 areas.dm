@@ -2018,6 +2018,30 @@ area/security/podbay
 	name = "Derelict Atmospherics"
 	icon_state = "red"
 
+/area/scorpion
+	name = "\improper Scorpion"
+	icon_state = "storage"
+
+/area/scorpion/mainhall
+	name = "\improper Scorpion Main Hall"
+	icon_state = "hallC"
+
+/area/scorpion/medbay
+	name = "\improper Scorpion Medbay"
+	icon_state = "medbay"
+
+/area/scorpion/engineering
+	name = "\improper Scorpion Engineering"
+	icon_state = "engine"
+
+/area/scorpion/armory
+	name = "\improper Scorpion Armory"
+	icon_state = "armory"
+
+/area/scorpion/aicore
+	name = "\improper Scorpion AI Core"
+	icon_state = "ai"
+
 //HALF-BUILT STATION (REPLACES DERELICT IN BAYCODE, ABOVE IS LEFT FOR DOWNSTREAM)
 
 /area/shuttle/constructionsite
