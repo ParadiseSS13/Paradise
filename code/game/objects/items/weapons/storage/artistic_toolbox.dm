@@ -94,8 +94,9 @@
 
 	for(var/A in servantlinks)
 		var/datum/disease/memetic_madness/D = A
-		D.cure()
-		break
+		if(D)
+			D.cure()
+			break
 
 	if(servantlinks)
 		servantlinks.Cut()
