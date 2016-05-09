@@ -98,3 +98,38 @@
 #define CHEM_MOB_SPAWN_INVALID   0
 #define CHEM_MOB_SPAWN_HOSTILE   1
 #define CHEM_MOB_SPAWN_FRIENDLY  2
+
+#define isobserver(A)	(istype((A), /mob/dead/observer))
+#define isliving(A)		(istype((A), /mob/living))
+#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
+
+#define iscarbon(A)		(istype((A), /mob/living/carbon))
+#define ishuman(A)		(istype((A), /mob/living/carbon/human))
+#define isbrain(A)		(istype((A), /mob/living/carbon/brain))
+#define isalien(A)		(istype((A), /mob/living/carbon/alien))
+#define isalienadult(A)	(istype((A), /mob/living/carbon/alien/humanoid))
+#define islarva(A)		(istype((A), /mob/living/carbon/alien/larva))
+#define isslime(A)		(istype((A), /mob/living/carbon/slime))
+
+#define isanimal(A)		(istype((A), /mob/living/simple_animal))
+#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))
+#define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
+#define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
+#define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
+#define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
+
+#define issilicon(A)	(istype((A), /mob/living/silicon))
+#define isAI(A)			(istype((A), /mob/living/silicon/ai))
+#define isrobot(A)		(istype((A), /mob/living/silicon/robot))
+#define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+
+#define isAIEye(A)		(istype((A), /mob/camera/aiEye))
+#define isovermind(A)	(istype((A), /mob/camera/blob))
+
+#define isSpirit(A)		(istype((A), /mob/spirit))
+#define ismask(A)		(istype((A), /mob/spirit/mask))
+
+#define isorgan(A)		(istype((A), /obj/item/organ/external))
+#define hasorgans(A)	(ishuman(A))
+
+#define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
