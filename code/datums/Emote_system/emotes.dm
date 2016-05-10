@@ -202,7 +202,7 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 	desc = "burp"
 	text = "burps"
 	selfText = "burp"
-	muzzledNoise = "peculiar
+	muzzledNoise = "peculiar"
 
 
 /datum/emote/scream
