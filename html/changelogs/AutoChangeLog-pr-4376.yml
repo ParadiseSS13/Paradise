@@ -1,4 +1,0 @@
-author: IK3I
-delete-after: True
-changes: 
-  - bugfix: "Using a multitool on a decalock now gives usable info"
