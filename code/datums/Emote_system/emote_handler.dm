@@ -13,7 +13,7 @@
 		commands = new/list()
 		for(var/e in emotes)
 			var/datum/emote/emote = e
-			if(emote.baseLevel)
+			if(emote.baseLevel || emote.allowParent)
 				var/datum/emote/found = searchTree(emote)
 				if(found)
 					for(var/command in found.commands)
@@ -33,7 +33,6 @@
 		return 1
 
 	var/datum/emote/emote
-	//testing("[command]")
 	if(command == "me")
 		emote = customEmote(message, audible)
 		if(!emote)
@@ -69,8 +68,10 @@
 	var/list/subtypes = subtypesof(emote.type)
 	var/datum/emote/found
 	for(var/t in subtypes)
-		var/datum/emote/em = new t		// not keen on this, but it's this or loop through the emotes list and the
-		found = searchTree(em)			// thought of a nested for loop in a recursive proc makes me want to *cry - VB
+		var/datum/emote/em = new t
+		if(em.allowParent)
+			continue
+		found = searchTree(em, 1)
 		if(found)
 			return (found)
 	if(emote.available(owner))

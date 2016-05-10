@@ -29,7 +29,7 @@ VampyrBytes
 
 	var/spanClass = "notice"
 	var/baseLevel = 1
-	var/baseSet = 0
+	var/allowParent = 0			// 1 if you want the parent available as well as this one
 
 
 /datum/emote/New()
@@ -107,6 +107,10 @@ VampyrBytes
 		return "you are unconscious"
 	if(restrained && user.restrained())
 		return "you are restrained"
+	if(isbrain(user))
+		var/mob/living/carbon/brain/brain = user
+		if(!(brain.container && istype(brain.container, /obj/item/device/mmi)))
+			return "you need to be in an mmi to do this"
 
 // return 1 if this emote can be used by this type of user
 /datum/emote/proc/available(var/mob/user)

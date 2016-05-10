@@ -5,6 +5,201 @@ are set in New(), this means that the emote will pick up all the commands from t
 above it. If you don't want this, make the call to ..() then use commands = new /list()
 *************************************************************************************/
 
+/datum/emote/airguitar
+	name = "airguitar"
+	desc = "Play an air guitar"
+	text = "is strumming the air and headbanging like a safari chimp."
+	selfText = "are strumming the air and headbanging like a safari chimp."
+	restrained = 1
+
+/datum/emote/airguitar/New()
+	..()
+	commands += "airguitar"
+
+/datum/emote/airguitar/available(var/mob/user)
+	if(ishuman(user))
+		return 1
+	if(isrobot(user))
+		return 1
+
+/datum/emote/alarm
+	name = "alarm"
+	desc = "Sound an alarm"
+	text = "sounds an alarm"
+	selfText = "sound an alarm"
+	audible = 1
+
+/datum/emote/alarm/New()
+	..()
+	commands += "alarm"
+
+/datum/emote/alarm/available(var/mob/user)
+	if(isbrain(user))
+		return 1
+
+/datum/emote/alarm/createBlindMessage(var/mob/user, var/messaage)
+	return "You hear an alarm"
+
+/datum/emote/alert
+	name = "alert"
+	desc = "Sound an alert"
+	text = "lets out a distressed noise"
+	selfText = "let out a distressed noise)"
+	audible = 1
+
+/datum/emote/alert/New()
+	..()
+	commands += "alert"
+
+/datum/emote/alert/available(var/mob/user)
+	if(isbrain(user))
+		return 1
+/datum/emote/alert/createBlindMessage(var/mob/user, var/message)
+	return "you hear an alert"
+
+/datum/emote/beep
+	name = "beep"
+	desc = "let out a beep"
+	text = "beeps"
+	selfText = "beep"
+	audible = 1
+
+/datum/emote/beep/New()
+	..()
+	commands += "beep"
+	commands += "beeps"
+
+/datum/emote/beep/available(var/mob/user)
+	if(isbrain(user))
+		return 1
+
+/datum/emote/beep/createBlindMessage(var/mob/user, var/message)
+	return "You hear a beep"
+
+/datum/emote/beep/targetted
+	cooldown = 1
+	sound = 'sound/machines/twobeep.ogg'
+	canTarget = 1
+	targetMob = 1
+
+/datum/emote/beep/targetted/available(var/mob/user)
+	if(issilicon(user))
+		return 1
+	if(isbot(user))
+		return 1
+	if(user.get_species() == "Machine")
+		return 1
+
+/datum/emote/blink
+	name = "blink"
+	desc = "blink"
+	text = "blinks"
+	selfText = "blink"
+
+/datum/emote/blink/New()
+	..()
+	commands += "blink"
+	commands += "blinks"
+
+/datum/emote/blink/available(var/mob/user)
+	if(ishuman(user))
+		return 1
+	if(isbrain(user))
+		return 1
+
+/datum/emote/blink/rapid
+	name = "rapid blink"
+	desc = "blink rapidly"
+	allowParent = 1
+
+/datum/emote/blink/rapid/New()
+	..()
+	commands = new/list()
+	commands += "blink_r"
+	commands += "blinks_r"
+
+/datum/emote/blink/rapid/available(var/mob/user)
+	if(ishuman(user))
+		return
+
+/datum/emote/blink/rapid/createMessage(var/mob/user, var/number)
+	var/message = ..()
+	message += " rapidly"
+	return message
+
+/datum/emote/blush
+	name = "blush"
+	desc = "blush"
+	text = "blushes"
+	selfText = "blush"
+
+/datum/emote/blush/New()
+	..()
+	commands += "blush"
+	commands += "blushes"
+
+/datum/emote/blush/available(var/mob/user)
+	if(ishuman(user))
+		return 1
+
+/datum/emote/boop
+	name = "boop"
+	desc = "boop"
+	text = "boops"
+	selfText = "boop"
+
+/datum/emote/boop/New()
+	..()
+	commands += "boop"
+	commands += "boops"
+
+/datum/emote/boop/available(var/mob/user)
+	if(isbrain(user))
+		return 1
+
+/datum/emote/bounce
+	name = "bounce"
+	desc = "bounce"
+	text = "bounces in place"
+	selfText = "bounce in place"
+
+/datum/emote/bounce/New()
+	..()
+	commands += "bounce"
+	commands += "bounces"
+
+/datum/emote/bounce/available(var/mob/user)
+	if(isslime(user))
+		return 1
+
+/datum/emote/bow
+	name = "bow"
+	desc = "bow"
+	text = "bows"
+	selfText = "bow"
+	canTarget = 1
+	targetMob = 1
+	targetText = "to"
+
+/datum/emote/bow/New()
+	..()
+	commands += "bow"
+	commands += "bows"
+
+/datum/emote/bow/available(var/mob/user)
+	if(isrobot(user))
+		return 1
+	if(ishuman(user))
+		return 1
+
+/datum/emote/bow/prevented(var/mob/user)
+	. = ..()
+	if(!. && user.buckled)
+		return "you are buckled to something"
+
+
+
+
 /datum/emote/scream
 	name = "scream"
 	text = "screams!"
