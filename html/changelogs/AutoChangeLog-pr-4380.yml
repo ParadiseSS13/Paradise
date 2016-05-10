@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes simple animals not dying right away when they reach zero health"
+  - bugfix: "Fixes a few farm animals, simple xenos, and a hivebot from having incorrect health"
+  - tweak: "Buffed health pack usage on simple animals (should heal roughly 20 damage on them, per use)"
