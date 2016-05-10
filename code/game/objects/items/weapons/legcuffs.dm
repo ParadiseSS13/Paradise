@@ -48,7 +48,7 @@
 			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
 			return
 		if(sig)
-			to_chat(user, "<span class='warning'>This beartrap already has a signaller hooked up to it!</span>")
+			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
 			return
 		IED = I
 		switch(IED.assembled)
@@ -72,17 +72,17 @@
 			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
 			return
 		if(sig)
-			to_chat(user, "<span class='warning'>This beartrap already has a signaller hooked up to it!</span>")
+			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
 			return
 		sig = I
 		if(sig.secured)
-			to_chat(user, "<span class='notice'>The signaller is secured.</span>")
+			to_chat(user, "<span class='notice'>The signaler is secured.</span>")
 			sig = null
 			return
 		user.drop_item(src)
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You sneak the [sig] underneath the pressure plate and connect the trigger wire.</span>")
-		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaller hooked up to it.</span>"
+		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(IED)
 			IED.forceMove(get_turf(src))
@@ -92,7 +92,7 @@
 		if(sig)
 			sig.forceMove(get_turf(src))
 			sig = null
-			to_chat(user, "<span class='notice'>You remove the signaller from the [src].</span>")
+			to_chat(user, "<span class='notice'>You remove the signaler from the [src].</span>")
 			return
 	..()
 
