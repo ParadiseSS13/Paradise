@@ -29,6 +29,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	var/obj/item/stack/tile/builtin_tile = null //needed for performance reasons when the singularity rips off floor tiles
 	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	var/list/burnt_states = list()
+	var/obj/effect/effect/ceiling/ceiling
 
 
 /turf/simulated/floor/New()
@@ -39,11 +40,13 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		icon_regular_floor = icon_state
 	if(floor_tile)
 		builtin_tile = new floor_tile
+	ceiling = new(src)
 
 /turf/simulated/floor/Destroy()
 	if(builtin_tile)
 		qdel(builtin_tile)
 		builtin_tile = null
+	qdel(ceiling)
 	return ..()
 
 

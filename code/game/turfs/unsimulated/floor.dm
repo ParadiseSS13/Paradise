@@ -2,6 +2,15 @@
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "Floor3"
+	var/obj/effect/effect/ceiling/ceiling
+
+/turf/unsimulated/floor/New()
+	..()
+	ceiling = new(src)
+
+/turf/unsimulated/floor/Destroy()
+	qdel(ceiling)
+	return ..()
 
 /turf/unsimulated/floor/grass
 	icon_state = "grass1"
