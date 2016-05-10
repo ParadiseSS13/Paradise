@@ -1,9 +1,0 @@
-author: IK3I
-delete-after: True
-changes: 
-  - rscadd: "Added key and tumbler based pod locks"
-  - rscadd: "Made Pod Locks and keys buildable in Pod Fabricator"
-  - rscadd: "Made Pod Keys recoverable from cryo"
-  - rscadd: "Added lock to Security Pod"
-  - rscadd: "Added a key for Security Pod to HoS and Pod Pilot Offices"
-  - rscadd: "New sprites for several pieces of pod equipment"
