@@ -19,11 +19,15 @@
 	desc = "A trap used to catch bears and other legged creatures."
 	var/armed = 0
 	var/obj/item/weapon/grenade/iedcasing/IED = null
+	var/obj/item/device/assembly/signaler/sig = null
 
 /obj/item/weapon/restraints/legcuffs/beartrap/Destroy()
 	if(IED)
 		qdel(IED)
 		IED = null
+	if(sig)
+		qdel(sig)
+		sig = null
 	return ..()
 
 /obj/item/weapon/restraints/legcuffs/beartrap/suicide_act(mob/user)
@@ -43,6 +47,9 @@
 		if(IED)
 			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
 			return
+		if(sig)
+			to_chat(user, "<span class='warning'>This beartrap already has a signaller hooked up to it!</span>")
+			return
 		IED = I
 		switch(IED.assembled)
 			if(0,1) //if it's not fueled/hooked up
@@ -60,11 +67,32 @@
 				to_chat(user, "<span class='danger'>You shouldn't be reading this message! Contact a coder or someone, something broke!</span>")
 				IED = null
 				return
+	if(istype(I, /obj/item/device/assembly/signaler))
+		if(IED)
+			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
+			return
+		if(sig)
+			to_chat(user, "<span class='warning'>This beartrap already has a signaller hooked up to it!</span>")
+			return
+		sig = I
+		if(sig.secured)
+			to_chat(user, "<span class='notice'>The signaller is secured.</span>")
+			sig = null
+			return
+		user.drop_item(src)
+		I.forceMove(src)
+		to_chat(user, "<span class='notice'>You sneak the [sig] underneath the pressure plate and connect the trigger wire.</span>")
+		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaller hooked up to it.</span>"
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(IED)
 			IED.forceMove(get_turf(src))
 			IED = null
 			to_chat(user, "<span class='notice'>You remove the IED from the [src].</span>")
+			return
+		if(sig)
+			sig.forceMove(get_turf(src))
+			sig = null
+			to_chat(user, "<span class='notice'>You remove the signaller from the [src].</span>")
 			return
 	..()
 
@@ -87,6 +115,9 @@
 				log_game("[key_name(usr)] has triggered an IED-rigged [name].")
 				spawn(IED.det_time)
 					IED.prime()
+
+			if(sig && isturf(src.loc))
+				sig.signal()
 
 			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
