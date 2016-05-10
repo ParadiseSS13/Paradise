@@ -1673,6 +1673,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("open_load_dialog")
 					if(!IsGuestKey(user.key))
 						open_load_dialog(user)
+						return 1
 
 				if("close_load_dialog")
 					close_load_dialog(user)
