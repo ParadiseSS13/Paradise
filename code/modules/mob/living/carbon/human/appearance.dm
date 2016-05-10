@@ -124,6 +124,11 @@
 /mob/living/carbon/human/proc/reset_hair()
 	reset_head_hair()
 	reset_facial_hair()
+	reset_head_accessory()
+	if(m_style && m_style != "None") //Resets the markings if they were head markings.
+		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
+		if(marking_style && marking_style.marking_location == "head")
+			reset_markings()
 
 /mob/living/carbon/human/proc/reset_head_hair()
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -145,6 +150,25 @@
 		//this shouldn't happen
 		H.f_style = "Shaved"
 	update_fhair()
+
+/mob/living/carbon/human/proc/reset_markings()
+	var/list/valid_markings = generate_valid_markings()
+	if(valid_markings.len)
+		m_style = pick(valid_markings)
+	else
+		//this shouldn't happen
+		m_style = "None"
+	update_markings()
+
+/mob/living/carbon/human/proc/reset_head_accessory()
+	var/obj/item/organ/external/head/H = get_organ("head")
+	var/list/valid_head_accessories = generate_valid_head_accessories()
+	if(valid_head_accessories.len)
+		H.ha_style = pick(valid_head_accessories)
+	else
+		//this shouldn't happen
+		H.ha_style = "None"
+	update_head_accessory()
 
 /mob/living/carbon/human/proc/change_eye_color(var/red, var/green, var/blue)
 	if(red == r_eyes && green == g_eyes && blue == b_eyes)
