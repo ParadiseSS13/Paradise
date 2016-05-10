@@ -405,22 +405,18 @@
 			if(health < maxHealth)
 				if(MED.amount >= 1)
 					if(MED.heal_brute >= 1)
-						adjustBruteLoss(-MED.heal_brute)
-						MED.amount -= 1
-						if(MED.amount <= 0)
-							qdel(MED)
-						for(var/mob/M in viewers(src, null))
-							if ((M.client && !( M.blinded )))
-								M.show_message("\blue [user] applies [MED] on [src]")
+						heal_organ_damage((MED.heal_brute * 1.66), (MED.heal_burn * 1.66))
+						MED.use(1)
+						visible_message("<span class='notice'>[user] applies [MED] on [src]</span>")
 						return
 					else
-						to_chat(user, "\blue [MED] won't help at all.")
+						to_chat(user, "<span class='notice'>[MED] won't help at all.</span>")
 						return
 			else
-				to_chat(user, "\blue [src] is at full health.")
+				to_chat(user, "<span class='notice'>[src] is at full health.</span>")
 				return
 		else
-			to_chat(user, "\blue [src] is dead, medical items won't bring it back to life.")
+			to_chat(user, "<span class='notice'>[src] is dead, medical items won't bring it back to life.</span>")
 			return
 	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
@@ -493,25 +489,31 @@
 		if(3.0)
 			adjustBruteLoss(30)
 
+/mob/living/simple_animal/proc/adjustHealth(amount)
+	if(status_flags & GODMODE)
+		return 0
+	bruteloss = Clamp(bruteloss + amount, 0, maxHealth)
+	handle_regular_status_updates()
+
 /mob/living/simple_animal/adjustBruteLoss(amount)
 	if(damage_coeff[BRUTE])
-		return ..(amount * damage_coeff[BRUTE])
+		adjustHealth(amount * damage_coeff[BRUTE])
 
 /mob/living/simple_animal/adjustFireLoss(amount)
 	if(damage_coeff[BURN])
-		return ..(amount * damage_coeff[BURN])
+		adjustHealth(amount * damage_coeff[BURN])
 
 /mob/living/simple_animal/adjustOxyLoss(amount)
 	if(damage_coeff[OXY])
-		return ..(amount * damage_coeff[OXY])
+		adjustHealth(amount * damage_coeff[OXY])
 
 /mob/living/simple_animal/adjustToxLoss(amount)
 	if(damage_coeff[TOX])
-		return ..(amount * damage_coeff[TOX])
+		adjustHealth(amount * damage_coeff[TOX])
 
 /mob/living/simple_animal/adjustCloneLoss(amount)
 	if(damage_coeff[CLONE])
-		return ..(amount * damage_coeff[CLONE])
+		adjustHealth(amount * damage_coeff[CLONE])
 
 /mob/living/simple_animal/adjustStaminaLoss(amount)
 	if(damage_coeff[STAMINA])
