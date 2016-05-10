@@ -255,6 +255,7 @@
 	..()
 	/*
 	var/on_CD = 0
+	act = lowertext(act)
 	switch(act)
 		if("chirp")
 			on_CD = handle_emote_CD()

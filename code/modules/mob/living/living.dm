@@ -333,7 +333,7 @@
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 		C.update_inv_legcuffed()
-		
+
 		if(C.reagents)
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
@@ -358,12 +358,14 @@
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
+	slowed = 0
 	losebreath = 0
 	dizziness = 0
 	jitteriness = 0
 	confused = 0
 	drowsyness = 0
 	radiation = 0
+	druggy = 0
 	nutrition = 400
 	bodytemperature = 310
 	sdisabilities = 0
@@ -578,12 +580,19 @@
 	return
 
 /mob/living/proc/resist_buckle()
+	spawn(0)
+		resist_muzzle()
 	buckled.user_unbuckle_mob(src,src)
+
+/mob/living/proc/resist_muzzle()
+	return
 
 /mob/living/proc/resist_fire()
 	return
 
 /mob/living/proc/resist_restraints()
+	spawn(0)
+		resist_muzzle()
 	return
 
 /*//////////////////////
@@ -826,3 +835,11 @@
 			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()
+
+/mob/living/movement_delay()
+	var/tally = 0
+
+	if(slowed)
+		tally += 10
+
+	return tally

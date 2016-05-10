@@ -110,11 +110,7 @@
 		if(!is_cutting)
 			is_cutting = 1
 			user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>")
-			playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
-			spawn(5)
-				playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
-			spawn(10)
-				playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
+			playsound(loc, "sound/goonstation/misc/Scissor.ogg", 100, 1)
 			if(do_after(user, 50, target = H))
 				playsound(loc, "sound/weapons/bladeslice.ogg", 50, 1, -1)
 				user.visible_message("<span class='danger'>[user] abruptly stops cutting [M]'s hair and slices their throat!</span>", "<span class='danger'>You stop cutting [M]'s hair and slice their throat!</span>") //Just a little off the top.

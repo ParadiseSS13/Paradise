@@ -54,8 +54,13 @@ var/list/uplink_items = list()
 	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
+	var/hijack_only = 0 //can this item be purchased only during hijackings?
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
+	if(hijack_only)
+		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
+			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
+			return
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
@@ -89,15 +94,16 @@ var/list/uplink_items = list()
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
-		if(ishuman(user))
-			var/mob/living/carbon/human/A = user
-			A.put_in_any_hand_if_possible(I)
+		if(I)
+			if(ishuman(user))
+				var/mob/living/carbon/human/A = user
+				A.put_in_any_hand_if_possible(I)
 
-			if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
-				for(var/atom/o in I)
-					U.purchase_log += "<BIG>\icon[o]</BIG>"
-			else
-				U.purchase_log += "<BIG>\icon[I]</BIG>"
+				if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
+					for(var/atom/o in I)
+						U.purchase_log += "<BIG>\icon[o]</BIG>"
+				else
+					U.purchase_log += "<BIG>\icon[I]</BIG>"
 
 		//U.interact(user)
 		return 1
@@ -174,6 +180,16 @@ var/list/uplink_items = list()
 	cost = 13
 	job = list("Chaplain")
 
+/datum/uplink_item/jobspecific/artistic_toolbox
+	name = "Artistic Toolbox"
+	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
+	reference = "HGAT"
+	item = /obj/item/weapon/storage/toolbox/green/memetic
+	cost = 20
+	job = list("Chaplain")
+	surplus = 0     //No lucky chances from the crate; if you get this, this is ALL you're getting
+	hijack_only = 1 //This is a murderbone weapon, as such, it should only be available in those scenarios.
+
 //Janitor
 
 /datum/uplink_item/jobspecific/cautionsign
@@ -234,6 +250,16 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/scissors/safety
 	cost = 5
 	job = list("Barber")
+
+//Botanist
+
+/datum/uplink_item/jobspecific/bee_briefcase
+	name = "Briefcase Full of Bees"
+	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
+	reference = "BEE"
+	item = /obj/item/weapon/bee_briefcase
+	cost = 10
+	job = list("Botanist")
 
 //Engineer
 
@@ -302,7 +328,7 @@ var/list/uplink_items = list()
 	reference = "TPB"
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Scientist","Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Chemist","Paramedic","Virologist","Bartender")
+	job = list("Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Virologist","Bartender")
 
 // DANGEROUS WEAPONS
 

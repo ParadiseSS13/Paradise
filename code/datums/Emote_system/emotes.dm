@@ -197,7 +197,12 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 	if(!. && user.buckled)
 		return "you are buckled to something"
 
-
+/datum/emote/burp
+	name = "burp"
+	desc = "burp"
+	text = "burps"
+	selfText = "burp"
+	muzzledNoise = "peculiar
 
 
 /datum/emote/scream

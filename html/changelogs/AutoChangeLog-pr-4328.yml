@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Updates the Tesla; it will now have to be \"fed\" or it can run out of energy; the rate at which it gains additional energy balls and power has been greatly lowered."
-  - tweak: "energy ball will now be drawn towards the singularity beacon"
-  - tweak: "fuel tank explosions a bit stronger and will arc tesla blasts further"

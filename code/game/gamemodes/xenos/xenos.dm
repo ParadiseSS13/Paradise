@@ -5,11 +5,8 @@
 /datum/game_mode/xenos
 	name = "xenos"
 	config_tag = "xenos"
-	required_players = 0
-	recommended_players = 30
-	required_players_secret = 20
+	required_players = 30
 	required_enemies = 3
-	recommended_enemies = 3
 	var/result = 0
 	var/checkwin_counter = 0
 	var/xenos_list = list()
@@ -27,7 +24,7 @@
 
 	var/list/candidates = get_players_for_role(ROLE_ALIEN)
 	var/playersready = 0
-	var/xenos_num
+	var/xenos_num = required_enemies
 	for(var/mob/new_player/player in player_list)
 		if((player.client)&&(player.ready))
 			playersready += 1
@@ -35,10 +32,6 @@
 	//Check that we have enough alien candidates
 	if(candidates.len < required_enemies)
 		return 0
-	if (playersready < recommended_players)
-		xenos_num = required_enemies
-	if (playersready >= recommended_players)
-		xenos_num = recommended_enemies
 
 	//Grab candidates randomly until we have enough.
 	while(xenos_num > 0)

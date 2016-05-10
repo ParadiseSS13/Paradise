@@ -12,6 +12,7 @@
 
 	if(src.stat == DEAD)
 		return
+	act = lowertext(act)
 	switch(act)
 
 		if ("alarm")
