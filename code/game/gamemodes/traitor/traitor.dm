@@ -128,6 +128,11 @@
 					destroy_objective.owner = traitor
 					destroy_objective.find_target()
 					traitor.objectives += destroy_objective
+				else if(prob(5))
+					var/datum/objective/debrain/debrain_objective = new
+					debrain_objective.owner = traitor
+					debrain_objective.find_target()
+					traitor.objectives += debrain_objective
 				else if(prob(30))
 					var/datum/objective/maroon/maroon_objective = new
 					maroon_objective.owner = traitor
