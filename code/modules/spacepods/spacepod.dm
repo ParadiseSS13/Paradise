@@ -17,6 +17,7 @@
 
 	var/list/mob/occupants = list() //uses [PILOT] index for pilot and numerics for passangers
 	var/max_occupants = 1
+	var/obj/item/weapon/storage/internal/cargo_hold
 
 	var/datum/spacepod/equipment/equipment_system
 
@@ -73,12 +74,19 @@
 	pr_give_air = new /datum/global_iterator/pod_tank_give_air(list(src))
 	equipment_system = new(src)
 	spacepods_list += src
+	cargo_hold = new/obj/item/weapon/storage/internal(src)
+	cargo_hold.w_class = 5	//so you can put bags in
+	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
+	cargo_hold.max_w_class = 5		//fit almost anything
+	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 
 /obj/spacepod/Destroy()
 	if (equipment_system.cargo_system)
 		equipment_system.cargo_system.removed(null)
 	qdel(equipment_system)
 	equipment_system = null
+	qdel(cargo_hold)
+	cargo_hold = null
 	qdel(battery)
 	battery = null
 	qdel(cabin_air)
@@ -210,6 +218,7 @@
 
 /obj/spacepod/emp_act(severity)
 	occupant_sanity_check()
+	cargo_hold.emp_act(severity)
 	switch(severity)
 		if(1)
 			if(occupants)
@@ -244,6 +253,7 @@
 			to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
 		else
 			to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
+		return
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!hatch_open)
 			to_chat(user, "\red The maintenance hatch is closed!")
@@ -260,61 +270,32 @@
 			to_chat(user, "\red The maintenance hatch is closed!")
 			return
 		if(!equipment_system)
-			to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at pomf</span>")
+			to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at IK3I</span>")
 			return
 		if(istype(W, /obj/item/device/spacepod_equipment/weaponry))
-			if(equipment_system.weapon_system)
-				to_chat(user, "<span class='notice'>The pod already has a weapon system, remove it first.</span>")
-				return
-			else
-				to_chat(user, "<span class='notice'>You insert \the [W] into the equipment system.</span>")
-				user.drop_item(W)
-				W.forceMove(src)
-				equipment_system.weapon_system = W
-				equipment_system.weapon_system.my_atom = src
-				return
-
+			add_equipment(user, W, "weapon_system")
+			return
 		if(istype(W, /obj/item/device/spacepod_equipment/misc))
-			if(equipment_system.misc_system)
-				to_chat(user, "<span class='notice'>The pod already has a miscellaneous system, remove it first.</span>")
-				return
-			else
-				to_chat(user, "<span class='notice'>You insert \the [W] into the equipment system.</span>")
-				user.drop_item(W)
-				W.forceMove(src)
-				equipment_system.misc_system = W
-				equipment_system.misc_system.my_atom = src
-				return
+			add_equipment(user, W, "misc_system")
+			return
 		if(istype(W, /obj/item/device/spacepod_equipment/cargo))
-			if(equipment_system.cargo_system)
-				to_chat(user, "<span class='notice'>The pod already has a cargo system, remove it first.</span>")
-				return
-			else
-				to_chat(user, "<span class='notice'>You insert \the [W] into the cargo system.</span>")
-				user.drop_item(W)
-				W.forceMove(src)
-				equipment_system.cargo_system = W
-				equipment_system.cargo_system.my_atom = src
-				return
+			add_equipment(user, W, "cargo_system")
+			return
+		if(istype(W, /obj/item/device/spacepod_equipment/sec_cargo))
+			add_equipment(user, W, "sec_cargo_system")
+			return
 		if(istype(W, /obj/item/device/spacepod_equipment/lock))
-			if(equipment_system.lock_system)
-				to_chat(user, "<span class='notice'>The pod already has a lock system, remove it first.</span>")
-				return
-			else
-				to_chat(user, "<span class='notice'>You insert \the [W] into the lock system.</span>")
-				user.drop_item(W)
-				W.forceMove(src)
-				equipment_system.lock_system = W
-				equipment_system.lock_system.my_atom = src
-				return
+			add_equipment(user, W, "lock_system")
+			return
 
 	if(istype(W, /obj/item/device/spacepod_key) && istype(equipment_system.lock_system, /obj/item/device/spacepod_equipment/lock/keyed))
 		var/obj/item/device/spacepod_key/key = W
 		if (key.id == equipment_system.lock_system.id)
 			lock_pod()
+			return
 		else
 			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
-		return
+			return
 
 	if(istype(W, /obj/item/weapon/weldingtool))
 		if(!hatch_open)
@@ -331,12 +312,38 @@
 				if(!src || !WT.remove_fuel(3, user)) return
 				repair_damage(10)
 				to_chat(user, "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]")
+			return
 		else
 			to_chat(user, "\blue <b>\The [src] is fully repaired!</b>")
+			return
 
+	if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
+		cargo_hold.attackby(W, user, params)
+		return
+
+obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment/SPE, var/slot)
+	if(equipment_system.vars[slot])
+		to_chat(user, "<span class='notice'>The pod already has a [slot], remove it first.</span>")
+		return
+	else
+		to_chat(user, "<span class='notice'>You insert \the [SPE] into the pod.</span>")
+		user.drop_item(SPE)
+		SPE.forceMove(src)
+		equipment_system.vars[slot] = SPE
+		var/obj/item/device/spacepod_equipment/system = equipment_system.vars[slot]
+		system.my_atom = src
+		max_occupants += SPE.occupant_mod
+		cargo_hold.storage_slots += SPE.storage_mod["slots"]
+		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
+		return
 
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(!hatch_open)
+		if(cargo_hold.storage_slots > 0)
+			if(unlocked)
+				cargo_hold.open(user)
+			else
+				to_chat(user, "<span class='notice'>The storage compartment is locked</span>")
 		return ..()
 	if(!equipment_system || !istype(equipment_system))
 		to_chat(user, "<span class='warning'>The pod has no equpment datum, or is the wrong type, yell at pomf.</span>")
@@ -350,74 +357,82 @@
 		possible.Add("Misc. System")
 	if(equipment_system.cargo_system)
 		possible.Add("Cargo System")
+	if(equipment_system.sec_cargo_system)
+		possible.Add("Secondary Cargo System")
 	if(equipment_system.lock_system)
 		possible.Add("Lock System")
-	/* Not yet implemented
-	if(equipment_system.engine_system)
-		possible.Add("Engine System")
-	if(equipment_system.shield_system)
-		possible.Add("Shield System")
-	*/
-	var/obj/item/device/spacepod_equipment/SPE
 	switch(input(user, "Remove which equipment?", null, null) as null|anything in possible)
 		if("Energy Cell")
 			if(user.put_in_any_hand_if_possible(battery))
 				to_chat(user, "<span class='notice'>You remove \the [battery] from the space pod</span>")
 				battery = null
+			else
+				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+			return
 		if("Weapon System")
-			SPE = equipment_system.weapon_system
-			if(user.put_in_any_hand_if_possible(SPE))
-				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-				SPE.removed(user)
-				SPE.my_atom = null
-				equipment_system.weapon_system = null
-			else
-				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+			remove_equipment(user, equipment_system.weapon_system, "weapon_system")
+			return
 		if("Misc. System")
-			SPE = equipment_system.misc_system
-			if(user.put_in_any_hand_if_possible(SPE))
-				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-				SPE.removed(user)
-				SPE.my_atom = null
-				equipment_system.misc_system = null
-			else
-				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+			remove_equipment(user, equipment_system.misc_system, "misc_system")
+			return
 		if("Cargo System")
-			SPE = equipment_system.cargo_system
-			if(user.put_in_any_hand_if_possible(SPE))
-				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-				SPE.removed(user)
-				SPE.my_atom = null
-				equipment_system.cargo_system = null
-			else
-				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+			remove_equipment(user, equipment_system.cargo_system, "cargo_system")
+			return
+		if("Secondary Cargo System")
+			remove_equipment(user, equipment_system.sec_cargo_system, "sec_cargo_system")
+			return
 		if("Lock System")
-			SPE = equipment_system.lock_system
-			if(user.put_in_any_hand_if_possible(SPE))
-				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-				SPE.removed(user)
-				SPE.my_atom = null
-				equipment_system.lock_system = null
-			else
-				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-		/*
-		if("engine system")
-			SPE = equipment_system.engine_system
-			if(user.put_in_any_hand_if_possible(SPE))
-				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-				equipment_system.engine_system = null
-			else
-				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-		if("shield system")
-			SPE = equipment_system.shield_system
-			if(user.put_in_any_hand_if_possible(SPE))
-				to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
-				equipment_system.shield_system = null
-			else
-				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-		*/
-
+			remove_equipment(user, equipment_system.lock_system, "lock_system")
+			return
 	return
+
+/obj/spacepod/proc/remove_equipment(mob/user, var/obj/item/device/spacepod_equipment/SPE, var/slot)
+
+	if(occupants.len > max_occupants - SPE.occupant_mod)
+		to_chat(user, "<span class='warning'>Someone is sitting in \the [SPE]!</span>")
+		return
+
+	var/sum_w_class = 0
+	for(var/obj/item/I in cargo_hold.contents)
+		sum_w_class += I.w_class
+	if(cargo_hold.contents.len > cargo_hold.storage_slots - SPE.storage_mod["slots"] || sum_w_class > cargo_hold.max_combined_w_class - SPE.storage_mod["w_class"])
+		to_chat(user, "<span class='warning'>Empty \the [SPE] first!</span>")
+		return
+
+	if(user.put_in_any_hand_if_possible(SPE))
+		to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
+		max_occupants -= SPE.occupant_mod
+		cargo_hold.storage_slots -= SPE.storage_mod["slots"]
+		cargo_hold.max_combined_w_class -= SPE.storage_mod["w_class"]
+		SPE.removed(user)
+		SPE.my_atom = null
+		equipment_system.vars[slot] = null
+	else
+		to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+	return
+
+
+/obj/spacepod/hear_talk/hear_talk(mob/M, var/msg)
+	cargo_hold.hear_talk(M, msg)
+	..()
+
+/obj/spacepod/hear_message(mob/M, var/msg)
+	cargo_hold.hear_message(M, msg)
+	..()
+
+/obj/spacepod/proc/return_inv()
+
+	var/list/L = list(  )
+
+	L += src.contents
+
+	for(var/obj/item/weapon/storage/S in src)
+		L += S.return_inv()
+	for(var/obj/item/weapon/gift/G in src)
+		L += G.gift
+		if (istype(G.gift, /obj/item/weapon/storage))
+			L += G.gift:return_inv()
+	return L
 
 /obj/spacepod/civilian
 	icon_state = "pod_civ"
@@ -566,11 +581,7 @@
 */
 
 		if(M == user)
-			if(!equipment_system.lock_system || unlocked)
-				enter_pod(user)
-			else
-				to_chat(user, "<span class='warning'>\The [src]'s doors are locked!</span>")
-
+			enter_pod(user)
 
 	if(istype(A, /obj/structure/ore_box)) // For loading ore boxes
 		var/obj/structure/ore_box/O = A
@@ -587,12 +598,27 @@
 			else
 				to_chat(user, "<span class='warning'>\The [src] already has \an [C.box]</span>")
 
-/obj/spacepod/verb/enter_pod(mob/user = usr)
-	set category = "Object"
-	set name = "Enter Pod"
-	set src in oview(1)
+	if(istype(A, /obj/structure/closet/crate)) // For loading crates
+		var/obj/structure/closet/crate/O = A
+		if(equipment_system.cargo_system && istype(equipment_system.cargo_system, /obj/item/device/spacepod_equipment/cargo/crate))
+			var/obj/item/device/spacepod_equipment/cargo/crate/C = equipment_system.cargo_system
+			if(!C.crate)
+				to_chat(user, "<span class='notice'>You begin loading \the [O] into \the [src]'s [equipment_system.cargo_system]</span>")
+				if(do_after(user, 40, target = src))
+					C.crate = O
+					O.forceMove(C)
+					to_chat(user,  "<span class='notice'>You load \the [O] into \the [src]'s [equipment_system.cargo_system]!</span>")
+				else
+					to_chat(user, "<span class='warning'>You fail to load \the [O] into \the [src]'s [equipment_system.cargo_system]</span>")
+			else
+				to_chat(user, "<span class='warning'>\The [src] already has \an [C.crate]</span>")
 
+/obj/spacepod/proc/enter_pod(mob/user)
 	if (usr.stat != CONSCIOUS)
+		return
+
+	if(equipment_system.lock_system && !unlocked)
+		to_chat(user, "<span class='warning'>\The [src]'s doors are locked!</span>")
 		return
 
 	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
