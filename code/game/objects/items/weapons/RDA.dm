@@ -1,31 +1,28 @@
 /obj/item/weapon/RDA
-	name = "RDA"
+	name = "broken RDA"
 	desc = "Rebuildable Dripping Atomizer, part of vape device."
 	icon = 'icons/obj/vape.dmi'
 	icon_state = "RDA-normal"
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=20)
+	var/clouds = 0
+	var/rdain = ""
 
 /obj/item/weapon/RDA/normal
 	name = "RDA"
-	desc = "Rebuildable Dripping Atomizer, part of vape device."
-	icon = 'icons/obj/vape.dmi'
-	icon_state = "RDA-normal"
-	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL=20)
+	clouds = 2
+	rdain = "-normalrda"
 
 /obj/item/weapon/RDA/wide
 	name = "Wide RDA"
 	desc = "Rebuildable Dripping Atomizer, part of vape device. Wide type."
-	icon = 'icons/obj/vape.dmi'
 	icon_state = "RDA-wide"
-	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL=20)
+	clouds = 3
+	rdain = "-widerda"
 
 /obj/item/weapon/RDA/tight
-	name = "RDAmini"
+	name = "miniRDA"
 	desc = "Rebuildable Dripping Atomizer, part of vape device. Mini type."
-	icon = 'icons/obj/vape.dmi'
 	icon_state = "RDA-tight"
-	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL=20)
+	clouds = 1
+	rdain = "-tightrda"

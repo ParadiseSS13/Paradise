@@ -1,33 +1,41 @@
+//THE CANCER GOES WILD
+//Fully customizable and working VAPE - initially you have choice with 4 carcases (which do nothing) and 3 RDAs
+//(which do various amount of smoke clouds)
+//This shit need battery for work
+
+var/global/list/obj/item/device/vape/vapes = list()
+
 /obj/item/device/vape
 	name = "Vape case"
 	desc = "The new, better age of smoking."
 	icon = 'icons/obj/vape.dmi'
 	icon_state = "vape"
+	w_class = 2.0
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=20)
 	var/obj/item/weapon/stock_parts/cell/battery = null
+	var/obj/item/weapon/RDA/drip = null
 	var/use = 25
 	var/on = 0
-	var/widerda = 0
-	var/normalrda = 0
-	var/tightrda = 0
-	var/spamcheck = 0
-	var/clouds = 0
+	var/spamcheck = 0					//for spam prevention
 
-/obj/item/device/vape/proc/updateicon()
-	icon_state = "[initial(icon_state)][widerda ? "-widerda" : ""][normalrda ? "-normalrda" : ""][tightrda ? "-tightrda" : ""][on ? "-on" : ""]"
+/obj/item/device/vape/New()								//Here the whole customization goes
+	..()
+	vapes += src
+	vapes = sortAtom(vapes)
+	if(drip)
+		drip = new drip(src)
+		updateicon()
+	if(battery)
+		battery = new battery(src)
 
-/obj/item/device/vape/proc/updateclouds()
-	if(tightrda)
-		clouds = 1
-	else if(normalrda)
-		clouds = 2
-	else if(widerda)
-		clouds = 3
+/obj/item/device/vape/proc/updateicon()					//Here the visible customization goes
+	if(!drip)
+		icon_state = "[initial(icon_state)][on ? "-on" : ""]"
 	else
-		return
+		icon_state = "[initial(icon_state)][drip.rdain][on ? "-on" : ""]"
 
-/obj/item/device/vape/attackby(obj/item/weapon/C as obj, mob/user as mob, params)
+/obj/item/device/vape/attackby(obj/item/weapon/C as obj, mob/user as mob, params)  //You can insert batteries and RDAs
 	if(istype(C, /obj/item/weapon/stock_parts/cell))
 		if(battery)
 			to_chat(user, "There is a battery already installed.")
@@ -36,30 +44,14 @@
 			C.loc = src
 			battery = C
 			to_chat(user, "You insert the battery.")
-	if(istype(C, /obj/item/weapon/RDA/normal))
-		if(widerda | normalrda | tightrda)
+	if(istype(C, /obj/item/weapon/RDA))
+		if(drip)
 			to_chat(user, "There is a RDA already installed.")
 		else
 			user.drop_item()
 			C.loc = src
 			to_chat(user, "You insert the RDA.")
-			normalrda = C
-	if(istype(C, /obj/item/weapon/RDA/wide))
-		if(widerda | normalrda | tightrda)
-			to_chat(user, "There is a RDA already installed.")
-		else
-			user.drop_item()
-			C.loc = src
-			to_chat(user, "You insert the RDA.")
-			widerda = C
-	if(istype(C, /obj/item/weapon/RDA/tight))
-		if(widerda | normalrda | tightrda)
-			to_chat(user, "There is a RDA already installed.")
-		else
-			user.drop_item()
-			C.loc = src
-			to_chat(user, "You insert the RDA.")
-			tightrda = C
+			drip = C
 	updateicon()
 
 /obj/item/device/vape/attack_self(mob/user)
@@ -81,7 +73,7 @@
 		on = 0
 		updateicon()
 		to_chat(user, "Your [name] shuts down due to lack of energy!")
-	if(!widerda && !normalrda && !tightrda)
+	if(!drip)
 		to_chat(user, "You realized that you can't vape without RDA")
 		return
 	if(M == user)
@@ -89,12 +81,12 @@
 		spawn(10)
 		if(on)
 			battery.charge -= use
-			updateclouds()
-			var/datum/effect/system/harmless_smoke_spread/smoke = new
-			smoke.set_up(clouds, 0, usr.loc)
+			var/datum/effect/system/harmless_smoke_spread/smoke = new   //FATTEST CLOUDS
+			smoke.set_up(drip.clouds, 0, usr.loc)
 			smoke.start()
 			user.visible_message("<span class='notice'>[user] vaping here with [name]!</span>")
 			playsound(usr.loc, 'sound/effects/bamf.ogg', 50, 2)
+			M.adjustCloneLoss(5)		//Vapers MUST DIE
 			spamcheck = 1
 			spawn(20)
 			spamcheck = 0
@@ -137,12 +129,7 @@
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O)
 					to_chat(usr, "<span class='notice'>You remove \the [O] from \the [src].</span>")
-					if(istype(O, /obj/item/weapon/RDA/tight))
-						tightrda=0
-					if(istype(O, /obj/item/weapon/RDA/normal))
-						normalrda=0
-					if(istype(O, /obj/item/weapon/RDA/wide))
-						widerda=0
+					drip = null
 					updateicon()
 					return
 			O.forceMove(get_turf(src))
