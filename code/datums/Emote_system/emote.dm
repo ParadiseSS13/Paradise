@@ -45,43 +45,47 @@ VampyrBytes
 
 /datum/emote/proc/doEmote(var/mob/user)
 	if(!istype(user))
-		return 0
+		return
 	if(cooldown)
 		if(handle_emote_CD(user))
-			return 0
+			return
 
-	var/number
+	var/message = ""
+	var/num
 	var/target
 
 	if(takesNumber)
-		number = getNumber(user)
+		num = getNumber(user)
 
 	if(canTarget)
 		target = getTarget(user)
 
-	if(number == "failed" || target == "failed")	// If you need to test the input, override the appopriate get proc, call the parent,
-		return									// then test it. If it fails, tell the user why, then return "failed" to halt the emote
+	if(num == "invalid" || target == "invalid")
+		return
 
-	var/message = createMessage(user, number)
-
-	if(canTarget && message)
-		message = addTarget(user, target, message)
+	if(text)
+		message = createMessage(user, num, target)
+		if(message == "failed")
+			return
 
 	if(message)
-		message += "</span>"
-		outputMessage(user, message)
+		. = outputMessage(user, message)
 
-	if(audible)
-		if(!(user.mind && user.mind.miming))
-			playSound(user, vol)
+	var/played = 0
+	if(!doMime(user))
+		played = playSound(user, vol)
 
-	doAction(user, target, number)
-	return 1
+	if(played)
+		. = 2
+
+	doAction(user)
+	return
 
 // for things that the emote does that aren't text or sound based
 /datum/emote/proc/doAction(var/mob/user, var/atom/target, var/number)
 	return
 
+// return "invalid" from either of these getters if you've tested the input and it's failed
 /datum/emote/proc/getNumber(var/mob/user)
 	var/number = input("How many") as null|num
 	return number
@@ -116,27 +120,43 @@ VampyrBytes
 /datum/emote/proc/available(var/mob/user)
 	return
 
-/datum/emote/proc/createMessage(var/mob/user, var/number)
+/datum/emote/proc/createMessage(var/mob/user, var/param, var/target)
 	if(!text)
 		return
 	var/message
-	if(takesNumber && number)
-		message = getParamMessage(user, number)
-	else if(audible && user.mind && user.mind.miming)
-		message = mimeMessage(user)
-	else if(audible && user.is_muzzled())
-		message = muzzleMessage(user)
-	else
-		message = "[user] [text]"
-	if(startText)
-		message = "[startText] [message]"
-	message = "<span class = '[spanClass]'>[message]"
+
+	if(doMime(user))
+		message = mimeMessage(user, param, target)
+
+	if(!message)
+		if(muzzledNoise && user.is_muzzled())
+			message = muzzleMessage(user)
+
+		else if(takesNumber && param)
+			message = paramMessage(user, param)
+		else
+			message = "[user] [text]"
+
+		if(message && target)
+			message = addTarget(user, target, message)
+
+		message = addExtras(message)
+
 	return message
 
-/datum/emote/proc/mimeMessage(var/mob/user)
+/datum/emote/proc/addExtras(var/message)
+	if(!message)
+		return
+	if(startText)
+		message = "[startText] [message]"
+	message = "<span class = '[spanClass]'>[message]</span>"
+	return message
+
+/datum/emote/proc/mimeMessage(var/mob/user, var/param, var/target)
 	if(!mimeText)
 		return
-
+	if(takesNumber)
+		return paramMimeMessage(user, param)
 	var/message = "[user] [mimeText]"
 	return message
 
@@ -145,16 +165,6 @@ VampyrBytes
 	if(muzzledNoise)
 		message += "[muzzledNoise] "
 	message += "noise"
-	return message
-
-/datum/emote/proc/getParamMessage(var/mob/user, var/param)
-	var/message
-	if(audible && user.mind && user.mind.miming)
-		message = paramMimeMessage(user, param)
-	else if (audible && user.is_muzzled())
-		message = muzzleMessage(user)
-	else
-		message = paramMessage(user, param)
 	return message
 
 // if the emote takes a non target parameter, set up  and return the with parameter version in here
@@ -170,10 +180,7 @@ VampyrBytes
 		return message
 	if(!target)
 		return message
-	if(ismob(target))
-		message += " [targetText] [target]"
-	else
-		message += " [targetText] \the [target]"
+	message += " [targetText] \the [target]"
 	return message
 
 // What you should see when you perform the emote
@@ -191,11 +198,11 @@ VampyrBytes
 	if(!message)
 		return
 	log_emote("[user.name]/[user.key] : [message]")
-	if(audible)
-		audible_message(message, user)
-	else
-		visible_message(message, user)
 	sendToDead(message)
+	if(audible)
+		return audible_message(message, user)
+	else
+		return visible_message(message, user)
 
 /datum/emote/proc/visible_message(var/message = "", var/mob/user)
 	var/selfMessage = createSelfMessage(user, message)
@@ -213,8 +220,11 @@ VampyrBytes
 				outputAudibleMessage(msg, M, user, 1)
 		else
 			outputVisibleMessage(msg, M, user)
+	return 1
 
 /datum/emote/proc/audible_message(var/message = "", var/mob/user)
+	if(doMime(user))
+		return visible_message(message, user)
 	var/selfMessage = createSelfMessage(user, message)
 	for(var/mob/M in get_mobs_in_view(7, user))
 		var/msg = message
@@ -228,6 +238,7 @@ VampyrBytes
 				outputVisibleMessage(msg, M, user, 1)
 		else
 			outputAudibleMessage(msg, M, user)
+	return 2
 
 /datum/emote/proc/outputVisibleMessage(var/message, var/mob/recipient, var/mob/user, var/retest = 0)
 	if(retest)
@@ -252,6 +263,7 @@ VampyrBytes
 		to_chat(recipient, message)
 
 /datum/emote/proc/outputAudibleMessage(var/message = "", var/mob/recipient, var/mob/user, var/retest = 0)
+
 	if(retest)
 		if(!user)
 			return
@@ -291,6 +303,11 @@ VampyrBytes
 /datum/emote/proc/playSound(var/mob/user)
 	if(sound)
 		playsound(user, sound, vol)
+		return 1
+
+/datum/emote/proc/doMime(var/mob/user)
+	if(mimeText && user.mind && user.mind.miming)
+		return 1
 
 //Emote Cooldown System (it's so simple!)
 /datum/emote/proc/handle_emote_CD(var/mob/user)
@@ -336,7 +353,7 @@ VampyrBytes
 /obj/emoteVerb/proc/runEmote()
 	set src = usr.contents
 	set category = "Emotes"
-	usr.emoteHandler.runEmote(emote.commands[1])
+	return usr.emoteHandler.runEmote(emote.commands[1])
 
 /obj/emoteVerb/Destroy()
 	owner.verbs -= new/obj/emoteVerb/proc/runEmote(src, emote.commands[1])
@@ -354,7 +371,7 @@ obj/emoteVerb/custom/New(var/mob/user)
 /obj/emoteVerb/custom/runEmote(message as text, audible as num)
 	set src = usr.contents
 	set category = "Emotes"
-	usr.emoteHandler.runEmote("me", null, message, audible)
+	return usr.emoteHandler.runEmote("me", null, message, audible)
 
 
 /**************************************************************************************************************************

@@ -34,7 +34,7 @@
 	message = strip_html_properly(message)
 
 	set_typing_indicator(0)
-	emoteHandler.runEmote("me", null, message)
+	return emoteHandler.runEmote("me", null, message)
 
 /mob/proc/say_dead(var/message)
 	if(!src.client.holder)
@@ -97,7 +97,7 @@
 /mob/proc/emote(var/act, var/type, var/message)
 
 	act = lowertext(act)
-	emoteHandler.runEmote(act, message, type)
+	return emoteHandler.runEmote(act, message, type)
 
 
 
