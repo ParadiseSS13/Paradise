@@ -878,6 +878,23 @@
 	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
 	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
 
+/obj/machinery/vending/vapevend
+	name = "\improper VAPE-o-MATE"
+	desc = "A vending machine for vape supplies."
+	product_slogans = "Vape Nation!;Go Green!;Smoking cures cancer!. ;FATTEST CLOUDS!"
+	product_ads = "Do you hear about a VAPE NATION?;VAPE NASHYALL;Create your own atmos with our VAPES!;Go green, go natural."
+	vend_delay = 15
+	icon_state = "vapevend"
+	products = list(/obj/item/device/vape/completed = 5,/obj/item/device/vape/cheap/completed = 10,/obj/item/device/vape/neon/completed = 5,
+	/obj/item/weapon/RDA/normal = 10,/obj/item/weapon/RDA/wide = 10,/obj/item/weapon/RDA/tight = 10)
+	prices = list(/obj/item/device/vape/completed = 250,/obj/item/device/vape/cheap/completed = 150,/obj/item/device/vape/neon/completed = 300,
+	/obj/item/weapon/RDA/normal = 50,/obj/item/weapon/RDA/wide = 50,/obj/item/weapon/RDA/tight = 50)
+	contraband = list(/obj/item/device/vape/expensive/completed/max = 1)
+	premium = list(/obj/item/device/vape/expensive/completed = 5)
+	prices = list(/obj/item/device/vape/completed = 250,/obj/item/device/vape/cheap/completed = 150,/obj/item/device/vape/neon/completed = 300,
+	/obj/item/weapon/RDA/normal = 50,/obj/item/weapon/RDA/wide = 50,/obj/item/weapon/RDA/tight = 50)
+
+
 /obj/machinery/vending/medical
 	name = "\improper NanoMed Plus"
 	desc = "Medical drug dispenser."
