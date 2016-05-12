@@ -52,7 +52,7 @@ var/list/sounds_cache = list()
 	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
 	if(!check_rights(R_SOUNDS))	return
 
-	var/A = alert("This will play a sound at every intercomm on the station Z, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
+	var/A = alert("This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt");
@@ -67,15 +67,25 @@ var/list/sounds_cache = list()
 	if(inputvol && inputvol >= 1 && inputvol <= 70)
 		cvol = inputvol
 
-	var/list/intercomms = list()
+	//Allows for override to utilize intercomms on all z-levels
+	var/B = alert("Do you want to play through intercomms on ALL Z-levels, or just the station?", "Override", "All", "Station")
+	var/ignore_z = 0
+	if(B == "All")
+		ignore_z = 1
 
-	for(var/obj/item/device/radio/intercom/I in world)
-		if(I.z != ZLEVEL_STATION)	continue
-		intercomms += I
+	//Allows for override to utilize incomplete and unpowered intercomms
+	var/C = alert("Do you want to play through unpowered / incomplete intercomms, so the crew can't silence it?", "Override", "Yep", "Nope")
+	var/ignore_power = 0
+	if(C == "Yep")
+		ignore_power = 1
 
-	if(intercomms.len)
-		for(var/obj/item/device/radio/intercom/I in intercomms)
-			playsound(I, melody, cvol)
+	for(var/O in global_intercoms)
+		var/obj/item/device/radio/intercom/I = O
+		if(I.z != ZLEVEL_STATION && !ignore_z)
+			continue
+		if(!I.on && !ignore_power)
+			continue
+		playsound(I, melody, cvol)
 
 /*
 /client/proc/cuban_pete()

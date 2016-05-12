@@ -204,7 +204,7 @@
 	Reward()
 	..()
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustBruteLoss(var/damage)
+/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(damage)
 	idle_vision_range = 9
 	..()
 
@@ -403,7 +403,7 @@
 		pre_attack = 0
 	return
 
-/mob/living/simple_animal/hostile/asteroid/goliath/adjustBruteLoss(var/damage)
+/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(damage)
 	ranged_cooldown--
 	handle_preattack()
 	..()

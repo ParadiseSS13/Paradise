@@ -800,6 +800,7 @@ datum/reagent/stimulants/on_mob_life(var/mob/living/M as mob)
 		M.adjustBruteLoss(-10*REM)
 		M.adjustFireLoss(-10*REM)
 		M.setStaminaLoss(0)
+		M.slowed = 0
 		M.dizziness = max(0,M.dizziness-10)
 		M.drowsyness = max(0,M.drowsyness-10)
 		M.confused = 0

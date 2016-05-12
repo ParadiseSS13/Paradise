@@ -299,7 +299,7 @@
 
 	New()
 		..()
-		reagents.add_reagent(pick("polonium","initropidril","concentrated_initro","pancuronium","sodium_thiopental","ketamine","sulfonal","amanitin","coniine","curare","sarin","histamine","venom","cyanide","spidereggs","nanomachines"), 40)
+		reagents.add_reagent(pick_list("chemistry_tools.json", "traitor_poison_bottle"), 40)
 
 /obj/item/weapon/reagent_containers/glass/bottle/plasma
 	name = "plasma dust bottle"

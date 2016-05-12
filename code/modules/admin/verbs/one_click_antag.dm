@@ -558,7 +558,9 @@ client/proc/one_click_antag()
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
-			H.make_vampire()
+			ticker.mode.vampires += H.mind
+			ticker.mode.grant_vampire_powers(H)
+			ticker.mode.update_vampire_icons_added(H.mind)
 			candidates.Remove(H)
 
 		return 1

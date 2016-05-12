@@ -128,7 +128,6 @@
 		if(I)
 			I.layer = initial(I.layer)
 			I.plane = initial(I.plane)
-
 	return 1
 
 
