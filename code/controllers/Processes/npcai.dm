@@ -40,7 +40,7 @@ var/global/datum/controller/process/npcai/npcai_master
 			simple_animal_list -= M
 
 	if(ticker.current_state == GAME_STATE_FINISHED && !saved_voice)
-		var/mob/living/carbon/human/interactive/M = pick(snpc_list)
+		var/mob/living/carbon/human/interactive/M = safepick(snpc_list)
 		if(M)
 			M.saveVoice()
 			saved_voice = 1

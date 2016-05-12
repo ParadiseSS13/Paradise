@@ -824,7 +824,7 @@
 "pS" = (/obj/machinery/power/apc{dir = 8; name = "Mining Station Podbay APC"; pixel_x = -27; pixel_y = 2},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/engine,/area/mine/podbay)
 "pT" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor/engine,/area/mine/podbay)
 "pU" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/engine,/area/mine/podbay)
-"pV" = (/obj/structure/spacepoddoor,/obj/machinery/door/poddoor/three_tile_ver{id_tag = "minepodbay"; req_one_access_txt = "48;70"},/turf/simulated/floor/engine,/area/mine/podbay)
+"pV" = (/obj/structure/spacepoddoor,/obj/machinery/door/poddoor/multi_tile/three_tile_ver{id_tag = "minepodbay"; req_one_access_txt = "48;70"},/turf/simulated/floor/engine,/area/mine/podbay)
 "pW" = (/obj/structure/transit_tube{tag = "icon-D-SW"; icon_state = "D-SW"},/turf/simulated/wall/r_wall,/area/mine/explored)
 "pX" = (/obj/effect/glowshroom,/turf/simulated/floor/plating/airless/asteroid,/area/mine/explored)
 "pY" = (/obj/item/weapon/storage/toolbox/syndicate,/turf/simulated/floor/plasteel/airless{icon_state = "floorgrime"},/area/mine/abandoned)
