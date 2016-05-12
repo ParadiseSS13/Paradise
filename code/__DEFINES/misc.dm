@@ -142,6 +142,14 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+#define in_range(source, user)		(get_dist(source, user) <= 1)
+
+#define RANGE_TURFS(RADIUS, CENTER) \
+  block( \
+	locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
+	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+  )
+
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	dview_mob.loc = center; \
 	dview_mob.see_invisible = invis_flags; \
@@ -221,3 +229,13 @@
 #define TARGETED_LAYER			29	//BS12: Layer for the target overlay from weapon targeting system
 #define FIRE_LAYER				30	//If you're on fire
 #define TOTAL_LAYERS			30
+
+///Access Region Codes///
+#define REGION_ALL			0
+#define REGION_GENERAL		1
+#define REGION_SECURITY		2
+#define REGION_MEDBAY		3
+#define REGION_RESEARCH		4
+#define REGION_ENGINEERING	5
+#define REGION_SUPPLY		6
+#define REGION_COMMAND		7

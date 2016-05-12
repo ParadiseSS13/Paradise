@@ -114,10 +114,12 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
-	if(old_loc)
-		old_loc.Exited(src)
-
 	loc = destination
+
+	if(old_loc)
+		old_loc.Exited(src, destination)
+		for(var/atom/movable/AM in old_loc)
+			AM.Uncrossed(src)
 
 	if(destination)
 		destination.Entered(src)

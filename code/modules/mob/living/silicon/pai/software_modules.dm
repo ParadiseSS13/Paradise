@@ -123,7 +123,7 @@
 	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 
 		var/data[0]
-		data["manifest"] = list("__json_cache" = ManifestJSON)
+		data["manifest"] = PDA_Manifest
 
 		ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
 		if(!ui)
@@ -627,6 +627,7 @@
 			user.add_language("Rootspeak")
 			user.add_language("Chittin")
 			user.add_language("Bubblish")
+			user.add_language("Orluum")
 			user.add_language("Clownish")
 		else
 			user.remove_language("Sinta'unathi")
@@ -637,6 +638,7 @@
 			user.remove_language("Rootspeak")
 			user.remove_language("Chittin")
 			user.remove_language("Bubblish")
+			user.remove_language("Orluum")
 			user.remove_language("Clownish")
 
 	is_active(mob/living/silicon/pai/user)

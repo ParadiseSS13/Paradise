@@ -15,7 +15,8 @@
 		"Vox Armalis" = 'icons/mob/species/armalis/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
 		)
 
 /obj/item/clothing/mask/breath/attack_self(var/mob/user)

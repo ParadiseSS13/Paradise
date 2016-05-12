@@ -25,6 +25,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable
 	level = 1
 	anchored =1
+	on_blueprints = TRUE
 	var/datum/powernet/powernet
 	name = "power cable"
 	desc = "A flexible superconducting cable for heavy-duty power transfer"
@@ -437,10 +438,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	loc = null
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
-	spawn(0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
-		if(O && !qdeleted(O))
-			var/datum/powernet/newPN = new()// creates a new powernet...
-			propagate_network(O, newPN)//... and propagates it to the other side of the cable
+	// queue it to rebuild
+	deferred_powernet_rebuilds += O
 
 	// Disconnect machines connected to nodes
 	if(d1 == 0) // if we cut a node (O-X) cable

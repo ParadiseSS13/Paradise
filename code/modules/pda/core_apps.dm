@@ -5,13 +5,13 @@
 
 /datum/data/pda/app/main_menu/update_ui(mob/user as mob, list/data)
 	title = pda.name
-	
+
 	data["app"]["is_home"] = 1
-	
+
 	data["apps"] = pda.shortcut_cache
 	data["categories"] = pda.shortcut_cat_order
 	data["pai"] = !isnull(pda.pai)				// pAI inserted?
-	
+
 	var/list/notifying[0]
 	for(var/P in pda.notifying_programs)
 		notifying["\ref[P]"] = 1
@@ -72,7 +72,7 @@
 
 /datum/data/pda/app/manifest/update_ui(mob/user as mob, list/data)
 	data_core.get_manifest_json()
-	data["manifest"] = list("__json_cache" = ManifestJSON)
+	data["manifest"] = PDA_Manifest
 
 /datum/data/pda/app/manifest/Topic(href, list/href_list)
 

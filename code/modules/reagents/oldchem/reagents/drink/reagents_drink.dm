@@ -201,12 +201,9 @@
 	..()
 	return
 
-/datum/reagent/drink/coffee/overdose_process(var/mob/living/M as mob)
+/datum/reagent/drink/coffee/overdose_process(var/mob/living/M as mob, severity)
 	if(volume > 45)
 		M.Jitter(5)
-
-	..()
-	return
 
 /datum/reagent/drink/coffee/icecoffee
 	name = "Iced Coffee"

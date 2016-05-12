@@ -40,7 +40,7 @@
 	seed_name = "ghost pepper"
 	display_name = "ghost pepper plants"
 	mutants = null
-	chems = list("capsaicin" = list(8,2), "condensedcapsaicin" = list(4,4), "plantmatter" = list(1,50))
+	chems = list("capsaicin" = list(8,2), "condensedcapsaicin" = list(4,4), "ghostchilijuice" = list(4,4), "plantmatter" = list(1,50))
 	kitchen_tag = "ghostchili"
 	preset_icon = "ghostchilipepper"
 
@@ -367,6 +367,26 @@
 	..()
 	set_trait(TRAIT_RARITY,40)
 
+/datum/seed/ambrosia/cruciatus
+	name = "ambrosia"
+	seed_name = "ambrosia vulgaris"
+	display_name = "ambrosia vulgaris"
+	mutants = null
+	chems = list("plantmatter" = list(1), "thc" = list(1,8), "silver_sulfadiazine" = list(1,8,1), "styptic_powder" = list(1,10,1), "bath salts" = list(10))
+	kitchen_tag = "ambrosia"
+	preset_icon = "ambrosiavulgaris"
+
+/datum/seed/ambrosia/cruciatus/New()
+	..()
+	set_trait(TRAIT_HARVEST_REPEAT,1)
+	set_trait(TRAIT_MATURATION,6)
+	set_trait(TRAIT_PRODUCTION,6)
+	set_trait(TRAIT_YIELD,6)
+	set_trait(TRAIT_POTENCY,10)
+	set_trait(TRAIT_PRODUCT_ICON,"ambrosia")
+	set_trait(TRAIT_PRODUCT_COLOUR,"#9FAD55")
+	set_trait(TRAIT_PLANT_ICON,"ambrosia")
+
 //Tobacco/varieties
 /datum/seed/tobacco
 	name = "tobacco"
@@ -493,7 +513,7 @@
 	seed_noun = "spores"
 	display_name = "chanterelle mushrooms"
 	mutants = list("reishi","amanita","plumphelmet")
-	chems = list("plantmatter" = list(1,25), "fungus" = list(1,10))
+	chems = list("plantmatter" = list(1,25))
 	splat_type = /obj/effect/plant
 	kitchen_tag = "mushroom"
 	preset_icon = "chanterelle"
@@ -514,6 +534,7 @@
 	seed_name = "brown mold"
 	display_name = "brown mold"
 	mutants = null
+	chems = list("fungus" = list(1,10))
 
 /datum/seed/mushroom/mold/New()
 	..()

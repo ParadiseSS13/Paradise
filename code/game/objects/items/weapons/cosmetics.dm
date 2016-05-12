@@ -91,14 +91,15 @@
 /obj/item/weapon/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/head/C = H.organs_by_name["head"]
+		var/datum/robolimb/robohead = all_robolimbs[C.model]
 		if(user.zone_sel.selecting == "mouth")
 			if(!get_location_accessible(H, "mouth"))
 				to_chat(user, "<span class='warning'>The mask is in the way.</span>")
 				return
-			if(H.species && H.species.flags & ALL_RPARTS) //If the target is of a species that can have prosthetic heads, but doesn't have one...
-				if(!H.client.prefs.rlimb_data["head"])
-					to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of facial hair.</span>")
-					return
+			if((H.species && H.species.flags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
+				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of facial hair.</span>")
+				return
 			if(H.f_style == "Shaved")
 				to_chat(user, "<span class='notice'>Already clean-shaven.</span>")
 				return
@@ -127,10 +128,9 @@
 			if(!get_location_accessible(H, "head"))
 				to_chat(user, "<span class='warning'>The headgear is in the way.</span>")
 				return
-			if(H.species && H.species.flags & ALL_RPARTS) //If the target is of a species that can have prosthetic heads, but doesn't have one...
-				if(!H.client.prefs.rlimb_data["head"])
-					to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of hair.</span>")
-					return
+			if((H.species && H.species.flags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
+				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of hair.</span>")
+				return
 			if(H.h_style == "Bald" || H.h_style == "Balding Hair" || H.h_style == "Skinhead")
 				to_chat(user, "<span class='notice'>There is not enough hair left to shave...</span>")
 				return

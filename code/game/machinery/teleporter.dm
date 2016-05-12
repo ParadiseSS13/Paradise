@@ -123,7 +123,7 @@
 		power_station.teleporter_hub.calibrated = 0
 		set_target(usr)
 		nanomanager.update_uis(src)
-	if(href_list["locked"])
+	if(href_list["lock"])
 		power_station.engaged = 0
 		power_station.teleporter_hub.update_icon()
 		power_station.teleporter_hub.calibrated = 0

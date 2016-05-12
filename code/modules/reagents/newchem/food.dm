@@ -10,8 +10,10 @@ datum/reagent/questionmark/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
 		return
 	if(method == INGEST)
+		M.Stun(2)
 		M.Weaken(2)
 		to_chat(M, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
+		M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 
 datum/reagent/egg
 	name = "Egg"
@@ -175,15 +177,12 @@ datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
 	metabolization_rate = 0.2
 	overdose_threshold = 133
 
-datum/reagent/porktonium/overdose_process(var/mob/living/M as mob)
-	if(volume > 133)
-		if(prob(15))
-			M.reagents.add_reagent("cholesterol", rand(1,3))
-		if(prob(8))
-			M.reagents.add_reagent("radium", 15)
-			M.reagents.add_reagent("cyanide", 10)
-	..()
-	return
+/datum/reagent/porktonium/overdose_process(var/mob/living/M as mob, severity)
+	if(prob(15))
+		M.reagents.add_reagent("cholesterol", rand(1,3))
+	if(prob(8))
+		M.reagents.add_reagent("radium", 15)
+		M.reagents.add_reagent("cyanide", 10)
 
 /datum/reagent/fungus
 	name = "Space fungus"
@@ -202,6 +201,7 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 			M.reagents.add_reagent("toxin", rand(1,5))
 		else if(ranchance <= 5)
 			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
+			M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 		else
 			to_chat(M, "<span class='warning'>Yuck!</span>")
 
@@ -283,11 +283,10 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	color = "#B2B139"
 	overdose_threshold = 50
 
-/datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob)
+/datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob, severity)
 	if(prob(8))
 		to_chat(M, "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>")
 		M.adjustToxLoss(rand(1,2))
-	..()
 
 /datum/reagent/weird_cheese
 	name = "Weird cheese"
@@ -442,7 +441,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	..()
 	return
 
-/datum/reagent/hydrogenated_soybeanoil/overdose_process(var/mob/living/M as mob)
+/datum/reagent/hydrogenated_soybeanoil/overdose_process(var/mob/living/M as mob, severity)
 	if(prob(33))
 		to_chat(M, "<span class='warning'>You feel horribly weak.</span>")
 	if(prob(10))
@@ -453,7 +452,6 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 		M.adjustOxyLoss(25)
 		M.Stun(5)
 		M.Paralyse(10)
-	..()
 
 /datum/chemical_reaction/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"
@@ -602,4 +600,45 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 			var/mob/living/carbon/human/H = M
 			if(!H.heart_attack)
 				H.heart_attack = 1
+	..()
+
+/datum/reagent/ghost_chili_juice
+	name = "Ghost chili juice"
+	id = "ghostchilijuice"
+	description = "Juice from the universe's hottest chilli. Do not consume."
+	reagent_state = LIQUID
+	color = "#FF7F32"
+
+/datum/reagent/ghost_chili_juice/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(M.reagents.has_reagent("milk"))
+		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
+		M.reagents.del_reagent("milk")
+		M.reagents.del_reagent("ghostchilijuice")
+		return
+	if(prob(8))
+		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
+	if(prob(50))
+		to_chat(M, "<span class='danger'>Your throat burns furiously!</span>")
+		M.emote(pick("scream","cry","choke","gasp"))
+		M.Stun(1)
+	if(prob(8))
+		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
+	if(prob(8))
+		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
+	if(prob(33))
+		M.visible_message("<span class='danger'>[M] suddenly and violently vomits!</span>")
+		M.fakevomit(no_text = 1)
+		to_chat(M, "<span class='notice'>Thank goodness. You're not sure how long you could have held out with heat that intense!</span>")
+		M.reagents.del_reagent("ghostchilijuice")
+		return
+	if(prob(10))
+		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</span>")
+		if(M.on_fire)
+			M.adjust_fire_stacks(5)
+		if(prob(50))
+			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
+			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
+			M.dust()
+			return
 	..()
