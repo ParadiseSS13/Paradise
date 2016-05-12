@@ -103,7 +103,8 @@ RCD
 					if(useResource(1, user))
 						to_chat(user, "Building Floor...")
 						activate()
-						A:ChangeTurf(/turf/simulated/floor/plating)
+						var/turf/AT = A
+						AT.ChangeTurf(/turf/simulated/floor/plating)
 						return 1
 					return 0
 
@@ -114,7 +115,8 @@ RCD
 						if(do_after(user, 20, target = A))
 							if(!useResource(3, user)) return 0
 							activate()
-							A:ChangeTurf(/turf/simulated/wall)
+							var/turf/AT = A
+							AT.ChangeTurf(/turf/simulated/wall)
 							return 1
 					return 0
 
@@ -142,7 +144,8 @@ RCD
 						if(do_after(user, 40, target = A))
 							if(!useResource(5, user)) return 0
 							activate()
-							A:ChangeTurf(/turf/simulated/floor/plating)
+							var/turf/AT = A
+							AT.ChangeTurf(/turf/simulated/floor/plating)
 							return 1
 					return 0
 
@@ -153,7 +156,8 @@ RCD
 						if(do_after(user, 50, target = A))
 							if(!useResource(5, user)) return 0
 							activate()
-							A:ChangeTurf(/turf/space)
+							var/turf/AT = A
+							AT.ChangeTurf(/turf/space)
 							return 1
 					return 0
 
@@ -236,7 +240,8 @@ RCD
 						else // Build a window!
 							var/obj/structure/window/reinforced/W = new(A)
 							W.dir = cdir
-					A:ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
+					var/turf/AT = A
+					AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
 					return 1
 			else
 				to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
