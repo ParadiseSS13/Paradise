@@ -5,8 +5,12 @@
 #define SPINNING_COCOON 4
 
 
-var/global/list/spider_ckey_blacklist = list()
-
+var/global/list/ts_ckey_blacklist = list()
+var/global/ts_count_dead = 0
+var/global/ts_count_alive_awaymission = 0
+var/global/ts_count_alive_station = 0
+var/global/ts_death_last = 0
+var/global/ts_death_window = 9000 // 15 minutes
 
 //
 // --------------------------------------------------------------------------------
@@ -43,9 +47,16 @@ var/global/list/spider_ckey_blacklist = list()
 	move_to_delay = 6
 	turns_per_move = 5
 	pass_flags = PASSTABLE
-	ventcrawler = 1
-	var/lastventcrawltime = 0 // tracks the last world.time that the spider ventcrawled, used to prevent excessive crawling.
-	var/minventcrawlfrequency = 600 // only permit one crawl attempt per 60 seconds. Deciseconds are annoying.
+
+	// Ventcrawling
+	ventcrawler = 1 // allows player ventcrawling
+	var/last_ventcrawl_time = 0 // tracks the last world.time that the spider ventcrawled, used to prevent excessive crawling.
+	var/freq_ventcrawl_combat = 1800 // 3 minutes
+	var/freq_ventcrawl_idle =  9000 // 15 minutes
+	var/ai_ventcrawls = 1
+	var/idle_ventcrawl_chance = 3 // default 3% chance to ventcrawl when not in combat to a random exit vent
+
+	// AI movement tracking
 	var/spider_steps_taken = 0 // leave at 0, its a counter for ai steps taken.
 	var/spider_max_steps = 15 // after we take X turns trying to do something, give up!
 
@@ -83,23 +94,26 @@ var/global/list/spider_ckey_blacklist = list()
 	vision_type = new /datum/vision_override/nightvision/thermals/ling_augmented_eyesight
 	see_invisible = 5
 
-	// AI global defaults
+	// AI aggression settings
 	var/ai_type = 0 // 0 = aggressive to everyone, 1 = defends self only, 2 = passive, you can butcher it like a sheep
+
+	// AI player control by ghosts
 	var/ai_playercontrol_allowingeneral = 1 // if 0, no spiders are player controllable. Default set in code, can be changed by queens.
 	var/ai_playercontrol_allowtype = 1 // if 0, this specific class of spider is not player-controllable. Default set in code for each class, cannot be changed.
-	var/ai_ventcrawls = 1
-	var/idle_ventcrawl_chance = 3 // default 3% chance to ventcrawl when not in combat to a random exit vent
-	var/ai_breaks_lights = 1
-	var/ai_breaks_cameras = 1
-	var/idle_breakstuff_chance = 10
-	var/ai_spins_webs = 1
-	var/idle_spinwebs_chance = 5
-	var/ai_cocoons_objects = 0
+
+	var/ai_break_lights = 1 // AI lightbreaking behavior
+	var/freq_break_light = 600 // one minute
+	var/last_break_light = 0 // leave this, changed by procs.
+
+	var/player_breaks_cameras = 1  // Toggle for players breaking cameras
+
+	var/ai_spins_webs = 1 // AI web-spinning behavior
+	var/idle_spinwebs_chance = 3
+
+	var/ai_cocoons_objects = 0 // AI object coccooning behavior, only used by greens
 	var/idle_cocoon_chance = 10
-	var/ai_guards_queen = 0 // for purples
-	var/ai_hides_in_vents = 0 // for grays only
-	var/ai_randomly_opens_adjacent_doors = 1
-	var/idle_door_chance = 5
+
+	var/ai_hides_in_vents = 0 // AI vent hiding behavior, only used by purples.
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
@@ -127,6 +141,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/list/spider_special_drops = list()
 	var/attackstep = 0
 	var/attackcycles = 0
+	var/spider_myqueen = null
 
 	// Breathing, Pressure & Fire
 	// - No breathing / cannot be suffocated (spiders can hold their breath, look it up)
@@ -295,7 +310,7 @@ var/global/list/spider_ckey_blacklist = list()
 	else if (istype(target, /obj/effect/spider/cocoon))
 		to_chat(src, "Destroying our own cocoons would not help us.")
 	else if (istype(target, /obj/machinery/camera))
-		if (ai_breaks_cameras)
+		if (player_breaks_cameras)
 			var/obj/machinery/camera/C = target
 			if (C.status)
 				do_attack_animation(C)
@@ -625,6 +640,9 @@ var/global/list/spider_ckey_blacklist = list()
 					ai_ventcrawls = 0
 					spider_placed = 1
 					wander = 0
+			ts_count_alive_awaymission++
+		else
+			ts_count_alive_station++
 		// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
 		spawn(300) // deciseconds!
 			if ("neutral" in faction)
@@ -671,12 +689,24 @@ var/global/list/spider_ckey_blacklist = list()
 	if (!hasdroppedloot)
 		hasdroppedloot = 1
 		droploot()
+		if (ts_count_dead == 0)
+			visible_message("<span class='userdanger'>The Terrors have awoken!</span>")
+		ts_count_dead++
+		ts_death_last = world.time
+		if (spider_awaymission)
+			ts_count_alive_awaymission--
+		else
+			ts_count_alive_station--
 	..()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/handle_automated_action()
 	if(!stat && !ckey) // if we are not dead, and we're not player controlled
 		if(AIStatus != AI_OFF && !target)
+			var/my_ventcrawl_freq = freq_ventcrawl_idle
+			if (ts_count_dead > 0)
+				if (world.time < (ts_death_last + ts_death_window))
+					my_ventcrawl_freq = freq_ventcrawl_combat
 			if (cocoon_target)
 				if(get_dist(src, cocoon_target) <= 1)
 					spider_steps_taken = 0
@@ -720,38 +750,25 @@ var/global/list/spider_ckey_blacklist = list()
 							visible_message("<span class='notice'>\the [src] moves towards the vent [entry_vent].</span>")
 				else
 					path_to_vent = 0
-			else if (ai_guards_queen && prob(25))
-				var/foundqueen = 0
-				for(var/mob/living/H in view(src, 6))
-					if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/queen))
-						foundqueen = 1
+			else if (istype(src,/mob/living/simple_animal/hostile/poison/terror_spider/purple) && prob(5))
+				if (spider_myqueen)
+					var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
+					if (Q.health > 0 && !Q.ckey)
+						if (get_dist(src,Q) > 15 || z != Q.z)
+							if (!degenerate && !Q.degenerate)
+								degenerate = 1
+								Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
+								//visible_message("<span class='notice'> [src] chitters in the direction of [Q]!</span>")
+			else if (ai_break_lights && world.time > (last_break_light + freq_break_light))
+				last_break_light = world.time
+				for(var/obj/machinery/light/L in range(1,src))
+					if (!L.status) // This assumes status == 0 means light is OK, which it does, but ideally we'd use lights' own constants.
+						step_to(src,L) // one-time, does not require step tracking
+						L.on = 1
+						L.broken()
+						L.do_attack_animation(src)
+						visible_message("<span class='danger'>\the [src] smashes the [L.name].</span>")
 						break
-				if (!foundqueen)
-					for(var/mob/living/H in range(src, 25))
-						if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/queen))
-							step_to(src,H,20) // not one time, but we REALLY want it to happen, so no step tracking
-							stop_automated_movement = 1
-							DestroySurroundings()
-							break
-			else if ((ai_breaks_lights || ai_breaks_cameras) && prob(idle_breakstuff_chance))
-				if (ai_breaks_lights)
-					for(var/obj/machinery/light/L in range(1,src))
-						if (!L.status) // This assumes status == 0 means light is OK, which it does, but ideally we'd use lights' own constants.
-							step_to(src,L) // one-time, does not require step tracking
-							L.on = 1
-							L.broken()
-							L.do_attack_animation(src)
-							visible_message("<span class='danger'>\the [src] smashes the [L.name].</span>")
-							break
-				if (ai_breaks_cameras)
-					for(var/obj/machinery/camera/C in range(1,src))
-						if (C.status)
-							step_to(src,C) // one time, does not require step tracking
-							do_attack_animation(C)
-							C.toggle_cam(src,0)
-							visible_message("<span class='danger'>\the [src] smashes the [C.name].</span>")
-							playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
-							break
 			else if (ai_spins_webs && prob(idle_spinwebs_chance))
 				var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
 				if (T)
@@ -804,7 +821,10 @@ var/global/list/spider_ckey_blacklist = list()
 									var/list/g_turfs_visible = ListVisibleTurfs()
 									if (g_turfs_visible.len >= 12)
 										// So long as the room isn't tiny, and it has no queen in it, sure, settle there
+										// since we are settled now, disable most AI behaviors so we don't waste CPU.
 										ai_ventcrawls = 0
+										ai_spins_webs = 0
+										ai_break_lights = 0
 										visible_message("<span class='notice'> [src] finishes setting up its trap in [get_area(src)].</span>")
 							else
 								var/list/g_turfs_valid = ListValidTurfs()
@@ -835,7 +855,7 @@ var/global/list/spider_ckey_blacklist = list()
 						if (get_dist(src,temp_vent) > 0 && get_dist(src,temp_vent) < 5)
 							step_to(src,temp_vent)
 							// if you're bumped off your vent, try to get back to it
-			else if (ai_ventcrawls && world.time > (lastventcrawltime + minventcrawlfrequency))
+			else if (ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 				if (prob(idle_ventcrawl_chance))
 					var/vdistance = 99
 					for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
@@ -845,22 +865,26 @@ var/global/list/spider_ckey_blacklist = list()
 								vdistance = get_dist(src,v)
 					if(entry_vent)
 						path_to_vent = 1
-						lastventcrawltime = world.time
-			else if (ai_randomly_opens_adjacent_doors && prob(idle_door_chance))
-				for(var/obj/machinery/door/airlock/A in view(1,src))
-					if (A.density)
-						try_open_airlock(A)
+						last_ventcrawl_time = world.time
 		else if (AIStatus != AI_OFF && target)
-			var/tgt_dir = get_dir(src,target)
-			for(var/obj/machinery/door/firedoor/F in view(1,src))
-				if (tgt_dir == get_dir(src,F) && F.density && !F.blocked)
-					visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
-					F.open()
-			if (spider_opens_doors)
-				for(var/obj/machinery/door/airlock/A in view(1,src))
-					if (tgt_dir == get_dir(src,A) && A.density)
-						try_open_airlock(A)
+			if (prob(30))
+				var/tgt_dir = get_dir(src,target)
+				for(var/obj/machinery/door/firedoor/F in view(1,src))
+					if (tgt_dir == get_dir(src,F) && F.density && !F.blocked)
+						visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
+						F.open()
+				if (spider_opens_doors)
+					for(var/obj/machinery/door/airlock/A in view(1,src))
+						if (tgt_dir == get_dir(src,A) && A.density)
+							try_open_airlock(A)
 	..()
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Bump(atom/user)
+	if(istype(user, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = user
+		if (A.density)
+			try_open_airlock(A)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ClearObstacle(var/turf/target_turf)
 	DestroySurroundings()
@@ -1054,7 +1078,7 @@ var/global/list/spider_ckey_blacklist = list()
 		to_chat(src, "The door is bolted shut.")
 	else if (D.operating)
 	else if ( (!istype(D.req_access) || !D.req_access.len) && (!istype(D.req_one_access) || !D.req_one_access.len) && (D.req_access_txt == "0") && (D.req_one_access_txt == "0") )
-		visible_message("<span class='danger'>\the [src] opens the public-access door [D]!</span>")
+		//visible_message("<span class='danger'>\the [src] opens the public-access door [D]!</span>")
 		D.open(1)
 	else if (D.arePowerSystemsOn() && (spider_opens_doors != 2))
 		to_chat(src, "The door's motors resist your efforts to force it.")
@@ -1124,7 +1148,7 @@ var/global/list/spider_ckey_blacklist = list()
 	else if (ai_type == 2)
 		humanize_prompt += "Orders: PASSIVE/TAME. "
 	humanize_prompt += "Role: " + spider_role_summary
-	if (user.ckey in spider_ckey_blacklist)
+	if (user.ckey in ts_ckey_blacklist)
 		error_on_humanize = "You are not able to control any terror spider this round."
 	else if (!ai_playercontrol_allowingeneral)
 		error_on_humanize = "Terror spiders cannot currently be player-controlled."
@@ -1452,7 +1476,7 @@ var/global/list/spider_ckey_blacklist = list()
 		qdel(src)
 	else if (spider_tier >= 3)
 		to_chat(src, "Your type of spider is too important to the round to be allowed to suicide. Instead, you will be ghosted, and the spider controlled by AI.")
-		spider_ckey_blacklist += ckey
+		ts_ckey_blacklist += ckey
 		ghostize()
 		ckey = null
 	else
@@ -1464,10 +1488,11 @@ var/global/list/spider_ckey_blacklist = list()
 				if (spider_tier == 2)
 					S.grow_as = src.type
 				S.faction = faction
+				S.spider_myqueen = spider_myqueen
 				S.master_commander = master_commander
 				S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 				S.enemies = enemies
-				spider_ckey_blacklist += ckey
+				ts_ckey_blacklist += ckey
 				loot = 0
 				death()
 				gib()
@@ -1560,9 +1585,19 @@ var/global/list/spider_ckey_blacklist = list()
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	spider_tier = 2
 
-	ai_guards_queen = 1
 	ai_ventcrawls = 0
 
+
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/death(gibbed)
+	if (spider_myqueen)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
+		if (Q.health > 0 && !Q.ckey)
+			if (get_dist(src,Q) > 20)
+				if (!degenerate && !Q.degenerate)
+					degenerate = 1
+					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
+					visible_message("<span class='notice'> [src] chitters in the direction of [Q]!</span>")
+	..()
 
 
 // --------------------------------------------------------------------------------
@@ -1594,9 +1629,9 @@ var/global/list/spider_ckey_blacklist = list()
 	environment_smash = 1
 	wander = 0 // wandering defeats the purpose of stealth
 	idle_vision_range = 3 // very low idle vision range
-	ai_spins_webs = 0
 	ai_hides_in_vents = 1
 	vision_type = null // prevent them seeing through walls when doing AOE web.
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/adjustBruteLoss(var/damage)
 	..(damage)
@@ -1846,9 +1881,6 @@ var/global/list/spider_ckey_blacklist = list()
 	ai_ventcrawls = 0 // no override, never ventcrawls. Ever.
 	idle_ventcrawl_chance = 0
 
-	ai_breaks_lights = 1
-	ai_breaks_cameras = 1
-
 	spider_tier = 3
 	spider_opens_doors = 2
 
@@ -1887,14 +1919,11 @@ var/global/list/spider_ckey_blacklist = list()
 
 	var/canlay = 0 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/spider_can_hallucinate = 5 // single target hallucinate, atmosphere
-	var/spider_can_screech = 1 // wide-area 20% chance to break lights, atmosphere
+	var/spider_can_screech = 2 // breaks lights, cameras. Used on nesting, and before war.
 	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere
 
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
-
-	ai_breaks_lights = 1
-	ai_breaks_cameras = 1
 
 	ranged = 1
 	retreat_distance = 5
@@ -1910,6 +1939,7 @@ var/global/list/spider_ckey_blacklist = list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
+	spider_myqueen = src
 	if (spider_awaymission)
 		spider_growinstantly = 1
 		spider_spawnfrequency = 150
@@ -1947,14 +1977,7 @@ var/global/list/spider_ckey_blacklist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/handle_automated_action()
 	..()
 	if(!stat && !ckey && AIStatus != AI_OFF && !target && !path_to_vent)
-		if (neststep >= 1 && prob(33))
-			if (get_dist(src,nest_vent) > 6)
-				spider_steps_taken++
-				step_to(src,nest_vent)
-				visible_message("<span class='notice'>\the [src] retreats towards her nest.</span>")
-			else if (get_dist(src,nest_vent) <= 6)
-				spider_steps_taken = 0
-		else if (neststep == 0)
+		if (neststep == 0)
 			// we have no nest :(
 			var/ok_to_nest = 1
 			var/area/new_area = get_area(loc)
@@ -1995,16 +2018,7 @@ var/global/list/spider_ckey_blacklist = list()
 		else if (neststep == 1)
 			if (world.time > (lastnestsetup + nestfrequency))
 				lastnestsetup = world.time
-				visible_message("<span class='danger'>\the [src] emits a bone-chilling shriek that shatters nearby glass!</span>")
-				for(var/obj/machinery/light/L in range(7,src))
-					L.on = 1
-					L.broken()
-				for(var/obj/machinery/camera/C in range(7,src))
-					if (C.status)
-						C.toggle_cam(src,0)
-						//C.icon_state = "[initial(C.icon_state)]1"
-						//C.add_hiddenprint(src)
-
+				DoQueenScreech(8,100,8,100)
 				neststep = 2
 		else if (neststep == 2)
 			if (world.time > (lastnestsetup + nestfrequency))
@@ -2066,8 +2080,7 @@ var/global/list/spider_ckey_blacklist = list()
 				spider_lastspawn = world.time
 				// go hostile, EXTERMINATE MODE.
 				SetHiveCommand(0,15,1) // AI=0 (attack everyone), ventcrawl=15%/tick, allow player control (ignored for queens in awaymissions)
-				if (spider_can_screech)
-					QueenAttackScreech()
+				DoQueenScreech(20,50,15,100)
 				var/numspiders = CountSpiders()
 				if (numspiders < spider_max_per_nest)
 					if (prob(33))
@@ -2140,7 +2153,7 @@ var/global/list/spider_ckey_blacklist = list()
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = killtarget
 		if (T.ckey)
 			// living player
-			spider_ckey_blacklist += T.ckey
+			ts_ckey_blacklist += T.ckey
 		visible_message("<span class='danger'> [src] grabs hold of [T] and tears them limb from limb! </span>")
 		T.death()
 		T.gib()
@@ -2243,24 +2256,27 @@ var/global/list/spider_ckey_blacklist = list()
 	else
 		to_chat(src, "You have run out of uses of this ability.")
 
-
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/verb/QueenAttackScreech()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/verb/VerbQueenScreech()
 	set name = "Queen Screech"
 	set category = "Spider"
-	set desc = "Emit horrendusly loud screech which has a 25% chance to break lights over a huge radius. Good for using just before you order an attack with HiveCommand. Can only be used once!"
+	set desc = "Emit horrendusly loud screech which breaks all nearby cameras and most nearby lights. Can only be used twice!"
 	if (spider_can_screech)
 		spider_can_screech--
-		for(var/obj/machinery/light/L in orange(40,src))
-			if (prob(25))
-				L.on = 1
-				L.broken()
-		//for(var/obj/machinery/camera/C in orange(14,src))
-		//	if (C.status)
-		//		//C.icon_state = "[initial(C.icon_state)]1"
-		//		//C.add_hiddenprint(src)
-		//		C.toggle_cam(src,0)
+		DoQueenScreech(15,50,10,100)
 	else
-		to_chat(src, "You have already used your screech.")
+		src << "You have run out of uses of this ability."
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(var/light_range, var/light_chance, var/camera_range, var/camera_chance)
+	visible_message("<span class='userdanger'>\the [src] emits a bone-chilling shriek!</span>")
+	for(var/obj/machinery/light/L in orange(light_range,src))
+		if (prob(light_chance))
+			L.on = 1
+			L.broken()
+	for(var/obj/machinery/camera/C in orange(camera_range,src))
+		if (C.status && prob(camera_chance))
+			C.toggle_cam(src,0)
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/verb/QueenFakeLings()
 	set name = "Fake Spiderlings"
@@ -2492,7 +2508,7 @@ var/global/list/spider_ckey_blacklist = list()
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = killtarget
 		if (T.ckey)
 			// living player
-			spider_ckey_blacklist += T.ckey
+			ts_ckey_blacklist += T.ckey
 		to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
 		T.death()
 		T.gib()
@@ -2525,6 +2541,7 @@ var/global/list/spider_ckey_blacklist = list()
 	for(var/i=0, i<numlings, i++)
 		var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
 		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/white, /mob/living/simple_animal/hostile/poison/terror_spider/black)
+		S.spider_myqueen = spider_myqueen
 		if (prob(sbpc))
 			S.stillborn = 1
 		if (spider_growinstantly)
@@ -2542,6 +2559,7 @@ var/global/list/spider_ckey_blacklist = list()
 	C.spiderling_number = lay_number
 	C.spiderling_ventcrawl = lay_crawl
 	C.faction = faction
+	C.spider_myqueen = spider_myqueen
 	C.master_commander = master_commander
 	C.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 	C.enemies = enemies
@@ -2576,6 +2594,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/spider_growinstantly = 0
 	var/spider_queen_declared_war = 0 // set to 1 by procs
 	var/faction = list("terrorspiders")
+	var/spider_myqueen = null
 	var/master_commander = null
 	var/spiderling_type = null
 	var/spiderling_number = 1
@@ -2613,6 +2632,7 @@ var/global/list/spider_ckey_blacklist = list()
 			else if (S.grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/white")
 				S.name = "white spiderling"
 			S.faction = faction
+			S.spider_myqueen = spider_myqueen
 			S.master_commander = master_commander
 			S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 			S.enemies = enemies
@@ -2642,6 +2662,7 @@ var/global/list/spider_ckey_blacklist = list()
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
 	var/faction = list("terrorspiders")
+	var/spider_myqueen = null
 	var/master_commander = null
 	var/use_vents = 1
 	var/ai_playercontrol_allowingeneral = 1
@@ -2738,6 +2759,7 @@ var/global/list/spider_ckey_blacklist = list()
 					grow_as = pick("/mob/living/simple_animal/hostile/poison/terror_spider/red","/mob/living/simple_animal/hostile/poison/terror_spider/gray","/mob/living/simple_animal/hostile/poison/terror_spider/green")
 				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
 				S.faction = faction
+				S.spider_myqueen = spider_myqueen
 				S.master_commander = master_commander
 				S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 				S.enemies = enemies
