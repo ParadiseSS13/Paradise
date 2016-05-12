@@ -170,9 +170,6 @@
 	if(mob.stat==DEAD)	return
 
 // handle possible spirit movement
-	if(istype(mob,/mob/spirit))
-		var/mob/spirit/currentSpirit = mob
-		return currentSpirit.Spirit_Move(direct)
 
 	if(mob.notransform)	return//This is sota the goto stop mobs from moving var
 

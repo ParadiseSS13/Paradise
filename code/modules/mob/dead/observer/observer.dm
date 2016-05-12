@@ -221,17 +221,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(mind.current.key && copytext(mind.current.key,1,2)!="@")	//makes sure we don't accidentally kick any clients
 		to_chat(usr, "<span class='warning'>Another consciousness is in your body...It is resisting you.</span>")
 		return
-	if(mind.current.ajourn && mind.current.stat != DEAD) 	//check if the corpse is astral-journeying (it's client ghosted using a cultist rune).
-		var/turf/T = get_turf(mind.current)
-		var/found_astral_rune = 0
-		if(T)
-			for(var/obj/effect/rune/R in T.contents)	//whilst corpse is alive, we can only reenter the body if it's on the rune
-				if(R.word1 == cultwords["hell"] && R.word2 == cultwords["travel"] && R.word3 == cultwords["self"])	//astral journeying rune
-					found_astral_rune = 1
-					break
-		if(!found_astral_rune)
-			to_chat(usr, "<span class='warning'>The astral cord that ties your body and your spirit has been severed. You are likely to wander the realm beyond until your body is finally dead and thus reunited with you.</span>")
-			return
 
 	mind.current.ajourn=0
 	mind.current.key = key

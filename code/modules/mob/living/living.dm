@@ -333,7 +333,7 @@
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 		C.update_inv_legcuffed()
-		
+
 		if(C.reagents)
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
@@ -683,7 +683,7 @@
 
 /mob/living/narsie_act()
 	if(client)
-		makeNewConstruct(/mob/living/simple_animal/construct/harvester, src, null, 1)
+		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, null, 1)
 	spawn_dust()
 	gib()
 	return

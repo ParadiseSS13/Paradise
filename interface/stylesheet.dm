@@ -101,6 +101,10 @@ h1.alert, h2.alert		{color: #000000;}
 .sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .grey					{font-family: "Wingdings", cursive, sans-serif;}
 .cultspeech				{color: #7F0000; font-style: italic;}
+.cult					{color: #960000;}
+.cultitalic				{color: #960000;	font-style: italic;}
+.cultlarge				{color: #960000; font-weight: bold; font-size: 3;}
+.narsie					{color: #960000; font-weight: bold; font-size: 15;}
 
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 

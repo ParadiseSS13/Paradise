@@ -59,6 +59,27 @@
 	var/boltUp = 'sound/machines/BoltsUp.ogg'
 	var/boltDown = 'sound/machines/BoltsDown.ogg'
 
+
+/obj/machinery/door/airlock/narsie_act()
+	var/turf/T = get_turf(src)
+	var/runed = prob(20)
+	if(prob(20))
+		if(glass)
+			if(runed)
+				new /obj/machinery/door/airlock/cult/glass(T)
+			else
+				new /obj/machinery/door/airlock/cult/unruned/glass(T)
+		else
+			if(runed)
+				new /obj/machinery/door/airlock/cult(T)
+			else
+				new /obj/machinery/door/airlock/cult/unruned(T)
+		if(runed)
+			new /obj/effect/overlay/temp/cult/door(T)
+		else
+			new /obj/effect/overlay/temp/cult/door/unruned(T)
+		qdel(src)
+
 /obj/machinery/door/airlock/command
 	name = "Airlock"
 	icon = 'icons/obj/doors/Doorcom.dmi'
@@ -1067,3 +1088,31 @@ About the new airlock wires panel:
 		src.open()
 		src.lock()
 	return
+
+
+//////////////////////////////////
+/*
+	Cult Airlocks
+*/
+
+/obj/machinery/door/airlock/cult
+	name = "cult airlock"
+	icon = 'icons/obj/doors/cult_runed.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_cult
+
+/obj/machinery/door/airlock/cult/narsie_act()
+	return
+
+/obj/machinery/door/airlock/cult/glass
+	assembly_type = /obj/structure/door_assembly/door_assembly_cult/glass
+	glass = 1
+	opacity = 0
+
+/obj/machinery/door/airlock/cult/unruned
+	icon = 'icons/obj/doors/cult.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_cult/unruned
+
+/obj/machinery/door/airlock/cult/unruned/glass
+	assembly_type = /obj/structure/door_assembly/door_assembly_cult/unruned/glass
+	glass = 1
+	opacity = 0

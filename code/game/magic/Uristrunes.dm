@@ -6,14 +6,13 @@ var/list/word_to_uristrune_table = null
 		word_to_uristrune_table = list()
 
 		var/bit = 1
-		var/list/words = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "mgar", "balaq", "karazet", "geeri")
 
-		while(length(words))
-			var/w = pick(words)
+		while(length(word))
+			var/w = word
 
 			word_to_uristrune_table[w] = bit
 
-			words -= w
+			word -= w
 			bit <<= 1
 
 
@@ -21,39 +20,15 @@ var/list/word_to_uristrune_table = null
 
 
 
-/proc/get_uristrune_cult(word1, word2, word3)
+/proc/get_uristrune_cult(word1)
 	var/animated
 
-	if((word1 == cultwords["travel"] && word2 == cultwords["self"])						\
-	|| (word1 == cultwords["join"] && word2 == cultwords["blood"] && word3 == cultwords["self"])	\
-	|| (word1 == cultwords["hell"] && word2 == cultwords["join"] && word3 == cultwords["self"])	\
-	|| (word1 == cultwords["see"] && word2 == cultwords["blood"] && word3 == cultwords["hell"])	\
-	|| (word1 == cultwords["destroy"] && word2 == cultwords["see"] && word3 == cultwords["technology"])	\
-	|| (word1 == cultwords["travel"] && word2 == cultwords["blood"] && word3 == cultwords["self"])	\
-	|| (word1 == cultwords["see"] && word2 == cultwords["hell"] && word3 == cultwords["join"])		\
-	|| (word1 == cultwords["blood"] && word2 == cultwords["join"] && word3 == cultwords["hell"])	\
-	|| (word1 == cultwords["hide"] && word2 == cultwords["see"] && word3 == cultwords["blood"])	\
-	|| (word1 == cultwords["hell"] && word2 == cultwords["travel"] && word3 == cultwords["self"])	\
-	|| (word1 == cultwords["blood"] && word2 == cultwords["see"] && word3 == cultwords["travel"])	\
-	|| (word1 == cultwords["hell"] && word2 == cultwords["technology"] && word3 == cultwords["join"])	\
-	|| (word1 == cultwords["hell"] && word2 == cultwords["blood"] && word3 == cultwords["join"])	\
-	|| (word1 == cultwords["blood"] && word2 == cultwords["see"] && word3 == cultwords["hide"])	\
-	|| (word1 == cultwords["destroy"] && word2 == cultwords["travel"] && word3 == cultwords["self"])	\
-	|| (word1 == cultwords["travel"] && word2 == cultwords["technology"] && word3 == cultwords["other"])	\
-	|| (word1 == cultwords["join"] && word2 == cultwords["other"] && word3 == cultwords["self"])	\
-	|| (word1 == cultwords["hide"] && word2 == cultwords["other"] && word3 == cultwords["see"])	\
-	|| (word1 == cultwords["destroy"] && word2 == cultwords["see"] && word3 == cultwords["other"])	\
-	|| (word1 == cultwords["destroy"] && word2 == cultwords["see"] && word3 == cultwords["blood"])	\
-	|| (word1 == cultwords["self"] && word2 == cultwords["other"] && word3 == cultwords["technology"])	\
-	|| (word1 == cultwords["travel"] && word2 == cultwords["other"])						\
-	|| (word1 == cultwords["join"] && word2 == cultwords["hide"] && word3 == cultwords["technology"])	)
+	if(word1)
 		animated = 1
 	else
 		animated = 0
 
-	var/bits = word_to_uristrune_bit(word1) \
-			 | word_to_uristrune_bit(word2) \
-			 | word_to_uristrune_bit(word3)
+	var/bits = word_to_uristrune_bit(word1)
 
 	return get_uristrune(bits, animated)
 

@@ -187,6 +187,11 @@
 	if(prob(40))
 		qdel(src)
 
+/obj/structure/girder/narsie_act()
+	if(prob(25))
+		new /obj/structure/cultgirder(loc)
+		qdel(src)
+
 /obj/structure/girder/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/beam))
 		health -= Proj.damage

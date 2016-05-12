@@ -1,10 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /datum/game_mode
-	var/datum/cult_info/cult = pick(subtypesof(/datum/cult))
+	var/datum/cult_info/cultdat = pick(typesof(/datum/cult_info))
 	var/list/datum/mind/cult = list()
-	var/list/allwords = list("travel","self","see","hell","blood","join","tech","destroy", "other", "hide")
-
 
 /proc/iscultist(mob/living/M as mob)
 	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.cult)
@@ -25,6 +23,12 @@
 			return 0
 	return 1
 
+/proc/is_sacrifice_target(datum/mind/mind)
+	if(ticker.mode.name == "cult")
+		var/datum/game_mode/cult/cult_mode = ticker.mode
+		if(mind == cult_mode.sacrifice_target)
+			return 1
+	return 0
 
 /datum/game_mode/cult
 	name = "cult"
@@ -41,7 +45,6 @@
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
 
-	var/list/startwords = list("blood","join","self","hell")
 
 	var/list/objectives = list()
 
@@ -96,7 +99,6 @@
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
-		grant_runeword(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		to_chat(cult_mind.current, "\blue You are a member of the cult!")
 		memorize_cult_objectives(cult_mind)
@@ -112,15 +114,13 @@
 				explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
 			if("sacrifice")
 				if(sacrifice_target)
-					explanation = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (hell blood join) and three acolytes to do so."
+					explanation = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune and three acolytes to do so."
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon [cult.entity_name] via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
+				explanation = "Summon [cultdat.entity_name] via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
-	to_chat(cult_mind.current, "The convert rune is join blood self")
-	cult_mind.memory += "The convert rune is join blood self<BR>"
 
 
 /datum/game_mode/proc/equip_cultist(mob/living/carbon/human/mob)
@@ -149,29 +149,15 @@
 		return 1
 
 
-/datum/game_mode/cult/grant_runeword(mob/living/carbon/human/cult_mob, var/word)
-	if (!word)
-		if(startwords.len > 0)
-			word=pick(startwords)
-			startwords -= word
-	return ..(cult_mob,word)
-
-
-/datum/game_mode/proc/grant_runeword(mob/living/carbon/human/cult_mob, var/word)
-	if(!cultwords["travel"])
-		runerandom()
-	if (!word)
-		word=pick(allwords)
-	var/wordexp = "[cultwords[word]] is [word]..."
-	to_chat(cult_mob, "\red [pick("You remember something from the dark teachings of your master","You hear a dark voice on the wind","Black blood oozes into your vision and forms into symbols","You have a vision of a [pick("crow","raven","vulture","parrot")] it squawks","You catch a brief glimmer of the otherside")]... [wordexp]")
-	cult_mob.mind.store_memory("<B>You remember that</B> [wordexp]", 0, 0)
-
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
 	if (!istype(cult_mind))
 		return 0
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
 		update_cult_icons_added(cult_mind)
+		cult_mind.current.faction |= "cult"
+		var/datum/action/innate/cultcomm/C = new()
+ 		C.Grant(cult_mind.current)
 		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)
@@ -188,8 +174,11 @@
 	if(cult_mind in cult)
 		cult -= cult_mind
 		to_chat(cult_mind.current, "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>")
+		cult_mind.current.faction -= "cult"
 		cult_mind.memory = ""
 		cult_mind.special_role = null
+		for(var/datum/action/innate/cultcomm/C in cult_mind.current.actions)
+			qdel(C)
 
 		update_cult_icons_removed(cult_mind)
 		if(show_message)
@@ -290,10 +279,10 @@
 							feedback_add_details("cult_objective","cult_sacrifice|FAIL|GIBBED")
 				if("eldergod")
 					if(!eldergod)
-						explanation = "Summon [cult.entity_name]. <font color='green'><B>Success!</B></font>"
+						explanation = "Summon [cultdat.entity_name]. <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_narsie|SUCCESS")
 					else
-						explanation = "Summon [cult.entity_name]. <font color='red'>Fail.</font>"
+						explanation = "Summon [cultdat.entity_name]. <font color='red'>Fail.</font>"
 						feedback_add_details("cult_objective","cult_narsie|FAIL")
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
 

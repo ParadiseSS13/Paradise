@@ -6,6 +6,15 @@
 	walltype = "cult"
 	canSmoothWith = null
 
+/turf/simulated/wall/cult/New()
+	new /obj/effect/overlay/temp/cult/turf(src)
+	..()
+
+/turf/simulated/wall/cult/artificer
+	name = "runed stone wall"
+	desc = "A cold stone wall engraved with indecipherable symbols. Studying them causes your head to pound."
+
+
 /turf/simulated/wall/cult/narsie_act()
 	return
 

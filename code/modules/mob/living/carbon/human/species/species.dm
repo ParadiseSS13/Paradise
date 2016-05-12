@@ -483,15 +483,6 @@
 
 		H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-
-	if(H.seer == 1)
-		var/obj/effect/rune/R = locate() in H.loc
-		if(R && R.word1 == cultwords["see"] && R.word2 == cultwords["hell"] && R.word3 == cultwords["join"])
-			H.see_invisible = SEE_INVISIBLE_OBSERVER
-		else
-			H.see_invisible = SEE_INVISIBLE_LIVING
-			H.seer = 0
-
 	//This checks how much the mob's eyewear impairs their vision
 	if(H.tinttotal >= TINT_IMPAIR)
 		if(tinted_weldhelh)

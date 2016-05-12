@@ -164,10 +164,10 @@ proc/isembryo(A)
 		return 1
 	return 0
 
-/proc/isSpirit(A)
-	if(istype(A, /mob/spirit))
-		return 1
-	return 0
+///proc/isSpirit(A)
+//	if(istype(A, /mob/spirit))
+//		return 1
+//	return 0
 
 /proc/isovermind(A)
 	if(istype(A, /mob/camera/blob))
@@ -689,3 +689,44 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 			return
 
 		rename_character(oldname, newname)
+
+/proc/cultslur(n) // Inflicted on victims of a stun talisman
+	var/phrase = html_decode(n)
+	var/leng = lentext(phrase)
+	var/counter=lentext(phrase)
+	var/newphrase=""
+	var/newletter=""
+	while(counter>=1)
+		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		if(rand(1,2)==2)
+			if(lowertext(newletter)=="o")
+				newletter="u"
+			if(lowertext(newletter)=="t")
+				newletter="ch"
+			if(lowertext(newletter)=="a")
+				newletter="ah"
+			if(lowertext(newletter)=="u")
+				newletter="oo"
+			if(lowertext(newletter)=="c")
+				newletter=" NAR "
+			if(lowertext(newletter)=="s")
+				newletter=" SIE "
+		if(rand(1,4)==4)
+			if(newletter==" ")
+				newletter=" no hope... "
+			if(newletter=="H")
+				newletter=" IT COMES... "
+
+		switch(rand(1,15))
+			if(1)
+				newletter="'"
+			if(2)
+				newletter+="agn"
+			if(3)
+				newletter="fth"
+			if(4)
+				newletter="nglu"
+			if(5)
+				newletter="glor"
+		newphrase+="[newletter]";counter-=1
+	return newphrase

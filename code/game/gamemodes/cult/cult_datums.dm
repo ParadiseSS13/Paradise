@@ -10,6 +10,7 @@
 	var/entity_title3 = "The Geometer of Blood"
 	var/entity_icon_state = ""
 
+
 	//Builder Construct
 	var/artificer_name = "Artificer"
 	var/artificer_icon_state = "artificer"
@@ -69,7 +70,7 @@
 	name = "Cult of Mortality"
 	theme = "death"
 
-	entity_name = "The Reaper
+	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"
 	entity_title2 = "The One Who Beckons"
 	entity_title3 = "The Ferryman of Oblivion"
