@@ -97,8 +97,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/emp_act()
 	if(health > 1)
-		health = 1
-		return
+		adjustHealth(health-1)
 	else
 		death()
 
@@ -515,7 +514,7 @@
 		return
 	to_chat(src, "<span class='info'>Attempting to repair damage to our body, stand by...</span>")
 	if(do_mob(src, src, 100))
-		adjustBruteLoss(-100)
+		adjustHealth(-100)
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()

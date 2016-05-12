@@ -142,6 +142,14 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+#define in_range(source, user)		(get_dist(source, user) <= 1)
+
+#define RANGE_TURFS(RADIUS, CENTER) \
+  block( \
+	locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
+	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+  )
+
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	dview_mob.loc = center; \
 	dview_mob.see_invisible = invis_flags; \
