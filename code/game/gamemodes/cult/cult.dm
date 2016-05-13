@@ -1,7 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+var/global/list/all_cults = list()
 
 /datum/game_mode
-	var/datum/cult_info/cultdat = pick(typesof(/datum/cult_info))
+	var/list/datum/cult_info/cultdat = list(pick(all_cults))
 	var/list/datum/mind/cult = list()
 
 /proc/iscultist(mob/living/M as mob)
@@ -157,7 +158,7 @@
 		update_cult_icons_added(cult_mind)
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
- 		C.Grant(cult_mind.current)
+		C.Grant(cult_mind.current)
 		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)

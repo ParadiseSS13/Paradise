@@ -337,7 +337,7 @@ var/list/teleport_runes = list()
 //Rite of Tribute: Sacrifices a crew member to Nar-Sie. Places them into a soul shard if they're in their body.
 /obj/effect/rune/sacrifice
 	cultist_name = "Rite of Tribute"
-	cultist_desc = "sacrifices a crew member to [ticker.mode.cultdat.entity_title3]. May place them into a soul shard if their spirit remains in their body."
+	cultist_desc = "sacrifices a crew member to your god. May place them into a soul shard if their spirit remains in their body."
 	icon_state = "3"
 	allow_excess_invokers = 1
 	invocation = "Barhah hra zar'garis!"
@@ -346,7 +346,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/sacrifice/New()
 	..()
-	icon_state = "[rand(1,6)]"
+	cultist_desc = "sacrifices a crew member to [ticker.mode.cultdat.entity_title3]. May place them into a soul shard if their spirit remains in their body."
 
 /obj/effect/rune/sacrifice/invoke(var/list/invokers)
 	if(rune_in_use)
@@ -434,8 +434,8 @@ var/list/teleport_runes = list()
 
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
 /obj/effect/rune/narsie
-	cultist_name = "Summon [ticker.mode.cultdat.entity_name]"
-	cultist_desc = "tears apart dimensional barriers, calling forth [ticker.mode.cultdat.entity_title3]. Requires 9 invokers."
+	cultist_name = "Summon your god"
+	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
 	icon = 'icons/effects/96x96.dmi'
@@ -447,6 +447,13 @@ var/list/teleport_runes = list()
 	scribe_delay = 450 //how long the rune takes to create
 	scribe_damage = 40.1 //how much damage you take doing it
 	var/used
+
+/obj/effect/rune/narsie/New()
+	..()
+	cultist_name = "Summon [ticker.mode.cultdat.entity_name]"
+	cultist_desc = "tears apart dimensional barriers, calling forth [ticker.mode.cultdat.entity_title3]. Requires 9 invokers."
+
+
 
 /obj/effect/rune/narsie/talismanhide() //can't hide this, and you wouldn't want to
 	return
@@ -809,13 +816,15 @@ var/list/teleport_runes = list()
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.
 /obj/effect/rune/manifest
 	cultist_name = "Rite of Spectral Manifestation"
-	cultist_desc = "manifests a spirit as a servant of [ticker.mode.cultdat.entity_title3]. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
+	cultist_desc = "manifests a spirit as a servant of your god. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
 	icon_state = "6"
 	color = rgb(200, 0, 0)
 
 /obj/effect/rune/manifest/New(loc)
 	..()
+	cultist_desc = "manifests a spirit as a servant of [ticker.mode.cultdat.entity_title3]. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
+
 	notify_ghosts("Manifest rune created in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src)
 
 /obj/effect/rune/manifest/can_invoke(mob/living/user)

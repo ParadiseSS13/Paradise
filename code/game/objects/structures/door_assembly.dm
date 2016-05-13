@@ -142,22 +142,19 @@ obj/structure/door_assembly/multi_tile/Move()
 /obj/structure/door_assembly/door_assembly_cult
 	name = "cult airlock assembly"
 	icon = 'icons/obj/doors/cult_runed.dmi'
-	typetext = "cult"
-	icontext = "cult"
+	base_name = "cult"
 	airlock_type = /obj/machinery/door/airlock/cult
 	anchored = 1
 	state = 1
 
 /obj/structure/door_assembly/door_assembly_cult/glass
-	mineral = "glass"
-	material = "glass"
+	glass = 1
 
 /obj/structure/door_assembly/door_assembly_cult/unruned
 	icon = 'icons/obj/doors/cult.dmi'
 
 /obj/structure/door_assembly/door_assembly_cult/unruned/glass
-	mineral = "glass"
-	material = "glass"
+	glass = 1
 
 
 

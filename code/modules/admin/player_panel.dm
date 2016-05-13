@@ -357,8 +357,6 @@
 			dat += "<td>Ghost</td>"
 		else if(isalien(M))
 			dat += "<td>Alien</td>"
-		else if(isSpirit(M))
-			dat += "<td>Spirit</td>"
 		else
 			dat += "<td>Unknown</td>"
 

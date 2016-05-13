@@ -301,7 +301,7 @@
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
-						Bring those who still cling to this world of illusion back to [ticker.mode.cultdat.entity_title2] so they may know Truth.</B>"
+						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
 
 
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(var/movement_dir = 0)

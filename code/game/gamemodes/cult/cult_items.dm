@@ -167,7 +167,7 @@
 		user.unEquip(src, 1)
 		user.Dizzy(30)
 		user.Weaken(5)
-		user.blind(30)
+		user.eye_blind = 30
 
 /obj/item/device/shuttle_curse
 	name = "cursed orb"

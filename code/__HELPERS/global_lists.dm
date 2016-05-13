@@ -47,6 +47,9 @@
 			whitelisted_species += S.name
 
 	init_subtypes(/datum/table_recipe, table_recipes)
+
+	init_subtypes(/datum/cult_info, all_cults)
+
 	return 1
 
 /* // Uncomment to debug chemical reaction list.
