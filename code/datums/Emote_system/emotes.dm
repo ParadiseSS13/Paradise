@@ -207,6 +207,7 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 
 
 
+
 /datum/emote/scream
 	name = "scream"
 	text = "screams!"
@@ -252,6 +253,8 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 
 /datum/emote/fart
 	name = "fart"
+	text = "farts"
+	selfText = "fart"
 	cooldown = 50
 
 /datum/emote/fart/New()
@@ -289,6 +292,11 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 		message = "<span class = '[spanClass]'>[user] [pick("passes wind","farts")]."
 	return message
 
+/datum/emote/fart/createSelfMessage(var/mob/user, var/message)
+	message = ..()
+	message = replacetext(message, "unleashes", "unleash")
+	message = replacetext(message, "passes", "pass")
+	return message
 
 /datum/emote/signal
 	name = "signal"
@@ -311,6 +319,8 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 
 /datum/emote/signal/getNumber(var/mob/user)
 	var/number = ..()
+	if(number == null)
+		return "invalid"
 	var/fingersAvailable = 0
 	if(!user.r_hand)
 		fingersAvailable += 5
@@ -318,10 +328,9 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 		fingersAvailable += 5
 	if(fingersAvailable < number)
 		to_chat(user, "You don't have enough fingers free")
-		return "failed"
+		return "invalid"
 	return number
 
-/datum/emote/signal/paramMessage(var/mob/user, var/param)
-	var/message = "[user] raises [param] finger\s"
-	testing(message)
+/datum/emote/signal/paramMessage(var/mob/user, var/list/params)
+	var/message = "[user] raises [params["num"]] finger\s"
 	return message

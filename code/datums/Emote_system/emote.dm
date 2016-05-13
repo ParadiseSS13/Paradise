@@ -51,22 +51,16 @@ VampyrBytes
 			return
 
 	var/message = ""
-	var/num
-	var/target
+	var/list/params[0]
 
-	if(takesNumber)
-		num = getNumber(user)
+	params = getParams(user)
 
-	if(canTarget)
-		target = getTarget(user)
-
-	if(num == "invalid" || target == "invalid")
-		return
+	for(var/p in params)
+		if(params[p] == "invalid")
+			return
 
 	if(text)
-		message = createMessage(user, num, target)
-		if(message == "failed")
-			return
+		message = createMessage(user, params)
 
 	if(message)
 		. = outputMessage(user, message)
@@ -78,12 +72,24 @@ VampyrBytes
 	if(played)
 		. = 2
 
-	doAction(user)
+	doAction(user, params)
+
 	return
 
 // for things that the emote does that aren't text or sound based
-/datum/emote/proc/doAction(var/mob/user, var/atom/target, var/number)
+/datum/emote/proc/doAction(var/mob/user, var/list/params)
 	return
+
+/datum/emote/proc/getParams(var/mob/user)
+	var/list/params[0]
+
+	if(takesNumber)
+		params["num"] = getNumber(user)
+
+	if(canTarget)
+		params["target"] = getTarget(user)
+
+	return params
 
 // return "invalid" from either of these getters if you've tested the input and it's failed
 /datum/emote/proc/getNumber(var/mob/user)
@@ -120,29 +126,36 @@ VampyrBytes
 /datum/emote/proc/available(var/mob/user)
 	return
 
-/datum/emote/proc/createMessage(var/mob/user, var/param, var/target)
+/datum/emote/proc/createMessage(var/mob/user, var/list/params)
 	if(!text)
 		return
 	var/message
 
 	if(doMime(user))
-		message = mimeMessage(user, param, target)
+		message = mimeMessage(user, params)
 
 	if(!message)
 		if(muzzledNoise && user.is_muzzled())
 			message = muzzleMessage(user)
 
-		else if(takesNumber && param)
-			message = paramMessage(user, param)
+		else if(checkForParams(params))
+			message = paramMessage(user, params)
 		else
 			message = "[user] [text]"
 
-		if(message && target)
-			message = addTarget(user, target, message)
+		if(message && "target" in params)
+			if(params["target"])
+				message = addTarget(user, params, message)
 
 		message = addExtras(message)
 
 	return message
+
+/datum/emote/proc/checkForParams(var/list/params)
+	for(var/p in params)
+		if(params[p] == "target")
+			continue
+		return 1
 
 /datum/emote/proc/addExtras(var/message)
 	if(!message)
@@ -152,12 +165,16 @@ VampyrBytes
 	message = "<span class = '[spanClass]'>[message]</span>"
 	return message
 
-/datum/emote/proc/mimeMessage(var/mob/user, var/param, var/target)
+/datum/emote/proc/mimeMessage(var/mob/user, var/list/params)
 	if(!mimeText)
 		return
-	if(takesNumber)
-		return paramMimeMessage(user, param)
+	if(takesNumber && "num" in params)
+		if(params["num"] != null)
+			return paramMimeMessage(user, params)
 	var/message = "[user] [mimeText]"
+	if(message && "target" in params)
+		if(params["target"])
+			message = addTarget(user, params, message)
 	return message
 
 /datum/emote/proc/muzzleMessage(var/mob/user)
@@ -168,31 +185,30 @@ VampyrBytes
 	return message
 
 // if the emote takes a non target parameter, set up  and return the with parameter version in here
-/datum/emote/proc/paramMessage(var/mob/user, var/param)
+/datum/emote/proc/paramMessage(var/mob/user, var/list/params)
 	return
 
-// as above, but for mimes trying to do audible messages
-/datum/emote/proc/paramMimeMessage(var/mob/user, var/param)
+// as above, but for mimes when there is mimeText
+/datum/emote/proc/paramMimeMessage(var/mob/user, var/list/params)
 	return
 
-/datum/emote/proc/addTarget(var/mob/user, var/atom/target, var/message = "")
+/datum/emote/proc/addTarget(var/mob/user, var/list/params, var/message = "")
 	if(!canTarget)
 		return message
-	if(!target)
+	if(!params["target"])
 		return message
-	message += " [targetText] \the [target]"
+	message += " [targetText] \the [params["target"]]"
 	return message
 
 // What you should see when you perform the emote
 /datum/emote/proc/createSelfMessage(var/mob/user, var/message = "")
-	var/selfMessage
 	if(startText)
-		selfMessage = replacetext(message, "[user]", "you")
+		message = replacetext(message, "[user]", "you")
 	else
-		selfMessage = replacetext(message, "[user]", "You")
+		message = replacetext(message, "[user]", "You")
 	if(selfText)
-		selfMessage = replacetext(selfMessage, text, selfText)
-	return selfMessage
+		message = replacetext(message, text, selfText)
+	return message
 
 /datum/emote/proc/outputMessage(var/mob/user, var/message = "")
 	if(!message)

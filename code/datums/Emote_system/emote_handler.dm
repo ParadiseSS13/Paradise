@@ -20,7 +20,6 @@
 						commands[lowertext(command)] = found
 					found.addVerbs(owner)
 
-
 /datum/emoteHandler/proc/deleteEmoteVerbs()
 	for(var/obj/emoteVerb/E in owner.contents)
 		qdel(E)
