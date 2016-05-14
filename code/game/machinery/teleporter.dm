@@ -323,13 +323,13 @@
 		//--FalseIncarnate
 		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
 		if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
-			visible_message("\red The teleporter rejects the AI unit.")
+			visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
 			if(istype(M, /mob/living/silicon/ai))
 				var/mob/living/silicon/ai/T = M
-				var/list/TPError = list("\red Firmware instructions dictate you must remain on your assigned station!",
-				"\red You cannot interface with this technology and get rejected!",
-				"\red External firewalls prevent you from utilizing this machine!",
-				"\red Your AI core's anti-bluespace failsafes trigger and prevent teleportation!")
+				var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
+				"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
+				"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
+				"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
 				to_chat(T, "[pick(TPError)]")
 			return
 		else
@@ -400,13 +400,13 @@
 		//--FalseIncarnate
 		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
 		if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
-			visible_message("\red The teleporter rejects the AI unit.")
+			visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
 			if(istype(M, /mob/living/silicon/ai))
 				var/mob/living/silicon/ai/T = M
-				var/list/TPError = list("\red Firmware instructions dictate you must remain on your assigned station!",
-				"\red You cannot interface with this technology and get rejected!",
-				"\red External firewalls prevent you from utilizing this machine!",
-				"\red Your AI core's anti-bluespace failsafes trigger and prevent teleportation!")
+				var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
+				"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
+				"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
+				"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
 				to_chat(T, "[pick(TPError)]")
 			return
 		else
