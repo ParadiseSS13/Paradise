@@ -370,6 +370,70 @@
 	else
 		icon_state = "tele0"
 
+/obj/machinery/teleport/perma
+	name = "permanent teleporter"
+	desc = "A teleporter with the target pre-set on the circuit board."
+	icon_state = "tele0"
+	var/recalibrating = 0
+	use_power = 1
+	idle_power_usage = 10
+	active_power_usage = 2000
+	
+	var/target
+	var/tele_delay = 50
+
+/obj/machinery/teleport/perma/RefreshParts()
+	for(var/obj/item/weapon/circuitboard/teleporter_perma/C in component_parts)
+		target = C.target
+	var/A = 40
+	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+		A -= M.rating * 10
+	tele_delay = max(A, 0)
+	update_icon()
+
+/obj/machinery/teleport/perma/Bumped(M as mob|obj)
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(z == ZLEVEL_CENTCOMM)
+		to_chat(M, "You can't use this here.")
+	if(target && !recalibrating && !panel_open)
+		//--FalseIncarnate
+		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
+		if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
+			visible_message("\red The teleporter rejects the AI unit.")
+			if(istype(M, /mob/living/silicon/ai))
+				var/mob/living/silicon/ai/T = M
+				var/list/TPError = list("\red Firmware instructions dictate you must remain on your assigned station!",
+				"\red You cannot interface with this technology and get rejected!",
+				"\red External firewalls prevent you from utilizing this machine!",
+				"\red Your AI core's anti-bluespace failsafes trigger and prevent teleportation!")
+				to_chat(T, "[pick(TPError)]")
+			return
+		else
+			do_teleport(M, target)
+			use_power(5000)
+			
+			if(tele_delay)
+				recalibrating = 1
+				update_icon()
+				spawn(tele_delay)
+					recalibrating = 0
+					update_icon()
+		//--FalseIncarnate
+	return
+
+/obj/machinery/teleport/perma/power_change()
+	..()
+	update_icon()
+
+/obj/machinery/teleport/perma/update_icon()
+	if(panel_open)
+		icon_state = "tele-o"
+	else if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)))
+		icon_state = "tele1"
+	else
+		icon_state = "tele0"
+
 /obj/machinery/teleport/station
 	name = "station"
 	desc = "The power control station for a bluespace teleporter."
@@ -456,6 +520,11 @@
 		if(istype(W, /obj/item/weapon/wirecutters))
 			link_console_and_hub()
 			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
+			return
+		if(istype(W, /obj/item/weapon/circuitboard/teleporter_perma))
+			var/obj/item/weapon/circuitboard/teleporter_perma/C = W
+			C.target = teleporter_console.target
+			to_chat(user, "<span class='caution'>You copy the targeting information from \the [src] to \the [W]</span>")
 			return
 
 /obj/machinery/teleport/station/attack_ai()
