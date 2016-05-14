@@ -41,6 +41,7 @@
 	name = "Strong Hivebot"
 	desc = "A robot, this one is armed and looks tough!"
 	health = 80
+	maxHealth = 80
 	ranged = 1
 
 /mob/living/simple_animal/hostile/hivebot/death()

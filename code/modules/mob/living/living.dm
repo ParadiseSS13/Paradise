@@ -580,12 +580,19 @@
 	return
 
 /mob/living/proc/resist_buckle()
+	spawn(0)
+		resist_muzzle()
 	buckled.user_unbuckle_mob(src,src)
+
+/mob/living/proc/resist_muzzle()
+	return
 
 /mob/living/proc/resist_fire()
 	return
 
 /mob/living/proc/resist_restraints()
+	spawn(0)
+		resist_muzzle()
 	return
 
 /*//////////////////////
