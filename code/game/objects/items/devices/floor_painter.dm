@@ -28,7 +28,7 @@
 	
 	var/turf/simulated/floor/plasteel/F = A
 	if(!istype(F))
-		user << "<span class='warning'>\The [src] can only be used on station flooring.</span>"
+		to_chat(user, "<span class='warning'>\The [src] can only be used on station flooring.</span>")
 		return
 	
 	F.icon_state = floor_state
