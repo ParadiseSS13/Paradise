@@ -319,6 +319,7 @@
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
 	if(z == ZLEVEL_CENTCOMM)
 		to_chat(M, "You can't use this here.")
+		return
 	if(power_station && power_station.engaged && !panel_open)
 		//--FalseIncarnate
 		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
@@ -396,6 +397,7 @@
 		return
 	if(z == ZLEVEL_CENTCOMM)
 		to_chat(M, "You can't use this here.")
+		return
 	if(target && !recalibrating && !panel_open)
 		//--FalseIncarnate
 		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
