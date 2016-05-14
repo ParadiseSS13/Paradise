@@ -2,7 +2,6 @@
 var/global/list/all_cults = list()
 
 /datum/game_mode
-	var/list/datum/cult_info/cultdat = list(pick(all_cults))
 	var/list/datum/mind/cult = list()
 
 /proc/iscultist(mob/living/M as mob)
@@ -119,7 +118,7 @@ var/global/list/all_cults = list()
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon [cultdat.entity_name] via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
+				explanation = "Summon [ticker.mode.cultdat.entity_name] via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
@@ -157,7 +156,7 @@ var/global/list/all_cults = list()
 		cult += cult_mind
 		update_cult_icons_added(cult_mind)
 		cult_mind.current.faction |= "cult"
-		var/datum/action/innate/cultcomm/C = new()
+		var/datum/action/cultcomm/C = new()
 		C.Grant(cult_mind.current)
 		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
@@ -178,7 +177,7 @@ var/global/list/all_cults = list()
 		cult_mind.current.faction -= "cult"
 		cult_mind.memory = ""
 		cult_mind.special_role = null
-		for(var/datum/action/innate/cultcomm/C in cult_mind.current.actions)
+		for(var/datum/action/cultcomm/C in cult_mind.current.actions)
 			qdel(C)
 
 		update_cult_icons_removed(cult_mind)
@@ -280,10 +279,10 @@ var/global/list/all_cults = list()
 							feedback_add_details("cult_objective","cult_sacrifice|FAIL|GIBBED")
 				if("eldergod")
 					if(!eldergod)
-						explanation = "Summon [cultdat.entity_name]. <font color='green'><B>Success!</B></font>"
+						explanation = "Summon [ticker.mode.cultdat.entity_name]. <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_narsie|SUCCESS")
 					else
-						explanation = "Summon [cultdat.entity_name]. <font color='red'>Fail.</font>"
+						explanation = "Summon [ticker.mode.cultdat.entity_name]. <font color='red'>Fail.</font>"
 						feedback_add_details("cult_objective","cult_narsie|FAIL")
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
 

@@ -47,7 +47,7 @@
 		H.drip(500)
 
 
-/obj/item/weapon/restraints/legcuffs/bola/cult
+/obj/item/weapon/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."
 	icon_state = "bola_cult"
@@ -121,8 +121,8 @@
 /obj/item/clothing/suit/cultrobes/berserker
 	name = "flagellant's robes"
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "cultrobes"
-	item_state = "cultrobes"
+	icon_state = "hardsuit-beserker"
+	item_state = "hardsuit-beserker"
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS

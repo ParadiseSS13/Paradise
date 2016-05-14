@@ -75,7 +75,7 @@
 
 /obj/structure/cult/cultforge
 	name = "daemon forge"
-	desc = "A forge used in crafting the unholy weapons used by the armies of Nar-Sie."
+	desc = "A forge used in crafting the unholy weapons used by the armies of a cult."
 	icon_state = "forge"
 	luminosity = 3
 
@@ -86,7 +86,7 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
 		return
-	var/choice = alert(user,"You study the schematics etched into the forge...", "Flagellant's Robe","Cultist Hardsuit")
+	var/choice = alert(user,"You study the schematics etched into the forge...",, "Flagellant's Robe","Cultist Hardsuit")
 	var/pickedtype
 	switch(choice)
 		if("Flagellant's Robe")
@@ -101,7 +101,7 @@
 
 /obj/structure/cult/cultpylon
 	name = "pylon"
-	desc = "A floating crystal that slowly heals those faithful to Nar'Sie."
+	desc = "A floating crystal that slowly heals those faithful to a cult."
 	icon_state = "pylon"
 	luminosity = 5
 	var/heal_delay = 50
@@ -134,7 +134,7 @@
 				if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 					var/mob/living/simple_animal/M = L
 					if(M.health < M.maxHealth)
-						M.adjustBruteLoss(-2)
+						M.adjustBruteLoss(-2)//WAS adjust health...runtimes..
 		if(corruption.len)
 			var/turf/T = pick_n_take(corruption)
 			corruption -= T
@@ -147,7 +147,6 @@
 	name = "archives"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
 	icon_state = "tomealtar"
-	luminosity = 1
 
 /obj/structure/cult/culttome/attack_hand(mob/living/user)
 	if(!iscultist(user))
