@@ -204,9 +204,18 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 	selfText = "burp"
 	muzzledNoise = "peculiar"
 	mimeText = "opens their mouth rather obnoxiously"
+	audible = 1
 
+/datum/emote/burp/New()
+	..()
+	commands += "burp"
+	commands += "burps"
 
-
+/datum/emote/burp/available(var/mob/user)
+	if(ishuman(user))
+		return 1
+	if(istype(user, /mob/living/carbon/alien/larva) || istype(user, /mob/living/carbon/alien/humanoid))
+		return 1
 
 /datum/emote/scream
 	name = "scream"

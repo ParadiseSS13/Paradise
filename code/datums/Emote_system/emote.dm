@@ -63,7 +63,7 @@ VampyrBytes
 		message = createMessage(user, params)
 
 	if(message)
-		. = outputMessage(user, message)
+		. = outputMessage(user, message, params)
 
 	var/played = 0
 	if(!doMime(user))
@@ -168,9 +168,8 @@ VampyrBytes
 /datum/emote/proc/mimeMessage(var/mob/user, var/list/params)
 	if(!mimeText)
 		return
-	if(takesNumber && "num" in params)
-		if(params["num"] != null)
-			return paramMimeMessage(user, params)
+	if(checkForParams(params))
+		return paramMimeMessage(user, params)
 	var/message = "[user] [mimeText]"
 	if(message && "target" in params)
 		if(params["target"])
@@ -210,17 +209,17 @@ VampyrBytes
 		message = replacetext(message, text, selfText)
 	return message
 
-/datum/emote/proc/outputMessage(var/mob/user, var/message = "")
+/datum/emote/proc/outputMessage(var/mob/user, var/message = "", var/list/params)
 	if(!message)
 		return
 	log_emote("[user.name]/[user.key] : [message]")
 	sendToDead(message)
 	if(audible)
-		return audible_message(message, user)
+		return audible_message(message, user, params)
 	else
-		return visible_message(message, user)
+		return visible_message(message, user, params)
 
-/datum/emote/proc/visible_message(var/message = "", var/mob/user)
+/datum/emote/proc/visible_message(var/message = "", var/mob/user, var/list/params)
 	var/selfMessage = createSelfMessage(user, message)
 	for(var/mob/M in viewers(user))
 		if(M.see_invisible < user.invisibility)
@@ -228,25 +227,25 @@ VampyrBytes
 		var/msg = message
 		if(selfMessage && M==user)
 			msg = selfMessage
-		if(M.sdisabilities & BLIND || M.blinded || M.paralysis)
+		else if(M.sdisabilities & BLIND || M.blinded || M.paralysis)
 			if(M.sdisabilities & DEAF || M.ear_deaf)
 				continue
-			msg = createBlindMessage(message, user)
+			msg = createBlindMessage(message, user, params)
 			if(msg)
 				outputAudibleMessage(msg, M, user, 1)
 		else
-			outputVisibleMessage(msg, M, user)
+			outputVisibleMessage(msg, M, user, params)
 	return 1
 
-/datum/emote/proc/audible_message(var/message = "", var/mob/user)
+/datum/emote/proc/audible_message(var/message = "", var/mob/user, var/list/params)
 	if(doMime(user))
 		return visible_message(message, user)
 	var/selfMessage = createSelfMessage(user, message)
 	for(var/mob/M in get_mobs_in_view(7, user))
 		var/msg = message
-		if(selfMessage && M==src)
+		if(selfMessage && M==user)
 			msg = selfMessage
-		if(M.sdisabilities & DEAF || M.ear_deaf)
+		else if(M.sdisabilities & DEAF || M.ear_deaf)
 			if(M.sdisabilities & BLIND || M.blinded || M.paralysis)
 				continue
 			msg = createDeafMessage(user, message)
@@ -256,7 +255,7 @@ VampyrBytes
 			outputAudibleMessage(msg, M, user)
 	return 2
 
-/datum/emote/proc/outputVisibleMessage(var/message, var/mob/recipient, var/mob/user, var/retest = 0)
+/datum/emote/proc/outputVisibleMessage(var/message, var/mob/recipient, var/mob/user, var/list/params, var/retest = 0)
 	if(retest)
 		if(!user)
 			return
@@ -270,16 +269,16 @@ VampyrBytes
 		if(!found)
 			return
 	if(recipient.sdisabilities & DEAF || recipient.ear_deaf)
-		var/msg = createDeafMessage(user, message)
-		if(msg)
-			message = msg
+		if(!(recipient == user))
+			var/msg = createDeafMessage(user, message, params)
+			if(msg)
+				message = msg
 	if(recipient.stat == UNCONSCIOUS || (recipient.sleeping > 0 && recipient.stat != 2))
 		to_chat(recipient, "<I>... You can almost hear someone talking ...</I>")
 	else
 		to_chat(recipient, message)
 
-/datum/emote/proc/outputAudibleMessage(var/message = "", var/mob/recipient, var/mob/user, var/retest = 0)
-
+/datum/emote/proc/outputAudibleMessage(var/message = "", var/mob/recipient, var/mob/user, var/list/params, var/retest = 0)
 	if(retest)
 		if(!user)
 			return
@@ -291,9 +290,10 @@ VampyrBytes
 		if(!found)
 			return
 	if(recipient.sdisabilities & BLIND || recipient.blinded || recipient.paralysis)
-		var/msg = createBlindMessage(user, message)
-		if(msg)
-			message = msg
+		if(!(recipient == user))
+			var/msg = createBlindMessage(user, message, params)
+			if(msg)
+				message = msg
 	if(recipient.stat == UNCONSCIOUS || (recipient.sleeping > 0 && recipient.stat != 2))
 		to_chat(recipient, "<I>... You can almost hear someone talking ...</I>")
 	else
@@ -301,13 +301,14 @@ VampyrBytes
 
 // set up different messages for blind people here. Empty will mean no message for
 //non-audible emotes and the standard message for audible ones
-/datum/emote/proc/createBlindMessage(var/mob/user, var/message)
-	return
+/datum/emote/proc/createBlindMessage(var/mob/user, var/message, var/list/params)
+	if(audible && selfText)
+		return "You hear someone [selfText]"
 
 // set up different messages for deaf people here. Empty will mean no message for
 // audible emotes and standard for non-audible ones
-/datum/emote/proc/createDeafMessage(var/mob/user, var/message)
-	return
+/datum/emote/proc/createDeafMessage(var/mob/user, var/message, var/list/params)
+	return mimeMessage(user, params)
 
 /datum/emote/proc/sendToDead(message)
 	for(var/mob/M in dead_mob_list)
