@@ -2,13 +2,16 @@
 
 /obj/item/device/floor_painter
 	name = "floor painter"
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "labeler1"
-	item_state = "flight"
+	icon_state = "floor_painter"
 	
 	var/floor_icon
 	var/floor_state = "floor"
 	var/floor_dir = SOUTH
+	
+	w_class = 1
+	item_state = "electronic"
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
 	
 	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "blackcorner", "blue", "bluecorner", 
 		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "browncornerold", "brownold",
