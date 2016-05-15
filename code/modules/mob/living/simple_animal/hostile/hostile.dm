@@ -119,9 +119,8 @@
 		if(istype(the_target, /obj/spacepod))
 			var/obj/spacepod/S = the_target
 			if(S.pilot) //Just so we don't attack empty pods
-				for(var/mob/M in S.pilot)
-					if(CanAttack(M))
-						return 1
+				if(CanAttack(S.pilot))
+					return 1
 		if(isliving(the_target))
 			var/mob/living/L = the_target
 			var/faction_check = 0

@@ -25,8 +25,10 @@
 			if(my_pod.pilot || my_pod.passengers)
 				if(my_pod.pilot)
 					chairs += list("pilot" = my_pod.pilot.name)
+				var/i = 1
 				for(var/mob/M in my_pod.passengers)
-					chairs += list("passenger" = M.name)
+					chairs += list("passenger [i]" = M.name)
+					i++
 
 			pods.Add(list(list("pod" = "\ref[my_pod]", "name" = podname) + chairs + list("x" = my_pod.x, "y" = my_pod.y, "z" = my_pod.z)))
 
