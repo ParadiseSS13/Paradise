@@ -131,13 +131,14 @@
 			src.dna.UpdateUI()
 		dna.check_integrity()
 		var/mob/living/carbon/human/H = src
-		H.r_hair		= dna.GetUIValueRange(DNA_UI_HAIR_R,	255)
-		H.g_hair		= dna.GetUIValueRange(DNA_UI_HAIR_G,	255)
-		H.b_hair		= dna.GetUIValueRange(DNA_UI_HAIR_B,	255)
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		head_organ.r_hair		= dna.GetUIValueRange(DNA_UI_HAIR_R,	255)
+		head_organ.g_hair		= dna.GetUIValueRange(DNA_UI_HAIR_G,	255)
+		head_organ.b_hair		= dna.GetUIValueRange(DNA_UI_HAIR_B,	255)
 
-		H.r_facial		= dna.GetUIValueRange(DNA_UI_BEARD_R,	255)
-		H.g_facial		= dna.GetUIValueRange(DNA_UI_BEARD_G,	255)
-		H.b_facial		= dna.GetUIValueRange(DNA_UI_BEARD_B,	255)
+		head_organ.r_facial		= dna.GetUIValueRange(DNA_UI_BEARD_R,	255)
+		head_organ.g_facial		= dna.GetUIValueRange(DNA_UI_BEARD_G,	255)
+		head_organ.b_facial		= dna.GetUIValueRange(DNA_UI_BEARD_B,	255)
 
 		H.r_skin		= dna.GetUIValueRange(DNA_UI_SKIN_R,	255)
 		H.g_skin		= dna.GetUIValueRange(DNA_UI_SKIN_G,	255)
@@ -147,9 +148,9 @@
 		H.g_eyes		= dna.GetUIValueRange(DNA_UI_EYES_G,	255)
 		H.b_eyes		= dna.GetUIValueRange(DNA_UI_EYES_B,	255)
 
-		H.r_headacc		= dna.GetUIValueRange(DNA_UI_HACC_R,	255)
-		H.g_headacc		= dna.GetUIValueRange(DNA_UI_HACC_G,	255)
-		H.b_headacc		= dna.GetUIValueRange(DNA_UI_HACC_B,	255)
+		head_organ.r_headacc		= dna.GetUIValueRange(DNA_UI_HACC_R,	255)
+		head_organ.g_headacc		= dna.GetUIValueRange(DNA_UI_HACC_G,	255)
+		head_organ.b_headacc		= dna.GetUIValueRange(DNA_UI_HACC_B,	255)
 
 		H.r_markings	= dna.GetUIValueRange(DNA_UI_MARK_R,	255)
 		H.g_markings	= dna.GetUIValueRange(DNA_UI_MARK_G,	255)
@@ -168,17 +169,17 @@
 		//Hair
 		var/hair = dna.GetUIValueRange(DNA_UI_HAIR_STYLE,hair_styles_list.len)
 		if((0 < hair) && (hair <= hair_styles_list.len))
-			H.h_style = hair_styles_list[hair]
+			head_organ.h_style = hair_styles_list[hair]
 
 		//Facial Hair
 		var/beard = dna.GetUIValueRange(DNA_UI_BEARD_STYLE,facial_hair_styles_list.len)
 		if((0 < beard) && (beard <= facial_hair_styles_list.len))
-			H.f_style = facial_hair_styles_list[beard]
+			head_organ.f_style = facial_hair_styles_list[beard]
 
 		//Head Accessories
 		var/headacc = dna.GetUIValueRange(DNA_UI_HACC_STYLE,head_accessory_styles_list.len)
 		if((0 < headacc) && (headacc <= head_accessory_styles_list.len))
-			H.ha_style = head_accessory_styles_list[headacc]
+			head_organ.ha_style = head_accessory_styles_list[headacc]
 
 		//Markings
 		var/marks = dna.GetUIValueRange(DNA_UI_MARK_STYLE,marking_styles_list.len)

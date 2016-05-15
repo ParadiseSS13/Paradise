@@ -67,7 +67,7 @@
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 
-/turf/space/Entered(atom/movable/A as mob|obj)
+/turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
 	
 	if(destination_z && A && (src in A.locs))

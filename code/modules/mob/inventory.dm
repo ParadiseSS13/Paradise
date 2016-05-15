@@ -124,7 +124,6 @@
 		I.dropped(src)
 		if(I)
 			I.layer = initial(I.layer)
-
 	return 1
 
 

@@ -12,8 +12,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 /datum/game_mode/heist
 	name = "heist"
 	config_tag = "heist"
-	required_players = 15
-	required_players_secret = 25
+	required_players = 25
 	required_enemies = 4
 	recommended_enemies = 5
 	votable = 0
@@ -95,6 +94,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
 
 	var/mob/living/carbon/human/vox = newraider.current
+	var/obj/item/organ/external/head/head_organ = vox.get_organ("head")
 
 	vox.real_name = capitalize(newname)
 	vox.name = vox.real_name
@@ -106,8 +106,8 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	vox.add_language("Vox-pidgin")
 	vox.add_language("Galactic Common")
 	vox.add_language("Tradeband")
-	vox.h_style = "Short Vox Quills"
-	vox.f_style = "Shaved"
+	head_organ.h_style = "Short Vox Quills"
+	head_organ.f_style = "Shaved"
 
 	for(var/obj/item/organ/external/limb in vox.organs)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)

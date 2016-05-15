@@ -104,7 +104,7 @@
 			var/possible_target_distance = get_dist(src, A)
 			if(target_dist < possible_target_distance)
 				Targets -= A
-	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
+	var/chosen_target = safepick(Targets)//Pick the remaining targets (if any) at random
 	return chosen_target
 
 /mob/living/simple_animal/hostile/CanAttack(var/atom/the_target)//Can we actually attack a possible target?
@@ -186,7 +186,7 @@
 /mob/living/simple_animal/hostile/proc/Goto(var/target, var/delay, var/minimum_distance)
 	walk_to(src, target, minimum_distance, delay)
 
-/mob/living/simple_animal/hostile/adjustBruteLoss(var/damage)
+/mob/living/simple_animal/hostile/adjustHealth(damage)
 	..(damage)
 	if(!stat && search_objects < 3)//Not unconscious, and we don't ignore mobs
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight

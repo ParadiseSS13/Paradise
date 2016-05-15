@@ -440,7 +440,6 @@
 		var/mob/living/carbon/human/H = user
 
 		if(istype(H))
-
 			if(H.gloves)
 				var/obj/item/clothing/gloves/G = H.gloves
 				if(G.max_heat_protection_temperature)
@@ -453,13 +452,17 @@
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
 		else
-			to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
+			if(user.a_intent == I_DISARM || user.a_intent == I_GRAB)
+				to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
 
-			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-			if(affecting.take_damage( 0, 5 ))		// 5 burn damage
-				H.UpdateDamageIcon()
-			H.updatehealth()
-			return				// if burned, don't remove the light
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+				if(affecting.take_damage( 0, 5 ))		// 5 burn damage
+					H.UpdateDamageIcon()
+				H.updatehealth()
+				return
+			else
+				to_chat(user, "You try to remove the light [fitting], but it's too hot to touch!")
+				return
 	else
 		to_chat(user, "You remove the light [fitting].")
 

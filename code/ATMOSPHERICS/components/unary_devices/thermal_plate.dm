@@ -4,7 +4,7 @@
 //Transfers heat between a pipe system and environment, based on which has a greater thermal energy concentration
 	icon = 'icons/obj/atmospherics/cold_sink.dmi'
 	icon_state = "off"
-	
+
 	can_unwrench = 1
 
 	name = "thermal tansfer plate"
@@ -18,7 +18,8 @@
 	icon_state = "[prefix]off"
 
 /obj/machinery/atmospherics/unary/thermal_plate/process()
-	..()
+	if(!..())
+		return 0
 
 	var/datum/gas_mixture/environment = loc.return_air()
 

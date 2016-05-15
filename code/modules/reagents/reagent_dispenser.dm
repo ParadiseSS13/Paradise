@@ -98,18 +98,31 @@
 	..()
 	reagents.add_reagent("fuel",1000)
 
-/obj/structure/reagent_dispensers/fueltank/bullet_act(var/obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
-		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
-			message_admins("[key_name_admin(Proj.firer)] triggered a fueltank explosion.")
-			log_game("[key_name(Proj.firer)] triggered a fueltank explosion.")
-			explode()
+/obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/Proj)
+	..()
+	if(istype(Proj) && !Proj.nodamage && ((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE)))
+		message_admins("[key_name_admin(Proj.firer)] triggered a fueltank explosion.")
+		log_game("[key_name(Proj.firer)] triggered a fueltank explosion.")
+		boom()
 
-/obj/structure/reagent_dispensers/fueltank/blob_act()
+/obj/structure/reagent_dispensers/fueltank/proc/boom()
 	explosion(src.loc,0,1,5,7,10, flame_range = 5)
+	if(src)
+		qdel(src)
+
+/obj/structure/reagent_dispensers/fueltank/blob_act(obj/effect/blob/B)
+	boom()
+
 
 /obj/structure/reagent_dispensers/fueltank/ex_act()
-	explode()
+	boom()
+
+/obj/structure/reagent_dispensers/fueltank/fire_act()
+	boom()
+
+/obj/structure/reagent_dispensers/fueltank/tesla_act()
+	..() //extend the zap
+	boom()
 
 /obj/structure/reagent_dispensers/fueltank/examine(mob/user)
 	if(!..(user, 2))
@@ -150,15 +163,6 @@
 				overlays += test
 
 		return ..()
-
-/obj/structure/reagent_dispensers/fueltank/proc/explode()
-	explosion(src.loc,-1,0,2, flame_range = 2)
-	if(src)
-		qdel(src)
-
-/obj/structure/reagent_dispensers/fueltank/fire_act(datum/gas_mixture/air, temperature, volume)
-	blob_act() //saving a few lines of copypasta
-
 
 /obj/structure/reagent_dispensers/fueltank/Move()
 	..()

@@ -118,6 +118,11 @@
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
 
+	//Default hair/headacc style vars.
+	var/default_hair = "Bald" 		//Default hair style for newly created humans unless otherwise set.
+	var/default_fhair = "Shaved"	//Default facial hair style for newly created humans unless otherwise set.
+	var/default_headacc = "None"	//Default head accessory style for newly created humans unless otherwise set.
+
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
 		"heart" =    /obj/item/organ/internal/heart,
@@ -157,7 +162,6 @@
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
-
 
 	for(var/obj/item/organ/internal/iorgan in H.internal_organs)
 		if(iorgan in H.internal_organs)

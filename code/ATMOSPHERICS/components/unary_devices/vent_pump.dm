@@ -119,9 +119,8 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/unary/vent_pump/process()
-	..()
-	if(stat & (NOPOWER|BROKEN))
-		return
+	if(!..() || (stat & (NOPOWER|BROKEN)))
+		return 0
 	if (!node)
 		on = 0
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0

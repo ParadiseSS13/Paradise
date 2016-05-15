@@ -126,6 +126,7 @@
 
 proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/icon/preview_icon = null
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 
 	var/g = "m"
 	if (H.gender == FEMALE)
@@ -170,32 +171,32 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		eyes_s.Blend(rgb(H.r_eyes, H.g_eyes, H.b_eyes), ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/hair_style = hair_styles_list[H.h_style]
+	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		// I'll want to make a species-specific proc for this sooner or later
 		// But this'll do for now
-		if(H.get_species() == "Slime People")
+		if(head_organ.species.name == "Slime People")
 			hair_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_ADD)
 		else
-			hair_s.Blend(rgb(H.r_hair, H.g_hair, H.b_hair), ICON_ADD)
+			hair_s.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
 		face_s.Blend(hair_s, ICON_OVERLAY)
 
 	//Head Accessory
-	if(H.species.bodyflags & HAS_HEAD_ACCESSORY)
-		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[H.ha_style]
+	if(head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
+		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-			head_accessory_s.Blend(rgb(H.r_headacc, H.g_headacc, H.b_headacc), ICON_ADD)
+			head_accessory_s.Blend(rgb(head_organ.r_headacc, head_organ.g_headacc, head_organ.b_headacc), ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[H.f_style]
+	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style && facial_hair_style.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-		if(H.get_species() == "Slime People")
+		if(head_organ.species.name == "Slime People")
 			facial_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_ADD)
 		else
-			facial_s.Blend(rgb(H.r_facial, H.g_facial, H.b_facial), ICON_ADD)
+			facial_s.Blend(rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial), ICON_ADD)
 		face_s.Blend(facial_s, ICON_OVERLAY)
 
 	//Markings
