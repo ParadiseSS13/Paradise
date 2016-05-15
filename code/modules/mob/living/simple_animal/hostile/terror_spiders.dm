@@ -50,11 +50,11 @@ var/global/ts_death_window = 9000 // 15 minutes
 
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
-	var/last_ventcrawl_time = 0 // tracks the last world.time that the spider ventcrawled, used to prevent excessive crawling.
-	var/freq_ventcrawl_combat = 1800 // 3 minutes
-	var/freq_ventcrawl_idle =  9000 // 15 minutes
 	var/ai_ventcrawls = 1
 	var/idle_ventcrawl_chance = 3 // default 3% chance to ventcrawl when not in combat to a random exit vent
+	var/freq_ventcrawl_combat = 1800 // 3 minutes
+	var/freq_ventcrawl_idle =  9000 // 15 minutes
+	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
 
 	// AI movement tracking
 	var/spider_steps_taken = 0 // leave at 0, its a counter for ai steps taken.
@@ -108,12 +108,15 @@ var/global/ts_death_window = 9000 // 15 minutes
 	var/player_breaks_cameras = 1  // Toggle for players breaking cameras
 
 	var/ai_spins_webs = 1 // AI web-spinning behavior
-	var/idle_spinwebs_chance = 3
+	var/freq_spins_webs = 600 // one minute
+	var/last_spins_webs = 0 // leave this, changed by procs.
 
-	var/ai_cocoons_objects = 0 // AI object coccooning behavior, only used by greens
-	var/idle_cocoon_chance = 10
+	var/ai_cocoons_object = 0 // AI object coccooning behavior, only used by greens
+	var/freq_cocoon_object = 1200 // two minutes between each attempt
+	var/last_cocoon_object = 0 // leave this, changed by procs.
 
 	var/ai_hides_in_vents = 0 // AI vent hiding behavior, only used by purples.
+	var/prob_ai_hides_in_vents = 10 // probabily of this code running on handle_automated_action
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
@@ -142,6 +145,8 @@ var/global/ts_death_window = 9000 // 15 minutes
 	var/attackstep = 0
 	var/attackcycles = 0
 	var/spider_myqueen = null
+	var/mylocation = null
+	var/chasecycles = 0
 
 	// Breathing, Pressure & Fire
 	// - No breathing / cannot be suffocated (spiders can hold their breath, look it up)
@@ -238,13 +243,18 @@ var/global/ts_death_window = 9000 // 15 minutes
 		for(var/obj/mecha/M in mechas_list)
 			if(get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
 				targets1 += M
-		for(var/obj/spacepod/S in spacepods_list)
-			if(get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
-				targets3 += S
-		for(var/obj/machinery/porta_turret/R in view(src, vision_range))
-			if (!R.stat)
-				// spiders will target turrets that shoot them, by default
-				targets3 += R
+		if (health < maxHealth)
+			// very unlikely that we're being shot at by a space pod - so only check for this if our health is lower than max.
+			for(var/obj/spacepod/S in spacepods_list)
+				if(get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
+					targets3 += S
+			// Turret-targeting code is broken. Also such a rare case. We leave it commented for now.
+			/*
+			for(var/obj/machinery/porta_turret/R in view(src, vision_range))
+				if (!R.stat)
+					// spiders will target turrets that shoot them, by default
+					targets3 += R
+			*/
 		if (targets1.len)
 			return targets1
 		else if (targets2.len)
@@ -719,7 +729,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 						stop_automated_movement = 0
 					else
 						spider_steps_taken++
-						ClearObstacle(get_turf(cocoon_target))
+						CreatePath(cocoon_target)
 						step_to(src,cocoon_target)
 						if (spider_debug > 0)
 							visible_message("<span class='notice'>\the [src] moves towards [cocoon_target] to cocoon it.</span>")
@@ -740,11 +750,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 						TSVentCrawlRandom(entry_vent)
 					else
 						spider_steps_taken++
-						ClearObstacle(get_turf(entry_vent))
-						if (spider_opens_doors)
-							for(var/obj/machinery/door/airlock/A in view(1,src))
-								if (A.density)
-									try_open_airlock(A)
+						CreatePath(entry_vent)
 						step_to(src,entry_vent)
 						if (spider_debug > 0)
 							visible_message("<span class='notice'>\the [src] moves towards the vent [entry_vent].</span>")
@@ -769,13 +775,15 @@ var/global/ts_death_window = 9000 // 15 minutes
 						L.do_attack_animation(src)
 						visible_message("<span class='danger'>\the [src] smashes the [L.name].</span>")
 						break
-			else if (ai_spins_webs && prob(idle_spinwebs_chance))
+			else if (ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
+				last_spins_webs = world.time
 				var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
 				if (T)
 				else
 					new /obj/effect/spider/terrorweb(get_turf(src))
 					visible_message("<span class='notice'>\the [src] puts up some spider webs.</span>")
-			else if (ai_cocoons_objects && prob(idle_cocoon_chance))
+			else if (ai_cocoons_object && world.time > (last_cocoon_object + freq_cocoon_object))
+				last_cocoon_object = world.time
 				var/list/can_see = view(src, 10)
 				//first, check for potential food nearby to cocoon
 				for(var/mob/living/C in can_see)
@@ -801,7 +809,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 										cocoon_target = O
 										stop_automated_movement = 1
 										spider_steps_taken = 0
-			else if (ai_hides_in_vents && prob(25))
+			else if (ai_hides_in_vents && prob(prob_ai_hides_in_vents))
 				var/obj/machinery/atmospherics/unary/vent_pump/e = locate() in get_turf(src)
 				if (e)
 					if (!e.welded || spider_awaymission)
@@ -825,6 +833,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 										ai_ventcrawls = 0
 										ai_spins_webs = 0
 										ai_break_lights = 0
+										prob_ai_hides_in_vents = 3
 										visible_message("<span class='notice'> [src] finishes setting up its trap in [get_area(src)].</span>")
 							else
 								var/list/g_turfs_valid = ListValidTurfs()
@@ -857,6 +866,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 							// if you're bumped off your vent, try to get back to it
 			else if (ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 				if (prob(idle_ventcrawl_chance))
+					last_ventcrawl_time = world.time
 					var/vdistance = 99
 					for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
 						if(!v.welded)
@@ -865,18 +875,9 @@ var/global/ts_death_window = 9000 // 15 minutes
 								vdistance = get_dist(src,v)
 					if(entry_vent)
 						path_to_vent = 1
-						last_ventcrawl_time = world.time
 		else if (AIStatus != AI_OFF && target)
-			if (prob(30))
-				var/tgt_dir = get_dir(src,target)
-				for(var/obj/machinery/door/firedoor/F in view(1,src))
-					if (tgt_dir == get_dir(src,F) && F.density && !F.blocked)
-						visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
-						F.open()
-				if (spider_opens_doors)
-					for(var/obj/machinery/door/airlock/A in view(1,src))
-						if (tgt_dir == get_dir(src,A) && A.density)
-							try_open_airlock(A)
+			// if I am chasing something, and I've been stuck behind an obstacle for at least 3 cycles, aka 6 seconds, try to open doors
+			CreatePath(target)
 	..()
 
 
@@ -885,17 +886,41 @@ var/global/ts_death_window = 9000 // 15 minutes
 		var/obj/machinery/door/airlock/A = user
 		if (A.density)
 			try_open_airlock(A)
+	..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/CreatePath(var/mygoal)
+	var/m2 = get_turf(src)
+	if (m2 == mylocation)
+		chasecycles++
+		ClearObstacle(get_turf(mygoal))
+		if (chasecycles >= 3)
+			chasecycles = 0
+			if (spider_opens_doors)
+				var/tgt_dir = get_dir(src,mygoal)
+				for(var/obj/machinery/door/airlock/A in view(1,src))
+					if (A.density)
+						try_open_airlock(A)
+				for(var/obj/machinery/door/firedoor/F in view(1,src))
+					if (tgt_dir == get_dir(src,F) && F.density && !F.blocked)
+						visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
+						F.open()
+
+	else
+		mylocation = m2
+		chasecycles = 0
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ClearObstacle(var/turf/target_turf)
-	DestroySurroundings()
-	//var/turf/T = get_step(src, get_dir(src, target_turf))
-	//for(var/atom/A in T)
-	//	if (spider_debug == 2) // HARDCORE DEBUGGING!
-	//		visible_message("<span class='notice'>\the [src] considers smashing the [A].</span>")
-	//	if(istype(A, /obj/structure/window) || istype(A, /obj/structure/closet) || istype(A, /obj/structure/table) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/rack) || istype(A, /obj/machinery/door/window) )
-	//		A.attack_animal(src)
-	//		return 1
-	//return 0
+	//Old, easy code.
+	//DestroySurroundings()
+
+	// *****BUG***** This does not allow spiders to smash windoors (e.g: UO71 bar windoor) for some reason.
+	// New, adapted from DestroySurroundings, let's see if it works.
+	for(var/dir in cardinal) // North, South, East, West
+		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
+		if(istype(obstacle, /obj/structure/window) || istype(obstacle, /obj/structure/closet) || istype(obstacle, /obj/structure/table) || istype(obstacle, /obj/structure/grille) || istype(obstacle, /obj/structure/rack) || istype(obstacle, /obj/machinery/door/window) )
+			obstacle.attack_animal(src)
+
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/harvest()
 
@@ -1245,6 +1270,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 							continue
 						large_cocoon = 1
 						fed++
+						last_cocoon_object = 0
 						L.loc = C
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
@@ -1458,7 +1484,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 	else if (!isliving(nibbletarget))
 		to_chat(src, "[nibbletarget] is not edible.")
 	else if (nibbletarget in nibbled)
-		to_chat(src, "You have already eaten some of [nibbletarget].")
+		to_chat(src, "You have already eaten some of [nibbletarget]. Their blood is no use to you now.")
 	else
 		nibbled += nibbletarget
 		regen_points += regen_points_per_kill
@@ -1466,6 +1492,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 		src.do_attack_animation(nibbletarget)
 		if (spider_debug)
 			to_chat(src, "You now have " + num2text(regen_points) + " regeneration points.")
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/verb/KillMe()
 	set name = "Suicide"
@@ -1671,6 +1698,8 @@ var/global/ts_death_window = 9000 // 15 minutes
 	vision_range = 9
 	idle_vision_range = 9
 	move_to_delay = 5
+	if (ai_hides_in_vents)
+		prob_ai_hides_in_vents = 10
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ListValidTurfs()
 	var/list/potentials = list()
@@ -1754,7 +1783,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	ventcrawler = 1
-	ai_cocoons_objects=1
+	ai_cocoons_object = 1
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/verb/Wrap()
