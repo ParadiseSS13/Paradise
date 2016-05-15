@@ -320,6 +320,24 @@
 			to_chat(user, "\blue <b>\The [src] is fully repaired!</b>")
 			return
 
+	if(istype(W, /obj/item/device/lock_buster))
+		var/obj/item/device/lock_buster/L = W
+		if(L.on & equipment_system.lock_system)
+			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
+				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
+			if(do_after(user, 100, target = src))
+				qdel(equipment_system.lock_system)
+				equipment_system.lock_system = null
+				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
+					"<span class='notice'>You destroy the [src]'s lock!</span>")
+			else
+				user.visible_message(user, "<span class='warning'>[user] fails to break through the [src]'s lock!</span>",
+				"<span class='notice'>You were unable to break through the [src]'s lock!</span>")
+			return
+		else
+			to_chat(user, "<span class='notice'>Turn the [L] on first.</span>")
+		return
+
 	if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
 		cargo_hold.attackby(W, user, params)
 		return
@@ -604,7 +622,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 				return 0
 			if(passengers.len < max_passengers)
 				visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
-				if(do_after(user, 50, M))
+				if(do_after(user, 50, target = M))
 					moved_other_inside(M)
 
 		if(M == user)
@@ -829,7 +847,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set src = usr.loc
 	var/mob/user = usr
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
-	if(do_after(user, 40, src))
+	if(do_after(user, 40, target = src))
 		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + equipment_system.get_list()
 		var/list/true_contents = contents - badlist
 		if(true_contents.len > 0)
