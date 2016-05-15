@@ -70,7 +70,7 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/proc/handle_speech_problems(var/message, var/verb)
 	var/list/returns[3]
 	var/speech_problem_flag = 0
-
+	var/robot = isSynthetic()
 
 
 	if((HULK in mutations) && health >= 25 && length(message))
@@ -79,11 +79,17 @@ proc/get_radio_key_from_channel(var/channel)
 		speech_problem_flag = 1
 
 	if(slurring)
-		message = slur(message)
+		if(robot)
+			message = slur(message, list("@", "!", "#", "$", "%", "&", "?"))
+		else
+			message = slur(message)
 		verb = "slurs"
 		speech_problem_flag = 1
 	if(stuttering)
-		message = stutter(message)
+		if(robot)
+			message = robostutter(message)
+		else
+			message = stutter(message)
 		verb = "stammers"
 		speech_problem_flag = 1
 
@@ -160,8 +166,13 @@ proc/get_radio_key_from_channel(var/channel)
 	verb = say_quote(message, speaking)
 
 	if(is_muzzled())
-		to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
-		return
+		var/obj/item/clothing/mask/muzzle/G = wear_mask
+		if(G.mute) //if the mask is supposed to mute you completely or just muffle you
+			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
+			return
+		else
+			message = muffledspeech(message)
+			verb = "mumbles"
 
 	message = trim_left(message)
 
@@ -350,7 +361,10 @@ proc/get_radio_key_from_channel(var/channel)
 		return
 
 	if(is_muzzled())
-		to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
+		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
+			to_chat(src, "<span class='danger'>Your mouth is taped and you cannot speak!</span>")
+		else
+			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 		return
 
 	var/message_range = 1

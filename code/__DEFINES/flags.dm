@@ -43,11 +43,11 @@
 #define HAS_LIPS 		64
 #define IS_PLANT 		128
 #define CAN_BE_FAT 		256
-#define IS_RESTRICTED 	512
-#define NO_INTORGANS	1024
-#define NO_POISON		2048
-#define RADIMMUNE		4096
-#define ALL_RPARTS		8192
+#define NO_INTORGANS	512
+#define NO_POISON		1024
+#define RADIMMUNE		2048
+#define ALL_RPARTS		4096
+#define NOGUNS			8192
 
 //Species clothing flags
 #define HAS_UNDERWEAR 	1
@@ -66,6 +66,7 @@
 #define HAS_MARKINGS		256
 #define TAIL_WAGGING    	512
 #define NO_EYES				1024
+#define HAS_FUR				2048
 
 //Species Diet Flags
 #define DIET_CARN		1
@@ -107,3 +108,8 @@
 #define SLOT_TWOEARS 8192
 #define SLOT_PDA 16384
 #define SLOT_TIE 32768
+
+//ORGAN TYPE FLAGS
+#define AFFECT_ROBOTIC_ORGAN	1
+#define AFFECT_ORGANIC_ORGAN	2
+#define AFFECT_ALL_ORGANS		3

@@ -7,7 +7,7 @@
 	icon_state = "base"
 	use_power = 1
 	initialize_directions = 0
-	
+
 	can_unwrench = 1
 
 	var/on = 0
@@ -47,7 +47,7 @@
 		ports += new_port
 
 	build_icons()
-	
+
 /obj/machinery/atmospherics/omni/Destroy()
 	for(var/datum/omni_port/P in ports)
 		if(P.node)
@@ -234,13 +234,13 @@
 /obj/machinery/atmospherics/omni/proc/sort_ports()
 	return
 
-// Pipenet procs	
+// Pipenet procs
 /obj/machinery/atmospherics/omni/build_network()
 	for(var/datum/omni_port/P in ports)
 		if(!P.parent)
 			P.parent = new /datum/pipeline()
-			P.parent.build_pipeline(src)	
-	
+			P.parent.build_pipeline(src)
+
 /obj/machinery/atmospherics/omni/disconnect(obj/machinery/atmospherics/reference)
 	for(var/datum/omni_port/P in ports)
 		if(reference == P.node)
@@ -248,14 +248,16 @@
 				qdel(P.parent)
 			P.node = null
 	update_ports()
-	
+
 /obj/machinery/atmospherics/omni/nullifyPipenet(datum/pipeline/P)
 	..()
+	if(!P)
+		return
 	for(var/datum/omni_port/PO in ports)
 		if(P == PO.parent)
 			PO.parent.other_airs -= PO.air
 			PO.parent = null
-	
+
 /obj/machinery/atmospherics/omni/returnPipenetAir(datum/pipeline/P)
 	for(var/datum/omni_port/PO in ports)
 		if(P == PO.parent)
@@ -270,14 +272,14 @@
 		var/list/nodes = list()
 		for(var/datum/omni_port/PO in ports)
 			nodes += PO.node
-			
+
 		return nodes
-		
+
 /obj/machinery/atmospherics/omni/setPipenet(datum/pipeline/P, obj/machinery/atmospherics/A)
 	for(var/datum/omni_port/PO in ports)
 		if(A == PO.node)
 			PO.parent = P
-		
+
 /obj/machinery/atmospherics/omni/returnPipenet(obj/machinery/atmospherics/A)
 	for(var/datum/omni_port/P in ports)
 		if(A == P.node)
@@ -287,3 +289,11 @@
 	for(var/datum/omni_port/P in ports)
 		if(Old == P.parent)
 			P.parent = New
+
+
+/obj/machinery/atmospherics/omni/process()
+	..()
+	for(var/datum/omni_port/port in ports)
+		if(!port.parent)
+			return 0
+	return 1

@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in the ability to flip over someone with *flip"

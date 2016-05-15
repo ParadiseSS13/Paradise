@@ -168,6 +168,7 @@ var/list/ai_verbs_default = list(
 	add_language("Canilunzt", 0)
 	add_language("Skrellian", 0)
 	add_language("Vox-pidgin", 0)
+	add_language("Orluum", 0)
 	add_language("Rootspeak", 0)
 	add_language("Trinary", 1)
 	add_language("Chittin", 0)

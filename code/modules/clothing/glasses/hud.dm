@@ -103,7 +103,8 @@
 	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription

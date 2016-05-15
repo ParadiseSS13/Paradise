@@ -12,6 +12,8 @@
 	if(embedded_flag)
 		handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
+	if(slowed)
+		tally += 10
 
 	var/health_deficiency = (maxHealth - health + staminaloss)
 	if(reagents)
