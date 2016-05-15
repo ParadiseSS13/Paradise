@@ -688,7 +688,6 @@
 		if(!options.Find(href_list["move"])) //I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING.
 			// Seriously, though, NEVER trust a Topic with something like this. Ever.
 			message_admins("move HREF ([src] attempted to move to: [href_list["move"]]) exploit attempted by [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-			to_chat(usr, "<span class='userdanger'>Expect a ban. Soon.</span>")
 			return
 		switch(shuttle_master.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
