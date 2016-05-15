@@ -149,6 +149,8 @@
 
 	var/rigged = 0				// true if rigged to explode
 
+	var/reinforced = 0 //true if light is break-resistant (to being hit by weapons)
+
 // the smaller bulb light fixture
 
 /obj/machinery/light/small
@@ -167,6 +169,11 @@
 	light_type = /obj/item/weapon/light/tube/large
 	brightness_range = 12
 	brightness_power = 4
+
+/obj/machinery/light/reinforced
+	name = "reinforced light fixture"
+	reinforced = 1
+	desc = "A reinforced lighting fixture designed to be smash resistant. Useful for situations when assholes would be smashing your lights."
 
 /obj/machinery/light/built/New()
 	status = LIGHT_EMPTY
@@ -329,6 +336,11 @@
 	else if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 
 		user.do_attack_animation(src)
+		if(reinforced)
+			user.visible_message("<span class='danger'>[user.name] hits the light, but it does no damage.</span>")
+			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+			return
+
 		if(prob(1+W.force * 5))
 
 			to_chat(user, "You hit the light, and it smashes!")
@@ -413,6 +425,8 @@
 		broken()
 	return
 
+//Aliens can break reinforced lights, just not simple mobs
+
 /obj/machinery/light/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage_upper == 0)	return
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
@@ -420,6 +434,9 @@
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
 		M.do_attack_animation(src)
+		if(reinforced)
+			visible_message("<span class='danger'>[M.name] hits the light, but it does no damage.</span>")
+			return
 		visible_message("<span class='danger'>[M.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
 		broken()
 	return
