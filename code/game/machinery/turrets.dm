@@ -21,7 +21,7 @@
 			turretTargets |= Mech
 	else if( istype(O, /obj/spacepod) )
 		var/obj/spacepod/Pod = O
-		if( Pod.occupants )
+		if( Pod.pilot )
 			turretTargets |= Pod
 	else if(istype(O,/mob/living/simple_animal))
 		turretTargets |= O
@@ -139,7 +139,7 @@
 				return 1
 		else if( istype(T, /obj/spacepod) )
 			var/obj/spacepod/SP = T
-			if( SP.occupants )
+			if( SP.pilot )
 				return 1
 		else if(istype(T,/mob/living/simple_animal))
 			var/mob/living/simple_animal/A = T
@@ -159,8 +159,8 @@
 		if(M.occupant)
 			new_targets += M
 	for(var/obj/spacepod/M in protected_area.turretTargets)
-		if(M.occupants[PILOT])
-			new_targets += M.occupants[PILOT]
+		if(M.pilot)
+			new_targets += M.pilot
 	for(var/mob/living/simple_animal/M in protected_area.turretTargets)
 		if(!M.stat)
 			new_targets += M
@@ -488,7 +488,7 @@
 			return 1
 	else if(istype(target, /obj/spacepod))
 		var/obj/spacepod/S = target
-		if(S.occupants)
+		if(S.pilot)
 			return 1
 	return 0
 
@@ -522,11 +522,11 @@
 			continue //Don't shoot at empty mechs.
 		pos_targets += M
 	for(var/obj/spacepod/M in oview(scan_range, src))
-		if(M.occupants[PILOT])
-			var/mob/P = M.occupants[PILOT]
+		if(M.pilot)
+			var/mob/P = M.pilot
 			if(faction in P.faction)
 				continue
-		if(!M.occupants)
+		if(!M.pilot)
 			continue //Don't shoot at empty pods.
 		pos_targets += M
 	if(pos_targets.len)

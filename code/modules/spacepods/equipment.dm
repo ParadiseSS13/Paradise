@@ -51,13 +51,18 @@
 	var/obj/item/device/spacepod_equipment/cargo/cargo_system // cargo system
 	var/obj/item/device/spacepod_equipment/cargo/sec_cargo_system // secondary cargo system
 	var/obj/item/device/spacepod_equipment/lock/lock_system // lock system
-	//var/obj/item/device/spacepod_equipment/engine/engine_system // engine system
-	//var/obj/item/device/spacepod_equipment/shield/shield_system // shielding system
 
 /datum/spacepod/equipment/New(var/obj/spacepod/SP)
 	..()
 	if(istype(SP))
 		my_atom = SP
+
+/datum/spacepod/equipment/proc/get_list()
+	var/list/stuff
+	for(var/obj/I in vars)
+		if(istype(I, /obj/item/device/spacepod_equipment))
+			stuff += I
+	return stuff
 
 /obj/item/device/spacepod_equipment
 	name = "equipment"
@@ -182,58 +187,42 @@
 	name = "pod cargo"
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/vehicles/spacepod.dmi'
-	icon_state = "blank"
+	icon_state = "cargo_blank"
+	var/obj/storage = null
 
 /obj/item/device/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
 	return
 
 /obj/item/device/spacepod_equipment/cargo/proc/unload() // called by unload verb
-	return
+	if(storage)
+		storage.forceMove(get_turf(my_atom))
+		storage = null
 
+/obj/item/device/spacepod_equipment/cargo/removed(var/mob/user) // called when system removed
+	. = ..()
+	unload()
 
 // Ore System
 /obj/item/device/spacepod_equipment/cargo/ore
 	name = "spacepod ore storage system"
 	desc = "An ore storage system for spacepods. Scoops up any ore you drive over."
 	icon_state = "cargo_ore"
-	var/obj/structure/ore_box/box
 
 /obj/item/device/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
-	if(box && istype(I,/obj/item/weapon/ore))
-		I.forceMove(box)
-
-/obj/item/device/spacepod_equipment/cargo/ore/unload()
-	if(box)
-		box.forceMove(get_turf(my_atom))
-		box = null
-
-/obj/item/device/spacepod_equipment/cargo/ore/removed(var/mob/user)
-	. = ..()
-	unload()
+	if(storage && istype(I,/obj/item/weapon/ore))
+		I.forceMove(storage)
 
 // Crate System
 /obj/item/device/spacepod_equipment/cargo/crate
 	name = "spacepod crate storage system"
 	desc = "A heavy duty storage system for spacepods. Holds one crate."
-	icon_state = "cargo_ore"
-	var/obj/structure/closet/crate/crate
-
-/obj/item/device/spacepod_equipment/cargo/crate/unload()
-	if(crate)
-		crate.forceMove(get_turf(my_atom))
-		crate = null
-
-/obj/item/device/spacepod_equipment/cargo/crate/removed(var/mob/user)
-	. = ..()
-	unload()
+	icon_state = "cargo_crate"
 
 /*
 ///////////////////////////////////////
 /////////Secondary Cargo System////////
 ///////////////////////////////////////
 */
-
-//Storage system and inventory is handled in cargo_hold.dm
 
 /obj/item/device/spacepod_equipment/sec_cargo
 	name = "secondary cargo"
@@ -245,14 +234,14 @@
 /obj/item/device/spacepod_equipment/sec_cargo/chair
 	name = "passanger seat"
 	desc = "A passenger seat for a spacepod"
-	icon_state = "cargo_ore"
+	icon_state = "sec_cargo_chair"
 	occupant_mod = 1
 
 // Loot Box
 /obj/item/device/spacepod_equipment/sec_cargo/loot_box
 	name = "loot box"
 	desc = "A small compartment to store valuables"
-	icon_state = "cargo_ore"
+	icon_state = "sec_cargo_loot"
 	storage_mod = list("slots" = 7, "w_class" = 14)
 
 /*

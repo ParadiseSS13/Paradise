@@ -22,13 +22,10 @@
 		if(my_pod && enabled)
 			var/podname = capitalize(sanitize(my_pod.name))
 			var/list/chairs = list()
-			if(my_pod.occupants)
-				var/mob/pilot = my_pod.occupants[PILOT]
-				if(my_pod.occupants[PILOT])
-					chairs += list("pilot" = pilot.name)
-				for(var/mob/M in my_pod.occupants)
-					if(M == pilot)
-						continue
+			if(my_pod.pilot || my_pod.passengers)
+				if(my_pod.pilot)
+					chairs += list("pilot" = my_pod.pilot.name)
+				for(var/mob/M in my_pod.passengers)
 					chairs += list("passenger" = M.name)
 
 			pods.Add(list(list("pod" = "\ref[my_pod]", "name" = podname) + chairs + list("x" = my_pod.x, "y" = my_pod.y, "z" = my_pod.z)))
