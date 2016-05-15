@@ -198,12 +198,13 @@ datum/reagent/hair_dye
 datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.r_facial = rand(0,255)
-		H.g_facial = rand(0,255)
-		H.b_facial = rand(0,255)
-		H.r_hair = rand(0,255)
-		H.g_hair = rand(0,255)
-		H.b_hair = rand(0,255)
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		head_organ.r_facial = rand(0,255)
+		head_organ.g_facial = rand(0,255)
+		head_organ.b_facial = rand(0,255)
+		head_organ.r_hair = rand(0,255)
+		head_organ.g_hair = rand(0,255)
+		head_organ.b_hair = rand(0,255)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -228,8 +229,9 @@ datum/reagent/hairgrownium
 datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.h_style = random_hair_style(H.gender, H.species)
-		H.f_style = random_facial_hair_style(H.gender, H.species)
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
+		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -252,12 +254,21 @@ datum/reagent/super_hairgrownium
 	result_amount = 3
 	mix_message = "The liquid becomes amazingly furry and smells peculiar."
 
-datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+datum/reagent/super_hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.h_style = "Very Long Hair"
-		H.f_style = "Very Long Beard"
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/datum/sprite_accessory/tmp_hair_style = hair_styles_list["Very Long Hair"]
+		var/datum/sprite_accessory/tmp_facial_hair_style = facial_hair_styles_list["Very Long Beard"]
+
+		if(head_organ.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
+			head_organ.h_style = "Very Long Hair"
+		else //Otherwise, give them a random hair style.
+			head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
+		if(head_organ.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
+			head_organ.f_style = "Very Long Beard"
+		else //Otherwise, give them a random facial hair style.
+			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name)
 		H.update_hair()
 		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))

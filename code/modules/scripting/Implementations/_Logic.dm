@@ -99,11 +99,6 @@
 
 // --- Miscellaneous functions ---
 
-// Clone of sleep()
-/proc/delay(var/time)
-	//writepanic("[__FILE__].[__LINE__] (no type)([usr ? usr.ckey : ""])  \\/proc/delay() called tick#: [world.time]")
-	sleep(time)
-
 // Clone of rand()
 /proc/rand_chance(var/low = 0, var/high)
 	//writepanic("[__FILE__].[__LINE__] (no type)([usr ? usr.ckey : ""])  \\/proc/rand_chance() called tick#: [world.time]")
