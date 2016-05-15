@@ -337,9 +337,10 @@
 	var/check = rand(0,100)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(check < 8 && H.h_style != "Very Long Beard")
-			H.h_style = "Very Long Hair"
-			H.f_style = "Very Long Beard"
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(check < 8 && head_organ.h_style != "Very Long Beard")
+			head_organ.h_style = "Very Long Hair"
+			head_organ.f_style = "Very Long Beard"
 			H.update_hair()
 			H.update_fhair()
 			H.visible_message("<span class='warning'>[H] has a wild look in their eyes!</span>")
