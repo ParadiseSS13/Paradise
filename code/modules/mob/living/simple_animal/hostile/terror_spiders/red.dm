@@ -1,8 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T1 RED TERROR --------------------------------
@@ -18,6 +14,7 @@
 	name = "red terror spider"
 	desc = "An ominous-looking red spider, it has eight beady red eyes, and nasty, big, pointy fangs!"
 	altnames = list("Red Terror spider","Crimson Terror spider","Bloody Butcher spider")
+	egg_name = "red spider eggs"
 
 	spider_role_summary = "High health, high damage, very slow, melee juggernaut"
 
@@ -64,8 +61,3 @@
 			melee_damage_lower = melee_damage_lower_rage0
 			melee_damage_upper = melee_damage_upper_rage0
 	..()
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

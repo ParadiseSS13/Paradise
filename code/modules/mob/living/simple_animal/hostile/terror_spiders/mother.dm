@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T3 MOTHER OF TERROR --------------------------
 // --------------------------------------------------------------------------------
@@ -19,6 +14,7 @@
 	name = "mother of terror spider"
 	desc = "An enormous spider. Its back is a crawling mass of spiderlings. All of them look around with beady little eyes. The horror!"
 	spider_role_summary = "Schmuck bait. Extremely weak in combat, but spawns many spiderlings when it dies."
+	egg_name = "mother spider eggs"
 
 	altnames = list("Seemingly Harmless spider","Strange spider","Wolf Mother spider")
 	icon_state = "terror_queen"
@@ -47,13 +43,8 @@
 				S.stillborn = 1
 			else if (prob(10))
 				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/green)
-		visible_message("<span class='userdanger'>\the [src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
+		visible_message("<span class='userdanger'>\The [src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
 		degenerate = 1
 		loot = 0
 	..()
 
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

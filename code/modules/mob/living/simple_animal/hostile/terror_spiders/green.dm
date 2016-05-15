@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T1 GREEN TERROR ------------------------------
 // --------------------------------------------------------------------------------
@@ -19,6 +14,7 @@
 	desc = "An ominous-looking green spider, it has a small egg-sac attached to it."
 	altnames = list("Green Terror spider","Insidious Breeding spider","Fast Bloodsucking spider")
 	spider_role_summary = "Average melee spider that webs its victims and lays more spider eggs"
+	egg_name = "green spider eggs"
 
 	icon_state = "terror_green"
 	icon_living = "terror_green"
@@ -53,7 +49,7 @@
 		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
-		visible_message("<span class='notice'>\the [src] begins to lay a cluster of eggs.</span>")
+		visible_message("<span class='notice'>\The [src] begins to lay a cluster of eggs.</span>")
 		stop_automated_movement = 1
 		spawn(50)
 			if(busy == LAYING_EGGS)
@@ -68,9 +64,3 @@
 					fed--
 			busy = 0
 			stop_automated_movement = 0
-
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

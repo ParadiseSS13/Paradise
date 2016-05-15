@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoShowOrders(var/usecache = 0, var/thequeen = null, var/theempress = null)
 	if (ckey)
 		/*
@@ -42,11 +37,11 @@
 		*/
 		to_chat(src, "------------------------")
 		if (ai_type == 0)
-			to_chat(src, "Your Orders: <span class='danger'> kill all humanoids on sight! </span>")
+			to_chat(src, "Your Orders: <span class='danger'>kill all humanoids on sight! </span>")
 		else if (ai_type == 1)
-			to_chat(src, "Your Orders: <span class='notice'> defend yourself & the hive, without being aggressive </span> ")
+			to_chat(src, "Your Orders: <span class='notice'>defend yourself & the hive, without being aggressive </span> ")
 		else if (ai_type == 2)
-			to_chat(src, "Your Orders: <span class='danger'> do not attack anyone, not even in self-defense!</span> ")
+			to_chat(src, "Your Orders: <span class='danger'>do not attack anyone, not even in self-defense!</span> ")
 		to_chat(src, "------------------------")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/BroadcastOrders()
@@ -64,14 +59,12 @@
 		S.DoShowOrders(1,cache_thequeen,cache_theempress)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/B)
-	if (istype(B,/mob/living/carbon))
+	if (iscarbon(B))
 		var/mob/living/carbon/C = B
 		if(C.get_int_organ(/obj/item/organ/internal/body_egg))
 			return 1
-		else
-			return 0
-	else
-		return 0
+	return 0
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Retaliate()
 	var/list/around = view(src, 7)
@@ -81,10 +74,10 @@
 		if (A in enemies)
 			// they are already our enemy
 			continue
-		else if (istype(A, /mob/living/simple_animal/hostile/poison/terror_spider))
+		if (istype(A, /mob/living/simple_animal/hostile/poison/terror_spider))
 			// we can't make enemies of other spiders. Regardless of faction checks (they are unreliable, sometimes spiders get created with no faction!)
 			continue
-		else if(isliving(A))
+		if(isliving(A))
 			var/mob/living/M = A
 			var/faction_check = 0
 			for(var/F in faction)
@@ -93,7 +86,7 @@
 					break
 			if(faction_check && attack_same || !faction_check)
 				enemies |= M
-				visible_message("<span class='danger'> \icon[src] [src] glares at [M]! </span>")
+				visible_message("<span class='danger'>\icon[src] [src] glares at [M]! </span>")
 				// should probably exempt people who are dead...
 		else if(istype(A, /obj/mecha))
 			var/obj/mecha/M = A
@@ -153,7 +146,7 @@
 						try_open_airlock(A)
 				for(var/obj/machinery/door/firedoor/F in view(1,src))
 					if (tgt_dir == get_dir(src,F) && F.density && !F.blocked)
-						visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
+						visible_message("<span class='danger'>\The [src] pries open the firedoor!</span>")
 						F.open()
 
 	else
@@ -166,9 +159,12 @@
 
 	// *****BUG***** This does not allow spiders to smash windoors (e.g: UO71 bar windoor) for some reason.
 	// New, adapted from DestroySurroundings, let's see if it works.
+
+	var/list/valid_obstacles = list(/obj/structure/window, /obj/structure/closet, /obj/structure/table, /obj/structure/grille, /obj/structure/rack, /obj/machinery/door/window)
+
 	for(var/dir in cardinal) // North, South, East, West
 		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
-		if(istype(obstacle, /obj/structure/window) || istype(obstacle, /obj/structure/closet) || istype(obstacle, /obj/structure/table) || istype(obstacle, /obj/structure/grille) || istype(obstacle, /obj/structure/rack) || istype(obstacle, /obj/machinery/door/window) )
+		if(is_type_in_list(obstacle, valid_obstacles))
 			obstacle.attack_animal(src)
 
 
@@ -208,15 +204,15 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(var/target_id_tag, var/msg_to_send)
 	var/unlocked_something = 0
 	for (var/obj/machinery/door/poddoor/P in world)
-		if (P.density && P.id_tag == target_id_tag && P.z == src.z)
+		if (P.density && P.id_tag == target_id_tag && P.z == z)
 			P.open()
 			unlocked_something = 1
 	if (unlocked_something)
 		for(var/mob/living/carbon/human/H in player_list)
-			if (H.z != src.z)
+			if (H.z != z)
 				continue
 			to_chat(H,"<span class='notice'>----------</span>")
-			to_chat(H,"<span class='notice'>" + msg_to_send + "</span>")
+			to_chat(H,"<span class='notice'>[msg_to_send]</span>")
 			to_chat(H,"<span class='notice'>----------</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoHiveSense()
@@ -346,8 +342,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			visible_message("<B>[src] scrambles into the ventillation ducts!</B>", \
-							"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+			visible_message("<B>[src] scrambles into the ventillation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 			spawn(rand(20,60))
 				var/original_location = loc
 				loc = exit_vent
@@ -500,10 +495,3 @@
 			vturfs += T
 	return vturfs
 
-
-
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T1 GRAY TERROR -------------------------------
 // --------------------------------------------------------------------------------
@@ -19,6 +14,7 @@
 	desc = "An ominous-looking gray spider, its color and shape makes it hard to see."
 	altnames = list("Gray Trap spider","Gray Stalker spider","Ghostly Ambushing spider")
 	spider_role_summary = "Stealth spider that ambushes weak humans from vents."
+	egg_name = "gray spider eggs"
 
 	icon_state = "terror_gray"
 	icon_living = "terror_gray"
@@ -58,7 +54,7 @@
 		..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/GrayCloak()
-	visible_message("<span class='notice'> [src] hides in the vent.</span>")
+	visible_message("<span class='notice'>[src] hides in the vent.</span>")
 	invisibility = SEE_INVISIBLE_LEVEL_ONE
 	icon_state = "terror_gray_cloaked"
 	icon_living = "terror_gray_cloaked"
@@ -77,9 +73,3 @@
 	move_to_delay = 5
 	if (ai_hides_in_vents)
 		prob_ai_hides_in_vents = 10
-
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

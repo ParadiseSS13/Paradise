@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 var/global/list/ts_ckey_blacklist = list()
 var/global/ts_count_dead = 0
 var/global/ts_count_alive_awaymission = 0
@@ -22,6 +17,7 @@ var/global/ts_death_window = 9000 // 15 minutes
 	var/altnames = list()
 	var/name_usealtnames = 0 // if 1, spiders use their randomized names, if not they're all "<color> terror"
 	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
+	var/egg_name = "terror eggs"
 
 	// Icons
 	icon = 'icons/mob/terrorspider.dmi'
@@ -852,8 +848,3 @@ var/global/ts_death_window = 9000 // 15 minutes
 /mob/living/simple_animal/hostile/poison/terror_spider/attack_ghost(mob/user)
 	humanize_spider(user)
 
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

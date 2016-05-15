@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T5 EMPRESS OF TERROR -------------------------
 // --------------------------------------------------------------------------------
@@ -21,6 +16,7 @@
 	desc = "The unholy offspring of spiders, nightmares, and lovecraft fiction."
 	spider_role_summary = "Adminbus spider"
 	altnames = list ("terror empress spider")
+	egg_name = "empress spider eggs"
 
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
@@ -125,7 +121,7 @@
 	set name = "EMP Shockwave"
 	set category = "Spider"
 	set desc = "Emit a wide-area emp pulse, frying almost all electronics in a huge radius."
-	empulse(src.loc,10,25)
+	empulse(loc,10,25)
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressScreech()
@@ -146,24 +142,17 @@
 	set desc = "Causes widespread, terrifying hallucinations amongst many crew as you assault their minds."
 	var/numaffected = 0
 	for(var/mob/living/carbon/human/H in player_list)
-		if (H.z != src.z)
+		if (H.z != z)
 			continue
-		if (H.health < 1)
-			// nothing
-		else if (prob(50))
-			// nothing
-		else if (prob(50))
-			// weak
-			H.hallucination = max(300, H.hallucination)
-			to_chat(H,"<span class='userdanger'> Your head hurts! </span>")
-			numaffected++
-		else
-			// strong
+		if (H.health < 1 || prob(50))
+			continue
+		H.hallucination = max(300, H.hallucination)
+		if (prob(50))
 			H.hallucination = max(600, H.hallucination)
-			to_chat(H,"<span class='userdanger'> Your head hurts! </span>")
-			numaffected++
+		to_chat(H,"<span class='userdanger'>Your head hurts! </span>")
+		numaffected++
 	if (numaffected)
-		to_chat(src, "You reach through bluespace into the minds of " + num2text(numaffected) + " crew, making their fears come to life. They start to hallucinate.")
+		to_chat(src, "You reach through bluespace into the minds of [numaffected] crew, making their fears come to life. They start to hallucinate.")
 	else
 		to_chat(src, "You reach through bluespace, searching for organic minds... but find none nearby.")
 
@@ -230,15 +219,11 @@
 			T.degenerate = 1
 			T.loot = 0
 			to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
-			//T.Stun(20)
-			//T.Weaken(20)
 	for(var/obj/effect/spider/terror_eggcluster/T in world)
 		qdel(T)
 	for(var/obj/effect/spider/terror_spiderling/T in world)
 		T.stillborn = 1
 	to_chat(src, "Brood will die off shortly.")
-	//for (var/obj/effect/spider/terrorweb/T in world)
-	//	qdel(T)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/SpiderlingFlood()
 	set name = "Spiderling Flood"
@@ -255,9 +240,3 @@
 		if (spider_growinstantly)
 			S.amount_grown = 250
 
-
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

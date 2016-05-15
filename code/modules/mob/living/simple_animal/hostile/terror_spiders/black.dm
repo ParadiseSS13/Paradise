@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T2 BLACK TERROR ------------------------------
 // --------------------------------------------------------------------------------
@@ -19,6 +14,7 @@
 	desc = "An ominous-looking spider, black as the darkest night, and with merciless yellow eyes."
 	altnames = list("Black Devil spider","Giant Black Widow spider","Shadow Terror spider")
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
+	egg_name = "black spider eggs"
 
 	icon_state = "terror_black"
 	icon_living = "terror_black"
@@ -30,9 +26,3 @@
 	move_to_delay = 5
 	stat_attack = 1 // ensures they will target people in crit, too!
 	spider_tier = 2
-
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

@@ -1,11 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
-
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T2 PURPLE TERROR -----------------------------
 // --------------------------------------------------------------------------------
@@ -20,6 +13,7 @@
 	name = "praetorian spider"
 	desc = "An ominous-looking purple spider."
 	spider_role_summary = "Guards the nest of the Queen of Terror."
+	egg_name = "purple spider eggs"
 
 	icon_state = "terror_purple"
 	icon_living = "terror_purple"
@@ -45,8 +39,3 @@
 					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
 					visible_message("<span class='notice'> [src] chitters in the direction of [Q]!</span>")
 	..()
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

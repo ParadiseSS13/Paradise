@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: EGGS (USED BY NURSE AND QUEEN TYPES) ---------
 // --------------------------------------------------------------------------------
@@ -19,20 +14,8 @@
 	C.master_commander = master_commander
 	C.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 	C.enemies = enemies
-	if (lay_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)
-		C.name = "red spider eggs"
-	else if (lay_type == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
-		C.name = "gray spider eggs"
-	else if (lay_type == /mob/living/simple_animal/hostile/poison/terror_spider/green)
-		C.name = "green spider eggs"
-	else if (lay_type == /mob/living/simple_animal/hostile/poison/terror_spider/black)
-		C.name = "black spider eggs"
-	else if (lay_type == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
-		C.name = "purple spider eggs"
-	else if (lay_type == /mob/living/simple_animal/hostile/poison/terror_spider/white)
-		C.name = "white spider eggs"
-	else
-		C.name = "strange spider eggs"
+	//In future, might use something like: C.name = initial(lay_type.egg_name)
+	//However, right now, that doesn't work.
 	if (spider_growinstantly)
 		C.amount_grown = 250
 		C.spider_growinstantly = 1
@@ -43,7 +26,7 @@
 
 
 /obj/effect/spider/terror_eggcluster
-	name = "giant egg cluster"
+	name = "terror egg cluster"
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
 	icon_state = "eggs"
 	var/amount_grown = 0
@@ -75,18 +58,6 @@
 				S.grow_as = spiderling_type
 			if (spiderling_ventcrawl)
 				S.use_vents = spiderling_ventcrawl
-			if (S.grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/queen")
-				S.name = "queen spiderling"
-			else if (S.grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/red")
-				S.name = "red spiderling"
-			else if (S.grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/black")
-				S.name = "black spiderling"
-			else if (S.grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/green")
-				S.name = "green spiderling"
-			else if (S.grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/purple")
-				S.name = "purple spiderling"
-			else if (S.grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/white")
-				S.name = "white spiderling"
 			S.faction = faction
 			S.spider_myqueen = spider_myqueen
 			S.master_commander = master_commander
@@ -130,6 +101,24 @@
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	processing_objects.Add(src)
+	if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/red")
+		name = "red spiderling"
+	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/gray")
+		name = "gray spiderling"
+	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/green")
+		name = "green spiderling"
+	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/black")
+		name = "black spiderling"
+	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/purple")
+		name = "purple spiderling"
+	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/white")
+		name = "white spiderling"
+	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/mother")
+		name = "mother spiderling"
+	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/prince")
+		name = "prince spiderling"
+	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/queen")
+		name = "queen spiderling"
 
 
 /obj/effect/spider/terror_spiderling/Bump(atom/user)
@@ -154,7 +143,7 @@
 
 /obj/effect/spider/terror_spiderling/process()
 	if(travelling_in_vent)
-		if(istype(loc, /turf))
+		if(isturf(loc))
 			travelling_in_vent = 0
 			entry_vent = null
 	else if(entry_vent)
@@ -196,8 +185,6 @@
 		if(nearby.len)
 			var/target_atom = pick(nearby)
 			walk_to(src, target_atom)
-			//if(prob(40))
-			//	visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
 	else if(prob(10) && use_vents)
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
@@ -212,7 +199,7 @@
 				die()
 			else
 				if(!grow_as)
-					grow_as = pick("/mob/living/simple_animal/hostile/poison/terror_spider/red","/mob/living/simple_animal/hostile/poison/terror_spider/gray","/mob/living/simple_animal/hostile/poison/terror_spider/green")
+					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red,/mob/living/simple_animal/hostile/poison/terror_spider/gray,/mob/living/simple_animal/hostile/poison/terror_spider/green)
 				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
 				S.faction = faction
 				S.spider_myqueen = spider_myqueen
@@ -302,7 +289,7 @@
 			return 1
 	else if(istype(mover, /obj/item/projectile))
 		return prob(20)
-	return 1
+	return ..()
 
 
 // --------------------------------------------------------------------------------
@@ -346,8 +333,3 @@
 	origin_tech = "biotech=6;materials=2;combat=5"
 	New()
 		reagents.add_reagent("terror_white_toxin", 15)
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

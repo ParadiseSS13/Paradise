@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T3 PRINCE OF TERROR --------------------------
 // --------------------------------------------------------------------------------
@@ -19,6 +14,7 @@
 	name = "prince of terror spider"
 	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Extremely dangerous."
 	spider_role_summary = "Boss-level terror spider. Lightning bruiser. Capable of taking on a squad by itself."
+	egg_name = "prince spider eggs"
 
 	altnames = list("Prince of Terror","Terror Prince")
 	icon_state = "terror_queen"
@@ -38,8 +34,3 @@
 	spider_opens_doors = 2
 
 
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T2 WHITE TERROR ------------------------------
 // --------------------------------------------------------------------------------
@@ -18,6 +13,7 @@
 	name = "white death spider"
 	desc = "An ominous-looking white spider, its ghostly eyes and vicious-looking fangs are the stuff of nightmares."
 	spider_role_summary = "Rare, bite-and-run spider that infects hosts with spiderlings"
+	egg_name = "white spider eggs"
 
 	altnames = list("White Terror spider","White Death spider","Ghostly Nightmare spider")
 	icon_state = "terror_white"
@@ -36,8 +32,3 @@
 	stop_automated_movement = 0
 	..()
 
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

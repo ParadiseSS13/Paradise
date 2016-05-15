@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T4 QUEEN OF TERROR ---------------------------
 // --------------------------------------------------------------------------------
@@ -18,6 +13,7 @@
 	name = "Queen of Terror spider"
 	desc = "An enormous, terrifying spider. Its egg sac is almost as big as its body, and teeming with spider eggs."
 	spider_role_summary = "Commander of the spider forces. Lays eggs & directs the brood."
+	egg_name = "queen spider eggs"
 
 	altnames = list("Queen of Terror","Brood Mother")
 	icon_state = "terror_queen"
@@ -384,11 +380,11 @@
 		spider_can_screech--
 		DoQueenScreech(15,50,10,100)
 	else
-		src << "You have run out of uses of this ability."
+		to_chat(src, "You have run out of uses of this ability.")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(var/light_range, var/light_chance, var/camera_range, var/camera_chance)
-	visible_message("<span class='userdanger'>\the [src] emits a bone-chilling shriek!</span>")
+	visible_message("<span class='userdanger'>\The [src] emits a bone-chilling shriek!</span>")
 	for(var/obj/machinery/light/L in orange(light_range,src))
 		if (prob(light_chance))
 			L.on = 1
@@ -415,8 +411,3 @@
 		to_chat(src, "You have run out of uses of this ability.")
 
 
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

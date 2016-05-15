@@ -240,7 +240,6 @@
 	name = "ID Upgrade Machine"
 	icon_state = "guest"
 	icon_screen = "pass"
-	//icon = 'icons/obj/computer.dmi'
 	var/list/access_to_give = list()
 
 /obj/machinery/computer/id_upgrader/attackby(obj/O, mob/user, params)
@@ -254,9 +253,10 @@
 			if (!(this_access in I.GetAccess()))
 				// don't have it - add it
 				I.access |= this_access
-				to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
 				did_upgrade = 1
-		if (!did_upgrade)
+		if (did_upgrade)
+			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
+		else
 			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
 	else
 		to_chat(user, "<span class='notice'>Use an ID card on the [src] instead.</span>")
