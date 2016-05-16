@@ -644,7 +644,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \The pen holds two doses of the mixture. The pen can be refilled."
+	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
 	reference = "SP"
 	item = /obj/item/weapon/pen/sleepy
 	cost = 8
@@ -699,7 +699,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
 	name = "Dehydrated Space Carp"
-	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. \The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
+	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 3
