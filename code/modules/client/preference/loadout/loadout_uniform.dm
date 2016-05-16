@@ -5,6 +5,17 @@
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/skirt
+	display_name = "skirt"
+
+/datum/gear/uniform/skirt/New()
+	..()
+	var/list/jumpskirts = list()
+	for(var/jump in subtypesof(/obj/item/clothing/under1))
+		if(findtext(path2text(jump), "skirt"))
+	gear_tweaks += new/datum/gear_tweak/path(sortAssoc(skirt_list))
+
+
+/datum/gear/uniform/skirt
 	display_name = "plaid skirt, blue"
 	path = /obj/item/clothing/under/dress/plaid_blue
 

@@ -68,7 +68,11 @@ var/list/gear_datums = list()
 	path = npath
 	location = nlocation
 
-/datum/gear/proc/spawn_item(var/location)
+/datum/gear/proc/spawn_item(location, metadata)
 	var/datum/gear_data/gd = new(path, location)
+	for(var/datum/gear_tweak/gt in gear_tweaks)
+		gt.tweak_gear_data(metadata["[gt]"], gd)
 	var/item = new gd.path(gd.location)
+	for(var/datum/gear_tweak/gt in gear_tweaks)
+		gt.tweak_item(item, metadata["[gt]"])
 	return item

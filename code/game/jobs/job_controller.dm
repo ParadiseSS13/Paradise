@@ -398,7 +398,7 @@ var/global/datum/controller/occupations/job_master
 						else
 							permitted = 1
 
-						if(G.whitelisted && !is_alien_whitelisted(H, G.whitelisted))
+						if(G.whitelisted && (G.whitelisted != H.species.name || !is_alien_whitelisted(H, G.whitelisted)))
 							permitted = 0
 
 						if(!permitted)
@@ -516,19 +516,23 @@ var/global/datum/controller/occupations/job_master
 					H.species.equip(H)
 
 			//Deferred item spawning.
-			if(spawn_in_storage && spawn_in_storage.len)
-				var/obj/item/weapon/storage/B
-				for(var/obj/item/weapon/storage/S in H.contents)
-					B = S
-					break
+			for(var/thing in spawn_in_storage)
+				var/datum/gear/G = gear_datums[thing]
+				var/metadata = H.client.prefs.gear[G.display_name]
+				var/item = G.spawn_item(null, metadata)
 
-				if(!isnull(B))
-					for(var/thing in spawn_in_storage)
-						H << "<span class='notice'>Placing \the [thing] in your [B.name]!</span>"
-						var/datum/gear/G = gear_datums[thing]
-						G.spawn_item(B)
-				else
-					H << "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no arms and no backpack or this is a bug.</span>"
+				var/atom/placed_in = H.equip_or_collect(item)
+				if(placed_in)
+					to_chat(H, "<span class='notice'>Placing \the [item] in your [placed_in.name]!</span>")
+					continue
+				if(H.equip_to_appropriate_slot(item))
+					to_chat(H, "<span class='notice'>Placing \the [item] in your inventory!</span>")
+					continue
+				if(H.put_in_hands(item))
+					to_chat(H, "<span class='notice'>Placing \the [item] in your hands!</span>")
+					continue
+				to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no arms and no backpack or this is a bug.</span>")
+				qdel(item)
 
 
 		to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")

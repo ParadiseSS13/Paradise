@@ -456,6 +456,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<tr style='vertical-align:top;'><td width=25%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
 				dat += "<td width = 10% style='vertical-align:top'>[G.cost]</td>"
 				dat += "<td><font size=2><i>[G.description]</i></font></td></tr>"
+				if(ticked)
+					. += "<tr><td colspan=3>"
+					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
+						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
+					. += "</td></tr>"
 			dat += "</table>"
 
 	dat += "<hr><center>"
@@ -469,6 +474,25 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 640)
 	popup.set_content(dat)
 	popup.open(0)
+
+
+/datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
+	. = gear[G.display_name]
+	if(!.)
+		. = list()
+		gear[G.display_name] = .
+
+/datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
+	var/list/metadata = get_gear_metadata(G)
+	. = metadata["[tweak]"]
+	if(!.)
+		. = tweak.get_default()
+		metadata["[tweak]"] = .
+
+/datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
+	var/list/metadata = get_gear_metadata(G)
+	metadata["[tweak]"] = new_metadata
+
 
 /datum/preferences/proc/SetChoices(mob/user, limit = 12, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
 	if(!job_master)
@@ -1035,6 +1059,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(istype(G)) total_cost += G.cost
 				if((total_cost+TG.cost) <= MAX_GEAR_COST)
 					gear += TG.display_name
+		else if(href_list["gear"] && href_list["tweak"])
+			var/datum/gear/gear = gear_datums[href_list["gear"]]
+			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
+			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
+				return
+			var/metadata = tweak.get_metadata(user, get_tweak_metadata(gear, tweak))
+			if(!metadata || !CanUseTopic(user))
+				return
+			set_tweak_metadata(gear, tweak, metadata)
 		else if(href_list["select_category"])
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])

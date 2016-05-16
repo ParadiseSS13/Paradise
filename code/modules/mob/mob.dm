@@ -245,6 +245,7 @@
 					return // Bag could not be placed in players hands.  I don't know what to do here...
 		//Now, B represents a container we can insert W into.
 		B.handle_item_insertion(W,1)
+		return B
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 var/list/slot_equipment_priority = list( \
