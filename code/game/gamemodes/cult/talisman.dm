@@ -108,7 +108,6 @@
 /obj/item/weapon/paper/talisman/teleport
 	cultist_name = "Talisman of Teleportation"
 	cultist_desc = "A single-use talisman that will teleport a user to a random rune of the same keyword."
-	color = "#551A8B" // purple
 	invocation = "Sas'so c'arta forbici!"
 	health_cost = 5
 
@@ -150,7 +149,6 @@
 /obj/item/weapon/paper/talisman/summon_tome
 	cultist_name = "Talisman of Tome Summoning"
 	cultist_desc = "A one-use talisman that will call an untranslated tome from the archives of a cult."
-	color = "#512727" // red-black
 	invocation = "N'ath reth sh'yro eth d'raggathnor!"
 	health_cost = 1
 
@@ -165,7 +163,6 @@
 /obj/item/weapon/paper/talisman/true_sight
 	cultist_name = "Talisman of Veiling"
 	cultist_desc = "A multi-use talisman that hides nearby runes. On its second use, will reveal nearby runes."
-	color = "#9c9c9c" // grey
 	invocation = "Kla'atu barada nikt'o!"
 	health_cost = 1
 	uses = 2
@@ -190,7 +187,6 @@
 /obj/item/weapon/paper/talisman/make_runes_fake
 	cultist_name = "Talisman of Disguising"
 	cultist_desc = "A talisman that will make nearby runes appear fake."
-	color = "#ff80d5" // honk
 	invocation = "By'o nar'nar!"
 
 /obj/item/weapon/paper/talisman/make_runes_fake/invoke(mob/living/user, successfuluse = 1)
@@ -205,7 +201,6 @@
 /obj/item/weapon/paper/talisman/emp
 	cultist_name = "Talisman of Electromagnetic Pulse"
 	cultist_desc = "A talisman that will cause a moderately-sized electromagnetic pulse."
-	color = "#4d94ff" // light blue
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 	health_cost = 5
 
@@ -220,7 +215,6 @@
 /obj/item/weapon/paper/talisman/stun
 	cultist_name = "Talisman of Stunning"
 	cultist_desc = "A talisman that will stun and inhibit speech on a single target. To use, attack target directly."
-	color = "#ff0000" // red
 	invocation = "Dream sign:Evil sealing talisman!"
 	health_cost = 10
 
@@ -265,7 +259,6 @@
 /obj/item/weapon/paper/talisman/armor
 	cultist_name = "Talisman of Arming"
 	cultist_desc = "A talisman that will equip the invoker with cultist equipment if there is a slot to equip it to."
-	color = "#33cc33" // green
 	invocation = "N'ath reth sh'yro eth draggathnor!"
 
 /obj/item/weapon/paper/talisman/armor/invoke(mob/living/user, successfuluse = 1)
@@ -292,7 +285,6 @@
 /obj/item/weapon/paper/talisman/horror
 	cultist_name = "Talisman of Horrors"
 	cultist_desc = "A talisman that will break the mind of the victim with nightmarish hallucinations."
-	color = "#ffb366" // light orange
 	invocation = "Lo'Nab Na'Dm!"
 
 /obj/item/weapon/paper/talisman/horror/attack(mob/living/target, mob/living/user)
@@ -309,7 +301,6 @@
 	cultist_name = "Talisman of Construction"
 	cultist_desc = "Use this talisman on at least twenty-five metal sheets to create an empty construct shell"
 	invocation = "Ethra p'ni dedol!"
-	color = "#000000" // black
 
 /obj/item/weapon/paper/talisman/construction/attack_self(mob/living/user)
 	if(iscultist(user))
@@ -350,7 +341,6 @@
 	cultist_name = "Talisman of Shackling"
 	cultist_desc = "Use this talisman on a victim to handcuff them with dark bindings."
 	invocation = "In'totum Lig'abis!"
-	color = "#B27300" // burnt-orange
 	uses = 4
 
 /obj/item/weapon/paper/talisman/shackle/invoke(mob/living/user, successfuluse = 0)

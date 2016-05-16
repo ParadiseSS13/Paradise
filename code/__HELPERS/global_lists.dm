@@ -48,7 +48,7 @@
 
 	init_subtypes(/datum/table_recipe, table_recipes)
 
-	init_subtypes(/datum/cult_info, all_cults)
+	all_cults = typesof(/datum/cult_info)
 
 	return 1
 

@@ -12,6 +12,12 @@
 		handle_rotation()
 	return
 
+/obj/structure/stool/bed/chair/narsie_act()
+	if(prob(20))
+		var/obj/structure/stool/bed/chair/wood/W = new/obj/structure/stool/bed/chair/wood(get_turf(src))
+		W.dir = dir
+		qdel(src)
+
 /obj/structure/stool/bed/chair/Move(atom/newloc, direct)
 	..()
 	handle_rotation()
@@ -69,6 +75,9 @@
 // Chair types
 /obj/structure/stool/bed/chair/wood
 	// TODO:  Special ash subtype that looks like charred chair legs
+
+/obj/structure/stool/bed/chair/wood/narsie_act()
+	return
 
 /obj/structure/stool/bed/chair/wood/normal
 	icon_state = "wooden_chair"

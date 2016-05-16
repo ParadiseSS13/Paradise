@@ -40,6 +40,7 @@ To draw a rune, use an arcane tome.
 	..()
 	if(set_keyword)
 		keyword = set_keyword
+	check_icon()
 	var/image/blood = image(loc = src)
 	blood.override = 1
 	for(var/mob/living/silicon/ai/AI in player_list)
@@ -153,7 +154,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/malformed/New()
 	..()
 	icon_state = "[rand(1,6)]"
-	color = rgb(rand(0,255), rand(0,255), rand(0,255))
 
 /obj/effect/rune/malformed/invoke(var/list/invokers)
 	..()
@@ -175,7 +175,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_desc = "transforms paper into powerful magic talismans."
 	invocation = "H'drak v'loso, mir'kanas verbot!"
 	icon_state = "3"
-	color = rgb(0, 0, 255)
 
 /obj/effect/rune/imbue/invoke(var/list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
@@ -224,7 +223,6 @@ var/list/teleport_runes = list()
 	cultist_desc = "warps everything above it to another chosen teleport rune."
 	invocation = "Sas'so c'arta forbici!"
 	icon_state = "2"
-	color = "#551A8B"
 	req_keyword = 1
 	var/listkey
 
@@ -301,7 +299,6 @@ var/list/teleport_runes = list()
 	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on loyalty-implanted crew."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
-	color = rgb(200, 0, 0)
 	req_cultists = 2
 
 /obj/effect/rune/convert/invoke(var/list/invokers)
@@ -341,7 +338,6 @@ var/list/teleport_runes = list()
 	icon_state = "3"
 	allow_excess_invokers = 1
 	invocation = "Barhah hra zar'garis!"
-	color = rgb(255, 255, 255)
 	rune_in_use = 0
 
 /obj/effect/rune/sacrifice/New()
@@ -510,11 +506,6 @@ var/list/teleport_runes = list()
 		sleep(40)
 		new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
 		cult_mode.eldergod = 0
-	else
-		for(var/M in invokers)
-			to_chat(M, "<span class='warning'>[ticker.mode.cultdat.entity_name] does not respond!</span>")
-		fail_invoke()
-		log_game("Summon Nar-Sie rune failed - gametype is not cult")//May need to remove
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/weapon/tome) && iscultist(user)))
@@ -537,7 +528,6 @@ var/list/teleport_runes = list()
 	cultist_desc = "requires two corpses, one on the rune and one adjacent to the rune. The one on the rune is brought to life, the other is turned to ash."
 	invocation = null //Depends on the name of the user - see below
 	icon_state = "1"
-	color = rgb(200, 0, 0)
 
 /obj/effect/rune/raise_dead/invoke(var/list/invokers)
 	var/turf/T = get_turf(src)
@@ -621,7 +611,6 @@ var/list/teleport_runes = list()
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 	icon_state = "5"
 	allow_excess_invokers = 1
-	color = rgb(77, 148, 255)
 
 /obj/effect/rune/emp/invoke(var/list/invokers)
 	var/turf/E = get_turf(src)
@@ -651,7 +640,6 @@ var/list/teleport_runes = list()
 	cultist_desc = "severs the link between one's spirit and body. This effect is taxing and one's physical body will take damage while this is active."
 	invocation = "Fwe'sh mah erl nyag r'ya!"
 	icon_state = "6"
-	color = rgb(126, 23, 23)
 	rune_in_use = 0 //One at a time, please!
 	var/mob/living/affecting = null
 
@@ -724,7 +712,6 @@ var/list/teleport_runes = list()
 	cultist_desc = "when invoked, makes an invisible wall to block passage. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "1"
-	color = rgb(255, 0, 0)
 
 /obj/effect/rune/wall/examine(mob/user)
 	..()
@@ -750,7 +737,6 @@ var/list/teleport_runes = list()
 	req_cultists = 2
 	allow_excess_invokers = 1
 	icon_state = "5"
-	color = rgb(0, 255, 0)
 
 /obj/effect/rune/summon/invoke(var/list/invokers)
 	var/mob/living/user = invokers[1]
@@ -790,7 +776,6 @@ var/list/teleport_runes = list()
 	cultist_desc = "boils the blood of non-believers who can see the rune, dealing extreme amounts of damage. Requires 3 invokers."
 	invocation = "Dedo ol'btoh!"
 	icon_state = "4"
-	color = rgb(200, 0, 0)
 	req_cultists = 3
 
 /obj/effect/rune/blood_boil/invoke(var/list/invokers)

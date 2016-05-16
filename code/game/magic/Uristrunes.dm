@@ -1,34 +1,21 @@
+/proc/make_bit_triplet()
+  var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
+  var/result = 0
+  for(var/i = 0, i < 3, i++)
+    var/num = pick(num_sample)
+    num_sample -= num
+    result += (1 << num)
+  return result
 
-var/list/word_to_uristrune_table = null
-
-/proc/word_to_uristrune_bit(word)
-	if(word_to_uristrune_table == null)
-		word_to_uristrune_table = list()
-
-		var/bit = 1
-
-		while(length(word))
-			var/w = word
-
-			word_to_uristrune_table[w] = bit
-
-			word -= w
-			bit <<= 1
-
-
-	return word_to_uristrune_table[word]
-
-
-
-/proc/get_uristrune_cult(word1)
+/proc/get_uristrune_cult(word)
 	var/animated
 
-	if(word1)
+	if(word)
 		animated = 1
 	else
 		animated = 0
 
-	var/bits = word_to_uristrune_bit(word1)
+	var/bits = make_bit_triplet()
 
 	return get_uristrune(bits, animated)
 

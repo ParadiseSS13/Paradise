@@ -14,18 +14,12 @@
 
 /obj/item/weapon/tome
 	name = "arcane tome"
-	icon_state ="tome"
-	throw_speed = 1
-	throw_range = 5
-	w_class = 2.0
-
-/obj/item/weapon/tome
-	name = "arcane tome"
 	desc = "An old, dusty tome with frayed edges and a sinister-looking cover."
 	icon_state ="tome"
 	throw_speed = 2
 	throw_range = 5
 	w_class = 2
+	var/scribereduct = 0
 
 /obj/item/weapon/tome/examine(mob/user)
 	..()
@@ -218,11 +212,9 @@
 	if(ispath(rune_to_scribe, /obj/effect/rune/narsie))//may need to change this - Fethas
 		var/confirm_final = alert(usr, "This is the FINAL step to summon [ticker.mode.cultdat.entity_name], it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [ticker.mode.cultdat.entity_name]!", "No")
 		if(confirm_final == "No")
-			usr << "On second thought, we should prepare further for the final battle..."
+			to_chat(usr, "On second thought, we should prepare further for the final battle...")
 			return
-		var/area/A = get_area(src)
-		var/locname = initial(A.name)
-		command_announcement.Announce("Figments from an eldritch god are being summoned by [user] into [locname] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensionsal Affairs", 'sound/AI/spanomalies.ogg')
+		command_announcement.Announce("Figments from an eldritch god are being summoned somwhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensionsal Affairs", 'sound/AI/spanomalies.ogg')
 		for(var/B in spiral_range_turfs(1, user, 1))
 			var/turf/T = B
 			var/obj/machinery/shield/N = new(T)
@@ -250,4 +242,7 @@
 		if(S && !qdeleted(S))
 			qdel(S)
 	new rune_to_scribe(Turf, chosen_keyword)
+	rune_to_scribe.blood_DNA = list()
+	rune_to_scribe.blood_DNA[user.dna.unique_enzymes] = user.dna.b_type
+	rune_to_scribe.add_hiddenprint(user)
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune_to_scribe.cultist_name))] rune [initial(rune_to_scribe.cultist_desc)]</span>")

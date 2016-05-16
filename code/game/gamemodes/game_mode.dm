@@ -31,7 +31,7 @@
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 10
-	var/datum/cult_info/cultdat = null //here instead of cult for adminbus purposes
+	var/datum/cult_info/cultdat = new /datum/cult_info() //here instead of cult for adminbus purposes
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)

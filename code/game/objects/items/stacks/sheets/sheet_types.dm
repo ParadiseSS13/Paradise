@@ -209,7 +209,6 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list ( \
  */
 
 var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
-	new/datum/stack_recipe("runed door", /obj/machinery/door/airlock/cult, 3, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("runed girder", /obj/structure/cultgirder, 1, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("pylon", /obj/structure/cult/cultpylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("forge", /obj/structure/cult/cultforge, 5, time = 40, one_per_turf = 1, on_floor = 1), \
