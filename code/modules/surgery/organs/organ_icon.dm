@@ -16,9 +16,9 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/human)
 	if(status & ORGAN_ROBOT && !(species && species.name == "Machine")) //machine people get skin color
-		return
+		return 1
 	if(species && human.species && species.name != human.species.name)
-		return
+		return 1
 	if(dna.unique_enzymes != human.dna.unique_enzymes) // This isn't MY arm
 		sync_colour_to_dna()
 		return
@@ -31,7 +31,7 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/proc/sync_colour_to_dna()
 	if(status & ORGAN_ROBOT)
-		return
+		return 1
 	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && (species.flags & HAS_SKIN_TONE))
 		s_col = null
 		s_tone = dna.GetUIValue(DNA_UI_SKIN_TONE)
@@ -128,6 +128,8 @@ var/global/list/limb_icon_cache = list()
 					gender = "f"
 				else
 					gender = "m"
+
+			mob_icon_state = "[icon_name][gendered_icon ? "_[gender]" : ""]"
 
 			if(skeletal)
 				mob_icon = new /icon('icons/mob/human_races/r_skeleton.dmi', "[icon_name][gender ? "_[gender]" : ""]")

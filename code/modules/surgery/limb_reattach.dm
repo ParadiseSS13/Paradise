@@ -6,7 +6,7 @@
 /datum/surgery/amputation
 	name = "amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","taur")
 
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
@@ -24,7 +24,7 @@
 /datum/surgery/reattach
 	name = "limb attachment"
 	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","taur")
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -39,7 +39,7 @@
 /datum/surgery/reattach_synth
 	name = "limb attachment"
 	steps = list(/datum/surgery_step/limb/attach)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","taur")
 	allowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
@@ -55,7 +55,7 @@
 /datum/surgery/robo_attach
 	name = "robotic limb attachment"
 	steps = list(/datum/surgery_step/limb/mechanize)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","taur")
 
 /datum/surgery/robo_attach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -75,7 +75,8 @@
 		if (affected)
 			return 0
 		var/list/organ_data = target.species.has_limbs["[target_zone]"]
-		return !isnull(organ_data)
+		var/allow = (!isnull(organ_data) || istype(tool, /obj/item/robot_parts/snake))
+		return allow
 
 /datum/surgery_step/limb/attach
 	name = "attach limb"
@@ -173,6 +174,15 @@
 		var/obj/item/robot_parts/p = tool
 		if (p.part)
 			if (!(target_zone in p.part))
+				if(BP_TAUR in p.part)
+					if(target_zone in list(BP_L_LEG, BP_R_LEG, BP_L_FOOT, BP_R_FOOT))
+						if(p.force_path)
+							for(var/organ in list(BP_L_LEG, BP_R_LEG, BP_L_FOOT, BP_R_FOOT)) //all leg parts must be missing to attach a taur
+								if(!isnull(target.get_organ(organ)))
+									return 0
+							if(!isnull(target.get_organ(p.part[1]))) //forcing path only first part is valid
+								return 0
+							return 1
 				return 0
 		return isnull(target.get_organ(target_zone))
 
@@ -182,29 +192,42 @@
 
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool
-	user.visible_message("<span class='notice'>[user] has attached \the [tool] to [target].</span>",	\
-	"<span class='notice'>You have attached \the [tool] to [target].</span>")
 
 	if(L.part)
-		for(var/part_name in L.part)
-			if(!isnull(target.get_organ(part_name)))
-				continue
-			var/list/organ_data = target.species.has_limbs["[part_name]"]
-			if(!organ_data)
-				continue
+		if(L.force_path)
+			var/obj/item/organ/external/new_limb = new L.force_path(target)
+			new_limb.robotize(L.model_info)
+			new_limb.replaced(target)
 			var/obj/item/organ/external/stump = target.organs_by_name["limb stump"]
 			if(stump)
 				stump.remove(target)
-			var/new_limb_type = organ_data["path"]
-			var/obj/item/organ/external/new_limb = new new_limb_type(target)
-			new_limb.robotize(L.model_info)
-			new_limb.replaced(target)
 			new_limb.status &= ~ORGAN_DESTROYED
-			if(new_limb.children)
-				for(var/obj/item/organ/external/C in new_limb.children)
-					C.status &= ~ORGAN_DESTROYED
 			if(L.sabotaged)
 				new_limb.sabotaged = 1
+		else
+			for(var/part_name in L.part)
+				if(!isnull(target.get_organ(part_name)))
+					continue
+				var/list/organ_data = target.species.has_limbs["[part_name]"]
+				if(!organ_data)
+					continue
+				var/obj/item/organ/external/stump = target.organs_by_name["limb stump"]
+				if(stump)
+					stump.remove(target)
+				var/new_limb_type = organ_data["path"]
+				var/obj/item/organ/external/new_limb = new new_limb_type(target)
+				new_limb.robotize(L.model_info)
+				new_limb.replaced(target)
+				new_limb.status &= ~ORGAN_DESTROYED
+				if(new_limb.children)
+					for(var/obj/item/organ/external/C in new_limb.children)
+						C.status &= ~ORGAN_DESTROYED
+				if(L.sabotaged)
+					new_limb.sabotaged = 1
+
+		user.visible_message("<span class='notice'>[user] has attached \the [tool] to [target].</span>",	\
+		"<span class='notice'>You have attached \the [tool] to [target].</span>")
+
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()

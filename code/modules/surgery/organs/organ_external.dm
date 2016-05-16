@@ -24,6 +24,7 @@
 	var/max_size = 0
 	var/last_dam = -1
 	var/icon/mob_icon
+	var/mob_icon_state = ""            // The icon state to use, if applicable.
 	var/gendered_icon = 0
 	var/limb_name
 	var/disfigured = 0
@@ -66,6 +67,9 @@
 	var/can_grasp
 	var/can_stand
 	var/wound_cleanup_timer
+	var/no_blend = 0                   // If the organ should be Blend()ed into the human icon or put in the overlays
+	var/offset_x = 0                   // Used with no_blend to offset the icon.
+	var/offset_y = 0                   // Same as above.
 
 /obj/item/organ/external/Destroy()
 	if(parent && parent.children)

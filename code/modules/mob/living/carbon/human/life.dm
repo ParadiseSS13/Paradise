@@ -278,6 +278,9 @@
 		breath = get_breath_from_internal(BREATH_VOLUME)
 
 		if(!breath)
+			if(iscarbon(loc))
+				var/mob/living/carbon/C = loc
+				breath = C.return_air_for_internal_lifeform()
 			if(isobj(loc)) //Breathe from loc as object
 				var/obj/loc_as_obj = loc
 				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_MOLES)
@@ -574,6 +577,8 @@
 			thermal_protection += THERMAL_PROTECTION_FOOT_LEFT
 		if(thermal_protection_flags & FOOT_RIGHT)
 			thermal_protection += THERMAL_PROTECTION_FOOT_RIGHT
+		if(thermal_protection_flags & TAIL_SNAKE)
+			thermal_protection += THERMAL_PROTECTION_TAIL_SNAKE
 		if(thermal_protection_flags & ARM_LEFT)
 			thermal_protection += THERMAL_PROTECTION_ARM_LEFT
 		if(thermal_protection_flags & ARM_RIGHT)
@@ -636,6 +641,8 @@
 			thermal_protection += THERMAL_PROTECTION_FOOT_LEFT
 		if(thermal_protection_flags & FOOT_RIGHT)
 			thermal_protection += THERMAL_PROTECTION_FOOT_RIGHT
+		if(thermal_protection_flags & TAIL_SNAKE)
+			thermal_protection += THERMAL_PROTECTION_TAIL_SNAKE
 		if(thermal_protection_flags & ARM_LEFT)
 			thermal_protection += THERMAL_PROTECTION_ARM_LEFT
 		if(thermal_protection_flags & ARM_RIGHT)

@@ -1038,3 +1038,10 @@ so that different stomachs can handle things in different ways VB*/
 	var/obj/item/LH = get_inactive_hand()
 	if(LH)
 		. |= LH.GetAccess()
+
+/mob/living/carbon/proc/return_air_for_internal_lifeform()
+	var/datum/gas_mixture/GM = new
+	GM.oxygen = MOLES_O2STANDARD
+	GM.nitrogen = MOLES_N2STANDARD
+	GM.temperature = bodytemperature
+	return GM

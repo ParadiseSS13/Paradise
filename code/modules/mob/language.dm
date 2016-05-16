@@ -156,6 +156,13 @@
 		new_name = replacetext(new_name, "sss", "ss")
 	return capitalize(new_name)
 
+/datum/language/unathi/lamia
+	name = "Sehlin"
+	desc = "A hissing language spoken by Lamias."
+	colour = "lamia"
+	syllables = list("ss","ss","ss","ss","hiss","sshs","ssss","sas","es","sh")
+	key = "/"
+
 /datum/language/tajaran
 	name = "Siik'tajr"
 	desc = "The traditionally employed tongue of Ahdomai, composed of expressive yowls and chirps. Native to the Tajaran."

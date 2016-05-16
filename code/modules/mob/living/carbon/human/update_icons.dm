@@ -203,7 +203,7 @@ var/global/list/damage_icon_parts = list()
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body(var/update_icons=1)
-
+	overlays_standing[ORGAN_OVERLAY_LAYER] = null
 	var/husk_color_mod = rgb(96,88,80)
 	var/hulk_color_mod = rgb(48,224,40)
 
@@ -275,7 +275,8 @@ var/global/list/damage_icon_parts = list()
 					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
 				base_icon.Blend(temp2, ICON_UNDERLAY)
 			else
-				base_icon.Blend(temp, ICON_OVERLAY)
+				if(!part.no_blend)
+					base_icon.Blend(temp, ICON_OVERLAY)
 
 		if(!skeleton)
 			if(husk)
@@ -300,6 +301,11 @@ var/global/list/damage_icon_parts = list()
 		overlays_standing[LIMBS_LAYER]	= image(stand_icon) // Diverts limbs to their own layer so they can overlay things (i.e. tails).
 	else
 		overlays_standing[LIMBS_LAYER] = null // So we don't get the old species' sprite splatted on top of the new one's
+
+	for(var/obj/item/organ/external/E in organs)
+		if(E.no_blend)
+			var/image/S = image("icon" = E.get_icon(skeleton), "icon_state" = E.mob_icon_state, "pixel_x" = E.offset_x, "pixel_y" = E.offset_y)
+			overlays_standing[ORGAN_OVERLAY_LAYER] = S
 
 	//Underwear
 	overlays_standing[UNDERWEAR_LAYER]	= null

@@ -230,7 +230,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
-			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></div>"
+			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png height=[preview_icon_front.Height() * 2] width=[preview_icon_front.Width() * 2]><img src=previewicon2.png height=[preview_icon_side.Height() * 2] width=[preview_icon_side.Width() * 2]></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
 			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
@@ -258,7 +258,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
-			if(species in list("Human", "Drask"))
+			if(species in list("Human", "Drask", "Lamia"))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
@@ -295,7 +295,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(r_eyes, g_eyes, b_eyes)]<br>"
 
-			if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
+			if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine", "Lamia")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
 				dat += "<b>Body Color:</b> "
 				dat += "<a href='?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(r_skin, g_skin, b_skin)]<br>"
 
@@ -331,6 +331,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if("r_leg")		organ_name = "right leg"
 					if("l_foot")	organ_name = "left foot"
 					if("r_foot")	organ_name = "right foot"
+					if(BP_TAUR)     organ_name = "lamia tail"
 					if("l_hand")	organ_name = "left hand"
 					if("r_hand")	organ_name = "right hand"
 					if("heart")		organ_name = "heart"
@@ -1040,7 +1041,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
 
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Lamia")
 					var/prev_species = species
 //						var/whitelisted = 0
 
@@ -1367,14 +1368,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
 				if("s_tone")
-					if(species != "Human" && species != "Drask")
+					if(species != "Human" && species != "Drask" && species != "Lamia")
 						return
 					var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
 					if(new_s_tone)
 						s_tone = 35 - max(min( round(new_s_tone), 220),1)
 
 				if("skin")
-					if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
+					if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine", "Lamia")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
 						var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference", rgb(r_skin, g_skin, b_skin)) as color|null
 						if(new_skin)
 							r_skin = hex2num(copytext(new_skin, 2, 4))
@@ -1419,6 +1420,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/valid_limb_states = list("Normal", "Amputated", "Prosthesis")
 					var/no_amputate = 0
 
+					var/datum/species/current_species = all_species[species]
+
+					if(current_species.has_limbs[BP_TAUR])
+						valid_limbs -= list("Left Leg","Right Leg","Left Foot","Right Foot")
+						valid_limbs |= "Lamia Tail"
+
 					switch(limb_name)
 						if("Torso")
 							limb = "chest"
@@ -1450,6 +1457,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							limb = "r_foot"
 							if(species != "Machine")
 								third_limb = "r_leg"
+						if("Lamia Tail")
+							limb = BP_TAUR
+							valid_limb_states = list("Normal", "Prosthesis")
 						if("Left Hand")
 							limb = "l_hand"
 							if(species != "Machine")

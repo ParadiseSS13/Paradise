@@ -55,6 +55,8 @@
 
 	switch(M.a_intent)
 		if(I_HELP)
+			if(M in src)
+				return 0 //kek
 			if(attacker_style && attacker_style.help_act(H, src))//adminfu only...
 				return 1
 			if(can_operate(src))
@@ -102,6 +104,8 @@
 				to_chat(M, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 		if(I_GRAB)
+			if(M in src)
+				return 0 //kek
 			if(attacker_style && attacker_style.grab_act(H, src))
 				return 1
 			else
@@ -176,6 +180,8 @@
 
 
 		if(I_DISARM)
+			if(M in src)
+				return 0 //kek
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else

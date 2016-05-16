@@ -68,12 +68,20 @@
 	if (istype(buckled, /obj/structure/stool/bed))
 		return
 
-	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
-		var/obj/item/organ/external/E = organs_by_name[limb_tag]
-		if(!E || (E.status & (ORGAN_DESTROYED|ORGAN_DEAD)) || E.is_malfunctioning())
-			stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
-		else if (E.is_broken() || !E.is_usable())
-			stance_damage += 1
+	if(organs_by_name[BP_TAUR])
+		var/obj/item/organ/external/E = organs_by_name[BP_TAUR]
+		if(E.status & (ORGAN_DESTROYED|ORGAN_DEAD) || E.is_malfunctioning())
+			stance_damage += 8 //it's like losing both legs as a human, good luck standing
+
+		else if(E.is_broken() || !E.is_usable())
+			stance_damage += 4
+	else
+		for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
+			var/obj/item/organ/external/E = organs_by_name[limb_tag]
+			if(!E || (E.status & (ORGAN_DESTROYED|ORGAN_DEAD)) || E.is_malfunctioning())
+				stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
+			else if (E.is_broken() || !E.is_usable())
+				stance_damage += 1
 
 	// Canes and crutches help you stand (if the latter is ever added)
 	// One cane mitigates a broken leg+foot, or a missing foot.
