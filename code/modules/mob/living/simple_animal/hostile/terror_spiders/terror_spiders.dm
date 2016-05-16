@@ -619,7 +619,6 @@ var/global/ts_death_window = 9000 // 15 minutes
 		//	say(pick("Mistresssss will end you...", "Doom waitssss... for you...","She comessssss for your flesh..."))
 	if (!hasdroppedloot)
 		hasdroppedloot = 1
-		droploot()
 		if (ts_count_dead == 0)
 			visible_message("<span class='userdanger'>The Terrors have awoken!</span>")
 		ts_count_dead++
@@ -808,34 +807,6 @@ var/global/ts_death_window = 9000 // 15 minutes
 		if (A.density)
 			try_open_airlock(A)
 	..()
-
-
-/mob/living/simple_animal/hostile/poison/terror_spider/harvest()
-
-	// DROPS ONLY IF A KNIFE IS USED ON THE SPIDER'S BODY.
-	// MORE POWERFUL LOOT & CRAFTING COMPONENTS GO HERE.
-
-	if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/red))
-		// RED drops body armor for defense.
-		new /obj/item/clothing/suit/armor/terrorspider_carapace(get_turf(src))
-	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/gray))
-		// GRAY drops nothing because it is a weak spider, and its special ability, cloaking, isn't something we can give players.
-	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/green))
-		// GREEN drops a pheromone gland
-		new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_green(get_turf(src))
-	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/black))
-		// BLACK drops its poison gland, deadly neurotoxin
-		new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_black(get_turf(src))
-	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/white))
-		// WHITE drops its poison gland, parasitic eggs
-		// if we are NOT in an awaymission (prevent self-antagging)
-		if (!spider_awaymission)
-			new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_white(get_turf(src))
-	//else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/purple))
-	//	// PURPLE drops nothing because it SHOULD be next to the queen who has more valuable loot
-	// T3s/T4s have no harvestable parts because I have not figured out good ideas yet
-	gib()
-	return
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Topic(href, href_list)

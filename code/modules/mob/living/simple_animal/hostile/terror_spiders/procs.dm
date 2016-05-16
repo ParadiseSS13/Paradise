@@ -134,38 +134,6 @@
 			obstacle.attack_animal(src)
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/droploot()
-	// DROPS ON DEATH.
-	// AWAY MISSION LOOT, AND RP FEEL-GOOD LOOT GOES HERE
-	if (spider_uo71)
-		if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/white))
-			//var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away02(get_turf(src))
-			//I.layer = 4.2
-			//visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
-			UnlockBlastDoors("UO71_Bridge", "UO71 Bridge is now unlocked!")
-		else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/prince))
-			//var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away04(get_turf(src))
-			//I.layer = 4.2
-			//visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
-			UnlockBlastDoors("UO71_SciStorage", "UO71 Secure Science Storage is now unlocked!")
-		else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/queen))
-			//var/obj/item/weapon/card/id/I = new /obj/item/weapon/card/id/away05(get_turf(src))
-			//I.layer = 4.2
-			//visible_message("<span class='notice'>Amongst the remains of [src], you see an ID card...</span>")
-			UnlockBlastDoors("UO71_Caves", "UO71 Caves are now unlocked!")
-	if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/white))
-		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/silver(get_turf(src))
-		M.layer = 4.1
-	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/queen))
-		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold(get_turf(src))
-		M.layer = 4.1
-	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/prince))
-		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold(get_turf(src))
-		M.layer = 4.1
-	else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/empress))
-		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold/heroism(get_turf(src))
-		M.layer = 4.1
-	return
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(var/target_id_tag, var/msg_to_send)
 	var/unlocked_something = 0

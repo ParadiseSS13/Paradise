@@ -80,8 +80,12 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
-	// When a queen dies, so do ALL her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
-	if (!gibbed)
+	if (!hasdroppedloot)
+		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold(get_turf(src))
+		M.layer = 4.1
+		if (spider_uo71)
+			UnlockBlastDoors("UO71_Caves", "UO71 Caves are now unlocked!")
+		// When a queen dies, so do her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
 		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in mob_list)
 			if (ckey)
 				P.visible_message("<span class='danger'>\the [src] writhes in pain!</span>")

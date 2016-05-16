@@ -64,3 +64,8 @@
 					fed--
 			busy = 0
 			stop_automated_movement = 0
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/green/harvest()
+	new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_green(get_turf(src))
+	gib()

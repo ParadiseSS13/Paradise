@@ -233,3 +233,9 @@
 		if (spider_growinstantly)
 			S.amount_grown = 250
 
+
+/mob/living/simple_animal/hostile/poison/terror_spider/empress/death(gibbed)
+	if (!hasdroppedloot)
+		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold/heroism(get_turf(src))
+		M.layer = 4.1
+	..()

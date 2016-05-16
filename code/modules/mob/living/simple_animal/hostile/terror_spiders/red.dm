@@ -61,3 +61,7 @@
 			melee_damage_lower = melee_damage_lower_rage0
 			melee_damage_upper = melee_damage_upper_rage0
 	..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/red/harvest()
+	new /obj/item/clothing/suit/armor/terrorspider_carapace(get_turf(src))
+	gib()
