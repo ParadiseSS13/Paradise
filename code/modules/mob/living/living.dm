@@ -320,7 +320,6 @@
 
 /mob/living/proc/revive()
 	rejuvenate()
-	buckled = initial(src.buckled)
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 
@@ -380,7 +379,13 @@
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
-	buckled = initial(src.buckled)
+	if(buckled)
+		buckled.buckled_mob = null
+		buckled = null
+		anchored = initial(src.anchored)
+		update_canmove()
+		clear_alert("buckled")
+		post_buckle_mob(src)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src

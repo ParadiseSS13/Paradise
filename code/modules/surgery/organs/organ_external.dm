@@ -308,7 +308,7 @@ This function completely restores a damaged organ to perfect condition.
 */
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
-	if(status & 128)	//Robotic organs stay robotic.  Fix because right click rejuvinate makes IPC's organs organic.
+	if(status & 128)	//Robotic organs stay robotic. Fix because right click rejuvinate makes IPC's organs organic.
 		status = 128
 	else
 		status = 0
@@ -316,6 +316,7 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
+	wounds = list() //Clears all wounds! Good as new.
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
