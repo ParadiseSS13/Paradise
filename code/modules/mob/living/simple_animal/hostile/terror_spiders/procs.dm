@@ -1,40 +1,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoShowOrders(var/usecache = 0, var/thequeen = null, var/theempress = null)
 	if (ckey)
-		/*
-		var/i_am_queen = 0
-		var/i_am_empress = 0
-		if (!usecache)
-			for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in mob_list)
-				if (Q.ckey || !Q.spider_awaymission)
-					thequeen = Q
-					if (thequeen == src)
-						i_am_queen = 1
-					break
-			for(var/mob/living/simple_animal/hostile/poison/terror_spider/empress/E in mob_list)
-				if (E.ckey || !E.spider_awaymission)
-					theempress = E
-					if (theempress == src)
-						i_am_empress = 1
-					break
-		to_chat(src, "Hive Status: ")
-		if (theempress)
-			to_chat(src, "- Empress: [theempress], in [get_area(theempress)], supreme commander of all terror spiders.")
-		if (thequeen)
-			if (i_am_empress)
-				to_chat(src, "- Queen: [thequeen], in [get_area(thequeen)]. As Empress, you command the Queen.")
-			else if (i_am_queen)
-				to_chat(src, "- Queen: [thequeen] in [get_area(thequeen)]. You command the brood.")
-			else
-				to_chat(src, "- Queen: [thequeen] in [get_area(thequeen)]. Commander of this brood. Must be obeyed.")
-		else
-			if (i_am_empress)
-				to_chat(src, "- Queen: None! You should probably lay a queen egg to create one.")
-			else
-				to_chat(src, "- Queen: None! Relying on standing orders.")
-		to_chat(src, "Your Status: ")
-		to_chat(src, " - Role: [spider_role_summary]")
-		*/
 		to_chat(src, "------------------------")
 		if (ai_type == 0)
 			to_chat(src, "Your Orders: <span class='danger'>kill all humanoids on sight! </span>")

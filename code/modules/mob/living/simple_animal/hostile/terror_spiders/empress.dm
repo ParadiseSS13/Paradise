@@ -22,13 +22,6 @@
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
 
-	// DO NOT ENABLE THIS UNTIL WE HAVE NEW SPRITES. THE EXISTING SPRITES AT THIS SIZE AREN'T USABLE.
-	//icon_state = "terrorempress_s"
-	//icon_living = "terrorempress_s"
-	//icon_dead = "terrorempress_dead"
-	//icon = 'icons/mob/terrorspiderlarge.dmi'
-	//pixel_x = -32
-
 	maxHealth = 1000
 	health = 1000
 

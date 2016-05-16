@@ -94,7 +94,6 @@
 	var/use_vents = 1
 	var/ai_playercontrol_allowingeneral = 1
 	var/list/enemies = list()
-	var/stat = 0 // necessary, because without it spiderlings moving into borg rechargers create a runtime error.
 
 
 /obj/effect/spider/terror_spiderling/New()
@@ -274,11 +273,11 @@
 	if(air_group || (height==0)) return 1
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
-	else if (istype(mover, /obj/item/projectile/terrorqueenspit))
+	if (istype(mover, /obj/item/projectile/terrorqueenspit))
 		return 1
-	else if (istype(mover, /obj/item/projectile/terrorempressspit))
+	if (istype(mover, /obj/item/projectile/terrorempressspit))
 		return 1
-	else if(istype(mover, /mob/living))
+	if(istype(mover, /mob/living))
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
 			var/mob/living/M = mover
@@ -287,7 +286,9 @@
 			M.emote("scream")
 			DeCloakNearby()
 			return 1
-	else if(istype(mover, /obj/item/projectile))
+		else
+			return 0
+	if(istype(mover, /obj/item/projectile))
 		return prob(20)
 	return ..()
 
@@ -317,19 +318,22 @@
 	name = "green terror spider venom gland"
 	icon_state = "ts_venomgland"
 	origin_tech = "biotech=5;materials=2;combat=4"
-	New()
-		reagents.add_reagent("terror_green_toxin", 15)
+
+/obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_green/New()
+	reagents.add_reagent("terror_green_toxin", 15)
 
 /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_black
 	name = "black terror spider venom gland"
 	icon_state = "ts_venomgland"
 	origin_tech = "biotech=5;materials=2;combat=5"
-	New()
-		reagents.add_reagent("terror_black_toxin", 15)
+
+/obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_black/New()
+	reagents.add_reagent("terror_black_toxin", 15)
 
 /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_white
 	name = "white terror spider venom gland"
 	icon_state = "ts_venomgland"
 	origin_tech = "biotech=6;materials=2;combat=5"
-	New()
-		reagents.add_reagent("terror_white_toxin", 15)
+
+/obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_white/New()
+	reagents.add_reagent("terror_white_toxin", 15)
