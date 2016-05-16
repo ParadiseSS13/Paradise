@@ -14,13 +14,17 @@ VampyrBytes
 	var/text = ""
 	var/selfText = ""		// the version of text that you should see - eg, if text is screams, you want scream here, as You screams is bad grammer
 	var/startText = ""		// if you need to put something in before [user]. Should end with a space
+	var/selfStart = 1		// whether the start text is used in what you see
+
+	var/audible = 0
 	var/mimeText = ""
 	var/sound				// sound file
 	var/vol = 50
-	var/audible = 0
-	var/muzzledNoise = ""	// if the emote is audible and you're muzzled, this is what type of noise you make (eg weak, loud). End with a space
-	var/restrained = ""		// 1 if being restrained prevents this emote
+	var/muzzleAffected = 0	// whether being muzzled affects this emote
+	var/muzzledNoise = ""	// if the emote is audible and you're muzzled, this is what type of noise you make (eg weak, loud).
 	var/cooldown = 0
+
+	var/restrained = 0	// 1 if being restrained prevents this emote
 
 	var/canTarget = 0		// 1 if the emote accepts a target
 	var/targetMob = 0		// 0 if target can be any atom, 1 if it has to be a mob,
@@ -65,12 +69,10 @@ VampyrBytes
 	if(message)
 		. = outputMessage(user, message, params)
 
-	var/played = 0
-	if(!doMime(user))
-		played = playSound(user, vol)
 
-	if(played)
-		. = 2
+	if(!doMime(user))
+		if(playSound(user, vol))
+			. = 2
 
 	doAction(user, params)
 
@@ -88,7 +90,6 @@ VampyrBytes
 
 	if(canTarget)
 		params["target"] = getTarget(user)
-
 	return params
 
 // return "invalid" from either of these getters if you've tested the input and it's failed
@@ -97,15 +98,17 @@ VampyrBytes
 	return number
 
 /datum/emote/proc/getTarget(var/mob/user)
+	if(user.sdisabilities & BLIND || user.blinded || user.paralysis)
+		return
 	if(targetMob)
-		return getMobTarget()
-	return getAtomTarget()
+		return getMobTarget(user)
+	return getAtomTarget(user)
 
-/datum/emote/proc/getMobTarget()
+/datum/emote/proc/getMobTarget(var/mob/user)
 	var/mob/target = input("Select target", "Target Mob") as null|mob in view()
 	return target
 
-/datum/emote/proc/getAtomTarget()
+/datum/emote/proc/getAtomTarget(var/mob/user)
 	var/atom/target = input("Select target", "Target") as null|mob|obj|turf in oview()
 	return target
 
@@ -135,25 +138,23 @@ VampyrBytes
 		message = mimeMessage(user, params)
 
 	if(!message)
-		if(muzzledNoise && user.is_muzzled())
+		if(muzzleAffected && user.is_muzzled())
 			message = muzzleMessage(user)
-
 		else if(checkForParams(params))
 			message = paramMessage(user, params)
 		else
-			message = "[user] [text]"
+			message = "<span class = 'em'>[user]</span> [text]"
 
 		if(message && "target" in params)
 			if(params["target"])
 				message = addTarget(user, params, message)
-
 		message = addExtras(message)
 
 	return message
 
 /datum/emote/proc/checkForParams(var/list/params)
 	for(var/p in params)
-		if(params[p] == "target")
+		if(p == "target")
 			continue
 		return 1
 
@@ -170,14 +171,14 @@ VampyrBytes
 		return
 	if(checkForParams(params))
 		return paramMimeMessage(user, params)
-	var/message = "[user] [mimeText]"
+	var/message = "<span class = 'em'>[user]</span> [mimeText]"
 	if(message && "target" in params)
 		if(params["target"])
 			message = addTarget(user, params, message)
 	return message
 
 /datum/emote/proc/muzzleMessage(var/mob/user)
-	var/message = "[user] makes a "
+	var/message = "<span class = 'em'>[user]</span> makes a "
 	if(muzzledNoise)
 		message += "[muzzledNoise] "
 	message += "noise"
@@ -201,109 +202,81 @@ VampyrBytes
 
 // What you should see when you perform the emote
 /datum/emote/proc/createSelfMessage(var/mob/user, var/message = "")
-	if(startText)
+	if(startText && selfStart)
 		message = replacetext(message, "[user]", "you")
 	else
 		message = replacetext(message, "[user]", "You")
 	if(selfText)
 		message = replacetext(message, text, selfText)
+	if(!selfStart)
+		var/start = findtextEx(message, startText)
+		var/end = start + lentext(startText) + 1
+		message = copytext(message, 1, start) + copytext(message, end, lentext(message) + 1)
+
 	return message
 
 /datum/emote/proc/outputMessage(var/mob/user, var/message = "", var/list/params)
-	if(!message)
-		return
+	var/visualOrAudible = audible + 1
+	if(doMime(user))
+		visualOrAudible = 1
+	var/selfMessage = createSelfMessage(user, message)
+
 	log_emote("[user.name]/[user.key] : [message]")
 	sendToDead(message)
-	if(audible)
-		return audible_message(message, user, params)
-	else
-		return visible_message(message, user, params)
 
-/datum/emote/proc/visible_message(var/message = "", var/mob/user, var/list/params)
-	var/selfMessage = createSelfMessage(user, message)
-	for(var/mob/M in viewers(user))
-		if(M.see_invisible < user.invisibility)
-			continue //can't view the invisible
-		var/msg = message
+	for(var/mob/M in getRecipients(user, visualOrAudible))
+		var/msg = ""
+
 		if(selfMessage && M==user)
 			msg = selfMessage
-		else if(M.sdisabilities & BLIND || M.blinded || M.paralysis)
-			if(M.sdisabilities & DEAF || M.ear_deaf)
+
+		else if(M.stat == UNCONSCIOUS || (M.sleeping > 0 && M.stat != 2))
+			if (visualOrAudible == 2)
+				msg = "<span class = 'italics'>... You can almost hear someone talking ...</span>"
+			else
 				continue
-			msg = createBlindMessage(message, user, params)
-			if(msg)
-				outputAudibleMessage(msg, M, user, 1)
-		else
-			outputVisibleMessage(msg, M, user, params)
-	return 1
 
-/datum/emote/proc/audible_message(var/message = "", var/mob/user, var/list/params)
-	if(doMime(user))
-		return visible_message(message, user)
-	var/selfMessage = createSelfMessage(user, message)
-	for(var/mob/M in get_mobs_in_view(7, user))
-		var/msg = message
-		if(selfMessage && M==user)
-			msg = selfMessage
 		else if(M.sdisabilities & DEAF || M.ear_deaf)
 			if(M.sdisabilities & BLIND || M.blinded || M.paralysis)
 				continue
-			msg = createDeafMessage(user, message)
-			if(msg)
-				outputVisibleMessage(msg, M, user, 1)
-		else
-			outputAudibleMessage(msg, M, user)
-	return 2
+			if((!(M in getRecipients(user, 1))) || M.see_invisible < user.invisibility)
+				continue
+			msg = createDeafMessage(user, message, params)
 
-/datum/emote/proc/outputVisibleMessage(var/message, var/mob/recipient, var/mob/user, var/list/params, var/retest = 0)
-	if(retest)
-		if(!user)
-			return
-		var/found = 0
-		for(var/mob/M in viewers(user))
-			if(M == recipient)
-				found = 1
-				if(recipient.see_invisible < user.invisibility)
-					return
-				break
-		if(!found)
-			return
-	if(recipient.sdisabilities & DEAF || recipient.ear_deaf)
-		if(!(recipient == user))
-			var/msg = createDeafMessage(user, message, params)
-			if(msg)
-				message = msg
-	if(recipient.stat == UNCONSCIOUS || (recipient.sleeping > 0 && recipient.stat != 2))
-		to_chat(recipient, "<I>... You can almost hear someone talking ...</I>")
-	else
-		to_chat(recipient, message)
+			if(!msg && visualOrAudible == 2)
+				continue
 
-/datum/emote/proc/outputAudibleMessage(var/message = "", var/mob/recipient, var/mob/user, var/list/params, var/retest = 0)
-	if(retest)
-		if(!user)
-			return
-		var/found = 0
-		for(var/mob/M in get_mobs_in_view(7, user))
-			if(M == recipient)
-				found = 1
-				break
-		if(!found)
-			return
-	if(recipient.sdisabilities & BLIND || recipient.blinded || recipient.paralysis)
-		if(!(recipient == user))
-			var/msg = createBlindMessage(user, message, params)
-			if(msg)
-				message = msg
-	if(recipient.stat == UNCONSCIOUS || (recipient.sleeping > 0 && recipient.stat != 2))
-		to_chat(recipient, "<I>... You can almost hear someone talking ...</I>")
-	else
-		to_chat(recipient, message)
+		else if(M.sdisabilities & BLIND || M.blinded || M.paralysis || (M.see_invisible < user.invisibility && visualOrAudible == 2))
+			if(!(M in getRecipients(user, 2)))
+				continue
+			msg = createBlindMessage(user, message, params)
+			if(!msg && visualOrAudible == 1)
+				continue
+
+		else if(M.see_invisible < user.invisibility)
+			continue
+
+		if(!msg)
+			msg = message
+
+		to_chat(M, msg)
+	return visualOrAudible
+
+/datum/emote/proc/getRecipients(var/mob/user, var/visualOrAudible)
+	var/list/recipients[0]
+	switch(visualOrAudible)
+		if(1)
+			recipients = viewers(user)
+		if(2)
+			recipients = get_mobs_in_view(7, user)
+	return recipients
+
 
 // set up different messages for blind people here. Empty will mean no message for
 //non-audible emotes and the standard message for audible ones
 /datum/emote/proc/createBlindMessage(var/mob/user, var/message, var/list/params)
 	if(audible && selfText)
-		return "You hear someone [selfText]"
+		return "<span class = 'em'>You</span> hear someone [selfText]"
 
 // set up different messages for deaf people here. Empty will mean no message for
 // audible emotes and standard for non-audible ones
@@ -318,9 +291,10 @@ VampyrBytes
 			M.show_message(message)
 
 /datum/emote/proc/playSound(var/mob/user)
-	if(sound)
-		playsound(user, sound, vol)
-		return 1
+	if(!sound)
+		return
+	playsound(user, sound, vol)
+	return 1
 
 /datum/emote/proc/doMime(var/mob/user)
 	if(mimeText && user.mind && user.mind.miming)
@@ -408,8 +382,7 @@ available, but if you do, make sure you return ..() so the check for use_me is s
 		message = getMessage(user)
 	text = message
 	audible = isAudible
-	if(user.mind && user.mind.miming)
-		audible = 0
+
 
 /datum/emote/custom/proc/getMessage(var/mob/user)
 	var/input = sanitize(copytext(input(user,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
