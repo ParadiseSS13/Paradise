@@ -379,7 +379,7 @@
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
-	if(buckled)
+	if(buckled) //Unbuckle the mob and clear the alerts.
 		buckled.buckled_mob = null
 		buckled = null
 		anchored = initial(src.anchored)

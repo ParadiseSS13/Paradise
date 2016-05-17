@@ -317,7 +317,7 @@ This function completely restores a damaged organ to perfect condition.
 	brute_dam = 0
 	burn_dam = 0
 	open = 0 //Closing all wounds.
-	wounds = list() //Clears all wounds! Good as new.
+	wounds.Cut() //Clears all wounds! Good as new.
 	if(istype(src, /obj/item/organ/external/head) && disfigured) //If their head's disfigured, refigure it.
 		disfigured = 0
 

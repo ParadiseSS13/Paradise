@@ -1256,9 +1256,6 @@
 		germ_level += n
 
 /mob/living/carbon/human/proc/check_and_regenerate_organs(var/mob/living/carbon/human/H) //Regenerates missing limbs/organs.
-	var/datum/species/S = H.species
-	var/list/species_organs = S.has_organ
-	var/list/species_limbs = S.has_limbs
 	var/list/types_of_int_organs = list()
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		types_of_int_organs |= I.type
@@ -1274,22 +1271,22 @@
 			H.organs -= organ //Making sure the list entry is removed.
 	for(var/organ_name in H.organs_by_name)
 		var/obj/item/organ/organ = H.organs_by_name[organ_name]
-		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ is to account for mechanical limb losses, since those are handled in a way that creates indexed but null list entries instead of stumps.
+		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
 			H.organs_by_name -= organ_name //Making sure the list entry is removed.
 
 	//Replacing lost limbs with the species default.
-	for(var/limb_type in species_limbs)
+	for(var/limb_type in H.species.has_limbs)
 		if(!(limb_type in H.organs_by_name))
-			var/list/organ_data = species_limbs[limb_type]
+			var/list/organ_data = H.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(H)
 			O.owner = H
 			H.organs |= H.organs_by_name[O.limb_name]
 
 	//Replacing lost organs with the species default.
-	for(var/index in species_organs)
-		var/organ = species_organs[index]
+	for(var/index in H.species.has_organ)
+		var/organ = H.species.has_organ[index]
 		if(!(organ in types_of_int_organs))
 			var/obj/item/organ/internal/I = new organ(H)
 			I.insert(H)
