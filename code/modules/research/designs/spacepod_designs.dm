@@ -188,7 +188,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=20000, MAT_GLASS=2000)
 	build_path = /obj/item/device/spacepod_equipment/cargo/ore
-	category = list("Cargo Systems")
+	category = list("Pod_Cargo")
 
 /datum/design/pod_cargo_crate
 	construction_time = 100
@@ -199,7 +199,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=25000)
 	build_path = /obj/item/device/spacepod_equipment/cargo/crate
-	category = list("Cargo Systems")
+	category = list("Pod_Cargo")
 
 //////////////////////////////////////////
 //////SPACEPOD SEC CARGO ITEMS////////////
@@ -214,7 +214,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=7500, MAT_GLASS=2500)
 	build_path = /obj/item/device/spacepod_equipment/sec_cargo/chair
-	category = list("Secondary Cargo Systems")
+	category = list("Pod_Cargo")
 
 /datum/design/loot_box
 	construction_time = 100
@@ -225,7 +225,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=7500, MAT_GLASS=2500)
 	build_path = /obj/item/device/spacepod_equipment/sec_cargo/loot_box
-	category = list("Secondary Cargo Systems")
+	category = list("Pod_Cargo")
 
 //////////////////////////////////////////
 //////SPACEPOD LOCK ITEMS////////////////
