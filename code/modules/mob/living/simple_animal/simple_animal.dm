@@ -668,7 +668,7 @@
 					if(!can_collar || collar)
 						return
 					var/obj/item/clothing/accessory/petcollar/C = usr.get_active_hand()
-					if(!C)
+					if(!istype(C))
 						usr.visible_message("[usr] rubs [src]'s neck.","<span class='notice'>You rub [src]'s neck for a moment.</span>")
 						return
 					usr.drop_item()
