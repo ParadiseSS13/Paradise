@@ -1,4 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - rscadd: "Windows can now be constructed and deconstructed using RCD's."
