@@ -55,6 +55,8 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
+	//Default styles for created mobs.
+	default_hair = "Unathi Horns"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -109,6 +111,8 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
+	//Default styles for created mobs.
+	default_headacc = "Tajaran Ears"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
 								 /mob/living/simple_animal/tribble)
@@ -189,6 +193,8 @@
 	dietflags = DIET_HERB
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
+	//Default styles for created mobs.
+	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
 
 	suicide_messages = list(
@@ -251,6 +257,8 @@
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
+	//Default styles for created mobs.
+	default_hair = "Short Vox Quills"
 
 	reagent_tag = PROCESS_ORG
 	scream_verb = "shrieks"
@@ -751,6 +759,8 @@
 	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
+	//Default styles for created mobs.
+	default_hair = "Blue IPC Screen"
 	virus_immune = 1
 	can_revive_by_healing = 1
 	reagent_tag = PROCESS_SYN
@@ -791,6 +801,10 @@
 		)
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
-	H.h_style = ""
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	head_organ.h_style = "Bald"
+	head_organ.f_style = "Shaved"
 	spawn(100)
-		if(H) H.update_hair()
+		if(H)
+			H.update_hair()
+			H.update_fhair()

@@ -1,0 +1,6 @@
+author: Fox MCCloud
+delete-after: True
+changes: 
+  - tweak: "Removes \"harm\" traitor objective"
+  - tweak: "Increases non-escape/hijack/die objectives from 1 to 2"
+  - tweak: "Tweaks available objectives to traitors a bit"

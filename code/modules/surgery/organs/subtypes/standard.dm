@@ -141,6 +141,24 @@
 	encased = "skull"
 	var/can_intake_reagents = 1
 
+	//Hair colour and style
+	var/r_hair = 0
+	var/g_hair = 0
+	var/b_hair = 0
+	var/h_style = "Bald"
+
+	//Head accessory colour and style
+	var/r_headacc = 0
+	var/g_headacc = 0
+	var/b_headacc = 0
+	var/ha_style = "None"
+
+	//Facial hair colour and style
+	var/r_facial = 0
+	var/g_facial = 0
+	var/b_facial = 0
+	var/f_style = "Shaved"
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
