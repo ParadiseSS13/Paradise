@@ -335,6 +335,27 @@
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
+//Mergesort: sorts numbers in a list
+/proc/sortNum(var/list/L)
+	if(L.len < 2)
+		return L
+	var/middle = L.len / 2 + 1 // Copy is first,second-1
+	return mergeNum(sortNum(L.Copy(0,middle)), sortNum(L.Copy(middle))) //second parameter null = to end of list
+
+/proc/mergeNum(var/list/L, var/list/R)
+	var/Li=1
+	var/Ri=1
+	var/list/result = new()
+	while(Li <= L.len && Ri <= R.len)
+		if(L[Li] > R[Ri])
+			result += R[Ri++]
+		else
+			result += L[Li++]
+
+	if(Li <= L.len)
+		return (result + L.Copy(Li, 0))
+	return (result + R.Copy(Ri, 0))
+
 //Converts a bitfield to a list of numbers (or words if a wordlist is provided)
 /proc/bitfield2list(bitfield = 0, list/wordlist)
 	var/list/r = list()

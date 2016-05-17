@@ -148,6 +148,9 @@
 /mob/living/carbon/human/stok/New(var/new_loc)
 	..(new_loc, "Stok")
 
+/mob/living/carbon/human/lamia/New(var/new_loc)
+	..(new_loc, "Lamia")
+
 /mob/living/carbon/human/Bump(atom/movable/AM, yes)
 	if(!(yes) || now_pushing || buckled)
 		return 0

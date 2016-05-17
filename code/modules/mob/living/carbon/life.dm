@@ -238,20 +238,24 @@
 
 /mob/living/carbon/handle_stomach()
 	spawn(0)
-		for(var/mob/living/M in stomach_contents)
-			if(M.loc != src)
-				stomach_contents.Remove(M)
+		for(var/A in stomach_contents)
+			var/mob/living/M = A
+			if(!istype(M))
+				stomach_contents -= A
 				continue
-			if(istype(M, /mob/living) && stat != 2)
-				if(M.stat == 2)
-					M.death(1)
-					stomach_contents.Remove(M)
-					qdel(M)
-					continue
-				if(mob_master.current_cycle%3==1)
-					if(!(M.status_flags & GODMODE))
-						M.adjustBruteLoss(5)
-					nutrition += 10
+			if(M.loc != src)
+				stomach_contents -= M
+				continue
+			if(stat == DEAD)
+				return
+			if(M.stat == DEAD)
+				qdel(M) //no ragrats
+				stomach_contents -= M
+			if(mob_master.current_cycle % 3 == 1)
+				if(!(M.status_flags & GODMODE))
+					M.adjustBruteLoss(5)
+				nutrition += 10
+
 
 //This updates the health and status of the mob (conscious, unconscious, dead)
 /mob/living/carbon/handle_regular_status_updates()

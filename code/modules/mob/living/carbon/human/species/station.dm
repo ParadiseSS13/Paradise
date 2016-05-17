@@ -808,3 +808,32 @@
 		if(H)
 			H.update_hair()
 			H.update_fhair()
+
+
+/datum/species/lamia
+	name = "Lamia"
+	name_plural = "Lamias"
+	icobase = 'icons/mob/human_races/r_lamia.dmi'
+	deform = 'icons/mob/human_races/r_def_lamia.dmi'
+	blurb = "SNAKES. WITH TITS. WHAT MORE DO YOU NEED?"
+	language = "Sehlin"
+
+	flags = HAS_LIPS | CAN_BE_FAT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = HAS_SKIN_TONE
+	dietflags = DIET_OMNI
+	unarmed_type = /datum/unarmed_attack/punch
+
+	reagent_tag = PROCESS_ORG
+	allowed_consumed_mobs = list(/mob/living/carbon/human)
+
+	has_limbs = list(
+		BP_TORSO =  list("path" = /obj/item/organ/external/chest),
+		BP_GROIN =  list("path" = /obj/item/organ/external/groin),
+		BP_HEAD =   list("path" = /obj/item/organ/external/head),
+		BP_L_ARM =  list("path" = /obj/item/organ/external/arm),
+		BP_R_ARM =  list("path" = /obj/item/organ/external/arm/right),
+		BP_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BP_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BP_TAUR =  list("path" = /obj/item/organ/external/snake)
+		)

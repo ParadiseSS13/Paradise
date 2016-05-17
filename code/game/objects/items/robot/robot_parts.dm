@@ -6,6 +6,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/list/part = null
+	var/force_path = null // If set, allows the parts to specify exactly what organ to create (so you can attach body-mods)
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info
 	dir = SOUTH
@@ -50,6 +51,14 @@
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_leg"
 	part = list("r_leg","r_foot")
+	model_info = 1
+
+/obj/item/robot_parts/snake
+	name = "lamia tail"
+	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
+	icon_state = "s_tail"
+	part = list(BP_TAUR)
+	force_path = /obj/item/organ/external/snake
 	model_info = 1
 
 /obj/item/robot_parts/chest

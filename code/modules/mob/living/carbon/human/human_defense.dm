@@ -38,7 +38,12 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
-		return
+		if(def_zone in list(BP_L_LEG, BP_R_LEG, BP_L_FOOT, BP_R_FOOT))
+			if(organs_by_name[BP_TAUR])
+				goto Lamia
+		return //if they don't have the organ in question then the projectile just passes by.
+
+	Lamia
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)

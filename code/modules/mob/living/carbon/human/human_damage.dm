@@ -341,6 +341,9 @@ This function restores all organs.
 	if(zone in list("eyes", "mouth"))
 		zone = "head"
 
+	if(zone in list( BP_L_LEG, BP_R_LEG, BP_L_FOOT, BP_R_FOOT ))
+		if(organs_by_name[BP_TAUR])
+			return organs_by_name[BP_TAUR]
 	return organs_by_name[zone]
 
 /mob/living/carbon/human/apply_damage(var/damage = 0, var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/edge = 0, var/obj/used_weapon = null)
@@ -363,6 +366,9 @@ This function restores all organs.
 		if(!def_zone)
 			def_zone = ran_zone(def_zone)
 		organ = get_organ(check_zone(def_zone))
+	var/obj/item/organ/external/taur = get_organ(BP_TAUR)
+	if(def_zone in list(BP_L_LEG, BP_R_LEG, BP_L_FOOT, BP_R_FOOT) && taur)
+		organ = BP_TAUR
 	if(!organ)
 		return 0
 

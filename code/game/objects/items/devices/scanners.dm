@@ -202,6 +202,10 @@ REAGENT SCANNER
 		user.show_message("\red Severe brain damage detected. Subject likely to have mental retardation.")
 	else if (M.getBrainLoss() >= 10)
 		user.show_message("\red Significant brain damage detected. Subject may have had a concussion.")
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(C.stomach_contents.len)
+			user.show_message("<span class='warning'>Foreign body detected in subject's stomach.</span>")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/name in H.organs_by_name)

@@ -65,6 +65,16 @@
 	construction_time = 200
 	category = list("Cyborg")
 
+
+/datum/design/item/mechfab/robot/snake
+	name = "Robot lamia tail"
+	id = "robot_s_tail"
+	build_type = MECHFAB
+	build_path = /obj/item/robot_parts/snake
+	materials = list(MAT_METAL = 40000)
+	construction_time = 400
+	category = list("Cyborg")
+
 //Robot repair
 /datum/design/borg_binary_communication
 	name = "Cyborg Binary Communication Device"
