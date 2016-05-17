@@ -143,13 +143,12 @@ VampyrBytes
 		else if(checkForParams(params))
 			message = paramMessage(user, params)
 		else
-			message = "<span class = 'em'>[user]</span> [text]"
+			message = "\The <span class = 'em'>[user]</span> [text]"
 
 		if(message && "target" in params)
-			if(params["target"])
-				message = addTarget(user, params, message)
-		message = addExtras(message)
+			message = addTarget(user, params, message)
 
+	message = addExtras(user, params, message)
 	return message
 
 /datum/emote/proc/checkForParams(var/list/params)
@@ -158,7 +157,7 @@ VampyrBytes
 			continue
 		return 1
 
-/datum/emote/proc/addExtras(var/message)
+/datum/emote/proc/addExtras(var/mob/user, var/list/params, var/message)
 	if(!message)
 		return
 	if(startText)
@@ -173,8 +172,7 @@ VampyrBytes
 		return paramMimeMessage(user, params)
 	var/message = "<span class = 'em'>[user]</span> [mimeText]"
 	if(message && "target" in params)
-		if(params["target"])
-			message = addTarget(user, params, message)
+		message = addTarget(user, params, message)
 	return message
 
 /datum/emote/proc/muzzleMessage(var/mob/user)
@@ -202,16 +200,20 @@ VampyrBytes
 
 // What you should see when you perform the emote
 /datum/emote/proc/createSelfMessage(var/mob/user, var/message = "")
-	if(startText && selfStart)
-		message = replacetext(message, "[user]", "you")
-	else
-		message = replacetext(message, "[user]", "You")
-	if(selfText)
-		message = replacetext(message, text, selfText)
-	if(!selfStart)
-		var/start = findtextEx(message, startText)
-		var/end = start + lentext(startText) + 1
-		message = copytext(message, 1, start) + copytext(message, end, lentext(message) + 1)
+	if(!selfText)
+		return message
+
+	message = replacetext(message, text, selfText)
+
+	if(startText)
+		if(selfStart)
+			message = replacetext(message, "[user]", "you")
+		else
+			message = replacetext(message, "[user]", "You")
+
+			var/start = findtextEx(message, startText)
+			var/end = start + lentext(startText) + 1
+			message = copytext(message, 1, start) + copytext(message, end, lentext(message) + 1)
 
 	return message
 
@@ -270,7 +272,6 @@ VampyrBytes
 		if(2)
 			recipients = get_mobs_in_view(7, user)
 	return recipients
-
 
 // set up different messages for blind people here. Empty will mean no message for
 //non-audible emotes and the standard message for audible ones
