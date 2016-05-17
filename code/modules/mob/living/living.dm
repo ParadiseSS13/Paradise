@@ -347,6 +347,8 @@
 	timeofdeath = 0
 
 /mob/living/proc/rejuvenate()
+	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
+
 	// shut down various types of badness
 	setToxLoss(0)
 	setOxyLoss(0)
@@ -397,7 +399,7 @@
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
-			var/mob/living/carbon/human/human_mob = src
+			human_mob = src
 			human_mob.restore_blood()
 			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
@@ -411,6 +413,9 @@
 	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
+	if(human_mob)
+		human_mob.update_eyes()
+		human_mob.update_dna()
 	return
 
 /mob/living/proc/UpdateDamageIcon()
