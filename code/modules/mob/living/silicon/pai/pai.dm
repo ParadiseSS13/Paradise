@@ -351,23 +351,26 @@
 	last_special = world.time + 200
 
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
-	if(istype(card.loc,/mob))
-		var/mob/holder = card.loc
-		holder.unEquip(card)
-	else if(istype(card.loc,/obj/item/device/pda))
-		var/obj/item/device/pda/holder = card.loc
-		holder.pai = null
-
-
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = src
-	src.forceMove(get_turf(card))
-
-	card.forceMove(src)
-	card.screen_loc = null
+	force_fold_out()
 
 	var/turf/T = get_turf(src)
 	if(istype(T)) T.visible_message("<b>[src]</b> folds outwards, expanding into a mobile form.")
+
+/mob/living/silicon/pai/proc/force_fold_out()
+	if(istype(card.loc, /mob))
+		var/mob/holder = card.loc
+		holder.unEquip(card)
+	else if(istype(card.loc, /obj/item/device/pda))
+		var/obj/item/device/pda/holder = card.loc
+		holder.pai = null
+
+	if(client)
+		client.perspective = EYE_PERSPECTIVE
+		client.eye = src
+	forceMove(get_turf(card))
+
+	card.forceMove(src)
+	card.screen_loc = null
 
 /mob/living/silicon/pai/verb/fold_up()
 	set category = "pAI Commands"
