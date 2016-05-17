@@ -57,7 +57,7 @@
 				IED = null
 				return
 			if(2,3)
-				user.drop_item(src)
+				user.drop_item()
 				I.forceMove(src)
 				message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 				log_game("[key_name(user)] has rigged a beartrap with an IED.")
@@ -79,7 +79,7 @@
 			to_chat(user, "<span class='notice'>The signaler is secured.</span>")
 			sig = null
 			return
-		user.drop_item(src)
+		user.drop_item()
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You sneak the [sig] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
