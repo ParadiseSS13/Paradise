@@ -24,6 +24,14 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/New()
 	..()
 	update_icon()
+	if(ticker && ticker.mode && ticker.mode.name == "cult")
+		var/datum/game_mode/cult/mode_ticker = ticker.mode
+		var/turf/T = get_turf(src)
+		if(T && (T.z == ZLEVEL_STATION))//F I V E   T I L E S
+			if(!(T in mode_ticker.bloody_floors))
+				mode_ticker.bloody_floors += T
+				mode_ticker.bloody_floors[T] = T
+				mode_ticker.blood_check()
 	if(istype(src, /obj/effect/decal/cleanable/blood/gibs))
 		return
 	if(src.type == /obj/effect/decal/cleanable/blood)
@@ -35,6 +43,17 @@ var/global/list/image/splatter_cache=list()
 					qdel(B)
 	spawn(DRYING_TIME * (amount+1))
 		dry()
+
+/obj/effect/decal/cleanable/blood/Destroy()
+
+	if(ticker.mode && ticker.mode.name == "cult")
+		var/datum/game_mode/cult/mode_ticker = ticker.mode
+		var/turf/T = get_turf(src)
+		if(T && (T.z == ZLEVEL_STATION))
+			mode_ticker.bloody_floors -= T
+			mode_ticker.blood_check()
+	..()
+
 
 /obj/effect/decal/cleanable/blood/update_icon()
 	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"

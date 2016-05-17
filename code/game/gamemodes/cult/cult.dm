@@ -55,6 +55,26 @@ var/global/list/all_cults = list()
 	var/const/max_cultists_to_start = 4
 	var/acolytes_survived = 0
 
+	var/narsie_condition_cleared = 0	//allows Nar-Sie to be summonned during cult rounds. set to 1 once the cult reaches the second phase.
+	var/current_objective = 1	//equals the number of cleared objectives + 1
+	var/prenarsie_objectives = 2 //how many objectives at most before the cult gets to summon narsie
+	var/list/bloody_floors = list()
+	var/spilltarget = 100	//how many floor tiles must be covered in blood to complete the bloodspill objective
+	var/convert_target = 0	//how many members the cult needs to reach to complete the convert objective
+	var/harvested = 0
+
+	var/list/sacrificed = list()	//contains the mind of the sacrifice target ONCE the sacrifice objective has been completed
+	var/mass_convert = 0	//set to 1 if the convert objective has been accomplised once that round
+	var/spilled_blood = 0	//set to 1 if the bloodspill objective has been accomplised once that round
+	var/max_spilled_blood = 0	//highest quantity of blood covered tiles during the round
+	var/bonus = 0	//set to 1 if the cult has completed the bonus (third phase) objective (harvest, hijack, massacre)
+
+	var/harvest_target = 10
+	var/massacre_target = 5
+
+	var/escaped_shuttle = 0
+	var/escaped_pod = 0
+	var/survivors = 0
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
@@ -62,13 +82,6 @@ var/global/list/all_cults = list()
 
 
 /datum/game_mode/cult/pre_setup()
-	if(prob(50))
-		objectives += "survive"
-		objectives += "sacrifice"
-	else
-		objectives += "eldergod"
-		objectives += "sacrifice"
-
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
@@ -101,7 +114,7 @@ var/global/list/all_cults = list()
 		equip_cultist(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		to_chat(cult_mind.current, "\blue You are a member of the cult!")
-		memorize_cult_objectives(cult_mind)
+		first_phase()
 
 	..()
 
@@ -112,6 +125,10 @@ var/global/list/all_cults = list()
 		switch(objectives[obj_count])
 			if("survive")
 				explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
+			if("convert")
+				explanation = "We must increase our influence before we can summon [ticker.mode.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
+			if("bloodspill")
+				explanation = "We must prepare this place for [ticker.mode.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
 			if("sacrifice")
 				if(sacrifice_target)
 					explanation = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune and three acolytes to do so."
@@ -217,6 +234,12 @@ var/global/list/all_cults = list()
 	if(objectives.Find("sacrifice"))
 		if(sacrifice_target && !(sacrifice_target in sacrificed)) //if the target has been sacrificed, ignore this step. otherwise, add 1 to cult_fail
 			cult_fail++
+	if(objectives.Find("convert"))
+		if(cult.len < convert_target)
+			cult_fail++
+	if(objectives.Find("bloodspill"))
+		if(max_spilled_blood < spilltarget)
+			cult_fail++
 
 	return cult_fail //if any objectives aren't met, failure
 
@@ -242,6 +265,7 @@ var/global/list/all_cults = list()
 
 
 /datum/game_mode/cult/declare_completion()
+	bonus_check()
 
 	if(!check_cult_victory())
 		feedback_set_details("round_end_result","win - cult win")
@@ -284,6 +308,47 @@ var/global/list/all_cults = list()
 					else
 						explanation = "Summon [ticker.mode.cultdat.entity_name]. <font color='red'>Fail.</font>"
 						feedback_add_details("cult_objective","cult_narsie|FAIL")
+
+				if("convert")//convert half the crew
+					if(obj_count < objectives.len)
+						explanation = "Convert [convert_target] crewmembers ([cult.len] cultists at round end). <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_convertion|SUCCESS")
+					else
+						explanation = "Convert [convert_target] crewmembers ([cult.len] total cultists). <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_convertion|FAIL")
+
+				if("bloodspill")//cover a large portion of the station in blood
+					if(obj_count < objectives.len)
+						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_bloodspill|SUCCESS")
+					else
+						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_bloodspill|FAIL")
+
+				if("harvest")
+					if(harvested > harvest_target)
+						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] eaten) <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_harvest|SUCCESS")
+					else
+						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] eaten) <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_harvest|FAIL")
+
+				if("hijack")
+					if(!escaped_shuttle)
+						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_hijack|SUCCESS")
+					else
+						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_hijack|FAIL")
+
+				if("massacre")
+					if(survivors < massacre_target)
+						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humans left alive) <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_massacre|SUCCESS")
+					else
+						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humans left alive) <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_massacre|FAIL")
+
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
 
 	to_chat(world, text)
