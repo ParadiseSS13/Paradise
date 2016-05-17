@@ -265,6 +265,17 @@
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
+		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -355,8 +366,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes,
-		"stack" =    /obj/item/organ/internal/stack/vox
-		)
+		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
+		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",

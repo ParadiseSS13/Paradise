@@ -1274,7 +1274,7 @@
 			H.organs -= organ //Making sure the list entry is removed.
 	for(var/organ_name in H.organs_by_name)
 		var/obj/item/organ/organ = H.organs_by_name[organ_name]
-		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ is for IPC limb losses, since those are handled in a way that creates null list entries instead of stumps.
+		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ is to account for mechanical limb losses, since those are handled in a way that creates indexed but null list entries instead of stumps.
 			qdel(organ)
 			H.organs_by_name -= organ_name //Making sure the list entry is removed.
 
