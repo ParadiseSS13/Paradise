@@ -1,4 +1,4 @@
-#define EMOTE_COOLDOWN 20		//Time in deciseconds that the cooldown lasts
+
 
 //Emote Cooldown System (it's so simple!)
 /*

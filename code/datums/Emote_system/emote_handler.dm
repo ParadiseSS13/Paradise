@@ -70,7 +70,7 @@
 		var/datum/emote/em = new t
 		if(em.allowParent)
 			continue
-		found = searchTree(em, 1)
+		found = searchTree(em)
 		if(found)
 			return (found)
 	if(emote.available(owner))

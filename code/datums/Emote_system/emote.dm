@@ -6,6 +6,7 @@ The only exception to this is custom emotes, which are created as needed and onl
 VampyrBytes
 
 *******************************************************************************************************/
+#define EMOTE_COOLDOWN 20		//Time in deciseconds that the cooldown lasts
 
 /datum/emote
 	var/name = ""
@@ -18,11 +19,12 @@ VampyrBytes
 
 	var/audible = 0
 	var/mimeText = ""
+	var/mimeSelf = ""		//self version of mimeText
 	var/sound				// sound file
 	var/vol = 50
 	var/muzzleAffected = 0	// whether being muzzled affects this emote
 	var/muzzledNoise = ""	// if the emote is audible and you're muzzled, this is what type of noise you make (eg weak, loud).
-	var/cooldown = 0
+	var/cooldown = 0		// How long the cooldown should be on this emote. Defaults to EMOTE_COOLDOWN if not set and the emote plays a sound
 
 	var/restrained = 0	// 1 if being restrained prevents this emote
 
@@ -46,6 +48,8 @@ VampyrBytes
 			if(count == 4)
 				baseLevel = 0
 				break
+	if(sound && !cooldown)
+		cooldown = EMOTE_COOLDOWN
 
 /datum/emote/proc/doEmote(var/mob/user)
 	if(!istype(user))
@@ -67,7 +71,8 @@ VampyrBytes
 		message = createMessage(user, params)
 
 	if(message)
-		. = outputMessage(user, message, params)
+		message = addExtras(user, params, message)
+		. = outputMessage(user, params, message)
 
 
 	if(!doMime(user))
@@ -132,7 +137,7 @@ VampyrBytes
 /datum/emote/proc/createMessage(var/mob/user, var/list/params)
 	if(!text)
 		return
-	var/message
+	var/message = ""
 
 	if(doMime(user))
 		message = mimeMessage(user, params)
@@ -143,12 +148,11 @@ VampyrBytes
 		else if(checkForParams(params))
 			message = paramMessage(user, params)
 		else
-			message = "\The <span class = 'em'>[user]</span> [text]"
+			message = standardMessage(user)
 
 		if(message && "target" in params)
 			message = addTarget(user, params, message)
 
-	message = addExtras(user, params, message)
 	return message
 
 /datum/emote/proc/checkForParams(var/list/params)
@@ -157,7 +161,7 @@ VampyrBytes
 			continue
 		return 1
 
-/datum/emote/proc/addExtras(var/mob/user, var/list/params, var/message)
+/datum/emote/proc/addExtras(var/mob/user, var/list/params, var/message = "")
 	if(!message)
 		return
 	if(startText)
@@ -165,18 +169,22 @@ VampyrBytes
 	message = "<span class = '[spanClass]'>[message]</span>"
 	return message
 
+/datum/emote/proc/standardMessage(var/mob/user)
+	var/message = "<span class = 'em'>\The [user]</span> [text]"
+	return message
+
 /datum/emote/proc/mimeMessage(var/mob/user, var/list/params)
 	if(!mimeText)
 		return
 	if(checkForParams(params))
 		return paramMimeMessage(user, params)
-	var/message = "<span class = 'em'>[user]</span> [mimeText]"
+	var/message = "<span class = 'em'>\The [user]</span> [mimeText]"
 	if(message && "target" in params)
 		message = addTarget(user, params, message)
 	return message
 
 /datum/emote/proc/muzzleMessage(var/mob/user)
-	var/message = "<span class = 'em'>[user]</span> makes a "
+	var/message = "<span class = 'em'>\The [user]</span> makes a "
 	if(muzzledNoise)
 		message += "[muzzledNoise] "
 	message += "noise"
@@ -195,37 +203,44 @@ VampyrBytes
 		return message
 	if(!params["target"])
 		return message
-	message += " [targetText] \the [params["target"]]"
+	if(params["target"] == user)
+		message += " [targetText] [getHimself(user)]"
+	else
+		message += " [targetText] \the [params["target"]]"
 	return message
 
 // What you should see when you perform the emote
-/datum/emote/proc/createSelfMessage(var/mob/user, var/message = "")
+/datum/emote/proc/createSelfMessage(var/mob/user, var/list/params, var/message = "")
 	if(!selfText)
 		return message
 
 	message = replacetext(message, text, selfText)
+	message = changeTextMacros(user, message)
 
-	if(startText)
-		if(selfStart)
-			message = replacetext(message, "[user]", "you")
-		else
-			message = replacetext(message, "[user]", "You")
+	if(mimeSelf)
+		message = replacetext(message, mimeText, mimeSelf)
 
-			var/start = findtextEx(message, startText)
-			var/end = start + lentext(startText) + 1
-			message = copytext(message, 1, start) + copytext(message, end, lentext(message) + 1)
+	if(selfStart && startText)
+		message = replacetext(message, "\The [user]", "you")
+	else
+		message = replacetext(message, "\The [user]", "You")
+
+	if(startText && !selfStart)
+		var/start = findtextEx(message, startText)
+		var/end = start + lentext(startText) + 1
+		message = copytext(message, 1, start) + copytext(message, end, lentext(message) + 1)
 
 	return message
 
-/datum/emote/proc/outputMessage(var/mob/user, var/message = "", var/list/params)
+/datum/emote/proc/outputMessage(var/mob/user, var/list/params, var/message = "")
 	var/visualOrAudible = audible + 1
 	if(doMime(user))
 		visualOrAudible = 1
-	var/selfMessage = createSelfMessage(user, message)
+	var/selfMessage = createSelfMessage(user, params, message)
 
 	log_emote("[user.name]/[user.key] : [message]")
 	sendToDead(message)
-
+	testing(message)
 	for(var/mob/M in getRecipients(user, visualOrAudible))
 		var/msg = ""
 
@@ -243,7 +258,7 @@ VampyrBytes
 				continue
 			if((!(M in getRecipients(user, 1))) || M.see_invisible < user.invisibility)
 				continue
-			msg = createDeafMessage(user, message, params)
+			msg = createDeafMessage(user, params, message)
 
 			if(!msg && visualOrAudible == 2)
 				continue
@@ -251,7 +266,7 @@ VampyrBytes
 		else if(M.sdisabilities & BLIND || M.blinded || M.paralysis || (M.see_invisible < user.invisibility && visualOrAudible == 2))
 			if(!(M in getRecipients(user, 2)))
 				continue
-			msg = createBlindMessage(user, message, params)
+			msg = createBlindMessage(user, params, message)
 			if(!msg && visualOrAudible == 1)
 				continue
 
@@ -275,16 +290,16 @@ VampyrBytes
 
 // set up different messages for blind people here. Empty will mean no message for
 //non-audible emotes and the standard message for audible ones
-/datum/emote/proc/createBlindMessage(var/mob/user, var/message, var/list/params)
+/datum/emote/proc/createBlindMessage(var/mob/user, var/list/params, var/message)
 	if(audible && selfText)
 		return "<span class = 'em'>You</span> hear someone [selfText]"
 
 // set up different messages for deaf people here. Empty will mean no message for
 // audible emotes and standard for non-audible ones
-/datum/emote/proc/createDeafMessage(var/mob/user, var/message, var/list/params)
+/datum/emote/proc/createDeafMessage(var/mob/user, var/list/params, var/message)
 	return mimeMessage(user, params)
 
-/datum/emote/proc/sendToDead(message)
+/datum/emote/proc/sendToDead(var/message = "")
 	for(var/mob/M in dead_mob_list)
 		if(!M.client || istype(M, /mob/new_player))
 			continue //skip monkeys, leavers and new players
@@ -307,6 +322,7 @@ VampyrBytes
 	if(user.emote_cd == 1) return 1		// Already on CD, prevent use
 
 	user.emote_cd = 1		// Starting cooldown
+
 	spawn(cooldown)
 		if(user.emote_cd == 2) return 1		// Don't reset if cooldown emotes were disabled by an admin during the cooldown
 		user.emote_cd = 0				// Cooldown complete, ready for more!
@@ -314,6 +330,30 @@ VampyrBytes
 	return 0		// Proceed with emote
 //--FalseIncarnate
 
+/datum/emote/proc/changeTextMacros(var/mob/user, var/message = "")
+	message = swapHisToYour(user, message)
+	message = swapHimselfToYourself(user, message)
+	return message
+
+/datum/emote/proc/getHis(var/mob/user)
+	var/his = "[user]\his"
+	his = copytext(his, lentext("[user]") + 1)
+	return his
+
+/datum/emote/proc/swapHisToYour(var/mob/user, var/message = "")
+	var/his = getHis(user)
+	message = replacetext(message, his, "your")
+	return message
+
+/datum/emote/proc/getHimself(var/mob/user)
+	var/himself = "[user]\himself"
+	himself = copytext(himself, lentext("[user]") + 1)
+	return himself
+
+/datum/emote/proc/swapHimselfToYourself(var/mob/user, var/message)
+	var/himself = getHimself(user)
+	message = replacetext(message, himself, "yourself")
+	return message
 
 /******************************************************************************************
 								Emote Verbs
