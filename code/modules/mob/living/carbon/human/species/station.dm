@@ -167,8 +167,41 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
+	species_abilities = list(
+		/mob/living/carbon/human/proc/nerve_pinch
+		)
+
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
+	
+/mob/living/carbon/human/proc/nerve_pinch()
+	set category = "Abilities"
+	set name = "Nerve pinch"
+	set desc = "Incapacitate someone who's being completely illogical by pinching a nerve cluster on their neck"
+
+	if(stat)
+		to_chat(src, "You cannot perform the maneuver in this state.")
+		return
+
+	var/list/choices = list()
+	for(var/mob/living/carbon/human/H in view(1,src))
+		var/species = H.get_species()
+		var/race = get_species()
+		if(!H.stat && species == race && src.Adjacent(H) && src != H)
+			choices += H
+
+	var/mob/living/carbon/human/M = input(src,"Who is being too illogical?") in null|choices
+
+	if(!M || !src) return
+
+	if(!(src.Adjacent(M))) return
+
+	to_chat(src, "<span class='notice'>You pinch a pressure point at the base of [M]'s neck.</span>")
+	visible_message("<span class='warning'>[usr] pinches the base of [M]'s neck!</span>")
+	to_chat(M, "<span class='warning'><b>HRK!</b></span>")
+	M.Weaken(5)
+	M.Stun(5)
+	M.stat = UNCONSCIOUS
 
 /datum/species/skrell
 	name = "Skrell"
