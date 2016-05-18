@@ -664,17 +664,17 @@
 
 	vision_organ = /obj/item/organ/internal/diona_receptor
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/diona/chest),
-		"groin" =  list("path" = /obj/item/organ/external/diona/groin),
-		"head" =   list("path" = /obj/item/organ/external/diona/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/diona/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/diona/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/diona/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/diona/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/diona/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/diona/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/diona/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/diona/foot/right)
+		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
+		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
+		"head" =   list("path" = /obj/item/organ/external/head/diona),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/diona),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/diona),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/diona),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/diona),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/diona),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/diona),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/diona),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/diona)
 		)
 
 	suicide_messages = list(
