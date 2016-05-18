@@ -74,13 +74,14 @@
 			new p(user.loc)
 		qdel(src)
 	else if(upgradable && istype(W, /obj/item/stack/rods))
-		if(W:amount >= 4)
+		var/obj/item/stack/rods/R = W
+		if(R.amount >= 4)
 			new /obj/item/weapon/table_parts/reinforced(user.loc)
-			to_chat(user, "\blue You reinforce the [name].")
-			W:use(4)
+			to_chat(user, "<span class=notice>You reinforce the [name].</span>")
+			R.use(4)
 			qdel(src)
-		else if(W:amount < 4)
-			to_chat(user, "\red You need at least four rods to do this.")
+		else
+			to_chat(user, "<span class=warning>You need at least four rods to do this.</span>")
 
 /obj/item/weapon/table_parts/attack_self(mob/user as mob)
 	for(var/obj/structure/table/T in user.loc)
