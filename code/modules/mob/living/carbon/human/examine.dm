@@ -57,10 +57,10 @@
 	var/list/nospecies = list("Abductor", "Shadowling", "Neara", "Monkey", "Stok", "Farwa", "Wolpin") //species that won't show their race no matter what
 
 	var/displayed_species = get_species()
-	for(var/obj/item/clothing/C in src)
-		if(C.species_disguise)
-			displayed_species = C.species_disguise
-		else continue
+	for(var/obj/item/clothing/C in src)			//Disguise checks
+		if (C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
+			if(C.species_disguise)
+				displayed_species = C.species_disguise
 	if (skipjumpsuit && skipface || (displayed_species in nospecies)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
 	else if (displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
