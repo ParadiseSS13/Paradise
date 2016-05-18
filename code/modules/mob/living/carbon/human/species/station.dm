@@ -176,7 +176,7 @@
 	
 /mob/living/carbon/human/proc/nerve_pinch()
 	set category = "Abilities"
-	set name = "Nerve pinch"
+	set name = "Nerve Pinch"
 	set desc = "Incapacitate someone who's being completely illogical by pinching a nerve cluster on their neck"
 
 	if(stat)
@@ -199,9 +199,7 @@
 	to_chat(src, "<span class='notice'>You pinch a pressure point at the base of [M]'s neck.</span>")
 	visible_message("<span class='warning'>[usr] pinches the base of [M]'s neck!</span>")
 	to_chat(M, "<span class='warning'><b>HRK!</b></span>")
-	M.Weaken(5)
-	M.Stun(5)
-	M.stat = UNCONSCIOUS
+	M.Paralyze(2700)
 
 /datum/species/skrell
 	name = "Skrell"
