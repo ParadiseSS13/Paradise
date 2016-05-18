@@ -199,7 +199,7 @@
 	to_chat(src, "<span class='notice'>You pinch a pressure point at the base of [M]'s neck.</span>")
 	visible_message("<span class='warning'>[usr] pinches the base of [M]'s neck!</span>")
 	to_chat(M, "<span class='warning'><b>HRK!</b></span>")
-	M.Paralyse(2700)
+	M.Paralyse(7920)
 
 /datum/species/skrell
 	name = "Skrell"
