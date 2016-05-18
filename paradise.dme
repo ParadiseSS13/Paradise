@@ -104,6 +104,7 @@
 #include "code\_onclick\hud\alien.dm"
 #include "code\_onclick\hud\alien_larva.dm"
 #include "code\_onclick\hud\bot.dm"
+#include "code\_onclick\hud\constructs.dm"
 #include "code\_onclick\hud\fullscreen.dm"
 #include "code\_onclick\hud\guardian.dm"
 #include "code\_onclick\hud\hud.dm"

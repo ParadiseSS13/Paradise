@@ -57,6 +57,19 @@
 
 	summon_type = list(/obj/item/device/soulstone)
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon
+	name = "Cult Pylon"
+	desc = "This spell conjures a fragile crystal from Nar-Sie's realm. Makes for a convenient light source."
+
+	school = "conjuration"
+	charge_max = 200
+	clothes_req = 0
+	invocation = "none"
+	invocation_type = "none"
+	range = 0
+
+	summon_type = list(/obj/structure/cult/cultpylon)
+
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall
 	name = "Shield"
@@ -68,9 +81,15 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
-	summon_type = list(/obj/effect/forcefield)
+	summon_type = list(/obj/effect/forcefield/cult)
 	summon_lifespan = 200
 
+/obj/effect/forcefield/cult
+	desc = "That eerie looking obstacle seems to have been pulled from another dimension through sheer force"
+	name = "eldritch wall"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "m_shield_cult"
+	light_color = LIGHT_COLOR_PURE_RED
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift
 	name = "Phase Shift"

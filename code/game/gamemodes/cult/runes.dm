@@ -130,7 +130,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 		for(var/M in invokers)
 			var/mob/living/L = M
 			if(!L.IsVocal())//MIMES
-			//due emote here...
+			//do emote here...
+				L.emote("acts out the rune invocation.")//it will looks like flailing...
 			else
 				L.say(invocation)
 	var/oldtransform = transform
@@ -430,7 +431,7 @@ var/list/teleport_runes = list()
 
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
 /obj/effect/rune/narsie
-	cultist_name = "Summon your god"
+	cultist_name = "Tear Reality"
 	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
@@ -484,13 +485,6 @@ var/list/teleport_runes = list()
 			fail_invoke()
 			log_game("Summon Nar-Sie rune failed - off station Z level")
 			return
-		else
-			if(cult_mode.sacrifice_target && !(cult_mode.sacrifice_target in sacrificed))
-				for(var/M in invokers)
-					to_chat(M, "<span class='warning'>The sacrifice is not complete. The portal lacks the power to open!</span>")
-				fail_invoke()
-				log_game("Summon Nar-Sie rune failed - sacrifice not complete")
-				return
 		if(!cult_mode.eldergod)
 			for(var/M in invokers)
 				to_chat(M, "<span class='warning'>[ticker.mode.cultdat.entity_name] is already on this plane!</span>")

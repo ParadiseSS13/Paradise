@@ -83,7 +83,7 @@
 				explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for his blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 
 		for(var/datum/mind/cult_mind in cult)
-			to_chat(cult_mind.current, "<span class='sinister'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
+			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
 			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
 			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
@@ -99,7 +99,7 @@
 
 	var/explanation = "Summon [ticker.mode.cultdat.entity_name] on the Station via the use of the Tear Reality rune."
 	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<span class='sinister'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
+		to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
 		to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 

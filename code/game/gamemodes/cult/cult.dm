@@ -112,8 +112,8 @@ var/global/list/all_cults = list()
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
-		update_cult_icons_added(cult_mind)
-		to_chat(cult_mind.current, "\blue You are a member of the cult!")
+		add_cultist(cult_mind)
+		to_chat(cult_mind.current, "<span class='cult'> You are a member of the cult!</span>")//need fluffier text here...
 		first_phase()
 
 	..()
@@ -159,9 +159,9 @@ var/global/list/all_cults = list()
 	)
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if (!where)
-		to_chat(mob, "Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.")
+		to_chat(mob, "<span class='danger'> Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.</span>")
 	else
-		to_chat(mob, "You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.")
+		to_chat(mob, "<span class='cult'>You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.</span>")
 		mob.update_icons()
 		return 1
 
