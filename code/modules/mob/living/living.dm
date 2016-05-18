@@ -405,6 +405,7 @@
 			human_mob.decaylevel = 0
 
 	restore_all_organs()
+	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
 		dead_mob_list -= src
 		living_mob_list += src

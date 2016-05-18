@@ -308,8 +308,10 @@ This function completely restores a damaged organ to perfect condition.
 */
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
-	if(status & 128)	//Robotic organs stay robotic.
-		status = 128
+	if(status & ORGAN_ROBOT)	//Robotic organs stay robotic.
+		status = ORGAN_ROBOT
+	else if (status & ORGAN_ASSISTED) //Assisted organs stay assisted.
+		status = ORGAN_ASSISTED
 	else
 		status = 0
 	germ_level = 0
