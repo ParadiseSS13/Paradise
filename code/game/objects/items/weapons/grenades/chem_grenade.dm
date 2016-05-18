@@ -458,11 +458,11 @@
 	New()
 		..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/weapon/reagent_containers/glass/beaker/large/B2 = new(src)
+		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
 
 		B1.reagents.add_reagent("fluorosurfactant", 40)
-		B2.reagents.add_reagent("water", 40)
-		B2.reagents.add_reagent("cleaner", 60)
+		B2.reagents.add_reagent("cleaner", 10)
+		B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
 
 		beakers += B1
 		beakers += B2

@@ -916,6 +916,8 @@ steam.start() -- spawns the effect
 /obj/effect/effect/foam/New(loc, var/ismetal=0)
 	..(loc)
 	icon_state = "[ismetal ? "m":""]foam"
+	if(!ismetal && reagents)
+		color = mix_color_from_reagents(reagents.reagent_list)
 	metal = ismetal
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
 	spawn(3 + metal*3)
@@ -944,10 +946,13 @@ steam.start() -- spawns the effect
 // on delete, transfer any reagents to the floor
 /obj/effect/effect/foam/Destroy()
 	if(!metal && reagents)
-		for(var/atom/A in oview(0,src))
+		reagents.handle_reactions()
+		for(var/atom/A in oview(1, src))
 			if(A == src)
 				continue
-			reagents.reaction(A, 1, 1)
+			if(reagents.total_volume)
+				var/fraction = 5 / reagents.total_volume
+				reagents.reaction(A, TOUCH, fraction)
 	return ..()
 
 /obj/effect/effect/foam/process()
@@ -969,13 +974,14 @@ steam.start() -- spawns the effect
 		if(F)
 			continue
 
-		F = new(T, metal)
+		F = new /obj/effect/effect/foam(T, metal)
 		F.amount = amount
 		if(!metal)
-			F.create_reagents(10)
-			if (reagents)
+			F.create_reagents(15)
+			if(reagents)
 				for(var/datum/reagent/R in reagents.reagent_list)
-					F.reagents.add_reagent(R.id,1)
+					F.reagents.add_reagent(R.id, min(R.volume, 3), R.data, reagents.chem_temp)
+				F.color = mix_color_from_reagents(reagents.reagent_list)
 
 // foam disolves when heated
 // except metal foams
@@ -993,16 +999,26 @@ steam.start() -- spawns the effect
 
 	if (istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M =	AM
-		M.slip("foam", 5, 2)
+		if(M.slip("foam", 5, 2))
+			if(reagents)
+				for(var/reagent_id in reagents.reagent_list)
+					var/amount = M.reagents.get_reagent_amount(reagent_id)
+					if(amount < 25)
+						M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
+				if(reagents.total_volume)
+					var/fraction = 5 / reagents.total_volume
+					reagents.reaction(M, TOUCH, fraction)
 
 
 /datum/effect/system/foam_spread
 	var/amount = 5				// the size of the foam spread.
 	var/list/carried_reagents	// the IDs of reagents present when the foam was mixed
 	var/metal = 0				// 0=foam, 1=metalfoam, 2=ironfoam
+	var/temperature = T0C
+	var/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
 
 /datum/effect/system/foam_spread/set_up(amt=5, loca, var/datum/reagents/carry = null, var/metalfoam = 0)
-	amount = round(sqrt(amt / 3), 1)
+	amount = min(round(amt/5, 1), 7)
 	if(istype(loca, /turf/))
 		location = loca
 	else
@@ -1010,35 +1026,40 @@ steam.start() -- spawns the effect
 
 	carried_reagents = list()
 	metal = metalfoam
-
+	temperature = carry.chem_temp
 
 	// bit of a hack here. Foam carries along any reagent also present in the glass it is mixed
 	// with (defaults to water if none is present). Rather than actually transfer the reagents,
 	// this makes a list of the reagent ids and spawns 1 unit of that reagent when the foam disolves.
 
-
 	if(carry && !metal)
 		for(var/datum/reagent/R in carry.reagent_list)
-			carried_reagents += R.id
+			carried_reagents[R.id] = R.volume
 
 /datum/effect/system/foam_spread/start()
 	spawn(0)
 		var/obj/effect/effect/foam/F = locate() in location
 		if(F)
 			F.amount += amount
+			F.amount = min(F.amount, 27)
 			return
 
-		F = new(src.location, metal)
+		F = new /obj/effect/effect/foam(location, metal)
 		F.amount = amount
 
 		if(!metal)			// don't carry other chemicals if a metal foam
-			F.create_reagents(10)
+			F.create_reagents(15)
 
 			if(carried_reagents)
 				for(var/id in carried_reagents)
-					F.reagents.add_reagent(id,1)
+					if(banned_reagents.Find("[id]"))
+						continue
+					var/datum/reagent/reagent_volume = carried_reagents[id]
+					F.reagents.add_reagent(id, min(reagent_volume, 3), null, temperature)
+				F.color = mix_color_from_reagents(F.reagents.reagent_list)
 			else
-				F.reagents.add_reagent("water", 1)
+				F.reagents.add_reagent("cleaner", 1)
+				F.color = mix_color_from_reagents(F.reagents.reagent_list)
 
 // wall formed by metal foams
 // dense and opaque, but easy to break
