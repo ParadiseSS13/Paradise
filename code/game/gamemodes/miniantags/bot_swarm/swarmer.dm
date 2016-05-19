@@ -233,7 +233,7 @@
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	for(var/turf/T in range(1, src))
-		if(istype(T, /turf/space) || istype(T.loc, /area/space) || istype(T, /turf/simulated/floor/plating/airless)
+		if(istype(T, /turf/space) || istype(T.loc, /area/space) || istype(T, /turf/simulated/floor/plating/airless))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			return
 	..()
