@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Cryopods will now always display the occupant's name"
