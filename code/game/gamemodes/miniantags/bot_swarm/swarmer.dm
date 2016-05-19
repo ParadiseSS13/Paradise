@@ -155,25 +155,7 @@
 	S.DisIntegrate(src)
 	toggle_cam(S, 0)
 
-/obj/machinery/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/fuel_chamber/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/particle_emitter/center/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/particle_emitter/left/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/particle_emitter/right/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/end_cap/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/power_box/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/structure/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
 
 
