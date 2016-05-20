@@ -2008,6 +2008,7 @@
 #include "code\modules\surgery\organs\subtypes\machine.dm"
 #include "code\modules\surgery\organs\subtypes\misc.dm"
 #include "code\modules\surgery\organs\subtypes\nucleation.dm"
+#include "code\modules\surgery\organs\subtypes\skrell.dm"
 #include "code\modules\surgery\organs\subtypes\standard.dm"
 #include "code\modules\surgery\organs\subtypes\unbreakable.dm"
 #include "code\modules\surgery\organs\subtypes\wryn.dm"
