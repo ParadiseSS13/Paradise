@@ -49,6 +49,7 @@ var/global/list/all_cults = list()
 	var/list/objectives = list()
 
 	var/eldergod = 1 //for the summon god objective
+	var/demons_summoned = 0
 
 	var/acolytes_needed = 4 //for the survive objective - base number of acolytes, increased by 1 for every 10 players
 	var/const/min_cultists_to_start = 3
@@ -231,6 +232,9 @@ var/global/list/all_cults = list()
 		cult_fail += check_survive() //the proc returns 1 if there are not enough cultists on the shuttle, 0 otherwise
 	if(objectives.Find("eldergod"))
 		cult_fail += eldergod //1 by default, 0 if the elder god has been summoned at least once
+	if(objectives.Find("slaughter"))
+		if(!demons_summoned)
+			cult_fail++
 	if(objectives.Find("sacrifice"))
 		if(sacrifice_target && !(sacrifice_target in sacrificed)) //if the target has been sacrificed, ignore this step. otherwise, add 1 to cult_fail
 			cult_fail++
@@ -308,6 +312,13 @@ var/global/list/all_cults = list()
 					else
 						explanation = "Summon [ticker.mode.cultdat.entity_name]. <font color='red'>Fail.</font>"
 						feedback_add_details("cult_objective","cult_narsie|FAIL")
+				if("slaughter")
+					if(demons_summoned)
+						explanation = "Bring the Slaughter. <span class='greenannounce'>Success!</span>"
+						feedback_add_details("cult_objective","cult_demons|SUCCESS")
+					else
+						explanation = "Bring the Slaughter. <span class='boldannounce'>Fail.</span>"
+						feedback_add_details("cult_objective","cult_demons|FAIL")
 
 				if("convert")//convert half the crew
 					if(obj_count < objectives.len)

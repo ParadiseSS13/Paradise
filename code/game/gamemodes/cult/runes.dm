@@ -61,6 +61,11 @@ To draw a rune, use an arcane tome.
 		qdel(src)
 		return
 	else if(istype(I, /obj/item/weapon/nullrod))
+		if(iscultist(user))//cultist..what are doing..cultist..staph...
+			user.drop_item()
+			user.visible_message("<span class='warning'>[I] suddenly glows with white light, forcing [user] to drop it in pain!</span>", \
+			"<span class='warning'><b>[I] suddenly glows with a white light that sears your hand, forcing you to drop it!</b></span>")
+			return
 		user.say("BEGONE FOUL MAGIKS!!")
 		to_chat(user,"<span class='danger'>You disrupt the magic of [src] with [I].</span>")
 		qdel(src)
@@ -496,6 +501,7 @@ var/list/teleport_runes = list()
 		..()
 		world << 'sound/effects/dimensional_rend.ogg'
 		to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+		icon_state = "rune_large_distorted"
 		var/turf/T = get_turf(src)
 		sleep(40)
 		new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
@@ -515,6 +521,78 @@ var/list/teleport_runes = list()
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
 			..()
 	return
+
+
+
+/obj/effect/rune/slaughter
+	cultist_name = "Call Forth The Slaughter"
+	cultist_desc = "Calls forth the doom of a eldrtich being. Three slaughter demons will appear to wreak havoc on the station."
+	invocation = null
+	req_cultists = 9
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "rune_large"
+	pixel_x = -32
+	pixel_y = -32
+
+	var/used = 0
+
+/obj/effect/rune/slaughter/talismanhide() //can't hide this, and you wouldn't want to
+	return
+
+/obj/effect/rune/slaughter/invoke(var/list/invokers)
+	if(used)
+		return
+	var/mob/living/user = invokers[1]
+	if(ticker.mode.name == "cult")
+		var/datum/game_mode/cult/cult_mode = ticker.mode
+		if(!("slaughter" in cult_mode.objectives))
+			message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
+			for(var/M in invokers)
+				var/mob/living/L = M
+				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
+				if(L.reagents)
+					L.reagents.add_reagent("hell_water", 10)
+				L.Weaken(7)
+				L.Stun(7)
+			fail_invoke()
+			log_game("Summon Demons rune failed - improper objective")
+			return
+		else if(user.z !=  ZLEVEL_STATION)
+			message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
+			for(var/M in invokers)
+				var/mob/living/L = M
+				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
+				if(L.reagents)
+					L.reagents.add_reagent("hell_water", 10)
+				L.Weaken(7)
+				L.Stun(7)
+			fail_invoke()
+			log_game("Summon demons rune failed - off station Z level")
+			return
+		if(cult_mode.demons_summoned)
+			for(var/M in invokers)
+				to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
+				log_game("Summon Demons rune failed - already summoned")
+				return
+		//BEGIN THE SLAUGHTER
+		used = 1
+		for(var/mob/living/M in range(1,src))
+			if(iscultist(M))
+				M.say("TOK-LYR RQA-NAP SHA-NEX!!")
+		world << 'sound/effects/dimensional_rend.ogg'
+		to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
+		icon_state = "rune_large_distorted"
+		sleep(55)
+		to_chat(world, "<span class='cult'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
+		visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
+		var/turf/T = get_turf(src)
+		new /mob/living/simple_animal/slaughter/cult(T)
+		new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
+		new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
+		cult_mode.demons_summoned = 1
+		shuttle_master.emergency.request(null, 0.5,null)
+		qdel(src)
+
 
 //Rite of Resurrection: Requires two corpses. Revives one and gibs the other.
 /obj/effect/rune/raise_dead

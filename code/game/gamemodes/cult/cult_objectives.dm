@@ -94,10 +94,15 @@
 
 /datum/game_mode/cult/proc/second_phase()
 	narsie_condition_cleared = 1
+	var/explanation
 
-	objectives += "eldergod"
+	if(prob(50))//split the chance of this
+		objectives += "eldergod"
+		explanation = "Summon [ticker.mode.cultdat.entity_name] on the Station via the use of the Tear Reality rune."
+	else
+		objectives += "slaughter"
+		explanation = "Bring the Slaughter via the rune 'Tear Reality'."
 
-	var/explanation = "Summon [ticker.mode.cultdat.entity_name] on the Station via the use of the Tear Reality rune."
 	for(var/datum/mind/cult_mind in cult)
 		to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
 		to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
@@ -156,8 +161,8 @@
 			sacrifice_target = pick(possible_targets)
 			possible_objectives |= "sacrifice"
 		else
-			message_admins("Didn't find a suitable sacrifice target...what the hell? Shout at Deity.")
-			log_admin("Didn't find a suitable sacrifice target...what the hell? Shout at Deity.")
+			message_admins("Didn't find a suitable sacrifice target...what the hell? Shout at a coder.")
+			log_admin("Didn't find a suitable sacrifice target...what the hell? Shout at a coder.")
 
 	if(!mass_convert)
 		var/living_crew = 0
@@ -186,7 +191,12 @@
 	if(!possible_objectives.len)//No more possible objectives, time to summon Nar-Sie
 		message_admins("No suitable objectives left! Nar-Sie objective unlocked.")
 		log_admin("No suitable objectives left! Nar-Sie objective unlocked.")
-		return "eldergod"
+		var/lastbit
+		if(prob(50))
+			lastbit = "eldergod"
+		else
+			lastbit = "slaughter"
+		return lastbit
 	else
 		return pick(possible_objectives)
 

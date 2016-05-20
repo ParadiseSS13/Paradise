@@ -21,6 +21,16 @@
 	w_class = 2
 	var/scribereduct = 0
 
+/obj/item/weapon/tome/accursed
+	name = "accursed tome"
+	desc = "An arcane tome still empowered with a shadow of its former consecration."
+	scribereduct = 30 //faster because it's made by corrupting a bible
+
+/obj/item/weapon/tome/imbued //Admin-only tome, allows instant drawing of runes
+	name = "imbued arcane tome"
+	desc = "An arcane tome granted by the Geometer itself."
+	scribereduct = 50
+
 /obj/item/weapon/tome/examine(mob/user)
 	..()
 	if(iscultist(user) || user.stat == DEAD)
@@ -226,7 +236,7 @@
 	user.visible_message("<span class='warning'>[user] cuts open their arm and begins writing in their own blood!</span>", \
 						 "<span class='cult'>You slice open your arm and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, pick("l_arm", "r_arm"))
-	if(!do_after(user, initial(rune_to_scribe.scribe_delay), target = get_turf(user)))
+	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/machinery/shield/S = V
 			if(S && !qdeleted(S))

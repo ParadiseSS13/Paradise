@@ -5,7 +5,25 @@
 	icon = 'icons/obj/cult.dmi'
 	var/cooldowntime = 0
 	var/health = 100
-	var/maxhealth = 100
+	var/death_message = "<span class='warning'>The structure falls apart.</span>" //The message shown when the structure is destroyed
+	var/death_sound = 'sound/items/bikehorn.ogg'
+
+
+/obj/structure/cult/proc/destroy_structure()
+	visible_message(death_message)
+	playsound(src, death_sound, 50, 1)
+	qdel(src)
+
+/obj/structure/cult/attackby(obj/item/I, mob/user, params)
+	if(I.force)
+		..()
+		playsound(src, I.hitsound, 50, 1)
+		health = Clamp(health - I.force, 0, initial(health))
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(health <= 0)
+			destroy_structure()
+		return
+	..()
 
 //Noncult As we may have this on maps
 /obj/structure/cult/talisman
@@ -50,6 +68,9 @@
 	name = "altar"
 	desc = "A bloodstained altar dedicated to Nar-Sie."
 	icon_state = "talismanaltar"
+	health = 150 //Sturdy
+	death_message = "<span class='warning'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
+	death_sound = 'sound/effects/altar_break.ogg'
 
 /obj/structure/cult/culttalisman/attack_hand(mob/living/user)
 	if(!iscultist(user))
@@ -77,7 +98,9 @@
 	name = "daemon forge"
 	desc = "A forge used in crafting the unholy weapons used by the armies of a cult."
 	icon_state = "forge"
-	luminosity = 3
+	health = 300 //Made of metal
+	death_message = "<span class='warning'>The forge falls apart, its lava cooling and winking away!</span>"
+	death_sound = 'sound/effects/forge_destroy.ogg'
 
 /obj/structure/cult/cultforge/attack_hand(mob/living/user)
 	if(!iscultist(user))
@@ -96,17 +119,21 @@
 	if(pickedtype && Adjacent(user) && src && !qdeleted(src) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		var/obj/item/N = new pickedtype(get_turf(src))
-		user << "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating [N]!</span>"
+		to_chat(user, "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating [N]!</span>")
 
 
 /obj/structure/cult/cultpylon
 	name = "pylon"
 	desc = "A floating crystal that slowly heals those faithful to a cult."
 	icon_state = "pylon"
-	luminosity = 5
+	light_range = 5
+	light_color = "#3e0000"
 	var/heal_delay = 50
 	var/last_shot = 0
 	var/list/corruption = list()
+	health = 50 //Very fragile
+	death_message = "<span class='warning'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
+	death_sound = 'sound/effects/pylon_shatter.ogg'
 
 /obj/structure/cult/cultpylon/New()
 	processing_objects |= src
@@ -147,6 +174,9 @@
 	name = "archives"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
 	icon_state = "tomealtar"
+	health = 125 //Slightly sturdy
+	death_message = "<span class='warning'>The desk breaks apart, its books falling to the floor.</span>"
+	death_sound = 'sound/effects/wood_break.ogg'
 
 /obj/structure/cult/culttome/attack_hand(mob/living/user)
 	if(!iscultist(user))

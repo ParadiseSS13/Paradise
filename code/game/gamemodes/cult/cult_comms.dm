@@ -32,7 +32,11 @@
 		user.say(message)
 	else
 		user.whisper(message)
-	var/my_message = "<span class='cultitalic'><b>[(ishuman(user) ? "Acolyte" : "Construct")] [user]:</b> [message]</span>"
+	var/my_message
+	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
+		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
+	else
+		my_message = "<span class='cultitalic'><b>[(ishuman(user) ? "Acolyte" : "Construct")] [user]:</b> [message]</span>"
 	for(var/mob/M in mob_list)
 		if(iscultist(M))
 			to_chat(M, my_message)

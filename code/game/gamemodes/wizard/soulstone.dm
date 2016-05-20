@@ -174,7 +174,7 @@
 				var/construct_class = alert(U, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
 				switch(construct_class)
 					if("Juggernaut")
-						var/mob/living/simple_animal/construct/armoured/Z = new /mob/living/simple_animal/construct/armoured (get_turf(T.loc))
+						var/mob/living/simple_animal/hostile/construct/armoured/Z = new /mob/living/simple_animal/hostile/construct/armoured (get_turf(T.loc))
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
@@ -190,7 +190,7 @@
 						qdel(C)
 
 					if("Wraith")
-						var/mob/living/simple_animal/construct/wraith/Z = new /mob/living/simple_animal/construct/wraith (get_turf(T.loc))
+						var/mob/living/simple_animal/hostile/construct/wraith/Z = new /mob/living/simple_animal/hostile/construct/wraith (get_turf(T.loc))
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
@@ -206,7 +206,7 @@
 						qdel(C)
 
 					if("Artificer")
-						var/mob/living/simple_animal/construct/builder/Z = new /mob/living/simple_animal/construct/builder (get_turf(T.loc))
+						var/mob/living/simple_animal/hostile/construct/builder/Z = new /mob/living/simple_animal/hostile/construct/builder (get_turf(T.loc))
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
@@ -224,10 +224,10 @@
 				to_chat(U, "\red <b>Creation failed!</b>: \black The soul stone is empty! Go kill someone!")
 	return
 
-/proc/makeNewConstruct(var/mob/living/simple_animal/construct/ctype, var/mob/target, var/mob/stoner = null, cultoverride = 0)
+/proc/makeNewConstruct(var/mob/living/simple_animal/hostile/construct/ctype, var/mob/target, var/mob/stoner = null, cultoverride = 0)
 	if(jobban_isbanned(target, "cultist") || jobban_isbanned(target, "Syndicate"))
 		return
-	var/mob/living/simple_animal/construct/newstruct = new ctype(get_turf(target))
+	var/mob/living/simple_animal/hostile/construct/newstruct = new ctype(get_turf(target))
 	newstruct.faction |= "\ref[stoner]"
 	newstruct.key = target.key
 	if(stoner && iscultist(stoner) || cultoverride)
