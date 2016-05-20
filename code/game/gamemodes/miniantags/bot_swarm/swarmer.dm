@@ -158,6 +158,8 @@
 /obj/structure/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
 
+/obj/machinery/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S) // Since the console is still parented to this
+	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(!active)
