@@ -155,30 +155,17 @@
 	S.DisIntegrate(src)
 	toggle_cam(S, 0)
 
-/obj/machinery/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/structure/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
 
-/obj/structure/particle_accelerator/fuel_chamber/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/machinery/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S) // Since the console is still parented to this
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/particle_emitter/center/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/particle_emitter/left/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/particle_emitter/right/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/particle_emitter/end_cap/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
-/obj/structure/particle_accelerator/particle_emitter/power_box/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	S.DisIntegrate(src)
+	if(!active)
+		S.DisIntegrate(src)
+		return
+	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 
 /obj/machinery/gravity_generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
@@ -233,7 +220,7 @@
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	for(var/turf/T in range(1, src))
-		if(istype(T, /turf/space) || istype(T.loc, /area/space))
+		if(istype(T, /turf/space) || istype(T.loc, /area/space) || istype(T, /turf/simulated/floor/plating/airless))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			return
 	..()
