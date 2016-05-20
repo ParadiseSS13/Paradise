@@ -44,19 +44,15 @@
 		user.drop_item()
 		B.forceMove(src)
 		held_brain = B
-		if(istype(O,/obj/item/organ/internal/brain/xeno)) // I'm not sure how well this will work now, since I don't think you can actually get xeno brains
+		if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
 			name = "Man-Machine Interface: Alien - [brainmob.real_name]"
 			icon = 'icons/mob/alien.dmi'
 			icon_state = "AlienMMI"
 			alien = 1
-		else if(istype(O,/obj/item/organ/internal/brain/drask))
-			name = "Man-Machine Interface: [brainmob.real_name]"
-			icon = 'icons/obj/surgery_drask.dmi'
-			icon_state = "mmi_full"
-			alien = 0
 		else
 			name = "Man-Machine Interface: [brainmob.real_name]"
-			icon_state = "mmi_full"
+			icon = B.mmi_icon
+			icon_state = "[B.mmi_icon_state]"
 			alien = 0
 		feedback_inc("cyborg_mmis_filled",1)
 
