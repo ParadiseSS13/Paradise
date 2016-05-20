@@ -160,10 +160,10 @@
 
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	if(powered)
-		to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	if(!active)
+		S.DisIntegrate(src)
 		return
-	else S.DisIntegrate(src)
+	else to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 
 /obj/machinery/gravity_generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
