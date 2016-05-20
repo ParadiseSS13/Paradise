@@ -57,6 +57,7 @@
 	base_color = "#066000"
 	//Default styles for created mobs.
 	default_hair = "Unathi Horns"
+	butt_sprite = "unathi"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -113,6 +114,7 @@
 	base_color = "#333333"
 	//Default styles for created mobs.
 	default_headacc = "Tajaran Ears"
+	butt_sprite = "tajaran"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
 								 /mob/living/simple_animal/tribble)
@@ -157,6 +159,7 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#B43214"
+	butt_sprite = "vulp"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -196,6 +199,7 @@
 	//Default styles for created mobs.
 	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
+	butt_sprite = "skrell"
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -259,6 +263,7 @@
 	flesh_color = "#808D11"
 	//Default styles for created mobs.
 	default_hair = "Short Vox Quills"
+	butt_sprite = "vox"
 
 	reagent_tag = PROCESS_ORG
 	scream_verb = "shrieks"
@@ -384,6 +389,7 @@
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	butt_sprite = "kidan"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
@@ -416,6 +422,7 @@
 	reagent_tag = PROCESS_ORG
 	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
+	butt_sprite = "slime"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
@@ -586,6 +593,7 @@
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
+	butt_sprite = "grey"
 
 	brute_mod = 1.25 //greys are fragile
 
@@ -650,6 +658,7 @@
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
+	butt_sprite = "diona"
 
 	reagent_tag = PROCESS_ORG
 
@@ -766,6 +775,7 @@
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	butt_sprite = "machine"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
