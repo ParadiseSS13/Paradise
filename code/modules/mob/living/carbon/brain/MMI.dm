@@ -49,6 +49,11 @@
 			icon = 'icons/mob/alien.dmi'
 			icon_state = "AlienMMI"
 			alien = 1
+		else if(istype(O,/obj/item/organ/internal/brain/drask))
+			name = "Man-Machine Interface: [brainmob.real_name]"
+			icon = 'icons/obj/surgery_drask.dmi'
+			icon_state = "mmi_full"
+			alien = 0
 		else
 			name = "Man-Machine Interface: [brainmob.real_name]"
 			icon_state = "mmi_full"
