@@ -21,9 +21,9 @@
 /mob/living/simple_animal/possessed_object/examine()
 	..()
 	if(health > (maxHealth / 30))
-		to_chat(usr, "<span class='warning'>[src] appears to be floating without any support!</span>"
+		to_chat(usr, "<span class='warning'>[src] appears to be floating without any support!</span>")
 	else
-		to_chat(usr, "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
+		to_chat(usr, "<span class='warning'>[src] appears to be having trouble staying afloat!</span>")
 
 
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A)
