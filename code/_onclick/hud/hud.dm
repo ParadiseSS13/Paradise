@@ -178,29 +178,18 @@
 	return
 
 /client/var/list/spacebg = list()
-/client/var/obj/screen/planetbg/planetbg
 /client/var/obj/screen/pmaster_whitespace/pmaster_whitespace
-/client/var/obj/screen/pmaster_spacelayer/pmaster_spacelayer
 
 var/list/parallax_on_clients = list()
 
 /obj/screen/spacebg
 	var/offset_x = 0
 	var/offset_y = 0
-	blend_mode = BLEND_OVERLAY
+	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = 0
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "space"
 	name = "space parallax"
-	layer = AREA_LAYER
-	plane = SPACE_LAYER_PLANE
-
-/obj/screen/planetbg
-	blend_mode = BLEND_OVERLAY
-	mouse_opacity = 0
-	icon = 'icons/mob/screen_full.dmi'
-	icon_state = "planet"
-	name = "planet"
 	layer = AREA_LAYER
 	plane = SPACE_LAYER_PLANE
 
@@ -213,29 +202,13 @@ var/list/parallax_on_clients = list()
 	appearance_flags = PLANE_MASTER
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 
-/obj/screen/pmaster_spacelayer
-	plane = SPACE_LAYER_PLANE
-	/*color = list(1, 0, 0, 0.082,
-				0, 1, 0, 0.082,
-				0, 0, 1, 0.082,
-				0, 0, 0, 0,
-				0, 0, 0, 1)*/ // Force alpha to always be 1, and have #151515 where alpha would have been 0.
-	blend_mode = BLEND_MULTIPLY
-	appearance_flags = PLANE_MASTER
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	mouse_opacity = 0
-
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
 	if(C.prefs.space_parallax)
 		for(var/obj/screen/spacebg/bgobj in C.spacebg)
 			C.screen |= bgobj
-		if(C.planetbg)
-			C.screen |= C.planetbg
 		if(C.pmaster_whitespace)
 			C.screen |= C.pmaster_whitespace
-		if(C.pmaster_spacelayer)
-			C.screen |= C.pmaster_spacelayer
 	else
 		for(var/obj/screen/spacebg/bgobj in C.spacebg)
 			C.screen -= bgobj
@@ -245,10 +218,6 @@ var/list/parallax_on_clients = list()
 			C.screen -= C.pmaster_whitespace
 			qdel(C.pmaster_whitespace)
 			C.pmaster_whitespace = null
-		if(C.pmaster_spacelayer)
-			C.screen -= C.pmaster_spacelayer
-			qdel(C.pmaster_spacelayer)
-			C.pmaster_spacelayer = null
 		return
 	if(!C.spacebg.len)
 		for(var/i in 0 to 3)
@@ -260,29 +229,19 @@ var/list/parallax_on_clients = list()
 			bgobj.screen_loc = "CENTER-7:[bgobj.offset_x],CENTER-7:[bgobj.offset_y]"
 			C.spacebg += bgobj
 			C.screen += bgobj
-		C.planetbg = new
-		C.screen += C.planetbg
 		C.pmaster_whitespace = new
-		C.pmaster_spacelayer = new
 		C.screen += C.pmaster_whitespace
-		C.screen += C.pmaster_spacelayer
 	update_parallax()
 
 /datum/hud/proc/update_parallax()
 	var/atom/posobj = get_turf(mymob.client.eye)
-	var/area/A = posobj.loc
-	var/client/C = mymob.client
-	for(var/obj/screen/spacebg/bgobj in C.spacebg)
+	for(var/obj/screen/spacebg/bgobj in mymob.client.spacebg)
 		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-posobj.x],CENTER-7:[bgobj.offset_y-posobj.y]"
+		var/area/A = posobj.loc 
 		if(A.parallax_icon_state)
 			bgobj.icon_state = A.parallax_icon_state
 		else
 			bgobj.icon_state = "space"
-	if((!A.parallax_icon_state || A.parallax_icon_state == "space") && posobj.z == 1) // Main Z-level gets a planet.
-		C.planetbg.alpha = 255
-	else
-		C.planetbg.alpha = 0
-	C.planetbg.screen_loc = "CENTER-7:[(128-posobj.x)*2],CENTER-7:[(128-posobj.y)*2]"
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()
