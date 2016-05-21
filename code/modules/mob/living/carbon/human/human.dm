@@ -1931,3 +1931,6 @@
 		if(U.accessories)
 			for(var/obj/item/clothing/accessory/A in U.accessories)
 				. |= A.GetAccess()
+
+/mob/living/carbon/human/is_mechanical()
+	return ..() || (species.flags & ALL_RPARTS) != 0
