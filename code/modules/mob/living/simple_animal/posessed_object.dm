@@ -1,5 +1,6 @@
 /mob/living/simple_animal/possessed_object
 	name = "possessed doodad"
+	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
 	health = 50
 	maxHealth = 50
 
@@ -46,14 +47,30 @@
 
 
 /mob/living/simple_animal/possessed_object/death(gibbed)
+	..()
+
 	if(gibbed) // Leave no trace.
 		qdel(src)
 		return
-	..()
 
 	possessed_item.forceMove(src.loc) // Put the normal item back once the EVIL SPIRIT has been vanquished from it.
 	qdel(src)
 
+
+/mob/living/simple_animal/possessed_object/Life()
+	..()
+
+	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.
+		death(1)
+
+	if(possessed_item.loc != src)
+		src.forceMove(possessed_item.loc)
+		possessed_item.forceMove(src)
+
+	if(l_hand) // Incase object interactions put things directly into our hands. (Like cameras, or gun magizines)
+		drop_l_hand()
+	if(r_hand)
+		drop_r_hand()
 
 /mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
 	..()
@@ -84,7 +101,6 @@
 	color = possessed_item.color
 	overlays = possessed_item.overlays
 	opacity = possessed_item.opacity
-	attacktext = "has [possessed_item.attack_verb.len ? pick(possessed_item.attack_verb) : "attacked"]"
 
 	src.visible_message("<span class='warning'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
@@ -113,6 +129,8 @@
 	if(!istype(loc, /turf)) // If we're inside a card machine or something similar then you're stuck.
 		return
 
+	name = spirit_name
+
 	if(A == src) // If we're clicking ourself we should not attack ourself.
 		possessed_item.attack_self(src)
 	else
@@ -132,4 +150,3 @@
 	color = possessed_item.color
 	overlays = possessed_item.overlays
 	opacity = possessed_item.opacity
-	attacktext = "has [possessed_item.attack_verb.len ? pick(possessed_item.attack_verb) : "attacked"]"
