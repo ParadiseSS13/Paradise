@@ -74,5 +74,5 @@
 			return ..()
 		anchored = !anchored
 		to_chat(user, "You [(anchored) ? "fasten" : "loosen"] \the [src] to the floor")
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 	else return ..()
