@@ -65,13 +65,6 @@
 /datum/reagent/proc/on_mob_life(var/mob/living/M as mob, var/alien)
 	if(!istype(M))
 		return
-	if(reagent_state == GAS && M.stat != DEAD && ishuman(M))
-		// make gas reagents affect people like the gasses
-		var/mob/living/carbon/human/H = M
-		if(id == H.species.breath_type)
-			M.adjustOxyLoss(-2*REM)
-		else if(id == H.species.poison_type)
-			M.adjustToxLoss(REAGENTS_METABOLISM)
 	if(holder)
 		holder.remove_reagent(id, metabolization_rate) //By default it slowly disappears.
 		current_cycle++
