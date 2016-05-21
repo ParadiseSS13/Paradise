@@ -169,7 +169,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health/health_advanced, slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/blueshield(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/blueshield(H), slot_wear_suit)
+		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/blueshield/modern(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/device/pda/heads/blueshield(H), slot_wear_pda)
 
 		if(H.backbag == 1)

@@ -17,6 +17,9 @@
 		"Drask" = 'icons/mob/species/drask/helmet.dmi'
 		)
 
+/obj/item/clothing/head/helmet/modern
+	icon_state = "helmetalt"
+
 /obj/item/clothing/head/helmet/attack_self(mob/user)
 	if(can_toggle && !user.incapacitated())
 		if(world.time > cooldown + toggle_cooldown)

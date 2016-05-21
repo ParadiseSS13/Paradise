@@ -174,7 +174,7 @@
 			new /obj/item/weapon/storage/backpack/security(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
-		new /obj/item/clothing/suit/armor/vest/security(src)
+		new /obj/item/clothing/suit/armor/vest/security/modern(src)
 		new /obj/item/device/radio/headset/headset_sec/alt(src)
 		new /obj/item/clothing/head/soft/sec(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
@@ -183,7 +183,7 @@
 		new /obj/item/weapon/storage/belt/security/sec(src)
 		new /obj/item/clothing/mask/gas/sechailer(src)
 		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-		new /obj/item/clothing/head/helmet(src)
+		new /obj/item/clothing/head/helmet/modern(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/taperoll/police(src)
 
@@ -239,7 +239,7 @@
 		new /obj/item/clothing/glasses/hud/health/health_advanced
 		new /obj/item/clothing/head/beret/centcom/officer(src)
 		new /obj/item/clothing/head/beret/centcom/officer/navy(src)
-		new /obj/item/clothing/suit/armor/vest/blueshield(src)
+		new /obj/item/clothing/suit/armor/vest/blueshield/modern(src)
 		new /obj/item/clothing/suit/storage/blueshield(src)
 		new /obj/item/clothing/shoes/centcom(src)
 		new /obj/item/clothing/accessory/holster(src)

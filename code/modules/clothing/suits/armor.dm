@@ -36,15 +36,21 @@
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
-	desc = "An armored vest that protects against some damage. This one has Nanotrasen corporate badge."
+	desc = "An armored vest that protects against some damage. This one has a Nanotrasen corporate badge."
 	icon_state = "armorsec"
 	item_state = "armor"
+
+/obj/item/clothing/suit/armor/vest/security/modern
+	icon_state = "armorsecalt"
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
 	desc = "An armored vest with the badge of a Blueshield Lieutenant."
 	icon_state = "blueshield"
 	item_state = "blueshield"
+
+/obj/item/clothing/suit/armor/vest/blueshield/modern
+	icon_state = "blueshieldalt"
 
 /obj/item/clothing/suit/armor/vest/bloody
 	name = "bloodied security armor"
