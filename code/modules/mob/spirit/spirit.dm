@@ -25,7 +25,7 @@ mob/spirit
 	var/follow_target = null
 
 
-mob/spirit/is_active()
+mob/spirit/proc/is_active()
 	if (client && client.inactivity <= 10 * 60 * 10)
 		return TRUE
 	return FALSE

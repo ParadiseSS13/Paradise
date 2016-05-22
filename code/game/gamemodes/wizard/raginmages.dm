@@ -118,8 +118,6 @@
 
 	if(making_mage || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return 0
-	if(mages_made >= max_mages)
-		return 0
 	making_mage = 1
 	var/list/candidates = list()
 	var/mob/dead/observer/harry = null

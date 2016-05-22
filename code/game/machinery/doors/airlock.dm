@@ -800,6 +800,7 @@ About the new airlock wires panel:
 		else
 			return
 	else if(istype(C, /obj/item/weapon/screwdriver))
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 25, 1)
 		src.p_open = !( src.p_open )
 		src.update_icon()
 	else if(istype(C, /obj/item/weapon/wirecutters))

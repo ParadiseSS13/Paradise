@@ -55,6 +55,9 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
+	//Default styles for created mobs.
+	default_hair = "Unathi Horns"
+	butt_sprite = "unathi"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -104,11 +107,14 @@
 
 	flags = HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
+	//Default styles for created mobs.
+	default_headacc = "Tajaran Ears"
+	butt_sprite = "tajaran"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
 								 /mob/living/simple_animal/tribble)
@@ -148,11 +154,12 @@
 
 	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#B43214"
+	butt_sprite = "vulp"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -189,7 +196,20 @@
 	dietflags = DIET_HERB
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
+	//Default styles for created mobs.
+	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
+	butt_sprite = "skrell"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/skrell,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -251,6 +271,9 @@
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
+	//Default styles for created mobs.
+	default_hair = "Short Vox Quills"
+	butt_sprite = "vox"
 
 	reagent_tag = PROCESS_ORG
 	scream_verb = "shrieks"
@@ -376,6 +399,7 @@
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	butt_sprite = "kidan"
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
@@ -408,6 +432,7 @@
 	reagent_tag = PROCESS_ORG
 	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
+	butt_sprite = "slime"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
@@ -578,6 +603,7 @@
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
+	butt_sprite = "grey"
 
 	brute_mod = 1.25 //greys are fragile
 
@@ -642,6 +668,7 @@
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
+	butt_sprite = "diona"
 
 	reagent_tag = PROCESS_ORG
 
@@ -656,17 +683,17 @@
 
 	vision_organ = /obj/item/organ/internal/diona_receptor
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/diona/chest),
-		"groin" =  list("path" = /obj/item/organ/external/diona/groin),
-		"head" =   list("path" = /obj/item/organ/external/diona/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/diona/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/diona/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/diona/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/diona/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/diona/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/diona/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/diona/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/diona/foot/right)
+		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
+		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
+		"head" =   list("path" = /obj/item/organ/external/head/diona),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/diona),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/diona),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/diona),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/diona),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/diona),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/diona),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/diona),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/diona)
 		)
 
 	suicide_messages = list(
@@ -751,11 +778,14 @@
 	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
+	//Default styles for created mobs.
+	default_hair = "Blue IPC Screen"
 	virus_immune = 1
 	can_revive_by_healing = 1
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	butt_sprite = "machine"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
@@ -791,6 +821,10 @@
 		)
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
-	H.h_style = ""
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	head_organ.h_style = "Bald"
+	head_organ.f_style = "Shaved"
 	spawn(100)
-		if(H) H.update_hair()
+		if(H)
+			H.update_hair()
+			H.update_fhair()

@@ -74,38 +74,30 @@
 	status_flags = GODMODE|CANPUSH
 
 /mob/living/carbon/human/skrell/New(var/new_loc)
-	h_style = "Skrell Male Tentacles"
 	..(new_loc, "Skrell")
 
 /mob/living/carbon/human/tajaran/New(var/new_loc)
-	ha_style = "Tajaran Ears"
 	..(new_loc, "Tajaran")
 
 /mob/living/carbon/human/vulpkanin/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Vulpkanin")
 
 /mob/living/carbon/human/unathi/New(var/new_loc)
-	h_style = "Unathi Horns"
 	..(new_loc, "Unathi")
 
 /mob/living/carbon/human/vox/New(var/new_loc)
-	h_style = "Short Vox Quills"
 	..(new_loc, "Vox")
 
 /mob/living/carbon/human/voxarmalis/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Vox Armalis")
 
 /mob/living/carbon/human/skeleton/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Skeleton")
 
 /mob/living/carbon/human/kidan/New(var/new_loc)
 	..(new_loc, "Kidan")
 
 /mob/living/carbon/human/plasma/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Plasmaman")
 
 /mob/living/carbon/human/slime/New(var/new_loc)
@@ -121,31 +113,24 @@
 	..(new_loc, "Human")
 
 /mob/living/carbon/human/diona/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Diona")
 
 /mob/living/carbon/human/machine/New(var/new_loc)
-	h_style = "blue IPC screen"
 	..(new_loc, "Machine")
 
 /mob/living/carbon/human/shadow/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Shadow")
 
 /mob/living/carbon/human/golem/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Golem")
 
 /mob/living/carbon/human/wryn/New(var/new_loc)
-	h_style = "Antennae"
 	..(new_loc, "Wryn")
 
 /mob/living/carbon/human/nucleation/New(var/new_loc)
-	h_style = "Nucleation Crystals"
 	..(new_loc, "Nucleation")
 
 /mob/living/carbon/human/drask/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Drask")
 
 /mob/living/carbon/human/monkey/New(var/new_loc)
@@ -1505,6 +1490,15 @@
 
 	species.create_organs(src)
 
+	//Handle default hair/head accessories for created mobs.
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(species.default_hair)
+		H.h_style = species.default_hair
+	if(species.default_fhair)
+		H.f_style = species.default_fhair
+	if(species.default_headacc)
+		H.ha_style = species.default_headacc
+
 	if(!dna)
 		dna = new /datum/dna(null)
 		dna.species = species.name
@@ -1601,9 +1595,8 @@
 		return
 
 	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
-		var/obj/item/organ/external/head/H = organs_by_name["head"]
-		var/datum/robolimb/robohead = all_robolimbs[H.model]
-		if(!H)
+		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
+		if(!head_organ)
 			return
 		if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 			var/optic_colour = input(src, "Select optic colour", rgb(r_markings, g_markings, b_markings)) as color|null
@@ -1620,15 +1613,15 @@
 			var/list/hair = list()
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
-				if((species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
+				if((head_organ.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 					hair += i
 
-			var/new_style = input(src, "Select a monitor display", "Monitor Display", h_style)  as null|anything in hair
+			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style)  as null|anything in hair
 			if(incapacitated())
 				to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 				return
 			if(new_style)
-				h_style = new_style
+				head_organ.h_style = new_style
 
 		update_hair()
 
@@ -1930,3 +1923,6 @@
 		if(U.accessories)
 			for(var/obj/item/clothing/accessory/A in U.accessories)
 				. |= A.GetAccess()
+
+/mob/living/carbon/human/is_mechanical()
+	return ..() || (species.flags & ALL_RPARTS) != 0

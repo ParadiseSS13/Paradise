@@ -1142,6 +1142,28 @@
 		message_admins("\blue [key_name_admin(usr)] attempting to corgize [key_name_admin(H)]", 1)
 		H.corgize()
 
+	else if(href_list["makePAI"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/living/carbon/human/H = locate(href_list["makePAI"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+
+		var/painame = "Default"
+		var/name = ""
+		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
+			name = sanitize(copytext(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+		else
+			name = sanitize(copytext(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+
+		if(!name)
+			name = painame
+
+		log_admin("[key_name(usr)] attempting to pAIze [key_name(H)]")
+		message_admins("\blue [key_name_admin(usr)] attempting to pAIze [key_name_admin(H)]", 1)
+		H.paize(name)
+
 	else if(href_list["forcespeech"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 

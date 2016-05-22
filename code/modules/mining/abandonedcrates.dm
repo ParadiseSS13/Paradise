@@ -11,7 +11,7 @@
 
 /obj/structure/closet/crate/secure/loot/New()
 	..()
-	var/list/digits = list("1", "2", "3", "4", "5", "6", "7", "8", "9", "z")
+	var/list/digits = list("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	code = ""
 	for(var/i = 0, i < codelen, i++)
 		var/dig = pick(digits)
@@ -165,7 +165,7 @@
 				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
 			else
 				to_chat(user, "<span class='warning'>A red light flashes.</span>")
-				lastattempt = replacetext(input, 0, "z")
+				lastattempt = input
 				attempts--
 				if(attempts == 0)
 					boom(user)
@@ -186,19 +186,27 @@
 			else
 				to_chat(user, "<span class='notice'>* Anti-Tamper Bomb will activate after [src.attempts] failed access attempts.</span>")
 			if(lastattempt != null)
-				var/list/guess = list()
+				var/guess = lastattempt
 				var/bulls = 0
 				var/cows = 0
-				for(var/i = 1, i < codelen + 1, i++)
-					var/a = copytext(lastattempt, i, i+1) //Stuff the code into the list
-					guess += a
-					guess[a] = i
-				for(var/i in guess) //Go through list and count matches
-					var/a = findtext(code, i)
-					if(a == guess[i])
-						++bulls
-					else if(a)
-						++cows
+				var/list/banned = list()
+				for(var/i; i <= length(lastattempt); i++)
+					var/list/a = strip_first(guess)
+					if(a[1] in banned)
+						continue
+					if(findtext(a[2], a[1]))
+						if(findtext(code, a[1], i, i+1))
+							++bulls
+							banned += a[1]
+					else
+						var/g = findtext(code, a[1])
+						if(g)
+							if(g == i)
+								++bulls
+							else
+								++cows
+					guess = a[2]
+
 				to_chat(user, "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
 		else ..()
 	else ..()

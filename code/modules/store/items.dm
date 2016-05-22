@@ -171,6 +171,12 @@
 	typepath = /obj/item/flag/species/vulp
 	cost = 1000
 
+/datum/storeitem/flag_drask
+	name = "Drask flag"
+	desc = "A flag proudly proclaiming the superior heritage of Drask."
+	typepath = /obj/item/flag/species/drask
+	cost = 1000
+
 /datum/storeitem/flag_ian
 	name = "Ian flag"
 	desc = "The banner of Ian, because SQUEEEEE."
