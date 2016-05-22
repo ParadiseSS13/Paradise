@@ -201,6 +201,16 @@
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "skrell"
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/skrell,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their thumbs into their eye sockets!",
