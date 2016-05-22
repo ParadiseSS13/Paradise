@@ -176,7 +176,6 @@ nanoui is used to open and update nano browser uis
   */
 /datum/nanoui/proc/get_config_data()
 	var/name = "[src_object]"
-	name = sanitize_nano(name) //jQuery's parseJSON fails with byond formatting characters in the JSON
 	var/list/config_data = list(
 			"title" = title,
 			"srcObject" = list("name" = name),
@@ -187,7 +186,7 @@ nanoui is used to open and update nano browser uis
 			"showMap" = show_map,
 			"mapZLevel" = map_z_level,
 			"user" = list(
-				"name" = sanitize(user.name),
+				"name" = user.name,
 				"fancy" = user.client.prefs.nanoui_fancy
 			),
 			"window" = list(
