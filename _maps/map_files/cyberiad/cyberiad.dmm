@@ -5414,7 +5414,7 @@
 "caf" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel{dir = 2; icon_state = "whitebluecorner"; tag = "icon-whitebluecorner"},/area/medical/medbay2)
 "cag" = (/obj/machinery/vending/medical,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel{tag = "icon-whiteblue (SOUTHEAST)"; icon_state = "whiteblue"; dir = 6},/area/medical/medbay2)
 "cah" = (/obj/effect/spawner/window/reinforced,/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/structure/disposalpipe/segment,/obj/machinery/door/poddoor/shutters{density = 0; dir = 2; icon_state = "shutter0"; id_tag = "cmooffice"; name = "Privacy Shutters"; opacity = 0},/turf/simulated/floor/plating,/area/medical/cmo)
-"cai" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/plasteel{icon_state = "white"},/area/medical/cmo)
+"cai" = (/turf/simulated/floor/plasteel{icon_state = "white"},/area/medical/cmo)
 "caj" = (/obj/structure/stool/bed/chair/office/dark{dir = 1},/obj/effect/landmark/start{name = "Chief Medical Officer"},/turf/simulated/floor/plasteel{icon_state = "white"},/area/medical/cmo)
 "cak" = (/obj/machinery/prize_counter,/turf/simulated/floor/wood,/area/crew_quarters/bar)
 "cal" = (/obj/effect/spawner/window/reinforced,/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/machinery/door/poddoor/shutters{density = 0; dir = 2; icon_state = "shutter0"; id_tag = "cmooffice"; name = "Privacy Shutters"; opacity = 0},/turf/simulated/floor/plating,/area/medical/cmo)
