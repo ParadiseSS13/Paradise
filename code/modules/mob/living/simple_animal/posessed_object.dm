@@ -50,6 +50,8 @@
 	..()
 
 	if(gibbed) // Leave no trace.
+		var/mob/dead/observer/ghost = ghostize(1)
+		ghost.timeofdeath = world.time
 		qdel(src)
 		return
 
