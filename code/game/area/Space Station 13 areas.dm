@@ -1839,6 +1839,10 @@ area/security/podbay
 	name = "\improper Experimentation Lab"
 	icon_state = "toxmisc"
 
+/area/toxins/abandonedlab
+	name = "\improper Unused Lab"
+	icon_state = "toxmisc"
+
 //Storage
 
 /area/storage/tools
