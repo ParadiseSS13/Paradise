@@ -46,6 +46,8 @@
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
 	processing_objects.Add(src)
+	// Not a mistake that this does not call ..().
+	// /obj/effect/spider/stickyweb/New() does not call ..() either.
 
 
 /obj/effect/spider/terror_eggcluster/process()

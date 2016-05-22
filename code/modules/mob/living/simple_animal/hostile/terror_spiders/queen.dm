@@ -138,7 +138,9 @@
 		else if (neststep == 1)
 			if (world.time > (lastnestsetup + nestfrequency))
 				lastnestsetup = world.time
-				DoQueenScreech(8,100,8,100)
+				if (spider_can_screech)
+					spider_can_screech--
+					DoQueenScreech(8,100,8,100)
 				neststep = 2
 		else if (neststep == 2)
 			if (world.time > (lastnestsetup + nestfrequency))
@@ -200,7 +202,9 @@
 				spider_lastspawn = world.time
 				// go hostile, EXTERMINATE MODE.
 				SetHiveCommand(0,15,1) // AI=0 (attack everyone), ventcrawl=15%/tick, allow player control (ignored for queens in awaymissions)
-				DoQueenScreech(20,50,15,100)
+				if (spider_can_screech)
+					spider_can_screech--
+					DoQueenScreech(20,50,15,100)
 				var/numspiders = CountSpiders()
 				if (numspiders < spider_max_per_nest)
 					if (prob(33))
@@ -390,8 +394,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(var/light_range, var/light_chance, var/camera_range, var/camera_chance)
 	visible_message("<span class='userdanger'>\The [src] emits a bone-chilling shriek!</span>")
 	for(var/obj/machinery/light/L in orange(light_range,src))
-		if (prob(light_chance))
-			L.on = 1
+		if (L.on && prob(light_chance))
 			L.broken()
 	for(var/obj/machinery/camera/C in orange(camera_range,src))
 		if (C.status && prob(camera_chance))

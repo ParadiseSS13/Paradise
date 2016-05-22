@@ -214,13 +214,6 @@
 	reagents.add_reagent("terror_black_toxin", 50)
 	update_icon()
 
-/obj/item/weapon/reagent_containers/glass/beaker/terror_green_toxin
-	name = "beaker 'Green Terror Pheromone'"
-
-/obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin/New()
-	..()
-	reagents.add_reagent("terror_green_toxin", 50)
-	update_icon()
 
 /obj/item/weapon/gun/energy/decloner/awaymission_spidergun
 	name = "Modified Decloner"

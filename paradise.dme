@@ -1630,6 +1630,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\retaliate\undead.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\__defines.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\black.dm"
+#include "code\modules\mob\living\simple_animal\hostile\terror_spiders\chem.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\empress.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\gray.dm"
 #include "code\modules\mob\living\simple_animal\hostile\terror_spiders\green.dm"

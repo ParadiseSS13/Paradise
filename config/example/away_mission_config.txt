@@ -29,7 +29,7 @@ _maps/map_files/RandomZLevels/academy.dmm
 _maps/map_files/RandomZLevels/blackmarketpackers.dmm
 _maps/map_files/RandomZLevels/spacehotel.dmm
 _maps/map_files/RandomZLevels/wildwest.dmm
-_maps/map_files/RandomZLevels/undergroundoutpost71.dmm
+_maps/map_files/RandomZLevels/terrorspiders.dmm
 
 #===================================#
 # SPECIAL AWAY MISSIONS             #

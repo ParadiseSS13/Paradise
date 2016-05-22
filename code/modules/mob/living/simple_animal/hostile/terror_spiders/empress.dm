@@ -122,8 +122,8 @@
 	set category = "Spider"
 	set desc = "Emit horrendusly loud screech which breaks lights and cameras in a massive radius. Good for making a spider nest in a pinch."
 	for(var/obj/machinery/light/L in range(14,src))
-		L.on = 1
-		L.broken()
+		if (L.on)
+			L.broken()
 	for(var/obj/machinery/camera/C in range(14,src))
 		if (C.status)
 			C.toggle_cam(src,0)

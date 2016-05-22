@@ -195,11 +195,6 @@ var/global/ts_death_window = 9000 // 15 minutes
 				if (IsInfected(H)) // target them if they attack us
 					if (H in enemies)
 						targets3 += H
-				else if (H.reagents.has_reagent("terror_green_toxin")) // target them if they get close or attack us
-					if (H in enemies)
-						targets3 += H
-					else if (get_dist(src,H) <= 3)
-						targets2 += H
 				else if (H.reagents.has_reagent("terror_black_toxin") && istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/black))
 					if (get_dist(src,H) <= 2)
 						// if they come to us...
@@ -212,15 +207,15 @@ var/global/ts_death_window = 9000 // 15 minutes
 						// either way, not much point in targeting them
 						// if they shoot us, of course, then we will consider them a valid target
 				else
-					// if we're aggressive, and they're a living non-spider mob that can be poisoned, check if we can inject them.
-					// if we can, then prioritize them. If we can't, assume they're too armored to be a good target, and give them a lower target priority.
 					if (H.can_inject(null,0,"chest",0))
 						targets1 += H
+					else if (H in enemies)
+						targets2 += H
 					else
 						targets3 += H
-					// targets with no venom are priority targets, always pick these first
-					// yeah, we could try to prioritize PROCESS_ORGANIC targets, ie: people we can poison...
-					// -- but that might lead to a situation where we fail to handle the bigger threat before it kills us.
+					// first, go after targets we can inject - lightly armored humans.
+					// second, go after humans that attacked us.
+					// third, go after other humans.
 			else if (istype(H, /mob/living/simple_animal))
 				var/mob/living/simple_animal/hostile/poison/terror_spider/M = H
 				if (M.force_threshold > melee_damage_upper)
@@ -236,7 +231,10 @@ var/global/ts_death_window = 9000 // 15 minutes
 					targets3 += H
 		for(var/obj/mecha/M in mechas_list)
 			if(get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
-				targets1 += M
+				if(get_dist(M, src) <= 2)
+					targets2 += M
+				else
+					targets3 += M
 		if (health < maxHealth)
 			// very unlikely that we're being shot at by a space pod - so only check for this if our health is lower than max.
 			for(var/obj/spacepod/S in spacepods_list)
@@ -300,6 +298,8 @@ var/global/ts_death_window = 9000 // 15 minutes
 			visible_message("<span class='notice'> \icon[src] [src] gives [target] a stern look. </span>")
 		else
 			visible_message("<span class='notice'> \icon[src] [src] harmlessly nuzzles [target]. </span>")
+		T.CheckFaction()
+		CheckFaction()
 	else if (istype(target, /obj/effect/spider/cocoon))
 		to_chat(src, "Destroying our own cocoons would not help us.")
 	else if (istype(target, /obj/machinery/camera))
@@ -575,18 +575,17 @@ var/global/ts_death_window = 9000 // 15 minutes
 		else
 			ts_count_alive_station++
 		// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
+		spawn(150) // deciseconds!
+			CheckFaction()
 		spawn(300) // deciseconds!
-			if ("neutral" in faction)
-				// no, xenobiologists, you cannot have tame terror spiders to screw around with.
-				//faction -= "neutral"
-				visible_message("<span class='notice'>[src] is absorbed through a bluespace portal, and vanishes!</span>")
-				qdel(src)
 			if (spider_awaymission)
 				// never announce awaymission spiders.
 			else if (ckey)
 				notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)")
 			else if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
 				notify_ghosts("[src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
+
+
 
 
 
@@ -604,6 +603,8 @@ var/global/ts_death_window = 9000 // 15 minutes
 				else if (fireloss > 0)
 					adjustFireLoss(-1)
 					regen_points -= regen_points_per_hp
+		if (prob(5))
+			CheckFaction()
 	if (stat == DEAD)
 		if (prob(2))
 			// 2% chance every cycle to decompose
@@ -806,6 +807,10 @@ var/global/ts_death_window = 9000 // 15 minutes
 		var/obj/machinery/door/airlock/A = user
 		if (A.density)
 			try_open_airlock(A)
+	else if (istype(user, /obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/F = user
+		if (F.density && !F.blocked)
+			F.open()
 	..()
 
 
