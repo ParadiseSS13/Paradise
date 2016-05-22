@@ -1314,6 +1314,14 @@
 	restore_all_organs() //Rejuvenate and reset all existing organs.
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
+	update_revive()
+
+	if(species.name != "Skeleton" && (SKELETON in mutations))
+		mutations.Remove(SKELETON)
+	if(NOCLONE in mutations)
+		mutations.Remove(NOCLONE)
+	if(HUSK in mutations)
+		mutations.Remove(HUSK)
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
 		for (var/obj/item/organ/internal/brain/H in world)

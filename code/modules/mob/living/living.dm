@@ -367,6 +367,7 @@
 	drowsyness = 0
 	radiation = 0
 	druggy = 0
+	hallucination = 0
 	nutrition = 400
 	bodytemperature = 310
 	sdisabilities = 0
