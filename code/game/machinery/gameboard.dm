@@ -2,7 +2,7 @@
 	name = "Virtual Gameboard"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gboard_on"
-	desc = "A holographic table allowing the crew to have fun� on boring shifts! One player per board."
+	desc = "A holographic table allowing the crew to have fun™ on boring shifts! One player per board."
 	density = 1
 	anchored = 1
 	use_power = 1
