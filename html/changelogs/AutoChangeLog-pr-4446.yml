@@ -1,0 +1,16 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - bugfix: "Rejuvenating a mob now unbuckles them correctly (if they're buckled to something)."
+  - bugfix: "Rejuvenating a mob will no longer remove their hair."
+  - bugfix: "Rejuvenating a mob will no longer permanently blacken their eyes."
+  - bugfix: "Rejuvenating a mob will no longer remove their prostheses with fleshy limbs, it will just fix the prostheses."
+  - bugfix: "Rejuvenating a mob will not remove organs/limbs belonging to other species if said organs/limbs are in the same place(s) as the mob's default organs/limbs would be."
+  - bugfix: "Fixes a runtime when trying to flip with an object other than a grab in your hand."
+  - bugfix: "Doing a 'cybernetic repair' procedure on the head of a disfigured IPC will re-figure them."
+  - tweak: "Rejuvenating a mob will only regrow organs/limbs that are missing (by comparison to the standard organs for their species)."
+  - tweak: "The regenerate_icons proc will now update skin tone and body accessories properly."
+  - rscadd: "Organ rejuvenation now clears disfigurement and closes open wounds."
+  - rscadd: "Rejuvenating a mob will end all in-progress surgeries."
+  - rscadd: "Vox get their cortical stacks back, since the non-implant ones don't interfere with the Heist game-mode."
+  - rscadd: "Rejuvenating a long-dead or husked mob will now clear the appropriate mutations."

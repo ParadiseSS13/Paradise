@@ -355,15 +355,10 @@ var/global/datum/controller/processScheduler/processScheduler
 /datum/controller/processScheduler/proc/updateTimeAllowance()
 	// Time allowance goes down linearly with world.cpu.
 	var/tmp/error = cpuAverage - 100
-	var/tmp/timeAllowanceDelta = sign(error) * -0.5 * world.tick_lag * max(0, 0.001 * abs(error))
+	var/tmp/timeAllowanceDelta = SIMPLE_SIGN(error) * -0.5 * world.tick_lag * max(0, 0.001 * abs(error))
 
 	//timeAllowance = world.tick_lag * min(1, 0.5 * ((200/max(1,cpuAverage)) - 1))
 	timeAllowance = min(timeAllowanceMax, max(0, timeAllowance + timeAllowanceDelta))
-
-/datum/controller/processScheduler/proc/sign(var/x)
-	if (x == 0)
-		return 1
-	return x / abs(x)
 
 /datum/controller/processScheduler/proc/statProcesses()
 	if(!isRunning)

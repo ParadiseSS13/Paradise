@@ -320,7 +320,6 @@
 
 /mob/living/proc/revive()
 	rejuvenate()
-	buckled = initial(src.buckled)
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 
@@ -333,7 +332,7 @@
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 		C.update_inv_legcuffed()
-		
+
 		if(C.reagents)
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
@@ -348,6 +347,8 @@
 	timeofdeath = 0
 
 /mob/living/proc/rejuvenate()
+	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
+
 	// shut down various types of badness
 	setToxLoss(0)
 	setOxyLoss(0)
@@ -358,12 +359,15 @@
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
+	slowed = 0
 	losebreath = 0
 	dizziness = 0
 	jitteriness = 0
 	confused = 0
 	drowsyness = 0
 	radiation = 0
+	druggy = 0
+	hallucination = 0
 	nutrition = 400
 	bodytemperature = 310
 	sdisabilities = 0
@@ -378,7 +382,13 @@
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
-	buckled = initial(src.buckled)
+	if(buckled) //Unbuckle the mob and clear the alerts.
+		buckled.buckled_mob = null
+		buckled = null
+		anchored = initial(src.anchored)
+		update_canmove()
+		clear_alert("buckled")
+		post_buckle_mob(src)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -390,12 +400,13 @@
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
-			var/mob/living/carbon/human/human_mob = src
+			human_mob = src
 			human_mob.restore_blood()
 			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
 
 	restore_all_organs()
+	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
 		dead_mob_list -= src
 		living_mob_list += src
@@ -404,6 +415,9 @@
 	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
+	if(human_mob)
+		human_mob.update_eyes()
+		human_mob.update_dna()
 	return
 
 /mob/living/proc/UpdateDamageIcon()
@@ -578,12 +592,19 @@
 	return
 
 /mob/living/proc/resist_buckle()
+	spawn(0)
+		resist_muzzle()
 	buckled.user_unbuckle_mob(src,src)
+
+/mob/living/proc/resist_muzzle()
+	return
 
 /mob/living/proc/resist_fire()
 	return
 
 /mob/living/proc/resist_restraints()
+	spawn(0)
+		resist_muzzle()
 	return
 
 /*//////////////////////
@@ -826,3 +847,11 @@
 			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()
+
+/mob/living/movement_delay()
+	var/tally = 0
+
+	if(slowed)
+		tally += 10
+
+	return tally

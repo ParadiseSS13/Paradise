@@ -555,3 +555,14 @@ Class Procs:
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/construction()
 	return
+
+/obj/machinery/tesla_act(var/power)
+	..()
+	if(prob(85))
+		emp_act(2)
+	else if(prob(50))
+		ex_act(3)
+	else if(prob(90))
+		ex_act(2)
+	else
+		ex_act(1)

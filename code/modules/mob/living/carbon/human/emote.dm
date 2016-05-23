@@ -25,12 +25,18 @@
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0
+	act = lowertext(act)
 	switch(act)
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no")
 			if (species.name == "Machine")		//Only Machines can beep, ping, and buzz
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
+				return
+		if("drone","drones","hum","hums","rumble","rumbles")
+			if (species.name == "Drask")		//Only Drask can make whale noises
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+			else
 				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
@@ -112,6 +118,23 @@
 			else
 				message = "<B>[src]</B> beeps."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+			m_type = 2
+
+		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> drones at [param]."
+			else
+				message = "<B>[src]</B> rumbles."
+			playsound(src.loc, 'sound/voice/DraskTalk.ogg', 50, 0)
 			m_type = 2
 
 		if("squish", "squishes")
@@ -284,18 +307,30 @@
 				if (M == src)
 					M = null
 
-				if (M)
-					if(src.lying || src.weakened)
+				if(M)
+					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						message = "<B>[src]</B> flips in [M]'s general direction."
-						src.SpinAnimation(5,1)
+						SpinAnimation(5,1)
 				else
-					if(src.lying || src.weakened)
+					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
-						message = "<B>[src]</B> does a flip!"
-						src.SpinAnimation(5,1)
+						var/obj/item/weapon/grab/G
+						if(istype(get_active_hand(), /obj/item/weapon/grab))
+							G = get_active_hand()
+						if(G && G.affecting)
+							var/turf/oldloc = loc
+							var/turf/newloc = G.affecting.loc
+							if(isturf(oldloc) && isturf(newloc))
+								SpinAnimation(5,1)
+								forceMove(newloc)
+								G.affecting.forceMove(oldloc)
+								message = "<B>[src]</B> flips over [G.affecting]!"
+						else
+							message = "<B>[src]</B> does a flip!"
+							SpinAnimation(5,1)
 
 		if ("aflap", "aflaps")
 			if (!src.restrained())
@@ -336,7 +371,7 @@
 			message = "<B>[src]</B> faints."
 			if(src.sleeping)
 				return //Can't faint while asleep
-			src.sleeping += 10 //Short-short nap
+			src.sleeping += 1
 			m_type = 1
 
 		if ("cough", "coughs")
@@ -791,14 +826,9 @@
 						continue
 					// Now, we don't have this:
 					//new /obj/effects/fart_cloud(T,L)
-					// But:
-					// <[REDACTED]> so, what it does is...imagine a 3x3 grid with the person in the center. When someone uses the emote *fart (it's not a spell style ability and has no cooldown), then anyone in the 8 tiles AROUND the person who uses it
-					// <[REDACTED]> gets between 1 and 10 units of jenkem added to them...we obviously don't have Jenkem, but Space Drugs do literally the same exact thing as Jenkem
-					// <[REDACTED]> the user, of course, isn't impacted because it's not an actual smoke cloud
-					// So, let's give 'em space drugs.
 					if (M == src)
 						continue
-					M.reagents.add_reagent("space_drugs",rand(1,10))
+					M.reagents.add_reagent("jenkem", 1)
 
 		if ("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dap(s)(none)/mob," \

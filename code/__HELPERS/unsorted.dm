@@ -185,9 +185,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /////////////////////////////////////////////////////////////////////////
 
-/proc/sign(x)
-	return x!=0?x/abs(x):0
-
 /proc/getline(atom/M,atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
 	var/px=M.x		//starting x
 	var/py=M.y
@@ -196,8 +193,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/dy=N.y-py
 	var/dxabs=abs(dx)//Absolute value of x distance
 	var/dyabs=abs(dy)
-	var/sdx=sign(dx)	//Sign of x distance (+ or -)
-	var/sdy=sign(dy)
+	var/sdx=SIGN(dx)	//Sign of x distance (+ or -)
+	var/sdy=SIGN(dy)
 	var/x=dxabs>>1	//Counters for steps taken, setting to distance/2
 	var/y=dyabs>>1	//Bit-shifting makes me l33t.  It also makes getline() unnessecarrily fast.
 	var/j			//Generic integer for counting
@@ -1663,6 +1660,22 @@ var/mob/dview/dview_mob = new
 	tX = max(1, min(world.maxx, origin.x + (text2num(tX) - (world.view + 1))))
 	tY = max(1, min(world.maxy, origin.y + (text2num(tY) - (world.view + 1))))
 	return locate(tX, tY, tZ)
+
+/proc/get_closest_atom(type, list, source)
+	var/closest_atom
+	var/closest_distance
+	for(var/A in list)
+		if(!istype(A, type))
+			continue
+		var/distance = get_dist(source, A)
+		if(!closest_distance)
+			closest_distance = distance
+			closest_atom = A
+		else
+			if(closest_distance > distance)
+				closest_distance = distance
+				closest_atom = A
+	return closest_atom
 
 /proc/pick_closest_path(value)
 	var/list/matches = get_fancy_list_of_types()

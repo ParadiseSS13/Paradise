@@ -55,23 +55,45 @@
 	..()
 	return
 
-/datum/reagent/histamine/overdose_process(var/mob/living/M as mob)
-	if(prob(2))
-		to_chat(M, "<span class='danger'>You feel mucus running down the back of your throat.</span>")
-		M.adjustToxLoss(1)
-		M.jitteriness += 4
-		M.emote("sneeze", "cough")
-	else if(prob(4))
-		M.stuttering += rand(0,5)
-		if(prob(25))
-			M.emote(pick("choke","gasp"))
-			M.adjustOxyLoss(5)
-	else if(prob(7))
-		to_chat(M, "<span class='danger'>Your chest hurts!</span>")
-		M.emote(pick("cough","gasp"))
-		M.adjustOxyLoss(3)
-	..()
-	return
+/datum/reagent/histamine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 2)
+			to_chat(M, "<span class='warning'>You feel mucus running down the back of your throat.</span>")
+			M.adjustToxLoss(1)
+			M.Jitter(4)
+			M.emote(pick("sneeze", "cough"))
+		else if(effect <= 4)
+			M.stuttering += rand(0,5)
+			if(prob(25))
+				M.emote(pick("choke","gasp"))
+				M.adjustOxyLoss(5)
+		else if(effect <= 7)
+			to_chat(M, "<span class='warning'>Your chest hurts!</span>")
+			M.emote(pick("cough","gasp"))
+			M.adjustOxyLoss(3)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] breaks out in hives!</span>")
+			M.adjustBruteLoss(6)
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] has a horrible coughing fit!</span>")
+			M.Jitter(10)
+			M.stuttering += rand(0,5)
+			M.emote("cough")
+			if(prob(40))
+				M.emote(pick("choke","gasp"))
+				M.adjustOxyLoss(6)
+			M.Weaken(8)
+		else if(effect <= 7)
+			to_chat(M, "<span class='warning'>Your heartbeat is pounding inside your head!</span>")
+			M << 'sound/effects/singlebeat.ogg'
+			M.emote("collapse")
+			M.adjustOxyLoss(8)
+			M.adjustToxLoss(3)
+			M.Weaken(3)
+			M.emote(pick("choke", "gasp"))
+			to_chat(M, "<span class='warning'>You feel like you're dying!</span>")
 
 /datum/reagent/formaldehyde
 	name = "Formaldehyde"
@@ -130,8 +152,6 @@
 			M.jitteriness += 1000
 			spawn(rand(20, 100))
 				M.gib()
-	..()
-	return
 
 /datum/reagent/neurotoxin2
 	name = "Neurotoxin"
@@ -376,6 +396,15 @@
 				H.heart_attack = 1 // rip in pepperoni
 	..()
 	return
+
+/datum/chemical_reaction/initropidril
+	name = "Initropidril"
+	id = "initropidril"
+	result = "initropidril"
+	required_reagents = list("crank" = 1, "histamine" = 1, "krokodil" = 1, "bath_salts" = 1, "atropine" = 1, "nicotine" = 1, "morphine" = 1)
+	result_amount = 4
+	mix_message = "A sweet and sugary scent drifts from the unpleasant milky substance."
+
 
 /datum/reagent/concentrated_initro
 	name = "Concentrated Initropidril"
@@ -627,6 +656,7 @@
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
 	penetrates_skin = 1
+	overdose_threshold = 25
 
 /datum/chemical_reaction/sarin
 	name = "sarin"

@@ -198,12 +198,13 @@ datum/reagent/hair_dye
 datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.r_facial = rand(0,255)
-		H.g_facial = rand(0,255)
-		H.b_facial = rand(0,255)
-		H.r_hair = rand(0,255)
-		H.g_hair = rand(0,255)
-		H.b_hair = rand(0,255)
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		head_organ.r_facial = rand(0,255)
+		head_organ.g_facial = rand(0,255)
+		head_organ.b_facial = rand(0,255)
+		head_organ.r_hair = rand(0,255)
+		head_organ.g_hair = rand(0,255)
+		head_organ.b_hair = rand(0,255)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -228,8 +229,9 @@ datum/reagent/hairgrownium
 datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.h_style = random_hair_style(H.gender, H.species)
-		H.f_style = random_facial_hair_style(H.gender, H.species)
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
+		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -252,12 +254,21 @@ datum/reagent/super_hairgrownium
 	result_amount = 3
 	mix_message = "The liquid becomes amazingly furry and smells peculiar."
 
-datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+datum/reagent/super_hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.h_style = "Very Long Hair"
-		H.f_style = "Very Long Beard"
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/datum/sprite_accessory/tmp_hair_style = hair_styles_list["Very Long Hair"]
+		var/datum/sprite_accessory/tmp_facial_hair_style = facial_hair_styles_list["Very Long Beard"]
+
+		if(head_organ.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
+			head_organ.h_style = "Very Long Hair"
+		else //Otherwise, give them a random hair style.
+			head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
+		if(head_organ.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
+			head_organ.f_style = "Very Long Beard"
+		else //Otherwise, give them a random facial hair style.
+			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name)
 		H.update_hair()
 		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
@@ -350,6 +361,52 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 	result = "lye"
 	required_reagents = list("sodium" = 1, "hydrogen" = 1, "oxygen" = 1)
 	result_amount = 3
+
+/datum/reagent/hugs
+	name = "Pure hugs"
+	id = "hugs"
+	description = "Hugs, in liquid form.  Yes, the concept of a hug.  As a liquid.  This makes sense in the future."
+	reagent_state = LIQUID
+	color = "#FF97B9"
+
+/datum/reagent/love
+	name = "Pure love"
+	id = "love"
+	description = "What is this emotion you humans call \"love?\"  Oh, it's this?  This is it? Huh, well okay then, thanks."
+	reagent_state = LIQUID
+	color = "#FF83A5"
+
+/datum/reagent/love/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+	to_chat(M, "<span class='notice'>You feel loved!</span>")
+
+/datum/reagent/love/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+
+	if(M.a_intent == I_HARM)
+		M.a_intent = I_HELP
+
+	if(prob(8))
+		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
+		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
+
+	else if(!M.restrained())
+		for(var/mob/living/carbon/C in orange(1, M))
+			if(C)
+				if(C == M)
+					continue
+				if(!C.stat)
+					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
+					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+					break
+	..()
+
+/datum/chemical_reaction/love
+	name = "pure love"
+	id = "love"
+	result = "love"
+	required_reagents = list("hugs" = 1, "chocolate" = 1)
+	result_amount = 2
+	mix_message = "The substance gives off a lovely scent!"
 
 ///Alchemical Reagents
 

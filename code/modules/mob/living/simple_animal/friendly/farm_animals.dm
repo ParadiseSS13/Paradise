@@ -21,6 +21,7 @@
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
+	maxHealth = 40
 	melee_damage_lower = 1
 	melee_damage_upper = 2
 	stop_automated_movement_when_pulled = 1
@@ -109,6 +110,7 @@
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
+	maxHealth = 50
 	var/milk_content = 0
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
@@ -172,7 +174,8 @@
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
-	health = 1
+	health = 3
+	maxHealth = 3
 	ventcrawler = 2
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -216,6 +219,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 10
+	maxHealth = 10
 	var/eggsleft = 0
 	var/chicken_color
 	pass_flags = PASSTABLE | PASSMOB
@@ -299,6 +303,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
@@ -321,6 +326,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "pecks"
 	health = 50
+	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
@@ -343,6 +349,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
@@ -365,6 +372,7 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
@@ -387,5 +395,6 @@ var/global/chicken_count = 0
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
+	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY

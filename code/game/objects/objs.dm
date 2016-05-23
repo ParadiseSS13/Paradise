@@ -23,6 +23,19 @@
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
 
+	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
+	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
+
+/obj/New()
+	. = ..()
+
+	if(on_blueprints && isturf(loc))
+		var/turf/T = loc
+		if(force_blueprints)
+			T.add_blueprints(src)
+		else
+			T.add_blueprints_preround(src)
+
 /obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
@@ -273,8 +286,10 @@ a {
 	being_shocked = 1
 	var/power_bounced = power * 0.5
 	tesla_zap(src, 3, power_bounced)
-	spawn(10)
-		being_shocked = 0
+	addtimer(src, "reset_shocked", 10)
+
+/obj/proc/reset_shocked()
+	being_shocked = 0
 
 /obj/proc/CanAStarPass()
 	. = !density
