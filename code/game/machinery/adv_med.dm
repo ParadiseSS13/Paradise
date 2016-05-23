@@ -19,6 +19,13 @@
 	else
 		set_light(0)
 
+/obj/machinery/bodyscanner/process()
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+		if(M == occupant)
+			continue
+		else
+			M.forceMove(src.loc)
+
 /obj/machinery/bodyscanner/New()
 	..()
 	component_parts = list()
@@ -161,31 +168,31 @@
 	return
 
 /obj/machinery/bodyscanner/ex_act(severity)
-	var/mob/M = src.occupant
 	switch(severity)
 		if(1.0)
-			go_out()
-			M.ex_act(severity)
+			for(var/atom/movable/A as mob|obj in src)
+				A.forceMove(src.loc)
+				A.ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if (prob(50))
-				go_out()
-				M.ex_act(severity)
+				for(var/atom/movable/A as mob|obj in src)
+					A.forceMove(src.loc)
+					A.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if (prob(25))
-				go_out()
-				M.ex_act(severity)
+				for(var/atom/movable/A as mob|obj in src)
+					A.forceMove(src.loc)
+					A.ex_act(severity)
 				qdel(src)
 				return
-		else
-	return
 
 /obj/machinery/bodyscanner/blob_act()
 	if(prob(50))
-		var/atom/movable/A = src.occupant
+		var/atom/movable/A = occupant
 		go_out()
 		A.blob_act()
 		qdel(src)
