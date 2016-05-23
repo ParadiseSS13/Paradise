@@ -140,13 +140,15 @@
 
 /mob/living/simple_animal/hostile/poison/bees/worker/Destroy()
 	if(beehome)
-		beehome.bees.Remove(src)
+		if(beehome.bees)
+			beehome.bees.Remove(src)
 		beehome = null
 	..()
 
 /mob/living/simple_animal/hostile/poison/bees/worker/death(gibbed)
 	if(beehome)
-		beehome.bees.Remove(src)
+		if(beehome.bees)
+			beehome.bees.Remove(src)
 		beehome = null
 	..()
 
