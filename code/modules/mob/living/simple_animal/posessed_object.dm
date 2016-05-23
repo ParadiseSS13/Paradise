@@ -39,7 +39,8 @@
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
 	var/response = alert(src, "End your possession of this object? (It will not stop you from respawning later)","Are you sure you want to ghost?","Ghost","Stay in body")
-	if(response != "Ghost")	return
+	if(response != "Ghost")
+		return
 	resting = 1
 	var/mob/dead/observer/ghost = ghostize(1)
 	ghost.timeofdeath = world.time
@@ -55,7 +56,7 @@
 		qdel(src)
 		return
 
-	possessed_item.forceMove(src.loc) // Put the normal item back once the EVIL SPIRIT has been vanquished from it.
+	possessed_item.forceMove(loc) // Put the normal item back once the EVIL SPIRIT has been vanquished from it.
 	qdel(src)
 
 
@@ -66,7 +67,7 @@
 		death(1)
 
 	if(possessed_item.loc != src)
-		src.forceMove(possessed_item.loc)
+		forceMove(possessed_item.loc)
 		possessed_item.forceMove(src)
 
 	if(l_hand) // Incase object interactions put things directly into our hands. (Like cameras, or gun magizines)
@@ -82,19 +83,20 @@
 		log_debug("[src] spawned manually, no object to assign attributes to.")
 		qdel()
 
-	if(!istype(get_turf(loc), /turf)) // Will this ever happen? Who goddamn knows.
+	var/turf/possessed_loc = get_turf(loc)
+	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
 		message_admins("<span class='adminnotice'>Posessed object could not find turf, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
 		log_debug("[src] attempted to find a turf to spawn on, and could not.")
 		qdel()
 
 	possessed_item = loc
-	forceMove(get_turf(possessed_item))
+	forceMove(possessed_loc)
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
 
 	zone_sel = new /obj/screen/zone_sel(src) // Create a new zone selection item so the human attacks have something to reference.
 
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.
-	real_name = src.name
+	real_name = name
 	desc = possessed_item.desc
 	icon = possessed_item.icon
 	icon_living = possessed_item.icon_state
@@ -104,7 +106,7 @@
 	overlays = possessed_item.overlays
 	opacity = possessed_item.opacity
 
-	src.visible_message("<span class='warning'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
+	visible_message("<span class='warning'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
 
@@ -119,8 +121,7 @@
 /mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
 	if(istype(possessed_item, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/possessed_id = possessed_item
-		return possessed_id.access
-	return 0
+		.= possessed_id.access
 
 
 /mob/living/simple_animal/possessed_object/ClickOn(var/atom/A, var/params)
@@ -139,11 +140,11 @@
 		..()
 
 	if(possessed_item.loc != src) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
-		src.forceMove(possessed_item.loc)
+		forceMove(possessed_item.loc)
 		possessed_item.forceMove(src)
 
 	name = possessed_item.name // Update our status
-	real_name = src.name
+	real_name = name
 	desc = possessed_item.desc
 	icon = possessed_item.icon
 	icon_living = possessed_item.icon_state
