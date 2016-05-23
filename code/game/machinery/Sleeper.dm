@@ -361,7 +361,7 @@
 
 /obj/machinery/sleeper/blob_act()
 	if(prob(75))
-		var/atom/movable/A = src.loc
+		var/atom/movable/A = src.occupant
 		go_out()
 		A.blob_act()
 		qdel(src)
