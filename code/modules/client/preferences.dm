@@ -63,6 +63,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
 
+#define TAB_CHAR 0
+#define TAB_GAME 1
+
 /datum/preferences
 	//doohickeys for savefiles
 //	var/path
@@ -174,7 +177,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/nanotrasen_relation = "Neutral"
 
 	// 0 = character settings, 1 = game preferences
-	var/current_tab = 0
+	var/current_tab = TAB_CHAR
 
 		// OOC Metadata:
 	var/metadata = ""
@@ -207,229 +210,198 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		save_preferences(C)
 	save_character(C)		//let's save this new random character so it doesn't keep generating new ones.
 
+/datum/preferences/proc/color_square(r, g, b)
+	return "<span style='font-face: fixedsys; background-color: #[num2hex(r, 2)][num2hex(g, 2)][num2hex(b, 2)]; color: #[num2hex(r, 2)][num2hex(g, 2)][num2hex(b, 2)]'>___</span>"
 
 // Hello I am a proc full of snowflake species checks how are you
 /datum/preferences/proc/ShowChoices(mob/user)
-	if(!user || !user.client)	return
+	if(!user || !user.client)
+		return
 	update_preview_icon()
 	user << browse_rsc(preview_icon_front, "previewicon.png")
 	user << browse_rsc(preview_icon_side, "previewicon2.png")
-	var/dat = "<html><body><center>"
 
-	dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
+	var/dat = ""
+	dat += "<center>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
 	switch(current_tab)
-		if (0) // Character Settings#
+		if(TAB_CHAR) // Character Settings
+			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></div>"
+			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
+			dat += "<b>Name: </b>"
+			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
+			dat += "<a href='?_src_=prefs;preference=name;task=random'>(Randomize)</a>"
+			dat += "<a href='?_src_=prefs;preference=name'><span class='[be_random_name ? "good" : "bad"]'>(Always Randomize)</span></a><br>"
+			dat += "</td><td width='405px' height='25px' valign='left'>"
 			dat += "<center>"
 			dat += "Slot <b>[slot_name]</b> - "
 			dat += "<a href=\"byond://?src=\ref[user];preference=open_load_dialog\">Load slot</a> - "
 			dat += "<a href=\"byond://?src=\ref[user];preference=save\">Save slot</a> - "
 			dat += "<a href=\"byond://?src=\ref[user];preference=reload\">Reload slot</a>"
 			dat += "</center>"
-			dat += "<center><h2>Occupation Choices</h2>"
-			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br></center>"
+			dat += "</td></tr></table>"
+			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Identity</h2>"
-			dat += "<table width='100%'><tr><td width='75%' valign='top'>"
 			if(appearance_isbanned(user))
-				dat += "<b>You are banned from using custom names and appearances. You can continue to adjust your characters, but you will be randomised once you join the game.</b><br>"
-			dat += "<b>Name:</b> "
-			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a><br>"
-			dat += "(<a href='?_src_=prefs;preference=name;task=random'>Random Name</A>) "
-			dat += "(<a href='?_src_=prefs;preference=name'>Always Random Name: [be_random_name ? "Yes" : "No"]</a>)"
-			dat += "<br>"
-			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'><b>[gender == MALE ? "Male" : "Female"]</b></a><br>"
-			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a>"
-			//dat += "<b>Spawn Point</b>: <a href='byond://?src=\ref[user];preference=spawnpoint;task=input'>[spawnpoint]</a>"
-			dat += "<br><table><tr><td><b>Body</b> "
-			dat += "(<a href='?_src_=prefs;preference=all;task=random'>&reg;</A>)"
-			dat += "<br>"
-			dat += "Species: <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
-			if(species == "Vox")//oldvox code, sucks I know
-				dat += "N2 Tank: <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
-			dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
-			dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
+				dat += "<b>You are banned from using custom names and appearances. \
+				You can continue to adjust your characters, but you will be randomised once you join the game.\
+				</b><br>"
+			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : "Female"]</a><br>"
+			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><br>"
+			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
+			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
+			if(species == "Vox")
+				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
+			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(species in list("Human", "Drask"))
-				dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
+				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
+			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
+			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
+			dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'>Set Flavor Text</a><br>"
+			if(lentext(flavor_text) <= 40)
+				if(!lentext(flavor_text))	dat += "\[...\]<br>"
+				else						dat += "[flavor_text]<br>"
+			else dat += "[TextPreview(flavor_text)]...<br>"
 
-	//		dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
-			dat += "<br><b>Handicaps</b><br>"
-			dat += "\t<a href='?_src_=prefs;preference=disabilities'><b>\[Set Disabilities\]</b></a><br>"
-			dat += "Limbs and Parts: <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
+			dat += "<h2>Hair & Accessories</h2>"
+
+			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
+				var/headaccessoryname = "Head Accessory: "
+				if(species == "Unathi")
+					headaccessoryname = "Horns: "
+				dat += "<b>[headaccessoryname]</b>"
+				dat += "<a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a> "
+				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Color</a> [color_square(r_headacc, g_headacc, b_headacc)]<br>"
+
+			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have body markings.
+				dat += "<b>Body Markings:</b> "
+				dat += "<a href='?_src_=prefs;preference=m_style;task=input'>[m_style]</a>"
+				dat += "<a href='?_src_=prefs;preference=markings;task=input'>Color</a> [color_square(r_markings, g_markings, b_markings)]<br>"
+
+			dat += "<b>Hair:</b> "
+			dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
+			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(r_hair, g_hair, b_hair)]<br>"
+
+			dat += "<b>Facial Hair:</b> "
+			dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
+			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(r_facial, g_facial, b_facial)]<br>"
+
+			if(species != "Machine")
+				dat += "<b>Eyes:</b> "
+				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(r_eyes, g_eyes, b_eyes)]<br>"
+
+			if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
+				dat += "<b>Body Color:</b> "
+				dat += "<a href='?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(r_skin, g_skin, b_skin)]<br>"
+
+			if(body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
+				dat += "<b>Body Accessory:</b> "
+				dat += "<a href='?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
+
+			dat += "</td><td width='405px' height='200px' valign='top'>"
+			dat += "<h2>Occupation Choices</h2>"
+			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br>"
+			if(jobban_isbanned(user, "Records"))
+				dat += "<b>You are banned from using character records.</b><br>"
+			else
+				dat += "<a href=\"byond://?src=\ref[user];preference=records;record=1\">Character Records</a><br>"
+
+			dat += "<h2>Limbs</h2>"
+			dat += "<b>Limbs and Parts:</b> <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
 			if(species != "Slime People" && species != "Machine")
-				dat += "Internal Organs: <a href='?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
+				dat += "<b>Internal Organs:</b> <a href='?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
 
 			//display limbs below
 			var/ind = 0
 			for(var/name in organ_data)
-//				to_chat(world, "[ind] \ [organ_data.len]")
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
-					if("chest")
-						organ_name = "torso"
-					if("groin")
-						organ_name = "lower body"
-					if("head")
-						organ_name = "head"
-					if("l_arm")
-						organ_name = "left arm"
-					if("r_arm")
-						organ_name = "right arm"
-					if("l_leg")
-						organ_name = "left leg"
-					if("r_leg")
-						organ_name = "right leg"
-					if("l_foot")
-						organ_name = "left foot"
-					if("r_foot")
-						organ_name = "right foot"
-					if("l_hand")
-						organ_name = "left hand"
-					if("r_hand")
-						organ_name = "right hand"
-					if("heart")
-						organ_name = "heart"
-					if("eyes")
-						organ_name = "eyes"
+					if("chest")		organ_name = "torso"
+					if("groin")		organ_name = "lower body"
+					if("head")		organ_name = "head"
+					if("l_arm")		organ_name = "left arm"
+					if("r_arm")		organ_name = "right arm"
+					if("l_leg")		organ_name = "left leg"
+					if("r_leg")		organ_name = "right leg"
+					if("l_foot")	organ_name = "left foot"
+					if("r_foot")	organ_name = "right foot"
+					if("l_hand")	organ_name = "left hand"
+					if("r_hand")	organ_name = "right hand"
+					if("heart")		organ_name = "heart"
+					if("eyes")		organ_name = "eyes"
 
-				if(status == "cyborg")
+				if(status in list("cyborg", "amputated", "mechanical", "assisted"))
 					++ind
-					if(ind > 1)
-						dat += ", "
-					var/datum/robolimb/R
-					if(rlimb_data[name] && all_robolimbs[rlimb_data[name]])
-						R = all_robolimbs[rlimb_data[name]]
-					else
-						R = basic_robolimb
-					dat += "\t[R.company] [organ_name] prosthesis"
+					if(ind > 1) dat += ", "
 
-
-				else if(status == "amputated")
-					++ind
-					if(ind > 1)
-						dat += ", "
-					dat += "\tAmputated [organ_name]"
-
-				else if(status == "mechanical")
-					++ind
-					if(ind > 1)
-						dat += ", "
-					dat += "\tMechanical [organ_name]"
-
-				else if(status == "assisted")
-					++ind
-					if(ind > 1)
-						dat += ", "
-					switch(organ_name)
-						if("heart")
-							dat += "\tPacemaker-assisted [organ_name]"
-						if("voicebox") //on adding voiceboxes for speaking skrell/similar replacements
-							dat += "\tSurgically altered [organ_name]"
-						if("eyes")
-							dat += "\tRetinal overlayed [organ_name]"
+				switch(status)
+					if("cyborg")
+						var/datum/robolimb/R
+						if(rlimb_data[name] && all_robolimbs[rlimb_data[name]])
+							R = all_robolimbs[rlimb_data[name]]
 						else
-							dat += "\tMechanically assisted [organ_name]"
-			if(!ind)
-				dat += "\[...\]<br><br>"
-			else
-				dat += "<br><br>"
-			dat += "<b>Underwear:</b><BR><a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
-			dat += "<b>Undershirt:</b><BR><a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
-			dat += "<b>Socks:</b><BR><a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
-			dat += "Backpack Type:<br><a href ='?_src_=prefs;preference=bag;task=input'><b>[backbaglist[backbag]]</b></a><br>"
-			dat += "Nanotrasen Relation:<br><a href ='?_src_=prefs;preference=nt_relation;task=input'><b>[nanotrasen_relation]</b></a><br>"
-			dat += "</td><td><b>Preview</b><br><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></td></tr></table>"
-			dat += "</td><td width='300px' height='300px'>"
+							R = basic_robolimb
+						dat += "\t[R.company] [organ_name] prosthesis"
+					if("amputated")		dat += "\tAmputated [organ_name]"
+					if("mechanical")	dat += "\tMechanical [organ_name]"
+					if("assisted")
+						switch(organ_name)
+							if("heart")		dat += "\tPacemaker-assisted [organ_name]"
+							if("voicebox")	dat += "\tSurgically altered [organ_name]"
+							if("eyes")		dat += "\tRetinal overlayed [organ_name]"
+							else			dat += "\tMechanically assisted [organ_name]"
+			if(!ind)	dat += "\[...\]<br>"
+			else		dat += "<br>"
 
-			if(jobban_isbanned(user, "Records"))
-				dat += "<b>You are banned from using character records.</b><br>"
-			else
-				dat += "<b><a href=\"byond://?src=\ref[user];preference=records;record=1\">Character Records</a></b><br>"
-			dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'><b>Set Flavor Text</b></a><br>"
-			if(lentext(flavor_text) <= 40)
-				if(!lentext(flavor_text))
-					dat += "\[...\]"
-				else
-					dat += "[flavor_text]"
-			else
-				dat += "[TextPreview(flavor_text)]...<br>"
-			dat += "<br>"
+			dat += "<h2>Clothing</h2>"
+			dat += "<b>Underwear:</b> <a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
+			dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
+			dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
+			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><br>"
 
-			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
-				var/headaccessoryname = "Head Accessory"
-				if(species == "Unathi")
-					headaccessoryname = "Horns"
-				dat += "<br><b>[headaccessoryname]</b><br>"
-				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc)]'><tr><td>__</td></tr></table></font> "
-				dat += "Style: <a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a><br>"
+			dat += "</td></tr></table>"
 
-			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have body markings.
-				dat += "<br><b>Body Markings</b><br>"
-				dat += "<a href='?_src_=prefs;preference=markings;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings)]'><tr><td>__</td></tr></table></font> "
-				dat += "<br>Style: <a href='?_src_=prefs;preference=m_style;task=input'>[m_style]</a><br>"
-
-			dat += "<br><b>Hair</b><br>"
-			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]'><tr><td>__</td></tr></table></font> "
-			dat += " <br>Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
-
-			dat += "<br><b>Facial Hair</b><br>"
-			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial)]'><tr><td>__</td></tr></table></font> "
-			dat += " <br>Style: <a href='?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a><br>"
-
-			if(species != "Machine")
-				dat += "<br><b>Eyes</b><br>"
-				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font><br>"
-
-			if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
-				dat += "<br><b>Body Color</b><br>"
-				dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
-
-			if(body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
-				dat += "<br><b>Body Accessory</b><br>"
-				dat += "Accessory: <a href='?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
-
-			dat += "</td></tr></table><hr><center>"
-
-		if (1) // General Preferences
+		if(TAB_GAME) // General Preferences
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
-			dat += "<b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Ghost-Item Attack Animation:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
-			dat += "<b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'><tr><td>__</td></tr></table><br>"
-			dat += "<b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
+			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
+			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'<tr><td>__</td></tr></table><br>"
+			dat += " - <b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
+			dat += "<br>"
 			dat += "<b>Play admin midis:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play lobby music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
+			if(user.client.holder)
+				dat += "<b>Adminhelp sound:</b> "
+				dat += "<a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
+
+			if(check_rights(R_ADMIN,0))
+				dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
+			if(config.allow_Metadata)
+				dat += "<b>OOC notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
+			if(unlock_content)
+				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
+
 			dat += "<b>Randomized character slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Ghost ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</b></a><br>"
 			dat += "<b>Ghost sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</b></a><br>"
 			dat += "<b>Ghost radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "Nearest Speakers" : "All Chatter"]</b></a><br>"
-			if(config.allow_Metadata)
-				dat += "<b>OOC notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
-
-			if(user.client)
-				if(user.client.holder)
-					dat += "<b>Adminhelp sound:</b> "
-					dat += "<a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
-
-				if(check_rights(R_ADMIN,0))
-					dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
-
-				if(unlock_content)
-					dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
-//				dat += "<br><br>"
 			if(jobban_isbanned(user, "Syndicate"))
 				dat += "<b>You are banned from special roles.</b>"
-				src.be_special = list()
+				be_special = list()
 			else
-				for (var/i in special_roles)
+				for(var/i in special_roles)
 					if(jobban_isbanned(user, i))
 						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
 					else if(!player_old_enough_antag(user.client,i))
@@ -437,17 +409,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
 					else
 						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;role=[i]'><b>[(i in src.be_special) ? "Yes" : "No"]</b></a><br>"
-			dat += "</td></tr></table><hr><center>"
+			dat += "</td></tr></table>"
 
+	dat += "<hr><center>"
 	if(!IsGuestKey(user.key))
 		dat += "<a href='?_src_=prefs;preference=load'>Undo</a> - "
 		dat += "<a href='?_src_=prefs;preference=save'>Save Setup</a> - "
 
 	dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
-	dat += "</center></body></html>"
+	dat += "</center>"
 
-//		user << browse(dat, "window=preferences;size=560x580")
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 640, 810)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 640)
 	popup.set_content(dat)
 	popup.open(0)
 
@@ -1701,6 +1673,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("open_load_dialog")
 					if(!IsGuestKey(user.key))
 						open_load_dialog(user)
+						return 1
 
 				if("close_load_dialog")
 					close_load_dialog(user)
@@ -1753,22 +1726,25 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.g_eyes = g_eyes
 	character.b_eyes = b_eyes
 
-	character.r_hair = r_hair
-	character.g_hair = g_hair
-	character.b_hair = b_hair
+	//Head-specific
+	var/obj/item/organ/external/head/H = character.get_organ("head")
+	H.r_hair = r_hair
+	H.g_hair = g_hair
+	H.b_hair = b_hair
 
-	character.r_facial = r_facial
-	character.g_facial = g_facial
-	character.b_facial = b_facial
+	H.r_facial = r_facial
+	H.g_facial = g_facial
+	H.b_facial = b_facial
+
+	H.h_style = h_style
+	H.f_style = f_style
+	//End of head-specific.
 
 	character.r_skin = r_skin
 	character.g_skin = g_skin
 	character.b_skin = b_skin
 
 	character.s_tone = s_tone
-
-	character.h_style = h_style
-	character.f_style = f_style
 
 	// Destroy/cyborgize organs
 	for(var/name in organ_data)
@@ -1846,10 +1822,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.socks = socks
 
 	if(character.species.bodyflags & HAS_HEAD_ACCESSORY)
-		character.r_headacc = r_headacc
-		character.g_headacc = g_headacc
-		character.b_headacc = b_headacc
-		character.ha_style = ha_style
+		H.r_headacc = r_headacc
+		H.g_headacc = g_headacc
+		H.b_headacc = b_headacc
+		H.ha_style = ha_style
 	if(character.species.bodyflags & HAS_MARKINGS)
 		character.r_markings = r_markings
 		character.g_markings = g_markings

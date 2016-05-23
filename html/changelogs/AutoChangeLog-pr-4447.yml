@@ -1,0 +1,6 @@
+author: QuinnAggeler
+delete-after: True
+changes: 
+  - rscadd: "Species disguise variable for clothing items"
+  - rscadd: "Species disguise string, \"High-tech robot,\" for cardborg suit and helmet"
+  - tweak: "ABSTRACT flagged clothing items will not be displayed on examination"

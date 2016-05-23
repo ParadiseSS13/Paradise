@@ -498,6 +498,7 @@ client/proc/one_click_antag()
 /datum/admins/proc/create_vox_raider(obj/spawn_location, leader_chosen = 0)
 
 	var/mob/living/carbon/human/new_vox = new(spawn_location.loc, "Vox")
+	var/obj/item/organ/external/head/head_organ = new_vox.get_organ("head")
 
 	var/sounds = rand(2,8)
 	var/i = 0
@@ -516,8 +517,8 @@ client/proc/one_click_antag()
 	new_vox.add_language("Vox-pidgin")
 	new_vox.add_language("Galactic Common")
 	new_vox.add_language("Tradeband")
-	new_vox.h_style = "Short Vox Quills"
-	new_vox.f_style = "Shaved"
+	head_organ.h_style = "Short Vox Quills"
+	head_organ.f_style = "Shaved"
 
 	for(var/obj/item/organ/external/limb in new_vox.organs)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
@@ -558,7 +559,9 @@ client/proc/one_click_antag()
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
-			H.make_vampire()
+			ticker.mode.vampires += H.mind
+			ticker.mode.grant_vampire_powers(H)
+			ticker.mode.update_vampire_icons_added(H.mind)
 			candidates.Remove(H)
 
 		return 1

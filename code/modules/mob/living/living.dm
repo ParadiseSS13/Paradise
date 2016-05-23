@@ -320,7 +320,6 @@
 
 /mob/living/proc/revive()
 	rejuvenate()
-	buckled = initial(src.buckled)
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 
@@ -348,6 +347,8 @@
 	timeofdeath = 0
 
 /mob/living/proc/rejuvenate()
+	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
+
 	// shut down various types of badness
 	setToxLoss(0)
 	setOxyLoss(0)
@@ -366,6 +367,7 @@
 	drowsyness = 0
 	radiation = 0
 	druggy = 0
+	hallucination = 0
 	nutrition = 400
 	bodytemperature = 310
 	sdisabilities = 0
@@ -380,7 +382,13 @@
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
-	buckled = initial(src.buckled)
+	if(buckled) //Unbuckle the mob and clear the alerts.
+		buckled.buckled_mob = null
+		buckled = null
+		anchored = initial(src.anchored)
+		update_canmove()
+		clear_alert("buckled")
+		post_buckle_mob(src)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -392,12 +400,13 @@
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
-			var/mob/living/carbon/human/human_mob = src
+			human_mob = src
 			human_mob.restore_blood()
 			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
 
 	restore_all_organs()
+	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
 		dead_mob_list -= src
 		living_mob_list += src
@@ -406,6 +415,9 @@
 	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
+	if(human_mob)
+		human_mob.update_eyes()
+		human_mob.update_dna()
 	return
 
 /mob/living/proc/UpdateDamageIcon()
@@ -580,12 +592,19 @@
 	return
 
 /mob/living/proc/resist_buckle()
+	spawn(0)
+		resist_muzzle()
 	buckled.user_unbuckle_mob(src,src)
+
+/mob/living/proc/resist_muzzle()
+	return
 
 /mob/living/proc/resist_fire()
 	return
 
 /mob/living/proc/resist_restraints()
+	spawn(0)
+		resist_muzzle()
 	return
 
 /*//////////////////////

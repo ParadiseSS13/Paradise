@@ -86,7 +86,7 @@
 		hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
 
 
-/mob/living/simple_animal/hostile/guardian/adjustBruteLoss(amount) //The spirit is invincible, but passes on damage to the summoner
+/mob/living/simple_animal/hostile/guardian/adjustHealth(amount) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
 	if (summoner)
 		if(loc == summoner)
@@ -785,7 +785,7 @@
 /obj/item/weapon/guardiancreator/tech
 	name = "holoparasite injector"
 	desc = "It contains alien nanoswarm of unknown origin. Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, it requires an organic host as a home base and source of fuel."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
 	theme = "tech"
 	mob_name = "Holoparasite"

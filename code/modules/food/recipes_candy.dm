@@ -25,8 +25,37 @@
 	items = list()
 	result = /obj/item/weapon/reagent_containers/food/snacks/chocolatebar
 
+/datum/recipe/candy/fudge_peanut
+	reagents = list("sugar" = 5, "milk" = 5)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/chocolatebar)
+	fruit = list("peanuts" = 3)
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/fudge/peanut
+
+/datum/recipe/candy/fudge_cherry
+	reagents = list("sugar" = 5, "milk" = 5)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/chocolatebar)
+	fruit = list("cherries" = 3)
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cherry
+
+/datum/recipe/candy/fudge_cookies_n_cream
+	reagents = list("sugar" = 5, "milk" = 5, "cream" = 5)
+	items = list(
+				/obj/item/weapon/reagent_containers/food/snacks/chocolatebar,
+				/obj/item/weapon/reagent_containers/food/snacks/cookie,
+				)
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cookies_n_cream
+
+/datum/recipe/candy/fudge_turtle
+	reagents = list("sugar" = 5, "milk" = 5)
+	items = list(
+				/obj/item/weapon/reagent_containers/food/snacks/chocolatebar,
+				/obj/item/weapon/reagent_containers/food/snacks/candy/caramel,
+				)
+	fruit = list("peanuts" = 1)
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/fudge/turtle
+
 /datum/recipe/candy/fudge
-	reagents = list("sugar" = 5, "cream" = 5)
+	reagents = list("sugar" = 5, "milk" = 5)
 	items = list(/obj/item/weapon/reagent_containers/food/snacks/chocolatebar)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/fudge
 

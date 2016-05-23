@@ -206,6 +206,7 @@
 	item_state = "cardborg"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
+	species_disguise = "High-tech robot"
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
