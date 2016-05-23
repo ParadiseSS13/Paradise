@@ -1,0 +1,5 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - rscadd: "You can now rename cassette tapes with a pen."
+  - rscadd: "You can now wipe data from a tape from its right-click menu."
