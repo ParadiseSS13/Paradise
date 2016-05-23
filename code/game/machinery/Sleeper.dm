@@ -73,6 +73,7 @@
 	if(M.environment_smash)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		go_out()
 		qdel(src)
 	return
 
@@ -360,9 +361,9 @@
 
 /obj/machinery/sleeper/blob_act()
 	if(prob(75))
-		for(var/atom/movable/A as mob|obj in src)
-			A.forceMove(src.loc)
-			A.blob_act()
+		var/atom/movable/A = src.loc
+		go_out()
+		A.blob_act()
 		qdel(src)
 	return
 
@@ -404,11 +405,14 @@
 			orient = "RIGHT"
 			dir = 4
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		return
 
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)
+	if(istype(G, /obj/item/weapon/crowbar))
+		default_deconstruction_crowbar(G)
+		return
 
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
@@ -449,25 +453,23 @@
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
 		toggle_filter()
+	var/mob/M = src.occupant
 	switch(severity)
 		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
-				ex_act(severity)
+			go_out()
+			M.ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					ex_act(severity)
+				go_out()
+				M.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					ex_act(severity)
+				go_out()
+				M.ex_act(severity)
 				qdel(src)
 				return
 	return
