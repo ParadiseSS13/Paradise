@@ -102,6 +102,25 @@
 	death_message = "<span class='warning'>The forge falls apart, its lava cooling and winking away!</span>"
 	death_sound = 'sound/effects/forge_destroy.ogg'
 
+/obj/structure/cult/cultforge/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = I
+		if(!iscarbon(G.affecting))
+			to_chat(user, "<span class='warning'>You may only dunk carbon-based creatures!</span>")
+			return 0
+		if(G.affecting.stat == DEAD)
+			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
+			return 0
+		var/mob/living/carbon/C = G.affecting
+		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>", \
+						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
+		if(!C.stat)
+			C.emote("scream")
+		user.changeNext_move(CLICK_CD_MELEE)
+		C.apply_damage(30, BURN, "head") //30 fire damage because it's FUCKING LAVA
+		C.status_flags |= DISFIGURED //Your face is unrecognizable because it's FUCKING LAVA
+		return 1
+
 /obj/structure/cult/cultforge/attack_hand(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>The heat radiating from [src] pushes you back.</span>")
@@ -111,14 +130,19 @@
 		return
 	var/choice = alert(user,"You study the schematics etched into the forge...",, "Flagellant's Robe","Cultist Hardsuit")
 	var/pickedtype
+	var/otheritem //ie:helmet..
 	switch(choice)
 		if("Flagellant's Robe")
 			pickedtype = /obj/item/clothing/suit/cultrobes/berserker
+			otheritem = /obj/item/clothing/head/berserkerhood
 		if("Cultist Hardsuit")
 			pickedtype = /obj/item/clothing/suit/space/cult
+			otheritem = /obj/item/clothing/head/helmet/space/cult
 	if(pickedtype && Adjacent(user) && src && !qdeleted(src) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		var/obj/item/N = new pickedtype(get_turf(src))
+		if(otheritem)
+			new otheritem(get_turf(src))
 		to_chat(user, "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating [N]!</span>")
 
 

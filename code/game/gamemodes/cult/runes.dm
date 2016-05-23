@@ -40,7 +40,8 @@ To draw a rune, use an arcane tome.
 	..()
 	if(set_keyword)
 		keyword = set_keyword
-	check_icon()
+	if(!(istype(src, /obj/effect/rune/narsie) || istype(src, /obj/effect/rune/slaughter)))
+		check_icon()
 	var/image/blood = image(loc = src)
 	blood.override = 1
 	for(var/mob/living/silicon/ai/AI in player_list)
@@ -156,10 +157,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_name = "malformed rune"
 	cultist_desc = "a senseless rune written in gibberish. No good can come from invoking this."
 	invocation = "Ra'sha yoka!"
-
-/obj/effect/rune/malformed/New()
-	..()
-	icon_state = "[rand(1,6)]"
 
 /obj/effect/rune/malformed/invoke(var/list/invokers)
 	..()
@@ -529,6 +526,8 @@ var/list/teleport_runes = list()
 	cultist_desc = "Calls forth the doom of a eldrtich being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
+	color = rgb(125,23,23)
+	scribe_delay = 450
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "rune_large"
 	pixel_x = -32
@@ -538,6 +537,22 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/slaughter/talismanhide() //can't hide this, and you wouldn't want to
 	return
+
+/obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+	if((istype(I, /obj/item/weapon/tome) && iscultist(user)))
+		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
+		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
+			log_game("Summon demon rune erased by [user.mind.key] (ckey) with a tome")
+			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
+			..()
+			return
+	else
+		if(istype(I, /obj/item/weapon/nullrod))	//Begone foul magiks. You cannot hinder me.
+			log_game("Summon demon rune erased by [user.mind.key] (ckey) using a null rod")
+			message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
+			..()
+	return
+
 
 /obj/effect/rune/slaughter/invoke(var/list/invokers)
 	if(used)
