@@ -43,12 +43,28 @@
 
 	experimentUI(user)
 
+/obj/machinery/abductor/experiment/proc/dissection_icon(mob/living/carbon/human/H)
+	var/icon/I = icon(H.stand_icon)
+
+	var/icon/splat = icon(H.species.damage_overlays, "30")
+	splat.Blend(icon(H.species.damage_mask, "torso"), ICON_MULTIPLY)
+	splat.Blend(H.species.blood_color, ICON_MULTIPLY)
+	I.Blend(splat, ICON_OVERLAY)
+
+	return I
+
 /obj/machinery/abductor/experiment/proc/experimentUI(mob/user)
 	var/dat
 	dat += "<h3> Experiment </h3>"
 	if(occupant)
-		dat += "<table><tr><td>"
-		dat += "</td><td>"
+		var/icon/H = icon(dissection_icon(occupant), dir = SOUTH)
+		if(H)
+			user << browse_rsc(H, "dissection_img.png")
+			dat += "<table><tr><td>"
+			dat += "<img src='dissection_img.png' height='80' width='80'>"
+			dat += "</td><td>"
+		else
+			dat += "ERR: Unable to retrieve image data for occupant."
 		dat += "<a href='?src=\ref[src];experiment=1'>Probe</a><br>"
 		dat += "<a href='?src=\ref[src];experiment=2'>Dissect</a><br>"
 		dat += "<a href='?src=\ref[src];experiment=3'>Analyze</a><br>"

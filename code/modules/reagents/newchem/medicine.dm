@@ -646,11 +646,14 @@ datum/reagent/strange_reagent
 	metabolization_rate = 0.2
 
 datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume)
-	if(istype(M, /mob/living/simple_animal))
+	if(isanimal(M))
 		if(method == TOUCH)
-			if(M.stat == DEAD)
-				M.revive()
-				M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+			var/mob/living/simple_animal/SM = M
+			if(SM.stat == DEAD)
+				SM.revive()
+				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
+				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+
 	if(istype(M, /mob/living/carbon))
 		if(method == INGEST)
 			if(M.stat == DEAD)
@@ -800,6 +803,7 @@ datum/reagent/stimulants/on_mob_life(var/mob/living/M as mob)
 		M.adjustBruteLoss(-10*REM)
 		M.adjustFireLoss(-10*REM)
 		M.setStaminaLoss(0)
+		M.slowed = 0
 		M.dizziness = max(0,M.dizziness-10)
 		M.drowsyness = max(0,M.drowsyness-10)
 		M.confused = 0

@@ -31,7 +31,7 @@ Bonus
 		switch(A.stage)
 			if(2)
 				if(M.reagents.get_reagent_amount("oculine")<10)
-					M.reagents.add_reagent("oculine"=10)
+					M.reagents.add_reagent("oculine", 10)
 					to_chat(M, "<span class='notice'>Your hearing feels clearer and crisp.</span>")
 			if(3)
 				if(M.reagents.get_reagent_amount("antihol") < 10 && M.reagents.get_reagent_amount("oculine") < 10 )

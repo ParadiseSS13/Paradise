@@ -92,6 +92,16 @@
 	build_path = /obj/item/weapon/circuitboard/teleporter_station
 	category = list ("Teleportation Machinery")
 
+/datum/design/teleport_perma
+	name = "Machine Board (Permanent Teleporter)"
+	desc = "Allows for the construction of circuit boards used to build a Permanent Teleporter."
+	id = "tele_perma"
+	req_tech = list("programming" = 3, "bluespace" = 5, "materials" = 4, "engineering" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/teleporter_perma
+	category = list ("Teleportation Machinery")
+
 /datum/design/bodyscanner
 	name = "Machine Board (Body Scanner)"
 	desc = "Allows for the construction of circuit boards used to build a Body Scanner."

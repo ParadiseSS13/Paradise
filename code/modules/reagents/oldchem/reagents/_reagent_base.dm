@@ -63,13 +63,11 @@
 	return
 
 /datum/reagent/proc/on_mob_life(var/mob/living/M as mob, var/alien)
-	if(!istype(M, /mob/living)) // YOU'RE A FUCKING RETARD NEO WHY CAN'T YOU JUST FIX THE PROBLEM ON THE REAGENT - Iamgoofball
-		return //Noticed runtime errors from facid trying to damage ghosts, this should fix. --NEO
-				// Certain elements in too large amounts cause side-effects
+	if(!istype(M))
+		return
 	if(holder)
-		holder.remove_reagent(src.id, metabolization_rate) //By default it slowly disappears.
+		holder.remove_reagent(id, metabolization_rate) //By default it slowly disappears.
 		current_cycle++
-	return
 
 // Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(var/data)
