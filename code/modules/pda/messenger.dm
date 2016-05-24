@@ -30,8 +30,8 @@
 		data["messages"] = tnote
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
-				data["convo_name"] = sanitize_nano(c["owner"])
-				data["convo_job"] = sanitize_nano(c["job"])
+				data["convo_name"] = sanitize(c["owner"])
+				data["convo_job"] = sanitize(c["job"])
 				break
 		data["auto_scroll"] = auto_scroll
 		data["latest_post"] = latest_post

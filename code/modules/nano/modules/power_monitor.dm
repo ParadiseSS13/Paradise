@@ -14,19 +14,19 @@
 /datum/nano_module/power_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
 	var/data[0]
 
-	data["powermonitor"] = sanitize_nano(powermonitor)
+	data["powermonitor"] = sanitize(powermonitor)
 	if(select_monitor)
 		data["select_monitor"] = 1
-		data["powermonitors"] = sanitize_nano(powermonitor_repository.powermonitor_data())
+		data["powermonitors"] = sanitize(powermonitor_repository.powermonitor_data())
 
 	if (powermonitor && !isnull(powermonitor.powernet))
 		if(select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
 			powermonitor = null
 			return
-		data["poweravail"] = sanitize_nano(powermonitor.powernet.avail)
-		data["powerload"] = sanitize_nano(num2text(powermonitor.powernet.viewload,10))
-		data["powerdemand"] = sanitize_nano(powermonitor.powernet.load)
-		data["apcs"] = sanitize_nano(apc_repository.apc_data(powermonitor))
+		data["poweravail"] = sanitize(powermonitor.powernet.avail)
+		data["powerload"] = sanitize(num2text(powermonitor.powernet.viewload,10))
+		data["powerdemand"] = sanitize(powermonitor.powernet.load)
+		data["apcs"] = sanitize(apc_repository.apc_data(powermonitor))
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
