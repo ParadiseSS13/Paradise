@@ -398,12 +398,14 @@
 				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20
+				B.plane = 20
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if (h_user.r_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20
+				B.plane = 20
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if (h_user.head == src)

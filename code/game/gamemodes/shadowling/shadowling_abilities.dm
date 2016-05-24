@@ -227,7 +227,7 @@
 	range = -1
 	include_user = 1
 	clothes_req = 0
-	var/datum/vision_override/vision_path = /datum/vision_override/nightvision
+	var/datum/vision_override/vision_path = /datum/vision_override/nightvision/overbright
 	action_icon_state = "darksight"
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision/cast(list/targets)

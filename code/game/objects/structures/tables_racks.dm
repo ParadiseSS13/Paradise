@@ -347,6 +347,7 @@
 	verbs +=/obj/structure/table/verb/do_flip
 
 	layer = initial(layer)
+	plane = initial(plane)
 	flipped = 0
 	smooth = initial(smooth)
 	flags &= ~ON_BORDER

@@ -145,6 +145,7 @@
 		img = image(owner.button_icon,src,owner.button_icon_state)
 	img.pixel_x = 0
 	img.pixel_y = 0
+	img.plane = 20
 	overlays += img
 
 	if(!owner.IsAvailable())

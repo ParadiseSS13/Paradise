@@ -10,6 +10,7 @@
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
 	layer = 20
+	plane = 20
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
@@ -347,14 +348,18 @@
 
 /obj/screen/zone_sel/update_icon()
 	overlays.Cut()
-	overlays += image('icons/mob/zone_sel.dmi', "[selecting]")
+	var/image/overlay = image('icons/mob/zone_sel.dmi', "[selecting]")
+	overlay.plane = plane
+	overlays += overlay
 
 /obj/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
 
 /obj/screen/zone_sel/alien/update_icon(mob/user)
 	overlays.Cut()
-	overlays += image('icons/mob/screen_alien.dmi', "[selecting]")
+	var/image/overlay = image('icons/mob/screen_alien.dmi', "[selecting]")
+	overlay.plane = plane
+	overlays += overlay
 
 /obj/screen/zone_sel/robot
 	icon = 'icons/mob/screen_robot.dmi'
@@ -385,9 +390,11 @@
 	..()
 	if(!active_overlay)
 		active_overlay = image("icon"=icon, "icon_state"="hand_active")
+		active_overlay.plane = plane
 	if(!handcuff_overlay)
 		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
+		handcuff_overlay.plane = plane
 
 	overlays.Cut()
 

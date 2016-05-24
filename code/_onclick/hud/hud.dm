@@ -155,6 +155,10 @@
 				mymob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
 				mymob.client.screen -= infodisplay
+	
+	// Yes, snowflekkey, but I'd rather not hunt through every non-human mob hud.
+	mymob.overlay_fullscreen("pmaster_lighting_g", /obj/screen/fullscreen/pmaster_g_default, 1)
+	mymob.overlay_fullscreen("pmaster_lighting_c", /obj/screen/fullscreen/pmaster_c_default, 1)
 
 	hud_version = display_hud_version
 	persistant_inventory_update()
