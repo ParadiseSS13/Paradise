@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "swarmers will drop an artificial bluespace crystal on death"
-  - tweak: "Orion Trail guards now drop an energy shield and C20R on death"
-  - tweak: "Reviving simple animals with strange reagent will prevent them from dropping any further loot"

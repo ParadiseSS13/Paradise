@@ -1,6 +1,0 @@
-author: FalseIncarnate
-delete-after: True
-changes: 
-  - tweak: "Mutant/Modified/Enhanced plants will no longer infinitely increase their name length, and instead will be simply \"mutant\", \"modified\", or \"enhanced\" plant as determined by the last type of modification they were subject to."
-  - tweak: "Bees can no longer phase through hydroponics lids, giving botanists a way to finally stem the tide of pollination."
-  - bugfix: "Premade beeboxes now spawn with the right type of bees, specifically of the worker caste."
