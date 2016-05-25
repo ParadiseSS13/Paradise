@@ -17,7 +17,6 @@
 */
 
 var/global/list/localisation = list()
-/*	letters list filling in code/__HELPERS/global_lists.dm in /proc/makeDatumRefLists()		*/
 
 /datum/letter
 	var/letter = ""			//weird letter
@@ -26,6 +25,20 @@ var/global/list/localisation = list()
 	var/log = ""			//letter for logs
 	var/temp = ""			//temporatory letter for filled input windows
 							//!!!temp must be unique for every letter!!!
+
+	autofix_proper
+		letter = "\proper"
+		chat = ""
+		browser = ""
+		log = ""
+		temp = ""
+
+	autofix_improper
+		letter = "\improper"
+		chat = ""
+		browser = ""
+		log = ""
+		temp = ""
 
 	cyrillic_ya
 		letter = "ÿ"
