@@ -381,6 +381,7 @@
 	dir = 8
 	pixel_x = -32
 	pixel_y = 0
+	timetoset = 6000
 
 
 /obj/machinery/door_timer/processing_2
@@ -389,6 +390,7 @@
 	dir = 8
 	pixel_x = -32
 	pixel_y = 0
+	timetoset = 6000
 
 
 /obj/machinery/door_timer/processing_3
@@ -397,6 +399,13 @@
 	dir = 1
 	pixel_x = 0
 	pixel_y = 32
+	timetoset = 6000
+
+/obj/machinery/door_timer/processing_3/New()
+	..()
+	pixel_x = 0
+	pixel_y = 32
+	// I am aware this proc override is weird, but door_timer/New() has hardcoded pixel values, this is the only way without changing it.
 
 #undef FONT_SIZE
 #undef FONT_COLOR
