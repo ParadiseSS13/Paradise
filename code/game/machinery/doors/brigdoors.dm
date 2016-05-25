@@ -53,7 +53,7 @@
 		for(var/obj/structure/closet/secure_closet/brig/C in world)
 			if(C.id == id)
 				targets += C
-		
+
 		for(var/obj/machinery/treadmill_monitor/T in machines)
 			if(T.id == id)
 				targets += T
@@ -112,7 +112,7 @@
 		if(C.opened && !C.close())	continue
 		C.locked = 1
 		C.icon_state = C.icon_locked
-		
+
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		T.total_joules = 0
 		T.on = 1
@@ -374,6 +374,38 @@
 	id = "Cell 6"
 	dir = 4
 	pixel_x = 32
+
+/obj/machinery/door_timer/processing_1
+	name = "Proc 1"
+	id = "Proc 1"
+	dir = 8
+	pixel_x = -32
+	pixel_y = 0
+	timetoset = 6000
+
+
+/obj/machinery/door_timer/processing_2
+	name = "Proc 2"
+	id = "Proc 2"
+	dir = 8
+	pixel_x = -32
+	pixel_y = 0
+	timetoset = 6000
+
+
+/obj/machinery/door_timer/processing_3
+	name = "Proc 3"
+	id = "Proc 3"
+	dir = 1
+	pixel_x = 0
+	pixel_y = 32
+	timetoset = 6000
+
+/obj/machinery/door_timer/processing_3/New()
+	..()
+	pixel_x = 0
+	pixel_y = 32
+	// I am aware this proc override is weird, but door_timer/New() has hardcoded pixel values, this is the only way without changing it.
 
 #undef FONT_SIZE
 #undef FONT_COLOR
