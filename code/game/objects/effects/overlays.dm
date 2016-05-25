@@ -115,6 +115,18 @@
 /obj/effect/overlay/temp/cult/phase/out
 	icon_state = "cultout"
 
+/obj/effect/overlay/temp/heal //color is white by default, set to whatever is needed
+	name = "healing glow"
+	icon_state = "heal"
+	duration = 15
+
+/obj/effect/overlay/temp/heal/New(loc, colour)
+	..()
+	pixel_x = rand(-12, 12)
+	pixel_y = rand(-9, 0)
+	if(colour)
+		color = colour
+
 /obj/effect/overlay/temp/cult/sac
 	name = "maw of Nar-Sie"
 	icon_state = "sacconsume"

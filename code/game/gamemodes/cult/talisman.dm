@@ -299,7 +299,7 @@
 //Talisman of Fabrication: Creates a construct shell out of 25 metal sheets.
 /obj/item/weapon/paper/talisman/construction
 	cultist_name = "Talisman of Construction"
-	cultist_desc = "Use this talisman on at least twenty-five metal sheets to create an empty construct shell"
+	cultist_desc = "Use this talisman on at least twenty-five metal sheets to create an empty construct shell or on plasteel to make runed metal"
 	invocation = "Ethra p'ni dedol!"
 
 /obj/item/weapon/paper/talisman/construction/attack_self(mob/living/user)

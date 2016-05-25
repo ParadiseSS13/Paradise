@@ -20,6 +20,7 @@
 	throw_range = 5
 	w_class = 2
 	var/scribereduct = 0
+	var/canbypass = 0 //ADMINBUS
 
 /obj/item/weapon/tome/accursed
 	name = "accursed tome"
@@ -30,6 +31,7 @@
 	name = "imbued arcane tome"
 	desc = "An arcane tome granted by the Geometer itself."
 	scribereduct = 50
+	canbypass = 1
 
 /obj/item/weapon/tome/examine(mob/user)
 	..()
@@ -219,23 +221,39 @@
 		return
 	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
 		return
-	if(ispath(rune_to_scribe, /obj/effect/rune/narsie))//may need to change this - Fethas
-		var/confirm_final = alert(usr, "This is the FINAL step to summon [ticker.mode.cultdat.entity_name], it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [ticker.mode.cultdat.entity_name]!", "No")
-		if(confirm_final == "No")
-			to_chat(usr, "On second thought, we should prepare further for the final battle...")
-			return
-		command_announcement.Announce("Figments from an eldritch god are being summoned somwhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensionsal Affairs", 'sound/AI/spanomalies.ogg')
-		for(var/B in spiral_range_turfs(1, user, 1))
-			var/turf/T = B
-			var/obj/machinery/shield/N = new(T)
-			N.name = "Rune-Scriber's Shield"
-			N.desc = "A potent shield summoned by cultists to protect them while they prepare the final ritual"
-			N.icon_state = "shield-red"
-			N.health = 60
-			shields |= N
-	user.visible_message("<span class='warning'>[user] cuts open their arm and begins writing in their own blood!</span>", \
-						 "<span class='cult'>You slice open your arm and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
-	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, pick("l_arm", "r_arm"))
+	if(ispath(rune_to_scribe, /obj/effect/rune/narsie) || ispath(rune_to_scribe, /obj/effect/rune/slaughter))//may need to change this - Fethas
+
+		if(ticker.mode.name == "cult")
+			var/datum/game_mode/cult/cult_mode = ticker.mode
+			if(!("eldergod" in cult_mode.objectives))
+				to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
+				return
+			else if(!cult_mode.narsie_condition_cleared)
+				to_chat(user, "<span class='warning'>There is still more to do before unleashing [cult_mode.cultdat.entity_name] power!</span>")
+				return
+			else if(!cult_mode.eldergod)
+				to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
+				return
+			else if(cult_mode.demons_summoned)
+				to_chat(user, "<span class='cultlarge'>\"We am already here. There is no need to try to summon us now.\"</span>")
+				return
+			var/confirm_final = alert(user, "This is the FINAL step to summon Nar-Sie, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
+			if(confirm_final == "No")
+				user << "<span class='cult'>You decide to prepare further before scribing the rune.</span>"
+				return
+			command_announcement.Announce("Figments from an eldritch god are being summoned somwhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensionsal Affairs", 'sound/AI/spanomalies.ogg')
+			for(var/B in spiral_range_turfs(1, user, 1))
+				var/turf/T = B
+				var/obj/machinery/shield/N = new(T)
+				N.name = "Rune-Scriber's Shield"
+				N.desc = "A potent shield summoned by cultists to protect them while they prepare the final ritual"
+				N.icon_state = "shield-red"
+				N.health = 60
+				shields |= N
+	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+	user.visible_message("<span class='warning'>[user] cuts open their [dam_zone] and begins writing in their own blood!</span>", \
+						 "<span class='cult'>You slice open your [dam_zone] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
+	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, dam_zone)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/machinery/shield/S = V
@@ -251,8 +269,9 @@
 		var/obj/machinery/shield/S = V
 		if(S && !qdeleted(S))
 			qdel(S)
-	new rune_to_scribe(Turf, chosen_keyword)
-	rune_to_scribe.blood_DNA = list()
-	rune_to_scribe.blood_DNA[user.dna.unique_enzymes] = user.dna.b_type
-	rune_to_scribe.add_hiddenprint(user)
+	var/obj/effect/rune/R = new rune_to_scribe(Turf, chosen_keyword)
+	var/mob/living/carbon/human/H = user
+	R.blood_DNA = list()
+	R.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
+	R.add_hiddenprint(H)
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune_to_scribe.cultist_name))] rune [initial(rune_to_scribe.cultist_desc)]</span>")

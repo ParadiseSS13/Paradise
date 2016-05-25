@@ -6,6 +6,7 @@
 	w_class = 4
 	force = 30
 	throwforce = 10
+	sharp = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -51,6 +52,7 @@
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."
 	icon_state = "bola_cult"
+	item_state = "bola_cult"
 	breakouttime = 45
 
 /obj/item/clothing/head/culthood
@@ -140,6 +142,8 @@
 /obj/item/weapon/whetstone/cult
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "cultstone"
 	used = 0
 	increment = 5
 	max = 40
@@ -247,14 +251,14 @@
 		if(uses <= 0)
 			icon_state ="shifter_drained"
 		playsound(mobloc, "sparks", 50, 1)
-		new /obj/effect/overlay/temp/cult/phase/out(list(mobloc, C.dir))
+		new /obj/effect/overlay/temp/cult/phase/out(mobloc)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
 		if(pulled)
 			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 
-		new /obj/effect/overlay/temp/cult/phase(list(destination, C.dir))
+		new /obj/effect/overlay/temp/cult/phase(destination)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
 		playsound(destination, "sparks", 50, 1)
 

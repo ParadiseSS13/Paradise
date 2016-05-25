@@ -21,6 +21,12 @@ var/global/list/all_cults = list()
 		var/mob/living/carbon/human/H = mind.current
 		if(isloyal(H))
 			return 0
+	if(issilicon(mind.current))
+		return 0 //can't convert machines, that's ratvar's thing
+	if(isguardian(mind.current))
+		var/mob/living/simple_animal/hostile/guardian/G = mind.current
+		if(!iscultist(G.summoner))
+			return 0 //can't convert it unless the owner is converted
 	return 1
 
 /proc/is_sacrifice_target(datum/mind/mind)

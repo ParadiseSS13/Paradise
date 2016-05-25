@@ -463,19 +463,7 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	if(ticker.mode.name == "cult")
 		var/datum/game_mode/cult/cult_mode = ticker.mode
-		if(!("eldergod" in cult_mode.objectives))
-			message_admins("[user.real_name]([user.ckey]) tried to summon Nar-Sie when the objective was wrong")
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-				if(L.reagents)
-					L.reagents.add_reagent("hell_water", 10)
-				L.Weaken(7)
-				L.Stun(7)
-			fail_invoke()
-			log_game("Summon Nar-Sie rune failed - improper objective")
-			return
-		else if(user.z !=  ZLEVEL_STATION)
+		if(user.z !=  ZLEVEL_STATION)
 			message_admins("[user.real_name]([user.ckey]) tried to summon Nar-Sie off station")
 			for(var/M in invokers)
 				var/mob/living/L = M
@@ -528,6 +516,7 @@ var/list/teleport_runes = list()
 	req_cultists = 9
 	color = rgb(125,23,23)
 	scribe_delay = 450
+	scribe_damage = 40.1 //how much damage you take doing it
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "rune_large"
 	pixel_x = -32
@@ -572,7 +561,7 @@ var/list/teleport_runes = list()
 			fail_invoke()
 			log_game("Summon Demons rune failed - improper objective")
 			return
-		else if(user.z !=  ZLEVEL_STATION)
+		if(user.z !=  ZLEVEL_STATION)
 			message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
 			for(var/M in invokers)
 				var/mob/living/L = M
@@ -626,7 +615,7 @@ var/list/teleport_runes = list()
 	if(rune_in_use)
 		return
 	for(var/mob/living/M in orange(1,src))
-		if(M.stat == DEAD)
+		if(M.stat == DEAD  && !iscultist(M))
 			potential_sacrifice_mobs.Add(M)
 	if(!potential_sacrifice_mobs.len)
 		to_chat(user, "<span class='cultitalic'>There are no eligible sacrifices nearby!</span>")
@@ -829,7 +818,7 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
 	for(var/datum/mind/M in ticker.mode.cult)
-		if(!(M.current in invokers))
+		if(!(M.current in invokers) && M.current.stat != DEAD)
 			cultists |= M.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [ticker.mode.cultdat.entity_title3]") as null|anything in cultists
 	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
@@ -867,8 +856,9 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/blood_boil/invoke(var/list/invokers)
 	..()
+	var/turf/T = get_turf(src)
 	visible_message("<span class='warning'>[src] briefly bubbles before exploding!</span>")
-	for(var/mob/living/carbon/C in viewers(src))
+	for(var/mob/living/carbon/C in viewers(T))
 		if(!iscultist(C))
 			var/obj/item/weapon/nullrod/N = C.null_rod_check()
 			if(N)
@@ -881,8 +871,8 @@ var/list/teleport_runes = list()
 		var/mob/living/L = M
 		L.apply_damage(15, BRUTE, pick("l_arm", "r_arm"))
 		to_chat(L,"<span class='cultitalic'>[src] saps your strength!</span>")
-	explosion(get_turf(src), -1, 0, 1, 5)
 	qdel(src)
+	explosion(T, -1, 0, 1, 5)
 
 
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.

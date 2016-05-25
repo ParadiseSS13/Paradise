@@ -55,6 +55,18 @@
 	..()
 	if(iscultist(user) && cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
+	to_chat(user, "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>")
+
+/obj/structure/cult/attackby(obj/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
+		anchored = !anchored
+		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
+		if(!anchored)
+			icon_state = "[initial(icon_state)]_off"
+		else
+			icon_state = initial(icon_state)
+	else
+		return ..()
 
 /obj/structure/cult/proc/getETA()
 	var/time = (cooldowntime - world.time)/600
@@ -75,6 +87,9 @@
 /obj/structure/cult/culttalisman/attack_hand(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>You're pretty sure you know exactly what this is used for and you can't seem to touch it.</span>")
+		return
+	if(!anchored)
+		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a tome first.</span>")
 		return
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
@@ -125,6 +140,9 @@
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>The heat radiating from [src] pushes you back.</span>")
 		return
+	if(!anchored)
+		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a tome first.</span>")
+		return
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
 		return
@@ -152,20 +170,16 @@
 	icon_state = "pylon"
 	light_range = 5
 	light_color = "#3e0000"
-	var/heal_delay = 50
-	var/last_shot = 0
-	var/list/corruption = list()
 	health = 50 //Very fragile
 	death_message = "<span class='warning'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
+	var/heal_delay = 25
+	var/last_heal = 0
+	var/corrupt_delay = 50
+	var/last_corrupt = 0
 
 /obj/structure/cult/cultpylon/New()
 	processing_objects |= src
-	corruption += get_turf(src)
-	for(var/i in 1 to 5)
-		for(var/t in corruption)
-			var/turf/T = t
-			corruption |= T.GetAtmosAdjacentTurfs()
 	..()
 
 /obj/structure/cult/cultpylon/Destroy()
@@ -173,25 +187,35 @@
 	return ..()
 
 /obj/structure/cult/cultpylon/process()
-	if((last_shot + heal_delay) <= world.time)
-		last_shot = world.time
+	if(!anchored)
+		return
+	if(last_heal <= world.time)
+		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(iscultist(L))
-				var/mob/living/carbon/human/H = L
-				if(istype(H))
-					L.adjustBruteLoss(-1, 0)
-					L.adjustFireLoss(-1, 0)
-					L.updatehealth()
-				if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
-					var/mob/living/simple_animal/M = L
-					if(M.health < M.maxHealth)
-						M.adjustBruteLoss(-2)//WAS adjust health...runtimes..
-		if(corruption.len)
-			var/turf/T = pick_n_take(corruption)
-			corruption -= T
-			if(istype(T, /turf/simulated/floor/engine/cult) || istype(T, /turf/space))
-				return
+			if(iscultist(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
+				if(L.health != L.maxHealth)
+					new /obj/effect/overlay/temp/heal(get_turf(src), "#960000")
+					if(ishuman(L))
+						L.adjustBruteLoss(-1, 0)
+						L.adjustFireLoss(-1, 0)
+						L.updatehealth()
+					if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
+						var/mob/living/simple_animal/M = L
+						if(M.health < M.maxHealth)
+							M.adjustHealth(-1)
+			//CHECK_TICK
+	if(last_corrupt <= world.time)
+		var/list/validturfs = list()
+		for(var/T in circleviewturfs(src, 5))
+			if(istype(T, /turf/simulated/floor/engine/cult) || istype(T, /turf/space) || istype(T, /turf/simulated/wall))
+				continue
+			validturfs |= T
+		var/turf/T = safepick(validturfs)
+		if(T)
 			T.ChangeTurf(/turf/simulated/floor/engine/cult)
+			last_corrupt = world.time + corrupt_delay
+		else
+			last_corrupt = world.time + corrupt_delay*2
 
 
 /obj/structure/cult/culttome
@@ -205,6 +229,9 @@
 /obj/structure/cult/culttome/attack_hand(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>All of these books seem to be gibberish.</span>")
+		return
+	if(!anchored)
+		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a tome first.</span>")
 		return
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
