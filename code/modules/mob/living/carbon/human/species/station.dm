@@ -221,8 +221,8 @@
 /datum/species/vox
 	name = "Vox"
 	name_plural = "Vox"
-	icobase = 'icons/mob/human_races/r_vox.dmi'
-	deform = 'icons/mob/human_races/r_def_vox.dmi'
+	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	path = /mob/living/carbon/human/vox
 
 	default_language = "Galactic Common"
@@ -267,7 +267,7 @@
 	flags = NO_SCAN | IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
-	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
@@ -327,14 +327,39 @@
 	if (H.internals)
 		H.internals.icon_state = "internal1"
 
-/*
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
+	updatespeciescolor(H)
+	H.update_icons()
+	/*
 	H.verbs += /mob/living/carbon/human/proc/leap
 	..() */
 
+/datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H) //Handling species-specific skin-tones for the Vox race.
+	if(H.species.name == "Vox") //Making sure we don't break Armalis.
+		switch(H.s_tone)
+			if(4) //Grey Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
+				tail = "voxtail_gry" //Ensures they get an appropriately coloured tail.
+			if(3) //Brown Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
+				tail = "voxtail_brn"
+			if(2) //Dark Green Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
+				tail = "voxtail_dgrn"
+			else  //Default Green Vox.
+				icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
+				tail = "voxtail"
+
+		H.update_dna()
+
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
+	H.verbs += /mob/living/carbon/human/proc/leap
 	H.verbs += /mob/living/carbon/human/proc/gut
-	..()
+	//..()
 
 /datum/species/vox/armalis
 	name = "Vox Armalis"

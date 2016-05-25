@@ -62,11 +62,12 @@
 #define HAS_TAIL 			16
 #define TAIL_OVERLAPPED		32
 #define HAS_SKIN_TONE 		64
-#define HAS_SKIN_COLOR		128
-#define HAS_MARKINGS		256
-#define TAIL_WAGGING    	512
-#define NO_EYES				1024
-#define HAS_FUR				2048
+#define HAS_ICON_SKIN_TONE	128
+#define HAS_SKIN_COLOR		256
+#define HAS_MARKINGS		512
+#define TAIL_WAGGING    	1024
+#define NO_EYES				2048
+#define HAS_FUR				4096
 
 //Species Diet Flags
 #define DIET_CARN		1

@@ -258,8 +258,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
-			if(species in list("Human", "Drask"))
-				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
+			if(species in list("Human", "Drask", "Vox"))
+				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[species == "Vox" ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'>Set Flavor Text</a><br>"
@@ -1010,8 +1010,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					g_eyes = rand(0,255)
 					b_eyes = rand(0,255)
 				if("s_tone")
-					if(species in list("Human", "Drask"))
-						s_tone = random_skin_tone()
+					if(species in list("Human", "Drask", "Vox"))
+						s_tone = random_skin_tone(species)
 				if("s_color")
 					if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wyrn", "Vulpkanin", "Machine"))
 						r_skin = rand(0,255)
@@ -1367,11 +1367,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
 				if("s_tone")
-					if(species != "Human" && species != "Drask")
-						return
-					var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
-					if(new_s_tone)
-						s_tone = 35 - max(min( round(new_s_tone), 220),1)
+					if(species == "Human" || species == "Drask")
+						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
+						if(new_s_tone)
+							s_tone = 35 - max(min(round(new_s_tone), 220), 1)
+					else if(species == "Vox")
+						var/skin_c = input(user, "Choose your Vox's skin color:\n(1 = Default Green, 2 = Dark Green, 3 = Brown, 4 = Grey)", "Character Preference") as num|null
+						if(skin_c)
+							s_tone = max(min(round(skin_c), 4), 1)
 
 				if("skin")
 					if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))

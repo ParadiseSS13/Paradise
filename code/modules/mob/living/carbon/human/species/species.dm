@@ -372,6 +372,9 @@
 	grant_abilities(C)
 	return
 
+/datum/species/proc/updatespeciescolor(var/mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
+	return
+
 /datum/species/proc/grant_abilities(var/mob/living/carbon/human/H)
 	for(var/proc/ability in species_abilities)
 		H.verbs += ability

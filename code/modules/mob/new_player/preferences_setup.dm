@@ -199,13 +199,31 @@
 	var/icon/icobase
 	var/datum/species/current_species = all_species[species]
 
+	//Icon-based species colour.
+	var/coloured_tail
 	if(current_species)
-		icobase = current_species.icobase
+		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
+			if(current_species.name == "Vox") //Handling species-specific icon-based skin tones for the Vox race.
+				switch(s_tone)
+					if(4) //Grey Vox.
+						icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
+						coloured_tail = "voxtail_gry" //Ensures they get an appropriately coloured tail.
+					if(3) //Brown Vox.
+						icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
+						coloured_tail = "voxtail_brn"
+					if(2) //Dark Green Vox.
+						icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
+						coloured_tail = "voxtail_dgrn"
+					else  //Default Green Vox.
+						icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+						coloured_tail = "voxtail"
+		else
+			icobase = current_species.icobase
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
 	var/fat=""
-	if(disabilities&DISABILITY_FLAG_FAT && current_species.flags & CAN_BE_FAT)
+	if(disabilities & DISABILITY_FLAG_FAT && current_species.flags & CAN_BE_FAT)
 		fat="_fat"
 	preview_icon = new /icon(icobase, "torso_[g][fat]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
@@ -222,7 +240,10 @@
 			tail_icon_state = accessory.icon_state
 		else
 			tail_icon = "icons/effects/species.dmi"
-			tail_icon_state = "[current_species.tail]_s"
+			if(coloured_tail)
+				tail_icon_state = "[coloured_tail]_s"
+			else
+				tail_icon_state = "[current_species.tail]_s"
 
 		var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
 		preview_icon.Blend(temp, ICON_OVERLAY)

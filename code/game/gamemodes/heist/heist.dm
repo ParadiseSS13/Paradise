@@ -84,7 +84,6 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 /datum/game_mode/proc/create_vox(var/datum/mind/newraider)
 
-
 	var/sounds = rand(2,8)
 	var/i = 0
 	var/newname = ""
@@ -93,21 +92,24 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		i++
 		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
 
+	newraider.current = new /mob/living/carbon/human/vox
 	var/mob/living/carbon/human/vox = newraider.current
-	var/obj/item/organ/external/head/head_organ = vox.get_organ("head")
 
+	vox.add_language("Tradeband")
 	vox.real_name = capitalize(newname)
+	vox.dna.real_name = vox.real_name
 	vox.name = vox.real_name
 	newraider.name = vox.name
-	vox.age = rand(12,20)
-	vox.set_species("Vox")
-	vox.languages = list() // Removing language from chargen.
 	vox.flavor_text = ""
-	vox.add_language("Vox-pidgin")
-	vox.add_language("Galactic Common")
-	vox.add_language("Tradeband")
-	head_organ.h_style = "Short Vox Quills"
-	head_organ.f_style = "Shaved"
+	vox.age = rand(12, 20)
+	vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
+	vox.change_skin_tone(rand(1, 4))
+
+	// Do the initial caching of the player's body icons.
+	vox.force_update_limbs()
+	vox.update_dna()
+	vox.update_eyes()
+	vox.regenerate_icons()
 
 	for(var/obj/item/organ/external/limb in vox.organs)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
@@ -119,7 +121,6 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	cortical_stacks += I
 
 	vox.equip_vox_raider()
-	vox.regenerate_icons()
 
 /datum/game_mode/proc/is_raider_crew_safe()
 	if(cortical_stacks.len == 0)
