@@ -1,5 +1,0 @@
-author: IK3I
-delete-after: True
-changes: 
-  - bugfix: "Sleepers, scanners, and borg chargers no longer remove you from existence when destroyed"
-  - bugfix: "Hostile mobs are no longer fooled by your clever scanner and recharger tricks"
