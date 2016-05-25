@@ -34,7 +34,6 @@
 
 /mob/living/simple_animal/possessed_object/start_pulling(var/atom/movable/AM) // Silly motherfuckers think they can pull things.
 	to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
-	return
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
@@ -121,7 +120,7 @@
 /mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
 	if(istype(possessed_item, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/possessed_id = possessed_item
-		.= possessed_id.access
+		. = possessed_id.access
 
 
 /mob/living/simple_animal/possessed_object/ClickOn(var/atom/A, var/params)

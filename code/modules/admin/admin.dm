@@ -982,7 +982,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		qdel(frommob)
 
 
-	if(istype(tothing, /mob/living))
+	if(isliving(tothing))
 		var/mob/living/tomob = tothing
 
 		var/question = ""
