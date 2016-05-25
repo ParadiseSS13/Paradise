@@ -33,7 +33,8 @@
 		return
 	var/floatdegrees = rand(5, 20)
 	var/side = 1
-	if(random_side) side = pick(-1, 1)
+	if(random_side)
+		side = pick(-1, 1)
 
 	spawn(rand(1,10))
 		animate(A, pixel_y = 32, transform = matrix(floatdegrees * (side == 1 ? 1:-1), MATRIX_ROTATE), time = floatspeed, loop = loopnum, easing = SINE_EASING)
@@ -45,7 +46,8 @@
 		return
 	var/floatdegrees = rand(5, 20)
 	var/side = 1
-	if(random_side) side = pick(-1, 1)
+	if(random_side)
+		side = pick(-1, 1)
 
 	spawn(rand(1,10))
 		animate(A, pixel_y = 8, transform = matrix(floatdegrees * (side == 1 ? 1:-1), MATRIX_ROTATE), time = floatspeed, loop = loopnum, easing = SINE_EASING)
@@ -57,7 +59,8 @@
 		return
 	var/floatdegrees = rand(5, 20)
 	var/side = 1
-	if(random_side) side = pick(-1, 1)
+	if(random_side)
+		side = pick(-1, 1)
 
 	spawn(rand(1,10))
 		animate(A, pixel_y = 8, transform = matrix(floatdegrees * (side == 1 ? 1:-1), MATRIX_ROTATE), time = floatspeed, loop = loopnum, easing = SINE_EASING)
