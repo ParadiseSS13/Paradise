@@ -630,6 +630,7 @@
 #include "code\game\machinery\telecomms\logbrowser.dm"
 #include "code\game\machinery\telecomms\machine_interactions.dm"
 #include "code\game\machinery\telecomms\presets.dm"
+#include "code\game\machinery\telecomms\server_interface.dm"
 #include "code\game\machinery\telecomms\telecomunications.dm"
 #include "code\game\machinery\telecomms\telemonitor.dm"
 #include "code\game\machinery\telecomms\traffic_control.dm"

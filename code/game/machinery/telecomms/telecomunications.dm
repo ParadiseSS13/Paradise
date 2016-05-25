@@ -116,6 +116,18 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 	return send_count
 
+/obj/machinery/telecomms/proc/get_links(filter)
+	. = list()
+	for(var/obj/machinery/telecomms/machine in links)
+		if(filter && !istype( machine, text2path(filter) ))
+			continue
+		if(!machine.on)
+			continue
+		if(machine.loc.z != listening_level)
+			if(long_range_link == 0 && machine.long_range_link == 0)
+				continue
+		. += machine
+
 /obj/machinery/telecomms/proc/relay_direct_information(datum/signal/signal, obj/machinery/telecomms/machine)
 	// send signal directly to a machine
 	machine.receive_information(signal, src)
@@ -472,6 +484,10 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/language = "human"
 	var/obj/item/device/radio/headset/server_radio = null
 
+	var/list/linked_machines = list()
+	var/list/linked_machines_by_tag = list()
+	var/list/linked_machines_refs = list()
+
 /obj/machinery/telecomms/server/New()
 	..()
 	Compiler = new()
@@ -577,6 +593,19 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	if(length(rawcode)) // Let's not bother the admins for empty code.
 		message_admins("[key_name_admin(mob)] has compiled and uploaded a NTSL script to [src.id] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
+/obj/machinery/telecomms/m_relay
+	name = "Local Control Relay"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "m_relay"
+	desc = "A relay for controlling nearby machinery"
+	density = 1
+	anchored = 1
+	use_power = 1
+	idle_power_usage = 15
+	machinetype = 9
+	long_range_link = 1
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/m_relay
+
 // Simple log entry datum
 
 /datum/comm_log_entry
@@ -585,9 +614,31 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/garbage_collector = 1 // if set to 0, will not be garbage collected
 	var/input_type = "Speech File"
 
+/datum/server_machine_link
+	var/obj/machinery/machine = null
+	var/obj/machinery/telecomms/server/server = null
+	var/obj/machinery/telecomms/hub/hub = null
+	var/obj/machinery/telecomms/m_relay/relay = null
+	var/machine_tag = ""
+	var/subscribed = 0
 
+/datum/server_machine_link/New(n_machine,n_server,n_tag)
+	machine = n_machine
+	server = n_server
+	machine_tag = n_tag
 
-
-
-
-
+/datum/server_machine_link/proc/is_valid()
+	if(machine.stat & (NOPOWER|BROKEN|EMPED))
+		return 0
+	if(!server || !server.on || !hub || !hub.on || !relay || !relay.on)
+		return 0
+	if(!(hub in server.get_links("/obj/machinery/telecomms/hub")))
+		return 0
+	var/list/valid_z = list(server.z)
+	for(var/obj/machinery/telecomms/relay/R in hub.get_links("/obj/machinery/telecomms/relay"))
+		valid_z |= R.listening_level
+	if(!(relay in hub.get_links("/obj/machinery/telecomms/m_relay")))
+		return 0
+	if(!machine in get_area(relay))
+		return 0
+	return 1

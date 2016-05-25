@@ -822,6 +822,17 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/weapon/stock_parts/subspace/filter = 2)
 
+/obj/item/weapon/circuitboard/telecomms/m_relay
+	name = "Circuit Board (Local Relay)"
+	build_path = /obj/machinery/telecomms/m_relay
+	board_type = "machine"
+	origin_tech = "programming=2;engineering=2;bluespace=2"
+	frame_desc = "Requires 1 Manipulator, 1 Cable Coil and 1 Hyperwave Filter."
+	req_components = list(
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 1,
+							/obj/item/weapon/stock_parts/subspace/filter = 1)
+
 /obj/item/weapon/circuitboard/telecomms/bus
 	name = "Circuit Board (Bus Mainframe)"
 	build_path = /obj/machinery/telecomms/bus

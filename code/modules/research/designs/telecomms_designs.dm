@@ -42,6 +42,16 @@
 	build_path = /obj/item/weapon/circuitboard/telecomms/relay
 	category = list("Subspace Telecomms")
 
+/datum/design/telecomms_relay
+	name = "Machine Board (Local Relay)"
+	desc = "Allows for the construction of Telecommunications Relay Mainframes."
+	id = "s-m_relay"
+	req_tech = list("programming" = 1, "engineering" = 2, "bluespace" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/telecomms/m_relay
+	category = list("Subspace Telecomms")
+
 /datum/design/telecomms_server
 	name = "Machine Board (Server Mainframe)"
 	desc = "Allows for the construction of Telecommunications Servers."

@@ -116,6 +116,24 @@
 	interpreter.SetProc("broadcast", "tcombroadcast", signal, list("message", "freq", "source", "job"))
 
 	/*
+		-> Interface with a linked machine
+				@format: interface_machine(machine, args)
+
+				@param machine:		Tag assigned to the machine using the Traffic Control
+				@param args:		Arguments to pass to machine
+	*/
+	interpreter.SetProc("interface_machine", "interface_machine", signal, list("machine", "args"))
+
+	/*
+		-> Sends a PDA message
+				@format: pda_message(recipient, message)
+
+				@param recipient:	Name of recipient. Must match name on the PDA exactly.
+				@param message:		Message to send to recipient
+	*/
+	interpreter.SetProc("pda_message", "pda_message", signal, list("recipient", "message"))
+
+	/*
 		-> Store a value permanently to the server machine (not the actual game hosting machine, the ingame machine)
 				@format: mem(address, value)
 
@@ -233,6 +251,9 @@
 	interpreter.SetProc("time",			/proc/time)
 	interpreter.SetProc("timestamp",	/proc/timestamp)
 
+	// Station data
+	interpreter.SetProc("crew_manifest",/proc/n_crew_manifest)
+
 	// Run the compiled code
 	interpreter.Run()
 
@@ -337,3 +358,34 @@
 	var/pass = S.relay_information(newsign, "/obj/machinery/telecomms/hub")
 	if(!pass)
 		S.relay_information(newsign, "/obj/machinery/telecomms/broadcaster") // send this simple message to broadcasters
+
+/datum/signal/proc/interface_machine(var/machine_tag,var/list/arglist)
+	var/obj/machinery/telecomms/server/S = data["server"]
+
+	var/datum/server_machine_link/L = S.linked_machines_by_tag[machine_tag]
+	if(L == null)
+		return
+	if(!L.is_valid())
+		return
+	var/obj/machinery/M = L.machine
+
+	return M.server_interface(arglist)
+
+/datum/signal/proc/pda_message(recipient, message)
+	var/obj/machinery/telecomms/server/S = data["server"]
+	if(!istext(recipient))
+		return
+	if(!message)
+		return
+	var/obj/machinery/message_server/useMS = null
+	if(message_servers)
+		for (var/obj/machinery/message_server/MS in message_servers)
+			if(MS.active)
+				useMS = MS
+				break
+	if(useMS)
+		for(var/obj/item/device/pda/P in PDAs)
+			if (P.owner==recipient)
+				useMS.send_pda_message("[P.owner]", "[S.id] Automated Broadcast", message)
+				var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+				PM.notify("<b>Message from [S.id] (Automated Message), </b>\"[message]\" (<i>Unable to Reply</i>)", 0)

@@ -322,6 +322,16 @@
 	build_path = /obj/item/weapon/circuitboard/comm_traffic
 	category = list("Computer Boards")
 
+/datum/design/server_interface
+	name = "Console Board (Telecommunications Server Interface)"
+	desc = "Allows for the construction of circuit boards used to build a telecommunications server interface console."
+	id = "server_interface"
+	req_tech = list("programming" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/server_interface
+	category = list("Computer Boards")
+
 /datum/design/telesci_console
 	name = "Console Board (Telepad Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a telescience console."

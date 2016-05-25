@@ -296,6 +296,16 @@ proc/n_round(var/num)
 	if(isnum(num) && 0 < num)
 		return log(num)
 
+/proc/n_crew_manifest()
+	var/list/returned_list = list()
+	for(var/datum/data/record/R in data_core.general)
+		var/name = sanitize(R.fields["name"])
+		var/rank = sanitize(R.fields["rank"])
+		var/real_rank = R.fields["real_rank"]
+		var/isactive = R.fields["p_stat"]
+		returned_list[++returned_list.len] = list("name"=name,"rank"=rank,"real_rank"=real_rank,"active"=isactive)
+	return returned_list
+
 /proc/n_replacetext(text, r, with)
 	return replacetext(text, r, with)
 

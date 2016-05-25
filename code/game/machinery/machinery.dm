@@ -116,6 +116,8 @@ Class Procs:
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
+	var/tcomms_linkable = 0
+	var/list/tcomms_subscribers = list()
 
 /obj/machinery/New()
 	addAtProcessing()
@@ -555,6 +557,28 @@ Class Procs:
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/construction()
 	return
+
+/obj/machinery/proc/server_interface(var/list/arglist)
+	return
+
+/obj/machinery/proc/notify_subscribers(var/message)
+	spawn(0)
+		for(var/datum/server_machine_link/L in tcomms_subscribers)
+			if(!L.is_valid())
+				continue
+			var/obj/machinery/telecomms/server/S = L.server
+			var/datum/signal/signal = new
+			signal.data["message"] = message
+			signal.frequency = 1275
+			signal.data["name"] = L.machine_tag
+			signal.data["realname"] = L.machine_tag
+			signal.data["job"] = "Machinery"
+			signal.data["reject"] = 1
+			signal.data["server"] = S
+			signal.transmission_method = 2
+			var/turf/position = get_turf(src)
+			signal.data["level"] = list(position.z)
+			S.Compiler.Run(signal)
 
 /obj/machinery/tesla_act(var/power)
 	..()
