@@ -117,7 +117,7 @@
 	var/steps = 16
 	for(var/I in 0 to (steps - 1))
 		var/x = intensity * cos(360 * I / steps)
-		var/y = intensity * sin(360 * I / steps)
+		var/y = intensity * -sin(360 * I / steps)
 		if(I == 0)
 			animate(src, transform = matrix(1, x, 0, y, 1, 0), time = 1, loop = -1)
 		else
