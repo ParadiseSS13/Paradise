@@ -1155,6 +1155,15 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/AdjustResting(amount)
 	SetResting(resting + amount)
+	
+/mob/proc/Nauseate(amount)
+	SetNausea(max(nausea, amount))
+
+/mob/proc/SetNausea(amount)
+	nausea = max(amount, 0)
+
+/mob/proc/AdjustNausea(amount)
+	SetNausea(nausea + amount)
 
 /mob/proc/get_species()
 	return ""

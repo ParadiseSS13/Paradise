@@ -106,6 +106,23 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
 
+/obj/screen/fullscreen/nausea
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	appearance_flags = PLANE_MASTER
+	icon_state
+
+/obj/screen/fullscreen/nausea/New()
+	..()
+	var/intensity = 0.17 // Intensity
+	var/steps = 16
+	for(var/I in 0 to (steps - 1))
+		var/x = intensity * cos(360 * I / steps)
+		var/y = intensity * sin(360 * I / steps)
+		if(I == 0)
+			animate(src, transform = matrix(1, x, 0, y, 1, 0), time = 1, loop = -1)
+		else
+			animate(transform = matrix(1, x, 0, y, 1, 0), time = 1, loop = -1)
+
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef DAMAGE_LAYER

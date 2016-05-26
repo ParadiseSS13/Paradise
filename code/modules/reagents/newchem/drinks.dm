@@ -169,6 +169,7 @@
 
 	else
 		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+		M.Nauseate(10)
 		if(prob(25))
 			holder.remove_reagent(id, 15)
 			M.fakevomit()

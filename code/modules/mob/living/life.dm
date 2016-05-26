@@ -112,7 +112,7 @@
 	handle_paralysed()
 	handle_sleeping()
 	handle_slowed()
-
+	handle_nausea()
 
 /mob/living/proc/handle_stunned()
 	if(stunned)
@@ -165,6 +165,11 @@
 	if(slowed)
 		slowed = max(slowed-1, 0)
 	return slowed
+
+/mob/living/proc/handle_nausea()
+	if(nausea)
+		AdjustNausea(-1)
+	return nausea
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
@@ -221,6 +226,13 @@
 		else
 			clear_fullscreen("high")
 			clear_alert("high")
+		
+		if(nausea)
+			overlay_fullscreen("nausea", /obj/screen/fullscreen/nausea)
+			throw_alert("nausea", /obj/screen/alert/nausea)
+		else
+			clear_fullscreen("nausea", 0)
+			clear_alert("nausea")
 
 	if(machine)
 		if(!machine.check_eye(src))

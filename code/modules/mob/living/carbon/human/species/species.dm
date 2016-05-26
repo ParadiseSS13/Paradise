@@ -604,6 +604,13 @@
 	else
 		H.clear_fullscreen("high")
 		H.clear_alert("high")
+	
+	if(H.nausea)
+		H.overlay_fullscreen("nausea", /obj/screen/fullscreen/nausea)
+		H.throw_alert("nausea", /obj/screen/alert/nausea)
+	else
+		H.clear_fullscreen("nausea", 0)
+		H.clear_alert("nausea")
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(H.healths)

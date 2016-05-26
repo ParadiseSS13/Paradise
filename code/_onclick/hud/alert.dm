@@ -224,6 +224,10 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+/obj/screen/alert/nausea
+	name = "Nausea"
+	desc = "You feel like you're about to throw up."
+	icon_state = "nausea"
 
 //ALIENS
 
