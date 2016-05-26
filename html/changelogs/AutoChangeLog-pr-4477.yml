@@ -1,0 +1,5 @@
+author: FalseIncarnate
+delete-after: True
+changes: 
+  - rscadd: "Adds 4 new types of fudge for the chef to make: Peanut, Chocolate Cherry, Cookies 'n' Cream, and Turtle Fudge."
+  - tweak: "Normal fudge recipe now uses milk instead of cream."

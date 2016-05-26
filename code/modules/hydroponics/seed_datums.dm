@@ -899,6 +899,7 @@
 	seed_name = "peanut"
 	display_name = "peanut vines"
 	chems = list("plantmatter" = list(1,10))
+	kitchen_tag = "peanuts"
 	preset_icon = "peanuts"
 
 /datum/seed/peanuts/New()
