@@ -39,6 +39,11 @@
 		)
 	src << browse('html/changelog.html', "window=changes;size=675x650")
 
+	if(prefs.lastchangelog != changelog_hash) //if it's already opened, no need to tell them they have unread changes
+		prefs.lastchangelog = changelog_hash
+		prefs.save_preferences()
+		winset(src, "rpane.changelog", "background-color=none;font-style=")
+
 /client/verb/forum()
 	set name = "forum"
 	set desc = "Visit the forum."
