@@ -239,6 +239,7 @@
 #define REGION_ENGINEERING	5
 #define REGION_SUPPLY		6
 #define REGION_COMMAND		7
+#define REGION_COMMAND		8
 
 //Matricies
 #define MATRIX_DEFAULT list(1, 0, 0, 0,\
