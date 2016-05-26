@@ -38,9 +38,25 @@
 				return 1
 	if(href_list["skin_tone"])
 		if(can_change_skin_tone())
-			var/new_s_tone = input(usr, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
-			if(isnum(new_s_tone) && can_still_topic(state))
-				new_s_tone = 35 - max(min( round(new_s_tone), 220),1)
+			var/new_s_tone = null
+			if(owner.species.bodyflags & HAS_SKIN_TONE)
+				new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
+				if(isnum(new_s_tone) && can_still_topic(state))
+					new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
+
+			if(owner.species.bodyflags & HAS_ICON_SKIN_TONE)
+				var/prompt = "Choose your character's skin tone: 1-[owner.species.icon_skin_tones.len]\n("
+				for(var/i = 1; i <= owner.species.icon_skin_tones.len; i++)
+					prompt += "[i] = [owner.species.icon_skin_tones[i]]"
+					if(i != owner.species.icon_skin_tones.len)
+						prompt += ", "
+				prompt += ")"
+
+				new_s_tone = input(usr, prompt, "Skin Tone", owner.s_tone) as num|null
+				if(isnum(new_s_tone) && can_still_topic(state))
+					new_s_tone = max(min(round(new_s_tone), owner.species.icon_skin_tones.len), 1)
+
+			if(new_s_tone)
 				return owner.change_skin_tone(new_s_tone)
 	if(href_list["skin_color"])
 		if(can_change_skin_color())
@@ -209,7 +225,7 @@
 	return owner && (flags & flag)
 
 /datum/nano_module/appearance_changer/proc/can_change_skin_tone()
-	return owner && (flags & APPEARANCE_SKIN) && (owner.species.bodyflags & HAS_SKIN_TONE)
+	return owner && (flags & APPEARANCE_SKIN) && ((owner.species.bodyflags & HAS_SKIN_TONE) || (owner.species.bodyflags & HAS_ICON_SKIN_TONE))
 
 /datum/nano_module/appearance_changer/proc/can_change_skin_color()
 	return owner && (flags & APPEARANCE_SKIN) && (owner.species.bodyflags & HAS_SKIN_COLOR)
