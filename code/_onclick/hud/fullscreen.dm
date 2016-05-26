@@ -109,7 +109,7 @@
 /obj/screen/fullscreen/nausea
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	appearance_flags = PLANE_MASTER
-	icon_state
+	mouse_opacity = 1
 
 /obj/screen/fullscreen/nausea/New()
 	..()
