@@ -46,6 +46,7 @@
 
 	message_admins("Picking a new Cult objective.")
 	var/new_objective = "eldergod"
+	var/dieanotherday = 0//if we have less then four cultists..
 	//the idea here is that if the cult performs well, the should get more objectives before they can summon Nar-Sie.
 	if(cult.len >= 4)//if there are less than 4 remaining cultists, they get a free pass to the summon objective.
 		if(current_objective <= prenarsie_objectives)
@@ -61,6 +62,7 @@
 	else
 		message_admins("There are less than 4 cultists! [ticker.mode.cultdat.entity_name] objective unlocked.")
 		log_admin("There are less than 4 cultists! [ticker.mode.cultdat.entity_name] objective unlocked.")
+		dieanotherday = 1
 
 	if(!sacrificed.len && (new_objective != "sacrifice"))
 		sacrifice_target = null
@@ -101,7 +103,7 @@
 		explanation = "Summon [ticker.mode.cultdat.entity_name] on the Station via the use of the Tear Reality rune."
 	else
 		objectives += "slaughter"
-		explanation = "Bring the Slaughter via the rune 'Tear Reality'."
+		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'."
 
 	for(var/datum/mind/cult_mind in cult)
 		to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")

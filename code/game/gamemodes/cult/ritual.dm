@@ -130,7 +130,7 @@
 
 	text += "<font color='red'><b>Talisman of Teleportation</b></font><br>The talisman form of the Teleport rune will transport the invoker to a selected Teleport rune once.<br><br>"
 
-	text += "<font color='red'><b>Talisman of Construction</b></font><br>This talisman is the main way of creating construct shells. To use it, one must strike 30 sheets of metal with the talisman. The sheets will then be twisted into a construct shell, ready to recieve a soul to occupy it.<br><br>"
+	text += "<font color='red'><b>Talisman of Fabrication</b></font><br>This talisman is the main way of creating construct shells. To use it, one must strike 30 sheets of metal with the talisman. The sheets will then be twisted into a construct shell, ready to recieve a soul to occupy it.<br><br>"
 
 	text += "<font color='red'><b>Talisman of Tome Summoning</b></font><br>This talisman will produce a single tome at your feet.<br><br>"
 
@@ -235,7 +235,7 @@
 				to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 				return
 			else if(cult_mode.demons_summoned)
-				to_chat(user, "<span class='cultlarge'>\"We am already here. There is no need to try to summon us now.\"</span>")
+				to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
 				return
 			var/confirm_final = alert(user, "This is the FINAL step to summon Nar-Sie, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
 			if(confirm_final == "No")
@@ -247,10 +247,12 @@
 				var/obj/machinery/shield/N = new(T)
 				N.name = "Rune-Scriber's Shield"
 				N.desc = "A potent shield summoned by cultists to protect them while they prepare the final ritual"
-				N.icon_state = "shield-red"
+				N.icon_state = "shield-cult"
 				N.health = 60
 				shields |= N
-	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+	var/mob/living/carbon/human/H = user
+	var/organs_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+	var/obj/item/organ/external/dam_zone = H.get_organ(organs_zone)
 	user.visible_message("<span class='warning'>[user] cuts open their [dam_zone] and begins writing in their own blood!</span>", \
 						 "<span class='cult'>You slice open your [dam_zone] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, dam_zone)
@@ -270,7 +272,6 @@
 		if(S && !qdeleted(S))
 			qdel(S)
 	var/obj/effect/rune/R = new rune_to_scribe(Turf, chosen_keyword)
-	var/mob/living/carbon/human/H = user
 	R.blood_DNA = list()
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
 	R.add_hiddenprint(H)

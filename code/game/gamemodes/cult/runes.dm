@@ -433,7 +433,7 @@ var/list/teleport_runes = list()
 
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
 /obj/effect/rune/narsie
-	cultist_name = "Tear Reality"
+	cultist_name = "Tear Reality (God)"
 	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
@@ -510,7 +510,7 @@ var/list/teleport_runes = list()
 
 
 /obj/effect/rune/slaughter
-	cultist_name = "Call Forth The Slaughter"
+	cultist_name = "Call Forth The Slaughter (Demons)"
 	cultist_desc = "Calls forth the doom of a eldrtich being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
@@ -587,7 +587,7 @@ var/list/teleport_runes = list()
 		to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
 		icon_state = "rune_large_distorted"
 		sleep(55)
-		to_chat(world, "<span class='cult'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
+		to_chat(world, "<span class='cultlarge'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
 		visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
 		var/turf/T = get_turf(src)
 		new /mob/living/simple_animal/slaughter/cult(T)

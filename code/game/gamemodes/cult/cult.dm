@@ -41,7 +41,7 @@ var/global/list/all_cults = list()
 	config_tag = "cult"
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician")
 	protected_jobs = list()
-	required_players = 30
+	required_players = 1
 	required_enemies = 3
 	recommended_enemies = 4
 
@@ -119,9 +119,11 @@ var/global/list/all_cults = list()
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
+		update_cult_icons_added(cult_mind)
 		add_cultist(cult_mind)
 		to_chat(cult_mind.current, "<span class='cult'> You are a member of the cult!</span>")//need fluffier text here...
-		first_phase()
+
+	first_phase()
 
 	..()
 
@@ -142,7 +144,7 @@ var/global/list/all_cults = list()
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon [ticker.mode.cultdat.entity_name] via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
+				explanation = "Summon [ticker.mode.cultdat.entity_name]. It will only work if nine cultists stand on and around it."
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
@@ -203,7 +205,6 @@ var/global/list/all_cults = list()
 		cult_mind.special_role = null
 		for(var/datum/action/cultcomm/C in cult_mind.current.actions)
 			qdel(C)
-
 		update_cult_icons_removed(cult_mind)
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
