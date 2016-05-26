@@ -49,7 +49,7 @@
 	if(prevented)
 		to_chat(owner, "<span class = 'notice'>You can't do that because [prevented]!</span>")
 		return 0
-	return emote.doEmote(owner)
+	return emote.doEmote(owner, command)
 
 /datum/emoteHandler/proc/showCommands()
 	var/emoteList = "Available emotes are "
