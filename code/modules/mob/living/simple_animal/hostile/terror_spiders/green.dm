@@ -10,7 +10,7 @@
 // -------------: SPRITES FROM: Codersprites :(
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green
-	name = "green terror spider"
+	name = "Green Terror spider"
 	desc = "An ominous-looking green spider, it has a small egg-sac attached to it."
 	altnames = list("Green Terror spider","Insidious Breeding spider","Fast Bloodsucking spider")
 	spider_role_summary = "Average melee spider that webs its victims and lays more spider eggs"

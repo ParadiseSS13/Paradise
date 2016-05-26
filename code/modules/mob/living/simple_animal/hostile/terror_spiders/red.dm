@@ -11,7 +11,7 @@
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/red
-	name = "red terror spider"
+	name = "Red Terror spider"
 	desc = "An ominous-looking red spider, it has eight beady red eyes, and nasty, big, pointy fangs!"
 	altnames = list("Red Terror spider","Crimson Terror spider","Bloody Butcher spider")
 	egg_name = "red spider eggs"

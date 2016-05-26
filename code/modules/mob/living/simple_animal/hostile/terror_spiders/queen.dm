@@ -356,8 +356,6 @@
 		for(var/mob/living/carbon/human/H in player_list)
 			if (H.z != src.z)
 				continue
-			if (H == src)
-				continue
 			if (H.health < 1)
 				continue
 			if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/))
@@ -408,7 +406,7 @@
 	if (spider_can_fakelings)
 		spider_can_fakelings--
 		var/numlings = 15
-		for(var/i=0, i<numlings, i++)
+		for(var/i in 1 to numlings)
 			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 			S.stillborn = 1

@@ -52,7 +52,7 @@
 
 /obj/effect/spider/terror_eggcluster/process()
 	amount_grown += rand(0,2)
-	if(amount_grown >= 100)
+	if (amount_grown >= 100)
 		var/num = spiderling_number
 		for(var/i=0, i<num, i++)
 			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
@@ -123,7 +123,7 @@
 
 
 /obj/effect/spider/terror_spiderling/Bump(atom/user)
-	if(istype(user, /obj/structure/table))
+	if (istype(user, /obj/structure/table))
 		loc = user.loc
 	else if (istype(user, /obj/machinery/recharge_station))
 		qdel(src)
@@ -138,25 +138,25 @@
 
 
 /obj/effect/spider/terror_spiderling/healthcheck()
-	if(health <= 0)
+	if (health <= 0)
 		die()
 
 
 /obj/effect/spider/terror_spiderling/process()
-	if(travelling_in_vent)
-		if(isturf(loc))
+	if (travelling_in_vent)
+		if (isturf(loc))
 			travelling_in_vent = 0
 			entry_vent = null
-	else if(entry_vent)
-		if(get_dist(src, entry_vent) <= 1)
+	else if (entry_vent)
+		if (get_dist(src, entry_vent) <= 1)
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if (!vents.len)
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			if(prob(50))
+			if (prob(50))
 				visible_message("<B>[src] scrambles into the ventillation ducts!</B>", \
 								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 			var/original_location = loc
@@ -164,42 +164,42 @@
 				loc = exit_vent
 				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
 				spawn(travel_time)
-					if(!exit_vent || exit_vent.welded)
+					if (!exit_vent || exit_vent.welded)
 						loc = original_location
 						entry_vent = null
 						return
-					if(prob(50))
+					if (prob(50))
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 					spawn(travel_time)
-						if(!exit_vent || exit_vent.welded)
+						if (!exit_vent || exit_vent.welded)
 							loc = original_location
 							entry_vent = null
 							return
 						loc = exit_vent.loc
 						entry_vent = null
 						var/area/new_area = get_area(loc)
-						if(new_area)
+						if (new_area)
 							new_area.Entered(src)
 	//=================
-	else if(prob(33))
+	else if (prob(33))
 		var/list/nearby = oview(10, src)
-		if(nearby.len)
+		if (nearby.len)
 			var/target_atom = pick(nearby)
 			walk_to(src, target_atom)
-	else if(prob(10) && use_vents)
+	else if (prob(10) && use_vents)
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
-			if(!v.welded)
+			if (!v.welded)
 				entry_vent = v
 				walk_to(src, entry_vent, 1)
 				break
-	if(isturf(loc))
+	if (isturf(loc))
 		amount_grown += rand(0,2)
-		if(amount_grown >= 100)
+		if (amount_grown >= 100)
 			if (stillborn)
 				die()
 			else
-				if(!grow_as)
+				if (!grow_as)
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red,/mob/living/simple_animal/hostile/poison/terror_spider/gray,/mob/living/simple_animal/hostile/poison/terror_spider/green)
 				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
 				S.faction = faction
@@ -226,9 +226,9 @@
 
 
 /obj/item/projectile/terrorqueenspit/on_hit(var/mob/living/carbon/target)
-	if(istype(target, /mob))
+	if (istype(target, /mob))
 		var/mob/living/L = target
-		if(L.reagents)
+		if (L.reagents)
 			if (L.can_inject(null,0,"chest",0))
 				L.reagents.add_reagent("terror_queen_toxin",15)
 
@@ -241,15 +241,10 @@
 
 
 /obj/item/projectile/terrorempressspit/on_hit(var/mob/living/carbon/target)
-	if(istype(target, /mob))
+	if (istype(target, /mob))
 		var/mob/living/L = target
-		if(L.reagents)
+		if (L.reagents)
 			L.reagents.add_reagent("ketamine",30)
-		//options:
-		//               terror_white_tranq, 0.1 metabolism, paralysis, cycle >= 10
-		//               sodium_thiopental, 0.7 metabolism, paralysis, cycle >= 5
-		//               ketamine, 0.8 metabolism, paralysis, cycle >= 10
-		//               Coniine, 0.05 metabolism, rapid respitory failure
 
 
 /obj/effect/spider/terrorweb
@@ -263,7 +258,7 @@
 
 
 /obj/effect/spider/terrorweb/New()
-	if(prob(50))
+	if (prob(50))
 		icon_state = "stickyweb2"
 
 /obj/effect/spider/terrorweb/proc/DeCloakNearby()
@@ -272,15 +267,15 @@
 		G.Aggro()
 
 /obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
+	if (air_group || (height==0)) return 1
+	if (istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
 	if (istype(mover, /obj/item/projectile/terrorqueenspit))
 		return 1
 	if (istype(mover, /obj/item/projectile/terrorempressspit))
 		return 1
-	if(istype(mover, /mob/living))
-		if(prob(80))
+	if (istype(mover, /mob/living))
+		if (prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
 			var/mob/living/M = mover
 			M.Stun(5) // 5 seconds.
@@ -290,7 +285,7 @@
 			return 1
 		else
 			return 0
-	if(istype(mover, /obj/item/projectile))
+	if (istype(mover, /obj/item/projectile))
 		return prob(20)
 	return ..()
 

@@ -10,10 +10,11 @@
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple
-	name = "praetorian spider"
+	name = "Praetorian spider"
 	desc = "An ominous-looking purple spider."
 	spider_role_summary = "Guards the nest of the Queen of Terror."
 	egg_name = "purple spider eggs"
+	altnames = list("Nest Guardian spider")
 
 	icon_state = "terror_purple"
 	icon_living = "terror_purple"

@@ -11,7 +11,7 @@
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother
-	name = "mother of terror spider"
+	name = "Mother of Terror spider"
 	desc = "An enormous spider. Its back is a crawling mass of spiderlings. All of them look around with beady little eyes. The horror!"
 	spider_role_summary = "Schmuck bait. Extremely weak in combat, but spawns many spiderlings when it dies."
 	egg_name = "mother spider eggs"

@@ -10,7 +10,7 @@
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white
-	name = "white death spider"
+	name = "White Death spider"
 	desc = "An ominous-looking white spider, its ghostly eyes and vicious-looking fangs are the stuff of nightmares."
 	spider_role_summary = "Rare, bite-and-run spider that infects hosts with spiderlings"
 	egg_name = "white spider eggs"

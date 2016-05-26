@@ -10,7 +10,7 @@
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray
-	name = "gray terror spider"
+	name = "Gray Terror spider"
 	desc = "An ominous-looking gray spider, its color and shape makes it hard to see."
 	altnames = list("Gray Trap spider","Gray Stalker spider","Ghostly Ambushing spider")
 	spider_role_summary = "Stealth spider that ambushes weak humans from vents."

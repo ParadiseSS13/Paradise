@@ -11,7 +11,7 @@
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince
-	name = "prince of terror spider"
+	name = "Prince of Terror spider"
 	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Extremely dangerous."
 	spider_role_summary = "Boss-level terror spider. Lightning bruiser. Capable of taking on a squad by itself."
 	egg_name = "prince spider eggs"

@@ -15,7 +15,7 @@
 	name = "Empress of Terror"
 	desc = "The unholy offspring of spiders, nightmares, and lovecraft fiction."
 	spider_role_summary = "Adminbus spider"
-	altnames = list ("terror empress spider")
+	altnames = list ("Terror Empress spider")
 	egg_name = "empress spider eggs"
 
 	icon_state = "terror_queen"

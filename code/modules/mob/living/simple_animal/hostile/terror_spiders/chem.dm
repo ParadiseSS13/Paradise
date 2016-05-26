@@ -16,7 +16,8 @@
 	metabolization_rate = 0.1
 
 /datum/reagent/terror_black_toxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+	if (!M)
+		M = holder.my_atom
 	if (volume >= 45)
 		// bitten 4 or more times, whole body goes into shock/death
 		// total damage: 12, human health 150 until crit, = 12.5 ticks, = 25s until death
@@ -53,13 +54,14 @@
 	metabolization_rate = 0.1
 
 /datum/reagent/terror_white_tranq/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+	if (!M)
+		M = holder.my_atom
 	// effects are similar to ketamine, aka the sleepy pen
-	if(current_cycle >= 3)
+	if (current_cycle >= 3)
 		M.confused = max(M.confused, 5)
-	if(current_cycle >= 6)
+	if (current_cycle >= 6)
 		M.eye_blurry = max(M.eye_blurry, 5)
-	if(current_cycle >= 10)
+	if (current_cycle >= 10)
 		M.Paralyse(10)
 	..()
 	return
@@ -75,10 +77,11 @@
 	metabolization_rate = 1
 
 /datum/reagent/terror_white_toxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if(iscarbon(M))
-		if(!M.get_int_organ(/obj/item/organ/internal/body_egg))
-			new/obj/item/organ/internal/body_egg/terror_eggs(M)
+	if (!M)
+		M = holder.my_atom
+	if (iscarbon(M))
+		if (!M.get_int_organ(/obj/item/organ/internal/body_egg))
+			new /obj/item/organ/internal/body_egg/terror_eggs(M)
 	return
 
 // Terror Spider, Queen Toxin
@@ -92,10 +95,10 @@
 	metabolization_rate = 2
 
 /datum/reagent/terror_queen_toxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+	if (!M)
+		M = holder.my_atom
 	// make them hallucinate a lot, like a changeling sting
-	if (M.hallucination < 400)
-		M.hallucination += 50
+	M.hallucination = min(400, M.hallucination+50)
 	return
 
 

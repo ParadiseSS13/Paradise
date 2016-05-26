@@ -10,7 +10,7 @@
 // -------------: SPRITES FROM: Travelling Merchant, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=2766
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black
-	name = "black widow spider"
+	name = "Black Widow spider"
 	desc = "An ominous-looking spider, black as the darkest night, and with merciless yellow eyes."
 	altnames = list("Black Devil spider","Giant Black Widow spider","Shadow Terror spider")
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."

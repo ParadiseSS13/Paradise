@@ -27,7 +27,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/B)
 	if (iscarbon(B))
 		var/mob/living/carbon/C = B
-		if(C.get_int_organ(/obj/item/organ/internal/body_egg))
+		if (C.get_int_organ(/obj/item/organ/internal/body_egg))
 			return 1
 	return 0
 
@@ -35,7 +35,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Retaliate()
 	var/list/around = view(src, 7)
 	for(var/atom/movable/A in around)
-		if(A == src)
+		if (A == src)
 			continue
 		if (A in enemies)
 			// they are already our enemy
@@ -43,34 +43,34 @@
 		if (istype(A, /mob/living/simple_animal/hostile/poison/terror_spider))
 			// we can't make enemies of other spiders. Regardless of faction checks (they are unreliable, sometimes spiders get created with no faction!)
 			continue
-		if(isliving(A))
+		if (isliving(A))
 			var/mob/living/M = A
 			var/faction_check = 0
 			for(var/F in faction)
-				if(F in M.faction)
+				if (F in M.faction)
 					faction_check = 1
 					break
-			if(faction_check && attack_same || !faction_check)
+			if (faction_check && attack_same || !faction_check)
 				enemies |= M
 				visible_message("<span class='danger'>\icon[src] [src] glares at [M]! </span>")
 				// should probably exempt people who are dead...
-		else if(istype(A, /obj/mecha))
+		else if (istype(A, /obj/mecha))
 			var/obj/mecha/M = A
-			if(M.occupant)
+			if (M.occupant)
 				enemies |= M
 				enemies |= M.occupant
-		else if(istype(A, /obj/spacepod))
+		else if (istype(A, /obj/spacepod))
 			var/obj/spacepod/M = A
-			if(M.occupant || M.occupant2)
+			if (M.occupant || M.occupant2)
 				enemies |= M
 				enemies |= M.occupant
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/H in around)
 		var/retaliate_faction_check = 0
 		for(var/F in faction)
-			if(F in H.faction)
+			if (F in H.faction)
 				retaliate_faction_check = 1
 				break
-		if(retaliate_faction_check && !attack_same && !H.attack_same)
+		if (retaliate_faction_check && !attack_same && !H.attack_same)
 			H.enemies |= enemies
 	if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/queen) || istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/empress)  )
 		for (var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
@@ -80,7 +80,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(var/msgtext)
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
-		if (T.health > 0)
+		if (T.stat != DEAD)
 			to_chat(T, "<span class='alien'>TerrorSense: " + msgtext + "</span>")
 
 
@@ -130,7 +130,7 @@
 
 	for(var/dir in cardinal) // North, South, East, West
 		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
-		if(is_type_in_list(obstacle, valid_obstacles))
+		if (is_type_in_list(obstacle, valid_obstacles))
 			obstacle.attack_animal(src)
 
 
@@ -267,12 +267,12 @@
 		D.open(1)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/TSVentCrawlRandom(/var/entry_vent)
-	if(entry_vent)
-		if(get_dist(src, entry_vent) <= 2)
+	if (entry_vent)
+		if (get_dist(src, entry_vent) <= 2)
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if (!vents.len)
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
@@ -282,21 +282,21 @@
 				loc = exit_vent
 				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
 				spawn(travel_time)
-					if(!exit_vent || exit_vent.welded)
+					if (!exit_vent || exit_vent.welded)
 						loc = original_location
 						entry_vent = null
 						return
-					if(prob(99))
+					if (prob(99))
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 					spawn(travel_time)
-						if(!exit_vent || exit_vent.welded)
+						if (!exit_vent || exit_vent.welded)
 							loc = original_location
 							entry_vent = null
 							return
 						loc = exit_vent.loc
 						entry_vent = null
 						var/area/new_area = get_area(loc)
-						if(new_area)
+						if (new_area)
 							new_area.Entered(src)
 						if (!istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/gray))
 							visible_message("<B>[src] emerges from the vent!</B>")
@@ -304,7 +304,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/humanize_spider(mob/user)
-	if(key)//Someone is in it
+	if (key)//Someone is in it
 		return
 	var/error_on_humanize = ""
 	var/humanize_prompt = "Take direct control of " + src.name + "? "
@@ -332,12 +332,12 @@
 		return
 	if (error_on_humanize == "")
 		var/spider_ask = alert(humanize_prompt, "Join as Terror Spider?", "Yes", "No")
-		if(spider_ask == "No" || !src || qdeleted(src))
+		if (spider_ask == "No" || !src || qdeleted(src))
 			return
 	else
 		to_chat(user, "Cannot inhabit spider: " + error_on_humanize)
 		return
-	if(key)
+	if (key)
 		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")
 		return
 	key = user.key
@@ -347,28 +347,28 @@
 	ShowGuide()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
-	if(!cocoon_target)
+	if (!cocoon_target)
 		var/list/choices = list()
 		for(var/mob/living/L in view(1,src))
-			if(L == src)
+			if (L == src)
 				continue
-			if(Adjacent(L))
+			if (Adjacent(L))
 				if (L.stat != CONSCIOUS)
 					choices += L
 		for(var/obj/O in loc)
-			if(Adjacent(O))
+			if (Adjacent(O))
 				if (istype(O, /obj/effect/spider/terrorweb))
 				else
 					choices += O
 		cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
-	if(cocoon_target && busy != SPINNING_COCOON)
+	if (cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")
 		stop_automated_movement = 1
 		walk(src,0)
 		spawn(50)
-			if(busy == SPINNING_COCOON)
-				if(cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)
+			if (busy == SPINNING_COCOON)
+				if (cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)
 					var/obj/effect/spider/cocoon/C = new(cocoon_target.loc)
 					var/large_cocoon = 0
 					C.pixel_x = cocoon_target.pixel_x
@@ -376,15 +376,15 @@
 					for(var/obj/item/I in C.loc)
 						I.loc = C
 					for(var/obj/structure/S in C.loc)
-						if(!S.anchored)
+						if (!S.anchored)
 							S.loc = C
 							large_cocoon = 1
 					for(var/obj/machinery/M in C.loc)
-						if(!M.anchored)
+						if (!M.anchored)
 							M.loc = C
 							large_cocoon = 1
 					for(var/mob/living/L in C.loc)
-						if(istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
+						if (istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
 							continue
 						large_cocoon = 1
 						fed++
@@ -394,7 +394,7 @@
 						C.pixel_y = L.pixel_y
 						visible_message("<span class='danger'>\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out.</span>")
 						break
-					if(large_cocoon)
+					if (large_cocoon)
 						C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
 			cocoon_target = null
 			busy = 0

@@ -110,12 +110,12 @@
 	set category = "Spider"
 	set desc = "Spin a sticky web to slow down prey."
 	var/T = loc
-	if(busy != SPINNING_WEB)
+	if (busy != SPINNING_WEB)
 		busy = SPINNING_WEB
 		visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
 		stop_automated_movement = 1
 		spawn(40)
-			if(busy == SPINNING_WEB && loc == T)
+			if (busy == SPINNING_WEB && loc == T)
 				new /obj/effect/spider/terrorweb(T)
 			busy = 0
 			stop_automated_movement = 0
@@ -127,11 +127,11 @@
 	set desc = "Takes a bite out of a humanoid. Increases regeneration. Use on dead bodies is preferable!"
 	var/choices = list()
 	for(var/mob/living/L in view(1,src))
-		if(L == src)
+		if (L == src)
 			continue
-		if(L in nibbled)
+		if (L in nibbled)
 			continue
-		if(Adjacent(L))
+		if (Adjacent(L))
 			if (L.stat != CONSCIOUS)
 				choices += L
 	var/nibbletarget = input(src,"What do you wish to nibble?") in null|choices
