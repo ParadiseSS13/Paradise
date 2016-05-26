@@ -58,8 +58,6 @@
 				else
 					D.emergency = 1
 				D.update_icon()
-	else if(!(D.is_special)) //so we don't get double messages for special doors
-		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
 
 /obj/item/weapon/door_remote/omni
 	name = "omni door remote"
