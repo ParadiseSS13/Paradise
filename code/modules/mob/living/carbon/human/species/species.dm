@@ -124,6 +124,9 @@
 	var/default_fhair = "Shaved"	//Default facial hair style for newly created humans unless otherwise set.
 	var/default_headacc = "None"	//Default head accessory style for newly created humans unless otherwise set.
 
+	//Defining lists of icon skin tones for species that have them.
+	var/list/icon_skin_tones = list()
+
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
 		"heart" =    /obj/item/organ/internal/heart,

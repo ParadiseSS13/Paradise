@@ -280,6 +280,13 @@
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'
 
+	icon_skin_tones = list(
+		1 = "Default Green",
+		2 = "Dark Green",
+		3 = "Brown",
+		4 = "Grey"
+		)
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
