@@ -273,7 +273,7 @@
 			to_chat(user, "\red The maintenance hatch is closed!")
 			return
 		if(!equipment_system)
-			to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at IK3I</span>")
+			to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at the coders</span>")
 			return
 		if(istype(W, /obj/item/device/spacepod_equipment/weaponry))
 			add_equipment(user, W, "weapon_system")
@@ -316,9 +316,8 @@
 				repair_damage(10)
 				to_chat(user, "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]")
 			return
-		else
-			to_chat(user, "\blue <b>\The [src] is fully repaired!</b>")
-			return
+		to_chat(user, "\blue <b>\The [src] is fully repaired!</b>")
+		return
 
 	if(istype(W, /obj/item/device/lock_buster))
 		var/obj/item/device/lock_buster/L = W
@@ -334,13 +333,11 @@
 				user.visible_message(user, "<span class='warning'>[user] fails to break through the [src]'s lock!</span>",
 				"<span class='notice'>You were unable to break through the [src]'s lock!</span>")
 			return
-		else
-			to_chat(user, "<span class='notice'>Turn the [L] on first.</span>")
+		to_chat(user, "<span class='notice'>Turn the [L] on first.</span>")
 		return
 
 	if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
 		cargo_hold.attackby(W, user, params)
-		return
 
 obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment/SPE, var/slot)
 	if(equipment_system.vars[slot])
@@ -353,10 +350,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		equipment_system.vars[slot] = SPE
 		var/obj/item/device/spacepod_equipment/system = equipment_system.vars[slot]
 		system.my_atom = src
+		equipment_system.installed_modules += SPE
 		max_passengers += SPE.occupant_mod
 		cargo_hold.storage_slots += SPE.storage_mod["slots"]
 		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
-		return
 
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(user.a_intent == I_GRAB && unlocked)
@@ -375,10 +372,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 				passengers -= target
 				target.visible_message("<span class='warning'>[user] flings the door open and tears [target] out of the [src]</span>",
 					"<span class='warning'>The door flies open and you are thrown out of the [src] and to the ground!</span>")
-			else
-				target.visible_message("<span class='warning'>[user] was unable to get the door open!</span>",
+				return
+			target.visible_message("<span class='warning'>[user] was unable to get the door open!</span>",
 					"<span class='warning'>You manage to keep [user] out of the [src]!</span>")
-			return
 
 	if(!hatch_open)
 		if(cargo_hold.storage_slots > 0)
@@ -425,8 +421,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 			return
 		if("Lock System")
 			remove_equipment(user, equipment_system.lock_system, "lock_system")
-			return
-	return
 
 /obj/spacepod/proc/remove_equipment(mob/user, var/obj/item/device/spacepod_equipment/SPE, var/slot)
 
@@ -443,15 +437,15 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 
 	if(user.put_in_any_hand_if_possible(SPE))
 		to_chat(user, "<span class='notice'>You remove \the [SPE] from the equipment system.</span>")
+		equipment_system.installed_modules -= SPE
 		max_passengers -= SPE.occupant_mod
 		cargo_hold.storage_slots -= SPE.storage_mod["slots"]
 		cargo_hold.max_combined_w_class -= SPE.storage_mod["w_class"]
 		SPE.removed(user)
 		SPE.my_atom = null
 		equipment_system.vars[slot] = null
-	else
-		to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
-	return
+		return
+	to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
 
 
 /obj/spacepod/hear_talk/hear_talk(mob/M, var/msg)
@@ -473,7 +467,8 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	for(var/obj/item/weapon/gift/G in src)
 		L += G.gift
 		if (istype(G.gift, /obj/item/weapon/storage))
-			L += G.gift:return_inv()
+			var/obj/item/weapon/storage/inv = G.gift
+			L += inv.return_inv()
 	return L
 
 /obj/spacepod/civilian
@@ -511,7 +506,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	equipment_system.lock_system = K
 	equipment_system.lock_system.my_atom = src
 	equipment_system.lock_system.id = 100000
-	return
 
 /obj/spacepod/random/New()
 	..()
@@ -541,7 +535,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return
 	use_internal_tank = !use_internal_tank
 	to_chat(usr, "<span class='notice'>Now taking air from [use_internal_tank?"internal airtank":"environment"].</span>")
-	return
 
 /obj/spacepod/proc/add_cabin()
 	cabin_air = new
@@ -559,7 +552,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	var/turf/T = get_turf(src)
 	if(T)
 		. = T.return_air()
-	return
 
 /obj/spacepod/remove_air(amount)
 	if(use_internal_tank)
@@ -568,7 +560,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		var/turf/T = get_turf(src)
 		if(T)
 			return T.remove_air(amount)
-	return
 
 /obj/spacepod/return_air()
 	if(use_internal_tank)
@@ -583,7 +574,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		var/datum/gas_mixture/t_air = get_turf_air()
 		if(t_air)
 			. = t_air.return_pressure()
-	return
 
 /obj/spacepod/proc/return_temperature()
 	. = 0
@@ -593,7 +583,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		var/datum/gas_mixture/t_air = get_turf_air()
 		if(t_air)
 			. = t_air.return_temperature()
-	return
 
 /obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
 	occupant_sanity_check()
@@ -624,12 +613,15 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 				visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
 				if(do_after(user, 50, target = M))
 					moved_other_inside(M)
+			return
 
 		if(M == user)
 			enter_pod(user)
+			return
 
 	if(istype(A, /obj/structure/ore_box) && equipment_system.cargo_system && istype(equipment_system.cargo_system,/obj/item/device/spacepod_equipment/cargo/ore)) // For loading ore boxes
 		load_cargo(user, A)
+		return
 
 	if(istype(A, /obj/structure/closet/crate) && equipment_system.cargo_system && istype(equipment_system.cargo_system, /obj/item/device/spacepod_equipment/cargo/crate)) // For loading crates
 		load_cargo(user, A)
@@ -792,8 +784,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return
 
 	to_chat(usr, "<span class='warning'>You are not close to any pod doors.</span>")
-	return
-
 
 /obj/spacepod/verb/fireWeapon()
 	set name = "Fire Pod Weapons"
@@ -839,7 +829,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	to_chat(usr, "Lights toggled [lights ? "on" : "off"].")
 	for(var/mob/M in passengers)
 		to_chat(M, "Lights toggled [lights ? "on" : "off"].")
-	return
 
 /obj/spacepod/verb/checkSeat()
 	set name = "Check under Seat"
@@ -848,7 +837,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	var/mob/user = usr
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
 	if(do_after(user, 40, target = src))
-		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + equipment_system.get_list()
+		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
 		var/list/true_contents = contents - badlist
 		if(true_contents.len > 0)
 			var/obj/I = pick(true_contents)
@@ -881,7 +870,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		if(spacepod.cabin_air && spacepod.cabin_air.return_volume() > 0)
 			var/delta = spacepod.cabin_air.temperature - T20C
 			spacepod.cabin_air.temperature -= max(-10, min(10, round(delta/4,0.1)))
-		return
 
 /datum/global_iterator/pod_tank_give_air
 	delay = 15
@@ -914,7 +902,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 					qdel(removed)
 	else
 		return stop()
-	return
 
 /obj/spacepod/relaymove(mob/user, direction)
 	if(usr != src.pilot)

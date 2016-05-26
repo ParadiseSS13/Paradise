@@ -219,7 +219,7 @@
 /datum/design/loot_box
 	construction_time = 100
 	name = "Spacepod Loot Storage Module"
-	desc = "Allows the construction of a Space Pod Crate Storage Module."
+	desc = "Allows the construction of a Space Pod Auxillary Cargo Module."
 	id = "podcargo_sec_lootbox"
 	req_tech = list("materials" = 1) //it's just a set of shelves, It's not that hard to make
 	build_type = PODFAB

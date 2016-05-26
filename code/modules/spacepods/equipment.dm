@@ -46,6 +46,8 @@
 
 /datum/spacepod/equipment
 	var/obj/spacepod/my_atom
+	var/list/obj/item/device/spacepod_equipment/installed_modules // holds an easy to access list of installed modules
+
 	var/obj/item/device/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/device/spacepod_equipment/misc/misc_system // misc system
 	var/obj/item/device/spacepod_equipment/cargo/cargo_system // cargo system
@@ -56,13 +58,6 @@
 	..()
 	if(istype(SP))
 		my_atom = SP
-
-/datum/spacepod/equipment/proc/get_list()
-	var/list/stuff
-	for(var/obj/I in vars)
-		if(istype(I, /obj/item/device/spacepod_equipment))
-			stuff += I
-	return stuff
 
 /obj/item/device/spacepod_equipment
 	name = "equipment"
