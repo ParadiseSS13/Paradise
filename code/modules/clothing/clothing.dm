@@ -25,6 +25,7 @@
 	var/active_sound = null
 	var/toggle_cooldown = null
 	var/cooldown = 0
+	var/species_disguise = null
 
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)

@@ -96,6 +96,34 @@
 	reagents.add_reagent("chocolate",6)
 	bitesize = 3
 
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/peanut
+	name = "Peanut Fudge"
+	desc = "Chocolate fudge, with bits of peanuts mixed in. People with nut allergies shouldn't eat this."
+	icon_state = "fudge_peanut"
+	filling_color = "#7D5F46"
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cherry
+	name = "Chocolate Cherry Fudge"
+	desc = "Chocolate fudge surrounding sweet cherries. Good for tricking kids into eating some fruit."
+	icon_state = "fudge_cherry"
+	filling_color = "#7D5F46"
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cookies_n_cream
+	name = "Cookies 'n' Cream Fudge"
+	desc = "An extra creamy fudge with bits of real chocolate cookie mixed in. Crunchy!"
+	icon_state = "fudge_cookies_n_cream"
+	filling_color = "#7D5F46"
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cookies_n_cream/New()
+	..()
+	reagents.add_reagent("cream", 3)
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/turtle
+	name = "Turtle Fudge"
+	desc = "Chocolate fudge with caramel and nuts. It doesn't contain real turtles, thankfully."
+	icon_state = "fudge_turtle"
+	filling_color = "#7D5F46"
+
 // ***********************************************************
 // Candy Products (Pre-existing)
 // ***********************************************************

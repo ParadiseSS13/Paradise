@@ -28,6 +28,7 @@
 	minbodytemp = 0
 
 	faction = list("hostile", "winter")
+	loot = list(/obj/item/stack/sheet/wood)
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/tree/FindTarget()
@@ -46,5 +47,4 @@
 /mob/living/simple_animal/hostile/tree/death()
 	..()
 	visible_message("\red <b>[src]</b> is hacked into pieces!")
-	new /obj/item/stack/sheet/wood(loc)
 	qdel(src)

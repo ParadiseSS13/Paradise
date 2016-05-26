@@ -71,6 +71,7 @@
 
 	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
+	var/list/loot = list() //list of things spawned at mob's loc when it dies
 
 
 /mob/living/simple_animal/New()
@@ -467,6 +468,9 @@
 	stat(null, "Health: [round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/death(gibbed)
+	if(loot.len)
+		for(var/i in loot)
+			new i(loc)
 	health = 0
 	icon_state = icon_dead
 	stat = DEAD

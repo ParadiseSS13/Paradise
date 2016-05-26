@@ -260,12 +260,16 @@
 			if(prob(20+mutation_mod))							//Low chance of stat mutation
 				if(!isnull(plant_controller.seeds[seed.name]))
 					seed = seed.diverge()
+				else
+					seed.update_name_prefixes()
 				seed.mutate(1,get_turf(src))
 				return
 		if(2)		//Tier 2
 			if(prob(60+mutation_mod))							//Higher chance of stat mutation
 				if(!isnull(plant_controller.seeds[seed.name]))
 					seed = seed.diverge()
+				else
+					seed.update_name_prefixes()
 				seed.mutate(1,get_turf(src))
 				return
 		if(3)		//Tier 3
@@ -275,11 +279,15 @@
 				else											//No mutant species, mutate stats instead
 					if(!isnull(plant_controller.seeds[seed.name]))
 						seed = seed.diverge()
+					else
+						seed.update_name_prefixes()
 					seed.mutate(1,get_turf(src))
 				return
 			else												//Failed to shift, mutate stats instead
 				if(!isnull(plant_controller.seeds[seed.name]))
 					seed = seed.diverge()
+				else
+					seed.update_name_prefixes()
 				seed.mutate(1,get_turf(src))
 				return
 		if(4)		//Tier 4
@@ -289,19 +297,27 @@
 				else											//No mutant species, mutate stats instead
 					if(!isnull(plant_controller.seeds[seed.name]))
 						seed = seed.diverge()
+					else
+						seed.update_name_prefixes()
 					seed.mutate(1,get_turf(src))
 					if(prob(20+mutation_mod))					//Low chance for second stat mutation
 						if(!isnull(plant_controller.seeds[seed.name]))
 							seed = seed.diverge()
+						else
+							seed.update_name_prefixes()
 						seed.mutate(1,get_turf(src))
 				return
 			else												//Failed to shift, mutate stats instead
 				if(!isnull(plant_controller.seeds[seed.name]))
 					seed = seed.diverge()
+				else
+					seed.update_name_prefixes()
 				seed.mutate(1,get_turf(src))
 				if(prob(20+mutation_mod))						//Low chance for second stat mutation
 					if(!isnull(plant_controller.seeds[seed.name]))
 						seed = seed.diverge()
+					else
+						seed.update_name_prefixes()
 					seed.mutate(1,get_turf(src))
 				return
 		//Floral Somatoray Tiers
@@ -309,12 +325,16 @@
 			if(prob(80+mutation_mod))							//EVEN Higher chance of stat mutation
 				if(!isnull(plant_controller.seeds[seed.name]))
 					seed = seed.diverge()
+				else
+					seed.update_name_prefixes()
 				seed.mutate(1,get_turf(src))
 				return
 		if("F2")	//Yield Tier
 			if(prob(40+mutation_mod))							//Medium chance of Yield stat mutation
 				if(!isnull(plant_controller.seeds[seed.name]))
 					seed = seed.diverge()
+				else
+					seed.update_name_prefixes()
 				if(seed.get_trait(TRAIT_IMMUTABLE) <= 0 && seed.get_trait(TRAIT_YIELD) != -1)		//Check if the plant can be mutated and has a yield to mutate
 					seed.set_trait(TRAIT_YIELD, (seed.get_trait(TRAIT_YIELD) + rand(-2, 2)))		//Randomly adjust yield
 					if(seed.get_trait(TRAIT_YIELD) < 0)							//If yield would drop below 0 after adjustment, set to 0 to allow further attempts
