@@ -308,18 +308,32 @@
 				if (M == src)
 					M = null
 
-				if (M)
-					if(src.lying || src.weakened)
+				if(M)
+					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						message = "<B>[src]</B> flips in [M]'s general direction."
-						src.SpinAnimation(5,1)
+						SpinAnimation(5,1)
 				else
-					if(src.lying || src.weakened)
+					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
-						message = "<B>[src]</B> does a flip!"
-						src.SpinAnimation(5,1)
+						var/obj/item/weapon/grab/G
+						if(istype(get_active_hand(), /obj/item/weapon/grab))
+							G = get_active_hand()
+						if(G && G.affecting)
+							if(buckled || G.affecting.buckled)
+								return
+							var/turf/oldloc = loc
+							var/turf/newloc = G.affecting.loc
+							if(isturf(oldloc) && isturf(newloc))
+								SpinAnimation(5,1)
+								forceMove(newloc)
+								G.affecting.forceMove(oldloc)
+								message = "<B>[src]</B> flips over [G.affecting]!"
+						else
+							message = "<B>[src]</B> does a flip!"
+							SpinAnimation(5,1)
 
 		if ("aflap", "aflaps")
 			if (!src.restrained())

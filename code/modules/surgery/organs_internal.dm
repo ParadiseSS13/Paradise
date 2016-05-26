@@ -31,7 +31,7 @@
 			return 0
 		if(target.get_species() == "Machine")//i know organ robot might be enough but i am not taking chances...
 			return 0
-		if(!affected.encased)//no bone, problem.
+		if(affected && !affected.encased) //no bone, problem.
 			return 0
 		return 1
 
@@ -43,9 +43,9 @@
 		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0//no operating on robotic limbs in an organic surgery
 
-		if(!affected.encased)//no bones no problem.
-			return 1
-		return 0
+		if(affected && affected.encased) //no bones no problem.
+			return 0
+		return 1
 
 /datum/surgery/organ_manipulation/alien/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/alien/humanoid))

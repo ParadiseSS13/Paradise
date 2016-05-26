@@ -301,7 +301,7 @@ Made by Xhuis
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
+	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE | NOGUNS //Can't use guns due to muzzle flash
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	hot_env_multiplier = 1.5
 

@@ -1,5 +1,0 @@
-author: FalseIncarnate
-delete-after: True
-changes: 
-  - rscadd: "Adds a Briefcase Full of Bees as a Botanist-only traitor item (10 TC)"
-  - bugfix: "Fixes worker bees having an insatiable desire to murder bots. (Syndi-bees still murder them though)"

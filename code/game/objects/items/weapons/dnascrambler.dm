@@ -1,16 +1,16 @@
 /obj/item/weapon/dnascrambler
 	name = "dna scrambler"
 	desc = "An illegal genetic serum designed to randomize the user's identity."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	item_state = "syringe_0"
-	icon_state = "b10"
+	icon_state = "lepopen1"
 	var/used = null
 
 	update_icon()
 		if(used)
-			icon_state = "b0"
+			icon_state = "lepopen0"
 		else
-			icon_state = "b10"
+			icon_state = "lepopen1"
 
 	attack(mob/M as mob, mob/user as mob)
 		if(!M || !user)

@@ -1,5 +1,0 @@
-author: NTSAM
-delete-after: True
-changes: 
-  - bugfix: "Fixes the stuttery rainbow screen for IPCs."
-  - bugfix: "Fixes the green IPC screen."

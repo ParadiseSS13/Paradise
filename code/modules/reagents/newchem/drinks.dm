@@ -67,7 +67,7 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 
-/datum/reagent/ethanol/dragons_breath
+/datum/reagent/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
 	name = "Dragon's Breath"
 	id = "dragonsbreath"
 	description = "Possessing this stuff probably breaks the Geneva convention."
@@ -107,15 +107,6 @@
 			M.dust()
 			return
 	..()
-
-/datum/chemical_reaction/dragons_breath
-	name = "Dragon's Breath"
-	id = "dragonsbreath"
-	result = "dragonsbreath"
-	required_reagents = list("whiskey" = 1, "phlogiston" = 1, "pyrosium" = 1, "fuel" = 1, "ghostchilijuice"= 1)
-	result_amount = 1
-	mix_message = "A tiny mushroom cloud erupts from the container. That's not worrying at all!"
-	mix_sound = 'sound/effects/meteorimpact.ogg'
 
 // ROBOT ALCOHOL PAST THIS POINT
 // WOOO!

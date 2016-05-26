@@ -43,11 +43,11 @@
 #define HAS_LIPS 		64
 #define IS_PLANT 		128
 #define CAN_BE_FAT 		256
-#define IS_RESTRICTED 	512
-#define NO_INTORGANS	1024
-#define NO_POISON		2048
-#define RADIMMUNE		4096
-#define ALL_RPARTS		8192
+#define NO_INTORGANS	512
+#define NO_POISON		1024
+#define RADIMMUNE		2048
+#define ALL_RPARTS		4096
+#define NOGUNS			8192
 
 //Species clothing flags
 #define HAS_UNDERWEAR 	1

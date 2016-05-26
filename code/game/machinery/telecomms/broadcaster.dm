@@ -621,7 +621,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
   //#### Sending the signal to all subspace receivers ####//
 	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
-		R.receive_signal(signal)
+		spawn(0)
+			R.receive_signal(signal)
 
 	if(do_sleep)
 		sleep(rand(10,25))

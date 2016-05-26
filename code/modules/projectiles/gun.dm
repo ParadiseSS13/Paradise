@@ -134,11 +134,8 @@
 			return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.get_species() == "Golem")
-			to_chat(user, "<span class='danger'>Your metal fingers don't fit in the trigger guard!</span>")
-			return
-		if(H.get_species() == "Shadowling")
-			to_chat(user, "<span class='danger'>The muzzle flash would cause damage to your form!</span>")
+		if(H.species.flags & NOGUNS)
+			to_chat(user, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return
 		if(H.martial_art && H.martial_art.name == "The Sleeping Carp") //great dishonor to famiry
 			to_chat(user, "<span class='danger'>Use of ranged weaponry would bring dishonor to the clan.</span>")
