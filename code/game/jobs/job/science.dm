@@ -52,8 +52,8 @@
 	selection_color = "#ffeeff"
 	idtype = /obj/item/weapon/card/id/research
 	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom)
-	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_maint_tunnels, access_mineral_storeroom)
-	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_maint_tunnels, access_mineral_storeroom, access_eva, access_gateway)
+	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher", "Gateway Explorer")
 	minimal_player_age = 3
 
 	// All science-y guys get bonuses for maxing out their tech.
