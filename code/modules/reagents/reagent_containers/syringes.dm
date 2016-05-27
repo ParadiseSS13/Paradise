@@ -17,6 +17,7 @@
 	w_class = 1
 	sharp = 1
 	var/mode = SYRINGE_DRAW
+	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 
 /obj/item/weapon/reagent_containers/syringe/on_reagent_change()
 	update_icon()

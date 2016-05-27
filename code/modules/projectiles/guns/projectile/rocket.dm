@@ -10,7 +10,6 @@
 	force = 5.0
 	flags = CONDUCT
 	origin_tech = "combat=8;materials=5"
-	projectile = /obj/item/missile
 	var/missile_speed = 2
 	var/missile_range = 30
 	var/max_rockets = 1
@@ -18,7 +17,12 @@
 
 /obj/item/weapon/gun/rocketlauncher/examine(mob/user)
 	if(..(user, 2))
-		to_chat(user, "\blue [rockets.len] / [max_rockets] rockets.")
+		to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
+
+/obj/item/weapon/gun/rocketlauncher/Destroy()
+	for(var/datum/D in rockets)
+		qdel(D)
+	rockets = null
 
 /obj/item/weapon/gun/rocketlauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
@@ -26,15 +30,15 @@
 			user.drop_item()
 			I.loc = src
 			rockets += I
-			to_chat(user, "\blue You put the rocket in [src].")
-			to_chat(user, "\blue [rockets.len] / [max_rockets] rockets.")
+			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
+			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
 		else
-			to_chat(usr, "\red [src] cannot hold more rockets.")
+			to_chat(usr, "<span class='notice'>[src] cannot hold more rockets.</span>")
 
-/obj/item/weapon/gun/rocketlauncher/can_fire()
+/obj/item/weapon/gun/rocketlauncher/can_shoot()
 	return rockets.len
 
-/obj/item/weapon/gun/rocketlauncher/Fire(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, params, reflex = 0)
+/obj/item/weapon/gun/rocketlauncher/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
 	if(rockets.len)
 		var/obj/item/ammo_casing/rocket/I = rockets[1]
 		var/obj/item/missile/M = new projectile(user.loc)
@@ -47,4 +51,4 @@
 		qdel(I)
 		return
 	else
-		to_chat(usr, "\red [src] is empty.")
+		to_chat(usr, "<span class='warning'>[src] is empty.</span>")

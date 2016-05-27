@@ -1,64 +1,26 @@
-/obj/item/weapon/gun/energy/pulse_rifle
+/obj/item/weapon/gun/energy/pulse
 	name = "pulse rifle"
-	desc = "A heavy-duty, pulse-based energy weapon, preferred by front-line combat personnel."
+	desc = "A heavy-duty, multifaceted energy rifle with three modes. Preferred by front-line combat personnel."
 	icon_state = "pulse"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	item_state = null
+	w_class = 4
 	force = 10
-	fire_sound = 'sound/weapons/pulse.ogg'
-	charge_cost = 200
-	projectile_type = "/obj/item/projectile/beam/pulse"
-	cell_type = "/obj/item/weapon/stock_parts/cell/super"
-	var/mode = 2
+	flags =  CONDUCT
 	slot_flags = SLOT_BACK
-	w_class = 4.0
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
+	cell_type = "/obj/item/weapon/stock_parts/cell/pulse"
 
-	emp_act()
-		return
+/obj/item/weapon/gun/energy/pulse/emp_act(severity)
+	return
 
-	attack_self(mob/living/user as mob)
-		switch(mode)
-			if(2)
-				mode = 0
-				charge_cost = 50
-				fire_sound = 'sound/weapons/Taser.ogg'
-				to_chat(user, "\red [src.name] is now set to stun.")
-				projectile_type = "/obj/item/projectile/energy/electrode"
-			if(0)
-				mode = 1
-				charge_cost = 100
-				fire_sound = 'sound/weapons/Laser.ogg'
-				to_chat(user, "\red [src.name] is now set to kill.")
-				projectile_type = "/obj/item/projectile/beam"
-			if(1)
-				mode = 2
-				charge_cost = 200
-				fire_sound = 'sound/weapons/pulse.ogg'
-				to_chat(user, "\red [src.name] is now set to DESTROY.")
-				projectile_type = "/obj/item/projectile/beam/pulse"
-		return
-
-	isHandgun()
-		return 0
-
-/obj/item/weapon/gun/energy/pulse_rifle/cyborg/process_chambered()
-	if(in_chamber)
-		return 1
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell)
-			R.cell.use(charge_cost)
-			in_chamber = new projectile_type(src)
-			return 1
+/obj/item/weapon/gun/energy/pulse/isHandgun()
 	return 0
 
+/obj/item/weapon/gun/energy/pulse_rifle/cyborg
 
-/obj/item/weapon/gun/energy/pulse_rifle/destroyer
-	name = "pulse destroyer"
-	desc = "A heavy-duty, pulse-based energy weapon."
-	cell_type = "/obj/item/weapon/stock_parts/cell/infinite"
-
-	attack_self(mob/living/user as mob)
-		to_chat(user, "\red [src.name] has three settings, and they are all DESTROY.")
+/obj/item/weapon/gun/energy/pulse_rifle/cyborg/newshot()
+	..()
+	robocharge()
 
 /obj/item/weapon/gun/energy/pulse_rifle/carbine
 	name = "pulse carbine"
@@ -69,7 +31,8 @@
 	item_state = "pulse"
 	cell_type = "/obj/item/weapon/stock_parts/cell/pulse/carbine"
 	can_flashlight = 1
-
+	flight_x_offset = 18
+	flight_y_offset = 12
 
 /obj/item/weapon/gun/energy/pulse_rifle/pistol
 	name = "pulse pistol"
@@ -79,9 +42,19 @@
 	icon_state = "pulse_pistol"
 	item_state = "gun"
 	cell_type = "/obj/item/weapon/stock_parts/cell/pulse/pistol"
+	can_charge = 0
 
 /obj/item/weapon/gun/energy/pulse_rifle/pistol/isHandgun()
 	return 1
+
+/obj/item/weapon/gun/energy/pulse_rifle/destroyer
+	name = "pulse destroyer"
+	desc = "A heavy-duty, pulse-based energy weapon."
+	cell_type = "/obj/item/weapon/stock_parts/cell/infinite"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
+
+/obj/item/weapon/gun/energy/pulse/destroyer/attack_self(mob/living/user)
+	to_chat(user, "<span class='danger'>[src.name] has three settings, and they are all DESTROY.</span>")
 
 /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911
 	name = "\improper M1911-P"
@@ -89,5 +62,6 @@
 	icon_state = "m1911-p"
 	item_state = "gun"
 	cell_type = "/obj/item/weapon/stock_parts/cell/infinite"
-	isHandgun()
-		return 1
+
+/obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911/isHandgun()
+	return 1

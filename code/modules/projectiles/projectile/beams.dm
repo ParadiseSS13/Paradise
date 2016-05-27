@@ -5,49 +5,26 @@
 	damage = 20
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
+	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = "laser"
 	eyeblur = 2
 
-/obj/item/projectile/practice
-	name = "laser"
-	icon_state = "laser"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+/obj/item/projectile/beam/laser
+
+/obj/item/projectile/beam/laser/heavylaser
+	name = "heavy laser"
+	icon_state = "heavylaser"
+	damage = 40
+
+/obj/item/projectile/beam/practice
+	name = "practice laser"
 	damage = 0
-	hitsound = null
-	damage_type = BURN
-	flag = "laser"
-	eyeblur = 2
-	chatlog_attacks = 0
+	nodamage = 1
 
 /obj/item/projectile/beam/scatter
 	name = "laser pellet"
 	icon_state = "scatterlaser"
 	damage = 5
-
-
-/obj/item/projectile/beam/heavylaser
-	name = "heavy laser"
-	icon_state = "heavylaser"
-	damage = 40
-
-/obj/item/projectile/beam/sniper
-	name = "sniper beam"
-	icon_state = "sniperlaser"
-	damage = 60
-	stun = 5
-	weaken = 5
-	stutter = 5
-
-
-/obj/item/projectile/beam/immolator
-	name = "immolation beam"
-
-/obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
-	. = ..()
-	if(istype(target, /mob/living/carbon))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
 
 /obj/item/projectile/beam/xray
 	name = "xray beam"
@@ -82,41 +59,80 @@
 	name = "emitter beam"
 	icon_state = "emitter"
 	damage = 30
+	legacy = 1
+	animate_movement = SLIDE_STEPS
 
 /obj/item/projectile/beam/emitter/singularity_pull()
 	return //don't want the emitters to miss
 
-/obj/item/projectile/lasertag
+/obj/item/projectile/beam/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"
 	hitsound = null
 	damage = 0
 	damage_type = STAMINA
 	flag = "laser"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
-	chatlog_attacks = 0
 
-/obj/item/projectile/lasertag/on_hit(var/atom/target, var/blocked = 0)
-	if(istype(target, /mob/living/carbon/human))
+/obj/item/projectile/beam/lasertag/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)
 				M.adjustStaminaLoss(34)
 	return 1
 
-/obj/item/projectile/lasertag/omni
+/obj/item/projectile/beam/lasertag/omni
 	name = "laser tag beam"
 	icon_state = "omnilaser"
 
-/obj/item/projectile/lasertag/red
+/obj/item/projectile/beam/lasertag/red
 	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 
-/obj/item/projectile/lasertag/blue
+/obj/item/projectile/beam/lasertag/blue
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
 
+/obj/item/projectile/beam/sniper
+	name = "sniper beam"
+	icon_state = "sniperlaser"
+	damage = 60
+	stun = 5
+	weaken = 5
+	stutter = 5
+
+/obj/item/projectile/beam/immolator
+	name = "immolation beam"
+
+/obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
+	. = ..()
+	if(istype(target, /mob/living/carbon))
+		var/mob/living/carbon/M = target
+		M.adjust_fire_stacks(1)
+		M.IgniteMob()
+
+/obj/item/projectile/beam/instakill
+	name = "instagib laser"
+	icon_state = "purple_laser"
+	damage = 200
+	damage_type = BURN
+
+/obj/item/projectile/beam/instakill/blue
+	icon_state = "blue_laser"
+
+/obj/item/projectile/beam/instakill/red
+	icon_state = "red_laser"
+
+/obj/item/projectile/beam/instakill/on_hit(atom/target)
+	. = ..()
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		M.visible_message("<span class='danger'>[M] explodes into a shower of gibs!</span>")
+		M.gib()
+
+/* //THIS CODE MAKES ME WANT TO STAB MY EYES OUT
 /obj/item/projectile/beam/lightning
 	invisibility = 101
 	name = "lightning"
@@ -133,12 +149,12 @@
 	kill_count = 6
 	var/bullet_acted = 0
 
-	Bump(var/atom/A)
+/obj/item/projectile/beam/lightning/Bump(var/atom/A)
 		if((A != firer) && !bullet_acted)
 			A.bullet_act(src)
 			bullet_acted = 1
 
-	proc/adjustAngle(angle)
+/obj/item/projectile/beam/lightning/proc/adjustAngle(angle)
 		angle = round(angle) + 45
 		if(angle > 180)
 			angle -= 180
@@ -146,14 +162,9 @@
 			angle += 180
 		if(!angle)
 			angle = 1
-		/*if(angle < 0)
-			//angle = (round(abs(get_angle(A, user))) + 45) - 90
-			angle = round(angle) + 45 + 180
-		else
-			angle = round(angle) + 45*/
 		return angle
 
-	process()
+/obj/item/projectile/beam/lightning/process()
 		var/first = 1 //So we don't make the overlay in the same tile as the firer
 		var/broke = 0
 		var/broken
@@ -239,16 +250,11 @@
 							f.break_tile()
 							f.hotspot_expose(1000,CELL_VOLUME)
 				if((x == 1 || x == world.maxx || y == 1 || y == world.maxy))
-//					to_chat(world, "deleting")
-					//qdel(src) //Delete if it passes the world edge
 					broken = 1
 					return
 				if(kill_count < 1)
-//					to_chat(world, "deleting")
-					//qdel(src)
 					broken = 1
 				kill_count--
-//				to_chat(world, "[x] [y]")
 				if(!bumped && !isturf(original))
 					if(loc == get_turf(original))
 						if(!(original in permutated))
@@ -263,7 +269,6 @@
 						Bump(original)
 				first = 0
 				if(broken)
-//					to_chat(world, "breaking")
 					break
 				else
 					last = get_turf(src.loc)
@@ -273,13 +278,9 @@
 					icon_state = "[tang]"
 			qdel(src)
 		return
-	/*cleanup(reference) //Waits .3 seconds then removes the overlay.
-//		to_chat(world, "setting invisibility")
-		sleep(50)
-		src.invisibility = 101
-		return*/
-	on_hit(atom/target, blocked = 0)
+/obj/item/projectile/beam/lightning/on_hit(atom/target, blocked = 0)
 		if(istype(target, /mob/living))
 			var/mob/living/M = target
 			M.playsound_local(src, "explosion", 50, 1)
 		..()
+*/

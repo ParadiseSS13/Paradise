@@ -4,7 +4,7 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-	w_class = 3.0
+	w_class = 3
 
 	var/mob/living/current_target
 	var/last_check = 0
@@ -13,7 +13,7 @@
 	var/active = 0
 	var/datum/beam/current_beam = null
 
-	heavy_weapon = 1
+	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/weapon/gun/medbeam/New()
 	..()
@@ -34,7 +34,7 @@
 		on_beam_release(current_target)
 	current_target = null
 
-/obj/item/weapon/gun/medbeam/Fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params)
+/obj/item/weapon/gun/medbeam/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	add_fingerprint(user)
 
 	if(current_target)
