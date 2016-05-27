@@ -65,3 +65,10 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/red/harvest()
 	new /obj/item/clothing/suit/armor/terrorspider_carapace(get_turf(src))
 	gib()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/red/ShowGuide()
+	..()
+	to_chat(src, "RED TERROR guide:")
+	to_chat(src, "- A straightforward fighter, you have high health, and high melee damage, but are very slow-moving.")
+	to_chat(src, "- You are best at taking out slow, armored foes. Be careful not to get kited with ranged weapons.")
+	to_chat(src, "- You can take a lot of hits, so don't be afraid to act as the tank in a group.")

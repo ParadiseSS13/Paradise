@@ -25,7 +25,7 @@
 		if (S.stat != DEAD)
 			S.DoShowOrders(1,cache_thequeen,cache_theempress)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/B)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/living/B)
 	if (iscarbon(B))
 		var/mob/living/carbon/C = B
 		if (C.get_int_organ(/obj/item/organ/internal/body_egg))

@@ -69,3 +69,9 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/green/harvest()
 	new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_green(get_turf(src))
 	gib()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/green/ShowGuide()
+	..()
+	to_chat(src, "GREEN TERROR guide:")
+	to_chat(src, "- You are a breeding spider. Your job is to use the 'Wrap' verb (Spider tab) on any dead humaniod, then 'Lay Green Eggs'. These eggs hatch into more spiders!")
+	to_chat(src, "- Lay your eggs in dark, low-traffic areas near vents. Don't be afraid to retreat from a fight to lay another day.")

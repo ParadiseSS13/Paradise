@@ -40,3 +40,18 @@
 					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
 					visible_message("<span class='notice'> [src] chitters in the direction of [Q]!</span>")
 	..()
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/ShowGuide()
+	..()
+	to_chat(src, "PURPLE TERROR guide:")
+	to_chat(src, "- You guard the nest of the all important Terror Queen! You are very robust, with a chance to stun on hit, but should stay with the queen at all times.")
+	to_chat(src, "- <b>If the queen dies, you die!</b>")
+
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
+	if (prob(10))
+		visible_message("<span class='danger'> \icon[src] [src] rams into [L], knocking them to the floor! </span>")
+		L.Weaken(5)
+		L.Stun(5)
+	else
+		..()

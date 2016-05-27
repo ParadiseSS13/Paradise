@@ -235,3 +235,23 @@
 		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold/heroism(get_turf(src))
 		M.layer = 4.1
 	..()
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/empress/ShowGuide()
+	..()
+	to_chat(src, "EMPRESS OF TERROR guide:")
+	to_chat(src, "- ICly, you are an aged and battle-hardened Queen, and one of the rulers of the Terror Spider species.")
+	to_chat(src, "- You outrank ALL other spiders and may execute any spider who dares question your authority.")
+	to_chat(src, "- OOCly, Empresses are used by coders (to test), senior admins (to run events) and normal admins (to act as higher authority for spiders, similar to how CC is for crew).")
+	to_chat(src, "- Your abilities are game-breakingly OP, and should NOT be used lightly. You are a terrifying lovecraftian spider from the depths of space. Act like it.")
+	to_chat(src, " ")
+	to_chat(src, "Empress of Terror Verbs:")
+	to_chat(src, " - Empress Eggs - Lay eggs of any type.")
+	to_chat(src, " - HiveSense - Shows the names, statuses and locations of your brood's spiders.")
+	to_chat(src, " - HiveCommand - Sets the rules of engagement for your brood - IE if they should attack bipeds or not.")
+	to_chat(src, " - EMP Shockwave - Emits a large emp shockwave (radius: 10 light, 25 heavy)")
+	to_chat(src, " - Empress Screech - Breaks all lights and cameras within a 14 tile radius.")
+	to_chat(src, " - Mass Hallucinate - Causes all crew to have a 25% chance of strong hallucination, 25% chance of weak hallucination.")
+	to_chat(src, " - Empress Kill Spider - Remotely gibs any spider, no matter their location.")
+	to_chat(src, " - Erase Brood - Kills off every other spider in the game world, over the course of about two minutes.")
+	to_chat(src, " - Spiderling Flood - Spawns N spiderlings. Very configurable. Almost instant station-destroyer if used with high numbers.")

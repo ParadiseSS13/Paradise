@@ -327,148 +327,30 @@ var/global/list/ts_spiderling_list = list()
 	else if (ai_type == TS_AI_DEFENSIVE && !(target in enemies))
 		to_chat(src, "Your current orders only allow you to defend yourself - not initiate combat.")
 	else if (isliving(target))
-		var/mob/living/L = target
-		if (L.player_logged)
-			to_chat(src, "[target] is braindead, and a waste of our time. (SSD. Server rules prohibit attacking SSDs)")
-			if (L in enemies)
-				enemies -= L
+		var/mob/living/G = target
+		if (G.player_logged)
+			to_chat(src, "[G] is braindead, and a waste of our time. (SSD. Server rules prohibit attacking SSDs)")
+			if (G in enemies)
+				enemies -= G
 			return
-		else if (istype(L, /mob/living/silicon/))
-			L.attack_animal(src)
+		else if (istype(G, /mob/living/silicon/))
+			G.attack_animal(src)
 			return
-		else if (L.reagents && (iscarbon(L)))
-			if (istype(L, /mob/living/carbon/human/))
-				var/mob/living/carbon/human/H = L
+		else if (G.reagents && (iscarbon(G)))
+			var/can_poison = 1
+			if (istype(G, /mob/living/carbon/human/))
+				var/mob/living/carbon/human/H = G
 				if (H.dna)
 					if (!(H.species.reagent_tag & PROCESS_ORG) || (H.species.flags & NO_POISON))
-						H.attack_animal(src)
-						return
-			var/inject_target = pick("chest","head") // Yes, there are other body parts. No, the code won't work if we pick any of them. Grrr.
-			if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/prince))
-				if (prob(15))
-					visible_message("<span class='danger'> \icon[src] [src] rams into [L], knocking them to the floor! </span>")
-					L.Weaken(5)
-					L.Stun(5)
-				else
-					L.attack_animal(src)
-			else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/purple))
-				if (prob(10))
-					visible_message("<span class='danger'> \icon[src] [src] rams into [L], knocking them to the floor! </span>")
-					L.Weaken(5)
-					L.Stun(5)
-				else
-					L.attack_animal(src)
-			else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/black))
-				if (L.reagents.has_reagent("terror_black_toxin",50))
-					L.attack_animal(src)
-				else
-					melee_damage_lower = 1
-					melee_damage_upper = 5
-					if (L.stunned || L.can_inject(null,0,inject_target,0))
-						L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
-						visible_message("<span class='danger'> \icon[src] [src] buries its long fangs deep into the [inject_target] of [target]! </span>")
-					else
-						visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
-					L.attack_animal(src)
-					//L.Weaken(5)
-					melee_damage_lower = 10
-					melee_damage_upper = 20
-				if ((!target in enemies) || L.reagents.has_reagent("terror_black_toxin",50))
-					// if we haven't been shot at, or we've bitten them so much they will die very fast, retreat
-					if (!ckey)
-						spawn(20)
-							step_away(src,L)
-							step_away(src,L)
-							LoseTarget()
-							for(var/i=0, i<4, i++)
-								step_away(src, L)
-							visible_message("<span class='notice'> \icon[src] [src] warily eyes [L] from a distance. </span>")
-							// aka, if you come over here I will wreck you.
-				return
-			else if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/white))
-				if (attackstep == 0)
-					visible_message("<span class='danger'> \icon[src] [src] crouches down on its powerful hind legs! </span>")
-					attackstep = 1
-				else if (attackstep == 1)
-					visible_message("<span class='danger'> \icon[src] [src] pounces on [target]! </span>")
-					do_attack_animation(L)
-					L.emote("scream")
-					L.drop_l_hand()
-					L.drop_r_hand()
-					L.Weaken(5) // stunbaton-like stun, floors them
-					L.Stun(5)
-					attackstep = 2
-				else if (attackstep == 2)
-					do_attack_animation(L)
-					if (degenerate)
-						visible_message("<span class='danger'> \icon[src] [src] does not have the strength to bite [target]!</span>")
-					else if (L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
-						L.reagents.add_reagent("terror_white_toxin", 10)
-						visible_message("<span class='danger'> \icon[src] [src] injects a green venom into the [inject_target] of [target]!</span>")
-					else
-						visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
-					attackstep = 3
-				else if (attackstep == 3)
-					if (L in enemies)
-						if (L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
-							do_attack_animation(L)
-							L.reagents.add_reagent("terror_white_tranq", 5)
-							visible_message("<span class='danger'> \icon[src] [src] injects a blue venom into the [inject_target] of [target]!</span></span>")
-							enemies -= L
-						else
-							do_attack_animation(L)
-							visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
-					else
-						visible_message("<span class='notice'> \icon[src] [src] takes a moment to recover. </span>")
-						attackstep = 4
-				else if (attackstep == 4)
-					attackstep = 0
-					attackcycles++
-					if (ckey)
-						if (IsInfected(L))
-							to_chat(src, "<span class='notice'> [L] is infected. Find another host to attack/infect, or leave the area.</span>")
-						else
-							L.attack_animal(src)
-					else
-						if (!ckey && attackcycles >= 3) // if we've an AI who has gone through 3 infection attempts on a single target, just give up trying to infect it, and kill it instead.
-							attackstep = 5
-							L.attack_animal(src)
-							return
-						if (!IsInfected(L))
-							visible_message("<span class='notice'> \icon[src] [src] takes a moment to recover. </span>")
-							return
-						var/vdistance = 99
-						for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
-							if (!v.welded)
-								if (get_dist(src,v) < vdistance)
-									entry_vent = v
-									vdistance = get_dist(src,v)
-						var/list/numtargets = ListTargets()
-						if (numtargets.len > 0)
-							LoseTarget()
-							walk_away(src,L,2,1)
-						else if (entry_vent)
-							visible_message("<span class='notice'> \icon[src] [src] lets go of [target], and tries to flee! </span>")
-							path_to_vent = 1
-							var/temp_ai_type = ai_type
-							ai_type = TS_AI_DEFENSIVE
-							LoseTarget()
-							walk_away(src,L,2,1)
-							spawn(100) // 10 seconds
-								ai_type = temp_ai_type
-						else
-							LoseTarget()
-				else if (attackstep == 5)
-					L.attack_animal(src)
-				else
-					attackstep = 0
-			else
-				L.attack_animal(src)
+						can_poison = 0
+			spider_specialattack(G,can_poison)
 		else
-			L.attack_animal(src)
+			G.attack_animal(src)
 	else
 		target.attack_animal(src)
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(var/mob/living/carbon/human/L)
+	L.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(var/damage)
 	..(damage)

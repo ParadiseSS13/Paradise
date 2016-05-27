@@ -31,3 +31,38 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/black/harvest()
 	new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_black(get_turf(src))
 	gib()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/black/ShowGuide()
+	..()
+	to_chat(src, "BLACK TERROR guide:")
+	to_chat(src, "- You are an assassin. Even 2-3 bites from you is fatal to organic humanoids - if you back off and let your poison work. You are very vulnurable to mechs and borgs.")
+	to_chat(src, "- Try to bite a few times and retreat quickly. You will die if you stick around. You are very dangerous and should expect crew to focus fire on you.")
+
+/mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
+	if (!poisonable)
+		..()
+		return
+	if (L.reagents.has_reagent("terror_black_toxin",50))
+		L.attack_animal(src)
+	else
+		var/inject_target = pick("chest","head")
+		melee_damage_lower = 1
+		melee_damage_upper = 5
+		if (L.stunned || L.can_inject(null,0,inject_target,0))
+			L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
+			visible_message("<span class='danger'> \icon[src] [src] buries its long fangs deep into the [inject_target] of [target]! </span>")
+		else
+			visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
+		L.attack_animal(src)
+		melee_damage_lower = 10
+		melee_damage_upper = 20
+	if (!ckey && ((!target in enemies) || L.reagents.has_reagent("terror_black_toxin",50)))
+		spawn(20)
+			step_away(src,L)
+			step_away(src,L)
+			LoseTarget()
+			for(var/i=0, i<4, i++)
+				step_away(src, L)
+			visible_message("<span class='notice'> \icon[src] [src] warily eyes [L] from a distance. </span>")
+			// aka, if you come over here I will wreck you.
+	return
