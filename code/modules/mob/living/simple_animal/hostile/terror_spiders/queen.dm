@@ -50,8 +50,6 @@
 	spider_tier = 4
 	spider_opens_doors = 1
 
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
@@ -294,22 +292,22 @@
 		else
 			to_chat(src, "Too soon to attempt that again. Wait just a few more seconds...")
 		return
-	var/list/eggtypes = list("red - assault","gray - ambush", "green - nurse", "black - poison","purple - guard")
+	var/list/eggtypes = list(TS_DESC_RED,TS_DESC_GRAY,TS_DESC_GREEN,TS_DESC_BLACK,TS_DESC_PURPLE)
 	if (canlay >= 12)
-		eggtypes |= "MOTHER - ELITE HORROR"
-		eggtypes |= "PRINCE - ELITE WARRIOR"
+		eggtypes |= TS_DESC_MOTHER
+		eggtypes |= TS_DESC_PRINCE
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
 	if (!(eggtype in eggtypes))
 		to_chat(src, "Unrecognized egg type.")
 		return 0
-	if (eggtype == "MOTHER - ELITE HORROR" || eggtype == "PRINCE - ELITE WARRIOR")
+	if (eggtype == TS_DESC_MOTHER || eggtype == TS_DESC_PRINCE)
 		if (canlay < 12)
 			to_chat(src, "Insufficient strength. It takes as much effort to lay one of those as it does to lay 12 normal eggs.")
 		else
-			if (eggtype == "MOTHER - ELITE HORROR")
+			if (eggtype == TS_DESC_MOTHER)
 				canlay -= 12
 				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother,1,0)
-			else if (eggtype == "PRINCE - ELITE WARRIOR")
+			else if (eggtype == TS_DESC_PRINCE)
 				canlay -= 12
 				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince,1,0)
 		return
@@ -325,15 +323,15 @@
 		return
 	//spider_lastspawn = world.time // don't think we actually need this, if queen is laying manually canlay controls her rate.
 	canlay -= numlings
-	if (eggtype == "red - assault")
+	if (eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,numlings,1)
-	else if (eggtype == "gray - ambush")
+	else if (eggtype == TS_DESC_GRAY)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray,numlings,1)
-	else if (eggtype == "green - nurse")
+	else if (eggtype == TS_DESC_GREEN)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,numlings,1)
-	else if (eggtype == "black - poison")
+	else if (eggtype == TS_DESC_BLACK)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black,numlings,1)
-	else if (eggtype == "purple - guard")
+	else if (eggtype == TS_DESC_PURPLE)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,numlings,0)
 	else
 		to_chat(src, "Unrecognized egg type.")

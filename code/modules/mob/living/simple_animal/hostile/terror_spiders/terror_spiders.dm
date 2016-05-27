@@ -7,6 +7,7 @@ var/global/ts_death_last = 0
 var/global/ts_death_window = 9000 // 15 minutes
 var/global/list/ts_mob_list = list()
 var/global/list/ts_egg_list = list()
+var/global/list/ts_spiderling_list = list()
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------
@@ -91,7 +92,7 @@ var/global/list/ts_egg_list = list()
 	see_invisible = 5
 
 	// AI aggression settings
-	var/ai_type = 0 // 0 = aggressive to everyone, 1 = defends self only, 2 = passive, you can butcher it like a sheep
+	var/ai_type = TS_AI_AGGRESSIVE // 0 = aggressive to everyone, 1 = defends self only, 2 = passive, you can butcher it like a sheep
 
 	// AI player control by ghosts
 	var/ai_playercontrol_allowingeneral = 1 // if 0, no spiders are player controllable. Default set in code, can be changed by queens.
@@ -156,8 +157,6 @@ var/global/list/ts_egg_list = list()
 
 	// Xenobio Interactions
 	sentience_type = SENTIENCE_OTHER // prevents people from using a sentience potion on a TS to tame it
-	//gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE // this doesn't prevent a version with the "neutral" faction from gold slime extract + blood.
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID // prevents this mob from being spawned by any xenobio or chem reactions.
 
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = 0 // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
@@ -173,7 +172,7 @@ var/global/list/ts_egg_list = list()
 	var/list/targets1 = list()
 	var/list/targets2 = list()
 	var/list/targets3 = list()
-	if (ai_type == 0)
+	if (ai_type == TS_AI_AGGRESSIVE)
 		// default, BE AGGRESSIVE
 		//var/list/Mobs = hearers(vision_range, src) - src // this is how ListTargets for /mob/living/simple_animal/hostile/ does it, but it is wrong, it ignores NPCs.
 		for(var/mob/living/H in view(src, vision_range))
@@ -248,7 +247,7 @@ var/global/list/ts_egg_list = list()
 			return targets2
 		else
 			return targets3
-	else if (ai_type == 1)
+	else if (ai_type == TS_AI_DEFENSIVE)
 		// DEFEND SELF ONLY
 		//var/list/Mobs = hearers(vision_range, src) - src
 		for(var/mob/living/H in view(src, vision_range))
@@ -266,7 +265,7 @@ var/global/list/ts_egg_list = list()
 			if (S in enemies && get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
 				targets1 += S
 		return targets1
-	else if (ai_type == 2)
+	else if (ai_type == TS_AI_PASSIVE)
 		// COMPLETELY PASSIVE
 		return list()
 
@@ -323,9 +322,9 @@ var/global/list/ts_egg_list = list()
 		var/obj/machinery/door/airlock/A = target
 		if (A.density)
 			try_open_airlock(A)
-	else if (ai_type == 2)
+	else if (ai_type == TS_AI_PASSIVE)
 		to_chat(src, "Your current orders forbid you from attacking anyone.")
-	else if (ai_type == 1 && !(target in enemies))
+	else if (ai_type == TS_AI_DEFENSIVE && !(target in enemies))
 		to_chat(src, "Your current orders only allow you to defend yourself - not initiate combat.")
 	else if (isliving(target))
 		var/mob/living/L = target
@@ -452,7 +451,7 @@ var/global/list/ts_egg_list = list()
 							visible_message("<span class='notice'> \icon[src] [src] lets go of [target], and tries to flee! </span>")
 							path_to_vent = 1
 							var/temp_ai_type = ai_type
-							ai_type = 1
+							ai_type = TS_AI_DEFENSIVE
 							LoseTarget()
 							walk_away(src,L,2,1)
 							spawn(100) // 10 seconds
@@ -512,11 +511,11 @@ var/global/list/ts_egg_list = list()
 	else
 		if (key)
 			msg += "<BR><span class='warning'>Its eyes regard you with a curious intelligence.</span>"
-		if (ai_type == 0)
+		if (ai_type == TS_AI_AGGRESSIVE)
 			msg += "<BR><span class='warning'>It appears aggressive.</span>"
-		if (ai_type == 1)
+		if (ai_type == TS_AI_DEFENSIVE)
 			msg += "<BR><span class='notice'>It appears defensive.</span>"
-		if (ai_type == 2)
+		if (ai_type == TS_AI_PASSIVE)
 			msg += "<BR><span class='notice'>It appears passive.</span>"
 
 		if (health > (maxHealth*0.95))

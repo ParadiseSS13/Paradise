@@ -46,9 +46,13 @@
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
 	processing_objects.Add(src)
+	ts_egg_list += src
 	// Not a mistake that this does not call ..().
 	// /obj/effect/spider/stickyweb/New() does not call ..() either.
 
+/obj/effect/spider/terror_eggcluster/Destroy()
+	ts_egg_list -= src
+	..()
 
 /obj/effect/spider/terror_eggcluster/process()
 	amount_grown += rand(0,2)
@@ -120,7 +124,12 @@
 		name = "prince spiderling"
 	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/queen")
 		name = "queen spiderling"
+	ts_spiderling_list += src
 
+
+/obj/effect/spider/terror_spiderling/Destroy()
+	ts_spiderling_list -= src
+	..()
 
 /obj/effect/spider/terror_spiderling/Bump(atom/user)
 	if (istype(user, /obj/structure/table))

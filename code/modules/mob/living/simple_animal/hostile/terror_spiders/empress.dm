@@ -33,7 +33,7 @@
 
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
-	ai_type = 1 // defend self only!
+	ai_type = TS_AI_DEFENSIVE // defend self only!
 
 	ranged = 1
 	retreat_distance = 5
@@ -46,8 +46,6 @@
 	spider_opens_doors = 2
 
 	var/shown_guide = 0 // has the empress player been warned of the chaos that can result from the use of their powers?
-
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/New()
@@ -70,29 +68,28 @@
 	set name = "Lay Empress Eggs"
 	set category = "Spider"
 	set desc = "Lay spider eggs. As empress, you can lay queen-level eggs to create a new brood."
-	var/eggtype = input("What kind of eggs?") as null|anything in list("QUEEN", "MOTHER", "PRINCE", "red - assault","gray - ambush", "green - nurse", "black - poison","purple - guard")
+	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN,TS_DESC_MOTHER,TS_DESC_PRINCE,TS_DESC_RED,TS_DESC_GRAY,TS_DESC_GREEN,TS_DESC_BLACK,TS_DESC_PURPLE,TS_DESC_WHITE)
 	var/numlings = input("How many in the batch?") as null|anything in list(1,2,3,4,5,10,15,20,30,40,50)
 	if (eggtype == null || numlings == null)
 		to_chat(src, "Cancelled.")
 		return
-	// T1
-	if (eggtype == "red - assault")
+	if (eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,numlings,1)
-	else if (eggtype == "gray - ambush")
+	else if (eggtype == TS_DESC_GRAY)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray,numlings,1)
-	else if (eggtype == "green - nurse")
+	else if (eggtype == TS_DESC_GREEN)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,numlings,1)
-	// T2
-	else if (eggtype == "black - poison")
+	else if (eggtype == TS_DESC_BLACK)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black,numlings,1)
-	else if (eggtype == "purple - guard")
+	else if (eggtype == TS_DESC_PURPLE)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,numlings,0)
-	// T3
-	else if (eggtype == "PRINCE")
+	else if (eggtype == TS_DESC_WHITE)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white,numlings,0)
+	else if (eggtype == TS_DESC_PRINCE)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince,numlings,1)
-	else if (eggtype == "MOTHER")
+	else if (eggtype == TS_DESC_MOTHER)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother,numlings,1)
-	else if (eggtype == "QUEEN")
+	else if (eggtype == TS_DESC_QUEEN)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen,numlings,1)
 	// Unrecognized
 	else
@@ -156,10 +153,10 @@
 	set desc = "Enables/disables debug mode for spiders."
 	if (spider_debug)
 		spider_debug = 0
-		to_chat(src, "Debug: DEBUG MODE is now <b>OFF</b> for all spiders in world.")
+		to_chat(src, "Debug: DEBUG MODE is now <b>OFF</b> for all spiders in the world.")
 	else
 		spider_debug = 1
-		to_chat(src, "Debug: DEBUG MODE is now <b>ON</b> for all spiders in world.")
+		to_chat(src, "Debug: DEBUG MODE is now <b>ON</b> for all spiders in the world.")
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
 		T.spider_debug = spider_debug
 
@@ -169,10 +166,10 @@
 	set desc = "Enables/disables instant growth for spiders."
 	if (spider_growinstantly)
 		spider_growinstantly = 0
-		to_chat(src, "Debug: INSTANT GROWTH is now <b>OFF</b> for all spiders in world.")
+		to_chat(src, "Debug: INSTANT GROWTH is now <b>OFF</b> for all spiders in the world.")
 	else
 		spider_growinstantly = 1
-		to_chat(src, "Debug: INSTANT GROWTH is now <b>ON</b> for all spiders in world.")
+		to_chat(src, "Debug: INSTANT GROWTH is now <b>ON</b> for all spiders in the world.")
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
 		T.spider_growinstantly = spider_growinstantly
 
@@ -212,9 +209,9 @@
 			T.degenerate = 1
 			T.loot = 0
 			to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
-	for(var/obj/effect/spider/terror_eggcluster/T in world)
+	for(var/obj/effect/spider/terror_eggcluster/T in ts_egg_list)
 		qdel(T)
-	for(var/obj/effect/spider/terror_spiderling/T in world)
+	for(var/obj/effect/spider/terror_spiderling/T in ts_spiderling_list)
 		T.stillborn = 1
 	to_chat(src, "Brood will die off shortly.")
 

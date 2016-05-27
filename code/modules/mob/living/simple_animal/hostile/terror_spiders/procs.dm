@@ -2,26 +2,26 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoShowOrders(var/usecache = 0, var/thequeen = null, var/theempress = null)
 	if (ckey)
 		to_chat(src, "------------------------")
-		if (ai_type == 0)
+		if (ai_type == TS_AI_AGGRESSIVE)
 			to_chat(src, "Your Orders: <span class='danger'>kill all humanoids on sight! </span>")
-		else if (ai_type == 1)
+		else if (ai_type == TS_AI_DEFENSIVE)
 			to_chat(src, "Your Orders: <span class='notice'>defend yourself & the hive, without being aggressive </span> ")
-		else if (ai_type == 2)
+		else if (ai_type == TS_AI_PASSIVE)
 			to_chat(src, "Your Orders: <span class='danger'>do not attack anyone, not even in self-defense!</span> ")
 		to_chat(src, "------------------------")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/BroadcastOrders()
 	var/cache_thequeen = null
 	var/cache_theempress = null
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in living_mob_list)
 		if (Q.ckey || !Q.spider_awaymission)
 			cache_thequeen = Q
 			break
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/empress/E in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/empress/E in living_mob_list)
 		if (E.ckey || !E.spider_awaymission)
 			cache_theempress = E
 			break
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in living_mob_list)
 		S.DoShowOrders(1,cache_thequeen,cache_theempress)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/B)
@@ -73,27 +73,26 @@
 		if (retaliate_faction_check && !attack_same && !H.attack_same)
 			H.enemies |= enemies
 	if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/queen) || istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/empress)  )
-		for (var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+		for (var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
 			T.enemies |= enemies
 	return 0
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(var/msgtext)
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
-		if (T.stat != DEAD)
-			to_chat(T, "<span class='alien'>TerrorSense: " + msgtext + "</span>")
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
+		to_chat(T, "<span class='alien'>TerrorSense: " + msgtext + "</span>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpiders()
 	var/numspiders = 0
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
-		if (T.health > 0 && !T.spider_placed && spider_awaymission == T.spider_awaymission)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
+		if (!T.spider_placed && spider_awaymission == T.spider_awaymission)
 			numspiders += 1
 	return numspiders
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountAllSpiders()
 	var/numspiders = 0
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
 		numspiders += 1
 	return numspiders
 
@@ -152,22 +151,19 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoHiveSense()
 	var/hsline = ""
 	to_chat(src, "Your Brood: ")
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
 		hsline = "* [T] in [get_area(T)], "
-		if (T.health >0)
-			hsline += "health [T.health] / [T.maxHealth], "
-			if (T.ckey)
-				hsline += " *Player Controlled* "
-			else
-				hsline += " AI: "
-				if (T.ai_type == 0)
-					hsline += "aggressive"
-				else if (T.ai_type == 1)
-					hsline += "defensive"
-				else if (T.ai_type == 2)
-					hsline += "passive"
+		hsline += "health [T.health] / [T.maxHealth], "
+		if (T.ckey)
+			hsline += " *Player Controlled* "
 		else
-			hsline += "DEAD"
+			hsline += " AI: "
+			if (T.ai_type == TS_AI_AGGRESSIVE)
+				hsline += "aggressive"
+			else if (T.ai_type == TS_AI_DEFENSIVE)
+				hsline += "defensive"
+			else if (T.ai_type == TS_AI_PASSIVE)
+				hsline += "passive"
 		to_chat(src,hsline)
 
 
@@ -220,7 +216,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/SetHiveCommand(var/set_ai, var/set_ventcrawl, var/set_pc)
 	var/numspiders = 0
 	//var/orderschanged = 0
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
 		if (spider_awaymission && !T.spider_awaymission)
 			continue
 		else if (!spider_awaymission && T.spider_awaymission)
@@ -236,7 +232,7 @@
 				T.idle_ventcrawl_chance = set_ventcrawl
 			if (T.ai_playercontrol_allowingeneral != set_pc)
 				if (set_pc == 1 && !spider_awaymission)
-					notify_ghosts("[T.name] in [get_area(T)] can be controlled! <a href=?src=\ref[T];activate=1>(Click to play)</a>")
+					notify_ghosts("[T.name] in [get_area(T)] can be controlled! <a href=?src=\ref[T];activate=1>(Click to play)</a>", source = T)
 				T.ai_playercontrol_allowingeneral = set_pc
 	for(var/obj/effect/spider/terror_eggcluster/T in world)
 		if (T.ai_playercontrol_allowingeneral != set_pc)
@@ -308,11 +304,11 @@
 		return
 	var/error_on_humanize = ""
 	var/humanize_prompt = "Take direct control of " + src.name + "? "
-	if (ai_type == 0)
+	if (ai_type == TS_AI_AGGRESSIVE)
 		humanize_prompt += "Orders: AGGRESSIVE. "
-	else if (ai_type == 1)
+	else if (ai_type == TS_AI_DEFENSIVE)
 		humanize_prompt += "Orders: DEFENSIVE. "
-	else if (ai_type == 2)
+	else if (ai_type == TS_AI_PASSIVE)
 		humanize_prompt += "Orders: PASSIVE/TAME. "
 	humanize_prompt += "Role: " + spider_role_summary
 	if (user.ckey in ts_ckey_blacklist)
