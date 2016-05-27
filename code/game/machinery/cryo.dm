@@ -385,7 +385,7 @@
 				var/heal_fire = occupant.getFireLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getFireLoss()) : 0
 				occupant.heal_organ_damage(heal_brute,heal_fire)
 		if(beaker && next_trans == 0)
-			beaker.reagents.trans_to(occupant, 1, 10)
+			beaker.reagents.trans_to(occupant, 1, 3)
 			beaker.reagents.reaction(occupant)
 	next_trans++
 	if(next_trans == 10)
