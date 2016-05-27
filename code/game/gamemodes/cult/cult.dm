@@ -91,7 +91,7 @@ var/global/list/all_cults = list()
 /datum/game_mode/cult/pre_setup()
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
-
+	..()
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
 
 	for(var/cultists_number = 1 to max_cultists_to_start)

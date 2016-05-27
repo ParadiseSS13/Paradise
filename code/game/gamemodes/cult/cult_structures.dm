@@ -15,15 +15,7 @@
 	qdel(src)
 
 /obj/structure/cult/attackby(obj/item/I, mob/user, params)
-	if(I.force)
-		..()
-		playsound(src, I.hitsound, 50, 1)
-		health = Clamp(health - I.force, 0, initial(health))
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(health <= 0)
-			destroy_structure()
-		return
-	..()
+
 
 //Noncult As we may have this on maps
 /obj/structure/cult/talisman
@@ -65,8 +57,15 @@
 			icon_state = "[initial(icon_state)]_off"
 		else
 			icon_state = initial(icon_state)
-	else
-		return ..()
+
+	if(I.force)
+		..()
+		health = Clamp(health - I.force, 0, initial(health))
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(health <= 0)
+			destroy_structure()
+		return
+	..()
 
 /obj/structure/cult/proc/getETA()
 	var/time = (cooldowntime - world.time)/600
