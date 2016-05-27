@@ -1,8 +1,8 @@
-<!-- 
-Title: Radiometric Scanner UI 
+<!--
+Title: Radiometric Scanner UI
 Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scanner.dm
  -->
- 
+
 <h3>Machine Status</h3>
 <div class="item">
 	<div class="itemContent" style="width: 20%;">
@@ -39,7 +39,7 @@ Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scan
 	<div class="itemLabel" style="width: 21%;">Scan progress:</div>
 	<div class="itemContent" style="width: 35%;">
 		{{:helper.displayBar(data.scan_progress, 0, 100, 'good')}}
-		{{:data.scan_progress}} %
+		{{:helper.smoothRound(data.scan_progress)}} %
 	</div>
 	<div class="itemContent" style="width: 44%;">
 		{{if data.scan_progress >= 100}}
@@ -51,7 +51,7 @@ Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scan
 	<div class="itemLabel" style="width: 21%;">Vacuum seal integrity:</div>
 	<div class="itemContent" style="width: 35%;">
 		{{:helper.displayBar(data.scanner_seal_integrity, 0, 100, ((data.scanner_seal_integrity < 66) ? ((data.scanner_seal_integrity < 33) ? 'bad' : 'average') : 'good'))}}
-		{{:data.scanner_seal_integrity}} %
+		{{:helper.smoothRound(data.scanner_seal_integrity)}} %
 	</div>
 	<div class="itemContent" style="width: 44%;">
 		{{if data.scanner_seal_integrity < 25}}
@@ -110,7 +110,7 @@ Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scan
 	<div class="itemLabel" style="width: 21%;">Internal temperature:</div>
 	<div class="itemContent" style="width: 35%;">
 		{{:helper.displayBar(data.scanner_temperature, 0, 1273, (data.scanner_temperature > 250 ? (data.scanner_temperature > 1000 ? 'bad' : 'average') : 'good'))}}
-		{{:data.scanner_temperature}} K
+		{{:helper.smoothRound(data.scanner_temperature)}} K
 	</div>
 	<div class="itemContent" style="width: 44%;">
 		{{if data.scanner_temperature > 1000}}
@@ -124,7 +124,7 @@ Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scan
 	<div class="itemLabel" style="width: 21%;">Ambient radiation:</div>
 	<div class="itemContent" style="width: 35%;">
 		{{:helper.displayBar(data.radiation, 0, 100, ((data.radiation > 15) ? ((data.radiation > 65) ? 'bad' : 'average') : 'good'))}}
-		{{:data.radiation}} mSv
+		{{:helper.smoothRound(data.radiation)}} mSv
 	</div>
 	<div class="itemContent" style="width: 44%;">
 		{{:helper.link(data.rad_shield_on ? 'Disable Radiation Shielding' : 'Enable Radiation Shielding', 'exclamation-circle', {'toggle_rad_shield' : 1}, null)}}
@@ -139,7 +139,7 @@ Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scan
 	<div class="itemLabel" style="width: 21%;">Coolant remaining:</div>
 	<div class="itemContent" style="width: 35%;">
 		{{:helper.displayBar(data.unused_coolant_per, 0, 100, ((data.unused_coolant_per < 66) ? ((data.unused_coolant_per < 33) ? 'bad' : 'average') : 'good'))}}
-		{{:data.unused_coolant_abs}} u
+		{{:helper.smoothRound(data.unused_coolant_abs)}} u
 	</div>
 	<div class="itemContent" style="width: 44%;">
 		{{if data.unused_coolant_per < 20}}
@@ -151,7 +151,7 @@ Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scan
 	<div class="itemLabel" style="width: 21%;">Coolant flow rate:</div>
 	<div class="itemContent" style="width: 35%;">
 		{{:helper.displayBar(data.coolant_usage_rate, 0, 10, 'good')}}
-		{{:data.coolant_usage_rate}} u/s
+		{{:helper.smoothRound(data.coolant_usage_rate)}} u/s
 	</div>
 	<div class="itemContent" style="text-align:left; width: 22%;">
 		{{:helper.link('Min u/s', null, {'coolantRate' : -10}, null)}}

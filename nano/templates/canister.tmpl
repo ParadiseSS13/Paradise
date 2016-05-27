@@ -14,7 +14,7 @@
 			Tank Pressure:
 		</div>
 		<div class="itemContent">
-			{{:data.tankPressure}} kPa
+			{{:helper.smoothRound(data.tankPressure)}} kPa
 		</div>
 	</div>
 
@@ -43,7 +43,7 @@
 				Tank Pressure:
 			</div>
 			<div class="itemContent">
-				{{:data.holdingTank.tankPressure}} kPa
+				{{:helper.smoothRound(data.holdingTank.tankPressure)}} kPa
 			</div>
 		</div>
 	{{else}}
@@ -90,8 +90,8 @@
 	<div class="itemContent">
 		<div style="float: left; width: 180px;">{{:data.name}}</div> {{:helper.link('Rename', 'pencil', {'rename' : 1}, data.canLabel ? null : 'disabled')}}
 	</div>
-	
-	
+
+
 	<h3>Colors</h3>
 	<div class="item" style='width: 100%'>
 		<div style='float: left; width: 175px; min-height: 210px'>

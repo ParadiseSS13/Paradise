@@ -25,11 +25,11 @@ code/modules/mob/living/silicon/pai/software_modules.dm
 	<div class="itemContent">
 		{{if data.inprogress}}
 			{{if data.progress_a <= 33}}
-				<div class='bad'>{{:data.progress_a}}.{{:data.progress_b}}%</div>
+				<div class='bad'>{{:helper.smoothRound(data.progress_a)}}.{{:helper.smoothRound(data.progress_b)}}%</div>
 			{{else data.progress_a <= 67}}
-				<div class='average'>{{:data.progress_a}}.{{:data.progress_b}}%</div>
+				<div class='average'>{{:helper.smoothRound(data.progress_a)}}.{{:helper.smoothRound(data.progress_b)}}%</div>
 			{{else}}
-				<div class='good'>{{:data.progress_a}}.{{:data.progress_b}}%</div>
+				<div class='good'>{{:helper.smoothRound(data.progress_a)}}.{{:helper.smoothRound(data.progress_b)}}%</div>
 			{{/if}}
 			{{:helper.link("Cancel", '', {"stopic":"door_jack", "cancel":1}, null, 'redButton')}}
 		{{else}}
