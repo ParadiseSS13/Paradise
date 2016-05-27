@@ -180,8 +180,8 @@
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id/supply
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
-	minimal_access = list(access_mining, access_mint, access_mining_station, access_mailsorting, access_maint_tunnels, access_mineral_storeroom)
-	alt_titles = list("Spelunker")
+	minimal_access = list(access_mining, access_mint, access_mining_station, access_mailsorting, access_maint_tunnels, access_mineral_storeroom, access_gateway)
+	alt_titles = list("Spelunker", "Gateway Explorer")
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
