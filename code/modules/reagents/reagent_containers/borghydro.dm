@@ -2,7 +2,7 @@
 /obj/item/weapon/reagent_containers/borghypo
 	name = "Cyborg Hypospray"
 	desc = "An advanced chemical synthesizer and injection system, designed for heavy-duty medical equipment."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "borghypo"
 	amount_per_transfer_from_this = 5
@@ -23,7 +23,7 @@
 
 /obj/item/weapon/reagent_containers/borghypo/crisis
 	reagent_ids = list("salglu_solution", "epinephrine", "sal_acid")
-	
+
 /obj/item/weapon/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
 	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and morphine, for offense."

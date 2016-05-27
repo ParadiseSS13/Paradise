@@ -162,7 +162,7 @@
 		if(L.stat == DEAD)
 			if(do_after(src, 30, target = L))
 				if(eat(L))
-					heal_overall_damage(50,50)
+					adjustHealth(-50)
 			return
 	else if(istype(target,/obj/item)) // Eat items just to be annoying
 		var/obj/item/I = target

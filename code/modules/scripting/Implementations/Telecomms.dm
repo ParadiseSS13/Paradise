@@ -60,6 +60,9 @@
 		return
 
 	interpreter.container = src
+	
+	interpreter.CreateGlobalScope() // Reset the variables.
+	interpreter.curScope = interpreter.globalScope
 
 	interpreter.SetVar("PI",	 	3.141592653)	// value of pi
 	interpreter.SetVar("E",		 	2.718281828)	// value of e
@@ -127,7 +130,7 @@
 
 				@param time: 		time to sleep in deciseconds (1/10th second)
 	*/
-	interpreter.SetProc("sleep",		/proc/delay)
+	interpreter.SetProc("sleep", "delay", signal, list("time"))
 
 	/*
 		-> Replaces a string with another string
@@ -199,27 +202,27 @@
 	interpreter.SetProc("tostring",		/proc/n_num2str)
 	interpreter.SetProc("sqrt",			/proc/n_sqrt)
 	interpreter.SetProc("abs",			/proc/n_abs)
-	interpreter.SetProc("floor",		/proc/Floor)
-	interpreter.SetProc("ceil",			/proc/Ceiling)
+	interpreter.SetProc("floor",		/proc/n_floor)
+	interpreter.SetProc("ceil",			/proc/n_ceiling)
 	interpreter.SetProc("round",		/proc/n_round)
 	interpreter.SetProc("clamp",		/proc/n_clamp)
-	interpreter.SetProc("inrange",		/proc/IsInRange)
+	interpreter.SetProc("inrange",		/proc/n_isInRange)
 	interpreter.SetProc("rand",			/proc/rand_chance)
 	interpreter.SetProc("arctan",		/proc/Atan2)
-	interpreter.SetProc("lcm",			/proc/Lcm)
+	interpreter.SetProc("lcm",			/proc/n_lcm)
 	interpreter.SetProc("gcd",			/proc/Gcd)
 	interpreter.SetProc("mean",			/proc/Mean)
-	interpreter.SetProc("root",			/proc/Root)
+	interpreter.SetProc("root",			/proc/n_root)
 	interpreter.SetProc("sin",			/proc/n_sin)
 	interpreter.SetProc("cos",			/proc/n_cos)
 	interpreter.SetProc("arcsin",		/proc/n_asin)
 	interpreter.SetProc("arccos",		/proc/n_acos)
-	interpreter.SetProc("tan",			/proc/Tan)
-	interpreter.SetProc("csc",			/proc/Csc)
-	interpreter.SetProc("cot",			/proc/Cot)
-	interpreter.SetProc("sec",			/proc/Sec)
-	interpreter.SetProc("todegrees",	/proc/ToDegrees)
-	interpreter.SetProc("toradians",	/proc/ToRadians)
+	interpreter.SetProc("tan",			/proc/n_tan)
+	interpreter.SetProc("csc",			/proc/n_csc)
+	interpreter.SetProc("cot",			/proc/n_cot)
+	interpreter.SetProc("sec",			/proc/n_sec)
+	interpreter.SetProc("todegrees",	/proc/n_toDegrees)
+	interpreter.SetProc("toradians",	/proc/n_toRadians)
 	interpreter.SetProc("lerp",			/proc/Lerp)
 	interpreter.SetProc("max",			/proc/n_max)
 	interpreter.SetProc("min",			/proc/n_min)
@@ -255,6 +258,28 @@
 		signal.data["reject"] = 1
 
 /*  -- Actual language proc code --  */
+/datum/signal/proc/delay(var/time)
+	var/obj/machinery/telecomms/server/S = data["server"]
+	var/datum/n_Interpreter/TCS_Interpreter/interpreter = S.Compiler.interpreter
+	// Backup the scope
+	var/datum/scope/globalScope = interpreter.globalScope
+	var/datum/scope/curScope = interpreter.curScope
+	var/list/scopes = interpreter.scopes.stack.Copy()
+	var/list/functions = interpreter.functions.stack.Copy()
+	var/datum/node/statement/FunctionDefinition/curFunction = interpreter.curFunction
+	var/status = interpreter.status
+	var/returnVal = interpreter.returnVal
+	// Sleep
+	sleep(time)
+	// Restore the scope
+	interpreter.returnVal = returnVal
+	interpreter.status = status
+	interpreter.curFunction = curFunction
+	interpreter.functions.stack = functions
+	interpreter.scopes.stack = scopes
+	interpreter.curScope = curScope
+	interpreter.globalScope = globalScope
+
 /datum/signal/proc/mem(var/address, var/value)
 	if(istext(address))
 		var/obj/machinery/telecomms/server/S = data["server"]

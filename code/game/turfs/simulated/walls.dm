@@ -66,8 +66,9 @@
 
 	smooth_icon(src)
 	if(!damage)
-		overlays -= damage_overlays[damage_overlay]
-		damage_overlay = 0
+		if(damage_overlay)
+			overlays -= damage_overlays[damage_overlay]
+			damage_overlay = 0
 		return
 
 	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
@@ -76,11 +77,10 @@
 
 	if(damage_overlay && overlay == damage_overlay) //No need to update.
 		return
-	overlays -= damage_overlays[damage_overlay]
+	if(damage_overlay)
+		overlays -= damage_overlays[damage_overlay]
 	overlays += damage_overlays[overlay]
 	damage_overlay = overlay
-
-	return
 
 /turf/simulated/wall/proc/generate_overlays()
 	var/alpha_inc = 256 / damage_overlays.len

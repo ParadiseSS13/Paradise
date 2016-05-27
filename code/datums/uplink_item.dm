@@ -54,8 +54,13 @@ var/list/uplink_items = list()
 	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
+	var/hijack_only = 0 //can this item be purchased only during hijackings?
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
+	if(hijack_only)
+		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
+			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
+			return
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
@@ -89,15 +94,16 @@ var/list/uplink_items = list()
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
-		if(ishuman(user))
-			var/mob/living/carbon/human/A = user
-			A.put_in_any_hand_if_possible(I)
+		if(I)
+			if(ishuman(user))
+				var/mob/living/carbon/human/A = user
+				A.put_in_any_hand_if_possible(I)
 
-			if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
-				for(var/atom/o in I)
-					U.purchase_log += "<BIG>\icon[o]</BIG>"
-			else
-				U.purchase_log += "<BIG>\icon[I]</BIG>"
+				if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
+					for(var/atom/o in I)
+						U.purchase_log += "<BIG>\icon[o]</BIG>"
+				else
+					U.purchase_log += "<BIG>\icon[I]</BIG>"
 
 		//U.interact(user)
 		return 1
@@ -121,6 +127,23 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/grenade/clown_grenade
 	cost = 5
 	job = list("Clown")
+
+//mime
+/datum/uplink_item/job_specific/caneshotgun
+	name = "Cane Shotgun + Assassination Darts"
+	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes with 6 special darts and a preloaded shrapnel round."
+	reference = "MCS"
+	item = /obj/item/weapon/storage/box/syndie_kit/caneshotgun
+	cost = 15
+	job = list("Mime")
+
+/datum/uplink_item/dangerous/cat_grenade
+	name = "Feral Cat Delivery Grenade"
+	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	item = /obj/item/weapon/grenade/spawnergrenade/feral_cats
+	reference = "CCLG"
+	cost = 5
+	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -156,6 +179,16 @@ var/list/uplink_items = list()
 	item = /obj/item/voodoo
 	cost = 13
 	job = list("Chaplain")
+
+/datum/uplink_item/jobspecific/artistic_toolbox
+	name = "Artistic Toolbox"
+	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
+	reference = "HGAT"
+	item = /obj/item/weapon/storage/toolbox/green/memetic
+	cost = 20
+	job = list("Chaplain")
+	surplus = 0     //No lucky chances from the crate; if you get this, this is ALL you're getting
+	hijack_only = 1 //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
 //Janitor
 
@@ -218,6 +251,16 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Barber")
 
+//Botanist
+
+/datum/uplink_item/jobspecific/bee_briefcase
+	name = "Briefcase Full of Bees"
+	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
+	reference = "BEE"
+	item = /obj/item/weapon/bee_briefcase
+	cost = 10
+	job = list("Botanist")
+
 //Engineer
 
 /datum/uplink_item/jobspecific/powergloves
@@ -238,6 +281,35 @@ var/list/uplink_items = list()
 	cost = 12
 	job = list("Research Director")
 
+//Librarian
+/datum/uplink_item/jobspecific/etwenty
+	name = "The E20"
+	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find it's effects quite explosive. Has a four second timer."
+	reference = "ETW"
+	item = /obj/item/weapon/dice/d20/e20
+	cost = 3
+	job = list("Librarian")
+
+
+//Botanist
+/datum/uplink_item/jobspecific/ambrosiacruciatus
+	name = "Ambrosia Cruciatus Seeds"
+	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
+	reference = "BRO"
+	item = /obj/item/seeds/ambrosiavulgarisseed/cruciatus
+	cost = 2
+	job = list("Botanist")
+
+
+//Atmos Tech
+/datum/uplink_item/jobspecific/contortionist
+	name = "Contortionist's Jumpsuit"
+	desc = "A highly flexible jumpsuit that will help you navigate the ventilation loops of the station internally. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, helmet, and exosuit. Free hands are also necessary to crawl around inside."
+	reference = "AIRJ"
+	item = /obj/item/clothing/under/contortionist
+	cost = 6
+	job = list("Atmospheric Technician")
+
 //Stimulants
 
 /datum/uplink_item/jobspecific/stims
@@ -256,7 +328,7 @@ var/list/uplink_items = list()
 	reference = "TPB"
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Scientist","Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Chemist","Paramedic","Virologist","Bartender")
+	job = list("Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Virologist","Bartender")
 
 // DANGEROUS WEAPONS
 
@@ -572,7 +644,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \The pen holds two doses of the mixture. The pen can be refilled."
+	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
 	reference = "SP"
 	item = /obj/item/weapon/pen/sleepy
 	cost = 8
@@ -627,7 +699,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
 	name = "Dehydrated Space Carp"
-	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie."
+	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 3

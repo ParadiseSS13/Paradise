@@ -142,6 +142,14 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+#define in_range(source, user)		(get_dist(source, user) <= 1)
+
+#define RANGE_TURFS(RADIUS, CENTER) \
+  block( \
+	locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
+	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+  )
+
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	dview_mob.loc = center; \
 	dview_mob.see_invisible = invis_flags; \
@@ -231,3 +239,15 @@
 #define REGION_ENGINEERING	5
 #define REGION_SUPPLY		6
 #define REGION_COMMAND		7
+#define REGION_CENTCOMM		8
+
+//Matricies
+#define MATRIX_DEFAULT list(1, 0, 0, 0,\
+                            0, 1, 0, 0,\
+                            0, 0, 1, 0,\
+                            0, 0, 0, 1)
+
+#define MATRIX_GREYSCALE list(0.3, 0.3, 0.3, 0,\
+                              0.3, 0.3, 0.3, 0,\
+                              0.3, 0.3, 0.3, 0,\
+                              0,   0,   0,   1)

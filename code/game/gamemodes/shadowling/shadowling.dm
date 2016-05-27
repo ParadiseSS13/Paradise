@@ -69,7 +69,6 @@ Made by Xhuis
 	name = "shadowling"
 	config_tag = "shadowling"
 	required_players = 30
-	required_players_secret = 30
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
@@ -302,7 +301,7 @@ Made by Xhuis
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
+	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE | NOGUNS //Can't use guns due to muzzle flash
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	hot_env_multiplier = 1.5
 

@@ -50,7 +50,8 @@
 			T.client.screen -= button
 		qdel(button)
 		button = null
-	T.actions.Remove(src)
+	if(T.actions)
+		T.actions.Remove(src)
 	T.update_action_buttons()
 	owner = null
 	return

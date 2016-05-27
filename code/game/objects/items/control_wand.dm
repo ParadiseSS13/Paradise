@@ -31,6 +31,9 @@
 /obj/item/weapon/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
 		return
+	if(D.is_special)
+		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
+		return
 	if(!(D.arePowerSystemsOn()))
 		to_chat(user, "<span class='danger'>[D] has no power!</span>")
 		return
@@ -98,6 +101,12 @@
 	name = "civillian door remote"
 	icon_state = "gangtool-white"
 	region_access = REGION_GENERAL
+
+/obj/item/weapon/door_remote/centcomm
+	name = "centcomm door remote"
+	desc = "High-ranking NT officials only."
+	icon_state = "gangtool-blue"
+	region_access = REGION_CENTCOMM
 
 #undef WAND_OPEN
 #undef WAND_BOLT
