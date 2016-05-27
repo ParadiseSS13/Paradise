@@ -45,19 +45,19 @@
 	name = "terror eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
-	var/wdstage = 1
+	var/current_cycle = 0
 	var/awaymission_infection = 0
 	var/alternate_ending = 0
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
-	wdstage += 1
+	current_cycle += 1
 	if (owner.health < -25)
 		to_chat(owner,"<span class='notice'>You feel a strange, blissful senstation.</span>")
 		owner.adjustBruteLoss(-5)
 		owner.adjustFireLoss(-5)
 		owner.adjustToxLoss(-5)
 		// the spider eggs secrete stimulants/etc to keep their host alive until they hatch
-	switch (wdstage)
+	switch (current_cycle)
 		if (1) // immediately
 			to_chat(owner,"<span class='danger'>Your spider bite wound hurts horribly! </span>")
 			if (istype(get_area(owner), /area/awaycontent) || istype(get_area(owner), /area/awaymission/))
@@ -85,13 +85,13 @@
 			owner.Stun(20)
 			owner.Weaken(20)
 			// yes, this is a hella long stun - that's intentional. Gotta give the spiderlings time to escape.
-			var/obj/effect/spider/terror_spiderling/S1 = new(get_turf(owner))
+			var/obj/effect/spider/spiderling/terror_spiderling/S1 = new(get_turf(owner))
 			S1.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 			S1.name = "red spiderling"
-			var/obj/effect/spider/terror_spiderling/S2 = new(get_turf(owner))
+			var/obj/effect/spider/spiderling/terror_spiderling/S2 = new(get_turf(owner))
 			S2.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
 			S2.name = "gray spiderling"
-			var/obj/effect/spider/terror_spiderling/S3 = new(get_turf(owner))
+			var/obj/effect/spider/spiderling/terror_spiderling/S3 = new(get_turf(owner))
 			S3.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			S3.name = "green spiderling"
 			if (alternate_ending)

@@ -5,7 +5,7 @@ var/global/ts_count_alive_awaymission = 0
 var/global/ts_count_alive_station = 0
 var/global/ts_death_last = 0
 var/global/ts_death_window = 9000 // 15 minutes
-var/global/list/ts_mob_list = list()
+var/global/list/ts_spiderlist = list()
 var/global/list/ts_egg_list = list()
 var/global/list/ts_spiderling_list = list()
 
@@ -62,6 +62,9 @@ var/global/list/ts_spiderling_list = list()
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
 
+	// Loot
+	loot = list() // None by default.
+
 	// Languages are handled in terror_spider/New()
 
 	// Interaction keywords
@@ -79,9 +82,6 @@ var/global/list/ts_spiderling_list = list()
 	//          100/kill means bonus 50hp/kill regenerated over the next 1-2 minutes
 
 	var/degenerate = 0 // if 1, they slowly degen until they all die off. Used by high-level abilities only.
-
-	// Loot
-	var/loot = 1 // if they drop loot when they die
 
 	// Vision
 	idle_vision_range = 10
@@ -539,6 +539,7 @@ var/global/list/ts_spiderling_list = list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
+	ts_spiderlist += src
 	if (type == /mob/living/simple_animal/hostile/poison/terror_spider)
 		message_admins("[src] spawned in [get_area(src)] - a subtype should have been spawned instead.")
 		qdel(src)
@@ -558,7 +559,7 @@ var/global/list/ts_spiderling_list = list()
 			if (istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
 				spider_uo71 = 1
 				if (world.time < 600)
-					// spider is spawning in the first 60 seconds of the round, asssume its an awaymission spider placed there with the intention of staying there.
+					// these are static spiders, specifically for the UO71 away mission, make them stay in place
 					ai_ventcrawls = 0
 					spider_placed = 1
 					wander = 0
@@ -576,9 +577,9 @@ var/global/list/ts_spiderling_list = list()
 			else if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
 				notify_ghosts("[src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
 
-
-
-
+/mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
+	ts_spiderlist -= src
+	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
 	if (stat != DEAD)

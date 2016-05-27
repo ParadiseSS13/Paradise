@@ -157,7 +157,7 @@
 	else
 		spider_debug = 1
 		to_chat(src, "Debug: DEBUG MODE is now <b>ON</b> for all spiders in the world.")
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		T.spider_debug = spider_debug
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressToggleInstant()
@@ -170,7 +170,7 @@
 	else
 		spider_growinstantly = 1
 		to_chat(src, "Debug: INSTANT GROWTH is now <b>ON</b> for all spiders in the world.")
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		T.spider_growinstantly = spider_growinstantly
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressKillSpider()
@@ -178,10 +178,10 @@
 	set category = "Spider"
 	set desc = "Kills a spider. If they are player-controlled, also bans them from controlling any other spider for the rest of the round."
 	var/choices = list()
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/L in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/L in ts_spiderlist)
 		if(L == src)
 			continue
-		if (L.health < 1)
+		if (L.stat == DEAD)
 			continue
 		choices += L
 	var/killtarget = input(src,"Which terror spider should die?") in null|choices
@@ -204,14 +204,13 @@
 	set name = "Erase Brood"
 	set category = "Spider"
 	set desc = "Debug: kill off all other spiders in the world. Takes two minutes to work."
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		if (T.spider_tier < 5)
 			T.degenerate = 1
-			T.loot = 0
 			to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
-	for(var/obj/effect/spider/terror_eggcluster/T in ts_egg_list)
+	for(var/obj/effect/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
 		qdel(T)
-	for(var/obj/effect/spider/terror_spiderling/T in ts_spiderling_list)
+	for(var/obj/effect/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
 		T.stillborn = 1
 	to_chat(src, "Brood will die off shortly.")
 
@@ -222,7 +221,7 @@
 	var/numlings = input("How many?") as null|anything in list(10,20,30,40,50)
 	var/sbpc = input("%chance to be stillborn?") as null|anything in list(0,25,50,75,100)
 	for(var/i=0, i<numlings, i++)
-		var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
+		var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
 		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/white, /mob/living/simple_animal/hostile/poison/terror_spider/black)
 		S.spider_myqueen = spider_myqueen
 		if (prob(sbpc))

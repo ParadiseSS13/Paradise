@@ -26,7 +26,7 @@
 	move_to_delay = 4
 	ventcrawler = 1
 	spider_tier = 2
-
+	loot = list(/obj/item/clothing/accessory/medal)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/LoseTarget()
 	stop_automated_movement = 0
@@ -34,8 +34,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/death(gibbed)
 	if (!hasdroppedloot)
-		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/silver(get_turf(src))
-		M.layer = 4.1
 		if (spider_uo71)
 			UnlockBlastDoors("UO71_Bridge", "UO71 Bridge is now unlocked!")
 	..()

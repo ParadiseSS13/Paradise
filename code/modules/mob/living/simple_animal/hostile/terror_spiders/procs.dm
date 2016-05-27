@@ -13,16 +13,17 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/BroadcastOrders()
 	var/cache_thequeen = null
 	var/cache_theempress = null
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in living_mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in ts_spiderlist)
 		if (Q.ckey || !Q.spider_awaymission)
 			cache_thequeen = Q
 			break
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/empress/E in living_mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/empress/E in ts_spiderlist)
 		if (E.ckey || !E.spider_awaymission)
 			cache_theempress = E
 			break
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in living_mob_list)
-		S.DoShowOrders(1,cache_thequeen,cache_theempress)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in ts_spiderlist)
+		if (S.stat != DEAD)
+			S.DoShowOrders(1,cache_thequeen,cache_theempress)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/B)
 	if (iscarbon(B))
@@ -73,27 +74,29 @@
 		if (retaliate_faction_check && !attack_same && !H.attack_same)
 			H.enemies |= enemies
 	if (istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/queen) || istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/empress)  )
-		for (var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
+		for (var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 			T.enemies |= enemies
 	return 0
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(var/msgtext)
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
-		to_chat(T, "<span class='alien'>TerrorSense: " + msgtext + "</span>")
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+		if (T.stat != DEAD)
+			to_chat(T, "<span class='alien'>TerrorSense: " + msgtext + "</span>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpiders()
 	var/numspiders = 0
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
-		if (!T.spider_placed && spider_awaymission == T.spider_awaymission)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+		if (T.stat != DEAD && !T.spider_placed && spider_awaymission == T.spider_awaymission)
 			numspiders += 1
 	return numspiders
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountAllSpiders()
 	var/numspiders = 0
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
-		numspiders += 1
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+		if (T.stat != DEAD)
+			numspiders += 1
 	return numspiders
 
 
@@ -151,9 +154,12 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoHiveSense()
 	var/hsline = ""
 	to_chat(src, "Your Brood: ")
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		hsline = "* [T] in [get_area(T)], "
-		hsline += "health [T.health] / [T.maxHealth], "
+		if (T.stat == DEAD)
+			hsline += "DEAD"
+		else
+			hsline += "health [T.health] / [T.maxHealth], "
 		if (T.ckey)
 			hsline += " *Player Controlled* "
 		else
@@ -215,18 +221,15 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/SetHiveCommand(var/set_ai, var/set_ventcrawl, var/set_pc)
 	var/numspiders = 0
-	//var/orderschanged = 0
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in living_mob_list)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		if (spider_awaymission && !T.spider_awaymission)
 			continue
 		else if (!spider_awaymission && T.spider_awaymission)
 			continue
 		numspiders += 1
-		//orderschanged = 0
 		if (spider_tier >= T.spider_tier)
 			if (T.ai_type != set_ai)
 				T.ai_type = set_ai
-				//orderschanged = 1
 				T.ShowOrders()
 			if (T.idle_ventcrawl_chance != set_ventcrawl)
 				T.idle_ventcrawl_chance = set_ventcrawl
@@ -234,10 +237,10 @@
 				if (set_pc == 1 && !spider_awaymission)
 					notify_ghosts("[T.name] in [get_area(T)] can be controlled! <a href=?src=\ref[T];activate=1>(Click to play)</a>", source = T)
 				T.ai_playercontrol_allowingeneral = set_pc
-	for(var/obj/effect/spider/terror_eggcluster/T in world)
+	for(var/obj/effect/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
 		if (T.ai_playercontrol_allowingeneral != set_pc)
 			T.ai_playercontrol_allowingeneral = set_pc
-	for(var/obj/effect/spider/terror_spiderling/T in world)
+	for(var/obj/effect/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
 		if (T.ai_playercontrol_allowingeneral != set_pc)
 			T.ai_playercontrol_allowingeneral = set_pc
 	return numspiders

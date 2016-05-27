@@ -49,7 +49,7 @@
 
 	spider_tier = 4
 	spider_opens_doors = 1
-
+	loot = list(/obj/item/clothing/accessory/medal)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
@@ -79,17 +79,14 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if (!hasdroppedloot)
-		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold(get_turf(src))
-		M.layer = 4.1
 		if (spider_uo71)
 			UnlockBlastDoors("UO71_Caves", "UO71 Caves are now unlocked!")
 		// When a queen dies, so do her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
-		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in mob_list)
+		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in ts_spiderlist)
 			if (ckey)
 				P.visible_message("<span class='danger'>\the [src] writhes in pain!</span>")
 				to_chat(P,"<span class='userdanger'>\the [src] has died. Without her hivemind link, purple terrors like yourself cannot survive more than a few minutes!</span>")
 				P.degenerate = 1
-				P.loot = 0
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/handle_automated_action()
@@ -151,7 +148,7 @@
 		else if (neststep == 3)
 			if (world.time > (spider_lastspawn + spider_spawnfrequency))
 				if (prob(20))
-					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
+					var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
 						if (!spider_awaymission)
 							QueenHallucinate()
@@ -161,7 +158,7 @@
 		else if (neststep == 3)
 			if (world.time > (spider_lastspawn + spider_spawnfrequency))
 				if (prob(20))
-					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
+					var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
 						if (!spider_awaymission)
 							QueenHallucinate()
@@ -171,7 +168,7 @@
 		else if (neststep == 4)
 			if (world.time > (spider_lastspawn + spider_spawnfrequency))
 				if (prob(20))
-					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
+					var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
 						if (!spider_awaymission)
 							QueenFakeLings()
@@ -181,7 +178,7 @@
 		else if (neststep == 5)
 			if (world.time > (spider_lastspawn + spider_spawnfrequency))
 				if (prob(20))
-					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
+					var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
 						if (!spider_awaymission)
 							QueenFakeLings()
@@ -405,7 +402,7 @@
 		spider_can_fakelings--
 		var/numlings = 15
 		for(var/i in 1 to numlings)
-			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
+			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 			S.stillborn = 1
 			S.name = "Evil-Looking Spiderling"

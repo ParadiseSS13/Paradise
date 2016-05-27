@@ -5,7 +5,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(var/lay_type, var/lay_number, var/lay_crawl)
 	stop_automated_movement = 1
-	var/obj/effect/spider/terror_eggcluster/C = new /obj/effect/spider/terror_eggcluster(get_turf(src))
+	var/obj/effect/spider/eggcluster/terror_eggcluster/C = new /obj/effect/spider/eggcluster/terror_eggcluster(get_turf(src))
 	C.spiderling_type = lay_type
 	C.spiderling_number = lay_number
 	C.spiderling_ventcrawl = lay_crawl
@@ -25,16 +25,14 @@
 		C.spider_queen_declared_war = 1
 
 
-/obj/effect/spider/terror_eggcluster
+/obj/effect/spider/eggcluster/terror_eggcluster
 	name = "terror egg cluster"
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
 	icon_state = "eggs"
-	var/amount_grown = 0
 	var/spider_growinstantly = 0
 	var/spider_queen_declared_war = 0 // set to 1 by procs
-	var/faction = list("terrorspiders")
+	faction = list("terrorspiders")
 	var/spider_myqueen = null
-	var/master_commander = null
 	var/spiderling_type = null
 	var/spiderling_number = 1
 	var/spiderling_ventcrawl = 1
@@ -42,24 +40,20 @@
 	var/list/enemies = list()
 
 
-/obj/effect/spider/terror_eggcluster/New()
-	pixel_x = rand(3,-3)
-	pixel_y = rand(3,-3)
-	processing_objects.Add(src)
+/obj/effect/spider/eggcluster/terror_eggcluster/New()
 	ts_egg_list += src
-	// Not a mistake that this does not call ..().
-	// /obj/effect/spider/stickyweb/New() does not call ..() either.
+	..()
 
-/obj/effect/spider/terror_eggcluster/Destroy()
+/obj/effect/spider/eggcluster/terror_eggcluster/Destroy()
 	ts_egg_list -= src
 	..()
 
-/obj/effect/spider/terror_eggcluster/process()
+/obj/effect/spider/eggcluster/terror_eggcluster/process()
 	amount_grown += rand(0,2)
 	if (amount_grown >= 100)
 		var/num = spiderling_number
 		for(var/i=0, i<num, i++)
-			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
+			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
 			if (spiderling_type)
 				S.grow_as = spiderling_type
 			if (spiderling_ventcrawl)
@@ -75,37 +69,30 @@
 				S.amount_grown = 250
 		var/rnum = 5 - spiderling_number
 		for(var/i=0, i<rnum, i++)
-			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
+			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
 			S.stillborn = 1
 			// the idea is that every set of eggs always spawn 5 spiderlings, but most are not going to grow up, just some do.
 		qdel(src)
 
 
-/obj/effect/spider/terror_spiderling
+/obj/effect/spider/spiderling/terror_spiderling
 	name = "spiderling"
 	desc = "A fast-moving tiny spider, prone to making aggressive hissing sounds. Hope it doesn't grow up."
 	icon_state = "spiderling"
 	anchored = 0
 	layer = 2.75
 	health = 3
-	var/amount_grown = 0
-	var/grow_as = null
 	var/spider_queen_declared_war = 0 // set to 1 by inheritance
 	var/stillborn = 0
-	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
-	var/travelling_in_vent = 0
-	var/faction = list("terrorspiders")
+	faction = list("terrorspiders")
 	var/spider_myqueen = null
-	var/master_commander = null
 	var/use_vents = 1
 	var/ai_playercontrol_allowingeneral = 1
 	var/list/enemies = list()
 
 
-/obj/effect/spider/terror_spiderling/New()
-	pixel_x = rand(6,-6)
-	pixel_y = rand(6,-6)
-	processing_objects.Add(src)
+/obj/effect/spider/spiderling/terror_spiderling/New()
+	..()
 	if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/red")
 		name = "red spiderling"
 	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/gray")
@@ -127,11 +114,11 @@
 	ts_spiderling_list += src
 
 
-/obj/effect/spider/terror_spiderling/Destroy()
+/obj/effect/spider/spiderling/terror_spiderling/Destroy()
 	ts_spiderling_list -= src
 	..()
 
-/obj/effect/spider/terror_spiderling/Bump(atom/user)
+/obj/effect/spider/spiderling/terror_spiderling/Bump(atom/user)
 	if (istype(user, /obj/structure/table))
 		loc = user.loc
 	else if (istype(user, /obj/machinery/recharge_station))
@@ -140,18 +127,7 @@
 		..()
 
 
-/obj/effect/spider/terror_spiderling/proc/die()
-	visible_message("<span class='alert'>[src] dies!</span>")
-	new /obj/effect/decal/cleanable/spiderling_remains(loc)
-	qdel(src)
-
-
-/obj/effect/spider/terror_spiderling/healthcheck()
-	if (health <= 0)
-		die()
-
-
-/obj/effect/spider/terror_spiderling/process()
+/obj/effect/spider/spiderling/terror_spiderling/process()
 	if (travelling_in_vent)
 		if (isturf(loc))
 			travelling_in_vent = 0

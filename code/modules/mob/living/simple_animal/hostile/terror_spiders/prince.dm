@@ -26,6 +26,7 @@
 	melee_damage_upper = 25
 	move_to_delay = 5
 	ventcrawler = 1
+	loot = list(/obj/item/clothing/accessory/medal)
 
 	ai_ventcrawls = 0 // no override, never ventcrawls. Ever.
 	idle_ventcrawl_chance = 0
@@ -36,8 +37,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)
 	if (!hasdroppedloot)
-		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold(get_turf(src))
-		M.layer = 4.1
 		if (spider_uo71)
 			UnlockBlastDoors("UO71_SciStorage", "UO71 Secure Science Storage is now unlocked!")
 	..()
