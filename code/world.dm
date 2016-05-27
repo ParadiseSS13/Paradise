@@ -133,7 +133,7 @@ var/world_topic_spam_protect_time = world.timeofday
 				if(C.holder.fakekey)
 					continue	//so stealthmins aren't revealed by the hub
 				admin_count++
-				admins += C.key
+				admins += list(list(C.key, C.holder.rank))
 			s["player[player_count]"] = C.key
 			player_count++
 		s["players"] = player_count
@@ -153,7 +153,9 @@ var/world_topic_spam_protect_time = world.timeofday
 				s["shuttle_timer"] = shuttle_master.emergency.timeLeft()
 
 			for(var/i in 1 to admins.len)
-				s["admin[i - 1]"] = admins[i]
+				var/list/A = admins[i]
+				s["admin[i - 1]"] = A[1]
+				s["adminrank[i - 1]"] = A[2]
 
 		return list2params(s)
 
