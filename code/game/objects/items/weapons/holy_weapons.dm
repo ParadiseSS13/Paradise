@@ -41,7 +41,7 @@
 		display_names += initial(A.name)
 
 	var/choice = input(M,"What theme would you like for your holy weapon?","Holy Weapon Theme") as null|anything in display_names
-	if(!src || !choice || M.stat || !in_range(M, src) || M.restrained() || !M.canmove || reskinned)
+	if(!src || !choice || !in_range(M, src) || M.incapacitated() || reskinned)
 		return
 
 	var/index = display_names.Find(choice)
@@ -209,7 +209,7 @@
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharp = 1
 	edge = 1
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "honked")
 
 /obj/item/weapon/nullrod/whip
 	name = "holy whip"
@@ -244,7 +244,7 @@
 
 /obj/item/weapon/nullrod/armblade
 	name = "dark blessing"
-	desc = "Particularly twisted dieties grant gifts of dubious value."
+	desc = "Particularly twisted deities grant gifts of dubious value."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
@@ -268,7 +268,7 @@
 		return
 	if(user.mind && (user.mind.assigned_role != "Chaplain"))
 		return
-	user << "You are blessed by Carp-Sie. Wild space carp will no longer attack you."
+	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
 	used_blessing = TRUE
 
