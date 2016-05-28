@@ -264,10 +264,14 @@ VampyrBytes
 	if(doMime(user))
 		visualOrAudible = 1
 
+	var/location = checkForHolopad(user)
+	if(!location)
+		location = user
+
 	log_emote("[user.name]/[user.key] : [message]")
 	sendToDead(message)
 	testing(message)
-	for(var/mob/M in getRecipients(user, visualOrAudible))
+	for(var/mob/M in getRecipients(location, visualOrAudible))
 		var/msg = ""
 
 		if(M==user)
@@ -311,16 +315,26 @@ VampyrBytes
 			continue
 
 		msg = message
-		outputMessage(M, msg)
+		outputMessage(M, msg, user)
 
 	if(visualOrAudible == 2)
 		handleListeningObjects(user, message)
 
 	return visualOrAudible
 
-/datum/emote/proc/outputMessage(var/mob/M, var/msg = "")
-	msg = replaceMobWithYou(M, msg, M)
+/datum/emote/proc/outputMessage(var/mob/M, var/msg = "", var/mob/user)
+	msg = replaceMobWithYou(M, msg, user)
 	to_chat(M, msg)
+
+/datum/emote/proc/checkForHolopad(var/mob/user, var/message)
+	if(!isAI(user))
+		return
+	var/mob/living/silicon/ai/AI = user
+	var/obj/machinery/hologram/holopad/T = AI.holo
+	if(!(T && T.hologram && T.master == AI))
+		return
+	to_chat(AI, "<i><span class='game say'>Holopad action relayed, <span class='name'>[AI.real_name]</span> <span class='message'>[message]</span></span></i>")
+	return T
 
 /datum/emote/proc/handleListeningObjects(var/mob/user, var/message = "")
 	// based on say code
@@ -337,10 +351,10 @@ VampyrBytes
 	for(var/obj/O in listening_obj)
 		O.hear_message(user, omsg)
 
-/datum/emote/proc/getRecipients(var/mob/user, var/visualOrAudible)
+/datum/emote/proc/getRecipients(var/location, var/visualOrAudible)
 	if(visualOrAudible == 1)
-		return viewers(user)
-	return get_mobs_in_view(HEARING_RANGE, user)
+		return viewers(location)
+	return get_mobs_in_view(HEARING_RANGE, location)
 
 // set up different messages for blind people here. Empty will mean no message for
 //non-audible emotes and the standard message for audible ones
