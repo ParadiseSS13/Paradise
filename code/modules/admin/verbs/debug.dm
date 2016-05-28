@@ -359,6 +359,27 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		message_admins("[key_name_admin(src)] has deleted all instances of [hsbitem].", 0)
 	feedback_add_details("admin_verb","DELA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/cmd_debug_del_sing()
+	set category = "Debug"
+	set name = "Del Singulo / Tesla"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with del-all
+	var/confirm = alert("This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	for(var/atom/O in world)
+		if(istype(O, /obj/singularity))
+			if(O.z == ZLEVEL_CENTCOMM  && O.z >= 8)
+				continue
+			qdel(O)
+	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
+	message_admins("[key_name_admin(src)] has deleted all instances of Singularities and Tesla orbs.", 0)
+	feedback_add_details("admin_verb","DELS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
 	set name = "Make Powernets"
