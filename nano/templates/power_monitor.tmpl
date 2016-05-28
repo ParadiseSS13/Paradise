@@ -13,7 +13,7 @@ Used In File(s): \code\modules\nano\modules\power_monitor.dm
 		</div>
 	{{empty}}
 		<h2>Network Error</h2>
-		<span class='bad'>No power monitors found.</span>	
+		<span class='bad'>No power monitors found.</span>
 	{{/for}}
 {{/if}}
 {{if data.powermonitor}}
@@ -26,7 +26,7 @@ Used In File(s): \code\modules\nano\modules\power_monitor.dm
 			<b>Total Power:</b>
 		</div>
 		<div class="itemContent">
-			<span class="average">{{:data.poweravail}} W</span>
+			<span class="average">{{:helper.smoothRound(data.poweravail)}} W</span>
 		</div>
 	</div>
 	<div class="item">
@@ -34,7 +34,7 @@ Used In File(s): \code\modules\nano\modules\power_monitor.dm
 			<b>Total Load:</b>
 		</div>
 		<div class="itemContent">
-			<span class="average">{{:data.powerload}} W</span>
+			<span class="average">{{:helper.smoothRound(data.powerload)}} W</span>
 		</div>
 	</div>
 	<div class="item">
@@ -42,13 +42,13 @@ Used In File(s): \code\modules\nano\modules\power_monitor.dm
 			<b>Total Demand:</b>
 		</div>
 		<div class="itemContent">
-			<span class="average">{{:data.powerdemand}} W</span>
+			<span class="average">{{:helper.smoothRound(data.powerdemand)}} W</span>
 		</div>
 	</div>
 	<div class="item">
 		<table class="curvedEdges" style="text-align: center;"><tbody>
 			<tr><th>Area</th><th>Equip.</th><th>Lighting</th><th>Environ.</th><th>Cell</th><th>Load</th></tr>
-			{{for data.apcs}}		
+			{{for data.apcs}}
 				<tr><td style="text-align: left; font-weight: bold;">{{:value.Name}}</td>
 					{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Equipment == "On" || value.Equipment == "AOn" ? '#4f7529' : '#8f1414', value.Equipment)}}
 					{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Lights == "On" || value.Lights == "AOn" ? '#4f7529' : '#8f1414', value.Lights)}}
