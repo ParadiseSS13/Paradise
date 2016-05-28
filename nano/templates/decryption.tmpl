@@ -1,0 +1,173 @@
+<!--
+Title: Decryption Console
+used in file(s) :\code\module\research\data-analysis\decryption.dm
+-->
+
+<h2>Decryption</h2>
+
+
+<div class="item">
+	<div class="itemContent">Currently analysing: {{:data.bookTitle}}</div>
+    {{:helper.link('Eject Databook', 'arrow-circle-right', {'eject_book' : 1}, null)}}
+</div>
+
+<div class="itemcontent"> <b> Please make sure the to select a key for all fragments of the cypher. </b> </div>
+<hr>
+<br>
+
+   <div class="itemGroup" style="padding-bottom:20px">
+    <div class="itemLabelWide"><b>Cypher keyfragment Alpha</b></div>
+        {{if data.init==1}}
+            <div class="circle itemContent floatRight" style="margin: 5px 10px;width:50px"></div>
+
+        {{else data.init==0 && data.selectedkeyA == data.keyA}}
+            <div class="circle itemContent floatRight bgGreen" style="margin: 5px 10px;width:50px"></div>
+   
+    
+        {{else data.init==0 &&  data.selectedkeyA == data.keyB|| data.selectedkeyA == data.keyC || data.selectedkeyA == data.keyD || data.selectedkeyA == data.keyE }}
+            <div class="circle itemContent floatRight bgYellow" style="margin: 5px 10px;width:50px"></div>
+        
+       {{else data.init==0}}
+            <div class="circle itemContent floatRight bgRed" style="margin: 5px 10px;width:50px"></div>
+            
+        {{/if}}
+    <br>
+    
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:helper.link('Change keyfragment', null,  {'change_alpha' : 1})}}
+    </div>
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:data.unsolvedA}}
+    </div>
+    <br>
+
+</div>
+<br>
+
+
+
+<div class="itemGroup" style="padding-bottom:20px">
+    <div class="itemLabelWide"><b>Cypher keyfragment Beta</b></div>
+    
+        {{if data.init == 1}}
+            <div class="circle itemContent floatRight" style="margin: 5px 10px;width:50px"></div>
+        
+        {{else data.init==0 &&  data.selectedkeyB == data.keyB}}
+            <div class="circle itemContent floatRight bgGreen" style="margin: 5px 10px;width:50px"></div>
+   
+    
+        {{else data.init==0 &&  data.selectedkeyB == data.keyA|| data.selectedkeyB == data.keyC || data.selectedkeyB == data.keyD || data.selectedkeyB == data.keyE }}
+            <div class="circle itemContent floatRight bgYellow" style="margin: 5px 10px;width:50px"></div>
+        
+        {{else data.init==0}}
+            <div class="circle itemContent floatRight bgRed" style="margin: 5px 10px;width:50px"></div>
+        {{/if}}    
+    <br>
+    
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:helper.link('Change keyfragment', null,  {'change_beta' : 1})}}
+    </div>
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:data.unsolvedB}}
+    </div>
+    <br>
+
+</div>
+<br>
+
+
+
+<div class="itemGroup" style="padding-bottom:20px">
+    <div class="itemLabelWide"><b>Cypher keyfragment Gamma</b></div>
+    
+         {{if data.init == 1}}
+                 <div class="circle itemContent floatRight" style="margin: 5px 10px;width:50px"></div>
+        
+        {{else data.init==0 &&  data.selectedkeyC == data.keyC}}
+              <div class="circle itemContent floatRight bgGreen" style="margin: 5px 10px;width:50px"></div>
+   
+    
+         {{else data.init==0 &&  data.selectedkeyC == data.keyA|| data.selectedkeyC == data.keyB || data.selectedkeyC == data.keyD || data.selectedkeyC == data.keyE }}
+             <div class="circle itemContent floatRight bgYellow" style="margin: 5px 10px;width:50px"></div>
+        
+         {{else data.init==0 }}
+             <div class="circle itemContent floatRight bgRed" style="margin: 5px 10px;width:50px"></div>
+         {{/if}}    
+    <br>
+    
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:helper.link('Change keyfragment', null,  {'change_gamma' : 1})}}
+    </div>
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:data.unsolvedC}}
+    </div>
+    <br>
+
+</div>
+
+
+<br>
+
+<div class="itemGroup" style="padding-bottom:20px">
+    <div class="itemLabelWide"><b>Cypher keyfragment Delta</b></div>
+    
+        {{if data.init==1}}
+            <div class="circle itemContent floatRight" style="margin: 5px 10px;width:50px"></div>
+        
+        {{else data.init==0 && data.selectedkeyD == data.keyD}}
+            <div class="circle itemContent floatRight bgGreen" style="margin: 5px 10px;width:50px"></div>
+   
+    
+        {{else data.init==0 && data.selectedkeyD == data.keyA|| data.selectedkeyD == data.keyB || data.selectedkeyD == data.keyC || data.selectedkeyD == data.keyE }}
+            <div class="circle itemContent floatRight bgYellow" style="margin: 5px 10px;width:50px"></div>
+        
+        {{else data.init==0 }}
+            <div class="circle itemContent floatRight bgRed" style="margin: 5px 10px;width:50px"></div>
+        {{/if}}    
+    <br>
+    
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:helper.link('Change keyfragment', null,  {'change_delta' : 1})}}
+    </div>
+    
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:data.unsolvedD}}
+    </div>
+    <br>
+
+</div>
+<br>
+
+
+<div class="itemGroup" style="padding-bottom:20px">
+    <div class="itemLabelWide"><b>Cypher keyfragment Epsilon</b></div>
+    
+        {{if  data.init==1}}
+            <div class="circle itemContent floatRight" style="margin: 5px 10px;width:50px"></div>
+        
+        {{else data.init==0 && data.selectedkeyE == data.keyE}}
+            <div class="circle itemContent floatRight bgGreen" style="margin: 5px 10px;width:50px"></div>
+   
+    
+        {{else data.init==0 && data.selectedkeyE == data.keyA|| data.selectedkeyE == data.keyB || data.selectedkeyE == data.keyC || data.selectedkeyE == data.keyD }}
+            <div class="circle itemContent floatRight bgYellow" style="margin: 5px 10px;width:50px"></div>
+        
+        {{else data.init==0}}
+            <div class="circle itemContent floatRight bgRed" style="margin: 5px 10px;width:50px"></div>
+        {{/if}}
+    <br>
+    
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:helper.link('Change keyfragment', null,  {'change_epsilon' : 1})}}
+    </div>
+    <div class="itemContentNarrow" style="margin: 10px 0px 0px 0px">
+        {{:data.unsolvedE}}
+    </div>
+    <br>
+
+</div>
+<br>
+<hr>
+<div style="margin-top:10px;">
+{{:helper.link(' Solve', 'flask', {'solve' : 1}, null)}}
+</div>
