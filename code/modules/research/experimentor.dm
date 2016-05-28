@@ -248,7 +248,7 @@
 	recentlyExperimented = 1
 	icon_state = "h_lathe_wloop"
 	var/chosenchem
-	var/criticalReaction = locate(exp_on) in critical_items ? TRUE : FALSE
+	var/criticalReaction = (exp_on.type in critical_items) ? TRUE : FALSE
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_POKE)
 		visible_message("[src] prods at [exp_on] with mechanical arms.")
