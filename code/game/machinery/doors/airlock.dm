@@ -58,6 +58,7 @@
 	var/doorDeni = 'sound/machines/DeniedBeep.ogg' // i'm thinkin' Deni's
 	var/boltUp = 'sound/machines/BoltsUp.ogg'
 	var/boltDown = 'sound/machines/BoltsDown.ogg'
+	var/is_special = 0
 
 /obj/machinery/door/airlock/command
 	name = "Airlock"
@@ -126,6 +127,7 @@
 	hackProof = 1
 	aiControlDisabled = 1
 	unacidable = 1
+	is_special = 1
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "Maintenance Hatch"
@@ -304,6 +306,7 @@
 	desc = "A mysterious alien airlock with a complicated opening mechanism."
 	hackProof = 1
 	icon = 'icons/obj/doors/Doorplasma.dmi'
+	is_special = 1
 
 /obj/machinery/door/airlock/alien/bumpopen(mob/living/user as mob)
 	if(istype(user,/mob/living/carbon/alien) || isrobot(user) || isAI(user))
@@ -799,7 +802,6 @@ About the new airlock wires panel:
 		else
 			return
 	else if(istype(C, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 25, 1)
 		src.p_open = !( src.p_open )
 		src.update_icon()
 	else if(istype(C, /obj/item/weapon/wirecutters))

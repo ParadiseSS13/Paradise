@@ -45,6 +45,7 @@
 	minbodytemp = 0
 
 	faction = list("undead") // did I mention ghost
+	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(var/check_drift = 0)
 	return 1
@@ -61,7 +62,7 @@
 		invisibility = pick(0,60,60,invisibility)
 	..()
 /mob/living/simple_animal/hostile/retaliate/ghost/death()
-	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(loc)
+	..()
 	qdel(src)
 	return
 
@@ -90,9 +91,10 @@
 	minbodytemp = 0
 
 	faction = list("undead")
+	loot = list(/obj/effect/decal/remains/human)
 
 /mob/living/simple_animal/hostile/retaliate/skeleton/death()
-	new /obj/effect/decal/remains/human(loc)
+	..()
 	qdel(src)
 	return
 
@@ -121,8 +123,9 @@
 	minbodytemp = 0
 
 	faction = list("undead")
+	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 
 /mob/living/simple_animal/hostile/retaliate/zombie/death()
-	new /obj/effect/decal/cleanable/blood/gibs(loc)
+	..()
 	qdel(src)
 	return
