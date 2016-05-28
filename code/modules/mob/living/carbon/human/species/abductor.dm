@@ -24,4 +24,7 @@
 	H.gender = NEUTER
 	if(H.mind)
 		H.mind.abductor = new /datum/abductor
+	H.remove_language("Tradeband")
+	H.remove_language("Gutter")
+	H.remove_language("Clownish")
 	return ..()
