@@ -79,7 +79,7 @@
 				playsound(loc, hitsound, volume, 1, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
-		L.on_hit(type)
+		L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 	var/reagent_note
 	if(reagents && reagents.reagent_list)
@@ -91,8 +91,8 @@
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/vol_by_damage()
-	if(src.damage)
-		return Clamp((src.damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
+	if(damage)
+		return Clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
@@ -113,10 +113,10 @@
 		if(isnull(organ))
 			return
 	else if(isturf(A) && hitsound_wall)
- 		var/volume = Clamp(vol_by_damage() + 20, 0, 100)
- 		if(suppressed)
- 			volume = 5
- 		playsound(loc, hitsound_wall, volume, 1, -1)
+		var/volume = Clamp(vol_by_damage() + 20, 0, 100)
+		if(suppressed)
+			volume = 5
+		playsound(loc, hitsound_wall, volume, 1, -1)
 
 	var/turf/target_turf = get_turf(A)
 
@@ -220,5 +220,5 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 	return ..()
 
 /obj/item/projectile/proc/dumbfire(var/dir)
-		current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
-		fire()
+	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
+	fire()

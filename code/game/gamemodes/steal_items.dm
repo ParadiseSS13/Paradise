@@ -35,7 +35,7 @@
 
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
-	typepath = /obj/item/weapon/gun/energy/hos
+	typepath = /obj/item/weapon/gun/energy/gun/hos
 	protected_jobs = list("Head Of Security")
 
 /datum/theft_objective/hand_tele

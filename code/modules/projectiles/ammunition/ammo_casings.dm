@@ -96,7 +96,7 @@
 	icon_state = "gshell"
 	projectile_type = /obj/item/projectile/bullet/pellet
 	pellets = 6
-	deviation = 25
+	variance = 25
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
@@ -104,7 +104,7 @@
 	icon_state = "bshell"
 	projectile_type = /obj/item/projectile/bullet/rpellet
 	pellets = 6
-	deviation = 25
+	variance = 25
 	materials = list(MAT_METAL=4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
@@ -121,17 +121,17 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/weak
 	materials = list(MAT_METAL=250)
 	pellets = 5
-	deviation = 25
+	variance = 25
 
 /obj/item/ammo_casing/shotgun/improvised/overload
 	name = "overloaded improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards. This one has been packed with even more \
 	propellant. It's like playing russian roulette, with a shotgun."
 	icon_state = "improvshell"
-	projectile_type = /obj/item/projectile/bullet/pellet/random
+	projectile_type = /obj/item/projectile/bullet/pellet/overload
 	materials = list(MAT_METAL=250)
 	pellets = 5
-	deviation = 40
+	variance = 40
 
 /obj/item/ammo_casing/shotgun/improvised/overload/New()
 	..()
@@ -191,7 +191,7 @@
 	icon_state = "ionshell"
 	projectile_type = /obj/item/projectile/ion/weak
 	pellets = 4
-	deviation = 35
+	variance = 35
 
 /obj/item/ammo_casing/shotgun/laserslug
 	name = "laser slug"

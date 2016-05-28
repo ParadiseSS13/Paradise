@@ -227,15 +227,15 @@
 			if(1)
 				A = new /obj/item/projectile/beam(loc)
 			if(2)
-				A = new /obj/item/projectile/beam/heavylaser(loc)
+				A = new /obj/item/projectile/beam/laser/heavylaser(loc)
 			if(3)
 				A = new /obj/item/projectile/beam/pulse(loc)
 			if(4)
 				A = new /obj/item/projectile/magic/change(loc)
 			if(5)
-				A = new /obj/item/projectile/lasertag/blue(loc)
+				A = new /obj/item/projectile/beam/lasertag/bluetag(loc)
 			if(6)
-				A = new /obj/item/projectile/lasertag/red(loc)
+				A = new /obj/item/projectile/beam/lasertag/redtag(loc)
 		A.original = target
 		use_power(500)
 	else

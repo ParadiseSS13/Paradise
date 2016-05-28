@@ -120,8 +120,8 @@ var/global/sent_honksquad = 0
 	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/spray/waterflower(src), slot_in_backpack)
 	if(prob(50))
 		equip_to_slot_or_del(new /obj/item/weapon/gun/energy/clown(src), slot_in_backpack)
-	else
-		equip_to_slot_or_del(new /obj/item/weapon/gun/grenadelauncher/piecannon(src), slot_in_backpack)
+	//else
+		//equip_to_slot_or_del(new /obj/item/weapon/gun/grenadelauncher/piecannon(src), slot_in_backpack)
 	src.mutations.Add(CLUMSY)
 
 

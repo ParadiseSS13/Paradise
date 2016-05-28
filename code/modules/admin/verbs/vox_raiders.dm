@@ -18,8 +18,8 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(src), slot_glasses) // REPLACE WITH CODED VOX ALTERNATIVE.
 			equip_to_slot_or_del(new /obj/item/device/chameleon(src), slot_l_store)
 
-			var/obj/item/weapon/gun/launcher/spikethrower/W = new(src)
-			equip_to_slot_or_del(W, slot_r_hand)
+			//var/obj/item/weapon/gun/launcher/spikethrower/W = new(src)
+			//equip_to_slot_or_del(W, slot_r_hand)
 
 
 		if(2) // Vox engineer!

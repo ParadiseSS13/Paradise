@@ -39,7 +39,7 @@
 	else if(cover_open && magazine)
 		//drop the mag
 		magazine.update_icon()
-		magazine.loc = get_turf(src.loc)
+		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
 		magazine = null
 		update_icon()
@@ -69,7 +69,7 @@
 	. = ..()
 	if((blocked != 100) && istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		H.drip(35)
+		H.drip(350)
 
 /obj/item/projectile/bullet/saw/hollow
 	damage = 60

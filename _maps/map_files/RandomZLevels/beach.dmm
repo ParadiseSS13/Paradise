@@ -19,7 +19,7 @@
 "as" = (/obj/structure/boulder,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
 "at" = (/obj/item/flag/cult,/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
 "au" = (/obj/structure/mineral_door/sandstone,/obj/structure/barricade/wooden,/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
-"av" = (/obj/item/weapon/crossbowframe,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
+"av" = (/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
 "aw" = (/obj/item/toy/eight_ball/conch,/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
 "ax" = (/obj/structure/reagent_dispensers/beerkeg,/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
 "ay" = (/obj/structure/closet/cabinet,/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)

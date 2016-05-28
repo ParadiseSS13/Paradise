@@ -28,7 +28,7 @@
 
 	chambered.BB = new S.projectile_type (src)
 
-	S.reagents.trans_to(in_chamber, S.reagents.total_volume)
+	S.reagents.trans_to(chambered.BB, S.reagents.total_volume)
 	chambered.BB.name = S.name
 	syringes.Remove(S)
 
@@ -55,8 +55,9 @@
 
 	var/obj/item/weapon/reagent_containers/syringe/S = syringes[syringes.len]
 
-	if(!S) return 0
-	S.forceMove(user.loc)
+	if(!S)
+		return 0
+	S.loc = user.loc
 
 	syringes.Remove(S)
 	to_chat(user, "<span class='notice'>You unload [S] from \the [src]!</span>")
@@ -70,7 +71,7 @@
 				return
 			to_chat(user, "<span class='notice'>You load [A] into \the [src]!</span>")
 			syringes.Add(A)
-			A.forceMove(src)
+			A.loc = src
 			return 1
 		else
 			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
@@ -90,5 +91,5 @@
 	w_class = 2
 	origin_tech = "combat=2;syndicate=2"
 	force = 2 //Also very weak because it's smaller
-	silenced = 1 //Softer fire sound
+	suppressed = 1 //Softer fire sound
 	can_unsuppress = 0 //Permanently silenced

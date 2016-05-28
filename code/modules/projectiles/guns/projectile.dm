@@ -96,7 +96,7 @@
 			if(user.l_hand != src && user.r_hand != src)
 				..()
 				return
-			to_chat(user, "<span class='notice'>You unscrew [silenced] from [src].</span>")
+			to_chat(user, "<span class='notice'>You unscrew [suppressed] from [src].</span>")
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
 			w_class = S.initial_w_class
@@ -108,7 +108,7 @@
 /obj/item/weapon/gun/projectile/attack_self(mob/living/user as mob)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
-		magazine.loc = get_turf(src.loc)
+		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
 		magazine.update_icon()
 		magazine = null
@@ -136,18 +136,18 @@
 	return boolets
 
 /obj/item/weapon/gun/projectile/suicide_act(mob/user)
-	if (src.chambered && src.chambered.BB && !src.chambered.BB.nodamage)
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [src.name] in \his mouth.  It looks like \he's trying to commit suicide.</span>")
+	if (chambered && chambered.BB && !chambered.BB.nodamage)
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in \his mouth.  It looks like \he's trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")
-			user.visible_message("<span class='suicide'>[user] blows \his brains out with the [src.name]!</span>")
+			user.visible_message("<span class='suicide'>[user] blows \his brains out with the [name]!</span>")
 			return(BRUTELOSS)
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
 			return(OXYLOSS)
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow \his brains out with the [src.name]! It looks like \he's trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>[user] is pretending to blow \his brains out with the [name]! It looks like \he's trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return (OXYLOSS)
 

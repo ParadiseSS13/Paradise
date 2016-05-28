@@ -45,7 +45,7 @@
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
 		if(CB)
-			CB.loc = get_turf(src.loc)
+			CB.loc = get_turf(loc)
 			CB.SpinAnimation(10, 1)
 			CB.update_icon()
 			num_unloaded++
@@ -124,7 +124,7 @@
 				afterattack(user, user)	//you know the drill
 				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
 				return
-			if(do_after(user, 30/A.toolspeed, target = src))
+			if(do_after(user, 30, target = src))
 				if(magazine.ammo_count())
 					to_chat(user, "<span class='warning'>You can't modify it!</span>")
 					return
@@ -173,7 +173,7 @@
 	name = "\improper Russian Revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rus357
+	mag_type = /obj/item/ammo_box/magazine/internal/rus357
 	var/spun = 0
 
 
@@ -211,7 +211,7 @@
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round()
 			chambered = null
-			CB.loc = get_turf(src.loc)
+			CB.loc = get_turf(loc)
 			CB.update_icon()
 			num_unloaded++
 		if (num_unloaded)
@@ -234,7 +234,6 @@
 		return
 
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
 		if(!spun)
 			to_chat(user, "<span class='warning'>You need to spin the revolver's chamber first!</span>")
 			return
@@ -245,12 +244,11 @@
 			var/obj/item/ammo_casing/AC = chambered
 			if(AC.fire(user, user))
 				playsound(user, fire_sound, 50, 1)
-				var/zone = check_zone(user.zone_selected)
-				var/obj/item/bodypart/affecting = H.get_bodypart(zone)
+				var/zone = check_zone(user.zone_sel.selecting)
 				if(zone == "head" || zone == "eyes" || zone == "mouth")
-					shoot_self(user, affecting)
+					shoot_self(user, zone)
 				else
-					user.visible_message("<span class='danger'>[user.name] cowardly fires [src] at \his [affecting.name]!</span>", "<span class='userdanger'>You cowardly fire [src] at your [affecting.name]!</span>", "<span class='italics'>You hear a gunshot!</span>")
+					user.visible_message("<span class='danger'>[user.name] cowardly fires [src] at \his [zone]!</span>", "<span class='userdanger'>You cowardly fire [src] at your [zone]!</span>", "<span class='italics'>You hear a gunshot!</span>")
 				return
 
 		user.visible_message("<span class='danger'>*click*</span>")

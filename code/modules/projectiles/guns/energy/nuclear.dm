@@ -23,7 +23,7 @@
 
 /obj/item/weapon/gun/energy/gun/mounted
 	name = "mounted energy gun"
-	self_recharge = 1
+	selfcharge = 1
 	use_external_power = 1
 
 /obj/item/weapon/gun/energy/gun/mini
@@ -37,8 +37,8 @@
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 
 /obj/item/weapon/gun/energy/gun/mini/New()
-	cell.maxcharge = 6000
-	cell.charge = 6000
+	power_supply.maxcharge = 6000
+	power_supply.charge = 6000
 	F = new /obj/item/device/flashlight/seclite(src)
 	..()
 
@@ -84,7 +84,6 @@
 	origin_tech = "combat=3;materials=5;powerstorage=3"
 	var/fail_tick = 0
 	charge_delay = 5
-	pin = null
 	can_charge = 0
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
@@ -106,11 +105,11 @@
 		switch(fail_tick)
 			if(0 to 200)
 				fail_tick += (2*(100-reliability))
-				M.rad_act(40)
+				M.apply_effect(rand(3,120), IRRADIATE)
 				to_chat(M, "<span class='userdanger'>Your [name] feels warmer.</span>")
 			if(201 to INFINITY)
-				SSobj.processing.Remove(src)
-				M.rad_act(80)
+				processing_objects.Remove(src)
+				M.apply_effect(300, IRRADIATE)
 				crit_fail = 1
 				to_chat(M, "<span class='userdanger'>Your [name]'s reactor overloads!</span>")
 
@@ -130,27 +129,3 @@
 				overlays += "[icon_state]_fail_1"
 			if(151 to INFINITY)
 				overlays += "[icon_state]_fail_2"
-
-/obj/item/weapon/gun/energy/gun/turret/attack_self(mob/living/user as mob)
-	switch(mode)
-		if(0)
-			mode = 1
-			charge_cost = 500
-			fire_sound = 'sound/weapons/Laser.ogg'
-			to_chat(user, "\red [src.name] is now set to kill.")
-			projectile_type = /obj/item/projectile/beam
-			modifystate = "energykill"
-			fire_delay = 0
-		if(1)
-			mode = 0
-			charge_cost = 1000
-			fire_sound = 'sound/weapons/Taser.ogg'
-			to_chat(user, "\red [src.name] is now set to stun.")
-			projectile_type = /obj/item/projectile/energy/electrode
-			modifystate = "energystun"
-			fire_delay = 15
-	update_icon()
-	if(user.l_hand == src)
-		user.update_inv_l_hand()
-	else
-		user.update_inv_r_hand()

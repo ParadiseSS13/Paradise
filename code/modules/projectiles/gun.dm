@@ -65,7 +65,6 @@
 	..()
 	if(F)
 		verbs += /obj/item/weapon/gun/proc/toggle_gunlight
-		new /datum/action/item_action/toggle_gunlight(src)
 	build_zooming()
 
 /obj/item/weapon/gun/examine(mob/user)
@@ -120,7 +119,7 @@
 			return
 		if(!ismob(target) || user.a_intent == "harm") //melee attack
 			return
-		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && user.zone_sel.selecting != "mouth") //so we can't shoot ourselves (unless mouth selected)
 			return
 
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
@@ -133,7 +132,7 @@
 		return
 
 	if(flag)
-		if(user.zone_selected == "mouth")
+		if(user.zone_sel.selecting == "mouth")
 			handle_suicide(user, target, params)
 			return
 
@@ -222,7 +221,7 @@ obj/item/weapon/gun/proc/newshot()
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-	feedback_add_details("gun_fired","[src.type]")
+	feedback_add_details("gun_fired","[type]")
 
 /obj/item/weapon/gun/attack(mob/M as mob, mob/user)
 	if(user.a_intent == "harm") //Flogging
@@ -239,15 +238,12 @@ obj/item/weapon/gun/proc/newshot()
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				if(S.on)
-					SetLuminosity(0)
+					set_light(0)
 				F = S
 				I.loc = src
 				update_icon()
 				update_gunlight(user)
 				verbs += /obj/item/weapon/gun/proc/toggle_gunlight
-				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
-				if(loc == user)
-					A.Grant(user)
 
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(F && can_flashlight)
@@ -259,8 +255,6 @@ obj/item/weapon/gun/proc/newshot()
 				S.update_brightness(user)
 				update_icon()
 				verbs -= /obj/item/weapon/gun/proc/toggle_gunlight
-			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
-				qdel(TGL)
 
 	if(unique_rename)
 		if(istype(I, /obj/item/weapon/pen))
@@ -351,7 +345,7 @@ obj/item/weapon/gun/proc/newshot()
 
 	semicd = 1
 
-	if(!do_mob(user, target, 120) || user.zone_selected != "mouth")
+	if(!do_mob(user, target, 120) || user.zone_sel.selecting != "mouth")
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")

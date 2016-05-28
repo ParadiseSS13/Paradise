@@ -8497,7 +8497,7 @@
 "dhv" = (/obj/structure/rack,/obj/item/weapon/pneumatic_cannon,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/tank/nitrogen,/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "dhw" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_l"; icon_state = "propulsion_l"},/turf/space,/area/shuttle/vox)
 "dhx" = (/obj/structure/rack,/obj/item/clothing/accessory/storage/black_vest,/obj/item/clothing/suit/space/vox/pressure,/obj/item/clothing/head/helmet/space/vox/pressure,/obj/item/clothing/mask/breath,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
-"dhy" = (/obj/structure/rack,/obj/item/weapon/gun/launcher/spikethrower,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
+"dhy" = (/obj/structure/rack,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "dhz" = (/obj/structure/rack,/obj/item/clothing/accessory/storage/black_vest,/obj/item/clothing/suit/space/vox/stealth,/obj/item/clothing/head/helmet/space/vox/stealth,/obj/item/clothing/mask/breath,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "dhA" = (/obj/structure/grille,/obj/structure/shuttle/window{tag = "icon-window5_end (NORTH)"; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; dir = 1},/turf/simulated/shuttle/plating/vox,/area/shuttle/vox)
 "dhB" = (/obj/structure/grille,/obj/structure/shuttle/window{tag = "icon-window5_end"; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; dir = 2},/turf/simulated/shuttle/plating/vox,/area/shuttle/vox)

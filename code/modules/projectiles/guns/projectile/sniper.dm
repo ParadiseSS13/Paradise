@@ -4,7 +4,7 @@
 	icon_state = "sniper"
 	item_state = "sniper"
 	recoil = 2
-	heavy_weapon = 1
+	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	fire_delay = 40
 	origin_tech = "combat=8"
@@ -117,7 +117,7 @@
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		H.drip(100)
+		H.drip(1000)
 
 	return ..()
 

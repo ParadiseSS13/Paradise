@@ -583,7 +583,7 @@
 "alk" = (/obj/machinery/alarm{pixel_y = 24},/obj/machinery/atmospherics/unary/vent_pump{dir = 8; on = 1},/turf/simulated/floor/plasteel,/area/crew_quarters/fitness{name = "\improper Recreation Area"})
 "all" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_l"; icon_state = "propulsion_l"},/turf/space,/area/shuttle/vox)
 "alm" = (/obj/structure/rack,/obj/item/clothing/accessory/storage/black_vest,/obj/item/clothing/suit/space/vox/pressure,/obj/item/clothing/head/helmet/space/vox/pressure,/obj/item/clothing/mask/breath,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
-"aln" = (/obj/structure/rack,/obj/item/weapon/gun/launcher/spikethrower,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
+"aln" = (/obj/structure/rack,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "alo" = (/obj/machinery/door/poddoor{id_tag = "trash"; name = "disposal bay door"},/turf/simulated/floor/plating,/area/maintenance/disposal)
 "alp" = (/obj/machinery/mass_driver{dir = 8; id_tag = "trash"},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 1},/area/maintenance/disposal)
 "alq" = (/obj/machinery/conveyor_switch/oneway{convdir = -1; id = "garbage"; name = "disposal coveyor"},/turf/simulated/floor/plating,/area/maintenance/disposal)

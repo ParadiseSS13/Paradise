@@ -403,7 +403,7 @@ Auto Patrol[]"},
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
-			projectile = /obj/item/projectile/lasertag
+			projectile = /obj/item/projectile/beam/lasertag
 		else
 			projectile = /obj/item/projectile/beam
 	else
@@ -411,9 +411,9 @@ Auto Patrol[]"},
 			shoot_sound = 'sound/weapons/Taser.ogg'
 			projectile = /obj/item/projectile/energy/electrode
 		else if(lasercolor == "b")
-			projectile = /obj/item/projectile/lasertag/blue
+			projectile = /obj/item/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
-			projectile = /obj/item/projectile/lasertag/red
+			projectile = /obj/item/projectile/beam/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(lastfired && world.time - lastfired < shot_delay)
@@ -491,10 +491,10 @@ Auto Patrol[]"},
 	if(!disabled)
 		var/lasertag_check = 0
 		if((lasercolor == "b"))
-			if(istype(Proj, /obj/item/projectile/lasertag/red))
+			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
 				lasertag_check++
 		else if((lasercolor == "r"))
-			if(istype(Proj, /obj/item/projectile/lasertag/blue))
+			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
 				lasertag_check++
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"

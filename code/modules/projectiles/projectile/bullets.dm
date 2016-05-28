@@ -80,7 +80,7 @@
 	range = rand(8)
 
 /obj/item/projectile/bullet/pellet/weak/on_range()
- 	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
+ 	var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
  	sparks.set_up(1, 1, src)
  	sparks.start()
  	..()
@@ -97,7 +97,7 @@
 
 /obj/item/projectile/bullet/pellet/overload/on_range()
  	explosion(src, 0, 0, 2)
- 	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
+ 	var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
  	sparks.set_up(3, 3, src)
  	sparks.start()
  	..()
@@ -179,7 +179,7 @@
 	forcedodge = 1
 	nodamage = 1
 	hitsound = 'sound/items/bikehorn.ogg'
-	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon = 'icons/obj/harvest.dmi'
 	icon_state = "banana"
 	range = 200
 

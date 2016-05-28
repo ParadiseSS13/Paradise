@@ -5,6 +5,7 @@
 	icon_state = "staffofnothing"
 	item_state = "staff"
 	fire_sound = 'sound/weapons/emitter.ogg'
+	fire_sound_text = "energy blast"
 	flags =  CONDUCT
 	w_class = 5
 	var/max_charges = 6
@@ -75,6 +76,6 @@
 	return
 
 /obj/item/weapon/gun/magic/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is twisting the [src.name] above \his head, releasing a magical blast! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is twisting the [name] above \his head, releasing a magical blast! It looks like \he's trying to commit suicide.</span>")
 	playsound(loc, fire_sound, 50, 1, -1)
 	return FIRELOSS

@@ -27,7 +27,7 @@ datum/chemical_reaction/coolant
 
 /obj/structure/reagent_dispensers/coolanttank/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
-		if(!istype(Proj ,/obj/item/projectile/lasertag) && !istype(Proj ,/obj/item/projectile/practice) )
+		if(!Proj.damage)
 			explode()
 
 /obj/structure/reagent_dispensers/coolanttank/blob_act()

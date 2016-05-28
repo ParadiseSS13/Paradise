@@ -1,6 +1,5 @@
 /obj/item/weapon/gun/projectile/automatic
 	w_class = 3.0
-	automatic = 1
 	var/alarmed = 0
 	var/select = 1
 	can_suppress = 1
@@ -37,14 +36,14 @@
 		if(istype(AM, mag_type))
 			if(magazine)
 				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
-				magazine.forceMove(get_turf(src.loc))
+				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
 			else
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
 			user.remove_from_mob(AM)
 			magazine = AM
-			magazine.forceMove(src)
+			magazine.loc = src
 			chamber_round()
 			A.update_icon()
 			update_icon()
@@ -74,7 +73,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/proc/empty_alarm()
 	if(!chambered && !get_ammo() && !alarmed)
-		playsound(src.loc, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
 		update_icon()
 		alarmed = 1
 	return

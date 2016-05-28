@@ -648,7 +648,7 @@
 "mx" = (/obj/structure/table,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
 "my" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/engine,/area/syndicate_depot)
 "mz" = (/turf/simulated/floor/engine,/area/syndicate_depot)
-"mA" = (/obj/structure/closet/crate{name = "munitions crate"},/obj/item/weapon/storage/box/donkpockets,/obj/item/ammo_box/magazine/m762,/obj/item/weapon/gun/projectile/automatic/m90,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
+"mA" = (/obj/structure/closet/crate{name = "munitions crate"},/obj/item/weapon/storage/box/donkpockets,/obj/item/ammo_box/magazine/mm556x45,/obj/item/weapon/gun/projectile/automatic/m90,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
 "mB" = (/obj/machinery/door/window{base_state = "right"; dir = 8; icon_state = "right"; name = "Telepad"; req_access_txt = "0"},/turf/simulated/floor/engine,/area/syndicate_depot)
 "mC" = (/obj/machinery/telepad,/turf/simulated/floor/engine,/area/syndicate_depot)
 "mD" = (/obj/structure/closet/crate{name = "munitions crate"},/obj/item/ammo_box/magazine/m12g/dragon,/obj/item/ammo_box/magazine/m12g/dragon,/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate,/obj/item/weapon/storage/firstaid/tactical,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)

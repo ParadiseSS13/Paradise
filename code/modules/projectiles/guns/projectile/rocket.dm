@@ -45,8 +45,8 @@
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
 		M.primed = 1
 		M.throw_at(target, missile_range, missile_speed,user)
-		message_admins("[key_name_admin(user)] fired a rocket from a rocket launcher ([src.name]).")
-		log_game("[key_name_admin(user)] used a rocket launcher ([src.name]).")
+		message_admins("[key_name_admin(user)] fired a rocket from a rocket launcher ([name]).")
+		log_game("[key_name_admin(user)] used a rocket launcher ([name]).")
 		rockets -= I
 		qdel(I)
 		return

@@ -22,7 +22,7 @@
 		update_icon()
 
 
-/obj/item/weapon/gun/projectile/shotgun/process_chambered()
+/obj/item/weapon/gun/projectile/shotgun/process_chamber()
 	return ..(0, 0)
 
 /obj/item/weapon/gun/projectile/shotgun/chamber_round()
@@ -79,7 +79,7 @@
 	name = "riot shotgun"
 	desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
-	mag_type = /obj/item/ammo_box/magazine/internal/shotriot
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 
 /obj/item/weapon/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
@@ -143,7 +143,7 @@
 	..()
 	if(guns_left)
 		var/obj/item/weapon/gun/projectile/shotgun/boltaction/enchanted/GUN = new
-		GUN.guns_left = src.guns_left - 1
+		GUN.guns_left = guns_left - 1
 		user.drop_item()
 		user.swap_hand()
 		user.put_in_hands(GUN)
@@ -172,7 +172,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	origin_tech = "combat=3;materials=1"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/dual
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	sawn_desc = "Omar's coming!"
 	unique_rename = 1
 	unique_reskin = 1
@@ -204,7 +204,7 @@
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
 		chambered = null
-		CB.loc = get_turf(src.loc)
+		CB.loc = get_turf(loc)
 		CB.update_icon()
 		num_unloaded++
 	if (num_unloaded)
@@ -286,7 +286,7 @@
 
 	if(do_after(user, 30, target = src))
 		user.visible_message("<span class='warning'>[user] shortens \the [src]!</span>", "<span class='warning'>You shorten \the [src]!</span>")
-		name = "sawn-off [src.name]"
+		name = "sawn-off [name]"
 		desc = sawn_desc
 		icon_state = "[icon_state]-sawn"
 		w_class = 3
@@ -303,7 +303,7 @@
 
 /obj/item/weapon/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user as mob|obj)
 	..()
-	src.pump(user)
+	pump(user)
 
 /obj/item/weapon/gun/projectile/shotgun/automatic/combat
 	name = "combat shotgun"
@@ -375,7 +375,7 @@
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
-	silenced = 1
+	suppressed = 1
 	needs_permit = 0 //its just a cane beepsky.....
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
@@ -385,7 +385,7 @@
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
 	var/f_name = "\a [src]."
-	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+	if(blood_DNA && !istype(src, /obj/effect/decal))
 		if(gender == PLURAL)
 			f_name = "some "
 		else

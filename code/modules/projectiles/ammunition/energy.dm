@@ -110,7 +110,8 @@
 
 /obj/item/ammo_casing/energy/temp/newshot()
 	..()
-	BB.temperature = temperature
+	var/obj/item/projectile/temp/T = BB
+	T.temperature = temperature
 
 /obj/item/ammo_casing/energy/meteor
 	projectile_type = /obj/item/projectile/meteor
@@ -202,7 +203,7 @@
 	projectile_type = /obj/item/projectile/energy/shock_revolver
 
 /obj/item/ammo_casing/energy/toxplasma
-	projectile_type = /obj/item/projectile/toxplasma
+	projectile_type = /obj/item/projectile/energy/toxplasma
 	fire_sound = "sound/weapons/taser2.ogg"
 	select_name = "plasma dart"
 
@@ -214,7 +215,7 @@
 /obj/item/ammo_casing/energy/sniper
 	projectile_type = /obj/item/projectile/beam/sniper
 	fire_sound = 'sound/weapons/marauder.ogg'
-	fire_delay = 50
+	delay = 50
 	select_name = "sniper beam"
 
 /obj/item/ammo_casing/energy/teleport
@@ -222,3 +223,8 @@
 	fire_sound = 'sound/weapons/wave.ogg'
 	e_cost = 1250
 	select_name = "teleport beam"
+	var/teleport_target
+
+/obj/item/ammo_casing/energy/teleport/newshot()
+	var/obj/item/projectile/energy/teleport/T = BB
+	T.teleport_target = teleport_target

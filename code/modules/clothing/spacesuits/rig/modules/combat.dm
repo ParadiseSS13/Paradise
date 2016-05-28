@@ -119,7 +119,7 @@
 		gun.attack_self(holder.wearer)
 		return 1
 
-	gun.Fire(target,holder.wearer)
+	gun.process_fire(target,holder.wearer)
 	return 1
 
 /obj/item/rig_module/mounted/egun
@@ -168,7 +168,7 @@
 	active_power_cost = 10
 	passive_power_cost = 0
 
-	gun_type = /obj/item/weapon/gun/energy/crossbow/ninja
+	gun_type = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/ninja
 
 /obj/item/rig_module/mounted/energy_blade/process()
 

@@ -56,7 +56,7 @@
 	name = "CH-LC \"Solaris\" Laser Cannon"
 	icon_state = "mecha_laser"
 	energy_drain = 40
-	projectile = /obj/item/projectile/beam/heavylaser
+	projectile = /obj/item/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion

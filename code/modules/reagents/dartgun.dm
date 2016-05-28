@@ -104,7 +104,7 @@
 		to_chat(user, "<span class='notice>You slot [B] into [src].</span>")
 		src.updateUsrDialog()
 
-/obj/item/weapon/gun/dartgun/can_fire()
+/obj/item/weapon/gun/dartgun/can_shoot()
 	if(!cartridge)
 		return 0
 	else
@@ -209,9 +209,6 @@
 	if(!isturf(target.loc) || target == user) return
 	..()
 
-/obj/item/weapon/gun/dartgun/can_hit(var/mob/living/target as mob, var/mob/living/user as mob)
-	return 1
-
 /obj/item/weapon/gun/dartgun/attack_self(mob/user)
 
 	user.set_machine(src)
@@ -280,7 +277,7 @@
 	src.updateUsrDialog()
 	return
 
-/obj/item/weapon/gun/dartgun/Fire(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, params, reflex = 0)
+/obj/item/weapon/gun/dartgun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	if(cartridge)
 		spawn(0) fire_dart(target,user)
 	else

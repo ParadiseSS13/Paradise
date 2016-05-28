@@ -3,6 +3,7 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	fire_sound = 'sound/weapons/Taser.ogg'
+	fire_sound_text = "laser blast"
 
 	var/obj/item/weapon/stock_parts/cell/power_supply //What type of power cell this uses
 	var/cell_type = /obj/item/weapon/stock_parts/cell
@@ -42,23 +43,24 @@
 	update_icon()
 
 /obj/item/weapon/gun/energy/Destroy()
-	if(self_recharge)
+	if(selfcharge)
 		processing_objects.Remove(src)
 	return ..()
 
 /obj/item/weapon/gun/energy/process()
 	if(selfcharge) //Every [recharge_time] ticks, recharge a shot for the cyborg
 		charge_tick++
-		if(charge_tick < recharge_time)
+		if(charge_tick < charge_delay)
 			return 0
 		charge_tick = 0
 		if(!power_supply)
 			return 0 // check if we actually need to recharge
+		var/obj/item/ammo_casing/energy/E = ammo_type[select]
 		if(use_external_power)
 			var/obj/item/weapon/stock_parts/cell/external = get_external_power_supply()
-			if(!external || !external.use(charge_cost/10)) //Take power from the borg...
+			if(!external || !external.use((E.e_cost)/10)) //Take power from the borg...
 				return 0								//Note, uses /10 because of shitty mods to the cell system
-		power_supply.give(charge_cost) //... to recharge the shot
+		power_supply.give(E.e_cost) //... to recharge the shot
 		update_icon()
 
 /obj/item/weapon/gun/energy/attack_self(mob/living/user as mob)
@@ -136,11 +138,11 @@
 	toggle_gunlight()
 
 /obj/item/weapon/gun/energy/suicide_act(mob/user)
-	if (src.can_shoot())
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [src.name] in \his mouth.  It looks like \he's trying to commit suicide.</span>")
+	if (can_shoot())
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in \his mouth.  It looks like \he's trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
-			user.visible_message("<span class='suicide'>[user] melts \his face off with the [src.name]!</span>")
+			user.visible_message("<span class='suicide'>[user] melts \his face off with the [name]!</span>")
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			power_supply.use(shot.e_cost)
@@ -150,21 +152,21 @@
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
 			return(OXYLOSS)
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow \his brains out with the [src.name]! It looks like \he's trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>[user] is pretending to blow \his brains out with the [name]! It looks like \he's trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return (OXYLOSS)
 
 /obj/item/weapon/gun/energy/proc/robocharge()
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost/10)) 		//Take power from the borg... //Divided by 10 because cells and charge costs are fucked.
 				power_supply.give(shot.e_cost)	//... to recharge the shot
 
 /obj/item/weapon/gun/energy/proc/get_external_power_supply()
-	if(istype(src.loc, /obj/item/rig_module))
-		var/obj/item/rig_module/module = src.loc
+	if(istype(loc, /obj/item/rig_module))
+		var/obj/item/rig_module/module = loc
 		if(module.holder && module.holder.wearer)
 			var/mob/living/carbon/human/H = module.holder.wearer
 			if(istype(H) && H.back)

@@ -9,7 +9,7 @@
 
 /obj/item/weapon/gun/energy/taser/mounted
 	name = "mounted taser gun"
-	self_recharge = 1
+	selfcharge = 1
 	use_external_power = 1
 
 /obj/item/weapon/gun/energy/taser/cyborg

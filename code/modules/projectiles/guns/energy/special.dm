@@ -173,7 +173,7 @@
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/reload()
 	power_supply.give(5000)
 	if(!suppressed)
-		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else
 		to_chat(loc, "<span class='warning'>[src] silently charges up.<span>")
 	update_icon()
@@ -200,6 +200,10 @@
 	holds_charge = TRUE
 	unique_frequency = TRUE
 
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/ninja
+	name = "energy dart thrower"
+	ammo_type = list(/obj/item/ammo_casing/energy/dart)
+
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
 	desc = "A reverse engineered weapon using syndicate technology."
@@ -218,8 +222,8 @@
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
-		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks the [src.name] and pretends to blow \his brains out! It looks like \he's trying to commit suicide!</b></span>")
+		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow \his brains out! It looks like \he's trying to commit suicide!</b></span>")
 	shoot_live_shot()
 	return (OXYLOSS)
 
@@ -235,9 +239,9 @@
 	flags = CONDUCT | OPENCONTAINER
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
-	sharpness = IS_SHARP
+	sharp = 1
+	edge = 1
 	can_charge = 0
-	heat = 3800
 
 /obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)
 	..()
@@ -406,7 +410,7 @@ obj/item/weapon/gun/energy/staff/focus
 	var/e_cost = 1000
 	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
-	ammo_type = /obj/item/ammo_casing/energy/temp
+	ammo_type = list(/obj/item/ammo_casing/energy/temp)
 	cell_type = "/obj/item/weapon/stock_parts/cell"
 
 	var/powercost = ""
@@ -427,8 +431,9 @@ obj/item/weapon/gun/energy/staff/focus
 
 /obj/item/weapon/gun/energy/temperature/newshot()
 	..()
-	chambered.temperature = temperature
-	chambered.e_cost = e_cost
+	var/obj/item/ammo_casing/energy/temp/T = chambered
+	T.temperature = temperature
+	T.e_cost = e_cost
 
 /obj/item/weapon/gun/energy/temperature/attack_self(mob/living/user as mob)
 	user.set_machine(src)
@@ -459,23 +464,22 @@ obj/item/weapon/gun/energy/staff/focus
 	add_fingerprint(usr)
 	return
 
-
 /obj/item/weapon/gun/energy/temperature/process()
 	switch(temperature)
 		if(0 to 100)
-			charge_cost = 3000
+			e_cost = 3000
 			powercost = "High"
 		if(100 to 250)
-			charge_cost = 2000
+			e_cost = 2000
 			powercost = "Medium"
 		if(251 to 300)
-			charge_cost = 1000
+			e_cost = 1000
 			powercost = "Low"
 		if(301 to 400)
-			charge_cost = 2000
+			e_cost = 2000
 			powercost = "Medium"
 		if(401 to 1000)
-			charge_cost = 3000
+			e_cost = 3000
 			powercost = "High"
 	switch(powercost)
 		if("High")		powercostcolor = "orange"

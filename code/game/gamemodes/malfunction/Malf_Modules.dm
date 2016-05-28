@@ -72,7 +72,7 @@ rcd light flash thingy on matter drain
 		if(T.z in config.station_levels)
 			// Increase health by 37.5% of original max, decrease delays between shots to 66%
 			turret.health += initial(turret.health) * 3 / 8
-			turret.eprojectile = /obj/item/projectile/beam/heavylaser //Once you see it, you will know what it means to FEAR.
+			turret.eprojectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 	to_chat(src, "<span class='notice'>Turrets upgraded.</span>")
 /datum/AI_Module/large/destroy_rcd

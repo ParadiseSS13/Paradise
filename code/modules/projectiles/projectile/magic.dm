@@ -48,7 +48,7 @@
 /obj/item/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
 	. = ..()
 	if(ismob(target))
-		var/old_stat = stat
+		var/old_stat = target.stat
 		target.suiciding = 0
 		target.revive()
 		if(!target.ckey)
@@ -94,15 +94,21 @@
 	if(isturf(target) && target.density)
 		CreateDoor(target)
 	else if (isturf(T) && T.density)
-			CreateDoor(T
+		CreateDoor(T)
 	else if(istype(target, /obj/machinery/door))
-		OpenDoor(target))
+		OpenDoor(target)
 
 /obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
 	var/obj/structure/mineral_door/D = new door_type(T)
-	T.ChangeTurf(/turf/open/floor/plating)
+	T.ChangeTurf(/turf/simulated/floor/plasteel)
 	D.Open()
+
+/obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
+	if(istype(D,/obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = D
+		A.locked = 0
+	D.open()
 
 /obj/item/projectile/magic/change
 	name = "bolt of change"

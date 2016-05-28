@@ -65,9 +65,9 @@
 		if ((O.client && !( O.blinded )))
 			to_chat(O, "\red [src] launches a razor-sharp quill at [target]!")
 
-	var/obj/item/weapon/arrow/quill/Q = new(loc)
-	Q.fingerprintslast = src.ckey
-	Q.throw_at(target,10,30)
+	//var/obj/item/weapon/arrow/quill/Q = new(loc)
+	//Q.fingerprintslast = src.ckey
+	//Q.throw_at(target,10,30)
 	quills--
 
 	spawn(100)

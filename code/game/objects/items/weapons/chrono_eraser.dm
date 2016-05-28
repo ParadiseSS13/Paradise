@@ -41,12 +41,11 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-	w_class = 3.0
-	projectile_type = "/obj/item/projectile/energy/chrono_beam"
-	fire_sound = 'sound/weapons/Laser.ogg'
-	charge_cost = 0
-	fire_delay = 50
+	w_class = 3
 	flags = NODROP
+	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
+	can_charge = 0
+	fire_delay = 50
 	var/obj/item/weapon/chrono_eraser/TED = null
 	var/obj/effect/chrono_field/field = null
 	var/turf/startpos = null
@@ -60,12 +59,13 @@
 		qdel(src)
 
 /obj/item/weapon/gun/energy/chrono_gun/dropped()
+	..()
 	qdel(src)
 
 /obj/item/weapon/gun/energy/chrono_gun/update_icon()
 	return
 
-/obj/item/weapon/gun/energy/chrono_gun/Fire()
+/obj/item/weapon/gun/energy/chrono_gun/process_fire()
 	if(field)
 		field_disconnect(field)
 	..()
@@ -125,18 +125,23 @@
 	nodamage = 1
 	var/obj/item/weapon/gun/energy/chrono_gun/gun = null
 
-/obj/item/projectile/energy/chrono_beam/process()
+/obj/item/projectile/energy/chrono_beam/fire()
 	gun = firer.get_active_hand()
 	if(istype(gun))
 		return ..()
 	else
 		return 0
 
-/obj/item/projectile/energy/chrono_beam/on_hit(var/atom/target)
+/obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
 		var/obj/effect/chrono_field/F = new(target.loc, target, gun)
 		gun.field_connect(F)
 
+/obj/item/ammo_casing/energy/chrono_beam
+	name = "eradication beam"
+	projectile_type = /obj/item/projectile/energy/chrono_beam
+	icon_state = "chronobolt"
+	e_cost = 0
 
 /obj/effect/chrono_field
 	name = "eradication field"

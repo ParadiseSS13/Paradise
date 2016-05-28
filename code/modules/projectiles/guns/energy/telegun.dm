@@ -35,3 +35,7 @@
 
 	var/desc = input("Please select a location to lock in.", "Telegun Target Interface") in L
 	teleport_target = L[desc]
+
+/obj/item/weapon/gun/energy/telegun/newshot()
+	var/obj/item/ammo_casing/energy/teleport/T = chambered
+	T.teleport_target = teleport_target

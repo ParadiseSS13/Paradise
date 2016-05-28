@@ -92,9 +92,9 @@
 
 /obj/item/weapon/gun/energy/lasercannon/mounted
 	name = "mounted laser cannon"
-	self_recharge = 1
+	selfcharge = 1
 	use_external_power = 1
-	recharge_time = 10
+	charge_delay = 10
 
 /obj/item/weapon/gun/energy/lasercannon/cyborg
 
@@ -130,7 +130,6 @@
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
 	needs_permit = 0
-	pin = /obj/item/device/firing_pin/tag/blue
 	ammo_x_offset = 2
 	selfcharge = 1
 
@@ -142,6 +141,5 @@
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
 	needs_permit = 0
-	pin = /obj/item/device/firing_pin/tag/red
 	ammo_x_offset = 2
 	selfcharge = 1

@@ -115,7 +115,7 @@
 	if(A == firer)
 		loc = A.loc
 		return
-	playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
+	playsound(loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 	for(var/mob/M in urange(10, src))
 		if(!M.stat)
 			shake_camera(M, 3, 1)
@@ -195,8 +195,8 @@
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	new /obj/effect/decal/cleanable/ash(src.loc)
-	src.visible_message("<span class='warning'>The [src.name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
+	new /obj/effect/decal/cleanable/ash(loc)
+	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -230,7 +230,7 @@ obj/item/projectile/kinetic/New()
 	..()
 
 /obj/item/projectile/kinetic/on_range()
-	new /obj/effect/kinetic_blast(src.loc)
+	new /obj/effect/kinetic_blast(loc)
 	..()
 
 /obj/item/projectile/kinetic/on_hit(atom/target)
@@ -240,13 +240,13 @@ obj/item/projectile/kinetic/New()
 		var/turf/simulated/mineral/M = target_turf
 		M.gets_drilled(firer)
 	new /obj/item/effect/kinetic_blast(target_turf)
-	if(src.splash)
+	if(splash)
 		for(var/turf/T in range(splash, target_turf))
 			if(istype(T, /turf/simulated/mineral))
 				var/turf/simulated/mineral/M = T
 				M.gets_drilled(firer)
 
-/obj/item/effect/kinetic_blast
+/obj/effect/kinetic_blast
 	name = "kinetic explosion"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "kinetic_blast"
@@ -340,12 +340,7 @@ obj/item/projectile/kinetic/New()
 	icon_state = "bluespace"
 	damage = 0
 	nodamage = 1
-	var/obj/item/weapon/gun/energy/telegun/T = null
 	var/teleport_target = null
-
-	OnFired()
-		T = shot_from
-		teleport_target = T.teleport_target
 
 /obj/item/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
 	if(isliving(target))

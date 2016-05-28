@@ -1,7 +1,7 @@
 /obj/item/projectile/bullet/reusable
 	name = "reusable bullet"
 	desc = "How do you even reuse a bullet?"
-	ammo_type = /obj/item/ammo_casing/caseless/
+	var/ammo_type = /obj/item/ammo_casing/caseless/
 	var/dropped = 0
 
 /obj/item/projectile/bullet/reusable/on_hit(atom/target, blocked = 0)
@@ -14,7 +14,7 @@
 
 /obj/item/projectile/bullet/reusable/proc/handle_drop()
 	if(!dropped)
-		new ammo_type(src.loc)
+		new ammo_type(loc)
 		dropped = 1
 
 /obj/item/projectile/bullet/reusable/magspear
@@ -42,7 +42,7 @@
 	if(dropped)
 		return
 	dropped = 1
-	var/obj/item/ammo_casing/caseless/foam_dart/newdart = new ammo_type(src.loc)
+	var/obj/item/ammo_casing/caseless/foam_dart/newdart = new ammo_type(loc)
 	var/obj/item/ammo_casing/caseless/foam_dart/old_dart = ammo_casing
 	newdart.modified = old_dart.modified
 	if(pen)

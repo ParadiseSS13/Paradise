@@ -15,7 +15,7 @@
 
 /obj/item/weapon/gun/grenadelauncher/examine(mob/user)
 	if(..(user, 2))
-		to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] [ammo_name]s.</span>")
+		to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>")
 
 /obj/item/weapon/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 	if((istype(I, /obj/item/weapon/grenade)))
@@ -24,10 +24,10 @@
 				return
 			I.loc = src
 			grenades += I
-			to_chat(user, "<span class='notice'>You put the [ammo_name] in the [name].</span>")
-			to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] [ammo_name]s.</span>")
+			to_chat(user, "<span class='notice'>You put the grenade in the [name].</span>")
+			to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>")
 		else
-			to_chat(user, "<span class='warning'>The grenade launcher cannot hold more [ammo_name]s.</span>")
+			to_chat(user, "<span class='warning'>The grenade launcher cannot hold more grenades.</span>")
 
 /obj/item/weapon/gun/grenadelauncher/afterattack(obj/target, mob/user , flag)
 	if(target == user)
@@ -45,8 +45,8 @@
 	grenades -= F
 	F.loc = user.loc
 	F.throw_at(target, 30, 2, user)
-	message_admins("[key_name_admin(user)] fired a grenade ([F.name]) from a grenade launcher ([src.name]).")
-	log_game("[key_name(user)] fired a grenade ([F.name]) from a grenade launcher ([src.name]).")
+	message_admins("[key_name_admin(user)] fired a grenade ([F.name]) from a grenade launcher ([name]).")
+	log_game("[key_name(user)] fired a grenade ([F.name]) from a grenade launcher ([name]).")
 	F.active = 1
 	F.icon_state = initial(icon_state) + "_active"
 	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)

@@ -100,10 +100,9 @@
 
 /obj/machinery/porta_turret/proc/setup()
 	var/obj/item/weapon/gun/energy/E = installation	//All energy-based weapons are applicable
-	if(istext(installation)) E = text2path(installation)
-	//var/obj/item/ammo_casing/shottype = E.projectile_type
+	var/obj/item/ammo_casing/shottype = E.ammo_type[1]
 
-	projectile = initial(E.projectile_type)
+	projectile = shottype.projectile_type
 	eprojectile = projectile
 	shot_sound = initial(E.fire_sound)
 	eshot_sound = shot_sound
@@ -559,9 +558,6 @@ var/list/turret_icons
 		return TURRET_NOT_TARGET	//move onto next potential victim!
 
 	if(get_dist(src, L) > 7)	//if it's too far away, why bother?
-		return TURRET_NOT_TARGET
-
-	if(!check_trajectory(L, src))	//check if we have true line of sight
 		return TURRET_NOT_TARGET
 
 	if(emagged)		// If emagged not even the dead get a rest

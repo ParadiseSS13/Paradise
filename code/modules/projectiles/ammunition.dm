@@ -17,7 +17,6 @@
 	var/randomspread = 0						//Randomspread for automatics
 	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
 
-
 /obj/item/ammo_casing/New()
 	..()
 	if(projectile_type)
@@ -31,6 +30,11 @@
 	..()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 	desc = "[initial(desc)][BB ? "" : " This one is spent"]"
+
+/obj/item/ammo_casing/proc/newshot() //For energy weapons, shotgun shells and wands (!).
+	if (!BB)
+		BB = new projectile_type(src)
+	return
 
 /obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_box))
@@ -99,7 +103,7 @@
 	update_icon()
 
 /obj/item/ammo_box/Destroy()
-	for(atom/A in stored_ammo)
+	for(var/atom/A in stored_ammo)
 		qdel(A)
 	stored_ammo = null
 	return ..()
@@ -128,7 +132,7 @@
 		for(var/obj/item/ammo_casing/AC in stored_ammo)
 			if(!AC.BB)//found a spent ammo
 				stored_ammo -= AC
-				AC.loc = get_turf(src.loc)
+				AC.loc = get_turf(loc)
 
 				stored_ammo += R
 				R.loc = src
