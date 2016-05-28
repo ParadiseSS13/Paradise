@@ -214,7 +214,8 @@
 	if(loaded_item)
 		if(cloneMode && cloneCount > 0)
 			visible_message("<span class='notice'>A duplicate [loaded_item] pops out!</span>")
-			new loaded_item(get_turf(pick(oview(1,src))))
+			var/type_to_make = loaded_item.type
+			new type_to_make(get_turf(pick(oview(1,src))))
 			--cloneCount
 			if(cloneCount == 0)
 				cloneMode = FALSE
