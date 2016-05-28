@@ -12,7 +12,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen
 	name = "Queen of Terror spider"
 	desc = "An enormous, terrifying spider. Its egg sac is almost as big as its body, and teeming with spider eggs."
-	spider_role_summary = "Commander of the spider forces. Lays eggs & directs the brood."
+	spider_role_summary = "Commander of the spider forces. Lays eggs, directs the brood."
 	egg_name = "queen spider eggs"
 
 	altnames = list("Queen of Terror","Brood Mother")
@@ -57,9 +57,6 @@
 	if (spider_awaymission)
 		spider_growinstantly = 1
 		spider_spawnfrequency = 150
-	spawn(30)
-		if (!ckey && ai_playercontrol_allowingeneral && ai_playercontrol_allowtype && !spider_awaymission)
-			notify_ghosts("[src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
@@ -293,6 +290,12 @@
 	if (canlay >= 12)
 		eggtypes |= TS_DESC_MOTHER
 		eggtypes |= TS_DESC_PRINCE
+	var num_purples = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
+	if (num_purples >= 2)
+		eggtypes -= TS_DESC_PURPLE
+	var num_blacks = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/black)
+	if (num_blacks >= 2)
+		eggtypes -= TS_DESC_BLACK
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
 	if (!(eggtype in eggtypes))
 		to_chat(src, "Unrecognized egg type.")

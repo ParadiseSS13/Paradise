@@ -45,7 +45,6 @@
 				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 		visible_message("<span class='userdanger'>\The [src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
 		degenerate = 1
-		loot = 0
 	..()
 
 

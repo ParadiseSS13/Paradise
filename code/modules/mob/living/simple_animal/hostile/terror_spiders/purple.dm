@@ -55,3 +55,15 @@
 		L.Stun(5)
 	else
 		..()
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/spider_special_action()
+	if (prob(5))
+		if (spider_myqueen)
+			var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
+			if (Q.health > 0 && !Q.ckey)
+				if (get_dist(src,Q) > 15 || z != Q.z)
+					if (!degenerate && !Q.degenerate)
+						degenerate = 1
+						Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
+						//visible_message("<span class='notice'> [src] chitters in the direction of [Q]!</span>")

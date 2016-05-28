@@ -108,12 +108,10 @@ var/global/list/ts_spiderling_list = list()
 	var/freq_spins_webs = 600 // one minute
 	var/last_spins_webs = 0 // leave this, changed by procs.
 
-	var/ai_cocoons_object = 0 // AI object coccooning behavior, only used by greens
 	var/freq_cocoon_object = 1200 // two minutes between each attempt
 	var/last_cocoon_object = 0 // leave this, changed by procs.
 
-	var/ai_hides_in_vents = 0 // AI vent hiding behavior, only used by purples.
-	var/prob_ai_hides_in_vents = 10 // probabily of this code running on handle_automated_action
+	var/prob_ai_hides_in_vents = 10 // probabily of a gray spider hiding in a vent
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
@@ -512,23 +510,10 @@ var/global/list/ts_spiderling_list = list()
 			if (ts_count_dead > 0)
 				if (world.time < (ts_death_last + ts_death_window))
 					my_ventcrawl_freq = freq_ventcrawl_combat
-			if (cocoon_target)
-				if (get_dist(src, cocoon_target) <= 1)
-					spider_steps_taken = 0
-					DoWrap()
-				else
-					if (spider_steps_taken > spider_max_steps)
-						spider_steps_taken = 0
-						cocoon_target = null
-						busy = 0
-						stop_automated_movement = 0
-					else
-						spider_steps_taken++
-						CreatePath(cocoon_target)
-						step_to(src,cocoon_target)
-						if (spider_debug > 0)
-							visible_message("<span class='notice'>\the [src] moves towards [cocoon_target] to cocoon it.</span>")
-			else if (path_to_vent)
+
+			// First, check for general actions that any spider could take.
+
+			if (path_to_vent)
 				if (entry_vent)
 					if (spider_steps_taken > spider_max_steps)
 						path_to_vent = 0
@@ -551,15 +536,6 @@ var/global/list/ts_spiderling_list = list()
 							visible_message("<span class='notice'>\the [src] moves towards the vent [entry_vent].</span>")
 				else
 					path_to_vent = 0
-			else if (istype(src,/mob/living/simple_animal/hostile/poison/terror_spider/purple) && prob(5))
-				if (spider_myqueen)
-					var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
-					if (Q.health > 0 && !Q.ckey)
-						if (get_dist(src,Q) > 15 || z != Q.z)
-							if (!degenerate && !Q.degenerate)
-								degenerate = 1
-								Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
-								//visible_message("<span class='notice'> [src] chitters in the direction of [Q]!</span>")
 			else if (ai_break_lights && world.time > (last_break_light + freq_break_light))
 				last_break_light = world.time
 				for(var/obj/machinery/light/L in range(1,src))
@@ -577,88 +553,6 @@ var/global/list/ts_spiderling_list = list()
 				else
 					new /obj/effect/spider/terrorweb(get_turf(src))
 					visible_message("<span class='notice'>\the [src] puts up some spider webs.</span>")
-			else if (ai_cocoons_object && world.time > (last_cocoon_object + freq_cocoon_object))
-				last_cocoon_object = world.time
-				var/list/can_see = view(src, 10)
-				//first, check for potential food nearby to cocoon
-				for(var/mob/living/C in can_see)
-					if (C.stat && C.stat != CONSCIOUS && !istype(C, /mob/living/simple_animal/hostile/poison/terror_spider))
-						spider_steps_taken = 0
-						cocoon_target = C
-						return
-					//second, spin a sticky spiderweb on this tile
-					var/obj/effect/spider/terrorweb/W = locate() in get_turf(src)
-					if (!W)
-						Web()
-					else
-						//third, lay an egg cluster there
-						if (fed)
-							DoLayGreenEggs()
-						else
-							//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
-							for(var/obj/O in can_see)
-								if (O.anchored)
-									continue
-								if (istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery) || istype(O, /obj/item/device/flashlight/lamp))
-									if (!istype(O, /obj/item/weapon/paper))
-										cocoon_target = O
-										stop_automated_movement = 1
-										spider_steps_taken = 0
-			else if (ai_hides_in_vents && prob(prob_ai_hides_in_vents))
-				var/obj/machinery/atmospherics/unary/vent_pump/e = locate() in get_turf(src)
-				if (e)
-					if (!e.welded || spider_awaymission)
-						if (invisibility != SEE_INVISIBLE_LEVEL_ONE) // aka: 35. ghosts have 15 with no darkness, 60 with darkness. Weird...
-							var/list/g_turfs_webbed = ListWebbedTurfs()
-							var/webcount = g_turfs_webbed.len
-							if (webcount >= 4)
-								// if there are already at least 4 webs around us, then we have a good web setup already. Cloak.
-								GrayCloak()
-								// I wonder if we should settle down here forever?
-								var/foundqueen = 0
-								for(var/mob/living/H in view(src, 10))
-									if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/queen))
-										foundqueen = 1
-										break
-								if (!foundqueen)
-									var/list/g_turfs_visible = ListVisibleTurfs()
-									if (g_turfs_visible.len >= 12)
-										// So long as the room isn't tiny, and it has no queen in it, sure, settle there
-										// since we are settled now, disable most AI behaviors so we don't waste CPU.
-										ai_ventcrawls = 0
-										ai_spins_webs = 0
-										ai_break_lights = 0
-										prob_ai_hides_in_vents = 3
-										visible_message("<span class='notice'> [src] finishes setting up its trap in [get_area(src)].</span>")
-							else
-								var/list/g_turfs_valid = ListValidTurfs()
-								var/turfcount = g_turfs_valid.len
-								if (turfcount == 0)
-									// if there is literally nowhere else we could put a web, cloak.
-									GrayCloak()
-								else
-									// otherwise, pick one of the valid turfs with no web to create a web there.
-									new /obj/effect/spider/terrorweb(pick(g_turfs_valid))
-									visible_message("<span class='notice'> [src] spins a web.</span>")
-					else
-						if (invisibility == SEE_INVISIBLE_LEVEL_ONE)
-							// if our vent is welded, decloak
-							GrayDeCloak()
-				else
-					if (invisibility == SEE_INVISIBLE_LEVEL_ONE)
-						// if there is no vent under us, and we are cloaked, decloak
-						GrayDeCloak()
-					var/vdistance = 99
-					var/temp_vent = null
-					for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
-						if (!v.welded)
-							if (get_dist(src,v) < vdistance)
-								temp_vent = v
-								vdistance = get_dist(src,v)
-					if (temp_vent)
-						if (get_dist(src,temp_vent) > 0 && get_dist(src,temp_vent) < 5)
-							step_to(src,temp_vent)
-							// if you're bumped off your vent, try to get back to it
 			else if (ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 				if (prob(idle_ventcrawl_chance))
 					last_ventcrawl_time = world.time
@@ -670,11 +564,18 @@ var/global/list/ts_spiderling_list = list()
 								vdistance = get_dist(src,v)
 					if (entry_vent)
 						path_to_vent = 1
+			else
+
+				// If none of the general actions apply, check for class-specific actions.
+				spider_special_action()
+
 		else if (AIStatus != AI_OFF && target)
 			// if I am chasing something, and I've been stuck behind an obstacle for at least 3 cycles, aka 6 seconds, try to open doors
 			CreatePath(target)
 	..()
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
+	// Do nothing, this proc only exists to be overriden
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Bump(atom/A)
 	if (istype(A, /obj/machinery/door/airlock))

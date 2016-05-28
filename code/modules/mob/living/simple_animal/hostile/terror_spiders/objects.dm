@@ -41,8 +41,30 @@
 
 
 /obj/effect/spider/eggcluster/terror_eggcluster/New()
-	ts_egg_list += src
 	..()
+	ts_egg_list += src
+	spawn(50)
+		if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)
+			name = "red terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
+			name = "gray terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/green)
+			name = "green terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/black)
+			name = "black terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
+			name = "purple terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/white)
+			name = "white terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/mother)
+			name = "mother of terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/prince)
+			name = "prince of terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
+			name = "queen of terror eggs"
+		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/empress)
+			name = "empress of terror eggs"
+
 
 /obj/effect/spider/eggcluster/terror_eggcluster/Destroy()
 	ts_egg_list -= src
@@ -56,8 +78,7 @@
 			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
 			if (spiderling_type)
 				S.grow_as = spiderling_type
-			if (spiderling_ventcrawl)
-				S.use_vents = spiderling_ventcrawl
+			S.use_vents = spiderling_ventcrawl
 			S.faction = faction
 			S.spider_myqueen = spider_myqueen
 			S.master_commander = master_commander
@@ -93,25 +114,36 @@
 
 /obj/effect/spider/spiderling/terror_spiderling/New()
 	..()
-	if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/red")
-		name = "red spiderling"
-	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/gray")
-		name = "gray spiderling"
-	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/green")
-		name = "green spiderling"
-	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/black")
-		name = "black spiderling"
-	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/purple")
-		name = "purple spiderling"
-	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/white")
-		name = "white spiderling"
-	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/mother")
-		name = "mother spiderling"
-	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/prince")
-		name = "prince spiderling"
-	else if (grow_as == "/mob/living/simple_animal/hostile/poison/terror_spider/queen")
-		name = "queen spiderling"
-	ts_spiderling_list += src
+	spawn(50)
+		var/debug_announce = 0
+		if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/red)
+			name = "red spiderling"
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
+			name = "gray spiderling"
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/green)
+			name = "green spiderling"
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/black)
+			name = "black spiderling"
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
+			name = "purple spiderling"
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/white)
+			name = "white spiderling"
+			debug_announce = 1
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/mother)
+			name = "mother spiderling"
+			debug_announce = 1
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/prince)
+			name = "prince spiderling"
+			debug_announce = 1
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
+			name = "queen spiderling"
+			debug_announce = 1
+		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/empress)
+			name = "empress spiderling"
+			debug_announce = 1
+		ts_spiderling_list += src
+		if (debug_announce)
+			log_debug("[src] spawned in [get_area(src)]")
 
 
 /obj/effect/spider/spiderling/terror_spiderling/Destroy()

@@ -35,14 +35,14 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Retaliate()
 	var/list/around = view(src, 7)
+	var/list/ts_nearby = list()
 	for(var/atom/movable/A in around)
 		if (A == src)
 			continue
 		if (A in enemies)
-			// they are already our enemy
 			continue
 		if (istype(A, /mob/living/simple_animal/hostile/poison/terror_spider))
-			// we can't make enemies of other spiders. Regardless of faction checks (they are unreliable, sometimes spiders get created with no faction!)
+			ts_nearby += A
 			continue
 		if (isliving(A))
 			var/mob/living/M = A
@@ -65,7 +65,7 @@
 			if (M.occupant || M.occupant2)
 				enemies |= M
 				enemies |= M.occupant
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/H in around)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/H in ts_nearby)
 		var/retaliate_faction_check = 0
 		for(var/F in faction)
 			if (F in H.faction)
@@ -92,11 +92,12 @@
 			numspiders += 1
 	return numspiders
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/CountAllSpiders()
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpidersType(var/specific_type)
 	var/numspiders = 0
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
-		if (T.stat != DEAD)
-			numspiders += 1
+		if (T.stat != DEAD && !T.spider_placed && spider_awaymission == T.spider_awaymission)
+			if (T.type == specific_type)
+				numspiders += 1
 	return numspiders
 
 
@@ -139,7 +140,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(var/target_id_tag, var/msg_to_send)
 	var/unlocked_something = 0
-	for (var/obj/machinery/door/poddoor/P in world)
+	for (var/obj/machinery/door/poddoor/P in airlocks)
 		if (P.density && P.id_tag == target_id_tag && P.z == z)
 			P.open()
 			unlocked_something = 1

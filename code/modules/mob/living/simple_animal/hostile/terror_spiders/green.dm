@@ -24,7 +24,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	ventcrawler = 1
-	ai_cocoons_object = 1
+
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/verb/Wrap()
@@ -75,3 +75,48 @@
 	to_chat(src, "GREEN TERROR guide:")
 	to_chat(src, "- You are a breeding spider. Your job is to use the 'Wrap' verb (Spider tab) on any dead humaniod, then 'Lay Green Eggs'. These eggs hatch into more spiders!")
 	to_chat(src, "- Lay your eggs in dark, low-traffic areas near vents. Don't be afraid to retreat from a fight to lay another day.")
+
+/mob/living/simple_animal/hostile/poison/terror_spider/green/spider_special_action()
+	if (cocoon_target)
+		if (get_dist(src, cocoon_target) <= 1)
+			spider_steps_taken = 0
+			DoWrap()
+		else
+			if (spider_steps_taken > spider_max_steps)
+				spider_steps_taken = 0
+				cocoon_target = null
+				busy = 0
+				stop_automated_movement = 0
+			else
+				spider_steps_taken++
+				CreatePath(cocoon_target)
+				step_to(src,cocoon_target)
+				if (spider_debug > 0)
+					visible_message("<span class='notice'>\the [src] moves towards [cocoon_target] to cocoon it.</span>")
+	else if (world.time > (last_cocoon_object + freq_cocoon_object))
+		last_cocoon_object = world.time
+		var/list/can_see = view(src, 10)
+		//first, check for potential food nearby to cocoon
+		for(var/mob/living/C in can_see)
+			if (C.stat && C.stat != CONSCIOUS && !istype(C, /mob/living/simple_animal/hostile/poison/terror_spider))
+				spider_steps_taken = 0
+				cocoon_target = C
+				return
+			//second, spin a sticky spiderweb on this tile
+			var/obj/effect/spider/terrorweb/W = locate() in get_turf(src)
+			if (!W)
+				Web()
+			else
+				//third, lay an egg cluster there
+				if (fed)
+					DoLayGreenEggs()
+				else
+					//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
+					for(var/obj/O in can_see)
+						if (O.anchored)
+							continue
+						if (istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery) || istype(O, /obj/item/device/flashlight/lamp))
+							if (!istype(O, /obj/item/weapon/paper))
+								cocoon_target = O
+								stop_automated_movement = 1
+								spider_steps_taken = 0
