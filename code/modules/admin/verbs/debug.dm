@@ -371,7 +371,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(confirm != "Yes")
 		return
 
-	for(var/obj/singularity/S in singularities)
+	for(var/I in singularities)
+		var/obj/singularity/S = I
 		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
 			continue
 		qdel(S)
