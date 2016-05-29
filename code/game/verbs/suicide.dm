@@ -3,7 +3,7 @@
 /mob/living/carbon/human/proc/do_suicide(damagetype, byitem)
 	var/threshold = (config.health_threshold_crit + config.health_threshold_dead) / 2
 	var/dmgamt = maxHealth - threshold
-	
+
 	var/damage_mod = 1
 	switch(damagetype) //Sorry about the magic numbers.
 					   //brute = 1, burn = 2, tox = 4, oxy = 8
@@ -163,7 +163,7 @@
 		var/turf/T = get_turf_or_move(card.loc)
 		for (var/mob/M in viewers(T))
 			M.show_message("\blue [src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"", 3, "\blue [src] bleeps electronically.", 2)
-		death(0)
+		death(0, 1)
 	else
 		to_chat(src, "Aborting suicide attempt.")
 

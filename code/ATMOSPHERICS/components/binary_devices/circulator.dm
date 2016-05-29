@@ -66,3 +66,13 @@
 		icon_state = "circ-off"
 
 	return 1
+
+/obj/machinery/atmospherics/binary/circulator/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		var/turf/T = get_turf(src)
+		if(!istype(T, /turf/simulated))
+			return ..()
+		anchored = !anchored
+		to_chat(user, "You [(anchored) ? "fasten" : "loosen"] \the [src] to the floor")
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+	else return ..()

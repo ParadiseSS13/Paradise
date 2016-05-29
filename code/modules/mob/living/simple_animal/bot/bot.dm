@@ -1011,3 +1011,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 			throw_alert("temp", /obj/screen/alert/cold/robot, 1)
 		else
 			throw_alert("temp", /obj/screen/alert/cold/robot, 2)
+
+/mob/living/simple_animal/bot/is_mechanical()
+	return 1

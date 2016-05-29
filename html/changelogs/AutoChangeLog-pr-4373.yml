@@ -1,0 +1,5 @@
+author: CrAzYPiLoT
+delete-after: True
+changes: 
+  - bugfix: "Fixes potential exploits involving door remotes."
+  - rscadd: "Adds another type of remote door control."

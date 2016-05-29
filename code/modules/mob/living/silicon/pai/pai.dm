@@ -340,34 +340,36 @@
 	if(stat || sleeping || paralysis || weakened)
 		return
 
-	if(src.loc != card)
-		to_chat(src, "\red You are already in your mobile form!")
+	if(loc != card)
+		to_chat(src, "<span class=warning>You are already in your mobile form!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "\red You must wait before folding your chassis out again!")
+		to_chat(src, "<span class=warning>You must wait before folding your chassis out again!</span>")
 		return
 
 	last_special = world.time + 200
 
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
-	if(istype(card.loc,/mob))
+	force_fold_out()
+
+	visible_message("<span class=notice>[src] folds outwards, expanding into a mobile form.</span>", "<span class=notice>You fold outwards, expanding into a mobile form.</span>")
+
+/mob/living/silicon/pai/proc/force_fold_out()
+	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
 		holder.unEquip(card)
-	else if(istype(card.loc,/obj/item/device/pda))
+	else if(istype(card.loc, /obj/item/device/pda))
 		var/obj/item/device/pda/holder = card.loc
 		holder.pai = null
 
-
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = src
-	src.forceMove(get_turf(card))
+	if(client)
+		client.perspective = EYE_PERSPECTIVE
+		client.eye = src
+	forceMove(get_turf(card))
 
 	card.forceMove(src)
 	card.screen_loc = null
-
-	var/turf/T = get_turf(src)
-	if(istype(T)) T.visible_message("<b>[src]</b> folds outwards, expanding into a mobile form.")
 
 /mob/living/silicon/pai/verb/fold_up()
 	set category = "pAI Commands"
@@ -376,12 +378,12 @@
 	if(stat || sleeping || paralysis || weakened)
 		return
 
-	if(src.loc == card)
-		to_chat(src, "\red You are already in your card form!")
+	if(loc == card)
+		to_chat(src, "<span class=warning>You are already in your card form!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "\red You must wait before returning to your card form!")
+		to_chat(src, "<span class=warning>You must wait before returning to your card form!</span>")
 		return
 
 	close_up()
@@ -474,16 +476,15 @@
 
 	last_special = world.time + 200
 	resting = 0
-	if(src.loc == card)
+	if(loc == card)
 		return
 
-	var/turf/T = get_turf(src)
-	if(istype(T)) T.visible_message("<b>[src]</b> neatly folds inwards, compacting down to a rectangular card.")
+	visible_message("<span class=notice>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class=notice>You neatly fold inwards, compacting down to a rectangular card.</span>")
 
-	src.stop_pulling()
-	if(src.client)
-		src.client.perspective = EYE_PERSPECTIVE
-		src.client.eye = card
+	stop_pulling()
+	if(client)
+		client.perspective = EYE_PERSPECTIVE
+		client.eye = card
 
 // If we are being held, handle removing our holder from their inv.
 	var/obj/item/weapon/holder/H = loc
@@ -492,13 +493,13 @@
 		if(istype(M))
 			M.unEquip(H)
 		H.loc = get_turf(src)
-		src.loc = get_turf(H)
+		loc = get_turf(H)
 
 	// Move us into the card and move the card to the ground
 	//This seems redundant but not including the forced loc setting messes the behavior up.
-	src.loc = card
+	loc = card
 	card.loc = get_turf(card)
-	src.forceMove(card)
+	forceMove(card)
 	card.forceMove(card.loc)
 	icon_state = "[chassis]"
 

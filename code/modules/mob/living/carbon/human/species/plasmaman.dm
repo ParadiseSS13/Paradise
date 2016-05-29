@@ -12,6 +12,8 @@
 
 	//default_mutations=list(SKELETON) // This screws things up
 
+	butt_sprite = "plasma"
+
 	breath_type = "plasma"
 
 	heat_level_1 = 350  // Heat damage level 1 above this point.

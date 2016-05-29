@@ -55,7 +55,7 @@ var/global/list/blocked_chems = list("polonium", "initropidril", "concentrated_i
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "dark_matter", "b_sorium",
-							"reagent", "life")
+							"reagent", "life","dragonsbreath")
 
 //List of chems/mixtures that can't grow in plants (in addition to the global random chem blacklist)
 var/global/list/plant_blocked_chems = list()	//filled in /datum/reagents/New() with chems that have can_grow_in_plants = 0

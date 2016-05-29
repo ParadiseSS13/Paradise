@@ -292,6 +292,7 @@
 	organ_tag = "liver"
 	parent_organ = "groin"
 	slot = "liver"
+	var/alcohol_intensity = 1
 
 /obj/item/organ/internal/liver/process()
 

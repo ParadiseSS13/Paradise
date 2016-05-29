@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Title: Exosuit Control Console
 Used In File(s): \code\game\mecha\mecha_control_console.dm
 -->
@@ -9,7 +9,7 @@ Used In File(s): \code\game\mecha\mecha_control_console.dm
 			<h2>{{:value.name}}</h2>
 			<h3>Information</h3>
 			<div class="itemLabel">
-				Pilot: 
+				Pilot:
 			</div>
 			<div class="itemContent">
 				{{:value.pilot}}
@@ -18,58 +18,58 @@ Used In File(s): \code\game\mecha\mecha_control_console.dm
 				Integrity:
 			</div>
 			<div class="itemContent">
-				<span class="{{if value.integrity >= 75}}good{{else value.integrity >= 25}}average{{else}}bad{{/if}}">{{:value.integrity}}%</span>
+				<span class="{{if value.integrity >= 75}}good{{else value.integrity >= 25}}average{{else}}bad{{/if}}">{{:helper.smoothRound(value.integrity)}}%</span>
 			</div>
 			<div class="itemLabel">
-				Location: 
+				Location:
 			</div>
 			<div class="itemContent">
 				{{:value.location}}
 			</div>
 			<div class="itemLabel">
-				Airtank: 
+				Airtank:
 			</div>
 			<div class="itemContent">
-				{{:value.airtank}}kPa
+				{{:helper.smoothRound(value.airtank)}}kPa
 			</div>
 			<div class="itemLabel">
-				Active Equipment: 
+				Active Equipment:
 			</div>
 			<div class="itemContent">
 				{{:value.equipment}}
-			</div>	
+			</div>
 			{{if value.hascargo}}
 				<div class="itemLabel">
-					Cargo Used: 
+					Cargo Used:
 				</div>
 				<div class="itemContent">
 					{{:value.cargo}}%
-				</div>				
+				</div>
 			{{/if}}
-			
+
 		<h3>Power Cell</h3>
 		{{if value.cell}}
 			<span class="itemLabel">
-				Rating: 
+				Rating:
 			</span>
 			<span class="itemContent">
 				{{:value.cell_capacity}}
 			</span>
 			{{:helper.displayBar(value.cell_percentage, 0, 100, (value.cell_percentage >= 50) ? 'good' : (value.cell_percentage >= 25) ? 'average' : 'bad')}}
-			<b> {{:value.cell_percentage}}%</b>	
+			<b> {{:helper.smoothRound(value.cell_percentage)}}%</b>
 		{{else}}
 			<b><i>Not Installed</i></b>
 			{{:helper.displayBar(100, 0, 100, 'bad')}}
 		{{/if}}
-				
-				
+
+
 		<h3>Actions</h3>
 		{{:helper.link('Send Message', 'envelope', {'send_message' : value.reference})}}
 		{{:helper.link('Exosuit Log', 'search', {'get_log' : value.reference})}}
 		{{:helper.link('EMP Pulse', 'exclamation-triangle', {'shock' : value.reference}, null, 'redButton')}}
 	</div>
 	{{empty}}
-		<div class='item'> 
+		<div class='item'>
 			<h3>No mecha trackers were found.</h3>
 		</div>
 	{{/for}}

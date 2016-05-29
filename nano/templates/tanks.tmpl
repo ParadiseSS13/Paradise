@@ -2,7 +2,7 @@
 	<div class="noticePlaceholder">This tank is connected to a mask.</div>
 {{else}}
 	<div class="notice">This tank is NOT connected to a mask.</div>
-{{/if}}	
+{{/if}}
 
 <div class="item">
 	<div class="itemLabel">
@@ -11,7 +11,7 @@
 	<div class="itemContent">
 		{{:helper.displayBar(data.tankPressure, 0, 1013, (data.tankPressure > 200) ? 'good' : ((data.tankPressure > 100) ? 'average' : 'bad'))}}
 		<div class="statusValue">
-			{{:data.tankPressure}} kPa
+			{{:helper.smoothRound(data.tankPressure)}} kPa
 		</div>
 	</div>
 </div>

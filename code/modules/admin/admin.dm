@@ -950,7 +950,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 
 //returns 1 to let the dragdrop code know we are trapping this event
 //returns 0 if we don't plan to trap the event
-/datum/admins/proc/cmd_ghost_drag(var/mob/dead/observer/frommob, var/mob/living/tomob)
+/datum/admins/proc/cmd_ghost_drag(var/mob/dead/observer/frommob, var/tothing)
 	if(!istype(frommob))
 		return //extra sanity check to make sure only observers are shoved into things
 
@@ -962,26 +962,49 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	if (!frommob.ckey)
 		return 0
 
-	var/question = ""
-	if (tomob.ckey)
-		question = "This mob already has a user ([tomob.key]) in control of it! "
-	question += "Are you sure you want to place [frommob.name]([frommob.key]) in control of [tomob.name]?"
+	if(istype(tothing, /obj/item))
+		var/mob/living/toitem = tothing
 
-	var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
-	if (ask != "Yes")
+		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")
+		if (ask != "Yes")
+			return 1
+
+		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
+			return 1
+
+		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
+
+		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
+		feedback_add_details("admin_verb","CGD")
+
+		tomob.ckey = frommob.ckey
+		qdel(frommob)
+
+
+	if(isliving(tothing))
+		var/mob/living/tomob = tothing
+
+		var/question = ""
+		if (tomob.ckey)
+			question = "This mob already has a user ([tomob.key]) in control of it! "
+		question += "Are you sure you want to place [frommob.name]([frommob.key]) in control of [tomob.name]?"
+
+		var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
+		if (ask != "Yes")
+			return 1
+
+		if(!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
+			return 1
+
+		if(tomob.client) //no need to ghostize if there is no client
+			tomob.ghostize(0)
+
+		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
+		feedback_add_details("admin_verb","CGD")
+
+		tomob.ckey = frommob.ckey
+		qdel(frommob)
+
 		return 1
-
-	if(!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
-		return 1
-
-	if(tomob.client) //no need to ghostize if there is no client
-		tomob.ghostize(0)
-
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
-	log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
-	feedback_add_details("admin_verb","CGD")
-
-	tomob.ckey = frommob.ckey
-	qdel(frommob)
-
-	return 1

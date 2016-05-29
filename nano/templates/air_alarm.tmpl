@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Title: Air Alarm UI
 Used In File(s): /code/game/machinery/alarm.dm
 -->
@@ -23,7 +23,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 	<div class="statusDisplay">
 		<div class="line">
 			<div class="statusLabel">Pressure:</div>
-			{{:helper.string("<div class='statusValue {0}'>{1} kPa</div>",helper.dangerToClass(data.air.danger.pressure),helper.precisionRound(data.air.pressure,4))}}
+			{{:helper.string("<div class='statusValue {0}'>{1} kPa</div>",helper.dangerToClass(data.air.danger.pressure),helper.smoothRound(data.air.pressure,4))}}
 			<div class="statusValue" style="margin-left:5px;">
 			{{if !data.locked}}
 				{{if data.mode == 3}}
@@ -37,35 +37,35 @@ Used In File(s): /code/game/machinery/alarm.dm
 		<div class="line">
 			<div class="statusLabel">Oxygen:</div>
 			{{:helper.displayBar(data.air.contents.oxygen, 0, 100, helper.dangerToClass(data.air.danger.oxygen))}}
-			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.oxygen),helper.precisionRound(data.air.contents.oxygen,2))}}
+			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.oxygen),helper.smoothRound(data.air.contents.oxygen))}}
 		</div>
 		<div class="line">
 			<div class="statusLabel">Nitrogen:</div>
 			{{:helper.displayBar(data.air.contents.nitrogen, 0, 100, helper.dangerToClass(data.air.danger.nitrogen))}}
-			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.nitrogen),helper.precisionRound(data.air.contents.nitrogen,2))}}
+			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.nitrogen),helper.smoothRound(data.air.contents.nitrogen,0))}}
 		</div>
 		<div class="line">
 			<div class="statusLabel">Carbon Dioxide:</div>
 			{{:helper.displayBar(data.air.contents.co2, 0, 100, helper.dangerToClass(data.air.danger.co2))}}
-			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.co2),helper.precisionRound(data.air.contents.co2,2))}}
+			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.co2),helper.smoothRound(data.air.contents.co2,0))}}
 		</div>
 		<div class="line">
 			<div class="statusLabel">Toxins:</div>
 			{{:helper.displayBar(data.air.contents.plasma, 0, 100, helper.dangerToClass(data.air.danger.plasma))}}
-			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.plasma),helper.precisionRound(data.air.contents.plasma,2))}}
+			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.plasma),helper.smoothRound(data.air.contents.plasma,0))}}
 		</div>
 		{{if data.air.danger.other>0}}
 		<div class="line">
 			<div class="statusLabel">Other:</div>
 			{{:helper.displayBar(data.air.contents.other, 0, 100, helper.dangerToClass(data.air.danger.other))}}
-			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.other),helper.precisionRound(data.air.contents.other,2))}}
+			{{:helper.string("<div class='statusValue {0}'>{1}%</div>",helper.dangerToClass(data.air.danger.other),helper.smoothRound(data.air.contents.other,0))}}
 		</div>
 		{{/if}}
 		<div class="line">
 			<div class="statusLabel">
 				Temperature:
 			</div>
-			{{:helper.string("<div class='statusValue {0}'>{1}&deg;K ({2}&deg;C)</div>",helper.dangerToClass(data.air.danger.temperature),helper.precisionRound(data.air.temperature,2),helper.precisionRound(data.air.temperature_c,2))}}
+			{{:helper.string("<div class='statusValue {0}'>{1}&deg;K ({2}&deg;C)</div>",helper.dangerToClass(data.air.danger.temperature),helper.smoothRound(data.air.temperature,2),helper.smoothRound(data.air.temperature_c,2))}}
 		</div>
 		<div class="line">
 			<div class="statusLabel">Local Status:</div>
@@ -149,7 +149,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 				<div class="line">
 					<div class="statusLabel">External pressure target:</div>
 					<div class="statusValue">
-						{{:helper.precisionRound(value.external,4)}} kPa
+						{{:helper.smoothRound(value.external,4)}} kPa
 					</div>
 					{{:helper.link('Set','gear',{'id_tag':value.id_tag,'command':'set_external_pressure'})}}
 					{{:helper.link('Reset','refresh',{'id_tag':value.id_tag,'command':'set_external_pressure','val':101.325},null,'linkOn')}}
@@ -247,7 +247,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 							{{:helper.link(selectedItem.selected >= 0 ? helper.round(selectedItem.selected*100)/100 : "Off", null, { 'command' : 'set_threshold', 'env' : selectedItem.env, 'var' : selectedItem.val })}}
 						</td>
 					{{/for}}
-				</tr>			
+				</tr>
 			{{/for}}
 		<table>
 	{{/if}}
