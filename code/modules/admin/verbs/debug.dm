@@ -371,12 +371,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(confirm != "Yes")
 		return
 
-	for(var/obj/singularity/S in world)
-		if(S.z == ZLEVEL_CENTCOMM  || S.z >= 8)
+	for(var/obj/singularity/S in singularities)
+		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
 			continue
 		qdel(S)
 	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
-	message_admins("[key_name_admin(src)] has deleted all instances of Singularities and Tesla orbs.", 0)
+	message_admins("[key_name_admin(src)] has deleted all Singularities and Tesla orbs.", 0)
 	feedback_add_details("admin_verb","DELS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_debug_make_powernets()
