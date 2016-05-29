@@ -91,7 +91,7 @@
 
 	school = "abjuration"
 	charge_max = 20
-	clothes_req = 1
+	clothes_req = 0
 	invocation = "none"
 	invocation_type = "none"
 	range = -1
@@ -264,7 +264,7 @@
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	charge_max = 400
-	clothes_req = 1
+	clothes_req = 0
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 	range = 5

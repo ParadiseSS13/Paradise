@@ -116,25 +116,27 @@
 	name = "Disintegrate"
 	spell_type = /obj/effect/proc_holder/spell/targeted/touch/disintegrate
 	log_name = "DG"
+	cost = 3
 
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
 	spell_type = /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech
 	log_name = "DT"
 	category = "Defensive"
-	cost = 1
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/repulse
 	log_name = "RP"
 	category = "Defensive"
+	cost = 1
 
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	log_name = "TS"
 	category = "Defensive"
+	cost = 1
 
 /datum/spellbook_entry/smoke
 	name = "Smoke"
@@ -167,6 +169,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	log_name = "BL"
 	category = "Mobility"
+	cost = 1
 
 /datum/spellbook_entry/teleport
 	name = "Teleport"
@@ -184,6 +187,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt
 	log_name = "EJ"
 	category = "Mobility"
+	cost = 3
 
 /datum/spellbook_entry/knock
 	name = "Knock"
@@ -209,6 +213,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	log_name = "LD"
 	category = "Defensive"
+	cost = 4
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
@@ -219,7 +224,7 @@
 	name = "Lesser Summon Guns"
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
 	log_name = "IG"
-	cost = 4
+	cost = 3
 
 /datum/spellbook_entry/horseman
 	name = "Curse of The Horseman"
@@ -340,6 +345,7 @@
 	item_path = /obj/item/clothing/suit/space/rig/wizard
 	log_name = "HS"
 	category = "Defensive"
+	cost = 1
 
 /datum/spellbook_entry/item/armor/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	. = ..()
