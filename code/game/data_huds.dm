@@ -41,7 +41,7 @@
 	hud_icons = list(ID_HUD)
 
 /datum/atom_hud/data/human/security/advanced
-	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD)
+	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD, PERMIT_HUD)
 
 /datum/atom_hud/data/diagnostic
 	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD)
@@ -182,6 +182,16 @@
 					holder.icon_state = "hudreleased"
 					return
 	holder.icon_state = null
+
+/mob/living/carbon/human/proc/sec_hud_set_permit()
+	var/image/holder = hud_list[PERMIT_HUD]
+	if(wear_id)
+		if(wear_id.HasPermit())
+			holder.icon_state = "hudpermit"
+		else
+			holder.icon_state = null
+	else
+		holder.icon_state = null
 
 /***********************************************
  Diagnostic HUDs!

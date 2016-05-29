@@ -483,6 +483,7 @@ var/global/datum/controller/occupations/job_master
 		H.regenerate_icons()
 
 		H.sec_hud_set_ID()
+		H.sec_hud_set_permit()
 		H.sec_hud_set_implants()
 		return H
 

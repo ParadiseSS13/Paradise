@@ -16,6 +16,7 @@
 #define DIAG_MECH_HUD	"11"// Mech health bar
 #define STATUS_HUD_OOC	"12"// STATUS_HUD without virus db check for someone being ill.
 #define DIAG_BOT_HUD	"13"// Bot HUDS
+#define PERMIT_HUD "15"// Do we have a weapon permit
 
 //for antag huds. these are used at the /mob level
 #define SPECIALROLE_HUD 		"13"

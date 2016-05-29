@@ -604,3 +604,14 @@ proc/get_all_job_icons() //For all existing HUD icons
 		return
 
 	return "Unknown" //Return unknown if none of the above apply
+
+/obj/proc/HasPermit() //Used in secHUD icon generation
+	var/obj/item/weapon/card/id/I = src
+
+	if(I)
+		if(99 in I.access)
+			return 1
+		else
+			return 0
+	else
+		return 0
