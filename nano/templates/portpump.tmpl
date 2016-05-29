@@ -4,7 +4,7 @@
 		Tank Pressure:
 	</div>
 	<div class="itemContent">
-		{{:data.tankPressure}} kPa
+		{{:helper.smoothRound(data.tankPressure)}} kPa
 	</div>
 </div>
 
@@ -33,7 +33,7 @@
 			Tank Pressure:
 		</div>
 		<div class="itemContent">
-			{{:data.holdingTank.tankPressure}} kPa
+			{{:helper.smoothRound(data.holdingTank.tankPressure)}} kPa
 		</div>
 	</div>
 {{else}}

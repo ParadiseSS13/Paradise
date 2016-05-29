@@ -1,0 +1,4 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - tweak: "Deconstructing glass tables now gives a stack of 2 sheets of glass."
