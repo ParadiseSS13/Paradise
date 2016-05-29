@@ -213,7 +213,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	log_name = "LD"
 	category = "Defensive"
-	cost = 4
+	cost = 5
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
@@ -224,7 +224,7 @@
 	name = "Lesser Summon Guns"
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
 	log_name = "IG"
-	cost = 3
+	cost = 4
 
 /datum/spellbook_entry/horseman
 	name = "Curse of The Horseman"
