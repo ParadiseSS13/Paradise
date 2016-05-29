@@ -1,10 +1,9 @@
 /obj/item/weapon/gun/magic
 	name = "staff of nothing"
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
-	icon = 'icons/obj/gun.dmi'
+	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofnothing"
 	item_state = "staff"
-	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
 	flags =  CONDUCT
 	w_class = 5

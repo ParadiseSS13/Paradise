@@ -27,7 +27,7 @@ emp_act
 				P.current = curloc
 				P.yo = new_y - curloc.y
 				P.xo = new_x - curloc.x
-				P.Angle = ""//round(Get_Angle(P,P.original))
+				P.Angle = null
 
 			return -1 // complete projectile permutation
 

@@ -25,7 +25,7 @@
 /obj/item/ammo_casing/energy/laser/scatter
 	projectile_type = /obj/item/projectile/beam/scatter
 	pellets = 5
-	variance = 0.8
+	variance = 25
 	select_name = "scatter"
 
 /obj/item/ammo_casing/energy/laser/heavy
@@ -216,7 +216,7 @@
 	projectile_type = /obj/item/projectile/beam/sniper
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 50
-	select_name = "sniper beam"
+	select_name = "snipe"
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport

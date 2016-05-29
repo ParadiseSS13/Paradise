@@ -1,7 +1,7 @@
 /obj/item/weapon/gun/projectile/automatic/toy
 	name = "foam force SMG"
 	desc = "A prototype three-round burst toy submachine gun. Ages 8 and up."
-	icon = 'icons/obj/toyguns.dmi'
+	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "saber"
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
@@ -44,7 +44,7 @@
 /obj/item/weapon/gun/projectile/shotgun/toy
 	name = "foam force shotgun"
 	desc = "A toy shotgun with wood furniture and a four-shell capacity underneath. Ages 8 and up."
-	icon = 'icons/obj/toyguns.dmi'
+	icon = 'icons/obj/guns/toy.dmi'
 	force = 0
 	throwforce = 0
 	origin_tech = null
@@ -70,7 +70,7 @@
 /obj/item/weapon/gun/projectile/automatic/c20r/toy
 	name = "donksoft SMG"
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
-	icon = 'icons/obj/toyguns.dmi'
+	icon = 'icons/obj/guns/toy.dmi'
 	can_suppress = 0
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
@@ -81,7 +81,7 @@
 /obj/item/weapon/gun/projectile/automatic/l6_saw/toy
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
-	icon = 'icons/obj/toyguns.dmi'
+	icon = 'icons/obj/guns/toy.dmi'
 	can_suppress = 0
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
@@ -92,7 +92,7 @@
 /obj/item/weapon/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
-	icon = 'icons/obj/gun.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "tommy"
 	item_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun

@@ -1,7 +1,7 @@
 /obj/item/weapon/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
-	icon = 'icons/obj/gun.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
 	flags =  CONDUCT
@@ -182,7 +182,12 @@ obj/item/weapon/gun/proc/newshot()
 				if( i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
-				if(!chambered.fire(target, user, params, , suppressed, zone_override))
+				var/sprd = 0
+				if(randomspread)
+					sprd = round((rand() - 0.5) * spread)
+				else
+					sprd = round((i / burst_size - 0.5) * spread)
+				if(!chambered.fire(target, user, params, suppressed, zone_override, sprd))
 					shoot_with_empty_chamber(user)
 					break
 				else

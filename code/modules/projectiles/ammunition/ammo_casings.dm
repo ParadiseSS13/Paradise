@@ -292,7 +292,7 @@
 	desc = "It's nerf or nothing! Ages 8 and up."
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart
 	caliber = "foam_force"
-	icon = 'icons/obj/toyguns.dmi'
+	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
 	var/modified = 0
 

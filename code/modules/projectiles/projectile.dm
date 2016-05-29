@@ -107,16 +107,16 @@
 	var/distance = get_dist(get_turf(A), starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
 	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 
-	if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
-		if(isnull(organ))
-			return
-	else if(isturf(A) && hitsound_wall)
+	if(isturf(A) && hitsound_wall)
 		var/volume = Clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
 		playsound(loc, hitsound_wall, volume, 1, -1)
+	else if(ishuman(A))
+		var/mob/living/carbon/human/H = A
+		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
+		if(isnull(organ))
+			return
 
 	var/turf/target_turf = get_turf(A)
 

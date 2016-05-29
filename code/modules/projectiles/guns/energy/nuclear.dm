@@ -1,7 +1,7 @@
 /obj/item/weapon/gun/energy/gun
 	name = "energy gun"
 	desc = "A basic energy-based gun with two settings: kill and disable."
-	icon_state = "energystun100"
+	icon_state = "energy"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=3;magnets=2"
@@ -37,10 +37,10 @@
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 
 /obj/item/weapon/gun/energy/gun/mini/New()
-	power_supply.maxcharge = 6000
-	power_supply.charge = 6000
 	F = new /obj/item/device/flashlight/seclite(src)
 	..()
+	power_supply.maxcharge = 6000
+	power_supply.charge = 6000
 
 /obj/item/weapon/gun/energy/gun/mini/update_icon()
 	..()
@@ -55,10 +55,10 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 4
 
-/obj/item/weapon/gun/energy/blueshield
+/obj/item/weapon/gun/energy/gun/blueshield
 	name = "advanced stun revolver"
 	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
-	icon_state = "bsgun_stun"
+	icon_state = "bsgun"
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 4

@@ -3,14 +3,12 @@
 	name = "alien heavy cannon"
 	desc = "It's some kind of enormous alien weapon, as long as a man is tall."
 
-	icon = 'icons/obj/gun.dmi' //Actual on-sprite is handled by icon_override.
 	icon_state = "noisecannon"
 	item_state = "noisecannon"
 	recoil = 1
 	force = 10
-	ammo_type = "/obj/item/projectile/energy/sonic"
+	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = "/obj/item/weapon/stock_parts/cell/super"
-	fire_sound = 'sound/effects/basscannon.ogg'
 
 /obj/item/weapon/gun/energy/noisecannon/attack_hand(mob/user as mob)
 	if(loc != user)

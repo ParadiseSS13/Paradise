@@ -45,7 +45,7 @@
 /obj/item/weapon/gun/energy/floragun
 	name = "floral somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells."
-	icon_state = "floramut100"
+	icon_state = "flora"
 	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
@@ -57,6 +57,7 @@
 /obj/item/weapon/gun/energy/meteorgun
 	name = "meteor gun"
 	desc = "For the love of god, make sure you're aiming this the right way!"
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "c20r"
 	w_class = 4
@@ -320,7 +321,7 @@
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
 	icon_state = "l6closed0"
-	icon = 'icons/obj/gun.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = 0
@@ -370,7 +371,7 @@ obj/item/weapon/gun/energy/staff/focus
 /obj/item/weapon/gun/energy/clown
 	name = "HONK Rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "energy"
+	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
 
@@ -386,9 +387,7 @@ obj/item/weapon/gun/energy/staff/focus
 /obj/item/weapon/gun/energy/sniperrifle
 	name = "L.W.A.P. Sniper Rifle"
 	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
-	icon = 'icons/obj/gun.dmi'
 	icon_state = "esniper"
-	fire_sound = 'sound/weapons/marauder.ogg'
 	origin_tech = "combat=6;materials=5;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	slot_flags = SLOT_BACK
@@ -398,7 +397,7 @@ obj/item/weapon/gun/energy/staff/focus
 
 /obj/item/weapon/gun/energy/temperature
 	name = "temperature gun"
-	icon = 'icons/obj/gun_temperature.dmi'
+	icon = 'icons/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
 	slot_flags = SLOT_BACK

@@ -99,12 +99,12 @@
 	one_access = 0
 
 /obj/machinery/porta_turret/proc/setup()
-	var/obj/item/weapon/gun/energy/E = installation	//All energy-based weapons are applicable
+	var/obj/item/weapon/gun/energy/E= new installation	//All energy-based weapons are applicable
 	var/obj/item/ammo_casing/shottype = E.ammo_type[1]
 
 	projectile = shottype.projectile_type
 	eprojectile = projectile
-	shot_sound = initial(E.fire_sound)
+	shot_sound = shottype.fire_sound
 	eshot_sound = shot_sound
 
 	weapon_setup(installation)
