@@ -48,11 +48,10 @@
 		H.drip(500)
 
 
-/obj/item/weapon/legcuffs/bola/cult
+/obj/item/weapon/legcuffs/bolas/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."
 	icon_state = "bola_cult"
-	item_state = "bola_cult"
 	breakouttime = 45
 
 /obj/item/clothing/head/culthood

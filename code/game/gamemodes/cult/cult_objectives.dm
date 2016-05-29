@@ -46,7 +46,6 @@
 
 	message_admins("Picking a new Cult objective.")
 	var/new_objective = "eldergod"
-	var/dieanotherday = 0//if we have less then four cultists..
 	//the idea here is that if the cult performs well, the should get more objectives before they can summon Nar-Sie.
 	if(cult.len >= 4)//if there are less than 4 remaining cultists, they get a free pass to the summon objective.
 		if(current_objective <= prenarsie_objectives)
@@ -62,7 +61,7 @@
 	else
 		message_admins("There are less than 4 cultists! [ticker.mode.cultdat.entity_name] objective unlocked.")
 		log_admin("There are less than 4 cultists! [ticker.mode.cultdat.entity_name] objective unlocked.")
-		dieanotherday = 1
+		gtfo_phase()
 
 	if(!sacrificed.len && (new_objective != "sacrifice"))
 		sacrifice_target = null
@@ -94,11 +93,21 @@
 
 		blood_check()//in case there are already enough blood covered tiles when the objective is given.
 
+/datum/game_mode/cult/proc/gtfo_phase()//YOU HAD ONE JOB
+	var/explanation
+	objectives +="survive"
+	explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
+	for(var/datum/mind/cult_mind in cult)
+		to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
+		to_chat(cult_mind.current, "<B>Objective Survive</B>: [explanation]")
+		cult_mind.memory += "<B>Objective Survive</B>: [explanation]<BR>"
+
+
 /datum/game_mode/cult/proc/second_phase()
 	narsie_condition_cleared = 1
 	var/explanation
 
-	if(prob(50))//split the chance of this
+	if(prob(40))//split the chance of this
 		objectives += "eldergod"
 		explanation = "Summon [ticker.mode.cultdat.entity_name] on the Station via the use of the Tear Reality rune."
 	else

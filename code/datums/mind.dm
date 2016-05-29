@@ -799,8 +799,8 @@
 				if(!(src in ticker.mode.cult))
 					ticker.mode.add_cultist(src)
 					special_role = "Cultist"
-					to_chat(current, "<font color=\"purple\"><b><i>You catch a glimpse of the Realm of [ticker.mode.cultdat.entity_name], [ticker.mode.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.mode.cultdat.entity_name].</b></i></font>")
-					to_chat(current, "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [ticker.mode.cultdat.entity_title2] above all else. Bring It back.</b></i></font>")
+					to_chat(current, "<span class='cultitalic'>You catch a glimpse of the Realm of [ticker.mode.cultdat.entity_name], [ticker.mode.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.mode.cultdat.entity_name].</span>")
+					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [ticker.mode.cultdat.entity_title2] above all else. Bring It back.</span>")
 					log_admin("[key_name(usr)] has culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
 			if("tome")

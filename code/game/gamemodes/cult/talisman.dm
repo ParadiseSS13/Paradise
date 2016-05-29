@@ -247,7 +247,7 @@
 				var/mob/living/carbon/C = target
 				C.silent += 5
 				C.stuttering += 15
-				C.cultslurring += 15
+				C.cultslurring += 5
 				C.Jitter(15)
 		user.drop_item()
 		qdel(src)
@@ -270,7 +270,7 @@
 	user.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
 	user.drop_item()
 	user.put_in_hands(new /obj/item/weapon/melee/cultblade(user))
-	user.put_in_hands(new /obj/item/weapon/legcuffs/bola/cult(user))
+	user.put_in_hands(new /obj/item/weapon/legcuffs/bolas/cult(user))
 
 /obj/item/weapon/paper/talisman/armor/attack(mob/living/target, mob/living/user)
 	if(iscultist(user) && iscultist(target))
@@ -292,7 +292,7 @@
 		to_chat(user, "<span class='cultitalic'>You disturb [target] with visons of the end!</span>")
 		if(iscarbon(target))
 			var/mob/living/carbon/H = target
-			H.reagents.add_reagent("lsd", 25)
+			H.reagents.add_reagent("lsd", 10)
 		qdel(src)
 
 

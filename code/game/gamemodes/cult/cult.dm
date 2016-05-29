@@ -41,7 +41,7 @@ var/global/list/all_cults = list()
 	config_tag = "cult"
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician")
 	protected_jobs = list()
-	required_players = 1
+	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 4
 
@@ -119,9 +119,11 @@ var/global/list/all_cults = list()
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
+		cult_mind.current.faction |= "cult"
+		var/datum/action/cultcomm/C = new()
+		C.Grant(cult_mind.current)
 		update_cult_icons_added(cult_mind)
-		add_cultist(cult_mind)
-		to_chat(cult_mind.current, "<span class='cult'> You are a member of the cult!</span>")//need fluffier text here...
+		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [cultdat.entity_name], [cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [cultdat.entity_name].</span>")
 
 	first_phase()
 
@@ -180,13 +182,13 @@ var/global/list/all_cults = list()
 		return 0
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
-		update_cult_icons_added(cult_mind)
 		cult_mind.current.faction |= "cult"
 		var/datum/action/cultcomm/C = new()
 		C.Grant(cult_mind.current)
 		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)
+		update_cult_icons_added(cult_mind)
 		return 1
 
 
@@ -212,7 +214,6 @@ var/global/list/all_cults = list()
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
-
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.join_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, "hudcultist")

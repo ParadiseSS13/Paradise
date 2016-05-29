@@ -595,6 +595,7 @@ var/list/teleport_runes = list()
 		new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
 		cult_mode.demons_summoned = 1
 		shuttle_master.emergency.request(null, 0.5,null)
+		cult_mode.third_phase()
 		qdel(src)
 
 
