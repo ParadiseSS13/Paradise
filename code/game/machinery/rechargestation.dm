@@ -210,7 +210,7 @@
 /obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
-	if(!user)
+	if(!user || !usr)
 		return
 
 	if (usr.stat != CONSCIOUS)

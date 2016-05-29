@@ -35,7 +35,8 @@
 	if(bed && get_dist(oldloc, loc) <= 2)
 		bed.Move(oldloc)
 		bed.dir = Dir
-		bed.buckled_mob.dir = Dir
+		if(bed.buckled_mob)
+			bed.buckled_mob.dir = Dir
 
 /obj/structure/stool/bed/amb_trolley
 	name = "ambulance train trolley"
