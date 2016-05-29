@@ -584,5 +584,5 @@
 	desc = "You can now hold your demons inside. Or memes. The small painting on it reads 'WJ Armor'."
 	name = "Praetor Belt"
 	icon_state = "doomg_belt"
-	magboot_state = "doombelt"
+	item_state = "doombelt"
 	storage_slots = 20
