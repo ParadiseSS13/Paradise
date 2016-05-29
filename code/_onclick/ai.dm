@@ -45,7 +45,7 @@
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
-			controlled_mech.click_action(A, src) //Override AI normal click behavior.
+			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
 		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)

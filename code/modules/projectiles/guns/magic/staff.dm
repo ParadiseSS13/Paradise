@@ -54,3 +54,11 @@ obj/item/weapon/gun/magic/staff/door
 	item_state = "honker"
 	max_charges = 4
 	recharge_rate = 8
+
+obj/item/weapon/gun/magic/staff/focus
+	name = "mental focus"
+	desc = "An artefact that channels the will of the user into destructive bolts of force. If you aren't careful with it, you might poke someone's brain out."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "focus"
+	item_state = "focus"
+	ammo_type = list(/obj/item/ammo_casing/forcebolt)

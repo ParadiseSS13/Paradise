@@ -666,6 +666,8 @@ var/list/turret_icons
 	return
 
 /obj/machinery/porta_turret/proc/shootAt(var/mob/living/target)
+	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
+		return
 	//any emagged turrets will shoot extremely fast! This not only is deadly, but drains a lot power!
 	if(!emagged)	//if it hasn't been emagged, it has to obey a cooldown rate
 		if(last_fired || !raised)	//prevents rapid-fire shooting, unless it's been emagged
@@ -680,10 +682,6 @@ var/list/turret_icons
 	if(!istype(T) || !istype(U))
 		return
 
-	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
-		return
-
-
 	update_icon()
 	var/obj/item/projectile/A
 	if(emagged || lethal)
@@ -694,18 +692,17 @@ var/list/turret_icons
 		if(projectile)
 			A = new projectile(loc)
 			playsound(loc, shot_sound, 75, 1)
-	A.original = target
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
 	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
-		//Shooting Code:
+	A.original = target
 	A.current = T
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
-	spawn(1)
-		A.process()
+	A.fire()
+	return A
 
 /datum/turret_checks
 	var/enabled

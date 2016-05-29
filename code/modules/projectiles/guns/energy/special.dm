@@ -360,14 +360,6 @@
 	item_state = "instagibblue"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/blue)
 
-obj/item/weapon/gun/energy/staff/focus
-	name = "mental focus"
-	desc = "An artefact that channels the will of the user into destructive bolts of force. If you aren't careful with it, you might poke someone's brain out."
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "focus"
-	item_state = "focus"
-	ammo_type = list(/obj/item/ammo_casing/forcebolt)
-
 /obj/item/weapon/gun/energy/clown
 	name = "HONK Rifle"
 	desc = "Clown Planet's finest."

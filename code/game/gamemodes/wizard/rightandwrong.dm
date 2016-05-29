@@ -20,7 +20,7 @@
 		if(!summon_type)
 			switch (randomizeguns)
 				if("taser")
-					new /obj/item/weapon/gun/energy/advtaser(get_turf(H))
+					new /obj/item/weapon/gun/energy/gun/advtaser(get_turf(H))
 				if("egun")
 					new /obj/item/weapon/gun/energy/gun(get_turf(H))
 				if("laser")

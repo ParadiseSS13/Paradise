@@ -187,7 +187,7 @@ obj/item/weapon/gun/proc/newshot()
 					sprd = round((rand() - 0.5) * spread)
 				else
 					sprd = round((i / burst_size - 0.5) * spread)
-				if(!chambered.fire(target, user, params, suppressed, zone_override, sprd))
+				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
 					shoot_with_empty_chamber(user)
 					break
 				else

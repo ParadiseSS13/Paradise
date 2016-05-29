@@ -239,7 +239,7 @@ obj/item/projectile/kinetic/New()
 	if(istype(target_turf, /turf/simulated/mineral))
 		var/turf/simulated/mineral/M = target_turf
 		M.gets_drilled(firer)
-	new /obj/item/effect/kinetic_blast(target_turf)
+	new /obj/effect/kinetic_blast(target_turf)
 	if(splash)
 		for(var/turf/T in range(splash, target_turf))
 			if(istype(T, /turf/simulated/mineral))
@@ -252,7 +252,7 @@ obj/item/projectile/kinetic/New()
 	icon_state = "kinetic_blast"
 	layer = 4.1
 
-/obj/item/effect/kinetic_blast/New()
+/obj/effect/kinetic_blast/New()
 	spawn(4)
 		qdel(src)
 

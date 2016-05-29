@@ -99,7 +99,7 @@
 
 /datum/manufacture/taser
 	name = "Advanced Taser"
-	item = /obj/item/weapon/gun/energy/advtaser
+	item = /obj/item/weapon/gun/energy/gun/advtaser
 	cost1 = /obj/item/weapon/ore/iron
 	cname1 = "Iron"
 	amount1 = 15

@@ -26,7 +26,7 @@
 	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
 	in your hand.  To recharge this weapon, use a weapon recharger."
 
-/obj/item/weapon/gun/energy/advtaser
+/obj/item/weapon/gun/energy/gun/advtaser
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
 	then click where you want to fire. To recharge this weapon, use a weapon recharger. \
 	To switch between insta-stun and disabler beams, click the weapon in your hand. This weapon can only fire through glass if it is set to disabler beams."
@@ -54,11 +54,6 @@
 	description_info = "This is a ballistic weapon.  To fire the weapon, have your gun mode set to 'fire', \
 	then click where you want to fire.  After firing, you will need to pump the gun, by clicking on the gun in your hand.  To reload, load more shotgun \
 	shells into the gun."
-
-/obj/item/weapon/gun/projectile/heavysniper
-	description_info = "This is a ballistic weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  The gun's chamber can be opened or closed by using it in your hand.  To reload, open the chamber, add a new bullet \
-	then close it.  To use the scope, use the appropriate verb in the object tab."
 
 //*******
 //*Melee*

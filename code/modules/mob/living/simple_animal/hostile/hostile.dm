@@ -262,7 +262,8 @@
 
 	var/obj/item/projectile/A = new projectiletype(src.loc)
 	playsound(user, projectilesound, 100, 1)
-	if(!A)	return
+	if(!A)
+		return
 
 	A.current = target
 	A.firer = src
@@ -272,7 +273,7 @@
 		newtonian_move(get_dir(target, user))
 	A.original = target
 	spawn( 0 )
-		A.process()
+		A.fire()
 	return
 
 /mob/living/simple_animal/hostile/proc/DestroySurroundings()

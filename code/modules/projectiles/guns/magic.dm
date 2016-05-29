@@ -4,6 +4,7 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofnothing"
 	item_state = "staff"
+	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
 	flags =  CONDUCT
 	w_class = 5
