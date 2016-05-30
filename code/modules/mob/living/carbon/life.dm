@@ -41,8 +41,6 @@
 		return
 	if(NO_BREATH in mutations)
 		return // No breath mutation means no breathing.
-	if(istype(src, /mob/living/carbon/brain))
-		return
 
 	var/datum/gas_mixture/environment
 	if(loc)
