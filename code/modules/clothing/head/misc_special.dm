@@ -219,6 +219,7 @@
 	item_state = "cardborg_h"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	species_disguise = "High-tech robot"
 
 /obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
 	..()

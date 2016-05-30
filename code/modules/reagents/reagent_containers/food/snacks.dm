@@ -25,7 +25,7 @@
 				to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
 			user.visible_message("<span class='notice'>[user] finishes eating \the [src].</span>")
 			user.unEquip(src)	//so icons update :[
-
+			Post_Consume(M)
 			if(trash)
 				if(ispath(trash,/obj/item))
 					var/obj/item/TrashItem = new trash(user)
@@ -33,6 +33,9 @@
 				else if(istype(trash,/obj/item))
 					user.put_in_hands(trash)
 			qdel(src)
+	return
+
+/obj/item/weapon/reagent_containers/food/snacks/proc/Post_Consume(mob/living/M)
 	return
 
 /obj/item/weapon/reagent_containers/food/snacks/attack_self(mob/user as mob)
@@ -756,27 +759,32 @@
 	desc = "The food of choice for the seasoned traitor."
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
+
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
-		reagents.add_reagent("omnizine", 4)
+
+	Post_Consume(mob/living/M)
+		M.reagents.add_reagent("omnizine", 15)
 
 /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket
 	name = "Donk-pocket"
 	desc = "This donk-pocket is emitting a small amount of heat."
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
-	volume = 90
 	bitesize = 100 //nom the whole thing at once.
 
 	New()
 		..()
-		reagents.add_reagent("omnizine", 15)
-		reagents.add_reagent("teporone", 15)
-		reagents.add_reagent("synaptizine", 15)
-		reagents.add_reagent("salglu_solution", 15)
-		reagents.add_reagent("salbutamol", 15)
-		reagents.add_reagent("methamphetamine2", 15)
+		reagents.add_reagent("nutriment", 1)
+
+	Post_Consume(mob/living/M)
+		M.reagents.add_reagent("omnizine", 15)
+		M.reagents.add_reagent("teporone", 15)
+		M.reagents.add_reagent("synaptizine", 15)
+		M.reagents.add_reagent("salglu_solution", 15)
+		M.reagents.add_reagent("salbutamol", 15)
+		M.reagents.add_reagent("methamphetamine", 15)
 
 /obj/item/weapon/reagent_containers/food/snacks/brainburger
 	name = "brainburger"

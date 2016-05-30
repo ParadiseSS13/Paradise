@@ -124,7 +124,8 @@
 				if (A in accesses)
 					accesses.Remove(A)
 				else
-					accesses.Add(A)
+					if(giver && giver.access && (A in giver.access))
+						accesses.Add(A)
 	if (href_list["action"])
 		switch(href_list["action"])
 			if ("id")

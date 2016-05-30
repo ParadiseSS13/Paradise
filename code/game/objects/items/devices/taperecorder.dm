@@ -233,7 +233,6 @@
 	sleep(300)
 	canprint = 1
 
-
 //empty tape recorders
 /obj/item/device/taperecorder/empty/New()
 	return
@@ -260,10 +259,27 @@
 		to_chat(user, "<span class='notice'>You pull out all the tape!</span>")
 		ruin()
 
+/obj/item/device/tape/verb/wipe()
+	set name = "Wipe Tape"
+	set category = "Object"
+
+	if(usr.stat)
+		return
+	if(ruined)
+		return
+
+	to_chat(usr, "You erase the data from the [src]")
+	clear()
+
+/obj/item/device/tape/proc/clear()
+	used_capacity = 0
+	storedinfo.Cut()
+	timestamp.Cut()
 
 /obj/item/device/tape/proc/ruin()
 	overlays += "ribbonoverlay"
 	ruined = 1
+
 
 
 /obj/item/device/tape/proc/fix()
@@ -277,6 +293,12 @@
 		if(do_after(user, 120, target = src))
 			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
+	else if(istype(I, /obj/item/weapon/pen))
+		var/title = stripped_input(usr,"What do you want to name the tape?", "Tape Renaming", name, MAX_NAME_LEN)
+		if(!title || !length(title))
+			name = initial(name)
+			return
+		name = "tape - [title]"
 
 
 //Random colour tapes
