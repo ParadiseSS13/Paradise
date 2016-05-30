@@ -24,7 +24,7 @@
 			powermonitor = null
 			return
 		data["poweravail"] = sanitize(powermonitor.powernet.avail)
-		data["powerload"] = sanitize(num2text(powermonitor.powernet.viewload,10))
+		data["powerload"] = sanitize(powermonitor.powernet.viewload)
 		data["powerdemand"] = sanitize(powermonitor.powernet.load)
 		data["apcs"] = sanitize(apc_repository.apc_data(powermonitor))
 

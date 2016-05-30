@@ -1,5 +1,5 @@
-	<!-- 
-	Title: Cryo Cell Status UI 
+	<!--
+	Title: Cryo Cell Status UI
 	Used In File(s): \code\game\machinery\cryo.dm
 	 -->
 	<h3>Cryo Cell Status</h3>
@@ -18,7 +18,7 @@
 					<span class="bad">DEAD</span>
 				{{/if}}
 			</div>
-		
+
 			{{if data.occupant.stat < 2}}
 				<div class="line">
 					<div class="statusLabel">Health:</div>
@@ -27,31 +27,31 @@
 					{{else}}
 						{{:helper.displayBar(data.occupant.health, 0, data.occupant.minHealth, 'average alignRight')}}
 					{{/if}}
-					<div class="statusValue">{{:helper.round(data.occupant.health)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.health)}}</div>
 				</div>
-			
+
 				<div class="line">
 					<div class="statusLabel"><i class="fa fa-arrow-right"></i> Brute Damage:</div>
 					{{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth, 'bad')}}
-					<div class="statusValue">{{:helper.round(data.occupant.bruteLoss)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.bruteLoss)}}</div>
 				</div>
-			
+
 				<div class="line">
 					<div class="statusLabel"><i class="fa fa-arrow-right"></i> Resp. Damage:</div>
 					{{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth, 'bad')}}
-					<div class="statusValue">{{:helper.round(data.occupant.oxyLoss)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.oxyLoss)}}</div>
 				</div>
-			
+
 				<div class="line">
 					<div class="statusLabel"><i class="fa fa-arrow-right"></i> Toxin Damage:</div>
 					{{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth, 'bad')}}
-					<div class="statusValue">{{:helper.round(data.occupant.toxLoss)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.toxLoss)}}</div>
 				</div>
-			
+
 				<div class="line">
 					<div class="statusLabel"><i class="fa fa-arrow-right"></i> Burn Severity:</div>
 					{{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad')}}
-					<div class="statusValue">{{:helper.round(data.occupant.fireLoss)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.fireLoss)}}</div>
 				</div>
 			{{/if}}
 		{{/if}}
@@ -59,7 +59,7 @@
 		<hr>
 		<div class="line">
 			<div class="statusLabel">Cell Temperature:</div><div class="statusValue">
-				<span class="{{:data.cellTemperatureStatus}}">{{:data.cellTemperature}} K</span>
+				<span class="{{:data.cellTemperatureStatus}}">{{:helper.smoothRound(data.cellTemperature)}} K</span>
 			</div>
 		</div>
 	</div>
@@ -82,10 +82,10 @@
 			Beaker:
 		</div>
 		<div class="itemContent" style="width: 40%;">
-			{{if data.isBeakerLoaded}}		
+			{{if data.isBeakerLoaded}}
 				{{:data.beakerLabel ? data.beakerLabel : '<span class="average">No label</span>'}}<br>
 				{{if data.beakerVolume}}
-					<span class="highlight">{{:data.beakerVolume}} units remaining</span><br>
+					<span class="highlight">{{:helper.smoothRound(data.beakerVolume)}} units remaining</span><br>
 				{{else}}
 					<span class="bad">Beaker is empty</span>
 				{{/if}}

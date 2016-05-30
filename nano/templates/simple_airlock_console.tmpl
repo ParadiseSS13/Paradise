@@ -6,7 +6,7 @@
 		<div class="itemContent">
 			{{:helper.displayBar(data.chamber_pressure, 0, 200, (data.chamber_pressure < 80) || (data.chamber_pressure > 120) ? 'bad' : (data.chamber_pressure < 95) || (data.chamber_pressure > 110) ? 'average' : 'good')}}
 			<div class="statusValue">
-				{{:data.chamber_pressure}} kPa
+				{{:helper.smoothRound(data.chamber_pressure)}} kPa
 			</div>
 		</div>
 	</div>

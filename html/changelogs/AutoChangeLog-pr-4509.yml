@@ -1,0 +1,4 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - experiment: "Progress bars, buttons, and several of the values in UI's are now animated."
