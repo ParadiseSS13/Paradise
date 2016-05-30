@@ -129,7 +129,7 @@ var/const/SAFETY_COOLDOWN = 100
 		return
 
 	if(sound)
-		playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+		playsound(src.loc, 'sound/machines/recycler.ogg', 100, 0)
 	var/material_amount = materials.get_item_material_amount(I)
 	if(!material_amount)
 		qdel(I)
@@ -155,7 +155,7 @@ var/const/SAFETY_COOLDOWN = 100
 	L.loc = src.loc
 
 	if(issilicon(L))
-		playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+		playsound(src.loc, 'sound/machines/recycler.ogg', 100, 0)
 	else
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 
