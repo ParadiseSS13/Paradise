@@ -21,7 +21,8 @@
 		wormholes += new /obj/effect/portal/wormhole(T, null, null, -1)
 
 /datum/event/wormholes/announce()
-	command_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
+	if(prob(75)) //Chance of the event being announced
+		command_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
 
 /datum/event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)
