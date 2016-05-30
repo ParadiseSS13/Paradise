@@ -1,0 +1,4 @@
+author: monster860
+delete-after: True
+changes: 
+  - tweak: "Upgrading the experimentor will no longer reduce the chance of upgrading an item's tech"
