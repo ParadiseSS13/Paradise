@@ -52,7 +52,7 @@ var/global/list/obj/item/device/vape/vapes = list()
 			C.loc = src
 			to_chat(user, "You insert the RDA.")
 			drip = C
-	updateicon()
+			updateicon()
 
 /obj/item/device/vape/attack_self(mob/user)
 	if(!battery)
@@ -129,6 +129,7 @@ var/global/list/obj/item/device/vape/vapes = list()
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O)
 					to_chat(usr, "<span class='notice'>You remove \the [O] from \the [src].</span>")
+					drip.rdain = ""
 					drip = null
 					updateicon()
 					return
