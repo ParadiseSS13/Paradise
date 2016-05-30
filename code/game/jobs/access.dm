@@ -609,7 +609,7 @@ proc/get_all_job_icons() //For all existing HUD icons
 	var/obj/item/weapon/card/id/I = src
 
 	if(I)
-		if(99 in I.access)
+		if(access_weapons in I.access)
 			return 1
 		else
 			return 0
