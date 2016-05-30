@@ -30,7 +30,7 @@ var/global/list/all_cults = list()
 	return 1
 
 /proc/is_sacrifice_target(datum/mind/mind)
-	if(ticker.mode.name == "cult")
+	if(istype(ticker.mode.name, "cult"))
 		var/datum/game_mode/cult/cult_mode = ticker.mode
 		if(mind == cult_mode.sacrifice_target)
 			return 1
@@ -170,7 +170,7 @@ var/global/list/all_cults = list()
 	)
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if (!where)
-		to_chat(mob, "<span class='danger'> Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.</span>")
+		to_chat(mob, "<span class='danger'>Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.</span>")
 	else
 		to_chat(mob, "<span class='cult'>You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.</span>")
 		mob.update_icons()

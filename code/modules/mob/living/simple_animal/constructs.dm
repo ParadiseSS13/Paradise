@@ -36,7 +36,7 @@
 	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm (src.loc)
 	for(var/mob/M in viewers(src, null))
 		if((M.client && !( M.blinded )))
-			M.show_message("<span class='warning'> [src] collapses in a shattered heap.</span>")
+			M.show_message("<span class='warning'>[src] collapses in a shattered heap.</span>")
 	ghostize()
 	qdel(src)
 	return
@@ -69,9 +69,9 @@
 						   "<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
 		else
 			if(src != M)
-				M << "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>"
+				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
 			else
-				M << "<span class='cult'>You cannot repair your own dents, as you have none!</span>"
+				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
 	else if(src != M)
 		..()
 
@@ -356,8 +356,7 @@
 
 ///ui stuff
 
-/mob/living/simple_animal/hostile/construct/armoured/Life()
-
+/mob/living/simple_animal/hostile/construct/armoured/handle_hud_icons_health()
 	..()
 	if(healths)
 		switch(health)
@@ -371,8 +370,7 @@
 			else					healths.icon_state = "juggernaut_health7"
 
 
-/mob/living/simple_animal/hostile/construct/behemoth/Life()
-
+/mob/living/simple_animal/hostile/construct/behemoth/handle_hud_icons_health()
 	..()
 	if(healths)
 		switch(health)
@@ -385,8 +383,7 @@
 			if(1 to 124)			healths.icon_state = "juggernaut_health6"
 			else					healths.icon_state = "juggernaut_health7"
 
-/mob/living/simple_animal/hostile/construct/builder/Life()
-
+/mob/living/simple_animal/hostile/construct/builder/handle_hud_icons_health()
 	..()
 	if(healths)
 		switch(health)
@@ -401,7 +398,7 @@
 
 
 
-/mob/living/simple_animal/hostile/construct/wraith/Life()
+/mob/living/simple_animal/hostile/construct/wraith/handle_hud_icons_health()
 
 	..()
 	if(healths)
@@ -416,7 +413,7 @@
 			else					healths.icon_state = "wraith_health7"
 
 
-/mob/living/simple_animal/hostile/construct/harvester/Life()
+/mob/living/simple_animal/hostile/construct/harvester/handle_hud_icons_health()
 
 	..()
 	if(healths)

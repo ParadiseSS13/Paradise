@@ -47,7 +47,7 @@
 		return ..()
 	if(iscultist(M))
 		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
-			user << "<span class='cult'>You remove the taint from [M].</span>"
+			to_chat(user, "<span class='cult'>You remove the taint from [M].</span>")
 			var/holy2unholy = M.reagents.get_reagent_amount("holywater")
 			M.reagents.del_reagent("holywater")
 			M.reagents.add_reagent("unholywater",holy2unholy)
@@ -185,13 +185,13 @@
 	return 1
 
 /obj/item/weapon/tome/proc/scribe_rune(mob/living/user)
-	var/turf/Turf = get_turf(user)
+	var/turf/runeturf = get_turf(user)
 	var/chosen_keyword
 	var/obj/effect/rune/rune_to_scribe
 	var/entered_rune_name
 	var/list/possible_runes = list()
 	var/list/shields = list()
-	if(locate(/obj/effect/rune) in Turf)
+	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
 	for(var/T in subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
@@ -215,15 +215,15 @@
 			break
 	if(!rune_to_scribe)
 		return
-	Turf = get_turf(user) //we may have moved. adjust as needed...
-	if(locate(/obj/effect/rune) in Turf)
+	runeturf = get_turf(user) //we may have moved. adjust as needed...
+	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
 	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
 		return
 	if(ispath(rune_to_scribe, /obj/effect/rune/narsie) || ispath(rune_to_scribe, /obj/effect/rune/slaughter))//may need to change this - Fethas
 
-		if(ticker.mode.name == "cult")
+		if(istype(ticker.mode.name, "cult"))
 			if(!canbypass)//not an admin-tome, check things
 				var/datum/game_mode/cult/cult_mode = ticker.mode
 				if(!("eldergod" in cult_mode.objectives) || !("slughter" in cult_mode.objectives))
@@ -240,7 +240,7 @@
 					return
 				var/confirm_final = alert(user, "This is the FINAL step to summon Nar-Sie, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
 				if(confirm_final == "No")
-					user << "<span class='cult'>You decide to prepare further before scribing the rune.</span>"
+					to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 					return
 			command_announcement.Announce("Figments from an eldritch god are being summoned somwhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensionsal Affairs", 'sound/AI/spanomalies.ogg')
 			for(var/B in spiral_range_turfs(1, user, 1))
@@ -262,7 +262,7 @@
 			if(S && !qdeleted(S))
 				qdel(S)
 		return
-	if(locate(/obj/effect/rune) in Turf)
+	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
 	user.visible_message("<span class='warning'>[user] creates a strange circle in their own blood.</span>", \
@@ -271,7 +271,7 @@
 		var/obj/machinery/shield/S = V
 		if(S && !qdeleted(S))
 			qdel(S)
-	var/obj/effect/rune/R = new rune_to_scribe(Turf, chosen_keyword)
+	var/obj/effect/rune/R = new rune_to_scribe(runeturf, chosen_keyword)
 	R.blood_DNA = list()
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
 	R.add_hiddenprint(H)

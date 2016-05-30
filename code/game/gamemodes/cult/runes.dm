@@ -40,8 +40,7 @@ To draw a rune, use an arcane tome.
 	..()
 	if(set_keyword)
 		keyword = set_keyword
-	if(!(istype(src, /obj/effect/rune/narsie) || istype(src, /obj/effect/rune/slaughter)))
-		check_icon()
+	check_icon()
 	var/image/blood = image(loc = src)
 	blood.override = 1
 	for(var/mob/living/silicon/ai/AI in player_list)
@@ -67,11 +66,9 @@ To draw a rune, use an arcane tome.
 			user.visible_message("<span class='warning'>[I] suddenly glows with white light, forcing [user] to drop it in pain!</span>", \
 			"<span class='warning'><b>[I] suddenly glows with a white light that sears your hand, forcing you to drop it!</b></span>")
 			return
-		user.say("BEGONE FOUL MAGIKS!!")
 		to_chat(user,"<span class='danger'>You disrupt the magic of [src] with [I].</span>")
 		qdel(src)
 		return
-	return
 
 /obj/effect/rune/attack_hand(mob/living/user)
 	if(!iscultist(user))
@@ -142,7 +139,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				L.say(invocation)
 	var/oldtransform = transform
 	spawn(0) //animate is a delay, we want to avoid being delayed
-		animate(src, transform = matrix()*2, alpha = 0, time = 5) //fade out
+		animate(transform = matrix()*2, alpha = 0, time = 5) //fade out
 		animate(transform = oldtransform, alpha = 255, time = 0)
 
 /obj/effect/rune/proc/fail_invoke(var/mob/living/user)
@@ -150,7 +147,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
 	spawn(0) //animate is a delay, we want to avoid being delayed
 		animate(src, color = rgb(255, 0, 0), time = 0)
-		animate(src, color = initial(color), time = 5)
 
 //Malformed Rune: This forms if a rune is not drawn correctly. Invoking it does nothing but hurt the user.
 /obj/effect/rune/malformed
@@ -370,13 +366,6 @@ var/list/teleport_runes = list()
 	if(!offering)
 		rune_in_use = 0
 		return
-	/*var/obj/item/weapon/nullrod/N = offering.null_rod_check()
-	if(N)
-		user << "<span class='warning'>Something is blocking the Geometer's magic!</span>"
-		log_game("Sacrifice rune failed - target has \a [N]!")
-		fail_invoke()
-		rune_in_use = 0
-		return*/
 	if(((ishuman(offering) || isrobot(offering)) && offering.stat != DEAD) || is_sacrifice_target(offering.mind)) //Requires three people to sacrifice living targets
 		if(invokers.len < 3)
 			for(var/M in invokers)
@@ -453,6 +442,8 @@ var/list/teleport_runes = list()
 	cultist_desc = "tears apart dimensional barriers, calling forth [ticker.mode.cultdat.entity_title3]. Requires 9 invokers."
 
 
+/obj/effect/rune/narsie/check_icon()
+	return
 
 /obj/effect/rune/narsie/talismanhide() //can't hide this, and you wouldn't want to
 	return
@@ -461,7 +452,7 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	if(ticker.mode.name == "cult")
+	if(istype(ticker.mode.name, "cult"))
 		var/datum/game_mode/cult/cult_mode = ticker.mode
 		if(user.z !=  ZLEVEL_STATION)
 			message_admins("[user.real_name]([user.ckey]) tried to summon Nar-Sie off station")
@@ -524,6 +515,9 @@ var/list/teleport_runes = list()
 
 	var/used = 0
 
+/obj/effect/rune/slaughter/check_icon()
+	return
+
 /obj/effect/rune/slaughter/talismanhide() //can't hide this, and you wouldn't want to
 	return
 
@@ -547,7 +541,7 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	if(ticker.mode.name == "cult")
+	if(istype(ticker.mode.name, "cult"))
 		var/datum/game_mode/cult/cult_mode = ticker.mode
 		if(!("slaughter" in cult_mode.objectives))
 			message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
@@ -561,7 +555,7 @@ var/list/teleport_runes = list()
 			fail_invoke()
 			log_game("Summon Demons rune failed - improper objective")
 			return
-		if(user.z !=  ZLEVEL_STATION)
+		if(user.z != ZLEVEL_STATION)
 			message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
 			for(var/M in invokers)
 				var/mob/living/L = M
@@ -668,7 +662,7 @@ var/list/teleport_runes = list()
 		rune_in_use = 0
 		return
 	mob_to_revive.revive() //This does remove disabilities and such, but the rune might actually see some use because of it!
-	mob_to_revive << "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>"
+	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
 	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from their eyes.</span>", \
 								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
 	rune_in_use = 0
@@ -901,7 +895,7 @@ var/list/teleport_runes = list()
 		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
 			ghosts_on_rune |= O
 	if(!ghosts_on_rune.len)
-		user << "<span class='cultitalic'>There are no spirits near [src]!</span>"
+		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
 		fail_invoke()
 		log_game("Manifest rune failed - no nearby ghosts")
 		return list()

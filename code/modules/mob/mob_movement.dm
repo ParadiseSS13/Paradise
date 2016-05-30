@@ -169,8 +169,6 @@
 
 	if(mob.stat==DEAD)	return
 
-// handle possible spirit movement
-
 	if(mob.notransform)	return//This is sota the goto stop mobs from moving var
 
 	if(isliving(mob))

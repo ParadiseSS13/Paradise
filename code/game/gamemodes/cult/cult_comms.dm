@@ -21,17 +21,11 @@
 /proc/cultist_commune(mob/living/user, message)
 	if(!message)
 		return
-	if(!ishuman(user))
-		user.say("O bidai nabora se[pick("'","`")]sma!")
-	else
-		user.whisper("O bidai nabora se[pick("'","`")]sma!")
+	user.whisper("O bidai nabora se[pick("'","`")]sma!")
 	sleep(10)
 	if(!user)
 		return
-	if(!ishuman(user))
-		user.say(message)
-	else
-		user.whisper(message)
+	user.whisper(message)
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
 		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"

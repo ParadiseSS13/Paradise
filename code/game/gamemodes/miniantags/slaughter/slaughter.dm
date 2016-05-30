@@ -167,7 +167,7 @@
 		new_objective.owner = S.mind
 		new_objective.explanation_text = "Bring forth the Slaughter to the nonbelievers."
 		S.mind.objectives += new_objective
-		S << "<B>Objective #[1]</B>: [new_objective.explanation_text]"
+		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
 
 ////////////////////The Powers
 

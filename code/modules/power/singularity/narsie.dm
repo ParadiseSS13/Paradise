@@ -24,7 +24,7 @@
 
 /obj/singularity/narsie/large/New()
 	..()
-	to_chat(world, "<font size='15' color='red'><b>[ticker.mode.cultdat.entity_name] HAS RISEN</b></font>")
+	to_chat(world, "<font size='15' color='red'><b>[uppertext(ticker.mode.cultdat.entity_name)] HAS RISEN</b></font>")
 	to_chat(world, pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg')))
 
 	var/area/A = get_area(src)

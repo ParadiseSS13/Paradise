@@ -93,8 +93,8 @@
 				if("veiling")
 					var/obj/item/weapon/paper/talisman/true_sight/T = new(usr)
 					usr.put_in_hands(T)
-			src.uses--
-			if(src.uses <= 0)
+			uses--
+			if(uses <= 0)
 				if(iscarbon(usr))
 					var/mob/living/carbon/C = usr
 					C.drop_item()
@@ -263,14 +263,15 @@
 
 /obj/item/weapon/paper/talisman/armor/invoke(mob/living/user, successfuluse = 1)
 	. = ..()
+	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [user]!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, arming yourself!</span>")
-	user.equip_to_slot_or_del(new /obj/item/clothing/head/culthood/alt(user), slot_head)
-	user.equip_to_slot_or_del(new /obj/item/clothing/suit/cultrobes/alt(user), slot_wear_suit)
-	user.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
-	user.drop_item()
-	user.put_in_hands(new /obj/item/weapon/melee/cultblade(user))
-	user.put_in_hands(new /obj/item/weapon/legcuffs/bolas/cult(user))
+	H.equip_or_collect(new /obj/item/clothing/head/culthood/alt(user), slot_head)
+	H.equip_or_collect(new /obj/item/clothing/suit/cultrobes/alt(user), slot_wear_suit)
+	H.equip_or_collect(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
+	H.drop_item()
+	H.put_in_hands(new /obj/item/weapon/melee/cultblade(user))
+	H.put_in_hands(new /obj/item/weapon/legcuffs/bolas/cult(user))
 
 /obj/item/weapon/paper/talisman/armor/attack(mob/living/target, mob/living/user)
 	if(iscultist(user) && iscultist(target))

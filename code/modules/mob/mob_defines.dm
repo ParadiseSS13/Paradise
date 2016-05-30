@@ -139,7 +139,7 @@
 
 	var/job = null//Living
 
-	var/cultslurring = 0	//Carbon
+	var/cultslurring = 0
 
 	var/const/blindness = 1//Carbon
 	var/const/deafness = 2//Carbon

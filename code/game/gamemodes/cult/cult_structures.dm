@@ -58,14 +58,12 @@
 		else
 			icon_state = initial(icon_state)
 
+	..()
 	if(I.force)
-		..()
 		health = Clamp(health - I.force, 0, initial(health))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(health <= 0)
 			destroy_structure()
-		return
-	..()
 
 /obj/structure/cult/proc/getETA()
 	var/time = (cooldowntime - world.time)/600

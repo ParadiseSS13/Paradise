@@ -61,7 +61,6 @@
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
 	cultdat = pick(all_cults)
-	to_chat(world,"[cultdat.entity_name]")
 	if(!cultdat)
 		to_chat(world, "<span class='danger'>Failed to select a cult datum, Shank a coder.</span>")
 		return 0

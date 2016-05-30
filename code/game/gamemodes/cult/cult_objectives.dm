@@ -11,7 +11,6 @@
 
 /datum/game_mode/cult/proc/first_phase()
 
-
 	var/new_objective = pick_objective()
 
 	objectives += new_objective
@@ -32,6 +31,7 @@
 		cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 /datum/game_mode/cult/proc/bypass_phase()
+
 	switch(objectives[current_objective])
 		if("convert")
 			mass_convert = 1

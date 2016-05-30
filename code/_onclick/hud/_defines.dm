@@ -106,7 +106,7 @@
 
 
 #define ui_construct_pull "EAST-1:28,SOUTH+1:10" //above the zone_sel icon
-#define ui_construct_health "EAST:00,CENTER:15" //same height as humans, hugging the right border
+#define ui_construct_health "EAST,CENTER:15" //same height as humans, hugging the right border
 
 //Pop-up inventory
 #define ui_shoes "WEST+1:8,SOUTH:5"

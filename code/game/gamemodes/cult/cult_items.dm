@@ -45,12 +45,13 @@
 	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.drip(500)
+		H.drip(5000)
 
 
 /obj/item/weapon/legcuffs/bolas/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	breakouttime = 45
 
@@ -75,7 +76,7 @@
 
 /obj/item/clothing/suit/cultrobes
 	name = "cult robes"
-	desc = "A set of armored robes worn by the followers of a cult"
+	desc = "A set of armored robes worn by the followers of a cult."
 	icon_state = "cultrobes"
 	item_state = "cultrobes"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -178,7 +179,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state ="bluespace"
 	color = "#ff0000"
-	var/global/curselimit = 0
+	var/static/curselimit = 0
 
 /obj/item/device/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
@@ -205,7 +206,7 @@
 			"A shuttle engineer began screaming 'DEATH IS NOT THE END' and ripped out wires until an arc flash seared off her flesh. The shuttle will be delayed by two minutes.",
 			"A shuttle inspector started laughing madly over the radio and then threw herself into an engine turbine. The shuttle will be delayed by two minutes.",
 			"The shuttle dispatcher was found dead with bloody symbols carved into their flesh. The shuttle will be delayed by two minutes.",
-			"A bunch of lightbulbs exploded around Steve and he can't see the console. The shuttle will be delayed by two minutes")
+			"Steve repeatedly touched a lightbulb until his hands fell off. The shuttle will be delayed by two minutes.")
 		var/message = pick(curses)
 		command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
 		curselimit++

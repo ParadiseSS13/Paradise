@@ -43,7 +43,7 @@
 
 /obj/structure/table/narsie_act()
 	if(prob(20))
-		new /obj/structure/table/woodentable(src.loc)
+		new /obj/structure/table/woodentable(loc)
 
 /obj/structure/table/update_icon()
 	if(smooth && !flipped)
