@@ -1070,3 +1070,9 @@ About the new airlock wires panel:
 		src.open()
 		src.lock()
 	return
+
+/obj/machinery/door/airlock/proc/is_emagged() // used to keep people going through taped closed doors
+	if(operating < 0)
+		return 1
+	else
+		return 0

@@ -125,6 +125,10 @@ var/list/tape_roll_applications = list()
 	if(istype(A, /obj/machinery/door/airlock))
 		var/turf/T = get_turf(A)
 		var/obj/item/tape/P = new tape_type(T.x,T.y,T.z)
+		var/obj/machinery/door/airlock/R = A
+		if(R.is_emagged())
+			to_chat(user, "You cannot tape this door.")
+			return // we don't want problems with density
 		P.loc = locate(T.x,T.y,T.z)
 		P.icon_state = "[src.icon_base]_door"
 		P.layer = 3.2
@@ -204,5 +208,3 @@ var/list/tape_roll_applications = list()
 
 	qdel(src)
 	return
-
-
