@@ -1,7 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - rscadd: "Guest passes can now be attached to an ID card."
-  - rscadd: "Adds a HoP guest pass computer, which is like a normal guest pass computer, but using an ID with ID computer access will allow it to issue guest passes with any access."
-  - rscadd: "Adds the HoP guest pass computer to the HoP office."
-  - rscadd: "Moves the guest pass computer in robotics to RnD."
