@@ -863,6 +863,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
 	if(handcuffed)
+		//we don't want problems with nodrop shit if there ever is more than one nodrop twohanded
+		var/obj/item/I = get_active_hand()
+		if(istype(I, /obj/item/weapon/twohanded))
+			var/obj/item/weapon/twohanded/TH = I //FML
+			if(TH.wielded)
+				TH.unwield()
 		drop_r_hand()
 		drop_l_hand()
 		stop_pulling()
