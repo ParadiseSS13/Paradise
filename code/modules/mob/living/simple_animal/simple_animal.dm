@@ -71,6 +71,7 @@
 
 	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
+	var/list/loot = list() //list of things spawned at mob's loc when it dies
 
 
 /mob/living/simple_animal/New()
@@ -100,18 +101,6 @@
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = Clamp(health, 0, maxHealth)
-
-/mob/living/simple_animal/handle_hud_icons()
-	..()
-	if(fire)
-		if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
-		else									fire.icon_state = "fire0"
-	if(oxygen)
-		if(oxygen_alert)						oxygen.icon_state = "oxy1"
-		else									oxygen.icon_state = "oxy0"
-	if(toxin)
-		if(toxins_alert)							toxin.icon_state = "tox1"
-		else									toxin.icon_state = "tox0"
 
 /mob/living/simple_animal/handle_hud_icons_health()
 	..()
@@ -215,21 +204,21 @@
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = 0
-		oxygen_alert = 1
+		throw_alert("oxy", /obj/screen/alert/oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 		atmos_suitable = 0
-		oxygen_alert = 1
+		throw_alert("oxy", /obj/screen/alert/too_much_oxy)
 	else
-		oxygen_alert = 0
+		clear_alert("oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = 0
-		toxins_alert = 1
+		throw_alert("tox_in_air", /obj/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 		atmos_suitable = 0
-		toxins_alert = 1
+		throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
 	else
-		toxins_alert = 0
+		clear_alert("tox_in_air")
 
 	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
 		atmos_suitable = 0
@@ -281,8 +270,9 @@
 	return
 
 /mob/living/simple_animal/emote(var/act, var/m_type=1, var/message = null)
-	if(stat)	return
-
+	if(stat)
+		return
+	act = lowertext(act)
 	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("scream")
 			message = "<B>\The [src]</B> whimpers."
@@ -416,22 +406,18 @@
 			if(health < maxHealth)
 				if(MED.amount >= 1)
 					if(MED.heal_brute >= 1)
-						adjustBruteLoss(-MED.heal_brute)
-						MED.amount -= 1
-						if(MED.amount <= 0)
-							qdel(MED)
-						for(var/mob/M in viewers(src, null))
-							if ((M.client && !( M.blinded )))
-								M.show_message("\blue [user] applies [MED] on [src]")
+						heal_organ_damage((MED.heal_brute * 1.66), (MED.heal_burn * 1.66))
+						MED.use(1)
+						visible_message("<span class='notice'>[user] applies [MED] on [src]</span>")
 						return
 					else
-						to_chat(user, "\blue [MED] won't help at all.")
+						to_chat(user, "<span class='notice'>[MED] won't help at all.</span>")
 						return
 			else
-				to_chat(user, "\blue [src] is at full health.")
+				to_chat(user, "<span class='notice'>[src] is at full health.</span>")
 				return
 		else
-			to_chat(user, "\blue [src] is dead, medical items won't bring it back to life.")
+			to_chat(user, "<span class='notice'>[src] is dead, medical items won't bring it back to life.</span>")
 			return
 	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
@@ -482,6 +468,9 @@
 	stat(null, "Health: [round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/death(gibbed)
+	if(loot.len)
+		for(var/i in loot)
+			new i(loc)
 	health = 0
 	icon_state = icon_dead
 	stat = DEAD
@@ -504,25 +493,31 @@
 		if(3.0)
 			adjustBruteLoss(30)
 
+/mob/living/simple_animal/proc/adjustHealth(amount)
+	if(status_flags & GODMODE)
+		return 0
+	bruteloss = Clamp(bruteloss + amount, 0, maxHealth)
+	handle_regular_status_updates()
+
 /mob/living/simple_animal/adjustBruteLoss(amount)
 	if(damage_coeff[BRUTE])
-		return ..(amount * damage_coeff[BRUTE])
+		adjustHealth(amount * damage_coeff[BRUTE])
 
 /mob/living/simple_animal/adjustFireLoss(amount)
 	if(damage_coeff[BURN])
-		return ..(amount * damage_coeff[BURN])
+		adjustHealth(amount * damage_coeff[BURN])
 
 /mob/living/simple_animal/adjustOxyLoss(amount)
 	if(damage_coeff[OXY])
-		return ..(amount * damage_coeff[OXY])
+		adjustHealth(amount * damage_coeff[OXY])
 
 /mob/living/simple_animal/adjustToxLoss(amount)
 	if(damage_coeff[TOX])
-		return ..(amount * damage_coeff[TOX])
+		adjustHealth(amount * damage_coeff[TOX])
 
 /mob/living/simple_animal/adjustCloneLoss(amount)
 	if(damage_coeff[CLONE])
-		return ..(amount * damage_coeff[CLONE])
+		adjustHealth(amount * damage_coeff[CLONE])
 
 /mob/living/simple_animal/adjustStaminaLoss(amount)
 	if(damage_coeff[STAMINA])
@@ -677,7 +672,7 @@
 					if(!can_collar || collar)
 						return
 					var/obj/item/clothing/accessory/petcollar/C = usr.get_active_hand()
-					if(!C)
+					if(!istype(C))
 						usr.visible_message("[usr] rubs [src]'s neck.","<span class='notice'>You rub [src]'s neck for a moment.</span>")
 						return
 					usr.drop_item()

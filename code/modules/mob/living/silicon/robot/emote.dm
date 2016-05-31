@@ -5,15 +5,13 @@
 		param = copytext(act, t1 + 1, length(act) + 1)
 		act = copytext(act, 1, t1)
 
-	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
-		act = copytext(act,1,length(act))
-
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0
+	act = lowertext(act)
 	switch(act)
 		//Cooldown-inducing emotes
-		if("law","flip","halt")		//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
+		if("law","flip","flips","halt")		//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -25,7 +23,7 @@
 
 	switch(act)
 
-		if ("salute")
+		if ("salute","salutes")
 			if (!src.buckled)
 				var/M = null
 				if (param)
@@ -41,7 +39,7 @@
 				else
 					message = "<B>[src]</b> salutes."
 			m_type = 1
-		if ("bow")
+		if ("bow","bows")
 			if (!src.buckled)
 				var/M = null
 				if (param)
@@ -58,16 +56,16 @@
 					message = "<B>[src]</B> bows."
 			m_type = 1
 
-		if ("clap")
+		if ("clap","claps")
 			if (!src.restrained())
 				message = "<B>[src]</B> claps."
 				m_type = 2
-		if ("flap")
+		if ("flap","flaps")
 			if (!src.restrained())
 				message = "<B>[src]</B> flaps its wings."
 				m_type = 2
 
-		if ("aflap")
+		if ("aflap","aflaps")
 			if (!src.restrained())
 				message = "<B>[src]</B> flaps its wings ANGRILY!"
 				m_type = 2
@@ -76,11 +74,11 @@
 			message = "<B>[src]</B> twitches violently."
 			m_type = 1
 
-		if ("twitch_s")
+		if ("twitch_s","twitches")
 			message = "<B>[src]</B> twitches."
 			m_type = 1
 
-		if ("nod")
+		if ("nod","nods")
 			message = "<B>[src]</B> nods."
 			m_type = 1
 
@@ -88,7 +86,7 @@
 			message = "<B>[src]</B> shudders violently for a moment, then becomes motionless, its eyes slowly darkening."
 			m_type = 1
 
-		if ("glare")
+		if ("glare","glares")
 			var/M = null
 			if (param)
 				for (var/mob/A in view(null, null))
@@ -103,7 +101,7 @@
 			else
 				message = "<B>[src]</B> glares."
 
-		if ("stare")
+		if ("stare","stares")
 			var/M = null
 			if (param)
 				for (var/mob/A in view(null, null))
@@ -118,7 +116,7 @@
 			else
 				message = "<B>[src]</B> stares."
 
-		if ("look")
+		if ("look","looks")
 			var/M = null
 			if (param)
 				for (var/mob/A in view(null, null))
@@ -154,12 +152,12 @@
 			else
 				to_chat(src, "You are not security.")
 
-		if ("flip")
+		if ("flip","flips")
 			m_type = 1
 			message = "<B>[src]</B> does a flip!"
 			src.SpinAnimation(5,1)
 
 		if ("help")
-			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitch_s, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look, beep, ping, \nbuzz, law, halt")
+			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt")
 
 	..(act, m_type, message)

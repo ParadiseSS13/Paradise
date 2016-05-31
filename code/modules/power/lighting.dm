@@ -337,7 +337,6 @@
 					continue
 				M.show_message("[user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 			if(on && (W.flags & CONDUCT))
-				//if(!user.mutations & RESIST_COLD)
 				if (prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3)
 			broken()
@@ -374,7 +373,6 @@
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
-			//if(!user.mutations & RESIST_COLD)
 			if (prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
 
@@ -442,7 +440,6 @@
 		var/mob/living/carbon/human/H = user
 
 		if(istype(H))
-
 			if(H.gloves)
 				var/obj/item/clothing/gloves/G = H.gloves
 				if(G.max_heat_protection_temperature)
@@ -455,13 +452,17 @@
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
 		else
-			to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
+			if(user.a_intent == I_DISARM || user.a_intent == I_GRAB)
+				to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
 
-			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-			if(affecting.take_damage( 0, 5 ))		// 5 burn damage
-				H.UpdateDamageIcon()
-			H.updatehealth()
-			return				// if burned, don't remove the light
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+				if(affecting.take_damage( 0, 5 ))		// 5 burn damage
+					H.UpdateDamageIcon()
+				H.updatehealth()
+				return
+			else
+				to_chat(user, "You try to remove the light [fitting], but it's too hot to touch!")
+				return
 	else
 		to_chat(user, "You remove the light [fitting].")
 
@@ -706,3 +707,12 @@
 		sharp = 1
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		update()
+
+/obj/item/weapon/light/suicide_act(mob/living/carbon/human/user)
+	user.visible_message("<span class=suicide>[user] touches \the [src], burning their hands off!</span>", "<span class=suicide>You touch \the [src], burning your hands off!</span>")
+
+	for(var/oname in list("l_hand", "r_hand"))
+		var/obj/item/organ/external/limb = user.get_organ(oname)
+		if(limb)
+			limb.droplimb(0, DROPLIMB_BURN)
+	return FIRELOSS

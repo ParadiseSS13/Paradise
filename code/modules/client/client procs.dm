@@ -183,6 +183,13 @@
 						else
 							src.DB_species_unlock("Plasmaman",100)
 							return
+					if("7")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Drask",30)
+							return
 			if(href_list["KarmaRefund"])
 				var/type = href_list["KarmaRefundType"]
 				var/job = href_list["KarmaRefund"]
@@ -308,6 +315,11 @@
 
 	send_resources()
 
+	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
+		winset(src, "rpane.changelog", "background-color=#f4aa94;font-style=bold")
+		prefs.SetChangelog(src,changelog_hash)
+		to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
+
 	if(!void)
 		void = new()
 
@@ -316,6 +328,10 @@
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
+
+	//This is down here because of the browse() calls in tooltip/New()
+	if(!tooltips)
+		tooltips = new /datum/tooltip(src)
 
 //////////////
 //DISCONNECT//

@@ -21,6 +21,7 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=7'>Make Vampires</a><br>
 		<a href='?src=\ref[src];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -308,8 +309,10 @@ client/proc/one_click_antag()
 	return 1
 
 
-
-
+//Abductors
+/datum/admins/proc/makeAbductorTeam()
+	new /datum/event/abductor
+	return 1
 
 /datum/admins/proc/makeAliens()
 	alien_infestation(3)
@@ -396,7 +399,7 @@ client/proc/one_click_antag()
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
 
-	var/datum/preferences/A = new()
+	var/datum/preferences/A = new(G_found.client)
 	A.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
@@ -495,6 +498,7 @@ client/proc/one_click_antag()
 /datum/admins/proc/create_vox_raider(obj/spawn_location, leader_chosen = 0)
 
 	var/mob/living/carbon/human/new_vox = new(spawn_location.loc, "Vox")
+	var/obj/item/organ/external/head/head_organ = new_vox.get_organ("head")
 
 	var/sounds = rand(2,8)
 	var/i = 0
@@ -513,8 +517,8 @@ client/proc/one_click_antag()
 	new_vox.add_language("Vox-pidgin")
 	new_vox.add_language("Galactic Common")
 	new_vox.add_language("Tradeband")
-	new_vox.h_style = "Short Vox Quills"
-	new_vox.f_style = "Shaved"
+	head_organ.h_style = "Short Vox Quills"
+	head_organ.f_style = "Shaved"
 
 	for(var/obj/item/organ/external/limb in new_vox.organs)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
@@ -555,7 +559,9 @@ client/proc/one_click_antag()
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
-			H.make_vampire()
+			ticker.mode.vampires += H.mind
+			ticker.mode.grant_vampire_powers(H)
+			ticker.mode.update_vampire_icons_added(H.mind)
 			candidates.Remove(H)
 
 		return 1

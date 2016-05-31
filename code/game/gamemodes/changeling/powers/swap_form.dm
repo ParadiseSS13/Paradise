@@ -50,6 +50,8 @@
 		user.key = ghost.key
 
 	user.Paralyse(2)
-	user.remove_language("Changeling")
 	target.add_language("Changeling")
+	user.remove_language("Changeling")
+	transfer_changeling_powers(user, target)
+
 	to_chat(target, "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>")

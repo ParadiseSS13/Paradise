@@ -3,8 +3,6 @@
  *		Balloons
  *		Fake telebeacon
  *		Fake singularity
- *		Toy crossbow
- *		Toy Tommy Gun
  *		Toy swords
  *		Toy mechs
  *		Snap pops
@@ -131,142 +129,6 @@
 	desc = "\"Singulo\" brand spinning toy."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
-
-
-/*
- * Toy crossbow
- */
-
-/obj/item/toy/crossbow
-	name = "foam dart crossbow"
-	desc = "A weapon favored by many overactive children. Ages 8 and up."
-	icon = 'icons/obj/gun.dmi'
-	icon_state = "crossbow"
-	item_state = "crossbow"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	w_class = 2.0
-	attack_verb = list("attacked", "struck", "hit")
-	var/bullets = 5
-
-/obj/item/toy/crossbow/examine(mob/user)
-	..(user)
-	if (bullets)
-		to_chat(user, "<span class='notice'>It is loaded with [bullets] foam darts!</span>")
-
-/obj/item/toy/crossbow/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/toy/ammo/crossbow))
-		if(bullets <= 4)
-			user.drop_item()
-			qdel(I)
-			bullets++
-			to_chat(user, "<span class='notice'>You load the foam dart into the crossbow.</span>")
-		else
-			to_chat(usr, "<span class='warning'>It's already fully loaded.</span>")
-
-
-/obj/item/toy/crossbow/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
-	if(!isturf(target.loc) || target == user) return
-	if(flag) return
-
-	if (locate (/obj/structure/table, src.loc))
-		return
-	else if (bullets)
-		var/turf/trg = get_turf(target)
-		var/obj/effect/foam_dart_dummy/D = new/obj/effect/foam_dart_dummy(get_turf(src))
-		bullets--
-		D.icon_state = "foamdart"
-		D.name = "foam dart"
-		playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
-
-		for(var/i=0, i<6, i++)
-			if (D)
-				if(D.loc == trg) break
-				step_towards(D,trg)
-
-				for(var/mob/living/M in D.loc)
-					if(!istype(M,/mob/living)) continue
-					if(M == user) continue
-					D.visible_message("<span class='danger'>[M] was hit by the foam dart!</span>")
-					new /obj/item/toy/ammo/crossbow(M.loc)
-					qdel(D)
-					return
-
-				for(var/atom/A in D.loc)
-					if(A == user) continue
-					if(A.density)
-						new /obj/item/toy/ammo/crossbow(A.loc)
-						qdel(D)
-
-			sleep(1)
-
-		spawn(10)
-			if(D)
-				new /obj/item/toy/ammo/crossbow(D.loc)
-				qdel(D)
-
-		return
-	else if (bullets == 0)
-		user.Weaken(5)
-		user.visible_message("<span class='danger'>[user] realized they were out of ammo and starting scrounging for some!</span>")
-
-
-
-/obj/item/toy/crossbow/attack(mob/M as mob, mob/user as mob)
-	add_fingerprint(user)
-
-// ******* Check
-
-	if (bullets > 0 && M.lying)
-		visible_message("<span class='danger'>[user] casually lines up a shot with [M]'s head and pulls the trigger!</span>", "<span class='danger'>You hear the sound of foam against skull.</span>")
-		M.visible_message("<span class='warning'>[M] was hit in the head by the foam dart!</span>")
-		playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
-		new /obj/item/toy/ammo/crossbow(M.loc)
-		bullets--
-	else if (M.lying && bullets == 0)
-		visible_message("<span class='danger'>[user] casually lines up a shot with [M]'s head, pulls the trigger, then realizes they are out of ammo and drops to the floor in search of some!</span>", "<span class='danger'>You hear someone fall.</span>")
-		user.Weaken(5)
-	return
-
-/obj/item/toy/ammo/crossbow
-	name = "foam dart"
-	desc = "Its nerf or nothing! Ages 8 and up."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "foamdart"
-	w_class = 1.0
-
-/obj/effect/foam_dart_dummy
-	name = ""
-	desc = ""
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "null"
-	anchored = 1
-	density = 0
-
-
-/*
- * Tommy gun
- */
-
-/obj/item/toy/crossbow/tommygun
-    name = "tommy gun"
-    desc = "Looks almost like the real thing! Great for practicing Drive-bys"
-    icon_state = "tommy"
-    item_state = "tommy"
-    flags = CONDUCT
-    w_class = 1.0
-    attack_verb = list("struck", "hammered", "hit", "bashed")
-    bullets = 20.0
-
-/obj/item/toy/crossbow/tommygun/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/toy/ammo/crossbow))
-		if(bullets <= 19)
-			user.drop_item()
-			qdel(I)
-			bullets++
-			to_chat(user, "<span class='notice'>You load the foam dart into the tommy gun.</span>")
-		else
-			to_chat(user, "<span class='danger'>It's already fully loaded.</span>")
 
 /*
  * Toy swords
@@ -1087,6 +949,9 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
+	if(iscarbon(M))
+		if(prob(10))
+			M.reagents.add_reagent("hugs", 10)
 	return ..()
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)

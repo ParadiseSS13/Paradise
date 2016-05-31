@@ -176,3 +176,13 @@
 	walltype = "iron"
 	mineral = "rods"
 	canSmoothWith = list(/turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron)
+
+/turf/simulated/wall/mineral/abductor
+	name = "alien wall"
+	desc = "A wall with alien alloy plating."
+	icon = 'icons/turf/walls/abductor_wall.dmi'
+	icon_state = "abductor"
+	walltype = "abductor"
+	mineral = "abductor"
+	explosion_block = 3
+	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor)

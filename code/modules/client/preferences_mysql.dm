@@ -11,7 +11,9 @@
 					sound,
 					randomslot,
 					volume,
-					nanoui_fancy
+					nanoui_fancy,
+					show_ghostitem_attack,
+					lastchangelog
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -36,10 +38,11 @@
 		randomslot = text2num(query.item[9])
 		volume = text2num(query.item[10])
 		nanoui_fancy = text2num(query.item[11])
+		show_ghostitem_attack = text2num(query.item[12])
+		lastchangelog = query.item[13]
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
-//	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, 65535, initial(toggles))
@@ -49,6 +52,8 @@
 	randomslot		= sanitize_integer(randomslot, 0, 1, initial(randomslot))
 	volume			= sanitize_integer(volume, 0, 100, initial(volume))
 	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
+	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
+	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -71,7 +76,9 @@
 					sound='[sound]',
 					randomslot='[randomslot]',
 					volume='[volume]',
-					nanoui_fancy='[nanoui_fancy]'
+					nanoui_fancy='[nanoui_fancy]',
+					show_ghostitem_attack='[show_ghostitem_attack]',
+					lastchangelog='[lastchangelog]'
 					WHERE ckey='[C.ckey]'"}
 					)
 
@@ -446,3 +453,13 @@
 		return 0
 	load_character(C,pick(saves))
 	return 1*/
+
+/datum/preferences/proc/SetChangelog(client/C,hash)
+	lastchangelog=hash
+	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
+	if(!query.Execute())
+		var/err = query.ErrorMsg()
+		log_game("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
+		return
+	return 1

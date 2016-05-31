@@ -39,6 +39,11 @@
 		)
 	src << browse('html/changelog.html', "window=changes;size=675x650")
 
+	if(prefs.lastchangelog != changelog_hash) //if it's already opened, no need to tell them they have unread changes
+		prefs.lastchangelog = changelog_hash
+		prefs.save_preferences()
+		winset(src, "rpane.changelog", "background-color=none;font-style=")
+
 /client/verb/forum()
 	set name = "forum"
 	set desc = "Visit the forum."
@@ -221,7 +226,10 @@ Any-Mode: (hotkey doesn't need to be on)
 	set name = "Set Hotkey Mode"
 	set category = "Preferences"
 
-	hotkeytype = input("Choose hotkey mode", "Hotkey mode") as null|anything in hotkeylist//ask the user for the hotkey type
+	var/hkt = input("Choose hotkey mode", "Hotkey mode") as null|anything in hotkeylist//ask the user for the hotkey type
+	if(!hkt)
+		return
+	hotkeytype = hkt
 
 	var/hotkeys = hotkeylist[hotkeytype]//get the list containing the hotkey names
 	var/hotkeyname = hotkeys[hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much

@@ -3,7 +3,7 @@
 		alert("The game hasn't started yet!")
 		return
 
-	var/list/incompatible_species = list("Plasmaman")
+	var/list/incompatible_species = list("Plasmaman", "Vox")
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == DEAD || !(H.client))
 			continue

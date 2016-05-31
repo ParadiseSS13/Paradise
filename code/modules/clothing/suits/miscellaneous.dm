@@ -152,17 +152,25 @@
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
+
+/obj/item/clothing/suit/corgisuit/super_hero
+	name = "super-hero corgi suit"
+	desc = "A suit made long ago by the ancient empire KFC. This one pulses with a strange power."
 	flags = NODROP
 
-/obj/item/clothing/suit/corgisuit/en
-	name = "\improper E-N suit"
+/obj/item/clothing/suit/corgisuit/super_hero/en
+	name = "\improper super-hero E-N suit"
 	icon_state = "ensuit"
 
-/obj/item/clothing/suit/corgisuit/en/New()
+/obj/item/clothing/suit/corgisuit/super_hero/en/New()
 	..()
 	processing_objects.Add(src)
 
-/obj/item/clothing/suit/corgisuit/en/process()
+/obj/item/clothing/suit/corgisuit/super_hero/en/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/item/clothing/suit/corgisuit/super_hero/en/process()
 	if(prob(2))
 		for(var/obj/M in orange(2,src))
 			if(!M.anchored && (M.flags & CONDUCT))
@@ -198,6 +206,7 @@
 	item_state = "cardborg"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
+	species_disguise = "High-tech robot"
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()

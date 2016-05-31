@@ -369,8 +369,7 @@
 
 		var/obj/item/organ/external/affected = get_organ("chest")
 		affected.add_autopsy_data("Suffocation", oxyloss)
-
-		oxygen_alert = max(oxygen_alert, 1)
+		throw_alert("oxy", /obj/screen/alert/oxy)
 
 		return 0
 
@@ -384,7 +383,7 @@
 //	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
-	if(stat != 2)
+	if(stat != DEAD)
 		stabilize_temperature_from_calories()
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
@@ -403,41 +402,43 @@
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > species.heat_level_1)
 		//Body temperature is too hot.
-		fire_alert = max(fire_alert, 1)
 		if(status_flags & GODMODE)	return 1	//godmode
 		var/mult = species.hot_env_multiplier
 
 		if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
+			throw_alert("temp", /obj/screen/alert/hot, 1)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
-			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_2 && bodytemperature <= species.heat_level_3)
+			throw_alert("temp", /obj/screen/alert/hot, 2)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
+			throw_alert("temp", /obj/screen/alert/hot, 3)
 			if(on_fire)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
-				fire_alert = max(fire_alert, 2)
 			else
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-				fire_alert = max(fire_alert, 2)
 
 	else if(bodytemperature < species.cold_level_1)
-		fire_alert = max(fire_alert, 1)
-		if(status_flags & GODMODE)	return 1	//godmode
-
-		if(stat == DEAD) return 1 //ZomgPonies -- No need for cold burn damage if dead
+		if(status_flags & GODMODE)
+			return 1
+		if(stat == DEAD)
+			return 1
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = species.cold_env_multiplier
 			if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
+				throw_alert("temp", /obj/screen/alert/cold, 1)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
 			if(bodytemperature >= species.cold_level_3 && bodytemperature < species.cold_level_2)
+				throw_alert("temp", /obj/screen/alert/cold, 2)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
 			if(bodytemperature > -INFINITY && bodytemperature < species.cold_level_3)
+				throw_alert("temp", /obj/screen/alert/cold, 3)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
+			else
+				clear_alert("temp")
+	else
+		clear_alert("temp")
 
 	// Account for massive pressure differences.  Done by Polymorph
 	// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
@@ -447,27 +448,31 @@
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= species.hazard_high_pressure)
-		var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
-		take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
-		pressure_alert = 2
+		if(!(RESIST_HEAT in mutations))
+			var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
+			take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
+			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+		else
+			clear_alert("pressure")
 	else if(adjusted_pressure >= species.warning_high_pressure)
-		pressure_alert = 1
+		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
 	else if(adjusted_pressure >= species.warning_low_pressure)
-		pressure_alert = 0
+		clear_alert("pressure")
 	else if(adjusted_pressure >= species.hazard_low_pressure)
-		pressure_alert = -1
+		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
 		if(RESIST_COLD in mutations)
-			pressure_alert = -1
+			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
-			pressure_alert = -2
+			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
-	return
 
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
 	if(..())
+		return
+	if(RESIST_HEAT in mutations)
 		return
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
@@ -547,11 +552,13 @@
 	return thermal_protection_flags
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
+
+	if(RESIST_HEAT in mutations)
+		return 1
+
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
 
 	var/thermal_protection = 0.0
-	if(RESIST_HEAT in mutations)
-		return 1
 	if(thermal_protection_flags)
 		if(thermal_protection_flags & HEAD)
 			thermal_protection += THERMAL_PROTECTION_HEAD

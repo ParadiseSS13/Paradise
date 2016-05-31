@@ -23,7 +23,6 @@
 	name = "robotic cavity implant"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head","groin")
-	allowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/target)
 	if(target.get_species() == "Machine")
@@ -175,6 +174,11 @@
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>")
 		return 0//fail
 
+	var/obj/item/weapon/disk/nuclear/datdisk = locate() in tool
+	if(datdisk)
+		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box.</span>")
+		return 0//fail
+
 	if(istype(tool,/obj/item/organ))
 		to_chat(user, "<span class='warning'>This isn't the type of surgery for organ transplants!</span>")
 		return 0//fail
@@ -226,7 +230,6 @@
 	name = "implant removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")//head is for borers..i can put it elsewhere
-	allowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/cavity_implant_rem/can_start(mob/user, mob/living/carbon/target)
 	if(target.get_species() == "Machine")
@@ -329,7 +332,12 @@
 /datum/surgery_step/remove_object
 	name = "remove embedded objects"
 	time = 32
-	accept_hand = 1
+	allowed_tools = list(
+	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/hemostat = 100,	\
+	/obj/item/stack/cable_coil = 75, 	\
+	/obj/item/device/assembly/mousetrap = 20
+	)
 	var/obj/item/organ/external/L = null
 
 

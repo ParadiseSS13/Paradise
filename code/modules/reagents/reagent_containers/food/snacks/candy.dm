@@ -66,6 +66,9 @@
 	..()
 	reagents.add_reagent("nutriment", 3)
 	reagents.add_reagent("sugar", 3)
+	spawn(1)
+		reagents.del_reagent("egg")
+		reagents.update_total()
 	bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/taffy
@@ -92,6 +95,34 @@
 	reagents.add_reagent("cream", 3)
 	reagents.add_reagent("chocolate",6)
 	bitesize = 3
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/peanut
+	name = "Peanut Fudge"
+	desc = "Chocolate fudge, with bits of peanuts mixed in. People with nut allergies shouldn't eat this."
+	icon_state = "fudge_peanut"
+	filling_color = "#7D5F46"
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cherry
+	name = "Chocolate Cherry Fudge"
+	desc = "Chocolate fudge surrounding sweet cherries. Good for tricking kids into eating some fruit."
+	icon_state = "fudge_cherry"
+	filling_color = "#7D5F46"
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cookies_n_cream
+	name = "Cookies 'n' Cream Fudge"
+	desc = "An extra creamy fudge with bits of real chocolate cookie mixed in. Crunchy!"
+	icon_state = "fudge_cookies_n_cream"
+	filling_color = "#7D5F46"
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cookies_n_cream/New()
+	..()
+	reagents.add_reagent("cream", 3)
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/fudge/turtle
+	name = "Turtle Fudge"
+	desc = "Chocolate fudge with caramel and nuts. It doesn't contain real turtles, thankfully."
+	icon_state = "fudge_turtle"
+	filling_color = "#7D5F46"
 
 // ***********************************************************
 // Candy Products (Pre-existing)
@@ -287,8 +318,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/poison/New()
 	..()
 	reagents.add_reagent("poisonberryjuice", 12)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/green
@@ -381,8 +413,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/poison/New()
 	..()
 	reagents.add_reagent("poisonberryjuice", 12)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/green
@@ -475,8 +508,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/poison/New()
 	..()
 	reagents.add_reagent("poisonberryjuice", 12)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/green
@@ -627,8 +661,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/poison/New()
 	..()
 	reagents.add_reagent("poisonberryjuice", 20)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/green
@@ -701,8 +736,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/rainbow/New()
 	..()
 	reagents.add_reagent("omnizine", 20)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/bad_rainbow
@@ -715,8 +751,9 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/bad_rainbow/New()
 	..()
 	reagents.add_reagent("sulfonal", 20)
-	reagents.del_reagent("sugar")
-	reagents.update_total()
+	spawn(1)
+		reagents.del_reagent("sugar")
+		reagents.update_total()
 	bitesize = 4
 
 // ***********************************************************

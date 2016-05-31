@@ -16,6 +16,7 @@ Pipelines + Other Objects -> Pipe network
 	idle_power_usage = 0
 	active_power_usage = 0
 	power_channel = ENVIRON
+	on_blueprints = TRUE
 	var/nodealert = 0
 	var/can_unwrench = 0
 
@@ -140,6 +141,9 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/build_network()
 	// Called to build a network from this node
 	return
+
+/obj/machinery/atmospherics/proc/defer_build_network()
+	deferred_pipenet_rebuilds += src
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return

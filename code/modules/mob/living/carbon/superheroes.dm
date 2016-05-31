@@ -107,8 +107,8 @@
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/orange(H), slot_back)
 
@@ -126,8 +126,8 @@
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/en(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/en(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/cult(H), slot_back)
 
 
@@ -148,6 +148,7 @@
 
 /obj/effect/proc_holder/spell/targeted/recruit/cast(list/targets)
 	for(var/mob/living/carbon/human/target in targets)
+		var/obj/item/organ/external/head/head_organ = target.get_organ("head")
 		if(ticker.mode.greyshirts.len >= 3)
 			to_chat(usr, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
 		if(!in_range(usr, target))
@@ -210,8 +211,8 @@
 		to_chat(target, "<span class='deadsay'>You may not harm other Greyshirt or [usr]. However, you do not need to obey other Greyshirts.</span>")
 		ticker.mode.greyshirts += target.mind
 		target.set_species("Human")
-		target.h_style = "Bald"
-		target.f_style = "Shaved"
+		head_organ.h_style = "Bald"
+		head_organ.f_style = "Shaved"
 		target.s_tone = 35
 		target.r_eyes = 1
 		target.b_eyes = 1

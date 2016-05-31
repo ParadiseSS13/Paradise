@@ -293,7 +293,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/attack(var/mob/living/carbon/M, var/mob/user, var/def_zone)
 	if(awakening)
-		user << "<span class='warning'>The [src] is twitching and shaking, preventing you from eating it.</span>"
+		to_chat(user, "<span class='warning'>The [src] is twitching and shaking, preventing you from eating it.</span>")
 		return
 	if(user == M)
 		return ..()
@@ -334,8 +334,7 @@
 						var/turf/simulated/location = get_turf(M)
 						if(istype(location)) location.add_blood_floor(M)
 				if("fire")
-					if (!(RESIST_COLD in M.mutations))
-						M.take_organ_damage(0, force)
+					M.take_organ_damage(0, force)
 			M.updatehealth()
 
 		if(seed && seed.get_trait(TRAIT_CARNIVOROUS))
@@ -452,7 +451,7 @@
 			if("killertomato")
 				if(awakening || istype(user.loc,/turf/space))
 					return
-				user << "<span class='notice'>You begin to awaken the Killer Tomato...</span>"
+				to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
 				awakening = 1
 
 				spawn(30)

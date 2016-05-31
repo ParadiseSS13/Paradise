@@ -12,6 +12,8 @@
 	if(embedded_flag)
 		handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
+	if(slowed)
+		tally += 10
 
 	var/health_deficiency = (maxHealth - health + staminaloss)
 	if(reagents)
@@ -37,6 +39,10 @@
 	if(back)
 		tally += back.slowdown
 
+	if(l_hand && (l_hand.flags & HANDSLOW))
+		tally += l_hand.slowdown
+	if(r_hand && (r_hand.flags & HANDSLOW))
+		tally += r_hand.slowdown
 
 	if(FAT in src.mutations)
 		tally += 1.5

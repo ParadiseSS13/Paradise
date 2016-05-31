@@ -323,6 +323,14 @@
 	build_path = /obj/item/weapon/canvas/twentythreeXnineteen
 	category = list("initial", "Miscellaneous")
 
+/datum/design/foambox
+		name = "Box of Foam Force darts"
+		id = "foamforce"
+		build_type = AUTOLATHE
+		materials = list(MAT_METAL = 2000)
+		build_path = /obj/item/ammo_box/foambox
+		category = list("initial", "Miscellaneous")
+
 /datum/design/canvas/twentythreeXtwentythree
 	name = "23px by 23px Canvas"
 	id = "canvas23x23"
@@ -678,6 +686,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 125)
 	build_path = /obj/item/weapon/hand_labeler
+	category = list("initial", "Electronics")
+
+/datum/design/floorpainter
+	name = "Floor painter"
+	id = "floor_painter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 125)
+	build_path = /obj/item/device/floor_painter
 	category = list("initial", "Electronics")
 
 /datum/design/logic_board

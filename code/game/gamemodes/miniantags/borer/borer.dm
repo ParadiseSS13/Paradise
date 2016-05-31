@@ -36,6 +36,27 @@
 /mob/living/captive_brain/emote(var/message)
 	return
 
+/mob/living/captive_brain/resist_borer()
+	var/mob/living/simple_animal/borer/B = loc
+
+	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
+	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
+
+	spawn(rand(350,450) + B.host.brainloss)
+
+		if(!B || !B.controlling)
+			return
+
+		B.host.adjustBrainLoss(rand(5,10))
+		to_chat(src, "<span class='danger'>With an immense exertion of will, you regain control of your body!</span>")
+		to_chat(B.host, "<span class='danger'>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</span>")
+
+		B.detatch()
+
+		verbs -= /mob/living/carbon/proc/release_control
+		verbs -= /mob/living/carbon/proc/punish_host
+		verbs -= /mob/living/carbon/proc/spawn_larvae
+
 /mob/living/simple_animal/borer
 	name = "cortical borer"
 	real_name = "cortical borer"
@@ -59,6 +80,7 @@
 	density = 0
 	pass_flags = PASSTABLE
 	ventcrawler = 2
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	var/talk_inside_host = 0 				// So that borers don't accidentally give themselves away on a botched message
 	var/used_dominate
@@ -625,7 +647,7 @@
 		if(jobban_isbanned(O, "Syndicate"))
 			continue
 		if(O.client)
-			if((ROLE_BORER in O.client.prefs.be_special) && !jobban_isbanned(O, "alien"))
+			if((ROLE_BORER in O.client.prefs.be_special) && !jobban_isbanned(O, ROLE_BORER))
 				question(O.client)
 
 /mob/living/simple_animal/borer/proc/question(var/client/C)

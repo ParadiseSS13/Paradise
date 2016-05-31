@@ -176,6 +176,10 @@
 /mob/living/silicon/robot/handle_hud_icons()
 	update_items()
 	update_cell()
+	if(emagged)
+		throw_alert("hacked", /obj/screen/alert/hacked)
+	else
+		clear_alert("hacked")
 	..()
 
 /mob/living/silicon/robot/handle_hud_icons_health()
@@ -196,79 +200,47 @@
 		else
 			healths.icon_state = "health7"
 
-	if(bodytemp)
-		switch(bodytemperature) //310.055 optimal body temp
-			if(335 to INFINITY)
-				bodytemp.icon_state = "temp2"
-			if(320 to 335)
-				bodytemp.icon_state = "temp1"
-			if(300 to 320)
-				bodytemp.icon_state = "temp0"
-			if(260 to 300)
-				bodytemp.icon_state = "temp-1"
-			else
-				bodytemp.icon_state = "temp-2"
+	switch(bodytemperature) //310.055 optimal body temp
+		if(335 to INFINITY)
+			throw_alert("temp", /obj/screen/alert/hot/robot, 2)
+		if(320 to 335)
+			throw_alert("temp", /obj/screen/alert/hot/robot, 1)
+		if(300 to 320)
+			clear_alert("temp")
+		if(260 to 300)
+			throw_alert("temp", /obj/screen/alert/cold/robot, 1)
+		else
+			throw_alert("temp", /obj/screen/alert/cold/robot, 2)
 
 /mob/living/silicon/robot/proc/update_cell()
-	if(cells)
-		if(cell)
-			var/cellcharge = cell.charge/cell.maxcharge
-			switch(cellcharge)
-				if(0.75 to INFINITY)
-					cells.icon_state = "charge4"
-				if(0.5 to 0.75)
-					cells.icon_state = "charge3"
-				if(0.25 to 0.5)
-					cells.icon_state = "charge2"
-				if(0 to 0.25)
-					cells.icon_state = "charge1"
-				else
-					cells.icon_state = "charge0"
-		else
-			cells.icon_state = "charge-empty"
-
-
-/*/mob/living/silicon/robot/handle_regular_hud_updates()
-//	if(!client)
-//		return
-//
-//	switch(sensor_mode)
-//		if(SEC_HUD)
-//			process_sec_hud(src,1)
-//		if(MED_HUD)
-//			process_med_hud(src,1)
-
-	if(syndicate)
-		if(ticker.mode.name == "traitor")
-			for(var/datum/mind/tra in ticker.mode.traitors)
-				if(tra.current)
-					var/I = image('icons/mob/mob.dmi', loc = tra.current, icon_state = "traitor")
-					src.client.images += I
-		if(connected_ai)
-			connected_ai.connected_robots -= src
-			connected_ai = null
-		if(mind)
-			if(!mind.special_role)
-				mind.special_role = "traitor"
-				ticker.mode.traitors += src.mind
-
-
-	..()
-	return 1
-	*/
+	if(cell)
+		var/cellcharge = cell.charge/cell.maxcharge
+		switch(cellcharge)
+			if(0.75 to INFINITY)
+				clear_alert("charge")
+			if(0.5 to 0.75)
+				throw_alert("charge", /obj/screen/alert/lowcell, 1)
+			if(0.25 to 0.5)
+				throw_alert("charge", /obj/screen/alert/lowcell, 2)
+			if(0.01 to 0.25)
+				throw_alert("charge", /obj/screen/alert/lowcell, 3)
+			else
+				throw_alert("charge", /obj/screen/alert/emptycell)
+	else
+		throw_alert("charge", /obj/screen/alert/nocell)
 
 
 
 /mob/living/silicon/robot/proc/update_items()
-	if (src.client)
+	if (client)
 		for(var/obj/I in get_all_slots())
 			client.screen |= I
-	if(src.module_state_1)
-		src.module_state_1:screen_loc = ui_inv1
-	if(src.module_state_2)
-		src.module_state_2:screen_loc = ui_inv2
-	if(src.module_state_3)
-		src.module_state_3:screen_loc = ui_inv3
+	if(module_state_1)
+		module_state_1:screen_loc = ui_inv1
+	if(module_state_2)
+		module_state_2:screen_loc = ui_inv2
+	if(module_state_3)
+		module_state_3:screen_loc = ui_inv3
 	update_icons()
 
 /mob/living/silicon/robot/proc/process_locks()

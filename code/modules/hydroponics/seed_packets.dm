@@ -221,6 +221,9 @@ var/global/list/plant_seed_sprites = list()
 /obj/item/seeds/ambrosiadeusseed
 	seed_type = "ambrosiadeus"
 
+/obj/item/seeds/ambrosiavulgarisseed/cruciatus
+	seed_type = "ambrosia"
+
 /obj/item/seeds/whitebeetseed
 	seed_type = "whitebeet"
 
@@ -307,3 +310,6 @@ var/global/list/plant_seed_sprites = list()
 
 /obj/item/seeds/coffeerseed
 	seed_type = "coffeer"
+
+/obj/item/seeds/cash
+	seed_type = "cashtree"

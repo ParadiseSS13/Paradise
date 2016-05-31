@@ -315,6 +315,8 @@
 			dat += "[temp_server.name] Data ManagementP<BR><BR>"
 			dat += "Known Technologies<BR>"
 			for(var/datum/tech/T in temp_server.files.known_tech)
+				if(T.level <= 0)
+					continue
 				dat += "* [T.name] "
 				dat += "<A href='?src=\ref[src];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
 			dat += "Known Designs<BR>"

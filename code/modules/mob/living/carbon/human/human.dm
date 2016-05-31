@@ -37,6 +37,8 @@
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
+	martial_art = default_martial_art
+
 	var/mob/M = src
 	faction |= "\ref[M]" //what
 
@@ -72,38 +74,30 @@
 	status_flags = GODMODE|CANPUSH
 
 /mob/living/carbon/human/skrell/New(var/new_loc)
-	h_style = "Skrell Male Tentacles"
 	..(new_loc, "Skrell")
 
 /mob/living/carbon/human/tajaran/New(var/new_loc)
-	ha_style = "Tajaran Ears"
 	..(new_loc, "Tajaran")
 
 /mob/living/carbon/human/vulpkanin/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Vulpkanin")
 
 /mob/living/carbon/human/unathi/New(var/new_loc)
-	h_style = "Unathi Horns"
 	..(new_loc, "Unathi")
 
 /mob/living/carbon/human/vox/New(var/new_loc)
-	h_style = "Short Vox Quills"
 	..(new_loc, "Vox")
 
 /mob/living/carbon/human/voxarmalis/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Vox Armalis")
 
 /mob/living/carbon/human/skeleton/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Skeleton")
 
 /mob/living/carbon/human/kidan/New(var/new_loc)
 	..(new_loc, "Kidan")
 
 /mob/living/carbon/human/plasma/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Plasmaman")
 
 /mob/living/carbon/human/slime/New(var/new_loc)
@@ -112,32 +106,32 @@
 /mob/living/carbon/human/grey/New(var/new_loc)
 	..(new_loc, "Grey")
 
+/mob/living/carbon/human/abductor/New(var/new_loc)
+	..(new_loc, "Abductor")
+
 /mob/living/carbon/human/human/New(var/new_loc)
 	..(new_loc, "Human")
 
 /mob/living/carbon/human/diona/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Diona")
 
 /mob/living/carbon/human/machine/New(var/new_loc)
-	h_style = "blue IPC screen"
 	..(new_loc, "Machine")
 
 /mob/living/carbon/human/shadow/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Shadow")
 
 /mob/living/carbon/human/golem/New(var/new_loc)
-	h_style = "Bald"
 	..(new_loc, "Golem")
 
 /mob/living/carbon/human/wryn/New(var/new_loc)
-	h_style = "Antennae"
 	..(new_loc, "Wryn")
 
 /mob/living/carbon/human/nucleation/New(var/new_loc)
-	h_style = "Nucleation Crystals"
 	..(new_loc, "Nucleation")
+
+/mob/living/carbon/human/drask/New(var/new_loc)
+	..(new_loc, "Drask")
 
 /mob/living/carbon/human/monkey/New(var/new_loc)
 	..(new_loc, "Monkey")
@@ -688,6 +682,8 @@
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name()
+	if(name_override)
+		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name("Unknown")
 	if(head && (head.flags_inv & HIDEFACE))
@@ -1259,6 +1255,54 @@
 	else
 		germ_level += n
 
+/mob/living/carbon/human/proc/check_and_regenerate_organs(var/mob/living/carbon/human/H) //Regenerates missing limbs/organs.
+	var/list/types_of_int_organs = list() //This will hold all the types of organs in the mob before rejuvenation.
+	for(var/obj/item/organ/internal/I in H.internal_organs)
+		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
+
+	//Removing stumps.
+	for(var/obj/item/organ/organ in H.contents)
+		if(istype(organ, /obj/item/organ/external/stump)) //Get rid of all stumps.
+			qdel(organ)
+			H.contents -= organ //Making sure the list entry is removed.
+	for(var/obj/item/organ/organ in H.organs)
+		if(istype(organ, /obj/item/organ/external/stump))
+			qdel(organ)
+			H.organs -= organ //Making sure the list entry is removed.
+	for(var/organ_name in H.organs_by_name)
+		var/obj/item/organ/organ = H.organs_by_name[organ_name]
+		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
+			qdel(organ)
+			H.organs_by_name -= organ_name //Making sure the list entry is removed.
+
+	//Replacing lost limbs with the species default.
+	var/mob/living/carbon/human/temp_holder
+	for(var/limb_type in H.species.has_limbs)
+		if(!(limb_type in H.organs_by_name))
+			var/list/organ_data = H.species.has_limbs[limb_type]
+			var/limb_path = organ_data["path"]
+			var/obj/item/organ/external/O = new limb_path(temp_holder)
+			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
+				continue				   //In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
+										   //while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
+			else
+				O = new limb_path(H) //Create the limb on the player.
+				O.owner = H
+				H.organs |= H.organs_by_name[O.limb_name]
+
+	//Replacing lost organs with the species default.
+	temp_holder = new /mob/living/carbon/human()
+	for(var/index in H.species.has_organ)
+		var/organ = H.species.has_organ[index]
+		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
+			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
+			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
+				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nucleation eyes, since,
+										 //while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
+			else
+				I = new organ(H) //Create the organ inside the player.
+				I.insert(H)
+
 /mob/living/carbon/human/revive()
 
 	if(species && !(species.flags & NO_BLOOD))
@@ -1266,9 +1310,18 @@
 		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
 		fixblood()
 
-	// Fix up all organs.
-	// This will ignore any prosthetics in the prefs currently.
-	species.create_organs(src)
+	//Fix up all organs and replace lost ones.
+	restore_all_organs() //Rejuvenate and reset all existing organs.
+	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
+	surgeries.Cut() //End all surgeries.
+	update_revive()
+
+	if(species.name != "Skeleton" && (SKELETON in mutations))
+		mutations.Remove(SKELETON)
+	if(NOCLONE in mutations)
+		mutations.Remove(NOCLONE)
+	if(HUSK in mutations)
+		mutations.Remove(HUSK)
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
 		for (var/obj/item/organ/internal/brain/H in world)
@@ -1347,6 +1400,15 @@
 		qdel(feet_blood_DNA)
 		update_inv_shoes(1)
 		return 1
+
+/mob/living/carbon/human/cuff_resist(obj/item/I)
+	if(HULK in mutations)
+		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+		if(..(I, cuff_break = 1))
+			unEquip(I)
+	else
+		if(..())
+			unEquip(I)
 
 /mob/living/carbon/human/get_visible_implants(var/class = 0)
 
@@ -1485,6 +1547,15 @@
 
 	species.create_organs(src)
 
+	//Handle default hair/head accessories for created mobs.
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(species.default_hair)
+		H.h_style = species.default_hair
+	if(species.default_fhair)
+		H.f_style = species.default_fhair
+	if(species.default_headacc)
+		H.ha_style = species.default_headacc
+
 	if(!dna)
 		dna = new /datum/dna(null)
 		dna.species = species.name
@@ -1575,27 +1646,39 @@
 		to_chat(src, "<span class='warning'>You cannot change your monitor or optical display in your current state.</span>")
 		return
 
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED)) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
+		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
+		return
+
 	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
-		if(client.prefs.rlimb_data["head"]) //If head is present here, that means it's not the default Morpheus. Thus, no screen to adjust. Instead, let them change the colour of their optics!
+		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
+		if(!head_organ)
+			return
+		if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 			var/optic_colour = input(src, "Select optic colour", rgb(r_markings, g_markings, b_markings)) as color|null
+			if(incapacitated())
+				to_chat(src, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
+				return
 			if(optic_colour)
 				r_markings = hex2num(copytext(optic_colour, 2, 4))
 				g_markings = hex2num(copytext(optic_colour, 4, 6))
 				b_markings = hex2num(copytext(optic_colour, 6, 8))
 
 			update_markings()
-		else if(!client.prefs.rlimb_data["head"])//Means that the character has the default Morpheus head, which has a screen. Time to customize.
+		else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
 			var/list/hair = list()
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
-				if(species.name in tmp_hair.species_allowed)
+				if((head_organ.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 					hair += i
 
-			var/new_style = input(src, "Select a monitor display", "Monitor Display", h_style)  as null|anything in hair
+			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style)  as null|anything in hair
 			if(incapacitated())
+				to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 				return
 			if(new_style)
-				h_style = new_style
+				head_organ.h_style = new_style
 
 		update_hair()
 
@@ -1897,3 +1980,6 @@
 		if(U.accessories)
 			for(var/obj/item/clothing/accessory/A in U.accessories)
 				. |= A.GetAccess()
+
+/mob/living/carbon/human/is_mechanical()
+	return ..() || (species.flags & ALL_RPARTS) != 0

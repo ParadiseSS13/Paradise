@@ -4,19 +4,16 @@
 	var/list/datum/mind/vampires = list()
 	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
 	var/list/vampire_thralls = list() //vammpires controlling somebody
+
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent")
 	protected_species = list("Machine")
-	required_players = 2
-	required_players_secret = 10
+	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
-
-	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 20
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target
@@ -239,12 +236,11 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(!get_ability(path))
 		force_add_ability(path)
 
-/datum/vampire/proc/remove_ability(path)
-	var/A = get_ability(path)
-	if(A)
-		powers -= A
-		owner.mind.spell_list.Remove(A)
-		qdel(A)
+/datum/vampire/proc/remove_ability(ability)
+	if(ability && (ability in powers))
+		powers -= ability
+		owner.mind.spell_list.Remove(ability)
+		qdel(ability)
 
 /mob/proc/make_vampire()
 	if(!mind)
@@ -263,6 +259,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 /datum/vampire/proc/remove_vampire_powers()
 	for(var/P in powers)
 		remove_ability(P)
+	if(owner.hud_used)
+		var/datum/hud/hud = owner.hud_used
+		if(hud.vampire_blood_display)
+			hud.remove_vampire_hud()
 	owner.alpha = 255
 
 /datum/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H)
@@ -353,6 +353,9 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	update_vampire_icons_removed(vampire_mind)
 //	to_chat(world, "Removed [vampire_mind.current.name] from vampire shit")
 	to_chat(vampire_mind.current, "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>")
+	if(vampire_mind.current.hud_used)
+		vampire_mind.current.hud_used.remove_vampire_hud()
+
 
 /datum/vampire/proc/check_sun()
 	var/ax = owner.x
@@ -375,7 +378,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(owner.hud_used)
 		var/datum/hud/hud = owner.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_hud()
+			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display.name = "Usable Blood"
+			hud.vampire_blood_display.icon_state = "power_display"
+			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
+			hud.static_inventory += hud.vampire_blood_display
+			hud.show_hud(hud.hud_version)
 		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
 	if(istype(owner.loc, /turf/space))
@@ -430,3 +438,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 				owner.IgniteMob()
 	owner.adjustFireLoss(3)
 	return
+
+/datum/hud/proc/remove_vampire_hud()
+	if(!vampire_blood_display)
+		return
+
+	static_inventory -= vampire_blood_display
+	qdel(vampire_blood_display)
+	vampire_blood_display = null
+	show_hud(hud_version)

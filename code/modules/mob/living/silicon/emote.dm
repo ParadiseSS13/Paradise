@@ -5,17 +5,16 @@
 		param = copytext(act, t1 + 1, length(act) + 1)
 		act = copytext(act, 1, t1)
 
-	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
-		act = copytext(act,1,length(act))
-
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0
+	act = lowertext(act)
 	switch(act)
 		//Cooldown-inducing emotes
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
-		if("ping","buzz","beep","yes","no")		//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
+		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no")
+			//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -26,7 +25,7 @@
 	//--FalseIncarnate
 
 	switch(act)
-		if("ping")
+		if("ping","pings")
 			var/M = null
 			if(param)
 				for (var/mob/A in view(null, null))
@@ -43,7 +42,7 @@
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 2
 
-		if("buzz")
+		if("buzz","buzzs","buzzes")
 			var/M = null
 			if(param)
 				for (var/mob/A in view(null, null))
@@ -60,7 +59,7 @@
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			m_type = 2
 
-		if("beep")
+		if("beep","beeps")
 			var/M = null
 			if(param)
 				for (var/mob/A in view(null, null))
@@ -115,5 +114,8 @@
 			message = "<B>[src]</B> screams!"
 			playsound(src.loc, 'sound/goonstation/voice/robot_scream.ogg', 80, 0)
 			m_type = 2
+
+		if("help")
+			to_chat(src, "yes, no, beep, ping, buzz")
 
 	..(act, m_type, message)

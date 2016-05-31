@@ -24,6 +24,7 @@
 
 	layer = 21
 	item_state = "nothing"
+	icon = 'icons/mob/screen_gen.dmi'
 	w_class = 5.0
 
 

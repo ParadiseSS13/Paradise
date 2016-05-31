@@ -4,13 +4,9 @@
 /datum/game_mode/malfunction
 	name = "AI malfunction"
 	config_tag = "malfunction"
-	required_players = 2
-	required_players_secret = 20
+	required_players = 25
 	required_enemies = 1
 	recommended_enemies = 1
-
-	uplink_welcome = "Crazy AI Uplink Console:"
-	uplink_uses = 10
 
 	var/AI_win_timeleft = 1500 //started at 1500, in case I change this for testing round end.
 	var/malf_mode_declared = 0

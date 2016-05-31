@@ -445,6 +445,39 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 1)
+	var/list/fridge_names_paths = list(
+							"\improper SmartFridge" = /obj/machinery/smartfridge,
+							"\improper MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
+							"\improper Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
+							"\improper Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
+							"\improper Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
+							"\improper Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
+							"smart virus storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
+							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks
+	)
+
+
+
+/obj/item/weapon/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/screwdriver))
+		set_type(null, user)
+
+/obj/item/weapon/circuitboard/smartfridge/proc/set_type(typepath, mob/user)
+	var/new_name = ""
+	if(!typepath)
+		new_name = input("Circuit Setting", "What would you change the board setting to?") in fridge_names_paths
+		typepath = fridge_names_paths[new_name]
+	else
+		for(var/name in fridge_names_paths)
+			if(fridge_names_paths[name] == typepath)
+				new_name = name
+				break
+	build_path = typepath
+	name = new_name
+	if(findtextEx(new_name, "\improper"))
+		new_name = replacetext(new_name, "\improper", "")
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
 
 /obj/item/weapon/circuitboard/monkey_recycler
 	name = "circuit board (Monkey Recycler)"
@@ -664,6 +697,17 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/ore/bluespace_crystal = 2,
 							/obj/item/weapon/stock_parts/capacitor = 2,
 							/obj/item/weapon/stock_parts/console_screen = 1)
+
+/obj/item/weapon/circuitboard/teleporter_perma
+	name = "circuit board (Permanent Teleporter)"
+	build_path = /obj/machinery/teleport/perma
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=5;bluespace=5;materials=4"
+	frame_desc = "Requires 3 Bluespace Crystals and 1 Matter Bin."
+	req_components = list(
+							/obj/item/weapon/ore/bluespace_crystal = 3,
+							/obj/item/weapon/stock_parts/matter_bin = 1)
+	var/target
 
 /obj/item/weapon/circuitboard/telesci_pad
 	name = "Circuit board (Telepad)"
@@ -890,6 +934,15 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
+/obj/item/weapon/circuitboard/gameboard
+	name = "circuit board (Virtual Gameboard)"
+	build_path = /obj/machinery/gameboard
+	board_type = "machine"
+	origin_tech = "programming=2"
+	req_components = list(
+							/obj/item/weapon/stock_parts/micro_laser = 1,
+							/obj/item/stack/cable_coil = 3,
+							/obj/item/stack/sheet/glass = 1)
 
 //Selectable mode board, like vending machine boards
 /obj/item/weapon/circuitboard/logic_gate

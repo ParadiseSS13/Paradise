@@ -88,13 +88,17 @@
 			stat("Time To Start:", "DELAYED")
 
 		if(ticker.current_state == GAME_STATE_PREGAME)
-			stat("Players: [totalPlayers]", "Players Ready: [totalPlayersReady]")
+			stat("Players:", "[totalPlayers]")
+			if(client.holder)
+				stat("Players Ready:", "[totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in player_list)
-				stat("[player.key]", (player.ready)?("(Playing)"):(null))
+				if(client.holder)
+					stat("[player.key]", (player.ready)?("(Playing)"):(null))
 				totalPlayers++
-				if(player.ready)totalPlayersReady++
+				if(player.ready)
+					totalPlayersReady++
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)	return 0
@@ -442,14 +446,14 @@
 		chosen_species = all_species[client.prefs.species]
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
-		log_to_dd("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human.")
+		log_debug("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human.")
 		client.prefs.species = "Human"
 
 	var/datum/language/chosen_language
 	if(client.prefs.language)
 		chosen_language = all_languages[client.prefs.language]
-	if(!((chosen_language || client.prefs.language == "None") && (is_alien_whitelisted(src, client.prefs.language) || !config.usealienwhitelist || !(chosen_language.flags & WHITELISTED))))
-		log_to_dd("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
+	if((chosen_language == null && chosen_language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
+		log_debug("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()

@@ -168,6 +168,7 @@ var/list/ai_verbs_default = list(
 	add_language("Canilunzt", 0)
 	add_language("Skrellian", 0)
 	add_language("Vox-pidgin", 0)
+	add_language("Orluum", 0)
 	add_language("Rootspeak", 0)
 	add_language("Trinary", 1)
 	add_language("Chittin", 0)
@@ -306,7 +307,7 @@ var/list/ai_verbs_default = list(
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
 	if (custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
-	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President")
+	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President", "NT")
 	switch(icontype)
 		if("Custom") icon_state = "[src.ckey]-ai"
 		if("Clown") icon_state = "ai-clown2"
@@ -328,6 +329,7 @@ var/list/ai_verbs_default = list(
 		if("Sparkles") icon_state = "ai-sparkles"
 		if("ANIMA") icon_state = "ai-anima"
 		if("President") icon_state = "ai-president"
+		if("NT") icon_state = "ai-nt"
 		else icon_state = "ai"
 	//else
 //			to_chat(usr, "You can only change your display once!")

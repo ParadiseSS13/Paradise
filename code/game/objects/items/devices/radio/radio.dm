@@ -234,7 +234,7 @@ var/global/list/default_medbay_channels = list(
 
 	add_fingerprint(usr)
 
-/obj/item/device/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels) //BS12 EDIT
+/obj/item/device/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels, var/role = "Unknown") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if (channel == "department")
@@ -248,15 +248,37 @@ var/global/list/default_medbay_channels = list(
 		return
 	if (!connection)
 		return
-
-	var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(src, null, null, 1)
-	A.rename_character(A.real_name, from)
+	var/mob/living/automatedannouncer/A = new /mob/living/automatedannouncer(src)
+	A.name = from
+	A.role = role
+	A.message = message
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
 						4, 0, zlevel, connection.frequency, follow_target=follow_target)
 	qdel(A)
 	return
+
+// Just a dummy mob used for making announcements, so we don't create AIs to do this
+// I'm not sure who thought that was a good idea. -- Crazylemon
+/mob/living/automatedannouncer
+	var/role = ""
+	var/lifetime_timer
+	var/message = ""
+	universal_speak = 1
+
+/mob/living/automatedannouncer/New()
+	lifetime_timer = addtimer(src, "autocleanup", SecondsToTicks(10))
+	..()
+
+/mob/living/automatedannouncer/Destroy()
+	if(lifetime_timer)
+		deltimer(lifetime_timer)
+	..()
+
+/mob/living/automatedannouncer/proc/autocleanup()
+	log_debug("An announcer somehow managed to outlive the radio! Deleting! Area: [get_area(src)], Name: \"[name]\", Message: \"[message]\"")
+	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/device/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
@@ -287,8 +309,6 @@ var/global/list/default_medbay_channels = list(
 
 	if(!M.IsVocal())
 		return 0
-
-	M.last_target_click = world.time
 
 	/* Quick introduction:
 		This new radio system uses a very robust FTL signaling technology unoriginally
@@ -402,11 +422,13 @@ var/global/list/default_medbay_channels = list(
 	  //#### Sending the signal to all subspace receivers ####//
 
 		for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
-			R.receive_signal(signal)
+			spawn(0)
+				R.receive_signal(signal)
 
 		// Allinone can act as receivers.
 		for(var/obj/machinery/telecomms/allinone/R in telecomms_list)
-			R.receive_signal(signal)
+			spawn(0)
+				R.receive_signal(signal)
 
 		// Receiving code can be located in Telecommunications.dm
 		return signal.data["done"] && position.z in signal.data["level"]
@@ -455,7 +477,8 @@ var/global/list/default_medbay_channels = list(
 	signal.frequency = connection.frequency // Quick frequency set
 
 	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
-		R.receive_signal(signal)
+		spawn(0)
+			R.receive_signal(signal)
 
 
 	sleep(rand(10,25)) // wait a little...
@@ -500,7 +523,7 @@ var/global/list/default_medbay_channels = list(
 	// what the range is in which mobs will hear the radio
 	// returns: -1 if can't receive, range otherwise
 
-	if (wires.IsIndexCut(WIRE_RECEIVE))
+	if (!wires || wires.IsIndexCut(WIRE_RECEIVE))
 		return -1
 	if(!listening)
 		return -1

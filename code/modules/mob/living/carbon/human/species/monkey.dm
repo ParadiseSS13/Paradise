@@ -34,8 +34,6 @@
 	brute_mod = 1.5
 	burn_mod = 1.5
 
-	flags = IS_RESTRICTED
-
 /datum/species/monkey/handle_npc(var/mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return

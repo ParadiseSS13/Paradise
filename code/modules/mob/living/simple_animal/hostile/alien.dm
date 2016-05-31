@@ -38,6 +38,7 @@
 	icon_living = "aliend_running"
 	icon_dead = "aliend_l"
 	health = 60
+	maxHealth = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	var/plant_cooldown = 30
@@ -59,6 +60,7 @@
 	icon_living = "aliens_running"
 	icon_dead = "aliens_l"
 	health = 120
+	maxHealth = 120
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	ranged = 1

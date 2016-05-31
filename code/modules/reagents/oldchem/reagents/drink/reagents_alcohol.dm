@@ -36,8 +36,7 @@
 	if(ishuman(M) && !M.isSynthetic())
 		var/mob/living/carbon/human/H = M
 		L = H.get_int_organ(/obj/item/organ/internal/liver)
-		if(!L || (istype(L) && L.dna.species in list("Skrell", "Neara")))
-			d*=5
+		d *= L ? L.alcohol_intensity : 5
 
 	M.dizziness += dizzy_adj.
 	if(d >= slur_start && d < pass_out)
@@ -151,10 +150,8 @@
 	..()
 	return
 
-/datum/reagent/ethanol/absinthe/overdose_process(mob/living/M)
+/datum/reagent/ethanol/absinthe/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
-	..()
-	return
 
 /datum/reagent/ethanol/rum
 	name = "Rum"
@@ -169,10 +166,8 @@
 	M.dizziness +=5
 	return
 
-/datum/reagent/ethanol/rum/overdose_process(mob/living/M)
+/datum/reagent/ethanol/rum/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
-	..()
-	return
 
 /datum/reagent/ethanol/mojito
 	name = "Mojito"

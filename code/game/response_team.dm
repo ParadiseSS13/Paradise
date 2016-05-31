@@ -83,7 +83,7 @@ var/send_emergency_team
 		to_chat(usr, "No emergency response team is currently being sent.")
 		return
 
-	if(jobban_isbanned(usr, "Emergency Response Team"))
+	if(jobban_isbanned(usr, ROLE_ERT))
 		to_chat(usr, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
 		return
 
@@ -148,6 +148,7 @@ var/send_emergency_team
 
 /client/proc/create_response_team(obj/spawn_location)
 	var/mob/living/carbon/human/M = new(null)
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	response_team_members |= M
 
 	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
@@ -173,18 +174,18 @@ var/send_emergency_team
 		if(prob(5))
 			facial_hair_style = pick(facial_hair_styles_list)
 
-	M.r_facial = hex2num(copytext(hair_c, 2, 4))
-	M.g_facial = hex2num(copytext(hair_c, 4, 6))
-	M.b_facial = hex2num(copytext(hair_c, 6, 8))
-	M.r_hair = hex2num(copytext(hair_c, 2, 4))
-	M.g_hair = hex2num(copytext(hair_c, 4, 6))
-	M.b_hair = hex2num(copytext(hair_c, 6, 8))
+	head_organ.r_facial = hex2num(copytext(hair_c, 2, 4))
+	head_organ.g_facial = hex2num(copytext(hair_c, 4, 6))
+	head_organ.b_facial = hex2num(copytext(hair_c, 6, 8))
+	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
+	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
+	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
 	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
 	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
 	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
 	M.s_tone = skin_tone
-	M.h_style = hair_style
-	M.f_style = facial_hair_style
+	head_organ.h_style = hair_style
+	head_organ.f_style = facial_hair_style
 
 	M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
 	M.name = M.real_name

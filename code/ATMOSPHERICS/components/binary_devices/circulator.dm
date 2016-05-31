@@ -48,7 +48,8 @@
 		return removed
 
 /obj/machinery/atmospherics/binary/circulator/process()
-	..()
+	if(!..())
+		return 0
 	if(last_worldtime_transfer < world.time - 50)
 		recent_moles_transferred = 0
 		update_icon()
@@ -65,3 +66,13 @@
 		icon_state = "circ-off"
 
 	return 1
+
+/obj/machinery/atmospherics/binary/circulator/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		var/turf/T = get_turf(src)
+		if(!istype(T, /turf/simulated))
+			return ..()
+		anchored = !anchored
+		to_chat(user, "You [(anchored) ? "fasten" : "loosen"] \the [src] to the floor")
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+	else return ..()
