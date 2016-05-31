@@ -1,11 +1,11 @@
-<!-- 
+<!--
 Title: Integrated Hardsuit Controller
 Used In File(s): /code/modules/clothing/spacesuits/rig/rig.dm
  -->
 
 <style type="text/css">
 	.inlineBlock {
-		padding: 2px; 
+		padding: 2px;
 		display: inline-block;
 	}
 	.extraTopPadding {
@@ -16,7 +16,7 @@ Used In File(s): /code/modules/clothing/spacesuits/rig/rig.dm
 		margin-left: 5px;
 	}
 	.paddedBorderBlue {
-		border: 1px solid #517087; 
+		border: 1px solid #517087;
 		padding: 2px;
 	}
 	.redText {
@@ -53,7 +53,7 @@ Used In File(s): /code/modules/clothing/spacesuits/rig/rig.dm
 					Power supply
 				</div>
 				<div>
-					{{:helper.displayBar(data.chargestatus, 0, 50, (data.chargestatus >= 35) ? 'good' : (data.chargestatus >= 15) ? 'average' : 'bad')}} {{:data.charge}}/{{:data.maxcharge}}
+					{{:helper.displayBar(data.chargestatus, 0, 50, (data.chargestatus >= 35) ? 'good' : (data.chargestatus >= 15) ? 'average' : 'bad')}} {{:helper.smoothRound(data.charge)}}/{{:data.maxcharge}}
 				</div>
 			</div>
 			<div>
@@ -175,7 +175,7 @@ Used In File(s): /code/modules/clothing/spacesuits/rig/rig.dm
 		{{if data.seals == 1 || data.sealing == 1}}
 			<h3><div class = 'bad'>HARDSUIT SYSTEMS OFFLINE</div></h3>
 		{{else}}
-			<h3>Selected primary system: 
+			<h3>Selected primary system:
 				{{if data.primarysystem}}
 					{{:helper.capitalizeFirstLetter(data.primarysystem)}}
 				{{else}}
@@ -200,9 +200,9 @@ Used In File(s): /code/modules/clothing/spacesuits/rig/rig.dm
 									{{/if}}
 									<div class='floatLeft' style='width: 100%; clear: left'>
 										<div class='caption floatLeft average' style='width: 20%; margin: 0'>
-												Engage: {{:value.engagecost}} 
-												Activate: {{:value.activecost}} 
-												Passive: {{:value.passivecost}} 
+												Engage: {{:value.engagecost}}
+												Activate: {{:value.activecost}}
+												Passive: {{:value.passivecost}}
 										</div>
 										<div class='caption floatLeft' style='width: 25%; margin: 0'>
 												{{:value.desc}}

@@ -80,7 +80,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/last_id
 
 	//game-preferences
-//	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/lastchangelog = ""				//Saved changelog filesize to detect if there was a change
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
@@ -1734,22 +1734,25 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.g_eyes = g_eyes
 	character.b_eyes = b_eyes
 
-	character.r_hair = r_hair
-	character.g_hair = g_hair
-	character.b_hair = b_hair
+	//Head-specific
+	var/obj/item/organ/external/head/H = character.get_organ("head")
+	H.r_hair = r_hair
+	H.g_hair = g_hair
+	H.b_hair = b_hair
 
-	character.r_facial = r_facial
-	character.g_facial = g_facial
-	character.b_facial = b_facial
+	H.r_facial = r_facial
+	H.g_facial = g_facial
+	H.b_facial = b_facial
+
+	H.h_style = h_style
+	H.f_style = f_style
+	//End of head-specific.
 
 	character.r_skin = r_skin
 	character.g_skin = g_skin
 	character.b_skin = b_skin
 
 	character.s_tone = s_tone
-
-	character.h_style = h_style
-	character.f_style = f_style
 
 	// Destroy/cyborgize organs
 	for(var/name in organ_data)
@@ -1827,10 +1830,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.socks = socks
 
 	if(character.species.bodyflags & HAS_HEAD_ACCESSORY)
-		character.r_headacc = r_headacc
-		character.g_headacc = g_headacc
-		character.b_headacc = b_headacc
-		character.ha_style = ha_style
+		H.r_headacc = r_headacc
+		H.g_headacc = g_headacc
+		H.b_headacc = b_headacc
+		H.ha_style = ha_style
 	if(character.species.bodyflags & HAS_MARKINGS)
 		character.r_markings = r_markings
 		character.g_markings = g_markings

@@ -11,9 +11,6 @@ proc/issyndicate(mob/living/M as mob)
 	required_enemies = 5
 	recommended_enemies = 5
 
-	uplink_welcome = "Corporate Backed Uplink Console:"
-	uplink_uses = 120
-
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
 	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
@@ -133,6 +130,8 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/create_syndicate(var/datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
 	var/mob/living/carbon/human/M = synd_mind.current
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+
 	M.set_species("Human",1)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 
@@ -149,18 +148,18 @@ proc/issyndicate(mob/living/M as mob)
 		if(prob(5))
 			facial_hair_style = pick(facial_hair_styles_list)
 
-	M.r_facial = hex2num(copytext(hair_c, 2, 4))
-	M.g_facial = hex2num(copytext(hair_c, 4, 6))
-	M.b_facial = hex2num(copytext(hair_c, 6, 8))
-	M.r_hair = hex2num(copytext(hair_c, 2, 4))
-	M.g_hair = hex2num(copytext(hair_c, 4, 6))
-	M.b_hair = hex2num(copytext(hair_c, 6, 8))
+	head_organ.r_facial = hex2num(copytext(hair_c, 2, 4))
+	head_organ.g_facial = hex2num(copytext(hair_c, 4, 6))
+	head_organ.b_facial = hex2num(copytext(hair_c, 6, 8))
+	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
+	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
+	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
 	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
 	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
 	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
 	M.s_tone = skin_tone
-	M.h_style = hair_style
-	M.f_style = facial_hair_style
+	head_organ.h_style = hair_style
+	head_organ.f_style = facial_hair_style
 	M.body_accessory = null
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)

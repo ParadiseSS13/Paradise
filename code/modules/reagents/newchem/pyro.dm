@@ -293,7 +293,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
 	result_amount = 1
 	mix_message = "The mixture quickly turns into a pall of smoke!"
-	var/forbidden_reagents = list("sugar", "phosphorus", "potassium") //Do not transfer this stuff through smoke.
+	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants") //Do not transfer this stuff through smoke.
 
 /datum/chemical_reaction/smoke/on_reaction(var/datum/reagents/holder, var/created_volume)
 	for(var/f_reagent in forbidden_reagents)
@@ -325,7 +325,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	min_temp = 374
 	secondary = 1
 	result_amount = 1
-	forbidden_reagents = list()
+	forbidden_reagents = list("stimulants")
 	mix_sound = null
 
 /datum/reagent/sonic_powder

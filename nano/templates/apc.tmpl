@@ -57,15 +57,15 @@
 			Power Cell:
 		</div>
 		{{if data.powerCellStatus == null}}
-			<div class="itemContent bad">		
+			<div class="itemContent bad">
 				Power cell removed.
 			</div>
 		{{else}}
-			
+
 			{{:helper.displayBar(data.powerCellStatus, 0, 100, (data.powerCellStatus >= 50) ? 'good' : (data.powerCellStatus >= 25) ? 'average' : 'bad')}}
-			<div class="itemContent" style="width: 60px">		
-				{{:helper.round(data.powerCellStatus*10)/10}}%
-			</div>	
+			<div class="itemContent" style="width: 60px">
+				{{:helper.smoothRound(data.powerCellStatus, 1)}}%
+			</div>
 		{{/if}}
 	</div>
 
@@ -80,7 +80,7 @@
 						<span class='good'>Auto</span>
 					{{else}}
 						<span class='bad'>Off</span>
-					{{/if}}				
+					{{/if}}
 				{{else}}
 					{{:helper.link('Auto', 'refresh', {'cmode' : 1}, data.chargeMode ? 'selected' : null)}}{{:helper.link('Off', 'close', {'cmode' : 1}, data.chargeMode ? null : 'selected')}}
 				{{/if}}
@@ -105,7 +105,7 @@
 				{{:value.title}}:
 			</div>
 			<div class="itemContent" style="width: 70px; text-align: right">
-				{{:value.powerLoad}} W
+				{{:helper.smoothRound(value.powerLoad)}} W
 			</div>
 			<div class="itemContent" style="width: 105px">
 				&nbsp;&nbsp;
@@ -119,7 +119,7 @@
 						&nbsp;&nbsp;Auto
 					{{else}}
 						&nbsp;&nbsp;Manual
-					{{/if}}		
+					{{/if}}
 				{{/if}}
 			</div>
 			{{if !data.locked || data.siliconUser}}
@@ -137,7 +137,7 @@
 			Total Load:
 		</div>
 		<div class="itemContent" style="width: 70px; text-align: right">
-			{{:data.totalLoad}} W
+			{{:helper.smoothRound(data.totalLoad)}} W
 		</div>
 	</div>
 
@@ -178,4 +178,3 @@
 	{{/if}}
 
 </div>
-		

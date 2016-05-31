@@ -40,7 +40,6 @@
 	name = "limb attachment"
 	steps = list(/datum/surgery_step/limb/attach)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
-	allowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -97,10 +96,12 @@
 	E.forceMove(target)
 	if(target.get_species() == "Machine")//as this is the only step needed for ipc put togethers
 		if(target_zone == "head")
-			var/obj/item/organ/external/head/H = target.organs_by_name["head"]
+			var/obj/item/organ/external/head/H = target.get_organ("head")
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
-				target.h_style = ""
+				H.h_style = ""
+				H.f_style = ""
+				target.m_style = ""
 		E.status &= ~ORGAN_DESTROYED
 		if(E.children)
 			for(var/obj/item/organ/external/C in E.children)

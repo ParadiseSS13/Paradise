@@ -17,13 +17,20 @@
     padding: 0px 4px 4px 0px;
 }
 
-a:hover, .zoomLink:hover, .linkActive:hover {
+a.hover, .zoomLink.hover, .linkActive.hover {
     background: #507aac;
 }
 
-.linkPending, .linkPending:hover {
-    color: #ffffff;
-    background: #507aac;
+@keyframes pendingAnimation {
+    to {
+        color: #ffffff;
+        background: #507aac;
+    }
+}
+
+.linkPending, .linkPending.hover {
+    animation-name: pendingAnimation;
+    animation-duration: 0.25s;
 }
 
 a.white, a.white:link, a.white:visited, a.white:active {
@@ -36,17 +43,17 @@ a.white, a.white:link, a.white:visited, a.white:active {
     cursor: default;
 }
 
-a.white:hover {
+a.white.hover {
     color: #ffffff;
     background: #40628a;
 }
 
-.linkOn, a.linkOn:link, a.linkOn:visited, a.linkOn:active, a.linkOn:hover, .selected, a.selected:link, a.selected:visited, a.selected:active, a.selected:hover {
+.linkOn, a.linkOn:link, a.linkOn:visited, a.linkOn:active, a.linkOn.hover, .selected, a.selected:link, a.selected:visited, a.selected:active, a.selected.hover {
     color: #ffffff;
     background: #2f943c;
 }
 
-.linkOff, a.linkOff:link, a.linkOff:visited, a.linkOff:active, a.linkOff:hover, .disabled, a.disabled:link, a.disabled:visited, a.disabled:active, a.disabled:hover {
+.linkOff, a.linkOff:link, a.linkOff:visited, a.linkOff:active, a.linkOff.hover, .disabled, a.disabled:link, a.disabled:visited, a.disabled:active, a.disabled.hover {
     color: #ffffff;
     background: #999999;
     border-color: #666666;
@@ -71,11 +78,11 @@ a.icon img, .linkOn.icon img, .linkOff.icon img, .selected.icon img, .disabled.i
     border-color: #aa0000;
 }
 
-.linkDanger:hover {
+.linkDanger.hover {
     background-color: #ff6666;
 }
 
-.inactive, a.inactive:link, a.inactive:visited, a.inactive:active, a.inactive:hover {
+.inactive, a.inactive:link, a.inactive:visited, a.inactive:active, a.inactive.hover {
     color: #ffffff;
     background: #999999;
     border-color: #666666;

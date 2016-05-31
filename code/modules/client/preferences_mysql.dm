@@ -13,6 +13,7 @@
 					volume,
 					nanoui_fancy,
 					show_ghostitem_attack,
+					lastchangelog,
 					space_parallax
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
@@ -39,10 +40,10 @@
 		volume = text2num(query.item[10])
 		nanoui_fancy = text2num(query.item[11])
 		show_ghostitem_attack = text2num(query.item[12])
+		lastchangelog = query.item[13]
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
-//	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, 65535, initial(toggles))
@@ -53,6 +54,7 @@
 	volume			= sanitize_integer(volume, 0, 100, initial(volume))
 	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
 	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
+	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	space_parallax	= sanitize_integer(space_parallax, 0, 1, initial(space_parallax))
 	return 1
 
@@ -77,7 +79,8 @@
 					randomslot='[randomslot]',
 					volume='[volume]',
 					nanoui_fancy='[nanoui_fancy]',
-					show_ghostitem_attack='[show_ghostitem_attack]'
+					show_ghostitem_attack='[show_ghostitem_attack]',
+					lastchangelog='[lastchangelog]',
 					space_parallax='[space_parallax]'
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -453,3 +456,13 @@
 		return 0
 	load_character(C,pick(saves))
 	return 1*/
+
+/datum/preferences/proc/SetChangelog(client/C,hash)
+	lastchangelog=hash
+	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
+	if(!query.Execute())
+		var/err = query.ErrorMsg()
+		log_game("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
+		return
+	return 1

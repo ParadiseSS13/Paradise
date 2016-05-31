@@ -40,7 +40,7 @@
 	seed_name = "ghost pepper"
 	display_name = "ghost pepper plants"
 	mutants = null
-	chems = list("capsaicin" = list(8,2), "condensedcapsaicin" = list(4,4), "ghostchilijuice" = list(4,4), "plantmatter" = list(1,50))
+	chems = list("capsaicin" = list(8,2), "condensedcapsaicin" = list(4,4), "plantmatter" = list(1,50))
 	kitchen_tag = "ghostchili"
 	preset_icon = "ghostchilipepper"
 
@@ -899,6 +899,7 @@
 	seed_name = "peanut"
 	display_name = "peanut vines"
 	chems = list("plantmatter" = list(1,10))
+	kitchen_tag = "peanuts"
 	preset_icon = "peanuts"
 
 /datum/seed/peanuts/New()

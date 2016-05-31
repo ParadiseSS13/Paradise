@@ -44,12 +44,14 @@ NanoBaseHelpers = function ()
                     elementIdHtml = 'id="' + elementId + '"';
                 }
 
+                var tid = NanoTransition.allocID(elementIdHtml + "_" + text.toString().replace(/[^a-z0-9_]/gi, "_") + "_" + icon);
+
                 if (typeof status != 'undefined' && status)
                 {
-                    return '<div unselectable="on" class="link ' + iconClass + ' ' + elementClass + ' ' + status + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
+                    return '<div unselectable="on" class="link ' + iconClass + ' ' + tid + '" ' + elementIdHtml + '>' + iconHtml + text + '</div><script>$(function() { var newState = {"..class": "' + elementClass + ' ' + status + '"}; var old = NanoTransition.transitionElement("' + tid + '", null, newState, 200); NanoTransition.animateHover("' + tid + '", null, old, newState); });</script>';
                 }
 
-                return '<div unselectable="on" class="linkActive ' + iconClass + ' ' + elementClass + '" data-href="' + NanoUtility.generateHref(parameters) + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
+                return '<div unselectable="on" class="linkActive ' + iconClass + ' ' + tid + '" data-href="' + NanoUtility.generateHref(parameters) + '" ' + elementIdHtml + '>' + iconHtml + text + '</div><script>$(function() { var newState = {"..class": "' + elementClass + '"}; var old = NanoTransition.transitionElement("' + tid + '", null, newState, 200); NanoTransition.animateHover("' + tid + '", null, old, newState); });</script>';
             },
 
             xor: function (number,bit) {
@@ -148,8 +150,9 @@ NanoBaseHelpers = function ()
                 }
 
                 var percentage = Math.round((value - rangeMin) / (rangeMax - rangeMin) * 100);
+                var tid = NanoTransition.allocID(rangeMin + "_" + rangeMax);
 
-                return '<div class="displayBar ' + styleClass + '"><div class="displayBarFill ' + styleClass + '" style="width: ' + percentage + '%;"></div><div class="displayBarText ' + styleClass + '">' + showText + '</div></div>';
+                return '<div class="displayBar ' + tid + ' ' + styleClass + '"><div class="displayBarFill"></div><div class="displayBarText ' + styleClass + '">' + showText + '</div></div><script>$(function() { NanoTransition.transitionElement("' + tid + '", ".displayBarFill", {width: "' + percentage + '%", "..class": "' + styleClass + '"}); });</script>';
             },
             // Convert danger level to class (for the air alarm)
             dangerToClass: function(level) {
@@ -166,7 +169,7 @@ NanoBaseHelpers = function ()
                 var body = $('body'); // For some fucking reason, data is stored in the body tag.
                 _urlParameters = body.data('urlParameters');
                 var queryString = '?';
-    
+
                 for (var key in _urlParameters)
                 {
                     if (_urlParameters.hasOwnProperty(key))
@@ -245,9 +248,21 @@ NanoBaseHelpers = function ()
                     indentWithTabs: true,
                     theme: "lesser-dark"
                 });
+            },
+            smoothNumber: function(number) {
+                var tid = NanoTransition.allocID("n");
+
+                return '<span class="' + tid + '"></span><script>$(function() { var newState = {value: ' + number + '}; var old = NanoTransition.updateElement("' + tid + '", newState); NanoTransition.animateTextValue("' + tid + '", null, -1, old["value"], newState["value"]); });</script>';
+            },
+            smoothRound: function(number, places) {
+                var tid = NanoTransition.allocID(places);
+                if(places === undefined)
+                    placed = 0;
+
+                return '<span class="' + tid + '"></span><script>$(function() { var newState = {value: ' + number.toFixed(places) + '}; var old = NanoTransition.updateElement("' + tid + '", newState); NanoTransition.animateTextValue("' + tid + '", null, ' + places + ', old["value"], newState["value"]); });</script>';
             }
         };
-        
+
     return {
         addHelpers: function ()
         {
@@ -262,7 +277,7 @@ NanoBaseHelpers = function ()
                 {
                     NanoTemplate.removeHelper(helperKey);
                 }
-            }            
+            }
         }
     };
 }();

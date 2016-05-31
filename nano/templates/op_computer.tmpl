@@ -1,5 +1,5 @@
-<!-- 
-Title: Operating Computer UI 
+<!--
+Title: Operating Computer UI
 Used In File(s): \code\game\machinery\computer\Operating.dm
  -->
 <h3>Patient Monitor</h3>
@@ -19,7 +19,7 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 					<span class="bad">DEAD</span>
 				{{/if}}
 			</div>
-		
+
 			<div class="line">
 				<div class="statusLabel">Health:</div>
 					{{if data.occupant.health >= data.occupant.maxHealth}}
@@ -31,56 +31,56 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 					{{else}}
 						{{:helper.displayBar(data.occupant.health, 0, data.occupant.minHealth, 'bad alignRight')}}
 					{{/if}}
-					<div class="statusValue">{{:helper.round(data.occupant.health)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.health)}}</div>
 				</div>
-		
+
 				<div class="line">
 					<div class="statusLabel">Brute Damage:</div>
 					{{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth, 'bad')}}
-					<div class="statusValue">{{:helper.round(data.occupant.bruteLoss)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.bruteLoss)}}</div>
 				</div>
-		
+
 				<div class="line">
 					<div class="statusLabel">Resp. Damage:</div>
 					{{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth, 'bad')}}
-					<div class="statusValue">{{:helper.round(data.occupant.oxyLoss)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.oxyLoss)}}</div>
 				</div>
-		
+
 				<div class="line">
 					<div class="statusLabel">Toxin Damage:</div>
 					{{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth, 'bad')}}
-					<div class="statusValue">{{:helper.round(data.occupant.toxLoss)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.toxLoss)}}</div>
 				</div>
-		
+
 				<div class="line">
 					<div class="statusLabel">Burn Severity:</div>
 					{{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad')}}
-					<div class="statusValue">{{:helper.round(data.occupant.fireLoss)}}</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.fireLoss)}}</div>
 				</div>
-			
+
 				<div class="line">
 					<div class="statusLabel">Patient Temperature:</div>
 					{{if data.occupant.temperatureSuitability == -3}}
 					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}
-					<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+					<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 					{{else data.occupant.temperatureSuitability == -2}}
 					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-					<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+					<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 					{{else data.occupant.temperatureSuitability == -1}}
 					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-					<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 					{{else data.occupant.temperatureSuitability == 0}}
 					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'good')}}
-					<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 					{{else data.occupant.temperatureSuitability == 1}}
 					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-					<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 					{{else data.occupant.temperatureSuitability == 2}}
 					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-					<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+					<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 					{{else data.occupant.temperatureSuitability == 3}}
 					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}
-					<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+					<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 					{{/if}}
 				</div>
 				{{if data.occupant.hasBlood}}
@@ -90,17 +90,17 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 					{{if data.occupant.bloodPercent <= 60}}
 						{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'bad')}}
 					<div class="statusValue">
-						{{:data.occupant.bloodPercent}}%, {{:data.occupant.bloodLevel}}cl
+						{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
 					</div>
 					{{else data.occupant.bloodPercent <= 90}}
 						{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'average')}}
 					<div class="statusValue">
-						{{:data.occupant.bloodPercent}}%, {{:data.occupant.bloodLevel}}cl
+						{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
 					</div>
 					{{else}}
 						{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'good')}}
 					<div class="statusValue">
-						{{:data.occupant.bloodPercent}}%, {{:data.occupant.bloodLevel}}cl
+						{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
 					</div>
 					{{/if}}
 					<div class="line">
@@ -120,7 +120,7 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 				</div>
 				{{/if}}
 				<br>
-				<br>				
+				<br>
 		{{/if}}
 		<div class="item">
 			<div class="itemLabelWide">
@@ -134,7 +134,7 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 			</div>
 			<div class="itemContentNarrow" style="float: left">
 				{{:helper.link('On', 'power-off', {'verboseOn' : 1}, data.verbose ? 'selected' : null)}}
-				{{:helper.link('Off', 'close', {'verboseOff' : 1}, data.verbose ? null : 'selected')}}		
+				{{:helper.link('Off', 'close', {'verboseOff' : 1}, data.verbose ? null : 'selected')}}
 			</div>
 		</div>
 		<br>
@@ -144,17 +144,17 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 			</div>
 			<div class="itemContentNarrow" style="float: left">
 				{{:helper.link('On', 'power-off', {'healthOn' : 1}, data.health ? 'selected' : null)}}
-				{{:helper.link('Off', 'close', {'healthOff' : 1}, data.health ? null : 'selected')}}		
+				{{:helper.link('Off', 'close', {'healthOff' : 1}, data.health ? null : 'selected')}}
 			</div>
 		</div>
-		
+
 		<div class="item">
 			<div class="line">
 				<div class="statusLabel">Health Announcer Threshold:</div>
 					{{:helper.link('-', null, {'health_adj' : -100}, (data.healthAlarm >= 0) ? null : 'disabled')}}
 					{{:helper.link('-', null, {'health_adj' : -10}, (data.healthAlarm >= -90) ? null : 'disabled')}}
 					{{:helper.link('-', null, {'health_adj' : -1}, (data.healthAlarm > -100) ? null : 'disabled')}}
-					
+
 					{{if data.healthAlarm >= 100}}
 						{{:helper.displayBar(data.healthAlarm, 0, 100, 'good')}}
 					{{else data.healthAlarm > 0}}
@@ -164,7 +164,7 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 					{{else}}
 						{{:helper.displayBar(data.healthAlarm, 0, -100, 'bad alignRight')}}
 					{{/if}}
-										
+
 					{{:helper.link('+', null, {'health_adj' : 1}, (data.healthAlarm < 100) ? null : 'disabled')}}
 					{{:helper.link('+', null, {'health_adj' : 10}, (data.healthAlarm <= 90) ? null : 'disabled')}}
 					{{:helper.link('+', null, {'health_adj' : 100}, (data.healthAlarm <= 0) ? null : 'disabled')}}
@@ -178,7 +178,7 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 			</div>
 			<div class="itemContentNarrow" style="float: left">
 				{{:helper.link('On', 'power-off', {'oxyOn' : 1}, data.oxy ? 'selected' : null)}}
-				{{:helper.link('Off', 'close', {'oxyOff' : 1}, data.oxy ? null : 'selected')}}		
+				{{:helper.link('Off', 'close', {'oxyOff' : 1}, data.oxy ? null : 'selected')}}
 			</div>
 		</div>
 
@@ -202,7 +202,7 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 			</div>
 			<div class="itemContentNarrow" style="float: left">
 				{{:helper.link('On', 'power-off', {'critOn' : 1}, data.crit ? 'selected' : null)}}
-				{{:helper.link('Off', 'close', {'critOff' : 1}, data.crit ? null : 'selected')}}		
+				{{:helper.link('Off', 'close', {'critOff' : 1}, data.crit ? null : 'selected')}}
 			</div>
 		</div>
 		<br>

@@ -1,5 +1,5 @@
-<!-- 
-Title: ChemHeater UI 
+<!--
+Title: ChemHeater UI
 Used In File(s): \code\modules\reagents\newchem\chem_heater.dm
 -->
 <div class="item">
@@ -32,8 +32,8 @@ Used In File(s): \code\modules\reagents\newchem\chem_heater.dm
 			<div class="itemContent">
 				<div style="width: 100%;">
 					{{if data.isBeakerLoaded}}
-						<b>Volume:&nbsp;{{:data.beakerCurrentVolume}}&nbsp;/&nbsp;{{:data.beakerMaxVolume}}</b><br>
-						<b>Temperature:&nbsp;{{:data.currentTemp}}&nbsp;Kelvin</b><br>
+						<b>Volume:&nbsp;{{:helper.smoothRound(data.beakerCurrentVolume)}}&nbsp;/&nbsp;{{:data.beakerMaxVolume}}</b><br>
+						<b>Temperature:&nbsp;{{:helper.smoothRound(data.currentTemp)}}&nbsp;Kelvin</b><br>
 						{{for data.beakerContents}}
 							<span class="highlight">{{:value.volume}} units of {{:value.name}}</span><br>
 						{{/for}}
