@@ -34,10 +34,6 @@
 		verbs += /client/proc/readmin
 	spawn(40)
 		if(client)
-			if(client.prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
-				winset(client, "rpane.changelog", "background-color=#f4aa94;font-style=bold")
-				client.prefs.SetChangelog(client,changelog_hash)
-				to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
 			client.playtitlemusic()
 
 	if(config.player_overflow_cap && config.overflow_server_url) //Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
