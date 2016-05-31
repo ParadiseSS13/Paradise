@@ -446,14 +446,14 @@
 		chosen_species = all_species[client.prefs.species]
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
-		log_to_dd("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human.")
+		log_debug("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human.")
 		client.prefs.species = "Human"
 
 	var/datum/language/chosen_language
 	if(client.prefs.language)
 		chosen_language = all_languages[client.prefs.language]
-	if(!((chosen_language || client.prefs.language == "None") && (is_alien_whitelisted(src, client.prefs.language) || !config.usealienwhitelist || !(chosen_language.flags & WHITELISTED))))
-		log_to_dd("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
+	if((chosen_language == null && chosen_language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
+		log_debug("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()
