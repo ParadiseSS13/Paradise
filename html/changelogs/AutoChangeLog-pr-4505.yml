@@ -1,5 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Allows Chaplain to select a wide new range of null rod customizations"
-  - tweak: "Slightly increases null rod damage (15->18)"
