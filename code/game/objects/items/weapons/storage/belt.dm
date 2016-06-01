@@ -6,7 +6,16 @@
 	item_state = "utility"
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
+	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
 
+
+/obj/item/weapon/storage/belt/update_icon()
+	if(use_item_overlays)
+		overlays.Cut()
+		for(var/obj/item/I in contents)
+			overlays += "[I.name]"
+
+	..()
 
 /obj/item/weapon/storage/belt/proc/can_use()
 	return is_equipped()
@@ -148,6 +157,7 @@
 	item_state = "security"//Could likely use a better one.
 	storage_slots = 5
 	max_w_class = 3
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/flashbang",
 		"/obj/item/weapon/grenade/chem_grenade/teargas",
