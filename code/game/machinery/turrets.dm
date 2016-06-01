@@ -248,8 +248,7 @@
 	A.current = T
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
-	spawn( 0 )
-		A.process()
+	A.fire()
 	return
 
 

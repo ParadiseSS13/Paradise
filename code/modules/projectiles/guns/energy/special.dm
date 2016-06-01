@@ -375,6 +375,7 @@
 	w_class = 3
 	origin_tech = "combat=4;plasmatech=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
+	shaded_charge = 1
 
 /obj/item/weapon/gun/energy/sniperrifle
 	name = "L.W.A.P. Sniper Rifle"
@@ -386,6 +387,7 @@
 	w_class = 4
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
+	shaded_charge = 1
 
 /obj/item/weapon/gun/energy/temperature
 	name = "temperature gun"
@@ -423,8 +425,9 @@
 /obj/item/weapon/gun/energy/temperature/newshot()
 	..()
 	var/obj/item/ammo_casing/energy/temp/T = chambered
-	T.temperature = temperature
-	T.e_cost = e_cost
+	if(T)
+		T.temperature = temperature
+		T.e_cost = e_cost
 
 /obj/item/weapon/gun/energy/temperature/attack_self(mob/living/user as mob)
 	user.set_machine(src)
@@ -544,7 +547,15 @@
 /obj/item/weapon/gun/energy/temperature/update_icon()
 	overlays = 0
 	update_temperature()
+	update_user()
 	update_charge()
+
+/obj/item/weapon/gun/energy/temperature/proc/update_user()
+	if (istype(loc,/mob/living/carbon))
+		var/mob/living/carbon/M = loc
+		M.update_inv_back()
+		M.update_inv_l_hand()
+		M.update_inv_r_hand()
 
 /obj/item/weapon/gun/energy/temperature/proc/update_charge()
 	var/charge = power_supply.charge

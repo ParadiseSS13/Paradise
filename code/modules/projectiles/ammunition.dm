@@ -168,6 +168,8 @@
 		A.update_icon()
 		update_icon()
 
+	return num_loaded
+
 /obj/item/ammo_box/attack_self(mob/user as mob)
 	var/obj/item/ammo_casing/A = get_round()
 	if(A)

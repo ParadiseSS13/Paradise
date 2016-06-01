@@ -122,9 +122,12 @@
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				overlays += image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1))
+				overlays += image(icon = icon, icon_state = icon_state, pixel_x = ammo_x_offset * (i -1))
 		else
-			overlays += image(icon = icon, icon_state = "[icon_state]_charge[ratio]")
+			if(modifystate)
+				overlays += image(icon = icon, icon_state = "[icon_state]_[shot.select_name]_charge[ratio]")
+			else
+				overlays += image(icon = icon, icon_state = "[icon_state]_charge[ratio]")
 	if(F && can_flashlight)
 		var/iconF = "flight"
 		if(F.on)

@@ -369,8 +369,7 @@
 				A.current = T
 				A.yo = U.y - T.y
 				A.xo = U.x - T.x
-				spawn( 1 )
-					A.process()
+				A.fire()
 
 				usr.next_move = world.time + 6
 	return

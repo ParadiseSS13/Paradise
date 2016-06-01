@@ -438,8 +438,7 @@ Auto Patrol[]"},
 	A.current = U
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
-	spawn(0)
-		A.process()
+	A.fire()
 
 /mob/living/simple_animal/bot/ed209/attack_alien(mob/living/carbon/alien/user)
 	..()

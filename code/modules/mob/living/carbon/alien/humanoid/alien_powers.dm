@@ -123,8 +123,8 @@ Doesn't work on other aliens/AI.*/
 		A.firer = src
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
-		spawn(1)
-			A.process()
+		A.fire()
+		A.newtonian_move(get_dir(U, T))
 	return
 
 /mob/living/carbon/alien/humanoid/proc/resin() // -- TLE

@@ -373,8 +373,7 @@
 				FB.current = start
 				FB.yo = MT.y - start.y
 				FB.xo = MT.x - start.x
-				spawn(1)
-					FB.process()
+				FB.fire()
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] malfunctions, melting [exp_on] and releasing a burst of flame!</span>")
 			explosion(src.loc, -1, 0, 0, 0, 0, flame_range = 2)

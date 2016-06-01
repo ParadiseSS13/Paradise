@@ -32,14 +32,14 @@
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
+	var/list/restricted_species
 
 	var/spread = 0
 	var/randomspread = 1
 
 	var/unique_rename = 0 //allows renaming with a pen
 	var/unique_reskin = 0 //allows one-time reskinning
-	var/reskinned = 0 //whether or not the gun has been reskinned
-	var/current_skin = null
+	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -69,7 +69,7 @@
 
 /obj/item/weapon/gun/examine(mob/user)
 	..()
-	if(unique_reskin && !reskinned)
+	if(unique_reskin && !current_skin)
 		to_chat(user, "<span class='notice'>Alt-click it to reskin it.</span>")
 	if(unique_rename)
 		to_chat(user, "<span class='notice'>Use a pen on it to rename it.</span>")
@@ -155,6 +155,9 @@
 
 /obj/item/weapon/gun/proc/can_trigger_gun(var/mob/living/user)
 	if(!user.can_use_guns(src))
+		return 0
+	if(restricted_species && restricted_species.len && !(user.get_species() in restricted_species))
+		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
 		return 0
 	return 1
 
@@ -309,22 +312,18 @@ obj/item/weapon/gun/proc/newshot()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(unique_reskin && !reskinned && loc == user)
+	if(unique_reskin && !current_skin && loc == user)
 		reskin_gun(user)
 
 /obj/item/weapon/gun/proc/reskin_gun(mob/M)
 	var/choice = input(M,"Warning, you can only reskin your weapon once!","Reskin Gun") in options
 
-	if(src && choice && !M.stat && in_range(M,src) && !M.restrained() && M.canmove)
+	if(src && choice && !current_skin && !M.incapacitated() && in_range(M,src))
 		if(options[choice] == null)
 			return
-		if(sawn_state == SAWN_OFF)
-			icon_state = options[choice] + "-sawn"
-		else
-			icon_state = options[choice]
-		current_skin = icon_state
+		current_skin = options[choice]
 		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
-		reskinned = 1
+		update_icon()
 
 /obj/item/weapon/gun/proc/rename_gun(mob/M)
 	var/input = stripped_input(M,"What do you want to name the gun?", ,"", MAX_NAME_LEN)

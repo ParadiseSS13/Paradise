@@ -263,3 +263,144 @@
 	desc = "Looks almost like the real thing! Ages 8 and up."
 	origin_tech = "combat=1;materials=1"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
+
+/////////////////////////////
+// DOUBLE BARRELED SHOTGUN //
+/////////////////////////////
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel
+	name = "double-barreled shotgun"
+	desc = "A true classic."
+	icon_state = "dshotgun"
+	item_state = "shotgun"
+	w_class = 4
+	force = 10
+	flags = CONDUCT
+	slot_flags = SLOT_BACK
+	origin_tech = "combat=3;materials=1"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
+	sawn_desc = "Omar's coming!"
+	unique_rename = 1
+	unique_reskin = 1
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/New()
+	..()
+	options["Default"] = "dshotgun"
+	options["Dark Red Finish"] = "dshotgun-d"
+	options["Ash"] = "dshotgun-f"
+	options["Faded Grey"] = "dshotgun-g"
+	options["Maple"] = "dshotgun-l"
+	options["Rosewood"] = "dshotgun-p"
+	options["Cancel"] = null
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+		chamber_round()
+	if(istype(A, /obj/item/weapon/melee/energy))
+		var/obj/item/weapon/melee/energy/W = A
+		if(W.active)
+			sawoff(user)
+	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/gun/energy/plasmacutter))
+		sawoff(user)
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
+	var/num_unloaded = 0
+	while (get_ammo() > 0)
+		var/obj/item/ammo_casing/CB
+		CB = magazine.get_round(0)
+		chambered = null
+		CB.loc = get_turf(loc)
+		CB.update_icon()
+		num_unloaded++
+	if (num_unloaded)
+		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
+	else
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/isHandgun() //contrary to popular opinion, double barrels are not, shockingly, handguns
+	return 0
+
+// IMPROVISED SHOTGUN //
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised
+	name = "improvised shotgun"
+	desc = "Essentially a tube that aims shotgun shells."
+	icon_state = "ishotgun"
+	item_state = "shotgun"
+	w_class = 4
+	force = 10
+	slot_flags = null
+	origin_tech = "combat=2;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
+	sawn_desc = "I'm just here for the gasoline."
+	unique_rename = 0
+	unique_reskin = 0
+	var/slung = 0
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
+		var/obj/item/stack/cable_coil/C = A
+		if(C.use(10))
+			slot_flags = SLOT_BACK
+			icon_state = "ishotgunsling"
+			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
+			slung = 1
+			update_icon()
+		else
+			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
+			return
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/update_icon()
+	..()
+	if (slung && (slot_flags & SLOT_BELT) )
+		slung = 0
+		icon_state = "ishotgun-sawn"
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
+	. = ..()
+	if(. && slung) //sawing off the gun removes the sling
+		new /obj/item/stack/cable_coil(get_turf(src), 10)
+		slung = 0
+		update_icon()
+
+//caneshotgun
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane
+	name = "cane"
+	desc = "A cane used by a true gentleman. Or a clown."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "cane"
+	item_state = "stick"
+	sawn_state = SAWN_OFF
+	w_class = 2
+	force = 10
+	can_unsuppress = 0
+	slot_flags = null
+	origin_tech = "" // NO GIVAWAYS
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
+	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
+	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+	suppressed = 1
+	needs_permit = 0 //its just a cane beepsky.....
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/stack/cable_coil))
+		return
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
+	var/f_name = "\a [src]."
+	if(blood_DNA && !istype(src, /obj/effect/decal))
+		if(gender == PLURAL)
+			f_name = "some "
+		else
+			f_name = "a "
+		f_name += "<span class='danger'>blood-stained</span> [name]!"
+
+	to_chat(user, "\icon[src] That's [f_name]")
+
+	if(desc)
+		to_chat(user, desc)

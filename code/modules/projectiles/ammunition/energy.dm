@@ -226,5 +226,6 @@
 	var/teleport_target
 
 /obj/item/ammo_casing/energy/teleport/newshot()
+	..()
 	var/obj/item/projectile/energy/teleport/T = BB
 	T.teleport_target = teleport_target

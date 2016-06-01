@@ -308,16 +308,7 @@
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	origin_tech = "combat=5;materials=4;powerstorage=3;abductor=3"
-
-/obj/item/weapon/gun/energy/decloner/alien/can_trigger_gun(user)
-	if(!..())
-		return 0
-	if(istype(user, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		if(H.get_species() != "Abductor")
-			to_chat(user, "<span class='userdanger'>UNAUTHORIZED -- UNAUTHORIZED</span>")
-			return 0
-	return 1
+	restricted_species = list("Abductor")
 
 /obj/item/weapon/paper/abductor
 	name = "Dissection Guide"

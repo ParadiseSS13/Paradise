@@ -8,6 +8,7 @@
 	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
 	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
 	ammo_type = list(/obj/item/ammo_casing/energy/teleport)
+	shaded_charge = 1
 	var/teleport_target = null
 
 /obj/item/weapon/gun/energy/telegun/Destroy()
@@ -37,5 +38,6 @@
 	teleport_target = L[desc]
 
 /obj/item/weapon/gun/energy/telegun/newshot()
+	..()
 	var/obj/item/ammo_casing/energy/teleport/T = chambered
 	T.teleport_target = teleport_target

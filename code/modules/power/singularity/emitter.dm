@@ -213,7 +213,7 @@
 			else // Any other
 				A.yo = -20
 				A.xo = 0
-		A.process()	//TODO: Carn: check this out
+		A.fire()	//TODO: Carn: check this out
 
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)

@@ -10,13 +10,6 @@
 /obj/item/weapon/gun/projectile/automatic/isHandgun()
 	return 0
 
-/obj/item/weapon/gun/projectile/automatic/proto
-	name = "\improper Nanotrasen Saber SMG"
-	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
-	icon_state = "saber"
-	mag_type = /obj/item/ammo_box/magazine/smgm9mm
-	origin_tech = "combat=4;materials=2"
-
 /obj/item/weapon/gun/projectile/automatic/update_icon()
 	..()
 	overlays.Cut()
@@ -25,7 +18,6 @@
 	if(select == 1)
 		overlays += "[initial(icon_state)]burst"
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
-	return
 
 /obj/item/weapon/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	. = ..()
@@ -66,7 +58,6 @@
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
-	return
 
 /obj/item/weapon/gun/projectile/automatic/can_shoot()
 	return get_ammo()
@@ -76,7 +67,13 @@
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
 		update_icon()
 		alarmed = 1
-	return
+
+/obj/item/weapon/gun/projectile/automatic/proto
+	name = "\improper Nanotrasen Saber SMG"
+	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
+	icon_state = "saber"
+	mag_type = /obj/item/ammo_box/magazine/smgm9mm
+	origin_tech = "combat=4;materials=2"
 
 /obj/item/weapon/gun/projectile/automatic/c20r
 	name = "\improper C-20r SMG"
@@ -92,17 +89,14 @@
 /obj/item/weapon/gun/projectile/automatic/c20r/New()
 	..()
 	update_icon()
-	return
 
 /obj/item/weapon/gun/projectile/automatic/c20r/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
 	empty_alarm()
-	return
 
 /obj/item/weapon/gun/projectile/automatic/c20r/update_icon()
 	..()
 	icon_state = "c20r[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
-	return
 
 /obj/item/weapon/gun/projectile/automatic/wt550
 	name = "security auto rifle"
@@ -118,7 +112,6 @@
 /obj/item/weapon/gun/projectile/automatic/wt550/update_icon()
 	..()
 	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""]"
-	return
 
 /obj/item/weapon/gun/projectile/automatic/mini_uzi
 	name = "\improper 'Type U3' Uzi"
@@ -146,7 +139,6 @@
 	..()
 	underbarrel = new /obj/item/weapon/gun/projectile/revolver/grenadelauncher(src)
 	update_icon()
-	return
 
 /obj/item/weapon/gun/projectile/automatic/m90/afterattack(var/atom/target, var/mob/living/user, flag, params)
 	if(select == 2)
@@ -194,7 +186,6 @@
 			to_chat(user, "<span class='notice'>You switch to semi-auto.</span>")
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
-	return
 
 /obj/item/weapon/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
@@ -241,7 +232,6 @@
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/New()
 	..()
 	update_icon()
-	return
 
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/proc/update_magazine()
 	if(magazine)
@@ -253,9 +243,7 @@
 	overlays.Cut()
 	update_magazine()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
-	return
 
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
 	empty_alarm()
-	return

@@ -61,7 +61,8 @@
 	icon_state = "bsgun"
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
-	ammo_x_offset = 4
+	ammo_x_offset = 1
+	shaded_charge = 1
 
 /obj/item/weapon/gun/energy/gun/turret
 	name = "hybrid turret gun"

@@ -15,10 +15,9 @@
 	var/max_rockets = 1
 	var/list/rockets = new/list()
 
-
 /obj/item/weapon/gun/rocketlauncher/examine(mob/user)
-	if(..(user, 2))
-		to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
+	..()
+	to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
 
 /obj/item/weapon/gun/rocketlauncher/Destroy()
 	for(var/datum/D in rockets)
@@ -48,7 +47,7 @@
 		var/obj/item/missile/M = new /obj/item/missile(user.loc)
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
 		M.primed = 1
-		M.throw_at(target, missile_range, missile_speed,user)
+		M.throw_at(target, missile_range, missile_speed, user, 1)
 		message_admins("[key_name_admin(user)] fired a rocket from a rocket launcher ([name]).")
 		log_game("[key_name_admin(user)] used a rocket launcher ([name]).")
 		rockets -= I
