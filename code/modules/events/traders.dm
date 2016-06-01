@@ -20,6 +20,8 @@ var/global/list/unused_trade_stations = list("sol")
 	for(var/obj/effect/landmark/landmark in landmarks_list)
 		if(landmark.name == "traderstart_[station]")
 			spawnlocs += get_turf(landmark)
+	if(!spawnlocs.len)
+		return
 
 	trader_objectives = forge_trader_objectives()
 
@@ -75,7 +77,7 @@ var/global/list/unused_trade_stations = list("sol")
 	var/list/goals = list("stockparts")
 	while(i<= max_objectives)
 		var/goal = pick(goals)
-		var/datum/objective/heist/O
+		var/datum/objective/trade/O
 		if(goal == "stockparts")
 			O = new /datum/objective/trade/stock(station)
 		O.choose_target()

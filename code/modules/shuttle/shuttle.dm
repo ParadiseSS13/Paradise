@@ -135,6 +135,8 @@
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
+	
+	var/lock_shuttle_doors = 0
 
 /obj/docking_port/stationary/register()
 	if(!shuttle_master)
@@ -165,6 +167,8 @@
 /obj/docking_port/stationary/transit
 	name = "In Transit"
 	turf_type = /turf/space/transit
+	
+	lock_shuttle_doors = 1
 
 /obj/docking_port/stationary/transit/register()
 	if(!..())
@@ -452,7 +456,7 @@
 	dir = S1.dir
 
 	unlockPortDoors(S1)
-	if(S1 && S1.id != "[id]_transit")
+	if(S1 && !S1.lock_shuttle_doors)
 		for(var/obj/machinery/door/airlock/A in door_unlock_list)
 			spawn(-1)
 				A.unlock()
@@ -774,29 +778,25 @@ var/global/trade_dockrequest_timelimit = 0
 	docking_request = 1
 	var/possible_destinations_dock
 	var/possible_destinations_nodock
-	var/cooldown = 0
 	var/docking_request_message = "A trading ship has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
 
 /obj/machinery/computer/shuttle/trade/attack_hand(mob/user)
-	if(trade_dock_timelimit > world.time)
+	if(world.time < trade_dock_timelimit)
 		possible_destinations = possible_destinations_dock
-		docking_request = 0
 	else
 		possible_destinations = possible_destinations_nodock
-		docking_request = 1
+	
+	docking_request = (world.time > trade_dockrequest_timelimit && world.time > trade_dock_timelimit)
 	..(user)
 
 /obj/machinery/computer/shuttle/trade/Topic(href, href_list)
 	..()
 	if(href_list["request"])
-		if(cooldown)
+		if(world.time < trade_dockrequest_timelimit || world.time < trade_dock_timelimit)
 			return
-		cooldown = 1
 		to_chat(usr, "<span class='notice'>Request sent.</span>")
 		command_announcement.Announce(docking_request_message, "Docking Request")
 		trade_dockrequest_timelimit = world.time + 1200 // They have 2 minutes to approve the request.
-		spawn(1200) //Two minute cooldown
-			cooldown = 0
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(access_trade_sol)
