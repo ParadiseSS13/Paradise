@@ -110,7 +110,7 @@
 /datum/reagent/cryoxadone/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(M.bodytemperature < 265)
-		M.adjustCloneLoss(-2)
+		M.adjustCloneLoss(-4)
 		M.adjustOxyLoss(-5)
 		M.adjustToxLoss(-3)
 		M.adjustBruteLoss(-6)
