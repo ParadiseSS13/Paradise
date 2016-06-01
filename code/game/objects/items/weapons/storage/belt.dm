@@ -579,3 +579,10 @@
 
 		new /obj/item/device/analyzer(src)
 		new /obj/item/device/healthanalyzer(src)
+
+/obj/item/weapon/storage/belt/bluespace/admin/doom
+	desc = "You can now hold your demons inside. Or memes. The small painting on it reads 'WJ Armor'."
+	name = "Praetor Belt"
+	icon_state = "doombelt"
+	item_state = "doombelt"
+	storage_slots = 20
