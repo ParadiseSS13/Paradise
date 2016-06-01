@@ -242,10 +242,6 @@
 	addiction_chance = 60
 	metabolization_rate = 0.6
 
-/datum/reagent/methamphetamine/meth2 //for donk pockets
-	id = "methamphetamine2"
-	addiction_chance = 0
-
 /datum/reagent/methamphetamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(5))

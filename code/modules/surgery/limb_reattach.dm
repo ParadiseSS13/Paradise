@@ -40,7 +40,6 @@
 	name = "limb attachment"
 	steps = list(/datum/surgery_step/limb/attach)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
-	allowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))

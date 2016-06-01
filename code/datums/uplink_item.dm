@@ -308,7 +308,7 @@ var/list/uplink_items = list()
 	reference = "AIRJ"
 	item = /obj/item/clothing/under/contortionist
 	cost = 6
-	job = list("Atmospheric Technician")
+	job = list("Life Support Specialist")
 
 //Stimulants
 

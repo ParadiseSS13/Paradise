@@ -42,6 +42,7 @@
 	var/cooldown = 0
 	var/gorecooldown = 0
 	var/vialspawned = FALSE
+	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon)
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: To kill.  \
 						You may Ctrl+Click on blood pools to travel through them, appearing and dissaapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
@@ -79,17 +80,14 @@
 	else
 		speed = 0
 
+/obj/effect/decal/cleanable/blood/innards
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "innards"
+	name = "pile of viscera"
+	desc = "A repulsive pile of guts and gore."
+
 /mob/living/simple_animal/slaughter/death()
 	..()
-	var/obj/effect/decal/cleanable/blood/innards = new (get_turf(src))
-	innards.icon = 'icons/obj/surgery.dmi'
-	innards.icon_state = "innards"
-	innards.name = "pile of viscera"
-	innards.desc = "A repulsive pile of guts and gore."
-	new /obj/effect/decal/cleanable/blood(loc)
-	new /obj/effect/gibspawner/generic(get_turf(src))
-	new /obj/effect/gibspawner/generic(get_turf(src))
-	new /obj/item/organ/internal/heart/demon(loc)
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] screams in anger as it collapses into a puddle of viscera, its most recent meals spilling out of it.</span>")
 	for(var/mob/living/M in consumed_mobs)

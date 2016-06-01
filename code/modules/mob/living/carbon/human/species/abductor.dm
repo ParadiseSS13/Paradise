@@ -24,4 +24,6 @@
 	H.gender = NEUTER
 	if(H.mind)
 		H.mind.abductor = new /datum/abductor
+	H.languages.Cut() //Under no condition should you be able to speak any language
+	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
 	return ..()

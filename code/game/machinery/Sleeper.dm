@@ -73,6 +73,7 @@
 	if(M.environment_smash)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		go_out()
 		qdel(src)
 	return
 
@@ -183,7 +184,10 @@
 	data["dialysis"] = connected.filtering
 	if (connected.beaker)
 		data["isBeakerLoaded"] = 1
-		data["beakerFreeSpace"] = round(connected.beaker.reagents.maximum_volume - connected.beaker.reagents.total_volume)
+		if(connected.beaker.reagents)
+			data["beakerFreeSpace"] = round(connected.beaker.reagents.maximum_volume - connected.beaker.reagents.total_volume)
+		else
+			data["beakerFreeSpace"] = 0
 
 	var/chemicals[0]
 	for (var/re in connected.injection_chems)
@@ -354,15 +358,21 @@
 				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				occupant.reagents.addiction_list.Remove(R)
 
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+		if(M == occupant)
+			continue
+		else
+			M.forceMove(src.loc)
+
 	updateDialog()
 	return
 
 
 /obj/machinery/sleeper/blob_act()
 	if(prob(75))
-		for(var/atom/movable/A as mob|obj in src)
-			A.forceMove(src.loc)
-			A.blob_act()
+		var/atom/movable/A = occupant
+		go_out()
+		A.blob_act()
 		qdel(src)
 	return
 
@@ -404,11 +414,14 @@
 			orient = "RIGHT"
 			dir = 4
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		return
 
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)
+	if(istype(G, /obj/item/weapon/crowbar))
+		default_deconstruction_crowbar(G)
+		return
 
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
@@ -453,24 +466,23 @@
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
 				A.forceMove(src.loc)
-				ex_act(severity)
+				A.ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/A as mob|obj in src)
 					A.forceMove(src.loc)
-					ex_act(severity)
+					A.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(25))
 				for(var/atom/movable/A as mob|obj in src)
 					A.forceMove(src.loc)
-					ex_act(severity)
+					A.ex_act(severity)
 				qdel(src)
 				return
-	return
 
 /obj/machinery/sleeper/emp_act(severity)
 	if(filtering)

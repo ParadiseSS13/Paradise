@@ -8,9 +8,6 @@
 	required_enemies = 1
 	recommended_enemies = 1
 
-	uplink_welcome = "Wizardly Uplink Console:"
-	uplink_uses = 20
-
 	var/use_huds = 0
 	var/finished = 0
 	var/but_wait_theres_more = 0
