@@ -98,12 +98,6 @@ proc/get_radio_key_from_channel(var/channel)
 
 	else if(COMIC in mutations)
 		message = "<span class='sans'>[message]</span>"
-	
-	else
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			if(locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in H.internal_organs)
-				message = "<span class='sans'>[message]</span>"
 
 	if(!IsVocal())
 		message = ""
