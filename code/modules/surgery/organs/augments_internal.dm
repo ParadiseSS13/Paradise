@@ -144,6 +144,13 @@
 	spawn(90 / severity)
 		crit_fail = 0
 
+/obj/item/organ/internal/cyberimp/brain/clown_voice
+	name = "Comical implant"
+	desc = "Uh oh."
+	implant_color = "#DEDE00"
+	slot = "brain_clownvoice"
+	origin_tech = "materials=2;biotech=2"
+
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
