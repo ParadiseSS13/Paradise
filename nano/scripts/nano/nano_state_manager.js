@@ -34,11 +34,8 @@ NanoStateManager = function ()
         {
             reportError('Error: 3');
         }
-        reportError(stateKey);
+
         var stateKey = 'default';
-        reportError(stateKey);
-        reportError(_data['config']['stateKey']);
-        reportError(_data['config'].hasOwnProperty('stateKey'));
         if (_data['config'].hasOwnProperty('stateKey') && _data['config']['stateKey'])
         {
             stateKey = _data['config']['stateKey'].toLowerCase();
