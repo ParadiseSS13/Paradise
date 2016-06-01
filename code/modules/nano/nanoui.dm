@@ -176,6 +176,7 @@ nanoui is used to open and update nano browser uis
   */
 /datum/nanoui/proc/get_config_data()
 	var/name = "[src_object]"
+	world << "2 [state_key]"
 	var/list/config_data = list(
 			"title" = title,
 			"srcObject" = list("name" = name),
@@ -301,6 +302,7 @@ nanoui is used to open and update nano browser uis
   * @return nothing
   */
 /datum/nanoui/proc/set_state_key(nstate_key)
+	world << "1 [nstate_key]"
 	state_key = nstate_key
 
  /**

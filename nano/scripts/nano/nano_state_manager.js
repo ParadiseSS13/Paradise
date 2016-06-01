@@ -22,12 +22,23 @@ NanoStateManager = function ()
         // We store initialData and templateData in the body tag, it's as good a place as any
         _data = $('body').data('initialData');  
         
-        if (_data == null || !_data.hasOwnProperty('config') || !_data.hasOwnProperty('data'))
+        if (_data == null)
         {
-            reportError('Error: Initial data did not load correctly.');
+            reportError('Error: 1');
         }
-
+        if (!_data.hasOwnProperty('config'))
+        {
+            reportError('Error: 2');
+        }
+        if (!_data.hasOwnProperty('data'))
+        {
+            reportError('Error: 3');
+        }
+        reportError(stateKey);
         var stateKey = 'default';
+        reportError(stateKey);
+        reportError(_data['config']['stateKey']);
+        reportError(_data['config'].hasOwnProperty('stateKey'));
         if (_data['config'].hasOwnProperty('stateKey') && _data['config']['stateKey'])
         {
             stateKey = _data['config']['stateKey'].toLowerCase();

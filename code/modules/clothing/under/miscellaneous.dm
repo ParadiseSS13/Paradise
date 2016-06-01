@@ -719,8 +719,9 @@
 /obj/item/clothing/under/doom
 	name = "Praetor Jumpsuit"
 	desc = "Just because the suit is cold. The small painting on it reads 'WJ Armor'."
-	icon_state = "doomg_clothe"
+	icon_state = "doomclothe"
 	item_state = "doomclothe"
+	item_color = "doomclothe"
 	has_sensor = 0
 	armor = list(melee = 15, bullet = 5, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 0.9

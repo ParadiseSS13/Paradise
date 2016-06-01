@@ -53,6 +53,6 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 /obj/item/clothing/shoes/magboots/doom
 	desc = "Reverse-DOOMED magnetic boots that have a heavy magnetic pull. However, you are not allowed to jump 2 times in a row. The small painting on it reads 'WJ Armor'."
 	name = "Praetor Boots"
-	icon_state = "doomg_boots"
+	icon_state = "doomboots0"
 	magboot_state = "doomboots"
 	slowdown_active = SHOES_SLOWDOWN
