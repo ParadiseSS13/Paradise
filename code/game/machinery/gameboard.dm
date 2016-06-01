@@ -2,11 +2,12 @@
 	name = "Virtual Gameboard"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gboard_on"
-	desc = "A holographic table allowing the crew to have fun™ on boring shifts! One player per board."
+	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
 	density = 1
 	anchored = 1
 	use_power = 1
 	var/cooling_down = 0
+	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/gameboard/New()
 	..()
@@ -20,6 +21,10 @@
 /obj/machinery/gameboard/power_change()
 	. = ..()
 	update_icon()
+	if(stat & NOPOWER)
+		src.set_light(0)
+	else
+		src.set_light(3, 3)
 
 /obj/machinery/gameboard/update_icon()
 	if(stat & NOPOWER)
@@ -33,6 +38,9 @@
 		return
 	if(src.in_use)
 		to_chat(user, "This gameboard is already in use!")
+		return
+	if(!anchored)
+		to_chat(user, "The gameboard is not secured!")
 		return
 	interact(user)
 
@@ -68,10 +76,10 @@
 /obj/machinery/gameboard/Topic(var/href, var/list/href_list)
 	. = ..()
 	var/prize = /obj/item/stack/tickets
-	if (.)
+	if(.)
 		return
 
-	if (href_list["checkmate"])
+	if(href_list["checkmate"])
 		if(cooling_down)
 			message_admins("Too many checkmates on chessboard, possible HREF exploits: [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			return
@@ -82,5 +90,11 @@
 		spawn(600)
 			cooling_down = 0
 
-	if (href_list["close"])
+	if(href_list["close"])
 		close_game()
+
+/obj/machinery/gameboard/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
+	if(istype(G, /obj/item/weapon/wrench))
+		default_unfasten_wrench(user, G)
+	else if(istype(G, /obj/item/weapon/crowbar))
+		default_deconstruction_crowbar(G, ignore_panel = 1)
