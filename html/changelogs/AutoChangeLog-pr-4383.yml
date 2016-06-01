@@ -1,0 +1,11 @@
+author: IK3I
+delete-after: True
+changes: 
+  - rscadd: "crate cargo system"
+  - rscadd: "passenger seat system"
+  - rscadd: "loot box secondary cargo system (install it and your pod has a standard inventory)"
+  - rscadd: "lock busters for the CE and Armory"
+  - bugfix: "incappacitated people can't operate the door controls anymore"
+  - bugfix: "Items dropped in a pod can now be scrounged up"
+  - bugfix: "security can rip you out of an unlocked pod"
+  - bugfix: "The pod code isn't full of tumors any more"
