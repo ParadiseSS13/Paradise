@@ -55,7 +55,7 @@
 
 		sleep(max(0, projectile_delay))
 	set_ready_state(0)
-	log_message("Fired from [src.name], targeting [target].")
+	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
 	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
@@ -107,7 +107,7 @@
 
 /obj/item/projectile/beam/pulse/heavy/Bump(atom/A)
 	A.bullet_act(src, def_zone)
-	src.life -= 10
+	life -= 10
 	if(ismob(A))
 		var/mob/M = A
 		if(istype(firer, /mob))
@@ -188,7 +188,7 @@
 		R.use_power(R.get_charge() / 4)
 
 	chassis.use_power(energy_drain)
-	log_message("Honked from [src.name]. HONK!")
+	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
 	msg_admin_attack("[key_name_admin(chassis.occupant)] used a Mecha Honker in ([T.x], [T.y], [T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
 	log_game("[key_name(chassis.occupant)] used a Mecha Honker in [T.x], [T.y], [T.z]")
@@ -207,7 +207,7 @@
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_equip_info()
-	return "[..()]\[[src.projectiles]\][(src.projectiles < initial(src.projectiles))?" - <a href='?src=\ref[src];rearm=1'>Rearm</a>":null]"
+	return "[..()]\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=\ref[src];rearm=1'>Rearm</a>":null]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/proc/rearm()
 	if(projectiles < initial(projectiles))
@@ -216,14 +216,14 @@
 			projectiles++
 			projectiles_to_add--
 			chassis.use_power(projectile_energy_cost)
-	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",src.get_equip_info())
-	log_message("Rearmed [src.name].")
+	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+	log_message("Rearmed [name].")
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
 	..()
 	if (href_list["rearm"])
-		src.rearm()
+		rearm()
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
@@ -293,7 +293,7 @@
 	playsound(chassis, fire_sound, 50, 1)
 	M.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
-	log_message("Fired from [src.name], targeting [target].")
+	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
 	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
@@ -334,7 +334,7 @@
 	playsound(chassis, fire_sound, 50, 1)
 	F.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
-	log_message("Fired from [src.name], targeting [target].")
+	log_message("Fired from [name], targeting [target].")
 	spawn(det_time)
 		F.prime()
 	do_after_cooldown()
@@ -350,7 +350,7 @@
 	size=1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_equip_info()//Limited version of the clusterbang launcher that can't reload
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=\ref[chassis];select_equip=\ref[src]'>"][src.name][chassis.selected==src?"</b>":"</a>"]\[[src.projectiles]\]"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=\ref[chassis];select_equip=\ref[src]'>"][name][chassis.selected==src?"</b>":"</a>"]\[[projectiles]\]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
 	return//Extra bit of security
@@ -379,7 +379,7 @@
 	playsound(chassis, fire_sound, 60, 1)
 	B.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
-	log_message("Bananed from [src.name], targeting [target]. HONK!")
+	log_message("Bananed from [name], targeting [target]. HONK!")
 	do_after_cooldown()
 	return
 
@@ -409,7 +409,7 @@
 	playsound(chassis, fire_sound, 60, 1)
 	M.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
-	log_message("Launched a mouse-trap from [src.name], targeting [target]. HONK!")
+	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
 	do_after_cooldown()
 	return
 
@@ -439,7 +439,7 @@
 	M.thrown_from = src
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [src.name], targeting [target].")
+	log_message("Fired from [name], targeting [target].")
 	do_after_cooldown()
 	return
 

@@ -167,7 +167,7 @@
 		if(sawn_state == SAWN_OFF)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
-		name = "sawn-off [src.name]"
+		name = "sawn-off [name]"
 		desc = sawn_desc
 		w_class = 3
 		item_state = "gun"//phil235 is it different with different skin?
