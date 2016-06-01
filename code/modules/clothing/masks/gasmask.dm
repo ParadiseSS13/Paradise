@@ -59,18 +59,6 @@
 			tint = 0
 		usr.update_inv_wear_mask()	//so our mob-overlays update
 
-//Bane gas mask
-/obj/item/clothing/mask/banemask
-	name = "bane mask"
-	desc = "Only when the station is in flames, do you have my permission to robust."
-	icon_state = "bane_mask"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
-	w_class = 3.0
-	item_state = "bane_mask"
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
-
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
 /obj/item/clothing/mask/gas/plaguedoctor
@@ -364,6 +352,71 @@
 		playsound(src.loc, "sound/voice/complionator/[phrase_sound].ogg", 100, 0, 4)
 		cooldown = world.time
 
+
+//-------------------------
+//Bane gas mask
+//-------------------------
+
+/obj/item/clothing/mask/banemask
+	name = "bane mask"
+	desc = "Only when the station is in flames, do you have my permission to robust."
+	icon_state = "bane_mask"
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	w_class = 3.0
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	action_button_name = "For you."
+
+/obj/item/clothing/mask/banemask/attack_self()
+	foryou()
+
+/obj/item/clothing/mask/banemask/verb/foryou()
+	set category = "Object"
+	set name = "For you."
+	set src in usr
+	if(!istype(usr, /mob/living)) return
+	if(usr.stat) return
+
+	var/phrase = 0	//selects which phrase to use
+	var/phrase_text = null
+	var/phrase_sound = null
+
+
+	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
+		phrase = rand(1,9)	// The fire rises
+		switch(phrase)	//sets the properties of the chosen phrase
+			if(1)				// good cop
+				phrase_text = "For you."
+				phrase_sound = "4u"
+			if(2)
+				phrase_text = "Yes. The fire rises!"
+				phrase_sound = "fire"
+			if(3)
+				phrase_text = "OF COURSE!"
+				phrase_sound = "ofcourse"
+			if(4)
+				phrase_text = "Why someone would shoot a man before throwing him out of a plane?"
+				phrase_sound = "throw"
+			if(5)
+				phrase_text = "Crushing this station..."
+				phrase_sound = "crushing"
+			if(6)				// bad cop
+				phrase_text = "WITH NO SURVIVORS!"
+				phrase_sound = "nosurvivors"
+			if(7)
+				phrase_text = "It would be extremely painful"
+				phrase_sound = "painful"
+			if(8)
+				phrase_text = "It doesn't matter who we are..."
+				phrase_sound = "ourplan"
+			if(9)
+				phrase_text = "No one care who i was until i put on the mask."
+				phrase_sound = "putonthemask"
+
+		usr.visible_message("[usr] said to CIA : <font color='red' size='4'><b>[phrase_text]</b></font>")
+		playsound(src.loc, "sound/voice/bane/[phrase_sound].ogg", 100, 0, 4)
+		cooldown = world.time
 
 
 // ********************************************************************
