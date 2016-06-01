@@ -22,9 +22,9 @@
 	. = ..()
 	update_icon()
 	if(stat & NOPOWER)
-		src.set_light(0)
+		set_light(0)
 	else
-		src.set_light(3, 3)
+		set_light(3, 3)
 
 /obj/machinery/gameboard/update_icon()
 	if(stat & NOPOWER)
