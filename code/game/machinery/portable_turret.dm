@@ -519,7 +519,7 @@ var/list/turret_icons
 		assess_and_assign(ME.occupant, targets, secondarytargets)
 
 	for(var/obj/spacepod/SP in view(7,src))
-		assess_and_assign(SP.occupant, targets, secondarytargets)
+		assess_and_assign(SP.pilot, targets, secondarytargets)
 
 	for(var/obj/vehicle/T in view(7,src))
 		assess_and_assign(T.buckled_mob, targets, secondarytargets)

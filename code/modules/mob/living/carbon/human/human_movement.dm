@@ -39,6 +39,10 @@
 	if(back)
 		tally += back.slowdown
 
+	if(l_hand && (l_hand.flags & HANDSLOW))
+		tally += l_hand.slowdown
+	if(r_hand && (r_hand.flags & HANDSLOW))
+		tally += r_hand.slowdown
 
 	if(FAT in src.mutations)
 		tally += 1.5

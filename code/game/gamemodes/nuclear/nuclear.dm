@@ -11,9 +11,6 @@ proc/issyndicate(mob/living/M as mob)
 	required_enemies = 5
 	recommended_enemies = 5
 
-	uplink_welcome = "Corporate Backed Uplink Console:"
-	uplink_uses = 120
-
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
 	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
