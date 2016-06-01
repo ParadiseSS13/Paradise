@@ -199,7 +199,6 @@
 				scan_mob(scanner.occupant, scan_brain = 1)
 			else
 				scan_mob(scanner.occupant)
-
 			loading = 0
 			nanomanager.update_uis(src)
 
@@ -262,7 +261,7 @@
 					nanomanager.update_uis(src)
 					return
 
-				src.active_record = src.diskette.buf.copy()
+				src.active_record = src.diskette.buf
 
 				src.temp = "Load successful."
 
@@ -278,7 +277,7 @@
 			return
 
 		// DNA2 makes things a little simpler.
-		src.diskette.buf=src.active_record.copy()
+		src.diskette.buf=src.active_record
 		src.diskette.buf.types=0
 		switch(href_list["save_disk"]) //Save as Ui/Ui+Ue/Se
 			if("ui")
@@ -349,7 +348,6 @@
 			scan_mode = !scan_mode
 		else
 			scan_mode = 0
-
 	src.add_fingerprint(usr)
 	nanomanager.update_uis(src)
 	return

@@ -1,6 +1,6 @@
 /obj/item/weapon/banhammer
-	desc = "A banhammer"
-	name = "banhammer"
+	desc = "Banhammer's primary attack - permaban user from ATMTA public page"
+	name = "Felix's banhammer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
 	slot_flags = SLOT_BELT
@@ -12,7 +12,7 @@
 
 
 /obj/item/weapon/banhammer/suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is hitting \himself with the [src.name]! It looks like \he's trying to ban \himself from life.</span>")
+		to_chat(viewers(user), "<span class='suicide'>[user] is hitting \himself with the [src.name]! It looks like \he's trying to ban \himself from ATMTA!</span>")
 		return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
 
 /obj/item/weapon/sord

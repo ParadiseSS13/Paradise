@@ -627,6 +627,10 @@
 	reagent_tag = PROCESS_ORG
 	blood_color = "#A200FF"
 
+	species_abilities = list(
+		/mob/living/carbon/human/proc/ayylmao
+		)
+
 /datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
 	if(!remove)
 		C.dna.SetSEState(REMOTETALKBLOCK,1,1)

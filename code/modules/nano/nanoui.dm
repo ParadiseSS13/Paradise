@@ -86,7 +86,7 @@ nanoui is used to open and update nano browser uis
 	add_template("main", ntemplate_filename)
 
 	if (ntitle)
-		title = ntitle
+		title = sanitize(ntitle)
 	if (nwidth)
 		width = nwidth
 	if (nheight)
@@ -412,7 +412,7 @@ nanoui is used to open and update nano browser uis
 	if(status == STATUS_CLOSE)
 		return
 
-	user << browse(get_html(), "window=[window_id];[window_size][window_options]")
+	user << browse(sanitize_local(get_html(), SANITIZE_BROWSER), "window=[window_id];[window_size][window_options]")
 	winset(user, "mapwindow.map", "focus=true") // return keyboard focus to map
 	on_close_winset()
 	//onclose(user, window_id)

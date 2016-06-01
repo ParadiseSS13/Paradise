@@ -670,6 +670,12 @@
 	item_color = "owl"
 	flags = NODROP
 
+/obj/item/clothing/under/hunter
+	name = "Hunter's clothes"
+	desc = "One of the standard articles of hunter attire fashioned at the workshop."
+	icon_state = "hunter"
+	item_color = "hunter"
+
 /obj/item/clothing/under/griffin
 	name = "griffon uniform"
 	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."

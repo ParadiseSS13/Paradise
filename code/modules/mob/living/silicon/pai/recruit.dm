@@ -228,7 +228,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		<body>
 		"}
 
-		M << browse(dat, "window=paiRecruit;size=580x580;")
+		M << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=paiRecruit;size=580x580;")
 
 	proc/findPAI(var/obj/item/device/paicard/p, var/mob/user)
 		requestRecruits(p)
@@ -344,7 +344,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			</html>
 		"}
 
-		user << browse(dat, "window=findPai")
+		user << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=findPai")
 
 	proc/requestRecruits(var/obj/item/device/paicard/P)
 		for(var/mob/dead/observer/O in player_list)

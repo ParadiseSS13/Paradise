@@ -184,7 +184,7 @@
 	cost = 1500
 
 /datum/storeitem/banhammer
-	desc = "A banhammer"
-	name = "banhammer"
+	desc = "Primary attack - ban user from ATMTA public page"
+	name = "Felix's banhammer"
 	typepath = /obj/item/weapon/banhammer
 	cost = 2000

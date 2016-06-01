@@ -144,8 +144,9 @@ proc/getsensorlevel(A)
 		p++
 	return t
 
+
 proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
-	phrase = html_decode(phrase)
+	phrase = lhtml_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
@@ -169,7 +170,7 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	return newphrase
 
 /proc/stutter(n)
-	var/te = html_decode(n)
+	var/te = lhtml_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null

@@ -28,17 +28,16 @@
 		return
 
 	#if defined(TOPIC_DEBUGGING)
-	to_chat(world, "[src]'s Topic: [href] destined for [hsrc].")
+	world << "[src]'s Topic: [href] destined for [hsrc]."
 	#endif
 
 	if(href_list["nano_err"]) //nano throwing errors
 		if(topic_debugging)
-			to_chat(src, "## NanoUI: " + html_decode(href_list["nano_err"]))//NANO DEBUG HOOK
-
+			src << "## NanoUI: " + lhtml_decode(href_list["nano_err"]) //NANO DEBUG HOOK
 
 
 	if(href_list["asset_cache_confirm_arrival"])
-//		to_chat(src, "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
+		//src << "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED."
 		var/job = text2num(href_list["asset_cache_confirm_arrival"])
 		completed_asset_jobs += job
 		return
@@ -66,10 +65,10 @@
 
 	if(href_list["irc_msg"])
 		if(!holder && received_irc_pm < world.time - 6000) //Worse they can do is spam IRC for 10 minutes
-			to_chat(usr, "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on IRC has responded to you</span>")
+			usr << "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on IRC has responded to you</span>"
 			return
 		if(mute_irc)
-			to_chat(usr, "<span class='warning'You cannot use this as your client has been muted from sending messages to the admins on IRC</span>")
+			usr << "<span class='warning'You cannot use this as your client has been muted from sending messages to the admins on IRC</span>"
 			return
 		cmd_admin_irc_pm()
 		return
@@ -78,7 +77,7 @@
 
 	//Logs all hrefs
 	if(config && config.log_hrefs && href_logfile)
-		to_chat(href_logfile, "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>")
+		href_logfile << "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>"
 
 	switch(href_list["karmashop"])
 		if("tab")
@@ -91,49 +90,49 @@
 				switch(href_list["KarmaBuy"])
 					if("1")
 						if(karma <5)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_job_unlock("Barber",5)
 							return
 					if("2")
 						if(karma <5)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_job_unlock("Brig Physician",5)
 							return
 					if("3")
 						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_job_unlock("Nanotrasen Representative",30)
 							return
 					if("5")
 						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_job_unlock("Blueshield",30)
 							return
 					if("6")
 						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_job_unlock("Mechanic",30)
 							return
 					if("7")
 						if(karma <45)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_job_unlock("Magistrate",45)
 							return
 					if("9")
 						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_job_unlock("Security Pod Pilot",30)
@@ -143,42 +142,42 @@
 				switch(href_list["KarmaBuy2"])
 					if("1")
 						if(karma <15)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_species_unlock("Machine",15)
 							return
 					if("2")
 						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_species_unlock("Kidan",30)
 							return
 					if("3")
 						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_species_unlock("Grey",30)
 							return
 					if("4")
 						if(karma <45)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_species_unlock("Vox",45)
 							return
 					if("5")
 						if(karma <45)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_species_unlock("Slime People",45)
 							return
 					if("6")
 						if(karma <100)
-							to_chat(usr, "You do not have enough karma!")
+							usr << "You do not have enough karma!"
 							return
 						else
 							src.DB_species_unlock("Plasmaman",100)
@@ -207,7 +206,7 @@
 
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
-		to_chat(src, "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>.")
+		src << "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>."
 		return 0
 	return 1
 
@@ -215,11 +214,11 @@
 	if(config.automute_on && !holder && src.last_message == message)
 		src.last_message_count++
 		if(src.last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, "\red You have exceeded the spam filter limit for identical messages. An auto-mute was applied.")
+			src << "\red You have exceeded the spam filter limit for identical messages. An auto-mute was applied."
 			cmd_admin_mute(src.mob, mute_type, 1)
 			return 1
 		if(src.last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, "\red You are nearing the spam filter limit for identical messages.")
+			src << "\red You are nearing the spam filter limit for identical messages."
 			return 0
 	else
 		last_message = message
@@ -229,13 +228,13 @@
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
 	if(filelength > UPLOAD_LIMIT)
-		to_chat(src, "<font color='red'>Error: AllowUpload(): File Upload too large. Upload Limit: [UPLOAD_LIMIT/1024]KiB.</font>")
+		src << "<font color='red'>Error: AllowUpload(): File Upload too large. Upload Limit: [UPLOAD_LIMIT/1024]KiB.</font>"
 		return 0
 /*	//Don't need this at the moment. But it's here if it's needed later.
 	//Helps prevent multiple files being uploaded at once. Or right after eachother.
 	var/time_to_wait = fileaccess_timer - world.time
 	if(time_to_wait > 0)
-		to_chat(src, "<font color='red'>Error: AllowUpload(): Spam prevention. Please wait [round(time_to_wait/10)] seconds.</font>")
+		src << "<font color='red'>Error: AllowUpload(): Spam prevention. Please wait [round(time_to_wait/10)] seconds.</font>"
 		return 0
 	fileaccess_timer = world.time + FTPDELAY	*/
 	return 1
@@ -262,7 +261,7 @@
 		src.preload_rsc = pick(config.resource_urls)
 	else src.preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 
-	to_chat(src, "\red If the title screen is black, resources are still downloading. Please be patient until the title screen appears.")
+	src << "\red If the title screen is black, resources are still downloading. Please be patient until the title screen appears."
 
 
 	clients += src
@@ -285,10 +284,10 @@
 	. = ..()	//calls mob.Login()
 
 	if(custom_event_msg && custom_event_msg != "")
-		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
-		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
-		to_chat(src, "<br>")
+		src << "<h1 class='alert'>Custom Event</h1>"
+		src << "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>"
+		src << "<span class='alert'>[lhtml_encode(custom_event_msg)]</span>"
+		src << "<br>"
 
 	if( (world.address == address || !address) && !host )
 		host = key
@@ -309,7 +308,7 @@
 
 	if (ckey in clientmessages)
 		for (var/message in clientmessages[ckey])
-			to_chat(src, message)
+			src << message
 		clientmessages.Remove(ckey)
 
 
@@ -326,7 +325,7 @@
 	screen += void
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
-		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
+		src << "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>"
 
 
 	//This is down here because of the browse() calls in tooltip/New()
@@ -448,4 +447,4 @@
 		var/message = "[lang.name] : [lang.type]"
 		if(lang.flags & RESTRICTED)
 			message += " (RESTRICTED)"
-		to_chat(world, "[message]")
+		world << "[message]"

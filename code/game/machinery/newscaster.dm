@@ -427,7 +427,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 
 
-		human_or_robot_user << browse(dat, "window=newscaster_main;size=400x600")
+		human_or_robot_user << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=newscaster_main;size=400x600")
 		onclose(human_or_robot_user, "newscaster_main")
 
 	/*if(src.isbroken) //debugging shit
@@ -441,7 +441,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	usr.set_machine(src)
 	if(href_list["set_channel_name"])
 		src.channel_name = sanitizeSQL(strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", "")))
@@ -860,7 +860,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 
 		dat+="<BR><HR><div align='center'>[src.curr_page+1]</div>"
-		human_user << browse(dat, "window=newspaper_main;size=300x400")
+		human_user << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=newspaper_main;size=300x400")
 		onclose(human_user, "newspaper_main")
 	else
 		to_chat(user, "The paper is full of intelligible symbols!")

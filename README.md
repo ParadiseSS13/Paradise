@@ -1,5 +1,5 @@
-# Paradise
-
+# PROJECT ARES
+Created from Paradise Station build.
 [Website](http://www.nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [IRC](http://www.nanotrasen.se/phpBB3/viewtopic.php?f=10&t=1113)
 
 ---

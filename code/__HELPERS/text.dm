@@ -24,7 +24,27 @@
 /*
  * Text sanitization
  */
+/*
+/proc/sanitize(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
+	#ifdef DEBUG_CYRILLIC
+	world << "\magenta DEBUG: \red <b>sanitize() entered, text:</b> <i>[input]</i>"
+	world << "\magenta DEBUG: \red <b>ja_mode:</b> [mode]"
+	#endif
+	if(!input)
+		return
 
+	if(max_length)
+		input = copytext(input,1,max_length)
+
+	//code in modules/l10n/localisation.dm
+	input = sanitize_local(input, mode)
+
+	#ifdef DEBUG_CYRILLIC
+	world << "\magenta DEBUG: \blue <b>sanitize() finished, text:</b> <i>[input]</i>"
+	#endif
+
+	return input
+*/
 //Simply removes < and > and limits the length of the message
 /proc/strip_html_simple(var/t,var/limit=MAX_MESSAGE_LEN)
 	var/list/strip_chars = list("<",">")
@@ -52,18 +72,44 @@
 	return t
 
 //Runs byond's sanitization proc along-side sanitize_simple
-/proc/sanitize(var/t,var/list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+/proc/sanitize(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
+	if(!input)
+		return
+
+	if(max_length)
+		input = copytext(input,1,max_length)
+
+	//code in modules/l10n/localisation.dm
+	input = sanitize_local(input, mode)
+
+	if(extra)
+		input = replace_characters(input, list("\n"=" ","\t"=" "))
+
+	if(encode)
+		// The below \ escapes have a space inserted to attempt to enable Travis auto-checking of span class usage. Please do not remove the space.
+		//In addition to processing html, html_encode removes byond formatting codes like "\ red", "\ i" and other.
+		//It is important to avoid double-encode text, it can "break" quotes and some other characters.
+		//Also, keep in mind that escaped characters don't work in the interface (window titles, lower left corner of the main window, etc.)
+		input = lhtml_encode(input)
+	else
+		//If not need encode text, simply remove < and >
+		//note: we can also remove here byond formatting codes: 0xFF + next byte
+		input = replace_characters(input, list("<"=" ", ">"=" "))
+
+	if(trim)
+		//Maybe, we need trim text twice? Here and before copytext?
+		input = trim(input)
+	return input
 
 //Runs sanitize and strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
+//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's lhtml_encode()
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
 //Runs byond's sanitization proc along-side strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
+//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that lhtml_encode() would cause
 /proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
-	return copytext((html_encode(strip_html_simple(t))),1,limit)
+	return copytext((lhtml_encode(strip_html_simple(t))),1,limit)
 
 
 //Returns null if there is any bad text in the string
@@ -203,6 +249,14 @@ proc/checkhtml(var/t)
  * Text modification
  */
 // See bygex.dm
+#ifndef USE_BYGEX
+/proc/replacetext(text, find, replacement)
+	return list2text(text2list(text, find), replacement)
+
+/proc/replacetextEx(text, find, replacement)
+	return list2text(text2listEx(text, find), replacement)
+#endif
+
 /proc/replace_characters(var/t,var/list/repl_chars)
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
@@ -358,17 +412,17 @@ proc/checkhtml(var/t)
 		if(!lentext(string))
 			return "\[...\]"
 		else
-			return html_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
+			return lhtml_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
 	else
 		return "[copytext_preserve_html(string, 1, 37)]..."
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
 /proc/copytext_preserve_html(var/text, var/first, var/last)
-	return html_encode(copytext(html_decode(text), first, last))
+	return lhtml_encode(copytext(lhtml_decode(text), first, last))
 
-//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
+//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after lhtml_encode().
 //Best used for sanitize object names, window titles.
 //If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
 //this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
-/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
-	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
+/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
+	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra, mode)

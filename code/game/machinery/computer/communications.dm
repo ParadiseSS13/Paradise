@@ -136,22 +136,22 @@
 					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
 					nanomanager.update_uis(src)
 					return
-				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
+				var/input = sanitize_local(input(usr, "Please write a message to announce to the station crew.", "Priority Announcement"))
 				if(!input || message_cooldown || ..() || !(is_authenticated(usr) == 2))
 					nanomanager.update_uis(src)
 					return
-				crew_announcement.Announce(input)
+				crew_announcement.Announce(input, msg_sanitized = 1)
 				message_cooldown = 1
 				spawn(600)//One minute cooldown
 					message_cooldown = 0
 
 		if("callshuttle")
-			var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+			var/input = sanitize_local(input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null)
 			if(!input || ..() || !is_authenticated(usr))
 				nanomanager.update_uis(src)
 				return
 
-			call_shuttle_proc(usr, input)
+			call_shuttle_proc(usr, input, msg_sanitized = 1)
 			if(shuttle_master.emergency.timer)
 				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)

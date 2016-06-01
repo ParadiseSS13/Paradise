@@ -473,11 +473,11 @@ var/global/nologevent = 0
 				<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>
 			"}
 		else
-			dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
+			dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to ITBlackwood"
 
 //	to_chat(world, "Channelname: [src.admincaster_feed_channel.channel_name] [src.admincaster_feed_channel.author]")
 //	to_chat(world, "Msg: [src.admincaster_feed_message.author] [src.admincaster_feed_message.body]")
-	usr << browse(dat, "window=admincaster_main;size=400x600")
+	usr << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=admincaster_main;size=400x600")
 	onclose(usr, "admincaster_main")
 
 /datum/admins/proc/Jobbans()
@@ -491,7 +491,7 @@ var/global/nologevent = 0
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
 		dat += text("<tr><td>[t] (<A href='?src=\ref[src];removejobban=[r]'>unban</A>)</td></tr>")
 	dat += "</table>"
-	usr << browse(dat, "window=ban;size=400x400")
+	usr << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=ban;size=400x400")
 
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
@@ -551,8 +551,9 @@ var/global/nologevent = 0
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
-		log_admin("Announce: [key_name(usr)] : [message]")
+		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[sanitize_local(message)]</p></span>")
+		log_admin("Announce: [key_name(usr)] : [sanitize_local(message)]")
+
 	feedback_add_details("admin_verb","A") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()

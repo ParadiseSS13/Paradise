@@ -122,7 +122,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["supply_dept"] = req_console_supplies
 	data["info_dept"]   = req_console_information
 
-	data["message"] = message
+	data["message"] = sanitize_local(message)
 	data["recipient"] = recipient
 	data["priortiy"] = priority
 	data["msgStamped"] = msgStamped

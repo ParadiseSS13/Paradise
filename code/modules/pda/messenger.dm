@@ -121,7 +121,7 @@
 	var/t = input(U, "Please enter message", name, null) as text|null
 	if(!t)
 		return
-	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+	t = sanitize_local(copytext(t, 1, MAX_MESSAGE_LEN))
 	t = readd_quotes(t)
 	if (!t || !istype(P))
 		return

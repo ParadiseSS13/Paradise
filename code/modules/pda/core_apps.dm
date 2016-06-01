@@ -59,7 +59,7 @@
 			var/n = input("Please enter message", name, notehtml) as message
 			if(pda.loc == usr)
 				note = adminscrub(n)
-				notehtml = html_decode(note)
+				notehtml = lhtml_decode(note)
 				note = replacetext(note, "\n", "<br>")
 			else
 				pda.close(usr)

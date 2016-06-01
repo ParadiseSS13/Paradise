@@ -121,15 +121,15 @@
 	if(istype(src[page], /obj/item/weapon/paper))
 		var/obj/item/weapon/paper/P = W
 		dat += P.show_content(usr, view = 0)
-		usr << browse(dat, "window=[name]")
+		usr << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=[name]")
 	else if(istype(src[page], /obj/item/weapon/photo))
 		var/obj/item/weapon/photo/P = W
 		usr << browse_rsc(P.img, "tmp_photo.png")
-		usr << browse(dat + "<html><head><title>[P.name]</title></head>" \
+		usr << browse(sanitize_local(dat + "<html><head><title>[P.name]</title></head>" \
 		+ "<body style='overflow:hidden'>" \
 		+ "<div> <img src='tmp_photo.png' width = '180'" \
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ]"\
-		+ "</body></html>", "window=[name]")
+		+ "</body></html>", SANITIZE_BROWSER), "window=[name]")
 
 /obj/item/weapon/paper_bundle/attack_self(mob/user as mob)
 	src.show_content(user)
