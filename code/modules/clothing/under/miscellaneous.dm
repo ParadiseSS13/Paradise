@@ -715,3 +715,12 @@
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>")
 			return 0
 	return 1
+
+/obj/item/clothing/under/doom
+	name = "Praetor Jumpsuit"
+	desc = "Just because the suit is cold. The small painting on it reads 'WJ Armor'."
+	icon_state = "doomg_clothe"
+	item_state = "doomclothe"
+	has_sensor = 0
+	armor = list(melee = 15, bullet = 5, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	siemens_coefficient = 0.9

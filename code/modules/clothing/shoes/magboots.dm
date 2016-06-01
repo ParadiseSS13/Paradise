@@ -49,3 +49,10 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
 	name = "advanced blood-red magboots"
 	slowdown_active = SHOES_SLOWDOWN
+	
+/obj/item/clothing/shoes/magboots/doom
+	desc = "Reverse-DOOMED magnetic boots that have a heavy magnetic pull. However, you are not allowed to jump 2 times in a row. The small painting on it reads 'WJ Armor'."
+	name = "Praetor Boots"
+	icon_state = "doomg_boots"
+	magboot_state = "doomboots"
+	slowdown_active = SHOES_SLOWDOWN
