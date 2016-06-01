@@ -248,10 +248,9 @@
 			var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant
 			implant = new
 			implant.insert(H)
-		else
-			H.mutations.Add(CLUMSY)
-			H.dna.SetSEState(COMICBLOCK,1,1)
-			genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
+		H.mutations.Add(CLUMSY)
+		H.dna.SetSEState(COMICBLOCK,1,1)
+		genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
 		return 1
 
 

@@ -146,7 +146,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
-	desc = "Uh oh."
+	desc = "<span class='sans'>Uh oh.</span>"
 	implant_color = "#DEDE00"
 	slot = "brain_clownvoice"
 	origin_tech = "materials=2;biotech=2"
