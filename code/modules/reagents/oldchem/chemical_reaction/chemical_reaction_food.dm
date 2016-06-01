@@ -109,7 +109,16 @@
 	max_temp = 273
 	mix_message = "Ice forms as the water freezes."
 	mix_sound = null
-
+/datum/chemical_reaction/water
+	name = "Water"
+	id = "water"
+	result = "water"
+	required_reagents = list("ice" = 1)
+	result_amount = 1
+	min_temp = 274
+	mix_message = "Water pools as the ice melts."
+	mix_sound = null
+	
 /datum/chemical_reaction/dough
 	name = "Dough"
 	id = "dough"
