@@ -195,7 +195,7 @@
 	return max_amount
 
 /obj/item/stack/proc/split(mob/user, amt)
-	var/obj/item/stack/F = new src.type(user, amt)
+	var/obj/item/stack/F = new type(user, amt)
 	F.copy_evidences(src)
 	if(isliving(user))
 		add_fingerprint(user)
