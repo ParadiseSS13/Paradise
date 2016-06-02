@@ -87,6 +87,7 @@ var/global/sent_doomstrike_team = 0
 			P.stamp(stamp)
 			qdel(stamp)
 
+
 	for (var/obj/effect/landmark/L in landmarks_list)
 		if (L.name == "Commando-Bomb")
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
@@ -106,9 +107,8 @@ var/global/sent_doomstrike_team = 0
 	else
 		A.real_name = "DOOMguy"
 	A.copy_to(new_doomguy)
-
 	new_doomguy.dna.ready_dna(new_doomguy)//Creates DNA.
-
+	new_doomguy.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/disintegrate/ripandtear)
 	//Creates mind stuff.
 	new_doomguy.mind_initialize()
 	new_doomguy.mind.assigned_role = "MODE"
@@ -121,7 +121,7 @@ var/global/sent_doomstrike_team = 0
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/alt(src)
 	R.set_frequency(DTH_FREQ)
 	equip_to_slot_or_del(R, slot_l_ear)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(src), slot_wear_mask)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/doom(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/doublebarrel/doom(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/clothing/under/doom(src), slot_w_uniform)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/doom(src), slot_shoes)
@@ -132,9 +132,10 @@ var/global/sent_doomstrike_team = 0
 	src.equip_to_slot_or_del(doomgun, slot_r_hand)
 
 	var/obj/item/weapon/card/id/W = new(src)
-	W.name = "DOOMguy ID Card (DOOMsquad)"
+	W.name = "[real_name]'s ID Card"
+	W.icon_state = "deathsquad"
+	W.assignment = "Death Commando"
 	W.access = get_centcom_access(W.assignment)
-	W.assignment = "DOOMsquad"
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)
 

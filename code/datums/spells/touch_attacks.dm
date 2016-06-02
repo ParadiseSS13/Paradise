@@ -56,6 +56,11 @@
 
 	action_icon_state = "gib"
 
+/obj/effect/proc_holder/spell/targeted/touch/disintegrate/ripandtear
+	name = "RIP AND TEAR"
+	desc = "Solve problems most violent way!"
+	clothes_req = 0
+
 /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone
 	name = "Flesh to Stone"
 	desc = "This spell charges your hand with the power to turn victims into inert statues for a long period of time."
