@@ -520,6 +520,11 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	else
 		return ..()
 
+/obj/item/stack/cable_coil/split()
+	var/obj/item/stack/cable_coil/C = ..()
+	C.color = color
+	return C
+
 /obj/item/stack/cable_coil/update_icon()
 	if (!color)
 		color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_ORANGE, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
@@ -599,27 +604,6 @@ obj/structure/cable/proc/cableColor(var/colorC)
 			C.give(amt)
 			src.use(amt)
 			return
-
-//remove cables from the stack
-/* This is probably reduntant
-/obj/item/stack/cable_coil/use(var/used)
-	if(src.amount < used)
-		return 0
-	else if (src.amount == used)
-		if(ismob(loc)) //handle mob icon update
-			var/mob/M = loc
-			M.unEquip(src)
-		qdel(src)
-		return 1
-	else
-		amount -= used
-		update_icon()
-		return 1
-*/
-/obj/item/stack/cable_coil/use(var/used)
-	. = ..()
-	update_icon()
-	return
 
 //add cables to the stack
 /obj/item/stack/cable_coil/proc/give(var/extra)
