@@ -89,7 +89,7 @@
 
 		if("sad")
 			message = "<B>[src]</B> emits a sad trombone noise."
-			playsound(src.loc, 'sound/machines/sadtrombone.ogg', 50, 0)
+			playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz", "buzzes")
