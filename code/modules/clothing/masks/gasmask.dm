@@ -185,6 +185,12 @@
 	ignore_maskadjust = 0
 	action_button_name = "HALT!"
 
+/obj/item/clothing/mask/gas/sechailer/doom
+	name = "DooM guy's Mask"
+	desc = "Breath pure hatred and rage!"
+	action_button_name = "RIP AND TEAR"
+	icon_state = "doomguy"
+
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
@@ -420,4 +426,3 @@
 
 
 // ********************************************************************
-

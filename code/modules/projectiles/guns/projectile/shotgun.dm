@@ -198,6 +198,11 @@
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/isHandgun() //contrary to popular opinion, double barrels are not, shockingly, handguns
 	return 0
 
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/doom
+	name = "double DOOMed shotgun"
+	desc = "A TRUE classic."
+	force = 20
+
 // IMPROVISED SHOTGUN //
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised

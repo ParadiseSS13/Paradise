@@ -580,9 +580,27 @@
 		new /obj/item/device/analyzer(src)
 		new /obj/item/device/healthanalyzer(src)
 
-/obj/item/weapon/storage/belt/bluespace/admin/doom
+/obj/item/weapon/storage/belt/bluespace/doom
 	desc = "You can now hold your demons inside. Or memes. The small painting on it reads 'WJ Armor'."
 	name = "Praetor Belt"
 	icon_state = "doombelt"
 	item_state = "doombelt"
+	w_class = 10 // permit holding other storage items
 	storage_slots = 20
+	max_w_class = 10
+	max_combined_w_class = 280
+	can_hold = list()
+	flags = NODROP
+
+	New()
+		..()
+		new /obj/item/weapon/storage/box(src)
+		new /obj/item/weapon/c4(src)
+		new /obj/item/ammo_box/magazine/m762(src)
+		new /obj/item/ammo_box/magazine/m762(src)
+		new /obj/item/ammo_box/shotgun/buck(src)
+		new /obj/item/ammo_box/shotgun/buck(src)
+		new /obj/item/weapon/pinpointer(src)
+		new /obj/item/weapon/disk/nuclear(src)
+		new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src)
+		new /obj/item/weapon/dnainjector/hulkmut(src)
