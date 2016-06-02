@@ -44,6 +44,7 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/crowbar",
 		"/obj/item/weapon/screwdriver",
@@ -90,6 +91,7 @@
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
 	item_state = "medical"
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/device/healthanalyzer",
 		"/obj/item/weapon/dnainjector",
@@ -129,6 +131,7 @@
 	desc = "Can hold various botanical supplies."
 	icon_state = "botanybelt"
 	item_state = "botany"
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/device/analyzer/plant_analyzer",
 		"/obj/item/weapon/minihoe",
@@ -240,6 +243,7 @@
 	item_state = "janibelt"
 	storage_slots = 6
 	max_w_class = 4 // Set to this so the  light replacer can fit.
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/chem_grenade/cleaner",
 		"/obj/item/device/lightreplacer",
@@ -309,6 +313,21 @@
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/obj/item/weapon/storage/belt/bandolier/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]_[contents.len]"
+
+/obj/item/weapon/storage/belt/bandolier/attackby(obj/item/W, mob/user)
+	var/amount = contents.len
+	. = ..()
+	if(amount != contents.len)
+		update_icon()
+
+/obj/item/weapon/storage/belt/lazabandolierrus/remove_from_storage(obj/item/W as obj, atom/new_location)
+	..()
+	update_icon()
+
 
 /obj/item/weapon/storage/belt/holster
 	name = "shoulder holster"
