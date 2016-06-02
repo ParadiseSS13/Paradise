@@ -4,7 +4,8 @@
 	var/obj/effect/blob/core/Blob
 
 /datum/event/blob/announce()
-	command_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+	if(prob(95)) //Chance of the event being announced
+		command_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 
 /datum/event/blob/start()
 	var/turf/T = pick(blobstart)

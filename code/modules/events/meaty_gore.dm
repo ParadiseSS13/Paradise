@@ -1,4 +1,5 @@
 /datum/event/meteor_wave/gore/announce()
+	if(prob(95)) //Chance of the event being announced
 		command_announcement.Announce("Unknown biological debris have been detected near [station_name()], please stand-by.", "Debris Alert")
 
 /datum/event/meteor_wave/gore/setup()

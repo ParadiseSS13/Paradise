@@ -3,7 +3,8 @@
 	endWhen = announceWhen + 1
 
 /datum/event/wallrot/announce()
-	command_announcement.Announce("Harmful fungi detected on station. Station structures may be contaminated.", "Biohazard Alert")
+	if(prob(85)) //Chance of the event being announced
+		command_announcement.Announce("Harmful fungi detected on station. Station structures may be contaminated.", "Biohazard Alert")
 
 /datum/event/wallrot/start()
 	spawn()

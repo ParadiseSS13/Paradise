@@ -15,7 +15,8 @@
 		setup(safety_loop)
 
 /datum/event/anomaly/announce()
-	command_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert")
+	if(prob(95)) //Chance of the event being announced
+		command_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert")
 
 /datum/event/anomaly/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

@@ -11,7 +11,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	command_announcement.Announce("What the fuck was that?!", "General Alert")
+	if(prob(99)) //Chance of the event being announced
+		command_announcement.Announce("What the fuck was that?!", "General Alert")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(cardinal)

@@ -6,7 +6,8 @@
 	var/list/vents  = list()
 
 /datum/event/vent_clog/announce()
-	command_announcement.Announce("The scrubbers network is experiencing a backpressure surge.  Some ejection of contents may occur.", "Atmospherics alert")
+	if(prob(80)) //Chance of the event being announced
+		command_announcement.Announce("The scrubbers network is experiencing a backpressure surge.  Some ejection of contents may occur.", "Atmospherics alert")
 
 /datum/event/vent_clog/setup()
 	endWhen = rand(25, 100)

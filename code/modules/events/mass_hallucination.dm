@@ -9,4 +9,5 @@
 		H.hallucination += rand(50, 100)
 
 /datum/event/mass_hallucination/announce()
-	command_announcement.Announce("It seems that station [station_name()] is passing through a minor radiation field, this may cause some hallucination, but no further damage")
+	if(prob(90)) //Chance of the event being announced
+		command_announcement.Announce("It seems that station [station_name()] is passing through a minor radiation field, this may cause some hallucination, but no further damage")
