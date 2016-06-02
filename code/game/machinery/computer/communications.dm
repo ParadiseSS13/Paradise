@@ -146,12 +146,12 @@
 					message_cooldown = 0
 
 		if("callshuttle")
-			var/input = sanitize_local(input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null)
+			var/input = sanitize_local(input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null, SANITIZE_CHAT)
 			if(!input || ..() || !is_authenticated(usr))
 				nanomanager.update_uis(src)
 				return
 
-			call_shuttle_proc(usr, input, msg_sanitized = 1)
+			call_shuttle_proc(usr, input)
 			if(shuttle_master.emergency.timer)
 				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
