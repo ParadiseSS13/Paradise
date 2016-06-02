@@ -13,7 +13,7 @@
 		//Cooldown-inducing emotes
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
-		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no")
+		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no", "sad")
 			//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
@@ -115,7 +115,13 @@
 			playsound(src.loc, 'sound/goonstation/voice/robot_scream.ogg', 80, 0)
 			m_type = 2
 
+		if("sad")
+			message = "<B>[src]</B> emits a sad trombone noise."
+			playsound(src.loc, 'sound/machines/sadtrombone.ogg', 50, 0)
+			m_type = 2
+
+
 		if("help")
-			to_chat(src, "yes, no, beep, ping, buzz")
+			to_chat(src, "yes, no, beep, ping, buzz, scream, sad")
 
 	..(act, m_type, message)
