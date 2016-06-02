@@ -612,6 +612,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"nanotrasen officer",
 		"nanotrasen captain",
 		"Hunter's set",
+		"DOOMguy's set",
 		)
 	var/dostrip = input("Do you want to strip [M] before equipping them? (0=no, 1=yes)", "STRIPTEASE") as null|anything in list(0,1)
 	if(isnull(dostrip))
@@ -755,6 +756,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/hunter(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/hunter_coat(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/hunter_mask(M), slot_wear_mask)
+
+		if ("DOOMguy's set")
+			M.equip_doom_commando()
 
 		if ("space pirate")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
