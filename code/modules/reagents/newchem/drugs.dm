@@ -703,3 +703,42 @@
 	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 6
 	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."
+
+//Voltine: Nicotine
+/datum/reagent/nicotine/voltine
+	name = "Voltine"
+	id = "voltine"
+	description = "something something robotic nicotine" //write something here later for God's sake
+	reagent_state = LIQUID
+	color = "#D7D4D4" // rgb: 215, 212, 212
+
+	process_flags = SYNTHETIC
+	overdose_threshold = 35
+	addiction_chance = 70
+
+/datum/reagent/nicotine/voltine/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.")
+	if(prob(1))
+		if(prob(1))
+			high_message = "01010100010100100100000101001110010100110100001101000101010011100100010001000101010011100100001101000101."
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+	..()
+	return
+	if(prob(50))
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+		M.adjustStaminaLoss(-1*REM)
+	..()
+	return
+
+/datum/reagent/nicotine/voltine/overdose_process(var/mob/living/M as mob, severity)
+	M.Stun(5)
+	M.Weaken(5)
+	M.Jitter(20)
+	M.apply_effect(STUTTER, 5)
+	if(prob(20))
+		firestacks++
+		M.ignitemob()
