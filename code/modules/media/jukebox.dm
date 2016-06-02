@@ -222,7 +222,10 @@ var/global/loopModeNames=list(
 				stat &= BROKEN
 				update_icon()
 				return
-			var/songdata = json_decode(json)
+			var/json_reader/reader = new()
+			reader.tokens = reader.ScanJson(json)		
+			reader.i = 1		
+			var/songdata = reader.read_value()
 			for(var/list/record in songdata)
 				playlist += new /datum/song_info(record)
 			if(playlist.len==0)

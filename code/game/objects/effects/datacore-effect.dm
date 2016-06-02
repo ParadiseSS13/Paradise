@@ -141,6 +141,7 @@ using /obj/effect/datacore/proc/manifest_inject( ), or manifest_insert( )
 */
 
 var/global/list/PDA_Manifest = list()
+var/global/ManifestJSON
 
 /obj/effect/datacore/proc/get_manifest_json()
 	if(PDA_Manifest.len)
@@ -223,5 +224,6 @@ var/global/list/PDA_Manifest = list()
 		"bot" = bot,\
 		"misc" = misc\
 		)
+	ManifestJSON = list2json(PDA_Manifest)
 	return
 
