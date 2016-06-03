@@ -1,3 +1,14 @@
+//Random ruins, thanks to KorPhaeron from /tg/ station
+#define RANDOM_UPPER_X 220
+#define RANDOM_UPPER_Y 220
+#define RANDOM_LOWER_X 30
+#define RANDOM_LOWER_Y 30
+
+var/global/list/potentialRandomZlevels = generateMapList(filename = "config/awaymissionconfig.txt")
+//var/global/list/potentialLavaRuins = generateMapList(filename = "config/lavaRuinConfig.txt") //Maybe some other time ;)
+//If we ever get lavaland, remember to create config/lavaRuinConfig.txt and add maps to _maps/map_files/RandomRuins/LavaRuins
+var/global/list/potentialSpaceRuins = generateMapList(filename = "config/spaceRuinConfig.txt")
+
 /proc/late_setup_level(turfs, smoothTurfs)
 	if(!smoothTurfs)
 		smoothTurfs = turfs
@@ -18,62 +29,124 @@
 				smooth_icon(A)
 
 /proc/createRandomZlevel()
-	if(awaydestinations.len)	//crude, but it saves another var!
-		return
+  if(awaydestinations.len)	//crude, but it saves another var!
+    return
 
-	var/list/potentialRandomZlevels = list()
-	log_startup_progress("Searching for away missions...")
-	var/list/Lines
-	if(fexists("config/away_mission_config.txt"))
-		Lines = file2list("config/away_mission_config.txt")
-	else
-		Lines = file2list("config/example/away_mission_config.txt")
+  if(potentialRandomZlevels && potentialRandomZlevels.len)
+    var/watch = start_watch()
+    log_startup_progress("<span class='boldannounce'>Loading away mission...</span>")
 
-	if(!Lines.len)	return
-	for (var/t in Lines)
-		if (!t)
-			continue
+    var/map = pick(potentialRandomZlevels)
+    var/file = file(map)
+    if(isfile(file))
+      maploader.load_map(file)
+      late_setup_level(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
+      log_to_dd("  Away mission loaded: [map]")
 
-		t = trim(t)
-		if (length(t) == 0)
-			continue
-		else if (copytext(t, 1, 2) == "#")
-			continue
+    //map_transition_config.Add(AWAY_MISSION_LIST) //Maybe I'm just dumb and we have some special proc for this, so leaving this here, just in case
 
-		var/pos = findtext(t, " ")
-		var/name = null
-	//	var/value = null
+    for(var/obj/effect/landmark/L in landmarks_list)
+      if (L.name != "awaystart")
+        continue
+      awaydestinations.Add(L)
 
-		if (pos)
-			name = lowertext(copytext(t, 1, pos))
-		//	value = copytext(t, pos + 1)
-		else
-			name = lowertext(t)
+    log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
 
-		if (!name)
-			continue
-
-		potentialRandomZlevels.Add(t)
+  else
+    log_startup_progress("  No away missions found.")
+    return
 
 
-	if(potentialRandomZlevels.len)
-		var/watch = start_watch()
-		log_startup_progress("Loading away mission...")
+/proc/generateMapList(filename)
+  var/list/potentialMaps = list()
+  var/list/Lines
+  if(filename == "config/away_mission_config.txt") //so log_to_dd doesn't runtime, I know it's sketchy
+    if(fexists("config/away_mission_config.txt"))
+      Lines = file2list("config/away_mission_config.txt")
+    else
+      Lines = file2list("config/example/away_mission_config.txt")
+  else
+    Lines = file2list(filename)
+  if(!Lines.len)	return
+  for (var/t in Lines)
+    if (!t)
+      continue
 
-		var/map = pick(potentialRandomZlevels)
-		var/file = file(map)
-		if(isfile(file))
-			maploader.load_map(file, do_sleep = 0)
-			late_setup_level(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
-			log_to_dd("  Away mission loaded: [map]")
+    t = trim(t)
+    if (length(t) == 0)
+      continue
+    else if (copytext(t, 1, 2) == "#")
+      continue
 
-		for(var/obj/effect/landmark/L in landmarks_list)
-			if (L.name != "awaystart")
-				continue
-			awaydestinations.Add(L)
+    var/pos = findtext(t, " ")
+    var/name = null
 
-		log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
+    if (pos)
+      name = lowertext(copytext(t, 1, pos))
+    else
+      name = lowertext(t)
 
-	else
-		log_startup_progress("  No away missions found.")
-		return
+    if (!name)
+      continue
+
+    potentialMaps.Add(t)
+
+    return potentialMaps
+
+/proc/seedRuins(z_level = 7, ruin_number = 0, whitelist = /area/space, list/potentialRuins = potentialSpaceRuins)
+  if(potentialRuins)
+    ruin_number = min(ruin_number, potentialRuins.len)
+
+  while(ruin_number)
+    var/sanity = 0
+    var/valid = FALSE
+    while(!valid)
+      valid = TRUE
+      sanity++
+      if(sanity > 100)
+        ruin_number--
+        break
+      var/turf/T = locate(rand(RANDOM_LOWER_X, RANDOM_UPPER_X), rand(RANDOM_LOWER_Y, RANDOM_UPPER_Y), z_level)
+
+      for(var/turf/check in range(T, 15))
+        var/area/new_area = get_area(check)
+        if(!(istype(new_area, whitelist)))
+          valid = FALSE
+          break
+
+      if(valid)
+        log_to_dd("  Ruins marker placed at [T.x][T.y][T.z]")
+    		var/obj/effect/ruin_loader/R = new /obj/effect/ruin_loader(T)
+    		R.Load(potentialRuins, -15, -15)
+    		ruin_number --
+
+  return
+
+/obj/effect/ruin_loader
+  name = "random ruin"
+  icon = 'icons/obj/weapons.dmi'
+  icon_state = "syndballoon"
+  invisibility = 0
+
+/obj/effect/ruin_loader/proc/Load(list/potentialRuins = potentialSpaceRuins, x_offset = 0, y_offset = 0)
+  if(potentialRuins.len)
+    var/watch = start_watch()
+    log_startup_progress("  Loading ruins...")
+
+    var/map = pick(potentialRuins)
+    var/file = file(map)
+    if(isfile(file))
+      maploader.load_map(file, src.x + x_offset, src.y + y_offset, src.z)
+      log_to_dd("  [map] loaded at [src.x + x_offset],[src.y + y_offset],[src.z]")
+    potentialRuins -= map //Don't want to load the same one twice
+    log_startup_progress("  Ruins loaded in [stop_watch(watch)]s.")
+  else
+    log_startup_progress("  No ruins found.")
+    return
+
+  qdel(src)
+
+#undef RANDOM_UPPER_X
+#undef RANDOM_UPPER_Y
+#undef RANDOM_LOWER_X
+#undef RANDOM_LOWER_Y
