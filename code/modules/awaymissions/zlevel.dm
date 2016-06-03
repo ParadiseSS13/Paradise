@@ -4,7 +4,7 @@
 #define RANDOM_LOWER_X 30
 #define RANDOM_LOWER_Y 30
 
-var/global/list/potentialRandomZlevels = generateMapList(filename = "config/awaymissionconfig.txt")
+var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away_mission_config.txt")
 //var/global/list/potentialLavaRuins = generateMapList(filename = "config/lavaRuinConfig.txt") //Maybe some other time ;)
 //If we ever get lavaland, remember to create config/lavaRuinConfig.txt and add maps to _maps/map_files/RandomRuins/LavaRuins
 var/global/list/potentialSpaceRuins = generateMapList(filename = "config/spaceRuinConfig.txt")
@@ -59,14 +59,7 @@ var/global/list/potentialSpaceRuins = generateMapList(filename = "config/spaceRu
 
 /proc/generateMapList(filename)
   var/list/potentialMaps = list()
-  var/list/Lines
-  if(filename == "config/away_mission_config.txt") //so log_to_dd doesn't runtime, I know it's sketchy
-    if(fexists("config/away_mission_config.txt"))
-      Lines = file2list("config/away_mission_config.txt")
-    else
-      Lines = file2list("config/example/away_mission_config.txt")
-  else
-    Lines = file2list(filename)
+  var/list/Lines = file2list(filename)
   if(!Lines.len)	return
   for (var/t in Lines)
     if (!t)
@@ -93,9 +86,8 @@ var/global/list/potentialSpaceRuins = generateMapList(filename = "config/spaceRu
 
     return potentialMaps
 
-/proc/seedRuins(z_level = 7, ruin_number = 0, whitelist = /area/space, list/potentialRuins = potentialSpaceRuins)
-  if(potentialRuins)
-    ruin_number = min(ruin_number, potentialRuins.len)
+/proc/seedRuins(z_level = 1, ruin_number = 0, whitelist = /area/space, list/potentialRuins = potentialSpaceRuins)
+  ruin_number = min(ruin_number, potentialRuins.len)
 
   while(ruin_number)
     var/sanity = 0
