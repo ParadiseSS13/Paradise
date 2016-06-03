@@ -2181,7 +2181,7 @@
 "aPW" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/wall,/area/chapel/office)
 "aPX" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{level = 1},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/wall,/area/chapel/office)
 "aPY" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 1; initialize_directions = 11; level = 1},/turf/simulated/wall,/area/chapel/office)
-"aPZ" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/driver_button{id_tag = "chapelgun"; name = "Chapel Mass Driver"; pixel_x = 25},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/chapel/main)
+"aPZ" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/driver_button{id_tag = "chapelgun"; name = "Chapel Mass Driver"; pixel_x = 25},/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/chapel/main)
 "aQa" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 10},/turf/simulated/wall,/area/maintenance/fsmaint2)
 "aQb" = (/turf/simulated/wall,/area/chapel/main)
 "aQc" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/chapel/main)
