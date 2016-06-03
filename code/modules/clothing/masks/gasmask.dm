@@ -427,10 +427,10 @@
 	action_button_name = "RIP AND TEAR"
 	flash_protect = 2
 
-/obj/item/clothing/mask/doom/attack_self()
+/obj/item/clothing/mask/gas/doom/attack_self()
 	riptear()
 
-/obj/item/clothing/mask/doom/verb/riptear()
+/obj/item/clothing/mask/gas/doom/verb/riptear()
 	set category = "Object"
 	set name = "RIP AND TEAR"
 	set src in usr
