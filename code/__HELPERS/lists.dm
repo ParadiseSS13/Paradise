@@ -386,6 +386,16 @@
 	//log_to_dd("	output: [out.len]")
 	return reverselist(out)
 
+//Copies a list, and all lists inside it recusively
+//Does not copy any other reference type
+/proc/deepCopyList(list/l)
+	if(!islist(l))
+		return l
+	. = l.Copy()
+	for(var/i = 1 to l.len)
+		if(islist(.[i]))
+			.[i] = .(.[i])
+
 /proc/dd_sortedObjectList(var/list/L, var/cache=list())
 	if(L.len < 2)
 		return L
