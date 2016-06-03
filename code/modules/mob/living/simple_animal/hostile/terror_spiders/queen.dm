@@ -253,7 +253,7 @@
 			continue
 		if (src.spider_tier < L.spider_tier)
 			continue
-		if (L.health < 1)
+		if (L.stat == DEAD)
 			continue
 		if(Adjacent(L))
 			if (L.stat == CONSCIOUS)
@@ -354,7 +354,7 @@
 		for(var/mob/living/carbon/human/H in player_list)
 			if (H.z != src.z)
 				continue
-			if (H.health < 1)
+			if (H.stat == DEAD)
 				continue
 			if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/))
 				continue

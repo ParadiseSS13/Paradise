@@ -370,11 +370,9 @@ var/global/list/ts_spiderling_list = list()
 			else
 				visible_message("<span class='danger'> \icon[src] [src] resists the bioweapon! </span>")
 	else if (istype(Proj, /obj/item/projectile/energy/declone))
-		if (!degenerate && prob(20))
+		if (!degenerate && prob(20) && spider_tier < 3)
 			visible_message("<span class='danger'> \icon[src] [src] looks staggered by the bioweapon! </span>")
-			if (spider_tier < 3)
-				degenerate = 1
-
+			degenerate = 1
 	..()
 
 
@@ -510,9 +508,7 @@ var/global/list/ts_spiderling_list = list()
 			if (ts_count_dead > 0)
 				if (world.time < (ts_death_last + ts_death_window))
 					my_ventcrawl_freq = freq_ventcrawl_combat
-
 			// First, check for general actions that any spider could take.
-
 			if (path_to_vent)
 				if (entry_vent)
 					if (spider_steps_taken > spider_max_steps)
@@ -565,10 +561,8 @@ var/global/list/ts_spiderling_list = list()
 					if (entry_vent)
 						path_to_vent = 1
 			else
-
 				// If none of the general actions apply, check for class-specific actions.
 				spider_special_action()
-
 		else if (AIStatus != AI_OFF && target)
 			// if I am chasing something, and I've been stuck behind an obstacle for at least 3 cycles, aka 6 seconds, try to open doors
 			CreatePath(target)

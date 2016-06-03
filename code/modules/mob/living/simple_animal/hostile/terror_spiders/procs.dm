@@ -98,6 +98,9 @@
 		if (T.stat != DEAD && !T.spider_placed && spider_awaymission == T.spider_awaymission)
 			if (T.type == specific_type)
 				numspiders += 1
+	for(var/obj/effect/spider/eggcluster/terror_eggcluster/E in ts_egg_list)
+		if (E.spiderling_type == specific_type && E.z == z)
+			numspiders += E.spiderling_number
 	return numspiders
 
 
@@ -123,19 +126,13 @@
 		chasecycles = 0
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ClearObstacle(var/turf/target_turf)
-	//Old, easy code.
 	//DestroySurroundings()
-
-	// *****BUG***** This does not allow spiders to smash windoors (e.g: UO71 bar windoor) for some reason.
-	// New, adapted from DestroySurroundings, let's see if it works.
-
+	// ***** This does not allow spiders to smash windoors (e.g: UO71 bar windoor) for some reason.
 	var/list/valid_obstacles = list(/obj/structure/window, /obj/structure/closet, /obj/structure/table, /obj/structure/grille, /obj/structure/rack, /obj/machinery/door/window)
-
 	for(var/dir in cardinal) // North, South, East, West
 		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
 		if (is_type_in_list(obstacle, valid_obstacles))
 			obstacle.attack_animal(src)
-
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(var/target_id_tag, var/msg_to_send)
@@ -156,6 +153,9 @@
 	var/hsline = ""
 	to_chat(src, "Your Brood: ")
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+		if (T.spider_awaymission != spider_awaymission)
+			continue
+			// we don't say anything about UO71/awaymission spiders to queens on the main station.
 		hsline = "* [T] in [get_area(T)], "
 		if (T.stat == DEAD)
 			hsline += "DEAD"
