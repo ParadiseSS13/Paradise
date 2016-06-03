@@ -201,3 +201,21 @@
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 5)
 	tools = list(/obj/item/weapon/kitchen/knife) // Gotta carve the wood into handles
+
+/datum/table_recipe/makeshift_bolt
+	name = "Makeshift Bolt"
+	result = /obj/item/weapon/arrow/rod
+	time = 15
+	reqs = list(/obj/item/stack/rods = 1)
+	tools = list(/obj/item/weapon/weldingtool)
+
+/datum/table_recipe/crossbow
+	name = "Powered Crossbow"
+	result = /obj/item/weapon/gun/throw/crossbow
+	time = 300
+	reqs = list(/obj/item/stack/rods = 3,
+				/obj/item/stack/cable_coil = 10,
+				/obj/item/stack/sheet/mineral/plastic = 3,
+				/obj/item/stack/sheet/wood = 5)
+	tools = list(/obj/item/weapon/weldingtool,
+				/obj/item/weapon/screwdriver)

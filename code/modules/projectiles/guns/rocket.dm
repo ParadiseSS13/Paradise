@@ -24,10 +24,12 @@
 		qdel(D)
 	rockets = null
 
+	return ..()
+
 /obj/item/weapon/gun/rocketlauncher/update_icon()
 	return
 
-/obj/item/weapon/gun/rocketlauncher/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/weapon/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		if(rockets.len < max_rockets)
 			user.drop_item()
@@ -52,6 +54,5 @@
 		log_game("[key_name_admin(user)] used a rocket launcher ([name]).")
 		rockets -= I
 		qdel(I)
-		return
 	else
 		to_chat(usr, "<span class='warning'>[src] is empty.</span>")

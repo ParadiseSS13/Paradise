@@ -178,6 +178,7 @@
 	stun = 5
 	forcedodge = 1
 	nodamage = 1
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	hitsound = 'sound/items/bikehorn.ogg'
 	icon = 'icons/obj/harvest.dmi'
 	icon_state = "banana"
