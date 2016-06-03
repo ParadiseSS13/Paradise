@@ -241,6 +241,12 @@
 		M.adjustBruteLoss(-1)
 		return
 
+/datum/reagent/drink/coffee/cafe_latte/cafe_mocha
+	name = "Cafe Mocha"
+	id = "cafe_mocha"
+	description = "The perfect blend of coffe, milk, and chocolate."
+	color = "#673629"
+
 /datum/reagent/drink/tea
 	name = "Tea"
 	id = "tea"

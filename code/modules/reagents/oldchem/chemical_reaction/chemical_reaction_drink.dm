@@ -509,6 +509,14 @@
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/cafe_mocha
+	name = "Cafe Mocha"
+	id = "cafe_mocha"
+	result = "cafe_mocha"
+	required_reagents = list("cafe_latte" = 1, "chocolate" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/acidspit
 	name = "Acid Spit"
 	id = "acidspit"
