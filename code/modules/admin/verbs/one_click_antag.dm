@@ -513,8 +513,8 @@ client/proc/one_click_antag()
 	new_vox.real_name = capitalize(newname)
 	new_vox.dna.real_name = new_vox.real_name
 	new_vox.name = new_vox.real_name
-	new_vox.flavor_text = ""
 	new_vox.age = rand(12,20)
+	new_vox.flavor_text = ""
 	new_vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
 	new_vox.change_skin_tone(rand(1, 4))
 
@@ -522,7 +522,6 @@ client/proc/one_click_antag()
 	new_vox.force_update_limbs()
 	new_vox.update_dna()
 	new_vox.update_eyes()
-	new_vox.regenerate_icons()
 
 	for(var/obj/item/organ/external/limb in new_vox.organs)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
@@ -534,6 +533,7 @@ client/proc/one_click_antag()
 	cortical_stacks += I
 
 	new_vox.equip_vox_raider()
+	new_vox.regenerate_icons()
 
 	return new_vox
 

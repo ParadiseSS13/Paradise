@@ -203,20 +203,14 @@
 	var/coloured_tail
 	if(current_species)
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
-			if(current_species.name == "Vox") //Handling species-specific icon-based skin tones for the Vox race.
-				switch(s_tone)
-					if(4) //Grey Vox.
-						icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
-						coloured_tail = "voxtail_gry" //Ensures they get an appropriately coloured tail.
-					if(3) //Brown Vox.
-						icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
-						coloured_tail = "voxtail_brn"
-					if(2) //Dark Green Vox.
-						icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
-						coloured_tail = "voxtail_dgrn"
-					else  //Default Green Vox.
-						icobase = 'icons/mob/human_races/vox/r_vox.dmi'
-						coloured_tail = "voxtail"
+			var/mob/living/carbon/human/H = new
+			H.species = current_species
+			H.s_tone = s_tone
+			H.species.updatespeciescolor(H)
+
+			icobase = H.species.icobase
+			if(H.species.bodyflags & HAS_TAIL)
+				coloured_tail = H.species.tail
 		else
 			icobase = current_species.icobase
 	else

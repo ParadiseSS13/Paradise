@@ -1545,6 +1545,9 @@
 		g_skin = 0
 		b_skin = 0
 
+	if(!(species.bodyflags & HAS_SKIN_TONE))
+		s_tone = 0
+
 	species.create_organs(src)
 
 	//Handle default hair/head accessories for created mobs.

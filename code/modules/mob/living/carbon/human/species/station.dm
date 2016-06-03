@@ -337,9 +337,8 @@
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
 	updatespeciescolor(H)
 	H.update_icons()
-	/*
-	H.verbs += /mob/living/carbon/human/proc/leap
-	..() */
+	//H.verbs += /mob/living/carbon/human/proc/leap
+	..()
 
 /datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H) //Handling species-specific skin-tones for the Vox race.
 	if(H.species.name == "Vox") //Making sure we don't break Armalis.

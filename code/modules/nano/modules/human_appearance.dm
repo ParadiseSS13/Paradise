@@ -43,8 +43,7 @@
 				new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
 				if(isnum(new_s_tone) && can_still_topic(state))
 					new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
-
-			if(owner.species.bodyflags & HAS_ICON_SKIN_TONE)
+			else if(owner.species.bodyflags & HAS_ICON_SKIN_TONE)
 				var/prompt = "Choose your character's skin tone: 1-[owner.species.icon_skin_tones.len]\n("
 				for(var/i = 1; i <= owner.species.icon_skin_tones.len; i++)
 					prompt += "[i] = [owner.species.icon_skin_tones[i]]"
