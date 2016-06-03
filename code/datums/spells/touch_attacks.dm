@@ -60,6 +60,7 @@
 	name = "RIP AND TEAR"
 	desc = "Solve problems most violent way!"
 	clothes_req = 0
+	hand_path = "/obj/item/weapon/melee/touch_attack/disintegrate/ripandtear"
 
 /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone
 	name = "Flesh to Stone"
