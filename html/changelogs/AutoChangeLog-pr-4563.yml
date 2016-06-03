@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes Chapel and Chaplain's office not having a light switch"
-  - bugfix: "Fixes mass driver only being usable once due to weird pressure"
-  - bugfix: "Fixes chapel being overly dark near coffins"

@@ -1,6 +1,0 @@
-author: CrAzYPiLoT
-delete-after: True
-changes: 
-  - bugfix: "Fixed a text problem in virtual gameboard description."
-  - rscadd: "Made gameboards deconstructable and movable."
-  - tweak: "Added a light to gameboards. Pretty!"
