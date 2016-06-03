@@ -32,22 +32,6 @@
 				adjustToxLoss(3)
 				updatehealth()
 
-/mob/living/carbon/brain/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
-		return
-	var/environment_heat_capacity = environment.heat_capacity()
-	if(istype(get_turf(src), /turf/space))
-		var/turf/heat_turf = get_turf(src)
-		environment_heat_capacity = heat_turf.heat_capacity
-
-	if((environment.temperature > (T0C + 50)) || (environment.temperature < (T0C + 10)))
-		var/transfer_coefficient = 1
-
-		handle_temperature_damage(HEAD, environment.temperature, environment_heat_capacity*transfer_coefficient)
-
-	if(stat == DEAD)
-		bodytemperature += 0.1*(environment.temperature - bodytemperature)*environment_heat_capacity/(environment_heat_capacity + 270000)
-
 /mob/living/carbon/brain/proc/handle_temperature_damage(body_part, exposed_temperature, exposed_intensity)
 	if(status_flags & GODMODE)
 		return
@@ -94,3 +78,6 @@
 		see_in_dark = 2
 		see_invisible = SEE_INVISIBLE_LIVING
 	handle_hud_icons_health()
+
+/mob/living/carbon/brain/breathe()
+	return
