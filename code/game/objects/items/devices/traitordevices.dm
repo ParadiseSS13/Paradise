@@ -30,32 +30,24 @@ effective or pretty fucking useless.
 	var/max_uses = 2
 
 
-/obj/item/device/batterer/attack_self(mob/living/carbon/user as mob, flag = 0, emp = 0)
+/obj/item/device/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user) 	return
 	if(times_used >= max_uses)
-		to_chat(user, "\red The mind batterer has been burnt out!")
+		to_chat(user, "<span class='danger>The mind batterer has been burnt out!</span>")
 		return
 
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used [src] to knock down people in the area.</font>")
 
 	for(var/mob/living/carbon/human/M in orange(10, user))
-		spawn()
-			if(prob(50))
+		if(prob(50))
+			M.Weaken(rand(3,6))
+			add_logs(M, user, "stunned", src)
+			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
+		else
+			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
 
-				M.Weaken(rand(10,20))
-				if(prob(25))
-					M.Stun(rand(5,10))
-				to_chat(M, "\red <b>You feel a tremendous, paralyzing wave flood your mind.</b>")
-				if(!iscarbon(user))
-					M.LAssailant = null
-				else
-					M.LAssailant = user
-			else
-				to_chat(M, "\red <b>You feel a sudden, electric jolt travel through your head.</b>")
-
-	playsound(src.loc, 'sound/misc/interference.ogg', 50, 1)
-	to_chat(user, "\blue You trigger [src].")
-	times_used += 1
+	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
+	to_chat(user, "<span class='notice'>You trigger [src].</span>")
+	times_used++
 	if(times_used >= max_uses)
 		icon_state = "battererburnt"
 
