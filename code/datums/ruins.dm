@@ -7,6 +7,7 @@
 		wooden container filled with 18th century coinage in the middle of a \
 		lavawracked hellscape? It is clearly a mystery."
 
+	var/cost = null
 	var/allow_duplicates = TRUE
 
 	var/prefix = null

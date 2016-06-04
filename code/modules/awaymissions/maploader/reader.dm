@@ -2,7 +2,7 @@
 //SS13 Optimized Map loader
 //////////////////////////////////////////////////////////////
 
-//As pf 3.6.2016
+//As of 3.6.2016
 //global datum that will preload variables on atoms instanciation
 var/global/use_preloader = FALSE
 var/global/dmm_suite/preloader/_preloader = new

@@ -17,15 +17,15 @@
 		name = rename
 
 /datum/map_template/proc/preload_size(path)
-	var/bounds = maploader.load_map(file(path), 1, 1, 1, cropMap=FALSE, measureOnly=TRUE)
+	var/bounds = maploader.load_map(file(path), 1, 1, 1, cropMap=0, measureOnly=1)
 	if(bounds)
 		width = bounds[MAP_MAXX] // Assumes all templates are rectangular, have a single Z level, and begin at 1,1,1
 		height = bounds[MAP_MAXY]
 	return bounds
 
-/datum/map_template/proc/load(turf/T, centered = FALSE)
+/datum/map_template/proc/load(turf/T, centered = 0)
 	if(centered)
-		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
+		T = locate(T.x - round(width/2), T.y - round(height/2), T.z)
 	if(!T)
 		return
 	if(T.x+width > world.maxx)
@@ -33,12 +33,12 @@
 	if(T.y+height > world.maxy)
 		return
 
-	var/list/bounds = maploader.load_map(get_file(), T.x, T.y, T.z, cropMap=TRUE)
+	var/list/bounds = maploader.load_map(get_file(), T.x, T.y, T.z, cropMap=1)
 	if(!bounds)
 		return 0
-
-	for(var/L in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]),
-	                   locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
+	late_setup_level(
+		block(T, locate(T.x + width - 1, T.y + height - 1, T.z)),
+		block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + width, T.y + height, T.z)))
 
 	log_game("[name] loaded at at [T.x],[T.y],[T.z]")
 	return 1
@@ -72,7 +72,11 @@
 
 /proc/preloadRuinTemplates()
 	// Still supporting bans by filename
-	var/list/banned = generateMapList("config/spaceRuinBlacklist.txt")
+	var/list/banned
+	if(fexists("config/spaceRuinBlacklist"))
+		banned = generateMapList("config/spaceRuinBlacklist.txt")
+	else
+		banned = generateMapList("config/example/spaceRuinBlacklist.txt")
 	//banned += generateMapList("config/lavaRuinBlacklist.txt")
 
 	for(var/item in subtypesof(/datum/map_template/ruin))
@@ -82,9 +86,8 @@
 			continue
 		var/datum/map_template/ruin/R = new ruin_type()
 
-		if(banned)
-			if(banned.Find(R.mappath))
-				continue
+		if(banned.Find(R.mappath))
+			continue
 
 		map_templates[R.name] = R
 		ruins_templates[R.name] = R

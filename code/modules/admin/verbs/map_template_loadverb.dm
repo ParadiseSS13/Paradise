@@ -17,11 +17,11 @@
 		return
 
 	var/list/preview = list()
-	for(var/S in template.get_affected_turfs(T,centered = TRUE))
+	for(var/S in template.get_affected_turfs(T,centered = 1))
 		preview += image('icons/turf/overlays.dmi',S,"greenOverlay")
 	usr.client.images += preview
 	if(alert(usr,"Confirm location.","Template Confirm","Yes","No") == "Yes")
-		template.load(T, centered = TRUE)
+		template.load(T, centered = 1)
 		message_admins("[key_name_admin(usr)] has placed a map template ([template.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</A>")
 	usr.client.images -= preview
 
