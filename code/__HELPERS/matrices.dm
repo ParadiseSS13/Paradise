@@ -10,12 +10,18 @@
 	if(!clockwise)
 		segment = -segment
 	var/list/matrices = list()
+	var/list/inverted_matrices = list()
 	for(var/i in 1 to segments-1)
 		var/matrix/M = matrix(transform)
 		M.Turn(segment*i)
 		matrices += M
+		M = matrix()
+		M.Turn(-segment*i)
+		inverted_matrices += M
+	
 	var/matrix/last = matrix(transform)
 	matrices += last
+	inverted_matrices += matrix()
 
 	speed /= segments
 
@@ -24,3 +30,16 @@
 		animate(transform = matrices[i], time = speed)
 		//doesn't have an object argument because this is "Stacking" with the animate call above
 		//3 billion% intentional
+	if(istype(src, /mob) && loops > 0)
+		var/mob/H = src
+		if(H.client)
+			var/obj/screen/spin_master = new()
+			spin_master.appearance_flags = PLANE_MASTER
+			spin_master.screen_loc = "1,1"
+			H.client.screen += spin_master
+			animate(spin_master, transform = inverted_matrices[1], time = speed, loops)
+			for(var/I in 2 to segments)
+				animate(transform = inverted_matrices[I], time = speed)
+			spawn(speed * loops * segments)
+				H.client.screen -= spin_master
+				qdel(spin_master)
