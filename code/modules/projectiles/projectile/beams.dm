@@ -32,6 +32,7 @@
 	damage = 15
 	irradiate = 30
 	forcedodge = 1
+	range = 15
 
 /obj/item/projectile/beam/disabler
 	name = "disabler beam"

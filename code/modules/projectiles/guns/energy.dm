@@ -51,16 +51,16 @@
 	if(selfcharge) //Every [recharge_time] ticks, recharge a shot for the cyborg
 		charge_tick++
 		if(charge_tick < charge_delay)
-			return 0
+			return
 		charge_tick = 0
 		if(!power_supply)
-			return 0 // check if we actually need to recharge
+			return // check if we actually need to recharge
 		var/obj/item/ammo_casing/energy/E = ammo_type[select]
 		if(use_external_power)
 			var/obj/item/weapon/stock_parts/cell/external = get_external_power_supply()
 			if(!external || !external.use((E.e_cost)/10)) //Take power from the borg...
-				return 0								//Note, uses /10 because of shitty mods to the cell system
-		power_supply.give(E.e_cost) //... to recharge the shot
+				return								//Note, uses /10 because of shitty mods to the cell system
+		power_supply.give(1000) //... to recharge the shot
 		update_icon()
 
 /obj/item/weapon/gun/energy/attack_self(mob/living/user as mob)
@@ -122,12 +122,9 @@
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				overlays += image(icon = icon, icon_state = icon_state, pixel_x = ammo_x_offset * (i -1))
+				overlays += image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1))
 		else
-			if(modifystate)
-				overlays += image(icon = icon, icon_state = "[icon_state]_[shot.select_name]_charge[ratio]")
-			else
-				overlays += image(icon = icon, icon_state = "[icon_state]_charge[ratio]")
+			overlays += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(F && can_flashlight)
 		var/iconF = "flight"
 		if(F.on)

@@ -92,6 +92,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	cell_type = /obj/item/weapon/stock_parts/cell/emproof
 	// Apparently these are safe to carry? I'm sure goliaths would disagree.
+	needs_permit = 0
 	var/overheat_time = 16
 	unique_rename = 1
 	weapon_weight = WEAPON_LIGHT
@@ -271,6 +272,7 @@
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=3;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
+	force = 15
 
 /obj/item/weapon/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
