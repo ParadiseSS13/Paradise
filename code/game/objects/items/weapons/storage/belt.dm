@@ -139,8 +139,8 @@
 		"/obj/item/weapon/reagent_containers/glass/fertilizer",
 		"/obj/item/weapon/reagent_containers/glass/bottle",
 		"/obj/item/weapon/plantspray",
-		"/obj/item/weapon/reagent_containers/syringe",
-		"/obj/item/weapon/reagent_containers/glass/beaker",
+//		"/obj/item/weapon/reagent_containers/syringe",
+//		"/obj/item/weapon/reagent_containers/glass/beaker",
 		"/obj/item/weapon/lighter/zippo",
 		"/obj/item/weapon/storage/fancy/cigarettes",
 		"obj/item/weapon/rollingpaperpack",
@@ -198,6 +198,7 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/device/soulstone"
 		)
@@ -347,6 +348,7 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/gun/magic/wand"
 		)
