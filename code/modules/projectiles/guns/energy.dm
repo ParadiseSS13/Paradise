@@ -67,6 +67,10 @@
 	if(ammo_type.len > 1)
 		select_fire(user)
 		update_icon()
+		if(istype(user,/mob/living/carbon/human)) //This has to be here or else if you toggle modes by clicking the gun in hand
+			var/mob/living/carbon/human/H = user //Otherwise the mob icon doesn't update, blame shitty human update_icons() code
+			H.update_inv_l_hand()
+			H.update_inv_r_hand()
 
 /obj/item/weapon/gun/energy/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, params)
 	newshot() //prepare a new shot

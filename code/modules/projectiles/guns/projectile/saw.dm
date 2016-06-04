@@ -131,28 +131,6 @@ obj/item/projectile/bullet/saw/incen/Move()
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
 
-/obj/item/ammo_box/magazine/mm556x45/buckshot //adminbus
-	name = "box magazine (buckshot)"
-	icon_state = "b762"
-	caliber = "shotgun"
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
-	max_ammo = 300
-
-/obj/item/ammo_box/magazine/mm556x45/buckshot/update_icon()
-	..()
-	icon_state = "b762-[round(ammo_count(),10)]"
-
-/obj/item/ammo_box/magazine/m556x45/he // also adminbus
-	name = "box magazine (40mm high explosive)"
-	icon_state = "g762"
-	caliber = "40mm"
-	ammo_type =/obj/item/ammo_casing/a40mm
-	max_ammo = 25
-
-/obj/item/ammo_box/magazine/mm556x45/he/update_icon()
-	..()
-	icon_state = "g762-[round(ammo_count(),5)]"
-
 //casings//
 
 /obj/item/ammo_casing/mm556x45
