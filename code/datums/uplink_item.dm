@@ -415,7 +415,7 @@ var/list/uplink_items = list()
 	desc = "A device that has a chance of knocking down people around you for a long amount of time.50% chance per person. The user is unaffected. Has only two charges."
 	reference = "BTR"
 	item = /obj/item/device/batterer
-	cost = 7
+	cost = 5
 
 /datum/uplink_item/dangerous/manhacks
 	name = "Viscerator Delivery Grenade"
