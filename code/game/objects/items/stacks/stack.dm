@@ -130,7 +130,7 @@
 			return
 		if (R.time)
 			to_chat(usr, "\blue Building [R.title] ...")
-			if (!do_after(usr, R.time, target = src))
+			if (!do_after(usr, R.time, target = usr))
 				return
 		if (src.amount < R.req_amount*multiplier)
 			return
