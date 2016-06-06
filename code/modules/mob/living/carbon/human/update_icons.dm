@@ -636,6 +636,7 @@ var/global/list/damage_icon_parts = list()
 					thing.loc = loc																//
 					thing.dropped(src)															//
 					thing.layer = initial(thing.layer)
+					thing.plane = initial(thing.plane)
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_wear_id(var/update_icons=1)

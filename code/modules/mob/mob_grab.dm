@@ -23,6 +23,7 @@
 	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
 
 	layer = 21
+	plane = HUD_PLANE
 	item_state = "nothing"
 	icon = 'icons/mob/screen_gen.dmi'
 	w_class = 5.0

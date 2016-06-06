@@ -455,6 +455,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
 			A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
+			A.pipe_image.plane = HUD_PLANE
 		pipes_shown += A.pipe_image
 		client.images += A.pipe_image
 
@@ -563,6 +564,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	//actually throw it!
 	if (item)
 		item.layer = initial(item.layer)
+		item.plane = initial(item.plane)
 		visible_message("\red [src] has thrown [item].")
 
 		newtonian_move(get_dir(target, src))
@@ -914,6 +916,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			W.dropped(src)
 			if (W)
 				W.layer = initial(W.layer)
+				W.plane = initial(W.plane)
 	if (legcuffed)
 		var/obj/item/weapon/W = legcuffed
 		legcuffed = null
@@ -925,6 +928,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			W.dropped(src)
 			if (W)
 				W.layer = initial(W.layer)
+				W.plane = initial(W.plane)
 
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
