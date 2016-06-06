@@ -456,10 +456,12 @@
 
 /datum/preferences/proc/SetChangelog(client/C,hash)
 	lastchangelog=hash
+	winset(C, "rpane.changelog", "background-color=none;font-style=")
 	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
 		message_admins("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
+		to_chat(C, "Couldn't update your last seen changelog, please try again later.")
 		return
 	return 1

@@ -90,7 +90,7 @@
 	item_state = "claymore"
 	name = "holy claymore"
 	desc = "A weapon fit for a crusade!"
-	w_class = 5
+	w_class = 4
 	slot_flags = SLOT_BACK|SLOT_BELT
 	sharp = 1
 	edge = 1
