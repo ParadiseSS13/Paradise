@@ -56,11 +56,11 @@
 			ticker.mode.traitors += H.mind
 			H.mind.special_role = "traitor"
 			to_chat(H, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
-			var/datum/objective/protect/p = new
-			p.owner = H.mind
-			p.target = user:mind
-			p.explanation_text = "Obey every order from and protect [user:real_name], the [user:mind:assigned_role=="MODE" ? (user:mind:special_role) : (user:mind:assigned_role)]."
-			H.mind.objectives += p
+			var/datum/objective/protect/mindslave/MS = new
+			MS.owner = H.mind
+			MS.target = user:mind
+			MS.explanation_text = "Obey every order from and protect [user:real_name], the [user:mind:assigned_role=="MODE" ? (user:mind:special_role) : (user:mind:assigned_role)]."
+			H.mind.objectives += MS
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
 
@@ -78,3 +78,14 @@
 			activated = 1
 			return 1
 		return 0
+
+/obj/item/weapon/implant/traitor/removed(mob/target)
+	if(..())
+		ticker.mode.traitors -= target.mind
+		target.mind.special_role = null
+		ticker.mode.update_traitor_icons_removed(target.mind)
+		for(var/datum/objective/protect/mindslave/MS in target.mind.objectives)
+			target.mind.objectives -= MS
+		to_chat(target, "\red <FONT size = 3><B>You are no longer a mindslave; you have complete and free control of your own faculties, once more!</B></FONT>")
+		return 1
+	return 0
