@@ -17,7 +17,7 @@
 		name = rename
 
 /datum/map_template/proc/preload_size(path)
-	var/bounds = maploader.load_map(file(path), 1, 1, 1, cropMap=0, measureOnly=1)
+	var/bounds = maploader.load_map(file(path), 1, 1, 1, cropMap = 0, measureOnly = 1)
 	if(bounds)
 		width = bounds[MAP_MAXX] // Assumes all templates are rectangular, have a single Z level, and begin at 1,1,1
 		height = bounds[MAP_MAXY]
@@ -33,14 +33,14 @@
 	if(T.y+height > world.maxy)
 		return
 
-	var/list/bounds = maploader.load_map(get_file(), T.x, T.y, T.z, cropMap=1)
+	var/list/bounds = maploader.load_map(get_file(), T.x, T.y, T.z, cropMap = 1)
 	if(!bounds)
 		return 0
 	late_setup_level(
 		block(T, locate(T.x + width - 1, T.y + height - 1, T.z)),
 		block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + width, T.y + height, T.z)))
 
-	log_game("[name] loaded at at [T.x],[T.y],[T.z]")
+	log_game("[name] loaded at [T.x],[T.y],[T.z]")
 	return 1
 
 /datum/map_template/proc/get_file()
@@ -52,7 +52,7 @@
 	if(!.)
 		log_to_dd("  The file of [src] appears to be empty/non-existent.")
 
-/datum/map_template/proc/get_affected_turfs(turf/T, centered = FALSE)
+/datum/map_template/proc/get_affected_turfs(turf/T, centered = 0)
 	var/turf/placement = T
 	if(centered)
 		var/turf/corner = locate(placement.x - round(width/2), placement.y - round(height/2), placement.z)
@@ -73,7 +73,7 @@
 /proc/preloadRuinTemplates()
 	// Still supporting bans by filename
 	var/list/banned
-	if(fexists("config/spaceRuinBlacklist"))
+	if(fexists("config/spaceRuinBlacklist.txt"))
 		banned = generateMapList("config/spaceRuinBlacklist.txt")
 	else
 		banned = generateMapList("config/example/spaceRuinBlacklist.txt")
@@ -98,7 +98,6 @@
 		*/
 		if(istype(R, /datum/map_template/ruin/space))
 			space_ruins_templates[R.name] = R
-
 
 /*
 /proc/preloadShuttleTemplates()

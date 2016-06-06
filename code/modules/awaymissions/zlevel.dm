@@ -25,7 +25,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 	if(potentialRandomZlevels && potentialRandomZlevels.len)
 		var/watch = start_watch()
-		log_startup_progress("  Loading away mission...")
+		log_startup_progress("Loading away mission...")
 
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
@@ -86,7 +86,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	var/ruins = potentialRuins.Copy()
 	var/watch = start_watch()
 
-	log_startup_progress("  Loading ruins...")
+	log_startup_progress("Loading ruins...")
 
 	while(budget > 0 && overall_sanity > 0)
 		// Pick a ruin
@@ -113,9 +113,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			if(!valid)
 				continue
 
-			log_to_dd("  Ruin \"[ruin.name]\" placed at ([T.x], [T.y], [T.z]) in [stop_watch(watch)]s.")
+			log_to_dd("  Ruin \"[ruin.name]\" placed at ([T.x], [T.y], [T.z])")
 
 			var/obj/effect/ruin_loader/R = new /obj/effect/ruin_loader(T)
+			R.watch = watch
+			watch = null
 			R.Load(ruins,ruin)
 			budget -= ruin.cost
 			if(!ruin.allow_duplicates)
@@ -125,9 +127,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 /obj/effect/ruin_loader
 	name = "random ruin"
+	desc = "This should never be here."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "syndballoon"
 	invisibility = 0
+	var/watch = null
 
 /obj/effect/ruin_loader/proc/Load(list/potentialRuins = space_ruins_templates, datum/map_template/template = null)
 	var/list/possible_ruins = list()
@@ -141,5 +145,6 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		return 0
 	template.load(get_turf(src),centered = 1)
 	template.loaded++
+	log_startup_progress("  Loaded ruins in [stop_watch(src.watch)]s.")
 	qdel(src)
 	return 1

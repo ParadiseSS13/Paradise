@@ -4,7 +4,7 @@
 
 //As of 3.6.2016
 //global datum that will preload variables on atoms instanciation
-var/global/use_preloader = FALSE
+var/global/use_preloader = 0
 var/global/dmm_suite/preloader/_preloader = new
 
 /dmm_suite
@@ -138,7 +138,7 @@ var/global/dmm_suite/preloader/_preloader = new
 		for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
 			var/turf/T = t
 			//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
-			T.AfterChange(TRUE)
+			T.AfterChange(1)
 		return bounds
 
 /**
@@ -272,7 +272,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/turf/T = locate(x,y,z)
 	if(T)
 		if(ispath(path, /turf))
-			T.ChangeTurf(path, TRUE)
+			T.ChangeTurf(path, 1)
 			instance = T
 		else
 			instance = new path (T)//first preloader pass
@@ -383,7 +383,7 @@ var/global/dmm_suite/preloader/_preloader = new
 
 /dmm_suite/preloader/proc/setup(list/the_attributes, path)
 	if(the_attributes.len)
-		use_preloader = TRUE
+		use_preloader = 1
 		attributes = the_attributes
 		target_path = path
 
@@ -393,7 +393,7 @@ var/global/dmm_suite/preloader/_preloader = new
 		if(islist(value))
 			value = deepCopyList(value)
 		what.vars[attribute] = value
-	use_preloader = FALSE
+	use_preloader = 0
 
 /area/template_noop
 	name = "Area Passthrough"
