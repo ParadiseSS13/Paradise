@@ -190,6 +190,16 @@
 	..()
 	mag_type = "/obj/item/ammo_box/magazine/m762" // Workaround so it spawns with a shotgun mag loaded, but can still load regular LMG mags.
 
+/obj/item/weapon/gun/projectile/automatic/l6_saw/doomgun
+	name = "\improper DOOM minigun"
+	desc = "A heavily modified minigun for demonslaying."
+	icon_state = "doomgunclosed100"
+
+/obj/item/weapon/gun/projectile/automatic/l6_saw/doomgun/update_icon()
+	if(magazine && magazine.caliber != "a762")
+		icon_state = "doomgun[cover_open ? "open" : "closed"]0"
+	icon_state = "doomgun[cover_open ? "open" : "closed"][magazine ? round(magazine.ammo_count() * 2, 25) : "-empty"]"
+
 /obj/item/weapon/gun/projectile/automatic/m90
 	name = "\improper M-90gl Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."

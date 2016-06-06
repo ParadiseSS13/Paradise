@@ -218,10 +218,7 @@
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	action_button_name = "Noir Mode"
 	var/noir_mode = 0
-	color_view = list(0.3, 0.3, 0.3, 0,\
-						0.3, 0.3, 0.3, 0,\
- 						0.3, 0.3, 0.3, 0,\
- 						0.0, 0.0, 0.0, 1,) //greyscale
+	color_view = MATRIX_GREYSCALE
 
 /obj/item/clothing/glasses/sunglasses/noir/attack_self()
 	if(is_equipped())

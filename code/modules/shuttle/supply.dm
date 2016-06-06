@@ -443,7 +443,7 @@
 
 	data["supply_packs"] = packs_list
 	if(content_pack)
-		var/pack_name = sanitize_nano(content_pack.name)
+		var/pack_name = sanitize(content_pack.name)
 		data["contents_name"] = pack_name
 		data["contents"] = content_pack.manifest
 		data["contents_access"] = content_pack.access ? get_access_desc(content_pack.access) : "None"
@@ -505,10 +505,10 @@
 			crates = Clamp(round(num_input), 1, 20)
 
 		var/timeout = world.time + 600
-		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
+		var/reason = input(usr,"Reason:","Why do you require this item? Please use only english letters and symbols!!!","") as null|text
 		if(world.time > timeout || !reason || ..())
 			return 1
-		reason = sanitize_nano(copytext(reason, 1, MAX_MESSAGE_LEN))
+		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
@@ -592,7 +592,7 @@
 
 	data["supply_packs"] = packs_list
 	if(content_pack)
-		var/pack_name = sanitize_nano(content_pack.name)
+		var/pack_name = sanitize(content_pack.name)
 		data["contents_name"] = pack_name
 		data["contents"] = content_pack.manifest
 		data["contents_access"] = content_pack.access ? get_access_desc(content_pack.access) : "None"
@@ -682,7 +682,7 @@
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
 		if(world.time > timeout || !reason || !is_authorized(usr) || ..())
 			return 1
-		reason = sanitize_nano(copytext(reason, 1, MAX_MESSAGE_LEN))
+		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"

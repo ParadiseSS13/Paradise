@@ -903,13 +903,8 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/can_use_hands()
 	return
 
-/mob/proc/is_active()
-	return (0 >= usr.stat)
-
 /mob/proc/is_mechanical()
-	if(mind && (mind.assigned_role == "Cyborg" || mind.assigned_role == "AI"))
-		return 1
-	return istype(src, /mob/living/silicon) || get_species() == "Machine"
+	return mind && (mind.assigned_role == "Cyborg" || mind.assigned_role == "AI")
 
 /mob/proc/is_ready()
 	return client && !!mind
@@ -936,18 +931,8 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/get_gender()
 	return gender
 
-/mob/proc/see(message)
-	if(!is_active())
-		return 0
-	to_chat(src, message)
-	return 1
-
 /mob/proc/is_muzzled()
 	return 0
-
-/mob/proc/show_viewers(message)
-	for(var/mob/M in viewers())
-		M.see(message)
 
 /mob/Stat()
 	..()

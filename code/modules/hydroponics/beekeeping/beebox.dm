@@ -82,7 +82,7 @@
 		honey_frames += HF
 
 	for(var/i in 1 to get_max_bees())
-		var/mob/living/simple_animal/hostile/poison/bees/B = new(src)
+		var/mob/living/simple_animal/hostile/poison/bees/worker/B = new(src)
 		bees += B
 		B.beehome = src
 		B.assign_reagent(R)

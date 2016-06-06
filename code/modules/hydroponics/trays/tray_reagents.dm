@@ -180,12 +180,16 @@
 				if(production_stat_value && seed.get_trait(TRAIT_PRODUCTION) > 2)
 					if(!isnull(plant_controller.seeds[seed.name]))	//This is so we don't affect plants in other trays unintentionally
 						seed = seed.diverge(2)						//ENHANCE!
+					else
+						seed.update_name_prefixes(2)
 					var/new_production = seed.get_trait(TRAIT_PRODUCTION) + (reagent_total * production_stat_value)
 					seed.set_trait(TRAIT_PRODUCTION, max(2, new_production))		//can't drop below 2 with this method
 				//Potency
 				if(potency_stat_value)
 					if(!isnull(plant_controller.seeds[seed.name]))	//This is so we don't affect plants in other trays unintentionally
 						seed = seed.diverge(2)						//ENHANCE!
+					else
+						seed.update_name_prefixes(2)
 					var/new_potency = seed.get_trait(TRAIT_POTENCY) + (reagent_total * potency_stat_value)
 					seed.set_trait(TRAIT_POTENCY, max(0, min(100, new_potency)))		//can't go above 100 or below 0 with this method
 

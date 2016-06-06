@@ -5,7 +5,7 @@
 	<div class="itemContent">
 		{{:helper.displayBar(data.storedCapacity, 0, 100, data.charging ? 'good' : 'average')}}
 		<div class="statusValue">
-			{{:helper.round(data.storedCapacity)}}%
+			{{:helper.smoothRound(data.storedCapacity)}}%
 		</div>
 	</div>
 </div>
@@ -36,7 +36,7 @@
 		{{:helper.displayBar(data.chargeLevel, 0, data.chargeMax)}}
 		<div style="clear: both; padding-top: 4px;">
 			{{:helper.link('MIN', null, {'input' : 'min'}, (data.chargeLevel > 0) ? null : 'disabled')}}
-			{{:helper.link('SET', null, {'input' : 'set'}, null)}}			
+			{{:helper.link('SET', null, {'input' : 'set'}, null)}}
 			{{:helper.link('MAX', null, {'input' : 'max'}, (data.chargeLevel < data.chargeMax) ? null : 'disabled')}}
 			<div style="float: left; width: 100px; text-align: center;">&nbsp;{{:data.chargeLevel}} W&nbsp;</div>
 		</div>
@@ -69,9 +69,9 @@
 		{{:helper.displayBar(data.outputLevel, 0, data.outputMax)}}
 		<div style="clear: both; padding-top: 4px;">
 			{{:helper.link('MIN', null, {'output' : 'min'}, (data.outputLevel > 0) ? null : 'disabled')}}
-			{{:helper.link('SET', null, {'output' : 'set'}, null)}}			
+			{{:helper.link('SET', null, {'output' : 'set'}, null)}}
 			{{:helper.link('MAX', null, {'output' : 'max'}, (data.outputLevel < data.outputMax) ? null : 'disabled')}}
-			<div style="float: left; width: 100px; text-align: center;">&nbsp;{{:data.outputLevel}} W&nbsp;</div>			
+			<div style="float: left; width: 100px; text-align: center;">&nbsp;{{:data.outputLevel}} W&nbsp;</div>
 		</div>
 	</div>
 </div>
@@ -83,7 +83,7 @@
 	<div class="itemContent">
 		{{:helper.displayBar(data.outputLoad, 0, data.outputMax, (data.outputLoad < data.outputLevel) ? 'good' : 'average')}}
 		<div class="statusValue">
-			{{:data.outputLoad}} W
+			{{:helper.smoothRound(data.outputLoad)}} W
 		</div>
 	</div>
 </div>

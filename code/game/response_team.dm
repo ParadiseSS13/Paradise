@@ -15,7 +15,7 @@ var/send_emergency_team
 	set category = "Event"
 	set desc = "Send an CentComm response team to the station."
 
-	if(!check_rights(R_EVENT))
+	if(!check_rights(R_SERVER))
 		return
 
 	if(!ticker)

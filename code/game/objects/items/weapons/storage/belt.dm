@@ -6,7 +6,16 @@
 	item_state = "utility"
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
+	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
 
+
+/obj/item/weapon/storage/belt/update_icon()
+	if(use_item_overlays)
+		overlays.Cut()
+		for(var/obj/item/I in contents)
+			overlays += "[I.name]"
+
+	..()
 
 /obj/item/weapon/storage/belt/proc/can_use()
 	return is_equipped()
@@ -148,6 +157,7 @@
 	item_state = "security"//Could likely use a better one.
 	storage_slots = 5
 	max_w_class = 3
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/flashbang",
 		"/obj/item/weapon/grenade/chem_grenade/teargas",
@@ -579,3 +589,28 @@
 
 		new /obj/item/device/analyzer(src)
 		new /obj/item/device/healthanalyzer(src)
+
+/obj/item/weapon/storage/belt/bluespace/doom
+	desc = "You can now hold your demons inside. Or memes. The small painting on it reads 'WJ Armor'."
+	name = "Praetor Belt"
+	icon_state = "doombelt"
+	item_state = "doombelt"
+	w_class = 10 // permit holding other storage items
+	storage_slots = 20
+	max_w_class = 10
+	max_combined_w_class = 280
+	can_hold = list()
+	flags = NODROP
+
+	New()
+		..()
+		new /obj/item/weapon/storage/box(src)
+		new /obj/item/weapon/c4(src)
+		new /obj/item/ammo_box/magazine/m762(src)
+		new /obj/item/ammo_box/magazine/m762(src)
+		new /obj/item/ammo_box/shotgun/buck(src)
+		new /obj/item/ammo_box/shotgun/buck(src)
+		new /obj/item/weapon/pinpointer(src)
+		new /obj/item/weapon/disk/nuclear(src)
+		new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src)
+		new /obj/item/weapon/dnainjector/hulkmut(src)

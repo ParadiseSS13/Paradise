@@ -178,7 +178,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "law_manager.tmpl", sanitize_nano("[src] - [owner.name]"), 800, is_malf(user) ? 600 : 400, state = state)
+		ui = new(user, src, ui_key, "law_manager.tmpl", sanitize("[src] - [owner.name]"), 800, is_malf(user) ? 600 : 400, state = state)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
@@ -209,7 +209,7 @@
 	return 0
 
 /mob/living/silicon/robot/is_slaved()
-	return lawupdate && connected_ai ? sanitize_nano(connected_ai.name) : null
+	return lawupdate && connected_ai ? sanitize(connected_ai.name) : null
 
 /datum/nano_module/law_manager/proc/sync_laws(var/mob/living/silicon/ai/AI)
 	if(!AI)

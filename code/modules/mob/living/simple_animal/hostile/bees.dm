@@ -140,13 +140,15 @@
 
 /mob/living/simple_animal/hostile/poison/bees/worker/Destroy()
 	if(beehome)
-		beehome.bees.Remove(src)
+		if(beehome.bees)
+			beehome.bees.Remove(src)
 		beehome = null
 	..()
 
 /mob/living/simple_animal/hostile/poison/bees/worker/death(gibbed)
 	if(beehome)
-		beehome.bees.Remove(src)
+		if(beehome.bees)
+			beehome.bees.Remove(src)
 		beehome = null
 	..()
 
@@ -159,8 +161,8 @@
 /mob/living/simple_animal/hostile/poison/bees/worker/Found(atom/A)
 	if(istype(A, /obj/machinery/portable_atmospherics/hydroponics))
 		var/obj/machinery/portable_atmospherics/hydroponics/Hydro = A
-		if(Hydro.seed && !Hydro.dead && !Hydro.recent_bee_visit)
-			wanted_objects |= /obj/machinery/portable_atmospherics/hydroponics //so we only hunt them while they're alive/seeded/not visisted
+		if(Hydro.seed && !Hydro.dead && !Hydro.recent_bee_visit && !Hydro.closed_system)
+			wanted_objects |= /obj/machinery/portable_atmospherics/hydroponics //so we only hunt them while they're alive/seeded/not visisted and uncovered
 			return 1
 	..()
 
@@ -186,7 +188,7 @@
 		..()
 
 /mob/living/simple_animal/hostile/poison/bees/worker/proc/pollinate(obj/machinery/portable_atmospherics/hydroponics/Hydro)
-	if(!istype(Hydro) || !Hydro.seed || Hydro.dead || Hydro.recent_bee_visit)
+	if(!istype(Hydro) || !Hydro.seed || Hydro.dead || Hydro.recent_bee_visit || Hydro.closed_system)
 		target = null
 		return
 
@@ -205,11 +207,15 @@
 	if(prob(BEE_POLLINATE_YIELD_CHANCE)) //Yield mod is HELLA powerful, but quite rare
 		if(!isnull(plant_controller.seeds[Hydro.seed.name]))
 			Hydro.seed = Hydro.seed.diverge()
+		else
+			Hydro.seed.update_name_prefixes()
 		var/seed_yield = Hydro.seed.get_trait(TRAIT_YIELD)
 		Hydro.seed.set_trait(TRAIT_YIELD, seed_yield + 1, 10, 0)
 	if(prob(BEE_POLLINATE_POTENTCY_CHANCE))
 		if(!isnull(plant_controller.seeds[Hydro.seed.name]))
 			Hydro.seed = Hydro.seed.diverge()
+		else
+			Hydro.seed.update_name_prefixes()
 		var/seed_potency = Hydro.seed.get_trait(TRAIT_POTENCY)
 		Hydro.seed.set_trait(TRAIT_POTENCY, seed_potency + 1, 200, 0)
 

@@ -8,7 +8,7 @@
 /obj/item/weapon/reagent_containers/syringe
 	name = "Syringe"
 	desc = "A syringe."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
 	amount_per_transfer_from_this = 5
@@ -336,7 +336,7 @@
 /obj/item/weapon/reagent_containers/ld50_syringe
 	name = "Lethal Injection Syringe"
 	desc = "A syringe used for lethal injections."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
 	amount_per_transfer_from_this = 50

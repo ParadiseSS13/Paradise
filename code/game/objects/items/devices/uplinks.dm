@@ -92,7 +92,7 @@ var/list/world_uplinks = list()
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			nano[nano.len]["items"] += list(list("Name" = sanitize_nano(I.name), "Description" = sanitize_nano(I.description()),"Cost" = I.cost, "obj_path" = I.reference))
+			nano[nano.len]["items"] += list(list("Name" = sanitize(I.name), "Description" = sanitize(I.description()),"Cost" = I.cost, "obj_path" = I.reference))
 			reference[I.reference] = I
 
 	var/datum/nano_item_lists/result = new
@@ -253,7 +253,7 @@ var/list/world_uplinks = list()
 	if(nanoui_menu == 1)
 		var/permanentData[0]
 		for(var/datum/data/record/L in sortRecord(data_core.general))
-			permanentData[++permanentData.len] = list(Name = sanitize_nano(L.fields["name"]),"id" = L.fields["id"])
+			permanentData[++permanentData.len] = list(Name = sanitize(L.fields["name"]),"id" = L.fields["id"])
 		nanoui_data["exploit_records"] = permanentData
 
 	if(nanoui_menu == 11)

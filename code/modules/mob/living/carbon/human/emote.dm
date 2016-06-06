@@ -317,8 +317,12 @@
 					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
-						var/obj/item/weapon/grab/G = get_active_hand()
+						var/obj/item/weapon/grab/G
+						if(istype(get_active_hand(), /obj/item/weapon/grab))
+							G = get_active_hand()
 						if(G && G.affecting)
+							if(buckled || G.affecting.buckled)
+								return
 							var/turf/oldloc = loc
 							var/turf/newloc = G.affecting.loc
 							if(isturf(oldloc) && isturf(newloc))

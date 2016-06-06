@@ -46,12 +46,13 @@
 
 /datum/spacepod/equipment
 	var/obj/spacepod/my_atom
+	var/list/obj/item/device/spacepod_equipment/installed_modules // holds an easy to access list of installed modules
+
 	var/obj/item/device/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/device/spacepod_equipment/misc/misc_system // misc system
 	var/obj/item/device/spacepod_equipment/cargo/cargo_system // cargo system
+	var/obj/item/device/spacepod_equipment/cargo/sec_cargo_system // secondary cargo system
 	var/obj/item/device/spacepod_equipment/lock/lock_system // lock system
-	//var/obj/item/device/spacepod_equipment/engine/engine_system // engine system
-	//var/obj/item/device/spacepod_equipment/shield/shield_system // shielding system
 
 /datum/spacepod/equipment/New(var/obj/spacepod/SP)
 	..()
@@ -61,11 +62,17 @@
 /obj/item/device/spacepod_equipment
 	name = "equipment"
 	var/obj/spacepod/my_atom
+	var/occupant_mod = 0	// so any module can modify occupancy
+	var/list/storage_mod = list("slots" = 0, "w_class" = 0)		// so any module can modify storage slots
 
 /obj/item/device/spacepod_equipment/proc/removed(var/mob/user) // So that you can unload cargo when you remove the module
 	return
 
-// base item for spacepod weapons
+/*
+///////////////////////////////////////
+/////////Weapon System///////////////////
+///////////////////////////////////////
+*/
 
 /obj/item/device/spacepod_equipment/weaponry
 	name = "pod weapon"
@@ -135,7 +142,12 @@
 	fire_delay = 8
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 
-//base item for spacepod misc equipment (tracker)
+/*
+///////////////////////////////////////
+/////////Misc. System///////////////////
+///////////////////////////////////////
+*/
+
 /obj/item/device/spacepod_equipment/misc
 	name = "pod misc"
 	desc = "You shouldn't be seeing this"
@@ -160,36 +172,78 @@
 	else
 		..()
 
+/*
+///////////////////////////////////////
+/////////Cargo System//////////////////
+///////////////////////////////////////
+*/
+
 /obj/item/device/spacepod_equipment/cargo
 	name = "pod cargo"
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/vehicles/spacepod.dmi'
-	icon_state = "blank"
+	icon_state = "cargo_blank"
+	var/obj/storage = null
 
 /obj/item/device/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
 	return
 
-/obj/item/device/spacepod_equipment/cargo/proc/unload()
-	return
+/obj/item/device/spacepod_equipment/cargo/proc/unload() // called by unload verb
+	if(storage)
+		storage.forceMove(get_turf(my_atom))
+		storage = null
 
-/obj/item/device/spacepod_equipment/cargo/ore
-	name = "\improper spacepod ore storage system"
-	desc = "An ore storage system for spacepods. Scoops up any ore you drive over."
-	icon_state = "cargo_ore"
-	var/obj/structure/ore_box/box
-
-/obj/item/device/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
-	if(box && istype(I,/obj/item/weapon/ore))
-		I.forceMove(box)
-
-/obj/item/device/spacepod_equipment/cargo/ore/unload()
-	if(box)
-		box.forceMove(get_turf(my_atom))
-		box = null
-
-/obj/item/device/spacepod_equipment/cargo/ore/removed(var/mob/user)
+/obj/item/device/spacepod_equipment/cargo/removed(var/mob/user) // called when system removed
 	. = ..()
 	unload()
+
+// Ore System
+/obj/item/device/spacepod_equipment/cargo/ore
+	name = "spacepod ore storage system"
+	desc = "An ore storage system for spacepods. Scoops up any ore you drive over."
+	icon_state = "cargo_ore"
+
+/obj/item/device/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
+	if(storage && istype(I,/obj/item/weapon/ore))
+		I.forceMove(storage)
+
+// Crate System
+/obj/item/device/spacepod_equipment/cargo/crate
+	name = "spacepod crate storage system"
+	desc = "A heavy duty storage system for spacepods. Holds one crate."
+	icon_state = "cargo_crate"
+
+/*
+///////////////////////////////////////
+/////////Secondary Cargo System////////
+///////////////////////////////////////
+*/
+
+/obj/item/device/spacepod_equipment/sec_cargo
+	name = "secondary cargo"
+	desc = "you shouldn't be seeing this"
+	icon = 'icons/vehicles/spacepod.dmi'
+	icon_state = "blank"
+
+// Passenger Seat
+/obj/item/device/spacepod_equipment/sec_cargo/chair
+	name = "passanger seat"
+	desc = "A passenger seat for a spacepod"
+	icon_state = "sec_cargo_chair"
+	occupant_mod = 1
+
+// Loot Box
+/obj/item/device/spacepod_equipment/sec_cargo/loot_box
+	name = "loot box"
+	desc = "A small compartment to store valuables"
+	icon_state = "sec_cargo_loot"
+	storage_mod = list("slots" = 7, "w_class" = 14)
+
+/*
+///////////////////////////////////////
+/////////Lock System///////////////////
+///////////////////////////////////////
+*/
 
 /obj/item/device/spacepod_equipment/lock
 	name = "pod lock"

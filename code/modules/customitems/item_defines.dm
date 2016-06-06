@@ -340,9 +340,9 @@
 	flags_inv = HIDEFACE
 
 /obj/item/weapon/nullrod/fluff/chronx //chronx100: Hughe O'Splash
-	transform_into = /obj/item/weapon/nullrod/sword/fluff/chronx
+	fluff_transformations = list(/obj/item/weapon/nullrod/fluff/chronx/scythe)
 
-/obj/item/weapon/nullrod/sword/fluff/chronx
+/obj/item/weapon/nullrod/fluff/chronx/scythe
 	name = "Soul Collector"
 	desc = "An ancient scythe used by the worshipers of Cthulhu. Tales say it is used to prepare souls for Cthulhu's great devouring. Someone carved their name into the handle: Hughe O'Splash"
 	icon = 'icons/obj/custom_items.dmi'

@@ -1,5 +1,5 @@
-<!-- 
-Title: Sleeper Status UI 
+<!--
+Title: Sleeper Status UI
 Used In File(s): \code\game\machinery\Sleeper.dm
  -->
 <h3>Sleeper Status</h3>
@@ -18,7 +18,7 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 				<span class="bad">DEAD</span>
 			{{/if}}
 		</div>
-	
+
 			<div class="line">
 				<div class="statusLabel">Health:</div>
 				{{if data.occupant.health >= data.occupant.maxHealth}}
@@ -30,89 +30,89 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 				{{else}}
 					{{:helper.displayBar(data.occupant.health, 0, data.occupant.minHealth, 'bad alignRight')}}
 				{{/if}}
-				<div class="statusValue">{{:helper.round(data.occupant.health)}}</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.health)}}</div>
 			</div>
-		
+
 			<div class="line">
 				<div class="statusLabel">=&gt; Brute Damage:</div>
 				{{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth, 'bad')}}
-				<div class="statusValue">{{:helper.round(data.occupant.bruteLoss)}}</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.bruteLoss)}}</div>
 			</div>
-		
+
 			<div class="line">
 				<div class="statusLabel">=&gt; Resp. Damage:</div>
 				{{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth, 'bad')}}
-				<div class="statusValue">{{:helper.round(data.occupant.oxyLoss)}}</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.oxyLoss)}}</div>
 			</div>
-		
+
 			<div class="line">
 				<div class="statusLabel">=&gt; Toxin Damage:</div>
 				{{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth, 'bad')}}
-				<div class="statusValue">{{:helper.round(data.occupant.toxLoss)}}</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.toxLoss)}}</div>
 			</div>
-		
+
 			<div class="line">
 				<div class="statusLabel">=&gt; Burn Severity:</div>
 				{{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad')}}
-				<div class="statusValue">{{:helper.round(data.occupant.fireLoss)}}</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.fireLoss)}}</div>
 			</div>
-			
+
 			<br>
 			<div class="line">
 			<!--
 				<div class="statusLabel">Patient Temperature:</div>
 				{{if data.occupant.temperatureSuitability == -3}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'cold3')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == -2}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'cold2')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == -1}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'cold1')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 0}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'good')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 1}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'hot1')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 2}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'hot2')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 3}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'hot3')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{/if}}
 				If you can get the changing temperature bars to work right, congratulations
 				-->
 				<div class="statusLabel">Patient Temperature:</div>
 				{{if data.occupant.temperatureSuitability == -3}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == -2}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == -1}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 0}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'good')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 1}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 2}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 3}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
+				<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
 				{{/if}}
 			</div>
-			
-			
+
+
 			{{if data.occupant.hasBlood}}
-			
+
 			<br>
 			<div class="line">
 				<div class="statusLabel">Pulse:</div> <div class="statusValue">{{:data.occupant.pulse}} bpm</div>
@@ -122,17 +122,17 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 				{{if data.occupant.bloodPercent <= 60}}
 					{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'bad')}}
 				<div class="statusValue">
-					{{:data.occupant.bloodPercent}}%, {{:data.occupant.bloodLevel}}cl
+					{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
 				</div>
 				{{else data.occupant.bloodPercent <= 90}}
 					{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'average')}}
 				<div class="statusValue">
-					{{:data.occupant.bloodPercent}}%, {{:data.occupant.bloodLevel}}cl
+					{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
 				</div>
 				{{else}}
 					{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'good')}}
 				<div class="statusValue">
-					{{:data.occupant.bloodPercent}}%, {{:data.occupant.bloodLevel}}cl
+					{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
 				</div>
 				{{/if}}
 			</div>
@@ -156,7 +156,7 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 	</div>
 	<div class="itemContent" style="width: 40%;">
 		{{if data.isBeakerLoaded}}
-			<span class="highlight">{{:helper.round(data.beakerFreeSpace)}} units of space remaining</span><br>
+			<span class="highlight">{{:helper.smoothRound(data.beakerFreeSpace)}} units of space remaining</span><br>
 		{{else}}
 			<span class="average"><i>No Dialysis Output Beaker Loaded</i></span>
 		{{/if}}
@@ -176,7 +176,7 @@ Used In File(s): \code\game\machinery\Sleeper.dm
     <div class="itemLabel">
         Chemicals:
     </div>
-	
+
     {{for data.chemicals}}
 	<div class="line"><b>{{:value.title}}</b></div>
 	<div class="line">
@@ -187,7 +187,7 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 		{{else}}
             {{:helper.displayBar(value.occ_amount, 0, data.maxchem, 'good')}}
 		{{/if}}
-        <div class="statusValue">{{:value.pretty_amount}}/{{:data.maxchem}}</div>
+        <div class="statusValue">{{:helper.smoothRound(value.pretty_amount)}}/{{:data.maxchem}}</div>
 		<br>
 	</div>
 	<div class="line">

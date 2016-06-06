@@ -150,8 +150,8 @@
 	walk(src,0)
 
 /mob/living/simple_animal/hostile/retaliate/malf_drone/death()
-	src.visible_message("\blue \icon[src] [src] suddenly breaks apart.")
 	..()
+	visible_message("\blue \icon[src] [src] suddenly breaks apart.")
 	qdel(src)
 
 /mob/living/simple_animal/hostile/retaliate/malf_drone/Destroy() //Seriously, what the actual hell.

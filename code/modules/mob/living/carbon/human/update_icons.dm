@@ -574,6 +574,8 @@ var/global/list/damage_icon_parts = list()
 	UpdateDamageIcon()
 	update_icons()
 	update_fire()
+	force_update_limbs()
+	update_tail_layer(0)
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 

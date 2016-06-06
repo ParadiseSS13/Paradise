@@ -166,7 +166,7 @@ var/list/tape_roll_applications = list()
 
 /obj/item/tape/attack_hand(mob/user as mob)
 	if (user.a_intent == I_HELP && src.allowed(user))
-		user.show_viewers("\blue [user] lifts [src], allowing passage.")
+		user.visible_message("<span class=notice>[user] lifts [src], allowing passage.</span>", "<span class=notice>You lift [src], allowing passage.</span>")
 		src.density = 0
 		spawn(200)
 			src.density = 1
@@ -180,7 +180,7 @@ var/list/tape_roll_applications = list()
 	if(user.a_intent == I_HELP && ((!can_puncture(W) && src.allowed(user))))
 		to_chat(user, "You can't break the [src] with that!")
 		return
-	user.show_viewers("\blue [user] breaks the [src]!")
+	user.visible_message("<span class=warning>[user] breaks the [src]!</span>", "<span class=warning>You break the [src]!</span>")
 
 	var/dir[2]
 	var/icon_dir = src.icon_state

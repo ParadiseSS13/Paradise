@@ -489,6 +489,7 @@
 			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 
 			occupant = M
+			name = "[name] ([occupant.name])"
 			time_entered = world.time
 
 			if(findtext("[M.key]","@",1,2))
@@ -581,6 +582,7 @@
 		to_chat(L, "<span class='notice'>[on_enter_occupant_message]</span>")
 		to_chat(L, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 		occupant = L
+		name = "[name] ([occupant.name])"
 		time_entered = world.time
 
 		if(findtext("[L.key]","@",1,2))

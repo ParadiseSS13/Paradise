@@ -16,6 +16,7 @@
 
 	var/eyes = "eyes_s"                                  // Icon for eyes.
 	var/blurb = "A completely nondescript species."      // A brief lore summary for use in the chargen screen.
+	var/butt_sprite = "human"
 
 	var/primitive_form            // Lesser form, if any (ie. monkey for humans)
 	var/greater_form              // Greater form, if any, ie. human for monkeys.

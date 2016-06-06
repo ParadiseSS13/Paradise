@@ -359,6 +359,27 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		message_admins("[key_name_admin(src)] has deleted all instances of [hsbitem].", 0)
 	feedback_add_details("admin_verb","DELA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/cmd_debug_del_sing()
+	set category = "Debug"
+	set name = "Del Singulo / Tesla"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with del-all
+	var/confirm = alert("This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	for(var/I in singularities)
+		var/obj/singularity/S = I
+		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
+			continue
+		qdel(S)
+	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
+	message_admins("[key_name_admin(src)] has deleted all Singularities and Tesla orbs.", 0)
+	feedback_add_details("admin_verb","DELS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
 	set name = "Make Powernets"
@@ -591,6 +612,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"nanotrasen officer",
 		"nanotrasen captain",
 		"Hunter's set",
+		"DOOMguy's set",
+		"Bane's set",
 		)
 	var/dostrip = input("Do you want to strip [M] before equipping them? (0=no, 1=yes)", "STRIPTEASE") as null|anything in list(0,1)
 	if(isnull(dostrip))
@@ -734,6 +757,38 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/hunter(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/hunter_coat(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/hunter_mask(M), slot_wear_mask)
+
+		if ("DOOMguy's set")
+			M.equip_doom_commando()
+
+		if ("Bane's set")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/bane(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/doom(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/invisible(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/bane(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/banemask(M), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(src), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m762(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/c4(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(M), slot_l_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/grenade/empgrenade(M), slot_r_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_s_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m2411(M), slot_belt)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw(M), slot_r_hand)
+
+			var/obj/item/weapon/card/id/syndicate/W = new(M) //Untrackable by AI
+			W.name = "[M.real_name]'s ID Card"
+			W.icon_state = "syndie"
+			W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.
+			W.assignment = "Big Guy"
+			W.access += get_syndicate_access(W.assignment)
+			W.registered_name = M.real_name
+			M.equip_to_slot_or_del(W, slot_wear_id)
 
 		if ("space pirate")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)

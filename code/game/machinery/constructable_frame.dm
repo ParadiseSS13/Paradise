@@ -698,6 +698,17 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/capacitor = 2,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
+/obj/item/weapon/circuitboard/teleporter_perma
+	name = "circuit board (Permanent Teleporter)"
+	build_path = /obj/machinery/teleport/perma
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=5;bluespace=5;materials=4"
+	frame_desc = "Requires 3 Bluespace Crystals and 1 Matter Bin."
+	req_components = list(
+							/obj/item/weapon/ore/bluespace_crystal = 3,
+							/obj/item/weapon/stock_parts/matter_bin = 1)
+	var/target
+
 /obj/item/weapon/circuitboard/telesci_pad
 	name = "Circuit board (Telepad)"
 	build_path = /obj/machinery/telepad

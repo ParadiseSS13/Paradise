@@ -897,7 +897,7 @@
 /obj/item/weapon/lazarus_injector
 	name = "lazarus injector"
 	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead, making them become friendly to the user. Unfortunately, the process is useless on higher forms of life and incredibly costly, so these were hidden in storage until an executive thought they'd be great motivation for some of their employees."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
 	throwforce = 0
@@ -916,6 +916,7 @@
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
 				M.revive()
+				M.can_collar = 1
 				if(istype(target, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					if(malfunctioning)

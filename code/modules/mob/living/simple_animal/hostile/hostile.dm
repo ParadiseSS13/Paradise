@@ -118,8 +118,8 @@
 					return 1
 		if(istype(the_target, /obj/spacepod))
 			var/obj/spacepod/S = the_target
-			if(S.occupant || S.occupant2)//Just so we don't attack empty mechs
-				if(CanAttack(S.occupant) || CanAttack(S.occupant2))
+			if(S.pilot) //Just so we don't attack empty pods
+				if(CanAttack(S.pilot))
 					return 1
 		if(isliving(the_target))
 			var/mob/living/L = the_target
@@ -299,7 +299,7 @@
 	return
 
 /mob/living/simple_animal/hostile/proc/FindHidden()
-	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
+	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper) || istype(target.loc, /obj/machinery/bodyscanner) || istype(target.loc, /obj/machinery/recharge_station))
 		var/atom/A = target.loc
 		Goto(A,move_to_delay,minimum_distance)
 		if(A.Adjacent(src))

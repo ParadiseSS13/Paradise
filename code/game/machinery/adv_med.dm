@@ -19,6 +19,13 @@
 	else
 		set_light(0)
 
+/obj/machinery/bodyscanner/process()
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+		if(M == occupant)
+			continue
+		else
+			M.forceMove(src.loc)
+
 /obj/machinery/bodyscanner/New()
 	..()
 	component_parts = list()
@@ -59,11 +66,14 @@
 		else
 			dir = 4
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		return
 
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)
+	if(istype(G, /obj/item/weapon/crowbar))
+		default_deconstruction_crowbar(G)
+		return
 
 	if(istype(G, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/TYPECAST_YOUR_SHIT = G
@@ -161,38 +171,39 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = src.loc
-				ex_act(severity)
-				//Foreach goto(35)
-			//SN src = null
+				A.forceMove(src.loc)
+				A.ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if (prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
-					ex_act(severity)
-					//Foreach goto(108)
-				//SN src = null
+					A.forceMove(src.loc)
+					A.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if (prob(25))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
-					ex_act(severity)
-					//Foreach goto(181)
-				//SN src = null
+					A.forceMove(src.loc)
+					A.ex_act(severity)
 				qdel(src)
 				return
-		else
-	return
 
 /obj/machinery/bodyscanner/blob_act()
 	if(prob(50))
-		for(var/atom/movable/A as mob|obj in src)
-			A.loc = src.loc
+		var/atom/movable/A = occupant
+		go_out()
+		A.blob_act()
 		qdel(src)
+
+/obj/machinery/bodyscanner/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
+	if(M.environment_smash)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		go_out()
+		qdel(src)
+	return
 
 /obj/machinery/body_scanconsole
 	var/obj/machinery/bodyscanner/connected
@@ -248,6 +259,13 @@
 /obj/machinery/body_scanconsole/blob_act()
 	if(prob(50))
 		qdel(src)
+
+/obj/machinery/body_scanconsole/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
+	if(M.environment_smash)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		qdel(src)
+	return
 
 /obj/machinery/body_scanconsole/proc/findscanner()
 	var/obj/machinery/bodyscanner/bodyscannernew = null

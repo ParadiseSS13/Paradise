@@ -71,8 +71,8 @@
 			user << "<span class='warning'>Access Denied. This robot is not linked to you.</span>"
 			return
 		// Cyborgs may blow up themselves via the console
-		if(isrobot(user) && user != target)
-			user << "<span class='warning'>Access Denied.</span>"
+		if((isrobot(user) && user != target) || !is_authenticated(user))
+			to_chat(user, "<span class='warning'>Access Denied.</span>")
 			return
 		var/choice = input("Really detonate [target.name]?") in list ("Yes", "No")
 		if(choice != "Yes")

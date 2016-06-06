@@ -43,7 +43,8 @@
 	timer_end()
 		if((!secured)||(cooldown > 0))	return 0
 		pulse(0)
-		loc.visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
+		if(loc)
+			loc.visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
 		cooldown = 2
 		spawn(10)
 			process_cooldown()

@@ -10,6 +10,7 @@
 	vital = 0
 	var/organ_action_name = null
 	var/non_primary = 0
+	action_button_custom_type = /datum/action/item_action/organ_action
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
 	if(istype(holder))
@@ -292,6 +293,7 @@
 	organ_tag = "liver"
 	parent_organ = "groin"
 	slot = "liver"
+	var/alcohol_intensity = 1
 
 /obj/item/organ/internal/liver/process()
 
