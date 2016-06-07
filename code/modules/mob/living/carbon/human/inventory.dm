@@ -170,10 +170,12 @@
 				internals.icon_state = "internal0"
 			internal = null
 		sec_hud_set_ID()
+		sec_hud_set_permit()
 		update_inv_wear_mask()
 	else if(I == wear_id)
 		wear_id = null
 		sec_hud_set_ID()
+		sec_hud_set_permit()
 		update_inv_wear_id()
 	else if(I == wear_pda)
 		wear_pda = null
@@ -230,6 +232,7 @@
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
 			sec_hud_set_ID()
+			sec_hud_set_permit()
 			update_inv_wear_mask(redraw_mob)
 		if(slot_handcuffed)
 			handcuffed = W
@@ -249,6 +252,7 @@
 		if(slot_wear_id)
 			wear_id = W
 			sec_hud_set_ID()
+			sec_hud_set_permit()
 			update_inv_wear_id(redraw_mob)
 		if(slot_wear_pda)
 			wear_pda = W
