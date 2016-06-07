@@ -44,7 +44,7 @@ effective or pretty fucking useless.
 		return
 
 
-	for(var/mob/living/carbon/human/M in oview(10, user))
+	for(var/mob/living/carbon/human/M in oview(7, user))
 		if(prob(50))
 			M.Weaken(rand(4,7))
 			add_logs(M, user, "stunned", src)
