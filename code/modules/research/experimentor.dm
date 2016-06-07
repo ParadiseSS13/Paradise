@@ -219,6 +219,7 @@
 			--cloneCount
 			if(cloneCount == 0)
 				cloneMode = FALSE
+			return
 		var/turf/dropturf = get_turf(pick(view(1,src)))
 		if(!dropturf) //Failsafe to prevent the object being lost in the void forever.
 			dropturf = get_turf(src)
@@ -492,7 +493,7 @@
 		ejectItem()
 
 	//Global reactions
-	
+
 	if(prob(EFFECT_PROB_VERYLOW) && prob(13))
 		visible_message("<span class='warning'>[src] improves [exp_on], drawing the life essence of those nearby!</span>")
 		for(var/mob/living/m in view(4,src))
@@ -504,7 +505,7 @@
 			reqs[T] = reqs[T] + 1
 		exp_on.origin_tech = list2params(reqs)
 		investigate_log("Experimentor has set the origin tech of [exp_on] to [exp_on.origin_tech]", "experimentor")
-	
+
 	if(prob(EFFECT_PROB_VERYLOW-badThingCoeff) && prob(87))
 		var/globalMalf = rand(1,87)
 		if(globalMalf < 15)
