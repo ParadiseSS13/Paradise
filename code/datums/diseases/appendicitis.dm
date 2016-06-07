@@ -30,5 +30,6 @@
 				affected_mob.Stun(rand(2,3))
 				affected_mob.adjustToxLoss(1)
 		if(3)
+			affected_mob.Nauseate(10)
 			if(prob(1))
 				affected_mob.vomit(95)

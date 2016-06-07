@@ -55,6 +55,7 @@
 		M.eye_blurry = max(M.eye_blurry, 10/sober_str)
 		M.drowsyness  = max(M.drowsyness, 0)
 	if(d >= vomit_start)
+		M.Nauseate(10)
 		if(prob(8))
 			M.fakevomit()
 	if(d >= pass_out)

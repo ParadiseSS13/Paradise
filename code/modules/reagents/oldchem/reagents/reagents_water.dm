@@ -258,6 +258,7 @@
 
 /datum/reagent/fishwater/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.Nauseate(10)
 	if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
 		if(prob(50))	// 50/50 chance of green vomit vs normal vomit
 			M.fakevomit(1)

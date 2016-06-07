@@ -65,6 +65,7 @@
 				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>You feel sick.</span>")
+			affected_mob.Nauseate(10)
 			if(prob(5))
 				if(affected_mob.nutrition > 10)
 					affected_mob.visible_message("<span class='danger'>[affected_mob] vomits on the floor profusely!</span>")

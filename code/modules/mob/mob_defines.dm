@@ -93,6 +93,7 @@
 	var/flying = 0
 	var/charges = 0.0
 	var/nutrition = 400.0//Carbon
+	var/nausea//Carbon
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/paralysis = 0.0
