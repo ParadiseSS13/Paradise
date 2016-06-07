@@ -1,7 +1,7 @@
 /atom
 	var/light_power = 1 // intensity of the light
 	var/light_range = 0 // range in tiles of the light
-	var/light_color		// RGB string representing the colour of the light
+	var/light_color		// Hexadecimal RGB string representing the colour of the light
 
 	var/datum/light_source/light
 	var/list/light_sources
@@ -14,6 +14,11 @@
 	update_light()
 
 /atom/proc/update_light()
+	set waitfor = FALSE
+
+	if(!lighting_corners_initialised)
+		sleep(20)
+
 	if(!light_power || !light_range)
 		if(light)
 			light.destroy()
@@ -27,7 +32,7 @@
 		if(light)
 			light.update(.)
 		else
-			light = new /datum/light_source(src, .)
+			light = new/datum/light_source(src, .)
 
 /atom/New()
 	. = ..()
@@ -38,13 +43,19 @@
 	if(light)
 		light.destroy()
 		light = null
-	return ..()
+
+	if(opacity && isturf(loc))
+		var/turf/T = loc
+		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
+
+	. = ..()
+
 
 /atom/movable/Destroy()
 	var/turf/T = loc
 	if(opacity && istype(T))
 		T.reconsider_lights()
-	return ..()
+	. = ..()
 
 /atom/movable/Move()
 	var/turf/old_loc = loc
