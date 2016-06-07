@@ -368,7 +368,7 @@
 								update_icon()
 								return
 					if(H.heart_attack)
-						if(!H.get_int_organ(/obj/item/organ/internal/heart)) //prevents defibing someone still alive suffering from a heart attack
+						if(!H.get_int_organ(/obj/item/organ/internal/heart) || !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = 0
@@ -395,7 +395,7 @@
 						for(var/obj/item/organ/external/O in H.organs)
 							total_brute	+= O.brute_dam
 							total_burn	+= O.burn_dam
-						if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations) && H.get_int_organ(/obj/item/organ/internal/heart))
+						if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
 							tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 							tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 							H.adjustOxyLoss(tobehealed)
