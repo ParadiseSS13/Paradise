@@ -80,7 +80,7 @@
 			return
 		to_chat(usr, "\blue Assembling grille...")
 
-		if (!do_after(usr, 10, target = src))
+		if (!do_after(usr, 10, target = user))
 			return
 
 		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
