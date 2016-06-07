@@ -368,7 +368,7 @@
 								update_icon()
 								return
 					if(H.heart_attack)
-						if(!H.get_int_organ(/obj/item/organ/internal/heart) || !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack
+						if(!H.get_int_organ(/obj/item/organ/internal/heart) || !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = 0
