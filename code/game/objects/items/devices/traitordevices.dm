@@ -32,9 +32,9 @@ effective or pretty fucking useless.
 /obj/item/device/batterer/examine(mob/user)
 	..(user)
 	if(times_used >= max_uses)
-		to_chat(user, "<span class='notice'>The [src] is out of charge.</span>")
+		to_chat(user, "<span class='notice'>[src] is out of charge.</span>")
 	if(times_used < max_uses)
-		to_chat(user, "<span class='notice'>The [src] has [max_uses-times_used] charges left.</span>")
+		to_chat(user, "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>")
 
 /obj/item/device/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user)
@@ -44,7 +44,7 @@ effective or pretty fucking useless.
 		return
 
 
-	for(var/mob/living/carbon/human/M in orange(10, user))
+	for(var/mob/living/carbon/human/M in oview(10, user))
 		if(prob(50))
 			M.Weaken(rand(4,7))
 			add_logs(M, user, "stunned", src)
