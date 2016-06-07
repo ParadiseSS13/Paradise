@@ -293,6 +293,16 @@
 	src.item_state = "[item_color]"
 	usr.update_inv_w_uniform()
 
+/obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
+	name = "Viridi Protegat"
+	desc = "A set of chainmail adorned with a hide mantle. \"Greenwood\" is engraved into the right breast."
+	icon = 'icons/obj/clothing/uniforms.dmi'
+	icon_state = "roman"
+	item_state = "maximus_armor"
+	item_color = "maximus_armor"
+	displays_id = 0
+	strip_delay = 100
+
 //////////// Masks ////////////
 
 //////////// Shoes ////////////
