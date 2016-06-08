@@ -331,7 +331,7 @@
 	icon_state = "rosary"
 	item_state = null
 	name = "prayer beads"
-	desc = "A set of prayer beads used by many of the more traditional religeons in space.<br>Vampires and other unholy abominations have learned to fear these."
+	desc = "A set of prayer beads used by many of the more traditional religions in space.<br>Vampires and other unholy abominations have learned to fear these."
 	force = 0
 	throwforce = 0
 	var/praying = 0
