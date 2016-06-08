@@ -18,12 +18,11 @@
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 	return
 
-/obj/item/weapon/gun/projectile/automatic/pistol/m2411
-	name = "M2411"
-	desc = "John Browning's classic updated for the modern day. Uses .45 rounds."
-	icon_state = "m2411"
-	w_class = 3.0
-	origin_tech = "combat=3;materials=2"
+/obj/item/weapon/gun/projectile/automatic/pistol/m1911
+	name = "\improper M1911"
+	desc = "A classic .45 handgun with a small magazine capacity."
+	icon_state = "m1911"
+	w_class = 3
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = 0
 

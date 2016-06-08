@@ -2,7 +2,6 @@
 	name = "mounted taser"
 	desc = "An arm mounted dual-mode weapon that fires electrodes and disabler shots."
 	icon_state = "armcannon"
-	item_state = "armcannon"
 	force = 5
 	flags = NODROP
 	w_class = 5

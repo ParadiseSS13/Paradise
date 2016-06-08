@@ -371,6 +371,8 @@
 	name = "cane"
 	desc = "A cane used by a true gentleman. Or a clown."
 	icon = 'icons/obj/weapons.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "cane"
 	item_state = "stick"
 	sawn_state = SAWN_OFF
@@ -385,6 +387,9 @@
 	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 	suppressed = 1
 	needs_permit = 0 //its just a cane beepsky.....
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon()
+	return
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
 	..()

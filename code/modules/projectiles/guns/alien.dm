@@ -22,9 +22,7 @@
 	return ..()
 
 /obj/item/weapon/gun/projectile/automatic/spikethrower/update_icon()
-	..()
-	overlays.Cut()
-	icon_state = "spikethrower-[Ceiling(get_ammo(0)/5)]"
+	return
 
 /obj/item/weapon/gun/projectile/automatic/spikethrower/process()
 	charge_tick++
@@ -84,16 +82,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = "/obj/item/weapon/stock_parts/cell/super"
 	restricted_species = list("Vox Armalis")
-
-/obj/item/weapon/gun/energy/noisecannon/attack_hand(mob/user as mob)
-	if(loc != user)
-		var/mob/living/carbon/human/H = user
-		if(istype(H))
-			if(H.species.name == "Vox Armalis")
-				..()
-				return
-		to_chat(user, "<span class='warning'>\The [src] is far too large for you to pick up.</span>")
-		return
 
 /obj/item/weapon/gun/energy/noisecannon/update_icon()
 	return

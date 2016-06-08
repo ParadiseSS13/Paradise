@@ -230,7 +230,7 @@
 	icon_state = "smg9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
-	max_ammo = 30
+	max_ammo = 21
 	materials = list(MAT_METAL = 2000)
 
 /obj/item/ammo_box/magazine/smgm9mm/ap

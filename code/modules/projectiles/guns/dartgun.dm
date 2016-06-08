@@ -33,9 +33,8 @@
 	var/list/starting_chems = null
 
 /obj/item/weapon/gun/dartgun/update_icon()
-
 	if(!cartridge)
-		icon_state = "dartgun-empty"
+		icon_state = "dartgun-e"
 		return 1
 
 	if(!cartridge.darts)
@@ -47,7 +46,6 @@
 	return 1
 
 /obj/item/weapon/gun/dartgun/New()
-
 	..()
 	if(starting_chems)
 		for(var/chem in starting_chems)
@@ -205,12 +203,12 @@
 
 		return
 
-/obj/item/weapon/gun/dartgun/afterattack(obj/target, mob/user , flag)
-	if(!isturf(target.loc) || target == user) return
+/obj/item/weapon/gun/dartgun/afterattack(atom/target, mob/living/user, flag, params)
+	if(!isturf(target.loc) || target == user)
+		return
 	..()
 
 /obj/item/weapon/gun/dartgun/attack_self(mob/user)
-
 	user.set_machine(src)
 	var/dat = "<b>[src] mixing control:</b><br><br>"
 
@@ -279,7 +277,8 @@
 
 /obj/item/weapon/gun/dartgun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	if(cartridge)
-		spawn(0) fire_dart(target,user)
+		spawn(0)
+			fire_dart(target,user)
 	else
 		to_chat(usr, "<span class='warning'>[src] is empty.</span>")
 
@@ -302,7 +301,7 @@
 	anchored = 1
 	density = 0
 
-	New()
-		var/datum/reagents/R = new/datum/reagents(15)
-		reagents = R
-		R.my_atom = src
+/obj/effect/syringe_gun_dummy/New()
+	var/datum/reagents/R = new/datum/reagents(15)
+	reagents = R
+	R.my_atom = src
