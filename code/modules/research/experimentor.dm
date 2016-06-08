@@ -406,7 +406,7 @@
 		visible_message("[src] lowers [exp_on]'s temperature.")
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("<span class='warning'>[src]'s emergency coolant system gives off a small ding!</span>")
-			var/obj/machinery/vending/coffee/C = new /obj/machinery/vending/coffee(get_turf(pick(oview(1,src))))
+			var/obj/item/weapon/reagent_containers/food/drinks/coffee/C = new /obj/item/weapon/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1) //Ding! Your death coffee is ready!
 			chosenchem = pick("uranium","frostoil","ephedrine")
 			C.reagents.remove_any(25)
@@ -492,7 +492,7 @@
 		ejectItem()
 
 	//Global reactions
-	
+
 	if(prob(EFFECT_PROB_VERYLOW) && prob(13))
 		visible_message("<span class='warning'>[src] improves [exp_on], drawing the life essence of those nearby!</span>")
 		for(var/mob/living/m in view(4,src))
@@ -504,7 +504,7 @@
 			reqs[T] = reqs[T] + 1
 		exp_on.origin_tech = list2params(reqs)
 		investigate_log("Experimentor has set the origin tech of [exp_on] to [exp_on.origin_tech]", "experimentor")
-	
+
 	if(prob(EFFECT_PROB_VERYLOW-badThingCoeff) && prob(87))
 		var/globalMalf = rand(1,87)
 		if(globalMalf < 15)
