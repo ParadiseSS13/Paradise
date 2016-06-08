@@ -1037,7 +1037,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
 					if(new_age)
-						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
+						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
 
 					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
@@ -1115,6 +1115,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 						s_tone = 0
 
+						if(!(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")))
+							r_skin = 0
+							g_skin = 0
+							b_skin = 0
+
 						ha_style = "None" // No Vulp ears on Unathi
 						m_style = "None" // No Unathi markings on Tajara
 
@@ -1159,7 +1164,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_type = new_b_type
 
 				if("hair")
-					if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Vulpkanin")
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", rgb(r_hair, g_hair, b_hair)) as color|null
 						if(new_hair)
@@ -1383,7 +1388,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							r_skin = hex2num(copytext(new_skin, 2, 4))
 							g_skin = hex2num(copytext(new_skin, 4, 6))
 							b_skin = hex2num(copytext(new_skin, 6, 8))
-
 
 				if("ooccolor")
 					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference", ooccolor) as color|null
