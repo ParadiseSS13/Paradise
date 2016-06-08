@@ -29,17 +29,22 @@
 
 	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
 
+	for (var/record in data_core.general)
 		var/datum/data/record/S = record
 		if(search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"]))
 			name = S.fields["name"]
+			fingerprint = S.fields["fingerprint"]
 			continue
 
 	for (var/record in data_core.medical)
+		var/datum/data/record/M = record
 		if (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])
 			dna = M.fields["b_dna"]
 
 			if(!fingerprint) // We have searched by DNA, and do not have the relevant information from the security records.
 				name = M.fields["name"]
+				for (var/sec_record in data_core.general)
+					var/datum/data/record/S = sec_record
 					if(name == S.fields["name"])
 						fingerprint = S.fields["fingerprint"]
 						continue
@@ -51,6 +56,7 @@
 		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
 		return
 
+	to_chat(user, "<span class='warning'>No match found in station records.</span>")
 
 
 /obj/item/device/detective_scanner/verb/print_scanner_report()
