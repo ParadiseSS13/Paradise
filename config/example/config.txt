@@ -305,7 +305,7 @@ PLAYER_REROUTE_CAP 0
 #DISABLE_AWAY_MISSIONS
 
 ## Disable the loading of space ruins
-#DISABLE_SPACE_RUINS
+DISABLE_SPACE_RUINS
 
 ## Uncomment to disable the OOC/LOOC channel by default.
 #DISABLE_OOC

@@ -67,7 +67,8 @@
 		var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 		map_templates[T.name] = T
 
-	preloadRuinTemplates()
+	if(!config.disable_space_ruins) // so we don't unnecessarily clutter start-up
+		preloadRuinTemplates()
 	//preloadShuttleTemplates()
 
 /proc/preloadRuinTemplates()

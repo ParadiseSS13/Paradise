@@ -1,3 +1,4 @@
+//The bigger ones lag like hell if there is more than one on a z-level, so cost 2 for them
 /datum/map_template/ruin/space
 	prefix = "_maps/map_files/RandomRuins/SpaceRuins/"
 	cost = 1
@@ -10,6 +11,7 @@
 		zoos to working order with the breeding stock kept in these 100% \
 		secure and unbreachable storage facilities. At no point has anything \
 		escaped. That's our story, and we're sticking to it."
+	cost = 2
 
 /datum/map_template/ruin/space/asteroid1
 	id = "asteroid1"
@@ -55,6 +57,7 @@
 		a giant unused asteroid. Then make it self sufficient, mask any \
 		evidence of construction, hook it covertly into the \
 		telecommunications network and hope for the best."
+	cost = 2
 
 /datum/map_template/ruin/space/derelict1
 	id = "derelict1"
@@ -134,6 +137,7 @@
 		gutted asteroids, we suspect that a mining ship using a restricted \
 		engine is somewhere in the area. We'd like to request a patrol vessel \
 		to investigate."
+	cost = 2
 
 /datum/map_template/ruin/space/spacebar
 	id = "spacebar"
@@ -142,6 +146,7 @@
 	description = "No questions asked. No shoes/foot protection, no service. \
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
+	cost = 2
 
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"

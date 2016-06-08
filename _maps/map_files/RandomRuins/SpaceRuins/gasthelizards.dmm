@@ -1,52 +1,47 @@
 "a" = (/turf/space,/area/space)
 "b" = (/obj/structure/lattice,/turf/space,/area/space)
 "c" = (/turf/simulated/wall,/area/ruin/unpowered)
-"d" = (/obj/machinery/light{dir = 1},/obj/structure/bed,/obj/effect/decal/remains/human,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 8},/area/ruin/unpowered)
+"d" = (/obj/machinery/light{dir = 1},/obj/structure/stool/bed,/obj/effect/decal/remains/human,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 8},/area/ruin/unpowered)
 "e" = (/obj/structure/window/reinforced{dir = 4; pixel_x = 0},/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 4},/area/ruin/unpowered)
-"f" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/light{dir = 1},/obj/structure/bed,/obj/effect/decal/remains/human,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 8},/area/ruin/unpowered)
-"g" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/light{dir = 1},/obj/structure/bed,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 8},/area/ruin/unpowered)
+"f" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/light{dir = 1},/obj/structure/stool/bed,/obj/effect/decal/remains/human,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 8},/area/ruin/unpowered)
+"g" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/light{dir = 1},/obj/structure/stool/bed,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 8},/area/ruin/unpowered)
 "h" = (/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 4},/area/ruin/unpowered)
 "i" = (/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 8},/area/ruin/unpowered)
-"j" = (/obj/structure/window/reinforced{dir = 4; pixel_x = 0},/obj/machinery/atmospherics/components/unary/outlet_injector,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 4},/area/ruin/unpowered)
+"j" = (/obj/structure/window/reinforced{dir = 4; pixel_x = 0},/obj/machinery/atmospherics/unary/outlet_injector,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 4},/area/ruin/unpowered)
 "k" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 8},/area/ruin/unpowered)
-"l" = (/obj/machinery/atmospherics/components/unary/outlet_injector,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 4},/area/ruin/unpowered)
-"m" = (/obj/structure/closet/crate/freezer,/obj/item/stack/sheet/animalhide/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"n" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/machinery/light{dir = 1},/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"o" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/clothing/under/rank/prisoner,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"p" = (/obj/structure/window/reinforced{dir = 1; layer = 2.9},/turf/simulated/floor/plasteel{dir = 1; icon_state = "blue"},/area/ruin/unpowered)
-"q" = (/obj/machinery/door/window/brigdoor/northleft,/obj/machinery/atmospherics/components/binary/pump{dir = 1},/turf/simulated/floor/plasteel{dir = 1; icon_state = "blue"},/area/ruin/unpowered)
-"r" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"s" = (/obj/machinery/atmospherics/components/unary/portables_connector/visible{dir = 4},/obj/machinery/portable_atmospherics/canister/nitrous_oxide,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"t" = (/obj/machinery/atmospherics/pipe/manifold/general/visible{dir = 1},/obj/machinery/power/apc{cell_type = 2500; dir = 1; name = "Worn-out APC"; pixel_x = 1; pixel_y = 26},/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"u" = (/obj/machinery/atmospherics/pipe/simple/general/visible{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"v" = (/obj/machinery/atmospherics/pipe/manifold/general/visible,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"w" = (/obj/machinery/atmospherics/pipe/simple/general/visible{dir = 9},/obj/machinery/light{dir = 4; icon_state = "tube1"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"x" = (/obj/structure/kitchenspike,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"y" = (/obj/structure/table/reinforced,/obj/item/weapon/kitchen/knife/butcher,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/reagent_containers/spray/pepper,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"z" = (/obj/machinery/atmospherics/components/unary/portables_connector/visible{dir = 4},/obj/machinery/portable_atmospherics/canister/carbon_dioxide,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"A" = (/obj/machinery/atmospherics/pipe/manifold/general/visible{dir = 4; initialize_directions = 11},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"B" = (/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"C" = (/obj/machinery/gibber,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"D" = (/obj/structure/table/reinforced,/obj/item/clothing/suit/straight_jacket,/obj/item/weapon/reagent_containers/syringe/lethal,/obj/item/weapon/reagent_containers/syringe/lethal/choral,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"E" = (/obj/machinery/atmospherics/components/unary/portables_connector/visible{dir = 4},/obj/machinery/portable_atmospherics/canister/toxins,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"F" = (/obj/machinery/atmospherics/pipe/simple/general/visible{dir = 9},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"G" = (/obj/structure/chair/office/dark,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"H" = (/obj/machinery/door/airlock/security,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"I" = (/obj/item/weapon/reagent_containers/glass/bottle/morphine{pixel_x = -4; pixel_y = 1},/obj/item/weapon/reagent_containers/glass/bottle/chloralhydrate{name = "chloral hydrate bottle"},/obj/item/weapon/reagent_containers/glass/bottle/toxin{pixel_x = 6; pixel_y = 8},/obj/item/weapon/reagent_containers/glass/bottle/morphine{pixel_x = 5; pixel_y = 1},/obj/item/weapon/reagent_containers/glass/bottle/facid{name = "fluorosulfuric acid bottle"; pixel_x = -3; pixel_y = 6},/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"J" = (/obj/structure/rack,/obj/item/weapon/storage/toolbox/drone,/obj/item/weapon/melee/baton/cattleprod,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"K" = (/obj/structure/table,/obj/item/weapon/pen/red,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"L" = (/obj/structure/table,/obj/item/weapon/paper_bin,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"M" = (/obj/structure/table,/obj/item/weapon/storage/box/prisoner,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"N" = (/obj/structure/window/reinforced{dir = 4; pixel_x = 0},/obj/machinery/light,/obj/structure/table,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"O" = (/obj/machinery/portable_atmospherics/scrubber,/turf/simulated/floor/plasteel{icon_state = "bot"; dir = 1},/area/ruin/unpowered)
-"P" = (/obj/structure/table/reinforced,/obj/item/weapon/surgicaldrill,/obj/item/weapon/hemostat,/obj/item/weapon/scalpel,/obj/item/weapon/surgical_drapes,/obj/item/weapon/retractor,/obj/item/weapon/cautery,/obj/item/weapon/circular_saw,/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"Q" = (/obj/structure/table/optable,/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"R" = (/obj/structure/table/reinforced,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/glass/bottle/mutagen,/obj/item/weapon/reagent_containers/glass/bottle/mutagen,/obj/item/weapon/razor,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"S" = (/obj/machinery/suit_storage_unit/security,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"T" = (/obj/machinery/light,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"U" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"V" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"W" = (/turf/simulated/floor/plating,/area/ruin/unpowered)
+"l" = (/obj/machinery/atmospherics/unary/outlet_injector,/turf/simulated/floor/plasteel{icon_state = "warndark"; dir = 4},/area/ruin/unpowered)
+"m" = (/obj/structure/closet/crate/freezer,/obj/item/stack/sheet/animalhide/lizard,/obj/item/weapon/reagent_containers/food/snacks/lizardmeat,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"n" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/food/snacks/lizardmeat,/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"o" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/food/snacks/lizardmeat,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"p" = (/obj/machinery/power/apc{name = "Worn-out APC"; dir = 1; step_x = 0; step_y = -31; pixel_x = 1; pixel_y = 26; cell_type = 2500},/turf/simulated/wall,/area/ruin/unpowered)
+"q" = (/obj/structure/window/reinforced{dir = 1; layer = 2.9},/turf/simulated/floor/plasteel{dir = 1; icon_state = "blue"},/area/ruin/unpowered)
+"r" = (/obj/machinery/door/window/brigdoor/northleft,/turf/simulated/floor/plasteel{dir = 1; icon_state = "blue"},/area/ruin/unpowered)
+"s" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"t" = (/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"u" = (/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"v" = (/obj/machinery/light{dir = 4; icon_state = "tube1"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"w" = (/obj/structure/kitchenspike,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"x" = (/obj/structure/table/reinforced,/obj/item/weapon/kitchen/knife/butcher,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/reagent_containers/spray/pepper,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"y" = (/obj/machinery/portable_atmospherics/canister/carbon_dioxide,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"z" = (/obj/machinery/gibber,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"A" = (/obj/structure/table/reinforced,/obj/item/clothing/suit/straight_jacket,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"B" = (/obj/machinery/portable_atmospherics/canister/toxins,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"C" = (/obj/machinery/door/airlock/security,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"D" = (/obj/item/weapon/reagent_containers/glass/bottle/morphine{pixel_x = -4; pixel_y = 1},/obj/item/weapon/reagent_containers/glass/bottle/toxin{pixel_x = 6; pixel_y = 8},/obj/item/weapon/reagent_containers/glass/bottle/morphine{pixel_x = 5; pixel_y = 1},/obj/item/weapon/reagent_containers/glass/bottle/facid{name = "fluorosulfuric acid bottle"; pixel_x = -3; pixel_y = 6},/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"E" = (/obj/structure/rack,/obj/item/weapon/melee/baton/cattleprod,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"F" = (/obj/structure/table,/obj/item/weapon/pen/red,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"G" = (/obj/structure/table,/obj/item/weapon/paper_bin,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"H" = (/obj/structure/table,/obj/item/weapon/storage/box/prisoner,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"I" = (/obj/structure/window/reinforced{dir = 4; pixel_x = 0},/obj/machinery/light,/obj/structure/table,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"J" = (/obj/machinery/portable_atmospherics/scrubber,/turf/simulated/floor/plasteel{icon_state = "bot"; dir = 1},/area/ruin/unpowered)
+"K" = (/obj/structure/table/reinforced,/obj/item/weapon/surgicaldrill,/obj/item/weapon/hemostat,/obj/item/weapon/scalpel,/obj/item/weapon/surgical_drapes,/obj/item/weapon/retractor,/obj/item/weapon/cautery,/obj/item/weapon/circular_saw,/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"L" = (/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"M" = (/obj/structure/table/reinforced,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/glass/bottle/mutagen,/obj/item/weapon/reagent_containers/glass/bottle/mutagen,/obj/item/weapon/razor,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"N" = (/obj/machinery/suit_storage_unit/security,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"O" = (/obj/machinery/light,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"P" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Q" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"R" = (/turf/simulated/floor/plating,/area/ruin/unpowered)
 
 (1,1,1) = {"
 aaaababababbaaaaaaa
@@ -54,13 +49,13 @@ aaababbbbababbbbaaa
 aaabccccccccccbbbba
 abbbcdefegefhccccca
 abbbcijkjkjklcmnocb
-abcccpqpqpqpqcrrrcb
-abcstuvuvuvuwcxryca
-aaczABBBBBBBBcCrDca
-bbcEFBBBGBBBBHrrIcb
-abcJBBBKLMNOOcPQRcb
-abcSTBUcccccccccccb
-aacccVccbbbbbbaabba
-aabbcWcbbaaaaaaabaa
-aaabcVcbaaaaaaaaaaa
+abccpqrqrqrqrcssscb
+abctutttttttvcwsxca
+aacytttttttttczsAca
+bbcBtttttttttCssDcb
+abcEtttFGHIJJcKLMcb
+abcNOtPcccccccccccb
+aacccQccbbbbbbaabba
+aabbcRcbbaaaaaaabaa
+aaabcQcbaaaaaaaaaaa
 "}

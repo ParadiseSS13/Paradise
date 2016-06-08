@@ -8,7 +8,7 @@
 		lavawracked hellscape? It is clearly a mystery."
 
 	var/cost = null
-	var/allow_duplicates = TRUE
+	var/allow_duplicates = FALSE //A bit boring, don't you think? You can always explicitly allow it on a ruin definition
 
 	var/prefix = null
 	var/suffix = null

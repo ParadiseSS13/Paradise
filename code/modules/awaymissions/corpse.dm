@@ -144,7 +144,7 @@
 	corpseidjob = "Chef"
 	corpseidaccess = "Chef"
 
-
+	
 /obj/effect/landmark/corpse/doctor
 	name = "Doctor"
 	corpseradio = /obj/item/device/radio/headset/headset_med

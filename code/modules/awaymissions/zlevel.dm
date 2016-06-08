@@ -84,6 +84,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 /proc/seedRuins(z_level = 1, budget = 0, whitelist = /area/space, list/potentialRuins = space_ruins_templates)
 	var/overall_sanity = 100
 	var/ruins = potentialRuins.Copy()
+	var/initialbudget = budget
 	var/watch = start_watch()
 
 	log_startup_progress("Loading ruins...")
@@ -113,25 +114,27 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			if(!valid)
 				continue
 
-			log_to_dd("  Ruin \"[ruin.name]\" placed at ([T.x], [T.y], [T.z])")
+			log_to_dd("  Ruin \"[ruin.name]\" loaded in [stop_watch(watch)]s at ([T.x], [T.y], [T.z]).")
 
 			var/obj/effect/ruin_loader/R = new /obj/effect/ruin_loader(T)
-			R.watch = watch
-			watch = null
 			R.Load(ruins,ruin)
 			budget -= ruin.cost
 			if(!ruin.allow_duplicates)
 				ruins -= ruin.name
 			break
 
+	to_chat(world, "<span class='danger'>  Loaded ruins. Or not.</span>") //So the players don't know if we loaded ruins, but we do have a message
+
+	if(initialbudget == budget) //Kill me
+		log_to_dd("  No ruins loaded.")
+
 
 /obj/effect/ruin_loader
 	name = "random ruin"
-	desc = "This should never be here."
+	desc = "If you got lucky enough to see this..."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "syndballoon"
 	invisibility = 0
-	var/watch = null
 
 /obj/effect/ruin_loader/proc/Load(list/potentialRuins = space_ruins_templates, datum/map_template/template = null)
 	var/list/possible_ruins = list()
@@ -145,6 +148,5 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		return 0
 	template.load(get_turf(src),centered = 1)
 	template.loaded++
-	log_startup_progress("  Loaded ruins in [stop_watch(src.watch)]s.")
 	qdel(src)
 	return 1

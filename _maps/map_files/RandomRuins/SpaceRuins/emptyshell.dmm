@@ -4,13 +4,10 @@
 "d" = (/turf/simulated/floor/plating,/area/ruin/unpowered)
 "e" = (/obj/effect/spawner/lootdrop/crate_spawner,/turf/simulated/floor/plating,/area/ruin/unpowered)
 "f" = (/obj/item/ammo_box/magazine/sniper_rounds,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"g" = (/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"h" = (/obj/item/stack/rods,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"i" = (/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
-"j" = (/obj/machinery/door/airlock,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"k" = (/obj/effect/spawner/lootdrop/maintenance{lootcount = 2; name = "2maintenance loot spawner"},/turf/simulated/floor/plating,/area/ruin/unpowered)
-"l" = (/obj/item/stack/cable_coil,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"m" = (/obj/effect/spawner/lootdrop/maintenance{lootcount = 4; name = "4maintenance loot spawner"},/turf/simulated/floor/plating,/area/ruin/unpowered)
+"g" = (/obj/item/stack/rods,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"h" = (/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
+"i" = (/obj/machinery/door/airlock,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"j" = (/obj/item/stack/cable_coil,/turf/simulated/floor/plating,/area/ruin/unpowered)
 
 (1,1,1) = {"
 aaaaaaaaabaaaaaaa
@@ -18,12 +15,12 @@ aaabbaaababaabaaa
 aaabccccccccccaba
 aabccccccccccccaa
 abacccdeddfdcccba
-abaccddddddgdccbb
-bbbdcdhddddddccbb
-aadijddhdgdddccaa
-aadijddkdddddccbb
-abbdcddddddhdccbb
-aaaccldeddmddccbb
+abaccddddddedccbb
+bbbdcdgddddddccbb
+aadhiddgdedddccaa
+aadhiddedddddccbb
+abbdcddddddgdccbb
+aaaccjdeddeddccbb
 aaacccdddddecccaa
 aaaccccccccccccba
 aabaccccccccccaaa
