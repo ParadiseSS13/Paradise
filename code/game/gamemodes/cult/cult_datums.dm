@@ -2,6 +2,7 @@
 /datum/cult_info
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
+	var/dam_type = "BRUTE"
 
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -38,7 +39,7 @@
 
 	//Shade Spirit
 	var/shade_name = "Shade"
-	var/shade_icon_state = "shade"
+	var/shade_icon_state = "shade2"
 	var/shade_dead_state = "shade_dead"
 
 	//Turfs
@@ -48,6 +49,7 @@
 /datum/cult_info/fire
 	name = "Cult of Pyr'Kaeus"
 	theme = "fire"
+	dam_type = "BURN"
 
 	entity_name = "Pyr'Kaeus"
 	entity_title1 = "The Burning One"
@@ -74,6 +76,8 @@
 	entity_title1 = "The Silent One"
 	entity_title2 = "The One Who Beckons"
 	entity_title3 = "The Ferryman of Oblivion"
+
+	entity_icon_state = "legion" //dmi path, mob/lavaland
 
 	artificer_name = "Boneshaper"
 

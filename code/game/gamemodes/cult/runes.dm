@@ -90,6 +90,12 @@ To draw a rune, use an arcane tome.
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 
+/obj/effect/rune/proc/talismanfake() //for rune disguising
+	var/runenum = pick(1,2,3,4,5,6)
+	visible_message("<span class='danger'>[src] takes on a waxy apperance!</span>")
+	icon = 'icons/effects/crayondecal.dmi'
+	icon_state = "rune[runenum]"
+
 /*
 There are a few different procs each rune runs through when a cultist activates it.
 can_invoke() is called when a cultist activates the rune with an empty hand. If there are multiple cultists, this rune determines if the required amount is nearby.

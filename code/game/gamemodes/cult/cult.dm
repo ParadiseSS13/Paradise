@@ -41,9 +41,9 @@ var/global/list/all_cults = list()
 	config_tag = "cult"
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician")
 	protected_jobs = list()
-	required_players = 30
-	required_enemies = 3
-	recommended_enemies = 4
+	required_players = 1//30
+	required_enemies = 1//3
+	recommended_enemies = 1//4
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
@@ -120,7 +120,7 @@ var/global/list/all_cults = list()
 		var/datum/action/cultcomm/C = new()
 		C.Grant(cult_mind.current)
 		update_cult_icons_added(cult_mind)
-		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [cultdat.entity_name], [cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [cultdat.entity_name].</span>")
+		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [ticker.mode.cultdat.entity_name], [ticker.mode.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.mode.cultdat.entity_name].</span>")
 
 	first_phase()
 

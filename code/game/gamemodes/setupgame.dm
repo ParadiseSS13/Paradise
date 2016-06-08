@@ -151,6 +151,15 @@
 	for(var/datum/faction/syndicate/S in ticker.factions)
 		ticker.syndicate_coalition.Add(S)
 
+/proc/setupcult()
+	var/random_cult = pick(all_cults)
+	var/picked_cult = new random_cult() //this seems redundent as fuck
+	if(!picked_cult)//shouldn't happen BUT JUST TO BE SURE LET US KNOW
+		to_chat(world, "<span class='danger'>Failed to select a cult datum, Shank a coder.</span>")
+
+	//todo:add adminonly datum var, check for said var here...
+	return picked_cult
+
 
 /* This was used for something before, I think, but is not worth the effort to process now.
 /proc/setupcorpses()
