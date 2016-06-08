@@ -219,6 +219,7 @@
 			--cloneCount
 			if(cloneCount == 0)
 				cloneMode = FALSE
+			return
 		var/turf/dropturf = get_turf(pick(view(1,src)))
 		if(!dropturf) //Failsafe to prevent the object being lost in the void forever.
 			dropturf = get_turf(src)
