@@ -412,7 +412,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/batterer
 	name = "Mind Batterer"
-	desc = "A device that has a chance of knocking down people around you for a long amount of time.50% chance per person. The user is unaffected. Has only two charges."
+	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
 	reference = "BTR"
 	item = /obj/item/device/batterer
 	cost = 5
