@@ -13,7 +13,7 @@
 "m" = (/obj/structure/closet/crate/freezer,/obj/item/stack/sheet/animalhide/lizard,/obj/item/weapon/reagent_containers/food/snacks/lizardmeat,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "n" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/food/snacks/lizardmeat,/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "o" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/food/snacks/lizardmeat,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"p" = (/obj/machinery/power/apc{name = "Worn-out APC"; dir = 1; step_x = 0; step_y = -31; pixel_x = 1; pixel_y = 26; cell_type = 2500},/turf/simulated/wall,/area/ruin/unpowered)
+"p" = (/obj/machinery/power/apc{name = "Worn-out APC"; dir = 1; pixel_x = 1; pixel_y = 26; cell_type = 2500},/turf/simulated/wall,/area/ruin/unpowered)
 "q" = (/obj/structure/window/reinforced{dir = 1; layer = 2.9},/turf/simulated/floor/plasteel{dir = 1; icon_state = "blue"},/area/ruin/unpowered)
 "r" = (/obj/machinery/door/window/brigdoor/northleft,/turf/simulated/floor/plasteel{dir = 1; icon_state = "blue"},/area/ruin/unpowered)
 "s" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)

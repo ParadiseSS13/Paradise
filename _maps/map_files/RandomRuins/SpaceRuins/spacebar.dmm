@@ -27,7 +27,7 @@
 "aA" = (/turf/simulated/floor/plating,/obj/structure/shuttle/engine/propulsion/burst,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/ruin/powered)
 "aB" = (/obj/machinery/door/airlock/shuttle{name = "Escape Pod Airlock"},/turf/simulated/shuttle/floor,/area/ruin/powered)
 "aC" = (/turf/simulated/floor/plating,/obj/structure/shuttle/engine/propulsion/burst,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/ruin/powered)
-"aD" = (/obj/machinery/door_control{name = "pod door cycle"; step_x = 6; id = "pod cycle"},/turf/simulated/wall,/area/ruin/powered{name = "Space Bar"})
+"aD" = (/obj/machinery/door_control{name = "pod door cycle"; pixel_x = 6; id = "pod cycle"},/turf/simulated/wall,/area/ruin/powered{name = "Space Bar"})
 "aE" = (/obj/machinery/vending/boozeomat,/turf/simulated/wall,/area/ruin/powered{name = "Space Bar"})
 "aF" = (/obj/structure/closet/secure_closet/freezer/kitchen,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aG" = (/obj/machinery/light/small,/obj/structure/table,/obj/machinery/microwave,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
