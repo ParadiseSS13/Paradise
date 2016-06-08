@@ -18,7 +18,7 @@
 /obj/item/device/detective_scanner/attack_self(var/mob/user)
 	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
 
-	if (!search || user.stat)
+	if (!search || user.stat || user.incapacitated())
 		return
 
 	search = lowertext(search)
@@ -43,8 +43,8 @@
 
 			if(!fingerprint) // We have searched by DNA, and do not have the relevant information from the security records.
 				name = M.fields["name"]
-				for (var/sec_record in data_core.general)
-					var/datum/data/record/S = sec_record
+				for (var/gen_record in data_core.general)
+					var/datum/data/record/S = gen_record
 					if(name == S.fields["name"])
 						fingerprint = S.fields["fingerprint"]
 						continue
