@@ -1345,6 +1345,7 @@
 #include "code\modules\hydroponics\trays\tray_tools.dm"
 #include "code\modules\hydroponics\trays\tray_update_icons.dm"
 #include "code\modules\karma\karma.dm"
+#include "code\modules\karma\karma_admin.dm"
 #include "code\modules\library\admin.dm"
 #include "code\modules\library\lib_items.dm"
 #include "code\modules\library\lib_machines.dm"
