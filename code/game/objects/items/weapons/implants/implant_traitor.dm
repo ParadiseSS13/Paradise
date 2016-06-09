@@ -71,8 +71,8 @@
 				var/datum/mindslaves/slaved = user.mind.som
 				H.mind.som = slaved
 				slaved.serv += H
-				slaved.add_serv_hud(user.mind,"syndicate")//handles master servent icons
-				slaved.add_serv_hud(H.mind,"mindslave")
+				slaved.add_serv_hud(user.mind, "master") //handles master servent icons
+				slaved.add_serv_hud(H.mind, "mindslave")
 
 			log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 			activated = 1
@@ -81,11 +81,6 @@
 
 /obj/item/weapon/implant/traitor/removed(mob/target)
 	if(..())
-		ticker.mode.traitors -= target.mind
-		target.mind.special_role = null
-		ticker.mode.update_traitor_icons_removed(target.mind)
-		for(var/datum/objective/protect/mindslave/MS in target.mind.objectives)
-			target.mind.objectives -= MS
-		to_chat(target, "\red <FONT size = 3><B>You are no longer a mindslave; you have complete and free control of your own faculties, once more!</B></FONT>")
+		ticker.mode.remove_traitor_mind(target.mind)
 		return 1
 	return 0
