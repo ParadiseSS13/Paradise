@@ -5,7 +5,6 @@
 	damage_type = BURN
 	flag = "energy"
 
-
 /obj/item/projectile/energy/electrode
 	name = "electrode"
 	icon_state = "spark"
@@ -20,26 +19,23 @@
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
 /obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
-	if(!proj_hit)
-		if(!ismob(target) || blocked >= 2) //Fully blocked by mob or collided with dense object - burst into sparks!
-			var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
-			sparks.set_up(1, 1, src)
-			sparks.start()
-			proj_hit = 1
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = target
-			if(HULK in C.mutations)
-				C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-			else if(C.status_flags & CANWEAKEN)
-				C.do_jitter_animation(jitter)
-	..()
-
-/obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
-	if(!proj_hit)
+	. = ..()
+	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
 		sparks.set_up(1, 1, src)
 		sparks.start()
-		proj_hit = 1
+	else if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		if(HULK in C.mutations)
+			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+		else if(C.status_flags & CANWEAKEN)
+			spawn(5)
+				C.do_jitter_animation(jitter)
+
+/obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
+	var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+	sparks.set_up(1, 1, src)
+	sparks.start()
 	..()
 
 /obj/item/projectile/energy/declone
@@ -48,7 +44,6 @@
 	damage = 20
 	damage_type = CLONE
 	irradiate = 10
-
 
 /obj/item/projectile/energy/dart
 	name = "dart"
@@ -63,7 +58,6 @@
 	icon_state = "toxin"
 	damage = 10
 	damage_type = TOX
-	nodamage = 0
 	weaken = 5
 	stutter = 5
 
@@ -77,10 +71,26 @@
 	stutter = 5
 
 /obj/item/projectile/energy/bolt/large
-	name = "largebolt"
 	damage = 20
 
-/obj/item/projectile/energy/plasma
+/obj/item/projectile/energy/shock_revolver
+	name = "shock bolt"
+	icon_state = "purple_laser"
+	var/chain
+
+/obj/item/ammo_casing/energy/shock_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	..()
+	var/obj/item/projectile/energy/shock_revolver/P = BB
+	spawn(1)
+		P.chain = P.Beam(user,icon_state="purple_lightning",icon = 'icons/effects/effects.dmi',time=1000, maxdistance = 30)
+
+/obj/item/projectile/energy/shock_revolver/on_hit(atom/target)
+	. = ..()
+	if(isliving(target))
+		tesla_zap(src, 3, 10000)
+	qdel(chain)
+
+/obj/item/projectile/energy/toxplasma
 	name = "plasma bolt"
 	icon_state = "energy"
 	damage = 20
