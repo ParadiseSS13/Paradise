@@ -193,7 +193,7 @@
 		else
 			lighting_clear_overlays()
 
-		return W
+	return W
 
 /turf/proc/AfterChange() //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
