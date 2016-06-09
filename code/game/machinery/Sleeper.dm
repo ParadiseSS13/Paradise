@@ -184,7 +184,10 @@
 	data["dialysis"] = connected.filtering
 	if (connected.beaker)
 		data["isBeakerLoaded"] = 1
-		data["beakerFreeSpace"] = round(connected.beaker.reagents.maximum_volume - connected.beaker.reagents.total_volume)
+		if(connected.beaker.reagents)
+			data["beakerFreeSpace"] = round(connected.beaker.reagents.maximum_volume - connected.beaker.reagents.total_volume)
+		else
+			data["beakerFreeSpace"] = 0
 
 	var/chemicals[0]
 	for (var/re in connected.injection_chems)

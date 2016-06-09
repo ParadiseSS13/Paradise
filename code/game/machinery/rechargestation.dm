@@ -203,7 +203,8 @@
 					if(istype(O,/obj/item/weapon/gun/energy/disabler/cyborg))
 						var/obj/item/weapon/gun/energy/disabler/cyborg/D = O
 						if(D.power_supply.charge < D.power_supply.maxcharge)
-							D.power_supply.give(D.charge_cost)
+							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
+							D.power_supply.give(E.e_cost)
 							D.update_icon()
 						else
 							D.charge_tick = 0

@@ -14,7 +14,7 @@
 			return A
 	else if(istype(A, /obj/spacepod))
 		var/obj/spacepod/M = A
-		if(M.occupant || M.occupant2)
+		if(M.pilot)
 			return A
 
 /mob/living/simple_animal/hostile/retaliate/ListTargets()
@@ -47,9 +47,9 @@
 				enemies |= M.occupant
 		else if(istype(A, /obj/spacepod))
 			var/obj/spacepod/M = A
-			if(M.occupant || M.occupant2)
+			if(M.pilot)
 				enemies |= M
-				enemies |= M.occupant
+				enemies |= M.pilot
 
 	for(var/mob/living/simple_animal/hostile/retaliate/H in around)
 		var/retaliate_faction_check = 0

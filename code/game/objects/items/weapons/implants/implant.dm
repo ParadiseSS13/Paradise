@@ -2,7 +2,7 @@
 	name = "implant"
 	icon = 'icons/obj/implants.dmi'
 	icon_state = "generic" //Shows up as the action button icon
-	action_button_is_hands_free = 1
+	action_button_custom_type = /datum/action/item_action/hands_free
 	origin_tech = "materials=2;biotech=3;programming=2"
 
 	var/activated = 1 //1 for implant types that can be activated, 0 for ones that are "always on" like loyalty implants
