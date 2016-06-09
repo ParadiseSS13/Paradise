@@ -4,8 +4,8 @@
 	icon_state = "sniper"
 	item_state = "sniper"
 	recoil = 2
-	heavy_weapon = 1
-	mag_type = "/obj/item/ammo_box/magazine/sniper_rounds"
+	weapon_weight = WEAPON_MEDIUM
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	fire_delay = 40
 	origin_tech = "combat=8"
 	can_unsuppress = 1
@@ -35,17 +35,17 @@
 	max_ammo = 6
 	caliber = ".50"
 
-/obj/item/ammo_casing/point50
-	desc = "A .50 bullet casing."
-	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper
-	icon_state = ".50"
-
 /obj/item/ammo_box/magazine/sniper_rounds/update_icon()
 	if(ammo_count())
 		icon_state = "[initial(icon_state)]-ammo"
 	else
 		icon_state = "[initial(icon_state)]"
+
+/obj/item/ammo_casing/point50
+	desc = "A .50 bullet casing."
+	caliber = ".50"
+	projectile_type = /obj/item/projectile/bullet/sniper
+	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper
 	damage = 70
@@ -69,8 +69,6 @@
 	origin_tech = "combat=6;syndicate=3"
 	ammo_type = /obj/item/ammo_casing/soporific
 	max_ammo = 3
-	caliber = ".50"
-	icon_state = ".50"
 
 /obj/item/ammo_casing/soporific
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
@@ -79,10 +77,10 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/soporific
+	armour_penetration = 0
 	nodamage = 1
 	stun = 0
 	weaken = 0
-	armour_penetration = 0
 	breakthings = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
@@ -102,8 +100,6 @@
 	origin_tech = "combat=7;syndicate=5"
 	ammo_type = /obj/item/ammo_casing/haemorrhage
 	max_ammo = 5
-	caliber = ".50"
-	icon_state = ".50"
 
 /obj/item/ammo_casing/haemorrhage
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
@@ -112,11 +108,11 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/haemorrhage
+	armour_penetration = 15
 	damage = 15
 	stun = 0
 	weaken = 0
 	breakthings = FALSE
-	armour_penetration = 15
 
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living/carbon/human))

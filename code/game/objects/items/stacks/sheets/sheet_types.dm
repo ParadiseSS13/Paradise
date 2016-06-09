@@ -140,7 +140,6 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	new/datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40), \
-	new/datum/stack_recipe("crossbow frame", /obj/item/weapon/crossbowframe, 5, time = 25, one_per_turf = 0, on_floor = 0), \
 	new/datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("easel", /obj/structure/easel, 3, one_per_turf = 1, on_floor = 1), \
