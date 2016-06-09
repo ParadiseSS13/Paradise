@@ -409,3 +409,11 @@
 
 	if(desc)
 		to_chat(user, desc)
+
+
+
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/doom
+	name = "double DOOMed shotgun"
+	desc = "A TRUE classic."
+	force = 20
