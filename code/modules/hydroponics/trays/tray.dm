@@ -101,6 +101,17 @@
 	if(closed_system)
 		flags &= ~OPENCONTAINER
 
+	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
+	prepare_huds()
+	hydro_hud.add_to_hud(src)
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
+	plant_hud_set_status()
+	plant_hud_set_health()
+	plant_hud_set_toxin()
+	plant_hud_set_pest()
+	plant_hud_set_weed()
+
 /obj/machinery/portable_atmospherics/hydroponics/upgraded/New()
 	..()
 	component_parts = list()

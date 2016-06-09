@@ -48,6 +48,10 @@
 	..()
 	processing_objects.Add(src)
 
+/*	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
+	hydro_hud.add_to_hud(src)
+	plant_hud_set_honey()
+*/
 
 /obj/structure/beebox/Destroy()
 	processing_objects.Remove(src)

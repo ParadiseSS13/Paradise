@@ -16,6 +16,14 @@
 #define DIAG_MECH_HUD	"11"// Mech health bar
 #define STATUS_HUD_OOC	"12"// STATUS_HUD without virus db check for someone being ill.
 #define DIAG_BOT_HUD	"13"// Bot HUDS
+#define PLANT_NUTRIENT_HUD	"15"// Plant nutrient level
+#define PLANT_WATER_HUD		"16"// Plant water level
+#define PLANT_STATUS_HUD	"17"// Plant harvest/dead
+#define PLANT_HEALTH_HUD	"18"// Plant health
+#define PLANT_TOXIN_HUD		"19"// Toxin level
+#define PLANT_PEST_HUD		"20"// Pest level
+#define PLANT_WEED_HUD		"21"// Weed level
+#define PLANT_HONEY_HUD		"22"// Used on apiary
 
 //for antag huds. these are used at the /mob level
 #define SPECIALROLE_HUD 		"13"
@@ -41,3 +49,5 @@
 #define ANTAG_HUD_CHANGELING 14
 #define ANTAG_HUD_VAMPIRE 15
 #define ANTAG_HUD_ABDUCTOR 16 //For Fox
+
+#define DATA_HUD_HYDROPONIC			17
