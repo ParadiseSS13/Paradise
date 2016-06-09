@@ -189,6 +189,42 @@
 						else
 							src.DB_species_unlock("Drask",30)
 							return
+					if("8")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Unathi",30)
+							return
+					if("9")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Tajaran",30)
+							return
+					if("10")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Diona",30)
+							return
+					if("11")
+						if(karma <50)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Nucleation",50)
+							return
+					if("12")
+						if(karma <50)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Wryn",50)
+							return
+
 			if(href_list["KarmaRefund"])
 				var/type = href_list["KarmaRefundType"]
 				var/job = href_list["KarmaRefund"]
