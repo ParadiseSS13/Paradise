@@ -173,7 +173,6 @@
 	var/turf/W = new path(src)
 	if(!defer_change)
 		W.AfterChange()
-	W.blueprint_data = old_blueprint_data
 
 	if(istype(W, /turf/simulated))
 		W:Assimilate_Air()
