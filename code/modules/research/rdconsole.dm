@@ -867,7 +867,7 @@ proc/CallMaterialName(ID)
 	
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 700, 550)
+		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
 		ui.set_initial_data(data)
 		ui.open()
 
