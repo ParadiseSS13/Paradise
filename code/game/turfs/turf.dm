@@ -167,13 +167,13 @@
 	var/old_lighting_overlay = lighting_overlay
 	var/old_blueprint_data = blueprint_data
 
-	air_master.remove_from_active(src)
+	if(air_master)
+		air_master.remove_from_active(src)
 
 	var/turf/W = new path(src)
 	if(!defer_change)
 		W.AfterChange()
 	W.blueprint_data = old_blueprint_data
-	return W
 
 	if(istype(W, /turf/simulated))
 		W:Assimilate_Air()
@@ -193,6 +193,8 @@
 			lighting_build_overlays()
 		else
 			lighting_clear_overlays()
+
+		return W
 
 /turf/proc/AfterChange() //called after a turf has been replaced in ChangeTurf()
 	levelupdate()

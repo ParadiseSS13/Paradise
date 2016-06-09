@@ -4,7 +4,7 @@
 
 //As of 3.6.2016
 //global datum that will preload variables on atoms instanciation
-var/global/use_preloader = 0
+var/global/use_preloader = FALSE
 var/global/dmm_suite/preloader/_preloader = new
 
 /dmm_suite
@@ -383,7 +383,7 @@ var/global/dmm_suite/preloader/_preloader = new
 
 /dmm_suite/preloader/proc/setup(list/the_attributes, path)
 	if(the_attributes.len)
-		use_preloader = 1
+		use_preloader = TRUE
 		attributes = the_attributes
 		target_path = path
 
@@ -393,7 +393,7 @@ var/global/dmm_suite/preloader/_preloader = new
 		if(islist(value))
 			value = deepCopyList(value)
 		what.vars[attribute] = value
-	use_preloader = 0
+	use_preloader = FALSE
 
 /area/template_noop
 	name = "Area Passthrough"
