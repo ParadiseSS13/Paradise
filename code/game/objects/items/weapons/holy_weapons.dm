@@ -382,3 +382,75 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	edge = 1
+
+/obj/item/weapon/nullrod/rosary
+	icon_state = "rosary"
+	item_state = null
+	name = "prayer beads"
+	desc = "A set of prayer beads used by many of the more traditional religions in space.<br>Vampires and other unholy abominations have learned to fear these."
+	force = 0
+	throwforce = 0
+	var/praying = 0
+
+/obj/item/weapon/nullrod/rosary/New()
+	..()
+	processing_objects.Add(src)
+
+
+/obj/item/weapon/nullrod/rosary/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(!istype(M))
+		return ..()
+
+	if(!user.mind || user.mind.assigned_role != "Chaplain")
+		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
+		return
+
+	if(in_use)
+		to_chat(user, "<span class='notice'>You are already using [src].</span>")
+
+	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [ticker.Bible_deity_name].</span>", \
+		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [ticker.Bible_deity_name].</span>")
+
+	in_use = 1
+	if(do_after(user, 150, target = M))
+		if(istype(M, /mob/living/carbon/human)) // This probably should not work on vulps. They're unholy abominations.
+			var/mob/living/carbon/human/target = M
+
+			if(target.mind)
+				if(iscultist(target))
+					ticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
+					praying = 0
+					return
+
+				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
+					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)
+					to_chat(target, "<span class='userdanger'>[user]'s prayer to [ticker.Bible_deity_name] has interfered with your power!</span>")
+					praying = 0
+					return
+
+			if(prob(25))
+				to_chat(target, "<span class='notice'>[user]'s prayer to [ticker.Bible_deity_name] has eased your pain!</span>")
+				target.adjustToxLoss(-5)
+				target.adjustOxyLoss(-5)
+				target.adjustBruteLoss(-5)
+				target.adjustFireLoss(-5)
+
+			praying = 0
+
+	else
+		to_chat(user, "<span class='notice'>Your prayer to [ticker.Bible_deity_name] was interrupted.</span>")
+		praying = 0
+
+/obj/item/weapon/nullrod/rosary/process()
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/holder = loc
+
+		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
+			for(var/mob/living/carbon/human/M in range(5))
+				if(M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					if(prob(10))
+						to_chat(M, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
+
+
+
