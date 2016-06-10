@@ -365,7 +365,7 @@
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.verbs += /mob/living/carbon/human/proc/leap
 	H.verbs += /mob/living/carbon/human/proc/gut
-	//..()
+	..()
 
 /datum/species/vox/armalis
 	name = "Vox Armalis"
