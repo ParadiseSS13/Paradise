@@ -67,8 +67,23 @@
 		target.update_markings()
 
 		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
-		icon_state = "tatgun_used"
 		used = 1
+		update_icon()
+
+/obj/item/device/fluff/tattoo_gun/update_icon()
+	..()
+
+	overlays.Cut()
+
+	if(!used)
+		var/image/ink = image(src.icon, src, "ink_overlay")
+		ink.icon += rgb(tattoo_r, tattoo_g, tattoo_b, 190)
+		overlays += ink
+
+/obj/item/device/fluff/tattoo_gun/New()
+	..()
+	update_icon()
+
 
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
@@ -432,7 +447,7 @@
 	icon_state = "chaps"
 	item_color = "combat_pants"
 
-/obj/item/clothing/suit/jacket/fluff/windbreaker // DaveTheHeadcrab: Elliot Campbell
+/obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"
 	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
 	icon = 'icons/obj/custom_items.dmi'
@@ -440,16 +455,25 @@
 	item_state = "elliot_windbreaker"
 	adjust_flavour = "unzip"
 
-/obj/item/clothing/ears/earring/fluff/industrial_piercing
-	name = "industrial piercing and stud earring"
-	desc = "A set of ear piercings containing an industrial rod and a small stud. They appear to be made out of some form of non-magnetic metal."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "elliot_earring"
-
-/obj/item/device/fluff/tattoo_gun/cybernetic_tat
-	desc = "A cheap plastic tattoo application pen.<br>This one seems to have light blue ink."
+/obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat
+	desc = "A cheap plastic tattoo application pen.<br>This one seems heavily used."
 	tattoo_name = "circuitry tattoo"
 	tattoo_icon = "Elliot Circuit Tattoo"
-	tattoo_r = 100
-	tattoo_g = 150
-	tattoo_b = 255
+	tattoo_r = 48
+	tattoo_g = 138
+	tattoo_b = 176
+
+/obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
+	if(!used)
+		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
+		if(ink_color && !(user.stat || user.incapacitated() || used) )
+			tattoo_r = hex2num(copytext(ink_color, 2, 4))
+			tattoo_g = hex2num(copytext(ink_color, 4, 6))
+			tattoo_b = hex2num(copytext(ink_color, 6, 8))
+
+			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
+
+			update_icon()
+
+	else
+		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
