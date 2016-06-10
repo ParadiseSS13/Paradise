@@ -349,13 +349,13 @@
 		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
 		return
 
-	if(in_use)
+	if(praying)
 		to_chat(user, "<span class='notice'>You are already using [src].</span>")
 
 	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [ticker.Bible_deity_name].</span>", \
 		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [ticker.Bible_deity_name].</span>")
 
-	in_use = 1
+	praying = 1
 	if(do_after(user, 150, target = M))
 		if(istype(M, /mob/living/carbon/human)) // This probably should not work on vulps. They're unholy abominations.
 			var/mob/living/carbon/human/target = M
