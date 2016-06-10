@@ -158,6 +158,36 @@
 		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
 		death()
 
+	if (sdisabilities & PSYCHOTIC)
+		if (prob(1))
+			src.hallucination += rand(50, 100)
+	if (sdisabilities & EATINGDISORDER)
+		if (nutrition < NUTRITION_LEVEL_STARVING)
+			if (prob(25))
+				var/obj/item/organ/internal/brain/O = get_int_organ(/obj/item/organ/internal/brain)
+				if(O)
+					O.damage += 1
+					to_chat(src, "Your head hurts!")
+			else if (prob(33))
+				var/obj/item/organ/internal/heart/O = get_int_organ(/obj/item/organ/internal/heart)
+				if(O)
+					O.damage += 1
+					to_chat(src, "Your chest hurts!")
+			else if (prob(50))
+				var/obj/item/organ/internal/liver/O = get_int_organ(/obj/item/organ/internal/liver)
+				if(O)
+					O.damage += 1
+					to_chat(src, "Your torso hurts!")
+			else
+				var/obj/item/organ/internal/lungs/O = get_int_organ(/obj/item/organ/internal/lungs)
+				if(O)
+					O.damage += 1
+					to_chat(src, "Your chest hurts!")
+	//if (sdisabilities & DEPRESSED)
+	//	// todo
+	//if (sdisabilities & ANXIETY)
+	//	// todo
+
 /mob/living/carbon/human/proc/handle_stasis_bag()
 	// Handle side effects from stasis bag
 	if(in_stasis)

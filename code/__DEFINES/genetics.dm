@@ -10,6 +10,12 @@
 #define DISABILITY_FLAG_BLIND       16
 #define DISABILITY_FLAG_MUTE        32
 
+#define DISABILITY_FLAG_PSYCHOTIC        64
+#define DISABILITY_FLAG_EATINGDISORDER        128
+#define DISABILITY_FLAG_DEPRESSED        256
+#define DISABILITY_FLAG_ANXIETY        512
+
+
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
@@ -112,6 +118,11 @@
 #define BLIND			1
 #define MUTE			2
 #define DEAF			4
+#define PSYCHOTIC		8
+#define EATINGDISORDER	16
+#define DEPRESSED		32
+#define ANXIETY			64
+
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600

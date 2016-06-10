@@ -684,6 +684,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DEAF,"Deaf")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_BLIND,"Blind")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_MUTE,"Mute")
+	HTML += "<BR>"
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_PSYCHOTIC,"Psychotic - has hallucinations")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_EATINGDISORDER,"Eating Disorder - can starve")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DEPRESSED,"Depressed - may attempt suicide")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_ANXIETY,"Social Anxiety - avoids people")
 
 
 	// AUTOFIXED BY fix_string_idiocy.py
@@ -1799,6 +1804,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
 		character.sdisabilities |= MUTE
+
+	if(disabilities & DISABILITY_FLAG_PSYCHOTIC)
+		character.sdisabilities |= PSYCHOTIC
+	if(disabilities & DISABILITY_FLAG_EATINGDISORDER)
+		character.sdisabilities |= EATINGDISORDER
+	if(disabilities & DISABILITY_FLAG_DEPRESSED)
+		character.sdisabilities |= DEPRESSED
+	if(disabilities & DISABILITY_FLAG_ANXIETY)
+		character.sdisabilities |= ANXIETY
 
 	S.handle_dna(character)
 
