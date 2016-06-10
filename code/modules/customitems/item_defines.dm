@@ -451,9 +451,10 @@
 	name = "nylon windbreaker"
 	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "elliot_windbreaker"
-	item_state = "elliot_windbreaker"
+	icon_state = "elliot_windbreaker_open"
+	item_state = "elliot_windbreaker_open"
 	adjust_flavour = "unzip"
+	suit_adjusted = 1
 
 /obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat
 	desc = "A cheap plastic tattoo application pen.<br>This one seems heavily used."
