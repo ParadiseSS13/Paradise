@@ -31,6 +31,7 @@ To draw a rune, use an arcane tome.
 	var/scribe_damage = 0.1 //how much damage you take doing it
 
 	var/allow_excess_invokers = 0 //if we allow excess invokers when being invoked
+	var/construct_invoke = 1 //if constructs can invoke it
 
 	var/req_keyword = 0 //If the rune requires a keyword - go figure amirite
 	var/keyword //The actual keyword for the rune
@@ -80,6 +81,14 @@ To draw a rune, use an arcane tome.
 	else
 		fail_invoke(user)
 
+
+/obj/effect/rune/attack_animal(mob/living/simple_animal/M)
+	if(istype(M, /mob/living/simple_animal/shade) || istype(M, /mob/living/simple_animal/hostile/construct))
+		if(construct_invoke || !iscultist(M)) //if you're not a cult construct we want the normal fail message
+			attack_hand(M)
+		else
+			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
+
 /obj/effect/rune/proc/talismanhide() //for talisman of revealing/hiding
 	visible_message("<span class='danger'>[src] fades away.</span>")
 	invisibility = INVISIBILITY_OBSERVER
@@ -95,6 +104,7 @@ To draw a rune, use an arcane tome.
 	visible_message("<span class='danger'>[src] takes on a waxy apperance!</span>")
 	icon = 'icons/effects/crayondecal.dmi'
 	icon_state = "rune[runenum]"
+	color = rgb(255, 0, 0)
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -138,11 +148,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(invocation)
 		for(var/M in invokers)
 			var/mob/living/L = M
-			if(!L.IsVocal())//MIMES
-			//do emote here...
-				L.emote("acts out the rune invocation.")//it will looks like flailing...
-			else
-				L.say(invocation)
+			L.say(invocation)
 	var/oldtransform = transform
 	spawn(0) //animate is a delay, we want to avoid being delayed
 		animate(transform = matrix()*2, alpha = 0, time = 5) //fade out
@@ -153,6 +159,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
 	spawn(0) //animate is a delay, we want to avoid being delayed
 		animate(src, color = rgb(255, 0, 0), time = 0)
+		animate(src, color = initial(color), time = 5)
 
 //Malformed Rune: This forms if a rune is not drawn correctly. Invoking it does nothing but hurt the user.
 /obj/effect/rune/malformed
@@ -718,6 +725,7 @@ var/list/teleport_runes = list()
 	invocation = "Fwe'sh mah erl nyag r'ya!"
 	icon_state = "6"
 	rune_in_use = 0 //One at a time, please!
+	construct_invoke = 0
 	var/mob/living/affecting = null
 
 /obj/effect/rune/astral/examine(mob/user)
@@ -853,6 +861,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "boils the blood of non-believers who can see the rune, dealing extreme amounts of damage. Requires 3 invokers."
 	invocation = "Dedo ol'btoh!"
 	icon_state = "4"
+	construct_invoke = 0
 	req_cultists = 3
 
 /obj/effect/rune/blood_boil/invoke(var/list/invokers)
@@ -882,6 +891,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "manifests a spirit as a servant of your god. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
 	icon_state = "6"
+	construct_invoke = 0
 	color = rgb(200, 0, 0)
 
 /obj/effect/rune/manifest/New(loc)

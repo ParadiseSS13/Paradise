@@ -333,6 +333,9 @@
 	if(confused)
 		confused = max(0, confused - 1)
 
+	if(cultslurring)
+		cultslurring = max(cultslurring-1, 0)
+
 	//Jitteryness
 	if(jitteriness)
 		do_jitter_animation(jitteriness)

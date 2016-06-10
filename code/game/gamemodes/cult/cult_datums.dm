@@ -2,7 +2,7 @@
 /datum/cult_info
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
-	var/dam_type = "BRUTE"
+	var/dam_type = BRUTE
 
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -29,7 +29,7 @@
 
 	//Armored Construct
 	var/juggernaut_name = "Juggernaut"
-	var/juggernaut_icon_state = "armour"
+	var/juggernaut_icon_state = "behemoth"
 	var/juggernaut_dead_state = "shade_dead"
 
 	//Harvester Construct
@@ -49,7 +49,7 @@
 /datum/cult_info/fire
 	name = "Cult of Pyr'Kaeus"
 	theme = "fire"
-	dam_type = "BURN"
+	dam_type = BURN
 
 	entity_name = "Pyr'Kaeus"
 	entity_title1 = "The Burning One"
@@ -77,15 +77,16 @@
 	entity_title2 = "The One Who Beckons"
 	entity_title3 = "The Ferryman of Oblivion"
 
-	entity_icon_state = "legion" //dmi path, mob/lavaland
-
 	artificer_name = "Boneshaper"
 
 	behemoth_name = "Draugr"
+	behemoth_icon_state = "horror"
 
 	wraith_name = "Wraith"
+	wraith_icon_state = "stand"
 
 	juggernaut_name = "Wight"
+	juggernaut_icon_state = "horror"
 
 	harvester_name = "Psychopomp"
 

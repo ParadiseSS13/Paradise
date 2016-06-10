@@ -45,7 +45,7 @@
 	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.drip(5000)
+		H.drip(500)
 
 
 /obj/item/weapon/legcuffs/bolas/cult

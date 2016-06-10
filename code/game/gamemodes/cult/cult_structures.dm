@@ -143,7 +143,7 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
 		return
-	var/choice = alert(user,"You study the schematics etched into the forge...",, "Flagellant's Robe","Cultist Hardsuit")
+	var/choice = alert(user,"You study the schematics etched into the forge...",, "Flagellant's Robe","Cultist Hardsuit", "Cultist Dagger")
 	var/pickedtype
 	var/otheritem //ie:helmet..
 	switch(choice)
@@ -153,6 +153,8 @@
 		if("Cultist Hardsuit")
 			pickedtype = /obj/item/clothing/suit/space/cult
 			otheritem = /obj/item/clothing/head/helmet/space/cult
+		if("Cultist Dagger")
+			pickedtype = /obj/item/weapon/melee/cultblade/dagger
 	if(pickedtype && Adjacent(user) && src && !qdeleted(src) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		var/obj/item/N = new pickedtype(get_turf(src))
@@ -191,7 +193,7 @@
 		for(var/mob/living/L in range(5, src))
 			if(iscultist(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 				if(L.health != L.maxHealth)
-					new /obj/effect/overlay/temp/heal(get_turf(src), "#960000")
+					new /obj/effect/overlay/temp/heal(get_turf(src), "#960000")//not working
 					if(ishuman(L))
 						L.adjustBruteLoss(-1, 0)
 						L.adjustFireLoss(-1, 0)
@@ -204,7 +206,7 @@
 	if(last_corrupt <= world.time)
 		var/list/validturfs = list()
 		for(var/T in circleviewturfs(src, 5))
-			if(istype(T, /turf/simulated/floor/engine/cult) || istype(T, /turf/space) || istype(T, /turf/simulated/wall))
+			if(istype(T, /turf/simulated/floor/engine/cult) || istype(T, /turf/space) || istype(T, /turf/simulated/wall) || istype(T, /turf/simulated/shuttle))
 				continue
 			validturfs |= T
 		var/turf/T = safepick(validturfs)
