@@ -984,16 +984,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
-					if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Wryn" || species == "Vulpkanin")
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin"))
 						r_hair = rand(0,255)
 						g_hair = rand(0,255)
 						b_hair = rand(0,255)
 				if("h_style")
 					h_style = random_hair_style(gender, species)
 				if("facial")
-					r_facial = rand(0,255)
-					g_facial = rand(0,255)
-					b_facial = rand(0,255)
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin"))
+						r_facial = rand(0,255)
+						g_facial = rand(0,255)
+						b_facial = rand(0,255)
 				if("f_style")
 					f_style = random_facial_hair_style(gender, species)
 				if("underwear")
@@ -1164,7 +1165,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_type = new_b_type
 
 				if("hair")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin"))
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", rgb(r_hair, g_hair, b_hair)) as color|null
 						if(new_hair)
@@ -1283,11 +1284,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 				if("facial")
-					var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", rgb(r_facial, g_facial, b_facial)) as color|null
-					if(new_facial)
-						r_facial = hex2num(copytext(new_facial, 2, 4))
-						g_facial = hex2num(copytext(new_facial, 4, 6))
-						b_facial = hex2num(copytext(new_facial, 6, 8))
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin"))
+						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", rgb(r_facial, g_facial, b_facial)) as color|null
+						if(new_facial)
+							r_facial = hex2num(copytext(new_facial, 2, 4))
+							g_facial = hex2num(copytext(new_facial, 4, 6))
+							b_facial = hex2num(copytext(new_facial, 6, 8))
 
 				if("f_style")
 					var/list/valid_facialhairstyles = list()
