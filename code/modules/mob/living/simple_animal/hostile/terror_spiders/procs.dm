@@ -62,9 +62,9 @@
 				enemies |= M.occupant
 		else if (istype(A, /obj/spacepod))
 			var/obj/spacepod/M = A
-			if (M.occupant || M.occupant2)
+			if(M.pilot)
 				enemies |= M
-				enemies |= M.occupant
+				enemies |= M.pilot
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/H in ts_nearby)
 		var/retaliate_faction_check = 0
 		for(var/F in faction)

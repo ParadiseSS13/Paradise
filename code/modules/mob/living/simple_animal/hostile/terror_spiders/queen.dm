@@ -48,7 +48,7 @@
 	projectiletype = /obj/item/projectile/terrorqueenspit
 
 	spider_tier = 4
-	spider_opens_doors = 1
+	spider_opens_doors = 2
 	loot = list(/obj/item/clothing/accessory/medal)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()

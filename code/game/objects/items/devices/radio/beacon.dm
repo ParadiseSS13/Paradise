@@ -76,3 +76,18 @@
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
 	return
+
+// TERROR SPIDER HOMING BEACON
+
+/obj/item/device/radio/beacon/terrorspider
+	name = "suspicious beacon"
+	desc = "A label on it reads: <i>Activating this device will send a PSI emitter to your location</i>."
+	origin_tech = "bluespace=1;syndicate=7"
+	syndicate = 1
+
+/obj/item/device/radio/beacon/terrorspider/attack_self(mob/user as mob)
+	if(user)
+		to_chat(user, "\blue Locked In")
+		new /obj/machinery/power/singularity_beacon/terrorspider_beacon( user.loc )
+		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		qdel(src)

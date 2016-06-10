@@ -186,7 +186,7 @@
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
 	force = 10
 	origin_tech = null
-	self_recharge = 1
+	selfcharge = 1
 	var/inawaymission = 1
 
 /obj/item/weapon/gun/energy/laser/awaymission_aeg/process()
@@ -220,8 +220,13 @@
 	desc = "A modified biological decloner, tweaked to destroy terror spiders more effectively."
 	icon_state = "decloner"
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	projectile_type = "/obj/item/projectile/energy/declone/declone_spider"
+	ammo_type = list(/obj/item/ammo_casing/energy/declone_spider)
 	can_charge = 0
+
+/obj/item/ammo_casing/energy/declone_spider
+	projectile_type = /obj/item/projectile/energy/declone/declone_spider
+	select_name = "declone"
+	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/projectile/energy/declone/declone_spider
 	name = "declone"
@@ -233,7 +238,9 @@
 	name = "ID Upgrade Machine"
 	icon_state = "guest"
 	icon_screen = "pass"
-	var/list/access_to_give = list()
+	var/list/access_to_give = list(271)
+	var/beenused = 0
+	var/door_to_open = "UO71_Start"
 
 /obj/machinery/computer/id_upgrader/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id))
@@ -249,13 +256,19 @@
 				did_upgrade = 1
 		if (did_upgrade)
 			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
+			if (!beenused)
+				spawn(1)
+					beenused = 1
+					var/unlocked_something = 0
+					for (var/obj/machinery/door/poddoor/P in airlocks)
+						if (P.density && P.id_tag == door_to_open && P.z == z)
+							P.open()
+							unlocked_something = 1
+					if (unlocked_something)
+						to_chat(user, "<span class='danger'>Activating the machine has unlocked a way forward!</span>")
 		else
 			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
 	else
 		to_chat(user, "<span class='notice'>Use an ID card on the [src] instead.</span>")
 
-/obj/machinery/computer/id_upgrader/away01
-	// General access, in gateway room
-	name = "ID Upgrade Machine"
-	access_to_give = list(271)
 

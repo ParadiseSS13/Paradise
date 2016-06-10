@@ -23,16 +23,16 @@
 	icon_dead = "terror_red_dead"
 	maxHealth = 200
 	health = 200
-	melee_damage_lower = 30
-	melee_damage_upper = 40
+	melee_damage_lower = 15
+	melee_damage_upper = 20
 	move_to_delay = 20
 	spider_opens_doors = 2
 	var/enrage = 0
-	var/melee_damage_lower_rage0 = 10
+	var/melee_damage_lower_rage0 = 15
 	var/melee_damage_upper_rage0 = 20
-	var/melee_damage_lower_rage1 = 20
-	var/melee_damage_upper_rage1 = 30
-	var/melee_damage_lower_rage2 = 30
+	var/melee_damage_lower_rage1 = 15
+	var/melee_damage_upper_rage1 = 35
+	var/melee_damage_lower_rage2 = 35
 	var/melee_damage_upper_rage2 = 40
 
 
