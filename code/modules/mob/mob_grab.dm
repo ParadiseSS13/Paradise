@@ -61,6 +61,7 @@
 
 	clean_grabbed_by(assailant, affecting)
 	adjust_position()
+	last_upgrade = world.time
 
 /obj/item/weapon/grab/proc/clean_grabbed_by(var/mob/user, var/mob/victim) //Cleans up any nulls in the grabbed_by list.
 	if(istype(user))
@@ -93,6 +94,7 @@
 			hud.screen_loc = ui_rhand
 		else
 			hud.screen_loc = ui_lhand
+		assailant.client.screen += hud
 
 
 /obj/item/weapon/grab/process()
@@ -104,7 +106,6 @@
 		assailant.client.screen += hud
 
 	var/hit_zone = assailant.zone_sel.selecting
-	last_hit_zone = hit_zone
 
 	if(assailant.pulling == affecting)
 		assailant.stop_pulling()
@@ -136,37 +137,34 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		var/h = affecting.hand
-		affecting.hand = 0
-		affecting.drop_item()
-		affecting.hand = 1
-		affecting.drop_item()
-		affecting.hand = h
+		affecting.drop_r_hand()
+		affecting.drop_l_hand()
 
-
-		//var/announce = 0
-		//(hit_zone != last_hit_zone)
-			//announce = 1
-	/*	if(ishuman(affecting))
+		var/announce = 0
+		if(hit_zone != last_hit_zone)
+			announce = 1
+		if(ishuman(affecting))
 			switch(hit_zone)
-				/*if("mouth")
-					if(announce)
-						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
-					if(affecting.silent < 3)
-						affecting.silent = 3
 				if("eyes")
 					if(announce)
 						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s eyes!</span>")
 					if(affecting.eye_blind < 3)
-						affecting.eye_blind = 3*///These are being left in the code as an example for adding new hit-zone based things.
+						affecting.eye_blind = 3
+				/*if("mouth")
+					if(announce)
+						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
+					if(affecting.silent < 3)
+						affecting.silent = 3*/
 
+/*
 		if(force_down)
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
 				affecting.Weaken(3) //This is being left in the code as an example of adding a new variable to do something in grab code.
-
 */
+
+	last_hit_zone = hit_zone
 
 	if(state >= GRAB_NECK)
 		affecting.Stun(5)  //It will hamper your voice, being choked and all.
@@ -440,8 +438,10 @@
 		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
 		affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
+		if(affecting.eye_blind <= 3)
+			affecting.eye_blind = 0  //try to instantly clear blindness, if it was likely caused by us (may result in mild eye clearing but like it would wear off in 3 seconds anyways so)
 	qdel(hud)
-	return ..()
+	return QDEL_HINT_HARDDEL_NOW
 
 
 #undef EAT_TIME_XENO
