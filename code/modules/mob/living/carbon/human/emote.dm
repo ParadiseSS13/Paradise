@@ -28,7 +28,7 @@
 	act = lowertext(act)
 	switch(act)
 		//Cooldown-inducing emotes
-		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "sad")
+		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			if (species.name == "Machine")		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
@@ -86,10 +86,9 @@
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 2
 
-
-		if("sad")
-			message = "<B>[src]</B> emits a sad trombone noise."
-			playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50, 0)
+		if("buzz2")
+			message = "<B>[src]</B> emits an irritated buzzing sound."
+			playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz", "buzzes")
