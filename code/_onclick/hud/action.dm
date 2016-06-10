@@ -217,10 +217,24 @@
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_ALIVE|AB_CHECK_INSIDE
 
 /datum/action/item_action/CheckRemoval(mob/living/user)
-	return !(target in user)
+	return get(target, /mob/living) != user
 
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_ALIVE|AB_CHECK_INSIDE
+
+// for clothing accessories like holsters
+/datum/action/item_action/accessory
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_ALIVE
+
+/datum/action/item_action/accessory/Checks()
+	. = ..()
+	if(!.)
+		return 0
+	if(target.loc == owner)
+		return 1
+	if(istype(target.loc, /obj/item/clothing/under) && target.loc.loc == owner)
+		return 1
+	return 0
 
 ///prset for organ actions
 /datum/action/item_action/organ_action

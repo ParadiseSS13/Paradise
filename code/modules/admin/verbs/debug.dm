@@ -359,6 +359,27 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		message_admins("[key_name_admin(src)] has deleted all instances of [hsbitem].", 0)
 	feedback_add_details("admin_verb","DELA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/cmd_debug_del_sing()
+	set category = "Debug"
+	set name = "Del Singulo / Tesla"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with del-all
+	var/confirm = alert("This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	for(var/I in singularities)
+		var/obj/singularity/S = I
+		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
+			continue
+		qdel(S)
+	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
+	message_admins("[key_name_admin(src)] has deleted all Singularities and Tesla orbs.", 0)
+	feedback_add_details("admin_verb","DELS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
 	set name = "Make Powernets"
@@ -669,7 +690,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/thunderdome(M), slot_head)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/destroyer(M), slot_r_hand)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/destroyer(M), slot_r_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/kitchen/knife(M), slot_l_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/grenade/smokebomb(M), slot_r_store)
 
@@ -860,7 +881,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			M.equip_or_collect(pda, slot_r_store)
 			M.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_belt)
+			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Officer)"
@@ -883,7 +904,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			M.equip_or_collect(pda, slot_r_store)
 			M.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_belt)
+			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Captain)"
@@ -946,7 +967,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_wear_mask)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_l_store)
 
@@ -975,7 +996,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
 			M.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_l_store)

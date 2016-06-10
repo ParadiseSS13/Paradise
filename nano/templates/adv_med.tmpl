@@ -21,7 +21,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 		</div>
 		{{:helper.displayBar(data.occupant.health, -100, 100, (data.occupant.health >= 50) ? 'good' : (data.occupant.health >= 0) ? 'average' : 'bad')}}
 			<div class="itemContent" style="width: 60px">
-				{{:helper.round(data.occupant.health*10)/10}}%
+				{{:helper.smoothRound(data.occupant.health)}}%
 			</div>
 	</div>
 	<div class="item">
@@ -44,7 +44,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			Temperature:
 		</div>
 		<div class="itemContent">
-			{{:data.occupant.bodyTempC}}&deg;C, {{:data.occupant.bodyTempF}}&deg;F
+			{{:helper.smoothRound(data.occupant.bodyTempC)}}&deg;C, {{:helper.smoothRound(data.occupant.bodyTempF)}}&deg;F
 		</div>
 	</div>
 	{{if data.occupant.hasBorer}}
@@ -91,7 +91,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			</tr>
 			<tr>
 				<td> Burn Severity: </td>
-				<td> Paralysis %: ({{:data.occupant.paralysisSeconds}} seconds left) </td>
+				<td> Paralysis %: ({{:helper.smoothRound(data.occupant.paralysisSeconds)}} seconds left) </td>
 			</tr>
 			<tr>
 				<td> {{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth+100, (data.occupant.fireLoss < 15) ? 'notgood' : (data.occupant.fireLoss < 40) ? 'average' : 'bad', data.occupant.fireLoss)}} </td>
@@ -108,7 +108,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 		<div class="line">
 			<div class="statusLabel">Blood Level:</div>
 			{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, (data.occupant.blood.percent <= 60) ? 'bad' : (data.occupant.blood.percent <= 90) ? 'average' : 'good' )}}
-			<div class="statusValue"> {{:data.occupant.blood.percent}}%, {{:data.occupant.blood.bloodLevel}}cl </div>
+			<div class="statusValue"> {{:helper.smoothRound(data.occupant.blood.percent)}}%, {{:helper.smoothRound(data.occupant.blood.bloodLevel)}}cl </div>
 		</div>
 	{{/if}}
 	<br>
@@ -144,8 +144,8 @@ Used In File(s): \code\game\machinery\adv_med.dm
 				<tr>
 					<td> {{:value.name}} </td>
 					<td> {{:helper.displayBar(value.totalLoss, 0, value.maxHealth, (value.totalLoss < value.bruised) ? 'notgood' : (value.totalLoss < value.broken) ? 'average' : 'bad', value.totalLoss) }} </td>
-					<td> {{if value.bruteLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:value.bruteLoss}} </span> </td>
-					<td> {{if value.fireLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:value.fireLoss}} </span> 	</td>
+					<td> {{if value.bruteLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:helper.smoothRound(value.bruteLoss)}} </span> </td>
+					<td> {{if value.fireLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:helper.smoothRound(value.fireLoss)}} </span> 	</td>
 					<td>
 						<span class='average'>
 						{{if value.status.destroyed}} DESTROYED <br> {{/if}}

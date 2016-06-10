@@ -815,16 +815,12 @@
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new one
-		ui = new(user, src, ui_key, "apc.tmpl", "[area.name] - APC", 510, data["siliconUser"] ? 465 : 390)
+		ui = new(user, src, ui_key, "apc.tmpl", "[area.name] - APC", 510, data["siliconUser"] ? 535 : 460)
 		// When the UI is first opened this is the data it will use
 		ui.set_initial_data(data)
 		ui.open()
 		// Auto update every Master Controller tick
 		ui.set_auto_update(1)
-	else
-		// The UI is already open so push the new data to it
-		ui.push_data(data)
-		return
 
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_equip+lastused_light+lastused_environ]) : [cell? cell.percent() : "N/C"] ([charging])"

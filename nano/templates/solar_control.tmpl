@@ -10,7 +10,7 @@ Used In File(s): \code\modules\power\solar.dm
 			Generated power:
 		</div>
 		<div class='statusValue'>
-			{{:data.generated}} W
+			{{:helper.smoothRound(data.generated)}} W
 		</div>
 	</div>
 
@@ -20,7 +20,7 @@ Used In File(s): \code\modules\power\solar.dm
 		</div>
 
 		<div class='statusValue'>
-		{{:data.angle}}&deg ({{:data.direction}})&nbsp;
+		{{:helper.smoothRound(data.angle)}}&deg ({{:data.direction}})&nbsp;
 		</div>
 
 		{{:helper.link('15&deg', 'minus', {'rate_control' : '1', 'cdir' : '-15'})}}
@@ -52,7 +52,7 @@ Used In File(s): \code\modules\power\solar.dm
 		</div>
 
 		<div class='statusValue'>
-			 {{:data.tracking_rate}} deg/h ({{:data.rotating_way}})
+			 {{:helper.smoothRound(data.tracking_rate)}} deg/h ({{:data.rotating_way}})
 		</div>
 	</div>
 

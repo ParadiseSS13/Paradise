@@ -916,6 +916,7 @@
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
 				M.revive()
+				M.can_collar = 1
 				if(istype(target, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					if(malfunctioning)
