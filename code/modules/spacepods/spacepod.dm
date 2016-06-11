@@ -73,7 +73,7 @@
 	pr_int_temp_processor = new /datum/global_iterator/pod_preserve_temp(list(src))
 	pr_give_air = new /datum/global_iterator/pod_tank_give_air(list(src))
 	equipment_system = new(src)
-	equipment_system.installed_modules = new/list()
+	equipment_system.installed_modules = list()
 	equipment_system.installed_modules += battery
 	spacepods_list += src
 	cargo_hold = new/obj/item/weapon/storage/internal(src)
