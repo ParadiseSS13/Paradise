@@ -71,3 +71,39 @@ proc/sql_report_admin_karma(var/client/spender, var/receiver_key, var/karma_give
 	message_admins("[usr.key] gave [karma_gift] karma points to [receiver]")
 	sql_report_admin_karma(src, receiver, karma_gift)
 	return
+
+proc/sql_report_objective_karma(var/receiver_key, var/karma_given)
+	var/sqlreceiverrole = "None"
+	var/sqlreceiverspecial = "None"
+
+
+	if(!dbcon.IsConnected())
+		log_game("SQL ERROR during karma logging. Failed to connect.")
+	else
+		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time) VALUES ('ROLE/JOB GIFT', 'OBJECTIVES', 'ROLE/JOB GIFT', '[receiver_key]', '[sqlreceiverrole]', '[sqlreceiverspecial]', 'ROLE/JOB GIFT', '[sqltime]')")
+		if(!query.Execute())
+			var/err = query.ErrorMsg()
+			log_game("SQL ERROR during karma logging. Error : \[[err]\]\n")
+
+
+		query = dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[receiver_key]'")
+		query.Execute()
+
+		var/karma
+		var/id
+		while(query.NextRow())
+			id = query.item[1]
+			karma = text2num(query.item[3])
+		if(karma == null)
+			karma = karma_given
+			query = dbcon.NewQuery("INSERT INTO [format_table_name("karmatotals")] (byondkey, karma) VALUES ('[receiver_key]', [karma])")
+			if(!query.Execute())
+				var/err = query.ErrorMsg()
+				log_game("SQL ERROR during karmatotal logging (adding new key). Error : \[[err]\]\n")
+		else
+			karma += karma_given
+			query = dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karma=[karma] WHERE id=[id]")
+			if(!query.Execute())
+				var/err = query.ErrorMsg()
+				log_game("SQL ERROR during karmatotal logging (updating existing entry). Error : \[[err]\]\n")

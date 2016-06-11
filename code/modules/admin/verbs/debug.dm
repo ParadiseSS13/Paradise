@@ -768,7 +768,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/bane(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/banemask(M), slot_wear_mask)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(src), slot_back)
-			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m762(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/c4(M), slot_in_backpack)
@@ -777,7 +777,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/grenade/empgrenade(M), slot_r_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_s_store)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m2411(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m1911(M), slot_belt)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw(M), slot_r_hand)
 
