@@ -298,6 +298,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Bro"] = "Brobot"
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
+			module_sprites["Standard"] = "robotServ"
 
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
@@ -307,6 +308,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "Miner_old"
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
+			module_sprites["Standard"] = "robotMine"
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
@@ -317,6 +319,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
+			module_sprites["Standard"] = "robotMedi"
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -326,6 +329,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
+			module_sprites["Standard"] = "robotSecy"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -336,6 +340,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "Engineering"
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
+			module_sprites["Standard"] = "robotEngi"
 			magpulse = 1
 
 		if("Janitor")
@@ -344,6 +349,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "JanBot2"
 			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
+			module_sprites["Standard"] = "robotJani"
 
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)

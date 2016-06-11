@@ -208,7 +208,7 @@
 		if(!G.confirm())
 			return 0
 		G.affecting.forceMove(get_turf(src))
-		G.affecting.Weaken(5)
+		G.affecting.Weaken(2)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
 		add_logs(G.affecting, G.assailant, "pushed onto a table")
@@ -448,8 +448,9 @@
 /obj/structure/table/glass/destroy(dirty)
 	if(dirty)
 		new /obj/item/weapon/shard(loc)
+		new /obj/item/weapon/shard(loc)
 	else
-		new /obj/item/stack/sheet/glass(loc)
+		new /obj/item/stack/sheet/glass(loc, 2)
 	..()
 
 /obj/structure/table/glass/tablepush(obj/item/I, mob/user)

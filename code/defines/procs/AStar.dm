@@ -157,7 +157,7 @@ Actual Adjacent procs :
 
 	for(var/dir in cardinal)
 		T = get_step(src,dir)
-		if(simulated_only && !istype(T))
+		if(!T || (simulated_only && !istype(T)))
 			continue
 		if(!T.density && !LinkBlockedWithAccess(T,caller, ID))
 			L.Add(T)

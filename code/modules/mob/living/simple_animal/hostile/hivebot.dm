@@ -23,6 +23,7 @@
 	minbodytemp = 0
 	speak_emote = list("states")
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"
@@ -41,12 +42,12 @@
 	name = "Strong Hivebot"
 	desc = "A robot, this one is armed and looks tough!"
 	health = 80
+	maxHealth = 80
 	ranged = 1
 
 /mob/living/simple_animal/hostile/hivebot/death()
 	..()
 	visible_message("<b>[src]</b> blows apart!")
-	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()

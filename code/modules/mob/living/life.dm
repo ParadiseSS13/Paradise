@@ -59,6 +59,8 @@
 	if(get_nations_mode())
 		process_nations()
 
+	..()
+
 /mob/living/proc/handle_breathing()
 	return
 
@@ -111,6 +113,7 @@
 	handle_slurring()
 	handle_paralysed()
 	handle_sleeping()
+	handle_slowed()
 
 
 /mob/living/proc/handle_stunned()
@@ -160,7 +163,10 @@
 		clear_alert("asleep")
 	return sleeping
 
-
+/mob/living/proc/handle_slowed()
+	if(slowed)
+		slowed = max(slowed-1, 0)
+	return slowed
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
@@ -247,19 +253,17 @@
 /mob/living/proc/give_action_button(var/obj/item/I, recursive = 0)
 	if(I.action_button_name)
 		if(!I.action)
-			if(istype(I, /obj/item/organ/internal))
-				I.action = new/datum/action/item_action/organ_action
-			else if(I.action_button_is_hands_free)
-				I.action = new/datum/action/item_action/hands_free
+			if(I.action_button_custom_type)
+				I.action = new I.action_button_custom_type
 			else
-				I.action = new/datum/action/item_action
+				I.action = new /datum/action/item_action
 			I.action.name = I.action_button_name
 			I.action.target = I
 		I.action.Grant(src)
 
 	if(recursive)
 		for(var/obj/item/T in I)
-			give_action_button(I, recursive - 1)
+			give_action_button(T, recursive - 1)
 
 /mob/living/update_action_buttons()
 	if(!hud_used) return

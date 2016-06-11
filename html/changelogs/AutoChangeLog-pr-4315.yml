@@ -1,4 +1,0 @@
-author: IK3I
-delete-after: True
-changes: 
-  - bugfix: "Can no longer holster items with No-Drop active."

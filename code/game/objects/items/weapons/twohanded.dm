@@ -222,6 +222,10 @@
 		icon_state = "dualsaber0"
 
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
+		unwield()
+		return
 	..()
 	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
 		to_chat(user, "\red You twirl around a bit before losing your balance and impaling yourself on the [src].")
@@ -259,7 +263,10 @@
 	if(wielded)
 		return 1
 
-/obj/item/weapon/twohanded/dualsaber/wield()
+/obj/item/weapon/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
+	if(HULK in M.mutations)
+		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
+		return
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
 
@@ -299,7 +306,7 @@
 	return ..()
 
 //Putting heads on spears
-/obj/item/weapon/organ/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
+/obj/item/organ/external/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
 	if(istype(W, /obj/item/weapon/twohanded/spear))
 		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
@@ -315,7 +322,7 @@
 	return ..()
 
 /obj/item/weapon/twohanded/spear/attackby(var/obj/item/I, var/mob/living/user)
-	if(istype(I, /obj/item/weapon/organ/head))
+	if(istype(I, /obj/item/organ/external/head))
 		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
 		var/matrix/M = matrix()
@@ -339,7 +346,7 @@
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message("<span class='warning'>[user] kicks over \the [src]!</span>", "<span class='danger'>You kick down \the [src]!</span>")
 	new /obj/item/weapon/twohanded/spear(user.loc)
-	for(var/obj/item/weapon/organ/head/H in src)
+	for(var/obj/item/organ/external/head/H in src)
 		H.loc = user.loc
 	qdel(src)
 

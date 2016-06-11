@@ -29,35 +29,35 @@
 	new /obj/item/weapon/reagent_containers/food/pill/zoom( src )
 	new /obj/item/weapon/reagent_containers/food/pill/zoom( src )
 
-
 /obj/item/weapon/reagent_containers/food/pill/random_drugs
 	name = "pill"
-	desc = ""
+	desc = "A cocktail of illicit designer drugs, who knows what might be in here."
 
 /obj/item/weapon/reagent_containers/food/pill/random_drugs/New()
 	..()
 	icon_state = "pill" + pick("2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20")
 
-	name = pick("lunar","vorpal","hardcore","willow", "void","loopy","electro", "cyber","heavy", "ninja", "hydro", "blue", "red", "green", "purple", "strong", "divine","carp" ,"deadly","dead","vicious" ,"wild" ,"demon", "chill", "solid", "liquid", "crazy", "super", "hyper", "space", "wizard", "rainbow", "star", "turbo", "prism", "sticky") + " " + pick("jack","zero","null","beat","nip","bubbles" ,"ice","medicine","venom","shock","solar" ,"spice" ,"shredder", "heart" , "heat", "pill","hopper","scum","fruit", "bolt", "deck", "butter", "runoff", "grease", "flair", "sweat", "zone", "blast")
+	name = "[pick_list("chemistry_tools.json", "CYBERPUNK_drug_prefixes")] [pick_list("chemistry_tools.json", "CYBERPUNK_drug_suffixes")]"
 
-	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" , "hydrocodone", "psilocybin", "lsd", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
-	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" ,"hydrocodone", "psilocybin", "lsd", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
-	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" , "hydrocodone", "psilocybin", "lsd", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
+	var/primaries = rand(1,3)
+	var/adulterants = rand(2,4)
+
+	while(primaries > 0)
+		primaries--
+		reagents.add_reagent(pick_list("chemistry_tools.json", "CYBERPUNK_drug_primaries"), 6)
+	while(adulterants > 0)
+		adulterants--
+		reagents.add_reagent(pick_list("chemistry_tools.json", "CYBERPUNK_drug_adulterants"), 3)
 
 
 
 /obj/item/weapon/storage/pill_bottle/random_drug_bottle
-	name = "odd pill bottle"
-	desc = "You're not sure if you trust the contents of this bottle..."
+	name = "pill bottle (???)"
+	desc = "Huh."
 
 /obj/item/weapon/storage/pill_bottle/random_drug_bottle/New()
 	..()
-	new /obj/item/weapon/reagent_containers/food/pill/random_drugs( src )
-	new /obj/item/weapon/reagent_containers/food/pill/random_drugs( src )
-	new /obj/item/weapon/reagent_containers/food/pill/random_drugs( src )
-	new /obj/item/weapon/reagent_containers/food/pill/random_drugs( src )
-	new /obj/item/weapon/reagent_containers/food/pill/random_drugs( src )
-	new /obj/item/weapon/reagent_containers/food/pill/random_drugs( src )
-	new /obj/item/weapon/reagent_containers/food/pill/random_drugs( src )
+	for(var/i in 1 to 5)
+		new /obj/item/weapon/reagent_containers/food/pill/random_drugs(src)
 
 

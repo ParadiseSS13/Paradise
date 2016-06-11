@@ -54,7 +54,51 @@
 
 	if(src.occupant)
 		process_occupant()
+
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+		if(M == occupant)
+			continue
+		else
+			M.forceMove(src.loc)
 	return 1
+
+/obj/machinery/recharge_station/ex_act(severity)
+	switch(severity)
+		if(1.0)
+			for(var/atom/movable/A as mob|obj in src)
+				A.forceMove(src.loc)
+				A.ex_act(severity)
+			qdel(src)
+			return
+		if(2.0)
+			if (prob(50))
+				for(var/atom/movable/A as mob|obj in src)
+					A.forceMove(src.loc)
+					A.ex_act(severity)
+				qdel(src)
+				return
+		if(3.0)
+			if (prob(25))
+				for(var/atom/movable/A as mob|obj in src)
+					A.forceMove(src.loc)
+					A.ex_act(severity)
+				qdel(src)
+				return
+
+/obj/machinery/recharge_station/blob_act()
+	if(prob(50))
+		var/atom/movable/A = occupant
+		go_out()
+		A.blob_act()
+		qdel(src)
+
+/obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
+	if(M.environment_smash)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		go_out()
+		qdel(src)
+	return
 
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
 	move_inside(AM)
@@ -159,7 +203,8 @@
 					if(istype(O,/obj/item/weapon/gun/energy/disabler/cyborg))
 						var/obj/item/weapon/gun/energy/disabler/cyborg/D = O
 						if(D.power_supply.charge < D.power_supply.maxcharge)
-							D.power_supply.give(D.charge_cost)
+							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
+							D.power_supply.give(E.e_cost)
 							D.update_icon()
 						else
 							D.charge_tick = 0
@@ -210,7 +255,7 @@
 /obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
-	if(!user)
+	if(!user || !usr)
 		return
 
 	if (usr.stat != CONSCIOUS)

@@ -1,0 +1,4 @@
+author: pinatacolada
+delete-after: True
+changes: 
+  - bugfix: "removes atmos tech SOP from supply SOP"

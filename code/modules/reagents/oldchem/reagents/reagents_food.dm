@@ -167,13 +167,11 @@
 	description = "Sodium chloride, common table salt."
 	reagent_state = SOLID
 	color = "#B1B0B0"
+	overdose_threshold = 100
 
-/datum/reagent/sodiumchloride/overdose_process(var/mob/living/M as mob)
-	if(volume > 100)
-		if(prob(70))
-			M.adjustBrainLoss(1)
-		if(prob(8))
-			M.adjustToxLoss(rand(1,2))
+/datum/reagent/sodiumchloride/overdose_process(var/mob/living/M as mob, severity)
+	if(prob(70))
+		M.adjustBrainLoss(1)
 	..()
 	return
 
@@ -454,11 +452,9 @@
 	M.emote("collapse")
 	..()
 
-/datum/reagent/sugar/overdose_process(var/mob/living/M as mob)
-	if(volume > 200)
-		M.Paralyse(3)
-		M.Weaken(4)
-		if(prob(8))
-			M.adjustToxLoss(1)
-	..()
-	return
+/datum/reagent/sugar/overdose_process(var/mob/living/M as mob, severity)
+	M.Paralyse(3 * severity)
+	M.Weaken(4 * severity)
+	if(prob(8))
+		M.adjustToxLoss(severity)
+

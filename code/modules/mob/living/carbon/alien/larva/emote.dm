@@ -8,7 +8,7 @@
 	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
 		act = copytext(act,1,length(act))
 	var/muzzled = is_muzzled()
-
+	act = lowertext(act)
 	switch(act)
 		if ("me")
 			if(silent)

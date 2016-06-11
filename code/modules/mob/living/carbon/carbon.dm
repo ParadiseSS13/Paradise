@@ -386,6 +386,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(buckled_mob)
 		to_chat(src, "You can't vent crawl with [buckled_mob] on you!")
 		return
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
+			var/obj/item/clothing/under/contortionist/C = H.w_uniform
+			if(!C.check_clothing(src))//return values confuse me right now
+				return
 
 	var/obj/machinery/atmospherics/unary/vent_found
 
@@ -511,57 +517,39 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/throw_item(atom/target)
 	throw_mode_off()
-	if(stat || !target)
+	if(!target || !isturf(loc))
 		return
-	if(target.type == /obj/screen)
-		return
-
-	var/atom/movable/item = get_active_hand()
-
-	if(!item || (item.flags & NODROP))
+	if(istype(target, /obj/screen))
 		return
 
-	if (istype(item, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = item
-		item = G.get_mob_if_throwable() //throw the person instead of the grab
-		if(ismob(item))
+	var/atom/movable/thrown_thing
+	var/obj/item/I = src.get_active_hand()
+
+	if(!I || (I.flags & NODROP))
+		return
+
+	if(istype(I, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = I
+		var/mob/throwable_mob = G.get_mob_if_throwable() //throw the person instead of the grab
+		qdel(G)	//We delete the grab.
+		if(throwable_mob)
+			thrown_thing = throwable_mob
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
 			if(start_T && end_T)
-				var/mob/M = item
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been thrown by [key_name(src)] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
-				attack_log += text("\[[time_stamp()]\] <font color='red'>Has thrown [key_name(M)] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
-				msg_admin_attack("[key_name_admin(src)] has thrown [key_name_admin(M)] from [start_T_descriptor] with the target [end_T_descriptor]")
+				add_logs(throwable_mob, src, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
 
-				if(!iscarbon(src))
-					M.LAssailant = null
-				else
-					M.LAssailant = src
+	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
+		thrown_thing = I
+		unEquip(I)
 
-	if(!item)
-		return //Grab processing has a chance of returning null
-	if(!ismob(item)) //Honk mobs don't have a dropped() proc honk
-		unEquip(item)
-	update_icons()
-
-	if (istype(src, /mob/living/carbon)) //Check if a carbon mob is throwing. Modify/remove this line as required.
-		item.loc = loc
-		if(client)
-			client.screen -= item
-		if(istype(item, /obj/item))
-			item:dropped(src) // let it know it's been dropped
-
-	//actually throw it!
-	if (item)
-		item.layer = initial(item.layer)
-		visible_message("\red [src] has thrown [item].")
-
+	if(thrown_thing)
+		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
-
-		item.throw_at(target, item.throw_range, item.throw_speed, src)
+		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src)
 /*
 /mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -740,6 +728,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			spintime -= speed
 
 /mob/living/carbon/resist_buckle()
+	spawn(0)
+		resist_muzzle()
 	if(restrained())
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
@@ -770,6 +760,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 
 /mob/living/carbon/resist_restraints()
+	spawn(0)
+		resist_muzzle()
 	var/obj/item/I = null
 	if(handcuffed)
 		I = handcuffed
@@ -779,6 +771,21 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
 		cuff_resist(I)
+
+/mob/living/carbon/resist_muzzle()
+	if(!istype(wear_mask, /obj/item/clothing/mask/muzzle))
+		return
+	var/obj/item/clothing/mask/muzzle/I = wear_mask
+	var/time = I.resist_time
+	if(I.resist_time == 0)//if it's 0, you can't get out of it
+		to_chat(src, "[I] is too well made, you'll need hands for this one!")
+	else
+		visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
+		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
+		if(do_after(src, time, 0, target = src))
+			visible_message("<span class='warning'>[src] removes [I]!</span>")
+			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+			unEquip(I)
 
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
@@ -838,6 +845,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
 	if(handcuffed)
+		//we don't want problems with nodrop shit if there ever is more than one nodrop twohanded
+		var/obj/item/I = get_active_hand()
+		if(istype(I, /obj/item/weapon/twohanded))
+			var/obj/item/weapon/twohanded/TH = I //FML
+			if(TH.wielded)
+				TH.unwield()
 		drop_r_hand()
 		drop_l_hand()
 		stop_pulling()

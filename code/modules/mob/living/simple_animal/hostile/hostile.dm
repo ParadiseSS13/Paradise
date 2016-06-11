@@ -118,8 +118,8 @@
 					return 1
 		if(istype(the_target, /obj/spacepod))
 			var/obj/spacepod/S = the_target
-			if(S.occupant || S.occupant2)//Just so we don't attack empty mechs
-				if(CanAttack(S.occupant) || CanAttack(S.occupant2))
+			if(S.pilot) //Just so we don't attack empty pods
+				if(CanAttack(S.pilot))
 					return 1
 		if(isliving(the_target))
 			var/mob/living/L = the_target
@@ -186,7 +186,7 @@
 /mob/living/simple_animal/hostile/proc/Goto(var/target, var/delay, var/minimum_distance)
 	walk_to(src, target, minimum_distance, delay)
 
-/mob/living/simple_animal/hostile/adjustBruteLoss(var/damage)
+/mob/living/simple_animal/hostile/adjustHealth(damage)
 	..(damage)
 	if(!stat && search_objects < 3)//Not unconscious, and we don't ignore mobs
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
@@ -262,7 +262,8 @@
 
 	var/obj/item/projectile/A = new projectiletype(src.loc)
 	playsound(user, projectilesound, 100, 1)
-	if(!A)	return
+	if(!A)
+		return
 
 	A.current = target
 	A.firer = src
@@ -272,7 +273,7 @@
 		newtonian_move(get_dir(target, user))
 	A.original = target
 	spawn( 0 )
-		A.process()
+		A.fire()
 	return
 
 /mob/living/simple_animal/hostile/proc/DestroySurroundings()
@@ -299,7 +300,7 @@
 	return
 
 /mob/living/simple_animal/hostile/proc/FindHidden()
-	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
+	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper) || istype(target.loc, /obj/machinery/bodyscanner) || istype(target.loc, /obj/machinery/recharge_station))
 		var/atom/A = target.loc
 		Goto(A,move_to_delay,minimum_distance)
 		if(A.Adjacent(src))

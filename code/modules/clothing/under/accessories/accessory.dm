@@ -10,6 +10,7 @@
 	var/slot = "decor"
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
+	action_button_custom_type = /datum/action/item_action/accessory
 
 /obj/item/clothing/accessory/New()
 	..()

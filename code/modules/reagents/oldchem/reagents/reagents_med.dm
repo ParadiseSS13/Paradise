@@ -40,6 +40,7 @@
 	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as paralysis."
 	reagent_state = LIQUID
 	color = "#FA46FA"
+	overdose_threshold = 40
 
 /datum/reagent/synaptizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -52,6 +53,27 @@
 		M.adjustBrainLoss(-1.0)
 	..()
 	return
+
+/datum/reagent/synaptizine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 3)
+			M.emote(pick("groan","moan"))
+		if(effect <= 8)
+			M.adjustToxLoss(1)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.Dizzy(8)
+			M.Weaken(4)
+		if(effect <= 15)
+			M.adjustToxLoss(1)
 
 /datum/reagent/mitocholide
 	name = "Mitocholide"
@@ -114,12 +136,10 @@
 	..()
 	return
 
-/datum/reagent/rezadone/overdose_process(mob/living/M)
+/datum/reagent/rezadone/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
 	M.Dizzy(5)
 	M.Jitter(5)
-	..()
-	return
 
 /datum/reagent/spaceacillin
 	name = "Spaceacillin"

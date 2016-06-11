@@ -1,8 +1,7 @@
 /datum/game_mode/wizard/raginmages
 	name = "ragin' mages"
 	config_tag = "raginmages"
-	required_players = 1
-	required_players_secret = 15
+	required_players = 20
 	use_huds = 1
 	var/max_mages = 0
 	var/making_mage = 0
@@ -118,8 +117,6 @@
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
 
 	if(making_mage || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
-		return 0
-	if(mages_made >= max_mages)
 		return 0
 	making_mage = 1
 	var/list/candidates = list()
