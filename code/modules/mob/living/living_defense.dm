@@ -47,10 +47,6 @@
 		proj_sharp = 0
 		proj_edge = 0
 
-	if(istype(P, /obj/item/projectile/beam/lightning)) //Stupid snowflake lightning gun.
-		if(P.damage >= 200)
-			src.dust()
-
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 	return P.on_hit(src, armor, def_zone)

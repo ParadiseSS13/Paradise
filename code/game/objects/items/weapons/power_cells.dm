@@ -128,7 +128,6 @@
 	materials = list()
 	minor_fault = 1
 
-
 /obj/item/weapon/stock_parts/cell/high/slime
 	name = "charged slime core"
 	desc = "A yellow slime core infused with plasma, it crackles with power."
@@ -137,6 +136,12 @@
 	icon_state = "yellow slime extract"
 	materials = list()
 	self_recharge = 1 // Infused slime cores self-recharge, over time
+
+/obj/item/weapon/stock_parts/cell/pulse //200 pulse shots
+	name = "pulse rifle power cell"
+	maxcharge = 40000
+	rating = 3
+	chargerate = 1500
 
 /obj/item/weapon/stock_parts/cell/pulse/carbine
 	name = "pulse carbine power cell"
@@ -168,9 +173,3 @@
 
 /obj/item/weapon/stock_parts/cell/emproof/corrupt()
 	return
-
-/obj/item/weapon/stock_parts/cell/temperaturegun
-	name = "temperature gun cell"
-	desc = "A specially designed power cell for heating and cooling projectiles"
-	icon_state = "icell"
-	maxcharge = 900

@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes being able to duplicate just about anything in the Experimentor"
+  - bugfix: "Fixes not being able to use tank transfer valves or one tank bombs in the Experimentor."

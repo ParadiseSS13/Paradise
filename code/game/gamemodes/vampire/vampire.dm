@@ -4,6 +4,7 @@
 	var/list/datum/mind/vampires = list()
 	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
 	var/list/vampire_thralls = list() //vammpires controlling somebody
+
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
@@ -13,9 +14,6 @@
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
-
-	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 20
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target

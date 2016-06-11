@@ -219,6 +219,7 @@
 			--cloneCount
 			if(cloneCount == 0)
 				cloneMode = FALSE
+			return
 		var/turf/dropturf = get_turf(pick(view(1,src)))
 		if(!dropturf) //Failsafe to prevent the object being lost in the void forever.
 			dropturf = get_turf(src)
@@ -373,8 +374,7 @@
 				FB.current = start
 				FB.yo = MT.y - start.y
 				FB.xo = MT.x - start.x
-				spawn(1)
-					FB.process()
+				FB.fire()
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] malfunctions, melting [exp_on] and releasing a burst of flame!</span>")
 			explosion(src.loc, -1, 0, 0, 0, 0, flame_range = 2)
@@ -406,7 +406,7 @@
 		visible_message("[src] lowers [exp_on]'s temperature.")
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("<span class='warning'>[src]'s emergency coolant system gives off a small ding!</span>")
-			var/obj/machinery/vending/coffee/C = new /obj/machinery/vending/coffee(get_turf(pick(oview(1,src))))
+			var/obj/item/weapon/reagent_containers/food/drinks/coffee/C = new /obj/item/weapon/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1) //Ding! Your death coffee is ready!
 			chosenchem = pick("uranium","frostoil","ephedrine")
 			C.reagents.remove_any(25)
@@ -492,8 +492,21 @@
 		ejectItem()
 
 	//Global reactions
-	if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
-		var/globalMalf = rand(1,100)
+
+	if(prob(EFFECT_PROB_VERYLOW) && prob(13))
+		visible_message("<span class='warning'>[src] improves [exp_on], drawing the life essence of those nearby!</span>")
+		for(var/mob/living/m in view(4,src))
+			to_chat(m, "<span class='danger'>You feel your flesh being torn from you, mists of blood drifting to [src]!</span>")
+			m.take_overall_damage(50)
+			investigate_log("Experimentor has taken 50 brute a blood sacrifice from [m]", "experimentor")
+		var/list/reqs = ConvertReqString2List(exp_on.origin_tech)
+		for(var/T in reqs)
+			reqs[T] = reqs[T] + 1
+		exp_on.origin_tech = list2params(reqs)
+		investigate_log("Experimentor has set the origin tech of [exp_on] to [exp_on.origin_tech]", "experimentor")
+
+	if(prob(EFFECT_PROB_VERYLOW-badThingCoeff) && prob(87))
+		var/globalMalf = rand(1,87)
 		if(globalMalf < 15)
 			visible_message("<span class='warning'>[src]'s onboard detection system has malfunctioned!</span>")
 			item_reactions["[exp_on.type]"] = pick(SCANTYPE_POKE,SCANTYPE_IRRADIATE,SCANTYPE_GAS,SCANTYPE_HEAT,SCANTYPE_COLD,SCANTYPE_OBLITERATE)
@@ -509,18 +522,7 @@
 				new /mob/living/simple_animal/pet/corgi(src.loc)
 				investigate_log("Experimentor has spawned a new corgi.", "experimentor")
 			ejectItem(TRUE)
-		if(globalMalf > 36 && globalMalf < 50)
-			visible_message("<span class='warning'>[src] improves [exp_on], drawing the life essence of those nearby!</span>")
-			for(var/mob/living/m in view(4,src))
-				to_chat(m, "<span class='danger'>You feel your flesh being torn from you, mists of blood drifting to [src]!</span>")
-				m.take_overall_damage(50)
-				investigate_log("Experimentor has taken 50 brute a blood sacrifice from [m]", "experimentor")
-			var/list/reqs = ConvertReqString2List(exp_on.origin_tech)
-			for(var/T in reqs)
-				reqs[T] = reqs[T] + 1
-			exp_on.origin_tech = list2params(reqs)
-			investigate_log("Experimentor has set the origin tech of [exp_on] to [exp_on.origin_tech]", "experimentor")
-		if(globalMalf > 51 && globalMalf < 75)
+		if(globalMalf > 36 && globalMalf < 59)
 			visible_message("<span class='warning'>[src] encounters a run-time error!</span>")
 			throwSmoke(src.loc)
 			if(trackedRuntime)
@@ -531,7 +533,7 @@
 				new /mob/living/simple_animal/pet/cat(src.loc)
 				investigate_log("Experimentor failed to steal runtime, and instead spawned a new cat.", "experimentor")
 			ejectItem(TRUE)
-		if(globalMalf > 76)
+		if(globalMalf > 60)
 			visible_message("<span class='warning'>[src] begins to smoke and hiss, shaking violently!</span>")
 			use_power(500000)
 			investigate_log("Experimentor has drained power from its APC", "experimentor")

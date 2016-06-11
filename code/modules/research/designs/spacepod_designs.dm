@@ -12,6 +12,7 @@
 //////////////////////////////////////////////////
 /////////SPACEPOD PARTS///////////////////////////
 //////////////////////////////////////////////////
+
 /datum/design/podframe_fp
 	construction_time = 200
 	name = "Fore port pod frame"
@@ -89,6 +90,7 @@
 //////////////////////////////////////////
 //////SPACEPOD GUNS///////////////////////
 //////////////////////////////////////////
+
 /datum/design/pod_gun_taser
 	construction_time = 200
 	name = "Spacepod Equipment (Taser)"
@@ -157,6 +159,7 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser_hyper
 	category = list("Pod_Weaponry")
+
 //////////////////////////////////////////
 //////SPACEPOD MISC. ITEMS////////////////
 //////////////////////////////////////////
@@ -172,16 +175,57 @@
 	build_path = /obj/item/device/spacepod_equipment/misc/tracker
 	category = list("Pod_Parts")
 
+//////////////////////////////////////////
+//////SPACEPOD CARGO ITEMS////////////////
+//////////////////////////////////////////
+
 /datum/design/pod_cargo_ore
 	construction_time = 100
 	name = "Spacepod Ore Storage Module"
 	desc = "Allows for the construction of a Space Pod Ore Storage Module."
 	id = "podcargo_ore"
-	req_tech = list("materials" = 3)
+	req_tech = list("materials" = 3, "engineering" = 2)
 	build_type = PODFAB
 	materials = list(MAT_METAL=20000, MAT_GLASS=2000)
 	build_path = /obj/item/device/spacepod_equipment/cargo/ore
-	category = list("Pod_Parts")
+	category = list("Pod_Cargo")
+
+/datum/design/pod_cargo_crate
+	construction_time = 100
+	name = "Spacepod Crate Storage Module"
+	desc = "Allows the construction of a Space Pod Crate Storage Module."
+	id = "podcargo_crate"
+	req_tech = list("materials" = 4, "engineering" = 2) //hollowing out this much of the pod without compromising structural integrity is hard
+	build_type = PODFAB
+	materials = list(MAT_METAL=25000)
+	build_path = /obj/item/device/spacepod_equipment/cargo/crate
+	category = list("Pod_Cargo")
+
+//////////////////////////////////////////
+//////SPACEPOD SEC CARGO ITEMS////////////
+//////////////////////////////////////////
+
+/datum/design/passenger_seat
+	construction_time = 100
+	name = "Spacepod Passenger Seat"
+	desc = "Allows the construction of a Space Pod Passenger Seat Module."
+	id = "podcargo_sec_seat"
+	req_tech = list("materials" = 1) // Because rule number one of refactoring
+	build_type = PODFAB
+	materials = list(MAT_METAL=7500, MAT_GLASS=2500)
+	build_path = /obj/item/device/spacepod_equipment/sec_cargo/chair
+	category = list("Pod_Cargo")
+
+/datum/design/loot_box
+	construction_time = 100
+	name = "Spacepod Loot Storage Module"
+	desc = "Allows the construction of a Space Pod Auxillary Cargo Module."
+	id = "podcargo_sec_lootbox"
+	req_tech = list("materials" = 1) //it's just a set of shelves, It's not that hard to make
+	build_type = PODFAB
+	materials = list(MAT_METAL=7500, MAT_GLASS=2500)
+	build_path = /obj/item/device/spacepod_equipment/sec_cargo/loot_box
+	category = list("Pod_Cargo")
 
 //////////////////////////////////////////
 //////SPACEPOD LOCK ITEMS////////////////

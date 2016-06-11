@@ -19,9 +19,6 @@ datum/game_mode/mutiny
 	required_players = 20
 	ert_disabled = 1
 
-	uplink_welcome = "Mutineers Uplink Console:"
-	uplink_uses = 0
-
 	New()
 		fluff = new(src)
 
