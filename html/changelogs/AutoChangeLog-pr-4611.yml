@@ -1,0 +1,5 @@
+author: pinatacolada
+delete-after: True
+changes: 
+  - bugfix: "Fixes defibing people without a heart"
+  - bugfix: "Fixes defib saying it didn't work stopping a heart attack when they do"
