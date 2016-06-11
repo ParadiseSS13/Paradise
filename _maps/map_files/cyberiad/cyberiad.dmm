@@ -4839,7 +4839,7 @@
 "bPc" = (/turf/simulated/wall,/area/hallway/primary/central/sw)
 "bPd" = (/obj/machinery/door/airlock/command{name = "Head of Personnel"; req_access = null; req_access_txt = "57"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel,/area/crew_quarters/heads)
 "bPe" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/wall/r_wall,/area/server)
-"bPf" = (/obj/machinery/door/airlock/external{aiControlDisabled = 1; hackProof = 1; id_tag = "emergency_home"; name = "Escape Airlock"},/turf/simulated/floor/plating,/area/hallway/secondary/exit)
+"bPf" = (/obj/machinery/door/airlock/external{aiControlDisabled = 0; hackProof = 1; id_tag = "emergency_home"; name = "Escape Airlock"},/turf/simulated/floor/plating,/area/hallway/secondary/exit)
 "bPg" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/wall,/area/engine/gravitygenerator)
 "bPh" = (/obj/machinery/door/firedoor{dir = 8; name = "Firelock West"},/obj/machinery/door/airlock/engineering{name = "Gravity Generator"; req_access_txt = "0"; req_one_access_txt = "10;30"},/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/engine/gravitygenerator)
 "bPi" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/disposalpipe/segment{dir = 4; icon_state = "pipe-c"},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/status_display{density = 0; layer = 4; pixel_x = -32; pixel_y = 0},/turf/simulated/floor/plasteel,/area/hallway/primary/central/se)
