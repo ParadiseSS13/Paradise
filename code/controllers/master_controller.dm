@@ -44,6 +44,8 @@ datum/controller/game_controller/proc/setup()
 	preloadTemplates()
 	if(!config.disable_away_missions)
 		createRandomZlevel()
+	if(!config.disable_space_ruins)
+		seedRuins(7, rand(0, 3), /area/space, space_ruins_templates)
 
 	setup_objects()
 	setupgenetics()

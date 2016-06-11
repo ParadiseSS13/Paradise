@@ -156,9 +156,11 @@
 		qdel(L)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(var/path)
-	if(!path)			return
-	if(path == type)	return src
+/turf/proc/ChangeTurf(path, defer_change = FALSE)
+	if(!path)
+		return
+	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
+		return src
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
 	var/list/old_affecting_lights = affecting_lights
@@ -169,6 +171,8 @@
 		air_master.remove_from_active(src)
 
 	var/turf/W = new path(src)
+	if(!defer_change)
+		W.AfterChange()
 
 	if(istype(W, /turf/simulated))
 		W:Assimilate_Air()
@@ -189,13 +193,21 @@
 		else
 			lighting_clear_overlays()
 
-	W.levelupdate()
-	W.CalculateAdjacentTurfs()
+	return W
+
+/turf/proc/AfterChange() //called after a turf has been replaced in ChangeTurf()
+	levelupdate()
+	CalculateAdjacentTurfs()
 
 	if(!can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
-	return W
+
+/turf/simulated/AfterChange(ignore_air)
+	..()
+	RemoveLattice()
+	if(!ignore_air)
+		Assimilate_Air()
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
