@@ -247,6 +247,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			return 1
 		return 0
 
+/datum/objective/protect/mindslave //subytpe for mindslave implants
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.

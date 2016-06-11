@@ -267,6 +267,10 @@
 		W.destroy()
 	playsound(usr.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 
+
+/proc/isvampirethrall(mob/living/M as mob)
+	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.vampire_enthralled)
+
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall
 	name = "Enthrall (300)"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
