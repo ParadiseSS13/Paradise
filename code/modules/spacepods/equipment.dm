@@ -30,11 +30,9 @@
 		var/obj/item/projectile/projone = new proj_type(firstloc)
 		var/obj/item/projectile/projtwo = new proj_type(secondloc)
 		projone.starting = get_turf(my_atom)
-		projone.shot_from = src
 		projone.firer = usr
 		projone.def_zone = "chest"
 		projtwo.starting = get_turf(my_atom)
-		projtwo.shot_from = src
 		projtwo.firer = usr
 		projtwo.def_zone = "chest"
 		spawn()
