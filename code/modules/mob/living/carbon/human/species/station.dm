@@ -59,6 +59,16 @@
 	default_hair = "Unathi Horns"
 	butt_sprite = "unathi"
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
+
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
@@ -116,6 +126,16 @@
 	default_headacc = "Tajaran Ears"
 	butt_sprite = "tajaran"
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/tajaran,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
+
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
 								 /mob/living/simple_animal/tribble)
 
@@ -160,6 +180,16 @@
 	flesh_color = "#966464"
 	base_color = "#B43214"
 	butt_sprite = "vulp"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -283,7 +313,7 @@
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
+		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
@@ -411,6 +441,16 @@
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "kidan"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/kidan,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
@@ -615,6 +655,16 @@
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/grey,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	brute_mod = 1.25 //greys are fragile
 

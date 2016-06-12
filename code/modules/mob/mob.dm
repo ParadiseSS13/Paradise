@@ -1094,6 +1094,9 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/Dizzy(amount)
 	dizziness = max(dizziness, amount, 0)
 
+/mob/proc/AdjustDrunk(amount)
+	drunk = max(drunk + amount, 0)
+
 /mob/proc/Stun(amount)
 	SetStunned(max(stunned, amount))
 
