@@ -127,10 +127,19 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
 	flags = CONDUCT
-	force = 3.0
-	throwforce = 2.0
+	force = 0
+	throwforce = 2
 	throw_speed = 1
 	throw_range = 4
 	w_class = 2
 	attack_verb = list("called", "rang")
 	hitsound = 'sound/weapons/ring.ogg'
+	var/on_cooldown = 0
+
+/obj/item/weapon/phone/attack_self(mob/user)
+	if(!on_cooldown)
+		on_cooldown = 1
+		playsound(loc, 'sound/weapons/ring.ogg', 50, 1)
+		add_fingerprint(user)
+		spawn(20)
+			on_cooldown = 0
