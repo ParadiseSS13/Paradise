@@ -256,7 +256,7 @@
 
 /obj/item/clothing/under/suit_jacket/charcoal
 	name = "charcoal suit"
-	desc = "A charcoal suit and red tie. Very professional."
+	desc = "A charcoal suit and blue tie. Very professional."
 	icon_state = "charcoal_suit"
 	item_state = "charcoal_suit"
 	item_color = "charcoal_suit"
