@@ -1,5 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds three new chaplain weapons: pirate saber, multiverse sword, and possessed/talking sword"
-  - bugfix: "Fixes not being able to sheath the claymore in the Crusader Armor"
