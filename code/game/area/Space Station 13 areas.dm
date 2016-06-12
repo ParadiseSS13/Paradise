@@ -2105,6 +2105,10 @@ area/security/podbay
 	name = "\improper Construction Area"
 	icon_state = "yellow"
 
+/area/construction/altmaint
+	name = "Alternate Construction Area"
+	icon_state = "yellow"
+
 /area/construction/supplyshuttle
 	name = "\improper Supply Shuttle"
 	icon_state = "yellow"
