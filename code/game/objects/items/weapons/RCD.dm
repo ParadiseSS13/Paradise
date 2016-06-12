@@ -26,6 +26,21 @@ RCD
 	var/working = 0
 	var/mode = 1
 	var/canRwall = 0
+	var/menu = 1
+	var/door_type = /obj/machinery/door/airlock
+	var/list/door_accesses = list()
+	var/list/door_accesses_list = list()
+	var/one_access
+	var/static/list/allowed_door_types = list(/obj/machinery/door/airlock = "Standard",
+		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/security = "Security",
+		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/medical = "Medical",
+		/obj/machinery/door/airlock/maintenance = "Maintenance", /obj/machinery/door/airlock/external = "External",
+		/obj/machinery/door/airlock/glass = "Standard (Glass)", /obj/machinery/door/airlock/freezer = "Freezer",
+		/obj/machinery/door/airlock/glass_command = "Command (Glass)", /obj/machinery/door/airlock/glass_engineering = "Engineering (Glass)",
+		/obj/machinery/door/airlock/glass_security = "Security (Glass)", /obj/machinery/door/airlock/glass_medical = "Medical (Glass)",
+		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/atmos = "Atmospherics",
+		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/glass_research = "Research (Glass)",
+		/obj/machinery/door/airlock/glass_mining = "Mining (Glass)", /obj/machinery/door/airlock/glass_atmos = "Atmospherics (Glass)")
 
 /obj/item/weapon/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
@@ -33,6 +48,9 @@ RCD
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	rcd_list += src
+	door_accesses_list = list()
+	for(var/access in get_all_accesses())
+		door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
 	return
 
 /obj/item/weapon/rcd/Destroy()
@@ -54,12 +72,14 @@ RCD
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
 		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
+		nanomanager.update_uis(src)
 		return
 
 
 /obj/item/weapon/rcd/attack_self(mob/user)
 	//Change the mode
-	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
+	ui_interact(user)
+	/*playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 	switch(mode)
 		if(1)
 			mode = 2
@@ -84,17 +104,66 @@ RCD
 			to_chat(user, "<span class='notice'>Changed mode to 'Floor & Walls'</span>")
 			if(prob(20))
 				src.spark_system.start()
-			return
+			return*/
 
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+	var/list/data = list()
 	data["mode"] = mode
+	data["door_type"] = door_type
+	data["menu"] = menu
+	data["matter"] = matter
+	data["max_matter"] = max_matter
+	data["one_access"] = one_access
+	
+	if(menu == 2)
+		var/list/door_types_list = list()
+		for(var/type in allowed_door_types)
+			door_types_list[++door_types_list.len] = list("name" = allowed_door_types[type], "type" = type)
+		data["allowed_door_types"] = door_types_list
+		
+		data["door_accesses"] = door_accesses_list
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 600, 400, state = state)
+		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 400, 400, state = state)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
+
+/obj/item/weapon/rcd/Topic(href, href_list, nowindow, state)
+	if(..())
+		return 1
+	
+	if(href_list["mode"])
+		mode = text2num(href_list["mode"])
+		. = 1
+	
+	if(href_list["door_type"])
+		var/new_door_type = text2path(href_list["door_type"])
+		if(!(new_door_type in allowed_door_types))
+			message_admins("RCD HREF exploit attempted by [key_name(usr, usr.client)]!")
+			return
+		door_type = new_door_type
+		. = 1
+	
+	if(href_list["menu"])
+		menu = text2num(href_list["menu"])
+		. = 1
+	
+	if(href_list["toggle_one_access"])
+		one_access = !one_access
+		. = 1
+	
+	if(href_list["toggle_access"])
+		var/href_access = text2num(href_list["toggle_access"])
+		if(href_access in door_accesses)
+			door_accesses -= href_access
+		else
+			door_accesses += href_access
+		door_accesses_list = list()
+		for(var/access in get_all_accesses())
+			door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
+		. = 1
 
 /obj/item/weapon/rcd/proc/activate()
 	playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -138,8 +207,12 @@ RCD
 					if(do_after(user, 50, target = A))
 						if(!useResource(10, user)) return 0
 						activate()
-						var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock( A )
+						var/obj/machinery/door/airlock/T = new door_type(A)
 						T.autoclose = 1
+						if(one_access)
+							T.req_one_access = door_accesses
+						else
+							T.req_access = door_accesses
 						return 1
 					return 0
 				return 0
@@ -256,12 +329,15 @@ RCD
 		else
 			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
 			return 0
+	
+	nanomanager.update_uis(src)
 
 /obj/item/weapon/rcd/proc/useResource(var/amount, var/mob/user)
 	if(matter < amount)
 		return 0
 	matter -= amount
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
+	nanomanager.update_uis(src)
 	return 1
 
 /obj/item/weapon/rcd/proc/checkResource(var/amount, var/mob/user)
