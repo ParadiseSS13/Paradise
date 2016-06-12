@@ -27,16 +27,20 @@
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
 	if(holstered)
-		user << "<span class='warning'>There is already a [holstered] holstered here!</span>"
+		to_chat(user, "<span class='warning'>There is already a [holstered] holstered here!</span>")
 		return
 
-	if (!istype(I, /obj/item/weapon/gun))
-		user << "<span class='warning'>Only guns can be holstered!</span>"
+	if(!istype(I, /obj/item/weapon/gun))
+		to_chat(user, "<span class='warning'>Only guns can be holstered!</span>")
 		return
 
 	var/obj/item/weapon/gun/W = I
-	if (!can_holster(W))
-		user << "<span class='warning'>This [W] won't fit in the [src]!</span>"
+	if(!can_holster(W))
+		to_chat(user, "<span class='warning'>This [W] won't fit in the [src]!</span>")
+		return
+
+	if(!user.canUnEquip(W, 0))
+		to_chat(user, "<span class='warning'>You can't let go of the [W]!<span>")
 		return
 
 	holstered = W
@@ -50,7 +54,7 @@
 		return
 
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
-		user << "<span class='warning'>You need an empty hand to draw the [holstered]!</span>"
+		to_chat(user, "<span class='warning'>You need an empty hand to draw the [holstered]!</span>")
 	else
 		if(user.a_intent == I_HARM)
 			usr.visible_message("\red [user] draws the [holstered], ready to shoot!</span>", \
@@ -81,9 +85,9 @@
 /obj/item/clothing/accessory/holster/examine(mob/user)
 	..(user)
 	if (holstered)
-		user << "A [holstered] is holstered here."
+		to_chat(user, "A [holstered] is holstered here.")
 	else
-		user << "It is empty."
+		to_chat(user, "It is empty.")
 
 /obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user as mob)
 	..()
@@ -110,11 +114,11 @@
 			H = locate() in S.accessories
 
 	if (!H)
-		usr << "<span class='warning'>Something is very wrong.</span>"
+		to_chat(usr, "<span class='warning'>Something is very wrong.</span>")
 
 	if(!H.holstered)
 		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
-			usr << "<span class='warning'>You need your gun equiped to holster it.</span>"
+			to_chat(usr, "<span class='warning'>You need your gun equiped to holster it.</span>")
 			return
 		var/obj/item/weapon/gun/W = usr.get_active_hand()
 		H.holster(W, usr)

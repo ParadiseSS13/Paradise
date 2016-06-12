@@ -36,7 +36,8 @@
 	T.transform = transform
 
 //why don't shuttle walls habe smoothwall? now i gotta do rotation the dirty way
-/turf/simulated/shuttle/wall/shuttleRotate(rotation)
+/turf/simulated/shuttle/shuttleRotate(rotation)
+	..()
 	var/matrix/M = transform
 	M.Turn(rotation)
 	transform = M

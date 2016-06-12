@@ -10,6 +10,7 @@
 	name = null
 	icon = 'icons/obj/power.dmi'
 	anchored = 1.0
+	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
 	use_power = 0
 	idle_power_usage = 0
@@ -241,11 +242,15 @@
 	powernets.Cut()
 
 	for(var/obj/structure/cable/PC in cable_list)
-		if(!PC.powernet)
-			var/datum/powernet/NewPN = new()
-			NewPN.add_cable(PC)
-			propagate_network(PC,PC.powernet)
+		makepowernet_for(PC)
+
 	return 1
+
+/proc/makepowernet_for(var/obj/structure/cable/PC)
+	if(!PC.powernet)
+		var/datum/powernet/NewPN = new()
+		NewPN.add_cable(PC)
+		propagate_network(PC,PC.powernet)
 
 //remove the old powernet and replace it with a new one throughout the network.
 /proc/propagate_network(var/obj/O, var/datum/powernet/PN)

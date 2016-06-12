@@ -5,7 +5,7 @@
 	name = "Random Toy"
 	New()
 		..()
-		var/list/types = list(/obj/item/toy/crossbow,/obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/weapon/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
+		var/list/types = list(/obj/item/weapon/gun/projectile/shotgun/toy/crossbow, /obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/weapon/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
 		var/T = pick(types)
 		new T(loc)
 		spawn(1)
@@ -152,7 +152,6 @@
 
 	New()
 		..()
-		sleep(2)
 		new/obj/item/weapon/reagent_containers/glass/bottle/random_base_chem(src)
 		new/obj/item/weapon/reagent_containers/glass/bottle/random_base_chem(src)
 		new/obj/item/weapon/reagent_containers/glass/bottle/random_base_chem(src)
@@ -169,7 +168,6 @@
 		new/obj/item/weapon/storage/pill_bottle/random_meds(src)
 		while(prob(25))
 			new/obj/item/weapon/storage/pill_bottle/random_meds(src)
-		return
 
 /obj/structure/closet/crate/secure/chemicals
 	name		= "chemical supply kit"
@@ -178,7 +176,6 @@
 
 	New()
 		..()
-		sleep(2)
 		for(var/chem in standard_chemicals)
 			var/obj/item/weapon/reagent_containers/glass/bottle/B = new(src)
 			B.reagents.add_reagent(chem,B.volume)
@@ -240,7 +237,6 @@
 
 	New()
 		..()
-		sleep(2)
 		new/obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink(src)
 		new/obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink(src)
 		new/obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink(src)
@@ -248,7 +244,6 @@
 		new/obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink(src)
 		while(prob(25))
 			new/obj/item/weapon/reagent_containers/food/drinks/bottle/random_reagent(src)
-		return
 
 
 // -------------------------------------
@@ -276,8 +271,9 @@
 				while(prob(15))
 					new menace(get_step_rand(src.loc))
 				..()
+			return 1
 		else
-			..()
+			return ..()
 
 
 //
@@ -307,7 +303,7 @@
 				qdel(Cat1)
 			else
 				qdel(Cat2)
-		..()
+		return ..()
 
 // --------------------------------------
 //   Collen's box of wonder and mystery

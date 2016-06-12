@@ -25,7 +25,6 @@
 	return
 
 /obj/item/weapon/shard/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	..()
 	if ( istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
@@ -36,7 +35,7 @@
 				if(G.amount>=G.max_amount)
 					continue
 				G.attackby(NG, user, params)
-				usr << "You add the newly-formed plasma glass to the stack. It now contains [NG.amount] sheets."
+				to_chat(usr, "You add the newly-formed plasma glass to the stack. It now contains [NG.amount] sheets.")
 			//SN src = null
 			qdel(src)
 			return

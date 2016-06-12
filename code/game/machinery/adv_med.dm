@@ -19,6 +19,13 @@
 	else
 		set_light(0)
 
+/obj/machinery/bodyscanner/process()
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+		if(M == occupant)
+			continue
+		else
+			M.forceMove(src.loc)
+
 /obj/machinery/bodyscanner/New()
 	..()
 	component_parts = list()
@@ -42,46 +49,49 @@
 /obj/machinery/bodyscanner/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(src.occupant)
-			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", G)
 		return
 
 	if (istype(G, /obj/item/weapon/wrench))
 		if(src.occupant)
-			user << "<span class='notice'>The scanner is occupied.</span>"
+			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
 		if(panel_open)
-			user << "<span class='notice'>Close the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
 		if(dir == 4)
 			dir = 8
 		else
 			dir = 4
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		return
 
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)
+	if(istype(G, /obj/item/weapon/crowbar))
+		default_deconstruction_crowbar(G)
+		return
 
 	if(istype(G, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/TYPECAST_YOUR_SHIT = G
 		if(panel_open)
-			user << "<span class='notice'>Close the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
 		if(!ismob(TYPECAST_YOUR_SHIT.affecting))
 			return
 		if(occupant)
-			user << "<span class='notice'>The scanner is already occupied!</span>"
+			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
 			return
 		for(var/mob/living/carbon/slime/M in range(1, TYPECAST_YOUR_SHIT.affecting))
 			if(M.Victim == TYPECAST_YOUR_SHIT.affecting)
-				user << "<span class='danger'>[TYPECAST_YOUR_SHIT.affecting.name] has a fucking slime attached to them, deal with that first.</span>"
+				to_chat(user, "<span class='danger'>[TYPECAST_YOUR_SHIT.affecting.name] has a fucking slime attached to them, deal with that first.</span>")
 				return
 		var/mob/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
-			user << "<span class='notice'>Subject cannot have abiotic items on.</span>"
+			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
 			return
 		/*if(M.client)
 			M.client.perspective = EYE_PERSPECTIVE
@@ -105,20 +115,20 @@
 	if(!ishuman(user) && !isrobot(user))
 		return 0 //not a borg or human
 	if(panel_open)
-		user << "<span class='notice'>Close the maintenance panel first.</span>"
+		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return 0 //panel open
 	if(occupant)
-		user << "<span class='notice'>\The [src] is already occupied.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is already occupied.</span>")
 		return 0 //occupied
 
 	if(O.buckled)
 		return 0
 	if(O.abiotic())
-		user << "<span class='notice'>Subject cannot have abiotic items on.</span>"
+		to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
 		return 0
 	for(var/mob/living/carbon/slime/M in range(1, O))
 		if(M.Victim == O)
-			user << "<span class='danger'>[O] has a fucking slime attached to them, deal with that first.</span>"
+			to_chat(user, "<span class='danger'>[O] has a fucking slime attached to them, deal with that first.</span>")
 			return 0
 
 	if(O == user)
@@ -161,38 +171,39 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = src.loc
-				ex_act(severity)
-				//Foreach goto(35)
-			//SN src = null
+				A.forceMove(src.loc)
+				A.ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if (prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
-					ex_act(severity)
-					//Foreach goto(108)
-				//SN src = null
+					A.forceMove(src.loc)
+					A.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if (prob(25))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
-					ex_act(severity)
-					//Foreach goto(181)
-				//SN src = null
+					A.forceMove(src.loc)
+					A.ex_act(severity)
 				qdel(src)
 				return
-		else
-	return
 
 /obj/machinery/bodyscanner/blob_act()
 	if(prob(50))
-		for(var/atom/movable/A as mob|obj in src)
-			A.loc = src.loc
+		var/atom/movable/A = occupant
+		go_out()
+		A.blob_act()
 		qdel(src)
+
+/obj/machinery/bodyscanner/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
+	if(M.environment_smash)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		go_out()
+		qdel(src)
+	return
 
 /obj/machinery/body_scanconsole
 	var/obj/machinery/bodyscanner/connected
@@ -249,6 +260,13 @@
 	if(prob(50))
 		qdel(src)
 
+/obj/machinery/body_scanconsole/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
+	if(M.environment_smash)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		qdel(src)
+	return
+
 /obj/machinery/body_scanconsole/proc/findscanner()
 	var/obj/machinery/bodyscanner/bodyscannernew = null
 	// Loop through every direction
@@ -268,7 +286,7 @@
 
 	if (istype(G, /obj/item/weapon/wrench))
 		if(panel_open)
-			user << "<span class='notice'>Close the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
 		if(dir == 4)
 			dir = 8
@@ -292,7 +310,7 @@
 		return
 
 	if (panel_open)
-		user << "<span class='notice'>Close the maintenance panel first.</span>"
+		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
 	if(!src.connected)
@@ -317,7 +335,7 @@
 			occupantData["health"] = H.health
 			occupantData["maxHealth"] = H.maxHealth
 
-			occupantData["hasVirus"] = H.virus2.len
+			occupantData["hasVirus"] = H.viruses.len
 
 			occupantData["bruteLoss"] = H.getBruteLoss()
 			occupantData["oxyLoss"] = H.getOxyLoss()
@@ -389,6 +407,8 @@
 					organStatus["splinted"] = 1
 				if(E.status & ORGAN_BLEEDING)
 					organStatus["bleeding"] = 1
+				if(E.status & ORGAN_DEAD)
+					organStatus["dead"] = 1
 
 				organData["status"] = organStatus
 
@@ -415,6 +435,7 @@
 				organData["bruised"] = I.min_broken_damage
 				organData["broken"] = I.min_bruised_damage
 				organData["robotic"] = I.robotic
+				organData["dead"] = (I.status & ORGAN_DEAD)
 
 				intOrganData.Add(list(organData))
 
@@ -473,7 +494,7 @@
 					t1 = "*dead*"
 			dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
-			if(occupant.virus2.len)
+			if(occupant.viruses.len)
 				dat += "<font color='red'>Viral pathogen detected in blood stream.</font><BR>"
 
 			var/extra_font = null

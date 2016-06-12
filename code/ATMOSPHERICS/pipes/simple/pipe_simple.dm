@@ -100,18 +100,16 @@
 		dir = 4
 
 /obj/machinery/atmospherics/pipe/simple/Destroy()
+	. = ..()
+
 	if(node1)
-		var/obj/machinery/atmospherics/A = node1
 		node1.disconnect(src)
+		node1.defer_build_network()
 		node1 = null
-		A.build_network()
 	if(node2)
-		var/obj/machinery/atmospherics/A = node2
 		node2.disconnect(src)
+		node2.defer_build_network()
 		node2 = null
-		A.build_network()
-	releaseAirToTurf()
-	return ..()
 
 /obj/machinery/atmospherics/pipe/simple/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)

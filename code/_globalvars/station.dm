@@ -4,6 +4,7 @@ var/CELLRATE = 0.002  // multiplier for watts per tick <> cell storage (eg: .002
 var/CHARGELEVEL = 0.0005 // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
 
 var/list/powernets = list()
+var/list/deferred_powernet_rebuilds = list()
 
 // this is not strictly unused although the whole modules datum thing is unused
 // To remove this you need to remove that

@@ -37,10 +37,10 @@ var/global/list/moneytypes=list(
 
 /obj/item/weapon/spacecash/examine(mob/user)
 	if(amount>1)
-		user << "\icon[src] This is a stack of [amount] [src]s."
+		to_chat(user, "\icon[src] This is a stack of [amount] [src]s.")
 	else
-		user << "\icon[src] This is \a [src]s."
-	user << "It's worth [worth*amount] credits."
+		to_chat(user, "\icon[src] This is \a [src]s.")
+	to_chat(user, "It's worth [worth*amount] credits.")
 
 /obj/item/weapon/spacecash/update_icon()
 	icon_state = "cash[worth]"
@@ -67,13 +67,13 @@ var/global/list/moneytypes=list(
 				collected += collect_from(cash)
 		if(collected)
 			update_icon()
-			user << "<span class='notice'>You add [collected] credit [amount > 1 ? "chips":"chip"] to your stack of cash.</span>"
+			to_chat(user, "<span class='notice'>You add [collected] credit [amount > 1 ? "chips":"chip"] to your stack of cash.</span>")
 	else if(istype(A,/obj/item/weapon/spacecash))
 		var/obj/item/weapon/spacecash/cash = A
 		var/collected = src.collect_from(cash)
 		if(collected)
 			update_icon()
-			user << "<span class='notice'>You add [collected] credit [amount > 1 ? "chips":"chip"] to your stack of cash.</span>"
+			to_chat(user, "<span class='notice'>You add [collected] credit [amount > 1 ? "chips":"chip"] to your stack of cash.</span>")
 
 
 /obj/item/weapon/spacecash/proc/get_total()

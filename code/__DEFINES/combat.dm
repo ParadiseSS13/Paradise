@@ -48,14 +48,16 @@
 #define GRAB_UPGRADING  4
 #define GRAB_KILL    5
 
-//Hostile Mob Stances
-#define HOSTILE_STANCE_IDLE 1
-#define HOSTILE_STANCE_ALERT 2
-#define HOSTILE_STANCE_ATTACK 3
-#define HOSTILE_STANCE_ATTACKING 4
-#define HOSTILE_STANCE_TIRED 5
 
 //Hostile Mob AI Status
 #define AI_ON		1
-#define AI_SLEEP	2
+#define AI_IDLE		2
 #define AI_OFF		3
+
+//Gun Stuff
+ #define SAWN_INTACT  0
+ #define SAWN_OFF     1
+
+ #define WEAPON_LIGHT 0
+ #define WEAPON_MEDIUM 1
+ #define WEAPON_HEAVY 2

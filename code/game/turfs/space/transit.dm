@@ -85,7 +85,7 @@
 /turf/space/transit/horizontal
 	dir = WEST
 
-/turf/space/transit/Entered(atom/movable/AM, atom/OldLoc)
+/turf/space/transit/Entered(atom/movable/AM, atom/OldLoc, ignoreRest = 0)
 	if(!AM)
 		return
 	if(istype(AM, /obj/docking_port) || !AM.simulated)
@@ -113,7 +113,7 @@
 			_y = min
 
 	var/turf/T = locate(_x, _y, _z)
-	AM.loc = T
+	AM.forceMove(T)
 	AM.newtonian_move(dir)
 
 

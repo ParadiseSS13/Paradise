@@ -26,12 +26,12 @@
 /obj/structure/reagent_dispensers/examine(mob/user)
 	if(!..(user, 2))
 		return
-	user << "\blue It contains:"
+	to_chat(user, "\blue It contains:")
 	if(reagents && reagents.reagent_list.len)
 		for(var/datum/reagent/R in reagents.reagent_list)
-			user << "\blue [R.volume] units of [R.name]"
+			to_chat(user, "\blue [R.volume] units of [R.name]")
 	else
-		user << "\blue Nothing."
+		to_chat(user, "\blue Nothing.")
 
 /obj/structure/reagent_dispensers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -98,24 +98,37 @@
 	..()
 	reagents.add_reagent("fuel",1000)
 
-/obj/structure/reagent_dispensers/fueltank/bullet_act(var/obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
-		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
-			message_admins("[key_name_admin(Proj.firer)] triggered a fueltank explosion.")
-			log_game("[key_name(Proj.firer)] triggered a fueltank explosion.")
-			explode()
+/obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/Proj)
+	..()
+	if(istype(Proj) && !Proj.nodamage && ((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE)))
+		message_admins("[key_name_admin(Proj.firer)] triggered a fueltank explosion.")
+		log_game("[key_name(Proj.firer)] triggered a fueltank explosion.")
+		boom()
 
-/obj/structure/reagent_dispensers/fueltank/blob_act()
+/obj/structure/reagent_dispensers/fueltank/proc/boom()
 	explosion(src.loc,0,1,5,7,10, flame_range = 5)
+	if(src)
+		qdel(src)
+
+/obj/structure/reagent_dispensers/fueltank/blob_act(obj/effect/blob/B)
+	boom()
+
 
 /obj/structure/reagent_dispensers/fueltank/ex_act()
-	explode()
+	boom()
+
+/obj/structure/reagent_dispensers/fueltank/fire_act()
+	boom()
+
+/obj/structure/reagent_dispensers/fueltank/tesla_act()
+	..() //extend the zap
+	boom()
 
 /obj/structure/reagent_dispensers/fueltank/examine(mob/user)
 	if(!..(user, 2))
 		return
 	if(rig)
-		usr << "<span class='notice'>There is some kind of device rigged to the tank."
+		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.")
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if (rig)
@@ -129,7 +142,7 @@
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W,/obj/item/device/assembly_holder) && accepts_rig)
 		if (rig)
-			user << "\red There is another device in the way."
+			to_chat(user, "\red There is another device in the way.")
 			return ..()
 		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
 		if(do_after(user, 20, target = src))
@@ -150,15 +163,6 @@
 				overlays += test
 
 		return ..()
-
-/obj/structure/reagent_dispensers/fueltank/proc/explode()
-	explosion(src.loc,-1,0,2, flame_range = 2)
-	if(src)
-		qdel(src)
-
-/obj/structure/reagent_dispensers/fueltank/fire_act(datum/gas_mixture/air, temperature, volume)
-	blob_act() //saving a few lines of copypasta
-
 
 /obj/structure/reagent_dispensers/fueltank/Move()
 	..()

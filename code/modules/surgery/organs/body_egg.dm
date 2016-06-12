@@ -8,12 +8,7 @@
 
 /obj/item/organ/internal/body_egg/on_find(mob/living/finder)
 	..()
-	finder << "<span class='warning'>You found an unknown alien organism in [owner]'s [parent_organ]!</span>"
-
-/obj/item/organ/internal/body_egg/New(loc)
-	if(iscarbon(loc))
-		insert(loc)
-	return ..()
+	to_chat(finder, "<span class='warning'>You found an unknown alien organism in [owner]'s [parent_organ]!</span>")
 
 /obj/item/organ/internal/body_egg/insert(var/mob/living/carbon/M, special = 0)
 	..()
@@ -33,7 +28,8 @@
 	..()
 
 /obj/item/organ/internal/body_egg/process()
-	if(!owner)	return
+	if(!owner)
+		return
 	if(!(src in owner.internal_organs))
 		remove(owner)
 		return

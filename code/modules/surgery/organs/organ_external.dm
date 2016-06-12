@@ -30,8 +30,9 @@
 	var/cannot_amputate
 	var/cannot_break
 	var/s_tone
-	var/list/s_col = list()
+	var/list/s_col = null // If this is instantiated, it should be a list of length 3
 	var/list/wounds = list()
+	var/list/child_icons = list()
 	var/number_wounds = 0 // cache the number of wounds, which is NOT wounds.len!
 	var/perma_injury = 0
 	// 0: Don't fail when at full damage
@@ -64,6 +65,7 @@
 	var/amputation_point // Descriptive string used in amputation.
 	var/can_grasp
 	var/can_stand
+	var/wound_cleanup_timer
 
 /obj/item/organ/external/Destroy()
 	if(parent && parent.children)
@@ -77,6 +79,10 @@
 	if(children)
 		for(var/obj/item/organ/external/C in children)
 			qdel(C)
+
+	if(wound_cleanup_timer)
+		deltimer(wound_cleanup_timer)
+		wound_cleanup_timer = null
 
 	return ..()
 
@@ -105,7 +111,7 @@
 						O.status |= ORGAN_CUT_AWAY
 						if(!O.sterile)
 							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
-						O.forceMove(src)
+						O.forceMove(get_turf(src))
 					if(!(user.l_hand && user.r_hand))
 						user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!")
@@ -287,7 +293,7 @@
 	if((brute || burn) && children && children.len && (owner.species.flags & REGENERATES_LIMBS))
 		var/obj/item/organ/external/stump/S = locate() in children
 		if(S)
-			//world << "Extra healing to go around ([brute+burn]) and [owner] needs a replacement limb."
+//			to_chat(world, "Extra healing to go around ([brute+burn]) and [owner] needs a replacement limb.")
 */
 
 	//Sync the organ's damage with its wounds
@@ -302,18 +308,27 @@ This function completely restores a damaged organ to perfect condition.
 */
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
-	if(status & 128)	//Robotic organs stay robotic.  Fix because right click rejuvinate makes IPC's organs organic.
-		status = 128
+	if(status & ORGAN_ROBOT)	//Robotic organs stay robotic.
+		status = ORGAN_ROBOT
+	else if (status & ORGAN_ASSISTED) //Assisted organs stay assisted.
+		status = ORGAN_ASSISTED
 	else
 		status = 0
+	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
+	open = 0 //Closing all wounds.
+	wounds.Cut() //Clears all wounds! Good as new.
+	if(istype(src, /obj/item/organ/external/head) && disfigured) //If their head's disfigured, refigure it.
+		disfigured = 0
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
 		current_organ.rejuvenate()
 
+	for(var/obj/item/organ/external/EO in contents)
+		EO.rejuvenate()
 
 	// remove embedded objects and drop them on the floor
 	for(var/obj/implanted_object in implants)
@@ -323,6 +338,8 @@ This function completely restores a damaged organ to perfect condition.
 
 	owner.updatehealth()
 	update_icon()
+	if(!owner)
+		processing_objects |= src
 
 
 /obj/item/organ/external/proc/createwound(var/type = CUT, var/damage)
@@ -392,6 +409,11 @@ This function completely restores a damaged organ to perfect condition.
 		last_dam = brute_dam + burn_dam
 	if(germ_level)
 		return 1
+	if(!wound_cleanup_timer)
+		wound_cleanup_timer = addtimer(src, "cleanup_wounds", SecondsToTicks(600), 1, wounds)
+
+	if (update_icon())
+		owner.UpdateDamageIcon(1)
 	return 0
 
 /obj/item/organ/external/process()
@@ -512,7 +534,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(germ_level >= INFECTION_LEVEL_THREE && antibiotics < 30)	//overdosing is necessary to stop severe infections
 		if (!(status & ORGAN_DEAD))
 			status |= ORGAN_DEAD
-			owner << "<span class='notice'>You can't feel your [name] anymore...</span>"
+			to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
 			owner.update_body(1)
 
 		germ_level++
@@ -525,11 +547,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	for(var/datum/wound/W in wounds)
-		// wounds can disappear after 10 minutes at the earliest
-		if(W.damage <= 0 && W.created + 10 * 10 * 60 <= world.time)
-			wounds -= W
-			continue
-			// let the GC handle the deletion of the wound
 
 		// Internal wounds get worse over time. Low temperatures (cryo) stop them.
 		if(W.internal && !W.can_autoheal() && owner.bodytemperature >= 170)
@@ -892,13 +909,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Attached organs also fly off.
 	if(!ignore_children)
 		for(var/obj/item/organ/external/O in children)
-			O.remove()
+			O.remove(victim)
 			if(O)
 				O.forceMove(src)
 
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/internal/organ in internal_organs)
-		organ.remove()
+		organ.remove(victim)
 		organ.forceMove(src)
 
 	release_restraints(victim)
@@ -941,3 +958,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if (!istype(O)) // You're not the primary organ of ANYTHING, bucko
 		return 0
 	return src == O.organs_by_name[limb_name]
+
+// The callback we use to remove wounds from an un-processed limb
+/obj/item/organ/external/proc/cleanup_wounds(var/list/slated_wounds)
+	wound_cleanup_timer = null
+	for(var/datum/wound/W in slated_wounds)
+		if(!W)
+			continue
+		if(W.damage > 0)
+			continue
+		wounds -= W
+		qdel(W)

@@ -16,20 +16,6 @@
 	..()
 	return
 
-/datum/reagent/virus_food
-	name = "Virus Food"
-	id = "virusfood"
-	description = "A mixture of water, milk, and oxygen. Virus cells can use this mixture to reproduce."
-	reagent_state = LIQUID
-	nutriment_factor = 2 * REAGENTS_METABOLISM
-	color = "#899613" // rgb: 137, 150, 19
-
-/datum/reagent/virus_food/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.nutrition += nutriment_factor*REM
-	..()
-	return
-
 /datum/reagent/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -54,16 +40,40 @@
 	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as paralysis."
 	reagent_state = LIQUID
 	color = "#FA46FA"
+	overdose_threshold = 40
 
 /datum/reagent/synaptizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
+	M.SetSleeping(0)
 	if(prob(50))
 		M.adjustBrainLoss(-1.0)
 	..()
 	return
+
+/datum/reagent/synaptizine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 3)
+			M.emote(pick("groan","moan"))
+		if(effect <= 8)
+			M.adjustToxLoss(1)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.Dizzy(8)
+			M.Weaken(4)
+		if(effect <= 15)
+			M.adjustToxLoss(1)
 
 /datum/reagent/mitocholide
 	name = "Mitocholide"
@@ -85,6 +95,11 @@
 	..()
 	return
 
+/datum/reagent/mitocholide/reaction_obj(var/obj/O, var/volume)
+	if(istype(O, /obj/item/organ))
+		var/obj/item/organ/Org = O
+		Org.rejuvenate()
+
 /datum/reagent/cryoxadone
 	name = "Cryoxadone"
 	id = "cryoxadone"
@@ -97,8 +112,9 @@
 	if(M.bodytemperature < 265)
 		M.adjustCloneLoss(-4)
 		M.adjustOxyLoss(-10)
-		M.heal_organ_damage(12,12)
 		M.adjustToxLoss(-3)
+		M.adjustBruteLoss(-12)
+		M.adjustFireLoss(-12)
 		M.status_flags &= ~DISFIGURED
 	..()
 	return
@@ -114,17 +130,16 @@
 /datum/reagent/rezadone/on_mob_life(mob/living/M)
 	M.setCloneLoss(0) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
 	M.adjustCloneLoss(-1) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate.
-	M.heal_organ_damage(1,1)
+	M.adjustBruteLoss(-1)
+	M.adjustFireLoss(-1)
 	M.status_flags &= ~DISFIGURED
 	..()
 	return
 
-/datum/reagent/rezadone/overdose_process(mob/living/M)
+/datum/reagent/rezadone/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
 	M.Dizzy(5)
 	M.Jitter(5)
-	..()
-	return
 
 /datum/reagent/spaceacillin
 	name = "Spaceacillin"
@@ -133,7 +148,3 @@
 	reagent_state = LIQUID
 	color = "#0AB478"
 	metabolization_rate = 0.2
-
-/datum/reagent/spaceacillin/on_mob_life(var/mob/living/M as mob)
-	..()
-	return

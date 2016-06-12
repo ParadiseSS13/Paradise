@@ -81,9 +81,9 @@ Note: Must be placed west/left of and R&D console to function.
 	var/A = materials.amount(M)
 	if(!A)
 		A = reagents.get_reagent_amount(M)
-		A = A / max(1, (being_built.reagents[M]/efficiency_coeff))
+		A = A / max(1, (being_built.reagents[M]))
 	else
-		A = A / max(1, (being_built.materials[M]/efficiency_coeff))
+		A = A / max(1, (being_built.materials[M]))
 	return A
 
 /obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
@@ -112,15 +112,15 @@ Note: Must be placed west/left of and R&D console to function.
 			default_deconstruction_crowbar(O)
 			return 1
 		else
-			user << "<span class='warning'>You can't load the [src.name] while it's opened.</span>"
+			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
 			return 1
 	if (disabled)
 		return
 	if (!linked_console)
-		user << "<span class='warning'> The [src.name] must be linked to an R&D console first!</span>"
+		to_chat(user, "<span class='warning'> The [src.name] must be linked to an R&D console first!</span>")
 		return 1
 	if (busy)
-		user << "<span class='warning'>The [src.name] is busy. Please wait for completion of previous operation.</span>"
+		to_chat(user, "<span class='warning'>The [src.name] is busy. Please wait for completion of previous operation.</span>")
 		return 1
 	if (O.is_open_container())
 		return
@@ -130,7 +130,7 @@ Note: Must be placed west/left of and R&D console to function.
 		return 1
 
 	if(!materials.has_space( materials.get_item_material_amount(O) ))
-		user << "<span class='warning'>The [src.name]'s material bin is full! Please remove material before adding more.</span>"
+		to_chat(user, "<span class='warning'>The [src.name]'s material bin is full! Please remove material before adding more.</span>")
 		return 1
 
 	var/obj/item/stack/sheet/stack = O
@@ -143,7 +143,7 @@ Note: Must be placed west/left of and R&D console to function.
 	else
 		busy = 1
 		use_power(max(1000, (MINERAL_MATERIAL_AMOUNT*amount_inserted/10)))
-		user << "<span class='notice'>You add [amount_inserted] sheets to the [src.name].</span>"
+		to_chat(user, "<span class='notice'>You add [amount_inserted] sheets to the [src.name].</span>")
 		var/stackname = stack.name
 		src.overlays += "protolathe_[stackname]"
 		sleep(10)

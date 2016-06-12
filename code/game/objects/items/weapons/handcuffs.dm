@@ -12,7 +12,7 @@
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "materials=1"
-	var/breakouttime = 600 //Deciseconds = 60s = 1 minutes
+	breakouttime = 600 //Deciseconds = 60s = 1 minutes
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
 
@@ -21,7 +21,7 @@
 		return
 
 	if(CLUMSY in user.mutations && prob(50))
-		user << "<span class='warning'>Uh... how do those things work?!</span>"
+		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user,user)
 
 	if(!C.handcuffed)
@@ -31,7 +31,7 @@
 		playsound(loc, cuffsound, 30, 1, -2)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C,user)
-			user << "<span class='notice'>You handcuff [C].</span>"
+			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			if(istype(src, /obj/item/weapon/restraints/handcuffs/cable))
 				feedback_add_details("handcuffs","C")
 			else
@@ -39,7 +39,7 @@
 
 			add_logs(C, user, "handcuffed", src)
 		else
-			user << "<span class='warning'>You fail to handcuff [C].</span>"
+			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
 /obj/item/weapon/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user)
 	if(!target.handcuffed)
@@ -50,7 +50,7 @@
 		else
 			loc = target
 			target.handcuffed = src
-		target.update_inv_handcuffed(1)
+		target.update_handcuffed()
 		return
 
 /obj/item/weapon/restraints/handcuffs/cable
@@ -85,6 +85,9 @@
 /obj/item/weapon/restraints/handcuffs/cable/white
 	color = COLOR_WHITE
 
+/obj/item/weapon/restraints/handcuffs/alien
+	icon_state = "handcuffAlien"
+
 /obj/item/weapon/restraints/handcuffs/pinkcuffs
 	name = "fluffy pink handcuffs"
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
@@ -99,10 +102,10 @@
 			if(!remove_item_from_storage(user))
 				user.unEquip(src)
 			user.put_in_hands(W)
-			user << "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>"
+			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
 			qdel(src)
 		else
-			user << "<span class='warning'>You need one rod to make a wired rod.</span>"
+			to_chat(user, "<span class='warning'>You need one rod to make a wired rod.</span>")
 			return
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties
@@ -121,11 +124,11 @@
 			if(do_mob(user, C, 30))
 				if(!C.handcuffed)
 					C.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(C)
-					C.update_inv_handcuffed(1)
-					user << "<span class='notice'>You handcuff [C].</span>"
+					C.update_handcuffed()
+					to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 					add_logs(C, user, "ziptie-cuffed")
 			else
-				user << "<span class='warning'>You fail to handcuff [C].</span>"
+				to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
@@ -133,110 +136,3 @@
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/used/attack()
 	return
-
-//Legcuffs
-/obj/item/weapon/restraints/legcuffs
-	name = "leg cuffs"
-	desc = "Use this to keep prisoners in line."
-	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
-	icon_state = "handcuff"
-	flags = CONDUCT
-	throwforce = 0
-	w_class = 3.0
-	origin_tech = "materials=1"
-	slowdown = 7
-	var/breakouttime = 300	//Deciseconds = 30s = 0.5 minute
-
-/obj/item/weapon/restraints/legcuffs/beartrap
-	name = "bear trap"
-	throw_speed = 1
-	throw_range = 1
-	icon_state = "beartrap0"
-	desc = "A trap used to catch bears and other legged creatures."
-	var/armed = 0
-	var/obj/item/weapon/grenade/iedcasing/IED = null
-
-/obj/item/weapon/restraints/legcuffs/beartrap/Destroy()
-	if(IED)
-		qdel(IED)
-		IED = null
-	return ..()
-
-/obj/item/weapon/restraints/legcuffs/beartrap/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is sticking \his head in the [src.name]! It looks like \he's trying to commit suicide.</span>")
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return (BRUTELOSS)
-
-/obj/item/weapon/restraints/legcuffs/beartrap/attack_self(mob/user as mob)
-	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
-		armed = !armed
-		icon_state = "beartrap[armed]"
-		user << "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>"
-
-/obj/item/weapon/restraints/legcuffs/beartrap/attackby(var/obj/item/I, mob/user as mob) //Let's get explosive.
-	if(istype(I, /obj/item/weapon/grenade/iedcasing))
-		if(IED)
-			user << "<span class='warning'>This beartrap already has an IED hooked up to it!</span>"
-			return
-		IED = I
-		switch(IED.assembled)
-			if(0,1) //if it's not fueled/hooked up
-				user << "<span class='warning'>You haven't prepared this IED yet!</span>"
-				IED = null
-				return
-			if(2,3)
-				user.drop_item(src)
-				I.forceMove(src)
-				message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
-				log_game("[key_name(user)] has rigged a beartrap with an IED.")
-				user << "<span class='notice'>You sneak the [IED] underneath the pressure plate and connect the trigger wire.</span>"
-				desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
-			else
-				user << "<span class='danger'>You shouldn't be reading this message! Contact a coder or someone, something broke!</span>"
-				IED = null
-				return
-	if(istype(I, /obj/item/weapon/screwdriver))
-		if(IED)
-			IED.forceMove(get_turf(src))
-			IED = null
-			user << "<span class='notice'>You remove the IED from the [src].</span>"
-			return
-	..()
-
-/obj/item/weapon/restraints/legcuffs/beartrap/Crossed(AM as mob|obj)
-	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-			var/mob/living/L = AM
-			armed = 0
-			icon_state = "beartrap0"
-			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-					"<span class='userdanger'>You trigger \the [src]!</span>")
-
-			if(IED && isturf(src.loc))
-				IED.active = 1
-				IED.overlays -= image('icons/obj/grenade.dmi', icon_state = "improvised_grenade_filled")
-				IED.icon_state = initial(icon_state) + "_active"
-				IED.assembled = 3
-				message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
-				log_game("[key_name(usr)] has triggered an IED-rigged [name].")
-				spawn(IED.det_time)
-					IED.prime()
-
-			if(ishuman(AM))
-				var/mob/living/carbon/H = AM
-				if(H.lying)
-					H.apply_damage(20,BRUTE,"chest")
-				else
-					H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
-				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
-					H.legcuffed = src
-					src.loc = H
-					H.update_inv_legcuffed(0)
-					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
-
-			else
-				L.apply_damage(20,BRUTE)
-	..()

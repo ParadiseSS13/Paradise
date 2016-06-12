@@ -108,23 +108,20 @@
 
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
-	//check if it doesn't require any access at all
-	if(src.check_access(null))
+	//check if we don't require any access at all
+	if(check_access())
 		return 1
-	if(istype(M, /mob/living/silicon))
-		//AI can do whatever he wants
-		return 1
-	else if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		//if they are holding or wearing a card that has access, that works
-		if(src.check_access(H.get_active_hand()) || src.check_access(H.wear_id))
-			return 1
-	else if(istype(M, /mob/living/carbon/alien/humanoid))
-		var/mob/living/carbon/george = M
-		//they can only hold things :(
-		if(src.check_access(george.get_active_hand()))
-			return 1
+
+	var/acc = M.get_access() //see mob.dm
+
+	if(acc == IGNORE_ACCESS)
+		return 1 //Mob ignores access
+
+	else
+		return check_access_list(acc)
+
 	return 0
+
 
 /obj/item/proc/GetAccess()
 	return list()
@@ -132,50 +129,41 @@
 /obj/item/proc/GetID()
 	return null
 
-/obj/proc/check_access(obj/item/I)
+/obj/proc/generate_req_lists()
 	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!src.req_access)
-		src.req_access = list()
-		if(src.req_access_txt)
-			var/list/req_access_str = text2list(req_access_txt,";")
+	if(!req_access)
+		req_access = list()
+		if(req_access_txt)
+			var/list/req_access_str = splittext(req_access_txt, ";")
 			for(var/x in req_access_str)
 				var/n = text2num(x)
 				if(n)
 					req_access += n
 
-	if(!src.req_one_access)
-		src.req_one_access = list()
-		if(src.req_one_access_txt)
-			var/list/req_one_access_str = text2list(req_one_access_txt,";")
+	if(!req_one_access)
+		req_one_access = list()
+		if(req_one_access_txt)
+			var/list/req_one_access_str = splittext(req_one_access_txt,";")
 			for(var/x in req_one_access_str)
 				var/n = text2num(x)
 				if(n)
 					req_one_access += n
 
-	if(!istype(src.req_access, /list)) //something's very wrong
-		return 1
-
-	var/list/L = src.req_access
-	if(!L.len && (!src.req_one_access || !src.req_one_access.len)) //no requirements
-		return 1
-	if(!I)
-		return 0
-	for(var/req in src.req_access)
-		if(!(req in I.GetAccess())) //doesn't have this access
-			return 0
-	if(src.req_one_access && src.req_one_access.len)
-		for(var/req in src.req_one_access)
-			if(req in I.GetAccess()) //has an access from the single access list
-				return 1
-		return 0
-	return 1
-
+/obj/proc/check_access(obj/item/I)
+	var/list/L
+	if(I)
+		L = I.GetAccess()
+	else
+		L = list()
+	return check_access_list(L)
 
 /obj/proc/check_access_list(var/list/L)
-	if(!req_access)		req_access = list()
-	if(!req_one_access)	req_one_access = list()
-	if(!L)	return 0
-	if(!istype(L, /list))	return 0
+	generate_req_lists()
+
+	if(!L)
+		return 0
+	if(!istype(L, /list))
+		return 0
 	return has_access(req_access, req_one_access, L)
 
 /proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
@@ -261,43 +249,47 @@
 /proc/get_absolutely_all_accesses()
 	return (get_all_accesses() | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())
 
-/proc/get_region_accesses(var/code)
+/proc/get_region_accesses(code)
 	switch(code)
-		if(0)
+		if(REGION_ALL)
 			return get_all_accesses()
-		if(1) //security
+		if(REGION_GENERAL) //station general
+			return list(access_kitchen, access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer, access_magistrate, access_clown, access_mime)
+		if(REGION_SECURITY) //security
 			return list(access_sec_doors, access_weapons, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_pilot, access_hos)
-		if(2) //medbay
+		if(REGION_MEDBAY) //medbay
 			return list(access_medical, access_genetics, access_morgue, access_chemistry, access_psychiatrist, access_virology, access_surgery, access_cmo, access_paramedic)
-		if(3) //research
-			return list(access_research, access_tox, access_tox_storage, access_robotics, access_xenobiology, access_xenoarch, access_minisat, access_rd)
-		if(4) //engineering and maintenance
+		if(REGION_RESEARCH) //research
+			return list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_xenoarch, access_minisat, access_rd)
+		if(REGION_ENGINEERING) //engineering and maintenance
 			return list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_minisat, access_ce, access_mechanic)
-		if(5) //command
-			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
-		if(6) //station general
-			return list(access_kitchen,access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer, access_magistrate, access_clown, access_mime)
-		if(7) //supply
+		if(REGION_SUPPLY) //supply
 			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
+		if(REGION_COMMAND) //command
+			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
+		if(REGION_CENTCOMM) //because why the heck not
+			return get_all_centcom_access() + get_all_accesses()
 
-/proc/get_region_accesses_name(var/code)
+/proc/get_region_accesses_name(code)
 	switch(code)
-		if(0)
+		if(REGION_ALL)
 			return "All"
-		if(1) //security
+		if(REGION_GENERAL) //station general
+			return "General"
+		if(REGION_SECURITY) //security
 			return "Security"
-		if(2) //medbay
+		if(REGION_MEDBAY) //medbay
 			return "Medbay"
-		if(3) //research
+		if(REGION_RESEARCH) //research
 			return "Research"
-		if(4) //engineering and maintenance
+		if(REGION_ENGINEERING) //engineering and maintenance
 			return "Engineering"
-		if(5) //command
-			return "Command"
-		if(6) //station general
-			return "Station General"
-		if(7) //supply
+		if(REGION_SUPPLY) //supply
 			return "Supply"
+		if(REGION_COMMAND) //command
+			return "Command"
+		if(REGION_CENTCOMM) //CC
+			return "CentComm"
 
 
 /proc/get_access_desc(A)
@@ -612,4 +604,3 @@ proc/get_all_job_icons() //For all existing HUD icons
 		return
 
 	return "Unknown" //Return unknown if none of the above apply
-

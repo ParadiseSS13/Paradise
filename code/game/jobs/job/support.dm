@@ -244,6 +244,10 @@
 		H.equip_or_collect(new /obj/item/toy/crayon/rainbow(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/fancy/crayons(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/spray/waterflower(H), slot_in_backpack)
+		if(H.get_species() == "Machine")
+			var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant
+			implant = new
+			implant.insert(H)
 		H.mutations.Add(CLUMSY)
 		H.dna.SetSEState(COMICBLOCK,1,1)
 		genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
@@ -282,6 +286,7 @@
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/toy/crayon/mime(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/cane(H), slot_in_backpack)
 		if(H.mind)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))

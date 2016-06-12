@@ -11,13 +11,13 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
-	addiction_threshold = 30
+	addiction_chance = 70
 
 /datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
 	if(prob(5))
-		M << "<span class='notice'>[smoke_message]</span>"
+		to_chat(M, "<span class='notice'>[smoke_message]</span>")
 	if(prob(50))
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
@@ -26,11 +26,45 @@
 	..()
 	return
 
-/datum/reagent/nicotine/overdose_process(var/mob/living/M as mob)
-	M.adjustToxLoss(1*REM)
-	M.adjustOxyLoss(1*REM)
-	..()
-	return
+/datum/reagent/nicotine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] looks nervous!</span>")
+			M.confused += 15
+			M.adjustToxLoss(2)
+			M.Jitter(10)
+			M.emote("twitch_s")
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
+			M.bodytemperature += rand(15,30)
+			M.adjustToxLoss(3)
+		else if(effect <= 7)
+			M.adjustToxLoss(4)
+			M.emote("twitch")
+			M.Jitter(10)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.emote("gasp")
+			to_chat(M, "<span class='warning'>You can't breathe!</span>")
+			M.adjustOxyLoss(15)
+			M.adjustToxLoss(3)
+			M.Stun(1)
+		else if(effect <= 4)
+			to_chat(M, "<span class='warning'>You feel terrible!</span>")
+			M.emote("drool")
+			M.Jitter(10)
+			M.adjustToxLoss(5)
+			M.Weaken(1)
+			M.confused += 33
+		else if(effect <= 7)
+			M.emote("collapse")
+			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
+			M << 'sound/effects/singlebeat.ogg'
+			M.Paralyse(5)
+			M.Jitter(30)
+			M.adjustToxLoss(6)
+			M.adjustOxyLoss(20)
 
 /datum/reagent/crank
 	name = "Crank"
@@ -39,48 +73,69 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
-	addiction_threshold = 10
+	addiction_chance = 50
 
 /datum/reagent/crank/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
-	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
 	M.AdjustParalysis(-2)
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
+	if(prob(15))
+		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
-		M.reagents.add_reagent("methamphetamine",2)
+		to_chat(M, "<span class='notice'>You feel great!</span>")
+		M.reagents.add_reagent("methamphetamine", rand(1,2))
+		M.emote(pick("laugh", "giggle"))
+	if(prob(6))
+		to_chat(M, "<span class='notice'>You feel warm.</span>")
+		M.bodytemperature += rand(1,10)
 	if(prob(4))
-		M.Jitter(10)
-		M.adjustToxLoss(1.0)
-	..()
-	return
-/datum/reagent/crank/overdose_process(var/mob/living/M as mob)
-	M.adjustBrainLoss(rand(1,10)*REM)
-	M.adjustToxLoss(rand(1,10)*REM)
-	M.adjustBruteLoss(rand(1,10)*REM)
+		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
+		M.adjustToxLoss(1)
+		M.jitteriness += 30
+		M.emote(pick("groan", "moan"))
 	..()
 	return
 
-/datum/reagent/crank/addiction_act_stage1(var/mob/living/M as mob)
-	M.adjustBrainLoss(rand(1,10)*REM)
-	..()
-	return
-/datum/reagent/crank/addiction_act_stage2(var/mob/living/M as mob)
-	M.adjustToxLoss(rand(1,10)*REM)
-	..()
-	return
-/datum/reagent/crank/addiction_act_stage3(var/mob/living/M as mob)
-	M.adjustBruteLoss(rand(1,10)*REM)
-	..()
-	return
-/datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
-	M.adjustBrainLoss(rand(1,10)*REM)
-	M.adjustToxLoss(rand(1,10)*REM)
-	M.adjustBruteLoss(rand(1,10)*REM)
-	..()
-	return
+/datum/reagent/crank/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] looks confused!</span>")
+			M.confused += 20
+			M.Jitter(20)
+			M.emote("scream")
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
+			M.bodytemperature += rand(5,30)
+			M.adjustBrainLoss(1)
+			M.adjustToxLoss(1)
+			M.Stun(2)
+		else if(effect <= 7)
+			M.Jitter(30)
+			M.emote("grumble")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] is sweating like a pig!</span>")
+			M.bodytemperature += rand(20,100)
+			M.adjustToxLoss(5)
+			M.Stun(3)
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] starts tweaking the hell out!</span>")
+			M.Jitter(100)
+			M.adjustToxLoss(2)
+			M.adjustBrainLoss(8)
+			M.Weaken(3)
+			M.confused += 25
+			M.emote("scream")
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 7)
+			M.emote("scream")
+			M.visible_message("<span class='warning'>[M] nervously scratches at their skin!</span>")
+			M.Jitter(10)
+			M.adjustBruteLoss(5)
+			M.emote("twitch_s")
+
 /datum/chemical_reaction/crank
 	name = "Crank"
 	id = "crank"
@@ -88,6 +143,7 @@
 	required_reagents = list("diphenhydramine" = 1, "ammonia" = 1, "lithium" = 1, "sacid" = 1, "fuel" = 1)
 	result_amount = 5
 	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
+	mix_sound = 'sound/goonstation/effects/crystalshatter.ogg'
 	min_temp = 390
 
 /datum/chemical_reaction/crank/on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -104,48 +160,68 @@
 	reagent_state = LIQUID
 	color = "#0264B4"
 	overdose_threshold = 20
-	addiction_threshold = 15
+	addiction_chance = 50
 
 
 /datum/reagent/krokodil/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
-	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
-	..()
-	return
-
-/datum/reagent/krokodil/overdose_process(var/mob/living/M as mob)
+	M.jitteriness -= 40
+	if(prob(25))
+		M.adjustBrainLoss(1)
+	if(prob(15))
+		M.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
 	if(prob(10))
-		M.adjustBrainLoss(rand(1,5)*REM)
-		M.adjustToxLoss(rand(1,5)*REM)
+		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
+		M.bodytemperature--
+		M.emote("smile")
+	if(prob(5))
+		to_chat(M, "<span class='notice'>You feel too chill!</span>")
+		M.emote(pick("yawn", "drool"))
+		M.Stun(1)
+		M.adjustToxLoss(1)
+		M.adjustBrainLoss(1)
+		M.bodytemperature -= 20
+	if(prob(2))
+		to_chat(M, "<span class='warning'>Your skin feels all rough and dry.</span>")
+		M.adjustBruteLoss(2)
 	..()
 	return
 
+/datum/reagent/krokodil/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] looks dazed!</span>")
+			M.Stun(3)
+			M.emote("drool")
+		else if(effect <= 4)
+			M.emote("shiver")
+			M.bodytemperature -= 40
+		else if(effect <= 7)
+			to_chat(M, "<span class='warning'>Your skin is cracking and bleeding!</span>")
+			M.adjustBruteLoss(5)
+			M.adjustToxLoss(2)
+			M.adjustBrainLoss(1)
+			M.emote("cry")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M]</b> sways and falls over!</span>")
+			M.adjustToxLoss(3)
+			M.adjustBrainLoss(3)
+			M.Weaken(8)
+			M.emote("faint")
+		else if(effect <= 4)
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
+				H.adjustBruteLoss(25)
+				H.emote("scream")
+				H.ChangeToHusk()
+				H.emote("faint")
+		else if(effect <= 7)
+			M.emote("shiver")
+			M.bodytemperature -= 70
 
-/datum/reagent/krokodil/addiction_act_stage1(var/mob/living/M as mob)
-	M.adjustBrainLoss(rand(1,5)*REM)
-	M.adjustToxLoss(rand(1,5)*REM)
-	..()
-	return
-/datum/reagent/krokodil/addiction_act_stage2(var/mob/living/M as mob)
-	if(prob(25))
-		M << "<span class='danger'>Your skin feels loose...</span>"
-	..()
-	return
-/datum/reagent/krokodil/addiction_act_stage3(var/mob/living/M as mob)
-	if(prob(25))
-		M << "<span class='danger'>Your skin starts to peel away...</span>"
-	M.adjustBruteLoss(3*REM)
-	..()
-	return
-
-/datum/reagent/krokodil/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
-	if(prob(25))
-		M << "<span class='userdanger'>Your skin falls off easily!</span>"
-	M.adjustBruteLoss(5*REM)
-	..()
-	return
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"
 	id = "krokodil"
@@ -163,73 +239,51 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
-	addiction_threshold = 10
+	addiction_chance = 60
 	metabolization_rate = 0.6
-
-/datum/reagent/methamphetamine/meth2 //for donk pockets
-	id = "methamphetamine2"
-	addiction_threshold = 20
 
 /datum/reagent/methamphetamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		M.emote(pick("twitch_s","blink_r","shiver"))
+	if(current_cycle >= 25)
+		M.jitteriness += 5
+	M.drowsyness = max(0, M.drowsyness-10)
 	M.AdjustParalysis(-2.5)
 	M.AdjustStunned(-2.5)
 	M.AdjustWeakened(-2.5)
 	M.adjustStaminaLoss(-2)
+	M.SetSleeping(0)
 	M.status_flags |= GOTTAGOREALLYFAST
-	M.Jitter(3)
 	if(prob(50))
 		M.adjustBrainLoss(1.0)
-	if(prob(5))
-		M.emote(pick("twitch", "shiver"))
 	..()
 	return
 
-/datum/reagent/methamphetamine/overdose_process(var/mob/living/M as mob)
-	if(prob(20))
-		M.emote("laugh")
-	if(prob(33))
-		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-	..()
-	if(prob(50))
-		M.adjustToxLoss(10)
-	M.adjustBrainLoss(pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
-	return
-
-/datum/reagent/methamphetamine/addiction_act_stage1(var/mob/living/M as mob)
-	M.Jitter(5)
-	if(prob(20))
-		M.emote(pick("twitch","drool","moan"))
-	..()
-	return
-/datum/reagent/methamphetamine/addiction_act_stage2(var/mob/living/M as mob)
-	M.Jitter(10)
-	M.Dizzy(10)
-	if(prob(30))
-		M.emote(pick("twitch","drool","moan"))
-	..()
-	return
-/datum/reagent/methamphetamine/addiction_act_stage3(var/mob/living/M as mob)
-	M.Jitter(15)
-	M.Dizzy(15)
-	if(prob(40))
-		M.emote(pick("twitch","drool","moan"))
-	..()
-	return
-/datum/reagent/methamphetamine/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
-	M.Jitter(20)
-	M.Dizzy(20)
-	M.adjustToxLoss(5)
-	if(prob(50))
-		M.emote(pick("twitch","drool","moan"))
-	..()
-	return
+/datum/reagent/methamphetamine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] can't seem to control their legs!</span>")
+			M.confused += 20
+			M.Weaken(4)
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.drop_l_hand()
+			M.drop_r_hand()
+		else if(effect <= 7)
+			M.emote("laugh")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.drop_l_hand()
+			M.drop_r_hand()
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
+			M.Jitter(10)
+			M.Weaken(10)
+		else if(effect <= 7)
+			M.emote("laugh")
 
 /datum/chemical_reaction/methamphetamine
 	name = "methamphetamine"
@@ -238,6 +292,16 @@
 	required_reagents = list("ephedrine" = 1, "iodine" = 1, "phosphorus" = 1, "hydrogen" = 1)
 	result_amount = 4
 	min_temp = 374
+
+/datum/chemical_reaction/methamphetamine/on_reaction(var/datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	for(var/mob/living/carbon/C in range(T, 1))
+		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+			C.emote("gasp")
+			C.losebreath++
+			C.reagents.add_reagent("toxin",10)
+			C.reagents.add_reagent("neurotoxin2",20)
 
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
@@ -258,30 +322,98 @@
 	name = "Bath Salts"
 	id = "bath_salts"
 	description = "Sometimes packaged as a refreshing bathwater additive, these crystals are definitely not for human consumption."
-	reagent_state = LIQUID
-	color = "#60A584" // rgb: 96, 165, 132
+	reagent_state = SOLID
+	color = "#FAFAFA"
 	overdose_threshold = 20
-	addiction_threshold = 10
+	addiction_chance = 80
 	metabolization_rate = 0.6
-
 
 /datum/reagent/bath_salts/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
-	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
-	M.AdjustParalysis(-5)
-	M.AdjustStunned(-5)
-	M.AdjustWeakened(-5)
-	M.adjustStaminaLoss(-10)
-	M.adjustBrainLoss(1)
-	M.adjustToxLoss(0.1)
-	M.hallucination += 10
-	if(M.canmove && !istype(M.loc, /turf/space))
-		step(M, pick(cardinal))
-		step(M, pick(cardinal))
+	var/check = rand(0,100)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(check < 8 && head_organ.h_style != "Very Long Beard")
+			head_organ.h_style = "Very Long Hair"
+			head_organ.f_style = "Very Long Beard"
+			H.update_hair()
+			H.update_fhair()
+			H.visible_message("<span class='warning'>[H] has a wild look in their eyes!</span>")
+	if(check < 60)
+		M.SetParalysis(0)
+		M.SetStunned(0)
+		M.SetWeakened(0)
+	if(check < 30)
+		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
+	M.druggy = max(M.druggy, 15)
+	if(check < 20)
+		M.confused += 10
+	if(check < 8)
+		M.reagents.add_reagent(pick("methamphetamine", "crank", "neurotoxin"), rand(1,5))
+		M.visible_message("<span class='warning'>[M] scratches at something under their skin!</span>")
+		M.adjustBruteLoss(5)
+	else if(check < 16)
+		M.hallucination += 30
+	else if(check < 24)
+		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
+	else if(check < 28)
+		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
 	..()
-	return
+
+/datum/reagent/bath_salts/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+	if(method == INGEST)
+		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
+		M << 'sound/effects/singlebeat.ogg'
+		M.emote("faint")
+		M.apply_effect(5, IRRADIATE, negate_armor = 1)
+		M.adjustToxLoss(5)
+		M.adjustBrainLoss(10)
+	else
+		to_chat(M, "<span class='notice'>You feel a bit more salty than usual.</span>")
+
+/datum/reagent/bath_salts/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='danger'>[M] flails around like a lunatic!</span>")
+			M.confused += 25
+			M.Jitter(10)
+			M.emote("scream")
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 4)
+			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
+			M.emote("twitch_s")
+			M.adjustToxLoss(2)
+			M.adjustBrainLoss(1)
+			M.Stun(3)
+			M.eye_blurry = max(M.eye_blurry, 7)
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 7)
+			M.emote("faint")
+			M.reagents.add_reagent("jagged_crystals", 5)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
+			M.adjustToxLoss(2)
+			M.adjustBrainLoss(1)
+			M.Stun(3)
+			M.eye_blurry = max(M.eye_blurry, 7)
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 4)
+			M.visible_message("<span class='danger'>[M] convulses violently and falls to the floor!</span>")
+			M.Jitter(50)
+			M.adjustToxLoss(2)
+			M.adjustBrainLoss(1)
+			M.Weaken(8)
+			M.emote("gasp")
+			M.reagents.add_reagent("jagged_crystals", 5)
+		else if(effect <= 7)
+			M.emote("scream")
+			M.visible_message("<span class='danger'>[M] tears at their own skin!</span>")
+			M.adjustBruteLoss(5)
+			M.reagents.add_reagent("jagged_crystals", 5)
+			M.emote("twitch")
 
 /datum/chemical_reaction/bath_salts
 	name = "bath_salts"
@@ -293,68 +425,37 @@
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
-/datum/reagent/bath_salts/overdose_process(var/mob/living/M as mob)
-	M.hallucination += 10
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 8, i++)
-			step(M, pick(cardinal))
-	if(prob(20))
-		M.emote(pick("twitch","drool","moan"))
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-	..()
-	return
+/datum/chemical_reaction/jenkem
+	name = "Jenkem"
+	id = "jenkem"
+	result = "jenkem"
+	required_reagents = list("toiletwater" = 1, "ammonia" = 1, "water" = 1)
+	result_amount = 3
+	mix_message = "The mixture ferments into a filthy morass."
+	mix_sound = 'sound/effects/blobattack.ogg'
 
-/datum/reagent/bath_salts/addiction_act_stage1(var/mob/living/M as mob)
-	M.hallucination += 10
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 8, i++)
-			step(M, pick(cardinal))
-	M.Jitter(5)
-	M.adjustBrainLoss(10)
-	if(prob(20))
-		M.emote(pick("twitch","drool","moan"))
+/datum/chemical_reaction/jenkem/on_reaction(var/datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	for(var/mob/living/carbon/C in range(T, 1))
+		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+			C.reagents.add_reagent("jenkem", 25)
+
+/datum/reagent/jenkem
+	name = "Jenkem"
+	id = "jenkem"
+	description = "Jenkem is a prison drug made from fermenting feces in a solution of urine. Extremely disgusting."
+	reagent_state = LIQUID
+	color = "#644600"
+	addiction_chance = 30
+
+/datum/reagent/jenkem/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.Dizzy(5)
+	if(prob(10))
+		M.emote(pick("twitch_s","drool","moan"))
+		M.adjustToxLoss(1)
 	..()
-	return
-/datum/reagent/bath_salts/addiction_act_stage2(var/mob/living/M as mob)
-	M.hallucination += 20
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 8, i++)
-			step(M, pick(cardinal))
-	M.Jitter(10)
-	M.Dizzy(10)
-	M.adjustBrainLoss(10)
-	if(prob(30))
-		M.emote(pick("twitch","drool","moan"))
-	..()
-	return
-/datum/reagent/bath_salts/addiction_act_stage3(var/mob/living/M as mob)
-	M.hallucination += 30
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 12, i++)
-			step(M, pick(cardinal))
-	M.Jitter(15)
-	M.Dizzy(15)
-	M.adjustBrainLoss(10)
-	if(prob(40))
-		M.emote(pick("twitch","drool","moan"))
-	..()
-	return
-/datum/reagent/bath_salts/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
-	M.hallucination += 40
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 16, i++)
-			step(M, pick(cardinal))
-	M.Jitter(50)
-	M.Dizzy(50)
-	M.adjustToxLoss(5)
-	M.adjustBrainLoss(10)
-	if(prob(50))
-		M.emote(pick("twitch","drool","moan"))
-	..()
-	return
 
 /datum/chemical_reaction/aranesp
 	name = "Aranesp"
@@ -372,17 +473,19 @@
 
 /datum/reagent/aranesp/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel like you're made of steel!", "You feel invigorated!", "You feel really buff!", "You feel on top of the world!", "You feel full of energy!")
-	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
 	M.adjustStaminaLoss(-40)
 	if(prob(90))
 		M.adjustToxLoss(1)
 	if(prob(5))
-		M << "<span class='danger'>You cannot breathe!</span>"
-		M.losebreath += 1
+		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
+	var/high_message = pick("really buff", "on top of the world","like you're made of steel", "energized", "invigorated", "full of energy")
+	if(prob(8))
+		to_chat(M, "<span class='notice'>[high_message]!</span>")
+	if(prob(5))
+		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
 		M.adjustOxyLoss(15)
 		M.Stun(1)
+		M.losebreath++
 	..()
 	return
 
@@ -396,10 +499,16 @@
 
 /datum/reagent/thc/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(8))
-		M.emote(pick("smile","giggle","laugh"))
-	if(prob(50))
-		M.stuttering += 2
+	M.stuttering += rand(0,2)
+	if(prob(5))
+		M.emote(pick("laugh","giggle","smile"))
+	if(prob(5))
+		to_chat(M, "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","You feel warm.")]")
+	if(prob(4))
+		M.confused = max(M.confused, 10)
+	if(volume >= 50 && prob(25))
+		if(prob(10))
+			M.drowsyness = max(M.drowsyness, 10)
 	..()
 	return
 
@@ -412,6 +521,7 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 15
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
+	addiction_chance = 10
 
 /datum/chemical_reaction/fliptonium
 	name = "fliptonium"
@@ -426,6 +536,7 @@
 		return
 	if(method == INGEST || method == TOUCH)
 		M.SpinAnimation(speed = 12, loops = -1)
+	..()
 
 /datum/reagent/fliptonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -445,34 +556,43 @@
 		M.SpinAnimation(speed = 5, loops = -1)
 	if(current_cycle == 50)
 		M.SpinAnimation(speed = 4, loops = -1)
-	M.AdjustParalysis(-2)
-	M.AdjustStunned(-2)
-	M.AdjustWeakened(-2)
-	M.adjustStaminaLoss(-2)
+
+	M.drowsyness = max(0, M.drowsyness-6)
+	M.AdjustParalysis(-1.5)
+	M.AdjustStunned(-1.5)
+	M.AdjustWeakened(-1.5)
+	M.adjustStaminaLoss(-1.5)
+	M.SetSleeping(0)
 	..()
 	return
 
 /datum/reagent/fliptonium/reagent_deleted(var/mob/living/M as mob)
 	M.SpinAnimation(speed = 12, loops = -1)
 
-/datum/reagent/fliptonium/overdose_process(var/mob/living/M as mob)
-	if(volume > 15)
-		if(prob(5))
-			switch(pick(1, 2, 3))
-				if(1)
-					M.emote("laugh")
-					M.adjustToxLoss(1)
-				if(2)
-					M << "<span class = 'danger'>[M] can't seem to control their legs!</span>"
-					M.Weaken(8)
-					M.adjustToxLoss(1)
-				if(3)
-					M << "<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>"
-					M.drop_l_hand()
-					M.drop_r_hand()
-					M.adjustToxLoss(1)
-	..()
-	return
+/datum/reagent/fliptonium/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] can't seem to control their legs!</span>")
+			M.confused += 33
+			M.Weaken(2)
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.drop_l_hand()
+			M.drop_r_hand()
+		else if(effect <= 7)
+			M.emote("laugh")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.drop_l_hand()
+			M.drop_r_hand()
+		else if (effect <= 4)
+			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
+			M.Jitter(5)
+			M.Weaken(5)
+		else if(effect <= 7)
+			M.emote("laugh")
 
 //////////////////////////////
 //		Synth-Drugs			//
@@ -488,7 +608,7 @@
 
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
-	addiction_threshold = 10
+	addiction_chance = 60
 	metabolization_rate = 0.6
 
 /datum/chemical_reaction/lube/ultra
@@ -506,7 +626,7 @@
 		if(prob(1))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
 	M.AdjustParalysis(-2)
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
@@ -519,11 +639,11 @@
 	..()
 	return
 
-/datum/reagent/lube/ultra/overdose_process(var/mob/living/M as mob)
+/datum/reagent/lube/ultra/overdose_process(var/mob/living/M as mob, severity)
 	if(prob(20))
 		M.emote("ping")
 	if(prob(33))
-		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_item()
@@ -531,39 +651,6 @@
 	if(prob(50))
 		M.adjustFireLoss(10)
 	M.adjustBrainLoss(pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
-	return
-
-/datum/reagent/lube/ultra/addiction_act_stage1(var/mob/living/M as mob)
-	M.Jitter(5)
-	if(prob(20))
-		M.emote(pick("twitch","buzz","moan"))
-	..()
-	return
-
-/datum/reagent/lube/ultra/addiction_act_stage2(var/mob/living/M as mob)
-	M.Jitter(10)
-	M.Dizzy(10)
-	if(prob(30))
-		M.emote(pick("twitch","buzz","moan"))
-	..()
-	return
-
-/datum/reagent/lube/ultra/addiction_act_stage3(var/mob/living/M as mob)
-	M.Jitter(15)
-	M.Dizzy(15)
-	if(prob(40))
-		M.emote(pick("twitch","buzz","moan"))
-	..()
-	return
-
-/datum/reagent/lube/ultra/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
-	M.Jitter(20)
-	M.Dizzy(20)
-	M.adjustBrainLoss(2)
-	if(prob(50))
-		M.emote(pick("twitch","buzz","moan"))
-	..()
-	return
 
 //Surge: Krokodil
 /datum/reagent/surge
@@ -575,7 +662,7 @@
 
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
-	addiction_threshold = 15
+	addiction_chance = 50
 
 
 /datum/reagent/surge/on_mob_life(var/mob/living/M as mob)
@@ -586,18 +673,18 @@
 		if(prob(1))
 			high_message = "01010100010100100100000101001110010100110100001101000101010011100100010001000101010011100100001101000101."
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
 	..()
 	return
 
-/datum/reagent/surge/overdose_process(var/mob/living/M as mob)
+/datum/reagent/surge/overdose_process(var/mob/living/M as mob, severity)
 	//Hit them with the same effects as an electrode!
 	M.Stun(5)
 	M.Weaken(5)
 	M.Jitter(20)
 	M.apply_effect(STUTTER, 5)
 	if(prob(10))
-		M << "<span class='danger'>You experience a violent electrical discharge!</span>"
+		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
 		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
 		//Lightning effect for electrical discharge visualization
 		var/icon/I=new('icons/obj/zap.dmi',"lightningend")
@@ -608,32 +695,6 @@
 		B.icon = I
 		M.adjustFireLoss(rand(1,5)*REM)
 		M.adjustBruteLoss(rand(1,5)*REM)
-	..()
-	return
-
-/datum/reagent/surge/addiction_act_stage1(var/mob/living/M as mob)
-	M.adjustBrainLoss(rand(1,5)*REM)
-	M.hallucination += rand(1,5)
-	..()
-	return
-/datum/reagent/surge/addiction_act_stage2(var/mob/living/M as mob)
-	if(prob(25))
-		M << "<span class='danger'>Your casing feels loose...</span>"
-	..()
-	return
-/datum/reagent/surge/addiction_act_stage3(var/mob/living/M as mob)
-	if(prob(25))
-		M << "<span class='danger'>Your casing starts to come apart...</span>"
-	M.adjustBruteLoss(3*REM)
-	..()
-	return
-
-/datum/reagent/surge/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
-	if(prob(25))
-		M << "<span class='userdanger'>Your exposed wiring begins corroding!</span>"
-	M.adjustFireLoss(5*REM)
-	..()
-	return
 
 /datum/chemical_reaction/surge
 	name = "Surge"

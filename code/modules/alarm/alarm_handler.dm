@@ -65,7 +65,6 @@
 	for(var/obj/machinery/camera/C in alarm.cameras())
 		if(was_raised)
 			C.network.Add(category)
-			invalidateCameraCache()
 		else
 			C.network.Remove(category)
 	notify_listeners(alarm, was_raised)

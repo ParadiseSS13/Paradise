@@ -14,7 +14,7 @@
 		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 
 	for(var/obj/item/organ/internal/I in internal_organs)
-		if(istype(loc,/turf))
+		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
 			spawn()
@@ -27,6 +27,12 @@
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
 			E.droplimb(DROPLIMB_EDGE)
+
+	for(var/mob/M in src)
+		if(M in stomach_contents)
+			stomach_contents.Remove(M)
+		M.forceMove(get_turf(src))
+		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 	if(!isSynthetic())
 		flick("gibbed-h", animation)
@@ -123,7 +129,6 @@
 
 	if(!gibbed)
 		update_canmove()
-		if(client) blind.layer = 0
 
 	timeofdeath = worldtime2text()
 	med_hud_set_health()
@@ -140,12 +145,13 @@
 	return ..(gibbed)
 
 /mob/living/carbon/human/proc/makeSkeleton()
+	var/obj/item/organ/external/head/H = get_organ("head")
 	if(SKELETON in src.mutations)	return
 
-	if(f_style)
-		f_style = "Shaved"
-	if(h_style)
-		h_style = "Bald"
+	if(H.f_style)
+		H.f_style = "Shaved"
+	if(H.h_style)
+		H.h_style = "Bald"
 	update_fhair(0)
 	update_hair(0)
 
@@ -157,12 +163,13 @@
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
+	var/obj/item/organ/external/head/H = organs_by_name["head"]
 	if(HUSK in mutations)	return
 
-	if(f_style)
-		f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
-	if(h_style)
-		h_style = "Bald"
+	if(H.f_style)
+		H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
+	if(H.h_style)
+		H.h_style = "Bald"
 	update_fhair(0)
 	update_hair(0)
 

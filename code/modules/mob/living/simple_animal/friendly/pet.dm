@@ -1,22 +1,8 @@
 /mob/living/simple_animal/pet
 	icon = 'icons/mob/pets.dmi'
-	var/obj/item/clothing/accessory/petcollar/pcollar = null
-	var/image/collar = null
-	var/image/pettag = null
+	can_collar = 1
 
 /mob/living/simple_animal/pet/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
-		var/obj/item/clothing/accessory/petcollar/P = O
-		pcollar = P
-		collar = image('icons/mob/pets.dmi', src, "[icon_state]collar")
-		pettag = image('icons/mob/pets.dmi', src, "[icon_state]tag")
-		regenerate_icons()
-		user << "<span class='notice'>You put the [P] around [src]'s neck.</span>"
-		if(P.tagname)
-			name = P.tagname
-			real_name = P.tagname
-		qdel(P)
-		return
 	if(istype(O, /obj/item/weapon/newspaper))
 		if(!stat)
 			user.visible_message("[user] baps [name] on the nose with the rolled up [O].")
@@ -27,12 +13,6 @@
 	else
 		..()
 
-/mob/living/simple_animal/pet/New()
-	..()
-	if(pcollar)
-		pcollar = new(src)
-		regenerate_icons()
-
 /mob/living/simple_animal/pet/revive()
 	..()
 	regenerate_icons()
@@ -41,7 +21,9 @@
 	..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/regenerate_icons()
-	overlays.Cut()
-	overlays += collar
-	overlays += pettag
+/mob/living/simple_animal/pet/regenerate_icons(cut_overlays = 1)
+	if(cut_overlays)
+		overlays.Cut()
+	if(collar)
+		overlays += "[icon_state]collar"
+		overlays += "[icon_state]tag"

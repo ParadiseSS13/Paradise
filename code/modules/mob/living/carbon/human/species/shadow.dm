@@ -7,7 +7,6 @@
 
 	default_language = "Galactic Common"
 	unarmed_type = /datum/unarmed_attack/claws
-	light_dam = 2
 	darksight = 8
 
 	blood_color = "#CCCCCC"
@@ -16,8 +15,8 @@
 		"brain" = /obj/item/organ/internal/brain
 		)
 
-	flags = NO_BLOOD | NO_BREATHE | NO_SCAN
-	bodyflags = FEET_NOSLIP
+	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
+	virus_immune = 1
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
 	suicide_messages = list(
@@ -26,5 +25,13 @@
 		"is twisting their own neck!",
 		"is staring into the closest light source!")
 
-/datum/species/shadow/handle_death(var/mob/living/carbon/human/H)
-	H.dust()
+/datum/species/shadow/handle_life(var/mob/living/carbon/human/H)
+	var/light_amount = 0
+	if(isturf(H.loc))
+		var/turf/T = H.loc
+		light_amount = T.get_lumcount()*10
+
+		if(light_amount > 2) //if there's enough light, start dying
+			H.take_overall_damage(1,1)
+		else if (light_amount < 2) //heal in the dark
+			H.heal_overall_damage(1,1)

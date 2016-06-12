@@ -17,7 +17,7 @@
 
 /datum/reagent/drink/tomatojuice/on_mob_life(var/mob/living/M as mob)
 	..()
-	if(M.getFireLoss() && prob(20)) M.heal_organ_damage(0,1)
+	if(M.getFireLoss() && prob(20)) M.adjustFireLoss(-1)
 	return
 
 /datum/reagent/drink/limejuice
@@ -110,7 +110,8 @@
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Clown"))
 		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 		M.nutrition += nutriment_factor
 		..()
 		return
@@ -125,7 +126,8 @@
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
 		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 		M.nutrition += nutriment_factor
 		..()
 		return
@@ -145,7 +147,7 @@
 	color = "#DFDFDF" // rgb: 223, 223, 223
 
 /datum/reagent/drink/milk/on_mob_life(var/mob/living/M as mob)
-	if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
+	if(M.getBruteLoss() && prob(20)) M.adjustBruteLoss(-1)
 	if(holder.has_reagent("capsaicin"))
 		holder.remove_reagent("capsaicin", 2)
 	..()
@@ -187,6 +189,7 @@
 	adj_sleepy = -2
 	adj_temp = 25
 	overdose_threshold = 45
+	addiction_chance = 1 // It's true.
 
 /datum/reagent/drink/coffee/on_mob_life(var/mob/living/M as mob)
 	if(holder.has_reagent("frostoil"))
@@ -198,12 +201,9 @@
 	..()
 	return
 
-/datum/reagent/drink/coffee/overdose_process(var/mob/living/M as mob)
+/datum/reagent/drink/coffee/overdose_process(var/mob/living/M as mob, severity)
 	if(volume > 45)
 		M.Jitter(5)
-
-	..()
-	return
 
 /datum/reagent/drink/coffee/icecoffee
 	name = "Iced Coffee"
@@ -223,7 +223,7 @@
 /datum/reagent/drink/coffee/soy_latte/on_mob_life(var/mob/living/M as mob)
 	..()
 	M.sleeping = 0
-	if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
+	if(M.getBruteLoss() && prob(20)) M.adjustBruteLoss(-1)
 	return
 
 /datum/reagent/drink/coffee/cafe_latte
@@ -238,8 +238,14 @@
 	..()
 	M.sleeping = 0
 	if(M.getBruteLoss() && prob(20))
-		M.heal_organ_damage(1,0)
+		M.adjustBruteLoss(-1)
 		return
+
+/datum/reagent/drink/coffee/cafe_latte/cafe_mocha
+	name = "Cafe Mocha"
+	id = "cafe_mocha"
+	description = "The perfect blend of coffe, milk, and chocolate."
+	color = "#673629"
 
 /datum/reagent/drink/tea
 	name = "Tea"
@@ -275,7 +281,8 @@
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Clown"))
 		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 		M.nutrition += nutriment_factor
 		..()
 		return
@@ -292,7 +299,8 @@
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
 		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 		M.nutrition += nutriment_factor
 		..()
 		return

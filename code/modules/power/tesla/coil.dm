@@ -35,7 +35,10 @@
 			connect_to_network()
 		return
 
-	default_deconstruction_crowbar(W)
+	if(default_deconstruction_crowbar(W))
+		return
+
+	return ..()
 
 /obj/machinery/power/tesla_coil/tesla_act(var/power)
 	being_shocked = 1
@@ -44,8 +47,7 @@
 	flick("coilhit", src)
 	playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 5, power_produced)
-	spawn(10)
-		being_shocked = 0
+	addtimer(src, "reset_shocked", 10)
 
 /obj/machinery/power/grounding_rod
 	name = "Grounding Rod"
@@ -72,7 +74,10 @@
 	if(default_unfasten_wrench(user, W))
 		return
 
-	default_deconstruction_crowbar(W)
+	if(default_deconstruction_crowbar(W))
+		return
+
+	return ..()
 
 /obj/machinery/power/grounding_rod/tesla_act(var/power)
 	flick("coil_shock_1", src)

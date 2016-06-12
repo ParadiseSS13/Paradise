@@ -38,10 +38,9 @@ actual development.
  and why it changes it. We do not want to have to read all of you commit names to figure
  out what your pull request is about.
  - Any pull request that is not solely composed of fixes or non gameplay-affecting
- refactors must have a changelog. See [here](../html/changelogs/__CHANGELOG_README.txt)
- for more details, and [here](../html/changelogs/example.yml) for an example changelog.
- Alternatively, inline changelogs are supported through the format described
- [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466).
+ refactors must have a changelog. Inline changelogs are supported through the format
+ described [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
+ and should be used rather than manually edited .yml file changelogs.
  - Pull requests should not have any merge commits except in the case of fixing merge
  conflicts for an existing pull request. New pull requests should not have any merge
  commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
@@ -59,6 +58,9 @@ actual development.
   be a  new proc that they both can use.
  - No magic numbers/strings. If you have a number or text that is important and used in
   your code, make a `#DEFINE` statement with a name that clearly indicates it's use.
+ - If you want to output a message to a player's chat
+  (this includes text sent to `world`), use `to_chat(mob/client/world, "message")`.
+  Do not use `mob/client/world << "message"`.
  - Do not use one-line control statements (if, else, for, while, etc). The space saved
   is not worth the decreased readability.
  - Control statements comparing a variable to a constant should be formatted `variable`,

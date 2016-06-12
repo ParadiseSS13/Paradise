@@ -14,20 +14,11 @@
 	icon_living = "placeholder"
 	icon_dead = "placeholder"
 
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	melee_damage_lower = 3
 	melee_damage_upper = 7
-
-	var/weapon1
 
 /mob/living/simple_animal/hostile/winter/snowman
 	name = "snowman"
@@ -35,18 +26,18 @@
 	icon_state = "snowman"
 	icon_living = "snowman"
 	icon_dead = "snowman-dead"
-	weapon1 = /obj/item/weapon/melee/candy_sword
 
 	bodytemperature = 73.0		//it's made of snow and hatred, so it's pretty cold.
 	maxbodytemp = 280.15		//at roughly 7 C, these will start melting (dying) from the warmth. Mind over matter or something.
 	heat_damage_per_tick = 10	//Now With Rapid Thawing Action!
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 
 /mob/living/simple_animal/hostile/winter/snowman/death()
-	if(weapon1 && prob(50))		//50% chance to drop weapon on death, if it has one to drop
-		new weapon1(get_turf(src))
+	if(prob(50))		//50% chance to drop weapon on death, if it has one to drop
+		loot = list(/obj/item/weapon/melee/candy_sword)
 	if(prob(20))	//chance to become a stationary snowman structure instead of a corpse
-		new /obj/structure/snowman(get_turf(src))
+		loot.Add(/obj/structure/snowman)
 		visible_message("<span class='notice'>The [src.name] shimmers as its animating magic fades away!</span>")
 		..()		//this is just to make sure it gets properly killed before we qdel it
 		qdel(src)
@@ -58,7 +49,6 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/snowball
-	weapon1 = null
 
 /mob/living/simple_animal/hostile/winter/reindeer
 	name = "reindeer"
@@ -66,11 +56,11 @@
 	icon_state = "reindeer"
 	icon_living = "reindeer"
 	icon_dead = "reindeer-dead"
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 3)
 
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/winter/santa
 	maxHealth = 150		//if this seems low for a "boss", it's because you have to fight him multiple times, with him fully healing between stages
@@ -132,10 +122,10 @@
 	melee_damage_upper = 25		//that's gonna leave a mark, for sure
 
 /mob/living/simple_animal/hostile/winter/santa/stage_4/death()
-	world << "<span class='notice'><hr></span>"
-	world << "<span class='notice'>THE FAT MAN HAS FALLEN!</span>"
-	world << "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>"
-	world << "<span class='notice'><hr></span>"
+	to_chat(world, "<span class='notice'><hr></span>")
+	to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
+	to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")
+	to_chat(world, "<span class='notice'><hr></span>")
 	..()
 	var/obj/item/weapon/grenade/clusterbuster/xmas/X = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))
 	var/obj/item/weapon/grenade/clusterbuster/xmas/Y = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))

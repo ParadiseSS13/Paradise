@@ -15,6 +15,8 @@
 	parent_organ = "head"
 	slot = "brain"
 	vital = 1
+	var/mmi_icon = 'icons/obj/assemblies.dmi'
+	var/mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/brain/surgeryize()
 	if(!owner)
@@ -23,9 +25,12 @@
 	owner.ear_deaf = 0
 
 /obj/item/organ/internal/brain/xeno
-	name = "thinkpan"
-	desc = "It looks kind of like an enormous wad of purple bubblegum."
-	icon_state = "brain-x-d"
+	name = "xenomorph brain"
+	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
+	icon_state = "brain-x"
+	origin_tech = "biotech=7"
+	mmi_icon = 'icons/mob/alien.dmi'
+	mmi_icon_state = "AlienMMI"
 
 /obj/item/organ/internal/brain/New()
 	..()
@@ -47,17 +52,19 @@
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 
-	brainmob << "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>"
+	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>")
 	callHook("debrain", list(brainmob))
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	..(user)
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
-		user << "You can feel the small spark of life still left in this one."
+		to_chat(user, "You can feel the small spark of life still left in this one.")
 	else
-		user << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
+		to_chat(user, "This one seems particularly lifeless. Perhaps it will regain some of its luster later..")
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
+	if(dna)
+		name = "[dna.real_name]'s [initial(name)]"
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
 
@@ -67,7 +74,7 @@
 
 		if(borer)
 			borer.detatch() //Should remove borer if the brain is removed - RR
-		if(owner.mind)//don't transfer if the owner does not have a mind.
+		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
 	if(istype(owner,/mob/living/carbon/human))
@@ -77,7 +84,7 @@
 
 /obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
 
-	name = "brain"
+	name = "[initial(name)]"
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
@@ -94,7 +101,7 @@
 				brainmob.mind.transfer_to(target)
 			else
 				target.key = brainmob.key
-	..()
+	..(target, special = special, dont_remove_slot = brain_already_exists)
 
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
@@ -104,6 +111,7 @@
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
+	mmi_icon_state = "slime_mmi"
 //	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
 
 /obj/item/organ/brain/slime/take_damage(var/amount, var/silent = 1)

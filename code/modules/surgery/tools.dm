@@ -49,8 +49,8 @@
 	attack_verb = list("drilled")
 
 	suicide_act(mob/user)
-		viewers(user) << pick("<span class='suicide'>[user] is pressing [src] to \his temple and activating it! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is pressing [src] to \his chest and activating it! It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to \his temple and activating it! It looks like \he's trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is pressing [src] to \his chest and activating it! It looks like \he's trying to commit suicide.</span>"))
 		return (BRUTELOSS)
 
 
@@ -73,9 +73,9 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 	suicide_act(mob/user)
-		viewers(user) << pick("<span class='suicide'>[user] is slitting \his wrists with [src]! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is slitting \his throat with [src]! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is slitting \his stomach open with [src]! It looks like \he's trying to commit seppuku.</span>")
+		to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting \his wrists with [src]! It looks like \he's trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is slitting \his throat with [src]! It looks like \he's trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is slitting \his stomach open with [src]! It looks like \he's trying to commit seppuku.</span>"))
 		return (BRUTELOSS)
 
 
@@ -140,6 +140,7 @@
 	force = 0
 	w_class = 2.0
 	throwforce = 1.0
+	origin_tech = "materials=1;biotech=1"
 
 /obj/item/weapon/FixOVein
 	name = "FixOVein"
@@ -147,9 +148,8 @@
 	icon_state = "fixovein"
 	force = 0
 	throwforce = 1.0
-	origin_tech = "materials=1;biotech=3"
+	origin_tech = "materials=1;biotech=1"
 	w_class = 2.0
-	var/usage_amount = 10
 
 /obj/item/weapon/bonesetter
 	name = "bone setter"
@@ -161,6 +161,7 @@
 	throw_range = 5
 	w_class = 2.0
 	attack_verb = list("attacked", "hit", "bludgeoned")
+	origin_tech = "materials=1;biotech=1"
 
 /obj/item/weapon/surgical_drapes
 	name = "surgical drapes"

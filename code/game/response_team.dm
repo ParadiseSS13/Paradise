@@ -19,15 +19,15 @@ var/send_emergency_team
 		return
 
 	if(!ticker)
-		usr << "\red The game hasn't started yet!"
+		to_chat(usr, "\red The game hasn't started yet!")
 		return
 
 	if(ticker.current_state == 1)
-		usr << "\red The round hasn't started yet!"
+		to_chat(usr, "\red The round hasn't started yet!")
 		return
 
 	if(send_emergency_team)
-		usr << "\red Central Command has already dispatched an emergency response team!"
+		to_chat(usr, "\red Central Command has already dispatched an emergency response team!")
 		return
 
 	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
@@ -39,7 +39,7 @@ var/send_emergency_team
 				return
 
 	if(send_emergency_team)
-		usr << "\red Central Command has already dispatched an emergency response team!"
+		to_chat(usr, "\red Central Command has already dispatched an emergency response team!")
 		return
 
 	var/ert_type = pick_ert_type()
@@ -76,28 +76,28 @@ var/send_emergency_team
 	set desc = "Join the Emergency Response Team. Only possible if it has been called by the crew."
 
 	if(!istype(usr,/mob/dead/observer) && !istype(usr,/mob/new_player))
-		usr << "You need to be an observer or new player to use this."
+		to_chat(usr, "You need to be an observer or new player to use this.")
 		return
 
 	if(!send_emergency_team)
-		usr << "No emergency response team is currently being sent."
+		to_chat(usr, "No emergency response team is currently being sent.")
 		return
 
-	if(jobban_isbanned(usr, "Emergency Response Team"))
-		usr << "<span class='warning'>You are jobbanned from the emergency reponse team!</span>"
+	if(jobban_isbanned(usr, ROLE_ERT))
+		to_chat(usr, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
 		return
 
 	var/player_age_check = check_client_age(usr.client, responseteam_age)
 	if(player_age_check && config.use_age_restriction_for_antags)
-		usr << "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>"
+		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		usr << "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>"
+		to_chat(usr, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
 		return
 
 	if(response_team_members.len > 6)
-		usr << "The emergency response team is already full!"
+		to_chat(usr, "The emergency response team is already full!")
 		return
 
 	for (var/obj/effect/landmark/L in landmarks_list)
@@ -148,6 +148,7 @@ var/send_emergency_team
 
 /client/proc/create_response_team(obj/spawn_location)
 	var/mob/living/carbon/human/M = new(null)
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	response_team_members |= M
 
 	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
@@ -173,18 +174,18 @@ var/send_emergency_team
 		if(prob(5))
 			facial_hair_style = pick(facial_hair_styles_list)
 
-	M.r_facial = hex2num(copytext(hair_c, 2, 4))
-	M.g_facial = hex2num(copytext(hair_c, 4, 6))
-	M.b_facial = hex2num(copytext(hair_c, 6, 8))
-	M.r_hair = hex2num(copytext(hair_c, 2, 4))
-	M.g_hair = hex2num(copytext(hair_c, 4, 6))
-	M.b_hair = hex2num(copytext(hair_c, 6, 8))
+	head_organ.r_facial = hex2num(copytext(hair_c, 2, 4))
+	head_organ.g_facial = hex2num(copytext(hair_c, 4, 6))
+	head_organ.b_facial = hex2num(copytext(hair_c, 6, 8))
+	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
+	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
+	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
 	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
 	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
 	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
 	M.s_tone = skin_tone
-	M.h_style = hair_style
-	M.f_style = facial_hair_style
+	head_organ.h_style = hair_style
+	head_organ.f_style = facial_hair_style
 
 	M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
 	M.name = M.real_name
@@ -381,7 +382,7 @@ var/send_emergency_team
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest/ert/security(M), slot_wear_suit)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/advtaser(M), slot_s_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/advtaser(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/ert/security(M), slot_in_backpack)
@@ -458,7 +459,7 @@ var/send_emergency_team
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/security(M), slot_wear_suit)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/advtaser(M), slot_s_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/advtaser(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/security(M), slot_in_backpack)
@@ -531,7 +532,7 @@ var/send_emergency_team
 			M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/device/t_scanner/extended_range(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
@@ -552,7 +553,7 @@ var/send_emergency_team
 				M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/ionrifle/carbine(M), slot_in_backpack)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/carbine(M), slot_r_hand)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/carbine(M), slot_r_hand)
 
 		if("Medic")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat/swat(M), slot_shoes)
@@ -565,7 +566,7 @@ var/send_emergency_team
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/medical(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/surgery(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
@@ -584,7 +585,7 @@ var/send_emergency_team
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/lockbox/loyalty(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)

@@ -43,8 +43,6 @@ var/global/datum/controller/processScheduler/processScheduler
 
 	var/tmp/currentTick = 0
 
-	var/tmp/currentTickStart = 0
-
 	var/tmp/timeAllowance = 0
 
 	var/tmp/cpuAverage = 0
@@ -247,7 +245,7 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/recordStart(var/datum/controller/process/process, var/time = null)
 	if (isnull(time))
-		time = TimeOfHour
+		time = TimeOfGame
 		last_queued[process] = world.time
 		last_start[process] = time
 	else
@@ -256,11 +254,7 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/recordEnd(var/datum/controller/process/process, var/time = null)
 	if (isnull(time))
-		time = TimeOfHour
-
-	// If world.timeofday has rolled over, then we need to adjust.
-	if (time < last_start[process])
-		last_start[process] -= 36000
+		time = TimeOfGame
 
 	var/lastRunTime = time - last_start[process]
 
@@ -349,28 +343,22 @@ var/global/datum/controller/processScheduler/processScheduler
 		updateCurrentTickData()
 		return 0
 	else
-		return TimeOfHour - currentTickStart
+		return TimeOfTick
 
 /datum/controller/processScheduler/proc/updateCurrentTickData()
 	if (world.time > currentTick)
 		// New tick!
 		currentTick = world.time
-		currentTickStart = TimeOfHour
 		updateTimeAllowance()
 		cpuAverage = (world.cpu + cpuAverage + cpuAverage) / 3
 
 /datum/controller/processScheduler/proc/updateTimeAllowance()
 	// Time allowance goes down linearly with world.cpu.
 	var/tmp/error = cpuAverage - 100
-	var/tmp/timeAllowanceDelta = sign(error) * -0.5 * world.tick_lag * max(0, 0.001 * abs(error))
+	var/tmp/timeAllowanceDelta = SIMPLE_SIGN(error) * -0.5 * world.tick_lag * max(0, 0.001 * abs(error))
 
 	//timeAllowance = world.tick_lag * min(1, 0.5 * ((200/max(1,cpuAverage)) - 1))
 	timeAllowance = min(timeAllowanceMax, max(0, timeAllowance + timeAllowanceDelta))
-
-/datum/controller/processScheduler/proc/sign(var/x)
-	if (x == 0)
-		return 1
-	return x / abs(x)
 
 /datum/controller/processScheduler/proc/statProcesses()
 	if(!isRunning)

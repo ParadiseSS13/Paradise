@@ -67,7 +67,7 @@
 	return
 
 
-/mob/living/carbon/alien/eyecheck()
+/mob/living/carbon/alien/check_eye_prot()
 	return 2
 
 /mob/living/carbon/alien/updatehealth()
@@ -84,7 +84,7 @@
 
 	var/loc_temp = get_temperature(environment)
 
-	//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Fire protection: [heat_protection] - Location: [loc] - src: [src]"
+//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Fire protection: [heat_protection] - Location: [loc] - src: [src]")
 
 	// Aliens are now weak to fire.
 
@@ -102,28 +102,21 @@
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > 360.15)
 		//Body temperature is too hot.
-		fire_alert = max(fire_alert, 1)
+		throw_alert("alien_fire", /obj/screen/alert/alien_fire)
 		switch(bodytemperature)
 			if(360 to 400)
 				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
-				fire_alert = max(fire_alert, 2)
 			if(400 to 460)
 				apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
-				fire_alert = max(fire_alert, 2)
 			if(460 to INFINITY)
 				if(on_fire)
 					apply_damage(HEAT_DAMAGE_LEVEL_3, BURN)
-					fire_alert = max(fire_alert, 2)
 				else
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
-					fire_alert = max(fire_alert, 2)
-	return
+	else
+		clear_alert("alien_fire")
 
 /mob/living/carbon/alien/handle_mutations_and_radiation()
-	if(getFireLoss())
-		if((RESIST_HEAT in mutations) || prob(5))
-			adjustFireLoss(-1)
-
 	// Aliens love radiation nom nom nom
 	if (radiation)
 		if (radiation > 100)
@@ -196,7 +189,7 @@
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 
 
-/mob/living/carbon/alien/assess_threat(var/obj/machinery/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/alien/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 	var/threatcount = 0

@@ -287,12 +287,12 @@
 	if(istype(I, /obj/item/weapon/hatchet) && !stump)
 		if(indestructable)
 			//this bush marks the edge of the map, you can't destroy it
-			user << "\red You flail away at the undergrowth, but it's too thick here."
+			to_chat(user, "\red You flail away at the undergrowth, but it's too thick here.")
 		else
 			user.visible_message("\red <b>[user] begins clearing away [src].</b>","\red <b>You begin clearing away [src].</b>")
 			spawn(rand(15,30))
 				if(get_dist(user,src) < 2)
-					user << "\blue You clear away [src]."
+					to_chat(user, "\blue You clear away [src].")
 					var/obj/item/stack/sheet/wood/W = new(src.loc)
 					W.amount = rand(3,15)
 					if(prob(50))

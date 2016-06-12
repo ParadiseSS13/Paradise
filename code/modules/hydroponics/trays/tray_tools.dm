@@ -6,9 +6,11 @@
 
 /obj/item/device/analyzer/plant_analyzer
 	name = "plant analyzer"
+	desc = "A scanner used to evaluate a plant's various areas of growth."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
+	origin_tech = "magnets=1;biotech=1"
 	var/form_title
 	var/last_data
 
@@ -29,7 +31,7 @@
 
 /obj/item/device/analyzer/plant_analyzer/proc/print_report(var/mob/living/user)
 	if(!last_data)
-		user << "There is no scan data to print."
+		to_chat(user, "There is no scan data to print.")
 		return
 	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
@@ -99,7 +101,7 @@
 		grown_reagents = H.reagents
 
 	if(!grown_seed)
-		user << "<span class='danger'>[src] can tell you nothing about \the [target].</span>"
+		to_chat(user, "<span class='danger'>[src] can tell you nothing about \the [target].</span>")
 		return
 
 	form_title = "[grown_seed.seed_name] (#[grown_seed.uid])"
@@ -266,11 +268,12 @@
 	icon_state = "hoe"
 	item_state = "hoe"
 	flags = CONDUCT | NOBLUDGEON
-	force = 5.0
-	throwforce = 7.0
-	w_class = 2.0
+	force = 5
+	throwforce = 7
+	w_class = 2
 	materials = list(MAT_METAL=50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
 //Hatchets and things to kill kudzu
 /obj/item/weapon/hatchet
@@ -279,11 +282,11 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hatchet"
 	flags = CONDUCT
-	force = 12.0
+	force = 12
 	sharp = 1
 	edge = 1
-	w_class = 2.0
-	throwforce = 15.0
+	w_class = 2
+	throwforce = 15
 	throw_speed = 4
 	throw_range = 4
 	materials = list(MAT_METAL=15000)
@@ -302,15 +305,15 @@
 	icon_state = "scythe0"
 	name = "scythe"
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
-	force = 13.0
-	throwforce = 5.0
+	force = 13
+	throwforce = 5
 	sharp = 1
 	edge = 1
 	throw_speed = 2
 	throw_range = 3
-	w_class = 4.0
+	w_class = 4
 	var/extend = 1
-	flags = NOSHIELD
+	flags = NOSHIELD | CONDUCT
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -344,7 +347,7 @@
 /obj/item/weapon/scythe/tele/attack_self(mob/user as mob)
 	extend = !extend
 	if(extend)
-		user << "<span class ='warning'>With a flick of the wrist, you extend the scythe. It's reaping time!</span>"
+		to_chat(user, "<span class ='warning'>With a flick of the wrist, you extend the scythe. It's reaping time!</span>")
 		icon_state = "tscythe1"
 		item_state = "scythe0"
 		slot_flags &= ~SLOT_BELT
@@ -355,7 +358,7 @@
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else
-		user << "<span class ='notice'>You collapse the scythe, folding it for easy storage.</span>"
+		to_chat(user, "<span class ='notice'>You collapse the scythe, folding it for easy storage.</span>")
 		icon_state = "tscythe0"
 		item_state = "tscythe0" //no sprite in other words
 		slot_flags |= SLOT_BELT

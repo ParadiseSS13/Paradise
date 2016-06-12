@@ -17,9 +17,9 @@
 	var/obj/item/weapon/reagent_containers/beaker = null
 	var/recharged = 0
 	var/hackedcheck = 0
-	var/list/dispensable_reagents = list("hydrogen","lithium","carbon","nitrogen","oxygen","fluorine",
-	"sodium","aluminum","silicon","phosphorus","sulfur","chlorine","potassium","iron",
-	"copper","mercury","plasma","radium","water","ethanol","sugar","tungsten","iodine","bromine","silver")
+	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
+	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
+	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "tungsten", "iodine", "bromine", "silver")
 	var/list/hacked_reagents = list("toxin")
 	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
@@ -110,7 +110,7 @@
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main",var/datum/nanoui/ui = null, var/force_open = 1)
 	if(broken_requirements.len)
-		user << "<span class='warning'>[src] is broken. [broken_requirements[broken_requirements[1]]]</span>"
+		to_chat(user, "<span class='warning'>[src] is broken. [broken_requirements[broken_requirements[1]]]</span>")
 		return
 
 
@@ -207,24 +207,24 @@
 			S.use(1)
 		else
 			if(!user.drop_item())
-				user << "<span class='warning'>\The [B] is stuck to you!</span>"
+				to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 				return
 			qdel(B)
 		broken_requirements -= broken_requirements[1]
-		user << "<span class='notice'>You fix [src].</span>"
+		to_chat(user, "<span class='notice'>You fix [src].</span>")
 		return
 
 	if(src.beaker)
-		user << "<span class='warning'>Something is already loaded into the machine.</span>"
+		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
 		return
 
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks))
 		src.beaker =  B
 		if(!user.drop_item())
-			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
 		B.forceMove(src)
-		user << "<span class='notice'>You set [B] on the machine.</span>"
+		to_chat(user, "<span class='notice'>You set [B] on the machine.</span>")
 		nanomanager.update_uis(src) // update all UIs attached to src
 		if(!icon_beaker)
 			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
@@ -236,13 +236,13 @@
 	..()
 	if(istype(B, /obj/item/device/multitool))
 		if(hackedcheck == 0)
-			user << hack_message
+			to_chat(user, hack_message)
 			dispensable_reagents += hacked_reagents
 			hackedcheck = 1
 			return
 
 		else
-			user << unhack_message
+			to_chat(user, unhack_message)
 			dispensable_reagents -= hacked_reagents
 			hackedcheck = 0
 			return
@@ -266,7 +266,9 @@
 	ui_title = "Soda Dispens-o-matic"
 	energy = 100
 	max_energy = 100
-	dispensable_reagents = list("water","ice", "milk", "soymilk", "coffee","tea","hot_coco", "cola","spacemountainwind","dr_gibb","space_up","tonic","sodawater","lemon_lime", "grapejuice","sugar","orangejuice", "lemonjuice", "limejuice","tomatojuice", "banana", "watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
+	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
+	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 	hacked_reagents = list("thirteenloko")
@@ -278,10 +280,10 @@
 	energy = 100
 	max_energy = 100
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ice","cream", "cider", "beer","kahlua","whiskey","wine","vodka","gin","rum","tequilla","vermouth","cognac","ale","mead")
+	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequilla", "vermouth", "cognac", "ale", "mead", "synthanol")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
-	hacked_reagents = list("goldschlager","patron", "absinthe", "ethanol", "nothing")
+	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing")
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -344,7 +346,7 @@
 /obj/machinery/chem_dispenser/constructable/attackby(var/obj/item/I, var/mob/user, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(panel_open)
-			user << "<span class='notice'>Close the maintenance panel first.</span>"
+			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
 		..()
 	else
@@ -360,10 +362,10 @@
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(anchored)
 			anchored = 0
-			user << "<span class='caution'>\The [src] can now be moved.</span>"
+			to_chat(user, "<span class='caution'>\The [src] can now be moved.</span>")
 		else if(!anchored)
 			anchored = 1
-			user << "<span class='caution'>\The [src] is now secured.</span>"
+			to_chat(user, "<span class='caution'>\The [src] is now secured.</span>")
 
 	if(panel_open)
 		if(istype(I, /obj/item/weapon/crowbar))
@@ -429,29 +431,29 @@
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
 
 		if(src.beaker)
-			user << "<span class='warning'>A beaker is already loaded into the machine.</span>"
+			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 		if(!user.drop_item())
-			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
 		src.beaker = B
 		B.forceMove(src)
-		user << "<span class='notice'>You add the beaker to the machine!</span>"
+		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 		src.updateUsrDialog()
 		icon_state = "mixer1"
 
 	else if(istype(B, /obj/item/weapon/storage/pill_bottle))
 
 		if(src.loaded_pill_bottle)
-			user << "<span class='warning'>A pill bottle is already loaded into the machine.</span>"
+			to_chat(user, "<span class='warning'>A pill bottle is already loaded into the machine.</span>")
 			return
 
 		if(!user.drop_item())
-			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
 		src.loaded_pill_bottle = B
 		B.forceMove(src)
-		user << "<span class='notice'>You add the pill bottle into the dispenser slot!</span>"
+		to_chat(user, "<span class='notice'>You add the pill bottle into the dispenser slot!</span>")
 		src.updateUsrDialog()
 	return
 
@@ -793,7 +795,7 @@
 			default_deconstruction_crowbar(B)
 			return 1
 		else
-			user << "<span class='warning'>You can't use the [src.name] while it's panel is opened!</span>"
+			to_chat(user, "<span class='warning'>You can't use the [src.name] while it's panel is opened!</span>")
 			return 1
 	else
 		..()
@@ -817,7 +819,7 @@
 	var/list/blend_items = list (
 
 		//Sheets
-		/obj/item/stack/sheet/mineral/plasma = list("plasma" = 20),
+		/obj/item/stack/sheet/mineral/plasma = list("plasma_dust" = 20),
 		/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
 		/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
 		/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
@@ -831,7 +833,8 @@
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/weapon/reagent_containers/food/pill = list(),
-		/obj/item/weapon/reagent_containers/food = list()
+		/obj/item/weapon/reagent_containers/food = list(),
+		/obj/item/weapon/reagent_containers/honeycomb = list()
 	)
 
 	var/list/blend_tags = list (
@@ -883,7 +886,7 @@
 			return 1
 		else
 			if(!user.drop_item())
-				user << "<span class='warning'>\The [O] is stuck to you!</span>"
+				to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
 				return
 			src.beaker =  O
 			O.forceMove(src)
@@ -892,7 +895,7 @@
 			return 0
 
 	if(holdingitems && holdingitems.len >= limit)
-		usr << "<span class='warning'>The machine cannot hold anymore items.</span>"
+		to_chat(usr, "<span class='warning'>The machine cannot hold anymore items.</span>")
 		return 1
 
 	//Fill machine with the plantbag!
@@ -903,18 +906,18 @@
 			G.forceMove(src)
 			holdingitems += G
 			if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
-				user << "<span class='notice>You fill the All-In-One grinder to the brim.</span>"
+				to_chat(user, "<span class='notice>You fill the All-In-One grinder to the brim.</span>")
 				break
 
 		if(!O.contents.len)
-			user << "<span class='notice'>You empty the plant bag into the All-In-One grinder.</span>"
+			to_chat(user, "<span class='notice'>You empty the plant bag into the All-In-One grinder.</span>")
 
 		src.updateUsrDialog()
 		return 0
 
 
 	if (!is_type_in_list(O, blend_items) && !is_type_in_list(O, juice_items))
-		user << "<span class='warning'>Cannot refine into a reagent.</span>"
+		to_chat(user, "<span class='warning'>Cannot refine into a reagent.</span>")
 		return 1
 
 	user.unEquip(O)

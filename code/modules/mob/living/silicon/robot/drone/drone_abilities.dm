@@ -10,13 +10,13 @@
 		mail_destination = 0
 		return
 
-	src << "\blue You configure your internal beacon, tagging yourself for delivery to '[tag]'."
+	to_chat(src, "\blue You configure your internal beacon, tagging yourself for delivery to '[tag]'.")
 	mail_destination = TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
 	if(istype(D))
-		src << "\blue \The [D] acknowledges your signal."
+		to_chat(src, "\blue \The [D] acknowledges your signal.")
 		D.flush_count = D.flush_every_ticks
 
 	return
@@ -28,20 +28,19 @@
 
 	if (layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
-		src << text("\blue You are now hiding.")
+		to_chat(src, text("\blue You are now hiding."))
 	else
 		layer = MOB_LAYER
-		src << text("\blue You have stopped hiding.")
+		to_chat(src, text("\blue You have stopped hiding."))
 
 /mob/living/silicon/robot/drone/verb/light()
 	set name = "Light On/Off"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
 	set category = "Drone"
 
-	if(luminosity)
-		set_light(0)
-		return
-	set_light(2)
+	if(lamp_intensity)
+		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
+	control_headlamp()
 
 //Actual picking-up event.
 /mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M as mob)

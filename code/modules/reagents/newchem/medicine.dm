@@ -17,11 +17,11 @@ datum/reagent/silver_sulfadiazine/reaction_mob(var/mob/living/M as mob, var/meth
 		if(method == TOUCH)
 			M.adjustFireLoss(-volume)
 			if(show_message)
-				M << "<span class='notice'>The silver sulfadiazine soothes your burns.</span>"
+				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
-				M << "<span class='warning'>You feel sick...</span>"
+				to_chat(M, "<span class='warning'>You feel sick...</span>")
 	..()
 	return
 
@@ -44,12 +44,12 @@ datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TO
 		if(method == TOUCH)
 			M.adjustBruteLoss(-volume)
 			if(show_message)
-				M << "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>"
+				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
 			M.emote("scream")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
-				M << "<span class='warning'>You feel gross!</span>"
+				to_chat(M, "<span class='warning'>You feel gross!</span>")
 	..()
 	return
 
@@ -65,6 +65,7 @@ datum/reagent/salglu_solution
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	penetrates_skin = 1
 	metabolization_rate = 0.15
 
 datum/reagent/salglu_solution/on_mob_life(var/mob/living/M as mob)
@@ -89,7 +90,7 @@ datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vo
 			M.adjustBruteLoss(-1.5*volume)
 			M.adjustFireLoss(-1.5*volume)
 			if(show_message)
-				M << "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>"
+				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
 	..()
 	return
 
@@ -168,8 +169,9 @@ datum/reagent/omnizine
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
 	overdose_threshold = 30
+	addiction_chance = 5
 
-datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1*REM)
 	M.adjustOxyLoss(-1*REM)
@@ -180,13 +182,39 @@ datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/omnizine/overdose_process(var/mob/living/M as mob)
-	M.adjustToxLoss(3*REM)
-	M.adjustOxyLoss(3*REM)
-	M.adjustBruteLoss(3*REM)
-	M.adjustFireLoss(3*REM)
-	..()
-	return
+/datum/reagent/omnizine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1) //lesser
+		M.stuttering += 1
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.emote("scream")
+			M.Stun(4)
+			M.Weaken(4)
+		else if(effect <= 3)
+			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
+			M.confused += 15
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.Dizzy(5)
+			M.Weaken(3)
+		else if(effect <= 7)
+			M.visible_message("<span class='warning'>[M] shakes uncontrollably.</span>")
+			M.Jitter(30)
+	else if(severity == 2) // greater
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.emote("scream")
+			M.Stun(7)
+			M.Weaken(7)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
+			M.Paralyse(5)
+			M.Weaken(4)
+		else if(effect <= 8)
+			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.Dizzy(5)
+			M.Weaken(3)
 
 datum/reagent/calomel
 	name = "Calomel"
@@ -203,7 +231,7 @@ datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 			M.reagents.remove_reagent(R.id,5)
 	if(M.health > 20)
 		M.adjustToxLoss(5*REM)
-	if(prob(10))
+	if(prob(6))
 		M.fakevomit()
 	..()
 	return
@@ -226,11 +254,8 @@ datum/reagent/potass_iodide
 
 datum/reagent/potass_iodide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.radiation > 0)
-		if(prob(80))
-			M.radiation--
-	if(M.radiation < 0)
-		M.radiation = 0
+	if(prob(80))
+		M.radiation = max(0, M.radiation-1)
 	..()
 	return
 
@@ -251,18 +276,15 @@ datum/reagent/pen_acid
 
 datum/reagent/pen_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.radiation > 0)
-		M.radiation -= 7
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			M.reagents.remove_reagent(R.id,4)
+	M.radiation = max(0, M.radiation-7)
 	if(prob(75))
 		M.adjustToxLoss(-4*REM)
 	if(prob(33))
 		M.adjustBruteLoss(1*REM)
 		M.adjustFireLoss(1*REM)
-	if(M.radiation < 0)
-		M.radiation = 0
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
 	..()
 	return
 
@@ -295,13 +317,6 @@ datum/reagent/sal_acid/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/sal_acid/overdose_process(var/mob/living/M as mob)
-	if(volume > 25)
-		if(prob(8))
-			M.adjustToxLoss(rand(1,2))
-	..()
-	return
-
 /datum/chemical_reaction/sal_acid
 	name = "Salicyclic Acid"
 	id = "sal_acid"
@@ -322,8 +337,7 @@ datum/reagent/salbutamol
 datum/reagent/salbutamol/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustOxyLoss(-6*REM)
-	if(M.losebreath >= 4)
-		M.losebreath -= 4
+	M.losebreath = max(0, M.losebreath-4)
 	..()
 	return
 
@@ -343,11 +357,14 @@ datum/reagent/perfluorodecalin
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
+	addiction_chance = 20
 
 datum/reagent/perfluorodecalin/on_mob_life(var/mob/living/carbon/human/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustOxyLoss(-25*REM)
-	M.silent = max(M.silent, 5)
+	if(volume >= 4)
+		M.losebreath = max(M.losebreath, 6)
+		M.silent = max(M.silent, 6)
 	if(prob(33))
 		M.adjustBruteLoss(-1*REM)
 		M.adjustFireLoss(-1*REM)
@@ -364,56 +381,54 @@ datum/reagent/perfluorodecalin/on_mob_life(var/mob/living/carbon/human/M as mob)
 	mix_message = "The mixture rapidly turns into a dense pink liquid."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-datum/reagent/ephedrine
+/datum/reagent/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
 	description = "Ephedrine is a plant-derived stimulant."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.3
-	overdose_threshold = 45
-	addiction_threshold = 30
+	overdose_threshold = 35
+	addiction_chance = 25
 
-datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
 	M.adjustStaminaLoss(-1*REM)
+	if(M.losebreath > 5)
+		M.losebreath = max(5, M.losebreath-1)
+	if(M.oxyloss > 75)
+		M.adjustOxyLoss(-1)
+	if(M.health < 0 || M.health > 0 && prob(33))
+		M.adjustToxLoss(-1)
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
 	..()
 	return
 
-datum/reagent/ephedrine/overdose_process(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(1*REM)
-		M.losebreath++
-	..()
-	return
-
-datum/reagent/ephedrine/addiction_act_stage1(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(2*REM)
-		M.losebreath += 2
-	..()
-	return
-datum/reagent/ephedrine/addiction_act_stage2(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(3*REM)
-		M.losebreath += 3
-	..()
-	return
-datum/reagent/ephedrine/addiction_act_stage3(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(4*REM)
-		M.losebreath += 4
-	..()
-	return
-datum/reagent/ephedrine/addiction_act_stage4(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(5*REM)
-		M.losebreath += 5
-	..()
-	return
+/datum/reagent/ephedrine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 3)
+			M.emote(pick("groan","moan"))
+		if(effect <= 8)
+			M.emote("collapse")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M.name] staggers and drools, their eyes bloodshot!</span>")
+			M.Dizzy(2)
+			M.Weaken(3)
+		if(effect <= 15)
+			M.emote("collapse")
 
 /datum/chemical_reaction/ephedrine
 	name = "Ephedrine"
@@ -429,12 +444,19 @@ datum/reagent/diphenhydramine
 	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
 	reagent_state = LIQUID
 	color = "#5BCBE1"
+	addiction_chance = 10
+
 datum/reagent/diphenhydramine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.drowsyness += 1
-	M.jitteriness -= 1
+	M.jitteriness = max(0, M.jitteriness-20)
 	M.reagents.remove_reagent("histamine",3)
 	M.reagents.remove_reagent("itching_powder",3)
+	if(prob(7))
+		M.emote("yawn")
+	if(prob(3))
+		M.Stun(2)
+		M.drowsyness += 1
+		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
 	..()
 	return
 
@@ -453,76 +475,26 @@ datum/reagent/morphine
 	description = "A strong but highly addictive opiate painkiller with sedative side effects."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	overdose_threshold = 30
-	addiction_threshold = 25
+	overdose_threshold = 20
+	addiction_chance = 50
 	shock_reduction = 50
 
 datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.status_flags |= IGNORESLOWDOWN
+	M.jitteriness = max(0, M.jitteriness-25)
 	switch(current_cycle)
-		if(0 to 15)
-			if(prob(5))
+		if(1 to 15)
+			if(prob(7))
 				M.emote("yawn")
 		if(16 to 35)
-			M.drowsyness = max(M.drowsyness, 10)
+			M.drowsyness = max(M.drowsyness, 20)
 		if(36 to INFINITY)
-			M.Paralyse(10)
-			M.drowsyness = max(M.drowsyness, 15)
+			M.Paralyse(15)
+			M.drowsyness = max(M.drowsyness, 20)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.traumatic_shock < 100)
 			H.shock_stage = 0
-	..()
-	return
-
-datum/reagent/morphine/overdose_process(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.Dizzy(1)
-		M.Jitter(1)
-	..()
-	return
-
-datum/reagent/morphine/addiction_act_stage1(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.Dizzy(2)
-		M.Jitter(2)
-	..()
-	return
-datum/reagent/morphine/addiction_act_stage2(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.adjustToxLoss(1*REM)
-		M.Dizzy(3)
-		M.Jitter(3)
-	..()
-	return
-datum/reagent/morphine/addiction_act_stage3(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.adjustToxLoss(2*REM)
-		M.Dizzy(4)
-		M.Jitter(4)
-	..()
-	return
-datum/reagent/morphine/addiction_act_stage4(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.adjustToxLoss(3*REM)
-		M.Dizzy(5)
-		M.Jitter(5)
 	..()
 	return
 
@@ -571,30 +543,25 @@ datum/reagent/atropine
 	reagent_state = LIQUID
 	color = "#000000"
 	metabolization_rate = 0.2
-	overdose_threshold = 35
+	overdose_threshold = 25
 
 datum/reagent/atropine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.health > -60)
-		M.adjustToxLoss(1*REM)
-	if(M.health < -25)
-		M.adjustBruteLoss(-3*REM)
-		M.adjustFireLoss(-3*REM)
+	M.dizziness += 1
+	M.confused = max(M.confused, 5)
+	if(prob(4))
+		M.emote("collapse")
+	if(M.losebreath > 5)
+		M.losebreath = max(5, M.losebreath-5)
 	if(M.oxyloss > 65)
 		M.adjustOxyLoss(-10*REM)
-	if(M.losebreath > 5)
-		M.losebreath = 5
-	if(M.confused > 60)
-		M.confused += 5
-	M.reagents.remove_reagent("tabun",10)
-	..()
-	return
-
-datum/reagent/atropine/overdose_process(var/mob/living/M as mob)
-	if(prob(50))
-		M.adjustToxLoss(2*REM)
-		M.Dizzy(1)
-		M.Jitter(1)
+	if(M.health < -25)
+		M.adjustToxLoss(-1)
+		M.adjustBruteLoss(-3*REM)
+		M.adjustFireLoss(-3*REM)
+	else if(M.health > -60)
+		M.adjustToxLoss(1)
+	M.reagents.remove_reagent("sarin", 20)
 	..()
 	return
 
@@ -613,28 +580,53 @@ datum/reagent/epinephrine
 	reagent_state = LIQUID
 	color = "#96B1AE"
 	metabolization_rate = 0.2
-	overdose_threshold = 30
+	overdose_threshold = 20
 
 datum/reagent/epinephrine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.drowsyness = max(0, M.drowsyness-5)
+	if(prob(20))
+		M.AdjustParalysis(-1)
+	if(prob(20))
+		M.AdjustStunned(-1)
+	if(prob(20))
+		M.AdjustWeakened(-1)
+	if(prob(5))
+		M.SetSleeping(0)
+	if(prob(5))
+		M.adjustBrainLoss(-1)
+	holder.remove_reagent("histamine", 15)
+	if(M.losebreath > 3)
+		M.losebreath--
+	if(M.oxyloss > 35)
+		M.adjustOxyLoss(-10*REM)
 	if(M.health < -10 && M.health > -65)
 		M.adjustToxLoss(-1*REM)
 		M.adjustBruteLoss(-1*REM)
 		M.adjustFireLoss(-1*REM)
-	if(M.oxyloss > 35)
-		M.adjustOxyLoss(-10*REM)
-	if(M.losebreath >= 3)
-		M.losebreath = 3
 	..()
 	return
 
-datum/reagent/epinephrine/overdose_process(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustStaminaLoss(5*REM)
-		M.adjustToxLoss(2*REM)
-		M.losebreath++
-	..()
-	return
+/datum/reagent/epinephrine/overdose_process(var/mob/living/M as mob, severity)
+	var/effect = ..()
+	if (severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 3)
+			M.emote(pick("groan","moan"))
+		if(effect <= 8)
+			M.emote("collapse")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.Dizzy(2)
+			M.Weaken(3)
+		if(effect <= 15)
+			M.emote("collapse")
 
 /datum/chemical_reaction/epinephrine
 	name = "Epinephrine"
@@ -654,11 +646,14 @@ datum/reagent/strange_reagent
 	metabolization_rate = 0.2
 
 datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume)
-	if(istype(M, /mob/living/simple_animal))
+	if(isanimal(M))
 		if(method == TOUCH)
-			if(M.stat == DEAD)
-				M.revive()
-				M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+			var/mob/living/simple_animal/SM = M
+			if(SM.stat == DEAD)
+				SM.revive()
+				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
+				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+
 	if(istype(M, /mob/living/carbon))
 		if(method == INGEST)
 			if(M.stat == DEAD)
@@ -668,8 +663,8 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
-					ghost << "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
-					ghost << sound('sound/effects/genetics.ogg')
+					to_chat(ghost, "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					to_chat(ghost, sound('sound/effects/genetics.ogg'))
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
@@ -717,34 +712,6 @@ datum/reagent/life
 
 /datum/chemical_reaction/life/on_reaction(var/datum/reagents/holder, var/created_volume)
 	chemical_mob_spawn(holder, 1, "Life")
-
-proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reaction_name, var/mob_faction = "chemicalsummon")
-	if(holder && holder.my_atom)
-		var/blocked =  blocked_mobs //global variable for blocked mobs
-
-		var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
-		var/atom/A = holder.my_atom
-		var/turf/T = get_turf(A)
-		var/area/my_area = get_area(T)
-		var/message = "A [reaction_name] reaction has occured in (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[my_area.name]</A>)"
-		var/mob/M = get(A, /mob)
-		if(M)
-			message += " - carried by: [key_name_admin(M)]"
-		else
-			message += " - last fingerprint: [(A.fingerprintslast ? A.fingerprintslast : "N/A")]"
-
-		message_admins(message, 0, 1)
-
-		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
-
-		for(var/i = 1, i <= amount_to_spawn, i++)
-			var/chosen = pick(critters)
-			var/mob/living/simple_animal/hostile/C = new chosen
-			C.faction |= mob_faction
-			C.loc = get_turf(holder.my_atom)
-			if(prob(50))
-				for(var/j = 1, j <= rand(1, 3), j++)
-					step(C, pick(NORTH,SOUTH,EAST,WEST))
 
 /datum/reagent/mannitol/on_mob_life(mob/living/M as mob)
 	M.adjustBrainLoss(-3)
@@ -806,12 +773,9 @@ datum/reagent/antihol
 	color = "#009CA8"
 
 datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
-	M.dizziness = 0
-	M.drowsyness = 0
 	M.slurring = 0
-	M.confused = 0
 	M.reagents.remove_all_type(/datum/reagent/ethanol, 8, 0, 1)
-	if(M.health < 25)
+	if(M.toxloss <= 25)
 		M.adjustToxLoss(-2.0)
 	..()
 
@@ -833,21 +797,30 @@ datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
 
 datum/reagent/stimulants/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustOxyLoss(-5*REM)
-	M.adjustToxLoss(-5*REM)
-	M.adjustBruteLoss(-10*REM)
-	M.adjustFireLoss(-10*REM)
-	M.setStaminaLoss(0)
-	var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-	M.status_flags &= ~status
+	if(volume > 5)
+		M.adjustOxyLoss(-5*REM)
+		M.adjustToxLoss(-5*REM)
+		M.adjustBruteLoss(-10*REM)
+		M.adjustFireLoss(-10*REM)
+		M.setStaminaLoss(0)
+		M.slowed = 0
+		M.dizziness = max(0,M.dizziness-10)
+		M.drowsyness = max(0,M.drowsyness-10)
+		M.confused = 0
+		M.SetSleeping(0)
+		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
+		M.status_flags &= ~status
+	else
+		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		M.adjustToxLoss(2)
+		M.adjustBruteLoss(1)
+		if(prob(10))
+			M.Stun(3)
 	..()
 
 datum/reagent/stimulants/reagent_deleted(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
-	M.adjustBruteLoss(12)
-	M.adjustToxLoss(24)
-	M.Stun(4)
 	..()
 	return
 
@@ -872,13 +845,11 @@ datum/reagent/stimulants/reagent_deleted(var/mob/living/M as mob)
 	M.adjustStaminaLoss(-5*REM)
 	..()
 
-/datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M)
+/datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	if(prob(33))
 		M.adjustStaminaLoss(2.5*REM)
 		M.adjustToxLoss(1*REM)
 		M.losebreath++
-	..()
-	return
 
 datum/reagent/insulin
 	name = "Insulin"
@@ -914,6 +885,8 @@ datum/reagent/teporone
 	description = "This experimental plasma-based compound seems to regulate body temperature."
 	reagent_state = LIQUID
 	color = "#D782E6"
+	addiction_chance = 20
+	overdose_threshold = 50
 
 datum/reagent/teporone/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -948,14 +921,15 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	M.reagents.remove_reagent("psilocybin", 5)
 	M.reagents.remove_reagent("ephedrine", 5)
 	M.reagents.remove_reagent("epinephrine", 5)
-	M.reagents.remove_reagent("stimulants", 5)
+	M.reagents.remove_reagent("stimulants", 3)
 	M.reagents.remove_reagent("bath_salts", 5)
 	M.reagents.remove_reagent("lsd", 5)
+	M.reagents.remove_reagent("thc", 5)
 	M.druggy -= 5
 	M.hallucination -= 5
 	M.jitteriness -= 5
-	if(prob(40))
-		M.drowsyness = max(M.drowsyness, 2)
+	if(prob(50))
+		M.drowsyness = max(M.drowsyness, 3)
 	if(prob(10))
 		M.emote("drool")
 	if(prob(20))
@@ -981,15 +955,16 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 
 /datum/reagent/ether/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.jitteriness = max(M.jitteriness-25,0)
 	switch(current_cycle)
-		if(0 to 15)
-			if(prob(5))
+		if(1 to 15)
+			if(prob(7))
 				M.emote("yawn")
 		if(16 to 35)
-			M.drowsyness = max(M.drowsyness, 10)
+			M.drowsyness = max(M.drowsyness, 20)
 		if(36 to INFINITY)
-			M.Paralyse(10)
-			M.drowsyness = max(M.drowsyness, 15)
+			M.Paralyse(15)
+			M.drowsyness = max(M.drowsyness, 20)
 	..()
 	return
 
@@ -1034,7 +1009,7 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
-		M.confused -= 5
+		M.confused = max(0, M.confused-5)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			if(R.id == "ultralube" || R.id == "lube")

@@ -18,27 +18,6 @@
 		message = replacetext(message,"!","!!")
 		return uppertext(message)
 
-/* BROKEN WITH NEW SAYCODE
-/datum/dna/gene/disability/speech/whisper
-	name = "Quiet"
-	desc = "Damages the subjects vocal cords"
-	activation_message = "<i>Your throat feels sore..</i>"
-	deactivation_message = "You feel fine again."
-
-	New()
-		..()
-		block=WHISPERBLOCK
-
-	can_activate(var/mob/M,var/flags)
-		// No loud whispering.
-		if(LOUD in M.mutations)
-			return 0
-		return ..(M,flags)
-
-	OnSay(var/mob/M, var/message)
-		M.whisper(message)
-*/
-
 /datum/dna/gene/disability/dizzy
 	name = "Dizzy"
 	desc = "Causes the cerebellum to shut down in some places."

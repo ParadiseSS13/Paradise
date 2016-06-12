@@ -41,7 +41,7 @@
 	if(href_list["create_area"])
 		if(get_area_type()==AREA_SPACE)
 			create_area()
-	updateUsrDialog()
+
 
 
 //One-use area creation permits.
@@ -77,6 +77,12 @@
 	icon_state = "blueprints"
 	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-secure storage."
 	w_class = 3
+	var/list/showing = list()
+	var/client/viewing
+
+/obj/item/areaeditor/blueprints/Destroy()
+	clear_viewer()
+	return ..()
 
 
 /obj/item/areaeditor/blueprints/attack_self(mob/user as mob)
@@ -85,6 +91,11 @@
 	if(get_area_type() == AREA_STATION)
 		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 		. += "<p>You may <a href='?src=\ref[src];edit_area=1'> move an amendment</a> to the drawing.</p>"
+	if(!viewing)
+		. += "<p><a href='?src=\ref[src];view_blueprints=1'>View structural data</a></p>"
+	else
+		. += "<p><a href='?src=\ref[src];refresh=1'>Refresh structural data</a></p>"
+		. += "<p><a href='?src=\ref[src];hide_blueprints=1'>Hide structural data</a></p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -97,8 +108,43 @@
 		if(get_area_type()!=AREA_STATION)
 			return
 		edit_area()
-	updateUsrDialog()
+	if(href_list["view_blueprints"])
+		set_viewer(usr, "<span class='notice'>You flip the blueprints over to view the complex information diagram.</span>")
+	if(href_list["hide_blueprints"])
+		clear_viewer(usr, "<span class='notice'>You flip the blueprints over to view the simple information diagram.</span>")
+	if(href_list["refresh"])
+		clear_viewer(usr)
+		set_viewer(usr)
 
+	attack_self(usr)
+/obj/item/areaeditor/blueprints/proc/get_images(turf/T, viewsize)
+	. = list()
+	for(var/tt in RANGE_TURFS(viewsize, T))
+		var/turf/TT = tt
+		if(TT.blueprint_data)
+			. += TT.blueprint_data
+
+/obj/item/areaeditor/blueprints/proc/set_viewer(mob/user, message = "")
+	if(user && user.client)
+		if(viewing)
+			clear_viewer()
+		viewing = user.client
+		showing = get_images(get_turf(user), viewing.view)
+		viewing.images |= showing
+		if(message)
+			to_chat(user, message)
+
+/obj/item/areaeditor/blueprints/proc/clear_viewer(mob/user, message = "")
+	if(viewing)
+		viewing.images -= showing
+		viewing = null
+	showing.Cut()
+	if(message)
+		to_chat(user, message)
+
+/obj/item/areaeditor/blueprints/dropped(mob/user)
+	..()
+	clear_viewer()
 
 /obj/item/areaeditor/proc/get_area()
 	var/turf/T = get_turf(usr)
@@ -132,26 +178,26 @@
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
-				usr << "<span class='warning'>The new area must be completely airtight.</span>"
+				to_chat(usr, "<span class='warning'>The new area must be completely airtight.</span>")
 				return
 			if(ROOM_ERR_TOOLARGE)
-				usr << "<span class='warning'>The new area is too large.</span>"
+				to_chat(usr, "<span class='warning'>The new area is too large.</span>")
 				return
 			else
-				usr << "<span class='warning'>Error! Please notify administration.</span>"
+				to_chat(usr, "<span class='warning'>Error! Please notify administration.</span>")
 				return
 	var/list/turf/turfs = res
 	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", "", MAX_NAME_LEN))
 	if(!str || !length(str)) //cancel
 		return
 	if(length(str) > 50)
-		usr << "<span class='warning'>The given name is too long.  The area remains undefined.</span>"
+		to_chat(usr, "<span class='warning'>The given name is too long.  The area remains undefined.</span>")
 		return
 	var/area/A = new
 	A.name = str
 	//var/ma
 	//ma = A.master ? "[A.master]" : "(null)"
-	//world << "DEBUG: create_area: <br>A.name=[A.name]<br>A.tag=[A.tag]<br>A.master=[ma]"
+//	to_chat(world, "DEBUG: create_area: <br>A.name=[A.name]<br>A.tag=[A.tag]<br>A.master=[ma]")
 	A.power_equip = 0
 	A.power_light = 0
 	A.power_environ = 0
@@ -173,13 +219,13 @@
 	if(!str || !length(str) || str==prevname) //cancel
 		return
 	if(length(str) > 50)
-		usr << "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>"
+		to_chat(usr, "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>")
 		return
 	set_area_machinery_title(A,str,prevname)
 	A.name = str
-	usr << "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>"
+	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
 	interact()
-	return
+	return 1
 
 
 /obj/item/areaeditor/proc/set_area_machinery_title(var/area/A,var/title,var/oldtitle)

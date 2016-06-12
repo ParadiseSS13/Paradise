@@ -597,7 +597,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 /atom/proc/test_telecomms()
 	var/datum/signal/signal = src.telecomms_process()
 	var/turf/position = get_turf(src)
-	return (position.z in signal.data["level"] && signal.data["done"])
+	return (position.z in signal.data["level"]) && signal.data["done"]
 
 /atom/proc/telecomms_process(var/do_sleep = 1)
 
@@ -621,7 +621,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
   //#### Sending the signal to all subspace receivers ####//
 	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
-		R.receive_signal(signal)
+		spawn(0)
+			R.receive_signal(signal)
 
 	if(do_sleep)
 		sleep(rand(10,25))

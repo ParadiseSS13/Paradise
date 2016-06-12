@@ -67,7 +67,7 @@
 "bo" = (/obj/structure/table,/obj/item/weapon/storage/box/beakers,/obj/item/weapon/storage/box/syringes,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bp" = (/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bq" = (/obj/structure/mineral_door/wood{tag = "icon-wood"; icon_state = "wood"},/turf/simulated/floor/wood,/area/awaymission/challenge/main)
-"br" = (/obj/machinery/bot/medbot/mysterious,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
+"br" = (/mob/living/simple_animal/bot/medbot/mysterious,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bs" = (/obj/machinery/space_heater,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bt" = (/obj/structure/table,/obj/item/clothing/accessory/stethoscope,/obj/item/bodybag,/obj/item/weapon/storage/box/beakers,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bu" = (/obj/machinery/vending/cola,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)

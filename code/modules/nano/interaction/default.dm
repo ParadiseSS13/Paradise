@@ -97,3 +97,9 @@
 		. = min(., shared_living_nano_distance(src_object))
 		if(!IsAdvancedToolUser())
 			. = STATUS_CLOSE
+
+/mob/living/simple_animal/bot/default_can_use_topic(var/src_object)
+	. = shared_nano_interaction(src_object)
+	if(. != STATUS_CLOSE)
+		if(!(src_object in contents))
+			. = STATUS_CLOSE

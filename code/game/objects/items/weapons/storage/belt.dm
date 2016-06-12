@@ -6,7 +6,16 @@
 	item_state = "utility"
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
+	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
 
+
+/obj/item/weapon/storage/belt/update_icon()
+	if(use_item_overlays)
+		overlays.Cut()
+		for(var/obj/item/I in contents)
+			overlays += "[I.name]"
+
+	..()
 
 /obj/item/weapon/storage/belt/proc/can_use()
 	return is_equipped()
@@ -35,6 +44,7 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/crowbar",
 		"/obj/item/weapon/screwdriver",
@@ -81,6 +91,7 @@
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
 	item_state = "medical"
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/device/healthanalyzer",
 		"/obj/item/weapon/dnainjector",
@@ -120,6 +131,7 @@
 	desc = "Can hold various botanical supplies."
 	icon_state = "botanybelt"
 	item_state = "botany"
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/device/analyzer/plant_analyzer",
 		"/obj/item/weapon/minihoe",
@@ -127,8 +139,8 @@
 		"/obj/item/weapon/reagent_containers/glass/fertilizer",
 		"/obj/item/weapon/reagent_containers/glass/bottle",
 		"/obj/item/weapon/plantspray",
-		"/obj/item/weapon/reagent_containers/syringe",
-		"/obj/item/weapon/reagent_containers/glass/beaker",
+//		"/obj/item/weapon/reagent_containers/syringe",
+//		"/obj/item/weapon/reagent_containers/glass/beaker",
 		"/obj/item/weapon/lighter/zippo",
 		"/obj/item/weapon/storage/fancy/cigarettes",
 		"obj/item/weapon/rollingpaperpack",
@@ -148,6 +160,7 @@
 	item_state = "security"//Could likely use a better one.
 	storage_slots = 5
 	max_w_class = 3
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/flashbang",
 		"/obj/item/weapon/grenade/chem_grenade/teargas",
@@ -185,6 +198,7 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/device/soulstone"
 		)
@@ -230,6 +244,7 @@
 	item_state = "janibelt"
 	storage_slots = 6
 	max_w_class = 4 // Set to this so the  light replacer can fit.
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/chem_grenade/cleaner",
 		"/obj/item/device/lightreplacer",
@@ -300,6 +315,21 @@
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 
+/obj/item/weapon/storage/belt/bandolier/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]_[contents.len]"
+
+/obj/item/weapon/storage/belt/bandolier/attackby(obj/item/W, mob/user)
+	var/amount = contents.len
+	. = ..()
+	if(amount != contents.len)
+		update_icon()
+
+/obj/item/weapon/storage/belt/lazabandolierrus/remove_from_storage(obj/item/W as obj, atom/new_location)
+	..()
+	update_icon()
+
+
 /obj/item/weapon/storage/belt/holster
 	name = "shoulder holster"
 	desc = "A holster to conceal a carried handgun. WARNING: Badasses only."
@@ -318,6 +348,7 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
+	use_item_overlays = 1
 	can_hold = list(
 		"/obj/item/weapon/gun/magic/wand"
 		)
@@ -413,9 +444,10 @@
 	proc/failcheck(mob/user as mob)
 		if (prob(src.reliability)) return 1 //No failure
 		if (prob(src.reliability))
-			user << "\red The Bluespace portal resists your attempt to add another item." //light failure
+			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
+
 		else
-			user << "\red The Bluespace generator malfunctions!"
+			to_chat(user, "\red The Bluespace generator malfunctions!")
 			for (var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
@@ -490,7 +522,7 @@
 		return
 	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/structure/table) || istype(target, /obj/structure/closet))
 		return
-	user << "Planting explosives..."
+	to_chat(user, "Planting explosives...")
 	user.visible_message("[user.name] is fiddling with their toolbelt.")
 	if(ismob(target))
 		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
@@ -508,7 +540,7 @@
 			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
-		user << "You sacrifice your belt for the sake of justice. Timer counting down from 15."
+		to_chat(user, "You sacrifice your belt for the sake of justice. Timer counting down from 15.")
 		spawn(150)
 			if(target)
 				if(ismob(target) || isobj(target))

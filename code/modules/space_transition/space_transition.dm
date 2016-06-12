@@ -87,7 +87,7 @@ var/list/z_levels_list = list()
 	var/datum/space_level/D
 	var/list/config_settings[SLS.len][]
 	for(var/A in SLS)
-		config_settings[SLS.Find(A)] = text2list(A, ";")
+		config_settings[SLS.Find(A)] = splittext(A, ";")
 	var/conf_set_len = SLS.len
 	SLS.Cut()
 	for(var/A in config_settings)

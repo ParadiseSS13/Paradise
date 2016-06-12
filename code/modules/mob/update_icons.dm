@@ -7,9 +7,6 @@
 /mob/proc/update_icons()
 	return
 
-/mob/proc/update_hud()
-	return
-
 /mob/proc/update_inv_handcuffed()
 	return
 
@@ -61,13 +58,10 @@
 /mob/proc/update_inv_pockets()
 	return
 
-mob/proc/update_inv_wear_pda()
+/mob/proc/update_inv_wear_pda()
 	return
 
 /mob/proc/update_inv_ears()
-	return
-
-/mob/proc/update_targeted()
 	return
 
 /mob/proc/update_transform()

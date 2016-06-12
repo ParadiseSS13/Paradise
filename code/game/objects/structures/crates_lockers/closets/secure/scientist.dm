@@ -10,7 +10,6 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/storage/backpack/science(src)
 		new /obj/item/weapon/storage/backpack/satchel_tox(src)
 		new /obj/item/clothing/under/rank/scientist(src)
@@ -22,7 +21,6 @@
 		new /obj/item/weapon/tank/air(src)
 		new /obj/item/clothing/mask/gas(src)
 		new /obj/item/clothing/shoes/sandal/white(src)
-		return
 
 
 
@@ -38,7 +36,6 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/clothing/suit/bio_suit/scientist(src)
 		new /obj/item/clothing/head/bio_hood/scientist(src)
 		new /obj/item/clothing/under/rank/research_director(src)
@@ -52,7 +49,7 @@
 		new /obj/item/clothing/suit/armor/reactive(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/device/laser_pointer(src)
-		return
+		new /obj/item/weapon/door_remote/research_director(src)
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"
@@ -68,7 +65,6 @@
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/morphine(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/morphine(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/morphine(src)
@@ -83,4 +79,3 @@
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acid(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine(src)
-		return

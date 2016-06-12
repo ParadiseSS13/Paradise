@@ -54,7 +54,51 @@
 
 	if(src.occupant)
 		process_occupant()
+
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+		if(M == occupant)
+			continue
+		else
+			M.forceMove(src.loc)
 	return 1
+
+/obj/machinery/recharge_station/ex_act(severity)
+	switch(severity)
+		if(1.0)
+			for(var/atom/movable/A as mob|obj in src)
+				A.forceMove(src.loc)
+				A.ex_act(severity)
+			qdel(src)
+			return
+		if(2.0)
+			if (prob(50))
+				for(var/atom/movable/A as mob|obj in src)
+					A.forceMove(src.loc)
+					A.ex_act(severity)
+				qdel(src)
+				return
+		if(3.0)
+			if (prob(25))
+				for(var/atom/movable/A as mob|obj in src)
+					A.forceMove(src.loc)
+					A.ex_act(severity)
+				qdel(src)
+				return
+
+/obj/machinery/recharge_station/blob_act()
+	if(prob(50))
+		var/atom/movable/A = occupant
+		go_out()
+		A.blob_act()
+		qdel(src)
+
+/obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
+	if(M.environment_smash)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		go_out()
+		qdel(src)
+	return
 
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
 	move_inside(AM)
@@ -89,7 +133,7 @@
 /obj/machinery/recharge_station/attackby(obj/item/P as obj, mob/user as mob, params)
 	if (istype(P, /obj/item/weapon/screwdriver))
 		if(src.occupant)
-			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", P)
 		return
@@ -159,7 +203,8 @@
 					if(istype(O,/obj/item/weapon/gun/energy/disabler/cyborg))
 						var/obj/item/weapon/gun/energy/disabler/cyborg/D = O
 						if(D.power_supply.charge < D.power_supply.maxcharge)
-							D.power_supply.give(D.charge_cost)
+							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
+							D.power_supply.give(E.e_cost)
 							D.update_icon()
 						else
 							D.charge_tick = 0
@@ -210,12 +255,18 @@
 /obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
+	if(!user || !usr)
+		return
 
-	if(!user)
+	if (usr.stat != CONSCIOUS)
+		return
+
+	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
+		to_chat(usr, "They are too far away to put inside")
 		return
 
 	if (panel_open)
-		usr << "<span class='warning'>Close the maintenance panel first.</span>"
+		to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		return
 
 	var/can_accept_user
@@ -226,10 +277,10 @@
 			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
 			return
 		if(occupant)
-			R << "<span class='warning'>The cell is already occupied!</span>"
+			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
 		if(!R.cell)
-			R << "<span class='warning'>Without a power cell, you can't be recharged.</span>"
+			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
 		can_accept_user = 1
@@ -240,14 +291,14 @@
 		if(H.stat == DEAD)
 			return
 		if(occupant)
-			H << "<span class='warning'>The cell is already occupied!</span>"
+			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
 		if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			return
 		can_accept_user = 1
 
 	if(!can_accept_user)
-		user << "<span class='notice'>Only non-organics may enter the recharger!</span>"
+		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 		return
 
 	user.stop_pulling()

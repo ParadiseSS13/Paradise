@@ -37,4 +37,4 @@
 			
 /datum/event/undead/announce()
 	for(var/mob/living/M in player_list)
-		M << "You feel [pick("a chill","a deathly chill","the undead","dirty", "creeped out","afraid","fear")]!"
+		to_chat(M, "You feel [pick("a chill","a deathly chill","the undead","dirty", "creeped out","afraid","fear")]!")

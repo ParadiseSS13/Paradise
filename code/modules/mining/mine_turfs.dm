@@ -1,10 +1,15 @@
 /**********************Mineral deposits**************************/
 
-var/global/list/rockTurfEdgeCache
 #define NORTH_EDGING	"north"
 #define SOUTH_EDGING	"south"
 #define EAST_EDGING		"east"
 #define WEST_EDGING		"west"
+
+var/global/list/rockTurfEdgeCache = list(
+	NORTH_EDGING = image('icons/turf/mining.dmi', "rock_side_n", layer = 6),
+	SOUTH_EDGING =  image('icons/turf/mining.dmi', "rock_side_s"),
+	EAST_EDGING = image('icons/turf/mining.dmi', "rock_side_e", layer = 6),
+	WEST_EDGING = image('icons/turf/mining.dmi', "rock_side_w", layer = 6))
 
 /turf/simulated/mineral //wall piece
 	name = "Rock"
@@ -50,32 +55,8 @@ var/global/list/rockTurfEdgeCache
 	return
 
 /turf/simulated/mineral/New()
-	if(!rockTurfEdgeCache || !rockTurfEdgeCache.len)
-		rockTurfEdgeCache = list()
-		rockTurfEdgeCache.len = 4
-		rockTurfEdgeCache[NORTH_EDGING] = image('icons/turf/mining.dmi', "rock_side_n", layer = 6)
-		rockTurfEdgeCache[SOUTH_EDGING] = image('icons/turf/mining.dmi', "rock_side_s")
-		rockTurfEdgeCache[EAST_EDGING] = image('icons/turf/mining.dmi', "rock_side_e", layer = 6)
-		rockTurfEdgeCache[WEST_EDGING] = image('icons/turf/mining.dmi', "rock_side_w", layer = 6)
-
-	spawn(1)
-		var/turf/T
-		if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
-			T = get_step(src, NORTH)
-			if (T)
-				T.overlays += rockTurfEdgeCache[SOUTH_EDGING]
-		if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)))
-			T = get_step(src, SOUTH)
-			if (T)
-				T.overlays += rockTurfEdgeCache[NORTH_EDGING]
-		if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)))
-			T = get_step(src, EAST)
-			if (T)
-				T.overlays += rockTurfEdgeCache[WEST_EDGING]
-		if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)))
-			T = get_step(src, WEST)
-			if (T)
-				T.overlays += rockTurfEdgeCache[EAST_EDGING]
+	..()
+	mineral_turfs += src
 
 	if (mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in cardinal)
@@ -85,7 +66,6 @@ var/global/list/rockTurfEdgeCache
 					Spread(T)
 
 	HideRock()
-	return
 
 /turf/simulated/mineral/proc/HideRock()
 	if(hidden)
@@ -95,6 +75,33 @@ var/global/list/rockTurfEdgeCache
 
 /turf/simulated/mineral/proc/Spread(var/turf/T)
 	new src.type(T)
+
+/hook/startup/proc/add_mineral_edges()
+	var/watch = start_watch()
+	log_startup_progress("Reticulating splines...")
+	for(var/turf/simulated/mineral/M in mineral_turfs)
+		M.add_edges()
+	log_startup_progress(" Splines reticulated in [stop_watch(watch)]s.")
+	return 1
+
+/turf/simulated/mineral/proc/add_edges()
+	var/turf/T
+	if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
+		T = get_step(src, NORTH)
+		if (T)
+			T.overlays += rockTurfEdgeCache[SOUTH_EDGING]
+	if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)))
+		T = get_step(src, SOUTH)
+		if (T)
+			T.overlays += rockTurfEdgeCache[NORTH_EDGING]
+	if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)))
+		T = get_step(src, EAST)
+		if (T)
+			T.overlays += rockTurfEdgeCache[WEST_EDGING]
+	if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)))
+		T = get_step(src, WEST)
+		if (T)
+			T.overlays += rockTurfEdgeCache[EAST_EDGING]
 
 /turf/simulated/mineral/random
 	name = "mineral deposit"
@@ -361,7 +368,7 @@ var/global/list/rockTurfEdgeCache
 /turf/simulated/mineral/attackby(var/obj/item/weapon/pickaxe/P as obj, mob/user as mob, params)
 
 	if (!user.IsAdvancedToolUser())
-		usr << "<span class='warning'>You don't have the dexterity to do this!</span>"
+		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
 	if (istype(P, /obj/item/weapon/pickaxe))
@@ -372,12 +379,12 @@ var/global/list/rockTurfEdgeCache
 		if(last_act+P.digspeed > world.time)//prevents message spam
 			return
 		last_act = world.time
-		user << "<span class='notice'>You start picking...</span>"
+		to_chat(user, "<span class='notice'>You start picking...</span>")
 		P.playDigSound()
 
 		if(do_after(user, P.digspeed, target = src))
 			if(istype(src, /turf/simulated/mineral)) //sanity check against turf being deleted during digspeed delay
-				user << "<span class='notice'>You finish cutting into the rock.</span>"
+				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				P.update_icon()
 				gets_drilled(user)
 				feedback_add_details("pick_used_mining","[P.name]")
@@ -407,10 +414,10 @@ var/global/list/rockTurfEdgeCache
 	..()
 
 /turf/simulated/mineral/attack_alien(var/mob/living/carbon/alien/M)
-	M << "<span class='notice'>You start digging into the rock...</span>"
+	to_chat(M, "<span class='notice'>You start digging into the rock...</span>")
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
 	if(do_after(M, 40, target = src))
-		M << "<span class='notice'>You tunnel into the rock.</span>"
+		to_chat(M, "<span class='notice'>You tunnel into the rock.</span>")
 		gets_drilled()
 
 /turf/simulated/mineral/Bumped(AM as mob|obj)
@@ -475,14 +482,14 @@ var/global/list/rockTurfEdgeCache
 			return
 
 		if (dug)
-			user << "<span class='warning'>This area has already been dug!</span>"
+			to_chat(user, "<span class='warning'>This area has already been dug!</span>")
 			return
 
-		user << "<span class='notice'>You start digging...</span>"
+		to_chat(user, "<span class='notice'>You start digging...</span>")
 
 		sleep(20)
 		if ((user.loc == T && user.get_active_hand() == W))
-			user << "<span class='notice'>You dig a hole.</span>"
+			to_chat(user, "<span class='notice'>You dig a hole.</span>")
 			gets_dug()
 			return
 
@@ -493,14 +500,14 @@ var/global/list/rockTurfEdgeCache
 			return
 
 		if (dug)
-			user << "<span class='warning'>This area has already been dug!</span>"
+			to_chat(user, "<span class='warning'>This area has already been dug!</span>")
 			return
 
-		user << "<span class='notice'>You start digging...</span>"
+		to_chat(user, "<span class='notice'>You start digging...</span>")
 
 		sleep(P.digspeed)
 		if ((user.loc == T && user.get_active_hand() == W))
-			user << "<span class='notice'>You dig a hole.</span>"
+			to_chat(user, "<span class='notice'>You dig a hole.</span>")
 			gets_dug()
 			return
 

@@ -4,8 +4,11 @@
 	name = "glass"
 	desc = "Your standard drinking glass."
 	icon_state = "glass_empty"
+	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
 	volume = 50
+	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
 
 
@@ -456,6 +459,10 @@
 					icon_state = "cafe_latte"
 					name = "Cafe Latte"
 					desc = "A nice, strong and refreshing beverage while you are reading."
+				if("cafe_mocha")
+					icon_state = "cafe_latte"
+					name = "Cafe Mocha"
+					desc = "The perfect blend of coffe, milk, and chocolate."
 				if("acidspit")
 					icon_state = "acidspitglass"
 					name = "Acid Spit"
@@ -580,6 +587,22 @@
 					icon_state = "servoglass"
 					name = "Glass of Servo"
 					desc = "Chocolate - based drink made for IPCs. Not sure if anyone's actually tried out the recipe."
+				if("synthnsoda")
+					icon_state = "synthnsodaglass"
+					name = "Glass of Synth 'n Soda"
+					desc = "Classic drink altered to fit the tastes of a robot. Bad idea to drink if you're made of carbon."
+				if("synthignon")
+					icon_state = "synthignonglass"
+					name = "Glass of Synthignon"
+					desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
+				if("uplink")
+					icon_state = "uplinkglass"
+					name = "Glass of Uplink"
+					desc = "An exquisite mix of the finest liquoirs and synthanol. Meant only for synthetics."
+				if("holywater")
+					icon_state = "glass_clear"
+					name = "Glass of Water"
+					desc = "The father of all refreshments."
 
 
 				else

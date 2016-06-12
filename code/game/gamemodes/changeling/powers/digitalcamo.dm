@@ -8,9 +8,9 @@
 /obj/effect/proc_holder/changeling/digitalcamo/sting_action(var/mob/user)
 
 	if(user.digitalcamo)
-		user << "<span class='notice'>We return to normal.</span>"
+		to_chat(user, "<span class='notice'>We return to normal.</span>")
 	else
-		user << "<span class='notice'>We distort our form to prevent AI-tracking.</span>"
+		to_chat(user, "<span class='notice'>We distort our form to prevent AI-tracking.</span>")
 	user.digitalcamo = !user.digitalcamo
 
 	feedback_add_details("changeling_powers","CAM")

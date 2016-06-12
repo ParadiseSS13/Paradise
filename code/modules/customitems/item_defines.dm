@@ -10,6 +10,81 @@
 ////////// Usable Items //////////
 //////////////////////////////////
 
+/obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
+	name = "dispoable tattoo pen"
+	desc = "A cheap plastic tattoo application pen."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "tatgun"
+	force = 0
+	throwforce = 0
+	w_class = 1.0
+	var/used = 0
+	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
+	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
+	var/tattoo_r = 1 // RGB values for the body markings
+	var/tattoo_g = 1
+	var/tattoo_b = 1
+
+/obj/item/device/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
+	if(user.a_intent == "harm")
+		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
+		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
+		return
+
+	if(used)
+		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
+		return
+
+	if(!istype(M, /mob/living/carbon/human))
+		to_chat(user, "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>")
+		return
+
+	var/mob/living/carbon/human/target = M
+
+	if(istype(target.species, /datum/species/machine))
+		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>")
+		return
+
+	if(target.m_style != "None")
+		to_chat(user, "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>")
+		return
+
+	if(target == user)
+		to_chat(user, "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>")
+
+	else
+		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
+		if(!do_after(user,30, target = M))
+			return
+		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
+
+	if(!used) // No exploiting do_after to tattoo multiple folks.
+		target.m_style = tattoo_icon
+		target.r_markings = tattoo_r
+		target.g_markings = tattoo_g
+		target.b_markings = tattoo_b
+
+		target.update_markings()
+
+		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
+		used = 1
+		update_icon()
+
+/obj/item/device/fluff/tattoo_gun/update_icon()
+	..()
+
+	overlays.Cut()
+
+	if(!used)
+		var/image/ink = image(src.icon, src, "ink_overlay")
+		ink.icon += rgb(tattoo_r, tattoo_g, tattoo_b, 190)
+		overlays += ink
+
+/obj/item/device/fluff/tattoo_gun/New()
+	..()
+	update_icon()
+
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
@@ -67,7 +142,7 @@
 		C.regenerate_icons()
 		C.name = "Detective Sax"
 		C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
-		user << "<span class='danger'>[src] crumbles to dust in your hands!</span>"
+		to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
 		qdel(src)
 
 /obj/item/weapon/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
@@ -88,6 +163,13 @@
 	new /obj/item/weapon/reagent_containers/food/snacks/chips(src)
 	new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
 
+
+/obj/item/device/guitar/jello_guitar //Antcolon3: Dan Jello
+	name = "Dan Jello's Pink Guitar"
+	desc = "Dan Jello's special pink guitar."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jello_guitar"
+	item_state = "jello_guitar"
 
 //////////////////////////////////
 //////////// Clothing ////////////
@@ -160,15 +242,15 @@
 	switch(icon_state)
 		if("Kluysfluff1")
 			src.icon_state = "Kluysfluff2"
-			usr << "The fibre unfolds into a jacket."
+			to_chat(usr, "The fibre unfolds into a jacket.")
 		if("Kluysfluff2")
 			src.icon_state = "Kluysfluff3"
-			usr << "The fibre unfolds into a coat."
+			to_chat(usr, "The fibre unfolds into a coat.")
 		if("Kluysfluff3")
 			src.icon_state = "Kluysfluff1"
-			usr << "The fibre gets sucked back into its holder."
+			to_chat(usr, "The fibre gets sucked back into its holder.")
 		else
-			usr << "You attempt to hit the button but can't."
+			to_chat(usr, "You attempt to hit the button but can't.")
 			return
 	usr.update_inv_wear_suit()
 
@@ -185,17 +267,6 @@
 	icon_state = "stobarico_jacket"
 
 //////////// Uniforms ////////////
-/obj/item/clothing/under/fluff/WornTurtleneck // DaveTheHeadcrab: Makkota Atani
-	name = "Worn Combat Turtleneck"
-	desc = "A worn out turtleneck with 'J.C. NSS Regnare' stitched on the inside of the collar. The tag reveals it to be 99% NanoCotton."
-	icon= 'icons/obj/clothing/uniforms.dmi'
-	icon_state = "syndicate"
-	item_state = "bl_suit"
-	item_color = "syndicate"
-	has_sensor = 1 // Jumpsuit has no sensor by default
-	displays_id = 0 // Purely astetic, the ID does not show up on the player sprite when equipped. Examining still reveals it.
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Security jumpsuit stats
-
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
 	desc = "A white and gold formal uniform, accompanied by a small pin with the numbers '004' etched upon it."
@@ -228,14 +299,24 @@
 
 	if(src.icon_state == "jane_sid_suit_down")
 		src.item_color = "jane_sid_suit"
-		usr << "You zip up \the [src]."
+		to_chat(usr, "You zip up \the [src].")
 	else
 		src.item_color = "jane_sid_suit_down"
-		usr << "You unzip and roll down \the [src]."
+		to_chat(usr, "You unzip and roll down \the [src].")
 
 	src.icon_state = "[item_color]"
 	src.item_state = "[item_color]"
 	usr.update_inv_w_uniform()
+
+/obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
+	name = "Viridi Protegat"
+	desc = "A set of chainmail adorned with a hide mantle. \"Greenwood\" is engraved into the right breast."
+	icon = 'icons/obj/clothing/uniforms.dmi'
+	icon_state = "roman"
+	item_state = "maximus_armor"
+	item_color = "maximus_armor"
+	displays_id = 0
+	strip_delay = 100
 
 //////////// Masks ////////////
 
@@ -284,10 +365,9 @@
 	flags_inv = HIDEFACE
 
 /obj/item/weapon/nullrod/fluff/chronx //chronx100: Hughe O'Splash
-	transform_into = /obj/item/weapon/nullrod/sword/fluff/chronx
-	transform_via = list(/obj/item/clothing/suit/armor/riot/knight/templar, /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx)
+	fluff_transformations = list(/obj/item/weapon/nullrod/fluff/chronx/scythe)
 
-/obj/item/weapon/nullrod/sword/fluff/chronx
+/obj/item/weapon/nullrod/fluff/chronx/scythe
 	name = "Soul Collector"
 	desc = "An ancient scythe used by the worshipers of Cthulhu. Tales say it is used to prepare souls for Cthulhu's great devouring. Someone carved their name into the handle: Hughe O'Splash"
 	icon = 'icons/obj/custom_items.dmi'
@@ -311,18 +391,16 @@
 	set name = "Transform Hood"
 	set category = "Object"
 	set src in usr
-	if(!isliving(src))
-		return
-	if(!usr.incapacitated())
+	if(isliving(usr) && !usr.incapacitated())
 		if(adjusted)
 			icon_state = initial(icon_state)
 			item_state = initial(item_state)
-			usr << "You untransform \the [src]."
+			to_chat(usr, "You untransform \the [src].")
 			adjusted = 0
 		else
 			icon_state += "_open"
 			item_state += "_open"
-			usr << "You transform \the [src]."
+			to_chat(usr, "You transform \the [src].")
 			adjusted = 1
 		usr.update_inv_head()
 
@@ -368,3 +446,35 @@
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
 	icon_state = "chaps"
 	item_color = "combat_pants"
+
+/obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
+	name = "nylon windbreaker"
+	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elliot_windbreaker_open"
+	item_state = "elliot_windbreaker_open"
+	adjust_flavour = "unzip"
+	suit_adjusted = 1
+
+/obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat
+	desc = "A cheap plastic tattoo application pen.<br>This one seems heavily used."
+	tattoo_name = "circuitry tattoo"
+	tattoo_icon = "Elliot Circuit Tattoo"
+	tattoo_r = 48
+	tattoo_g = 138
+	tattoo_b = 176
+
+/obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
+	if(!used)
+		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
+		if(ink_color && !(user.incapacitated() || used) )
+			tattoo_r = hex2num(copytext(ink_color, 2, 4))
+			tattoo_g = hex2num(copytext(ink_color, 4, 6))
+			tattoo_b = hex2num(copytext(ink_color, 6, 8))
+
+			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
+
+			update_icon()
+
+	else
+		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")

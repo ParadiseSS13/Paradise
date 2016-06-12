@@ -35,7 +35,7 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 		if(BORG_WIRE_LAWCHECK) //Cut the law wire, and the borg will no longer receive law updates from its AI
 			if(!mended)
 				if (R.lawupdate == 1)
-					R << "LawSync protocol engaged."
+					to_chat(R, "LawSync protocol engaged.")
 					R.show_laws()
 			else
 				if (R.lawupdate == 0 && !R.emagged)
@@ -49,7 +49,7 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 		if (BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
 				R.camera.status = mended
-				R.camera.deactivate(usr, 0) // Will kick anyone who is watching the Cyborg's camera.
+				R.camera.toggle_cam(usr, 0) // Will kick anyone who is watching the Cyborg's camera.
 
 		if(BORG_WIRE_LAWCHECK)	//Forces a law update if the borg is set to receive them. Since an update would happen when the borg checks its laws anyway, not much use, but eh
 			if (R.lawupdate)
@@ -70,9 +70,9 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 
 		if (BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)
-				R.camera.deactivate(usr, 0) // Kick anyone watching the Cyborg's camera, doesn't display you disconnecting the camera.
+				R.camera.toggle_cam(usr, 0) // Kick anyone watching the Cyborg's camera, doesn't display you disconnecting the camera.
 				R.visible_message("[R]'s camera lense focuses loudly.")
-				R << "Your camera lense focuses loudly."
+				to_chat(R, "Your camera lense focuses loudly.")
 
 		if(BORG_WIRE_LOCKED_DOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle

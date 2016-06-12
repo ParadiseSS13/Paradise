@@ -11,7 +11,6 @@
 
 /obj/structure/closet/secure_closet/chaplain/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/under/rank/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/suit/nun(src)
@@ -30,4 +29,3 @@
 	new /obj/item/clothing/gloves/ring/silver(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
-	return

@@ -5,9 +5,21 @@
 
 /datum/controller/process/pipenet/statProcess()
 	..()
-	stat(null, "[pipe_networks.len] pipe nets")
+	stat(null, "[pipe_networks.len] pipe nets, [deferred_pipenet_rebuilds.len] deferred")
 
 /datum/controller/process/pipenet/doWork()
+	for(last_object in deferred_pipenet_rebuilds)
+		var/obj/machinery/atmospherics/M = last_object
+		if(istype(M) && isnull(M.gcDestroyed))
+			try
+				M.build_network()
+			catch(var/exception/e)
+				catchException(e, M)
+			SCHECK
+		else
+			catchBadType(M)
+		deferred_pipenet_rebuilds -= M
+
 	for(last_object in pipe_networks)
 		var/datum/pipeline/pipeNetwork = last_object
 		if(istype(pipeNetwork) && isnull(pipeNetwork.gcDestroyed))
@@ -16,7 +28,6 @@
 			catch(var/exception/e)
 				catchException(e, pipeNetwork)
 			SCHECK
-			continue
 		else
 			catchBadType(pipeNetwork)
 			pipe_networks -= pipeNetwork

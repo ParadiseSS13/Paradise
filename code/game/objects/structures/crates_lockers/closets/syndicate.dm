@@ -11,7 +11,6 @@
 
 /obj/structure/closet/syndicate/personal/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/under/syndicate(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
@@ -24,7 +23,6 @@
 
 /obj/structure/closet/syndicate/suits/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/head/helmet/space/rig/syndi(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/rig/syndi(src)
@@ -35,7 +33,6 @@
 
 /obj/structure/closet/syndicate/nuclear/New()
 	..()
-	sleep(2)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
@@ -55,7 +52,6 @@
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/device/pda/syndicate(src)
-	return
 
 /obj/structure/closet/syndicate/resources/
 	desc = "An old, dusty locker."
@@ -66,9 +62,6 @@
 		var/common_max = 50 //Maximum amount of HONK in the stack for HONK common minerals
 		var/rare_min = 5  //Minimum HONK of HONK in the stack HONK HONK rare minerals
 		var/rare_max = 20 //Maximum HONK HONK HONK in the HONK for HONK rare HONK
-
-
-		sleep(2)
 
 		var/pickednum = rand(1, 50)
 
@@ -114,12 +107,11 @@
 		if(pickednum == 50)
 			new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 
-		return
-
 /obj/structure/closet/syndicate/resources/everything
 	desc = "It's an emergency storage closet for repairs."
 
 	New()
+		..()
 		var/list/resources = list(
 		/obj/item/stack/sheet/metal,
 		/obj/item/stack/sheet/glass,
@@ -133,11 +125,7 @@
 		/obj/item/stack/rods
 		)
 
-		sleep(2)
-
-		for(var/i = 0, i<2, i++)
+		for(var/i in 1 to 2)
 			for(var/res in resources)
 				var/obj/item/stack/R = new res(src)
 				R.amount = R.max_amount
-
-		return

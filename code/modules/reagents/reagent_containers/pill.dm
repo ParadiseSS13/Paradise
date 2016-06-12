@@ -33,7 +33,7 @@
 
 	if(target.is_open_container() != 0 && target.reagents)
 		if(!target.reagents.total_volume)
-			user << "<span class='warning'>[target] is empty. Cant dissolve [src].</span>"
+			to_chat(user, "<span class='warning'>[target] is empty. Cant dissolve [src].</span>")
 			return
 
 		// /vg/: Logging transfers of bad things
@@ -47,7 +47,7 @@
 				message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 				log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
-		user << "<span class='notify'>You dissolve [src] in [target].</span>"
+		to_chat(user, "<span class='notify'>You dissolve [src] in [target].</span>")
 		reagents.trans_to(target, reagents.total_volume)
 		for(var/mob/O in viewers(2, user))
 			O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)

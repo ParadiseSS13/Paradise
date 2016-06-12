@@ -50,12 +50,12 @@
 		var/mob/living/silicon/robot/R = usr
 		var/module = R.get_selected_module()
 		if(!module)
-			usr << "\red You have no module selected."
+			to_chat(usr, "\red You have no module selected.")
 			return
 		R.cycle_modules()
 		R.uneq_numbered(module)
 	else
-		usr << "\red This mob type cannot throw items."
+		to_chat(usr, "\red This mob type cannot throw items.")
 	return
 
 
@@ -63,17 +63,17 @@
 	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		if(!C.get_active_hand())
-			usr << "\red You have nothing to drop in your hand."
+			to_chat(usr, "\red You have nothing to drop in your hand.")
 			return
 		drop_item()
 	else if(isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		if(!R.get_selected_module())
-			usr << "\red You have no module selected."
+			to_chat(usr, "\red You have no module selected.")
 			return
 		R.deselect_module(R.get_selected_module())
 	else
-		usr << "\red This mob type cannot drop items."
+		to_chat(usr, "\red This mob type cannot drop items.")
 	return
 
 //This gets called when you press the delete button.
@@ -81,7 +81,7 @@
 	set hidden = 1
 
 	if(!usr.pulling)
-		usr << "\blue You are not pulling anything."
+		to_chat(usr, "\blue You are not pulling anything.")
 		return
 	usr.stop_pulling()
 
@@ -149,11 +149,8 @@
 		winset(src, "mapwindow.map", "icon-size=[src.reset_stretch]")
 		viewingCanvas = 0
 		mob.reset_view()
-		mob.button_pressed_F12()
-		if(!mob.hud_used.hud_shown)
-			mob.button_pressed_F12()
-		mob.update_hud()
-		mob.update_action_buttons()
+		if(mob.hud_used)
+			mob.hud_used.show_hud(HUD_STYLE_STANDARD)
 
 	if(mob.control_object)	Move_object(direct)
 
@@ -184,12 +181,6 @@
 		if(L.incorporeal_move)//Move though walls
 			Process_Incorpmove(direct)
 			return
-		if(mob.client)
-			if(mob.client.view != world.view)
-				if(locate(/obj/item/weapon/gun/energy/sniperrifle, mob.contents))		// If mob moves while zoomed in with sniper rifle, unzoom them.
-					var/obj/item/weapon/gun/energy/sniperrifle/s = locate() in mob
-					if(s.zoom)
-						s.zoom()
 
 	if(Process_Grab())	return
 
@@ -227,20 +218,19 @@
 			for(var/mob/M in range(mob, 1))
 				if(M.pulling == mob)
 					if(!M.restrained() && M.stat == 0 && M.canmove && mob.Adjacent(M))
-						src << "\blue You're restrained! You can't move!"
+						to_chat(src, "\blue You're restrained! You can't move!")
 						return 0
 					else
 						M.stop_pulling()
 
 		if(mob.pinned.len)
-			src << "\blue You're pinned to a wall by [mob.pinned[1]]!"
+			to_chat(src, "\blue You're pinned to a wall by [mob.pinned[1]]!")
 			return 0
 
 		var/turf/T = mob.loc
 		move_delay = world.time//set move delay
 		move_delay += T.slowdown
 		mob.last_movement = world.time
-		mob.last_move_intent = world.time + 10
 		switch(mob.m_intent)
 			if("run")
 				if(mob.drowsyness > 0)
@@ -314,26 +304,38 @@
 ///Called by client/Move()
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
-	if(locate(/obj/item/weapon/grab, locate(/obj/item/weapon/grab, mob.grabbed_by.len)))
+	if(mob.grabbed_by.len)
 		var/list/grabbing = list()
+
 		if(istype(mob.l_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = mob.l_hand
 			grabbing += G.affecting
+
 		if(istype(mob.r_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = mob.r_hand
 			grabbing += G.affecting
-		for(var/obj/item/weapon/grab/G in mob.grabbed_by)
-			if((G.state == 1)&&(!grabbing.Find(G.assailant)))	qdel(G)
-			if(G.state == 2)
-				move_delay = world.time + 10
-				if(!prob(25))	return 1
-				mob.visible_message("\red [mob] has broken free of [G.assailant]'s grip!")
-				qdel(G)
-			if(G.state == 3)
-				move_delay = world.time + 10
-				if(!prob(5))	return 1
-				mob.visible_message("\red [mob] has broken free of [G.assailant]'s headlock!")
-				qdel(G)
+
+		for(var/X in mob.grabbed_by)
+			var/obj/item/weapon/grab/G = X
+			switch(G.state)
+
+				if(GRAB_PASSIVE)
+					if(!grabbing.Find(G.assailant)) //moving always breaks a passive grab unless we are also grabbing our grabber.
+						qdel(G)
+
+				if(GRAB_AGGRESSIVE)
+					move_delay = world.time + 10
+					if(!prob(25))
+						return 1
+					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
+					qdel(G)
+
+				if(GRAB_NECK)
+					move_delay = world.time + 10
+					if(!prob(5))
+						return 1
+					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
+					qdel(G)
 	return 0
 
 
@@ -392,7 +394,7 @@
 		if(3) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
-				L << "<span class='warning'>Holy energies block your path.</span>"
+				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
 				L.notransform = 1
 				spawn(2)
 					L.notransform = 0
@@ -439,7 +441,7 @@
 
 	if(movement_dir && dense_object_backup)
 		if(dense_object_backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
-			src << "<span class='info'>You push off of [dense_object_backup] to propel yourself.</span>"
+			to_chat(src, "<span class='info'>You push off of [dense_object_backup] to propel yourself.</span>")
 
 
 		return 1

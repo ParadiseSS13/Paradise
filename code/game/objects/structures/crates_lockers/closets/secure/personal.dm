@@ -6,15 +6,13 @@
 
 /obj/structure/closet/secure_closet/personal/New()
 	..()
-	spawn(2)
-		if(prob(50))
-			new /obj/item/weapon/storage/backpack/duffel(src)
-		if(prob(50))
-			new /obj/item/weapon/storage/backpack(src)
-		else
-			new /obj/item/weapon/storage/backpack/satchel_norm(src)
-		new /obj/item/device/radio/headset( src )
-	return
+	if(prob(50))
+		new /obj/item/weapon/storage/backpack/duffel(src)
+	if(prob(50))
+		new /obj/item/weapon/storage/backpack(src)
+	else
+		new /obj/item/weapon/storage/backpack/satchel_norm(src)
+	new /obj/item/device/radio/headset( src )
 
 
 /obj/structure/closet/secure_closet/personal/patient
@@ -22,11 +20,9 @@
 
 /obj/structure/closet/secure_closet/personal/patient/New()
 	..()
-	spawn(4)
-		contents = list()
-		new /obj/item/clothing/under/color/white( src )
-		new /obj/item/clothing/shoes/white( src )
-	return
+	contents.Cut()
+	new /obj/item/clothing/under/color/white( src )
+	new /obj/item/clothing/shoes/white( src )
 
 
 
@@ -52,11 +48,9 @@
 
 /obj/structure/closet/secure_closet/personal/cabinet/New()
 	..()
-	spawn(4)
-		contents = list()
-		new /obj/item/weapon/storage/backpack/satchel/withwallet( src )
-		new /obj/item/device/radio/headset( src )
-	return
+	contents.Cut()
+	new /obj/item/weapon/storage/backpack/satchel/withwallet( src )
+	new /obj/item/device/radio/headset( src )
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (src.opened)
@@ -66,12 +60,12 @@
 		if (W) W.forceMove(loc)
 	else if(istype(W, /obj/item/weapon/card/id))
 		if(src.broken)
-			user << "\red It appears to be broken."
+			to_chat(user, "\red It appears to be broken.")
 			return
 		var/obj/item/weapon/card/id/I = W
 		if(!I || !I.registered_name)	return
 		if(src == user.loc)
-			user << "<span class='notice'>You can't reach the lock from inside.</span>"
+			to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
 		else if(src.allowed(user) || !src.registered_name || (istype(I) && (src.registered_name == I.registered_name)))
 			//they can open all lockers, or nobody owns this, or they own this locker
 			src.locked = !( src.locked )
@@ -86,9 +80,8 @@
 				src.registered_name = I.registered_name
 				src.desc = "Owned by [I.registered_name]."
 		else
-			user << "\red Access Denied"
+			to_chat(user, "\red Access Denied")
 	else if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)) && !broken)
 		emag_act(user)
 	else
-		user << "\red Access Denied"
-	return
+		to_chat(user, "\red Access Denied")

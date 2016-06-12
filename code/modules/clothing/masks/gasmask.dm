@@ -13,7 +13,8 @@
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -45,7 +46,7 @@
 			src.flags |= (MASKCOVERSEYES)
 			flags_inv |= (HIDEEYES)
 			icon_state = initial(icon_state)
-			usr << "You flip the [src] down to protect your eyes."
+			to_chat(usr, "You flip the [src] down to protect your eyes.")
 			flash_protect = 2
 			tint = 2
 		else
@@ -53,7 +54,7 @@
 			src.flags &= ~(MASKCOVERSEYES)
 			flags_inv &= ~(HIDEEYES)
 			icon_state = "[initial(icon_state)]up"
-			usr << "You push the [src] up out of your face."
+			to_chat(usr, "You push the [src] up out of your face.")
 			flash_protect = 0
 			tint = 0
 		usr.update_inv_wear_mask()	//so our mob-overlays update
@@ -110,7 +111,7 @@
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
-		M << "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!"
+		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
 		return 1
 
 /obj/item/clothing/mask/gas/clownwiz
@@ -247,19 +248,19 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		switch(aggressiveness)
 			if(1)
-				user << "\blue You set the restrictor to the middle position."
+				to_chat(user, "\blue You set the restrictor to the middle position.")
 				aggressiveness = 2
 			if(2)
-				user << "\blue You set the restrictor to the last position."
+				to_chat(user, "\blue You set the restrictor to the last position.")
 				aggressiveness = 3
 			if(3)
-				user << "\blue You set the restrictor to the first position."
+				to_chat(user, "\blue You set the restrictor to the first position.")
 				aggressiveness = 1
 			if(4)
-				user << "\red You adjust the restrictor but nothing happens, probably because its broken."
+				to_chat(user, "\red You adjust the restrictor but nothing happens, probably because its broken.")
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(aggressiveness != 4)
-			user << "\red You broke it!"
+			to_chat(user, "\red You broke it!")
 			aggressiveness = 4
 	else
 		..()
@@ -270,7 +271,7 @@
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
 	if(safety)
 		safety = 0
-		user << "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer."
+		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
 	else
 		return
 

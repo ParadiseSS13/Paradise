@@ -1,3 +1,4 @@
+var/global/default_martial_art = new/datum/martial_art
 /mob/living/carbon/human
 
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
@@ -7,24 +8,6 @@
 	var/g_markings = 0
 	var/b_markings = 0
 	var/m_style = "None"
-
-	//Hair colour and style
-	var/r_hair = 0
-	var/g_hair = 0
-	var/b_hair = 0
-	var/h_style = "Bald"
-
-	//Head accessory colour and style
-	var/r_headacc = 0
-	var/g_headacc = 0
-	var/b_headacc = 0
-	var/ha_style = "None"
-
-	//Facial hair colour and style
-	var/r_facial = 0
-	var/g_facial = 0
-	var/b_facial = 0
-	var/f_style = "Shaved"
 
 	//Eye colour
 	var/r_eyes = 0
@@ -79,6 +62,8 @@
 	var/list/bad_external_organs = list()// organs we check until they are good.
 
 	var/hand_blood_color
+
+	var/name_override //For temporary visible name changes
 
 	var/xylophone = 0 //For the spoooooooky xylophone cooldown
 

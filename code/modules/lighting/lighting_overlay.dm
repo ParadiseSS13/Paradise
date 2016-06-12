@@ -52,9 +52,9 @@
 			if(lum_r / mx1 != (lum_r + delta_r) / mx2 || lum_g / mx1 != (lum_g + delta_g) / mx2 || lum_b / mx1 != (lum_b + delta_b) / mx2) //Stuff would change.
 				should_update = 1
 
-	lum_r += delta_r
-	lum_g += delta_g
-	lum_b += delta_b
+	lum_r = max(lum_r + delta_r, 0) //Lum shouldn't drop below 1
+	lum_g = max(lum_g + delta_g, 0)
+	lum_b = max(lum_b + delta_b, 0)
 
 	if(!needs_update && should_update)
 		needs_update = 1

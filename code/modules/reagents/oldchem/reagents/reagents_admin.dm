@@ -15,7 +15,8 @@
 	M.setCloneLoss(0)
 	M.setOxyLoss(0)
 	M.radiation = 0
-	M.heal_organ_damage(5,5)
+	M.adjustBruteLoss(-5)
+	M.adjustFireLoss(-5)
 	M.adjustToxLoss(-5)
 	M.hallucination = 0
 	M.setBrainLoss(0)
@@ -41,13 +42,9 @@
 	M.jitteriness = 0
 	if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
 		var/mob/living/carbon/C = M
-		if(C.virus2.len)
-			for (var/ID in C.virus2)
-				var/datum/disease2/disease/V = C.virus2[ID]
-				C.antibodies |= V.antigen
+		for(var/datum/disease/D in C.viruses)
+			D.cure(0)
 	..()
-	return
-
 
 /datum/reagent/adminordrazine/nanites
 	name = "Nanites"

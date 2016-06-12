@@ -9,9 +9,6 @@
 	idle_power_usage = 20
 	active_power_usage = 5000
 	var/time_coeff = 1
-	var/resource_coeff = 1
-	var/time_coeff_tech = 1
-	var/resource_coeff_tech = 1
 	var/list/resources = list(
 								MAT_METAL=0,
 								MAT_GLASS=0,
@@ -79,12 +76,6 @@
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
 	res_max_amount = (187000+(T * 37500))
-
-	//ressources adjustment coefficient (1 -> 0.88 -> 0.75)
-	T = -1
-	for(var/obj/item/weapon/stock_parts/micro_laser/Ma in component_parts)
-		T += Ma.rating
-	resource_coeff = round(initial(resource_coeff) - (initial(resource_coeff)*(T))/8,0.01)
 
 	//building time adjustment coefficient (1 -> 0.8 -> 0.6)
 	T = -1
@@ -230,29 +221,6 @@
 		output += "\[<a href='?src=\ref[src];process_queue=1'>Process queue</a> | <a href='?src=\ref[src];clear_queue=1'>Clear queue</a>\]"
 	return output
 
-/obj/machinery/mecha_part_fabricator/proc/update_tech()
-	if(!files)
-		return
-	var/output
-	for(var/datum/tech/T in files.known_tech)
-		if(T && T.level > 1)
-			var/diff
-			switch(T.id)
-				if("materials")
-					//one materials level is 1/32, so that max level is 0.75 coefficient
-					diff = round(initial(resource_coeff_tech) - (initial(resource_coeff_tech)*(T.level-1))/32,0.01)
-					if(resource_coeff_tech>diff)
-						resource_coeff_tech = diff
-						output+="Production efficiency increased.<br>"
-				if("programming")
-					//one materials level is 1/40, so that max level is 0.8 coefficient
-					diff = round(initial(time_coeff_tech) - (initial(time_coeff_tech)*(T.level-1))/40,0.1)
-					if(time_coeff_tech>diff)
-						time_coeff_tech = diff
-						output+="Production routines updated.<br>"
-	return output
-
-
 /obj/machinery/mecha_part_fabricator/proc/sync()
 	temp = "Updating local R&D database..."
 	updateUsrDialog()
@@ -269,7 +237,6 @@
 		files.RefreshResearch()
 		temp = "Processed equipment designs.<br>"
 		//check if the tech coefficients have changed
-		temp += update_tech()
 		temp += "<a href='?src=\ref[src];clear_temp=1'>Return</a>"
 
 		updateUsrDialog()
@@ -281,10 +248,10 @@
 	return
 
 /obj/machinery/mecha_part_fabricator/proc/get_resource_cost_w_coeff(datum/design/D, resource, roundto = 1)
-	return round(D.materials[resource]*resource_coeff*resource_coeff_tech, roundto)
+	return round(D.materials[resource], roundto)
 
 /obj/machinery/mecha_part_fabricator/proc/get_construction_time_w_coeff(datum/design/D, roundto = 1) //aran
-	return round(initial(D.construction_time)*time_coeff*time_coeff_tech, roundto)
+	return round(initial(D.construction_time)*time_coeff, roundto)
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
 	interact(user)
@@ -293,7 +260,7 @@
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		user << "<span class='warning'>Access denied.</span>"
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
 	return interact(user)
 
@@ -505,7 +472,7 @@
 			default_deconstruction_crowbar(W)
 			return 1
 		else
-			user << "<span class='danger'>You can't load \the [name] while it's opened.</span>"
+			to_chat(user, "<span class='danger'>You can't load \the [name] while it's opened.</span>")
 			return 1
 
 	if(istype(W, /obj/item/stack))
@@ -533,10 +500,10 @@
 				return ..()
 
 		if(being_built)
-			user << "\The [src] is currently processing. Please wait until completion."
+			to_chat(user, "\The [src] is currently processing. Please wait until completion.")
 			return
 		if(res_max_amount - resources[material] < MINERAL_MATERIAL_AMOUNT) //overstuffing the fabricator
-			user << "\The [src] [material2name(material)] storage is full."
+			to_chat(user, "\The [src] [material2name(material)] storage is full.")
 			return
 		var/obj/item/stack/sheet/stack = W
 		var/sname = "[stack.name]"
@@ -546,12 +513,12 @@
 			var/transfer_amount = min(stack.amount, round((res_max_amount - resources[material])/MINERAL_MATERIAL_AMOUNT,1))
 			resources[material] += transfer_amount * MINERAL_MATERIAL_AMOUNT
 			stack.use(transfer_amount)
-			user << "You insert [transfer_amount] [sname] sheet\s into \the [src]."
+			to_chat(user, "You insert [transfer_amount] [sname] sheet\s into \the [src].")
 			sleep(10)
 			updateUsrDialog()
 			overlays -= "fab-load-[material2name(material)]" //No matter what the overlay shall still be deleted
 		else
-			user << "\The [src] cannot hold any more [sname] sheet\s."
+			to_chat(user, "\The [src] cannot hold any more [sname] sheet\s.")
 		return
 
 /obj/machinery/mecha_part_fabricator/proc/material2name(var/ID)

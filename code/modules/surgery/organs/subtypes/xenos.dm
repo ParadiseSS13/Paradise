@@ -133,9 +133,13 @@
 /obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.faction |= "alien"
+	M.add_language("Hivemind")
+	M.add_language("Xenomorph")
 
 /obj/item/organ/internal/xenos/hivenode/remove(mob/living/carbon/M, special = 0)
 	M.faction -= "alien"
+	M.remove_language("Hivemind")
+	M.remove_language("Xenomorph")
 	..()
 
 /obj/item/organ/internal/xenos/neurotoxin

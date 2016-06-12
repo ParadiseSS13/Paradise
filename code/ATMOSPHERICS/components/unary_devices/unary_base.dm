@@ -64,8 +64,11 @@
 
 /obj/machinery/atmospherics/unary/nullifyPipenet(datum/pipeline/P)
 	..()
-	parent.other_airs -= air_contents
-	parent = null
+	if(!P)
+		return
+	if(P == parent)
+		parent.other_airs -= air_contents
+		parent = null
 
 /obj/machinery/atmospherics/unary/returnPipenetAir()
 	return air_contents
@@ -81,8 +84,8 @@
 
 /obj/machinery/atmospherics/unary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent)
-		parent = New	
-	
+		parent = New
+
 /obj/machinery/atmospherics/unary/unsafe_pressure_release(var/mob/user,var/pressures)
 	..()
 
@@ -95,4 +98,7 @@
 		var/datum/gas_mixture/to_release = air_contents.remove(lost)
 		T.assume_air(to_release)
 		air_update_turf(1)
-		
+
+/obj/machinery/atmospherics/unary/process()
+	..()
+	return parent

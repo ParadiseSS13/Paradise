@@ -43,12 +43,11 @@
 	return 0
 
 /obj/machinery/atmospherics/omni/filter/process()
-	..()
-	if(!on)
+	if(!..() || !on)
 		return 0
 
 	if(!input || !output)
-		return
+		return 0
 
 	var/datum/gas_mixture/output_air = output.air	//BYOND doesn't like referencing "output.air.return_pressure()" so we need to make a direct reference
 	var/datum/gas_mixture/input_air = input.air		// it's completely happy with them if they're in a loop though i.e. "P.air.return_pressure()"... *shrug*
@@ -56,10 +55,10 @@
 	var/output_pressure = output_air.return_pressure()
 
 	if(output_pressure >= target_pressure)
-		return
+		return 1
 	for(var/datum/omni_port/P in filters)
 		if(P.air.return_pressure() >= target_pressure)
-			return
+			return 1
 
 	var/pressure_delta = target_pressure - output_pressure
 
@@ -70,7 +69,7 @@
 		var/datum/gas_mixture/removed = input_air.remove(input.transfer_moles)
 
 		if(!removed)
-			return
+			return 1
 
 		for(var/datum/omni_port/P in filters)
 			var/datum/gas_mixture/filtered_out = new
@@ -107,7 +106,7 @@
 		input.transfer_moles = 0
 		input.parent.update = 1
 
-	return
+	return 1
 
 /obj/machinery/atmospherics/omni/filter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	usr.set_machine(src)
@@ -177,7 +176,7 @@
 			return null
 
 /obj/machinery/atmospherics/omni/filter/Topic(href, href_list)
-	if(..()) 
+	if(..())
 		return 1
 	switch(href_list["command"])
 		if("power")
@@ -277,4 +276,3 @@
 			initialize_directions |= P.dir
 			P.connect()
 	P.update = 1
-	

@@ -215,9 +215,14 @@
 	use_to_pickup = 1
 	storage_slots = 14
 	display_contents_with_number = 1
+	var/base_name = ""
+	var/label_text = ""
+
+/obj/item/weapon/storage/pill_bottle/New()
+	..()
+	base_name = name
 
 /obj/item/weapon/storage/pill_bottle/MouseDrop(obj/over_object as obj) //Quick pillbottle fix. -Agouri
-
 	if (ishuman(usr)) //Can monkeys even place items in the pocket slots? Leaving this in just in case~
 		var/mob/M = usr
 		if (!( istype(over_object, /obj/screen) ))
@@ -238,6 +243,24 @@
 			src.show_to(usr)
 			return
 	return
+
+/obj/item/weapon/storage/pill_bottle/attackby(var/obj/item/I, mob/user as mob, params)
+	if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
+		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
+		if(length(tmp_label) > MAX_NAME_LEN)
+			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
+		else
+			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
+			label_text = tmp_label
+			update_name_label()
+	else
+		..()
+
+/obj/item/weapon/storage/pill_bottle/proc/update_name_label()
+	if(label_text == "")
+		name = base_name
+	else
+		name = "[base_name] ([label_text])"
 
 /obj/item/weapon/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"

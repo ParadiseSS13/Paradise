@@ -5,7 +5,7 @@
 
 	name = "heat exchanger"
 	desc = "Exchanges heat between two input gases. Setup for fast heat transfer"
-	
+
 	can_unwrench = 1
 
 	var/obj/machinery/atmospherics/unary/heat_exchanger/partner = null
@@ -32,7 +32,8 @@
 	..()
 
 /obj/machinery/atmospherics/unary/heat_exchanger/process()
-	..()
+	if(!..())
+		return 0
 	if(!partner)
 		return 0
 

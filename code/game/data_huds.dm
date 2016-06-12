@@ -44,7 +44,7 @@
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD)
+	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD)
 
 /* MED/SEC/DIAG HUD HOOKS */
 
@@ -60,10 +60,11 @@
 
 //called when a carbon changes virus
 /mob/living/carbon/proc/check_virus()
-	for (var/ID in virus2)
-		if (ID in virusDB)
+	for(var/datum/disease/D in viruses)
+		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
 			return 1
 	return 0
+
 //helper for getting the appropriate health status
 /proc/RoundHealth(health)
 	switch(health)
@@ -254,3 +255,42 @@
 	holder.icon_state = null
 	if(internal_damage)
 		holder.icon_state = "hudwarn"
+
+/*~~~~~~~~~
+	Bots!
+~~~~~~~~~~*/
+/mob/living/simple_animal/bot/proc/diag_hud_set_bothealth()
+	var/image/holder = hud_list[DIAG_HUD]
+	if(stat == DEAD)
+		holder.icon_state = "huddiagdead"
+	else
+		holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+
+/mob/living/simple_animal/bot/proc/diag_hud_set_botstat() //On (With wireless on or off), Off, EMP'ed
+	var/image/holder = hud_list[DIAG_STAT_HUD]
+	if(on)
+		holder.icon_state = "hudstat"
+	else if(stat) //Generally EMP causes this
+		holder.icon_state = "hudoffline"
+	else //Bot is off
+		holder.icon_state = "huddead2"
+
+/mob/living/simple_animal/bot/proc/diag_hud_set_botmode() //Shows a bot's current operation
+	var/image/holder = hud_list[DIAG_BOT_HUD]
+	if(client) //If the bot is player controlled, it will not be following mode logic!
+		holder.icon_state = "hudsentient"
+		return
+
+	switch(mode)
+		if(BOT_SUMMON, BOT_RESPONDING) //Responding to PDA or AI summons
+			holder.icon_state = "hudcalled"
+		if(BOT_CLEANING, BOT_REPAIRING, BOT_HEALING) //Cleanbot cleaning, Floorbot fixing, or Medibot Healing
+			holder.icon_state = "hudworking"
+		if(BOT_PATROL, BOT_START_PATROL) //Patrol mode
+			holder.icon_state = "hudpatrol"
+		if(BOT_PREP_ARREST, BOT_ARREST, BOT_HUNT, BOT_BLOCKED, BOT_NO_ROUTE) //STOP RIGHT THERE, CRIMINAL SCUM!
+			holder.icon_state = "hudalert"
+		if(BOT_MOVING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV, BOT_WAIT_FOR_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
+			holder.icon_state = "hudmove"
+		else
+			holder.icon_state = ""

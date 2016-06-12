@@ -46,93 +46,95 @@
 			if(istype(AM))
 				if(AM.anchored)
 					adjacencies |= 1 << direction
+
 			else
 				if(AM)
 					adjacencies |= 1 << direction
+
 	else
 		for(var/direction in alldirs)
 			if(find_type_in_direction(A, direction))
 				adjacencies |= 1 << direction
+
 	return adjacencies
 
 /proc/smooth_icon(atom/A)
 	if(qdeleted(A))
 		return
-	spawn(0) //don't remove this, otherwise smoothing breaks
-		if(A && A.smooth)
-			var/adjacencies = calculate_adjacencies(A)
+	if(A && A.smooth)
+		var/adjacencies = calculate_adjacencies(A)
 
-			//NW CORNER
-			var/nw = "1-i"
-			if((adjacencies & N_NORTH) && (adjacencies & N_WEST))
-				if(adjacencies & N_NORTHWEST)
-					nw = "1-f"
-				else
-					nw = "1-nw"
+		//NW CORNER
+		var/nw = "1-i"
+		if((adjacencies & N_NORTH) && (adjacencies & N_WEST))
+			if(adjacencies & N_NORTHWEST)
+				nw = "1-f"
 			else
-				if(adjacencies & N_NORTH)
-					nw = "1-n"
-				else if(adjacencies & N_WEST)
-					nw = "1-w"
+				nw = "1-nw"
+		else
+			if(adjacencies & N_NORTH)
+				nw = "1-n"
+			else if(adjacencies & N_WEST)
+				nw = "1-w"
 
-			//NE CORNER
-			var/ne = "2-i"
-			if((adjacencies & N_NORTH) && (adjacencies & N_EAST))
-				if(adjacencies & N_NORTHEAST)
-					ne = "2-f"
-				else
-					ne = "2-ne"
+		//NE CORNER
+		var/ne = "2-i"
+		if((adjacencies & N_NORTH) && (adjacencies & N_EAST))
+			if(adjacencies & N_NORTHEAST)
+				ne = "2-f"
 			else
-				if(adjacencies & N_NORTH)
-					ne = "2-n"
-				else if(adjacencies & N_EAST)
-					ne = "2-e"
+				ne = "2-ne"
+		else
+			if(adjacencies & N_NORTH)
+				ne = "2-n"
+			else if(adjacencies & N_EAST)
+				ne = "2-e"
 
-			//SW CORNER
-			var/sw = "3-i"
-			if((adjacencies & N_SOUTH) && (adjacencies & N_WEST))
-				if(adjacencies & N_SOUTHWEST)
-					sw = "3-f"
-				else
-					sw = "3-sw"
+		//SW CORNER
+		var/sw = "3-i"
+		if((adjacencies & N_SOUTH) && (adjacencies & N_WEST))
+			if(adjacencies & N_SOUTHWEST)
+				sw = "3-f"
 			else
-				if(adjacencies & N_SOUTH)
-					sw = "3-s"
-				else if(adjacencies & N_WEST)
-					sw = "3-w"
+				sw = "3-sw"
+		else
+			if(adjacencies & N_SOUTH)
+				sw = "3-s"
+			else if(adjacencies & N_WEST)
+				sw = "3-w"
 
-			//SE CORNER
-			var/se = "4-i"
-			if((adjacencies & N_SOUTH) && (adjacencies & N_EAST))
-				if(adjacencies & N_SOUTHEAST)
-					se = "4-f"
-				else
-					se = "4-se"
+		//SE CORNER
+		var/se = "4-i"
+		if((adjacencies & N_SOUTH) && (adjacencies & N_EAST))
+			if(adjacencies & N_SOUTHEAST)
+				se = "4-f"
 			else
-				if(adjacencies & N_SOUTH)
-					se = "4-s"
-				else if(adjacencies & N_EAST)
-					se = "4-e"
+				se = "4-se"
+		else
+			if(adjacencies & N_SOUTH)
+				se = "4-s"
+			else if(adjacencies & N_EAST)
+				se = "4-e"
 
-			if(A.top_left_corner != nw)
-				A.overlays -= A.top_left_corner
-				A.top_left_corner = nw
-				A.overlays += nw
+		if(A.top_left_corner != nw)
+			A.overlays -= A.top_left_corner
+			A.top_left_corner = nw
+			A.overlays += nw
 
-			if(A.top_right_corner != ne)
-				A.overlays -= A.top_right_corner
-				A.top_right_corner = ne
-				A.overlays += ne
+		if(A.top_right_corner != ne)
+			A.overlays -= A.top_right_corner
+			A.top_right_corner = ne
+			A.overlays += ne
 
-			if(A.bottom_right_corner != sw)
-				A.overlays -= A.bottom_right_corner
-				A.bottom_right_corner = sw
-				A.overlays += sw
+		if(A.bottom_right_corner != sw)
+			A.overlays -= A.bottom_right_corner
+			A.bottom_right_corner = sw
+			A.overlays += sw
 
-			if(A.bottom_left_corner != se)
-				A.overlays -= A.bottom_left_corner
-				A.bottom_left_corner = se
-				A.overlays += se
+		if(A.bottom_left_corner != se)
+			A.overlays -= A.bottom_left_corner
+			A.bottom_left_corner = se
+			A.overlays += se
 
 /proc/find_type_in_direction(atom/source, direction, range=1)
 	var/x_offset = 0
@@ -149,6 +151,8 @@
 		x_offset -= range
 
 	var/turf/target_turf = locate(source.x + x_offset, source.y + y_offset, source.z)
+	if(!target_turf)
+		return null
 	if(source.canSmoothWith)
 		var/atom/A
 		if(source.smooth == SMOOTH_MORE)

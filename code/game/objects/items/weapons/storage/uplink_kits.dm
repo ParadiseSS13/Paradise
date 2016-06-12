@@ -150,15 +150,15 @@
 	new /obj/item/weapon/grenade/empgrenade(src)
 	new /obj/item/weapon/implanter/emp/(src)
 
-/obj/item/weapon/storage/box/syndie_kit/tabun
-	name = "Tabun Gas Grenades"
+/obj/item/weapon/storage/box/syndie_kit/sarin
+	name = "Sarin Gas Grenades"
 
 	New()
 		..()
-		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
-		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
-		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
-		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
+		new /obj/item/weapon/grenade/chem_grenade/saringas(src)
+		new /obj/item/weapon/grenade/chem_grenade/saringas(src)
+		new /obj/item/weapon/grenade/chem_grenade/saringas(src)
+		new /obj/item/weapon/grenade/chem_grenade/saringas(src)
 
 /obj/item/weapon/storage/box/syndie_kit/bioterror
 	name = "bioterror syringe box"
@@ -173,3 +173,17 @@
 		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
 		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
 		return
+
+/obj/item/weapon/storage/box/syndie_kit/caneshotgun
+	name = "cane gun kit"
+
+
+/obj/item/weapon/storage/box/syndie_kit/caneshotgun/New()
+	..()
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
+	new /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane(src)

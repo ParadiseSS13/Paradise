@@ -60,7 +60,7 @@
 		if(!interactable() || !computer.radio || ..(href,href_list) )
 			return
 		if (!(computer.z in config.station_levels))
-			usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+			to_chat(usr, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
 			return
 
 		if("main" in href_list)
@@ -103,15 +103,15 @@
 								feedback_inc("alert_comms_blue",1)
 					tmp_alertlevel = 0
 				else:
-					usr << "You are not authorized to do this."
+					to_chat(usr, "You are not authorized to do this.")
 					tmp_alertlevel = 0
 				state = STATE_DEFAULT
 			else
-				usr << "You need to swipe your ID."
+				to_chat(usr, "You need to swipe your ID.")
 		if("announce" in href_list)
 			if(authenticated==2)
 				if(message_cooldown)
-					usr << "Please allow at least one minute to pass between announcements"
+					to_chat(usr, "Please allow at least one minute to pass between announcements")
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
 				if(!input || !interactable())
@@ -192,13 +192,13 @@
 				return
 			if(authenticated==2)
 				if(centcomm_message_cooldown)
-					usr << "Arrays recycling.  Please stand by."
+					to_chat(usr, "Arrays recycling.  Please stand by.")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || !interactable())
 					return
 				Centcomm_announce(input, usr)
-				usr << "Message transmitted."
+				to_chat(usr, "Message transmitted.")
 				log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = 1
 				spawn(600)//10 minute cooldown
@@ -209,20 +209,20 @@
 		if("MessageSyndicate" in href_list)
 			if((authenticated==2) && (computer.emagged))
 				if(centcomm_message_cooldown)
-					usr << "Arrays recycling.  Please stand by."
+					to_chat(usr, "Arrays recycling.  Please stand by.")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || !interactable())
 					return
 				Syndicate_announce(input, usr)
-				usr << "Message transmitted."
+				to_chat(usr, "Message transmitted.")
 				log_say("[key_name(usr)] has made a Syndicate announcement: [input]")
 				centcomm_message_cooldown = 1
 				spawn(600)//10 minute cooldown
 					centcomm_message_cooldown = 0
 
 		if("RestoreBackup" in href_list)
-			usr << "Backup routing data restored!"
+			to_chat(usr, "Backup routing data restored!")
 			computer.emagged = 0
 			computer.updateDialog()
 

@@ -16,6 +16,7 @@ Pipelines + Other Objects -> Pipe network
 	idle_power_usage = 0
 	active_power_usage = 0
 	power_channel = ENVIRON
+	on_blueprints = TRUE
 	var/nodealert = 0
 	var/can_unwrench = 0
 
@@ -141,6 +142,9 @@ Pipelines + Other Objects -> Pipe network
 	// Called to build a network from this node
 	return
 
+/obj/machinery/atmospherics/proc/defer_build_network()
+	deferred_pipenet_rebuilds += src
+
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return
 
@@ -153,7 +157,7 @@ Pipelines + Other Objects -> Pipe network
 	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
 		var/turf/T = get_turf(src)
 		if (level == 1 && isturf(T) && T.intact)
-			user << "<span class='danger'>You must remove the plating first.</span>"
+			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
 			return 1
 		var/datum/gas_mixture/int_air = return_air()
 		var/datum/gas_mixture/env_air = loc.return_air()
@@ -163,9 +167,9 @@ Pipelines + Other Objects -> Pipe network
 		var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
 
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
+		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 		if (internal_pressure > 2*ONE_ATMOSPHERE)
-			user << "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>"
+			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
 		if (do_after(user, 40, target = src) && isnull(gcDestroyed))

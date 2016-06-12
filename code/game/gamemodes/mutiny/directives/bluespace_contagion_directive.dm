@@ -32,7 +32,7 @@ datum/directive/bluespace_contagion/initialize()
 		infected_names+="[candidate.mind.assigned_role] [candidate.mind.name]"
 
 	special_orders = list(
-		"Quarantine these personnel: [list2text(infected_names, ", ")].",
+		"Quarantine these personnel: [jointext(infected_names, ", ")].",
 		"Allow one hour for a cure to be manufactured.",
 		"If no cure arrives after that time, execute and burn the infected.")
 

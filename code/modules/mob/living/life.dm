@@ -59,6 +59,8 @@
 	if(get_nations_mode())
 		process_nations()
 
+	..()
+
 /mob/living/proc/handle_breathing()
 	return
 
@@ -111,6 +113,7 @@
 	handle_slurring()
 	handle_paralysed()
 	handle_sleeping()
+	handle_slowed()
 
 
 /mob/living/proc/handle_stunned()
@@ -155,13 +158,19 @@
 /mob/living/proc/handle_sleeping()
 	if(sleeping)
 		AdjustSleeping(-1)
+		throw_alert("asleep", /obj/screen/alert/asleep)
+	else
+		clear_alert("asleep")
 	return sleeping
 
-
+/mob/living/proc/handle_slowed()
+	if(slowed)
+		slowed = max(slowed-1, 0)
+	return slowed
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
-	if(disabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
+	if(sdisabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
 		eye_blind = max(eye_blind, 1)
 	else if(eye_blind)			//blindness, heals slowly over time
 		eye_blind = max(eye_blind-1,0)
@@ -187,33 +196,40 @@
 	return 1
 
 /mob/living/proc/handle_vision()
-
-	client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask)
-
 	update_sight()
 
-	if(stat != DEAD)
-		if(blind)
-			if(eye_blind)
-				blind.layer = 18
-			else
-				blind.layer = 0
+	if(stat == DEAD)
+		return
+	if(blinded || eye_blind)
+		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+		throw_alert("blind", /obj/screen/alert/blind)
+	else
+		clear_fullscreen("blind")
+		clear_alert("blind")
 
-				if (disabilities & NEARSIGHTED)
-					client.screen += global_hud.vimpaired
-
-				if (eye_blurry)
-					client.screen += global_hud.blurry
-
-				if (druggy)
-					client.screen += global_hud.druggy
-
-		if(machine)
-			if (!( machine.check_eye(src) ))
-				reset_view(null)
+		if(disabilities & NEARSIGHTED)
+			overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 		else
-			if(!client.adminobs)
-				reset_view(null)
+			clear_fullscreen("nearsighted")
+
+		if(eye_blurry)
+			overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+		else
+			clear_fullscreen("blurry")
+
+		if(druggy)
+			overlay_fullscreen("high", /obj/screen/fullscreen/high)
+			throw_alert("high", /obj/screen/alert/high)
+		else
+			clear_fullscreen("high")
+			clear_alert("high")
+
+	if(machine)
+		if(!machine.check_eye(src))
+			reset_view(null)
+	else
+		if(!remote_view && !client.adminobs)
+			reset_view(null)
 
 /mob/living/proc/update_sight()
 	return
@@ -237,25 +253,23 @@
 /mob/living/proc/give_action_button(var/obj/item/I, recursive = 0)
 	if(I.action_button_name)
 		if(!I.action)
-			if(istype(I, /obj/item/organ/internal))
-				I.action = new/datum/action/item_action/organ_action
-			else if(I.action_button_is_hands_free)
-				I.action = new/datum/action/item_action/hands_free
+			if(I.action_button_custom_type)
+				I.action = new I.action_button_custom_type
 			else
-				I.action = new/datum/action/item_action
+				I.action = new /datum/action/item_action
 			I.action.name = I.action_button_name
 			I.action.target = I
 		I.action.Grant(src)
 
 	if(recursive)
 		for(var/obj/item/T in I)
-			give_action_button(I, recursive - 1)
+			give_action_button(T, recursive - 1)
 
 /mob/living/update_action_buttons()
 	if(!hud_used) return
 	if(!client) return
 
-	if(hud_used.hud_shown != 1)	//Hud toggled to minimal
+	if(!hud_used.hud_shown)
 		return
 
 	client.screen -= hud_used.hide_actions_toggle

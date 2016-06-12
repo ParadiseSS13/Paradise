@@ -16,17 +16,13 @@
 	required_enemies = 1
 	recommended_enemies = 4
 
-
-	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 20
-
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
 
 
 /datum/game_mode/traitor/announce()
-	world << "<B>The current game mode is - Traitor!</B>"
-	world << "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>"
+	to_chat(world, "<B>The current game mode is - Traitor!</B>")
+	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
 
 
 /datum/game_mode/traitor/pre_setup()
@@ -74,108 +70,114 @@
 	..()
 
 
-/datum/game_mode/proc/forge_traitor_objectives(var/datum/mind/traitor)
+/datum/game_mode/proc/forge_traitor_objectives(datum/mind/traitor)
 	if(istype(traitor.current, /mob/living/silicon))
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = traitor
-		kill_objective.find_target()
-		traitor.objectives += kill_objective
+		var/objective_count = 0
+
+		if(prob(30))
+			var/special_pick = rand(1,2)
+			switch(special_pick)
+				if(1)
+					var/datum/objective/block/block_objective = new
+					block_objective.owner = traitor
+					traitor.objectives += block_objective
+					objective_count++
+				if(2) //Protect and strand a target
+					var/datum/objective/protect/yandere_one = new
+					yandere_one.owner = traitor
+					traitor.objectives += yandere_one
+					yandere_one.find_target()
+					objective_count++
+					var/datum/objective/maroon/yandere_two = new
+					yandere_two.owner = traitor
+					yandere_two.target = yandere_one.target
+					traitor.objectives += yandere_two
+					objective_count++
+
+		for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = traitor
+			kill_objective.find_target()
+			traitor.objectives += kill_objective
 
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = traitor
 		traitor.objectives += survive_objective
 
-		if(prob(10))
-			var/datum/objective/block/block_objective = new
-			block_objective.owner = traitor
-			traitor.objectives += block_objective
-
 	else
-		if(!exchange_blue && traitors.len >= 5 && name != "AutoTraitor") 	//Set up an exchange if there are enough traitors, turned off during autotraitor temporarily due to bugs.
+		var/is_hijacker = prob(10)
+		var/martyr_chance = prob(20)
+		var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
+		if(!exchange_blue && traitors.len >= 8) 	//Set up an exchange if there are enough traitors
 			if(!exchange_red)
 				exchange_red = traitor
 			else
 				exchange_blue = traitor
 				assign_exchange_role(exchange_red)
 				assign_exchange_role(exchange_blue)
-		else
-			var/list/active_ais = active_ais()
-			if(active_ais.len && prob(4)) // Leaving this at a flat chance for now, problems with the num_players() proc due to latejoin antags.
-				var/datum/objective/destroy/destroy_objective = new
-				destroy_objective.owner = traitor
-				destroy_objective.find_target()
-				traitor.objectives += destroy_objective
-			else
-				switch(rand(1,100))
-					if(1 to 30)
-						var/datum/objective/assassinate/kill_objective = new
-						kill_objective.owner = traitor
-						kill_objective.find_target()
-						traitor.objectives += kill_objective
-					if(31 to 40)
-						var/datum/objective/debrain/debrain_objective = new
-						debrain_objective.owner = traitor
-						debrain_objective.find_target()
-						traitor.objectives += debrain_objective
-					if(41 to 50)
-						var/datum/objective/protect/protect_objective = new
-						protect_objective.owner = traitor
-						protect_objective.find_target_with_special_role(null,0)
-						if (!protect_objective.target)
-							protect_objective.find_target()					//We could not find any traitors, protect somebody
-						traitor.objectives += protect_objective
-					if(51 to 61)
-						var/datum/objective/harm/harm_objective = new
-						harm_objective.owner = traitor
-						harm_objective.find_target()
-						traitor.objectives += harm_objective
-					else
-						var/datum/objective/steal/steal_objective = new
-						steal_objective.owner = traitor
-						steal_objective.find_target()
-						traitor.objectives += steal_objective
-		switch(rand(1,100))
-			if(1 to 30) // Die glorious death
-				if (!(locate(/datum/objective/die) in traitor.objectives) && !(locate(/datum/objective/steal) in traitor.objectives) && !(locate(/datum/objective/steal/exchange) in traitor.objectives) && !(locate(/datum/objective/steal/exchange/backstab) in traitor.objectives))
-					var/datum/objective/die/die_objective = new
-					die_objective.owner = traitor
-					traitor.objectives += die_objective
+			objective_count += 1					//Exchange counts towards number of objectives
+		var/list/active_ais = active_ais()
+		for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
+			if(prob(50))
+				if(active_ais.len && prob(100/player_list.len))
+					var/datum/objective/destroy/destroy_objective = new
+					destroy_objective.owner = traitor
+					destroy_objective.find_target()
+					traitor.objectives += destroy_objective
+				else if(prob(5))
+					var/datum/objective/debrain/debrain_objective = new
+					debrain_objective.owner = traitor
+					debrain_objective.find_target()
+					traitor.objectives += debrain_objective
+				else if(prob(30))
+					var/datum/objective/maroon/maroon_objective = new
+					maroon_objective.owner = traitor
+					maroon_objective.find_target()
+					traitor.objectives += maroon_objective
 				else
-					if(prob(85))
-						if (!(locate(/datum/objective/escape) in traitor.objectives))
-							var/datum/objective/escape/escape_objective = new
-							escape_objective.owner = traitor
-							traitor.objectives += escape_objective
-					else
-						if(prob(50))
-							if (!(locate(/datum/objective/hijack) in traitor.objectives))
-								var/datum/objective/hijack/hijack_objective = new
-								hijack_objective.owner = traitor
-								traitor.objectives += hijack_objective
-						else
-							if (!(locate(/datum/objective/minimize_casualties) in traitor.objectives))
-								var/datum/objective/minimize_casualties/escape_objective = new
-								escape_objective.owner = traitor
-								traitor.objectives += escape_objective
-			if(31 to 85)
-				if (!(locate(/datum/objective/escape) in traitor.objectives))
-					var/datum/objective/escape/escape_objective = new
-					escape_objective.owner = traitor
-					traitor.objectives += escape_objective
+					var/datum/objective/assassinate/kill_objective = new
+					kill_objective.owner = traitor
+					kill_objective.find_target()
+					traitor.objectives += kill_objective
 			else
-				if (!(locate(/datum/objective/hijack) in traitor.objectives))
-					var/datum/objective/hijack/hijack_objective = new
-					hijack_objective.owner = traitor
-					traitor.objectives += hijack_objective
+				var/datum/objective/steal/steal_objective = new
+				steal_objective.owner = traitor
+				steal_objective.find_target()
+				traitor.objectives += steal_objective
 
-	return
+		if(is_hijacker && objective_count <= config.traitor_objectives_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
+			if (!(locate(/datum/objective/hijack) in traitor.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = traitor
+				traitor.objectives += hijack_objective
+				return
+
+
+		var/martyr_compatibility = 1 //You can't succeed in stealing if you're dead.
+		for(var/datum/objective/O in traitor.objectives)
+			if(!O.martyr_compatible)
+				martyr_compatibility = 0
+				break
+
+		if(martyr_compatibility && martyr_chance)
+			var/datum/objective/die/martyr_objective = new
+			martyr_objective.owner = traitor
+			traitor.objectives += martyr_objective
+			return
+
+		else
+			if(!(locate(/datum/objective/escape) in traitor.objectives))
+				var/datum/objective/escape/escape_objective = new
+				escape_objective.owner = traitor
+				traitor.objectives += escape_objective
+				return
 
 
 /datum/game_mode/proc/greet_traitor(var/datum/mind/traitor)
-	traitor.current << "<B><font size=3 color=red>You are the traitor.</font></B>"
+	to_chat(traitor.current, "<B><font size=3 color=red>You are the traitor.</font></B>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in traitor.objectives)
-		traitor.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		to_chat(traitor.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	return
 
@@ -201,21 +203,21 @@
 	return 0
 
 /datum/game_mode/proc/give_codewords(mob/living/traitor_mob)
-	traitor_mob << "<U><B>The Syndicate provided you with the following information on how to identify their agents:</B></U>"
-	traitor_mob << "<B>Code Phrase</B>: <span class='danger'>[syndicate_code_phrase]</span>"
-	traitor_mob << "<B>Code Response</B>: <span class='danger'>[syndicate_code_response]</span>"
+	to_chat(traitor_mob, "<U><B>The Syndicate provided you with the following information on how to identify their agents:</B></U>")
+	to_chat(traitor_mob, "<B>Code Phrase</B>: <span class='danger'>[syndicate_code_phrase]</span>")
+	to_chat(traitor_mob, "<B>Code Response</B>: <span class='danger'>[syndicate_code_response]</span>")
 
 	traitor_mob.mind.store_memory("<b>Code Phrase</b>: [syndicate_code_phrase]")
 	traitor_mob.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
 
-	traitor_mob << "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe."
+	to_chat(traitor_mob, "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 
 /datum/game_mode/proc/add_law_zero(mob/living/silicon/ai/killer)
 	var/law = "Accomplish your objectives at all costs."
 	var/law_borg = "Accomplish your AI's objectives at all costs."
-	killer << "<b>Your laws have been changed!</b>"
+	to_chat(killer, "<b>Your laws have been changed!</b>")
 	killer.set_zeroth_law(law, law_borg)
-	killer << "New law: 0. [law]"
+	to_chat(killer, "New law: 0. [law]")
 	give_codewords(killer)
 
 
@@ -277,7 +279,7 @@
 				feedback_add_details("traitor_success","FAIL")
 
 
-		world << text
+		to_chat(world, text)
 	return 1
 
 
@@ -287,7 +289,7 @@
 	. = 1
 	if (traitor_mob.mind)
 		if (traitor_mob.mind.assigned_role == "Clown")
-			traitor_mob << "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
+			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			traitor_mob.mutations.Remove(CLUMSY)
 
 	// find a radio! toolbox(es), backpack, belt, headset
@@ -296,7 +298,7 @@
 		R = locate(/obj/item/device/radio) in traitor_mob.contents
 
 	if (!R)
-		traitor_mob << "Unfortunately, the Syndicate wasn't able to get you a radio."
+		to_chat(traitor_mob, "Unfortunately, the Syndicate wasn't able to get you a radio.")
 		. = 0
 	else
 		if (istype(R, /obj/item/device/radio))
@@ -316,7 +318,7 @@
 			target_radio.hidden_uplink = T
 			T.uplink_owner = "[traitor_mob.key]"
 			target_radio.traitor_frequency = freq
-			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."
+			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
 			traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [T.loc]).")
 		else if (istype(R, /obj/item/device/pda))
 			// generate a passcode if the uplink is hidden in a PDA
@@ -328,7 +330,7 @@
 			var/obj/item/device/pda/P = R
 			P.lock_code = pda_pass
 
-			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features."
+			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
 			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
 	if(!safety)//If they are not a rev. Can be added on to.
 		give_codewords(traitor_mob)
@@ -336,17 +338,17 @@
 	// Tell them about people they might want to contact.
 	var/mob/living/carbon/human/M = get_nt_opposed()
 	if(M && M != traitor_mob)
-		traitor_mob << "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting them."
+		to_chat(traitor_mob, "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting them.")
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
+	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	//var/ref = "\ref[traitor_mind]"
-	tatorhud.join_solo_hud(traitor_mind.current)
+	tatorhud.join_hud(traitor_mind.current)
 	set_antag_hud(traitor_mind.current, "hudsyndicate")
 
 /datum/game_mode/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
+	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	tatorhud.leave_hud(traitor_mind.current)
 	set_antag_hud(traitor_mind.current, null)
 
@@ -364,10 +366,11 @@
 		traitor_mind.special_role = null
 		traitor_mind.som = null
 		slaved.leave_serv_hud(traitor_mind)
+		for(var/datum/objective/protect/mindslave/MS in traitor_mind.objectives)
+			traitor_mind.objectives -= MS
 
 	update_traitor_icons_removed(traitor_mind)
-	//world << "Removed [traitor_mind.current.name] from traitor shit"
-	traitor_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>"
+	to_chat(traitor_mind.current, "<span class='userdanger'>You are no longer a mindslave; you have complete and free control of your own faculties, once more!</span>")
 
 /datum/game_mode/proc/assign_exchange_role(var/datum/mind/owner)
 	//set faction
@@ -408,5 +411,5 @@
 	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots)
 	if (equipped_slot)
 		where = "In your [equipped_slot]"
-	mob << "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>"
+	to_chat(mob, "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>")
 	mob.update_icons()

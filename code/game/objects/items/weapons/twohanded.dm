@@ -43,9 +43,9 @@
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
 	if(isrobot(user))
-		user << "<span class='notice'>You free up your module.</span>"
+		to_chat(user, "<span class='notice'>You free up your module.</span>")
 	else
-		user << "<span class='notice'>You are now carrying the [name] with one hand.</span>"
+		to_chat(user, "<span class='notice'>You are now carrying the [name] with one hand.</span>")
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
 	var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
@@ -58,10 +58,10 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.species.is_small)
-			user << "<span class='warning'>It's too heavy for you to wield fully.</span>"
+			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
 			return
 	if(user.get_inactive_hand())
-		user << "<span class='warning'>You need your other hand to be empty!</span>"
+		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return
 	wielded = 1
 	force = force_wielded
@@ -71,9 +71,9 @@
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
 	if(isrobot(user))
-		user << "<span class='notice'>You dedicate your module to [name].</span>"
+		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
 	else
-		user << "<span class='notice'>You grab the [name] with both hands.</span>"
+		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
 	if (wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
@@ -85,7 +85,7 @@
 /obj/item/weapon/twohanded/mob_can_equip(mob/M, slot)
 	//Cannot equip wielded items.
 	if(wielded)
-		M << "<span class='warning'>Unwield the [name] first!</span>"
+		to_chat(M, "<span class='warning'>Unwield the [name] first!</span>")
 		return 0
 	return ..()
 
@@ -138,7 +138,7 @@
 
 /obj/item/weapon/twohanded/required/mob_can_equip(M as mob, slot)
 	if(wielded)
-		M << "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>"
+		to_chat(M, "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>")
 		return 0
 	return ..()
 
@@ -222,9 +222,13 @@
 		icon_state = "dualsaber0"
 
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
+		unwield()
+		return
 	..()
 	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
-		user << "\red You twirl around a bit before losing your balance and impaling yourself on the [src]."
+		to_chat(user, "\red You twirl around a bit before losing your balance and impaling yourself on the [src].")
 		user.take_organ_damage(20,25)
 		return
 	if((wielded) && prob(50))
@@ -259,7 +263,10 @@
 	if(wielded)
 		return 1
 
-/obj/item/weapon/twohanded/dualsaber/wield()
+/obj/item/weapon/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
+	if(HULK in M.mutations)
+		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
+		return
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
 
@@ -268,11 +275,11 @@
 	if(istype(W, /obj/item/device/multitool))
 		if(hacked == 0)
 			hacked = 1
-			user << "<span class='warning'>2XRNBW_ENGAGE</span>"
+			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
 			blade_color = "rainbow"
 			update_icon()
 		else
-			user << "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>"
+			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
 
 //spears
 /obj/item/weapon/twohanded/spear
@@ -299,9 +306,9 @@
 	return ..()
 
 //Putting heads on spears
-/obj/item/weapon/organ/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
+/obj/item/organ/external/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
 	if(istype(W, /obj/item/weapon/twohanded/spear))
-		user << "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>"
+		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
 		var/matrix/M = matrix()
 		src.transform = M
@@ -315,8 +322,8 @@
 	return ..()
 
 /obj/item/weapon/twohanded/spear/attackby(var/obj/item/I, var/mob/living/user)
-	if(istype(I, /obj/item/weapon/organ/head))
-		user << "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>"
+	if(istype(I, /obj/item/organ/external/head))
+		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
 		var/matrix/M = matrix()
 		I.transform = M
@@ -339,7 +346,7 @@
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message("<span class='warning'>[user] kicks over \the [src]!</span>", "<span class='danger'>You kick down \the [src]!</span>")
 	new /obj/item/weapon/twohanded/spear(user.loc)
-	for(var/obj/item/weapon/organ/head/H in src)
+	for(var/obj/item/organ/external/head/H in src)
 		H.loc = user.loc
 	qdel(src)
 

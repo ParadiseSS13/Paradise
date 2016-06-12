@@ -1,12 +1,12 @@
 #define EMOTE_COOLDOWN 20		//Time in deciseconds that the cooldown lasts
 
 //Emote Cooldown System (it's so simple!)
-/mob/proc/handle_emote_CD()
+/mob/proc/handle_emote_CD(cooldown = EMOTE_COOLDOWN)
 	if(emote_cd == 2) return 1			// Cooldown emotes were disabled by an admin, prevent use
 	if(src.emote_cd == 1) return 1		// Already on CD, prevent use
 
 	src.emote_cd = 1		// Starting cooldown
-	spawn(EMOTE_COOLDOWN)
+	spawn(cooldown)
 		if(emote_cd == 2) return 1		// Don't reset if cooldown emotes were disabled by an admin during the cooldown
 		src.emote_cd = 0				// Cooldown complete, ready for more!
 
@@ -17,7 +17,7 @@
 /mob/proc/custom_emote(var/m_type=1,var/message = null)
 
 	if(stat || !use_me && usr == src)
-		usr << "You are unable to emote."
+		to_chat(usr, "You are unable to emote.")
 		return
 
 	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)
@@ -85,16 +85,16 @@
 /mob/proc/emote_dead(var/message)
 
 	if(client.prefs.muted & MUTE_DEADCHAT)
-		src << "\red You cannot send deadchat emotes (muted)."
+		to_chat(src, "\red You cannot send deadchat emotes (muted).")
 		return
 
 	if(!(client.prefs.toggles & CHAT_DEAD))
-		src << "\red You have deadchat muted."
+		to_chat(src, "\red You have deadchat muted.")
 		return
 
 	if(!src.client.holder)
 		if(!config.dsay_allowed)
-			src << "\red Deadchat is globally muted"
+			to_chat(src, "\red Deadchat is globally muted")
 			return
 
 
@@ -118,7 +118,7 @@
 				continue
 
 			if(check_rights(R_ADMIN|R_MOD, 0, M) && (M.client.prefs.toggles & CHAT_DEAD)) // Show the emote to admins/mods
-				M << message
+				to_chat(M, message)
 
 			else if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
 				M.show_message(message, 2)

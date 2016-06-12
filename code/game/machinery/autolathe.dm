@@ -43,7 +43,8 @@
 							"Medical",
 							"Miscellaneous",
 							"Security",
-							"Tools"
+							"Tools",
+							"Imported"
 							)
 
 /obj/machinery/autolathe/New()
@@ -107,7 +108,7 @@
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 	if (busy)
-		user << "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>"
+		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return 1
 
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
@@ -128,15 +129,27 @@
 	if (stat)
 		return 1
 
+	if(istype(O, /obj/item/weapon/disk/design_disk))
+		user.visible_message("[user] begins to load \the [O] in \the [src]...",
+			"You begin to load a design from \the [O]...",
+			"You hear the chatter of a floppy drive.")
+		busy = 1
+		var/obj/item/weapon/disk/design_disk/D = O
+		if(do_after(user, 14.4, target = src))
+			files.AddDesign2Known(D.blueprint)
+
+		busy = 0
+		return
+
 	var/material_amount = materials.get_item_material_amount(O)
 	if(!material_amount)
-		user << "<span class='warning'>This object does not contain sufficient amounts of metal or glass to be accepted by the autolathe.</span>"
+		to_chat(user, "<span class='warning'>This object does not contain sufficient amounts of metal or glass to be accepted by the autolathe.</span>")
 		return 1
 	if(!materials.has_space(material_amount))
-		user << "<span class='warning'>The autolathe is full. Please remove metal or glass from the autolathe in order to insert more.</span>"
+		to_chat(user, "<span class='warning'>The autolathe is full. Please remove metal or glass from the autolathe in order to insert more.</span>")
 		return 1
 	if(!user.unEquip(O))
-		user << "<span class='warning'>\The [O] is stuck to you and cannot be placed into the autolathe.</span>"
+		to_chat(user, "<span class='warning'>\The [O] is stuck to you and cannot be placed into the autolathe.</span>")
 		return 1
 
 	busy = 1
@@ -147,10 +160,10 @@
 				flick("autolathe_o",src)//plays metal insertion animation
 			if (O.materials[MAT_GLASS])
 				flick("autolathe_r",src)//plays glass insertion animation
-			user << "<span class='notice'>You insert [inserted] sheet[inserted>1 ? "s" : ""] to the autolathe.</span>"
+			to_chat(user, "<span class='notice'>You insert [inserted] sheet[inserted>1 ? "s" : ""] to the autolathe.</span>")
 			use_power(inserted*100)
 		else
-			user << "<span class='notice'>You insert a material total of [inserted] to the autolathe.</span>"
+			to_chat(user, "<span class='notice'>You insert a material total of [inserted] to the autolathe.</span>")
 			use_power(max(500,inserted/10))
 			qdel(O)
 	busy = 0
@@ -188,7 +201,7 @@
 
 		//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 		var/multiplier = text2num(href_list["multiplier"])
-		var/max_multiplier = min(50, design_last_ordered.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/design_last_ordered.materials[MAT_METAL]):INFINITY,design_last_ordered.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/design_last_ordered.materials[MAT_GLASS]):INFINITY)
+		var/max_multiplier = min(design_last_ordered.maxstack, design_last_ordered.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/design_last_ordered.materials[MAT_METAL]):INFINITY,design_last_ordered.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/design_last_ordered.materials[MAT_GLASS]):INFINITY)
 		var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
 
 		if(!is_stack && (multiplier > 1))
@@ -200,7 +213,7 @@
 		if((queue.len+1)<queue_max_len)
 			add_to_queue(design_last_ordered,multiplier)
 		else
-			usr << "\red The autolathe queue is full!"
+			to_chat(usr, "\red The autolathe queue is full!")
 		if (!busy)
 			busy = 1
 			process_queue()
@@ -433,7 +446,7 @@
 			dat += "<a href='?src=\ref[src];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(ispath(D.build_path, /obj/item/stack))
-			var/max_multiplier = min(50, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
+			var/max_multiplier = min(D.maxstack, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
 			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)
@@ -465,7 +478,7 @@
 			dat += "<a href='?src=\ref[src];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(ispath(D.build_path, /obj/item/stack))
-			var/max_multiplier = min(50, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
+			var/max_multiplier = min(D.maxstack, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
 			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)

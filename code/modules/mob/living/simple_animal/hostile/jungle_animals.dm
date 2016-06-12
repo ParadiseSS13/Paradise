@@ -13,8 +13,7 @@
 	icon_gib = "panther_dead"
 	speak_chance = 0
 	turns_per_move = 3
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 3
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 3)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
@@ -31,14 +30,9 @@
 
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
 	var/stalk_tick_delay = 3
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
-/mob/living/simple_animal/hostile/panther/ListTargets()
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/H in view(src, 10))
-		targets += H
-	return targets
-
-/mob/living/simple_animal/hostile/panther/FindTarget()
+/mob/living/simple_animal/hostile/panther/FindTarget(var/list/possible_targets)
 	. = ..()
 	if(.)
 		emote("nashes at [.]")
@@ -50,14 +44,6 @@
 		if(prob(15))
 			L.Weaken(3)
 			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
-
-/mob/living/simple_animal/hostile/panther/AttackTarget()
-	..()
-	if(stance == HOSTILE_STANCE_ATTACKING && get_dist(src, target))
-		stalk_tick_delay -= 1
-		if(stalk_tick_delay <= 0)
-			src.loc = get_step_towards(src, target)
-			stalk_tick_delay = 3
 
 //*******//
 // Snake //
@@ -72,8 +58,7 @@
 	icon_gib = "snake_dead"
 	speak_chance = 0
 	turns_per_move = 1
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 2
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 2)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
@@ -89,12 +74,7 @@
 
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
 	var/stalk_tick_delay = 3
-
-/mob/living/simple_animal/hostile/snake/ListTargets()
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/H in view(src, 10))
-		targets += H
-	return targets
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/snake/FindTarget()
 	. = ..()
@@ -106,11 +86,3 @@
 	var/mob/living/L = .
 	if(istype(L))
 		L.apply_damage(rand(3,12), TOX)
-
-/mob/living/simple_animal/hostile/snake/AttackTarget()
-	..()
-	if(stance == HOSTILE_STANCE_ATTACKING && get_dist(src, target))
-		stalk_tick_delay -= 1
-		if(stalk_tick_delay <= 0)
-			src.loc = get_step_towards(src, target)
-			stalk_tick_delay = 3

@@ -247,7 +247,7 @@
 				else
 					new /obj/machinery/power/solar(get_turf(src), src)
 			else
-				user << "<span class='warning'>You need two sheets of glass to put them into a solar panel.</span>"
+				to_chat(user, "<span class='warning'>You need two sheets of glass to put them into a solar panel.</span>")
 				return
 			return 1
 
@@ -293,7 +293,7 @@
 	var/autostart = 0 		// Automatically search for connected devices
 	var/obj/machinery/power/tracker/connected_tracker = null
 	var/list/connected_panels = list()
-	
+
 // Used for mapping in solar array which automatically starts itself (telecomms, for example)
 /obj/machinery/power/solar_control/autostart
 	track = 2 // Auto tracking mode
@@ -301,7 +301,7 @@
 
 /obj/machinery/power/solar_control/initialize()
 	..()
-	if(!powernet) 
+	if(!powernet)
 		return
 	connect_to_network()
 	set_panels(cdir)
@@ -375,17 +375,17 @@
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	ui_interact(user)
-	
+
 /obj/machinery/power/solar_control/attack_ghost(mob/user as mob)
-	ui_interact(user)		
-		
+	ui_interact(user)
+
 /obj/machinery/power/solar_control/attack_hand(mob/user)
 	if(..(user))
 		return 1
-	
+
 	if(stat & BROKEN)
 		return
-		
+
 	ui_interact(user)
 
 /obj/machinery/power/solar_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -409,16 +409,13 @@
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
-	else
-		ui.push_data(data)
-		return
 
 /obj/machinery/power/solar_control/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20, target = src))
 			if (src.stat & BROKEN)
-				user << "<span class='notice'>The broken glass falls out.</span>"
+				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				new /obj/item/weapon/shard( src.loc )
 				var/obj/item/weapon/circuitboard/solar_control/M = new /obj/item/weapon/circuitboard/solar_control( A )
@@ -430,7 +427,7 @@
 				A.anchored = 1
 				qdel(src)
 			else
-				user << "<span class='notice'>You disconnect the monitor.</span>"
+				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				var/obj/item/weapon/circuitboard/solar_control/M = new /obj/item/weapon/circuitboard/solar_control( A )
 				for (var/obj/C in src)

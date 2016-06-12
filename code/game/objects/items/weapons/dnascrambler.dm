@@ -1,16 +1,16 @@
 /obj/item/weapon/dnascrambler
 	name = "dna scrambler"
 	desc = "An illegal genetic serum designed to randomize the user's identity."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	item_state = "syringe_0"
-	icon_state = "b10"
+	icon_state = "lepopen1"
 	var/used = null
 
 	update_icon()
 		if(used)
-			icon_state = "b0"
+			icon_state = "lepopen0"
 		else
-			icon_state = "b10"
+			icon_state = "lepopen1"
 
 	attack(mob/M as mob, mob/user as mob)
 		if(!M || !user)
@@ -31,14 +31,14 @@
 				user.visible_message("\red <b>[user.name] injects [M.name] with [src].</b>")
 				src.injected(M, user)
 			else
-				user << "\red You failed to inject [M.name]."
+				to_chat(user, "\red You failed to inject [M.name].")
 
 	proc/injected(var/mob/living/carbon/target, var/mob/living/carbon/user)
 		scramble(1, target, 100)
 		target.generate_name()
 		if(istype(target, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = target
-			H.sync_organ_dna(1)
+			H.sync_organ_dna(assimilate = 1)
 			H.update_body(0)
 			H.reset_hair() // No more winding up with hairstyles you're not supposed to have, and blowing your cover
 			H.dna.ResetUIFrom(H)

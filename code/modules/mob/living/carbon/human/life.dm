@@ -1,30 +1,5 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-
-var/global/list/unconscious_overlays = list("1" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage1"),\
-	"2" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage2"),\
-	"3" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage3"),\
-	"4" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage4"),\
-	"5" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage5"),\
-	"6" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage6"),\
-	"7" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage7"),\
-	"8" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage8"),\
-	"9" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage9"),\
-	"10" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage10"))
-var/global/list/oxyloss_overlays = list("1" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay1"),\
-	"2" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay2"),\
-	"3" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay3"),\
-	"4" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay4"),\
-	"5" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay5"),\
-	"6" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay6"),\
-	"7" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay7"))
-var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay1"),\
-	"2" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay2"),\
-	"3" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay3"),\
-	"4" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay4"),\
-	"5" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay5"),\
-	"6" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay6"))
-
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 
@@ -51,10 +26,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			loc_as_cryobag.used++
 			in_stasis = 1
 
-	//if(mob_master.current_cycle % 30 == 15)
-		//hud_updateflag = 1022
-		//HudRefactor:WTF do i put here....
-
 	voice = GetVoice()
 
 	if(..() && !in_stasis)
@@ -63,8 +34,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			domutcheck(src,null)
 			update_mutations()
 			check_mutations=0
-
-		handle_virus_updates()
 
 		handle_shock()
 		handle_pain()
@@ -88,7 +57,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	pulse = handle_pulse()
 
 	if(mind && mind.vampire)
-		handle_vampire()
+		mind.vampire.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
@@ -200,11 +169,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		adjustCloneLoss(0.1)
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	if(getFireLoss())
-		if((RESIST_HEAT in mutations) || (prob(1)))
-			heal_organ_damage(0,1)
-
-
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
 			continue
@@ -223,31 +187,20 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				radiation -= 0.1
 				reagents.add_reagent("radium", rads/10)
 				if( prob(10) )
-					src << "<span class='notice'>You feel relaxed.</span>"
+					to_chat(src, "<span class='notice'>You feel relaxed.</span>")
 				return
 
 			if (radiation > 100)
 				radiation = 100
-				if(!(species.flags & RAD_ABSORB))
-					Weaken(10)
-					if(!lying)
-						src << "<span class='alert'>You feel weak.</span>"
-						emote("collapse")
+				Weaken(10)
+				if(!lying)
+					to_chat(src, "<span class='alert'>You feel weak.</span>")
+					emote("collapse")
 
 			if (radiation < 0)
 				radiation = 0
 
 			else
-				if(species.flags & RAD_ABSORB)
-					var/rads = radiation/25
-					radiation -= rads
-					nutrition += rads
-					adjustBruteLoss(-(rads))
-					adjustOxyLoss(-(rads))
-					adjustToxLoss(-(rads))
-					updatehealth()
-					return
-
 				var/damage = 0
 				switch(radiation)
 					if(0 to 49)
@@ -265,7 +218,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 							radiation -= 5
 							Weaken(3)
 							if(!lying)
-								src << "<span class='alert'>You feel weak.</span>"
+								to_chat(src, "<span class='alert'>You feel weak.</span>")
 								emote("collapse")
 						updatehealth()
 
@@ -274,7 +227,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						adjustToxLoss(3)
 						damage = 3
 						if(prob(1))
-							src << "<span class='alert'>You mutate!</span>"
+							to_chat(src, "<span class='alert'>You mutate!</span>")
 							randmutb(src)
 							domutcheck(src,null)
 							emote("gasp")
@@ -285,7 +238,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						adjustToxLoss(5)
 						damage = 5
 						if(prob(1))
-							src << "<span class='alert'>You mutate!</span>"
+							to_chat(src, "<span class='alert'>You mutate!</span>")
 							randmutb(src)
 							domutcheck(src,null)
 							emote("gasp")
@@ -350,12 +303,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(breath)
 		loc.assume_air(breath)
-		//spread virus2
-		if(virus2.len > 0)
-			if(prob(10) && get_infection_chance(src))
-				for(var/mob/living/carbon/M in view(1,src))
-					src.spread_disease_to(M)
-
 
 
 // USED IN DEATHWHISPERS
@@ -422,8 +369,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		var/obj/item/organ/external/affected = get_organ("chest")
 		affected.add_autopsy_data("Suffocation", oxyloss)
-
-		oxygen_alert = max(oxygen_alert, 1)
+		throw_alert("oxy", /obj/screen/alert/oxy)
 
 		return 0
 
@@ -434,10 +380,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		return
 
 	var/loc_temp = get_temperature(environment)
-	//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]"
+//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
-	if(stat != 2)
+	if(stat != DEAD)
 		stabilize_temperature_from_calories()
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
@@ -456,41 +402,43 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > species.heat_level_1)
 		//Body temperature is too hot.
-		fire_alert = max(fire_alert, 1)
 		if(status_flags & GODMODE)	return 1	//godmode
 		var/mult = species.hot_env_multiplier
 
 		if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
+			throw_alert("temp", /obj/screen/alert/hot, 1)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
-			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_2 && bodytemperature <= species.heat_level_3)
+			throw_alert("temp", /obj/screen/alert/hot, 2)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
+			throw_alert("temp", /obj/screen/alert/hot, 3)
 			if(on_fire)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
-				fire_alert = max(fire_alert, 2)
 			else
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-				fire_alert = max(fire_alert, 2)
 
 	else if(bodytemperature < species.cold_level_1)
-		fire_alert = max(fire_alert, 1)
-		if(status_flags & GODMODE)	return 1	//godmode
-
-		if(stat == DEAD) return 1 //ZomgPonies -- No need for cold burn damage if dead
+		if(status_flags & GODMODE)
+			return 1
+		if(stat == DEAD)
+			return 1
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = species.cold_env_multiplier
 			if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
+				throw_alert("temp", /obj/screen/alert/cold, 1)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
 			if(bodytemperature >= species.cold_level_3 && bodytemperature < species.cold_level_2)
+				throw_alert("temp", /obj/screen/alert/cold, 2)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
 			if(bodytemperature > -INFINITY && bodytemperature < species.cold_level_3)
+				throw_alert("temp", /obj/screen/alert/cold, 3)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
-				fire_alert = max(fire_alert, 1)
+			else
+				clear_alert("temp")
+	else
+		clear_alert("temp")
 
 	// Account for massive pressure differences.  Done by Polymorph
 	// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
@@ -500,27 +448,31 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= species.hazard_high_pressure)
-		var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
-		take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
-		pressure_alert = 2
+		if(!(RESIST_HEAT in mutations))
+			var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
+			take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
+			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+		else
+			clear_alert("pressure")
 	else if(adjusted_pressure >= species.warning_high_pressure)
-		pressure_alert = 1
+		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
 	else if(adjusted_pressure >= species.warning_low_pressure)
-		pressure_alert = 0
+		clear_alert("pressure")
 	else if(adjusted_pressure >= species.hazard_low_pressure)
-		pressure_alert = -1
+		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
 		if(RESIST_COLD in mutations)
-			pressure_alert = -1
+			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
-			pressure_alert = -2
+			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
-	return
 
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
 	if(..())
+		return
+	if(RESIST_HEAT in mutations)
 		return
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
@@ -600,11 +552,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	return thermal_protection_flags
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
+
+	if(RESIST_HEAT in mutations)
+		return 1
+
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
 
 	var/thermal_protection = 0.0
-	if(RESIST_HEAT in mutations)
-		return 1
 	if(thermal_protection_flags)
 		if(thermal_protection_flags & HEAD)
 			thermal_protection += THERMAL_PROTECTION_HEAD
@@ -718,55 +672,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(species.flags & REQUIRE_LIGHT)
-		var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-		if(isturf(loc)) //else, there's considered to be no light
-			var/turf/T = loc
-			light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-		nutrition += light_amount
-		traumatic_shock -= light_amount
-
-		if(species.flags & IS_PLANT)
-			if(nutrition > 450)
-				nutrition = 450
-			if((light_amount >= 5) && !suiciding) //if there's enough light, heal
-				adjustBruteLoss(-(light_amount/2))
-				adjustFireLoss(-(light_amount/4))
-				//adjustToxLoss(-(light_amount))
-				adjustOxyLoss(-(light_amount))
-				//TODO: heal wounds, heal broken limbs.
-
-	if(species.light_dam)
-		var/light_amount = 0
-		if(isturf(loc))
-			var/turf/T = loc
-			light_amount = T.get_lumcount()*10
-		if(light_amount > species.light_dam && !incorporeal_move) //if there's enough light, start dying
-			if(species.light_effect_amp)
-				adjustFireLoss(4.7) //This gets multiplied by 1.5 due to Shadowling's innate fire weakness, so it ends up being about 7.
-			else
-				adjustFireLoss(1)
-				adjustBruteLoss(1)
-			src << "<span class='userdanger'>The light burns you!</span>"
-			src << 'sound/weapons/sear.ogg'
-		else //heal in the dark
-			if(species.light_effect_amp)
-				adjustFireLoss(-5)
-				adjustBruteLoss(-5)
-				adjustBrainLoss(-25) //gibbering shadowlings are hilarious but also bad to have
-				adjustCloneLoss(-1)
-				SetWeakened(0)
-				SetStunned(0)
-			else
-				adjustFireLoss(-1)
-				adjustBruteLoss(-1)
-
-
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
 			if(overeatduration < 100)
-				src << "<span class='notice'>You feel fit again!</span>"
+				to_chat(src, "<span class='notice'>You feel fit again!</span>")
 				mutations.Remove(FAT)
 				update_mutantrace(0)
 				update_mutations(0)
@@ -774,7 +684,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				update_inv_wear_suit()
 		else
 			if(overeatduration > 500)
-				src << "<span class='alert'>You suddenly feel blubbery!</span>"
+				to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
 				mutations.Add(FAT)
 				update_mutantrace(0)
 				update_mutations(0)
@@ -795,11 +705,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 			else
 				overeatduration -= 2
-
-	if(species.flags & REQUIRE_LIGHT)
-		if(nutrition < 200)
-			take_overall_damage(10,0)
-			traumatic_shock++
 
 	if (drowsyness)
 		drowsyness--
@@ -833,13 +738,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(.) //alive
 		if(REGEN in mutations)
-			if(nutrition)
-				if(prob(10))
-					var/randumb = rand(1, 5)
-					nutrition -= randumb
-					heal_overall_damage(randumb, randumb)
-				if(nutrition < 0)
-					nutrition = 0
+			heal_overall_damage(0.1, 0.1)
 
 		if(!in_stasis)
 			handle_organs()
@@ -847,15 +746,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		//the analgesic effect wears off slowly
 		analgesic = max(0, analgesic - 1)
-
-		if(hallucination)
-			spawn()
-				handle_hallucinations()
-
-			if(hallucination <= 2)
-				hallucination = 0
-			else
-				hallucination -= 2
 
 		if(paralysis)
 			blinded = 1
@@ -954,7 +844,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 
 /mob/living/carbon/human/handle_vision()
-	client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask)
 	if(machine)
 		if(!machine.check_eye(src))		reset_view(null)
 	else
@@ -963,18 +852,21 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			isRemoteObserve = 1
 
 			if(remoteview_target.stat != CONSCIOUS)
-				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
+				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
 
 			if(PSY_RESIST in remoteview_target.mutations)
-				src << "<span class='alert'>Your mind is shut out!</span>"
+				to_chat(src, "<span class='alert'>Your mind is shut out!</span>")
 				isRemoteObserve = 0
 
 			// Not on the station or mining?
 			var/turf/temp_turf = get_turf(remoteview_target)
 			if(!temp_turf in config.contact_levels)
-				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
+				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
+
+		if(remote_view)
+			isRemoteObserve = 1
 
 		if(!isRemoteObserve && client && !client.adminobs)
 			remoteview_target = null
@@ -989,7 +881,23 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	// Puke if toxloss is too high
 	if(!stat)
 		if (getToxLoss() >= 45 && nutrition > 20)
-			vomit()
+			lastpuke ++
+			if(lastpuke >= 25) // about 25 second delay I guess
+				Stun(5)
+
+				visible_message("<span class='danger'>[src] throws up!</span>", \
+						"<span class='userdanger'>[src] throws up!</span>")
+				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+
+				var/turf/location = loc
+				if (istype(location, /turf/simulated))
+					location.add_vomit_floor(src, 1)
+
+				nutrition -= 20
+				adjustToxLoss(-3)
+
+				// make it so you can only puke so fast
+				lastpuke = 0
 
 	//0.1% chance of playing a scary sound to someone who's in complete darkness
 	if(isturf(loc) && rand(1,1000) == 1)
@@ -997,69 +905,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in currentTurf
 		if(L && L.lum_r + L.lum_g + L.lum_b == 0)
 			playsound_local(src,pick(scarySounds),50, 1, -1)
-
-	// Separate proc so we can jump out of it when we've succeeded in spreading disease.
-/mob/living/carbon/human/proc/findAirborneVirii()
-	for(var/obj/effect/decal/cleanable/blood/B in get_turf(src))
-		if(B.virus2.len)
-			for (var/ID in B.virus2)
-				var/datum/disease2/disease/V = B.virus2[ID]
-				if (infect_virus2(src,V))
-					return 1
-
-	for(var/obj/effect/decal/cleanable/mucus/M in get_turf(src))
-		if(M.virus2.len)
-			for (var/ID in M.virus2)
-				var/datum/disease2/disease/V = M.virus2[ID]
-				if (infect_virus2(src,V))
-					return 1
-
-	for(var/obj/effect/decal/cleanable/poop/P in get_turf(src))
-		if(P.virus2.len)
-			for (var/ID in P.virus2)
-				var/datum/disease2/disease/V = P.virus2[ID]
-				if (infect_virus2(src,V))
-					return 1
-
-
-	return 0
-
-/mob/living/carbon/human/proc/handle_virus_updates()
-	if(status_flags & GODMODE)	return 0	//godmode
-	if(bodytemperature > 406)
-		for (var/ID in virus2)
-			var/datum/disease2/disease/V = virus2[ID]
-			V.cure(src)
-	if(mob_master.current_cycle % 3) //don't spam checks over all objects in view every tick.
-		for(var/obj/effect/decal/cleanable/O in view(1,src))
-			if(istype(O,/obj/effect/decal/cleanable/blood))
-				var/obj/effect/decal/cleanable/blood/B = O
-				if(B.virus2.len)
-					for (var/ID in B.virus2)
-						var/datum/disease2/disease/V = B.virus2[ID]
-						infect_virus2(src,V.getcopy())
-
-			else if(istype(O,/obj/effect/decal/cleanable/mucus))
-				var/obj/effect/decal/cleanable/mucus/M = O
-				if(M.virus2.len)
-					for (var/ID in M.virus2)
-						var/datum/disease2/disease/V = M.virus2[ID]
-						infect_virus2(src,V.getcopy())
-
-
-	for (var/ID in virus2)
-		var/datum/disease2/disease/V = virus2[ID]
-		if(isnull(V)) // Trying to figure out a runtime error that keeps repeating
-			CRASH("virus2 nulled before calling activate()")
-		else
-			V.activate(src)
-		// activate may have deleted the virus
-		if(!V) continue
-
-		// check if we're immune
-		if(V.antigen & src.antibodies)
-			V.dead = 1
-	return
 
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
@@ -1088,7 +933,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		return
 
 	if(shock_stage == 10)
-		src << "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!")
+		to_chat(src, "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!"))
 
 	if(shock_stage >= 30)
 		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
@@ -1096,22 +941,22 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		stuttering = max(stuttering, 5)
 
 	if(shock_stage == 40)
-		src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+		to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 
 	if(shock_stage >=60)
 		if(shock_stage == 60) custom_emote(1,"falls limp.")
 		if (prob(2))
-			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 			Weaken(20)
 
 	if(shock_stage >= 80)
 		if (prob(5))
-			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
+			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 			Weaken(20)
 
 	if(shock_stage >= 120)
 		if (prob(2))
-			src << "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness.")
+			to_chat(src, "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness."))
 			Paralyse(5)
 
 	if(shock_stage == 150)
@@ -1194,16 +1039,15 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
 		if(prob(5))
-			if(airborne_can_reach(get_turf(src), get_turf(H)))
-				if(istype(loc,/obj/item/bodybag))
-					return
-				var/obj/item/clothing/mask/M = H.wear_mask
-				if(M && (M.flags & MASKCOVERSMOUTH))
-					return
-				if(H.species && H.species.flags & NO_BREATHE)
-					return //no puking if you can't smell!
-				H << "<spawn class='warning'>You smell something foul..."
-				H.fakevomit()
+			if(istype(loc,/obj/item/bodybag))
+				return
+			var/obj/item/clothing/mask/M = H.wear_mask
+			if(M && (M.flags & MASKCOVERSMOUTH))
+				return
+			if(H.species && H.species.flags & NO_BREATHE)
+				return //no puking if you can't smell!
+			to_chat(H, "<spawn class='warning'>You smell something foul...")
+			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
 	var/client/C = src.client
@@ -1222,7 +1066,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,0,30) //Credit to GhostHack (www.ghosthack.de) for sound.
+					to_chat(src, sound('sound/effects/electheart.ogg',0,0,0,30))//Credit to GhostHack (www.ghosthack.de) for sound.
+
 				else
 					heartbeat++
 				return
@@ -1240,9 +1085,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
 				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
 			else
 				heartbeat++
 

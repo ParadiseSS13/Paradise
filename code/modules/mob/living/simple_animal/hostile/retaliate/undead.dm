@@ -41,17 +41,11 @@
 	attacktext = "grips"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list("undead") // did I mention ghost
+	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(var/check_drift = 0)
 	return 1
@@ -68,7 +62,7 @@
 		invisibility = pick(0,60,60,invisibility)
 	..()
 /mob/living/simple_animal/hostile/retaliate/ghost/death()
-	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(loc)
+	..()
 	qdel(src)
 	return
 
@@ -93,20 +87,14 @@
 	attacktext = "claws"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list("undead")
+	loot = list(/obj/effect/decal/remains/human)
 
 /mob/living/simple_animal/hostile/retaliate/skeleton/death()
-	new /obj/effect/decal/remains/human(loc)
+	..()
 	qdel(src)
 	return
 
@@ -131,19 +119,13 @@
 	attacktext = "claws"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list("undead")
+	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 
 /mob/living/simple_animal/hostile/retaliate/zombie/death()
-	new /obj/effect/decal/cleanable/blood/gibs(loc)
+	..()
 	qdel(src)
 	return

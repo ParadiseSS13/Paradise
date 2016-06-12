@@ -138,7 +138,7 @@
 	else
 		t5 = in_range(src, usr) || src.loc == usr
 
-//	world << "according to dblclick(), t5 is [t5]"
+//	to_chat(world, "according to dblclick(), t5 is [t5]")
 
 	// ------- ACTUALLY DETERMINING STUFF -------
 	if (((t5 || (W && (W.flags & USEDELAY))) && !( istype(src, /obj/screen) )))
@@ -369,8 +369,7 @@
 				A.current = T
 				A.yo = U.y - T.y
 				A.xo = U.x - T.x
-				spawn( 1 )
-					A.process()
+				A.fire()
 
 				usr.next_move = world.time + 6
 	return

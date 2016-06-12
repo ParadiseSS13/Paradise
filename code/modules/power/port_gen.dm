@@ -51,9 +51,9 @@
 	if(!..(user,1 ))
 		return
 	if(active)
-		usr << "<span class='notice'>The generator is on.</span>"
+		to_chat(usr, "<span class='notice'>The generator is on.</span>")
 	else
-		usr << "<span class='notice'>The generator is off.</span>"
+		to_chat(usr, "<span class='notice'>The generator is off.</span>")
 
 /obj/machinery/power/port_gen/emp_act(severity)
 	var/duration = 6000 //ten minutes
@@ -151,10 +151,12 @@
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	..(user)
-	user << "\The [src] appears to be producing [power_gen*power_output] W."
-	user << "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper."
-	if(IsBroken()) user << "<span class='warning'>\The [src] seems to have broken down.</span>"
-	if(overheating) user << "<span class='danger'>\The [src] is overheating!</span>"
+	to_chat(user, "\The [src] appears to be producing [power_gen*power_output] W.")
+	to_chat(user, "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper.")
+	if(IsBroken())
+		to_chat(user, "<span class='warning'>\The [src] seems to have broken down.</span>")
+	if(overheating)
+		to_chat(user, "<span class='danger'>\The [src] is overheating!</span>")
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	var/needed_sheets = power_output / time_per_sheet
@@ -269,9 +271,9 @@
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
-			user << "<span class='notice'>The [src.name] is full!</span>"
+			to_chat(user, "<span class='notice'>The [src.name] is full!</span>")
 			return
-		user << "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>"
+		to_chat(user, "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>")
 		sheets += amount
 		addstack.use(amount)
 		nanomanager.update_uis(src)
@@ -281,10 +283,10 @@
 
 			if(!anchored)
 				connect_to_network()
-				user << "<span class='notice'>You secure the generator to the floor.</span>"
+				to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
 			else
 				disconnect_from_network()
-				user << "<span class='notice'>You unsecure the generator from the floor.</span>"
+				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
 
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 			anchored = !anchored
@@ -293,9 +295,9 @@
 			panel_open = !panel_open
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(panel_open)
-				user << "<span class='notice'>You open the access panel.</span>"
+				to_chat(user, "<span class='notice'>You open the access panel.</span>")
 			else
-				user << "<span class='notice'>You close the access panel.</span>"
+				to_chat(user, "<span class='notice'>You close the access panel.</span>")
 		else if(istype(O, /obj/item/weapon/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 			return

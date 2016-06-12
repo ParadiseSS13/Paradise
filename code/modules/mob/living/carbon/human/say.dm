@@ -53,6 +53,8 @@
 				return 1
 		if (istype(other, /mob/living/silicon))
 			return 1
+		if (istype(other, /mob/living/simple_animal/bot))
+			return 1
 		if (istype(other, /mob/living/carbon/brain))
 			return 1
 		if (istype(other, /mob/living/carbon/slime))
@@ -146,6 +148,9 @@
 			if(prob(braindam))
 				message = uppertext(message)
 				verb = "yells loudly"
+	
+	if(locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs)
+		message = "<span class='sans'>[message]</span>"
 
 	returns[1] = message
 	returns[2] = verb

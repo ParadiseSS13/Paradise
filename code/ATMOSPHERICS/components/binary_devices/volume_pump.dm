@@ -18,7 +18,7 @@ Thus, the two variables affect pump operation are set in New():
 
 	name = "volumetric gas pump"
 	desc = "A volumetric pump"
-	
+
 	can_unwrench = 1
 
 	var/on = 0
@@ -31,7 +31,7 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/on
 	on = 1
 	icon_state = "map_on"
-	
+
 /obj/machinery/atmospherics/binary/volume_pump/initialize()
 	..()
 	set_frequency(frequency)
@@ -52,9 +52,7 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/volume_pump/process()
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!on)
+	if(!..() || (stat & (NOPOWER|BROKEN)) || !on)
 		return 0
 
 	// Pump mechanism just won't do anything if the pressure is too high/too low
@@ -114,7 +112,7 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
-	
+
 	var/old_on = on //for logging
 
 	if(signal.data["power"])
@@ -129,7 +127,7 @@ Thus, the two variables affect pump operation are set in New():
 			text2num(signal.data["set_transfer_rate"]),
 			air1.volume
 		)
-		
+
 	if(on != old_on)
 		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
 
@@ -147,14 +145,14 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	src.add_fingerprint(usr)
 	if(!src.allowed(user))
-		user << "<span class='alert'>Access denied.</span>"
+		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	usr.set_machine(src)
 	interact(user)
 	return
 
 /obj/machinery/atmospherics/binary/volume_pump/Topic(href,href_list)
-	if(..()) 
+	if(..())
 		return 1
 	if(href_list["power"])
 		on = !on
@@ -178,6 +176,6 @@ Thus, the two variables affect pump operation are set in New():
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if (!(stat & NOPOWER) && on)
-		user << "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>"
+		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
 		return 1
 	return ..()

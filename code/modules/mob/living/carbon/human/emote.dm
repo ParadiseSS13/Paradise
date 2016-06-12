@@ -25,12 +25,18 @@
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0
+	act = lowertext(act)
 	switch(act)
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no")
 			if (species.name == "Machine")		//Only Machines can beep, ping, and buzz
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
+				return
+		if("drone","drones","hum","hums","rumble","rumbles")
+			if (species.name == "Drask")		//Only Drask can make whale noises
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+			else
 				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
@@ -47,7 +53,9 @@
 
 			if(!found_slime_bodypart)								//Everyone else fails, skip the emote attempt
 				return
-		if("scream", "screams", "fart", "farts", "flip", "flips", "snap", "snaps")
+		if("scream", "screams")
+			on_CD = handle_emote_CD(50) //longer cooldown
+		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -76,7 +84,7 @@
 			else
 				message = "<B>[src]</B> pings."
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("buzz", "buzzes")
 			var/M = null
@@ -93,7 +101,7 @@
 			else
 				message = "<B>[src]</B> buzzes."
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("beep", "beeps")
 			var/M = null
@@ -110,7 +118,24 @@
 			else
 				message = "<B>[src]</B> beeps."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
+
+		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> drones at [param]."
+			else
+				message = "<B>[src]</B> rumbles."
+			playsound(src.loc, 'sound/voice/DraskTalk.ogg', 50, 0)
+			m_type = 2
 
 		if("squish", "squishes")
 			var/M = null
@@ -127,7 +152,7 @@
 			else
 				message = "<B>[src]</B> squishes."
 			playsound(src.loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
-			m_type = 1
+			m_type = 2
 
 		if("yes")
 			var/M = null
@@ -144,7 +169,7 @@
 			else
 				message = "<B>[src]</B> emits an affirmative blip."
 			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("no")
 			var/M = null
@@ -161,7 +186,7 @@
 			else
 				message = "<B>[src]</B> emits a negative blip."
 			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("wag", "wags")
 			if(body_accessory)
@@ -177,6 +202,7 @@
 					return
 			else
 				return
+			m_type = 1
 
 		if("swag", "swags")
 			if(species.bodyflags & TAIL_WAGGING || body_accessory)
@@ -184,6 +210,7 @@
 				src.stop_tail_wagging(1)
 			else
 				return
+			m_type = 1
 
 		if ("airguitar")
 			if (!src.restrained())
@@ -280,18 +307,32 @@
 				if (M == src)
 					M = null
 
-				if (M)
-					if(src.lying || src.weakened)
+				if(M)
+					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						message = "<B>[src]</B> flips in [M]'s general direction."
-						src.SpinAnimation(5,1)
+						SpinAnimation(5,1)
 				else
-					if(src.lying || src.weakened)
+					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
-						message = "<B>[src]</B> does a flip!"
-						src.SpinAnimation(5,1)
+						var/obj/item/weapon/grab/G
+						if(istype(get_active_hand(), /obj/item/weapon/grab))
+							G = get_active_hand()
+						if(G && G.affecting)
+							if(buckled || G.affecting.buckled)
+								return
+							var/turf/oldloc = loc
+							var/turf/newloc = G.affecting.loc
+							if(isturf(oldloc) && isturf(newloc))
+								SpinAnimation(5,1)
+								forceMove(newloc)
+								G.affecting.forceMove(oldloc)
+								message = "<B>[src]</B> flips over [G.affecting]!"
+						else
+							message = "<B>[src]</B> does a flip!"
+							SpinAnimation(5,1)
 
 		if ("aflap", "aflaps")
 			if (!src.restrained())
@@ -332,7 +373,7 @@
 			message = "<B>[src]</B> faints."
 			if(src.sleeping)
 				return //Can't faint while asleep
-			src.sleeping += 10 //Short-short nap
+			src.sleeping += 1
 			m_type = 1
 
 		if ("cough", "coughs")
@@ -409,6 +450,7 @@
 				message = "<B>[src]</B> glares at [param]."
 			else
 				message = "<B>[src]</B> glares."
+			m_type = 1
 
 		if ("stare", "stares")
 			var/M = null
@@ -424,6 +466,7 @@
 				message = "<B>[src]</B> stares at [param]."
 			else
 				message = "<B>[src]</B> stares."
+			m_type = 1
 
 		if ("look", "looks")
 			var/M = null
@@ -586,7 +629,7 @@
 			m_type = 1
 
 		if ("tremble", "trembles")
-			message = "<B>[src]</B> trembles in fear!"
+			message = "<B>[src]</B> trembles."
 			m_type = 1
 
 		if ("sneeze", "sneezes")
@@ -721,17 +764,12 @@
 				m_type = 1
 			else
 				if (!muzzled)
-					if (!(species.name == "Vox" || species.name == "Vox Armalis"))
-						message = "<B>[src]</B> screams!"
-						m_type = 2
-						if (prob(5))
-							playsound(src.loc, 'sound/voice/WilhelmScream.ogg', 100, 1, 10)
-						else
-							playsound(src.loc, 'sound/voice/scream2.ogg', 100, 1, 10)
+					message = "<B>[src]</B> [species.scream_verb]!"
+					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
 					else
-						message = "<B>[src]</B> shrieks!"
-						m_type = 2
-						playsound(src.loc, 'sound/voice/shriek1.ogg', 100, 1, 10)
+						playsound(src.loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise."
@@ -752,7 +790,7 @@
 					right_hand_good = 1
 
 				if (!left_hand_good && !right_hand_good)
-					usr << "You need at least one hand in good working order to snap your fingers."
+					to_chat(usr, "You need at least one hand in good working order to snap your fingers.")
 					return
 
 				message = "<b>[src]</b> snaps \his fingers."
@@ -768,8 +806,8 @@
 				return
 //			playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
-				viewers(src) << "<span class='warning'><b>[src] farts on the Bible!</b></span>"
-				viewers(src) << "<span class='notice'><b>A mysterious force smites [src]!</b></span>"
+				to_chat(viewers(src), "<span class='warning'><b>[src] farts on the Bible!</b></span>")
+				to_chat(viewers(src), "<span class='notice'><b>A mysterious force smites [src]!</b></span>")
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(3, 1, src)
 				s.start()
@@ -788,18 +826,11 @@
 				for(var/mob/M in range(location,aoe_range))
 					if (M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
 						continue
-					if(!airborne_can_reach(location,M,aoe_range))
-						continue
 					// Now, we don't have this:
 					//new /obj/effects/fart_cloud(T,L)
-					// But:
-					// <[REDACTED]> so, what it does is...imagine a 3x3 grid with the person in the center. When someone uses the emote *fart (it's not a spell style ability and has no cooldown), then anyone in the 8 tiles AROUND the person who uses it
-					// <[REDACTED]> gets between 1 and 10 units of jenkem added to them...we obviously don't have Jenkem, but Space Drugs do literally the same exact thing as Jenkem
-					// <[REDACTED]> the user, of course, isn't impacted because it's not an actual smoke cloud
-					// So, let's give 'em space drugs.
 					if (M == src)
 						continue
-					M.reagents.add_reagent("space_drugs",rand(1,10))
+					M.reagents.add_reagent("jenkem", 1)
 
 		if ("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dap(s)(none)/mob," \
@@ -811,10 +842,10 @@
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob"
 			else if(species.name == "Slime People")
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
-			src << emotelist
+			to_chat(src, emotelist)
 
 		else
-			src << "\blue Unusable emote '[act]'. Say *help for a list."
+			to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
 
 
 
@@ -850,4 +881,4 @@
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text = TextPreview(input(usr, "Please enter your new flavour text.", "Flavour text", null) as text)
+	update_flavor_text()

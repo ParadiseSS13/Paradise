@@ -30,8 +30,8 @@ var/global/datum/controller/process/air_system/air_master
 
 	var/watch = start_watch()
 	log_startup_progress("Processing geometry...")
-	setup_allturfs() // Get all currently active tiles that need processing each atmos tick.
 	setup_overlays() // Assign icons and such for gas-turf-overlays
+	setup_allturfs() // Get all currently active tiles that need processing each atmos tick.
 	log_startup_progress("  Geometry processed in [stop_watch(watch)]s.")
 
 /datum/controller/process/air_system/doWork()

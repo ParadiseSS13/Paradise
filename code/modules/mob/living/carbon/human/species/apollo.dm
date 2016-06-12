@@ -45,15 +45,18 @@
 	base_color = "#704300"
 	flesh_color = "#704300"
 	blood_color = "#FFFF99"
+	//Default styles for created mobs.
+	default_hair = "Antennae"
 
 
 /datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in living_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
-			C << "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>"
-			C << "<span class='danger'>It feels like part of you has died.</span>"
+			to_chat(C, "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>")
+			to_chat(C, "<span class='danger'>It feels like part of you has died.</span>")
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	if(M.a_intent == I_HARM)
 		if(H.handcuffed)
 			if(!H.get_int_organ(/obj/item/organ/internal/wryn/hivenode))	return
@@ -61,17 +64,17 @@
 			var/turf/p_loc_m = H.loc
 
 			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
-			H << "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>"
+			to_chat(H, "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>")
 			do_after(H, 250, target = src)
 			if(p_loc == M.loc && p_loc_m == H.loc)
 				var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
 				H.remove_language("Wryn Hivemind")
 				node.remove(H)
 				node.loc = M.loc
-				M << "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>"
-				H << "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>"
-				H << "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>"
-				H.h_style = "Bald"
+				to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
+				to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
+				to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
+				head_organ.h_style = "Bald"
 				H.update_hair()
 
 				M.attack_log += text("\[[time_stamp()]\] <font color='red'>removed antennae [H.name] ([H.ckey])</font>")
@@ -87,7 +90,7 @@
 	blurb = "A sub-race of unforunates who have been exposed to too much supermatter radiation. As a result, \
 	supermatter crystal clusters have begun to grow across their bodies. Research to find a cure for this ailment \
 	has been slow, and so this is a common fate for veteran engineers. The supermatter crystals produce oxygen, \
-	negating the need for the individual to breath. Their massive change in biology, however, renders most medicines \
+	negating the need for the individual to breathe. Their massive change in biology, however, renders most medicines \
 	obselete. Ionizing radiation seems to cause resonance in some of their crystals, which seems to encourage regeneration \
 	and produces a calming effect on the individual. Nucleations are highly stigmatized, and are treated much in the same \
 	way as lepers were back on Earth."
@@ -96,6 +99,9 @@
 	brute_mod = 2 // damn, double wham, double dam
 	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
+
+	//Default styles for created mobs.
+	default_hair = "Nucleation Crystals"
 
 	reagent_tag = PROCESS_ORG
 	has_organ = list(

@@ -384,7 +384,7 @@
 /obj/item/mecha_parts/mecha_equipment/tool/syringe_gun
 	name = "Syringe Gun"
 	desc = "Exosuit-mounted chem synthesizer with syringe gun. Reagents inside are held in stasis, so no reactions will occur. (Can be attached to: Medical Exosuits)"
-	icon = 'icons/obj/gun.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "syringegun"
 	item_state = "syringegun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -473,6 +473,7 @@
 					if(M)
 						S.icon_state = initial(S.icon_state)
 						S.icon = initial(S.icon)
+						S.reagents.reaction(M, INGEST)
 						S.reagents.trans_to(M, S.reagents.total_volume)
 						M.take_organ_damage(2)
 						S.visible_message("<span class=\"attack\"> [M] was hit by the syringe!</span>")

@@ -41,6 +41,7 @@ datum/controller/game_controller/New()
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
+	preloadTemplates()
 	if(!config.disable_away_missions)
 		createRandomZlevel()
 
@@ -58,12 +59,12 @@ datum/controller/game_controller/proc/setup_objects()
 	var/watch = start_watch()
 	var/count = 0
 	var/overwatch = start_watch() // Overall.
-	
+
 	log_startup_progress("Populating asset cache...")
 	populate_asset_cache()
 	log_startup_progress("  Populated [asset_cache.len] assets in [stop_watch(watch)]s.")
 
-	watch = start_watch()		
+	watch = start_watch()
 	log_startup_progress("Initializing objects...")
 	for(var/atom/movable/object in world)
 		object.initialize()
@@ -82,8 +83,8 @@ datum/controller/game_controller/proc/setup_objects()
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
 			count++
-	log_startup_progress("  Initialized [count] atmospherics machines in [stop_watch(watch)]s.")	
-	
+	log_startup_progress("  Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
+
 	watch = start_watch()
 	count = 0
 	log_startup_progress("Initializing pipe networks...")
@@ -91,5 +92,5 @@ datum/controller/game_controller/proc/setup_objects()
 		machine.build_network()
 		count++
 	log_startup_progress("  Initialized [count] pipe networks in [stop_watch(watch)]s.")
-	
+
 	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")

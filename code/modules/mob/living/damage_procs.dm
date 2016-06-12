@@ -15,7 +15,6 @@
 		if(BRUTE)
 			adjustBruteLoss(damage * blocked)
 		if(BURN)
-			if(RESIST_HEAT in mutations)	damage = 0
 			adjustFireLoss(damage * blocked)
 		if(TOX)
 			adjustToxLoss(damage * blocked)
@@ -71,11 +70,6 @@
 				jitteriness = max(jitteriness,(effect * blocked))
 	updatehealth()
 	return 1
-
-/mob/living/carbon/human/apply_effect(var/effect = 0, var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
-	if((effecttype == IRRADIATE) && (species.flags & RADIMMUNE))
-		return 0
-	return ..()
 
 /mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
 	if(blocked >= 100)	return 0

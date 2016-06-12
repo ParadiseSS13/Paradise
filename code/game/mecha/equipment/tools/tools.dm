@@ -545,7 +545,7 @@
 			return chassis.dynattackby(W,user, params)
 		chassis.log_message("Attacked by [W]. Attacker - [user]")
 		if(prob(chassis.deflect_chance*deflect_coeff))
-			user << "\red The [W] bounces off [chassis] armor."
+			to_chat(user, "\red The [W] bounces off [chassis] armor.")
 			chassis.log_append_to_last("Armor saved.")
 		else
 			chassis.occupant_message("<font color='red'><b>[user] hits [chassis] with [W].</b></font>")
@@ -932,7 +932,7 @@
 		if(isnull(result))
 			user.visible_message("[user] tries to shove [weapon_name] into [src], but \the [src] rejects it.","<font color='red'>[fuel_name] traces in target minimal. [weapon_name] cannot be used as fuel.</font>")
 		else if(!result)
-			user << "Unit is full."
+			to_chat(user, "Unit is full.")
 		else
 			user.visible_message("[user] loads [src] with \the [weapon_name].","[result] unit\s of [fuel_name] successfully loaded.")
 		return
@@ -1142,6 +1142,6 @@
 		occupant_message("Building Wall...")
 		set_ready_state(0)
 		if(do_after_cooldown(target))
-			new /obj/structure/barricade/mime(target)
+			new /obj/structure/barricade/mime/mrcd(target)
 			chassis.spark_system.start()
 			chassis.use_power(energy_drain*2)

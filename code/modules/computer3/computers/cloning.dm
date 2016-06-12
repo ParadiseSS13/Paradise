@@ -79,14 +79,14 @@
 
 	proc/RecordsList()
 		var/dat = "<h3>Current records</h3>"
-		dat += topic_link(src,"menu=1","<< Back") + "<br><br>"
+		to_chat(dat += topic_link(src,"menu=1",", Back") + "<br><br>")
 		for(var/datum/data/record/R in records)
 			dat += "<h4>[R.fields["name"]]</h4>Scan ID [R.fields["id"]] " + topic_link(src,"view_rec=\ref[R]","View Record")
 		return dat
 
 	proc/ShowRecord()
 		var/dat = "<h3>Selected Record</h3>"
-		dat += topic_link(src,"menu=2","<< Back") + "<br><br>"
+		to_chat(dat += topic_link(src,"menu=2",", Back") + "<br><br>")
 
 		if (!active_record)
 			dat += "<font class='bad'>Record not found.</font>"

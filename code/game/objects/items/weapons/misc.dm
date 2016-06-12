@@ -93,7 +93,7 @@
 
 	afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 		var/angle = get_angle(A, user)
-		//world << angle
+//		to_chat(world, angle)
 		angle = round(angle) + 45
 		if(angle > 180)
 			angle -= 180
@@ -102,9 +102,9 @@
 
 		if(!angle)
 			angle = 1
-		//world << "adjusted [angle]"
+//		to_chat(world, "adjusted [angle]")
 		icon_state = "[angle]"
-		//world << "[angle] [(get_dist(user, A) - 1)]"
+//		to_chat(world, "[angle] [(get_dist(user, A) - 1)]")
 		user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)
 
 /obj/item/weapon/newton

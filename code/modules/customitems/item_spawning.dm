@@ -12,7 +12,7 @@
 		var/jobmask = query.item[3]
 		var/ok = 0
 		if(jobmask != "*")
-			var/list/allowed_jobs = text2list(jobmask,",")
+			var/list/allowed_jobs = splittext(jobmask,",")
 			for(var/i = 1, i <= allowed_jobs.len, i++)
 				if(istext(allowed_jobs[i]))
 					allowed_jobs[i] = trim(allowed_jobs[i])
@@ -45,13 +45,13 @@
 			if(S.contents.len < S.storage_slots)
 				Item.loc = M.back
 				ok = 1
-				M << "<span class='notice'>Your [Item.name] has been added to your [M.back.name].</span>"
+				to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [M.back.name].</span>")
 		if(ok == 0)
 			for(var/obj/item/weapon/storage/S in M.contents) // Try to place it in any item that can store stuff, on the mob.
 				if (S.contents.len < S.storage_slots)
 					Item.loc = S
 					ok = 1
-					M << "<span class='notice'>Your [Item.name] has been added to your [S.name].</span>"
+					to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [S.name].</span>")
 					break
 		if(description)
 			Item.desc = description
@@ -66,13 +66,13 @@
 
 // This is hacky, but since it's difficult as fuck to make a proper parser in BYOND without killing the server, here it is. - N3X
 /proc/HackProperties(var/mob/living/carbon/human/M,var/obj/item/I,var/script)
-	var/list/statements = text2list(script,";")
+	var/list/statements = splittext(script,";")
 	if(statements.len == 0)
 		return
 	for(var/statement in statements)
-		var/list/assignmentChunks = text2list(statement,"=")
+		var/list/assignmentChunks = splittext(statement,"=")
 		var/varname = assignmentChunks[1]
-		var/list/typeChunks=text2list(script,":")
+		var/list/typeChunks=splittext(script,":")
 		var/desiredType=typeChunks[1]
 		switch(desiredType)
 			if("string")

@@ -70,9 +70,9 @@
 		..(user)
 		if ((in_range(src, user) || src.loc == user))
 			if (src.secured)
-				user << "\The [src] is ready!"
+				to_chat(user, "\The [src] is ready!")
 			else
-				user << "\The [src] can be attached!"
+				to_chat(user, "\The [src] can be attached!")
 
 
 	HasProximity(atom/movable/AM as mob|obj)
@@ -140,15 +140,15 @@
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if(!a_left || !a_right)
-				user << "\red BUG:Assembly part missing, please report this!"
+				to_chat(user, "\red BUG:Assembly part missing, please report this!")
 				return
 			a_left.toggle_secure()
 			a_right.toggle_secure()
 			secured = !secured
 			if(secured)
-				user << "\blue \The [src] is ready!"
+				to_chat(user, "\blue \The [src] is ready!")
 			else
-				user << "\blue \The [src] can now be taken apart!"
+				to_chat(user, "\blue \The [src] can now be taken apart!")
 			update_icon()
 			return
 		else
@@ -160,7 +160,7 @@
 		src.add_fingerprint(user)
 		if(src.secured)
 			if(!a_left || !a_right)
-				user << "\red Assembly part missing!"
+				to_chat(user, "\red Assembly part missing!")
 				return
 			if(istype(a_left,a_right.type))//If they are the same type it causes issues due to window code
 				switch(alert("Which side would you like to use?",,"Left","Right"))

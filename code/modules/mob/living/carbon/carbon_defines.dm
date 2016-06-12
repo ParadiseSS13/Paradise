@@ -4,7 +4,6 @@
 	var/list/stomach_contents = list()
 	var/list/internal_organs	= list()
 	var/brain_op_stage = 0.0
-	var/list/datum/disease2/disease/virus2 = list()
 	var/antibodies = 0
 	var/last_eating = 0 	//Not sure what this does... I found it hidden in food.dm
 

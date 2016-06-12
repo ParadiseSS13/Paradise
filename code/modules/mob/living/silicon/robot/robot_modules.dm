@@ -11,6 +11,8 @@
 	var/obj/item/borg/upgrade/jetpack = null
 	var/list/subsystems = list()
 
+	var/module_type = "NoMod" // For icon usage
+
 	var/list/stacktypes
 	var/channels = list()
 
@@ -91,6 +93,7 @@
 	R.add_language("Trinary", 1)
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
+	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
 
 /obj/item/weapon/robot_module/proc/add_subsystems(var/mob/living/silicon/robot/R)
@@ -101,7 +104,7 @@
 
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
-
+	module_type = "Standard"
 
 /obj/item/weapon/robot_module/standard/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
@@ -116,6 +119,7 @@
 
 /obj/item/weapon/robot_module/medical
 	name = "medical robot module"
+	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	stacktypes = list(
 		/obj/item/stack/medical/advanced/bruise_pack = 5,
@@ -164,15 +168,16 @@
 
 /obj/item/weapon/robot_module/engineering
 	name = "engineering robot module"
+	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 
 	stacktypes = list(
-		/obj/item/stack/sheet/metal = 50,
-		/obj/item/stack/sheet/glass = 50,
-		/obj/item/stack/sheet/rglass = 50,
+		/obj/item/stack/sheet/metal/cyborg = 50,
+		/obj/item/stack/sheet/glass/cyborg = 50,
+		/obj/item/stack/sheet/rglass/cyborg = 50,
 		/obj/item/stack/cable_coil/cyborg = 50,
-		/obj/item/stack/rods = 15,
-		/obj/item/stack/tile/plasteel = 15
+		/obj/item/stack/rods/cyborg = 60,
+		/obj/item/stack/tile/plasteel = 20
 		)
 
 /obj/item/weapon/robot_module/engineering/New()
@@ -194,34 +199,16 @@
 
 	src.emag = new /obj/item/borg/stun(src)
 
-	var/obj/item/stack/sheet/metal/cyborg/M = new /obj/item/stack/sheet/metal/cyborg(src)
-	M.amount = 50
-	src.modules += M
-
-	var/obj/item/stack/sheet/rglass/cyborg/R = new /obj/item/stack/sheet/rglass/cyborg(src)
-	R.amount = 50
-	src.modules += R
-
-	var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src)
-	G.amount = 50
-	src.modules += G
-
-	var/obj/item/stack/cable_coil/cyborg/W = new /obj/item/stack/cable_coil/cyborg(src)
-	W.amount = 50
-	src.modules += W
-
-	var/obj/item/stack/rods/Q = new /obj/item/stack/rods(src)
-	Q.amount = 15
-	src.modules += Q
-
-	var/obj/item/stack/tile/plasteel/F = new /obj/item/stack/tile/plasteel(src) //floor tiles not regular plasteel, calm down
-	F.amount = 15
-	src.modules += F
+	for(var/G in stacktypes) //Attempt to unify Engi-Borg material stacks into fewer lines. See Line 492 for example. Variables changed out of paranoia.
+		var/obj/item/stack/sheet/M = new G(src)
+		M.amount = stacktypes[G]
+		src.modules += M
 
 	fix_modules()
 
 /obj/item/weapon/robot_module/security
 	name = "security robot module"
+	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 
 /obj/item/weapon/robot_module/security/New()
@@ -237,6 +224,7 @@
 
 /obj/item/weapon/robot_module/janitor
 	name = "janitorial robot module"
+	module_type = "Janitor"
 
 /obj/item/weapon/robot_module/janitor/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
@@ -254,6 +242,7 @@
 
 /obj/item/weapon/robot_module/butler
 	name = "service robot module"
+	module_type = "Service"
 
 /obj/item/weapon/robot_module/butler/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
@@ -268,7 +257,7 @@
 	M.matter = 30
 	src.modules += M
 
-	src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
+	src.modules += new /obj/item/weapon/reagent_containers/dropper/cyborg(src)
 	src.modules += new /obj/item/weapon/lighter/zippo(src)
 	src.modules += new /obj/item/weapon/storage/bag/tray/cyborg(src)
 	src.modules += new /obj/item/weapon/reagent_containers/food/drinks/shaker(src)
@@ -324,6 +313,7 @@
 
 /obj/item/weapon/robot_module/miner
 	name = "miner robot module"
+	module_type = "Miner"
 
 /obj/item/weapon/robot_module/miner/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
@@ -341,12 +331,13 @@
 
 /obj/item/weapon/robot_module/deathsquad
 	name = "NT advanced combat module"
+	module_type = "Malf"
 
 /obj/item/weapon/robot_module/deathsquad/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/borg/sight/thermal(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
-	src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/cyborg(src)
+	src.modules += new /obj/item/weapon/gun/energy/pulse/cyborg(src)
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.emag = null
@@ -355,6 +346,7 @@
 
 /obj/item/weapon/robot_module/syndicate
 	name = "syndicate assault robot module"
+	module_type = "Malf" // cuz it looks cool
 
 /obj/item/weapon/robot_module/syndicate/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
@@ -371,6 +363,7 @@
 
 /obj/item/weapon/robot_module/syndicate_medical
 	name = "syndicate medical robot module"
+	module_type = "Malf"
 	stacktypes = list(
 		/obj/item/stack/medical/advanced/bruise_pack = 25,
 		/obj/item/stack/medical/advanced/ointment = 25,
@@ -409,6 +402,7 @@
 
 /obj/item/weapon/robot_module/combat
 	name = "combat robot module"
+	module_type = "Malf"
 
 /obj/item/weapon/robot_module/combat/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
@@ -425,6 +419,7 @@
 
 /obj/item/weapon/robot_module/peacekeeper
 	name = "peacekeeper robot module"
+	module_type = "Malf"
 
 /obj/item/weapon/robot_module/peacekeeper/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
@@ -440,6 +435,7 @@
 
 /obj/item/weapon/robot_module/alien/hunter
 	name = "alien hunter module"
+	module_type = "Standard"
 
 /obj/item/weapon/robot_module/alien/hunter/New()
 	src.modules += new /obj/item/weapon/melee/energy/alien/claws(src)
@@ -463,15 +459,15 @@
 
 /obj/item/weapon/robot_module/drone
 	name = "drone module"
+	module_type = "Engineer"
 	stacktypes = list(
-		/obj/item/stack/sheet/wood = 1,
-		/obj/item/stack/sheet/mineral/plastic = 1,
-		/obj/item/stack/sheet/rglass = 5,
-		/obj/item/stack/tile/wood = 5,
-		/obj/item/stack/rods = 15,
-		/obj/item/stack/tile/plasteel = 15,
-		/obj/item/stack/sheet/metal = 20,
-		/obj/item/stack/sheet/glass = 20,
+		/obj/item/stack/sheet/wood = 10,
+		/obj/item/stack/sheet/rglass/cyborg = 50,
+		/obj/item/stack/tile/wood = 20,
+		/obj/item/stack/rods/cyborg = 60,
+		/obj/item/stack/tile/plasteel = 20,
+		/obj/item/stack/sheet/metal/cyborg = 50,
+		/obj/item/stack/sheet/glass/cyborg = 50,
 		/obj/item/stack/cable_coil/cyborg = 30
 		)
 

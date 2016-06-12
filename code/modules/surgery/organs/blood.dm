@@ -16,13 +16,23 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	if(vessel)
 		return
 
-	vessel = new/datum/reagents(600)
+	vessel = new/datum/reagents(max_blood)
 	vessel.my_atom = src
 
 	if(species && species.exotic_blood)
-		vessel.add_reagent(species.exotic_blood,560)
+		vessel.add_reagent(species.exotic_blood, max_blood)
 	else
-		vessel.add_reagent("blood",560)
+		vessel.add_reagent("blood", max_blood)
+		for(var/datum/reagent/blood/B in vessel.reagent_list)
+			if(B.id == "blood")
+				B.data = list(
+				"donor" = src,
+				"viruses" = null,
+				"blood_DNA" = dna.unique_enzymes,
+				"blood_colour" = species.blood_color,
+				"blood_type" = b_type,
+				"resistances" = null,
+				"trace_chem" = null)
 	spawn(1)
 		fixblood()
 
@@ -30,9 +40,14 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 /mob/living/carbon/human/proc/fixblood()
 	for(var/datum/reagent/blood/B in vessel.reagent_list)
 		if(B.id == "blood")
-			B.data = list(	"donor"=src,"viruses"=null,"blood_DNA"=dna.unique_enzymes,"blood_colour"= species.blood_color,"blood_type"=dna.b_type,	\
-							"resistances"=null,"trace_chem"=null, "virus2" = null, "antibodies" = null)
-			B.color = B.data["blood_colour"]
+			B.data = list(
+			"donor" = src,
+			"viruses" = null,
+			"blood_DNA" = dna.unique_enzymes,
+			"blood_colour" = species.blood_color,
+			"blood_type" = b_type,
+			"resistances" = null,
+			"trace_chem" = null)
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/proc/handle_blood()
@@ -41,18 +56,21 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		return
 	if(stat != DEAD && bodytemperature >= 170)	//Dead or cryosleep people do not pump the blood.
 		if(species.exotic_blood)
-			blood_volume = round(vessel.get_reagent_amount(species.exotic_blood))
-			if(blood_volume < 560 && blood_volume)
-				var/datum/reagent/water/W = locate() in vessel.reagent_list //Grab some blood
-				if(W) // Make sure there's some blood at all
-					W.volume += 0.1 // regenerate blood VERY slowly
-					if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
-						W.volume += 0.4
-						reagents.remove_reagent("nutriment", 0.1)
+			var/blood_reagent = species.exotic_blood // This is a string of the name of the species' blood reagent
+			blood_volume = round(vessel.get_reagent_amount(blood_reagent))
+			if(blood_volume < max_blood && blood_volume)
+				vessel.add_reagent(blood_reagent, 0.1) // regenerate blood VERY slowly
+				if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
+					vessel.add_reagent(blood_reagent, 0.4)
+					reagents.remove_reagent("nutriment", 0.1)
+				else if (reagents.has_reagent(blood_reagent))
+					vessel.add_reagent(blood_reagent, 0.4)
+					reagents.remove_reagent(blood_reagent, 0.4)
+
 		else
 			blood_volume = round(vessel.get_reagent_amount("blood"))
 			//Blood regeneration if there is some space
-			if(blood_volume < 560 && blood_volume)
+			if(blood_volume < max_blood && blood_volume)
 				var/datum/reagent/blood/B = locate() in vessel.reagent_list //Grab some blood
 				if(B) // Make sure there's some blood at all
 
@@ -74,16 +92,16 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 								B = D
 								break
 
-					B.volume += 0.1 // regenerate blood VERY slowly
+					vessel.add_reagent("blood", 0.1) // regenerate blood VERY slowly
 					if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
-						B.volume += 0.4
+						vessel.add_reagent("blood", 0.4)
 						reagents.remove_reagent("nutriment", 0.1)
 					if (reagents.has_reagent("iron"))	//Hematogen candy anyone?
-						B.volume += 0.8
+						vessel.add_reagent("blood", 0.8)
 						reagents.remove_reagent("iron", 0.1)
 					if (reagents.has_reagent("salglu_solution"))	//saline is good for blood regeneration
 						if(prob(33))
-							B.volume += 1.0
+							vessel.add_reagent("blood", 1.0)
 
 		// Damaged heart virtually reduces the blood volume, as the blood isn't
 		// being pumped properly anymore.
@@ -108,10 +126,10 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 					pale = 1
 					update_body()
 					var/word = pick("dizzy","woosey","faint")
-					src << "\red You feel [word]"
+					to_chat(src, "\red You feel [word]")
 				if(prob(1))
 					var/word = pick("dizzy","woosey","faint")
-					src << "\red You feel [word]"
+					to_chat(src, "\red You feel [word]")
 				if(oxyloss < 20)
 					oxyloss += 3
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
@@ -125,7 +143,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 				if(prob(15))
 					Paralyse(rand(1,3))
 					var/word = pick("dizzy","woosey","faint")
-					src << "\red You feel very [word]"
+					to_chat(src, "\red You feel very [word]")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				if(!pale)
 					pale = 1
@@ -136,7 +154,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 				if(prob(15))
 					Paralyse(rand(1,3))
 					var/word = pick("dizzy","woosey","faint")
-					src << "\red You feel extremely [word]"
+					to_chat(src, "\red You feel extremely [word]")
 			if(0 to BLOOD_VOLUME_SURVIVE)
 				death()
 
@@ -172,7 +190,9 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 	if(src.species.exotic_blood)
 		vessel.remove_reagent(species.exotic_blood,amm)
-		vessel.reaction(T, TOUCH, amm)
+		if(vessel.total_volume)
+			var/fraction = amm / vessel.total_volume
+			vessel.reaction(T, TOUCH, fraction)
 		return
 
 	else
@@ -187,18 +207,19 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 //Gets blood from mob to the container, preserving all data in it.
 /mob/living/carbon/proc/take_blood(obj/item/weapon/reagent_containers/container, var/amount)
 	var/datum/reagent/B = get_blood(container.reagents)
-	if(!B)	B = new /datum/reagent/blood
+	if(!istype(B, /datum/reagent/blood))	B = new /datum/reagent/blood
 	B.holder = container
 	B.volume += amount
 
-
-
 	//set reagent data
 	B.data["donor"] = src
-	if (!B.data["virus2"])
-		B.data["virus2"] = list()
-	B.data["virus2"] |= virus_copylist(src.virus2)
-	B.data["antibodies"] = src.antibodies
+	B.data["viruses"] = list()
+
+	for(var/datum/disease/D in viruses)
+		B.data["viruses"] += D.Copy()
+	if(resistances && resistances.len)
+		B.data["resistances"] = resistances.Copy()
+
 	B.data["blood_DNA"] = copytext(src.dna.unique_enzymes,1,0)
 	B.data["blood_type"] = copytext(src.dna.b_type,1,0)
 
@@ -241,14 +262,10 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 //Transfers blood from container ot vessels
 /mob/living/carbon/proc/inject_blood(obj/item/weapon/reagent_containers/container, var/amount)
 	var/datum/reagent/blood/injected = get_blood(container.reagents)
-	if (!injected)
+
+	if (!istype(injected))
 		return
-	var/list/sniffles = virus_copylist(injected.data["virus2"])
-	for(var/ID in sniffles)
-		var/datum/disease2/disease/sniffle = sniffles[ID]
-		infect_virus2(src,sniffle,1)
-	if (injected.data["antibodies"] && prob(5))
-		antibodies |= injected.data["antibodies"]
+
 	var/list/chems = list()
 	chems = params2list(injected.data["trace_chem"])
 	for(var/C in chems)
@@ -269,7 +286,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 	var/datum/reagent/blood/our = get_blood(vessel)
 
-	if (!injected || !our)
+	if (!istype(injected) || !istype(our))
 		return
 	if(blood_incompatible(injected.data["blood_type"],our.data["blood_type"]) )
 		reagents.add_reagent("toxin",amount * 0.5)
@@ -289,6 +306,21 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 					return D
 	return res
 
+/mob/living/carbon/human/get_blood(datum/reagents/container)
+	if(species.exotic_blood)
+		return container.get_reagent_from_id(species.exotic_blood)
+	else
+		return ..()
+
+/mob/living/carbon/proc/get_blood_name()
+	return "blood"
+
+/mob/living/carbon/human/get_blood_name()
+	if(species.exotic_blood)
+		return species.exotic_blood
+	else
+		return ..()
+
 /proc/blood_incompatible(donor,receiver)
 
 	var/donor_antigen = copytext(donor,1,lentext(donor))
@@ -307,15 +339,34 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		//AB is a universal receiver.
 	return 0
 
-proc/blood_splatter(var/target,var/datum/reagent/blood/source,var/large)
+/*
+Target: Thing/tile to get bloody
+Source: Human or blood reagent
+Large: Whether the splat should be big or not
+*/
+/proc/blood_splatter(var/target,var/source,var/large = 0)
 
 	var/obj/effect/decal/cleanable/blood/B
 	var/decal_type = /obj/effect/decal/cleanable/blood/splatter
 	var/turf/T = get_turf(target)
-
+	var/datum/reagent/blood/bld
 	if(istype(source,/mob/living/carbon/human))
-		var/mob/living/carbon/human/M = source
-		source = M.get_blood(M.vessel)
+		var/mob/living/carbon/human/H = source
+		bld = H.get_blood(H.vessel)
+		if(H.species.exotic_blood)
+			H.vessel.reaction(T, TOUCH)
+			return
+		else if(H.species.flags & NO_BLOOD)
+			return
+	else if(istype(source, /datum/reagent))
+		bld = source
+		if(!istype(bld, /datum/reagent/blood))
+			var/datum/reagent/R = bld
+			if(istype(R))
+				R.reaction_turf(T, R.volume)
+			return
+	else if(source)
+		log_to_dd("Non-human or reagent blood source. Area: [get_area(source)], Name: [source]")
 
 	// Are we dripping or splattering?
 	var/list/drips = list()
@@ -337,24 +388,20 @@ proc/blood_splatter(var/target,var/datum/reagent/blood/source,var/large)
 		drop.drips |= drips
 
 	// If there's no data to copy, call it quits here.
-	if(!source)
+	if(!bld)
 		return B
 
 	// Update appearance.
-	if(source.data["blood_colour"])
-		B.basecolor = source.data["blood_colour"]
+	if(bld.data["blood_colour"])
+		B.basecolor = bld.data["blood_colour"]
 		B.update_icon()
 
 	// Update blood information.
-	if(source.data["blood_DNA"])
+	if(bld.data["blood_DNA"])
 		B.blood_DNA = list()
-		if(source.data["blood_type"])
-			B.blood_DNA[source.data["blood_DNA"]] = source.data["blood_type"]
+		if(bld.data["blood_type"])
+			B.blood_DNA[bld.data["blood_DNA"]] = bld.data["blood_type"]
 		else
-			B.blood_DNA[source.data["blood_DNA"]] = "O+"
-
-	// Update virus information.
-	if(source.data["virus2"])
-		B.virus2 = virus_copylist(source.data["virus2"])
+			B.blood_DNA[bld.data["blood_DNA"]] = "O+"
 
 	return B

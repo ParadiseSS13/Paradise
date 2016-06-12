@@ -33,8 +33,8 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	origin_tech = "bluespace=4"
 	icon_state = "holdingpack"
-	max_w_class = 4
-	max_combined_w_class = 28
+	max_w_class = 5
+	max_combined_w_class = 35
 
 	New()
 		..()
@@ -42,7 +42,7 @@
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(crit_fail)
-			user << "\red The Bluespace generator isn't working."
+			to_chat(user, "\red The Bluespace generator isn't working.")
 			return
 		else if(istype(W, /obj/item/weapon/storage/backpack/holding) && !W.crit_fail)
 			var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
@@ -65,9 +65,10 @@
 	proc/failcheck(mob/user as mob)
 		if (prob(src.reliability)) return 1 //No failure
 		if (prob(src.reliability))
-			user << "\red The Bluespace portal resists your attempt to add another item." //light failure
+			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
+
 		else
-			user << "\red The Bluespace generator malfunctions!"
+			to_chat(user, "\red The Bluespace generator malfunctions!")
 			for (var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1

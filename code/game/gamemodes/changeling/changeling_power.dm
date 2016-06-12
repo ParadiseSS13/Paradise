@@ -53,25 +53,31 @@
 	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
 	if(req_human && (!ishuman(user) || issmall(user)))
-		user << "<span class='warning'>We cannot do that in this form!</span>"
+		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
 		return 0
 	var/datum/changeling/c = user.mind.changeling
 	if(c.chem_charges<chemical_cost)
-		user << "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>"
+		to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
 		return 0
 	if(c.absorbedcount<req_dna)
-		user << "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>"
+		to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
 		return 0
 	if(req_stat < user.stat)
-		user << "<span class='warning'>We are incapacitated.</span>"
+		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return 0
 	if((user.status_flags & FAKEDEATH) && name!="Regenerate")
-		user << "<span class='warning'>We are incapacitated.</span>"
+		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return 0
 	if(c.geneticdamage > max_genetic_damage)
-		user << "<span class='warning'>Our genomes are still reassembling. We need time to recover first.</span>"
+		to_chat(user, "<span class='warning'>Our genomes are still reassembling. We need time to recover first.</span>")
 		return 0
 	return 1
+
+/obj/effect/proc_holder/changeling/proc/transfer_changeling_powers(var/mob/living/carbon/user, var/mob/living/carbon/target)
+	if(istype(target, /mob/living/carbon)) // so we don't runtime, I don't even know why it's necessary as it needs a grab
+		var/datum/changeling/c = user.mind.changeling
+		var/datum/changeling/t = target.mind.changeling
+		c.purchasedpowers = t.purchasedpowers
 
 //used in /mob/Stat()
 /obj/effect/proc_holder/changeling/proc/can_be_used_by(var/mob/user)

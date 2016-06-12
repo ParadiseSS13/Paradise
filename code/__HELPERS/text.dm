@@ -203,17 +203,18 @@ proc/checkhtml(var/t)
  * Text modification
  */
 // See bygex.dm
-#ifndef USE_BYGEX
-/proc/replacetext(text, find, replacement)
-	return list2text(text2list(text, find), replacement)
-
-/proc/replacetextEx(text, find, replacement)
-	return list2text(text2listEx(text, find), replacement)
-#endif
 /proc/replace_characters(var/t,var/list/repl_chars)
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
+
+//Strips the first char and returns it and the new string as a list
+/proc/strip_first(t)
+	return list(copytext(t, 1, 2), copytext(t, 2, 0))
+
+//Strips the last char and returns it and the new string as a list
+/proc/strip_last(t)
+	return list(copytext(t, 1, length(t)), copytext(t, length(t)))
 
 //Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
@@ -357,7 +358,7 @@ proc/checkhtml(var/t)
 		if(!lentext(string))
 			return "\[...\]"
 		else
-			return string
+			return html_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
 	else
 		return "[copytext_preserve_html(string, 1, 37)]..."
 

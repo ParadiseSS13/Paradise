@@ -9,6 +9,7 @@
 	var/seed_name					// Plant name for seed packet.
 	var/seed_noun = "seeds"			// Descriptor for packet.
 	var/display_name				// Prettier name.
+	var/base_name					// Unchanging name for use with modified versions
 	var/roundstart					// If set, seed will not display variety number.
 	var/mysterious					// Only used for the random seed packets.
 	var/can_self_harvest = 0		// Mostly used for living mobs.
@@ -23,12 +24,13 @@
 	var/splat_type = /obj/effect/decal/cleanable/fruit_smudge // Graffiti decal.
 	var/preset_product
 	var/final_form = 1
+	var/last_diverge_type = -1		// Used to check if we need to change our name prefix when we are mutated/modified/enhanced
 	var/modular_icon = 0			// Dictates if the product uses a modular sprite. 0 = preset, 1 = modular
 	var/preset_icon = "undef"		// Name of the iconstate in icon/obj/harvest.dmi to use for preset sprite
 									//		Make sure to set this to the correct icon if not using a modular sprite
 
 /datum/seed/New()
-
+	base_name = seed_name
 	set_trait(TRAIT_IMMUTABLE,            0)            // If set, plant will never mutate. If -1, plant is highly mutable.
 	set_trait(TRAIT_HARVEST_REPEAT,       0)            // If 1, this plant will fruit repeatedly.
 	set_trait(TRAIT_PRODUCES_POWER,       0)            // Can be used to make a battery.
@@ -120,15 +122,15 @@
 	if(get_trait(TRAIT_CARNIVOROUS))
 		if(get_trait(TRAIT_CARNIVOROUS) == 2)
 			if(affecting)
-				target << "<span class='danger'>\The [fruit]'s thorns pierce your [affecting.name] greedily!</span>"
+				to_chat(target, "<span class='danger'>\The [fruit]'s thorns pierce your [affecting.name] greedily!</span>")
 			else
-				target << "<span class='danger'>\The [fruit]'s thorns pierce your flesh greedily!</span>"
+				to_chat(target, "<span class='danger'>\The [fruit]'s thorns pierce your flesh greedily!</span>")
 			damage = get_trait(TRAIT_POTENCY)/2
 		else
 			if(affecting)
-				target << "<span class='danger'>\The [fruit]'s thorns dig deeply into your [affecting.name]!</span>"
+				to_chat(target, "<span class='danger'>\The [fruit]'s thorns dig deeply into your [affecting.name]!</span>")
 			else
-				target << "<span class='danger'>\The [fruit]'s thorns dig deeply into your flesh!</span>"
+				to_chat(target, "<span class='danger'>\The [fruit]'s thorns dig deeply into your flesh!</span>")
 			damage = get_trait(TRAIT_POTENCY)/5
 	else
 		return
@@ -187,7 +189,7 @@
 		if(!protection_needed)		//properly protected, good job!
 			return
 
-		target << "<span class='danger'>You are stung by \the [fruit]!</span>"
+		to_chat(target, "<span class='danger'>You are stung by \the [fruit]!</span>")
 		for(var/rid in chems)
 			var/injecting = min(5,max(1,get_trait(TRAIT_POTENCY)/5))
 			target.reagents.add_reagent(rid,injecting)
@@ -713,9 +715,11 @@
 		return
 
 	if(!force_amount && get_trait(TRAIT_YIELD) == 0 && !harvest_sample)
-		if(istype(user)) user << "<span class='danger'>You fail to harvest anything useful.</span>"
+		if(istype(user))
+			to_chat(user, "<span class='danger'>You fail to harvest anything useful.</span>")
 	else
-		if(istype(user)) user << "You [harvest_sample ? "take a sample" : "harvest"] from the [display_name]."
+		if(istype(user))
+			to_chat(user, "You [harvest_sample ? "take a sample" : "harvest"] from the [display_name].")
 
 		//This may be a new line. Update the global if it is.
 		if(name == "new line" || !(name in plant_controller.seeds))
@@ -795,16 +799,8 @@
 	new_seed.modular_icon = modular_icon
 	new_seed.preset_icon = preset_icon
 
-	switch(modified)
-		if(0)	//Mutant (default)
-			new_seed.seed_name = "mutant [seed_name]"
-			new_seed.display_name = "mutant [seed_name]"
-		if(1)	//Modified
-			new_seed.seed_name = "modified [seed_name]"
-			new_seed.display_name = "modified [seed_name]"
-		if(2)	//Enhanced
-			new_seed.seed_name = "enhanced [seed_name]"
-			new_seed.display_name = "enhanced [seed_name]"
+	new_seed.base_name = base_name
+	new_seed.update_name_prefixes(modified)
 
 	new_seed.seed_noun =            seed_noun
 	new_seed.traits = traits.Copy()
@@ -816,3 +812,20 @@
 		growth_stages = plant_controller.plant_sprites[get_trait(TRAIT_PLANT_ICON)]
 	else
 		growth_stages = 0
+
+/datum/seed/proc/update_name_prefixes(var/modified = 0)
+	if(last_diverge_type == modified)
+		//We already match the new prefix, so we're not going to bother
+		return
+	//Since we don't match, set the last_diverge type to the modified value, then handle the new prefix
+	last_diverge_type = modified
+	switch(modified)
+		if(0)	//Mutant (default)
+			seed_name = "mutant [base_name]"
+			display_name = "mutant [base_name]"
+		if(1)	//Modified
+			seed_name = "modified [base_name]"
+			display_name = "modified [base_name]"
+		if(2)	//Enhanced
+			seed_name = "enhanced [base_name]"
+			display_name = "enhanced [base_name]"

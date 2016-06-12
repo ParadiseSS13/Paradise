@@ -16,7 +16,6 @@
 
 	for(var/mob/M in range(heavy_range, epicenter))
 		M << 'sound/effects/EMPulse.ogg'
-
 	for(var/atom/T in range(light_range, epicenter))
 		var/distance = get_dist(epicenter, T)
 		if(distance < 0)

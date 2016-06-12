@@ -1,5 +1,6 @@
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
+#define WARNING_FONT_COLOR "#f90"
 #define FONT_STYLE "Arial Black"
 #define SCROLL_SPEED 2
 
@@ -21,7 +22,7 @@
 					// 1 = Shuttle timer
 					// 2 = Arbitrary message(s)
 					// 3 = alert picture
-					// 4 = Supply shuttle timer
+					// 4 = Station time
 
 	var/picture_state	// icon_state of alert picture
 	var/message1 = ""	// message line 1
@@ -87,26 +88,19 @@
 			remove_display()
 			return 1
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
+			var/use_warn = 0
 			if(shuttle_master.emergency.timer)
-				var/line1
-				var/line2 = get_shuttle_timer()
-				switch(shuttle_master.emergency.mode)
-					if(SHUTTLE_RECALL)
-						line1 = "-RCL-"
-					if(SHUTTLE_CALL)
-						line1 = "-ETA-"
-					if(SHUTTLE_DOCKED)
-						line1 = "-ETD-"
-					if(SHUTTLE_ESCAPE)
-						line1 = "-ESC-"
-					if(SHUTTLE_STRANDED)
-						line1 = "-ERR-"
-						line2 = "??:??"
-				if(length(line2) > CHARS_PER_LINE)
-					line2 = "Error!"
-				update_display(line1, line2)
+				use_warn = 1
+				message1 = "-[shuttle_master.emergency.getModeStr()]-"
+				message2 = shuttle_master.emergency.getTimerStr()
+
+				if(length(message2) > CHARS_PER_LINE)
+					message2 = "Error!"
 			else
-				remove_display()
+				message1 = "TIME"
+				message2 = worldtime2text()
+			update_display(message1, message2, use_warn)
+			return 1
 		if(STATUS_DISPLAY_MESSAGE)	//custom messages
 			var/line1
 			var/line2
@@ -140,7 +134,7 @@
 /obj/machinery/status_display/examine(mob/user)
 	. = ..(user)
 	if(mode != STATUS_DISPLAY_BLANK && mode != STATUS_DISPLAY_ALERT)
-		user << "The display says:<br>\t[sanitize(message1)]<br>\t[sanitize(message2)]"
+		to_chat(user, "The display says:<br>\t[sanitize(message1)]<br>\t[sanitize(message2)]")
 
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)
@@ -162,22 +156,10 @@
 	remove_display()
 	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
 
-/obj/machinery/status_display/proc/update_display(line1, line2)
-	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
+/obj/machinery/status_display/proc/update_display(line1, line2, warning = 0)
+	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[warning ? WARNING_FONT_COLOR : FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
-
-/obj/machinery/status_display/proc/get_shuttle_timer()
-	var/timeleft = shuttle_master.emergency.timeLeft()
-	if(timeleft > 0)
-		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-	return "00:00"
-
-/obj/machinery/status_display/proc/get_supply_shuttle_timer()
-	var/timeleft = shuttle_master.supply.timeLeft()
-	if(timeleft > 0)
-		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-	return "00:00"
 
 /obj/machinery/status_display/proc/remove_display()
 	if(overlays.len)
@@ -291,7 +273,8 @@
 	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
 
 #undef CHARS_PER_LINE
-#undef FOND_SIZE
+#undef FONT_SIZE
 #undef FONT_COLOR
+#undef WARNING_FONT_COLOR
 #undef FONT_STYLE
 #undef SCROLL_SPEED

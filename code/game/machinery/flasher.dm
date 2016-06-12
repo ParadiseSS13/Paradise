@@ -66,32 +66,15 @@
 	src.last_flash = world.time
 	use_power(1000)
 
-	for (var/mob/O in viewers(src, null))
-		if (get_dist(src, O) > src.range)
+	for(var/mob/living/L in viewers(src, null))
+		if (get_dist(src, L) > src.range)
 			continue
 
-		if (istype(O, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = O
-			if(!H.eyecheck() <= 0)
-				continue
-
-		if (istype(O, /mob/living/carbon/alien))//So aliens don't get flashed (they have no external eyes)/N
-			continue
-
-		O.Weaken(strength)
-		if(O.weakeyes)
-			O.Weaken(strength * 1.5)
-			O.visible_message("<span class='disarm'><b>[O]</b> gasps and shields their eyes!</span>")
-		if (istype(O, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = O
-			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-			if (E && (E.damage > E.min_bruised_damage && prob(E.damage + 50)))
-				flick("e_flash", O:flash)
-				E.damage += rand(1, 2)
-		else
-			if(!O.blinded)
-				flick("flash", O:flash)
-
+		if(L.flash_eyes(affect_silicon = 1))
+			L.Weaken(strength)
+			if(L.weakeyes)
+				L.Weaken(strength * 1.5)
+				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields their eyes!</span>")
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

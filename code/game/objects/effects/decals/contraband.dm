@@ -59,7 +59,7 @@
 					break
 
 			if(check)
-				user << "<span class='notice'>The wall is far too cluttered to place a poster!</span>"
+				to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
 				return
 
 			resulting_poster.loc = W //Looks like it's uncluttered enough. Place the poster
@@ -310,10 +310,10 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/wirecutters))
 		playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 		if(ruined)
-			user << "<span class='notice'>You remove the remnants of the poster.</span>"
+			to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
 			qdel(src)
 		else
-			user << "<span class='notice'>You carefully remove the poster from the wall.</span>"
+			to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
 			roll_and_drop(user.loc)
 		return
 
@@ -354,14 +354,15 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	var/stuff_on_wall = 0
 	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O,/obj/structure/sign))
-			user << "<span class='notice'>The wall is far too cluttered to place a poster!</span>"
+			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
-			user << "<span class='notice'>The wall is far too cluttered to place a poster!</span>"
+			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
 			return
 
-	user << "<span class='notice'>You start placing the poster on the wall...</span>"	//Looks like it's uncluttered enough. Place the poster.
+		to_chat(user, "<span class='notice'>You start placing the poster on the wall...</span>")//Looks like it's uncluttered enough. Place the poster.
+
 
 	//declaring D because otherwise if P gets 'deconstructed' we lose our reference to P.resulting_poster
 	var/obj/structure/sign/poster/D = P.resulting_poster
@@ -382,7 +383,7 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 			D.pixel_x = -32
 			D.pixel_y = 0
 		else
-			user << "<span class='notice'>You cannot reach the wall from here!</span>"
+			to_chat(user, "<span class='notice'>You cannot reach the wall from here!</span>")
 			return
 
 	flick("poster_being_set",D)
@@ -395,7 +396,7 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	if(!D)	return
 
 	if(istype(src,/turf/simulated/wall) && user && user.loc == temp_loc)	//Let's check if everything is still there
-		user << "<span class='notice'>You place the poster!</span>"
+		to_chat(user, "<span class='notice'>You place the poster!</span>")
 	else
 		D.roll_and_drop(temp_loc)
 	return

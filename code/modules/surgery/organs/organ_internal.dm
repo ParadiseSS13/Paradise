@@ -9,19 +9,24 @@
 	var/slot
 	vital = 0
 	var/organ_action_name = null
+	var/non_primary = 0
+	action_button_custom_type = /datum/action/item_action/organ_action
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
 	if(istype(holder))
 		insert(holder)
 	..()
 
-/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
 
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
-		replaced.remove(M, special = 1)
+		if(dont_remove_slot)
+			non_primary = 1
+		else
+			replaced.remove(M, special = 1)
 
 	owner = M
 
@@ -122,31 +127,64 @@
 
 
 // Brain is defined in brain_item.dm.
+
 /obj/item/organ/internal/heart
 	name = "heart"
 	icon_state = "heart-on"
 	organ_tag = "heart"
 	parent_organ = "chest"
+	slot = "heart"
+	origin_tech = "biotech=3"
+	var/beating = 1
 	dead_icon = "heart-off"
-	vital = 1
-	var/beating = 0
+	var/icon_base = "heart"
 
 /obj/item/organ/internal/heart/update_icon()
 	if(beating)
-		icon_state = "heart-on"
+		icon_state = "[icon_base]-on"
 	else
-		icon_state = "heart-off"
-
-/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
-	..()
-	beating = 1
-	update_icon()
+		icon_state = "[icon_base]-off"
 
 /obj/item/organ/internal/heart/remove(mob/living/carbon/M, special = 0)
 	..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.stat == DEAD || H.heart_attack)
+			Stop()
+			return
+		if(!special)
+			H.heart_attack = 1
+
 	spawn(120)
-		beating = 0
-		update_icon()
+		if(!owner)
+			Stop()
+
+/obj/item/organ/internal/heart/attack_self(mob/user)
+	..()
+	if(!beating)
+		Restart()
+		spawn(80)
+			if(!owner)
+				Stop()
+
+
+/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
+	..()
+	if(ishuman(M) && beating)
+		var/mob/living/carbon/human/H = M
+		if(H.heart_attack)
+			H.heart_attack = 0
+			return
+
+/obj/item/organ/internal/heart/proc/Stop()
+	beating = 0
+	update_icon()
+	return 1
+
+/obj/item/organ/internal/heart/proc/Restart()
+	beating = 1
+	update_icon()
+	return 1
 
 /obj/item/organ/internal/heart/prepare_eat()
 	var/obj/S = ..()
@@ -255,6 +293,7 @@
 	organ_tag = "liver"
 	parent_organ = "groin"
 	slot = "liver"
+	var/alcohol_intensity = 1
 
 /obj/item/organ/internal/liver/process()
 
@@ -265,7 +304,7 @@
 
 	if (germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
-			owner << "<span class='warning'> Your skin itches.</span>"
+			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
 	if (germ_level > INFECTION_LEVEL_TWO)
 		if(prob(1))
 			spawn owner.vomit()
@@ -315,22 +354,26 @@
 	organ_tag = "appendix"
 	parent_organ = "groin"
 	slot = "appendix"
+	var/inflamed = 0
 
-
-/*
-/obj/item/organ/internal/appendix/removed()
-
-	if(owner)
-		var/inflamed = 0
-		for(var/datum/disease/appendicitis/appendicitis in owner.viruses)
-			inflamed = 1
-			appendicitis.cure()
-			owner.resistances += appendicitis
-		if(inflamed)
-			icon_state = "appendixinflamed"
-			name = "inflamed appendix"
+/obj/item/organ/internal/appendix/remove(mob/living/carbon/M, special = 0)
+	for(var/datum/disease/appendicitis/A in M.viruses)
+		A.cure()
+		inflamed = 1
+	update_icon()
 	..()
-*/
+
+/obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
+	..()
+	if(inflamed)
+		M.AddDisease(new /datum/disease/appendicitis)
+
+/obj/item/organ/internal/appendix/prepare_eat()
+	var/obj/S = ..()
+	if(inflamed)
+		S.reagents.add_reagent("????", 5)
+	return S
+
 //shadowling tumor
 /obj/item/organ/internal/shadowtumor
 	name = "black tumor"
@@ -417,7 +460,7 @@
 
 	if(organhonked < world.time)
 		organhonked = world.time+900
-		owner << "<font color='red' size='7'>HONK</font>"
+		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.sleeping = 0
 		owner.stuttering = 20
 		owner.ear_deaf = 30
@@ -458,18 +501,19 @@
 
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
-		if(!(H.h_style == "Very Long Hair" || H.h_style == "Mowhawk"))
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))
 			if(prob(10))
-				H.h_style = "Mohawk"
+				head_organ.h_style = "Mohawk"
 			else
-				H.h_style = "Very Long Hair"
-			H.r_hair = 216
-			H.g_hair = 192
-			H.b_hair = 120
+				head_organ.h_style = "Very Long Hair"
+			head_organ.r_hair = 216
+			head_organ.g_hair = 192
+			head_organ.b_hair = 120
 			H.update_hair()
-		if(!(H.f_style == "Very Long Beard"))
-			H.f_style = "Very Long Beard"
-			H.r_facial = 216
-			H.g_facial = 192
-			H.b_facial = 120
+		if(!(head_organ.f_style == "Very Long Beard"))
+			head_organ.f_style = "Very Long Beard"
+			head_organ.r_facial = 216
+			head_organ.g_facial = 192
+			head_organ.b_facial = 120
 			H.update_fhair()

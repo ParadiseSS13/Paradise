@@ -18,7 +18,6 @@ var/global/list/image/splatter_cache=list()
 	var/list/viruses = list()
 	blood_DNA = list()
 	var/basecolor="#A10808" // Color when wet.
-	var/list/datum/disease2/disease/virus2 = list()
 	var/amount = 5
 	appearance_flags = NO_CLIENT_COLOR
 
@@ -93,7 +92,7 @@ var/global/list/image/splatter_cache=list()
 			return
 		var/taken = rand(1,amount)
 		amount -= taken
-		user << "<span class='notice'>You get some of \the [src] on your hands.</span>"
+		to_chat(user, "<span class='notice'>You get some of \the [src] on your hands.</span>")
 		if (!user.blood_DNA)
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
@@ -140,7 +139,7 @@ var/global/list/image/splatter_cache=list()
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
 	..(user)
-	user << "It reads: <font color='[basecolor]'>\"[message]\"<font>"
+	to_chat(user, "It reads: <font color='[basecolor]'>\"[message]\"<font>")
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
@@ -198,20 +197,20 @@ var/global/list/image/splatter_cache=list()
 
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(var/list/directions)
-        spawn (0)
-                var/direction = pick(directions)
-                for (var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
-                        sleep(3)
-                        if (i > 0)
-                                var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(src.loc)
-                                b.basecolor = src.basecolor
-                                b.update_icon()
-                                for(var/datum/disease2/disease/D in src.viruses)
-                                        var/datum/disease2/disease/ND = D.getcopy()
-                                        b.viruses += ND
-
-                        if (step_to(src, get_step(src, direction), 0))
-                                break
+	set waitfor = 0
+	var/direction = pick(directions)
+	for (var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
+		sleep(3)
+		if (i > 0)
+			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(src.loc)
+			b.basecolor = src.basecolor
+			b.update_icon()
+			for(var/datum/disease/D in src.viruses)
+				var/datum/disease/ND = D.Copy(1)
+				b.viruses += ND
+				ND.holder = b
+		if (step_to(src, get_step(src, direction), 0))
+			break
 
 
 /obj/effect/decal/cleanable/blood/old/New()
@@ -221,29 +220,3 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/gibs/old/New()
 	..()
 	dry()
-
-/obj/effect/decal/cleanable/mucus
-	name = "mucus"
-	desc = "Disgusting mucus."
-	gender = PLURAL
-	density = 0
-	anchored = 1
-	layer = 2
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "mucus"
-	random_icon_states = list("mucus")
-
-	var/list/datum/disease2/disease/virus2 = list()
-	var/dry=0 // Keeps the lag down
-
-/obj/effect/decal/cleanable/mucus/New()
-	spawn(DRYING_TIME * 2)
-		dry=1
-
-/obj/effect/decal/cleanable/blood/viralsputum
-	name = "viral sputum"
-	desc = "It's black and nasty."
-//	basecolor="#030303"
-	icon = 'icons/mob/robots.dmi'
-	icon_state = "floor1"
-	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")

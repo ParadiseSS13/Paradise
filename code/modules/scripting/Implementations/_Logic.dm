@@ -99,11 +99,6 @@
 
 // --- Miscellaneous functions ---
 
-// Clone of sleep()
-/proc/delay(var/time)
-	//writepanic("[__FILE__].[__LINE__] (no type)([usr ? usr.ckey : ""])  \\/proc/delay() called tick#: [world.time]")
-	sleep(time)
-
 // Clone of rand()
 /proc/rand_chance(var/low = 0, var/high)
 	//writepanic("[__FILE__].[__LINE__] (no type)([usr ? usr.ckey : ""])  \\/proc/rand_chance() called tick#: [world.time]")
@@ -167,12 +162,12 @@
 proc/string_explode(var/string, var/separator = "")
 	//writepanic("[__FILE__].[__LINE__] \\/proc/string_explode() called tick#: [world.time]")
 	if(istext(string) && (istext(separator) || isnull(separator)))
-		return text2list(string, separator)
+		return splittext(string, separator)
 
 //Converts a list to a string
 /proc/list_implode(var/list/li, var/separator)
 	if(istype(li) && (istext(separator) || isnull(separator)))
-		return list2text(li, separator)
+		return jointext(li, separator)
 
 proc/n_repeat(var/string, var/amount)
 	//writepanic("[__FILE__].[__LINE__] \\/proc/n_repeat() called tick#: [world.time]")
@@ -221,13 +216,13 @@ proc/n_abs(var/num)
 proc/n_floor(var/num)
 	//writepanic("[__FILE__].[__LINE__] \\/proc/n_floor() called tick#: [world.time]")
 	if(isnum(num))
-		return round(num)
+		return Floor(num)
 
 // Round up
-proc/n_ceil(var/num)
+proc/n_ceiling(var/num)
 	//writepanic("[__FILE__].[__LINE__] \\/proc/n_ceil() called tick#: [world.time]")
 	if(isnum(num))
-		return round(num)+1
+		return Ceiling(num)
 
 // Round to nearest integer
 proc/n_round(var/num)
@@ -235,22 +230,61 @@ proc/n_round(var/num)
 	if(isnum(num))
 		if(num-round(num)<0.5)
 			return round(num)
-		return n_ceil(num)\
+		return Ceiling(num)
 
 // END OF BY DONKIE :(
 
 /proc/n_sin(var/const/x)
-	return sin(x)
+	if(isnum(x))
+		return sin(x)
 
 /proc/n_cos(var/const/x)
-	return cos(x)
+	if(isnum(x))
+		return cos(x)
+
+/proc/n_tan(var/const/x)
+	if(isnum(x))
+		return Tan(x)
+
+/proc/n_csc(var/const/x)
+	if(isnum(x))
+		return Csc(x)
+
+/proc/n_cot(var/const/x)
+	if(isnum(x))
+		return Cot(x)
+
+/proc/n_sec(var/const/x)
+	if(isnum(x))
+		return Sec(x)
 
 /proc/n_asin(var/const/x)
-	return arcsin(x)
+	if(isnum(x))
+		return arcsin(x)
 
 /proc/n_acos(var/const/x)
-	return arccos(x)
+	if(isnum(x))
+		return arccos(x)
 
+/proc/n_isInRange(var/const/x, var/const/min, var/const/max)
+	if(isnum(x) && isnum(min) && isnum(max))
+		return IsInRange(x, min, max)
+
+/proc/n_lcm(var/const/a, var/const/b)
+	if(isnum(a) && isnum(b))
+		return Lcm(a, b)
+
+/proc/n_root(var/const/n, var/const/x)
+	if(isnum(n) && isnum(x))
+		return Root(n, x)
+
+/proc/n_toDegrees(var/const/x)
+	if(isnum(x))
+		return ToDegrees(x)
+
+/proc/n_toRadians(var/const/x)
+	if(isnum(x))
+		return ToRadians(x)
 
 /proc/n_max(...)
 	return max(arglist(args))
@@ -261,3 +295,15 @@ proc/n_round(var/num)
 /proc/n_log(var/num)
 	if(isnum(num) && 0 < num)
 		return log(num)
+
+/proc/n_replacetext(text, r, with)
+	return replacetext(text, r, with)
+
+/proc/n_replacetextEx(text, r, with)
+	return replacetextEx(text, r, with)
+
+/proc/n_jointext(list, glue)
+	return jointext(list, glue)
+
+/proc/n_splittext(text, delim)
+	return splittext(text, delim)

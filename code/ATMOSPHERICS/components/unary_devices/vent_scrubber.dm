@@ -12,7 +12,7 @@
 	active_power_usage = 60
 
 	can_unwrench = 1
-	
+
 	var/area/initial_loc
 	var/id_tag = null
 	var/frequency = 1439
@@ -58,7 +58,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
 	..(user)
 	if(welded)
-		user << "It seems welded shut."
+		to_chat(user, "It seems welded shut.")
 
 /obj/machinery/atmospherics/unary/vent_scrubber/auto_use_power()
 	if(!powered(power_channel))
@@ -175,7 +175,8 @@
 	check_turfs()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process()
-	..()
+	if(!..())
+		return 0
 
 	if (widenet)
 		check_turfs()
@@ -364,7 +365,7 @@
 		return MT_UPDATE
 
 	return ..()
-	
+
 /obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
 	return !welded
 
@@ -372,7 +373,7 @@
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if (WT.remove_fuel(0,user))
-			user << "<span class='notice'>Now welding the scrubber.</span>"
+			to_chat(user, "<span class='notice'>Now welding the scrubber.</span>")
 			if(do_after(user, 20, target = src))
 				if(!src || !WT.isOn()) return
 				playsound(get_turf(src), 'sound/items/Welder2.ogg', 50, 1)
@@ -385,17 +386,17 @@
 					welded = 0
 					update_icon()
 			else
-				user << "<span class='notice'>The welding tool needs to be on to start this task.</span>"
+				to_chat(user, "<span class='notice'>The welding tool needs to be on to start this task.</span>")
 			return 1
 		else
-			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 			return 1
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
 	if (istype(W, /obj/item/weapon/wrench))
 		if (!(stat & NOPOWER) && on)
-			user << "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>"
+			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1
 
 	return ..()

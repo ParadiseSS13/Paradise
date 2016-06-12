@@ -19,10 +19,10 @@
 			src.flipped = !src.flipped
 			if(src.flipped)
 				icon_state = "[item_color]soft_flipped"
-				usr << "You flip the hat backwards."
+				to_chat(usr, "You flip the hat backwards.")
 			else
 				icon_state = "[item_color]soft"
-				usr << "You flip the hat back in normal position."
+				to_chat(usr, "You flip the hat back in normal position.")
 			usr.update_inv_head()	//so our mob-overlays update
 
 /obj/item/clothing/head/soft/red

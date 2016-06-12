@@ -9,7 +9,7 @@
 		return
 
 	garbageCollector.del_everything = !garbageCollector.del_everything
-	// world << "<b>GC: qdel turned [garbageCollector.del_everything ? "off" : "on"].</b>"
+//	to_chat(world, "<b>GC: qdel turned [garbageCollector.del_everything ? "off" : "on"].</b>")
 	log_admin("[key_name(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].")
 	message_admins("\blue [key_name_admin(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].", 1)
 
@@ -44,12 +44,12 @@
 		return
 
 	if(!gc_hard_del_types || !gc_hard_del_types.len)
-		usr << "<span class='notice'>No hard del()'d types found.</span>"
+		to_chat(usr, "<span class='notice'>No hard del()'d types found.</span>")
 		return
 
-	usr << "Types hard del()'d by the GC:"
+	to_chat(usr, "Types hard del()'d by the GC:")
 	for(var/A in gc_hard_del_types)
-	 usr << "[A]"
+		to_chat(usr, "[A]")
 
 // Profiling stuff
 var/global/del_profiling = 0
@@ -169,7 +169,7 @@ var/global/list/ghdels_profiled = list()
 	if(usr && usr.client)
 		usr.client.running_find_references = null
 	running_find_references = null
-	
+
 /client/verb/purge_all_destroyed_objects()
 	set category = "Debug"
 	if(garbageCollector)
@@ -190,4 +190,3 @@ var/global/list/ghdels_profiled = list()
 	if(!running_find_references)
 		find_references(remove_from_queue = FALSE)
 #endif
-	
