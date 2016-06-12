@@ -83,15 +83,15 @@
 	else if(isassembly(W))
 		var/obj/item/device/assembly/A = W
 		if(A.secured)
-			user << "<span class='notice'>The device is secured.</span>"
+			to_chat(user, "<span class='notice'>The device is secured.</span>")
 			return
 		if(attached_device)
-			user << "<span class='warning'>There is already a device attached to the valve, remove it first.</span>"
+			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first.</span>")
 			return
 		user.remove_from_mob(W)
 		attached_device = A
 		A.loc = src
-		user << "<span class='notice'>You attach the [W] to the [src]'s controls and secure it.</span>"
+		to_chat(user, "<span class='notice'>You attach the [W] to the [src]'s controls and secure it.</span>")
 		A.holder = src
 		A.toggle_secure()
 		updateUsrDialog()
