@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes on map stools having the wrong offsets, making it look like you're not sitting on them"

@@ -1,5 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - bugfix: "Fixes the window getting stuck when you try to drag or resize a NanoUI window too fast with Fancy NanoUI enabled"
-  - bugfix: "Fixes a small quirk with the resize handle."
