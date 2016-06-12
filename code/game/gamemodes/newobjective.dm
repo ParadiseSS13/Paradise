@@ -652,7 +652,7 @@ datum
 					else
 						return 20
 
-
+		/* RCDs can be gotten from any hacked autolathe. A boring objective for both the antagonist and the crew.
 			RCD
 				steal_target = /obj/item/weapon/rcd
 				explanation_text = "Steal a rapid construction device."
@@ -676,7 +676,7 @@ datum
 						return 10
 					else
 						return 20
-
+		*/
 
 			/*burger
 				steal_target = /obj/item/weapon/reagent_containers/food/snacks/human/burger
