@@ -311,7 +311,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 		return 0
 
 /datum/objective/block
-	explanation_text = "Do not allow any organic lifeforms or IPCs to escape on the shuttle alive."
+	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, and pAIs are not considered alive."
 	martyr_compatible = 1
 
 	check_completion()
