@@ -251,7 +251,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle by escaping on it with no loyalist nanotrasen crew on board and alive. Syndicate agents, other enemies of NanoTrasen, cyborgs, and pets may be allowed to escape alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist NanoTrasen crew on board and alive. Syndicate agents, other enemies of NanoTrasen, cyborgs, and pets may be allowed to escape alive."
 
 	check_completion()
 		if(!owner.current || owner.current.stat)
