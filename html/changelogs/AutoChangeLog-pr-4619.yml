@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes infinite-throw spam"
+  - bugfix: "Fixes being able to resist out of grabs by moving (that is to say, it'll actually work now)"
+  - bugfix: "Fixes passive grabs using the wrong HUD icon"

@@ -410,6 +410,13 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/twohanded/chainsaw
 	cost = 13
 
+/datum/uplink_item/dangerous/batterer
+	name = "Mind Batterer"
+	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
+	reference = "BTR"
+	item = /obj/item/device/batterer
+	cost = 5
+
 /datum/uplink_item/dangerous/manhacks
 	name = "Viscerator Delivery Grenade"
 	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
@@ -1016,7 +1023,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
-	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 5 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
+	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/weapon/implanter/uplink
 	cost = 14
