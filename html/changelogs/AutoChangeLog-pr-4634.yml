@@ -1,0 +1,5 @@
+author: Glorken
+delete-after: True
+changes: 
+  - bugfix: "Shifts Zeng-Hu left leg over in order to regain thigh gap."
+  - bugfix: "Chops off a pixel on Bishop feet so that they fit into shoes."
