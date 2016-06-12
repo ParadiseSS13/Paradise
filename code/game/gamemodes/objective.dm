@@ -799,8 +799,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
-	check_completion()
-		return 1
+	completed = 1
 
 // Traders
 
