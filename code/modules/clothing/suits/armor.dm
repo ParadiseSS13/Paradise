@@ -36,9 +36,43 @@
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
-	desc = "An armored vest that protects against some damage. This one has Nanotrasen corporate badge."
-	icon_state = "armorsec"
+	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
+	icon_state = "armor"
 	item_state = "armor"
+	var/obj/item/clothing/accessory/holobadge/attached_badge
+
+/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/clothing/accessory/holobadge))
+		if(user.unEquip(W))
+			add_fingerprint(user)
+			W.forceMove(src)
+			attached_badge = W
+
+			action_button_name = "Remove Holobadge"
+			icon_state = "armorsec"
+			user.update_inv_wear_suit()
+			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
+			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+		return
+	..()
+
+/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user as mob)
+	if(attached_badge)
+		add_fingerprint(user)
+		user.put_in_hands(attached_badge)
+
+		action_button_name = null
+		action.Remove(user)
+		icon_state = "armor"
+		user.update_inv_wear_suit()
+		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
+		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
+
+		attached_badge = null
+
+		return
+
+	..()
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
