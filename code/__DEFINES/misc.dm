@@ -239,6 +239,7 @@
 #define REGION_ENGINEERING	5
 #define REGION_SUPPLY		6
 #define REGION_COMMAND		7
+#define REGION_CENTCOMM		8
 
 //Matricies
 #define MATRIX_DEFAULT list(1, 0, 0, 0,\
@@ -250,3 +251,7 @@
                               0.3, 0.3, 0.3, 0,\
                               0.3, 0.3, 0.3, 0,\
                               0,   0,   0,   1)
+//Gun trigger guards
+#define TRIGGER_GUARD_ALLOW_ALL -1
+#define TRIGGER_GUARD_NONE 0
+#define TRIGGER_GUARD_NORMAL 1

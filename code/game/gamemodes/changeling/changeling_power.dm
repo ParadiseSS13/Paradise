@@ -73,6 +73,12 @@
 		return 0
 	return 1
 
+/obj/effect/proc_holder/changeling/proc/transfer_changeling_powers(var/mob/living/carbon/user, var/mob/living/carbon/target)
+	if(istype(target, /mob/living/carbon)) // so we don't runtime, I don't even know why it's necessary as it needs a grab
+		var/datum/changeling/c = user.mind.changeling
+		var/datum/changeling/t = target.mind.changeling
+		c.purchasedpowers = t.purchasedpowers
+
 //used in /mob/Stat()
 /obj/effect/proc_holder/changeling/proc/can_be_used_by(var/mob/user)
 	if(!ishuman(user))

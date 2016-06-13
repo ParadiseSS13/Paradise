@@ -436,6 +436,15 @@
 	else
 		icon_state = "tele0"
 
+/obj/machinery/teleport/perma/attackby(obj/item/W, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", W))
+		return
+
+	if(exchange_parts(user, W))
+		return
+
+	default_deconstruction_crowbar(W)
+
 /obj/machinery/teleport/station
 	name = "station"
 	desc = "The power control station for a bluespace teleporter."

@@ -222,6 +222,10 @@
 		icon_state = "dualsaber0"
 
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
+		unwield()
+		return
 	..()
 	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
 		to_chat(user, "\red You twirl around a bit before losing your balance and impaling yourself on the [src].")
@@ -259,7 +263,10 @@
 	if(wielded)
 		return 1
 
-/obj/item/weapon/twohanded/dualsaber/wield()
+/obj/item/weapon/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
+	if(HULK in M.mutations)
+		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
+		return
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
 

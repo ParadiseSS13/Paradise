@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Title: Slot Machine UI
 Used In File(s): /code/game/machinery/slotmachine.dm
 -->
@@ -8,7 +8,7 @@ Used In File(s): /code/game/machinery/slotmachine.dm
 	</div>
 	<div class="line">
 		<div class="statusLabel">Credits Remaining:</div>
-		{{:helper.string("<div class='statusValue {0}'>{1}</div>", data.money >= 10 ? "" : "bad", data.money)}}
+		{{:helper.string("<div class='statusValue {0}'>{1}</div>", data.money >= 10 ? "" : "bad", helper.smoothRound(data.money))}}
 	</div>
 	<div class="item">
 		<div class="statusLabel">

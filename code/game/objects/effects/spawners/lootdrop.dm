@@ -118,3 +118,41 @@
 				/obj/item/weapon/relic = 3,
 				"" = 11
 				)
+
+/obj/effect/spawner/lootdrop/trade_sol_rare
+	name = "trader rare item spawner"
+	lootdoubles = 0
+	color = "#00FFFF"
+
+	loot = list(
+				/obj/item/weapon/card/emag_broken = 2,
+				/obj/item/weapon/defibrillator/compact/loaded = 2,
+				/obj/item/weapon/gun/energy/laser/retro = 2,
+				/obj/item/weapon/rcd/combat = 1,
+				/obj/item/weapon/rcd = 2,
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol_common
+	name = "trader common item spawner"
+	lootdoubles = 0
+	color = "#00FFFF"
+
+	loot = list(
+				/obj/item/weapon/tank/anesthetic = 2,
+				/obj/item/weapon/weldingtool/hugetank = 2,
+				/obj/item/weapon/pickaxe/diamond = 1,
+				/obj/item/device/spacepod_equipment/weaponry/mining_laser = 1,
+				/obj/item/device/paicard = 2,
+				/obj/item/weapon/gun/projectile/automatic/pistol = 2,
+				/obj/item/device/megaphone = 2,
+				/obj/item/weapon/stock_parts/capacitor = 1,
+				/obj/item/weapon/stock_parts/cell/high = 1,
+				/obj/item/weapon/stock_parts/manipulator = 1,
+				/obj/item/weapon/stock_parts/matter_bin = 1,
+				/obj/item/weapon/stock_parts/micro_laser = 1,
+				/obj/item/weapon/stock_parts/scanning_module = 1,
+				/obj/item/weapon/spacecash/c200 = 1,
+				/obj/item/weapon/airlock_electronics = 1,
+				/obj/item/weapon/gun/energy/kinetic_accelerator/super = 1,
+				/obj/item/pizzabox = 3,
+				)

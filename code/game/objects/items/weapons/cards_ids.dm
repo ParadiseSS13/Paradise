@@ -107,6 +107,8 @@
 	var/icon/side
 	var/dat
 	var/stamped = 0
+	
+	var/obj/item/weapon/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
 /obj/item/weapon/card/id/New()
 	..()
@@ -120,6 +122,16 @@
 		show(usr)
 	else
 		to_chat(user, "<span class='warning'>It is too far away.</span>")
+	if(guest_pass)
+		to_chat(user, "<span class='notice'>There is a guest pass attached to this ID card</span>")
+		if (world.time < guest_pass.expiration_time)
+			to_chat(user, "<span class='notice'>It expires at [worldtime2text(guest_pass.expiration_time)].</span>")
+		else
+			to_chat(user, "<span class='warning'>It expired at [worldtime2text(guest_pass.expiration_time)].</span>")
+		to_chat(user, "<span class='notice'>It grants access to following areas:</span>")
+		for (var/A in guest_pass.temp_access)
+			to_chat(user, "<span class='notice'>[get_access_desc(A)].</span>")
+		to_chat(user, "<span class='notice'>Issuing reason: [guest_pass.reason].</span>")
 
 /obj/item/weapon/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -170,7 +182,9 @@
 	<img src=side.png height=80 width=80 border=4></td></tr></table>"
 
 /obj/item/weapon/card/id/GetAccess()
-	return access
+	if(!guest_pass)
+		return access
+	return access | guest_pass.GetAccess()
 
 /obj/item/weapon/card/id/GetID()
 	return src
@@ -204,9 +218,42 @@
 		if(!stamped)
 			dat+="<img src=large_[W.icon_state].png>"
 			stamped = 1
-			to_chat(usr, "You stamp the ID card!")
+			to_chat(user, "You stamp the ID card!")
 		else
-			to_chat(usr, "This ID has already been stamped!")
+			to_chat(user, "This ID has already been stamped!")
+
+	else if(istype(W, /obj/item/weapon/card/id/guest))
+		if(istype(src, /obj/item/weapon/card/id/guest))
+			return
+		var/obj/item/weapon/card/id/guest/G = W
+		if(world.time > G.expiration_time)
+			to_chat(user, "There's no point, the guest pass has expired.")
+			return
+		if(guest_pass)
+			to_chat(user, "There's already a guest pass attached to this ID.")
+			return
+		if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
+			to_chat(user, "The guest pass cannot be attached to this ID")
+			return
+		if(!user.unEquip(G))
+			return
+		G.loc = src
+		guest_pass = G
+
+/obj/item/weapon/card/id/verb/remove_guest_pass()
+	set name = "Remove Guest Pass"
+	set category = "Object"
+	set src in range(0)
+	
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	
+	if(guest_pass)
+		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
+		guest_pass.forceMove(get_turf(src))
+		guest_pass = null
+	else
+		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
 
 /obj/item/weapon/card/id/silver
 	name = "identification card"

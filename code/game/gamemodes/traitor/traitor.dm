@@ -16,10 +16,6 @@
 	required_enemies = 1
 	recommended_enemies = 4
 
-
-	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 20
-
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
 
@@ -370,10 +366,11 @@
 		traitor_mind.special_role = null
 		traitor_mind.som = null
 		slaved.leave_serv_hud(traitor_mind)
+		for(var/datum/objective/protect/mindslave/MS in traitor_mind.objectives)
+			traitor_mind.objectives -= MS
 
 	update_traitor_icons_removed(traitor_mind)
-//	to_chat(world, "Removed [traitor_mind.current.name] from traitor shit")
-	to_chat(traitor_mind.current, "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>")
+	to_chat(traitor_mind.current, "<span class='userdanger'>You are no longer a mindslave; you have complete and free control of your own faculties, once more!</span>")
 
 /datum/game_mode/proc/assign_exchange_role(var/datum/mind/owner)
 	//set faction
