@@ -217,7 +217,6 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 	selfText = "buzz"
 	audible = 1
 	sound = 'sound/machines/buzz-sigh.ogg'
-	cooldown = 50
 	canTarget = 1
 	targetMob = 1
 
@@ -230,6 +229,19 @@ above it. If you don't want this, make the call to ..() then use commands = new 
 /datum/emote/buzz/available(var/mob/user)
 	if(user.is_mechanical())
 		return 1
+
+/datum/emote/buzz/buzz2
+	name = "buzz 2"
+	desc = "makes the mob buzz in an irritated way"
+	text = "makes an irritated buzzing sound"
+	selfText = "make an irritated buzzing sound"
+	sound = "sound/machines/buzz-two.ogg"
+	allowParent = 1
+
+/datum/emote/buzz/buzz2/New()
+	..()
+	commands = new /list()
+	commands += "buzz2"
 
 /datum/emote/chirp
 	name = "chirp"
