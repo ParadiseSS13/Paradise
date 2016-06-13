@@ -79,32 +79,6 @@ RCD
 /obj/item/weapon/rcd/attack_self(mob/user)
 	//Change the mode
 	ui_interact(user)
-	/*playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-	switch(mode)
-		if(1)
-			mode = 2
-			to_chat(user, "<span class='notice'>Changed mode to 'Airlock'</span>")
-			if(prob(20))
-				src.spark_system.start()
-			return
-		if(2)
-			mode = 3
-			to_chat(user, "<span class='notice'>Changed mode to 'Deconstruct'</span>")
-			if(prob(20))
-				src.spark_system.start()
-			return
-		if(3)
-			mode = 4
-			to_chat(user, "<span class='notice'>Changed mode to 'Windows'</span>")
-			if(prob(20))
-				src.spark_system.start()
-			return
-		if(4)
-			mode = 1
-			to_chat(user, "<span class='notice'>Changed mode to 'Floor & Walls'</span>")
-			if(prob(20))
-				src.spark_system.start()
-			return*/
 
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	var/list/data = list()
@@ -133,6 +107,9 @@ RCD
 /obj/item/weapon/rcd/Topic(href, href_list, nowindow, state)
 	if(..())
 		return 1
+	
+	if(prob(20))
+		src.spark_system.start()
 	
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
