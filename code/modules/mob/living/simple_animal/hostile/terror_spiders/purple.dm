@@ -13,6 +13,7 @@
 	name = "Praetorian spider"
 	desc = "An ominous-looking purple spider."
 	spider_role_summary = "Guards the nest of the Queen of Terror."
+	ai_target_method = TS_DAMAGE_BRUTE
 	egg_name = "purple spider eggs"
 	altnames = list("Nest Guardian spider")
 
@@ -22,7 +23,7 @@
 	maxHealth = 300
 	health = 300
 	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage_upper = 25
 	move_to_delay = 6
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	spider_tier = 2

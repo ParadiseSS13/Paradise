@@ -14,6 +14,7 @@
 	name = "Mother of Terror spider"
 	desc = "An enormous spider. Its back is a crawling mass of spiderlings. All of them look around with beady little eyes. The horror!"
 	spider_role_summary = "Schmuck bait. Extremely weak in combat, but spawns many spiderlings when it dies."
+	ai_target_method = TS_DAMAGE_SIMPLE
 	egg_name = "mother spider eggs"
 
 	altnames = list("Seemingly Harmless spider","Strange spider","Wolf Mother spider")

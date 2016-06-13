@@ -14,6 +14,7 @@
 	desc = "An ominous-looking green spider, it has a small egg-sac attached to it."
 	altnames = list("Green Terror spider","Insidious Breeding spider","Fast Bloodsucking spider")
 	spider_role_summary = "Average melee spider that webs its victims and lays more spider eggs"
+	ai_target_method = TS_DAMAGE_BRUTE
 	egg_name = "green spider eggs"
 
 	icon_state = "terror_green"
@@ -47,24 +48,15 @@
 		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
 	else if(!fed)
 		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
-	else if(busy != LAYING_EGGS)
-		busy = LAYING_EGGS
+	else
 		visible_message("<span class='notice'>\The [src] begins to lay a cluster of eggs.</span>")
-		stop_automated_movement = 1
-		spawn(50)
-			if(busy == LAYING_EGGS)
-				E = locate() in get_turf(src)
-				if(!E)
-					if (prob(33))
-						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 1)
-					else if (prob(50))
-						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, 2, 1)
-					else
-						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 1)
-					fed--
-			busy = 0
-			stop_automated_movement = 0
-
+		if (prob(33))
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 1)
+		else if (prob(50))
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, 2, 1)
+		else
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 1)
+		fed--
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/harvest()
 	new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_green(get_turf(src))
@@ -93,6 +85,8 @@
 				step_to(src,cocoon_target)
 				if (spider_debug > 0)
 					visible_message("<span class='notice'>\the [src] moves towards [cocoon_target] to cocoon it.</span>")
+	else if (fed)
+		DoLayGreenEggs()
 	else if (world.time > (last_cocoon_object + freq_cocoon_object))
 		last_cocoon_object = world.time
 		var/list/can_see = view(src, 10)
@@ -102,21 +96,27 @@
 				spider_steps_taken = 0
 				cocoon_target = C
 				return
-			//second, spin a sticky spiderweb on this tile
-			var/obj/effect/spider/terrorweb/W = locate() in get_turf(src)
-			if (!W)
-				Web()
-			else
-				//third, lay an egg cluster there
-				if (fed)
-					DoLayGreenEggs()
-				else
-					//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
-					for(var/obj/O in can_see)
-						if (O.anchored)
-							continue
-						if (istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery) || istype(O, /obj/item/device/flashlight/lamp))
-							if (!istype(O, /obj/item/weapon/paper))
-								cocoon_target = O
-								stop_automated_movement = 1
-								spider_steps_taken = 0
+		// if no food found, check for other objects
+		for(var/obj/O in can_see)
+			if (O.anchored)
+				continue
+			if (istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery) || istype(O, /obj/item/device/flashlight/lamp))
+				if (!istype(O, /obj/item/weapon/paper))
+					cocoon_target = O
+					stop_automated_movement = 1
+					spider_steps_taken = 0
+					return
+
+/mob/living/simple_animal/hostile/poison/terror_spider/green/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
+	if (!poisonable)
+		..()
+		return
+	var/inject_target = pick("chest","head")
+	if (L.stunned || L.can_inject(null,0,inject_target,0))
+		L.eye_blurry = max(L.eye_blurry + 10, 60)
+		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.
+		visible_message("<span class='danger'> \icon[src] [src] buries its fangs deep into the [inject_target] of [target]! </span>")
+	else
+		visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
+	L.attack_animal(src)
+	return

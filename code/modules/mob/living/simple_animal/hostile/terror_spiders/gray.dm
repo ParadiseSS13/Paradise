@@ -14,6 +14,7 @@
 	desc = "An ominous-looking gray spider, its color and shape makes it hard to see."
 	altnames = list("Gray Trap spider","Gray Stalker spider","Ghostly Ambushing spider")
 	spider_role_summary = "Stealth spider that ambushes weak humans from vents."
+	ai_target_method = TS_DAMAGE_BRUTE
 	egg_name = "gray spider eggs"
 
 	icon_state = "terror_gray"
@@ -21,7 +22,7 @@
 	icon_dead = "terror_gray_dead"
 	maxHealth = 120 // same health as hunter spider, aka, pretty weak.. but its almost invisible.
 	health = 120
-	melee_damage_lower = 15 // same as guard spider, its a melee class
+	melee_damage_lower = 10
 	melee_damage_upper = 20
 	ventcrawler = 1
 	move_to_delay = 5 // normal speed
@@ -135,3 +136,19 @@
 				if (get_dist(src,temp_vent) > 0 && get_dist(src,temp_vent) < 5)
 					step_to(src,temp_vent)
 					// if you're bumped off your vent, try to get back to it
+
+/mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
+	if (!poisonable)
+		..()
+		return
+	if (L.silent >= 10)
+		L.attack_animal(src)
+	else
+		var/inject_target = pick("chest","head")
+		if (L.stunned || L.can_inject(null,0,inject_target,0))
+			L.silent = max(L.silent, 20) // instead of having a venom that only lasts seconds, we just add the silence directly.
+			visible_message("<span class='danger'> \icon[src] [src] buries grey fangs deep into the [inject_target] of [target]! </span>")
+		else
+			visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
+		L.attack_animal(src)
+	return

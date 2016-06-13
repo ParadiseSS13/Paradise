@@ -59,7 +59,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
-			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
+			to_chat(usr, "<span class='warning'>This item is only available to agents with the 'hijack the shuttle' objective.</span>")
 			return
 	if(item)
 		U.uses -= max(cost, 0)

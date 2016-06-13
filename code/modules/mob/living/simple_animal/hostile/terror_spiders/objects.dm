@@ -283,8 +283,9 @@
 
 /obj/effect/spider/terrorweb/proc/DeCloakNearby()
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/gray/G in view(6,src))
-		G.GrayDeCloak()
-		G.Aggro()
+		if (G.stat != DEAD)
+			G.GrayDeCloak()
+			G.Aggro()
 
 /obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if (air_group || (height==0)) return 1

@@ -14,6 +14,7 @@
 	desc = "An ominous-looking spider, black as the darkest night, and with merciless yellow eyes."
 	altnames = list("Black Devil spider","Giant Black Widow spider","Shadow Terror spider")
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
+	ai_target_method = TS_DAMAGE_POISON
 	egg_name = "black spider eggs"
 
 	icon_state = "terror_black"
@@ -21,8 +22,8 @@
 	icon_dead = "terror_black_dead"
 	maxHealth = 120 // same health as hunter spider, aka, pretty weak.. but its bite will kill you!
 	health = 120
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage_lower = 5
+	melee_damage_upper = 15
 	move_to_delay = 5
 	stat_attack = 1 // ensures they will target people in crit, too!
 	spider_tier = 2
@@ -46,16 +47,12 @@
 		L.attack_animal(src)
 	else
 		var/inject_target = pick("chest","head")
-		melee_damage_lower = 1
-		melee_damage_upper = 5
 		if (L.stunned || L.can_inject(null,0,inject_target,0))
 			L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
 			visible_message("<span class='danger'> \icon[src] [src] buries its long fangs deep into the [inject_target] of [target]! </span>")
 		else
 			visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
 		L.attack_animal(src)
-		melee_damage_lower = 10
-		melee_damage_upper = 20
 	if (!ckey && ((!target in enemies) || L.reagents.has_reagent("terror_black_toxin",50)))
 		spawn(20)
 			step_away(src,L)

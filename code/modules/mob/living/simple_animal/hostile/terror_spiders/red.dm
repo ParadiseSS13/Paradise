@@ -17,6 +17,7 @@
 	egg_name = "red spider eggs"
 
 	spider_role_summary = "High health, high damage, very slow, melee juggernaut"
+	ai_target_method = TS_DAMAGE_BRUTE
 
 	icon_state = "terror_red"
 	icon_living = "terror_red"

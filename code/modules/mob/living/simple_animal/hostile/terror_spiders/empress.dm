@@ -15,6 +15,7 @@
 	name = "Empress of Terror"
 	desc = "The unholy offspring of spiders, nightmares, and lovecraft fiction."
 	spider_role_summary = "Adminbus spider"
+	ai_target_method = TS_DAMAGE_SIMPLE
 	altnames = list ("Terror Empress spider")
 	egg_name = "empress spider eggs"
 
@@ -25,8 +26,8 @@
 	maxHealth = 1000
 	health = 1000
 
-	melee_damage_lower = 10
-	melee_damage_upper = 40
+	melee_damage_lower = 30
+	melee_damage_upper = 60
 
 	move_to_delay = 5
 	ventcrawler = 1 // Adminbus.

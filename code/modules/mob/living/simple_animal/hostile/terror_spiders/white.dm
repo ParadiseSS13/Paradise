@@ -13,6 +13,7 @@
 	name = "White Death spider"
 	desc = "An ominous-looking white spider, its ghostly eyes and vicious-looking fangs are the stuff of nightmares."
 	spider_role_summary = "Rare, bite-and-run spider that infects hosts with spiderlings"
+	ai_target_method = TS_DAMAGE_POISON
 	egg_name = "white spider eggs"
 
 	altnames = list("White Terror spider","White Death spider","Ghostly Nightmare spider")
@@ -21,8 +22,8 @@
 	icon_dead = "terror_white_dead"
 	maxHealth = 100
 	health = 100
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage_lower = 5
+	melee_damage_upper = 15
 	move_to_delay = 4
 	ventcrawler = 1
 	spider_tier = 2

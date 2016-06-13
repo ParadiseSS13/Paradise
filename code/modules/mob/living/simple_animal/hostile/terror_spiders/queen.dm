@@ -13,6 +13,7 @@
 	name = "Queen of Terror spider"
 	desc = "An enormous, terrifying spider. Its egg sac is almost as big as its body, and teeming with spider eggs."
 	spider_role_summary = "Commander of the spider forces. Lays eggs, directs the brood."
+	ai_target_method = TS_DAMAGE_SIMPLE
 	egg_name = "queen spider eggs"
 
 	altnames = list("Queen of Terror","Brood Mother")

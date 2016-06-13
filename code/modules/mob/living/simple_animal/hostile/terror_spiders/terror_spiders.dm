@@ -93,6 +93,7 @@ var/global/list/ts_spiderling_list = list()
 
 	// AI aggression settings
 	var/ai_type = TS_AI_AGGRESSIVE // 0 = aggressive to everyone, 1 = defends self only, 2 = passive, you can butcher it like a sheep
+	var/ai_target_method = TS_DAMAGE_SIMPLE
 
 	// AI player control by ghosts
 	var/ai_playercontrol_allowingeneral = 1 // if 0, no spiders are player controllable. Default set in code, can be changed by queens.
@@ -111,7 +112,7 @@ var/global/list/ts_spiderling_list = list()
 	var/freq_cocoon_object = 1200 // two minutes between each attempt
 	var/last_cocoon_object = 0 // leave this, changed by procs.
 
-	var/prob_ai_hides_in_vents = 10 // probabily of a gray spider hiding in a vent
+	var/prob_ai_hides_in_vents = 15 // probabily of a gray spider hiding in a vent
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
@@ -179,7 +180,7 @@ var/global/list/ts_spiderling_list = list()
 				continue
 			else if (H.flags & GODMODE)
 				continue
-			else if (!stat_attack && H.stat == 1)
+			else if (!stat_attack && H.stat == UNCONSCIOUS)
 				continue
 			else if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
 				if (H in enemies)
@@ -206,15 +207,31 @@ var/global/list/ts_spiderling_list = list()
 						// either way, not much point in targeting them
 						// if they shoot us, of course, then we will consider them a valid target
 				else
-					if (H.can_inject(null,0,"chest",0))
-						targets1 += H
-					else if (H in enemies)
-						targets2 += H
+					if (ai_target_method == TS_DAMAGE_BRUTE)
+						var/theirarmor = H.getarmor(type = "melee")
+						// Example values: Civilian: 2, Engineer w/ Hardsuit: 10, Sec Officer with armor: 19, HoS: 48, Deathsquad: 80
+						if (theirarmor < 10)
+							targets1 += H
+						else if (H in enemies)
+							if (theirarmor < 30)
+								targets2 += H
+							else
+								targets3 += H
+						else
+							targets3 += H
+					else if (ai_target_method == TS_DAMAGE_POISON)
+						if (H.can_inject(null,0,"chest",0))
+							targets1 += H
+						else if (H in enemies)
+							targets2 += H
+						else
+							targets3 += H
 					else
-						targets3 += H
-					// first, go after targets we can inject - lightly armored humans.
-					// second, go after humans that attacked us.
-					// third, go after other humans.
+						// TS_DAMAGE_SIMPLE
+						if (H in enemies)
+							targets2 += H
+						else
+							targets3 += H
 			else if (istype(H, /mob/living/simple_animal))
 				var/mob/living/simple_animal/hostile/poison/terror_spider/M = H
 				if (M.force_threshold > melee_damage_upper)
@@ -250,9 +267,9 @@ var/global/list/ts_spiderling_list = list()
 		//var/list/Mobs = hearers(vision_range, src) - src
 		for(var/mob/living/H in view(src, vision_range))
 		//for(var/mob/H in Mobs)
-			if (H.stat == 2)
+			if (H.stat == DEAD)
 				// dead mobs are ALWAYS ignored.
-			else if (!stat_attack && H.stat == 1)
+			else if (!stat_attack && H.stat == UNCONSCIOUS)
 				// unconscious mobs are ignored unless spider has stat_attack
 			else if (H in enemies)
 				targets1 += H
@@ -347,8 +364,9 @@ var/global/list/ts_spiderling_list = list()
 	else
 		target.attack_animal(src)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(var/mob/living/carbon/human/L)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
 	L.attack_animal(src)
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(var/damage)
 	..(damage)

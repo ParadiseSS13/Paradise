@@ -14,6 +14,7 @@
 	name = "Prince of Terror spider"
 	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Extremely dangerous."
 	spider_role_summary = "Boss-level terror spider. Lightning bruiser. Capable of taking on a squad by itself."
+	ai_target_method = TS_DAMAGE_BRUTE
 	egg_name = "prince spider eggs"
 
 	altnames = list("Prince of Terror","Terror Prince")
