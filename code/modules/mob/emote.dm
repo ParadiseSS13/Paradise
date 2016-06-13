@@ -15,9 +15,9 @@
 //--FalseIncarnate
 */
 // All mobs should have custom emote, really..
-/mob/proc/custom_emote(var/m_type=1,var/message = null)
+/mob/proc/custom_emote(var/m_type=0, var/message = null)
 
-	return emoteHandler.runEmote("me", null, message, m_type)
+	return emoteHandler.runEmote("me", message, m_type)
 
 /*	if(stat || !use_me && usr == src)
 		to_chat(usr, "You are unable to emote.")

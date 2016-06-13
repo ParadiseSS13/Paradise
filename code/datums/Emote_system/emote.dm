@@ -8,6 +8,7 @@ VampyrBytes
 *******************************************************************************************************/
 #define EMOTE_COOLDOWN 20		//Time in deciseconds that the cooldown lasts
 #define HEARING_RANGE 7
+#define INVALID -1				//Using -1 as I can't see how a negative number could be a valid input
 
 /datum/emote
 	var/name = ""
@@ -15,7 +16,7 @@ VampyrBytes
 	var/list/commands[0]  // commands that trigger the emote. Set these in New()
 	var/text = ""
 	var/selfText = ""		// the version of text that you should see - eg, if text is screams, you want scream here, as You screams is bad grammer
-	var/startText = ""		// if you need to put something in before [user]. Should end with a space
+	var/startText = ""		// if you need to put something in before [user]
 	var/selfStart = 1		// whether the start text is used in what you see
 
 	var/audible = 0
@@ -71,7 +72,7 @@ VampyrBytes
 	params = getParams(user)
 
 	for(var/p in params)
-		if(params[p] == "invalid")
+		if(params[p] == INVALID)
 			return
 
 	if(text)
@@ -82,7 +83,7 @@ VampyrBytes
 		. = processMessage(user, params, message)
 
 	if(!doMime(user) && (!muzzleAffected || !isMuzzled(user)))
-		if(playSound(user, vol))
+		if(playSound(user, params))
 			. = 2
 
 	doAction(user, params)
@@ -101,13 +102,21 @@ VampyrBytes
 	var/list/params[0]
 
 	if(takesNumber)
+		user.set_typing_indicator(1)
+		user.hud_typing = 1
 		params["num"] = getNumber(user)
+		user.hud_typing = 0
+		user.set_typing_indicator(0)
 
 	if(canTarget)
+		user.set_typing_indicator(1)
+		user.hud_typing = 1
 		params["target"] = getTarget(user)
+		user.hud_typing = 0
+		user.set_typing_indicator(0)
 	return params
 
-// return "invalid" from either of these getters if you've tested the input and it's failed
+// return INVALID from either of these getters if you've tested the input and it's failed
 /datum/emote/proc/getNumber(var/mob/user)
 	var/number = input("How many?", "Enter number") as null|num
 	return number
@@ -120,11 +129,11 @@ VampyrBytes
 	return getAtomTarget(user)
 
 /datum/emote/proc/getMobTarget(var/mob/user)
-	var/mob/target = input("Select target", "Target Mob") as null|mob in view()
+	var/mob/target = input("Select target", "Target Mob") as null|mob in view(getLoc(user))
 	return target
 
 /datum/emote/proc/getAtomTarget(var/mob/user)
-	var/atom/target = input("Select target", "Target") as null|mob|obj|turf in oview()
+	var/atom/target = input("Select target", "Target") as null|mob|obj|turf in oview(getLoc(user))
 	return target
 
 // returns the reason the user can't currently do the emote
@@ -264,14 +273,9 @@ VampyrBytes
 	if(doMime(user))
 		visualOrAudible = 1
 
-	var/location = checkForHolopad(user)
-	if(!location)
-		location = user
-
 	log_emote("[user.name]/[user.key] : [message]")
 	sendToDead(message)
-	testing(message)
-	for(var/mob/M in getRecipients(location, visualOrAudible))
+	for(var/mob/M in getRecipients(getLoc(user, message), visualOrAudible))
 		var/msg = ""
 
 		if(M==user)
@@ -326,14 +330,21 @@ VampyrBytes
 	msg = replaceMobWithYou(M, msg, user)
 	to_chat(M, msg)
 
-/datum/emote/proc/checkForHolopad(var/mob/user, var/message)
+/datum/emote/proc/getLoc(var/mob/user, var/message = "")
+	var/loc = checkForHolopad(user, message)
+	if(loc)
+		return loc
+	return user
+
+/datum/emote/proc/checkForHolopad(var/mob/user, var/message = "")
 	if(!isAI(user))
 		return
 	var/mob/living/silicon/ai/AI = user
 	var/obj/machinery/hologram/holopad/T = AI.holo
 	if(!(T && T.hologram && T.master == AI))
 		return
-	to_chat(AI, "<i><span class='game say'>Holopad action relayed, <span class='name'>[AI.real_name]</span> <span class='message'>[message]</span></span></i>")
+	if(message)
+		to_chat(AI, "<span class='game say'>Holopad action relayed, <span class='message'>[message]</span></span>")
 	return T
 
 /datum/emote/proc/handleListeningObjects(var/mob/user, var/message = "")
@@ -410,7 +421,7 @@ VampyrBytes
 
 /datum/emote/proc/swapHisToYour(var/mob/user, var/message = "")
 	var/his = getHis(user)
-	message = replacetext(message, his, "your")
+	message = replacetext(message, " [his] ", " your ")
 	return message
 
 /datum/emote/proc/getHimself(var/mob/user)
@@ -420,7 +431,7 @@ VampyrBytes
 
 /datum/emote/proc/swapHimselfToYourself(var/mob/user, var/message)
 	var/himself = getHimself(user)
-	message = replacetext(message, himself, "yourself")
+	message = replacetext(message, "[himself]", "yourself")
 	return message
 
 /******************************************************************************************
@@ -446,7 +457,7 @@ VampyrBytes
 		return
 	owner = user
 	emote = toAccess
-	name = emote.name
+	name = "[emote]"
 	loc = user
 	user.verbs += new/obj/emoteVerb/proc/runEmote(src, emote.commands[1], emote.desc)
 
@@ -468,17 +479,17 @@ obj/emoteVerb/custom/New(var/mob/user)
 	name = "custom"
 	user.verbs += new/obj/emoteVerb/proc/runEmote(src, "custom", "Make your own emote")
 
-/obj/emoteVerb/custom/runEmote(message as text, audible as num)
+/obj/emoteVerb/custom/runEmote()
 	set src = usr.contents
 	set category = "Emotes"
-	return usr.emoteHandler.runEmote("me", null, message, audible)
+	return usr.emoteHandler.runEmote("me")
+
 
 
 /**************************************************************************************************************************
 												Custom Emotes
 As these are made as needed, they aren't searched for the appropriate one. As such, you need to specify conditions for which
-one is used in /datum/emote_handler/customEmote(). As the checks for the type are done there, you chouldn't need to override
-available, but if you do, make sure you return ..() so the check for use_me is still done - VampyrBytes
+one is used in /datum/emote_handler/customEmote().
 
 ***************************************************************************************************************************/
 
@@ -492,17 +503,27 @@ available, but if you do, make sure you return ..() so the check for use_me is s
 	text = message
 	audible = isAudible
 
-
 /datum/emote/custom/proc/getMessage(var/mob/user)
-	var/input = sanitize(copytext(input(user,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
+//	user.set_typing_indicator(1)
+//	user.hud_typing = 1
+	var/input = sanitize(copytext(input(user,"What do you want to emote?.", "Custom emote") as text|null,1,MAX_MESSAGE_LEN))
+//	user.hud_typing = 0
+//	user.set_typing_indicator(0)
+	input = strip_html_properly(input)
 	return input
 
 /datum/emote/custom/available(var/mob/user)
-	if(user.use_me)
-		return 1
+	return 1
+
+/datum/emote/custom/prevented(var/mob/user)
+	if(!user.use_me)
+		return "you are prevented from using custom emotes"
 
 // Yeah, no
-/datum/emote/custom/createSelfMessage(var/mob/user, var/message = "")
+/datum/emote/custom/createSelfMessage(var/mob/user, var/list/params, var/message = "")
+	return
+
+/datum/emote/custom/replaceMobWithYou(var/mob/M, var/message = "", var/mob/user)
 	return message
 
 /datum/emote/custom/ghost
@@ -511,6 +532,9 @@ available, but if you do, make sure you return ..() so the check for use_me is s
 	emoteSpanClass = "game deadsay"
 
 /datum/emote/custom/ghost/prevented(var/mob/user)
+	. = ..()
+	if(.)
+		return
 	if(user.client.prefs.muted & MUTE_DEADCHAT)
 		return "you are muted from deadchat"
 	if(!(user.client.prefs.toggles & CHAT_DEAD))
@@ -519,7 +543,12 @@ available, but if you do, make sure you return ..() so the check for use_me is s
 		if(!config.dsay_allowed)
 			return "deadchat is globally muted"
 
-/datum/emote/custom/ghost/processMessage(var/mob/user, var/message = "")
+/datum/emote/custom/ghost/getMessage(var/mob/user)
+	var/input = sanitize(copytext(input(user,"What do you want to emote?.", "Custom emote") as text|null,1,MAX_MESSAGE_LEN))
+	input = strip_html_properly(input)
+	return input
+
+/datum/emote/custom/ghost/processMessage(var/mob/user, var/list/params, var/message = "")
 	if(!message)
 		return
 	log_emote("Ghost/[user.key] : [message]")

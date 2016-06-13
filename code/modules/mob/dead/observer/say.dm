@@ -14,6 +14,9 @@
 		if (src.client.handle_spam_prevention(message,MUTE_DEADCHAT))
 			return
 
+	if(copytext(message,1,2) == "*")
+		return emote(copytext(message,2))
+
 	. = src.say_dead(message)
 
 /*

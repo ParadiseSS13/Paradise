@@ -27,14 +27,13 @@
 	set_typing_indicator(0)
 	usr.say(message)
 
-/mob/verb/me_verb(message as text)
+
+/mob/verb/me_verb()
 	set name = "Me"
 	set category = "Emotes"
 
-	message = strip_html_properly(message)
+	return emoteHandler.runEmote("me")
 
-	set_typing_indicator(0)
-	return emoteHandler.runEmote("me", null, message)
 
 /mob/proc/say_dead(var/message)
 	if(!(client && client.holder))

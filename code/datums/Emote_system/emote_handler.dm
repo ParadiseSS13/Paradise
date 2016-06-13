@@ -32,15 +32,23 @@
 		return 1
 
 	var/datum/emote/emote
+
+	if(copytext(command, 1, 3) == "me" && !message && lentext(command) >= 4)
+		message = copytext(command, 4)
+		command = "me"
+
 	if(command == "me")
 		emote = customEmote(message, audible)
 		if(!emote)
 			return 0
+
 	if(!commands[command] && !(command == "me"))
 		to_chat(owner, "<span class = 'notice'>Unknown emote, please check *help for emotes available to your character</span>")
 		return 0
+
 	if(!emote)
 		emote = commands[command]
+
 	if(!emote.available(owner))	// something's changed, remake the commands list, then try again to see if they've got a different version
 		setupCommands()
 		return runEmote(command, message, audible)
@@ -77,10 +85,6 @@
 		return emote
 
 /datum/emoteHandler/proc/customEmote(var/custom, var/audible)
-	var/datum/emote/custom/emote
 	if(isobserver(owner))
-		emote = new /datum/emote/custom/ghost
-	else
-		emote = new /datum/emote/custom(owner, custom, audible)
-	if (emote.available(owner))
-		return emote
+		return new /datum/emote/custom/ghost(owner, custom, audible)
+	return new /datum/emote/custom(owner, custom, audible)

@@ -2,7 +2,7 @@
 									Emotes
 New() must call ..() to set the baseLevel for the emoteHandler search. As the commands
 are set in New(), this means that the emote will pick up all the commands from the emotes
-above it. If you don't want this, make the call to ..() then use commands.cut()
+above it. If you don't want this, make the call to ..() then use commands = new /list()
 *************************************************************************************/
 
 /datum/emote/airguitar
@@ -456,6 +456,12 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	var/message = "<span class = '[userSpanClass]'>\The [user]</span> [U.species.death_message]"
 	return message
 
+/datum/emote/deathgasp/human/createSelfMessage(var/mob/user, var/list/params, var/message)
+	return message
+
+/datum/emote/deathgasp/human/replaceMobWithYou(var/mob/user, var/message)
+	return message
+
 /datum/emote/deathgasp/robot
 	text = "shudders violently for a moment, then becomes motionless, its eyes slowly darkening."
 	selfText = "shudder violently for a moment, then become motionless, your eyes slowly darkening."
@@ -576,8 +582,8 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 
 	if(TOXIC_FARTS in user.mutations)
 		message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart.</span>"
-	else
-		message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> [pick("passes wind","farts")].</span>"
+		return message
+	message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> [pick("passes wind","farts")].</span>"
 	return message
 
 /datum/emote/fart/createSelfMessage(var/mob/user, var/list/params, var/message)
@@ -929,6 +935,10 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	..()
 	commands += "handshake"
 
+/datum/emote/handshake/available(var/mob/user)
+	if(ishuman(user))
+		return 1
+
 /datum/emote/handshake/prevented(var/mob/user)
 	. = ..()
 	if(!. && user.r_hand)
@@ -936,9 +946,10 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 
 /datum/emote/handshake/getMobTarget(var/mob/user)
 	var/mob/target = ..()
-	if(!target)
-		to_chat(user, "You need someone to shake hands with")
-		return "invalid"
+	if(target)
+		return target
+	to_chat(user, "You need someone to shake hands with")
+	return INVALID
 
 /datum/emote/handshake/addTarget(var/mob/user, var/list/params, var/message)
 	var/mob/target = params["target"]
@@ -970,6 +981,7 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	selfText = "hug"
 	canTarget = 1
 	targetMob = 1
+	targetText = ""
 
 /datum/emote/hug/New()
 	..()
@@ -1026,7 +1038,7 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	if(target && target != user)
 		return target
 	to_chat(user, "You need a target that isn't yourself")
-	return "invalid"
+	return INVALID
 
 /datum/emote/johnny/createMessage(var/mob/user, var/params)
 	if(doMime(user))
@@ -1048,6 +1060,10 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 		return message
 	return ..()
 
+/datum/emote/johnny/createBlindMessage(var/mob/user, var/list/params, var/message)
+	message = "You hear someone say \"[params["target"]], please, They had a family\""
+	return message
+
 /datum/emote/jump
 	name = "jump"
 	desc = "Makes the mob jump"
@@ -1060,7 +1076,9 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	commands += "jumps"
 
 /datum/emote/jump/available(var/mob/user)
-	if(islarva(user))
+	if(islarva(user) || isalienadult(user))
+		return 1
+	if(issmall(user))
 		return 1
 
 /datum/emote/laugh
@@ -1139,6 +1157,12 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 		return 1
 	if(isrobot(user))
 		return 1
+
+/datum/emote/look/addTarget(var/mob/user, var/list/params, var/message)
+	if(!params["target"])
+		message += " around"
+		return message
+	return ..()
 
 /datum/emote/moan
 	name = "moan"
@@ -1348,6 +1372,8 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 /datum/emote/roll/available(var/mob/user)
 	if(islarva(user))
 		return 1
+	if(issmall(user))
+		return 1
 
 /datum/emote/salute
 	name = "salute"
@@ -1374,6 +1400,12 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	if(!. && user.buckled)
 		return "you are buckled to something"
 
+/datum/emote/salute/getMobTarget(var/mob/user)
+	var/mob/target = ..()
+	if(target == user)
+		return
+	return target
+
 /datum/emote/scratch
 	name = "scratch"
 	desc = "Makes the mob scratch"
@@ -1388,6 +1420,8 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 
 /datum/emote/scratch/available(var/mob/user)
 	if(islarva(user) || isalienadult(user))
+		return 1
+	if(issmall(user))
 		return 1
 
 /datum/emote/scream
@@ -1487,6 +1521,9 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	if(ishuman(user))
 		return 1
 
+/datum/emote/shiver/createBlindMessage(var/mob/user, var/list/params, var/message)
+	message = "you hear someone's teeth chattering together"
+
 /datum/emote/shrug
 	name = "shrug"
 	desc = "Makes the mob shrug"
@@ -1542,7 +1579,7 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	var/number = ..()
 	if(number == null)
 		to_chat(user, "You need a number to sign")
-		return "invalid"
+		return INVALID
 	return number
 
 /datum/emote/sign/paramMessage(var/mob/user, var/list/params)
@@ -1560,8 +1597,8 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 
 /datum/emote/sign/fingers/getNumber(var/mob/user)
 	var/number = ..()
-	if(number == "invalid")
-		return "invalid"
+	if(number == INVALID)
+		return INVALID
 	var/fingersAvailable = 0
 	if(!user.r_hand)
 		fingersAvailable += 5
@@ -1569,7 +1606,7 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 		fingersAvailable += 5
 	if(fingersAvailable < number)
 		to_chat(user, "You don't have enough fingers free")
-		return "invalid"
+		return INVALID
 	return number
 
 /datum/emote/sign/fingers/paramMessage(var/mob/user, var/list/params)
@@ -1601,6 +1638,11 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	if(!target)
 		target = user
 	return target
+
+/datum/emote/slap/createBlindMessage(var/mob/user, var/list/params, var/message)
+	message = ..()
+	message = replacetext(message, "someone", "a")
+	return message
 
 /datum/emote/slap/doAction(var/mob/user, var/list/params)
 	if(user == params["target"])
@@ -1663,12 +1705,21 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	if(!params["prob"])
 		return message
 	message += " right off!"
+	return message
 
 /datum/emote/snap/playSound(var/mob/user, var/list/params)
 	if(params["prob"])
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return 1
 	return ..()
+
+/datum/emote/snap/createBlindMessage(var/mob/user, var/list/params, var/message)
+	message = ..()
+	message += " their fingers"
+	return message
+
+/datum/emote/snap/createDeafMessage(var/mob/user, var/list/params, var/message)
+	return message
 
 /datum/emote/sneeze
 	name = "sneeze"
@@ -1815,6 +1866,8 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 /datum/emote/tail/available(var/mob/user)
 	if(islarva(user) || isalienadult(user))
 		return 1
+	if(issmall(user))
+		return 1
 
 /datum/emote/tail/wag
 	name = "wag"
@@ -1829,6 +1882,8 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	commands += "wags"
 
 /datum/emote/tail/wag/available(var/mob/user)
+	if(issmall(user))
+		return
 	if(ishuman(user))
 		return 1
 
@@ -1869,9 +1924,12 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	commands += "swags"
 
 // seemingly no way to tell if a mob is wagging it's tail! VB
-/datum/emote/tail/wag/stop/available(var/mob/user)
+/datum/emote/tail/wag/stop/prevented(var/mob/user)
+	. = ..()
+	if(.)
+		return
 	var/mob/living/carbon/human/H = user
-	if(!H.species.bodyflags & TAIL_WAGGING && !H.body_accessory)
+	if(!(H.species.bodyflags & TAIL_WAGGING) && !H.body_accessory)
 		return "you can't stop wagging a tail you don't have!"
 
 /datum/emote/tail/wag/stop/doAction(var/mob/user, var/list/params)
@@ -2004,7 +2062,7 @@ above it. If you don't want this, make the call to ..() then use commands.cut()
 	name = "wink"
 	desc = "Makes the mob wink"
 	text = "winks"
-	desc = "wink"
+	selfText = "wink"
 
 /datum/emote/wink/New()
 	..()
