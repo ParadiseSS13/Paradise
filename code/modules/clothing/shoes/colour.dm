@@ -95,10 +95,9 @@
 		src.icon_state = "orange"
 	return
 
-/obj/item/clothing/shoes/orange/attackby(H as obj, loc, params)
+/obj/item/clothing/shoes/orange/attackby(obj/H, loc, params)
 	..()
-	if ((istype(H, /obj/item/weapon/restraints/handcuffs) && !( src.chained )))
-		//H = null
+	if (istype(H, /obj/item/weapon/restraints/handcuffs) && !chained && !(H.flags & NODROP))
 		if (src.icon_state != "orange") return
 		qdel(H)
 		src.chained = 1

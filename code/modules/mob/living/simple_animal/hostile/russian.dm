@@ -32,8 +32,6 @@
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
-	projectiletype = /obj/item/projectile/bullet
-	projectilesound = 'sound/weapons/Gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/a357
 	loot = list(/obj/effect/landmark/mobcorpse/russian/ranged, /obj/item/weapon/gun/projectile/revolver/mateba)
 

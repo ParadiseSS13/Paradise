@@ -36,3 +36,8 @@
 /turf/unsimulated/floor/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
+
+/turf/unsimulated/floor/vox
+	icon_state = "dark"
+	nitrogen = 100
+	oxygen = 0
