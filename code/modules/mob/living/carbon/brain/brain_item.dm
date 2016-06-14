@@ -15,6 +15,8 @@
 	parent_organ = "head"
 	slot = "brain"
 	vital = 1
+	var/mmi_icon = 'icons/obj/assemblies.dmi'
+	var/mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/brain/surgeryize()
 	if(!owner)
@@ -27,6 +29,8 @@
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
 	origin_tech = "biotech=7"
+	mmi_icon = 'icons/mob/alien.dmi'
+	mmi_icon_state = "AlienMMI"
 
 /obj/item/organ/internal/brain/New()
 	..()
@@ -107,6 +111,7 @@
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
+	mmi_icon_state = "slime_mmi"
 //	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
 
 /obj/item/organ/brain/slime/take_damage(var/amount, var/silent = 1)

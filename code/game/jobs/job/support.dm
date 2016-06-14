@@ -244,6 +244,10 @@
 		H.equip_or_collect(new /obj/item/toy/crayon/rainbow(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/fancy/crayons(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/spray/waterflower(H), slot_in_backpack)
+		if(H.get_species() == "Machine")
+			var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant
+			implant = new
+			implant.insert(H)
 		H.mutations.Add(CLUMSY)
 		H.dna.SetSEState(COMICBLOCK,1,1)
 		genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)

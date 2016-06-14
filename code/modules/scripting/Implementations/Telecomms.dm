@@ -60,6 +60,9 @@
 		return
 
 	interpreter.container = src
+	
+	interpreter.CreateGlobalScope() // Reset the variables.
+	interpreter.curScope = interpreter.globalScope
 
 	interpreter.SetVar("PI",	 	3.141592653)	// value of pi
 	interpreter.SetVar("E",		 	2.718281828)	// value of e
@@ -127,7 +130,7 @@
 
 				@param time: 		time to sleep in deciseconds (1/10th second)
 	*/
-	interpreter.SetProc("sleep",		/proc/delay)
+	interpreter.SetProc("sleep", "delay", signal, list("time"))
 
 	/*
 		-> Replaces a string with another string
@@ -255,6 +258,28 @@
 		signal.data["reject"] = 1
 
 /*  -- Actual language proc code --  */
+/datum/signal/proc/delay(var/time)
+	var/obj/machinery/telecomms/server/S = data["server"]
+	var/datum/n_Interpreter/TCS_Interpreter/interpreter = S.Compiler.interpreter
+	// Backup the scope
+	var/datum/scope/globalScope = interpreter.globalScope
+	var/datum/scope/curScope = interpreter.curScope
+	var/list/scopes = interpreter.scopes.stack.Copy()
+	var/list/functions = interpreter.functions.stack.Copy()
+	var/datum/node/statement/FunctionDefinition/curFunction = interpreter.curFunction
+	var/status = interpreter.status
+	var/returnVal = interpreter.returnVal
+	// Sleep
+	sleep(time)
+	// Restore the scope
+	interpreter.returnVal = returnVal
+	interpreter.status = status
+	interpreter.curFunction = curFunction
+	interpreter.functions.stack = functions
+	interpreter.scopes.stack = scopes
+	interpreter.curScope = curScope
+	interpreter.globalScope = globalScope
+
 /datum/signal/proc/mem(var/address, var/value)
 	if(istext(address))
 		var/obj/machinery/telecomms/server/S = data["server"]

@@ -73,6 +73,8 @@
 	aggro_vision_range = 9
 	idle_vision_range = 2
 	turns_per_move = 5
+	loot = list(/obj/item/weapon/ore/diamond{layer = 4.1},
+				/obj/item/weapon/ore/diamond{layer = 4.1})
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -99,14 +101,6 @@
 			adjustBruteLoss(140)
 		if(3.0)
 			adjustBruteLoss(110)
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/death()
-	if(stat != DEAD)
-		var/counter
-		for(counter=0, counter<2, counter++)
-			var/obj/item/weapon/ore/diamond/D = new /obj/item/weapon/ore/diamond(src.loc)
-			D.layer = 4.1
-	..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub
 	name = "goldgrub"
@@ -239,6 +233,7 @@
 	retreat_distance = 3
 	minimum_distance = 3
 	pass_flags = PASSTABLE
+	loot = list(/obj/item/organ/internal/hivelord_core)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(var/the_target)
 	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood(src.loc)
@@ -249,11 +244,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/AttackingTarget()
 	OpenFire()
-
-/mob/living/simple_animal/hostile/asteroid/hivelord/death()
-	if(stat != DEAD)
-		new /obj/item/organ/internal/hivelord_core(src.loc)
-	..()
 
 /obj/item/organ/internal/hivelord_core
 	name = "hivelord remains"
@@ -370,6 +360,7 @@
 	idle_vision_range = 5
 	anchored = 1 //Stays anchored until death as to be unpullable
 	var/pre_attack = 0
+	loot = list(/obj/item/asteroid/goliath_hide{layer = 4.1})
 
 /mob/living/simple_animal/hostile/asteroid/goliath/process_ai()
 	..()
@@ -384,13 +375,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/revive()
 	anchored = 1
-	..()
-
-/mob/living/simple_animal/hostile/asteroid/goliath/death()
-	anchored = 0
-	if(stat != DEAD)
-		var/obj/item/asteroid/goliath_hide/G = new /obj/item/asteroid/goliath_hide(src.loc)
-		G.layer = 4.1
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/OpenFire()

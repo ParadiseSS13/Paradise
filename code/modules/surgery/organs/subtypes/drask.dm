@@ -38,6 +38,8 @@
 	icon_state = "brain2"
 	organ_tag = "brain"
 	slot = "brain"
+	mmi_icon = 'icons/obj/surgery_drask.dmi'
+	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/eyes/drask
 	name = "eyes"

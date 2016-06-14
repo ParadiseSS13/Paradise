@@ -459,6 +459,10 @@
 					icon_state = "cafe_latte"
 					name = "Cafe Latte"
 					desc = "A nice, strong and refreshing beverage while you are reading."
+				if("cafe_mocha")
+					icon_state = "cafe_latte"
+					name = "Cafe Mocha"
+					desc = "The perfect blend of coffe, milk, and chocolate."
 				if("acidspit")
 					icon_state = "acidspitglass"
 					name = "Acid Spit"

@@ -422,11 +422,13 @@ var/global/list/default_medbay_channels = list(
 	  //#### Sending the signal to all subspace receivers ####//
 
 		for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
-			R.receive_signal(signal)
+			spawn(0)
+				R.receive_signal(signal)
 
 		// Allinone can act as receivers.
 		for(var/obj/machinery/telecomms/allinone/R in telecomms_list)
-			R.receive_signal(signal)
+			spawn(0)
+				R.receive_signal(signal)
 
 		// Receiving code can be located in Telecommunications.dm
 		return signal.data["done"] && position.z in signal.data["level"]
@@ -475,7 +477,8 @@ var/global/list/default_medbay_channels = list(
 	signal.frequency = connection.frequency // Quick frequency set
 
 	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
-		R.receive_signal(signal)
+		spawn(0)
+			R.receive_signal(signal)
 
 
 	sleep(rand(10,25)) // wait a little...
@@ -520,7 +523,7 @@ var/global/list/default_medbay_channels = list(
 	// what the range is in which mobs will hear the radio
 	// returns: -1 if can't receive, range otherwise
 
-	if (wires.IsIndexCut(WIRE_RECEIVE))
+	if (!wires || wires.IsIndexCut(WIRE_RECEIVE))
 		return -1
 	if(!listening)
 		return -1

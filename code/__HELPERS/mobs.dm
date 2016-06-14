@@ -52,7 +52,7 @@ proc/random_hair_style(var/gender, species = "Human")
 	if(valid_hairstyles.len)
 		h_style = pick(valid_hairstyles)
 
-	return h_style
+		return h_style
 
 proc/GetOppositeDir(var/dir)
 	switch(dir)

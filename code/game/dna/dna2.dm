@@ -133,19 +133,20 @@ var/global/list/bad_blocks[0]
 	ResetUI(1)
 	// Hair
 	// FIXME:  Species-specific defaults pls
-	if(!character.h_style)
-		character.h_style = "Skinhead"
-	var/hair = hair_styles_list.Find(character.h_style)
+	var/obj/item/organ/external/head/H = character.get_organ("head")
+	if(!H.h_style)
+		H.h_style = "Skinhead"
+	var/hair = hair_styles_list.Find(H.h_style)
 
 	// Facial Hair
-	if(!character.f_style)
-		character.f_style = "Shaved"
-	var/beard	= facial_hair_styles_list.Find(character.f_style)
+	if(!H.f_style)
+		H.f_style = "Shaved"
+	var/beard	= facial_hair_styles_list.Find(H.f_style)
 
 	// Head Accessory
-	if(!character.ha_style)
-		character.ha_style = "None"
-	var/headacc	= head_accessory_styles_list.Find(character.ha_style)
+	if(!H.ha_style)
+		H.ha_style = "None"
+	var/headacc	= head_accessory_styles_list.Find(H.ha_style)
 
 	/*// Body Accessory
 	if(!character.body_accessory)
@@ -157,13 +158,13 @@ var/global/list/bad_blocks[0]
 		character.m_style = "None"
 	var/marks	= marking_styles_list.Find(character.m_style)
 
-	SetUIValueRange(DNA_UI_HAIR_R,	character.r_hair,		255,	1)
-	SetUIValueRange(DNA_UI_HAIR_G,	character.g_hair,		255,	1)
-	SetUIValueRange(DNA_UI_HAIR_B,	character.b_hair,		255,	1)
+	SetUIValueRange(DNA_UI_HAIR_R,	H.r_hair,				255,	1)
+	SetUIValueRange(DNA_UI_HAIR_G,	H.g_hair,				255,	1)
+	SetUIValueRange(DNA_UI_HAIR_B,	H.b_hair,				255,	1)
 
-	SetUIValueRange(DNA_UI_BEARD_R,	character.r_facial,		255,	1)
-	SetUIValueRange(DNA_UI_BEARD_G,	character.g_facial,		255,	1)
-	SetUIValueRange(DNA_UI_BEARD_B,	character.b_facial,		255,	1)
+	SetUIValueRange(DNA_UI_BEARD_R,	H.r_facial,				255,	1)
+	SetUIValueRange(DNA_UI_BEARD_G,	H.g_facial,				255,	1)
+	SetUIValueRange(DNA_UI_BEARD_B,	H.b_facial,				255,	1)
 
 	SetUIValueRange(DNA_UI_EYES_R,	character.r_eyes,		255,	1)
 	SetUIValueRange(DNA_UI_EYES_G,	character.g_eyes,		255,	1)
@@ -173,9 +174,9 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_SKIN_G,	character.g_skin,		255,	1)
 	SetUIValueRange(DNA_UI_SKIN_B,	character.b_skin,		255,	1)
 
-	SetUIValueRange(DNA_UI_HACC_R,	character.r_headacc,	255,	1)
-	SetUIValueRange(DNA_UI_HACC_G,	character.g_headacc,	255,	1)
-	SetUIValueRange(DNA_UI_HACC_B,	character.b_headacc,	255,	1)
+	SetUIValueRange(DNA_UI_HACC_R,	H.r_headacc,			255,	1)
+	SetUIValueRange(DNA_UI_HACC_G,	H.g_headacc,			255,	1)
+	SetUIValueRange(DNA_UI_HACC_B,	H.b_headacc,			255,	1)
 
 	SetUIValueRange(DNA_UI_MARK_R,	character.r_markings,	255,	1)
 	SetUIValueRange(DNA_UI_MARK_G,	character.g_markings,	255,	1)

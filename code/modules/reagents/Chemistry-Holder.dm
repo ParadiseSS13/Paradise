@@ -387,45 +387,48 @@ var/const/INGEST = 2
 			can_process = 1
 	return can_process
 
-/datum/reagents/proc/reaction(var/atom/A, var/method=TOUCH, var/volume_modifier=0)
-
+/datum/reagents/proc/reaction(atom/A, method=TOUCH, volume_modifier = 1)
 	switch(method)
 		if(TOUCH)
 			for(var/datum/reagent/R in reagent_list)
 				if(ismob(A))
-					spawn(0)
-						if(!R) return
-						var/check = reaction_check(A, R)
-						if(!check)
-							continue
-						else
-							R.reaction_mob(A, TOUCH, R.volume+volume_modifier)
+					if(!R)
+						return
+					var/check = reaction_check(A, R)
+					if(!check)
+						continue
+					else
+						R.reaction_mob(A, TOUCH, R.volume*volume_modifier)
 				if(isturf(A))
-					spawn(0)
-						if(!R) return
-						else R.reaction_turf(A, R.volume+volume_modifier)
+					if(!R)
+						return
+					else
+						R.reaction_turf(A, R.volume*volume_modifier)
 				if(isobj(A))
-					spawn(0)
-						if(!R) return
-						else R.reaction_obj(A, R.volume+volume_modifier)
+					if(!R)
+						return
+					else
+						R.reaction_obj(A, R.volume*volume_modifier)
 		if(INGEST)
 			for(var/datum/reagent/R in reagent_list)
 				if(ismob(A) && R)
-					spawn(0)
-						if(!R) return
-						var/check = reaction_check(A, R)
-						if(!check)
-							continue
-						else
-							R.reaction_mob(A, INGEST, R.volume+volume_modifier)
+					if(!R)
+						return
+					var/check = reaction_check(A, R)
+					if(!check)
+						continue
+					else
+						R.reaction_mob(A, INGEST, R.volume*volume_modifier)
 				if(isturf(A) && R)
-					spawn(0)
-						if(!R) return
-						else R.reaction_turf(A, R.volume+volume_modifier)
+					if(!R)
+						return
+					else
+						R.reaction_turf(A, R.volume*volume_modifier)
 				if(isobj(A) && R)
-					spawn(0)
-						if(!R) return
-						else R.reaction_obj(A, R.volume+volume_modifier)
+					if(!R)
+						return
+					else
+						R.reaction_obj(A, R.volume*volume_modifier)
 	return
 
 /datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list("toxin" = 10, "beer" = 15)

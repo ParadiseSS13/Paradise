@@ -65,14 +65,25 @@
 		if ((O.client && !( O.blinded )))
 			to_chat(O, "\red [src] launches a razor-sharp quill at [target]!")
 
-	var/obj/item/weapon/arrow/quill/Q = new(loc)
+	var/obj/item/weapon/quill/Q = new(loc)
 	Q.fingerprintslast = src.ckey
 	Q.throw_at(target,10,30)
+
 	quills--
 
 	spawn(100)
 		to_chat(src, "\red You feel a fresh quill slide into place.")
 		quills++
+
+/obj/item/weapon/quill
+	name = "vox quill"
+	desc = "A wickedly barbed quill from some bizarre animal."
+	icon_state = "quill"
+	item_state = "quill"
+	throwforce = 5
+	w_class = 3.0
+	sharp = 1
+	edge = 0
 
 /mob/living/simple_animal/vox/armalis/verb/message_mob()
 	set category = "Alien"

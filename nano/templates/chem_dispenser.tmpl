@@ -1,5 +1,5 @@
-<!-- 
-Title: Chem Dispenser 5000 UI 
+<!--
+Title: Chem Dispenser 5000 UI
 Used In File(s): \code\modules\reagents\Chemistry-Machinery.dm
  -->
 <div class="item">
@@ -38,7 +38,7 @@ Used In File(s): \code\modules\reagents\Chemistry-Machinery.dm
 		{{for data.chemicals}}
 			{{:helper.link(value.title, 'arrow-circle-down', value.commands, null, data.glass ? 'fixedLeftWide' : 'fixedLeft')}}
 		{{/for}}
-		
+
 	</div>
 </div>
 <div class="item">&nbsp;</div>
@@ -80,20 +80,20 @@ Used In File(s): \code\modules\reagents\Chemistry-Machinery.dm
 				{{empty}}
 					<span class="bad">
 						{{if data.glass}}
-							Glass 
+							Glass
 						{{else}}
-							Beaker 
+							Beaker
 						{{/if}}
 						is empty
 					</span>
 				{{/for}}
 			{{else}}
 				<span class="average"><i>
-					No 
+					No
 					{{if data.glass}}
-						Glass 
+						Glass
 					{{else}}
-						Beaker 
+						Beaker
 					{{/if}}
 					loaded
 				</i></span>

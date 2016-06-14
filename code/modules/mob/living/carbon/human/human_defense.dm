@@ -27,7 +27,7 @@ emp_act
 				P.current = curloc
 				P.yo = new_y - curloc.y
 				P.xo = new_x - curloc.x
-				P.Angle = ""//round(Get_Angle(P,P.original))
+				P.Angle = null
 
 			return -1 // complete projectile permutation
 
@@ -46,7 +46,10 @@ emp_act
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
 			(SP.name) = "[P.name] shrapnel"
-			(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
+			if(P.ammo_casing && P.ammo_casing.caliber)
+				(SP.desc) = "[SP.desc] It looks like it is a [P.ammo_casing.caliber] caliber round."
+			else
+				(SP.desc) = "[SP.desc] The round's caliber is unidentifiable."
 			(SP.loc) = organ
 			organ.embed(SP)
 

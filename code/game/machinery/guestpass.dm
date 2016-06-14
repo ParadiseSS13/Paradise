@@ -58,6 +58,9 @@
 		else
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
 
+/obj/machinery/computer/guestpass/proc/get_changeable_accesses()
+	return giver.access
+
 /obj/machinery/computer/guestpass/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
@@ -84,7 +87,7 @@
 		dat += "Duration (minutes):  <a href='?src=\ref[src];choice=duration'>[duration] m</a><br>"
 		dat += "Access to areas:<br>"
 		if (giver && giver.access)
-			for (var/A in giver.access)
+			for (var/A in get_changeable_accesses())
 				var/area = get_access_desc(A)
 				if (A in accesses)
 					area = "<b>[area]</b>"
@@ -124,7 +127,8 @@
 				if (A in accesses)
 					accesses.Remove(A)
 				else
-					accesses.Add(A)
+					if(giver && giver.access && (A in get_changeable_accesses()))
+						accesses.Add(A)
 	if (href_list["action"])
 		switch(href_list["action"])
 			if ("id")
@@ -179,3 +183,11 @@
 					to_chat(usr, "\red Cannot issue pass without issuing ID.")
 	updateUsrDialog()
 	return
+
+/obj/machinery/computer/guestpass/hop
+	name = "\improper HoP guest pass terminal"
+
+/obj/machinery/computer/guestpass/hop/get_changeable_accesses()
+	. = ..()
+	if(. && access_change_ids in .)
+		return get_all_accesses()
