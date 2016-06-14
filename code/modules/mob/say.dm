@@ -143,3 +143,6 @@
 			return L
 
 	return null
+
+/mob/proc/custom_emote(var/m_type=0, var/message = null)
+	return emoteHandler.runEmote("me", message, m_type)
