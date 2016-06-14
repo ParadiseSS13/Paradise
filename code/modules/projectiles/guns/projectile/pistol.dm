@@ -26,6 +26,14 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = 0
 
+/obj/item/weapon/gun/projectile/automatic/pistol/empty	//empty stetchshit for maint spawns
+	desc = "A small, easily concealable 10mm handgun. Had a threaded barrel for suppressors."
+	can_suppress = 0
+
+/obj/item/weapon/gun/projectile/automatic/pistol/empty/New()
+		magazine = new /obj/item/ammo_box/magazine/m10mm/empty(src)
+		..()
+
 /obj/item/weapon/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
 	desc = "A robust .50 AE handgun."
