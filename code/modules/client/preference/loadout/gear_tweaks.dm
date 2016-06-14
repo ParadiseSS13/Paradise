@@ -111,34 +111,3 @@ var/datum/gear_tweak/color/gear_tweak_free_color_choice = new()
 		else
 			path = 	contents[metadata[i]]
 		new path(I)
-
-/*
-* Ragent adjustment
-*/
-
-/datum/gear_tweak/reagents
-	var/list/valid_reagents
-
-/datum/gear_tweak/reagents/New(var/list/reagents)
-	valid_reagents = reagents.Copy()
-	..()
-
-/datum/gear_tweak/reagents/get_contents(var/metadata)
-	return "Reagents: [metadata]"
-
-/datum/gear_tweak/reagents/get_default()
-	return "Random"
-
-/datum/gear_tweak/reagents/get_metadata(var/user, var/list/metadata)
-	. = input(user, "Choose an entry.", "Character Preference", metadata) as null|anything in (valid_reagents + list("Random", "None"))
-	if(!.)
-		return metadata
-
-/datum/gear_tweak/reagents/tweak_item(var/obj/item/I, var/list/metadata)
-	if(metadata == "None")
-		return
-	if(metadata == "Random")
-		. = valid_reagents[pick(valid_reagents)]
-	else
-		. = valid_reagents[metadata]
-	I.reagents.add_reagent(., I.reagents.get_free_space())

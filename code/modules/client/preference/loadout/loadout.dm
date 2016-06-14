@@ -53,6 +53,7 @@ var/list/gear_datums = list()
 	var/sort_category = "General"
 	var/list/gear_tweaks = list() //List of datums which will alter the item after it has been spawned.
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
+	var/subtype_cost_overlap = TRUE //if subtypes can take points at the same time
 
 /datum/gear/New()
 	..()
