@@ -88,8 +88,6 @@
 	icon_state = "syndicateranged"
 	icon_living = "syndicateranged"
 	casingtype = /obj/item/ammo_casing/c45
-	projectilesound = 'sound/weapons/Gunshot_smg.ogg'
-	projectiletype = /obj/item/projectile/bullet/midbullet2
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/weapon/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
