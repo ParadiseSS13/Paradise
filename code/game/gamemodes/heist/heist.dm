@@ -101,7 +101,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	newraider.name = vox.name
 	vox.age = rand(12,20)
 	vox.set_species("Vox")
-	vox.change_skin_tone(rand(1, 4))
+	vox.change_skin_tone(rand(1, 6))
 	vox.languages = list() // Removing language from chargen.
 	vox.flavor_text = ""
 	vox.add_language("Vox-pidgin")

@@ -44,8 +44,11 @@
 				if(isnum(new_s_tone) && can_still_topic(state))
 					new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
 			else if(owner.species.bodyflags & HAS_ICON_SKIN_TONE)
+				var/const/MAX_LINE_ENTRIES = 4
 				var/prompt = "Choose your character's skin tone: 1-[owner.species.icon_skin_tones.len]\n("
 				for(var/i = 1; i <= owner.species.icon_skin_tones.len; i++)
+					if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
+						prompt += "\n"
 					prompt += "[i] = [owner.species.icon_skin_tones[i]]"
 					if(i != owner.species.icon_skin_tones.len)
 						prompt += ", "

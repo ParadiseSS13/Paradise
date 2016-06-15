@@ -1379,9 +1379,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(new_s_tone)
 							s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(species == "Vox")
-						var/skin_c = input(user, "Choose your Vox's skin color:\n(1 = Default Green, 2 = Dark Green, 3 = Brown, 4 = Grey)", "Character Preference") as num|null
+						var/skin_c = input(user, "Choose your Vox's skin color:\n(1 = Default Green, 2 = Dark Green, 3 = Brown, 4 = Grey, \n5 = Emerald, 6 = Azure)", "Character Preference") as num|null
 						if(skin_c)
-							s_tone = max(min(round(skin_c), 4), 1)
+							s_tone = max(min(round(skin_c), 6), 1)
 
 				if("skin")
 					if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))

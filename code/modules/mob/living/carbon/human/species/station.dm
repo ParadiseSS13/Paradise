@@ -284,7 +284,9 @@
 		1 = "Default Green",
 		2 = "Dark Green",
 		3 = "Brown",
-		4 = "Grey"
+		4 = "Grey",
+		5 = "Emerald",
+		6 = "Azure"
 		)
 
 	has_organ = list(
@@ -343,10 +345,18 @@
 /datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H) //Handling species-specific skin-tones for the Vox race.
 	if(H.species.name == "Vox") //Making sure we don't break Armalis.
 		switch(H.s_tone)
+			if(6) //Azure Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
+				tail = "voxtail_azu"
+			if(5) //Emerald Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
+				tail = "voxtail_emrl"
 			if(4) //Grey Vox.
 				icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
 				deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
-				tail = "voxtail_gry" //Ensures they get an appropriately coloured tail.
+				tail = "voxtail_gry"
 			if(3) //Brown Vox.
 				icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
 				deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
@@ -358,7 +368,7 @@
 			else  //Default Green Vox.
 				icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 				deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
-				tail = "voxtail"
+				tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
 
 		H.update_dna()
 
