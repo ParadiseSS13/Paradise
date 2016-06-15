@@ -999,7 +999,7 @@ steam.start() -- spawns the effect
 
 	if (istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M =	AM
-		if(M.slip("foam", 3))
+		if(M.slip("foam", 3)) // Duration is ~5 seconds. ((x*2)-1)
 			if(reagents)
 				for(var/reagent_id in reagents.reagent_list)
 					var/amount = M.reagents.get_reagent_amount(reagent_id)

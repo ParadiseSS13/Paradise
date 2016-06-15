@@ -931,7 +931,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	Weaken(weaken)
+	Weaken(weaken) // Duration is roughly ((x*2)-1) seconds.
 	return 1
 
 /mob/living/carbon/proc/can_eat(flags = 255)
