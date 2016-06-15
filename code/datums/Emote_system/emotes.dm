@@ -391,18 +391,14 @@
 	targetMob = 1
 
 /datum/emote/drone/available(var/mob/user)
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.species == "Drask")
+	if(user.get_species() == "Drask")
 		return 1
 
 /datum/emote/drone/addTarget(var/mob/user, var/list/params, var/message)
-	var/msg = ..()
-	if(msg == message)
+	if(!params["target"])
 		return message
 	message = replacetext(message, "rumbles", "drones")
-	return message
+	return ..()
 
 /datum/emote/drone/createSelfMessage(var/mob/user, var/list/params, var/message)
 	message = ..()
@@ -751,10 +747,6 @@
 	if (!(istype(U.module, /obj/item/weapon/robot_module/security)))
 		return "you are not security"
 
-/datum/emote/halt/standardMessage(var/mob/user)
-	var/message = "<span class = '[userSpanClass]'>\The [user]</span>[text]"
-	return message
-
 /datum/emote/handshake
 	name = "handshake"
 	desc = "Makes the mob shake hands with a target"
@@ -816,7 +808,7 @@
 		return 1
 
 /datum/emote/hug/getTarget(var/mob/user)
-	var/mob/target = input("Select target", "Target Mob") as null|mob in view(1)
+	var/mob/target = ..()
 	if(target)
 		return target
 	return user
@@ -1483,7 +1475,7 @@
 	canTarget = 1
 	targetMob = 1
 
-/datum/emote/available(var/mob/user)
+/datum/emote/squish/available(var/mob/user)
 	if(isslime(user))
 		return 1
 	if(ishuman(user))
