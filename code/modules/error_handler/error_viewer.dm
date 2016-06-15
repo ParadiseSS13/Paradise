@@ -26,17 +26,38 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 
 /datum/ErrorViewer/proc/browseTo(var/user, var/html)
 	if(user)
-		user << browse(html, "window=error_viewer;size=600x400")
+		var/datum/browser/popup = new(user, "error_viewer", "Runtime Viewer", 700, 500)
+		popup.add_head_content({"<style>
+			.runtime{
+				background-color: #171717;
+				border: solid 1px #202020;
+				font-family:'Courier New',monospace;
+				font-size:9pt;
+				color: #DDDDDD;
+			}
+			p.runtime_list{
+				font-family:'Courier New',monospace;
+				font-size:9pt;
+				margin: 0;
+				padding: 0;
+				text-indent:-13ch;
+				margin-left:13ch;
+			}
+			</style>"})
+		popup.set_content(html)
+		popup.open(0)
 
-/datum/ErrorViewer/proc/buildHeader(var/datum/ErrorViewer/back_to, var/linear)
+/datum/ErrorViewer/proc/buildHeader(var/datum/ErrorViewer/back_to, var/linear, var/refreshable)
 	// Common starter HTML for showTo
-	. = {"<html><head><title>Runtime Viewer</title>
-	<style>body{font-family:'Courier New',monospace;font-size:8pt;}</style>
-	</head><body>"}
+	var/html = ""
 
 	if(istype(back_to))
-		. += "[back_to.makeLink("<<<", null, linear)]<br><br>"
-	return .
+		html += "[back_to.makeLink("<<<", null, linear)] "
+	if(refreshable)
+		html += "[makeLink("Refresh", null, linear)]"
+	if(html)
+		html += "<br><br>"
+	return html
 
 /datum/ErrorViewer/proc/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
 	// Specific to each child type
@@ -58,18 +79,18 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	var/list/errors_silenced = list()
 
 /datum/ErrorViewer/ErrorCache/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
-	var/html = buildHeader()
+	var/html = buildHeader(null, linear, refreshable=1)
 	html += "[total_runtimes] runtimes, [total_runtimes_skipped] skipped<br><br>"
 	if(!linear)
-		html += "organized | [makeLink("linear", null, 1)]<br><br>"
+		html += "organized | [makeLink("linear", null, 1)]<hr>"
 		var/datum/ErrorViewer/ErrorSource/error_source
 		for(var/erroruid in error_sources)
 			error_source = error_sources[erroruid]
-			html += "[error_source.makeLink(null, src)]<br>"
+			html += "<p class='runtime_list'>[error_source.makeLink(null, src)]<br></p>"
 	else
-		html += "[makeLink("organized", null)] | linear<br><br>"
+		html += "[makeLink("organized", null)] | linear<hr>"
 		for(var/datum/ErrorViewer/ErrorEntry/error_entry in errors)
-			html += "[error_entry.makeLink(null, src, 1)]<br>"
+			html += "<p class='runtime_list'>[error_entry.makeLink(null, src, 1)]<br></p>"
 	browseTo(user, html)
 
 /datum/ErrorViewer/ErrorCache/proc/logError(var/exception/e, var/list/desclines)
@@ -107,9 +128,9 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 /datum/ErrorViewer/ErrorSource/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
 	if(!istype(back_to))
 		back_to = error_cache
-	var/html = buildHeader(back_to)
+	var/html = buildHeader(back_to, refreshable=1)
 	for(var/datum/ErrorViewer/ErrorEntry/error_entry in errors)
-		html += "[error_entry.makeLink(null, src)]<br>"
+		html += "<p class='runtime_list'>[error_entry.makeLink(null, src)]<br></p>"
 	browseTo(user, html)
 
 /datum/ErrorViewer/ErrorEntry
@@ -137,8 +158,7 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	if(!istype(back_to))
 		back_to = error_source
 	var/html = buildHeader(back_to, linear)
-	html += html_encode(name) + "<br>"
-	html += desc
+	html += "<div class='runtime'>[html_encode(name)]<br>[desc]</div>"
 	if(usrRef)
 		html += "<br>usr: <a href='?_src_=vars;Vars=[usrRef]'>VV</a>"
 		html += " <a href='?_src_=holder;adminplayeropts=[usrRef]'>PP</a>"
