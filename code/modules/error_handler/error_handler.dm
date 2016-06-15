@@ -1,10 +1,11 @@
-#ifdef DEBUG
 var/list/error_last_seen = list()
 // error_cooldown items will either be positive (cooldown time) or negative (silenced error)
 //  If negative, starts at -1, and goes down by 1 each time that error gets skipped
 var/list/error_cooldown = list()
 var/total_runtimes = 0
 var/total_runtimes_skipped = 0
+// The ifdef needs to be down here, since the error viewer references total_runtimes
+#ifdef DEBUG
 /world/Error(var/exception/e)
 	if(!istype(e)) // Something threw an unusual exception
 		log_to_dd("\[[time_stamp()]] Uncaught exception: [e]")
@@ -55,7 +56,7 @@ var/total_runtimes_skipped = 0
 	// I apologize in advance
 	var/list/splitlines = splittext(e.desc, "\n")
 	var/list/desclines = list()
-	if(splitlines.len > 1) // If there aren't at least two lines, there's no info
+	if(splitlines.len > 2) // If there aren't at least three lines, there's no info
 		for(var/line in splitlines)
 			if(length(line) < 3)
 				continue // Blank line, skip it
@@ -81,6 +82,8 @@ var/total_runtimes_skipped = 0
 	log_to_dd("\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]")
 	for(var/line in desclines)
 		log_to_dd(line)
+	if(error_cache)
+		error_cache.logError(e, desclines)
 
 	return
 
