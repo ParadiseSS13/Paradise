@@ -915,7 +915,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				W.layer = initial(W.layer)
 
 
-/mob/living/carbon/proc/slip(var/description, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
+/mob/living/carbon/proc/slip(var/description, var/slipduration, var/tilesSlipped, var/walkSafely, var/slipAny)
 	if (flying || buckled || (walkSafely && m_intent == "walk"))
 		return
 	if ((lying) && (!(tilesSlipped)))
@@ -931,7 +931,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	Weaken(weaken) // Duration is roughly ((x*2)-1) seconds.
+	Stun(slipduration) // Duration is roughly ((x*2)-1) seconds.
+	Weaken(round(slipduration/2,1)) // Applies weaken for half duration, rounded up.
 	return 1
 
 /mob/living/carbon/proc/can_eat(flags = 255)
