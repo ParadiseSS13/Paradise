@@ -118,10 +118,6 @@
 
 	callHook("death", list(src, gibbed))
 
-	if(ticker && ticker.mode)
-		if(istype(ticker.mode,/datum/game_mode/heist))
-			vox_kills++ //Bad vox. Shouldn't be killing humans.
-
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)

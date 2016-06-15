@@ -151,6 +151,9 @@
 			qdel(src)
 			return
 	else if(istype(W, /obj/item/device/analyzer) && panel_open) //XRay
+		if(!user.unEquip(W))
+			to_chat(user, "<span class='warning'>[W] is stuck!</span>")
+			return
 		if(!isXRay())
 			upgradeXRay()
 			qdel(W)
@@ -159,6 +162,9 @@
 			to_chat(user, "[msg2]")
 
 	else if(istype(W, /obj/item/stack/sheet/mineral/plasma) && panel_open)
+		if(!user.unEquip(W))
+			to_chat(user, "<span class='warning'>[W] is stuck!</span>")
+			return
 		if(!isEmpProof())
 			upgradeEmpProof()
 			to_chat(user, "[msg]")
@@ -166,6 +172,8 @@
 		else
 			to_chat(user, "[msg2]")
 	else if(istype(W, /obj/item/device/assembly/prox_sensor) && panel_open)
+		if(!user.unEquip(W))
+			return
 		if(!isMotion())
 			upgradeMotion()
 			to_chat(user, "[msg]")
