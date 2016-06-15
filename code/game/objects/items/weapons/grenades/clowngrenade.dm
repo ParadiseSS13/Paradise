@@ -73,7 +73,7 @@
 					M.take_overall_damage(0, max(0, (burned - 2)))
 
 			if(!istype(M, /mob/living/carbon/slime) && !isrobot(M))
-				M.slip("banana peel!", 0, 7, 4)
+				M.slip("banana peel!", 7, 4)
 				M.take_organ_damage(2) // Was 5 -- TLE
 				M.take_overall_damage(0, burned)
 

@@ -915,7 +915,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				W.layer = initial(W.layer)
 
 
-/mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
+/mob/living/carbon/proc/slip(var/description, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
 	if (flying || buckled || (walkSafely && m_intent == "walk"))
 		return
 	if ((lying) && (!(tilesSlipped)))
@@ -931,8 +931,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	if (stun)
-		Stun(stun)
 	Weaken(weaken)
 	return 1
 
