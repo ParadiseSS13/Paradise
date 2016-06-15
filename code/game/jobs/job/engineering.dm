@@ -138,3 +138,33 @@
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
 		return 1
+
+/datum/job/sysadmin
+	title = "Systems Administrator"
+	flag = SYSADMIN
+	department_flag = KARMA
+	total_positions = 1
+	spawn_positions = 1
+	supervisors = "the chief engineer"
+	selection_color = "#fff5cc"
+	idtype = /obj/item/weapon/card/id/engineering
+	access = list(access_maint_tunnels, access_sysadmin, access_tcomsat, access_teleporter)
+	minimal_access = list(access_maint_tunnels, access_sysadmin, access_tcomsat, access_teleporter)
+
+
+	equip(var/mob/living/carbon/human/H)
+		if(!H)	return 0
+		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)
+		switch(H.backbag)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
+			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
+		H.equip_or_collect(new /obj/item/clothing/under/suit_jacket(H), slot_w_uniform)
+		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
+		H.equip_or_collect(new /obj/item/device/pda/engineering(H), slot_wear_pda)
+		if(H.backbag == 1)
+			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
+		else
+			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/drinks/coffee(H), slot_l_hand)
+		return 1

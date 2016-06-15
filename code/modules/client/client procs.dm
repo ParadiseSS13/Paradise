@@ -131,6 +131,12 @@
 						else
 							src.DB_job_unlock("Magistrate",45)
 							return
+					if("8")
+						if(karma < 15)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_job_unlock("Systems Administrator", 15)
 					if("9")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")

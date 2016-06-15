@@ -74,6 +74,7 @@
 /var/const/access_magistrate = 74
 /var/const/access_minisat = 75
 /var/const/access_mineral_storeroom = 76
+/var/const/access_sysadmin = 77
 
 /var/const/access_weapons = 99 //Weapon authorization for secbots
 
@@ -239,7 +240,7 @@ var/const/access_trade_sol = 160
 	            access_theatre, access_research, access_mining, access_mailsorting,
 	            access_heads_vault, access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce,
 	            access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_paramedic, access_blueshield, access_mechanic,access_weapons,
-	            access_pilot, access_ntrep, access_magistrate, access_mineral_storeroom, access_minisat)
+	            access_pilot, access_ntrep, access_magistrate, access_mineral_storeroom, access_minisat, access_sysadmin)
 
 /proc/get_all_centcom_access()
 	return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_shuttles, access_cent_telecomms, access_cent_teleporter, access_cent_specops, access_cent_specops_commander, access_cent_blackops, access_cent_thunder, access_cent_bridge, access_cent_commander)
@@ -266,7 +267,7 @@ var/const/access_trade_sol = 160
 		if(REGION_RESEARCH) //research
 			return list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_xenoarch, access_minisat, access_rd)
 		if(REGION_ENGINEERING) //engineering and maintenance
-			return list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_minisat, access_ce, access_mechanic)
+			return list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_minisat, access_ce, access_mechanic, access_sysadmin)
 		if(REGION_SUPPLY) //supply
 			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
 		if(REGION_COMMAND) //command
@@ -444,6 +445,8 @@ var/const/access_trade_sol = 160
 			return "Mineral Storage"
 		if(access_minisat)
 			return "AI Satellite"
+		if(access_sysadmin)
+			return "Systems Adminstrator's Office"
 		if(access_weapons)
 			return "Weapon Permit"
 
