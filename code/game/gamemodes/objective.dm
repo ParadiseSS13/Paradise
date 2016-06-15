@@ -251,7 +251,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist NanoTrasen crew on board and alive. Syndicate agents, other enemies of NanoTrasen, cyborgs, and pets may be allowed to escape alive."
 
 	check_completion()
 		if(!owner.current || owner.current.stat)
@@ -311,7 +311,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 		return 0
 
 /datum/objective/block
-	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
+	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, and pAIs are not considered alive."
 	martyr_compatible = 1
 
 	check_completion()
@@ -668,7 +668,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			if(5)
 				target = /obj/item/weapon/gun
 				target_amount = 6
-				loot = "six guns"
+				loot = "six guns. Tasers and other non-lethal guns are acceptable"
 			if(6)
 				target = /obj/item/weapon/gun/energy
 				target_amount = 4
@@ -797,15 +797,9 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			return 1
 		return 0
 
-#define MAX_VOX_KILLS 10 //Number of kills during the round before the Inviolate is broken.
-						 //Would be nice to use vox-specific kills but is currently not feasible.
-var/global/vox_kills = 0 //Used to check the Inviolate.
-
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
-	check_completion()
-		if(vox_kills > MAX_VOX_KILLS) return 0
-		return 1
+	completed = 1
 
 // Traders
 

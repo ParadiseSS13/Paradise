@@ -135,7 +135,7 @@
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
-	
+
 	var/lock_shuttle_doors = 0
 
 /obj/docking_port/stationary/register()
@@ -167,7 +167,7 @@
 /obj/docking_port/stationary/transit
 	name = "In Transit"
 	turf_type = /turf/space/transit
-	
+
 	lock_shuttle_doors = 1
 
 /obj/docking_port/stationary/transit/register()
@@ -775,6 +775,12 @@
 	shuttleId = "admin"
 	possible_destinations = "admin_home;admin_away"
 
+/obj/machinery/computer/shuttle/sst
+	name = "Syndicate Strike Time Shuttle Console"
+	desc = "Used to call and send the SST shuttle."
+	shuttleId = "sst"
+	possible_destinations = "sst_home;sst_away"
+
 var/global/trade_dock_timelimit = 0
 var/global/trade_dockrequest_timelimit = 0
 
@@ -790,7 +796,7 @@ var/global/trade_dockrequest_timelimit = 0
 		possible_destinations = possible_destinations_dock
 	else
 		possible_destinations = possible_destinations_nodock
-	
+
 	docking_request = (world.time > trade_dockrequest_timelimit && world.time > trade_dock_timelimit)
 	..(user)
 
