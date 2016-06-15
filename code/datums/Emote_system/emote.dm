@@ -13,7 +13,7 @@ VampyrBytes
 /datum/emote
 	var/name = ""
 	var/desc = ""
-	var/list/commands[0]  // commands that trigger the emote. Set these in New()
+	var/list/commands[0]  // list of commands that trigger the emote.
 	var/text = ""
 	var/selfText = ""		// the version of text that you should see - eg, if text is screams, you want scream here, as You screams is bad grammer
 	var/startText = ""		// if you need to put something in before [user]
