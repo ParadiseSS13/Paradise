@@ -162,8 +162,9 @@
 	var/old_affecting_lights = affecting_lights
 	var/old_lighting_overlay = lighting_overlay
 	var/old_blueprint_data = blueprint_data
+	var/old_corners = corners
 
-	if (!lighting_corners_initialised)
+	if (!lighting_corners_initialised && global.lighting_corners_initialised)
 		for (var/i = 1 to 4)
 			if (corners[i]) // Already have a corner on this direction.
 				continue
@@ -184,7 +185,7 @@
 		S.update_starlight()
 
 	lighting_overlay = old_lighting_overlay
-
+	corners = old_corners
 	affecting_lights = old_affecting_lights
 	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
 		reconsider_lights()
