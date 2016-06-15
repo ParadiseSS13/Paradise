@@ -50,7 +50,7 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 		back_to_param = ";viewruntime_backto=\ref[back_to]"
 	if(linear)
 		back_to_param += ";viewruntime_linear=1"
-	return "<A HREF='?_src_=holder;viewruntime=\ref[src][back_to_param]'>[linktext]</A>"
+	return "<A HREF='?_src_=holder;viewruntime=\ref[src][back_to_param]'>[html_encode(linktext)]</A>"
 
 /datum/ErrorViewer/ErrorCache
 	var/list/errors = list()
@@ -91,7 +91,7 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	//  from the same source hasn't been shown too recently
 	if(error_source.next_message_at <= world.time)
 		var/const/viewtext = "\[view]" // Nesting these in other brackets went poorly
-		log_debug("Runtime in [e.file],[e.line]: [e] [error_entry.makeLink(viewtext)]")
+		log_debug("Runtime in [e.file],[e.line]: [html_encode(e.name)] [error_entry.makeLink(viewtext)]")
 		error_source.next_message_at = world.time + ERROR_MSG_DELAY
 
 /datum/ErrorViewer/ErrorSource
@@ -128,7 +128,7 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	if(istype(desclines))
 		for(var/line in desclines)
 			// There's probably a better way to do this than non-breaking spaces...
-			desc += "&nbsp;&nbsp;" + line + "<br>"
+			desc += "&nbsp;&nbsp;" + html_encode(line) + "<br>"
 	if(usr)
 		usrRef = "\ref[usr]"
 		usrLoc = get_turf(usr)
@@ -137,7 +137,7 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	if(!istype(back_to))
 		back_to = error_source
 	var/html = buildHeader(back_to, linear)
-	html += name + "<br>"
+	html += html_encode(name) + "<br>"
 	html += desc
 	if(usrRef)
 		html += "<br>usr: <a href='?_src_=vars;Vars=[usrRef]'>VV</a>"

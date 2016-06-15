@@ -85,6 +85,4 @@ var/total_runtimes_skipped = 0
 	if(error_cache)
 		error_cache.logError(e, desclines)
 
-	return
-
 #endif
