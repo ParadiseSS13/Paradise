@@ -1,4 +1,4 @@
-f/obj/item/device/pda/medical
+/obj/item/device/pda/medical
 	default_cartridge = /obj/item/weapon/cartridge/medical
 	icon_state = "pda-medical"
 
