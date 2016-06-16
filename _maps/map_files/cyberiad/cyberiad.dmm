@@ -5094,7 +5094,7 @@
 "bTX" = (/obj/effect/spawner/window/reinforced,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/structure/cable,/obj/machinery/door/poddoor/shutters{density = 0; dir = 2; icon_state = "shutter0"; id_tag = "cmooffice"; name = "Privacy Shutters"; opacity = 0},/turf/simulated/floor/plating,/area/medical/cmo)
 "bTY" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "white"},/area/medical/medbay2)
 "bTZ" = (/obj/item/device/radio/intercom{frequency = 1459; name = "station intercom (General)"; pixel_x = 28},/turf/simulated/floor/plasteel{tag = "icon-whiteblue (EAST)"; icon_state = "whiteblue"; dir = 4},/area/medical/medbay2)
-"bUa" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/medical/cryo)
+"bUa" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/poddoor/shutters{density = 0; dir = 2; icon_state = "shutter0"; id_tag = "staffroom"; name = "Staff Room Privacy Shutters"; opacity = 0},/turf/simulated/floor/plating,/area/medical/cryo)
 "bUb" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5},/turf/simulated/wall,/area/medical/genetics)
 "bUc" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4; initialize_directions = 11; level = 1},/turf/simulated/wall,/area/medical/genetics)
 "bUd" = (/obj/machinery/computer/scan_consolenew,/obj/structure/window/reinforced,/turf/simulated/floor/plasteel{tag = "icon-whitepurple (WEST)"; icon_state = "whitepurple"; dir = 8},/area/medical/genetics)
