@@ -756,6 +756,7 @@
 	selfText = "shake hands"
 	canTarget = 1
 	targetMob = 1
+	mustTarget = 1
 	targetText = "with"
 	restrained = 1
 
@@ -767,13 +768,6 @@
 	. = ..()
 	if(!. && user.r_hand)
 		return "you need your right hand free"
-
-/datum/emote/handshake/getMobTarget(var/mob/user)
-	var/mob/target = ..()
-	if(target)
-		return target
-	to_chat(user, "You need someone to shake hands with")
-	return INVALID
 
 /datum/emote/handshake/addTarget(var/mob/user, var/list/params, var/message)
 	var/mob/target = params["target"]
@@ -836,6 +830,7 @@
 	mimeSelf = "take a drag from a cigarette and blow"
 	canTarget = 1
 	targetMob = 1
+	mustTarget = 1
 	targetText = ""
 
 /datum/emote/johnny/available(var/mob/user)
@@ -844,7 +839,7 @@
 
 /datum/emote/johnny/getTarget(var/mob/user)
 	var/mob/target = ..()
-	if(target && target != user)
+	if(target != user)
 		return target
 	to_chat(user, "You need a target that isn't yourself")
 	return INVALID
@@ -1144,11 +1139,10 @@
 	if(!. && user.buckled)
 		return "you are buckled to something"
 
-/datum/emote/salute/getMobTarget(var/mob/user)
+/datum/emote/salute/getMobTarget(var/mob/user, var/list/targets)
 	var/mob/target = ..()
-	if(target == user)
-		return
-	return target
+	if(target != user)
+		return target
 
 /datum/emote/scratch
 	name = "scratch"
@@ -1342,9 +1336,11 @@
 	if(ishuman(user))
 		return 1
 
-/datum/emote/slap/getMobTarget(var/mob/user)
-	var/mob/target = input("Select target", "Target Mob") as null|mob in view(1)
-	if(!target)
+/datum/emote/slap/getMobTarget(var/mob/user, var/list/targets)
+	for(var/mob/M in view(getLoc(user), 1))
+		targets += M
+	var/mob/target = input("Select target", "Target Mob") as null|anything in targets
+	if(target == "None")
 		target = user
 	return target
 

@@ -32,6 +32,7 @@ VampyrBytes
 
 	var/canTarget = 0		// 1 if the emote accepts a target
 	var/targetMob = 0		// 0 if target can be any atom, 1 if it has to be a mob,
+	var/mustTarget = 0		// 1 if the emote needs a target to work (won't get None as an option)
 	var/targetText = "at" // what goes inbetween user and target
 	var/takesNumber	= 0	// 1 if the emote uses a number parameter
 
@@ -124,16 +125,32 @@ VampyrBytes
 /datum/emote/proc/getTarget(var/mob/user)
 	if(user.sdisabilities & BLIND || user.blinded || user.paralysis)
 		return
+	var/list/targets = list()
+	if(!mustTarget)
+		targets += "None"
+	var/target
 	if(targetMob)
-		return getMobTarget(user)
-	return getAtomTarget(user)
-
-/datum/emote/proc/getMobTarget(var/mob/user)
-	var/mob/target = input("Select target", "Target Mob") as null|mob in view(getLoc(user))
+		target = getMobTarget(user, targets)
+	else
+		target = getAtomTarget(user, targets)
+	if(!target)
+		return INVALID
+	if(target == "None")
+		return
 	return target
 
-/datum/emote/proc/getAtomTarget(var/mob/user)
-	var/atom/target = input("Select target", "Target") as null|mob|obj|turf in oview(getLoc(user))
+/datum/emote/proc/getMobTarget(var/mob/user, var/list/targets)
+	for(var/mob/M in view(getLoc(user)))
+		targets += M
+	var/mob/target = input("Select target", "Target Mob") as null|anything in targets
+	return target
+
+
+/datum/emote/proc/getAtomTarget(var/mob/user, var/list/targets)
+	for(var/A in oview(getLoc(user)))
+		if(ismob(A) || isobj(A) || isturf(A))
+			targets += A
+	var/atom/target = input("Select target", "Target") as null|anything in targets
 	return target
 
 // returns the reason the user can't currently do the emote
