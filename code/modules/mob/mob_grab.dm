@@ -93,13 +93,15 @@
 			hud.screen_loc = ui_rhand
 		else
 			hud.screen_loc = ui_lhand
-
+		assailant.client.screen += hud
 
 /obj/item/weapon/grab/process()
-	if(!confirm())	return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
+	if(!confirm())
+		return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
 
 	if(assailant.client)
-		if(!hud)	return //this somehow can runtime under the right circumstances
+		if(!hud)
+			return //this somehow can runtime under the right circumstances
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
 
@@ -136,12 +138,8 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		var/h = affecting.hand
-		affecting.hand = 0
-		affecting.drop_item()
-		affecting.hand = 1
-		affecting.drop_item()
-		affecting.hand = h
+		affecting.drop_r_hand()
+		affecting.drop_l_hand()
 
 
 		//var/announce = 0
@@ -440,7 +438,13 @@
 		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
 		affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
+		affecting = null
+	if(assailant)
+		if(assailant.client)
+			assailant.client.screen -= hud
+		assailant = null
 	qdel(hud)
+	hud = null
 	return ..()
 
 

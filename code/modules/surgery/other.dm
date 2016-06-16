@@ -264,6 +264,9 @@
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return 0
 	user.visible_message("[user] shines light onto the tumor in [target]'s head!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
+	if(target.vision_type) //Turns off their darksight if it's still active.
+		to_chat(target, "<span class='boldannounce'>Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!</span>")
+		target.vision_type = null
 	ticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s head!</span>")
 	new /obj/item/organ/internal/shadowtumor(get_turf(target))
