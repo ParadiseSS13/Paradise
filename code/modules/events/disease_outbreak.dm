@@ -7,7 +7,8 @@
 	announceWhen = rand(15, 30)
 
 /datum/event/disease_outbreak/announce()
-	command_announcement.Announce("Confirmed outbreak of level 7 major viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
+	if(prob(90)) //Chance of the event being announced
+		command_announcement.Announce("Confirmed outbreak of level 7 major viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
 
 /datum/event/disease_outbreak/start()
 	if(!virus_type)

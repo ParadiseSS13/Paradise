@@ -5,7 +5,8 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/announce()
-	command_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
+	if(prob(99)) //Chance of the event being announced
+		command_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
