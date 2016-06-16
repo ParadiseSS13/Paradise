@@ -1,9 +1,10 @@
+
 /datum/emote/airguitar
 	name = "airguitar"
 	desc = "Makes the mob play an air guitar"
 	commands = list("airguitar")
-	text = "is strumming the air and headbanging like a safari chimp."
-	selfText = "are strumming the air and headbanging like a safari chimp."
+	text = "is strumming the air and headbanging like a safari chimp"
+	selfText = "are strumming the air and headbanging like a safari chimp"
 	restrained = 1
 
 /datum/emote/airguitar/available(var/mob/user)
@@ -333,7 +334,7 @@
 
 /datum/emote/dap/addTarget(var/mob/user, var/list/params, var/message = "")
 	if(!params["target"] || params["target"] == user)
-		message = "<span class = '[userSpanClass]'>[user]</span> sadly can't find anybody to give daps to, and daps \himself. Shameful."
+		message = "<span class = '[userSpanClass]'>[user]</span> sadly can't find anybody to give daps to, and daps \himself. Shameful"
 		return message
 	return ..()
 
@@ -371,8 +372,8 @@
 	return message
 
 /datum/emote/deathgasp/robot
-	text = "shudders violently for a moment, then becomes motionless, its eyes slowly darkening."
-	selfText = "shudder violently for a moment, then become motionless, your eyes slowly darkening."
+	text = "shudders violently for a moment, then becomes motionless, its eyes slowly darkening"
+	selfText = "shudder violently for a moment, then become motionless, your eyes slowly darkening"
 	audible = 0
 
 /datum/emote/deathgasp/robot/available(var/mob/user)
@@ -463,9 +464,9 @@
 		return			// super fart will make the message when triggered
 
 	if(TOXIC_FARTS in user.mutations)
-		message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart.</span>"
+		message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart</span>"
 		return message
-	message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> [pick("passes wind","farts")].</span>"
+	message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> [pick("passes wind","farts")]</span>"
 	return message
 
 /datum/emote/fart/createSelfMessage(var/mob/user, var/list/params, var/message)
@@ -565,7 +566,7 @@
 /datum/emote/flip/createMessage(var/mob/user, var/list/params)
 	var/message = ""
 	if(user.lying || user.weakened)
-		message = "<span class = '[userSpanClass]'>\The [user]</span> flops and flails around on the floor."
+		message = "<span class = '[userSpanClass]'>\The [user]</span> flops and flails around on the floor"
 	else
 		message = ..()
 	return message
@@ -730,8 +731,8 @@
 	name = "halt"
 	desc = "Makes the mob sound a halt warning. Only available with a security module"
 	commands = list("halt")
-	text = "'s speakers skreech, \"Halt! Security!\"."
-	selfText = " speakers skreech, \"Halt! Security!\"."
+	text = "'s speakers skreech, \"Halt! Security!\""
+	selfText = " speakers skreech, \"Halt! Security!\""
 	audible = 1
 	sound = 'sound/voice/halt.ogg'
 
@@ -828,8 +829,8 @@
 	name = "johnny"
 	desc = "Yeah, just try it"
 	commands = list("johnny")
-	text = "takes a drag from a cigarette and blows their name out in smoke."
-	selfText = "take a drag from a cigarette and blow their name out in smoke."
+	text = "takes a drag from a cigarette and blows their name out in smoke"
+	selfText = "take a drag from a cigarette and blow their name out in smoke"
 	audible = 1
 	mimeText = "takes a drag from a cigarette and blows"
 	mimeSelf = "take a drag from a cigarette and blow"
@@ -904,8 +905,8 @@
 	name = "law"
 	desc = "Makes the mob prove it is the law"
 	commands = list("law")
-	text = "shows its legal authorization barcode."
-	selfText = "show your legal authorization barcode."
+	text = "shows its legal authorization barcode"
+	selfText = "show your legal authorization barcode"
 	audible = 1
 	sound = 'sound/voice/biamthelaw.ogg'
 
@@ -919,14 +920,14 @@
 		return
 	var/mob/living/silicon/robot/U = user
 	if (!(istype(U.module, /obj/item/weapon/robot_module/security)))
-		return "You are not THE LAW, pal."
+		return "You are not THE LAW, pal"
 
 /datum/emote/light
 	name = "light"
 	desc = "makes the mob light up"
 	commands = list("light", "lights")
-	text = "lights up for a bit, then stops."
-	selfText = "light up for a bit, then stop."
+	text = "lights up for a bit, then stops"
+	selfText = "light up for a bit, then stop"
 
 /datum/emote/light/available(var/mob/user)
 	if(isslime(user))
@@ -1028,7 +1029,7 @@
 	name = "pale"
 	desc = "Makes the mob go pale"
 	commands = list("pale", "pales")
-	text = "goes pale for a second."
+	text = "goes pale for a second"
 	selfText = "go pale for a second"
 
 /datum/emote/pale/available(var/mob/user)
@@ -1396,7 +1397,7 @@
 		right_hand_good = 1
 
 	if (!left_hand_good && !right_hand_good)
-		return "You need at least one hand in good working order to snap your fingers."
+		return "You need at least one hand in good working order to snap your fingers"
 
 /datum/emote/snap/standardMessage(var/mob/user, var/list/params)
 	var/message = ..()
