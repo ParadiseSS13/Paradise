@@ -1,4 +1,4 @@
-/obj/item/device/pda/medical
+f/obj/item/device/pda/medical
 	default_cartridge = /obj/item/weapon/cartridge/medical
 	icon_state = "pda-medical"
 
@@ -41,7 +41,7 @@
 /obj/item/device/pda/clown/Crossed(AM as mob|obj) //Clown PDA is slippery.
 	if (istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M =	AM
-		M.slip("pda", 4, 0, 1) // Duration is ~7 seconds. ((x*2)-1)
+		M.slip("pda", 0, 4, 0, 1) // Duration is ~7 seconds. ((x*2)-1)
 
 /obj/item/device/pda/mime
 	default_cartridge = /obj/item/weapon/cartridge/mime

@@ -23,7 +23,7 @@
 /obj/item/weapon/bananapeel/Crossed(AM as mob|obj)
 	if (istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M =	AM
-		M.slip("banana peel", 4) // Duration is ~7 seconds. ((x*2)-1)
+		M.slip("banana peel", 0, 4) // Duration is ~7 seconds. ((x*2)-1)
 
 /*
  * Soap
@@ -31,7 +31,7 @@
 /obj/item/weapon/soap/Crossed(AM as mob|obj) //EXACTLY the same as bananapeel for now, so it makes sense to put it in the same dm -- Urist
 	if (istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
-		M.slip("soap", 4) // Duration is ~7 seconds. ((x*2)-1)
+		M.slip("soap", 0, 4) // Duration is ~7 seconds. ((x*2)-1)
 
 /obj/item/weapon/soap/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity) return
