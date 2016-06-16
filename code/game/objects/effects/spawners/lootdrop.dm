@@ -116,7 +116,7 @@
 				/obj/item/weapon/wirecutters = 10,
 				/obj/item/weapon/wrench = 40,
 				/obj/item/weapon/relic = 30,
-								////////////////CONTRABAND SHIT//////////////////
+		////////////////CONTRABAND SHIT//////////////////
 				/obj/item/weapon/grenade/clown_grenade = 5,
 				/obj/item/seeds/ambrosiavulgarisseed/cruciatus = 5,
 				/obj/item/clothing/under/contortionist = 5,
@@ -136,12 +136,8 @@
 				/obj/item/weapon/storage/backpack/duffel/syndie/surgery = 5,
 				/obj/item/weapon/storage/belt/military = 5,
 				/obj/item/weapon/storage/box/syndie_kit/space = 5,
-				/obj/item/clothing/glasses/thermal/syndi = 1,
-				/obj/item/device/encryptionkey/binary = 1,
 				/obj/item/weapon/c4 = 3,
-				/obj/item/weapon/pinpointer/advpinpointer = 1,
 				/obj/item/device/multitool/ai_detect = 5,
-				/obj/item/weapon/implanter/freedom = 1,
 				/obj/item/weapon/implanter/storage = 1,
 				"" = 90
 				)
