@@ -127,7 +127,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
 	flags = CONDUCT
-	force = 0
+	force = 3
 	throwforce = 2
 	throw_speed = 1
 	throw_range = 4
