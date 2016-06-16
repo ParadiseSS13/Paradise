@@ -637,4 +637,4 @@
 			used = 1
 			..()
 	else
-		to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. Perhaps [borgtarget] can make sense of it.")
+		to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. Perhaps [borgtarget] can make sense of it.</span>")
