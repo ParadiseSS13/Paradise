@@ -32,7 +32,8 @@
 	set name = "Me"
 	set category = "Emotes"
 
-	return emoteHandler.runEmote("me")
+	if(emoteHandler)
+		return emoteHandler.runEmote("me")
 
 
 /mob/proc/say_dead(var/message)
