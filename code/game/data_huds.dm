@@ -340,7 +340,9 @@
 	// Dis be drugs here. And special mention plants
 	var/list/special = list(/datum/seed/nettle, /datum/seed/apple/poison, /datum/seed/ambrosia, /datum/seed/tobacco, /datum/seed/mushroom, \
 							/datum/seed/weeds, /datum/seed/grass, /datum/seed/kudzu, /datum/seed/diona, /datum/seed/clown)
-	if (!seed) return
+	if (!seed)
+		holder.icon_state = ""
+		return
 	if (harvest)
 		if (is_type_in_list(seed, special))
 			holder.icon_state = "hudharvest2"
@@ -349,13 +351,12 @@
 	if (dead)
 		holder.icon_state = "huddead"
 		return
-	else
-		holder.icon_state = ""
+	holder.icon_state = ""
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_health()
 	var/image/holder = hud_list[PLANT_HEALTH_HUD]
 	if (!seed) return
-	holder.icon_state = "hudhealth[RoundPlantBar(health/seed.get_trait(TRAIT_ENDURANCE))]"
+	holder.icon_state = "hudplanthealth[RoundPlantBar(health/seed.get_trait(TRAIT_ENDURANCE))]"
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_toxin()
 	var/image/holder = hud_list[PLANT_TOXIN_HUD]
