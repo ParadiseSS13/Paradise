@@ -26,9 +26,25 @@
 /proc/worldtime2text(time = world.time)
 	return "[round(time / 36000)+12]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
 
+/proc/shifttime2text(time = world.time)
+	return "[round(time / 36000)]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
+
+/proc/currenttime()
+	var/hours = round(world.timeofday/36000)
+	var/minutes = (world.timeofday / 600 % 60) < 10 ? add_zero(world.timeofday / 600 % 60, 1) : world.timeofday / 600 % 60
+	if(hours == 0)
+		return "[hours+12]:[minutes]am"
+	else if(hours < 12 && hours > 0)
+		return "[hours]:[minutes]am"
+	else if(hours == 12)
+		return "[hours]:[minutes]pm"
+	else
+		return "[hours-12]:[minutes]pm"
+
+
 /proc/time_stamp()
 	return time2text(world.timeofday, "hh:mm:ss")
-	
+
 /proc/gameTimestamp(format = "hh:mm:ss") // Get the game time in text
 	return time2text(world.time - timezoneOffset + 432000, format)
 
@@ -60,6 +76,6 @@ proc/isDay(var/month, var/day)
  */
 /proc/stop_watch(wh)
 	return round(0.1 * (TimeOfGame - wh), 0.1)
-	
+
 /proc/month2number(month)
 	return month_names.Find(month)
