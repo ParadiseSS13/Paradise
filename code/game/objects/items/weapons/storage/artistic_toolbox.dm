@@ -135,6 +135,7 @@
 		affected_mob.adjustBruteLoss(-12)
 		affected_mob.adjustFireLoss(-12)
 		affected_mob.adjustToxLoss(-5)
+		affected_mob.setStaminaLoss(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		affected_mob.status_flags &= ~status
 		affected_mob.dizziness = max(0, affected_mob.dizziness-10)
