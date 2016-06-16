@@ -618,3 +618,23 @@
 
 /obj/item/weapon/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
+
+/obj/item/weapon/paper/borging
+	name = "Centcomm Reply"
+	info = "<b>You're Fired.</b>"
+	var/borgtarget = null
+	var/used = 0
+
+/obj/item/weapon/paper/borging/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+	if (used)
+		to_chat(user,"<span class='danger'>The paper disintegrates in your hands!")
+		qdel(src)
+	else if (user == borgtarget)
+		if (istype(user, /mob/living/carbon))
+			var/mob/living/carbon/C = user
+			C.ForceContractDisease(new /datum/disease/transformation/robot(0))
+			to_chat(C,"<span class='danger'>The paper appears to be covered in red goo!")
+			used = 1
+			..()
+	else
+		to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. Perhaps [borgtarget] can make sense of it.")

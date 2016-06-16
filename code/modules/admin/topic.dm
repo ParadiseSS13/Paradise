@@ -1671,6 +1671,40 @@
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)]'s Centcom message with: \"[input]\"")
 		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\"")
 
+	else if(href_list["BorgingFax"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/carbon/human/H = locate(href_list["BorgingFax"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+		if(alert(src.owner, "Are you sure you want to send [key_name(H)] a demotion fax that will borg them when they read it?",  "Confirm?" , "Yes" , "No") != "Yes")
+			return
+		var/obj/item/weapon/paper/borging/P = new /obj/item/weapon/paper/borging(null)
+		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		P.name = "paper"
+		P.info = "<b>A reminder: per the terms of your contract, stupid faxes will get you demoted.</b>"
+		P.x = rand(-2, 0)
+		P.y = rand(-1, 2)
+		P.offset_x += P.x
+		P.offset_y += P.y
+		P.update_icon()
+		var/stampvalue = "cent"
+		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+		stampoverlay.icon_state = "paper_stamp-[stampvalue]"
+		P.stamped = list()
+		P.stamped += /obj/item/weapon/stamp/centcom
+		P.overlays += stampoverlay
+		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
+		P.borgtarget = H
+		P.update_icon()
+		P.loc = fax.loc
+		//fax.receivefax(P)
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
+		to_chat(src.owner, "You sent a borging fax to [H]")
+		log_admin("[key_name(src.owner)] sent [key_name(H)] a borging fax")
+		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a borging fax")
 	else if(href_list["SyndicateReply"])
 		if(!check_rights(R_ADMIN))
 			return
