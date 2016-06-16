@@ -88,6 +88,10 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 
 
 /obj/singularity/energy_ball/proc/handle_energy()
+	if(energy<=0)
+		investigate_log("collapsed.","singulo")
+		qdel(src)
+		return 0
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20
 		energy_to_raise = energy_to_raise * 1.5
@@ -115,6 +119,9 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 
 	else if(orbiting_balls.len)
 		energy -= orbiting_balls.len * 0.5
+	else
+		energy -= 0.5
+	return 1
 
 /obj/singularity/energy_ball/Bump(atom/A)
 	dust_mobs(A)
