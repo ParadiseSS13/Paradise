@@ -63,7 +63,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
 
-#define MAX_GEAR_COST 10
+#define MAX_GEAR_COST 5
 
 #define TAB_CHAR 0
 #define TAB_GAME 1
