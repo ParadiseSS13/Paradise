@@ -86,7 +86,7 @@ var/global/list/obj/item/device/vape/vapes = list()
 			smoke.start()
 			user.visible_message("<span class='notice'>[user] vaping here with [name]!</span>")
 			playsound(usr.loc, 'sound/effects/bamf.ogg', 50, 2)
-			M.adjustCloneLoss(5)		//Vapers MUST DIE
+			M.adjustOxyLoss(3)		//Vapers MUST SUFFER
 			spamcheck = 1
 			spawn(20)
 			spamcheck = 0
