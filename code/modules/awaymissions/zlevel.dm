@@ -6,7 +6,7 @@
 		air_master.setup_allturfs(turfs)
 	for(var/turf/T in turfs)
 		if(T.dynamic_lighting)
-			T.lighting_build_overlays()
+			T.lighting_build_overlay()
 		for(var/obj/structure/cable/PC in T)
 			makepowernet_for(PC)
 	for(var/turf/T in smoothTurfs)
