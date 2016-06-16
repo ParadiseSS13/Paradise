@@ -1014,7 +1014,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(species in list("Human", "Drask", "Vox"))
 						s_tone = random_skin_tone(species)
 				if("s_color")
-					if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wyrn", "Vulpkanin", "Machine"))
+					if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wryn", "Vulpkanin", "Machine"))
 						r_skin = rand(0,255)
 						g_skin = rand(0,255)
 						b_skin = rand(0,255)
