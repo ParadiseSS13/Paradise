@@ -80,7 +80,7 @@
 				/obj/item/stack/cable_coil = 40,
 				/obj/item/stack/cable_coil{amount = 5} = 60,
 				/obj/item/stack/medical/advanced/bruise_pack = 10,
-				/obj/item/stack/rods{amount = 10} = 90,
+				/obj/item/stack/rods{amount = 10} = 80,
 				/obj/item/stack/rods{amount = 23} = 10,
 				/obj/item/stack/rods{amount = 50} = 10,
 				/obj/item/stack/sheet/cardboard = 2,
@@ -95,7 +95,7 @@
 				/obj/item/weapon/contraband/poster = 10,
 				/obj/item/weapon/crowbar = 10,
 				/obj/item/weapon/crowbar/red = 10,
-				/obj/item/weapon/extinguisher = 110,
+				/obj/item/weapon/extinguisher = 90,
 				//obj/item/weapon/gun/projectile/revolver/russian = 1, //disabled until lootdrop is a proper world proc.
 				/obj/item/weapon/hand_labeler = 10,
 				/obj/item/weapon/paper/crumpled = 10,
@@ -116,11 +116,11 @@
 				/obj/item/weapon/wirecutters = 10,
 				/obj/item/weapon/wrench = 40,
 				/obj/item/weapon/relic = 30,
-		////////////////CONTRABAND SHIT//////////////////
+				/obj/item/clothing/shoes/brown = 30,
+				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/weapon/grenade/clown_grenade = 5,
 				/obj/item/seeds/ambrosiavulgarisseed/cruciatus = 5,
 				/obj/item/clothing/under/contortionist = 5,
-				/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants = 5,
 				/obj/item/weapon/gun/projectile/automatic/pistol/empty = 1,
 				/obj/item/ammo_box/magazine/m10mm = 10,
 				/obj/item/weapon/soap/syndie = 20,
@@ -139,6 +139,8 @@
 				/obj/item/weapon/c4 = 3,
 				/obj/item/device/multitool/ai_detect = 5,
 				/obj/item/weapon/implanter/storage = 1,
+				/obj/item/toy/cards/deck/syndicate = 5,
+				/obj/item/weapon/storage/secure/briefcase/syndie = 5,
 				"" = 90
 				)
 
