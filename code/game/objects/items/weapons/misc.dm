@@ -134,12 +134,9 @@
 	w_class = 2
 	attack_verb = list("called", "rang")
 	hitsound = 'sound/weapons/ring.ogg'
-	var/on_cooldown = 0
+	var/cooldown = 0
 
 /obj/item/weapon/phone/attack_self(mob/user)
-	if(!on_cooldown)
-		on_cooldown = 1
-		playsound(loc, 'sound/weapons/ring.ogg', 50, 1)
-		add_fingerprint(user)
-		spawn(20)
-			on_cooldown = 0
+	if(cooldown < world.time - 20)
+		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
+		cooldown = world.time
