@@ -619,22 +619,90 @@
 /obj/item/weapon/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
-/obj/item/weapon/paper/borging
+/obj/item/weapon/paper/evilfax
 	name = "Centcomm Reply"
-	info = "<b>You're Fired.</b>"
-	var/borgtarget = null
+	info = ""
+	var/mytarget = null
+	var/myeffect = null
 	var/used = 0
+	var/countdown = 60
+	var/activate_on_timeout = 0
 
-/obj/item/weapon/paper/borging/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
-	if (used)
-		to_chat(user,"<span class='danger'>The paper disintegrates in your hands!")
-		qdel(src)
-	else if (user == borgtarget)
+/obj/item/weapon/paper/evilfax/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+	if (user == mytarget)
 		if (istype(user, /mob/living/carbon))
 			var/mob/living/carbon/C = user
-			C.ForceContractDisease(new /datum/disease/transformation/robot(0))
-			to_chat(C,"<span class='danger'>The paper appears to be covered in red goo!")
-			used = 1
+			evilpaper_specialaction(C)
 			..()
+		else
+			// This should never happen, but just in case someone is adminbussing
+			evilpaper_selfdestruct()
 	else
-		to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. Perhaps [borgtarget] can make sense of it.</span>")
+		if (mytarget)
+			to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?</span>")
+		else
+			evilpaper_selfdestruct()
+
+
+/obj/item/weapon/paper/evilfax/New()
+	..()
+	processing_objects += src
+
+
+/obj/item/weapon/paper/evilfax/Destroy()
+	processing_objects -= src
+	if (mytarget && !used)
+		var/mob/living/carbon/target = mytarget
+		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+	return ..()
+
+
+/obj/item/weapon/paper/evilfax/process()
+	if (countdown == 0)
+		if (mytarget)
+			if (activate_on_timeout)
+				evilpaper_specialaction(mytarget)
+			else
+				message_admins("[mytarget] ignored an evil fax until it timed out.")
+		else
+			message_admins("Evil paper '[src]' timed out, after not being assigned a target.")
+		used = 1
+		evilpaper_selfdestruct()
+	else
+		countdown--
+
+	return
+
+/obj/item/weapon/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
+	if (myeffect == "borging")
+		target.ForceContractDisease(new /datum/disease/transformation/robot(0))
+	else if (myeffect == "corgifying")
+		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+	else if (myeffect == "explosive")
+		var/turf/simulated/floor/T = get_turf(target)
+		if (istype(T))
+			T.break_tile_to_plating()
+		var/obj/effect/stop/S
+		S = new /obj/effect/stop
+		S.victim = target
+		S.loc = target.loc
+		spawn(20)
+			qdel(S)
+		target.adjustBruteLoss(target.health)
+	else if (myeffect == "memetickillagent")
+		to_chat(target,"<span class='userdanger'>A series of bright lights flash across your vision: MEMETIC KILL AGENT YHWH-3 ACTIVATED</span>")
+		target.mutations.Add(NOCLONE)
+		target.adjustBrainLoss(125)
+	else if (myeffect == "honktumor")
+		if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
+			new /obj/item/organ/internal/honktumor(target)
+	else if (myeffect == "demotion")
+		command_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+	else
+		message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
+	used = 1
+	evilpaper_selfdestruct()
+
+/obj/item/weapon/paper/evilfax/proc/evilpaper_selfdestruct()
+	visible_message("[src] spontaneously catches fire, and burns up!")
+	qdel(src)
