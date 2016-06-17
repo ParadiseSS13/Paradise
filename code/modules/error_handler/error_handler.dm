@@ -6,7 +6,7 @@ var/total_runtimes = 0
 var/total_runtimes_skipped = 0
 // The ifdef needs to be down here, since the error viewer references total_runtimes
 #ifdef DEBUG
-/world/Error(var/exception/e)
+/world/Error(var/exception/e, var/datum/e_src)
 	if(!istype(e)) // Something threw an unusual exception
 		log_to_dd("\[[time_stamp()]] Uncaught exception: [e]")
 		return ..()
@@ -40,18 +40,25 @@ var/total_runtimes_skipped = 0
 			error_cooldown[erroruid] = 0
 			if(skipcount > 0)
 				log_to_dd("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file],[e.line].")
+				error_cache.logError(e, skipCount = skipcount)
 	error_last_seen[erroruid] = world.time
 	error_cooldown[erroruid] = cooldown
 
 	// The detailed error info needs some tweaking to make it look nice
+	var/list/srcinfo = null
 	var/list/usrinfo = null
-	if(istype(usr)) // First, try to make better usr info lines
-		usrinfo = list("  usr: [usr] ([usr.ckey]) ([usr.type])")
-		var/turf/t = get_turf(usr)
-		if(istype(t))
-			usrinfo += "  usr.loc: [usr.loc] ([t.x],[t.y],[t.z]) ([usr.loc.type])"
-		else if(usr.loc)
-			usrinfo += "  usr.loc: [usr.loc] (0,0,0) ([usr.loc.type])"
+	var/locinfo
+	// First, try to make better src/usr info lines
+	if(istype(e_src))
+		srcinfo = list("  src: [datum_info_line(e_src)]")
+		locinfo = atom_loc_line(e_src)
+		if(locinfo)
+			srcinfo += "  src.loc: [locinfo]"
+	if(istype(usr))
+		usrinfo = list("  usr: [datum_info_line(usr)]")
+		locinfo = atom_loc_line(usr)
+		if(locinfo)
+			usrinfo += "  usr.loc: [locinfo]"
 	// The proceeding mess will almost definitely break if error messages are ever changed
 	// I apologize in advance
 	var/list/splitlines = splittext(e.desc, "\n")
@@ -69,11 +76,20 @@ var/total_runtimes_skipped = 0
 					desclines.Add(usrinfo)
 					usrinfo = null
 				continue // Our usr info is better, replace it
+			if(srcinfo)
+				if(findtext(line, "src.loc:"))
+					continue
+				if(findtext(line, "src:"))
+					desclines.Add(srcinfo)
+					srcinfo = null
+					continue
 			if(copytext(line, 1, 3) != "  ")
 				desclines += ("  " + line) // Pad any unpadded lines, so they look pretty
 			else
 				desclines += line
-	if(usrinfo) // If this isn't null, it hasn't been added yet
+	if(srcinfo) // If these aren't null, they haven't been added yet
+		desclines.Add(srcinfo)
+	if(usrinfo)
 		desclines.Add(usrinfo)
 	if(silencing)
 		desclines += "  (This error will now be silenced for [ERROR_SILENCE_TIME / 600] minutes)"
@@ -83,6 +99,6 @@ var/total_runtimes_skipped = 0
 	for(var/line in desclines)
 		log_to_dd(line)
 	if(error_cache)
-		error_cache.logError(e, desclines)
+		error_cache.logError(e, desclines, e_src = e_src)
 
 #endif

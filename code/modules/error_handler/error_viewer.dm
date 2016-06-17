@@ -93,7 +93,7 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 			html += "<p class='runtime_list'>[error_entry.makeLink(null, src, 1)]<br></p>"
 	browseTo(user, html)
 
-/datum/ErrorViewer/ErrorCache/proc/logError(var/exception/e, var/list/desclines)
+/datum/ErrorViewer/ErrorCache/proc/logError(var/exception/e, var/list/desclines, var/skipCount, var/datum/e_src)
 	if(!istype(e))
 		return // Abnormal exception, don't even bother
 
@@ -103,10 +103,12 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 		error_source = new(e)
 		error_sources[erroruid] = error_source
 
-	var/datum/ErrorViewer/ErrorEntry/error_entry = new(e, desclines)
+	var/datum/ErrorViewer/ErrorEntry/error_entry = new(e, desclines, skipCount, e_src)
 	error_entry.error_source = error_source
 	errors += error_entry
 	error_source.errors += error_entry
+	if(skipCount)
+		return // Skip notifying admins about skipped errors
 
 	// Show the error to admins with debug messages turned on, but only if one
 	//  from the same source hasn't been shown too recently
@@ -137,12 +139,20 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	var/datum/ErrorViewer/ErrorSource/error_source
 	var/exception/exc
 	var/desc = ""
+	var/srcRef
+	var/srcType
+	var/turf/srcLoc
 	var/usrRef
 	var/turf/usrLoc
+	var/isSkipCount
 
-/datum/ErrorViewer/ErrorEntry/New(var/exception/e, var/list/desclines)
+/datum/ErrorViewer/ErrorEntry/New(var/exception/e, var/list/desclines, var/skipCount, var/datum/e_src)
 	if(!istype(e))
 		name = "\[[time_stamp()]] Uncaught exception: [e]"
+		return
+	if(skipCount)
+		name = "\[[time_stamp()]] Skipped [skipCount] runtimes in [e.file],[e.line]."
+		isSkipCount = TRUE
 		return
 	name = "\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]"
 	exc = e
@@ -150,6 +160,10 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 		for(var/line in desclines)
 			// There's probably a better way to do this than non-breaking spaces...
 			desc += "&nbsp;&nbsp;" + html_encode(line) + "<br>"
+	if(istype(e_src))
+		srcRef = "\ref[e_src]"
+		srcType = e_src.type
+		srcLoc = get_turf(e_src)
 	if(usr)
 		usrRef = "\ref[usr]"
 		usrLoc = get_turf(usr)
@@ -159,6 +173,14 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 		back_to = error_source
 	var/html = buildHeader(back_to, linear)
 	html += "<div class='runtime'>[html_encode(name)]<br>[desc]</div>"
+	if(srcRef)
+		html += "<br>src: <a href='?_src_=vars;Vars=[srcRef]'>VV</a>"
+		if(ispath(srcType, /mob))
+			html += " <a href='?_src_=holder;adminplayeropts=[srcRef]'>PP</a>"
+			html += " <a href='?_src_=holder;adminplayerobservefollow=[srcRef]'>Follow</a>"
+		if(istype(srcLoc))
+			html += "<br>src.loc: <a href='?_src_=vars;Vars=\ref[srcLoc]'>VV</a>"
+			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[srcLoc.x];Y=[srcLoc.y];Z=[srcLoc.z]'>JMP</a>"
 	if(usrRef)
 		html += "<br>usr: <a href='?_src_=vars;Vars=[usrRef]'>VV</a>"
 		html += " <a href='?_src_=holder;adminplayeropts=[usrRef]'>PP</a>"
@@ -167,3 +189,9 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 			html += "<br>usr.loc: <a href='?_src_=vars;Vars=\ref[usrLoc]'>VV</a>"
 			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[usrLoc.x];Y=[usrLoc.y];Z=[usrLoc.z]'>JMP</a>"
 	browseTo(user, html)
+
+/datum/ErrorViewer/ErrorEntry/makeLink(var/linktext, var/datum/ErrorViewer/back_to, var/linear)
+	if(isSkipCount)
+		return html_encode(name)
+	else
+		return ..()
