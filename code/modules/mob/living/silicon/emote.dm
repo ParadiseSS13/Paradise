@@ -13,7 +13,7 @@
 		//Cooldown-inducing emotes
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
-		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no", "buzz2")
+		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no", "buzz2", "dialup")
 			//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
@@ -120,6 +120,13 @@
 			playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			m_type = 2
 
+		if("dialup")
+			message = "<B>[src]</B> rumbles, emits loud noises and literally shits his gears. It looks like he's trying to establish dial-up connection!"
+			playsound(src.loc, 'sound/machines/dialup.ogg', 100, 0)
+			animate(src, pixel_x = rand(-5,5), pixel_y = rand(-5, 5), time = 0.5, loop = 70)
+			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
+			floating = 0
+			m_type = 2
 
 		if("help")
 			to_chat(src, "yes, no, beep, ping, buzz, scream, buzz2")
