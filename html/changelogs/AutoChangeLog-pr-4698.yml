@@ -1,0 +1,6 @@
+author: FreeStylaLT
+delete-after: True
+changes: 
+  - spellcheck: "changed its to it's in lockbox description"
+  - bugfix: "changed \\red to <span> formatting"
+  - tweak: "changed stetchkin's price from 9 TC to 4 TC, suppressor's from 3 TC to 1 TC"
