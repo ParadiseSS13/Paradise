@@ -181,6 +181,7 @@
 				var/datum/effect/system/harmless_smoke_spread/smoke = new
 				smoke.set_up(1,0, src, 0)
 				smoke.start()
+				return
 			if(passengers)
 				for(var/mob/M in passengers)
 					to_chat(M, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
@@ -191,6 +192,7 @@
 					smoke.start()
 					for(var/mob/M in passengers)
 						to_chat(M, "<span class='boldnotice'>Gas vented. Explosion averted.</span>")
+					return
 				if(passengers)
 					for(var/mob/M in passengers)
 						to_chat(M, "<span class='warning'>[i]</span>")
