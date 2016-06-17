@@ -87,6 +87,28 @@
 	category = list("Pod_Armor")
 	materials = list(MAT_METAL=15000,MAT_GLASS=5000,MAT_PLASMA=10000)
 
+/datum/design/pod_armor_mining
+	construction_time = 500
+	name = "Pod Armor (mining)"
+	desc = "Allows for the construction of spacepod armor. This is the mining one."
+	id = "podarmor_mining"
+	build_type = PODFAB
+	req_tech = list("materials" = 2)
+	build_path = /obj/item/pod_parts/armor/mining
+	category = list("Pod_Armor")
+	materials = list(MAT_METAL=20000,MAT_GLASS=5000,MAT_PLASMA=10000)
+
+/datum/design/pod_armor_security
+	construction_time = 800 //Strong armor takes long build time
+	name = "Pod Armor (security)"
+	desc = "Allows for the construction of spacepod armor. This is the security one."
+	id = "podarmor_security"
+	build_type = PODFAB
+	req_tech = list("materials" = 4)
+	build_path = /obj/item/pod_parts/armor/security
+	category = list("Pod_Armor")
+	materials = list(MAT_METAL=30000,MAT_GLASS=10000,MAT_PLASMA=20000)
+
 //////////////////////////////////////////
 //////SPACEPOD GUNS///////////////////////
 //////////////////////////////////////////

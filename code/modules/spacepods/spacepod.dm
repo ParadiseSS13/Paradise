@@ -3,8 +3,9 @@
 
 /obj/spacepod
 	name = "\improper space pod"
-	desc = "A space pod meant for space travel."
+	desc = "A space pod meant for space travel. It is currently missing it's armor"
 	icon = 'icons/goonstation/48x48/pods.dmi'
+	icon_state = "pod_naked"
 	density = 1 //Dense. To raise the heat.
 	opacity = 0
 
@@ -23,6 +24,8 @@
 
 	var/battery_type = "/obj/item/weapon/stock_parts/cell/high"
 	var/obj/item/weapon/stock_parts/cell/battery
+	var/obj/item/pod_parts/armor/installed_armor
+	var/armor_stage = 0
 
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
@@ -37,17 +40,12 @@
 	var/next_firetime = 0
 
 	var/list/pod_overlays
-	var/health = 250
+	var/health = 10
+	var/max_health = 10
 	var/empcounter = 0 //Used for disabling movement when hit by an EMP
 
 	var/lights = 0
 	var/lights_power = 6
-	var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
-									 "pod_mil" = "#BBF093", \
-									 "pod_synd" = LIGHT_COLOR_RED, \
-									 "pod_gold" = LIGHT_COLOR_WHITE, \
-									 "pod_black" = "#3B8FE5", \
-									 "pod_industrial" = "#CCCC00")
 
 	var/unlocked = 1
 
@@ -63,7 +61,6 @@
 	bound_width = 64
 	bound_height = 64
 	dir = EAST
-	battery = new battery_type(src)
 	add_cabin()
 	add_airtank()
 	src.ion_trail = new /datum/effect/system/ion_trail_follow/space_trail()
@@ -73,7 +70,6 @@
 	pr_int_temp_processor = new /datum/global_iterator/pod_preserve_temp(list(src))
 	pr_give_air = new /datum/global_iterator/pod_tank_give_air(list(src))
 	equipment_system = new(src)
-	equipment_system.installed_modules += battery
 	spacepods_list += src
 	cargo_hold = new/obj/item/weapon/storage/internal(src)
 	cargo_hold.w_class = 5	//so you can put bags in
@@ -122,12 +118,15 @@
 
 	overlays.Cut()
 
-	if(health <= round(initial(health)/2))
+	if(health <= round(max_health/2))
 		overlays += pod_overlays[DAMAGE]
-		if(health <= round(initial(health)/4))
+		if(health <= round(max_health/4))
 			overlays += pod_overlays[FIRE]
-
-	light_color = icon_light_color[src.icon_state]
+	
+	if(installed_armor)
+		light_color = installed_armor.pod_light_color
+	else
+		light_color = LIGHT_COLOR_WHITE
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage && !P.nodamage)
@@ -160,7 +159,7 @@
 /obj/spacepod/proc/deal_damage(var/damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
-	var/percentage = (health / initial(health)) * 100
+	var/percentage = (health / max_health) * 100
 	occupant_sanity_check()
 	if(passengers && oldhealth > health && percentage <= 25 && percentage > 0)
 		var/sound/S = sound('sound/effects/engine_alert2.ogg')
@@ -178,10 +177,20 @@
 			to_chat(M, S)
 	if(!health)
 		spawn(0)
+			if(armor_stage == 0)
+				var/datum/effect/system/harmless_smoke_spread/smoke = new
+				smoke.set_up(1,0, src, 0)
+				smoke.start()
 			if(passengers)
 				for(var/mob/M in passengers)
 					to_chat(M, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 			for(var/i = 10, i >= 0; --i)
+				if(armor_stage == 0)
+					var/datum/effect/system/harmless_smoke_spread/smoke = new
+					smoke.set_up(1,0, src, 0)
+					smoke.start()
+					for(var/mob/M in passengers)
+						to_chat(M, "<span class='boldnotice'>Gas vented. Explosion averted.</span>")
 				if(passengers)
 					for(var/mob/M in passengers)
 						to_chat(M, "<span class='warning'>[i]</span>")
@@ -194,7 +203,7 @@
 
 /obj/spacepod/proc/repair_damage(var/repair_amount)
 	if(health)
-		health = min(initial(health), health + repair_amount)
+		health = min(max_health, health + repair_amount)
 		update_icons()
 
 
@@ -250,6 +259,85 @@
 			processing_objects.Add(src)
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/weldingtool) && armor_stage == 0)
+		var/obj/item/weapon/weldingtool/WT = W
+		if(!WT.isOn())
+			to_chat(user, "<span class='warning'>The welder must be on for this task.</span>")
+			return
+		to_chat(user, "<span class='notice'>You start unwelding the bulkhead panelling...</span>")
+		playsound(loc, 'sound/items/Welder.ogg', 50, 1)
+		if(do_after(user, 20, target = src))
+			if(!src || !WT.remove_fuel(3, user)) return
+			to_chat(user, "<span class='notice'>You unweld the bulkhead panelling</span>")
+			var/obj/structure/spacepod_frame/F = new(loc)
+			F.dir = dir
+			qdel(src)
+		return
+	if(istype(W, /obj/item/pod_parts/armor))
+		user.drop_item(W)
+		W.forceMove(src)
+		installed_armor = W
+		health += installed_armor.armor_health
+		max_health += installed_armor.armor_max_health
+		icon_state = installed_armor.pod_icon_state
+		desc = installed_armor.pod_desc
+		armor_stage = 1
+		to_chat(user, "You install the armor")
+		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		update_icons()
+		return
+	if(armor_stage == 1 && iscrowbar(W))
+		if(!user.put_in_any_hand_if_possible(installed_armor))
+			installed_armor.forceMove(get_turf(user))
+		to_chat(user, "You remove the armor")
+		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+		armor_stage = 0
+		installed_armor.armor_health = max(health - 10, 0)
+		installed_armor = null
+		health = min(health, 10)
+		max_health = 10
+		icon_state = "pod_naked"
+		desc = initial(desc)
+		update_icons()
+		return
+	if(armor_stage == 1 && istype(W, /obj/item/weapon/wrench))
+		armor_stage = 2
+		to_chat(user, "You secure the armor")
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		return
+	if(armor_stage == 2 && istype(W, /obj/item/weapon/wrench))
+		armor_stage = 1
+		to_chat(user, "You unsecure the armor")
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		return
+	if(armor_stage == 2 && istype(W, /obj/item/weapon/weldingtool))
+		var/obj/item/weapon/weldingtool/WT = W
+		if(!WT.isOn())
+			to_chat(user, "<span class='warning'>The welder must be on for this task.</span>")
+			return
+		to_chat(user, "<span class='notice'>You start welding the armor...</span>")
+		playsound(loc, 'sound/items/Welder.ogg', 50, 1)
+		if(do_after(user, 20, target = src))
+			if(!src || !WT.remove_fuel(3, user)) return
+			to_chat(user, "<span class='notice'>You weld the armor</span>")
+			armor_stage = 3
+			hatch_open = 1
+		return
+	if(armor_stage < 3)
+		return
+	if(istype(W, /obj/item/weapon/weldingtool) && hatch_open && !battery && equipment_system.installed_modules.len == 0 && !pilot && passengers.len == 0) // Completely empty pods can have their armor removed
+		var/obj/item/weapon/weldingtool/WT = W
+		if(!WT.isOn())
+			to_chat(user, "<span class='warning'>The welder must be on for this task.</span>")
+			return
+		to_chat(user, "<span class='notice'>You start unwelding the armor...</span>")
+		playsound(loc, 'sound/items/Welder.ogg', 50, 1)
+		if(do_after(user, 20, target = src))
+			if(!src || !WT.remove_fuel(3, user)) return
+			to_chat(user, "<span class='notice'>You unweld the armor</span>")
+			armor_stage = 2
+		return
+	
 	if(iscrowbar(W))
 		if(!equipment_system.lock_system || unlocked || hatch_open)
 			hatch_open = !hatch_open
@@ -309,7 +397,7 @@
 		if(!WT.isOn())
 			to_chat(user, "\red The welder must be on for this task.")
 			return
-		if (health < initial(health))
+		if (health < max_health)
 			to_chat(user, "\blue You start welding the spacepod...")
 			playsound(loc, 'sound/items/Welder.ogg', 50, 1)
 			if(do_after(user, 20, target = src))
@@ -376,7 +464,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 				return
 			target.visible_message("<span class='warning'>[user] was unable to get the door open!</span>",
 					"<span class='warning'>You manage to keep [user] out of the [src]!</span>")
-
+	
+	if(armor_stage < 3)
+		return
+	
 	if(!hatch_open)
 		if(cargo_hold.storage_slots > 0)
 			if(unlocked)
@@ -472,22 +563,22 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 			L += inv.return_inv()
 	return L
 
-/obj/spacepod/civilian
-	icon_state = "pod_civ"
-	desc = "A sleek civilian space pod."
-
 /obj/spacepod/random
 	icon_state = "pod_civ"
 // placeholder
 
 /obj/spacepod/sec
 	name = "\improper security spacepod"
-	desc = "An armed security spacepod with reinforced armor plating."
 	icon_state = "pod_mil"
-	health = 400
 
 /obj/spacepod/sec/New()
 	..()
+	installed_armor = new /obj/item/pod_parts/armor/security(src)
+	health += installed_armor.armor_health
+	max_health += installed_armor.armor_max_health
+	desc = installed_armor.pod_desc
+	icon_state = installed_armor.pod_icon_state
+	armor_stage = 3
 	var/obj/item/device/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/device/spacepod_equipment/weaponry/taser
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
@@ -511,23 +602,20 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	equipment_system.lock_system.my_atom = src
 	equipment_system.lock_system.id = 100000
 	equipment_system.installed_modules += K
+	
+	battery = new /obj/item/weapon/stock_parts/cell/high()
 
 /obj/spacepod/random/New()
 	..()
-	icon_state = pick("pod_civ", "pod_black", "pod_mil", "pod_synd", "pod_gold", "pod_industrial")
-	switch(icon_state)
-		if("pod_civ")
-			desc = "A sleek civilian space pod."
-		if("pod_black")
-			desc = "An all black space pod with no insignias."
-		if("pod_mil")
-			desc = "A dark grey space pod brandishing the Nanotrasen Military insignia"
-		if("pod_synd")
-			desc = "A menacing military space pod with Fuck NT stenciled onto the side"
-		if("pod_gold")
-			desc = "A civilian space pod with a gold body, must have cost somebody a pretty penny"
-		if("pod_industrial")
-			desc = "A rough looking space pod meant for industrial work"
+	var/armor_type = pick(/obj/item/pod_parts/armor, /obj/item/pod_parts/armor/mining, /obj/item/pod_parts/armor/black, /obj/item/pod_parts/armor/synd, /obj/item/pod_parts/armor/gold, /obj/item/pod_parts/armor/industrial)
+	installed_armor = new armor_type(src)
+	health += installed_armor.armor_health
+	max_health += installed_armor.armor_max_health
+	desc = installed_armor.pod_desc
+	icon_state = installed_armor.pod_icon_state
+	armor_stage = 3
+	
+	battery = new /obj/item/weapon/stock_parts/cell/high()
 	update_icons()
 
 /obj/spacepod/verb/toggle_internal_tank()
@@ -600,7 +688,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return 1
 
 /obj/spacepod/MouseDrop_T(atom/A, mob/user)
-	if(user == pilot || user in passengers)
+	if(user == pilot || user in passengers || armor_stage < 3)
 		return
 
 	if(istype(A,/mob))
@@ -842,7 +930,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	var/mob/user = usr
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
 	if(do_after(user, 40, target = src))
-		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
+		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery, installed_armor) + passengers + equipment_system.installed_modules
 		var/list/true_contents = contents - badlist
 		if(true_contents.len > 0)
 			var/obj/I = pick(true_contents)
