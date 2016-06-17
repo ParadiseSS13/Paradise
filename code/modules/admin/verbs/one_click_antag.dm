@@ -516,7 +516,7 @@ client/proc/one_click_antag()
 	new_vox.age = rand(12,20)
 	new_vox.flavor_text = ""
 	new_vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
-	new_vox.change_skin_tone(rand(1, 6))
+	new_vox.s_tone = rand(1, 6)
 
 	// Do the initial caching of the player's body icons.
 	new_vox.force_update_limbs()

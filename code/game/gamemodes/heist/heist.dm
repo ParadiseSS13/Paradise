@@ -101,7 +101,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	newraider.name = vox.name
 	vox.age = rand(12,20)
 	vox.set_species("Vox")
-	vox.change_skin_tone(rand(1, 6))
+	vox.s_tone = rand(1, 6)
 	vox.languages = list() // Removing language from chargen.
 	vox.flavor_text = ""
 	vox.add_language("Vox-pidgin")
@@ -109,6 +109,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	vox.add_language("Tradeband")
 	head_organ.h_style = "Short Vox Quills"
 	head_organ.f_style = "Shaved"
+	vox.change_hair_color(97, 79, 25) //Same as the species default colour.
 	vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
 	vox.underwear = "Nude"
 	vox.undershirt = "Nude"
