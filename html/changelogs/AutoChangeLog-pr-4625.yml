@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Fixed tape allowing mobs with sufficient access to move through solid objects."

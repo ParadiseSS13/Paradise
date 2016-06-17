@@ -73,6 +73,7 @@
 	pr_int_temp_processor = new /datum/global_iterator/pod_preserve_temp(list(src))
 	pr_give_air = new /datum/global_iterator/pod_tank_give_air(list(src))
 	equipment_system = new(src)
+	equipment_system.installed_modules += battery
 	spacepods_list += src
 	cargo_hold = new/obj/item/weapon/storage/internal(src)
 	cargo_hold.w_class = 5	//so you can put bags in
@@ -491,21 +492,25 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = src
+	equipment_system.installed_modules += T
 	var/obj/item/device/spacepod_equipment/misc/tracker/L = new /obj/item/device/spacepod_equipment/misc/tracker
 	L.loc = equipment_system
 	equipment_system.misc_system = L
 	equipment_system.misc_system.my_atom = src
 	equipment_system.misc_system.enabled = 1
+	equipment_system.installed_modules += L
 	var/obj/item/device/spacepod_equipment/sec_cargo/chair/C = new /obj/item/device/spacepod_equipment/sec_cargo/chair
 	C.loc = equipment_system
 	equipment_system.sec_cargo_system = C
 	equipment_system.sec_cargo_system.my_atom = src
+	equipment_system.installed_modules += C
 	max_passengers = 1
 	var/obj/item/device/spacepod_equipment/lock/keyed/K = new /obj/item/device/spacepod_equipment/lock/keyed
 	K.loc = equipment_system
 	equipment_system.lock_system = K
 	equipment_system.lock_system.my_atom = src
 	equipment_system.lock_system.id = 100000
+	equipment_system.installed_modules += K
 
 /obj/spacepod/random/New()
 	..()

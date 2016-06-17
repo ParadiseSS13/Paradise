@@ -49,6 +49,7 @@ other types of metals and chemistry for reagents).
 	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
 	var/list/reagents = list()			//List of reagents. Format: "id" = amount.
 	var/maxstack = 1
+	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
 
 //A proc to calculate the reliability of a design based on tech levels and innate modifiers.
 //Input: A list of /datum/tech; Output: The new reliabilty.

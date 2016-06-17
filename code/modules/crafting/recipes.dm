@@ -219,3 +219,10 @@
 				/obj/item/stack/sheet/wood = 5)
 	tools = list(/obj/item/weapon/weldingtool,
 				/obj/item/weapon/screwdriver)
+
+/datum/table_recipe/glove_balloon
+	name = "Latex Glove Balloon"
+	result = /obj/item/latexballon
+	time = 15
+	reqs = list(/obj/item/clothing/gloves/color/latex = 1,
+				/obj/item/stack/cable_coil = 5)
