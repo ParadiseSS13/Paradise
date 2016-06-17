@@ -292,6 +292,15 @@
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()
+	var/show_message = 0
+	for(var/obj/item/weapon/reagent_containers/food/snacks/meat/meat in range(1, src))
+		if(meat)
+			qdel(meat)
+			biomass += 50
+			show_message = 1
+	if(show_message)
+		visible_message("[src] sucks in and processes the nearby biomass.")
+		show_message = 0
 
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if (occupant)
