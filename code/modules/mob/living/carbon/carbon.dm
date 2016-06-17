@@ -980,13 +980,15 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
-	if (fullness <= (550 * (1 + overeatduration / 1000)))
-		visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
+	if(fullness <= (550 * (1 + overeatduration / 1000)))
+		if(!toEat.instant_application)
+			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
 	else
 		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
 		return 0
-	if(!do_mob(user, src))
-		return 0
+	if(!toEat.instant_application)
+		if(!do_mob(user, src))
+			return 0
 	forceFedAttackLog(toEat, user)
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
 	return 1
