@@ -1,5 +1,5 @@
-#define TESLA_DEFAULT_POWER 1738260
-#define TESLA_MINI_POWER 869130
+#define TESLA_DEFAULT_POWER 173826
+#define TESLA_MINI_POWER 86913
 
 var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 										/obj/machinery/power/emitter,
@@ -31,7 +31,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 	density = 1
 	energy = 0
 	var/list/orbiting_balls = list()
-	var/produced_power
+	var/produced_power = 0
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 
@@ -58,7 +58,11 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 		pixel_x = 0
 		pixel_y = 0
 
-		dir = tesla_zap(src, 7, TESLA_DEFAULT_POWER)
+		produced_power = TESLA_DEFAULT_POWER
+		for (var/ball in orbiting_balls)
+			produced_power += TESLA_MINI_POWER
+
+		dir = tesla_zap(src, 7, produced_power)
 
 		pixel_x = -32
 		pixel_y = -32
