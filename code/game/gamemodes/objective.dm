@@ -247,10 +247,11 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			return 1
 		return 0
 
+/datum/objective/protect/mindslave //subytpe for mindslave implants
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist NanoTrasen crew on board and alive. Syndicate agents, other enemies of NanoTrasen, cyborgs, and pets may be allowed to escape alive."
 
 	check_completion()
 		if(!owner.current || owner.current.stat)
@@ -310,7 +311,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 		return 0
 
 /datum/objective/block
-	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
+	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, and pAIs are not considered alive."
 	martyr_compatible = 1
 
 	check_completion()
@@ -667,7 +668,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			if(5)
 				target = /obj/item/weapon/gun
 				target_amount = 6
-				loot = "six guns"
+				loot = "six guns. Tasers and other non-lethal guns are acceptable"
 			if(6)
 				target = /obj/item/weapon/gun/energy
 				target_amount = 4
@@ -796,12 +797,52 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			return 1
 		return 0
 
-#define MAX_VOX_KILLS 10 //Number of kills during the round before the Inviolate is broken.
-						 //Would be nice to use vox-specific kills but is currently not feasible.
-var/global/vox_kills = 0 //Used to check the Inviolate.
-
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
-	check_completion()
-		if(vox_kills > MAX_VOX_KILLS) return 0
-		return 1
+	completed = 1
+
+// Traders
+
+/datum/objective/trade // Yes, I know there's no check_completion. The objectives exist only to tell the traders what to get.
+/datum/objective/trade/proc/choose_target(var/station)
+	return
+
+/datum/objective/trade/stock // Stock or spare parts.
+	var/target_rating = 1
+/datum/objective/trade/stock/choose_target(var/station)
+	var/itemname
+	switch(rand(1,8))
+		if(1)
+			target = /obj/item/weapon/stock_parts/cell
+			target_amount = 10
+			target_rating = 3
+			itemname = "ten high-capacity power cells"
+		if(2)
+			target = /obj/item/weapon/stock_parts/manipulator
+			target_amount = 20
+			itemname = "twenty micro manipulators"
+		if(3)
+			target = /obj/item/weapon/stock_parts/matter_bin
+			target_amount = 20
+			itemname = "twenty matter bins"
+		if(4)
+			target = /obj/item/weapon/stock_parts/micro_laser
+			target_amount = 15
+			itemname = "fifteen micro-lasers"
+		if(5)
+			target = /obj/item/weapon/stock_parts/capacitor
+			target_amount = 15
+			itemname = "fifteen capacitors"
+		if(6)
+			target = /obj/item/weapon/stock_parts/subspace/filter
+			target_amount = 4
+			itemname = "four hyperwave filters"
+		if(7)
+			target = /obj/item/solar_assembly
+			target_amount = 10
+			itemname = "ten solar panel assemblies"
+		if(8)
+			target = /obj/item/device/flash
+			target_amount = 6
+			itemname = "six flashes"
+	explanation_text = "We are running low on spare parts. Trade for [itemname]."
