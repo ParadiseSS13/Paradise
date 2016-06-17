@@ -121,8 +121,11 @@
 
 	//Default hair/headacc style vars.
 	var/default_hair = "Bald" 		//Default hair style for newly created humans unless otherwise set.
+	var/default_hair_colour
 	var/default_fhair = "Shaved"	//Default facial hair style for newly created humans unless otherwise set.
+	var/default_fhair_colour
 	var/default_headacc = "None"	//Default head accessory style for newly created humans unless otherwise set.
+	var/default_headacc_colour
 
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()

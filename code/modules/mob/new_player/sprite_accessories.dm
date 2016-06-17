@@ -854,79 +854,66 @@
 		name = "Short Vox Quills"
 		icon_state = "vox_shortquills"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_crestedquills
 		name = "Crested Vox Quills"
 		icon_state = "vox_crestedquills"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_tielquills
 		name = "Vox Tiel Quills"
 		icon_state = "vox_tielquills"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_emperorquills
 		name = "Vox Emperor Quills"
 		icon_state = "vox_emperorquills"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_keelquills
 		name = "Vox Keel Quills"
 		icon_state = "vox_keelquills"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_keetquills
 		name = "Vox Keet Quills"
 		icon_state = "vox_keetquills"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_quills_kingly
 		name = "Kingly Vox Quills"
 		icon_state = "vox_kingly"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_quills_fluff
 		name = "Fluffy Vox Quills"
 		icon_state = "vox_afro"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_quills_mohawk
 		name = "Vox Quill Mohawk"
 		icon_state = "vox_mohawk"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_quills_long
 		name = "Long Vox Quills"
 		icon_state = "vox_yasu"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_horns
 		name = "Vox Spikes"
 		icon_state = "vox_horns"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_nights
 		name = "Vox Pigtails"
 		icon_state = "vox_nights"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_razor
 		name = "Vox Razorback"
 		icon_state = "vox_razor"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 // Apollo-specific
 
@@ -1014,25 +1001,21 @@
 		name = "Vox Colonel Beard"
 		icon_state = "vox_colonel"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_long
 		name = "Long Mustache"
 		icon_state = "vox_fu"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_neck
 		name = "Neck Quills"
 		icon_state = "vox_neck"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 	vox_beard
 		name = "Vox Quill Beard"
 		icon_state = "vox_beard"
 		species_allowed = list("Vox")
-		do_colouration = 0
 
 //Vulpkanin
 
