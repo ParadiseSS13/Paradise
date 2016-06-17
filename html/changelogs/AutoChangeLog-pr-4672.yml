@@ -1,0 +1,5 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - tweak: "The defense values on the riot armor helmet is now identical to those on the riot armor suit."
+  - tweak: "Knight armor (including the chaplain's crusader armor) now has a slowdown of 1 instead of no slowdown."
