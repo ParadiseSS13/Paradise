@@ -341,7 +341,7 @@ var/list/uplink_items = list()
 	reference = "SPI"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
-	cost = 9
+	cost = 4
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
@@ -693,7 +693,7 @@ var/list/uplink_items = list()
 	desc = "Fitted for use on any small caliber weapon with a threaded barrel, this suppressor will silence the shots of the weapon for increased stealth and superior ambushing capability."
 	reference = "US"
 	item = /obj/item/weapon/suppressor
-	cost = 3
+	cost = 1
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/pizza_bomb
