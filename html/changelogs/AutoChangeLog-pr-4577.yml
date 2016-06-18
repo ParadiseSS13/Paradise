@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes ice being unobtainable for the jobs that use it most"

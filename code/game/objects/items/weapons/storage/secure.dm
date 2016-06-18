@@ -156,14 +156,19 @@
 // -----------------------------
 /obj/item/weapon/storage/secure/briefcase
 	name = "secure briefcase"
+	desc = "A large briefcase with a digital locking system."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "secure"
 	item_state = "sec-case"
-	desc = "A large briefcase with a digital locking system."
+	flags = CONDUCT
+	hitsound = "swing_hit"
 	force = 8.0
-	throw_speed = 1
+	throw_speed = 2
 	throw_range = 4
 	w_class = 4.0
+	max_w_class = 3
+	max_combined_w_class = 21
+	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 	New()
 		..()

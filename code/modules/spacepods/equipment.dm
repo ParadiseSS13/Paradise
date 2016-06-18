@@ -44,7 +44,7 @@
 
 /datum/spacepod/equipment
 	var/obj/spacepod/my_atom
-	var/list/obj/item/device/spacepod_equipment/installed_modules // holds an easy to access list of installed modules
+	var/list/obj/item/device/spacepod_equipment/installed_modules = list() // holds an easy to access list of installed modules
 
 	var/obj/item/device/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/device/spacepod_equipment/misc/misc_system // misc system
