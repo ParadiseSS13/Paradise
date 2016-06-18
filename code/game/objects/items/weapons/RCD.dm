@@ -44,7 +44,7 @@ RCD
 
 /obj/item/weapon/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-	src.spark_system = new /datum/effect/system/spark_spread
+	spark_system = new /datum/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	rcd_list += src
@@ -69,7 +69,7 @@ RCD
 		matter += R.ammoamt
 		user.drop_item()
 		qdel(W)
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
 		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 		nanomanager.update_uis(src)
@@ -109,7 +109,7 @@ RCD
 		return 1
 	
 	if(prob(20))
-		src.spark_system.start()
+		spark_system.start()
 	
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
@@ -143,7 +143,7 @@ RCD
 		. = 1
 
 /obj/item/weapon/rcd/proc/activate()
-	playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+	playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 
 
 /obj/item/weapon/rcd/afterattack(atom/A, mob/user, proximity)
@@ -167,7 +167,7 @@ RCD
 			if(istype(A, /turf/simulated/floor))
 				if(checkResource(3, user))
 					to_chat(user, "Building Wall ...")
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 20, target = A))
 						if(!useResource(3, user)) return 0
 						activate()
@@ -180,7 +180,7 @@ RCD
 			if(istype(A, /turf/simulated/floor))
 				if(checkResource(10, user))
 					to_chat(user, "Building Airlock...")
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 50, target = A))
 						if(!useResource(10, user)) return 0
 						activate()
@@ -200,7 +200,7 @@ RCD
 					return 0
 				if(checkResource(5, user))
 					to_chat(user, "Deconstructing Wall...")
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 40, target = A))
 						if(!useResource(5, user)) return 0
 						activate()
@@ -212,7 +212,7 @@ RCD
 			if(istype(A, /turf/simulated/floor))
 				if(checkResource(5, user))
 					to_chat(user, "Deconstructing Floor...")
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 50, target = A))
 						if(!useResource(5, user)) return 0
 						activate()
@@ -224,7 +224,7 @@ RCD
 			if(istype(A, /obj/machinery/door/airlock))
 				if(checkResource(20, user))
 					to_chat(user, "Deconstructing Airlock...")
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 50, target = A))
 						if(!useResource(20, user)) return 0
 						activate()
@@ -239,7 +239,7 @@ RCD
 				if(!checkResource(2, user))
 					return 0
 				to_chat(user, "Deconstructing window...")
-				playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+				playsound(loc, 'sound/machines/click.ogg', 50, 1)
 				if(!do_after(user, 20, target = A))
 					return 0
 				if(locate(/obj/structure/window/full/shuttle) in A.contents)
@@ -276,7 +276,7 @@ RCD
 				if(!checkResource(2, user))
 					return 0
 				to_chat(user, "Constructing window...")
-				playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+				playsound(loc, 'sound/machines/click.ogg', 50, 1)
 				if(!do_after(user, 20, target = A))
 					return 0
 				if(locate(/obj/structure/grille) in A.contents)
