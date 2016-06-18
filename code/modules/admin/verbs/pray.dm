@@ -18,8 +18,6 @@
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
-			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
 	to_chat(usr, "Your prayers have been received by the gods.")
 
 	feedback_add_details("admin_verb","PR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

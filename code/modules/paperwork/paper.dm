@@ -674,35 +674,30 @@
 	return
 
 /obj/item/weapon/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
-	if (myeffect == "borging")
-		target.ForceContractDisease(new /datum/disease/transformation/robot(0))
-	else if (myeffect == "corgifying")
-		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
-	else if (myeffect == "explosive")
-		var/turf/simulated/floor/T = get_turf(target)
-		if (istype(T))
-			T.break_tile_to_plating()
-		var/obj/effect/stop/S
-		S = new /obj/effect/stop
-		S.victim = target
-		S.loc = target.loc
-		spawn(20)
-			qdel(S)
-		target.adjustBruteLoss(target.health)
-	else if (myeffect == "memetickillagent")
-		to_chat(target,"<span class='userdanger'>A series of bright lights flash across your vision: MEMETIC KILL AGENT YHWH-3 ACTIVATED</span>")
-		target.mutations.Add(NOCLONE)
-		target.adjustBrainLoss(125)
-	else if (myeffect == "honktumor")
-		if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
-			new /obj/item/organ/internal/honktumor(target)
-	else if (myeffect == "demotion")
-		command_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
-	else
-		message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
-	used = 1
-	evilpaper_selfdestruct()
+	spawn(30)
+		if (istype(target,/mob/living/carbon))
+			if (myeffect == "borging")
+				target.ForceContractDisease(new /datum/disease/transformation/robot(0))
+			else if (myeffect == "corgifying")
+				target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+			else if (myeffect == "firedeath")
+				var/turf/simulated/T = get_turf(target)
+				new /obj/effect/hotspot(T)
+				target.adjustFireLoss(target.health)
+			else if (myeffect == "braindeath")
+				to_chat(target,"<span class='userdanger'>A series of bright lights flash across your vision: COGNITOHAZARD YHWH-3 ACTIVATED</span>")
+				target.mutations.Add(NOCLONE)
+				target.adjustBrainLoss(125)
+			else if (myeffect == "honktumor")
+				if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
+					new /obj/item/organ/internal/honktumor(target)
+			else if (myeffect == "demotion")
+				command_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+			else
+				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
+		used = 1
+		evilpaper_selfdestruct()
 
 /obj/item/weapon/paper/evilfax/proc/evilpaper_selfdestruct()
-	visible_message("[src] spontaneously catches fire, and burns up!")
+	visible_message("<span class='danger'>[src] spontaneously catches fire, and burns up!</span>")
 	qdel(src)
