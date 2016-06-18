@@ -92,10 +92,6 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 
 
 /obj/singularity/energy_ball/proc/handle_energy()
-	if(energy<=0)
-		investigate_log("collapsed.","singulo")
-		qdel(src)
-		return 0
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20
 		energy_to_raise = energy_to_raise * 1.5
@@ -123,8 +119,6 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 
 	else if(orbiting_balls.len)
 		energy -= orbiting_balls.len * 0.5
-	else
-		energy -= 0.5
 	return 1
 
 /obj/singularity/energy_ball/Bump(atom/A)
@@ -152,7 +146,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 
 /proc/tesla_zap(var/atom/source, zap_range = 3, power)
 	. = source.dir
-	if(power < 1000)
+	if(power < 100)
 		return
 
 	var/closest_dist = 0
@@ -235,7 +229,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 		closest_grounding_rod.tesla_act(power)
 
 	else if(closest_mob)
-		var/shock_damage = Clamp(round(power/400), 10, 90) + rand(-5, 5)
+		var/shock_damage = Clamp(round(power/40), 10, 90) + rand(-5, 5)
 		closest_mob.electrocute_act(shock_damage, source, 1, tesla_shock = 1)
 		if(istype(closest_mob, /mob/living/silicon))
 			var/mob/living/silicon/S = closest_mob
