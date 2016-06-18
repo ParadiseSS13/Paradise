@@ -8858,7 +8858,7 @@
 "dor" = (/obj/effect/spawner/window/reinforced,/turf/simulated/wall,/area/maintenance/aft)
 "dos" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/plating,/area/maintenance/aft)
 "dot" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating,/area/maintenance/aft)
-"dou" = (/obj/machinery/power/apc{name = "Aft Maintenance APC"; pixel_x = -24},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plating,/area/maintenance/aft)
+"dou" = (/obj/machinery/power/apc{dir = 8; name = "Aft Maintenance APC"; pixel_x = -24},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plating,/area/maintenance/aft)
 "dov" = (/obj/structure/closet/wardrobe/black,/obj/machinery/camera{c_tag = "Aft Port Solar Access"; dir = 1; network = list("SS13")},/obj/effect/spawner/lootdrop/maintenance{lootcount = 2; name = "2maintenance loot spawner"},/obj/structure/sign/securearea{desc = "A warning sign which reads 'HIGH VOLTAGE'"; icon_state = "shock"; name = "HIGH VOLTAGE"; pixel_x = 0; pixel_y = -32},/turf/simulated/floor/plating,/area/maintenance/aft)
 
 (1,1,1) = {"
