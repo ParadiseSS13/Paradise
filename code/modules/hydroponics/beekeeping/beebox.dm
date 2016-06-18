@@ -37,6 +37,9 @@
 	icon_state = "beebox"
 	anchored = 1
 	density = 1
+
+//	hud_possible = list (PLANT_HONEY_HUD)
+
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen_bee = null
 	var/list/bees = list() //bees owned by the box, not those inside it
 	var/list/honeycombs = list()

@@ -133,4 +133,10 @@
 		harvest()
 
 	check_health()
+// No idea what happens in here so sticking all these here for now
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
+	plant_hud_set_toxin()
+	plant_hud_set_pest()
+	plant_hud_set_weed()
 	return

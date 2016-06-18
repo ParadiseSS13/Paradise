@@ -7,6 +7,8 @@
 	flags = OPENCONTAINER
 	volume = 100
 
+	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD, PLANT_HONEY_HUD)
+
 	var/mechanical = 1         // Set to 0 to stop it from drawing the alert lights.
 	var/base_name = "tray"
 
@@ -129,6 +131,8 @@
 	maxnutri = tmp_capacity * 5 // Up to 30
 	//waterlevel = maxwater
 	//nutrilevel = 3
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
 
 /obj/machinery/portable_atmospherics/hydroponics/bullet_act(var/obj/item/projectile/Proj)
 
@@ -161,12 +165,16 @@
 		die()
 	check_level_sanity()
 	update_icon()
+	plant_hud_set_status()
+	plant_hud_set_health()
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/die()
 	dead = 1
 	harvest = 0
 	weedlevel += 1 * HYDRO_SPEED_MULTIPLIER
 	pestlevel = 0
+	plant_hud_set_status()
+	plant_hud_set_health()
 
 //Harvests the product of a plant.
 /obj/machinery/portable_atmospherics/hydroponics/proc/harvest(var/mob/user)
@@ -244,6 +252,9 @@
 	pestlevel = 0
 	sampled = 0
 	update_icon()
+	plant_hud_set_weed()
+	plant_hud_set_status()
+	plant_hud_set_health()
 	visible_message("<span class='notice'>[src] has been overtaken by [seed.display_name].</span>")
 
 	return
@@ -402,6 +413,14 @@
 	toxins =		max(0,min(toxins,10))
 	yield_mod =		min(100, yield_mod)
 
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
+	plant_hud_set_status()
+	plant_hud_set_health()
+	plant_hud_set_toxin()
+	plant_hud_set_pest()
+	plant_hud_set_weed()
+
 /obj/machinery/portable_atmospherics/hydroponics/proc/mutate_species()
 
 	var/previous_plant = seed.display_name
@@ -419,6 +438,9 @@
 	lastproduce = 0
 	harvest = 0
 	weedlevel = 0
+
+	plant_hud_set_health()
+	plant_hud_set_weed()
 
 	update_icon()
 	visible_message("\red The \blue [previous_plant] \red has suddenly mutated into \blue [seed.display_name]!")
