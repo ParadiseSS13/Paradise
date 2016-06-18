@@ -104,14 +104,14 @@ var/list/ghostteleportlocs = list()
 	name = "Admin Room"
 	icon_state = "start"
 	requires_power = 0
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 
 /area/adminconstruction
 	name = "Admin Testing Area"
 	icon_state = "start"
 	requires_power = 0
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 /area/space
 	icon_state = "space"
@@ -459,7 +459,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "start"
 	requires_power = 0
 	luminosity = 1
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 	has_gravity = 1
 
 // === end remove
@@ -475,7 +475,7 @@ var/list/ghostteleportlocs = list()
 	name = "Centcom"
 	icon_state = "centcom"
 	requires_power = 0
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 /area/centcom/control
 	name = "Centcom Control"
@@ -551,7 +551,7 @@ var/list/ghostteleportlocs = list()
 	name = "Thunderdome"
 	icon_state = "thunder"
 	requires_power = 0
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 
 /area/tdome/arena_source
@@ -636,7 +636,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "yellow"
 	requires_power = 0
 	has_gravity = 1
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 /area/wizard_station
 	name = "Wizard's Den"
@@ -659,7 +659,7 @@ var/list/ghostteleportlocs = list()
 	name = "Vox Base"
 	icon_state = "yellow"
 	requires_power = 0
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 	no_teleportlocs = 1
 
 /area/vox_station/transit
@@ -1212,7 +1212,7 @@ var/list/ghostteleportlocs = list()
 /area/holodeck
 	name = "Holodeck"
 	icon_state = "Holodeck"
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 /area/holodeck/alphadeck
 	name = "Holodeck Alpha"
@@ -1349,7 +1349,7 @@ var/list/ghostteleportlocs = list()
 
 /area/solar
 	requires_power = 0
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 	auxport
 		name = "Fore Port Solar Array"
@@ -2244,25 +2244,25 @@ area/security/podbay
 	name = "AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 /area/turret_protected/AIsatextFS
 	name = "AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 /area/turret_protected/AIsatextAS
 	name = "AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 /area/turret_protected/AIsatextAP
 	name = "AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 
 /area/turret_protected/NewAIMain
 	name = "AI Main New"
@@ -2439,7 +2439,7 @@ area/security/podbay
 	name = "Beach"
 	icon_state = "beach"
 	luminosity = 1
-	dynamic_lighting = 0
+	lighting_use_dynamic = 0
 	requires_power = 0
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
 
