@@ -8833,7 +8833,7 @@
 "dnS" = (/obj/item/weapon/table_parts,/turf/simulated/floor/plasteel,/area/maintenance/consarea)
 "dnT" = (/obj/item/stack/rods{amount = 8},/turf/simulated/floor/plating,/area/maintenance/consarea)
 "dnU" = (/obj/machinery/light,/turf/simulated/floor/plating,/area/maintenance/consarea)
-"dnV" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "Alternate Construction Area APC"},/turf/simulated/floor/plating,/area/maintenance/consarea)
+"dnV" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "Alternate Construction Area APC"; pixel_x = 25},/turf/simulated/floor/plating,/area/maintenance/consarea)
 "dnW" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'."; name = "KEEP CLEAR: DOCKING AREA"; pixel_y = 0},/turf/simulated/wall/r_wall,/area/engine/mechanic_workshop)
 "dnX" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/door/firedoor,/obj/machinery/door/airlock/maintenance,/turf/simulated/floor/plating,/area/maintenance/aft)
 "dnY" = (/turf/simulated/wall/r_wall,/area/maintenance/consarea)
