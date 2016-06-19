@@ -26,7 +26,7 @@ NanoTransition = function() {
 		if(merge === undefined)
 			merge = false;
 
-		var element = document.getElementsByClassName(id);
+		var element = $("." + id);
 		if(element.length == 0)
 			return newState;
 

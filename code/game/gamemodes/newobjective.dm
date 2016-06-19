@@ -651,32 +651,7 @@ datum
 						return 10
 					else
 						return 20
-
-
-			RCD
-				steal_target = /obj/item/weapon/rcd
-				explanation_text = "Steal a rapid construction device."
-				weight = 20
-
-				get_points(var/job)
-					switch(GetRank(job))
-						if(0)
-							return 75
-						if(1)
-							return 60
-						if(2)
-							return 50
-						if(3)
-							return 30
-						if(4)
-							return 20
-
-				get_weight(var/job)
-					if(GetRank(job) == 4)
-						return 10
-					else
-						return 20
-
+						
 
 			/*burger
 				steal_target = /obj/item/weapon/reagent_containers/food/snacks/human/burger

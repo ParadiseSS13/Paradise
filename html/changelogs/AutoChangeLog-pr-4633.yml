@@ -1,0 +1,4 @@
+author: monster860
+delete-after: True
+changes: 
+  - tweak: "Makes stock parts build 5x faster"

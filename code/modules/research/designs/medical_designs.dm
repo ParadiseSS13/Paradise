@@ -280,6 +280,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/brain/anti_stun
 	category = list("Misc", "Medical")
 
+/datum/design/cyberimp_clownvoice
+	name = "Comical implant"
+	desc = "<span class='sans'>Uh oh.</span>"
+	id = "ci-clownvoice"
+	req_tech = list("materials" = 2, "biotech" = 2)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_BANANIUM = 200)
+	build_path = /obj/item/organ/internal/cyberimp/brain/clown_voice
+	category = list("Misc", "Medical")
+
 /datum/design/cyberimp_nutriment
 	name = "Nutriment pump implant"
 	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."

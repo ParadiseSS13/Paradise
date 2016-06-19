@@ -24,7 +24,8 @@
 
 
 /mob/new_player/proc/new_player_panel_proc()
-	var/output = "<center><p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A></p>"
+	var/real_name = client.prefs.real_name
+	var/output = "<center><p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)	output += "<p><a href='byond://?src=\ref[src];ready=1'>Declare Ready</A></p>"
@@ -452,7 +453,7 @@
 	var/datum/language/chosen_language
 	if(client.prefs.language)
 		chosen_language = all_languages[client.prefs.language]
-	if((chosen_language == null && chosen_language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
+	if((chosen_language == null && client.prefs.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
 		log_debug("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
 		client.prefs.language = "None"
 
