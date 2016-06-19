@@ -187,3 +187,5 @@
 	else
 		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
 
+/image
+	plane = FLOAT_PLANE // I have no fucking clue why this isn't FLOAT_PLANE by default in BYOND.
