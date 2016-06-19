@@ -98,8 +98,12 @@
 			return "health7"
 		if(1 to 7)
 			return "health1"
-		if(-99 to 1)
+		if(-50 to 1)
 			return "health0"
+		if(-85 to -50)
+			return "health-50"
+		if(-99 to -85)
+			return "health-85"
 		else
 			return "health-100"
 	return "0"
