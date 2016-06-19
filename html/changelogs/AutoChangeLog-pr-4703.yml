@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Clonepods will automatically suck in nearby meat"
+  - rscadd: "Slime processors will automatically suck in nearby dead slimes"
