@@ -334,7 +334,7 @@
 
 /datum/emote/dap/addTarget(var/mob/user, var/list/params, var/message = "")
 	if(!params["target"] || params["target"] == user)
-		message = "<span class = '[userSpanClass]'>[user]</span> sadly can't find anybody to give daps to, and daps \himself. Shameful"
+		message = "<span class='[userSpanClass]'>[user]</span> sadly can't find anybody to give daps to, and daps \himself. Shameful"
 		return message
 	return ..()
 
@@ -362,7 +362,7 @@
 
 /datum/emote/deathgasp/human/standardMessage(var/mob/user, var/list/params)
 	var/mob/living/carbon/human/U = user
-	var/message = "<span class = '[userSpanClass]'>\The [user]</span> [U.species.death_message]"
+	var/message = "<span class='[userSpanClass]'>\The [user]</span> [U.species.death_message]"
 	return message
 
 /datum/emote/deathgasp/human/createSelfMessage(var/mob/user, var/list/params, var/message)
@@ -460,13 +460,11 @@
 
 /datum/emote/fart/standardMessage(var/mob/user)
 	var/message
-	if(SUPER_FART in user.mutations)
-		return			// super fart will make the message when triggered
 
 	if(TOXIC_FARTS in user.mutations)
-		message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart</span>"
+		message = "<span class='[emoteSpanClass]'><span class='[userSpanClass]'>\The [user]</span> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart</span>"
 		return message
-	message = "<span class = '[emoteSpanClass]'><span class = '[userSpanClass]'>\The [user]</span> [pick("passes wind","farts")]</span>"
+	message = "<span class='[emoteSpanClass]'><span class='[userSpanClass]'>\The [user]</span> [pick("passes wind","farts")]</span>"
 	return message
 
 /datum/emote/fart/createSelfMessage(var/mob/user, var/list/params, var/message)
@@ -478,23 +476,13 @@
 /datum/emote/fart/doAction(var/mob/user)
 	if(TOXIC_FARTS in user.mutations)
 		for(var/mob/M in range(get_turf(user),2))
-			if (M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
+			if(M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
 				continue
-			if (M == user)
+			if(M == user)
 				continue
-			M.reagents.add_reagent("space_drugs",rand(1,10))
-
-	if(SUPER_FART in user.mutations)
-		var/mob/living/U = user
-		for(var/datum/action/spell_action/spell in U.actions)
-			if (spell.name == "Super Fart")
-				spell.Trigger()
-				break
+			M.reagents.add_reagent("jenkem", 1)
 
 	if(locate(/obj/item/weapon/storage/bible) in get_turf(user))
-		if(SUPER_FART in user.mutations)
-			sleep(30)			// need to wait for them to finish the super fart before gibbing them
-
 		to_chat(viewers(user), "<span class='warning'><b>[user] farted on the Bible!</b></span>")
 		to_chat(viewers(user), "<span class='notice'><b>A mysterious force smites [user]!</b></span>")
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -518,7 +506,7 @@
 		return 1
 
 /datum/emote/flap/standardMessage(var/mob/user, var/list/params)
-	var/message = "<span class = '[userSpanClass]'>\The [user]</span> [text] \his wings"
+	var/message = "<span class='[userSpanClass]'>\The [user]</span> [text] \his wings"
 	return message
 
 /datum/emote/flap/angry
@@ -566,7 +554,7 @@
 /datum/emote/flip/createMessage(var/mob/user, var/list/params)
 	var/message = ""
 	if(user.lying || user.weakened)
-		message = "<span class = '[userSpanClass]'>\The [user]</span> flops and flails around on the floor"
+		message = "<span class='[userSpanClass]'>\The [user]</span> flops and flails around on the floor"
 	else
 		message = ..()
 	return message
@@ -600,7 +588,7 @@
 	var/obj/item/weapon/grab/G = user.get_active_hand()
 	if(istype(G) && G.affecting && !G.affecting.buckled)
 		params["target"] = G.affecting
-		message = "<span class = '[userSpanClass]'>\The [user]</span> [text] over [params["target"]]!"
+		message = "<span class='[userSpanClass]'>\The [user]</span> [text] over [params["target"]]!"
 		return message
 	return ..()
 
@@ -745,7 +733,7 @@
 	if(.)
 		return
 	var/mob/living/silicon/robot/U = user
-	if (!(istype(U.module, /obj/item/weapon/robot_module/security)))
+	if(!(istype(U.module, /obj/item/weapon/robot_module/security)))
 		return "you are not security"
 
 /datum/emote/handshake
@@ -772,7 +760,7 @@
 /datum/emote/handshake/addTarget(var/mob/user, var/list/params, var/message)
 	var/mob/target = params["target"]
 	if(target.r_hand)
-		message = "<span class = '[userSpanClass]'>\The [user] holds out his hand to [params["target"]]"
+		message = "<span class='[userSpanClass]'>\The [user] holds out his hand to [params["target"]]"
 		return message
 	return ..()
 
@@ -914,7 +902,7 @@
 	if(.)
 		return
 	var/mob/living/silicon/robot/U = user
-	if (!(istype(U.module, /obj/item/weapon/robot_module/security)))
+	if(!(istype(U.module, /obj/item/weapon/robot_module/security)))
 		return "You are not THE LAW, pal"
 
 /datum/emote/light
@@ -1290,7 +1278,7 @@
 	return number
 
 /datum/emote/sign/paramMessage(var/mob/user, var/list/params)
-	var/message = "<span class = '[userSpanClass]'>\The [user]</span> [text] [params["num"]]"
+	var/message = "<span class='[userSpanClass]'>\The [user]</span> [text] [params["num"]]"
 	return message
 
 /datum/emote/sign/fingers
@@ -1317,7 +1305,7 @@
 	return number
 
 /datum/emote/sign/fingers/paramMessage(var/mob/user, var/list/params)
-	var/message = "<span class = '[userSpanClass]'>\The [user]</span> [text] [params["num"]] finger\s"	// no, we can't just add " finger\s" to the parent version because the text macro won't work then :( VB
+	var/message = "<span class='[userSpanClass]'>\The [user]</span> [text] [params["num"]] finger\s"	// no, we can't just add " finger\s" to the parent version because the text macro won't work then :( VB
 	return message
 
 /datum/emote/slap
@@ -1331,6 +1319,10 @@
 	canTarget = 1
 	targetMob = 1
 	targetText = ""
+
+/datum/emote/slap/New()
+	..()
+	cooldown = 0
 
 /datum/emote/slap/available(var/mob/user)
 	if(ishuman(user))
@@ -1392,7 +1384,7 @@
 	if(R && (!(R.status & ORGAN_DESTROYED)) && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
 		right_hand_good = 1
 
-	if (!left_hand_good && !right_hand_good)
+	if(!left_hand_good && !right_hand_good)
 		return "You need at least one hand in good working order to snap your fingers"
 
 /datum/emote/snap/standardMessage(var/mob/user, var/list/params)

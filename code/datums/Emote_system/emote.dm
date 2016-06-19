@@ -89,8 +89,8 @@ VampyrBytes
 
 	doAction(user, params)
 
-	for (var/obj/item/weapon/implant/I in user)
-		if (I.implanted)
+	for(var/obj/item/weapon/implant/I in user)
+		if(I.implanted)
 			I.trigger(command, user)
 
 	return
@@ -198,7 +198,7 @@ VampyrBytes
 	if(!isliving(user))
 		return
 	var/mob/living/L = user
-	if (L.silent)
+	if(L.silent)
 		return 1
 
 /datum/emote/proc/checkForParams(var/list/params)
@@ -212,11 +212,11 @@ VampyrBytes
 		return
 	if(startText)
 		message = "[startText] [message]"
-	message = "<span class = '[emoteSpanClass]'>[message]</span>"
+	message = "<span class='[emoteSpanClass]'>[message]</span>"
 	return message
 
 /datum/emote/proc/standardMessage(var/mob/user, var/list/params)
-	var/message = "<span class = '[userSpanClass]'>\The [user]</span> [text]"
+	var/message = "<span class='[userSpanClass]'>\The [user]</span> [text]"
 	if("target" in params)
 		message = addTarget(user, params, message)
 	return message
@@ -226,13 +226,13 @@ VampyrBytes
 		return
 	if(checkForParams(params))
 		return paramMimeMessage(user, params)
-	var/message = "<span class = '[userSpanClass]'>\The [user]</span> [mimeText]"
+	var/message = "<span class='[userSpanClass]'>\The [user]</span> [mimeText]"
 	if(message && "target" in params)
 		message = addTarget(user, params, message)
 	return message
 
 /datum/emote/proc/muzzleMessage(var/mob/user, var/list/params)
-	var/message = "<span class = '[userSpanClass]'>\The [user]</span> makes a "
+	var/message = "<span class='[userSpanClass]'>\The [user]</span> makes a "
 	if(muzzledNoise)
 		message += "[muzzledNoise] "
 	message += "noise"
@@ -287,6 +287,7 @@ VampyrBytes
 
 /datum/emote/proc/processMessage(var/mob/user, var/list/params, var/message = "")
 	var/visualOrAudible = audible + 1
+	testing("message = [message]")
 	if(doMime(user))
 		visualOrAudible = 1
 
@@ -301,10 +302,10 @@ VampyrBytes
 				outputMessage(M, msg)
 				continue
 
-		if(M.stat == UNCONSCIOUS || (M.sleeping > 0 && M.stat != 2))
-			if (!visualOrAudible == 2)
+		if(M.stat == UNCONSCIOUS || (M.sleeping && M.stat != DEAD))
+			if(!visualOrAudible == 2)
 				continue
-			msg = "<span class = 'italics'>... You can almost hear someone talking ...</span>"
+			msg = "<span class='italics'>... You can almost hear someone talking ...</span>"
 			outputMessage(M, msg)
 			continue
 
@@ -388,7 +389,7 @@ VampyrBytes
 //non-audible emotes and the standard message for audible ones
 /datum/emote/proc/createBlindMessage(var/mob/user, var/list/params, var/message)
 	if(audible && selfText)
-		return "<span class = '[userSpanClass]'>You</span> hear someone [selfText]"
+		return "<span class='[userSpanClass]'>You</span> hear someone [selfText]"
 
 // set up different messages for deaf people here. Empty will mean no message for
 // audible emotes and standard for non-audible ones

@@ -43,7 +43,7 @@
 			return 0
 
 	if(!commands[command] && !(command == "me"))
-		to_chat(owner, "<span class = 'notice'>Unknown emote, please check *help for emotes available to your character</span>")
+		to_chat(owner, "<span class='notice'>Unknown emote, please check *help for emotes available to your character</span>")
 		return 0
 
 	if(!emote)
@@ -55,14 +55,14 @@
 
 	var/prevented = emote.prevented(owner)
 	if(prevented)
-		to_chat(owner, "<span class = 'notice'>You can't do that because [prevented]!</span>")
+		to_chat(owner, "<span class='notice'>You can't do that because [prevented]!</span>")
 		return 0
 	return emote.doEmote(owner, command)
 
 /datum/emoteHandler/proc/showCommands()
 	var/emoteList = "Available emotes are "
 	var/commandAdded = 0
-	for (var/c in commands)
+	for(var/c in commands)
 		if(commandAdded)
 			emoteList += ", "
 		emoteList += c
