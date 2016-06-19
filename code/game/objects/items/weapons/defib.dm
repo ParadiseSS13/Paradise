@@ -331,6 +331,8 @@
 			H.updatehealth() //forces health update before next life tick
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
+			if(!H.heart_attack && (prob(10) || defib.combat)) // Your heart explodes.
+				H.heart_attack = 1
 			add_logs(M, user, "stunned", object="defibrillator")
 			defib.deductcharge(revivecost)
 			cooldown = 1
@@ -354,8 +356,8 @@
 					qdel(ghost)
 					ghost = null
 				var/tplus = world.time - H.timeofdeath
-				var/tlimit = 6000 //past this much time the patient is unrecoverable (in deciseconds)
-				var/tloss = 3000 //brain damage starts setting in on the patient after some time left rotting
+				var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
+				var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 				var/total_burn	= 0
 				var/total_brute	= 0
 				if(do_after(user, 20, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
@@ -470,6 +472,8 @@
 			H.adjustStaminaLoss(50)
 			H.Weaken(5)
 			H.updatehealth() //forces health update before next life tick
+			if(!H.heart_attack && prob(10)) // Your heart explodes.
+				H.heart_attack = 1
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			add_logs(M, user, "stunned", object="defibrillator")
@@ -499,8 +503,8 @@
 					qdel(ghost)
 					ghost = null
 				var/tplus = world.time - H.timeofdeath
-				var/tlimit = 6000 //past this much time the patient is unrecoverable (in deciseconds)
-				var/tloss = 3000 //brain damage starts setting in on the patient after some time left rotting
+				var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
+				var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 				var/total_burn	= 0
 				var/total_brute	= 0
 				if(do_after(user, 20, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total

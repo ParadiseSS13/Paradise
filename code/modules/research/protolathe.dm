@@ -41,7 +41,7 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
-	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1))
+	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1, MAT_TRANQUILLITE=1))
 	RefreshParts()
 
 	reagents.my_atom = src

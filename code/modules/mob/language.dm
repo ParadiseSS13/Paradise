@@ -213,7 +213,7 @@
 	colour = "vox"
 	key = "v"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya","chi","cha","kah", \
+	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya", "yi", "chi","cha","kah", \
 	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
 
 /datum/language/vox/get_random_name()
@@ -278,7 +278,7 @@
 
 /datum/language/drask
 	name = "Orluum"
-	desc = "The droning, vibrous language of the Drask. It sounds somewhat like whalesong"
+	desc = "The droning, vibrous language of the Drask. It sounds somewhat like whalesong."
 	speech_verb = "drones"
 	ask_verb = "hums"
 	exclaim_verb = "rumbles"

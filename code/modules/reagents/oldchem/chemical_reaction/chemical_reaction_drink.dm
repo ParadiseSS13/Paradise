@@ -156,8 +156,8 @@
 	name = "Cuba Libre"
 	id = "cubalibre"
 	result = "cubalibre"
-	required_reagents = list("rum" = 2, "cola" = 1)
-	result_amount = 3
+	required_reagents = list("rum" = 2, "cola" = 2, "limejuice" = 1)
+	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/mojito

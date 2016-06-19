@@ -1,0 +1,6 @@
+author: FlattestGuitar
+delete-after: True
+changes: 
+  - tweak: "changes some alcohol values, the weaker ones are no longer as weak"
+  - tweak: "refactored alcohol, you can now take short breaks between sips and still pass out in a gentlemanly manner"
+  - tweak: "different species have different levels of alcohol resistance, check in with your bartender for more information"

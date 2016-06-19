@@ -46,6 +46,14 @@
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
 
+	paths = subtypesof(/datum/emote)
+	for(var/T in paths)
+		var/datum/emote/E = new T
+		if(istype(T, /datum/emote/custom))
+			continue
+		emotes += E
+
+
 	init_subtypes(/datum/table_recipe, table_recipes)
 	return 1
 

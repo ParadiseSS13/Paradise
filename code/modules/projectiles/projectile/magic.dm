@@ -12,6 +12,7 @@
 	icon_state = "pulse1_bl"
 	damage_type = BURN //OXY does not kill IPCs
 	damage = 50000
+	nodamage = 0
 
 /obj/item/projectile/magic/fireball
 	name = "bolt of fireball"
@@ -254,7 +255,10 @@ proc/wabbajack(mob/living/M)
 				qdel(src)
 		else
 			var/obj/O = change
-			new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
+			if(istype(O, /obj/item/weapon/gun))
+				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
+			else
+				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
 	else if(istype(change, /mob/living/simple_animal/hostile/mimic/copy))
 		// Change our allegiance!
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change

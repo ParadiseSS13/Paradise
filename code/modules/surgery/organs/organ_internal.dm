@@ -81,7 +81,7 @@
 	return ..()
 
 /obj/item/organ/internal/proc/prepare_eat()
-	if(robotic)
+	if(status == ORGAN_ROBOT)
 		return //no eating cybernetic implants!
 	var/obj/item/weapon/reagent_containers/food/snacks/organ/S = new
 	S.name = name
