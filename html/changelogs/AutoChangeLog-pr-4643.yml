@@ -1,5 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds in the ability to make latex glove balloons (cable coil+latex glove)"
-  - bugfix: "Fixes latex gloves not having an in-hand icon for the left hand"

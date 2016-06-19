@@ -80,7 +80,7 @@
 	recoil = 1
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
-	cell_type = "/obj/item/weapon/stock_parts/cell/super"
+	cell_type = /obj/item/weapon/stock_parts/cell/super
 	restricted_species = list("Vox Armalis")
 
 /obj/item/weapon/gun/energy/noisecannon/update_icon()

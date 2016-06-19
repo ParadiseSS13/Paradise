@@ -12,6 +12,8 @@
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
 	following_mobs = null
+	if(buckled)
+		buckled.unbuckle_mob()
 	return ..()
 
 /mob/New()
@@ -21,6 +23,7 @@
 	else
 		living_mob_list += src
 	prepare_huds()
+	emoteHandler = new /datum/emoteHandler(src)
 	..()
 
 /atom/proc/prepare_huds()
@@ -1093,6 +1096,9 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/Dizzy(amount)
 	dizziness = max(dizziness, amount, 0)
+
+/mob/proc/AdjustDrunk(amount)
+	drunk = max(drunk + amount, 0)
 
 /mob/proc/Stun(amount)
 	SetStunned(max(stunned, amount))

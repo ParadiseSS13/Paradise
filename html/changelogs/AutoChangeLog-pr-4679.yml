@@ -1,0 +1,5 @@
+author: Krausus
+delete-after: True
+changes: 
+  - rscadd: "Added a custom runtime error handler."
+  - rscadd: "Added an in-game runtime viewer."

@@ -50,42 +50,44 @@
 	damage_type = BURN
 	nodamage = 1
 	flag = "energy"
-	var/temperature = null
+	var/temperature = 300
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-/obj/item/projectile/temp/New()
-	spawn(1)
-		switch(temperature)
-			if(501 to INFINITY)
-				name = "searing beam"	//if emagged
-				icon_state = "temp_8"
-			if(400 to 500)
-				name = "burning beam"	//temp at which mobs start taking HEAT_DAMAGE_LEVEL_2
-				icon_state = "temp_7"
-			if(360 to 400)
-				name = "hot beam"		//temp at which mobs start taking HEAT_DAMAGE_LEVEL_1
-				icon_state = "temp_6"
-			if(335 to 360)
-				name = "warm beam"		//temp at which players get notified of their high body temp
-				icon_state = "temp_5"
-			if(295 to 335)
-				name = "ambient beam"
-				icon_state = "temp_4"
-			if(260 to 295)
-				name = "cool beam"		//temp at which players get notified of their low body temp
-				icon_state = "temp_3"
-			if(200 to 260)
-				name = "cold beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_1
-				icon_state = "temp_2"
-			if(120 to 260)
-				name = "ice beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_2
-				icon_state = "temp_1"
-			if(-INFINITY to 120)
-				name = "freeze beam"	//temp at which mobs start taking COLD_DAMAGE_LEVEL_3
-				icon_state = "temp_0"
-			else
-				name = "temperature beam"//failsafe
-				icon_state = "temp_4"
+/obj/item/projectile/temp/New(loc, shot_temp)
+	..(loc)
+	if(shot_temp)
+		temperature = shot_temp
+	switch(temperature)
+		if(501 to INFINITY)
+			name = "searing beam"	//if emagged
+			icon_state = "temp_8"
+		if(400 to 500)
+			name = "burning beam"	//temp at which mobs start taking HEAT_DAMAGE_LEVEL_2
+			icon_state = "temp_7"
+		if(360 to 400)
+			name = "hot beam"		//temp at which mobs start taking HEAT_DAMAGE_LEVEL_1
+			icon_state = "temp_6"
+		if(335 to 360)
+			name = "warm beam"		//temp at which players get notified of their high body temp
+			icon_state = "temp_5"
+		if(295 to 335)
+			name = "ambient beam"
+			icon_state = "temp_4"
+		if(260 to 295)
+			name = "cool beam"		//temp at which players get notified of their low body temp
+			icon_state = "temp_3"
+		if(200 to 260)
+			name = "cold beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_1
+			icon_state = "temp_2"
+		if(120 to 260)
+			name = "ice beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_2
+			icon_state = "temp_1"
+		if(-INFINITY to 120)
+			name = "freeze beam"	//temp at which mobs start taking COLD_DAMAGE_LEVEL_3
+			icon_state = "temp_0"
+		else
+			name = "temperature beam"//failsafe
+			icon_state = "temp_4"
 	..()
 
 
@@ -342,6 +344,11 @@ obj/item/projectile/kinetic/New()
 	nodamage = 1
 	var/teleport_target = null
 
+/obj/item/projectile/energy/teleport/New(loc, tele_target)
+	..(loc)
+	if(tele_target)
+		teleport_target = tele_target
+
 /obj/item/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
 	if(isliving(target))
 		if(teleport_target)
@@ -382,3 +389,31 @@ obj/item/projectile/kinetic/New()
 	var/throwdir = get_dir(firer,target)
 	T.throw_at(get_edge_target_turf(target, throwdir),10,10)
 	return 1
+
+/obj/item/projectile/mimic
+	name = "googly-eyed gun"
+	hitsound = 'sound/weapons/genhit1.ogg'
+	damage = 0
+	nodamage = 1
+	damage_type = BURN
+	flag = "melee"
+	var/obj/item/weapon/gun/stored_gun
+
+/obj/item/projectile/mimic/New(loc, mimic_type)
+	..(loc)
+	if(mimic_type)
+		stored_gun = new mimic_type(src)
+		icon = stored_gun.icon
+		icon_state = stored_gun.icon_state
+		overlays = stored_gun.overlays
+		SpinAnimation(20, -1)
+
+/obj/item/projectile/mimic/on_hit(atom/target)
+	..()
+	var/turf/T = get_turf(src)
+	var/obj/item/weapon/gun/G = stored_gun
+	stored_gun = null
+	G.forceMove(T)
+	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
+	if(ismob(target))
+		R.target = target

@@ -1,0 +1,12 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - rscadd: "Adds Yi to Vox-pidgin syllables. (Port from VG.)"
+  - rscadd: "Adds framework for icon-based skin tones. (Port from VG.)"
+  - rscadd: "Adds Vox-compatibility for all remaining eyewear."
+  - rscadd: "Raiders now get a random skin tone and eye colour on spawn."
+  - rscadd: "Species default hair, facial hair and head-accessory colours can now be defined."
+  - rscadd: "Newly created Vox mobs will spawn with the same hair colour as they used to have pre-greyscaling."
+  - bugfix: "Noir vision will no longer grey out the HUD. (Port from VG.)"
+  - bugfix: "Tails will not be coloured if the person's species doesn't have skin colour."
+  - bugfix: "Vox hair (head and facial) have been greyscaled and can now be customized by the full colour range."
