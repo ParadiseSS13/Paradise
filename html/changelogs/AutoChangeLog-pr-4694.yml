@@ -1,0 +1,7 @@
+author: Kyep
+delete-after: True
+changes: 
+  - rscadd: "Admins now hear boink sound when faxed, command sends ERT request, etc"
+  - rscadd: "Admins can reply to faxes via radio"
+  - rscadd: "Admins can reply to faxes with pre-written fax templates"
+  - rscadd: "Admins can reply to faxes with 'evil faxes', special faxes that have negative effects on their intended recipient (and nobody else)"
