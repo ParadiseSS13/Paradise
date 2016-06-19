@@ -1,5 +1,0 @@
-author: Twinmold
-delete-after: True
-changes: 
-  - bugfix: "Makes Syndicate Bombs show a more accurate time remaining until
-detonation."

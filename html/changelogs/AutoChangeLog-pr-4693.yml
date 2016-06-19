@@ -1,9 +1,0 @@
-author: Twinmold
-delete-after: True
-changes: 
-  - tweak: "Lowers the range of Malfunction from 4 tiles to 2 tiles, due to
-ability to insta-kill IPCs/incapacitate those with mechanical hearts."
-  - tweak: "Lowers amount of confusion given from Revenants from 50 to 20 per
-Defile."
-  - bugfix: "Sets a maximum confused amount from the Revenant's Defile ability
-(now 30)."
