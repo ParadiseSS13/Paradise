@@ -29,7 +29,7 @@
 	var/disfigured = 0
 	var/cannot_amputate
 	var/cannot_break
-	var/s_tone
+	var/s_tone = null
 	var/list/s_col = null // If this is instantiated, it should be a list of length 3
 	var/list/wounds = list()
 	var/list/child_icons = list()
