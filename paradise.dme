@@ -474,6 +474,7 @@
 #include "code\game\jobs\job_objective.dm"
 #include "code\game\jobs\jobs.dm"
 #include "code\game\jobs\whitelist.dm"
+#include "code\game\jobs\job\central.dm"
 #include "code\game\jobs\job\civilian.dm"
 #include "code\game\jobs\job\engineering.dm"
 #include "code\game\jobs\job\job.dm"
