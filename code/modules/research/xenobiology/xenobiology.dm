@@ -202,7 +202,8 @@
 	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
 	being_used = 1
 
-	var/list/candidates = pollCandidates("Do you want to play as [SM.name]?", ROLE_SENTIENT, 0, 100)
+	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
+	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 0, 100)
 
 	if(!src)
 		return

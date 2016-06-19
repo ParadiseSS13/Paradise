@@ -4,7 +4,7 @@ Used In File(s): \code\game\supplyshuttle.dm
 -->
 
 <style type='text/css'>
-	#category {
+	.category {
 		width: 150px;
 	}
 	
@@ -72,7 +72,7 @@ Used In File(s): \code\game\supplyshuttle.dm
 	</div>
 	{{for data.categories}}
 		<div class="line">
-			{{:helper.link(value.name, 'gear', {'last_viewed_group':value.category}, (data.last_viewed_group==value.category) ? 'linkOn' : '', null, 'category')}}	
+			{{:helper.link(value.name, 'gear', {'last_viewed_group':value.category}, (data.last_viewed_group==value.category) ? 'linkOn' : '', 'category')}}	
 		</div>
 	{{/for}}
 </div>

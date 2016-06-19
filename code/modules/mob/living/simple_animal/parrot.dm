@@ -36,7 +36,11 @@
 	small = 1
 	can_collar = 1
 
-	speak = list("Hi","Hello!","Cracker?","BAWWWWK george mellons griffing me")
+	var/list/clean_speak = list(
+		"Hi",
+		"Hello!",
+		"Cracker?",
+		"BAWWWWK george mellons griffing me")
 	speak_emote = list("squawks","says","yells")
 	emote_hear = list("squawks","bawks")
 	emote_see = list("flutters its wings")
@@ -95,6 +99,7 @@
 						/obj/item/device/radio/headset/headset_sci, \
 						/obj/item/device/radio/headset/headset_cargo)
 		ears = new headset(src)
+	update_speak()
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
@@ -153,14 +158,12 @@
 				if("ears")
 					if(ears)
 						if(available_channels.len)
-							src.say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 						else
-							src.say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
-						ears.loc = src.loc
+							say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+						ears.forceMove(loc)
 						ears = null
-						for(var/possible_phrase in speak)
-							if(copytext(possible_phrase,1,3) in department_radio_keys)
-								possible_phrase = copytext(possible_phrase,3,length(possible_phrase))
+						update_speak()
 					else
 						to_chat(usr, "\red There is nothing to remove from its [remove_from].")
 						return
@@ -187,11 +190,11 @@
 						var/obj/item/device/radio/headset/headset_to_add = item_to_add
 
 						usr.drop_item()
-						headset_to_add.loc = src
-						src.ears = headset_to_add
+						headset_to_add.forceMove(src)
+						ears = headset_to_add
 						to_chat(usr, "You fit the headset onto [src].")
 
-						clearlist(available_channels)
+						available_channels.Cut()
 						for(var/ch in headset_to_add.channels)
 							switch(ch)
 								if("Engineering")
@@ -211,6 +214,7 @@
 
 						if(headset_to_add.translate_binary)
 							available_channels.Add(":b")
+						update_speak()
 			show_inv(usr)
 		else
 			..()
@@ -279,7 +283,19 @@
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
 
-/mob/living/simple_animal/parrot/process_ai()
+/mob/living/simple_animal/parrot/proc/update_speak()
+	speak.Cut()
+
+	if(available_channels.len && ears)
+		for(var/possible_phrase in clean_speak)
+			//50/50 chance to not use the radio at all
+			speak += "[prob(50) ? pick(available_channels) : ""][possible_phrase]"
+
+	else //If we have no headset or channels to use, dont try to use any!
+		for(var/possible_phrase in clean_speak)
+			speak += possible_phrase
+
+/mob/living/simple_animal/parrot/handle_automated_movement()
 	if(pulledby)
 		parrot_state = PARROT_WANDER
 		return
@@ -294,11 +310,11 @@
 	   Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
 	   Then it clears the buffer to make sure they dont magically remember something from hours ago. */
 	if(speech_buffer.len && prob(10))
-		if(speak.len)
-			speak.Remove(pick(speak))
+		if(clean_speak.len)
+			clean_speak -= pick(clean_speak)
 
-		speak.Add(pick(speech_buffer))
-		clearlist(speech_buffer)
+		clean_speak += pick(speech_buffer)
+		speech_buffer.Cut()
 
 
 //-----SLEEPING
@@ -321,30 +337,7 @@
 			parrot_sleep_dur = parrot_sleep_max
 
 			//Cycle through message modes for the headset
-			if(speak.len)
-				var/list/newspeak = list()
-
-				if(available_channels.len && src.ears)
-					for(var/possible_phrase in speak)
-
-						//50/50 chance to not use the radio at all
-						var/useradio = 0
-						if(prob(50))
-							useradio = 1
-
-						if(copytext(possible_phrase,1,3) in department_radio_keys)
-							possible_phrase = "[useradio?pick(available_channels):""][copytext(possible_phrase,3,length(possible_phrase)+1)]" //crop out the channel prefix
-						else
-							possible_phrase = "[useradio?pick(available_channels):""][possible_phrase]"
-
-						newspeak.Add(possible_phrase)
-
-				else //If we have no headset or channels to use, dont try to use any!
-					for(var/possible_phrase in speak)
-						if(copytext(possible_phrase,1,3) in department_radio_keys)
-							possible_phrase = "[copytext(possible_phrase,3,length(possible_phrase)+1)]" //crop out the channel prefix
-						newspeak.Add(possible_phrase)
-				speak = newspeak
+			update_speak()
 
 			//Search for item to steal
 			parrot_interest = search_for_item()
@@ -686,7 +679,14 @@
 /mob/living/simple_animal/parrot/Poly
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
-	speak = list("Poly wanna cracker!", ":eCheck the singlo, you chucklefucks!",":eCheck the tesla, you shits!",":eSTOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",":eWire the solars, you lazy bums!",":eWHO TOOK THE DAMN HARDSUITS?",":eOH GOD ITS FREE CALL THE SHUTTLE")
+	clean_speak = list(
+		"Poly wanna cracker!",
+		"Check the singlo, you chucklefucks!",
+		"Check the tesla, you shits!",
+		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
+		"Wire the solars, you lazy bums!",
+		"WHO TOOK THE DAMN HARDSUITS?",
+		"OH GOD ITS FREE CALL THE SHUTTLE")
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/parrot/Poly/New()
@@ -700,15 +700,15 @@
 		used_radios += ears
 
 /mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null)
-	if(prob(50))
+	if(speaker != src && prob(50))
 		parrot_hear(html_decode(message))
 	..()
 
 
 
 /mob/living/simple_animal/parrot/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
-	if(prob(50))
-		parrot_hear("[pick(available_channels)][html_decode(message)]")
+	if(speaker != src && prob(50))
+		parrot_hear(html_decode(message))
 	..()
 
 

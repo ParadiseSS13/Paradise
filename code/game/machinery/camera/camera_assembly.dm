@@ -20,10 +20,9 @@
 				4 = Screwdriver panel closed and is fully built (you cannot attach upgrades)
 	*/
 
-/obj/item/weapon/camera_assembly/attackby(obj/item/W as obj, mob/living/user as mob, params)
+/obj/item/weapon/camera_assembly/attackby(obj/item/W, mob/living/user, params)
 
 	switch(state)
-
 		if(0)
 			// State 0
 			if(iswrench(W) && isturf(src.loc))
@@ -116,7 +115,6 @@
 				return
 
 			else if(iswirecutter(W))
-
 				new/obj/item/stack/cable_coil(get_turf(src), 2)
 				playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
 				to_chat(user, "You cut the wires from the circuits.")
@@ -125,9 +123,12 @@
 
 	// Upgrades!
 	if(is_type_in_list(W, possible_upgrades) && !is_type_in_list(W, upgrades)) // Is a possible upgrade and isn't in the camera already.
+		if(!user.unEquip(W))
+			to_chat(user, "<span class='warning'>[W] is stuck!</span>")
+			return
 		to_chat(user, "You attach \the [W] into the assembly inner circuits.")
 		upgrades += W
-		user.drop_item(W)
+		user.drop_item()
 		W.loc = src
 		return
 

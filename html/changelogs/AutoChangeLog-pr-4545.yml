@@ -1,4 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - bugfix: "There will no longer be a mountain of startup runtimes when people have custom languages."
