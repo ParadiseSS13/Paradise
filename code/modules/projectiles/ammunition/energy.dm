@@ -104,14 +104,16 @@
 
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/item/projectile/temp
-	var/temperature = 300
 	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
-/obj/item/ammo_casing/energy/temp/newshot()
+/obj/item/ammo_casing/energy/temp/New()
 	..()
-	var/obj/item/projectile/temp/T = BB
-	T.temperature = temperature
+	BB = null
+
+/obj/item/ammo_casing/energy/temp/newshot(shot_temp, shot_cost)
+	e_cost = shot_cost
+	..(shot_temp)
 
 /obj/item/ammo_casing/energy/meteor
 	projectile_type = /obj/item/projectile/meteor
@@ -225,7 +227,21 @@
 	select_name = "teleport beam"
 	var/teleport_target
 
-/obj/item/ammo_casing/energy/teleport/newshot()
+/obj/item/ammo_casing/energy/teleport/New()
 	..()
-	var/obj/item/projectile/energy/teleport/T = BB
-	T.teleport_target = teleport_target
+	BB = null
+
+/obj/item/ammo_casing/energy/teleport/newshot(teleport_target)
+	..()
+
+/obj/item/ammo_casing/energy/mimic
+	projectile_type = /obj/item/projectile/mimic
+	fire_sound = 'sound/weapons/bite.ogg'
+	select_name = "gun mimic"
+
+/obj/item/ammo_casing/energy/mimic/New()
+	..()
+	BB = null
+
+/obj/item/ammo_casing/energy/mimic/newshot(mimic_type)
+	..()

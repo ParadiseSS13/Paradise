@@ -155,6 +155,7 @@
 		new /obj/item/weapon/gun/energy/gun/advtaser(src)
 		new /obj/item/weapon/storage/belt/security/sec(src)
 		new /obj/item/weapon/storage/box/holobadge(src)
+		new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
 
 
 

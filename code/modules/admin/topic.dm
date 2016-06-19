@@ -1205,6 +1205,7 @@
 			if(I)
 				I.loc = locker
 				I.layer = initial(I.layer)
+				I.plane = initial(I.plane)
 				I.dropped(M)
 		M.update_icons()
 
@@ -1266,6 +1267,7 @@
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
+				I.plane = initial(I.plane)
 				I.dropped(M)
 
 		M.Paralyse(5)
@@ -1295,6 +1297,7 @@
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
+				I.plane = initial(I.plane)
 				I.dropped(M)
 
 		M.Paralyse(5)
@@ -1346,6 +1349,7 @@
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
+				I.plane = initial(I.plane)
 				I.dropped(M)
 
 		if(istype(M, /mob/living/carbon/human))
@@ -2264,6 +2268,7 @@
 								W.loc = H.loc
 								W.dropped(H)
 								W.layer = initial(W.layer)
+								W.plane = initial(W.plane)
 						//teleport person to cell
 						H.loc = pick(prisonwarp)
 						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)
@@ -2929,6 +2934,16 @@
 				current_tab = text2num(href_list["tab"])
 				Secrets(usr)
 				return 1
+
+	else if(href_list["viewruntime"])
+		var/datum/ErrorViewer/error_viewer = locate(href_list["viewruntime"])
+		if(!istype(error_viewer))
+			to_chat(usr, "<span class='warning'>That runtime viewer no longer exists.</span>")
+			return
+		if(href_list["viewruntime_backto"])
+			error_viewer.showTo(usr, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
+		else
+			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
 
 /proc/admin_jump_link(var/atom/target, var/source)
 	if(!target) return
