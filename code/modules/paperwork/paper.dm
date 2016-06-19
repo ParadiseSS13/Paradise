@@ -646,11 +646,11 @@
 
 /obj/item/weapon/paper/evilfax/New()
 	..()
-	processing_objects += src
+	processing_objects.Add(src)
 
 
 /obj/item/weapon/paper/evilfax/Destroy()
-	processing_objects -= src
+	processing_objects.Remove(src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
 		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
@@ -658,7 +658,7 @@
 
 
 /obj/item/weapon/paper/evilfax/process()
-	if(countdown == 0)
+	if(!countdown)
 		if(mytarget)
 			if(activate_on_timeout)
 				evilpaper_specialaction(mytarget)
@@ -681,7 +681,7 @@
 			else if(myeffect == "firedeath")
 				var/turf/simulated/T = get_turf(target)
 				new /obj/effect/hotspot(T)
-				target.adjustFireLoss(target.health)
+				target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 			else if(myeffect == "braindeath")
 				to_chat(target,"<span class='userdanger'>A series of bright lights flash across your vision: COGNITOHAZARD YHWH-3 ACTIVATED</span>")
 				target.mutations.Add(NOCLONE)

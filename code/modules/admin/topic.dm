@@ -1682,9 +1682,13 @@
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
+		var/customname = input(src.owner, "Pick a title for the evil fax.", "Fax Title") as text|null
+		if(!customname)
+			customname = "paper"
 		var/obj/item/weapon/paper/evilfax/P = new /obj/item/weapon/paper/evilfax(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
-		P.name = "Central Command - paper"
+
+		P.name = "Central Command - [customname]"
 		P.info = "<b>A reminder: per the terms of your contract, stupid faxes will get you demoted, or worse.</b>"
 		P.myeffect = eviltype
 		P.mytarget = H
