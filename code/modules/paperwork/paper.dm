@@ -629,8 +629,8 @@
 	var/activate_on_timeout = 0
 
 /obj/item/weapon/paper/evilfax/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
-	if (user == mytarget)
-		if (istype(user, /mob/living/carbon))
+	if(user == mytarget)
+		if(istype(user, /mob/living/carbon))
 			var/mob/living/carbon/C = user
 			evilpaper_specialaction(C)
 			..()
@@ -638,7 +638,7 @@
 			// This should never happen, but just in case someone is adminbussing
 			evilpaper_selfdestruct()
 	else
-		if (mytarget)
+		if(mytarget)
 			to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?</span>")
 		else
 			evilpaper_selfdestruct()
@@ -651,16 +651,16 @@
 
 /obj/item/weapon/paper/evilfax/Destroy()
 	processing_objects -= src
-	if (mytarget && !used)
+	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
 		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
 	return ..()
 
 
 /obj/item/weapon/paper/evilfax/process()
-	if (countdown == 0)
-		if (mytarget)
-			if (activate_on_timeout)
+	if(countdown == 0)
+		if(mytarget)
+			if(activate_on_timeout)
 				evilpaper_specialaction(mytarget)
 			else
 				message_admins("[mytarget] ignored an evil fax until it timed out.")
@@ -673,24 +673,24 @@
 
 /obj/item/weapon/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
 	spawn(30)
-		if (istype(target,/mob/living/carbon))
-			if (myeffect == "borging")
+		if(istype(target,/mob/living/carbon))
+			if(myeffect == "borging")
 				target.ForceContractDisease(new /datum/disease/transformation/robot(0))
-			else if (myeffect == "corgifying")
+			else if(myeffect == "corgifying")
 				target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
-			else if (myeffect == "firedeath")
+			else if(myeffect == "firedeath")
 				var/turf/simulated/T = get_turf(target)
 				new /obj/effect/hotspot(T)
 				target.adjustFireLoss(target.health)
-			else if (myeffect == "braindeath")
+			else if(myeffect == "braindeath")
 				to_chat(target,"<span class='userdanger'>A series of bright lights flash across your vision: COGNITOHAZARD YHWH-3 ACTIVATED</span>")
 				target.mutations.Add(NOCLONE)
 				target.adjustBrainLoss(125)
-			else if (myeffect == "honktumor")
+			else if(myeffect == "honktumor")
 				if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
 					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
 					organ.insert(target)
-			else if (myeffect == "demotion")
+			else if(myeffect == "demotion")
 				command_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 			else
 				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")

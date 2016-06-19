@@ -1680,7 +1680,7 @@
 			return
 		var/etypes = list("borging","corgifying","firedeath","braindeath","honktumor","demotion")
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
-		if (!(eviltype in etypes))
+		if(!(eviltype in etypes))
 			return
 		var/obj/item/weapon/paper/evilfax/P = new /obj/item/weapon/paper/evilfax(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
@@ -1728,15 +1728,15 @@
 		var/stypes = list("handle it yourself","illegible","not signed","sorry, not right now","stop wasting our time")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
 		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><B>NanoTrasen Science Station Cyberiad</B></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
-		if (stype == "handle it yourself")
+		if(stype == "handle it yourself")
 			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention."
-		else if (stype == "illegible")
+		else if(stype == "illegible")
 			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax was too poorly written for our system to interpret."
-		else if (stype == "not signed")
+		else if(stype == "not signed")
 			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax was not properly signed and/or stamped."
-		else if (stype == "sorry, not right now")
+		else if(stype == "sorry, not right now")
 			tmsg += "Greetings, esteemed crewmember. Unfortunately, we are unable to spare the resources to assist you at this time."
-		else if (stype == "stop wasting our time")
+		else if(stype == "stop wasting our time")
 			tmsg += "Stop wasting our time."
 		else
 			return
