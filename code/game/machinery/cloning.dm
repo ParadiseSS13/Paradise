@@ -4,6 +4,7 @@
 //Potential replacement for genetics revives or something I dunno (?)
 
 #define CLONE_BIOMASS 150
+#define BIOMASS_MEAT_AMOUNT 50
 
 /obj/machinery/clonepod
 	anchored = 1
@@ -294,13 +295,11 @@
 /obj/machinery/clonepod/process()
 	var/show_message = 0
 	for(var/obj/item/weapon/reagent_containers/food/snacks/meat/meat in range(1, src))
-		if(meat)
-			qdel(meat)
-			biomass += 50
-			show_message = 1
+		qdel(meat)
+		biomass += BIOMASS_MEAT_AMOUNT
+		show_message = 1
 	if(show_message)
-		visible_message("[src] sucks in and processes the nearby biomass.")
-		show_message = 0
+		visible_message("\The [src] sucks in and processes the nearby biomass.")
 
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if (occupant)
@@ -382,7 +381,7 @@
 //Removing cloning pod biomass
 	else if (istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
 		to_chat(user, "\blue \The [src] processes \the [W].")
-		biomass += 50
+		biomass += BIOMASS_MEAT_AMOUNT
 		user.drop_item()
 		qdel(W)
 		return

@@ -36,20 +36,19 @@
 	if(processing)
 		return
 	var/mob/living/carbon/slime/picked_slime
-	for(var/mob/living/carbon/slime/slime in range(1,src))
+	for(var/mob/living/carbon/slime/slime in range(1, src))
 		if(slime.loc == src)
 			continue
-		if(istype(slime, /mob/living/carbon/slime))
-			if(slime.stat)
-				picked_slime = slime
-				break
+		if(slime.stat)
+			picked_slime = slime
+			break
 	if(!picked_slime)
 		return
 	var/datum/food_processor_process/P = select_recipe(picked_slime)
 	if (!P)
 		return
 
-	visible_message("[picked_slime] is sucked into [src].")
+	visible_message("[picked_slime] is sucked into \the [src].")
 	picked_slime.forceMove(src)
 
 //RECIPE DATUMS
