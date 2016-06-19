@@ -671,8 +671,6 @@
 	else
 		countdown--
 
-	return
-
 /obj/item/weapon/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
 	spawn(30)
 		if (istype(target,/mob/living/carbon))
@@ -690,7 +688,8 @@
 				target.adjustBrainLoss(125)
 			else if (myeffect == "honktumor")
 				if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
-					new /obj/item/organ/internal/honktumor(target)
+					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
+					organ.insert(target)
 			else if (myeffect == "demotion")
 				command_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 			else
