@@ -212,7 +212,14 @@ VampyrBytes
 		return
 	if(startText)
 		message = "[startText] [message]"
+	message = addPunc(message)
 	message = "<span class='[emoteSpanClass]'>[message]</span>"
+	return message
+
+/datum/emote/proc/addPunc(var/message = "")
+	var/regex/endingPunc = new("\[\\.!\\?\"]$")
+	if(!endingPunc.Find(message))
+		message += "."
 	return message
 
 /datum/emote/proc/standardMessage(var/mob/user, var/list/params)
@@ -287,7 +294,6 @@ VampyrBytes
 
 /datum/emote/proc/processMessage(var/mob/user, var/list/params, var/message = "")
 	var/visualOrAudible = audible + 1
-	testing("message = [message]")
 	if(doMime(user))
 		visualOrAudible = 1
 
@@ -389,12 +395,16 @@ VampyrBytes
 //non-audible emotes and the standard message for audible ones
 /datum/emote/proc/createBlindMessage(var/mob/user, var/list/params, var/message)
 	if(audible && selfText)
-		return "<span class='[userSpanClass]'>You</span> hear someone [selfText]"
+		message = "<span class='[userSpanClass]'>You</span> hear someone [selfText]"
+		message = addExtras(message)
+	return message
 
 // set up different messages for deaf people here. Empty will mean no message for
 // audible emotes and standard for non-audible ones
 /datum/emote/proc/createDeafMessage(var/mob/user, var/list/params, var/message)
-	return mimeMessage(user, params)
+	message = mimeMessage(user, params)
+	message = addExtras(message)
+	return message
 
 /datum/emote/proc/sendToDead(var/message = "")
 	for(var/mob/M in dead_mob_list)
