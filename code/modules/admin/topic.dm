@@ -2930,6 +2930,16 @@
 				Secrets(usr)
 				return 1
 
+	else if(href_list["viewruntime"])
+		var/datum/ErrorViewer/error_viewer = locate(href_list["viewruntime"])
+		if(!istype(error_viewer))
+			to_chat(usr, "<span class='warning'>That runtime viewer no longer exists.</span>")
+			return
+		if(href_list["viewruntime_backto"])
+			error_viewer.showTo(usr, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
+		else
+			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+
 /proc/admin_jump_link(var/atom/target, var/source)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
