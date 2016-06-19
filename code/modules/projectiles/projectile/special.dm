@@ -405,6 +405,7 @@ obj/item/projectile/kinetic/New()
 		stored_gun = new mimic_type(src)
 		icon = stored_gun.icon
 		icon_state = stored_gun.icon_state
+		overlays = stored_gun.overlays
 		SpinAnimation(20, -1)
 
 /obj/item/projectile/mimic/on_hit(atom/target)
