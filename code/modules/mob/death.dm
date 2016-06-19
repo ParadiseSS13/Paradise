@@ -76,6 +76,10 @@
 
 /mob/proc/death(gibbed)
 
+	//Makes it so gib/dust/melt all unbuckle their victims from anything they may be buckled to to avoid breaking beds/chairs/etc
+	if(gibbed && buckled)
+		buckled.unbuckle_mob()
+
 	//Quick fix for corpses kept propped up in chairs. ~Z
 	drop_r_hand()
 	drop_l_hand()

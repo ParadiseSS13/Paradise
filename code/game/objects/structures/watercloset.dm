@@ -63,8 +63,11 @@
 			return
 		var/obj/item/weapon/reagent_containers/RG = I
 		if(RG.is_open_container())
-			RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
-			to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
+			if(RG.reagents.total_volume >= RG.volume)
+				to_chat(user, "<span class='warning'>\The [RG] is full.</span>")
+			else
+				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
+				to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
 			return
 
 	if(istype(I, /obj/item/weapon/grab))
