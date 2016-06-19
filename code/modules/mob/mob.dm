@@ -23,6 +23,7 @@
 	else
 		living_mob_list += src
 	prepare_huds()
+	emoteHandler = new /datum/emoteHandler(src)
 	..()
 
 /atom/proc/prepare_huds()
