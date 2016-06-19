@@ -949,6 +949,9 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
+	if(iscarbon(M))
+		if(prob(10))
+			M.reagents.add_reagent("hugs", 10)
 	return ..()
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
@@ -1315,7 +1318,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
 	desc = "for fun and games!"
-	icon = 'icons/obj/gun.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "detective_gold"
 	item_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'

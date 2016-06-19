@@ -208,6 +208,14 @@ proc/checkhtml(var/t)
 		t = replacetext(t, char, repl_chars[char])
 	return t
 
+//Strips the first char and returns it and the new string as a list
+/proc/strip_first(t)
+	return list(copytext(t, 1, 2), copytext(t, 2, 0))
+
+//Strips the last char and returns it and the new string as a list
+/proc/strip_last(t)
+	return list(copytext(t, 1, length(t)), copytext(t, length(t)))
+
 //Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
 	while (length(t) < u)

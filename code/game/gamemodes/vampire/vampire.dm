@@ -4,19 +4,16 @@
 	var/list/datum/mind/vampires = list()
 	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
 	var/list/vampire_thralls = list() //vammpires controlling somebody
+
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent")
 	protected_species = list("Machine")
-	required_players = 2
-	required_players_secret = 10
+	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
-
-	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 20
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target
@@ -354,8 +351,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	vampire_mind.som = null
 	slaved.leave_serv_hud(vampire_mind)
 	update_vampire_icons_removed(vampire_mind)
-//	to_chat(world, "Removed [vampire_mind.current.name] from vampire shit")
-	to_chat(vampire_mind.current, "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>")
+	vampire_mind.current.visible_message("<span class='userdanger'>[vampire_mind.current] looks as though a burden has been lifted!</span>", "<span class='userdanger'>The dark fog in your mind clears as you regain control of your own faculties, you are no longer a vampire thrall!</span>")
 	if(vampire_mind.current.hud_used)
 		vampire_mind.current.hud_used.remove_vampire_hud()
 

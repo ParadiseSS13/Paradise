@@ -161,6 +161,11 @@
 	desc = "A flag proudly proclaiming the superior heritage of Vulpkanin."
 	icon_state = "vulpflag"
 
+/obj/item/flag/species/drask
+	name = "Drask flag"
+	desc = "A flag proudly proclaiming the superior heritage of Drask."
+	icon_state = "draskflag"
+
 //Department Flags
 
 /obj/item/flag/cargo

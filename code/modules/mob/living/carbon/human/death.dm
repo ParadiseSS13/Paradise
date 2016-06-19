@@ -118,10 +118,6 @@
 
 	callHook("death", list(src, gibbed))
 
-	if(ticker && ticker.mode)
-		if(istype(ticker.mode,/datum/game_mode/heist))
-			vox_kills++ //Bad vox. Shouldn't be killing humans.
-
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)
@@ -145,12 +141,13 @@
 	return ..(gibbed)
 
 /mob/living/carbon/human/proc/makeSkeleton()
+	var/obj/item/organ/external/head/H = get_organ("head")
 	if(SKELETON in src.mutations)	return
 
-	if(f_style)
-		f_style = "Shaved"
-	if(h_style)
-		h_style = "Bald"
+	if(H.f_style)
+		H.f_style = "Shaved"
+	if(H.h_style)
+		H.h_style = "Bald"
 	update_fhair(0)
 	update_hair(0)
 
@@ -162,12 +159,13 @@
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
+	var/obj/item/organ/external/head/H = organs_by_name["head"]
 	if(HUSK in mutations)	return
 
-	if(f_style)
-		f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
-	if(h_style)
-		h_style = "Bald"
+	if(H.f_style)
+		H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
+	if(H.h_style)
+		H.h_style = "Bald"
 	update_fhair(0)
 	update_hair(0)
 

@@ -886,12 +886,12 @@
 		species_allowed = list("Vox")
 
 	vox_quills_fluff
-		name = "Fluffy Quills"
+		name = "Fluffy Vox Quills"
 		icon_state = "vox_afro"
 		species_allowed = list("Vox")
 
 	vox_quills_mohawk
-		name = "Quill Mohawk"
+		name = "Vox Quill Mohawk"
 		icon_state = "vox_mohawk"
 		species_allowed = list("Vox")
 
@@ -908,6 +908,11 @@
 	vox_nights
 		name = "Vox Pigtails"
 		icon_state = "vox_nights"
+		species_allowed = list("Vox")
+
+	vox_razor
+		name = "Vox Razorback"
+		icon_state = "vox_razor"
 		species_allowed = list("Vox")
 
 // Apollo-specific
@@ -1893,22 +1898,22 @@
 	icon_state = "markings_tiger"
 
 /datum/sprite_accessory/body_markings/tigerhead
-	name = "Tiger Body + Head"
+	name = "Tiger Body and Head"
 	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
 	icon_state = "markings_tigerhead"
 
 /datum/sprite_accessory/body_markings/tigerheadface_taj
-	name = "Tajaran Tiger Body + Head + Face"
+	name = "Tajaran Tiger Body, Head and Face"
 	species_allowed = list("Tajaran")
 	icon_state = "markings_tigerheadface_taj"
 
 /datum/sprite_accessory/body_markings/tigerheadface_vulp
-	name = "Vulpkanin Tiger Body + Head + Face"
+	name = "Vulpkanin Tiger Body, Head and Face"
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_tigerheadface_vulp"
 
 /datum/sprite_accessory/body_markings/tigerheadface_una
-	name = "Unathi Tiger Body + Head + Face"
+	name = "Unathi Tiger Body, Head and Face"
 	species_allowed = list("Unathi")
 	icon_state = "markings_tigerheadface_una"
 

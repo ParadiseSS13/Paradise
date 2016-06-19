@@ -50,6 +50,9 @@
 	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/head/beret/sec(src)
+	new /obj/item/clothing/head/officer(src)
+	new /obj/item/clothing/head/officer(src)
+	new /obj/item/clothing/head/officer(src)
 
 /obj/structure/closet/redcorp
 	name = "corporate security wardrobe"

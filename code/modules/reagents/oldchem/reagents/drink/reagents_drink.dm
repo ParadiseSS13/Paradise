@@ -201,12 +201,9 @@
 	..()
 	return
 
-/datum/reagent/drink/coffee/overdose_process(var/mob/living/M as mob)
+/datum/reagent/drink/coffee/overdose_process(var/mob/living/M as mob, severity)
 	if(volume > 45)
 		M.Jitter(5)
-
-	..()
-	return
 
 /datum/reagent/drink/coffee/icecoffee
 	name = "Iced Coffee"
@@ -243,6 +240,12 @@
 	if(M.getBruteLoss() && prob(20))
 		M.adjustBruteLoss(-1)
 		return
+
+/datum/reagent/drink/coffee/cafe_latte/cafe_mocha
+	name = "Cafe Mocha"
+	id = "cafe_mocha"
+	description = "The perfect blend of coffe, milk, and chocolate."
+	color = "#673629"
 
 /datum/reagent/drink/tea
 	name = "Tea"

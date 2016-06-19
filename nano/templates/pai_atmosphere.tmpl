@@ -8,7 +8,7 @@ code/modules/mob/living/silicon/pai/software_modules.dm
 			Pressure:
 		</div>
 		<div class="itemContent">
-			{{:data.pressure}} kPa
+			{{:helper.smoothRound(data.pressure, 1)}} kPa
 		</div>
 	</div>
 
@@ -17,7 +17,7 @@ code/modules/mob/living/silicon/pai/software_modules.dm
 			Temperature:
 		</div>
 		<div class="itemContent">
-			{{:data.temperature}}K ({{:data.temperatureC}}&deg;C)
+			{{:helper.smoothRound(data.temperature)}}K ({{:helper.smoothRound(data.temperatureC)}}&deg;C)
 		</div>
 	</div>
 
@@ -27,7 +27,7 @@ code/modules/mob/living/silicon/pai/software_modules.dm
 				{{:value.name}}:
 			</div>
 			<div class="itemContent">
-				{{:value.percent}}%
+				{{:helper.smoothRound(value.percent)}}%
 			</div>
 		</div>
 	{{/for}}

@@ -14,7 +14,7 @@
 	origin_tech = "materials=5;biotech=4;powerstorage=5;abductor=3"
 	armor = list(melee = 15, bullet = 15, laser = 15, energy = 15, bomb = 15, bio = 15, rad = 15)
 	action_button_name = "Activate"
-	action_button_is_hands_free = 1
+	action_button_custom_type = /datum/action/item_action/hands_free
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
@@ -308,14 +308,7 @@
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	origin_tech = "combat=5;materials=4;powerstorage=3;abductor=3"
-
-/obj/item/weapon/gun/energy/decloner/alien/special_check(user)
-	if(istype(user, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		if(H.get_species() != "Abductor")
-			to_chat(user, "<span class='userdanger'>UNAUTHORIZED -- UNAUTHORIZED</span>")
-			return 0
-	return 1
+	restricted_species = list("Abductor")
 
 /obj/item/weapon/paper/abductor
 	name = "Dissection Guide"

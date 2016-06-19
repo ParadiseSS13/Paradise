@@ -190,7 +190,9 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 	if(src.species.exotic_blood)
 		vessel.remove_reagent(species.exotic_blood,amm)
-		vessel.reaction(T, TOUCH, amm)
+		if(vessel.total_volume)
+			var/fraction = amm / vessel.total_volume
+			vessel.reaction(T, TOUCH, fraction)
 		return
 
 	else

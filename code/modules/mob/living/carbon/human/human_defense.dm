@@ -27,7 +27,7 @@ emp_act
 				P.current = curloc
 				P.yo = new_y - curloc.y
 				P.xo = new_x - curloc.x
-				P.Angle = ""//round(Get_Angle(P,P.original))
+				P.Angle = null
 
 			return -1 // complete projectile permutation
 
@@ -46,7 +46,10 @@ emp_act
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
 			(SP.name) = "[P.name] shrapnel"
-			(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
+			if(P.ammo_casing && P.ammo_casing.caliber)
+				(SP.desc) = "[SP.desc] It looks like it is a [P.ammo_casing.caliber] caliber round."
+			else
+				(SP.desc) = "[SP.desc] The round's caliber is unidentifiable."
 			(SP.loc) = organ
 			organ.embed(SP)
 
@@ -262,12 +265,13 @@ emp_act
 		if(!stat)
 			switch(hit_area)
 				if("head")//Harder to score a stun but if you do it lasts a bit longer
-					if(stat == CONSCIOUS && prob(I.force) && armor < 50)
-						visible_message("<span class='danger'>[src] has been knocked down!</span>", \
-										"<span class='userdanger'>[src] has been knocked down!</span>")
-						apply_effect(5, WEAKEN, armor)
-						confused += 15
-						if(src != user && I.damtype == BRUTE)
+					if(stat == CONSCIOUS && armor < 50)
+						if(prob(I.force))
+							visible_message("<span class='danger'>[src] has been knocked down!</span>", \
+											"<span class='userdanger'>[src] has been knocked down!</span>")
+							apply_effect(5, WEAKEN, armor)
+							confused += 15
+						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							ticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood

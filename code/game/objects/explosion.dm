@@ -89,7 +89,7 @@
 			var/turf/T = A
 			if(!T)
 				continue
-			var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
+			var/dist = hypotenuse(T.x, T.y, x0, y0)
 
 			if(config.reactionary_explosions)
 				var/turf/Trajectory = T
@@ -206,7 +206,7 @@
 	var/list/wipe_colours = list()
 	for(var/turf/T in spiral_range_turfs(max_range, epicenter))
 		wipe_colours += T
-		var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
+		var/dist = hypotenuse(T.x, T.y, x0, y0)
 
 		if(newmode == "Yes")
 			var/turf/TT = T

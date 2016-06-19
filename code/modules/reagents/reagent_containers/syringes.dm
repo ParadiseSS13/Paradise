@@ -8,7 +8,7 @@
 /obj/item/weapon/reagent_containers/syringe
 	name = "Syringe"
 	desc = "A syringe."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
 	amount_per_transfer_from_this = 5
@@ -17,6 +17,7 @@
 	w_class = 1
 	sharp = 1
 	var/mode = SYRINGE_DRAW
+	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 
 /obj/item/weapon/reagent_containers/syringe/on_reagent_change()
 	update_icon()
@@ -247,6 +248,12 @@
 				else
 					trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 					to_chat(user, "\blue You inject [trans] units of the solution. The syringe now contains [src.reagents.total_volume] units.")
+					if(istype(target, /obj/item/weapon/reagent_containers/food/pill/patch))
+						var/obj/item/weapon/reagent_containers/food/pill/patch/P = target
+						if(P.instant_application)
+							to_chat(user, "<span class=warning>You break the medical seal on the [P]!</span>")
+							P.instant_application = 0
+
 				if (reagents.total_volume <= 0 && mode==SYRINGE_INJECT)
 					mode = SYRINGE_DRAW
 					update_icon()
@@ -336,7 +343,7 @@
 /obj/item/weapon/reagent_containers/ld50_syringe
 	name = "Lethal Injection Syringe"
 	desc = "A syringe used for lethal injections."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
 	amount_per_transfer_from_this = 50

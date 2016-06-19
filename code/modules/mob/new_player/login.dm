@@ -44,4 +44,3 @@
 			tally++
 		if(tally > config.player_overflow_cap)
 			src << link(config.overflow_server_url)
-

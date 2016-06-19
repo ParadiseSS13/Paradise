@@ -176,7 +176,12 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
-	status &= ~ORGAN_DEAD
+	if(status & ORGAN_ROBOT)	//Robotic organs stay robotic.
+		status = ORGAN_ROBOT
+	else if (status & ORGAN_ASSISTED) //Assisted organs stay assisted.
+		status = ORGAN_ASSISTED
+	else
+		status = 0
 	if(!owner)
 		processing_objects |= src
 

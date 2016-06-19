@@ -98,6 +98,10 @@
 /var/const/access_syndicate_leader = 151//Nuke Op Leader Access
 /var/const/access_vox = 152//Vox Access
 
+//Trade Stations
+
+var/const/access_trade_sol = 160
+
 	//MONEY
 /var/const/access_crate_cash = 200
 
@@ -267,6 +271,8 @@
 			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
 		if(REGION_COMMAND) //command
 			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
+		if(REGION_CENTCOMM) //because why the heck not
+			return get_all_centcom_access() + get_all_accesses()
 
 /proc/get_region_accesses_name(code)
 	switch(code)
@@ -286,6 +292,8 @@
 			return "Supply"
 		if(REGION_COMMAND) //command
 			return "Command"
+		if(REGION_CENTCOMM) //CC
+			return "CentComm"
 
 
 /proc/get_access_desc(A)
@@ -600,4 +608,3 @@ proc/get_all_job_icons() //For all existing HUD icons
 		return
 
 	return "Unknown" //Return unknown if none of the above apply
-

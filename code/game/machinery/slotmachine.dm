@@ -93,7 +93,6 @@
 					resultlvl = "good"
 					win_money(10)
 				else
-					visible_message("<b>[src]</b> says, 'No Luck!'")
 					result = "<span class='warning'>No luck!</span>"
 					resultlvl = "average"
 				working = 0

@@ -1,7 +1,7 @@
 <h3>Status</h3>
 <div class='item'>
 	<div class="itemLabel">
-		Generator Status: 
+		Generator Status:
 	</div>
 	<div class = "itemContent">
 		{{if data.active}}
@@ -11,7 +11,7 @@
 		{{/if}}
 	</div>
 	<div class="itemLabel">
-		Generator Control: 
+		Generator Control:
 	</div>
 	<div class = "itemContent">
 		{{if data.active}}
@@ -35,20 +35,20 @@
 	<div class="itemContent">
 		{{if data.fuel_stored >= 5000}}
 			{{:helper.displayBar(data.fuel_stored, 0, data.fuel_capacity, 'good')}}
-			<br><span class="good">{{:data.fuel_stored}}/{{:data.fuel_capacity}} cm3</span>
+			<br><span class="good">{{:helper.smoothRound(data.fuel_stored)}}/{{:data.fuel_capacity}} cm3</span>
 		{{else data.fuel_stored >= 1000}}
 			{{:helper.displayBar(data.fuel_stored, 0, data.fuel_capacity, 'average')}}
-			<br><span class="average">{{:data.fuel_stored}}/{{:data.fuel_capacity}} cm3</span>
+			<br><span class="average">{{:helper.smoothRound(data.fuel_stored)}}/{{:data.fuel_capacity}} cm3</span>
 		{{else}}
 			{{:helper.displayBar(data.fuel_stored, 0, data.fuel_capacity, 'bad')}}
-			<br><span class="bad">{{:data.fuel_stored}}/{{:data.fuel_capacity}} cm3</span>
+			<br><span class="bad">{{:helper.smoothRound(data.fuel_stored)}}/{{:data.fuel_capacity}} cm3</span>
 		{{/if}}
 	</div>
 	<div class="itemLabel">
 		Fuel Usage:
 	</div>
 	<div class="itemContent">
-		<span class="good">{{:data.fuel_usage}} cm3/s</span>
+		<span class="good">{{:helper.smoothRound(data.fuel_usage)}} cm3/s</span>
 	</div>
 	{{if !data.is_ai}}
 		<div class="itemLabel">
@@ -87,13 +87,13 @@
 	<div class="itemContent">
 		{{if data.temperature_current < (data.temperature_max * 0.8)}}
 			{{:helper.displayBar(data.temperature_current, 0, (data.temperature_max * 1.5), 'good')}}
-			<br><span class="good">{{:data.temperature_current}} C</span>
+			<br><span class="good">{{:helper.smoothRound(data.temperature_current)}} C</span>
 		{{else data.temperature_current < data.temperature_max}}
 			{{:helper.displayBar(data.temperature_current, 0, (data.temperature_max * 1.5), 'average')}}
-			<br><span class="average">{{:data.temperature_current}} C</span>
+			<br><span class="average">{{:helper.smoothRound(data.temperature_current)}} C</span>
 		{{else}}
 			{{:helper.displayBar(data.temperature_current, 0, (data.temperature_max * 1.5), 'bad')}}
-			<br><span class="bad">{{:data.temperature_current}} C</span>
+			<br><span class="bad">{{:helper.smoothRound(data.temperature_current)}} C</span>
 		{{/if}}
 	</div>
 	<div class="itemLabel">

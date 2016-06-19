@@ -8,11 +8,12 @@
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0
+	act = lowertext(act)
 	switch(act)
 		//Cooldown-inducing emotes
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
-		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no")
+		if("ping","pings","buzz","buzzs","buzzes","beep","beeps","yes","no", "buzz2")
 			//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
@@ -114,7 +115,13 @@
 			playsound(src.loc, 'sound/goonstation/voice/robot_scream.ogg', 80, 0)
 			m_type = 2
 
+		if("buzz2")
+			message = "<B>[src]</B> emits an irritated buzzing sound."
+			playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
+			m_type = 2
+
+
 		if("help")
-			to_chat(src, "yes, no, beep, ping, buzz")
+			to_chat(src, "yes, no, beep, ping, buzz, scream, buzz2")
 
 	..(act, m_type, message)

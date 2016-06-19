@@ -216,17 +216,10 @@
 	else
 		to_chat(user, "[src] is in pristine condition.")
 
-/mob/living/simple_animal/bot/adjustBruteLoss(amount)
-	. = ..()
-
+/mob/living/simple_animal/bot/adjustHealth(amount)
 	if(amount > 0 && prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
-
-/mob/living/simple_animal/bot/adjustFireLoss(amount)
-	. = ..()
-
-	if(amount > 0 && prob(5))
-		new /obj/effect/decal/cleanable/blood/oil(loc)
+	return ..(amount)
 
 /mob/living/simple_animal/bot/updatehealth()
 	..()
@@ -346,9 +339,7 @@
 				return
 			var/obj/item/weapon/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
-				adjustBruteLoss(-10)
-				adjustFireLoss(-10)
-				updatehealth()
+				adjustHealth(-10)
 				add_fingerprint(user)
 				user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
 			else
@@ -1020,3 +1011,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 			throw_alert("temp", /obj/screen/alert/cold/robot, 1)
 		else
 			throw_alert("temp", /obj/screen/alert/cold/robot, 2)
+
+/mob/living/simple_animal/bot/is_mechanical()
+	return 1

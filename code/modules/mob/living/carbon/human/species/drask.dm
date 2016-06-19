@@ -52,6 +52,7 @@
 	reagent_tag = PROCESS_ORG
 	base_color = "#a3d4eb"
 	blood_color = "#a3d4eb"
+	butt_sprite = "drask"
 
 	has_organ = list(
 		"heart" =      				/obj/item/organ/internal/heart/drask,

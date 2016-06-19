@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Partially fixes graffiti so it's actually visible"

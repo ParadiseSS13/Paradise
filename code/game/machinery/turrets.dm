@@ -21,7 +21,7 @@
 			turretTargets |= Mech
 	else if( istype(O, /obj/spacepod) )
 		var/obj/spacepod/Pod = O
-		if( Pod.occupant || Pod.occupant2 )
+		if( Pod.pilot )
 			turretTargets |= Pod
 	else if(istype(O,/mob/living/simple_animal))
 		turretTargets |= O
@@ -139,7 +139,7 @@
 				return 1
 		else if( istype(T, /obj/spacepod) )
 			var/obj/spacepod/SP = T
-			if( SP.occupant || SP.occupant2 )
+			if( SP.pilot )
 				return 1
 		else if(istype(T,/mob/living/simple_animal))
 			var/mob/living/simple_animal/A = T
@@ -159,8 +159,8 @@
 		if(M.occupant)
 			new_targets += M
 	for(var/obj/spacepod/M in protected_area.turretTargets)
-		if(M.occupant)
-			new_targets += M
+		if(M.pilot)
+			new_targets += M.pilot
 	for(var/mob/living/simple_animal/M in protected_area.turretTargets)
 		if(!M.stat)
 			new_targets += M
@@ -227,15 +227,15 @@
 			if(1)
 				A = new /obj/item/projectile/beam(loc)
 			if(2)
-				A = new /obj/item/projectile/beam/heavylaser(loc)
+				A = new /obj/item/projectile/beam/laser/heavylaser(loc)
 			if(3)
 				A = new /obj/item/projectile/beam/pulse(loc)
 			if(4)
 				A = new /obj/item/projectile/magic/change(loc)
 			if(5)
-				A = new /obj/item/projectile/lasertag/blue(loc)
+				A = new /obj/item/projectile/beam/lasertag/bluetag(loc)
 			if(6)
-				A = new /obj/item/projectile/lasertag/red(loc)
+				A = new /obj/item/projectile/beam/lasertag/redtag(loc)
 		A.original = target
 		use_power(500)
 	else
@@ -248,8 +248,7 @@
 	A.current = T
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
-	spawn( 0 )
-		A.process()
+	A.fire()
 	return
 
 
@@ -402,6 +401,8 @@
 	var/scan_range = 9 //You will never see them coming
 	var/health = 200 //Because it lacks a cover, and is mostly to keep people from touching the syndie shuttle.
 	var/bullet_type = /obj/item/projectile/bullet
+	var/firing_sound = 'sound/weapons/Gunshot3.ogg'
+	var/base_icon = "syndieturret"
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "syndieturret0"
 
@@ -425,7 +426,7 @@
 /obj/machinery/gun_turret/update_icon()
 	if(state > 2 || state < 0) //someone fucked up the vars so fix them
 		take_damage(0)
-	icon_state = "syndieturret" + "[state]"
+	icon_state = "[base_icon]" + "[state]"
 	return
 
 
@@ -486,7 +487,7 @@
 			return 1
 	else if(istype(target, /obj/spacepod))
 		var/obj/spacepod/S = target
-		if(S.occupant || S.occupant2)
+		if(S.pilot)
 			return 1
 	return 0
 
@@ -520,14 +521,12 @@
 			continue //Don't shoot at empty mechs.
 		pos_targets += M
 	for(var/obj/spacepod/M in oview(scan_range, src))
-		if(M.occupant)
-			if(faction in M.occupant.faction)
+		if(M.pilot)
+			var/mob/P = M.pilot
+			if(faction in P.faction)
 				continue
-		if(M.occupant2)
-			if(faction in M.occupant2.faction)
-				continue
-		if(!M.occupant && !M.occupant2)
-			continue //Don't shoot at empty mechs.
+		if(!M.pilot)
+			continue //Don't shoot at empty pods.
 		pos_targets += M
 	if(pos_targets.len)
 		target = pick(pos_targets)
@@ -547,7 +546,7 @@
 		return
 	if (targloc == curloc)
 		return
-	playsound(get_turf(src), 'sound/weapons/Gunshot3.ogg', 60, 1)
+	playsound(get_turf(src), firing_sound, 60, 1)
 	var/obj/item/projectile/A = new bullet_type(curloc)
 	A.current = curloc
 	A.yo = targloc.y - curloc.y

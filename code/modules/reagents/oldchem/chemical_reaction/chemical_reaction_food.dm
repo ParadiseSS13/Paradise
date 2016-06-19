@@ -110,6 +110,16 @@
 	mix_message = "Ice forms as the water freezes."
 	mix_sound = null
 
+/datum/chemical_reaction/water
+	name = "Water"
+	id = "water"
+	result = "water"
+	required_reagents = list("ice" = 1)
+	result_amount = 1
+	min_temp = 301 // In Space.....ice melts at 82F...don't ask
+	mix_message = "Water pools as the ice melts."
+	mix_sound = null
+
 /datum/chemical_reaction/dough
 	name = "Dough"
 	id = "dough"

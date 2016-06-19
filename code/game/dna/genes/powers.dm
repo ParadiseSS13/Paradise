@@ -144,8 +144,8 @@
 
 /datum/dna/gene/basic/tk
 	name="Telekenesis"
-	activation_messages=list("You feel smarter.")
-	deactivation_messages=("You feel dumber.")
+	activation_messages = list("You feel smarter.")
+	deactivation_messages = list("You feel dumber.")
 	mutation=TK
 	activation_prob=10
 

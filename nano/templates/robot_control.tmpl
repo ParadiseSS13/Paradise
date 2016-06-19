@@ -22,7 +22,7 @@
 			<h2>{{:value.name}}</h2>
 			<h3>Information</h3>
 			<span class="itemLabel">
-				Status: 
+				Status:
 			</span>
 			<span class="itemContent">
 				{{:value.status}}
@@ -31,7 +31,7 @@
 				System Integrity:
 			</span>
 			<span class="itemContent">
-				{{:value.health}} %
+				{{:helper.smoothRound(value.health)}}%
 			</span>
 			<span class="itemLabel">
 				Location:
@@ -40,28 +40,28 @@
 				({{:value.xpos}}, {{:value.ypos}}, {{:value.zpos}}): {{:value.area}}
 			</span>
 			<span class="itemLabel">
-				Master AI: 
+				Master AI:
 			</span>
 			<span class="itemContent">
 				{{:value.master_ai}}
-			</span>		
+			</span>
 			<span class="itemLabel">
-				Module: 
+				Module:
 			</span>
 			<span class="itemContent">
 				{{:value.module}}
-			</span>		
+			</span>
 
 			{{if value.hackable}}
 				<span class="itemLabel">
-					Safeties: 
+					Safeties:
 				</span>
 				<span class="itemContent">
 					ENABLED
 				</span>
 			{{else value.hacked}}
 				<span class="itemLabel">
-					Safeties: 
+					Safeties:
 				</span>
 				<span class="itemContent">
 					DISABLED
@@ -70,13 +70,13 @@
 			<h3>Power Cell</h3>
 			{{if value.cell}}
 				<span class="itemLabel">
-					Rating: 
+					Rating:
 				</span>
 				<span class="itemContent">
 					{{:value.cell_capacity}}
 				</span>
 				{{:helper.displayBar(value.cell_percentage, 0, 100, (value.cell_percentage >= 50) ? 'good' : (value.cell_percentage >= 25) ? 'average' : 'bad')}}
-				<b> {{:value.cell_percentage}}%</b>	
+				<b> {{:helper.smoothRound(value.cell_percentage)}}%</b>
 			{{else}}
 				<b><i>Not Installed</i></b>
 				{{:helper.displayBar(100, 0, 100, 'bad')}}
@@ -94,7 +94,7 @@
 		</div>
 	{{/for}}
 {{else}}
-	<div class='item'> 
+	<div class='item'>
 		<h3>No robots were found.</h3>
 	</div>
 {{/if}}
