@@ -12,6 +12,8 @@
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
 	following_mobs = null
+	if(buckled)
+		buckled.unbuckle_mob()
 	return ..()
 
 /mob/New()
