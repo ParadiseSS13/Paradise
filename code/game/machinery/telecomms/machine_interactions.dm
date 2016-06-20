@@ -298,6 +298,8 @@
 				src.toggled = !src.toggled
 				temp = "<font color = #666633>-% [src] has been [src.toggled ? "activated" : "deactivated"].</font color>"
 				update_power()
+				if(toggled)
+					stat &= ~EMPED // Have you tried turning it off and back on again?
 
 			/*
 			if("hide")

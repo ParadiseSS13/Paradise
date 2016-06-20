@@ -1345,6 +1345,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Mechanic Workshop"
 	icon_state = "engine"
 
+/area/sysadmin
+	name = "\improper Systems Administrator's Office"
+	icon_state = "yellow"
+
 //Solars
 
 /area/solar

@@ -219,6 +219,18 @@
 				</html>
 				"}*/
 
+/obj/item/weapon/book/manual/ntsl
+	name = "NTSL Reference Manual"
+	desc = "A Reference Manual to NTSL"
+	icon_state = "bookNTSL" // Icon reuse - The best kind of reuse. Floppy disks and programming go together, so I'll use this.
+	author = "Nanotrasen"
+	title = "NTSL Reference Manual"
+	dat = {"<html><head>
+		</head>
+		<body>
+		<iframe width='100%' height='97%' src="http://nanotrasen.se/wiki/index.php?title=NT_Script&printable=yes" frameborder="0" id="main_frame"></iframe></body>
+		</html>"}
+
 /obj/item/weapon/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
 	icon_state ="bookHydroponicsPodPeople"

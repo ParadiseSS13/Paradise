@@ -54,6 +54,7 @@ var/const/MECHANIC			=(1<<4)
 var/const/BRIGDOC			=(1<<5)
 var/const/JUDGE				=(1<<6)
 var/const/PILOT				=(1<<7)
+var/const/SYSADMIN			=(1<<8)
 
 var/list/assistant_occupations = list(
 )
@@ -73,7 +74,8 @@ var/list/engineering_positions = list(
 	"Chief Engineer",
 	"Station Engineer",
 	"Life Support Specialist",
-	"Mechanic"
+	"Mechanic",
+	"Systems Administrator"
 )
 
 
@@ -155,6 +157,7 @@ var/list/whitelisted_positions = list(
 	"Brig Physician",
 	"Magistrate",
 	"Security Pod Pilot",
+	"Systems Administrator"
 )
 
 
