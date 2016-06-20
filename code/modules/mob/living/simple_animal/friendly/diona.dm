@@ -243,31 +243,9 @@
 /mob/living/simple_animal/diona/put_in_hands(obj/item/W)
 	W.loc = get_turf(src)
 	W.layer = initial(W.layer)
+	W.plane = initial(W.plane)
 	W.dropped()
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
 	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
 	return
-
-/mob/living/simple_animal/diona/emote(var/act, var/m_type=1, var/message = null)
-	if(stat)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("chirp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(on_CD == 1)
-		return
-
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("chirp")
-			message = "<B>\The [src]</B> chirps!"
-			m_type = 2 //audible
-			playsound(src, 'sound/misc/nymphchirp.ogg', 40, 1, 1)
-
-	..(act, m_type, message)

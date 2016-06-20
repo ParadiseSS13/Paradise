@@ -1,0 +1,6 @@
+author: monster860
+delete-after: True
+changes: 
+  - tweak: "RnD console now uses NanoUI! Sweet!"
+  - bugfix: "Fixes tranquillite being outside the box in the materials list. Mimes are supposed to be trapped inside a box, not outside one."
+  - tweak: "Replaces the weird unicode \"x\" character in some design names with the actual letter \"x\" so that it doesn't fuck up NanoUI"

@@ -1,4 +1,0 @@
-author: TheDZD
-delete-after: True
-changes: 
-  - rscdel: "Cryodorms will no longer kick you to lobby if you have logged off when they despawn your body, they will now always ghost you."
