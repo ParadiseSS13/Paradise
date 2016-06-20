@@ -1695,10 +1695,109 @@
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)]'s Centcom message with: \"[input]\"")
 		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\"")
 
+	else if(href_list["EvilFax"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/carbon/human/H = locate(href_list["EvilFax"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+		var/etypes = list("borging","corgifying","firedeath","braindeath","honktumor","demotion")
+		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
+		if(!(eviltype in etypes))
+			return
+		var/customname = input(src.owner, "Pick a title for the evil fax.", "Fax Title") as text|null
+		if(!customname)
+			customname = "paper"
+		var/obj/item/weapon/paper/evilfax/P = new /obj/item/weapon/paper/evilfax(null)
+		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+
+		P.name = "Central Command - [customname]"
+		P.info = "<b>A reminder: per the terms of your contract, stupid faxes will get you demoted, or worse.</b>"
+		P.myeffect = eviltype
+		P.mytarget = H
+		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
+			P.activate_on_timeout = 1
+		P.x = rand(-2, 0)
+		P.y = rand(-1, 2)
+		P.offset_x += P.x
+		P.offset_y += P.y
+		P.update_icon()
+		var/stampvalue = "cent"
+		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+		stampoverlay.icon_state = "paper_stamp-[stampvalue]"
+		stampoverlay.pixel_x = P.x
+		stampoverlay.pixel_y = P.y
+		P.stamped = list()
+		P.stamped += /obj/item/weapon/stamp/centcom
+		if(!P.ico)
+			P.ico = new
+		P.ico += "paper_stamp-[stampvalue]"
+		P.overlays += stampoverlay
+		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
+		P.update_icon()
+		//fax.receivefax(P) // this does not work, it does not preserve the type, we have to physically teleport the fax paper instead
+		P.loc = fax.loc
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
+		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
+		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
+		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
+	else if(href_list["FaxReplyTemplate"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/carbon/human/H = locate(href_list["FaxReplyTemplate"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null)
+		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		P.name = "Central Command - paper"
+		var/stypes = list("handle it yourself","illegible","not signed","sorry, not right now","stop wasting our time")
+		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><B>NanoTrasen Science Station Cyberiad</B></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
+		if(stype == "handle it yourself")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention."
+		else if(stype == "illegible")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax was too poorly written for our system to interpret."
+		else if(stype == "not signed")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax was not properly signed and/or stamped."
+		else if(stype == "sorry, not right now")
+			tmsg += "Greetings, esteemed crewmember. Unfortunately, we are unable to spare the resources to assist you at this time."
+		else if(stype == "stop wasting our time")
+			tmsg += "Stop wasting our time."
+		else
+			return
+		tmsg += "</font>"
+		P.info = tmsg
+		P.x = rand(-2, 0)
+		P.y = rand(-1, 2)
+		P.offset_x += P.x
+		P.offset_y += P.y
+		P.update_icon()
+		var/stampvalue = "cent"
+		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+		stampoverlay.icon_state = "paper_stamp-[stampvalue]"
+		stampoverlay.pixel_x = P.x
+		stampoverlay.pixel_y = P.y
+		P.stamped = list()
+		P.stamped += /obj/item/weapon/stamp/centcom
+		if(!P.ico)
+			P.ico = new
+		P.ico += "paper_stamp-[stampvalue]"
+		P.overlays += stampoverlay
+		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
+		P.update_icon()
+		fax.receivefax(P)
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
+		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
+		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
+		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
+
 	else if(href_list["SyndicateReply"])
 		if(!check_rights(R_ADMIN))
 			return
-
 		var/mob/living/carbon/human/H = locate(href_list["SyndicateReply"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
@@ -1709,10 +1808,9 @@
 		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
-
 		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from The Syndicate", "")
-		if(!input)	return
-
+		if(!input)
+			return
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 		log_admin("[src.owner] replied to [key_name(H)]'s Syndicate message with the message [input].")
 		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your benefactor.  Message as follows, agent. [input].  Message ends.\"")
