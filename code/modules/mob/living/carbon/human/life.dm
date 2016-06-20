@@ -905,8 +905,7 @@
 			spawn()
 				animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
 			spawn(10)
-				if(flying)
-					animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+				animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
