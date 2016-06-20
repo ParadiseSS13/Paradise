@@ -23,6 +23,8 @@
 
 	var/PathNode/PNode = null //associated PathNode in the A* algorithm
 
+	var/dynamic_lighting = 1
+
 	flags = 0
 
 	var/image/obscured	//camerachunks
@@ -159,17 +161,9 @@
 	if(path == type)	return src
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
-	var/old_affecting_lights = affecting_lights
+	var/list/old_affecting_lights = affecting_lights
 	var/old_lighting_overlay = lighting_overlay
 	var/old_blueprint_data = blueprint_data
-	var/old_corners = corners
-
-	if (!lighting_corners_initialised && global.lighting_corners_initialised)
-		for (var/i = 1 to 4)
-			if (corners[i]) // Already have a corner on this direction.
-				continue
-
-			corners[i] = new/datum/lighting_corner(src, LIGHTING_CORNER_DIAGONAL[i])
 
 	if(air_master)
 		air_master.remove_from_active(src)
@@ -185,15 +179,15 @@
 		S.update_starlight()
 
 	lighting_overlay = old_lighting_overlay
-	corners = old_corners
+
 	affecting_lights = old_affecting_lights
 	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
 		reconsider_lights()
 	if(dynamic_lighting != old_dynamic_lighting)
 		if(dynamic_lighting)
-			lighting_build_overlay()
+			lighting_build_overlays()
 		else
-			lighting_clear_overlay()
+			lighting_clear_overlays()
 
 	W.levelupdate()
 	W.CalculateAdjacentTurfs()
