@@ -51,8 +51,8 @@
 	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
 	prescription_upgradable = 1
-	species_fit = list("Vox")
 	see_darkness = 0 //don't render darkness while wearing mesons
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi'
@@ -97,6 +97,10 @@
 	item_state = "glasses"
 	prescription_upgradable = 0
 	scan_reagents = 1 //You can see reagents while wearing science goggles
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/science/equipped(mob/user, slot)
 	if(slot == slot_glasses)
@@ -120,6 +124,10 @@
 	desc = "These'll keep the soap out of your eyes."
 	icon_state = "purple"
 	item_state = "glasses"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/night
 	name = "Night Vision Goggles"
@@ -140,6 +148,10 @@
 	desc = "Yarr."
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
@@ -178,6 +190,10 @@
 	icon_state = "glasses"
 	item_state = "glasses"
 	prescription = 1
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/regular/hipster
 	name = "prescription glasses"
@@ -190,12 +206,20 @@
 	name = "3D glasses"
 	icon_state = "3d"
 	item_state = "3d"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/gglasses
 	name = "Green Glasses"
 	desc = "Forest green glasses, like the kind you'd wear when hatching a nasty scheme."
 	icon_state = "gglasses"
 	item_state = "gglasses"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/sunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -350,10 +374,6 @@
 	flash_protect = 2
 	tint = 0
 	action_button_name = "Flip welding goggles"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
@@ -364,10 +384,6 @@
 	flash_protect = 2
 	tint = 3				//to make them blind
 	prescription_upgradable = 0
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1
@@ -376,12 +392,6 @@
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks many flashes."
 	icon_state = "bigsunglasses"
 	item_state = "bigsunglasses"
-	flash_protect = 1
-	tint = 1
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/thermal
 	name = "Optical Thermal Scanner"
@@ -392,6 +402,10 @@
 	vision_flags = SEE_MOBS
 	invisa_view = 2
 	flash_protect = -1
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
 
 	emp_act(severity)
 		if(istype(src.loc, /mob/living/carbon/human))
@@ -410,10 +424,6 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	origin_tech = "magnets=3;syndicate=4"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"
@@ -432,10 +442,6 @@
 	desc = "A set of implantable lenses designed to augment your vision"
 	icon_state = "thermalimplants"
 	item_state = "syringe_kit"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/thermal/cyber
 	name = "Eye Replacement Implant"

@@ -14,32 +14,33 @@ var/global/list/limb_icon_cache = list()
 		overlays += organ.mob_icon
 		child_icons += organ.mob_icon
 
-/obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/human)
+/obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/H)
 	if(status & ORGAN_ROBOT && !(species && species.name == "Machine")) //machine people get skin color
 		return
-	if(species && human.species && species.name != human.species.name)
+	if(species && H.species && species.name != H.species.name)
 		return
-	if(dna.unique_enzymes != human.dna.unique_enzymes) // This isn't MY arm
-		sync_colour_to_dna()
-		return
-	if(!isnull(human.s_tone) && (human.species.bodyflags & HAS_SKIN_TONE))
+	if(dna.unique_enzymes != H.dna.unique_enzymes) // This isn't MY arm
+		if(!(H.species.bodyflags & HAS_ICON_SKIN_TONE))
+			sync_colour_to_dna()
+			return
+	if(!isnull(H.s_tone) && ((H.species.bodyflags & HAS_SKIN_TONE) || (H.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
-		s_tone = human.s_tone
-	if(human.species.bodyflags & HAS_SKIN_COLOR)
+		s_tone = H.s_tone
+	if(H.species.bodyflags & HAS_SKIN_COLOR)
 		s_tone = null
-		s_col = list(human.r_skin, human.g_skin, human.b_skin)
+		s_col = list(H.r_skin, H.g_skin, H.b_skin)
 
 /obj/item/organ/external/proc/sync_colour_to_dna()
 	if(status & ORGAN_ROBOT)
 		return
-	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && (species.flags & HAS_SKIN_TONE))
+	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && ((species.bodyflags & HAS_SKIN_TONE) || (species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
 		s_tone = dna.GetUIValue(DNA_UI_SKIN_TONE)
 	if(species.flags & HAS_SKIN_COLOR)
 		s_tone = null
 		s_col = list(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 
-/obj/item/organ/external/head/sync_colour_to_human(var/mob/living/carbon/human/human)
+/obj/item/organ/external/head/sync_colour_to_human(var/mob/living/carbon/human/H)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_organs_by_name["eyes"]
 	if(eyes) eyes.update_colour()

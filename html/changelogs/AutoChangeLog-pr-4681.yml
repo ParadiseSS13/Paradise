@@ -1,4 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "Secure briefcase now has the same flags, hitsounds, attack verbs, throw speed and carrying capacity as a regular briefcase. Yes, it can hold paper bins now."

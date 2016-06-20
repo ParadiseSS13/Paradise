@@ -62,7 +62,7 @@
 	item_state = "c20r"
 	w_class = 4
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
-	cell_type = "/obj/item/weapon/stock_parts/cell/potato"
+	cell_type = /obj/item/weapon/stock_parts/cell/potato
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	selfcharge = 1
 
@@ -324,7 +324,7 @@
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
 	icon_state = "l6closed0"
 	icon = 'icons/obj/guns/projectile.dmi'
-	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
+	cell_type = /obj/item/weapon/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = 0
 
@@ -368,6 +368,7 @@
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
+	ammo_x_offset = 3
 
 /obj/item/weapon/gun/energy/toxgun
 	name = "plasma pistol"
@@ -406,7 +407,7 @@
 	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	cell_type = "/obj/item/weapon/stock_parts/cell"
+	cell_type = /obj/item/weapon/stock_parts/cell
 
 	var/powercost = ""
 	var/powercostcolor = ""
@@ -425,11 +426,7 @@
 	return ..()
 
 /obj/item/weapon/gun/energy/temperature/newshot()
-	..()
-	var/obj/item/ammo_casing/energy/temp/T = chambered
-	if(T)
-		T.temperature = temperature
-		T.e_cost = e_cost
+	..(temperature, e_cost)
 
 /obj/item/weapon/gun/energy/temperature/attack_self(mob/living/user as mob)
 	user.set_machine(src)
@@ -572,3 +569,16 @@
 		if(2000 to 3000)			overlays += "200"
 		if(1000 to 2002)			overlays += "100"
 		if(-INFINITY to 1000)	overlays += "0"
+
+/obj/item/weapon/gun/energy/mimicgun
+	name = "mimic gun"
+	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
+	icon_state = "disabler"
+	ammo_type = list(/obj/item/ammo_casing/energy/mimic)
+	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
+	selfcharge = 1
+	ammo_x_offset = 3
+	var/mimic_type = /obj/item/weapon/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
+
+/obj/item/weapon/gun/energy/mimicgun/newshot()
+	..(mimic_type)

@@ -31,6 +31,7 @@
 	organ_tag = "kidneys"
 	parent_organ = "groin"
 	slot = "kidneys"
+	alcohol_intensity = 0.8
 
 /obj/item/organ/internal/brain/drask
 	name = "brain"

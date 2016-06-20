@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Warden starts off with a pair of Krav Maga Gloves"
+  - rscadd: "New Steal objective: steal the warden's krav maga gloves"

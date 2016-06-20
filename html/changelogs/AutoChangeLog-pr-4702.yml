@@ -1,5 +1,0 @@
-author: DaveTheHeadcrab
-delete-after: True
-changes: 
-  - tweak: "Defibs now must be used within 3 minutes of death."
-  - tweak: "Combat defibs now induce heart attack when you stun with them (Emagged defibs have a 10^ chance to do this)"

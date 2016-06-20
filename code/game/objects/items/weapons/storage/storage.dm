@@ -151,6 +151,7 @@
 	for(var/obj/O in src.contents)
 		O.screen_loc = "[cx],[cy]"
 		O.layer = 20
+		O.plane = HUD_PLANE
 		cx++
 		if (cx > mx)
 			cx = tx
@@ -170,6 +171,7 @@
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
 			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = 20
+			ND.sample_object.plane = HUD_PLANE
 			cx++
 			if (cx > (4+cols))
 				cx = 4
@@ -180,6 +182,7 @@
 			O.screen_loc = "[cx]:16,[cy]:16"
 			O.maptext = ""
 			O.layer = 20
+			O.plane = HUD_PLANE
 			cx++
 			if (cx > (4+cols))
 				cx = 4
@@ -337,8 +340,10 @@
 			W.dropped(usr)
 		if(ismob(new_location))
 			W.layer = 20
+			W.plane = HUD_PLANE
 		else
 			W.layer = initial(W.layer)
+			W.plane = initial(W.plane)
 		W.loc = new_location
 	else
 		W.loc = get_turf(src)
@@ -445,6 +450,7 @@
 	src.closer.master = src
 	src.closer.icon_state = "x"
 	src.closer.layer = 20
+	src.closer.plane = HUD_PLANE
 	orient2hud()
 	return
 

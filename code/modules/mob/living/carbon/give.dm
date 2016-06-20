@@ -49,6 +49,7 @@
 						target.l_hand = I
 				I.loc = target
 				I.layer = 20
+				I.plane = HUD_PLANE
 				I.add_fingerprint(target)
 				src.update_inv_l_hand()
 				src.update_inv_r_hand()

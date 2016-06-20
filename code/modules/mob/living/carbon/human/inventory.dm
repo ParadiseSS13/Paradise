@@ -218,6 +218,7 @@
 	W.loc = src
 	W.equipped(src, slot)
 	W.layer = 20
+	W.plane = HUD_PLANE
 
 	switch(slot)
 		if(slot_back)
@@ -260,6 +261,7 @@
 				O.loc = src
 				r_ear = O
 				O.layer = 20
+				O.plane = HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_r_ear)
 			r_ear = W
@@ -268,6 +270,7 @@
 				O.loc = src
 				l_ear = O
 				O.layer = 20
+				O.plane = HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_glasses)
 			glasses = W
