@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Can deconvert mindslaves by removing their mindslave implant"
-  - tweak: "Can deconvert Vampire thralls by feeding them holy water"
-  - bugfix: "Fixes mindslaves not having a HUD for the master and mindslave"

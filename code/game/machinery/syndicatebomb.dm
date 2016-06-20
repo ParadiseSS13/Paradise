@@ -10,7 +10,7 @@
 	unacidable = 1
 
 	var/datum/wires/syndicatebomb/wires = null
-	var/timer = 60
+	var/timer = 120
 	var/open_panel = 0 	//are the wires exposed?
 	var/active = 0		//is the bomb counting down?
 	var/defused = 0		//is the bomb capable of exploding?
@@ -19,12 +19,12 @@
 
 /obj/machinery/syndicatebomb/process()
 	if(active && !defused && (timer > 0)) 	//Tick Tock
-		var/volume = (timer <= 10 ? 40 : 10) // Tick louder when the bomb is closer to being detonated.
+		var/volume = (timer <= 20 ? 40 : 10) // Tick louder when the bomb is closer to being detonated.
 		playsound(loc, beepsound, volume, 0)
-		timer--
+		timer = max(timer - 2,0) // 2 seconds per process()
 	if(active && !defused && (timer <= 0))	//Boom
 		active = 0
-		timer = 60
+		timer = 120
 		update_icon()
 		if(payload in src)
 			payload.detonate()
@@ -123,7 +123,7 @@
 
 /obj/machinery/syndicatebomb/proc/settings(var/mob/user)
 	var/newtime = input(user, "Please set the timer.", "Timer", "[timer]") as num
-	newtime = Clamp(newtime, 60, 60000)
+	newtime = Clamp(newtime, 120, 60000)
 	if(in_range(src, user) && isliving(user)) //No running off and setting bombs from across the station
 		timer = newtime
 		src.loc.visible_message("<span class='notice'>\icon[src] timer set for [timer] seconds.</span>")

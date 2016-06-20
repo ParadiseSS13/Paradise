@@ -89,10 +89,6 @@
 	if ((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 
-	else if (istype(W,/obj/item/latexballon))
-		var/obj/item/latexballon/LB = W
-		LB.blow(src)
-
 	if(istype(W, /obj/item/device/assembly_holder))
 		bomb_assemble(W,user)
 

@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Fixes ghosts failing to follow mobs that move in unusual ways"

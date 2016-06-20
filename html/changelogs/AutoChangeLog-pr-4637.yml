@@ -1,6 +1,0 @@
-author: Twinmold
-delete-after: True
-changes: 
-  - bugfix: "Fixes space pod equipment variable. Can now properly install/uninstall equipment."
-  - bugfix: "Check Seat verb no longer pulls out installed equipment."
-  - bugfix: "You can now have a passenger in your pod if you have a passenger seat."
