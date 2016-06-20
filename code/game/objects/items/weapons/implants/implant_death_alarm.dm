@@ -69,3 +69,41 @@
 		processing_objects.Remove(src)
 		return 1
 	return 0
+
+
+
+/obj/item/weapon/implant/death_alarm/dust
+	name = "duster implant"
+	desc = "An alarm which monitors host vital signs, transmitting a radio message and dusting the corpse on death."
+
+/obj/item/weapon/implant/death_alarm/dust/activate(var/cause)
+	if (activated)
+		return
+	else
+		activated = 1
+		spawn (30)
+			var/mob/M = imp_in
+			var/area/t = get_area(M)
+			switch (cause)
+				if("death")
+					var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+					if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
+						//give the syndies a bit of stealth
+						a.autosay("[mobname] has died in Space!", "[mobname]'s Death Alarm")
+					else
+						a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
+
+					qdel(a)
+					var/obj/effect/decal/remains/human/R = new /obj/effect/decal/remains/human(M.loc)
+					R.name = "[mobname]'s remains"
+					qdel(M)
+
+				if ("emp")
+					// do nothing, these implants are EMP-immune
+				else
+					var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+					a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
+					qdel(a)
+					var/obj/effect/decal/remains/human/R = new /obj/effect/decal/remains/human(M.loc)
+					R.name = "[mobname]'s remains"
+					qdel(M)

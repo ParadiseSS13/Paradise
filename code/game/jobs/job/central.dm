@@ -25,6 +25,9 @@
 	H.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(H), slot_belt)
 	H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 
+	var/obj/item/weapon/implant/death_alarm/dust/D = new/obj/item/weapon/implant/death_alarm/dust(H)
+	D.implant(H)
+
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
 	L.implanted = 1
@@ -62,6 +65,9 @@
 	H.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(H), slot_belt)
 	H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 	H.equip_or_collect(new /obj/item/clothing/suit/space/deathsquad/officer(H), slot_wear_suit)
+
+	var/obj/item/weapon/implant/death_alarm/dust/D = new/obj/item/weapon/implant/death_alarm/dust(H)
+	D.implant(H)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
