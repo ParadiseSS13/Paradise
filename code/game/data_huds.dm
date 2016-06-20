@@ -380,7 +380,3 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
-
-/obj/structure/beebox/proc/plant_hud_set_honey()
-	var/image/holder = hud_list[PLANT_HONEY_HUD]
-	holder.icon_state = "hudhoney[honeycombs.len]"

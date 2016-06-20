@@ -37,9 +37,6 @@
 	icon_state = "beebox"
 	anchored = 1
 	density = 1
-
-//	hud_possible = list (PLANT_HONEY_HUD)
-
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen_bee = null
 	var/list/bees = list() //bees owned by the box, not those inside it
 	var/list/honeycombs = list()
@@ -51,10 +48,6 @@
 	..()
 	processing_objects.Add(src)
 
-/*	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
-	hydro_hud.add_to_hud(src)
-	plant_hud_set_honey()
-*/
 
 /obj/structure/beebox/Destroy()
 	processing_objects.Remove(src)
