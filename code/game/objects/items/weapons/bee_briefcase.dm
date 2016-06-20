@@ -27,7 +27,6 @@
 
 /obj/item/weapon/bee_briefcase/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/syringe))
-
 		var/obj/item/weapon/reagent_containers/syringe/S = I
 		if(!bees_left)
 			to_chat(user, "<span class='warning'>The briefcase is empty, so there is no point in injecting something into it.</span>")
@@ -46,7 +45,6 @@
 						to_chat(user, "<span class='warning'>The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped...</span>")
 				S.reagents.clear_reagents()
 				S.update_icon()
-
 	else if(istype(I, /obj/item/weapon/plantspray))
 		var/obj/item/weapon/plantspray/PS = I
 		user.drop_item(PS)
@@ -56,7 +54,9 @@
 		qdel(PS)
 
 /obj/item/weapon/bee_briefcase/attack_self(mob/user as mob)
-	if(!bees_left)
+	if (!blood_list.len && user.mind && user.mind.special_role)
+		to_chat(user, "<span class='danger'>You must inject some of your blood into this briefcase, using a syringe, to train the bees not to attack you. Only then can the briefcase be opened.</span>")
+	else if(!bees_left)
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
 		return
 	else
