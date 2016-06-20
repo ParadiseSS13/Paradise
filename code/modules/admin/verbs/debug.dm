@@ -1234,3 +1234,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	// Clear the user's cache so they get resent.
 	usr.client.cache = list()
+
+/client/proc/view_runtimes()
+	set category = "Debug"
+	set name = "View Runtimes"
+	set desc = "Open the Runtime Viewer"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	error_cache.showTo(usr)

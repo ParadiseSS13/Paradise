@@ -10,9 +10,11 @@
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
 	layer = 20
+	plane = HUD_PLANE
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
+	appearance_flags = NO_CLIENT_COLOR
 
 /obj/screen/Destroy()
 	master = null

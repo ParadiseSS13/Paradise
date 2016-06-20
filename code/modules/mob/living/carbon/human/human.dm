@@ -1537,13 +1537,16 @@
 
 	if(species.base_color && default_colour)
 		//Apply colour.
-		r_skin = hex2num(copytext(species.base_color,2,4))
-		g_skin = hex2num(copytext(species.base_color,4,6))
-		b_skin = hex2num(copytext(species.base_color,6,8))
+		r_skin = hex2num(copytext(species.base_color, 2, 4))
+		g_skin = hex2num(copytext(species.base_color, 4, 6))
+		b_skin = hex2num(copytext(species.base_color, 6, 8))
 	else
 		r_skin = 0
 		g_skin = 0
 		b_skin = 0
+
+	if(!(species.bodyflags & HAS_SKIN_TONE))
+		s_tone = 0
 
 	species.create_organs(src)
 
@@ -1555,6 +1558,32 @@
 		H.f_style = species.default_fhair
 	if(species.default_headacc)
 		H.ha_style = species.default_headacc
+
+	if(species.default_hair_colour)
+		//Apply colour.
+		H.r_hair = hex2num(copytext(species.default_hair_colour, 2, 4))
+		H.g_hair = hex2num(copytext(species.default_hair_colour, 4, 6))
+		H.b_hair = hex2num(copytext(species.default_hair_colour, 6, 8))
+	else
+		H.r_hair = 0
+		H.g_hair = 0
+		H.b_hair = 0
+	if(species.default_fhair_colour)
+		H.r_facial = hex2num(copytext(species.default_fhair_colour, 2, 4))
+		H.g_facial = hex2num(copytext(species.default_fhair_colour, 4, 6))
+		H.b_facial = hex2num(copytext(species.default_fhair_colour, 6, 8))
+	else
+		H.r_facial = 0
+		H.g_facial = 0
+		H.b_facial = 0
+	if(species.default_headacc_colour)
+		H.r_headacc = hex2num(copytext(species.default_headacc_colour, 2, 4))
+		H.g_headacc = hex2num(copytext(species.default_headacc_colour, 4, 6))
+		H.b_headacc = hex2num(copytext(species.default_headacc_colour, 6, 8))
+	else
+		H.r_headacc = 0
+		H.g_headacc = 0
+		H.b_headacc = 0
 
 	if(!dna)
 		dna = new /datum/dna(null)

@@ -169,6 +169,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	slot = "liver"
+	alcohol_intensity = 0.5
 
 //TODO:Make absorb light on insert.
 

@@ -3,6 +3,7 @@
 	desc = "A sturdy metal ladder."
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "ladder11"
+	anchored = 1
 	var/id = null
 	var/height = 0							//the 'height' of the ladder. higher numbers are considered physically higher
 	var/obj/structure/ladder/down = null	//the ladder below this one

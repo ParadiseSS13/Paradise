@@ -12,6 +12,7 @@
 	density = 0
 	anchored = 1
 	layer = 50
+	plane = HUD_PLANE
 
 /obj/effect/decal/chempuff
 	name = "chemicals"
