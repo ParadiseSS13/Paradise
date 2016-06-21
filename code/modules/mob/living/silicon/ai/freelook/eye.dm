@@ -29,6 +29,7 @@
 		cameranet.visibility(src)
 		if(ai.client)
 			ai.client.eye = src
+		ai.hud_used.update_parallax()
 		//Holopad
 		if(ai.holo)
 			ai.holo.move_hologram()

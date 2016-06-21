@@ -13,7 +13,8 @@
 					volume,
 					nanoui_fancy,
 					show_ghostitem_attack,
-					lastchangelog
+					lastchangelog,
+					space_parallax
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -54,6 +55,7 @@
 	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
 	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
+	space_parallax	= sanitize_integer(space_parallax, 0, 1, initial(space_parallax))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -78,7 +80,8 @@
 					volume='[volume]',
 					nanoui_fancy='[nanoui_fancy]',
 					show_ghostitem_attack='[show_ghostitem_attack]',
-					lastchangelog='[lastchangelog]'
+					lastchangelog='[lastchangelog]',
+					space_parallax='[space_parallax]'
 					WHERE ckey='[C.ckey]'"}
 					)
 

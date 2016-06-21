@@ -90,6 +90,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/show_ghostitem_attack = TRUE
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
+	var/space_parallax = 1
 
 
 	//character preferences
@@ -372,6 +373,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Ghost-Item Attack Animation:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Space Parallax:</b> <a href='?_src_=prefs;preference=parallax'><b>[space_parallax ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
 			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'<tr><td>__</td></tr></table><br>"
@@ -1628,7 +1630,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
 					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
 					UI_style_alpha = UI_style_alpha_new
+					if(ishuman(usr)) //mid-round preference changes, for aesthetics
+						var/mob/living/carbon/human/H = usr
+						H.remake_hud()
 
+				if("parallax")
+					space_parallax = !space_parallax
+					to_chat(user, "Space Parallax is now [space_parallax ? "on" : "off"].")
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()

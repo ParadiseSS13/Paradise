@@ -161,6 +161,7 @@
 	mymob.update_action_buttons()
 	reorganize_alerts()
 	reload_fullscreen()
+	create_parallax()
 
 /datum/hud/human/show_hud(version = 0)
 	..()
@@ -175,6 +176,72 @@
 
 /datum/hud/proc/persistant_inventory_update()
 	return
+
+/client/var/list/spacebg = list()
+/client/var/obj/screen/pmaster_whitespace/pmaster_whitespace
+
+var/list/parallax_on_clients = list()
+
+/obj/screen/spacebg
+	var/offset_x = 0
+	var/offset_y = 0
+	blend_mode = BLEND_MULTIPLY
+	mouse_opacity = 0
+	icon = 'icons/mob/screen_full.dmi'
+	icon_state = "space"
+	name = "space parallax"
+	layer = AREA_LAYER
+	plane = SPACE_LAYER_PLANE
+
+/obj/screen/pmaster_whitespace
+	plane = SPACE_TURF_PLANE
+	color = list(0, 0, 0,
+				0, 0, 0,
+				0, 0, 0,
+				1, 1, 1) // This will cause space to be solid white
+	appearance_flags = PLANE_MASTER
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+
+/datum/hud/proc/create_parallax()
+	var/client/C = mymob.client
+	if(C.prefs.space_parallax)
+		for(var/obj/screen/spacebg/bgobj in C.spacebg)
+			C.screen |= bgobj
+		if(C.pmaster_whitespace)
+			C.screen |= C.pmaster_whitespace
+	else
+		for(var/obj/screen/spacebg/bgobj in C.spacebg)
+			C.screen -= bgobj
+			qdel(bgobj)
+			C.spacebg -= bgobj
+		if(C.pmaster_whitespace)
+			C.screen -= C.pmaster_whitespace
+			qdel(C.pmaster_whitespace)
+			C.pmaster_whitespace = null
+		return
+	if(!C.spacebg.len)
+		for(var/i in 0 to 3)
+			var/obj/screen/spacebg/bgobj = new /obj/screen/spacebg()
+			if(i & 1)
+				bgobj.offset_x = 480
+			if(i & 2)
+				bgobj.offset_y = 480
+			bgobj.screen_loc = "CENTER-7:[bgobj.offset_x],CENTER-7:[bgobj.offset_y]"
+			C.spacebg += bgobj
+			C.screen += bgobj
+		C.pmaster_whitespace = new
+		C.screen += C.pmaster_whitespace
+	update_parallax()
+
+/datum/hud/proc/update_parallax()
+	var/atom/posobj = get_turf(mymob.client.eye)
+	for(var/obj/screen/spacebg/bgobj in mymob.client.spacebg)
+		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-posobj.x],CENTER-7:[bgobj.offset_y-posobj.y]"
+		var/area/A = posobj.loc 
+		if(A.parallax_icon_state)
+			bgobj.icon_state = A.parallax_icon_state
+		else
+			bgobj.icon_state = "space"
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()

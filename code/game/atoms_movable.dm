@@ -89,6 +89,10 @@
 			if(loc == newloc) //Remove this check and people can accelerate. Not opening that can of worms just yet.
 				newtonian_move(last_move)
 
+	for(var/mob/M in get_mobs_in_contents())
+		if(M.hud_used)
+			M.hud_used.update_parallax()
+
 	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
 		. = 0
 
@@ -131,6 +135,10 @@
 
 	for(var/datum/light_source/L in light_sources)
 		L.source_atom.update_light()
+	
+	for(var/mob/M in get_mobs_in_contents()) // Update parallax of contents
+		if(M.hud_used)
+			M.hud_used.update_parallax()
 
 	return 1
 

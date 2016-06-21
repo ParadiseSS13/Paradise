@@ -1,3 +1,6 @@
 #define CLICKCATCHER_PLANE -99
 
+#define SPACE_TURF_PLANE -4
+#define SPACE_LAYER_PLANE -3
+
 #define HUD_PLANE 90
