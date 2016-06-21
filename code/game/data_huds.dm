@@ -70,20 +70,40 @@
 	switch(health)
 		if(100 to INFINITY)
 			return "health100"
-		if(70 to 100)
-			return "health80"
-		if(50 to 70)
-			return "health60"
-		if(30 to 50)
-			return "health40"
-		if(18 to 30)
-			return "health25"
-		if(5 to 18)
-			return "health10"
-		if(1 to 5)
+		if(93 to 100)
+			return "health93"
+		if(86 to 93)
+			return "health86"
+		if(78 to 86)
+			return "health78"
+		if(71 to 78)
+			return "health71"
+		if(64 to 71)
+			return "health64"
+		if(56 to 64)
+			return "health56"
+		if(49 to 56)
+			return "health49"
+		if(42 to 49)
+			return "health42"
+		if(35 to 42)
+			return "health35"
+		if(28 to 35)
+			return "health28"
+		if(21 to 28)
+			return "health21"
+		if(14 to 21)
+			return "health14"
+		if(7 to 14)
+			return "health7"
+		if(1 to 7)
 			return "health1"
-		if(-99 to 0)
+		if(-50 to 1)
 			return "health0"
+		if(-85 to -50)
+			return "health-50"
+		if(-99 to -85)
+			return "health-85"
 		else
 			return "health-100"
 	return "0"
