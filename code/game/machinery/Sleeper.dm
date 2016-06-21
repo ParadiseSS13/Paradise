@@ -520,15 +520,17 @@
 /obj/machinery/sleeper/proc/go_out()
 	if(filtering)
 		toggle_filter()
-	if(!src.occupant)
+	if(!occupant)
 		return
-	if(src.occupant.client)
-		src.occupant.client.eye = src.occupant.client.mob
-		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.forceMove(src.loc)
-	src.occupant = null
+	if(occupant.client)
+		occupant.client.eye = occupant.client.mob
+		occupant.client.perspective = MOB_PERSPECTIVE
+	occupant.forceMove(loc)
+	occupant = null
 	icon_state = "sleeper-open"
-	return
+	// eject trash the occupant dropped
+	for(var/atom/movable/A in contents - component_parts - list(beaker))
+		A.forceMove(loc)
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if (!(chemical in injection_chems))
