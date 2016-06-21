@@ -13,7 +13,7 @@ var/list/parallax_on_clients = list()
 	name = "space parallax"
 	blend_mode = BLEND_ADD
 	layer = AREA_LAYER
-	plane = PLANE_SPACE_PARALLAX//changing this var doesn't actually change the plane of its overlays
+	plane = PLANE_SPACE_PARALLAX
 	var/parallax_speed = 0
 
 /obj/screen/plane_master
@@ -22,12 +22,22 @@ var/list/parallax_on_clients = list()
 
 /obj/screen/plane_master/parallax_master
 	plane = PLANE_SPACE_PARALLAX
+	blend_mode = BLEND_MULTIPLY
 	color = list(
 	1, 0, 0, 0,
 	0, 1, 0, 0,
 	0, 0, 1, 0,
 	0, 0, 0, 0,
 	0, 0, 0, 1)
+
+/obj/screen/plane_master/parallax_spacemaster // Turns space-turfs into white. The parallax plane multiplies itself by the white, causing the parallax to only show in areas with opacity.
+	plane = PLANE_SPACE_BACKGROUND
+	color = list(
+	0, 0, 0, 0,
+	0, 0, 0, 0,
+	0, 0, 0, 0,
+	1, 1, 1, 1,
+	0, 0, 0, 0)
 
 /obj/screen/plane_master/parallax_dustmaster
 	plane = PLANE_SPACE_DUST
@@ -73,11 +83,14 @@ var/list/parallax_on_clients = list()
 			C.screen -= bgobj
 		parallax_on_clients -= C
 		C.screen -= C.parallax_master
+		C.screen -= C.parallax_spacemaster
 		C.screen -= C.parallax_dustmaster
 		return 0
 
 	if(!C.parallax_master)
 		C.parallax_master = new /obj/screen/plane_master/parallax_master
+	if(!C.parallax_spacemaster)
+		C.parallax_spacemaster = new /obj/screen/plane_master/parallax_spacemaster
 	if(!C.parallax_dustmaster)
 		C.parallax_dustmaster = new /obj/screen/plane_master/parallax_dustmaster
 	return 1
@@ -106,6 +119,7 @@ var/list/parallax_on_clients = list()
 			C.screen |= bgobj
 
 		C.screen |= C.parallax_master
+		C.screen |= C.parallax_spacemaster
 		C.screen |= C.parallax_dustmaster
 		C.parallax_dustmaster.color = list(0,0,0,0)
 		if(C.prefs.space_dust)
