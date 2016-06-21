@@ -900,12 +900,9 @@
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
 			ear_damage = max(ear_damage - 0.05, 0)
 
-
 		if(flying)
-			spawn()
-				animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-			spawn(10)
-				animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+			animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
