@@ -24,8 +24,8 @@
 	search = lowertext(search)
 
 	var/name
-	var/fingerprint
-	var/dna
+	var/fingerprint = "FINGERPRINT NOT FOUND"
+	var/dna = "BLOOD DNA NOT FOUND"
 
 	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
 
@@ -41,7 +41,7 @@
 		if (M && ( search == lowertext(M.fields["b_dna"]) || name == M.fields["name"]) )
 			dna = M.fields["b_dna"]
 
-			if(!fingerprint) // We have searched by DNA, and do not have the relevant information from the security records.
+			if(fingerprint == "FINGERPRINT NOT FOUND") // We have searched by DNA, and do not have the relevant information from the fingerprint records.
 				name = M.fields["name"]
 				for (var/gen_record in data_core.general)
 					var/datum/data/record/S = gen_record
@@ -50,7 +50,7 @@
 						continue
 			continue
 
-	if(name && fingerprint && dna)
+	if(name)
 		to_chat(user, "<span class='notice'>Match found in station records: <b>[name]</b></span><br>\
 		<i>Fingerprint:</i><span class='notice'> [fingerprint]</span><br>\
 		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
