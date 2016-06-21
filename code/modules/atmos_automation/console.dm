@@ -210,7 +210,7 @@
 
 	proc/ReadCode(var/jsonStr)
 		automations.Cut()
-		var/list/json = list2json(jsonStr)
+		var/list/json = json2list(jsonStr)
 		if(json.len>0)
 			for(var/list/cData in json)
 				if(isnull(cData) || !("type" in cData))
