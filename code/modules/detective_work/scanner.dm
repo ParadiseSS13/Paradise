@@ -24,33 +24,33 @@
 	search = lowertext(search)
 
 	var/name
-	var/fingerprint
-	var/dna
+	var/fingerprint = "FINGERPRINT NOT FOUND"
+	var/dna = "BLOOD DNA NOT FOUND"
 
 	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
 
 	for (var/record in data_core.general)
 		var/datum/data/record/S = record
-		if(search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"]))
+		if(S && (search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"])))
 			name = S.fields["name"]
 			fingerprint = S.fields["fingerprint"]
 			continue
 
 	for (var/record in data_core.medical)
 		var/datum/data/record/M = record
-		if (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])
+		if (M && ( search == lowertext(M.fields["b_dna"]) || name == M.fields["name"]) )
 			dna = M.fields["b_dna"]
 
-			if(!fingerprint) // We have searched by DNA, and do not have the relevant information from the security records.
+			if(fingerprint == "FINGERPRINT NOT FOUND") // We have searched by DNA, and do not have the relevant information from the fingerprint records.
 				name = M.fields["name"]
 				for (var/gen_record in data_core.general)
 					var/datum/data/record/S = gen_record
-					if(name == S.fields["name"])
+					if(S && (name == S.fields["name"]))
 						fingerprint = S.fields["fingerprint"]
 						continue
 			continue
 
-	if(name && fingerprint && dna)
+	if(name)
 		to_chat(user, "<span class='notice'>Match found in station records: <b>[name]</b></span><br>\
 		<i>Fingerprint:</i><span class='notice'> [fingerprint]</span><br>\
 		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
