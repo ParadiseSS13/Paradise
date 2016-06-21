@@ -337,7 +337,7 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_status()
 	var/image/holder = hud_list[PLANT_STATUS_HUD]
-	// Dis be drugs here. And special mention plants //TODO: make it work
+	// Dis be drugs here. And special mention plants
 	var/list/special = list(/datum/seed/nettle, /datum/seed/apple/poison, /datum/seed/ambrosia, /datum/seed/tobacco, /datum/seed/mushroom, \
 							/datum/seed/weeds, /datum/seed/grass, /datum/seed/kudzu, /datum/seed/diona, /datum/seed/clown)
 	if (!seed)
@@ -346,6 +346,7 @@
 	if (harvest)
 		if (is_type_in_list(seed, special))
 			holder.icon_state = "hudharvest2"
+			return
 		holder.icon_state = "hudharvest"
 		return
 	if (dead)
