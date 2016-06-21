@@ -1,4 +1,9 @@
 //cult datums by FalseIncarnate
+
+
+
+
+
 /datum/cult_info
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
@@ -91,3 +96,41 @@
 	harvester_name = "Psychopomp"
 
 	shade_name = "Banshee"
+
+/datum/cult_info/proc/get_name(var/type_to_name)
+	if(!type_to_name)
+		return
+	switch(type_to_name)
+		if("god")
+			return entity_name
+		if("behemoth")
+			return behemoth_name
+		if("builder")
+			return artificer_name
+		if("juggernaut")
+			return juggernaut_name
+		if("harvester")
+			return harvester_name
+		if("wraith")
+			return wraith_name
+		if("shade")
+			return shade_name
+
+/datum/cult_info/proc/get_icon(var/type_to_icon)
+	if(!type_to_icon)
+		return
+	switch(type_to_icon)
+		if("god")
+			return entity_icon_state
+		if("behemoth")
+			return behemoth_icon_state
+		if("builder")
+			return artificer_icon_state
+		if("juggernaut")
+			return juggernaut_icon_state
+		if("harvester")
+			return harvester_icon_state
+		if("wraith")
+			return wraith_icon_state
+		if("shade")
+			return shade_icon_state

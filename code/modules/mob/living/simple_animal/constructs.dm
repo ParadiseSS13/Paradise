@@ -20,14 +20,16 @@
 	flying = 1
 	universal_speak = 1
 	AIStatus = AI_OFF //normal constructs don't have AI
+	var/const_type = "shade"
 	var/list/construct_spells = list()
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
 
 /mob/living/simple_animal/hostile/construct/New()
 	..()
-	name = text("[initial(name)] ([rand(1, 1000)])")
-	real_name = name
+	name = "[ticker.mode.cultdat.get_name(const_type)] ([rand(1, 1000)])"
+	real_name = ticker.mode.cultdat.get_name(const_type)
+	icon_state = ticker.mode.cultdat.get_icon(const_type)
 	for(var/spell in construct_spells)
 		AddSpell(new spell(src))
 	updateglow()
@@ -102,6 +104,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
+	const_type = "juggernaut"
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
@@ -163,6 +166,7 @@
 	attacktext = "slashes"
 	see_in_dark = 7
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	const_type = "wraith"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
@@ -192,6 +196,7 @@
 	retreat_distance = 10
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
+	const_type = "builder"
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
@@ -270,6 +275,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch4.ogg'
 	force_threshold = 11
+	const_type = "behemoth"
 	var/energy = 0
 	var/max_energy = 1000
 
@@ -300,6 +306,7 @@
 	environment_smash = 1
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
+	const_type = "harvester"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
