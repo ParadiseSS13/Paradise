@@ -2,6 +2,7 @@
 /obj/item/weapon/bee_briefcase
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
+	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "briefcase"
 	item_state = "briefcase"
@@ -54,9 +55,7 @@
 		qdel(PS)
 
 /obj/item/weapon/bee_briefcase/attack_self(mob/user as mob)
-	if (!blood_list.len && user.mind && user.mind.special_role)
-		to_chat(user, "<span class='danger'>You must inject some of your blood into this briefcase, using a syringe, to train the bees not to attack you. Only then can the briefcase be opened.</span>")
-	else if(!bees_left)
+	if(!bees_left)
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
 		return
 	else
