@@ -411,9 +411,9 @@
 	air_update_turf()
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
-	if(!( occupant ))
+	if(!occupant)
 		return
-	if (occupant.client)
+	if(occupant.client)
 		occupant.client.eye = occupant.client.mob
 		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
@@ -421,7 +421,10 @@
 		occupant.bodytemperature = 261
 	occupant = null
 	update_icon()
-	return
+	// eject trash the occupant dropped
+	for(var/atom/movable/A in contents - component_parts - list(beaker))
+		A.forceMove(get_step(loc, SOUTH))
+
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
 	if (!istype(M))
 		to_chat(usr, "\red <B>The cryo cell cannot handle such a lifeform!</B>")
