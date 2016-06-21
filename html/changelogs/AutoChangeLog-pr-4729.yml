@@ -1,0 +1,4 @@
+author: Twinmold
+delete-after: True
+changes: 
+  - bugfix: "You can once again resist borer control with the Resist verb."

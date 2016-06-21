@@ -144,6 +144,13 @@
 	spawn(90 / severity)
 		crit_fail = 0
 
+/obj/item/organ/internal/cyberimp/brain/clown_voice
+	name = "Comical implant"
+	desc = "<span class='sans'>Uh oh.</span>"
+	implant_color = "#DEDE00"
+	slot = "brain_clownvoice"
+	origin_tech = "materials=2;biotech=2"
+
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
@@ -315,7 +322,7 @@
 	organ_action_name = "Toggle Arm Cannon Taser"
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/tase/New()//when the implant is created...
-	holder = new /obj/item/weapon/gun/energy/advtaser/mounted(src)//assign a brand new item to it. (in this case, a gun)
+	holder = new /obj/item/weapon/gun/energy/gun/advtaser/mounted(src)//assign a brand new item to it. (in this case, a gun)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/lase//mounted, self-charging laser!
 	name = "Arm-cannon laser implant"

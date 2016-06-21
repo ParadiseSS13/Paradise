@@ -11,8 +11,7 @@ var NanoWindow = function ()
         if(NanoStateManager.getData().config.user.fancy) {
             fancyChrome();
             attachButtons();
-            attachDrag();
-            attachResize();
+            attachDragAndResize();
         }
     };
     var fancyChrome = function() {
@@ -35,20 +34,32 @@ var NanoWindow = function ()
             minimize();
         });
     };
-    var dragging, xDrag, yDrag;
-    var attachDrag = function() {
-        $("#uiTitleWrapper").on("mousemove", function (event) {
+    var attachDragAndResize = function() {
+        $(document).on("mousemove", function (event) {
             drag();
+            resize();
+        });
+        
+        $(document).on("mouseup", function (event) {
+            if(dragging) {
+                dragging = false;
+                xDrag = null;
+                yDrag = null;
+            }
+            if(resizing) {
+                resizing = false;
+                xResize = null;
+                yResize = null;
+            }
         });
         $("#uiTitleWrapper").on("mousedown", function (event) {
             dragging = true;
         });
-        $("#uiTitleWrapper").on("mouseup", function (event) {
-            dragging = false;
-            xDrag = null;
-            yDrag = null;
+        $("#resize").on("mousedown", function (event) {
+            resizing = true;
         });
     };
+    var dragging, xDrag, yDrag;
     var drag = function(event) {
         var x, y;
         if (event == null) {
@@ -75,17 +86,6 @@ var NanoWindow = function ()
         yDrag = event.screenY;
     };
     var resizing, xResize, yResize;
-    var attachResize = function () {
-        $("#resize").on("mousemove", function (event) {
-            resize();
-        });
-        $("#resize").on("mousedown", function (event) {
-            resizing = true;
-        });
-        $("#resize").on("mouseup", function (event) {
-            resizing = false;
-        });
-    };
     var resize = function() {
         var x, y;
         if (event == null) {

@@ -455,6 +455,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
 			A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
+			A.pipe_image.plane = HUD_PLANE
 		pipes_shown += A.pipe_image
 		client.images += A.pipe_image
 
@@ -517,57 +518,39 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/throw_item(atom/target)
 	throw_mode_off()
-	if(stat || !target)
+	if(!target || !isturf(loc))
 		return
-	if(target.type == /obj/screen)
-		return
-
-	var/atom/movable/item = get_active_hand()
-
-	if(!item || (item.flags & NODROP))
+	if(istype(target, /obj/screen))
 		return
 
-	if (istype(item, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = item
-		item = G.get_mob_if_throwable() //throw the person instead of the grab
-		if(ismob(item))
+	var/atom/movable/thrown_thing
+	var/obj/item/I = src.get_active_hand()
+
+	if(!I || (I.flags & NODROP))
+		return
+
+	if(istype(I, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = I
+		var/mob/throwable_mob = G.get_mob_if_throwable() //throw the person instead of the grab
+		qdel(G)	//We delete the grab.
+		if(throwable_mob)
+			thrown_thing = throwable_mob
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
 			if(start_T && end_T)
-				var/mob/M = item
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been thrown by [key_name(src)] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
-				attack_log += text("\[[time_stamp()]\] <font color='red'>Has thrown [key_name(M)] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
-				msg_admin_attack("[key_name_admin(src)] has thrown [key_name_admin(M)] from [start_T_descriptor] with the target [end_T_descriptor]")
+				add_logs(throwable_mob, src, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
 
-				if(!iscarbon(src))
-					M.LAssailant = null
-				else
-					M.LAssailant = src
+	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
+		thrown_thing = I
+		unEquip(I)
 
-	if(!item)
-		return //Grab processing has a chance of returning null
-	if(!ismob(item)) //Honk mobs don't have a dropped() proc honk
-		unEquip(item)
-	update_icons()
-
-	if (istype(src, /mob/living/carbon)) //Check if a carbon mob is throwing. Modify/remove this line as required.
-		item.loc = loc
-		if(client)
-			client.screen -= item
-		if(istype(item, /obj/item))
-			item:dropped(src) // let it know it's been dropped
-
-	//actually throw it!
-	if (item)
-		item.layer = initial(item.layer)
-		visible_message("\red [src] has thrown [item].")
-
+	if(thrown_thing)
+		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
-
-		item.throw_at(target, item.throw_range, item.throw_speed, src)
+		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src)
 /*
 /mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -863,6 +846,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
 	if(handcuffed)
+		//we don't want problems with nodrop shit if there ever is more than one nodrop twohanded
+		var/obj/item/I = get_active_hand()
+		if(istype(I, /obj/item/weapon/twohanded))
+			var/obj/item/weapon/twohanded/TH = I //FML
+			if(TH.wielded)
+				TH.unwield()
 		drop_r_hand()
 		drop_l_hand()
 		stop_pulling()
@@ -914,6 +903,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			W.dropped(src)
 			if (W)
 				W.layer = initial(W.layer)
+				W.plane = initial(W.plane)
 	if (legcuffed)
 		var/obj/item/weapon/W = legcuffed
 		legcuffed = null
@@ -925,6 +915,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			W.dropped(src)
 			if (W)
 				W.layer = initial(W.layer)
+				W.plane = initial(W.plane)
 
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
@@ -992,13 +983,15 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
-	if (fullness <= (550 * (1 + overeatduration / 1000)))
-		visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
+	if(fullness <= (550 * (1 + overeatduration / 1000)))
+		if(!toEat.instant_application)
+			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
 	else
 		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
 		return 0
-	if(!do_mob(user, src))
-		return 0
+	if(!toEat.instant_application)
+		if(!do_mob(user, src))
+			return 0
 	forceFedAttackLog(toEat, user)
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
 	return 1

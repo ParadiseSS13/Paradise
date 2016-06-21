@@ -1,0 +1,11 @@
+author: VampyrBytes
+delete-after: True
+changes: 
+  - rscadd: "Emotes can now be accessed through verbs as well as say *"
+  - rscdel: "Emotes accessed through say * no longer take parameters after a -"
+  - rscadd: "Emotes now take parameters through input boxes"
+  - rscadd: "Emotes now have support for blind and deaf characters"
+  - rscadd: "Emotes now personalise messages"
+  - tweak: "Flip can now be targeted with or without a grab"
+  - tweak: "All emotes that are affected by being muzzled now make the user make some kind of noise"
+  - bugfix: "monkeys now have access to all the emotes that the npc tries to perform"

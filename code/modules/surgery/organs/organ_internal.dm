@@ -10,6 +10,7 @@
 	vital = 0
 	var/organ_action_name = null
 	var/non_primary = 0
+	action_button_custom_type = /datum/action/item_action/organ_action
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
 	if(istype(holder))
@@ -80,7 +81,7 @@
 	return ..()
 
 /obj/item/organ/internal/proc/prepare_eat()
-	if(robotic)
+	if(status == ORGAN_ROBOT)
 		return //no eating cybernetic implants!
 	var/obj/item/weapon/reagent_containers/food/snacks/organ/S = new
 	S.name = name

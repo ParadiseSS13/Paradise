@@ -121,8 +121,14 @@
 
 	//Default hair/headacc style vars.
 	var/default_hair = "Bald" 		//Default hair style for newly created humans unless otherwise set.
+	var/default_hair_colour
 	var/default_fhair = "Shaved"	//Default facial hair style for newly created humans unless otherwise set.
+	var/default_fhair_colour
 	var/default_headacc = "None"	//Default head accessory style for newly created humans unless otherwise set.
+	var/default_headacc_colour
+
+	//Defining lists of icon skin tones for species that have them.
+	var/list/icon_skin_tones = list()
 
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
@@ -370,6 +376,9 @@
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	grant_abilities(C)
+	return
+
+/datum/species/proc/updatespeciescolor(var/mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
 
 /datum/species/proc/grant_abilities(var/mob/living/carbon/human/H)

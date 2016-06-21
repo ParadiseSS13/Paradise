@@ -27,17 +27,14 @@
 	set_typing_indicator(0)
 	usr.say(message)
 
-/mob/verb/me_verb(message as text)
+
+/mob/verb/me_verb()
 	set name = "Me"
-	set category = "IC"
+	set category = "Emotes"
 
-	message = strip_html_properly(message)
+	if(emoteHandler)
+		return emoteHandler.runEmote("me")
 
-	set_typing_indicator(0)
-	if(use_me)
-		custom_emote(usr.emote_type, message)
-	else
-		usr.emote(message)
 
 /mob/proc/say_dead(var/message)
 	if(!(client && client.holder))
@@ -98,8 +95,11 @@
 
 
 /mob/proc/emote(var/act, var/type, var/message)
-	if(act == "me")
-		return custom_emote(type, message)
+
+	act = lowertext(act)
+	return emoteHandler.runEmote(act, message, type)
+
+
 
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this
@@ -144,3 +144,6 @@
 			return L
 
 	return null
+
+/mob/proc/custom_emote(var/m_type=0, var/message = null)
+	return emoteHandler.runEmote("me", message, m_type)

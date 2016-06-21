@@ -1,0 +1,4 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - bugfix: "Unstable bluespace teleportation devices have been removed from energy guns, meaning they should no longer teleport from one hand to another when switching firing modes."

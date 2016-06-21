@@ -331,6 +331,8 @@
 			H.updatehealth() //forces health update before next life tick
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
+			if(!H.heart_attack && (prob(10) || defib.combat)) // Your heart explodes.
+				H.heart_attack = 1
 			add_logs(M, user, "stunned", object="defibrillator")
 			defib.deductcharge(revivecost)
 			cooldown = 1
@@ -354,8 +356,8 @@
 					qdel(ghost)
 					ghost = null
 				var/tplus = world.time - H.timeofdeath
-				var/tlimit = 6000 //past this much time the patient is unrecoverable (in deciseconds)
-				var/tloss = 3000 //brain damage starts setting in on the patient after some time left rotting
+				var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
+				var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 				var/total_burn	= 0
 				var/total_brute	= 0
 				if(do_after(user, 20, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
@@ -368,8 +370,26 @@
 								update_icon()
 								return
 					if(H.heart_attack)
-						H.heart_attack = 0
-					if(H.stat == 2)
+						if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
+							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
+							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+							busy = 0
+							update_icon()
+							return
+						else
+							H.heart_attack = 0
+							user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
+							M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
+							playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+							playsound(get_turf(src), "bodyfall", 50, 1)
+							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
+							defib.deductcharge(revivecost)
+							busy = 0
+							cooldown = 1
+							update_icon()
+							defib.cooldowncheck(user)
+							return
+					if(H.stat == DEAD)
 						var/health = H.health
 						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 						playsound(get_turf(src), "bodyfall", 50, 1)
@@ -377,7 +397,7 @@
 						for(var/obj/item/organ/external/O in H.organs)
 							total_brute	+= O.brute_dam
 							total_burn	+= O.burn_dam
-						if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations))
+						if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
 							tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 							tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 							H.adjustOxyLoss(tobehealed)
@@ -452,6 +472,8 @@
 			H.adjustStaminaLoss(50)
 			H.Weaken(5)
 			H.updatehealth() //forces health update before next life tick
+			if(!H.heart_attack && prob(10)) // Your heart explodes.
+				H.heart_attack = 1
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			add_logs(M, user, "stunned", object="defibrillator")
@@ -481,8 +503,8 @@
 					qdel(ghost)
 					ghost = null
 				var/tplus = world.time - H.timeofdeath
-				var/tlimit = 6000 //past this much time the patient is unrecoverable (in deciseconds)
-				var/tloss = 3000 //brain damage starts setting in on the patient after some time left rotting
+				var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
+				var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 				var/total_burn	= 0
 				var/total_brute	= 0
 				if(do_after(user, 20, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total

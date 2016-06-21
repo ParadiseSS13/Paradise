@@ -337,7 +337,7 @@
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/borg/sight/thermal(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
-	src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/cyborg(src)
+	src.modules += new /obj/item/weapon/gun/energy/pulse/cyborg(src)
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.emag = null

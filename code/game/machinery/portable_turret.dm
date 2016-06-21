@@ -99,13 +99,12 @@
 	one_access = 0
 
 /obj/machinery/porta_turret/proc/setup()
-	var/obj/item/weapon/gun/energy/E = installation	//All energy-based weapons are applicable
-	if(istext(installation)) E = text2path(installation)
-	//var/obj/item/ammo_casing/shottype = E.projectile_type
+	var/obj/item/weapon/gun/energy/E= new installation	//All energy-based weapons are applicable
+	var/obj/item/ammo_casing/shottype = E.ammo_type[1]
 
-	projectile = initial(E.projectile_type)
+	projectile = shottype.projectile_type
 	eprojectile = projectile
-	shot_sound = initial(E.fire_sound)
+	shot_sound = shottype.fire_sound
 	eshot_sound = shot_sound
 
 	weapon_setup(installation)
@@ -561,9 +560,6 @@ var/list/turret_icons
 	if(get_dist(src, L) > 7)	//if it's too far away, why bother?
 		return TURRET_NOT_TARGET
 
-	if(!check_trajectory(L, src))	//check if we have true line of sight
-		return TURRET_NOT_TARGET
-
 	if(emagged)		// If emagged not even the dead get a rest
 		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
 
@@ -670,6 +666,8 @@ var/list/turret_icons
 	return
 
 /obj/machinery/porta_turret/proc/shootAt(var/mob/living/target)
+	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
+		return
 	//any emagged turrets will shoot extremely fast! This not only is deadly, but drains a lot power!
 	if(!emagged)	//if it hasn't been emagged, it has to obey a cooldown rate
 		if(last_fired || !raised)	//prevents rapid-fire shooting, unless it's been emagged
@@ -684,10 +682,6 @@ var/list/turret_icons
 	if(!istype(T) || !istype(U))
 		return
 
-	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
-		return
-
-
 	update_icon()
 	var/obj/item/projectile/A
 	if(emagged || lethal)
@@ -698,18 +692,17 @@ var/list/turret_icons
 		if(projectile)
 			A = new projectile(loc)
 			playsound(loc, shot_sound, 75, 1)
-	A.original = target
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
 	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
-		//Shooting Code:
+	A.original = target
 	A.current = T
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
-	spawn(1)
-		A.process()
+	A.fire()
+	return A
 
 /datum/turret_checks
 	var/enabled

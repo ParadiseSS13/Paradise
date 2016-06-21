@@ -158,7 +158,8 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cinematic,
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
-	/client/proc/map_template_upload
+	/client/proc/map_template_upload,
+	/client/proc/view_runtimes
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
