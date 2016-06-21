@@ -249,6 +249,9 @@ CREATE TABLE `SS13_player` (
   `nanoui_fancy` smallint(4) DEFAULT '1',
   `show_ghostitem_attack` smallint(4) DEFAULT '1',
   `lastchangelog` varchar(32) NOT NULL,
+  'space_parallax' smallint(4) DEFAULT '1',
+  'space_dust' smallint(4) DEFAULT '1',
+  'parallax_speed' smallint(4) DEFAULT '2',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;

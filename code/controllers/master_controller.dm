@@ -49,6 +49,11 @@ datum/controller/game_controller/proc/setup()
 	setupgenetics()
 	setupfactions()
 	setup_economy()
+	
+	var/watch = start_watch()
+	log_startup_progress("Caching space parallax simulation...")
+	cachespaceparallax()
+	log_startup_progress("  Finished caching space parallax simulation in [stop_watch(watch)]s.")
 
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
