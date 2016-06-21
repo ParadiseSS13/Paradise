@@ -730,13 +730,13 @@
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
 		if(W.welding && !stat)
-			if(AIStatus == AI_ON)
+			if(FindTarget())//if the bot has anything to shoot at, to prevent combat repair cheesing
 				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
 				return
 			if(maxHealth == health)
 				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
 			else
-				health += 10
+				adjustHealth(-10)//actually repairs the bot, not damages it
 				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 			return
 	if(istype(I, /obj/item/device/mining_scanner) || istype(I, /obj/item/device/t_scanner/adv_mining_scanner))
