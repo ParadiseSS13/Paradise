@@ -31,21 +31,21 @@
 
 	for (var/record in data_core.general)
 		var/datum/data/record/S = record
-		if(search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"]))
+		if(S && (search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"])))
 			name = S.fields["name"]
 			fingerprint = S.fields["fingerprint"]
 			continue
 
 	for (var/record in data_core.medical)
 		var/datum/data/record/M = record
-		if (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])
+		if (M && ( search == lowertext(M.fields["b_dna"]) || name == M.fields["name"]) )
 			dna = M.fields["b_dna"]
 
 			if(!fingerprint) // We have searched by DNA, and do not have the relevant information from the security records.
 				name = M.fields["name"]
 				for (var/gen_record in data_core.general)
 					var/datum/data/record/S = gen_record
-					if(name == S.fields["name"])
+					if(S && (name == S.fields["name"]))
 						fingerprint = S.fields["fingerprint"]
 						continue
 			continue
