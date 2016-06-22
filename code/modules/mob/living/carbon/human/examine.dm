@@ -41,7 +41,7 @@
 		t_is = "are"
 	else
 		if(icon)
-			msg += "[bicon(icon)] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
+			msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
 		switch(gender)
 			if(MALE)
 				t_He = "He"
