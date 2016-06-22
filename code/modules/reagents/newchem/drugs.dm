@@ -740,5 +740,5 @@
 	M.Jitter(20)
 	M.apply_effect(STUTTER, 5)
 	if(prob(20))
-		firestacks++
-		M.ignitemob()
+		M.adjust_fire_stacks(2)
+		M.IgniteMob()
