@@ -594,7 +594,7 @@
 
 /datum/emote/flip/flipOver/doAction(var/mob/user, var/params, var/message)
 	var/obj/item/weapon/grab/G = user.get_active_hand()
-	if(G == params["target"])
+	if(istype(G) && (G.affecting == params["target"]) && !G.affecting.buckled)
 		var/turf/oldloc = user.loc
 		var/turf/newloc = G.affecting.loc
 		if(isturf(oldloc) && isturf(newloc))
@@ -1150,11 +1150,28 @@
 	name = "scream"
 	desc = "makes the mob scream"
 	commands = list("scream", "screams")
+	text = "screams!"
+	selfText = "scream!"
 	audible = 1
 	mimeText = "acts out a scream"
 	muzzledNoise = "very loud"
 	cooldown = 50
 	vol = 80
+
+/datum/emote/scream/createMessage(var/mob/user, var/list/params)
+	var/mob/living/carbon/human/H = user
+
+	if(istype(H))
+		return "<span class='[userSpanClass]'>\The [user]</span> [H.species.scream_verb]!"
+	else
+		return ..()
+
+/datum/emote/scream/replaceMobWithYou(var/mob/M, var/message = "", var/mob/user)
+	var/mob/living/carbon/human/H = user
+
+	if(istype(H) && (H.species.scream_verb != "screams"))
+		return message
+	return ..()
 
 /datum/emote/scream/machine
 	name = "machine scream"
