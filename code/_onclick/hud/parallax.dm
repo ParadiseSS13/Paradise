@@ -48,7 +48,7 @@ var/list/parallax_on_clients = list()
 	var/client/C = mymob.client
 	if(!parallax_initialized || C.updating_parallax) return
 
-	for(var/turf/space/T in trange(get_turf(C.eye),C.view))
+	for(var/turf/space/T in range(get_turf(C.eye),C.view))
 		C.updating_parallax = 1
 		break
 
