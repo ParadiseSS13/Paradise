@@ -2043,6 +2043,5 @@
 #include "code\modules\vehicle\vehicle.dm"
 #include "goon\code\datums\browserOutput.dm"
 #include "interface\interface.dm"
-#include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
