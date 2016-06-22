@@ -731,7 +731,7 @@
 	..()
 
 /datum/reagent/voltine/overdose_process(var/mob/living/M as mob, severity)
-	if(prob(10)
+	if(prob(10))
 		M.Stun(5)
 		M.Weaken(5)
 		M.Jitter(20)
