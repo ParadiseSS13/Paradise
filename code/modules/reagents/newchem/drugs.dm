@@ -718,7 +718,7 @@
 
 /datum/reagent/nicotine/voltine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.")
+	var/high_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.")
 	if(prob(1))
 		if(prob(1))
 			high_message = "01010100010100100100000101001110010100110100001101000101010011100100010001000101010011100100001101000101."
