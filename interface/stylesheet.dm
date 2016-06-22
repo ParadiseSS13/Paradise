@@ -1,3 +1,4 @@
+// NOTE: If you edit these edit the chat's CSS file (/goon/browserassets/css/browserOutput.css) too.
 client/script = {"<style>
 body					{font-family: Verdana, sans-serif;}
 

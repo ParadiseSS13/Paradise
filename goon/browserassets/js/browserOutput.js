@@ -42,8 +42,8 @@ var opts = {
 	'pingDisabled': false, //Has the user disabled the ping counter
 
 	//Ping display
-	'lastPang': 0, //Timestamp of the last response from the server.
-	'pangLimit': 35000,
+	'pingCounter': 0, //seconds counter
+	'pingLimit': 30, //seconds limit
 	'pingTime': 0, //Timestamp of when ping sent
 	'pongTime': 0, //Timestamp of when ping received
 	'noResponse': false, //Tracks the state of the previous ping request
@@ -347,15 +347,7 @@ function handleClientData(ckey, ip, compid) {
 //Server calls this on ehjax response
 //Or, y'know, whenever really
 function ehjaxCallback(data) {
-	opts.lastPang = Date.now();
-	if (data == 'softPang') {
-		return;
-	} else if (data == 'pang') {
-		opts.pingCounter = 0; //reset
-		opts.pingTime = Date.now();
-		runByond('?_src_=chat&proc=ping');
-
-	} else if (data == 'pong') {
+	if (data == 'pong') {
 		if (opts.pingDisabled) {return;}
 		opts.pongTime = Date.now();
 		var pingDuration = Math.ceil((opts.pongTime - opts.pingTime) / 2);
@@ -366,7 +358,6 @@ function ehjaxCallback(data) {
 		var blue = 0;
 		var hex = rgbToHex(red, green, blue);
 		$('#pingDot').css('color', '#'+hex);
-
 	} else if (data == 'roundrestart') {
 		opts.restarting = true;
 		output('<div class="connectionClosed internal restarting">The connection has been closed because the server is restarting. Please wait while you automatically reconnect.</div>', 'internal');
@@ -477,17 +468,31 @@ $(function() {
 
 	//Hey look it's a controller loop!
 	setInterval(function() {
-		if (opts.lastPang + opts.pangLimit < Date.now() && !opts.restarting) { //Every pingLimit
-				if (!opts.noResponse) { //Only actually append a message if the previous ping didn't also fail (to prevent spam)
-					opts.noResponse = true;
-					opts.noResponseCount++;
-					output('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed.</div>', 'internal');
+		if (opts.pingCounter >= opts.pingLimit && !opts.restarting) { //Every pingLimit seconds
+			opts.pingCounter = 0; //reset
+			opts.pongTime = 0; //reset
+			opts.pingTime = Date.now();
+			runByond('?_src_=chat&proc=ping');
+			setTimeout(function() {
+				if (!opts.pongTime) { //If no response within 10 seconds of ping request
+					if (!opts.noResponse) { //Only actually append a message if the previous ping didn't also fail (to prevent spam)
+						opts.noResponse = true;
+						opts.noResponseCount++;
+						output('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either experiencing lag or the connection has closed.</div>');
+					}
+				} else {
+					opts.pongTime = 0; //reset
+					if (opts.noResponse) { //Previous ping attempt failed ohno
+						$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');
+						opts.noResponse = false;
+					}
 				}
-		} else if (opts.noResponse) { //Previous ping attempt failed ohno
-				$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');
-				opts.noResponse = false;
+			}, 10000); //10 seconds
+		} else { //Every second
+			opts.pingCounter++;
 		}
-	}, 2000); //2 seconds
+	}, 1000); //1 second
+
 
 
 	/*****************************************
