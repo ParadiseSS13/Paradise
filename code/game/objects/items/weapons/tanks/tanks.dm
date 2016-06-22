@@ -45,7 +45,7 @@
 		icon = src.loc
 	if (!in_range(src, user))
 		if (icon == src)
-			to_chat(user, "\blue It's \a \icon[icon][src]! If you want any more information you'll need to get closer.")
+			to_chat(user, "\blue It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.")
 		return
 
 	var/celsius_temperature = src.air_contents.temperature-T0C
@@ -64,7 +64,7 @@
 	else
 		descriptive = "furiously hot"
 
-	to_chat(user, "\blue \The \icon[icon][src] feels [descriptive]")
+	to_chat(user, "\blue \The [bicon(icon)][src] feels [descriptive]")
 
 	return
 
