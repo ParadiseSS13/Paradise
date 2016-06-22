@@ -45,7 +45,8 @@
 		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>")
 		return
 
-	if(target.m_style != "None")
+	var/list/marking_styles = params2list(target.m_styles)
+	if(marking_styles["body"] != "None")
 		to_chat(user, "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>")
 		return
 
@@ -59,10 +60,12 @@
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
 	if(!used) // No exploiting do_after to tattoo multiple folks.
-		target.m_style = tattoo_icon
-		target.r_markings = tattoo_r
-		target.g_markings = tattoo_g
-		target.b_markings = tattoo_b
+		var/list/marking_colours = params2list(target.m_colours)
+		marking_styles["body"] = tattoo_icon
+		marking_colours["body"] = "#[num2hex(tattoo_r,2)][num2hex(tattoo_g,2)][num2hex(tattoo_b,2)]"
+
+		target.m_styles = list2params(marking_styles)
+		target.m_colours = list2params(marking_colours)
 
 		target.update_markings()
 

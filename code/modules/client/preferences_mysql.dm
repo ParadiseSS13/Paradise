@@ -117,15 +117,13 @@
 					skin_red,
 					skin_green,
 					skin_blue,
-					markings_red,
-					markings_green,
-					markings_blue,
+					marking_colours,
 					head_accessory_red,
 					head_accessory_green,
 					head_accessory_blue,
 					hair_style_name,
 					facial_style_name,
-					marking_style_name,
+					marking_styles,
 					head_accessory_style_name,
 					eyes_red,
 					eyes_green,
@@ -187,55 +185,53 @@
 		r_skin = text2num(query.item[15])
 		g_skin = text2num(query.item[16])
 		b_skin = text2num(query.item[17])
-		r_markings = text2num(query.item[18])
-		g_markings = text2num(query.item[19])
-		b_markings = text2num(query.item[20])
-		r_headacc = text2num(query.item[21])
-		g_headacc = text2num(query.item[22])
-		b_headacc = text2num(query.item[23])
-		h_style = query.item[24]
-		f_style = query.item[25]
-		m_style = query.item[26]
-		ha_style = query.item[27]
-		r_eyes = text2num(query.item[28])
-		g_eyes = text2num(query.item[29])
-		b_eyes = text2num(query.item[30])
-		underwear = query.item[31]
-		undershirt = query.item[32]
-		backbag = text2num(query.item[33])
-		b_type = query.item[34]
+		m_colours = query.item[18]
+		r_headacc = text2num(query.item[19])
+		g_headacc = text2num(query.item[20])
+		b_headacc = text2num(query.item[21])
+		h_style = query.item[22]
+		f_style = query.item[23]
+		m_styles = query.item[24]
+		ha_style = query.item[25]
+		r_eyes = text2num(query.item[26])
+		g_eyes = text2num(query.item[27])
+		b_eyes = text2num(query.item[28])
+		underwear = query.item[29]
+		undershirt = query.item[30]
+		backbag = text2num(query.item[31])
+		b_type = query.item[32]
 
 
 		//Jobs
-		alternate_option = text2num(query.item[35])
-		job_support_high = text2num(query.item[36])
-		job_support_med = text2num(query.item[37])
-		job_support_low = text2num(query.item[38])
-		job_medsci_high = text2num(query.item[39])
-		job_medsci_med = text2num(query.item[40])
-		job_medsci_low = text2num(query.item[41])
-		job_engsec_high = text2num(query.item[42])
-		job_engsec_med = text2num(query.item[43])
-		job_engsec_low = text2num(query.item[44])
-		job_karma_high = text2num(query.item[45])
-		job_karma_med = text2num(query.item[46])
-		job_karma_low = text2num(query.item[47])
+		alternate_option = text2num(query.item[33])
+		job_support_high = text2num(query.item[34])
+		job_support_med = text2num(query.item[35])
+		job_support_low = text2num(query.item[36])
+		job_medsci_high = text2num(query.item[37])
+		job_medsci_med = text2num(query.item[38])
+		job_medsci_low = text2num(query.item[39])
+		job_engsec_high = text2num(query.item[40])
+		job_engsec_med = text2num(query.item[41])
+		job_engsec_low = text2num(query.item[42])
+		job_karma_high = text2num(query.item[43])
+		job_karma_med = text2num(query.item[44])
+		job_karma_low = text2num(query.item[44])
 
 		//Miscellaneous
-		flavor_text = query.item[48]
-		med_record = query.item[49]
-		sec_record = query.item[50]
-		gen_record = query.item[51]
-		disabilities = text2num(query.item[52])
-		player_alt_titles = params2list(query.item[53])
-		organ_data = params2list(query.item[54])
-		rlimb_data = params2list(query.item[55])
-		nanotrasen_relation = query.item[56]
-		speciesprefs = text2num(query.item[57])
+		flavor_text = query.item[46]
+		med_record = query.item[47]
+		sec_record = query.item[48]
+		gen_record = query.item[49]
+		disabilities = text2num(query.item[50])
+		player_alt_titles = params2list(query.item[51])
+		organ_data = params2list(query.item[52])
+		rlimb_data = params2list(query.item[53])
+		nanotrasen_relation = query.item[54]
+		speciesprefs = text2num(query.item[55])
 
 		//socks
-		socks = query.item[58]
-		body_accessory = query.item[59]
+		socks = query.item[56]
+		body_accessory = query.item[57]
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -258,15 +254,11 @@
 	r_skin			= sanitize_integer(r_skin, 0, 255, initial(r_skin))
 	g_skin			= sanitize_integer(g_skin, 0, 255, initial(g_skin))
 	b_skin			= sanitize_integer(b_skin, 0, 255, initial(b_skin))
-	r_markings		= sanitize_integer(r_markings, 0, 255, initial(r_markings))
-	g_markings		= sanitize_integer(g_markings, 0, 255, initial(g_markings))
-	b_markings		= sanitize_integer(b_markings, 0, 255, initial(b_markings))
 	r_headacc		= sanitize_integer(r_headacc, 0, 255, initial(r_headacc))
 	g_headacc		= sanitize_integer(g_headacc, 0, 255, initial(g_headacc))
 	b_headacc		= sanitize_integer(b_headacc, 0, 255, initial(b_headacc))
 	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
-	m_style			= sanitize_inlist(m_style, marking_styles_list, initial(m_style))
 	ha_style		= sanitize_inlist(ha_style, head_accessory_styles_list, initial(ha_style))
 	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))
 	g_eyes			= sanitize_integer(g_eyes, 0, 255, initial(g_eyes))
@@ -298,6 +290,8 @@
 	if(!player_alt_titles) player_alt_titles = new()
 	if(!organ_data) src.organ_data = list()
 	if(!rlimb_data) src.rlimb_data = list()
+	if(!m_colours) m_colours = initial(m_colours)
+	if(!m_styles) m_styles = initial(m_styles)
 
 	return 1
 
@@ -333,15 +327,13 @@
 												skin_red='[r_skin]',
 												skin_green='[g_skin]',
 												skin_blue='[b_skin]',
-												markings_red='[r_markings]',
-												markings_green='[g_markings]',
-												markings_blue='[b_markings]',
+												marking_colours='[m_colours]',
 												head_accessory_red='[r_headacc]',
 												head_accessory_green='[g_headacc]',
 												head_accessory_blue='[b_headacc]',
 												hair_style_name='[sql_sanitize_text(h_style)]',
 												facial_style_name='[sql_sanitize_text(f_style)]',
-												marking_style_name='[sql_sanitize_text(m_style)]',
+												marking_styles='[m_styles]',
 												head_accessory_style_name='[sql_sanitize_text(ha_style)]',
 												eyes_red='[r_eyes]',
 												eyes_green='[g_eyes]',
@@ -392,9 +384,9 @@
 											hair_red, hair_green, hair_blue,
 											facial_red, facial_green, facial_blue,
 											skin_tone, skin_red, skin_green, skin_blue,
-											markings_red, markings_green, markings_blue,
+											marking_colours,
 											head_accessory_red, head_accessory_green, head_accessory_blue,
-											hair_style_name, facial_style_name, marking_style_name, head_accessory_style_name,
+											hair_style_name, facial_style_name, marking_styles, head_accessory_style_name,
 											eyes_red, eyes_green, eyes_blue,
 											underwear, undershirt,
 											backbag, b_type, alternate_option,
@@ -413,9 +405,9 @@
 											'[r_hair]', '[g_hair]', '[b_hair]',
 											'[r_facial]', '[g_facial]', '[b_facial]',
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',
-											'[r_markings]', '[g_markings]', '[b_markings]',
+											'[m_colours]',
 											'[r_headacc]', '[g_headacc]', '[b_headacc]',
-											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[sql_sanitize_text(m_style)]', '[sql_sanitize_text(ha_style)]',
+											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[m_styles]', '[sql_sanitize_text(ha_style)]',
 											'[r_eyes]', '[g_eyes]', '[b_eyes]',
 											'[underwear]', '[undershirt]',
 											'[backbag]', '[b_type]', '[alternate_option]',

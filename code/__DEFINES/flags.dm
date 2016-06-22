@@ -64,10 +64,12 @@
 #define HAS_SKIN_TONE 		64
 #define HAS_ICON_SKIN_TONE	128
 #define HAS_SKIN_COLOR		256
-#define HAS_MARKINGS		512
-#define TAIL_WAGGING    	1024
-#define NO_EYES				2048
-#define HAS_FUR				4096
+#define HAS_HEAD_MARKINGS	512
+#define HAS_BODY_MARKINGS	1024
+#define HAS_TAIL_MARKINGS	2048
+#define TAIL_WAGGING    	4096
+#define NO_EYES				8192
+#define HAS_FUR				16384
 
 //Species Diet Flags
 #define DIET_CARN		1

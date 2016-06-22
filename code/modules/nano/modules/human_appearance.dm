@@ -7,7 +7,9 @@
 	var/list/valid_hairstyles = list()
 	var/list/valid_facial_hairstyles = list()
 	var/list/valid_head_accessories = list()
-	var/list/valid_marking_styles = list()
+	var/list/valid_head_marking_styles = list()
+	var/list/valid_body_marking_styles = list()
+	var/list/valid_tail_marking_styles = list()
 	var/list/valid_body_accessories = list()
 
 	var/check_whitelist
@@ -46,7 +48,7 @@
 			else if(owner.species.bodyflags & HAS_ICON_SKIN_TONE)
 				var/const/MAX_LINE_ENTRIES = 4
 				var/prompt = "Choose your character's skin tone: 1-[owner.species.icon_skin_tones.len]\n("
-				for(var/i = 1; i <= owner.species.icon_skin_tones.len; i++)
+				for(var/i = 1 to owner.species.icon_skin_tones.len)
 					if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
 						prompt += "\n"
 					prompt += "[i] = [owner.species.icon_skin_tones[i]]"
@@ -125,19 +127,46 @@
 				if(owner.change_head_accessory_color(r_headacc, g_headacc, b_headacc))
 					update_dna()
 					return 1
-	if(href_list["marking"])
-		if(can_change_markings() && (href_list["marking"] in valid_marking_styles))
-			if(owner.change_markings(href_list["marking"]))
+	if(href_list["head_marking"])
+		if(can_change_markings("head") && (href_list["head_marking"] in valid_head_marking_styles))
+			if(owner.change_markings(href_list["head_marking"], "head"))
 				update_dna()
 				return 1
-	if(href_list["marking_color"])
-		if(can_change_markings())
-			var/new_markings = input("Please select marking color.", "Marking Color", rgb(owner.r_markings, owner.g_markings, owner.b_markings)) as color|null
+	if(href_list["head_marking_color"])
+		if(can_change_markings("head"))
+			var/list/marking_colours = params2list(owner.m_colours)
+			marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
+			var/new_markings = input("Please select head marking color.", "Marking Color", rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))) as color|null
 			if(new_markings && can_still_topic(state))
-				var/r_markings = hex2num(copytext(new_markings, 2, 4))
-				var/g_markings = hex2num(copytext(new_markings, 4, 6))
-				var/b_markings = hex2num(copytext(new_markings, 6, 8))
-				if(owner.change_marking_color(r_markings, g_markings, b_markings))
+				if(owner.change_marking_color(new_markings, "head"))
+					update_dna()
+					return 1
+	if(href_list["body_marking"])
+		if(can_change_markings("body") && (href_list["body_marking"] in valid_body_marking_styles))
+			if(owner.change_markings(href_list["body_marking"], "body"))
+				update_dna()
+				return 1
+	if(href_list["body_marking_color"])
+		if(can_change_markings("body"))
+			var/list/marking_colours = params2list(owner.m_colours)
+			marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
+			var/new_markings = input("Please select body marking color.", "Marking Color", rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8)))) as color|null
+			if(new_markings && can_still_topic(state))
+				if(owner.change_marking_color(new_markings, "body"))
+					update_dna()
+					return 1
+	if(href_list["tail_marking"])
+		if(can_change_markings("tail") && (href_list["tail_marking"] in valid_tail_marking_styles))
+			if(owner.change_markings(href_list["tail_marking"], "tail"))
+				update_dna()
+				return 1
+	if(href_list["tail_marking_color"])
+		if(can_change_markings("tail"))
+			var/list/marking_colours = params2list(owner.m_colours)
+			marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
+			var/new_markings = input("Please select tail marking color.", "Marking Color", rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8)))) as color|null
+			if(new_markings && can_still_topic(state))
+				if(owner.change_marking_color(new_markings, "tail"))
 					update_dna()
 					return 1
 	if(href_list["body_accessory"])
@@ -189,13 +218,35 @@
 		data["facial_hair_styles"] = facial_hair_styles
 		data["facial_hair_style"] = head_organ.f_style
 
-	data["change_markings"] = can_change_markings()
-	if(data["change_markings"])
-		var/marking_styles[0]
-		for(var/marking_style in valid_marking_styles)
-			marking_styles[++marking_styles.len] = list("markingstyle" = marking_style)
-		data["marking_styles"] = marking_styles
-		data["marking_style"] = owner.m_style
+	data["change_head_markings"] = can_change_markings("head")
+	if(data["change_head_markings"])
+		var/list/marking_styles = params2list(owner.m_styles)
+		var/m_style = marking_styles["head"]
+		var/head_marking_styles[0]
+		for(var/head_marking_style in valid_head_marking_styles)
+			head_marking_styles[++head_marking_styles.len] = list("headmarkingstyle" = head_marking_style)
+		data["head_marking_styles"] = head_marking_styles
+		data["head_marking_style"] = m_style
+
+	data["change_body_markings"] = can_change_markings("body")
+	if(data["change_body_markings"])
+		var/list/marking_styles = params2list(owner.m_styles)
+		var/m_style = marking_styles["body"]
+		var/body_marking_styles[0]
+		for(var/body_marking_style in valid_body_marking_styles)
+			body_marking_styles[++body_marking_styles.len] = list("bodymarkingstyle" = body_marking_style)
+		data["body_marking_styles"] = body_marking_styles
+		data["body_marking_style"] = m_style
+
+	data["change_tail_markings"] = can_change_markings("tail")
+	if(data["change_tail_markings"])
+		var/list/marking_styles = params2list(owner.m_styles)
+		var/m_style = marking_styles["tail"]
+		var/tail_marking_styles[0]
+		for(var/tail_marking_style in valid_tail_marking_styles)
+			tail_marking_styles[++tail_marking_styles.len] = list("tailmarkingstyle" = tail_marking_style)
+		data["tail_marking_styles"] = tail_marking_styles
+		data["tail_marking_style"] = m_style
 
 	data["change_body_accessory"] = can_change_body_accessory()
 	if(data["change_body_accessory"])
@@ -211,7 +262,9 @@
 	data["change_head_accessory_color"] = can_change_head_accessory()
 	data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
 	data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
-	data["change_marking_color"] = can_change_markings()
+	data["change_head_marking_color"] = can_change_markings("head")
+	data["change_body_marking_color"] = can_change_markings("body")
+	data["change_tail_marking_color"] = can_change_markings("tail")
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "appearance_changer.tmpl", "[src]", 800, 450, state = state)
@@ -235,8 +288,16 @@
 /datum/nano_module/appearance_changer/proc/can_change_head_accessory()
 	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
 
-/datum/nano_module/appearance_changer/proc/can_change_markings()
-	return owner && (flags & APPEARANCE_MARKINGS) && (owner.species.bodyflags & HAS_MARKINGS)
+/datum/nano_module/appearance_changer/proc/can_change_markings(var/location = "body")
+	var/marking_flag
+	if(location == "head")
+		marking_flag = HAS_HEAD_MARKINGS
+	if(location == "body")
+		marking_flag = HAS_BODY_MARKINGS
+	if(location == "tail")
+		marking_flag = HAS_TAIL_MARKINGS
+
+	return owner && (flags & APPEARANCE_MARKINGS) && (owner.species.bodyflags & marking_flag)
 
 /datum/nano_module/appearance_changer/proc/can_change_body_accessory()
 	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.species.bodyflags & HAS_TAIL)
@@ -246,7 +307,9 @@
 	valid_hairstyles.Cut()
 	valid_facial_hairstyles.Cut()
 	valid_head_accessories.Cut()
-	valid_marking_styles.Cut()
+	valid_head_marking_styles.Cut()
+	valid_body_marking_styles.Cut()
+	valid_tail_marking_styles.Cut()
 	valid_body_accessories.Cut()
 	generate_data()
 
@@ -260,7 +323,11 @@
 		valid_facial_hairstyles = owner.generate_valid_facial_hairstyles()
 	if(!valid_head_accessories.len)
 		valid_head_accessories = owner.generate_valid_head_accessories()
-	if(!valid_marking_styles.len)
-		valid_marking_styles = owner.generate_valid_markings()
+	if(!valid_head_marking_styles.len)
+		valid_head_marking_styles = owner.generate_valid_markings("head")
+	if(!valid_body_marking_styles.len)
+		valid_body_marking_styles = owner.generate_valid_markings("body")
+	if(!valid_tail_marking_styles.len)
+		valid_tail_marking_styles = owner.generate_valid_markings("tail")
 	if(!valid_body_accessories.len)
 		valid_body_accessories = owner.generate_valid_body_accessories()

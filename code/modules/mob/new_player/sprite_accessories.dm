@@ -43,7 +43,8 @@
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
-	var/models_allowed = list() //Specifies which, if any, hairstyles can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
+	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
+	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
 	var/marking_location //Specifies which bodypart a body marking is located on.
 
 	// Whether or not the accessory can be affected by colouration
@@ -711,62 +712,57 @@
 		species_allowed = list("Skrell")
 		gender = FEMALE
 
-	taj_ears
-		name = "Tajaran Ears"
-		icon_state = "ears_plain"
-		species_allowed = list("Tajaran")
-
-	taj_ears_clean
+	taj_hair_clean
 		name = "Tajara Clean"
 		icon_state = "hair_clean"
 		species_allowed = list("Tajaran")
 
-	taj_ears_bangs
+	taj_hair_bangs
 		name = "Tajara Bangs"
 		icon_state = "hair_bangs"
 		species_allowed = list("Tajaran")
 
-	taj_ears_braid
+	taj_hair_braid
 		name = "Tajara Braid"
 		icon_state = "hair_tbraid"
 		species_allowed = list("Tajaran")
 
-	taj_ears_shaggy
+	taj_hair_shaggy
 		name = "Tajara Shaggy"
 		icon_state = "hair_shaggy"
 		species_allowed = list("Tajaran")
 
-	taj_ears_mohawk
+	taj_hair_mohawk
 		name = "Tajaran Mohawk"
 		icon_state = "hair_mohawk"
 		species_allowed = list("Tajaran")
 
-	taj_ears_plait
+	taj_hair_plait
 		name = "Tajara Plait"
 		icon_state = "hair_plait"
 		species_allowed = list("Tajaran")
 
-	taj_ears_straight
+	taj_hair_straight
 		name = "Tajara Straight"
 		icon_state = "hair_straight"
 		species_allowed = list("Tajaran")
 
-	taj_ears_long
+	taj_hair_long
 		name = "Tajara Long"
 		icon_state = "hair_long"
 		species_allowed = list("Tajaran")
 
-	taj_ears_rattail
+	taj_hair_rattail
 		name = "Tajara Rat Tail"
 		icon_state = "hair_rattail"
 		species_allowed = list("Tajaran")
 
-	taj_ears_spiky
+	taj_hair_spiky
 		name = "Tajara Spiky"
 		icon_state = "hair_tajspiky"
 		species_allowed = list("Tajaran")
 
-	taj_ears_messy
+	taj_hair_messy
 		name = "Tajara Messy"
 		icon_state = "hair_messy"
 		species_allowed = list("Tajaran")
@@ -1878,18 +1874,39 @@
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/body_accessory.dmi'
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine")
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox")
 	icon_state = "accessory_none"
+	marking_location = "body"
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
 	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
-/datum/sprite_accessory/body_markings/stripe
-	name = "Stripe"
+/datum/sprite_accessory/body_markings/stripe_una
+	name = "Unathi Stripe"
 	species_allowed = list("Unathi")
-	icon_state = "markings_stripe"
+	icon_state = "markings_stripe_una"
+
+/datum/sprite_accessory/body_markings/belly_flat_una
+	name = "Unathi Belly"
+	species_allowed = list("Unathi")
+	icon_state = "markings_belly_flat_una"
+
+/datum/sprite_accessory/body_markings/belly_flat_taj
+	name = "Tajaran Belly"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_belly_flat_taj"
+
+/datum/sprite_accessory/body_markings/belly_crest_taj
+	name = "Tajaran Chest Crest"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_belly_crest_taj"
+
+/datum/sprite_accessory/body_markings/belly_fox_vulp
+	name = "Vulpkanin Belly"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_belly_fox_vulp"
 
 /datum/sprite_accessory/body_markings/tiger
 	name = "Tiger Body"
@@ -1916,32 +1933,65 @@
 	species_allowed = list("Unathi")
 	icon_state = "markings_tigerheadface_una"
 
-/datum/sprite_accessory/body_markings/optics
+/datum/sprite_accessory/body_markings/head
+	marking_location = "head"
+	species_allowed = list()
+
+/datum/sprite_accessory/body_markings/head/outears_taj
+	name = "Tajaran Outer Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_outears_taj"
+
+/datum/sprite_accessory/body_markings/head/inears_taj
+	name = "Tajaran Inner Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_inears_taj"
+
+/datum/sprite_accessory/body_markings/head/muzzle_taj
+	name = "Tajaran Muzzle"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/body_markings/head/muzzle_and_inears_taj
+	name = "Tajaran Muzzle and Inner Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_muzzle_and_inears_taj"
+
+/datum/sprite_accessory/body_markings/head/snout_round_una
+	name = "Unathi Round Snout"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_round_una"
+
+/datum/sprite_accessory/body_markings/head/snout_sharp_una
+	name = "Unathi Sharp Snout"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_sharp_una"
+
+/datum/sprite_accessory/body_markings/head/optics
 	name = "Humanoid Optics"
 	species_allowed = list("Machine")
 	icon_state = "optics"
 	models_allowed = list("Bishop Cybernetics", "Hesphiastos Industries", "Ward-Takahashi", "Xion Manufacturing Group", "Zeng-Hu Pharmaceuticals") //Should be the same as the manufacturing company of the limb in robolimbs.dm
-	marking_location = "head"
 
-/datum/sprite_accessory/body_markings/optics/bishop_alt
+/datum/sprite_accessory/body_markings/head/optics/bishop_alt
 	name = "Bishop Alt. Optics"
 	species_allowed = list("Machine")
 	icon_state = "bishop_alt_optics"
 	models_allowed = list("Bishop Cybernetics alt.")
 
-/datum/sprite_accessory/body_markings/optics/morpheus_alt
+/datum/sprite_accessory/body_markings/head/optics/morpheus_alt
 	name = "Morpheus Alt. Optics"
 	species_allowed = list("Machine")
 	icon_state = "morpheus_alt_optics"
 	models_allowed = list("Morpheus Cyberkinetics alt.")
 
-/datum/sprite_accessory/body_markings/optics/wardtakahashi_alt
+/datum/sprite_accessory/body_markings/head/optics/wardtakahashi_alt
 	name = "Ward-Takahashi Alt. Optics"
 	species_allowed = list("Machine")
 	icon_state = "wardtakahashi_alt_optics"
 	models_allowed = list("Ward-Takahashi alt.")
 
-/datum/sprite_accessory/body_markings/optics/xion_alt
+/datum/sprite_accessory/body_markings/head/optics/xion_alt
 	name = "Xion Alt. Optics"
 	species_allowed = list("Machine")
 	icon_state = "xion_alt_optics"
@@ -1955,3 +2005,42 @@
 /datum/sprite_accessory/body_markings/tattoo/elliot
 	name = "Elliot Circuit Tattoo"
 	icon_state = "campbell_tattoo"
+
+/datum/sprite_accessory/body_markings/tail
+	name = "Tail Markings"
+	species_allowed = list()
+	icon_state = "accessory_none"
+	marking_location = "tail"
+	tails_allowed = null
+
+/datum/sprite_accessory/body_markings/tail/vox_band
+	name = "Vox Tail Band"
+	species_allowed = list("Vox")
+	icon_state = "markings_voxtail_band"
+
+/datum/sprite_accessory/body_markings/tail/vox_tip
+	name = "Vox Tail Tip"
+	species_allowed = list("Vox")
+	icon_state = "markings_voxtail_tip"
+
+/datum/sprite_accessory/body_markings/tail/vox_stripe
+	name = "Vox Tail Stripe"
+	species_allowed = list("Vox")
+	icon_state = "markings_voxtail_stripe"
+
+/datum/sprite_accessory/body_markings/tail/vulp_default_tip
+	name = "Vulpkanin Default Tail Tip"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_vulptail_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulp_bushy_fluff
+	name = "Vulpkanin Bushy Tail Fluff"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 1 (Bushy)")
+	icon_state = "markings_vulptail2_fluff"
+
+/datum/sprite_accessory/body_markings/tail/vulp_short_tip
+	name = "Vulpkanin Short Tail Tip"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 4 (Short)")
+	icon_state = "markings_vulptail5_tip"

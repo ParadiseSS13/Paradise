@@ -93,18 +93,51 @@
 			head_organ.g_headacc = hex2num(copytext(new_head_accessory_colour, 4, 6))
 			head_organ.b_headacc = hex2num(copytext(new_head_accessory_colour, 6, 8))
 
-	//Body markings.
-	if(M.species.bodyflags & HAS_MARKINGS)
-		var/list/valid_markings = M.generate_valid_markings()
-		var/new_marking = input("Please select marking style", "Character Generation", M.m_style) as null|anything in valid_markings
+	//Head markings.
+	if(M.species.bodyflags & HAS_HEAD_MARKINGS)
+		var/list/marking_styles = params2list(M.m_styles)
+		var/list/valid_head_markings = M.generate_valid_markings("head")
+		var/new_marking = input("Please select head marking style", "Character Generation", marking_styles["head"]) as null|anything in valid_head_markings
 		if(new_marking)
-			M.m_style = new_marking
+			marking_styles["head"] = new_marking
+			M.m_styles = list2params(marking_styles)
 
-		var/new_marking_colour = input("Please select marking colour.", "Character Generation", rgb(M.r_markings, M.g_markings, M.b_markings)) as null|color
+		var/list/marking_colours = params2list(M.m_colours)
+		marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
+		var/new_marking_colour = input("Please select head marking colour.", "Character Generation", rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))) as null|color
 		if(new_marking_colour)
-			M.r_markings = hex2num(copytext(new_marking_colour, 2, 4))
-			M.g_markings = hex2num(copytext(new_marking_colour, 4, 6))
-			M.b_markings = hex2num(copytext(new_marking_colour, 6, 8))
+			marking_colours["head"] = new_marking_colour
+			M.m_colours = list2params(marking_colours)
+	//Body markings.
+	if(M.species.bodyflags & HAS_BODY_MARKINGS)
+		var/list/marking_styles = params2list(M.m_styles)
+		var/list/valid_body_markings = M.generate_valid_markings("body")
+		var/new_marking = input("Please select body marking style", "Character Generation", marking_styles["body"]) as null|anything in valid_body_markings
+		if(new_marking)
+			marking_styles["body"] = new_marking
+			M.m_styles = list2params(marking_styles)
+
+		var/list/marking_colours = params2list(M.m_colours)
+		marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
+		var/new_marking_colour = input("Please select body marking colour.", "Character Generation", rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8)))) as null|color
+		if(new_marking_colour)
+			marking_colours["body"] = new_marking_colour
+			M.m_colours = list2params(marking_colours)
+	//Tail markings.
+	if(M.species.bodyflags & HAS_TAIL_MARKINGS)
+		var/list/marking_styles = params2list(M.m_styles)
+		var/list/valid_tail_markings = M.generate_valid_markings("tail")
+		var/new_marking = input("Please select tail marking style", "Character Generation", marking_styles["tail"]) as null|anything in valid_tail_markings
+		if(new_marking)
+			marking_styles["tail"] = new_marking
+			M.m_styles = list2params(marking_styles)
+
+		var/list/marking_colours = params2list(M.m_colours)
+		marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
+		var/new_marking_colour = input("Please select tail marking colour.", "Character Generation", rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8)))) as null|color
+		if(new_marking_colour)
+			marking_colours["tail"] = new_marking_colour
+			M.m_colours = list2params(marking_colours)
 
 	//Body accessory.
 	if(M.species.tail && M.species.bodyflags & HAS_TAIL)
@@ -123,7 +156,7 @@
 
 	if(M.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/prompt = "Please select skin tone: 1-[M.species.icon_skin_tones.len] ("
-		for(var/i = 1; i <= M.species.icon_skin_tones.len; i++)
+		for(var/i = 1 to M.species.icon_skin_tones.len)
 			prompt += "[i] = [M.species.icon_skin_tones[i]]"
 			if(i != M.species.icon_skin_tones.len)
 				prompt += ", "

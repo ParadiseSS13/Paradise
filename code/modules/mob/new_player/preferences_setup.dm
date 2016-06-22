@@ -223,25 +223,6 @@
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
 	preview_icon.Blend(new /icon(icobase, "head_[g]"), ICON_OVERLAY)
 
-	//Tail
-	if(current_species && (current_species.bodyflags & HAS_TAIL))
-		var/tail_icon
-		var/tail_icon_state
-
-		if(body_accessory)
-			var/datum/body_accessory/accessory = body_accessory_by_name[body_accessory]
-			tail_icon = accessory.icon
-			tail_icon_state = accessory.icon_state
-		else
-			tail_icon = "icons/effects/species.dmi"
-			if(coloured_tail)
-				tail_icon_state = "[coloured_tail]_s"
-			else
-				tail_icon_state = "[current_species.tail]_s"
-
-		var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
-		preview_icon.Blend(temp, ICON_OVERLAY)
-
 	for(var/name in list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand"))
 		if(organ_data[name] == "amputated") continue
 		if(organ_data[name] == "cyborg")
@@ -265,13 +246,60 @@
 		else
 			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 
-	//Body Markings
-	if(current_species && (current_species.bodyflags & HAS_MARKINGS))
-		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
-		if(marking_style && marking_style.species_allowed)
-			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
-			markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
-			preview_icon.Blend(markings_s, ICON_OVERLAY)
+	//Tail
+	if(current_species && (current_species.bodyflags & HAS_TAIL))
+		var/tail_icon
+		var/tail_icon_state
+
+		if(body_accessory)
+			var/datum/body_accessory/accessory = body_accessory_by_name[body_accessory]
+			tail_icon = accessory.icon
+			tail_icon_state = accessory.icon_state
+		else
+			tail_icon = "icons/effects/species.dmi"
+			if(coloured_tail)
+				tail_icon_state = "[coloured_tail]_s"
+			else
+				tail_icon_state = "[current_species.tail]_s"
+
+		var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
+
+		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
+			temp.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+
+		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))
+			var/list/marking_styles = params2list(m_styles)
+			var/list/marking_colours = params2list(m_colours)
+			var/tail_marking = marking_styles["tail"]
+			var/datum/sprite_accessory/tail_marking_style = marking_styles_list[tail_marking]
+			if(tail_marking_style && tail_marking_style.species_allowed)
+				marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
+				var/icon/t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
+				t_marking_s.Blend(rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8))), ICON_ADD)
+				temp.Blend(t_marking_s, ICON_OVERLAY)
+
+		preview_icon.Blend(temp, ICON_OVERLAY)
+
+	//Markings
+	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))
+		var/list/marking_styles = params2list(m_styles)
+		var/list/marking_colours = params2list(m_colours)
+		if(current_species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
+			var/body_marking = marking_styles["body"]
+			var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
+			if(body_marking_style && body_marking_style.species_allowed)
+				marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
+				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
+				b_marking_s.Blend(rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8))), ICON_ADD)
+				preview_icon.Blend(b_marking_s, ICON_OVERLAY)
+		if(current_species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
+			var/head_marking = marking_styles["head"]
+			var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
+			if(head_marking_style && head_marking_style.species_allowed)
+				marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
+				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
+				h_marking_s.Blend(rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8))), ICON_ADD)
+				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
 
 
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")

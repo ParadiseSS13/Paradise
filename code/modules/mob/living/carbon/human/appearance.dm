@@ -86,19 +86,27 @@
 	update_head_accessory()
 	return 1
 
-/mob/living/carbon/human/proc/change_markings(var/marking_style)
+/mob/living/carbon/human/proc/change_markings(var/marking_style, var/location = "body")
 	if(!marking_style)
 		return
-
-	if(src.m_style == marking_style)
+	var/list/marking_styles = params2list(m_styles)
+	if(marking_styles[location] == marking_style)
 		return
 
 	if(!(marking_style in marking_styles_list))
 		return
 
-	src.m_style = marking_style
+	var/datum/sprite_accessory/marking = marking_styles_list[marking_style]
+	if(marking.name != "None" && marking.marking_location != location)
+		return
 
-	update_markings()
+	marking_styles[location] = marking_style
+	m_styles = list2params(marking_styles)
+
+	if(location == "tail")
+		stop_tail_wagging()
+	else
+		update_markings()
 	return 1
 
 /mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style)
@@ -118,6 +126,9 @@
 	if(!found)
 		return
 
+	var/list/marking_styles = params2list(m_styles)
+	marking_styles["tail"] = "None"
+	m_styles = list2params(marking_styles)
 	update_tail_layer()
 	return 1
 
@@ -125,10 +136,9 @@
 	reset_head_hair()
 	reset_facial_hair()
 	reset_head_accessory()
-	if(m_style && m_style != "None") //Resets the markings if they were head markings.
-		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
-		if(marking_style && marking_style.marking_location == "head")
-			reset_markings()
+	var/list/marking_styles = params2list(m_styles)
+	if(marking_styles["head"] && marking_styles["head"] != "None") //Resets head markings.
+		reset_markings()
 
 /mob/living/carbon/human/proc/reset_head_hair()
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -151,14 +161,30 @@
 		H.f_style = "Shaved"
 	update_fhair()
 
-/mob/living/carbon/human/proc/reset_markings()
-	var/list/valid_markings = generate_valid_markings()
-	if(valid_markings.len)
-		m_style = pick(valid_markings)
+/mob/living/carbon/human/proc/reset_markings(var/location)
+	var/list/valid_markings
+	var/list/marking_styles = params2list(m_styles)
+
+	if(location)
+		valid_markings = generate_valid_markings(location)
+		if(valid_markings.len)
+			marking_styles[location] = pick(valid_markings)
+		else
+			//this shouldn't happen
+			marking_styles[location] = "None"
 	else
-		//this shouldn't happen
-		m_style = "None"
+		for(var/m_location in list("head", "body", "tail"))
+			valid_markings = generate_valid_markings(m_location)
+			if(valid_markings.len)
+				marking_styles[m_location] = pick(valid_markings)
+			else
+				//this shouldn't happen
+				marking_styles[m_location] = "None"
+
+	m_styles = list2params(marking_styles)
+
 	update_markings()
+	stop_tail_wagging()
 
 /mob/living/carbon/human/proc/reset_head_accessory()
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -218,15 +244,19 @@
 	update_head_accessory()
 	return 1
 
-/mob/living/carbon/human/proc/change_marking_color(var/red, var/green, var/blue)
-	if(red == r_markings && green == g_markings && blue == b_markings)
+/mob/living/carbon/human/proc/change_marking_color(var/colour, var/location = "body")
+	var/list/marking_colours = params2list(m_colours)
+	marking_colours[location] = sanitize_hexcolor(marking_colours[location])
+	if(colour == marking_colours[location])
 		return
 
-	r_markings = red
-	g_markings = green
-	b_markings = blue
+	marking_colours[location] = colour
+	m_colours = list2params(marking_colours)
 
-	update_markings()
+	if(location == "tail")
+		update_tail_layer()
+	else
+		update_markings()
 	return 1
 
 
@@ -354,15 +384,26 @@
 
 	return valid_head_accessories
 
-/mob/living/carbon/human/proc/generate_valid_markings()
+/mob/living/carbon/human/proc/generate_valid_markings(var/location = "body")
 	var/list/valid_markings = new()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	for(var/marking in marking_styles_list)
-		var/datum/sprite_accessory/S = marking_styles_list[marking]
-
+		var/datum/sprite_accessory/body_markings/S = marking_styles_list[marking]
+		if(S.name == "None")
+			valid_markings += marking
+			continue
+		if(S.marking_location != location) //If the marking isn't for the location we desire, skip.
+			continue
 		if(!(species.name in S.species_allowed)) //If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
-		if(H.species.flags & ALL_RPARTS) //If the user is a species that can have a robotic head...
+		if(location == "tail")
+			if(!body_accessory)
+				if(S.tails_allowed)
+					continue
+			else
+				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
+					continue
+		if(location == "head" && H.species.flags & ALL_RPARTS) //If the user is a species that can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 				continue
