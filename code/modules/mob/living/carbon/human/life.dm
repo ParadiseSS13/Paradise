@@ -160,7 +160,10 @@
 
 	if (sdisabilities & PSYCHOTIC)
 		if (prob(1))
-			src.hallucination += rand(50, 100)
+			if (prob(50))
+				hallucination += rand(0, 100)
+			else
+				druggy += rand(0, 100)
 	if (sdisabilities & EATINGDISORDER)
 		if (nutrition < NUTRITION_LEVEL_STARVING)
 			if (prob(25))
@@ -183,10 +186,37 @@
 				if(O)
 					O.damage += 1
 					to_chat(src, "Your chest hurts!")
-	//if (sdisabilities & DEPRESSED)
-	//	// todo
-	//if (sdisabilities & ANXIETY)
-	//	// todo
+	if (sdisabilities & DEPRESSED)
+		// nothing yet
+		if (prob(1))
+			if(client && !client.color)
+				animate(client, color = MATRIX_GREYSCALE, time = 10)
+			var/list/hand_items = list(get_active_hand(),get_inactive_hand())
+			var/has_weapon = 0
+			for(var/obj/item in hand_items)
+				if(istype(item, /obj/item/weapon/gun))
+					has_weapon = 1
+					break
+			if (has_weapon)
+				if (prob(50))
+					suicide()
+				else
+					to_chat(src, "[src] is looking appealing...")
+			else
+				if (prob(20))
+					var/list/possible_messages = list ("You feel sluggish.","You feel cold.","You feel alienated.")
+					to_chat(src, pick(possible_messages))
+	if (sdisabilities & ANXIETY)
+		if (prob(1))
+			if (prob(5))
+				to_chat(src, "<span class='alert'>You are having an anxiety attack!</span>")
+				Stun(15)
+				Weaken(15)
+			else
+				if (prob(50))
+					Jitter(50)
+				else
+					Dizzy(50)
 
 /mob/living/carbon/human/proc/handle_stasis_bag()
 	// Handle side effects from stasis bag

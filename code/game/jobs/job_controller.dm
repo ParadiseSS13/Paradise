@@ -91,6 +91,9 @@ var/global/datum/controller/occupations/job_master
 			if(jobban_isbanned(player, job.title))
 				Debug("FOC isbanned failed, Player: [player]")
 				continue
+			if(is_health_ineligible(player,job.title))
+				Debug("FOC health ineligible, Player: [player]")
+				continue
 			if(!job.player_old_enough(player.client))
 				Debug("FOC player not old enough, Player: [player]")
 				continue
@@ -595,3 +598,16 @@ var/global/datum/controller/occupations/job_master
 
 			tmp_str += "HIGH=[level1]|MEDIUM=[level2]|LOW=[level3]|NEVER=[level4]|BANNED=[level5]|YOUNG=[level6]|-"
 			feedback_add_details("job_preferences",tmp_str)
+
+/proc/is_health_ineligible(var/mob/new_player/theplayer, var/therank)
+	if (theplayer.client.prefs.disabilities & DISABILITY_FLAG_PSYCHOTIC || theplayer.client.prefs.disabilities & DISABILITY_FLAG_EATINGDISORDER || theplayer.client.prefs.disabilities & DISABILITY_FLAG_DEPRESSED)
+		if (therank in security_positions)
+			return 1
+		if (therank in command_positions)
+			return 1
+	if (theplayer.client.prefs.disabilities & DISABILITY_FLAG_DEAF || theplayer.client.prefs.disabilities & DISABILITY_FLAG_BLIND || theplayer.client.prefs.disabilities & DISABILITY_FLAG_MUTE)
+		if (therank in security_positions)
+			return 1
+		if (therank in command_positions)
+			return 1
+	return 0
