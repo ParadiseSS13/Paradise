@@ -97,6 +97,15 @@ var/list/chatResources = list(
 	messageQueue = null
 	src.sendClientData()
 
+	pingLoop()
+
+/datum/chatOutput/proc/pingLoop()
+	set waitfor = FALSE
+
+	while (owner)
+		ehjax_send(data = owner.is_afk(29 SECONDS) ? "softPang" : "pang") // SoftPang isn't handled anywhere but it'll always reset the opts.lastPang.
+		sleep(30 SECONDS)
+
 /datum/chatOutput/proc/ehjax_send(var/client/C = owner, var/window = "browseroutput", var/data)
 	if(islist(data))
 		data = json_encode(data)
@@ -200,7 +209,7 @@ var/list/chatResources = list(
 			return
 
 		message = replacetext(message, "\n", "<br>")
-	
+
 		message = macro2html(message)
 		if(findtext(message, "\improper"))
 			message = replacetext(message, "\improper", "")
