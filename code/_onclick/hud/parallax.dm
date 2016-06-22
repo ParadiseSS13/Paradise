@@ -48,10 +48,9 @@ var/list/parallax_on_clients = list()
 	var/client/C = mymob.client
 	if(!parallax_initialized || C.updating_parallax) return
 
-	for(var/turf/T in range(get_turf(C.eye),C.view))
-		if(istype(T,/turf/space))
-			C.updating_parallax = 1
-			break
+	for(var/turf/space/T in trange(get_turf(C.eye),C.view))
+		C.updating_parallax = 1
+		break
 
 	if(!C.updating_parallax)
 		return
@@ -111,10 +110,9 @@ var/list/parallax_on_clients = list()
 			C.parallax += parallax_layer
 
 	var/parallax_loaded = 0
-	for(var/obj/screen/S in C.screen)
-		if(istype(S,/obj/screen/parallax))
-			parallax_loaded = 1
-			break
+	for(var/obj/screen/parallax/S in C.screen)
+		parallax_loaded = 1
+		break
 
 	if(forcerecalibrate || !parallax_loaded)
 		for(var/obj/screen/parallax/bgobj in C.parallax)
