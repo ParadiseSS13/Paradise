@@ -120,10 +120,16 @@ including addons and modifications you have made.
 
 See [this](https://www.gnu.org/licenses/why-affero-gpl.html) for more information.
 
-Any files located in the `Paradise/icons/goonstation` and `Paradise/sound/goonstation`
-folders, and any of their subdirectories, are licensed under the
+Any files located in the
+`Paradise/goon`,
+`Paradise/icons/goonstation`, or
+`Paradise/sound/goonstation`
+directories, or any subdirectories of mentioned directories are licensed under the
 Creative Commons 3.0 BY-NC-SA license
 (https://creativecommons.org/licenses/by-nc-sa/3.0)
+
+Any code files located in the folder, or any subdirectory of
+said folder, are licensed under
 
 All other assets including icons and sound files are licensed under the
 Creative Commons 3.0 BY-SA license (https://creativecommons.org/licenses/by-sa/3.0/),
