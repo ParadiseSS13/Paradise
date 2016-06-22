@@ -96,3 +96,4 @@
 	var/obj/screen/plane_master/parallax_master/parallax_master = null
 	var/obj/screen/plane_master/parallax_dustmaster/parallax_dustmaster = null
 	var/obj/screen/plane_master/parallax_spacemaster/parallax_spacemaster = null
+	var/last_parallax_shift

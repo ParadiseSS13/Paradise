@@ -15,6 +15,8 @@ var/list/parallax_on_clients = list()
 	layer = AREA_LAYER
 	plane = PLANE_SPACE_PARALLAX
 	var/parallax_speed = 0
+	var/last_accumulated_offset_x = 0
+	var/last_accumulated_offset_y = 0
 
 /obj/screen/plane_master
 	appearance_flags = PLANE_MASTER
@@ -140,18 +142,32 @@ var/list/parallax_on_clients = list()
 
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
 		C.previous_turf = posobj
+	
+	var/x_diff = posobj.x - C.previous_turf.x
+	var/y_diff = posobj.y - C.previous_turf.y
+	if(x_diff == 0 && y_diff == 0)
+		return // Nothing to do here.
+	var/world_time = world.time
+	var/last_delay = world_time - C.last_parallax_shift
+	last_delay = min(last_delay, 4)
 
 	//Doing it this way prevents parallax layers from "jumping" when you change Z-Levels.
-	C.parallax_offset["horizontal"] += posobj.x - C.previous_turf.x
-	C.parallax_offset["vertical"] += posobj.y - C.previous_turf.y
+	C.parallax_offset["horizontal"] += x_diff
+	C.parallax_offset["vertical"] += y_diff
 
 	C.previous_turf = posobj
+	C.last_parallax_shift = world_time
 
 	for(var/obj/screen/parallax/bgobj in C.parallax)
 		if(bgobj.parallax_speed)//only the middle and front layers actually move
 			var/accumulated_offset_x = bgobj.base_offset_x - round(C.parallax_offset["horizontal"] * bgobj.parallax_speed * (C.prefs.parallax_speed/2))
 			var/accumulated_offset_y = bgobj.base_offset_y - round(C.parallax_offset["vertical"] * bgobj.parallax_speed * (C.prefs.parallax_speed/2))
 
+			var/acc_x_diff = bgobj.last_accumulated_offset_x - accumulated_offset_x
+			var/acc_y_diff = bgobj.last_accumulated_offset_y - accumulated_offset_y
+			bgobj.last_accumulated_offset_x = accumulated_offset_x
+			bgobj.last_accumulated_offset_y = accumulated_offset_y
+			
 			while(accumulated_offset_x > 720)
 				accumulated_offset_x -= 1440
 			while(accumulated_offset_x < -720)
@@ -163,6 +179,11 @@ var/list/parallax_on_clients = list()
 				accumulated_offset_y += 1440
 
 			bgobj.screen_loc = "CENTER-7:[accumulated_offset_x],CENTER-7:[accumulated_offset_y]"
+			
+			if(abs(x_diff) <= 1 && abs(y_diff) <= 1)
+				// Animate the movement of the layer
+				bgobj.transform = matrix(1, 0, acc_x_diff, 0, 1, acc_y_diff)
+				animate(bgobj, transform = matrix(), time = last_delay)
 		else
 			bgobj.screen_loc = "CENTER-7:[bgobj.base_offset_x],CENTER-7:[bgobj.base_offset_y]"
 
