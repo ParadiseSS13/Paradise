@@ -87,6 +87,17 @@
 /obj/machinery/portable_atmospherics/hydroponics/New()
 	..()
 
+	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
+	prepare_huds()
+	hydro_hud.add_to_hud(src)
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
+	plant_hud_set_status()
+	plant_hud_set_health()
+	plant_hud_set_toxin()
+	plant_hud_set_pest()
+	plant_hud_set_weed()
+
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/hydroponics(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
@@ -103,16 +114,6 @@
 	if(closed_system)
 		flags &= ~OPENCONTAINER
 
-	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
-	prepare_huds()
-	hydro_hud.add_to_hud(src)
-	plant_hud_set_nutrient()
-	plant_hud_set_water()
-	plant_hud_set_status()
-	plant_hud_set_health()
-	plant_hud_set_toxin()
-	plant_hud_set_pest()
-	plant_hud_set_weed()
 
 /obj/machinery/portable_atmospherics/hydroponics/upgraded/New()
 	..()
@@ -175,6 +176,8 @@
 	pestlevel = 0
 	plant_hud_set_status()
 	plant_hud_set_health()
+	plant_hud_set_weed()
+	plant_hud_set_pest()
 
 //Harvests the product of a plant.
 /obj/machinery/portable_atmospherics/hydroponics/proc/harvest(var/mob/user)
@@ -618,6 +621,7 @@
 			user.visible_message("<span class='danger'>[user] starts uprooting the weeds.</span>", "<span class='danger'>You remove the weeds from the [src].</span>")
 			weedlevel = 0
 			update_icon()
+			plant_hud_set_weed()
 		else
 			to_chat(user, "<span class='danger'>This plot is completely devoid of weeds. It doesn't need uprooting.</span>")
 
