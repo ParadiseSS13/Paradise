@@ -357,41 +357,41 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_status()
 	var/image/holder = hud_list[PLANT_STATUS_HUD]
-	if (!seed)
+	if(!seed)
 		holder.icon_state = ""
 		return
-	if (harvest)
+	if(harvest)
 		holder.icon_state = "hudharvest"
 		return
-	if (dead)
+	if(dead)
 		holder.icon_state = "huddead"
 		return
 	holder.icon_state = ""
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_health()
 	var/image/holder = hud_list[PLANT_HEALTH_HUD]
-	if (!seed)
+	if(!seed)
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudplanthealth[RoundPlantBar(health/seed.get_trait(TRAIT_ENDURANCE))]"
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_toxin()
 	var/image/holder = hud_list[PLANT_TOXIN_HUD]
-	if (toxins < 1)	// You don't want to see these icons if the value is small
+	if(toxins < 1)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudtoxin[RoundPlantBar(toxins/10)]"
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_pest()
 	var/image/holder = hud_list[PLANT_PEST_HUD]
-	if (pestlevel < 1)	// You don't want to see these icons if the value is small
+	if(pestlevel < 1)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudpest[RoundPlantBar(pestlevel/10)]"
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_weed()
 	var/image/holder = hud_list[PLANT_WEED_HUD]
-	if (weedlevel < 1)	// You don't want to see these icons if the value is small
+	if(weedlevel < 1)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
