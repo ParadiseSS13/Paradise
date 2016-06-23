@@ -1997,7 +1997,7 @@
 	return ..()
 
 /mob/living/carbon/human/proc/get_age_pitch()
-	return 1.0 + 0.5*(30 - age)/80
+	return 1.0 + 0.5*(30 - max(min(age, 85),18))/80
 
 /mob/living/carbon/human/get_access()
 	. = ..()
