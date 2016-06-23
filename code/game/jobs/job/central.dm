@@ -18,15 +18,16 @@
 	H.equip_or_collect(new /obj/item/clothing/under/rank/centcom/officer(H), slot_w_uniform)
 	H.equip_or_collect(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
 	H.equip_or_collect(new /obj/item/clothing/gloves/color/white(H), slot_gloves)
-	H.equip_or_collect(new /obj/item/device/radio/headset/ert(H), slot_l_ear)
+	H.equip_or_collect(new /obj/item/device/radio/headset/centcom(H), slot_l_ear)
 	H.equip_or_collect(new /obj/item/clothing/head/beret/centcom/officer(H), slot_head)
 	H.equip_or_collect(new /obj/item/device/pda/centcom(H), slot_wear_pda)
 	H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(H), slot_belt)
 	H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
+	H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 
-	var/obj/item/weapon/implant/death_alarm/dust/D = new/obj/item/weapon/implant/death_alarm/dust(H)
-	D.implant(H)
+	H.equip_or_collect(new /obj/item/weapon/implanter/dust(H), slot_in_backpack)
+	H.equip_or_collect(new /obj/item/weapon/implanter/death_alarm(H), slot_in_backpack)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -58,16 +59,16 @@
 	H.equip_or_collect(new /obj/item/clothing/under/syndicate/combat(H), slot_w_uniform)
 	H.equip_or_collect(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 	H.equip_or_collect(new /obj/item/clothing/gloves/combat(H), slot_gloves)
-	H.equip_or_collect(new /obj/item/device/radio/headset/ert(H), slot_l_ear)
+	H.equip_or_collect(new /obj/item/device/radio/headset/centcom(H), slot_l_ear)
 	H.equip_or_collect(new /obj/item/clothing/head/beret/centcom/officer/navy(H), slot_head)
 	H.equip_or_collect(new /obj/item/device/pda/centcom(H), slot_wear_pda)
 	H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(H), slot_belt)
 	H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 	H.equip_or_collect(new /obj/item/clothing/suit/space/deathsquad/officer(H), slot_wear_suit)
-
-	var/obj/item/weapon/implant/death_alarm/dust/D = new/obj/item/weapon/implant/death_alarm/dust(H)
-	D.implant(H)
+	H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
+	H.equip_or_collect(new /obj/item/weapon/implanter/dust(H), slot_in_backpack)
+	H.equip_or_collect(new /obj/item/weapon/implanter/death_alarm(H), slot_in_backpack)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
