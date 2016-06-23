@@ -21,7 +21,7 @@
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
-#define AGE_MIN_E 1			//youngest a character with no age restriction (i.e. dionae, machine people, and grey) can be
+#define AGE_MIN_E 0			//youngest a character with no age restriction (i.e. dionae, machine people, and grey) can be
 #define AGE_MAX_E 150		//oldest a character with no age restriction can be
 
 #define LEFT 1
