@@ -23,7 +23,6 @@
 #define PLANT_TOXIN_HUD		"19"// Toxin level
 #define PLANT_PEST_HUD		"20"// Pest level
 #define PLANT_WEED_HUD		"21"// Weed level
-#define PLANT_HONEY_HUD		"22"// Used on apiary
 
 //for antag huds. these are used at the /mob level
 #define SPECIALROLE_HUD 		"13"
