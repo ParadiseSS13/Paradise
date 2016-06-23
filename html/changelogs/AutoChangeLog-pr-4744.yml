@@ -1,0 +1,6 @@
+author: tigercat2000
+delete-after: True
+changes: 
+  - rscadd: "Ported goon HTML chat from /vg/ / Goon"
+  - tweak: "All uses of \\black have been removed"
+  - tweak: "All uses of \\icon have been replaced with bicon()"
