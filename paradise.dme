@@ -1099,6 +1099,7 @@
 #include "code\modules\awaymissions\exile.dm"
 #include "code\modules\awaymissions\gateway.dm"
 #include "code\modules\awaymissions\loot.dm"
+#include "code\modules\awaymissions\map_rng.dm"
 #include "code\modules\awaymissions\pamphlet.dm"
 #include "code\modules\awaymissions\trigger.dm"
 #include "code\modules\awaymissions\zlevel.dm"

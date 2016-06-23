@@ -258,12 +258,15 @@
 	RPID.access = myjob.get_access()
 
 	equip_to_slot_or_del(MYID, slot_wear_id)
-	MYPDA = new(src)
+	if(wear_pda)
+		MYPDA = wear_pda
+	else
+		MYPDA = new(src)
+		equip_to_slot_or_del(MYPDA, slot_wear_pda)
 	MYPDA.owner = real_name
 	MYPDA.ownjob = alt_title
 	MYPDA.ownrank = job
 	MYPDA.name = "PDA-[real_name] ([alt_title])"
-	equip_to_slot_or_del(MYPDA, slot_belt)
 	zone_sel.selecting = "chest"
 	//arms
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
@@ -836,7 +839,7 @@
 		return 0
 
 	if(myPath.len <= 0)
-		myPath = get_path_to(src, get_turf(target), /turf/proc/Distance, SNPC_MAX_RANGE_FIND + 1, 250,1, id=Path_ID)
+		myPath = get_path_to(src, get_turf(target), /turf/proc/Distance, SNPC_MAX_RANGE_FIND + 1, 250,1, id=Path_ID, simulated_only = 0)
 
 	if(myPath)
 		if(myPath.len > 0)
