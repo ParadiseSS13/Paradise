@@ -166,46 +166,17 @@
 				druggy += rand(0, 100)
 	if (sdisabilities & EATINGDISORDER)
 		if (nutrition < NUTRITION_LEVEL_STARVING)
-			if (prob(25))
-				var/obj/item/organ/internal/brain/O = get_int_organ(/obj/item/organ/internal/brain)
-				if(O)
-					O.damage += 1
-					to_chat(src, "Your head hurts!")
-			else if (prob(33))
-				var/obj/item/organ/internal/heart/O = get_int_organ(/obj/item/organ/internal/heart)
-				if(O)
-					O.damage += 1
-					to_chat(src, "Your chest hurts!")
-			else if (prob(50))
-				var/obj/item/organ/internal/liver/O = get_int_organ(/obj/item/organ/internal/liver)
-				if(O)
-					O.damage += 1
-					to_chat(src, "Your torso hurts!")
-			else
-				var/obj/item/organ/internal/lungs/O = get_int_organ(/obj/item/organ/internal/lungs)
-				if(O)
-					O.damage += 1
-					to_chat(src, "Your chest hurts!")
+			if (prob(10))
+				adjustBruteLoss(1)
 	if (sdisabilities & DEPRESSED)
 		// nothing yet
 		if (prob(1))
 			if(client && !client.color)
 				animate(client, color = MATRIX_GREYSCALE, time = 10)
-			var/list/hand_items = list(get_active_hand(),get_inactive_hand())
-			var/has_weapon = 0
-			for(var/obj/item in hand_items)
-				if(istype(item, /obj/item/weapon/gun))
-					has_weapon = 1
-					break
-			if (has_weapon)
-				if (prob(50))
-					suicide()
-				else
-					to_chat(src, "[src] is looking appealing...")
-			else
-				if (prob(20))
-					var/list/possible_messages = list ("You feel sluggish.","You feel cold.","You feel alienated.")
-					to_chat(src, pick(possible_messages))
+				to_chat(src, "You feel depressed.")
+			else if (prob(20))
+				var/list/possible_messages = list ("You feel sluggish.","You feel cold.","You feel alienated.")
+				to_chat(src, pick(possible_messages))
 	if (sdisabilities & ANXIETY)
 		if (prob(1))
 			if (prob(5))
