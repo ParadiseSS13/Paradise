@@ -1,0 +1,4 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - bugfix: "Cryo tubes, sleepers, and body scanners now eject random items the occupant dropped, upon the occupant being ejected."

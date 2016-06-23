@@ -382,7 +382,7 @@
 			being_built = new /list()
 			return 0
 		if(!can_build(D,multiplier))
-			visible_message("\icon[src] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
+			visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
 			queue = list()
 			being_built = new /list()
 			return 0
@@ -392,7 +392,7 @@
 		D = listgetindex(listgetindex(queue, 1),1)
 		multiplier = listgetindex(listgetindex(queue,1),2)
 	being_built = new /list()
-	//visible_message("\icon[src] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
+	//visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/autolathe/proc/main_win(mob/user)
 	var/dat = "<table style='width:100%'><tr>"

@@ -389,7 +389,7 @@
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
 	..()
 	if(access_id)
-		to_chat(user, "There is \icon[access_id] \a [access_id] clipped onto it.")
+		to_chat(user, "There is [bicon(access_id)] \a [access_id] clipped onto it.")
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
 	if(istype(user))

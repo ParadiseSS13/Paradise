@@ -248,7 +248,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
-	to_chat(user, "<span class='notice'>Results of analysis of \icon[icon] [target].</span>")
+	to_chat(user, "<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>")
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -1732,10 +1732,6 @@ var/global/list/g_fancy_list_of_types = null
 		if(findtext("[key]", filter) || findtext("[value]", filter))
 			matches[key] = value
 	return matches
-
-// Use this to send to a client's chat, no exceptions (except this proc itself).
-/proc/to_chat(var/thing, var/output)
-	thing << output
 
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm.
 /proc/stoplag()

@@ -28,12 +28,21 @@
 	usr.say(message)
 
 
-/mob/verb/me_verb()
+/mob/verb/me_verb(message as text)
 	set name = "Me"
 	set category = "Emotes"
+	set desc = "(action) Enter a custom emote."
+
+	if(!message)
+		return
+
+	message = trim_strip_html_properly(message)
+
+	if(message == "")
+		return
 
 	if(emoteHandler)
-		return emoteHandler.runEmote("me")
+		return emoteHandler.runEmote("me", message)
 
 
 /mob/proc/say_dead(var/message)

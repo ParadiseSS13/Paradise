@@ -99,6 +99,12 @@
 	item_color = "jacksandal"
 	species_restricted = null
 
+/obj/item/clothing/shoes/workboots
+	name = "work boots"
+	desc = "Thick-soled boots for industrial work environments."
+	can_cut_open = 1
+	icon_state = "workboots"
+
 /obj/item/clothing/shoes/cult
 	name = "boots"
 	desc = "A pair of boots worn by the followers of Nar-Sie."
