@@ -1037,7 +1037,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("age")
 					if(species in list("Machine", "Diona", "Grey"))
-						var/new_age = input(user, "Choose your character's age:\n(No limit)", "Character Preference") as num|null
+						var/new_age = input(user, "Choose your character's age:\n([AGE_MIN_E]-[AGE_MAX_E])", "Character Preference") as num|null
 						if(new_age)
 							age = max(min(round(text2num(new_age)), AGE_MAX_E),AGE_MIN_E)
 					else
