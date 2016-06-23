@@ -82,6 +82,46 @@
 		M.fields["mi_dis_d"]	= "No minor disabilities have been declared."
 		M.fields["ma_dis"]		= "None"
 		M.fields["ma_dis_d"]	= "No major disabilities have been diagnosed."
+
+		if (H.disabilities || H.sdisabilities)
+			M.fields["ma_dis"] = ""
+			M.fields["ma_dis_d"] = ""
+			if (H.disabilities & NEARSIGHTED)
+				M.fields["ma_dis"] += " | Blind"
+				M.fields["ma_dis_d"] += " | Patient cannot see very well."
+			if (H.disabilities & OBESITY)
+				M.fields["ma_dis"] += " | Obese"
+				M.fields["ma_dis_d"] += " | Patient is severely overweight."
+			if (H.disabilities & EPILEPSY)
+				M.fields["ma_dis"] += " | Epileptic"
+				M.fields["ma_dis_d"] += " | Patient is prone to seizures."
+			if (H.disabilities & DEAF)
+				M.fields["ma_dis"] += " | Deaf"
+				M.fields["ma_dis_d"] += " | Patient cannot hear."
+			if (H.disabilities & BLIND)
+				M.fields["ma_dis"] += " | Blind"
+				M.fields["ma_dis_d"] += " | Patient cannot see."
+			if (H.disabilities & MUTE)
+				M.fields["ma_dis"] += " | Mute"
+				M.fields["ma_dis_d"] += " | Patient cannot talk."
+
+			if (H.sdisabilities & PSYCHOTIC)
+				M.fields["ma_dis"] += " | Psychotic"
+				M.fields["ma_dis_d"] += " | Patient experiences hallucinations."
+				M.fields["p_stat"]		= "*Watch*"
+			if (H.sdisabilities & EATINGDISORDER)
+				M.fields["ma_dis"] += " | Eating Disorder"
+				M.fields["ma_dis_d"] += " | Patient unintentionally starves themselves."
+				M.fields["p_stat"]		= "*Watch*"
+			if (H.sdisabilities & DEPRESSED)
+				M.fields["ma_dis"] += " | Depressed"
+				M.fields["ma_dis_d"] += " | Patient experiences profound hopelessness."
+				M.fields["p_stat"]		= "*Watch*"
+			if (H.sdisabilities & ANXIETY)
+				M.fields["ma_dis"] += " | Anxiety Disorder"
+				M.fields["ma_dis_d"] += " | Patient suffers anxiety attacks."
+				M.fields["p_stat"]		= "*Watch*"
+
 		M.fields["alg"]			= "None"
 		M.fields["alg_d"]		= "No allergies have been detected in this patient."
 		M.fields["cdi"]			= "None"

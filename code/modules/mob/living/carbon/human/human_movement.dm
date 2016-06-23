@@ -27,6 +27,9 @@
 	if (hungry >= 70)
 		tally += hungry/50
 
+	if (sdisabilities & DEPRESSED)
+		tally += 3
+
 	if(wear_suit)
 		tally += wear_suit.slowdown
 

@@ -467,6 +467,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(jobban_isbanned(user, rank))
 			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
 			continue
+		if(is_health_ineligible(user, rank))
+			HTML += "<del>[rank]</del></td><td><b> \[DISABLED]</b></td></tr>"
+			continue
 		if(!job.player_old_enough(user.client))
 			var/available_in_days = job.available_in_days(user.client)
 			HTML += "<del>[rank]</del></td><td> \[IN [(available_in_days)] DAYS]</td></tr>"
@@ -684,6 +687,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DEAF,"Deaf")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_BLIND,"Blind")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_MUTE,"Mute")
+	HTML += "<BR>"
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_PSYCHOTIC,"Psychotic - hallucinates. Note: NOT an excuse for violence!")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_EATINGDISORDER,"Eating Disorder - may starve. Misleading hunger meter.")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DEPRESSED,"Depressed - slow, black&white vision, may attempt suicide.")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_ANXIETY,"Social Anxiety - randomly suffers attacks of jitteriness/dizzyness.")
 
 
 	// AUTOFIXED BY fix_string_idiocy.py
@@ -1808,6 +1816,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
 		character.sdisabilities |= MUTE
+
+	if(disabilities & DISABILITY_FLAG_PSYCHOTIC)
+		character.sdisabilities |= PSYCHOTIC
+	if(disabilities & DISABILITY_FLAG_EATINGDISORDER)
+		character.sdisabilities |= EATINGDISORDER
+	if(disabilities & DISABILITY_FLAG_DEPRESSED)
+		character.sdisabilities |= DEPRESSED
+	if(disabilities & DISABILITY_FLAG_ANXIETY)
+		character.sdisabilities |= ANXIETY
 
 	S.handle_dna(character)
 

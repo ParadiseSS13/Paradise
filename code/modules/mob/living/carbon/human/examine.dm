@@ -439,6 +439,14 @@
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
 	if(!wear_mask && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
+	if(!wear_mask && sdisabilities & PSYCHOTIC && in_range(user,src))
+		msg += "They seem slightly out of touch with their surroundings.\n"
+	if(sdisabilities & EATINGDISORDER && in_range(user,src))
+		msg += "They seem unnaturally thin.\n"
+	if(!wear_mask && sdisabilities & DEPRESSED && in_range(user,src))
+		msg += "They have a blank stare.\n"
+	if(sdisabilities & ANXIETY && in_range(user,src))
+		msg += "They seem anxious.\n"
 	if(decaylevel == 1)
 		msg += "[t_He] [t_is] starting to smell.\n"
 	if(decaylevel == 2)

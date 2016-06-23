@@ -159,6 +159,37 @@
 		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
 		death()
 
+	if (sdisabilities & PSYCHOTIC)
+		if (prob(1))
+			if (prob(50))
+				hallucination += rand(0, 100)
+			else
+				druggy += rand(0, 100)
+	if (sdisabilities & EATINGDISORDER)
+		if (nutrition < NUTRITION_LEVEL_STARVING)
+			if (prob(10))
+				adjustBruteLoss(1)
+	if (sdisabilities & DEPRESSED)
+		// nothing yet
+		if (prob(1))
+			if(client && !client.color)
+				animate(client, color = MATRIX_GREYSCALE, time = 10)
+				to_chat(src, "You feel depressed.")
+			else if (prob(20))
+				var/list/possible_messages = list ("You feel sluggish.","You feel cold.","You feel alienated.")
+				to_chat(src, pick(possible_messages))
+	if (sdisabilities & ANXIETY)
+		if (prob(1))
+			if (prob(5))
+				to_chat(src, "<span class='alert'>You are having an anxiety attack!</span>")
+				Stun(15)
+				Weaken(15)
+			else
+				if (prob(50))
+					Jitter(50)
+				else
+					Dizzy(50)
+
 /mob/living/carbon/human/proc/handle_stasis_bag()
 	// Handle side effects from stasis bag
 	if(in_stasis)
