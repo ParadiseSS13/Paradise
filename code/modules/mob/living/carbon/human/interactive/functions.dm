@@ -433,7 +433,7 @@
 	return 1
 
 /mob/living/carbon/human/interactive/proc/souschef(obj)
-	if(shouldModulePass() || enforceHome() || prob(SNPC_FUZZY_CHANCE_LOW))
+	if(shouldModulePass() || enforceHome() || prob(SNPC_FUZZY_CHANCE_HIGH) || prob(SNPC_FUZZY_CHANCE_HIGH))
 		return
 
 	if(doing & SNPC_SPECIAL)
@@ -775,6 +775,12 @@
 		return "[word]d"
 	else
 		return "[word]ed"
+
+/mob/living/carbon/human/interactive/proc/ing_verb(word)
+	if(copytext(word, length(word)) == "e")
+		return "[copytext(word, 1, length(word))]ing"
+	else
+		return "[word]ing"
 
 /mob/living/carbon/human/interactive/proc/paperwork_sentence()
 	var/verbs_use = pick_list(speak_file, "verbs_use")
