@@ -137,16 +137,13 @@
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
+	var/lock_shuttle_doors = 0
 
-<<<<<<< HEAD
 /obj/docking_port/stationary/proc/on_docked(mobile)
 	return
 
 /obj/docking_port/stationary/proc/on_undocked(mobile)
 	return
-=======
-	var/lock_shuttle_doors = 0
->>>>>>> master
 
 /obj/docking_port/stationary/register()
 	if(!shuttle_master)
