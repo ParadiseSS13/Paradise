@@ -145,6 +145,7 @@
 "cO" = (/obj/machinery/door_control{id = "Room103"; name = "Room103 Bolt Control"; normaldoorcontrol = 1; pixel_x = 25; pixel_y = 0; req_access_txt = "0"; specialfunctions = 4},/turf/simulated/floor/carpet{icon_state = "carpetnoconnect"},/area/awaymission)
 "cP" = (/turf/simulated/floor/plasteel,/area/awaymission)
 "cQ" = (/mob/living/simple_animal/hostile/retaliate/goat,/turf/simulated/floor/plasteel,/area/awaymission)
+"cR" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f6"; icon_state = "swall_f6"; dir = 2},/area/awaymission)
 "cS" = (/obj/structure/stool/bed/nest,/turf/simulated/floor/carpet,/area/awaymission)
 "cT" = (/obj/structure/stool/bed/alien,/obj/item/xenos_claw,/turf/simulated/floor/carpet,/area/awaymission)
 "cU" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/yellow,/turf/simulated/floor/carpet,/area/awaymission)
@@ -174,7 +175,9 @@
 "ds" = (/obj/machinery/door/window/southright,/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/carpet,/area/awaymission)
 "dt" = (/obj/machinery/vending/dinnerware,/turf/simulated/floor/plasteel,/area/awaymission)
 "du" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/alien/weeds,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
+"dv" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f10"; icon_state = "swall_f10"; dir = 2},/area/awaymission)
 "dw" = (/obj/machinery/door/window/eastleft,/obj/structure/alien/weeds,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/awaymission)
+"dx" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f5"; icon_state = "swall_f5"; dir = 2},/area/awaymission)
 "dy" = (/obj/machinery/light,/turf/simulated/floor/plasteel,/area/awaymission)
 "dz" = (/obj/machinery/processor,/turf/simulated/floor/plasteel,/area/awaymission)
 "dA" = (/obj/machinery/chem_master/condimaster,/turf/simulated/floor/plasteel,/area/awaymission)
@@ -239,12 +242,11 @@
 "eH" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows2"; dir = 8},/area/space)
 "eI" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 4},/area/space)
 "eJ" = (/obj/machinery/door/airlock/external{name = "Arrival Airlock"},/turf/simulated/floor/plating,/area/awaymission)
-"eK" = (/turf/simulated/shuttle/wall{icon_state = "swall_s6"; dir = 2},/area/awaymission)
+"eK" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f9"; icon_state = "swall_f9"; dir = 2},/area/awaymission)
 "eL" = (/obj/effect/decal/cleanable/blood/old,/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/awaymission)
 "eM" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 8},/area/space)
 "eN" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/awaymission)
 "eO" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/shuttle/plating,/area/awaymission)
-"eP" = (/turf/simulated/shuttle/wall{icon_state = "swall_s10"; dir = 2},/area/awaymission)
 "eQ" = (/obj/effect/decal/cleanable/blood/old,/turf/simulated/shuttle/wall{icon_state = "swallc4"; dir = 2},/area/awaymission)
 "eR" = (/obj/effect/decal/remains/human,/turf/simulated/shuttle/floor,/area/awaymission)
 "eS" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/shuttle/floor,/area/awaymission)
@@ -254,11 +256,9 @@
 "eW" = (/obj/structure/stool/bed/chair{dir = 8},/obj/effect/decal/remains/human,/obj/effect/decal/cleanable/blood/old,/turf/simulated/shuttle/floor,/area/awaymission)
 "eX" = (/obj/machinery/door/airlock/glass,/turf/simulated/shuttle/floor,/area/awaymission)
 "eY" = (/obj/structure/window/reinforced{dir = 4},/obj/effect/decal/remains/human,/obj/effect/decal/cleanable/blood/old,/turf/simulated/shuttle/floor,/area/awaymission)
-"eZ" = (/turf/simulated/shuttle/wall{icon_state = "swall_s5"; dir = 2},/area/awaymission)
 "fa" = (/turf/simulated/shuttle/wall{icon_state = "swallc1"; dir = 2},/area/awaymission)
 "fb" = (/obj/structure/stool/bed/chair{dir = 8},/obj/effect/decal/remains/human,/turf/simulated/shuttle/floor,/area/awaymission)
 "fc" = (/obj/structure/stool/bed/chair{dir = 8},/obj/effect/decal/cleanable/blood/old,/turf/simulated/shuttle/floor,/area/awaymission)
-"fd" = (/turf/simulated/shuttle/wall{icon_state = "swall_s9"; dir = 2},/area/awaymission)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacadacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -316,9 +316,10 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaboaHaHaHaHbpaHbpaHexaHeEaoabaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaboaHaHaHaHaHaHaHbqexeFexaoabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeGeHeHeIaoeJaoeJaoaoaoaoaoabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabeJaoeJababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeKeLeMeHeIeNeOeNeOeNeMeHeIeNePaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeKbReQeReSeSeSbDbDbDbDbDeSeSeSeTeUeVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacReLeMeHeIeNeOeNeOeNeMeHeIeNdvaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacRbReQeReSeSeSbDbDbDbDbDeSeSeSeTeUeVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabReWeXbDbDbDbDbDeSeSeSbDbDbDbDeYeUeVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZbRfabDeSeWeSbDbDeRbDbDfbfceSeTeUeVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZeNeMeHeIeNeLeLeLeNeMeHeIeNfdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadxbRfabDeSeWeSbDbDeRbDbDfbfceSeTeUeVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadxeNeMeHeIeNeLeLeLeNeMeHeIeNeKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+
