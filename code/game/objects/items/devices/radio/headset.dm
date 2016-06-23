@@ -293,7 +293,7 @@
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
-	ks2type = /obj/item/device/encryptionkey/centcom
+	ks2type = /obj/item/device/encryptionkey/ert
 
 /obj/item/device/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
