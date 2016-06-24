@@ -126,14 +126,14 @@ datum/announcement/proc/PlaySound(var/message_sound)
 		return
 	for(var/mob/M in player_list)
 		if(!istype(M,/mob/new_player) && !isdeaf(M))
-			to_chat(M, message_sound)
+			M << message_sound
 
 datum/announcement/proc/Sound(var/message_sound)
 	PlaySound(message_sound)
 
 datum/announcement/priority/Sound(var/message_sound)
 	if(sound)
-		to_chat(world, sound)
+		world << sound
 
 datum/announcement/priority/command/Sound(var/message_sound)
 	PlaySound(message_sound)

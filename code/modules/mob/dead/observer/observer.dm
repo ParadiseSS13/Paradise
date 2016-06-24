@@ -259,7 +259,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				source.layer = old_layer
 	to_chat(src, "<span class='ghostalert'><a href=?src=\ref[src];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
-		to_chat(src, sound(sound))
+		src << sound(sound)
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = huds[hud_index]

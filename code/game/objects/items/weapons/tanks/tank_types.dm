@@ -72,7 +72,7 @@
 		if(..(user, 0))
 			if(air_contents.oxygen < 1 && loc==usr)
 				to_chat(user, "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
-				to_chat(user, sound('sound/effects/alert.ogg'))
+				user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/air/New()
 	..()
@@ -124,7 +124,7 @@
 	if(..(user, 0))
 		if(air_contents.toxins < 0.2 && loc==usr)
 			to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of plasma!</B>"))
-			to_chat(user, sound('sound/effects/alert.ogg'))
+			user << sound('sound/effects/alert.ogg')
 
 /*
  * Emergency Oxygen
@@ -151,7 +151,7 @@
 		if(..(user, 0))
 			if(air_contents.oxygen < 0.2 && loc==usr)
 				to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"))
-				to_chat(user, sound('sound/effects/alert.ogg'))
+				user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
