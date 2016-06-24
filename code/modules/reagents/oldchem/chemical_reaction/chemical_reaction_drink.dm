@@ -156,8 +156,8 @@
 	name = "Cuba Libre"
 	id = "cubalibre"
 	result = "cubalibre"
-	required_reagents = list("rum" = 2, "cola" = 1)
-	result_amount = 3
+	required_reagents = list("rum" = 2, "cola" = 2, "limejuice" = 1)
+	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/mojito
@@ -506,6 +506,14 @@
 	id = "cafe_latte"
 	result = "cafe_latte"
 	required_reagents = list("coffee" = 1, "milk" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cafe_mocha
+	name = "Cafe Mocha"
+	id = "cafe_mocha"
+	result = "cafe_mocha"
+	required_reagents = list("cafe_latte" = 1, "chocolate" = 1)
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 

@@ -56,7 +56,7 @@
 	name = "hat"
 	desc = "Someone who wears this will look very smart."
 	icon_state = "detective"
-	allowed = list(/obj/item/weapon/reagent_containers/food/snacks/candy_corn, /obj/item/weapon/pen)
+	allowed = list(/obj/item/weapon/reagent_containers/food/snacks/candy/candy_corn, /obj/item/weapon/pen)
 	armor = list(melee = 50, bullet = 5, laser = 25,energy = 10, bomb = 0, bio = 0, rad = 0)
 
 //Mime
@@ -85,9 +85,9 @@
 	armor = list(melee = 60, bullet = 5, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	strip_delay = 60
 
-/obj/item/clothing/head/customs
-	name = "customs officer's hat"
-	desc = "A serious looking hat for a serious job."
+/obj/item/clothing/head/officer
+	name = "officer's cap"
+	desc = "A red cap with an old-fashioned badge on the front for establishing that you are, in fact, the law."
 	icon_state = "customshelm"
 	item_state = "customshelm"
 	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)

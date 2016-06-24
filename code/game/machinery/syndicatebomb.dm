@@ -10,7 +10,7 @@
 	unacidable = 1
 
 	var/datum/wires/syndicatebomb/wires = null
-	var/timer = 60
+	var/timer = 120
 	var/open_panel = 0 	//are the wires exposed?
 	var/active = 0		//is the bomb counting down?
 	var/defused = 0		//is the bomb capable of exploding?
@@ -19,12 +19,12 @@
 
 /obj/machinery/syndicatebomb/process()
 	if(active && !defused && (timer > 0)) 	//Tick Tock
-		var/volume = (timer <= 10 ? 40 : 10) // Tick louder when the bomb is closer to being detonated.
+		var/volume = (timer <= 20 ? 40 : 10) // Tick louder when the bomb is closer to being detonated.
 		playsound(loc, beepsound, volume, 0)
-		timer--
+		timer = max(timer - 2,0) // 2 seconds per process()
 	if(active && !defused && (timer <= 0))	//Boom
 		active = 0
-		timer = 60
+		timer = 120
 		update_icon()
 		if(payload in src)
 			payload.detonate()
@@ -123,17 +123,17 @@
 
 /obj/machinery/syndicatebomb/proc/settings(var/mob/user)
 	var/newtime = input(user, "Please set the timer.", "Timer", "[timer]") as num
-	newtime = Clamp(newtime, 60, 60000)
+	newtime = Clamp(newtime, 120, 60000)
 	if(in_range(src, user) && isliving(user)) //No running off and setting bombs from across the station
 		timer = newtime
-		src.loc.visible_message("<span class='notice'>\icon[src] timer set for [timer] seconds.</span>")
+		src.loc.visible_message("<span class='notice'>[bicon(src)] timer set for [timer] seconds.</span>")
 	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && in_range(src, user) && isliving(user))
 		if(defused || active)
 			if(defused)
-				src.loc.visible_message("<span class='notice'>\icon[src] Device error: User intervention required.</span>")
+				src.loc.visible_message("<span class='notice'>[bicon(src)] Device error: User intervention required.</span>")
 			return
 		else
-			src.loc.visible_message("<span class='danger'>\icon[src] [timer] seconds until detonation, please clear the area.</span>")
+			src.loc.visible_message("<span class='danger'>[bicon(src)] [timer] seconds until detonation, please clear the area.</span>")
 			playsound(loc, 'sound/machines/click.ogg', 30, 1)
 			active = 1
 			update_icon()
@@ -223,7 +223,7 @@
 	var/obj/machinery/syndicatebomb/holder = src.loc
 	if(istype(holder))
 		attempts++
-		holder.loc.visible_message("<span class='danger'>\icon[holder] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires...</span>")
+		holder.loc.visible_message("<span class='danger'>[bicon(holder)] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires...</span>")
 		reset()
 	else
 		qdel(src)
@@ -233,7 +233,7 @@
 	if(istype(holder))
 		attempts++
 		defusals++
-		holder.loc.visible_message("<span class='notice'>\icon[holder] Alert: Bomb has been defused. Your score is now [defusals] for [attempts]! Resetting wires in 5 seconds...</span>")
+		holder.loc.visible_message("<span class='notice'>[bicon(holder)] Alert: Bomb has been defused. Your score is now [defusals] for [attempts]! Resetting wires in 5 seconds...</span>")
 		sleep(50)	//Just in case someone is trying to remove the bomb core this gives them a little window to crowbar it out
 		if(istype(holder))
 			reset()

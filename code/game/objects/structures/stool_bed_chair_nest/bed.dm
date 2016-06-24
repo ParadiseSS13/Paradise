@@ -16,7 +16,7 @@
 	var/movable = 0 // For mobility checks
 
 /obj/structure/stool/bed/MouseDrop(atom/over_object)
-	..(over_object, 1)
+	..(over_object, skip_fucking_stool_shit = 1)
 
 /obj/structure/stool/psychbed
 	name = "psych bed"

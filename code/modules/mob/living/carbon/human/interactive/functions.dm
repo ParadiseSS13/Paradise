@@ -433,7 +433,7 @@
 	return 1
 
 /mob/living/carbon/human/interactive/proc/souschef(obj)
-	if(shouldModulePass() || enforceHome() || prob(SNPC_FUZZY_CHANCE_LOW))
+	if(shouldModulePass() || enforceHome() || prob(SNPC_FUZZY_CHANCE_HIGH) || prob(SNPC_FUZZY_CHANCE_HIGH))
 		return
 
 	if(doing & SNPC_SPECIAL)
@@ -693,7 +693,7 @@
 							best = R
 					if(istype(R, /obj/item/weapon/gun))
 						var/obj/item/weapon/gun/G = R
-						if(G.can_fire())
+						if(G.can_shoot())
 							best = R
 							break // gun with ammo? screw the rest
 	if(best && best != main_hand)
@@ -727,22 +727,23 @@
 					if(main_hand.force != 0)
 						if(istype(main_hand,/obj/item/weapon/gun))
 							var/obj/item/weapon/gun/G = main_hand
-							if(G.special_check(src))
+							if(G.can_trigger_gun(src))
 								var/shouldFire = 1
 								if(istype(main_hand, /obj/item/weapon/gun/energy))
 									var/obj/item/weapon/gun/energy/P = main_hand
 									var/stunning = 0
-									if(ispath(text2path(P.projectile_type), /obj/item/projectile/energy/electrode))
-										stunning = 1
+									for(var/A in P.ammo_type)
+										if(ispath(A,/obj/item/ammo_casing/energy/electrode))
+											stunning = 1
 									var/mob/stunCheck = TARGET
 									if(stunning && stunCheck.stunned)
 										shouldFire = 0
 								if(shouldFire)
-									if(!G.process_chambered())
-										G.click_empty(src)
+									if(!G.can_shoot())
+										G.shoot_with_empty_chamber(src)
 										npcDrop(G, 1)
 									else
-										G.Fire(TARGET, src)
+										G.process_fire(TARGET, src)
 								else
 									if(get_dist(src,TARGET) > 6)
 										if(!walk2derpless(TARGET))
@@ -774,6 +775,12 @@
 		return "[word]d"
 	else
 		return "[word]ed"
+
+/mob/living/carbon/human/interactive/proc/ing_verb(word)
+	if(copytext(word, length(word)) == "e")
+		return "[copytext(word, 1, length(word))]ing"
+	else
+		return "[word]ing"
 
 /mob/living/carbon/human/interactive/proc/paperwork_sentence()
 	var/verbs_use = pick_list(speak_file, "verbs_use")

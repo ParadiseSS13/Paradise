@@ -1,0 +1,5 @@
+author: monster860
+delete-after: True
+changes: 
+  - rscadd: "RCD gets a UI"
+  - rscadd: "RCD-built airlocks can now receive different types and accesses."

@@ -1,54 +1,59 @@
- #define SAWN_INTACT  0
- #define SAWN_OFF     1
- #define SAWN_SAWING -1
-
 /obj/item/weapon/gun
 	name = "gun"
-	desc = "Its a gun. It's pretty terrible, though."
-	icon = 'icons/obj/gun.dmi'
+	desc = "It's a gun. It's pretty terrible, though."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = 3.0
+	w_class = 3
 	throwforce = 5
-	throw_speed = 4
+	throw_speed = 3
 	throw_range = 5
-	force = 5.0
+	force = 5
 	origin_tech = "combat=1"
 	needs_permit = 1
 	attack_verb = list("struck", "hit", "bashed")
 
-	var/fire_sound = 'sound/weapons/Gunshot.ogg'
-	var/obj/item/projectile/in_chamber = null
-	var/silenced = 0
-	var/ghettomodded = 0
-	var/recoil = 0
+	var/fire_sound = "gunshot"
+	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
+	var/suppressed = 0					//whether or not a message is displayed when fired
 	var/can_suppress = 0
 	var/can_unsuppress = 1
+	var/recoil = 0						//boom boom shake the room
 	var/clumsy_check = 1
-	var/sawn_desc = null
+	var/obj/item/ammo_casing/chambered = null
+	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
+	var/sawn_desc = null				//description change if weapon is sawn-off
 	var/sawn_state = SAWN_INTACT
-	var/obj/item/ammo_casing/chambered = null // The round (not bullet) that is in the chamber. THIS MISPLACED ITEM BROUGHT TO YOU BY HACKY BUCKSHOT.
-	var/tmp/list/mob/living/target //List of who yer targeting.
-	var/tmp/lock_time = -100
-	var/tmp/mouthshoot = 0 ///To stop people from suiciding twice... >.>
-	var/automatic = 0 //Used to determine if you can target multiple people.
-	var/tmp/mob/living/last_moved_mob //Used to fire faster at more than one person.
-	var/tmp/told_cant_shoot = 0 //So that it doesn't spam them with the fact they cannot hit them.
-	var/firerate = 1     // 0 for one bullet after tarrget moves and aim is lowered,
-						//1 for keep shooting until aim is lowered
-	var/fire_delay = 0
-	var/last_fired = 0
+	var/burst_size = 1					//how large a burst is
+	var/fire_delay = 0					//rate of fire for burst firing and semi auto
+	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
+	var/semicd = 0						//cooldown handler
+	var/weapon_weight = WEAPON_LIGHT
+	var/list/restricted_species
+
+	var/spread = 0
+	var/randomspread = 1
+
+	var/unique_rename = 0 //allows renaming with a pen
+	var/unique_reskin = 0 //allows one-time reskinning
+	var/current_skin = null //the skin choice if we had a reskin
+	var/list/options = list()
+
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+
 	var/obj/item/device/flashlight/F = null
 	var/can_flashlight = 0
-	var/heavy_weapon = 0
-	var/randomspread = 0
 
-	var/burst_size = 1
+	var/list/upgrades = list()
+
+	var/ammo_x_offset = 0 //used for positioning ammo count overlay on sprite
+	var/ammo_y_offset = 0
+	var/flight_x_offset = 0
+	var/flight_y_offset = 0
 
 	//Zooming
 	var/zoomable = FALSE //whether the gun generates a Zoom action on creation
@@ -56,312 +61,200 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/datum/action/toggle_scope_zoom/azoom
 
-	proc/ready_to_fire()
-		if(world.time >= last_fired + fire_delay)
-			last_fired = world.time
-			return 1
-		else
-			return 0
-
-	proc/process_chambered()
-		return 0
-
-
-	proc/special_check(var/mob/M) //Placeholder for any special checks, like detective's revolver.
-		if(!M.IsAdvancedToolUser())
-			return 0
-		return 1
-
-
-	proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-		to_chat(user, "<span class='warning'>*click*</span>")
-		playsound(user, 'sound/weapons/emptyclick.ogg', 40, 1)
-		return
-
-	emp_act(severity)
-		for(var/obj/O in contents)
-			O.emp_act(severity)
-
-	proc/prepare_shot(var/obj/item/projectile/proj) //Transfer properties from the gun to the bullet
-		proj.shot_from = src
-		proj.silenced = silenced
-		return
-
 /obj/item/weapon/gun/New()
+	..()
+	if(F)
+		verbs += /obj/item/weapon/gun/proc/toggle_gunlight
 	build_zooming()
+
+/obj/item/weapon/gun/examine(mob/user)
 	..()
+	if(unique_reskin && !current_skin)
+		to_chat(user, "<span class='notice'>Alt-click it to reskin it.</span>")
+	if(unique_rename)
+		to_chat(user, "<span class='notice'>Use a pen on it to rename it.</span>")
 
-/obj/item/weapon/gun/pickup(mob/user)
+/obj/item/weapon/gun/proc/process_chamber()
+	return 0
 
-	if(azoom)
-		azoom.Grant(user)
-	..()
-
-/obj/item/weapon/gun/dropped(mob/user)
-
-	zoom(user,FALSE)
-	if(azoom)
-		azoom.Remove(user)
-	..()
-
-/obj/item/weapon/gun/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
-	if(flag)    return //we're placing gun on a table or in backpack
-	if(istype(target, /obj/machinery/recharger) && istype(src, /obj/item/weapon/gun/energy))    return//Shouldnt flag take care of this?
-	Fire(A,user,params) //Otherwise, fire normally.
-
-/obj/item/weapon/gun/proc/isHandgun()
+//check if there's enough ammo/energy/whatever to shoot one time
+//i.e if clicking would make it shoot
+/obj/item/weapon/gun/proc/can_shoot()
 	return 1
 
-/obj/item/weapon/gun/proc/Fire(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, params, reflex = 0)//TODO: go over this
+/obj/item/weapon/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
+	to_chat(user, "<span class='danger'>*click*</span>")
+	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+
+/obj/item/weapon/gun/proc/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
+	if(recoil)
+		shake_camera(user, recoil + 1, recoil)
+
+	if(suppressed)
+		playsound(user, fire_sound, 10, 1)
+	else
+		playsound(user, fire_sound, 50, 1)
+		if(!message)
+			return
+		if(pointblank)
+			user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", "<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+		else
+			user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+
+	if(weapon_weight >= WEAPON_MEDIUM)
+		if(user.get_inactive_hand())
+			if(prob(15))
+				if(user.drop_item())
+					user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
+
+/obj/item/weapon/gun/emp_act(severity)
+	for(var/obj/O in contents)
+		O.emp_act(severity)
+
+/obj/item/weapon/gun/afterattack(atom/target, mob/living/user, flag, params)
+	if(firing_burst)
+		return
+	if(flag) //It's adjacent, is the user, or is on the user's person
+		if(target in user.contents) //can't shoot stuff inside us.
+			return
+		if(!ismob(target) || user.a_intent == "harm") //melee attack
+			return
+		if(target == user && user.zone_sel.selecting != "mouth") //so we can't shoot ourselves (unless mouth selected)
+			return
+
+	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
+		var/mob/living/L = user
+		if(!can_trigger_gun(L))
+			return
+
+	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can't shoot.
+		shoot_with_empty_chamber(user)
+		return
+
+	if(flag)
+		if(user.zone_sel.selecting == "mouth")
+			handle_suicide(user, target, params)
+			return
+
+
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
-		if(istype(user, /mob/living))
-			var/mob/living/M = user
-			if ((CLUMSY in M.mutations) && prob(50))
-				to_chat(M, "<span class='danger'>[src] blows up in your face.</span>")
-				M.take_organ_damage(0,20)
-				M.drop_item()
-				qdel(src)
+		if(istype(user))
+			if((CLUMSY in user.mutations) && prob(40))
+				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+				var/shot_leg = pick("l_foot", "r_foot")
+				process_fire(user, user, 0, params, zone_override = shot_leg)
+				user.drop_item()
 				return
 
-	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/simple_animal/diona))
-		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
+	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
+		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
 		return
-	if(istype(user, /mob/living))
-		var/mob/living/M = user
-		if (HULK in M.mutations)
-			to_chat(M, "<span class='danger'>Your meaty finger is much too large for the trigger guard!</span>")
-			return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.species.flags & NOGUNS)
-			to_chat(user, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
-			return
-		if(H.martial_art && H.martial_art.name == "The Sleeping Carp") //great dishonor to famiry
-			to_chat(user, "<span class='danger'>Use of ranged weaponry would bring dishonor to the clan.</span>")
-			return
 
+	process_fire(target,user,1,params)
+
+/obj/item/weapon/gun/proc/can_trigger_gun(var/mob/living/user)
+	if(!user.can_use_guns(src))
+		return 0
+	if(restricted_species && restricted_species.len && !(user.get_species() in restricted_species))
+		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
+		return 0
+	return 1
+
+obj/item/weapon/gun/proc/newshot(params)
+	return
+
+/obj/item/weapon/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	add_fingerprint(user)
 
-	if(!special_check(user))
+	if(semicd)
 		return
 
-	if (!ready_to_fire())
-		if (world.time % 3) //to prevent spam
-			to_chat(user, "<span class='warning'>[src] is not ready to fire again!")
-		return
-
-	if(heavy_weapon)
+	if(weapon_weight)
 		if(user.get_inactive_hand())
 			recoil = 4 //one-handed kick
 		else
 			recoil = initial(recoil)
 
-	if (istype(in_chamber, /obj/item/projectile/bullet/blank)) // A hacky way of making blank shotgun shells work again. Honk.
-		in_chamber.delete()
-		in_chamber = null
-		return
-
-	user.changeNext_move(CLICK_CD_RANGE)
-
-	var/spread = 0
-	var/turf/targloc = get_turf(target)
-	for(var/f = 1 to burst_size)
-		if(!process_chambered()) //CHECK
-			return click_empty(user)
-
-		if(chambered)
-			for (var/i = max(1, chambered.pellets), i > 0, i--) //Previous way of doing it fucked up math for spreading. This way, even the first projectile is part of the spread code.
-				if(i != max(1, chambered.pellets)) //Have we fired the initial chambered bullet yet?
-					in_chamber = new chambered.projectile_type()
-				ready_projectile(target, user)
-				prepare_shot(in_chamber)
-				if(chambered.deviation)
-					if(randomspread) //Random spread
-						spread = (rand() - 0.5) * chambered.deviation
-					else //Smart spread
-						spread = (i / chambered.pellets - 0.5) * chambered.deviation
-				if(!process_projectile(targloc, user, params, spread))
-					return 0
-		else
-			ready_projectile(target, user)
-			prepare_shot(in_chamber)
-			if(!process_projectile(targloc, user, params, spread))
-				return 0
-
-		if(recoil)
-			spawn()
-				shake_camera(user, recoil + 1, recoil)
-
-		if(silenced)
-			playsound(user, fire_sound, 10, 1)
-		else
-			playsound(user, fire_sound, 50, 1)
-			if(f == 1) // Only print this once
-				user.visible_message("<span class='warning'>[user] fires [src][reflex ? " by reflex":""]!</span>", \
-				"<span class='warning'>You fire [src][reflex ? "by reflex":""]!</span>", \
-				"You hear a [istype(in_chamber, /obj/item/projectile/beam) ? "laser blast" : "gunshot"]!")
-
-		if(heavy_weapon)
-			if(user.get_inactive_hand())
-				if(prob(15))
-					user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
-					user.drop_item()
+	if(burst_size > 1)
+		firing_burst = 1
+		for(var/i = 1 to burst_size)
+			if(!user)
+				break
+			if(!issilicon(user))
+				if( i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
-
-		user.newtonian_move(get_dir(target, user))
+			if(chambered)
+				var/sprd = 0
+				if(randomspread)
+					sprd = round((rand() - 0.5) * spread)
+				else
+					sprd = round((i / burst_size - 0.5) * spread)
+				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
+					shoot_with_empty_chamber(user)
+					break
+				else
+					if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
+						shoot_live_shot(user, 1, target, message)
+					else
+						shoot_live_shot(user, 0, target, message)
+			else
+				shoot_with_empty_chamber(user)
+				break
+			process_chamber()
+			update_icon()
+			sleep(fire_delay)
+		firing_burst = 0
+	else
+		if(chambered)
+			if(!chambered.fire(target, user, params, , suppressed, zone_override, spread))
+				shoot_with_empty_chamber(user)
+				return
+			else
+				if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
+					shoot_live_shot(user, 1, target, message)
+				else
+					shoot_live_shot(user, 0, target, message)
+		else
+			shoot_with_empty_chamber(user)
+			return
+		process_chamber()
 		update_icon()
+		semicd = 1
+		spawn(fire_delay)
+			semicd = 0
+
+	if(user)
 		if(user.hand)
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-		sleep(fire_delay)
+	feedback_add_details("gun_fired","[type]")
 
-/obj/item/weapon/gun/proc/ready_projectile(atom/target as mob|obj|turf, mob/living/user)
-	in_chamber.firer = user
-	in_chamber.def_zone = user.zone_sel.selecting
-	in_chamber.original = target
-	return
-
-/obj/item/weapon/gun/proc/process_projectile(var/turf/targloc, mob/living/user as mob|obj, params, spread)
-	var/turf/curloc = user.loc
-	if (!istype(targloc) || !istype(curloc) || !in_chamber)
-		return 0
-	if(targloc == curloc)			//Fire the projectile
-		user.bullet_act(in_chamber)
-		del(in_chamber)
-		update_icon()
-		return 1
-
-	in_chamber.loc = get_turf(user)
-	in_chamber.starting = get_turf(user)
-	in_chamber.current = curloc
-	in_chamber.OnFired()
-	in_chamber.yo = targloc.y - curloc.y
-	in_chamber.xo = targloc.x - curloc.x
-	if(params)
-		var/list/mouse_control = params2list(params)
-		if(mouse_control["icon-x"])
-			in_chamber.p_x = text2num(mouse_control["icon-x"])
-		if(mouse_control["icon-y"])
-			in_chamber.p_y = text2num(mouse_control["icon-y"])
-		if(mouse_control["screen-loc"])
-			//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-			var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
-
-			//Split X+Pixel_X up into list(X, Pixel_X)
-			var/list/screen_loc_X = splittext(screen_loc_params[1],":")
-
-			//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-			var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-
-			var/x = text2num(screen_loc_X[1]) * 32 + text2num(screen_loc_X[2]) - 32
-			var/y = text2num(screen_loc_Y[1]) * 32 + text2num(screen_loc_Y[2]) - 32
-			var/ox = round(480/2) //"origin" x - Basically center of the screen. This is a bad way of doing it because if you are able to view MORE than 17 tiles at a time your aim will get fucked.
-			var/oy = round(480/2) //"origin" y - Basically center of the screen.
-
-			var/angle = Atan2(y - oy, x - ox)
-
-			in_chamber.Angle = angle
-
-	if(istype(user, /mob/living/carbon)) //Increase spread based on shock
-		var/mob/living/carbon/mob = user
-		if(mob.shock_stage > 120)
-			spread += rand(-5,5)
-		else if(mob.shock_stage > 70)
-			spread += rand(-2,2)
-
-	if(spread)
-		in_chamber.Angle += spread
-	if(in_chamber)
-		in_chamber.process()
-	in_chamber = null
-	return 1
-
-/obj/item/weapon/gun/proc/can_fire()
-	return process_chambered()
-
-/obj/item/weapon/gun/proc/can_hit(var/mob/living/target as mob, var/mob/living/user as mob)
-	return in_chamber.check_fire(target,user)
-
-/obj/item/weapon/gun/proc/click_empty(mob/user = null)
-	if (user)
-		user.visible_message("*click click*", "\red <b>*click*</b>")
-		playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+/obj/item/weapon/gun/attack(mob/M as mob, mob/user)
+	if(user.a_intent == "harm") //Flogging
+		..()
 	else
-		src.visible_message("*click click*")
-		playsound(src.loc, 'sound/weapons/empty.ogg', 100, 1)
+		return
 
-/obj/item/weapon/gun/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
-	//Suicide handling.
-	if (M == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
-		mouthshoot = 1
-		M.visible_message("<span class='warning'> [user] sticks their gun in their mouth, ready to pull the trigger...</span>")
-		if(!do_after(user, 40, target = M))
-			M.visible_message("<span class='warning'> [user] decided life was worth living</span>")
-			mouthshoot = 0
-			return
-		if (process_chambered())
-			user.visible_message("<span class='warning'>[user] pulls the trigger.</span>")
-			if(silenced)
-				playsound(user, fire_sound, 10, 1)
-			else
-				playsound(user, fire_sound, 50, 1)
-			if(istype(in_chamber, /obj/item/projectile/lasertag) || istype(in_chamber, /obj/item/projectile/bullet/reusable/foam_dart))
-				user.show_message("<span class='warning'>You feel rather silly, trying to commit suicide with a toy.</span>")
-				mouthshoot = 0
-				return
-			in_chamber.on_hit(M)
-			if (in_chamber.damage_type != STAMINA)
-				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
-				user.death()
-			else
-				to_chat(user, "<span class='notice'>Ow...</span>")
-				user.apply_effect(110,STAMINA,0)
-			del(in_chamber)
-			mouthshoot = 0
-			return
-		else
-			click_empty(user)
-			mouthshoot = 0
-			return
-
-	if (src.process_chambered())
-		//Point blank shooting if on harm intent or target we were targeting.
-		if(user.a_intent == I_HARM)
-			user.visible_message("\red <b> \The [user] fires \the [src] point blank at [M]!</b>")
-			if(istype(in_chamber)) in_chamber.damage *= 1.3
-			Fire(M,user,0,0,1)
-			return
-		else if(target && M in target)
-			Fire(M,user,0,0,1) ///Otherwise, shoot!
-			return
-	else
-		return ..() //Pistolwhippin'
-
-
-/obj/item/weapon/gun/attackby(var/obj/item/A as obj, mob/user as mob, params)
-	if(istype(A, /obj/item/device/flashlight/seclite))
-		var/obj/item/device/flashlight/seclite/S = A
+/obj/item/weapon/gun/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/device/flashlight/seclite))
+		var/obj/item/device/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!F)
-				if(user.l_hand != src && user.r_hand != src)
-					to_chat(user, "<span class='notice'>You'll need [src] in your hands to do that.</span>")
+				if(!user.unEquip(I))
 					return
-				user.drop_item()
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				if(S.on)
 					set_light(0)
 				F = S
-				A.loc = src
+				I.loc = src
 				update_icon()
 				update_gunlight(user)
 				verbs += /obj/item/weapon/gun/proc/toggle_gunlight
-	if(istype(A, /obj/item/weapon/screwdriver))
-		if(F)
-			if(user.l_hand != src && user.r_hand != src)
-				to_chat(user, "<span class='notice'>You'll need [src] in your hands to do that.</span>")
-				return
+
+	if(istype(I, /obj/item/weapon/screwdriver))
+		if(F && can_flashlight)
 			for(var/obj/item/device/flashlight/seclite/S in src)
 				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
 				F = null
@@ -370,8 +263,11 @@
 				S.update_brightness(user)
 				update_icon()
 				verbs -= /obj/item/weapon/gun/proc/toggle_gunlight
+
+	if(unique_rename)
+		if(istype(I, /obj/item/weapon/pen))
+			rename_gun(user)
 	..()
-	return
 
 /obj/item/weapon/gun/proc/toggle_gunlight()
 	set name = "Toggle Gunlight"
@@ -383,15 +279,14 @@
 
 	var/mob/living/carbon/human/user = usr
 	if(!isturf(user.loc))
-		to_chat(user, "You cannot turn the light on while in this [user.loc].")
+		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc]!</span>")
 	F.on = !F.on
 	to_chat(user, "<span class='notice'>You toggle the gunlight [F.on ? "on":"off"].</span>")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_gunlight(user)
-	return
 
-/obj/item/weapon/gun/proc/update_gunlight(var/mob/user = null)
+/obj/item/weapon/gun/proc/update_gunlight(mob/user = null)
 	if(F)
 		if(F.on)
 			set_light(F.brightness_on)
@@ -400,7 +295,80 @@
 		update_icon()
 	else
 		set_light(0)
+
+/obj/item/weapon/gun/pickup(mob/user)
+	..()
+	if(azoom)
+		azoom.Grant(user)
+
+/obj/item/weapon/gun/dropped(mob/user)
+	..()
+	zoom(user,FALSE)
+	if(azoom)
+		azoom.Remove(user)
+
+/obj/item/weapon/gun/AltClick(mob/user)
+	..()
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	if(unique_reskin && !current_skin && loc == user)
+		reskin_gun(user)
+
+/obj/item/weapon/gun/proc/reskin_gun(mob/M)
+	var/choice = input(M,"Warning, you can only reskin your weapon once!","Reskin Gun") in options
+
+	if(src && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+		if(options[choice] == null)
+			return
+		current_skin = options[choice]
+		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
+		update_icon()
+
+/obj/item/weapon/gun/proc/rename_gun(mob/M)
+	var/input = stripped_input(M,"What do you want to name the gun?", ,"", MAX_NAME_LEN)
+
+	if(src && input && !M.stat && in_range(M,src) && !M.restrained() && M.canmove)
+		name = input
+		to_chat(M, "You name the gun [input]. Say hello to your new friend.")
+		return
+
+/obj/item/weapon/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
+	if(!ishuman(user) || !ishuman(target))
+		return
+
+	if(semicd)
+		return
+
+	if(user == target)
+		target.visible_message("<span class='warning'>[user] sticks [src] in their mouth, ready to pull the trigger...</span>", \
+			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+	else
+		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \
+			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")
+
+	semicd = 1
+
+	if(!do_mob(user, target, 120) || user.zone_sel.selecting != "mouth")
+		if(user)
+			if(user == target)
+				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")
+			else if(target && target.Adjacent(user))
+				target.visible_message("<span class='notice'>[user] has decided to spare [target]'s life.</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
+		semicd = 0
+		return
+
+	semicd = 0
+
+	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
+
+	if(chambered && chambered.BB)
+		chambered.BB.damage *= 5
+
+	process_fire(target, user, 1, params)
+
+/obj/item/weapon/gun/proc/isHandgun()
+	return 1
 
 /////////////
 // ZOOMING //
@@ -423,8 +391,6 @@
 /datum/action/toggle_scope_zoom/Remove(mob/living/L)
 	gun.zoom(L, FALSE)
 	..()
-
-
 
 /obj/item/weapon/gun/proc/zoom(mob/living/user, forced_zoom)
 	if(!user || !user.client)

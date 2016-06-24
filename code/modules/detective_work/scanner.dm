@@ -5,7 +5,8 @@
 /obj/item/device/detective_scanner
 	name = "forensic scanner"
 	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
-	icon_state = "forensic1"
+	icon = 'icons/goonstation/objects/objects.dmi'
+	icon_state = "detscanner"
 	w_class = 3.0
 	item_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
@@ -15,9 +16,56 @@
 	var/list/log = list()
 
 /obj/item/device/detective_scanner/attack_self(var/mob/user)
+	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
+
+	if (!search || user.stat || user.incapacitated())
+		return
+
+	search = lowertext(search)
+
+	var/name
+	var/fingerprint = "FINGERPRINT NOT FOUND"
+	var/dna = "BLOOD DNA NOT FOUND"
+
+	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
+
+	for (var/record in data_core.general)
+		var/datum/data/record/S = record
+		if(S && (search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"])))
+			name = S.fields["name"]
+			fingerprint = S.fields["fingerprint"]
+			continue
+
+	for (var/record in data_core.medical)
+		var/datum/data/record/M = record
+		if (M && ( search == lowertext(M.fields["b_dna"]) || name == M.fields["name"]) )
+			dna = M.fields["b_dna"]
+
+			if(fingerprint == "FINGERPRINT NOT FOUND") // We have searched by DNA, and do not have the relevant information from the fingerprint records.
+				name = M.fields["name"]
+				for (var/gen_record in data_core.general)
+					var/datum/data/record/S = gen_record
+					if(S && (name == S.fields["name"]))
+						fingerprint = S.fields["fingerprint"]
+						continue
+			continue
+
+	if(name)
+		to_chat(user, "<span class='notice'>Match found in station records: <b>[name]</b></span><br>\
+		<i>Fingerprint:</i><span class='notice'> [fingerprint]</span><br>\
+		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
+		return
+
+	to_chat(user, "<span class='warning'>No match found in station records.</span>")
+
+
+/obj/item/device/detective_scanner/verb/print_scanner_report()
+	set name = "Print Scanner Report"
+	set category = "Object"
+
 	if(log.len && !scanning)
 		scanning = 1
-		to_chat(user, "<span class='notice'>Printing report, please wait...</span>")
+		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
 		playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 		spawn(100)
 
@@ -38,7 +86,8 @@
 			log = list()
 			scanning = 0
 	else
-		to_chat(user, "<span class='notice'>The scanner has no logs or is in use.</span>")
+		to_chat(usr, "<span class='notice'>The scanner has no logs or is in use.</span>")
+
 
 /obj/item/device/detective_scanner/attack(mob/living/M as mob, mob/user as mob)
 	return

@@ -1,0 +1,4 @@
+author: DaveTheHeadcrab
+delete-after: True
+changes: 
+  - bugfix: "Fixes the scanner's search functionality."

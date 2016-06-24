@@ -45,7 +45,7 @@
 		icon = src.loc
 	if (!in_range(src, user))
 		if (icon == src)
-			to_chat(user, "\blue It's \a \icon[icon][src]! If you want any more information you'll need to get closer.")
+			to_chat(user, "\blue It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.")
 		return
 
 	var/celsius_temperature = src.air_contents.temperature-T0C
@@ -64,7 +64,7 @@
 	else
 		descriptive = "furiously hot"
 
-	to_chat(user, "\blue \The \icon[icon][src] feels [descriptive]")
+	to_chat(user, "\blue \The [bicon(icon)][src] feels [descriptive]")
 
 	return
 
@@ -88,10 +88,6 @@
 
 	if ((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
-
-	else if (istype(W,/obj/item/latexballon))
-		var/obj/item/latexballon/LB = W
-		LB.blow(src)
 
 	if(istype(W, /obj/item/device/assembly_holder))
 		bomb_assemble(W,user)

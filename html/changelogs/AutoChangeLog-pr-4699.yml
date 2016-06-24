@@ -1,0 +1,6 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - rscadd: "Adds an adminbuse gun that fires gun mimics, you can varedit the gun's `mimic_type` var to any gun path, and it'll fire that gun as mimics. By default it fires stetchkin pistol mimics."
+  - bugfix: "Fixes minor issues caused by some guns having text paths for power cells."
+  - bugfix: "Fixes some runtimes and inconsistencies with the telegun and temperature gun."

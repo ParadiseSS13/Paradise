@@ -1,0 +1,4 @@
+author: Kyep
+delete-after: True
+changes: 
+  - bugfix: "Added antag-only warning to bee briefcase, to reduce chances of traitors killing themselves with it."

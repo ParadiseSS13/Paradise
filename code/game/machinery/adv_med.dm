@@ -157,15 +157,17 @@
 	add_fingerprint(usr)
 
 /obj/machinery/bodyscanner/proc/go_out()
-	if ((!( src.occupant ) || src.locked))
+	if(!occupant || locked)
 		return
-	if (src.occupant.client)
-		src.occupant.client.eye = src.occupant.client.mob
-		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
-	src.occupant = null
-	src.icon_state = "body_scanner_0"
-	return
+	if(occupant.client)
+		occupant.client.eye = occupant.client.mob
+		occupant.client.perspective = MOB_PERSPECTIVE
+	occupant.forceMove(loc)
+	occupant = null
+	icon_state = "body_scanner_0"
+	// eject trash the occupant dropped
+	for(var/atom/movable/A in contents - component_parts)
+		A.forceMove(loc)
 
 /obj/machinery/bodyscanner/ex_act(severity)
 	switch(severity)
