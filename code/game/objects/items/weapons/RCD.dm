@@ -28,9 +28,11 @@ RCD
 	var/canRwall = 0
 	var/menu = 1
 	var/door_type = /obj/machinery/door/airlock
+	req_access = list(access_engine)
 	var/list/door_accesses = list()
 	var/list/door_accesses_list = list()
 	var/one_access
+	var/locked = 1
 	var/static/list/allowed_door_types = list(/obj/machinery/door/airlock = "Standard",
 		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/security = "Security",
 		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/medical = "Medical",
@@ -88,6 +90,7 @@ RCD
 	data["matter"] = matter
 	data["max_matter"] = max_matter
 	data["one_access"] = one_access
+	data["locked"] = locked
 	
 	if(menu == 2)
 		var/list/door_types_list = list()
@@ -127,11 +130,26 @@ RCD
 		menu = text2num(href_list["menu"])
 		. = 1
 	
-	if(href_list["toggle_one_access"])
+	if (href_list["login"])
+		if(istype(usr,/mob/living/silicon))
+			locked = 0
+		else
+			var/obj/item/I = usr.get_active_hand()
+			if (istype(I, /obj/item/device/pda))
+				var/obj/item/device/pda/pda = I
+				I = pda.id
+			var/obj/item/weapon/card/id/ID = I
+			if (istype(ID) && ID && check_access(ID))
+				locked = 0
+	
+	if (href_list["logout"])
+		locked = 1
+	
+	if(href_list["toggle_one_access"] && !locked)
 		one_access = !one_access
 		. = 1
 	
-	if(href_list["toggle_access"])
+	if(href_list["toggle_access"] && !locked)
 		var/href_access = text2num(href_list["toggle_access"])
 		if(href_access in door_accesses)
 			door_accesses -= href_access

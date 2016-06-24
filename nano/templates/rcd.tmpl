@@ -20,9 +20,14 @@
 	</div></div>
 	<div style='width:49%; float:right'><div class='statusDisplay'>
 		<h3>Accesses</h3>
-		<div class='item'>{{:helper.link(data.one_access ? 'ONE' : 'ALL', 'arrow-right', {'toggle_one_access': 1})}}</div><br>
-		{{for data.door_accesses}}
-			<div class='line'>{{:helper.link(value.name, 'arrow-right', {'toggle_access': value.id}, null, value.enabled ? 'selected' : null)}}</div>
-		{{/for}}
+		{{if data.locked}}
+			{{:helper.link('Swipe ID', 'unlock-alt', {'login': 1})}}
+		{{else}}
+			{{:helper.link('Lock', 'lock', {'logout': 1})}}
+			<div class='item'>{{:helper.link(data.one_access ? 'ONE' : 'ALL', 'arrow-right', {'toggle_one_access': 1})}}</div><br>
+			{{for data.door_accesses}}
+				<div class='line'>{{:helper.link(value.name, 'arrow-right', {'toggle_access': value.id}, null, value.enabled ? 'selected' : null)}}</div>
+			{{/for}}
+		{{/if}}
 	</div></div>
 {{/if}}
