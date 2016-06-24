@@ -58,7 +58,12 @@
 		update_icon()
 
 
+/obj/item/weapon/implanter/tracking
+	name = "implanter (tracking)"
 
+/obj/item/weapon/implanter/tracking/New()
+	imp = new /obj/item/weapon/implant/tracking(src)
+	..()
 
 /obj/item/weapon/implanter/adrenalin
 	name = "implanter (adrenalin)"

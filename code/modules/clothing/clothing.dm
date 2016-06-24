@@ -629,8 +629,10 @@ BLIND     // can't see anything
 		//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
 		if (!(src.loc == usr))
 			return
-
 		if (!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
+			if (flags & NODROP)
+				to_chat(usr, "[src] appears stuck on you!")
+				return
 			switch(over_object.name)
 				if("r_hand")
 					usr.unEquip(src)

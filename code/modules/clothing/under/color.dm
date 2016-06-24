@@ -103,6 +103,55 @@
 	item_color = "yellow"
 	flags = ONESIZEFITSALL
 
+
+/obj/item/clothing/under/color/yellow/parole
+	name = "parole jumpsuit"
+	desc = ""
+	var/desc_locked = "A jumpsuit worn by parolees. Its suit sensors are always fully on. It is LOCKED."
+	var/desc_unlocked = "A jumpsuit worn by parolees. Its suit sensors are always fully on. It is UNLOCKED."
+	has_sensor = 2
+	sensor_mode = 3
+	var/parole_locked = 0
+	var/emagged = 0
+	var/obj/item/weapon/card/id/parole_id = null
+	var/mob/living/carbon/human/worn_by = null
+
+/obj/item/clothing/under/color/yellow/parole/New()
+	..()
+	desc = desc_unlocked
+
+/obj/item/clothing/under/color/yellow/parole/emag_act(user as mob)
+	if(parole_locked && !emagged)
+		to_chat(user, "\red You overload the suit's locking mechanism.")
+		emagged = 1
+		unlock()
+
+/obj/item/clothing/under/color/yellow/parole/emp_act(var/severity)
+	if(parole_locked && !emagged && prob(30))
+		unlock()
+
+/obj/item/clothing/under/color/yellow/parole/proc/unlock()
+	worn_by = loc
+	flags &= ~NODROP
+	parole_locked = 0
+	desc = desc_unlocked
+	parole_id.flags &= ~NODROP
+	parole_id = null
+	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	worn_by.visible_message("<span class='notice'>[worn_by] is released from the parole jumpsuit.</span>")
+
+/obj/item/clothing/under/color/yellow/parole/proc/lock(var/obj/item/weapon/card/id/D)
+	worn_by = loc
+	flags |= NODROP
+	parole_locked = 1
+	desc = desc_locked
+	parole_id = D
+	parole_id.flags |= NODROP
+	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	worn_by.visible_message("<span class='danger'>[worn_by] is secured into the parole jumpsuit.</span>")
+
+
+
 /obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
 	desc = "Groovy!"
