@@ -141,9 +141,11 @@ RCD
 			var/obj/item/weapon/card/id/ID = I
 			if (istype(ID) && ID && check_access(ID))
 				locked = 0
+		. = 1
 	
 	if (href_list["logout"])
 		locked = 1
+		. = 1
 	
 	if(href_list["toggle_one_access"] && !locked)
 		one_access = !one_access
