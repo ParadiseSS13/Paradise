@@ -34,7 +34,7 @@
 		qdel(src)
 	return
 
-/obj/structure/stool/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params, var/skip_fucking_stool_shit = 0)
+/obj/structure/stool/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params, skip_fucking_stool_shit = 0)
 	if(skip_fucking_stool_shit)
 		return ..(over_object)
 	if (istype(over_object, /mob/living/carbon/human))
