@@ -5,8 +5,22 @@
 	if(air_master)
 		air_master.setup_allturfs(turfs)
 	for(var/turf/T in turfs)
-		if(T.dynamic_lighting)
-			T.lighting_build_overlay()
+		if (!T.dynamic_lighting)
+			continue
+		if (istype(T, /turf/space)) // Don't generate corners, do it later during ChangeTurf when needed.
+			continue
+		var/area/A = T.loc
+		if (!A.dynamic_lighting)
+			continue
+		var/atom/movable/lighting_overlay/O = new(T)
+		T.lighting_overlay = O
+		T.lighting_corners_initialised = TRUE
+		for (var/i = 1 to 4)
+			if (T.corners[i]) // Already have a corner on this direction.
+				continue
+			T.corners[i] = new/datum/lighting_corner(T, LIGHTING_CORNER_DIAGONAL[i])
+
+
 		for(var/obj/structure/cable/PC in T)
 			makepowernet_for(PC)
 	for(var/turf/T in smoothTurfs)
