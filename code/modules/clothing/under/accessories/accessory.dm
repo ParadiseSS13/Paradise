@@ -24,7 +24,8 @@
 	loc = has_suit
 	has_suit.overlays += inv_overlay
 
-	to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
+	if(user)
+		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
 
 /obj/item/clothing/accessory/proc/on_removed(mob/user as mob)

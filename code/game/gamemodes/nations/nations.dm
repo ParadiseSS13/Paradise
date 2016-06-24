@@ -18,7 +18,7 @@ datum/game_mode/nations
 //		remove_access()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
-				to_chat(M, sound('sound/effects/purge_siren.ogg'))
+				M << sound('sound/effects/purge_siren.ogg')
 
 	return ..()
 
