@@ -201,7 +201,7 @@ var/list/chatResources = list(
 	if(istype(message, /image) || istype(message, /sound) || istype(target, /savefile) || !(ismob(target) || islist(target) || isclient(target) || target == world))
 		target << message
 		if (!isatom(target)) // Really easy to mix these up, and not having to make sure things are mobs makes the code cleaner.
-			CRASH("DEBUG: Boutput called with invalid message")
+			CRASH("DEBUG: to_chat called with invalid message")
 		return
 
 	else if(istext(message))

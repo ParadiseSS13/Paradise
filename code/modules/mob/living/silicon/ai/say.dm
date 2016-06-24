@@ -83,9 +83,9 @@ var/const/VOX_PATH = "sound/vox_fem/"
 				if(M.client)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && !isdeaf(M))
-						to_chat(M, voice)
+						M << voice
 		else
-			to_chat(only_listener, voice)
+			only_listener << voice
 		return 1
 	return 0
 
