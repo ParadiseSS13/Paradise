@@ -152,7 +152,7 @@ var/round_start_time = 0
 				qdel(R)
 
 		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
-		to_chat(world, sound('sound/AI/welcome.ogg'))// Skie
+		world << sound('sound/AI/welcome.ogg')// Skie
 
 		if(holiday_master.holidays)
 			to_chat(world, "<font color='blue'>and...</font>")
