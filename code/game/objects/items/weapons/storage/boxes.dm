@@ -241,11 +241,10 @@
 		..()
 		new /obj/item/weapon/implanter/parole(src)
 		new /obj/item/weapon/implanter/parole(src)
+		new /obj/item/weapon/implanter/parole(src)
 		new /obj/item/weapon/implanter/tracking(src)
 		new /obj/item/weapon/implanter/tracking(src)
-		new /obj/item/clothing/under/color/yellow/parole(src)
-		new /obj/item/clothing/under/color/yellow/parole(src)
-		new /obj/item/weapon/parolesuit_control(src)
+		new /obj/item/weapon/implanter/tracking(src)
 
 /obj/item/weapon/storage/box/exileimp
 	name = "boxed exile implant kit"
