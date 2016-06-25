@@ -62,7 +62,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0
-	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
 	return list(node1, node2, node3)
@@ -121,14 +120,8 @@
 
 	alpha = 255
 
-	if(!node1 && !node2 && !node3)
-		var/turf/T = get_turf(src)
-		new /obj/item/pipe(loc, make_from=src)
-		for (var/obj/machinery/meter/meter in T)
-			if (meter.target == src)
-				new /obj/item/pipe_meter(T)
-				qdel(meter)
-		qdel(src)
+	if(!check_nodes_exist())
+		return
 	else
 		overlays.Cut()
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
@@ -154,6 +147,14 @@
 /obj/machinery/atmospherics/pipe/manifold/update_underlays()
 	..()
 	update_icon()
+
+// A check to make sure both nodes exist - self-delete if they aren't present
+/obj/machinery/atmospherics/pipe/manifold/check_nodes_exist()
+	if(!node1 && !node2 && !node3)
+		Deconstruct()
+		return 0 // 0: No nodes exist
+	// 1: 1-3 nodes exist, we continue existing
+	return 1
 
 /obj/machinery/atmospherics/pipe/manifold/visible
 	icon_state = "map"

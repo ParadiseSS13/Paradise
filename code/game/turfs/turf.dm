@@ -174,9 +174,6 @@
 	if(!defer_change)
 		W.AfterChange()
 
-	if(istype(W, /turf/simulated))
-		W:Assimilate_Air()
-		W.RemoveLattice()
 	W.blueprint_data = old_blueprint_data
 
 	for(var/turf/space/S in range(W,1))
