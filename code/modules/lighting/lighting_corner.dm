@@ -71,7 +71,6 @@
 			sleep(0)
 			for(var/datum/lighting_corner/corner in lighting_corner_update_list)
 				corner.update_active()
-			log_to_dd("Updated [lighting_corner_update_list.len] corners.")
 			lighting_corner_update_list = null
 	else
 		lighting_corner_update_list += src
