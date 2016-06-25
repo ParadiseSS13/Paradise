@@ -115,7 +115,7 @@
 	if (L.stunned || L.can_inject(null,0,inject_target,0))
 		L.eye_blurry = max(L.eye_blurry + 10, 60)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.
-		visible_message("<span class='danger'> [bicon(src)] [src] buries its fangs deep into the [inject_target] of [target]! </span>")
+		visible_message("<span class='danger'> [src] buries its fangs deep into the [inject_target] of [target]! </span>")
 	else
-		visible_message("<span class='danger'> [bicon(src)] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
+		visible_message("<span class='danger'> [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
 	L.attack_animal(src)

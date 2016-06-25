@@ -61,10 +61,10 @@
 		return
 	var/inject_target = pick("chest","head")
 	if (attackstep == 0)
-		visible_message("<span class='danger'> [bicon(src)] [src] crouches down on its powerful hind legs! </span>")
+		visible_message("<span class='danger'> [src] crouches down on its powerful hind legs! </span>")
 		attackstep = 1
 	else if (attackstep == 1)
-		visible_message("<span class='danger'> [bicon(src)] [src] pounces on [target]! </span>")
+		visible_message("<span class='danger'> [src] pounces on [target]! </span>")
 		do_attack_animation(L)
 		L.emote("scream")
 		L.drop_l_hand()
@@ -75,25 +75,25 @@
 	else if (attackstep == 2)
 		do_attack_animation(L)
 		if (degenerate)
-			visible_message("<span class='danger'> [bicon(src)] [src] does not have the strength to bite [target]!</span>")
+			visible_message("<span class='danger'> [src] does not have the strength to bite [target]!</span>")
 		else if (L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
 			L.reagents.add_reagent("terror_white_toxin", 10)
-			visible_message("<span class='danger'> [bicon(src)] [src] injects a green venom into the [inject_target] of [target]!</span>")
+			visible_message("<span class='danger'> [src] injects a green venom into the [inject_target] of [target]!</span>")
 		else
-			visible_message("<span class='danger'> [bicon(src)] [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
+			visible_message("<span class='danger'> [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
 			attackstep = 3
 	else if (attackstep == 3)
 		if (L in enemies)
 			if (L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
 				do_attack_animation(L)
 				L.reagents.add_reagent("terror_white_tranq", 5)
-				visible_message("<span class='danger'> [bicon(src)] [src] injects a blue venom into the [inject_target] of [target]!</span></span>")
+				visible_message("<span class='danger'> [src] injects a blue venom into the [inject_target] of [target]!</span></span>")
 				enemies -= L
 			else
 				do_attack_animation(L)
-				visible_message("<span class='danger'> [bicon(src)] [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
+				visible_message("<span class='danger'> [src] bites [target], but cannot inject venom into their [inject_target]!</span>")
 		else
-			visible_message("<span class='notice'> [bicon(src)] [src] takes a moment to recover... </span>")
+			visible_message("<span class='notice'> [src] takes a moment to recover... </span>")
 			attackstep = 4
 	else if (attackstep == 4)
 		attackstep = 0
@@ -109,7 +109,7 @@
 				L.attack_animal(src)
 				return
 			if (!IsInfected(L))
-				visible_message("<span class='notice'> [bicon(src)] [src] takes a moment to recover. </span>")
+				visible_message("<span class='notice'> [src] takes a moment to recover. </span>")
 				return
 			if (!ckey)
 				var/vdistance = 99
@@ -123,7 +123,7 @@
 					LoseTarget()
 					walk_away(src,L,2,1)
 				else if (entry_vent)
-					visible_message("<span class='notice'> [bicon(src)] [src] lets go of [target], and tries to flee! </span>")
+					visible_message("<span class='notice'> [src] lets go of [target], and tries to flee! </span>")
 					path_to_vent = 1
 					var/temp_ai_type = ai_type
 					ai_type = TS_AI_DEFENSIVE

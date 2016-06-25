@@ -300,13 +300,13 @@ var/global/list/ts_spiderling_list = list()
 			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if (T.spider_tier > spider_tier)
-			visible_message("<span class='notice'> [bicon(src)] [src] bows in respect for the terrifying presence of [target] </span>")
+			visible_message("<span class='notice'> [src] bows in respect for the terrifying presence of [target] </span>")
 		else if (T.spider_tier == spider_tier)
-			visible_message("<span class='notice'> [bicon(src)] [src] harmlessly nuzzles [target]. </span>")
+			visible_message("<span class='notice'> [src] harmlessly nuzzles [target]. </span>")
 		else if (T.spider_tier < spider_tier && spider_tier >= 4)
-			visible_message("<span class='notice'> [bicon(src)] [src] gives [target] a stern look. </span>")
+			visible_message("<span class='notice'> [src] gives [target] a stern look. </span>")
 		else
-			visible_message("<span class='notice'> [bicon(src)] [src] harmlessly nuzzles [target]. </span>")
+			visible_message("<span class='notice'> [src] harmlessly nuzzles [target]. </span>")
 		T.CheckFaction()
 		CheckFaction()
 	else if (istype(target, /obj/effect/spider/cocoon))
@@ -386,10 +386,10 @@ var/global/list/ts_spiderling_list = list()
 				else
 					gib()
 			else
-				visible_message("<span class='danger'> [bicon(src)] [src] resists the bioweapon! </span>")
+				visible_message("<span class='danger'> [src] resists the bioweapon! </span>")
 	else if (istype(Proj, /obj/item/projectile/energy/declone))
 		if (!degenerate && prob(20) && spider_tier < 3)
-			visible_message("<span class='danger'> [bicon(src)] [src] looks staggered by the bioweapon! </span>")
+			visible_message("<span class='danger'> [src] looks staggered by the bioweapon! </span>")
 			degenerate = 1
 	..()
 

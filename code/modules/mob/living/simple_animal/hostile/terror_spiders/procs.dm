@@ -53,7 +53,7 @@
 					break
 			if (faction_check && attack_same || !faction_check)
 				enemies |= M
-				visible_message("<span class='danger'>[bicon(src)] [src] glares at [M]! </span>")
+				visible_message("<span class='danger'>[src] glares at [M]! </span>")
 				// should probably exempt people who are dead...
 		else if (istype(A, /obj/mecha))
 			var/obj/mecha/M = A
