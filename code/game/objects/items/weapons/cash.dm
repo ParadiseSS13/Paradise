@@ -37,9 +37,9 @@ var/global/list/moneytypes=list(
 
 /obj/item/weapon/spacecash/examine(mob/user)
 	if(amount>1)
-		to_chat(user, "\icon[src] This is a stack of [amount] [src]s.")
+		to_chat(user, "[bicon(src)] This is a stack of [amount] [src]s.")
 	else
-		to_chat(user, "\icon[src] This is \a [src]s.")
+		to_chat(user, "[bicon(src)] This is \a [src]s.")
 	to_chat(user, "It's worth [worth*amount] credits.")
 
 /obj/item/weapon/spacecash/update_icon()

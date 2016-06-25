@@ -36,7 +36,7 @@
 					if(!L.stat)
 						L.do_alert_animation(L)
 						egged = 1
-				to_chat(alerted, sound('sound/machines/chime.ogg'))
+				alerted << sound('sound/machines/chime.ogg')
 	..()
 
 /mob/living/proc/do_alert_animation(atom/A)

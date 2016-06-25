@@ -13,12 +13,11 @@
 			return
 
 	var/image/cross = image('icons/obj/storage.dmi',"bible")
-	msg = "\blue \icon[cross] <b><font color=purple>PRAY: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[src]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;adminspawncookie=\ref[src]'>SC</a>):</b> [msg]"
+	msg = "\blue [bicon(cross)] <b><font color=purple>PRAY: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[src]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;adminspawncookie=\ref[src]'>SC</a>):</b> [msg]"
 
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
-
 	to_chat(usr, "Your prayers have been received by the gods.")
 
 	feedback_add_details("admin_verb","PR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -27,41 +26,46 @@
 /proc/Centcomm_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color=orange>CENTCOMM: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;CentcommReply=\ref[Sender]'>RPLY</A>):</b> [msg]"
-
 	for(var/client/X in admins)
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
+			if(X.prefs.sound & SOUND_ADMINHELP)
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color='#DC143C'>SYNDICATE: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;SyndicateReply=\ref[Sender]'>REPLY</A>):</b> [msg]"
-
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
+			if(X.prefs.sound & SOUND_ADMINHELP)
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/HONK_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color=pink>HONK: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;HONKReply=\ref[Sender]'>RPLY</A>):</b> [msg]"
-
 	for(var/client/X in admins)
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
+			if(X.prefs.sound & SOUND_ADMINHELP)
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/ERT_Announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;ErtReply=\ref[Sender]'>REPLY</A>):</b> [msg]"
-
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
+			if(X.prefs.sound & SOUND_ADMINHELP)
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "<span class='adminnotice'><b><font color=orange>NUKE CODE REQUEST: </font>[key_name(Sender)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;CentcommReply=\ref[Sender]'>RPLY</A>):</b> [msg]</span>"
-
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			to_chat(X, "<span class='adminnotice'><b>The nuke code is [nuke_code].</b></span>")
+			if(X.prefs.sound & SOUND_ADMINHELP)
+				X << 'sound/effects/adminhelp.ogg'

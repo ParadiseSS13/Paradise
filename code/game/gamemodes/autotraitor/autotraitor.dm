@@ -133,7 +133,7 @@
 					equip_traitor(newtraitor)
 
 				traitors += newtraitor.mind
-				to_chat(newtraitor, "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 				to_chat(newtraitor, "<B>You are now a traitor.</B>")
 				newtraitor.mind.special_role = "traitor"
 				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
