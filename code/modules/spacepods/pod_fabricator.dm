@@ -166,7 +166,7 @@
 		I.loc = exit
 	I.materials[MAT_METAL] = get_resource_cost_w_coeff(D,MAT_METAL)
 	I.materials[MAT_GLASS] = get_resource_cost_w_coeff(D,MAT_GLASS)
-	visible_message("\icon[src] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
+	visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
 	being_built = null
 
 	updateUsrDialog()
@@ -209,14 +209,14 @@
 		if(stat&(NOPOWER|BROKEN))
 			return 0
 		if(!check_resources(D))
-			visible_message("\icon[src] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing stopped.\"")
+			visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing stopped.\"")
 			temp = {"<span class='alert'>Not enough resources to build next part.</span><br>
 						<a href='?src=\ref[src];process_queue=1'>Try again</a> | <a href='?src=\ref[src];clear_temp=1'>Return</a><a>"}
 			return 0
 		remove_from_queue(1)
 		build_part(D)
 		D = listgetindex(queue, 1)
-	visible_message("\icon[src] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
+	visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/spod_part_fabricator/proc/list_queue()
 	var/output = "<b>Queue contains:</b>"
@@ -277,7 +277,7 @@
 		temp += "<a href='?src=\ref[src];clear_temp=1'>Return</a>"
 
 		updateUsrDialog()
-		visible_message("\icon[src] <b>\The [src]</b> beeps, \"Successfully synchronized with R&D server.\"")
+		visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Successfully synchronized with R&D server.\"")
 		return
 
 	temp = "Unable to connect to local R&D Database.<br>Please check your connections and try again.<br><a href='?src=\ref[src];clear_temp=1'>Return</a>"
@@ -301,7 +301,7 @@
 		return
 	user.set_machine(src)
 	if(exit.density)
-		visible_message("\icon[src] <b>\The [src]</b> beeps, \"Error! Part outlet is obstructed.\"")
+		visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Error! Part outlet is obstructed.\"")
 		return
 	if(temp)
 		left_part = temp

@@ -1093,6 +1093,7 @@
 #include "code\modules\awaymissions\exile.dm"
 #include "code\modules\awaymissions\gateway.dm"
 #include "code\modules\awaymissions\loot.dm"
+#include "code\modules\awaymissions\map_rng.dm"
 #include "code\modules\awaymissions\pamphlet.dm"
 #include "code\modules\awaymissions\trigger.dm"
 #include "code\modules\awaymissions\zlevel.dm"
@@ -2041,7 +2042,7 @@
 #include "code\modules\vehicle\speedbike.dm"
 #include "code\modules\vehicle\sportscar.dm"
 #include "code\modules\vehicle\vehicle.dm"
+#include "goon\code\datums\browserOutput.dm"
 #include "interface\interface.dm"
-#include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE

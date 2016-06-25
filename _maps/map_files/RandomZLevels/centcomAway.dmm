@@ -442,7 +442,7 @@
 "iz" = (/obj/structure/table/woodentable,/obj/item/weapon/paper_bin,/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
 "iA" = (/obj/structure/sign/vacuum,/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/hangar)
 "iB" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/hangar)
-"iC" = (/obj/structure/flora/kirbyplants,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
+"iC" = (/obj/item/weapon/twohanded/required/kirbyplants,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
 "iD" = (/obj/machinery/door/airlock/centcom,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "iE" = (/obj/machinery/door/airlock/centcom{name = "Centcom Security"; opacity = 1; req_access_txt = "101"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "iF" = (/obj/structure/closet/secure_closet/injection,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/courtroom)

@@ -30,7 +30,7 @@
 
 	attackby(obj/item/weapon/O as obj, mob/user as mob, params)
 		if (user.z > 6)
-			to_chat(user, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
+			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 		if(istype(O, /obj/item/weapon/aiModule))
 			var/datum/game_mode/nations/mode = get_nations_mode()

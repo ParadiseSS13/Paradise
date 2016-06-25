@@ -590,7 +590,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				C.messagetitle.Add("[command_name()] Update")
 				C.messagetext.Add(P.info)
 
-//	to_chat(world, sound('sound/AI/commandreport.ogg'))
+//	world << sound('sound/AI/commandreport.ogg')
 	log_admin("[key_name(src)] has created a communications report: [input]")
 	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -868,6 +868,30 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		message_admins("Admin [key_name_admin(usr)] has disabled random events.", 1)
 	feedback_add_details("admin_verb","TRE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/reset_all_tcs()
+	set category = "Admin"
+	set name = "Reset Telecomms Scripts"
+	set desc = "Blanks all telecomms scripts from all telecomms servers"
+
+	if(!holder || !holder.rights || !holder.rights & R_ADMIN)
+		to_chat(usr, "<span class='warning'>Admin only.</span>")
+		return
+
+	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	for(var/obj/machinery/telecomms/server/S in telecomms_list)
+		var/datum/TCS_Compiler/C = S.Compiler
+		S.rawcode = ""
+		C.Compile("")
+	for(var/obj/machinery/computer/telecomms/traffic/T in machines)
+		T.storedcode = ""
+	log_admin("[key_name(usr)] blanked all telecomms scripts.")
+	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
+	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+
 /client/proc/toggle_ert_calling()
 	set category = "Event"
 	set name = "Toggle ERT"
@@ -886,4 +910,3 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "\red ERT has been <b>Disabled</b>.")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
-
