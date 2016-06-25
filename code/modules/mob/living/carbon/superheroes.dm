@@ -191,7 +191,7 @@
 					if(isloyal(target))
 						to_chat(usr, "<span class='notice'>They are enslaved by Nanotrasen. You feel their interest in your cause wane and disappear.</span>")
 						usr.visible_message("<span class='danger'>[usr] stops talking for a moment, then moves back away from [target].</span>")
-						to_chat(target, "<span class='danger'>Your loyalty implant activates and a sharp pain reminds you of your loyalties to Nanotrasen.</span>")
+						to_chat(target, "<span class='danger'>Your mindshield implant activates and a sharp pain reminds you of your loyalties to Nanotrasen.</span>")
 						return
 				if(3)
 					to_chat(usr, "<span class='notice'>You begin filling out the application form with [target].</span>")

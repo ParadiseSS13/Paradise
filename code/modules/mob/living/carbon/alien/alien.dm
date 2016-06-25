@@ -217,7 +217,6 @@
 		if(judgebot.check_for_weapons(r_hand))
 			threatcount += 4
 
-	//Loyalty implants imply trustworthyness
 	if(isloyal(src))
 		threatcount -= 1
 

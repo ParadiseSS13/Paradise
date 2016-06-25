@@ -88,7 +88,7 @@
 			for(var/job in restricted_jobs)
 				if(player.assigned_role == job)
 					possible_traitors -= player
-			if(player.current) // Remove loyalty implanted mobs from the list
+			if(player.current) // Remove mindshield-implanted mobs from the list
 				if(ishuman(player.current))
 					var/mob/living/carbon/human/H = player.current
 					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
