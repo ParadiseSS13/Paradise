@@ -62,8 +62,19 @@
 		i            = LIGHTING_CORNER_DIAGONAL.Find(turn(masters[T], 180))
 		T.corners[i] = src
 
-	spawn() // Lighting overlays get initialized AFTER corners, so this spawn() will make sure the activity (which checks for overlays) is updated after the overlays are generated.
-		update_active()
+	var/global/list/lighting_corner_update_list
+	if(!lighting_corner_update_list)
+		lighting_corner_update_list = list()
+		lighting_corner_update_list += src
+		spawn(-1)
+			src = null
+			sleep(0)
+			for(var/datum/lighting_corner/corner in lighting_corner_update_list)
+				corner.update_active()
+			log_to_dd("Updated [lighting_corner_update_list.len] corners.")
+			lighting_corner_update_list = null
+	else
+		lighting_corner_update_list += src
 
 /datum/lighting_corner/proc/update_active()
 	active = FALSE
