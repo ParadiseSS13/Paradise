@@ -40,7 +40,7 @@
 	set category = "IC"
 	set desc = "Allows you to step back at any time."
 
-	for(var/i=0, i<3, i++)
+	for(var/i=0, i<1, i++)
 		step(usr, usr.dir)
 		usr.SpinAnimation(5,1)
 		usr.visible_message("<span class = 'notice'>\ [usr] jumps aside!</span>")

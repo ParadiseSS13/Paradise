@@ -552,7 +552,7 @@
 	item_state = "noble_coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/suit/apron
+/obj/item/clothing/suit/grisha_apron
 	name = "Grisha's apron"
 	desc = "Branded orange apron. Only by looking at it, you start wondering about art of cooking."
 	icon_state = "zu_apron"
