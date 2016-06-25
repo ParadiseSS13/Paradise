@@ -61,9 +61,9 @@
 			var/loc_display = "Unknown"
 			var/health_display = "OK"
 			var/total_loss = round(M.getOxyLoss() + M.getToxLoss() + M.getFireLoss() + M.getBruteLoss(), 1)
-			if (M.stat > UNCONSCIOUS)
+			if(M.stat == DEAD)
 				health_display = "DEAD"
-			else if (total_loss)
+			else if(total_loss)
 				health_display = "HURT ([total_loss])"
 			if((M.z in config.station_levels) && !istype(M.loc, /turf/space))
 				loc_display = "[get_area(M)]"

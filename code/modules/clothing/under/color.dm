@@ -106,35 +106,36 @@
 
 /obj/item/clothing/under/color/yellow/parole
 	name = "parole jumpsuit"
-	desc = ""
-	var/desc_locked = "A jumpsuit worn by parolees. Its suit sensors are always fully on. It is LOCKED."
-	var/desc_unlocked = "A jumpsuit worn by parolees. Its suit sensors are always fully on. It is UNLOCKED."
+	desc = "A jumpsuit worn by parolees. Its suit sensors are always fully on. Its lock light is OFF."
+	var/desc_locked = "A jumpsuit worn by parolees. Its suit sensors are always fully on. Its lock light is ON."
+	var/desc_emagged = "A jumpsuit worn by parolees. Its suit sensors are always fully on. Its lock light is BLINKING."
+	var/desc_emped = "A jumpsuit worn by parolees. Its suit sensors are always fully on. Its lock light is FLICKERING."
 	has_sensor = 2
 	sensor_mode = 3
 	var/parole_locked = 0
 	var/emagged = 0
+	var emped = 0
 	var/obj/item/weapon/card/id/parole_id = null
 	var/mob/living/carbon/human/worn_by = null
-
-/obj/item/clothing/under/color/yellow/parole/New()
-	..()
-	desc = desc_unlocked
 
 /obj/item/clothing/under/color/yellow/parole/emag_act(user as mob)
 	if(parole_locked && !emagged)
 		to_chat(user, "\red You overload the suit's locking mechanism.")
-		emagged = 1
 		unlock()
+		emagged = 1
+		desc = desc_emagged
 
 /obj/item/clothing/under/color/yellow/parole/emp_act(var/severity)
 	if(parole_locked && !emagged && prob(30))
 		unlock()
+		emped = 1
+		desc = desc_emped
 
 /obj/item/clothing/under/color/yellow/parole/proc/unlock()
 	worn_by = loc
 	flags &= ~NODROP
 	parole_locked = 0
-	desc = desc_unlocked
+	desc = initial(desc)
 	parole_id.flags &= ~NODROP
 	parole_id = null
 	playsound(loc, 'sound/machines/click.ogg', 10, 1)

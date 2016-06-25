@@ -134,10 +134,18 @@
 	if (!istype(I))
 		to_chat(user,"<span class='danger'>[H] is not wearing an ID.</span>")
 		return
-	if (emagged)
-		visible_message(J,"<span class='danger'>[J] emits an error tone.</span>")
+	if (J.emagged)
+		to_chat(user, "<span class='danger'>[J] emits an error tone.</span>")
+	else if (J.emped)
+		to_chat(user, "<span class='danger'>The circuits on [J] appear to be fried.</span>")
 	else if (J.parole_locked && J.flags & NODROP && I.flags & NODROP)
 		J.unlock()
+	else if (access_heads in I.access)
+		to_chat(user, "<span class='danger'>[J] cannot be locked on someone wearing an ID with head access. They might need to use their ID on a keycard swiper.")
+		return
+	else if (access_security in I.access)
+		to_chat(user, "<span class='danger'>[J] cannot be locked on someone wearing an ID with security access.")
+		return
 	else if (!J.parole_locked && !(J.flags & NODROP) && !(I.flags & NODROP))
 		J.lock(I)
 	else
