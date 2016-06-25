@@ -42,6 +42,8 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/list/grid_models = list()
 	var/key_len = 0
 
+	var/dmm_suite/loaded_map/LM = new
+
 	dmmRegex.next = 1
 	while(dmmRegex.Find(tfile, dmmRegex.next))
 
@@ -121,7 +123,7 @@ var/global/dmm_suite/preloader/_preloader = new
 								var/model_key = copytext(line, tpos, tpos + key_len)
 								if(!grid_models[model_key])
 									throw EXCEPTION("Undefined model key in DMM.")
-								parse_grid(grid_models[model_key], xcrd, ycrd, zcrd)
+								parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM)
 								CHECK_TICK
 
 							maxx = max(maxx, xcrd)
@@ -132,6 +134,7 @@ var/global/dmm_suite/preloader/_preloader = new
 
 		CHECK_TICK
 
+	qdel(LM)
 	if(bounds[1] == 1.#INF) // Shouldn't need to check every item
 		return null
 	else
@@ -158,7 +161,7 @@ var/global/dmm_suite/preloader/_preloader = new
  * 4) Instanciates the atom with its variables
  *
  */
-/dmm_suite/proc/parse_grid(model as text,xcrd as num,ycrd as num,zcrd as num)
+/dmm_suite/proc/parse_grid(model as text,xcrd as num,ycrd as num,zcrd as num, dmm_suite/loaded_map/LM)
 	/*Method parse_grid()
 	- Accepts a text string containing a comma separated list of type paths of the
 		same construction as those contained in a .dmm file, and instantiates them.
@@ -224,10 +227,15 @@ var/global/dmm_suite/preloader/_preloader = new
 	//first instance the /area and remove it from the members list
 	index = members.len
 	if(members[index] != /area/template_noop)
+		// We assume `members[index]` is an area path, as above, yes? I will operate
+		// on that assumption.
+		if(!ispath(members[index], /area))
+			throw EXCEPTION("Oh no, I thought this was an area!")
+
 		var/atom/instance
 		_preloader.setup(members_attributes[index])//preloader for assigning  set variables on atom creation
+		instance = LM.area_path_to_real_area(members[index])
 
-		instance = locate(members[index])
 		var/turf/crds = locate(xcrd,ycrd,zcrd)
 		if(crds)
 			instance.contents.Add(crds)
@@ -274,6 +282,8 @@ var/global/dmm_suite/preloader/_preloader = new
 		if(ispath(path, /turf))
 			T.ChangeTurf(path, 1)
 			instance = T
+		else if(ispath(path, /area))
+
 		else
 			instance = new path (T)//first preloader pass
 
@@ -394,6 +404,26 @@ var/global/dmm_suite/preloader/_preloader = new
 			value = deepCopyList(value)
 		what.vars[attribute] = value
 	use_preloader = FALSE
+
+// A datum for use within the context of loading a single map,
+// so that one can have separate "unpowered" areas for ruins or whatever,
+// yet have a single area type for use of mapping, instead of creating
+// a new area type for each new ruin
+/dmm_suite/loaded_map
+	parent_type = /datum
+	var/list/area_list = list()
+
+/dmm_suite/loaded_map/proc/area_path_to_real_area(area/A)
+	if(!ispath(A, /area))
+		throw EXCEPTION("Wrong argument to `area_path_to_real_area`")
+
+	if(!(A in area_list))
+		if(initial(A.there_can_be_many))
+			area_list[A] = new A
+		else
+			area_list[A] = locate(A)
+
+	return area_list[A]
 
 /area/template_noop
 	name = "Area Passthrough"

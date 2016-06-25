@@ -11,6 +11,12 @@
 								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
+	// This var is used with the maploader (modules/awaymissions/maploader/reader.dm)
+	// if this is 1, when used in a map snippet, this will instantiate a unique
+	// area from any other instances already present (meaning you can have
+	// separate APCs, and so on)
+	var/there_can_be_many = 0
+
 
 /area/New()
 	icon_state = ""
