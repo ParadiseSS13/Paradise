@@ -49,9 +49,9 @@
 		var/inject_target = pick("chest","head")
 		if (L.stunned || L.can_inject(null,0,inject_target,0))
 			L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
-			visible_message("<span class='danger'> \icon[src] [src] buries its long fangs deep into the [inject_target] of [target]! </span>")
+			visible_message("<span class='danger'> [bicon(src)] [src] buries its long fangs deep into the [inject_target] of [target]! </span>")
 		else
-			visible_message("<span class='danger'> \icon[src] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
+			visible_message("<span class='danger'> [bicon(src)] [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
 		L.attack_animal(src)
 	if (!ckey && ((!target in enemies) || L.reagents.has_reagent("terror_black_toxin",50)))
 		spawn(20)
@@ -60,6 +60,6 @@
 			LoseTarget()
 			for(var/i=0, i<4, i++)
 				step_away(src, L)
-			visible_message("<span class='notice'> \icon[src] [src] warily eyes [L] from a distance. </span>")
+			visible_message("<span class='notice'> [bicon(src)] [src] warily eyes [L] from a distance. </span>")
 			// aka, if you come over here I will wreck you.
 	return

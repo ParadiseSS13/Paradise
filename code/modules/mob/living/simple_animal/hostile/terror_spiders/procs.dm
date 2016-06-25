@@ -53,7 +53,7 @@
 					break
 			if (faction_check && attack_same || !faction_check)
 				enemies |= M
-				visible_message("<span class='danger'>\icon[src] [src] glares at [M]! </span>")
+				visible_message("<span class='danger'>[bicon(src)] [src] glares at [M]! </span>")
 				// should probably exempt people who are dead...
 		else if (istype(A, /obj/mecha))
 			var/obj/mecha/M = A
@@ -236,7 +236,7 @@
 				T.idle_ventcrawl_chance = set_ventcrawl
 			if (T.ai_playercontrol_allowingeneral != set_pc)
 				if (set_pc == 1 && !spider_awaymission)
-					notify_ghosts("[T.name] in [get_area(T)] can be controlled! <a href=?src=\ref[T];activate=1>(Click to play)</a>", source = T)
+					notify_ghosts("\The [T] in [get_area(T)] can be controlled!", enter_link = "<a href=?src=\ref[T];activate=1>(Click to play)</a>", source = T)
 				T.ai_playercontrol_allowingeneral = set_pc
 	for(var/obj/effect/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
 		if (T.ai_playercontrol_allowingeneral != set_pc)

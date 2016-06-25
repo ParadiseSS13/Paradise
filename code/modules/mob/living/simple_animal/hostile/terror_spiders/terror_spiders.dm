@@ -300,13 +300,13 @@ var/global/list/ts_spiderling_list = list()
 			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if (T.spider_tier > spider_tier)
-			visible_message("<span class='notice'> \icon[src] [src] bows in respect for the terrifying presence of [target] </span>")
+			visible_message("<span class='notice'> [bicon(src)] [src] bows in respect for the terrifying presence of [target] </span>")
 		else if (T.spider_tier == spider_tier)
-			visible_message("<span class='notice'> \icon[src] [src] harmlessly nuzzles [target]. </span>")
+			visible_message("<span class='notice'> [bicon(src)] [src] harmlessly nuzzles [target]. </span>")
 		else if (T.spider_tier < spider_tier && spider_tier >= 4)
-			visible_message("<span class='notice'> \icon[src] [src] gives [target] a stern look. </span>")
+			visible_message("<span class='notice'> [bicon(src)] [src] gives [target] a stern look. </span>")
 		else
-			visible_message("<span class='notice'> \icon[src] [src] harmlessly nuzzles [target]. </span>")
+			visible_message("<span class='notice'> [bicon(src)] [src] harmlessly nuzzles [target]. </span>")
 		T.CheckFaction()
 		CheckFaction()
 	else if (istype(target, /obj/effect/spider/cocoon))
@@ -386,10 +386,10 @@ var/global/list/ts_spiderling_list = list()
 				else
 					gib()
 			else
-				visible_message("<span class='danger'> \icon[src] [src] resists the bioweapon! </span>")
+				visible_message("<span class='danger'> [bicon(src)] [src] resists the bioweapon! </span>")
 	else if (istype(Proj, /obj/item/projectile/energy/declone))
 		if (!degenerate && prob(20) && spider_tier < 3)
-			visible_message("<span class='danger'> \icon[src] [src] looks staggered by the bioweapon! </span>")
+			visible_message("<span class='danger'> [bicon(src)] [src] looks staggered by the bioweapon! </span>")
 			degenerate = 1
 	..()
 
@@ -471,7 +471,7 @@ var/global/list/ts_spiderling_list = list()
 			else if (ckey)
 				notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)")
 			else if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
-				notify_ghosts("[src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
+				notify_ghosts("[src] has appeared in [get_area(src)].", entry_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	ts_spiderlist -= src

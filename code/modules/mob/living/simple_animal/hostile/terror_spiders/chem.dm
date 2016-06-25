@@ -41,7 +41,6 @@
 		// total damage: 2/tick, human health 150 until crit, = 75 ticks, = 150 seconds = 2.5 minutes to get to medbay.
 		M.adjustToxLoss(2) // same damage/tick as tabun cycle 0 to 60
 	..()
-	return
 
 // Terror Spider, White, Tranq
 
@@ -64,7 +63,6 @@
 	if (current_cycle >= 10)
 		M.Paralyse(10)
 	..()
-	return
 
 // Terror Spider, White, Egg Venom
 
@@ -82,7 +80,6 @@
 	if (iscarbon(M))
 		if (!M.get_int_organ(/obj/item/organ/internal/body_egg))
 			new /obj/item/organ/internal/body_egg/terror_eggs(M)
-	return
 
 // Terror Spider, Queen Toxin
 
@@ -99,6 +96,5 @@
 		M = holder.my_atom
 	// make them hallucinate a lot, like a changeling sting
 	M.hallucination = min(400, M.hallucination+50)
-	return
 
 

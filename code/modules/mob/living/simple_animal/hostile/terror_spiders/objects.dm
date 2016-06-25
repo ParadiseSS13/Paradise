@@ -116,31 +116,32 @@
 	..()
 	spawn(50)
 		var/debug_announce = 0
-		if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/red)
-			name = "red spiderling"
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
-			name = "gray spiderling"
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/green)
-			name = "green spiderling"
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/black)
-			name = "black spiderling"
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
-			name = "purple spiderling"
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/white)
-			name = "white spiderling"
-			debug_announce = 1
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/mother)
-			name = "mother spiderling"
-			debug_announce = 1
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/prince)
-			name = "prince spiderling"
-			debug_announce = 1
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
-			name = "queen spiderling"
-			debug_announce = 1
-		else if (grow_as == /mob/living/simple_animal/hostile/poison/terror_spider/empress)
-			name = "empress spiderling"
-			debug_announce = 1
+		switch(grow_as)
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/red)
+				name = "red spiderling"
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/gray)
+				name = "gray spiderling"
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/green)
+				name = "green spiderling"
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/black)
+				name = "black spiderling"
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
+				name = "purple spiderling"
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/white)
+				name = "white spiderling"
+				debug_announce = 1
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/mother)
+				name = "mother spiderling"
+				debug_announce = 1
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/prince)
+				name = "prince spiderling"
+				debug_announce = 1
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/queen)
+				name = "queen spiderling"
+				debug_announce = 1
+			if(/mob/living/simple_animal/hostile/poison/terror_spider/empress)
+				name = "empress spiderling"
+				debug_announce = 1
 		ts_spiderling_list += src
 		if (debug_announce)
 			log_debug("[src] spawned in [get_area(src)]")
@@ -399,7 +400,6 @@
 			to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
 			return
 	..()
-	return
 
 /obj/machinery/power/singularity_beacon/terrorspider_beacon/Activate(mob/user = null)
 	if (countdown == 0)

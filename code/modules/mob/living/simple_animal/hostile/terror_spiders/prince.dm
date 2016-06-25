@@ -52,7 +52,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(var/mob/living/carbon/human/L)
 	if (prob(15))
-		visible_message("<span class='danger'> \icon[src] [src] rams into [L], knocking them to the floor! </span>")
+		visible_message("<span class='danger'> [bicon(src)] [src] rams into [L], knocking them to the floor! </span>")
 		L.Weaken(5)
 		L.Stun(5)
 	else
