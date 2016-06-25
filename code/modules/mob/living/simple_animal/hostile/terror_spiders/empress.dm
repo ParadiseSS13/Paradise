@@ -49,14 +49,6 @@
 	var/shown_guide = 0 // has the empress player been warned of the chaos that can result from the use of their powers?
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/empress/New()
-	..()
-	spawn(600)
-		if (!ckey)
-			// idea being that if someone spawns her, and she isn't player controlled within 60 seconds, it was probably a mistake and she should be despawned.
-			visible_message("[src] steps into a bluespace portal, and is gone!")
-			qdel(src)
-
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/Life()
 	if (stat != DEAD)
 		if (ckey && !shown_guide)
