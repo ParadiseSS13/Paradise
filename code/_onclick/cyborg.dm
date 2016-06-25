@@ -140,6 +140,8 @@
 	AIAltShiftClick()
 
 /atom/proc/BorgShiftClick()
+	if(user.client && user.client.eye == user)
+		user.examinate(src)
 	return
 
 /obj/machinery/door/airlock/BorgShiftClick()  // Opens and closes doors! Forwards to AI code.
