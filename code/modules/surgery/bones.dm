@@ -21,8 +21,6 @@
 			return 0
 		if(affected && (affected.status & ORGAN_BROKEN))
 			return 1
-		if(target.get_species() == "Machine")
-			return 0
 		if(target.get_species() == "Diona")
 			return 0
 		return 1
