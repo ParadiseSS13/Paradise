@@ -29,7 +29,7 @@
 		if(target.mind in ticker.mode.cult)
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 		else
-			to_chat(target, "<span class='notice'>You mind feels hardened somehow.</span>")
+			to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")
 		return 1
 	return 0
 
@@ -42,7 +42,7 @@
 
 
 /obj/item/weapon/implanter/loyalty
-	name = "implanter (loyalty)"
+	name = "implanter (mindshield)"
 
 /obj/item/weapon/implanter/loyalty/New()
 	imp = new /obj/item/weapon/implant/loyalty(src)
@@ -51,7 +51,7 @@
 
 
 /obj/item/weapon/implantcase/loyalty
-	name = "implant case - 'Loyalty'"
+	name = "implant case - 'mindshield'"
 	desc = "A glass case containing a loyalty implant."
 
 /obj/item/weapon/implantcase/loyalty/New()
