@@ -342,9 +342,9 @@
 					target.Weaken(12)
 					sleep(20)
 					if(isloyal(target))
-						to_chat(usr, "<span class='notice'>They are enslaved by Nanotrasen. You begin to shut down the nanobot implant - this will take some time.</span>")
+						to_chat(usr, "<span class='notice'>They have a mindshield implant. You begin to deactivate it - this will take some time.</span>")
 						usr.visible_message("<span class='warning'>[usr] pauses, then dips their head in concentration!</span>")
-						to_chat(target, "<span class='boldannounce'>You feel your loyalties begin to weaken!</span>")
+						to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack!</span>")
 						sleep(100) //10 seconds - not spawn() so the enthralling takes longer
 						to_chat(usr, "<span class='notice'>The nanobots composing the mindshield implant have been rendered inert. Now to continue.</span>")
 						usr.visible_message("<span class='warning'>[usr] relaxes again.</span>")

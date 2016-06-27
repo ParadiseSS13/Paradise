@@ -52,7 +52,7 @@
 
 /obj/item/weapon/implantcase/loyalty
 	name = "implant case - 'mindshield'"
-	desc = "A glass case containing a loyalty implant."
+	desc = "A glass case containing a mindshield implant."
 
 /obj/item/weapon/implantcase/loyalty/New()
 	imp = new /obj/item/weapon/implant/loyalty(src)
