@@ -15,14 +15,13 @@
 /obj/effect/portal/Bumped(mob/M as mob|obj)
 	src.teleport(M)
 
-/obj/effect/portal/New(loc, turf/target, creator, removal_delay=300)
+/obj/effect/portal/New(loc, turf/target, creator)
 	portals += src
 	src.loc = loc
 	src.target = target
 	src.creator = creator
-	if(removal_delay)
-		spawn(removal_delay)
-			qdel(src)
+	spawn(300)
+		qdel(src)
 	return
 
 /obj/effect/portal/Destroy()

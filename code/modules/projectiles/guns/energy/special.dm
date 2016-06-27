@@ -304,7 +304,7 @@
 			blue.target = null
 
 /obj/item/weapon/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
-	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src, 0)
+	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
 	P.precision = 0
 	P.failchance = 0
 	P.can_multitool_to_remove = 1
