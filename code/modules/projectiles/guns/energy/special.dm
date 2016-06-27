@@ -285,10 +285,7 @@
 
 
 /obj/item/weapon/gun/energy/wormhole_projector/update_icon()
-	if(select == "orange")
-		icon_state = "wormhole_projector2"
-	else
-		icon_state = "wormhole_projector1"
+	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
 	return
 
