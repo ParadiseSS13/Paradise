@@ -36,8 +36,8 @@ VampyrBytes
 	var/targetText = "at" // what goes inbetween user and target
 	var/takesNumber	= 0	// 1 if the emote uses a number parameter
 
-	var/emoteSpanClass = "notice"
-	var/userSpanClass = "em"
+	var/emoteSpanClass = "say"
+	var/userSpanClass = "bold"
 	var/baseLevel = 1
 	var/allowParent = 0			// 1 if you want the parent available as well as this one
 

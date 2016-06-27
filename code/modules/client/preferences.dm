@@ -448,6 +448,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if (!job_master)		return
 	for(var/datum/job/job in job_master.occupations)
 
+		if (job.admin_only)
+			continue
+
 		index += 1
 		if((index >= limit) || (job.title in splitJobs))
 			if((index < limit) && (lastJob != null))
@@ -1655,9 +1658,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY
 					if(sound & SOUND_LOBBY)
-						to_chat(user, sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1))
+						user << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1)
 					else
-						to_chat(user, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))
+						user << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)
 
 				if("ghost_ears")
 					toggles ^= CHAT_GHOSTEARS

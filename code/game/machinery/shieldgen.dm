@@ -215,14 +215,14 @@
 		return
 
 	if (src.active)
-		user.visible_message("\blue \icon[src] [user] deactivated the shield generator.", \
-			"\blue \icon[src] You deactivate the shield generator.", \
+		user.visible_message("\blue [bicon(src)] [user] deactivated the shield generator.", \
+			"\blue [bicon(src)] You deactivate the shield generator.", \
 			"You hear heavy droning fade out.")
 		src.shields_down()
 	else
 		if(anchored)
-			user.visible_message("\blue \icon[src] [user] activated the shield generator.", \
-				"\blue \icon[src] You activate the shield generator.", \
+			user.visible_message("\blue [bicon(src)] [user] activated the shield generator.", \
+				"\blue [bicon(src)] You activate the shield generator.", \
 				"You hear heavy droning.")
 			src.shields_up()
 		else

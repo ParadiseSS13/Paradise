@@ -123,7 +123,7 @@
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
-			to_chat(src, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))// MAD JAMS cant last forever yo
+			src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// MAD JAMS cant last forever yo
 
 
 			observer.started_as_observer = 1
@@ -245,6 +245,8 @@
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(src.client))	return 0
+	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
+
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
 			var/count = 0
@@ -258,6 +260,19 @@
 				return 0
 	return 1
 
+/mob/new_player/proc/IsAdminJob(rank)
+	var/datum/job/job = job_master.GetJob(rank)
+	if(job.admin_only)
+		return 1
+	else
+		return 0
+
+/mob/new_player/proc/IsERTSpawnJob(rank)
+	var/datum/job/job = job_master.GetJob(rank)
+	if(job.spawn_ert)
+		return 1
+	else
+		return 0
 
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if (src != usr)
@@ -300,20 +315,26 @@
 	var/join_message
 	var/datum/spawnpoint/S
 
-	if(spawning_at)
-		S = spawntypes[spawning_at]
-
-	if(S && istype(S))
-		if(S.check_job_spawning(rank))
-			character.loc = pick(S.turfs)
-			join_message = S.msg
+	if(IsAdminJob(rank))
+		if(IsERTSpawnJob(rank))
+			character.loc = pick(ertdirector)
 		else
-			to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
+			character.loc = pick(aroomwarp)
+		join_message = "has arrived"
+	else
+		if(spawning_at)
+			S = spawntypes[spawning_at]
+		if(S && istype(S))
+			if(S.check_job_spawning(rank))
+				character.loc = pick(S.turfs)
+				join_message = S.msg
+			else
+				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
+				character.loc = pick(latejoin)
+				join_message = "has arrived on the station"
+		else
 			character.loc = pick(latejoin)
 			join_message = "has arrived on the station"
-	else
-		character.loc = pick(latejoin)
-		join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
@@ -323,14 +344,18 @@
 
 	ticker.mode.latespawn(character)
 
-	if(character.mind.assigned_role != "Cyborg")
+	if(character.mind.assigned_role == "Cyborg")
+		AnnounceCyborg(character, rank, join_message)
+		callHook("latespawn", list(character))
+	else if(IsAdminJob(rank))
+		callHook("latespawn", list(character))
+	else
 		data_core.manifest_inject(character)
 		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
-	else
-		AnnounceCyborg(character, rank, join_message)
-		callHook("latespawn", list(character))
+
+
 	qdel(src)
 
 
@@ -421,7 +446,7 @@
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)
 
-	to_chat(src, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))// MAD JAMS cant last forever yo
+	src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// MAD JAMS cant last forever yo
 
 
 	if(mind)

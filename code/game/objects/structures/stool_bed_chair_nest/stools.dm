@@ -34,7 +34,7 @@
 		qdel(src)
 	return
 
-/obj/structure/stool/MouseDrop(atom/over_object, skip_fucking_stool_shit = 0)
+/obj/structure/stool/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params, skip_fucking_stool_shit = 0)
 	if(skip_fucking_stool_shit)
 		return ..(over_object)
 	if (istype(over_object, /mob/living/carbon/human))
@@ -44,7 +44,7 @@
 			S.origin = src
 			src.loc = S
 			H.put_in_hands(S)
-			H.visible_message("\red [H] grabs [src] from the floor!", "\red You grab [src] from the floor!")
+			H.visible_message("<span class='warning'>[H] grabs [src] from the floor!</span>", "<span class='warning'>You grab [src] from the floor!</span>")
 
 /obj/item/weapon/stool
 	name = "stool"
@@ -60,12 +60,12 @@
 	..()
 	origin.loc = get_turf(src)
 	user.unEquip(src)
-	user.visible_message("\blue [user] puts [src] down.", "\blue You put [src] down.")
+	user.visible_message("<span class='notice'>[user] puts [src] down.</span>", "<span class='notice'>You put [src] down.</span>")
 	qdel(src)
 
 /obj/item/weapon/stool/attack(mob/M as mob, mob/user as mob)
 	if (prob(5) && istype(M,/mob/living))
-		user.visible_message("\red [user] breaks [src] over [M]'s back!.")
+		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
 		user.unEquip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)

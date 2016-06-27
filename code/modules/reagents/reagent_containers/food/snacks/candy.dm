@@ -139,13 +139,13 @@
 	reagents.add_reagent("sugar", 3)
 	bitesize = 5
 
-/obj/item/weapon/reagent_containers/food/snacks/candy_corn
+/obj/item/weapon/reagent_containers/food/snacks/candy/candy_corn
 	name = "candy corn"
 	desc = "It's a handful of candy corn. Cannot be stored in a detective's hat, alas."
-	icon_state = "candy_corn"
+	icon_state = "candycorn"
 	filling_color = "#FFFCB0"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy_corn/New()
+/obj/item/weapon/reagent_containers/food/snacks/candy/candy_corn/New()
 	..()
 	reagents.add_reagent("nutriment", 4)
 	reagents.add_reagent("sugar", 2)

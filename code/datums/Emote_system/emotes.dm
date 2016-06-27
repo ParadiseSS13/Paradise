@@ -344,6 +344,10 @@
 	commands = list("deathgasp", "deathgasps")
 	audible = 1
 
+/datum/emote/deathgasp/prevented(var/mob/user)
+	if(user.stat == DEAD)
+		return "you are already dead!"
+
 /datum/emote/deathgasp/alien
 	text = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	selfText = "let out a waning guttural screech, green blood bubbling from your maw..."

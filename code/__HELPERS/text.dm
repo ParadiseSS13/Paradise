@@ -424,5 +424,23 @@ proc/checkhtml(var/t)
 //Best used for sanitize object names, window titles.
 //If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
 //this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
-/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
-	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra, mode)
+/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
+	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
+
+
+//Replaces \red \blue \green \b etc with span classes for to_chat
+/proc/replace_text_macro(match, code, rest)
+    var/regex/text_macro = new("(\\xFF.)(.*)$")
+    switch(code)
+        if("\red")
+            return "<span class='warning'>[text_macro.Replace(rest, /proc/replace_text_macro)]</span>"
+        if("\blue", "\green")
+            return "<span class='notice'>[text_macro.Replace(rest, /proc/replace_text_macro)]</span>"
+        if("\b")
+            return "<b>[text_macro.Replace(rest, /proc/replace_text_macro)]</b>"
+        else
+            return text_macro.Replace(rest, /proc/replace_text_macro)
+
+/proc/macro2html(text)
+    var/static/regex/text_macro = new("(\\xFF.)(.*)$")
+    return text_macro.Replace(text, /proc/replace_text_macro)

@@ -24,7 +24,8 @@
 	loc = has_suit
 	has_suit.overlays += inv_overlay
 
-	to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
+	if(user)
+		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
 
 /obj/item/clothing/accessory/proc/on_removed(mob/user as mob)
@@ -389,7 +390,7 @@
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
 	..()
 	if(access_id)
-		to_chat(user, "There is \icon[access_id] \a [access_id] clipped onto it.")
+		to_chat(user, "There is [bicon(access_id)] \a [access_id] clipped onto it.")
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
 	if(istype(user))
