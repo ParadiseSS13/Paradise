@@ -36,10 +36,18 @@
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_store)
+			if(prob(33))
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge/cord(H), slot_r_store)
+			else
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge(H), slot_r_store)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+			if(prob(33))
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge/cord(H), slot_in_backpack)
+			else
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -81,9 +89,17 @@
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_hand)
+			if(prob(33))
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge/cord(H), slot_r_store)
+			else
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge(H), slot_r_store)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
+			if(prob(33))
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge/cord(H), slot_in_backpack)
+			else
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -180,9 +196,17 @@
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_hand)
+			if(prob(33))
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge/cord(H), slot_r_store)
+			else
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge(H), slot_r_store)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
+			if(prob(33))
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge/cord(H), slot_in_backpack)
+			else
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -254,9 +278,17 @@
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_hand)
+			if(prob(33))
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge/cord(H), slot_r_store)
+			else
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge(H), slot_r_store)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
+			if(prob(33))
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge/cord(H), slot_in_backpack)
+			else
+				H.equip_or_collect(new /obj/item/clothing/accessory/holobadge(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
