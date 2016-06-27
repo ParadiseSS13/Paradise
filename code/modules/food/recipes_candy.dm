@@ -69,7 +69,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/toffee
 
 /datum/recipe/candy/taffy
-	reagents = list("sugar" = 5, "water" = 5, "sodiumchloride" = 5)
+	reagents = list("salglu_solution" = 15)
 	items = list()
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/taffy
 

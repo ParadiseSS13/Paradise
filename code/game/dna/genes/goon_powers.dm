@@ -410,13 +410,16 @@
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
 			return 0
 		var/prevLayer = usr.layer
+		var/prevFlying = usr.flying
 		usr.layer = 9
 
+		usr.flying = 1
 		for(var/i=0, i<10, i++)
 			step(usr, usr.dir)
 			if(i < 5) usr.pixel_y += 8
 			else usr.pixel_y -= 8
 			sleep(1)
+		usr.flying = prevFlying
 
 		if (FAT in usr.mutations && prob(66))
 			usr.visible_message("\red <b>[usr.name]</b> crashes due to their heavy weight!")

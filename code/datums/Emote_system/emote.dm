@@ -36,8 +36,8 @@ VampyrBytes
 	var/targetText = "at" // what goes inbetween user and target
 	var/takesNumber	= 0	// 1 if the emote uses a number parameter
 
-	var/emoteSpanClass = "notice"
-	var/userSpanClass = "em"
+	var/emoteSpanClass = "say"
+	var/userSpanClass = "bold"
 	var/baseLevel = 1
 	var/allowParent = 0			// 1 if you want the parent available as well as this one
 
@@ -281,7 +281,7 @@ VampyrBytes
 		var/end = start + lentext(startText) + 1
 		message = copytext(message, 1, start) + copytext(message, end, lentext(message) + 1)
 
-	message = replaceMobWithYou(user, message)
+	message = replaceMobWithYou(user, message, user)
 
 	return message
 
@@ -298,21 +298,21 @@ VampyrBytes
 		visualOrAudible = 1
 
 	log_emote("[user.name]/[user.key] : [message]")
-	sendToDead(message)
+	sendToDead(user, message)
 	for(var/mob/M in getRecipients(getLoc(user, message), visualOrAudible))
 		var/msg = ""
 
 		if(M==user)
 			msg = createSelfMessage(user, params, message)
 			if(msg)
-				outputMessage(M, msg)
+				outputMessage(M, msg, user)
 				continue
 
 		if(M.stat == UNCONSCIOUS || (M.sleeping && M.stat != DEAD))
 			if(!visualOrAudible == 2)
 				continue
 			msg = "<span class='italics'>... You can almost hear someone talking ...</span>"
-			outputMessage(M, msg)
+			outputMessage(M, msg, user)
 			continue
 
 		if(M.sdisabilities & DEAF || M.ear_deaf)
@@ -325,7 +325,7 @@ VampyrBytes
 			if(!msg && visualOrAudible == 2)
 				continue
 			if(msg)
-				outputMessage(M, msg)
+				outputMessage(M, msg, user)
 				continue
 
 		if(M.sdisabilities & BLIND || M.blinded || M.paralysis || (M.see_invisible < user.invisibility && visualOrAudible == 2))
@@ -336,7 +336,7 @@ VampyrBytes
 			if(!msg && visualOrAudible == 1)
 				continue
 			if(msg)
-				outputMessage(M, msg)
+				outputMessage(M, msg, user)
 				continue
 
 		if(M.see_invisible < user.invisibility && visualOrAudible == 1)
@@ -406,12 +406,15 @@ VampyrBytes
 	message = addExtras(message)
 	return message
 
-/datum/emote/proc/sendToDead(var/message = "")
+/datum/emote/proc/sendToDead(var/mob/user, var/message = "", var/ghostEmote)
 	for(var/mob/M in dead_mob_list)
 		if(!M.client || istype(M, /mob/new_player))
 			continue //skip monkeys, leavers and new players
-		if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
-			M.show_message(message)
+		if(M.stat == DEAD)
+			if(ghostEmote && ((M.client.prefs.toggles & CHAT_GHOSTSIGHT) || (M in viewers(user))))
+				M.show_message(message)
+			else if((M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(user)))
+				M.show_message(message)
 
 /datum/emote/proc/playSound(var/mob/user, var/list/params)
 	if(!sound)
@@ -534,10 +537,10 @@ one is used in /datum/emote_handler/customEmote().
 /datum/emote/custom/proc/getMessage(var/mob/user)
 //	user.set_typing_indicator(1)
 //	user.hud_typing = 1
-	var/input = sanitize(copytext(input(user,"What do you want to emote?.", "Custom emote") as text|null,1,MAX_MESSAGE_LEN))
+	var/input = copytext(input(user,"What do you want to emote?", "Custom emote") as text|null,1,MAX_MESSAGE_LEN)
 //	user.hud_typing = 0
 //	user.set_typing_indicator(0)
-	input = strip_html_properly(input)
+	input = trim_strip_html_properly(input)
 	return input
 
 /datum/emote/custom/available(var/mob/user)
@@ -572,13 +575,13 @@ one is used in /datum/emote_handler/customEmote().
 			return "deadchat is globally muted"
 
 /datum/emote/custom/ghost/getMessage(var/mob/user)
-	var/input = sanitize(copytext(input(user,"What do you want to emote?.", "Custom emote") as text|null,1,MAX_MESSAGE_LEN))
-	input = strip_html_properly(input)
+	var/input = copytext(input(user,"What do you want to emote?", "Custom emote") as text|null,1,MAX_MESSAGE_LEN)
+	input = trim_strip_html_properly(input)
 	return input
 
 /datum/emote/custom/ghost/processMessage(var/mob/user, var/list/params, var/message = "")
 	if(!message)
 		return
 	log_emote("Ghost/[user.key] : [message]")
-	sendToDead(message)
+	sendToDead(user, message, ghostEmote = 1)
 

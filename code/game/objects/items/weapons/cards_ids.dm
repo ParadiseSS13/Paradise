@@ -150,8 +150,8 @@
 	return
 
 /obj/item/weapon/card/id/attack_self(mob/user as mob)
-	user.visible_message("[user] shows you: \icon[src] [src.name]. The assignment on the card: [src.assignment]",\
-		"You flash your ID card: \icon[src] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
+		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
 		to_chat(user, "There's [mining_points] mining equipment redemption points loaded onto this card.")
 	src.add_fingerprint(user)

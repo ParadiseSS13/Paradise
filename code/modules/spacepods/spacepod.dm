@@ -168,14 +168,14 @@
 		S.channel = 0 //Any channel
 		S.volume = 50
 		for(var/mob/M in passengers)
-			to_chat(M, S)
+			M << S
 	if(passengers && oldhealth > health && !health)
 		var/sound/S = sound('sound/effects/engine_alert1.ogg')
 		S.wait = 0
 		S.channel = 0
 		S.volume = 50
 		for(var/mob/M in passengers)
-			to_chat(M, S)
+			M << S
 	if(!health)
 		spawn(0)
 			if(passengers)

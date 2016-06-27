@@ -41,6 +41,9 @@
 	//If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0
 
+	var/admin_only = 0
+	var/spawn_ert = 0
+
 	/////////////////////////////////
 	// /vg/ feature: Job Objectives!
 	/////////////////////////////////
@@ -77,7 +80,7 @@
 		return 0
 
 	return max(0, minimal_player_age - C.player_age)
-	
+
 /datum/job/proc/apply_fingerprints(var/mob/living/carbon/human/H)
 	if(!istype(H))
 		return
@@ -116,6 +119,6 @@
 	if(H.r_store)
 		H.r_store.add_fingerprint(H,1)
 	return 1
-	
+
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)

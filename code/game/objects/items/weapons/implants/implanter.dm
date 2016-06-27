@@ -82,3 +82,9 @@
 	imp = new /obj/item/weapon/implant/traitor(src)
 	..()
 
+/obj/item/weapon/implanter/death_alarm
+	name = "implanter (Death Alarm)"
+
+/obj/item/weapon/implanter/death_alarm/New()
+	imp = new /obj/item/weapon/implant/death_alarm(src)
+	..()

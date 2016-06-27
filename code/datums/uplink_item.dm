@@ -101,9 +101,9 @@ var/list/uplink_items = list()
 
 				if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
 					for(var/atom/o in I)
-						U.purchase_log += "<BIG>\icon[o]</BIG>"
+						U.purchase_log += "<BIG>[bicon(o)]</BIG>"
 				else
-					U.purchase_log += "<BIG>\icon[I]</BIG>"
+					U.purchase_log += "<BIG>[bicon(I)]</BIG>"
 
 		//U.interact(user)
 		return 1
@@ -1220,7 +1220,7 @@ var/list/uplink_items = list()
 		bought_items += I.item
 		remaining_TC -= I.cost
 
-	U.purchase_log += "<BIG>\icon[C]</BIG>"
+	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
 		new item(C)
-		U.purchase_log += "<BIG>\icon[item]</BIG>"
+		U.purchase_log += "<BIG>[bicon(item)]</BIG>"

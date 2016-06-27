@@ -1,0 +1,4 @@
+author: monster860
+delete-after: True
+changes: 
+  - rscadd: "You can now shift-click to examine as silicon, instead of ctrl-shift-clicking, which is something absolutely no one would guess."

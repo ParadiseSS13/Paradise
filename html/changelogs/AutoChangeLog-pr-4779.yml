@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "pAI candidates can now see who requested them"
