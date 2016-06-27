@@ -170,15 +170,16 @@
 		adjustCloneLoss(0.1)
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
+	var/gene_instability = DEFAULT_GENE_INSTABILITY
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-		/*	if (prob(10) && prob(gene.instability))
-				adjustCloneLoss(1) */
+			gene_instability += gene.instability
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
-
+	if(prob(10) && prob(max(gene_instability, 0)))
+		adjustCloneLoss(0.3 * gene_instability)
 	if(!(species.flags & RADIMMUNE))
 		if (radiation)
 

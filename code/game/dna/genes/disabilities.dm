@@ -35,7 +35,7 @@
 	if(sdisability)
 		M.sdisabilities|=sdisability
 	if(activation_message)
-		to_chat(M, "\red [activation_message]")
+		to_chat(M, "<span class='warning'>[activation_message]</span>")
 	else
 		testing("[name] has no activation message.")
 
@@ -47,7 +47,7 @@
 	if(sdisability)
 		M.sdisabilities &= ~sdisability
 	if(deactivation_message)
-		to_chat(M, "\red [deactivation_message]")
+		to_chat(M, "<span class='warning'>[deactivation_message]</span>")
 	else
 		testing("[name] has no deactivation message.")
 
@@ -55,86 +55,95 @@
 	name="Hallucinate"
 	activation_message="Your mind says 'Hello'."
 	deactivation_message ="Sanity returns. Or does it?"
+	instability = -2
 	mutation=HALLUCINATE
 
-	New()
-		block=HALLUCINATIONBLOCK
+/datum/dna/gene/disability/hallucinate/New()
+	block=HALLUCINATIONBLOCK
 
 /datum/dna/gene/disability/epilepsy
 	name="Epilepsy"
 	activation_message="You get a headache."
 	deactivation_message ="Your headache is gone, at last."
+	instability = -2
 	disability=EPILEPSY
 
-	New()
-		block=EPILEPSYBLOCK
+/datum/dna/gene/disability/epilepsy/New()
+	block=EPILEPSYBLOCK
 
 /datum/dna/gene/disability/cough
 	name="Coughing"
 	activation_message="You start coughing."
 	deactivation_message ="Your throat stops aching."
+	instability = -1
 	disability=COUGHING
 
-	New()
-		block=COUGHBLOCK
+/datum/dna/gene/disability/cough/New()
+	block=COUGHBLOCK
 
 /datum/dna/gene/disability/clumsy
 	name="Clumsiness"
 	activation_message="You feel lightheaded."
 	deactivation_message ="You regain some control of your movements"
+	instability = -2
 	mutation=CLUMSY
 
-	New()
-		block=CLUMSYBLOCK
+/datum/dna/gene/disability/clumsy/New()
+	block=CLUMSYBLOCK
 
 /datum/dna/gene/disability/tourettes
 	name="Tourettes"
 	activation_message="You twitch."
 	deactivation_message ="Your mouth tastes like soap."
+	instability = -1
 	disability=TOURETTES
 
-	New()
-		block=TWITCHBLOCK
+/datum/dna/gene/disability/tourettes/New()
+	block=TWITCHBLOCK
 
 /datum/dna/gene/disability/nervousness
 	name="Nervousness"
 	activation_message="You feel nervous."
 	deactivation_message ="You feel much calmer."
+	instability = -1
 	disability=NERVOUS
 
-	New()
-		block=NERVOUSBLOCK
+/datum/dna/gene/disability/nervousness/New()
+	block=NERVOUSBLOCK
 
 /datum/dna/gene/disability/blindness
 	name="Blindness"
 	activation_message="You can't seem to see anything."
 	deactivation_message ="You can see now, in case you didn't notice..."
+	instability = -5
 	sdisability=BLIND
 
-	New()
-		block=BLINDBLOCK
+/datum/dna/gene/disability/blindness/New()
+	block=BLINDBLOCK
 
 /datum/dna/gene/disability/deaf
 	name="Deafness"
 	activation_message="It's kinda quiet."
 	deactivation_message ="You can hear again!"
+	instability = -4
 	sdisability=DEAF
 
-	New()
-		block=DEAFBLOCK
+/datum/dna/gene/disability/deaf/New()
+	block=DEAFBLOCK
 
-	activate(var/mob/M, var/connected, var/flags)
-		..(M,connected,flags)
-		M.ear_deaf = 1
+/datum/dna/gene/disability/deaf/activate(var/mob/M, var/connected, var/flags)
+	..(M,connected,flags)
+	M.ear_deaf = 1
 
 /datum/dna/gene/disability/nearsighted
 	name="Nearsightedness"
 	activation_message="Your eyes feel weird..."
 	deactivation_message ="You can see clearly now"
+	instability = -3
 	disability=NEARSIGHTED
 
-	New()
-		block=GLASSESBLOCK
+/datum/dna/gene/disability/nearsighted/New()
+	block=GLASSESBLOCK
 
 
 /datum/dna/gene/disability/lisp
@@ -142,14 +151,15 @@
 	desc = "I wonder wath thith doeth."
 	activation_message = "Thomething doethn't feel right."
 	deactivation_message = "You now feel able to pronounce consonants."
+	instability = -1
 	mutation = LISP
 
-	New()
-		..()
-		block=LISPBLOCK
+/datum/dna/gene/disability/lisp/New()
+	..()
+	block=LISPBLOCK
 
-	OnSay(var/mob/M, var/message)
-		return replacetext(message,"s","th")
+/datum/dna/gene/disability/lisp/OnSay(var/mob/M, var/message)
+	return replacetext(message,"s","th")
 
 /datum/dna/gene/disability/comic
 	name = "Comic"
@@ -158,5 +168,5 @@
 	deactivation_message = "Well thank god that's over with."
 	mutation=COMIC
 
-	New()
-		block = COMICBLOCK
+/datum/dna/gene/disability/comic/New()
+	block = COMICBLOCK

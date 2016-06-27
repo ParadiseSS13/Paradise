@@ -124,3 +124,5 @@
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
 
+//Used for calculations for negative effects of having genetics powers
+#define DEFAULT_GENE_INSTABILITY -4

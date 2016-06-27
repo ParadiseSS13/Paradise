@@ -23,7 +23,10 @@
 	// Any of a number of GENE_ flags.
 	var/flags=0
 
-/**
+	// Chance of the gene to cause adverse effects when active
+	var/instability=0
+
+/*
 * Is the gene active in this mob's DNA?
 */
 /datum/dna/gene/proc/is_active(var/mob/M)
@@ -113,10 +116,10 @@
 	M.mutations.Add(mutation)
 	if(activation_messages.len)
 		var/msg = pick(activation_messages)
-		to_chat(M, "\blue [msg]")
+		to_chat(M, "<span class='notice'>[msg]</span>")
 
 /datum/dna/gene/basic/deactivate(var/mob/M)
 	M.mutations.Remove(mutation)
 	if(deactivation_messages.len)
 		var/msg = pick(deactivation_messages)
-		to_chat(M, "\red [msg]")
+		to_chat(M, "<span class='warning'>[msg]</span>")
