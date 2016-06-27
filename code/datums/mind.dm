@@ -122,7 +122,7 @@
 			obj_count++
 		output += "</UL>"
 
-	recipient << browse(output,"window=memory")
+	recipient << browse(sanitize_local(output, SANITIZE_BROWSER),"window=memory")
 
 /datum/mind/proc/edit_memory()
 	if(!ticker || !ticker.mode)
@@ -450,7 +450,7 @@
 
 	out += "<a href='?src=\ref[src];obj_announce=1'>Announce objectives</a><br><br>"
 
-	usr << browse(out, "window=edit_memory[src]")
+	usr << browse(sanitize_local(out, SANITIZE_BROWSER), "window=edit_memory[src]")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))	return
@@ -611,7 +611,7 @@
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing their identification card."
 			if ("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize_local(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if (!expl) return
 				new_objective = new /datum/objective
 				new_objective.owner = src
