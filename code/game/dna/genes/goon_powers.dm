@@ -28,7 +28,7 @@
 /////////////////////////
 
 /datum/dna/gene/basic/stealth
-	instability = 4
+	instability = GENE_INSTABILITY_MODERATE
 
 /datum/dna/gene/basic/stealth/can_activate(var/mob/M, var/flags)
 	// Can only activate one of these at a time.
@@ -121,7 +121,7 @@
 	desc = "Allows the subject to lower the body temperature of others."
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
-	instability = 4
+	instability = GENE_INSTABILITY_MODERATE
 	mutation = CRYO
 
 	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
@@ -218,7 +218,7 @@
 	desc = "Allows the subject to eat just about anything without harm."
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
-	instability = 2
+	instability = GENE_INSTABILITY_MINOR
 	mutation = EATER
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/eat
@@ -360,7 +360,7 @@
 	//cooldown = 30
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
-	instability = 2
+	instability = GENE_INSTABILITY_MINOR
 	mutation = JUMPY
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/leap
@@ -463,7 +463,7 @@
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
-	instability = 3
+	instability = GENE_INSTABILITY_MODERATE
 	mutation = POLYMORPH
 
 /datum/dna/gene/basic/grant_spell/polymorph/New()
@@ -514,7 +514,7 @@
 	spelltype = /obj/effect/proc_holder/spell/targeted/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
-	instability = 1
+	instability = GENE_INSTABILITY_MINOR
 	mutation=EMPATH
 
 /datum/dna/gene/basic/grant_spell/empath/New()
@@ -632,7 +632,7 @@
 	desc = "Vastly increases the gas capacity of the subject's digestive tract."
 	activation_messages = list("You feel bloated and gassy.")
 	deactivation_messages = list("You no longer feel gassy. What a relief!")
-	instability = 2
+	instability = GENE_INSTABILITY_MINOR
 	mutation = SUPER_FART
 	spelltype = /obj/effect/proc_holder/spell/aoe_turf/superfart
 

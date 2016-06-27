@@ -170,16 +170,33 @@
 		adjustCloneLoss(0.1)
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	var/gene_instability = DEFAULT_GENE_INSTABILITY
+	var/gene_stability = DEFAULT_GENE_STABILITY
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-			gene_instability += gene.instability
+			gene_stability -= gene.instability
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
-	if(prob(10) && prob(max(gene_instability, 0)))
-		adjustCloneLoss(0.3 * gene_instability)
+	if(mind && mind.special_role && mind.special_role == "Wizard") //magic
+		gene_instability = DEFAULT_GENE_STABILITY
+	if(gene_stability < 85))
+		if(prob(5))
+				adjustBurnLoss(2)
+				to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
+		if(gene_stability < 70)
+			if(prob(3))
+				adjustCloneLoss(2)
+				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
+			if(prob(5))
+				adjustToxLoss(3)
+				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
+			if(gene_stability < 40 && getCloneLoss() > 30)
+				to_chat(src, "<span class='userdanger'>You feel incredibly sick... Something isn't right!</span>")
+				spawn(180)
+					if(getCloneLoss())
+						gib()
+
 	if(!(species.flags & RADIMMUNE))
 		if (radiation)
 

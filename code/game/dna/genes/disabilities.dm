@@ -55,7 +55,7 @@
 	name="Hallucinate"
 	activation_message="Your mind says 'Hello'."
 	deactivation_message ="Sanity returns. Or does it?"
-	instability = -2
+	instability = -GENE_INSTABILITY_MODERATE
 	mutation=HALLUCINATE
 
 /datum/dna/gene/disability/hallucinate/New()
@@ -65,7 +65,7 @@
 	name="Epilepsy"
 	activation_message="You get a headache."
 	deactivation_message ="Your headache is gone, at last."
-	instability = -2
+	instability = -GENE_INSTABILITY_MODERATE
 	disability=EPILEPSY
 
 /datum/dna/gene/disability/epilepsy/New()
@@ -75,7 +75,7 @@
 	name="Coughing"
 	activation_message="You start coughing."
 	deactivation_message ="Your throat stops aching."
-	instability = -1
+	instability = -GENE_INSTABILITY_MINOR
 	disability=COUGHING
 
 /datum/dna/gene/disability/cough/New()
@@ -85,7 +85,7 @@
 	name="Clumsiness"
 	activation_message="You feel lightheaded."
 	deactivation_message ="You regain some control of your movements"
-	instability = -2
+	instability = -GENE_INSTABILITY_MINOR
 	mutation=CLUMSY
 
 /datum/dna/gene/disability/clumsy/New()
@@ -95,7 +95,7 @@
 	name="Tourettes"
 	activation_message="You twitch."
 	deactivation_message ="Your mouth tastes like soap."
-	instability = -1
+	instability = -GENE_INSTABILITY_MODERATE
 	disability=TOURETTES
 
 /datum/dna/gene/disability/tourettes/New()
@@ -105,7 +105,6 @@
 	name="Nervousness"
 	activation_message="You feel nervous."
 	deactivation_message ="You feel much calmer."
-	instability = -1
 	disability=NERVOUS
 
 /datum/dna/gene/disability/nervousness/New()
@@ -115,7 +114,7 @@
 	name="Blindness"
 	activation_message="You can't seem to see anything."
 	deactivation_message ="You can see now, in case you didn't notice..."
-	instability = -5
+	instability = -GENE_INSTABILITY_MAJOR
 	sdisability=BLIND
 
 /datum/dna/gene/disability/blindness/New()
@@ -125,7 +124,7 @@
 	name="Deafness"
 	activation_message="It's kinda quiet."
 	deactivation_message ="You can hear again!"
-	instability = -4
+	instability = -GENE_INSTABILITY_MAJOR
 	sdisability=DEAF
 
 /datum/dna/gene/disability/deaf/New()
@@ -139,7 +138,7 @@
 	name="Nearsightedness"
 	activation_message="Your eyes feel weird..."
 	deactivation_message ="You can see clearly now"
-	instability = -3
+	instability = -GENE_INSTABILITY_MODERATE
 	disability=NEARSIGHTED
 
 /datum/dna/gene/disability/nearsighted/New()
@@ -151,7 +150,6 @@
 	desc = "I wonder wath thith doeth."
 	activation_message = "Thomething doethn't feel right."
 	deactivation_message = "You now feel able to pronounce consonants."
-	instability = -1
 	mutation = LISP
 
 /datum/dna/gene/disability/lisp/New()

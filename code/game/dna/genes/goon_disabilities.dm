@@ -12,7 +12,7 @@
 	desc = "Completely shuts down the speech center of the subject's brain."
 	activation_message   = "You feel unable to express yourself at all."
 	deactivation_message = "You feel able to speak freely again."
-	instability = -3
+	instability = -GENE_INSTABILITY_MODERATE
 	sdisability = MUTE
 
 /datum/dna/gene/disability/mute/New()
@@ -31,7 +31,7 @@
 	desc = "The subject suffers from constant radiation sickness and causes the same on nearby organics."
 	activation_message = "You feel a strange sickness permeate your whole body."
 	deactivation_message = "You no longer feel awful and sick all over."
-	instability = -6
+	instability = -GENE_INSTABILITY_MAJOR
 	mutation = RADIOACTIVE
 
 /datum/dna/gene/disability/radioactive/New()
@@ -61,7 +61,7 @@
 	desc = "Greatly slows the subject's metabolism, enabling greater buildup of lipid tissue."
 	activation_message = "You feel blubbery and lethargic!"
 	deactivation_message = "You feel fit!"
-	instability = -2
+	instability = -GENE_INSTABILITY_MINOR
 	mutation = OBESITY
 
 /datum/dna/gene/disability/fat/New()
@@ -74,7 +74,6 @@
 	desc = "Forces the language center of the subject's brain to construct sentences in a more rudimentary manner."
 	activation_message = "Ye feel like a reet prat like, innit?"
 	deactivation_message = "You no longer feel like being rude and sassy."
-	instability = -1
 	mutation = CHAV
 
 /datum/dna/gene/disability/speech/chav/New()
@@ -114,7 +113,6 @@
 	desc = "Forces the language center of the subject's brain to construct sentences in a vaguely norse manner."
 	activation_message = "You feel Swedish, however that works."
 	deactivation_message = "The feeling of Swedishness passes."
-	instability = -1
 	mutation = SWEDISH
 
 /datum/dna/gene/disability/speech/swedish/New()
@@ -134,7 +132,7 @@
 	desc = "Heavily corrupts the part of the brain responsible for forming spoken sentences."
 	activation_message = "You can't seem to form any coherent thoughts!"
 	deactivation_message = "Your mind feels more clear."
-	instability = -1
+	instability = -GENE_INSTABILITY_MINOR
 	mutation = SCRAMBLED
 
 /datum/dna/gene/disability/unintelligable/New()

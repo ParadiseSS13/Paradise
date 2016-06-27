@@ -6,7 +6,7 @@
 	spelltype =/obj/effect/proc_holder/spell/targeted/morph
 	activation_messages=list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
-	instability = 1
+	instability = GENE_INSTABILITY_MINOR
 	mutation=MORPH
 
 /datum/dna/gene/basic/grant_spell/morph/New()
@@ -150,7 +150,7 @@
 	name="Telepathy"
 	activation_messages=list("You feel you can project your thoughts.")
 	deactivation_messages=list("You no longer feel you can project your thoughts.")
-	instability = 1
+	instability = GENE_INSTABILITY_MINOR
 	mutation=REMOTE_TALK
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
@@ -216,7 +216,7 @@
 	name="Remote Viewing"
 	activation_messages=list("Your mind can see things from afar.")
 	deactivation_messages=list("Your mind can no longer can see things from afar.")
-	instability = 1
+	instability = GENE_INSTABILITY_MINOR
 	mutation=REMOTE_VIEW
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview

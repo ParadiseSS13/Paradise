@@ -6,7 +6,7 @@
 	name="No Breathing"
 	activation_messages=list("You feel no need to breathe.")
 	deactivation_messages=list("You feel the need to breathe, once more.")
-	instability = 2
+	instability = GENE_INSTABILITY_MODERATE
 	mutation=NO_BREATH
 	activation_prob=10
 
@@ -18,7 +18,7 @@
 	name="Regenerate"
 	activation_messages=list("Your wounds start healing.")
 	deactivation_messages=list("Your regenerative powers feel like they've vanished.")
-	instability = 1
+	instability = GENE_INSTABILITY_MINOR
 	mutation=REGEN
 
 /datum/dna/gene/basic/regenerate/New()
@@ -28,7 +28,7 @@
 	name="Super Speed"
 	activation_messages=list("You feel swift and unencumbered.")
 	deactivation_messages=list("You feel slow.")
-	instability = 2
+	instability = GENE_INSTABILITY_MINOR
 	mutation=RUN
 
 /datum/dna/gene/basic/increaserun/New()
@@ -39,7 +39,7 @@
 	name="Heat Resistance"
 	activation_messages=list("Your skin is icy to the touch.")
 	deactivation_messages=list("Your skin no longer feels icy to the touch.")
-	instability = 2
+	instability = GENE_INSTABILITY_MODERATE
 	mutation=RESIST_HEAT
 
 /datum/dna/gene/basic/heat_resist/New()
@@ -52,7 +52,7 @@
 	name="Cold Resistance"
 	activation_messages=list("Your body is filled with warmth.")
 	deactivation_messages=list("Your body is no longer filled with warmth.")
-	instability = 2
+	instability = GENE_INSTABILITY_MODERATE
 	mutation=RESIST_COLD
 
 /datum/dna/gene/basic/cold_resist/New()
@@ -65,7 +65,7 @@
 	name="No Prints"
 	activation_messages=list("Your fingers feel numb.")
 	deactivation_messages=list("your fingers no longer feel numb.")
-	instability = 1
+	instability = GENE_INSTABILITY_MINOR
 	mutation=FINGERPRINTS
 
 /datum/dna/gene/basic/noprints/New()
@@ -75,7 +75,7 @@
 	name="Shock Immunity"
 	activation_messages=list("Your skin feels dry and unreactive.")
 	deactivation_messages=list("Your skin no longer feels dry and unreactive.")
-	instability = 2
+	instability = GENE_INSTABILITY_MODERATE
 	mutation=NO_SHOCK
 
 /datum/dna/gene/basic/noshock/New()
@@ -85,7 +85,7 @@
 	name="Midget"
 	activation_messages=list("Everything around you seems bigger now...")
 	deactivation_messages = list("Everything around you seems to shrink...")
-	instability = 1
+	instability = GENE_INSTABILITY_MINOR
 	mutation=DWARF
 
 /datum/dna/gene/basic/midget/New()
@@ -106,7 +106,7 @@
 	name="Hulk"
 	activation_messages=list("Your muscles hurt.")
 	deactivation_messages=list("Your muscles shrink.")
-	instability = 8
+	instability = GENE_INSTABILITY_MAJOR
 	mutation=HULK
 	activation_prob=5
 
@@ -146,7 +146,7 @@
 	name="X-Ray Vision"
 	activation_messages=list("The walls suddenly disappear.")
 	deactivation_messages=list("the walls around you re-appear.")
-	instability = 8
+	instability = GENE_INSTABILITY_MAJOR
 	mutation=XRAY
 	activation_prob=10
 
@@ -157,7 +157,7 @@
 	name="Telekenesis"
 	activation_messages = list("You feel smarter.")
 	deactivation_messages = list("You feel dumber.")
-	instability = 8
+	instability = GENE_INSTABILITY_MAJOR
 	mutation=TK
 	activation_prob=10
 
