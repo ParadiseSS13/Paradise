@@ -197,11 +197,16 @@ var/list/chatResources = list(
 /proc/bi(obj)
 	bicon(obj)
 
-/proc/to_chat(target, message)
+var/to_chat_filename
+var/to_chat_line
+var/to_chat_src
+// Call using macro: to_chat(target, message)
+/proc/__to_chat(target, message)
 	if(istype(message, /image) || istype(message, /sound) || istype(target, /savefile) || !(ismob(target) || islist(target) || isclient(target) || target == world))
 		target << message
-		if (!isatom(target)) // Really easy to mix these up, and not having to make sure things are mobs makes the code cleaner.
-			CRASH("DEBUG: to_chat called with invalid message")
+		if(!istext(message))
+			message = "(non-text type)"
+		world.Error(new/exception("DEBUG: to_chat called with invalid message: [message]", to_chat_filename, to_chat_line), e_src = to_chat_src)
 		return
 
 	else if(istext(message))
