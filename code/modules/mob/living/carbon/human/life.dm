@@ -178,12 +178,10 @@
 			gene_stability -= gene.instability
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
-	if(mind && mind.special_role && mind.special_role == "Wizard") //magic
-		gene_instability = DEFAULT_GENE_STABILITY
-	if(gene_stability < 85))
+	if(gene_stability < 85)
 		if(prob(5))
-				adjustBurnLoss(2)
-				to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
+			adjustFireLoss(2)
+			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
 		if(gene_stability < 70)
 			if(prob(3))
 				adjustCloneLoss(2)
@@ -191,10 +189,10 @@
 			if(prob(5))
 				adjustToxLoss(3)
 				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
-			if(gene_stability < 40 && getCloneLoss() > 30)
+			if(gene_stability < 40 && getCloneLoss() > 50 && prob(5))
 				to_chat(src, "<span class='userdanger'>You feel incredibly sick... Something isn't right!</span>")
 				spawn(180)
-					if(getCloneLoss())
+					if(getCloneLoss() > 10)
 						gib()
 
 	if(!(species.flags & RADIMMUNE))
