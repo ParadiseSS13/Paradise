@@ -217,6 +217,7 @@
 		if(judgebot.check_for_weapons(r_hand))
 			threatcount += 4
 
+	//Mindshield implants imply trustworthyness
 	if(isloyal(src))
 		threatcount -= 1
 
