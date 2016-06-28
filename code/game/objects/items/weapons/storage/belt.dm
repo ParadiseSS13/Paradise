@@ -306,6 +306,7 @@
 
 /obj/item/weapon/storage/belt/bandolier/full/New()
 	..()
+	update_icon()
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
