@@ -1,0 +1,6 @@
+author: Norgad
+delete-after: True
+changes: 
+  - rscadd: "Maintenance around the incinerator has been expanded."
+  - rscadd: "Engineering maintenance finally has an APC."
+  - rscadd: "The incinerator has been moved eastward, there is now a construction area in it's previous location."
