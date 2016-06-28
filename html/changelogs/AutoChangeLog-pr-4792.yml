@@ -1,0 +1,6 @@
+author: monster860
+delete-after: True
+changes: 
+  - bugfix: "Fixes wormhole projector not having an icon."
+  - tweak: "Wormhole projector has 0 failchance now."
+  - rscadd: "Portals made by wormhole projectors can be removed via a multitool"
