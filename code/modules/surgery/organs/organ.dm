@@ -22,7 +22,7 @@ var/list/organ_cache = list()
 									  // links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 	var/datum/dna/dna
-	var/datum/species/species
+	var/datum/species/species = "Human"
 
 	// Stuff for tracking if this is on a tile with an open freezer or not
 	var/last_freezer_update_time = 0
@@ -53,6 +53,9 @@ var/list/organ_cache = list()
 				if(!blood_DNA)
 					blood_DNA = list()
 				blood_DNA[dna.unique_enzymes] = dna.b_type
+	else
+		if(istext(species))
+			species = all_species[species]
 
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
