@@ -415,14 +415,53 @@
 	else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
-	dat += "Choose from the following open positions:<br>"
+	dat += "Choose from the following open positions:<br><br>"
+
+	var/list/activePlayers = list()
+	var/list/categorizedJobs = list(
+		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff"),
+		"Command" = list(jobs = list(), titles = command_positions, color = "#aac1ee"),
+		"Synthetic" = list(jobs = list(), titles = nonhuman_positions, color = "#ccffcc"),
+		"Engineering" = list(jobs = list(), titles = engineering_positions, color = "#ffd699"),
+		"Medical" = list(jobs = list(), titles = medical_positions, color = "#99ffe6"),
+		"Science" = list(jobs = list(), titles = science_positions, color = "#e6b3e6"),
+		"Security" = list(jobs = list(), titles = security_positions, color = "#ff9999"),
+		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
+		"Support / Service" = list(jobs = list(), titles = service_positions, color = "#cccccc")
+		)
 	for(var/datum/job/job in job_master.occupations)
 		if(job && IsJobAvailable(job.title))
-			var/active = 0
+			activePlayers[job] = 0
+			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
 			for(var/mob/M in player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 * 60 * 10)
-				active++
-			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a><br>"
+				activePlayers[job]++
+			for(var/jobcat in categorizedJobs)
+				var/list/jobs = categorizedJobs[jobcat]["jobs"]
+				if(job.title in categorizedJobs[jobcat]["titles"])
+					categorized = 1
+					if(jobcat == "Command") // Put captain at top of command jobs
+						if(job.title == "Captain")
+							jobs.Insert(1, job)
+						else
+							jobs += job
+					else // Put heads at top of non-command jobs
+						if(job.title in command_positions)
+							jobs.Insert(1, job)
+						else
+							jobs += job
+			if(!categorized)
+				categorizedJobs["Miscellaneous"]["jobs"] += job
+
+	for(var/jobcat in categorizedJobs)
+		if(length(categorizedJobs[jobcat]["jobs"]) < 1)
+			continue
+		var/color = categorizedJobs[jobcat]["color"]
+		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
+		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
+		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
+			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+		dat += "</fieldset><br>"
 
 	dat += "</center>"
 	// Removing the old window method but leaving it here for reference
