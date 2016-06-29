@@ -552,6 +552,7 @@ one is used in /datum/emote_handler/customEmote().
 /datum/emote/custom/prevented(var/mob/user)
 	if(!user.use_me)
 		return "you are prevented from using custom emotes"
+	return ..()
 
 // Yeah, no
 /datum/emote/custom/createSelfMessage(var/mob/user, var/list/params, var/message = "")
@@ -566,9 +567,8 @@ one is used in /datum/emote_handler/customEmote().
 	emoteSpanClass = "game deadsay"
 
 /datum/emote/custom/ghost/prevented(var/mob/user)
-	. = ..()
-	if(.)
-		return
+	if(!user.use_me)
+		return "you are prevented from using custom emotes"
 	if(user.client.prefs.muted & MUTE_DEADCHAT)
 		return "you are muted from deadchat"
 	if(!(user.client.prefs.toggles & CHAT_DEAD))
