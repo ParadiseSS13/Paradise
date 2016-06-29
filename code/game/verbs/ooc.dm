@@ -61,9 +61,10 @@ var/global/admin_ooc_colour = "#b82e00"
 	for(var/client/C in clients)
 		if(C.prefs.toggles & CHAT_OOC)
 			var/display_name = src.key
-			if(prefs.unlock_content)
+			if(prefs.unlock_content || key == "Tigercat2000")
 				if(prefs.toggles & MEMBER_PUBLIC)
-					display_name = "<img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[display_name]"
+					var/icon/byond = icon('icons/member_content.dmi', "blag")
+					display_name = "[bicon(byond)][display_name]"
 			if(holder)
 				if(holder.fakekey)
 					if(C.holder)
