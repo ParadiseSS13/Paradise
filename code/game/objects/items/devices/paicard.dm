@@ -11,6 +11,7 @@
 	var/obj/item/device/radio/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
+	var/locked = 0 // if turned on, cannot be reconfigured, and wiping self-destructs it.
 
 /obj/item/device/paicard/relaymove(var/mob/user, var/direction)
 	if(user.stat || user.stunned)
@@ -148,13 +149,14 @@
 			</table>
 			<br>
 		"}
-		dat += {"
-			<table>
-				<td class="button">
-					<a href='byond://?src=\ref[src];setlaws=1' class='button'>Configure Directives</a>
-				</td>
-			</table>
-		"}
+		if (!locked)
+			dat += {"
+				<table>
+					<td class="button">
+						<a href='byond://?src=\ref[src];setlaws=1' class='button'>Configure Directives</a>
+					</td>
+				</table>
+			"}
 		if(pai && (!pai.master_dna || !pai.master))
 			dat += {"
 				<table>
@@ -165,34 +167,45 @@
 			"}
 		dat += "<br>"
 		if(radio)
-			dat += "<b>Radio Uplink</b>"
-			dat += {"
-				<table class="request">
-					<tr>
-						<td class="radio">Transmit:</td>
-						<td><a href='byond://?src=\ref[src];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+			dat += "<b>Radio Uplink</b><br>"
+			if (locked)
+				dat += "Installed<br><br><br>"
+			else
+				dat += {"
+					<table class="request">
+						<tr>
+							<td class="radio">Transmit:</td>
+							<td><a href='byond://?src=\ref[src];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
-						</td>
-					</tr>
-					<tr>
-						<td class="radio">Receive:</td>
-						<td><a href='byond://?src=\ref[src];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+							</td>
+						</tr>
+						<tr>
+							<td class="radio">Receive:</td>
+							<td><a href='byond://?src=\ref[src];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
-						</td>
-					</tr>
-				</table>
-				<br>
-			"}
+							</td>
+						</tr>
+					</table>
+					<br>
+				"}
 		else
 			dat += "<b>Radio Uplink</b><br>"
 			dat += "<font color=red><i>Radio firmware not loaded. Please install a pAI personality to load firmware.</i></font><br>"
-		dat += {"
-			<table>
-				<td class="button_red"><a href='byond://?src=\ref[src];wipe=1' class='button'>Wipe current pAI personality</a>
+		if (locked)
+			dat += {"
+				<table>
+					<td class="button_red"><a href='byond://?src=\ref[src];wipe=1' class='button'>Self Destruct</a>
+					</td>
+				</table>
+			"}
+		else
+			dat += {"
+				<table>
+					<td class="button_red"><a href='byond://?src=\ref[src];wipe=1' class='button'>Wipe current pAI personality</a>
+					</td>
+				</table>
+			"}
 
-				</td>
-			</table>
-		"}
 	else
 		if(looking_for_personality)
 			dat += {"
@@ -272,13 +285,17 @@
 						P.close_up()
 				M.death(0)
 			removePersonality()
+			if (locked)
+				to_chat(usr, "<span class'danger'>The device self-destructs!</span>")
+				qdel(src)
 	if(href_list["wires"])
-		var/t1 = text2num(href_list["wires"])
-		switch(t1)
-			if(4)
-				radio.ToggleBroadcast()
-			if(2)
-				radio.ToggleReception()
+		if (!locked)
+			var/t1 = text2num(href_list["wires"])
+			switch(t1)
+				if(4)
+					radio.ToggleBroadcast()
+				if(2)
+					radio.ToggleReception()
 	if(href_list["setlaws"])
 		var/newlaws = sanitize(copytext(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
 		if(newlaws)

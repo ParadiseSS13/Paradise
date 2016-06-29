@@ -9,6 +9,7 @@
 	pass_flags = PASSTABLE
 	density = 0
 	holder_type = /obj/item/weapon/holder/pai
+	var/locked = 0 // immune to EMP if 1
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
 
@@ -156,6 +157,10 @@
 	return
 
 /mob/living/silicon/pai/emp_act(severity)
+
+	if (locked)
+		return
+
 	// Silence for 2 minutes
 	// 20% chance to kill
 		// 33% chance to unbind
