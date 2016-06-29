@@ -90,12 +90,12 @@
 
 		if(ticker.current_state == GAME_STATE_PREGAME)
 			stat("Players:", "[totalPlayers]")
-			if(client.holder)
+			if(check_rights(R_ADMIN, 0, src))
 				stat("Players Ready:", "[totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in player_list)
-				if(client.holder)
+				if(check_rights(R_ADMIN, 0, src))
 					stat("[player.key]", (player.ready)?("(Playing)"):(null))
 				totalPlayers++
 				if(player.ready)
