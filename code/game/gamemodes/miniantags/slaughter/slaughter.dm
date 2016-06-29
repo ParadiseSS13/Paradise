@@ -207,13 +207,10 @@
 
 /mob/living/simple_animal/slaughter/laughter/death()
 	for(var/mob/living/M in consumed_mobs)
-		M.revive()
-		if(!M.ckey)
-			for(var/mob/dead/observer/ghost in player_list)
-				if(M.real_name == ghost.real_name)
-					ghost.reenter_corpse()
-					break
-		to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
+		if(M.revive())
+			M.grab_ghost(force = TRUE)
+			playsound(get_turf(src), feast_sound, 50, 1, -1)
+			to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
 	..()
 
 
