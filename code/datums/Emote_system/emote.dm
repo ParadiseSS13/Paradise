@@ -428,13 +428,18 @@ VampyrBytes
 
 //Emote Cooldown System (it's so simple!)
 /datum/emote/proc/handle_emote_CD(var/mob/user)
-	if(user.emote_cd == 2) return 1			// Cooldown emotes were disabled by an admin, prevent use
-	if(user.emote_cd == 1) return 1		// Already on CD, prevent use
+	if(!user)
+		return 1
+	if(user.emote_cd == 2) // Cooldown emotes were disabled by an admin, prevent use
+		return 1
+	if(user.emote_cd == 1) // Already on CD, prevent use
+		return 1
 
 	user.emote_cd = 1		// Starting cooldown
 
 	spawn(cooldown)
-		if(user.emote_cd == 2) return 1		// Don't reset if cooldown emotes were disabled by an admin during the cooldown
+		if(user.emote_cd == 2) // Don't reset if cooldown emotes were disabled by an admin during the cooldown
+			return 1
 		user.emote_cd = 0				// Cooldown complete, ready for more!
 
 	return 0		// Proceed with emote
