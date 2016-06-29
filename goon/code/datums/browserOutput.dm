@@ -131,7 +131,7 @@ var/list/chatResources = list(
 			var/list/found = new()
 			for(var/i = connectionHistory.len; i >= 1; i--)
 				var/list/row = connectionHistory[i]
-				if(!row || row.len < 3 || (!row["ckey"] && !row["compid"] && !row["ip"]))
+				if(!row || row.len < 3 || !(row["ckey"] && row["compid"] && row["ip"]))
 					return
 				if(world.IsBanned(row["ckey"], row["compid"], row["ip"]))
 					found = row
