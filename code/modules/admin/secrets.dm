@@ -73,8 +73,9 @@
 					<center>
 					<h2><B>IC Events</B></h2>
 					<b>Teams</b><br>
-					<A href='?src=\ref[src];secretsfun=striketeam'>Send in a strike team</A>&nbsp;&nbsp;
-					<A href='?src=\ref[src];secretsfun=striketeam_syndicate'>Send in a syndicate strike team</A>&nbsp;&nbsp;
+					<A href='?src=\ref[src];secretsfun=infiltrators_syndicate'>Send SIT - Syndicate Infiltration Team</A>&nbsp;&nbsp;
+					<BR><A href='?src=\ref[src];secretsfun=striketeam'>Send Strike Team (DeathSquad)</A>&nbsp;&nbsp;
+					<A href='?src=\ref[src];secretsfun=striketeam_syndicate'>Send SST - Syndie Strike Team</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=honksquad'>Send in a HONKsquad</A><BR>
 					<b>Change Security Level</b><BR>
 					<A href='?src=\ref[src];secretsfun=securitylevel0'>Security Level - Green</A>&nbsp;&nbsp;

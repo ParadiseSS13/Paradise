@@ -24,6 +24,7 @@
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
 	var/block_air_zones = 1 //If set, air zones cannot merge across the door even when it is opened.
+	var/emag_immune = 0
 
 	//Multi-tile doors
 	dir = EAST
@@ -140,6 +141,9 @@
 
 /obj/machinery/door/emag_act(user as mob)
 	if(density)
+		if(emag_immune)
+			to_chat(user,"<span class='danger'>This door is hardened to resist emags.</span>")
+			return 0
 		flick("door_spark", src)
 		sleep(6)
 		open()

@@ -782,6 +782,14 @@
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away"
 
+/obj/machinery/computer/shuttle/sit
+	req_access = list(access_syndicate)
+	name = "Syndicate Infiltration Team Shuttle Console"
+	desc = "Used to call and send the SIT shuttle."
+	shuttleId = "sit"
+	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
+
+
 var/global/trade_dock_timelimit = 0
 var/global/trade_dockrequest_timelimit = 0
 
