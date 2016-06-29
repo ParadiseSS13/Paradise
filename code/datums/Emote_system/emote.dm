@@ -36,8 +36,8 @@ VampyrBytes
 	var/targetText = "at" // what goes inbetween user and target
 	var/takesNumber	= 0	// 1 if the emote uses a number parameter
 
-	var/emoteSpanClass = "notice"
-	var/userSpanClass = "em"
+	var/emoteSpanClass = "say"
+	var/userSpanClass = "bold"
 	var/baseLevel = 1
 	var/allowParent = 0			// 1 if you want the parent available as well as this one
 
@@ -549,6 +549,7 @@ one is used in /datum/emote_handler/customEmote().
 /datum/emote/custom/prevented(var/mob/user)
 	if(!user.use_me)
 		return "you are prevented from using custom emotes"
+	return ..()
 
 // Yeah, no
 /datum/emote/custom/createSelfMessage(var/mob/user, var/list/params, var/message = "")
@@ -563,9 +564,8 @@ one is used in /datum/emote_handler/customEmote().
 	emoteSpanClass = "game deadsay"
 
 /datum/emote/custom/ghost/prevented(var/mob/user)
-	. = ..()
-	if(.)
-		return
+	if(!user.use_me)
+		return "you are prevented from using custom emotes"
 	if(user.client.prefs.muted & MUTE_DEADCHAT)
 		return "you are muted from deadchat"
 	if(!(user.client.prefs.toggles & CHAT_DEAD))
