@@ -48,7 +48,7 @@ var/list/parallax_on_clients = list()
 	var/client/C = mymob.client
 	if(!parallax_initialized || C.updating_parallax) return
 
-	for(var/turf/space/T in range(get_turf(C.eye),C.view))
+	for(var/turf/space/T in trange(C.view,get_turf(C.eye)))
 		C.updating_parallax = 1
 		break
 
@@ -161,8 +161,8 @@ var/list/parallax_on_clients = list()
 			var/accumulated_offset_x = bgobj.base_offset_x - round(C.parallax_offset["horizontal"] * bgobj.parallax_speed * (C.prefs.parallax_speed/2))
 			var/accumulated_offset_y = bgobj.base_offset_y - round(C.parallax_offset["vertical"] * bgobj.parallax_speed * (C.prefs.parallax_speed/2))
 
-			var/acc_x_diff = bgobj.last_accumulated_offset_x - accumulated_offset_x
-			var/acc_y_diff = bgobj.last_accumulated_offset_y - accumulated_offset_y
+			//var/acc_x_diff = bgobj.last_accumulated_offset_x - accumulated_offset_x
+			//var/acc_y_diff = bgobj.last_accumulated_offset_y - accumulated_offset_y
 			bgobj.last_accumulated_offset_x = accumulated_offset_x
 			bgobj.last_accumulated_offset_y = accumulated_offset_y
 			
