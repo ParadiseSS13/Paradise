@@ -915,7 +915,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Send Teacher pAI"
 	set desc = "Turns a ghost into a pAI that teaches a player"
-	if(!holder || !holder.rights || !holder.rights & R_ADMIN)
+	if(!check_rights(R_ADMIN))
 		to_chat(usr, "<span class='warning'>Admin only.</span>")
 		return
 	var/list/tcandidates = list()
