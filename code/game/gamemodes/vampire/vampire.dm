@@ -371,7 +371,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 		if(T.density)
 			return
-	vamp_burn()
+	vamp_burn(1)
 
 /datum/vampire/proc/handle_vampire()
 	if(owner.hud_used)
@@ -388,7 +388,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(istype(owner.loc, /turf/space))
 		check_sun()
 	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
-		vamp_burn()
+		vamp_burn(0)
 	nullified = max(0, nullified - 1)
 
 /datum/vampire/proc/handle_vampire_cloak()
@@ -415,27 +415,23 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	else
 		owner.alpha = round((255 * 0.80))
 
-/datum/vampire/proc/vamp_burn()
-	if(prob(35))
+/datum/vampire/proc/vamp_burn(severe_burn)
+	var/burn_chance = severe_burn ? 35 : 8
+	if(burn_chance && owner.health >= 50)
 		switch(owner.health)
-			if(80 to 100)
+			if(75 to 100)
 				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>")
-			if(60 to 80)
+			if(50 to 75)
 				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>")
-			if((-INFINITY) to 60)
-				if(!owner.on_fire)
-					to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
-				else
-					to_chat(owner, "<span class='danger'>You continue to burn!</span>")
-				owner.fire_stacks += 5
-				owner.IgniteMob()
+		owner.adjustFireLoss(3)
+	if(owner.health < 50)
+		if(!owner.on_fire)
+			to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
+		else
+			to_chat(owner, "<span class='danger'>You continue to burn!</span>")
 		owner.emote("scream")
-	else
-		switch(owner.health)
-			if((-INFINITY) to 60)
-				owner.fire_stacks++
-				owner.IgniteMob()
-	owner.adjustFireLoss(3)
+		owner.fire_stacks += 5
+		owner.IgniteMob()
 	return
 
 /datum/hud/proc/remove_vampire_hud()
