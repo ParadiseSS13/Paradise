@@ -7,7 +7,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	set category = "Event"
 	set name = "Send Syndicate Infiltration Team"
 	set desc = "Spawns a squad of syndicate infiltrators on the Syndicate Mothership if you want to run an admin event."
-	if(!src.holder)
+	if(!check_rights(R_ADMIN))
 		to_chat(src, "Only administrators may use this command.")
 		return
 	if(!ticker)
@@ -76,7 +76,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		new_syndicate_infiltrator.regenerate_icons()
 		num_spawned++
 
-	message_admins("\blue [key_name_admin(usr)] has spawned a Syndicate Infiltration Team.", 1)
+	message_admins("[key_name_admin(usr)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(usr)] used Spawn Syndicate Infiltration Team.")
 	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
