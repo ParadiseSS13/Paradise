@@ -18,12 +18,22 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/spawn_dummies = 0
 	if(alert("Spawn full-size team, even if there aren't enough ghosts to populate them?",,"Yes","No")=="Yes")
 		spawn_dummies = 1
+	var/list/teamsizeoptions = list(1,2,3,4,5)
+	var/teamsize = input(src, "How many team members, not counting the team leader?") as null|anything in teamsizeoptions
+	if (!(teamsize in teamsizeoptions))
+		alert("Invalid team size specified. Aborting.")
+		return
 	var/input = null
 	while(!input)
 		input = sanitize(copytext(input(src, "Please specify which mission the syndicate infiltration team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 		if(!input)
 			alert("No mission specified. Aborting.")
 			return
+	var/list/tcoptions = list(0,5,10,15,20,25,30,35,40,50,60,80,100)
+	var/tcamount = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as null|anything in tcoptions
+	if (!(tcamount in tcoptions))
+		alert("Invalid TC amount specified. Aborting.")
+		return
 	if(sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
@@ -51,14 +61,13 @@ var/global/sent_syndicate_infiltration_team = 0
 	for(var/obj/effect/landmark/L in sit_spawns)
 		if (!infiltrators.len && !spawn_dummies) break
 		syndicate_leader_selected = num_spawned == 1?1:0
-		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected)
+		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount)
 		if(infiltrators.len)
 			var/mob/theguy = pick(infiltrators)
 			new_syndicate_infiltrator.key = theguy.key
 			infiltrators -= theguy
 			new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 			new_syndicate_infiltrator.internals.icon_state = "internal1"
-		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> <span class='danger'> [input] </span>")
 		to_chat(new_syndicate_infiltrator, "<span class='danger'>You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B></span>")
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink implant to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
 		new_syndicate_infiltrator.faction += "syndicate"
@@ -68,13 +77,18 @@ var/global/sent_syndicate_infiltration_team = 0
 			new_syndicate_infiltrator.loc = warpto.loc
 			sit_spawns_leader -= warpto
 			team_leader = new_syndicate_infiltrator
-			to_chat(new_syndicate_infiltrator, "<span class='notice'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it. Only your ID opens the exit door.</span>")
+			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it. Only your ID opens the exit door.</span>")
 		else
-			to_chat(new_syndicate_infiltrator, "<span class='notice'>Your team leader is: [team_leader]. They are in charge!</span>")
-		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> <span class='danger'> [team_leader] </span>")
-		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <span class='notice'><BR>- Chameleon Jumpsuit<BR> - Agent ID card<BR> - Syndicate Radio <BR> - Uplink Implant <BR> - Dust Implant <BR> - Disguised Combat Gloves <BR> - Anything bought with your uplink implant </span>")
+			to_chat(new_syndicate_infiltrator, "<span class='danger'>Your team leader is: [team_leader]. They are in charge!</span>")
+			teamsize--
+		to_chat(new_syndicate_infiltrator, "<span class='notice'>You have more helpful information stored in your Notes.</span>")
+		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
+		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
+		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
 		new_syndicate_infiltrator.regenerate_icons()
 		num_spawned++
+		if (!teamsize)
+			break
 
 	message_admins("[key_name_admin(usr)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(usr)] used Spawn Syndicate Infiltration Team.")
@@ -82,7 +96,7 @@ var/global/sent_syndicate_infiltration_team = 0
 
 // ---------------------------------------------------------------------------------------------------------
 
-/client/proc/create_syndicate_infiltrator(obj/spawn_location, syndicate_leader_selected = 0)
+/client/proc/create_syndicate_infiltrator(obj/spawn_location, syndicate_leader_selected = 0, uplink_tc = 20)
 	var/mob/living/carbon/human/new_syndicate_infiltrator = new(spawn_location.loc)
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
@@ -98,13 +112,13 @@ var/global/sent_syndicate_infiltration_team = 0
 	new_syndicate_infiltrator.mind.assigned_role = "MODE"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
 	ticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
-	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected)
+	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc)
 	qdel(spawn_location)
 	return new_syndicate_infiltrator
 
 // ---------------------------------------------------------------------------------------------------------
 
-/mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0)
+/mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc)
 	// Storage items
 	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(src), slot_in_backpack)
@@ -119,10 +133,10 @@ var/global/sent_syndicate_infiltration_team = 0
 	// Uplink
 	var/obj/item/weapon/implant/uplink/U = new /obj/item/weapon/implant/uplink(src)
 	U.implant(src)
-	U.hidden_uplink.uses = 20
+	U.hidden_uplink.uses = num_tc
 	// Storage
-	var/obj/item/weapon/implant/storage/S = new /obj/item/weapon/implant/storage(src)
-	S.implant(src)
+	//var/obj/item/weapon/implant/storage/T = new /obj/item/weapon/implant/storage(src)
+	//T.implant(src)
 	// Dust
 	var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(src)
 	D.implant(src)
