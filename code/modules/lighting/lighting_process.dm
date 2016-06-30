@@ -3,7 +3,6 @@
 #define MAX_OVERLAY_UPDATES_PER_WORK 2000
 
 /datum/controller/process/lighting
-	schedule_interval = LIGHTING_INTERVAL
 	var/last_light_count = 0
 	var/last_overlay_count = 0
 
