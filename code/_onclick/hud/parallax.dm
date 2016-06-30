@@ -178,10 +178,10 @@ var/list/parallax_on_clients = list()
 
 			bgobj.screen_loc = "CENTER-7:[accumulated_offset_x],CENTER-7:[accumulated_offset_y]"
 			
-			if(abs(x_diff) <= 1 && abs(y_diff) <= 1)
+			/*if(abs(x_diff) <= 1 && abs(y_diff) <= 1)
 				// Animate the movement of the layer
 				bgobj.transform = matrix(1, 0, acc_x_diff, 0, 1, acc_y_diff)
-				animate(bgobj, transform = matrix(), time = last_delay)
+				animate(bgobj, transform = matrix(), time = last_delay)*/
 		else
 			bgobj.screen_loc = "CENTER-7:[bgobj.base_offset_x],CENTER-7:[bgobj.base_offset_y]"
 
