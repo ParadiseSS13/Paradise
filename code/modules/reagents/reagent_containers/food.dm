@@ -10,6 +10,7 @@
 	var/apply_type = INGEST
 	var/apply_method = "swallow"
 	var/transfer_efficiency = 1.0
+	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 
 /obj/item/weapon/reagent_containers/food/New()
 		..()

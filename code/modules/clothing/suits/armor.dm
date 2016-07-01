@@ -36,9 +36,43 @@
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
-	desc = "An armored vest that protects against some damage. This one has Nanotrasen corporate badge."
-	icon_state = "armorsec"
+	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
+	icon_state = "armor"
 	item_state = "armor"
+	var/obj/item/clothing/accessory/holobadge/attached_badge
+
+/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/clothing/accessory/holobadge))
+		if(user.unEquip(W))
+			add_fingerprint(user)
+			W.forceMove(src)
+			attached_badge = W
+
+			action_button_name = "Remove Holobadge"
+			icon_state = "armorsec"
+			user.update_inv_wear_suit()
+			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
+			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+		return
+	..()
+
+/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user as mob)
+	if(attached_badge)
+		add_fingerprint(user)
+		user.put_in_hands(attached_badge)
+
+		action_button_name = null
+		action.Remove(user)
+		icon_state = "armor"
+		user.update_inv_wear_suit()
+		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
+		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
+
+		attached_badge = null
+
+		return
+
+	..()
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
@@ -118,6 +152,32 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
+
+/obj/item/clothing/suit/armor/riot/knight
+	name = "plate armour"
+	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
+	icon_state = "knight_green"
+	item_state = "knight_green"
+	armor = list(melee = 50, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
+
+/obj/item/clothing/suit/armor/riot/knight/yellow
+	icon_state = "knight_yellow"
+	item_state = "knight_yellow"
+
+/obj/item/clothing/suit/armor/riot/knight/blue
+	icon_state = "knight_blue"
+	item_state = "knight_blue"
+
+/obj/item/clothing/suit/armor/riot/knight/red
+	icon_state = "knight_red"
+	item_state = "knight_red"
+
+/obj/item/clothing/suit/armor/riot/knight/templar
+	name = "crusader armour"
+	desc = "God wills it!"
+	icon_state = "knight_templar"
+	item_state = "knight_templar"
+	allowed = list(/obj/item/weapon/nullrod/claymore)
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
@@ -239,33 +299,6 @@
 	desc = "Armor worn by the green Thunderodome team"
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
-
-/obj/item/clothing/suit/armor/riot/knight
-	name = "plate armour"
-	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
-	icon_state = "knight_green"
-	item_state = "knight_green"
-	slowdown = 0
-	armor = list(melee = 50, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
-
-/obj/item/clothing/suit/armor/riot/knight/yellow
-	icon_state = "knight_yellow"
-	item_state = "knight_yellow"
-
-/obj/item/clothing/suit/armor/riot/knight/blue
-	icon_state = "knight_blue"
-	item_state = "knight_blue"
-
-/obj/item/clothing/suit/armor/riot/knight/red
-	icon_state = "knight_red"
-	item_state = "knight_red"
-
-/obj/item/clothing/suit/armor/riot/knight/templar
-	name = "crusader armour"
-	desc = "God wills it!"
-	icon_state = "knight_templar"
-	item_state = "knight_templar"
-	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/classic_baton/telescopic,/obj/item/weapon/nullrod/claymore)
 
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert

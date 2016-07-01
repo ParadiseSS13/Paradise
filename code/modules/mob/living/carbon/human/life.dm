@@ -39,6 +39,7 @@
 		handle_pain()
 		handle_heartbeat()
 		handle_heartattack()
+		handle_drunk()
 		species.handle_life(src)
 
 		if(!client)
@@ -730,6 +731,80 @@
 
 	return //TODO: DEFERRED
 
+/mob/living/carbon/human/handle_drunk()
+	var/slur_start = 30 //12u ethanol, 30u whiskey FOR HUMANS
+	var/confused_start = 40
+	var/brawl_start = 30
+	var/blur_start = 75
+	var/vomit_start = 60
+	var/pass_out = 90
+	var/spark_start = 50 //40u synthanol
+	var/collapse_start = 75
+	var/braindamage_start = 120
+	var/alcohol_strength = drunk
+	var/sober_str=!(SOBER in mutations)?1:2
+
+	if(drunk)
+		alcohol_strength/=sober_str
+
+		var/obj/item/organ/internal/liver/L
+		if(!isSynthetic())
+			L = get_int_organ(/obj/item/organ/internal/liver)
+			if(L)
+				alcohol_strength *= L.alcohol_intensity
+			else
+				alcohol_strength *= 5
+
+		if(alcohol_strength >= slur_start) //slurring
+			if (!slurring) slurring = 1
+			slurring = drunk
+		if(alcohol_strength >= brawl_start) //the drunken martial art
+			if(!istype(martial_art, /datum/martial_art/drunk_brawling))
+				var/datum/martial_art/drunk_brawling/F = new
+				F.teach(src,1)
+		if(alcohol_strength < brawl_start) //removing the art
+			if(istype(martial_art, /datum/martial_art/drunk_brawling))
+				martial_art.remove(src)
+		if(alcohol_strength >= confused_start && prob(33)) //confused walking
+			if (!confused) confused = 1
+			confused = max(confused+(3/sober_str),0)
+		if(alcohol_strength >= blur_start) //blurry eyes
+			eye_blurry = max(eye_blurry, 10/sober_str)
+			drowsyness  = max(drowsyness, 0)
+		if(!isSynthetic()) //stuff only for non-synthetics
+			if(alcohol_strength >= vomit_start) //vomiting
+				if(prob(8))
+					fakevomit()
+			if(alcohol_strength >= pass_out)
+				Paralyse(5 / sober_str)
+				drowsyness = max(drowsyness, 30/sober_str)
+				if (L)
+					L.take_damage(0.1, 1)
+				adjustToxLoss(0.1)
+		else //stuff only for synthetics
+			if(alcohol_strength >= spark_start && prob(25))
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				s.set_up(3, 1, src)
+				s.start()
+			if(alcohol_strength >= collapse_start && prob(10))
+				emote("collapse")
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				s.set_up(3, 1, src)
+				s.start()
+			if(alcohol_strength >= braindamage_start && prob(10))
+				adjustBrainLoss(1)
+
+	if(!has_booze())
+		AdjustDrunk(-0.5)
+	return
+
+/mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
+	for(var/A in reagents.reagent_list)
+		var/datum/reagent/R = A
+		if(istype(R, /datum/reagent/ethanol))
+			return 1
+	return 0
+
 /mob/living/carbon/human/handle_regular_status_updates()
 	if(status_flags & GODMODE)
 		return 0
@@ -825,13 +900,9 @@
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
 			ear_damage = max(ear_damage - 0.05, 0)
 
-
 		if(flying)
-			spawn()
-				animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-			spawn(10)
-				if(flying)
-					animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+			animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
@@ -1066,7 +1137,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					to_chat(src, sound('sound/effects/electheart.ogg',0,0,0,30))//Credit to GhostHack (www.ghosthack.de) for sound.
+					src << sound('sound/effects/electheart.ogg',0,0,0,30)//Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -1085,9 +1156,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
+					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
 				else
-					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
+					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
 			else
 				heartbeat++
 

@@ -258,8 +258,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
-			if(species in list("Human", "Drask"))
-				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
+			if(species in list("Human", "Drask", "Vox"))
+				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[species == "Vox" ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'>Set Flavor Text</a><br>"
@@ -447,6 +447,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/datum/job/lastJob
 	if (!job_master)		return
 	for(var/datum/job/job in job_master.occupations)
+
+		if (job.admin_only)
+			continue
 
 		index += 1
 		if((index >= limit) || (job.title in splitJobs))
@@ -984,16 +987,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
-					if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Wryn" || species == "Vulpkanin")
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
 						r_hair = rand(0,255)
 						g_hair = rand(0,255)
 						b_hair = rand(0,255)
 				if("h_style")
 					h_style = random_hair_style(gender, species)
 				if("facial")
-					r_facial = rand(0,255)
-					g_facial = rand(0,255)
-					b_facial = rand(0,255)
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+						r_facial = rand(0,255)
+						g_facial = rand(0,255)
+						b_facial = rand(0,255)
 				if("f_style")
 					f_style = random_facial_hair_style(gender, species)
 				if("underwear")
@@ -1010,10 +1014,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					g_eyes = rand(0,255)
 					b_eyes = rand(0,255)
 				if("s_tone")
-					if(species in list("Human", "Drask"))
-						s_tone = random_skin_tone()
+					if(species in list("Human", "Drask", "Vox"))
+						s_tone = random_skin_tone(species)
 				if("s_color")
-					if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wyrn", "Vulpkanin", "Machine"))
+					if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wryn", "Vulpkanin", "Machine"))
 						r_skin = rand(0,255)
 						g_skin = rand(0,255)
 						b_skin = rand(0,255)
@@ -1037,7 +1041,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
 					if(new_age)
-						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
+						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
 
 					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
@@ -1115,6 +1119,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 						s_tone = 0
 
+						if(!(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")))
+							r_skin = 0
+							g_skin = 0
+							b_skin = 0
+
 						ha_style = "None" // No Vulp ears on Unathi
 						m_style = "None" // No Unathi markings on Tajara
 
@@ -1159,7 +1168,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_type = new_b_type
 
 				if("hair")
-					if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Vulpkanin")
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", rgb(r_hair, g_hair, b_hair)) as color|null
 						if(new_hair)
@@ -1278,11 +1287,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 				if("facial")
-					var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", rgb(r_facial, g_facial, b_facial)) as color|null
-					if(new_facial)
-						r_facial = hex2num(copytext(new_facial, 2, 4))
-						g_facial = hex2num(copytext(new_facial, 4, 6))
-						b_facial = hex2num(copytext(new_facial, 6, 8))
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", rgb(r_facial, g_facial, b_facial)) as color|null
+						if(new_facial)
+							r_facial = hex2num(copytext(new_facial, 2, 4))
+							g_facial = hex2num(copytext(new_facial, 4, 6))
+							b_facial = hex2num(copytext(new_facial, 6, 8))
 
 				if("f_style")
 					var/list/valid_facialhairstyles = list()
@@ -1367,11 +1377,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
 				if("s_tone")
-					if(species != "Human" && species != "Drask")
-						return
-					var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
-					if(new_s_tone)
-						s_tone = 35 - max(min( round(new_s_tone), 220),1)
+					if(species == "Human" || species == "Drask")
+						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
+						if(new_s_tone)
+							s_tone = 35 - max(min(round(new_s_tone), 220), 1)
+					else if(species == "Vox")
+						var/skin_c = input(user, "Choose your Vox's skin color:\n(1 = Default Green, 2 = Dark Green, 3 = Brown, 4 = Grey, \n5 = Emerald, 6 = Azure)", "Character Preference") as num|null
+						if(skin_c)
+							s_tone = max(min(round(skin_c), 6), 1)
 
 				if("skin")
 					if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
@@ -1380,7 +1393,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							r_skin = hex2num(copytext(new_skin, 2, 4))
 							g_skin = hex2num(copytext(new_skin, 4, 6))
 							b_skin = hex2num(copytext(new_skin, 6, 8))
-
 
 				if("ooccolor")
 					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference", ooccolor) as color|null
@@ -1646,9 +1658,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY
 					if(sound & SOUND_LOBBY)
-						to_chat(user, sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1))
+						user << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1)
 					else
-						to_chat(user, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))
+						user << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)
 
 				if("ghost_ears")
 					toggles ^= CHAT_GHOSTEARS

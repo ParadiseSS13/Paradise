@@ -33,10 +33,7 @@
 		return 0
 	return B.host.say_understands(other, speaking)
 
-/mob/living/captive_brain/emote(var/message)
-	return
-
-/mob/living/captive_brain/resist_borer()
+/mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
 
 	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")

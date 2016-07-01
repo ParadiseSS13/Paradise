@@ -1,0 +1,4 @@
+author: Kyep
+delete-after: True
+changes: 
+  - tweak: "Admins playing CC jobs can no longer get antag status from autotraitor."

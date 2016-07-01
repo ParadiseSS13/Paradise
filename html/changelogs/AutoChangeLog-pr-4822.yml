@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in laughter demons"
+  - rscadd: "Can summon laughter demons as a wizard"

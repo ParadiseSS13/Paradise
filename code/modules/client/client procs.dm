@@ -43,6 +43,9 @@
 		completed_asset_jobs += job
 		return
 
+	if(href_list["_src_"] == "chat")
+		return chatOutput.Topic(href, href_list)
+
 	//Reduces spamming of links by dropping calls that happen during the delay period
 	if(next_allowed_topic_time > world.time)
 		return
@@ -203,6 +206,11 @@
 		if("prefs")		return prefs.process_link(usr,href_list)
 		if("vars")		return view_var_Topic(href,href_list,hsrc)
 
+
+	switch(href_list["action"])
+		if ("openLink")
+			src << link(href_list["link"])
+
 	..()	//redirect to hsrc.Topic()
 
 /client/proc/is_content_unlocked()
@@ -245,6 +253,7 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	chatOutput = new /datum/chatOutput(src) // Right off the bat.
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -283,6 +292,7 @@
 	prefs.last_id = computer_id			//these are gonna be used for banning
 
 	. = ..()	//calls mob.Login()
+	chatOutput.start()
 
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")

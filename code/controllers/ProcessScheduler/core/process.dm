@@ -326,6 +326,11 @@
 	stat("[name]", "T#[getTicks()] | AR [averageRunTime] | LR [lastRunTime] | HR [highestRunTime] | D [cpu_defer_count]")
 
 /datum/controller/process/proc/catchException(var/exception/e, var/thrower)
+	if(istype(e)) // Real runtimes go to the real error handler
+		// There are two newlines here, because handling desc sucks
+		e.desc = "  Caught by process: [name]\n\n" + e.desc
+		world.Error(e, e_src = thrower)
+		return
 	var/etext = "[e]"
 	var/eid = "[e]" // Exception ID, for tracking repeated exceptions
 	var/ptext = "" // "processing..." text, for what was being processed (if known)
