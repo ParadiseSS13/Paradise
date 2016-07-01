@@ -1,0 +1,4 @@
+author: VampyrBytes
+delete-after: True
+changes: 
+  - bugfix: "No more *me emoting from your corpse!"

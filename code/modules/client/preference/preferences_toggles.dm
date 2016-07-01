@@ -186,9 +186,9 @@
 	set name = "Hear/Silence Instruments"
 	set category = "Preferences"
 	set desc = "Toggles hearing musical instruments like the violin and piano"
-	prefs.toggles ^= SOUND_INSTRUMENTS
+	prefs.sound ^= SOUND_INSTRUMENTS
 	prefs.save_preferences(src)
-	if(prefs.toggles & SOUND_INSTRUMENTS)
+	if(prefs.sound & SOUND_INSTRUMENTS)
 		to_chat(src, "You will now hear people playing musical instruments.")
 	else
 		to_chat(src, "You will no longer hear musical instruments.")

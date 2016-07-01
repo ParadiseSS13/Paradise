@@ -1,6 +1,6 @@
 /obj/item/weapon/implant/loyalty
-	name = "loyalty implant"
-	desc = "Makes you loyal or such."
+	name = "mindshield implant"
+	desc = "Stops people messing with your mind."
 	origin_tech = "materials=2;biotech=4;programming=4"
 	activated = 0
 
@@ -8,7 +8,7 @@
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Nanotrasen Employee Management Implant<BR>
 				<b>Life:</b> Ten years.<BR>
-				<b>Important Notes:</b> Personnel injected with this device tend to be much more loyal to the company.<BR>
+				<b>Important Notes:</b> Personnel injected with this device can better resist mental compulsions.<BR>
 				<HR>
 				<b>Implant Details:</b><BR>
 				<b>Function:</b> Contains a small pod of nanobots that manipulate the host's mental functions.<BR>
@@ -29,7 +29,7 @@
 		if(target.mind in ticker.mode.cult)
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 		else
-			to_chat(target, "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>")
+			to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")
 		return 1
 	return 0
 
@@ -42,7 +42,7 @@
 
 
 /obj/item/weapon/implanter/loyalty
-	name = "implanter (loyalty)"
+	name = "implanter (mindshield)"
 
 /obj/item/weapon/implanter/loyalty/New()
 	imp = new /obj/item/weapon/implant/loyalty(src)
@@ -51,8 +51,8 @@
 
 
 /obj/item/weapon/implantcase/loyalty
-	name = "implant case - 'Loyalty'"
-	desc = "A glass case containing a loyalty implant."
+	name = "implant case - 'mindshield'"
+	desc = "A glass case containing a mindshield implant."
 
 /obj/item/weapon/implantcase/loyalty/New()
 	imp = new /obj/item/weapon/implant/loyalty(src)

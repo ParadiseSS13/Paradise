@@ -1,4 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - bugfix: "Pulsing multiple doors' \"open door\" wires at the same time using a remote signaller now actually opens them at the same time."

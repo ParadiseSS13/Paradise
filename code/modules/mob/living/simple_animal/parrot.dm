@@ -637,7 +637,7 @@
 		return -1
 
 	if(!held_item)
-		to_chat(usr, "<span class='warning'>You have nothing to drop!</span>")
+		to_chat(src, "<span class='warning'>You have nothing to drop!</span>")
 		return 0
 
 	if(!drop_gently)
