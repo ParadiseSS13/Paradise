@@ -62,5 +62,5 @@ var/global/list/plant_blocked_chems = list()	//filled in /datum/reagents/New() w
 
 var/global/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
 									  "omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
-									  "methamphetamine", "spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh",
-									  "hydrocodone", "mitocholide", "rezadone")
+									  "spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
+									  "mitocholide", "rezadone")

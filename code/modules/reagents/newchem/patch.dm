@@ -10,13 +10,6 @@
 	apply_method = "apply"
 	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
 
-/obj/item/weapon/reagent_containers/food/pill/patch/emag_act(mob/user)
-	if(instant_application)
-		to_chat(user, "<span class='warning'>The patch is sealed already.</span>")
-	else
-		to_chat(user, "<span class='notice'>You press the emag onto the patch. The current from the emag closes the tamper-proof seal.</span>")
-		instant_application = 1
-
 /obj/item/weapon/reagent_containers/food/pill/patch/afterattack(obj/target, mob/user , proximity)
 	return // thanks inheritance again
 

@@ -398,7 +398,6 @@
 	var/pillsprite = "1"
 	var/client/has_sprites = list()
 	var/printing = null
-	var/safety_override = 0
 
 /obj/machinery/chem_master/New()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -426,14 +425,6 @@
 	else
 		spawn(rand(0, 15))
 			stat |= NOPOWER
-
-/obj/machinery/chem_master/emag_act(mob/user)
-	if(!safety_override)
-		to_chat(user, "<span class='notice'>You disable the safeties on the [src].</span>")
-		safety_override = 1
-	else
-		to_chat(user, "<span class='notice'>You re-enable the safeties on the [src].</span>")
-		safety_override = 0
 
 /obj/machinery/chem_master/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob, params)
 
@@ -771,8 +762,6 @@
 		return 0
 
 /obj/machinery/chem_master/proc/chemical_safety_check(datum/reagents/R)
-	if(safety_override)
-		return 1
 	var/all_safe = 1
 	for(var/datum/reagent/A in R.reagent_list)
 		if(!safe_chem_list.Find(A.id))
