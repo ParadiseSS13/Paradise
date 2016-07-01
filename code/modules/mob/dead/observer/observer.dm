@@ -76,6 +76,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
 	ghostimage.overlays = overlays
 	ghostimage.dir = dir
+	ghostimage.appearance_flags |= KEEP_TOGETHER
 	ghost_darkness_images |= ghostimage
 	updateallghostimages()
 	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
@@ -167,6 +168,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Move(NewLoc, direct)
 	following = null
 	dir = direct
+	ghostimage.dir = dir
 	if(NewLoc)
 		forceMove(NewLoc)
 		return
