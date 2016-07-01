@@ -417,20 +417,20 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 /datum/vampire/proc/vamp_burn(severe_burn)
 	var/burn_chance = severe_burn ? 35 : 8
-	if(burn_chance && owner.health >= 50)
+	if(prob(burn_chance) && owner.health >= 50)
 		switch(owner.health)
 			if(75 to 100)
 				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>")
 			if(50 to 75)
 				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>")
 		owner.adjustFireLoss(3)
-	if(owner.health < 50)
+	else if(owner.health < 50)
 		if(!owner.on_fire)
 			to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
+			owner.emote("scream")
 		else
 			to_chat(owner, "<span class='danger'>You continue to burn!</span>")
-		owner.emote("scream")
-		owner.fire_stacks += 5
+		owner.adjust_fire_stacks(5)
 		owner.IgniteMob()
 	return
 
