@@ -1124,6 +1124,8 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
+		if(alert(usr, "Confirm make monkey?", "Yes", "No") != "Yes")
+			return
 
 		log_admin("[key_name(usr)] attempting to monkeyize [key_name(H)]")
 		message_admins("\blue [key_name_admin(usr)] attempting to monkeyize [key_name_admin(H)]", 1)
@@ -1138,6 +1140,9 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
+		if(alert(usr, "Confirm make corgi?", "Yes", "No") != "Yes")
+			return
+
 		log_admin("[key_name(usr)] attempting to corgize [key_name(H)]")
 		message_admins("\blue [key_name_admin(usr)] attempting to corgize [key_name_admin(H)]", 1)
 		H.corgize()
@@ -1148,6 +1153,8 @@
 		var/mob/living/carbon/human/H = locate(href_list["makePAI"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+		if(alert(usr, "Confirm make pai?", "Yes", "No") != "Yes")
 			return
 
 		var/painame = "Default"
@@ -1407,6 +1414,9 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
+		if(alert(usr, "Confirm make ai?", "Yes", "No") != "Yes")
+			return
+
 		message_admins("\red Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!", 1)
 		log_admin("[key_name(usr)] AIized [key_name(H)]")
 		H.AIize()
@@ -1414,6 +1424,10 @@
 
 	else if(href_list["makemask"])
 		if(!check_rights(R_SPAWN))	return
+
+		if(alert(usr, "Confirm make mask?", "Yes", "No") != "Yes")
+			return
+
 		var/mob/currentMob = locate(href_list["makemask"])
 		message_admins("\red Admin [key_name_admin(usr)] made [key_name_admin(currentMob)] into a Mask of Nar'Sie!", 1)
 		log_admin("[key_name(usr)] made [key_name(currentMob)] into a Mask of Nar'Sie!")
@@ -1427,6 +1441,8 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
+		if(alert(usr, "Confirm make alien?", "Yes", "No") != "Yes")
+			return
 
 		usr.client.cmd_admin_alienize(H)
 
@@ -1436,6 +1452,8 @@
 		var/mob/living/carbon/human/H = locate(href_list["makeslime"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+		if(alert(usr, "Confirm make slime?", "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_slimeize(H)
@@ -1448,6 +1466,9 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
+		if(alert(usr, "Confirm make superhero?", "Yes", "No") != "Yes")
+			return
+
 		usr.client.cmd_admin_super(H)
 
 	else if(href_list["makerobot"])
@@ -1456,6 +1477,8 @@
 		var/mob/living/carbon/human/H = locate(href_list["makerobot"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+		if(alert(usr, "Confirm make robot?", "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_robotize(H)
@@ -1466,6 +1489,8 @@
 		var/mob/M = locate(href_list["makeanimal"])
 		if(istype(M, /mob/new_player))
 			to_chat(usr, "This cannot be used on instances of type /mob/new_player")
+			return
+		if(alert(usr, "Confirm make animal?", "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_animalize(M)
