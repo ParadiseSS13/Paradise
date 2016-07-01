@@ -93,7 +93,7 @@ proc/get_radio_key_from_channel(var/channel)
 		verb = "stammers"
 		speech_problem_flag = 1
 
-	else if(COMIC in mutations)
+ if(COMIC in mutations)
 		message = "<span class='sans'>[message]</span>"
 
 	if(!IsVocal())
