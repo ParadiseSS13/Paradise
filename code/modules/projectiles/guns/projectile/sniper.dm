@@ -1,4 +1,4 @@
-/obj/item/weapon/gun/projectile/sniper_rifle
+/obj/item/weapon/gun/projectile/automatic/sniper_rifle
 	name = "sniper rifle"
 	desc = "the kind of gun that will leave you crying for mummy before you even realise your leg's missing"
 	icon_state = "sniper"
@@ -7,6 +7,7 @@
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	fire_delay = 40
+	burst_size = 1
 	origin_tech = "combat=8"
 	can_unsuppress = 1
 	can_suppress = 1
@@ -14,14 +15,15 @@
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = SLOT_BACK
+	action_button_name = null
 
-/obj/item/weapon/gun/projectile/sniper_rifle/update_icon()
+/obj/item/weapon/gun/projectile/automatic/sniper_rifle/update_icon()
 	if(magazine)
 		icon_state = "sniper-mag"
 	else
 		icon_state = "sniper"
 
-/obj/item/weapon/gun/projectile/sniper_rifle/syndicate
+/obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
 	origin_tech = "combat=8;syndicate=4"
