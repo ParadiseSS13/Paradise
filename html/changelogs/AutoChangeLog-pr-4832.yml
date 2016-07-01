@@ -1,0 +1,7 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - tweak: "Chance for vampires to burn in the chapel has been greatly reduced (from a 35% chance down to 8% per tick)."
+  - tweak: "Vampires do not scream from chapel/space burning until they actually start catching fire."
+  - tweak: "Threshold for vampires to catch fire from space/chapel burning changed from 60 health to 50 health."
+  - tweak: "Fire stacks from vampire burning no longer apply twice 35% of the time while below the health threshold."
