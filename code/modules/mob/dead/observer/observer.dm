@@ -44,10 +44,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 
 	stat = DEAD
 
-	ghostimage = image(src.icon,src,src.icon_state)
-	ghost_darkness_images |= ghostimage
-	updateallghostimages()
-
 	var/turf/T
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
@@ -76,7 +72,14 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 					name = capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
 
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
-
+	
+	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
+	ghostimage.overlays = overlays
+	ghostimage.dir = dir
+	ghostimage.alpha = alpha
+	appearance_flags |= KEEP_TOGETHER
+	ghost_darkness_images |= ghostimage
+	updateallghostimages()
 	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
 
@@ -166,6 +169,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Move(NewLoc, direct)
 	following = null
 	dir = direct
+	ghostimage.dir = dir
 	if(NewLoc)
 		forceMove(NewLoc)
 		return
