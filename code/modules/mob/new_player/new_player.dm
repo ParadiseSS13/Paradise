@@ -415,20 +415,62 @@
 	else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
-	dat += "Choose from the following open positions:<br>"
+	dat += "Choose from the following open positions:<br><br>"
+
+	var/list/activePlayers = list()
+	var/list/categorizedJobs = list(
+		"Command" = list(jobs = list(), titles = command_positions, color = "#aac1ee"),
+		"Engineering" = list(jobs = list(), titles = engineering_positions, color = "#ffd699"),
+		"Security" = list(jobs = list(), titles = security_positions, color = "#ff9999"),
+		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
+		"Synthetic" = list(jobs = list(), titles = nonhuman_positions, color = "#ccffcc"),
+		"Support / Service" = list(jobs = list(), titles = service_positions, color = "#cccccc"),
+		"Medical" = list(jobs = list(), titles = medical_positions, color = "#99ffe6", colBreak = 1),
+		"Science" = list(jobs = list(), titles = science_positions, color = "#e6b3e6"),
+		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
+		)
 	for(var/datum/job/job in job_master.occupations)
 		if(job && IsJobAvailable(job.title))
-			var/active = 0
+			activePlayers[job] = 0
+			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
-			for(var/mob/M in player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 * 60 * 10)
-				active++
-			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a><br>"
+			for(var/mob/M in player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 MINUTES)
+				activePlayers[job]++
+			for(var/jobcat in categorizedJobs)
+				var/list/jobs = categorizedJobs[jobcat]["jobs"]
+				if(job.title in categorizedJobs[jobcat]["titles"])
+					categorized = 1
+					if(jobcat == "Command") // Put captain at top of command jobs
+						if(job.title == "Captain")
+							jobs.Insert(1, job)
+						else
+							jobs += job
+					else // Put heads at top of non-command jobs
+						if(job.title in command_positions)
+							jobs.Insert(1, job)
+						else
+							jobs += job
+			if(!categorized)
+				categorizedJobs["Miscellaneous"]["jobs"] += job
 
-	dat += "</center>"
+	dat += "<table><tr><td valign='top'>"
+	for(var/jobcat in categorizedJobs)
+		if(categorizedJobs[jobcat]["colBreak"])
+			dat += "</td><td valign='top'>"
+		if(length(categorizedJobs[jobcat]["jobs"]) < 1)
+			continue
+		var/color = categorizedJobs[jobcat]["color"]
+		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
+		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
+		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
+			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+		dat += "</fieldset><br>"
+
+	dat += "</td></tr></table></center>"
 	// Removing the old window method but leaving it here for reference
 //		src << browse(dat, "window=latechoices;size=300x640;can_close=1")
 	// Added the new browser window method
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 440, 500)
+	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
