@@ -915,8 +915,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Send Teacher pAI"
 	set desc = "Turns a ghost into a pAI that teaches a player"
-	if(!check_rights(R_ADMIN))
-		to_chat(usr, "<span class='warning'>Admin only.</span>")
+	if(!check_rights(R_ADMIN, 1))
 		return
 	var/list/tcandidates = list()
 	for(var/mob/living/carbon/human/H in player_list)
@@ -926,9 +925,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "No human-type mobs found.")
 		return
 	var/mob/living/carbon/M = input(usr, "Choose player to recieve help.", "Choose Help Recipient") in tcandidates
-	if (M.stat == DEAD)
-		to_chat(usr, "Player [M] is dead.")
-		return
 	var/list/thecandidates = list()
 	for(var/mob/dead/observer/O in player_list)
 		if(!O.client)
@@ -985,7 +981,3 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	to_chat(P,"<span class='notice'>Don't do anything that would seriously interfere with the round - just focus on teaching [M] how to play their role.</span>")
 	C.visible_message("<span class='notice'>[M] finds [C]!</span>")
 	M.desc = "A personal AI unit, sent to help [M]."
-	C.radio.broadcasting = 1
-	C.locked = 1 // prevents the 'master' changing directives, disabling radio, etc.
-	P.locked = 1
-
