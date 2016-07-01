@@ -488,7 +488,7 @@
 	strip_delay = 60
 	put_on_delay = 40
 	flags = ONESIZEFITSALL
-	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	//End of inheritance from Security armour.
 
 /obj/item/clothing/suit/jacket/leather
