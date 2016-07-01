@@ -23,7 +23,7 @@
 	{{else data.menu == 0}}
 		<h3>Main Menu:</h3>
 		{{for data.tech_levels}}
-		<div class="line">{{:value.level}}:{{:value.name}}</div>
+		<div class='line'><div class='itemLabel'>{{:value.name}}:</div>{{:value.level}}</div>
 		{{/for}}
 		<div class='line'>{{:helper.link('Current Research Levels', 'folder-open', {'menu': 1, 'submenu': 0})}}</div>
 		<div class='line'>{{:helper.link('Disk Operations', 'save', {'menu': 2, 'submenu': 0}, data.disk_type ? null : 'disabled')}}</div>
