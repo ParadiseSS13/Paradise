@@ -22,6 +22,9 @@
 		{{:data.wait_message}}
 	{{else data.menu == 0}}
 		<h3>Main Menu:</h3>
+		{{for data.tech_levels}}
+		<div class="line">{{:value.level}}:{{:value.name}}</div>
+		{{/for}}
 		<div class='line'>{{:helper.link('Current Research Levels', 'folder-open', {'menu': 1, 'submenu': 0})}}</div>
 		<div class='line'>{{:helper.link('Disk Operations', 'save', {'menu': 2, 'submenu': 0}, data.disk_type ? null : 'disabled')}}</div>
 		<div class='line'>{{:helper.link('Destructive Analyzer Menu', 'chain-broken', {'menu': 3, 'submenu': 0}, data.linked_destroy ? null : 'disabled')}}</div>
