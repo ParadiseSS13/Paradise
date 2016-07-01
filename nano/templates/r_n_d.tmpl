@@ -25,7 +25,6 @@
 		{{for data.tech_levels}}
 		<div class='line'><div class='itemLabel'>{{:value.name}}:</div>{{:value.level}}</div>
 		{{/for}}
-		<div class='line'>{{:helper.link('Current Research Levels', 'folder-open', {'menu': 1, 'submenu': 0})}}</div>
 		<div class='line'>{{:helper.link('Disk Operations', 'save', {'menu': 2, 'submenu': 0}, data.disk_type ? null : 'disabled')}}</div>
 		<div class='line'>{{:helper.link('Destructive Analyzer Menu', 'chain-broken', {'menu': 3, 'submenu': 0}, data.linked_destroy ? null : 'disabled')}}</div>
 		<div class='line'>{{:helper.link('Protolathe Menu', 'print', {'menu': 4, 'submenu': 0}, data.linked_lathe ? null : 'disabled')}}</div>
