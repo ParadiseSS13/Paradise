@@ -73,9 +73,10 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
 	
-	ghostimage = image(src.icon,src,src.icon_state)
+	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
+	ghostimage.overlays = overlays
+	ghostimage.dir = dir
 	ghost_darkness_images |= ghostimage
-	ghostimage.appearance = appearance
 	updateallghostimages()
 	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
