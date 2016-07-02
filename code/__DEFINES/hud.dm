@@ -41,3 +41,5 @@
 #define ANTAG_HUD_CHANGELING 14
 #define ANTAG_HUD_VAMPIRE 15
 #define ANTAG_HUD_ABDUCTOR 16 //For Fox
+#define ANTAG_HUD_SIT 17 // For Syndicate Infiltration Teams (SITs)
+
