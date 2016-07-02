@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Chem master can produce instantaneous medical patches if all chems are safe"

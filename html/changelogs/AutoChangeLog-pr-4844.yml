@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - tweak: "The late-join job listing will now ignore (mis)clicks for the first second after popping up."
