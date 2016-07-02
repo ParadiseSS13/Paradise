@@ -7,7 +7,7 @@
 	icon_state = "director"
 	item_state = "g_suit"
 	item_color = "director"
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 10, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/scientist
@@ -17,7 +17,7 @@
 	item_state = "w_suit"
 	item_color = "toxinswhite"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 10, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chemist
@@ -27,7 +27,7 @@
 	item_state = "w_suit"
 	item_color = "chemistrywhite"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /*
@@ -40,7 +40,7 @@
 	item_state = "w_suit"
 	item_color = "cmo"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/geneticist
@@ -50,7 +50,7 @@
 	item_state = "w_suit"
 	item_color = "geneticswhite"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/virologist
@@ -60,7 +60,7 @@
 	item_state = "w_suit"
 	item_color = "virologywhite"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/nursesuit
@@ -70,7 +70,7 @@
 	item_state = "nursesuit"
 	item_color = "nursesuit"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/nurse
@@ -80,7 +80,7 @@
 	item_state = "nurse"
 	item_color = "nurse"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/orderly
@@ -90,7 +90,7 @@
 	item_state = "orderly"
 	item_color = "orderly"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/medical
@@ -100,7 +100,7 @@
 	item_state = "w_suit"
 	item_color = "medical"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/medical/blue
@@ -139,7 +139,7 @@
 	item_state = "paramedic"
 	item_color = "paramedic"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 10)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/psych
@@ -169,7 +169,7 @@
 	item_state = "w_suit"
 	item_color = "genetics_new"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chemist_new
@@ -179,7 +179,7 @@
 	item_state = "w_suit"
 	item_color = "chemist_new"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/scientist_new
@@ -189,7 +189,7 @@
 	item_state = "w_suit"
 	item_color = "scientist_new"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 10, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/virologist_new
@@ -199,5 +199,5 @@
 	item_state = "w_suit"
 	item_color = "virologist_new"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL

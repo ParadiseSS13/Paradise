@@ -86,6 +86,14 @@
 	flags_inv = HIDEEARS
 	strip_delay = 80
 
+/obj/item/clothing/head/helmet/riot/knight
+	name = "medieval helmet"
+	desc = "A classic metal helmet."
+	icon_state = "knight_green"
+	item_state = "knight_green"
+	flags = BLOCKHAIR|HEADCOVERSEYES|HEADCOVERSMOUTH
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+
 /obj/item/clothing/head/helmet/justice
 	name = "helmet of justice"
 	desc = "WEEEEOOO. WEEEEEOOO. WEEEEOOOO."
@@ -193,14 +201,6 @@ obj/item/clothing/head/blob
 	item_state = "blobhat"
 	flags = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
-
-/obj/item/clothing/head/helmet/riot/knight
-	name = "medieval helmet"
-	desc = "A classic metal helmet."
-	icon_state = "knight_green"
-	item_state = "knight_green"
-	flags = BLOCKHAIR|HEADCOVERSEYES|HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 /obj/item/clothing/head/helmet/riot/knight/blue
 	icon_state = "knight_blue"
