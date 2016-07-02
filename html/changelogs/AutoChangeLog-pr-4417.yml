@@ -1,5 +1,0 @@
-author: tigercat2000
-delete-after: True
-changes: 
-  - rscadd: "There's a new tab in the character setup screen, \"loadouts\". This allows you to spawn with a limited number of preset items."
-  - tweak: "Character setup now uses #defines for the different tabs."

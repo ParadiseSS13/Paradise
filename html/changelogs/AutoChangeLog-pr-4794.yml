@@ -1,4 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - bugfix: "Fixes ghosts having a generic icon when darkness is toggled off"
