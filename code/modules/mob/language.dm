@@ -278,7 +278,7 @@
 
 /datum/language/grey
 	name = "Psionic Communication"
-	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy."
+	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy. Talk to other greys within a limited radius."
 	speech_verb = "expresses"
 	ask_verb = "inquires"
 	exclaim_verb = "imparts"
