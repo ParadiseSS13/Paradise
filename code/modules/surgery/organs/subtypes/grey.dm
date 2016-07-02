@@ -13,5 +13,5 @@
 
 /obj/item/organ/internal/brain/grey/remove(var/mob/living/carbon/M, var/special = 0)
 	..()
-	if("Psionic Communication" in M.languages)
+	if(/datum/language/grey in M.languages)
 		M.remove_language("Psionic Communication")
