@@ -472,6 +472,7 @@
 	// Added the new browser window method
 	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
+	popup.add_script("delay_interactivity", 'html/browser/delay_interactivity.js')
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
