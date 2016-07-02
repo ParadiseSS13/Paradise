@@ -165,20 +165,18 @@
 			"}
 		dat += "<br>"
 		if(radio)
-			dat += "<b>Radio Uplink</b>"
+			dat += "<b>Radio Uplink</b><br>"
 			dat += {"
 				<table class="request">
 					<tr>
 						<td class="radio">Transmit:</td>
 						<td><a href='byond://?src=\ref[src];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
-
-						</td>
+							</td>
 					</tr>
 					<tr>
 						<td class="radio">Receive:</td>
 						<td><a href='byond://?src=\ref[src];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
-
-						</td>
+							</td>
 					</tr>
 				</table>
 				<br>
@@ -189,10 +187,10 @@
 		dat += {"
 			<table>
 				<td class="button_red"><a href='byond://?src=\ref[src];wipe=1' class='button'>Wipe current pAI personality</a>
-
 				</td>
 			</table>
 		"}
+
 	else
 		if(looking_for_personality)
 			dat += {"

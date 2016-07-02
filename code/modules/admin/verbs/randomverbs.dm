@@ -910,3 +910,74 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "\red ERT has been <b>Disabled</b>.")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
+
+/client/proc/cmd_admin_mentorpai()
+	set category = "Admin"
+	set name = "Send Teacher pAI"
+	set desc = "Turns a ghost into a pAI that teaches a player"
+	if(!check_rights(R_ADMIN, 1))
+		return
+	var/list/tcandidates = list()
+	for(var/mob/living/carbon/human/H in player_list)
+		if (H.stat != DEAD)
+			tcandidates += H
+	if(!tcandidates.len)
+		to_chat(usr, "No human-type mobs found.")
+		return
+	var/mob/living/carbon/M = input(usr, "Choose player to recieve help.", "Choose Help Recipient") in tcandidates
+	var/list/thecandidates = list()
+	for(var/mob/dead/observer/O in player_list)
+		if(!O.client)
+			continue
+		if(!player_old_enough_antag(O.client,ROLE_PAI))
+			continue
+		if(jobban_isbanned(O, "pAI") || jobban_isbanned(O,"nonhumandept") )
+			continue
+		if (O.has_enabled_antagHUD)
+			continue
+		thecandidates += O
+	if(!thecandidates.len)
+		to_chat(usr, "No suitable candidates to be pAI.")
+		return
+
+	var/choice = input("Hand-pick who will help [M]? If yes, you will pick from ghosts. If no, any ghost can volunteer.") in list ("Yes", "No")
+	var/mob/dead/observer/theguy = null
+	if(choice == "Yes")
+		theguy = input(usr, "Who will help [M]?", "Choose Player") in thecandidates
+		if(!theguy || !istype(theguy))
+			to_chat(usr, "Invalid candidate.")
+			return
+	else if(choice == "No")
+		var/list/hcandidates = pollCandidates("Play a Mentor pAI, sent to teach [M]?")
+		if (hcandidates.len)
+			theguy = pick(hcandidates)
+		else
+			to_chat(usr, "No ghosts volunteered to help teach [M].")
+			return
+	else
+		to_chat(usr, "Selection Error.")
+		return
+
+	var/obj/item/device/paicard/C = new /obj/item/device/paicard(M)
+	C.loc = M.loc
+	var/mob/living/silicon/pai/P = new /mob/living/silicon/pai(C)
+	var/chosen_name = input(theguy, "Enter your pAI name:", "pAI Name", "Personal AI") as text
+	if (chosen_name)
+		P.name = chosen_name
+	else
+		P.name = "H.E.L.P.E.R"
+	P.real_name = P.name
+	P.key = theguy.key
+	C.setPersonality(P)
+	C.looking_for_personality = 0
+	ticker.mode.update_cult_icons_removed(C.pai.mind)
+	ticker.mode.update_rev_icons_removed(C.pai.mind)
+	P.pai_law0 = "Guide and advise [M]"
+	var/datum/dna/dna = M.dna
+	P.master = M.real_name
+	P.master_dna = dna.unique_enzymes
+	to_chat(P,"<span class='notice'>You are a pAI sent to teach [M] about life on the Cyberiad. (IE: to help them learn the game)</span>")
+	to_chat(P,"<span class='notice'>You do not have to obey them, but should answer their questions, and give them good advice.</span>")
+	to_chat(P,"<span class='notice'>Don't do anything that would seriously interfere with the round - just focus on teaching [M] how to play their role.</span>")
+	C.visible_message("<span class='notice'>[M] finds [C]!</span>")
+	M.desc = "A personal AI unit, sent to help [M]."
