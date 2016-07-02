@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Can now purchase sniper rifle and associated ammo on uplink during nuke ops"

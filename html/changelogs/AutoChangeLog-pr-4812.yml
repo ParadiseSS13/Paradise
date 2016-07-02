@@ -1,0 +1,6 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - imageadd: "Engineer boots that've had their toes cut open now have a sprite."
+  - imageadd: "Vox now have engineer workboot sprites."
+  - imagedel: "Removes unused SWAT boot sprites that were really just copypasted jackboot sprites."

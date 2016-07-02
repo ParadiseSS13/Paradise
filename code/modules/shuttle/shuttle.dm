@@ -683,7 +683,7 @@
 
 /obj/machinery/computer/shuttle/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(!allowed(usr))
@@ -726,7 +726,8 @@
 	admin_controlled = 1
 
 /obj/machinery/computer/shuttle/ferry/request/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
 	if(href_list["request"])
 		if(cooldown)
 			return
@@ -801,7 +802,8 @@ var/global/trade_dockrequest_timelimit = 0
 	..(user)
 
 /obj/machinery/computer/shuttle/trade/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
 	if(href_list["request"])
 		if(world.time < trade_dockrequest_timelimit || world.time < trade_dock_timelimit)
 			return
