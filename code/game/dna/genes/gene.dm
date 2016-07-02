@@ -38,14 +38,16 @@
 	return 0
 
 // Called when the gene activates.  Do your magic here.
-/datum/dna/gene/proc/activate(var/mob/M, var/connected, var/flags)
+/datum/dna/gene/proc/activate(var/mob/living/M, var/connected, var/flags)
+	M.gene_stability += instability
 	return
 
 /**
 * Called when the gene deactivates.  Undo your magic here.
 * Only called when the block is deactivated.
 */
-/datum/dna/gene/proc/deactivate(var/mob/M, var/connected, var/flags)
+/datum/dna/gene/proc/deactivate(var/mob/living/M, var/connected, var/flags)
+	M.gene_stability -= instability
 	return
 
 // This section inspired by goone's bioEffects.

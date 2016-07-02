@@ -195,6 +195,7 @@
 	to_chat(wizard_mob, "In your pockets you will find a teleport scroll. Use it as needed.")
 	wizard_mob.mind.store_memory("<B>Remember:</B> do not forget to prepare your spells.")
 	wizard_mob.update_icons()
+	wizard_mob.gene_stability = 2 * DEFAULT_GENE_STABILITY //magic
 	return 1
 
 
