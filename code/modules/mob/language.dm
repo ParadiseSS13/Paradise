@@ -107,7 +107,7 @@
 			to_chat(player, msg_dead)
 			continue
 
-		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
+		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker) == 1))
 			to_chat(player, msg)
 
 /datum/language/proc/check_special_condition(var/mob/other, var/mob/living/speaker)
@@ -275,6 +275,24 @@
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
+
+/datum/language/grey
+	name = "Psionic Communication"
+	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy."
+	speech_verb = "expresses"
+	ask_verb = "inquires"
+	exclaim_verb = "imparts"
+	colour = "abductor"
+	key = "^"
+	flags = RESTRICTED | HIVEMIND
+
+/datum/language/grey/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+	..(speaker,message,speaker.real_name)
+
+/datum/language/grey/check_special_condition(var/mob/living/carbon/human/other, var/mob/living/carbon/human/speaker)
+	if(other in range(14, speaker))
+		return 1
+	return 0
 
 /datum/language/drask
 	name = "Orluum"
