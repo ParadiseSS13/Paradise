@@ -42,7 +42,7 @@ var/global/list/localisation = list()
 
 	cyrillic_ya
 		letter = "ÿ"
-		chat = "&#255;"
+		chat = "&#1103;"
 		browser = "&#1103;"
 		log = "ß"
 		temp = "¶"
