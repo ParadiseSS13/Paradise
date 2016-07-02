@@ -1,0 +1,10 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Most melee and laser armor values halved or reduced; some bullet armor reduced slightly"
+  - tweak: "Slowdown on most armor and spacesuits reduced by 1 (chaplain armor is still slow though)"
+  - tweak: "Mining armor caps out at 60 melee resist as opposed to 80"
+  - tweak: "Ling melee armor reduced; bullet and laser values buffed a bit and slowdown removed"
+  - tweak: "Chameleon jumpsuit has a little bit of armor"
+  - tweak: "Detective's forensic jacket now has identical armor to the native detective jacket"
+  - tweak: "Armor penetration added to energy swords, chainsaws, scythes, and spears"
