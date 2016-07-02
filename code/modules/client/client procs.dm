@@ -8,6 +8,8 @@
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
 #define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
 									//I would just like the code ready should it ever need to be used.
+#define SUGGESTED_CLIENT_VERSION	510		// only integers (e.g: 510, 511) useful here. Does not properly handle minor versions (e.g: 510.58, 511.848)
+
 	/*
 	When somebody clicks a link in game, this Topic is called first.
 	It does the stuff in this proc and  then is redirected to the Topic() proc for the src=[0xWhatever]
@@ -258,8 +260,10 @@
 
 	if(connection != "seeker")					//Invalid connection type.
 		return null
-	if(byond_version < MIN_CLIENT_VERSION)		//Out of date client.
+	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		return null
+	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
+		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
 
 	if(IsGuestKey(key))
 		alert(src,"This server doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
