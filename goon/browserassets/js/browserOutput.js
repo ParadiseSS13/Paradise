@@ -715,6 +715,7 @@ $(function() {
 		var messagesHeight = $messages.outerHeight();
 		$('body,html').scrollTop(messagesHeight);
 		$('#newMessages').remove();
+        runByond("byond://winset?mapwindow.map.focus=true");
 	});
 
 	$('#toggleOptions').click(function(e) {

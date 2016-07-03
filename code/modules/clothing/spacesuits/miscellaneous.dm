@@ -6,7 +6,7 @@
 	desc = "A special helmet designed for only the most fashionable of military figureheads."
 	flags_inv = HIDEFACE
 	permeability_coefficient = 0.01
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
+	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
 	species_restricted = list("exclude", "Diona", "Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -26,8 +26,7 @@
 	item_state = "capspacesuit"
 	w_class = 4
 	allowed = list(/obj/item/weapon/tank, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
-	slowdown = 1
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
+	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
 	species_restricted = list("exclude", "Diona", "Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -56,8 +55,7 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank,/obj/item/weapon/kitchen/knife/combat)
-	armor = list(melee = 80, bullet = 80, laser = 50,energy = 50, bomb = 100, bio = 100, rad = 100)
-	slowdown = 1
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
@@ -69,14 +67,14 @@
 	icon_state = "heavy"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank,/obj/item/weapon/kitchen/knife/combat)
-	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 10, rad = 0)
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 50, bio = 90, rad = 20)
 	strip_delay = 120
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
-	armor = list(melee = 65, bullet = 55, laser = 35,energy = 20, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 65, bullet = 55, laser = 35, energy = 20, bomb = 30, bio = 30, rad = 30)
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
@@ -111,7 +109,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE
 	strip_delay = 40
 	put_on_delay = 20
@@ -124,7 +122,7 @@
 	w_class = 3
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	slowdown = 0
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 	strip_delay = 40
 	put_on_delay = 20
 
@@ -146,8 +144,7 @@
 	icon_state = "spacenew"
 	item_state = "s_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	slowdown = 1
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
@@ -155,7 +152,7 @@
 	item_state = "s_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flash_protect = 0
 
 //Mime's Hardsuit
@@ -192,7 +189,7 @@
 	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
-	armor = list(melee = 40, bullet = 40, laser = 30, energy = 25, bomb = 100, bio = 100, rad = 100)
+	armor = list(melee = 20, bullet = 40, laser = 30, energy = 25, bomb = 100, bio = 100, rad = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
@@ -203,8 +200,7 @@
 	icon_state = "freedom"
 	item_state = "freedom"
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
-	armor = list(melee = 40, bullet = 40, laser = 30,energy = 25, bomb = 100, bio = 100, rad = 100)
-	slowdown = 1
+	armor = list(melee = 20, bullet = 40, laser = 30, energy = 25, bomb = 100, bio = 100, rad = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130

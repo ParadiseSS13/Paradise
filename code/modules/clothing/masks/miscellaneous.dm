@@ -63,7 +63,7 @@
 	flags = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 25, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 25, rad = 0)
 	action_button_name = "Adjust Sterile Mask"
 	ignore_maskadjust = 0
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")

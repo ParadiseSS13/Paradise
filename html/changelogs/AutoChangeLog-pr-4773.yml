@@ -1,4 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "IPC parts from the mech fabricator won't turn IPCs invisible upon attachment anymore."

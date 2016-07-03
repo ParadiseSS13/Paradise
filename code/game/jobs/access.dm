@@ -116,6 +116,9 @@ var/const/access_trade_sol = 160
 	if(check_access())
 		return 1
 
+	if(!M)
+		return 0
+
 	var/acc = M.get_access() //see mob.dm
 
 	if(acc == IGNORE_ACCESS)

@@ -206,6 +206,7 @@
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	flags = NOSHIELD
+	armour_penetration = 35
 	origin_tech = "magnets=3;syndicate=4"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = 1
@@ -293,6 +294,7 @@
 	force_wielded = 18 // Was 13, Buffed - RR
 	throwforce = 20
 	throw_speed = 3
+	armour_penetration = 10
 	no_spin_thrown = 1 // Thrown spears that spin look dumb. -Fox
 	flags = NOSHIELD
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
@@ -370,6 +372,7 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	flags = NOSHIELD
+	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = 1

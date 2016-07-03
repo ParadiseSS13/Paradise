@@ -1,6 +1,0 @@
-author: Kyep
-delete-after: True
-changes: 
-  - rscadd: "Admins can now join as \"Nanotrasen Navy Officer\", and \"Special Operations Officer\". They spawn on adminstation and ERT office, respectively. They are not announced and do not appear on crew manifest."
-  - tweak: "\"Select equipment\" verb outfits tweaked for consistency with the above job outfits"
-  - bugfix: "Teleporter on admin station now works."
