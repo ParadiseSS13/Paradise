@@ -112,6 +112,7 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 
 	// Show the error to admins with debug messages turned on, but only if one
 	//  from the same source hasn't been shown too recently
+	// (Also, make sure config is initialized, or log_debug will runtime)
 	if(config && error_source.next_message_at <= world.time)
 		var/const/viewtext = "\[view]" // Nesting these in other brackets went poorly
 		log_debug("Runtime in [e.file],[e.line]: [html_encode(e.name)] [error_entry.makeLink(viewtext)]")
