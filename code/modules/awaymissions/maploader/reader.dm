@@ -44,96 +44,104 @@ var/global/dmm_suite/preloader/_preloader = new
 
 	var/dmm_suite/loaded_map/LM = new
 
-	dmmRegex.next = 1
-	while(dmmRegex.Find(tfile, dmmRegex.next))
+	// It is *VERY* important that this is reset to 0 when we are done here
+	// Otherwise lots of things will fall apart like a milkless lich
+	defer_auto_init = 1
+	try
+		dmmRegex.next = 1
+		while(dmmRegex.Find(tfile, dmmRegex.next))
 
-		// "aa" = (/type{vars=blah})
-		if(dmmRegex.group[1]) // Model
-			var/key = dmmRegex.group[1]
-			if(grid_models[key]) // Duplicate model keys are ignored in DMMs
-				continue
-			if(key_len != length(key))
-				if(!key_len)
-					key_len = length(key)
-				else
-					throw EXCEPTION("Inconsistant key length in DMM")
-			if(!measureOnly)
-				grid_models[key] = dmmRegex.group[2]
-
-		// (1,1,1) = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
-		else if(dmmRegex.group[3]) // Coords
-			if(!key_len)
-				throw EXCEPTION("Coords before model definition in DMM")
-
-			var/xcrdStart = text2num(dmmRegex.group[3]) + x_offset - 1
-			//position of the currently processed square
-			var/xcrd
-			var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
-			var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
-
-			if(zcrd > world.maxz)
-				if(cropMap)
+			// "aa" = (/type{vars=blah})
+			if(dmmRegex.group[1]) // Model
+				var/key = dmmRegex.group[1]
+				if(grid_models[key]) // Duplicate model keys are ignored in DMMs
 					continue
-				else
-					world.maxz = zcrd //create a new z_level if needed
-
-			bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrdStart)
-			bounds[MAP_MINZ] = min(bounds[MAP_MINZ], zcrd)
-			bounds[MAP_MAXZ] = max(bounds[MAP_MAXZ], zcrd)
-
-			var/list/gridLines = splittext(dmmRegex.group[6], "\n")
-
-			var/leadingBlanks = 0
-			while(leadingBlanks < gridLines.len && gridLines[++leadingBlanks] == "")
-			if(leadingBlanks > 1)
-				gridLines.Cut(1, leadingBlanks) // Remove all leading blank lines.
-
-			if(!gridLines.len) // Skip it if only blank lines exist.
-				continue
-
-			if(gridLines.len && gridLines[gridLines.len] == "")
-				gridLines.Cut(gridLines.len) // Remove only one blank line at the end.
-
-			bounds[MAP_MINY] = min(bounds[MAP_MINY], ycrd)
-			ycrd += gridLines.len - 1 // Start at the top and work down
-
-			if(!cropMap && ycrd > world.maxy)
+				if(key_len != length(key))
+					if(!key_len)
+						key_len = length(key)
+					else
+						throw EXCEPTION("Inconsistant key length in DMM")
 				if(!measureOnly)
-					world.maxy = ycrd // Expand Y here.  X is expanded in the loop below
-				bounds[MAP_MAXY] = max(bounds[MAP_MAXY], ycrd)
-			else
-				bounds[MAP_MAXY] = max(bounds[MAP_MAXY], min(ycrd, world.maxy))
+					grid_models[key] = dmmRegex.group[2]
 
-			var/maxx = xcrdStart
-			if(measureOnly)
-				for(var/line in gridLines)
-					maxx = max(maxx, xcrdStart + length(line) / key_len - 1)
-			else
-				for(var/line in gridLines)
-					if(ycrd <= world.maxy && ycrd >= 1)
-						xcrd = xcrdStart
-						for(var/tpos = 1 to length(line) - key_len + 1 step key_len)
-							if(xcrd > world.maxx)
-								if(cropMap)
-									break
-								else
-									world.maxx = xcrd
+			// (1,1,1) = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+			else if(dmmRegex.group[3]) // Coords
+				if(!key_len)
+					throw EXCEPTION("Coords before model definition in DMM")
 
-							if(xcrd >= 1)
-								var/model_key = copytext(line, tpos, tpos + key_len)
-								if(!grid_models[model_key])
-									throw EXCEPTION("Undefined model key in DMM.")
-								parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM)
-								CHECK_TICK
+				var/xcrdStart = text2num(dmmRegex.group[3]) + x_offset - 1
+				//position of the currently processed square
+				var/xcrd
+				var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
+				var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
 
-							maxx = max(maxx, xcrd)
-							++xcrd
-					--ycrd
+				if(zcrd > world.maxz)
+					if(cropMap)
+						continue
+					else
+						world.maxz = zcrd //create a new z_level if needed
 
-			bounds[MAP_MAXX] = max(bounds[MAP_MAXX], cropMap ? min(maxx, world.maxx) : maxx)
+				bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrdStart)
+				bounds[MAP_MINZ] = min(bounds[MAP_MINZ], zcrd)
+				bounds[MAP_MAXZ] = max(bounds[MAP_MAXZ], zcrd)
 
-		CHECK_TICK
+				var/list/gridLines = splittext(dmmRegex.group[6], "\n")
 
+				var/leadingBlanks = 0
+				while(leadingBlanks < gridLines.len && gridLines[++leadingBlanks] == "")
+				if(leadingBlanks > 1)
+					gridLines.Cut(1, leadingBlanks) // Remove all leading blank lines.
+
+				if(!gridLines.len) // Skip it if only blank lines exist.
+					continue
+
+				if(gridLines.len && gridLines[gridLines.len] == "")
+					gridLines.Cut(gridLines.len) // Remove only one blank line at the end.
+
+				bounds[MAP_MINY] = min(bounds[MAP_MINY], ycrd)
+				ycrd += gridLines.len - 1 // Start at the top and work down
+
+				if(!cropMap && ycrd > world.maxy)
+					if(!measureOnly)
+						world.maxy = ycrd // Expand Y here.  X is expanded in the loop below
+					bounds[MAP_MAXY] = max(bounds[MAP_MAXY], ycrd)
+				else
+					bounds[MAP_MAXY] = max(bounds[MAP_MAXY], min(ycrd, world.maxy))
+
+				var/maxx = xcrdStart
+				if(measureOnly)
+					for(var/line in gridLines)
+						maxx = max(maxx, xcrdStart + length(line) / key_len - 1)
+				else
+					for(var/line in gridLines)
+						if(ycrd <= world.maxy && ycrd >= 1)
+							xcrd = xcrdStart
+							for(var/tpos = 1 to length(line) - key_len + 1 step key_len)
+								if(xcrd > world.maxx)
+									if(cropMap)
+										break
+									else
+										world.maxx = xcrd
+
+								if(xcrd >= 1)
+									var/model_key = copytext(line, tpos, tpos + key_len)
+									if(!grid_models[model_key])
+										throw EXCEPTION("Undefined model key in DMM.")
+									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM)
+									CHECK_TICK
+
+								maxx = max(maxx, xcrd)
+								++xcrd
+						--ycrd
+
+				bounds[MAP_MAXX] = max(bounds[MAP_MAXX], cropMap ? min(maxx, world.maxx) : maxx)
+
+			CHECK_TICK
+	catch(var/exception/e)
+		// Can't let this stay 1 or the world falls apart
+		defer_auto_init = 0
+		throw e
+	defer_auto_init = 0
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		log_startup_progress("Min x: bounds[MAP_MINX]")

@@ -6,7 +6,7 @@
 	var/useGrille = 1
 	var/windowtospawn = /obj/structure/window/basic
 
-/obj/effect/spawner/window/New()
+/obj/effect/spawner/window/initialize()
 	spawn(0)
 		for(var/obj/structure/grille/G in get_turf(src))	qdel(G) //just in case mappers don't know what they are doing
 
@@ -29,6 +29,7 @@
 
 		spawn(10)
 			qdel(src)
+
 
 /obj/effect/spawner/window/reinforced
 	name = "reinforced window spawner"

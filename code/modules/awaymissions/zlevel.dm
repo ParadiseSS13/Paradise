@@ -11,6 +11,8 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			T.lighting_build_overlays()
 		for(var/obj/structure/cable/PC in T)
 			makepowernet_for(PC)
+		for(var/atom/movable/AM in T)
+			AM.initialize()
 	for(var/turf/T in smoothTurfs)
 		if(T.smooth)
 			smooth_icon(T)
