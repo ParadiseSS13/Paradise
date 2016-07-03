@@ -25,6 +25,10 @@
 	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, \
 	/obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 //Botonist
 /obj/item/clothing/suit/apron
@@ -119,10 +123,6 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/weapon/kitchen/knife)
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 //Detective
 /obj/item/clothing/suit/storage/det_suit
@@ -150,6 +150,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen, /obj/item/device/flashlight,/obj/item/weapon/gun/energy,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/detective_scanner,/obj/item/device/taperecorder)
 	armor = list(melee = 10, bullet = 10, laser = 15, energy = 10, bomb = 0, bio = 0, rad = 0)
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/storage/forensics/red
 	name = "red jacket"
@@ -174,6 +178,10 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 //Engineering
 /obj/item/clothing/suit/storage/hazardvest
@@ -189,6 +197,12 @@
 		)
 
 //Lawyer
+/obj/item/clothing/suit/storage/lawyer
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
 /obj/item/clothing/suit/storage/lawyer/blackjacket
 	name = "black suit jacket"
 	desc = "A snappy dress jacket."
@@ -233,6 +247,10 @@
 	suit_adjusted = 1
 	action_button_name = "Button/Unbutton Jacket"
 	adjust_flavour = "unbutton"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/storage/ntrep
 	name = "\improper NanoTrasen Representative jacket"
@@ -244,6 +262,10 @@
 	ignore_suitadjust = 0
 	action_button_name = "Button/Unbutton Jacket"
 	adjust_flavour = "unbutton"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 //Medical
 /obj/item/clothing/suit/storage/fr_jacket
@@ -258,6 +280,10 @@
 	suit_adjusted = 1
 	action_button_name = "Button/Unbutton Jacket"
 	adjust_flavour = "unbutton"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 //Mime
 /obj/item/clothing/suit/suspenders
@@ -266,3 +292,7 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "suspenders"
 	blood_overlay_type = "armor" //it's the less thing that I can put here
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)

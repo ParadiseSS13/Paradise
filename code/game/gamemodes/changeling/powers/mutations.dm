@@ -313,6 +313,8 @@
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/changeling/New()
 	..()

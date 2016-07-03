@@ -8,6 +8,10 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -85,6 +89,8 @@
 	desc = "A vest drenched in the blood of Greytide. It has seen better days."
 	icon_state = "bloody_armor"
 	item_state = "bloody_armor"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
@@ -115,6 +121,8 @@
 	icon_state = "jensencoat"
 	item_state = "jensencoat"
 	flags_inv = 0
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/warden
 	name = "Warden's armored jacket"
@@ -152,6 +160,7 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
+	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -233,7 +242,7 @@
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user as mob)
 	src.active = !( src.active )
-	if (src.active)
+	if(src.active)
 		to_chat(user, "\blue The reactive armor is now active.")
 		src.icon_state = "reactive"
 		src.item_state = "reactive"
@@ -242,6 +251,8 @@
 		src.icon_state = "reactiveoff"
 		src.item_state = "reactiveoff"
 		src.add_fingerprint(user)
+
+	user.update_inv_wear_suit()
 	return
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
@@ -266,6 +277,8 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -279,6 +292,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list(melee = 65, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
@@ -287,6 +301,7 @@
 	flags = THICKMATERIAL
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "Red Thunderdome Armor"

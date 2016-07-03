@@ -452,6 +452,7 @@ BLIND     // can't see anything
 	var/suit_adjusted = 0
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
+	var/list/hide_tail_by_species = null
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
@@ -495,6 +496,14 @@ BLIND     // can't see anything
 			user.update_inv_wear_suit()
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>")
+
+/obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user) //Handle tail-hiding on a by-species basis.
+	if(ishuman(user))
+		if(hide_tail_by_species && (user.species.name in hide_tail_by_species) && !(HIDETAIL in flags_inv)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
+			flags_inv |= HIDETAIL
+		else
+			if(!(HIDETAIL in initial(flags_inv))) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
+				flags_inv &= ~HIDETAIL
 
 /obj/item/clothing/suit/verb/openjacket(var/mob/user) //The verb you can use to adjust jackets.
 	set name = "Open/Close Jacket"
