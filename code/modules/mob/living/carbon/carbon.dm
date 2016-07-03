@@ -935,8 +935,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	if (stun)
-		Stun(stun)
-	Weaken(weaken)
+		Stun(stun) // Weaken does everything stun does. This would apply simultaneously.
+	Weaken(weaken) // Duration is roughly ((x*2)-1) seconds.
 	return 1
 
 /mob/living/carbon/proc/can_eat(flags = 255)

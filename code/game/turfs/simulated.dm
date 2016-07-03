@@ -99,17 +99,17 @@
 
 			switch (src.wet)
 				if(TURF_WET_WATER)
-					if (!(M.slip("wet floor", 4, 2, 0, 1)))
+					if (!(M.slip("wet floor", 0, 3, 0, 1))) // Duration is ~5 seconds. ((x*2)-1)
 						M.inertia_dir = 0
 						return
 
 				if(TURF_WET_LUBE) //lube
-					if(M.slip("floor", 0, 7, 4, 0, 1))
-						M.take_organ_damage(2) // Was 5 -- TLE
+					if(M.slip("floor", 0, 3, 3, 0, 1)) // Duration is ~5 seconds. ((x*2)-1)
+						M.take_organ_damage(2)
 
 
 				if(TURF_WET_ICE) // Ice
-					if (!(prob(30) && M.slip("icy floor", 4, 2, 1, 1)))
+					if (!(prob(30) && M.slip("icy floor", 0, 3, 1, 1))) // Duration is ~5 seconds. ((x*2)-1)
 						M.inertia_dir = 0
 
 
