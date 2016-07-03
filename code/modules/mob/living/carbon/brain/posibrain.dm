@@ -144,11 +144,12 @@
 
 
 /obj/item/device/mmi/posibrain/examine(mob/user)
+	to_chat(user, "<span class='info'>*---------*</span>")
 	if(!..(user))
+		to_chat(user, "<span class='info'>*---------*</span>")
 		return
 
-	var/msg = "<span class='info'>*---------*\nThis is [bicon(src)] \a <EM>[src]</EM>!\n[desc]\n"
-	msg += "<span class='warning'>"
+	var/msg = "<span class='info'>"
 
 	if(src.brainmob && src.brainmob.key)
 		switch(src.brainmob.stat)
@@ -158,7 +159,7 @@
 			if(DEAD)			msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	else
 		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
-	msg += "<span class='info'>*---------*</span>"
+	msg += "*---------*</span>"
 	to_chat(user, msg)
 
 /obj/item/device/mmi/posibrain/emp_act(severity)
