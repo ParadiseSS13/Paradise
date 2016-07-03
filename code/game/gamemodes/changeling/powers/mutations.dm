@@ -206,6 +206,7 @@
 	flags = NODROP
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "ling_shield"
+	block_chance = 50
 
 	var/remaining_uses //Set by the changeling ability.
 
@@ -217,7 +218,7 @@
 /obj/item/weapon/shield/changeling/dropped()
 	qdel(src)
 
-/obj/item/weapon/shield/changeling/IsShield()
+/obj/item/weapon/shield/changeling/hit_reaction()
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
@@ -227,7 +228,7 @@
 		return 0
 	else
 		remaining_uses--
-		return 1
+		return ..()
 
 
 /***************************************\

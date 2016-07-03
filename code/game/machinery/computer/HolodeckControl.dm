@@ -432,8 +432,8 @@
 	icon_state = "claymorered"
 	item_state = "claymorered"
 
-/obj/item/weapon/holo/claymore/IsShield()
-	return 1
+/obj/item/weapon/holo/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+	return ..()
 
 /obj/item/weapon/holo/esword
 	desc = "May the force be within you. Sorta"
@@ -452,9 +452,9 @@
 /obj/item/weapon/holo/esword/red/New()
 	item_color = "red"
 
-/obj/item/weapon/holo/esword/IsShield()
+/obj/item/weapon/holo/esword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
-		return 1
+		return ..()
 	return 0
 
 /obj/item/weapon/holo/esword/New()

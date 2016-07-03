@@ -61,3 +61,11 @@
  #define WEAPON_LIGHT 0
  #define WEAPON_MEDIUM 1
  #define WEAPON_HEAVY 2
+
+
+//Attack types for checking shields/hit reactions
+
+#define MELEE_ATTACK 1
+#define UNARMED_ATTACK 2
+#define PROJECTILE_ATTACK 3
+#define THROWN_PROJECTILE_ATTACK 4

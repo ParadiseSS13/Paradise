@@ -114,8 +114,8 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	typepath = /obj/item/weapon/reagent_containers/hypospray
 	protected_jobs = list("Chief Medical Officer")
 
-/datum/theft_objective/ablative
-	name = "an ablative armor vest"
+/datum/theft_objective/reflector
+	name = "a reflector vest"
 	typepath = /obj/item/clothing/suit/armor/laserproof
 	protected_jobs = list("Head of Security", "Warden")
 

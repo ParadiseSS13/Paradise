@@ -120,14 +120,6 @@
 /obj/item/weapon/twohanded/offhand/wield()
 	qdel(src)
 
-/obj/item/weapon/twohanded/offhand/IsShield()//if the actual twohanded weapon is a shield, we count as a shield too!
-	var/mob/user = loc
-	if(!istype(user)) return 0
-	var/obj/item/I = user.get_active_hand()
-	if(I == src) I = user.get_inactive_hand()
-	if(!I) return 0
-	return I.IsShield()
-
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
 /obj/item/weapon/twohanded/required/
@@ -211,6 +203,7 @@
 	sharp = 1
 	edge = 1
 	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
+	block_chance = 75
 
 /obj/item/weapon/twohanded/dualsaber/New()
 	blade_color = pick("red", "blue", "green", "purple")
@@ -237,11 +230,11 @@
 				user.dir = i
 				sleep(1)
 
-/obj/item/weapon/twohanded/dualsaber/IsShield()
+/obj/item/weapon/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(wielded)
-		return 1
-	else
-		return 0
+		return ..()
+
+	return 0
 
 /obj/item/weapon/twohanded/dualsaber/green/New()
 	blade_color = "green"

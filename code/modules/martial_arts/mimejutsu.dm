@@ -75,7 +75,6 @@
 	if(check_streak(A,D))
 		return 1
 
-	return 1
 
 /datum/martial_art/mimejutsu/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	add_to_streak("H",D)

@@ -77,8 +77,11 @@
 	force = 5
 	slot_flags = SLOT_BACK
 
-/obj/item/weapon/nullrod/staff/IsShield()
-	return 1
+/obj/item/weapon/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0
+	return ..()
+
 
 /obj/item/weapon/nullrod/staff/blue
 	name = "blue holy staff"
@@ -97,11 +100,10 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-/obj/item/weapon/nullrod/claymore/IsShield()
-	if(prob(30))
-		return 1
-	else
-		return 0
+/obj/item/weapon/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
 
 /obj/item/weapon/nullrod/claymore/darkblade
 	icon_state = "cultblade"
@@ -342,11 +344,10 @@
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
 
-/obj/item/weapon/nullrod/claymore/bostaff/IsShield()
-	if(prob(40))
-		return 1
-	else
-		return 0
+/obj/item/weapon/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
 
 /obj/item/weapon/nullrod/tribal_knife
 	icon_state = "crysknife"
