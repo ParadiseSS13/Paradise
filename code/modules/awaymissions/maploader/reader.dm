@@ -25,6 +25,8 @@ var/global/dmm_suite/preloader/_preloader = new
  *		e.g aa = /turf/unsimulated/wall{icon_state = "rock"}
  * 2) Read the map line by line, parsing the result (using parse_grid)
  *
+ * If `measureOnly` is set, then no atoms will be created, and all this will do
+ * is return the bounds after parsing the file
  */
 /dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num)
 	var/tfile = dmm_file//the map file we're creating
@@ -41,12 +43,14 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/list/bounds = list(1.#INF, 1.#INF, 1.#INF, -1.#INF, -1.#INF, -1.#INF)
 	var/list/grid_models = list()
 	var/key_len = 0
+	// This ain't re-entrant
+	// Meaning - don't load more than one map at once, using `spawn` or whatever
+	var/list/old_dirty_z_levels = deepCopyList(dirty_z_levels)
 
 	var/dmm_suite/loaded_map/LM = new
 
-	// It is *VERY* important that this is reset to 0 when we are done here
-	// Otherwise lots of things will fall apart like a milkless lich
-	defer_auto_init = 1
+	// This try-catch is used as a budget "Finally" clause, as the "touched_z_levels"
+	// var needs to be reset
 	try
 		dmmRegex.next = 1
 		while(dmmRegex.Find(tfile, dmmRegex.next))
@@ -74,6 +78,8 @@ var/global/dmm_suite/preloader/_preloader = new
 				var/xcrd
 				var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
 				var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
+				if(!measureOnly)
+					dirty_z_levels |= zcrd
 
 				if(zcrd > world.maxz)
 					if(cropMap)
@@ -138,10 +144,13 @@ var/global/dmm_suite/preloader/_preloader = new
 
 			CHECK_TICK
 	catch(var/exception/e)
-		// Can't let this stay 1 or the world falls apart
-		defer_auto_init = 0
+		if(!measureOnly)
+			dirty_z_levels = old_dirty_z_levels
 		throw e
-	defer_auto_init = 0
+
+	// This *might* leak memory? Whatever it's a trivial quantity
+	if(!measureOnly)
+		dirty_z_levels = old_dirty_z_levels
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		log_startup_progress("Min x: bounds[MAP_MINX]")
@@ -273,15 +282,11 @@ var/global/dmm_suite/preloader/_preloader = new
 		index = first_turf_index + 1
 		while(index <= members.len - 1) // Last item is an /area
 			var/underlay
-			if(istype(T, /turf)) // I blame this on the stupid clown who mis-mapped the solar panels
+			if(istype(T, /turf)) // I blame this on the stupid clown who coded the BYOND map editor
 				underlay = T.appearance
 			T = instance_atom(members[index],members_attributes[index],xcrd,ycrd,zcrd)//instance new turf
 			if(ispath(members[index],/turf))
 				T.underlays += underlay
-			else
-				log_debug("The maps on tile ([xcrd],[ycrd],[zcrd]) have out-of-order turfs.")
-				// Make them cry
-				message_admins("The maps on tile ([xcrd],[ycrd],[zcrd]) have out-of-order turfs.")
 
 			index++
 

@@ -20,15 +20,18 @@
 
 	var/auto_init = 1
 
-// TODO: Make this less deliciously fragile and world-affecting
 // This is used in the map loader to defer initialization once all entities
 // are placed, so that pipes and window spawners correctly function
 // when plunked down mid-game
-var/defer_auto_init = 0
+var/list/dirty_z_levels = list()
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
-	if(!defer_auto_init && auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
+	var/turf/T = get_turf(src)
+
+	// If you're wondering what goofery this is, this is for things that need the environment
+	// around them set up - like `air_update_turf` and the like
+	if(!(T && T.z in dirty_z_levels) && auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
 		initialize()
 
 /atom/movable/Destroy()

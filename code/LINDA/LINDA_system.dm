@@ -78,7 +78,7 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5,air_group=0)
 			if(T.atmos_adjacent_turfs & counterdir)
 				T.atmos_adjacent_turfs_amount -= 1
 			T.atmos_adjacent_turfs &= ~counterdir
-			
+
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles

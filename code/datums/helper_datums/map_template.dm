@@ -37,16 +37,24 @@
 	if(!T)
 		return 0
 
-	var/turf/bot_left = locate(max(0, min_x), max(0, min_y), placement.z)
+	var/turf/bot_left = locate(max(1, min_x), max(1, min_y), placement.z)
 	var/turf/top_right = locate(min(world.maxx, max_x), min(world.maxy, max_y), placement.z)
 
 	// 1 bigger, to update the turf smoothing
-	var/turf/ST_bot_left = locate(max(0, min_x-1), max(0, min_y-1), placement.z)
+	var/turf/ST_bot_left = locate(max(1, min_x-1), max(1, min_y-1), placement.z)
 	var/turf/ST_top_right = locate(min(world.maxx, max_x+1), min(world.maxy, max_y+1), placement.z)
-
 	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
 	if(!bounds)
 		return 0
+	if(bot_left == null || top_right == null)
+		log_debug("One of the late setup corners is bust")
+	else
+		log_debug("Late Setup from ([bot_left.x],[bot_left.y]) to ([top_right.x],[top_right.y])")
+
+	if(ST_bot_left == null || ST_top_right == null)
+		log_debug("One of the smoothing corners is bust")
+	else
+		log_debug("Tile smoothing from ([ST_bot_left.x],[ST_bot_left.y]) to ([ST_top_right.x],[ST_top_right.y])")
 	late_setup_level(
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
@@ -73,7 +81,7 @@
 
 	var/max_x = min_x + width-1
 	var/max_y = min_y + height-1
-	placement = locate(max(min_x,0), max(min_y,0), placement.z)
+	placement = locate(max(min_x,1), max(min_y,1), placement.z)
 	return block(placement, locate(min(max_x, world.maxx), min(max_y, world.maxy), placement.z))
 
 /datum/map_template/proc/fits_in_map_bounds(turf/T, centered = 0)
@@ -86,7 +94,7 @@
 
 	var/max_x = min_x + width-1
 	var/max_y = min_y + height-1
-	if(min_x < 0 || min_y < 0 || max_x > world.maxx || max_y > world.maxy)
+	if(min_x < 1 || min_y < 1 || max_x > world.maxx || max_y > world.maxy)
 		return 0
 	else
 		return 1

@@ -117,7 +117,7 @@ Class Procs:
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 
-/obj/machinery/New()
+/obj/machinery/initialize()
 	addAtProcessing()
 	return ..()
 

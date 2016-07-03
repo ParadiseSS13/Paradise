@@ -1,11 +1,18 @@
 var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away_mission_config.txt")
 
 /proc/late_setup_level(turfs, smoothTurfs)
+	var/total_timer = start_watch()
+	var/subtimer = start_watch()
 	if(!smoothTurfs)
 		smoothTurfs = turfs
 
+	log_debug("Setting up atmos")
 	if(air_master)
 		air_master.setup_allturfs(turfs)
+	log_debug("\tTook [stop_watch(subtimer)]s")
+
+	subtimer = start_watch()
+	log_debug("Initializing objects and lighting")
 	for(var/turf/T in turfs)
 		if(T.dynamic_lighting)
 			T.lighting_build_overlays()
@@ -13,6 +20,10 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			makepowernet_for(PC)
 		for(var/atom/movable/AM in T)
 			AM.initialize()
+	log_debug("\tTook [stop_watch(subtimer)]s")
+
+	subtimer = start_watch()
+	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
 		if(T.smooth)
 			smooth_icon(T)
@@ -20,6 +31,16 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			var/atom/A = R
 			if(A.smooth)
 				smooth_icon(A)
+	log_debug("\tTook [stop_watch(subtimer)]s")
+
+	log_debug("Initializing pipenets")
+	// We do this once we're finished initializing since otherwise the pipes
+	// won't have finished connecting
+	for(var/turf/T in turfs)
+		for(var/obj/machinery/atmospherics/machine in T)
+			machine.build_network()
+	log_debug("\tTook [stop_watch(subtimer)]s")
+	log_debug("Late setup finished - took [stop_watch(total_timer)]s")
 
 /proc/createRandomZlevel()
 	if(awaydestinations.len)	//crude, but it saves another var!

@@ -31,11 +31,13 @@
 	var/resintype = null
 	smooth = SMOOTH_TRUE
 
-
-/obj/structure/alien/resin/New(location)
-	..()
+/obj/structure/alien/resin/initialize()
 	air_update_turf(1)
-	return
+	..()
+
+/obj/structure/alien/resin/Destroy()
+	air_update_turf(1)
+	return ..()
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc

@@ -42,11 +42,6 @@ var/global/pipe_processing_killed = 0
 	world.tick_lag = config.Ticklag
 
 	preloadTemplates()
-	var/tm = start_watch()
-	log_startup_progress("Re-loading the cyberiad...")
-	maploader.load_map(file("_maps/map_files/cyberiad/cyberiad.dmm"))
-	late_setup_level(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
-	log_startup_progress("Finished loading the cyberiad, took [stop_watch(tm)]s")
 	// if(!config.disable_away_missions)
 	//	 createRandomZlevel()
 	// if(!config.disable_space_ruins)

@@ -843,7 +843,7 @@
 	name = "\improper Airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."
 
-/obj/structure/plasticflaps/mining/New()
+/obj/structure/plasticflaps/mining/initialize()
 	air_update_turf(1)
 	..()
 
