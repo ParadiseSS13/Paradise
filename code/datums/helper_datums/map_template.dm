@@ -24,23 +24,34 @@
 	return bounds
 
 /datum/map_template/proc/load(turf/T, centered = 0)
+	var/turf/placement = T
+	var/min_x = placement.x
+	var/min_y = placement.y
 	if(centered)
-		T = locate(T.x - round(width/2), T.y - round(height/2), T.z)
-	if(!T)
-		return
-	if(T.x+width > world.maxx)
-		return
-	if(T.y+height > world.maxy)
-		return
+		min_x -= round(width/2)
+		min_y -= round(height/2)
 
-	var/list/bounds = maploader.load_map(get_file(), T.x, T.y, T.z, cropMap = 1)
+	var/max_x = min_x + width - 1
+	var/max_y = min_y + height - 1
+
+	if(!T)
+		return 0
+
+	var/turf/bot_left = locate(max(0, min_x), max(0, min_y), placement.z)
+	var/turf/top_right = locate(min(world.maxx, max_x), min(world.maxy, max_y), placement.z)
+
+	// 1 bigger, to update the turf smoothing
+	var/turf/ST_bot_left = locate(max(0, min_x-1), max(0, min_y-1), placement.z)
+	var/turf/ST_top_right = locate(min(world.maxx, max_x+1), min(world.maxy, max_y+1), placement.z)
+
+	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
 	if(!bounds)
 		return 0
 	late_setup_level(
-		block(T, locate(T.x + width - 1, T.y + height - 1, T.z)),
-		block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + width, T.y + height, T.z)))
+		block(bot_left, top_right),
+		block(ST_bot_left, ST_top_right))
 
-	log_game("[name] loaded at [T.x],[T.y],[T.z]")
+	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 
 /datum/map_template/proc/get_file()
@@ -54,11 +65,31 @@
 
 /datum/map_template/proc/get_affected_turfs(turf/T, centered = 0)
 	var/turf/placement = T
+	var/min_x = placement.x
+	var/min_y = placement.y
 	if(centered)
-		var/turf/corner = locate(placement.x - round(width/2), placement.y - round(height/2), placement.z)
-		if(corner)
-			placement = corner
-	return block(placement, locate(placement.x+width-1, placement.y+height-1, placement.z))
+		min_x -= round(width/2)
+		min_y -= round(height/2)
+
+	var/max_x = min_x + width-1
+	var/max_y = min_y + height-1
+	placement = locate(max(min_x,0), max(min_y,0), placement.z)
+	return block(placement, locate(min(max_x, world.maxx), min(max_y, world.maxy), placement.z))
+
+/datum/map_template/proc/fits_in_map_bounds(turf/T, centered = 0)
+	var/turf/placement = T
+	var/min_x = placement.x
+	var/min_y = placement.y
+	if(centered)
+		min_x -= round(width/2)
+		min_y -= round(height/2)
+
+	var/max_x = min_x + width-1
+	var/max_y = min_y + height-1
+	if(min_x < 0 || min_y < 0 || max_x > world.maxx || max_y > world.maxy)
+		return 0
+	else
+		return 1
 
 
 /proc/preloadTemplates(path = "_maps/map_files/templates/") //see master controller setup

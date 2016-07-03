@@ -11,16 +11,16 @@ var/global/air_processing_killed = 0
 var/global/pipe_processing_killed = 0
 
 /datum/controller
-  var/processing = 0
-  var/iteration = 0
-  var/processing_interval = 0
+	var/processing = 0
+	var/iteration = 0
+	var/processing_interval = 0
 
 /datum/controller/proc/recover() // If we are replacing an existing controller (due to a crash) we attempt to preserve as much as we can.
 
-datum/controller/game_controller
-	var/list/shuttle_list	                    // For debugging and VV
+/datum/controller/game_controller
+	var/list/shuttle_list											// For debugging and VV
 
-datum/controller/game_controller/New()
+/datum/controller/game_controller/New()
 	//There can be only one master_controller. Out with the old and in with the new.
 	if(master_controller != src)
 		if(istype(master_controller))
@@ -38,14 +38,19 @@ datum/controller/game_controller/New()
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
 
-datum/controller/game_controller/proc/setup()
+/datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
 	preloadTemplates()
-	if(!config.disable_away_missions)
-		createRandomZlevel()
-	if(!config.disable_space_ruins)
-		seedRuins(7, rand(0, 3), /area/space, space_ruins_templates)
+	var/tm = start_watch()
+	log_startup_progress("Re-loading the cyberiad...")
+	maploader.load_map(file("_maps/map_files/cyberiad/cyberiad.dmm"))
+	late_setup_level(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
+	log_startup_progress("Finished loading the cyberiad, took [stop_watch(tm)]s")
+	// if(!config.disable_away_missions)
+	//	 createRandomZlevel()
+	// if(!config.disable_space_ruins)
+	//	 seedRuins(7, rand(0, 3), /area/space, space_ruins_templates)
 
 	setup_objects()
 	setupgenetics()
@@ -57,21 +62,21 @@ datum/controller/game_controller/proc/setup()
 
 	populate_spawn_points()
 
-datum/controller/game_controller/proc/setup_objects()
+/datum/controller/game_controller/proc/setup_objects()
 	var/watch = start_watch()
 	var/count = 0
 	var/overwatch = start_watch() // Overall.
 
 	log_startup_progress("Populating asset cache...")
 	populate_asset_cache()
-	log_startup_progress("  Populated [asset_cache.len] assets in [stop_watch(watch)]s.")
+	log_startup_progress("	Populated [asset_cache.len] assets in [stop_watch(watch)]s.")
 
 	watch = start_watch()
 	log_startup_progress("Initializing objects...")
 	for(var/atom/movable/object in world)
 		object.initialize()
 		count++
-	log_startup_progress("  Initialized [count] objects in [stop_watch(watch)]s.")
+	log_startup_progress("	Initialized [count] objects in [stop_watch(watch)]s.")
 
 	watch = start_watch()
 	count = 0
@@ -85,7 +90,7 @@ datum/controller/game_controller/proc/setup_objects()
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
 			count++
-	log_startup_progress("  Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
+	log_startup_progress("	Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
 
 	watch = start_watch()
 	count = 0
@@ -93,6 +98,6 @@ datum/controller/game_controller/proc/setup_objects()
 	for(var/obj/machinery/atmospherics/machine in machines)
 		machine.build_network()
 		count++
-	log_startup_progress("  Initialized [count] pipe networks in [stop_watch(watch)]s.")
+	log_startup_progress("	Initialized [count] pipes in [stop_watch(watch)]s.")
 
 	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")

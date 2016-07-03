@@ -121,7 +121,9 @@
 		if(istype(node2, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node2 = null
+	check_nodes_exist()
 	update_icon()
+	..()
 
 /obj/machinery/atmospherics/pipe/simple/pipeline_expansion()
 	return list(node1, node2)
@@ -142,8 +144,6 @@
 
 	overlays.Cut()
 
-	if(!check_nodes_exist()) // such a stupid place for a self-deletion check
-		return
 	if(node1 && node2)
 		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "intact" + icon_connect_type)
 	else

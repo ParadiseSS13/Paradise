@@ -2,6 +2,8 @@
 	set category = "Debug"
 	set name = "Map template - Place"
 
+	if(!holder)
+		return
 	var/datum/map_template/template
 
 	var/map = input(usr, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in map_templates
@@ -11,6 +13,10 @@
 
 	var/turf/T = get_turf(mob)
 	if(!T)
+		return
+
+	if(!template.fits_in_map_bounds(T, centered = TRUE))
+		to_chat(usr, "Map is too large to fit in bounds. Map's dimensions: ([template.width], [template.height])")
 		return
 
 	var/list/preview = list()

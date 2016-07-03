@@ -135,7 +135,13 @@ var/global/dmm_suite/preloader/_preloader = new
 		CHECK_TICK
 
 	qdel(LM)
-	if(bounds[1] == 1.#INF) // Shouldn't need to check every item
+	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
+		log_startup_progress("Min x: bounds[MAP_MINX]")
+		log_startup_progress("Min y: bounds[MAP_MINY]")
+		log_startup_progress("Min z: bounds[MAP_MINZ]")
+		log_startup_progress("Max x: bounds[MAP_MAXX]")
+		log_startup_progress("Max y: bounds[MAP_MAXY]")
+		log_startup_progress("Max z: bounds[MAP_MAXZ]")
 		return null
 	else
 		for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
@@ -258,9 +264,17 @@ var/global/dmm_suite/preloader/_preloader = new
 		//if others /turf are presents, simulates the underlays piling effect
 		index = first_turf_index + 1
 		while(index <= members.len - 1) // Last item is an /area
-			var/underlay = T.appearance
+			var/underlay
+			if(istype(T, /turf)) // I blame this on the stupid clown who mis-mapped the solar panels
+				underlay = T.appearance
 			T = instance_atom(members[index],members_attributes[index],xcrd,ycrd,zcrd)//instance new turf
-			T.underlays += underlay
+			if(ispath(members[index],/turf))
+				T.underlays += underlay
+			else
+				log_debug("The maps on tile ([xcrd],[ycrd],[zcrd]) have out-of-order turfs.")
+				// Make them cry
+				message_admins("The maps on tile ([xcrd],[ycrd],[zcrd]) have out-of-order turfs.")
+
 			index++
 
 	//finally instance all remainings objects/mobs
