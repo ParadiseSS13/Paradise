@@ -194,7 +194,9 @@
 	if(.)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
-			new /mob/living/simple_animal/chicken(src.loc)
+			var/mob/living/simple_animal/chicken/C = new /mob/living/simple_animal/chicken(src.loc)
+			if(key)
+				C.key = key
 			qdel(src)
 
 var/const/MAX_CHICKENS = 50
