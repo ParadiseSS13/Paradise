@@ -15,14 +15,18 @@
 	var/mopcount = 0
 	var/mopcap = 5
 	var/mopspeed = 30
-
+	var/cyborg = 0
 
 /obj/item/weapon/mop/New()
 	create_reagents(mopcap)
-	janitorial_equipment += src
+	if(cyborg)
+		reagents.add_reagent("water", mopcap)
+	else
+		janitorial_equipment += src
 
 /obj/item/weapon/mop/Destroy()
-	janitorial_equipment -= src
+	if(!cyborg)
+		janitorial_equipment -= src
 	return ..()
 
 /obj/item/weapon/mop/proc/clean(turf/simulated/A)
@@ -32,8 +36,8 @@
 			if(is_cleanable(O))
 				qdel(O)
 	reagents.reaction(A, TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
-	reagents.remove_any(1)			//reaction() doesn't use up the reagents
-
+	if(!cyborg)
+		reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 /obj/item/weapon/mop/afterattack(atom/A, mob/user, proximity)
 	if(!proximity) return
@@ -81,3 +85,6 @@
 	throwforce = 8
 	throw_range = 4
 	mopspeed = 20
+/obj/item/weapon/mop/advanced/cyborg/
+	cyborg = 1
+	mopcap = 1
