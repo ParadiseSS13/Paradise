@@ -670,6 +670,12 @@
 	item_color = "owl"
 	flags = NODROP
 
+/obj/item/clothing/under/hunter
+	name = "Hunter's clothes"
+	desc = "One of the standard articles of hunter attire fashioned at the workshop."
+	icon_state = "hunter"
+	item_color = "hunter"
+
 /obj/item/clothing/under/griffin
 	name = "griffon uniform"
 	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
@@ -709,3 +715,13 @@
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>")
 			return 0
 	return 1
+
+/obj/item/clothing/under/doom
+	name = "Praetor Jumpsuit"
+	desc = "Just because the suit is cold. The small painting on it reads 'WJ Armor'."
+	icon_state = "doomclothe"
+	item_state = "doomclothe"
+	item_color = "doomclothe"
+	has_sensor = 0
+	armor = list(melee = 15, bullet = 5, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	siemens_coefficient = 0.9

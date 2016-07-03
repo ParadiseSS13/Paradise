@@ -211,10 +211,10 @@ datum/controller/vote
 						question = "End the shift?"
 						choices.Add("Initiate Crew Transfer", "Continue The Round")
 				if("custom")
-					question = html_encode(input(usr,"What is the vote for?") as text|null)
+					question = lhtml_encode(input(usr,"What is the vote for?") as text|null)
 					if(!question)	return 0
 					for(var/i=1,i<=10,i++)
-						var/option = capitalize(html_encode(input(usr,"Please enter an option or hit cancel to finish") as text|null))
+						var/option = capitalize(lhtml_encode(input(usr,"Please enter an option or hit cancel to finish") as text|null))
 						if(!option || mode || !usr.client)	break
 						choices.Add(option)
 				else			return 0
@@ -313,7 +313,7 @@ datum/controller/vote
 				. += "<li><a href='?src=\ref[src];vote=custom'>Custom</a></li>"
 			. += "</ul><hr>"
 		. += "<a href='?src=\ref[src];vote=close' style='position:absolute;right:50px'>Close</a></body></html>"
-		return .
+		return sanitize_local(., SANITIZE_BROWSER)
 
 
 	Topic(href,href_list[],hsrc)

@@ -1611,7 +1611,7 @@
 		to_chat(src.owner, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 		to_chat(src.owner, "Location = [location_description];")
 		to_chat(src.owner, "[special_role_description]")
-		to_chat(src.owner, "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)")
+		to_chat(src.owner, "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?_src_=holder;adminpunish=\ref[M]'>PN</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)")
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -1636,6 +1636,26 @@
 		message_admins("[key_name_admin(H)] got their cookie, spawned by [key_name_admin(src.owner)]")
 		feedback_inc("admin_cookies_spawned",1)
 		to_chat(H, "\blue Your prayers have been answered!! You received the <b>best cookie</b>!")
+
+	else if(href_list["adminpunish"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/living/P = locate(href_list["adminpunish"])
+		if(!isliving(P))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+
+		var/Punishment = input( "Как сильно вы хотите наказать [P]?", 1) as num
+		P.adjustBruteLoss(Punishment)
+		playsound(P.loc, 'sound/effects/adminpunish.ogg', 75, 0, 0, 1)
+		P.do_jitter_animation(20)
+		P.stuttering = 20
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		s.set_up(5, 1, P)
+		s.start()
+		log_admin("[key_name(src.owner)] punished [key_name(P)]")
+		message_admins("[key_name_admin(P)]have been punished by [key_name_admin(src.owner)]")
+		to_chat(P, "\red <b>Боги наказали вас за вашу глупость!</b>")
 
 	else if(href_list["BlueSpaceArtillery"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -1883,7 +1903,7 @@
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 
-			usr << browse(data, "window=[B.name]")
+			usr << browse(sanitize_local(data, SANITIZE_BROWSER), "window=[B.name]")
 		else
 			to_chat(usr, "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]")
 
@@ -2308,6 +2328,10 @@
 				ok = 1
 			if("honksquad")
 				if(usr.client.honksquad())
+					feedback_inc("admin_secrets_fun_used",1)
+					feedback_add_details("admin_secrets_fun_used","HONK")
+			if("doomsquad")
+				if(usr.client.doomstrike_team())
 					feedback_inc("admin_secrets_fun_used",1)
 					feedback_add_details("admin_secrets_fun_used","HONK")
 			if("striketeam")

@@ -101,7 +101,7 @@
 				if(1)
 					emote("twitch")
 				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+					var/tourettes = pick("√ќ¬Ќќ", "ћќ„ј", "≈Ѕј“№", "„ћќ", "’”≈—ќ—", "ћј“№ ≈ЅјЋ", "—»—№ ≈")
 					say("[prob(50) ? ";" : ""][tourettes]")
 			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 			var/y_offset = pixel_y + rand(-1,1)
@@ -116,32 +116,32 @@
 	if (getBrainLoss() >= 60 && stat != 2)
 		speech_problem_flag = 1
 		if(prob(3))
-			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
-							   "without oxigen blob don't evoluate?",
-							   "CAPTAINS A COMDOM",
-							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
-							   "can u give me [pick("telikesis","halk","eppilapse")]?",
-							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS>",
-							   "I WANNA PET TEH monkeyS",
-							   "stop grifing me!!!!",
-							   "SOTP IT#")
+			var/list/s1 = list("ћ»Ћјя ѕќЌ» ћ»Ћјя ѕќЌ» јјјјјјјјјјј",
+							   "а че, без кислорода блоб не еволюционирует?",
+							   " Ёѕ - √јЌƒќЌ",
+							   "[pick("", "етот чертов тритор")] [pick("винсент", "уинсон", "винс", "уинстон")] [pick("ундарр", "андар", "андаррр")] грифонит миня ’≈Ћп!!!",
+							   "вколите плз [pick("телекизис","хулк","епилапсию")]?",
+							   "где пуп",
+							   "би это лутшее из двух миров",
+							   "’ј„” ѕќ√Ћјƒ»“№ јЅизьяЌ",
+							   "хватет грифить миня!!!11",
+							   "отсановись#")
 
 			var/list/s2 = list("FUS RO DAH",
-							   "fucking 4rries!",
-							   "stat me",
-							   ">my face",
-							   "roll it easy!",
-							   "waaaaaagh!!!",
-							   "red wonz go fasta",
-							   "FOR TEH EMPRAH",
-							   "lol2cat",
-							   "dem dwarfs man, dem dwarfs",
-							   "SPESS MAHREENS",
-							   "hwee did eet fhor khayosss",
-							   "lifelike texture ;_;",
-							   "luv can bloooom",
-							   "PACKETS!!!")
+							   "фурриебыыы",
+							   "нотис ми сенпай",
+							   ">мое литсе",
+							   "сделай бочку",
+							   "¬јјјјјјјјјјјјјјјј√’!!!!",
+							   "песели или собакены",
+							   "«ј ≈»ћѕ≈–ј“ќ–јјјјјјј",
+							   "кокои кусь",
+							   "ееееееее роккккккккк",
+							   " ќћ—ќƒ≈— јЌ“““",
+							   "ми зделали ето ради хауса",
+							   "текстурки-то говно ;_;",
+							   "как руки мен€ть",
+							   "ЅЋяЋј√»!!!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))

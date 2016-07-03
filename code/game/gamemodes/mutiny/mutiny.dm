@@ -16,7 +16,7 @@ datum/game_mode/mutiny
 
 	name = "mutiny"
 	config_tag = "mutiny"
-	required_players = 20
+	required_players = 15
 	ert_disabled = 1
 
 	New()

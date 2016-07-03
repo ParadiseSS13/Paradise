@@ -505,7 +505,7 @@
 			crates = Clamp(round(num_input), 1, 20)
 
 		var/timeout = world.time + 600
-		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
+		var/reason = input(usr,"Reason:","Why do you require this item? Please use only english letters and symbols!!!","") as null|text
 		if(world.time > timeout || !reason || ..())
 			return 1
 		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))

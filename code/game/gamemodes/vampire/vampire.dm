@@ -11,7 +11,7 @@
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
 	protected_species = list("Machine")
-	required_players = 15
+	required_players = 10
 	required_enemies = 1
 	recommended_enemies = 4
 
@@ -76,6 +76,7 @@
 		var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
 		for(var/datum/mind/vampire in vampires)
 			var/traitorwin = 1
+			var/karma_reward = 0
 
 			text += "<br>[vampire.key] was [vampire.name] ("
 			if(vampire.current)
@@ -100,6 +101,7 @@
 						feedback_add_details("traitor_objective","[objective.type]|FAIL")
 						traitorwin = 0
 					count++
+					karma_reward = count - 1
 
 			var/special_role_text
 			if(vampire.special_role)
@@ -110,6 +112,8 @@
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
 				feedback_add_details("traitor_success","SUCCESS")
+				sql_report_objective_karma(vampire.key, karma_reward)
+				to_chat(world, "<b>[vampire.key] got [karma_reward] karma points for completing special role!</b>")
 			else
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				feedback_add_details("traitor_success","FAIL")
