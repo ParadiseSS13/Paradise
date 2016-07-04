@@ -42,10 +42,10 @@ var/global/pipe_processing_killed = 0
 	world.tick_lag = config.Ticklag
 
 	preloadTemplates()
-	// if(!config.disable_away_missions)
-	//	 createRandomZlevel()
-	// if(!config.disable_space_ruins)
-	//	 seedRuins(7, rand(0, 3), /area/space, space_ruins_templates)
+	if(!config.disable_away_missions)
+		createRandomZlevel()
+	if(!config.disable_space_ruins)
+		seedRuins(7, rand(10, 13), /area/space, space_ruins_templates)
 
 	setup_objects()
 	setupgenetics()
