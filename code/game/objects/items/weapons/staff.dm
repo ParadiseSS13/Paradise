@@ -8,6 +8,11 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
+<<<<<<< HEAD
+=======
+	flags = NOSHIELD
+	armour_penetration = 100
+>>>>>>> c0350a654f00576f7a26a4a114d284c979e0f14f
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 
 /obj/item/weapon/twohanded/staff/broom

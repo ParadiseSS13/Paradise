@@ -197,6 +197,11 @@
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
+<<<<<<< HEAD
+=======
+	flags = NOSHIELD
+	armour_penetration = 35
+>>>>>>> c0350a654f00576f7a26a4a114d284c979e0f14f
 	origin_tech = "magnets=3;syndicate=4"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = 1
@@ -285,6 +290,7 @@
 	force_wielded = 18 // Was 13, Buffed - RR
 	throwforce = 20
 	throw_speed = 3
+	armour_penetration = 10
 	no_spin_thrown = 1 // Thrown spears that spin look dumb. -Fox
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 
@@ -360,6 +366,11 @@
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
+<<<<<<< HEAD
+=======
+	flags = NOSHIELD
+	armour_penetration = 35
+>>>>>>> c0350a654f00576f7a26a4a114d284c979e0f14f
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = 1

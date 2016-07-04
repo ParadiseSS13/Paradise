@@ -313,7 +313,12 @@
 	throw_range = 3
 	w_class = 4
 	var/extend = 1
+<<<<<<< HEAD
 	flags = CONDUCT
+=======
+	flags = NOSHIELD | CONDUCT
+	armour_penetration = 20
+>>>>>>> c0350a654f00576f7a26a4a114d284c979e0f14f
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -338,6 +343,11 @@
 	throw_range = 3
 	w_class = 2.0
 	extend = 0
+<<<<<<< HEAD
+=======
+	flags = NOSHIELD
+	armour_penetration = 20
+>>>>>>> c0350a654f00576f7a26a4a114d284c979e0f14f
 	slot_flags = SLOT_BELT
 	origin_tech = "materials=3;combat=3"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
