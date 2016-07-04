@@ -62,7 +62,7 @@
 	w_class = 3
 	w_class_on = 5
 	hitsound = "swing_hit"
-	flags = CONDUCT | NOSHIELD
+	flags = CONDUCT
 	origin_tech = "combat=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
@@ -82,7 +82,6 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	flags = NOSHIELD
 	origin_tech = "magnets=3;syndicate=4"
 	sharp = 1
 	edge = 1
@@ -205,7 +204,6 @@
 	throw_speed = 3
 	throw_range = 1
 	w_class = 4//So you can't hide it in your pocket or some such.
-	flags = NOSHIELD
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/datum/effect/system/spark_spread/spark_system
 

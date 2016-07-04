@@ -190,7 +190,7 @@
 	put_on_delay = 50
 
 /obj/item/clothing/suit/armor/laserproof
-	name = "Ablative Armor Vest"
+	name = "Reflector  Vest"
 	desc = "A vest that excels in protecting the wearer against energy projectiles."
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
@@ -215,63 +215,76 @@
 
 
 //Reactive armor
-//When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
+//Reactive armor
 /obj/item/clothing/suit/armor/reactive
-	name = "Reactive Teleport Armor"
-	desc = "Someone seperated our Research Director from his own head!"
-	var/active = 0.0
+	name = "reactive armor"
+	desc = "Doesn't seem to do much for some reason."
+	var/active = 0
+	var/reactivearmor_cooldown_duration = 0 //cooldown specific to reactive armor
+	var/reactivearmor_cooldown = 0
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	action_button_name = "Toggle Reactive Armor"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	action_button_name = "Toggle Reactive Armor"
+	unacidable = 1
 	hit_reaction_chance = 50
 
-/obj/item/clothing/suit/armor/reactive/attack_self(mob/user as mob)
-	src.active = !( src.active )
-	if (src.active)
-		to_chat(user, "\blue The reactive armor is now active.")
-		src.icon_state = "reactive"
-		src.item_state = "reactive"
+
+/obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
+	active = !(active)//...wot?
+	if(active)
+		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		icon_state = "reactive"
+		item_state = "reactive"
 	else
-		to_chat(user, "\blue The reactive armor is now inactive.")
-		src.icon_state = "reactiveoff"
-		src.item_state = "reactiveoff"
-		src.add_fingerprint(user)
+		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
+		icon_state = "reactiveoff"
+		item_state = "reactiveoff"
+		add_fingerprint(user)
 	return
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = 0
-	src.icon_state = "reactiveoff"
-	src.item_state = "reactiveoff"
+	icon_state = "reactiveoff"
+	item_state = "reactiveoff"
+	reactivearmor_cooldown = world.time + 200
 	..()
 
-/obj/item/clothing/suit/armor/reactive/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+//When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
+/obj/item/clothing/suit/armor/reactive/teleport
+	name = "reactive teleport armor"
+	desc = "Someone seperated our Research Director from his own head!"
+	var/tele_range = 6
+	reactivearmor_cooldown_duration = 100
+
+/obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
-		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
+		if(world.time < reactivearmor_cooldown)
+			owner.visible_message("<span class='danger'>The reactive teleport system is still recharging! It fails to teleport [H]!</span>")
+			return
+		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text], shutting itself off in the process!</span>")
 		var/list/turfs = new/list()
-		for(var/turf/T in orange(6, H))
+		for(var/turf/T in orange(tele_range, H))
 			if(T.density)
 				continue
-			if(T.x>world.maxx-6 || T.x<6)
+			if(T.x>world.maxx-tele_range || T.x<tele_range)
 				continue
-			if(T.y>world.maxy-6 || T.y<6)
+			if(T.y>world.maxy-tele_range || T.y<tele_range)
 				continue
 			turfs += T
 		if(!turfs.len)
-			turfs += pick(/turf in orange(6, src))
-			var/turf/picked = pick(turfs)
-			if(!isturf(picked))
-				return
-			if(H.buckled)
-				H.buckled.unbuckle_mob()
-			H.forceMove(picked)
+			turfs += pick(/turf in orange(tele_range, H))
+		var/turf/picked = pick(turfs)
+		if(!isturf(picked))
+			return
+		H.forceMove(picked)
+		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return 1
 	return 0
-
 
 //All of the armor below is mostly unused
 

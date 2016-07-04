@@ -4,11 +4,10 @@
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define AIRTIGHT				8		// mask allows internals
 #define HANDSLOW        		16		// If an item has this flag, it will slow you to carry it
-#define NOSHIELD				32		// weapon not affected by shield
-#define CONDUCT					64		// conducts electricity (metal etc.)
-#define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
-#define ON_BORDER				512		// item has priority to check when entering or leaving
-#define NODELAY 				32768	// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
+#define CONDUCT					32		// conducts electricity (metal etc.)
+#define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
+#define ON_BORDER				128		// item has priority to check when entering or leaving
+#define NODELAY 				512		// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
 
 #define NOBLOODY				2048	// used to items if they don't want to get a blood overlay
 

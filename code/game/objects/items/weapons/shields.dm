@@ -45,11 +45,10 @@
 	icon_state = "buckler"
 	item_state = "buckler"
 	materials = list()
+	block_chance = 60
 
 /obj/item/weapon/shield/riot/buckler/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
-	if(prob(60))
-		return ..()
-	return 0
+	return ..()
 
 /obj/item/weapon/shield/energy
 	name = "energy combat shield"
