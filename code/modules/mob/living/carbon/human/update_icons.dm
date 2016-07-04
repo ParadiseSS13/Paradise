@@ -1261,13 +1261,25 @@ var/global/list/damage_icon_parts = list()
 
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/collar.dmi
+//  For suits with species_fit and sprite_sheets, an identically named sprite needs to exist in a file like this icons/mob/species/[species_name_here]/collar.dmi.
 /mob/living/carbon/human/proc/update_collar(var/update_icons=1)
 	var/icon/C = new('icons/mob/collar.dmi')
 	var/image/standing = null
 
 	if(wear_suit)
-		if(wear_suit.icon_state in C.IconStates())
-			standing = image("icon" = C, "icon_state" = "[wear_suit.icon_state]")
+		if(wear_suit.icon_override)
+			var/icon_path = "[wear_suit.icon_override]"
+			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty) so there won't be an issue.
+			var/icon/icon_file = new(icon_path)
+			standing = image("icon" = icon_file, "icon_state" = "[wear_suit.icon_state]")
+		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[species.name])
+			var/icon_path = "[wear_suit.sprite_sheets[species.name]]"
+			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty) so there won't be an issue.
+			var/icon/icon_file = new(icon_path)
+			standing = image("icon" = icon_file, "icon_state" = "[wear_suit.icon_state]")
+		else
+			if(wear_suit.icon_state in C.IconStates())
+				standing = image("icon" = C, "icon_state" = "[wear_suit.icon_state]")
 
 	overlays_standing[COLLAR_LAYER]	= standing
 
