@@ -63,7 +63,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
 
-#define MAX_GEAR_COST 5
+#define MAX_GEAR_COST config.max_loadout_points
 
 #define TAB_CHAR 0
 #define TAB_GAME 1
@@ -435,9 +435,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			var/fcolor =  "#3366CC"
 			if(total_cost < MAX_GEAR_COST)
 				fcolor = "#E67300"
-			dat += "<table align='center' width='820px'>"
-			dat += "<tr><td colspan=3><center><b><font color='[fcolor]'>[total_cost]/[MAX_GEAR_COST]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
-			dat += "<tr><td colspan=3><center><b>"
+			dat += "<table align='center' width='100%'>"
+			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[MAX_GEAR_COST]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
+			dat += "<tr><td colspan=4><center><b>"
 
 			var/firstcat = 1
 			for(var/category in loadout_categories)
@@ -452,22 +452,22 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "</b></center></td></tr>"
 
 			var/datum/loadout_category/LC = loadout_categories[gear_tab]
-			dat += "<tr><td colspan=3><hr></td></tr>"
-			dat += "<tr><td colspan=3><b><center>[LC.category]</center></b></td></tr>"
-			dat += "<tr><td colspan=3><hr></td></tr>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
 				var/ticked = (G.display_name in gear)
 				dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td>"
+				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
 				if(G.allowed_roles)
-					dat += "<td><font size=2>Restrictions: "
+					dat += "<font size=2>Restrictions: "
 					for(var/role in G.allowed_roles)
 						dat += role + " "
-					dat += "</font></td>"
-				dat += "<td><font size=2><i>[G.description]</i></font></td></tr>"
+					dat += "</font>"
+				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
 				if(ticked)
-					. += "<tr><td colspan=3>"
+					. += "<tr><td colspan=4>"
 					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
 						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
 					. += "</td></tr>"
