@@ -111,7 +111,7 @@
 			if(istype(I,/mob/living/simple_animal/borer))
 				B = I
 	if(B)
-		if(!B.ckey && ckey && B.controlling)
+		if(B.controlling && B.host == src)
 			B.detatch()
 
 		verbs -= /mob/living/carbon/proc/release_control

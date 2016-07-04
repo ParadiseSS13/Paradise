@@ -178,6 +178,8 @@
 	var/disable_lobby_music = 0 // Disables the lobby music
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
 
+	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for (var/T in L)
@@ -555,6 +557,9 @@
 
 				if("disable_cid_warn_popup")
 					config.disable_cid_warn_popup = 1
+
+				if("max_loadout_points")
+					config.max_loadout_points = text2num(value)
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - tweak: "The late-join job listing is now big enough to show all the jobs at once, and organizes them into labeled categories."
