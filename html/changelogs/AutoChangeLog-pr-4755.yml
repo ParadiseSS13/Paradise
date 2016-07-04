@@ -1,4 +1,0 @@
-author: tkdrg
-delete-after: True
-changes: 
-  - rscadd: "Admins now have a verb to wipe all scripts from telecomms."
