@@ -239,24 +239,25 @@
 	return 0
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user as mob)
-	src.active = !( src.active )
-	if(src.active)
-		to_chat(user, "\blue The reactive armor is now active.")
-		src.icon_state = "reactive"
-		src.item_state = "reactive"
+	active = !(active)
+	if(active)
+		to_chat(user, "<span class='notice'>The reactive armor is now active.</span>")
+		icon_state = "reactive"
+		item_state = "reactive"
 	else
-		to_chat(user, "\blue The reactive armor is now inactive.")
-		src.icon_state = "reactiveoff"
-		src.item_state = "reactiveoff"
-		src.add_fingerprint(user)
-
+		to_chat(user, "<span class='notice'>The reactive armor is now inactive.</span>")
+		icon_state = "reactiveoff"
+		item_state = "reactiveoff"
+		add_fingerprint(user)
 	user.update_inv_wear_suit()
-	return
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = 0
-	src.icon_state = "reactiveoff"
-	src.item_state = "reactiveoff"
+	icon_state = "reactiveoff"
+	item_state = "reactiveoff"
+
+	var/mob/living/carbon/human/user = usr
+	user.update_inv_wear_suit()
 	..()
 
 
