@@ -37,6 +37,8 @@ var/time_last_changed_position = 0
 		/datum/job/mechanic,
 		/datum/job/barber,
 		/datum/job/chaplain,
+		/datum/job/ntnavyofficer,
+		/datum/job/ntspecops,
 		/datum/job/civilian
 	)
 
