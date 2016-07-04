@@ -316,14 +316,13 @@ BLIND     // can't see anything
 					flags |= MASKCOVERSMOUTH
 				if(initial(flags) & AIRTIGHT) //If the mask is airtight and thus, one that you'd be able to run internals from yet can't because it was adjusted, make it airtight again.
 					flags |= AIRTIGHT
-			if(H.head == src)
-				if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
-					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-						user.unEquip(src)
-					else //Otherwise, put it in an available hand, the active one preferentially.
-						src.loc = user
-						H.head = null
-						user.put_in_hands(src)
+			if(H.head == src && flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+					user.unEquip(src)
+				else //Otherwise, put it in an available hand, the active one preferentially.
+					src.loc = user
+					H.head = null
+					user.put_in_hands(src)
 		else
 			icon_state += "_up"
 			to_chat(user, "You push \the [src] out of the way.")
@@ -332,13 +331,10 @@ BLIND     // can't see anything
 			mask_adjusted = 1
 			if(adjusted_flags)
 				slot_flags = adjusted_flags
-			if(ishuman(user))
-				if(H.internal)
-					if(user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
-												Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
-						if(H.internals)
-							H.internals.icon_state = "internal0"
-						H.internal = null
+			if(ishuman(user) && H.internal && user.wear_mask == src && H.internals) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
+																					Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
+				H.internals.icon_state = "internal0"
+				H.internal = null
 			if(flags_inv & HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 				flags_inv &= ~HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
 										This reveals the user's face since the bandana will now be going on their head.*/
@@ -346,14 +342,13 @@ BLIND     // can't see anything
 				flags &= ~MASKCOVERSMOUTH
 			if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 				flags &= ~AIRTIGHT
-			if(user.wear_mask == src)
-				if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
-					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-						user.unEquip(src)
-					else //Otherwise, put it in an available hand, the active one preferentially.
-						src.loc = user
-						user.wear_mask = null
-						user.put_in_hands(src)
+			if(user.wear_mask == src && initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
+				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+					user.unEquip(src)
+				else //Otherwise, put it in an available hand, the active one preferentially.
+					src.loc = user
+					user.wear_mask = null
+					user.put_in_hands(src)
 		usr.update_inv_wear_mask()
 		usr.update_inv_head()
 
@@ -497,12 +492,13 @@ BLIND     // can't see anything
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>")
 
-/obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user) //Handle tail-hiding on a by-species basis.
-	if(ishuman(user))
-		if(hide_tail_by_species && (user.species.name in hide_tail_by_species) && !(HIDETAIL in flags_inv)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
-			flags_inv |= HIDETAIL
+/obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
+	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
+		if(user.species.name in hide_tail_by_species)
+			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
+				flags_inv |= HIDETAIL
 		else
-			if(!(HIDETAIL in initial(flags_inv))) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
+			if(!(initial(flags_inv) & HIDETAIL) && (flags_inv & HIDETAIL)) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
 				flags_inv &= ~HIDETAIL
 
 /obj/item/clothing/suit/verb/openjacket(var/mob/user) //The verb you can use to adjust jackets.
