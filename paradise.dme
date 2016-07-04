@@ -1990,6 +1990,8 @@
 #include "code\modules\spacepods\parts.dm"
 #include "code\modules\spacepods\pod_fabricator.dm"
 #include "code\modules\spacepods\spacepod.dm"
+#include "code\modules\spacial_allocator\zlevel.dm"
+#include "code\modules\spacial_allocator\zlevel_manager.dm"
 #include "code\modules\store\items.dm"
 #include "code\modules\store\store.dm"
 #include "code\modules\surgery\bones.dm"

@@ -192,15 +192,16 @@
 
 	return W
 
-/turf/proc/AfterChange() //called after a turf has been replaced in ChangeTurf()
+// I'm including `ignore_air` because BYOND lacks positional-only arguments
+/turf/proc/AfterChange(ignore_air, but_its_not_the_saaaaaame = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	CalculateAdjacentTurfs()
 
-	if(!can_have_cabling())
+	if(!but_its_not_the_saaaaaame && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
 
-/turf/simulated/AfterChange(ignore_air)
+/turf/simulated/AfterChange(ignore_air, but_its_not_the_saaaaaame = FALSE)
 	..()
 	RemoveLattice()
 	if(!ignore_air)

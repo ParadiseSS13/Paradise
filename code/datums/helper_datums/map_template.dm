@@ -23,7 +23,7 @@
 		height = bounds[MAP_MAXY]
 	return bounds
 
-/datum/map_template/proc/load(turf/T, centered = 0)
+/datum/map_template/proc/load(turf/T, centered = 0, delay_init = 0)
 	var/turf/placement = T
 	var/min_x = placement.x
 	var/min_y = placement.y
@@ -43,7 +43,7 @@
 	// 1 bigger, to update the turf smoothing
 	var/turf/ST_bot_left = locate(max(1, min_x-1), max(1, min_y-1), placement.z)
 	var/turf/ST_top_right = locate(min(world.maxx, max_x+1), min(world.maxy, max_y+1), placement.z)
-	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
+	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1, delay_init = delay_init)
 	if(!bounds)
 		return 0
 	if(bot_left == null || top_right == null)

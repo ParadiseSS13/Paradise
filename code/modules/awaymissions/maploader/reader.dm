@@ -27,8 +27,13 @@ var/global/dmm_suite/preloader/_preloader = new
  *
  * If `measureOnly` is set, then no atoms will be created, and all this will do
  * is return the bounds after parsing the file
+ *
+ * If delay_init is set, then all initializations while the map is loading will
+ * be deferred until later
+ * You'll need it for large initializations like loading the cyberiad, where
+ * glass and similar can cause atmos to initialize before it's ready
  */
-/dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num)
+/dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num, delay_init as num)
 	var/tfile = dmm_file//the map file we're creating
 	if(isfile(tfile))
 		tfile = file2text(tfile)
@@ -43,14 +48,12 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/list/bounds = list(1.#INF, 1.#INF, 1.#INF, -1.#INF, -1.#INF, -1.#INF)
 	var/list/grid_models = list()
 	var/key_len = 0
-	// This ain't re-entrant
-	// Meaning - don't load more than one map at once, using `spawn` or whatever
-	var/list/old_dirty_z_levels = deepCopyList(dirty_z_levels)
+	var/list/touched_z_levels = list()
 
 	var/dmm_suite/loaded_map/LM = new
 
-	// This try-catch is used as a budget "Finally" clause, as the "touched_z_levels"
-	// var needs to be reset
+	// This try-catch is used as a budget "Finally" clause, as the dirt count
+	// needs to be reset
 	try
 		dmmRegex.next = 1
 		while(dmmRegex.Find(tfile, dmmRegex.next))
@@ -78,14 +81,15 @@ var/global/dmm_suite/preloader/_preloader = new
 				var/xcrd
 				var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
 				var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
-				if(!measureOnly)
-					dirty_z_levels |= zcrd
+				if(!measureOnly && delay_init)
+					zlevels.add_dirt(zcrd)
+					touched_z_levels |= zcrd
 
 				if(zcrd > world.maxz)
 					if(cropMap)
 						continue
 					else
-						world.maxz = zcrd //create a new z_level if needed
+						zlevels.increase_max_zlevel_to(zcrd) //create a new z_level if needed
 
 				bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrdStart)
 				bounds[MAP_MINZ] = min(bounds[MAP_MINZ], zcrd)
@@ -144,27 +148,28 @@ var/global/dmm_suite/preloader/_preloader = new
 
 			CHECK_TICK
 	catch(var/exception/e)
-		if(!measureOnly)
-			dirty_z_levels = old_dirty_z_levels
+		if(!measureOnly && delay_init)
+			for(var/i in touched_z_levels)
+				zlevels.remove_dirt(i)
 		throw e
 
-	// This *might* leak memory? Whatever it's a trivial quantity
-	if(!measureOnly)
-		dirty_z_levels = old_dirty_z_levels
+	if(!measureOnly && delay_init)
+		for(var/i in touched_z_levels)
+			zlevels.remove_dirt(i)
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
-		log_startup_progress("Min x: bounds[MAP_MINX]")
-		log_startup_progress("Min y: bounds[MAP_MINY]")
-		log_startup_progress("Min z: bounds[MAP_MINZ]")
-		log_startup_progress("Max x: bounds[MAP_MAXX]")
-		log_startup_progress("Max y: bounds[MAP_MAXY]")
-		log_startup_progress("Max z: bounds[MAP_MAXZ]")
+		log_debug("Min x: bounds[MAP_MINX]")
+		log_debug("Min y: bounds[MAP_MINY]")
+		log_debug("Min z: bounds[MAP_MINZ]")
+		log_debug("Max x: bounds[MAP_MAXX]")
+		log_debug("Max y: bounds[MAP_MAXY]")
+		log_debug("Max z: bounds[MAP_MAXZ]")
 		return null
 	else
 		for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
 			var/turf/T = t
 			//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
-			T.AfterChange(1)
+			T.AfterChange(1,but_its_not_the_saaaaaame = TRUE) // are you happy now
 		return bounds
 
 /**

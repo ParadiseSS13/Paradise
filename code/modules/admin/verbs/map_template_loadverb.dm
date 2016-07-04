@@ -19,6 +19,10 @@
 		to_chat(usr, "Map is too large to fit in bounds. Map's dimensions: ([template.width], [template.height])")
 		return
 
+	var/delay_init = 0
+	if(alert(usr,"Delay initialization? (Needed for large atmos-containing maps)","Delay","Yes","No") == "Yes")
+		delay_init = 1
+
 	var/list/preview = list()
 	for(var/S in template.get_affected_turfs(T,centered = TRUE))
 		preview += image('icons/turf/overlays.dmi',S,"greenOverlay")
@@ -26,7 +30,7 @@
 	if(alert(usr,"Confirm location.","Template Confirm","Yes","No") == "Yes")
 		var/timer = start_watch()
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started to place the map template ([template.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a></span>")
-		if(template.load(T, centered = TRUE))
+		if(template.load(T, centered = TRUE, delay_init = delay_init))
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has placed a map template ([template.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a>. Took [stop_watch(timer)]s.</span>")
 		else
 			to_chat(usr, "Failed to place map")

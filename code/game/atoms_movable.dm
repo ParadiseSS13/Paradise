@@ -31,7 +31,7 @@ var/list/dirty_z_levels = list()
 
 	// If you're wondering what goofery this is, this is for things that need the environment
 	// around them set up - like `air_update_turf` and the like
-	if(!(T && T.z in dirty_z_levels) && auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
+	if(!(T && zlevels.is_zlevel_dirty(T.z)) && auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
 		initialize()
 
 /atom/movable/Destroy()

@@ -41,11 +41,13 @@ var/global/pipe_processing_killed = 0
 /datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
+	zlevels.initialize()
+
 	preloadTemplates()
 	if(!config.disable_away_missions)
 		createRandomZlevel()
 	if(!config.disable_space_ruins)
-		seedRuins(7, rand(10, 13), /area/space, space_ruins_templates)
+		seedRuins(7, rand(0, 3), /area/space, space_ruins_templates)
 
 	setup_objects()
 	setupgenetics()
