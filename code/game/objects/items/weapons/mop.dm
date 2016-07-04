@@ -15,18 +15,13 @@
 	var/mopcount = 0
 	var/mopcap = 5
 	var/mopspeed = 30
-	var/cyborg = 0
 
 /obj/item/weapon/mop/New()
 	create_reagents(mopcap)
-	if(cyborg)
-		reagents.add_reagent("water", mopcap)
-	else
-		janitorial_equipment += src
+	janitorial_equipment += src
 
 /obj/item/weapon/mop/Destroy()
-	if(!cyborg)
-		janitorial_equipment -= src
+	janitorial_equipment -= src
 	return ..()
 
 /obj/item/weapon/mop/proc/clean(turf/simulated/A)
@@ -36,8 +31,7 @@
 			if(is_cleanable(O))
 				qdel(O)
 	reagents.reaction(A, TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
-	if(!cyborg)
-		reagents.remove_any(1)			//reaction() doesn't use up the reagents
+	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 /obj/item/weapon/mop/afterattack(atom/A, mob/user, proximity)
 	if(!proximity) return
@@ -85,6 +79,14 @@
 	throwforce = 8
 	throw_range = 4
 	mopspeed = 20
-/obj/item/weapon/mop/advanced/cyborg/
-	cyborg = 1
-	mopcap = 1
+
+/obj/item/weapon/mop/advanced/cyborg
+	mopcap = 40
+
+/obj/item/weapon/mop/advanced/cyborg/New()
+	..()
+	reagents.add_reagent("water", mopcap)
+
+/obj/item/weapon/mop/advanced/cyborg/examine(mob/user)
+	..(user)
+	to_chat(user, "<span class='notice'>The mop's water tank has [round(reagents.get_reagent_amount("water"))] units of water left.</span>")
