@@ -62,12 +62,8 @@
 	w_class = 3
 	w_class_on = 5
 	hitsound = "swing_hit"
-<<<<<<< HEAD
 	flags = CONDUCT
-=======
-	flags = CONDUCT | NOSHIELD
 	armour_penetration = 100
->>>>>>> c0350a654f00576f7a26a4a114d284c979e0f14f
 	origin_tech = "combat=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
@@ -87,11 +83,7 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-<<<<<<< HEAD
-=======
-	flags = NOSHIELD
 	armour_penetration = 35
->>>>>>> c0350a654f00576f7a26a4a114d284c979e0f14f
 	origin_tech = "magnets=3;syndicate=4"
 	sharp = 1
 	edge = 1
@@ -214,11 +206,7 @@
 	throw_speed = 3
 	throw_range = 1
 	w_class = 4//So you can't hide it in your pocket or some such.
-<<<<<<< HEAD
-=======
-	flags = NOSHIELD
 	armour_penetration = 50
->>>>>>> c0350a654f00576f7a26a4a114d284c979e0f14f
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/datum/effect/system/spark_spread/spark_system
 

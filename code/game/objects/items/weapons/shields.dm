@@ -47,9 +47,6 @@
 	materials = list()
 	block_chance = 60
 
-/obj/item/weapon/shield/riot/buckler/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
-	return ..()
-
 /obj/item/weapon/shield/energy
 	name = "energy combat shield"
 	desc = "A shield capable of stopping most melee attacks. Protects user from almost all energy projectiles. It can be retracted, expanded, and stored anywhere."

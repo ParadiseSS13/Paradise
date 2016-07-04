@@ -443,7 +443,6 @@
 	throw_range = 5
 	throwforce = 0
 	w_class = 2.0
-	flags = NOSHIELD
 	armour_penetration = 50
 	var/active = 0
 
