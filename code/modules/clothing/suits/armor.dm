@@ -15,7 +15,7 @@
 	icon_state = "armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/vest/jacket
@@ -31,7 +31,7 @@
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -208,7 +208,7 @@
 	icon_state = "detective-armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/device/flashlight,/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter,/obj/item/device/detective_scanner,/obj/item/device/taperecorder)
 
 
