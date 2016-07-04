@@ -625,13 +625,17 @@
 				if(!name)
 					return
 				name = reject_bad_text(name)
-				while (count--)
+				var/is_medical_patch = chemical_safety_check(reagents)
+				while(count--)
 					var/obj/item/weapon/reagent_containers/food/pill/patch/P = new/obj/item/weapon/reagent_containers/food/pill/patch(src.loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] patch"
 					P.pixel_x = rand(-7, 7) //random position
 					P.pixel_y = rand(-7, 7)
 					reagents.trans_to(P,amount_per_patch)
+					if(is_medical_patch)
+						P.instant_application = 1
+						P.icon_state = "bandaid_med"
 		else if (href_list["createbottle"])
 			if(!condi)
 				var/name = input(usr,"Name:","Name your bottle!",reagents.get_master_reagent_name()) as text|null
@@ -757,6 +761,12 @@
 	else
 		return 0
 
+/obj/machinery/chem_master/proc/chemical_safety_check(datum/reagents/R)
+	var/all_safe = 1
+	for(var/datum/reagent/A in R.reagent_list)
+		if(!safe_chem_list.Find(A.id))
+			all_safe = 0
+	return all_safe
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"

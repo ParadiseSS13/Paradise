@@ -66,7 +66,7 @@
 	item_color = "golem"
 	has_sensor = 0
 	flags = ABSTRACT | NODROP
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/golem
 	name = "adamantine shell"

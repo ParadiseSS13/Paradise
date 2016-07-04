@@ -236,7 +236,6 @@
 				A = new /obj/item/projectile/beam/lasertag/bluetag(loc)
 			if(6)
 				A = new /obj/item/projectile/beam/lasertag/redtag(loc)
-		A.original = target
 		use_power(500)
 	else
 		A = new /obj/item/projectile/energy/electrode( loc )
@@ -245,11 +244,12 @@
 		playsound(get_turf(src), 'sound/weapons/Laser.ogg', 60, 1)
 	else
 		playsound(get_turf(src), 'sound/weapons/Taser.ogg', 60, 1)
+	A.original = target
 	A.current = T
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
 	A.fire()
-	return
+	return A
 
 
 /obj/machinery/turret/proc/isDown()
@@ -548,11 +548,11 @@
 		return
 	playsound(get_turf(src), firing_sound, 60, 1)
 	var/obj/item/projectile/A = new bullet_type(curloc)
+	A.original = target
 	A.current = curloc
 	A.yo = targloc.y - curloc.y
 	A.xo = targloc.x - curloc.x
-	spawn(0)
-		A.process()
+	A.fire()
 	return
 
 
