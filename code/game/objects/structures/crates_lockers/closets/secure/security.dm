@@ -208,15 +208,14 @@
 			new /obj/item/weapon/storage/backpack/satchel_med(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
 		new /obj/item/device/flash(src)
-		new /obj/item/weapon/storage/firstaid/regular(src)
+		new /obj/item/weapon/storage/firstaid/brute(src)
 		new /obj/item/weapon/storage/firstaid/fire(src)
-		new /obj/item/weapon/storage/firstaid/adv(src)
 		new /obj/item/weapon/storage/firstaid/o2(src)
 		new /obj/item/weapon/storage/firstaid/toxin(src)
 		new /obj/item/clothing/suit/storage/brigdoc(src)
 		new /obj/item/clothing/under/rank/security/brigphys(src)
 		new /obj/item/clothing/shoes/white(src)
-		new /obj/item/device/radio/headset/headset_sec/alt(src)
+		new /obj/item/device/radio/headset/headset_sec/brigdoc(src)
 		new /obj/item/clothing/shoes/sandal/white(src)
 
 /obj/structure/closet/secure_closet/blueshield

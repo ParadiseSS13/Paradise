@@ -629,7 +629,7 @@
 "ame" = (/obj/machinery/door/firedoor{dir = 4; name = "Firelock East"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/door/airlock/glass_security{name = "Firing Range"; req_access_txt = "1"},/turf/simulated/floor/plasteel,/area/security/range)
 "amf" = (/obj/effect/spawner/window/reinforced,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating,/area/security/range)
 "amg" = (/obj/machinery/door/firedoor{dir = 4; name = "Firelock East"},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/door/airlock/glass_security{name = "Firing Range"; req_access_txt = "1"},/turf/simulated/floor/plasteel,/area/security/range)
-"amh" = (/obj/structure/closet/secure_closet/brigdoc,/turf/simulated/floor/plasteel{icon_state = "white"},/area/security/medbay)
+"amh" = (/obj/structure/closet/secure_closet/brigdoc{req_access = "null"; req_one_access_txt = "5;63"},/turf/simulated/floor/plasteel{icon_state = "white"},/area/security/medbay)
 "ami" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "white"},/area/security/medbay)
 "amj" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel{icon_state = "white"},/area/security/medbay)
 "amk" = (/obj/item/clothing/accessory/stethoscope,/obj/item/weapon/storage/belt/medical,/obj/item/clothing/glasses/hud/health,/obj/structure/table/glass,/turf/simulated/floor/plasteel{tag = "icon-whiteblue (EAST)"; icon_state = "whiteblue"; dir = 4},/area/security/medbay)
