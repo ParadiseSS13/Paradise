@@ -56,6 +56,13 @@
 	var/receive_tag = signal.data["tag"]
 	if(!receive_tag) return
 
+	for(var/obj/machinery/door/airlock/A in airlocks)
+		if(tag_exterior_door == A.id_tag_airlock)
+			if(A.can_op_airlock == 0)
+				stop_cycling()
+				done_cycling()
+				return
+
 	if(receive_tag==tag_chamber_sensor)
 		if(signal.data["pressure"])
 			memory["chamber_sensor_pressure"] = text2num(signal.data["pressure"])

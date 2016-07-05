@@ -495,6 +495,7 @@
 			spawn(-1)
 				A.close()
 				A.lock()
+				A.can_op_airlock = 1
 
 /obj/docking_port/mobile/proc/unlockPortDoors(obj/docking_port/stationary/S1)
 	if(!istype(S1))
@@ -505,6 +506,7 @@
 			spawn(-1)
 				if(A.locked)
 					A.unlock()
+					A.can_op_airlock = 0
 
 /obj/docking_port/mobile/proc/roadkill(list/L, dir, x, y)
 	for(var/turf/T in L)

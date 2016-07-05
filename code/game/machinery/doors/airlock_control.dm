@@ -3,6 +3,8 @@
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 obj/machinery/door/airlock
 	var/id_tag
+	var/id_tag_airlock
+	var/can_op_airlock = 1
 	var/frequency
 	var/shockedby = list()
 	var/datum/radio_frequency/radio_connection
@@ -18,9 +20,9 @@ obj/machinery/door/airlock/process()
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	if (!arePowerSystemsOn()) return //no power
 
-	if(!signal || signal.encryption) return
+	if(!signal || signal.encryption || can_op_airlock == 0) return
 
-	if(id_tag != signal.data["tag"] || !signal.data["command"]) return
+	if(id_tag_airlock != signal.data["tag"] || !signal.data["command"]) return
 
 	cur_command = signal.data["command"]
 	spawn()
@@ -97,7 +99,7 @@ obj/machinery/door/airlock/proc/send_status(var/bumped = 0)
 	if(radio_connection)
 		var/datum/signal/signal = new
 		signal.transmission_method = 1 //radio signal
-		signal.data["tag"] = id_tag
+		signal.data["tag"] = id_tag_airlock
 		signal.data["timestamp"] = world.time
 
 		signal.data["door_status"] = density?("closed"):("open")
