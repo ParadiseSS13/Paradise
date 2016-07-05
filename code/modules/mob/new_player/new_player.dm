@@ -123,7 +123,8 @@
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
-			src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// MAD JAMS cant last forever yo
+			to_chat(src, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))// MAD JAMS cant last forever yo
+
 
 
 			observer.started_as_observer = 1
@@ -246,6 +247,7 @@
 	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(src.client))	return 0
 	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
+	if(!job.prisonlist_job && !check_prisonlist(ckey(key)) && !(check_rights(R_ADMIN, 0))) return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
@@ -259,6 +261,13 @@
 					return 1
 				return 0
 	return 1
+
+/mob/new_player/proc/IsPrisonListJob(rank)
+	var/datum/job/job = job_master.GetJob(rank)
+	if(job.prisonlist_job)
+		return 1
+	else
+		return 0
 
 /mob/new_player/proc/IsAdminJob(rank)
 	var/datum/job/job = job_master.GetJob(rank)
@@ -315,26 +324,30 @@
 	var/join_message
 	var/datum/spawnpoint/S
 
-	if(IsAdminJob(rank))
-		if(IsERTSpawnJob(rank))
-			character.loc = pick(ertdirector)
-		else
-			character.loc = pick(aroomwarp)
-		join_message = "has arrived"
+	if(IsPrisonListJob(rank))
+		character.loc = pick(permaprisoner)
+		join_message = "transfered to the station permabrig for heavy crimes"
 	else
-		if(spawning_at)
-			S = spawntypes[spawning_at]
-		if(S && istype(S))
-			if(S.check_job_spawning(rank))
-				character.loc = pick(S.turfs)
-				join_message = S.msg
+		if(IsAdminJob(rank))
+			if(IsERTSpawnJob(rank))
+				character.loc = pick(ertdirector)
 			else
-				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
+				character.loc = pick(aroomwarp)
+			join_message = "has arrived"
+		else
+			if(spawning_at)
+				S = spawntypes[spawning_at]
+			if(S && istype(S))
+				if(S.check_job_spawning(rank))
+					character.loc = pick(S.turfs)
+					join_message = S.msg
+				else
+					to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
+					character.loc = pick(latejoin)
+					join_message = "has arrived on the station"
+			else
 				character.loc = pick(latejoin)
 				join_message = "has arrived on the station"
-		else
-			character.loc = pick(latejoin)
-			join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
@@ -489,7 +502,8 @@
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)
 
-	src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// MAD JAMS cant last forever yo
+	to_chat(src, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))// MAD JAMS cant last forever yo
+
 
 
 	if(mind)

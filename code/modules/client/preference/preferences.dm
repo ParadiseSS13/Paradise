@@ -1263,7 +1263,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
 								new_languages += lang
 								languages_available = 1
-
 						if(!(languages_available))
 							alert(user, "There are not currently any available secondary languages.")
 					else

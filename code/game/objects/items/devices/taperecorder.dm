@@ -178,7 +178,7 @@
 		if(mytape.storedinfo.len < i)
 			break
 		var/turf/T = get_turf(src)
-		T.visible_message("<font color=Maroon><B>Tape Recorder</B>: [mytape.storedinfo[i]]</font>")
+		T.visible_message("<font color=Maroon><B>Tape Recorder</B>: [sanitize_local(mytape.storedinfo[i])]</font>")
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(10)

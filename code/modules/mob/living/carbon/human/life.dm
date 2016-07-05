@@ -101,7 +101,7 @@
 				if(1)
 					emote("twitch")
 				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+					var/tourettes = pick("ÃÎÂÍÎ", "ÌÎ×À", "ÅÁÀÒÜ", "×ÌÎ", "ÕÓÅÑÎÑ", "ÌÀÒÜ ÅÁÀË", "ÑÈÑÜÊÅ")
 					say("[prob(50) ? ";" : ""][tourettes]")
 			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 			var/y_offset = pixel_y + rand(-1,1)
@@ -116,32 +116,32 @@
 	if (getBrainLoss() >= 60 && stat != 2)
 		speech_problem_flag = 1
 		if(prob(3))
-			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
-							   "without oxigen blob don't evoluate?",
-							   "CAPTAINS A COMDOM",
-							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
-							   "can u give me [pick("telikesis","halk","eppilapse")]?",
-							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS>",
-							   "I WANNA PET TEH monkeyS",
-							   "stop grifing me!!!!",
-							   "SOTP IT#")
+			var/list/s1 = list("ÌÈËÀß ÏÎÍÈ ÌÈËÀß ÏÎÍÈ ÀÀÀÀÀÀÀÀÀÀÀ",
+							   "à ÷å, áåç êèñëîðîäà áëîá íå åâîëþöèîíèðóåò?",
+							   "ÊÝÏ - ÃÀÍÄÎÍ",
+							   "[pick("", "åòîò ÷åðòîâ òðèòîð")] [pick("âèíñåíò", "óèíñîí", "âèíñ", "óèíñòîí")] [pick("óíäàðð", "àíäàð", "àíäàððð")] ãðèôîíèò ìèíß ÕÅËï!!!",
+							   "âêîëèòå ïëç [pick("òåëåêèçèñ","õóëê","åïèëàïñèþ")]?",
+							   "ãäå ïóï",
+							   "áè ýòî ëóòøåå èç äâóõ ìèðîâ",
+							   "ÕÀ×Ó ÏÎÃËÀÄÈÒÜ ÀÁèçüßÍ",
+							   "õâàòåò ãðèôèòü ìèíß!!!11",
+							   "îòñàíîâèñü#")
 
 			var/list/s2 = list("FUS RO DAH",
-							   "fucking 4rries!",
-							   "stat me",
-							   ">my face",
-							   "roll it easy!",
-							   "waaaaaagh!!!",
-							   "red wonz go fasta",
-							   "FOR TEH EMPRAH",
-							   "lol2cat",
-							   "dem dwarfs man, dem dwarfs",
-							   "SPESS MAHREENS",
-							   "hwee did eet fhor khayosss",
-							   "lifelike texture ;_;",
-							   "luv can bloooom",
-							   "PACKETS!!!")
+							   "ôóððèåáûûû",
+							   "íîòèñ ìè ñåíïàé",
+							   ">ìîå ëèòñå",
+							   "ñäåëàé áî÷êó",
+							   "ÂÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÃÕ!!!!",
+							   "ïåñåëè èëè ñîáàêåíû",
+							   "ÇÀ ÅÈÌÏÅÐÀÒÎÐÀÀÀÀÀÀÀ",
+							   "êîêîè êóñü",
+							   "åååååååå ðîêêêêêêêêê",
+							   "ÊÎÌÑÎÄÅÑÊÀÍÒÒÒ",
+							   "ìè çäåëàëè åòî ðàäè õàóñà",
+							   "òåêñòóðêè-òî ãîâíî ;_;",
+							   "êàê ðóêè ìåíÿòü",
+							   "ÁËßËÀÃÈ!!!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
@@ -1137,7 +1137,8 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,0,30)//Credit to GhostHack (www.ghosthack.de) for sound.
+					to_chat(src, sound('sound/effects/electheart.ogg',0,0,0,30))//Credit to GhostHack (www.ghosthack.de) for sound.
+
 
 				else
 					heartbeat++
@@ -1156,9 +1157,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
 				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
 			else
 				heartbeat++
 

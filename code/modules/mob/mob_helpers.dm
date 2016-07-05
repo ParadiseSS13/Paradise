@@ -144,8 +144,9 @@ proc/getsensorlevel(A)
 		p++
 	return t
 
+
 proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
-	phrase = html_decode(phrase)
+	phrase = lhtml_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
@@ -169,7 +170,7 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	return newphrase
 
 /proc/stutter(n)
-	var/te = html_decode(n)
+	var/te = lhtml_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null
@@ -429,7 +430,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 		if(O.client)
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]<span>")
 			if(ghost_sound)
-				O << sound(ghost_sound)
+				to_chat(O, sound(ghost_sound))
 			if(source)
 				var/obj/screen/alert/notify_jump/A = O.throw_alert("\ref[source]_notify_jump", /obj/screen/alert/notify_jump)
 				if(A)

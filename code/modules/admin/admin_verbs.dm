@@ -169,7 +169,9 @@ var/list/admin_verbs_possess = list(
 var/list/admin_verbs_permissions = list(
 	/client/proc/edit_admin_permissions,
 	/client/proc/create_poll,
-	/client/proc/big_brother
+	/client/proc/big_brother,
+	/client/proc/give_karma_list,
+	/client/proc/bwhitelist_panel_open
 	)
 var/list/admin_verbs_rejuv = list(
 	/client/proc/respawn_character,
@@ -935,7 +937,7 @@ var/list/admin_verbs_snpc = list(
 	if(confirm == "Yes")
 		for (var/mob/T as mob in mob_list)
 			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
-			T << 'sound/voice/ManUp1.ogg'
+			to_chat(T, 'sound/voice/ManUp1.ogg')
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")
