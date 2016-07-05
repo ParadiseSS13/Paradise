@@ -154,7 +154,8 @@ var/round_start_time = 0
 				qdel(R)
 
 		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
-		world << sound('sound/AI/welcome.ogg')// Skie
+		to_chat(world, sound('sound/AI/welcome.ogg'))// Skie
+
 
 		if(holiday_master.holidays)
 			to_chat(world, "<font color='blue'>and...</font>")
@@ -292,19 +293,19 @@ var/round_start_time = 0
 					if("nuclear emergency") //Nuke wasn't on station when it blew up
 						flick("intro_nuke",cinematic)
 						sleep(35)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						flick("station_intact_fade_red",cinematic)
 						cinematic.icon_state = "summary_nukefail"
 					else
 						flick("intro_nuke",cinematic)
 						sleep(35)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						//flick("end",cinematic)
 
 
 			if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
 				sleep(50)
-				world << sound('sound/effects/explosionfar.ogg')
+				to_chat(world, sound('sound/effects/explosionfar.ogg'))
 
 
 			else	//station was destroyed
@@ -315,25 +316,25 @@ var/round_start_time = 0
 						flick("intro_nuke",cinematic)
 						sleep(35)
 						flick("station_explode_fade_red",cinematic)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						cinematic.icon_state = "summary_nukewin"
 					if("AI malfunction") //Malf (screen,explosion,summary)
 						flick("intro_malf",cinematic)
 						sleep(76)
 						flick("station_explode_fade_red",cinematic)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						cinematic.icon_state = "summary_malf"
 					if("blob") //Station nuked (nuke,explosion,summary)
 						flick("intro_nuke",cinematic)
 						sleep(35)
 						flick("station_explode_fade_red",cinematic)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						cinematic.icon_state = "summary_selfdes"
 					else //Station nuked (nuke,explosion,summary)
 						flick("intro_nuke",cinematic)
 						sleep(35)
 						flick("station_explode_fade_red", cinematic)
-						world << sound('sound/effects/explosionfar.ogg')
+						to_chat(world, sound('sound/effects/explosionfar.ogg'))
 						cinematic.icon_state = "summary_selfdes"
 				for(var/mob/living/M in living_mob_list)
 					if((M.loc.z in config.station_levels))

@@ -27,8 +27,8 @@
 /*
 /proc/sanitize(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
 	#ifdef DEBUG_CYRILLIC
-	world << "\magenta DEBUG: \red <b>sanitize() entered, text:</b> <i>[input]</i>"
-	world << "\magenta DEBUG: \red <b>ja_mode:</b> [mode]"
+	to_chat(world, "\magenta DEBUG: \red <b>sanitize() entered, text:</b> <i>[input]</i>")
+	to_chat(world, "\magenta DEBUG: \red <b>ja_mode:</b> [mode]")
 	#endif
 	if(!input)
 		return
@@ -40,7 +40,7 @@
 	input = sanitize_local(input, mode)
 
 	#ifdef DEBUG_CYRILLIC
-	world << "\magenta DEBUG: \blue <b>sanitize() finished, text:</b> <i>[input]</i>"
+	to_chat(world, "\magenta DEBUG: \blue <b>sanitize() finished, text:</b> <i>[input]</i>")
 	#endif
 
 	return input

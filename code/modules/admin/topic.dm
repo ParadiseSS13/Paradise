@@ -17,7 +17,7 @@
 		if(!C)
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		to_chat(C, 'sound/effects/adminhelp.ogg')
 
 		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
 		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>")
@@ -2647,7 +2647,7 @@
 					W.item_state = "w_suit"
 					W.item_color = "schoolgirl"
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
-				world << sound('sound/AI/animes.ogg')
+				to_chat(world, sound('sound/AI/animes.ogg'))
 			if("eagles")//SCRAW
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","EgL")

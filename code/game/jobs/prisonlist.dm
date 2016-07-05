@@ -17,7 +17,7 @@ var/list/bwhitelist
 
 	establish_db_connection()
 	if(!dbcon.IsConnected())
-		usr << "\red Failed to establish database connection"
+		to_chat(usr, "\red Failed to establish database connection")
 		return
 
 	var/output = "<div align='center'><table width='90%'><tr>"
@@ -103,7 +103,7 @@ var/list/bwhitelist
 	var/sql = "INSERT INTO [format_table_name("bwhitelist")] (`ckey`) VALUES ('[ckeyname]')"
 	var/DBQuery/query_insert = dbcon.NewQuery(sql)
 	query_insert.Execute()
-	usr << "\blue Ckey saved to database."
+	to_chat(usr, "\blue Ckey saved to database.")
 	message_admins("[key_name_admin(usr)] has added [ckeyname] to the whitelist.",1)
 
 
@@ -115,5 +115,5 @@ var/list/bwhitelist
 	var/sql = "DELETE FROM [format_table_name("bwhitelist")] WHERE ckey='[ckeyname]'"
 	var/DBQuery/query_insert = dbcon.NewQuery(sql)
 	query_insert.Execute()
-	usr << "\blue Ckey removed from database."
+	to_chat(usr, "\blue Ckey removed from database.")
 	message_admins("[key_name_admin(usr)] has removed [ckeyname] from the whitelist.",1)
