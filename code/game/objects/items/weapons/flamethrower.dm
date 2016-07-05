@@ -191,10 +191,10 @@
 	return
 
 
-/obj/item/weapon/flamethrower/proc/ignite_turf(turf/target)
+/obj/item/weapon/flamethrower/proc/ignite_turf(turf/target, release_amount = 0.05)
 	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
-	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(0.05)
+	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
 	air_transfer.toxins = air_transfer.toxins * 5 // This is me not comprehending the air system. I realize this is retarded and I could probably make it work without fucking it up like this, but there you have it. -- TLE
 	target.assume_air(air_transfer)
 	//Burn it based on transfered gas
@@ -202,6 +202,15 @@
 	//location.hotspot_expose(1000,500,1)
 	air_master.add_to_active(target, 0)
 	return
+
+/obj/item/weapon/flamethrower/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(ptank && damage && attack_type == PROJECTILE_ATTACK && prob(15))
+		owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
+		var/target_turf = get_turf(owner)
+		ignite_turf(target_turf, 100)
+		qdel(ptank)
+		return 1 //It hit the flamethrower, not them
+
 
 
 /obj/item/weapon/flamethrower/full/New(var/loc)
