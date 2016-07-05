@@ -138,7 +138,7 @@
 				newtraitor.mind.special_role = "traitor"
 				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 				tatorhud.join_hud(newtraitor)
-				set_antag_hud(src, "hudsyndicate")
+				set_antag_hud(newtraitor, "hudsyndicate")
 
 				var/obj_count = 1
 				to_chat(newtraitor, "\blue Your current objectives:")

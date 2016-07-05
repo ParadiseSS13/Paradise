@@ -322,7 +322,7 @@
 
 	if(istype(W, /obj/item/device/lock_buster))
 		var/obj/item/device/lock_buster/L = W
-		if(L.on & equipment_system.lock_system)
+		if(L.on && equipment_system.lock_system)
 			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
 			if(do_after(user, 100, target = src))

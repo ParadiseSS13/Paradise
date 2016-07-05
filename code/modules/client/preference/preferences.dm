@@ -1219,15 +1219,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 						// Don't wear another species' underwear!
 						var/datum/sprite_accessory/S = underwear_list[underwear]
-						if(!(species in S.species_allowed))
+						if(!S || !(species in S.species_allowed))
 							underwear = random_underwear(gender, species)
 
 						S = undershirt_list[undershirt]
-						if(!(species in S.species_allowed))
+						if(!S || !(species in S.species_allowed))
 							undershirt = random_undershirt(gender, species)
 
 						S = socks_list[socks]
-						if(!(species in S.species_allowed))
+						if(!S || !(species in S.species_allowed))
 							socks = random_socks(gender, species)
 
 						//reset hair colour and skin colour
