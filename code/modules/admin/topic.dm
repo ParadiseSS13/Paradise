@@ -1645,7 +1645,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
 
-		var/Punishment = input( "Как сильно вы хотите наказать [P]?", 1) as num
+		var/Punishment = input( "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ [P]?", 1) as num
 		P.adjustBruteLoss(Punishment)
 		playsound(P.loc, 'sound/effects/adminpunish.ogg', 75, 0, 0, 1)
 		P.do_jitter_animation(20)
@@ -1655,7 +1655,7 @@
 		s.start()
 		log_admin("[key_name(src.owner)] punished [key_name(P)]")
 		message_admins("[key_name_admin(P)]have been punished by [key_name_admin(src.owner)]")
-		to_chat(P, "\red <b>Боги наказали вас за вашу глупость!</b>")
+		to_chat(P, "\red <b>пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!</b>")
 
 	else if(href_list["BlueSpaceArtillery"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -3091,6 +3091,28 @@
 			error_viewer.showTo(usr, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
 			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+
+	else if(href_list["remove"])
+		var/ckeyname = href_list["remove"]
+		ckeyname = ckey(ckeyname)
+
+		bwhitelist_remove(ckeyname)
+		return
+
+
+	else if(href_list["addtowhitelist"])
+		var/ckeyname = href_list["ckeyname"]
+		ckeyname = ckey(ckeyname)
+
+		bwhitelist_save(ckeyname)
+		return
+
+	else if(href_list["whitelistsearchckey"])
+		var/playerckey = href_list["whitelistsearchckey"]
+
+		bwhitelist_panel(playerckey)
+		return
+
 
 /proc/admin_jump_link(var/atom/target, var/source)
 	if(!target) return
