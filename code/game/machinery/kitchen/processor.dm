@@ -29,6 +29,28 @@
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		rating_speed = M.rating
 
+/obj/machinery/processor/process()
+	..()
+	// The irony
+	// To be clear, if it's grinding, then it can't suck them up
+	if(processing)
+		return
+	var/mob/living/carbon/slime/picked_slime
+	for(var/mob/living/carbon/slime/slime in range(1, src))
+		if(slime.loc == src)
+			continue
+		if(slime.stat)
+			picked_slime = slime
+			break
+	if(!picked_slime)
+		return
+	var/datum/food_processor_process/P = select_recipe(picked_slime)
+	if (!P)
+		return
+
+	visible_message("[picked_slime] is sucked into \the [src].")
+	picked_slime.forceMove(src)
+
 //RECIPE DATUMS
 /datum/food_processor_process
 	var/input

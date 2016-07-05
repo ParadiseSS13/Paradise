@@ -8,7 +8,7 @@ git:
 env:
   global:
     - BYOND_MAJOR="510"
-    - BYOND_MINOR="1336"
+    - BYOND_MINOR="1346"
   matrix:
     - DM_MAPFILE="cyberiad"
     - DM_MAPFILE="metastation"

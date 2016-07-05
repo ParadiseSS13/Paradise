@@ -81,7 +81,7 @@
 		var/obj/item/device/measuring_tape/P = W
 		user.visible_message("\blue[user] extends [P] towards [src].","\blue You extend [P] towards [src].")
 		if(do_after(user,40, target = src))
-			to_chat(user, "\blue \icon[P] [src] has been excavated to a depth of [2*src.excavation_level]cm.")
+			to_chat(user, "\blue [bicon(P)] [src] has been excavated to a depth of [2*src.excavation_level]cm.")
 		return
 
 	if (istype(W, /obj/item/weapon/pickaxe))

@@ -21,7 +21,7 @@
 	if(..())
 		return 1
 	if (!(src.z in config.station_levels))
-		to_chat(usr, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
+		to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	usr.set_machine(src)
 
@@ -69,7 +69,7 @@
 	if(..())
 		return
 	if (src.z > 6)
-		to_chat(user, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
+		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 
 	user.set_machine(src)

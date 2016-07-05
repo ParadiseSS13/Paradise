@@ -135,7 +135,7 @@
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
-	
+
 	var/lock_shuttle_doors = 0
 
 /obj/docking_port/stationary/register()
@@ -167,7 +167,7 @@
 /obj/docking_port/stationary/transit
 	name = "In Transit"
 	turf_type = /turf/space/transit
-	
+
 	lock_shuttle_doors = 1
 
 /obj/docking_port/stationary/transit/register()
@@ -683,7 +683,7 @@
 
 /obj/machinery/computer/shuttle/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(!allowed(usr))
@@ -726,7 +726,8 @@
 	admin_controlled = 1
 
 /obj/machinery/computer/shuttle/ferry/request/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
 	if(href_list["request"])
 		if(cooldown)
 			return
@@ -775,6 +776,12 @@
 	shuttleId = "admin"
 	possible_destinations = "admin_home;admin_away"
 
+/obj/machinery/computer/shuttle/sst
+	name = "Syndicate Strike Time Shuttle Console"
+	desc = "Used to call and send the SST shuttle."
+	shuttleId = "sst"
+	possible_destinations = "sst_home;sst_away"
+
 var/global/trade_dock_timelimit = 0
 var/global/trade_dockrequest_timelimit = 0
 
@@ -790,12 +797,13 @@ var/global/trade_dockrequest_timelimit = 0
 		possible_destinations = possible_destinations_dock
 	else
 		possible_destinations = possible_destinations_nodock
-	
+
 	docking_request = (world.time > trade_dockrequest_timelimit && world.time > trade_dock_timelimit)
 	..(user)
 
 /obj/machinery/computer/shuttle/trade/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
 	if(href_list["request"])
 		if(world.time < trade_dockrequest_timelimit || world.time < trade_dock_timelimit)
 			return

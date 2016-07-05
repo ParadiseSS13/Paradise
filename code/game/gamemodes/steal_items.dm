@@ -119,6 +119,11 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	typepath = /obj/item/clothing/suit/armor/laserproof
 	protected_jobs = list("Head of Security", "Warden")
 
+/datum/theft_objective/krav
+	name = "the warden's krav maga martial arts gloves"
+	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
+	protected_jobs = list("Head Of Security", "Warden")
+
 /datum/theft_objective/number
 	var/min=0
 	var/max=0

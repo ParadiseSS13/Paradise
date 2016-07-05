@@ -419,3 +419,8 @@
 				var/obj/structure/bigDelivery/BD = src.loc
 				BD.attack_hand(usr)
 			open()
+
+/obj/structure/closet/tesla_act(var/power)
+	..()
+	visible_message("<span class='danger'>[src] is blown apart by the bolt of electricity!</span>", "<span class='danger'>You hear a metallic screeching sound.</span>")
+	qdel(src)

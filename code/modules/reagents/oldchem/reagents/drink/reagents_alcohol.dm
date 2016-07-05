@@ -7,64 +7,13 @@
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
 	can_grow_in_plants = 0	//Alcoholic drinks won't be grown in plants (would "water down" random seed chems too much)
-	var/datum/martial_art/drunk_brawling/F = new
 	var/dizzy_adj = 3
-	var/slurr_adj = 3
-	var/confused_adj = 2
-	var/slur_start = 20			//amount absorbed after which mob starts slurring
-	var/brawl_start = 25		//amount absorbed after which mob switches to drunken brawling as a fighting style
-	var/confused_start = 30	//amount absorbed after which mob starts confusing directions
-	var/vomit_start = 45 //amount absorbed after which mob starts vomitting
-	var/blur_start = 70	//amount absorbed after which mob starts getting blurred vision
-	var/pass_out = 90	//amount absorbed after which mob starts passing out
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 
 /datum/reagent/ethanol/on_mob_life(var/mob/living/M as mob, var/alien)
-	// Sobering multiplier.
-	// Sober block makes it more difficult to get drunk
-	var/sober_str=!(SOBER in M.mutations)?1:2
 	M.nutrition += nutriment_factor
-
-	var/d = 0
-	// make all the beverages work together
-	for(var/datum/reagent/ethanol/A in holder.reagent_list)
-		if(isnum(A.current_cycle)) d += A.current_cycle * A.alcohol_perc
-
-	d/=sober_str
-
-	var/obj/item/organ/internal/liver/L
-	if(ishuman(M) && !M.isSynthetic())
-		var/mob/living/carbon/human/H = M
-		L = H.get_int_organ(/obj/item/organ/internal/liver)
-		d *= L ? L.alcohol_intensity : 5
-
-	M.dizziness += dizzy_adj.
-	if(d >= slur_start && d < pass_out)
-		if (!M.slurring) M.slurring = 1
-		M.slurring += slurr_adj/sober_str
-	if(d >= brawl_start && ishuman(M))
-		var/mob/living/carbon/human/H = M
-		F.teach(H,1)
-		if(src.volume < 3)
-			if(H.martial_art == F)
-				F.remove(H)
-	if(d >= confused_start && prob(33))
-		if (!M.confused) M.confused = 1
-		M.confused = max(M.confused+(confused_adj/sober_str),0)
-	if(d >= blur_start)
-		M.eye_blurry = max(M.eye_blurry, 10/sober_str)
-		M.drowsyness  = max(M.drowsyness, 0)
-	if(d >= vomit_start)
-		if(prob(8))
-			M.fakevomit()
-	if(d >= pass_out)
-		M.Paralyse(20 / sober_str)
-		M.drowsyness = max(M.drowsyness, 30/sober_str)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if (L)
-				L.take_damage(0.1, 1)
-			H.adjustToxLoss(0.1)
+	M.AdjustDrunk(alcohol_perc)
+	M.dizziness += dizzy_adj
 	..()
 	return
 
@@ -97,7 +46,7 @@
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	nutriment_factor = 2 * FOOD_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/beer/on_mob_life(var/mob/living/M as mob)
 		..()
@@ -109,7 +58,7 @@
 	id = "cider"
 	description = "An alcoholic beverage derived from apples."
 	color = "#174116"
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/whiskey
 	name = "Whiskey"
@@ -174,7 +123,7 @@
 	id = "mojito"
 	description = "If it's good enough for Spesscuba, it's good enough for you."
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/vodka
 	name = "Vodka"
@@ -226,8 +175,6 @@
 	description = "An unbelievably strong and potent variety of Cider."
 	color = "#CF3811"
 	dizzy_adj = 20
-	slurr_adj = 20
-	confused_adj = 3
 	alcohol_perc = 1 //because that's a thing it's supposed to do, I guess
 
 /datum/reagent/ethanol/ale
@@ -265,7 +212,7 @@
 	description = "This appears to be beer mixed with milk. Disgusting."
 	reagent_state = LIQUID
 	color = "#895C4C" // rgb: 137, 92, 76
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/atomicbomb
 	name = "Atomic Bomb"
@@ -429,7 +376,7 @@
 	description = "Beer and Ale, brought together in a delicious mix. Intended for true men only."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/longislandicedtea
 	name = "Long Island Iced Tea"
@@ -517,7 +464,7 @@
 	description = "Barefoot and pregnant"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/snowwhite
 	name = "Snow White"
@@ -525,7 +472,7 @@
 	description = "A cold refreshment"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/demonsblood
 	name = "Demons Blood"
@@ -534,7 +481,6 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 10
-	slurr_adj = 10
 	alcohol_perc = 0.4
 
 /datum/reagent/ethanol/vodkatonic
@@ -544,7 +490,6 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 4
-	slurr_adj = 3
 	alcohol_perc = 0.3
 
 /datum/reagent/ethanol/ginfizz
@@ -554,7 +499,6 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 4
-	slurr_adj = 3
 	alcohol_perc = 0.4
 
 /datum/reagent/ethanol/bahama_mama
@@ -563,7 +507,7 @@
 	description = "Tropic cocktail."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/singulo
 	name = "Singulo"
@@ -572,7 +516,6 @@
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	dizzy_adj = 15
-	slurr_adj = 15
 	alcohol_perc = 0.7
 
 /datum/reagent/ethanol/sbiten
@@ -603,7 +546,7 @@
 	description = "The true Viking drink! Even though it has a strange red color."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/mead
 	name = "Mead"
@@ -611,7 +554,7 @@
 	description = "A Vikings drink, though a cheap one."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/iced_beer
 	name = "Iced Beer"
@@ -619,7 +562,7 @@
 	description = "A beer which is so cold the air around it freezes."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/iced_beer/on_mob_life(var/mob/living/M as mob)
 	..()
@@ -685,16 +628,10 @@
 
 /datum/reagent/ethanol/neurotoxin/on_mob_life(var/mob/living/M as mob)
 	M.weakened = max(M.weakened, 3)
-	M.dizziness +=6
-	if(current_cycle >= 15 && current_cycle <45)
-		if (!M.slurring)
-			M.slurring = 1
-		M.slurring += 3
-	else if(current_cycle >= 45 && prob(50) && current_cycle <55)
-		M.confused = max(M.confused+3,0)
-	else if(current_cycle >=55)
+	dizzy_adj = 6
+	if(current_cycle >=55)
 		M.druggy = max(M.druggy, 55)
-	else if(current_cycle >=200)
+	if(current_cycle >=200)
 		M.adjustToxLoss(2)
 	..()
 	return
@@ -739,7 +676,7 @@
 	description = "The surprise is, it's green!"
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
-	alcohol_perc = 0.1
+	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/driestmartini
 	name = "Driest Martini"
@@ -754,8 +691,6 @@
 	if(current_cycle >= 55 && current_cycle <115)
 		if (!M.stuttering) M.stuttering = 1
 		M.stuttering += 10
-	else if(current_cycle >= 115 && prob(33))
-		M.confused = max(M.confused+15,15)
 	..()
 
 	return

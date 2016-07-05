@@ -295,7 +295,7 @@
 "fI" = (/turf/simulated/wall/cult,/area/awaymission/midblock)
 "fJ" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/midblock)
 "fK" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/midblock)
-"fL" = (/turf/simulated/shuttle/wall{tag = "icon-swall_s6"; icon_state = "swall_s6"; dir = 2},/area/awaymission/arrivalblock)
+"fL" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f6"; icon_state = "swall_f6"; dir = 2},/area/awaymission/arrivalblock)
 "fM" = (/turf/simulated/shuttle/wall{tag = "icon-swall14"; icon_state = "swall14"; dir = 2},/area/awaymission/arrivalblock)
 "fN" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/grille,/turf/simulated/shuttle/plating,/area/awaymission/arrivalblock)
 "fO" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/grille,/turf/simulated/shuttle/plating,/area/awaymission/arrivalblock)
@@ -383,6 +383,7 @@
 "hs" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "ht" = (/obj/structure/stool/bed/chair{dir = 1},/obj/effect/decal/remains/human,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 8},/area/awaymission/arrivalblock)
 "hu" = (/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
+"hv" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f5"; icon_state = "swall_f5"; dir = 2},/area/awaymission/arrivalblock)
 "hw" = (/obj/structure/window/reinforced,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "hx" = (/obj/machinery/door/window/southleft{name = "Windoor"},/turf/simulated/floor/plasteel{icon_state = "red"; dir = 4},/area/awaymission/arrivalblock)
 "hy" = (/obj/item/ammo_casing/c10mm{pixel_x = 2; pixel_y = 5},/obj/item/ammo_casing/c10mm{pixel_x = -4; pixel_y = -5},/obj/item/ammo_casing/c10mm,/turf/simulated/floor/plasteel/airless,/area/awaymission/midblock)
@@ -404,6 +405,7 @@
 "hO" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "hP" = (/obj/effect/decal/remains/human,/obj/item/weapon/kitchen/knife/butcher,/obj/item/weapon/kitchen/knife,/obj/item/clothing/head/chefhat,/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "hQ" = (/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
+"hR" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f9"; icon_state = "swall_f9"; dir = 2},/area/awaymission/arrivalblock)
 "hS" = (/obj/machinery/light/small,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/midblock)
 "hT" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/midblock)
 "hU" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/midblock)
@@ -541,7 +543,6 @@
 "kz" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_l"; icon_state = "propulsion_l"},/obj/structure/shuttle/engine/propulsion{tag = "icon-burst_l"; icon_state = "burst_l"},/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_l"; icon_state = "propulsion_l"},/obj/structure/shuttle/engine/propulsion,/turf/simulated/shuttle/plating,/area/awaymission/arrivalblock)
 "kA" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_l (NORTH)"; icon_state = "propulsion_l"; dir = 1},/obj/structure/window/reinforced,/turf/space,/area/awaymission/arrivalblock)
 "kB" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_r (NORTH)"; icon_state = "propulsion_r"; dir = 1},/obj/structure/window/reinforced,/turf/space,/area/awaymission/arrivalblock)
-"kC" = (/turf/simulated/shuttle/wall{tag = "icon-swall_s10"; icon_state = "swall_s10"; dir = 2},/area/awaymission/arrivalblock)
 "kD" = (/obj/machinery/vending/hydronutrients,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "kE" = (/obj/machinery/vending/hydroseeds,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "kF" = (/obj/structure/sink/kitchen{pixel_y = 32},/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
@@ -580,10 +581,8 @@
 "lm" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/southblock)
 "ln" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/southblock)
 "lo" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/southblock)
-"lp" = (/turf/simulated/shuttle/wall{tag = "icon-swall_s5"; icon_state = "swall_s5"; dir = 2},/area/awaymission/arrivalblock)
 "lq" = (/turf/simulated/shuttle/wall{tag = "icon-swall12"; icon_state = "swall12"; dir = 2},/area/awaymission/arrivalblock)
 "lr" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/shuttle/plating,/area/awaymission/arrivalblock)
-"ls" = (/turf/simulated/shuttle/wall{tag = "icon-swall_s9"; icon_state = "swall_s9"; dir = 2},/area/awaymission/arrivalblock)
 "lt" = (/obj/structure/closet/crate/hydroponics,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "lu" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/bucket,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "lv" = (/obj/effect/decal/cleanable/blood/splatter,/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
@@ -680,12 +679,13 @@ aafZgbgbgbgbgbfZhEiDilgzgzgzgzgzgzjogzgzgzjpjpiYiYjqiYiYiYiYjriYiYiYjsjtjujujuju
 aafZgcgcgbgcgcfZhVhuhqjyjzjAiljBhujChuhuhuhuhuiYjDjEjFiYjGjHjHjIjJiYjKjEjujLjMjNjOjPjujQjQjRjRjSjQjTaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aafZgbgbgbgbgbfZjUjViDhqhWhujWjyhujXhuhuhuhuhuiYjYjZkaiYkbkckdkekfiYjKkgjujLkhkikjjPjujQjQjQjQjQkkjTaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aafZklklklklklfZgzkmknkokmkngzgzgzgzgzjpgzgzgziYiYiYiYiYiYiYkpiYjriYjKjEjukqkrksktkujukvjQkwjQjQjQjTaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aagakxkykykykzgaaafLkAgRkBkCaagzkDkEkFhukGjzhuiYkfjHkfiYkHjHjHkIkfiYjKjEjukJkKkLkKkMjujQkkjQkNjQjQjTaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aagakxkykykykzgaaafLkAgRkBfQaagzkDkEkFhukGjzhuiYkfjHkfiYkHjHjHkIkfiYjKjEjukJkKkLkKkMjujQkkjQkNjQjQjTaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaafZkOkPkQfZaagzhuhujzhuhujzhuiYkRjKkSiYkRjKjKjKkTiYjKjEjukUkVkWkVkXjujQjQjSjQjQkkjTaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaafZkOgbkQfZaagzhujzhujzhuhuhuiYkfkdkfkpkRjKkYkZlaiYjKjEjulbkVkWkVlcjukkjQjQldkwjQjTaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaafZkOgckQfZaagzlehulfhulghuhuiYiYiYiYiYlhjKlijKljiYjKjEjulkkVkWkVlljujujujujulmlnloaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaalplqlrlqlsaagzlthuluhulvjzhuiYlwlxlyiYkRjKlijKlziYjKlAjujujulBjujujulClDlEjuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaahvlqlrlqhRaagzlthuluhulvjzhuiYlwlxlyiYkRjKlijKlziYjKlAjujujulBjujujulClDlEjuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaagzltlFlGlHhuhuhuiYlIkfkfkpkRjKlJjKlKiYlLlMlNlOlOlPlOlQlRlSlTlUjuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaagzgzgzgzgzgzgzgziYlVlWlXiYkfkdlYlZmaiYjKjKjKmbmbmbmbmcjulCmdmejuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYjujujujujuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

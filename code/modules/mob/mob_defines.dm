@@ -63,6 +63,7 @@
 	var/ajourn = 0
 	var/druggy = 0			//Carbon
 	var/confused = 0		//Carbon
+	var/drunk = 0
 	var/antitoxs = null
 	var/plasma = null
 	var/sleeping = 0		//Carbon

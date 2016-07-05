@@ -1,6 +1,0 @@
-author: tkdrg, Delimusca, Aranclanos, TheDZD
-delete-after: True
-changes: 
-  - rscadd: "Gun mimics (including wand, staff, projectile guns, and energy guns) created by the staff of animation will shoot things."
-  - rscadd: "Mimics created by the staff of animation now have googly eyes."
-  - bugfix: "Fixes the disturbing lack of death caused by wand of death projectiles."

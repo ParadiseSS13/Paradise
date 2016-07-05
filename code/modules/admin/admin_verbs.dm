@@ -72,7 +72,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
-	/client/proc/show_snpc_verbs
+	/client/proc/show_snpc_verbs,
+	/client/proc/reset_all_tcs			/*resets all telecomms scripts*/
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -158,7 +159,8 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cinematic,
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
-	/client/proc/map_template_upload
+	/client/proc/map_template_upload,
+	/client/proc/view_runtimes
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,

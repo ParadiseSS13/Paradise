@@ -391,7 +391,7 @@ var/const/POS_HEADER = {"<html>
 	return
 
 /obj/machinery/pos/proc/say(var/text)
-	src.visible_message("\icon[src] <span class=\"notice\"><b>[name]</b> states, \"[text]\"</span>")
+	src.visible_message("[bicon(src)] <span class=\"notice\"><b>[name]</b> states, \"[text]\"</span>")
 
 /obj/machinery/pos/Topic(var/href, var/list/href_list)
 	if(..(href,href_list)) return

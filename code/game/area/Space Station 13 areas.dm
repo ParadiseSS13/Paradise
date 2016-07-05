@@ -295,6 +295,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Special Ops Shuttle"
 	icon_state = "shuttlered2"
 
+/area/shuttle/syndicate_elite
+	name = "\improper Syndicate Elite Shuttle"
+	icon_state = "shuttlered"
+
 /area/shuttle/syndicate_elite/mothership
 	name = "\improper Syndicate Elite Shuttle"
 	icon_state = "shuttlered"
@@ -947,6 +951,10 @@ var/list/ghostteleportlocs = list()
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
+
+/area/maintenance/consarea
+	name = "Alternate Construction Area"
+	icon_state = "yellow"
 
 
 //Hallway

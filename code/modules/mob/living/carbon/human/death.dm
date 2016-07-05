@@ -111,16 +111,12 @@
 			if(istype(I,/mob/living/simple_animal/borer))
 				B = I
 	if(B)
-		if(!B.ckey && ckey && B.controlling)
+		if(B.controlling && B.host == src)
 			B.detatch()
 
 		verbs -= /mob/living/carbon/proc/release_control
 
 	callHook("death", list(src, gibbed))
-
-	if(ticker && ticker.mode)
-		if(istype(ticker.mode,/datum/game_mode/heist))
-			vox_kills++ //Bad vox. Shouldn't be killing humans.
 
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant

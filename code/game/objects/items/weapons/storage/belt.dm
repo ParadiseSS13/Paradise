@@ -314,6 +314,7 @@
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/bandolier/update_icon()
 	..()
@@ -325,7 +326,7 @@
 	if(amount != contents.len)
 		update_icon()
 
-/obj/item/weapon/storage/belt/lazabandolierrus/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/weapon/storage/belt/bandolier/remove_from_storage(obj/item/W as obj, atom/new_location)
 	..()
 	update_icon()
 
