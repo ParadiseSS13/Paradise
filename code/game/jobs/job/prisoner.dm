@@ -40,16 +40,11 @@
                 "Vandal")
 
   var/datum/data/record/G = new()
-  G.fields["age"]			= P.age
-  G.fields["p_stat"]		= "In Prison"
-  G.fields["m_stat"]		= "Stable"
-  general += G
-
   G.fields["id"]			= id
   G.fields["name"]		= P.real_name
   G.fields["criminal"]	= "Incarcerated"
   G.fields["mi_crim"]		= "[pick(commited_crime_minor)]"
-  G.fields["mi_crim_d"]	= "Convicted by NT to Permabrig Sentence"
+  G.fields["mi_crim_d"]	= "Do not try to release."
   G.fields["ma_crim"]		= "[pick(commited_crime_major)]"
   G.fields["ma_crim_d"]	= "Convicted by NT to Permabrig Sentence"
   G.fields["notes"]		= "(TOP SECRET) WHITELIST INITIATIVE - CENTRAL COMMAND ACCESS ONLY"

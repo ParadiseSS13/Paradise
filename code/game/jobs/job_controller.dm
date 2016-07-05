@@ -52,6 +52,9 @@ var/global/datum/controller/occupations/job_master
 			if(jobban_isbanned(player, rank))	return 0
 			if(!job.player_old_enough(player.client)) return 0
 			if(!is_job_whitelisted(player, rank)) return 0
+			if(!check_prisonlist(ckey(player.key)))
+				to_chat(player, "NOT FOUND IN THE WHITELIST - only latejoin avaiable!")
+				return 0
 			var/position_limit = job.total_positions
 			if(!latejoin)
 				position_limit = job.spawn_positions
@@ -120,9 +123,7 @@ var/global/datum/controller/occupations/job_master
 			if(job.title in whitelisted_positions) // No random whitelisted job, sorry!
 				continue
 
-			if(!job.prisonlist_job && !check_prisonlist(ckey(player.key))) // And no random prisoners for nice kids
-				continue
-			else if(job.prisonlist_job && check_prisonlist(ckey(player.key)))
+			if(!job.prisonlist_job && !check_prisonlist(ckey(player.key))) // And no jobs for prisoners
 				continue
 
 			if(job.admin_only) // No admin positions either.
@@ -510,7 +511,7 @@ var/global/datum/controller/occupations/job_master
 						H.species.equip(H)
 				if("D-class Prisoner")
 					if(rank=="D-class Prisoner")
-						to_chat(H, "<B>Not Whitelisted - spawning as [alt_title ? alt_title : rank]</B>")
+						to_chat(H, "<B>Spawning as [alt_title ? alt_title : rank]</B>")
 				else
 					switch(H.backbag) //BS12 EDIT
 						if(1)
