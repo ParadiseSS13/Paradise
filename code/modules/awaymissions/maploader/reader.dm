@@ -48,10 +48,10 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/list/bounds = list(1.#INF, 1.#INF, 1.#INF, -1.#INF, -1.#INF, -1.#INF)
 	var/list/grid_models = list()
 	var/key_len = 0
-	var/list/touched_z_levels = list()
 
 	var/dmm_suite/loaded_map/LM = new
-
+	if(measureOnly)
+		delay_init = 0
 	// This try-catch is used as a budget "Finally" clause, as the dirt count
 	// needs to be reset
 	try
@@ -83,7 +83,7 @@ var/global/dmm_suite/preloader/_preloader = new
 				var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
 				if(!measureOnly && delay_init)
 					zlevels.add_dirt(zcrd)
-					touched_z_levels |= zcrd
+					LM.touched_z_levels |= zcrd
 
 				if(zcrd > world.maxz)
 					if(cropMap)
@@ -148,13 +148,13 @@ var/global/dmm_suite/preloader/_preloader = new
 
 			CHECK_TICK
 	catch(var/exception/e)
-		if(!measureOnly && delay_init)
-			for(var/i in touched_z_levels)
+		if(delay_init)
+			for(var/i in LM.touched_z_levels)
 				zlevels.remove_dirt(i)
 		throw e
 
-	if(!measureOnly && delay_init)
-		for(var/i in touched_z_levels)
+	if(delay_init)
+		for(var/i in LM.touched_z_levels)
 			zlevels.remove_dirt(i)
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
@@ -443,6 +443,7 @@ var/global/dmm_suite/preloader/_preloader = new
 // a new area type for each new ruin
 /dmm_suite/loaded_map
 	parent_type = /datum
+	var/list/touched_z_levels = list()
 	var/list/area_list = list()
 
 /dmm_suite/loaded_map/proc/area_path_to_real_area(area/A)

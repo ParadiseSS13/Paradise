@@ -31,7 +31,14 @@ var/list/dirty_z_levels = list()
 
 	// If you're wondering what goofery this is, this is for things that need the environment
 	// around them set up - like `air_update_turf` and the like
-	if(!(T && zlevels.is_zlevel_dirty(T.z)) && auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
+	if(!auto_init)
+		//no-op
+	else if((T && zlevels.is_zlevel_dirty(T.z)))
+		// Also a no-op - maybe add some handling here if you want to try
+		// make object init on dirtied z-levels succeed - but right now
+		// the only source of dirty z-levels are admins loading templates and explicitly
+		// choosing to delay initialization on that level
+	else if((ticker && ticker.current_state == GAME_STATE_PLAYING))
 		initialize()
 
 /atom/movable/Destroy()
