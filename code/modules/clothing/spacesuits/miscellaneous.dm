@@ -99,7 +99,8 @@
 	icon_state = "santa"
 	item_state = "santa"
 	slowdown = 0
-	flags = ONESIZEFITSALL | STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE
+	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item) //for stuffing exta special presents
 
 

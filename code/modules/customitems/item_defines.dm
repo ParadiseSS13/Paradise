@@ -410,7 +410,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_robe"
 	item_state = "chronx_robe"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	action_button_name = "Transform Robes"
 	adjust_flavour = "untransform"
 	ignore_suitadjust = 0

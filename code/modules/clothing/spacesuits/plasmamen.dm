@@ -11,7 +11,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Plasmaman")
-	flags = STOPSPRESSUREDMAGE  | PLASMAGUARD
+	flags = STOPSPRESSUREDMAGE
 
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
@@ -38,7 +38,7 @@
 /obj/item/clothing/head/helmet/space/eva/plasmaman
 	name = "plasmaman helmet"
 	desc = "A special containment helmet designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
-	flags = STOPSPRESSUREDMAGE | PLASMAGUARD
+	flags = STOPSPRESSUREDMAGE
 	species_restricted = list("Plasmaman")
 
 	icon_state = "plasmaman_helmet0"

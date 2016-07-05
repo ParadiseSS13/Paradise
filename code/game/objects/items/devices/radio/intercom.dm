@@ -5,7 +5,7 @@
 	anchored = 1
 	w_class = 4.0
 	canhear_range = 2
-	flags = CONDUCT | NOBLOODY
+	flags = CONDUCT
 	var/number = 0
 	var/circuitry_installed = 1
 	var/last_tick //used to delay the powercheck
