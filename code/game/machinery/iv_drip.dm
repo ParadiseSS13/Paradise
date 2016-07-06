@@ -1,5 +1,5 @@
 /obj/machinery/iv_drip
-	name = "\improper IV drip"
+	name = "IV drip"
 	icon = 'icons/obj/iv_drip.dmi'
 	anchored = 0
 	density = 1

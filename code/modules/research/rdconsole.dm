@@ -32,7 +32,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 */
 
 /obj/machinery/computer/rdconsole
-	name = "\improper R&D console"
+	name = "R&D console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -906,7 +906,7 @@ proc/CallMaterialName(ID)
 	circuit = /obj/item/weapon/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
-	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
+	name = "E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
 	circuit = /obj/item/weapon/circuitboard/rdconsole/experiment

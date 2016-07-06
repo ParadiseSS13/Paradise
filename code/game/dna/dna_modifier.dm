@@ -50,7 +50,7 @@
 
 /////////////////////////// DNA MACHINES
 /obj/machinery/dna_scannernew
-	name = "\improper DNA modifier"
+	name = "DNA modifier"
 	desc = "It scans DNA structures."
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "scanner_open"
@@ -345,7 +345,7 @@
 	return 0
 
 /obj/machinery/computer/scan_consolenew
-	name = "\improper DNA Modifier access console"
+	name = "DNA Modifier access console"
 	desc = "Allows you to scan and modify DNA."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "dna"
