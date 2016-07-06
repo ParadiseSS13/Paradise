@@ -135,7 +135,7 @@ Works together with spawning an observer, noted above.
 		if(ghost.can_reenter_corpse)
 			respawnable_list += ghost
 		ghost.key = key
-		if(!ghost.client.holder && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
+		if(!(ghost.client && ghost.client.holder) && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
 			ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
 		return ghost
 
@@ -371,6 +371,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(var/atom/movable/target)
 	if(!target)
+		return
+
+	if(!get_turf(target))
 		return
 
 	if(target != src)

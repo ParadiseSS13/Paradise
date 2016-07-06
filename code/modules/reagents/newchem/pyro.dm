@@ -535,6 +535,7 @@ datum/reagent/pyrosium/on_tick()
 	required_reagents = list("chlorine" = 1, "oxygen" = 1, "nitrogen" = 1, "ammonia" = 1, "sodium" = 1, "silver" = 1)
 	result_amount = 1
 	mix_message = "The substance violently detonates!"
+	mix_sound = 'sound/effects/bang.ogg'
 
 /datum/chemical_reaction/azide/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -603,6 +604,7 @@ datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	required_reagents = list("firefighting_foam" = 1, "clf3" = 1)
 	result_amount = 1
 	mix_message = "The substance violently detonates!"
+	mix_sound = 'sound/effects/bang.ogg'
 
 /datum/chemical_reaction/clf3_firefighting/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
