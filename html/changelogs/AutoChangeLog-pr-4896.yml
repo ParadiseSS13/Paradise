@@ -1,0 +1,7 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Pod lock busters should now properly bust pod locks."
+  - bugfix: "The late-stage effects of the \"sensory destruction\" disease symptom should now properly destroy your senses."
+  - bugfix: "Autotraitor should now continue picking new in-game traitors, instead of picking one and dying."
+  - bugfix: "Lacking a head no longer makes you immune to becoming a husk or skeleton."

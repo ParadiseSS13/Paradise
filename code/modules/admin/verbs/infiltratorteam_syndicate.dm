@@ -18,9 +18,12 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/spawn_dummies = 0
 	if(alert("Spawn full-size team, even if there aren't enough ghosts to populate them?",,"Yes","No")=="Yes")
 		spawn_dummies = 1
+	var/pick_manually = 0
+	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
+		pick_manually = 1
 	var/list/teamsizeoptions = list(1,2,3,4,5)
 	var/teamsize = input(src, "How many team members, not counting the team leader?") as null|anything in teamsizeoptions
-	if (!(teamsize in teamsizeoptions))
+	if(!(teamsize in teamsizeoptions))
 		alert("Invalid team size specified. Aborting.")
 		return
 	var/input = null
@@ -29,11 +32,9 @@ var/global/sent_syndicate_infiltration_team = 0
 		if(!input)
 			alert("No mission specified. Aborting.")
 			return
-	var/list/tcoptions = list(0,5,10,15,20,25,30,35,40,50,60,80,100)
-	var/tcamount = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as null|anything in tcoptions
-	if (!(tcamount in tcoptions))
-		alert("Invalid TC amount specified. Aborting.")
-		return
+	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
+	var/tcamount = text2num(tctext)
+	tcamount = between(0, tcamount, 1000)
 	var/spawn_sit_officer = 0
 	if(alert("Spawn a syndicate officer for you, so you can brief them before they go?",,"Yes","No")=="Yes")
 		spawn_sit_officer = 1
@@ -43,10 +44,24 @@ var/global/sent_syndicate_infiltration_team = 0
 
 	var/syndicate_leader_selected = 0
 	//var/list/infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, 7)
-	to_chat(src, "Polling candidates...")
-	var/list/infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?")
 
-	if (!infiltrators.len)
+	var/list/infiltrators = list()
+
+	if(pick_manually)
+		var/list/ghost_ckeys = list()
+		for(var/mob/dead/observer/G in player_list)
+			if(!G.client.is_afk())
+				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
+					ghost_ckeys += G.key
+		for(var/i=teamsize,(i>0&&ghost_ckeys.len),i--) //Decrease with every SIT member selected.
+			var/candidate = input("Pick characters to spawn as a SIT member. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in ghost_ckeys // auto-picks if only one candidate
+			ghost_ckeys -= candidate
+			infiltrators += candidate
+	else
+		to_chat(src, "Polling candidates...")
+		infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?")
+
+	if(!infiltrators.len)
 		to_chat(src, "Nobody volunteered.")
 		return 0
 
@@ -71,7 +86,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
 		if(infiltrators.len)
 			var/mob/theguy = pick(infiltrators)
-			if(!spawn_sit_officer || theguy.key != src.key)
+			if(!spawn_sit_officer || theguy.key != key)
 				new_syndicate_infiltrator.key = theguy.key
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.internals.icon_state = "internal1"
@@ -103,7 +118,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	if(spawn_sit_officer)
 		for(var/obj/effect/landmark/L in sit_spawns_officer)
 			var/mob/living/carbon/human/officer = create_syndicate_infiltrator(L, 1, 100, 1)
-			officer.key = src.key
+			officer.key = key
 			officer.internal = officer.s_store
 			officer.internals.icon_state = "internal1"
 			officer.faction += "syndicate"
@@ -116,7 +131,7 @@ var/global/sent_syndicate_infiltration_team = 0
 			ticker.mode.set_antag_hud(officer.mind.current, "hudsit")
 			officer.mind.special_role = "Syndicate Officer"
 			officer.regenerate_icons()
-			to_chat(officer, "<span class='userdanger'>You have spawned as a Syndicate Officer. You can RP with the team, and brief them on the overall situation, but you should let the team leader organize things. Yours is a RP role, and you should NOT go with them.</span>")
+			to_chat(officer, "<span class='userdanger'>You have spawned as a Syndicate Officer. You should brief them on their mission before they go.</span>")
 	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
 	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

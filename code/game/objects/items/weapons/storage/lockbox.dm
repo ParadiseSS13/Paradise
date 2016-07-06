@@ -81,7 +81,7 @@
 	storage_slots = 1
 
 /obj/item/weapon/storage/lockbox/loyalty
-	name = "Lockbox (Loyalty Implants)"
+	name = "Lockbox (Mindshield Implants)"
 	req_access = list(access_security)
 
 	New()

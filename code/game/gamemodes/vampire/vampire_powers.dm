@@ -339,7 +339,7 @@
 	ticker.mode.vampire_enthralled[H.mind] = user.mind
 	H.mind.special_role = "VampThrall"
 	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>")
-	to_chat(src, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
+	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
 	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 
 /obj/effect/proc_holder/spell/vampire/self/cloak

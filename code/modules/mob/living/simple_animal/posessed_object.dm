@@ -19,8 +19,8 @@
 	var/obj/item/possessed_item
 
 
-/mob/living/simple_animal/possessed_object/examine()
-	possessed_item.examine()
+/mob/living/simple_animal/possessed_object/examine(mob/user)
+	possessed_item.examine(user)
 	if(health > (maxHealth / 30))
 		to_chat(usr, "<span class='warning'>[src] appears to be floating without any support!</span>")
 	else

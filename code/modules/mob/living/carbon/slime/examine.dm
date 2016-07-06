@@ -1,6 +1,7 @@
 /mob/living/carbon/slime/examine(mob/user)
+	to_chat(user, "<span class='info'>*---------*</span>")
 	..(user)
-	var/msg = ""
+	var/msg = "<span class='info'>"
 	if (src.stat == DEAD)
 		msg += "<span class='deadsay'>It is limp and unresponsive.</span>\n"
 	else

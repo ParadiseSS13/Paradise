@@ -36,6 +36,7 @@
 /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh
 	name = "syntheflesh patch"
 	desc = "Helps with burn injuries."
+	icon_state = "bandaid_med"
 	instant_application = 1
 
 /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh/New()
