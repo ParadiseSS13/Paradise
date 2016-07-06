@@ -130,6 +130,16 @@
 	'sound/voice/groan/female3.ogg',
 	'sound/voice/groan/female4.ogg'
 	)
+	var/list/male_laugh_sound = list(
+	'sound/voice/laugh/male1.ogg',
+	'sound/voice/laugh/male2.ogg',
+	'sound/voice/laugh/male3.ogg',
+	)
+	var/list/female_laugh_sound = list(
+	'sound/voice/laugh/female1.ogg',
+	'sound/voice/laugh/female2.ogg',
+	'sound/voice/laugh/female3.ogg',
+	)
 
 	//Default hair/headacc style vars.
 	var/default_hair = "Bald" 		//Default hair style for newly created humans unless otherwise set.
