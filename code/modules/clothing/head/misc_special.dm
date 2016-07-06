@@ -274,8 +274,8 @@
 			return
 		for(var/mob/living/carbon/human/H in viewers(pete))
 			if(H == pete) continue
-			if(prob(50) && !H.stunned)
-				H.Stun(10)
+			if(prob(25) && !H.stunned)
+				H.Stun(4)
 				H.visible_message("<span class='danger'>[H] begins to dance uncontrollably!</span>","<span class='userdanger'> You feel the sudden urge to dance!</span>")
 		sleep(10)
 		tick += 1
