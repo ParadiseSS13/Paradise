@@ -1010,13 +1010,6 @@ proc/get_mob_with_client_list()
 	else if (zone == "r_foot") return "right foot"
 	else return zone
 
-
-/proc/get_turf(atom/A)
-	if (!istype(A))
-		return
-	for(A, A && !isturf(A), A=A.loc); //semicolon is for the empty statement
-	return A
-
 //Finds the distance between two atoms, in pixels
 //centered = 0 counts from turf edge to edge
 //centered = 1 counts from turf center to turf center
