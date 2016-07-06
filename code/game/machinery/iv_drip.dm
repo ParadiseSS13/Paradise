@@ -132,7 +132,7 @@
 				update_icon()
 
 /obj/machinery/iv_drip/attack_hand(mob/user as mob)
-	if((get_dist(src, user) > 1))
+	if(get_dist(src, user) > 1)
 		return //stops the AI from removing beakers, still allows borgs
 	if(src.beaker)
 		src.beaker.loc = get_turf(src)
