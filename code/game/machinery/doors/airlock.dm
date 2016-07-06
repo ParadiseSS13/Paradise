@@ -257,14 +257,14 @@
 /obj/machinery/door/airlock/clown
 	name = "Bananium Airlock"
 	icon = 'icons/obj/doors/Doorbananium.dmi'
-	mineral = "clown"
+	mineral = "bananium"
 	doorOpen = 'sound/items/bikehorn.ogg'
 	doorClose = 'sound/items/bikehorn.ogg'
 
 /obj/machinery/door/airlock/mime
 	name = "Tranquillite Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
-	mineral = "mime"
+	mineral = "tranquilite"
 	doorOpen = null
 	doorClose = null
 
