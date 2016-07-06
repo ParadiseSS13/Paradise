@@ -1061,6 +1061,8 @@
 				to_chat(user, "You start prying out the circuit.")
 				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
 				if(do_after(user,20, target = src))
+					if(buildstage != 1)
+						return
 					to_chat(user, "You pry out the circuit!")
 					var/obj/item/weapon/airalarm_electronics/circuit = new /obj/item/weapon/airalarm_electronics()
 					circuit.loc = user.loc

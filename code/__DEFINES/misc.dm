@@ -157,6 +157,8 @@
 	for(type in view(range, dview_mob))
 #define END_FOR_DVIEW dview_mob.loc = null
 
+#define get_turf(A) (get_step(A, 0))
+
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
@@ -256,3 +258,6 @@
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
+
+// Macro to get the current elapsed round time, rather than total world runtime
+#define ROUND_TIME (round_start_time ? (world.time - round_start_time) : 0)

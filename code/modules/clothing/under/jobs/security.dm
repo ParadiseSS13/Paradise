@@ -16,7 +16,7 @@
 	item_state = "r_suit"
 	item_color = "warden"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/warden/skirt
@@ -25,7 +25,7 @@
 	icon_state = "wardenf"
 	item_state = "r_suit"
 	item_color = "wardenf"
-	flags = null
+	flags_size = null
 
 /obj/item/clothing/under/rank/security
 	name = "security officer's jumpsuit"
@@ -34,7 +34,7 @@
 	item_state = "r_suit"
 	item_color = "secred"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/security/skirt
@@ -43,7 +43,7 @@
 	icon_state = "secredf"
 	item_state = "r_suit"
 	item_color = "secredf"
-	flags = null
+	flags_size = null
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
@@ -52,7 +52,7 @@
 	item_state = "dispatch"
 	item_color = "dispatch"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/security2
 	name = "security officer's uniform"
@@ -61,7 +61,8 @@
 	item_state = "r_suit"
 	item_color = "redshirt2"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/security/corp
 	icon_state = "sec_corporate"
 	item_state = "sec_corporate"
@@ -82,7 +83,7 @@
 	item_state = "det"
 	item_color = "detective"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	strip_delay = 50
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -99,7 +100,7 @@
 	item_state = "r_suit"
 	item_color = "hosred"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/skirt
@@ -108,7 +109,7 @@
 	icon_state = "hosredf"
 	item_state = "r_suit"
 	item_color = "hosredf"
-	flags = null
+	flags_size = null
 
 /obj/item/clothing/under/rank/head_of_security/corp
 	icon_state = "hos_corporate"
@@ -122,7 +123,7 @@
 	icon_state = "jensen"
 	item_state = "jensen"
 	item_color = "jensen"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 //Paradise Station
 
@@ -179,4 +180,4 @@
 	item_color = "brig_phys"
 	permeability_coefficient = 0.50
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL

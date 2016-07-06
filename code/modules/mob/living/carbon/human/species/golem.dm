@@ -75,7 +75,8 @@
 	item_state = "golem"
 	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
-	flags = ONESIZEFITSALL | ABSTRACT | NODROP | THICKMATERIAL
+	flags = ABSTRACT | NODROP | THICKMATERIAL
+	flags_size = ONESIZEFITSALL
 	armor = list(melee = 55, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/shoes/golem
