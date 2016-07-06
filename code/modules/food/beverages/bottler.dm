@@ -35,24 +35,24 @@
 				qdel(recipe)
 
 /obj/machinery/bottler/attackby(obj/item/O, mob/user, params)
-	if(iswrench(O))		//This being before the NODROP check allows borgs to (un)wrench bottlers in case they need move them to fix stuff
+	if(iswrench(O))		//This being before the canUnequip check allows borgs to (un)wrench bottlers in case they need move them to fix stuff
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(anchored)
 			anchored = 0
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
+			to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
 		else
 			anchored = 1
-			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
+			to_chat(user, "<span class='alert'>[src] is now secured.</span>")
 		return 1
-	if(O.flags & NODROP)
-		to_chat(user, "<span class='warning'>\The [O] is stuck to your hand, you can't seem to put it down!</span>")
+	if(!user.canUnEquip(O, 0))
+		to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
 		return 0
 	if(is_type_in_list(O,acceptable_items))
 		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks))
 			var/obj/item/weapon/reagent_containers/food/snacks/S = O
 			user.unEquip(S)
 			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
-				to_chat(user, "<span class='warning'>\The [S.name] is gone, oh no!</span>")
+				to_chat(user, "<span class='warning'>[S] is gone, oh no!</span>")
 				qdel(S)			//Delete the food object because it is useless even as food due to the lack of reagents
 			else
 				insert_item(S, user)
@@ -92,7 +92,7 @@
 	if(!O || !user)
 		return
 	if(obj_1 && obj_2 && obj_3)
-		to_chat(user, "<span class='warning'>\The [src] is full, please remove or process the contents first.</span>")
+		to_chat(user, "<span class='warning'>[src] is full, please remove or process the contents first.</span>")
 		return
 	var/slot_inserted = 0
 	if(!obj_1)
@@ -106,10 +106,10 @@
 		obj_3 = O
 
 	if(!slot_inserted)
-		to_chat(user, "<span class='warning'>Something went wrong and the machine spits out \the [O].</span>")
-		O.forceMove(src.loc)
+		to_chat(user, "<span class='warning'>Something went wrong and the machine spits out [O].</span>")
+		O.forceMove(loc)
 	else
-		to_chat(user, "<span class='notice'>You load \the [O] into the [slot_inserted]\th ingredient tray.</span>")
+		to_chat(user, "<span class='notice'>You load [O] into the [slot_inserted]\th ingredient tray.</span>")
 		O.forceMove(src)
 	updateUsrDialog()
 
@@ -117,20 +117,20 @@
 	var/obj/item/O = null
 	if(obj_1 && (slot == 1 || slot == 4))
 		O = obj_1
-		O.forceMove(src.loc)
+		O.forceMove(loc)
 		obj_1 = null
 	if(obj_2 && (slot == 2 || slot == 4))
 		O = obj_2
-		O.forceMove(src.loc)
+		O.forceMove(loc)
 		obj_2 = null
 	if(obj_3 && (slot == 3 || slot == 4))
 		O = obj_3
-		O.forceMove(src.loc)
+		O.forceMove(loc)
 		obj_3 = null
 	if(slot == 4)
-		visible_message("<span class='notice'>\The [src] beeps as it ejects the contents of all the ingredient trays.</span>")
+		visible_message("<span class='notice'>[src] beeps as it ejects the contents of all the ingredient trays.</span>")
 	else
-		visible_message("<span class='notice'>\The [src] beeps as it ejects [O.name] from the [slot]\th ingredient tray.</span>")
+		visible_message("<span class='notice'>[src] beeps as it ejects [O.name] from the [slot]\th ingredient tray.</span>")
 	updateUsrDialog()
 
 /obj/machinery/bottler/proc/recycle_container(obj/item/O)
@@ -160,28 +160,28 @@
 			cans++
 			recycled = 1
 	if(recycled)
-		visible_message("<span class='notice'>\The [src] whirs briefly as it prepares the container for reuse.</span>")
+		visible_message("<span class='notice'>[src] whirs briefly as it prepares the container for reuse.</span>")
 		qdel(O)
 		updateUsrDialog()
 	else
-		visible_message("<span class='warning'>\The [src] cannot store any more cans at this time. Please fill some before recycling more.</span>")
-		O.forceMove(src.loc)
+		visible_message("<span class='warning'>[src] cannot store any more cans at this time. Please fill some before recycling more.</span>")
+		O.forceMove(loc)
 
 /obj/machinery/bottler/proc/process_sheets(obj/item/stack/sheet/S)
 	if(!S)
 		return
-	S.forceMove(src.loc)
+	S.forceMove(loc)
 	//Glass sheets for glass bottles (1 bottle per sheet)
 	if(istype(S, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = S
 		if(glass_bottles < 10)
 			var/sheets_to_use = min((10 - glass_bottles), G.amount)
-			visible_message("<span class='notice'>\The [src] shudders as it converts [sheets_to_use] [G.singular_name]\s into new bottles.</span>")
+			visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [G.singular_name]\s into new bottles.</span>")
 			glass_bottles += sheets_to_use
 			glass_bottles = min(glass_bottles, 10)
 			G.use(sheets_to_use)
 		else
-			visible_message("<span class='warning'>\The [src] rejects the [G] because it already is fully stocked with glass bottles.</span>")
+			visible_message("<span class='warning'>[src] rejects the [G] because it already is fully stocked with glass bottles.</span>")
 			return
 	//Plastic sheets for plastic bottles (2 bottles per sheet)
 	else if(istype(S, /obj/item/stack/sheet/mineral/plastic))
@@ -192,12 +192,12 @@
 			if(bottles_missing % 2)		//A bit wasteful, but we'll always try to completely refill the supply even if it means throwing away excess material
 				sheets_needed += 1
 			var/sheets_to_use = min(sheets_needed, P.amount)
-			visible_message("<span class='notice'>\The [src] shudders as it converts [sheets_to_use] [P.singular_name]\s into new bottles.</span>")
+			visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [P.singular_name]\s into new bottles.</span>")
 			plastic_bottles += sheets_to_use * 2
 			plastic_bottles = min(plastic_bottles, 20)
 			P.use(sheets_to_use)
 		else
-			visible_message("<span class='warning'>\The [src] rejects the [P] because it already is fully stocked with plastic bottles.</span>")
+			visible_message("<span class='warning'>[src] rejects the [P] because it already is fully stocked with plastic bottles.</span>")
 			return
 	//Metal sheets for cans (5 cans per sheet)
 	else if(istype(S, /obj/item/stack/sheet/metal))
@@ -208,15 +208,15 @@
 			if(cans_missing % 5)		//A bit wasteful, but we'll always try to completely refill the supply even if it means throwing away excess material
 				sheets_needed += 1
 			var/sheets_to_use = min(sheets_needed, M.amount)
-			visible_message("<span class='notice'>\The [src] shudders as it converts [sheets_to_use] [M.singular_name]\s into new cans.</span>")
+			visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [M.singular_name]\s into new cans.</span>")
 			cans += sheets_to_use * 5
 			cans = min(cans, 25)
 			M.use(sheets_to_use)
 		else
-			visible_message("<span class='warning'>\The [src] rejects the [M] because it already is fully stocked with metal cans.</span>")
+			visible_message("<span class='warning'>[src] rejects the [M] because it already is fully stocked with metal cans.</span>")
 			return
 	else
-		visible_message("<span class='warning'>\The [src] rejects the unusable materials.</span>")
+		visible_message("<span class='warning'>[src] rejects the unusable materials.</span>")
 		return
 	updateUsrDialog()
 
@@ -248,22 +248,22 @@
 			return recipe
 	return null
 
-/obj/machinery/bottler/proc/dispense_empty_container(var/container = 0)
+/obj/machinery/bottler/proc/dispense_empty_container(container = 0)
 	switch(container)
 		if(1)	//glass bottle
 			if(glass_bottles > 0)
-				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle(src.loc)
+				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle(loc)
 				glass_bottles--
 		if(2)	//plastic bottle
 			if(plastic_bottles > 0)
-				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle(src.loc)
+				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle(loc)
 				plastic_bottles--
 		if(3)	//can
 			if(cans > 0)
-				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can(src.loc)
+				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can(loc)
 				cans--
 
-/obj/machinery/bottler/proc/process_ingredients(var/container = 0)
+/obj/machinery/bottler/proc/process_ingredients(container = 0)
 	//stop if we have ZERO ingredients (what would you process?)
 	if(!obj_1 && !obj_2 && !obj_3)
 		visible_message("<span class='warning'>There are no ingredients to process! Please insert some first.</span>")
@@ -294,7 +294,7 @@
 			visible_message("<span class='warning'>Error 404: Drink Container Not Found.</span>")
 		return
 	//select and process a recipe based on inserted ingredients
-	visible_message("<span class='notice'>\The [src] hums as it processes the ingredients...</span>")
+	visible_message("<span class='notice'>[src] hums as it processes the ingredients...</span>")
 	bottling = 1
 	var/datum/bottler_recipe/recipe_to_use = select_recipe()
 	if(!recipe_to_use)
@@ -320,7 +320,7 @@
 		obj_2 = null
 		obj_3 = null
 		bottling = 0
-		drink_container.forceMove(src.loc)
+		drink_container.forceMove(loc)
 		updateUsrDialog()
 
 /obj/machinery/bottler/attack_ai(mob/user)
@@ -372,15 +372,15 @@
 		dat += "</tr>"
 		dat += "<tr>"
 		if(obj_1)
-			dat += "<td>[obj_1.name]</td>"
+			dat += "<td>[bicon(obj_1)]<br>[obj_1.name]</td>"
 		else
 			dat += "<td>Tray Empty</td>"
 		if(obj_2)
-			dat += "<td>[obj_2.name]</td>"
+			dat += "<td>[bicon(obj_2)]<br>[obj_2.name]</td>"
 		else
 			dat += "<td>Tray Empty</td>"
 		if(obj_3)
-			dat += "<td>[obj_3.name]</td>"
+			dat += "<td>[bicon(obj_3)]<br>[obj_3.name]</td>"
 		else
 			dat += "<td>Tray Empty</td>"
 		if(obj_1 && obj_2 && obj_3)
