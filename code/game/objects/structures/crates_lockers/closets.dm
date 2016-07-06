@@ -388,6 +388,7 @@
 			L.forceMove(get_turf(src)) // Let's just be safe here
 		return //Door's open... wait, why are you in it's contents then?
 	if(!welded)
+		open() //for cardboard boxes
 		return //closed but not welded...
 	//	else Meh, lets just keep it at 2 minutes for now
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
