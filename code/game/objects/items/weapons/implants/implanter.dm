@@ -82,3 +82,9 @@
 	imp = new /obj/item/weapon/implant/traitor(src)
 	..()
 
+/obj/item/weapon/implanter/teleport
+	name = "implanter (teleport)"
+
+/obj/item/weapon/implanter/teleport/New()
+	imp = new /obj/item/weapon/implant/teleport(src)
+	..()
