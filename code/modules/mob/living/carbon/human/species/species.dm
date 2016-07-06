@@ -118,6 +118,18 @@
 	var/scream_verb = "screams"
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	var/list/male_groan_sound = list(
+	'sound/voice/groan/male1.ogg',
+	'sound/voice/groan/male2.ogg',
+	'sound/voice/groan/male3.ogg',
+	'sound/voice/groan/male4.ogg'
+	)
+	var/list/female_groan_sound = list(
+	'sound/voice/groan/female1.ogg',
+	'sound/voice/groan/female2.ogg',
+	'sound/voice/groan/female3.ogg',
+	'sound/voice/groan/female4.ogg'
+	)
 
 	//Default hair/headacc style vars.
 	var/default_hair = "Bald" 		//Default hair style for newly created humans unless otherwise set.
