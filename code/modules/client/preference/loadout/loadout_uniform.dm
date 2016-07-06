@@ -97,3 +97,36 @@
 	display_name = "skirt, hos"
 	path = /obj/item/clothing/under/rank/head_of_security/skirt
 	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/formal
+	subtype_path = /datum/gear/uniform/formal
+
+/datum/gear/uniform/formal/security
+	display_name = "formal uniform, security"
+	path = /obj/item/clothing/under/rank/security/formal
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/uniform/formal/warden
+	display_name = "formal uniform, warden"
+	path = /obj/item/clothing/under/rank/warden/formal
+	allowed_roles = list("Warden")
+
+/datum/gear/uniform/formal/head_of_security
+	display_name = "formal uniform, hos"
+	path = /obj/item/clothing/under/rank/head_of_security/formal
+	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/corporatesec
+	display_name = "corporate security uniform"
+	path = /obj/item/clothing/under/rank/security/corp
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/uniform/dispatchsec
+	display_name = "dispatcher's uniform"
+	path = /obj/item/clothing/under/rank/dispatch
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/uniform/casualsec
+	display_name = "casual security uniform"
+	path = /obj/item/clothing/under/rank/security2
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")

@@ -2,6 +2,7 @@
  * Contains:
  *		Lasertag
  *		Costume
+ *		Winter Coats
  *		Misc
  */
 
@@ -16,10 +17,6 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/weapon/gun/energy/laser/bluetag)
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armour"
@@ -29,10 +26,6 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/weapon/gun/energy/laser/redtag)
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /*
  * Costume
@@ -42,20 +35,13 @@
 	desc = "Yarr."
 	icon_state = "pirate_old"
 	item_state = "pirate_old"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/pirate_black
 	name = "black pirate coat"
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
+
 
 /obj/item/clothing/suit/hgpirate
 	name = "pirate captain coat"
@@ -114,10 +100,7 @@
 	item_state = "wcoat"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
+
 
 /obj/item/clothing/suit/apron/overalls
 	name = "coveralls"
@@ -251,10 +234,6 @@
 	desc = "Your classic, non-racist poncho."
 	icon_state = "classicponcho"
 	item_state = "classicponcho"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/poncho/green
 	name = "green poncho"
@@ -282,6 +261,115 @@
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/*
+ * Winter coats
+ */
+
+/obj/item/clothing/suit/hooded/wintercoat
+	name = "winter coat"
+	desc = "A heavy jacket made from 'synthetic' animal furs."
+	icon_state = "wintercoat"
+	item_state = "labcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/toy, /obj/item/weapon/storage/fancy/cigarettes, /obj/item/weapon/lighter)
+
+/obj/item/clothing/head/winterhood
+	name = "winter hood"
+	desc = "A hood attached to a heavy winter jacket."
+	icon_state = "winterhood"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	flags = NODROP
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/hooded/wintercoat/captain
+	name = "captain's winter coat"
+	icon_state = "wintercoat_captain"
+	armor = list(melee = 25, bullet = 30, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0)
+	allowed = list(/obj/item/weapon/gun/energy, /obj/item/weapon/reagent_containers/spray/pepper, /obj/item/weapon/gun/projectile, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/weapon/melee/baton, /obj/item/weapon/restraints/handcuffs, /obj/item/device/flashlight/seclite, /obj/item/weapon/melee/classic_baton/telescopic)
+	hoodtype = /obj/item/clothing/head/winterhood/captain
+
+/obj/item/clothing/head/winterhood/captain
+	icon_state = "winterhood_captain"
+
+/obj/item/clothing/suit/hooded/wintercoat/security
+	name = "security winter coat"
+	icon_state = "wintercoat_sec"
+	armor = list(melee = 15, bullet = 10, laser = 20, energy = 5, bomb = 15, bio = 0, rad = 0) //worse stats than normal armor, but this one protects arms and makes space hurt less, CHOICES!
+	allowed = list(/obj/item/weapon/gun/energy, /obj/item/weapon/reagent_containers/spray/pepper, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton, /obj/item/weapon/restraints/handcuffs, /obj/item/device/flashlight/seclite, /obj/item/weapon/melee/classic_baton/telescopic)
+	hoodtype = /obj/item/clothing/head/winterhood/security
+
+/obj/item/clothing/head/winterhood/security
+	icon_state = "winterhood_sec"
+
+/obj/item/clothing/suit/hooded/wintercoat/medical
+	name = "medical winter coat"
+	icon_state = "wintercoat_med"
+	allowed = list(/obj/item/device/analyzer, /obj/item/weapon/dnainjector, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/syringe, /obj/item/weapon/reagent_containers/hypospray, /obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen, /obj/item/weapon/reagent_containers/glass/bottle, /obj/item/weapon/reagent_containers/glass/beaker, /obj/item/weapon/storage/pill_bottle, /obj/item/weapon/paper, /obj/item/weapon/melee/classic_baton/telescopic)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 50, rad = 0)
+	hoodtype = /obj/item/clothing/head/winterhood/medical
+
+/obj/item/clothing/head/winterhood/medical
+	icon_state = "winterhood_med"
+
+/obj/item/clothing/suit/hooded/wintercoat/science
+	name = "science winter coat"
+	icon_state = "wintercoat_sci"
+	allowed = list(/obj/item/device/analyzer, /obj/item/stack/medical, /obj/item/weapon/dnainjector, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/syringe, /obj/item/weapon/reagent_containers/hypospray, /obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen, /obj/item/weapon/reagent_containers/glass/bottle, /obj/item/weapon/reagent_containers/glass/beaker, /obj/item/weapon/storage/pill_bottle, /obj/item/weapon/paper, /obj/item/weapon/melee/classic_baton/telescopic)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
+	hoodtype = /obj/item/clothing/head/winterhood/science
+
+/obj/item/clothing/head/winterhood/science
+	icon_state = "winterhood_sci"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering
+	name = "engineering winter coat"
+	icon_state = "wintercoat_engi"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 20)
+	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/device/t_scanner, /obj/item/weapon/rcd)
+	hoodtype = /obj/item/clothing/head/winterhood/engineering
+
+/obj/item/clothing/head/winterhood/engineering
+	icon_state = "winterhood_engi"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
+	name = "atmospherics winter coat"
+	icon_state = "wintercoat_atmos"
+	hoodtype = /obj/item/clothing/head/winterhood/engineering/atmos
+
+/obj/item/clothing/head/winterhood/engineering/atmos
+	icon_state = "winterhood_atmos"
+
+/obj/item/clothing/suit/hooded/wintercoat/hydro
+	name = "hydroponics winter coat"
+	icon_state = "wintercoat_hydro"
+	allowed = list(/obj/item/weapon/reagent_containers/spray, /obj/item/device/analyzer/plant_analyzer, /obj/item/seeds, /obj/item/weapon/reagent_containers/glass/bottle, /obj/item/weapon/hatchet, /obj/item/weapon/storage/bag/plants)
+	hoodtype = /obj/item/clothing/head/winterhood/hydro
+
+/obj/item/clothing/head/winterhood/hydro
+	item_state = "winterhood_hydro"
+
+/obj/item/clothing/suit/hooded/wintercoat/cargo
+	name = "cargo winter coat"
+	icon_state = "wintercoat_cargo"
+	hoodtype = /obj/item/clothing/head/winterhood/cargo
+
+/obj/item/clothing/head/winterhood/cargo
+	icon_state = "winterhood_cargo"
+
+/obj/item/clothing/suit/hooded/wintercoat/miner
+	name = "mining winter coat"
+	icon_state = "wintercoat_miner"
+	allowed = list(/obj/item/weapon/pickaxe, /obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/toy, /obj/item/weapon/storage/fancy/cigarettes, /obj/item/weapon/lighter)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	hoodtype = /obj/item/clothing/head/winterhood/miner
+
+/obj/item/clothing/head/winterhood/miner
+	icon_state = "winterhood_miner"
 
 /*
  * Misc
@@ -294,7 +382,7 @@
 	item_state = "straight_jacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
-	flags_size = ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 	strip_delay = 60
 
 /obj/item/clothing/suit/ianshirt
@@ -302,10 +390,6 @@
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in."
 	icon_state = "ianshirt"
 	item_state = "ianshirt"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 //pyjamas
 //originally intended to be pinstripes >.>
@@ -349,20 +433,12 @@
 	desc = "It makes you stand out. Just the opposite of why it's typically worn. Nice try trying to blend in while wearing it."
 	icon_state = "brtrenchcoat"
 	item_state = "brtrenchcoat"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/blacktrenchcoat
 	name = "black trench coat"
 	desc = "That shade of black just makes you look a bit more evil. Good for those mafia types."
 	icon_state = "bltrenchcoat"
 	item_state = "bltrenchcoat"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 
 //actual suits
@@ -437,7 +513,7 @@
 	item_state = "xenos_helm"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	flags_size = ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 
 //swimsuit
 /obj/item/clothing/under/swimsuit/
@@ -480,7 +556,7 @@
 	w_class = 4//bulky item
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	flags_size = ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/pen,/obj/item/device/flashlight/pen)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
@@ -507,10 +583,6 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	action_button_name = "Zip/Unzip Jacket"
 	adjust_flavour = "unzip"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/jacket/pilot
 	name = "security bomber jacket"
@@ -525,7 +597,7 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
-	flags_size = ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	//End of inheritance from Security armour.
 
@@ -542,26 +614,12 @@
 	desc = "A classy clown officer's overcoat, also designed by Hugo Boss."
 	icon_state = "officersuit"
 	item_state = "officersuit"
-	ignore_suitadjust = 0
-	action_button_name = "Button/Unbutton Jacket"
-	adjust_flavour = "unbutton"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/soldiercoat
 	name = "Clown Soldier's Coat"
 	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
 	icon_state = "soldiersuit"
 	item_state = "soldiersuit"
-	ignore_suitadjust = 0
-	action_button_name = "Button/Unbutton Jacket"
-	adjust_flavour = "unbutton"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"

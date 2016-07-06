@@ -1032,8 +1032,7 @@ var/list/sacrificed = list()
 	usr.visible_message("\red The rune disappears with a flash of red light, and a set of armor appears on [usr]...", \
 	"\red You are blinded by the flash of red light! After you're able to see again, you see that you are now wearing a set of armor.")
 
-	user.equip_to_slot_or_del(new /obj/item/clothing/head/culthood/alt(user), slot_head)
-	user.equip_to_slot_or_del(new /obj/item/clothing/suit/cultrobes/alt(user), slot_wear_suit)
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
 	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), slot_shoes)
 	user.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
 	//the above update their overlay icons cache but do not call update_icons()
