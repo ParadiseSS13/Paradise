@@ -27,8 +27,8 @@
 /*
 /proc/sanitize(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
 	#ifdef DEBUG_CYRILLIC
-	to_chat(world, "\magenta DEBUG: \red <b>sanitize() entered, text:</b> <i>[input]</i>")
-	to_chat(world, "\magenta DEBUG: \red <b>ja_mode:</b> [mode]")
+	to_chat(world, "\magenta DEBUG: \red <b>sanitize() entered, text:</b> <i>[input]</i>")
+	to_chat(world, "\magenta DEBUG: \red <b>ja_mode:</b> [mode]")
 	#endif
 	if(!input)
 		return
@@ -40,7 +40,7 @@
 	input = sanitize_local(input, mode)
 
 	#ifdef DEBUG_CYRILLIC
-	to_chat(world, "\magenta DEBUG: \blue <b>sanitize() finished, text:</b> <i>[input]</i>")
+	to_chat(world, "\magenta DEBUG: \blue <b>sanitize() finished, text:</b> <i>[input]</i>")
 	#endif
 
 	return input
@@ -432,3 +432,51 @@ proc/checkhtml(var/t)
 /proc/macro2html(text)
     var/static/regex/text_macro = new("(\\xFF.)(.*)$")
     return text_macro.Replace(text, /proc/replace_text_macro)
+
+/proc/pointization(text as text)
+	if (!text)
+		return
+	if (copytext(text,1,2) == "*") //Emotes allowed.
+		return text
+	if (copytext(text,-1) in list("!", "?", "."))
+		return text
+	text += "."
+	return text
+
+
+/proc/ruscapitalize(var/t as text)
+	var/s = 2
+	if (copytext(t,1,2) == ";")
+		s += 1
+	else if (copytext(t,1,2) == ":")
+		if(copytext(t,3,4) == " ")
+			s+=3
+		else
+			s+=2
+	return upperrustext(copytext(t, 1, s)) + copytext(t, s)
+
+/proc/upperrustext(text as text)
+	var/t = ""
+	for(var/i = 1, i <= length(text), i++)
+		var/a = text2ascii(text, i)
+		if (a > 223)
+			t += ascii2text(a - 32)
+		else if (a == 184)
+			t += ascii2text(168)
+		else t += ascii2text(a)
+	t = replacetext(t,"&#1103;","ß")
+	t = replacetext(t, "ÿ", "ß")
+	return t
+
+
+/proc/lowerrustext(text as text)
+	var/t = ""
+	for(var/i = 1, i <= length(text), i++)
+		var/a = text2ascii(text, i)
+		if (a > 191 && a < 224)
+			t += ascii2text(a + 32)
+		else if (a == 168)
+			t += ascii2text(184)
+		else t += ascii2text(a)
+	t = replacetext(t,"ß","&#1103;")
+	return t

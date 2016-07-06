@@ -133,6 +133,9 @@ proc/get_radio_key_from_channel(var/channel)
 
 	message = sanitize_local(message)
 
+	message = ruscapitalize(message)
+	message = pointization(message)
+
 	if(stat)
 		if(stat == 2)
 			return say_dead(message)
