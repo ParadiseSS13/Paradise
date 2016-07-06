@@ -279,13 +279,13 @@
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
-	icon_state = "wormhole_projector100"
+	icon_state = "wormhole_projector1"
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
 
 /obj/item/weapon/gun/energy/wormhole_projector/update_icon()
-	icon_state = "[initial(icon_state)][select]"
+	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
 	return
 
@@ -306,6 +306,8 @@
 /obj/item/weapon/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
 	P.precision = 0
+	P.failchance = 0
+	P.can_multitool_to_remove = 1
 	if(W.name == "bluespace beam")
 		qdel(blue)
 		blue = P

@@ -444,6 +444,7 @@
 	throwforce = 0
 	w_class = 2.0
 	flags = NOSHIELD
+	armour_penetration = 50
 	var/active = 0
 
 /obj/item/weapon/holo/esword/green/New()

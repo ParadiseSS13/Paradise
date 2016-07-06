@@ -1882,7 +1882,7 @@
 		threatcount += 2
 
 
-	//Loyalty implants imply trustworthyness
+	//Mindshield implants imply slight trustworthiness
 	if(isloyal(src))
 		threatcount -= 1
 

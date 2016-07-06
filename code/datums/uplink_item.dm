@@ -378,6 +378,15 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
+/datum/uplink_item/dangerous/sniper
+	name = "Sniper Rifle"
+	desc = "Ranged fury, Syndicate style. guaranteed to cause shock and awe or your TC back!"
+	reference = "SSR"
+	item = /obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate
+	cost = 16
+	surplus = 25
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
@@ -619,6 +628,38 @@ var/list/uplink_items = list()
 	cost = 12
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/ammo/sniper
+	cost = 4
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/sniper/basic
+	name = ".50 Magazine"
+	desc = "An additional standard 6-round magazine for use with .50 sniper rifles."
+	reference = "50M"
+	item = /obj/item/ammo_box/magazine/sniper_rounds
+
+/datum/uplink_item/ammo/sniper/soporific
+	name = ".50 Soporific Magazine"
+	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
+	reference = "50S"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
+	cost = 6
+
+/datum/uplink_item/ammo/sniper/haemorrhage
+	name = ".50 Haemorrhage Magazine"
+	desc = "A 5-round magazine of haemorrhage ammo designed for use with .50 sniper rifles; causes heavy bleeding \
+			in the target."
+	reference = "50B"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
+
+/datum/uplink_item/ammo/sniper/penetrator
+	name = ".50 Penetrator Magazine"
+	desc = "A 5-round magazine of penetrator ammo designed for use with .50 sniper rifles. \
+			Can pierce walls and multiple enemies."
+	reference = "50P"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
+	cost = 5
 
 // STEALTHY WEAPONS
 

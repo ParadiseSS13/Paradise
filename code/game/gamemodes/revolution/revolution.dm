@@ -147,7 +147,7 @@
 	if (!where2)
 		to_chat(mob, "The Syndicate were unfortunately unable to get you a chameleon security HUD.")
 	else
-		to_chat(mob, "The chameleon security HUD in your [where2] will help you keep track of who is loyalty-implanted, and unable to be recruited.")
+		to_chat(mob, "The chameleon security HUD in your [where2] will help you keep track of who is mindshield-implanted, and unable to be recruited.")
 
 	if (!where)
 		to_chat(mob, "The Syndicate were unfortunately unable to get you a flash.")

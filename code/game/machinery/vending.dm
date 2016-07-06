@@ -1152,7 +1152,7 @@
 	icon_state = "sustenance"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/tofu = 24,
 					/obj/item/weapon/reagent_containers/food/drinks/ice = 12,
-					/obj/item/weapon/reagent_containers/food/snacks/candy_corn = 6)
+					/obj/item/weapon/reagent_containers/food/snacks/candy/candy_corn = 6)
 	contraband = list(/obj/item/weapon/kitchen/knife = 6)
 
 /obj/machinery/vending/hatdispenser

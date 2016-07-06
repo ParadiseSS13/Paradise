@@ -316,14 +316,13 @@ BLIND     // can't see anything
 					flags |= MASKCOVERSMOUTH
 				if(initial(flags) & AIRTIGHT) //If the mask is airtight and thus, one that you'd be able to run internals from yet can't because it was adjusted, make it airtight again.
 					flags |= AIRTIGHT
-			if(H.head == src)
-				if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
-					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-						user.unEquip(src)
-					else //Otherwise, put it in an available hand, the active one preferentially.
-						src.loc = user
-						H.head = null
-						user.put_in_hands(src)
+			if(H.head == src && flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+					user.unEquip(src)
+				else //Otherwise, put it in an available hand, the active one preferentially.
+					src.loc = user
+					H.head = null
+					user.put_in_hands(src)
 		else
 			icon_state += "_up"
 			to_chat(user, "You push \the [src] out of the way.")
@@ -332,13 +331,10 @@ BLIND     // can't see anything
 			mask_adjusted = 1
 			if(adjusted_flags)
 				slot_flags = adjusted_flags
-			if(ishuman(user))
-				if(H.internal)
-					if(user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
-												Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
-						if(H.internals)
-							H.internals.icon_state = "internal0"
-						H.internal = null
+			if(ishuman(user) && H.internal && user.wear_mask == src && H.internals) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
+																					Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
+				H.internals.icon_state = "internal0"
+				H.internal = null
 			if(flags_inv & HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 				flags_inv &= ~HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
 										This reveals the user's face since the bandana will now be going on their head.*/
@@ -346,14 +342,13 @@ BLIND     // can't see anything
 				flags &= ~MASKCOVERSMOUTH
 			if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 				flags &= ~AIRTIGHT
-			if(user.wear_mask == src)
-				if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
-					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-						user.unEquip(src)
-					else //Otherwise, put it in an available hand, the active one preferentially.
-						src.loc = user
-						user.wear_mask = null
-						user.put_in_hands(src)
+			if(user.wear_mask == src && initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
+				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+					user.unEquip(src)
+				else //Otherwise, put it in an available hand, the active one preferentially.
+					src.loc = user
+					user.wear_mask = null
+					user.put_in_hands(src)
 		usr.update_inv_wear_mask()
 		usr.update_inv_head()
 
@@ -452,6 +447,7 @@ BLIND     // can't see anything
 	var/suit_adjusted = 0
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
+	var/list/hide_tail_by_species = null
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
@@ -496,6 +492,15 @@ BLIND     // can't see anything
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>")
 
+/obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
+	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
+		if(user.species.name in hide_tail_by_species)
+			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
+				flags_inv |= HIDETAIL
+		else
+			if(!(initial(flags_inv) & HIDETAIL) && (flags_inv & HIDETAIL)) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
+				flags_inv &= ~HIDETAIL
+
 /obj/item/clothing/suit/verb/openjacket(var/mob/user) //The verb you can use to adjust jackets.
 	set name = "Open/Close Jacket"
 	set category = "Object"
@@ -521,7 +526,7 @@ BLIND     // can't see anything
 	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -543,8 +548,8 @@ BLIND     // can't see anything
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank)
-	slowdown = 2
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50)
+	slowdown = 1
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -561,7 +566,7 @@ BLIND     // can't see anything
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',

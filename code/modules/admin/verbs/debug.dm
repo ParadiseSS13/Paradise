@@ -869,19 +869,20 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		if("nanotrasen officer")
 
+			M.equip_or_collect(new /obj/item/clothing/under/rank/centcom/officer(M), slot_w_uniform)
 			M.equip_or_collect(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
 			M.equip_or_collect(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
-			M.equip_or_collect(new /obj/item/device/radio/headset/heads/captain/alt(M), slot_l_ear)
+			M.equip_or_collect(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
 			M.equip_or_collect(new /obj/item/clothing/head/beret/centcom/officer(M), slot_head)
-
-			var/obj/item/device/pda/centcom/pda = new(M)
-			pda.owner = M.real_name
-			pda.ownjob = "Nanotrasen Navy Officer"
-			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
-
-			M.equip_or_collect(pda, slot_r_store)
-			M.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
+			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_wear_pda)
+			M.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
 			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
+			M.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+
+			var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
+			L.imp_in = M
+			L.implanted = 1
+			M.sec_hud_set_implants()
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Officer)"
@@ -894,17 +895,16 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
 			M.equip_or_collect(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
 			M.equip_or_collect(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
-			M.equip_or_collect(new /obj/item/device/radio/headset/heads/captain/alt(M), slot_l_ear)
+			M.equip_or_collect(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
 			M.equip_or_collect(new /obj/item/clothing/head/beret/centcom/captain(M), slot_head)
-
-			var/obj/item/device/pda/centcom/pda = new(M)
-			pda.owner = M.real_name
-			pda.ownjob = "Nanotrasen Navy Captain"
-			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
-
-			M.equip_or_collect(pda, slot_r_store)
-			M.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
+			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_wear_pda)
+			M.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
 			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
+			M.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
+			L.imp_in = M
+			L.implanted = 1
+			M.sec_hud_set_implants()
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Captain)"

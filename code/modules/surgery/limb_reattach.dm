@@ -95,6 +95,11 @@
 	E.replaced(target)
 	E.forceMove(target)
 	if(target.get_species() == "Machine")//as this is the only step needed for ipc put togethers
+		if(!(E.dna) && E.robotic == 2 && target.dna)
+			E.dna = target.dna.Clone()
+			if(!E.blood_DNA)
+				E.blood_DNA = list()
+			E.blood_DNA[target.dna.unique_enzymes] = target.dna.b_type
 		if(target_zone == "head")
 			var/obj/item/organ/external/head/H = target.get_organ("head")
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
