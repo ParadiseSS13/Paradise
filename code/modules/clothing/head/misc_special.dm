@@ -232,3 +232,65 @@
 /obj/item/clothing/head/cardborg/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("standard_borg_disguise")
+
+
+
+/obj/item/clothing/head/collectable/petehat/special
+	name = "super ultra rare Pete's hat!"
+	desc = "It smells faintly of the caribbean."
+	icon_state = "petehat"
+
+	action_button_name = "RHUMBA!!"
+
+	var/uses = 1
+	var/mob/living/carbon/human/pete
+	var/rhumba_duration = 55
+	var/tick = 0
+
+/obj/item/clothing/head/collectable/petehat/special/proc/rhumba(mob/living/carbon/human/M)
+	if(M.head != src)
+		to_chat(M,"You need to be wearing the hat to initiate your Rhumba powers.")
+		return
+	if(uses <= 0)
+		to_chat(M,"You cannot start a Rhumba more than once!")
+		return
+	uses -= 1
+	pete = M
+
+	for(var/O in global_intercoms) //shamelessly copied from the bee briefcase
+		var/obj/item/device/radio/intercom/I = O
+		if(I.z != ZLEVEL_STATION)
+			continue
+		if(!I.on)
+			continue
+		playsound(I, 'sound/effects/cuban_pete.ogg' , 100)
+
+	rhumba_proc()
+
+/obj/item/clothing/head/collectable/petehat/special/proc/rhumba_proc()
+	while(1)
+		if(!check_rhumba_validity())
+			to_chat(pete,"<span class='userdanger'>Your hat loses its memetic abilities!</span>")
+			return
+		for(var/mob/living/carbon/human/H in viewers(pete))
+			if(H == pete) continue
+			if(prob(50) && !H.stunned)
+				H.Stun(10)
+				H.visible_message("<span class='danger'>[H] begins to dance uncontrollably!</span>","<span class='userdanger'> You feel the sudden urge to dance!</span>")
+		sleep(10)
+		tick += 1
+
+
+/obj/item/clothing/head/collectable/petehat/special/proc/check_rhumba_validity()
+	if(pete.head != src)
+		return 0
+	if(pete.stat != CONSCIOUS)
+		return 0
+	if(tick >= rhumba_duration)
+		return 0
+	return 1
+
+/obj/item/clothing/head/collectable/petehat/special/ui_action_click()
+	rhumba(usr)
+
+

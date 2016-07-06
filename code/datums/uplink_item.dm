@@ -1230,6 +1230,14 @@ var/list/uplink_items = list()
 		feedback_add_details("traitor_uplink_items_bought","RN")
 		return new I.item(loc) */
 
+
+/datum/uplink_item/badass/petehat
+	name = "Cuban Pete's Hat"
+	desc = "A hat containing a microtransmitter that will force the station's intercoms to broadcast a memetic song that will cause all those that can see the wearer of the hat to dance uncontrollably. Does not work on synthetics."
+	reference = "CUBA"
+	cost = 20
+	item = /obj/item/clothing/head/collectable/petehat/special
+
 /datum/uplink_item/badass/surplus_crate
 	name = "Syndicate Surplus Crate"
 	desc = "A crate containing 50 telecrystals worth of random syndicate leftovers."
