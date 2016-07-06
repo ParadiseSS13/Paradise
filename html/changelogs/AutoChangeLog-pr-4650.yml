@@ -1,5 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - tweak: "Adds a last-second loop-back sort pipe so that items with a mail tag don't end up on the disposals conveyer, and get flushed right back around. This enables an item to be sent from anywhere on the station to anywhere else on the station without going through the disposals conveyer."
-  - bugfix: "Fixes a bug where drones can get stuck if they have their destination set to the RD office. This also fixes the bug where attempting to send a package from the test lab always ends up in the RD office."

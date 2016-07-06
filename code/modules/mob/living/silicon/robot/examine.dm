@@ -1,10 +1,11 @@
 /mob/living/silicon/robot/examine(mob/user)
+	to_chat(user, "<span class='info'>*---------*</span>")
 	..(user)
 
-	var/msg = ""
+	var/msg = "<span class='info'>"
 	var/obj/act_module = get_active_hand()
 	if(act_module)
-		msg += "It is holding \icon[act_module] \a [act_module].\n"
+		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
 	msg += "<span class='warning'>"
 	if (src.getBruteLoss())
 		if (src.getBruteLoss() < 75)

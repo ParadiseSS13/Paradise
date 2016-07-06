@@ -588,9 +588,6 @@
 		visible_message("<span class='danger'>[src] resists!</span>")
 		return 1
 
-/mob/living/proc/resist_borer()
-	return
-
 /mob/living/proc/resist_buckle()
 	spawn(0)
 		resist_muzzle()

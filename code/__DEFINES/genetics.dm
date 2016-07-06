@@ -1,5 +1,8 @@
 // String identifiers for associative list lookup
 
+
+#define MUTCHK_FORCED        1
+
 // mob/var/list/mutations
 
 // Used in preferences.

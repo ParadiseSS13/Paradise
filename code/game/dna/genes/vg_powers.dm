@@ -116,10 +116,23 @@
 
 	//Skin tone.
 	if(M.species.bodyflags & HAS_SKIN_TONE)
-		var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[M.s_tone]") as null|text
-		if (!new_tone)
+		var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", M.s_tone) as null|text
+		if(!new_tone)
 			new_tone = 35
 		M.s_tone = 35 - max(min(round(text2num(new_tone)), 220), 1)
+
+	if(M.species.bodyflags & HAS_ICON_SKIN_TONE)
+		var/prompt = "Please select skin tone: 1-[M.species.icon_skin_tones.len] ("
+		for(var/i = 1; i <= M.species.icon_skin_tones.len; i++)
+			prompt += "[i] = [M.species.icon_skin_tones[i]]"
+			if(i != M.species.icon_skin_tones.len)
+				prompt += ", "
+		prompt += ")"
+
+		var/new_tone = input(prompt, "Character Generation", M.s_tone) as null|text
+		if(!new_tone)
+			new_tone = 0
+		M.s_tone = max(min(round(text2num(new_tone)), M.species.icon_skin_tones.len), 1)
 
 	//Skin colour.
 	if(M.species.bodyflags & HAS_SKIN_COLOR)

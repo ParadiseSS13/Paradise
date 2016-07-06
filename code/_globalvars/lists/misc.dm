@@ -22,7 +22,8 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"UO45R",
 	"UO71",
 	"UO71R",
-	"Xeno"
+	"Xeno",
+	"Hotel"
 	)
 
 var/list/map_templates = list()

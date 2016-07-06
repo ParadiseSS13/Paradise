@@ -18,6 +18,8 @@
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
+	var/feast_sound = 'sound/misc/Demon_consume.ogg'
+	var/death_sound = 'sound/misc/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -47,6 +49,7 @@
 						You may Ctrl+Click on blood pools to travel through them, appearing and dissaapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
 						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
+	var/deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
 
 /mob/living/simple_animal/slaughter/New()
@@ -88,8 +91,8 @@
 
 /mob/living/simple_animal/slaughter/death()
 	..()
-	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
-	visible_message("<span class='danger'>[src] screams in anger as it collapses into a puddle of viscera, its most recent meals spilling out of it.</span>")
+	playsound(get_turf(src), death_sound, 200, 1)
+	visible_message("<span class='danger'>[src] [deathmessage].</span>")
 	for(var/mob/living/M in consumed_mobs)
 		M.forceMove(get_turf(src))
 	ghostize()
@@ -180,6 +183,36 @@
 
 /obj/item/organ/internal/heart/demon/Stop()
 	return 0 // Always beating.
+
+
+/mob/living/simple_animal/slaughter/laughter
+	// The laughter demon! It's everyone's best friend! It just wants to hug
+	// them so much, it wants to hug everyone at once!
+	name = "laughter demon"
+	real_name = "laughter demon"
+	desc = "A large, adorable creature covered in armor with pink bows."
+	speak_emote = list("giggles", "titters", "chuckles")
+	emote_hear = list("gaffaws", "laughs")
+	response_help  = "hugs"
+	attacktext = "wildly tickles"
+
+	attack_sound = 'sound/items/bikehorn.ogg'
+	feast_sound = 'sound/spookoween/scary_horn2.ogg'
+	death_sound = 'sound/misc/sadtrombone.ogg'
+
+	icon_state = "bowmon"
+	icon_living = "bowmon"
+	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
+	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
+
+/mob/living/simple_animal/slaughter/laughter/death()
+	for(var/mob/living/M in consumed_mobs)
+		if(M.revive())
+			M.grab_ghost(force = TRUE)
+			playsound(get_turf(src), feast_sound, 50, 1, -1)
+			to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
+	..()
+
 
 //Objectives and helpers.
 

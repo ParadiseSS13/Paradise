@@ -23,20 +23,20 @@
 	if(!message)	return
 	var/F = investigate_subject2file(subject)
 	if(!F)	return
-	to_chat(F, "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>")
+	investigate_log_subjects |= subject
+	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>"
 
 //ADMINVERBS
-/client/proc/investigate_show( subject in list("hrefs","notes","pda","singulo","atmos","watchlist","ntsl","gold core","cult", "experimentor", "wires") )
+/client/proc/investigate_show( subject in investigate_log_subjects )
 	set name = "Investigate"
 	set category = "Admin"
 	if(!holder)	return
 	switch(subject)
-		if("singulo")			//general one-round-only stuff
-			var/F = investigate_subject2file(subject)
-			if(!F)
-				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
-				return
-			src << browse(F,"window=investigate[subject];size=800x300")
+		if("notes")
+			show_note()
+
+		if("watchlist")
+			watchlist_show()
 
 		if("hrefs")				//persistant logs and stuff
 			if(config && config.log_hrefs)
@@ -49,50 +49,9 @@
 				to_chat(src, "<font color='red'>Error: admin_investigate: Href Logging is not on.</font>")
 				return
 
-		if("pda")			//general one-round-only stuff
+		else //general one-round-only stuff
 			var/F = investigate_subject2file(subject)
 			if(!F)
 				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
 				return
 			src << browse(F,"window=investigate[subject];size=800x300")
-
-		if("cult")
-			var/F = investigate_subject2file(subject)
-			if(!F)
-				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
-				return
-			src << browse(F,"window=investigate[subject];size=800x300")
-
-		if("atmos")
-			var/F = investigate_subject2file(subject)
-			if(!F)
-				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
-				return
-			src << browse(F,"window=investigate[subject];size=800x300")
-
-		if("ntsl")
-			var/F = investigate_subject2file(subject)
-			if(!F)
-				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
-				return
-			src << browse(F,"window=investigate[subject];size=800x300")
-
-		if("experimentor")
-			var/F = investigate_subject2file(subject)
-			if(!F)
-				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
-				return
-			src << browse(F,"window=investigate[subject];size=800x300")
-
-		if("wires")
-			var/F = investigate_subject2file(subject)
-			if(!F)
-				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
-				return
-			src << browse(F,"window=investigate[subject];size=800x300")
-
-		if("watchlist")
-			watchlist_show()
-
-		if("notes")
-			show_note()

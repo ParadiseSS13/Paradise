@@ -54,11 +54,11 @@ datum/genesequence
 		W.loc = src.loc
 		switch(scan_fossil(W))
 			if(1)
-				src.visible_message("\red \icon[src] [src] scans the fossil and rejects it.")
+				src.visible_message("\red [bicon(src)] [src] scans the fossil and rejects it.")
 			if(2)
-				visible_message("\red \icon[src] [src] can not extract any more genetic data from new fossils.")
+				visible_message("\red [bicon(src)] [src] can not extract any more genetic data from new fossils.")
 			if(4)
-				src.visible_message("\blue \icon[src] [user] inserts [W] into [src], the fossil is consumed as [src] extracts genetic data from it.")
+				src.visible_message("\blue [bicon(src)] [user] inserts [W] into [src], the fossil is consumed as [src] extracts genetic data from it.")
 				qdel(W)
 				updateDialog()
 	else if (istype(W, /obj/item/weapon/storage))
@@ -182,13 +182,13 @@ datum/genesequence
 		var/datum/genesequence/cloned_genesequence = completed_genesequences[sequence_num]
 		if(pod1)
 			if(pod1.occupant)
-				visible_message("\red \icon[src] The cloning pod is currently occupied.")
+				visible_message("\red [bicon(src)] The cloning pod is currently occupied.")
 			else if(pod1.biomass < CLONE_BIOMASS)
-				visible_message("\red \icon[src] Not enough biomass in the cloning pod.")
+				visible_message("\red [bicon(src)] Not enough biomass in the cloning pod.")
 			else if(pod1.mess)
-				visible_message("\red \icon[src] Error: clonepod malfunction.")
+				visible_message("\red [bicon(src)] Error: clonepod malfunction.")
 			else
-				visible_message("\blue \icon[src] [src] clones something from a reconstituted gene sequence!")
+				visible_message("\blue [bicon(src)] [src] clones something from a reconstituted gene sequence!")
 				playsound(src.loc, 'sound/effects/screech.ogg', 50, 1, -3)
 				pod1.occupant = new cloned_genesequence.spawned_type(pod1)
 				pod1.locked = 1
@@ -196,7 +196,7 @@ datum/genesequence
 				//pod1.occupant.name = "[pod1.occupant.name] ([rand(0,999)])"
 				pod1.biomass -= CLONE_BIOMASS
 		else
-			to_chat(usr, "\red \icon[src] Unable to locate cloning pod!")
+			to_chat(usr, "\red [bicon(src)] Unable to locate cloning pod!")
 	else
 		..()
 
@@ -240,7 +240,7 @@ datum/genesequence
 	else if(href_list["clone"])
 		var/sequence_num = text2num(href_list["sequence_num"])
 		var/datum/genesequence/cloned_genesequence = completed_genesequences[sequence_num]
-		visible_message("\blue \icon[src] [src] clones a packet of seeds from a reconstituted gene sequence!")
+		visible_message("\blue [bicon(src)] [src] clones a packet of seeds from a reconstituted gene sequence!")
 		playsound(src.loc, 'sound/effects/screech.ogg', 50, 1, -3)
 		new cloned_genesequence.spawned_type(src.loc)
 

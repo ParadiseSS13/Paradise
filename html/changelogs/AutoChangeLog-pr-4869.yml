@@ -1,0 +1,7 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Fixed borers dying in hosts who happened to be somewhere cold, such as space. Even if their host was in a space suit."
+  - bugfix: "Fixed borers forgetting to detach from a host when it died."
+  - bugfix: "Fixed borers being able to assume control of a dead host."
+  - bugfix: "Fixed dead borers in a host being able to speak with the host and ghosts."

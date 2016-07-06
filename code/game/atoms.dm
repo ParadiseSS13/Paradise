@@ -187,7 +187,7 @@
 		else
 			f_name += "oil-stained [name][infix]."
 
-	to_chat(user, "\icon[src] That's [f_name] [suffix]")
+	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
 	to_chat(user, desc)
 
 	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
@@ -351,9 +351,6 @@
 
 //returns 1 if made bloody, returns 0 otherwise
 /atom/proc/add_blood(mob/living/carbon/human/M as mob)
-
-	if(flags & NOBLOODY)
-		return 0
 
 	if(!blood_DNA || !istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
 		blood_DNA = list()

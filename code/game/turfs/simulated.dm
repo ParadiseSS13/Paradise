@@ -104,8 +104,7 @@
 						return
 
 				if(TURF_WET_LUBE) //lube
-					if(M.slip("floor", 0, 7, 4, 0, 1))
-						M.take_organ_damage(2) // Was 5 -- TLE
+					M.slip("floor", 0, 5, 3, 0, 1)
 
 
 				if(TURF_WET_ICE) // Ice

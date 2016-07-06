@@ -270,6 +270,7 @@
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
+	var/admin_usage = 0 // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
 
 /obj/machinery/teleport/hub/New()
 	..()
@@ -317,7 +318,7 @@
 	return power_station
 
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
-	if(z == ZLEVEL_CENTCOMM)
+	if(z == ZLEVEL_CENTCOMM && !admin_usage)
 		to_chat(M, "You can't use this here.")
 		return
 	if(power_station && power_station.engaged && !panel_open)
@@ -379,7 +380,7 @@
 	use_power = 1
 	idle_power_usage = 10
 	active_power_usage = 2000
-	
+
 	var/target
 	var/tele_delay = 50
 
@@ -414,7 +415,7 @@
 		else
 			do_teleport(M, target)
 			use_power(5000)
-			
+
 			if(tele_delay)
 				recalibrating = 1
 				update_icon()

@@ -82,8 +82,8 @@
 	diary << "\[[time_stamp()]]MISC: [text][log_end]"
 
 /proc/log_to_dd(text)
-	world.log << text //this comes before the config check because it can't possibly runtime
-	if(config.log_world_output)
+	world.log << text
+	if(config && config.log_world_output)
 		diary << "\[[time_stamp()]]DD_OUTPUT: [text][log_end]"
 
 /**
@@ -92,3 +92,22 @@
 /proc/log_startup_progress(var/message)
 	to_chat(world, "<span class='danger'>[message]</span>")
 	log_to_dd(message)
+
+// Helper procs for building detailed log lines
+
+/proc/datum_info_line(var/datum/d)
+	if(!istype(d))
+		return
+	if(!istype(d, /mob))
+		return "[d] ([d.type])"
+	var/mob/m = d
+	return "[m] ([m.ckey]) ([m.type])"
+
+/proc/atom_loc_line(var/atom/a)
+	if(!istype(a))
+		return
+	var/turf/t = get_turf(a)
+	if(istype(t))
+		return "[a.loc] ([t.x],[t.y],[t.z]) ([a.loc.type])"
+	else if(a.loc)
+		return "[a.loc] (0,0,0) ([a.loc.type])"

@@ -328,7 +328,7 @@ var/list/forbidden_varedit_object_types = list(
 		if(default == "num")
 			dir = 1
 		else if(default == "icon")
-			var_value = "\icon[var_value]"
+			var_value = "[bicon(var_value)]"
 
 		to_chat(usr, "Variable contains: [var_value]")
 		if(dir)
@@ -465,7 +465,7 @@ var/list/forbidden_varedit_object_types = list(
 
 	else if(isicon(variable))
 		to_chat(usr, "Variable appears to be <b>ICON</b>.")
-		variable = "\icon[variable]"
+		variable = "[bicon(variable)]"
 		class = "icon"
 
 	else if(istype(variable,/matrix))
