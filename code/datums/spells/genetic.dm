@@ -24,9 +24,14 @@
 				target:hulk_time=world.time + duration */
 		target.sdisabilities |= sdisabilities
 		target.update_mutations()	//update target's mutation overlays
+		var/mob/living/carbon/human/H = target
+		if(ishuman(target))
+			H.update_body()
 		spawn(duration)
 			target.mutations.Remove(mutations)
 			target.sdisabilities &= ~sdisabilities
 			target.update_mutations()
+			if(ishuman(target))
+				H.update_body()
 
 	return

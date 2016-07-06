@@ -131,7 +131,9 @@
 		Topic(src, list("src"= "\ref[src]", "command"="emergency", "activate" = "0"), 1)
 	return
 
-/atom/proc/AIShiftClick()
+/atom/proc/AIShiftClick(var/mob/user)
+	if(user.client)
+		user.examinate(src)
 	return
 
 /obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!

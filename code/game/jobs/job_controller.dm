@@ -52,6 +52,9 @@ var/global/datum/controller/occupations/job_master
 			if(jobban_isbanned(player, rank))	return 0
 			if(!job.player_old_enough(player.client)) return 0
 			if(!is_job_whitelisted(player, rank)) return 0
+			if(!check_prisonlist(ckey(player.key)))
+				to_chat(player, "NOT FOUND IN THE WHITELIST - only latejoin avaiable!")
+				return 0
 			var/position_limit = job.total_positions
 			if(!latejoin)
 				position_limit = job.spawn_positions
@@ -118,6 +121,12 @@ var/global/datum/controller/occupations/job_master
 				continue
 
 			if(job.title in whitelisted_positions) // No random whitelisted job, sorry!
+				continue
+
+			if(!job.prisonlist_job && !check_prisonlist(ckey(player.key))) // And no jobs for prisoners
+				continue
+
+			if(job.admin_only) // No admin positions either.
 				continue
 
 			if(jobban_isbanned(player, job.title))
@@ -379,13 +388,67 @@ var/global/datum/controller/occupations/job_master
 	proc/EquipRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
 		if(!H)	return null
 		var/datum/job/job = GetJob(rank)
+		var/list/spawn_in_storage = list()
+
 		if(job)
+
+			//Equip custom gear loadout.
+			var/list/custom_equip_slots = list() //If more than one item takes the same slot, all after the first one spawn in storage.
+			var/list/custom_equip_leftovers = list()
+			if(H.client.prefs.gear && H.client.prefs.gear.len && job.title != "Cyborg" && job.title != "AI")
+				for(var/thing in H.client.prefs.gear)
+					var/datum/gear/G = gear_datums[thing]
+					if(G)
+						var/permitted
+						if(G.allowed_roles)
+							for(var/job_name in G.allowed_roles)
+								if(job.title == job_name)
+									permitted = 1
+						else
+							permitted = 1
+
+						if(G.whitelisted && (G.whitelisted != H.species.name || !is_alien_whitelisted(H, G.whitelisted)))
+							permitted = 0
+
+						if(!permitted)
+							to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [thing]!</span>")
+							continue
+
+						if(G.slot && !(G.slot in custom_equip_slots))
+							// This is a miserable way to fix the loadout overwrite bug, but the alternative requires
+							// adding an arg to a bunch of different procs. Will look into it after this merge. ~ Z
+							if(G.slot == slot_wear_mask || G.slot == slot_wear_suit || G.slot == slot_head)
+								custom_equip_leftovers += thing
+							else if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+								to_chat(H, "<span class='notice'>Equipping you with \the [thing]!</span>")
+								custom_equip_slots.Add(G.slot)
+							else
+								custom_equip_leftovers.Add(thing)
+						else
+							spawn_in_storage += thing
+
 			job.equip(H)
 			job.apply_fingerprints(H)
+
+			//If some custom items could not be equipped before, try again now.
+			for(var/thing in custom_equip_leftovers)
+				var/datum/gear/G = gear_datums[thing]
+				if(G.slot in custom_equip_slots)
+					spawn_in_storage += thing
+				else
+					var/metadata = H.client.prefs.gear[G.display_name]
+					if(H.equip_to_slot_or_del(G.spawn_item(H, metadata), G.slot))
+						to_chat(H, "<span class='notice'>Equipping you with \the [thing]!</span>")
+						custom_equip_slots.Add(G.slot)
+					else
+						spawn_in_storage += thing
 		else
 			to_chat(H, "Your job is [rank] and the game just can't handle it! Please report this bug to an administrator.")
 
 		H.job = rank
+
+		if (job.prisonlist_job)
+			data_core.fabricate_crime(H)
 
 		if(!joined_late)
 			var/obj/S = null
@@ -446,6 +509,9 @@ var/global/datum/controller/occupations/job_master
 				if("Clown")	//don't need bag preference stuff!
 					if(rank=="Clown") // Clowns DO need to breathe, though - N3X
 						H.species.equip(H)
+				if("D-class Prisoner")
+					if(rank=="D-class Prisoner")
+						to_chat(H, "<B>Spawning as [alt_title ? alt_title : rank]</B>")
 				else
 					switch(H.backbag) //BS12 EDIT
 						if(1)
@@ -464,13 +530,36 @@ var/global/datum/controller/occupations/job_master
 							H.equip_to_slot_or_del(BPK, slot_back,1)
 					H.species.equip(H)
 
+			//Deferred item spawning.
+			for(var/thing in spawn_in_storage)
+				var/datum/gear/G = gear_datums[thing]
+				var/metadata = H.client.prefs.gear[G.display_name]
+				var/item = G.spawn_item(null, metadata)
+
+				var/atom/placed_in = H.equip_or_collect(item)
+				if(placed_in)
+					to_chat(H, "<span class='notice'>Placing \the [item] in your [placed_in.name]!</span>")
+					continue
+				if(H.equip_to_appropriate_slot(item))
+					to_chat(H, "<span class='notice'>Placing \the [item] in your inventory!</span>")
+					continue
+				if(H.put_in_hands(item))
+					to_chat(H, "<span class='notice'>Placing \the [item] in your hands!</span>")
+					continue
+				to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no arms and no backpack or this is a bug.</span>")
+				qdel(item)
+
+
 		to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
 		to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
 		if(job.req_admin_notify)
 			to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
 		spawnId(H, rank, alt_title)
-		H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
+		if(rank=="D-class Prisoner")
+			to_chat(H, "<B>Just try to survive on this station!</B>")
+		else
+			H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
 
 		//Gives glasses to the vision impaired
 		if(H.disabilities & DISABILITY_FLAG_NEARSIGHTED)
@@ -519,8 +608,10 @@ var/global/datum/controller/occupations/job_master
 				C.associated_account_number = H.mind.initial_account.account_number
 
 			H.equip_to_slot_or_del(C, slot_wear_id)
-
-		H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_wear_pda)
+		if(rank=="D-class Prisoner")
+			to_chat(H, "Godspeed, prisoner.")
+		else
+			H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_wear_pda)
 		if(locate(/obj/item/device/pda,H))
 			var/obj/item/device/pda/pda = locate(/obj/item/device/pda,H)
 			pda.owner = H.real_name

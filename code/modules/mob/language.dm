@@ -354,7 +354,7 @@
 	speech_verb = "growls"
 	ask_verb = "gnarls"
 	exclaim_verb = "snarls"
-	colour = "rough"
+	colour = "gutter"
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
 

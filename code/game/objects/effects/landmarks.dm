@@ -94,6 +94,12 @@
 		if("voxstart")
 			raider_spawn += loc
 
+		if("ERT Director")
+			ertdirector += loc
+
+		if("PermaPrisoner")
+			permaprisoner += loc
+
 	landmarks_list += src
 	return 1
 

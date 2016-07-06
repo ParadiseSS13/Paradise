@@ -60,7 +60,7 @@
 		return
 
 	interpreter.container = src
-	
+
 	interpreter.CreateGlobalScope() // Reset the variables.
 	interpreter.curScope = interpreter.globalScope
 
@@ -242,7 +242,14 @@
 	/* Okay, so, the original 'sanitizing' code... did fucking nothing. Then PJB fixed it, which means no HTML.
 	   But I like HTML, so back to no sanitizing.*/
 
-	signal.data["message"] 	= interpreter.GetVar("$content", signal.data["message"])
+	var/message = interpreter.GetVar("$content")
+	var/regex/bannedTags = new ("(<script|<iframe|<video|<audio)")
+	if(bannedTags.Find(message)) //uh oh
+		message_admins("Warning: Current Telecomms script contains banned html. Stripping message.")
+		log_admin("Warning: Current Telecomms script contains banned html. Stripping message.")
+		message = interpreter.GetCleanVar("$content", signal.data["message"])
+
+	signal.data["message"] 	= message
 	signal.frequency 		= interpreter.GetCleanVar("$freq", signal.frequency)
 
 	var/setname = interpreter.GetVar("$source", signal.data["name"])

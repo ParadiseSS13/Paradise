@@ -21,7 +21,7 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 10, rad = 0)
+	armor = list(melee = 25, bullet = 25, laser = 25, energy = 25, bomb = 50, bio = 10, rad = 0)
 	species_restricted = null //Syndicate tech means even Tajarans can kick ass with these
 	strip_delay = 70
 
@@ -40,7 +40,7 @@
 	set category = "IC"
 	set desc = "Allows you to step back at any time."
 
-	for(var/i=0, i<3, i++)
+	for(var/i=0, i<1, i++)
 		step(usr, usr.dir)
 		usr.SpinAnimation(5,1)
 		usr.visible_message("<span class = 'notice'>\ [usr] jumps aside!</span>")
@@ -51,7 +51,7 @@
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list(melee = 80, bullet = 60, laser = 50, energy = 50, bomb = 50, bio = 30, rad = 30)
+	armor = list(melee = 40, bullet = 30, laser = 25, energy = 25, bomb = 50, bio = 30, rad = 30)
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal

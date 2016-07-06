@@ -219,7 +219,7 @@
 	ticker.mode:to_nuke_or_not_to_nuke = 0
 	ticker.mode:explosion_in_progress = 1
 	for(var/mob/M in player_list)
-		M << 'sound/machines/Alarm.ogg'
+		to_chat(M, 'sound/machines/Alarm.ogg')
 
 	var/obj/item/device/radio/R	= new (src)
 	var/AN = "Self-Destruct System"

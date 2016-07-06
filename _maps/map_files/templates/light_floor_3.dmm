@@ -1,0 +1,16 @@
+"a" = (/turf/unsimulated/floor/carpet,/area/template_noop)
+"b" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-y"},/area/template_noop)
+"c" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-b"},/area/template_noop)
+"d" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-p"},/area/template_noop)
+"e" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-g"},/area/template_noop)
+"f" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-r"},/area/template_noop)
+"g" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on"},/area/template_noop)
+"h" = (/turf/unsimulated/floor{luminosity = 1; icon_state = "light_on-w"},/area/template_noop)
+
+(1,1,1) = {"
+aabaacaadaaeaabaaca
+afbegcdhdcgebfbegcd
+afbegcdhdcgebfbegcd
+afbegcdhdcgebfbegcd
+affffffhhhhhhgggggg
+"}

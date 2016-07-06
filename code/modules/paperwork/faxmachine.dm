@@ -266,4 +266,4 @@ var/list/alldepartments = list()
 		if(R_SERVER & C.holder.rights)
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
-				C << 'sound/effects/adminhelp.ogg'
+				to_chat(C, 'sound/effects/adminhelp.ogg')

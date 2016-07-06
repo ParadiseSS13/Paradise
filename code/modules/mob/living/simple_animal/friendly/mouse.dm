@@ -37,7 +37,7 @@
 	..()
 	if(prob(speak_chance))
 		for(var/mob/M in view())
-			M << 'sound/effects/mousesqueek.ogg'
+			to_chat(M, 'sound/effects/mousesqueek.ogg')
 
 /mob/living/simple_animal/mouse/Life()
 	. = ..()
@@ -112,8 +112,8 @@
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM
-			to_chat(M, "\blue \icon[src] Squeek!")
-			M << 'sound/effects/mousesqueek.ogg'
+			to_chat(M, "\blue [bicon(src)] Squeek!")
+			to_chat(M, 'sound/effects/mousesqueek.ogg')
 	..()
 
 /mob/living/simple_animal/mouse/death()

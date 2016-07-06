@@ -22,7 +22,7 @@
 			return 0
 	return 1
 
-/proc/isloyal(A) //Checks to see if the person contains a loyalty implant, then checks that the implant is actually inside of them
+/proc/isloyal(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/weapon/implant/loyalty/L in A)
 		if(L && L.implanted)
 			return 1
@@ -430,7 +430,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 		if(O.client)
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]<span>")
 			if(ghost_sound)
-				O << sound(ghost_sound)
+				to_chat(O, sound(ghost_sound))
 			if(source)
 				var/obj/screen/alert/notify_jump/A = O.throw_alert("\ref[source]_notify_jump", /obj/screen/alert/notify_jump)
 				if(A)

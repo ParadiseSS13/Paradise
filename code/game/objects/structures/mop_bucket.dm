@@ -23,7 +23,7 @@
 
 /obj/structure/mopbucket/examine(mob/user)
 	if(..(user, 1))
-		to_chat(usr, text("\icon[] [] contains [] units of water left!", src, src.name, src.reagents.total_volume))
+		to_chat(usr, "[bicon(src)] [src] contains [reagents.total_volume] units of water left!")
 
 /obj/structure/mopbucket/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/mop))

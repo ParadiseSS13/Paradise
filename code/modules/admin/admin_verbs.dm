@@ -72,7 +72,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
-	/client/proc/show_snpc_verbs
+	/client/proc/show_snpc_verbs,
+	/client/proc/reset_all_tcs			/*resets all telecomms scripts*/
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -169,7 +170,8 @@ var/list/admin_verbs_permissions = list(
 	/client/proc/edit_admin_permissions,
 	/client/proc/create_poll,
 	/client/proc/big_brother,
-	/client/proc/give_karma_list
+	/client/proc/give_karma_list,
+	/client/proc/bwhitelist_panel_open
 	)
 var/list/admin_verbs_rejuv = list(
 	/client/proc/respawn_character,
@@ -935,7 +937,7 @@ var/list/admin_verbs_snpc = list(
 	if(confirm == "Yes")
 		for (var/mob/T as mob in mob_list)
 			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
-			T << 'sound/voice/ManUp1.ogg'
+			to_chat(T, 'sound/voice/ManUp1.ogg')
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")

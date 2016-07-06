@@ -40,9 +40,10 @@
 	return
 
 /mob/living/simple_animal/construct/examine(mob/user)
+	to_chat(user, "<span class='info'>*---------*</span>")
 	..(user)
 
-	var/msg = ""
+	var/msg = "<span class='info'>"
 	if (src.health < src.maxHealth)
 		msg += "<span class='warning'>"
 		if (src.health >= src.maxHealth/2)

@@ -1138,6 +1138,7 @@
 				if(heartbeat >= rate)
 					heartbeat = 0
 					to_chat(src, sound('sound/effects/electheart.ogg',0,0,0,30))//Credit to GhostHack (www.ghosthack.de) for sound.
+
 
 				else
 					heartbeat++
@@ -1156,9 +1157,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
+					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
 				else
-					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
+					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
 			else
 				heartbeat++
 

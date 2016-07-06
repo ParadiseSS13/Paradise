@@ -104,14 +104,14 @@ var/list/ghostteleportlocs = list()
 	name = "Admin Room"
 	icon_state = "start"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 
 /area/adminconstruction
 	name = "Admin Testing Area"
 	icon_state = "start"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/space
 	icon_state = "space"
@@ -450,6 +450,11 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
 
+/area/shuttle/uzhin
+	name = "Grisha's shuttle"
+	icon_state = "shuttle"
+	requires_power = 0
+
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
 /area/dummy/           // Referenced in engine.dm:261
@@ -459,7 +464,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "start"
 	requires_power = 0
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	has_gravity = 1
 
 // === end remove
@@ -475,7 +480,7 @@ var/list/ghostteleportlocs = list()
 	name = "Centcom"
 	icon_state = "centcom"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/centcom/control
 	name = "Centcom Control"
@@ -551,7 +556,7 @@ var/list/ghostteleportlocs = list()
 	name = "Thunderdome"
 	icon_state = "thunder"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 
 /area/tdome/arena_source
@@ -636,7 +641,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "yellow"
 	requires_power = 0
 	has_gravity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/wizard_station
 	name = "Wizard's Den"
@@ -659,7 +664,7 @@ var/list/ghostteleportlocs = list()
 	name = "Vox Base"
 	icon_state = "yellow"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	no_teleportlocs = 1
 
 /area/vox_station/transit
@@ -952,6 +957,10 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_environ = 0
 
+/area/maintenance/consarea
+	name = "Alternate Construction Area"
+	icon_state = "yellow"
+
 
 //Hallway
 
@@ -1212,7 +1221,7 @@ var/list/ghostteleportlocs = list()
 /area/holodeck
 	name = "Holodeck"
 	icon_state = "Holodeck"
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/holodeck/alphadeck
 	name = "Holodeck Alpha"
@@ -1349,7 +1358,7 @@ var/list/ghostteleportlocs = list()
 
 /area/solar
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 	auxport
 		name = "Fore Port Solar Array"
@@ -2244,25 +2253,25 @@ area/security/podbay
 	name = "AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextFS
 	name = "AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextAS
 	name = "AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextAP
 	name = "AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/NewAIMain
 	name = "AI Main New"
@@ -2439,13 +2448,19 @@ area/security/podbay
 	name = "Beach"
 	icon_state = "beach"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	requires_power = 0
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
 
 /area/awaymission/undersea
 	name = "Undersea"
 	icon_state = "undersea"
+
+/area/awaymission/uzhin
+	name = "Shesterochka"
+	requires_power = 0
+	ambientsounds = 'sound/music/uzhin.ogg'
+	icon_state = "uzhin"
 
 
 ////////////////////////AWAY AREAS///////////////////////////////////
