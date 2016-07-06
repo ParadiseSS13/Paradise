@@ -421,7 +421,7 @@
 							else if(ghost)
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-								to_chat(ghost, sound('sound/effects/genetics.ogg'))
+								ghost << sound('sound/effects/genetics.ogg')
 							else
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
@@ -542,7 +542,7 @@
 							else if(ghost)
 								user.visible_message("<span class='notice'>[user] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-								to_chat(ghost, sound('sound/effects/genetics.ogg'))
+								ghost << sound('sound/effects/genetics.ogg')
 							else
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)

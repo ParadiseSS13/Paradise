@@ -24,7 +24,7 @@
 	var/F = investigate_subject2file(subject)
 	if(!F)	return
 	investigate_log_subjects |= subject
-	to_chat(F, "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>")
+	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>"
 
 //ADMINVERBS
 /client/proc/investigate_show( subject in investigate_log_subjects )

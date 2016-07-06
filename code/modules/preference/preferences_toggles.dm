@@ -100,7 +100,7 @@
 	else
 		to_chat(src, "You will no longer hear music in the game lobby.")
 		if(istype(mob, /mob/new_player))
-			to_chat(src, sound(null, repeat = 0, wait = 0, volume = 85, channel = 1))// stop the jamsz
+			src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// stop the jamsz
 
 
 	feedback_add_details("admin_verb","TLobby") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -152,7 +152,7 @@
 		to_chat(src, "You will now hear ambient sounds.")
 	else
 		to_chat(src, "You will no longer hear ambient sounds.")
-		to_chat(src, sound(null, repeat = 0, wait = 0, volume = 0, channel = 1))
+		src << sound(null, repeat = 0, wait = 0, volume = 0, channel = 1)
 	feedback_add_details("admin_verb","TAmbi") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
@@ -165,7 +165,7 @@
 		to_chat(src, "You will now hear ambient white noise.")
 	else
 		to_chat(src, "You will no longer hear ambient white noise.")
-		to_chat(src, sound(null, repeat = 0, wait = 0, volume = 0, channel = 2))
+		src << sound(null, repeat = 0, wait = 0, volume = 0, channel = 2)
 	feedback_add_details("admin_verb","TBuzz") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
@@ -179,8 +179,8 @@
 		to_chat(src, "You will now hear heartbeat sounds.")
 	else
 		to_chat(src, "You will no longer hear heartbeat sounds.")
-		to_chat(src, sound(null, repeat = 0, wait = 0, volume = 0, channel = 1))
-		to_chat(src, sound(null, repeat = 0, wait = 0, volume = 0, channel = 2))
+		src << sound(null, repeat = 0, wait = 0, volume = 0, channel = 1)
+		src << sound(null, repeat = 0, wait = 0, volume = 0, channel = 2)
 	feedback_add_details("admin_verb","Thb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // This needs a toggle because you people are awful and spammed terrible music
