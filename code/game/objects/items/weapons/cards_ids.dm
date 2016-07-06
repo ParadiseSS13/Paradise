@@ -107,7 +107,7 @@
 	var/icon/side
 	var/dat
 	var/stamped = 0
-	
+
 	var/obj/item/weapon/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
 /obj/item/weapon/card/id/New()
@@ -178,8 +178,7 @@
 	dat += text("Fingerprint: []</A><BR>\n", fingerprint_hash)
 	dat += text("Blood Type: []<BR>\n", blood_type)
 	dat += text("DNA Hash: []<BR><BR>\n", dna_hash)
-	dat +="<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>	\
-	<img src=side.png height=80 width=80 border=4></td></tr></table>"
+	dat +="</td></tr></table>"
 
 /obj/item/weapon/card/id/GetAccess()
 	if(!guest_pass)
@@ -244,10 +243,10 @@
 	set name = "Remove Guest Pass"
 	set category = "Object"
 	set src in range(0)
-	
+
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	
+
 	if(guest_pass)
 		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
 		guest_pass.forceMove(get_turf(src))
