@@ -600,7 +600,7 @@ var/global/list/damage_icon_parts = list()
 		var/image/standing	= image("icon_state" = "[t_color]_s")
 
 		if(FAT in mutations)
-			if(w_uniform.flags&ONESIZEFITSALL)
+			if(w_uniform.flags_size & ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
 				to_chat(src, "\red You burst out of \the [w_uniform]!")
@@ -623,7 +623,12 @@ var/global/list/damage_icon_parts = list()
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
 				var/tie_color = A.item_color
 				if(!tie_color) tie_color = A.icon_state
-				standing.overlays	+= image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
+				if(A.icon_override)
+					standing.overlays += image("icon" = A.icon_override, "icon_state" = "[A.icon_state]")
+				else if(A.sprite_sheets && A.sprite_sheets[species.name])
+					standing.overlays += image("icon" = A.sprite_sheets[species.name], "icon_state" = "[A.icon_state]")
+				else
+					standing.overlays += image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
 
 		overlays_standing[UNIFORM_LAYER]	= standing
 	else
@@ -889,7 +894,6 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/update_inv_wear_suit(var/update_icons=1)
-
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
 		if(inv)
@@ -907,7 +911,7 @@ var/global/list/damage_icon_parts = list()
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[species.name])
 			standing = image("icon" = wear_suit.sprite_sheets[species.name], "icon_state" = "[wear_suit.icon_state]")
 		else if(FAT in mutations)
-			if(wear_suit.flags&ONESIZEFITSALL)
+			if(wear_suit.flags_size & ONESIZEFITSALL)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
 				to_chat(src, "\red You burst out of \the [wear_suit]!")
@@ -1257,13 +1261,25 @@ var/global/list/damage_icon_parts = list()
 
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/collar.dmi
+//  For suits with species_fit and sprite_sheets, an identically named sprite needs to exist in a file like this icons/mob/species/[species_name_here]/collar.dmi.
 /mob/living/carbon/human/proc/update_collar(var/update_icons=1)
 	var/icon/C = new('icons/mob/collar.dmi')
 	var/image/standing = null
 
 	if(wear_suit)
-		if(wear_suit.icon_state in C.IconStates())
-			standing = image("icon" = C, "icon_state" = "[wear_suit.icon_state]")
+		if(wear_suit.icon_override)
+			var/icon_path = "[wear_suit.icon_override]"
+			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty) so there won't be an issue.
+			var/icon/icon_file = new(icon_path)
+			standing = image("icon" = icon_file, "icon_state" = "[wear_suit.icon_state]")
+		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[species.name])
+			var/icon_path = "[wear_suit.sprite_sheets[species.name]]"
+			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty) so there won't be an issue.
+			var/icon/icon_file = new(icon_path)
+			standing = image("icon" = icon_file, "icon_state" = "[wear_suit.icon_state]")
+		else
+			if(wear_suit.icon_state in C.IconStates())
+				standing = image("icon" = C, "icon_state" = "[wear_suit.icon_state]")
 
 	overlays_standing[COLLAR_LAYER]	= standing
 

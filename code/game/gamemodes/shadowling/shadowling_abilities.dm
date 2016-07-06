@@ -342,21 +342,21 @@
 					target.Weaken(12)
 					sleep(20)
 					if(isloyal(target))
-						to_chat(usr, "<span class='notice'>They are enslaved by Nanotrasen. You begin to shut down the nanobot implant - this will take some time.</span>")
+						to_chat(usr, "<span class='notice'>They have a mindshield implant. You begin to deactivate it - this will take some time.</span>")
 						usr.visible_message("<span class='warning'>[usr] pauses, then dips their head in concentration!</span>")
-						to_chat(target, "<span class='boldannounce'>You feel your loyalties begin to weaken!</span>")
+						to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack!</span>")
 						sleep(100) //10 seconds - not spawn() so the enthralling takes longer
-						to_chat(usr, "<span class='notice'>The nanobots composing the loyalty implant have been rendered inert. Now to continue.</span>")
+						to_chat(usr, "<span class='notice'>The nanobots composing the mindshield implant have been rendered inert. Now to continue.</span>")
 						usr.visible_message("<span class='warning'>[usr] relaxes again.</span>")
 						for(var/obj/item/weapon/implant/loyalty/L in target)
 							if(L && L.implanted)
 								qdel(L)
-						to_chat(target, "<span class='boldannounce'>Your unwavering loyalty to Nanotrasen unexpectedly falters, dims, dies.</span>")
+						to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
 				if(3)
 					to_chat(usr, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 					usr.visible_message("<span class='warning'>A strange energy passes from [usr]'s hands into [target]'s head!</span>")
 					to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-			if(!do_mob(usr, target, 70)) //around 21 seconds total for enthralling, 31 for someone with a loyalty implant
+			if(!do_mob(usr, target, 70)) //around 21 seconds total for enthralling, 31 for someone with a mindshield implant
 				to_chat(usr, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 				to_chat(target, "<span class='userdanger'>You wrest yourself away from [usr]'s hands and compose yourself</span>")
 				enthralling = 0

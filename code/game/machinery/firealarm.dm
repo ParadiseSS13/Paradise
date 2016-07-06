@@ -110,7 +110,9 @@ FIRE ALARM
 				else if(istype(W, /obj/item/weapon/crowbar))
 					to_chat(user, "<span class='warning'>You pry out the circuit!</span>")
 					playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
-					spawn(20)
+					if(do_after(user, 20, target = src))
+						if(buildstage != 1)
+							return
 						var/obj/item/weapon/firealarm_electronics/circuit = new /obj/item/weapon/firealarm_electronics()
 						circuit.loc = user.loc
 						buildstage = 0

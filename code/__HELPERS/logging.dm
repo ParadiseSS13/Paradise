@@ -82,8 +82,8 @@
 	diary << "\[[time_stamp()]]MISC: [text][log_end]"
 
 /proc/log_to_dd(text)
-	world.log << text //this comes before the config check because it can't possibly runtime
-	if(config.log_world_output)
+	world.log << text
+	if(config && config.log_world_output)
 		diary << "\[[time_stamp()]]DD_OUTPUT: [text][log_end]"
 
 /**

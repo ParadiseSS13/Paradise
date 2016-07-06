@@ -74,6 +74,10 @@
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 	icon_state = "webbing"
 	item_color = "webbing"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/storage/black_vest
 	name = "black webbing vest"
