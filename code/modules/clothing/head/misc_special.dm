@@ -265,6 +265,17 @@
 			continue
 		playsound(I, 'sound/effects/cuban_pete.ogg' , 100)
 
+	pete.drop_l_hand()
+	pete.drop_r_hand()
+
+	var/obj/item/toy/cuban_maraca/R = new(pete)
+	var/obj/item/toy/cuban_maraca/L = new(pete)
+
+	pete.put_in_l_hand(L)
+	pete.put_in_r_hand(R)
+
+
+
 	rhumba_proc()
 
 /obj/item/clothing/head/collectable/petehat/special/proc/rhumba_proc()
@@ -274,8 +285,8 @@
 			return
 		for(var/mob/living/carbon/human/H in viewers(pete))
 			if(H == pete) continue
-			if(prob(25) && !H.stunned)
-				H.Stun(4)
+			if(prob(50) && !H.stunned)
+				H.Stun(10)
 				H.visible_message("<span class='danger'>[H] begins to dance uncontrollably!</span>","<span class='userdanger'> You feel the sudden urge to dance!</span>")
 		sleep(10)
 		tick += 1
@@ -288,7 +299,10 @@
 		return 0
 	if(tick >= rhumba_duration)
 		return 0
+	if(!istype(pete.l_hand,/obj/item/toy/cuban_maraca) || !istype(pete.r_hand,/obj/item/toy/cuban_maraca))
+		return 0
 	return 1
+
 
 /obj/item/clothing/head/collectable/petehat/special/ui_action_click()
 	rhumba(usr)

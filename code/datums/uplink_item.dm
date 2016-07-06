@@ -1237,6 +1237,7 @@ var/list/uplink_items = list()
 	reference = "CUBA"
 	cost = 20
 	item = /obj/item/clothing/head/collectable/petehat/special
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/surplus_crate
 	name = "Syndicate Surplus Crate"
