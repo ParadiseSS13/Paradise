@@ -14,10 +14,13 @@
 		"Drask" = 'icons/mob/species/drask/helmet.dmi'
 		)
 /obj/item/clothing/head/helmet/space/capspace/equipped(var/mob/living/carbon/human/user, var/slot)
-	if (ishuman(user) && user.species.name == "Vox")
-		flags &= ~BLOCKHAIR
-	else
-		flags |= BLOCKHAIR
+	if(ishuman(user) && slot == slot_head)
+		if(user.species.name == "Vox")
+			if(flags & BLOCKHAIR)
+				flags &= ~BLOCKHAIR
+		else
+			if((initial(flags) & BLOCKHAIR) && !(flags & BLOCKHAIR))
+				flags |= BLOCKHAIR
 
 /obj/item/clothing/suit/space/captain
 	name = "captain's space suit"

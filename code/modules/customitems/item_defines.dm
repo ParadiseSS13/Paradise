@@ -212,6 +212,8 @@
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "aeneasrinil_open"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/jacket/fluff/kidosvest // Anxipal: Kido Qasteth
 	name = "Kido's Vest"
@@ -222,6 +224,8 @@
 	ignore_suitadjust = 1
 	action_button_name = null
 	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
 	name = "Nano Fibre Jacket"
@@ -259,6 +263,8 @@
 	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulders and rolled up sleeves."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "labcoat_red_open"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
 	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
@@ -333,6 +339,8 @@
 	ignore_suitadjust = 1
 	action_button_name = null
 	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/under/fluff/fox
 	name = "Aeronautics Jumpsuit"
@@ -440,6 +448,8 @@
 	icon = 'icons/obj/clothing/ties.dmi'
 	icon_state = "vest_black"
 	item_state = "vest_black"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
@@ -455,6 +465,8 @@
 	item_state = "elliot_windbreaker_open"
 	adjust_flavour = "unzip"
 	suit_adjusted = 1
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat
 	desc = "A cheap plastic tattoo application pen.<br>This one seems heavily used."
