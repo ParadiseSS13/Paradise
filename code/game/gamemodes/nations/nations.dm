@@ -1,7 +1,7 @@
 datum/game_mode/nations
 	name = "nations"
 	config_tag = "nations"
-	required_players = 25
+	required_players = 15
 	var/kickoff = 0
 	var/victory = 0
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
@@ -18,7 +18,7 @@ datum/game_mode/nations
 //		remove_access()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
-				M << sound('sound/effects/purge_siren.ogg')
+				to_chat(M, sound('sound/effects/purge_siren.ogg'))
 
 	return ..()
 

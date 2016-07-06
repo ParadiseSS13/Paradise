@@ -76,6 +76,7 @@
 					<A href='?src=\ref[src];secretsfun=striketeam'>Send in a strike team</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=striketeam_syndicate'>Send in a syndicate strike team</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=honksquad'>Send in a HONKsquad</A><BR>
+					<A href='?src=\ref[src];secretsfun=doomsquad'>Send in a DOOMsquad</A><BR>
 					<b>Change Security Level</b><BR>
 					<A href='?src=\ref[src];secretsfun=securitylevel0'>Security Level - Green</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=securitylevel1'>Security Level - Blue</A>&nbsp;&nbsp;

@@ -17,7 +17,7 @@ var/list/sounds_cache = list()
 	message_admins("[key_name_admin(src)] played sound [S]", 1)
 	for(var/mob/M in player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
-			M << uploaded_sound
+			to_chat(M, uploaded_sound)
 
 	feedback_add_details("admin_verb","PGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -96,11 +96,11 @@ var/list/sounds_cache = list()
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)
-				M << 'cubanpetetime.ogg'
+				to_chat(M, 'cubanpetetime.ogg')
 
 	for(var/mob/living/carbon/human/CP in world)
 		if(CP.real_name=="Cuban Pete" && CP.key!="Rosham")
-			C << "Your body can't contain the rhumba beat"
+			to_chat(C, "Your body can't contain the rhumba beat")
 			CP.gib()
 
 
@@ -112,7 +112,7 @@ var/list/sounds_cache = list()
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)
-				M << 'bananaphone.ogg'
+				to_chat(M, 'bananaphone.ogg')
 
 
 client/proc/space_asshole()
@@ -123,7 +123,7 @@ client/proc/space_asshole()
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)
-				M << 'sound/music/space_asshole.ogg'
+				to_chat(M, 'sound/music/space_asshole.ogg')
 
 
 client/proc/honk_theme()
@@ -134,4 +134,4 @@ client/proc/honk_theme()
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)
-				M << 'honk_theme.ogg'*/
+				to_chat(M, 'honk_theme.ogg'*/

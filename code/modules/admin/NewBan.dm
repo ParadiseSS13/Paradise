@@ -111,14 +111,14 @@ var/savefile/Banlist
 	else
 		Banlist.dir.Add("[ckey][computerid]")
 		Banlist.cd = "/base/[ckey][computerid]"
-		Banlist["key"] << ckey
-		Banlist["id"] << computerid
-		Banlist["ip"] << address
-		Banlist["reason"] << reason
-		Banlist["bannedby"] << bannedby
-		Banlist["temp"] << temp
+		to_chat(Banlist["key"], ckey)
+		to_chat(Banlist["id"], computerid)
+		to_chat(Banlist["ip"], address)
+		to_chat(Banlist["reason"], reason)
+		to_chat(Banlist["bannedby"], bannedby)
+		to_chat(Banlist["temp"], temp)
 		if (temp)
-			Banlist["minutes"] << bantimestamp
+			to_chat(Banlist["minutes"], bantimestamp)
 		if(!temp)
 			add_note(ckey, "Permanently banned - [reason]", null, bannedby, 0)
 		else
@@ -193,7 +193,7 @@ var/savefile/Banlist
 
 	dat += "</table>"
 	dat = "<HR><B>Bans:</B> <FONT COLOR=blue>(U) = Unban , (E) = Edit Ban</FONT> - <FONT COLOR=green>([count] Bans)</FONT><HR><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >[dat]"
-	usr << browse(dat, "window=unbanp;size=875x400")
+	usr << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=unbanp;size=875x400")
 
 //////////////////////////////////// DEBUG ////////////////////////////////////
 
@@ -211,17 +211,17 @@ var/savefile/Banlist
 			Banlist.cd = "/base"
 			Banlist.dir.Add("trash[i]trashid[i]")
 			Banlist.cd = "/base/trash[i]trashid[i]"
-			Banlist["key"] << "trash[i]"
+			to_chat(Banlist["key"], "trash[i]")
 		else
 			Banlist.cd = "/base"
 			Banlist.dir.Add("[last]trashid[i]")
 			Banlist.cd = "/base/[last]trashid[i]"
-			Banlist["key"] << last
-		Banlist["id"] << "trashid[i]"
-		Banlist["reason"] << "Trashban[i]."
-		Banlist["temp"] << a
-		Banlist["minutes"] << CMinutes + rand(1,2000)
-		Banlist["bannedby"] << "trashmin"
+			to_chat(Banlist["key"], last)
+		to_chat(Banlist["id"], "trashid[i]")
+		to_chat(Banlist["reason"], "Trashban[i].")
+		to_chat(Banlist["temp"], a)
+		to_chat(Banlist["minutes"], CMinutes + rand(1,2000))
+		to_chat(Banlist["bannedby"], "trashmin")
 		last = "trash[i]"
 
 	Banlist.cd = "/base"

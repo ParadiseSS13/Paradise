@@ -130,11 +130,11 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - RIP Badger"
 				desc += " This poster commemorates the day hundreds of badgers worldwide were sacrificed for the greater good."
 			if(12)
-				name += " - Ambrosia Vulgaris"
-				desc += " This poster is lookin' pretty trippy man."
+				name += " - Mom, pizza!"
+				desc += " This poster is lookin' pretty tasty. Only at a price of 38 tallers."
 			if(13)
-				name += " - Donut Corp."
-				desc += " This poster is an advertisement for Donut Corp."
+				name += " - Is this...?"
+				desc += " This poster is kinda LOST."
 			if(14)
 				name += " - EAT"
 				desc += " This poster is advising that you eat."
@@ -230,8 +230,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Obey"
 				desc += " A poster instructing the viewer to obey authority."
 			if(10)
-				name += " - Walk"
-				desc += " A poster instructing the viewer to walk instead of running."
+				name += " - Ayy Lmao"
+				desc += " A poster instructing the viewer to be aware of anal probes."
 			if(11)
 				name += " - State Laws"
 				desc += " A poster instructing cyborgs to state their laws."
@@ -251,11 +251,11 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Do Not Question"
 				desc += " A poster instructing the viewer not to ask about things they aren't meant to know."
 			if(17)
-				name += " - Work for a Future"
-				desc += " A poster encouraging you to work for your future, what it is, no one is really sure."
+				name += " - Work for a Pruglo"
+				desc += " A poster encouraging you to work for our founder and good friend, Daneel Pruglo."
 			if(18)
-				name += " - Soft Cap Pop Art"
-				desc += " A poster reprint of some cheap pop art."
+				name += " - Here comes the Dat Boi"
+				desc += " Oh shit whaddup."
 			if(19)
 				name += " - Saftey: Internals"
 				desc += " A poster instructing the viewer to wear internals in environments where there is no oxygen or the air has been rendered toxic."
@@ -275,8 +275,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Foam Force Advertisment"
 				desc += " Foam Force, it's Foam or be Foamed!"
 			if(25)
-				name += " - Cohiba Robusto Advertisment"
-				desc += " Cohiba Robusto, the classy cigar."
+				name += " - Vape nation"
+				desc += " so lit."
 			if(26)
 				name += " - 50th Aniversery Vintage Reprint"
 				desc += " A reprint of a poster from 2504, commemorating the 50th Aniversery of Nanoposters Manufacturing, a subsidary of Nanotrasen."
@@ -287,8 +287,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - NanoPDA 1000 Advertisment"
 				desc += " A poster advertising the latest PDA from Nanotrasen."
 			if(29)
-				name += " - Enlist"
-				desc += " Enlist in the Nanotrasen ERT reserves today!"
+				name += " - Don't eat!"
+				desc += " Think twice before eating your morning toasts."
 			if(30)
 				name += " - Nanomichi Advertisment"
 				desc += " A poster advertising Nanomichi brand audio cassettes."
