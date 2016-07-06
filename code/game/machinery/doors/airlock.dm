@@ -264,7 +264,7 @@
 /obj/machinery/door/airlock/mime
 	name = "Tranquillite Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
-	mineral = "tranquilite"
+	mineral = "tranquillite"
 	doorOpen = null
 	doorClose = null
 
