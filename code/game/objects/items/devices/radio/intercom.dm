@@ -141,6 +141,8 @@
 				to_chat(user, "<span class='notice'>You cut out the intercoms wiring and disconnect its electronics.</span>")
 				playsound(get_turf(src), 'sound/items/Wirecutter.ogg', 50, 1)
 				if(do_after(user, 10, target = src))
+					if(buildstage != 3)
+						return
 					new /obj/item/stack/cable_coil(get_turf(src),5)
 					on = 0
 					b_stat = 1
@@ -178,6 +180,8 @@
 				to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				if(do_after(user, 10, target = src))
+					if(buildstage != 1)
+						return
 					new /obj/item/weapon/intercom_electronics(get_turf(src))
 					to_chat(user, "<span class='notice'>The circuitboard pops out!</span>")
 					buildstage = 0
