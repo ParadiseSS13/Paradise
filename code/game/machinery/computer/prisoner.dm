@@ -60,7 +60,7 @@
 			var/mob/living/carbon/M = T.imp_in
 			var/loc_display = "Unknown"
 			var/health_display = "OK"
-			var/total_loss = round(M.getOxyLoss() + M.getToxLoss() + M.getFireLoss() + M.getBruteLoss(), 1)
+			var/total_loss = (M.maxHealth - M.health)
 			if(M.stat == DEAD)
 				health_display = "DEAD"
 			else if(total_loss)

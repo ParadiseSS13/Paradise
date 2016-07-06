@@ -95,7 +95,7 @@
 		..()
 		return
 
-	if(flags & NODROP)
+	if(!usr.canUnEquip(src))
 		return
 
 	var/obj/item/clothing/ears/O
