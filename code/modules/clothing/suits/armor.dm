@@ -1,4 +1,3 @@
-
 /obj/item/clothing/suit/armor
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/classic_baton/telescopic,/obj/item/weapon/kitchen/knife/combat)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
@@ -8,6 +7,10 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -15,7 +18,7 @@
 	icon_state = "armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/vest/jacket
@@ -31,7 +34,7 @@
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -84,6 +87,8 @@
 	desc = "A vest drenched in the blood of Greytide. It has seen better days."
 	icon_state = "bloody_armor"
 	item_state = "bloody_armor"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
@@ -91,7 +96,7 @@
 	icon_state = "secjacket_open"
 	item_state = "hos"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	armor = list(melee = 20, bullet = 15, laser = 20, energy = 5, bomb = 15, bio = 0, rad = 0)
+	armor = list(melee = 20, bullet = 10, laser = 20, energy = 5, bomb = 15, bio = 0, rad = 0)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	ignore_suitadjust = 0
@@ -128,6 +133,8 @@
 	icon_state = "jensencoat"
 	item_state = "jensencoat"
 	flags_inv = 0
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/warden
 	name = "Warden's armored jacket"
@@ -164,6 +171,7 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
+	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -222,7 +230,7 @@
 	icon_state = "detective-armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/device/flashlight,/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter,/obj/item/device/detective_scanner,/obj/item/device/taperecorder)
 
 
@@ -244,22 +252,25 @@
 	return 0
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user as mob)
-	src.active = !( src.active )
-	if (src.active)
-		to_chat(user, "\blue The reactive armor is now active.")
-		src.icon_state = "reactive"
-		src.item_state = "reactive"
+	active = !(active)
+	if(active)
+		to_chat(user, "<span class='notice'>The reactive armor is now active.</span>")
+		icon_state = "reactive"
+		item_state = "reactive"
 	else
-		to_chat(user, "\blue The reactive armor is now inactive.")
-		src.icon_state = "reactiveoff"
-		src.item_state = "reactiveoff"
-		src.add_fingerprint(user)
-	return
+		to_chat(user, "<span class='notice'>The reactive armor is now inactive.</span>")
+		icon_state = "reactiveoff"
+		item_state = "reactiveoff"
+		add_fingerprint(user)
+	user.update_inv_wear_suit()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = 0
-	src.icon_state = "reactiveoff"
-	src.item_state = "reactiveoff"
+	icon_state = "reactiveoff"
+	item_state = "reactiveoff"
+
+	var/mob/living/carbon/human/user = usr
+	user.update_inv_wear_suit()
 	..()
 
 
@@ -278,6 +289,8 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	species_fit = null
+	sprite_sheets = null
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
 
 /obj/item/clothing/suit/armor/heavy
@@ -292,6 +305,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
@@ -300,6 +314,7 @@
 	flags = THICKMATERIAL
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "Red Thunderdome Armor"
