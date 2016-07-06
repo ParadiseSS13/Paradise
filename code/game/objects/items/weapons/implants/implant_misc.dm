@@ -87,5 +87,12 @@
 	if(uses < 1)
 		return 0
 	uses--
-	to_chat(imp_in, "<span class='notice'>You get teleported!</span>")
+	imp_in.visible_message("<span class='warning'>[imp_in] disappears in a flash of light!</span>", "<span class='warning'>You activate \the [src], teleporting you to a random location</span>")
 	imp_in.forceMove(get_turf(pick(blobstart)))
+
+/obj/item/weapon/implant/teleport/emp_act(severity)
+	if(uses < 1)
+		return
+	uses--
+	imp_in.visible_message("<span class='warning'>[imp_in] disappears in a flash of light!</span>", "<span class='warning'>\The [src] malfunctions, teleporting you!</span>")
+	imp_in.forceMove(locate(rand(1,255), rand(1,255), 1)) // Teleport user to random location on z-1
