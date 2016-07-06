@@ -44,7 +44,7 @@
 /obj/item/weapon/gun/projectile/automatic/ui_action_click()
 	burst_select()
 
-/obj/item/weapon/gun/projectile/automatic/verb/burst_select()
+/obj/item/weapon/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
 	select = !select
 	if(!select)

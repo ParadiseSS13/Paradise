@@ -230,19 +230,15 @@
 // to check a person into a room; no financial stuff; returns the keycard
 /obj/effect/hotel_controller/proc/checkin(roomid, mob/living/carbon/occupant, obj/item/weapon/card/id/id)
 	if(!istype(occupant))
-		to_chat(world, "no occupant")
 		return null
 	var/obj/machinery/door/unpowered/hotel_door/D = room_doors["[roomid]"]
 	if(!D || D.occupant || (occupant in guests))
-		to_chat(world, "room occupied")
 		return null
 
 	D.account = get_card_account(id, occupant)
 	if(!D.account)
-		to_chat(world, "no account")
 		return null
 	if(!D.account.charge(100, transaction_purpose = "10 minutes", dest_name = name))
-		to_chat(world, "xaction failed")
 		return null
 
 	D.occupant = occupant

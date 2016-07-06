@@ -1,0 +1,4 @@
+author: Kyep
+delete-after: True
+changes: 
+  - tweak: "Fixes NT Special Ops Officer's headset so he can correctly hear, and talk on, the Special Ops (deathsquad) channel."

@@ -376,9 +376,14 @@
 	cam["name"] = sanitize(c_tag)
 	cam["deact"] = !can_use()
 	cam["camera"] = "\ref[src]"
-	cam["x"] = T.x
-	cam["y"] = T.y
-	cam["z"] = T.z
+	if(T)
+		cam["x"] = T.x
+		cam["y"] = T.y
+		cam["z"] = T.z
+	else
+		cam["x"] = 0
+		cam["y"] = 0
+		cam["z"] = 0
 	return cam
 
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.

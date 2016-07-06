@@ -144,10 +144,11 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(SKELETON in src.mutations)	return
 
-	if(H.f_style)
-		H.f_style = "Shaved"
-	if(H.h_style)
-		H.h_style = "Bald"
+	if(istype(H))
+		if(H.f_style)
+			H.f_style = "Shaved"
+		if(H.h_style)
+			H.h_style = "Bald"
 	update_fhair(0)
 	update_hair(0)
 
@@ -162,10 +163,11 @@
 	var/obj/item/organ/external/head/H = organs_by_name["head"]
 	if(HUSK in mutations)	return
 
-	if(H.f_style)
-		H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
-	if(H.h_style)
-		H.h_style = "Bald"
+	if(istype(H))
+		if(H.f_style)
+			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
+		if(H.h_style)
+			H.h_style = "Bald"
 	update_fhair(0)
 	update_hair(0)
 

@@ -6,6 +6,8 @@
 	icon_state = "engspace_suit"
 	item_state = "engspace_suit"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100)
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/head/bio_hood/anomaly
 	name = "Anomaly hood"
