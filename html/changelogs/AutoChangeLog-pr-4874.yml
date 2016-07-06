@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Fixed employees starting every shift at least 3 minutes late. You aren't getting paid to stand around, people!"

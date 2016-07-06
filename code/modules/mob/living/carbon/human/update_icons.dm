@@ -600,7 +600,7 @@ var/global/list/damage_icon_parts = list()
 		var/image/standing	= image("icon_state" = "[t_color]_s")
 
 		if(FAT in mutations)
-			if(w_uniform.flags&ONESIZEFITSALL)
+			if(w_uniform.flags_size & ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
 				to_chat(src, "\red You burst out of \the [w_uniform]!")
@@ -911,7 +911,7 @@ var/global/list/damage_icon_parts = list()
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[species.name])
 			standing = image("icon" = wear_suit.sprite_sheets[species.name], "icon_state" = "[wear_suit.icon_state]")
 		else if(FAT in mutations)
-			if(wear_suit.flags&ONESIZEFITSALL)
+			if(wear_suit.flags_size & ONESIZEFITSALL)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
 				to_chat(src, "\red You burst out of \the [wear_suit]!")

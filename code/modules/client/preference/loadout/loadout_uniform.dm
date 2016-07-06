@@ -5,9 +5,9 @@
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/skirt
-	display_name = "skirt"
+	subtype_path = /datum/gear/uniform/skirt
 
-/datum/gear/uniform/skirt
+/datum/gear/uniform/skirt/blue
 	display_name = "plaid skirt, blue"
 	path = /obj/item/clothing/under/dress/plaid_blue
 

@@ -6,7 +6,7 @@
 	icon_state = "ba_suit"
 	item_state = "ba_suit"
 	item_color = "ba_suit"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/captain //Alright, technically not a 'civilian' but its better then giving a .dm file for a single define.
 	desc = "It's a blue jumpsuit with some gold markings denoting the rank of \"Captain\"."
@@ -14,7 +14,7 @@
 	icon_state = "captain"
 	item_state = "caparmor"
 	item_color = "captain"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/cargo
 	name = "quartermaster's jumpsuit"
@@ -22,7 +22,7 @@
 	icon_state = "qm"
 	item_state = "lb_suit"
 	item_color = "qm"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/cargo/skirt
 	name = "quartermaster's jumpskirt"
@@ -30,7 +30,7 @@
 	icon_state = "qmf"
 	item_color = "qmf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	flags = null
+	flags_size = null
 
 /obj/item/clothing/under/rank/cargotech
 	name = "cargo technician's jumpsuit"
@@ -38,14 +38,14 @@
 	icon_state = "cargotech"
 	item_state = "lb_suit"
 	item_color = "cargo"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/cargotech/skirt
 	name = "cargo technician's jumpskirt"
 	desc = "Skirrrrrts! They're comfy and easy to wear!"
 	icon_state = "cargof"
 	item_color = "cargof"
-	flags = null
+	flags_size = null
 
 /obj/item/clothing/under/rank/chaplain
 	desc = "It's a black jumpsuit, often worn by religious folk."
@@ -53,14 +53,14 @@
 	icon_state = "chaplain"
 	item_state = "bl_suit"
 	item_color = "chapblack"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chef
 	desc = "It's an apron which is given only to the most <b>hardcore</b> chefs in space."
 	name = "chef's uniform"
 	icon_state = "chef"
 	item_color = "chef"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/clown
 	name = "clown suit"
@@ -68,7 +68,7 @@
 	icon_state = "clown"
 	item_state = "clown"
 	item_color = "clown"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 
 /obj/item/clothing/under/rank/head_of_personnel
@@ -77,7 +77,7 @@
 	icon_state = "hop"
 	item_state = "b_suit"
 	item_color = "hop"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/head_of_personnel_whimsy
 	desc = "A blue jacket and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
@@ -94,7 +94,7 @@
 	item_state = "g_suit"
 	item_color = "hydroponics"
 	permeability_coefficient = 0.50
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/internalaffairs
 	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
@@ -102,7 +102,7 @@
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/ntrep
 	desc = "A well-ironed dress shirt and matching set of black pants."
@@ -110,7 +110,7 @@
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/janitor
 	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
@@ -118,13 +118,13 @@
 	icon_state = "janitor"
 	item_color = "janitor"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 
 /obj/item/clothing/under/lawyer
 	desc = "Slick threads."
 	name = "Lawyer suit"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/lawyer/black
 	icon_state = "lawyer_black"
@@ -173,7 +173,7 @@
 	icon_state = "red_suit"
 	item_state = "red_suit"
 	item_color = "red_suit"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/mime
 	name = "mime's outfit"
@@ -181,7 +181,7 @@
 	icon_state = "mime"
 	item_state = "mime"
 	item_color = "mime"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 
 /obj/item/clothing/under/rank/miner
@@ -190,7 +190,7 @@
 	icon_state = "miner"
 	item_state = "miner"
 	item_color = "miner"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/barber
 	desc = "It's a barber's uniform."

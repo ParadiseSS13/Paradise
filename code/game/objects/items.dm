@@ -55,6 +55,8 @@
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakouttime = 0
 
+	var/flags_size = 0 //flag, primarily used for clothing to determine if a fatty can wear something or not.
+
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
