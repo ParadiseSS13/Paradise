@@ -179,12 +179,6 @@
 								Fingerprint: <A href='?src=\ref[src];choice=Edit Field;field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>
 								Physical Status: [active1.fields["p_stat"]]<BR>
 								Mental Status: [active1.fields["m_stat"]]<BR>
-							</td>
-							<td align = center valign = top>
-								Photo:<br>
-								<img src=front.png height=80 width=80 border=4>
-								<img src=side.png height=80 width=80 border=4><br>
-								<a href='?src=\ref[src];choice=Print Photo'>Print Photo</a>
 							</td></tr></table>"}
 					else
 						dat += "<B>General Record Lost!</B><BR>"
