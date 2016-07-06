@@ -79,7 +79,7 @@ var/global/sent_syndicate_strike_team = 0
 			new_syndicate_commando.mind.store_memory("<B>Mission:</B> \red [input].")
 
 			to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B>[input]</B>")
-
+			new_syndicate_commando.faction += "syndicate"
 			syndicate_commando_number--
 
 //Spawns the rest of the commando gear.
