@@ -9,6 +9,7 @@
 	var/electronics_damage = 0
 	var/energy_consumption = 0
 	var/max_damage = 30
+	var/component_disabled = 0
 	var/mob/living/silicon/robot/owner
 
 // The actual device object that has to be installed for this.
@@ -53,6 +54,8 @@
 /datum/robot_component/proc/is_powered()
 	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (!energy_consumption || powered)
 
+/datum/robot_component/proc/not_disabled()
+	return (component_disabled != 1)
 
 /datum/robot_component/proc/consume_power()
 	if(toggled == 0)
@@ -95,6 +98,7 @@
 	external_type = /obj/item/robot_parts/robot_component/binary_communication_device
 	energy_consumption = 0
 	max_damage = 30
+	component_disabled = 0
 
 /datum/robot_component/camera
 	name = "camera"
@@ -121,7 +125,13 @@
 
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
-	return C && C.installed == 1 && C.toggled && C.is_powered()
+	return C && C.installed == 1 && C.toggled && C.is_powered() && C.not_disabled()
+
+/mob/living/silicon/robot/proc/disable_component(module_name, emp_duration)
+	var/datum/robot_component/D = get_component(module_name)
+	D.component_disabled = 1
+	spawn (emp_duration)
+	D.component_disabled = 0
 
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(var/component_name)
