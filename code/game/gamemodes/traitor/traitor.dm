@@ -335,12 +335,6 @@
 	if(!safety)//If they are not a rev. Can be added on to.
 		give_codewords(traitor_mob)
 
-	// Tell them about people they might want to contact.
-	var/mob/living/carbon/human/M = get_nt_opposed()
-	if(M && M != traitor_mob)
-		to_chat(traitor_mob, "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting them.")
-		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
-
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	//var/ref = "\ref[traitor_mind]"
