@@ -1,0 +1,5 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - tweak: "AI can no longer interact with IV Drips"
+  - tweak: "Robots can no longer remove beakers/blood bags from IV Drips"
