@@ -1707,7 +1707,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		var/etypes = list("borging","corgifying","firedeath","braindeath","honktumor","demotion")
+		var/etypes = list("Borgification","Corgification","Death By Fire","Total Brain Death","Honk Tumor","Demotion Notice")
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
@@ -1718,7 +1718,7 @@
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 
 		P.name = "Central Command - [customname]"
-		P.info = "<b>A reminder: per the terms of your contract, stupid faxes will get you demoted, or worse.</b>"
+		P.info = "<b>You <i>really</i> should've known better.</b>"
 		P.myeffect = eviltype
 		P.mytarget = H
 		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
@@ -1758,19 +1758,19 @@
 		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 		P.name = "Central Command - paper"
-		var/stypes = list("handle it yourself","illegible","not signed","sorry, not right now","stop wasting our time")
+		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed/stamped","Not Right Now","You are wasting our time")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
 		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><B>NanoTrasen Science Station Cyberiad</B></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
-		if(stype == "handle it yourself")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention."
-		else if(stype == "illegible")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax was too poorly written for our system to interpret."
-		else if(stype == "not signed")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax was not properly signed and/or stamped."
-		else if(stype == "sorry, not right now")
-			tmsg += "Greetings, esteemed crewmember. Unfortunately, we are unable to spare the resources to assist you at this time."
-		else if(stype == "stop wasting our time")
-			tmsg += "Stop wasting our time."
+		if(stype == "Handle it yourselves!")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.<BR><BR>Do not reply.</i></small>"
+		else if(stype == "Illegible fax")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<BR><BR>Please consult your nearest dictionary and/or thesaurus and try again.<BR><BR><i><small>This is an automatic message.<BR><BR>Do not reply.</i></small>"
+		else if(stype == "Fax not signed/stamped")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax was not properly signed and/or stamped. Please stamp your fax in accordance with NanoTrasen Fax Communication Policy, Section 3, Paragraph 6, Line 9.<BR><BR><i><small>This is an automatic message.<BR><BR>Do not reply.</i></small>"
+		else if(stype == "Not Right Now")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<BR><BR>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<BR><BR>Please try again later.<BR><BR><i><small>This is an automatic message.<BR><BR>Do not reply.</i></small>"
+		else if(stype == "You are wasting our time")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<BR><BR>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of proffesionalism. Do not test our patience.<BR><BR><i><small>This is an automatic message.<BR><BR>Do not reply.</i></small>"
 		else
 			return
 		tmsg += "</font>"
