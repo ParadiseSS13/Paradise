@@ -87,10 +87,6 @@
 				if(3.0)
 					dat += "<CENTER><B>Employment Record</B></CENTER><BR>"
 					if ((istype(active1, /datum/data/record) && data_core.general.Find(active1)))
-						var/icon/front = new(active1.fields["photo"], dir = SOUTH)
-						var/icon/side = new(active1.fields["photo"], dir = WEST)
-						user << browse_rsc(front, "front.png")
-						user << browse_rsc(side, "side.png")
 						dat += text("<table><tr><td>	\
 						Name: <A href='?src=\ref[src];choice=Edit Field;field=name'>[active1.fields["name"]]</A><BR> \
 						ID: <A href='?src=\ref[src];choice=Edit Field;field=id'>[active1.fields["id"]]</A><BR>\n	\
@@ -101,8 +97,8 @@
 						Physical Status: [active1.fields["p_stat"]]<BR>\n	\
 						Mental Status: [active1.fields["m_stat"]]<BR><BR>\n	\
 						Employment/skills summary:<BR> [active1.fields["notes"]]<BR></td>	\
-						<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>	\
-						<img src=side.png height=80 width=80 border=4></td></tr></table>")
+						<td align = center valign = top>Photo:<br><img src=[active1.fields["photo-south"]] height=80 width=80 border=4>	\
+						<img src=[active1.fields["photo-west"]] height=80 width=80 border=4></td></tr></table>")
 					else
 						dat += "<B>General Record Lost!</B><BR>"
 					dat += text("\n<A href='?src=\ref[];choice=Delete Record (ALL)'>Delete Record (ALL)</A><BR><BR>\n<A href='?src=\ref[];choice=Print Record'>Print Record</A><BR>\n<A href='?src=\ref[];choice=Return'>Back</A><BR>", src, src, src)
