@@ -466,10 +466,15 @@
 	return
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
-	if(stat == 2) return
-	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
-	spawn(1)
-		close_up()
+	if(stat == DEAD)
+		return
+	if(user.a_intent == I_HELP)
+		user.visible_message("<span class='notice'>[user] pets [src].</span>")
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	else
+		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+		spawn(1)
+			close_up()
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
