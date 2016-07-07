@@ -1,5 +1,0 @@
-author: Kyep
-delete-after: True
-changes: 
-  - bugfix: "Fixed oversight in keycard authentication devices that incorrectly treated trialmins like fullmins, resulting in situations where calling an ERT became impossible."
-  - tweak: "If an ERT request gets no answer for 5 minutes, admins now get a one time reminder that it was sent."
