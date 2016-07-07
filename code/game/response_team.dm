@@ -9,6 +9,7 @@ var/list/response_team_members = list()
 var/responseteam_age = 21 // Minimum account age to play as an ERT member
 var/datum/response_team/active_team = null
 var/send_emergency_team
+var/ert_request_answered = 0
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
@@ -47,6 +48,7 @@ var/send_emergency_team
 	if(!ert_type)
 		return
 
+	ert_request_answered = 1
 	message_admins("[key_name_admin(usr)] is dispatching an Emergency Response Team", 1)
 	log_admin("[key_name(usr)] used Dispatch Emergency Response Team..")
 	trigger_armed_response_team(ert_type)
