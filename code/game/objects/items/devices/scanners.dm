@@ -226,7 +226,7 @@ REAGENT SCANNER
 			for(var/datum/wound/W in e.wounds) if(W.internal)
 				user.show_message(text("\red Internal bleeding detected. Advanced scanner required for location."), 1)
 				break
-		if(M:vessel)
+		if(H.vessel)
 			var/blood_volume = round(M:vessel.get_reagent_amount("blood"))
 			var/blood_percent =  blood_volume / 560
 			blood_percent *= 100
@@ -246,7 +246,14 @@ REAGENT SCANNER
 		if(implant_detect)
 			user.show_message("<span class='notice'>Detected cybernetic modifications:</span>")
 			user.show_message("<span class='notice'>[implant_detect]</span>")
-
+		if(H.gene_stability < 40)
+			user.show_message("<span class='userdanger'>Subject's genes are quickly breaking down!</span>")
+		else if(H.gene_stability < 70)
+			user.show_message("<span class='danger'>Subject's genes are showing signs of spontenous breakdown.</span>")
+		else if(H.gene_stability < 85)
+			user.show_message("<span class='warning'>Subject's genes are showing minor signs of instability.</span>")
+		else
+			user.show_message("<span class='notice'>Subject's genes are stable.</span>")
 	src.add_fingerprint(user)
 	return
 
@@ -523,4 +530,3 @@ REAGENT SCANNER
 	if (T.cores > 1)
 		user.show_message("Anomalious slime core amount detected", 1)
 	user.show_message("Growth progress: [T.amount_grown]/10", 1)
-

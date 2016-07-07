@@ -34,6 +34,14 @@
 /datum/dna/gene/basic/increaserun/New()
 	block=INCREASERUNBLOCK
 
+/datum/dna/gene/basic/increaserun/can_activate(var/mob/M,var/flags)
+	if(!..())
+		return 0
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.species && H.species.slowdown && !(flags & MUTCHK_FORCED))
+			return 0
+	return 1
 
 /datum/dna/gene/basic/heat_resist
 	name="Heat Resistance"

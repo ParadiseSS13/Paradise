@@ -38,6 +38,16 @@
 	..()
 	block=RADBLOCK
 
+
+/datum/dna/gene/disability/radioactive/can_activate(var/mob/M,var/flags)
+	if(!..())
+		return 0
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.species && H.species.flags & RADIMMUNE && !(flags & MUTCHK_FORCED))
+			return 0
+	return 1
+
 /datum/dna/gene/disability/radioactive/OnMobLife(var/mob/living/owner)
 	var/radiation_amount = abs(min(owner.radiation - 20,0))
 	owner.apply_effect(radiation_amount, IRRADIATE)

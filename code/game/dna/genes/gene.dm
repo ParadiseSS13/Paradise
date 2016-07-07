@@ -39,7 +39,7 @@
 
 // Called when the gene activates.  Do your magic here.
 /datum/dna/gene/proc/activate(var/mob/living/M, var/connected, var/flags)
-	M.gene_stability += instability
+	M.gene_stability -= instability
 	return
 
 /**
@@ -47,7 +47,7 @@
 * Only called when the block is deactivated.
 */
 /datum/dna/gene/proc/deactivate(var/mob/living/M, var/connected, var/flags)
-	M.gene_stability -= instability
+	M.gene_stability += instability
 	return
 
 // This section inspired by goone's bioEffects.
@@ -112,15 +112,17 @@
 	if(flags & MUTCHK_FORCED)
 		return 1
 	// Probability check
-	return probinj(activation_prob,(flags&MUTCHK_FORCED))
+	return prob(activation_prob)
 
 /datum/dna/gene/basic/activate(var/mob/M)
+	..()
 	M.mutations.Add(mutation)
 	if(activation_messages.len)
 		var/msg = pick(activation_messages)
 		to_chat(M, "<span class='notice'>[msg]</span>")
 
 /datum/dna/gene/basic/deactivate(var/mob/M)
+	..()
 	M.mutations.Remove(mutation)
 	if(deactivation_messages.len)
 		var/msg = pick(deactivation_messages)
