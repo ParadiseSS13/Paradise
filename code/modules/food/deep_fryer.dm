@@ -10,8 +10,34 @@
 	foodcolor = "#FFAD33"
 	officon = "fryer_off"
 	onicon = "fryer_on"
+	openicon = "fryer_open"
 	has_specials = 1
+	upgradeable = 1
 
+/obj/machinery/cooker/deepfryer/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/deepfryer(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	RefreshParts()
+
+/obj/machinery/cooker/deepfryer/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/deepfryer(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	RefreshParts()
+
+/obj/machinery/cooker/deepfryer/RefreshParts()
+	var/E = 0
+	for(var/obj/item/weapon/stock_parts/micro_laser/L in component_parts)
+		E += L.rating
+	E -= 2		//Standard parts is 0 (1+1-2), Tier 4 parts is 6 (4+4-2)
+	cooktime = (200 - (E * 20))		//Effectively each laser improves cooktime by 20 per rating beyond the first (200 base, 80 max upgrade)
 
 /obj/machinery/cooker/deepfryer/gettype()
 	var/obj/item/weapon/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))

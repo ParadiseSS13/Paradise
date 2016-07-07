@@ -386,6 +386,16 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
+/obj/item/weapon/circuitboard/deepfryer
+	name = "circuit board (Deep Fryer)"
+	build_path = /obj/machinery/cooker/deepfryer
+	board_type = "machine"
+	origin_tech = "programming=2"
+	frame_desc = "Requires 2 Micro Lasers and 5 pieces of cable."
+	req_components = list(
+							/obj/item/weapon/stock_parts/micro_laser = 2,
+							/obj/item/stack/cable_coil = 5)
+
 /obj/item/weapon/circuitboard/gibber
 	name = "circuit board (Gibber)"
 	build_path = /obj/machinery/gibber
