@@ -103,8 +103,6 @@
 	var/sex
 	var/age
 	var/photo
-	var/icon/front
-	var/icon/side
 	var/dat
 	var/stamped = 0
 	
@@ -137,12 +135,6 @@
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
-	if(!front)
-		front = new(photo, dir = SOUTH)
-	if(!side)
-		side = new(photo, dir = WEST)
-	user << browse_rsc(front, "front.png")
-	user << browse_rsc(side, "side.png")
 	var/datum/browser/popup = new(user, "idcard", name, 600, 400)
 	popup.set_content(dat)
 	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
@@ -170,6 +162,9 @@
 	dna_hash = H.dna.unique_enzymes
 	fingerprint_hash = md5(H.dna.uni_identity)
 
+	var/photo_front = "'data:image/png;base64,[icon2base64(icon(photo, dir = SOUTH))]'"
+	var/photo_side = "'data:image/png;base64,[icon2base64(icon(photo, dir = WEST))]'"
+
 	dat = ("<table><tr><td>")
 	dat += text("Name: []</A><BR>", registered_name)
 	dat += text("Sex: []</A><BR>\n", sex)
@@ -178,8 +173,8 @@
 	dat += text("Fingerprint: []</A><BR>\n", fingerprint_hash)
 	dat += text("Blood Type: []<BR>\n", blood_type)
 	dat += text("DNA Hash: []<BR><BR>\n", dna_hash)
-	dat +="<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>	\
-	<img src=side.png height=80 width=80 border=4></td></tr></table>"
+	dat +="<td align = center valign = top>Photo:<br><img src=[photo_front] height=80 width=80 border=4>	\
+	<img src=[photo_side] height=80 width=80 border=4></td></tr></table>"
 
 /obj/item/weapon/card/id/GetAccess()
 	if(!guest_pass)
@@ -341,7 +336,7 @@
 			if("Show")
 				return ..()
 			if("Edit")
-				switch(input(user,"What would you like to edit on \the [src]?") in list("Name","Photo","Appearance","Sex","Age","Occupation","Money Account","Blood Type","DNA Hash","Fingerprint Hash","Reset Card"))
+				switch(input(user,"What would you like to edit on \the [src]?") in list("Name","Appearance","Sex","Age","Occupation","Money Account","Blood Type","DNA Hash","Fingerprint Hash","Reset Card"))
 					if("Name")
 						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name))
 						if(!Adjacent(user))
@@ -350,13 +345,15 @@
 						UpdateName()
 						to_chat(user, "<span class='notice'>Name changed to [new_name].</span>")
 
+					// This option is now disabled. I had to comment out the front/side lines.
+					// It didn't work anyway, so nothing of value was lost!
 					if("Photo")
 						if(!Adjacent(user))
 							return
 						photo = fake_id_photo(user)
 						var/icon/photoside = fake_id_photo(user,1)
-						front = new(photo)
-						side = new(photoside)
+						// front = new(photo)
+						// side = new(photoside)
 						if(photo && photoside)
 							to_chat(user, "<span class='notice'>Photo changed.</span>")
 
