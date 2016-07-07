@@ -50,9 +50,11 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
 
-/proc/ERT_Announce(var/text , var/mob/Sender)
+/proc/ERT_Announce(var/text , var/mob/Sender, var/repeat_warning)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
-	msg = "\blue <b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;ErtReply=\ref[Sender]'>REPLY</A>):</b> [msg]"
+	msg = "<span class='adminnotice'><b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;ErtReply=\ref[Sender]'>RESPOND</A>):</b> [msg]</span>"
+	if (repeat_warning)
+		msg += "<BR><span class='adminnotice'><b>WARNING: ERT request has gone 5 minutes with no reply!</b></span>"
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
