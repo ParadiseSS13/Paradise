@@ -2,7 +2,7 @@
 	subtype_path = /datum/gear/suit
 	slot = slot_wear_suit
 	sort_category = "External Wear"
-	
+
 //WINTER COATS
 /datum/gear/suit/coat
 	subtype_path = /datum/gear/suit/coat
@@ -98,3 +98,43 @@
 	display_name = "security jacket"
 	path = /obj/item/clothing/suit/armor/secjacket
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/suit/poncho
+	display_name = "poncho, classic"
+	path = /obj/item/clothing/suit/poncho
+
+/datum/gear/suit/grponcho
+	display_name = "poncho, green"
+	path = /obj/item/clothing/suit/poncho/green
+
+/datum/gear/suit/rdponcho
+	display_name = "poncho, red"
+	path = /obj/item/clothing/suit/poncho/red
+
+/datum/gear/suit/tphoodie
+	display_name = "hoodie, Tharsis Polytech"
+	path = /obj/item/clothing/suit/hooded/hoodie/tp
+
+/datum/gear/suit/nthoodie
+	display_name = "hoodie, Nanotrasen"
+	path = /obj/item/clothing/suit/hooded/hoodie/nt
+
+/datum/gear/suit/lamhoodie
+	display_name = "hoodie, Lunar Academy of Medicine"
+	path = /obj/item/clothing/suit/hooded/hoodie/lam
+
+/datum/gear/suit/cuthoodie
+	display_name = "hoodie, Canaan University of Technology"
+	path = /obj/item/clothing/suit/hooded/hoodie/cut
+
+/datum/gear/suit/mithoodie
+	display_name = "hoodie, Martian Institute of Technology"
+	path = /obj/item/clothing/suit/hooded/hoodie/mit
+
+/datum/gear/suit/bluehoodie
+	display_name = "hoodie, blue"
+	path = /obj/item/clothing/suit/hooded/hoodie/blue
+
+/datum/gear/suit/blackhoodie
+	display_name = "hoodie, black"
+	path = /obj/item/clothing/suit/hooded/hoodie

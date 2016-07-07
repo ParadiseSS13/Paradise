@@ -40,11 +40,15 @@
 	display_name = "a smoking pipe"
 	path = /obj/item/clothing/mask/cigarette/pipe
 
-/datum/gear/pai
-	display_name = "a pAI card"
-	path = /obj/item/device/paicard
-
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/matches
+	display_name = "a box of matches"
+	path = /obj/item/weapon/storage/box/matches
+
+/datum/gear/cards
+	display_name = "a deck of cards"
+	path = /obj/item/toy/cards/deck

@@ -92,3 +92,7 @@
 /datum/gear/hat/capyellow
 	display_name = "cap, yellow"
 	path = /obj/item/clothing/head/soft/yellow
+
+/datum/gear/hat/cowboyhat
+	display_name = "cowboy hat"
+	path = /obj/item/clothing/head/cowboyhat

@@ -25,6 +25,7 @@
 	icon_state = "pwig"
 	item_state = "pwig"
 
+
 /obj/item/clothing/head/that
 	name = "top-hat"
 	desc = "It's an amish looking hat."
@@ -160,6 +161,12 @@
 	icon_state = "boater_hat"
 	item_state = "boater_hat"
 	desc = "Goes well with celery."
+
+/obj/item/clothing/head/cowboyhat
+	name = "cowboy hat"
+	icon_state = "cowboyhat"
+	item_state = "fedora"
+	desc = "There's a new sheriff in town."
 
 /obj/item/clothing/head/fedora
 	name = "\improper fedora"

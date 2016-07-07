@@ -305,8 +305,10 @@
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	flags = NODROP
+	flags = NODROP|BLOCKHAIR
 	flags_inv = HIDEEARS
+	species_fit = list("Vox")
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/head.dmi')
 
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
@@ -398,6 +400,65 @@
  * Misc
  */
 
+//hoodies
+/obj/item/clothing/suit/hooded/hoodie
+	name = "hoodie"
+	desc = "It's a hoodie. It has a hood. Most hoodies do."
+	icon_state = "black_hoodie"
+	item_state = "labcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	hoodtype = /obj/item/clothing/head/hood
+
+/obj/item/clothing/head/hood
+	name = "hood"
+	desc = "A hood attached to a hoodie."
+	icon_state = "blackhood"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/head/hood/blue
+	icon_state = "bluehood"
+
+/obj/item/clothing/head/hood/white
+	icon_state = "whitehood"
+
+/obj/item/clothing/suit/hooded/hoodie/blue
+	name = "blue hoodie"
+	icon_state = "blue_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/blue
+
+/obj/item/clothing/suit/hooded/hoodie/mit
+	name = "Martian Institute of Technology hoodie"
+	desc = "A hoodie proudly worn by students and graduates alike, has the letters 'MIT' on the back."
+	icon_state = "mit_hoodie"
+	hoodtype = /obj/item/clothing/head/hood
+
+/obj/item/clothing/suit/hooded/hoodie/cut
+	name = "Canaan University of Technology hoodie"
+	desc = "A bright hoodie with the Canaan University of Technology logo on the front."
+	icon_state = "cut_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/white
+
+/obj/item/clothing/suit/hooded/hoodie/lam
+	name = "Lunar Academy of Medicine hoodie"
+	desc = "A bright hoodie with the Lunar Academy of Medicine logo on the back."
+	icon_state = "lam_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/white
+
+/obj/item/clothing/suit/hooded/hoodie/nt
+	name = "Nanotrasen hoodie"
+	desc = "A blue hoodie with the Nanotrasen logo on the back."
+	icon_state = "nt_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/blue
+
+/obj/item/clothing/suit/hooded/hoodie/tp
+	name = "Tharsis Polytech hoodie"
+	desc = "A dark hoodie with the Tharsis Polytech logo on the back."
+	icon_state = "tp_hoodie"
+	hoodtype = /obj/item/clothing/head/hood
+
 /obj/item/clothing/suit/straight_jacket
 	name = "straight jacket"
 	desc = "A suit that completely restrains the wearer."
@@ -417,6 +478,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
+
+
 
 //pyjamas
 //originally intended to be pinstripes >.>
@@ -475,6 +538,30 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+//trackjackets
+
+/obj/item/clothing/suit/tracksuit
+	name = "black tracksuit"
+	desc = "Lightweight and stylish. What else could a man ask of his tracksuit?"
+	icon_state = "trackjacket_open"
+	item_state = "bltrenchcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	action_button_name = "Open/Close Jacket"
+	adjust_flavour = "unzip"
+
+/obj/item/clothing/suit/tracksuit/green
+	name = "green tracksuit"
+	icon_state = "trackjacketgreen_open"
+
+/obj/item/clothing/suit/tracksuit/red
+	name = "red tracksuit"
+	icon_state = "trackjacketred_open"
+
+/obj/item/clothing/suit/tracksuit/white
+	name = "white tracksuit"
+	icon_state = "trackjacketwhite_open"
 
 //actual suits
 
