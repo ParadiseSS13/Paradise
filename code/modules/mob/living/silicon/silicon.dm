@@ -66,14 +66,17 @@
 /mob/living/silicon/drop_item()
 	return
 
-/mob/living/silicon/emp_act(severity)
+/mob/living/silicon/robot/emp_act(severity)
+	/var/datum/robot_component/binary_communication_device/component_disabled
 	switch(severity)
 		if(1)
 			src.take_organ_damage(20)
 			Stun(8)
+			src.disable_component("comms", 160)
 		if(2)
 			src.take_organ_damage(10)
 			Stun(3)
+			src.disable_component("comms", 60)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "\red <B>*BZZZT*</B>")
 	to_chat(src, "\red Warning: Electromagnetic pulse detected.")
