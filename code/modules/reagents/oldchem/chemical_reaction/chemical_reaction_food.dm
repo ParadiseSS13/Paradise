@@ -111,7 +111,7 @@
 	mix_sound = null
 
 /datum/chemical_reaction/water
-	name = "Water"
+	name = "Hydrogen Hydroxide"
 	id = "water"
 	result = "water"
 	required_reagents = list("ice" = 1)
