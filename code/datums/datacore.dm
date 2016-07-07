@@ -66,6 +66,8 @@
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.get_species()
 		G.fields["photo"]		= get_id_photo(H)
+		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
+		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
 			G.fields["notes"] = H.gen_record
 		else

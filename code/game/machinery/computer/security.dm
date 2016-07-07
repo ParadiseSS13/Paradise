@@ -165,10 +165,6 @@
 				if(3.0)
 					dat += "<CENTER><B>Security Record</B></CENTER><BR>"
 					if ((istype(active1, /datum/data/record) && data_core.general.Find(active1)))
-						var/icon/front = new(active1.fields["photo"], dir = SOUTH)
-						var/icon/side = new(active1.fields["photo"], dir = WEST)
-						user << browse_rsc(front, "front.png")
-						user << browse_rsc(side, "side.png")
 						dat += {"
 							<table><tr><td>
 								Name: <A href='?src=\ref[src];choice=Edit Field;field=name'>[active1.fields["name"]]</A><BR>
@@ -182,8 +178,8 @@
 							</td>
 							<td align = center valign = top>
 								Photo:<br>
-								<img src=front.png height=80 width=80 border=4>
-								<img src=side.png height=80 width=80 border=4><br>
+								<img src=[active1.fields["photo-south"]] height=80 width=80 border=4>
+								<img src=[active1.fields["photo-west"]] height=80 width=80 border=4><br>
 								<a href='?src=\ref[src];choice=Print Photo'>Print Photo</a>
 							</td></tr></table>"}
 					else
