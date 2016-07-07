@@ -233,13 +233,12 @@
 			var/mob/living/carbon/human/H = ass
 			to_chat(ass,"<span class='notice'>Something smells toasty...</span>")
 			var/obj/item/organ/external/G = H.get_organ("groin")
-			G.take_damage(0, 20)
-			sleep(20)
-			ass.emote("scream")
-		if(!ishuman(ass))
-			var/mob/living/H = ass
+			G.take_damage(0, 30)
+			spawn(20)
+				ass.emote("scream")
+		else
 			to_chat(ass,"<span class='notice'>Something smells toasty...</span>")
-			H.apply_damage(20, BURN)
+			ass.apply_damage(30, BURN)
 	if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/H = ass
 		temp_img = icon('icons/obj/butts.dmi', H.species.butt_sprite)
