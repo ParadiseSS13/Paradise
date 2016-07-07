@@ -1,5 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Security and medical records should probably stop crashing people."
-  - bugfix: "Altering details on an Agent ID Card will now actually update what's seen when examining the card."
