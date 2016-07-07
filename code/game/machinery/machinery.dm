@@ -47,7 +47,7 @@ Class Variables:
       Currently unused.
 
 Class Procs:
-   New()                     'game/machinery/machine.dm'
+   initialize()                     'game/machinery/machine.dm'
 
    Destroy()                     'game/machinery/machine.dm'
 

@@ -31,6 +31,9 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			var/atom/A = R
 			if(A.smooth)
 				smooth_icon(A)
+		if(istype(T, /turf/simulated/mineral)) // For the listening post, among other maps
+			var/turf/simulated/mineral/MT = T
+			MT.add_edges()
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	log_debug("Initializing pipenets")
@@ -70,6 +73,35 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		log_startup_progress("  No away missions found.")
 		return
 
+/proc/createALLZlevels()
+	if(awaydestinations.len)	//crude, but it saves another var!
+		return
+
+	if(potentialRandomZlevels && potentialRandomZlevels.len)
+		var/watch = start_watch()
+		log_startup_progress("Loading away missions...")
+
+		for(var/map in potentialRandomZlevels)
+			var/file = file(map)
+			if(isfile(file))
+				log_startup_progress("Loading away mission: [map]")
+				maploader.load_map(file)
+				late_setup_level(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
+				log_to_dd("  Away mission loaded: [map]")
+
+			//map_transition_config.Add(AWAY_MISSION_LIST)
+
+			for(var/obj/effect/landmark/L in landmarks_list)
+				if (L.name != "awaystart")
+					continue
+				awaydestinations.Add(L)
+
+			log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
+			watch = start_watch()
+
+	else
+		log_startup_progress("  No away missions found.")
+		return
 
 /proc/generateMapList(filename)
 	var/list/potentialMaps = list()

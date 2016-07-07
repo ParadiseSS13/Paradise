@@ -9,6 +9,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 	color = "#000000"
 	icon_state = "light1"
+	auto_init = 0 // doesn't need special init
 
 	var/lum_r
 	var/lum_g

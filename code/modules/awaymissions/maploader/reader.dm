@@ -8,6 +8,9 @@ var/global/use_preloader = FALSE
 var/global/dmm_suite/preloader/_preloader = new
 
 /dmm_suite
+	// These regexes are global - meaning that starting the maploader again mid-load will
+	// reset progress - which means we need to track our index per-map, or we'll
+	// eternally recurse
 		// /"([a-zA-Z]+)" = \(((?:.|\n)*?)\)\n(?!\t)|\((\d+),(\d+),(\d+)\) = \{"([a-zA-Z\n]*)"\}/g
 	var/static/regex/dmmRegex = new/regex({""(\[a-zA-Z]+)" = \\(((?:.|\n)*?)\\)\n(?!\t)|\\((\\d+),(\\d+),(\\d+)\\) = \\{"(\[a-zA-Z\n]*)"\\}"}, "g")
 		// /^[\s\n]+"?|"?[\s\n]+$|^"|"$/g
@@ -35,7 +38,9 @@ var/global/dmm_suite/preloader/_preloader = new
  */
 /dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num, delay_init as num)
 	var/tfile = dmm_file//the map file we're creating
+	var/fname = "Lambda"
 	if(isfile(tfile))
+		fname = "[tfile]"
 		tfile = file2text(tfile)
 
 	if(!x_offset)
@@ -49,14 +54,19 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/list/grid_models = list()
 	var/key_len = 0
 
+
+
 	var/dmm_suite/loaded_map/LM = new
 	if(measureOnly)
 		delay_init = 0
 	// This try-catch is used as a budget "Finally" clause, as the dirt count
 	// needs to be reset
+	var/watch = start_watch()
+	log_debug("[measureOnly ? "Measuring" : "Loading"] map: [fname]")
 	try
-		dmmRegex.next = 1
-		while(dmmRegex.Find(tfile, dmmRegex.next))
+		LM.index = 1
+		while(dmmRegex.Find(tfile, LM.index))
+			LM.index = dmmRegex.next
 
 			// "aa" = (/type{vars=blah})
 			if(dmmRegex.group[1]) // Model
@@ -136,8 +146,10 @@ var/global/dmm_suite/preloader/_preloader = new
 								if(xcrd >= 1)
 									var/model_key = copytext(line, tpos, tpos + key_len)
 									if(!grid_models[model_key])
-										throw EXCEPTION("Undefined model key in DMM.")
+										throw EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname].")
 									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM)
+									// After this call, it is NOT safe to reference `dmmRegex` without another call to
+									// "Find" - we might've hit a map loader here and changed its state
 									CHECK_TICK
 
 								maxx = max(maxx, xcrd)
@@ -148,14 +160,17 @@ var/global/dmm_suite/preloader/_preloader = new
 
 			CHECK_TICK
 	catch(var/exception/e)
+		_preloader.reset()
 		if(delay_init)
 			for(var/i in LM.touched_z_levels)
 				zlevels.remove_dirt(i)
 		throw e
 
 	if(delay_init)
+		_preloader.reset()
 		for(var/i in LM.touched_z_levels)
 			zlevels.remove_dirt(i)
+	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		log_debug("Min x: bounds[MAP_MINX]")
@@ -166,10 +181,11 @@ var/global/dmm_suite/preloader/_preloader = new
 		log_debug("Max z: bounds[MAP_MAXZ]")
 		return null
 	else
-		for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
-			var/turf/T = t
-			//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
-			T.AfterChange(1,but_its_not_the_saaaaaame = TRUE) // are you happy now
+		if(!measureOnly)
+			for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
+				var/turf/T = t
+				//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
+				T.AfterChange(1,keep_cabling = TRUE)
 		return bounds
 
 /**
@@ -204,7 +220,6 @@ var/global/dmm_suite/preloader/_preloader = new
 		members = cached[1]
 		members_attributes = cached[2]
 	else
-
 		/////////////////////////////////////////////////////////
 		//Constructing members and corresponding variables lists
 		////////////////////////////////////////////////////////
@@ -418,6 +433,7 @@ var/global/dmm_suite/preloader/_preloader = new
 //Preloader datum
 //////////////////
 
+// This ain't re-entrant, but we had this before the maploader update
 /dmm_suite/preloader
 	parent_type = /datum
 	var/list/attributes
@@ -437,6 +453,12 @@ var/global/dmm_suite/preloader/_preloader = new
 		what.vars[attribute] = value
 	use_preloader = FALSE
 
+// If the map loader fails, make this safe
+/dmm_suite/preloader/proc/reset()
+	use_preloader = FALSE
+	attributes = list()
+	target_path	= null
+
 // A datum for use within the context of loading a single map,
 // so that one can have separate "unpowered" areas for ruins or whatever,
 // yet have a single area type for use of mapping, instead of creating
@@ -445,6 +467,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	parent_type = /datum
 	var/list/touched_z_levels = list()
 	var/list/area_list = list()
+	var/index = 1 // To store the state of the regex
 
 /dmm_suite/loaded_map/proc/area_path_to_real_area(area/A)
 	if(!ispath(A, /area))

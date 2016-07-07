@@ -33,7 +33,6 @@ var/global/list/deferred_pipenet_rebuilds = list()
 
 var/pipenetwarnings = 10
 
-var/pipenets_made = 0
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	var/volume = 0
 	if(istype(base, /obj/machinery/atmospherics/pipe))
@@ -48,7 +47,6 @@ var/pipenets_made = 0
 		addMachineryMember(base)
 	if(!air)
 		air = new
-//	log_startup_progress("Making pipenet [pipenets_made++]")
 	var/list/possible_expansions = list(base)
 	while(possible_expansions.len>0)
 		for(var/obj/machinery/atmospherics/borderline in possible_expansions)

@@ -32,6 +32,8 @@ Pipelines + Other Objects -> Pipe network
 	var/global/datum/pipe_icon_manager/icon_manager
 
 /obj/machinery/atmospherics/New()
+	..()
+	
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -41,8 +43,6 @@ Pipelines + Other Objects -> Pipe network
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
-
-	..()
 
 /obj/machinery/atmospherics/initialize()
 	..()

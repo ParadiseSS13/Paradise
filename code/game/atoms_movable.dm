@@ -20,10 +20,6 @@
 
 	var/auto_init = 1
 
-// This is used in the map loader to defer initialization once all entities
-// are placed, so that pipes and window spawners correctly function
-// when plunked down mid-game
-var/list/dirty_z_levels = list()
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)

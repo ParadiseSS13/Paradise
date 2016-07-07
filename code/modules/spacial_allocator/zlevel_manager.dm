@@ -7,8 +7,9 @@ var/global/datum/zlev_manager/zlevels = new
 
 // Populate our z level list
 /datum/zlev_manager/proc/initialize()
-  for(var/i = 1, i < world.maxz, i++)
-    z_list.Add(new /datum/zlevel(i))
+  z_list.len = world.maxz
+  for(var/i = 1, i <= world.maxz, i++)
+    z_list[i] = new /datum/zlevel(i)
 
 
 // For when you need the z-level to be at a certain point
@@ -23,7 +24,8 @@ var/global/datum/zlev_manager/zlevels = new
 /datum/zlev_manager/proc/add_new_zlevel()
   world.maxz++
   var/our_z = world.maxz
-  z_list.Add(new /datum/zlevel(our_z))
+  z_list.len++
+  z_list[our_z] = new /datum/zlevel(our_z)
   return our_z
 
 /datum/zlev_manager/proc/cut_levels_downto(new_maxz)
@@ -37,7 +39,7 @@ var/global/datum/zlev_manager/zlevels = new
 /datum/zlev_manager/proc/kill_topmost_zlevel()
   var/our_z = world.maxz
   qdel(z_list[our_z])
-  z_list.Remove(our_z)
+  z_list.len--
   world.maxz--
 
 /*
