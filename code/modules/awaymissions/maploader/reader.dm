@@ -31,12 +31,13 @@ var/global/dmm_suite/preloader/_preloader = new
  * If `measureOnly` is set, then no atoms will be created, and all this will do
  * is return the bounds after parsing the file
  *
- * If delay_init is set, then all initializations while the map is loading will
- * be deferred until later
- * You'll need it for large initializations like loading the cyberiad, where
- * glass and similar can cause atmos to initialize before it's ready
+ * If you need to freeze init while you're working, you can use the spacial allocator's
+ * "add_dirt" and "remove_dirt" which will put initializations on hold until you say
+ * the word. This is important for loading large maps such as the cyberiad, where
+ * atmos will attempt to start before it's ready, causing runtimes galore if init is
+ * allowed to romp unchecked.
  */
-/dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num, delay_init as num)
+/dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num)
 	var/tfile = dmm_file//the map file we're creating
 	var/fname = "Lambda"
 	if(isfile(tfile))
@@ -57,8 +58,6 @@ var/global/dmm_suite/preloader/_preloader = new
 
 
 	var/dmm_suite/loaded_map/LM = new
-	if(measureOnly)
-		delay_init = 0
 	// This try-catch is used as a budget "Finally" clause, as the dirt count
 	// needs to be reset
 	var/watch = start_watch()
@@ -91,9 +90,6 @@ var/global/dmm_suite/preloader/_preloader = new
 				var/xcrd
 				var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
 				var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
-				if(!measureOnly && delay_init)
-					zlevels.add_dirt(zcrd)
-					LM.touched_z_levels |= zcrd
 
 				if(zcrd > world.maxz)
 					if(cropMap)
@@ -161,15 +157,9 @@ var/global/dmm_suite/preloader/_preloader = new
 			CHECK_TICK
 	catch(var/exception/e)
 		_preloader.reset()
-		if(delay_init)
-			for(var/i in LM.touched_z_levels)
-				zlevels.remove_dirt(i)
 		throw e
 
-	if(delay_init)
-		_preloader.reset()
-		for(var/i in LM.touched_z_levels)
-			zlevels.remove_dirt(i)
+	_preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
@@ -465,7 +455,6 @@ var/global/dmm_suite/preloader/_preloader = new
 // a new area type for each new ruin
 /dmm_suite/loaded_map
 	parent_type = /datum
-	var/list/touched_z_levels = list()
 	var/list/area_list = list()
 	var/index = 1 // To store the state of the regex
 

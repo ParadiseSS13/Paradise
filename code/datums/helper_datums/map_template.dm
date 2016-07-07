@@ -23,7 +23,7 @@
 		height = bounds[MAP_MAXY]
 	return bounds
 
-/datum/map_template/proc/load(turf/T, centered = 0, delay_init = 0)
+/datum/map_template/proc/load(turf/T, centered = 0)
 	var/turf/placement = T
 	var/min_x = placement.x
 	var/min_y = placement.y
@@ -43,7 +43,13 @@
 	// 1 bigger, to update the turf smoothing
 	var/turf/ST_bot_left = locate(max(1, min_x-1), max(1, min_y-1), placement.z)
 	var/turf/ST_top_right = locate(min(world.maxx, max_x+1), min(world.maxy, max_y+1), placement.z)
-	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1, delay_init = delay_init)
+	// This is to place a freeze on initialization until the map's done loading
+	// otherwise atmos and stuff will start running mid-load
+	// This system will metaphorically snap in half (not postpone init everywhere)
+	// if given a multi-z template
+	// it might need to be adapted for that when that time comes
+	zlevels.add_dirt(placement.z)
+	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
 	if(!bounds)
 		return 0
 	if(bot_left == null || top_right == null)
@@ -55,9 +61,11 @@
 		log_debug("One of the smoothing corners is bust")
 	else
 		log_debug("Tile smoothing from ([ST_bot_left.x],[ST_bot_left.y]) to ([ST_top_right.x],[ST_top_right.y])")
+
 	late_setup_level(
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
+	zlevels.remove_dirt(placement.z)
 
 	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1

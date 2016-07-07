@@ -12,6 +12,15 @@ var/global/datum/zlev_manager/zlevels = new
     z_list[i] = new /datum/zlevel(i)
 
 
+
+/datum/zlev_manager/proc/get_zlev(z)
+  if(z < 1)
+    throw EXCEPTION("Non-positive z level given!")
+  else if (z > z_list.len)
+    throw EXCEPTION("Untracked z level: '[z]'")
+  else
+    return z_list[z]
+
 // For when you need the z-level to be at a certain point
 /datum/zlev_manager/proc/increase_max_zlevel_to(new_maxz)
   if(world.maxz>=new_maxz)
@@ -53,19 +62,28 @@ var/global/datum/zlev_manager/zlevels = new
 
 // Returns whether the given z level has a freeze on initialization
 /datum/zlev_manager/proc/is_zlevel_dirty(z)
-  if(z > z_list.len)
-    return 0 // It's not dirty if it's not being tracked
-  var/datum/zlevel/our_z = z_list[z]
+  var/datum/zlevel/our_z = get_zlev(z)
   return (our_z.dirt_count > 0)
 
 
 // Increases the dirt count on a z level
 /datum/zlev_manager/proc/add_dirt(z)
-  var/datum/zlevel/our_z = z_list[z]
+  var/datum/zlevel/our_z = get_zlev(z)
+  if(our_z.dirt_count == 0)
+    log_debug("Placing an init freeze on z-level '[our_z.zpos]'!")
   our_z.dirt_count++
 
 
 // Decreases the dirt count on a z level
 /datum/zlev_manager/proc/remove_dirt(z)
-  var/datum/zlevel/our_z = z_list[z]
+  var/datum/zlevel/our_z = get_zlev(z)
   our_z.dirt_count--
+  if(our_z.dirt_count == 0)
+    our_z.resume_init()
+  if(our_z.dirt_count < 0)
+    log_debug("WARNING: Imbalanced dirt removal")
+    our_z.dirt_count = 0
+
+/datum/zlev_manager/proc/postpone_init(z, thing)
+  var/datum/zlevel/our_z = get_zlev(z)
+  our_z.init_list.Add(thing)

@@ -10,7 +10,6 @@
 	var/datum/map_template/template = null
 	var/centered = 1
 	var/loaded = 0
-	var/delay_init = 0
 
 /obj/effect/landmark/map_loader/New(turf/loc, tname)
 	..()
@@ -28,13 +27,13 @@
 /obj/effect/landmark/map_loader/proc/load(datum/map_template/t)
 	if(!t)
 		return
-	if(loaded)
+	if(loaded) // I wanna be super sure this loads only once
 		return
 	loaded = 1
 	var/turf/pos = get_turf(src)
 	// Hop to nullspace so we don't get re-initialized by the map we're loading
 	loc = null
-	t.load(pos, centered = centered, delay_init = delay_init)
+	t.load(pos, centered = centered)
 	t.loaded++
 	qdel(src)
 

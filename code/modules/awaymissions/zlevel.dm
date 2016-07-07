@@ -1,5 +1,7 @@
 var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away_mission_config.txt")
 
+// Call this before you remove the last dirt on a z level - that way, all objects
+// will have proper atmos and other important enviro things
 /proc/late_setup_level(turfs, smoothTurfs)
 	var/total_timer = start_watch()
 	var/subtimer = start_watch()
@@ -12,14 +14,10 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()
-	log_debug("Initializing objects and lighting")
+	log_debug("Initializing lighting")
 	for(var/turf/T in turfs)
 		if(T.dynamic_lighting)
 			T.lighting_build_overlays()
-		for(var/obj/structure/cable/PC in T)
-			makepowernet_for(PC)
-		for(var/atom/movable/AM in T)
-			AM.initialize()
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()
@@ -35,14 +33,6 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			var/turf/simulated/mineral/MT = T
 			MT.add_edges()
 	log_debug("\tTook [stop_watch(subtimer)]s")
-
-	log_debug("Initializing pipenets")
-	// We do this once we're finished initializing since otherwise the pipes
-	// won't have finished connecting
-	for(var/turf/T in turfs)
-		for(var/obj/machinery/atmospherics/machine in T)
-			machine.build_network()
-	log_debug("\tTook [stop_watch(subtimer)]s")
 	log_debug("Late setup finished - took [stop_watch(total_timer)]s")
 
 /proc/createRandomZlevel()
@@ -56,8 +46,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
-			maploader.load_map(file)
-			late_setup_level(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
+			var/zlev = zlevels.add_new_zlevel()
+			zlevels.add_dirt(zlev)
+			maploader.load_map(file, z_offset = zlev)
+			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
+			zlevels.remove_dirt(zlev)
 			log_to_dd("  Away mission loaded: [map]")
 
 		//map_transition_config.Add(AWAY_MISSION_LIST)
@@ -85,8 +78,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			var/file = file(map)
 			if(isfile(file))
 				log_startup_progress("Loading away mission: [map]")
-				maploader.load_map(file)
-				late_setup_level(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
+				var/zlev = zlevels.add_new_zlevel()
+				zlevels.add_dirt(zlev)
+				maploader.load_map(file, z_offset = zlev)
+				late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
+				zlevels.remove_dirt(zlev)
 				log_to_dd("  Away mission loaded: [map]")
 
 			//map_transition_config.Add(AWAY_MISSION_LIST)
