@@ -98,6 +98,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	var/c_locked=0;        //Will our new channel be locked to public submissions?
 	var/hitstaken = 0      //Death at 3 hits from an item with force>=15
 	var/datum/feed_channel/viewing_channel = null
+	var/silence = 0
 	light_range = 0
 	anchored = 1
 
@@ -200,6 +201,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				<BR><A href='?src=\ref[src];view=1'>View Feed Channels</A>
 				<BR><A href='?src=\ref[src];create_feed_story=1'>Submit new Feed story</A>
 				<BR><A href='?src=\ref[src];menu_paper=1'>Print newspaper</A>
+				<BR><A href='?src=\ref[src];silence=0'>Silence unit</A>
+				<BR><A href='?src=\ref[src];silence=1'>Unsilence unit</A>
 				<BR><A href='?src=\ref[src];refresh=1'>Re-scan User</A>
 				<BR><BR><A href='?src=\ref[human_or_robot_user];mach_close=newscaster_main'>Exit</A>"}
 				if(src.securityCaster)
@@ -441,7 +444,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	usr.set_machine(src)
 	if(href_list["set_channel_name"])
 		src.channel_name = sanitizeSQL(strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", "")))
@@ -545,6 +548,12 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			src.print_paper()
 			src.screen = 20
 		src.updateUsrDialog()
+
+	else if(href_list["silence_unit"])
+		src.silence=1
+
+	else if(href_list["unsilence_unit"])
+		src.silence=0
 
 	else if(href_list["menu_censor_story"])
 		src.screen=10
@@ -958,14 +967,15 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob, pa
 /obj/machinery/newscaster/proc/newsAlert(var/news_call)   //This isn't Agouri's work, for it is ugly and vile.
 	var/turf/T = get_turf(src)                      //Who the fuck uses spawn(600) anyway, jesus christ
 	if(news_call)
-		for(var/mob/O in hearers(world.view-1, T))
-			O.show_message("<span class='newscaster'><EM>[src.name]</EM> beeps, \"[news_call]\"</span>",2)
-		src.alert = 1
-		src.update_icon()
-		spawn(300)
-			src.alert = 0
+		if(silence == 0)
+			for(var/mob/O in hearers(world.view-1, T))
+				O.show_message("<span class='newscaster'><EM>[src.name]</EM> beeps, \"[news_call]\"</span>",2)
+			src.alert = 1
 			src.update_icon()
-		playsound(src.loc, 'sound/machines/twobeep.ogg', 75, 1)
+			spawn(300)
+				src.alert = 0
+				src.update_icon()
+			playsound(src.loc, 'sound/machines/twobeep.ogg', 75, 1)
 	else
 		for(var/mob/O in hearers(world.view-1, T))
 			O.show_message("<span class='newscaster'><EM>[src.name]</EM> beeps, \"Attention! Wanted issue distributed!\"</span>",2)
