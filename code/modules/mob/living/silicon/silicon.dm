@@ -67,7 +67,6 @@
 	return
 
 /mob/living/silicon/robot/emp_act(severity)
-	/var/datum/robot_component/binary_communication_device/component_disabled
 	switch(severity)
 		if(1)
 			src.take_organ_damage(20)
