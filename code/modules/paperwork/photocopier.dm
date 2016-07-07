@@ -11,7 +11,7 @@
 	power_channel = EQUIP
 	var/obj/item/copyitem = null	//what's in the copier!
 	var/copies = 1	//how many copies to print!
-	var/toner = 30 //how much toner is left! woooooo~
+	var/toner = 60 //how much toner is left! woooooo~
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
 	var/mob/living/ass = null
 
@@ -308,6 +308,8 @@
 		updateUsrDialog()
 		return 0
 	else
+		visible_message("<span class='notice'>The Photocopier pings and a robotic voice speaks up:</span>")
+		visible_message("<span class='danger'>Attention: Posterior Placed on Printing Plaque</span>")
 		return 1
 
 /obj/item/device/toner
