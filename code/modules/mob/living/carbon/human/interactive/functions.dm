@@ -442,7 +442,7 @@
 
 	var/static/list/customableTypes = list(/obj/item/weapon/reagent_containers/food/snacks/customizable,/obj/item/weapon/reagent_containers/food/snacks/breadslice,/obj/item/weapon/reagent_containers/food/snacks/bun,/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,/obj/item/weapon/reagent_containers/food/snacks/boiledspagetti,/obj/item/trash/plate,/obj/item/trash/bowl)
 
-	var/static/list/rawtypes = list(/obj/item/weapon/reagent_containers/food/snacks/grown, /obj/item/weapon/reagent_containers/food/snacks/rawcutlet, /obj/item/weapon/reagent_containers/food/snacks/rawmeatball, /obj/item/weapon/reagent_containers/food/snacks/rawsticks, /obj/item/weapon/reagent_containers/food/snacks/salmonmeat, /obj/item/weapon/reagent_containers/food/snacks/carpmeat, /obj/item/weapon/reagent_containers/food/snacks/catfishmeat, /obj/item/weapon/reagent_containers/food/snacks/spagetti, /obj/item/weapon/reagent_containers/food/snacks/dough_ball, /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough, /obj/item/weapon/reagent_containers/food/snacks/doughslice, /obj/item/weapon/reagent_containers/food/snacks/meat, /obj/item/weapon/reagent_containers/food/snacks/boiledrice, /obj/item/weapon/reagent_containers/food/snacks/cheesewedge)
+	var/static/list/rawtypes = list(/obj/item/weapon/reagent_containers/food/snacks/grown, /obj/item/weapon/reagent_containers/food/snacks/sliceable/rawcutlet, /obj/item/weapon/reagent_containers/food/snacks/rawmeatball, /obj/item/weapon/reagent_containers/food/snacks/rawsticks, /obj/item/weapon/reagent_containers/food/snacks/salmonmeat, /obj/item/weapon/reagent_containers/food/snacks/carpmeat, /obj/item/weapon/reagent_containers/food/snacks/catfishmeat, /obj/item/weapon/reagent_containers/food/snacks/spagetti, /obj/item/weapon/reagent_containers/food/snacks/dough_ball, /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough, /obj/item/weapon/reagent_containers/food/snacks/doughslice, /obj/item/weapon/reagent_containers/food/snacks/meat, /obj/item/weapon/reagent_containers/food/snacks/boiledrice, /obj/item/weapon/reagent_containers/food/snacks/cheesewedge, /obj/item/weapon/reagent_containers/food/snacks/raw_bacon)
 
 	try
 		var/list/allContents = getAllContents()
@@ -514,10 +514,11 @@
 		// Process tool-based ingredients
 		var/obj/item/weapon/reagent_containers/food/snacks/dough/D = locate() in rangeCheck
 		var/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/FD = locate() in rangeCheck
-		var/obj/item/weapon/reagent_containers/food/snacks/rawcutlet/RC = locate() in rangeCheck
+		var/obj/item/weapon/reagent_containers/food/snacks/sliceable/rawcutlet/RC = locate() in rangeCheck
 		var/obj/item/weapon/reagent_containers/food/snacks/sliceable/cheesewheel/CW = locate() in rangeCheck
 		var/obj/item/weapon/reagent_containers/food/snacks/grown/potato/PO = locate() in rangeCheck
 		var/obj/item/weapon/reagent_containers/food/snacks/meat/ME = locate() in rangeCheck
+		var/obj/item/weapon/reagent_containers/food/snacks/raw_bacon/RB = locate() in rangeCheck
 
 		if(D)
 			TARGET = D
@@ -560,6 +561,13 @@
 				tryWalk(get_turf(ME))
 				sleep(get_dist(src, ME))
 				ME.attackby(KK, src)
+			foundCookable = 1
+		else if(RB)
+			TARGET = RB
+			if(prob(50))
+				tryWalk(get_turf(RB))
+				sleep(get_dist(src, RB))
+				RB.attackby(KK, src)
 			foundCookable = 1
 
 		// refresh
