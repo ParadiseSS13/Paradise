@@ -126,9 +126,9 @@
 
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	var/datum/robot_component/D = get_component(module_name)
-	D.component_disabled = 1
+	D.component_disabled++
 	spawn(duration)
-		D.component_disabled = 0
+		D.component_disabled--
 
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(var/component_name)
