@@ -1,18 +1,27 @@
-/mob/living/carbon/alien/humanoid/emote(var/act,var/m_type=1,var/message = null)
-	var/param = null
-	if(findtext(act, "-", 1, null))
-		var/t1 = findtext(act, "-", 1, null)
-		param = copytext(act, t1 + 1, length(act) + 1)
-		act = copytext(act, 1, t1)
-
+mob
+	living
+		carbon
+			alien
+				humanoid
+					emote(var/act,var/m_type=1,var/message = null)
+						var
+							param = null
+						if(findtext(act, "-", 1, null))
+							var
+								t1 = findtext(act, "-", 1, null)
+							param = copytext(act, t1 + 1, length(act) + 1)
+							act = copytext(act, 1, t1)
+
 //	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
 //		act = copytext(act,1,length(act))	//seriously who the fuck wrote this
-	var/muzzled = is_muzzled()
+	var
+		muzzled = is_muzzled()
 	act = lowertext(act)
 	switch(act)
 		if("sign")
 			if(!restrained())
-				var/num = null
+				var
+					num = null
 				if(text2num(param))
 					num = "the number [text2num(param)]"
 				if(num)
@@ -106,7 +115,7 @@
 			src.SpinAnimation(5,1)
 		if("help")
 			to_chat(src, "burp, flip, deathgasp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roar, roll, scratch,\nscretch, shake, sign-#, sit, sulk, sway, tail, twitch, whimper")
-
+
 	if(!stat)
 		if(act == "roar")
 			playsound(src.loc, 'sound/voice/hiss5.ogg', 40, 1, 1)
