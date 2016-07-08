@@ -15,6 +15,7 @@
 	to_chat(src, "<span class='danger'>You feel funny.</span>")
 	adjustBrainLoss(80)
 	nutrition = 9000
+	overeatduration = 9000
 	confused = 120
 	if(mind)
 		mind.assigned_role = "Cluwne"
@@ -42,6 +43,7 @@
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
 	adjustBrainLoss(-120)
 	nutrition = NUTRITION_LEVEL_STARVING
+	overeatduration = 0
 	confused = 0
 	jitteriness = 0
 	if(mind)
