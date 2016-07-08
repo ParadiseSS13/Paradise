@@ -17,7 +17,7 @@
 	var/real_title = assignment
 
 	for(var/datum/data/record/t in data_core.general)
-		if (t)
+		if(t)
 			if(t.fields["name"] == name)
 				foundrecord = t
 				break
@@ -131,7 +131,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 
 	var/g = "m"
-	if (H.gender == FEMALE)
+	if(H.gender == FEMALE)
 		g = "f"
 
 	var/icon/icobase = H.species.icobase
@@ -153,7 +153,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 
 	// Skin tone
 	if(H.species.bodyflags & HAS_SKIN_TONE)
-		if (H.s_tone >= 0)
+		if(H.s_tone >= 0)
 			preview_icon.Blend(rgb(H.s_tone, H.s_tone, H.s_tone), ICON_ADD)
 		else
 			preview_icon.Blend(rgb(-H.s_tone,  -H.s_tone,  -H.s_tone), ICON_SUBTRACT)

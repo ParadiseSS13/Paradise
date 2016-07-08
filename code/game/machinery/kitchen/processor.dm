@@ -45,7 +45,7 @@
 	if(!picked_slime)
 		return
 	var/datum/food_processor_process/P = select_recipe(picked_slime)
-	if (!P)
+	if(!P)
 		return
 
 	visible_message("[picked_slime] is sucked into \the [src].")
@@ -58,10 +58,10 @@
 	var/time = 40
 
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
-	if (src.output && loc && processor)
+	if(src.output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)
 			new src.output(loc)
-	if (what)
+	if(what)
 		qdel(what)
 
 /////////////////////////
@@ -118,7 +118,7 @@
 
 /datum/food_processor_process/mob/monkey/process_food(loc, what, processor)
 	var/mob/living/carbon/human/monkey/O = what
-	if (O.client) //grief-proof
+	if(O.client) //grief-proof
 		O.loc = loc
 		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
 				"<span class='notice'>You jump out of \the [src].</span>", \
@@ -143,13 +143,13 @@
 //END RECIPE DATUMS
 
 /obj/machinery/processor/proc/select_recipe(var/X)
-	for (var/Type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
+	for(var/Type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
 		var/datum/food_processor_process/P = new Type()
 		if(istype(X, /obj/item/weapon/reagent_containers/food/snacks/grown))
 			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = X
 			if(G.seed.kitchen_tag != P.input)
 				continue
-		else if (!istype(X, P.input))
+		else if(!istype(X, P.input))
 			continue
 		return P
 	return 0
@@ -173,13 +173,13 @@
 
 	var/obj/item/what = O
 
-	if (istype(O, /obj/item/weapon/grab))
+	if(istype(O, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = O
 		what = G.affecting
 
 	var/datum/food_processor_process/P = select_recipe(what)
 
-	if (!P)
+	if(!P)
 		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
 		return 1
 
@@ -211,7 +211,7 @@
 	var/total_time = 0
 	for(var/O in src.contents)
 		var/datum/food_processor_process/P = select_recipe(O)
-		if (!P)
+		if(!P)
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
 		total_time += P.time
@@ -219,7 +219,7 @@
 
 	for(var/O in src.contents)
 		var/datum/food_processor_process/P = select_recipe(O)
-		if (!P)
+		if(!P)
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
 		P.process_food(src.loc, O, src)

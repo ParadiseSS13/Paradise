@@ -57,9 +57,9 @@ var/syndicate_elite_shuttle_timeleft = 0
 	syndicate_elite_shuttle_moving_to_mothership = 0
 
 	syndicate_elite_shuttle_at_station = 1
-	if (syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return
+	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return
 
-	if (!syndicate_elite_can_move())
+	if(!syndicate_elite_can_move())
 		to_chat(usr, "\red The Syndicate Elite shuttle is unable to leave.")
 		return
 
@@ -133,8 +133,8 @@ var/syndicate_elite_shuttle_timeleft = 0
 		elite_squad.readyreset()//Reset firealarm after the team launched.
 	//End Marauder launchpad.
 
-	for (var/obj/effect/landmark/L in landmarks_list)
-		if (L.name == "Syndicate Breach Area")
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == "Syndicate Breach Area")
 			explosion(L.loc,4,6,8,10,0)
 
 	sleep(40)
@@ -196,7 +196,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 		to_chat(user, "\red Access Denied.")
 		return
 
-//	if (sent_syndicate_strike_team == 0)
+//	if(sent_syndicate_strike_team == 0)
 //		to_chat(usr, "\red The strike team has not yet deployed.")
 //		return
 
@@ -205,7 +205,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 
 	user.set_machine(src)
 	var/dat
-	if (temp)
+	if(temp)
 		dat = temp
 	else
 		dat  = {"<BR><B>Special Operations Shuttle</B><HR>
@@ -221,19 +221,19 @@ var/syndicate_elite_shuttle_timeleft = 0
 	if(..())
 		return 1
 
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
-	if (href_list["sendtodock"])
+	if(href_list["sendtodock"])
 		if(!syndicate_elite_shuttle_at_station|| syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return
 
 		to_chat(usr, "\blue The Syndicate will not allow the Elite Squad shuttle to return.")
 		return
 
-	else if (href_list["sendtostation"])
+	else if(href_list["sendtostation"])
 		if(syndicate_elite_shuttle_at_station || syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return
 
-		if (!specops_can_move())
+		if(!specops_can_move())
 			to_chat(usr, "\red The Syndicate Elite shuttle is unable to leave.")
 			return
 
@@ -252,7 +252,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 			syndicate_elite_process()
 
 
-	else if (href_list["mainmenu"])
+	else if(href_list["mainmenu"])
 		temp = null
 
 	add_fingerprint(usr)

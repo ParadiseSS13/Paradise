@@ -417,7 +417,7 @@ Congratulations! You are now trained for xenobiology research!"}
 			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
 			return 0
 
-	switch (mode)
+	switch(mode)
 		if(BATON_STUN)
 			StunAttack(L,user)
 		if(BATON_SLEEP)

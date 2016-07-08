@@ -185,9 +185,9 @@
 		return being_cooked
 	check_items(var/obj/container as obj)
 		. = ..()
-		if (.)
+		if(.)
 			var/obj/item/weapon/paper/paper = locate() in container
-			if (!paper || !paper.info)
+			if(!paper || !paper.info)
 				return -1
 		return .
 

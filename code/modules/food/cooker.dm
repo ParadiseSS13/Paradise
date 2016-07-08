@@ -18,7 +18,7 @@
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/weapon/reagent_containers/food/snacks/D)
-	if (D.cooktype[thiscooktype])
+	if(D.cooktype[thiscooktype])
 		return 1
 	return 0
 
@@ -65,7 +65,7 @@
 	var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()    // burning things makes smoke!
 	smoke.set_up(5, 0, src)
 	smoke.start()
-	if (prob(firechance))
+	if(prob(firechance))
 		var/turf/location = get_turf(src)
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(location)
 		oil.name = "fat"
@@ -93,7 +93,7 @@
 /obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if (!checkValid(I, user))
+	if(!checkValid(I, user))
 		return
 	if(!burns)
 		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))

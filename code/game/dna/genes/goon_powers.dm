@@ -159,7 +159,7 @@
 		to_chat(usr, "<span class='warning'>This will only work on normal organic beings.</span>")
 		return
 
-	if (RESIST_COLD in C.mutations)
+	if(RESIST_COLD in C.mutations)
 		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
 		return
 	var/handle_suit = 0
@@ -387,11 +387,11 @@
 
 /obj/effect/proc_holder/spell/targeted/leap/cast(list/targets)
 	var/failure = 0
-	if (istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
+	if(istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
 		to_chat(usr, "<span class='warning'>You can't jump right now!</span>")
 		return
 
-	if (istype(usr.loc,/turf/))
+	if(istype(usr.loc,/turf/))
 		if(usr.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/M in range(usr, 1))
 				if(M.pulling == usr)
@@ -424,7 +424,7 @@
 			sleep(1)
 		usr.flying = prevFlying
 
-		if (FAT in usr.mutations && prob(66))
+		if(FAT in usr.mutations && prob(66))
 			usr.visible_message("<span class='danger'>[usr.name]</b> crashes due to their heavy weight!</span>")
 			//playsound(usr.loc, 'zhit.wav', 50, 1)
 			usr.AdjustWeakened(10)
@@ -432,7 +432,7 @@
 
 		usr.layer = prevLayer
 
-	if (istype(usr.loc,/obj/))
+	if(istype(usr.loc,/obj/))
 		var/obj/container = usr.loc
 		to_chat(usr, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
 		usr.AdjustParalysis(3)
@@ -552,14 +552,14 @@
 			to_chat(usr, "<span class='warning'>You may only use this on other organic beings.</span>")
 			return
 
-		if (PSY_RESIST in M.mutations)
+		if(PSY_RESIST in M.mutations)
 			to_chat(usr, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
 			return
 
-		if (M.stat == 2)
+		if(M.stat == 2)
 			to_chat(usr, "<span class='warning'>[M.name] is dead and cannot have their mind read.</span>")
 			return
-		if (M.health < 0)
+		if(M.health < 0)
 			to_chat(usr, "<span class='warning'>[M.name] is dying, and their thoughts are too scrambled to read.</span>")
 			return
 
@@ -575,40 +575,40 @@
 			pain_condition -= 50
 			thoughts = "preoccupied with the fire"
 
-		if (M.radiation)
+		if(M.radiation)
 			pain_condition -= 25
 
 		switch(pain_condition)
-			if (81 to INFINITY)
+			if(81 to INFINITY)
 				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] feels good.</span>")
-			if (61 to 80)
+			if(61 to 80)
 				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering mild pain.</span>")
-			if (41 to 60)
+			if(41 to 60)
 				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering significant pain.</span>")
-			if (21 to 40)
+			if(21 to 40)
 				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
 			else
 				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
-			if (I_HELP)
+			if(I_HELP)
 				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense benevolent thoughts from [M.name].</span>")
-			if (I_DISARM)
+			if(I_DISARM)
 				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense cautious thoughts from [M.name].</span>")
-			if (I_GRAB)
+			if(I_GRAB)
 				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
-			if (I_HARM)
+			if(I_HARM)
 				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
 				for(var/mob/living/L in view(7,M))
-					if (L == M)
+					if(L == M)
 						continue
 					thoughts = "thinking about punching [L.name]"
 					break
 			else
 				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense strange thoughts from [M.name].</span>")
 
-		if (istype(M,/mob/living/carbon/human))
+		if(istype(M,/mob/living/carbon/human))
 			var/numbers[0]
 			var/mob/living/carbon/human/H = M
 			if(H.mind && H.mind.initial_account)
@@ -618,9 +618,9 @@
 				to_chat(usr, "<span class='notice'>b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(usr, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
-		if (EMPATH in M.mutations)
+		if(EMPATH in M.mutations)
 			to_chat(M, "<span class='warning'>You sense [usr.name] reading your mind.</span>")
-		else if (prob(5) || M.mind.assigned_role=="Chaplain")
+		else if(prob(5) || M.mind.assigned_role=="Chaplain")
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 		return
 
@@ -665,7 +665,7 @@
 		for(var/T in targets)
 			for(var/mob/living/M in T)
 				shake_camera(M, 10, 5)
-				if (M == usr)
+				if(M == usr)
 					continue
 				to_chat(M, "<span class='warning'>You are sent flying!</span>")
 				M.Weaken(5)

@@ -49,14 +49,14 @@ proc/get_radio_key_from_channel(var/channel)
 
 /mob/living/proc/binarycheck()
 
-	if (istype(src, /mob/living/silicon/pai))
+	if(istype(src, /mob/living/silicon/pai))
 		return
 
-	if (!ishuman(src))
+	if(!ishuman(src))
 		return
 
 	var/mob/living/carbon/human/H = src
-	if (H.l_ear || H.r_ear)
+	if(H.l_ear || H.r_ear)
 		var/obj/item/device/radio/headset/dongle
 		if(istype(H.l_ear,/obj/item/device/radio/headset))
 			dongle = H.l_ear
@@ -142,8 +142,8 @@ proc/get_radio_key_from_channel(var/channel)
 		return emote(copytext(message,2))
 
 	//parse the radio code and consume it
-	if (message_mode)
-		if (message_mode == "headset")
+	if(message_mode)
+		if(message_mode == "headset")
 			message = copytext(message,2)	//it would be really nice if the parse procs could do this for us.
 		else
 			message = copytext(message,3)
@@ -210,18 +210,18 @@ proc/get_radio_key_from_channel(var/channel)
 		for(var/mob/living/M in hearers(5, src))
 			if((M != src) && msg)
 				M.show_message(msg)
-			if (speech_sound)
+			if(speech_sound)
 				sound_vol *= 0.5
 
 	var/turf/T = get_turf(src)
 
 	//handle nonverbal and sign languages here
-	if (speaking)
-		if (speaking.flags & NONVERBAL)
-			if (prob(30))
+	if(speaking)
+		if(speaking.flags & NONVERBAL)
+			if(prob(30))
 				src.custom_emote(1, "[pick(speaking.signlang_verb)].")
 
-		if (speaking.flags & SIGNLANG)
+		if(speaking.flags & SIGNLANG)
 			return say_signlang(message, pick(speaking.signlang_verb), speaking)
 
 	var/list/listening = list()
@@ -234,7 +234,7 @@ proc/get_radio_key_from_channel(var/channel)
 		if(pressure < SOUND_MINIMUM_PRESSURE)
 			message_range = 1
 
-		if (pressure < ONE_ATMOSPHERE*0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
+		if(pressure < ONE_ATMOSPHERE*0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
 			italics = 1
 			sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
@@ -254,9 +254,9 @@ proc/get_radio_key_from_channel(var/channel)
 				listening_obj |= O
 
 		for(var/mob/M in player_list)
-			if (!M.client)
+			if(!M.client)
 				continue //skip monkeys and leavers
-			if (istype(M, /mob/new_player))
+			if(istype(M, /mob/new_player))
 				continue
 			if(M.stat == DEAD && M.client && (M.client.prefs.toggles & CHAT_GHOSTEARS) && src.client) // src.client is so that ghosts don't have to listen to mice
 				listening |= M
@@ -287,7 +287,7 @@ proc/get_radio_key_from_channel(var/channel)
 	return 1
 
 /mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/language/language)
-	for (var/mob/O in viewers(src, null))
+	for(var/mob/O in viewers(src, null))
 		O.hear_signlang(message, verb, language, src)
 	return 1
 
@@ -456,7 +456,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(watching.len)
 		var/rendered = "<span class='game say'><span class='name'>[src.name]</span> [not_heard].</span>"
-		for (var/mob/M in watching)
+		for(var/mob/M in watching)
 			M.show_message(rendered, 2)
 
 	log_whisper("[src.name]/[src.key] : [message]")

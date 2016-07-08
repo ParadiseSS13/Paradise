@@ -31,14 +31,14 @@
 /obj/effect/proc_holder/spell/targeted/morph/cast(list/targets)
 	if(!ishuman(usr))	return
 
-	if (istype(usr.loc,/mob/))
+	if(istype(usr.loc,/mob/))
 		to_chat(usr, "<span class='warning'>You can't change your appearance right now!</span>")
 		return
 	var/mob/living/carbon/human/M=usr
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
 	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
-	if (new_gender)
+	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
 		else
@@ -56,7 +56,7 @@
 	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
 
 	// if new style selected (not cancel)
-	if (new_style)
+	if(new_style)
 		head_organ.h_style = new_style
 
 	var/new_hair = input("Please select hair color.", "Character Generation", rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair)) as null|color
@@ -279,7 +279,7 @@
 				continue
 		target = L
 
-	if (target)
+	if(target)
 		user.remoteview_target = target
 		user.reset_view(target)
 	else

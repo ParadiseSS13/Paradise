@@ -59,7 +59,7 @@
 /datum/preferences/proc/save_preferences(client/C)
 
 	// Might as well scrub out any malformed be_special list entries while we're here
-	for (var/role in be_special)
+	for(var/role in be_special)
 		if(!(role in special_roles))
 			log_to_dd("[C.key] had a malformed role entry: '[role]'. Removing!")
 			be_special -= role

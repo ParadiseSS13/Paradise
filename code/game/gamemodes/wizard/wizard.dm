@@ -79,7 +79,7 @@
 			steal_objective.find_target()
 			wizard.objectives += steal_objective
 
-			if (!(locate(/datum/objective/escape) in wizard.objectives))
+			if(!(locate(/datum/objective/escape) in wizard.objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = wizard
 				wizard.objectives += escape_objective
@@ -94,7 +94,7 @@
 			steal_objective.find_target()
 			wizard.objectives += steal_objective
 
-			if (!(locate(/datum/objective/survive) in wizard.objectives))
+			if(!(locate(/datum/objective/survive) in wizard.objectives))
 				var/datum/objective/survive/survive_objective = new
 				survive_objective.owner = wizard
 				wizard.objectives += survive_objective
@@ -105,7 +105,7 @@
 			kill_objective.find_target()
 			wizard.objectives += kill_objective
 
-			if (!(locate(/datum/objective/hijack) in wizard.objectives))
+			if(!(locate(/datum/objective/hijack) in wizard.objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = wizard
 				wizard.objectives += hijack_objective
@@ -116,7 +116,7 @@
 			steal_objective.find_target()
 			wizard.objectives += steal_objective
 
-			if (!(locate(/datum/objective/hijack) in wizard.objectives))
+			if(!(locate(/datum/objective/hijack) in wizard.objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = wizard
 				wizard.objectives += hijack_objective
@@ -131,7 +131,7 @@
 	spawn(0)
 		var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
-		if (!newname)
+		if(!newname)
 			newname = randomname
 
 		wizard_mob.real_name = newname
@@ -142,7 +142,7 @@
 
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
-	if (you_are)
+	if(you_are)
 		to_chat(wizard.current, "<B>\red You are the Space Wizard!</B>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 
@@ -154,7 +154,7 @@
 
 
 /*/datum/game_mode/proc/learn_basic_spells(mob/living/carbon/human/wizard_mob)
-	if (!istype(wizard_mob))
+	if(!istype(wizard_mob))
 		return
 	if(!config.feature_object_spell_system)
 		wizard_mob.verbs += /client/proc/jaunt
@@ -164,7 +164,7 @@
 */
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
-	if (!istype(wizard_mob))
+	if(!istype(wizard_mob))
 		return
 
 	//So zards properly get their items when they are admin-made.
@@ -217,7 +217,7 @@
 				continue
 			traitors_alive++
 
-	if (wizards_alive || traitors_alive || but_wait_theres_more)
+	if(wizards_alive || traitors_alive || but_wait_theres_more)
 		return ..()
 	else
 		finished = 1

@@ -55,7 +55,7 @@
 			if(!success)
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/weapon/wrench))
-			if (!anchored && !isinspace())
+			if(!anchored && !isinspace())
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 				user.visible_message( \
 					"[user] tightens \the [src]'s casters.", \

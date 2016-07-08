@@ -50,7 +50,7 @@ var/global/sent_honksquad = 0
 //Spawns HONKsquad and equips them.
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(honksquad_number<=0)	break
-		if (L.name == "HONKsquad")
+		if(L.name == "HONKsquad")
 			honk_leader_selected = honksquad_number == 1?1:0
 
 			var/mob/living/carbon/human/new_honksquad = create_honksquad(L, honk_leader_selected)

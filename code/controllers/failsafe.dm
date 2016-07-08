@@ -18,8 +18,8 @@ var/global/datum/controller/failsafe/failsafe
 	. = ..()
 
 	// There can be only one failsafe. Out with the old in with the new (that way we can restart the Failsafe by spawning a new one).
-	if (failsafe != src)
-		if (istype(failsafe))
+	if(failsafe != src)
+		if(istype(failsafe))
 			recover()
 			qdel(failsafe)
 

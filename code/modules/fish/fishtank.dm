@@ -415,7 +415,7 @@
 		examine_message += "\The [src] is about three-quarters filled. "
 	else if(water_level < water_capacity)
 		examine_message += "\The [src] is nearly full! "
-	else if (water_level == water_capacity)
+	else if(water_level == water_capacity)
 		examine_message += "\The [src] is full! "
 
 	examine_message += "<br>Cleanliness level: "
@@ -558,7 +558,7 @@
 
 /obj/machinery/fishtank/attack_slime(mob/living/user as mob)
 	var/mob/living/carbon/slime/S = user
-	if (!S.is_adult)
+	if(!S.is_adult)
 		return
 	attack_generic(user, rand(10, 15))
 
@@ -567,7 +567,7 @@
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		destroy()
-	else if (usr.a_intent == I_HARM)
+	else if(usr.a_intent == I_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("<span class='danger'>[usr.name] bangs against the [src.name]!</span>", \

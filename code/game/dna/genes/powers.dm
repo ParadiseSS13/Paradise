@@ -141,7 +141,7 @@
 /datum/dna/gene/basic/hulk/OnMobLife(var/mob/living/carbon/human/M)
 	if(!istype(M))
 		return
-	if ((HULK in M.mutations) && M.health <= 0)
+	if((HULK in M.mutations) && M.health <= 0)
 		M.mutations.Remove(HULK)
 		M.dna.SetSEState(HULKBLOCK,0)
 		genemutcheck(M, HULKBLOCK,null,MUTCHK_FORCED)
