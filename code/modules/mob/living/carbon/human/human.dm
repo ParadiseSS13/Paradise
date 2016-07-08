@@ -203,15 +203,14 @@
 				now_pushing = 0
 				return
 
-		if(tmob.r_hand && istype(tmob.r_hand, /obj/item/weapon/shield/riot))
-			if(prob(99))
-				now_pushing = 0
-				return
 
-		if(tmob.l_hand && istype(tmob.l_hand, /obj/item/weapon/shield/riot))
-			if(prob(99))
-				now_pushing = 0
-				return
+		//anti-riot equipment is also anti-push
+		if(tmob.r_hand && (prob(tmob.r_hand.block_chance * 2)) && !istype(tmob.r_hand, /obj/item/clothing))
+			now_pushing = 0
+			return
+		if(tmob.l_hand && (prob(tmob.l_hand.block_chance * 2)) && !istype(tmob.l_hand, /obj/item/clothing))
+			now_pushing = 0
+			return
 
 		if(!(tmob.status_flags & CANPUSH))
 			now_pushing = 0
@@ -414,16 +413,16 @@
 		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
 		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		if(check_shields(damage, "the [M.name]"))
+		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK, M.armour_penetration))
 			return 0
 		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-		var/armor = run_armor_check(affecting, "melee")
+		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
 
 		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
 		if(affected)
 			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		apply_damage(damage,M.melee_damage_type, affecting, armor, M.name)
+		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth()
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
@@ -461,7 +460,7 @@
 		else
 			damage = rand(5, 25)
 
-		if(check_shields(damage, "the [M.name]"))
+		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK))
 			return 0
 
 		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")

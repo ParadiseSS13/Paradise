@@ -57,6 +57,9 @@
 
 	var/flags_size = 0 //flag, primarily used for clothing to determine if a fatty can wear something or not.
 
+	var/block_chance = 0
+	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
+
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
@@ -282,6 +285,12 @@
 
 	return
 
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(prob(final_block_chance))
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		return 1
+	return 0
+
 /obj/item/proc/talk_into(mob/M as mob, var/text, var/channel=null)
 	return
 
@@ -373,9 +382,6 @@
 //Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click()
 	attack_self(usr)
-
-/obj/item/proc/IsShield()
-	return 0
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return 0

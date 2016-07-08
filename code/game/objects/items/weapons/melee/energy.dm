@@ -62,7 +62,7 @@
 	w_class = 3
 	w_class_on = 5
 	hitsound = "swing_hit"
-	flags = CONDUCT | NOSHIELD
+	flags = CONDUCT
 	armour_penetration = 100
 	origin_tech = "combat=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
@@ -83,9 +83,9 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	flags = NOSHIELD
 	armour_penetration = 35
 	origin_tech = "magnets=3;syndicate=4"
+	block_chance = 50
 	sharp = 1
 	edge = 1
 	var/hacked = 0
@@ -95,9 +95,9 @@
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
 
-/obj/item/weapon/melee/energy/sword/IsShield()
+/obj/item/weapon/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
-		return 1
+		return ..()
 	return 0
 
 /obj/item/weapon/melee/energy/sword/cyborg
@@ -133,7 +133,7 @@
 	..()
 	item_color = null
 
-/obj/item/weapon/melee/energy/sword/cyborg/saw/IsShield()
+/obj/item/weapon/melee/energy/sword/cyborg/saw/hit_reaction()
 	return 0
 
 /obj/item/weapon/melee/energy/sword/saber
@@ -206,7 +206,6 @@
 	throw_speed = 3
 	throw_range = 1
 	w_class = 4//So you can't hide it in your pocket or some such.
-	flags = NOSHIELD
 	armour_penetration = 50
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/datum/effect/system/spark_spread/spark_system

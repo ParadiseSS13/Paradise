@@ -53,7 +53,7 @@
 			if(cooldown <= 0)
 				if(ishuman(target))
 					var/mob/living/carbon/human/H = target
-					if(H.check_shields(0, "[user]'s [name]"))
+					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
 						return 0
 				playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
 				target.Weaken(3)

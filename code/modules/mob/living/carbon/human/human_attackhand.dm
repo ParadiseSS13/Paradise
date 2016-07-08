@@ -18,10 +18,9 @@
 
 	..()
 
-	if((M != src) && check_shields(0, M.name))
+	if((M != src) && M.a_intent != "help" && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
 		add_logs(src, M, "attempted to touch")
-		M.do_attack_animation(src)
-		visible_message("\red <B>[M] attempted to touch [src]!</B>")
+		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
 
 		if(istype(M.gloves , /obj/item/clothing/gloves/boxing/hologlove))

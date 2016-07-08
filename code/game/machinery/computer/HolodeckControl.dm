@@ -423,6 +423,7 @@
 	throwforce = 10
 	w_class = 4
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_chance = 50
 
 /obj/item/weapon/holo/claymore/blue
 	icon_state = "claymoreblue"
@@ -432,9 +433,6 @@
 	icon_state = "claymorered"
 	item_state = "claymorered"
 
-/obj/item/weapon/holo/claymore/IsShield()
-	return 1
-
 /obj/item/weapon/holo/esword
 	desc = "May the force be within you. Sorta"
 	icon_state = "sword0"
@@ -443,8 +441,8 @@
 	throw_range = 5
 	throwforce = 0
 	w_class = 2.0
-	flags = NOSHIELD
 	armour_penetration = 50
+	block_chance = 50
 	var/active = 0
 
 /obj/item/weapon/holo/esword/green/New()
@@ -453,9 +451,9 @@
 /obj/item/weapon/holo/esword/red/New()
 	item_color = "red"
 
-/obj/item/weapon/holo/esword/IsShield()
+/obj/item/weapon/holo/esword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
-		return 1
+		return ..()
 	return 0
 
 /obj/item/weapon/holo/esword/New()
