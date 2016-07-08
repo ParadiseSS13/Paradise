@@ -233,6 +233,11 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/cluwne
+	name = "Curse of the Cluwne"
+	spell_type = /obj/effect/proc_holder/spell/targeted/touch/cluwne
+	log_name = "CC"
+
 /datum/spellbook_entry/item
 	name = "Buy Item"
 	refundable = 0

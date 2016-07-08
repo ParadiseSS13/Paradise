@@ -476,13 +476,21 @@
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
-				H.unEquip(H.shoes)
-				walk_away(thingy,H,15,2)
-				spawn(20)
-					if(thingy)
-						walk(thingy,0)
+				if(H.unEquip(H.shoes))
+					walk_away(thingy,H,15,2)
+					spawn(20)
+						if(thingy)
+							walk(thingy,0)
 	..()
 
+/obj/item/organ/internal/honktumor/cursed
+
+/obj/item/organ/internal/honktumor/cursed/remove(mob/living/carbon/M, special = 0, clean_remove = 0)
+	..()
+	if(!clean_remove)
+		insert(M) //You're not getting away that easily!
+	else
+		qdel(src)
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
@@ -492,7 +500,6 @@
 	w_class = 1
 	parent_organ = "head"
 	slot = "hair_organ"
-
 
 /obj/item/organ/internal/beard/on_life()
 

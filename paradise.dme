@@ -274,6 +274,7 @@
 #include "code\datums\spells\area_teleport.dm"
 #include "code\datums\spells\bloodcrawl.dm"
 #include "code\datums\spells\charge.dm"
+#include "code\datums\spells\cluwne.dm"
 #include "code\datums\spells\conjure.dm"
 #include "code\datums\spells\construct_spells.dm"
 #include "code\datums\spells\dumbfire.dm"
