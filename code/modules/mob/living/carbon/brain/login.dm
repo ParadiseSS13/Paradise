@@ -1,3 +1,7 @@
-/mob/living/carbon/brain/Login()
-	..()
-	sleeping = 0
+mob
+	living
+		carbon
+			brain
+				Login()
+					..()
+					sleeping = 0
