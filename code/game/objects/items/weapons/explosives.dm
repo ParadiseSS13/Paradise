@@ -78,9 +78,9 @@
 		return
 	if (ismob(target) || istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/item/clothing/accessory/storage) || istype(target, /obj/item/clothing/under))
 		return
-	if (istype(target, /obj/machinery/door/poddoor))
+	if(istype(target, /obj/machinery/door/poddoor))
 		var/obj/machinery/door/poddoor/T = target
-		if (T.protected)
+		if(T.protected)
 			return
 
 	to_chat(user, "Planting explosives...")

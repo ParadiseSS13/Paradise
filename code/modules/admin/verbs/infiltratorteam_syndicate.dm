@@ -71,17 +71,17 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/list/sit_spawns_leader = list()
 	var/list/sit_spawns_officer = list()
 	for(var/obj/effect/landmark/L in landmarks_list)
-		if (L.name == "Syndicate-Infiltrator")
+		if(L.name == "Syndicate-Infiltrator")
 			sit_spawns += L
-		if (L.name == "Syndicate-Infiltrator-Leader")
+		if(L.name == "Syndicate-Infiltrator-Leader")
 			sit_spawns_leader += L
-		if (L.name == "Syndicate-Infiltrator-Admin")
+		if(L.name == "Syndicate-Infiltrator-Admin")
 			sit_spawns_officer += L
 
 	var/num_spawned = 1
 	var/team_leader = null
 	for(var/obj/effect/landmark/L in sit_spawns)
-		if (!infiltrators.len && !spawn_dummies) break
+		if(!infiltrators.len && !spawn_dummies) break
 		syndicate_leader_selected = num_spawned == 1?1:0
 		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
 		if(infiltrators.len)
@@ -95,7 +95,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink implant to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
 		new_syndicate_infiltrator.faction += "syndicate"
 		data_core.manifest_inject(new_syndicate_infiltrator)
-		if (syndicate_leader_selected)
+		if(syndicate_leader_selected)
 			var/obj/effect/landmark/warpto = pick(sit_spawns_leader)
 			new_syndicate_infiltrator.loc = warpto.loc
 			sit_spawns_leader -= warpto
@@ -113,7 +113,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		ticker.mode.set_antag_hud(new_syndicate_infiltrator.mind.current, "hudsit")
 		new_syndicate_infiltrator.regenerate_icons()
 		num_spawned++
-		if (!teamsize)
+		if(!teamsize)
 			break
 	if(spawn_sit_officer)
 		for(var/obj/effect/landmark/L in sit_spawns_officer)
@@ -165,7 +165,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
-	if (!flag_officer)
+	if(!flag_officer)
 		equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(src), slot_belt)
 
