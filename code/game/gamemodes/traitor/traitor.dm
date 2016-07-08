@@ -51,7 +51,7 @@
 		traitor.special_role = "traitor"
 		var/datum/mindslaves/slaved = new()
 		slaved.masters += traitor
-		traitor.som = slaved //we MIGT want to mindslave someone
+		traitor.som = slaved //we MIGHT want to mindslave someone
 		traitor.restricted_roles = restricted_jobs
 		possible_traitors.Remove(traitor)
 
@@ -97,7 +97,7 @@
 		for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = traitor
-			kill_objective.find_target()
+			kill_objective.find_target(!is_traitor)
 			traitor.objectives += kill_objective
 
 		var/datum/objective/survive/survive_objective = new
@@ -127,17 +127,17 @@
 				else if(prob(5))
 					var/datum/objective/debrain/debrain_objective = new
 					debrain_objective.owner = traitor
-					debrain_objective.find_target()
+					debrain_objective.find_target(!is_traitor)
 					traitor.objectives += debrain_objective
 				else if(prob(30))
 					var/datum/objective/maroon/maroon_objective = new
 					maroon_objective.owner = traitor
-					maroon_objective.find_target()
+					maroon_objective.find_target(!is_traitor)
 					traitor.objectives += maroon_objective
 				else
 					var/datum/objective/assassinate/kill_objective = new
 					kill_objective.owner = traitor
-					kill_objective.find_target()
+					kill_objective.find_target(!is_traitor)
 					traitor.objectives += kill_objective
 			else
 				var/datum/objective/steal/steal_objective = new
@@ -201,16 +201,6 @@
 		for(var/datum/objective/objective in traitor_mind.objectives)
 			objective.check_completion()
 	return 0
-
-/datum/game_mode/proc/give_codewords(mob/living/traitor_mob)
-	to_chat(traitor_mob, "<U><B>The Syndicate provided you with the following information on how to identify their agents:</B></U>")
-	to_chat(traitor_mob, "<B>Code Phrase</B>: <span class='danger'>[syndicate_code_phrase]</span>")
-	to_chat(traitor_mob, "<B>Code Response</B>: <span class='danger'>[syndicate_code_response]</span>")
-
-	traitor_mob.mind.store_memory("<b>Code Phrase</b>: [syndicate_code_phrase]")
-	traitor_mob.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
-
-	to_chat(traitor_mob, "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 
 /datum/game_mode/proc/add_law_zero(mob/living/silicon/ai/killer)
 	var/law = "Accomplish your objectives at all costs."
@@ -334,6 +324,12 @@
 			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
 	if(!safety)//If they are not a rev. Can be added on to.
 		give_codewords(traitor_mob)
+
+	// Tell them about people they might want to contact.
+	var/mob/living/carbon/human/M = get_nt_opposed()
+	if(M && M != traitor_mob)
+		to_chat(traitor_mob, "We have received somewhat credible reports that [M.real_name] might be willing to help our cause. <span class='warning'>If you </span><span class='danger'>need</span><span class='warning'> assistance, consider contacting them.</span>")
+		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
