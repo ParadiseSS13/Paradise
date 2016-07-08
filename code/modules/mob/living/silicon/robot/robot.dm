@@ -1470,3 +1470,11 @@ var/list/robot_verbs_default = list(
 	status_flags &= ~CANPUSH
 
 	notify_ai(2)
+
+/mob/living/silicon/robot/emp_act(severity)
+	..()
+	switch(severity)
+		if(1)
+			disable_component("comms", 160)
+		if(2)
+			disable_component("comms", 60)
