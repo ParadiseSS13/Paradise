@@ -227,7 +227,7 @@
 	playsound(src.loc, 'sound/effects/alert.ogg', 50, 0)
 	sleep(5)
 	H.apply_effect((rand(150,200)),IRRADIATE,0)
-	if (prob(5))
+	if(prob(5))
 		if(prob(75))
 			randmutb(H) // Applies bad mutation
 			domutcheck(H,null,1)

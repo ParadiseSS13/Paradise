@@ -145,7 +145,7 @@ rcd light flash thingy on matter drain
 	if(stat)
 		return
 
-	if (istype(M, /obj/machinery))
+	if(istype(M, /obj/machinery))
 		if(istype(M,/obj/machinery/field/generator))
 			to_chat(src, "This machine can not be overloaded due to a firewall.")
 			return
@@ -406,7 +406,7 @@ rcd light flash thingy on matter drain
 	for(var/datum/AI_Module/small/module in src.possible_modules)
 		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=\ref[src];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	dat += "<HR>"
-	if (src.temp)
+	if(src.temp)
 		dat += "[src.temp]"
 	var/datum/browser/popup = new(user, "modpicker", "Malf Module Menu")
 	popup.set_content(dat)
@@ -421,7 +421,7 @@ rcd light flash thingy on matter drain
 	var/mob/living/silicon/ai/A = usr
 
 	for(var/datum/AI_Module/AM in possible_modules)
-		if (href_list[AM.mod_pick_name])
+		if(href_list[AM.mod_pick_name])
 
 			// Cost check
 			if(AM.cost > src.processing_time)

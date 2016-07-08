@@ -89,7 +89,7 @@ datum/game_mode/mutiny
 		for(var/T in subtypesof(/datum/directive))
 			var/datum/directive/D = new T(src)
 //			to_chat(world, D.name)
-			if (D.meets_prerequisites())
+			if(D.meets_prerequisites())
 				candidates+=D
 		return candidates
 
@@ -99,7 +99,7 @@ datum/game_mode/mutiny
 			pda = P
 			break
 
-		if (!pda)
+		if(!pda)
 			return 0
 
 		var/datum/data/pda/app/messenger/pdam = pda.find_program(/datum/data/pda/app/messenger)
@@ -172,11 +172,11 @@ datum/game_mode/mutiny
 
 	proc/was_bloodbath()
 		var/list/remaining_loyalists = loyalists - body_count
-		if (!remaining_loyalists.len)
+		if(!remaining_loyalists.len)
 			return 1
 
 		var/list/remaining_mutineers = mutineers - body_count
-		if (!remaining_mutineers.len)
+		if(!remaining_mutineers.len)
 			return 1
 
 		return 0
@@ -209,22 +209,22 @@ datum/game_mode/mutiny
 
 	proc/round_outcome()
 		to_chat(world, "<center><h4>Breaking News</h4></center><br><hr>")
-		if (was_bloodbath())
+		if(was_bloodbath())
 			to_chat(world, fluff.no_victory())
 			return
 
 		var/directives_completed = current_directive.directives_complete()
 		var/ead_activated = ead.activated
-		if (directives_completed && ead_activated)
+		if(directives_completed && ead_activated)
 			to_chat(world, fluff.loyalist_major_victory())
-		else if (directives_completed && !ead_activated)
+		else if(directives_completed && !ead_activated)
 			to_chat(world, fluff.loyalist_minor_victory())
-		else if (!directives_completed && ead_activated)
+		else if(!directives_completed && ead_activated)
 			to_chat(world, fluff.mutineer_minor_victory())
-		else if (!directives_completed && !ead_activated)
+		else if(!directives_completed && !ead_activated)
 			to_chat(world, fluff.mutineer_major_victory())
 
-		to_chat(world, sound('sound/machines/twobeep.ogg'))
+		world << sound('sound/machines/twobeep.ogg')
 
 	proc/update_all_icons()
 		spawn(0)
@@ -304,11 +304,11 @@ datum/game_mode/mutiny
 	set category = "Mutiny"
 
 	var/datum/game_mode/mutiny/mode = get_mutiny_mode()
-	if (!mode || src != mode.head_loyalist.current)
+	if(!mode || src != mode.head_loyalist.current)
 		return
 
 	var/list/candidates = list()
-	for (var/mob/living/carbon/human/P in oview(src))
+	for(var/mob/living/carbon/human/P in oview(src))
 		if(!stat && P.client && mode.can_be_recruited(P.mind, "loyalist"))
 			candidates += P
 
@@ -324,7 +324,7 @@ datum/game_mode/mutiny
 
 	var/mob/living/carbon/human/M = input("Select a person to recruit", "Loyalist recruitment", null) as mob in candidates
 
-	if (M)
+	if(M)
 		to_chat(src, "Attempting to recruit [M]...")
 		log_admin("[key_name(src)] attempted to recruit [M] as a loyalist.")
 		message_admins("\red [key_name_admin(src)] attempted to recruit [M] as a loyalist.")
@@ -341,11 +341,11 @@ datum/game_mode/mutiny
 	set category = "Mutiny"
 
 	var/datum/game_mode/mutiny/mode = get_mutiny_mode()
-	if (!mode || src != mode.head_mutineer.current)
+	if(!mode || src != mode.head_mutineer.current)
 		return
 
 	var/list/candidates = list()
-	for (var/mob/living/carbon/human/P in oview(src))
+	for(var/mob/living/carbon/human/P in oview(src))
 		if(!stat && P.client && mode.can_be_recruited(P.mind, "mutineer"))
 			candidates += P
 
@@ -361,7 +361,7 @@ datum/game_mode/mutiny
 
 	var/mob/living/carbon/human/M = input("Select a person to recruit", "Mutineer recruitment", null) as mob in candidates
 
-	if (M)
+	if(M)
 		to_chat(src, "Attempting to recruit [M]...")
 		log_admin("[key_name(src)] attempted to recruit [M] as a mutineer.")
 		message_admins("\red [key_name_admin(src)] attempted to recruit [M] as a mutineer.")

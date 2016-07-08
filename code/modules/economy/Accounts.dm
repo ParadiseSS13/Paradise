@@ -318,7 +318,7 @@ var/global/list/all_money_accounts = list()
 
 				else
 					var/obj/item/I = usr.get_active_hand()
-					if (istype(I, /obj/item/weapon/card/id))
+					if(istype(I, /obj/item/weapon/card/id))
 						var/obj/item/weapon/card/id/C = I
 						usr.drop_item()
 						C.loc = src

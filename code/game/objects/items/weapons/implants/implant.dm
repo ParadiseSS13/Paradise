@@ -5,7 +5,7 @@
 	action_button_custom_type = /datum/action/item_action/hands_free
 	origin_tech = "materials=2;biotech=3;programming=2"
 
-	var/activated = 1 //1 for implant types that can be activated, 0 for ones that are "always on" like loyalty implants
+	var/activated = 1 //1 for implant types that can be activated, 0 for ones that are "always on" like mindshield implants
 	var/implanted = null
 	var/mob/living/imp_in = null
 	item_color = "b"

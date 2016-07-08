@@ -17,24 +17,24 @@
 		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 		return
 
-	if (handle_spam_prevention(msg,MUTE_DEADCHAT))
+	if(handle_spam_prevention(msg,MUTE_DEADCHAT))
 		return
 
 	var/stafftype = null
 
-	if (check_rights(R_MENTOR, 0))
+	if(check_rights(R_MENTOR, 0))
 		stafftype = "MENTOR"
 
-	if (check_rights(R_MOD, 0))
+	if(check_rights(R_MOD, 0))
 		stafftype = "MOD"
 
-	if (check_rights(R_ADMIN, 0))
+	if(check_rights(R_ADMIN, 0))
 		stafftype = "ADMIN"
 
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 	log_admin("[key_name(src)] : [msg]")
 
-	if (!msg)
+	if(!msg)
 		return
 
 	var/prefix = "[stafftype] ([src.key])"

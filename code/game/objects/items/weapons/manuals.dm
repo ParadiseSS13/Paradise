@@ -809,7 +809,7 @@
 		</html>
 
 		"}
-		
+
 /obj/item/weapon/book/manual/security_space_law/black
 	name = "Space Law - Limited Edition"
 	desc = "A leather-bound, immaculately-written copy of JUSTICE."
@@ -1483,7 +1483,7 @@
                     <li>Attending Surgeon is to keep the Operating Room in an hygienic condition at all times, <b>again</b>, to prevent infection;</li>
                     <li>Attending Surgeon is to wash his/her hands between different patients, again, to prevent infection;</li>
                     <li>Attending Surgeon is to use either Anesthetics or Sedatives (for species that cannot breathe Anesthetics) during Surgical Procedures. Exception is made if the patient requests otherwise;</li>
-                    <li>Attending Surgeon is not to remove any legal Implants (such as Loyalty or Tracking Implants) from the patient, unless requested by Security;</li>
+                    <li>Attending Surgeon is not to remove any legal Implants (such as Mindshield or Tracking Implants) from the patient, unless requested by Security;</li>
                     <li>If a patient requests that a lost limb be replaced with an organic, rather than mechanical, substitute, said limb must be harvested from a compatible humanized Test Animal (such as Monkeys for Humans, or Farwas for Tajarans). Exception is made if the patient deliberately requests otherwise;</li>
                     <li>Attending Surgeon is not to bring any of the Surgical Tools outside of their respective Operating Room, and must in fact ensure the Operating Room maintains its proper inventory. This includes ensuring that the Anesthetics Equipment be kept inside the OR</li>
                 </ol>
@@ -2141,7 +2141,7 @@
                     <li>Prisoner must then be borged, fired into space via mass driver, cremated, or placed in the morgue with a DNR Notice, at the discretion of the Magistrate, Captain or Head of Security.</li>
 				</ol>
                 <br><br>
-                
+
                 <h1><a name="elec"><B>Execution: Lethal Injection</B></a></h1><BR>
 				<ol>
 					<li>Prisoner must be bucklecuffed to the electric chair or bed.</li>
@@ -2150,7 +2150,7 @@
                     <li>Prisoner must then be borged, fired into space via mass driver, cremated, or placed in the morgue with a DNR Notice, at the discretion of the Magistrate, Captain or Head of Security.</li>
 				</ol>
                 <br><br>
-                
+
                  <h1><a name="elec"><B>Execution: Firing Squad</B></a></h1><BR>
 				<ol>
 					<li>Prisoner must be brought to the Firing Range.</li>
@@ -2164,7 +2164,7 @@
 				</html>
 
 		"}
-        
+
 /obj/item/weapon/book/manual/sop_general
 	name = "Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all station activities."
@@ -2212,7 +2212,7 @@
 
 				<h1><a name="green"><B>Code Green</B></a></h1><BR>
                 <i>All clear.</i><br>
-                Default operating level. No immediate or clear threat to the station. All departments may carry out work as normal. 
+                Default operating level. No immediate or clear threat to the station. All departments may carry out work as normal.
                 This alert level can be set at the Communications Console with a Captain level ID.<br>
                 <i>All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.</i><br>
                 <br>
@@ -2230,10 +2230,10 @@
                 Crew:<br>
                 <ul>
                     <li>Crew members may freely walk in the hallways</li>
-                    <li>Suit sensors are not mandatory.</li>   
+                    <li>Suit sensors are not mandatory.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="blue"><B>Code Blue</B></a></h1><BR>
                 <i>There is a suspected threat.</i><br>
                 Raised alert level. Suspected threat to the station. Issued by Central Command, the Captain, or a Head of Staff vote. This alert level can be set at the Communications Console with a Captain level ID.<br>
@@ -2255,10 +2255,10 @@
                 Crew:<br>
                 <ul>
                     <li>Employees are recommended to comply with all security requests.</li>
-                    <li>Suit sensors are mandatory, but coordinate positions are not required.</li>   
+                    <li>Suit sensors are mandatory, but coordinate positions are not required.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="red"><B>Code Red</B></a></h1><BR>
                 <i>There is a confirmed threat.</i><br>
                 Maximum alert level. Confirmed threat to the station or severe damage. Issued by Central Command, the Captain, or a Head of Staff vote. This alert level can only be set via the Keycard Authentication Devices in each Heads of Staff office and by swiping two Heads of Staff ID cards simultaneously.<br>
@@ -2279,12 +2279,12 @@
                 Crew:<br>
                 <ul>
                     <li>Suit sensors and coordinate positions are mandatory.</li>
-                    <li>All crew members must remain in their departments.</li>   
-                    <li>Employees are required to comply with all security requests.</li>  
-                    <li>Emergency Response Team may be authorised. All crew are to comply with their direction.</li>  
+                    <li>All crew members must remain in their departments.</li>
+                    <li>Employees are required to comply with all security requests.</li>
+                    <li>Emergency Response Team may be authorised. All crew are to comply with their direction.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="gamma"><B>Code Gamma</B></a></h1><BR>
                 <i>Extremely hostile threat onboard the station.</i><br>
                 GAMMA Security level has been set by Centcom.<br>
@@ -2306,21 +2306,21 @@
                 Crew:<br>
                 <ul>
                     <li>Employees are required to comply with all security requests.</li>
-                    <li>All civilians are to seek their nearest head for transportation to a safe location.</li>   
+                    <li>All civilians are to seek their nearest head for transportation to a safe location.</li>
                     <li>All personnel are required to defend the station and help security with dealing with the threat. All crew must follow direct orders from Security Personell or Head of Staff.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="hiring"><B>Hiring Policies</B></a></h1><BR>
                 <ul>
                     <li>Authorisation from the relevant Department Head is required to be hired into a Department. If none exists, the HoP or Captain's authorisation is required.</li>
                     <li>Promotion to a Department Head requires authorisation from the Captain or Acting Captain.</li>
                     <li>CentComm Authorisation is required for hiring the following: Blueshield, Security Pod Pilot, Magistrate, Brig Physician, Nanotrasen Representative, Mechanic.</li>
                     <li>If no Department Head has yet been sent, any promotion to said position is on a temporary basis until one arrives. </li>
-                    <li>All Security personnel are to be loyalty implanted.</li>
+                    <li>All Security personnel are to be mindshield implanted.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="firing"><B>Firing Policies</B></a></h1><BR>
                 <ul>
                     <li>If a crew is to be dismissed, their ID is to be terminated.</li>
@@ -2329,7 +2329,7 @@
                     <li>Demotion or Dismissal must have due cause.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="causes"><B>Causes for Demotion and Dismissal</B></a></h1><BR>
                 <ul>
                     <li>A medium or higher crime may be grounds for dismissal, at the department head's discretion.</li>
@@ -2344,11 +2344,11 @@
                     <li>Failure or refusal to hand in any items, ID, etc, of their previous job, is to be considered theft.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="sit"><B>Situational SoP</B></a></h1><BR>
                 The following situations have specific SoP. Failure to follow these may result in demotion/dismissal, or detaining by security if failure to follow them presents a significant risk.
                 <br><br>
-                
+
                 <h1><a name="causes"><B>Evacuation</B></a></h1><BR>
                 <ul>
                     <li>All personnel are required to assist with evacuation. All crew must be evacuated, regardless of conscious state.</li>
@@ -2359,7 +2359,7 @@
                     <li>Shortening time to shuttle launch may be authorised if a clear threat to life, limb, or shuttle integrity is present.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="viral"><b>Viral Outbreak Procedures</b></a></h1><BR>
                 <i><b>Definition: </b>A Viral Outbreak is defined as a situation where a Viral Pathogen has infected a significant portion of the crew (>10%)</i>
 				<ol>
@@ -2376,7 +2376,7 @@
                     <li>Once the Viral Outbreak is over, all personnel are to return to regular duties.</li>
                 </ol>
                 <br><br>
-                
+
                 <h1><a name="evac"><B>Evacuation</B></a></h1><BR>
                 <ul>
                     <li>Immediate evacuation of all untrained personnel.</li>
@@ -2384,7 +2384,7 @@
                     <li>Atmospheric Technicians are to remove hazard.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="meteor"><B>Meteor Storm</B></a></h1><BR>
                 <ul>
                     <li>All crew to move to central parts of the station.</li>
@@ -2392,7 +2392,7 @@
                     <li>Personel that are doing EVA maintenance should seek shelter immediately.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="sing"><B>Singularity Containment Failure</B></a></h1><BR>
                 <ul>
                     <li>Observation of Singularity movement.</li>

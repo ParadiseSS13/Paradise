@@ -4,12 +4,12 @@
 		stat = CONSCIOUS
 		return
 	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
-	if (stat == DEAD && health > 0)
+	if(stat == DEAD && health > 0)
 		update_revive()
 		var/mob/dead/observer/ghost = get_ghost()
 		if(ghost)
 			to_chat(ghost, "<span class='ghostalert'>Your cyborg shell has been repaired, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
-			to_chat(ghost, sound('sound/effects/genetics.ogg'))
+			ghost << sound('sound/effects/genetics.ogg')
 	return
 
 

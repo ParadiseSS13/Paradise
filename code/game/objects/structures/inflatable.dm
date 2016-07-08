@@ -89,14 +89,14 @@
 
 /obj/structure/inflatable/attack_slime(mob/user as mob)
 	var/mob/living/carbon/slime/S = user
-	if (!S.is_adult)
+	if(!S.is_adult)
 		return
 	attack_generic(user, rand(10, 15))
 
 /obj/structure/inflatable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(!istype(W))
 		return
-	if (can_puncture(W))
+	if(can_puncture(W))
 		visible_message("\red <b>[user] pierces [src] with [W]!</b>")
 		deflate(1)
 	if(W.damtype == BRUTE || W.damtype == BURN)

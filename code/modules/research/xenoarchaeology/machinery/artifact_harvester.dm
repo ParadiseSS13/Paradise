@@ -116,7 +116,7 @@
 
 /obj/machinery/artifact_harvester/Topic(href, href_list)
 
-	if (href_list["harvest"])
+	if(href_list["harvest"])
 		if(!inserted_battery)
 			src.visible_message("<b>[src]</b> states, \"Cannot harvest. No battery inserted.\"")
 
@@ -213,7 +213,7 @@
 								inserted_battery.battery_effect = E
 								inserted_battery.stored_charge = 0
 
-	if (href_list["stopharvest"])
+	if(href_list["stopharvest"])
 		if(harvesting)
 			if(harvesting < 0 && inserted_battery.battery_effect && inserted_battery.battery_effect.activated)
 				inserted_battery.battery_effect.ToggleActivate()
@@ -224,11 +224,11 @@
 			src.visible_message("<b>[name]</b> states, \"Energy harvesting interrupted.\"")
 			icon_state = "incubator"
 
-	if (href_list["ejectbattery"])
+	if(href_list["ejectbattery"])
 		src.inserted_battery.loc = src.loc
 		src.inserted_battery = null
 
-	if (href_list["drainbattery"])
+	if(href_list["drainbattery"])
 		if(inserted_battery)
 			if(inserted_battery.battery_effect && inserted_battery.stored_charge > 0)
 				if(alert("This action will dump all charge, safety gear is recommended before proceeding","Warning","Continue","Cancel"))

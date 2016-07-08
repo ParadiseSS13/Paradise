@@ -18,7 +18,7 @@
 		var/randomizemagic = pick(magiclist)
 		var/randomizemagicspecial = pick(magicspeciallist)
 		if(!summon_type)
-			switch (randomizeguns)
+			switch(randomizeguns)
 				if("taser")
 					new /obj/item/weapon/gun/energy/gun/advtaser(get_turf(H))
 				if("egun")
@@ -89,7 +89,7 @@
 				if("medibeam")
 					new /obj/item/weapon/gun/medbeam(get_turf(H))
 		else
-			switch (randomizemagic)
+			switch(randomizemagic)
 				if("fireball")
 					new /obj/item/weapon/spellbook/oneuse/fireball(get_turf(H))
 				if("smoke")
@@ -131,7 +131,7 @@
 					new /obj/item/clothing/head/helmet/space/rig/wizard(get_turf(H))
 				if("scrying")
 					new /obj/item/weapon/scrying(get_turf(H))
-					if (!(XRAY in H.mutations))
+					if(!(XRAY in H.mutations))
 						H.mutations.Add(XRAY)
 						H.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 						H.see_in_dark = 8
@@ -141,7 +141,7 @@
 					new /obj/item/voodoo(get_turf(H))
 				if("special")
 					magiclist -= "special" //only one super OP item per summoning max
-					switch (randomizemagicspecial)
+					switch(randomizemagicspecial)
 						if("staffchange")
 							new /obj/item/weapon/gun/magic/staff/change(get_turf(H))
 						if("staffanimation")

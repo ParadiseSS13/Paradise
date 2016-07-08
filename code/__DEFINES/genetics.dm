@@ -1,5 +1,8 @@
 // String identifiers for associative list lookup
 
+
+#define MUTCHK_FORCED        1
+
 // mob/var/list/mutations
 
 // Used in preferences.
@@ -121,3 +124,8 @@
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
 
+//Used for calculations for negative effects of having genetics powers
+#define DEFAULT_GENE_STABILITY 100
+#define GENE_INSTABILITY_MINOR 5
+#define GENE_INSTABILITY_MODERATE 10
+#define GENE_INSTABILITY_MAJOR 15

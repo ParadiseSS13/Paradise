@@ -19,13 +19,13 @@
   * @return /nanoui Returns the found ui, for null if none exists
   */
 /datum/nanomanager/proc/try_update_ui(var/mob/user, src_object, ui_key, var/datum/nanoui/ui, data, var/force_open = 0)
-	if (isnull(ui)) // no ui has been passed, so we'll search for one
+	if(isnull(ui)) // no ui has been passed, so we'll search for one
 	{
 		ui = get_open_ui(user, src_object, ui_key)
 	}
-	if (!isnull(ui))
+	if(!isnull(ui))
 		// The UI is already open
-		if (!force_open)
+		if(!force_open)
 			ui.push_data(data)
 			return ui
 		else
@@ -44,15 +44,15 @@
   */
 /datum/nanomanager/proc/get_open_ui(var/mob/user, src_object, ui_key)
 	var/src_object_key = "\ref[src_object]"
-	if (isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
 		//testing("nanomanager/get_open_ui mob [user.name] [src_object:name] [ui_key] - there are no uis open")
 		return null
-	else if (isnull(open_uis[src_object_key][ui_key]) || !istype(open_uis[src_object_key][ui_key], /list))
+	else if(isnull(open_uis[src_object_key][ui_key]) || !istype(open_uis[src_object_key][ui_key], /list))
 		//testing("nanomanager/get_open_ui mob [user.name] [src_object:name] [ui_key] - there are no uis open for this object")
 		return null
 
-	for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
-		if (ui.user == user)
+	for(var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
+		if(ui.user == user)
 			return ui
 
 	//testing("nanomanager/get_open_ui mob [user.name] [src_object:name] [ui_key] - ui not found")
@@ -67,12 +67,12 @@
   */
 /datum/nanomanager/proc/update_uis(src_object)
 	var/src_object_key = "\ref[src_object]"
-	if (isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
 		return 0
 
 	var/update_count = 0
-	for (var/ui_key in open_uis[src_object_key])
-		for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
+	for(var/ui_key in open_uis[src_object_key])
+		for(var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
 			if(ui && ui.src_object && ui.user && ui.src_object.nano_host())
 				ui.process(1)
 				update_count++
@@ -87,12 +87,12 @@
   */
 /datum/nanomanager/proc/close_uis(src_object)
 	var/src_object_key = "\ref[src_object]"
-	if (isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
 		return 0
 
 	var/close_count = 0
-	for (var/ui_key in open_uis[src_object_key])
-		for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
+	for(var/ui_key in open_uis[src_object_key])
+		for(var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
 			if(ui && ui.src_object && ui.user && ui.src_object.nano_host())
 				ui.close()
 				close_count++
@@ -108,12 +108,12 @@
   * @return int The number of uis updated
   */
 /datum/nanomanager/proc/update_user_uis(var/mob/user, src_object = null, ui_key = null)
-	if (isnull(user.open_uis) || !istype(user.open_uis, /list) || open_uis.len == 0)
+	if(isnull(user.open_uis) || !istype(user.open_uis, /list) || open_uis.len == 0)
 		return 0 // has no open uis
 
 	var/update_count = 0
-	for (var/datum/nanoui/ui in user.open_uis)
-		if ((isnull(src_object) || !isnull(src_object) && ui.src_object == src_object) && (isnull(ui_key) || !isnull(ui_key) && ui.ui_key == ui_key))
+	for(var/datum/nanoui/ui in user.open_uis)
+		if((isnull(src_object) || !isnull(src_object) && ui.src_object == src_object) && (isnull(ui_key) || !isnull(ui_key) && ui.ui_key == ui_key))
 			ui.process(1)
 			update_count++
 
@@ -129,13 +129,13 @@
   * @return int The number of uis closed
   */
 /datum/nanomanager/proc/close_user_uis(var/mob/user, src_object = null, ui_key = null)
-	if (isnull(user.open_uis) || !istype(user.open_uis, /list) || open_uis.len == 0)
+	if(isnull(user.open_uis) || !istype(user.open_uis, /list) || open_uis.len == 0)
 		//testing("nanomanager/close_user_uis mob [user.name] has no open uis")
 		return 0 // has no open uis
 
 	var/close_count = 0
-	for (var/datum/nanoui/ui in user.open_uis)
-		if ((isnull(src_object) || !isnull(src_object) && ui.src_object == src_object) && (isnull(ui_key) || !isnull(ui_key) && ui.ui_key == ui_key))
+	for(var/datum/nanoui/ui in user.open_uis)
+		if((isnull(src_object) || !isnull(src_object) && ui.src_object == src_object) && (isnull(ui_key) || !isnull(ui_key) && ui.ui_key == ui_key))
 			ui.close()
 			close_count++
 
@@ -153,9 +153,9 @@
   */
 /datum/nanomanager/proc/ui_opened(var/datum/nanoui/ui)
 	var/src_object_key = "\ref[ui.src_object]"
-	if (isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
 		open_uis[src_object_key] = list(ui.ui_key = list())
-	else if (isnull(open_uis[src_object_key][ui.ui_key]) || !istype(open_uis[src_object_key][ui.ui_key], /list))
+	else if(isnull(open_uis[src_object_key][ui.ui_key]) || !istype(open_uis[src_object_key][ui.ui_key], /list))
 		open_uis[src_object_key][ui.ui_key] = list();
 
 	ui.user.open_uis.Add(ui)
@@ -174,9 +174,9 @@
   */
 /datum/nanomanager/proc/ui_closed(var/datum/nanoui/ui)
 	var/src_object_key = "\ref[ui.src_object]"
-	if (isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
 		return 0 // wasn't open
-	else if (isnull(open_uis[src_object_key][ui.ui_key]) || !istype(open_uis[src_object_key][ui.ui_key], /list))
+	else if(isnull(open_uis[src_object_key][ui.ui_key]) || !istype(open_uis[src_object_key][ui.ui_key], /list))
 		return 0 // wasn't open
 
 	processing_uis.Remove(ui)
@@ -214,14 +214,14 @@
   */
 /datum/nanomanager/proc/user_transferred(var/mob/oldMob, var/mob/newMob)
 	//testing("nanomanager/user_transferred from mob [oldMob.name] to mob [newMob.name]")
-	if (!oldMob || isnull(oldMob.open_uis) || !istype(oldMob.open_uis, /list) || open_uis.len == 0)
+	if(!oldMob || isnull(oldMob.open_uis) || !istype(oldMob.open_uis, /list) || open_uis.len == 0)
 		//testing("nanomanager/user_transferred mob [oldMob.name] has no open uis")
 		return 0 // has no open uis
 
-	if (isnull(newMob.open_uis) || !istype(newMob.open_uis, /list))
+	if(isnull(newMob.open_uis) || !istype(newMob.open_uis, /list))
 		newMob.open_uis = list()
 
-	for (var/datum/nanoui/ui in oldMob.open_uis)
+	for(var/datum/nanoui/ui in oldMob.open_uis)
 		ui.user = newMob
 		newMob.open_uis.Add(ui)
 

@@ -50,16 +50,16 @@
 			if(toner <= 0)
 				break
 
-			if (istype(copyitem, /obj/item/weapon/paper))
+			if(istype(copyitem, /obj/item/weapon/paper))
 				copy(copyitem)
 				sleep(15)
-			else if (istype(copyitem, /obj/item/weapon/photo))
+			else if(istype(copyitem, /obj/item/weapon/photo))
 				photocopy(copyitem)
 				sleep(15)
-			else if (istype(copyitem, /obj/item/weapon/paper_bundle))
+			else if(istype(copyitem, /obj/item/weapon/paper_bundle))
 				var/obj/item/weapon/paper_bundle/B = bundlecopy(copyitem)
 				sleep(15*B.amount)
-			else if (ass && ass.loc == src.loc)
+			else if(ass && ass.loc == src.loc)
 				copyass()
 				sleep(15)
 			else
@@ -97,13 +97,13 @@
 			if(!camera)
 				return
 			var/datum/picture/selection = camera.selectpicture()
-			if (!selection)
+			if(!selection)
 				return
 
 			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (src.loc)
 			p.construct(selection)
-			if (p.desc == "")
+			if(p.desc == "")
 				p.desc += "Copied by [tempAI.name]"
 			else
 				p.desc += " - Copied by [tempAI.name]"
@@ -188,11 +188,11 @@
 	c.offset_y = copy.offset_y
 	var/list/temp_overlays = copy.overlays       //Iterates through stamps
 	var/image/img                                //and puts a matching
-	for (var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
+	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
 		if(copy.ico.len)
-			if (findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent"))
+			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
-			else if (findtext(copy.ico[j], "deny"))
+			else if(findtext(copy.ico[j], "deny"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
 			else
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
@@ -283,7 +283,7 @@
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
-	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
 		return
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())

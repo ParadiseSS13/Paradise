@@ -74,7 +74,7 @@
 		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
 	else
 		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
-	if (wieldsound)
+	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 	O.name = "[name] - offhand"
@@ -206,6 +206,7 @@
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	flags = NOSHIELD
+	armour_penetration = 35
 	origin_tech = "magnets=3;syndicate=4"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = 1
@@ -293,6 +294,7 @@
 	force_wielded = 18 // Was 13, Buffed - RR
 	throwforce = 20
 	throw_speed = 3
+	armour_penetration = 10
 	no_spin_thrown = 1 // Thrown spears that spin look dumb. -Fox
 	flags = NOSHIELD
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
@@ -370,6 +372,7 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	flags = NOSHIELD
+	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = 1
@@ -578,7 +581,7 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if (istype(A, /obj/structure) || istype(A, /obj/mecha/))
+			else if(istype(A, /obj/structure) || istype(A, /obj/mecha/))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3

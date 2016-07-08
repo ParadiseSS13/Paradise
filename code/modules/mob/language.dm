@@ -354,7 +354,7 @@
 	speech_verb = "growls"
 	ask_verb = "gnarls"
 	exclaim_verb = "snarls"
-	colour = "rough"
+	colour = "gutter"
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
 
@@ -500,24 +500,24 @@
 	if(!speaker.binarycheck())
 		return
 
-	if (!message)
+	if(!message)
 		return
 
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)], \"[message]\"</span></span></i>"
 
-	for (var/mob/M in dead_mob_list)
+	for(var/mob/M in dead_mob_list)
 		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain))
 			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
-	for (var/mob/living/S in living_mob_list)
+	for(var/mob/living/S in living_mob_list)
 
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(istype(S , /mob/living/silicon/ai))
 			message_start = "<i><span class='game say'>[name], <a href='byond://?src=\ref[S];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
-		else if (!S.binarycheck())
+		else if(!S.binarycheck())
 			continue
 
 		S.show_message("[message_start] [message_body]", 2)
@@ -525,13 +525,13 @@
 	var/list/listening = hearers(1, src)
 	listening -= src
 
-	for (var/mob/living/M in listening)
+	for(var/mob/living/M in listening)
 		if(istype(M, /mob/living/silicon) || M.binarycheck())
 			continue
 		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>",2)
 
 	//robot binary xmitter component power usage
-	if (isrobot(speaker))
+	if(isrobot(speaker))
 		var/mob/living/silicon/robot/R = speaker
 		var/datum/robot_component/C = R.components["comms"]
 		R.use_power(C.energy_consumption)

@@ -47,7 +47,7 @@
 
 /obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
-	if (istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
+	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
 		A.reagents.trans_to(src, 10)
 		to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
 		desc = "A translucent balloon with some form of liquid sloshing around in it."
@@ -146,7 +146,7 @@
 
 /obj/item/toy/sword/attack_self(mob/user as mob)
 	active = !(active)
-	if (active)
+	if(active)
 		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		icon_state = "swordblue"
@@ -531,11 +531,12 @@ obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 					if(!remove_item_from_storage(M))
 						M.unEquip(src)
 					M.put_in_l_hand(src)
-				else if("r_hand")
+					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+				if("r_hand")
 					if(!remove_item_from_storage(M))
 						M.unEquip(src)
 					M.put_in_r_hand(src)
-				to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 	else
 		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
 
@@ -574,7 +575,7 @@ obj/item/toy/cards/cardhand/Topic(href, href_list)
 	var/mob/living/carbon/human/cardUser = usr
 	var/O = src
 	if(href_list["pick"])
-		if (cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+		if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 			var/choice = href_list["pick"]
 			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
 			currenthand -= choice
@@ -663,7 +664,7 @@ obj/item/toy/cards/singlecard/verb/Flip()
 		return
 	if(!flipped)
 		flipped = 1
-		if (cardname)
+		if(cardname)
 			icon_state = "sc_[cardname]_[deckstyle]"
 			name = cardname
 		else
@@ -768,7 +769,7 @@ obj/item/toy/cards/deck/syndicate/black
 	var/cooldown = 0
 
 /obj/item/toy/nuke/attack_self(mob/user)
-	if (cooldown < world.time)
+	if(cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
 		spawn(5) //gia said so
@@ -1101,7 +1102,7 @@ obj/item/toy/cards/deck/syndicate/black
 	var/cooldown = 0
 
 /obj/item/toy/redbutton/attack_self(mob/user)
-	if (cooldown < world.time)
+	if(cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
 		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='notice'>The button clicks loudly.</span>")
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, 0)

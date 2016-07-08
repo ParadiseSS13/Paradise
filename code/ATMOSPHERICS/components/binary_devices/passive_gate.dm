@@ -155,9 +155,9 @@
 	return
 
 /obj/machinery/atmospherics/binary/passive_gate/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (on)
+	if(on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
 		return 1
 	return ..()

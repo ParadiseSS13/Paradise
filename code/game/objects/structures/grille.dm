@@ -81,7 +81,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	var/mob/living/carbon/slime/S = user
-	if (!S.is_adult)
+	if(!S.is_adult)
 		return
 
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)

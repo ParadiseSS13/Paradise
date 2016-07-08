@@ -10,7 +10,7 @@
 		var/swarmer_report = "<font size=3><b>[command_name()] High-Priority Update</b></span>"
 		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come \
 		through."
-		for (var/obj/machinery/computer/communications/C in machines)
+		for(var/obj/machinery/computer/communications/C in machines)
 			if(! (C.stat & (BROKEN|NOPOWER) ) )
 				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
 				P.name = "'Classified [command_name()] Update'"

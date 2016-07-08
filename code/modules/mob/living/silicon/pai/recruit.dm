@@ -231,7 +231,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		M << browse(dat, "window=paiRecruit;size=580x580;")
 
 	proc/findPAI(var/obj/item/device/paicard/p, var/mob/user)
-		requestRecruits(p)
+		requestRecruits(p, user)
 		var/list/available = list()
 		for(var/datum/paiCandidate/c in paiController.pai_candidates)
 			if(c.ready)
@@ -346,13 +346,14 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 		user << browse(dat, "window=findPai")
 
-	proc/requestRecruits(var/obj/item/device/paicard/P)
+	proc/requestRecruits(var/obj/item/device/paicard/P, mob/user)
 		for(var/mob/dead/observer/O in player_list)
 			if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 				if(player_old_enough_antag(O.client,ROLE_PAI))
 					if(check_recruit(O))
-						to_chat(O, "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[O];jump=\ref[P]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>")
+						to_chat(O, "\blue <b>A pAI card activated by [user.real_name] is looking for personalities. (<a href='?src=\ref[O];jump=\ref[P]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>")
 						//question(O.client)
+
 	proc/check_recruit(var/mob/dead/observer/O)
 		if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O,"nonhumandept"))
 			return 0
@@ -373,7 +374,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
 			if(response == "Yes")
 				recruitWindow(C.mob)
-			else if (response == "Never for this round")
+			else if(response == "Never for this round")
 				var/warning = alert(C, "Are you sure? This action will be undoable and you will need to wait until next round.", "You sure?", "Yes", "No")
 				if(warning == "Yes")
 					asked[C.key] = INFINITY

@@ -145,7 +145,7 @@
 						G.desc = new_desc
 			if(new_shoe_icon_state && new_shoe_name)
 				for(var/obj/item/clothing/shoes/S in contents)
-					if (S.chained == 1)
+					if(S.chained == 1)
 						S.chained = 0
 						S.slowdown = SHOES_SLOWDOWN
 						new /obj/item/weapon/restraints/handcuffs( src )
@@ -229,43 +229,43 @@
 		istype(W,/obj/item/weapon/bedsheet))
 
 		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
-		if ( istype(W,/obj/item/clothing/suit/space ) )
+		if( istype(W,/obj/item/clothing/suit/space ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if ( istype(W,/obj/item/clothing/suit/syndicatefake ) )
+		if( istype(W,/obj/item/clothing/suit/syndicatefake ) )
 			to_chat(user, "This item does not fit.")
 			return
-//		if ( istype(W,/obj/item/clothing/suit/powered ) )
+//		if( istype(W,/obj/item/clothing/suit/powered ) )
 //			to_chat(user, "This item does not fit.")
 //			return
-		if ( istype(W,/obj/item/clothing/suit/cyborg_suit ) )
+		if( istype(W,/obj/item/clothing/suit/cyborg_suit ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if ( istype(W,/obj/item/clothing/suit/bomb_suit ) )
+		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if ( istype(W,/obj/item/clothing/suit/armor ) )
+		if( istype(W,/obj/item/clothing/suit/armor ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if ( istype(W,/obj/item/clothing/suit/armor ) )
+		if( istype(W,/obj/item/clothing/suit/armor ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if ( istype(W,/obj/item/clothing/mask/gas ) )
+		if( istype(W,/obj/item/clothing/mask/gas ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if ( istype(W,/obj/item/clothing/mask/cigarette ) )
+		if( istype(W,/obj/item/clothing/mask/cigarette ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if ( istype(W,/obj/item/clothing/head/syndicatefake ) )
+		if( istype(W,/obj/item/clothing/head/syndicatefake ) )
 			to_chat(user, "This item does not fit.")
 			return
-//		if ( istype(W,/obj/item/clothing/head/powered ) )
+//		if( istype(W,/obj/item/clothing/head/powered ) )
 //			to_chat(user, "This item does not fit.")
 //			return
-		if ( istype(W,/obj/item/clothing/head/helmet ) )
+		if( istype(W,/obj/item/clothing/head/helmet ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if ( istype(W,/obj/item/clothing/gloves/furgloves ) )
+		if( istype(W,/obj/item/clothing/gloves/furgloves ) )
 			to_chat(user, "This item does not fit.")
 			return
 		if(W.flags & NODROP) //if "can't drop" item
@@ -273,7 +273,7 @@
 			return
 
 		if(contents.len < 5)
-			if ( state in list(1, 3) )
+			if( state in list(1, 3) )
 				user.drop_item()
 				W.loc = src
 				state = 3

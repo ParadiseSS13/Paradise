@@ -41,7 +41,7 @@ emp_act
 		return
 
 	//Shrapnel
-	if (P.damage_type == BRUTE)
+	if(P.damage_type == BRUTE)
 		var/armor = getarmor_organ(organ, "bullet")
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
@@ -91,7 +91,7 @@ emp_act
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/obj/item/organ/external/def_zone)
-	if (!def_zone)
+	if(!def_zone)
 		return 1.0
 
 	var/siemens_coefficient = 1.0
@@ -236,7 +236,7 @@ emp_act
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	var/weapon_edge = has_edge(I)
-	if ((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
+	if((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
 		weapon_sharp = 0
 		weapon_edge = 0
 
@@ -299,9 +299,9 @@ emp_act
 		forcesay(hit_appends)	//forcesay checks stat already
 
 /*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
-	if (I.damtype == BRUTE && !I.is_robot_module())
+	if(I.damtype == BRUTE && !I.is_robot_module())
 		var/damage = I.force
-		if (armor)
+		if(armor)
 			damage /= armor+1
 
 		//blunt objects should really not be embedding in things unless a huge amount of force is involved
@@ -340,7 +340,7 @@ emp_act
 		*/
 		O.throwing = 0		//it hit, so stop moving
 
-		if ((O.thrower != src) && check_shields(throw_damage, "[O]"))
+		if((O.thrower != src) && check_shields(throw_damage, "[O]"))
 			return
 
 		var/obj/item/organ/external/affecting = get_organ(zone)
@@ -368,10 +368,10 @@ emp_act
 		//thrown weapon embedded object code.
 		if(dtype == BRUTE && istype(O,/obj/item))
 			var/obj/item/I = O
-			if (!I.is_robot_module())
+			if(!I.is_robot_module())
 				var/sharp = is_sharp(I)
 				var/damage = throw_damage
-				if (armor)
+				if(armor)
 					damage /= armor+1
 
 				//blunt objects should really not be embedding in things unless a huge amount of force is involved
@@ -406,7 +406,7 @@ emp_act
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
-	if (gloves)
+	if(gloves)
 		gloves.add_blood(source)
 		gloves:transfer_blood = amount
 		gloves:bloody_hands_mob = source

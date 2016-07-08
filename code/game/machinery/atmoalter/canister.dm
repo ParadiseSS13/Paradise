@@ -178,7 +178,7 @@ update_flag
 (note: colors and decals has to be applied every icon update)
 */
 
-	if (src.destroyed)
+	if(src.destroyed)
 		src.overlays = 0
 		src.icon_state = text("[]-1", src.canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 
@@ -217,27 +217,27 @@ update_flag
 
 //template modification exploit prevention, used in Topic()
 /obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all")
-	if (checkColor == "prim" || checkColor == "all")
+	if(checkColor == "prim" || checkColor == "all")
 		for(var/list/L in canister_icon_container.possiblemaincolor)
-			if (L["icon"] == inputVar)
+			if(L["icon"] == inputVar)
 				return 1
-	if (checkColor == "sec" || checkColor == "all")
+	if(checkColor == "sec" || checkColor == "all")
 		for(var/list/L in canister_icon_container.possibleseccolor)
-			if (L["icon"] == inputVar)
+			if(L["icon"] == inputVar)
 				return 1
-	if (checkColor == "ter" || checkColor == "all")
+	if(checkColor == "ter" || checkColor == "all")
 		for(var/list/L in canister_icon_container.possibletertcolor)
-			if (L["icon"] == inputVar)
+			if(L["icon"] == inputVar)
 				return 1
-	if (checkColor == "quart" || checkColor == "all")
+	if(checkColor == "quart" || checkColor == "all")
 		for(var/list/L in canister_icon_container.possiblequartcolor)
-			if (L["icon"] == inputVar)
+			if(L["icon"] == inputVar)
 				return 1
 	return 0
 
 /obj/machinery/portable_atmospherics/canister/proc/is_a_decal(var/inputVar)
 	for(var/list/L in canister_icon_container.possibledecals)
-		if (L["icon"] == inputVar)
+		if(L["icon"] == inputVar)
 			return 1
 	return 0
 
@@ -250,7 +250,7 @@ update_flag
 	if(destroyed)
 		return 1
 
-	if (src.health <= 10)
+	if(src.health <= 10)
 		var/atom/location = src.loc
 		location.assume_air(air_contents)
 		air_update_turf()
@@ -260,7 +260,7 @@ update_flag
 		src.density = 0
 		update_icon()
 
-		if (src.holding)
+		if(src.holding)
 			src.holding.loc = src.loc
 			src.holding = null
 
@@ -269,7 +269,7 @@ update_flag
 		return 1
 
 /obj/machinery/portable_atmospherics/canister/process()
-	if (destroyed)
+	if(destroyed)
 		return
 
 	..()
@@ -383,7 +383,7 @@ update_flag
 	return src.ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if (src.destroyed)
+	if(src.destroyed)
 		return
 
 	init_data_vars() //set up var/colorcontainer and var/possibledecals
@@ -404,12 +404,12 @@ update_flag
 	data["valveOpen"] = valve_open ? 1 : 0
 
 	data["hasHoldingTank"] = holding ? 1 : 0
-	if (holding)
+	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "canister.tmpl", "Canister", 480, 400, state = physical_state)
@@ -428,18 +428,18 @@ update_flag
 	if(..())
 		return 1
 
-	if (href_list["choice"] == "menu")
+	if(href_list["choice"] == "menu")
 		menu = text2num(href_list["mode_target"])
 
 	if(href_list["toggle"])
 		var/logmsg
-		if (valve_open)
-			if (holding)
+		if(valve_open)
+			if(holding)
 				logmsg = "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
 			else
 				logmsg = "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the <font color='red'><b>air</b></font><br>"
 		else
-			if (holding)
+			if(holding)
 				logmsg = "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the [holding]<br>"
 			else
 				logmsg = "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the <font color='red'><b>air</b></font><br>"
@@ -454,53 +454,53 @@ update_flag
 		release_log += logmsg
 		valve_open = !valve_open
 
-	if (href_list["remove_tank"])
+	if(href_list["remove_tank"])
 		if(holding)
-			if (valve_open)
+			if(valve_open)
 				valve_open = 0
 				release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
 			holding.loc = loc
 			holding = null
 
-	if (href_list["pressure_adj"])
+	if(href_list["pressure_adj"])
 		var/diff = text2num(href_list["pressure_adj"])
 		if(diff > 0)
 			release_pressure = min(10*ONE_ATMOSPHERE, release_pressure+diff)
 		else
 			release_pressure = max(ONE_ATMOSPHERE/10, release_pressure+diff)
 
-	if (href_list["rename"])
-		if (can_label)
+	if(href_list["rename"])
+		if(can_label)
 			var/T = sanitize(copytext(input("Choose canister label", "Name", name) as text|null,1,MAX_NAME_LEN))
-			if (can_label) //Exploit prevention
-				if (T)
+			if(can_label) //Exploit prevention
+				if(T)
 					name = T
 				else
 					name = "canister"
 			else
 				to_chat(usr, "\red As you attempted to rename it the pressure rose!")
 
-	if (href_list["choice"] == "Primary color")
-		if (is_a_color(href_list["icon"],"prim"))
+	if(href_list["choice"] == "Primary color")
+		if(is_a_color(href_list["icon"],"prim"))
 			canister_color["prim"] = href_list["icon"]
-	if (href_list["choice"] == "Secondary color")
-		if (href_list["icon"] == "none")
+	if(href_list["choice"] == "Secondary color")
+		if(href_list["icon"] == "none")
 			canister_color["sec"] = "none"
-		else if (is_a_color(href_list["icon"],"sec"))
+		else if(is_a_color(href_list["icon"],"sec"))
 			canister_color["sec"] = href_list["icon"]
-	if (href_list["choice"] == "Tertiary color")
-		if (href_list["icon"] == "none")
+	if(href_list["choice"] == "Tertiary color")
+		if(href_list["icon"] == "none")
 			canister_color["ter"] = "none"
-		else if (is_a_color(href_list["icon"],"ter"))
+		else if(is_a_color(href_list["icon"],"ter"))
 			canister_color["ter"] = href_list["icon"]
-	if (href_list["choice"] == "Quaternary color")
-		if (href_list["icon"] == "none")
+	if(href_list["choice"] == "Quaternary color")
+		if(href_list["icon"] == "none")
 			canister_color["quart"] = "none"
-		else if (is_a_color(href_list["icon"],"quart"))
+		else if(is_a_color(href_list["icon"],"quart"))
 			canister_color["quart"] = href_list["icon"]
 
-	if (href_list["choice"] == "decals")
-		if (is_a_decal(href_list["icon"]))
+	if(href_list["choice"] == "decals")
+		if(is_a_decal(href_list["icon"]))
 			decals[href_list["icon"]] = (decals[href_list["icon"]] == 0)
 
 	src.add_fingerprint(usr)
@@ -577,8 +577,8 @@ update_flag
 	trace_gas.moles = 9*4000
 	spawn(100)
 		var/turf/simulated/location = src.loc
-		if (istype(src.loc))
-			while (!location.air)
+		if(istype(src.loc))
+			while(!location.air)
 				sleep(1000)
 			location.assume_air(air_contents)
 			air_contents = new

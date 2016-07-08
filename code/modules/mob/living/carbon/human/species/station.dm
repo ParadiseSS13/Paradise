@@ -364,7 +364,7 @@
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
-	if (H.internals)
+	if(H.internals)
 		H.internals.icon_state = "internal1"
 
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
