@@ -630,7 +630,7 @@ BLIND     // can't see anything
 		if (!(src.loc == usr))
 			return
 		if (!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
-			if (!usr.canUnEquip(src))
+			if(!usr.canUnEquip(src))
 				to_chat(usr, "[src] appears stuck on you!")
 				return
 			switch(over_object.name)
