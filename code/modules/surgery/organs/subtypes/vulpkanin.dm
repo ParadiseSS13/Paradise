@@ -1,3 +1,8 @@
-/obj/item/organ/internal/liver/vulpkanin
-	alcohol_intensity = 1.4
-	species = "Vulpkanin"
+obj
+	item
+		organ
+			internal
+				liver
+					vulpkanin
+						alcohol_intensity = 1.4
+						species = "Vulpkanin"
