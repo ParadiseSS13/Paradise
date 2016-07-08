@@ -194,7 +194,7 @@
 /obj/docking_port/stationary/transit/temporary
 	name = "Temprary transit" // To satisy tigercat2000's OCD.
 
-/obj/docking_port/stationary/transit/temporary/on_docked(mobile)
+/obj/docking_port/stationary/transit/temporary/on_undocked(mobile)
 	shuttle_master.allocator.deallocate(src)
 
 /obj/docking_port/mobile
