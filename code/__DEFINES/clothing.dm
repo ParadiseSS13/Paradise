@@ -8,7 +8,7 @@
 #define HIDEEARS	2	//APPLIES ONLY TO HELMETS/MASKS!! (ears means headsets and such)
 #define HIDEEYES	4	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
 #define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
-
+
 //slots
 #define slot_back 1
 #define slot_wear_mask 2
@@ -33,9 +33,9 @@
 #define slot_wear_pda 21
 #define slot_tie 22
 #define slots_amt 22
-
+
 //Cant seem to find a mob bitflags area other than the powers one
-
+
 // bitflags for clothing parts
 #define HEAD			1
 #define UPPER_TORSO		2
@@ -53,7 +53,7 @@
 #define HAND_RIGHT		1024
 #define HANDS			1536
 #define FULL_BODY		2047
-
+
 // bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
 // The values here should add up to 1.
@@ -69,14 +69,14 @@
 #define THERMAL_PROTECTION_ARM_RIGHT	0.075
 #define THERMAL_PROTECTION_HAND_LEFT	0.025
 #define THERMAL_PROTECTION_HAND_RIGHT	0.025
-
+
 // Suit sensor levels
 #define SUIT_SENSOR_OFF 0
 #define SUIT_SENSOR_BINARY 1
 #define SUIT_SENSOR_VITAL 2
 #define SUIT_SENSOR_TRACKING 3
-
+
 #define BLOCKHEADHAIR 			4		// temporarily removes the user's hair overlay. Leaves facial hair.
 #define BLOCKHAIR				32768	// temporarily removes the user's hair, facial and otherwise.
-
+
 #define ONESIZEFITSALL 			1		// determines if something can be worn by a fatty or not.

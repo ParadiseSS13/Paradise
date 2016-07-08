@@ -1,10 +1,10 @@
 //Bot defines, placed here so they can be read by other things!
-
+
 #define BOT_STEP_DELAY 4 //Delay between movemements
 #define BOT_STEP_MAX_RETRIES 5 //Maximum times a bot will retry to step from its position
-
+
 #define DEFAULT_SCAN_RANGE		7	//default view range for finding targets.
-
+
 //Mode defines
 #define BOT_IDLE 			0	// idle
 #define BOT_HUNT 			1	// found target, hunting
@@ -24,14 +24,14 @@
 #define BOT_NAV				15	// computing navigation
 #define BOT_WAIT_FOR_NAV	16	// waiting for nav computation
 #define BOT_NO_ROUTE		17	// no destination beacon found (or no route)
-
+
 //Bot types
 #define SEC_BOT				1	// Secutritrons (Beepsky) and ED-209s
 #define MULE_BOT			2	// MULEbots
 #define FLOOR_BOT			4	// Floorbots
 #define CLEAN_BOT			8	// Cleanbots
 #define MED_BOT				16	// Medibots
-
+
 //Sentience types
 #define SENTIENCE_ORGANIC 1
 #define SENTIENCE_ARTIFICIAL 2

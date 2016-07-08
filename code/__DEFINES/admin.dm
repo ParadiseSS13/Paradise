@@ -7,11 +7,11 @@
 #define MUTE_ADMINHELP	8
 #define MUTE_DEADCHAT	16
 #define MUTE_ALL		31
-
+
 //Number of identical messages required to get the spam-prevention automute thing to trigger warnings and automutes
 #define SPAM_TRIGGER_WARNING 5
 #define SPAM_TRIGGER_AUTOMUTE 10
-
+
 //Some constants for DB_Ban
 #define BANTYPE_PERMA		1
 #define BANTYPE_TEMP		2
@@ -21,7 +21,7 @@
 #define BANTYPE_APPEARANCE  6
 #define BANTYPE_ADMIN_PERMA	7
 #define BANTYPE_ADMIN_TEMP	8
-
+
 //Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
 #define R_BUILDMODE		1
@@ -40,7 +40,7 @@
 #define R_MOD			8192
 #define R_MENTOR		16384
 #define R_PROCCALL		32768
-
+
 #define R_MAXPERMISSION 32768 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
-
+
 #define R_HOST			65535
