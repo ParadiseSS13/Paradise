@@ -1639,6 +1639,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Interrogation"
 	icon_state = "interrogation"
 
+/area/security/seceqstorage
+	name = "\improper Security Equipment Storage"
+	icon_state = "securityequipmentstorage"
+
 /area/security/interrogationhallway
 	name = "\improper Interrogation Hallway"
 	icon_state = "interrogationhall"
