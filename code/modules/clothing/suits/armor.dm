@@ -252,6 +252,9 @@
 	active = 0
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/C = loc
+		C.update_inv_wear_suit()
 	..()
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
