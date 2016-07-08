@@ -1579,6 +1579,18 @@
 		bitesize = 5
 
 
+/obj/item/weapon/reagent_containers/food/snacks/bacon
+	name = "bacon"
+	desc = "It looks greasy but tastes amazing!"
+	icon_state = "bacon2"
+	bitesize = 2
+	New()
+		..()
+		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("porktonium", 10)
+		reagents.add_reagent("msg", 4)
+
+
 /obj/item/weapon/reagent_containers/food/snacks/telebacon
 	name = "Tele Bacon"
 	desc = "It tastes a little odd but it is still delicious."
