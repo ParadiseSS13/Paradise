@@ -6,55 +6,61 @@
 //WINTER COATS
 /datum/gear/suit/coat
 	subtype_path = /datum/gear/suit/coat
+	cost = 2
 
 /datum/gear/suit/coat/grey
 	display_name = "winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat
 
-/datum/gear/suit/coat/sec
+/datum/gear/suit/coat/job
+	subtype_path = /datum/gear/suit/coat
+	subtype_cost_overlap = FALSE
+
+/datum/gear/suit/coat/job/sec
 	display_name = "winter coat, security"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
-/datum/gear/suit/coat/captain
+/datum/gear/suit/coat/job/captain
 	display_name = "winter coat, captain"
 	path = /obj/item/clothing/suit/hooded/wintercoat/captain
 	allowed_roles = list("Captain")
 
-/datum/gear/suit/coat/med
+/datum/gear/suit/coat/job/med
 	display_name = "winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Brig Physician")
 
-/datum/gear/suit/coat/sci
+/datum/gear/suit/coat/job/sci
 	display_name = "winter coat, science"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
 	allowed_roles = list("Scientist", "Research Director")
 
-/datum/gear/suit/coat/engi
+/datum/gear/suit/coat/job/engi
 	display_name = "winter coat, engineering"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering
 	allowed_roles = list("Chief Engineer", "Engineer", "Mechanic")
 
-/datum/gear/suit/coat/atmos
+/datum/gear/suit/coat/job/atmos
 	display_name = "winter coat, atmospherics"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
 	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
-/datum/gear/suit/coat/hydro
+/datum/gear/suit/coat/job/hydro
 	display_name = "winter coat, hydroponics"
 	path = /obj/item/clothing/suit/hooded/wintercoat/hydro
 	allowed_roles = list("Botanist")
 
-/datum/gear/suit/coat/cargo
+/datum/gear/suit/coat/job/cargo
 	display_name = "winter coat, cargo"
 	path = /obj/item/clothing/suit/hooded/wintercoat/cargo
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
-/datum/gear/suit/coat/miner
+/datum/gear/suit/coat/job/miner
 	display_name = "winter coat, miner"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
-	allowed_roles = list("Quartermaster", "Miner")
+	allowed_roles = list("Miner")
+
 //LABCOATS
 /datum/gear/suit/labcoat_emt
 	display_name = "labcoat, paramedic"
