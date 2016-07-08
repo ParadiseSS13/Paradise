@@ -70,9 +70,8 @@ datum/reagent/salglu_solution
 
 datum/reagent/salglu_solution/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(33))
-		M.adjustBruteLoss(-2*REM)
-		M.adjustFireLoss(-2*REM)
+	M.adjustBruteLoss(-0.5*REM)
+	M.adjustFireLoss(-0.5*REM)
 	..()
 	return
 
@@ -111,10 +110,9 @@ datum/reagent/charcoal
 datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1.5*REM)
-	if(prob(50))
-		for(var/datum/reagent/R in M.reagents.reagent_list)
-			if(R != src)
-				M.reagents.remove_reagent(R.id,1)
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			M.reagents.remove_reagent(R.id,0.5)
 	..()
 	return
 
@@ -230,7 +228,7 @@ datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,5)
 	if(M.health > 20)
-		M.adjustToxLoss(5*REM)
+		M.adjustToxLoss(2*REM)
 	if(prob(6))
 		M.fakevomit()
 	..()
@@ -240,10 +238,17 @@ datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 	name = "Calomel"
 	id = "calomel"
 	result = "calomel"
-	required_reagents = list("mercury" = 1, "chlorine" = 1)
-	result_amount = 2
+	required_reagents = list("mercury" = 1, "chlorine" = 1, "pen_acid" = 1)
+	result_amount = 3
 	min_temp = 374
 	mix_message = "Stinging vapors rise from the solution."
+
+/datum/chemical_reaction/calomel/on_reaction(var/datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	for(var/mob/living/carbon/C in range(T, 1))
+		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+			C.reagents.add_reagent("calomel",10)
 
 datum/reagent/potass_iodide
 	name = "Potassium Iodide"
@@ -256,6 +261,7 @@ datum/reagent/potass_iodide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(80))
 		M.radiation = max(0, M.radiation-1)
+		M.adjustToxLoss(-0.5*REM)
 	..()
 	return
 
@@ -278,7 +284,7 @@ datum/reagent/pen_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
+			M.reagents.remove_reagent(R.id,2)
 	M.radiation = max(0, M.radiation-7)
 	if(prob(75))
 		M.adjustToxLoss(-4*REM)
@@ -345,8 +351,8 @@ datum/reagent/salbutamol/on_mob_life(var/mob/living/M as mob)
 	name = "Salbutamol"
 	id = "salbutamol"
 	result = "salbutamol"
-	required_reagents = list("sal_acid" = 1, "lithium" = 1, "aluminum" = 1, "bromine" = 1, "ammonia" = 1)
-	result_amount = 5
+	required_reagents = list("lithium" = 1, "aluminum" = 1, "bromine" = 1, "ammonia" = 1)
+	result_amount = 4
 	mix_message = "The solution bubbles freely, creating a head of bluish foam."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -476,7 +482,7 @@ datum/reagent/morphine
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
 	shock_reduction = 50
 
 datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
@@ -497,6 +503,15 @@ datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 			H.shock_stage = 0
 	..()
 	return
+
+datum/reagent/oculine
+	name = "Oculine"
+	id = "oculine"
+	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
+	reagent_state = LIQUID
+	color = "#C8A5DC"
+	metabolization_rate = 0.4
+	var/cycle_amount = 0
 
 datum/reagent/oculine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -526,15 +541,6 @@ datum/reagent/oculine/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("atropine" = 1, "spaceacillin" = 1, "salglu_solution" = 1)
 	result_amount = 3
 	mix_message = "The mixture settles, becoming a milky white."
-
-datum/reagent/oculine
-	name = "Oculine"
-	id = "oculine"
-	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-	metabolization_rate = 0.4
-	var/cycle_amount = 0
 
 datum/reagent/atropine
 	name = "Atropine"
@@ -600,7 +606,7 @@ datum/reagent/epinephrine/on_mob_life(var/mob/living/M as mob)
 		M.losebreath--
 	if(M.oxyloss > 35)
 		M.adjustOxyLoss(-10*REM)
-	if(M.health < -10 && M.health > -65)
+	if(M.health < -10)
 		M.adjustToxLoss(-1*REM)
 		M.adjustBruteLoss(-1*REM)
 		M.adjustFireLoss(-1*REM)
@@ -680,9 +686,8 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 
 datum/reagent/strange_reagent/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(10))
-		M.adjustBruteLoss(2*REM)
-		M.adjustToxLoss(2*REM)
+	M.adjustBruteLoss(4*REM)
+	M.adjustToxLoss(4*REM)
 	..()
 	return
 
@@ -694,7 +699,7 @@ datum/reagent/strange_reagent/on_mob_life(var/mob/living/M as mob)
 	result_amount = 3
 	mix_message = "The substance begins moving on its own somehow."
 
-datum/reagent/life
+/datum/reagent/life
 	name = "Life"
 	id = "life"
 	description = "Can create a life form, however it is not guaranteed to be friendly. May want to have Security on hot standby."
@@ -713,6 +718,12 @@ datum/reagent/life
 /datum/chemical_reaction/life/on_reaction(var/datum/reagents/holder, var/created_volume)
 	chemical_mob_spawn(holder, 1, "Life")
 
+/datum/reagent/mannitol
+	name = "Mannitol"
+	id = "mannitol"
+	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
+	color = "#D1D1F1"
+
 /datum/reagent/mannitol/on_mob_life(mob/living/M as mob)
 	M.adjustBrainLoss(-3)
 	..()
@@ -726,17 +737,17 @@ datum/reagent/life
 	result_amount = 3
 	mix_message = "The mixture bubbles slowly, making a slightly sweet odor."
 
-/datum/reagent/mannitol
-	name = "Mannitol"
-	id = "mannitol"
-	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
-	color = "#D1D1F1"
+/datum/reagent/mutadone
+	name = "Mutadone"
+	id = "mutadone"
+	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
+	color = "#5096C8"
 
 /datum/reagent/mutadone/on_mob_life(var/mob/living/carbon/human/M as mob)
 	M.jitteriness = 0
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0 || M.sdisabilities > 0
 
-	if(needs_update)
+	if(needs_update  && prob(15))
 		for(var/block=1;block<=DNA_SE_LENGTH;block++)
 			M.dna.SetSEState(block,0, 1)
 			genemutcheck(M,block,null,MUTCHK_FORCED)
@@ -758,13 +769,6 @@ datum/reagent/life
 	required_reagents = list("mutagen" = 1, "acetone" = 1, "bromine" = 1)
 	result_amount = 3
 	mix_message = "A foul astringent liquid emerges from the reaction."
-
-
-/datum/reagent/mutadone
-	name = "Mutadone"
-	id = "mutadone"
-	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
-	color = "#5096C8"
 
 datum/reagent/antihol
 	name = "Antihol"
@@ -861,10 +865,10 @@ datum/reagent/insulin
 
 datum/reagent/insulin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.jitteriness -= 5
 	M.reagents.remove_reagent("sugar", 5)
 	..()
 	return
-
 
 /datum/reagent/simethicone
 	name = "Simethicone"
@@ -878,7 +882,6 @@ datum/reagent/insulin/on_mob_life(var/mob/living/M as mob)
 	result = "simethicone"
 	required_reagents = list("hydrogen" = 1, "chlorine" = 1, "silicon" = 1, "oxygen" = 1)
 	result_amount = 4
-
 
 datum/reagent/teporone
 	name = "Teporone"
@@ -946,7 +949,6 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	result_amount = 4
 	mix_message = "The chemicals mix into an odd pink slush."
 
-
 /datum/reagent/ether
 	name = "Ether"
 	id = "ether"
@@ -1013,8 +1015,8 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 		M.confused = max(0, M.confused-5)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
-				//Flushes lube and ultra-lube even faster than other chems
+			if(R.id == "ultralube" || R.id == "lube" || R.id == "synthanol")
+				//Flushes lube, ultra-lube and pure synthanol even faster than other chems
 				M.reagents.remove_reagent(R.id, 5)
 			else
 				M.reagents.remove_reagent(R.id,1)
@@ -1043,7 +1045,6 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	result_amount = 3
 	min_temp = 370
 	mix_message = "The solution gently swirls with a metallic sheen."
-
 
 datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"
