@@ -3,8 +3,7 @@
 
 /datum/recipe/grill/bacon
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/cutlet,
-		/obj/item/weapon/reagent_containers/food/snacks/cutlet
+		/obj/item/weapon/reagent_containers/food/snacks/raw_bacon,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/bacon
 
@@ -92,7 +91,7 @@
 
 /datum/recipe/grill/cutlet
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/rawcutlet
+		/obj/item/weapon/reagent_containers/food/snacks/sliceable/rawcutlet
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/cutlet
 
