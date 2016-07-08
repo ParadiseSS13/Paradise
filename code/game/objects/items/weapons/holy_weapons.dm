@@ -328,21 +328,19 @@
 	user.faction |= "carp"
 	used_blessing = TRUE
 
-/obj/item/weapon/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
+/obj/item/weapon/nullrod/bostaff
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	w_class = 4
 	force = 15
 	slot_flags = SLOT_BACK
-	sharp = 0
-	edge = 0
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
 
-/obj/item/weapon/nullrod/claymore/bostaff/IsShield()
+/obj/item/weapon/nullrod/bostaff/IsShield()
 	if(prob(40))
 		return 1
 	else
