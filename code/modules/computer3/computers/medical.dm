@@ -50,7 +50,7 @@
 		if(!interactable())
 			return
 		if (computer.z > 6)
-			to_chat(usr, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
+			to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 		var/dat
 

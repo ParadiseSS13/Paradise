@@ -37,7 +37,7 @@
 
 /obj/item/weapon/extinguisher/examine(mob/user)
 	if(..(user, 0))
-		to_chat(usr, "\icon[src] [src.name] contains:")
+		to_chat(usr, "[bicon(src)] [src.name] contains:")
 		if(reagents && reagents.reagent_list.len)
 			for(var/datum/reagent/R in reagents.reagent_list)
 				to_chat(user, "\blue [R.volume] units of [R.name]")

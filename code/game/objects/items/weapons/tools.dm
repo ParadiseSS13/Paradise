@@ -119,7 +119,7 @@
 		item_state = "cutters_yellow"
 
 /obj/item/weapon/wirecutters/attack(mob/living/carbon/human/C as mob, mob/user as mob)
-	if(C.handcuffed)
+	if(istype(C) && C.handcuffed)
 		if(istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
 			usr.visible_message("\The [usr] cuts \the [C]'s restraints with \the [src]!",\
 			"You cut \the [C]'s restraints with \the [src]!",\
@@ -345,7 +345,7 @@
 		if(!message)
 			to_chat(user, "<span class='notice'>You switch [src] off.</span>")
 		else
-			to_chat(user, "<span class='warning'>[src] shuts off!</span>")
+			visible_message("<span class='warning'>[src] shuts off!</span>")
 		force = 3
 		damtype = "brute"
 		hitsound = "swing_hit"

@@ -26,10 +26,12 @@
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/facehugger
+	var/default_atmos_requirements = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/pet/corgi/New()
 	..()
+	default_atmos_requirements = src.atmos_requirements
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/corgi/Life()
@@ -118,6 +120,9 @@
 					emote_see = list("shakes its head", "shivers")
 					desc = "It's a corgi."
 					set_light(0)
+					flags &= ~NO_BREATHE
+					atmos_requirements = default_atmos_requirements
+					minbodytemp = initial(minbodytemp)
 					inventory_head.loc = src.loc
 					inventory_head = null
 					regenerate_icons()
@@ -353,6 +358,9 @@
 				name = "Space Explorer [real_name]"
 				desc = "That's one small step for a corgi. One giant yap for corgikind."
 				valid = 1
+				flags |= NO_BREATHE
+				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+				minbodytemp = 0
 
 			if(/obj/item/clothing/mask/fakemoustache)
 				name = "Definitely Not [real_name]"

@@ -88,7 +88,7 @@
 			for(var/job in restricted_jobs)
 				if(player.assigned_role == job)
 					possible_traitors -= player
-			if(player.current) // Remove loyalty implanted mobs from the list
+			if(player.current) // Remove mindshield-implanted mobs from the list
 				if(ishuman(player.current))
 					var/mob/living/carbon/human/H = player.current
 					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
@@ -133,12 +133,12 @@
 					equip_traitor(newtraitor)
 
 				traitors += newtraitor.mind
-				to_chat(newtraitor, "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 				to_chat(newtraitor, "<B>You are now a traitor.</B>")
 				newtraitor.mind.special_role = "traitor"
 				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 				tatorhud.join_hud(newtraitor)
-				set_antag_hud(src, "hudsyndicate")
+				set_antag_hud(newtraitor, "hudsyndicate")
 
 				var/obj_count = 1
 				to_chat(newtraitor, "\blue Your current objectives:")

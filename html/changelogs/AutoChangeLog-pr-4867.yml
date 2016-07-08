@@ -1,0 +1,10 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - imageadd: "Adds improved Vox mask/goggle sprites."
+  - imageadd: "Adds Vox-compatible versions of most suits."
+  - rscadd: "Adds species-fitting and icon override handling to clothing accessories and suit collars."
+  - rscadd: "You can now open/close Clown Officer and Soldier coats."
+  - rscadd: "Adds by-species tail hiding."
+  - tweak: "Tidies up and refactors the way the Captain's space helmet shows Vox hair but hides every other species'."
+  - bugfix: "Reactive armour's sprite will now update as soon as you turn it on/off or EMP it."

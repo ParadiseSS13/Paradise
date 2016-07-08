@@ -37,7 +37,7 @@
 		to_chat(user, "\red There is nothing on the [src].")
 
 /obj/machinery/bunsen_burner/proc/try_heating()
-	src.visible_message("\blue \icon[src] [src] hisses.")
+	src.visible_message("\blue [bicon(src)] [src] hisses.")
 	if(held_container && heating)
 		heated = 1
 		held_container.reagents.handle_reactions()
