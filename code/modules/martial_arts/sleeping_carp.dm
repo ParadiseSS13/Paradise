@@ -113,7 +113,7 @@
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	add_to_streak("H",D)
-	if((A.mind in ticker.mode.vampires)&(A.zone_sel.selecting == "head"))
+	if ((A.mind in ticker.mode.vampires) && (A.zone_sel.selecting == "head"))
 		return 0
 	if(check_streak(A,D))
 		return 1
