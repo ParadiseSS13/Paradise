@@ -1,3 +1,8 @@
 //can't unequip since it can't equip anything
-/mob/living/carbon/alien/larva/unEquip(obj/item/W as obj)
-	return
+mob
+	living
+		carbon
+			alien
+				larva
+					unEquip(obj/item/W as obj)
+						return
