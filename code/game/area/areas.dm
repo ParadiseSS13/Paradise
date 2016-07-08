@@ -19,6 +19,8 @@
 
 
 /area/New()
+
+	..()
 	icon_state = ""
 	layer = 10
 	uid = ++global_uid
@@ -34,14 +36,11 @@
 //		lighting_state = 4
 		//has_gravity = 0    // Space has gravity.  Because.. because.
 
-	if(!requires_power)
+	if(requires_power != 0)
 		power_light = 0			//rastaf0
 		power_equip = 0			//rastaf0
 		power_environ = 0		//rastaf0
 
-	..()
-
-//	spawn(15)
 	power_change()		// all machines set to current power level, also updates lighting icon
 
 /area/proc/get_cameras()

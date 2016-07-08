@@ -8,7 +8,7 @@
 /obj/effect/landmark/New()
 
 	..()
-	tag = text("landmark*[]", name)
+	set_tag()
 	invisibility = 101
 
 	switch(name)			//some of these are probably obsolete
@@ -105,18 +105,19 @@
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
+/obj/effect/landmark/proc/set_tag()
+	tag = text("landmark*[]", name)
+
+
 /obj/effect/landmark/start
 	name = "start"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	anchored = 1.0
 
-/obj/effect/landmark/start/New()
-	..()
+/obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
-	invisibility = 101
 
-	return 1
 
 //Costume spawner landmarks
 

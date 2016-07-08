@@ -156,7 +156,7 @@
 		qdel(L)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE)
 	if(!path)
 		return
 	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
@@ -169,7 +169,6 @@
 
 	if(air_master)
 		air_master.remove_from_active(src)
-
 	var/turf/W = new path(src)
 	if(!defer_change)
 		W.AfterChange()

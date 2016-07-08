@@ -63,6 +63,7 @@
 	efficiency = C
 
 /obj/machinery/atmospherics/unary/cryo_cell/initialize()
+	..()
 	if(node) return
 	for(var/cdir in cardinal)
 		node = findConnecting(cdir)

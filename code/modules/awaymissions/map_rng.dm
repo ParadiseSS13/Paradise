@@ -24,6 +24,9 @@
 	if(template)
 		load(template)
 
+/obj/effect/landmark/map_loader/set_tag()
+	return
+
 /obj/effect/landmark/map_loader/proc/load(datum/map_template/t)
 	if(!t)
 		return

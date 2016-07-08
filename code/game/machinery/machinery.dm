@@ -119,7 +119,8 @@ Class Procs:
 
 /obj/machinery/initialize()
 	addAtProcessing()
-	return ..()
+	. = ..()
+	power_change()
 
 /obj/machinery/proc/addAtProcessing()
 	if (use_power)

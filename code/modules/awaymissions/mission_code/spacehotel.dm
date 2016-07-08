@@ -80,11 +80,11 @@
 	var/datum/map_template/M = safepick(dir == NORTH ? north_room_templates : south_room_templates)
 	if(M)
 		template = M
-		load(M)
 		if(dir == NORTH)
 			north_room_templates -= M
 		else
 			south_room_templates -= M
+		load(M)
 
 // The door to a hotel room, but also metadata for the room itself
 /obj/machinery/door/unpowered/hotel_door

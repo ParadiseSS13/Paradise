@@ -9,6 +9,7 @@
 	var/dye_color = "#FFFFFF"
 
 /obj/machinery/dye_generator/initialize()
+	..()
 	power_change()
 
 /obj/machinery/dye_generator/power_change()

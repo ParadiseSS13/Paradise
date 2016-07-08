@@ -135,6 +135,7 @@ obj/machinery/door/airlock/proc/set_frequency(new_frequency)
 
 
 obj/machinery/door/airlock/initialize()
+	..()
 	if(frequency)
 		set_frequency(frequency)
 

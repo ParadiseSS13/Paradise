@@ -26,7 +26,7 @@
 
 	// If you're wondering what goofery this is, this is for things that need the environment
 	// around them set up - like `air_update_turf` and the like
-	if(auto_init && (ticker && ticker.current_state == GAME_STATE_PLAYING))
+	if((ticker && ticker.current_state == GAME_STATE_PLAYING))
 		attempt_init()
 
 /atom/movable/Destroy()
@@ -46,7 +46,7 @@
 	var/turf/T = get_turf(src)
 	if (T && zlevels.is_zlevel_dirty(T.z))
 		zlevels.postpone_init(T.z, src)
-	else
+	else if(auto_init)
 		initialize()
 
 /atom/movable/proc/initialize()

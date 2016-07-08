@@ -91,11 +91,12 @@ var/global/dmm_suite/preloader/_preloader = new
 				var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
 				var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
 
-				if(zcrd > world.maxz)
-					if(cropMap)
-						continue
-					else
-						zlevels.increase_max_zlevel_to(zcrd) //create a new z_level if needed
+				if(!measureOnly)
+					if(zcrd > world.maxz)
+						if(cropMap)
+							continue
+						else
+							zlevels.increase_max_zlevel_to(zcrd) //create a new z_level if needed
 
 				bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrdStart)
 				bounds[MAP_MINZ] = min(bounds[MAP_MINZ], zcrd)
@@ -259,6 +260,8 @@ var/global/dmm_suite/preloader/_preloader = new
 
 	//first instance the /area and remove it from the members list
 	index = members.len
+
+	var/turf/crds = locate(xcrd,ycrd,zcrd)
 	if(members[index] != /area/template_noop)
 		// We assume `members[index]` is an area path, as above, yes? I will operate
 		// on that assumption.
@@ -269,7 +272,6 @@ var/global/dmm_suite/preloader/_preloader = new
 		_preloader.setup(members_attributes[index])//preloader for assigning  set variables on atom creation
 		instance = LM.area_path_to_real_area(members[index])
 
-		var/turf/crds = locate(xcrd,ycrd,zcrd)
 		if(crds)
 			instance.contents.Add(crds)
 
@@ -317,7 +319,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/turf/T = locate(x,y,z)
 	if(T)
 		if(ispath(path, /turf))
-			T.ChangeTurf(path, 1)
+			T.ChangeTurf(path, 1, 0)
 			instance = T
 		else if(ispath(path, /area))
 

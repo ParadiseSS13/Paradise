@@ -35,6 +35,19 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	log_debug("\tTook [stop_watch(subtimer)]s")
 	log_debug("Late setup finished - took [stop_watch(total_timer)]s")
 
+/proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
+	var/timer = start_watch()
+	log_debug("Emptying region: ([low_x], [low_y]) to ([hi_x], [hi_y]) on z '[z]'")
+	empty_region(block(locate(low_x, low_y, z), locate(hi_x, hi_y, z)))
+	log_debug("Took [stop_watch(timer)]s")
+
+/proc/empty_region(list/turfs)
+	for(var/thing in turfs)
+		var/turf/T = thing
+		for(var/otherthing in T)
+			qdel(otherthing)
+		T.ChangeTurf(/turf/space)
+
 /proc/createRandomZlevel()
 	if(awaydestinations.len)	//crude, but it saves another var!
 		return
