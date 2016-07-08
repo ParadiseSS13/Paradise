@@ -296,7 +296,7 @@
 		//meh
 		switch(mode)
 			if(0)
-				if (istype(target, /turf/simulated/wall))
+				if(istype(target, /turf/simulated/wall))
 					if(istype(target, /turf/simulated/wall/r_wall) && !canRwall)
 						return 0
 					occupant_message("Deconstructing [target]...")
@@ -306,7 +306,7 @@
 						target:ChangeTurf(/turf/simulated/floor/plating)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.use_power(energy_drain)
-				else if (istype(target, /turf/simulated/floor))
+				else if(istype(target, /turf/simulated/floor))
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
@@ -314,7 +314,7 @@
 						target:ChangeTurf(/turf/space)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.use_power(energy_drain)
-				else if (istype(target, /obj/machinery/door/airlock))
+				else if(istype(target, /obj/machinery/door/airlock))
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))

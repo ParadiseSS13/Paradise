@@ -47,7 +47,7 @@
 		if(1 to 20)
 			//nothing
 		if(21 to INFINITY)
-			if (prob(data-10))
+			if(prob(data-10))
 				M.disabilities &= ~NEARSIGHTED
 	data++
 	return

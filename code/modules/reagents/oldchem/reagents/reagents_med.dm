@@ -25,7 +25,7 @@
 
 	//makes you squeaky clean
 /datum/reagent/sterilizine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-	if (method == TOUCH)
+	if(method == TOUCH)
 		M.germ_level -= min(volume*20, M.germ_level)
 
 /datum/reagent/sterilizine/reaction_obj(var/obj/O, var/volume)

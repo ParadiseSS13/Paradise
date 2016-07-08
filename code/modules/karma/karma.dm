@@ -182,7 +182,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	dat += "<HR>"
 
 	switch(karma_tab)
-		if (0) // Job Unlocks
+		if(0) // Job Unlocks
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
@@ -193,7 +193,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
 			"}
 
-		if (1) // Species Unlocks
+		if(1) // Species Unlocks
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
@@ -204,7 +204,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
 			"}
 
-		if (2) // Karma Refunds
+		if(2) // Karma Refunds
 			var/list/refundable = list()
 			var/list/purchased = checkpurchased()
 			if("Tajaran Ambassador" in purchased)

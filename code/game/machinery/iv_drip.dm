@@ -58,7 +58,7 @@
 
 
 /obj/machinery/iv_drip/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/reagent_containers))
+	if(istype(W, /obj/item/weapon/reagent_containers))
 		if(!isnull(src.beaker))
 			to_chat(user, "There is already a reagent container loaded!")
 			return
@@ -124,7 +124,7 @@
 
 			var/datum/reagent/B = T.take_blood(beaker,amount)
 
-			if (B)
+			if(B)
 				beaker.reagents.reagent_list |= B
 				beaker.reagents.update_total()
 				beaker.on_reagent_change()
@@ -159,7 +159,7 @@
 
 /obj/machinery/iv_drip/examine(mob/user)
 	..(user)
-	if (!(user in view(2)) && usr != src.loc) return
+	if(!(user in view(2)) && usr != src.loc) return
 
 	to_chat(usr, "The IV drip is [mode ? "injecting" : "taking blood"].")
 

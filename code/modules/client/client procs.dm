@@ -210,7 +210,7 @@
 
 
 	switch(href_list["action"])
-		if ("openLink")
+		if("openLink")
 			src << link(href_list["link"])
 
 	..()	//redirect to hsrc.Topic()
@@ -321,8 +321,8 @@
 
 	log_client_to_db()
 
-	if (ckey in clientmessages)
-		for (var/message in clientmessages[ckey])
+	if(ckey in clientmessages)
+		for(var/message in clientmessages[ckey])
 			to_chat(src, message)
 		clientmessages.Remove(ckey)
 
@@ -362,7 +362,7 @@
 
 /client/proc/log_client_to_db()
 
-	if ( IsGuestKey(src.key) )
+	if( IsGuestKey(src.key) )
 		return
 
 	establish_db_connection()

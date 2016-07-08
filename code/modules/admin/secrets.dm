@@ -14,7 +14,7 @@
 	dat += "</center>"
 	dat += "<HR>"
 	switch(current_tab)
-		if (0) // Debug
+		if(0) // Debug
 			if(check_rights(R_ADMIN,0))
 				dat += {"
 						<center><B><h2>Admin Secrets</h2></B>
@@ -67,7 +67,7 @@
 					</center>
 					"}
 
-		if (1)
+		if(1)
 			if(check_rights((R_EVENT|R_SERVER),0))
 				dat += {"
 					<center>
@@ -86,7 +86,7 @@
 					<BR>
 					</center>"}
 
-		if (2)
+		if(2)
 			if(check_rights((R_SERVER|R_EVENT),0))
 				dat += {"
 					<center>

@@ -5,10 +5,10 @@
 // Pads 0s to t until length == u
 /proc/add_zero2(t, u)
 	var/temp1
-	while (length(t) < u)
+	while(length(t) < u)
 		t = "0[t]"
 	temp1 = t
-	if (length(t) > u)
+	if(length(t) > u)
 		temp1 = copytext(t,2,u+1)
 	return temp1
 
@@ -63,15 +63,15 @@
 /proc/miniscramble(input,rs,rd)
 	var/output
 	output = null
-	if (input == "C" || input == "D" || input == "E" || input == "F")
+	if(input == "C" || input == "D" || input == "E" || input == "F")
 		output = pick(prob((rs*10));"4",prob((rs*10));"5",prob((rs*10));"6",prob((rs*10));"7",prob((rs*5)+(rd));"0",prob((rs*5)+(rd));"1",prob((rs*10)-(rd));"2",prob((rs*10)-(rd));"3")
-	if (input == "8" || input == "9" || input == "A" || input == "B")
+	if(input == "8" || input == "9" || input == "A" || input == "B")
 		output = pick(prob((rs*10));"4",prob((rs*10));"5",prob((rs*10));"A",prob((rs*10));"B",prob((rs*5)+(rd));"C",prob((rs*5)+(rd));"D",prob((rs*5)+(rd));"2",prob((rs*5)+(rd));"3")
-	if (input == "4" || input == "5" || input == "6" || input == "7")
+	if(input == "4" || input == "5" || input == "6" || input == "7")
 		output = pick(prob((rs*10));"4",prob((rs*10));"5",prob((rs*10));"A",prob((rs*10));"B",prob((rs*5)+(rd));"C",prob((rs*5)+(rd));"D",prob((rs*5)+(rd));"2",prob((rs*5)+(rd));"3")
-	if (input == "0" || input == "1" || input == "2" || input == "3")
+	if(input == "0" || input == "1" || input == "2" || input == "3")
 		output = pick(prob((rs*10));"8",prob((rs*10));"9",prob((rs*10));"A",prob((rs*10));"B",prob((rs*10)-(rd));"C",prob((rs*10)-(rd));"D",prob((rs*5)+(rd));"E",prob((rs*5)+(rd));"F")
-	if (!output) output = "5"
+	if(!output) output = "5"
 	return output
 
 // HELLO I MAKE BELL CURVES AROUND YOUR DESIRED TARGET
@@ -161,7 +161,7 @@
 
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
-		if (dna.GetUIState(DNA_UI_GENDER))
+		if(dna.GetUIState(DNA_UI_GENDER))
 			H.change_gender(FEMALE, 0)
 		else
 			H.change_gender(MALE, 0)
@@ -196,7 +196,3 @@
 		return 1
 	else
 		return 0
-
-// Used below, simple injection modifier.
-/proc/probinj(var/pr, var/inj)
-	return prob(pr+inj*pr)

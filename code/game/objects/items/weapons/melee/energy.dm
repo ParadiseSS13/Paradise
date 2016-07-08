@@ -19,7 +19,7 @@
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
 	active = !active
-	if (active)
+	if(active)
 		force = force_on
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/blade1.ogg'
