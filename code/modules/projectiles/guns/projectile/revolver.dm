@@ -68,6 +68,7 @@
 		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
 		C.spin()
 		chamber_round(0)
+		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
 		usr.visible_message("[usr] spins [src]'s chamber.", "<span class='notice'>You spin [src]'s chamber.</span>")
 	else
 		verbs -= /obj/item/weapon/gun/projectile/revolver/verb/spin
