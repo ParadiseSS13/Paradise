@@ -8,38 +8,57 @@
 	it is possible to have a function definition inside of any type of block (such as in an if statement or another function),
 	and not just in the global scope as in many languages.
 */
-/datum/node/BlockDefinition
-	var/list/statements = new
-	var/list/functions  = new
-	var/list/initial_variables = new
-
+datum
+	node
+		BlockDefinition
+			var
+				list
+					statements = new
+			var
+				list
+					functions  = new
+			var
+				list
+					initial_variables = new
+
 /*
 	Proc: SetVar
 	Defines a permanent variable. The variable will not be deleted when it goes out of scope.
-
+
 	Notes:
 	Since all pre-existing temporary variables are deleted, it is not generally desirable to use this proc after the interpreter has been instantiated.
 	Instead, use <n_Interpreter.SetVar()>.
-
+
 	See Also:
 	- <n_Interpreter.SetVar()>
 */
-/datum/node/BlockDefinition/proc/SetVar(name, value)
-	initial_variables[name] = value
-
-
+datum
+	node
+		BlockDefinition
+			proc
+				SetVar(name, value)
+					initial_variables[name] = value
+
+
 /*
 	Class: GlobalBlock
 	A block object representing the global scope.
 */
 //
-/datum/node/BlockDefinition/GlobalBlock/New()
-	initial_variables["null"] = null
-	return ..()
-
+datum
+	node
+		BlockDefinition
+			GlobalBlock
+				New()
+					initial_variables["null"] = null
+					return ..()
+
 /*
 	Class: FunctionBlock
 	A block representing a function body.
 */
 //
-/datum/node/BlockDefinition/FunctionBlock
+datum
+	node
+		BlockDefinition
+			FunctionBlock
