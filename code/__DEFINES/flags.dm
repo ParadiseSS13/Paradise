@@ -8,28 +8,28 @@
 #define CONDUCT					64		// conducts electricity (metal etc.)
 #define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define ON_BORDER				256		// item has priority to check when entering or leaving
-
+
 #define GLASSESCOVERSEYES		1024
 #define MASKCOVERSEYES			1024	// get rid of some of the other retardation in these flags
 #define HEADCOVERSEYES			1024	// feel free to realloc these numbers for other purposes
 #define MASKCOVERSMOUTH			2048	// on other items, these are just for mask/head
 #define HEADCOVERSMOUTH			2048
-
+
 #define HEADBANGPROTECT			4096
 #define EARBANGPROTECT			1024
-
+
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
-
+
 #define OPENCONTAINER			4096	// is an open container for chemistry purposes
-
+
 #define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
 #define THICKMATERIAL 			8192	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
-
-
+
+
 #define	NOREACT					16384 	//Reagents dont' react inside this container.
-
+
 //Species flags.
-
+
 #define NO_BLOOD		1
 #define NO_BREATHE 		2
 #define NO_DNA			4
@@ -44,12 +44,12 @@
 #define RADIMMUNE		2048
 #define ALL_RPARTS		4096
 #define NOGUNS			8192
-
+
 //Species clothing flags
 #define HAS_UNDERWEAR 	1
 #define HAS_UNDERSHIRT 	2
 #define HAS_SOCKS		4
-
+
 //Species Body Flags
 #define FEET_CLAWS			1
 #define FEET_PADDED			2
@@ -64,30 +64,30 @@
 #define TAIL_WAGGING    	1024
 #define NO_EYES				2048
 #define HAS_FUR				4096
-
+
 //Species Diet Flags
 #define DIET_CARN		1
 #define DIET_OMNI		2
 #define DIET_HERB		4
-
-
+
+
 //bitflags for door switches.
 #define OPEN	1
 #define IDSCAN	2
 #define BOLTS	4
 #define SHOCK	8
 #define SAFE	16
-
+
 //flags for pass_flags
 #define PASSTABLE	1
 #define PASSGLASS	2
 #define PASSGRILLE	4
 #define PASSBLOB	8
 #define PASSMOB		16
-
+
 //turf-only flags
 #define NOJAUNT		1
-
+
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_OCLOTHING 1
 #define SLOT_ICLOTHING 2
@@ -105,7 +105,7 @@
 #define SLOT_TWOEARS 8192
 #define SLOT_PDA 16384
 #define SLOT_TIE 32768
-
+
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
 #define AFFECT_ORGANIC_ORGAN	2

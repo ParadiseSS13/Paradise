@@ -1,4 +1,4 @@
-
+
 // for secHUDs and medHUDs and variants. The number is the location of the image on the list hud_list
 // note: if you add more HUDs, even for non-human atoms, make sure to use unique numbers for the defines!
 // /datum/atom_hud expects these to be unique
@@ -16,11 +16,11 @@
 #define DIAG_MECH_HUD	"11"// Mech health bar
 #define STATUS_HUD_OOC	"12"// STATUS_HUD without virus db check for someone being ill.
 #define DIAG_BOT_HUD	"13"// Bot HUDS
-
+
 //for antag huds. these are used at the /mob level
 #define SPECIALROLE_HUD 		"13"
 #define NATIONS_HUD		"14" //Show nations icons during nations gamemode
-
+
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!
 #define DATA_HUD_SECURITY_BASIC		1

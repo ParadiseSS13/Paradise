@@ -1,2 +1,4 @@
-/datum/alarm_handler/burglar
-	category = "Burglar Alarms"
+datum
+	alarm_handler
+		burglar
+			category = "Burglar Alarms"

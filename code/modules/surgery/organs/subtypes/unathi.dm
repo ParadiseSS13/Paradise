@@ -1,3 +1,8 @@
-/obj/item/organ/internal/liver/unathi
-	alcohol_intensity = 0.8
-	species = "Unathi"
+obj
+	item
+		organ
+			internal
+				liver
+					unathi
+						alcohol_intensity = 0.8
+						species = "Unathi"

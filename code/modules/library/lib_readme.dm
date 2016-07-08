@@ -3,7 +3,7 @@
 //	Library SQL Configuration
 //
 //*******************************
-
+
 // Deprecated! See global.dm for new SQL config vars -- TLE
 /*
 #define SQL_ADDRESS ""
@@ -12,28 +12,28 @@
 #define SQL_LOGIN ""
 #define SQL_PASS ""
 */
-
+
 //*******************************
 // Requires Dantom.DB library ( http://www.byond.com/developer/Dantom/DB )
-
-
+
+
 /*
-   The Library
-   ------------
-   A place for the crew to go, relax, and enjoy a good book.
-   Aspiring authors can even self publish and, if they're lucky
-   convince the on-staff Librarian to submit it to the Archives
-   to be chronicled in history forever - some say even persisting
-   through alternate dimensions.
-
-
-   Written by TLE for /tg/station 13
-   Feel free to use this as you like. Some credit would be cool.
-   Check us out at http://nanotrasen.com/ if you're so inclined.
+			The Library
+			------------
+			A place for the crew to go, relax, and enjoy a good book.
+			Aspiring authors can even self publish and, if they're lucky
+			convince the on-staff Librarian to submit it to the Archives
+			to be chronicled in history forever - some say even persisting
+			through alternate dimensions.
+
+
+			Written by TLE for /tg/station 13
+			Feel free to use this as you like. Some credit would be cool.
+			Check us out at http://nanotrasen.com/ if you're so inclined.
 */
-
+
 // CONTAINS:
-
+
 // Objects:
 //  - bookcase
 //  - book
@@ -45,8 +45,8 @@
 //  - book scanner
 // Datum:
 //	- borrowbook
-
-
+
+
 // Ideas for the future
 // ---------------------
 // 	- Visitor's computer should be able to search the current in-round library inventory (that the Librarian has stocked and checked in)

@@ -1,6 +1,6 @@
 //Misc
 #define DEAD_PLANT_COLOUR "#C2A180"
-
+
 // Definitions for genes (trait groupings)
 #define GENE_BIOCHEMISTRY "biochemistry"
 #define GENE_HARDINESS "hardiness"
@@ -14,9 +14,9 @@
 #define GENE_VIGOUR "vigour"
 #define GENE_FRUIT "fruit"
 #define GENE_SPECIAL "special"
-
+
 #define ALL_GENES list(GENE_BIOCHEMISTRY,GENE_HARDINESS,GENE_ENVIRONMENT,GENE_METABOLISM,GENE_STRUCTURE,GENE_DIET,GENE_PIGMENT,GENE_OUTPUT,GENE_ATMOSPHERE,GENE_VIGOUR,GENE_FRUIT,GENE_SPECIAL)
-
+
 //Definitions for traits (individual descriptors)
 #define TRAIT_CHEMS                1
 #define TRAIT_EXUDE_GASSES         2

@@ -1,5 +1,8 @@
 /*
 Creature-level abilities.
 */
-
-/var/global/list/ability_verbs = list(	)
+
+var
+	global
+		list
+			ability_verbs = list(	)

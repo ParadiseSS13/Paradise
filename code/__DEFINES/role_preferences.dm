@@ -1,9 +1,9 @@
-
-
+
+
 //Values for antag preferences, event roles, etc. unified here
-
-
-
+
+
+
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
 // If you're adding a new role, remember to update modules/admin/topic.dm, so admins can dish out
@@ -39,23 +39,26 @@
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
-
-
+
+
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
 //(in game days played) to play that role
-var/global/list/special_roles = list(
-	ROLE_TRAITOR = /datum/game_mode/traitor,
-	ROLE_OPERATIVE = /datum/game_mode/nuclear,
-	ROLE_CHANGELING = /datum/game_mode/changeling,
-	ROLE_WIZARD = /datum/game_mode/wizard,
-	ROLE_MALF = /datum/game_mode/malfunction,
-	ROLE_REV = /datum/game_mode/revolution,
-	ROLE_ALIEN,
-	ROLE_PAI,
-	ROLE_CULTIST = /datum/game_mode/cult,
-	ROLE_BLOB = /datum/game_mode/blob,
-	ROLE_NINJA,
+var
+	global
+		list
+			special_roles = list(
+				ROLE_TRAITOR = /datum/game_mode/traitor,
+				ROLE_OPERATIVE = /datum/game_mode/nuclear,
+				ROLE_CHANGELING = /datum/game_mode/changeling,
+				ROLE_WIZARD = /datum/game_mode/wizard,
+				ROLE_MALF = /datum/game_mode/malfunction,
+				ROLE_REV = /datum/game_mode/revolution,
+				ROLE_ALIEN,
+				ROLE_PAI,
+				ROLE_CULTIST = /datum/game_mode/cult,
+				ROLE_BLOB = /datum/game_mode/blob,
+				ROLE_NINJA,
 //	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported
 //	ROLE_GANG = /datum/game_mode/gang,
 	ROLE_SHADOWLING = /datum/game_mode/shadowling,

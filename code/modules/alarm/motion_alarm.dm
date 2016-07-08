@@ -1,2 +1,4 @@
-/datum/alarm_handler/motion
-	category = "Motion Alarms"
+datum
+	alarm_handler
+		motion
+			category = "Motion Alarms"
