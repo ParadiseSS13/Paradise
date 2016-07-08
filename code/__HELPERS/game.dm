@@ -9,30 +9,30 @@ proc
 		src:temphtml = null
 		src:Topic(href, href_list)
 		return null
-
+
 proc
 	get_area_master(const/O)
 		var
 			area
 				A = get_area(O)
-
+
 		if(isarea(A))
 			return A
-
+
 proc
 	get_area(atom/A)
 		if(!istype(A))
 			return
 		for(A, A && !isarea(A), A=A.loc); //semicolon is for the empty statement
 		return A
-
+
 proc
 	get_area_name(N) //get area by its name
 		for(var/area/A in world)
 			if(A.name == N)
 				return A
 		return 0
-
+
 proc
 	get_areas_in_range(dist=0, atom/center=usr)
 		if(!dist)
@@ -42,7 +42,7 @@ proc
 			return T ? list(T.loc) : list()
 		if(!center)
 			return list()
-
+
 		var
 			list
 				turfs = RANGE_TURFS(dist, center)
@@ -55,26 +55,26 @@ proc
 					T = V
 			areas |= T.loc
 		return areas
-
+
 // Like view but bypasses luminosity check
-
+
 proc
 	hear(var/range, var/atom/source)
-
+
 		var
 			lum = source.luminosity
 		source.luminosity = 6
-
+
 		var
 			list
 				heard = view(range, source)
 		source.luminosity = lum
-
+
 		return heard
-
+
 proc
 	circlerange(center=usr,radius=3)
-
+
 		var
 			turf
 				centerturf = get_turf(center)
@@ -83,7 +83,7 @@ proc
 				turfs = new/list()
 		var
 			rsq = radius * (radius+0.5)
-
+
 		for(var/atom/T in range(radius, centerturf))
 			var
 				dx = T.x - centerturf.x
@@ -91,13 +91,13 @@ proc
 				dy = T.y - centerturf.y
 			if(dx*dx + dy*dy <= rsq)
 				turfs += T
-
+
 		//turfs += centerturf
 		return turfs
-
+
 proc
 	circleview(center=usr,radius=3)
-
+
 		var
 			turf
 				centerturf = get_turf(center)
@@ -106,7 +106,7 @@ proc
 				atoms = new/list()
 		var
 			rsq = radius * (radius+0.5)
-
+
 		for(var/atom/A in view(radius, centerturf))
 			var
 				dx = A.x - centerturf.x
@@ -114,25 +114,25 @@ proc
 				dy = A.y - centerturf.y
 			if(dx*dx + dy*dy <= rsq)
 				atoms += A
-
+
 		//turfs += centerturf
 		return atoms
-
+
 proc
 	get_dist_euclidian(atom/Loc1 as turf|mob|obj,atom/Loc2 as turf|mob|obj)
 		var
 			dx = Loc1.x - Loc2.x
 		var
 			dy = Loc1.y - Loc2.y
-
+
 		var
 			dist = sqrt(dx**2 + dy**2)
-
+
 		return dist
-
+
 proc
 	circlerangeturfs(center=usr,radius=3)
-
+
 		var
 			turf
 				centerturf = get_turf(center)
@@ -141,7 +141,7 @@ proc
 				turfs = new/list()
 		var
 			rsq = radius * (radius+0.5)
-
+
 		for(var/turf/T in range(radius, centerturf))
 			var
 				dx = T.x - centerturf.x
@@ -150,10 +150,10 @@ proc
 			if(dx*dx + dy*dy <= rsq)
 				turfs += T
 		return turfs
-
+
 proc
 	circleviewturfs(center=usr,radius=3)		//Is there even a diffrence between this proc and circlerangeturfs()?
-
+
 		var
 			turf
 				centerturf = get_turf(center)
@@ -162,7 +162,7 @@ proc
 				turfs = new/list()
 		var
 			rsq = radius * (radius+0.5)
-
+
 		for(var/turf/T in view(radius, centerturf))
 			var
 				dx = T.x - centerturf.x
@@ -171,23 +171,23 @@ proc
 			if(dx*dx + dy*dy <= rsq)
 				turfs += T
 		return turfs
-
-
-
+
+
+
 //var/debug_mob = 0
-
+
 // Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
 // It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
 // being unable to hear people due to being in a box within a bag.
-
+
 proc
 	recursive_mob_check(var/atom/O,  var/list/L = list(), var/recursion_limit = 3, var/client_check = 1, var/sight_check = 1, var/include_radio = 1)
-
+
 		//debug_mob += O.contents.len
 		if(!recursion_limit)
 			return L
 		for(var/atom/A in O.contents)
-
+
 			if(ismob(A))
 				var
 					mob
@@ -199,37 +199,37 @@ proc
 					continue
 				L |= M
 				//log_to_dd("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-
+
 			else if(include_radio && istype(A, /obj/item/device/radio))
 				if(sight_check && !isInSight(A, O))
 					continue
 				L |= A
-
+
 			if(isobj(A) || ismob(A))
 				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
 		return L
-
+
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
-
+
 proc
 	get_mobs_in_view(var/R, var/atom/source)
 		// Returns a list of mobs in range of R from source. Used in radio and say code.
-
+
 		var
 			turf
 				T = get_turf(source)
 		var
 			list
 				hear = list()
-
+
 		if(!T)
 			return hear
-
+
 		var
 			list
 				range = hear(R, T)
-
+
 		for(var/atom/A in range)
 			if(ismob(A))
 				var
@@ -240,18 +240,18 @@ proc
 				//log_to_dd("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 			else if(istype(A, /obj/item/device/radio))
 				hear += A
-
+
 			if(isobj(A) || ismob(A))
 				hear |= recursive_mob_check(A, hear, 3, 1, 0, 1)
-
+
 		return hear
-
-
+
+
 proc
 	get_mobs_in_radio_ranges(var/list/obj/item/device/radio/radios)
-
+
 		set background = 1
-
+
 		. = list()
 		// Returns a list of mobs who can hear any of the radios given in @radios
 		var
@@ -282,15 +282,15 @@ proc
 						continue //No radio component (Shouldn't happen)
 					if(!borg.is_component_functioning("radio") || !borg.use_power(CO.energy_consumption))
 						continue //No power.
-
+
 				var
 					turf
 						speaker = get_turf(R)
 				if(speaker)
 					for(var/turf/T in hear(R.canhear_range,speaker))
 						speaker_coverage[T] = T
-
-
+
+
 		// Try to find all the players who can hear the message
 		for(var/A in player_list + hear_radio_list)
 			var
@@ -305,7 +305,7 @@ proc
 					if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && (M.client) && (M.client.prefs.toggles & CHAT_GHOSTRADIO)))
 						. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 		return .
-
+
 proc
 	inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
 		var
@@ -343,7 +343,7 @@ proc
 				if(T.opacity)
 					return 0
 		return 1
-
+
 proc
 	isInSight(var/atom/A, var/atom/B)
 		var
@@ -352,12 +352,12 @@ proc
 		var
 			turf
 				Bturf = get_turf(B)
-
+
 		if(!Aturf || !Bturf)
 			return 0
-
+
 		return inLineOfSight(Aturf.x, Aturf.y, Bturf.x, Bturf.y, Aturf.z)
-
+
 proc
 	get_cardinal_step_away(atom/start, atom/finish) //returns the position of a step from start away from finish, in one of the cardinal directions
 		//returns only NORTH, SOUTH, EAST, or WEST
@@ -375,7 +375,7 @@ proc
 				return get_step(start, WEST)
 			else
 				return get_step(start, EAST)
-
+
 proc
 	try_move_adjacent(atom/movable/AM)
 		var
@@ -384,14 +384,14 @@ proc
 		for(var/direction in cardinal)
 			if(AM.Move(get_step(T, direction)))
 				break
-
+
 proc
 	get_mob_by_key(var/key)
 		for(var/mob/M in mob_list)
 			if(M.ckey == lowertext(key))
 				return M
 		return null
-
+
 proc
 	get_candidates(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
 		var
@@ -409,9 +409,9 @@ proc
 								if(override_age || player_old_enough_antag(G.client,be_special_type))
 									candidates += G.client
 			afk_bracket += 600 // Add a minute to the bracket, for every attempt
-
+
 		return candidates
-
+
 proc
 	get_candidate_ghosts(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
 		var
@@ -429,9 +429,9 @@ proc
 								if(override_age || player_old_enough_antag(G.client,be_special_type))
 									candidates += G
 			afk_bracket += 600 // Add a minute to the bracket, for every attempt
-
+
 		return candidates
-
+
 proc
 	ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
 		if(!isobj(O))	O = new /obj/screen/text()
@@ -440,7 +440,7 @@ proc
 		O.maptext_width = maptext_width
 		O.screen_loc = screen_loc
 		return O
-
+
 proc
 	Show2Group4Delay(obj/O, list/group, delay=0)
 		if(!isobj(O))	return
@@ -451,7 +451,7 @@ proc
 			spawn(delay)
 				for(var/client/C in group)
 					C.screen -= O
-
+
 proc
 	flick_overlay(image/I, list/show_to, duration)
 		for(var/client/C in show_to)
@@ -459,7 +459,7 @@ proc
 		spawn(duration)
 			for(var/client/C in show_to)
 				C.images -= I
-
+
 proc
 	get_active_player_count()
 		// Get active players who are playing in the round
@@ -482,7 +482,7 @@ proc
 						continue
 				active_players++
 		return active_players
-
+
 datum
 	projectile_data
 		var
@@ -501,12 +501,11 @@ datum
 			dest_x
 		var
 			dest_y
-
+
 datum
 	projectile_data
 		New(var/src_x, var/src_y, var/time, var/distance, \
-											var
-												power_x, var/power_y, var/dest_x, var/dest_y)
+											var/power_x, var/power_y, var/dest_x, var/dest_y)
 			src.src_x = src_x
 			src.src_y = src_y
 			src.time = time
@@ -515,32 +514,32 @@ datum
 			src.power_y = power_y
 			src.dest_x = dest_x
 			src.dest_y = dest_y
-
+
 proc
 	projectile_trajectory(var/src_x, var/src_y, var/rotation, var/angle, var/power)
-
+
 		// returns the destination (Vx,y) that a projectile shot at [src_x], [src_y], with an angle of [angle],
 		// rotated at [rotation] and with the power of [power]
 		// Thanks to VistaPOWA for this function
-
+
 		var
 			power_x = power * cos(angle)
 		var
 			power_y = power * sin(angle)
 		var
 			time = 2* power_y / 10 //10 = g
-
+
 		var
 			distance = time * power_x
-
+
 		var
 			dest_x = src_x + distance*sin(rotation);
 		var
 			dest_y = src_y + distance*cos(rotation);
-
+
 		return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
-
-
+
+
 proc
 	mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=mob_list)
 		var
@@ -556,19 +555,19 @@ proc
 				continue
 			mobs_found += M
 		return mobs_found
-
+
 proc
 	GetRedPart(const/hexa)
 		return hex2num(copytext(hexa,2,4))
-
+
 proc
 	GetGreenPart(const/hexa)
 		return hex2num(copytext(hexa,4,6))
-
+
 proc
 	GetBluePart(const/hexa)
 		return hex2num(copytext(hexa,6,8))
-
+
 proc
 	GetHexColors(const/hexa)
 		return list(
@@ -576,8 +575,8 @@ proc
 				GetGreenPart(hexa),
 				GetBluePart(hexa)
 		)
-
-
+
+
 proc
 	alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 		var
@@ -591,15 +590,15 @@ proc
 			if(our_area == get_area_master(C))
 				return 0
 		return 1
-
+
 proc
 	MinutesToTicks(var/minutes as num)
 		return minutes * 60 * 10
-
+
 proc
 	SecondsToTicks(var/seconds)
 		return seconds * 10
-
+
 proc
 	pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300)
 		var
@@ -614,7 +613,7 @@ proc
 			time_passed = world.time
 		if(!Question)
 			Question = "Would you like to be a special role?"
-
+
 		for(var/mob/dead/observer/G in player_list)
 			if(!G.key || !G.client)
 				continue
@@ -631,7 +630,7 @@ proc
 				continue
 			spawn(0)
 				G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
-
+
 				switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No"))
 					if("Yes")
 						to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
@@ -646,10 +645,10 @@ proc
 					else
 						return
 		sleep(poll_time)
-
+
 		//Check all our candidates, to make sure they didn't log off during the 30 second wait period.
 		for(var/mob/dead/observer/G in candidates)
 			if(!G.key || !G.client)
 				candidates.Remove(G)
-
+
 		return candidates
