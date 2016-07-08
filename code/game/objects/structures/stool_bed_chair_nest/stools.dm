@@ -53,7 +53,7 @@
 	icon_state = "stool"
 	force = 10
 	throwforce = 10
-	w_class = 5.0
+	w_class = 5
 	var/obj/structure/stool/origin = null
 
 /obj/item/weapon/stool/attack_self(mob/user as mob)

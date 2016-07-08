@@ -325,7 +325,7 @@
 	throwforce = 3.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
 
 /obj/item/clothing/head/griffin

@@ -4,7 +4,7 @@
 	name = "blank picket sign"
 	desc = "It's blank"
 	force = 5
-	w_class = 4.0
+	w_class = 4
 	attack_verb = list("bashed","smacked")
 
 	var/delayed = 0 //used to do delays

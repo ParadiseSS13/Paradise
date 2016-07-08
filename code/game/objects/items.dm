@@ -17,7 +17,7 @@
 	var/r_speed = 1.0
 	var/health = null
 	var/hitsound = null
-	var/w_class = 3.0
+	var/w_class = 3
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
 	pressure_resistance = 3

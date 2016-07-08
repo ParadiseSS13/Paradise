@@ -389,7 +389,7 @@
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 4.0
+	w_class = 4
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 

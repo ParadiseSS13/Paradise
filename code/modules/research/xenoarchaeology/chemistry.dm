@@ -82,7 +82,7 @@ datum
 	icon = 'icons/obj/device.dmi'
 	icon_state = "solution_tray"
 	materials = list(MAT_GLASS=5)
-	w_class = 1.0
+	w_class = 1
 	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(1, 2)
 	volume = 2

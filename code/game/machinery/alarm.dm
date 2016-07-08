@@ -1109,5 +1109,5 @@ Just an object used in constructing air alarms
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "Looks like a circuit. Probably is."
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)

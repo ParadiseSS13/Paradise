@@ -5,7 +5,7 @@
 	icon_state = "toyhammer"
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")

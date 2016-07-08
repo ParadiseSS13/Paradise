@@ -24,7 +24,7 @@
 	slot_flags = SLOT_BELT
 	force = 5.0
 	throwforce = 7.0
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
@@ -41,7 +41,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5.0
-	w_class = 1.0
+	w_class = 1
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
@@ -104,7 +104,7 @@
 	force = 6.0
 	throw_speed = 3
 	throw_range = 7
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
@@ -409,7 +409,7 @@
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
 	max_fuel = 80
-	w_class = 3.0
+	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3"
 
@@ -419,7 +419,7 @@
 	icon_state = "exwelder"
 	item_state = "exwelder"
 	max_fuel = 40
-	w_class = 3.0
+	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=4;plasmatech=3"
 	var/last_gen = 0
@@ -453,7 +453,7 @@
 	force = 5.0
 	throwforce = 7.0
 	item_state = "crowbar"
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=50)
 	origin_tech = "engineering=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
@@ -479,7 +479,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "kit"
 	flags = CONDUCT
-	w_class = 2.0
+	w_class = 2
 	origin_tech = "combat=2"
 	var/open = 0
 

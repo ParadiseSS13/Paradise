@@ -7,7 +7,7 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
-	w_class = 3.0
+	w_class = 3
 	throw_speed = 2
 	throw_range = 7
 	force = 10
@@ -29,7 +29,7 @@
 	hitsound = null	//it is much lighter, after all.
 	flags = null //doesn't CONDUCT
 	throwforce = 2
-	w_class = 2.0
+	w_class = 2
 	force = 3.0
 	materials = list()
 	max_water = 30

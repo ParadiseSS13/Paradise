@@ -2,7 +2,7 @@
 /obj/item/part/computer/circuitboard
 	density = 0
 	anchored = 0
-	w_class = 2.0
+	w_class = 2
 	name = "Circuit board"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"

@@ -26,7 +26,7 @@
 	plane = HUD_PLANE
 	item_state = "nothing"
 	icon = 'icons/mob/screen_gen.dmi'
-	w_class = 5.0
+	w_class = 5
 
 
 /obj/item/weapon/grab/New(var/mob/user, var/mob/victim)

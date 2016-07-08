@@ -125,7 +125,7 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
-	w_class = 5.0
+	w_class = 5
 	sharp = 1
 	edge = 1
 	force = 25

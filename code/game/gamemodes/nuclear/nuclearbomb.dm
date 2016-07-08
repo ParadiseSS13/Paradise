@@ -393,7 +393,7 @@ var/bomb_set
 	icon = 'icons/obj/items.dmi'
 	icon_state = "nucleardisk"
 	item_state = "card-id"
-	w_class = 1.0
+	w_class = 1
 
 /obj/item/weapon/disk/nuclear/New()
 	..()
