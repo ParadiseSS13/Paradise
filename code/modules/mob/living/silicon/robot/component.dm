@@ -96,7 +96,6 @@
 	external_type = /obj/item/robot_parts/robot_component/binary_communication_device
 	energy_consumption = 0
 	max_damage = 30
-	component_disabled = 0
 
 /datum/robot_component/camera
 	name = "camera"
@@ -125,10 +124,10 @@
 	var/datum/robot_component/C = components[module_name]
 	return C && C.installed == 1 && C.toggled && C.is_powered() && !C.component_disabled
 
-/mob/living/silicon/robot/proc/disable_component(module_name, emp_duration)
+/mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	 var/datum/robot_component/D = get_component(module_name)
 	 D.component_disabled = 1
-	 spawn (emp_duration)
+	 spawn(duration)
 	 		D.component_disabled = 0
 
 // Returns component by it's string name
