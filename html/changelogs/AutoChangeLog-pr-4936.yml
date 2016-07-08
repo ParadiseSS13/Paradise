@@ -1,0 +1,5 @@
+author: Twinmold
+delete-after: True
+changes: 
+  - bugfix: "Fixes the inconsistency of getting 2 metal rods when you wirecutter
+a destroyed grille down to 1."
