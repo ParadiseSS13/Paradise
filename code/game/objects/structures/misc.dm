@@ -34,7 +34,7 @@
 	attack_hand(mob/user as mob)
 
 
-		if (user.mind.special_role=="Ninja")
+		if(user.mind.special_role=="Ninja")
 			switch(alert("Phase Jaunt relay primed, target locked as [station_name()], initiate VOID-shift translocation? (Warning! Internals required!)",,"Yes","No"))
 
 				if("Yes")

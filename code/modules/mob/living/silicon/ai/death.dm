@@ -1,7 +1,7 @@
 /mob/living/silicon/ai/death(gibbed)
 	if(stat == DEAD)	return
 	stat = DEAD
-	if (src.custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
+	if(src.custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
 		icon_state = "[ckey]-ai-crash"
 	else icon_state = "ai-crash"
 	update_canmove()
@@ -21,7 +21,7 @@
 	for(var/obj/machinery/ai_status_display/O in world) //change status
 		spawn( 0 )
 		O.mode = 2
-		if (istype(loc, /obj/item/device/aicard))
+		if(istype(loc, /obj/item/device/aicard))
 			loc.icon_state = "aicard-404"
 
 	timeofdeath = worldtime2text()

@@ -17,7 +17,7 @@
 
 	New()
 		..()
-		if (src.type == /obj/item/weapon/storage/toolbox)
+		if(src.type == /obj/item/weapon/storage/toolbox)
 			to_chat(world, "BAD: [src] ([src.type]) spawned at [src.x] [src.y] [src.z]")
 			qdel(src)
 

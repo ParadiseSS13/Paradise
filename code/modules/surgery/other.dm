@@ -66,7 +66,7 @@
 	for(var/datum/wound/W in affected.wounds) if(W.internal)
 		affected.wounds -= W
 		affected.update_damages()
-	if (ishuman(user) && prob(40))
+	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
 
@@ -97,7 +97,7 @@
 	if(!hasorgans(target))
 		return 0
 
-	if (target_zone == "mouth" || target_zone == "eyes")
+	if(target_zone == "mouth" || target_zone == "eyes")
 		return 0
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -143,7 +143,7 @@
 	time = 24
 
 /datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
@@ -153,7 +153,7 @@
 	if(!hasorgans(target))
 		return 0
 
-	if (target_zone == "mouth" || target_zone == "eyes")
+	if(target_zone == "mouth" || target_zone == "eyes")
 		return 0
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -169,13 +169,13 @@
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return
 
 	var/obj/item/weapon/reagent_containers/container = tool
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
-	if (trans > 0)
+	if(trans > 0)
 		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 		if(container.reagents.has_reagent("mitocholide"))
@@ -189,7 +189,7 @@
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return
 
 	var/obj/item/weapon/reagent_containers/container = tool
@@ -232,7 +232,7 @@
 	time = 30
 
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (!hasorgans(target))
+	if(!hasorgans(target))
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	return ..() && affected && is_thrall(target) && affected.open_enough_for_surgery() && target_zone == target.named_organ_parent("brain")

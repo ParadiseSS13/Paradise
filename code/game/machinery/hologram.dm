@@ -81,7 +81,7 @@ var/const/HOLOPAD_MODE = 0
 			to_chat(user, "<span class='notice'>A request for AI presence was already sent recently.</span>")
 
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
-	if (!istype(user))
+	if(!istype(user))
 		return
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
@@ -165,7 +165,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				if((HOLOPAD_MODE == 0 && (get_dist(master.eyeobj, src) <= holo_range)))
 					return 1
 
-				else if (HOLOPAD_MODE == 1)
+				else if(HOLOPAD_MODE == 1)
 
 					var/area/holo_area = get_area(src)
 					var/area/eye_area = get_area(master.eyeobj)
@@ -219,10 +219,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		if(1.0)
 			qdel(src)
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 	return
 

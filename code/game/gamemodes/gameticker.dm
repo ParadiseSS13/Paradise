@@ -54,11 +54,11 @@ var/round_start_time = 0
 
 			if(pregame_timeleft <= 0)
 				current_state = GAME_STATE_SETTING_UP
-	while (!setup())
+	while(!setup())
 
 /datum/controller/gameticker/proc/votetimer()
 	var/timerbuffer = 0
-	if (initialtpass == 0)
+	if(initialtpass == 0)
 		timerbuffer = config.vote_autotransfer_initial
 	else
 		timerbuffer = config.vote_autotransfer_interval
@@ -74,7 +74,7 @@ var/round_start_time = 0
 	var/list/datum/game_mode/runnable_modes
 	if((master_mode=="random") || (master_mode=="secret"))
 		runnable_modes = config.get_runnable_modes()
-		if (runnable_modes.len==0)
+		if(runnable_modes.len==0)
 			current_state = GAME_STATE_PREGAME
 			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			return 0
@@ -90,7 +90,7 @@ var/round_start_time = 0
 			src.mode = new mtype
 	else
 		src.mode = config.pick_mode(master_mode)
-	if (!src.mode.can_start())
+	if(!src.mode.can_start())
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
@@ -111,7 +111,7 @@ var/round_start_time = 0
 
 	if(hide_mode)
 		var/list/modes = new
-		for (var/datum/game_mode/M in runnable_modes)
+		for(var/datum/game_mode/M in runnable_modes)
 			modes+=M.name
 		modes = sortList(modes)
 		to_chat(world, "<B>The current game mode is - Secret!</B>")
@@ -137,7 +137,7 @@ var/round_start_time = 0
 		//Cleanup some stuff
 		for(var/obj/effect/landmark/start/S in landmarks_list)
 			//Deleting Startpoints but we need the ai point to AI-ize people later
-			if (S.name != "AI")
+			if(S.name != "AI")
 				qdel(S)
 
 		// take care of random spesspod spawning
@@ -164,24 +164,24 @@ var/round_start_time = 0
 		var/list/area/dynamic/source/available_source_candidates = subtypesof(/area/dynamic/source)
 		var/list/area/dynamic/destination/available_destination_candidates = subtypesof(/area/dynamic/destination)
 
-		for (var/area/dynamic/destination/current_destination_candidate in available_destination_candidates)
+		for(var/area/dynamic/destination/current_destination_candidate in available_destination_candidates)
 			var/area/dynamic/destination/current_destination = locate(current_destination_candidate)
 
-			if (!current_destination)
+			if(!current_destination)
 				continue
 
-			if (current_destination.match_width == 0 || current_destination.match_height == 0)
+			if(current_destination.match_width == 0 || current_destination.match_height == 0)
 				message_admins("Dynamic area destination '[current_destination.name]' does not have its size requirements set.")
 				continue
 
 			var/list/area/dynamic/source/candidate_source_areas = new /list(0)
-			for (var/area/dynamic/source/candidate_source_area in available_source_candidates)
+			for(var/area/dynamic/source/candidate_source_area in available_source_candidates)
 				var/area/dynamic/source/candidate_source = locate(candidate_source_area)
 
-				if (!candidate_source)
+				if(!candidate_source)
 					continue
 
-				if (candidate_source.match_tag != current_destination.match_tag)
+				if(candidate_source.match_tag != current_destination.match_tag)
 					continue
 
 				if (candidate_source.match_width != current_destination.match_width || \
@@ -190,7 +190,7 @@ var/round_start_time = 0
 
 				candidate_source_areas += candidate_source
 
-			if (candidate_source_areas.len == 0)
+			if(candidate_source_areas.len == 0)
 				message_admins("Failed to find a matching source for dynamic area: [current_destination.name]")
 				continue
 
@@ -199,7 +199,7 @@ var/round_start_time = 0
 
 			selected_source.copy_contents_to(current_destination, 0)
 
-			if (current_destination.enable_lights || selected_source.enable_lights)
+			if(current_destination.enable_lights || selected_source.enable_lights)
 				current_destination.power_light = 1
 			else
 				current_destination.power_light = 0
@@ -388,7 +388,7 @@ var/round_start_time = 0
 		//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
 
 		var/game_finished = shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-		if (config.continuous_rounds)
+		if(config.continuous_rounds)
 			mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 		else
 			game_finished |= mode.check_finished()
@@ -402,7 +402,7 @@ var/round_start_time = 0
 			spawn(50)
 				callHook("roundend")
 
-				if (mode.station_was_nuked)
+				if(mode.station_was_nuked)
 					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
 				else
 					world.Reboot("Round ended.", "end_proper", "proper completion")
@@ -440,14 +440,14 @@ var/round_start_time = 0
 	to_chat(world, "<BR>")
 
 	//Silicon laws report
-	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
-		if (aiPlayer.stat != 2)
+	for(var/mob/living/silicon/ai/aiPlayer in mob_list)
+		if(aiPlayer.stat != 2)
 			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>")
 		else
 			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>")
 		aiPlayer.show_laws(1)
 
-		if (aiPlayer.connected_robots.len)
+		if(aiPlayer.connected_robots.len)
 			var/robolist = "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				robolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.key]), ":" (Played by: [robo.key]), "]"
@@ -455,14 +455,14 @@ var/round_start_time = 0
 
 	var/dronecount = 0
 
-	for (var/mob/living/silicon/robot/robo in mob_list)
+	for(var/mob/living/silicon/robot/robo in mob_list)
 
 		if(istype(robo,/mob/living/silicon/robot/drone))
 			dronecount++
 			continue
 
-		if (!robo.connected_ai)
-			if (robo.stat != 2)
+		if(!robo.connected_ai)
+			if(robo.stat != 2)
 				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>")
 			else
 				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
@@ -477,7 +477,7 @@ var/round_start_time = 0
 
 	//calls auto_declare_completion_* for all modes
 	for(var/handler in typesof(/datum/game_mode/proc))
-		if (findtext("[handler]","auto_declare_completion_"))
+		if(findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
 	scoreboard()

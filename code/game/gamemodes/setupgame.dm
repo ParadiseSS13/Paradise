@@ -16,9 +16,9 @@
 
 /proc/setupgenetics()
 
-	if (prob(50))
+	if(prob(50))
 		BLOCKADD = rand(-300,300)
-	if (prob(75))
+	if(prob(75))
 		DIFFMUT = rand(0,20)
 
 
@@ -154,14 +154,14 @@
 
 /* This was used for something before, I think, but is not worth the effort to process now.
 /proc/setupcorpses()
-	for (var/obj/effect/landmark/A in landmarks_list)
-		if (A.name == "Corpse")
+	for(var/obj/effect/landmark/A in landmarks_list)
+		if(A.name == "Corpse")
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(A.loc)
 			M.real_name = "Corpse"
 			M.death()
 			qdel(A)
 			continue
-		if (A.name == "Corpse-Engineer")
+		if(A.name == "Corpse-Engineer")
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(A.loc)
 			M.real_name = "Corpse"
 			M.death()
@@ -174,16 +174,16 @@
 			M.equip_to_slot_or_del(new /obj/item/device/t_scanner(M), slot_r_store)
 			//M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
-			if (prob(50))
+			if(prob(50))
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_wear_mask)
-			if (prob(50))
+			if(prob(50))
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/hardhat(M), slot_head)
 			else
-				if (prob(50))
+				if(prob(50))
 					M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/welding(M), slot_head)
 			del(A)
 			continue
-		if (A.name == "Corpse-Engineer-Space")
+		if(A.name == "Corpse-Engineer-Space")
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(A.loc)
 			M.real_name = "Corpse"
 			M.death()
@@ -197,16 +197,16 @@
 			M.equip_to_slot_or_del(new /obj/item/device/t_scanner(M), slot_r_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_wear_mask)
-			if (prob(50))
+			if(prob(50))
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/hardhat(M), slot_head)
 			else
-				if (prob(50))
+				if(prob(50))
 					M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/welding(M), slot_head)
 				else
 					M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space(M), slot_head)
 			del(A)
 			continue
-		if (A.name == "Corpse-Engineer-Chief")
+		if(A.name == "Corpse-Engineer-Chief")
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(A.loc)
 			M.real_name = "Corpse"
 			M.death()
@@ -218,16 +218,16 @@
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/t_scanner(M), slot_r_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
-			if (prob(50))
+			if(prob(50))
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_wear_mask)
-			if (prob(50))
+			if(prob(50))
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/hardhat(M), slot_head)
 			else
-				if (prob(50))
+				if(prob(50))
 					M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/welding(M), slot_head)
 			del(A)
 			continue
-		if (A.name == "Corpse-Syndicate")
+		if(A.name == "Corpse-Syndicate")
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(A.loc)
 			M.real_name = "Corpse"
 			M.death()
@@ -238,9 +238,9 @@
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/jetpack(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_wear_mask)
-			if (prob(50))
+			if(prob(50))
 				M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/syndicate(M), slot_wear_suit)
-				if (prob(50))
+				if(prob(50))
 					M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/swat(M), slot_head)
 				else
 					M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/syndicate(M), slot_head)

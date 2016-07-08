@@ -53,11 +53,11 @@
 	new /obj/item/device/radio/headset( src )
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (src.opened)
-		if (istype(W, /obj/item/weapon/grab))
+	if(src.opened)
+		if(istype(W, /obj/item/weapon/grab))
 			src.MouseDrop_T(W:affecting, user)      //act like they were dragged onto the closet
 		user.drop_item()
-		if (W) W.forceMove(loc)
+		if(W) W.forceMove(loc)
 	else if(istype(W, /obj/item/weapon/card/id))
 		if(src.broken)
 			to_chat(user, "\red It appears to be broken.")

@@ -39,7 +39,7 @@
 			src.area = locate(text2path("/area/[otherarea]"))
 
 		if(!name)
-			name = "light switch ([area.name])"
+			name = "light switch([area.name])"
 
 		src.on = src.area.lightswitch
 		updateicon()

@@ -92,7 +92,7 @@
 		/*else if(reagents.reagent_list.len == 1)
 			for(var/datum/reagent/R in reagents.reagent_list)
 				switch(R.id)*/
-		if (reagents.reagent_list.len > 0)
+		if(reagents.reagent_list.len > 0)
 			//mrid = R.get_master_reagent_id()
 			switch(reagents.get_master_reagent_id())
 				if("beer")
@@ -183,7 +183,7 @@
 					icon_state = "cognacglass"
 					name = "Glass of cognac"
 					desc = "Damn, you feel like some kind of French aristocrat just by holding this."
-				if ("kahlua")
+				if("kahlua")
 					icon_state = "kahluaglass"
 					name = "Glass of RR coffee Liquor"
 					desc = "DAMN, THIS THING LOOKS ROBUST"

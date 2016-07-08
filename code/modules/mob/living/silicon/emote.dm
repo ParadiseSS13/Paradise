@@ -1,6 +1,6 @@
 /mob/living/silicon/emote(var/act, var/m_type=1, var/message = null)
 	var/param = null
-	if (findtext(act, "-", 1, null))
+	if(findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
 		param = copytext(act, t1 + 1, length(act) + 1)
 		act = copytext(act, 1, t1)
@@ -28,14 +28,14 @@
 		if("ping","pings")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
-					if (param == A.name)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
 						M = A
 						break
 			if(!M)
 				param = null
 
-			if (param)
+			if(param)
 				message = "<B>[src]</B> pings at [param]."
 			else
 				message = "<B>[src]</B> pings."
@@ -45,14 +45,14 @@
 		if("buzz","buzzs","buzzes")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
-					if (param == A.name)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
 						M = A
 						break
 			if(!M)
 				param = null
 
-			if (param)
+			if(param)
 				message = "<B>[src]</B> buzzes at [param]."
 			else
 				message = "<B>[src]</B> buzzes."
@@ -62,14 +62,14 @@
 		if("beep","beeps")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
-					if (param == A.name)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
 						M = A
 						break
 			if(!M)
 				param = null
 
-			if (param)
+			if(param)
 				message = "<B>[src]</B> beeps at [param]."
 			else
 				message = "<B>[src]</B> beeps."
@@ -79,14 +79,14 @@
 		if("yes")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
-					if (param == A.name)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
 						M = A
 						break
 			if(!M)
 				param = null
 
-			if (param)
+			if(param)
 				message = "<B>[src]</B> emits an affirmative blip at [param]."
 			else
 				message = "<B>[src]</B> emits an affirmative blip."
@@ -96,14 +96,14 @@
 		if("no")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
-					if (param == A.name)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
 						M = A
 						break
 			if(!M)
 				param = null
 
-			if (param)
+			if(param)
 				message = "<B>[src]</B> emits a negative blip at [param]."
 			else
 				message = "<B>[src]</B> emits a negative blip."

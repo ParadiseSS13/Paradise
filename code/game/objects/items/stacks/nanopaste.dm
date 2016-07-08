@@ -9,11 +9,11 @@
 
 
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
-	if (!istype(M) || !istype(user))
+	if(!istype(M) || !istype(user))
 		return 0
-	if (istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
+	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
-		if (R.getBruteLoss() || R.getFireLoss() )
+		if(R.getBruteLoss() || R.getFireLoss() )
 			R.adjustBruteLoss(-15)
 			R.adjustFireLoss(-15)
 			R.updatehealth()
@@ -23,11 +23,11 @@
 		else
 			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
 
-	if (istype(M,/mob/living/carbon/human))		//Repairing robolimbs
+	if(istype(M,/mob/living/carbon/human))		//Repairing robolimbs
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
 
-		if (S && (S.status & ORGAN_ROBOT))
+		if(S && (S.status & ORGAN_ROBOT))
 			if(S.get_damage())
 				S.heal_damage(15, 15, robo_repair = 1)
 				H.updatehealth()

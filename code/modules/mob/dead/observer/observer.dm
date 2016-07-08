@@ -49,7 +49,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		if (ishuman(body))
+		if(ishuman(body))
 			var/mob/living/carbon/human/H = body
 			icon = H.stand_icon
 			overlays = H.overlays_standing
@@ -94,7 +94,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		var/mob/M = following
 		M.following_mobs -= src
 	following = null
-	if (ghostimage)
+	if(ghostimage)
 		ghost_darkness_images -= ghostimage
 		qdel(ghostimage)
 		ghostimage = null
@@ -201,7 +201,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Stat()
 	..()
 	statpanel("Status")
-	if (client.statpanel == "Status")
+	if(client.statpanel == "Status")
 		show_stat_station_time()
 		if(ticker)
 			if(ticker.mode)
@@ -425,7 +425,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(istype(usr, /mob/dead/observer)) //Make sure they're an observer!
 
-		if (!target)//Make sure we actually have a target
+		if(!target)//Make sure we actually have a target
 			return
 		else
 			var/mob/M = getmobs()[target] //Destination mob
@@ -468,7 +468,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!istype(usr, /mob/dead/observer)) return
 
 	// Shamelessly copied from the Gas Analyzers
-	if (!( istype(usr.loc, /turf) ))
+	if(!( istype(usr.loc, /turf) ))
 		return
 
 	var/datum/gas_mixture/environment = usr.loc.return_air()
@@ -525,8 +525,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/MouseDrop(atom/over)
 	if(!usr || !over) return
-	if (isobserver(usr) && usr.client && usr.client.holder)
-		if (usr.client.holder.cmd_ghost_drag(src,over))
+	if(isobserver(usr) && usr.client && usr.client.holder)
+		if(usr.client.holder.cmd_ghost_drag(src,over))
 			return
 
 	return ..()
@@ -554,17 +554,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 		..()
 
-	if (href_list["track"])
+	if(href_list["track"])
 		var/atom/target = locate(href_list["track"])
 		if(target)
 			ManualFollow(target)
 
-	if (href_list["follow"])
+	if(href_list["follow"])
 		var/atom/target = locate(href_list["follow"])
 		if(target)
 			ManualFollow(target)
 
-	if (href_list["jump"])
+	if(href_list["jump"])
 		var/mob/target = locate(href_list["jump"])
 		var/mob/A = usr;
 		to_chat(A, "Teleporting to [target]...")
@@ -613,27 +613,27 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	updateghostsight()
 
 /mob/dead/observer/proc/updateghostsight()
-	if (!seedarkness)
+	if(!seedarkness)
 		see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 	else
 		see_invisible = SEE_INVISIBLE_OBSERVER
-		if (!ghostvision)
+		if(!ghostvision)
 			see_invisible = SEE_INVISIBLE_LIVING;
 	updateghostimages()
 
 /proc/updateallghostimages()
-	for (var/mob/dead/observer/O in player_list)
+	for(var/mob/dead/observer/O in player_list)
 		O.updateghostimages()
 
 /mob/dead/observer/proc/updateghostimages()
-	if (!client)
+	if(!client)
 		return
-	if (seedarkness || !ghostvision)
+	if(seedarkness || !ghostvision)
 		client.images -= ghost_darkness_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now
 		client.images |= ghost_darkness_images
-		if (ghostimage)
+		if(ghostimage)
 			client.images -= ghostimage //remove ourself
 
 /mob/proc/can_admin_interact()

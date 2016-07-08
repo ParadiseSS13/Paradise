@@ -73,12 +73,12 @@
 		if(!(NOCLONE in M.mutations) && !(H && (H.species.flags & NO_DNA))) // prevents drained people from having their DNA changed
 			var/prev_ue = M.dna.unique_enzymes
 			// UI in syringe.
-			if (buf.types & DNA2_BUF_UI)
-				if (!block) //isolated block?
+			if(buf.types & DNA2_BUF_UI)
+				if(!block) //isolated block?
 					M.dna.UI = buf.dna.UI.Copy()
 					M.dna.UpdateUI()
 					M.UpdateAppearance()
-					if (buf.types & DNA2_BUF_UE) //unique enzymes? yes
+					if(buf.types & DNA2_BUF_UE) //unique enzymes? yes
 
 						M.real_name = buf.dna.real_name
 						M.name = buf.dna.real_name
@@ -87,13 +87,13 @@
 				else
 					M.dna.SetUIValue(block,src.GetValue())
 					M.UpdateAppearance()
-			if (buf.types & DNA2_BUF_SE)
-				if (!block) //isolated block?
+			if(buf.types & DNA2_BUF_SE)
+				if(!block) //isolated block?
 					M.dna.SE = buf.dna.SE.Copy()
 					M.dna.UpdateSE()
 				else
 					M.dna.SetSEValue(block,src.GetValue())
-				domutcheck(M, null, block!=null)
+				domutcheck(M, null, 0)
 				M.update_mutations()
 			if(H)
 				H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
@@ -110,7 +110,7 @@
 		if(H.species.flags & NO_DNA)
 			return 0
 
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		return 0
 
 	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [user.name] ([user.ckey])</font>")

@@ -1,0 +1,4 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - tweak: "Boxes no longer allowed inside evidence bags to prevent them going into themselves"

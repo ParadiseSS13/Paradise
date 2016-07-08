@@ -156,12 +156,12 @@
 		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
 		var/input = input(usr, "Enter [codelen] digits.", "Deca-Code Lock", "") as text
 		if(in_range(src, user))
-			if (input == code)
+			if(input == code)
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
 				locked = 0
 				overlays.Cut()
 				overlays += "securecrateg"
-			else if (input == null || length(input) != codelen)
+			else if(input == null || length(input) != codelen)
 				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
 			else
 				to_chat(user, "<span class='warning'>A red light flashes.</span>")

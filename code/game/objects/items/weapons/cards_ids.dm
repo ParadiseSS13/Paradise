@@ -34,7 +34,7 @@
 	set category = "Object"
 	set src in usr
 
-	if (t)
+	if(t)
 		src.name = text("Data Disk- '[]'", t)
 	else
 		src.name = "Data Disk"
@@ -122,12 +122,12 @@
 		to_chat(user, "<span class='warning'>It is too far away.</span>")
 	if(guest_pass)
 		to_chat(user, "<span class='notice'>There is a guest pass attached to this ID card</span>")
-		if (world.time < guest_pass.expiration_time)
+		if(world.time < guest_pass.expiration_time)
 			to_chat(user, "<span class='notice'>It expires at [worldtime2text(guest_pass.expiration_time)].</span>")
 		else
 			to_chat(user, "<span class='warning'>It expired at [worldtime2text(guest_pass.expiration_time)].</span>")
 		to_chat(user, "<span class='notice'>It grants access to following areas:</span>")
-		for (var/A in guest_pass.temp_access)
+		for(var/A in guest_pass.temp_access)
 			to_chat(user, "<span class='notice'>[get_access_desc(A)].</span>")
 		to_chat(user, "<span class='notice'>Issuing reason: [guest_pass.reason].</span>")
 

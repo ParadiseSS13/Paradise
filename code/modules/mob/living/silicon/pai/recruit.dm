@@ -374,7 +374,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
 			if(response == "Yes")
 				recruitWindow(C.mob)
-			else if (response == "Never for this round")
+			else if(response == "Never for this round")
 				var/warning = alert(C, "Are you sure? This action will be undoable and you will need to wait until next round.", "You sure?", "Yes", "No")
 				if(warning == "Yes")
 					asked[C.key] = INFINITY

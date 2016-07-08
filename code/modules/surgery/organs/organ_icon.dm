@@ -135,7 +135,7 @@ var/global/list/limb_icon_cache = list()
 			else if(status & ORGAN_ROBOT)
 				mob_icon = new /icon('icons/mob/human_races/robotic.dmi', "[icon_name][gender ? "_[gender]" : ""]")
 			else
-				if (status & ORGAN_MUTATED)
+				if(status & ORGAN_MUTATED)
 					mob_icon = new /icon(species.deform, "[icon_name][gender ? "_[gender]" : ""]")
 				else
 					mob_icon = new /icon(species.icobase, "[icon_name][gender ? "_[gender]" : ""]")
@@ -161,7 +161,7 @@ var/global/list/limb_icon_cache = list()
 // adjusted to set damage_state to brute/burn code only (without r_name0 as before)
 /obj/item/organ/external/update_icon()
 	var/n_is = damage_state_text()
-	if (n_is != damage_state)
+	if(n_is != damage_state)
 		damage_state = n_is
 		return 1
 	return 0

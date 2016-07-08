@@ -125,7 +125,7 @@
 	origin_tech = "biotech=4"
 
 /obj/item/slimepotion/afterattack(obj/item/weapon/reagent_containers/target, mob/user , proximity)
-	if (istype(target))
+	if(istype(target))
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
 
@@ -154,7 +154,7 @@
 		qdel(M)
 		var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
-		if (!newname)
+		if(!newname)
 			newname = "pet slime"
 		pet.name = newname
 		pet.real_name = newname
@@ -168,7 +168,7 @@
 		qdel(M)
 		var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
-		if (!newname)
+		if(!newname)
 			newname = "pet slime"
 		pet.name = newname
 		pet.real_name = newname

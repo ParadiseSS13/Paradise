@@ -15,8 +15,8 @@
 			var/datum/preferences/A = new()	// Randomize appearance
 			A.copy_to(H)
 
-		for (var/obj/item/I in H)
-			if (istype(I, /obj/item/weapon/implant))
+		for(var/obj/item/I in H)
+			if(istype(I, /obj/item/weapon/implant))
 				continue
 			if(istype (I, /obj/item/organ))
 				continue

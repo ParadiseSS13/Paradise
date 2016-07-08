@@ -92,17 +92,17 @@ var/const/INGEST = 2
 	return the_id
 
 /datum/reagents/proc/trans_to(var/target, var/amount=1, var/multiplier=1, var/preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
-	if (!target)
+	if(!target)
 		return
 	if(src.total_volume <= 0)
 		return
 	var/datum/reagents/R
 	if(istype(target, /obj))
 		var/obj/O = target
-		if (!O.reagents )
+		if(!O.reagents )
 			return
 		R = O.reagents
-	else if (istype(target, /mob/living))
+	else if(istype(target, /mob/living))
 		var/mob/living/M = target
 		if(!M.reagents)
 			return
@@ -115,10 +115,10 @@ var/const/INGEST = 2
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
 	var/part = amount / src.total_volume
 	var/trans_data = null
-	for (var/datum/reagent/current_reagent in src.reagent_list)
-		if (!current_reagent)
+	for(var/datum/reagent/current_reagent in src.reagent_list)
+		if(!current_reagent)
 			continue
-		if (current_reagent.id == "blood" && ishuman(target))
+		if(current_reagent.id == "blood" && ishuman(target))
 			var/mob/living/carbon/human/H = target
 			H.inject_blood(my_atom, amount)
 			continue
@@ -144,7 +144,7 @@ var/const/INGEST = 2
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
 	var/part = amount / src.total_volume
 	var/trans_data = null
-	for (var/datum/reagent/current_reagent in src.reagent_list)
+	for(var/datum/reagent/current_reagent in src.reagent_list)
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
@@ -157,9 +157,9 @@ var/const/INGEST = 2
 	return amount
 
 /datum/reagents/proc/trans_id_to(var/obj/target, var/reagent, var/amount=1, var/preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
-	if (!target)
+	if(!target)
 		return
-	if (!target.reagents || src.total_volume<=0 || !src.get_reagent_amount(reagent))
+	if(!target.reagents || src.total_volume<=0 || !src.get_reagent_amount(reagent))
 		return
 
 	var/datum/reagents/R = target.reagents
@@ -167,7 +167,7 @@ var/const/INGEST = 2
 		amount = src.get_reagent_amount(reagent)
 	amount = min(amount, R.maximum_volume-R.total_volume)
 	var/trans_data = null
-	for (var/datum/reagent/current_reagent in src.reagent_list)
+	for(var/datum/reagent/current_reagent in src.reagent_list)
 		if(current_reagent.id == reagent)
 			if(preserve_data)
 				trans_data = copy_data(current_reagent)
@@ -182,7 +182,7 @@ var/const/INGEST = 2
 	return amount
 
 /*
-	if (!target) return
+	if(!target) return
 	var/total_transfered = 0
 	var/current_list_element = 1
 	var/datum/reagents/R = target.reagents
@@ -326,14 +326,14 @@ var/const/INGEST = 2
 /datum/reagents/proc/isolate_reagent(var/reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if (R.id != reagent)
+		if(R.id != reagent)
 			del_reagent(R.id)
 			update_total()
 
 /datum/reagents/proc/del_reagent(var/reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if (R.id == reagent)
+		if(R.id == reagent)
 			if(istype(my_atom, /mob/living))
 				var/mob/living/M = my_atom
 				R.reagent_deleted(M)
@@ -446,7 +446,7 @@ var/const/INGEST = 2
 	for(var/A in reagent_list)
 
 		var/datum/reagent/R = A
-		if (R.id == reagent)
+		if(R.id == reagent)
 			R.volume += amount
 			update_total()
 			my_atom.on_reagent_change()
@@ -482,7 +482,7 @@ var/const/INGEST = 2
 
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if (R.id == reagent)
+		if(R.id == reagent)
 			R.volume -= amount
 			update_total()
 			if(!safety)//So it does not handle reactions when it need not to
@@ -496,7 +496,7 @@ var/const/INGEST = 2
 
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if (R.id == reagent)
+		if(R.id == reagent)
 			if(!amount) return R
 			else
 				if(R.volume >= amount) return R
@@ -507,7 +507,7 @@ var/const/INGEST = 2
 /datum/reagents/proc/get_reagent_amount(var/reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if (R.id == reagent)
+		if(R.id == reagent)
 			return R.volume
 
 	return 0
@@ -515,7 +515,7 @@ var/const/INGEST = 2
 /datum/reagents/proc/get_reagents()
 	var/res = ""
 	for(var/datum/reagent/A in reagent_list)
-		if (res != "") res += ","
+		if(res != "") res += ","
 		res += A.name
 
 	return res
@@ -565,8 +565,8 @@ var/const/INGEST = 2
 			D.data = new_data
 
 /datum/reagents/proc/copy_data(var/datum/reagent/current_reagent)
-	if (!current_reagent || !current_reagent.data) return null
-	if (!istype(current_reagent.data, /list)) return current_reagent.data
+	if(!current_reagent || !current_reagent.data) return null
+	if(!istype(current_reagent.data, /list)) return current_reagent.data
 
 	var/list/trans_data = current_reagent.data.Copy()
 

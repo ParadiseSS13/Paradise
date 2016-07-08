@@ -448,7 +448,7 @@
 
 /mob/living/carbon/handle_hud_icons_health()
 	if(healths)
-		if (stat != DEAD)
+		if(stat != DEAD)
 			switch(health)
 				if(100 to INFINITY)
 					healths.icon_state = "health0"

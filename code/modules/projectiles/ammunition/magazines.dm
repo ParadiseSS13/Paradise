@@ -83,7 +83,7 @@
 	multiload = 0
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = 1)
-	if (!countempties)
+	if(!countempties)
 		var/boolets = 0
 		for(var/obj/item/ammo_casing/bullet in stored_ammo)
 			if(bullet.BB)

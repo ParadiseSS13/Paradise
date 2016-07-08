@@ -18,7 +18,7 @@
 		name = "prescription [name]"
 
 /obj/item/clothing/glasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
+	if(user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
 	if(prescription_upgradable)
