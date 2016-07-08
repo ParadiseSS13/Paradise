@@ -33,8 +33,8 @@
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	loc = null
-	if (pulledby)
-		if (pulledby.pulling == src)
+	if(pulledby)
+		if(pulledby.pulling == src)
 			pulledby.pulling = null
 		pulledby = null
 	return ..()
@@ -44,7 +44,7 @@
 // at which point object creations are a fair toss more seldom
 /atom/movable/proc/attempt_init()
 	var/turf/T = get_turf(src)
-	if (T && zlevels.is_zlevel_dirty(T.z))
+	if(T && zlevels.is_zlevel_dirty(T.z))
 		zlevels.postpone_init(T.z, src)
 	else if(auto_init)
 		initialize()
@@ -62,30 +62,30 @@
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
-		if (!(direct & (direct - 1))) //Cardinal move
+		if(!(direct & (direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
-			if (direct & 1)
-				if (direct & 4)
-					if (step(src, NORTH))
+			if(direct & 1)
+				if(direct & 4)
+					if(step(src, NORTH))
 						. = step(src, EAST)
-					else if (step(src, EAST))
+					else if(step(src, EAST))
 						. = step(src, NORTH)
-				else if (direct & 8)
-					if (step(src, NORTH))
+				else if(direct & 8)
+					if(step(src, NORTH))
 						. = step(src, WEST)
-					else if (step(src, WEST))
+					else if(step(src, WEST))
 						. = step(src, NORTH)
-			else if (direct & 2)
-				if (direct & 4)
-					if (step(src, SOUTH))
+			else if(direct & 2)
+				if(direct & 4)
+					if(step(src, SOUTH))
 						. = step(src, EAST)
-					else if (step(src, EAST))
+					else if(step(src, EAST))
 						. = step(src, SOUTH)
-				else if (direct & 8)
-					if (step(src, SOUTH))
+				else if(direct & 8)
+					if(step(src, SOUTH))
 						. = step(src, WEST)
-					else if (step(src, WEST))
+					else if(step(src, WEST))
 						. = step(src, SOUTH)
 
 
@@ -115,7 +115,7 @@
 	if(src.throwing)
 		src.throw_impact(A)
 
-	if (A && sendBump)
+	if(A && sendBump)
 		A.last_bumped = world.time
 		A.Bumped(src)
 	else
@@ -228,13 +228,13 @@
 	var/dist_y = abs(target.y - src.y)
 
 	var/dx
-	if (target.x > src.x)
+	if(target.x > src.x)
 		dx = EAST
 	else
 		dx = WEST
 
 	var/dy
-	if (target.y > src.y)
+	if(target.y > src.y)
 		dy = NORTH
 	else
 		dy = SOUTH
@@ -318,13 +318,13 @@
 	return
 
 /atom/movable/overlay/attackby(a, b, c)
-	if (src.master)
+	if(src.master)
 		return src.master.attackby(a, b, c)
 	return
 
 
 /atom/movable/overlay/attack_hand(a, b, c)
-	if (src.master)
+	if(src.master)
 		return src.master.attack_hand(a, b, c)
 	return
 

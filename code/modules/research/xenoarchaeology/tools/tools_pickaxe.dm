@@ -111,7 +111,7 @@
 	attack_self(var/mob/user as mob)
 		var/N = input("Excavation amount (in centimeters):", "[src]") as null|anything in possible_excavation_amounts
 
-		if (N)
+		if(N)
 			excavation_amount = N / 2
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

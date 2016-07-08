@@ -47,21 +47,21 @@
 		return 1
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if (!speaking)
-		if (istype(other, /mob/living/simple_animal/diona))
+	if(!speaking)
+		if(istype(other, /mob/living/simple_animal/diona))
 			if(other.languages.len >= 2) //They've sucked down some blood and can speak common now.
 				return 1
-		if (istype(other, /mob/living/silicon))
+		if(istype(other, /mob/living/silicon))
 			return 1
-		if (istype(other, /mob/living/simple_animal/bot))
+		if(istype(other, /mob/living/simple_animal/bot))
 			return 1
-		if (istype(other, /mob/living/carbon/brain))
+		if(istype(other, /mob/living/carbon/brain))
 			return 1
-		if (istype(other, /mob/living/carbon/slime))
+		if(istype(other, /mob/living/carbon/slime))
 			return 1
 
 	//This is already covered by mob/say_understands()
-	//if (istype(other, /mob/living/simple_animal))
+	//if(istype(other, /mob/living/simple_animal))
 	//	if((other.universal_speak && !speaking) || src.universal_speak || src.universal_understand)
 	//		return 1
 	//	return 0

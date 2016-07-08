@@ -10,14 +10,14 @@ datum/directive/research_to_ripleys
 	proc/get_researchers()
 		var/list/researchers[0]
 		for(var/mob/M in player_list)
-			if (M.is_ready() && is_researcher(M))
+			if(M.is_ready() && is_researcher(M))
 				researchers+=(M)
 		return researchers
 
 	proc/count_researchers_reassigned()
 		var/researchers_reassigned = 0
 		for(var/obj/item/weapon/card/id in ids_to_reassign)
-			if (ids_to_reassign[id])
+			if(ids_to_reassign[id])
 				researchers_reassigned++
 
 		return researchers_reassigned
@@ -44,7 +44,7 @@ datum/directive/research_to_ripleys/initialize()
 		"Deliver [MATERIALS_REQUIRED] sheets of metal or minerals via the supply shuttle to CentComm.")
 
 datum/directive/research_to_ripleys/directives_complete()
-	if (materials_shipped < MATERIALS_REQUIRED) return 0
+	if(materials_shipped < MATERIALS_REQUIRED) return 0
 	return count_researchers_reassigned() == ids_to_reassign.len
 
 datum/directive/research_to_ripleys/get_remaining_orders()

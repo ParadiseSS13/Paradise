@@ -84,9 +84,9 @@
 		var/i = 0
 		if(T)
 			for(var/obj/item/weapon/ore/O in T)
-				if (i >= ore_pickup_rate)
+				if(i >= ore_pickup_rate)
 					break
-				else if (!O || !O.refined_type)
+				else if(!O || !O.refined_type)
 					continue
 				else
 					process_sheet(O)
@@ -95,16 +95,16 @@
 			var/obj/structure/ore_box/B = locate() in T
 			if(B)
 				for(var/obj/item/weapon/ore/O in B.contents)
-					if (i >= ore_pickup_rate)
+					if(i >= ore_pickup_rate)
 						break
-					else if (!O || !O.refined_type)
+					else if(!O || !O.refined_type)
 						continue
 					else
 						process_sheet(O)
 						i++
 
 /obj/machinery/mineral/ore_redemption/attackby(var/obj/item/weapon/W, var/mob/user, params)
-	if (!powered())
+	if(!powered())
 		return
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = usr.get_active_hand()
@@ -425,7 +425,7 @@
 	if(href_list["purchase"])
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
-			if (!prize || !(prize in prize_list))
+			if(!prize || !(prize in prize_list))
 				return
 			if(prize.cost > inserted_id.mining_points)
 			else

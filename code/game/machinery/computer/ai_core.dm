@@ -81,7 +81,7 @@
 						icon_state = "3"
 		if(3)
 			if(istype(P, /obj/item/weapon/wirecutters))
-				if (brain)
+				if(brain)
 					to_chat(user, "Get that brain out of there first")
 				else
 					playsound(loc, 'sound/items/Wirecutter.ogg', 50, 1)
@@ -95,7 +95,7 @@
 				if(P:amount >= 2)
 					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 					if(do_after(user, 20, target = src))
-						if (P)
+						if(P)
 							P:amount -= 2
 							if(!P:amount) qdel(P)
 							to_chat(user, "\blue You put in the glass panel.")
@@ -158,7 +158,7 @@
 				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 				to_chat(user, "\blue You remove the glass panel.")
 				state = 3
-				if (brain)
+				if(brain)
 					icon_state = "3b"
 				else
 					icon_state = "3"

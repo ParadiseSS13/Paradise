@@ -69,7 +69,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		//map_transition_config.Add(AWAY_MISSION_LIST)
 
 		for(var/obj/effect/landmark/L in landmarks_list)
-			if (L.name != "awaystart")
+			if(L.name != "awaystart")
 				continue
 			awaydestinations.Add(L)
 
@@ -101,7 +101,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			//map_transition_config.Add(AWAY_MISSION_LIST)
 
 			for(var/obj/effect/landmark/L in landmarks_list)
-				if (L.name != "awaystart")
+				if(L.name != "awaystart")
 					continue
 				awaydestinations.Add(L)
 
@@ -118,26 +118,26 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 	if(!Lines.len)
 		return
-	for (var/t in Lines)
-		if (!t)
+	for(var/t in Lines)
+		if(!t)
 			continue
 
 		t = trim(t)
-		if (length(t) == 0)
+		if(length(t) == 0)
 			continue
-		else if (copytext(t, 1, 2) == "#")
+		else if(copytext(t, 1, 2) == "#")
 			continue
 
 		var/pos = findtext(t, " ")
 		var/name = null
 
-		if (pos)
+		if(pos)
 			name = lowertext(copytext(t, 1, pos))
 
 		else
 			name = lowertext(t)
 
-		if (!name)
+		if(!name)
 			continue
 
 		potentialMaps.Add(t)

@@ -63,13 +63,13 @@
 			. = ..()
 
 	proc/failcheck(mob/user as mob)
-		if (prob(src.reliability)) return 1 //No failure
-		if (prob(src.reliability))
+		if(prob(src.reliability)) return 1 //No failure
+		if(prob(src.reliability))
 			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
 
 		else
 			to_chat(user, "\red The Bluespace generator malfunctions!")
-			for (var/obj/O in src.contents) //it broke, delete what was in it
+			for(var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
 			icon_state = "brokenpack"

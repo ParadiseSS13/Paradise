@@ -168,7 +168,7 @@ datum/game_mode/nations
  */
 /hook/latespawn/proc/give_latejoiners_nations(var/mob/living/carbon/human/H)
 	var/datum/game_mode/nations/mode = get_nations_mode()
-	if (!mode) return 1
+	if(!mode) return 1
 
 	if(!mode.kickoff) return 1
 

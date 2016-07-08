@@ -99,18 +99,6 @@
 	overlays += icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
 	underlays.Cut()
 
-	/*
-	var/list/directions = list(NORTH, SOUTH, EAST, WEST)
-
-	directions -= add_underlay(node1)
-	directions -= add_underlay(node2)
-	directions -= add_underlay(node3)
-	directions -= add_underlay(node4)
-
-	for(var/D in directions)
-		add_underlay(,D)
-	*/
-
 	var/turf/T = get_turf(src)
 	if(!istype(T)) return
 	var/list/directions = list(NORTH, SOUTH, EAST, WEST)

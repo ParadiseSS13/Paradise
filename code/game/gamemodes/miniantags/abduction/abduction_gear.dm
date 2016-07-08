@@ -21,6 +21,8 @@
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list(melee = 15, bullet = 15, laser = 15, energy = 15, bomb = 15, bio = 15, rad = 15)
 	var/combat_armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 50, rad = 50)
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
@@ -415,7 +417,7 @@ Congratulations! You are now trained for xenobiology research!"}
 			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
 			return 0
 
-	switch (mode)
+	switch(mode)
 		if(BATON_STUN)
 			StunAttack(L,user)
 		if(BATON_SLEEP)

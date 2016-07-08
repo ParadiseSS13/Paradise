@@ -140,17 +140,17 @@ var/global/list/captain_display_cases = list()
 
 /obj/structure/displaycase/ex_act(severity)
 	switch(severity)
-		if (1)
+		if(1)
 			new /obj/item/weapon/shard(loc)
-			if (occupant)
+			if(occupant)
 				dump()
 			qdel(src)
-		if (2)
-			if (prob(50))
+		if(2)
+			if(prob(50))
 				src.health -= 15
 				src.healthcheck()
-		if (3)
-			if (prob(50))
+		if(3)
+			if(prob(50))
 				src.health -= 5
 				src.healthcheck()
 
@@ -162,15 +162,15 @@ var/global/list/captain_display_cases = list()
 	return
 
 /obj/structure/displaycase/blob_act()
-	if (prob(75))
+	if(prob(75))
 		new /obj/item/weapon/shard(loc)
 		if(occupant) dump()
 		qdel(src)
 
 /obj/structure/displaycase/proc/healthcheck()
-	if (src.health <= 0)
+	if(src.health <= 0)
 		health = 0
-		if (!( src.destroyed ))
+		if(!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
 			new /obj/item/weapon/shard(loc)
@@ -273,7 +273,7 @@ var/global/list/captain_display_cases = list()
 			update_icon()
 
 /obj/structure/displaycase/attack_hand(mob/user as mob)
-	if (destroyed || (!locked && user.a_intent == I_HARM))
+	if(destroyed || (!locked && user.a_intent == I_HARM))
 		if(occupant)
 			dump()
 			to_chat(user, "<span class='danger'>You smash your fist into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>")

@@ -28,7 +28,7 @@
 		if("Master")
 			debug_variables(master_controller)
 			feedback_add_details("admin_verb","DMC")
-		if ("failsafe")
+		if("failsafe")
 			debug_variables(failsafe)
 			feedback_add_details("admin_verb", "dfailsafe")
 		if("Ticker")

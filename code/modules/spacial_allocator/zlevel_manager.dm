@@ -16,7 +16,7 @@ var/global/datum/zlev_manager/zlevels = new
 /datum/zlev_manager/proc/get_zlev(z)
   if(z < 1)
     throw EXCEPTION("Non-positive z level given!")
-  else if (z > z_list.len)
+  else if(z > z_list.len)
     throw EXCEPTION("Untracked z level: '[z]'")
   else
     return z_list[z]

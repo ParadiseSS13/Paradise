@@ -46,7 +46,7 @@
 	if(loc == H || (in_range(src, H) && istype(loc, /turf)))
 		H.set_machine(src)
 		if(href_list["school"])
-			if (used)
+			if(used)
 				to_chat(H, "You already used this contract!")
 				return
 			used = 1
@@ -89,7 +89,7 @@
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
 				var/newname = sanitize(copytext(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
-				if (!newname)
+				if(!newname)
 					newname = randomname
 				M.mind.name = newname
 				M.real_name = newname
@@ -712,7 +712,7 @@ var/global/list/multiverse = list()
 
 /obj/item/device/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
 	H.set_species("Human")
-	if (H.gender == MALE)
+	if(H.gender == MALE)
 		H.change_gender(FEMALE)
 
 	var/list/anime_hair =list("Odango", "Kusanagi Hair", "Pigtails", "Hime Cut", "Floorlength Braid", "Ombre", "Twincurls", "Twincurls 2")

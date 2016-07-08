@@ -124,7 +124,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 		O.main_part = null
 		qdel(O)
 	for(var/area/A in world)
-		if (!(A.z in config.station_levels)) continue
+		if(!(A.z in config.station_levels)) continue
 		A.gravitychange(0,A)
 	shake_everyone()
 	return ..()
@@ -301,7 +301,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
 			message_admins("The gravity generator was brought online. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
 			for(var/area/A in world)
-				if (!(A.z in config.station_levels)) continue
+				if(!(A.z in config.station_levels)) continue
 				A.gravitychange(1,A)
 	else
 		if(gravity_in_level() == 1)
@@ -309,7 +309,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 			investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
 			message_admins("The gravity generator was brought offline with no backup generator. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
 			for(var/area/A in world)
-				if (!(A.z in config.station_levels)) continue
+				if(!(A.z in config.station_levels)) continue
 				A.gravitychange(0,A)
 
 	update_icon()

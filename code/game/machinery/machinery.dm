@@ -123,19 +123,19 @@ Class Procs:
 	power_change()
 
 /obj/machinery/proc/addAtProcessing()
-	if (use_power)
+	if(use_power)
 		myArea = get_area_master(src)
 
 	machines += src
 
 /obj/machinery/proc/removeAtProcessing()
-	if (myArea)
+	if(myArea)
 		myArea = null
 
 	machines -= src
 
 /obj/machinery/Destroy()
-	if (src in machines)
+	if(src in machines)
 		removeAtProcessing()
 
 	return ..()
@@ -159,11 +159,11 @@ Class Procs:
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				qdel(src)
 				return
 		else
@@ -233,7 +233,7 @@ Class Procs:
 
 		if("unlink" in href_list)
 			var/idx = text2num(href_list["unlink"])
-			if (!idx)
+			if(!idx)
 				return 1
 
 			var/obj/O = getLink(idx)
@@ -256,7 +256,7 @@ Class Procs:
 			if(!canLink(O,href_list))
 				to_chat(usr, "\red You can't link with that device.")
 				return 1
-			if (isLinkedWith(O))
+			if(isLinkedWith(O))
 				to_chat(usr, "\red A red light flashes on \the [P]. The two devices are already linked.")
 				return 1
 
@@ -342,7 +342,7 @@ Class Procs:
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 1
 
-	if (ishuman(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
 			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
@@ -424,7 +424,7 @@ Class Procs:
     O.show_message("[bicon(src)] <span class = 'notice'>[msg]</span>", 2)
 
 /obj/machinery/proc/ping(text=null)
-  if (!text)
+  if(!text)
     text = "\The [src] pings."
 
   state(text, "blue")
@@ -548,7 +548,7 @@ Class Procs:
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
-	if (electrocute_mob(user, get_area(src), src, 0.7))
+	if(electrocute_mob(user, get_area(src), src, 0.7))
 		if(user.stunned)
 			return 1
 	return 0
