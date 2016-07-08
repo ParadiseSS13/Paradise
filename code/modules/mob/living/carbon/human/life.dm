@@ -174,10 +174,25 @@
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-		/*	if (prob(10) && prob(gene.instability))
-				adjustCloneLoss(1) */
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
+	if(gene_stability < 85)
+		var/instability = DEFAULT_GENE_STABILITY - gene_stability
+		if(prob(instability / 10))
+			adjustFireLoss(min(6, instability / 12))
+			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
+		if(gene_stability < 70)
+			if(prob(instability / 12))
+				adjustCloneLoss(min(5, instability / 15))
+				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
+			if(prob(instability / 10))
+				adjustToxLoss(min(6, instability / 12))
+				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
+			if(gene_stability < 40 && prob(1))
+				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
+				spawn(300)
+					if(gene_stability < 40)
+						gib()
 
 	if(!(species.flags & RADIMMUNE))
 		if (radiation)

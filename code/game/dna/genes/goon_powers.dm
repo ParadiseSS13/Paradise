@@ -8,8 +8,8 @@
 
 	mutation=SOBER
 
-	New()
-		block=SOBERBLOCK
+/datum/dna/gene/basic/sober/New()
+	block=SOBERBLOCK
 
 //WAS: /datum/bioEffect/psychic_resist
 /datum/dna/gene/basic/psychic_resist
@@ -20,24 +20,26 @@
 
 	mutation=PSY_RESIST
 
-	New()
-		block=PSYRESISTBLOCK
+/datum/dna/gene/basic/psychic_resist/New()
+	block=PSYRESISTBLOCK
 
 /////////////////////////
 // Stealth Enhancers
 /////////////////////////
 
 /datum/dna/gene/basic/stealth
-	can_activate(var/mob/M, var/flags)
-		// Can only activate one of these at a time.
-		if(is_type_in_list(/datum/dna/gene/basic/stealth,M.active_genes))
-			testing("Cannot activate [type]: /datum/dna/gene/basic/stealth in M.active_genes.")
-			return 0
-		return ..(M,flags)
+	instability = GENE_INSTABILITY_MODERATE
 
-	deactivate(var/mob/M)
-		..(M)
-		M.alpha=255
+/datum/dna/gene/basic/stealth/can_activate(var/mob/M, var/flags)
+	// Can only activate one of these at a time.
+	if(is_type_in_list(/datum/dna/gene/basic/stealth,M.active_genes))
+		testing("Cannot activate [type]: /datum/dna/gene/basic/stealth in M.active_genes.")
+		return 0
+	return ..(M,flags)
+
+/datum/dna/gene/basic/stealth/deactivate(var/mob/M)
+	..(M)
+	M.alpha=255
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/dna/gene/basic/stealth/darkcloak
@@ -48,23 +50,23 @@
 	activation_prob=10
 	mutation = CLOAK
 
-	New()
-		block=SHADOWBLOCK
+/datum/dna/gene/basic/stealth/darkcloak/New()
+	block=SHADOWBLOCK
 
-	OnMobLife(var/mob/M)
-		var/turf/simulated/T = get_turf(M)
-		if(!istype(T))
-			return
-		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
-		var/light_available
-		if(L)
-			light_available = L.get_clamped_lum()*10
-		else
-			light_available = 5
-		if(light_available <= 2)
-			M.alpha = round(M.alpha * 0.8)
-		else
-			M.alpha = 255
+/datum/dna/gene/basic/stealth/darkcloak/OnMobLife(var/mob/M)
+	var/turf/simulated/T = get_turf(M)
+	if(!istype(T))
+		return
+	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+	var/light_available
+	if(L)
+		light_available = L.get_clamped_lum()*10
+	else
+		light_available = 5
+	if(light_available <= 2)
+		M.alpha = round(M.alpha * 0.8)
+	else
+		M.alpha = 255
 
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/stealth/chameleon
@@ -75,43 +77,43 @@
 	activation_prob=10
 	mutation = CHAMELEON
 
-	New()
+/datum/dna/gene/basic/stealth/chameleon/New()
 		block=CHAMELEONBLOCK
 
-	OnMobLife(var/mob/M)
-		if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
-			M.alpha -= 25
-		else
-			M.alpha = round(255 * 0.80)
+/datum/dna/gene/basic/stealth/chameleon/OnMobLife(var/mob/M)
+	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
+		M.alpha -= 25
+	else
+		M.alpha = round(255 * 0.80)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/dna/gene/basic/grant_spell
 	var/obj/effect/proc_holder/spell/spelltype
 
-	activate(var/mob/M, var/connected, var/flags)
-		M.AddSpell(new spelltype(M))
-		..()
-		return 1
+/datum/dna/gene/basic/grant_spell/activate(var/mob/M, var/connected, var/flags)
+	M.AddSpell(new spelltype(M))
+	..()
+	return 1
 
-	deactivate(var/mob/M, var/connected, var/flags)
-		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
-			if(istype(S,spelltype))
-				M.spell_list.Remove(S)
-		..()
-		return 1
+/datum/dna/gene/basic/grant_spell/deactivate(var/mob/M, var/connected, var/flags)
+	for(var/obj/effect/proc_holder/spell/S in M.spell_list)
+		if(istype(S,spelltype))
+			M.spell_list.Remove(S)
+	..()
+	return 1
 
 /datum/dna/gene/basic/grant_verb
 	var/verbtype
 
-	activate(var/mob/M, var/connected, var/flags)
-		..()
-		M.verbs += verbtype
-		return 1
+/datum/dna/gene/basic/grant_verb/activate(var/mob/M, var/connected, var/flags)
+	..()
+	M.verbs += verbtype
+	return 1
 
-	deactivate(var/mob/M, var/connected, var/flags)
-		..()
-		M.verbs -= verbtype
+/datum/dna/gene/basic/grant_verb/deactivate(var/mob/M, var/connected, var/flags)
+	..()
+	M.verbs -= verbtype
 
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
@@ -119,13 +121,14 @@
 	desc = "Allows the subject to lower the body temperature of others."
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
+	instability = GENE_INSTABILITY_MODERATE
 	mutation = CRYO
 
 	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
 
-	New()
-		..()
-		block = CRYOBLOCK
+/datum/dna/gene/basic/grant_spell/cryo/New()
+	..()
+	block = CRYOBLOCK
 
 /obj/effect/proc_holder/spell/targeted/cryokinesis
 	name = "Cryokinesis"
@@ -153,11 +156,11 @@
 	var/mob/living/carbon/C = targets[1]
 
 	if(!iscarbon(C))
-		to_chat(usr, "\red This will only work on normal organic beings.")
+		to_chat(usr, "<span class='warning'>This will only work on normal organic beings.</span>")
 		return
 
 	if (RESIST_COLD in C.mutations)
-		C.visible_message("\red A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!")
+		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
 		return
 	var/handle_suit = 0
 	if(ishuman(C))
@@ -166,12 +169,12 @@
 			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
 				handle_suit = 1
 				if(H.internal)
-					H.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [H]!",
+					H.visible_message("<span class='warning'>[usr] sprays a cloud of fine ice crystals, engulfing [H]!</span>",
 										"<span class='notice'>[usr] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
 					log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)] while wearing internals and a suit")
 					msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 				else
-					H.visible_message("\red [usr] sprays a cloud of fine ice crystals engulfing, [H]!",
+					H.visible_message("<span class='warning'>[usr] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
 										"<span class='warning'>[usr] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
 					log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)]")
 					msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
@@ -200,12 +203,12 @@
 	desc = ""
 	//layer = 15
 
-	New(var/atom/location, var/icon/I, var/duration = 20, var/oname = "something")
-		src.name = oname
-		loc=location
-		src.icon = I
-		spawn(duration)
-			qdel(src)
+/obj/effect/self_deleting/New(var/atom/location, var/icon/I, var/duration = 20, var/oname = "something")
+	src.name = oname
+	loc=location
+	src.icon = I
+	spawn(duration)
+		qdel(src)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -215,13 +218,14 @@
 	desc = "Allows the subject to eat just about anything without harm."
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
+	instability = GENE_INSTABILITY_MINOR
 	mutation = EATER
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/eat
 
-	New()
-		..()
-		block = EATBLOCK
+/datum/dna/gene/basic/grant_spell/mattereater/New()
+	..()
+	block = EATBLOCK
 
 /obj/effect/proc_holder/spell/targeted/eat
 	name = "Eat"
@@ -356,13 +360,14 @@
 	//cooldown = 30
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
+	instability = GENE_INSTABILITY_MINOR
 	mutation = JUMPY
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/leap
 
-	New()
-		..()
-		block = JUMPBLOCK
+/datum/dna/gene/basic/grant_spell/jumpy/New()
+	..()
+	block = JUMPBLOCK
 
 /obj/effect/proc_holder/spell/targeted/leap
 	name = "Jump"
@@ -383,12 +388,10 @@
 /obj/effect/proc_holder/spell/targeted/leap/cast(list/targets)
 	var/failure = 0
 	if (istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
-		to_chat(usr, "\red You can't jump right now!")
+		to_chat(usr, "<span class='warning'>You can't jump right now!</span>")
 		return
 
 	if (istype(usr.loc,/turf/))
-
-
 		if(usr.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/M in range(usr, 1))
 				if(M.pulling == usr)
@@ -400,12 +403,12 @@
 		if(usr.pinned.len)
 			failure = 1
 
-		usr.visible_message("\red <b>[usr.name]</b> takes a huge leap!")
+		usr.visible_message("<span class='danger'>[usr.name]</b> takes a huge leap!</span>")
 		playsound(usr.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
 			usr.Weaken(5)
 			usr.Stun(5)
-			usr.visible_message("<span class='warning'> \the [usr] attempts to leap away but is slammed back down to the ground!</span>",
+			usr.visible_message("<span class='warning'>[usr] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
 			return 0
@@ -422,7 +425,7 @@
 		usr.flying = prevFlying
 
 		if (FAT in usr.mutations && prob(66))
-			usr.visible_message("\red <b>[usr.name]</b> crashes due to their heavy weight!")
+			usr.visible_message("<span class='danger'>[usr.name]</b> crashes due to their heavy weight!</span>")
 			//playsound(usr.loc, 'zhit.wav', 50, 1)
 			usr.AdjustWeakened(10)
 			usr.AdjustStunned(5)
@@ -431,10 +434,10 @@
 
 	if (istype(usr.loc,/obj/))
 		var/obj/container = usr.loc
-		to_chat(usr, "\red You leap and slam your head against the inside of [container]! Ouch!")
+		to_chat(usr, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
 		usr.AdjustParalysis(3)
 		usr.AdjustWeakened(5)
-		container.visible_message("\red <b>[usr.loc]</b> emits a loud thump and rattles a bit.")
+		container.visible_message("<span class='danger'>[usr.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(usr.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6
 		while(wiggle > 0)
@@ -460,11 +463,12 @@
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
+	instability = GENE_INSTABILITY_MODERATE
 	mutation = POLYMORPH
 
-	New()
-		..()
-		block = POLYMORPHBLOCK
+/datum/dna/gene/basic/grant_spell/polymorph/New()
+	..()
+	block = POLYMORPHBLOCK
 
 /obj/effect/proc_holder/spell/targeted/polymorph
 	name = "Polymorph"
@@ -483,13 +487,13 @@
 /obj/effect/proc_holder/spell/targeted/polymorph/cast(list/targets)
 	var/mob/living/M=targets[1]
 	if(!ishuman(M))
-		to_chat(usr, "\red You can only change your appearance to that of another human.")
+		to_chat(usr, "<span class='warning'>You can only change your appearance to that of another human.</span>")
 		return
 
 	if(!ishuman(usr))
 		return
 
-	usr.visible_message("\red [usr]'s body shifts and contorts.")
+	usr.visible_message("<span class='warning'>[usr]'s body shifts and contorts.</span>")
 
 	spawn(10)
 		if(M && usr)
@@ -510,11 +514,12 @@
 	spelltype = /obj/effect/proc_holder/spell/targeted/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
+	instability = GENE_INSTABILITY_MINOR
 	mutation=EMPATH
 
-	New()
-		..()
-		block = EMPATHBLOCK
+/datum/dna/gene/basic/grant_spell/empath/New()
+	..()
+	block = EMPATHBLOCK
 
 /obj/effect/proc_holder/spell/targeted/empath
 	name = "Read Mind"
@@ -544,21 +549,21 @@
 
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
-			to_chat(usr, "\red You may only use this on other organic beings.")
+			to_chat(usr, "<span class='warning'>You may only use this on other organic beings.</span>")
 			return
 
 		if (PSY_RESIST in M.mutations)
-			to_chat(usr, "\red You can't see into [M.name]'s mind at all!")
+			to_chat(usr, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
 			return
 
 		if (M.stat == 2)
-			to_chat(usr, "\red [M.name] is dead and cannot have their mind read.")
+			to_chat(usr, "<span class='warning'>[M.name] is dead and cannot have their mind read.</span>")
 			return
 		if (M.health < 0)
-			to_chat(usr, "\red [M.name] is dying, and their thoughts are too scrambled to read.")
+			to_chat(usr, "<span class='warning'>[M.name] is dying, and their thoughts are too scrambled to read.</span>")
 			return
 
-		to_chat(usr, "\blue Mind Reading of [M.name]:</b>")
+		to_chat(usr, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
 		var/pain_condition = M.health
 		// lower health means more pain
 		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
@@ -575,33 +580,33 @@
 
 		switch(pain_condition)
 			if (81 to INFINITY)
-				to_chat(usr, "\blue <b>Condition</b>: [M.name] feels good.")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] feels good.</span>")
 			if (61 to 80)
-				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering mild pain.")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering mild pain.</span>")
 			if (41 to 60)
-				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering significant pain.")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering significant pain.</span>")
 			if (21 to 40)
-				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering severe pain.")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
 			else
-				to_chat(usr, "\blue <b>Condition</b>: [M.name] is suffering excruciating pain.")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
 			if (I_HELP)
-				to_chat(usr, "\blue <b>Mood</b>: You sense benevolent thoughts from [M.name].")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense benevolent thoughts from [M.name].</span>")
 			if (I_DISARM)
-				to_chat(usr, "\blue <b>Mood</b>: You sense cautious thoughts from [M.name].")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense cautious thoughts from [M.name].</span>")
 			if (I_GRAB)
-				to_chat(usr, "\blue <b>Mood</b>: You sense hostile thoughts from [M.name].")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
 			if (I_HARM)
-				to_chat(usr, "\blue <b>Mood</b>: You sense cruel thoughts from [M.name].")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
 				for(var/mob/living/L in view(7,M))
 					if (L == M)
 						continue
 					thoughts = "thinking about punching [L.name]"
 					break
 			else
-				to_chat(usr, "\blue <b>Mood</b>: You sense strange thoughts from [M.name].")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense strange thoughts from [M.name].</span>")
 
 		if (istype(M,/mob/living/carbon/human))
 			var/numbers[0]
@@ -610,13 +615,13 @@
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
-				to_chat(usr, "\blue <b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].")
-		to_chat(usr, "\blue <b>Thoughts</b>: [M.name] is currently [thoughts].")
+				to_chat(usr, "<span class='notice'>b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
+		to_chat(usr, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
 		if (EMPATH in M.mutations)
-			to_chat(M, "\red You sense [usr.name] reading your mind.")
+			to_chat(M, "<span class='warning'>You sense [usr.name] reading your mind.</span>")
 		else if (prob(5) || M.mind.assigned_role=="Chaplain")
-			to_chat(M, "\red You sense someone intruding upon your thoughts...")
+			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 		return
 
 ////////////////////////////////////////////////////////////////////////
@@ -627,13 +632,13 @@
 	desc = "Vastly increases the gas capacity of the subject's digestive tract."
 	activation_messages = list("You feel bloated and gassy.")
 	deactivation_messages = list("You no longer feel gassy. What a relief!")
-
+	instability = GENE_INSTABILITY_MINOR
 	mutation = SUPER_FART
 	spelltype = /obj/effect/proc_holder/spell/aoe_turf/superfart
 
-	New()
-		..()
-		block = SUPERFARTBLOCK
+/datum/dna/gene/basic/grant_spell/superfart/New()
+	..()
+	block = SUPERFARTBLOCK
 
 /obj/effect/proc_holder/spell/aoe_turf/superfart
 	name = "Super Fart"

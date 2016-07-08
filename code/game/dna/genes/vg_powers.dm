@@ -3,17 +3,15 @@
 /datum/dna/gene/basic/grant_spell/morph
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
-
 	spelltype =/obj/effect/proc_holder/spell/targeted/morph
 	activation_messages=list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
-
-
+	instability = GENE_INSTABILITY_MINOR
 	mutation=MORPH
 
-	New()
-		..()
-		block = MORPHBLOCK
+/datum/dna/gene/basic/grant_spell/morph/New()
+	..()
+	block = MORPHBLOCK
 
 /obj/effect/proc_holder/spell/targeted/morph
 	name = "Morph"
@@ -34,7 +32,7 @@
 	if(!ishuman(usr))	return
 
 	if (istype(usr.loc,/mob/))
-		to_chat(usr, "\red You can't change your appearance right now!")
+		to_chat(usr, "<span class='warning'>You can't change your appearance right now!</span>")
 		return
 	var/mob/living/carbon/human/M=usr
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
@@ -146,19 +144,20 @@
 	M.regenerate_icons()
 	M.update_dna()
 
-	M.visible_message("\blue \The [src] morphs and changes [M.get_visible_gender() == MALE ? "his" : M.get_visible_gender() == FEMALE ? "her" : "their"] appearance!", "\blue You change your appearance!", "\red Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!")
+	M.visible_message("<span class='notice'>[src] morphs and changes [M.get_visible_gender() == MALE ? "his" : M.get_visible_gender() == FEMALE ? "her" : "their"] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name="Telepathy"
 	activation_messages=list("You feel you can project your thoughts.")
 	deactivation_messages=list("You no longer feel you can project your thoughts.")
+	instability = GENE_INSTABILITY_MINOR
 	mutation=REMOTE_TALK
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
-	New()
-		..()
-		block=REMOTETALKBLOCK
+/datum/dna/gene/basic/grant_spell/remotetalk/New()
+	..()
+	block=REMOTETALKBLOCK
 
 /obj/effect/proc_holder/spell/targeted/remotetalk
 	name = "Project Mind"
@@ -206,10 +205,10 @@
 	for(var/mob/living/target in targets)
 		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")
 		if(REMOTE_TALK in target.mutations)
-			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
+			target.show_message("<span class='notice'>You hear [usr.real_name]'s voice: [say]</span>")
 		else
-			target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-		usr.show_message("\blue You project your mind into [target.real_name]: [say]")
+			target.show_message("<span class='notice'>You hear a voice that seems to echo around the room: [say]</span>")
+		usr.show_message("<span class='notice'>You project your mind into [target.real_name]: [say]</span>")
 		for(var/mob/dead/observer/G in player_list)
 			G.show_message("<i>Telepathic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
@@ -217,12 +216,13 @@
 	name="Remote Viewing"
 	activation_messages=list("Your mind can see things from afar.")
 	deactivation_messages=list("Your mind can no longer can see things from afar.")
+	instability = GENE_INSTABILITY_MINOR
 	mutation=REMOTE_VIEW
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
 
-	New()
-		block=REMOTEVIEWBLOCK
+/datum/dna/gene/basic/grant_spell/remoteview/New()
+	block=REMOTEVIEWBLOCK
 
 
 /obj/effect/proc_holder/spell/targeted/remoteview
@@ -262,7 +262,7 @@
 	var/mob/target
 
 	if(istype(user.l_hand, /obj/item/tk_grab) || istype(user.r_hand, /obj/item/tk_grab/))
-		to_chat(user, "\red Your mind is too busy with that telekinetic grab.")
+		to_chat(user, "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>")
 		user.remoteview_target = null
 		user.reset_view(0)
 		return
@@ -285,5 +285,3 @@
 	else
 		user.remoteview_target = null
 		user.reset_view(0)
-
-
