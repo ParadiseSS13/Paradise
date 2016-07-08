@@ -1,0 +1,5 @@
+author: Chakirski
+delete-after: True
+changes: 
+  - tweak: "Syndicate thermal imaging glasses (mesons) can now be prescription upgraded like normal mesons."
+  - tweak: "Green glasses from the AutoDrobe can now be prescription upgraded."
