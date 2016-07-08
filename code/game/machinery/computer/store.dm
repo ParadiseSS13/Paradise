@@ -1,35 +1,56 @@
-/obj/machinery/computer/merch
-	name = "merch computer"
-	icon = 'icons/obj/computer.dmi'
-	icon_screen = "comm_logs"
-	circuit = /obj/item/weapon/circuitboard/merch
-
-	light_color = LIGHT_COLOR_GREEN
-
-/obj/item/weapon/circuitboard/merch
-	name = "\improper Merchandise Computer Circuitboard"
-	build_path = /obj/machinery/computer/merch
-
-/obj/machinery/computer/merch/New()
-	..()
-
-
-/obj/machinery/computer/merch/attack_ai(mob/user as mob)
-	src.add_hiddenprint(user)
-	return attack_hand(user)
-
-/obj/machinery/computer/merch/attack_hand(mob/user as mob)
-	user.set_machine(src)
-	add_fingerprint(user)
-
-	if(stat & (BROKEN|NOPOWER))
-		return
-
-	var/balance=0
-	if(user.mind)
-		if(user.mind.initial_account)
-			balance = user.mind.initial_account.money
-	var/dat = {"
+obj
+	machinery
+		computer
+			merch
+				name = "merch computer"
+				icon = 'icons/obj/computer.dmi'
+				icon_screen = "comm_logs"
+				circuit = /obj/item/weapon/circuitboard/merch
+
+				light_color = LIGHT_COLOR_GREEN
+
+obj
+	item
+		weapon
+			circuitboard
+				merch
+					name = "\improper Merchandise Computer Circuitboard"
+					build_path = /obj/machinery/computer/merch
+
+obj
+	machinery
+		computer
+			merch
+				New()
+					..()
+
+
+obj
+	machinery
+		computer
+			merch
+				attack_ai(mob/user as mob)
+					src.add_hiddenprint(user)
+					return attack_hand(user)
+
+obj
+	machinery
+		computer
+			merch
+				attack_hand(mob/user as mob)
+					user.set_machine(src)
+					add_fingerprint(user)
+
+					if(stat & (BROKEN|NOPOWER))
+						return
+
+					var
+						balance=0
+					if(user.mind)
+						if(user.mind.initial_account)
+							balance = user.mind.initial_account.money
+					var
+						dat = {"
 <html>
 	<head>
 		<title>[command_name()] Merchandise</title>
@@ -42,13 +63,13 @@ html {
 	background:#333;
 	color:#999;
 }
-
+
 a {
 	color:#cfcfcf;
 	text-decoration:none;
 	font-weight:bold;
 }
-
+
 a:hover {
 	color:#ffffff;
 }
@@ -61,23 +82,23 @@ tr {
 tr:nth-child(even) {
 	background:#3f3f3f;
 }
-
+
 td.cost {
 	font-size:20pt;
 	font-weight:bold;
 }
-
+
 td.cost.affordable {
 	background:green;
 }
-
+
 td.cost.toomuch {
 	background:maroon;
 }
-
-
+
+
 		</style>
-	</head>
+</head>
 	<body>
 	<p style="float:right"><a href='byond://?src=\ref[src];refresh=1'>Refresh</a> | <b>Balance:</b> $[balance]</p>
 	<h1>[command_name()] Merchandise</h1>
@@ -97,10 +118,12 @@ td.cost.toomuch {
 		<tbody>
 	"}
 	for(var/datum/storeitem/item in centcomm_store.items)
-		var/cost_class="affordable"
+		var
+			cost_class="affordable"
 		if(item.cost>balance)
 			cost_class="toomuch"
-		var/itemID=centcomm_store.items.Find(item)
+		var
+			itemID=centcomm_store.items.Find(item)
 		dat += {"
 			<tr>
 				<th>
@@ -123,25 +146,34 @@ td.cost.toomuch {
 	user << browse(dat, "window=merch")
 	onclose(user, "merch")
 	return
-
-/obj/machinery/computer/merch/Topic(href, href_list)
-	if(..())
-		return 1
-
-	//testing(href)
-
-	src.add_fingerprint(usr)
-
-	if(href_list["buy"])
-		var/itemID = text2num(href_list["buy"])
-		var/datum/storeitem/item = centcomm_store.items[itemID]
-		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
-		if(sure=="No")
-			updateUsrDialog()
-			return
-		if(!centcomm_store.PlaceOrder(usr,itemID))
-			to_chat(usr, "\red Unable to charge your account.")
-		else
-			to_chat(usr, "\blue You've successfully purchased the item.  It should be in your hands or on the floor.")
-	src.updateUsrDialog()
-	return
+
+obj
+	machinery
+		computer
+			merch
+				Topic(href, href_list)
+					if(..())
+						return 1
+
+					//testing(href)
+
+					src.add_fingerprint(usr)
+
+					if(href_list["buy"])
+						var
+							itemID = text2num(href_list["buy"])
+						var
+							datum
+								storeitem
+									item = centcomm_store.items[itemID]
+						var
+							sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
+						if(sure=="No")
+							updateUsrDialog()
+							return
+						if(!centcomm_store.PlaceOrder(usr,itemID))
+							to_chat(usr, "\red Unable to charge your account.")
+						else
+							to_chat(usr, "\blue You've successfully purchased the item.  It should be in your hands or on the floor.")
+					src.updateUsrDialog()
+					return
