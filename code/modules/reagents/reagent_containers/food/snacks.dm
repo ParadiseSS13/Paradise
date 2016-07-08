@@ -1581,7 +1581,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/bacon
 	name = "bacon"
-	desc = "It looks greasy but tastes amazing!"
+	desc = "It looks juicy and tastes amazing!"
 	icon_state = "bacon2"
 	bitesize = 2
 	New()
