@@ -59,7 +59,7 @@
 	for(var/tocheck in incoming)
 		if(ispath(tocheck))
 			var/check = new tocheck
-			if (istype(check, /atom))
+			if(istype(check, /atom))
 				var/atom/reagentCheck = check
 				var/datum/reagents/reagents = reagentCheck.reagents
 				var/admin = 0

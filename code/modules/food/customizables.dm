@@ -425,24 +425,24 @@
 			continue
 
 
-		if (istype(ing, /obj/item/weapon/reagent_containers/food/snacks/customizable))				// split the ingredients into ones with basenames (sandwich, burger, etc) and ones without, keeping track of how many of each there are
+		if(istype(ing, /obj/item/weapon/reagent_containers/food/snacks/customizable))				// split the ingredients into ones with basenames (sandwich, burger, etc) and ones without, keeping track of how many of each there are
 			var/obj/item/weapon/reagent_containers/food/snacks/customizable/gettype = ing
-			if (unsortedtypes[gettype.basename])
+			if(unsortedtypes[gettype.basename])
 				unsortedtypes[gettype.basename]++
-				if (unsortedtypes[gettype.basename] > ct)
+				if(unsortedtypes[gettype.basename] > ct)
 					ct = unsortedtypes[gettype.basename]
 			else
 				(unsortedtypes[gettype.basename]) = 1
-				if (unsortedtypes[gettype.basename] > ct)
+				if(unsortedtypes[gettype.basename] > ct)
 					ct = unsortedtypes[gettype.basename]
 		else
 			if(unsorteditems[ing.name])
 				unsorteditems[ing.name]++
-				if (unsorteditems[ing.name] > ci)
+				if(unsorteditems[ing.name] > ci)
 					ci = unsorteditems[ing.name]
 			else
 				unsorteditems[ing.name] = 1
-				if (unsorteditems[ing.name] > ci)
+				if(unsorteditems[ing.name] > ci)
 					ci = unsorteditems[ing.name]
 
 	sorteditems = sortlist(unsorteditems, ci)				//order both types going from the lowest number to the highest number
@@ -450,30 +450,30 @@
 
 	for(var/ings in sorteditems)			   //add the non-basename items to the name, sorting out the , and the and
 		c++
-		if (c == sorteditems.len - 1)
+		if(c == sorteditems.len - 1)
 			seperator = " and "
-		else if (c == sorteditems.len)
+		else if(c == sorteditems.len)
 			seperator = " "
 		else
 			seperator = ", "
 
-		if (sorteditems[ings] > levels.len)
+		if(sorteditems[ings] > levels.len)
 			sorteditems[ings] = levels.len
 
-		if (sorteditems[ings] <= 1)
+		if(sorteditems[ings] <= 1)
 			sendback +="[ings][seperator]"
 		else
 			sendback +="[levels[sorteditems[ings]]] [ings][seperator]"
 
-	for (var/ingtype in sortedtypes)   // now add the types basenames, keeping the src one seperate so it can go on the end
-		if (sortedtypes[ingtype] > levels.len)
+	for(var/ingtype in sortedtypes)   // now add the types basenames, keeping the src one seperate so it can go on the end
+		if(sortedtypes[ingtype] > levels.len)
 			sortedtypes[ingtype] = levels.len
-		if (ingtype == basename)
-			if (sortedtypes[ingtype] < levels.len)
+		if(ingtype == basename)
+			if(sortedtypes[ingtype] < levels.len)
 				sortedtypes[ingtype]++
 			endpart = "[levels[sortedtypes[ingtype]]] decker [basename]"
 			continue
-		if (sortedtypes[ingtype] >= 2)
+		if(sortedtypes[ingtype] >= 2)
 			sendback += "[levels[sortedtypes[ingtype]]] decker [ingtype] "
 		else
 			sendback += "[ingtype] "
@@ -491,7 +491,7 @@
 	var/sorted[0]
 	for(var/i = 1, i<= highest, i++)
 		for(var/it in unsorted)
-			if (unsorted[it] == i)
+			if(unsorted[it] == i)
 				sorted[it] = i
 	return sorted
 

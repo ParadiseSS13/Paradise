@@ -9,6 +9,7 @@ var/list/response_team_members = list()
 var/responseteam_age = 21 // Minimum account age to play as an ERT member
 var/datum/response_team/active_team = null
 var/send_emergency_team
+var/ert_request_answered = 0
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
@@ -47,6 +48,7 @@ var/send_emergency_team
 	if(!ert_type)
 		return
 
+	ert_request_answered = 1
 	message_admins("[key_name_admin(usr)] is dispatching an Emergency Response Team", 1)
 	log_admin("[key_name(usr)] used Dispatch Emergency Response Team..")
 	trigger_armed_response_team(ert_type)
@@ -100,8 +102,8 @@ var/send_emergency_team
 		to_chat(usr, "The emergency response team is already full!")
 		return
 
-	for (var/obj/effect/landmark/L in landmarks_list)
-		if (L.name == "Response Team")
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == "Response Team")
 			L.name = null
 
 			if(alert(usr, "Would you like to join the Emergency Response Team?", "Emergency Response Team", "Yes", "No") == "No")
@@ -139,8 +141,8 @@ var/send_emergency_team
 	var/obj/item/weapon/stamp/centcom/stamp = new
 	P.stamp(stamp)
 	qdel(stamp)
-	for (var/obj/effect/landmark/A in world)
-		if (A.name == "nukecode")
+	for(var/obj/effect/landmark/A in world)
+		if(A.name == "nukecode")
 			P.loc = A.loc
 			qdel(A)
 			continue
@@ -152,7 +154,7 @@ var/send_emergency_team
 	response_team_members |= M
 
 	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
-	if (new_gender)
+	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
 		else
@@ -202,7 +204,7 @@ var/send_emergency_team
 	M.loc = spawn_location
 
 	var/class = 0
-	while (!class)
+	while(!class)
 		class = input("Which loadout would you like to choose?") in active_team.get_slot_list()
 		if(!active_team.check_slot_available(class)) // Because the prompt does not update automatically when a slot gets filled.
 			class = 0

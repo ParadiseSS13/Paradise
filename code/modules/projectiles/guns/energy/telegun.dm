@@ -21,7 +21,7 @@
 
 	for(var/obj/item/device/radio/beacon/R in beacons)
 		var/turf/T = get_turf(R)
-		if (!T)
+		if(!T)
 			continue
 		if((T.z in config.admin_levels) || T.z > 7)
 			continue

@@ -15,11 +15,11 @@
 // item/attackby() properly, making this unnecessary
 
 /*/obj/item/stack/sheet/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/storage/bag/sheetsnatcher))
+	if(istype(W, /obj/item/weapon/storage/bag/sheetsnatcher))
 		var/obj/item/weapon/storage/bag/sheetsnatcher/S = W
 		if(!S.mode)
 			S.add(src,user)
 		else
-			for (var/obj/item/stack/sheet/stack in locate(src.x,src.y,src.z))
+			for(var/obj/item/stack/sheet/stack in locate(src.x,src.y,src.z))
 				S.add(stack,user)
 	..()*/

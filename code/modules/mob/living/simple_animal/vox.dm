@@ -35,20 +35,20 @@
 	if(O.force)
 		if(O.force >= 25)
 			var/damage = O.force
-			if (O.damtype == STAMINA)
+			if(O.damtype == STAMINA)
 				damage = 0
 			health -= damage
 			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
 		else
 			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\red \b The [O] bounces harmlessly off of [src]. ")
 	else
 		to_chat(usr, "\red This weapon is ineffective, it does no damage.")
 		for(var/mob/M in viewers(src, null))
-			if ((M.client && !( M.blinded )))
+			if((M.client && !( M.blinded )))
 				M.show_message("\red [user] gently taps [src] with the [O]. ")
 
 /mob/living/simple_animal/vox/armalis/verb/fire_quill(mob/target as mob in oview())
@@ -62,7 +62,7 @@
 
 	to_chat(src, "\red You launch a razor-sharp quill at [target]!")
 	for(var/mob/O in oviewers())
-		if ((O.client && !( O.blinded )))
+		if((O.client && !( O.blinded )))
 			to_chat(O, "\red [src] launches a razor-sharp quill at [target]!")
 
 	var/obj/item/weapon/quill/Q = new(loc)
@@ -98,7 +98,7 @@
 	target = input("Select a creature!", "Speak to creature", null, null) as null|anything in targets
 	text = input("What would you like to say?", "Speak to creature", null, null)
 
-	if (!target || !text)
+	if(!target || !text)
 		return
 
 	var/mob/M = targets[target]

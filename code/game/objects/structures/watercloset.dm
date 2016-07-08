@@ -174,11 +174,11 @@
 	on = !on
 	update_icon()
 	if(on)
-		if (M.loc == loc)
+		if(M.loc == loc)
 			wash(M)
 			check_heat(M)
 			M.water_act(100, convertHeat(), src)
-		for (var/atom/movable/G in src.loc)
+		for(var/atom/movable/G in src.loc)
 			G.clean_blood()
 			G.water_act(100, convertHeat(), src)
 
@@ -283,9 +283,9 @@
 					washears = !(H.head.flags_inv & HIDEEARS)
 
 				if(H.wear_mask)
-					if (washears)
+					if(washears)
 						washears = !(H.wear_mask.flags_inv & HIDEEARS)
-					if (washglasses)
+					if(washglasses)
 						washglasses = !(H.wear_mask.flags_inv & HIDEEYES)
 
 				if(H.head)
@@ -382,10 +382,10 @@
 	if(!Adjacent(user))
 		return
 
-	if (ishuman(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (user.hand)
+		if(user.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
@@ -434,7 +434,7 @@
 	var/wateract = 0
 	wateract = (O.wash(user, src))
 	busy = 0
-	if (wateract)
+	if(wateract)
 		O.water_act(20,310.15,src)
 
 /obj/structure/sink/kitchen

@@ -76,7 +76,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 proc/CallMaterialName(ID)
 	var/datum/reagent/temp_reagent
 	var/return_name = null
-	if (copytext(ID, 1, 2) == "$")
+	if(copytext(ID, 1, 2) == "$")
 		return_name = copytext(ID, 2)
 		switch(return_name)
 			if("metal")
@@ -168,7 +168,7 @@ proc/CallMaterialName(ID)
 			return
 
 		if(istype(D, /obj/item/weapon/disk/tech_disk)) t_disk = D
-		else if (istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
+		else if(istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
 			return
@@ -432,13 +432,13 @@ proc/CallMaterialName(ID)
 				if(linked_lathe.busy)
 					g2g = 0
 				var/key = usr.key	//so we don't lose the info during the spawn delay
-				if (!(being_built.build_type & PROTOLATHE))
+				if(!(being_built.build_type & PROTOLATHE))
 					g2g = 0
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
 
 
-				if (g2g) //If input is incorrect, nothing happens
+				if(g2g) //If input is incorrect, nothing happens
 					var/enough_materials = 1
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
@@ -509,13 +509,13 @@ proc/CallMaterialName(ID)
 					power += round(being_built.materials[M] / 5)
 				power = max(2000, power)
 				wait_message = "Imprinting Circuit. Please Wait..."
-				if (linked_imprinter.busy)
+				if(linked_imprinter.busy)
 					g2g = 0
-				if (!(being_built.build_type & IMPRINTER))
+				if(!(being_built.build_type & IMPRINTER))
 					g2g = 0
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
 
-				if (g2g) //Again, if input is wrong, do nothing
+				if(g2g) //Again, if input is wrong, do nothing
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
@@ -559,10 +559,10 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["lathe_ejectsheet"] && linked_lathe) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets
-		if (href_list["lathe_ejectsheet_amt"] == "custom")
+		if(href_list["lathe_ejectsheet_amt"] == "custom")
 			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			desired_num_sheets = max(0,desired_num_sheets) // If you input too high of a number, the mineral datum will take care of it either way
-			if (!desired_num_sheets)
+			if(!desired_num_sheets)
 				return
 			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
@@ -571,10 +571,10 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["imprinter_ejectsheet"] && linked_imprinter) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
-		if (href_list["imprinter_ejectsheet_amt"] == "custom")
+		if(href_list["imprinter_ejectsheet_amt"] == "custom")
 			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			desired_num_sheets = max(0,desired_num_sheets) // for the imprinter they have something hacky, that still will guard against shenanigans. eh
-			if (!desired_num_sheets)
+			if(!desired_num_sheets)
 				return
 			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
@@ -846,7 +846,7 @@ proc/CallMaterialName(ID)
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(M)
 					material_list["amount"] = D.materials[M] / coeff
-					if (!linked_imprinter.check_mat(D, M))
+					if(!linked_imprinter.check_mat(D, M))
 						check_materials = 0
 						material_list["is_red"] = 1
 					else
@@ -869,7 +869,7 @@ proc/CallMaterialName(ID)
 				loaded_chemical["id"] = R.id
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
 		ui.set_initial_data(data)
 		ui.open()

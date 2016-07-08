@@ -43,7 +43,7 @@
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
 	var/proj_edge = has_edge(P)
-	if ((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
+	if((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
 		proj_sharp = 0
 		proj_edge = 0
 
@@ -69,7 +69,7 @@
 		if(istype(I, /obj/item/weapon))
 			var/obj/item/weapon/W = I
 			dtype = W.damtype
-			if (W.hitsound && W.throwforce > 0)
+			if(W.hitsound && W.throwforce > 0)
 				playsound(loc, W.hitsound, 30, 1, -1)
 
 		//run to-hit check here

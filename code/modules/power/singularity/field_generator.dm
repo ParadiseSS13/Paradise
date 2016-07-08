@@ -125,24 +125,24 @@ field_generator power level display
 				to_chat(user, "<span class='warning'>The [src.name] needs to be wrenched to the floor!</span>")
 				return
 			if(1)
-				if (WT.remove_fuel(0,user))
+				if(WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					user.visible_message("[user.name] starts to weld the [src.name] to the floor.", \
 						"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
 						"<span class='italics'>You hear welding.</span>")
-					if (do_after(user,20, target = src))
+					if(do_after(user,20, target = src))
 						if(!src || !WT.isOn()) return
 						state = 2
 						to_chat(user, "<span class='notice'>You weld the field generator to the floor.</span>")
 				else
 					return
 			if(2)
-				if (WT.remove_fuel(0,user))
+				if(WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					user.visible_message("[user.name] starts to cut the [src.name] free from the floor.", \
 						"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
 						"<span class='italics'>You hear welding.</span>")
-					if (do_after(user,20, target = src))
+					if(do_after(user,20, target = src))
 						if(!src || !WT.isOn()) return
 						state = 1
 						to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
@@ -179,7 +179,7 @@ field_generator power level display
 	active = 0
 	spawn(1)
 		src.cleanup()
-		while (warming_up>0 && !active)
+		while(warming_up>0 && !active)
 			sleep(50)
 			warming_up--
 			update_icon()
@@ -187,7 +187,7 @@ field_generator power level display
 /obj/machinery/field/generator/proc/turn_on()
 	active = 1
 	spawn(1)
-		while (warming_up<3 && active)
+		while(warming_up<3 && active)
 			sleep(50)
 			warming_up++
 			update_icon()
@@ -204,8 +204,8 @@ field_generator power level display
 		src.power = field_generator_max_power
 
 	var/power_draw = 2
-	for (var/obj/machinery/field/containment/F in fields)
-		if (isnull(F))
+	for(var/obj/machinery/field/containment/F in fields)
+		if(isnull(F))
 			continue
 		power_draw++
 	if(draw_power(round(power_draw/2,1)))
@@ -303,7 +303,7 @@ field_generator power level display
 				CF.Crossed(L)
 	var/listcheck = 0
 	for(var/obj/machinery/field/generator/FG in connected_gens)
-		if (isnull(FG))
+		if(isnull(FG))
 			continue
 		if(FG == G)
 			listcheck = 1
@@ -312,7 +312,7 @@ field_generator power level display
 		connected_gens.Add(G)
 	listcheck = 0
 	for(var/obj/machinery/field/generator/FG2 in G.connected_gens)
-		if (isnull(FG2))
+		if(isnull(FG2))
 			continue
 		if(FG2 == src)
 			listcheck = 1
@@ -323,13 +323,13 @@ field_generator power level display
 
 /obj/machinery/field/generator/proc/cleanup()
 	clean_up = 1
-	for (var/obj/machinery/field/containment/F in fields)
-		if (isnull(F))
+	for(var/obj/machinery/field/containment/F in fields)
+		if(isnull(F))
 			continue
 		qdel(F)
 	fields = list()
 	for(var/obj/machinery/field/generator/FG in connected_gens)
-		if (isnull(FG))
+		if(isnull(FG))
 			continue
 		FG.connected_gens.Remove(src)
 		if(!FG.clean_up)//Makes the other gens clean up as well

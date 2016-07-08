@@ -17,7 +17,7 @@
 
 	user.do_attack_animation(M)
 	M.Weaken(5)
-	if (M.stuttering < 5)
+	if(M.stuttering < 5)
 		M.stuttering = 5
 	M.Stun(5)
 

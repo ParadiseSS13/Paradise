@@ -93,11 +93,11 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 				return
 		else
@@ -172,11 +172,11 @@
 
 
 /obj/item/attack_hand(mob/user as mob)
-	if (!user) return 0
-	if (hasorgans(user))
+	if(!user) return 0
+	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (user.hand)
+		if(user.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
@@ -185,13 +185,13 @@
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
-	if (istype(src.loc, /obj/item/weapon/storage))
+	if(istype(src.loc, /obj/item/weapon/storage))
 		//If the item is in a storage item, take it out
 		var/obj/item/weapon/storage/S = src.loc
 		S.remove_from_storage(src)
 
 	src.throwing = 0
-	if (loc == user)
+	if(loc == user)
 		if(!user.unEquip(src))
 			return 0
 
@@ -216,13 +216,13 @@
 			to_chat(user, "Your claws aren't capable of such fine manipulation.")
 			return
 
-	if (istype(src.loc, /obj/item/weapon/storage))
+	if(istype(src.loc, /obj/item/weapon/storage))
 		for(var/mob/M in range(1, src.loc))
-			if (M.s_active == src.loc)
-				if (M.client)
+			if(M.s_active == src.loc)
+				if(M.client)
 					M.client.screen -= src
 	src.throwing = 0
-	if (src.loc == user)
+	if(src.loc == user)
 		if(!user.unEquip(src))
 			return
 	else
@@ -245,7 +245,7 @@
 	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
-	if (istype(src.loc, /obj/item/weapon/robot_module))
+	if(istype(src.loc, /obj/item/weapon/robot_module))
 		//If the item is part of a cyborg module, equip it
 		if(!isrobot(user)) return
 		var/mob/living/silicon/robot/R = user
@@ -447,7 +447,7 @@
 				M.eye_blurry += 10
 				M.Paralyse(1)
 				M.Weaken(2)
-			if (eyes.damage >= eyes.min_broken_damage)
+			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
@@ -468,7 +468,7 @@
 
 
 /obj/item/add_blood(mob/living/carbon/human/M as mob)
-	if (!..())
+	if(!..())
 		return 0
 
 	if(istype(src, /obj/item/weapon/melee/energy))

@@ -308,14 +308,14 @@
 	switch(M.a_intent)
 
 		if(I_HELP)
-			if (health > 0)
+			if(health > 0)
 				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if(I_GRAB)
-			if (M == src || anchored)
+			if(M == src || anchored)
 				return
-			if (!(status_flags & CANPUSH))
+			if(!(status_flags & CANPUSH))
 				return
 
 			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
@@ -341,10 +341,10 @@
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
-		if (I_GRAB)
+		if(I_GRAB)
 			grabbedby(M)
 
 		if(I_HARM, I_DISARM)
@@ -377,13 +377,13 @@
 
 
 /mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if(M.Victim) return // can't attack while eating!
 
-	if (health > 0)
+	if(health > 0)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>[M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>[M.name] glomps [src]!</span>")
@@ -440,7 +440,7 @@
 			if(O.force)
 				if(O.force >= force_threshold)
 					damage = O.force
-					if (O.damtype == STAMINA)
+					if(O.damtype == STAMINA)
 						damage = 0
 					visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
 									"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
@@ -481,12 +481,12 @@
 
 /mob/living/simple_animal/ex_act(severity)
 	..()
-	switch (severity)
-		if (1.0)
+	switch(severity)
+		if(1.0)
 			gib()
 			return
 
-		if (2.0)
+		if(2.0)
 			adjustBruteLoss(60)
 
 
@@ -526,17 +526,17 @@
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
 		return 0
-	if (isliving(the_target))
+	if(isliving(the_target))
 		var/mob/living/L = the_target
 		if(L.stat != CONSCIOUS)
 			return 0
-	if (istype(the_target, /obj/mecha))
+	if(istype(the_target, /obj/mecha))
 		var/obj/mecha/M = the_target
-		if (M.occupant)
+		if(M.occupant)
 			return 0
-	if (istype(the_target,/obj/spacepod))
+	if(istype(the_target,/obj/spacepod))
 		var/obj/spacepod/S = the_target
-		if (S.pilot)
+		if(S.pilot)
 			return 0
 	return 1
 
