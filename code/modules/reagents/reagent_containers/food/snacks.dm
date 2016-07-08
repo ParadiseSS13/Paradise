@@ -1578,15 +1578,6 @@
 		reagents.add_reagent("tomatojuice", 2)
 		bitesize = 5
 
-/obj/item/weapon/reagent_containers/food/snacks/raw_bacon
-	name = "raw bacon"
-	desc = "It's fleshy and pink!"
-	icon_state = "raw_bacon"
-	bitesize = 2
-	New()
-		..()
-		reagents.add_reagent("nutriment", 1)
-		reagents.add_reagent("porktonium", 10)
 
 /obj/item/weapon/reagent_containers/food/snacks/bacon
 	name = "bacon"
@@ -2708,23 +2699,6 @@
 		..()
 		reagents.add_reagent("nutriment", 1)
 
-/obj/item/weapon/reagent_containers/food/snacks/sliceable/rawcutlet
-	name = "raw cutlet"
-	desc = "A thin piece of raw meat."
-	icon = 'icons/obj/food/food_ingredients.dmi'
-	icon_state = "rawcutlet"
-	bitesize = 1
-	New()
-		..()
-		reagents.add_reagent("protein", 1)
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		if(istype(W,/obj/item/weapon/kitchen/knife))
-			user.visible_message( \
-				"[user] cuts the raw cutlet with the knife!", \
-				"<span class ='notice'>You cut the raw cutlet with your knife!</span>" \
-				)
-			new /obj/item/weapon/reagent_containers/food/snacks/raw_bacon(src.loc)
-			qdel(src)
 
 
 /////////////////////////////////////////////////PIZZA////////////////////////////////////////
@@ -3306,6 +3280,16 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 7)
+
+/obj/item/weapon/reagent_containers/food/snacks/rawcutlet
+	name = "raw cutlet"
+	desc = "A thin piece of raw meat."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "rawcutlet"
+	bitesize = 1
+	New()
+		..()
+		reagents.add_reagent("protein", 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/cutlet
 	name = "cutlet"
