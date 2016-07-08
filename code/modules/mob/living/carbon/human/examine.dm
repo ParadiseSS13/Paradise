@@ -58,14 +58,14 @@
 
 	var/displayed_species = get_species()
 	for(var/obj/item/clothing/C in src)			//Disguise checks
-		if (C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
+		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
 			if(C.species_disguise)
 				displayed_species = C.species_disguise
-	if (skipjumpsuit && skipface || (displayed_species in nospecies)) //either obscured or on the nospecies list
+	if(skipjumpsuit && skipface || (displayed_species in nospecies)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
-	else if (displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
+	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
 		msg += ", a slime person!\n"
-	else if (displayed_species == "Unathi") //DAMN YOU, VOWELS
+	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
 		msg += ", a unathi!\n"
 	else
 		msg += ", \a [lowertext(displayed_species)]!\n"
@@ -157,7 +157,7 @@
 			msg += "<span class='warning'>[t_He] [t_is] wearing [bicon(shoes)] [shoes.gender==PLURAL?"some":"a"] [shoes.blood_color != "#030303" ? "blood-stained":"oil-stained"] [shoes.name] on [t_his] feet!</span>\n"
 		else
 			msg += "[t_He] [t_is] wearing [bicon(shoes)] \a [shoes] on [t_his] feet.\n"
-	else if (blood_DNA)
+	else if(blood_DNA)
 		msg += "<span class='warning'>[t_He] [t_has] [feet_blood_color != "#030303" ? "blood-stained":"oil-stained"] feet!</span>\n"
 
 
@@ -221,7 +221,7 @@
 	var/distance = get_dist(user,src)
 	if(istype(user, /mob/dead/observer) || user.stat == 2) // ghosts can see anything
 		distance = 1
-	if (src.stat)
+	if(src.stat)
 		msg += "<span class='warning'>[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep.</span>\n"
 		if((stat == 2 || src.health <= config.health_threshold_crit) && distance <= 3)
 			msg += "<span class='warning'>[t_He] does not appear to be breathing.</span>\n"
@@ -462,9 +462,9 @@
 			perpname = name
 
 		if(perpname)
-			for (var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
-					for (var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
 
@@ -484,10 +484,10 @@
 		else
 			perpname = src.name
 
-		for (var/datum/data/record/E in data_core.general)
-			if (E.fields["name"] == perpname)
-				for (var/datum/data/record/R in data_core.general)
-					if (R.fields["id"] == E.fields["id"])
+		for(var/datum/data/record/E in data_core.general)
+			if(E.fields["name"] == perpname)
+				for(var/datum/data/record/R in data_core.general)
+					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=\ref[src];medical=1'>\[[medical]\]</a>\n"
@@ -497,7 +497,7 @@
 	if(print_flavor_text()) msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
-	if (pose)
+	if(pose)
 		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[t_He] is [pose]"

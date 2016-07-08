@@ -205,7 +205,7 @@
 	color = "#403010" // rgb: 64, 48, 16
 
 /datum/reagent/hot_coco/on_mob_life(var/mob/living/M as mob)
-	if (M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.nutrition += nutriment_factor
 	..()
@@ -224,17 +224,17 @@
 	if(!data) data = 1
 	switch(data)
 		if(1 to 5)
-			if (!M.stuttering) M.stuttering = 1
+			if(!M.stuttering) M.stuttering = 1
 			M.Dizzy(5)
 			if(prob(10)) M.emote(pick("twitch","giggle"))
 		if(5 to 10)
-			if (!M.stuttering) M.stuttering = 1
+			if(!M.stuttering) M.stuttering = 1
 			M.Jitter(10)
 			M.Dizzy(10)
 			M.druggy = max(M.druggy, 35)
 			if(prob(20)) M.emote(pick("twitch","giggle"))
-		if (10 to INFINITY)
-			if (!M.stuttering) M.stuttering = 1
+		if(10 to INFINITY)
+			if(!M.stuttering) M.stuttering = 1
 			M.Jitter(20)
 			M.Dizzy(20)
 			M.druggy = max(M.druggy, 40)
@@ -277,7 +277,7 @@
 	return
 
 /datum/reagent/cornoil/reaction_turf(var/turf/simulated/T, var/volume)
-	if (!istype(T)) return
+	if(!istype(T)) return
 	src = null
 	if(volume >= 3)
 		T.MakeSlippery()
@@ -322,7 +322,7 @@
 
 /datum/reagent/hot_ramen/on_mob_life(var/mob/living/M as mob)
 	M.nutrition += nutriment_factor
-	if (M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (10 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	..()
 	return

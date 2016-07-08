@@ -457,16 +457,16 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 	proc/select_target()
 		var/list/possible_items_all = potential_theft_objectives+"custom"
 		var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
-		if (!new_target) return
-		if (new_target == "custom")
+		if(!new_target) return
+		if(new_target == "custom")
 			var/datum/theft_objective/O=new
 			O.typepath = input("Select type:","Type") as null|anything in typesof(/obj/item)
-			if (!O.typepath) return
+			if(!O.typepath) return
 			var/tmp_obj = new O.typepath
 			var/custom_name = tmp_obj:name
 			qdel(tmp_obj)
 			O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
-			if (!O.name) return
+			if(!O.name) return
 			steal_target = O
 			explanation_text = "Steal [O.name]."
 		else
@@ -530,15 +530,15 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 /datum/objective/absorb
 	proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
 		target_amount = rand (lowbound,highbound)
-		if (ticker)
+		if(ticker)
 			var/n_p = 1 //autowin
-			if (ticker.current_state == GAME_STATE_SETTING_UP)
+			if(ticker.current_state == GAME_STATE_SETTING_UP)
 				for(var/mob/new_player/P in player_list)
 					if(P.client && P.ready && P.mind != owner)
 						if(P.client.prefs && (P.client.prefs.species == "Vox" || P.client.prefs.species == "Slime People" || P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 							continue
 						n_p++
-			else if (ticker.current_state == GAME_STATE_PLAYING)
+			else if(ticker.current_state == GAME_STATE_PLAYING)
 				for(var/mob/living/carbon/human/P in player_list)
 					if(P.species.flags & NO_SCAN)
 						continue
@@ -630,7 +630,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 	check_completion()
 		if(target && target.current)
-			if (target.current.stat == DEAD)
+			if(target.current.stat == DEAD)
 				return 0
 
 			var/area/shuttle/vox/A = locate() //stupid fucking hardcoding

@@ -9,14 +9,14 @@ It reuses a lot of code from the AIEye cameraNetwork. In order to work properly,
 
 /proc/isCultRune(var/viewpoint)
 	var/obj/effect/rune/test_rune = viewpoint
-	if (test_rune)
+	if(test_rune)
 		return TRUE
 	return FALSE
 
 
 /proc/isCultViewpoint(var/viewpoint)
 	var/obj/cult_viewpoint/vp = viewpoint
-	if (vp)
+	if(vp)
 		return TRUE
 	return FALSE
 	

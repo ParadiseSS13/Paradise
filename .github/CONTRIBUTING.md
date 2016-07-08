@@ -58,6 +58,9 @@ actual development.
   be a  new proc that they both can use.
  - No magic numbers/strings. If you have a number or text that is important and used in
   your code, make a `#DEFINE` statement with a name that clearly indicates it's use.
+ - `if(condition)` must be used over `if (condition)` or any other variation.
+  - The same applies for `while` and `for` loops, they must have no space between the
+  keyword and condition brackets. `while(condition)`, `for(condition)`
  - If you want to output a message to a player's chat
   (this includes text sent to `world`), use `to_chat(mob/client/world, "message")`.
   Do not use `mob/client/world << "message"`.

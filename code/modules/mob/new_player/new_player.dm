@@ -70,8 +70,8 @@
 	..()
 
 	statpanel("Status")
-	if (client.statpanel == "Status" && ticker)
-		if (ticker.current_state != GAME_STATE_PREGAME)
+	if(client.statpanel == "Status" && ticker)
+		if(ticker.current_state != GAME_STATE_PREGAME)
 			stat(null, "Station Time: [worldtime2text()]")
 	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && ticker)
@@ -275,7 +275,7 @@
 		return 0
 
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
-	if (src != usr)
+	if(src != usr)
 		return 0
 	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "\red The round is either not ready, or has already finished...")
@@ -360,11 +360,11 @@
 
 
 /mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
-	if (ticker.current_state == GAME_STATE_PLAYING)
+	if(ticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for (var/mob/living/silicon/ai/A in living_mob_list)
+		for(var/mob/living/silicon/ai/A in living_mob_list)
 			ailist += A
-		if (ailist.len)
+		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
@@ -385,11 +385,11 @@
 					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
-	if (ticker.current_state == GAME_STATE_PLAYING)
+	if(ticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for (var/mob/living/silicon/ai/A in living_mob_list)
+		for(var/mob/living/silicon/ai/A in living_mob_list)
 			ailist += A
-		if (ailist.len)
+		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.special_role != "MODE"))

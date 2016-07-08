@@ -100,9 +100,9 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/list/input = params2list(T)
 	var/key_valid = (config.comms_password && input["key"] == config.comms_password) //no password means no comms, not any password
 
-	if ("ping" in input)
+	if("ping" in input)
 		var/x = 1
-		for (var/client/C)
+		for(var/client/C)
 			x++
 		return x
 
@@ -113,7 +113,7 @@ var/world_topic_spam_protect_time = world.timeofday
 				n++
 		return n
 
-	else if ("status" in input)
+	else if("status" in input)
 		var/list/s = list()
 		var/list/admins = list()
 		s["version"] = game_version
@@ -226,7 +226,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
-	if (reason == 1) //special reboot, do none of the normal stuff
+	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
@@ -282,7 +282,7 @@ var/world_topic_spam_protect_time = world.timeofday
 					log_access("AFK: [key_name(C)]")
 					to_chat(C, "\red You have been inactive for more than 10 minutes and have been disconnected.")
 					del(C)
-		if ( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
+		if( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
 			sleep(sleep_length)
 			sleep_check = world.timeofday
 		waiting++
@@ -295,7 +295,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		while(1)
 			sleep(DISCONNECTED_DELETE)
 			for(var/mob/living/carbon/human/C in living_mob_list)
-				if (dd_hasprefix(C.key,@)) return
+				if(dd_hasprefix(C.key,@)) return
 				if(!C.client && C.brain_op_stage!=4.0 && C.lastKnownIP)
 					sleep(600)
 					if(!C.client && C.stat != DEAD && C.brain_op_stage!=4.0)
@@ -353,7 +353,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/update_status()
 	var/s = ""
 
-	if (config && config.server_name)
+	if(config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 
 	s += "<b>[station_name()]</b>";
@@ -375,41 +375,41 @@ var/world_topic_spam_protect_time = world.timeofday
 	else
 		features += "<b>STARTING</b>"
 
-	if (!enter_allowed)
+	if(!enter_allowed)
 		features += "closed"
 
 	features += abandon_allowed ? "respawn" : "no respawn"
 
-	if (config && config.allow_vote_mode)
+	if(config && config.allow_vote_mode)
 		features += "vote"
 
-	if (config && config.allow_ai)
+	if(config && config.allow_ai)
 		features += "AI allowed"
 
 	var/n = 0
-	for (var/mob/M in player_list)
-		if (M.client)
+	for(var/mob/M in player_list)
+		if(M.client)
 			n++
 
-	if (n > 1)
+	if(n > 1)
 		features += "~[n] players"
-	else if (n > 0)
+	else if(n > 0)
 		features += "~[n] player"
 
 	/*
 	is there a reason for this? the byond site shows 'hosted by X' when there is a proper host already.
-	if (host)
+	if(host)
 		features += "hosted by <b>[host]</b>"
 	*/
 
-//	if (!host && config && config.hostedby)
+//	if(!host && config && config.hostedby)
 //		features += "hosted by <b>[config.hostedby]</b>"
 
-	if (features)
+	if(features)
 		s += ": [jointext(features, ", ")]"
 
 	/* does this help? I do not know */
-	if (src.status != s)
+	if(src.status != s)
 		src.status = s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
@@ -439,7 +439,7 @@ proc/setup_database_connection()
 
 	dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
 	. = dbcon.IsConnected()
-	if ( . )
+	if( . )
 		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
 		failed_db_connections++		//If it failed, increase the failed connections counter.

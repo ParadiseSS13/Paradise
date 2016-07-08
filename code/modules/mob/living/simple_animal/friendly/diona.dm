@@ -191,7 +191,7 @@
 	adult.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 	adult.rename_self("diona")
 
-	for (var/obj/item/W in src.contents)
+	for(var/obj/item/W in src.contents)
 		src.unEquip(W)
 
 	qdel(src)

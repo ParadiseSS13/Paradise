@@ -43,7 +43,7 @@
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
 	var/proj_edge = has_edge(P)
-	if ((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
+	if((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
 		proj_sharp = 0
 		proj_edge = 0
 
@@ -69,7 +69,7 @@
 		if(istype(O,/obj/item/weapon))
 			var/obj/item/weapon/W = O
 			dtype = W.damtype
-			if (W.hitsound && W.throwforce > 0)
+			if(W.hitsound && W.throwforce > 0)
 				playsound(loc, W.hitsound, 30, 1, -1)
 
 		//run to-hit check here
@@ -77,11 +77,11 @@
 		var/throw_damage = O.throwforce*(speed/5)
 
 		//var/miss_chance = 15
-		//if (O.throw_source)
+		//if(O.throw_source)
 			//var/distance = get_dist(O.throw_source, loc)
 			//miss_chance = min(15*(distance-2), 0)
 		/*
-		if (prob(miss_chance))
+		if(prob(miss_chance))
 			visible_message("\blue \The [O] misses [src] narrowly!")
 			return
 		*/

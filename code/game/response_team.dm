@@ -102,8 +102,8 @@ var/ert_request_answered = 0
 		to_chat(usr, "The emergency response team is already full!")
 		return
 
-	for (var/obj/effect/landmark/L in landmarks_list)
-		if (L.name == "Response Team")
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == "Response Team")
 			L.name = null
 
 			if(alert(usr, "Would you like to join the Emergency Response Team?", "Emergency Response Team", "Yes", "No") == "No")
@@ -141,8 +141,8 @@ var/ert_request_answered = 0
 	var/obj/item/weapon/stamp/centcom/stamp = new
 	P.stamp(stamp)
 	qdel(stamp)
-	for (var/obj/effect/landmark/A in world)
-		if (A.name == "nukecode")
+	for(var/obj/effect/landmark/A in world)
+		if(A.name == "nukecode")
 			P.loc = A.loc
 			qdel(A)
 			continue
@@ -154,7 +154,7 @@ var/ert_request_answered = 0
 	response_team_members |= M
 
 	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
-	if (new_gender)
+	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
 		else
@@ -204,7 +204,7 @@ var/ert_request_answered = 0
 	M.loc = spawn_location
 
 	var/class = 0
-	while (!class)
+	while(!class)
 		class = input("Which loadout would you like to choose?") in active_team.get_slot_list()
 		if(!active_team.check_slot_available(class)) // Because the prompt does not update automatically when a slot gets filled.
 			class = 0

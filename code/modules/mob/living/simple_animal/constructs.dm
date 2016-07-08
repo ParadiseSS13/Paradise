@@ -44,9 +44,9 @@
 	..(user)
 
 	var/msg = "<span class='info'>"
-	if (src.health < src.maxHealth)
+	if(src.health < src.maxHealth)
 		msg += "<span class='warning'>"
-		if (src.health >= src.maxHealth/2)
+		if(src.health >= src.maxHealth/2)
 			msg += "It looks slightly dented.\n"
 		else
 			msg += "<B>It looks severely dented!</B>\n"
@@ -252,7 +252,7 @@
 	set category = "Behemoth"
 	set name = "Summon Cultist (300)"
 	set desc = "Teleport a cultist to your location"
-	if (istype(usr,/mob/living/simple_animal/constructbehemoth))
+	if(istype(usr,/mob/living/simple_animal/constructbehemoth))
 
 		if(usr.energy<300)
 			to_chat(usr, "\red You do not have enough power stored!")
@@ -264,12 +264,12 @@
 		usr.energy -= 300
 	var/list/mob/living/cultists = new
 	for(var/datum/mind/H in ticker.mode.cult)
-		if (istype(H.current,/mob/living))
+		if(istype(H.current,/mob/living))
 			cultists+=H.current
 			var/mob/cultist = input("Choose the one who you want to summon", "Followers of Geometer") as null|anything in (cultists - usr)
 			if(!cultist)
 				return
-			if (cultist == usr) //just to be sure.
+			if(cultist == usr) //just to be sure.
 				return
 			cultist.loc = usr.loc
 			usr.visible_message("/red [cultist] appears in a flash of red light as [usr] glows with power")*/

@@ -91,7 +91,7 @@
 				to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		else
 			sleep(6)
-			if (animation)
+			if(animation)
 				qdel(animation)
 		notransform = 0
 	return 1

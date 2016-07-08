@@ -60,10 +60,10 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 			blood_volume = round(vessel.get_reagent_amount(blood_reagent))
 			if(blood_volume < max_blood && blood_volume)
 				vessel.add_reagent(blood_reagent, 0.1) // regenerate blood VERY slowly
-				if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
+				if(reagents.has_reagent("nutriment"))	//Getting food speeds it up
 					vessel.add_reagent(blood_reagent, 0.4)
 					reagents.remove_reagent("nutriment", 0.1)
-				else if (reagents.has_reagent(blood_reagent))
+				else if(reagents.has_reagent(blood_reagent))
 					vessel.add_reagent(blood_reagent, 0.4)
 					reagents.remove_reagent(blood_reagent, 0.4)
 
@@ -93,13 +93,13 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 								break
 
 					vessel.add_reagent("blood", 0.1) // regenerate blood VERY slowly
-					if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
+					if(reagents.has_reagent("nutriment"))	//Getting food speeds it up
 						vessel.add_reagent("blood", 0.4)
 						reagents.remove_reagent("nutriment", 0.1)
-					if (reagents.has_reagent("iron"))	//Hematogen candy anyone?
+					if(reagents.has_reagent("iron"))	//Hematogen candy anyone?
 						vessel.add_reagent("blood", 0.8)
 						reagents.remove_reagent("iron", 0.1)
-					if (reagents.has_reagent("salglu_solution"))	//saline is good for blood regeneration
+					if(reagents.has_reagent("salglu_solution"))	//saline is good for blood regeneration
 						if(prob(33))
 							vessel.add_reagent("blood", 1.0)
 
@@ -172,7 +172,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 				continue
 			for(var/datum/wound/W in temp.wounds) if(W.bleeding())
 				blood_max += W.damage / 4
-			if (temp.open)
+			if(temp.open)
 				blood_max += 2  //Yer stomach is cut open
 		drip(blood_max)
 
@@ -263,7 +263,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 /mob/living/carbon/proc/inject_blood(obj/item/weapon/reagent_containers/container, var/amount)
 	var/datum/reagent/blood/injected = get_blood(container.reagents)
 
-	if (!istype(injected))
+	if(!istype(injected))
 		return
 
 	var/list/chems = list()
@@ -286,7 +286,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 	var/datum/reagent/blood/our = get_blood(vessel)
 
-	if (!istype(injected) || !istype(our))
+	if(!istype(injected) || !istype(our))
 		return
 	if(blood_incompatible(injected.data["blood_type"],our.data["blood_type"]) )
 		reagents.add_reagent("toxin",amount * 0.5)

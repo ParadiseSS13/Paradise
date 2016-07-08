@@ -69,7 +69,7 @@
 			if("brute")
 				health -= O.force * 0.75
 			else
-		if (health <= 0)
+		if(health <= 0)
 			visible_message("<span class=warning>The bookcase is smashed apart!</span>")
 			new /obj/item/stack/sheet/wood(get_turf(src))
 			new /obj/item/stack/sheet/wood(get_turf(src))
