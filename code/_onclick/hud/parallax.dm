@@ -7,7 +7,7 @@ var/list/parallax_on_clients = list()
 /obj/screen/parallax
 	var/base_offset_x = 0
 	var/base_offset_y = 0
-	mouse_opacity = 1
+	mouse_opacity = 0
 	icon = 'icons/turf/space.dmi'
 	icon_state = "blank"
 	name = "space parallax"
@@ -161,8 +161,6 @@ var/list/parallax_on_clients = list()
 			var/accumulated_offset_x = bgobj.base_offset_x - round(C.parallax_offset["horizontal"] * bgobj.parallax_speed * (C.prefs.parallax_speed/2))
 			var/accumulated_offset_y = bgobj.base_offset_y - round(C.parallax_offset["vertical"] * bgobj.parallax_speed * (C.prefs.parallax_speed/2))
 
-			//var/acc_x_diff = bgobj.last_accumulated_offset_x - accumulated_offset_x
-			//var/acc_y_diff = bgobj.last_accumulated_offset_y - accumulated_offset_y
 			bgobj.last_accumulated_offset_x = accumulated_offset_x
 			bgobj.last_accumulated_offset_y = accumulated_offset_y
 			
@@ -177,11 +175,6 @@ var/list/parallax_on_clients = list()
 				accumulated_offset_y += 1440
 
 			bgobj.screen_loc = "CENTER-7:[accumulated_offset_x],CENTER-7:[accumulated_offset_y]"
-			
-			//if(abs(x_diff) <= 1 && abs(y_diff) <= 1)
-				// Animate the movement of the layer
-				//bgobj.transform = matrix(1, 0, acc_x_diff, 0, 1, acc_y_diff)
-				//animate(bgobj, transform = matrix(), time = last_delay)
 		else
 			bgobj.screen_loc = "CENTER-7:[bgobj.base_offset_x],CENTER-7:[bgobj.base_offset_y]"
 
