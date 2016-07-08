@@ -952,6 +952,10 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_environ = 0
 
+/area/maintenance/consarea
+	name = "Alternate Construction Area"
+	icon_state = "yellow"
+
 
 //Hallway
 

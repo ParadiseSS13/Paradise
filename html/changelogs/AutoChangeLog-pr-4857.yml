@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Space lube damage removed and duration reduced from 7 to 5"

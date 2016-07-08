@@ -112,18 +112,18 @@ var/global/list/limb_icon_cache = list()
 	return mob_icon
 
 /obj/item/organ/external/proc/get_icon(var/skeletal)
-
 	var/gender
+	if(istext(species))
+		species = all_species[species]
 	if(force_icon)
 		mob_icon = new /icon(force_icon, "[icon_name]")
-		if(species && species.name == "Machine")	//snowflake for IPC's, sorry.
+		if(species && species.name == "Machine") //snowflake for IPC's, sorry.
 			if(s_col && s_col.len >= 3)
 				mob_icon.Blend(rgb(s_col[1], s_col[2], s_col[3]), ICON_ADD)
 	else
 		if(!dna)
 			mob_icon = new /icon('icons/mob/human_races/r_human.dmi', "[icon_name][gendered_icon ? "_f" : ""]")
 		else
-
 			if(gendered_icon)
 				if(dna.GetUIState(DNA_UI_GENDER))
 					gender = "f"

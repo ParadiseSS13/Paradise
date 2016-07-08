@@ -123,7 +123,7 @@
 		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/noir(H),slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black(H), slot_gloves)
 		if(H.mind.role_alt_title && H.mind.role_alt_title == "Forensic Technician")
-			H.equip_or_collect(new /obj/item/clothing/suit/storage/forensics/blue(H), slot_wear_suit)
+			H.equip_or_collect(new /obj/item/clothing/suit/storage/det_suit/forensics/blue(H), slot_wear_suit)
 		else
 			H.equip_or_collect(new /obj/item/clothing/suit/storage/det_suit(H), slot_wear_suit)
 			H.equip_or_collect(new /obj/item/clothing/head/det_hat(H), slot_head)

@@ -168,14 +168,14 @@
 		S.channel = 0 //Any channel
 		S.volume = 50
 		for(var/mob/M in passengers)
-			to_chat(M, S)
+			M << S
 	if(passengers && oldhealth > health && !health)
 		var/sound/S = sound('sound/effects/engine_alert1.ogg')
 		S.wait = 0
 		S.channel = 0
 		S.volume = 50
 		for(var/mob/M in passengers)
-			to_chat(M, S)
+			M << S
 	if(!health)
 		spawn(0)
 			if(passengers)
@@ -322,7 +322,7 @@
 
 	if(istype(W, /obj/item/device/lock_buster))
 		var/obj/item/device/lock_buster/L = W
-		if(L.on & equipment_system.lock_system)
+		if(L.on && equipment_system.lock_system)
 			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
 			if(do_after(user, 100, target = src))

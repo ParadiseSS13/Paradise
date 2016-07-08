@@ -314,6 +314,7 @@
 	w_class = 4
 	var/extend = 1
 	flags = NOSHIELD | CONDUCT
+	armour_penetration = 20
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -339,6 +340,7 @@
 	w_class = 2.0
 	extend = 0
 	flags = NOSHIELD
+	armour_penetration = 20
 	slot_flags = SLOT_BELT
 	origin_tech = "materials=3;combat=3"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
