@@ -231,11 +231,11 @@
 	if(emagged)
 		if(ishuman(ass))
 			var/mob/living/carbon/human/H = ass
-			to_chat(ass,"<span class='notice'>Something smells toasty...</span>")
+			to_chat(H,"<span class='notice'>Something smells toasty...</span>")
 			var/obj/item/organ/external/G = H.get_organ("groin")
 			G.take_damage(0, 30)
 			spawn(20)
-				ass.emote("scream")
+				H.emote("scream")
 		else
 			to_chat(ass,"<span class='notice'>Something smells toasty...</span>")
 			ass.apply_damage(30, BURN)
