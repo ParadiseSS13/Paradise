@@ -18,10 +18,10 @@
 	5  Love conquers all.
 	6  If at all possible, do a barrel roll.
 	7. Don't forget to use the network verify function to make sure you still have access to remote machines.
-
-
-
-
+
+
+
+
 	TODO:
 	*	"Nothing left to call the shuttle" check
 	*	Communications terminal printing - move it to a printer of some sort?  Make a printer peripheral--but then which ones print the comms?
