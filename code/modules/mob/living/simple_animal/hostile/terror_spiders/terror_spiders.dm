@@ -171,35 +171,35 @@ var/global/list/ts_spiderling_list = list()
 	var/list/targets1 = list()
 	var/list/targets2 = list()
 	var/list/targets3 = list()
-	if (ai_type == TS_AI_AGGRESSIVE)
+	if(ai_type == TS_AI_AGGRESSIVE)
 		// default, BE AGGRESSIVE
 		//var/list/Mobs = hearers(vision_range, src) - src // this is how ListTargets for /mob/living/simple_animal/hostile/ does it, but it is wrong, it ignores NPCs.
 		for(var/mob/living/H in view(src, vision_range))
 		//for(var/mob/H in Mobs)
-			if (H.stat == 2)
+			if(H.stat == 2)
 				continue
-			else if (H.flags & GODMODE)
+			else if(H.flags & GODMODE)
 				continue
-			else if (!stat_attack && H.stat == UNCONSCIOUS)
+			else if(!stat_attack && H.stat == UNCONSCIOUS)
 				continue
-			else if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
-				if (H in enemies)
+			else if(istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
+				if(H in enemies)
 					targets3 += H
 				continue
-			else if (H.reagents)
-				if (H.paralysis && H.reagents.has_reagent("terror_white_tranq"))
+			else if(H.reagents)
+				if(H.paralysis && H.reagents.has_reagent("terror_white_tranq"))
 					// let's not target completely paralysed mobs.
-					if (H in enemies)
+					if(H in enemies)
 						targets3 += H
 						// unless we hate their guts
-				if (IsInfected(H)) // target them if they attack us
-					if (H in enemies)
+				if(IsInfected(H)) // target them if they attack us
+					if(H in enemies)
 						targets3 += H
-				else if (H.reagents.has_reagent("terror_black_toxin") && istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/black))
-					if (get_dist(src,H) <= 2)
+				else if(H.reagents.has_reagent("terror_black_toxin") && istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/black))
+					if(get_dist(src,H) <= 2)
 						// if they come to us...
 						targets2 += H
-					else if ((H in enemies) && !H.reagents.has_reagent("terror_black_toxin",31))
+					else if((H in enemies) && !H.reagents.has_reagent("terror_black_toxin",31))
 						// if we're aggressive, and they're not going to die quickly...
 						targets2 += H
 					else
@@ -207,87 +207,87 @@ var/global/list/ts_spiderling_list = list()
 						// either way, not much point in targeting them
 						// if they shoot us, of course, then we will consider them a valid target
 				else
-					if (ai_target_method == TS_DAMAGE_BRUTE)
+					if(ai_target_method == TS_DAMAGE_BRUTE)
 						var/theirarmor = H.getarmor(type = "melee")
 						// Example values: Civilian: 2, Engineer w/ Hardsuit: 10, Sec Officer with armor: 19, HoS: 48, Deathsquad: 80
-						if (theirarmor < 10)
+						if(theirarmor < 10)
 							targets1 += H
-						else if (H in enemies)
-							if (theirarmor < 30)
+						else if(H in enemies)
+							if(theirarmor < 30)
 								targets2 += H
 							else
 								targets3 += H
 						else
 							targets3 += H
-					else if (ai_target_method == TS_DAMAGE_POISON)
-						if (H.can_inject(null,0,"chest",0))
+					else if(ai_target_method == TS_DAMAGE_POISON)
+						if(H.can_inject(null,0,"chest",0))
 							targets1 += H
-						else if (H in enemies)
+						else if(H in enemies)
 							targets2 += H
 						else
 							targets3 += H
 					else
 						// TS_DAMAGE_SIMPLE
-						if (H in enemies)
+						if(H in enemies)
 							targets2 += H
 						else
 							targets3 += H
-			else if (istype(H, /mob/living/simple_animal))
+			else if(istype(H, /mob/living/simple_animal))
 				var/mob/living/simple_animal/hostile/poison/terror_spider/M = H
-				if (M.force_threshold > melee_damage_upper)
+				if(M.force_threshold > melee_damage_upper)
 					// If it has such high armor it can ignore any attack we make on it, ignore it.
-				else if (M in enemies)
+				else if(M in enemies)
 					targets2 += M
 				else
 					targets3 += M
 			else
-				if (H in enemies)
+				if(H in enemies)
 					targets2 += H
 				else
 					targets3 += H
 		for(var/obj/mecha/M in mechas_list)
-			if (get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
-				if (get_dist(M, src) <= 2)
+			if(get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
+				if(get_dist(M, src) <= 2)
 					targets2 += M
 				else
 					targets3 += M
-		if (health < maxHealth)
+		if(health < maxHealth)
 			// very unlikely that we're being shot at by a space pod - so only check for this if our health is lower than max.
 			for(var/obj/spacepod/S in spacepods_list)
-				if (get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
+				if(get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
 					targets3 += S
-		if (targets1.len)
+		if(targets1.len)
 			return targets1
-		else if (targets2.len)
+		else if(targets2.len)
 			return targets2
 		else
 			return targets3
-	else if (ai_type == TS_AI_DEFENSIVE)
+	else if(ai_type == TS_AI_DEFENSIVE)
 		// DEFEND SELF ONLY
 		//var/list/Mobs = hearers(vision_range, src) - src
 		for(var/mob/living/H in view(src, vision_range))
 		//for(var/mob/H in Mobs)
-			if (H.stat == DEAD)
+			if(H.stat == DEAD)
 				// dead mobs are ALWAYS ignored.
-			else if (!stat_attack && H.stat == UNCONSCIOUS)
+			else if(!stat_attack && H.stat == UNCONSCIOUS)
 				// unconscious mobs are ignored unless spider has stat_attack
-			else if (H in enemies)
+			else if(H in enemies)
 				targets1 += H
 		for(var/obj/mecha/M in mechas_list)
-			if (M in enemies && get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
+			if(M in enemies && get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
 				targets1 += M
 		for(var/obj/spacepod/S in spacepods_list)
-			if (S in enemies && get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
+			if(S in enemies && get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
 				targets1 += S
 		return targets1
-	else if (ai_type == TS_AI_PASSIVE)
+	else if(ai_type == TS_AI_PASSIVE)
 		// COMPLETELY PASSIVE
 		return list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
-	if (target && isliving(target))
+	if(target && isliving(target))
 		var/mob/living/T = target
-		if (T.stat > 0)
+		if(T.stat > 0)
 			killcount++
 			regen_points += regen_points_per_kill
 	attackstep = 0
@@ -295,26 +295,26 @@ var/global/list/ts_spiderling_list = list()
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/AttackingTarget()
-	if (istype(target, /mob/living/simple_animal/hostile/poison/terror_spider/))
-		if (target in enemies)
+	if(istype(target, /mob/living/simple_animal/hostile/poison/terror_spider/))
+		if(target in enemies)
 			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
-		if (T.spider_tier > spider_tier)
+		if(T.spider_tier > spider_tier)
 			visible_message("<span class='notice'> [src] bows in respect for the terrifying presence of [target] </span>")
-		else if (T.spider_tier == spider_tier)
+		else if(T.spider_tier == spider_tier)
 			visible_message("<span class='notice'> [src] harmlessly nuzzles [target]. </span>")
-		else if (T.spider_tier < spider_tier && spider_tier >= 4)
+		else if(T.spider_tier < spider_tier && spider_tier >= 4)
 			visible_message("<span class='notice'> [src] gives [target] a stern look. </span>")
 		else
 			visible_message("<span class='notice'> [src] harmlessly nuzzles [target]. </span>")
 		T.CheckFaction()
 		CheckFaction()
-	else if (istype(target, /obj/effect/spider/cocoon))
+	else if(istype(target, /obj/effect/spider/cocoon))
 		to_chat(src, "Destroying our own cocoons would not help us.")
-	else if (istype(target, /obj/machinery/camera))
-		if (player_breaks_cameras)
+	else if(istype(target, /obj/machinery/camera))
+		if(player_breaks_cameras)
 			var/obj/machinery/camera/C = target
-			if (C.status)
+			if(C.status)
 				do_attack_animation(C)
 				C.toggle_cam(src,0)
 				visible_message("<span class='danger'>\the [src] smashes the [C.name].</span>")
@@ -323,40 +323,40 @@ var/global/list/ts_spiderling_list = list()
 				to_chat(src, "The camera is already deactivated.")
 		else
 			to_chat(src, "Your type of spider cannot break cameras.")
-	else if (istype(target, /obj/machinery/door/firedoor))
+	else if(istype(target, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = target
-		if (F.density)
-			if (F.blocked)
+		if(F.density)
+			if(F.blocked)
 				to_chat(src, "The fire door is welded shut.")
 			else
 				visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
 				F.open()
 		else
 			to_chat(src, "Closing fire doors does not help.")
-	else if (istype(target, /obj/machinery/door/airlock))
+	else if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
-		if (A.density)
+		if(A.density)
 			try_open_airlock(A)
-	else if (ai_type == TS_AI_PASSIVE)
+	else if(ai_type == TS_AI_PASSIVE)
 		to_chat(src, "Your current orders forbid you from attacking anyone.")
-	else if (ai_type == TS_AI_DEFENSIVE && !(target in enemies))
+	else if(ai_type == TS_AI_DEFENSIVE && !(target in enemies))
 		to_chat(src, "Your current orders only allow you to defend yourself - not initiate combat.")
-	else if (isliving(target))
+	else if(isliving(target))
 		var/mob/living/G = target
-		if (G.player_logged)
+		if(G.player_logged)
 			to_chat(src, "[G] is braindead, and a waste of our time. (SSD. Server rules prohibit attacking SSDs)")
-			if (G in enemies)
+			if(G in enemies)
 				enemies -= G
 			return
-		else if (istype(G, /mob/living/silicon/))
+		else if(istype(G, /mob/living/silicon/))
 			G.attack_animal(src)
 			return
-		else if (G.reagents && (iscarbon(G)))
+		else if(G.reagents && (iscarbon(G)))
 			var/can_poison = 1
-			if (istype(G, /mob/living/carbon/human/))
+			if(istype(G, /mob/living/carbon/human/))
 				var/mob/living/carbon/human/H = G
-				if (H.dna)
-					if (!(H.species.reagent_tag & PROCESS_ORG) || (H.species.flags & NO_POISON))
+				if(H.dna)
+					if(!(H.species.reagent_tag & PROCESS_ORG) || (H.species.flags & NO_POISON))
 						can_poison = 0
 			spider_specialattack(G,can_poison)
 		else
@@ -378,17 +378,17 @@ var/global/list/ts_spiderling_list = list()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/bullet_act(var/obj/item/projectile/Proj)
-	if (istype(Proj, /obj/item/projectile/energy/declone/declone_spider))
-		if (!degenerate)
-			if (spider_tier < 2)
-				if (ckey)
+	if(istype(Proj, /obj/item/projectile/energy/declone/declone_spider))
+		if(!degenerate)
+			if(spider_tier < 2)
+				if(ckey)
 					degenerate = 1
 				else
 					gib()
 			else
 				visible_message("<span class='danger'> [src] resists the bioweapon! </span>")
-	else if (istype(Proj, /obj/item/projectile/energy/declone))
-		if (!degenerate && prob(20) && spider_tier < 3)
+	else if(istype(Proj, /obj/item/projectile/energy/declone))
+		if(!degenerate && prob(20) && spider_tier < 3)
 			visible_message("<span class='danger'> [src] looks staggered by the bioweapon! </span>")
 			degenerate = 1
 	..()
@@ -402,33 +402,33 @@ var/global/list/ts_spiderling_list = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
 	..()
 	var/msg = ""
-	if (stat == DEAD)
+	if(stat == DEAD)
 		msg += "<span class='deadsay'>It appears to be dead.</span>\n"
 	else
-		if (key)
+		if(key)
 			msg += "<BR><span class='warning'>Its eyes regard you with a curious intelligence.</span>"
-		if (ai_type == TS_AI_AGGRESSIVE)
+		if(ai_type == TS_AI_AGGRESSIVE)
 			msg += "<BR><span class='warning'>It appears aggressive.</span>"
-		if (ai_type == TS_AI_DEFENSIVE)
+		if(ai_type == TS_AI_DEFENSIVE)
 			msg += "<BR><span class='notice'>It appears defensive.</span>"
-		if (ai_type == TS_AI_PASSIVE)
+		if(ai_type == TS_AI_PASSIVE)
 			msg += "<BR><span class='notice'>It appears passive.</span>"
 
-		if (health > (maxHealth*0.95))
+		if(health > (maxHealth*0.95))
 			msg += "<BR><span class='notice'>It is in excellent health.</span>"
-		else if (health > (maxHealth*0.75))
+		else if(health > (maxHealth*0.75))
 			msg += "<BR><span class='notice'>It has a few injuries.</span>"
-		else if (health > (maxHealth*0.55))
+		else if(health > (maxHealth*0.55))
 			msg += "<BR><span class='warning'>It has many injuries.</span>"
-		else if (health > (maxHealth*0.25))
+		else if(health > (maxHealth*0.25))
 			msg += "<BR><span class='warning'>It is barely clinging on to life!</span>"
-		if (degenerate)
+		if(degenerate)
 			msg += "<BR><span class='warning'>It appears to be dying.</span>"
-		else if (health < maxHealth && regen_points > regen_points_per_kill)
+		else if(health < maxHealth && regen_points > regen_points_per_kill)
 			msg += "<BR><span class='notice'>It appears to be regenerating quickly</span>"
-		if (killcount == 1)
+		if(killcount == 1)
 			msg += "<BR><span class='warning'>It is soaked in the blood of its prey.</span>"
-		if (killcount > 1)
+		if(killcount > 1)
 			msg += "<BR><span class='warning'>It is soaked with the blood of " + num2text(killcount) + " prey it has killed.</span>"
 	to_chat(usr,msg)
 
@@ -436,7 +436,7 @@ var/global/list/ts_spiderling_list = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
 	ts_spiderlist += src
-	if (type == /mob/living/simple_animal/hostile/poison/terror_spider)
+	if(type == /mob/living/simple_animal/hostile/poison/terror_spider)
 		message_admins("[src] spawned in [get_area(src)] - a subtype should have been spawned instead.")
 		qdel(src)
 	else
@@ -446,15 +446,15 @@ var/global/list/ts_spiderling_list = list()
 
 		name += " ([rand(1, 1000)])"
 		msg_terrorspiders("[src] has grown in [get_area(src)].")
-		if (name_usealtnames)
+		if(name_usealtnames)
 			name = pick(altnames)
-		if (z > MAX_Z)
+		if(z > MAX_Z)
 			spider_awaymission = 1
-			if (spider_tier >= 3)
+			if(spider_tier >= 3)
 				ai_ventcrawls = 0 // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
-			if (istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
+			if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
 				spider_uo71 = 1
-				if (world.time < 600)
+				if(world.time < 600)
 					// these are static spiders, specifically for the UO71 away mission, make them stay in place
 					ai_ventcrawls = 0
 					spider_placed = 1
@@ -466,11 +466,11 @@ var/global/list/ts_spiderling_list = list()
 		spawn(150) // deciseconds!
 			CheckFaction()
 		spawn(300) // deciseconds!
-			if (spider_awaymission)
+			if(spider_awaymission)
 				return
-			else if (ckey)
+			else if(ckey)
 				notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)")
-			else if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
+			else if(ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
 				notify_ghosts("[src] has appeared in [get_area(src)].", entry_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
@@ -478,23 +478,23 @@ var/global/list/ts_spiderling_list = list()
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
-	if (stat != DEAD)
-		if (degenerate > 0)
+	if(stat != DEAD)
+		if(degenerate > 0)
 			adjustToxLoss(rand(1,10))
-		if (regen_points < regen_points_max)
+		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
-		if ((bruteloss > 0) || (fireloss > 0))
-			if (regen_points > regen_points_per_hp)
-				if (bruteloss > 0)
+		if((bruteloss > 0) || (fireloss > 0))
+			if(regen_points > regen_points_per_hp)
+				if(bruteloss > 0)
 					adjustBruteLoss(-1)
 					regen_points -= regen_points_per_hp
-				else if (fireloss > 0)
+				else if(fireloss > 0)
 					adjustFireLoss(-1)
 					regen_points -= regen_points_per_hp
-		if (prob(5))
+		if(prob(5))
 			CheckFaction()
-	else if (stat == DEAD)
-		if (prob(2))
+	else if(stat == DEAD)
+		if(prob(2))
 			// 2% chance every cycle to decompose
 			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
 			gib()
@@ -502,17 +502,17 @@ var/global/list/ts_spiderling_list = list()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
-	if (!gibbed)
+	if(!gibbed)
 		msg_terrorspiders("[src] has died in [get_area(src)].")
-		//if (!ckey && spider_tier < 3)
+		//if(!ckey && spider_tier < 3)
 		//	say(pick("Mistresssss will end you...", "Doom waitssss... for you...","She comessssss for your flesh..."))
-	if (!hasdroppedloot)
+	if(!hasdroppedloot)
 		hasdroppedloot = 1
-		if (ts_count_dead == 0)
+		if(ts_count_dead == 0)
 			visible_message("<span class='userdanger'>The Terrors have awoken!</span>")
 		ts_count_dead++
 		ts_death_last = world.time
-		if (spider_awaymission)
+		if(spider_awaymission)
 			ts_count_alive_awaymission--
 		else
 			ts_count_alive_station--
@@ -520,22 +520,22 @@ var/global/list/ts_spiderling_list = list()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/handle_automated_action()
-	if (!stat && !ckey) // if we are not dead, and we're not player controlled
-		if (AIStatus != AI_OFF && !target)
+	if(!stat && !ckey) // if we are not dead, and we're not player controlled
+		if(AIStatus != AI_OFF && !target)
 			var/my_ventcrawl_freq = freq_ventcrawl_idle
-			if (ts_count_dead > 0)
-				if (world.time < (ts_death_last + ts_death_window))
+			if(ts_count_dead > 0)
+				if(world.time < (ts_death_last + ts_death_window))
 					my_ventcrawl_freq = freq_ventcrawl_combat
 			// First, check for general actions that any spider could take.
-			if (path_to_vent)
-				if (entry_vent)
-					if (spider_steps_taken > spider_max_steps)
+			if(path_to_vent)
+				if(entry_vent)
+					if(spider_steps_taken > spider_max_steps)
 						path_to_vent = 0
 						stop_automated_movement = 0
 						spider_steps_taken = 0
 						path_to_vent = 0
 						entry_vent = null
-					else if (get_dist(src, entry_vent) <= 1)
+					else if(get_dist(src, entry_vent) <= 1)
 						path_to_vent = 0
 						stop_automated_movement = 1
 						spider_steps_taken = 0
@@ -546,42 +546,42 @@ var/global/list/ts_spiderling_list = list()
 						spider_steps_taken++
 						CreatePath(entry_vent)
 						step_to(src,entry_vent)
-						if (spider_debug > 0)
+						if(spider_debug > 0)
 							visible_message("<span class='notice'>\the [src] moves towards the vent [entry_vent].</span>")
 				else
 					path_to_vent = 0
-			else if (ai_break_lights && world.time > (last_break_light + freq_break_light))
+			else if(ai_break_lights && world.time > (last_break_light + freq_break_light))
 				last_break_light = world.time
 				for(var/obj/machinery/light/L in range(1,src))
-					if (!L.status) // This assumes status == 0 means light is OK, which it does, but ideally we'd use lights' own constants.
+					if(!L.status) // This assumes status == 0 means light is OK, which it does, but ideally we'd use lights' own constants.
 						step_to(src,L) // one-time, does not require step tracking
 						L.on = 1
 						L.broken()
 						L.do_attack_animation(src)
 						visible_message("<span class='danger'>\the [src] smashes the [L.name].</span>")
 						break
-			else if (ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
+			else if(ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
 				last_spins_webs = world.time
 				var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
-				if (T)
+				if(T)
 				else
 					new /obj/effect/spider/terrorweb(get_turf(src))
 					visible_message("<span class='notice'>\the [src] puts up some spider webs.</span>")
-			else if (ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
-				if (prob(idle_ventcrawl_chance))
+			else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
+				if(prob(idle_ventcrawl_chance))
 					last_ventcrawl_time = world.time
 					var/vdistance = 99
 					for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
-						if (!v.welded)
-							if (get_dist(src,v) < vdistance)
+						if(!v.welded)
+							if(get_dist(src,v) < vdistance)
 								entry_vent = v
 								vdistance = get_dist(src,v)
-					if (entry_vent)
+					if(entry_vent)
 						path_to_vent = 1
 			else
 				// If none of the general actions apply, check for class-specific actions.
 				spider_special_action()
-		else if (AIStatus != AI_OFF && target)
+		else if(AIStatus != AI_OFF && target)
 			// if I am chasing something, and I've been stuck behind an obstacle for at least 3 cycles, aka 6 seconds, try to open doors
 			CreatePath(target)
 	..()
@@ -590,21 +590,21 @@ var/global/list/ts_spiderling_list = list()
 	// Do nothing, this proc only exists to be overriden
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Bump(atom/A)
-	if (istype(A, /obj/machinery/door/airlock))
+	if(istype(A, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/L = A
-		if (L.density)
+		if(L.density)
 			try_open_airlock(L)
-	if (istype(A, /obj/machinery/door/firedoor))
+	if(istype(A, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = A
-		if (F.density && !F.blocked)
+		if(F.density && !F.blocked)
 			F.open()
 	..()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Topic(href, href_list)
-	if (href_list["activate"])
+	if(href_list["activate"])
 		var/mob/dead/observer/ghost = usr
-		if (istype(ghost))
+		if(istype(ghost))
 			humanize_spider(ghost)
 
 

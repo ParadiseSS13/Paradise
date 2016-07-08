@@ -50,8 +50,8 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/Life()
-	if (stat != DEAD)
-		if (ckey && !shown_guide)
+	if(stat != DEAD)
+		if(ckey && !shown_guide)
 			shown_guide = 1
 			ShowGuide()
 	..()
@@ -63,7 +63,7 @@
 	set desc = "Lay spider eggs. As empress, you can lay queen-level eggs to create a new brood."
 	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN,TS_DESC_MOTHER,TS_DESC_PRINCE,TS_DESC_RED,TS_DESC_GRAY,TS_DESC_GREEN,TS_DESC_BLACK,TS_DESC_PURPLE,TS_DESC_WHITE)
 	var/numlings = input("How many in the batch?") as null|anything in list(1,2,3,4,5,10,15,20,30,40,50)
-	if (eggtype == null || numlings == null)
+	if(eggtype == null || numlings == null)
 		to_chat(src, "Cancelled.")
 		return
 	switch(eggtype)
@@ -112,10 +112,10 @@
 	set category = "Spider"
 	set desc = "Emit horrendusly loud screech which breaks lights and cameras in a massive radius. Good for making a spider nest in a pinch."
 	for(var/obj/machinery/light/L in range(14,src))
-		if (L.on)
+		if(L.on)
 			L.broken()
 	for(var/obj/machinery/camera/C in range(14,src))
-		if (C.status)
+		if(C.status)
 			C.toggle_cam(src,0)
 
 
@@ -125,16 +125,16 @@
 	set desc = "Causes widespread, terrifying hallucinations amongst many crew as you assault their minds."
 	var/numaffected = 0
 	for(var/mob/living/carbon/human/H in player_list)
-		if (H.z != z)
+		if(H.z != z)
 			continue
-		if (H.stat != CONSCIOUS || prob(50))
+		if(H.stat != CONSCIOUS || prob(50))
 			continue
 		H.hallucination = max(300, H.hallucination)
-		if (prob(50))
+		if(prob(50))
 			H.hallucination = max(600, H.hallucination)
 		to_chat(H,"<span class='userdanger'>Your head hurts! </span>")
 		numaffected++
-	if (numaffected)
+	if(numaffected)
 		to_chat(src, "You reach through bluespace into the minds of [numaffected] crew, making their fears come to life. They start to hallucinate.")
 	else
 		to_chat(src, "You reach through bluespace, searching for organic minds... but find none nearby.")
@@ -144,7 +144,7 @@
 	set name = "Toggle Debug"
 	set category = "Spider"
 	set desc = "Enables/disables debug mode for spiders."
-	if (spider_debug)
+	if(spider_debug)
 		spider_debug = 0
 		to_chat(src, "Debug: DEBUG MODE is now <b>OFF</b> for all spiders in the world.")
 	else
@@ -157,7 +157,7 @@
 	set name = "Toggle Instant"
 	set category = "Spider"
 	set desc = "Enables/disables instant growth for spiders."
-	if (spider_growinstantly)
+	if(spider_growinstantly)
 		spider_growinstantly = 0
 		to_chat(src, "Debug: INSTANT GROWTH is now <b>OFF</b> for all spiders in the world.")
 	else
@@ -174,19 +174,19 @@
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/L in ts_spiderlist)
 		if(L == src)
 			continue
-		if (L.stat == DEAD)
+		if(L.stat == DEAD)
 			continue
 		choices += L
 	var/killtarget = input(src,"Which terror spider should die?") in null|choices
-	if (!killtarget)
+	if(!killtarget)
 		// cancel
-	else if (!isliving(killtarget))
+	else if(!isliving(killtarget))
 		to_chat(src, "[killtarget] is not living.")
-	else if (!istype(killtarget, /mob/living/simple_animal/hostile/poison/terror_spider/))
+	else if(!istype(killtarget, /mob/living/simple_animal/hostile/poison/terror_spider/))
 		to_chat(src, "[killtarget] is not a terror spider.")
 	else
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = killtarget
-		if (T.ckey)
+		if(T.ckey)
 			// living player
 			ts_ckey_blacklist += T.ckey
 		to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
@@ -198,7 +198,7 @@
 	set category = "Spider"
 	set desc = "Debug: kill off all other spiders in the world. Takes two minutes to work."
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
-		if (T.spider_tier < 5)
+		if(T.spider_tier < 5)
 			T.degenerate = 1
 			to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
 	for(var/obj/effect/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
@@ -217,14 +217,14 @@
 		var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
 		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/white, /mob/living/simple_animal/hostile/poison/terror_spider/black)
 		S.spider_myqueen = spider_myqueen
-		if (prob(sbpc))
+		if(prob(sbpc))
 			S.stillborn = 1
-		if (spider_growinstantly)
+		if(spider_growinstantly)
 			S.amount_grown = 250
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/death(gibbed)
-	if (!hasdroppedloot)
+	if(!hasdroppedloot)
 		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold/heroism(get_turf(src))
 		M.layer = 4.1
 	..()

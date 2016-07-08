@@ -16,12 +16,12 @@
 	C.enemies = enemies
 	//In future, might use something like: C.name = initial(lay_type.egg_name)
 	//However, right now, that doesn't work.
-	if (spider_growinstantly)
+	if(spider_growinstantly)
 		C.amount_grown = 250
 		C.spider_growinstantly = 1
 	spawn(10)
 		stop_automated_movement = 0
-	if (spider_queen_declared_war)
+	if(spider_queen_declared_war)
 		C.spider_queen_declared_war = 1
 
 
@@ -44,25 +44,25 @@
 	..()
 	ts_egg_list += src
 	spawn(50)
-		if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)
+		if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)
 			name = "red terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
 			name = "gray terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/green)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/green)
 			name = "green terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/black)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/black)
 			name = "black terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
 			name = "purple terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/white)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/white)
 			name = "white terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/mother)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/mother)
 			name = "mother of terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/prince)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/prince)
 			name = "prince of terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
 			name = "queen of terror eggs"
-		else if (spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/empress)
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/empress)
 			name = "empress of terror eggs"
 
 
@@ -72,11 +72,11 @@
 
 /obj/effect/spider/eggcluster/terror_eggcluster/process()
 	amount_grown += rand(0,2)
-	if (amount_grown >= 100)
+	if(amount_grown >= 100)
 		var/num = spiderling_number
 		for(var/i=0, i<num, i++)
 			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
-			if (spiderling_type)
+			if(spiderling_type)
 				S.grow_as = spiderling_type
 			S.use_vents = spiderling_ventcrawl
 			S.faction = faction
@@ -84,9 +84,9 @@
 			S.master_commander = master_commander
 			S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 			S.enemies = enemies
-			if (spider_queen_declared_war)
+			if(spider_queen_declared_war)
 				S.spider_queen_declared_war = 1
-			if (spider_growinstantly)
+			if(spider_growinstantly)
 				S.amount_grown = 250
 		var/rnum = 5 - spiderling_number
 		for(var/i=0, i<rnum, i++)
@@ -143,7 +143,7 @@
 				name = "empress spiderling"
 				debug_announce = 1
 		ts_spiderling_list += src
-		if (debug_announce)
+		if(debug_announce)
 			log_debug("[src] spawned in [get_area(src)]")
 
 
@@ -152,29 +152,29 @@
 	..()
 
 /obj/effect/spider/spiderling/terror_spiderling/Bump(atom/user)
-	if (istype(user, /obj/structure/table))
+	if(istype(user, /obj/structure/table))
 		loc = user.loc
-	else if (istype(user, /obj/machinery/recharge_station))
+	else if(istype(user, /obj/machinery/recharge_station))
 		qdel(src)
 	else
 		..()
 
 
 /obj/effect/spider/spiderling/terror_spiderling/process()
-	if (travelling_in_vent)
-		if (isturf(loc))
+	if(travelling_in_vent)
+		if(isturf(loc))
 			travelling_in_vent = 0
 			entry_vent = null
-	else if (entry_vent)
-		if (get_dist(src, entry_vent) <= 1)
+	else if(entry_vent)
+		if(get_dist(src, entry_vent) <= 1)
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if (!vents.len)
+			if(!vents.len)
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			if (prob(50))
+			if(prob(50))
 				visible_message("<B>[src] scrambles into the ventillation ducts!</B>", \
 								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 			var/original_location = loc
@@ -182,42 +182,42 @@
 				loc = exit_vent
 				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
 				spawn(travel_time)
-					if (!exit_vent || exit_vent.welded)
+					if(!exit_vent || exit_vent.welded)
 						loc = original_location
 						entry_vent = null
 						return
-					if (prob(50))
+					if(prob(50))
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 					spawn(travel_time)
-						if (!exit_vent || exit_vent.welded)
+						if(!exit_vent || exit_vent.welded)
 							loc = original_location
 							entry_vent = null
 							return
 						loc = exit_vent.loc
 						entry_vent = null
 						var/area/new_area = get_area(loc)
-						if (new_area)
+						if(new_area)
 							new_area.Entered(src)
 	//=================
-	else if (prob(33))
+	else if(prob(33))
 		var/list/nearby = oview(10, src)
-		if (nearby.len)
+		if(nearby.len)
 			var/target_atom = pick(nearby)
 			walk_to(src, target_atom)
-	else if (prob(10) && use_vents)
+	else if(prob(10) && use_vents)
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
-			if (!v.welded)
+			if(!v.welded)
 				entry_vent = v
 				walk_to(src, entry_vent, 1)
 				break
-	if (isturf(loc))
+	if(isturf(loc))
 		amount_grown += rand(0,2)
-		if (amount_grown >= 100)
-			if (stillborn)
+		if(amount_grown >= 100)
+			if(stillborn)
 				die()
 			else
-				if (!grow_as)
+				if(!grow_as)
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red,/mob/living/simple_animal/hostile/poison/terror_spider/gray,/mob/living/simple_animal/hostile/poison/terror_spider/green)
 				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
 				S.faction = faction
@@ -225,9 +225,9 @@
 				S.master_commander = master_commander
 				S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 				S.enemies = enemies
-				if (spider_queen_declared_war)
+				if(spider_queen_declared_war)
 					S.spider_queen_declared_war = 1
-					if (!istype(S, /mob/living/simple_animal/hostile/poison/terror_spider/purple))
+					if(!istype(S, /mob/living/simple_animal/hostile/poison/terror_spider/purple))
 						S.idle_ventcrawl_chance = 15
 				qdel(src)
 
@@ -244,12 +244,12 @@
 
 
 /obj/item/projectile/terrorqueenspit/on_hit(var/mob/living/carbon/target)
-	if (istype(target, /mob))
+	if(istype(target, /mob))
 		var/mob/living/L = target
-		if (L.reagents)
-			if (L.can_inject(null,0,"chest",0))
+		if(L.reagents)
+			if(L.can_inject(null,0,"chest",0))
 				L.reagents.add_reagent("terror_queen_toxin",15)
-		if (!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
+		if(!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
 			L.adjustToxLoss(40) // Terror Spiders are immune to their queen's spit.
 
 
@@ -261,11 +261,11 @@
 
 
 /obj/item/projectile/terrorempressspit/on_hit(var/mob/living/carbon/target)
-	if (istype(target, /mob))
+	if(istype(target, /mob))
 		var/mob/living/L = target
-		if (L.reagents)
+		if(L.reagents)
 			L.reagents.add_reagent("ketamine",30)
-		if (!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
+		if(!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
 			L.adjustToxLoss(60) // Terror Spiders are immune to their queen's spit.
 
 /obj/effect/spider/terrorweb
@@ -279,25 +279,25 @@
 
 
 /obj/effect/spider/terrorweb/New()
-	if (prob(50))
+	if(prob(50))
 		icon_state = "stickyweb2"
 
 /obj/effect/spider/terrorweb/proc/DeCloakNearby()
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/gray/G in view(6,src))
-		if (G.stat != DEAD)
+		if(G.stat != DEAD)
 			G.GrayDeCloak()
 			G.Aggro()
 
 /obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if (air_group || (height==0)) return 1
-	if (istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
+	if(air_group || (height==0)) return 1
+	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
-	if (istype(mover, /obj/item/projectile/terrorqueenspit))
+	if(istype(mover, /obj/item/projectile/terrorqueenspit))
 		return 1
-	if (istype(mover, /obj/item/projectile/terrorempressspit))
+	if(istype(mover, /obj/item/projectile/terrorempressspit))
 		return 1
-	if (istype(mover, /mob/living))
-		if (prob(80))
+	if(istype(mover, /mob/living))
+		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
 			var/mob/living/M = mover
 			M.Stun(5) // 5 seconds.
@@ -307,7 +307,7 @@
 			return 1
 		else
 			return 0
-	if (istype(mover, /obj/item/projectile))
+	if(istype(mover, /obj/item/projectile))
 		return prob(20)
 	return ..()
 
@@ -374,7 +374,7 @@
 
 /obj/machinery/power/singularity_beacon/terrorspider_beacon/attack_hand(var/mob/user as mob)
 	if(anchored)
-		if (active)
+		if(active)
 			to_chat(user, "<span class='warning'>[src] is already active, and there is no off button!</span>")
 		else
 			Activate(user)
@@ -402,7 +402,7 @@
 	..()
 
 /obj/machinery/power/singularity_beacon/terrorspider_beacon/Activate(mob/user = null)
-	if (countdown == 0)
+	if(countdown == 0)
 		to_chat(user, "This beacon has already been used up.")
 		return
 	if(surplus() < 1500)
@@ -425,7 +425,7 @@
 	if(!active)
 		return PROCESS_KILL
 	else
-		if (countdown == 0)
+		if(countdown == 0)
 			spawn_spiders()
 			visible_message("<span class='danger'>\the [src] activates!</span>")
 			explosion(get_turf(src),0,1,5,0)

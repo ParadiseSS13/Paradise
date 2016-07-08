@@ -55,33 +55,33 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
 	spider_myqueen = src
-	if (spider_awaymission)
+	if(spider_awaymission)
 		spider_growinstantly = 1
 		spider_spawnfrequency = 150
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
 	..()
-	if (stat != DEAD)
-		if (ckey && canlay < 12) // max 12 eggs worth stored at any one time, realistically that's tons.
-			if (world.time > (spider_lastspawn + spider_spawnfrequency))
+	if(stat != DEAD)
+		if(ckey && canlay < 12) // max 12 eggs worth stored at any one time, realistically that's tons.
+			if(world.time > (spider_lastspawn + spider_spawnfrequency))
 				canlay++
 				spider_lastspawn = world.time
-				if (canlay == 1)
+				if(canlay == 1)
 					to_chat(src, "<span class='notice'>You are able to lay eggs again.</span>")
-				else if (canlay == 12)
+				else if(canlay == 12)
 					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay. You won't grow any more eggs until you lay some of your existing ones.</span>")
 				else
 					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
-	if (!hasdroppedloot)
-		if (spider_uo71)
+	if(!hasdroppedloot)
+		if(spider_uo71)
 			UnlockBlastDoors("UO71_Caves", "UO71 Caves are now unlocked!")
 		// When a queen dies, so do her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
 		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in ts_spiderlist)
-			if (ckey)
+			if(ckey)
 				P.visible_message("<span class='danger'>\the [src] writhes in pain!</span>")
 				to_chat(P,"<span class='userdanger'>\the [src] has died. Without her hivemind link, purple terrors like yourself cannot survive more than a few minutes!</span>")
 				P.degenerate = 1
@@ -90,137 +90,137 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/handle_automated_action()
 	..()
 	if(!stat && !ckey && AIStatus != AI_OFF && !target && !path_to_vent)
-		if (neststep == 0)
+		if(neststep == 0)
 			// we have no nest :(
 			var/ok_to_nest = 1
 			var/area/new_area = get_area(loc)
-			if (new_area)
-				if (findtext(new_area.name,"hall"))
+			if(new_area)
+				if(findtext(new_area.name,"hall"))
 					ok_to_nest = 0
 					// nesting in a hallway would be very stupid - crew would find and kill you almost instantly
 			var/numhostiles = 0
-			for (var/mob/living/H in oview(10,src))
-				if (!istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
-					if (H.stat != DEAD)
+			for(var/mob/living/H in oview(10,src))
+				if(!istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
+					if(H.stat != DEAD)
 						numhostiles += 1
 						// nesting RIGHT NEXT TO SOMEONE is even worse
-			if (numhostiles > 0)
+			if(numhostiles > 0)
 				ok_to_nest = 0
 			var/vdistance = 99
 			for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
 				if(!v.welded)
-					if (get_dist(src,v) < vdistance)
+					if(get_dist(src,v) < vdistance)
 						entry_vent = v
 						vdistance = get_dist(src,v)
-			if (!entry_vent)
+			if(!entry_vent)
 				ok_to_nest = 0
 				// don't nest somewhere with no vent - your brood won't be able to get out!
-			if (ok_to_nest && entry_vent)
+			if(ok_to_nest && entry_vent)
 				nest_vent = entry_vent
 				neststep = 1
 				visible_message("<span class='danger'>\the [src] settles down, starting to build a nest.</span>")
 				ai_ventcrawls = 0
-			else if (entry_vent)
-				if (!path_to_vent)
+			else if(entry_vent)
+				if(!path_to_vent)
 					visible_message("<span class='danger'>\the [src] looks around warily - then retreats.</span>")
 					path_to_vent = 1
 			else
 				visible_message("<span class='danger'>\the [src] looks around, searching for the vent that should be there, but isn't. A bluespace portal forms on her, and she is gone.</span>")
 				qdel(src)
 				new /obj/effect/portal(get_turf(src.loc))
-		else if (neststep == 1)
-			if (world.time > (lastnestsetup + nestfrequency))
+		else if(neststep == 1)
+			if(world.time > (lastnestsetup + nestfrequency))
 				lastnestsetup = world.time
-				if (spider_can_screech)
+				if(spider_can_screech)
 					spider_can_screech--
 					DoQueenScreech(8,100,8,100)
 				neststep = 2
-		else if (neststep == 2)
-			if (world.time > (lastnestsetup + nestfrequency))
-				if (!spider_awaymission)
+		else if(neststep == 2)
+			if(world.time > (lastnestsetup + nestfrequency))
+				if(!spider_awaymission)
 					QueenHallucinate()
 				lastnestsetup = world.time
 				spider_lastspawn = world.time
 				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,2,0)
 				neststep = 3
-		else if (neststep == 3)
-			if (world.time > (spider_lastspawn + spider_spawnfrequency))
-				if (prob(20))
+		else if(neststep == 3)
+			if(world.time > (spider_lastspawn + spider_spawnfrequency))
+				if(prob(20))
 					var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
-						if (!spider_awaymission)
+						if(!spider_awaymission)
 							QueenHallucinate()
 						spider_lastspawn = world.time
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,2,0)
 						neststep = 4
-		else if (neststep == 3)
-			if (world.time > (spider_lastspawn + spider_spawnfrequency))
-				if (prob(20))
+		else if(neststep == 3)
+			if(world.time > (spider_lastspawn + spider_spawnfrequency))
+				if(prob(20))
 					var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
-						if (!spider_awaymission)
+						if(!spider_awaymission)
 							QueenHallucinate()
 						spider_lastspawn = world.time
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black,2,1)
 						neststep = 4
-		else if (neststep == 4)
-			if (world.time > (spider_lastspawn + spider_spawnfrequency))
-				if (prob(20))
+		else if(neststep == 4)
+			if(world.time > (spider_lastspawn + spider_spawnfrequency))
+				if(prob(20))
 					var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
-						if (!spider_awaymission)
+						if(!spider_awaymission)
 							QueenFakeLings()
 						spider_lastspawn = world.time
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,2,1)
 						neststep = 5
-		else if (neststep == 5)
-			if (world.time > (spider_lastspawn + spider_spawnfrequency))
-				if (prob(20))
+		else if(neststep == 5)
+			if(world.time > (spider_lastspawn + spider_spawnfrequency))
+				if(prob(20))
 					var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 					if(!N)
-						if (!spider_awaymission)
+						if(!spider_awaymission)
 							QueenFakeLings()
 						spider_lastspawn = world.time
-						if (prob(33))
+						if(prob(33))
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray,2,1)
-						else if (prob(50))
+						else if(prob(50))
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,2,1)
 						else
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,2,1)
 				var/spidercount = CountSpiders()
-				if (spidercount >= spider_max_per_nest) // station overwhelmed!
+				if(spidercount >= spider_max_per_nest) // station overwhelmed!
 					neststep = 6
-		else if (neststep == 6)
-			if (world.time > (spider_lastspawn + spider_spawnfrequency))
+		else if(neststep == 6)
+			if(world.time > (spider_lastspawn + spider_spawnfrequency))
 				spider_lastspawn = world.time
 				// go hostile, EXTERMINATE MODE.
 				SetHiveCommand(0,15,1) // AI=0 (attack everyone), ventcrawl=15%/tick, allow player control (ignored for queens in awaymissions)
-				if (spider_can_screech)
+				if(spider_can_screech)
 					spider_can_screech--
 					DoQueenScreech(20,50,15,100)
 				var/numspiders = CountSpiders()
-				if (numspiders < spider_max_per_nest)
-					if (prob(33))
+				if(numspiders < spider_max_per_nest)
+					if(prob(33))
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black,2,1)
-					else if (prob(50))
+					else if(prob(50))
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,2,0)
 					else
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,2,1)
-				else if (spider_awaymission)
+				else if(spider_awaymission)
 					neststep = 7
 					spider_spawnfrequency = spider_spawnfrequency_stable
 					// if we're an away mission queen... don't keep spawning spiders at insane rates. Away team should have a chance.
-		else if (neststep == 7)
-			if (world.time > (spider_lastspawn + spider_spawnfrequency))
+		else if(neststep == 7)
+			if(world.time > (spider_lastspawn + spider_spawnfrequency))
 				spider_lastspawn = world.time
 				var/numspiders = CountSpiders()
-				if (numspiders < spider_max_per_nest)
+				if(numspiders < spider_max_per_nest)
 					// someone is killing my children...
-					if (prob(25))
+					if(prob(25))
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black,2,1)
-					else if (prob(33))
+					else if(prob(33))
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,2,0)
-					else if (prob(50))
+					else if(prob(50))
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,2,1)
 					else
 						DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,2,0)
@@ -252,23 +252,23 @@
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/L in view(1,src))
 		if(L == src)
 			continue
-		if (src.spider_tier < L.spider_tier)
+		if(src.spider_tier < L.spider_tier)
 			continue
-		if (L.stat == DEAD)
+		if(L.stat == DEAD)
 			continue
 		if(Adjacent(L))
-			if (L.stat == CONSCIOUS)
+			if(L.stat == CONSCIOUS)
 				choices += L
 	var/killtarget = input(src,"Which terror spider should die?") in null|choices
-	if (!killtarget)
+	if(!killtarget)
 		// cancel
-	else if (!isliving(killtarget))
+	else if(!isliving(killtarget))
 		to_chat(src, "[killtarget] is not living.")
-	else if (!istype(killtarget, /mob/living/simple_animal/hostile/poison/terror_spider/))
+	else if(!istype(killtarget, /mob/living/simple_animal/hostile/poison/terror_spider/))
 		to_chat(src, "[killtarget] is not a terror spider.")
 	else
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = killtarget
-		if (T.ckey)
+		if(T.ckey)
 			// living player
 			ts_ckey_blacklist += T.ckey
 		visible_message("<span class='danger'> [src] grabs hold of [T] and tears them limb from limb! </span>")
@@ -280,59 +280,59 @@
 	set name = "Lay Queen Eggs"
 	set category = "Spider"
 	set desc = "Grow your brood."
-	if (canlay < 1)
+	if(canlay < 1)
 		var/remainingtime = round(((spider_lastspawn + spider_spawnfrequency) - world.time) / 10,1)
-		if (remainingtime > 0)
+		if(remainingtime > 0)
 			to_chat(src, "Too soon to attempt that again. Wait another " + num2text(remainingtime) + " seconds.")
 		else
 			to_chat(src, "Too soon to attempt that again. Wait just a few more seconds...")
 		return
 	var/list/eggtypes = list(TS_DESC_RED,TS_DESC_GRAY,TS_DESC_GREEN,TS_DESC_BLACK,TS_DESC_PURPLE)
-	if (canlay >= 12)
+	if(canlay >= 12)
 		eggtypes |= TS_DESC_MOTHER
 		eggtypes |= TS_DESC_PRINCE
 	var num_purples = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
-	if (num_purples >= 2)
+	if(num_purples >= 2)
 		eggtypes -= TS_DESC_PURPLE
 	var num_blacks = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/black)
-	if (num_blacks >= 2)
+	if(num_blacks >= 2)
 		eggtypes -= TS_DESC_BLACK
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
-	if (!(eggtype in eggtypes))
+	if(!(eggtype in eggtypes))
 		to_chat(src, "Unrecognized egg type.")
 		return 0
-	if (eggtype == TS_DESC_MOTHER || eggtype == TS_DESC_PRINCE)
-		if (canlay < 12)
+	if(eggtype == TS_DESC_MOTHER || eggtype == TS_DESC_PRINCE)
+		if(canlay < 12)
 			to_chat(src, "Insufficient strength. It takes as much effort to lay one of those as it does to lay 12 normal eggs.")
 		else
-			if (eggtype == TS_DESC_MOTHER)
+			if(eggtype == TS_DESC_MOTHER)
 				canlay -= 12
 				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother,1,0)
-			else if (eggtype == TS_DESC_PRINCE)
+			else if(eggtype == TS_DESC_PRINCE)
 				canlay -= 12
 				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince,1,0)
 		return
 	var/numlings = 1
-	if (canlay >= 5)
+	if(canlay >= 5)
 		numlings = input("How many in the batch?") as null|anything in list(1,2,3,4,5)
-	else if (canlay >= 3)
+	else if(canlay >= 3)
 		numlings = input("How many in the batch?") as null|anything in list(1,2,3)
-	else if (canlay == 2)
+	else if(canlay == 2)
 		numlings = input("How many in the batch?") as null|anything in list(1,2)
-	if (eggtype == null || numlings == null)
+	if(eggtype == null || numlings == null)
 		to_chat(src, "Cancelled.")
 		return
 	//spider_lastspawn = world.time // don't think we actually need this, if queen is laying manually canlay controls her rate.
 	canlay -= numlings
-	if (eggtype == TS_DESC_RED)
+	if(eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red,numlings,1)
-	else if (eggtype == TS_DESC_GRAY)
+	else if(eggtype == TS_DESC_GRAY)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray,numlings,1)
-	else if (eggtype == TS_DESC_GREEN)
+	else if(eggtype == TS_DESC_GREEN)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green,numlings,1)
-	else if (eggtype == TS_DESC_BLACK)
+	else if(eggtype == TS_DESC_BLACK)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black,numlings,1)
-	else if (eggtype == TS_DESC_PURPLE)
+	else if(eggtype == TS_DESC_PURPLE)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,numlings,0)
 	else
 		to_chat(src, "Unrecognized egg type.")
@@ -349,25 +349,25 @@
 	set name = "Hallucinate"
 	set category = "Spider"
 	set desc = "Causes a single crew member to quake in fear."
-	if (spider_can_hallucinate)
+	if(spider_can_hallucinate)
 		spider_can_hallucinate--
 		var/list/choices = list()
 		for(var/mob/living/carbon/human/H in player_list)
-			if (H.z != src.z)
+			if(H.z != src.z)
 				continue
-			if (H.stat == DEAD)
+			if(H.stat == DEAD)
 				continue
-			if (istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/))
+			if(istype(H, /mob/living/simple_animal/hostile/poison/terror_spider/))
 				continue
 			choices += H
-		if (choices.len < 1)
+		if(choices.len < 1)
 			to_chat(src,"No valid minds were found in this area.")
 			return
 		var/madnesstarget = pick(choices)
-		if (ckey)
+		if(ckey)
 			madnesstarget = null
 			madnesstarget = input(src,"Which person should fear?") in null|choices
-		if (!madnesstarget)
+		if(!madnesstarget)
 			// cancel
 		else
 			var/mob/living/carbon/human/H = madnesstarget
@@ -381,7 +381,7 @@
 	set name = "Queen Screech"
 	set category = "Spider"
 	set desc = "Emit horrendusly loud screech which breaks all nearby cameras and most nearby lights. Can only be used twice!"
-	if (spider_can_screech)
+	if(spider_can_screech)
 		spider_can_screech--
 		DoQueenScreech(15,50,10,100)
 	else
@@ -391,10 +391,10 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(var/light_range, var/light_chance, var/camera_range, var/camera_chance)
 	visible_message("<span class='userdanger'>\The [src] emits a bone-chilling shriek!</span>")
 	for(var/obj/machinery/light/L in orange(light_range,src))
-		if (L.on && prob(light_chance))
+		if(L.on && prob(light_chance))
 			L.broken()
 	for(var/obj/machinery/camera/C in orange(camera_range,src))
-		if (C.status && prob(camera_chance))
+		if(C.status && prob(camera_chance))
 			C.toggle_cam(src,0)
 
 
@@ -402,7 +402,7 @@
 	set name = "Fake Spiderlings"
 	set category = "Spider"
 	set desc = "Animates some damaged spiderlings to crawl throughout the station and panic the crew. Sows fear. These spiderlings never mature. Ability can only be used 3 times."
-	if (spider_can_fakelings)
+	if(spider_can_fakelings)
 		spider_can_fakelings--
 		var/numlings = 15
 		for(var/i in 1 to numlings)

@@ -40,20 +40,20 @@
 	to_chat(src, "- Try to bite a few times and retreat quickly. You will die if you stick around. You are very dangerous and should expect crew to focus fire on you.")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
-	if (!poisonable)
+	if(!poisonable)
 		..()
 		return
-	if (L.reagents.has_reagent("terror_black_toxin",50))
+	if(L.reagents.has_reagent("terror_black_toxin",50))
 		L.attack_animal(src)
 	else
 		var/inject_target = pick("chest","head")
-		if (L.stunned || L.can_inject(null,0,inject_target,0))
+		if(L.stunned || L.can_inject(null,0,inject_target,0))
 			L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
 			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]! </span>")
 		else
 			visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]! </span>")
 		L.attack_animal(src)
-	if (!ckey && ((!target in enemies) || L.reagents.has_reagent("terror_black_toxin",50)))
+	if(!ckey && ((!target in enemies) || L.reagents.has_reagent("terror_black_toxin",50)))
 		spawn(20)
 			step_away(src,L)
 			step_away(src,L)

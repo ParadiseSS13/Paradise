@@ -35,14 +35,14 @@
 	var/canspawn = 1
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
-	if (canspawn)
+	if(canspawn)
 		canspawn = 0
 		for(var/i=0, i<30, i++)
 			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
 			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray)
-			if (prob(50))
+			if(prob(50))
 				S.stillborn = 1
-			else if (prob(10))
+			else if(prob(10))
 				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 		visible_message("<span class='userdanger'>\The [src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
 		degenerate = 1

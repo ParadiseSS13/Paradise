@@ -192,13 +192,13 @@
 /obj/item/weapon/gun/energy/laser/awaymission_aeg/process()
 	var/turf/my_loc = get_turf(src)
 	if(my_loc.z == (MAX_Z + 1))
-		if (inawaymission)
+		if(inawaymission)
 			..()
 		else
 			to_chat(get(src, /mob), "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
 			inawaymission = 1
 	else
-		if (inawaymission)
+		if(inawaymission)
 			to_chat(get(src, /mob), "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
 			power_supply.charge = 0
 			inawaymission = 0
@@ -245,26 +245,26 @@
 /obj/machinery/computer/id_upgrader/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = O
-		if (!access_to_give.len)
+		if(!access_to_give.len)
 			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
 			return
 		var/did_upgrade = 0
-		for (var/this_access in access_to_give)
-			if (!(this_access in I.GetAccess()))
+		for(var/this_access in access_to_give)
+			if(!(this_access in I.GetAccess()))
 				// don't have it - add it
 				I.access |= this_access
 				did_upgrade = 1
-		if (did_upgrade)
+		if(did_upgrade)
 			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
-			if (!beenused)
+			if(!beenused)
 				spawn(1)
 					beenused = 1
 					var/unlocked_something = 0
-					for (var/obj/machinery/door/poddoor/P in airlocks)
-						if (P.density && P.id_tag == door_to_open && P.z == z)
+					for(var/obj/machinery/door/poddoor/P in airlocks)
+						if(P.density && P.id_tag == door_to_open && P.z == z)
 							P.open()
 							unlocked_something = 1
-					if (unlocked_something)
+					if(unlocked_something)
 						to_chat(user, "<span class='danger'>Activating the machine has unlocked a way forward!</span>")
 		else
 			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")

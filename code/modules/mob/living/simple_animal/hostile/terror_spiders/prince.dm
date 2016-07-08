@@ -37,8 +37,8 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)
-	if (!hasdroppedloot)
-		if (spider_uo71)
+	if(!hasdroppedloot)
+		if(spider_uo71)
 			UnlockBlastDoors("UO71_SciStorage", "UO71 Secure Science Storage is now unlocked!")
 	..()
 
@@ -51,7 +51,7 @@
 	to_chat(src, "- Expect crew to treat you as a blob-level threat. Even a single Prince (aka: War Spider) can wreck a station.")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(var/mob/living/carbon/human/L)
-	if (prob(15))
+	if(prob(15))
 		visible_message("<span class='danger'> [src] rams into [L], knocking them to the floor! </span>")
 		L.Weaken(5)
 		L.Stun(5)
