@@ -309,7 +309,7 @@
 		return 0
 	else
 		visible_message("<span class='notice'>The Photocopier pings and a robotic voice speaks up:</span>")
-		playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		visible_message("<span class='danger'>Attention: Posterior Placed on Printing Plaque!</span>")
 		return 1
 
