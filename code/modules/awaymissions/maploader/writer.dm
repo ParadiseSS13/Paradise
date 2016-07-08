@@ -7,20 +7,21 @@
 dmm_suite{
 	var{
 		quote = "\""
-		list/letter_digits = list(
-			"a","b","c","d","e",
-			"f","g","h","i","j",
-			"k","l","m","n","o",
-			"p","q","r","s","t",
-			"u","v","w","x","y",
-			"z",
-			"A","B","C","D","E",
-			"F","G","H","I","J",
-			"K","L","M","N","O",
-			"P","Q","R","S","T",
-			"U","V","W","X","Y",
-			"Z"
-			)
+		list
+			letter_digits = list(
+				"a","b","c","d","e",
+				"f","g","h","i","j",
+				"k","l","m","n","o",
+				"p","q","r","s","t",
+				"u","v","w","x","y",
+				"z",
+				"A","B","C","D","E",
+				"F","G","H","I","J",
+				"K","L","M","N","O",
+				"P","Q","R","S","T",
+				"U","V","W","X","Y",
+				"Z"
+				)
 		}
 	save_map(var/turf/t1 as turf, var/turf/t2 as turf, var/map_name as text, var/flags as num){
 		//Check for illegal characters in file name... in a cheap way.
@@ -31,11 +32,13 @@ dmm_suite{
 		if(!isturf(t1) || !isturf(t2)){
 			CRASH("Invalid arguments supplied to proc save_map, arguments were not turfs.")
 			}
-		var/file_text = write_map(t1,t2,flags)
+		var
+			file_text = write_map(t1,t2,flags)
 		if(fexists("[map_name].dmm")){
 			fdel("[map_name].dmm")
 			}
-		var/saved_map = file("[map_name].dmm")
+		var
+			saved_map = file("[map_name].dmm")
 		saved_map << file_text
 		return saved_map
 		}
@@ -44,17 +47,29 @@ dmm_suite{
 		if(!isturf(t1) || !isturf(t2)){
 			CRASH("Invalid arguments supplied to proc write_map, arguments were not turfs.")
 			}
-		var/turf/nw = locate(min(t1.x,t2.x),max(t1.y,t2.y),min(t1.z,t2.z))
-		var/turf/se = locate(max(t1.x,t2.x),min(t1.y,t2.y),max(t1.z,t2.z))
-		var/list/templates[0]
-		var/template_buffer = {""}
-		var/dmm_text = {""}
+		var
+			turf
+				nw = locate(min(t1.x,t2.x),max(t1.y,t2.y),min(t1.z,t2.z))
+		var
+			turf
+				se = locate(max(t1.x,t2.x),min(t1.y,t2.y),max(t1.z,t2.z))
+		var
+			list
+				templates[0]
+		var
+			template_buffer = {""}
+		var
+			dmm_text = {""}
 		for(var/pos_z in nw.z to se.z){
 			for(var/pos_y in nw.y to se.y){
 				for(var/pos_x in nw.x to se.x){
-					var/turf/test_turf = locate(pos_x,pos_y,pos_z)
-					var/test_template = make_template(test_turf, flags)
-					var/template_number = templates.Find(test_template)
+					var
+						turf
+							test_turf = locate(pos_x,pos_y,pos_z)
+					var
+						test_template = make_template(test_turf, flags)
+					var
+						template_number = templates.Find(test_template)
 					if(!template_number){
 						templates.Add(test_template)
 						template_number = templates.len
@@ -65,26 +80,35 @@ dmm_suite{
 				}
 			template_buffer += "."
 			}
-		var/key_length = round/*floor*/(log(letter_digits.len,templates.len-1)+1)
-		var/list/keys[templates.len]
+		var
+			key_length = round/*floor*/(log(letter_digits.len,templates.len-1)+1)
+		var
+			list
+				keys[templates.len]
 		for(var/key_pos in 1 to templates.len){
 			keys[key_pos] = get_model_key(key_pos,key_length)
 			dmm_text += {""[keys[key_pos]]" = ([templates[key_pos]])\n"}
 			}
-		var/z_level = 0
+		var
+			z_level = 0
 		for(var/z_pos=1;TRUE;z_pos=findtext(template_buffer,".",z_pos)+1){
 			if(z_pos>=length(template_buffer)){break}
 			if(z_level){dmm_text+={"\n"}}
 			dmm_text += {"\n(1,1,[++z_level]) = {"\n"}
-			var/z_block = copytext(template_buffer,z_pos,findtext(template_buffer,".",z_pos))
+			var
+				z_block = copytext(template_buffer,z_pos,findtext(template_buffer,".",z_pos))
 			for(var/y_pos=1;TRUE;y_pos=findtext(z_block,";",y_pos)+1){
 				if(y_pos>=length(z_block)){break}
-				var/y_block = copytext(z_block,y_pos,findtext(z_block,";",y_pos))
+				var
+					y_block = copytext(z_block,y_pos,findtext(z_block,";",y_pos))
 				for(var/x_pos=1;TRUE;x_pos=findtext(y_block,",",x_pos)+1){
 					if(x_pos>=length(y_block)){break}
-					var/x_block = copytext(y_block,x_pos,findtext(y_block,",",x_pos))
-					var/key_number = text2num(x_block)
-					var/temp_key = keys[key_number]
+					var
+						x_block = copytext(y_block,x_pos,findtext(y_block,",",x_pos))
+					var
+						key_number = text2num(x_block)
+					var
+						temp_key = keys[key_number]
 					dmm_text += temp_key
 					sleep(-1)
 					}
@@ -98,14 +122,19 @@ dmm_suite{
 		}
 	proc{
 		make_template(var/turf/model as turf, var/flags as num){
-			var/template = ""
-			var/obj_template = ""
-			var/mob_template = ""
-			var/turf_template = ""
+			var
+				template = ""
+			var
+				obj_template = ""
+			var
+				mob_template = ""
+			var
+				turf_template = ""
 			if(!(flags & DMM_IGNORE_TURFS)){
 				turf_template = "[model.type][check_attributes(model)],"
 				} else{ turf_template = "[world.turf],"}
-			var/area_template = ""
+			var
+				area_template = ""
 			if(!(flags & DMM_IGNORE_OBJS)){
 				for(var/obj/O in model.contents){
 					obj_template += "[O.type][check_attributes(O)],"
@@ -124,14 +153,17 @@ dmm_suite{
 					}
 				}
 			if(!(flags & DMM_IGNORE_AREAS)){
-				var/area/m_area = model.loc
+				var
+					area
+						m_area = model.loc
 				area_template = "[m_area.type][check_attributes(m_area)]"
 				} else{ area_template = "[world.area]"}
 			template = "[obj_template][mob_template][turf_template][area_template]"
 			return template
 			}
 		check_attributes(var/atom/A){
-			var/attributes_text = {"{"}
+			var
+				attributes_text = {"{"}
 			for(var/V in A.vars){
 				sleep(-1)
 				if((!issaved(A.vars[V])) || (A.vars[V]==initial(A.vars[V]))){continue}
@@ -161,10 +193,13 @@ dmm_suite{
 			return attributes_text
 			}
 		get_model_key(var/which as num, var/key_length as num){
-			var/key = ""
-			var/working_digit = which-1
+			var
+				key = ""
+			var
+				working_digit = which-1
 			for(var/digit_pos in key_length to 1 step -1){
-				var/place_value = round/*floor*/(working_digit/(letter_digits.len**(digit_pos-1)))
+				var
+					place_value = round/*floor*/(working_digit/(letter_digits.len**(digit_pos-1)))
 				working_digit-=place_value*(letter_digits.len**(digit_pos-1))
 				key = "[key][letter_digits[place_value+1]]"
 				}
