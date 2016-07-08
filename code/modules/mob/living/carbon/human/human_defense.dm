@@ -345,7 +345,7 @@ emp_act
 
 		//thrown weapon embedded object code.
 		if(dtype == BRUTE && istype(I))
-			if (!I.is_robot_module())
+			if(!I.is_robot_module())
 				var/sharp = is_sharp(I)
 				var/damage = throw_damage
 				if(armor)
