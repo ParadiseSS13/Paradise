@@ -231,13 +231,13 @@
 	if(emagged)
 		if(ishuman(ass))
 			var/mob/living/carbon/human/H = ass
-			to_chat(H,"<span class='notice'>Something smells toasty...</span>")
+			to_chat(H, "<span class='notice'>Something smells toasty...</span>")
 			var/obj/item/organ/external/G = H.get_organ("groin")
 			G.take_damage(0, 30)
 			spawn(20)
 				H.emote("scream")
 		else
-			to_chat(ass,"<span class='notice'>Something smells toasty...</span>")
+			to_chat(ass, "<span class='notice'>Something smells toasty...</span>")
 			ass.apply_damage(30, BURN)
 	if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/H = ass
@@ -323,9 +323,9 @@
 /obj/machinery/photocopier/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		to_chat(user,"<span class='notice'>You overload the photocopier's laser printing mechanism.</span>")
+		to_chat(user, "<span class='notice'>You overload the photocopier's laser printing mechanism.</span>")
 	else
-		to_chat(user,"<span class='notice'>The photocopier's laser printing mechanism is already overloaded!</span>")
+		to_chat(user, "<span class='notice'>The photocopier's laser printing mechanism is already overloaded!</span>")
 
 /obj/item/device/toner
 	name = "toner cartridge"
