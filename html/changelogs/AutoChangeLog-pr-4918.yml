@@ -1,0 +1,5 @@
+author: Chakirski
+delete-after: True
+changes: 
+  - rscadd: "Adds disabled_component() to cyborgs."
+  - bugfix: "EMPs now disable binary communication for as long as the stun time."
