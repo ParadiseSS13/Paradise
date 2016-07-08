@@ -6,9 +6,7 @@
 	icon_state = "bottler_off"
 	density = 1
 	anchored = 1
-	var/obj/item/obj_1 = null
-	var/obj/item/obj_2 = null
-	var/obj/item/obj_3 = null
+	var/list/slots[3]
 	var/list/datum/bottler_recipe/available_recipes
 	var/list/acceptable_items
 	var/glass_bottles = 10
@@ -28,9 +26,8 @@
 			var/datum/bottler_recipe/recipe = new type
 			if(recipe.result) // Ignore recipe subtypes that lack a result
 				available_recipes += recipe
-				acceptable_items |= recipe.obj_1_item
-				acceptable_items |= recipe.obj_2_item
-				acceptable_items |= recipe.obj_3_item
+				for(var/i = 1, i <= recipe.ingredients.len, i++)
+					acceptable_items |= recipe.ingredients[i]
 			else
 				qdel(recipe)
 
@@ -91,20 +88,15 @@
 /obj/machinery/bottler/proc/insert_item(obj/item/O, mob/user)
 	if(!O || !user)
 		return
-	if(obj_1 && obj_2 && obj_3)
+	if(slots[1] && slots[2] && slots[3])
 		to_chat(user, "<span class='warning'>[src] is full, please remove or process the contents first.</span>")
 		return
 	var/slot_inserted = 0
-	if(!obj_1)
-		slot_inserted = 1
-		obj_1 = O
-	else if(!obj_2)
-		slot_inserted = 2
-		obj_2 = O
-	else if(!obj_3)
-		slot_inserted = 3
-		obj_3 = O
-
+	for(var/i = 1, i <= slots.len, i++)
+		if(!slots[i])
+			slots[i] = O
+			slot_inserted = i
+			break
 	if(!slot_inserted)
 		to_chat(user, "<span class='warning'>Something went wrong and the machine spits out [O].</span>")
 		O.forceMove(loc)
@@ -115,22 +107,19 @@
 
 /obj/machinery/bottler/proc/eject_items(var/slot = 4)
 	var/obj/item/O = null
-	if(obj_1 && (slot == 1 || slot == 4))
-		O = obj_1
-		O.forceMove(loc)
-		obj_1 = null
-	if(obj_2 && (slot == 2 || slot == 4))
-		O = obj_2
-		O.forceMove(loc)
-		obj_2 = null
-	if(obj_3 && (slot == 3 || slot == 4))
-		O = obj_3
-		O.forceMove(loc)
-		obj_3 = null
 	if(slot == 4)
+		for(var/i = 1, i <= slots.len, i++)
+			if(slots[i])
+				O = slots[i]
+				O.forceMove(loc)
+				slots[i] = null
 		visible_message("<span class='notice'>[src] beeps as it ejects the contents of all the ingredient trays.</span>")
 	else
-		visible_message("<span class='notice'>[src] beeps as it ejects [O.name] from the [slot]\th ingredient tray.</span>")
+		if(slots[slot])		//ensures the tray actually has something to eject so we don't runtime on trying to reference null
+			O = slots[slot]
+			O.forceMove(loc)
+			slots[slot] = null
+			visible_message("<span class='notice'>[src] beeps as it ejects [O.name] from the [slot]\th ingredient tray.</span>")
 	updateUsrDialog()
 
 /obj/machinery/bottler/proc/recycle_container(obj/item/O)
@@ -223,27 +212,15 @@
 /obj/machinery/bottler/proc/select_recipe()
 	for(var/datum/bottler_recipe/recipe in available_recipes)
 		var/number_matches = 0
-		if(istype(obj_1, recipe.obj_1_item))
-			if(istype(obj_1, /obj/item/weapon/reagent_containers/food/snacks/grown))
-				var/obj/item/weapon/reagent_containers/food/snacks/grown/G = obj_1
-				if(G.seed && G.seed.kitchen_tag == recipe.obj_1_kitchen_tag)
+		for(var/i = 1, i <= slots.len, i++)
+			var/obj/item/O = slots[i]
+			if(istype(O, recipe.ingredients[i]))
+				if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown))
+					var/obj/item/weapon/reagent_containers/food/snacks/grown/G = O
+					if(G.seed && G.seed.kitchen_tag == recipe.tags[i])
+						number_matches++
+				else
 					number_matches++
-			else
-				number_matches++
-		if(istype(obj_2, recipe.obj_2_item))
-			if(istype(obj_2, /obj/item/weapon/reagent_containers/food/snacks/grown))
-				var/obj/item/weapon/reagent_containers/food/snacks/grown/G = obj_2
-				if(G.seed && G.seed.kitchen_tag == recipe.obj_2_kitchen_tag)
-					number_matches++
-			else
-				number_matches++
-		if(istype(obj_3, recipe.obj_3_item))
-			if(istype(obj_3, /obj/item/weapon/reagent_containers/food/snacks/grown))
-				var/obj/item/weapon/reagent_containers/food/snacks/grown/G = obj_3
-				if(G.seed && G.seed.kitchen_tag == recipe.obj_3_kitchen_tag)
-					number_matches++
-			else
-				number_matches++
 		if(number_matches == 3)
 			return recipe
 	return null
@@ -265,7 +242,7 @@
 
 /obj/machinery/bottler/proc/process_ingredients(container = 0)
 	//stop if we have ZERO ingredients (what would you process?)
-	if(!obj_1 && !obj_2 && !obj_3)
+	if(!slots[1] && !slots[2] && !slots[3])
 		visible_message("<span class='warning'>There are no ingredients to process! Please insert some first.</span>")
 		return
 	//prep a container
@@ -312,13 +289,9 @@
 		drink_container.desc = "[recipe_to_use.description]"
 	flick("bottler_on", src)
 	spawn(45)
-		qdel(obj_1)
-		qdel(obj_2)
-		qdel(obj_3)
-		//just in case
-		obj_1 = null
-		obj_2 = null
-		obj_3 = null
+		for(var/i = 1, i <= slots.len, i++)
+			qdel(slots[i])
+			slots[i] = null
 		bottling = 0
 		drink_container.forceMove(loc)
 		updateUsrDialog()
@@ -370,37 +343,27 @@
 		dat += "<tr>"
 		dat += "<th colspan='4'>Ingredient Tray Contents:</th>"
 		dat += "</tr>"
+
 		dat += "<tr>"
-		if(obj_1)
-			dat += "<td>[bicon(obj_1)]<br>[obj_1.name]</td>"
-		else
-			dat += "<td>Tray Empty</td>"
-		if(obj_2)
-			dat += "<td>[bicon(obj_2)]<br>[obj_2.name]</td>"
-		else
-			dat += "<td>Tray Empty</td>"
-		if(obj_3)
-			dat += "<td>[bicon(obj_3)]<br>[obj_3.name]</td>"
-		else
-			dat += "<td>Tray Empty</td>"
-		if(obj_1 && obj_2 && obj_3)
+		for(var/i = 1, i <= slots.len, i++)
+			var/obj/O = slots[i]
+			if(O)
+				dat += "<td>[bicon(O)]<br>[O.name]</td>"
+			else
+				dat += "<td>Tray Empty</td>"
+
+		if(slots[1] && slots[2] && slots[3])
 			dat += "<td><A href='?src=\ref[src];process=1'>Process Ingredients</a></td>"
 		else
 			dat += "<td>Insufficient Ingredients</td>"
 		dat += "</tr>"
+
 		dat += "<tr>"
-		if(obj_1)
-			dat += "<td><A href='?src=\ref[src];eject=1'>Eject</a></td>"
-		else
-			dat += "<td>N/A</td>"
-		if(obj_2)
-			dat += "<td><A href='?src=\ref[src];eject=2'>Eject</a></td>"
-		else
-			dat += "<td>N/A</td>"
-		if(obj_3)
-			dat += "<td><A href='?src=\ref[src];eject=3'>Eject</a></td>"
-		else
-			dat += "<td>N/A</td>"
+		for(var/i = 1, i <= slots.len, i++)
+			if(slots[i])
+				dat += "<td><A href='?src=\ref[src];eject=[i]'>Eject</a></td>"
+			else
+				dat += "<td>N/A</td>"
 		dat += "<td><A href='?src=\ref[src];eject=4'>Eject All</a></td>"
 		dat += "</tr>"
 		dat += "</table>"
