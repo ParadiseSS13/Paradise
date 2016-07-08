@@ -140,7 +140,7 @@
 	anchored = 0
 	movable = 1
 
-/obj/structure/stool/bed/chair/comfy/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/stool/bed/chair/comfy/attackby(obj/item/weapon/W, mob/user, params)
 	if(iswrench(W))
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		new /obj/item/stack/sheet/metal(get_turf(src))
