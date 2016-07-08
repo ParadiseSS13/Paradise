@@ -97,7 +97,7 @@
 		for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = traitor
-			kill_objective.find_target(!is_traitor)
+			kill_objective.find_target()
 			traitor.objectives += kill_objective
 
 		var/datum/objective/survive/survive_objective = new
@@ -127,17 +127,17 @@
 				else if(prob(5))
 					var/datum/objective/debrain/debrain_objective = new
 					debrain_objective.owner = traitor
-					debrain_objective.find_target(!is_traitor)
+					debrain_objective.find_target()
 					traitor.objectives += debrain_objective
 				else if(prob(30))
 					var/datum/objective/maroon/maroon_objective = new
 					maroon_objective.owner = traitor
-					maroon_objective.find_target(!is_traitor)
+					maroon_objective.find_target()
 					traitor.objectives += maroon_objective
 				else
 					var/datum/objective/assassinate/kill_objective = new
 					kill_objective.owner = traitor
-					kill_objective.find_target(!is_traitor)
+					kill_objective.find_target()
 					traitor.objectives += kill_objective
 			else
 				var/datum/objective/steal/steal_objective = new
@@ -208,7 +208,6 @@
 	to_chat(killer, "<b>Your laws have been changed!</b>")
 	killer.set_zeroth_law(law, law_borg)
 	to_chat(killer, "New law: 0. [law]")
-	give_codewords(killer)
 
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
@@ -322,13 +321,11 @@
 
 			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
 			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
-	if(!safety)//If they are not a rev. Can be added on to.
-		give_codewords(traitor_mob)
 
 	// Tell them about people they might want to contact.
 	var/mob/living/carbon/human/M = get_nt_opposed()
 	if(M && M != traitor_mob)
-		to_chat(traitor_mob, "We have received somewhat credible reports that [M.real_name] might be willing to help our cause. <span class='warning'>If you </span><span class='danger'>need</span><span class='warning'> assistance, consider contacting them.</span>")
+		to_chat(traitor_mob, "We have received somewhat credible reports that [M.real_name] could possibly be willing to perhaps help our cause. <span class='warning'>If you </span><span class='danger'>need</span><span class='warning'> assistance, consider contacting them.</span>")
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
