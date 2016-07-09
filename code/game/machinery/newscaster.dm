@@ -200,10 +200,12 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				dat+= {"<HR><BR><A href='?src=\ref[src];create_channel=1'>Create Feed Channel</A>
 				<BR><A href='?src=\ref[src];view=1'>View Feed Channels</A>
 				<BR><A href='?src=\ref[src];create_feed_story=1'>Submit new Feed story</A>
-				<BR><A href='?src=\ref[src];menu_paper=1'>Print newspaper</A>
-				<BR><A href='?src=\ref[src];silence=0'>Silence unit</A>
-				<BR><A href='?src=\ref[src];silence=1'>Unsilence unit</A>
-				<BR><A href='?src=\ref[src];refresh=1'>Re-scan User</A>
+				<BR><A href='?src=\ref[src];menu_paper=1'>Print newspaper</A>"}
+				if(silence == 0)
+					dat+= "<BR><A href='?src=\ref[src];silence_unit=1'>Silence unit</A>"
+				else
+					dat+= "<BR><A href='?src=\ref[src];unsilence_unit=1'>Unsilence unit</A>"
+				dat+= {"<BR><A href='?src=\ref[src];refresh=1'>Re-scan User</A>
 				<BR><BR><A href='?src=\ref[human_or_robot_user];mach_close=newscaster_main'>Exit</A>"}
 				if(src.securityCaster)
 					var/wanted_already = 0
