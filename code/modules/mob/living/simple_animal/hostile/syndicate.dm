@@ -39,6 +39,7 @@
 	icon_living = "syndicatemelee"
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	armour_penetration = 28
 	status_flags = 0
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/weapon/melee/energy/sword/saber/red, /obj/item/weapon/shield/energy)
 
