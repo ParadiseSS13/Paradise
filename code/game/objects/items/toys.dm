@@ -1644,3 +1644,11 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "conch"
 	use_action = "pulls the string"
 	possible_answers = list("Yes.", "No.", "Try asking again.", "Nothing.", "I don't think so.", "Neither.", "Maybe someday.")
+
+/obj/item/toy/cuban_maraca
+	name = "Cuban Pete's Maraca"
+	desc = "Chick-Chicki Boom, Chik-Chicki Boom."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "maraca"
+	item_state = "maraca"
+
