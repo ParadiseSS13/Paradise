@@ -109,7 +109,7 @@
 
 datum/gear/uniform/secorporate
 	display_name = "security uniform, corporate "
-	path = /obj/item/clhing/under/rank/security/corp
+	path = /obj/item/clothing/under/rank/security/corp
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/sec/dispatch
