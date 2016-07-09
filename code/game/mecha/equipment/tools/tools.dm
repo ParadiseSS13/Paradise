@@ -403,11 +403,9 @@
 
 
 	action(atom/target)
-		if(!action_checks(target) || (src.loc.z in config.admin_levels)) return
-		var/list/theareas = list()
-		for(var/area/AR in orange(100, chassis))
-			if(AR in theareas) continue
-			theareas += AR
+		if(!action_checks(target) || src.loc.z == ZLEVEL_CENTCOMM)
+			return
+		var/list/theareas = get_areas_in_range(100, chassis)
 		if(!theareas.len)
 			return
 		var/area/thearea = pick(theareas)
@@ -430,15 +428,15 @@
 		chassis.use_power(energy_drain)
 		set_ready_state(0)
 		var/obj/effect/portal/P = new /obj/effect/portal(get_turf(target), target_turf)
-		P.icon = 'icons/obj/objects.dmi'
 		P.failchance = 0
+		P.icon = 'icons/obj/objects.dmi'
 		P.icon_state = "anom"
 		P.name = "wormhole"
 		message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[chassis.occupant]'>FLW</A>) used a Wormhole Generator in ([loc.x],[loc.y],[loc.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)",0,1)
 		log_game("[key_name(chassis.occupant)] used a Wormhole Generator in ([loc.x],[loc.y],[loc.z])")
 		do_after_cooldown()
 		src = null
-		spawn(rand(150,300))
+		spawn(rand(150, 300))
 			qdel(P)
 		return
 
