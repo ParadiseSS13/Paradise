@@ -1,0 +1,5 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - tweak: "Monocles are now prescription upgradable"
+  - rscadd: "Monocles added to Loadout selection"
