@@ -25,6 +25,14 @@
 	icon_state = "pwig"
 	item_state = "pwig"
 
+/obj/item/clothing/head/beret/blue
+	icon_state = "beret_blue"
+
+/obj/item/clothing/head/beret/black
+	icon_state = "beret_black"
+
+/obj/item/clothing/head/beret/purple_normal
+	icon_state = "beret_purple_normal"
 
 /obj/item/clothing/head/that
 	name = "top-hat"

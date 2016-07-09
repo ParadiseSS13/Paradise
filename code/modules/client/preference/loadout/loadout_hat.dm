@@ -96,3 +96,19 @@
 /datum/gear/hat/cowboyhat
 	display_name = "cowboy hat"
 	path = /obj/item/clothing/head/cowboyhat
+
+/datum/gear/hat/beret/purple
+	display_name = "beret, purple"
+	path = /obj/item/clothing/head/beret/purple_normal
+
+/datum/gear/hat/beret/black
+	display_name = "beret, black"
+	path = /obj/item/clothing/head/beret/black
+
+/datum/gear/hat/beret/blue
+	display_name = "beret, blue"
+	path = /obj/item/clothing/head/beret/blue
+
+/datum/gear/hat/beret/red
+	display_name = "beret, red"
+	path = /obj/item/clothing/head/beret
