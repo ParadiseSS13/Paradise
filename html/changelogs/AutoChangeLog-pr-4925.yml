@@ -1,0 +1,5 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - rscadd: "Adds Curse of the Cluwne touch attack spell, which wizards can pick, heavily based off of the same spell from Goonstation. Said spell adds an unremovable honk tumor to the target, gives them NODROP neon green clown gear, makes them stutter, makes them almost eternally fat, confuses them, makes them clumsy and speak in Comic Sans, and severely brain damages them. Use it on a cluwne however..."
+  - bugfix: "Fixes a bug where honk tumors would cause NODROP items to still be moved, despite being unable to be unequipped."
