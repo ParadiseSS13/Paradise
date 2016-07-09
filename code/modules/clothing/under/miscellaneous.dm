@@ -709,3 +709,15 @@
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>")
 			return 0
 	return 1
+
+/obj/item/clothing/under/cursedclown
+	name = "cursed clown suit"
+	desc = "It wasn't already?"
+	icon = 'icons/goonstation/objects/clothing/uniform.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_uniform"
+	item_color = "cursedclown"
+	icon_override = 'icons/goonstation/mob/clothing/uniform.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	flags = NODROP
