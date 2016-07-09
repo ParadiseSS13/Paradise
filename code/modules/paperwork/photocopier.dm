@@ -9,6 +9,7 @@
 	idle_power_usage = 30
 	active_power_usage = 200
 	power_channel = EQUIP
+	atom_say_verb = "bleeps"
 	var/obj/item/copyitem = null	//what's in the copier!
 	var/copies = 1	//how many copies to print!
 	var/toner = 60 //how much toner is left! woooooo~
