@@ -103,32 +103,22 @@
 	cost = 2
 
 /datum/gear/uniform/sec/formal
-	display_name = "formal uniform, security"
+	display_name = "security uniform, formal"
 	path = /obj/item/clothing/under/rank/security/formal
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
-/datum/gear/uniform/sec/formal/warden
-	display_name = "formal uniform, warden"
-	path = /obj/item/clothing/under/rank/warden/formal
-	allowed_roles = list("Warden")
-
-/datum/gear/uniform/sec/formal/head_of_security
-	display_name = "formal uniform, hos"
-	path = /obj/item/clothing/under/rank/head_of_security/formal
-	allowed_roles = list("Head of Security")
-
-/datum/gear/uniform/sec/corporate
-	display_name = "corporate security uniform"
-	path = /obj/item/clothing/under/rank/security/corp
+datum/gear/uniform/secorporate
+	display_name = "security uniform, corporate "
+	path = /obj/item/clhing/under/rank/security/corp
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/sec/dispatch
-	display_name = "dispatcher's uniform"
+	display_name = "security uniform, dispatch"
 	path = /obj/item/clothing/under/rank/dispatch
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/sec/casual
-	display_name = "casual security uniform"
+	display_name = "security uniform, casual"
 	path = /obj/item/clothing/under/rank/security2
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")
 
