@@ -61,7 +61,7 @@ var/list/robot_verbs_default = list(
 	var/datum/effect/system/ion_trail_follow/ion_trail = null
 	var/datum/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
-	var/has_power = 1
+	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
 	var/weaponlock_time = 120
 	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
@@ -231,8 +231,6 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/binarycheck()
 	if(is_component_functioning("comms"))
-		var/datum/robot_component/RC = get_component("comms")
-		use_power(RC.energy_consumption)
 		return 1
 	return 0
 
@@ -413,7 +411,7 @@ var/list/robot_verbs_default = list(
 	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
-		dat += "<b>[C.name]</b><br><table><tr><td>Power consumption</td><td>[C.energy_consumption]</td></tr><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[(!C.energy_consumption || C.is_powered()) ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
+		dat += "<b>[C.name]</b><br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
 
 	return dat
 
@@ -992,7 +990,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/update_icons()
 
 	overlays.Cut()
-	if(stat != DEAD && !(paralysis || stunned || weakened)) //Not dead, not stunned.
+	if(stat != DEAD && !(paralysis || stunned || weakened || low_power_mode)) //Not dead, not stunned.
 		overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
@@ -1130,7 +1128,7 @@ var/list/robot_verbs_default = list(
 	radio.interact(src)//Just use the radio's Topic() instead of bullshit special-snowflake code
 
 /mob/living/silicon/robot/proc/control_headlamp()
-	if(stat || lamp_recharging)
+	if(stat || lamp_recharging || low_power_mode)
 		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
 		return
 
@@ -1142,7 +1140,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
 	set_light(0)
 
-	if(lamp_intensity && (turn_off || stat))
+	if(lamp_intensity && (turn_off || stat || low_power_mode))
 		to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
 		lamp_intensity = 0
 		lamp_recharging = 1

@@ -161,3 +161,14 @@
 			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt")
 
 	..(act, m_type, message)
+
+/mob/living/silicon/robot/verb/powerwarn()
+	set category = "Robot Commands"
+	set name = "Power Warning"
+
+	if(!is_component_functioning("power cell") || !cell || !cell.charge)
+		visible_message("The power warning light on <span class='name'>[src]</span> flashes urgently.",\
+						 "You announce you are operating in low power mode.")
+		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+	else
+		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")

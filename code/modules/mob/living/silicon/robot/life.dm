@@ -9,7 +9,7 @@
 	clamp_values()
 
 	if(..())
-		use_power()
+		handle_robot_cell()
 		process_locks()
 		process_queued_alarms()
 
@@ -20,57 +20,25 @@
 	sleeping = 0
 	ear_deaf = 0
 
+/mob/living/silicon/robot/proc/handle_robot_cell()
+	if(stat != DEAD)
+		if(low_power_mode)
+			if(is_component_functioning("power cell") && cell && cell.charge)
+				low_power_mode = 0
+				update_headlamp()
+		else if(stat == CONSCIOUS)
+			use_power()
 
 /mob/living/silicon/robot/proc/use_power()
-	if(stat == DEAD)
-		return
-	else if(is_component_functioning("power cell") && cell)
-		if(module)
-			for(var/obj/item/borg/B in get_all_slots())
-				if(B.powerneeded)
-					if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
-						to_chat(src, "Deactivating [B.name] due to lack of power!")
-						uneq_module(B)
-		if(cell.charge <= 0)
+	if(is_component_functioning("power cell") && cell && cell.charge)
+		if(cell.charge <= 100)
 			uneq_all()
-			update_headlamp(1)
-			stat = UNCONSCIOUS
-			has_power = 0
-			for(var/V in components)
-				var/datum/robot_component/C = components[V]
-				if(C.name == "actuator") // Let drained robots move, disable the rest
-					continue
-				C.consume_power()
-		else if(cell.charge <= 100)
-			uneq_all()
-			cell.use(1)
-		else
-			if(module_state_1)
-				cell.use(4)
-			if(module_state_2)
-				cell.use(4)
-			if(module_state_3)
-				cell.use(4)
-
-			for(var/V in components)
-				var/datum/robot_component/C = components[V]
-				C.consume_power()
-
-			var/amt = Clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
-			cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
-
-			if(!is_component_functioning("actuator"))
-				Paralyse(3)
-			eye_blind = 0
-			// Please, PLEASE be careful with statements like this - make sure they're not
-			// dead beforehand, for example -- Crazylemon
-			stat = CONSCIOUS
-			has_power = 1
+		var/amt = Clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
+		cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
 	else
 		uneq_all()
-		stat = UNCONSCIOUS
-		update_headlamp(1)
-		Paralyse(3)
+		low_power_mode = 1
+		update_headlamp()
 	diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/handle_regular_status_updates()
