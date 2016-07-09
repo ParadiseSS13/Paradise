@@ -16,7 +16,7 @@
 	adjustBrainLoss(80)
 	nutrition = 9000
 	overeatduration = 9000
-	confused = 120
+	confused = 30
 	if(mind)
 		mind.assigned_role = "Cluwne"
 

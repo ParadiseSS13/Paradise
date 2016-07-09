@@ -488,6 +488,7 @@
 /obj/item/organ/internal/honktumor/cursed/remove(mob/living/carbon/M, special = 0, clean_remove = 0)
 	..()
 	if(!clean_remove)
+		visible_message("<span class='warning'>[src] vanishes into dust, and a [M] emits a loud honk!</span>", "<span class='notice'>You hear a loud honk.</span>")
 		insert(M) //You're not getting away that easily!
 	else
 		qdel(src)
