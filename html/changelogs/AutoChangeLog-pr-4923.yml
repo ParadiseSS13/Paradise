@@ -1,0 +1,5 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - rscadd: "Photocopiers can be emagged"
+  - rscadd: "Emagged photocopiers deal 30 burn damage to all mobs copying their butts"
