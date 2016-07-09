@@ -297,6 +297,10 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/toy, /obj/item/weapon/storage/fancy/cigarettes, /obj/item/weapon/lighter)
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/head/winterhood
 	name = "winter hood"
@@ -375,7 +379,7 @@
 	hoodtype = /obj/item/clothing/head/winterhood/hydro
 
 /obj/item/clothing/head/winterhood/hydro
-	item_state = "winterhood_hydro"
+	icon_state = "winterhood_hydro"
 
 /obj/item/clothing/suit/hooded/wintercoat/cargo
 	name = "cargo winter coat"
@@ -408,6 +412,10 @@
 	item_state = "labcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	hoodtype = /obj/item/clothing/head/hood
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/head/hood
 	name = "hood"
@@ -417,6 +425,10 @@
 	cold_protection = HEAD
 	flags = NODROP|BLOCKHAIR
 	flags_inv = HIDEEARS
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/hood/blue
 	icon_state = "bluehood"
@@ -550,6 +562,10 @@
 	suit_adjusted = 1
 	action_button_name = "Open/Close Jacket"
 	adjust_flavour = "unzip"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/tracksuit/green
 	name = "green tracksuit"

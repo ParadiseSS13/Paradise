@@ -62,6 +62,3 @@
 	desc = "A comfortable suit for paramedics. Has dark colours."
 	icon_state = "labcoat_emt_open"
 	item_state = "labcoat_emt_open"
-	species_fit = null
-	sprite_sheets = null
-

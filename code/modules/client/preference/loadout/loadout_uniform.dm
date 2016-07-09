@@ -199,10 +199,3 @@
 /datum/gear/uniform/pants/caopants
 	display_name = "pants, camo"
 	path = /obj/item/clothing/under/pants/camo
-
-
-//~~~~~~
-///datum/gear/uniform/pants/~~jeans
-//	display_name = "leather assless chaps"
-//	path = /obj/item/clothing/under/pants/chaps
-//~~~~~~
