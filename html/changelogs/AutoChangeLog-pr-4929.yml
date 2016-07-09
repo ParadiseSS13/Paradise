@@ -1,0 +1,11 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Grenade have a chance to explode when the person holding them is shot"
+  - rscadd: "Flamethrowers can release their tank's contents if the person holding them is shot"
+  - tweak: "Can no longer self-trigger blocked shield events (ie: no self-harm to trigger a reactive teleport armor)"
+  - tweak: "Hugging someone/shaking them up bypasses shield checks (oh no, hugs of death)"
+  - tweak: "Riot shields have a +30% chance to block thrown projectiles"
+  - tweak: "Hunter pounces are now a thrown attack as far as shield go, and yes, can be blocked by riot shields now"
+  - tweak: "Energy shields no longer block anything other than beam and energy projectiles"
+  - tweak: "Being able to be pushed is based on the block chance of the item you're holding instead of it just being based on riot shields"
