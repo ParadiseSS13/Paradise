@@ -191,6 +191,70 @@
 	S.icon_state = "heart-off"
 	return S
 
+/obj/item/organ/internal/heart/cursed
+	name = "cursed heart"
+	desc = "it needs to be pumped..."
+	icon_state = "cursedheart-off"
+	icon_base = "cursedheart"
+	origin_tech = "biotech=5"
+	organ_action_name = "pump your blood"
+	var/last_pump = 0
+	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
+	var/blood_loss = 100 //600 blood is human default, so 5 failures (below 122 blood is where humans die because reasons?)
+
+	//How much to heal per pump, negative numbers would HURT the player
+	var/heal_brute = 0
+	var/heal_burn = 0
+	var/heal_oxy = 0
+
+
+/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
+	if(H == user && istype(H))
+		if(H.species.flags & NO_BLOOD || H.species.exotic_blood)
+			to_chat(H, "<span class = 'userdanger'>\The [src] is not compatible with your form!</span>")
+			return
+		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
+		user.drop_item()
+		insert(user)
+	else
+		return ..()
+
+/obj/item/organ/internal/heart/cursed/on_life()
+	if(world.time > (last_pump + pump_delay))
+		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
+			var/mob/living/carbon/human/H = owner
+			H.vessel.remove_reagent("blood", blood_loss)
+			to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
+			if(H.client)
+				H.client.color = "red" //bloody screen so real
+		else
+			last_pump = world.time //lets be extra fair *sigh*
+
+/obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = 0)
+	..()
+	if(owner)
+		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
+
+//You are now brea- pumping blood manually
+/obj/item/organ/internal/heart/cursed/ui_action_click()
+	if(world.time < (last_pump + (pump_delay-10))) //no spam
+		to_chat(owner, "<span class='userdanger'>Too soon!</span>")
+		return
+
+	last_pump = world.time
+	playsound(owner, 'sound/effects/singlebeat.ogg', 40, 1)
+	to_chat(owner, "<span class='notice'>Your heart beats.</span>")
+
+	var/mob/living/carbon/human/H = owner
+	if(istype(H))
+		H.vessel.add_reagent("blood", (blood_loss*0.5))//gain half the blood back from a failure
+		if(owner.client)
+			owner.client.color = ""
+
+		H.adjustBruteLoss(-heal_brute)
+		H.adjustFireLoss(-heal_burn)
+		H.adjustOxyLoss(-heal_oxy)
+
 /obj/item/organ/internal/lungs
 	name = "lungs"
 	icon_state = "lungs"
