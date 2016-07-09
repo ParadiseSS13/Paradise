@@ -254,7 +254,7 @@
 /mob/living/silicon/robot/drone/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
 		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-			return 0
+			continue
 		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))
 			continue
 		if(O.client)
