@@ -1,0 +1,5 @@
+author: Krausus
+delete-after: True
+changes: 
+  - tweak: "Refactored job ban checking, which should massively reduce round start-up time."
+  - bugfix: "Job bans/unbans will now take effect instantly, rather than at the next server restart."
