@@ -22,6 +22,13 @@
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
+		if(!is_component_functioning("power cell") || !cell)
+			Paralyse(2)
+			uneq_all()
+			low_power_mode = 1
+			update_headlamp()
+			diag_hud_set_borgcell()
+			return
 		if(low_power_mode)
 			if(is_component_functioning("power cell") && cell && cell.charge)
 				low_power_mode = 0
