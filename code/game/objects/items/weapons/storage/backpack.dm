@@ -322,6 +322,25 @@
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/device/mmi/syndie(src)
 
+/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
+	name = "surgery dufflebag"
+	desc = "A suspicious looking dufflebag for holding surgery tools."
+	icon_state = "duffel-syndimed"
+	item_state = "duffle-syndimed"
+
+/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake/New()
+	..()
+	new /obj/item/weapon/scalpel(src)
+	new /obj/item/weapon/hemostat(src)
+	new /obj/item/weapon/retractor(src)
+	new /obj/item/weapon/cautery(src)
+	new /obj/item/weapon/bonegel(src)
+	new /obj/item/weapon/bonesetter(src)
+	new /obj/item/weapon/FixOVein(src)
+	if(prob(50))
+		new /obj/item/weapon/circular_saw(src)
+		new /obj/item/weapon/surgicaldrill(src)
+
 /obj/item/weapon/storage/backpack/duffel/captain
 	name = "captain's duffelbag"
 	desc = "A duffelbag designed to hold large quantities of condoms."

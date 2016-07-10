@@ -180,6 +180,10 @@
 	max_ammo = 8
 	multiple_sprites = 2
 
+/obj/item/ammo_box/magazine/m10mm/empty		//for maint drops
+	desc = "A gun magazine. Seems to be broken and can only hold one bullet. Pretty useless."
+	max_ammo = 1
+
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
 	icon_state = "45-8"
