@@ -611,6 +611,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"emergency response team leader",
 		"nanotrasen officer",
 		"nanotrasen captain",
+		"Hunter's set",
+		"DOOMguy's set",
+		"Bane's set",
 		)
 	var/dostrip = input("Do you want to strip [M] before equipping them? (0=no, 1=yes)", "STRIPTEASE") as null|anything in list(0,1)
 	if(isnull(dostrip))
@@ -748,7 +751,46 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/pirate(M), slot_r_hand)
 
-		if("space pirate")
+		if ("Hunter's set")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/hunter(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/hunter_boots(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/hunter(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/hunter_coat(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/hunter_mask(M), slot_wear_mask)
+
+		if ("DOOMguy's set")
+			M.equip_doom_commando()
+
+		if ("Bane's set")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/bane(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/doom(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/invisible(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/bane(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/banemask(M), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(src), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/c4(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(M), slot_l_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/grenade/empgrenade(M), slot_r_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_s_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m1911(M), slot_belt)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw(M), slot_r_hand)
+
+			var/obj/item/weapon/card/id/syndicate/W = new(M) //Untrackable by AI
+			W.name = "[M.real_name]'s ID Card"
+			W.icon_state = "syndie"
+			W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.
+			W.assignment = "Big Guy"
+			W.access += get_syndicate_access(W.assignment)
+			W.registered_name = M.real_name
+			M.equip_to_slot_or_del(W, slot_wear_id)
+
+		if ("space pirate")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/pirate(M), slot_wear_suit)

@@ -47,10 +47,10 @@
 
 	if(istype(M))
 		M.unEquip(src)
-		to_chat(M, "[src] wriggles out of your grip!")
-		to_chat(L, "You wriggle out of [M]'s grip!")
+		M << "[src] wriggles out of your grip!"
+		L << "You wriggle out of [M]'s grip!"
 	else if(istype(loc,/obj/item))
-		to_chat(L, "You struggle free of [loc].")
+		L << "You struggle free of [loc]."
 		forceMove(get_turf(src))
 
 	if(istype(M))

@@ -18,7 +18,7 @@
 
 	if(stat || !use_me && usr == src)
 		if(usr)
-			to_chat(usr, "You are unable to emote.")
+			usr << "You are unable to emote."
 		return
 
 	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)

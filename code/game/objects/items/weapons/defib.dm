@@ -294,7 +294,7 @@
 	return	unwield()
 
 /obj/item/weapon/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
-	if(!mainunit || !istype(mainunit, /obj/item/weapon/defibrillator))	//To avoid weird issues from admin spawns
+	if (!mainunit || !istype(mainunit, /obj/item/weapon/defibrillator))	//To avoid weird issues from admin spawns
 		M.unEquip(O)
 		qdel(O)
 		return 0
@@ -421,7 +421,7 @@
 							else if(ghost)
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-								ghost << sound('sound/effects/genetics.ogg')
+								ghost << sound('sound/effects/genetics.ogg')
 							else
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
@@ -542,7 +542,7 @@
 							else if(ghost)
 								user.visible_message("<span class='notice'>[user] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-								ghost << sound('sound/effects/genetics.ogg')
+								ghost << sound('sound/effects/genetics.ogg')
 							else
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)

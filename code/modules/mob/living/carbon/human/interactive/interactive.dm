@@ -94,7 +94,7 @@
 
 /mob/living/carbon/human/interactive/proc/saveVoice()
 	var/savefile/S = new /savefile("data/npc_saves/snpc.sav")
-	S["knownStrings"] << knownStrings
+	to_chat(S["knownStrings"], knownStrings)
 
 //botPool funcs
 /mob/living/carbon/human/interactive/proc/takeDelegate(mob/living/carbon/human/interactive/from,doReset=TRUE)

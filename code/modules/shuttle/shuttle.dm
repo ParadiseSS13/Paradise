@@ -782,6 +782,12 @@
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away"
 
+/obj/machinery/computer/shuttle/uzhin
+	name = "Grisha's shuttle Console"
+	desc = "Used to travel to unknown lands called Pyaterochka"
+	shuttleId = "uzhin"
+	possible_destinations ="grisha_dock;uzhin_away"
+
 var/global/trade_dock_timelimit = 0
 var/global/trade_dockrequest_timelimit = 0
 

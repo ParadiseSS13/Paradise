@@ -59,18 +59,6 @@
 			tint = 0
 		usr.update_inv_wear_mask()	//so our mob-overlays update
 
-//Bane gas mask
-/obj/item/clothing/mask/banemask
-	name = "bane mask"
-	desc = "Only when the station is in flames, do you have my permission to robust."
-	icon_state = "bane_mask"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
-	w_class = 3
-	item_state = "bane_mask"
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
-
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
 /obj/item/clothing/mask/gas/plaguedoctor
@@ -365,6 +353,148 @@
 		cooldown = world.time
 
 
+//-------------------------
+//Bane gas mask
+//-------------------------
 
+/obj/item/clothing/mask/banemask
+	name = "bane mask"
+	desc = "Only when the station is in flames, do you have my permission to robust."
+	icon_state = "bane_mask"
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	w_class = 3.0
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	action_button_name = "For you."
+
+/obj/item/clothing/mask/banemask/attack_self()
+	foryou()
+
+/obj/item/clothing/mask/banemask/verb/foryou()
+	set category = "Object"
+	set name = "For you."
+	set src in usr
+	if(!istype(usr, /mob/living)) return
+	if(usr.stat) return
+
+	var/phrase = 0	//selects which phrase to use
+	var/phrase_text = null
+	var/phrase_sound = null
+
+
+	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
+		phrase = rand(1,9)	// The fire rises
+		switch(phrase)	//sets the properties of the chosen phrase
+			if(1)				// good cop
+				phrase_text = "For you."
+				phrase_sound = "4u"
+			if(2)
+				phrase_text = "Yes. The fire rises!"
+				phrase_sound = "fire"
+			if(3)
+				phrase_text = "OF COURSE!"
+				phrase_sound = "ofcourse"
+			if(4)
+				phrase_text = "Why someone would shoot a man before throwing him out of a plane?"
+				phrase_sound = "throw"
+			if(5)
+				phrase_text = "Crushing this station..."
+				phrase_sound = "crushing"
+			if(6)				// bad cop
+				phrase_text = "WITH NO SURVIVORS!"
+				phrase_sound = "nosurvivors"
+			if(7)
+				phrase_text = "It would be extremely painful"
+				phrase_sound = "painful"
+			if(8)
+				phrase_text = "It doesn't matter who we are..."
+				phrase_sound = "ourplan"
+			if(9)
+				phrase_text = "No one care who i was until i put on the mask."
+				phrase_sound = "putonthemask"
+
+		usr.visible_message("[usr] said to CIA : <font color='red' size='4'><b>[phrase_text]</b></font>")
+		playsound(src.loc, "sound/voice/bane/[phrase_sound].ogg", 70, 0, 4)
+		cooldown = world.time
+
+/obj/item/clothing/mask/gas/doom
+	name = "DooM guy's Mask"
+	desc = "Breath pure hatred and rage!"
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	icon_state = "doomguy"
+	action_button_name = "RIP AND TEAR"
+	flash_protect = 2
+
+/obj/item/clothing/mask/gas/doom/attack_self()
+	riptear()
+
+/obj/item/clothing/mask/gas/doom/verb/riptear()
+	set category = "Object"
+	set name = "RIP AND TEAR"
+	set src in usr
+	if(!istype(usr, /mob/living)) return
+	if(usr.stat) return
+
+	var/phrase = 0	//selects which phrase to use
+	var/phrase_text = null
+	var/phrase_sound = null
+
+
+	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
+		phrase = rand(1,16)	// brutal RANDOM
+		switch(phrase)	//sets the properties of the chosen phrase
+			if(1)				// good cop
+				phrase_text = "I'M OUTTA CONTROL!!"
+				phrase_sound = "control"
+			if(2)
+				phrase_text = "GROOVY!"
+				phrase_sound = "groovy"
+			if(3)
+				phrase_text = "HOI, HOI, I AM THE BOY!"
+				phrase_sound = "hoyhoy"
+			if(4)
+				phrase_text = "I AM MAN, I PSYCHOPAT!"
+				phrase_sound = "iamman"
+			if(5)
+				phrase_text = "KNOCK KNOCK! WHO'S THERE? MEEE!"
+				phrase_sound = "knockknock"
+			if(6)
+				phrase_text = "I FEEL MY TEMPERATURE RISING!"
+				phrase_sound = "lord"
+			if(7)
+				phrase_text = "HERE COMES THE NIGHT TRAIN!"
+				phrase_sound = "nighttrain"
+			if(8)
+				phrase_text = "YOU WANNA PIECE OF ME? COME ON, COME ON!"
+				phrase_sound = "piece"
+			if(9)
+				phrase_text = "RIP AND TEAAAAAR!!!!!"
+				phrase_sound = "ripandtear"
+			if(10)
+				phrase_text = "RIP AND TEAR YOUR GUTS!!!"
+				phrase_sound = "ripandtear2"
+			if(11)
+				phrase_text = "COME HERE BOYS! I GOT SOMETHING TO SAY!"
+				phrase_sound = "smthsay"
+			if(12)
+				phrase_text = "STUPID! STUPID AND DEAD!"
+				phrase_sound = "stupidanddead"
+			if(13)
+				phrase_text = "RIP AND TEAAAAAR!!!!!"
+				phrase_sound = "ripandtear"
+			if(14)
+				phrase_text = "RIP AND TEAR YOUR GUTS!!!"
+				phrase_sound = "ripandtear2"
+			if(15)
+				phrase_text = "RIP AND TEAAAAAR!!!!!"
+				phrase_sound = "ripandtear"
+			if(16)
+				phrase_text = "RIP AND TEAR YOUR GUTS!!!"
+				phrase_sound = "ripandtear2"
+
+		usr.visible_message("[usr] shouted : <font color='red' size='4'><b>[phrase_text]</b></font>")
+		playsound(src.loc, "sound/voice/doom/[phrase_sound].ogg", 80, 0, 4)
+		cooldown = world.time
 // ********************************************************************
-

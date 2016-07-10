@@ -51,7 +51,7 @@
 		var/list/w = heard_words["[lowertext(seperate[Xa])]"]
 		if(w)
 			w.Add("[lowertext(seperate[next])]")
-//		to_chat(world, "Adding [lowertext(seperate[next])] to [lowertext(seperate[Xa])]")
+//		to_chat(world, "Adding [lowertext(seperate[next])] to [lowertext(seperate[Xa])]")
 
 	if(prob(30))
 		var/list/options = list("[holder_atom] seems to be listening intently to [source]...",\
@@ -66,10 +66,10 @@
 /*/obj/item/weapon/talkingcrystal/proc/debug()
 	//set src in view()
 	for(var/v in heard_words)
-		to_chat(world, "[uppertext(v)]")
+		to_chat(world, "[uppertext(v)]")
 		var/list/d = heard_words["[v]"]
 		for(var/X in d)
-			to_chat(world, "[X]")*/
+			to_chat(world, "[X]"*/
 
 /datum/talking_atom/proc/SaySomething(var/word = null)
 	if(!holder_atom)
@@ -113,13 +113,13 @@
 
 	var/list/listening = viewers(holder_atom)
 	for(var/mob/M in mob_list)
-		if(!M.client)
+		if (!M.client)
 			continue //skip monkeys and leavers
-		if(istype(M, /mob/new_player))
+		if (istype(M, /mob/new_player))
 			continue
 		if(M.stat == 2 &&  M.client.prefs.toggles & CHAT_GHOSTEARS)
 			listening|=M
 
 	for(var/mob/M in listening)
-		to_chat(M, "[bicon(holder_atom)] <b>[holder_atom]</b> reverberates, \blue\"[msg]\"")
+		to_chat(M, "[bicon(holder_atom)] <b>[holder_atom]</b> reverberates, \blue\"[sanitize_local(msg)]\"")
 	last_talk_time = world.time

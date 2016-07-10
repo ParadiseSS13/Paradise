@@ -45,7 +45,7 @@ datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TO
 			M.adjustBruteLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-			M.emote("scream")
+			M.emote("groan")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
@@ -609,7 +609,7 @@ datum/reagent/epinephrine/on_mob_life(var/mob/living/M as mob)
 
 /datum/reagent/epinephrine/overdose_process(var/mob/living/M as mob, severity)
 	var/effect = ..()
-	if(severity == 1)
+	if (severity == 1)
 		if(effect <= 1)
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			M.fakevomit(no_text = 1)
@@ -998,7 +998,7 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	result_amount = 2
 
 /datum/reagent/degreaser/reaction_turf(var/turf/simulated/T, var/volume)
-	if(!istype(T)) return
+	if (!istype(T)) return
 	src = null
 	if(volume >= 1)
 		if(istype(T) && T.wet)

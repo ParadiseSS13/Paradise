@@ -188,6 +188,7 @@
 	qdel(src)
 	return
 
+
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/weapon/nullrod))
 		visible_message("<span class='warning'>[src] violently flinches!</span>", \
@@ -397,3 +398,4 @@
 		qdel(src)
 		if(src) //Should never happen, but just in case
 			inert = 1
+>>>>>>> master

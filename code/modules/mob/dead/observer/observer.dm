@@ -72,7 +72,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 					name = capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
 
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
-	
+
 	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
 	ghostimage.overlays = overlays
 	ghostimage.dir = dir
@@ -264,7 +264,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				source.layer = old_layer
 	to_chat(src, "<span class='ghostalert'><a href=?src=\ref[src];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
-		src << sound(sound)
+		src << sound(sound)
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = huds[hud_index]
