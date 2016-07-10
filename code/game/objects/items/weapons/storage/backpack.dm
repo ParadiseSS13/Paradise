@@ -10,7 +10,7 @@
 	item_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	w_class = 4.0
+	w_class = 4
 	slot_flags = SLOT_BACK	//ERROOOOO
 	max_w_class = 3
 	max_combined_w_class = 21
@@ -85,7 +85,7 @@
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	w_class = 4.0
+	w_class = 4
 	max_w_class = 3
 	max_combined_w_class = 400 // can store a ton of shit!
 

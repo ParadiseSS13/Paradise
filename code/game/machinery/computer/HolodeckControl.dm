@@ -440,7 +440,7 @@
 	throw_speed = 1
 	throw_range = 5
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	armour_penetration = 50
 	block_chance = 50
 	var/active = 0

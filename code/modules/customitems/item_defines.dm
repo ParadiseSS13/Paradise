@@ -17,7 +17,7 @@
 	icon_state = "tatgun"
 	force = 0
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	var/used = 0
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm

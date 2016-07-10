@@ -3,7 +3,7 @@
 	name = "tape roll"
 	icon = 'icons/policetape.dmi'
 	icon_state = "rollstart"
-	w_class = 1.0
+	w_class = 1
 	var/turf/start
 	var/turf/end
 	var/tape_type = /obj/item/tape

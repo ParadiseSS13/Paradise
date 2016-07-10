@@ -117,7 +117,7 @@ REAGENT SCANNER
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 5
 	throw_range = 10
 	materials = list(MAT_METAL=200)
@@ -290,7 +290,7 @@ REAGENT SCANNER
 	name = "Health Analyzer Upgrade"
 	icon_state = "healthupgrade"
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
-	w_class = 1.0
+	w_class = 1
 	origin_tech = "magnets=2;biotech=2"
 
 /obj/item/device/analyzer
@@ -298,7 +298,7 @@ REAGENT SCANNER
 	name = "analyzer"
 	icon_state = "atmos"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 0
@@ -364,7 +364,7 @@ REAGENT SCANNER
 	name = "mass-spectrometer"
 	icon_state = "spectrometer"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT | OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 5
@@ -436,7 +436,7 @@ REAGENT SCANNER
 	desc = "A hand-held reagent scanner which identifies chemical agents."
 	icon_state = "spectrometer"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
@@ -493,7 +493,7 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=1"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	throwforce = 0
 	throw_speed = 3

@@ -112,7 +112,7 @@
 	desc = "Heavy-duty switching circuits for power control."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
-	w_class = 2.0
+	w_class = 2
 	item_state = "electronic"
 	flags = CONDUCT
 

@@ -521,7 +521,7 @@
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
@@ -677,7 +677,7 @@
 /obj/item/weapon/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
-	w_class = 2.0
+	w_class = 2
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "minedronecube"
 	item_state = "electronic"
@@ -902,7 +902,7 @@
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 5
 	var/loaded = 1
@@ -962,7 +962,7 @@
 	name = "mining scanner"
 	icon_state = "mining1"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 0
@@ -993,7 +993,7 @@
 	name = "advanced mining scanner"
 	icon_state = "mining0"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 0

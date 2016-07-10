@@ -466,7 +466,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	color = COLOR_RED
 	desc = "A coil of power cable."
 	throwforce = 10
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
@@ -541,9 +541,9 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 /obj/item/stack/cable_coil/proc/update_wclass()
 	if(amount == 1)
-		w_class = 1.0
+		w_class = 1
 	else
-		w_class = 2.0
+		w_class = 2
 
 /obj/item/stack/cable_coil/examine(mob/user)
 	if(!..(user, 1))

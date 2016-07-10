@@ -7,7 +7,7 @@
 	icon_state ="scroll2"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1.0
+	w_class = 1
 	var/used = 0
 
 

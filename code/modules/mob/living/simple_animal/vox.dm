@@ -81,7 +81,7 @@
 	icon_state = "quill"
 	item_state = "quill"
 	throwforce = 5
-	w_class = 3.0
+	w_class = 3
 	sharp = 1
 	edge = 0
 

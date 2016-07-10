@@ -15,7 +15,7 @@
 	desc = "A camera film cartridge. Insert it into a camera to reload it."
 	icon_state = "film"
 	item_state = "electropack"
-	w_class = 1.0
+	w_class = 1
 
 
 /********
@@ -26,7 +26,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
-	w_class = 2.0
+	w_class = 2
 	var/icon/img	//Big photo image
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
@@ -141,7 +141,7 @@
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "electropack"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
@@ -489,7 +489,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	desc = "video camera that can send live feed to the entertainment network."
 	icon_state = "videocam"
 	item_state = "videocam"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	var/on = 0

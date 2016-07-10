@@ -17,7 +17,7 @@ RCD
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 3.0
+	w_class = 3
 	materials = list(MAT_METAL=100000)
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect/system/spark_spread/spark_system
