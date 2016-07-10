@@ -74,10 +74,6 @@ var/ert_request_answered = 0
 
 /mob/dead/observer/proc/JoinResponseTeam()
 
-	if(!istype(usr,/mob/dead/observer) && !istype(usr,/mob/new_player))
-		to_chat(usr, "Only observers may join the ERT.")
-		return 0
-
 	if(!send_emergency_team)
 		to_chat(usr, "No emergency response team is currently being sent.")
 		return 0
