@@ -631,13 +631,6 @@ var/global/list/default_medbay_channels = list(
 	..()
 	set_frequency(DTH_FREQ)
 
-/obj/item/device/radio/borg/talk_into()
-	. = ..()
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
-		var/datum/robot_component/C = R.components["radio"]
-		R.use_power(C.energy_consumption)
-
 /obj/item/device/radio/borg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 //	..()
 	user.set_machine(src)

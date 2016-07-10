@@ -247,10 +247,12 @@
 /obj/item/attack_ai(mob/user as mob)
 	if(istype(src.loc, /obj/item/weapon/robot_module))
 		//If the item is part of a cyborg module, equip it
-		if(!isrobot(user)) return
+		if(!isrobot(user))
+			return
 		var/mob/living/silicon/robot/R = user
-		R.activate_module(src)
-		R.hud_used.update_robot_modules_display()
+		if(!R.low_power_mode) //can't equip modules with an empty cell.
+			R.activate_module(src)
+			R.hud_used.update_robot_modules_display()
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
