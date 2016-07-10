@@ -2,7 +2,7 @@
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
-	if (src.notransform)
+	if(src.notransform)
 		return
 
 	//Status updates, death etc.
@@ -22,9 +22,9 @@
 
 
 /mob/living/silicon/robot/proc/use_power()
-	if (stat == DEAD)
+	if(stat == DEAD)
 		return
-	else if (is_component_functioning("power cell") && cell)
+	else if(is_component_functioning("power cell") && cell)
 		if(module)
 			for(var/obj/item/borg/B in get_all_slots())
 				if(B.powerneeded)
@@ -232,7 +232,7 @@
 
 
 /mob/living/silicon/robot/proc/update_items()
-	if (client)
+	if(client)
 		for(var/obj/I in get_all_slots())
 			client.screen |= I
 	if(module_state_1)

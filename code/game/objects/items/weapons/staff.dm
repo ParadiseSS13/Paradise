@@ -8,7 +8,6 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2
-	flags = NOSHIELD
 	armour_penetration = 100
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 
@@ -74,4 +73,3 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2
-	flags = NOSHIELD

@@ -97,7 +97,7 @@
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
-		if (R.use(1))
+		if(R.use(1))
 			var/obj/item/weapon/wirerod/W = new /obj/item/weapon/wirerod
 			if(!remove_item_from_storage(user))
 				user.unEquip(src)

@@ -74,7 +74,7 @@
 		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
 	else
 		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
-	if (wieldsound)
+	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 	O.name = "[name] - offhand"
@@ -119,14 +119,6 @@
 
 /obj/item/weapon/twohanded/offhand/wield()
 	qdel(src)
-
-/obj/item/weapon/twohanded/offhand/IsShield()//if the actual twohanded weapon is a shield, we count as a shield too!
-	var/mob/user = loc
-	if(!istype(user)) return 0
-	var/obj/item/I = user.get_active_hand()
-	if(I == src) I = user.get_inactive_hand()
-	if(!I) return 0
-	return I.IsShield()
 
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
@@ -205,10 +197,10 @@
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
-	flags = NOSHIELD
 	armour_penetration = 35
 	origin_tech = "magnets=3;syndicate=4"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_chance = 75
 	sharp = 1
 	edge = 1
 	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
@@ -238,11 +230,10 @@
 				user.dir = i
 				sleep(1)
 
-/obj/item/weapon/twohanded/dualsaber/IsShield()
+/obj/item/weapon/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(wielded)
-		return 1
-	else
-		return 0
+		return ..()
+	return 0
 
 /obj/item/weapon/twohanded/dualsaber/green/New()
 	blade_color = "green"
@@ -296,7 +287,6 @@
 	throw_speed = 3
 	armour_penetration = 10
 	no_spin_thrown = 1 // Thrown spears that spin look dumb. -Fox
-	flags = NOSHIELD
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 
 /obj/item/weapon/twohanded/spear/update_icon()
@@ -371,7 +361,6 @@
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
-	flags = NOSHIELD
 	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
@@ -581,7 +570,7 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if (istype(A, /obj/structure) || istype(A, /obj/mecha/))
+			else if(istype(A, /obj/structure) || istype(A, /obj/mecha/))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3

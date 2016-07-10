@@ -34,8 +34,8 @@
 /mob/living/carbon/alien/humanoid/queen/handle_regular_hud_updates()
 	..() //-Yvarov
 
-	if (healths)
-		if (stat != DEAD)
+	if(healths)
+		if(stat != DEAD)
 			switch(health)
 				if(250 to INFINITY)
 					healths.icon_state = "health0"

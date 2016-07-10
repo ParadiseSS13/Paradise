@@ -27,7 +27,7 @@
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 	log_admin("MOD: [key_name(src)] : [msg]")
 
-	if (!msg)
+	if(!msg)
 		return
 
 	var/spanclass = "mod_channel"

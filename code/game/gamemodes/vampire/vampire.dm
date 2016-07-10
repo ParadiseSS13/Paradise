@@ -155,12 +155,12 @@
 
 	switch(rand(1,100))
 		if(1 to 80)
-			if (!(locate(/datum/objective/escape) in vampire.objectives))
+			if(!(locate(/datum/objective/escape) in vampire.objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = vampire
 				vampire.objectives += escape_objective
 		else
-			if (!(locate(/datum/objective/survive) in vampire.objectives))
+			if(!(locate(/datum/objective/survive) in vampire.objectives))
 				var/datum/objective/survive/survive_objective = new
 				survive_objective.owner = vampire
 				vampire.objectives += survive_objective
@@ -173,15 +173,15 @@
 
 /datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
 	var/dat
-	if (you_are)
+	if(you_are)
 		dat = "<span class='danger'>You are a Vampire!</span><br>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(vampire.current, dat)
 	to_chat(vampire.current, "<B>You must complete the following tasks:</B>")
 
-	if (vampire.current.mind)
-		if (vampire.current.mind.assigned_role == "Clown")
+	if(vampire.current.mind)
+		if(vampire.current.mind.assigned_role == "Clown")
 			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
 			vampire.current.mutations.Remove(CLUMSY)
 

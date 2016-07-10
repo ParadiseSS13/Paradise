@@ -45,17 +45,17 @@
 	if(!data) data = 1
 	switch(data)
 		if(1 to 5)
-			if (!M.stuttering) M.stuttering = 1
+			if(!M.stuttering) M.stuttering = 1
 			M.Dizzy(10)
 			if(prob(10)) M.emote(pick("twitch","giggle"))
 		if(5 to 10)
-			if (!M.stuttering) M.stuttering = 1
+			if(!M.stuttering) M.stuttering = 1
 			M.Jitter(20)
 			M.Dizzy(20)
 			M.druggy = max(M.druggy, 45)
 			if(prob(20)) M.emote(pick("twitch","giggle"))
-		if (10 to INFINITY)
-			if (!M.stuttering) M.stuttering = 1
+		if(10 to INFINITY)
+			if(!M.stuttering) M.stuttering = 1
 			M.Jitter(40)
 			M.Dizzy(40)
 			M.druggy = max(M.druggy, 60)

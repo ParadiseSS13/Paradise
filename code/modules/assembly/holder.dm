@@ -68,8 +68,8 @@
 
 	examine(mob/user)
 		..(user)
-		if ((in_range(src, user) || src.loc == user))
-			if (src.secured)
+		if((in_range(src, user) || src.loc == user))
+			if(src.secured)
 				to_chat(user, "\The [src] is ready!")
 			else
 				to_chat(user, "\The [src] can be attached!")
@@ -202,11 +202,11 @@
 				qdel(src)
 				return
 			if(2.0)
-				if (prob(50))
+				if(prob(50))
 					qdel(src)
 					return
 			if(3.0)
-				if (prob(25))
+				if(prob(25))
 					qdel(src)
 					return
 		return

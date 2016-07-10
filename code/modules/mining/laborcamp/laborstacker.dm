@@ -28,7 +28,7 @@
 			t = d.id_tag
 			if(t == src.door_tag)
 				src.release_door = d
-		if (machine && (release_door || !use_release_door))
+		if(machine && (release_door || !use_release_door))
 			machine.CONSOLE = src
 		else
 			qdel(src)

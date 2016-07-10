@@ -101,7 +101,7 @@ RCD
 		data["door_accesses"] = door_accesses_list
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 400, 400, state = state)
 		ui.set_initial_data(data)
 		ui.open()
@@ -130,20 +130,20 @@ RCD
 		menu = text2num(href_list["menu"])
 		. = 1
 	
-	if (href_list["login"])
+	if(href_list["login"])
 		if(istype(usr,/mob/living/silicon))
 			locked = 0
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/device/pda))
+			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
 			var/obj/item/weapon/card/id/ID = I
-			if (istype(ID) && ID && check_access(ID))
+			if(istype(ID) && ID && check_access(ID))
 				locked = 0
 		. = 1
 	
-	if (href_list["logout"])
+	if(href_list["logout"])
 		locked = 1
 		. = 1
 	

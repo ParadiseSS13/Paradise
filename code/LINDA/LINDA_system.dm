@@ -83,35 +83,35 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5,air_group=0)
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles
 /turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
-	if (!istype(src, /turf/simulated))
+	if(!istype(src, /turf/simulated))
 		return list()
 
 	var/adjacent_turfs = list()
 
 	var/turf/simulated/curloc = src
-	for (var/direction in cardinal)
+	for(var/direction in cardinal)
 		if(!(curloc.atmos_adjacent_turfs & direction))
 			continue
 
 		var/turf/simulated/S = get_step(curloc, direction)
-		if (istype(S))
+		if(istype(S))
 			adjacent_turfs += S
-	if (!alldir)
+	if(!alldir)
 		return adjacent_turfs
 
-	for (var/direction in diagonals)
+	for(var/direction in diagonals)
 		var/matchingDirections = 0
 		var/turf/simulated/S = get_step(curloc, direction)
 
-		for (var/checkDirection in cardinal)
+		for(var/checkDirection in cardinal)
 			if(!(S.atmos_adjacent_turfs & checkDirection))
 				continue
 			var/turf/simulated/checkTurf = get_step(S, checkDirection)
 
-			if (checkTurf in adjacent_turfs)
+			if(checkTurf in adjacent_turfs)
 				matchingDirections++
 
-			if (matchingDirections >= 2)
+			if(matchingDirections >= 2)
 				adjacent_turfs += S
 				break
 

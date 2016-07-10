@@ -266,7 +266,7 @@
 
 /obj/machinery/mecha_part_fabricator/interact(mob/user as mob)
 	var/dat, left_part
-	if (..())
+	if(..())
 		return
 	user.set_machine(src)
 	var/turf/exit = get_step(src,SOUTH)
@@ -400,7 +400,7 @@
 		if(href_list["custom_eject"])
 			amount = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			amount = max(0,min(round(resources[material]/MINERAL_MATERIAL_AMOUNT),amount)) // Rounding errors aren't scary, as the mineral eject proc is smart
-			if (!amount)
+			if(!amount)
 				return
 			amount = round(amount)
 		if(amount < 0 || amount > resources[material]) //href protection, except that resources[] is 2000 per sheet

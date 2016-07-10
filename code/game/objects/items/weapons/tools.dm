@@ -56,29 +56,29 @@
 
 /obj/item/weapon/screwdriver/New()
 	switch(pick("red","blue","purple","brown","green","cyan","yellow"))
-		if ("red")
+		if("red")
 			icon_state = "screwdriver2"
 			item_state = "screwdriver"
-		if ("blue")
+		if("blue")
 			icon_state = "screwdriver"
 			item_state = "screwdriver_blue"
-		if ("purple")
+		if("purple")
 			icon_state = "screwdriver3"
 			item_state = "screwdriver_purple"
-		if ("brown")
+		if("brown")
 			icon_state = "screwdriver4"
 			item_state = "screwdriver_brown"
-		if ("green")
+		if("green")
 			icon_state = "screwdriver5"
 			item_state = "screwdriver_green"
-		if ("cyan")
+		if("cyan")
 			icon_state = "screwdriver6"
 			item_state = "screwdriver_cyan"
-		if ("yellow")
+		if("yellow")
 			icon_state = "screwdriver7"
 			item_state = "screwdriver_yellow"
 
-	if (prob(75))
+	if(prob(75))
 		src.pixel_y = rand(0, 16)
 	return
 
@@ -235,7 +235,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
-		if (!S)
+		if(!S)
 			return
 
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
@@ -243,7 +243,7 @@
 
 		if(S.brute_dam)
 			if(S.brute_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				if (remove_fuel(0,null))
+				if(remove_fuel(0,null))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					S.heal_damage(15,0,0,1)
 					user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
@@ -365,7 +365,7 @@
 /obj/item/weapon/weldingtool/proc/flamethrower_rods(obj/item/I, mob/user)
 	if(!status)
 		var/obj/item/stack/rods/R = I
-		if (R.use(1))
+		if(R.use(1))
 			var/obj/item/weapon/flamethrower/F = new /obj/item/weapon/flamethrower(user.loc)
 			if(!remove_item_from_storage(F))
 				user.unEquip(src)

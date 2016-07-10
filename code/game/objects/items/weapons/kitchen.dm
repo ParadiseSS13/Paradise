@@ -30,7 +30,7 @@
 	var/max_contents = 1
 
 /obj/item/weapon/kitchen/utensil/New()
-	if (prob(60))
+	if(prob(60))
 		src.pixel_y = rand(0, 4)
 
 	create_reagents(5)
@@ -48,7 +48,7 @@
 		else
 			return ..()
 
-	if (contents.len)
+	if(contents.len)
 		var/obj/item/weapon/reagent_containers/food/snacks/toEat = contents[1]
 		if(istype(toEat))
 			if(M.eat(toEat, user))

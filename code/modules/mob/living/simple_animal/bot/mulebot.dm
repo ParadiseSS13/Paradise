@@ -106,8 +106,8 @@
 		visible_message("[user] crowbars out the power cell from [src].",
 						"<span class='notice'>You pry the powercell out of [src].</span>")
 		update_controls()
-	else if (istype(I, /obj/item/weapon/wrench))
-		if (health < maxHealth)
+	else if(istype(I, /obj/item/weapon/wrench))
+		if(health < maxHealth)
 			adjustBruteLoss(-25)
 			updatehealth()
 			user.visible_message(

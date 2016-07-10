@@ -236,7 +236,7 @@
 	..()
 
 /obj/item/clothing/accessory/holobadge/emag_act(user as mob)
-	if (emagged)
+	if(emagged)
 		to_chat(user, "\red [src] is already cracked.")
 		return
 	else
@@ -424,15 +424,15 @@
 		return
 	var/list/A = U.accessories
 	var/total = A.len
-	if (total == 1)
+	if(total == 1)
 		return "\a [A[1]]"
-	else if (total == 2)
+	else if(total == 2)
 		return "\a [A[1]] and \a [A[2]]"
 	else
 		var/output = ""
 		var/index = 1
 		var/comma_text = ", "
-		while (index < total)
+		while(index < total)
 			output += "\a [A[index]][comma_text]"
 			index++
 

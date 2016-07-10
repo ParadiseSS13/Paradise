@@ -141,7 +141,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "omni_mixer.tmpl", "Omni Mixer Control", 360, 330)
 		ui.set_initial_data(data)
 		ui.open()

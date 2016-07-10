@@ -57,7 +57,7 @@
 	if(!istype(H,/mob/living/carbon/human))
 		return
 	for(var/obj/item/W in H)
-		if (W == H.w_uniform) // will be torn
+		if(W == H.w_uniform) // will be torn
 			continue
 		if(istype(W,/obj/item/organ))
 			continue

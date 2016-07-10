@@ -443,7 +443,7 @@
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/weapon/gun/energy/temperature/Topic(href, href_list)
-	if (..())
+	if(..())
 		return
 	usr.set_machine(src)
 	add_fingerprint(usr)
@@ -454,7 +454,7 @@
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
 			target_temperature = max(0, target_temperature+amount)
-	if (istype(loc, /mob))
+	if(istype(loc, /mob))
 		attack_self(loc)
 	add_fingerprint(usr)
 	return
@@ -491,9 +491,9 @@
 			temperature = target_temperature
 		update_icon()
 
-		if (istype(loc, /mob/living/carbon))
+		if(istype(loc, /mob/living/carbon))
 			var /mob/living/carbon/M = loc
-			if (src == M.machine)
+			if(src == M.machine)
 				update_dat()
 				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
 	return
@@ -552,7 +552,7 @@
 	update_charge()
 
 /obj/item/weapon/gun/energy/temperature/proc/update_user()
-	if (istype(loc,/mob/living/carbon))
+	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()
