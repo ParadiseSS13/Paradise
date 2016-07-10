@@ -91,7 +91,7 @@
 
 /datum/recipe/grill/cutlet
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/sliceable/rawcutlet
+		/obj/item/weapon/reagent_containers/food/snacks/rawcutlet
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/cutlet
 

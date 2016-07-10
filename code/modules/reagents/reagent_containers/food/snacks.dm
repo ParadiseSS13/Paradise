@@ -2708,7 +2708,7 @@
 		..()
 		reagents.add_reagent("nutriment", 1)
 
-/obj/item/weapon/reagent_containers/food/snacks/sliceable/rawcutlet
+/obj/item/weapon/reagent_containers/food/snacks/rawcutlet
 	name = "raw cutlet"
 	desc = "A thin piece of raw meat."
 	icon = 'icons/obj/food/food_ingredients.dmi'
