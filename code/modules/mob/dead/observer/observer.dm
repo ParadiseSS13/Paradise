@@ -158,11 +158,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
 	var/obj/structure/morgue/Morgue = locate() in M.loc
-	if(istype(M.loc,/obj/structure/morgue))
+	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
-	if(istype(M.loc,/obj/machinery/cryopod))
+	if(istype(M.loc, /obj/machinery/cryopod))
 		var/obj/machinery/cryopod/P = M.loc
 		if(!P.control_computer)
 			P.find_control_computer(urgent=1)
