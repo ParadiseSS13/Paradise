@@ -242,6 +242,8 @@
 	var/list/targets = living_mob_list
 	var/list/remoteviewers = new /list()
 	for(var/mob/M in targets)
+		if(PSY_RESIST in M.mutations)
+			continue
 		if(REMOTE_VIEW in M.mutations)
 			remoteviewers += M
 	if(!remoteviewers.len || remoteviewers.len == 1)
@@ -273,10 +275,6 @@
 		return
 
 	for(var/mob/living/L in targets)
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			if(PSY_RESIST in H.mutations)
-				continue
 		target = L
 
 	if(target)
