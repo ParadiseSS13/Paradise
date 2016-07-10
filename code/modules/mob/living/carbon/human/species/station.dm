@@ -864,17 +864,6 @@
 	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	cold_level_1 = 50
-	cold_level_2 = -1
-	cold_level_3 = -1
-
-	heat_level_1 = 500		//gives them about 25 seconds in space before taking damage
-	heat_level_2 = 540
-	heat_level_3 = 600
-	heat_level_3_breathe = 600
-
-	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
-
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_MARKINGS | HAS_HEAD_ACCESSORY
