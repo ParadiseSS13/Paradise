@@ -287,7 +287,6 @@ var/round_start_time = 0
 					flick("intro_nuke", cinematic)
 					sleep(35)
 					world << sound('sound/effects/explosionfar.ogg')
-					//flick("end",cinematic)
 
 
 		if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
