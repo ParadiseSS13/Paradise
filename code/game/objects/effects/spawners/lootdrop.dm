@@ -65,7 +65,6 @@
 				/obj/item/clothing/gloves/color/fyellow = 10,
 				/obj/item/clothing/gloves/color/yellow = 5,
 				/obj/item/clothing/gloves/color/black = 20,
-				/obj/machinery/portable_atmospherics/hydroponics = 10,
 				/obj/item/clothing/head/hardhat = 10,
 				/obj/item/clothing/head/hardhat/red = 10,
 				/obj/item/clothing/head/that{throwforce = 1; throwing = 1} = 10,
