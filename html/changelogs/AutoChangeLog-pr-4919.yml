@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Players probably won't get stuck as plants forever anymore. Probably."
