@@ -1,4 +1,14 @@
 
+//adjust these to change the maximum capacity of the bottler for each container type
+#define MAX_GLASS 10
+#define MAX_PLAST 20
+#define MAX_METAL 25
+
+//adjust these to change the number of containers the bottler will make per sheet
+#define RATIO_GLASS 1
+#define RATIO_PLAST 2
+#define RATIO_METAL 5
+
 /obj/machinery/bottler
 	name = "bottler unit"
 	desc = "A machine that combines ingredients and bottles the resulting beverages."
@@ -9,9 +19,7 @@
 	var/list/slots[3]
 	var/list/datum/bottler_recipe/available_recipes
 	var/list/acceptable_items
-	var/glass_bottles = 10
-	var/plastic_bottles = 20
-	var/cans = 25
+	var/list/containers = list("glass bottle" = 10, "plastic bottle" = 20, "metal can" = 25)
 	var/bottling = 0
 
 /obj/machinery/bottler/New()
@@ -22,7 +30,7 @@
 		acceptable_items |= /obj/item/weapon/reagent_containers/food/snacks
 		acceptable_items |= /obj/item/weapon/reagent_containers/food/drinks/cans
 		//the rest is based on what is used in recipes so we don't have people destroying the nuke disc
-		for (var/type in subtypesof(/datum/bottler_recipe))
+		for(var/type in subtypesof(/datum/bottler_recipe))
 			var/datum/bottler_recipe/recipe = new type
 			if(recipe.result) // Ignore recipe subtypes that lack a result
 				available_recipes += recipe
@@ -125,89 +133,79 @@
 /obj/machinery/bottler/proc/recycle_container(obj/item/O)
 	if(!O)
 		return
-	var/recycled = 0
+	var/con_type
+	var/max_define
 	if(istype(O, /obj/item/trash/can))
 		var/obj/item/trash/can/C = O
-		if(C.is_glass && glass_bottles < 10)
-			glass_bottles++
-			recycled = 1
-		else if(C.is_plastic && plastic_bottles < 20)
-			plastic_bottles++
-			recycled = 1
-		else if(cans < 25)
-			cans++
-			recycled = 1
+		if(C.is_glass)
+			con_type = "glass bottle"
+			max_define = MAX_GLASS
+		else if(C.is_plastic)
+			con_type = "plastic bottle"
+			max_define = MAX_PLAST
+		else
+			con_type = "metal can"
+			max_define = MAX_METAL
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/drinks/cans))
 		var/obj/item/weapon/reagent_containers/food/drinks/cans/C = O
-		if(C.is_glass && glass_bottles < 10)
-			glass_bottles++
-			recycled = 1
-		else if(C.is_plastic && plastic_bottles < 20)
-			plastic_bottles++
-			recycled = 1
-		else if(cans < 25)
-			cans++
-			recycled = 1
-	if(recycled)
-		visible_message("<span class='notice'>[src] whirs briefly as it prepares the container for reuse.</span>")
-		qdel(O)
-		updateUsrDialog()
-	else
-		visible_message("<span class='warning'>[src] cannot store any more cans at this time. Please fill some before recycling more.</span>")
-		O.forceMove(loc)
+		if(C.is_glass)
+			con_type = "glass bottle"
+			max_define = MAX_GLASS
+		else if(C.is_plastic)
+			con_type = "plastic bottle"
+			max_define = MAX_PLAST
+		else
+			con_type = "metal can"
+			max_define = MAX_METAL
+	if(con_type)
+		if(containers[con_type] < max_define)
+			containers[con_type]++
+			visible_message("<span class='notice'>[src] whirs briefly as it prepares the container for reuse.</span>")
+			qdel(O)
+			updateUsrDialog()
+		else
+			visible_message("<span class='warning'>[src] cannot store any more cans at this time. Please fill some before recycling more.</span>")
+			O.forceMove(loc)
 
 /obj/machinery/bottler/proc/process_sheets(obj/item/stack/sheet/S)
 	if(!S)
 		return
 	S.forceMove(loc)
+	var/con_type
+	var/max_define
+	var/mat_ratio
 	//Glass sheets for glass bottles (1 bottle per sheet)
 	if(istype(S, /obj/item/stack/sheet/glass))
-		var/obj/item/stack/sheet/glass/G = S
-		if(glass_bottles < 10)
-			var/sheets_to_use = min((10 - glass_bottles), G.amount)
-			visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [G.singular_name]\s into new bottles.</span>")
-			glass_bottles += sheets_to_use
-			glass_bottles = min(glass_bottles, 10)
-			G.use(sheets_to_use)
-		else
-			visible_message("<span class='warning'>[src] rejects the [G] because it already is fully stocked with glass bottles.</span>")
-			return
-	//Plastic sheets for plastic bottles (2 bottles per sheet)
+		con_type = "glass bottle"
+		max_define = MAX_GLASS
+		mat_ratio = RATIO_GLASS
 	else if(istype(S, /obj/item/stack/sheet/mineral/plastic))
-		var/obj/item/stack/sheet/mineral/plastic/P = S
-		if(plastic_bottles < 20)
-			var/bottles_missing = 20 - plastic_bottles
-			var/sheets_needed = round(bottles_missing / 2, 1)
-			if(bottles_missing % 2)		//A bit wasteful, but we'll always try to completely refill the supply even if it means throwing away excess material
-				sheets_needed += 1
-			var/sheets_to_use = min(sheets_needed, P.amount)
-			visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [P.singular_name]\s into new bottles.</span>")
-			plastic_bottles += sheets_to_use * 2
-			plastic_bottles = min(plastic_bottles, 20)
-			P.use(sheets_to_use)
-		else
-			visible_message("<span class='warning'>[src] rejects the [P] because it already is fully stocked with plastic bottles.</span>")
-			return
-	//Metal sheets for cans (5 cans per sheet)
+		con_type = "plastic bottle"
+		max_define = MAX_PLAST
+		mat_ratio = RATIO_PLAST
 	else if(istype(S, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = S
-		if(cans < 25)
-			var/cans_missing = 25 - cans
-			var/sheets_needed = round(cans_missing / 5, 1)
-			if(cans_missing % 5)		//A bit wasteful, but we'll always try to completely refill the supply even if it means throwing away excess material
-				sheets_needed += 1
-			var/sheets_to_use = min(sheets_needed, M.amount)
-			visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [M.singular_name]\s into new cans.</span>")
-			cans += sheets_to_use * 5
-			cans = min(cans, 25)
-			M.use(sheets_to_use)
-		else
-			visible_message("<span class='warning'>[src] rejects the [M] because it already is fully stocked with metal cans.</span>")
-			return
+		con_type = "metal can"
+		max_define = MAX_METAL
+		mat_ratio = RATIO_METAL
 	else
 		visible_message("<span class='warning'>[src] rejects the unusable materials.</span>")
 		return
-	updateUsrDialog()
+	var/missing
+	var/sheets_needed
+	var/sheets_to_use
+	if(con_type)
+		missing = max_define - containers[con_type]
+		sheets_needed = round(missing / mat_ratio, 1)
+		if(missing % mat_ratio)
+			sheets_needed += 1
+		sheets_to_use = min(sheets_needed, S.amount)
+	if(missing)
+		visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [S.singular_name]\s into new [con_type]s.</span>")
+		containers[con_type] += sheets_to_use * mat_ratio
+		containers[con_type] = min(containers[con_type], max_define)
+		S.use(sheets_to_use)
+	else
+		visible_message("<span class='warning'>[src] rejects the [S] because it already is fully stocked with [con_type]s.</span>")
 
 /obj/machinery/bottler/proc/select_recipe()
 	for(var/datum/bottler_recipe/recipe in available_recipes)
@@ -226,19 +224,25 @@
 	return null
 
 /obj/machinery/bottler/proc/dispense_empty_container(container = 0)
+	var/con_type
+	var/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/drink_container
 	switch(container)
 		if(1)	//glass bottle
-			if(glass_bottles > 0)
-				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle(loc)
-				glass_bottles--
+			con_type = "glass bottle"
+			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle
 		if(2)	//plastic bottle
-			if(plastic_bottles > 0)
-				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle(loc)
-				plastic_bottles--
-		if(3)	//can
-			if(cans > 0)
-				new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can(loc)
-				cans--
+			con_type = "plastic bottle"
+			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle
+		if(3)	//metal can
+			con_type = "metal can"
+			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can
+	if(containers[con_type])
+		//empties aren't sealed, so let's open it quietly
+		drink_container = new drink_container()
+		drink_container.canopened = 1
+		drink_container.flags |= OPENCONTAINER
+		drink_container.forceMove(loc)
+		containers[con_type]--
 
 /obj/machinery/bottler/proc/process_ingredients(container = 0)
 	//stop if we have ZERO ingredients (what would you process?)
@@ -246,30 +250,28 @@
 		visible_message("<span class='warning'>There are no ingredients to process! Please insert some first.</span>")
 		return
 	//prep a container
-	var/obj/item/weapon/reagent_containers/food/drinks/cans/drink_container
-	var/container_type = ""
+	var/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/drink_container
+	var/con_type
 	switch(container)
 		if(1)	//glass bottle
-			container_type = "Glass Bottle"
-			if(glass_bottles > 0)
-				drink_container = new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle()
-				glass_bottles--
+			con_type = "glass bottle"
+			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle
 		if(2)	//plastic bottle
-			container_type = "Plastic Bottle"
-			if(plastic_bottles > 0)
-				drink_container = new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle()
-				plastic_bottles--
-		if(3)	//can
-			container_type = "Can"
-			if(cans > 0)
-				drink_container = new /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can()
-				cans--
-	if(!drink_container)
-		if(container_type)
-			visible_message("<span class='warning'>Error 503: Out of [container_type]s.</span>")
-		else
-			visible_message("<span class='warning'>Error 404: Drink Container Not Found.</span>")
+			con_type = "plastic bottle"
+			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle
+		if(3)	//metal can
+			con_type = "metal can"
+			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can
+
+	if(!con_type)
+		visible_message("<span class='warning'>Error 404: Drink Container Not Found.</span>")
 		return
+	if(!containers[con_type])
+		visible_message("<span class='warning'>Error 503: Out of [con_type]s.</span>")
+		return
+	else
+		new drink_container()
+		containers[con_type]--
 	//select and process a recipe based on inserted ingredients
 	visible_message("<span class='notice'>[src] hums as it processes the ingredients...</span>")
 	bottling = 1
@@ -277,13 +279,13 @@
 	if(!recipe_to_use)
 		//bad recipe, ruins the drink
 		var/contents = pick("thick goop", "pungent sludge", "unspeakable slurry", "gross-looking concoction", "eldritch abomination of liquids")
-		visible_message("<span class='warning'>The [container_type] fills with \an [contents]...</span>")
+		visible_message("<span class='warning'>The [con_type] fills with \an [contents]...</span>")
 		drink_container.reagents.add_reagent(pick("????", "toxic_slurry", "meatslurry", "glowing_slury", "fishwater"), pick(30, 50))
 		drink_container.name = "Liquid Mistakes"
 		drink_container.desc = "WARNING: CONTENTS MAY BE AWFUL, DRINK AT OWN RISK."
 	else
 		//good recipe, make it
-		visible_message("<span class='notice'>The [container_type] fills with a delicious-looking beverage!</span>")
+		visible_message("<span class='notice'>The [con_type] fills with a delicious-looking beverage!</span>")
 		drink_container.reagents.add_reagent(recipe_to_use.result, 50)
 		drink_container.name = "[recipe_to_use.name]"
 		drink_container.desc = "[recipe_to_use.description]"
@@ -319,20 +321,20 @@
 		dat += "<th colspan='3'>Containers:</th>"
 		dat += "</tr>"
 		dat += "<tr>"
-		dat += "<td>Glass Bottles: [glass_bottles]</td>"
-		dat += "<td>Plastic Bottles: [plastic_bottles]</td>"
-		dat += "<td>Metal Cans: [cans]</td>"
+		dat += "<td>Glass Bottles: [containers["glass bottle"]]</td>"
+		dat += "<td>Plastic Bottles: [containers["plastic bottle"]]</td>"
+		dat += "<td>Metal Cans: [containers["metal can"]]</td>"
 		dat += "</tr>"
 		dat += "<tr>"
-		if(glass_bottles > 0)
+		if(containers["glass bottle"])
 			dat += "<td><A href='?src=\ref[src];dispense=1'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
-		if(plastic_bottles > 0)
+		if(containers["plastic bottle"])
 			dat += "<td><A href='?src=\ref[src];dispense=2'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
-		if(cans > 0)
+		if(containers["metal can"])
 			dat += "<td><A href='?src=\ref[src];dispense=3'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
