@@ -172,11 +172,12 @@
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
 		if(ishuman(occupant) && occupant.vessel && !(occupant.species && occupant.species.flags & NO_BLOOD))
+			var/blood_type = occupant.get_blood_name()
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
-			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount("blood"))
+			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount(blood_type))
 			occupantData["bloodMax"] = occupant.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount("blood")/occupant.max_blood), 0.01)
+			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount(blood_type)/occupant.max_blood), 0.01)
 
 	data["occupant"] = occupantData
 	data["maxchem"] = connected.max_chem

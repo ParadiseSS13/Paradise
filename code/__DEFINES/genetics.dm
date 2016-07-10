@@ -124,6 +124,13 @@
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
 
+//Blood levels
+#define BLOOD_VOLUME_NORMAL			560
+#define BLOOD_VOLUME_SAFE			501
+#define BLOOD_VOLUME_OKAY			336
+#define BLOOD_VOLUME_BAD			224
+#define BLOOD_VOLUME_SURVIVE		122
+
 //Used for calculations for negative effects of having genetics powers
 #define DEFAULT_GENE_STABILITY 100
 #define GENE_INSTABILITY_MINOR 5
