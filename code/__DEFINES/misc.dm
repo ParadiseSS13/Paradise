@@ -66,6 +66,7 @@
 #define COLOR_YELLOW 	"#FFFF00"
 #define COLOR_ORANGE 	"#FF9900"
 #define COLOR_WHITE 	"#FFFFFF"
+#define COLOR_GRAY      "#808080"
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
@@ -155,6 +156,8 @@
 	dview_mob.see_invisible = invis_flags; \
 	for(type in view(range, dview_mob))
 #define END_FOR_DVIEW dview_mob.loc = null
+
+#define get_turf(A) (get_step(A, 0))
 
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
@@ -255,3 +258,6 @@
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
+
+// Macro to get the current elapsed round time, rather than total world runtime
+#define ROUND_TIME (round_start_time ? (world.time - round_start_time) : 0)

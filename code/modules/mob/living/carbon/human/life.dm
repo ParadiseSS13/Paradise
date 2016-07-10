@@ -39,6 +39,7 @@
 		handle_pain()
 		handle_heartbeat()
 		handle_heartattack()
+		handle_drunk()
 		species.handle_life(src)
 
 		if(!client)
@@ -77,8 +78,8 @@
 
 
 /mob/living/carbon/human/handle_disabilities()
-	if (disabilities & EPILEPSY)
-		if ((prob(1) && paralysis < 1))
+	if(disabilities & EPILEPSY)
+		if((prob(1) && paralysis < 1))
 			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 			Paralyse(10)
 			Jitter(1000)
@@ -88,13 +89,13 @@
 		if(prob(1) && hallucination < 1)
 			hallucination += 20
 
-	if (disabilities & COUGHING)
-		if ((prob(5) && paralysis <= 1))
+	if(disabilities & COUGHING)
+		if((prob(5) && paralysis <= 1))
 			drop_item()
 			emote("cough")
-	if (disabilities & TOURETTES)
+	if(disabilities & TOURETTES)
 		speech_problem_flag = 1
-		if ((prob(10) && paralysis <= 1))
+		if((prob(10) && paralysis <= 1))
 			Stun(10)
 			switch(rand(1, 3))
 				if(1)
@@ -107,12 +108,12 @@
 			animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 
-	if (disabilities & NERVOUS)
+	if(disabilities & NERVOUS)
 		speech_problem_flag = 1
-		if (prob(10))
+		if(prob(10))
 			stuttering = max(10, stuttering)
 
-	if (getBrainLoss() >= 60 && stat != 2)
+	if(getBrainLoss() >= 60 && stat != 2)
 		speech_problem_flag = 1
 		if(prob(3))
 			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
@@ -173,13 +174,28 @@
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-		/*	if (prob(10) && prob(gene.instability))
-				adjustCloneLoss(1) */
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
+	if(gene_stability < 85)
+		var/instability = DEFAULT_GENE_STABILITY - gene_stability
+		if(prob(instability / 10))
+			adjustFireLoss(min(6, instability / 12))
+			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
+		if(gene_stability < 70)
+			if(prob(instability / 12))
+				adjustCloneLoss(min(5, instability / 15))
+				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
+			if(prob(instability / 10))
+				adjustToxLoss(min(6, instability / 12))
+				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
+			if(gene_stability < 40 && prob(1))
+				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
+				spawn(300)
+					if(gene_stability < 40)
+						gib()
 
 	if(!(species.flags & RADIMMUNE))
-		if (radiation)
+		if(radiation)
 
 			if(get_int_organ(/obj/item/organ/internal/nucleation/resonant_crystal))
 				var/rads = radiation/25
@@ -190,14 +206,14 @@
 					to_chat(src, "<span class='notice'>You feel relaxed.</span>")
 				return
 
-			if (radiation > 100)
+			if(radiation > 100)
 				radiation = 100
 				Weaken(10)
 				if(!lying)
 					to_chat(src, "<span class='alert'>You feel weak.</span>")
 					emote("collapse")
 
-			if (radiation < 0)
+			if(radiation < 0)
 				radiation = 0
 
 			else
@@ -692,10 +708,10 @@
 				update_inv_wear_suit()
 
 	// nutrition decrease
-	if (nutrition > 0 && stat != 2)
+	if(nutrition > 0 && stat != 2)
 		nutrition = max (0, nutrition - HUNGER_FACTOR)
 
-	if (nutrition > 450)
+	if(nutrition > 450)
 		if(overeatduration < 800) //capped so people don't take forever to unfat
 			overeatduration++
 
@@ -706,10 +722,10 @@
 			else
 				overeatduration -= 2
 
-	if (drowsyness)
+	if(drowsyness)
 		drowsyness--
 		eye_blurry = max(2, eye_blurry)
-		if (prob(5))
+		if(prob(5))
 			sleeping += 1
 			Paralyse(5)
 
@@ -729,6 +745,80 @@
 	updatehealth()
 
 	return //TODO: DEFERRED
+
+/mob/living/carbon/human/handle_drunk()
+	var/slur_start = 30 //12u ethanol, 30u whiskey FOR HUMANS
+	var/confused_start = 40
+	var/brawl_start = 30
+	var/blur_start = 75
+	var/vomit_start = 60
+	var/pass_out = 90
+	var/spark_start = 50 //40u synthanol
+	var/collapse_start = 75
+	var/braindamage_start = 120
+	var/alcohol_strength = drunk
+	var/sober_str=!(SOBER in mutations)?1:2
+
+	if(drunk)
+		alcohol_strength/=sober_str
+
+		var/obj/item/organ/internal/liver/L
+		if(!isSynthetic())
+			L = get_int_organ(/obj/item/organ/internal/liver)
+			if(L)
+				alcohol_strength *= L.alcohol_intensity
+			else
+				alcohol_strength *= 5
+
+		if(alcohol_strength >= slur_start) //slurring
+			if(!slurring) slurring = 1
+			slurring = drunk
+		if(alcohol_strength >= brawl_start) //the drunken martial art
+			if(!istype(martial_art, /datum/martial_art/drunk_brawling))
+				var/datum/martial_art/drunk_brawling/F = new
+				F.teach(src,1)
+		if(alcohol_strength < brawl_start) //removing the art
+			if(istype(martial_art, /datum/martial_art/drunk_brawling))
+				martial_art.remove(src)
+		if(alcohol_strength >= confused_start && prob(33)) //confused walking
+			if(!confused) confused = 1
+			confused = max(confused+(3/sober_str),0)
+		if(alcohol_strength >= blur_start) //blurry eyes
+			eye_blurry = max(eye_blurry, 10/sober_str)
+			drowsyness  = max(drowsyness, 0)
+		if(!isSynthetic()) //stuff only for non-synthetics
+			if(alcohol_strength >= vomit_start) //vomiting
+				if(prob(8))
+					fakevomit()
+			if(alcohol_strength >= pass_out)
+				Paralyse(5 / sober_str)
+				drowsyness = max(drowsyness, 30/sober_str)
+				if(L)
+					L.take_damage(0.1, 1)
+				adjustToxLoss(0.1)
+		else //stuff only for synthetics
+			if(alcohol_strength >= spark_start && prob(25))
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				s.set_up(3, 1, src)
+				s.start()
+			if(alcohol_strength >= collapse_start && prob(10))
+				emote("collapse")
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				s.set_up(3, 1, src)
+				s.start()
+			if(alcohol_strength >= braindamage_start && prob(10))
+				adjustBrainLoss(1)
+
+	if(!has_booze())
+		AdjustDrunk(-0.5)
+	return
+
+/mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
+	for(var/A in reagents.reagent_list)
+		var/datum/reagent/R = A
+		if(istype(R, /datum/reagent/ethanol))
+			return 1
+	return 0
 
 /mob/living/carbon/human/handle_regular_status_updates()
 	if(status_flags & GODMODE)
@@ -825,13 +915,9 @@
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
 			ear_damage = max(ear_damage - 0.05, 0)
 
-
 		if(flying)
-			spawn()
-				animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-			spawn(10)
-				if(flying)
-					animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+			animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
@@ -880,7 +966,7 @@
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
 	if(!stat)
-		if (getToxLoss() >= 45 && nutrition > 20)
+		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
 				Stun(5)
@@ -890,7 +976,7 @@
 				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 				var/turf/location = loc
-				if (istype(location, /turf/simulated))
+				if(istype(location, /turf/simulated))
 					location.add_vomit_floor(src, 1)
 
 				nutrition -= 20
@@ -945,17 +1031,17 @@
 
 	if(shock_stage >=60)
 		if(shock_stage == 60) custom_emote(1,"falls limp.")
-		if (prob(2))
+		if(prob(2))
 			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 			Weaken(20)
 
 	if(shock_stage >= 80)
-		if (prob(5))
+		if(prob(5))
 			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 			Weaken(20)
 
 	if(shock_stage >= 120)
-		if (prob(2))
+		if(prob(2))
 			to_chat(src, "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness."))
 			Paralyse(5)
 
@@ -1066,7 +1152,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					to_chat(src, sound('sound/effects/electheart.ogg',0,0,0,30))//Credit to GhostHack (www.ghosthack.de) for sound.
+					src << sound('sound/effects/electheart.ogg',0,0,0,30)//Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -1085,9 +1171,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
+					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
 				else
-					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
+					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
 			else
 				heartbeat++
 

@@ -8,7 +8,7 @@ datum/directive/terminations/financial_crisis/get_crew_to_terminate()
 	var/list/support[0]
 	var/list/candidates = support_positions - "Head of Personnel"
 	for(var/mob/M in player_list)
-		if (M.is_ready() && candidates.Find(M.mind.assigned_role))
+		if(M.is_ready() && candidates.Find(M.mind.assigned_role))
 			support+=(M)
 	return support
 

@@ -374,42 +374,44 @@
 		return
 
 	if(istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/photo))
-		if (istype(P, /obj/item/weapon/paper/carbon))
+		if(istype(P, /obj/item/weapon/paper/carbon))
 			var/obj/item/weapon/paper/carbon/C = P
-			if (!C.iscopy && !C.copied)
+			if(!C.iscopy && !C.copied)
 				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
 				add_fingerprint(user)
 				return
 		var/obj/item/weapon/paper_bundle/B = new(src.loc)
-		if (name != "paper")
+		if(name != "paper")
 			B.name = name
-		else if (P.name != "paper" && P.name != "photo")
+		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
 		user.unEquip(P)
-		if (istype(user, /mob/living/carbon/human))
+		if(istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/h_user = user
-			if (h_user.r_hand == src)
+			if(h_user.r_hand == src)
 				h_user.unEquip(src)
 				h_user.put_in_r_hand(B)
-			else if (h_user.l_hand == src)
+			else if(h_user.l_hand == src)
 				h_user.unEquip(src)
 				h_user.put_in_l_hand(B)
-			else if (h_user.l_store == src)
+			else if(h_user.l_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20
+				B.plane = HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
-			else if (h_user.r_store == src)
+			else if(h_user.r_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20
+				B.plane = HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
-			else if (h_user.head == src)
+			else if(h_user.head == src)
 				h_user.unEquip(src)
 				h_user.put_in_hands(B)
-			else if (!istype(src.loc, /turf))
+			else if(!istype(src.loc, /turf))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
@@ -575,7 +577,7 @@
 
 /obj/item/weapon/paper/armory
 	name = "paper- 'Armory Inventory'"
-	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>6 Gas Masks<br>1 Lockbox of Loyalty Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Advanced Tasers"
+	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>6 Gas Masks<br>1 Lockbox of Mindshield Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Advanced Tasers"
 
 /obj/item/weapon/paper/firingrange
 	name = "paper- 'Firing Range Instructions'"
@@ -618,3 +620,89 @@
 
 /obj/item/weapon/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
+
+/obj/item/weapon/paper/evilfax
+	name = "Centcomm Reply"
+	info = ""
+	var/mytarget = null
+	var/myeffect = null
+	var/used = 0
+	var/countdown = 60
+	var/activate_on_timeout = 0
+
+/obj/item/weapon/paper/evilfax/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+	if(user == mytarget)
+		if(istype(user, /mob/living/carbon))
+			var/mob/living/carbon/C = user
+			evilpaper_specialaction(C)
+			..()
+		else
+			// This should never happen, but just in case someone is adminbussing
+			evilpaper_selfdestruct()
+	else
+		if(mytarget)
+			to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?</span>")
+		else
+			evilpaper_selfdestruct()
+
+
+/obj/item/weapon/paper/evilfax/New()
+	..()
+	processing_objects.Add(src)
+
+
+/obj/item/weapon/paper/evilfax/Destroy()
+	processing_objects.Remove(src)
+	if(mytarget && !used)
+		var/mob/living/carbon/target = mytarget
+		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+	return ..()
+
+
+/obj/item/weapon/paper/evilfax/process()
+	if(!countdown)
+		if(mytarget)
+			if(activate_on_timeout)
+				evilpaper_specialaction(mytarget)
+			else
+				message_admins("[mytarget] ignored an evil fax until it timed out.")
+		else
+			message_admins("Evil paper '[src]' timed out, after not being assigned a target.")
+		used = 1
+		evilpaper_selfdestruct()
+	else
+		countdown--
+
+/obj/item/weapon/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
+	spawn(30)
+		if(istype(target,/mob/living/carbon))
+			if(myeffect == "Borgification")
+				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
+				target.ForceContractDisease(new /datum/disease/transformation/robot(0))
+			else if(myeffect == "Corgification")
+				to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
+				target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+			else if(myeffect == "Death By Fire")
+				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+				var/turf/simulated/T = get_turf(target)
+				new /obj/effect/hotspot(T)
+				target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
+			else if(myeffect == "Total Brain Death")
+				to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
+				target.mutations.Add(NOCLONE)
+				target.adjustBrainLoss(125)
+			else if(myeffect == "Honk Tumor")
+				if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
+					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
+					to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
+					organ.insert(target)
+			else if(myeffect == "Demotion Notice")
+				command_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+			else
+				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
+		used = 1
+		evilpaper_selfdestruct()
+
+/obj/item/weapon/paper/evilfax/proc/evilpaper_selfdestruct()
+	visible_message("<span class='danger'>[src] spontaneously catches fire, and burns up!</span>")
+	qdel(src)

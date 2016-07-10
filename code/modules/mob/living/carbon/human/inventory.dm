@@ -39,10 +39,10 @@
 
 
 /mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
-	for (var/slot in slots)
-		if (equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
+	for(var/slot in slots)
+		if(equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
 			return slot
-	if (del_on_fail)
+	if(del_on_fail)
 		qdel(W)
 	return null
 
@@ -150,7 +150,7 @@
 	else if(I == r_ear)
 		r_ear = null
 		update_inv_ears()
-	else if (I == l_ear)
+	else if(I == l_ear)
 		l_ear = null
 		update_inv_ears()
 	else if(I == shoes)
@@ -218,6 +218,7 @@
 	W.loc = src
 	W.equipped(src, slot)
 	W.layer = 20
+	W.plane = HUD_PLANE
 
 	switch(slot)
 		if(slot_back)
@@ -260,6 +261,7 @@
 				O.loc = src
 				r_ear = O
 				O.layer = 20
+				O.plane = HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_r_ear)
 			r_ear = W
@@ -268,6 +270,7 @@
 				O.loc = src
 				l_ear = O
 				O.layer = 20
+				O.plane = HUD_PLANE
 			update_inv_ears(redraw_mob)
 		if(slot_glasses)
 			glasses = W
@@ -420,7 +423,7 @@
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
 		if(FAT in mutations)
 			//testing("[M] TOO FAT TO WEAR [src]!")
-			if(!(I.flags & ONESIZEFITSALL))
+			if(!(I.flags_size & ONESIZEFITSALL))
 				if(!disable_warning)
 					to_chat(src, "<span class='alert'>You're too fat to wear the [I].</span>")
 				return 0

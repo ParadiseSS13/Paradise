@@ -80,14 +80,14 @@ var/list/uplink_items = list()
 	if(!istype(U))
 		return 0
 
-	if (user.stat || user.restrained())
+	if(user.stat || user.restrained())
 		return 0
 
-	if (!(istype(user, /mob/living/carbon/human)))
+	if(!(istype(user, /mob/living/carbon/human)))
 		return 0
 
 	// If the uplink's holder is in the user's contents
-	if ((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
+	if((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
 		user.set_machine(U)
 		if(cost > U.uses)
 			return 0
@@ -101,9 +101,9 @@ var/list/uplink_items = list()
 
 				if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
 					for(var/atom/o in I)
-						U.purchase_log += "<BIG>\icon[o]</BIG>"
+						U.purchase_log += "<BIG>[bicon(o)]</BIG>"
 				else
-					U.purchase_log += "<BIG>\icon[I]</BIG>"
+					U.purchase_log += "<BIG>[bicon(I)]</BIG>"
 
 		//U.interact(user)
 		return 1
@@ -341,7 +341,7 @@ var/list/uplink_items = list()
 	reference = "SPI"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
-	cost = 9
+	cost = 4
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
@@ -377,6 +377,15 @@ var/list/uplink_items = list()
 	cost = 40
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/dangerous/sniper
+	name = "Sniper Rifle"
+	desc = "Ranged fury, Syndicate style. guaranteed to cause shock and awe or your TC back!"
+	reference = "SSR"
+	item = /obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate
+	cost = 16
+	surplus = 25
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
@@ -620,6 +629,38 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
+/datum/uplink_item/ammo/sniper
+	cost = 4
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/sniper/basic
+	name = ".50 Magazine"
+	desc = "An additional standard 6-round magazine for use with .50 sniper rifles."
+	reference = "50M"
+	item = /obj/item/ammo_box/magazine/sniper_rounds
+
+/datum/uplink_item/ammo/sniper/soporific
+	name = ".50 Soporific Magazine"
+	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
+	reference = "50S"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
+	cost = 6
+
+/datum/uplink_item/ammo/sniper/haemorrhage
+	name = ".50 Haemorrhage Magazine"
+	desc = "A 5-round magazine of haemorrhage ammo designed for use with .50 sniper rifles; causes heavy bleeding \
+			in the target."
+	reference = "50B"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
+
+/datum/uplink_item/ammo/sniper/penetrator
+	name = ".50 Penetrator Magazine"
+	desc = "A 5-round magazine of penetrator ammo designed for use with .50 sniper rifles. \
+			Can pierce walls and multiple enemies."
+	reference = "50P"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
+	cost = 5
+
 // STEALTHY WEAPONS
 
 /datum/uplink_item/stealthy_weapons
@@ -693,7 +734,7 @@ var/list/uplink_items = list()
 	desc = "Fitted for use on any small caliber weapon with a threaded barrel, this suppressor will silence the shots of the weapon for increased stealth and superior ambushing capability."
 	reference = "US"
 	item = /obj/item/weapon/suppressor
-	cost = 3
+	cost = 1
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/pizza_bomb
@@ -1220,7 +1261,7 @@ var/list/uplink_items = list()
 		bought_items += I.item
 		remaining_TC -= I.cost
 
-	U.purchase_log += "<BIG>\icon[C]</BIG>"
+	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
 		new item(C)
-		U.purchase_log += "<BIG>\icon[item]</BIG>"
+		U.purchase_log += "<BIG>[bicon(item)]</BIG>"

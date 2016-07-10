@@ -112,7 +112,7 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/RefreshParts()
 	var/tmp_capacity = 0
-	for (var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 		tmp_capacity += M.rating
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = tmp_capacity * 5 // Up to 30
@@ -427,7 +427,7 @@
 
 	//--FalseIncarnate
 	//Check if held item is an open container
-	if (O.is_open_container())
+	if(O.is_open_container())
 		//Check if container is of the "glass" subtype (includes buckets, beakers, vials)
 		if(istype(O, /obj/item/weapon/reagent_containers/glass))
 			var/obj/item/weapon/reagent_containers/glass/C = O
@@ -471,7 +471,7 @@
 			update_icon()
 
 		//Check if container is any spray container
-		else if (istype(O, /obj/item/weapon/reagent_containers/spray))
+		else if(istype(O, /obj/item/weapon/reagent_containers/spray))
 			var/obj/item/weapon/reagent_containers/spray/S = O
 			//Check if there is a plant in the tray
 			if(seed)
@@ -537,7 +537,7 @@
 
 		var/obj/item/weapon/reagent_containers/syringe/S = O
 
-		if (S.mode == 1)
+		if(S.mode == 1)
 			if(seed)
 				return ..()
 			else
@@ -551,7 +551,7 @@
 				to_chat(user, "There's nothing to draw something from.")
 			return 1
 
-	else if (istype(O, /obj/item/seeds))
+	else if(istype(O, /obj/item/seeds))
 
 		if(!seed)
 
@@ -579,7 +579,7 @@
 		else
 			to_chat(user, "<span class='danger'>\The [src] already has seeds in it!</span>")
 
-	else if (istype(O, /obj/item/weapon/minihoe))  // The minihoe
+	else if(istype(O, /obj/item/weapon/minihoe))  // The minihoe
 
 		if(weedlevel > 0)
 			user.visible_message("<span class='danger'>[user] starts uprooting the weeds.</span>", "<span class='danger'>You remove the weeds from the [src].</span>")
@@ -588,12 +588,12 @@
 		else
 			to_chat(user, "<span class='danger'>This plot is completely devoid of weeds. It doesn't need uprooting.</span>")
 
-	else if (istype(O, /obj/item/weapon/storage/bag/plants))
+	else if(istype(O, /obj/item/weapon/storage/bag/plants))
 
 		attack_hand(user)
 
 		var/obj/item/weapon/storage/bag/plants/S = O
-		for (var/obj/item/weapon/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
+		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
 				return
 			S.handle_item_insertion(G, 1)
@@ -608,8 +608,8 @@
 		anchored = !anchored
 		to_chat(user, "You [anchored ? "wrench" : "unwrench"] \the [src].")
 
-	else if ((istype(O, /obj/item/weapon/tank) && !( src.destroyed )))
-		if (src.holding)
+	else if((istype(O, /obj/item/weapon/tank) && !( src.destroyed )))
+		if(src.holding)
 			to_chat(user, "\blue There is alreadu a tank loaded into the [src].")
 			return
 		var/obj/item/weapon/tank/T = O

@@ -45,7 +45,7 @@
 	proc/custom_action(step, used_atom, user)
 		if(istype(used_atom, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/W = used_atom
-			if (W.remove_fuel(0, user))
+			if(W.remove_fuel(0, user))
 				playsound(holder, 'sound/items/Welder2.ogg', 50, 1)
 			else
 				return 0

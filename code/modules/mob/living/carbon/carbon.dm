@@ -25,7 +25,7 @@
 	return ..()
 
 /mob/living/carbon/blob_act()
-	if (stat == DEAD)
+	if(stat == DEAD)
 		return
 	else
 		show_message("<span class='userdanger'>The blob attacks!</span>")
@@ -65,7 +65,7 @@
 			if(istype(src, /mob/living/carbon/human))
 				var/mob/living/carbon/human/H = src
 				var/obj/item/organ/external/organ = H.get_organ("chest")
-				if (istype(organ))
+				if(istype(organ))
 					if(organ.take_damage(d, 0))
 						H.UpdateDamageIcon()
 
@@ -119,7 +119,7 @@
 				if(stun)
 					adjustToxLoss(-3)
 			T = get_step(T, dir)
-			if (is_blocked_turf(T))
+			if(is_blocked_turf(T))
 				break
 	return 1
 
@@ -168,7 +168,7 @@
 		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 			Stun(3)
 			Weaken(3)
-	if (shock_damage > 200)
+	if(shock_damage > 200)
 		src.visible_message(
 			"<span class='danger'>[src] was arc flashed by the [source]!</span>", \
 			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>", \
@@ -213,7 +213,7 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if (src.health >= config.health_threshold_crit)
+	if(src.health >= config.health_threshold_crit)
 		if(src == M && istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			src.visible_message( \
@@ -261,11 +261,11 @@
 				"<span class='notice'>You shake [src], but they are unresponsive. Probably suffering from SSD.</span>")
 			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				var/t_him = "it"
-				if (src.gender == MALE)
+				if(src.gender == MALE)
 					t_him = "him"
-				else if (src.gender == FEMALE)
+				else if(src.gender == FEMALE)
 					t_him = "her"
-				if (istype(src,/mob/living/carbon/human) && src:w_uniform)
+				if(istype(src,/mob/living/carbon/human) && src:w_uniform)
 					var/mob/living/carbon/human/H = src
 					H.w_uniform.add_fingerprint(M)
 				src.sleeping = max(0,src.sleeping-5)
@@ -455,6 +455,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
 			A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
+			A.pipe_image.plane = HUD_PLANE
 		pipes_shown += A.pipe_image
 		client.images += A.pipe_image
 
@@ -497,7 +498,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 //Throwing stuff
 
 /mob/living/carbon/proc/toggle_throw_mode()
-	if (in_throw_mode)
+	if(in_throw_mode)
 		throw_mode_off()
 	else
 		throw_mode_on()
@@ -564,7 +565,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/restrained()
-	if (handcuffed)
+	if(handcuffed)
 		return 1
 	return
 
@@ -889,49 +890,51 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				wear_mask)
 
 /mob/living/carbon/proc/uncuff()
-	if (handcuffed)
+	if(handcuffed)
 		var/obj/item/weapon/W = handcuffed
 		handcuffed = null
-		if (buckled && buckled.buckle_requires_restraints)
+		if(buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob()
 		update_handcuffed()
-		if (client)
+		if(client)
 			client.screen -= W
-		if (W)
+		if(W)
 			W.loc = loc
 			W.dropped(src)
-			if (W)
+			if(W)
 				W.layer = initial(W.layer)
-	if (legcuffed)
+				W.plane = initial(W.plane)
+	if(legcuffed)
 		var/obj/item/weapon/W = legcuffed
 		legcuffed = null
 		update_inv_legcuffed()
-		if (client)
+		if(client)
 			client.screen -= W
-		if (W)
+		if(W)
 			W.loc = loc
 			W.dropped(src)
-			if (W)
+			if(W)
 				W.layer = initial(W.layer)
+				W.plane = initial(W.plane)
 
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
-	if (flying || buckled || (walkSafely && m_intent == "walk"))
+	if(flying || buckled || (walkSafely && m_intent == "walk"))
 		return
-	if ((lying) && (!(tilesSlipped)))
+	if((lying) && (!(tilesSlipped)))
 		return
-	if (!(slipAny))
-		if (istype(src, /mob/living/carbon/human))
+	if(!(slipAny))
+		if(istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
-			if ((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
+			if((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
 				return
-	if (tilesSlipped)
+	if(tilesSlipped)
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	if (stun)
+	if(stun)
 		Stun(stun)
 	Weaken(weaken)
 	return 1
@@ -963,15 +966,15 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/pill))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
-		if (fullness <= 50)
+		if(fullness <= 50)
 			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
-		else if (fullness > 50 && fullness <= 150)
+		else if(fullness > 50 && fullness <= 150)
 			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
-		else if (fullness > 150 && fullness <= 350)
+		else if(fullness > 150 && fullness <= 350)
 			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
-		else if (fullness > 350 && fullness <= 550)
+		else if(fullness > 350 && fullness <= 550)
 			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
-		else if (fullness > (550 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
+		else if(fullness > (550 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
 			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
 			return 0
 	return 1
@@ -980,13 +983,15 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
-	if (fullness <= (550 * (1 + overeatduration / 1000)))
-		visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
+	if(fullness <= (550 * (1 + overeatduration / 1000)))
+		if(!toEat.instant_application)
+			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
 	else
 		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
 		return 0
-	if(!do_mob(user, src))
-		return 0
+	if(!toEat.instant_application)
+		if(!do_mob(user, src))
+			return 0
 	forceFedAttackLog(toEat, user)
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
 	return 1

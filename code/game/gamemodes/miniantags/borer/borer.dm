@@ -4,19 +4,19 @@
 
 /mob/living/captive_brain/say(var/message)
 
-	if (src.client)
+	if(src.client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "\red You cannot speak in IC (muted).")
 			return
-		if (src.client.handle_spam_prevention(message,MUTE_IC))
+		if(src.client.handle_spam_prevention(message,MUTE_IC))
 			return
 
 	if(istype(src.loc,/mob/living/simple_animal/borer))
 		message = trim(sanitize(copytext(message, 1, MAX_MESSAGE_LEN)))
-		if (!message)
+		if(!message)
 			return
 		log_say("[key_name(src)] : [message]")
-		if (stat == DEAD)
+		if(stat == DEAD)
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = src.loc
 		to_chat(src, "You whisper silently, \"[message]\"")
@@ -36,7 +36,7 @@
 /mob/living/captive_brain/emote(var/message)
 	return
 
-/mob/living/captive_brain/resist_borer()
+/mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
 
 	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
@@ -97,8 +97,13 @@
 	set category = "Borer"
 	set name = "Converse with Host"
 	set desc = "Send a silent message to your host."
+
 	if(!host)
 		to_chat(src, "You do not have a host to communicate with!")
+		return
+
+	if(stat)
+		to_chat(src, "You cannot do that in your current state.")
 		return
 
 	var/input = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
@@ -207,6 +212,12 @@
 				if(prob(host.getBrainLoss()/20))
 					host.say("*[pick(list("blink","blink_r","choke","aflap","drool","twitch","twitch_s","gasp"))]")
 
+/mob/living/simple_animal/borer/handle_environment()
+	if(host)
+		return // Snuggled up, nice and warm, in someone's head
+	else
+		return ..()
+
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
 	add_language("Cortical Link")
@@ -226,18 +237,10 @@
 
 	show_stat_emergency_shuttle_eta()
 
-	if (client.statpanel == "Status")
+	if(client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
 // VERBS!
-
-/mob/living/simple_animal/borer/proc/borer_speak(var/message)
-	if(!message)
-		return
-
-	for(var/mob/M in mob_list)
-		if(M.mind && (istype(M, /mob/living/simple_animal/borer) || istype(M, /mob/dead/observer)))
-			to_chat(M, "<i>Cortical link, <b>[truename]:</b> [copytext(message, 2)]</i>")
 
 /mob/living/simple_animal/borer/verb/dominate_victim()
 	set category = "Borer"
@@ -286,6 +289,10 @@
 
 	if(!host)
 		to_chat(src, "You are not inside a host body.")
+		return
+
+	if(host.stat == DEAD)
+		to_chat(src, "This host is in no condition to be controlled.")
 		return
 
 	if(src.stat)
@@ -405,6 +412,7 @@
 
 	if(stat)
 		to_chat(src, "You cannot leave your host in your current state.")
+		return
 
 	if(docile)
 		to_chat(src, "\blue You are feeling far too docile to do that.")
@@ -658,7 +666,7 @@
 			return
 		if(response == "Yes")
 			transfer_personality(C)
-		else if (response == "Never for this round")
+		else if(response == "Never for this round")
 			C.prefs.be_special -= ROLE_BORER
 
 /mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
@@ -678,7 +686,7 @@
 	if(stat != CONSCIOUS)
 		return
 
-	if (layer != TURF_LAYER+0.2)
+	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
 		to_chat(src, "\green You are now hiding.")
 	else

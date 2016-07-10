@@ -66,7 +66,7 @@ var/list/teleportlocs = list()
 		if(AR.no_teleportlocs) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
-		if (picked && (picked.z == ZLEVEL_STATION))
+		if(picked && (picked.z == ZLEVEL_STATION))
 			teleportlocs += AR.name
 			teleportlocs[AR.name] = AR
 
@@ -951,6 +951,10 @@ var/list/ghostteleportlocs = list()
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
+
+/area/maintenance/consarea
+	name = "Alternate Construction Area"
+	icon_state = "yellow"
 
 
 //Hallway

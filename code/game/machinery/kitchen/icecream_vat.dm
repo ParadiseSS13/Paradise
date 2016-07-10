@@ -97,7 +97,7 @@ var/list/ingredients_source = list(
 				if(ingredients[ICECREAM_VANILLA] > 0)
 					var/flavour_name = get_icecream_flavour_string(dispense_flavour)
 					if(dispense_flavour < 11 && ingredients[dispense_flavour] > 0)
-						src.visible_message("\icon[src] <span class='info'>[user] scoops delicious [flavour_name] flavoured icecream into [I].</span>")
+						src.visible_message("[bicon(src)] <span class='info'>[user] scoops delicious [flavour_name] flavoured icecream into [I].</span>")
 						ingredients[dispense_flavour] -= 1
 						ingredients[ICECREAM_VANILLA] -= 1
 
@@ -126,7 +126,7 @@ var/list/ingredients_source = list(
 			var/obj/item/weapon/reagent_containers/R = O
 			if(R.reagents)
 				src.visible_message("<span class='info'>[user] has emptied all of [R] into [src].</span>")
-				for (var/datum/reagent/current_reagent in R.reagents.reagent_list)
+				for(var/datum/reagent/current_reagent in R.reagents.reagent_list)
 					if(ingredients_source[current_reagent.id])
 						add(ingredients_source[current_reagent.id], current_reagent.volume / 2)
 					else

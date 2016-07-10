@@ -62,6 +62,6 @@
 // Calls the above proc on each entry of a list to ensure its entries are clean
 /proc/sql_sanitize_text_list(var/list/l)
 	var/list/new_list = l.Copy()
-	for (var/text in new_list)
+	for(var/text in new_list)
 		sql_sanitize_text(text)
 	return new_list

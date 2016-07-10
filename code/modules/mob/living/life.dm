@@ -95,7 +95,7 @@
 		if(paralysis)
 			stat = UNCONSCIOUS
 
-		else if (status_flags & FAKEDEATH)
+		else if(status_flags & FAKEDEATH)
 			stat = UNCONSCIOUS
 
 		else
@@ -114,6 +114,7 @@
 	handle_paralysed()
 	handle_sleeping()
 	handle_slowed()
+	handle_drunk()
 
 
 /mob/living/proc/handle_stunned()
@@ -167,6 +168,11 @@
 	if(slowed)
 		slowed = max(slowed-1, 0)
 	return slowed
+
+/mob/living/proc/handle_drunk()
+	if(drunk)
+		AdjustDrunk(-1)
+	return drunk
 
 /mob/living/proc/handle_disabilities()
 	//Eyes

@@ -27,6 +27,7 @@
 	set_typing_indicator(0)
 	usr.say(message)
 
+
 /mob/verb/me_verb(message as text)
 	set name = "Me"
 	set category = "IC"
@@ -38,6 +39,7 @@
 		custom_emote(usr.emote_type, message)
 	else
 		usr.emote(message)
+
 
 /mob/proc/say_dead(var/message)
 	if(!(client && client.holder))
@@ -53,7 +55,7 @@
 
 /mob/proc/say_understands(var/mob/other,var/datum/language/speaking = null)
 
-	if (src.stat == 2)		//Dead
+	if(src.stat == 2)		//Dead
 		return 1
 
 	//Universal speak makes everything understandable, for obvious reasons.
@@ -61,14 +63,14 @@
 		return 1
 
 	//Languages are handled after.
-	if (!speaking)
+	if(!speaking)
 		if(!other)
 			return 1
 		if(other.universal_speak)
 			return 1
 		if(isAI(src) && ispAI(other))
 			return 1
-		if (istype(other, src.type) || istype(src, other.type))
+		if(istype(other, src.type) || istype(src, other.type))
 			return 1
 		return 0
 
@@ -101,6 +103,7 @@
 	if(act == "me")
 		return custom_emote(type, message)
 
+
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this
 	// mob can hear things
@@ -111,9 +114,9 @@
 
 /mob/proc/say_test(var/text)
 	var/ending = copytext(text, length(text))
-	if (ending == "?")
+	if(ending == "?")
 		return "1"
-	else if (ending == "!")
+	else if(ending == "!")
 		return "2"
 	return "0"
 
@@ -140,7 +143,7 @@
 	if(length(message) >= 2)
 		var/language_prefix = trim_right(lowertext(copytext(message, 1 ,4)))
 		var/datum/language/L = language_keys[language_prefix]
-		if (can_speak(L))
+		if(can_speak(L))
 			return L
 
 	return null

@@ -59,8 +59,8 @@
 	Topic(var/href, var/list/href_list)
 		if(!interactable() || !computer.radio || ..(href,href_list) )
 			return
-		if (!(computer.z in config.station_levels))
-			to_chat(usr, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
+		if(!(computer.z in config.station_levels))
+			to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 
 		if("main" in href_list)
@@ -85,7 +85,7 @@
 			var/obj/item/I = M.get_active_hand()
 			I = I.GetID()
 
-			if (istype(I,/obj/item/weapon/card/id))
+			if(istype(I,/obj/item/weapon/card/id))
 				if(access_captain in I.GetAccess())
 					var/old_level = security_level
 					if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
@@ -146,7 +146,7 @@
 			state = STATE_MESSAGELIST
 		if("viewmessage" in href_list)
 			state = STATE_VIEWMESSAGE
-			if (!currmsg)
+			if(!currmsg)
 				if(href_list["message-num"])
 					currmsg = text2num(href_list["message-num"])
 				else
@@ -247,7 +247,7 @@
 			aistate = STATE_MESSAGELIST
 		if("ai-viewmessage" in href_list)
 			aistate = STATE_VIEWMESSAGE
-			if (!aicurrmsg)
+			if(!aicurrmsg)
 				if(href_list["message-num"])
 					aicurrmsg = text2num(href_list["message-num"])
 				else
@@ -281,16 +281,16 @@
 
 	proc/main_menu()
 		var/dat = ""
-		if (computer.radio.subspace)
+		if(computer.radio.subspace)
 			if(shuttle_master.emergency.mode == SHUTTLE_CALL)
 				var/timeleft = shuttle_master.emergency.timeLeft()
 				dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 				refresh = 1
 			else
 				refresh = 0
-		if (authenticated)
+		if(authenticated)
 			dat += "<BR>\[ <A HREF='?src=\ref[src];logout'>Log Out</A> \]"
-			if (authenticated==2)
+			if(authenticated==2)
 				dat += "<BR>\[ <A HREF='?src=\ref[src];announce'>Make An Announcement</A> \]"
 				if(computer.emagged == 0)
 					dat += "<BR>\[ <A HREF='?src=\ref[src];MessageCentcomm'>Send an emergency message to Centcomm</A> \]"
@@ -300,7 +300,7 @@
 
 				dat += "<BR>\[ <A HREF='?src=\ref[src];changeseclevel'>Change alert level</A> \]"
 			/*if(emergency_shuttle.location())
-				if (emergency_shuttle.online())
+				if(emergency_shuttle.online())
 					dat += "<BR>\[ <A HREF='?src=\ref[src];cancelshuttle'>Cancel Shuttle Call</A> \]"
 				else
 					dat += "<BR>\[ <A HREF='?src=\ref[src];callshuttle'>Call Emergency Shuttle</A> \]"*/
@@ -335,16 +335,16 @@
 				for(var/i = 1; i<=messagetitle.len; i++)
 					dat += "<BR><A HREF='?src=\ref[src];viewmessage;message-num=[i]'>[messagetitle[i]]</A>"
 			if(STATE_VIEWMESSAGE)
-				if (currmsg)
+				if(currmsg)
 					dat += "<B>[messagetitle[currmsg]]</B><BR><BR>[messagetext[currmsg]]"
-					if (authenticated)
+					if(authenticated)
 						dat += "<BR><BR>\[ <A HREF='?src=\ref[src];delmessage'>Delete \]"
 				else
 					state = STATE_MESSAGELIST
 					interact()
 					return
 			if(STATE_DELMESSAGE)
-				if (currmsg)
+				if(currmsg)
 					dat += "Are you sure you want to delete this message? \[ <A HREF='?src=\ref[src];delmessage2'>OK</A> | <A HREF='?src=\ref[src];viewmessage'>Cancel</A> \]"
 				else
 					state = STATE_MESSAGELIST

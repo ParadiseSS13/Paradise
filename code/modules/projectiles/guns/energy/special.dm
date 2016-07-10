@@ -62,7 +62,7 @@
 	item_state = "c20r"
 	w_class = 4
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
-	cell_type = "/obj/item/weapon/stock_parts/cell/potato"
+	cell_type = /obj/item/weapon/stock_parts/cell/potato
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	selfcharge = 1
 
@@ -279,13 +279,13 @@
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
-	icon_state = "wormhole_projector100"
+	icon_state = "wormhole_projector1"
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
 
 /obj/item/weapon/gun/energy/wormhole_projector/update_icon()
-	icon_state = "[initial(icon_state)][select]"
+	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
 	return
 
@@ -306,6 +306,8 @@
 /obj/item/weapon/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
 	P.precision = 0
+	P.failchance = 0
+	P.can_multitool_to_remove = 1
 	if(W.name == "bluespace beam")
 		qdel(blue)
 		blue = P
@@ -324,7 +326,7 @@
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
 	icon_state = "l6closed0"
 	icon = 'icons/obj/guns/projectile.dmi'
-	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
+	cell_type = /obj/item/weapon/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = 0
 
@@ -368,6 +370,7 @@
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
+	ammo_x_offset = 3
 
 /obj/item/weapon/gun/energy/toxgun
 	name = "plasma pistol"
@@ -406,7 +409,7 @@
 	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	cell_type = "/obj/item/weapon/stock_parts/cell"
+	cell_type = /obj/item/weapon/stock_parts/cell
 
 	var/powercost = ""
 	var/powercostcolor = ""
@@ -425,11 +428,7 @@
 	return ..()
 
 /obj/item/weapon/gun/energy/temperature/newshot()
-	..()
-	var/obj/item/ammo_casing/energy/temp/T = chambered
-	if(T)
-		T.temperature = temperature
-		T.e_cost = e_cost
+	..(temperature, e_cost)
 
 /obj/item/weapon/gun/energy/temperature/attack_self(mob/living/user as mob)
 	user.set_machine(src)
@@ -444,7 +443,7 @@
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/weapon/gun/energy/temperature/Topic(href, href_list)
-	if (..())
+	if(..())
 		return
 	usr.set_machine(src)
 	add_fingerprint(usr)
@@ -455,7 +454,7 @@
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
 			target_temperature = max(0, target_temperature+amount)
-	if (istype(loc, /mob))
+	if(istype(loc, /mob))
 		attack_self(loc)
 	add_fingerprint(usr)
 	return
@@ -492,9 +491,9 @@
 			temperature = target_temperature
 		update_icon()
 
-		if (istype(loc, /mob/living/carbon))
+		if(istype(loc, /mob/living/carbon))
 			var /mob/living/carbon/M = loc
-			if (src == M.machine)
+			if(src == M.machine)
 				update_dat()
 				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
 	return
@@ -553,7 +552,7 @@
 	update_charge()
 
 /obj/item/weapon/gun/energy/temperature/proc/update_user()
-	if (istype(loc,/mob/living/carbon))
+	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()
@@ -572,3 +571,16 @@
 		if(2000 to 3000)			overlays += "200"
 		if(1000 to 2002)			overlays += "100"
 		if(-INFINITY to 1000)	overlays += "0"
+
+/obj/item/weapon/gun/energy/mimicgun
+	name = "mimic gun"
+	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
+	icon_state = "disabler"
+	ammo_type = list(/obj/item/ammo_casing/energy/mimic)
+	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
+	selfcharge = 1
+	ammo_x_offset = 3
+	var/mimic_type = /obj/item/weapon/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
+
+/obj/item/weapon/gun/energy/mimicgun/newshot()
+	..(mimic_type)

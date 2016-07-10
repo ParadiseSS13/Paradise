@@ -16,7 +16,7 @@
 			if(size > M.maxsize)
 				return 0
 			return 1
-		else if (M.emagged == 1)
+		else if(M.emagged == 1)
 			return 1
 	return 0
 
@@ -29,9 +29,9 @@
 
 	var/turf/curloc = get_turf(chassis)
 	var/turf/targloc = get_turf(target)
-	if (!targloc || !istype(targloc) || !curloc)
+	if(!targloc || !istype(targloc) || !curloc)
 		return 0
-	if (targloc == curloc)
+	if(targloc == curloc)
 		return 0
 
 	set_ready_state(0)
@@ -222,7 +222,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
 	..()
-	if (href_list["rearm"])
+	if(href_list["rearm"])
 		rearm()
 	return
 

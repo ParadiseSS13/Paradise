@@ -27,7 +27,7 @@
 			src.injected(user,user)
 		else
 			user.visible_message("\red <b>[user.name] is trying to inject [M.name] with [src]!</b>")
-			if (do_mob(user,M,30))
+			if(do_mob(user,M,30))
 				user.visible_message("\red <b>[user.name] injects [M.name] with [src].</b>")
 				src.injected(M, user)
 			else
