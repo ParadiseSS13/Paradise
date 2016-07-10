@@ -553,9 +553,11 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 	else if(href_list["silence_unit"])
 		src.silence=1
+		src.updateUsrDialog()
 
 	else if(href_list["unsilence_unit"])
 		src.silence=0
+		src.updateUsrDialog()
 
 	else if(href_list["menu_censor_story"])
 		src.screen=10
@@ -969,14 +971,15 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob, pa
 /obj/machinery/newscaster/proc/newsAlert(var/news_call)   //This isn't Agouri's work, for it is ugly and vile.
 	var/turf/T = get_turf(src)                      //Who the fuck uses spawn(600) anyway, jesus christ
 	if(news_call)
-		if(silence == 0)
-			for(var/mob/O in hearers(world.view-1, T))
-				O.show_message("<span class='newscaster'><EM>[src.name]</EM> beeps, \"[news_call]\"</span>",2)
-			src.alert = 1
+
+		for(var/mob/O in hearers(world.view-1, T))
+			O.show_message("<span class='newscaster'><EM>[src.name]</EM> beeps, \"[news_call]\"</span>",2)
+		src.alert = 1
+		src.update_icon()
+		spawn(300)
+			src.alert = 0
 			src.update_icon()
-			spawn(300)
-				src.alert = 0
-				src.update_icon()
+		if(silence == 0)
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 75, 1)
 	else
 		for(var/mob/O in hearers(world.view-1, T))
