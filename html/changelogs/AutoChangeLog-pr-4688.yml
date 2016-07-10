@@ -1,0 +1,5 @@
+author: FreeStylaLT
+delete-after: True
+changes: 
+  - rscadd: "Added a bunch of new items to maint, some rare uplink gear included. (see PR for full list)"
+  - tweak: "made gas masks, nothing and extinguishers less common in maint"
