@@ -552,12 +552,12 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		src.updateUsrDialog()
 
 	else if(href_list["silence_unit"])
-		src.silence=1
-		src.updateUsrDialog()
+		silence=1
+		updateUsrDialog()
 
 	else if(href_list["unsilence_unit"])
-		src.silence=0
-		src.updateUsrDialog()
+		silence=0
+		updateUsrDialog()
 
 	else if(href_list["menu_censor_story"])
 		src.screen=10
