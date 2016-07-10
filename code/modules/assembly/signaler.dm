@@ -81,7 +81,9 @@
 		[t1]
 		</TT>
 	"}
-	user << browse(dat, "window=radio")
+	var/datum/browser/popup = new(user, "radio", name, 400, 400)
+	popup.set_content(dat)
+	popup.open()
 	onclose(user, "radio")
 	return
 

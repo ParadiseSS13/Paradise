@@ -230,11 +230,13 @@
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
 		dat += {"<HR><BR>\
-<A href='?src=\ref[src];action=cook'>Turn on!<BR>\
-<A href='?src=\ref[src];action=dispose'>Eject ingredients!<BR>\
+<A href='?src=\ref[src];action=cook'>Turn on!</A><BR>\
+<A href='?src=\ref[src];action=dispose'>Eject ingredients!</A><BR>\
 "}
 
-	user << browse("<HEAD><TITLE>[src] Controls</TITLE></HEAD><TT>[dat]</TT>", "window=[src.name]")
+	var/datum/browser/popup = new(user, name, name, 400, 400)
+	popup.set_content(dat)
+	popup.open()
 	onclose(user, "[src.name]")
 	return
 
