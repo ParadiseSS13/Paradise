@@ -43,7 +43,8 @@
 	if(hideFrom)
 		hiding = hideFrom
 
-	for(var/mob/M in hiding)
+	for(var/m in hiding)
+		var/mob/M = m
 		if(M.client)
 			M.client.images -= img
 		if(M.viewing_alternate_appearances && M.viewing_alternate_appearances.len)
