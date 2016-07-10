@@ -30,7 +30,7 @@
 		if(!M.viewing_alternate_appearances)
 			M.viewing_alternate_appearances = list()
 		viewers |= M
-		M.viewing_alternate_appearances += src
+		M.viewing_alternate_appearances |= src
 		if(M.client)
 			M.client.images |= img
 
@@ -43,8 +43,7 @@
 	if(hideFrom)
 		hiding = hideFrom
 
-	for(var/m in hiding)
-		var/mob/M = m
+	for(var/mob/M in hiding)
 		if(M.client)
 			M.client.images -= img
 		if(M.viewing_alternate_appearances && M.viewing_alternate_appearances.len)
@@ -117,8 +116,7 @@
 /atom/proc/remove_alt_appearance(key)
 	if(alternate_appearances)
 		if(alternate_appearances[key])
-			var/datum/alternate_appearance/AA = alternate_appearances[key]
-			qdel(AA)
+			qdel(alternate_appearances[key])
 
 
 /*
