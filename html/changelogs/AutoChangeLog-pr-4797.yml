@@ -1,6 +1,0 @@
-author: TheDZD
-delete-after: True
-changes: 
-  - bugfix: "DNA injectors no longer always activate powers that are supposed to have a chance to activate."
-  - tweak: "Dionae can no longer activate the radiation disability, nor the run superpower except via adminbus."
-  - rscadd: "Adds genetic instability, which causes a variety of negative effects, including toxin damage, burn damage, cloneloss, and even gibbing. Effects get worse as stability gets lower, burn damage starts below 85 stability, tox and clone below 70, and gibbing once you're below 40."

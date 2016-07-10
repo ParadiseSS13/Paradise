@@ -1,7 +1,0 @@
-author: TullyBurnalot
-delete-after: True
-changes: 
-  - tweak: "Added custom messages for evil faxes"
-  - tweak: "Added unique text body for each non-evil fax template"
-  - rscadd: "Added a \"Keep up the good work\" fax template"
-  - rscadd: "Added a \"ERT Instructions\" fax template"
