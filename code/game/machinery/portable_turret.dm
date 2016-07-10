@@ -215,7 +215,7 @@ var/list/turret_icons
 	data["one_access"] = one_access
 	var/accesses[0]
 	var/list/access_list = get_all_accesses()
-	for (var/access in access_list)
+	for(var/access in access_list)
 		var/name = get_access_desc(access)
 		var/active
 		if(one_access)
@@ -226,7 +226,7 @@ var/list/turret_icons
 	data["accesses"] = accesses
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 320)
 		ui.set_initial_data(data)
 		ui.open()
@@ -437,7 +437,7 @@ var/list/turret_icons
 			return
 
 	health -= force
-	if (force > 5 && prob(45))
+	if(force > 5 && prob(45))
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -479,15 +479,15 @@ var/list/turret_icons
 	..()
 
 /obj/machinery/porta_turret/ex_act(severity)
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			qdel(src)
-		if (2)
-			if (prob(25))
+		if(2)
+			if(prob(25))
 				qdel(src)
 			else
 				take_damage(initial(health) * 8) //should instakill most turrets
-		if (3)
+		if(3)
 			take_damage(initial(health) * 8 / 3)
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0

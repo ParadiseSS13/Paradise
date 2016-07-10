@@ -92,7 +92,7 @@
 	sharp = 0
 	edge = 0
 
-/obj/item/weapon/claymore/fluff/IsShield()
+/obj/item/weapon/claymore/fluff/hit_reaction()
 	return 0
 
 /obj/item/weapon/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley

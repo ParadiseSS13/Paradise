@@ -143,7 +143,7 @@
 					for(var/i=1, i<tankcheck.len+1, ++i)
 						if(istype(tankcheck[i], /obj/item/weapon/tank))
 							var/obj/item/weapon/tank/t = tankcheck[i]
-/*									if (!isnull(t.manipulated_by) && t.manipulated_by != C.real_name && findtext(t.desc,breathes))
+/*									if(!isnull(t.manipulated_by) && t.manipulated_by != C.real_name && findtext(t.desc,breathes))
 								contents.Add(t.air_contents.total_moles)	Someone messed with the tank and put unknown gasses
 								continue					in it, so we're going to believe the tank is what it says it is*/
 							switch(breathes)
@@ -155,21 +155,21 @@
 									else
 										contents.Add(0)
 
-								if ("oxygen")
+								if("oxygen")
 									if(t.air_contents.oxygen && !t.air_contents.toxins)
 										contents.Add(t.air_contents.oxygen)
 									else
 										contents.Add(0)
 
 								// No races breath this, but never know about downstream servers.
-								if ("carbon dioxide")
+								if("carbon dioxide")
 									if(t.air_contents.carbon_dioxide && !t.air_contents.toxins)
 										contents.Add(t.air_contents.carbon_dioxide)
 									else
 										contents.Add(0)
 
 								// ACK ACK ACK Plasmen
-								if ("plasma")
+								if("plasma")
 									if(t.air_contents.toxins)
 										contents.Add(t.air_contents.toxins)
 									else
@@ -272,7 +272,7 @@
 		return 1
 	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
 		return 1
-	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
@@ -372,7 +372,7 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 	if(usr.attack_ui(slot_id))
 		usr.update_inv_l_hand(0)
@@ -411,7 +411,7 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 
 	if(ismob(usr))

@@ -221,7 +221,7 @@
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	src.active = !src.active
 	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? usr.key : "outside forces"]","singulo")
-	if (active)
+	if(active)
 		msg_admin_attack("PA Control Computer turned ON by [key_name(usr, usr.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("PA Control Computer turned ON by [usr.ckey]([usr]) in ([x],[y],[z])")
 		use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) has turned on the PA Control Computer.</font>")

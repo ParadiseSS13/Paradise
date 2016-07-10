@@ -120,7 +120,7 @@
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
 /datum/reagent/proc/overdose_process(var/mob/living/M as mob, severity)
 	var/effect = rand(1, 100) - severity
-	if (effect <= 8)
+	if(effect <= 8)
 		M.adjustToxLoss(severity)
 	return effect
 

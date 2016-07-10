@@ -73,7 +73,7 @@
 	..()
 
 /obj/item/weapon/storage/toolbox/green/memetic/proc/consume(mob/M)
-	if (!M)
+	if(!M)
 		return
 	hunger = 0
 	hunger_message_level = 0

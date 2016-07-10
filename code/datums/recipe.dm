@@ -44,14 +44,14 @@
 
 /datum/recipe/proc/check_reagents(var/datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
 	. = 1
-	for (var/r_r in reagents)
+	for(var/r_r in reagents)
 		var/aval_r_amnt = avail_reagents.get_reagent_amount(r_r)
-		if (!(abs(aval_r_amnt - reagents[r_r])<0.5)) //if NOT equals
-			if (aval_r_amnt>reagents[r_r])
+		if(!(abs(aval_r_amnt - reagents[r_r])<0.5)) //if NOT equals
+			if(aval_r_amnt>reagents[r_r])
 				. = -1
 			else
 				return 0
-	if ((reagents?(reagents.len):(0)) < avail_reagents.reagent_list.len)
+	if((reagents?(reagents.len):(0)) < avail_reagents.reagent_list.len)
 		return -1
 	return .
 
@@ -76,7 +76,7 @@
 
 /datum/recipe/proc/check_items(var/obj/container as obj)
 	. = 1
-	if (items && items.len)
+	if(items && items.len)
 		var/list/checklist = list()
 		checklist = items.Copy() // You should really trust Copy
 		for(var/obj/O in container)
@@ -85,20 +85,20 @@
 			var/found = 0
 			for(var/i = 1; i < checklist.len+1; i++)
 				var/item_type = checklist[i]
-				if (istype(O,item_type))
+				if(istype(O,item_type))
 					checklist.Cut(i, i+1)
 					found = 1
 					break
-			if (!found)
+			if(!found)
 				. = 0
-		if (checklist.len)
+		if(checklist.len)
 			. = -1
 	return .
 
 //general version
 /datum/recipe/proc/make(var/obj/container as obj)
 	var/obj/result_obj = new result(container)
-	for (var/obj/O in (container.contents-result_obj))
+	for(var/obj/O in (container.contents-result_obj))
 		O.reagents.trans_to(result_obj, O.reagents.total_volume)
 		qdel(O)
 	container.reagents.clear_reagents()
@@ -108,8 +108,8 @@
 // food-related
 /datum/recipe/proc/make_food(var/obj/container as obj)
 	var/obj/result_obj = new result(container)
-	for (var/obj/O in (container.contents-result_obj))
-		if (O.reagents)
+	for(var/obj/O in (container.contents-result_obj))
+		if(O.reagents)
 			O.reagents.del_reagent("nutriment")
 			O.reagents.update_total()
 			O.reagents.trans_to(result_obj, O.reagents.total_volume)
@@ -119,22 +119,22 @@
 	return result_obj
 
 /proc/select_recipe(var/list/datum/recipe/avaiable_recipes, var/obj/obj as obj, var/exact = 1 as num)
-	if (!exact)
+	if(!exact)
 		exact = -1
 	var/list/datum/recipe/possible_recipes = new
-	for (var/datum/recipe/recipe in avaiable_recipes)
-		if (recipe.check_reagents(obj.reagents)==exact && recipe.check_items(obj)==exact && recipe.check_fruit(obj)==exact)
+	for(var/datum/recipe/recipe in avaiable_recipes)
+		if(recipe.check_reagents(obj.reagents)==exact && recipe.check_items(obj)==exact && recipe.check_fruit(obj)==exact)
 			possible_recipes+=recipe
-	if (possible_recipes.len==0)
+	if(possible_recipes.len==0)
 		return null
-	else if (possible_recipes.len==1)
+	else if(possible_recipes.len==1)
 		return possible_recipes[1]
 	else //okay, let's select the most complicated recipe
 		var/highest_count = 0
 		. = possible_recipes[1]
-		for (var/datum/recipe/recipe in possible_recipes)
+		for(var/datum/recipe/recipe in possible_recipes)
 			var/count = ((recipe.items)?(recipe.items.len):0) + ((recipe.reagents)?(recipe.reagents.len):0) + ((recipe.fruit)?(recipe.fruit.len):0)
-			if (count >= highest_count)
+			if(count >= highest_count)
 				highest_count = count
 				. = recipe
 		return .

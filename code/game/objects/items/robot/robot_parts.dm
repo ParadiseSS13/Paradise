@@ -120,7 +120,7 @@
 		B.loc = get_turf(src)
 		to_chat(user, "You armed the robot frame")
 		W:use(1)
-		if (user.get_inactive_hand()==src)
+		if(user.get_inactive_hand()==src)
 			user.unEquip(src)
 			user.put_in_inactive_hand(B)
 		qdel(src)
@@ -174,7 +174,7 @@
 		else
 			to_chat(user, "\blue You need to attach a flash to it first!")
 
-	if (istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/device/multitool))
 		if(check_completion())
 			Interact(user)
 		else

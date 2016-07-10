@@ -92,7 +92,7 @@
 	set src in usr
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
@@ -228,10 +228,10 @@
 /obj/item/weapon/reagent_containers/spray/plantbgone/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
 
-	if (istype(A, /obj/machinery/portable_atmospherics/hydroponics)) // We are targeting hydrotray
+	if(istype(A, /obj/machinery/portable_atmospherics/hydroponics)) // We are targeting hydrotray
 		return
 
-	if (istype(A, /obj/effect/blob)) // blob damage in blob code
+	if(istype(A, /obj/effect/blob)) // blob damage in blob code
 		return
 
 	..()

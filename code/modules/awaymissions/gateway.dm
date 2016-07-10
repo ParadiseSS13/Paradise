@@ -236,10 +236,10 @@ obj/machinery/gateway/centerstation/process()
 	if(!ready)	return
 	if(!active)	return
 	if(istype(M, /mob/living/carbon))
-		if (exilecheck(M)) return
+		if(exilecheck(M)) return
 	if(istype(M, /obj))
 		for(var/mob/living/carbon/F in M)
-			if (exilecheck(F)) return
+			if(exilecheck(F)) return
 	M.forceMove(get_step(stationgate.loc, SOUTH))
 	M.dir = SOUTH
 

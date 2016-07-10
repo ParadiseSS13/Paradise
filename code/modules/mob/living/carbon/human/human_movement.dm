@@ -24,7 +24,7 @@
 		tally += (health_deficiency / 25)
 
 	var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
-	if (hungry >= 70)
+	if(hungry >= 70)
 		tally += hungry/50
 
 	if(wear_suit)
@@ -46,7 +46,7 @@
 
 	if(FAT in src.mutations)
 		tally += 1.5
-	if (bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+	if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 		tally += (BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	tally += 2*stance_damage //damaged/missing feet or legs is slow

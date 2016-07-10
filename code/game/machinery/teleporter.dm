@@ -24,7 +24,7 @@
 	update_icon()
 
 /obj/machinery/computer/teleporter/Destroy()
-	if (power_station)
+	if(power_station)
 		power_station.teleporter_console = null
 		power_station = null
 	return ..()
@@ -88,7 +88,7 @@
 
 	// Set up the Nano UI
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
 		ui.set_initial_data(data)
 		ui.open()
@@ -179,7 +179,7 @@
 
 		for(var/obj/item/device/radio/beacon/R in beacons)
 			var/turf/T = get_turf(R)
-			if (!T)
+			if(!T)
 				continue
 			if((T.z in config.admin_levels) || T.z > 7)
 				continue
@@ -192,13 +192,13 @@
 				areaindex[tmpname] = 1
 			L[tmpname] = R
 
-		for (var/obj/item/weapon/implant/tracking/I in tracked_implants)
-			if (!I.implanted || !ismob(I.loc))
+		for(var/obj/item/weapon/implant/tracking/I in tracked_implants)
+			if(!I.implanted || !ismob(I.loc))
 				continue
 			else
 				var/mob/M = I.loc
-				if (M.stat == 2)
-					if (M.timeofdeath + 6000 < world.time)
+				if(M.stat == 2)
+					if(M.timeofdeath + 6000 < world.time)
 						continue
 				var/turf/T = get_turf(M)
 				if(!T)	continue
@@ -222,7 +222,7 @@
 			return
 		for(var/obj/machinery/teleport/station/R in S)
 			var/turf/T = get_turf(R)
-			if (!T || !R.teleporter_hub || !R.teleporter_console)
+			if(!T || !R.teleporter_hub || !R.teleporter_console)
 				continue
 			if((T.z in config.admin_levels) || T.z > 7)
 				continue
@@ -247,7 +247,7 @@
 	return
 
 /proc/find_loc(obj/R as obj)
-	if (!R)	return null
+	if(!R)	return null
 	var/turf/T = R.loc
 	while(!istype(T, /turf))
 		T = T.loc
@@ -297,7 +297,7 @@
 	link_power_station()
 
 /obj/machinery/teleport/hub/Destroy()
-	if (power_station)
+	if(power_station)
 		power_station.teleporter_hub = null
 		power_station = null
 	return ..()
@@ -351,12 +351,12 @@
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
-	if (!com)
+	if(!com)
 		return
-	if (!com.target)
+	if(!com.target)
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
-	if (istype(M, /atom/movable))
+	if(istype(M, /atom/movable))
 		if(!calibrated && prob(25 - ((accurate) * 10))) //oh dear a problem
 			do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3), 2)
 		else
@@ -499,7 +499,7 @@
 		teleporter_hub.power_station = null
 		teleporter_hub.update_icon()
 		teleporter_hub = null
-	if (teleporter_console)
+	if(teleporter_console)
 		teleporter_console.power_station = null
 		teleporter_console = null
 	return ..()
@@ -549,12 +549,12 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 
 /obj/machinery/teleport/station/proc/toggle(mob/user)
-	if (stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console)
+	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console)
 		return
-	if (teleporter_hub.panel_open)
+	if(teleporter_hub.panel_open)
 		to_chat(user, "<span class='notice'>Close the hub's maintenance panel first.</span>")
 		return
-	if (teleporter_console.target)
+	if(teleporter_console.target)
 		src.engaged = !src.engaged
 		use_power(5000)
 		visible_message("<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")

@@ -118,7 +118,7 @@
 				H.losebreath += 10 //30 Oxy damage over time
 				H.apply_damage(18, BRUTE, "head", sharp =1, edge =1, used_weapon = "scissors")
 				var/turf/location = get_turf(H)
-				if (istype(location, /turf/simulated))
+				if(istype(location, /turf/simulated))
 					location.add_blood(H)
 				H.bloody_hands(H)
 				H.bloody_body(H)

@@ -42,7 +42,7 @@
 				rods.amount = 2
 				qdel(src)
 		else
-			if (isemptylist(welder_salvage))
+			if(isemptylist(welder_salvage))
 				to_chat(user, "<span class='warning'>What's left on the [src] cannot be removed with a welder, besides the frame itself</span>")
 			else if(WT.remove_fuel(0,user))
 				var/type = prob(70)?pick(welder_salvage):null

@@ -12,7 +12,7 @@
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
 
 /obj/item/device/megaphone/attack_self(mob/living/user as mob)
-	if (user.client)
+	if(user.client)
 		if(user.client.prefs.muted & MUTE_IC)
 			to_chat(src, "\red You cannot speak in IC (muted).")
 			return
@@ -39,7 +39,7 @@
 	if(!message)
 		return
 	message = capitalize(message)
-	if ((src.loc == user && usr.stat == 0))
+	if((src.loc == user && usr.stat == 0))
 		if(emagged)
 			if(insults)
 				saymsg(user, pick(insultmsg))

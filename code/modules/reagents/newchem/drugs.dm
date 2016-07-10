@@ -587,7 +587,7 @@
 			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
 			M.drop_l_hand()
 			M.drop_r_hand()
-		else if (effect <= 4)
+		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
 			M.Jitter(5)
 			M.Weaken(5)

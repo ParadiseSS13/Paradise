@@ -11,13 +11,13 @@
 
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
-	if ((T) && (!(istype(src, /mob/dead/observer)))) //Ghosts can hear even in vacuum.
+	if((T) && (!(istype(src, /mob/dead/observer)))) //Ghosts can hear even in vacuum.
 		var/datum/gas_mixture/environment = T.return_air()
 		var/pressure = (environment)? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return
 
-		if (pressure < ONE_ATMOSPHERE*0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
+		if(pressure < ONE_ATMOSPHERE*0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
 			italics = 1
 			sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
@@ -26,8 +26,8 @@
 		return
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
-	if (language && (language.flags & NONVERBAL))
-		if (!speaker || (src.sdisabilities & BLIND || src.blinded) || !(speaker in view(src)))
+	if(language && (language.flags & NONVERBAL))
+		if(!speaker || (src.sdisabilities & BLIND || src.blinded) || !(speaker in view(src)))
 			message = stars(message)
 
 	if(!(language && (language.flags & INNATE))) // skip understanding checks for INNATE languages
@@ -73,7 +73,7 @@
 			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][language.format_message(message, verb)]</span>")
 		else
 			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>")
-		if (speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
+		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			src.playsound_local(source, speech_sound, sound_vol, 1)
 
@@ -92,8 +92,8 @@
 		follow_target = speaker
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
-	if (language && (language.flags & NONVERBAL))
-		if (!speaker || (src.sdisabilities & BLIND || src.blinded) || !(speaker in view(src)))
+	if(language && (language.flags & NONVERBAL))
+		if(!speaker || (src.sdisabilities & BLIND || src.blinded) || !(speaker in view(src)))
 			message = stars(message)
 
 	if(!(language && (language.flags & INNATE))) // skip understanding checks for INNATE languages
@@ -128,7 +128,7 @@
 		var/jobname // the mob's "job"
 		var/mob/living/carbon/human/impersonating //The crewmember being impersonated, if any.
 
-		if (ishuman(speaker))
+		if(ishuman(speaker))
 			var/mob/living/carbon/human/H = speaker
 
 			var/obj/item/weapon/card/id/id = H.wear_id
@@ -143,15 +143,15 @@
 			else
 				jobname = H.get_assignment()
 
-		else if (iscarbon(speaker)) // Nonhuman carbon mob
+		else if(iscarbon(speaker)) // Nonhuman carbon mob
 			jobname = "No ID"
-		else if (isAI(speaker))
+		else if(isAI(speaker))
 			jobname = "AI"
-		else if (isrobot(speaker))
+		else if(isrobot(speaker))
 			jobname = "Cyborg"
-		else if (ispAI(speaker))
+		else if(ispAI(speaker))
 			jobname = "Personal AI"
-		else if (isAutoAnnouncer(speaker))
+		else if(isAutoAnnouncer(speaker))
 			var/mob/living/automatedannouncer/AA = speaker
 			jobname = AA.role
 		else

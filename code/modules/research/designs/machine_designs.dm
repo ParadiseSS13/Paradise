@@ -432,6 +432,16 @@
 	build_path = /obj/item/weapon/circuitboard/candy_maker
 	category = list("Misc. Machinery")
 
+/datum/design/deepfryer
+	name = "Machine Board (Deep Fryer)"
+	desc = "The circuit board for a Deep Fryer."
+	id = "deepfryer"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/deepfryer
+	category = list("Misc. Machinery")
+
 /datum/design/orion_trail
 	name = "Machine Board (Orion Trail Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new Orion Trail machine."

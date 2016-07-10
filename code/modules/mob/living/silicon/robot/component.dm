@@ -9,6 +9,7 @@
 	var/electronics_damage = 0
 	var/energy_consumption = 0
 	var/max_damage = 30
+	var/component_disabled = 0
 	var/mob/living/silicon/robot/owner
 
 // The actual device object that has to be installed for this.
@@ -121,7 +122,13 @@
 
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
-	return C && C.installed == 1 && C.toggled && C.is_powered()
+	return C && C.installed == 1 && C.toggled && C.is_powered() && !C.component_disabled
+
+/mob/living/silicon/robot/proc/disable_component(module_name, duration)
+	var/datum/robot_component/D = get_component(module_name)
+	D.component_disabled++
+	spawn(duration)
+		D.component_disabled--
 
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(var/component_name)
