@@ -181,18 +181,19 @@
 	attack_verb = "combed"
 	force = 0
 	throwforce = 0
+	w_class = 2
 	var/used = 0
 
-/obj/item/fluff/wingler_comb/attack_self(mob/user as mob)
+/obj/item/fluff/wingler_comb/attack_self(mob/user)
 	if(used)
 		return
 
 	var/mob/living/carbon/human/target = user
-	if(!istype(target) || !istype(target.species, /datum/species/tajaran)) // Only catbeasts, kthnx.
+	if(!istype(target) || target.get_species() != "Tajaran") // Only catbeasts, kthnx.
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
-		to_chat(target, "<span class = 'notice'>You comb your tail with the [src].</span>")
+		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
 //////////////////////////////////
