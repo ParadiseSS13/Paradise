@@ -30,7 +30,7 @@
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				to_chat(X, 'sound/effects/adminhelp.ogg')
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -39,7 +39,7 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				to_chat(X, 'sound/effects/adminhelp.ogg')
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/HONK_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -48,7 +48,7 @@
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				to_chat(X, 'sound/effects/adminhelp.ogg')
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/ERT_Announce(var/text , var/mob/Sender, var/repeat_warning)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -59,7 +59,7 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				to_chat(X, 'sound/effects/adminhelp.ogg')
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()
@@ -70,4 +70,4 @@
 			to_chat(X, msg)
 			to_chat(X, "<span class='adminnotice'><b>The nuke code is [nuke_code].</b></span>")
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				to_chat(X, 'sound/effects/adminhelp.ogg')
+				X << 'sound/effects/adminhelp.ogg'
