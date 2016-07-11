@@ -364,3 +364,13 @@
 	desc = "A horribly bloated and mismatched human head."
 	icon_state = "lingspacehelmet"
 	item_state = "lingspacehelmet"
+
+/obj/item/clothing/head/butt
+	name = "butt"
+	desc = "A fancy imported butt. It would make a nice hat."
+	icon = 'icons/goonstation/objects/clothing/head.dmi'
+	icon_state = "butt"
+	item_state = "butt"
+	icon_override = 'icons/goonstation/mob/clothing/head.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
