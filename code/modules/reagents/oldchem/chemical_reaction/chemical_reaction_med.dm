@@ -33,7 +33,7 @@
 		name = "Rezadone"
 		id = "rezadone"
 		result = "rezadone"
-		required_reagents = list("carpotoxin" = 1, "spaceacillin" = 1, "copper" = 1)
+		required_reagents = list("mutadone" = 1, "spaceacillin" = 1, "copper" = 1)
 		result_amount = 3
 
 /datum/chemical_reaction/sterilizine
