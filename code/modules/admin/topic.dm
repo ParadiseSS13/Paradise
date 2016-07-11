@@ -1645,7 +1645,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
 
-		var/Punishment = input( "��� ������ �� ������ �������� [P]?", 1) as num
+		var/Punishment = input( "How hard you want to punish [P]?", 1) as num
 		P.adjustBruteLoss(Punishment)
 		playsound(P.loc, 'sound/effects/adminpunish.ogg', 75, 0, 0, 1)
 		P.do_jitter_animation(20)
@@ -1655,7 +1655,7 @@
 		s.start()
 		log_admin("[key_name(src.owner)] punished [key_name(P)]")
 		message_admins("[key_name_admin(P)]have been punished by [key_name_admin(src.owner)]")
-		to_chat(P, "\red <b>���� �������� ��� �� ���� ��������!</b>")
+		to_chat(P, "\red <b>ADMIN PUNISHED YOU FOR BEING NOT SO NICE!</b>")
 
 	else if(href_list["BlueSpaceArtillery"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
