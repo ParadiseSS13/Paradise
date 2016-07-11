@@ -239,9 +239,9 @@
 	action_icon_state = "genetic_view"
 
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
-	var/list/targets = living_mob_list
+	var/list/targets = list()
 	var/list/remoteviewers = new /list()
-	for(var/mob/M in targets)
+	for(var/mob/M in living_mob_list)
 		if(PSY_RESIST in M.mutations)
 			continue
 		if(REMOTE_VIEW in M.mutations)
