@@ -7,17 +7,11 @@
 	req_access = list(access_captain, access_robotics, access_heads)
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
+	var/restoring = 0
 
 	light_color = LIGHT_COLOR_PURPLE
 
 /obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
-	if(occupant && istype(I, /obj/item/weapon/screwdriver))
-		if(stat & (NOPOWER|BROKEN))
-			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge.</span>")
-		else
-			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep.</span>")
-		return
-	else
 		..()
 
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
@@ -62,7 +56,8 @@
 
 	if(href_list["fix"])
 		src.active = 1
-		while(src.occupant.health < 100)
+		restoring = 1
+		while(src.occupant.health < 100 && restoring)
 			src.occupant.adjustOxyLoss(-1)
 			src.occupant.adjustFireLoss(-1)
 			src.occupant.adjustToxLoss(-1)
@@ -74,6 +69,7 @@
 				dead_mob_list -= src.occupant
 				living_mob_list += src.occupant
 			sleep(10)
+		restoring = 0
 		src.active = 0
 		src.add_fingerprint(usr)
 
@@ -135,3 +131,10 @@
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Reconstruction in progress.")
 		else if(!occupant)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Unable to locate artificial intelligence.")
+
+/obj/machinery/computer/aifixer/emp_act()
+	if(occupant)
+		restoring = 0
+		occupant.adjustBruteLoss(200)
+		return
+	..()
