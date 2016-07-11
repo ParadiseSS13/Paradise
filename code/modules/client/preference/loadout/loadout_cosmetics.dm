@@ -14,3 +14,7 @@
 /datum/gear/lipstick/red
 	display_name = "lipstick, red"
 	path = /obj/item/weapon/lipstick
+
+/datum/gear/monocle
+	display_name = "monocle"
+	path = /obj/item/clothing/glasses/monocle

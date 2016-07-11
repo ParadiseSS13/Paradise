@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
@@ -97,7 +97,7 @@
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
-		if (R.use(1))
+		if(R.use(1))
 			var/obj/item/weapon/wirerod/W = new /obj/item/weapon/wirerod
 			if(!remove_item_from_storage(user))
 				user.unEquip(src)

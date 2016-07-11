@@ -27,7 +27,7 @@
 							entry += " - <font color='gray'>Observing</font>"
 						else
 							entry += " - <font color='black'><b>DEAD</b></font>"
-					else if (istype(C.mob, /mob/new_player))
+					else if(istype(C.mob, /mob/new_player))
 						entry += " - <font color='green'>New Player</font>"
 					else
 						entry += " - <font color='black'><b>DEAD</b></font>"
@@ -122,7 +122,7 @@
 				if(!C.holder.fakekey)
 					msg += "\t[C] is a [C.holder.rank]\n"
 					num_admins_online++
-			else if (check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
+			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
 				modmsg += "\t[C] is a [C.holder.rank]\n"
 				num_mods_online++
 

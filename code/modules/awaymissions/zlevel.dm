@@ -9,7 +9,7 @@
 			T.lighting_build_overlay()
 		T.lighting_corners_initialised = TRUE
 		for (var/i = 1 to 4)
-			if ((T.corners[i]) || (istype(T, /turf/space))) // Already have a corner on this direction. Also ignoring space turfs!
+			if((T.corners[i]) || (istype(T, /turf/space))) // Already have a corner on this direction. Also ignoring space turfs!
 				continue
 			T.corners[i] = new/datum/lighting_corner(T, LIGHTING_CORNER_DIAGONAL[i])
 
@@ -36,27 +36,27 @@
 		Lines = file2list("config/example/away_mission_config.txt")
 
 	if(!Lines.len)	return
-	for (var/t in Lines)
-		if (!t)
+	for(var/t in Lines)
+		if(!t)
 			continue
 
 		t = trim(t)
-		if (length(t) == 0)
+		if(length(t) == 0)
 			continue
-		else if (copytext(t, 1, 2) == "#")
+		else if(copytext(t, 1, 2) == "#")
 			continue
 
 		var/pos = findtext(t, " ")
 		var/name = null
 	//	var/value = null
 
-		if (pos)
+		if(pos)
 			name = lowertext(copytext(t, 1, pos))
 		//	value = copytext(t, pos + 1)
 		else
 			name = lowertext(t)
 
-		if (!name)
+		if(!name)
 			continue
 
 		potentialRandomZlevels.Add(t)
@@ -74,7 +74,7 @@
 			log_to_dd("  Away mission loaded: [map]")
 
 		for(var/obj/effect/landmark/L in landmarks_list)
-			if (L.name != "awaystart")
+			if(L.name != "awaystart")
 				continue
 			awaydestinations.Add(L)
 

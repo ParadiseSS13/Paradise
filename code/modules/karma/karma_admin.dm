@@ -55,7 +55,7 @@ proc/sql_report_admin_karma(var/client/spender, var/receiver_key, var/karma_give
 	var/karma_receiver
 	if(isnull(pickedclient))
 		return
-	if (pickedclient == "Write ckey manually")
+	if(pickedclient == "Write ckey manually")
 		pickedclient = input(src, "Write down ckey of the player you wish to give karma", "Give karma manually") as message|null
 	karma_receiver = pickedclient
 	give_karma(karma_receiver)

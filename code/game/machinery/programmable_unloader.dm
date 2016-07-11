@@ -197,10 +197,10 @@
 
 /obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/weapon/wrench)) // code borrowed from pipe dispenser
-		if (unwrenched==0)
+		if(unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "\blue You begin to unfasten \the [src] from the floor...")
-			if (do_after(user, 40, target = src))
+			if(do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
@@ -208,12 +208,12 @@
 				src.anchored = 0
 				src.stat |= MAINT
 				src.unwrenched = 1
-				if (usr.machine==src)
+				if(usr.machine==src)
 					usr << browse(null, "window=pipedispenser")
 		else /* unwrenched */
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "\blue You begin to fasten \the [src] to the floor...")
-			if (do_after(user, 20, target = src))
+			if(do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					"\blue You fastened \the [src] into place.", \
@@ -283,7 +283,7 @@
 	return
 
 /obj/machinery/programmable/process()
-	if (!output || !input)
+	if(!output || !input)
 		return
 
 	if(!on || stat || sleep)
@@ -330,7 +330,7 @@
 	if(sleep)
 		return // something stopped the machine
 
-	for (var/obj/A in input.contents)// I fully expect this to cause unreasonable lag
+	for(var/obj/A in input.contents)// I fully expect this to cause unreasonable lag
 		if(!A)
 			break
 		if(work > workmax)

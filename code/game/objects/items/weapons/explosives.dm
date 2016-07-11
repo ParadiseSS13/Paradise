@@ -6,7 +6,7 @@
 	icon_state = "plastic-explosive0"
 	item_state = "plasticx"
 	flags = NOBLUDGEON
-	w_class = 2.0
+	w_class = 2
 	origin_tech = "syndicate=2"
 	var/datum/wires/explosive/plastic/wires = null
 	var/timer = 10
@@ -74,9 +74,9 @@
 
 
 /obj/item/weapon/c4/afterattack(atom/target as obj|turf, mob/user as mob, flag)
-	if (!flag)
+	if(!flag)
 		return
-	if (ismob(target) || istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/item/clothing/accessory/storage) || istype(target, /obj/item/clothing/under))
+	if(ismob(target) || istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/item/clothing/accessory/storage) || istype(target, /obj/item/clothing/under))
 		return
 	to_chat(user, "Planting explosives...")
 
@@ -85,7 +85,7 @@
 		src.target = target
 		loc = null
 
-		if (ismob(target))
+		if(ismob(target))
 			add_logs(target, user, "planted [name] on")
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
 			message_admins("[key_name_admin(user)] planted [src.name] on [key_name_admin(target)] with [timer] second fuse",0,1)
@@ -110,13 +110,13 @@
 		explosion(location, -1, -1, 4, 4)
 
 	if(target)
-		if (istype(target, /turf/simulated/wall))
+		if(istype(target, /turf/simulated/wall))
 			var/turf/simulated/wall/W = target
 			W.dismantle_wall(1)
 		else
 			target.ex_act(1)
-		if (isobj(target))
-			if (target)
+		if(isobj(target))
+			if(target)
 				qdel(target)
 	qdel(src)
 

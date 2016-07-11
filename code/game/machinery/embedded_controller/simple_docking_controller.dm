@@ -21,7 +21,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "simple_docking_console.tmpl", name, 470, 290)
 		ui.set_initial_data(data)
 		ui.open()
@@ -55,7 +55,7 @@
 	..(M)
 	memory["door_status"] = list(state = "closed", lock = "locked")		//assume closed and locked in case the doors dont report in
 
-	if (istype(M, /obj/machinery/embedded_controller/radio/simple_docking_controller))
+	if(istype(M, /obj/machinery/embedded_controller/radio/simple_docking_controller))
 		var/obj/machinery/embedded_controller/radio/simple_docking_controller/controller = M
 
 		tag_door = controller.tag_door? controller.tag_door : "[id_tag]_hatch"
@@ -78,13 +78,13 @@
 /datum/computer/file/embedded_program/docking/simple/receive_user_command(command)
 	switch(command)
 		if("force_door")
-			if (override_enabled)
+			if(override_enabled)
 				if(memory["door_status"]["state"] == "open")
 					close_door()
 				else
 					open_door()
 		if("toggle_override")
-			if (override_enabled)
+			if(override_enabled)
 				disable_override()
 			else
 				enable_override()

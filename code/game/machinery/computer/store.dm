@@ -132,7 +132,7 @@ td.cost.toomuch {
 
 	src.add_fingerprint(usr)
 
-	if (href_list["buy"])
+	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
 		var/datum/storeitem/item = centcomm_store.items[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")

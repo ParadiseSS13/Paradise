@@ -415,7 +415,7 @@
 	return
 
 /datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
-	for (var/proc/ability in species_abilities)
+	for(var/proc/ability in species_abilities)
 		H.verbs -= ability
 	return
 

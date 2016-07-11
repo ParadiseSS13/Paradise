@@ -24,9 +24,9 @@
 	if(!M)
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
 	var/list/plist = M.available_pdas()
-	if (plist)
+	if(plist)
 		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
-		if (!c) // if the user hasn't selected a PDA file we can't send a message
+		if(!c) // if the user hasn't selected a PDA file we can't send a message
 			return
 		var/selected = plist[c]
 		M.create_message(usr, selected)
@@ -74,7 +74,7 @@
 	to_chat(usr, "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>")
 
 /obj/item/device/pda/silicon/attack_self(mob/user as mob)
-	if ((honkamt > 0) && (prob(60)))//For clown virus.
+	if((honkamt > 0) && (prob(60)))//For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
 	return

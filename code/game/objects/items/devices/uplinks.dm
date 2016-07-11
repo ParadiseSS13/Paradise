@@ -202,7 +202,7 @@ var/list/world_uplinks = list()
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "uplink.tmpl", title, 700, 600, state = inventory_state)
@@ -218,14 +218,14 @@ var/list/world_uplinks = list()
 
 // The purchasing code.
 /obj/item/device/uplink/hidden/Topic(href, href_list)
-	if (usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return 1
 
-	if (!( istype(usr, /mob/living/carbon/human)))
+	if(!( istype(usr, /mob/living/carbon/human)))
 		return 1
 	var/mob/user = usr
 	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
-	if ((usr.contents.Find(src.loc) || (in_range(src.loc, usr) && istype(src.loc.loc, /turf))))
+	if((usr.contents.Find(src.loc) || (in_range(src.loc, usr) && istype(src.loc.loc, /turf))))
 		usr.set_machine(src)
 		if(..(href, href_list))
 			return 1

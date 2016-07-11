@@ -322,7 +322,7 @@
 	data["secure"] = is_secure
 
 	var/list/items[0]
-	for (var/i=1 to length(item_quants))
+	for(var/i=1 to length(item_quants))
 		var/K = item_quants[i]
 		var/count = item_quants[K]
 		if(count > 0)
@@ -377,7 +377,7 @@
 	if(!target)
 		return 0
 
-	for (var/O in item_quants)
+	for(var/O in item_quants)
 		if(item_quants[O] <= 0) //Try to use a record that actually has something to dump.
 			continue
 

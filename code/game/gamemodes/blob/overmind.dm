@@ -42,7 +42,7 @@
 	..()
 
 /mob/camera/blob/Destroy()
-	if (ghostimage)
+	if(ghostimage)
 		ghost_darkness_images -= ghostimage
 		qdel(ghostimage)
 		ghostimage = null;
@@ -73,17 +73,17 @@
 		hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(src.blob_points)]</font></div>"
 
 /mob/camera/blob/say(var/message)
-	if (!message)
+	if(!message)
 		return
 
-	if (src.client)
+	if(src.client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
-		if (src.client.handle_spam_prevention(message,MUTE_IC))
+		if(src.client.handle_spam_prevention(message,MUTE_IC))
 			return
 
-	if (stat)
+	if(stat)
 		return
 
 	blob_talk(message)
@@ -93,13 +93,13 @@
 
 	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 
-	if (!message)
+	if(!message)
 		return
 
 	var/verb = "states,"
 	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
-	for (var/mob/M in mob_list)
+	for(var/mob/M in mob_list)
 		if(isovermind(M) || isobserver(M))
 			M.show_message(rendered, 2)
 

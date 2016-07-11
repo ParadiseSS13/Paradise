@@ -17,7 +17,7 @@
 	icon_state = "tatgun"
 	force = 0
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	var/used = 0
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
@@ -92,7 +92,7 @@
 	sharp = 0
 	edge = 0
 
-/obj/item/weapon/claymore/fluff/IsShield()
+/obj/item/weapon/claymore/fluff/hit_reaction()
 	return 0
 
 /obj/item/weapon/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley

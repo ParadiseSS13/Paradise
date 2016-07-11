@@ -716,6 +716,18 @@
 			return 0
 	return 1
 
+/obj/item/clothing/under/cursedclown
+	name = "cursed clown suit"
+	desc = "It wasn't already?"
+	icon = 'icons/goonstation/objects/clothing/uniform.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_uniform"
+	item_color = "cursedclown"
+	icon_override = 'icons/goonstation/mob/clothing/uniform.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	flags = NODROP
+
 /obj/item/clothing/under/doom
 	name = "Praetor Jumpsuit"
 	desc = "Just because the suit is cold. The small painting on it reads 'WJ Armor'."

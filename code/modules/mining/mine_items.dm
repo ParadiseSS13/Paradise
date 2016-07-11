@@ -65,7 +65,7 @@
 	force = 15.0
 	throwforce = 10.0
 	item_state = "pickaxe"
-	w_class = 4.0
+	w_class = 4
 	materials = list(MAT_METAL=2000) //one sheet, but where can you make them?
 	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = "materials=1;engineering=1"
@@ -122,7 +122,7 @@
 	icon_state = "smdrill"
 	origin_tech = "materials=6;powerstorage=4;engineering=5;syndicate=3"
 	desc = "Microscopic supermatter crystals cover the head of this tiny drill."
-	w_class = 2.0
+	w_class = 2
 
 /obj/item/weapon/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
@@ -166,7 +166,7 @@
 	force = 8.0
 	throwforce = 4.0
 	item_state = "shovel"
-	w_class = 3.0
+	w_class = 3
 	materials = list(MAT_METAL=50)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
@@ -178,7 +178,7 @@
 	item_state = "spade"
 	force = 5.0
 	throwforce = 7.0
-	w_class = 2.0
+	w_class = 2
 
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
@@ -199,7 +199,7 @@
 	desc = "It allows you to store and deploy lazarus-injected creatures easier."
 	icon = 'icons/obj/mobcap.dmi'
 	icon_state = "mobcap0"
-	w_class = 1.0
+	w_class = 1
 	throw_range = 20
 	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0

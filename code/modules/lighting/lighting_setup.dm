@@ -8,11 +8,11 @@
 	ASSERT(zlevel)
 
 	for (var/turf/T in block(locate(1, 1, zlevel), locate(world.maxx, world.maxy, zlevel)))
-		if (!T.dynamic_lighting)
+		if(!T.dynamic_lighting)
 			continue
 
 		var/area/A = T.loc
-		if (!A.dynamic_lighting)
+		if(!A.dynamic_lighting)
 			continue
 		var/atom/movable/lighting_overlay/O = new(T)
 		T.lighting_overlay = O
@@ -25,12 +25,12 @@
 
 /proc/create_lighting_corners_zlevel(var/zlevel)
 	for (var/turf/T in block(locate(1, 1, zlevel), locate(world.maxx, world.maxy, zlevel)))
-		if (istype(T, /turf/space)) // Don't generate corners, do it later during ChangeTurf when needed.
+		if(istype(T, /turf/space)) // Don't generate corners, do it later during ChangeTurf when needed.
 			continue
 
 		T.lighting_corners_initialised = TRUE
 		for (var/i = 1 to 4)
-			if (T.corners[i]) // Already have a corner on this direction.
+			if(T.corners[i]) // Already have a corner on this direction.
 				continue
 
 			T.corners[i] = new/datum/lighting_corner(T, LIGHTING_CORNER_DIAGONAL[i])

@@ -7,7 +7,7 @@
 	flags &= ~OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/attack_self(mob/user as mob)
-	if (canopened == 0)
+	if(canopened == 0)
 		playsound(src.loc,'sound/effects/canopen.ogg', rand(10,50), 1)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 		canopened = 1
@@ -59,11 +59,11 @@
 			return
 		if(!reagents || reagents.total_volume==0)
 			to_chat(user, "\blue \The [src] is empty!")
-		else if (reagents.total_volume<=src.volume/4)
+		else if(reagents.total_volume<=src.volume/4)
 			to_chat(user, "\blue \The [src] is almost empty!")
-		else if (reagents.total_volume<=src.volume*0.66)
+		else if(reagents.total_volume<=src.volume*0.66)
 			to_chat(user, "\blue \The [src] is half full!")
-		else if (reagents.total_volume<=src.volume*0.90)
+		else if(reagents.total_volume<=src.volume*0.90)
 			to_chat(user, "\blue \The [src] is almost full!")
 		else
 			to_chat(user, "\blue \The [src] is full!")*/

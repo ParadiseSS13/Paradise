@@ -97,7 +97,7 @@
 /obj/machinery/arcade/proc/pay_with_card(var/obj/item/weapon/card/id/I, var/mob/user)
 	visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
-	if (!customer_account)
+	if(!customer_account)
 		to_chat(user, "Error: Unable to access account. Please contact technical support if problem persists.")
 		return 0
 

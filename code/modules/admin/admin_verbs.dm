@@ -617,7 +617,7 @@ var/list/admin_verbs_snpc = list(
 		var/message = input("What do you want the message to be?", "Make Sound") as text|null
 		if(!message)
 			return
-		for (var/mob/V in hearers(O))
+		for(var/mob/V in hearers(O))
 			V.show_message(message, 2)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
 		message_admins("\blue [key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
@@ -645,7 +645,7 @@ var/list/admin_verbs_snpc = list(
 	if(mob.control_object)
 		if(!msg)
 			return
-		for (var/mob/V in hearers(mob.control_object))
+		for(var/mob/V in hearers(mob.control_object))
 			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
 		log_admin("[key_name(usr)] used oSay on [mob.control_object]: [msg]")
 		message_admins("[key_name_admin(usr)] used oSay on [mob.control_object]: [msg]")
@@ -859,14 +859,14 @@ var/list/admin_verbs_snpc = list(
 		return
 
 	var/list/jobs = list()
-	for (var/datum/job/J in job_master.occupations)
-		if (J.current_positions >= J.total_positions && J.total_positions != -1)
+	for(var/datum/job/J in job_master.occupations)
+		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if (!jobs.len)
+	if(!jobs.len)
 		to_chat(usr, "There are no fully staffed jobs.")
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
-	if (job)
+	if(job)
 		job_master.FreeRole(job)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
@@ -880,7 +880,7 @@ var/list/admin_verbs_snpc = list(
 
 	prefs.toggles ^= CHAT_ATTACKLOGS
 	prefs.save_preferences(src)
-	if (prefs.toggles & CHAT_ATTACKLOGS)
+	if(prefs.toggles & CHAT_ATTACKLOGS)
 		to_chat(usr, "You now will get attack log messages")
 	else
 		to_chat(usr, "You now won't get attack log messages")
@@ -905,7 +905,7 @@ var/list/admin_verbs_snpc = list(
 
 	prefs.toggles ^= CHAT_DEBUGLOGS
 	prefs.save_preferences(src)
-	if (prefs.toggles & CHAT_DEBUGLOGS)
+	if(prefs.toggles & CHAT_DEBUGLOGS)
 		to_chat(usr, "You now will get debug log messages")
 	else
 		to_chat(usr, "You now won't get debug log messages")
@@ -935,7 +935,7 @@ var/list/admin_verbs_snpc = list(
 	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
 
 	if(confirm == "Yes")
-		for (var/mob/T as mob in mob_list)
+		for(var/mob/T as mob in mob_list)
 			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
 			T << 'sound/voice/ManUp1.ogg'
 

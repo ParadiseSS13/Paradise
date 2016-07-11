@@ -2,7 +2,7 @@
 	name = "robot module"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_module"
-	w_class = 100.0
+	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT
 
@@ -507,7 +507,7 @@
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
-	if (!istype(src.loc, /mob/living/silicon/robot))
+	if(!istype(src.loc, /mob/living/silicon/robot))
 		return 0
 
 	var/mob/living/silicon/robot/R = src.loc

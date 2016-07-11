@@ -19,7 +19,7 @@
 		data["select_monitor"] = 1
 		data["powermonitors"] = powermonitor_repository.powermonitor_data()
 
-	if (powermonitor && !isnull(powermonitor.powernet))
+	if(powermonitor && !isnull(powermonitor.powernet))
 		if(select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
 			powermonitor = null
 			return
@@ -29,7 +29,7 @@
 		data["apcs"] = apc_repository.apc_data(powermonitor)
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "power_monitor.tmpl", "Power Monitoring Console", 800, 700, state = state)
 		ui.set_initial_data(data)
 		ui.open()

@@ -61,11 +61,11 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/examine(mob/user)
 	if(..(user, 0))
-		if (bitecount==0)
+		if(bitecount==0)
 			return
-		else if (bitecount==1)
+		else if(bitecount==1)
 			to_chat(user, "\blue \The [src] was bitten by someone!")
-		else if (bitecount<=3)
+		else if(bitecount<=3)
 			to_chat(user, "\blue \The [src] was bitten [bitecount] times!")
 		else
 			to_chat(user, "\blue \The [src] was bitten multiple times!")
@@ -138,7 +138,7 @@
 			return 1
 		to_chat(user, "\red You slip [W] inside [src].")
 		user.unEquip(W)
-		if ((user.client && user.s_active != src))
+		if((user.client && user.s_active != src))
 			user.client.screen -= W
 		W.dropped(user)
 		add_fingerprint(user)
@@ -146,7 +146,7 @@
 		return
 	else
 		return 1
-	if ( \
+	if( \
 			!isturf(src.loc) || \
 			!(locate(/obj/structure/table) in src.loc) && \
 			!(locate(/obj/machinery/optable) in src.loc) && \
@@ -155,7 +155,7 @@
 		to_chat(user, "\red You cannot slice [src] here! You need a table or at least a tray to do it.")
 		return 1
 	var/slices_lost = 0
-	if (!inaccurate)
+	if(!inaccurate)
 		user.visible_message( \
 			"\blue [user] slices \the [src]!", \
 			"\blue You slice \the [src]!" \

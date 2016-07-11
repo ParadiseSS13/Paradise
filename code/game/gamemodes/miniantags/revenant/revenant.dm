@@ -119,7 +119,7 @@
 	spawn(5)
 		if(src.mind)
 			src.mind.wipe_memory()
-			src << 'sound/effects/ghost.ogg'
+			src << 'sound/effects/ghost.ogg'
 			to_chat(src, "<br>")
 			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
@@ -164,7 +164,7 @@
 
 /mob/living/simple_animal/revenant/death()
 	..()
-	if(!revealed || stat == DEAD) //Revenants cannot die if they aren't revealed //or are already dead
+	if(!revealed)
 		return
 	ghost_darkness_images -= ghostimage
 	updateallghostimages()

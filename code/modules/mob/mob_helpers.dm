@@ -124,12 +124,12 @@ proc/getsensorlevel(A)
 		return 0
 
 /proc/stars(n, pr)
-	if (pr == null)
+	if(pr == null)
 		pr = 25
-	if (pr <= 0)
+	if(pr <= 0)
 		return null
 	else
-		if (pr >= 100)
+		if(pr >= 100)
 			return n
 	var/te = n
 	var/t = ""
@@ -137,7 +137,7 @@ proc/getsensorlevel(A)
 	var/p = null
 	p = 1
 	while(p <= n)
-		if ((copytext(te, p, p + 1) == " " || prob(pr)))
+		if((copytext(te, p, p + 1) == " " || prob(pr)))
 			t = text("[][]", t, copytext(te, p, p + 1))
 		else
 			t = text("[]*", t)
@@ -177,14 +177,14 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	p = 1//1 is the start of any word
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if (prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if (prob(10))
+		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+			if(prob(10))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
-				if (prob(20))
+				if(prob(20))
 					n_letter = text("[n_letter]-[n_letter]-[n_letter]")
 				else
-					if (prob(5))
+					if(prob(5))
 						n_letter = null
 					else
 						n_letter = text("[n_letter]-[n_letter]")
@@ -201,14 +201,14 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/robotletter = pick("@", "!", "#", "$", "%", "&", "?") //for beep boop
 		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if (prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if (prob(10))
+		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+			if(prob(10))
 				n_letter = text("[n_letter]-[robotletter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
-				if (prob(20))
+				if(prob(20))
 					n_letter = text("[n_letter]-[robotletter]-[n_letter]")
 				else
-					if (prob(5))
+					if(prob(5))
 						n_letter = robotletter
 					else
 						n_letter = text("[n_letter]-[n_letter]")
@@ -277,7 +277,7 @@ proc/muffledspeech(phrase)
 
 /proc/findname(msg)
 	for(var/mob/M in mob_list)
-		if (M.real_name == text("[msg]"))
+		if(M.real_name == text("[msg]"))
 			return 1
 	return 0
 
@@ -449,7 +449,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if (!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
 		return 0
 	check_eye(src)
 	return 1

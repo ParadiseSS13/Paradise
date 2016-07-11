@@ -200,15 +200,15 @@
 proc/checkhtml(var/t)
 	t = sanitize_simple(t, list("&#"="."))
 	var/p = findtext(t,"<",1)
-	while (p)	//going through all the tags
+	while(p)	//going through all the tags
 		var/start = p++
 		var/tag = copytext(t,p, p+1)
-		if (tag != "/")
-			while (reject_bad_text(copytext(t, p, p+1), 1))
+		if(tag != "/")
+			while(reject_bad_text(copytext(t, p, p+1), 1))
 				tag = copytext(t,start, p)
 				p++
 			tag = copytext(t,start+1, p)
-			if (!(tag in paper_tag_whitelist))	//if it's unkown tag, disarming it
+			if(!(tag in paper_tag_whitelist))	//if it's unkown tag, disarming it
 				t = copytext(t,1,start-1) + "&lt;" + copytext(t,start+1)
 		p = findtext(t,"<",p)
 	return t
@@ -260,7 +260,7 @@ proc/checkhtml(var/t)
 
 //Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
-	while (length(t) < u)
+	while(length(t) < u)
 		t = "0[t]"
 	return t
 
@@ -278,15 +278,15 @@ proc/checkhtml(var/t)
 
 //Returns a string with reserved characters and spaces before the first letter removed
 /proc/trim_left(text)
-	for (var/i = 1 to length(text))
-		if (text2ascii(text, i) > 32)
+	for(var/i = 1 to length(text))
+		if(text2ascii(text, i) > 32)
 			return copytext(text, i)
 	return ""
 
 //Returns a string with reserved characters and spaces after the last letter removed
 /proc/trim_right(text)
-	for (var/i = length(text), i > 0, i--)
-		if (text2ascii(text, i) > 32)
+	for(var/i = length(text), i > 0, i--)
+		if(text2ascii(text, i) > 32)
 			return copytext(text, 1, i + 1)
 
 	return ""
@@ -434,11 +434,11 @@ proc/checkhtml(var/t)
     return text_macro.Replace(text, /proc/replace_text_macro)
 
 /proc/pointization(text as text)
-	if (!text)
+	if(!text)
 		return
-	if (copytext(text,1,2) == "*") //Emotes allowed.
+	if(copytext(text,1,2) == "*") //Emotes allowed.
 		return text
-	if (copytext(text,-1) in list("!", "?", "."))
+	if(copytext(text,-1) in list("!", "?", "."))
 		return text
 	text += "."
 	return text
@@ -446,9 +446,9 @@ proc/checkhtml(var/t)
 
 /proc/ruscapitalize(var/t as text)
 	var/s = 2
-	if (copytext(t,1,2) == ";")
+	if(copytext(t,1,2) == ";")
 		s += 1
-	else if (copytext(t,1,2) == ":")
+	else if(copytext(t,1,2) == ":")
 		if(copytext(t,3,4) == " ")
 			s+=3
 		else
@@ -459,13 +459,13 @@ proc/checkhtml(var/t)
 	var/t = ""
 	for(var/i = 1, i <= length(text), i++)
 		var/a = text2ascii(text, i)
-		if (a > 223)
+		if(a > 223)
 			t += ascii2text(a - 32)
-		else if (a == 184)
+		else if(a == 184)
 			t += ascii2text(168)
 		else t += ascii2text(a)
-	t = replacetext(t,"&#1103;","ß")
-	t = replacetext(t, "ÿ", "ß")
+	t = replacetext(t,"&#1103;","ï¿½")
+	t = replacetext(t, "ï¿½", "ï¿½")
 	return t
 
 
@@ -473,10 +473,10 @@ proc/checkhtml(var/t)
 	var/t = ""
 	for(var/i = 1, i <= length(text), i++)
 		var/a = text2ascii(text, i)
-		if (a > 191 && a < 224)
+		if(a > 191 && a < 224)
 			t += ascii2text(a + 32)
-		else if (a == 168)
+		else if(a == 168)
 			t += ascii2text(184)
 		else t += ascii2text(a)
-	t = replacetext(t,"ß","&#1103;")
+	t = replacetext(t,"ï¿½","&#1103;")
 	return t

@@ -58,7 +58,7 @@
 
 	default_deconstruction_crowbar(I)
 
-	if (istype(I, /obj/item/weapon/wrench))
+	if(istype(I, /obj/item/weapon/wrench))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
@@ -112,15 +112,15 @@
 	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C,1)
 
 	var/temp_class = "good"
-	if (air_contents.temperature > (T0C - 20))
+	if(air_contents.temperature > (T0C - 20))
 		temp_class = "bad"
-	else if (air_contents.temperature < (T0C - 20) && air_contents.temperature > (T0C - 100))
+	else if(air_contents.temperature < (T0C - 20) && air_contents.temperature > (T0C - 100))
 		temp_class = "average"
 	data["gasTemperatureClass"] = temp_class
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "freezer.tmpl", "Gas Cooling System", 540, 300)
@@ -134,7 +134,7 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/Topic(href, href_list)
 	if(..())
 		return 1
-	if (href_list["toggleStatus"])
+	if(href_list["toggleStatus"])
 		src.on = !src.on
 		update_icon()
 	if(href_list["temp"])
@@ -218,7 +218,7 @@
 
 	default_deconstruction_crowbar(I)
 
-	if (istype(I, /obj/item/weapon/wrench))
+	if(istype(I, /obj/item/weapon/wrench))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
@@ -271,13 +271,13 @@
 	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C,1)
 
 	var/temp_class = "normal"
-	if (air_contents.temperature > (T20C+40))
+	if(air_contents.temperature > (T20C+40))
 		temp_class = "bad"
 	data["gasTemperatureClass"] = temp_class
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "freezer.tmpl", "Gas Heating System", 540, 300)
@@ -291,7 +291,7 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/Topic(href, href_list)
 	if(..())
 		return 1
-	if (href_list["toggleStatus"])
+	if(href_list["toggleStatus"])
 		src.on = !src.on
 		update_icon()
 	if(href_list["temp"])

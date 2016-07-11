@@ -70,7 +70,7 @@
 		if(1)
 			dat += "<h4><img src=sos_5.png> Atmospheric Scan:</h4>"//Headers don't need breaks. They are automatically placed.
 			var/turf/T = get_turf(U.loc)
-			if (isnull(T))
+			if(isnull(T))
 				dat += "Unable to obtain a reading."
 			else
 				var/datum/gas_mixture/environment = T.return_air()
@@ -80,7 +80,7 @@
 
 				dat += "Air Pressure: [round(pressure,0.1)] kPa"
 
-				if (total_moles)
+				if(total_moles)
 					var/o2_level = environment.oxygen/total_moles
 					var/n2_level = environment.nitrogen/total_moles
 					var/co2_level = environment.carbon_dioxide/total_moles
@@ -101,12 +101,12 @@
 			dat += "<h4><img src=sos_6.png> Detected PDAs:</h4>"
 			dat += "<ul>"
 			var/count = 0
-			for (var/obj/item/device/pda/P in get_viewable_pdas())
+			for(var/obj/item/device/pda/P in get_viewable_pdas())
 				dat += "<li><a href='byond://?src=\ref[src];choice=Message;target=\ref[P]'>[P]</a>"
 				dat += "</li>"
 				count++
 			dat += "</ul>"
-			if (count == 0)
+			if(count == 0)
 				dat += "None detected.<br>"
 		if(4)
 			dat += {"
@@ -126,7 +126,7 @@
 					A mix of traitor, changeling, and wizard. Ninjas rely on energy, or electricity to be precise, to keep their suits running (when out of energy, a suit hibernates). Suits gain energy from objects or creatures that contain electrical charge. APCs, cell batteries, rechargers, SMES batteries, cyborgs, mechs, and exposed wires are currently supported. Through energy ninjas gain access to special powers--while all powers are tied to the ninja suit, the most useful of them are verb activated--to help them in their mission.<br>It is a constant struggle for a ninja to remain hidden long enough to recharge the suit and accomplish their objective; despite their arsenal of abilities, ninjas can die like any other. Unlike wizards, ninjas do not possess good crowd control and are typically forced to play more subdued in order to achieve their goals. Some of their abilities are specifically designed to confuse and disorient others.<br>With that said, it should be perfectly possible to completely flip the fuck out and rampage as a ninja.
 					<h5>Their powers:</h5>
 					There are two primary types: Equipment and Abilties. Passive effect are always on. Active effect must be turned on and remain active only when there is energy to do so. Ability costs are listed next to them.
-					<b>Equipment</b>: cannot be tracked by AI (passive), faster speed (passive), stealth (active), vision switch (passive if toggled), voice masking (passive), SpiderOS (passive if toggled), energy drain (passive if toggled).
+					<b>Equipment</b>: cannot be tracked by AI (passive), faster speed (passive), stealth (active), vision switch(passive if toggled), voice masking (passive), SpiderOS (passive if toggled), energy drain (passive if toggled).
 					<ul>
 					<li><i>Voice masking</i> generates a random name the ninja can use over the radio and in-person. Although, the former use is recommended.</li>
 					<li><i>Toggling vision</i> cycles to one of the following: thermal, meson, or darkness vision. The starting mode allows one to scout the identity of those in view, revealing their role. Traitors, revolutionaries, wizards, and other such people will be made known to you.</li>

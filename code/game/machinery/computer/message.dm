@@ -317,9 +317,9 @@
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		//Authenticate
-		if (href_list["auth"])
+		if(href_list["auth"])
 			if(auth)
 				auth = 0
 				screen = 0
@@ -332,10 +332,10 @@
 						message = incorrectkey
 
 		//Turn the server on/off.
-		if (href_list["active"])
+		if(href_list["active"])
 			if(auth) linkedServer.active = !linkedServer.active
 		//Find a server
-		if (href_list["find"])
+		if(href_list["find"])
 			if(message_servers && message_servers.len > 1)
 				src.linkedServer = input(usr,"Please select a server.", "Select a server.", null) as null|anything in message_servers
 				message = "<span class='alert'>NOTICE: Server selected.</span>"
@@ -346,7 +346,7 @@
 				message = noserver
 
 		//View the logs - KEY REQUIRED
-		if (href_list["view"])
+		if(href_list["view"])
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -354,7 +354,7 @@
 					src.screen = 1
 
 		//Clears the logs - KEY REQUIRED
-		if (href_list["clear"])
+		if(href_list["clear"])
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -362,7 +362,7 @@
 					src.linkedServer.pda_msgs = list()
 					message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Clears the request console logs - KEY REQUIRED
-		if (href_list["clearr"])
+		if(href_list["clearr"])
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -370,7 +370,7 @@
 					src.linkedServer.rc_msgs = list()
 					message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Change the password - KEY REQUIRED
-		if (href_list["pass"])
+		if(href_list["pass"])
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -390,7 +390,7 @@
 							message = incorrectkey
 
 		//Hack the Console to get the password
-		if (href_list["hack"])
+		if(href_list["hack"])
 			if((istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot)) && (usr.mind.special_role && usr.mind.original == usr))
 				src.hacking = 1
 				src.screen = 2
@@ -400,7 +400,7 @@
 					if(src && src.linkedServer && usr)
 						BruteForce(usr)
 		//Delete the log.
-		if (href_list["delete"])
+		if(href_list["delete"])
 			//Are they on the view logs screen?
 			if(screen == 1)
 				if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -409,7 +409,7 @@
 					src.linkedServer.pda_msgs -= locate(href_list["delete"])
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Delete the request console log.
-		if (href_list["deleter"])
+		if(href_list["deleter"])
 			//Are they on the view logs screen?
 			if(screen == 4)
 				if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -418,14 +418,14 @@
 					src.linkedServer.rc_msgs -= locate(href_list["deleter"])
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Create a custom message
-		if (href_list["msg"])
+		if(href_list["msg"])
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
 				if(auth)
 					src.screen = 3
 		//Fake messaging selection - KEY REQUIRED
-		if (href_list["select"])
+		if(href_list["select"])
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 				screen = 0
@@ -484,10 +484,10 @@
 							return src.attack_hand(usr)
 
 						var/obj/item/device/pda/PDARec = null
-						for (var/obj/item/device/pda/P in PDAs)
+						for(var/obj/item/device/pda/P in PDAs)
 							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
-							if (!PM || !PM.can_receive())
+							if(!PM || !PM.can_receive())
 								continue
 							if(P.owner == customsender)
 								PDARec = P
@@ -520,15 +520,15 @@
 
 //			to_chat(usr, href_list["select"])
 
-		if (href_list["back"])
+		if(href_list["back"])
 			src.screen = 0
 		// View chat room list
-		if (href_list["chatroom"])
+		if(href_list["chatroom"])
 			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else if(auth)
 				screen = 5
-		if (href_list["viewroom"])
+		if(href_list["viewroom"])
 			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else if(auth)

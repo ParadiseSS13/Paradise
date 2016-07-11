@@ -21,12 +21,12 @@
 
 /proc/log_admin(text)
 	admin_log.Add(text)
-	if (config.log_admin)
+	if(config.log_admin)
 		diary << "\[[time_stamp()]]ADMIN: [text]"
 
 
 /proc/log_debug(text)
-	if (config.log_debug)
+	if(config.log_debug)
 		diary << "\[[time_stamp()]]DEBUG: [text]"
 
 	for(var/client/C in admins)
@@ -35,47 +35,47 @@
 
 
 /proc/log_game(text)
-	if (config.log_game)
+	if(config.log_game)
 		diary << "\[[time_stamp()]]GAME: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_vote(text)
-	if (config.log_vote)
+	if(config.log_vote)
 		diary << "\[[time_stamp()]]VOTE: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_access(text)
-	if (config.log_access)
+	if(config.log_access)
 		diary << "\[[time_stamp()]]ACCESS: [text]"
 
 /proc/log_say(text)
-	if (config.log_say)
+	if(config.log_say)
 		diary << "\[[time_stamp()]]SAY: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_ooc(text)
-	if (config.log_ooc)
+	if(config.log_ooc)
 		diary << "\[[time_stamp()]]OOC: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_whisper(text)
-	if (config.log_whisper)
+	if(config.log_whisper)
 		diary << "\[[time_stamp()]]WHISPER: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_emote(text)
-	if (config.log_emote)
+	if(config.log_emote)
 		diary << "\[[time_stamp()]]EMOTE: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_attack(text)
-	if (config.log_attack)
+	if(config.log_attack)
 		diary << "\[[time_stamp()]]ATTACK: [text]" //Seperate attack logs? Why?
 
 /proc/log_adminsay(text)
-	if (config.log_adminchat)
+	if(config.log_adminchat)
 		diary << "\[[time_stamp()]]ADMINSAY: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_adminwarn(text)
-	if (config.log_adminwarn)
+	if(config.log_adminwarn)
 		diary << "\[[time_stamp()]]ADMINWARN: [text]"
 
 /proc/log_pda(text)
-	if (config.log_pda)
+	if(config.log_pda)
 		diary << "\[[time_stamp()]]PDA: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_misc(text)

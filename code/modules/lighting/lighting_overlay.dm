@@ -27,7 +27,7 @@
 	var/turf/T = loc //If this runtimes atleast we'll know what's creating overlays outside of turfs.
 	T.lighting_overlay = src
 	T.luminosity = 0
-	if (no_update)
+	if(no_update)
 		return
 	update_overlay()
 
@@ -64,15 +64,15 @@
 		if(mx > 1)
 			. = 1 / mx
 
-		else if (mx < LIGHTING_SOFT_THRESHOLD)
+		else if(mx < LIGHTING_SOFT_THRESHOLD)
 			. = 0 // 0 means soft lighting.
 
-		if (wa)
+		if(wa)
 			to_chat(world, "[.] [mx] [max] ")
 
 		max = max(max, mx)
 
-		if (.)
+		if(.)
 			L[i + 0]   = C.lum_r * .
 			L[i + 1]   = C.lum_g * .
 			L[i + 2]   = C.lum_b * .

@@ -6,7 +6,7 @@
 	icon_state = "handcuff"
 	flags = CONDUCT
 	throwforce = 0
-	w_class = 3.0
+	w_class = 3
 	origin_tech = "materials=1"
 	slowdown = 7
 	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
@@ -169,9 +169,9 @@
 				H.Stun(2)
 				H.drop_item(src)
 				return
-	if (!thrown_from && usr) //if something hasn't set it already (like a mech does when it launches)
+	if(!thrown_from && usr) //if something hasn't set it already (like a mech does when it launches)
 		thrown_from = usr //then the user must have thrown it
-	if (!istype(thrown_from, /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas))
+	if(!istype(thrown_from, /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas))
 		playsound(src, throw_sound, 20, 1) //because mechs play the sound anyways
 	var/turf/target = get_turf(A)
 	var/atom/movable/adjtarget = new /atom/movable
@@ -179,12 +179,12 @@
 	var/yadjust = 0
 	var/scaler = 0 //used to changed the normalised vector to the proper size
 	scaler = throw_range / max(abs(target.x - src.x), abs(target.y - src.y)) //whichever is larger magnitude is what we normalise to
-	if (target.x - src.x != 0) //just to avoid fucking with math for no reason
+	if(target.x - src.x != 0) //just to avoid fucking with math for no reason
 		xadjust = round((target.x - src.x) * scaler) //normalised vector is now scaled up to throw_range
 		adjtarget.x = src.x + xadjust //the new target at max range
 	else
 		adjtarget.x = src.x
-	if (target.y - src.y != 0)
+	if(target.y - src.y != 0)
 		yadjust = round((target.y - src.y) * scaler)
 		adjtarget.y = src.y + yadjust
 	else

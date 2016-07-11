@@ -76,7 +76,7 @@
 
 /obj/structure/mirror/attack_slime(mob/living/user as mob)
 	var/mob/living/carbon/slime/S = user
-	if (!S.is_adult)
+	if(!S.is_adult)
 		return
 	user.do_attack_animation(src)
 	if(shattered)

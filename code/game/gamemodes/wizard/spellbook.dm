@@ -233,6 +233,11 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/cluwne
+	name = "Curse of the Cluwne"
+	spell_type = /obj/effect/proc_holder/spell/targeted/touch/cluwne
+	log_name = "CC"
+
 /datum/spellbook_entry/item
 	name = "Buy Item"
 	refundable = 0
@@ -298,7 +303,7 @@
 
 /datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	if(..())
-		if (!(XRAY in user.mutations))
+		if(!(XRAY in user.mutations))
 			user.mutations.Add(XRAY)
 			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
@@ -397,6 +402,14 @@
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
 	item_path = /obj/item/weapon/twohanded/singularityhammer
 	log_name = "SI"
+
+/datum/spellbook_entry/item/cursed_heart
+	name = "Cursed Heart"
+	desc = "A heart that has been revived by dark magicks, the user must concentrate to ensure the heart beats, but every beat heals them. It must beat every 6 seconds."
+	item_path = /obj/item/organ/internal/heart/cursed/wizard
+	log_name = "CH"
+	cost = 1
+	category = "Defensive"
 
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"

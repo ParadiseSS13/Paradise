@@ -224,8 +224,7 @@
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in mob_list)
-		M << 'sound/effects/supermatter.ogg'//everyone gunna know bout this
-
+		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
 		to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
 	qdel(src)
 	return(gain)
@@ -279,7 +278,7 @@
 		data["detonating"] = 0
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "supermatter_crystal.tmpl", "Supermatter Crystal", 500, 300)
 		ui.set_initial_data(data)
 		ui.open()

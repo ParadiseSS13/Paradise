@@ -170,14 +170,14 @@
 	data["view"] = current_view
 
 	var/channels[0]
-	for (var/ch_name in owner.law_channels())
+	for(var/ch_name in owner.law_channels())
 		channels[++channels.len] = list("channel" = ch_name)
 	data["channel"] = owner.lawchannel
 	data["channels"] = channels
 	data["law_sets"] = package_multiple_laws(data["isAdmin"] ? admin_laws : player_laws)
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "law_manager.tmpl", sanitize("[src] - [owner.name]"), 800, is_malf(user) ? 600 : 400, state = state)
 		ui.set_initial_data(data)
 		ui.open()

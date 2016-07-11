@@ -61,7 +61,7 @@
 			if(!(A.returntype in valid_returntypes))
 				continue
 			choices[A.name]=A
-		if (choices.len==0)
+		if(choices.len==0)
 			testing("Unable to find automations with returntype in [english_list(valid_returntypes)]!")
 			return 0
 		var/label=input(user, "Select new automation:", "Automations", "Cancel") as null|anything in choices

@@ -57,7 +57,7 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 			to_chat(user, "Nothing happens.")
 			return
 
-		if (!istype(source))
+		if(!istype(source))
 			return
 
 		if(source.ckey)
@@ -108,17 +108,17 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 		callHook("harvest_podman", list(podman))
 
 		switch(ticker.mode.name)
-			if ("revolution")
-				if (podman.mind in ticker.mode:revolutionaries)
+			if("revolution")
+				if(podman.mind in ticker.mode:revolutionaries)
 					ticker.mode:add_revolutionary(podman.mind)
 					ticker.mode:update_all_rev_icons() //So the icon actually appears
-				if (podman.mind in ticker.mode:head_revolutionaries)
+				if(podman.mind in ticker.mode:head_revolutionaries)
 					ticker.mode:update_all_rev_icons()
-			if ("nuclear emergency")
-				if (podman.mind in ticker.mode:syndicates)
+			if("nuclear emergency")
+				if(podman.mind in ticker.mode:syndicates)
 					ticker.mode:update_all_synd_icons()
-			if ("cult")
-				if (podman.mind in ticker.mode:cult)
+			if("cult")
+				if(podman.mind in ticker.mode:cult)
 					ticker.mode:add_cultist(podman.mind)
 					ticker.mode:update_all_cult_icons() //So the icon actually appears
 			// -- End mode specific stuff

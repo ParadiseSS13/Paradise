@@ -30,7 +30,7 @@
 				break
 			force += 4
 			throwforce += 4
-			user << 'sound/goonstation/effects/screech.ogg'
+			user << 'sound/goonstation/effects/screech.ogg'
 			shake_camera(user, 20, 1)
 			to_chat(user, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
 			original_owner = user
@@ -73,7 +73,7 @@
 	..()
 
 /obj/item/weapon/storage/toolbox/green/memetic/proc/consume(mob/M)
-	if (!M)
+	if(!M)
 		return
 	hunger = 0
 	hunger_message_level = 0

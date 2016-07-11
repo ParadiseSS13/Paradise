@@ -1,5 +1,5 @@
 /obj/item/weapon/gun/projectile/automatic
-	w_class = 3.0
+	w_class = 3
 	var/alarmed = 0
 	var/select = 1
 	can_suppress = 1
@@ -220,7 +220,7 @@
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
-	w_class = 3.0
+	w_class = 3
 	origin_tech = "combat=5;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/Gunshot4.ogg'

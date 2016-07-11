@@ -39,10 +39,10 @@
 
 
 /mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
-	for (var/slot in slots)
-		if (equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
+	for(var/slot in slots)
+		if(equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
 			return slot
-	if (del_on_fail)
+	if(del_on_fail)
 		qdel(W)
 	return null
 
@@ -150,7 +150,7 @@
 	else if(I == r_ear)
 		r_ear = null
 		update_inv_ears()
-	else if (I == l_ear)
+	else if(I == l_ear)
 		l_ear = null
 		update_inv_ears()
 	else if(I == shoes)

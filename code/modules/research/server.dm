@@ -132,10 +132,10 @@
 				air_update_turf()
 
 /obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if (disabled)
+	if(disabled)
 		return
 
-	if (shocked)
+	if(shocked)
 		shock(user,50)
 
 	if(istype(O, /obj/item/weapon/screwdriver))
@@ -145,17 +145,17 @@
 	if(exchange_parts(user, O))
 		return 1
 
-	if (panel_open)
+	if(panel_open)
 		if(istype(O, /obj/item/weapon/crowbar))
 			griefProtection()
 			default_deconstruction_crowbar(O)
 			return 1
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
-	if (disabled)
+	if(disabled)
 		return
 
-	if (shocked)
+	if(shocked)
 		shock(user,50)
 	return
 

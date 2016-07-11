@@ -100,7 +100,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 				A.electrify(0)
 			return // Don't update the dialog.
 
-		if (AIRLOCK_WIRE_SAFETY)
+		if(AIRLOCK_WIRE_SAFETY)
 			A.safe = mended
 
 		if(AIRLOCK_WIRE_SPEED)

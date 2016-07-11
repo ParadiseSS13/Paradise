@@ -33,7 +33,7 @@
 			return
 	var/admin_sql_ckey = sanitizeSQL(adminckey)
 	if(!server)
-		if (config && config.server_name)
+		if(config && config.server_name)
 			server = config.server_name
 	server = sanitizeSQL(server)
 	var/DBQuery/query_noteadd = dbcon.NewQuery("INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server) VALUES ('[target_sql_ckey]', '[timestamp]', '[notetext]', '[admin_sql_ckey]', '[server]')")

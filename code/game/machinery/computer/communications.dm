@@ -54,7 +54,7 @@
 	if(..(href, href_list))
 		return 1
 
-	if ((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
+	if((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
 		to_chat(usr, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return 1
 
@@ -65,10 +65,10 @@
 		var/mob/living/carbon/human/M = usr
 		var/obj/item/card = M.get_active_hand()
 		var/obj/item/weapon/card/id/I = (card && card.GetID())||M.wear_id||M.wear_pda
-		if (istype(I, /obj/item/device/pda))
+		if(istype(I, /obj/item/device/pda))
 			var/obj/item/device/pda/pda = I
 			I = pda.id
-		if (I && istype(I))
+		if(I && istype(I))
 			if(src.check_access(I))
 				authenticated = 1
 			if(access_captain in I.access)
@@ -103,10 +103,10 @@
 			var/mob/living/carbon/human/L = usr
 			var/obj/item/card = L.get_active_hand()
 			var/obj/item/weapon/card/id/I = (card && card.GetID())||L.wear_id||L.wear_pda
-			if (istype(I, /obj/item/device/pda))
+			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
-			if (I && istype(I))
+			if(I && istype(I))
 				if(access_captain in I.access)
 					var/old_level = security_level
 					if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
@@ -303,7 +303,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if (!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
+	if(!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
 		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return
 
@@ -376,7 +376,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "comm_console.tmpl", "Communications Console", 400, 500)

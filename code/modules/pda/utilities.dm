@@ -67,7 +67,7 @@
 /datum/data/pda/utility/scanmode/dna/scan_mob(mob/living/C as mob, mob/living/user as mob)
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
-		if (!istype(H.dna, /datum/dna))
+		if(!istype(H.dna, /datum/dna))
 			to_chat(user, "<span class=notice>No fingerprints found on [H]</span>")
 		else
 			to_chat(user, "<span class=notice>[H]'s Fingerprints: [md5(H.dna.uni_identity)]</span>")
@@ -77,7 +77,7 @@
 	scan_blood(A, user)
 
 /datum/data/pda/utility/scanmode/dna/proc/scan_blood(atom/A, mob/user)
-	if (!A.blood_DNA)
+	if(!A.blood_DNA)
 		to_chat(user, "<span class=notice>No blood found on [A]</span>")
 		if(A.blood_DNA)
 			qdel(A.blood_DNA)
@@ -121,27 +121,27 @@
 	icon = "tachometer"
 
 /datum/data/pda/utility/scanmode/gas/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
-	if (istype(A, /obj/item/weapon/tank))
+	if(istype(A, /obj/item/weapon/tank))
 		var/obj/item/weapon/tank/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
-	else if (istype(A, /obj/machinery/portable_atmospherics))
+	else if(istype(A, /obj/machinery/portable_atmospherics))
 		var/obj/machinery/portable_atmospherics/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
-	else if (istype(A, /obj/machinery/atmospherics/pipe))
+	else if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/T = A
 		pda.atmosanalyzer_scan(T.parent.air, user, T)
-	else if (istype(A, /obj/machinery/power/rad_collector))
+	else if(istype(A, /obj/machinery/power/rad_collector))
 		var/obj/machinery/power/rad_collector/T = A
 		if(T.P)
 			pda.atmosanalyzer_scan(T.P.air_contents, user, T)
-	else if (istype(A, /obj/item/weapon/flamethrower))
+	else if(istype(A, /obj/item/weapon/flamethrower))
 		var/obj/item/weapon/flamethrower/T = A
 		if(T.ptank)
 			pda.atmosanalyzer_scan(T.ptank.air_contents, user, T)
-	else if (istype(A, /obj/machinery/portable_atmospherics/scrubber/huge))
+	else if(istype(A, /obj/machinery/portable_atmospherics/scrubber/huge))
 		var/obj/machinery/portable_atmospherics/scrubber/huge/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
-	else if (istype(A, /obj/machinery/atmospherics/unary/tank))
+	else if(istype(A, /obj/machinery/atmospherics/unary/tank))
 		var/obj/machinery/atmospherics/unary/tank/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
 

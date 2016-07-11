@@ -31,7 +31,8 @@ var/list/chatResources = list(
 		return 0
 
 	if(!winexists(owner, "browseroutput"))
-		alert(owner.mob, "Updated chat window does not exist. If you are using a custom skin file please allow the game to update.")
+		spawn()
+			alert(owner.mob, "Updated chat window does not exist. If you are using a custom skin file please allow the game to update.")
 		broken = TRUE
 		return 0
 

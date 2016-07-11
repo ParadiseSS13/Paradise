@@ -105,9 +105,9 @@
 	return
 
 /obj/machinery/space_heater/air_conditioner/Topic(href, href_list)
-	if (usr.stat)
+	if(usr.stat)
 		return
-	if ((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
+	if((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
 		switch(href_list["op"])

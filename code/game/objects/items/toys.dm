@@ -47,7 +47,7 @@
 
 /obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
-	if (istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
+	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
 		A.reagents.trans_to(src, 10)
 		to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
 		desc = "A translucent balloon with some form of liquid sloshing around in it."
@@ -109,7 +109,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
-	w_class = 4.0
+	w_class = 4
 
 /*
  * Fake telebeacon
@@ -140,13 +140,12 @@
 	icon_state = "sword0"
 	item_state = "sword0"
 	var/active = 0.0
-	w_class = 2.0
-	flags = NOSHIELD
+	w_class = 2
 	attack_verb = list("attacked", "struck", "hit")
 
 /obj/item/toy/sword/attack_self(mob/user as mob)
 	active = !(active)
-	if (active)
+	if(active)
 		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		icon_state = "swordblue"
@@ -199,7 +198,7 @@
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 
-/obj/item/weapon/twohanded/dualsaber/toy/IsShield()
+/obj/item/weapon/twohanded/dualsaber/toy/hit_reaction()
 	return 0
 
 /obj/item/weapon/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
@@ -417,7 +416,7 @@ obj/item/toy/cards/deck
 	icon = 'icons/obj/toy.dmi'
 	deckstyle = "nanotrasen"
 	icon_state = "deck_nanotrasen_full"
-	w_class = 2.0
+	w_class = 2
 	var/cooldown = 0
 	var/list/cards = list()
 
@@ -547,7 +546,7 @@ obj/item/toy/cards/cardhand
 	desc = "A number of cards not in a deck, customarily held in ones hand."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nanotrasen_hand2"
-	w_class = 1.0
+	w_class = 1
 	var/list/currenthand = list()
 	var/choice = null
 
@@ -575,7 +574,7 @@ obj/item/toy/cards/cardhand/Topic(href, href_list)
 	var/mob/living/carbon/human/cardUser = usr
 	var/O = src
 	if(href_list["pick"])
-		if (cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+		if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 			var/choice = href_list["pick"]
 			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
 			currenthand -= choice
@@ -640,7 +639,7 @@ obj/item/toy/cards/singlecard
 	desc = "a card"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "singlecard_nanotrasen_down"
-	w_class = 1.0
+	w_class = 1
 	var/cardname = null
 	var/flipped = 0
 	pixel_x = -5
@@ -664,7 +663,7 @@ obj/item/toy/cards/singlecard/verb/Flip()
 		return
 	if(!flipped)
 		flipped = 1
-		if (cardname)
+		if(cardname)
 			icon_state = "sc_[cardname]_[deckstyle]"
 			name = cardname
 		else
@@ -765,11 +764,11 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "A plastic model of a Nuclear Fission Explosive."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoyidle"
-	w_class = 2.0
+	w_class = 2
 	var/cooldown = 0
 
 /obj/item/toy/nuke/attack_self(mob/user)
-	if (cooldown < world.time)
+	if(cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
 		spawn(5) //gia said so
@@ -841,7 +840,7 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "toddler"
 	desc = "This baby looks almost real. Wait, did it just burp?"
 	force = 5
-	w_class = 4.0
+	w_class = 4
 	slot_flags = SLOT_BACK
 
 
@@ -864,7 +863,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minimeteor"
-	w_class = 2.0
+	w_class = 2
 
 /obj/item/toy/minimeteor/throw_impact(atom/hit_atom)
 	..()
@@ -1098,11 +1097,11 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "A big, plastic red button. Reads 'From HonkCo Pranks?' on the back."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
-	w_class = 2.0
+	w_class = 2
 	var/cooldown = 0
 
 /obj/item/toy/redbutton/attack_self(mob/user)
-	if (cooldown < world.time)
+	if(cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
 		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='notice'>The button clicks loudly.</span>")
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, 0)
@@ -1123,7 +1122,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "A little toy model AI core with real law announcing action!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "AI"
-	w_class = 2.0
+	w_class = 2
 	var/cooldown = 0
 
 /obj/item/toy/AI/attack_self(mob/user)
@@ -1142,7 +1141,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "An action figure modeled after 'The Owl', defender of justice."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "owlprize"
-	w_class = 2.0
+	w_class = 2
 	var/cooldown = 0
 
 /obj/item/toy/owl/attack_self(mob/user)
@@ -1161,7 +1160,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "An action figure modeled after 'The Griffin', criminal mastermind."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "griffinprize"
-	w_class = 2.0
+	w_class = 2
 	var/cooldown = 0
 
 /obj/item/toy/griffin/attack_self(mob/user)
@@ -1255,7 +1254,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minigibber"
 	attack_verb = list("grinded", "gibbed")
-	w_class = 2.0
+	w_class = 2
 	var/cooldown = 0
 	var/obj/stored_minature = null
 
@@ -1327,7 +1326,7 @@ obj/item/toy/cards/deck/syndicate/black
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = 3.0
+	w_class = 3
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 5

@@ -194,7 +194,7 @@ var/const/SAFETY_COOLDOWN = 100
 
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (src.anchored)
+	if(src.anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 270)
@@ -210,7 +210,7 @@ var/const/SAFETY_COOLDOWN = 100
 
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (src.anchored)
+	if(src.anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 90)
