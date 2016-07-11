@@ -460,7 +460,7 @@
 		var/global/list/available_recipes
 		if(!available_recipes)
 			available_recipes = list()
-			for (var/type in subtypesof(/datum/recipe))
+			for(var/type in subtypesof(/datum/recipe))
 				var/datum/recipe/recipe = new type
 				if(recipe.result) // Ignore recipe subtypes that lack a result
 					available_recipes += recipe

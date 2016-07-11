@@ -48,12 +48,12 @@
 /obj/item/weapon/reagent_containers/glass/examine(mob/user)
 	if(!..(user, 2))
 		return
-	if (!is_open_container())
+	if(!is_open_container())
 		to_chat(user, "<span class='notice'>Airtight lid seals it completely.</span>")
 
 /obj/item/weapon/reagent_containers/glass/attack_self()
 	..()
-	if (is_open_container())
+	if(is_open_container())
 		to_chat(usr, "<span class='notice'>You put the lid on \the [src].</span>")
 		flags ^= OPENCONTAINER
 	else
@@ -63,7 +63,7 @@
 
 /obj/item/weapon/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
 	if(!proximity) return
-	if (!is_open_container())
+	if(!is_open_container())
 		return
 
 	for(var/type in can_be_placed_into)
@@ -216,7 +216,7 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
 
-	if (!is_open_container())
+	if(!is_open_container())
 		var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
 		overlays += lid
 	if(assembly)
@@ -228,7 +228,7 @@
 	set src in usr
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (assembly)
+	if(assembly)
 		to_chat(usr, "<span class='notice'>You detach [assembly] from \the [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
@@ -242,8 +242,8 @@
 		reagents.handle_reactions()
 
 /obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W,/obj/item/device/assembly_holder))
-		if (assembly)
+	if(istype(W,/obj/item/device/assembly_holder))
+		if(assembly)
 			to_chat(usr, "<span class='warning'>The [src] already has an assembly.</span>")
 			return ..()
 		assembly = W
@@ -334,7 +334,7 @@
 	icon_state = "bucket"
 	item_state = "bucket"
 	materials = list(MAT_METAL=200)
-	w_class = 3.0
+	w_class = 3
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
@@ -384,7 +384,7 @@
 	icon_state = "canister"
 	item_state = "canister"
 	materials = list(MAT_METAL=300)
-	w_class = 4.0
+	w_class = 4
 
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(10,20,30,60)

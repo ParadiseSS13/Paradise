@@ -122,3 +122,12 @@
 #define NUTRITION_LEVEL_FED 350
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
+<<<<<<< HEAD
+=======
+
+//Used for calculations for negative effects of having genetics powers
+#define DEFAULT_GENE_STABILITY 100
+#define GENE_INSTABILITY_MINOR 5
+#define GENE_INSTABILITY_MODERATE 10
+#define GENE_INSTABILITY_MAJOR 15
+>>>>>>> 26e13f270f62f6104106ed087a318469ad4d9d02

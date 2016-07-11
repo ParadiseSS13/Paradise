@@ -66,7 +66,7 @@
 
 /obj/structure/proc/do_climb(var/mob/living/user)
 
-	if (!can_touch(user) || !climbable)
+	if(!can_touch(user) || !climbable)
 		return
 
 	for(var/obj/O in range(0, src))
@@ -89,7 +89,7 @@
 		climber = null
 		return
 
-	if (!can_touch(user) || !climbable)
+	if(!can_touch(user) || !climbable)
 		climber = null
 		return
 
@@ -99,7 +99,7 @@
 		return
 
 	usr.loc = get_turf(src)
-	if (get_turf(user) == get_turf(src))
+	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	climber = null
@@ -150,16 +150,16 @@
 	return
 
 /obj/structure/proc/can_touch(var/mob/user)
-	if (!user)
+	if(!user)
 		return 0
 	if(!Adjacent(user))
 		return 0
-	if (user.restrained() || user.buckled)
+	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if (user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
+	if(user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
 		return 0
-	if (issilicon(user))
+	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")
 		return 0
 	return 1

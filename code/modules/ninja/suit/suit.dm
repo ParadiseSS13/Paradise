@@ -15,7 +15,7 @@ Contents:
 	allowed = list(/obj/item/weapon/gun, /obj/item/ammo_box, /obj/item/weapon/melee/baton, /obj/item/weapon/tank, /obj/item/weapon/stock_parts/cell)
 	slowdown = 0
 	unacidable = 1
-	armor = list(melee = 60, bullet = 60, laser = 45,energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 60, bullet = 60, laser = 45, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 	var/suitActive = 0
 	var/suitBusy = 0

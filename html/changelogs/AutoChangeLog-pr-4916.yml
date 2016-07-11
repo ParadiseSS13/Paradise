@@ -1,0 +1,4 @@
+author: Ar3nn
+delete-after: True
+changes: 
+  - rscadd: "Adds a silence button to newscasters, which will silence the regular update sounds"

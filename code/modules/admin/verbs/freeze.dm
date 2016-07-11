@@ -93,7 +93,7 @@ var/global/list/frozen_mob_list = list()
 		return
 	else
 		if(usr)
-			if (usr.client)
+			if(usr.client)
 				if(usr.client.holder)
 					var/adminomaly = new/obj/effect/overlay/adminoverlay
 					if(M.can_move == 1)

@@ -16,7 +16,7 @@ obj/machinery/door/airlock/process()
 		return PROCESS_KILL
 
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
-	if (!arePowerSystemsOn()) return //no power
+	if(!arePowerSystemsOn()) return //no power
 
 	if(!signal || signal.encryption) return
 
@@ -30,7 +30,7 @@ obj/machinery/door/airlock/proc/execute_current_command()
 	if(operating)
 		return //emagged or busy doing something else
 
-	if (!cur_command)
+	if(!cur_command)
 		return
 
 	do_command(cur_command)
@@ -103,7 +103,7 @@ obj/machinery/door/airlock/proc/send_status(var/bumped = 0)
 		signal.data["door_status"] = density?("closed"):("open")
 		signal.data["lock_status"] = locked?("locked"):("unlocked")
 
-		if (bumped)
+		if(bumped)
 			signal.data["bumped_with_access"] = 1
 
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
@@ -252,7 +252,7 @@ obj/machinery/access_button/update_icon()
 
 obj/machinery/access_button/attackby(obj/item/I as obj, mob/user as mob, params)
 	//Swiping ID on the access button
-	if (istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
+	if(istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
 		attack_hand(user)
 		return
 	..()

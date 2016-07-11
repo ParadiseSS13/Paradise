@@ -46,11 +46,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
 
 	var/screen = 1.0	//Which screen is currently showing.
-	
+
 	var/menu = 0 // Current menu.
 	var/submenu = 0
 	var/wait_message = 0
-	
+
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
 
@@ -76,7 +76,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 proc/CallMaterialName(ID)
 	var/datum/reagent/temp_reagent
 	var/return_name = null
-	if (copytext(ID, 1, 2) == "$")
+	if(copytext(ID, 1, 2) == "$")
 		return_name = copytext(ID, 2)
 		switch(return_name)
 			if("metal")
@@ -168,7 +168,7 @@ proc/CallMaterialName(ID)
 			return
 
 		if(istype(D, /obj/item/weapon/disk/tech_disk)) t_disk = D
-		else if (istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
+		else if(istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
 			return
@@ -221,7 +221,7 @@ proc/CallMaterialName(ID)
 			if(href_list["category"] in D.category)
 				matching_designs.Add(D)
 		submenu = 1
-		
+
 		selected_category = "Viewing Category [href_list["category"]]"
 
 	else if(href_list["updt_tech"]) //Update the research holder with information from the technology disk.
@@ -432,13 +432,13 @@ proc/CallMaterialName(ID)
 				if(linked_lathe.busy)
 					g2g = 0
 				var/key = usr.key	//so we don't lose the info during the spawn delay
-				if (!(being_built.build_type & PROTOLATHE))
+				if(!(being_built.build_type & PROTOLATHE))
 					g2g = 0
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
 
 
-				if (g2g) //If input is incorrect, nothing happens
+				if(g2g) //If input is incorrect, nothing happens
 					var/enough_materials = 1
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
@@ -466,9 +466,9 @@ proc/CallMaterialName(ID)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/O = being_built.locked
-					
+
 					coeff *= being_built.lathe_time_factor
-					
+
 					spawn(32*amount/coeff)
 						if(g2g) //And if we only fail the material requirements, we still spend time and power
 							for(var/i = 0, i<amount, i++)
@@ -509,13 +509,13 @@ proc/CallMaterialName(ID)
 					power += round(being_built.materials[M] / 5)
 				power = max(2000, power)
 				wait_message = "Imprinting Circuit. Please Wait..."
-				if (linked_imprinter.busy)
+				if(linked_imprinter.busy)
 					g2g = 0
-				if (!(being_built.build_type & IMPRINTER))
+				if(!(being_built.build_type & IMPRINTER))
 					g2g = 0
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
 
-				if (g2g) //Again, if input is wrong, do nothing
+				if(g2g) //Again, if input is wrong, do nothing
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
@@ -559,10 +559,10 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["lathe_ejectsheet"] && linked_lathe) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets
-		if (href_list["lathe_ejectsheet_amt"] == "custom")
+		if(href_list["lathe_ejectsheet_amt"] == "custom")
 			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			desired_num_sheets = max(0,desired_num_sheets) // If you input too high of a number, the mineral datum will take care of it either way
-			if (!desired_num_sheets)
+			if(!desired_num_sheets)
 				return
 			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
@@ -571,10 +571,10 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["imprinter_ejectsheet"] && linked_imprinter) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
-		if (href_list["imprinter_ejectsheet_amt"] == "custom")
+		if(href_list["imprinter_ejectsheet_amt"] == "custom")
 			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			desired_num_sheets = max(0,desired_num_sheets) // for the imprinter they have something hacky, that still will guard against shenanigans. eh
-			if (!desired_num_sheets)
+			if(!desired_num_sheets)
 				return
 			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
@@ -645,7 +645,7 @@ proc/CallMaterialName(ID)
 			if(findtext(D.name,href_list["to_search"]))
 				matching_designs.Add(D)
 		submenu = 1
-		
+
 		selected_category = "Search Results for '[href_list["to_search"]]'"
 
 	nanomanager.update_uis(src)
@@ -663,14 +663,14 @@ proc/CallMaterialName(ID)
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
 	var/data = list()
-	
+
 	files.RefreshResearch()
-	
+
 	data["menu"] = menu
 	data["submenu"] = submenu
 	data["wait_message"] = wait_message
 	data["src_ref"] = "\ref[src]"
-	
+
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
@@ -678,8 +678,8 @@ proc/CallMaterialName(ID)
 	data["admin"] = check_rights(R_ADMIN,0)
 	data["disk_type"] = d_disk ? 2 : (t_disk ? 1 : 0)
 	data["category"] = selected_category
-	
-	if(menu == 1)
+
+	if(menu == 0 || menu == 1)
 		var/list/tech_levels = list()
 		data["tech_levels"] = tech_levels
 		for(var/datum/tech/T in files.known_tech)
@@ -690,16 +690,16 @@ proc/CallMaterialName(ID)
 			this_tech_list["level"] = T.level
 			this_tech_list["desc"] = T.desc
 			tech_levels[++tech_levels.len] = this_tech_list
-	
+
 	if(menu == 2)
-		
+
 		if(t_disk != null && t_disk.stored != null && submenu == 0) //Technology Disk Menu
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
 			disk_data["name"] = t_disk.stored.name
 			disk_data["level"] = t_disk.stored.level
 			disk_data["desc"] = t_disk.stored.desc
-	
+
 		if(t_disk != null && submenu == 1)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
@@ -710,7 +710,7 @@ proc/CallMaterialName(ID)
 					continue
 				item["name"] = T.name
 				item["id"] = T.id
-	
+
 		if(d_disk != null && d_disk.blueprint != null && submenu == 0)
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
@@ -732,7 +732,7 @@ proc/CallMaterialName(ID)
 				materials[++materials.len] = material
 				material["name"] = CallMaterialName(M)
 				material["amount"] = d_disk.blueprint.materials[M]
-	
+
 		if(d_disk != null && submenu == 1)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
@@ -759,7 +759,7 @@ proc/CallMaterialName(ID)
 				if(F.name == CallTechName(T))
 					tech_item["current_level"] = F.level
 					break
-	
+
 	if(menu == 4 && linked_lathe)
 		data["total_materials"] = linked_lathe.materials.total_amount
 		data["max_materials"] = linked_lathe.materials.max_amount
@@ -783,7 +783,7 @@ proc/CallMaterialName(ID)
 					material_list["name"] = CallMaterialName(M)
 					material_list["amount"] = D.materials[M]
 					var/t = linked_lathe.check_mat(D, M)
-					
+
 					if(t < 1)
 						material_list["is_red"] = 1
 					else
@@ -796,7 +796,7 @@ proc/CallMaterialName(ID)
 					material_list["name"] = CallMaterialName(R)
 					material_list["amount"] = D.reagents[R]
 					var/t = linked_lathe.check_mat(D, R)
-					
+
 					if(t < 1)
 						material_list["is_red"] = 1
 					else
@@ -824,7 +824,7 @@ proc/CallMaterialName(ID)
 				loaded_chemical["name"] = R.name
 				loaded_chemical["volume"] = R.volume
 				loaded_chemical["id"] = R.id
-	
+
 	if(menu == 5 && linked_imprinter)
 		data["total_materials"] = linked_imprinter.TotalMaterials()
 		data["total_chemicals"] = linked_imprinter.reagents.total_volume
@@ -846,7 +846,7 @@ proc/CallMaterialName(ID)
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(M)
 					material_list["amount"] = D.materials[M] / coeff
-					if (!linked_imprinter.check_mat(D, M))
+					if(!linked_imprinter.check_mat(D, M))
 						check_materials = 0
 						material_list["is_red"] = 1
 					else
@@ -867,9 +867,9 @@ proc/CallMaterialName(ID)
 				loaded_chemical["name"] = R.name
 				loaded_chemical["volume"] = R.volume
 				loaded_chemical["id"] = R.id
-	
+
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
 		ui.set_initial_data(data)
 		ui.open()

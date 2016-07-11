@@ -96,7 +96,7 @@
  */
 /obj/item/weapon/rack_parts/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/metal(user.loc)
 		qdel(src)
 

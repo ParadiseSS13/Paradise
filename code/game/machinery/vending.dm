@@ -159,7 +159,7 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
@@ -209,14 +209,14 @@
 	return total
 
 /obj/machinery/vending/attackby(obj/item/weapon/W, mob/user, params)
-	if (currently_vending && vendor_account && !vendor_account.suspended)
+	if(currently_vending && vendor_account && !vendor_account.suspended)
 		var/paid = 0
 		var/handled = 0
 		if(istype(W, /obj/item/weapon/card/id))
 			var/obj/item/weapon/card/id/C = W
 			paid = pay_with_card(C)
 			handled = 1
-		else if (istype(W, /obj/item/weapon/spacecash))
+		else if(istype(W, /obj/item/weapon/spacecash))
 			var/obj/item/weapon/spacecash/C = W
 			paid = pay_with_cash(C, user)
 			handled = 1
@@ -327,7 +327,7 @@
 	return pay_with_account(get_card_account(I))
 
 /obj/machinery/vending/proc/pay_with_account(var/datum/money_account/customer_account)
-	if (!customer_account)
+	if(!customer_account)
 		src.status_message = "Error: Unable to access account. Please contact technical support if problem persists."
 		src.status_error = 1
 		return 0
@@ -443,7 +443,7 @@
 		data["panel"] = 0
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "vending_machine.tmpl", src.name, 440, 600)
 		ui.set_initial_data(data)
 		ui.open()
@@ -462,7 +462,7 @@
 		to_chat(usr, "\blue You remove the [coin] from the [src]")
 		categories &= ~CAT_COIN
 
-	if (href_list["pay"])
+	if(href_list["pay"])
 		if(currently_vending && vendor_account && !vendor_account.suspended)
 			var/paid = 0
 			var/handled = 0
@@ -480,8 +480,8 @@
 				nanomanager.update_uis(src)
 				return // don't smack that machine with your 2 credits
 
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
-		if ((href_list["vend"]) && (src.vend_ready) && (!currently_vending))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
+		if((href_list["vend"]) && (src.vend_ready) && (!currently_vending))
 
 			if(issilicon(usr) && !isrobot(usr))
 				to_chat(usr, "<span class=warning>The vending machine refuses to interface with you, as you are not in its target demographic!</span>")
@@ -511,10 +511,10 @@
 					src.status_message = "Please swipe a card or insert cash to pay for the item."
 					src.status_error = 0
 
-		else if (href_list["cancelpurchase"])
+		else if(href_list["cancelpurchase"])
 			src.currently_vending = null
 
-		else if ((href_list["togglevoice"]) && (src.panel_open))
+		else if((href_list["togglevoice"]) && (src.panel_open))
 			src.shut_up = !src.shut_up
 
 		src.add_fingerprint(usr)
@@ -534,7 +534,7 @@
 	src.status_error = 0
 	nanomanager.update_uis(src)
 
-	if (R.category & CAT_COIN)
+	if(R.category & CAT_COIN)
 		if(!coin)
 			to_chat(user, "\blue You need to insert a coin to get this item.")
 			return
@@ -559,7 +559,7 @@
 			src.last_reply = world.time
 
 	use_power(vend_power_usage)	//actuators and stuff
-	if (src.icon_vend) //Show the vending animation if needed
+	if(src.icon_vend) //Show the vending animation if needed
 		flick(src.icon_vend,src)
 	spawn(src.vend_delay)
 		new R.product_path(get_turf(src))
@@ -601,7 +601,7 @@
 	if(stat & NOPOWER)
 		return
 
-	if (!message)
+	if(!message)
 		return
 
 	for(var/mob/O in hearers(src, null))
@@ -623,10 +623,10 @@
 //Oh no we're malfunctioning!  Dump out some product and break.
 /obj/machinery/vending/proc/malfunction()
 	for(var/datum/data/vending_product/R in src.product_records)
-		if (R.amount <= 0) //Try to use a record that actually has something to dump.
+		if(R.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
 		var/dump_path = R.product_path
-		if (!dump_path)
+		if(!dump_path)
 			continue
 
 		while(R.amount>0)
@@ -646,16 +646,16 @@
 		return 0
 
 	for(var/datum/data/vending_product/R in src.product_records)
-		if (R.amount <= 0) //Try to use a record that actually has something to dump.
+		if(R.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
 		var/dump_path = R.product_path
-		if (!dump_path)
+		if(!dump_path)
 			continue
 
 		R.amount--
 		throw_item = new dump_path(src.loc)
 		break
-	if (!throw_item)
+	if(!throw_item)
 		return 0
 	spawn(0)
 		throw_item.throw_at(target, 16, 3, src)

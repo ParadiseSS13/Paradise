@@ -5,7 +5,7 @@
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "centhat"
-	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0)
 	strip_delay = 80
 
 /obj/item/clothing/head/hairflower
@@ -325,7 +325,7 @@
 	throwforce = 3.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
 
 /obj/item/clothing/head/griffin

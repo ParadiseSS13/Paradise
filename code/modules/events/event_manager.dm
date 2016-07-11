@@ -337,18 +337,18 @@
 
 	var/list/event_areas = list()
 
-	for (var/areapath in the_station_areas)
+	for(var/areapath in the_station_areas)
 		event_areas += typesof(areapath)
-	for (var/areapath in safe_areas)
+	for(var/areapath in safe_areas)
 		event_areas -= typesof(areapath)
-	for (var/areapath in danger_areas)
+	for(var/areapath in danger_areas)
 		event_areas += typesof(areapath)
 
-	while (event_areas.len > 0)
+	while(event_areas.len > 0)
 		var/list/event_turfs = null
 		candidate = locate(pick_n_take(event_areas))
 		event_turfs = get_area_turfs(candidate)
-		if (event_turfs.len > 0)
+		if(event_turfs.len > 0)
 			break
 
 	return candidate

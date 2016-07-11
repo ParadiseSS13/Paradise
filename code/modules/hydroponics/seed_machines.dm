@@ -3,7 +3,7 @@
 	desc = "A small disk used for carrying data on plant genetics."
 	icon = 'icons/obj/hydroponics_machines.dmi'
 	icon_state = "disk"
-	w_class = 1.0
+	w_class = 1
 
 	var/list/genes = list()
 	var/genesource = "unknown"
@@ -151,7 +151,7 @@
 
 /obj/machinery/botany/extractor/RefreshParts()
 	var/tier = 1
-	for (var/obj/item/weapon/stock_parts/scanning_module/S in component_parts)
+	for(var/obj/item/weapon/stock_parts/scanning_module/S in component_parts)
 		tier = S.rating
 	degrade_lower = 25 - (tier * 5)		//Tier 1: 20, Tier 4: 5
 	degrade_upper = 70 - (tier * 10)	//Tier 1: 60, Tier 4: 30
@@ -191,7 +191,7 @@
 		data["sourceName"] = 0
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "botany_isolator.tmpl", "Lysis-isolation Centrifuge UI", 470, 450)
 		ui.set_initial_data(data)
 		ui.open()
@@ -302,7 +302,7 @@
 
 /obj/machinery/botany/editor/RefreshParts()
 	var/tier = 1
-	for (var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		tier = M.rating
 	degrade_lower = 6 - tier		//Tier 1: 5, Tier 4: 1
 	degrade_upper = 11 - tier		//Tier 1: 10, Tier 4: 6
@@ -341,7 +341,7 @@
 		data["loaded"] = 0
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "botany_editor.tmpl", "Bioballistic Delivery UI", 470, 450)
 		ui.set_initial_data(data)
 		ui.open()

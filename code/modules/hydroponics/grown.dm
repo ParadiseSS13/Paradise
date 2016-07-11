@@ -254,7 +254,7 @@
 					for(var/i=0,i<2,i++)
 						var/obj/item/stack/sheet/wood/NG = new (user.loc)
 						NG.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
-						for (var/obj/item/stack/sheet/wood/G in user.loc)
+						for(var/obj/item/stack/sheet/wood/G in user.loc)
 							if(G==NG)
 								continue
 							if(G.amount>=G.max_amount)
@@ -325,7 +325,7 @@
 			else
 				user.visible_message("<span class='danger'>[M] has been attacked with [src] by [user]!</span>")
 
-			if (hitsound)
+			if(hitsound)
 				playsound(loc, hitsound, 50, 1, -1)
 			switch(damtype)
 				if("brute")
@@ -407,7 +407,7 @@
 				for(var/i=0,i<2,i++)
 					var/obj/item/stack/tile/grass/G = new (user.loc)
 					G.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
-					for (var/obj/item/stack/tile/grass/NG in user.loc)
+					for(var/obj/item/stack/tile/grass/NG in user.loc)
 						if(G==NG)
 							continue
 						if(NG.amount>=NG.max_amount)

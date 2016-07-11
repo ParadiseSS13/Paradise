@@ -43,7 +43,7 @@
 
 	spawn(20)
 		for(var/obj/machinery/door/window/brigdoor/M in airlocks)
-			if (M.id == id)
+			if(M.id == id)
 				targets += M
 
 		for(var/obj/machinery/flasher/F in machines)
@@ -194,7 +194,7 @@
 	dat += " <b>Door [src.id] controls</b><br/>"
 
 	// Start/Stop timer
-	if (src.timing)
+	if(src.timing)
 		dat += "<a href='?src=\ref[src];timing=0'>Stop Timer and open door</a><br/>"
 	else
 		dat += "<a href='?src=\ref[src];timing=1'>Activate Timer and close door</a><br/>"

@@ -175,26 +175,26 @@
 					reconnect_database()
 				if(linked_db && linked_account)
 					var/obj/item/I = usr.get_active_hand()
-					if (istype(I, /obj/item/weapon/card))
+					if(istype(I, /obj/item/weapon/card))
 						scan_card(I)
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
 			if("reset")
 				//reset the access code - requires HoP/captain access
 				var/obj/item/I = usr.get_active_hand()
-				if (istype(I, /obj/item/weapon/card))
+				if(istype(I, /obj/item/weapon/card))
 					var/obj/item/weapon/card/id/C = I
 					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)
 						access_code = 0
 						to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
-				else if (istype(I, /obj/item/weapon/card/emag))
+				else if(istype(I, /obj/item/weapon/card/emag))
 					access_code = 0
 					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
 	src.attack_self(usr)
 
 /obj/item/device/eftpos/proc/scan_card(var/obj/item/weapon/card/I)
-	if (istype(I, /obj/item/weapon/card/id))
+	if(istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 		if(transaction_locked && !transaction_paid)

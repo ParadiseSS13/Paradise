@@ -88,7 +88,7 @@
 				payload = null
 			else
 				to_chat(user, "<span class='notice'>There isn't anything in here to remove!</span>")
-		else if (open_panel)
+		else if(open_panel)
 			to_chat(user, "<span class='notice'>The wires conneting the shell to the explosives are holding it down!</span>")
 		else
 			to_chat(user, "<span class='notice'>The cover is screwed on, it won't pry off!</span>")
@@ -180,7 +180,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bombcore"
 	item_state = "eshield0"
-	w_class = 3.0
+	w_class = 3
 	origin_tech = "syndicate=6;combat=5"
 	var/adminlog = null
 
@@ -296,7 +296,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
 	item_state = "electronic"
-	w_class = 1.0
+	w_class = 1
 	origin_tech = "syndicate=2"
 	var/cooldown = 0
 	var/detonated =	0
