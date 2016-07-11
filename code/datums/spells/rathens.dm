@@ -33,8 +33,8 @@
 			A.forceMove(get_turf(H))
 			spawn()
 				A.throw_at(get_edge_target_turf(H, pick(alldirs)), rand(1, 10), 5)
-			H.visible_message("<span class='danger'>[H]'s [A.name] flies out their body in a magical explosion!</span>",\
-							  "<span class='danger'>Your [A.name] flies out your body in a magical explosion!</span>")
+			H.visible_message("<span class='danger'>[H]'s [A.name] flies out of their body in a magical explosion!</span>",\
+							  "<span class='danger'>Your [A.name] flies out of your body in a magical explosion!</span>")
 			H.Weaken(2)
 		else
 			var/obj/effect/decal/cleanable/blood/gibs/G = new/obj/effect/decal/cleanable/blood/gibs(get_turf(H))
