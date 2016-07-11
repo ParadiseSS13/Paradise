@@ -89,7 +89,10 @@
 			if(ghost.mind && ghost.mind.current == R)
 				R.key = ghost.key
 
-	R.revive()
+	R.stat = CONSCIOUS
+	dead_mob_list -= R //please never forget this ever kthx
+	living_mob_list += R
+	R.notify_ai(1)
 
 	return 1
 

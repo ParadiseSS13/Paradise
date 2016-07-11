@@ -1487,11 +1487,3 @@ var/list/robot_verbs_default = list(
 			disable_component("comms", 160)
 		if(2)
 			disable_component("comms", 60)
-
-/mob/living/silicon/robot/revive(admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		update_headlamp()
-		if(admin_revive)
-			locked = 1
-		notify_ai(1)
-		. = 1
