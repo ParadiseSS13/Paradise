@@ -324,9 +324,9 @@
 				else
 					var/mob/selected = find_dead_player("[C.ckey]")
 					if(!selected)
+						selected << 'sound/machines/chime.ogg'//probably not the best sound but I think it's reasonable
 						return
-						to_chat(selected, 'sound/machines/chime.ogg')//probably not the best sound but I think it's reasonable
-
+
 
 					var/answer = alert(selected,"Do you want to return to life?","Cloning","Yes","No")
 					if(answer != "No" && pod.growclone(C))

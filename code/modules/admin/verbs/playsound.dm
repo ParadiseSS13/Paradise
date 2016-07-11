@@ -17,7 +17,7 @@ var/list/sounds_cache = list()
 	message_admins("[key_name_admin(src)] played sound [S]", 1)
 	for(var/mob/M in player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
-			to_chat(M, uploaded_sound)
+			M << uploaded_sound
 
 	feedback_add_details("admin_verb","PGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -123,7 +123,7 @@ client/proc/space_asshole()
 	for(var/mob/M in world)
 		if(M.client)
 			if(M.client.midis)
-				to_chat(M, 'sound/music/space_asshole.ogg')
+				M << 'sound/music/space_asshole.ogg'
 
 
 client/proc/honk_theme()

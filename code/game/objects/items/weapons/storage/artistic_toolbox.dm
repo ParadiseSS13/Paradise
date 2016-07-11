@@ -30,7 +30,7 @@
 				break
 			force += 4
 			throwforce += 4
-			to_chat(user, 'sound/goonstation/effects/screech.ogg')
+			user << 'sound/goonstation/effects/screech.ogg'
 			shake_camera(user, 20, 1)
 			to_chat(user, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
 			original_owner = user
