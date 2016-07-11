@@ -85,6 +85,8 @@
 	update_icon()
 
 
+
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
@@ -170,6 +172,28 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jello_guitar"
 	item_state = "jello_guitar"
+
+/obj/item/fluff/wingler_comb
+	name = "blue comb"
+	desc = "A blue comb, it looks like it was made to groom a Tajaran's fur."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "wingler_comb"
+	attack_verb = "combed"
+	force = 0
+	throwforce = 0
+	var/used = 0
+
+/obj/item/fluff/wingler_comb/attack_self(mob/user as mob)
+	if(used)
+		return
+
+	var/mob/living/carbon/human/target = user
+	if(!istype(target) || !istype(target.species, /datum/species/tajaran)) // Only catbeasts, kthnx.
+		return
+
+	if(target.change_body_accessory("Jay Wingler Tail"))
+		to_chat(target, "<span class = 'notice'>You comb your tail with the [src].</span>")
+		used = 1
 
 //////////////////////////////////
 //////////// Clothing ////////////
