@@ -65,7 +65,7 @@
 	else if(is_special_character(user))
 		to_chat(user, "Did nothing. What did you expect from the BETA release?")
 
-	else if (!insistinga)
+	else if(!insistinga)
 		to_chat(user, "Your first touch makes the Wish Master stir, listening to you.  Are you really sure you want to do this?")
 		insistinga++
 

@@ -447,7 +447,7 @@ var/global/datum/controller/occupations/job_master
 
 		H.job = rank
 
-		if (job.prisonlist_job)
+		if(job.prisonlist_job)
 			data_core.fabricate_crime(H)
 
 		if(!joined_late)

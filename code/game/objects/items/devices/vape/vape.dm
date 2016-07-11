@@ -66,7 +66,7 @@ var/global/list/obj/item/device/vape/vapes = list()
 	return 1
 
 /obj/item/device/vape/attack(var/mob/living/carbon/M, mob/user as mob, def_zone)
-	if (spamcheck)
+	if(spamcheck)
 		to_chat(user, "Recharging vape block...")
 		return
 	if(battery.charge <= 0)
@@ -121,10 +121,10 @@ var/global/list/obj/item/device/vape/vapes = list()
 	if(issilicon(usr))
 		return
 
-	if ( can_use(usr) )
+	if( can_use(usr) )
 		var/obj/item/weapon/RDA/O = locate() in src
 		if(O)
-			if (istype(loc, /mob))
+			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O)
@@ -147,9 +147,9 @@ var/global/list/obj/item/device/vape/vapes = list()
 	if(issilicon(usr))
 		return
 
-	if ( can_use(usr) )
+	if( can_use(usr) )
 		if(battery)
-			if (istype(loc, /mob))
+			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
 					M.put_in_hands(battery)

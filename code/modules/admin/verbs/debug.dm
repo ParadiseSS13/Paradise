@@ -751,17 +751,17 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/pirate(M), slot_r_hand)
 
-		if ("Hunter's set")
+		if("Hunter's set")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/hunter(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/hunter_boots(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/hunter(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/hunter_coat(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/hunter_mask(M), slot_wear_mask)
 
-		if ("DOOMguy's set")
+		if("DOOMguy's set")
 			M.equip_doom_commando()
 
-		if ("Bane's set")
+		if("Bane's set")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/bane(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/doom(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/invisible(M), slot_head)
@@ -790,7 +790,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
-		if ("space pirate")
+		if("space pirate")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/pirate(M), slot_wear_suit)

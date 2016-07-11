@@ -339,13 +339,13 @@ What a mess.*/
 				temp += "Are you sure you wish to delete all Security records?<br>"
 				temp += "<a href='?src=\ref[src];choice=Purge All Records'>Yes</a><br>"
 				temp += "<a href='?src=\ref[src];choice=Clear Screen'>No</a>"
-			if ("Purge All Records")
+			if("Purge All Records")
 				for(var/datum/data/record/R in data_core.security)
 					qdel(R)
 				temp = "All Security records deleted."
 
-			if ("Add Entry")
-				if (!( istype(active2, /datum/data/record) ))
+			if("Add Entry")
+				if(!( istype(active2, /datum/data/record) ))
 					return
 				var/a2 = active2
 				var/t1 = copytext(trim(sanitize(input("Add Comment:", "Secure. records", null, null)  as message)),1,MAX_MESSAGE_LEN)
@@ -465,7 +465,7 @@ What a mess.*/
 					if("notes")
 						if(istype(active2, /datum/data/record))
 							var/t1 = copytext(lhtml_encode(trim(input("Please summarize notes:", "Secure. records", lhtml_decode(active2.fields["notes"]), null)  as message)),1,MAX_MESSAGE_LEN)
-							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
+							if((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
 								return
 							active2.fields["notes"] = t1
 					if("criminal")

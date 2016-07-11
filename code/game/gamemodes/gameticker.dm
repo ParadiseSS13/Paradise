@@ -187,7 +187,7 @@ var/round_start_time = 0
 				if(candidate_source.match_tag != current_destination.match_tag)
 					continue
 
-				if (candidate_source.match_width != current_destination.match_width || \
+				if(candidate_source.match_width != current_destination.match_width || \
 					candidate_source.match_height != current_destination.match_height)
 					continue
 

@@ -119,14 +119,14 @@
 
 /datum/food_processor_process/mob/cat/process_food(loc, what, processor)
 	var/mob/living/simple_animal/pet/cat/C = what
-	if (C.client)
+	if(C.client)
 		C.loc = loc
 		C.visible_message("<span class='notice'>[C] with a loud meowing jumped out of the processor!</span>")
 		return
-	var/obj/item/weapon/reagent_containers/food/snacks/catbread/Podumoi = new(loc) //Вы наверное решили что я snack!
-	var/datum/reagent/psilocybin/Neesh = new() // Но я не snack
-	Neesh.holder = Podumoi //Я catbread
-	Neesh.volume = 10 //Ешьте Podumoi
+	var/obj/item/weapon/reagent_containers/food/snacks/catbread/Podumoi = new(loc) //пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ snack!
+	var/datum/reagent/psilocybin/Neesh = new() // пїЅпїЅ пїЅ пїЅпїЅ snack
+	Neesh.holder = Podumoi //пїЅ catbread
+	Neesh.volume = 10 //пїЅпїЅпїЅпїЅпїЅ Podumoi
 	Podumoi.reagents.reagent_list += Neesh
 	..()
 

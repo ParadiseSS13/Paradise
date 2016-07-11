@@ -71,10 +71,10 @@
 /obj/item/device/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
-	if (!diode)
+	if(!diode)
 		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
 		return
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(ishuman(user))

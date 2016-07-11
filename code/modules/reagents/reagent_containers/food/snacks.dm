@@ -146,7 +146,7 @@
 		return
 	else
 		return 1
-	if ( \
+	if( \
 			!isturf(src.loc) || \
 			!(locate(/obj/structure/table) in src.loc) && \
 			!(locate(/obj/machinery/optable) in src.loc) && \

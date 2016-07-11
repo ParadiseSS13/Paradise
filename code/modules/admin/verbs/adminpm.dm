@@ -99,7 +99,7 @@
 				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
 
-	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))
+	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
 
 	//clean the message if it's not sent by a high-rank admin

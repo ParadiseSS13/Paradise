@@ -9,7 +9,7 @@
 			T.lighting_build_overlay()
 		T.lighting_corners_initialised = TRUE
 		for (var/i = 1 to 4)
-			if ((T.corners[i]) || (istype(T, /turf/space))) // Already have a corner on this direction. Also ignoring space turfs!
+			if((T.corners[i]) || (istype(T, /turf/space))) // Already have a corner on this direction. Also ignoring space turfs!
 				continue
 			T.corners[i] = new/datum/lighting_corner(T, LIGHTING_CORNER_DIAGONAL[i])
 

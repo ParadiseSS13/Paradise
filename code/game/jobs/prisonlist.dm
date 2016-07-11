@@ -90,15 +90,15 @@ var/list/bwhitelist
 	query.Execute()
 	while(query.NextRow())
 		bwhitelist += "[query.item[1]]"
-	if (bwhitelist==list(  ))
+	if(bwhitelist==list(  ))
 		log_admin("Failed to load bwhitelist or its empty")
 		return
 	dbcon.Disconnect()
 
 /proc/bwhitelist_save(var/ckeyname)
-	if (!bwhitelist)
+	if(!bwhitelist)
 		load_bwhitelist()
-		if (!bwhitelist)
+		if(!bwhitelist)
 			return
 	var/sql = "INSERT INTO [format_table_name("bwhitelist")] (`ckey`) VALUES ('[ckeyname]')"
 	var/DBQuery/query_insert = dbcon.NewQuery(sql)
@@ -108,9 +108,9 @@ var/list/bwhitelist
 
 
 /proc/bwhitelist_remove(var/ckeyname)
-	if (!bwhitelist)
+	if(!bwhitelist)
 		load_bwhitelist()
-		if (!bwhitelist)
+		if(!bwhitelist)
 			return
 	var/sql = "DELETE FROM [format_table_name("bwhitelist")] WHERE ckey='[ckeyname]'"
 	var/DBQuery/query_insert = dbcon.NewQuery(sql)

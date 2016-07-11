@@ -164,9 +164,9 @@
 	var/old_blueprint_data = blueprint_data
 	var/old_corners = corners
 
-	if (!lighting_corners_initialised && global.lighting_corners_initialised)
+	if(!lighting_corners_initialised && global.lighting_corners_initialised)
 		for (var/i = 1 to 4)
-			if (corners[i]) // Already have a corner on this direction.
+			if(corners[i]) // Already have a corner on this direction.
 				continue
 
 			corners[i] = new/datum/lighting_corner(src, LIGHTING_CORNER_DIAGONAL[i])

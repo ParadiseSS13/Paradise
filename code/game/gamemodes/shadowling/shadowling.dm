@@ -352,7 +352,7 @@ Made by Xhuis
 		light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move)
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN/2)
-		else if (light_amount < LIGHT_HEAL_THRESHOLD)
+		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.heal_overall_damage(2,2)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25)

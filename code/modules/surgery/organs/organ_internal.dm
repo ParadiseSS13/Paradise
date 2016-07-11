@@ -276,7 +276,7 @@
 
 	if(!owner)
 		return
-	if (germ_level > INFECTION_LEVEL_ONE)
+	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(5))
 			owner.emote("cough")		//respitory tract infection
 
@@ -366,10 +366,10 @@
 	if(!owner)
 		return
 
-	if (germ_level > INFECTION_LEVEL_ONE)
+	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
 			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
-	if (germ_level > INFECTION_LEVEL_TWO)
+	if(germ_level > INFECTION_LEVEL_TWO)
 		if(prob(1))
 			spawn owner.vomit()
 
@@ -378,7 +378,7 @@
 		//High toxins levels are dangerous
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
-			if (src.damage < min_broken_damage)
+			if(src.damage < min_broken_damage)
 				src.damage += 0.2 * PROCESS_ACCURACY
 			//Damaged one shares the fun
 			else
@@ -387,7 +387,7 @@
 					O.damage += 0.2  * PROCESS_ACCURACY
 
 		//Detox can heal small amounts of damage
-		if (src.damage && src.damage < src.min_bruised_damage && owner.reagents.has_reagent("charcoal"))
+		if(src.damage && src.damage < src.min_bruised_damage && owner.reagents.has_reagent("charcoal"))
 			src.damage -= 0.2 * PROCESS_ACCURACY
 
 		if(src.damage < 0)
