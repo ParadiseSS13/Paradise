@@ -201,7 +201,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				<BR><A href='?src=\ref[src];view=1'>View Feed Channels</A>
 				<BR><A href='?src=\ref[src];create_feed_story=1'>Submit new Feed story</A>
 				<BR><A href='?src=\ref[src];menu_paper=1'>Print newspaper</A>"}
-				if(silence == 0)
+				if(!silence)
 					dat+= "<BR><A href='?src=\ref[src];silence_unit=1'>Silence unit</A>"
 				else
 					dat+= "<BR><A href='?src=\ref[src];unsilence_unit=1'>Unsilence unit</A>"
@@ -979,7 +979,7 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob, pa
 		spawn(300)
 			src.alert = 0
 			src.update_icon()
-		if(silence == 0)
+		if(!silence)
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 75, 1)
 	else
 		for(var/mob/O in hearers(world.view-1, T))
