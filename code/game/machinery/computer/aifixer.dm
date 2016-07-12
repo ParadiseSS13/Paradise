@@ -7,7 +7,6 @@
 	req_access = list(access_captain, access_robotics, access_heads)
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
-	var/restoring = 0
 
 	light_color = LIGHT_COLOR_PURPLE
 
@@ -56,8 +55,7 @@
 
 	if(href_list["fix"])
 		src.active = 1
-		restoring = 1
-		while(src.occupant.health < 100 && restoring)
+		while(src.occupant.health < 100)
 			src.occupant.adjustOxyLoss(-1)
 			src.occupant.adjustFireLoss(-1)
 			src.occupant.adjustToxLoss(-1)
@@ -69,7 +67,6 @@
 				dead_mob_list -= src.occupant
 				living_mob_list += src.occupant
 			sleep(10)
-		restoring = 0
 		src.active = 0
 		src.add_fingerprint(usr)
 
@@ -134,7 +131,9 @@
 
 /obj/machinery/computer/aifixer/emp_act()
 	if(occupant)
-		restoring = 0
-		occupant.adjustBruteLoss(200)
+		occupant.ghostize()
+		qdel(occupant)
+		occupant = null
 		return
-	..()
+	else
+		..()
