@@ -93,7 +93,7 @@
 
 /datum/reagent/drink/cold/brownstar
 	name = "Brown Star"
-	description = "Its not what it sounds like..."
+	description = "It's not what it sounds like..."
 	id = "brownstar"
 	color = "#9F3400" // rgb: 159, 052, 000
 	adj_temp = - 2
