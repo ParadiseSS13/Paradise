@@ -35,7 +35,7 @@
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/item/projectile/beam/pulse
-	e_cost = 200
+	e_cost = 2000
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
