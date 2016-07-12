@@ -72,6 +72,13 @@
 	else
 		return ..()
 
+/obj/item/weapon/melee/classic_baton/ntcane
+	name = "fancy cane"
+	desc = "A cane with special engraving on it. It seems well suited for fending off assailants..."
+	icon_state = "cane_nt"
+	item_state = "cane_nt"
+	needs_permit = 0
+
 //Telescopic baton
 /obj/item/weapon/melee/classic_baton/telescopic
 	name = "telescopic baton"

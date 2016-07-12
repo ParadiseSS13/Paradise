@@ -187,13 +187,6 @@
 /obj/item/weapon/melee/baton/loaded/robot
 	hitcost = 1000
 
-
-/obj/item/weapon/melee/baton/loaded/ntcane
-	name = "fancy cane"
-	desc = "A cane with special engraving on it. It has a strange button on the handle..."
-	icon_state = "cane_nt"
-	item_state = "cane_nt"
-
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/weapon/melee/baton/cattleprod
 	name = "stunprod"
