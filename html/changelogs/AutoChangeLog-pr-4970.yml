@@ -1,0 +1,5 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - imageadd: "Adds Vox compatible versions of all jumpskirts."
+  - imageadd: "Adds Vox compatible version of the CMO jumpsuit."
