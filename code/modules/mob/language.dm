@@ -107,7 +107,7 @@
 			to_chat(player, msg_dead)
 			continue
 
-		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker) == 1))
+		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
 
 /datum/language/proc/check_special_condition(var/mob/other, var/mob/living/speaker)
@@ -290,7 +290,7 @@
 	..(speaker,message,speaker.real_name)
 
 /datum/language/grey/check_special_condition(var/mob/living/carbon/human/other, var/mob/living/carbon/human/speaker)
-	if(other in range(14, speaker))
+	if(other in range(7, speaker))
 		return 1
 	return 0
 
