@@ -319,7 +319,7 @@
 		else if(O.target && istype(O.target,/datum/mind))
 			if(O.target == occupant.mind)
 				if(O.owner && O.owner.current)
-					to_chat(O.owner.current, "<span class='warning'>You get the feeling your target is no longer within your reach. Time for Plan [pick(list("A","B","C","D","X","Y","Z"))]...</span>")
+					to_chat(O.owner.current, "<span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 				O.target = null
 				spawn(1) //This should ideally fire after the occupant is deleted.
 					if(!O) return
@@ -344,6 +344,7 @@
 
 	// Delete them from datacore.
 
+	var/announce_rank = null
 	if(PDA_Manifest.len)
 		PDA_Manifest.Cut()
 	for(var/datum/data/record/R in data_core.medical)
@@ -354,6 +355,7 @@
 			qdel(T)
 	for(var/datum/data/record/G in data_core.general)
 		if((G.fields["name"] == occupant.real_name))
+			announce_rank = G.fields["rank"]
 			qdel(G)
 
 	if(orient_right)
@@ -369,10 +371,15 @@
 		ailist += A
 	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)
-		announcer.say(";[occupant.real_name] [on_store_message]")
+		if (announce_rank)
+			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+		else
+			announcer.say(";[occupant.real_name] [on_store_message]")
 	else
-		announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-
+		if (announce_rank)
+			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+		else
+			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Delete the mob.
