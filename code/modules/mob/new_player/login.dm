@@ -27,7 +27,7 @@
 		loc = pick(watch_locations)
 */
 
-	CallHook("Login", list("client" = src.client, "mob" = src))
+	callHook("mob_login", list("client" = client, "mob" = src))
 
 	new_player_panel()
 	if(ckey in deadmins)
@@ -43,4 +43,4 @@
 		for(var/client/C in clients)
 			tally++
 		if(tally > config.player_overflow_cap)
-			src << link(config.overflow_server_url)
+			src << link(config.overflow_server_url)

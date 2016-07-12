@@ -1,0 +1,5 @@
+author: Kyep
+delete-after: True
+changes: 
+  - tweak: "Changed access requirement on lethal injection locker to sec access (same access required for the chair its right next to."
+  - tweak: "Changed access requirement on exile implant locker to armory access."

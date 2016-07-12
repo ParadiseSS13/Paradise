@@ -9,9 +9,10 @@
 	idle_power_usage = 30
 	active_power_usage = 200
 	power_channel = EQUIP
+	atom_say_verb = "bleeps"
 	var/obj/item/copyitem = null	//what's in the copier!
 	var/copies = 1	//how many copies to print!
-	var/toner = 30 //how much toner is left! woooooo~
+	var/toner = 60 //how much toner is left! woooooo~
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
 	var/mob/living/ass = null
 
@@ -318,6 +319,8 @@
 		updateUsrDialog()
 		return 0
 	else
+		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+		atom_say("<span class='danger'>Attention: Posterior Placed on Printing Plaque!</span>")
 		return 1
 
 /obj/machinery/photocopier/emag_act(user as mob)

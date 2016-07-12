@@ -61,55 +61,43 @@ var/ert_request_answered = 0
 			else
 				return pick_ert_type()
 		if("Code Red")
-			if(alert("Confirm: Deploy code 'RED' <b>medium ERT</b>?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
+			if(alert("Confirm: Deploy code 'RED' medium ERT?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
 				return new /datum/response_team/red
 			else
 				return pick_ert_type()
 		if("Code Gamma")
-			if(alert("Confirm: Deploy code 'GAMMA' <b>elite ERT</b>?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
+			if(alert("Confirm: Deploy code 'GAMMA' elite ERT?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
 				return new /datum/response_team/gamma
 			else
 				return pick_ert_type()
 	return 0
 
-/mob/dead/observer/verb/JoinResponseTeam()
-	set category = "Ghost"
-	set name = "Join Emergency Response Team"
-	set desc = "Join the Emergency Response Team. Only possible if it has been called by the crew."
-
-	if(!istype(usr,/mob/dead/observer) && !istype(usr,/mob/new_player))
-		to_chat(usr, "You need to be an observer or new player to use this.")
-		return
+/mob/dead/observer/proc/JoinResponseTeam()
 
 	if(!send_emergency_team)
 		to_chat(usr, "No emergency response team is currently being sent.")
-		return
+		return 0
 
 	if(jobban_isbanned(usr, ROLE_ERT))
 		to_chat(usr, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
-		return
+		return 0
 
 	var/player_age_check = check_client_age(usr.client, responseteam_age)
 	if(player_age_check && config.use_age_restriction_for_antags)
 		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
-		return
+		return 0
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		to_chat(usr, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
-		return
+		return 0
 
 	if(response_team_members.len > 6)
 		to_chat(usr, "The emergency response team is already full!")
-		return
+		return 0
 
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(L.name == "Response Team")
 			L.name = null
-
-			if(alert(usr, "Would you like to join the Emergency Response Team?", "Emergency Response Team", "Yes", "No") == "No")
-				L.name = "Response Team"
-				return
-
 			if(!src.client)
 				return
 			var/client/C = src.client
@@ -118,35 +106,26 @@ var/ert_request_answered = 0
 			new_commando.mind.key = usr.key
 			new_commando.key = usr.key
 			new_commando.update_icons()
-
-			return
+			return 1
 
 /proc/trigger_armed_response_team(var/datum/response_team/response_team_type)
 
 	active_team = response_team_type
-	active_team.announce_team()
 
 	send_emergency_team = 1
-	sleep(600 * 5)
-	send_emergency_team = 0 // Can no longer join the ERT.
-
-/*
-	var/area/security/nuke_storage/nukeloc = locate() //To find the nuke in the vault
-	var/obj/machinery/nuclearbomb/nuke = locate() in nukeloc
-	if(!nuke)
-		nuke = locate() in world
-	var/obj/item/weapon/paper/P = new
-	P.info = "Your orders, Commander, are to use all means necessary to return the station to a survivable condition.<br>To this end, you have been provided with the best tools we can give for Security, Medical, Engineering and Janitorial duties. The nuclear authorization code is: <b>[ nuke ? nuke.r_code : "UNKNOWN"]</b>. Be warned, if you detonate this without good reason, we will hold you to account for damages. Memorise this code, and then destroy this message."
-	P.name = "ERT Orders and Emergency Nuclear Code"
-	var/obj/item/weapon/stamp/centcom/stamp = new
-	P.stamp(stamp)
-	qdel(stamp)
-	for(var/obj/effect/landmark/A in world)
-		if(A.name == "nukecode")
-			P.loc = A.loc
-			qdel(A)
-			continue
-*/
+	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600)
+	if(!ert_candidates.len)
+		active_team.cannot_send_team()
+		send_emergency_team = 0
+		return
+	var/teamsize = 0
+	for(var/mob/dead/observer/M in ert_candidates)
+		teamsize += M.JoinResponseTeam()
+	send_emergency_team = 0
+	if (!teamsize)
+		active_team.cannot_send_team()
+		return
+	active_team.announce_team()
 
 /client/proc/create_response_team(obj/spawn_location)
 	var/mob/living/carbon/human/M = new(null)
@@ -350,16 +329,18 @@ var/ert_request_answered = 0
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
+/datum/response_team/proc/cannot_send_team()
+	command_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
 
 /datum/response_team/proc/announce_team()
-	command_announcement.Announce("Attention, [station_name()]. We are attempting to assemble a team of highly trained assistants to aid(?) you. Standby.", "Central Command")
+	command_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
 
 // -- AMBER TEAM --
 
 /datum/response_team/amber
 
 /datum/response_team/amber/announce_team()
-	command_announcement.Announce("Attention, [station_name()]. We are attempting to assemble a code AMBER light Emergency Response Team. Standby.", "Central Command")
+	command_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/response_team/amber/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
 	..()
@@ -431,7 +412,7 @@ var/ert_request_answered = 0
 /datum/response_team/red
 
 /datum/response_team/red/announce_team()
-	command_announcement.Announce("Attention, [station_name()]. We are attempting to assemble a code RED Emergency Response Team. Standby.", "Central Command")
+	command_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/response_team/red/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
 	..()
@@ -515,7 +496,7 @@ var/ert_request_answered = 0
 /datum/response_team/gamma
 
 /datum/response_team/gamma/announce_team()
-	command_announcement.Announce("Attention, [station_name()]. We are attempting to assemble a code GAMMA elite Emergency Response Team. Standby.", "Central Command")
+	command_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/response_team/gamma/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
 	..()

@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Station cinematics shouldn't have inventory overlays over top of the animation"
+  - bugfix: "Station cinematics should properly clear off the screen and delete now"

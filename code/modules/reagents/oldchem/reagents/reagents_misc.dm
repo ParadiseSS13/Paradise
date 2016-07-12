@@ -150,20 +150,15 @@
 	description = "Pure iron is a metal."
 	reagent_state = SOLID
 	color = "#C8A5DC" // rgb: 200, 165, 220
-/*
-/datum/reagent/iron/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if((M.virus) && (prob(8) && (M.virus.name=="Magnitis")))
-		if(M.virus.spread == "Airborne")
-			M.virus.spread = "Remissive"
-		M.virus.stage--
-		if(M.virus.stage <= 0)
-			M.resistances += M.virus.type
-			M.virus = null
-	holder.remove_reagent(src.id, 0.2)
-	return
-*/
 
+/datum/reagent/iron/on_mob_life(mob/living/M)
+	if(!M)
+		M = holder.my_atom
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD))
+			H.vessel.add_reagent("blood", 0.8)
+	..()
 
 
 //foam

@@ -512,6 +512,8 @@
 			continue
 		if(faction in M.faction)
 			continue
+		if(ispAI(M))
+			continue
 		pos_targets += M
 	for(var/obj/mecha/M in oview(scan_range, src))
 		if(M.occupant)

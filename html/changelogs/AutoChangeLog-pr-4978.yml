@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Players will ALMOST DEFINITELY never get stuck as plants anymore. I mean it this time!"

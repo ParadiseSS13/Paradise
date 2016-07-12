@@ -310,7 +310,7 @@
 		M.lastarea = src
 
 		// /vg/ - EVENTS!
-		CallHook("MobAreaChange", list("mob" = M, "new" = newarea, "old" = oldarea))
+		callHook("mob_area_change", list("mob" = M, "newarea" = newarea, "oldarea" = oldarea))
 
 	if(!istype(A,/mob/living))	return
 

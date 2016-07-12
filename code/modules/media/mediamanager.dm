@@ -51,23 +51,18 @@ if(vlc.attachEvent) {
 "}
 
 // Hook into the events we desire.
-/hook_handler/soundmanager
-	// Set up player on login
-	proc/OnLogin(var/list/args)
-		//testing("Received OnLogin.")
-		var/client/C = args["client"]
-		C.media = new /datum/media_manager(args["mob"])
-		C.media.open()
-		spawn(20)
-			C.media.update_music()
+/hook/mob_login/proc/init_media_manager(client/client, mob/mob)
+	client.media = new /datum/media_manager(mob)
+	client.media.open()
+	spawn(20)
+		client.media.update_music()
+	return 1
 
 	// Update when moving between areas.
-	proc/OnMobAreaChange(var/list/args)
-		var/mob/M = args["mob"]
-		//if(istype(M, /mob/living/carbon/human)||istype(M, /mob/dead/observer))
-		//	testing("Received OnMobAreaChange for [M.type] [M] (M.client=[M.client==null?"null":"/client"]).")
-		if(M.client)
-			M.update_music()
+/hook/mob_area_change/proc/update_media(mob/mob, area/newarea, area/oldarea)
+	if(mob.client)
+		mob.update_music()
+	return 1
 
 /mob/proc/update_music()
 	if(client && client.media)

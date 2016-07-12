@@ -9,19 +9,25 @@
 	nutriment_factor = 12 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 
-/datum/reagent/nutriment/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/nutriment/on_mob_life(mob/living/M)
+	if(!M)
+		M = holder.my_atom
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat())	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50)) M.adjustBruteLoss(-1)
+				if(prob(50))
+					M.adjustBruteLoss(-1)
+				if(H.species.exotic_blood)
+					H.vessel.add_reagent(H.species.exotic_blood, 0.4)
+				else
+					if(!(H.species.flags & NO_BLOOD))
+						H.vessel.add_reagent("blood", 0.4)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
-			if(prob(50)) M.heal_organ_damage(1,0)
+			if(prob(50))
+				M.heal_organ_damage(1,0)
 	..()
-	return
-
 
 /datum/reagent/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Protein"

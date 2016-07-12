@@ -1,0 +1,9 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - rscadd: "Universal Recorder added to NT Rep Locker"
+  - rscadd: "Box of recorder tapes added to NT Rep and IAA Locker"
+  - rscadd: "Fax Guide added to Captain, HoS, HoP, NT Rep and IAA Lockers"
+  - rscadd: "Butt copy alert added to photocopiers"
+  - rscadd: "Butt copy alert comes with *ping noise"
+  - tweak: "Photocopiers start with 60 toner"

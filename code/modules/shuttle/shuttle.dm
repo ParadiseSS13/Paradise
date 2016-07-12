@@ -633,6 +633,8 @@
 	var/obj/docking_port/mobile/M
 	if(!shuttleId)
 		// find close shuttle that is ok to mess with
+		if(!shuttle_master) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
+			return
 		for(var/obj/docking_port/mobile/D in shuttle_master.mobile)
 			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
 				M = D
@@ -650,6 +652,8 @@
 
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
 	if(..(user))
+		return
+	if(!shuttleId)
 		return
 	src.add_fingerprint(usr)
 

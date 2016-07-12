@@ -136,7 +136,7 @@ REAGENT SCANNER
 		user.show_message("\blue Key: Suffocation/Toxin/Burns/Brute", 1)
 		user.show_message("\blue Body Temperature: ???", 1)
 		return
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.","<span class='notice'> You have analyzed [M]'s vitals.")
+	user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>","<span class='notice'> You have analyzed [M]'s vitals.</span>")
 
 	if(!istype(M,/mob/living/carbon/human) || M.isSynthetic())
 		//these sensors are designed for organic life
@@ -227,8 +227,9 @@ REAGENT SCANNER
 				user.show_message(text("\red Internal bleeding detected. Advanced scanner required for location."), 1)
 				break
 		if(H.vessel)
-			var/blood_volume = round(M:vessel.get_reagent_amount("blood"))
-			var/blood_percent =  blood_volume / 560
+			var/blood_type = H.get_blood_name()
+			var/blood_volume = round(H.vessel.get_reagent_amount(blood_type))
+			var/blood_percent =  blood_volume / BLOOD_VOLUME_NORMAL
 			blood_percent *= 100
 			if(blood_volume <= 500)
 				user.show_message("\red <b>Warning: Blood Level LOW: [blood_percent]% [blood_volume]cl")
@@ -236,6 +237,9 @@ REAGENT SCANNER
 				user.show_message("\red <b>Warning: Blood Level CRITICAL: [blood_percent]% [blood_volume]cl")
 			else
 				user.show_message("\blue Blood Level Normal: [blood_percent]% [blood_volume]cl")
+			if(H.species.exotic_blood)
+				user.show_message("<span class='warning'>Subject possesses exotic blood.</span>")
+				user.show_message("<span class='warning'>Exotic blood type: [blood_type].</span>")
 		if(H.heart_attack && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("\blue Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>")
