@@ -134,6 +134,5 @@
 		occupant.ghostize()
 		qdel(occupant)
 		occupant = null
-		return
 	else
 		..()
