@@ -14,6 +14,10 @@
 	following_mobs = null
 	if(buckled)
 		buckled.unbuckle_mob()
+	if(viewing_alternate_appearances)
+		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
+			AA.viewers -= src
+		viewing_alternate_appearances = null
 	return ..()
 
 /mob/New()
