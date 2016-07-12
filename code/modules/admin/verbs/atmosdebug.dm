@@ -6,7 +6,7 @@
 		to_chat(src, "Only administrators may use this command.")
 		return
 	feedback_add_details("admin_verb","CP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	
+
 	if(alert("WARNING: This command should not be run on a live server. Do you want to continue?", "Check Piping", "No", "Yes") == "No")
 		return
 
@@ -27,16 +27,20 @@
 			to_chat(usr, "Unconnected [pipe.name] located at [pipe.x],[pipe.y],[pipe.z] ([get_area(pipe.loc)])")
 
 	to_chat(usr, "Checking for overlapping pipes...")
-	next_turf:
-		for(var/turf/T in world)
-			for(var/dir in cardinal)
-				var/check = 0
-				for(var/obj/machinery/atmospherics/pipe in T)
-					if(dir & pipe.initialize_directions)
-						check++
-						if(check > 1)
+	for(var/turf/T in world)
+		for(var/dir in cardinal)
+			var/list/check = list(0, 0, 0)
+			var/done = 0
+			for(var/obj/machinery/atmospherics/pipe in T)
+				if(dir & pipe.initialize_directions)
+					for(var/ct in pipe.connect_types)
+						check[ct]++
+						if(check[ct] > 1)
 							to_chat(usr, "Overlapping pipe ([pipe.name]) located at [T.x],[T.y],[T.z] ([get_area(T)])")
-							continue next_turf
+							done = 1
+							break
+				if(done)
+					break
 	to_chat(usr, "Done")
 
 /client/proc/powerdebug()
