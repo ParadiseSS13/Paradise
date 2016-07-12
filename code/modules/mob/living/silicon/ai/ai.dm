@@ -831,7 +831,7 @@ var/list/ai_verbs_default = list(
 				if("eldritch")
 					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
 				if("reaper")
-					holo_icon = getHologramIcon(icon('icons/mob/reaper.dmi', "reaper"), 1)
+					holo_icon = getHologramIcon(icon('icons/mob/reaper.dmi', "reaper"))
 	return
 
 /mob/living/silicon/ai/proc/corereturn()
