@@ -1,0 +1,6 @@
+author: Chakirski
+delete-after: True
+changes: 
+  - imageadd: "Adds new bacon sprites."
+  - rscadd: "Bacon can now be cooked from the grill. Just grill raw bacon."
+  - tweak: "Raw cutlets are now sliceable into raw bacon strips."
