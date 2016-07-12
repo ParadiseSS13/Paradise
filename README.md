@@ -1,6 +1,6 @@
 # ATMTA STATION
-Created from Paradise Station build.
-[Website](http://www.nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [IRC](http://www.nanotrasen.se/phpBB3/viewtopic.php?f=10&t=1113)
+Форк Paradise Station.
+[Website](http://атмта.рф/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discord.gg/014REXI6YHvMSo7Ew)
 
 Постоянно модифицируемый билд Paradise, набитый мемами и МЕМАСАМИ.
 
