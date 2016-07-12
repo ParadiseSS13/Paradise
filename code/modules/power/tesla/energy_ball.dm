@@ -59,14 +59,14 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 		pixel_y = 0
 
 		produced_power = TESLA_DEFAULT_POWER
-		for (var/ball in orbiting_balls)
+		for(var/ball in orbiting_balls)
 			produced_power += TESLA_MINI_POWER
 
 		dir = tesla_zap(src, 7, produced_power)
 
 		pixel_x = -32
 		pixel_y = -32
-		for (var/ball in orbiting_balls)
+		for(var/ball in orbiting_balls)
 			tesla_zap(ball, rand(1, Clamp(orbiting_balls.len, 3, 7)), TESLA_MINI_POWER)
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs
