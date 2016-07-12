@@ -132,7 +132,7 @@
 
 /datum/spellbook_entry/rathens
 	name = "Rathen's Secret"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/rathens
+	spell_type = /obj/effect/proc_holder/spell/targeted/rathens
 	log_name = "RS"
 	category = "Defensive"
 

@@ -1,29 +1,19 @@
-/obj/effect/proc_holder/spell/aoe_turf/rathens
+/obj/effect/proc_holder/spell/targeted/rathens
 	name = "Rathen's Secret"
 	desc = "Summons a powerful shockwave around you that tears the appendix and limbs off of enemies."
 	charge_max = 500
 	clothes_req = 1
 	invocation = "ARSE NATH!"
 	invocation_type = "shout"
+	max_targets = 0
 	range = 7
 	cooldown_min = 200
 	selection_type = "view"
 	action_icon_state = "superfart"
 
-/obj/effect/proc_holder/spell/aoe_turf/rathens/cast(list/targets)
-	var/mob/user = usr
-	var/list/impacted_mobs = list()
-	for(var/turf/T in targets)
-		for(var/mob/living/carbon/human/H in T)
-			if(H == user)
-				continue
-			impacted_mobs  += H
-	if(!impacted_mobs.len)
-		to_chat(user, "<span class='danger'>There are no targets in range!</span>")
-		revert_cast()
-		return 0
+/obj/effect/proc_holder/spell/targeted/rathens/cast(list/targets, mob/user = usr)
 	playsound(get_turf(user), 'sound/goonstation/effects/superfart.ogg', 25, 1)
-	for(var/mob/living/carbon/human/H in impacted_mobs)
+	for(var/mob/living/carbon/human/H in targets)
 		var/datum/effect/system/harmless_smoke_spread/s = new /datum/effect/system/harmless_smoke_spread
 		s.set_up(5, 0, H)
 		s.start()
@@ -41,7 +31,7 @@
 			spawn()
 				G.throw_at(get_edge_target_turf(H, pick(alldirs)), rand(1, 10), 5)
 			H.apply_damage(10, BRUTE, "chest")
-			to_chat(H, "<span class='userdanger'>You have no [A.name], but something had to give! Holy shit, what was that?</span>")
+			to_chat(H, "<span class='userdanger'>You have no appendix, but something had to give! Holy shit, what was that?</span>")
 			H.Weaken(3)
 			for(var/obj/item/organ/external/E in H.organs)
 				if(istype(E, /obj/item/organ/external/head))
