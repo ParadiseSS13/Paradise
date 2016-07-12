@@ -813,7 +813,7 @@ The _flatIcons list is a cache for generated icon files.
 			if(4)	I.pixel_y++
 		overlays += I//And finally add the overlay.
 
-/proc/getHologramIcon(icon/A, safety=1)//If safety is on, a new icon is not created. Double is for 32x64 icons.
+/proc/getHologramIcon(icon/A, safety=1)//If safety is on, a new icon is not created.
 	var/icon/flat_icon = safety ? A : new(A)//Has to be a new icon to not constantly change the same icon.
 	var/icon/alpha_mask
 	flat_icon.ColorTone(rgb(125,180,225))//Let's make it bluish.
