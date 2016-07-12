@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "IPCs are now properly impacted by space's burn damage"
