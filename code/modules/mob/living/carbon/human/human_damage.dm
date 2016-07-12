@@ -317,8 +317,9 @@ This function restores the subjects blood to max.
 */
 /mob/living/carbon/human/proc/restore_blood()
 	if(!(species.flags & NO_BLOOD))
-		var/blood_volume = vessel.get_reagent_amount("blood")
-		vessel.add_reagent("blood", 560.0 - blood_volume)
+		var/blood_type = get_blood_name()
+		var/blood_volume = vessel.get_reagent_amount(blood_type)
+		vessel.add_reagent(blood_type, BLOOD_VOLUME_NORMAL - blood_volume)
 
 /*
 This function restores all organs.

@@ -59,7 +59,7 @@ datum/reagent/styptic_powder/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/salglu_solution
+/datum/reagent/salglu_solution
 	name = "Saline-Glucose Solution"
 	id = "salglu_solution"
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
@@ -68,13 +68,17 @@ datum/reagent/salglu_solution
 	penetrates_skin = 1
 	metabolization_rate = 0.15
 
-datum/reagent/salglu_solution/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/salglu_solution/on_mob_life(mob/living/M)
+	if(!M)
+		M = holder.my_atom
 	if(prob(33))
 		M.adjustBruteLoss(-2*REM)
 		M.adjustFireLoss(-2*REM)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD) && prob(33))
+			H.vessel.add_reagent("blood", 1)
 	..()
-	return
 
 datum/reagent/synthflesh
 	name = "Synthflesh"
