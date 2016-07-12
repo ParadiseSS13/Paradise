@@ -102,6 +102,9 @@
 	item_color = "stethoscope"
 
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
+	if(istype(M, /mob/living/carbon/human/machine))
+		user.visible_message("Somehow, you feel like doing this is pointless.")
+		return
 	if(ishuman(M) && isliving(user))
 		if(user.a_intent == I_HELP)
 			var/body_part = parse_zone(user.zone_sel.selecting)
