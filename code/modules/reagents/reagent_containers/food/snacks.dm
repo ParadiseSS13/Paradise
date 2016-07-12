@@ -2717,7 +2717,7 @@
 	New()
 		..()
 		reagents.add_reagent("protein", 1)
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	attackby(obj/item/weapon/W, mob/user, params)
 		if(istype(W,/obj/item/weapon/kitchen/knife))
 			user.visible_message( \
 				"[user] cuts the raw cutlet with the knife!", \
