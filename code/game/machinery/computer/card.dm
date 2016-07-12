@@ -434,6 +434,6 @@ var/time_last_changed_position = 0
 	return 1
 
 /obj/machinery/computer/card/centcom
-	name = "\improper CentComm identification computer"
+	name = "CentComm identification computer"
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)

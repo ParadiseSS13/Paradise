@@ -13,7 +13,7 @@
 			return
 
 	var/image/cross = image('icons/obj/storage.dmi',"bible")
-	msg = "\blue [bicon(cross)] <b><font color=purple>PRAY: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[src]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;adminspawncookie=\ref[src]'>SC</a>):</b> [msg]"
+	msg = "\blue [bicon(cross)] <b><font color=purple>PRAY: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[src]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;adminpunish=\ref[src]'>PN</A>) (<A HREF='?_src_=holder;adminspawncookie=\ref[src]'>SC</a>):</b> [msg]"
 
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
@@ -30,7 +30,7 @@
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -39,7 +39,7 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/HONK_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -48,7 +48,7 @@
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/ERT_Announce(var/text , var/mob/Sender, var/repeat_warning)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -59,7 +59,7 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				X << 'sound/effects/adminhelp.ogg'
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()
@@ -70,4 +70,4 @@
 			to_chat(X, msg)
 			to_chat(X, "<span class='adminnotice'><b>The nuke code is [nuke_code].</b></span>")
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				X << 'sound/effects/adminhelp.ogg'

@@ -273,8 +273,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(lentext(flavor_text) <= 40)
 				if(!lentext(flavor_text))	dat += "\[...\]<br>"
-				else						dat += "[flavor_text]<br>"
-			else dat += "[TextPreview(flavor_text)]...<br>"
+				else						dat += "[sanitize_local(flavor_text)]<br>"
+			else dat += "[sanitize_local(TextPreview(flavor_text))]...<br>"
 
 			dat += "<h2>Hair & Accessories</h2>"
 
@@ -1263,7 +1263,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
 								new_languages += lang
 								languages_available = 1
-
 						if(!(languages_available))
 							alert(user, "There are not currently any available secondary languages.")
 					else

@@ -162,7 +162,7 @@
 		// JMO 20140705: Makes scanned document show up properly in the notes. Not pretty for formatted documents,
 		// as this will clobber the HTML, but at least it lets you scan a document. You can restore the original
 		// notes by editing the note again. (Was going to allow you to edit, but scanned documents are too long.)
-		var/raw_scan = sanitize_simple(P.info, list("\t" = "", "ÿ" = ""))
+		var/raw_scan = sanitize_simple(P.info, list("\t" = "", "ÿ" = "&#255;"))
 		var/formatted_scan = ""
 		// Scrub out the tags (replacing a few formatting ones along the way)
 		// Find the beginning and end of the first tag.

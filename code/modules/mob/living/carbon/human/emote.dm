@@ -526,6 +526,11 @@
 				if(!muzzled)
 					message = "<B>[src]</B> laughs."
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, pick(species.female_laugh_sound), 60, 1, 0, pitch = get_age_pitch())
+					else
+						playsound(src.loc, pick(species.male_laugh_sound), 60, 1, 0, pitch = get_age_pitch())
+
 				else
 					message = "<B>[src]</B> makes a noise."
 					m_type = 2
@@ -555,6 +560,11 @@
 				if(!muzzled)
 					message = "<B>[src]</B> groans!"
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, pick(species.female_groan_sound), 100, 1, 0, pitch = get_age_pitch())
+					else
+						playsound(src.loc, pick(species.male_groan_sound), 60, 1, 0, pitch = get_age_pitch())
+
 				else
 					message = "<B>[src]</B> makes a loud noise."
 					m_type = 2

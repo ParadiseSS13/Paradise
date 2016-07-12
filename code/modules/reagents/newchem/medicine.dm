@@ -45,7 +45,7 @@ datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TO
 			M.adjustBruteLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-			M.emote("scream")
+			M.emote("groan")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)

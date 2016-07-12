@@ -86,6 +86,10 @@
 					if(3.0)
 						dat += text("<B>Records Maintenance</B><HR>\n<A href='?src=\ref[];back=1'>Backup To Disk</A><BR>\n<A href='?src=\ref[];u_load=1'>Upload From disk</A><BR>\n<A href='?src=\ref[];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=\ref[];screen=1'>Back</A>", src, src, src, src)
 					if(4.0)
+						var/icon/front = new(active1.fields["photo"], dir = SOUTH)
+						var/icon/side = new(active1.fields["photo"], dir = WEST)
+						usr << browse_rsc(front, "front.png")
+						usr << browse_rsc(side, "side.png")
 						dat += "<CENTER><B>Medical Record</B></CENTER><BR>"
 						if((istype(src.active1, /datum/data/record) && data_core.general.Find(src.active1)))
 							dat += "<table><tr><td>Name: [active1.fields["name"]] \
@@ -95,8 +99,7 @@
 									Fingerprint: <A href='?src=\ref[src];field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>\n	\
 									Physical Status: <A href='?src=\ref[src];field=p_stat'>[active1.fields["p_stat"]]</A><BR>\n	\
 									Mental Status: <A href='?src=\ref[src];field=m_stat'>[active1.fields["m_stat"]]</A><BR></td><td align = center valign = top> \
-									Photo:<br><img src=[active1.fields["photo-south"]] height=64 width=64 border=5> \
-									<img src=[active1.fields["photo-west"]] height=64 width=64 border=5></td></tr></table>"
+									Photo:<br><img src=front.png height=64 width=64 border=5><img src=side.png height=64 width=64 border=5></td></tr></table>"
 						else
 							dat += "<B>General Record Lost!</B><BR>"
 						if((istype(src.active2, /datum/data/record) && data_core.medical.Find(src.active2)))
@@ -320,7 +323,7 @@
 							src.active2.fields["cdi_d"] = t1
 					if("notes")
 						if(istype(src.active2, /datum/data/record))
-							var/t1 = html_encode(trim(copytext(input("Please summarize notes:", "Med. records", html_decode(src.active2.fields["notes"]), null)  as message,1,MAX_MESSAGE_LEN)))
+							var/t1 = lhtml_encode(trim(copytext(input("Please summarize notes:", "Med. records", lhtml_decode(src.active2.fields["notes"]), null)  as message,1,MAX_MESSAGE_LEN)))
 							if((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!interactable() && (!istype(usr, /mob/living/silicon))) || src.active2 != a2))
 								return
 							src.active2.fields["notes"] = t1

@@ -101,7 +101,7 @@
 				if(1)
 					emote("twitch")
 				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+					var/tourettes = pick("ÁËßÒÜ", "ÑÓÊÀ", "ØËŞÕÀ", "ÕÓÅÑÎÑ", "ÏÈÄÎĞ", "ÕÓÉ ÕÓÉ ÕÓÉ", "ÏÈÇÄÀÀÀÀÀ")
 					say("[prob(50) ? ";" : ""][tourettes]")
 			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 			var/y_offset = pixel_y + rand(-1,1)
@@ -116,32 +116,32 @@
 	if(getBrainLoss() >= 60 && stat != 2)
 		speech_problem_flag = 1
 		if(prob(3))
-			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
-							   "without oxigen blob don't evoluate?",
-							   "CAPTAINS A COMDOM",
-							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
-							   "can u give me [pick("telikesis","halk","eppilapse")]?",
-							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS>",
-							   "I WANNA PET TEH monkeyS",
-							   "stop grifing me!!!!",
-							   "SOTP IT#")
+			var/list/s1 = list("îãî åòî ëîññ õäõäõäõäõõäõäõäõä",
+							   "à ÷å áåç âîçäóõà áëîá íå ğîñòåò?",
+							   "ïğóãëî ñòàõï",
+							   "[pick("", "ÏÎÌÎÃÈÒÅ, İÒÎÒ ÅÁÓ×ÈÉ ÒĞÅÒÎĞ")] [pick("âèíñåíò", "óèíñòîí", "âèííñäàğü", "âèíñòîí")] [pick("îäàğ", "óäàğ", "àíòäàğ")] ÃĞÈÔÎÍÈÒ ÌÈÍß ÕÀËÏ!!!",
+							   "ïàñàíû âêàëèòå ìèíå [pick("ÕÓËÊÀ","òåëåìîğôîçà","ñóïèğñèëûûû")]?",
+							   "è êàêàÿ æè ñëåäóùàÿ ÷àñòü òâîåãî ìàñòåğ ïëàíà",
+							   "òóò âñå êòî ïî êàéôó åæææè",
+							   "êîêîè êóñü",
+							   "ïî÷åìó ıòîò òğåòîğ òîêîè äîâîëíûé",
+							   "ÂÑÅÌ ×ÌÀÔÊÈ Â İÒÎÌ ×ÀÒÈ")
 
 			var/list/s2 = list("FUS RO DAH",
-							   "fucking 4rries!",
-							   "stat me",
-							   ">my face",
-							   "roll it easy!",
-							   "waaaaaagh!!!",
-							   "red wonz go fasta",
-							   "FOR TEH EMPRAH",
-							   "lol2cat",
-							   "dem dwarfs man, dem dwarfs",
-							   "SPESS MAHREENS",
-							   "hwee did eet fhor khayosss",
-							   "lifelike texture ;_;",
-							   "luv can bloooom",
-							   "PACKETS!!!")
+							   "İòî êàíàë àíèìå?",
+							   "Êàê ïğîïàò÷èòü íàíîõóè ïîä ìîé ñèíäèêàòîâñêèé àïëèíê????",
+							   ">èìïëàèíã íå äàóí",
+							   "òğó ñòîğè, ÿ íå ïøøøø",
+							   "ÁËßÄÜ ÊÒÎ ÍÈÁÓÄÜ ÑÍÈÌÈÒÅ Ñ ÌÅÍß İÒÓ ÕÓÅÒÓÓÓÓ",
+							   "ïèçäà óïğàâëåíèå êîíåøíî",
+							   "İÉ ÒÀÍÖÎĞ, İÉ ×ÅÒÎ-ÒÀÌ, ÏÀÒÈÌÅÉÊÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅĞ",
+							   "it just werksssss",
+							   "We are Diamond Dogs.",
+							   "If I pull that off will you die?",
+							   "íîëüèçäèñÿòè, òåêñòóğêè 17 âåê ïèçäåö muh shaders",
+							   "ïèçäà ãğèôåğû îõóåëè õàëï ìè ïëåç ;_;",
+							   "I AM NUCLEAAAAAAAR, I'M WIIIIIIIIIIIIIILDDDDDDDDDDDDDDDDD",
+							   "ñêğ ñêğ ñêğ ñêğ ñêğ ñêğ ñêğ ñêğ ñêğ ñêğ ñêğ ñêğ ñêğ")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
@@ -1154,6 +1154,7 @@
 				if(heartbeat >= rate)
 					heartbeat = 0
 					src << sound('sound/effects/electheart.ogg',0,0,0,30)//Credit to GhostHack (www.ghosthack.de) for sound.
+
 
 				else
 					heartbeat++

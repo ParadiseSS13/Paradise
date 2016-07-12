@@ -47,6 +47,13 @@
 			whitelisted_species += S.name
 
 	init_subtypes(/datum/table_recipe, table_recipes)
+
+//local letters. Watch more in modules/l10n/localisation.dm
+	paths = typesof(/datum/letter) - /datum/letter
+	for(var/T in paths)
+		var/datum/letter/L = new T
+		localisation += L
+
 	return 1
 
 /* // Uncomment to debug chemical reaction list.
