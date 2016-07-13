@@ -96,7 +96,7 @@
 	icon_state = "secjacket_open"
 	item_state = "hos"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	armor = list(melee = 20, bullet = 10, laser = 20, energy = 5, bomb = 15, bio = 0, rad = 0)
+	armor = list(melee = 15, bullet = 10, laser = 20, energy = 5, bomb = 15, bio = 0, rad = 0)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	ignore_suitadjust = 0

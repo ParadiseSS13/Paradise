@@ -52,8 +52,8 @@
 
 /obj/item/clothing/suit/hooded/proc/ToggleHood()
 	if(!suit_adjusted)
-		if(ishuman(src.loc))
-			var/mob/living/carbon/human/H = src.loc
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
 			if(H.wear_suit != src)
 				to_chat(H,"<span class='warning'>You must be wearing [src] to put up the hood!</span>")
 				return
@@ -62,7 +62,7 @@
 				return
 			else if(H.equip_to_slot_if_possible(hood,slot_head,0,0,1))
 				suit_adjusted = 1
-				src.icon_state = "[initial(icon_state)]_hood"
+				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()
 	else
 		RemoveHood()
