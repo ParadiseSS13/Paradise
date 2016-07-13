@@ -22,23 +22,9 @@
 	display_name = "a cheap lighter"
 	path = /obj/item/weapon/lighter
 
-/datum/gear/cigar
-	cost = 5
-	display_name = "a cigar"
-	path = /obj/item/clothing/mask/cigarette/cigar
-
-/datum/gear/flask
-	cost = 3
-	display_name = "a flask"
-	path = /obj/item/weapon/reagent_containers/food/drinks/flask/barflask
-
 /datum/gear/rock
 	display_name = "a pet rock"
 	path = /obj/item/toy/pet_rock
-
-/datum/gear/pipe
-	display_name = "a smoking pipe"
-	path = /obj/item/clothing/mask/cigarette/pipe
 
 /datum/gear/sechud
 	display_name = "a classic security HUD"
