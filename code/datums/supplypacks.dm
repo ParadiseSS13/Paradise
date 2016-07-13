@@ -1495,6 +1495,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 20
 	containername = "polo supply crate"
 
+/datum/supply_packs/misc/butt
+	name = "Imported Posterior Supply Crate"
+	contains = list(/obj/item/clothing/head/butt,
+					/obj/item/clothing/head/butt,
+					/obj/item/clothing/head/butt)
+	cost = 150
+	containername = "imported posterior crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////
