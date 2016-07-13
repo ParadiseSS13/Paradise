@@ -268,6 +268,10 @@
 		else
 			text += "<a href='?src=\ref[src];vampire=vampire'>yes</a>|<b>NO</b>"
 
+		if(current && current.client && (ROLE_VAMPIRE in current.client.prefs.be_special))
+			text += "</b></i>|Enabled in Prefs<i><b>"
+		else
+			text += "</b></i>|Disabled in Prefs<i><b>"
 		/** Enthralled ***/
 		text += "<br><b>enthralled</b>"
 		text = "<i><b>[text]</b></i>: "
