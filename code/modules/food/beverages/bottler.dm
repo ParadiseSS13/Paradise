@@ -24,8 +24,8 @@
 
 /obj/machinery/bottler/New()
 	if(!available_recipes)
-		available_recipes = new
-		acceptable_items = new
+		available_recipes = list()
+		acceptable_items = list()
 		//These are going to be acceptable even if they aren't in a recipe
 		acceptable_items |= /obj/item/weapon/reagent_containers/food/snacks
 		acceptable_items |= /obj/item/weapon/reagent_containers/food/drinks/cans
@@ -113,9 +113,9 @@
 		O.forceMove(src)
 	updateUsrDialog()
 
-/obj/machinery/bottler/proc/eject_items(var/slot = 4)
+/obj/machinery/bottler/proc/eject_items(var/slot)
 	var/obj/item/O = null
-	if(slot == 4)
+	if(!slot)
 		for(var/i = 1, i <= slots.len, i++)
 			if(slots[i])
 				O = slots[i]
@@ -223,7 +223,7 @@
 			return recipe
 	return null
 
-/obj/machinery/bottler/proc/dispense_empty_container(container = 0)
+/obj/machinery/bottler/proc/dispense_empty_container(container)
 	var/con_type
 	var/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/drink_container
 	switch(container)
@@ -244,7 +244,7 @@
 		drink_container.forceMove(loc)
 		containers[con_type]--
 
-/obj/machinery/bottler/proc/process_ingredients(container = 0)
+/obj/machinery/bottler/proc/process_ingredients(container)
 	//stop if we have ZERO ingredients (what would you process?)
 	if(!slots[1] && !slots[2] && !slots[3])
 		visible_message("<span class='warning'>There are no ingredients to process! Please insert some first.</span>")
@@ -270,7 +270,7 @@
 		visible_message("<span class='warning'>Error 503: Out of [con_type]s.</span>")
 		return
 	else
-		new drink_container()
+		drink_container = new drink_container()
 		containers[con_type]--
 	//select and process a recipe based on inserted ingredients
 	visible_message("<span class='notice'>[src] hums as it processes the ingredients...</span>")
@@ -366,7 +366,7 @@
 				dat += "<td><A href='?src=\ref[src];eject=[i]'>Eject</a></td>"
 			else
 				dat += "<td>N/A</td>"
-		dat += "<td><A href='?src=\ref[src];eject=4'>Eject All</a></td>"
+		dat += "<td><A href='?src=\ref[src];eject=0'>Eject All</a></td>"
 		dat += "</tr>"
 		dat += "</table>"
 		dat += "<hr>"
@@ -379,18 +379,19 @@
 /obj/machinery/bottler/Topic(href, href_list)
 	if(..())
 		return 1
+	if(bottling)
+		return
 
 	add_fingerprint(usr)
 	usr.set_machine(src)
 
 	if(href_list["process"])
-		var/list/choices = list("Glass Bottle" = 1, "Plastic Bottle" = 2, "Metal Can" = 3, "Cancel" = 4)
-		var/selection = input("Select a container for your beverage.", "Container") in choices
-		selection = choices[selection]
-		if(selection == 4)
-				//they chose cancel
+		var/list/choices = list("Glass Bottle" = 1, "Plastic Bottle" = 2, "Metal Can" = 3)
+		var/selection = input("Select a container for your beverage.", "Container") as null|anything in choices
+		if(!selection)
 			return
 		else
+			selection = choices[selection]
 			process_ingredients(selection)
 
 	if(href_list["eject"])
