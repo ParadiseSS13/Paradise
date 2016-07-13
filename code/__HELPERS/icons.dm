@@ -819,7 +819,7 @@ The _flatIcons list is a cache for generated icon files.
 	flat_icon.ColorTone(rgb(125,180,225))//Let's make it bluish.
 	flat_icon.ChangeOpacity(0.5)//Make it half transparent.
 	if(A.Height() == 64)
-		alpha_mask = new('icons/mob/reaper.dmi', "scanline2")//Scaline for tall icons.
+		alpha_mask = new('icons/mob/ancient_machine.dmi', "scanline2")//Scaline for tall icons.
 	else
 		alpha_mask = new('icons/effects/effects.dmi', "scanline")//Scanline effect.
 	flat_icon.AddAlphaMask(alpha_mask)//Finally, let's mix in a distortion effect.
