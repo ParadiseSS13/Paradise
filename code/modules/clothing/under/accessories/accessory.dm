@@ -104,48 +104,64 @@
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
 		if(user.a_intent == I_HELP)
-			var/body_part = parse_zone(user.zone_sel.selecting)
-			if(body_part)
-				var/their = "their"
-				if(user == M)
-					their = "your"
+			var/their = "their"
+			var/target
+			if(user == M)
+				their = "your"
+				target = "their"
+			else
+				switch(M.gender)
+					if(MALE)	their = "his"
+					if(FEMALE)	their = "her"
+				target = M
+
+			var/heart_sound = "cannot"
+			var/lung_sound = "anything"
+			var/and = " and "
+
+			if(!(M.stat == DEAD) && !(M.status_flags&FAKEDEATH) && (M.get_int_organ(/obj/item/organ/internal/heart) || M.get_int_organ(/obj/item/organ/internal/lungs)))
+				if(M.get_int_organ(/obj/item/organ/internal/heart))
+					var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
+					switch(H.damage)
+						if(0)
+							heart_sound = "hear a healthy pulse"
+						if(1 to 25)
+							heart_sound = "hear an offbeat pulse"
+						if(26 to 50)
+							heart_sound = "hear an uneven pulse"
+						if(50 to INFINITY)
+							heart_sound = "hear a weak, unhealthy pulse"
 				else
-					switch(M.gender)
-						if(MALE)	their = "his"
-						if(FEMALE)	their = "her"
-
-				var/sound = "pulse"
-				var/sound_strength
-
-				if(M.stat == DEAD || (M.status_flags&FAKEDEATH) || (!M.get_int_organ(/obj/item/organ/internal/heart) && !M.get_int_organ(/obj/item/organ/internal/lungs)))
-					sound_strength = "cannot hear"
-					sound = "anything"
-				else if(M.get_int_organ(/obj/item/organ/internal/heart))
+					and = " but hear "
+					heart_sound = "cannot hear a pulse"
+				if(NO_BREATH in M.mutations || M.species.flags & NO_BREATH)
+					and = " but "
+					lung_sound = "cannot hear any respiration"
+				else
 					if(M.get_int_organ(/obj/item/organ/internal/lungs))
-						sound = addtext(sound, "and respiration")
-					else
-						sound = addtext(sound, "but no respiration")
-					sound_strength = "hear a weak"
-					switch(body_part)
-						if("chest")
-							if(M.heart_attack)
-								sound_strength = "hear an irregular"
-							else if(M.oxyloss < 20)
-								sound_strength = "hear a healthy"
-						if("eyes","mouth")
-							sound_strength = "cannot hear"
-							sound = "anything"
+						var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
+						if((M.oxyloss > 50) && L.damage < 26)
+							lung_sound = "labored respiration"
 						else
-							sound_strength = "hear a weak"
-				else
-					if(M.oxyloss < 20)
-						sound_strength = "hear healthy"
+							switch(L.damage)
+								if(0)
+									if(heart_sound == "hear a healthy pulse")
+										lung_sound = "respiration"
+									else
+										lung_sound = "healthy respiration"
+								if(1 to 25)
+									lung_sound = "labored respiration"
+								if(26 to 50)
+									lung_sound = "pained respiration"
+								if(51 to INFINITY)
+									lung_sound = "gurgling"
 					else
-						sound_strength = "hear weak"
-					sound = "respiration, but no pulse"
-
-				user.visible_message("[user] places \the [src] against [M]'s [body_part] and listens attentively.", "You place \the [src] against [their] [body_part]. You [sound_strength] [sound].")
-				return
+						and = " but "
+						lung_sound = "cannot hear any respiration"
+			else
+				and = " hear "
+			user.visible_message("[user] places \the [src] against [target]'s chest and listens attentively.", "You place \the [src] against [their] chest. You [heart_sound][and][lung_sound].")
+			return
 	return ..(M,user)
 
 
