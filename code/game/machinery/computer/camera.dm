@@ -1,6 +1,7 @@
 /obj/machinery/computer/security
 	name = "Camera Monitor"
 	desc = "Used to access the various cameras networks on the station."
+	//icon_state = "frame-sec"
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
 	circuit = /obj/item/weapon/circuitboard/camera

@@ -2,7 +2,7 @@
 /obj/machinery/logic_gate
 	name = "Logic Base"
 	desc = "This does nothing except connect to things. Highly illogical, report to a coder at once if you see this in-game."
-	icon = 'icons/obj/computer3.dmi'
+	icon = 'icons/obj/computer.dmi'
 	icon_state = "serverframe"
 	density = 1
 	anchored = 1

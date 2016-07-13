@@ -1,6 +1,7 @@
 /obj/machinery/computer/monitor
 	name = "power monitoring console"
 	desc = "Used to monitor power levels across the station."
+	icon_state = "frame-eng"
 	icon_screen = "power"
 	icon_keyboard = "power_key"
 	use_power = 2
@@ -16,7 +17,7 @@
 	power_monitors += src
 	power_monitors = sortAtom(power_monitors)
 	power_monitor = new(src)
-	
+
 /obj/machinery/computer/monitor/initialize()
 	..()
 	powermonitor_repository.update_cache()

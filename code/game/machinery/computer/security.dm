@@ -3,6 +3,7 @@
 /obj/machinery/computer/secure_data//TODO:SANITY
 	name = "security records"
 	desc = "Used to view and edit personnel's security records."
+	icon_state = "frame-sec"
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	req_one_access = list(access_security, access_forensics_lockers)
