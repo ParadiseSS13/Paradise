@@ -1,5 +1,0 @@
-author: DaveTheHeadcrab
-delete-after: True
-changes: 
-  - tweak: "Greys no longer speak in wingdings."
-  - rscadd: "Greys now have a species-specific language."

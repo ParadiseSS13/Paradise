@@ -1,8 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscdel: "Removed borg jetpacks"
-  - rscadd: "Adds in borg ion pulse system; borgs with ion pulse enabled consume extra power for each turf they move but can travel on space. Can upgrade any borg, at R&D with an ion pulse upgrade"
-  - rscadd: "Adds in cyborg self repair upgrade: very slowly repairs cyborgs at the cost of extra power. Available at R&D"
-  - tweak: "Mining cyborg module tweaked slightly: GPS, shovel, mini welding tool and mini extinguisher added, wrench and screwdriver removed"
-  - tweak: "reset borg module removes speed boost"

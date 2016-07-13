@@ -1,6 +1,0 @@
-author: Kyep
-delete-after: True
-changes: 
-  - tweak: "Entering a cryo pod, then deliberately selecting OOC->Ghost, and clicking yes on the prompt, will now instantly send you to long-term storage, removing you from the round, despawning your body, freeing your job slot, and giving a new objective to any antag that had you as a target."
-  - tweak: "Announcements about someone entering long-term storage via a cryopod now include that person's rank."
-  - tweak: "When an antag target cryos, the message the antag gets about their objectives changing is now clearer."

@@ -1,5 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Overall borg power useage has been lowered"
-  - tweak: "Borgs who have completely run out of power can now still move around/see/talk, but they will be unable to interact with machinery/doors around them; they can still bump open doors, however. Borgs with no cell are still completely paralyzed and can't do anything."
