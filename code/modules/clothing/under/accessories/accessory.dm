@@ -120,20 +120,29 @@
 				if(M.stat == DEAD || (M.status_flags&FAKEDEATH) || (!M.get_int_organ(/obj/item/organ/internal/heart) && !M.get_int_organ(/obj/item/organ/internal/lungs)))
 					sound_strength = "cannot hear"
 					sound = "anything"
-				else
+				else if(M.get_int_organ(/obj/item/organ/internal/heart))
+					if(M.get_int_organ(/obj/item/organ/internal/lungs))
+						sound = addtext(sound, "and respiration")
+					else
+						sound = addtext(sound, "but no respiration")
 					sound_strength = "hear a weak"
 					switch(body_part)
 						if("chest")
 							if(M.heart_attack)
 								sound_strength = "hear an irregular"
-							else if(M.oxyloss < 50)
+							else if(M.oxyloss < 20)
 								sound_strength = "hear a healthy"
-							sound = "pulse and respiration"
 						if("eyes","mouth")
 							sound_strength = "cannot hear"
 							sound = "anything"
 						else
 							sound_strength = "hear a weak"
+				else
+					if(M.oxyloss < 20)
+						sound_strength = "hear healthy"
+					else
+						sound_strength = "hear weak"
+					sound = "respiration, but no pulse"
 
 				user.visible_message("[user] places \the [src] against [M]'s [body_part] and listens attentively.", "You place \the [src] against [their] [body_part]. You [sound_strength] [sound].")
 				return
