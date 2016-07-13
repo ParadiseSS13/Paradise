@@ -1,6 +1,7 @@
 /obj/machinery/computer/aifixer
 	name = "\improper AI system integrity restorer"
 	icon = 'icons/obj/computer.dmi'
+	icon_state = "frame-rnd"
 	icon_keyboard = "rd_key"
 	icon_screen = "ai-fixer"
 	circuit = /obj/item/weapon/circuitboard/aifixer
