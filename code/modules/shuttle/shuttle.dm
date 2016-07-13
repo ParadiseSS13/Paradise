@@ -137,6 +137,7 @@
 	var/area_type = /area/space
 
 	var/lock_shuttle_doors = 0
+	var/shuttle_launch_anim_type = "flyright"
 
 /obj/docking_port/stationary/register()
 	if(!shuttle_master)
@@ -350,6 +351,8 @@
 
 	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
 	var/list/L1 = return_ordered_turfs(S1.x, S1.y, S1.z, S1.dir)
+	
+	S0.launch_anim(L0)
 
 	var/rotation = dir2angle(S1.dir)-dir2angle(dir)
 	if((rotation % 90) != 0)
@@ -398,6 +401,8 @@
 			if(istype(AM,/obj))
 				var/obj/O = AM
 				if(istype(O, /obj/docking_port/stationary))
+					continue
+				if(istype(O, /obj/effect/shuttle_launch_anim))
 					continue
 				O.forceMove(T1)
 
@@ -523,6 +528,105 @@
 			else
 				if(AM.simulated) //lighting overlays are static
 					qdel(AM)
+
+/obj/docking_port/stationary/proc/launch_anim(var/list/L0)
+	var/list/effect_list = list()
+	var/list/overlays_list = list()
+	effect_list.len = 16
+	overlays_list.len = 16
+	for(var/cdir in alldirs)
+		var/obj/effect/shuttle_launch_anim/S = new(loc)
+		S.dir = cdir
+		effect_list[cdir] = S
+		overlays_list[cdir] = list()
+	for(var/turf/T in L0)
+		var/list/atoms = T.contents + T
+		for(var/atom/A in atoms)
+			var/image/I = image('icons/effects/effects.dmi')
+			I.appearance = A.appearance
+			var/list/overlay_list = overlays_list[A.dir]
+			I.plane = FLOAT_PLANE
+			I.transform = matrix(1, 0, (A.x - x)*32, 0, 1, (A.y - y)*32)
+			I.underlays.Cut()
+			overlay_list += I
+	for(var/cdir in alldirs)
+		var/obj/effect/shuttle_launch_anim/S = effect_list[cdir]
+		var/list/overlay_list = overlays_list[cdir]
+		if(!overlay_list.len)
+			qdel(S)
+			continue
+		S.overlays = overlay_list
+		switch(shuttle_launch_anim_type)
+			if("flyup")
+				undock_anim(S)
+				animate(pixel_y = 32*40, alpha = 0, time = 60, loop = 1, easing = QUAD_EASING | EASE_IN)
+				spawn(70)
+					qdel(S)
+			if("flyright")
+				undock_anim(S)
+				animate(pixel_x = 32*40, alpha = 0, time = 60, loop = 1, easing = QUAD_EASING | EASE_IN)
+				spawn(70)
+					qdel(S)
+			if("mining_home")
+				animate(S, pixel_x = -32, pixel_y = 0, transform = matrix(), time = 10, loop = 1, easing = QUAD_EASING | EASE_OUT)
+				var/matrix/new_transform = matrix()
+				new_transform.Turn(-90)
+				animate(pixel_x = -32*5, pixel_y = 32*3, transform = new_transform, time = 20, loop = 1, easing = QUAD_EASING | EASE_IN)
+				animate(pixel_x = -32*44, alpha = 0, time = 60, loop = 1)
+				spawn(90)
+					qdel(S)
+			if("flydown_rotate_cw")
+				undock_anim(S)
+				var/matrix/new_transform = matrix()
+				new_transform.Turn(90)
+				animate(pixel_y = -32*11, alpha = 192, transform = new_transform, time = 15, loop = 1, easing = QUAD_EASING | EASE_IN)
+				animate(pixel_y = -32*41, alpha = 0, time = 25, loop = 1, easing = LINEAR_EASING)
+				spawn(50)
+					qdel(S)
+			if("flyup_rotate_ccw")
+				undock_anim(S)
+				var/matrix/new_transform = matrix()
+				new_transform.Turn(-90)
+				animate(pixel_y = 32*11, alpha = 192, transform = new_transform, time = 15, loop = 1, easing = QUAD_EASING | EASE_IN)
+				animate(pixel_y = 32*41, alpha = 0, time = 25, loop = 1, easing = LINEAR_EASING)
+				spawn(50)
+					qdel(S) 
+			if("flyleft_rotate_ccw")
+				undock_anim(S)
+				var/matrix/new_transform = matrix()
+				new_transform.Turn(-90)
+				animate(pixel_x = -32*11, alpha = 192, transform = new_transform, time = 15, loop = 1, easing = QUAD_EASING | EASE_IN)
+				animate(pixel_x = -32*41, alpha = 0, time = 25, loop = 1, easing = LINEAR_EASING)
+				spawn(50)
+					qdel(S)
+			if("flyleft_rotate_cw")
+				undock_anim(S)
+				var/matrix/new_transform = matrix()
+				new_transform.Turn(90)
+				animate(pixel_x = -32*11, alpha = 192, transform = new_transform, time = 15, loop = 1, easing = QUAD_EASING | EASE_IN)
+				animate(pixel_x = -32*41, alpha = 0, time = 25, loop = 1, easing = LINEAR_EASING)
+				spawn(50)
+					qdel(S)
+			if("backout")
+				animate(S, pixel_x = -32*13, pixel_y = 0, transform = matrix(), time = 60, loop = 1, easing = QUAD_EASING | EASE_OUT)
+				var/matrix/new_transform = matrix()
+				new_transform.Turn(-90)
+				animate(pixel_y = 32*11, alpha = 192, transform = new_transform, time = 15, loop = 1, easing = QUAD_EASING | EASE_IN)
+				animate(pixel_y = 32*41, alpha = 0, time = 25, loop = 1, easing = LINEAR_EASING)
+				spawn(100)
+					qdel(S) 
+
+// Helper proc to move the shuttle in the docking_port's dir
+/obj/docking_port/stationary/proc/undock_anim(var/obj/effect/shuttle_launch_anim/S)
+	switch(dir)
+		if(NORTH)
+			animate(S, pixel_x = 0, pixel_y = 32, transform = matrix(), time = 10, loop = 1, easing = QUAD_EASING | EASE_OUT)
+		if(SOUTH)
+			animate(S, pixel_x = 0, pixel_y = -32, transform = matrix(), time = 10, loop = 1, easing = QUAD_EASING | EASE_OUT)
+		if(EAST)
+			animate(S, pixel_x = 32, pixel_y = 0, transform = matrix(), time = 10, loop = 1, easing = QUAD_EASING | EASE_OUT)
+		else
+			animate(S, pixel_x = -32, pixel_y = 0, transform = matrix(), time = 10, loop = 1, easing = QUAD_EASING | EASE_OUT)
 /*
 //used to check if atom/A is within the shuttle's bounding box
 /obj/docking_port/mobile/proc/onShuttleCheck(atom/A)
@@ -839,3 +943,10 @@ var/global/trade_dockrequest_timelimit = 0
 	if(T.dir != dir)
 		T.dir = dir
 	return T
+
+/obj/effect/shuttle_launch_anim
+	name = "shuttle"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "nothing"
+	plane = SHUTTLE_ANIM_PLANE
+	appearance_flags = 0
