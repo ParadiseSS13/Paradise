@@ -655,25 +655,41 @@
 		else if(href_list["change_pill"])
 			#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
 			var/dat = "<table>"
+			var/j = 0
 			for(var/i = 1 to MAX_PILL_SPRITE)
-				dat += "<tr><td><a href=\"?src=\ref[src]&pill_sprite=[i]\"><img src=\"pill[i].png\" /></a></td></tr>"
+				j++
+				if(j == 1)
+					dat += "<tr>"
+				dat += "<td><a href=\"?src=\ref[src]&pill_sprite=[i]\"><img src=\"pill[i].png\" /></a></td>"
+				if(j == 5)
+					dat += "</tr>"
+					j = 0
 			dat += "</table>"
-			usr << browse(dat, "window=chem_master")
+			usr << browse(dat, "window=chem_master_iconsel;size=225x193")
 			return
 		else if(href_list["change_bottle"])
 			#define MAX_BOTTLE_SPRITE 20 //max icon state of the bottle sprites
 			var/dat = "<table>"
+			var/j = 0
 			for(var/i = 1 to MAX_BOTTLE_SPRITE)
-				dat += "<tr><td><a href=\"?src=\ref[src]&bottle_sprite=[i]\"><img src=\"bottle[i].png\" /></a></td></tr>"
+				j++
+				if(j == 1)
+					dat += "<tr>"
+				dat += "<td><a href=\"?src=\ref[src]&bottle_sprite=[i]\"><img src=\"bottle[i].png\" /></a></td>"
+				if(j == 5)
+					dat += "</tr>"
+					j = 0
 			dat += "</table>"
-			usr << browse(dat, "window=chem_master")
+			usr << browse(dat, "window=chem_master_iconsel;size=225x193")
 			return
 		else if(href_list["pill_sprite"])
 			pillsprite = href_list["pill_sprite"]
+			usr << browse(null, "window=chem_master_iconsel")
 		else if(href_list["bottle_sprite"])
 			bottlesprite = href_list["bottle_sprite"]
+			usr << browse(null, "window=chem_master_iconsel")
 
-	. = 1
+	nanomanager.update_uis(src)
 	return
 
 /obj/machinery/chem_master/attack_ai(mob/user as mob)
@@ -689,13 +705,10 @@
 	return
 
 /obj/machinery/chem_master/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(!(user.client in has_sprites))
-		spawn()
-			has_sprites += user.client
-			for(var/i = 1 to MAX_PILL_SPRITE)
-				usr << browse_rsc(icon('icons/obj/chemical.dmi', "pill" + num2text(i)), "pill[i].png")
-			for(var/i = 1 to MAX_BOTTLE_SPRITE)
-				usr << browse_rsc(icon('icons/obj/chemical.dmi', "bottle" + num2text(i)), "bottle[i].png")
+	
+	var/datum/asset/chem_master/assets = get_asset_datum(/datum/asset/chem_master)
+	assets.send(user)
+	
 	var/data = list()
 	
 	data["condi"] = condi
