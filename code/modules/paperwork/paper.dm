@@ -696,6 +696,11 @@
 					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
 					to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
 					organ.insert(target)
+			else if(myeffect == "Cluwne")
+				if(istype(target, /mob/living/carbon/human))
+					var/mob/living/carbon/human/H = target
+					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
+					H.makeCluwne()
 			else if(myeffect == "Demotion Notice")
 				command_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 			else

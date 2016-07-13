@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in Rathen's secret, a new spell for the wizard that AoE stuns"
