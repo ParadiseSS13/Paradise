@@ -270,7 +270,7 @@
 
 /obj/structure/fans/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20, target = src))
