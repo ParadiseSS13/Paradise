@@ -107,21 +107,26 @@
 			var/body_part = parse_zone(user.zone_sel.selecting)
 			if(body_part)
 				var/their = "their"
-				switch(M.gender)
-					if(MALE)	their = "his"
-					if(FEMALE)	their = "her"
+				if(user == M)
+					their = "your"
+				else
+					switch(M.gender)
+						if(MALE)	their = "his"
+						if(FEMALE)	their = "her"
 
 				var/sound = "pulse"
 				var/sound_strength
 
-				if(M.stat == DEAD || (M.status_flags&FAKEDEATH))
+				if(M.stat == DEAD || (M.status_flags&FAKEDEATH) || (!M.get_int_organ(/obj/item/organ/internal/heart) && !M.get_int_organ(/obj/item/organ/internal/lungs)))
 					sound_strength = "cannot hear"
 					sound = "anything"
 				else
 					sound_strength = "hear a weak"
 					switch(body_part)
 						if("chest")
-							if(M.oxyloss < 50)
+							if(M.heart_attack)
+								sound_strength = "hear an irregular"
+							else if(M.oxyloss < 50)
 								sound_strength = "hear a healthy"
 							sound = "pulse and respiration"
 						if("eyes","mouth")
@@ -130,7 +135,7 @@
 						else
 							sound_strength = "hear a weak"
 
-				user.visible_message("[user] places [src] against [M]'s [body_part] and listens attentively.", "You place [src] against [their] [body_part]. You [sound_strength] [sound].")
+				user.visible_message("[user] places \the [src] against [M]'s [body_part] and listens attentively.", "You place \the [src] against [their] [body_part]. You [sound_strength] [sound].")
 				return
 	return ..(M,user)
 
