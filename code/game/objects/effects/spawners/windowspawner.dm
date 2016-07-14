@@ -37,7 +37,7 @@
 
 /obj/effect/spawner/window/plasma/
 	name = "plasma window spawner"
-	windowtospawn = /obj/structure/window/plasma
+	windowtospawn = /obj/structure/window/plasmabasic
 
 /obj/effect/spawner/window/plasma/reinforced
 	name = "reinforced plasma window spawner"

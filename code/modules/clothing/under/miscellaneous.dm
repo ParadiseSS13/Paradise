@@ -669,7 +669,7 @@
 	icon_state = "owl"
 	item_color = "owl"
 
-/obj/item/clothing/under/owl/nodrop
+/obj/item/clothing/under/owl/nodrop/New()
 	flags |= NODROP
 
 /obj/item/clothing/under/griffin
@@ -678,7 +678,7 @@
 	icon_state = "griffin"
 	item_color = "griffin"
 
-/obj/item/clothing/under/griffin/nodrop
+/obj/item/clothing/under/griffin/nodrop/New()
 	flags |= NODROP
 
 /obj/item/clothing/under/noble_clothes

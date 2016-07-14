@@ -573,7 +573,7 @@
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
 	action_button_name = "Toggle Owl Wings"
 
-/obj/item/clothing/suit/toggle/owlwings/nodrop
+/obj/item/clothing/suit/toggle/owlwings/nodrop/New()
 	flags |= NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings
@@ -582,7 +582,7 @@
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
 
-/obj/item/clothing/suit/toggle/owlwings/griffinwings/nodrop
+/obj/item/clothing/suit/toggle/owlwings/griffinwings/nodrop/New()
 	flags |= NODROP
 
 /obj/item/clothing/suit/toggle/attack_self()
