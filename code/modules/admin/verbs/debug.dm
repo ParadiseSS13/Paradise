@@ -615,13 +615,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"nt special ops officer", // now in jobs list
 		"nt special ops formal",
 		)
-	var/dostrip = input("Do you want to strip [M] before equipping them? (0=no, 1=yes)", "STRIPTEASE") as null|anything in list(0,1)
-	if(isnull(dostrip))
-		return
+	var/dostrip = 0
+	switch(alert("Strip [M] before dressing?", "Strip?", "Yes", "No", "Cancel"))
+		if ("Yes")
+			dostrip = 1
+		if ("Cancel")
+			return
 	var/dresscode = input("Select dress for [M]", "Robust quick dress shop") as null|anything in dresspacks
 	if(isnull(dresscode))
 		return
-
 	var/datum/job/jobdatum
 	if(dresscode == "as job...")
 		var/jobname = input("Select job", "Robust quick dress shop") as null|anything in get_all_jobs()
