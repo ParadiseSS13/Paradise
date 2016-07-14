@@ -188,7 +188,7 @@
 // Same blasting power as C4, but with the same idea as the X4 -- Everyone on one side of the wall is safe.
 
 /obj/item/weapon/grenade/plastic/c4_shaped
-	name = "shaped C4 charge"
+	name = "C4 (shaped)"
 	desc = "A brick of C4 shaped to allow more precise breaching."
 	var/aim_dir = NORTH
 
