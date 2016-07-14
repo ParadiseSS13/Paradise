@@ -38,7 +38,6 @@ var/global/datum/controller/process/weather/weather_master
 		run_weather(W.name)
 		eligible_zlevels -= Z
 		addtimer(src, "make_z_eligible", rand(3000, 6000) + W.weather_duration_upper, TRUE, Z) //Around 5-10 minutes between weathers
-		SCHECK
 
 /datum/controller/process/weather/proc/run_weather(weather_name)
 	if(!weather_name)
