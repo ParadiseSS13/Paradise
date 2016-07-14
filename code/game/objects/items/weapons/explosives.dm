@@ -184,17 +184,45 @@
 	aim_dir = get_dir(user,AM)
 	..()
 
-// Flashbang C4
-// Super tacticool, not currently used for anything but we could totally give this to ERT if we wanted to.
+// Shaped charge
+// Same blasting power as C4, but with the same idea as the X4 -- Everyone on one side of the wall is safe.
 
-/obj/item/weapon/grenade/plastic/c4/flash
-	name = "C4 (flash)"
-	desc = "A C4 charge with an altered chemical composition, designed to blind and deafen the occupants of a room before breaching."
+/obj/item/weapon/grenade/plastic/c4_shaped
+	name = "shaped C4 charge"
+	desc = "A brick of C4 shaped to allow more precise breaching."
 	var/aim_dir = NORTH
 
-/obj/item/weapon/grenade/plastic/c4/flash/prime()
-	var/turf/T
+/obj/item/weapon/grenade/plastic/c4_shaped/prime()
+	var/turf/location
+	if(target)
+		if(!qdeleted(target))
+			location = get_turf(target)
+			target.overlays -= image_overlay
+	else
+		location = get_turf(src)
+		target = loc
+	if(location)
+		if(target.density)
+			var/turf/T = get_step(location, aim_dir)
+			explosion(get_step(T, aim_dir),0,0,3)
+			location.ex_act(2, target)
+		else
+			explosion(location, 0, 0, 3)
+			location.ex_act(2, target)
+	if(istype(target, /mob))
+		var/mob/M = target
+		M.gib()
+	qdel(src)
 
+/obj/item/weapon/grenade/plastic/c4_shaped/afterattack(atom/movable/AM, mob/user, flag)
+	aim_dir = get_dir(user,AM)
+	..()
+
+/obj/item/weapon/grenade/plastic/c4_shaped/flash
+	name = "C4 (flash)"
+	desc = "A C4 charge with an altered chemical composition, designed to blind and deafen the occupants of a room before breaching."
+
+/obj/item/weapon/grenade/plastic/c4_shaped/flash/prime()
 	if(target && target.density)
 		T = get_step(get_turf(target), aim_dir)
 	else if(target)
@@ -204,8 +232,5 @@
 
 	var/obj/item/weapon/grenade/flashbang/CB = new/obj/item/weapon/grenade/flashbang(T)
 	CB.prime()
-	..()
 
-/obj/item/weapon/grenade/plastic/c4/flash/afterattack(atom/movable/AM, mob/user, flag)
-	aim_dir = get_dir(user,AM)
 	..()
