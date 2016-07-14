@@ -83,6 +83,9 @@
 					<A href='?src=\ref[src];secretsfun=securitylevel3'>Security Level - Gamma</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=securitylevel4'>Security Level - Epsilon</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=securitylevel5'>Security Level - Delta</A><BR>
+					<b>Create Weather</b><BR>
+					<A href='?src=\ref[src];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
+					<A href='?src=\ref[src];secretsfun=weatherdarkness'>Weather - Advanced Darkness</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
 

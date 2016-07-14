@@ -273,6 +273,7 @@ h1.alert, h2.alert		{color: #000000;}
 .passive				{color: #660000;}
 
 .warning				{color: #ff0000;	font-style: italic;}
+.boldwarning				{color: #ff0000;	font-style: italic;	font-weight: bold}
 .danger					{color: #ff0000;	font-weight: bold;}
 .userdanger				{color: #ff0000;	font-weight: bold;	font-size: 120%;}
 .biggerdanger			{color: #ff0000;	font-weight: bold; font-size: 150%;}
