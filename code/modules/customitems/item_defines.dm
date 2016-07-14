@@ -179,6 +179,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "wingler_comb"
 	attack_verb = list("combed")
+	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0
 	w_class = 2
