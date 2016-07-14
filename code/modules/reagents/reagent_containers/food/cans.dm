@@ -292,12 +292,18 @@
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
 		switch(reagents.total_volume)
-			if(0 to 9)		filling.icon_state = "[icon_state]-10"
-			if(10 to 19) 	filling.icon_state = "[icon_state]10"
-			if(20 to 29)	filling.icon_state = "[icon_state]20"
-			if(30 to 39)	filling.icon_state = "[icon_state]30"
-			if(40 to 49)	filling.icon_state = "[icon_state]40"
-			if(50 to INFINITY)	filling.icon_state = "[icon_state]50"
+			if(0 to 9)
+				filling.icon_state = "[icon_state]-10"
+			if(10 to 19)
+				filling.icon_state = "[icon_state]10"
+			if(20 to 29)
+				filling.icon_state = "[icon_state]20"
+			if(30 to 39)
+				filling.icon_state = "[icon_state]30"
+			if(40 to 49)
+				filling.icon_state = "[icon_state]40"
+			if(50 to INFINITY)
+				filling.icon_state = "[icon_state]50"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
