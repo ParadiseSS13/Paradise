@@ -31,7 +31,7 @@
 		A.master = src
 		A.loc = src
 		assemblyattacher = user.ckey
-		user << "<span class='notice'>You add [A] to the [name].</span>"
+		to_chat(user, "<span class='notice'>You add [A] to the [name].</span>")
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon()
 		return
@@ -64,14 +64,14 @@
 	if(user.get_active_hand() == src)
 		newtime = Clamp(newtime, 10, 60000)
 		det_time = newtime
-		user << "Timer set for [det_time] seconds."
+		to_chat(user, "Timer set for [det_time] seconds.")
 
 /obj/item/weapon/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
 	if (!flag)
 		return
 	if (istype(AM, /mob/living/carbon))
 		return
-	user << "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>"
+	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
 	if(do_after(user, 50, target = AM))
 		if(!user.unEquip(src))
@@ -80,17 +80,17 @@
 		loc = null
 
 		message_admins("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) planted [src.name] on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse",0,1)
-		log_game("[key_name(user)] planted [src.name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
+		log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
 
 		target.overlays += image_overlay
 		if(!nadeassembly)
-			user << "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>"
+			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
 			addtimer(src, "prime", det_time*10)
 
 /obj/item/weapon/grenade/plastic/suicide_act(mob/user)
 	message_admins("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) suicided with [src.name] at ([user.x],[user.y],[user.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",0,1)
-	message_admins("[key_name(user)] suicided with [src.name] at ([user.x],[user.y],[user.z])")
-	user.visible_message("<span class='suicide'>[user] activates the [src.name] and holds it above \his head! It looks like \he's going out with a bang!</span>")
+	message_admins("[key_name(user)] suicided with [name] at ([user.x],[user.y],[user.z])")
+	user.visible_message("<span class='suicide'>[user] activates the [name] and holds it above \his head! It looks like \he's going out with a bang!</span>")
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
 		if(user.mind.special_role)
@@ -181,5 +181,28 @@
 	qdel(src)
 
 /obj/item/weapon/grenade/plastic/x4/afterattack(atom/movable/AM, mob/user, flag)
+	aim_dir = get_dir(user,AM)
+	..()
+
+// Flashbang C4
+// Super tacticool, not currently used for anything but we could totally give this to ERT if we wanted to.
+
+/obj/item/weapon/grenade/plastic/c4/flash
+	name = "C4 (flash)"
+	desc = "A C4 charge with an altered chemical composition, designed to blind and deafen the occupants of a room before breaching."
+	var/aim_dir = NORTH
+
+/obj/item/weapon/grenade/plastic/c4/flash/prime()
+	var/turf/T
+	if(target && target.density)
+		T = get_step(get_turf(src), aim_dir)
+	else
+		T = get_turf(src)
+
+	var/obj/item/weapon/grenade/flashbang/CB = new/obj/item/weapon/grenade/flashbang(T)
+	CB.prime()
+	..()
+
+/obj/item/weapon/grenade/plastic/c4/flash/afterattack(atom/movable/AM, mob/user, flag)
 	aim_dir = get_dir(user,AM)
 	..()
