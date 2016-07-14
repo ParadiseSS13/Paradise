@@ -291,7 +291,7 @@
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
-		switch(reagents.total_volume)
+		switch(round(reagents.total_volume))
 			if(0 to 9)
 				filling.icon_state = "[icon_state]-10"
 			if(10 to 19)
