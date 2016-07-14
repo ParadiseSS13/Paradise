@@ -338,6 +338,7 @@
 	action_button_name = "Caw"
 
 /obj/item/clothing/head/griffin/nodrop/New()
+	..()
 	flags |= NODROP
 
 /obj/item/clothing/head/griffin/attack_self()

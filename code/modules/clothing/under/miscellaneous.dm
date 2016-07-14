@@ -670,6 +670,7 @@
 	item_color = "owl"
 
 /obj/item/clothing/under/owl/nodrop/New()
+	..()
 	flags |= NODROP
 
 /obj/item/clothing/under/griffin
@@ -679,6 +680,7 @@
 	item_color = "griffin"
 
 /obj/item/clothing/under/griffin/nodrop/New()
+	..()
 	flags |= NODROP
 
 /obj/item/clothing/under/noble_clothes
