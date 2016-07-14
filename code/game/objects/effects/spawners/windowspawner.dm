@@ -34,3 +34,12 @@
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
 	windowtospawn = /obj/structure/window/reinforced
+
+/obj/effect/spawner/window/plasma/
+	name = "plasma window spawner"
+	windowtospawn = /obj/structure/window/plasma
+
+/obj/effect/spawner/window/plasma/reinforced
+	name = "reinforced plasma window spawner"
+	icon_state = "rwindow_spawner"
+	windowtospawn = /obj/structure/window/plasmareinforced

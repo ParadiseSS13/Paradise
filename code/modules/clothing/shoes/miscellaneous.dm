@@ -161,7 +161,9 @@
 	desc = "A pair of costume boots fashioned after bird talons."
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
-	flags = NODROP
+
+/obj/item/clothing/shoes/griffin/nodrop
+	flags |= NODROP
 
 /obj/item/clothing/shoes/fluff/noble_boot
 	name = "noble boots"
