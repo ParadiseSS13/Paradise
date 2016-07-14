@@ -232,20 +232,6 @@
 		new /obj/item/weapon/implanter(src)
 		new /obj/item/weapon/implantpad(src)
 
-/obj/item/weapon/storage/box/parole
-	name = "parole kit"
-	desc = "Box of stuff used to manage parolees."
-	icon_state = "implant"
-
-	New()
-		..()
-		new /obj/item/weapon/implanter/parole(src)
-		new /obj/item/weapon/implanter/parole(src)
-		new /obj/item/weapon/implanter/parole(src)
-		new /obj/item/weapon/implanter/tracking(src)
-		new /obj/item/weapon/implanter/tracking(src)
-		new /obj/item/weapon/implanter/tracking(src)
-
 /obj/item/weapon/storage/box/exileimp
 	name = "boxed exile implant kit"
 	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."

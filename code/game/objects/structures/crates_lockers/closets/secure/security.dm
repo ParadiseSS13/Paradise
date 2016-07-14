@@ -150,7 +150,6 @@
 		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 		new /obj/item/clothing/mask/gas/sechailer/warden(src)
 		new /obj/item/taperoll/police(src)
-		new /obj/item/weapon/storage/box/parole(src)
 		new /obj/item/weapon/storage/box/zipties(src)
 		new /obj/item/weapon/storage/box/flashbangs(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)

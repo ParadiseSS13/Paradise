@@ -59,31 +59,3 @@
 /obj/item/weapon/implantcase/chem/New()
 	imp = new /obj/item/weapon/implant/chem(src)
 	..()
-
-
-
-/obj/item/weapon/implant/chem/parole
-	name = "parole implant"
-
-/obj/item/weapon/implant/chem/parole/get_data()
-	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Robust Corp MJ-421 Prisoner Management Implant<BR>
-				<b>Life:</b> Deactivates upon death but remains within the body.<BR>
-				<b>Important Notes: Due to the system functioning off of nutrients in the implanted subject's body, the subject will suffer from an increased appetite.</B><BR>
-				<HR>
-				<b>Implant Details:</b><BR>
-				<b>Function:</b> Contains a small capsule filled with sedative. Upon receiving a specially encoded signal, sedates its host.<BR>
-				<b>Special Features:</b>
-				<b>Integrity:</b> Implant will last so long as the subject is alive."}
-	return dat
-
-/obj/item/weapon/implant/chem/parole/New()
-	..()
-	reagents.add_reagent("ether",50)
-
-/obj/item/weapon/implanter/parole
-	name = "implanter (Chem-Ether)"
-
-/obj/item/weapon/implanter/parole/New()
-	imp = new /obj/item/weapon/implant/chem/parole(src)
-	..()
