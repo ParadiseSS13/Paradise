@@ -194,8 +194,11 @@
 
 /obj/item/weapon/grenade/plastic/c4/flash/prime()
 	var/turf/T
+
 	if(target && target.density)
-		T = get_step(get_turf(src), aim_dir)
+		T = get_step(get_turf(target), aim_dir)
+	else if(target)
+		T = get_turf(target)
 	else
 		T = get_turf(src)
 
