@@ -20,6 +20,8 @@
 
 	//these objects are indestructable
 /obj/docking_port/Destroy()
+	if(!loc)
+		return ..()
 	return QDEL_HINT_LETMELIVE
 
 /obj/docking_port/singularity_pull()
@@ -135,8 +137,13 @@
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
-
 	var/lock_shuttle_doors = 0
+
+/obj/docking_port/stationary/proc/on_docked(mobile)
+	return
+
+/obj/docking_port/stationary/proc/on_undocked(mobile)
+	return
 
 /obj/docking_port/stationary/register()
 	if(!shuttle_master)
@@ -153,6 +160,11 @@
 	highlight("#f00")
 	#endif
 	return 1
+
+/obj/docking_port/stationary/proc/unregister_and_destroy()
+	shuttle_master.stationary -= src
+	loc = null
+	qdel(src)
 
 //returns first-found touching shuttleport
 /obj/docking_port/stationary/get_docked()
@@ -179,6 +191,12 @@
 	shuttle_master.transit += src
 	return 1
 
+/obj/docking_port/stationary/transit/temporary
+	name = "Temprary transit" // To satisy tigercat2000's OCD.
+
+/obj/docking_port/stationary/transit/temporary/on_undocked(mobile)
+	shuttle_master.allocator.deallocate(src)
+
 /obj/docking_port/mobile
 	icon_state = "mobile"
 	name = "shuttle"
@@ -192,6 +210,7 @@
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
+	var/transit_type = /turf/space/transit
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -274,10 +293,11 @@
 				timer = world.time
 			mode = SHUTTLE_CALL
 		else
+			if(!enterTransit())		//hyperspace
+				return 1
 			destination = S
 			mode = SHUTTLE_CALL
 			timer = world.time
-			enterTransit()		//hyperspace
 
 //recall the shuttle to where it was previously
 /obj/docking_port/mobile/proc/cancel()
@@ -299,7 +319,8 @@
 		else
 			previous = S0
 	else
-		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
+		return 0
+	return 1
 
 //default shuttleRotate
 /atom/proc/shuttleRotate(rotation)
@@ -460,7 +481,9 @@
 		for(var/obj/machinery/door/airlock/A in door_unlock_list)
 			spawn(-1)
 				A.unlock()
-
+				
+	S1.on_docked(src)
+	S0.on_undocked(src)
 /*
 	if(istype(S1, /obj/docking_port/stationary/transit))
 		var/d = turn(dir, 180 + travelDir)
@@ -472,7 +495,9 @@
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
-	var/obj/docking_port/stationary/transit/T = shuttle_master.getDock("[id]_transit")
+	var/obj/docking_port/stationary/transit/T = shuttle_master.getDock("[id]_transit", 0)
+	if(!T || canDock(T))
+		T = shuttle_master.allocator.allocate(src) // Allocate a transit dock
 	if(T && !canDock(T))
 		return T
 /*	commented out due to issues with rotation
