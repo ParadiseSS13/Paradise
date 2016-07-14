@@ -137,7 +137,6 @@
 			target.overlays -= image_overlay
 	else
 		location = get_turf(src)
-		target = loc
 	if(location)
 		location.ex_act(2, target)
 		explosion(location,0,0,3)
@@ -165,9 +164,8 @@
 			target.overlays -= image_overlay
 	else
 		location = get_turf(src)
-		target = loc
 	if(location)
-		if(target.density)
+		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
 			explosion(get_step(T, aim_dir),0,0,3)
 			explosion(T,0,2,0)
@@ -200,9 +198,8 @@
 			target.overlays -= image_overlay
 	else
 		location = get_turf(src)
-		target = loc
 	if(location)
-		if(target.density)
+		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
 			explosion(get_step(T, aim_dir),0,0,3)
 			location.ex_act(2, target)
