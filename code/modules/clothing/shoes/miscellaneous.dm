@@ -162,7 +162,7 @@
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
 
-/obj/item/clothing/shoes/griffin/nodrop
+/obj/item/clothing/shoes/griffin/super_hero
 	flags = NODROP
 
 /obj/item/clothing/shoes/fluff/noble_boot

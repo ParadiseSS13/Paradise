@@ -337,7 +337,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	action_button_name = "Caw"
 
-/obj/item/clothing/head/griffin/nodrop
+/obj/item/clothing/head/griffin/super_hero
 	flags = BLOCKHAIR|NODROP
 
 /obj/item/clothing/head/griffin/attack_self()
