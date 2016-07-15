@@ -6,7 +6,7 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronobackpack"
 	item_state = "backpack"
-	w_class = 4.0
+	w_class = 4
 	slot_flags = SLOT_BACK
 	slowdown = 1
 	action_button_name = "Equip/Unequip TED Gun"

@@ -18,7 +18,7 @@
 
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		if (istype(W, /obj/item/weapon/card/id))
+		if(istype(W, /obj/item/weapon/card/id))
 			if(src.broken)
 				to_chat(user, "<span class='warning'>It appears to be broken.</span>")
 				return
@@ -81,7 +81,7 @@
 	storage_slots = 1
 
 /obj/item/weapon/storage/lockbox/loyalty
-	name = "Lockbox (Loyalty Implants)"
+	name = "Lockbox (Mindshield Implants)"
 	req_access = list(access_security)
 
 	New()

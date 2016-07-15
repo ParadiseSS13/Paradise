@@ -266,7 +266,7 @@
 	data["change_body_marking_color"] = can_change_markings("body")
 	data["change_tail_marking_color"] = can_change_markings("tail")
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "appearance_changer.tmpl", "[src]", 800, 450, state = state)
 		ui.set_initial_data(data)
 		ui.open()

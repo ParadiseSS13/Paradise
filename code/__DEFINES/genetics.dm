@@ -1,5 +1,8 @@
 // String identifiers for associative list lookup
 
+
+#define MUTCHK_FORCED        1
+
 // mob/var/list/mutations
 
 // Used in preferences.
@@ -27,7 +30,6 @@
 
 // Extra powers:
 #define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
-#define GREY			10	//Wingdings for Greys -- Not activatable or researchable
 //#define HEAL			10 	// (Not implemented) healing people with hands
 //#define SHADOW		11 	// (Not implemented) shadow teleportation (create in/out portals anywhere) (25%)
 //#define SCREAM		12 	// (Not implemented) supersonic screaming (25%)
@@ -121,3 +123,15 @@
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
 
+//Blood levels
+#define BLOOD_VOLUME_NORMAL			560
+#define BLOOD_VOLUME_SAFE			501
+#define BLOOD_VOLUME_OKAY			336
+#define BLOOD_VOLUME_BAD			224
+#define BLOOD_VOLUME_SURVIVE		122
+
+//Used for calculations for negative effects of having genetics powers
+#define DEFAULT_GENE_STABILITY 100
+#define GENE_INSTABILITY_MINOR 5
+#define GENE_INSTABILITY_MODERATE 10
+#define GENE_INSTABILITY_MAJOR 15

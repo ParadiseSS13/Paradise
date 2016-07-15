@@ -363,10 +363,10 @@
 	return // HOLOTABLE DOES NOT GIVE A FUCK
 
 /obj/structure/table/holotable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/grab))
+	if(istype(W, /obj/item/weapon/grab))
 		return ..()
 
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='warning'>It's a holotable! There are no bolts!</span>")
 		return
 
@@ -406,7 +406,7 @@
 	return // HOLORACK DOES NOT GIVE A FUCK
 
 /obj/structure/rack/holorack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='warning'>It's a holorack! There are no bolts!</span>")
 		return
 
@@ -423,6 +423,7 @@
 	throwforce = 10
 	w_class = 4
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_chance = 50
 
 /obj/item/weapon/holo/claymore/blue
 	icon_state = "claymoreblue"
@@ -432,9 +433,6 @@
 	icon_state = "claymorered"
 	item_state = "claymorered"
 
-/obj/item/weapon/holo/claymore/IsShield()
-	return 1
-
 /obj/item/weapon/holo/esword
 	desc = "May the force be within you. Sorta"
 	icon_state = "sword0"
@@ -442,8 +440,9 @@
 	throw_speed = 1
 	throw_range = 5
 	throwforce = 0
-	w_class = 2.0
-	flags = NOSHIELD
+	w_class = 2
+	armour_penetration = 50
+	block_chance = 50
 	var/active = 0
 
 /obj/item/weapon/holo/esword/green/New()
@@ -452,9 +451,9 @@
 /obj/item/weapon/holo/esword/red/New()
 	item_color = "red"
 
-/obj/item/weapon/holo/esword/IsShield()
+/obj/item/weapon/holo/esword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
-		return 1
+		return ..()
 	return 0
 
 /obj/item/weapon/holo/esword/New()
@@ -462,7 +461,7 @@
 
 /obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
-	if (active)
+	if(active)
 		force = 30
 		icon_state = "sword[item_color]"
 		w_class = 4
@@ -500,7 +499,7 @@
 	throwpass = 1
 
 /obj/structure/holohoop/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
+	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if(G.state<2)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
@@ -510,13 +509,13 @@
 		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into the [src]!</span>")
 		qdel(W)
 		return
-	else if (istype(W, /obj/item) && get_dist(src,user)<2)
+	else if(istype(W, /obj/item) && get_dist(src,user)<2)
 		user.drop_item(src)
 		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
 		return
 
 /obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if (istype(mover,/obj/item) && mover.throwing)
+	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
@@ -572,7 +571,7 @@
 	var/numready = 0
 	for(var/obj/machinery/readybutton/button in currentarea)
 		numbuttons++
-		if (button.ready)
+		if(button.ready)
 			numready++
 
 	if(numbuttons == numready)

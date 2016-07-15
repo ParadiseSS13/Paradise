@@ -242,7 +242,7 @@
 		if(!interactable() || ..(href,href_list))
 			return
 
-		if ("auth" in href_list)
+		if("auth" in href_list)
 			if(auth)
 				auth = 0
 				screen = 0
@@ -255,10 +255,10 @@
 						message = incorrectkey
 
 		//Turn the server on/off.
-		if ("active" in href_list)
+		if("active" in href_list)
 			if(auth) linkedServer.active = !linkedServer.active
 		//Find a server
-		if ("find" in href_list)
+		if("find" in href_list)
 			if(message_servers && message_servers.len > 1)
 				src.linkedServer = input(usr,"Please select a server.", "Select a server.", null) as null|anything in message_servers
 				message = "<span class='alert'>NOTICE: Server selected.</span>"
@@ -269,7 +269,7 @@
 				message = noserver
 
 		//View the logs - KEY REQUIRED
-		if ("view" in href_list)
+		if("view" in href_list)
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -277,7 +277,7 @@
 					src.screen = 1
 
 		//Clears the logs - KEY REQUIRED
-		if ("clear" in href_list)
+		if("clear" in href_list)
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -285,7 +285,7 @@
 					src.linkedServer.pda_msgs = list()
 					message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Clears the request console logs - KEY REQUIRED
-		if ("clearr" in href_list)
+		if("clearr" in href_list)
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -293,7 +293,7 @@
 					src.linkedServer.rc_msgs = list()
 					message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Change the password - KEY REQUIRED
-		if ("pass" in href_list)
+		if("pass" in href_list)
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -313,7 +313,7 @@
 							message = incorrectkey
 
 		//Hack the Console to get the password
-		if ("hack" in href_list)
+		if("hack" in href_list)
 			if((istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot)) && (usr.mind.special_role && usr.mind.original == usr))
 				src.hacking = 1
 				src.screen = 2
@@ -323,7 +323,7 @@
 					if(src && src.linkedServer && usr)
 						BruteForce(usr)
 		//Delete the log.
-		if ("delete" in href_list)
+		if("delete" in href_list)
 			//Are they on the view logs screen?
 			if(screen == 1)
 				if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -332,7 +332,7 @@
 					src.linkedServer.pda_msgs -= locate(href_list["delete"])
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Delete the request console log.
-		if ("deleter" in href_list)
+		if("deleter" in href_list)
 			//Are they on the view logs screen?
 			if(screen == 4)
 				if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -341,14 +341,14 @@
 					src.linkedServer.rc_msgs -= locate(href_list["deleter"])
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Create a custom message
-		if ("msg" in href_list)
+		if("msg" in href_list)
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
 				if(auth)
 					src.screen = 3
 		//Fake messaging selection - KEY REQUIRED
-		if ("select" in href_list)
+		if("select" in href_list)
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 				screen = 0
@@ -400,21 +400,21 @@
 							return src.attack_hand(usr)
 
 						var/obj/item/device/pda/PDARec = null
-						for (var/obj/item/device/pda/P in PDAs)
-							if (!P.owner || P.toff || P.hidden)	continue
+						for(var/obj/item/device/pda/P in PDAs)
+							if(!P.owner || P.toff || P.hidden)	continue
 							if(P.owner == customsender)
 								PDARec = P
 						//Sender isn't faking as someone who exists
 						if(isnull(PDARec))
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[customsender]","[custommessage]")
 							customrecepient.tnote += "<i><b>&larr; From <a href='byond://?src=\ref[customrecepient];choice=Message;target=\ref[src]'>[customsender]</a> ([customjob]):</b></i><br>[custommessage]<br>"
-							if (!customrecepient.silent)
+							if(!customrecepient.silent)
 								playsound(customrecepient.loc, 'sound/machines/twobeep.ogg', 50, 1)
-								for (var/mob/O in hearers(3, customrecepient.loc))
-									O.show_message(text("\icon[customrecepient] *[customrecepient.ttone]*"))
+								for(var/mob/O in hearers(3, customrecepient.loc))
+									O.show_message(text("[bicon(customrecepient)] *[customrecepient.ttone]*"))
 								if( customrecepient.loc && ishuman(customrecepient.loc) )
 									var/mob/living/carbon/human/H = customrecepient.loc
-									to_chat(H, "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond:)//?src=\ref[src];choice=Message;skiprefresh=1;target=\ref[src]'>Reply</a>)"
+									to_chat(H, "[bicon(customrecepient)] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond:)//?src=\ref[src];choice=Message;skiprefresh=1;target=\ref[src]'>Reply</a>)"
 
 								log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
 								customrecepient.overlays.Cut()
@@ -423,13 +423,13 @@
 						else
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[PDARec.owner]","[custommessage]")
 							customrecepient.tnote += "<i><b>&larr; From <a href='byond://?src=\ref[customrecepient];choice=Message;target=\ref[PDARec]'>[PDARec.owner]</a> ([customjob]):</b></i><br>[custommessage]<br>"
-							if (!customrecepient.silent)
+							if(!customrecepient.silent)
 								playsound(customrecepient.loc, 'sound/machines/twobeep.ogg', 50, 1)
-								for (var/mob/O in hearers(3, customrecepient.loc))
-									O.show_message(text("\icon[customrecepient] *[customrecepient.ttone]*"))
+								for(var/mob/O in hearers(3, customrecepient.loc))
+									O.show_message(text("[bicon(customrecepient)] *[customrecepient.ttone]*"))
 								if( customrecepient.loc && ishuman(customrecepient.loc) )
 									var/mob/living/carbon/human/H = customrecepient.loc
-									to_chat(H, "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond:)//?src=\ref[customrecepient];choice=Message;skiprefresh=1;target=\ref[PDARec]'>Reply</a>)"
+									to_chat(H, "[bicon(customrecepient)] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond:)//?src=\ref[customrecepient];choice=Message;skiprefresh=1;target=\ref[PDARec]'>Reply</a>)"
 
 								log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
 								customrecepient.overlays.Cut()
@@ -447,6 +447,6 @@
 
 //			to_chat(usr, href_list["select"])
 
-		if ("back" in href_list)
+		if("back" in href_list)
 			src.screen = 0
 	interact()

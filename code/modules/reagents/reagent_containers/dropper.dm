@@ -32,13 +32,13 @@
 
 					var/obj/item/safe_thing = null
 					if( victim.wear_mask )
-						if ( victim.wear_mask.flags & MASKCOVERSEYES )
+						if( victim.wear_mask.flags & MASKCOVERSEYES )
 							safe_thing = victim.wear_mask
 					if( victim.head )
-						if ( victim.head.flags & MASKCOVERSEYES )
+						if( victim.head.flags & MASKCOVERSEYES )
 							safe_thing = victim.head
 					if(victim.glasses)
-						if ( !safe_thing )
+						if( !safe_thing )
 							safe_thing = victim.glasses
 
 					if(safe_thing)
@@ -54,7 +54,7 @@
 
 
 						to_chat(user, "\blue You transfer [trans] units of the solution.")
-						if (src.reagents.total_volume<=0)
+						if(src.reagents.total_volume<=0)
 							filled = 0
 							icon_state = "[initial(icon_state)]"
 						return
@@ -87,13 +87,13 @@
 						if(reagents.has_reagent(bad_reagent))
 							badshit += reagents_to_log[bad_reagent]
 					if(badshit.len)
-						var/hl="\red <b>([english_list(badshit)])</b> \black"
+						var/hl = "<span class='danger'>([english_list(badshit)])</span>"
 						message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
 						log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
 			trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 			to_chat(user, "\blue You transfer [trans] units of the solution.")
-			if (src.reagents.total_volume<=0)
+			if(src.reagents.total_volume<=0)
 				filled = 0
 				icon_state = "[initial(icon_state)]"
 

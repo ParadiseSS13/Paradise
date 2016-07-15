@@ -116,18 +116,18 @@ var/global/list/limb_icon_cache = list()
 	return mob_icon
 
 /obj/item/organ/external/proc/get_icon(var/skeletal)
-
 	var/gender
+	if(istext(species))
+		species = all_species[species]
 	if(force_icon)
 		mob_icon = new /icon(force_icon, "[icon_name]")
-		if(species && species.name == "Machine")	//snowflake for IPC's, sorry.
+		if(species && species.name == "Machine") //snowflake for IPC's, sorry.
 			if(s_col && s_col.len >= 3)
 				mob_icon.Blend(rgb(s_col[1], s_col[2], s_col[3]), ICON_ADD)
 	else
 		if(!dna)
 			mob_icon = new /icon('icons/mob/human_races/r_human.dmi', "[icon_name][gendered_icon ? "_f" : ""]")
 		else
-
 			if(gendered_icon)
 				if(dna.GetUIState(DNA_UI_GENDER))
 					gender = "f"
@@ -139,7 +139,7 @@ var/global/list/limb_icon_cache = list()
 			else if(status & ORGAN_ROBOT)
 				mob_icon = new /icon('icons/mob/human_races/robotic.dmi', "[icon_name][gender ? "_[gender]" : ""]")
 			else
-				if (status & ORGAN_MUTATED)
+				if(status & ORGAN_MUTATED)
 					mob_icon = new /icon(species.deform, "[icon_name][gender ? "_[gender]" : ""]")
 				else
 					mob_icon = new /icon(species.icobase, "[icon_name][gender ? "_[gender]" : ""]")
@@ -165,7 +165,7 @@ var/global/list/limb_icon_cache = list()
 // adjusted to set damage_state to brute/burn code only (without r_name0 as before)
 /obj/item/organ/external/update_icon()
 	var/n_is = damage_state_text()
-	if (n_is != damage_state)
+	if(n_is != damage_state)
 		damage_state = n_is
 		return 1
 	return 0

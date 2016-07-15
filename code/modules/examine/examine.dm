@@ -46,7 +46,7 @@
 	description_holders["antag"] = (update_antag_info)? A.get_description_antag() : ""
 
 	description_holders["name"] = "[A.name]"
-	description_holders["icon"] = "\icon[A]"
+	description_holders["icon"] = "[bicon(A)]"
 	description_holders["desc"] = A.desc
 
 /client/Stat()

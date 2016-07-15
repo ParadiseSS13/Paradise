@@ -40,31 +40,31 @@
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
-	for (var/obj/machinery/camera/C in src)
+	for(var/obj/machinery/camera/C in src)
 		cameras += C
 	return cameras
 
 
 /area/proc/atmosalert(danger_level, var/alarm_source)
-	if (danger_level == 0)
+	if(danger_level == 0)
 		atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
 		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
 
 	//Check all the alarms before lowering atmosalm. Raising is perfectly fine.
-	for (var/obj/machinery/alarm/AA in src)
-		if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
+	for(var/obj/machinery/alarm/AA in src)
+		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
 			danger_level = max(danger_level, AA.danger_level)
 
 	if(danger_level != atmosalm)
-		if (danger_level < 1 && atmosalm >= 1)
+		if(danger_level < 1 && atmosalm >= 1)
 			//closing the doors on red and opening on green provides a bit of hysteresis that will hopefully prevent fire doors from opening and closing repeatedly due to noise
 			air_doors_open()
-		else if (danger_level >= 2 && atmosalm < 2)
+		else if(danger_level >= 2 && atmosalm < 2)
 			air_doors_close()
 
 		atmosalm = danger_level
-		for (var/obj/machinery/alarm/AA in src)
+		for(var/obj/machinery/alarm/AA in src)
 			AA.update_icon()
 
 		air_alarm_repository.update_cache(src)
@@ -103,7 +103,7 @@
 		air_doors_close()
 
 /area/proc/fire_reset()
-	if (fire)
+	if(fire)
 		fire = 0	//used for firedoor checks
 		updateicon()
 		mouse_opacity = 0
@@ -159,14 +159,14 @@
 	return
 
 /area/proc/partyalert()
-	if (!( party ))
+	if(!( party ))
 		party = 1
 		updateicon()
 		mouse_opacity = 0
 	return
 
 /area/proc/partyreset()
-	if (party)
+	if(party)
 		party = 0
 		mouse_opacity = 0
 		updateicon()
@@ -183,7 +183,7 @@
 	if(radalert) // always show the radiation alert, regardless of power
 		icon_state = "radiation"
 		blend_mode = BLEND_MULTIPLY
-	else if ((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
+	else if((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
 		if(fire && !radalert && !eject && !party)
 			icon_state = "red"
 			blend_mode = BLEND_MULTIPLY
@@ -237,7 +237,7 @@
 /area/proc/power_change()
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()			// reverify power status (to update icons etc.)
-	if (fire || eject || party)
+	if(fire || eject || party)
 		updateicon()
 
 /area/proc/usage(var/chan)
@@ -310,7 +310,7 @@
 		M.lastarea = src
 
 		// /vg/ - EVENTS!
-		CallHook("MobAreaChange", list("mob" = M, "new" = newarea, "old" = oldarea))
+		callHook("mob_area_change", list("mob" = M, "newarea" = newarea, "oldarea" = oldarea))
 
 	if(!istype(A,/mob/living))	return
 
@@ -322,14 +322,14 @@
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))	//split off the white noise from the rest of the ambience because of annoyance complaints - Kluys
 		L.client.ambience_playing = 1
-		to_chat(L, sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2))
-	else if (L && L.client && !(L.client.prefs.sound & SOUND_BUZZ)) L.client.ambience_playing = 0
+		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)
+	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ)) L.client.ambience_playing = 0
 
 	if(prob(35) && !newarea.media_source && L && L.client && (L.client.prefs.sound & SOUND_AMBIENCE))
 		var/sound = pick(ambientsounds)
 
 		if(!L.client.played)
-			to_chat(L, sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1))
+			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
 			L.client.played = 1
 			spawn(600)			//ewww - this is very very bad
 				if(L.&& L.client)
@@ -347,7 +347,7 @@
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
 
-	if (M.buckled) //Cam't fall down if you are buckled
+	if(M.buckled) //Cam't fall down if you are buckled
 		return
 
 	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
@@ -357,7 +357,7 @@
 		M.Stun(5)
 		M.Weaken(5)
 
-	else if (istype(M,/mob/living/carbon/human/))
+	else if(istype(M,/mob/living/carbon/human/))
 		M.Stun(2)
 		M.Weaken(2)
 

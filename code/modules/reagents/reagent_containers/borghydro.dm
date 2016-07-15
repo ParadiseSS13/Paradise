@@ -74,9 +74,9 @@
 	if(!R.total_volume)
 		to_chat(user, "<span class='warning'>The injector is empty.</span>")
 		return
-	if (!istype(M))
+	if(!istype(M))
 		return
-	if (R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
+	if(R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
 

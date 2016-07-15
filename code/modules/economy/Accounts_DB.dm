@@ -18,7 +18,7 @@
 /obj/machinery/computer/account_database/proc/get_access_level(var/mob/user)
 	if(user.can_admin_interact())
 		return 2
-	if (!held_card)
+	if(!held_card)
 		return 0
 	if(access_cent_commander in held_card.access)
 		return 2
@@ -91,14 +91,14 @@
 	data["transactions"] = null
 	data["accounts"] = null
 
-	if (detailed_account_view)
+	if(detailed_account_view)
 		data["account_number"] = detailed_account_view.account_number
 		data["owner_name"] = detailed_account_view.owner_name
 		data["money"] = detailed_account_view.money
 		data["suspended"] = detailed_account_view.suspended
 
 		var/list/trx[0]
-		for (var/datum/transaction/T in detailed_account_view.transaction_log)
+		for(var/datum/transaction/T in detailed_account_view.transaction_log)
 			trx.Add(list(list(\
 				"date" = T.date, \
 				"time" = T.time, \
@@ -107,7 +107,7 @@
 				"amount" = T.amount, \
 				"source_terminal" = T.source_terminal)))
 
-		if (trx.len > 0)
+		if(trx.len > 0)
 			data["transactions"] = trx
 
 	var/list/accounts[0]
@@ -119,11 +119,11 @@
 			"suspended"=D.suspended ? "SUSPENDED" : "",\
 			"account_index"=i)))
 
-	if (accounts.len > 0)
+	if(accounts.len > 0)
 		data["accounts"] = accounts
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
 		ui.set_initial_data(data)
 		ui.open()
@@ -142,7 +142,7 @@
 
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/weapon/card/id))
+			if(istype(I, /obj/item/weapon/card/id))
 				var/obj/item/weapon/card/id/C = I
 				usr.drop_item()
 				C.forceMove(src)
@@ -220,7 +220,7 @@
 				var/text
 				playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 				var/obj/item/weapon/paper/P = new(loc)
-				if (detailed_account_view)
+				if(detailed_account_view)
 					P.name = "account #[detailed_account_view.account_number] details"
 					var/title = "Account #[detailed_account_view.account_number] Details"
 					text = {"
@@ -242,7 +242,7 @@
 							<tbody>
 						"}
 
-					for (var/datum/transaction/T in detailed_account_view.transaction_log)
+					for(var/datum/transaction/T in detailed_account_view.transaction_log)
 						text += {"
 									<tr>
 										<td>[T.date] [T.time]</td>

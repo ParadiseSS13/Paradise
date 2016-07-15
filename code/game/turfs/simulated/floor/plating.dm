@@ -30,13 +30,13 @@
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
 			return 1
 		var/obj/item/stack/rods/R = C
-		if (R.get_amount() < 2)
+		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
 			return 1
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30, target = src))
-				if (R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
+				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, 'sound/items/Deconstruct.ogg', 80, 1)
 					R.use(2)

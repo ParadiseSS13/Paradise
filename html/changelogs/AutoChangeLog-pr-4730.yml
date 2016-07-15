@@ -1,4 +1,0 @@
-author: Kyep
-delete-after: True
-changes: 
-  - bugfix: "Safeties added to Bee Briefcase, to prevent it accidentally killing traitors get it in bundles and crates."

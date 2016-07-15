@@ -121,7 +121,7 @@
 		src.update_icon()
 
 /obj/item/weapon/gun/dartgun/proc/get_mixed_syringe()
-	if (!cartridge)
+	if(!cartridge)
 		return 0
 	if(!cartridge.darts)
 		return 0
@@ -136,7 +136,7 @@
 	return dart
 
 /obj/item/weapon/gun/dartgun/proc/fire_dart(atom/target, mob/user)
-	if (locate (/obj/structure/table, src.loc))
+	if(locate (/obj/structure/table, src.loc))
 		return
 	else
 		var/turf/trg = get_turf(target)
@@ -172,7 +172,7 @@
 						for(var/datum/reagent/A in D.reagents.reagent_list)
 							R += A.id + " ("
 							R += num2text(A.volume) + "),"
-					if (istype(M, /mob))
+					if(istype(M, /mob))
 						M.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])"
 						user.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])"
 						if(M.ckey)
@@ -199,7 +199,7 @@
 
 			sleep(1)
 
-		if (D) spawn(10) qdel(D)
+		if(D) spawn(10) qdel(D)
 
 		return
 
@@ -212,14 +212,14 @@
 	user.set_machine(src)
 	var/dat = "<b>[src] mixing control:</b><br><br>"
 
-	if (beakers.len)
+	if(beakers.len)
 		var/i = 1
 		for(var/obj/item/weapon/reagent_containers/glass/beaker/B in beakers)
 			dat += "Beaker [i] contains: "
 			if(B.reagents && B.reagents.reagent_list.len)
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					dat += "<br>    [R.volume] units of [R.name], "
-				if (check_beaker_mixing(B))
+				if(check_beaker_mixing(B))
 					dat += text("<A href='?src=\ref[src];stop_mix=[i]'><font color='green'>Mixing</font></A> ")
 				else
 					dat += text("<A href='?src=\ref[src];mix=[i]'><font color='red'>Not mixing</font></A> ")
@@ -257,11 +257,11 @@
 				if(M == beakers[index])
 					mixing -= M
 					break
-	else if (href_list["mix"])
+	else if(href_list["mix"])
 		var/index = text2num(href_list["mix"])
 		if(index <= beakers.len)
 			mixing += beakers[index]
-	else if (href_list["eject"])
+	else if(href_list["eject"])
 		var/index = text2num(href_list["eject"])
 		if(index <= beakers.len)
 			if(beakers[index])
@@ -270,7 +270,7 @@
 				mixing -= B
 				beakers -= B
 				B.forceMove(get_turf(src))
-	else if (href_list["eject_cart"])
+	else if(href_list["eject_cart"])
 		remove_cartridge()
 	src.updateUsrDialog()
 	return

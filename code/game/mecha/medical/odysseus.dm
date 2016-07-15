@@ -40,7 +40,7 @@
 			var/datum/atom_hud/data/human/medical/advanced/A = huds[DATA_HUD_MEDICAL_ADVANCED]
 			A.remove_hud_from(H)
 			builtin_hud_user = 0
-		else if ((istype(occupant, /mob/living/carbon/brain) || pilot_is_mmi()) && builtin_hud_user )
+		else if((istype(occupant, /mob/living/carbon/brain) || pilot_is_mmi()) && builtin_hud_user )
 			var/mob/living/carbon/brain/H = occupant
 			var/datum/atom_hud/A = huds[DATA_HUD_MEDICAL_ADVANCED]
 			A.remove_hud_from(H)

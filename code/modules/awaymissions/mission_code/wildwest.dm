@@ -65,7 +65,7 @@
 	else if(is_special_character(user))
 		to_chat(user, "Even to a heart as dark as yours, you know nothing good will come of this.  Something instinctual makes you pull away.")
 
-	else if (!insistinga)
+	else if(!insistinga)
 		to_chat(user, "Your first touch makes the Wish Granter stir, listening to you.  Are you really sure you want to do this?")
 		insistinga++
 
@@ -172,7 +172,7 @@
 
 	if(istype(M, /mob/living/carbon/human))
 		for(var/mob/O in viewers(world.view, src.loc))
-			to_chat(O, "<font color='red'>[M] triggered the \icon[src] [src]</font>")
+			to_chat(O, "<font color='red'>[M] triggered the [bicon(src)] [src]</font>")
 		triggered = 1
 		call(src,triggerproc)(M)
 

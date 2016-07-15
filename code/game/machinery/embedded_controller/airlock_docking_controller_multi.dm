@@ -17,8 +17,8 @@
 	var/list/names = splittext(child_names_txt, ";")
 	var/list/tags = splittext(child_tags_txt, ";")
 
-	if (names.len == tags.len)
-		for (var/i = 1; i <= tags.len; i++)
+	if(names.len == tags.len)
+		for(var/i = 1; i <= tags.len; i++)
 			child_names[tags[i]] = names[i]
 
 
@@ -27,7 +27,7 @@
 
 	var/list/airlocks[child_names.len]
 	var/i = 1
-	for (var/child_tag in child_names)
+	for(var/child_tag in child_names)
 		airlocks[i++] = list("name"=child_names[child_tag], "override_enabled"=(docking_program.children_override[child_tag] == "enabled"))
 
 	data = list(
@@ -37,7 +37,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "multi_docking_console.tmpl", name, 470, 290)
 		ui.set_initial_data(data)
 		ui.open()
@@ -75,7 +75,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "docking_airlock_console.tmpl", name, 470, 290)
 		ui.set_initial_data(data)
 		ui.open()

@@ -5,7 +5,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/IonRifle.ogg'
 	origin_tech = "combat=2;magnets=4"
-	w_class = 5.0
+	w_class = 5
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -119,6 +119,10 @@
 	origin_tech = "combat=4;powerstorage=3"
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg
+	holds_charge = TRUE
+	unique_frequency = TRUE
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/hyper/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
 
@@ -279,13 +283,13 @@
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
-	icon_state = "wormhole_projector100"
+	icon_state = "wormhole_projector1"
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
 
 /obj/item/weapon/gun/energy/wormhole_projector/update_icon()
-	icon_state = "[initial(icon_state)][select]"
+	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
 	return
 
@@ -306,6 +310,8 @@
 /obj/item/weapon/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
 	P.precision = 0
+	P.failchance = 0
+	P.can_multitool_to_remove = 1
 	if(W.name == "bluespace beam")
 		qdel(blue)
 		blue = P
@@ -441,7 +447,7 @@
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/weapon/gun/energy/temperature/Topic(href, href_list)
-	if (..())
+	if(..())
 		return
 	usr.set_machine(src)
 	add_fingerprint(usr)
@@ -452,7 +458,7 @@
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
 			target_temperature = max(0, target_temperature+amount)
-	if (istype(loc, /mob))
+	if(istype(loc, /mob))
 		attack_self(loc)
 	add_fingerprint(usr)
 	return
@@ -489,9 +495,9 @@
 			temperature = target_temperature
 		update_icon()
 
-		if (istype(loc, /mob/living/carbon))
+		if(istype(loc, /mob/living/carbon))
 			var /mob/living/carbon/M = loc
-			if (src == M.machine)
+			if(src == M.machine)
 				update_dat()
 				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
 	return
@@ -550,7 +556,7 @@
 	update_charge()
 
 /obj/item/weapon/gun/energy/temperature/proc/update_user()
-	if (istype(loc,/mob/living/carbon))
+	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()

@@ -72,7 +72,7 @@
 		if(..(user, 0))
 			if(air_contents.oxygen < 1 && loc==usr)
 				to_chat(user, "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
-				to_chat(user, sound('sound/effects/alert.ogg'))
+				user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/air/New()
 	..()
@@ -100,9 +100,9 @@
 /obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
-	if (istype(W, /obj/item/weapon/flamethrower))
+	if(istype(W, /obj/item/weapon/flamethrower))
 		var/obj/item/weapon/flamethrower/F = W
-		if ((!F.status)||(F.ptank))	return
+		if((!F.status)||(F.ptank))	return
 		src.master = F
 		F.ptank = src
 		user.unEquip(src)
@@ -124,7 +124,7 @@
 	if(..(user, 0))
 		if(air_contents.toxins < 0.2 && loc==usr)
 			to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of plasma!</B>"))
-			to_chat(user, sound('sound/effects/alert.ogg'))
+			user << sound('sound/effects/alert.ogg')
 
 /*
  * Emergency Oxygen
@@ -135,7 +135,7 @@
 	icon_state = "emergency"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	w_class = 2.0
+	w_class = 2
 	force = 4.0
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
@@ -151,7 +151,7 @@
 		if(..(user, 0))
 			if(air_contents.oxygen < 0.2 && loc==usr)
 				to_chat(user, text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"))
-				to_chat(user, sound('sound/effects/alert.ogg'))
+				user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"

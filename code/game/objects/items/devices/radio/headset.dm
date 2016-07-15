@@ -51,11 +51,11 @@
 	to_chat(user, radio_desc)
 
 /obj/item/device/radio/headset/handle_message_mode(mob/living/M as mob, message, channel)
-	if (channel == "special")
-		if (translate_binary)
+	if(channel == "special")
+		if(translate_binary)
 			var/datum/language/binary = all_languages["Robot Talk"]
 			binary.broadcast(M, message)
-		if (translate_hive)
+		if(translate_hive)
 			var/datum/language/hivemind = all_languages["Hivemind"]
 			hivemind.broadcast(M, message)
 		return null
@@ -287,6 +287,14 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/device/radio/headset/centcom
+	name = "\proper centcom officer's bowman headset"
+	desc = "The headset of final authority. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+	ks2type = /obj/item/device/encryptionkey/centcom
+
 /obj/item/device/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
 	desc = "Integrated AI radio transceiver."
@@ -298,13 +306,13 @@
 	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
 /obj/item/device/radio/headset/heads/ai_integrated/receive_range(freq, level)
-	if (disabledAi)
+	if(disabledAi)
 		return -1 //Transciever Disabled.
 	return ..(freq, level, 1)
 
 /obj/item/device/radio/headset/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	user.set_machine(src)
-	if (!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
+	if(!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
 		return
 
 	if(istype(W, /obj/item/weapon/screwdriver))
@@ -387,7 +395,7 @@
 			src.syndie = 1
 
 
-	for (var/ch_name in channels)
+	for(var/ch_name in channels)
 		if(!radio_controller)
 			src.name = "broken radio headset"
 			return

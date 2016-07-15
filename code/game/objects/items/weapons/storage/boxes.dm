@@ -261,6 +261,19 @@
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implanter(src)
 
+/obj/item/weapon/storage/box/tapes
+	name = "Tape Box"
+	desc = "A box of spare recording tapes"
+	icon_state = "box"
+
+	New()
+		..()
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
 
 /obj/item/weapon/storage/box/rxglasses
 	name = "prescription glasses"
@@ -603,7 +616,7 @@
 	icon_state = "syringe"
 	New()
 		..()
-		for (var/i; i < storage_slots; i++)
+		for(var/i; i < storage_slots; i++)
 			new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/weapon/storage/box/autoinjector/utility

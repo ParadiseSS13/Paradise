@@ -12,3 +12,5 @@ var/list/combatlog = list()
 var/list/IClog = list()
 var/list/OOClog = list()
 var/list/adminlog = list()
+
+var/list/investigate_log_subjects = list("notes", "watchlist", "hrefs")

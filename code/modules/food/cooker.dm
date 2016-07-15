@@ -9,16 +9,18 @@
 	var/on = 0
 	var/onicon = null
 	var/officon = null
+	var/openicon = null
 	var/thiscooktype = null
 	var/burns = 0				// whether a machine burns something - if it does, you probably want to add the cooktype to /snacks/badrecipe
 	var/firechance = 0
 	var/cooktime = 0
 	var/foodcolor = null
 	var/has_specials = 0		//Set to 1 if the machine has specials to check, otherwise leave it at 0
+	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/weapon/reagent_containers/food/snacks/D)
-	if (D.cooktype[thiscooktype])
+	if(D.cooktype[thiscooktype])
 		return 1
 	return 0
 
@@ -65,7 +67,7 @@
 	var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()    // burning things makes smoke!
 	smoke.set_up(5, 0, src)
 	smoke.start()
-	if (prob(firechance))
+	if(prob(firechance))
 		var/turf/location = get_turf(src)
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(location)
 		oil.name = "fat"
@@ -91,9 +93,24 @@
 	return type
 
 /obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
+	if(upgradeable)
+	//Not all cooker types currently support build/upgrade stuff, so not all of it will work well with this
+	//Until we decide whether or not we want to bring back the cereal maker or old grill/oven in some form, this initial check will have to suffice
+		if(isscrewdriver(I))
+			default_deconstruction_screwdriver(user, openicon, officon, I)
+			return
+		if(iscrowbar(I))
+			default_deconstruction_crowbar(I)
+			return
+		if(istype(I, /obj/item/weapon/storage/part_replacer))
+			exchange_parts(user, I)
+			return
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if (!checkValid(I, user))
+	if(panel_open)
+		to_chat(user, "<span class='warning'>Close the panel first!</span>")
+		return
+	if(!checkValid(I, user))
 		return
 	if(!burns)
 		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))

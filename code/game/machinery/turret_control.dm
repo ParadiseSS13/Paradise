@@ -136,7 +136,7 @@
 		data["settings"] = settings
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
 		ui.set_initial_data(data)
 		ui.open()
@@ -184,7 +184,7 @@
 	TC.ailock = ailock
 
 	if(istype(control_area))
-		for (var/obj/machinery/porta_turret/aTurret in control_area)
+		for(var/obj/machinery/porta_turret/aTurret in control_area)
 			aTurret.setState(TC)
 
 	update_icon()
@@ -199,8 +199,8 @@
 	if(stat & NOPOWER)
 		icon_state = "control_off"
 		set_light(0)
-	else if (enabled)
-		if (lethal)
+	else if(enabled)
+		if(lethal)
 			icon_state = "control_kill"
 			set_light(1.5, 1,"#990000")
 		else

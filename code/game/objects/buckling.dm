@@ -34,7 +34,7 @@
 	if(!can_buckle || !istype(M) || (M.loc != loc) || M.buckled || M.buckled_mob || buckled_mob || (buckle_requires_restraints && !M.restrained()) || M == src)
 		return 0
 
-	if (isslime(M) || isAI(M))
+	if(isslime(M) || isAI(M))
 		if(M == usr)
 			to_chat(M, "<span class='warning'>You are unable to buckle yourself to the [src]!</span>")
 		else

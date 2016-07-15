@@ -26,10 +26,12 @@
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/facehugger
+	var/default_atmos_requirements = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/pet/corgi/New()
 	..()
+	default_atmos_requirements = src.atmos_requirements
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/corgi/Life()
@@ -78,8 +80,8 @@
 				custom_emote(1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")
 			return
 
-	if (istype(O, /obj/item/weapon/razor))
-		if (shaved)
+	if(istype(O, /obj/item/weapon/razor))
+		if(shaved)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
 			return
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
@@ -118,6 +120,9 @@
 					emote_see = list("shakes its head", "shivers")
 					desc = "It's a corgi."
 					set_light(0)
+					flags &= ~NO_BREATHE
+					atmos_requirements = default_atmos_requirements
+					minbodytemp = initial(minbodytemp)
 					inventory_head.loc = src.loc
 					inventory_head = null
 					regenerate_icons()
@@ -353,6 +358,9 @@
 				name = "Space Explorer [real_name]"
 				desc = "That's one small step for a corgi. One giant yap for corgikind."
 				valid = 1
+				flags |= NO_BREATHE
+				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+				minbodytemp = 0
 
 			if(/obj/item/clothing/mask/fakemoustache)
 				name = "Definitely Not [real_name]"
@@ -429,13 +437,13 @@
 					step_to(src,movement_target,1)
 
 					if(movement_target)		//Not redundant due to sleeps, Item can be gone in 6 decisecomds
-						if (movement_target.loc.x < src.x)
+						if(movement_target.loc.x < src.x)
 							dir = WEST
-						else if (movement_target.loc.x > src.x)
+						else if(movement_target.loc.x > src.x)
 							dir = EAST
-						else if (movement_target.loc.y < src.y)
+						else if(movement_target.loc.y < src.y)
 							dir = SOUTH
-						else if (movement_target.loc.y > src.y)
+						else if(movement_target.loc.y > src.y)
 							dir = NORTH
 						else
 							dir = SOUTH
@@ -463,7 +471,7 @@
 /mob/living/simple_animal/pet/corgi/Ian/Bump(atom/movable/AM as mob|obj, yes)
 
 	spawn( 0 )
-		if ((!( yes ) || now_pushing))
+		if((!( yes ) || now_pushing))
 			return
 		now_pushing = 1
 		if(ismob(AM))
@@ -480,13 +488,13 @@
 			tmob.LAssailant = src
 		now_pushing = 0
 		..()
-		if (!( istype(AM, /atom/movable) ))
+		if(!( istype(AM, /atom/movable) ))
 			return
-		if (!( now_pushing ))
+		if(!( now_pushing ))
 			now_pushing = 1
-			if (!( AM.anchored ))
+			if(!( AM.anchored ))
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window/full))
+				if(istype(AM, /obj/structure/window/full))
 					for(var/obj/structure/window/win in get_step(AM,t))
 						now_pushing = 0
 						return
@@ -614,7 +622,7 @@
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/proc/explode()
 	for(var/mob/M in viewers(src, null))
-		if (M.client)
+		if(M.client)
 			M.show_message("\red [src] makes an odd whining noise.")
 	sleep(10)
 	explosion(get_turf(src), 0, 1, 4, 7)
@@ -623,7 +631,7 @@
 /mob/living/simple_animal/pet/corgi/Ian/borgi/proc/shootAt(var/atom/movable/target)
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(target)
-	if (!T || !U)
+	if(!T || !U)
 		return
 	var/obj/item/projectile/beam/A = new /obj/item/projectile/beam(loc)
 	A.icon = 'icons/effects/genetics.dmi'
@@ -639,7 +647,7 @@
 	..()
 	if(emagged && prob(25))
 		var/mob/living/carbon/target = locate() in view(10,src)
-		if (target)
+		if(target)
 			shootAt(target)
 
 	//spark for no reason
