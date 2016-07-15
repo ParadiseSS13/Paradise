@@ -41,9 +41,6 @@ var/global/datum/global_init/init = new ()
 
 	timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
-	if(config && config.log_runtime)
-		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
-
 	callHook("startup")
 
 	src.update_status()
