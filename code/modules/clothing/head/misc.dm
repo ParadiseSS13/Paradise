@@ -338,8 +338,7 @@
 	action_button_name = "Caw"
 
 /obj/item/clothing/head/griffin/nodrop
-	..()
-	flags = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|NODROP
+	flags = BLOCKHAIR|NODROP
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()

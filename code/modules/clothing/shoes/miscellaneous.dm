@@ -163,7 +163,6 @@
 	item_state = "griffinboots"
 
 /obj/item/clothing/shoes/griffin/nodrop
-	..()
 	flags = NODROP
 
 /obj/item/clothing/shoes/fluff/noble_boot

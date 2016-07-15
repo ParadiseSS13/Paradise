@@ -574,7 +574,6 @@
 	action_button_name = "Toggle Owl Wings"
 
 /obj/item/clothing/suit/toggle/owlwings/nodrop
-	..()
 	flags = NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings
@@ -584,7 +583,6 @@
 	item_state = "griffin_wings"
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings/nodrop
-	..()
 	flags = NODROP
 
 /obj/item/clothing/suit/toggle/attack_self()
