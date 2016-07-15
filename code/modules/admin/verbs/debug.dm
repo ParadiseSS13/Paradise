@@ -617,9 +617,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		)
 	var/dostrip = 0
 	switch(alert("Strip [M] before dressing?", "Strip?", "Yes", "No", "Cancel"))
-		if ("Yes")
+		if("Yes")
 			dostrip = 1
-		if ("Cancel")
+		if("Cancel")
 			return
 	var/dresscode = input("Select dress for [M]", "Robust quick dress shop") as null|anything in dresspacks
 	if(isnull(dresscode))
@@ -629,7 +629,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/jobname = input("Select job", "Robust quick dress shop") as null|anything in get_all_jobs()
 		jobdatum = job_master.GetJob(jobname)
 
-	feedback_add_details("admin_verb","SEQ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_add_details("admin_verb", "SEQ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	if(dostrip)
 		for(var/obj/item/I in M)
 			if(istype(I, /obj/item/weapon/implant))
@@ -658,9 +658,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			J.toggle()
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(M), slot_wear_mask)
 			J.Topic(null, list("stat" = 1))
-			equip_special_id(M,get_all_accesses(),"Space Explorer", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Space Explorer", /obj/item/weapon/card/id)
 
-		if("Engineer RIG","CE RIG","Mining RIG","Syndi RIG","Wizard RIG","Medical RIG","Atmos RIG")
+		if("Engineer RIG", "CE RIG", "Mining RIG", "Syndi RIG", "Wizard RIG", "Medical RIG", "Atmos RIG")
 			if(dresscode=="Engineer RIG")
 				M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig(M), slot_wear_suit)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig(M), slot_head)
@@ -686,10 +686,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(J, slot_back)
 			J.toggle()
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(M), slot_wear_mask)
-			equip_special_id(M,get_all_accesses(),"RIG Tester", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "RIG Tester", /obj/item/weapon/card/id)
 			J.Topic(null, list("stat" = 1))
 
-		if("tournament standard red","tournament standard green") //we think stunning weapon is too overpowered to use it on tournaments. --rastaf0
+		if("tournament standard red", "tournament standard green") //we think stunning weapon is too overpowered to use it on tournaments. --rastaf0
 			if(dresscode=="tournament standard red")
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/red(M), slot_w_uniform)
 			else
@@ -747,7 +747,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/pirate(M), slot_r_hand)
-			equip_special_id(M,get_all_accesses(),"Pirate", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Pirate", /obj/item/weapon/card/id)
 
 		if("space pirate")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
@@ -756,13 +756,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/pirate(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/pirate(M), slot_r_hand)
-			equip_special_id(M,get_all_accesses(),"Space Pirate", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Space Pirate", /obj/item/weapon/card/id)
 
 		if("soviet soldier")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/ushanka(M), slot_head)
-			equip_special_id(M,get_all_accesses(),"Soviet Soldier", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Soviet Soldier", /obj/item/weapon/card/id)
 
 		if("tunnel clown")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(M), slot_w_uniform)
@@ -777,7 +777,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/chaplain_hoodie(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/snacks/grown/banana(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(M), slot_r_store)
-			equip_special_id(M,get_all_accesses(),"Tunnel Clown", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Tunnel Clown", /obj/item/weapon/card/id)
 			var/obj/item/weapon/twohanded/fireaxe/fire_axe = new(M)
 			M.equip_to_slot_or_del(fire_axe, slot_r_hand)
 
@@ -787,7 +787,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
-			equip_special_id(M,get_all_accesses(),"Survivor", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Survivor", /obj/item/weapon/card/id)
 			for(var/obj/item/carried_item in M.contents)
 				if(!istype(carried_item, /obj/item/weapon/implant))
 					carried_item.add_blood(M)
@@ -804,7 +804,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/apron(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/kitchen/knife(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/scalpel(M), slot_r_store)
-			equip_special_id(M,get_all_accesses(),"Masked Killer", /obj/item/weapon/card/id/syndicate)
+			equip_special_id(M,get_all_accesses(), "Masked Killer", /obj/item/weapon/card/id/syndicate)
 			var/obj/item/weapon/twohanded/fireaxe/fire_axe = new(M)
 			M.equip_to_slot_or_del(fire_axe, slot_r_hand)
 			for(var/obj/item/carried_item in M.contents)
@@ -824,7 +824,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/obj/item/clothing/suit/chaplain_hoodie/robe = new(M)
 			robe.name = "dark lord robes"
 			M.equip_to_slot_or_del(robe, slot_wear_suit)
-			equip_special_id(M,get_all_accesses(),"Dark Lord", /obj/item/weapon/card/id/syndicate)
+			equip_special_id(M,get_all_accesses(), "Dark Lord", /obj/item/weapon/card/id/syndicate)
 
 		if("assassin")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(M), slot_w_uniform)
@@ -853,7 +853,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			pda.ownjob = "Reaper"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
-			equip_special_id(M,get_all_accesses(),"Reaper", /obj/item/weapon/card/id/syndicate)
+			equip_special_id(M,get_all_accesses(), "Reaper", /obj/item/weapon/card/id/syndicate)
 
 		if("spy")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket/really_black(M), slot_w_uniform)
@@ -879,7 +879,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			pda.ownjob = "Spy"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			M.equip_to_slot_or_del(pda, slot_belt)
-			equip_special_id(M,get_all_accesses(),"Spy", /obj/item/weapon/card/id/syndicate)
+			equip_special_id(M,get_all_accesses(), "Spy", /obj/item/weapon/card/id/syndicate)
 
 		if("death commando")//Was looking to add this for a while.
 			M.equip_death_commando()
@@ -895,7 +895,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/head/that(M), slot_head)
 			M.equip_or_collect(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
 			M.equip_or_collect(new /obj/item/device/pda/(M), slot_wear_pda)
-			equip_special_id(M,get_centcom_access("VIP Guest"),"VIP Guest", /obj/item/weapon/card/id/centcom)
+			equip_special_id(M,get_centcom_access("VIP Guest"), "VIP Guest", /obj/item/weapon/card/id/centcom)
 
 		if("nt navy officer")
 			M.equip_or_collect(new /obj/item/clothing/under/rank/centcom/officer(M), slot_w_uniform)
@@ -913,7 +913,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			L.imp_in = M
 			L.implanted = 1
 			M.sec_hud_set_implants()
-			equip_special_id(M,get_centcom_access("Nanotrasen Navy Officer"),"Nanotrasen Navy Officer", /obj/item/weapon/card/id/centcom)
+			equip_special_id(M,get_centcom_access("Nanotrasen Navy Officer"), "Nanotrasen Navy Officer", /obj/item/weapon/card/id/centcom)
 
 		if("nt navy captain")
 			M.equip_or_collect(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
@@ -931,9 +931,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			L.imp_in = M
 			L.implanted = 1
 			M.sec_hud_set_implants()
-			equip_special_id(M,get_centcom_access("Nanotrasen Navy Captain"),"Nanotrasen Navy Captain", /obj/item/weapon/card/id/centcom)
+			equip_special_id(M,get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain", /obj/item/weapon/card/id/centcom)
 
-		if("emergency response team member","emergency response team leader")
+		if("emergency response team member", "emergency response team leader")
 			var/datum/response_team/equip_team = null
 			switch(alert("Level", "Emergency Response Team", "Amber", "Red", "Gamma"))
 				if("Amber")
@@ -942,22 +942,22 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					equip_team = new /datum/response_team/red
 				if("Gamma")
 					equip_team = new /datum/response_team/gamma
-			if (!equip_team)
+			if(!equip_team)
 				return
 			if(dresscode == "emergency response team leader")
 				equip_team.equip_officer("Commander", M)
 			else
 				switch(alert("Loadout Type", "Emergency Response Team", "Security", "Engineer", "Medic"))
-					if ("Commander")
+					if("Commander")
 						equip_team.equip_officer("Commander", M)
-					if ("Security")
+					if("Security")
 						equip_team.equip_officer("Security", M)
-					if ("Engineer")
+					if("Engineer")
 						equip_team.equip_officer("Engineer", M)
-					if ("Medic")
+					if("Medic")
 						equip_team.equip_officer("Medic", M)
 					else
-						to_chat(src,"Invalid ERT Loadout selected")
+						to_chat(src, "Invalid ERT Loadout selected")
 
 		if("nt special ops officer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/combat(M), slot_w_uniform)
@@ -973,7 +973,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/implanter/dust(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/implanter/death_alarm(M), slot_in_backpack)
-			equip_special_id(M,get_centcom_access("Special Operations Officer"),"Special Operations Officer", /obj/item/weapon/card/id/centcom)
+			equip_special_id(M,get_centcom_access("Special Operations Officer"), "Special Operations Officer", /obj/item/weapon/card/id/centcom)
 			// The following items are unique to this outfit - the special ops officer job does not spawn with them.
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_in_backpack)
@@ -1007,7 +1007,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(pda, slot_wear_pda)
 			M.equip_or_collect(new /obj/item/weapon/implanter/dust(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/implanter/death_alarm(M), slot_in_backpack)
-			equip_special_id(M,get_centcom_access("Special Operations Officer"),"Special Operations Officer", /obj/item/weapon/card/id/centcom)
+			equip_special_id(M,get_centcom_access("Special Operations Officer"), "Special Operations Officer", /obj/item/weapon/card/id/centcom)
 
 		if("singuloth knight")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/combat(M), slot_w_uniform)
@@ -1021,7 +1021,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/claymore/ceremonial(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/oxygen(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/knighthammer(M), slot_back)
-			equip_special_id(M,get_all_accesses(),"Singuloth Knight", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Singuloth Knight", /obj/item/weapon/card/id)
 
 		if("blue wizard")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
@@ -1034,7 +1034,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/staff(M), slot_l_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box(M), slot_in_backpack)
-			equip_special_id(M,get_all_accesses(),"Wizard", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Wizard", /obj/item/weapon/card/id)
 
 		if("red wizard")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
@@ -1047,7 +1047,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/staff(M), slot_l_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box(M), slot_in_backpack)
-			equip_special_id(M,get_all_accesses(),"Wizard", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Wizard", /obj/item/weapon/card/id)
 
 		if("marisa wizard")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
@@ -1060,7 +1060,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/staff(M), slot_l_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box(M), slot_in_backpack)
-			equip_special_id(M,get_all_accesses(),"Wizard", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses(), "Wizard", /obj/item/weapon/card/id)
 
 		if("soviet admiral")
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/hgpiratecap(M), slot_head)
@@ -1072,7 +1072,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/mateba(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
-			equip_special_id(M,get_all_accesses() + get_all_centcom_access(),"Admiral", /obj/item/weapon/card/id)
+			equip_special_id(M,get_all_accesses() + get_all_centcom_access(), "Admiral", /obj/item/weapon/card/id)
 			//W.icon_state = "commander"
 
 		if("chrono legionnaire")
@@ -1085,7 +1085,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/chrono_eraser(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
-			equip_special_id(M,get_all_accesses() + get_all_centcom_access(),"Chrono Legionnaire", /obj/item/weapon/card/id/syndicate)
+			equip_special_id(M,get_all_accesses() + get_all_centcom_access(), "Chrono Legionnaire", /obj/item/weapon/card/id/syndicate)
 
 	M.regenerate_icons()
 
@@ -1098,7 +1098,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 
 	var/obj/item/weapon/card/id/W = new id_type(H)
-	if (istype(W, /obj/item/weapon/card/id/syndicate))
+	if(istype(W, /obj/item/weapon/card/id/syndicate))
 		W.icon_state = "syndie"
 	W.name = "[H.real_name]'s ID Card ([jobtext])"
 	W.access = theaccess
