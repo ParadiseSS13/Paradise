@@ -39,13 +39,13 @@
 		desc = "Groovy!"
 		icon_state = "psyche"
 		item_color = "psyche"
-		usr.regenerate_icons()
+		usr.update_inv_w_uniform()
 		spawn(200)
 			name = initial(name)
 			icon_state = initial(icon_state)
 			item_color = initial(item_color)
 			desc = initial(desc)
-			usr.regenerate_icons()
+			usr.update_inv_w_uniform()
 		..()
 
 
