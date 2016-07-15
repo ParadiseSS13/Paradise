@@ -874,10 +874,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_or_collect(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
 			M.equip_or_collect(new /obj/item/clothing/head/beret/centcom/officer(M), slot_head)
-			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_wear_pda)
+			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_belt)
 			M.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
-			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
 			M.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
 
 			var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
 			L.imp_in = M
@@ -897,10 +897,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_or_collect(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
 			M.equip_or_collect(new /obj/item/clothing/head/beret/centcom/captain(M), slot_head)
-			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_wear_pda)
+			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_belt)
 			M.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
-			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
 			M.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
 			var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
 			L.imp_in = M
 			L.implanted = 1
@@ -996,10 +996,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
 			M.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_l_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(M), slot_in_backpack)
 
 			var/obj/item/device/pda/centcom/pda = new(M)
 			pda.owner = M.real_name
@@ -1008,7 +1008,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition designed for military field work."
 
-			M.equip_or_collect(pda, slot_wear_pda)
+			M.equip_or_collect(pda, slot_belt)
 
 			M.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
 			M.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)

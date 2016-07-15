@@ -166,7 +166,6 @@
 			M.real_name = "Corpse"
 			M.death()
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_eng(M), slot_l_ear)
-			M.equip_to_slot_or_del(new /obj/item/device/pda/engineering(M), slot_wear_pda)
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/engineer(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(M), slot_shoes)
 		//	M.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical(M), slot_l_hand)
