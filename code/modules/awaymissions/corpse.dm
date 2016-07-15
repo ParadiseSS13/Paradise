@@ -144,7 +144,7 @@
 	corpseidjob = "Chef"
 	corpseidaccess = "Chef"
 
-	
+
 /obj/effect/landmark/corpse/doctor
 	name = "Doctor"
 	corpseradio = /obj/item/device/radio/headset/headset_med
@@ -292,6 +292,6 @@
 /obj/effect/landmark/corpse/abductor //Connected to ruins, for some reason?
 	name = "abductor"
 	mobname = "???"
-	mob_species = /datum/species/abductor
+	mob_species = "abductor"
 	corpseuniform = /obj/item/clothing/under/color/grey
 	corpseshoes = /obj/item/clothing/shoes/combat
