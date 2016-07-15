@@ -87,7 +87,7 @@
 
 /obj/item/device/radio/beacon/terrorspider/attack_self(mob/user as mob)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, "<span class='notice'>Locked In.</span>")
 		new /obj/machinery/power/singularity_beacon/terrorspider_beacon(get_turf(user))
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)

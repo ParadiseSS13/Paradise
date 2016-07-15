@@ -30,7 +30,7 @@
 	melee_damage_upper = 60
 
 	move_to_delay = 5
-	ventcrawler = 1 // Adminbus.
+	ventcrawler = 1
 
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
@@ -56,6 +56,10 @@
 			ShowGuide()
 	..()
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Retaliate()
+	..()
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+		T.enemies |= enemies
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/LayEmpressEggs()
 	set name = "Lay Empress Eggs"
@@ -132,7 +136,7 @@
 		H.hallucination = max(300, H.hallucination)
 		if(prob(50))
 			H.hallucination = max(600, H.hallucination)
-		to_chat(H,"<span class='userdanger'>Your head hurts! </span>")
+		to_chat(H, "<span class='userdanger'>Your head hurts!</span>")
 		numaffected++
 	if(numaffected)
 		to_chat(src, "You reach through bluespace into the minds of [numaffected] crew, making their fears come to life. They start to hallucinate.")
@@ -177,7 +181,7 @@
 		if(L.stat == DEAD)
 			continue
 		choices += L
-	var/killtarget = input(src,"Which terror spider should die?") in null|choices
+	var/killtarget = input(src, "Which terror spider should die?") in null|choices
 	if(!killtarget)
 		// cancel
 	else if(!isliving(killtarget))
@@ -189,7 +193,7 @@
 		if(T.ckey)
 			// living player
 			ts_ckey_blacklist += T.ckey
-		to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
+		to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
 		T.death()
 		T.gib()
 
@@ -200,12 +204,12 @@
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		if(T.spider_tier < 5)
 			T.degenerate = 1
-			to_chat(T, "<span class='userdanger'> Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out! </span>")
+			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
 	for(var/obj/effect/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
 		qdel(T)
 	for(var/obj/effect/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
 		T.stillborn = 1
-	to_chat(src, "Brood will die off shortly.")
+	to_chat(src, "<span class='userdanger'>Brood will die off shortly.</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/SpiderlingFlood()
 	set name = "Spiderling Flood"

@@ -417,7 +417,7 @@
 	speech_verb = "chitters"
 	ask_verb = "chitters"
 	exclaim_verb = "chitters"
-	colour = "alien"
+	colour = "terrorspider"
 	key = "ts" // This is their default language, so they don't need to use the key for it.
 	flags = RESTRICTED | HIVEMIND
 	follow = 1

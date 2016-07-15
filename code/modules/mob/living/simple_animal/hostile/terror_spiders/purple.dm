@@ -39,7 +39,7 @@
 				if(!degenerate && !Q.degenerate)
 					degenerate = 1
 					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
-					visible_message("<span class='notice'> [src] chitters in the direction of [Q]!</span>")
+					visible_message("<span class='notice'>[src] chitters in the direction of [Q]!</span>")
 	..()
 
 
@@ -51,7 +51,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
 	if(prob(10))
-		visible_message("<span class='danger'> [src] rams into [L], knocking them to the floor! </span>")
+		visible_message("<span class='danger'>[src] rams into [L], knocking them to the floor!</span>")
 		L.Weaken(5)
 		L.Stun(5)
 	else
@@ -67,4 +67,4 @@
 					if(!degenerate && !Q.degenerate)
 						degenerate = 1
 						Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
-						//visible_message("<span class='notice'> [src] chitters in the direction of [Q]!</span>")
+

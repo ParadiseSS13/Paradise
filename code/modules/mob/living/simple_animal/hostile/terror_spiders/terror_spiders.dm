@@ -40,7 +40,6 @@ var/global/list/ts_spiderling_list = list()
 	poison_type = "" // we do not use that silly system.
 
 	// Movement
-	//anchored = 1 // stops people dragging them around -- requires testing *****
 	move_to_delay = 6
 	turns_per_move = 5
 	pass_flags = PASSTABLE
@@ -63,7 +62,7 @@ var/global/list/ts_spiderling_list = list()
 	emote_hear = list("hisses")
 
 	// Loot
-	loot = list() // None by default.
+	loot = list()
 
 	// Languages are handled in terror_spider/New()
 
@@ -192,20 +191,19 @@ var/global/list/ts_spiderling_list = list()
 					if(H in enemies)
 						targets3 += H
 						// unless we hate their guts
-				if(IsInfected(H)) // target them if they attack us
-					if(H in enemies)
-						targets3 += H
-				else if(H.reagents.has_reagent("terror_black_toxin") && istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/black))
+				if(istype(H, /mob/living/carbon))
+					var/mob/living/carbon/C = H
+					if(IsInfected(C)) // target them if they attack us
+						if(C in enemies)
+							targets3 += C
+							continue
+				if(H.reagents.has_reagent("terror_black_toxin",30))
 					if(get_dist(src,H) <= 2)
 						// if they come to us...
 						targets2 += H
 					else if((H in enemies) && !H.reagents.has_reagent("terror_black_toxin",31))
 						// if we're aggressive, and they're not going to die quickly...
 						targets2 += H
-					else
-						// they are far away, and either we're not very aggressive, or they are dying already
-						// either way, not much point in targeting them
-						// if they shoot us, of course, then we will consider them a valid target
 				else
 					if(ai_target_method == TS_DAMAGE_BRUTE)
 						var/theirarmor = H.getarmor(type = "melee")
@@ -263,10 +261,7 @@ var/global/list/ts_spiderling_list = list()
 		else
 			return targets3
 	else if(ai_type == TS_AI_DEFENSIVE)
-		// DEFEND SELF ONLY
-		//var/list/Mobs = hearers(vision_range, src) - src
 		for(var/mob/living/H in view(src, vision_range))
-		//for(var/mob/H in Mobs)
 			if(H.stat == DEAD)
 				// dead mobs are ALWAYS ignored.
 			else if(!stat_attack && H.stat == UNCONSCIOUS)
@@ -281,7 +276,6 @@ var/global/list/ts_spiderling_list = list()
 				targets1 += S
 		return targets1
 	else if(ai_type == TS_AI_PASSIVE)
-		// COMPLETELY PASSIVE
 		return list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
@@ -295,18 +289,18 @@ var/global/list/ts_spiderling_list = list()
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/AttackingTarget()
-	if(istype(target, /mob/living/simple_animal/hostile/poison/terror_spider/))
+	if(istype(target, /mob/living/simple_animal/hostile/poison/terror_spider))
 		if(target in enemies)
 			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if(T.spider_tier > spider_tier)
-			visible_message("<span class='notice'> [src] bows in respect for the terrifying presence of [target] </span>")
+			visible_message("<span class='notice'>[src] bows in respect for the terrifying presence of [target]</span>")
 		else if(T.spider_tier == spider_tier)
-			visible_message("<span class='notice'> [src] harmlessly nuzzles [target]. </span>")
+			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
 		else if(T.spider_tier < spider_tier && spider_tier >= 4)
-			visible_message("<span class='notice'> [src] gives [target] a stern look. </span>")
+			visible_message("<span class='notice'>[src] gives [target] a stern look.</span>")
 		else
-			visible_message("<span class='notice'> [src] harmlessly nuzzles [target]. </span>")
+			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
 		T.CheckFaction()
 		CheckFaction()
 	else if(istype(target, /obj/effect/spider/cocoon))
@@ -316,8 +310,8 @@ var/global/list/ts_spiderling_list = list()
 			var/obj/machinery/camera/C = target
 			if(C.status)
 				do_attack_animation(C)
-				C.toggle_cam(src,0)
-				visible_message("<span class='danger'>\the [src] smashes the [C.name].</span>")
+				C.toggle_cam(src, 0)
+				visible_message("<span class='danger'>\The [src] smashes the [C.name].</span>")
 				playsound(loc, 'sound/weapons/slash.ogg', 100, 1)
 			else
 				to_chat(src, "The camera is already deactivated.")
@@ -329,7 +323,7 @@ var/global/list/ts_spiderling_list = list()
 			if(F.blocked)
 				to_chat(src, "The fire door is welded shut.")
 			else
-				visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
+				visible_message("<span class='danger'>\The [src] pries open the firedoor!</span>")
 				F.open()
 		else
 			to_chat(src, "Closing fire doors does not help.")
@@ -343,12 +337,7 @@ var/global/list/ts_spiderling_list = list()
 		to_chat(src, "Your current orders only allow you to defend yourself - not initiate combat.")
 	else if(isliving(target))
 		var/mob/living/G = target
-		if(G.player_logged)
-			to_chat(src, "[G] is braindead, and a waste of our time. (SSD. Server rules prohibit attacking SSDs)")
-			if(G in enemies)
-				enemies -= G
-			return
-		else if(istype(G, /mob/living/silicon/))
+		if(issilicon(G))
 			G.attack_animal(src)
 			return
 		else if(G.reagents && (iscarbon(G)))
@@ -386,10 +375,10 @@ var/global/list/ts_spiderling_list = list()
 				else
 					gib()
 			else
-				visible_message("<span class='danger'> [src] resists the bioweapon! </span>")
+				visible_message("<span class='danger'>[src] resists the bioweapon!</span>")
 	else if(istype(Proj, /obj/item/projectile/energy/declone))
 		if(!degenerate && prob(20) && spider_tier < 3)
-			visible_message("<span class='danger'> [src] looks staggered by the bioweapon! </span>")
+			visible_message("<span class='danger'>[src] looks staggered by the bioweapon!</span>")
 			degenerate = 1
 	..()
 
@@ -547,7 +536,7 @@ var/global/list/ts_spiderling_list = list()
 						CreatePath(entry_vent)
 						step_to(src,entry_vent)
 						if(spider_debug > 0)
-							visible_message("<span class='notice'>\the [src] moves towards the vent [entry_vent].</span>")
+							visible_message("<span class='notice'>\The [src] moves towards the vent [entry_vent].</span>")
 				else
 					path_to_vent = 0
 			else if(ai_break_lights && world.time > (last_break_light + freq_break_light))
@@ -558,7 +547,7 @@ var/global/list/ts_spiderling_list = list()
 						L.on = 1
 						L.broken()
 						L.do_attack_animation(src)
-						visible_message("<span class='danger'>\the [src] smashes the [L.name].</span>")
+						visible_message("<span class='danger'>\The [src] smashes the [L.name].</span>")
 						break
 			else if(ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
 				last_spins_webs = world.time
@@ -566,7 +555,7 @@ var/global/list/ts_spiderling_list = list()
 				if(T)
 				else
 					new /obj/effect/spider/terrorweb(get_turf(src))
-					visible_message("<span class='notice'>\the [src] puts up some spider webs.</span>")
+					visible_message("<span class='notice'>\The [src] puts up some spider webs.</span>")
 			else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 				if(prob(idle_ventcrawl_chance))
 					last_ventcrawl_time = world.time

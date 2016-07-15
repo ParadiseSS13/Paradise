@@ -3,11 +3,11 @@
 	if(ckey)
 		to_chat(src, "------------------------")
 		if(ai_type == TS_AI_AGGRESSIVE)
-			to_chat(src, "Your Orders: <span class='danger'>kill all humanoids on sight! </span>")
+			to_chat(src, "Your Orders:<span class='danger'> kill all humanoids on sight! </span>")
 		else if(ai_type == TS_AI_DEFENSIVE)
-			to_chat(src, "Your Orders: <span class='notice'>defend yourself & the hive, without being aggressive </span> ")
+			to_chat(src, "Your Orders:<span class='notice'> defend yourself & the hive, without being aggressive </span>")
 		else if(ai_type == TS_AI_PASSIVE)
-			to_chat(src, "Your Orders: <span class='danger'>do not attack anyone, not even in self-defense!</span> ")
+			to_chat(src, "Your Orders:<span class='danger'> do not attack anyone, not even in self-defense!</span>")
 		to_chat(src, "------------------------")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/BroadcastOrders()
@@ -25,11 +25,9 @@
 		if(S.stat != DEAD)
 			S.DoShowOrders(1,cache_thequeen,cache_theempress)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/living/B)
-	if(iscarbon(B))
-		var/mob/living/carbon/C = B
-		if(C.get_int_organ(/obj/item/organ/internal/body_egg))
-			return 1
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(var/mob/living/carbon/C)
+	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
+		return 1
 	return 0
 
 
@@ -73,16 +71,13 @@
 				break
 		if(retaliate_faction_check && !attack_same && !H.attack_same)
 			H.enemies |= enemies
-	if(istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/queen) || istype(src, /mob/living/simple_animal/hostile/poison/terror_spider/empress)  )
-		for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
-			T.enemies |= enemies
 	return 0
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(var/msgtext)
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		if(T.stat != DEAD)
-			to_chat(T, "<span class='alien'>TerrorSense: " + msgtext + "</span>")
+			to_chat(T, "<span class='terrorspider'>TerrorSense: " + msgtext + "</span>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpiders()

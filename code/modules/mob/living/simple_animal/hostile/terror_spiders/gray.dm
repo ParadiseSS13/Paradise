@@ -12,7 +12,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/gray
 	name = "Gray Terror spider"
 	desc = "An ominous-looking gray spider, its color and shape makes it hard to see."
-	altnames = list("Gray Trap spider","Gray Stalker spider","Ghostly Ambushing spider")
+	altnames = list("Gray Trap spider", "Gray Stalker spider", "Ghostly Ambushing spider")
 	spider_role_summary = "Stealth spider that ambushes weak humans from vents."
 	ai_target_method = TS_DAMAGE_BRUTE
 	egg_name = "gray spider eggs"
@@ -106,7 +106,7 @@
 								ai_spins_webs = 0
 								ai_break_lights = 0
 								prob_ai_hides_in_vents = 3
-								visible_message("<span class='notice'> [src] finishes setting up its trap in [get_area(src)].</span>")
+								visible_message("<span class='notice'>[src] finishes setting up its trap in [get_area(src)].</span>")
 					else
 						var/list/g_turfs_valid = ListValidTurfs()
 						var/turfcount = g_turfs_valid.len
@@ -116,7 +116,7 @@
 						else
 							// otherwise, pick one of the valid turfs with no web to create a web there.
 							new /obj/effect/spider/terrorweb(pick(g_turfs_valid))
-							visible_message("<span class='notice'> [src] spins a web.</span>")
+							visible_message("<span class='notice'>[src] spins a web.</span>")
 			else
 				if(invisibility == SEE_INVISIBLE_LEVEL_ONE)
 					// if our vent is welded, decloak
@@ -147,7 +147,7 @@
 		var/inject_target = pick("chest","head")
 		if(L.stunned || L.can_inject(null,0,inject_target,0))
 			L.silent = max(L.silent, 20) // instead of having a venom that only lasts seconds, we just add the silence directly.
-			visible_message("<span class='danger'> [src] buries grey fangs deep into the [inject_target] of [target]! </span>")
+			visible_message("<span class='danger'>[src] buries grey fangs deep into the [inject_target] of [target]!</span>")
 		else
-			visible_message("<span class='danger'> [src] bites [target], but cannot inject venom into their [inject_target]! </span>")
+			visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]!</span>")
 		L.attack_animal(src)

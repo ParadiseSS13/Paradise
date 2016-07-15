@@ -12,7 +12,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/black
 	name = "Black Widow spider"
 	desc = "An ominous-looking spider, black as the darkest night, and with merciless yellow eyes."
-	altnames = list("Black Devil spider","Giant Black Widow spider","Shadow Terror spider")
+	altnames = list("Black Devil spider", "Giant Black Widow spider", "Shadow Terror spider")
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
 	ai_target_method = TS_DAMAGE_POISON
 	egg_name = "black spider eggs"
@@ -49,9 +49,9 @@
 		var/inject_target = pick("chest","head")
 		if(L.stunned || L.can_inject(null,0,inject_target,0))
 			L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
-			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]! </span>")
+			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 		else
-			visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]! </span>")
+			visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]!</span>")
 		L.attack_animal(src)
 	if(!ckey && ((!target in enemies) || L.reagents.has_reagent("terror_black_toxin",50)))
 		spawn(20)
@@ -60,6 +60,6 @@
 			LoseTarget()
 			for(var/i=0, i<4, i++)
 				step_away(src, L)
-			visible_message("<span class='notice'>[src] warily eyes [L] from a distance. </span>")
+			visible_message("<span class='notice'>[src] warily eyes [L] from a distance.</span>")
 			// aka, if you come over here I will wreck you.
 	return

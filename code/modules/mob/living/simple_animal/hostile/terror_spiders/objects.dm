@@ -151,10 +151,10 @@
 	ts_spiderling_list -= src
 	..()
 
-/obj/effect/spider/spiderling/terror_spiderling/Bump(atom/user)
-	if(istype(user, /obj/structure/table))
-		loc = user.loc
-	else if(istype(user, /obj/machinery/recharge_station))
+/obj/effect/spider/spiderling/terror_spiderling/Bump(atom/A)
+	if(istype(A, /obj/structure/table))
+		loc = A.loc
+	else if(istype(A, /obj/machinery/recharge_station))
 		qdel(src)
 	else
 		..()
@@ -175,8 +175,7 @@
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
 			if(prob(50))
-				visible_message("<B>[src] scrambles into the ventillation ducts!</B>", \
-								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+				visible_message("<B>[src] scrambles into the ventillation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 			var/original_location = loc
 			spawn(rand(20,60))
 				loc = exit_vent
@@ -218,7 +217,7 @@
 				die()
 			else
 				if(!grow_as)
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red,/mob/living/simple_animal/hostile/poison/terror_spider/gray,/mob/living/simple_animal/hostile/poison/terror_spider/green)
+					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
 				S.faction = faction
 				S.spider_myqueen = spider_myqueen
@@ -250,7 +249,7 @@
 			if(L.can_inject(null,0,"chest",0))
 				L.reagents.add_reagent("terror_queen_toxin",15)
 		if(!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
-			L.adjustToxLoss(40) // Terror Spiders are immune to their queen's spit.
+			L.adjustToxLoss(40)
 
 
 /obj/item/projectile/terrorempressspit
@@ -266,7 +265,7 @@
 		if(L.reagents)
 			L.reagents.add_reagent("ketamine",30)
 		if(!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
-			L.adjustToxLoss(60) // Terror Spiders are immune to their queen's spit.
+			L.adjustToxLoss(60)
 
 /obj/effect/spider/terrorweb
 	name = "terror web"
@@ -380,12 +379,11 @@
 			Activate(user)
 	else
 		to_chat(user, "<span class='warning'>You need to screw the beacon to the floor first!</span>")
-	return
 
 /obj/machinery/power/singularity_beacon/terrorspider_beacon/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/weapon/screwdriver))
 		if(active)
-			to_chat(user, "<span class='warning'>The screwdriver does nothing!</span>")
+			to_chat(user, "<span class='warning'>\The [W] does nothing!</span>")
 			return
 		if(anchored)
 			anchored = 0
@@ -394,7 +392,7 @@
 			return
 		else
 			if(!connect_to_network())
-				to_chat(user, "This device must be placed over an exposed cable.")
+				to_chat(user, "<span class='notice'>This device must be placed over an exposed cable.</span>")
 				return
 			anchored = 1
 			to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
@@ -427,13 +425,13 @@
 	else
 		if(countdown == 0)
 			spawn_spiders()
-			visible_message("<span class='danger'>\the [src] activates!</span>")
+			visible_message("<span class='danger'>\The [src] activates!</span>")
 			explosion(get_turf(src),0,1,5,0)
 			qdel(src)
 		else if(surplus() > 1500)
 			draw_power(1500)
 			countdown--
-			desc = ondesc + "<BR> A small digital display reads: <span class='danger'> [countdown] </span>"
+			desc = ondesc + "<BR>A small digital display reads: <span class='danger'> [countdown]</span>"
 		else
 			Deactivate()
 
@@ -448,7 +446,7 @@
 		var/obj/vent = pick(vents)
 		var/obj/effect/spider/spiderling/S = new(vent.loc)
 		S.name = "evil-looking spiderling"
-		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/white,/mob/living/simple_animal/hostile/poison/terror_spider/mother,/mob/living/simple_animal/hostile/poison/terror_spider/prince,/mob/living/simple_animal/hostile/poison/terror_spider/queen)
+		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/white, /mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/prince, /mob/living/simple_animal/hostile/poison/terror_spider/queen)
 		S.amount_grown = 50 // double-speed growth
 		notify_ghosts("[src] has detonated in [get_area(src)], drawing a terror spiderling to [get_area(S)]")
 		vents -= vent
