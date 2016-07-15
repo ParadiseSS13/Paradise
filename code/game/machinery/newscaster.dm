@@ -33,7 +33,7 @@
 	src.backup_author = ""
 	src.img = null
 	src.backup_img = null
-	src.view_count = 0
+	view_count = 0
 
 /datum/feed_channel/proc/clear()
 	src.channel_name = ""
@@ -43,7 +43,7 @@
 	src.backup_author = ""
 	src.censored = 0
 	src.is_admin_channel = 0
-	src.total_view_count = 0
+	total_view_count = 0
 
 /datum/feed_channel/proc/announce_news()
 	return "Breaking news from [channel_name]!"
@@ -815,7 +815,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		switch(screen)
 			if(0) //Cover
 				dat+="<DIV ALIGN='center'><B><FONT SIZE=6>The Griffon</FONT></B></div>"
-				dat+="<DIV ALIGN='center'><FONT SIZE=2>Nanotrasen-standard newspaper, for use on Nanotrasen� Space Facilities</FONT></div><HR>"
+				dat+="<DIV ALIGN='center'><FONT SIZE=2>Nanotrasen-standard newspaper, for use on Nanotrasen© Space Facilities</FONT></div><HR>"
 				if(isemptylist(src.news_content))
 					if(src.important_message)
 						dat+="Contents:<BR><ul><B><FONT COLOR='red'>**</FONT>Important Security Announcement<FONT COLOR='red'>**</FONT></B> <FONT SIZE=2>\[page [src.pages+2]\]</FONT><BR></ul>"
