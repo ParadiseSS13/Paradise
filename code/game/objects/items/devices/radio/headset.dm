@@ -105,6 +105,14 @@
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/headset_sec
 
+/obj/item/device/radio/headset/headset_sec/brigdoc
+	name = "physician bowman headset"
+	desc = "This is used by your elite security force's doctor. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	ks2type = /obj/item/device/encryptionkey/headset_brigdoc
+
 /obj/item/device/radio/headset/headset_sec/alt
 	name = "security bowman headset"
 	desc = "This is used by your elite security force. Protects ears from flashbangs."

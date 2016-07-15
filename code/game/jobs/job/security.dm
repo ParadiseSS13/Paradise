@@ -199,11 +199,11 @@
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
-	minimal_access = list(access_medical, access_morgue, access_surgery, access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels)
+	minimal_access = list(access_medical, access_morgue, access_surgery, access_sec_doors, access_brig, access_court, access_maint_tunnels)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec/alt(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec/brigdoc(H), slot_l_ear)
 		switch(H.backbag)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/medic(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_med(H), slot_back)
@@ -217,8 +217,10 @@
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
+			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1

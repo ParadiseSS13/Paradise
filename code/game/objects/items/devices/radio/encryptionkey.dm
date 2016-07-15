@@ -33,6 +33,11 @@
 	icon_state = "sec_cypherkey"
 	channels = list("Security" = 1)
 
+/obj/item/device/encryptionkey/headset_brigdoc
+	name = "Brig Physician Radio Encryption Key"
+	icon_state = "sec_cypherkey"
+	channels = list("Security" = 1, "Medical" = 1)
+
 /obj/item/device/encryptionkey/headset_eng
 	name = "Engineering Radio Encryption Key"
 	icon_state = "eng_cypherkey"
