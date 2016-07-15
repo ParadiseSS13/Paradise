@@ -1,7 +1,7 @@
 /obj/machinery/helperbuddy
-  name = "Helper Buddy 3.0"
-  desc = "A NanoTrasen-approved holographic Helper Buddy!"
-  icon_state = "holopad0"
+  name =  "Helper Buddy 3.0"
+  desc =  "A NanoTrasen-approved holographic Helper Buddy!"
+  icon_state =  "holopad0"
   anchored = 1
   atom_say_verb = "beeps"
   var/talking
@@ -54,10 +54,9 @@
   data["cryotubes"] = "On Cryotubes"
 
   ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-  if(!ui)
-		ui = new(user, src, ui_key, "helperbuddy.tmpl", "Helper Buddy UI", 540, 450)
-		ui.set_initial_data(data)
-		ui.open()
+  ui = new(user, src, ui_key, "helperbuddy.tmpl", "Helper Buddy UI", 540, 450)
+  ui.set_initial_data(data)
+  ui.open()
 
 /obj/machinery/helperbuddy/Topic(href, href_list)
   if(talking)
