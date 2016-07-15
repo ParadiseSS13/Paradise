@@ -2,7 +2,6 @@
 	var/busy
 	var/viewing_category = 1 //typical powergamer starting on the Weapons tab
 	var/list/categories = list(CAT_WEAPON,CAT_AMMO,CAT_ROBOT,CAT_FOOD,CAT_MISC,CAT_PRIMAL)
-	//var/datum/action/innate/crafting/button // Holdover from when crafting was still an action button. TODO: Remove this before I commit.
 
 
 
