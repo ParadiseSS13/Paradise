@@ -4,7 +4,7 @@ var/global/datum/controller/process/weather/weather_master
 /datum/controller/process/weather
 	var/list/processing_weather = list()
 	var/list/existing_weather = list()
-	var/list/eligible_zlevels = list(/*ZLEVEL_ASTEROID*/)
+	var/list/eligible_zlevels = list()
 
 /datum/controller/process/weather/setup()
 	name = "weather"
