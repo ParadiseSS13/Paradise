@@ -70,6 +70,7 @@
 			overlays += "[icon_state]-charge[ratio]"
 
 /obj/item/weapon/defibrillator/CheckParts()
+	..()
 	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
 	update_icon()
 

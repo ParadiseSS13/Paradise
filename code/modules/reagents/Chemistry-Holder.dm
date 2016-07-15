@@ -520,6 +520,9 @@ var/const/INGEST = 2
 
 	return res
 
+/datum/reagents/proc/get_reagent(type)
+	. = locate(type) in reagent_list
+
 /datum/reagents/proc/remove_all_type(var/reagent_type, var/amount, var/strict = 0, var/safety = 1) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount)) return 1
 

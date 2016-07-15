@@ -301,8 +301,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/device/pda/AltClick()
-	..()
-
 	if(issilicon(usr))
 		return
 

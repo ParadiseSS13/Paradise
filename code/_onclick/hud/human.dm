@@ -60,6 +60,12 @@
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
+	using = new /obj/screen/inventory/craft
+	using.icon = ui_style
+	using.color = ui_color
+	using.alpha = ui_alpha
+	static_inventory += using
+
 	using = new /obj/screen/act_intent()
 	using.icon_state = mymob.a_intent
 	using.color = ui_color

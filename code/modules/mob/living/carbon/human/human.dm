@@ -39,6 +39,8 @@
 
 	martial_art = default_martial_art
 
+	handcrafting = new()
+
 	var/mob/M = src
 	faction |= "\ref[M]" //what
 
@@ -52,6 +54,9 @@
 		species.handle_dna(src)
 
 	UpdateAppearance()
+
+/mob/living/carbon/human/OpenCraftingMenu()
+	handcrafting.craft(src)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
