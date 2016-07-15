@@ -1,6 +1,7 @@
 /obj/item/weapon/reagent_containers/food/drinks/cans
-	var canopened = 0
-	var is_glass = 0
+	var/canopened = 0
+	var/is_glass = 0
+	var/is_plastic = 0
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/New()
 	..()
@@ -16,6 +17,9 @@
 /obj/item/weapon/reagent_containers/food/drinks/cans/proc/crush(mob/user)
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
 	crushed_can.icon_state = icon_state
+	//inherit material vars for recycling purposes
+	crushed_can.is_glass = is_glass
+	crushed_can.is_plastic = is_plastic
 	if(is_glass)
 		playsound(user.loc, 'sound/effects/Glassbr3.ogg', rand(10, 50), 1)
 		crushed_can.name = "broken bottle"
@@ -85,6 +89,7 @@
 	name = "Bottled Water"
 	desc = "Introduced to the vending machines by Skrellian request, this water comes straight from the Martian poles."
 	icon_state = "waterbottle"
+	is_plastic = 1
 	New()
 		..()
 		reagents.add_reagent("water", 30)
@@ -259,3 +264,62 @@
 	New()
 		..()
 		reagents.add_reagent("synthanol", 50)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler
+	name = "generic beverage container"
+	desc = "this shouldn't ever be spawned. shame on you"
+	icon_state = "glass_bottle"
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/on_reagent_change()
+	update_icon()
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/pickup(mob/user)
+	..()
+	update_icon()
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/dropped(mob/user)
+	..()
+	update_icon()
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/attack_hand()
+	..()
+	update_icon()
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/update_icon()
+	overlays.Cut()
+
+	if(reagents.total_volume)
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+
+		switch(round(reagents.total_volume))
+			if(0 to 9)
+				filling.icon_state = "[icon_state]-10"
+			if(10 to 19)
+				filling.icon_state = "[icon_state]10"
+			if(20 to 29)
+				filling.icon_state = "[icon_state]20"
+			if(30 to 39)
+				filling.icon_state = "[icon_state]30"
+			if(40 to 49)
+				filling.icon_state = "[icon_state]40"
+			if(50 to INFINITY)
+				filling.icon_state = "[icon_state]50"
+
+		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		overlays += filling
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle
+	name = "glass bottle"
+	desc = "A glass bottle suitable for beverages."
+	icon_state = "glass_bottle"
+	is_glass = 1
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle
+	name = "plastic bottle"
+	desc = "A plastic bottle suitable for beverages."
+	icon_state = "plastic_bottle"
+	is_plastic = 1
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can
+	name = "metal can"
+	desc = "A metal can suitable for beverages."
+	icon_state = "metal_can"
