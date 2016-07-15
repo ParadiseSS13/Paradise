@@ -573,9 +573,9 @@
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
 	action_button_name = "Toggle Owl Wings"
 
-/obj/item/clothing/suit/toggle/owlwings/nodrop/New()
+/obj/item/clothing/suit/toggle/owlwings/nodrop
 	..()
-	flags |= NODROP
+	flags = NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings
 	name = "griffon cloak"
@@ -583,9 +583,9 @@
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
 
-/obj/item/clothing/suit/toggle/owlwings/griffinwings/nodrop/New()
+/obj/item/clothing/suit/toggle/owlwings/griffinwings/nodrop
 	..()
-	flags |= NODROP
+	flags = NODROP
 
 /obj/item/clothing/suit/toggle/attack_self()
 	if(icon_state == initial(icon_state))

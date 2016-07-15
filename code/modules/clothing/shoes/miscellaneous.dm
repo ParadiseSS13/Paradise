@@ -162,9 +162,9 @@
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
 
-/obj/item/clothing/shoes/griffin/nodrop/New()
+/obj/item/clothing/shoes/griffin/nodrop
 	..()
-	flags |= NODROP
+	flags = NODROP
 
 /obj/item/clothing/shoes/fluff/noble_boot
 	name = "noble boots"

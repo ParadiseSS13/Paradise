@@ -168,9 +168,9 @@
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	action_button_name = "Hoot"
 
-/obj/item/clothing/mask/gas/owl_mask/nodrop/New()
+/obj/item/clothing/mask/gas/owl_mask/nodrop
 	..()
-	flags |= NODROP
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()

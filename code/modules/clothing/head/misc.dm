@@ -337,9 +337,9 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	action_button_name = "Caw"
 
-/obj/item/clothing/head/griffin/nodrop/New()
+/obj/item/clothing/head/griffin/nodrop
 	..()
-	flags |= NODROP
+	flags = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|NODROP
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()
