@@ -295,7 +295,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(can_use(usr))
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
-		overlays.Cut()
+		overlays -= image('icons/obj/pda.dmi', "pda-r")
 		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
@@ -320,7 +320,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			to_chat(usr, "<span class='notice'>You remove the ID from the [name].</span>")
 		else
 			id.forceMove(get_turf(src))
-		overlays -= image('icons/obj/pda.dmi', id.icon_state)
+		overlays -= image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
 		id = null
 
 /obj/item/device/pda/verb/verb_remove_id()
@@ -413,7 +413,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
-					overlays += image('icons/obj/pda.dmi', C.icon_state)
+					overlays += image('icons/goonstation/objects/pda_overlay.dmi', C.icon_state)
 
 	else if(istype(C, /obj/item/device/paicard) && !src.pai)
 		user.drop_item()
