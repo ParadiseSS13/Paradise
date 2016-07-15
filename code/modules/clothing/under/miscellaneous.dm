@@ -670,7 +670,6 @@
 	item_color = "owl"
 
 /obj/item/clothing/under/owl/nodrop
-	..()
 	flags = NODROP
 
 /obj/item/clothing/under/griffin
