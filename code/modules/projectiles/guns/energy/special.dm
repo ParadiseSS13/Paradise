@@ -413,6 +413,7 @@
 	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
+	selfcharge = 1
 	cell_type = /obj/item/weapon/stock_parts/cell
 
 	var/powercost = ""
@@ -432,7 +433,14 @@
 	return ..()
 
 /obj/item/weapon/gun/energy/temperature/newshot()
-	..(temperature, e_cost)
+	if(!ammo_type || !power_supply)
+		return
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(power_supply.charge >= shot.e_cost) //if there's enough power in the power_supply cell...
+		chambered = shot //...prepare a new shot based on the current ammo type selected
+		chambered.newshot(temperature, e_cost)
+	return
+
 
 /obj/item/weapon/gun/energy/temperature/attack_self(mob/living/user as mob)
 	user.set_machine(src)
@@ -464,6 +472,7 @@
 	return
 
 /obj/item/weapon/gun/energy/temperature/process()
+	..()
 	switch(temperature)
 		if(0 to 100)
 			e_cost = 3000
