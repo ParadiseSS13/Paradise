@@ -174,7 +174,7 @@
 	name = "cowboy hat"
 	icon_state = "cowboyhat"
 	item_state = "fedora"
-	desc = "There's a new sheriff in town."
+	desc = "There's a new sheriff in town. Pass the whiskey."
 
 /obj/item/clothing/head/fedora
 	name = "\improper fedora"
