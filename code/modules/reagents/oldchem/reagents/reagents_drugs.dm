@@ -6,12 +6,11 @@
 	color = "#202040" // rgb: 20, 20, 40
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
-/datum/reagent/serotrotium/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/serotrotium/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		if(prob(7))
 			M.emote(pick("twitch","drool","moan","gasp"))
 	..()
-	return
 
 
 /datum/reagent/lithium
@@ -21,14 +20,13 @@
 	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 
-/datum/reagent/lithium/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if(M.canmove && !M.restrained())
 			step(M, pick(cardinal))
 	if(prob(5)) M.emote(pick("twitch","drool","moan"))
 	..()
-	return
 
 
 /datum/reagent/hippies_delight
@@ -39,11 +37,10 @@
 	color = "#664300" // rgb: 102, 67, 0
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 
-/datum/reagent/hippies_delight/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/hippies_delight/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	M.druggy = max(M.druggy, 50)
-	if(!data) data = 1
-	switch(data)
+	switch(current_cycle)
 		if(1 to 5)
 			if(!M.stuttering) M.stuttering = 1
 			M.Dizzy(10)
@@ -60,10 +57,7 @@
 			M.Dizzy(40)
 			M.druggy = max(M.druggy, 60)
 			if(prob(30)) M.emote(pick("twitch","giggle"))
-	data++
 	..()
-	return
-
 
 /datum/reagent/lsd
 	name = "Lysergic acid diethylamide"
@@ -72,13 +66,11 @@
 	reagent_state = LIQUID
 	color = "#0000D8"
 
-/datum/reagent/lsd/on_mob_life(var/mob/living/M)
+/datum/reagent/lsd/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	M.druggy = max(M.druggy, 15)
 	M.hallucination += 10
 	..()
-	return
-
 
 /datum/reagent/space_drugs
 	name = "Space drugs"
@@ -89,7 +81,7 @@
 	metabolization_rate = 0.2
 	addiction_chance = 65
 
-/datum/reagent/space_drugs/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	M.druggy = max(M.druggy, 15)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
@@ -97,4 +89,3 @@
 			step(M, pick(cardinal))
 	if(prob(7)) M.emote(pick("twitch","drool","moan","giggle"))
 	..()
-	return

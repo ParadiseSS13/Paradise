@@ -7,7 +7,7 @@
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	admin_only = 1
 
-/datum/reagent/adminordrazine/on_mob_life(var/mob/living/carbon/M as mob)
+/datum/reagent/adminordrazine/on_mob_life(mob/living/carbon/M)
 	if(!M) M = holder.my_atom ///This can even heal dead people.
 	M.setCloneLoss(0)
 	M.setOxyLoss(0)

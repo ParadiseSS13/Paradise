@@ -7,14 +7,13 @@
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 
-/datum/reagent/hydrocodone/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/hydrocodone/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.traumatic_shock < 100)
 			H.shock_stage = 0
 	..()
-	return
 
 /datum/reagent/sterilizine
 	name = "Sterilizine"
@@ -24,14 +23,14 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
 	//makes you squeaky clean
-/datum/reagent/sterilizine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+/datum/reagent/sterilizine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		M.germ_level -= min(volume*20, M.germ_level)
 
-/datum/reagent/sterilizine/reaction_obj(var/obj/O, var/volume)
+/datum/reagent/sterilizine/reaction_obj(obj/O, volume)
 	O.germ_level -= min(volume*20, O.germ_level)
 
-/datum/reagent/sterilizine/reaction_turf(var/turf/T, var/volume)
+/datum/reagent/sterilizine/reaction_turf(turf/T, volume)
 	T.germ_level -= min(volume*20, T.germ_level)
 
 /datum/reagent/synaptizine
@@ -42,7 +41,7 @@
 	color = "#FA46FA"
 	overdose_threshold = 40
 
-/datum/reagent/synaptizine/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/synaptizine/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
@@ -52,9 +51,8 @@
 	if(prob(50))
 		M.adjustBrainLoss(-1.0)
 	..()
-	return
 
-/datum/reagent/synaptizine/overdose_process(var/mob/living/M as mob, severity)
+/datum/reagent/synaptizine/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1)
 		if(effect <= 1)
@@ -82,7 +80,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
-/datum/reagent/mitocholide/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/mitocholide/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -93,9 +91,8 @@
 			if(I.damage > 0)
 				I.damage = max(I.damage-0.4, 0)
 	..()
-	return
 
-/datum/reagent/mitocholide/reaction_obj(var/obj/O, var/volume)
+/datum/reagent/mitocholide/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/organ))
 		var/obj/item/organ/Org = O
 		Org.rejuvenate()
@@ -107,7 +104,7 @@
 	reagent_state = LIQUID
 	color = "#0000C8" // rgb: 200, 165, 220
 
-/datum/reagent/cryoxadone/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/cryoxadone/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	if(M.bodytemperature < 265)
 		M.adjustCloneLoss(-4)
@@ -117,7 +114,6 @@
 		M.adjustFireLoss(-12)
 		M.status_flags &= ~DISFIGURED
 	..()
-	return
 
 /datum/reagent/rezadone
 	name = "Rezadone"
@@ -134,7 +130,6 @@
 	M.adjustFireLoss(-1)
 	M.status_flags &= ~DISFIGURED
 	..()
-	return
 
 /datum/reagent/rezadone/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)

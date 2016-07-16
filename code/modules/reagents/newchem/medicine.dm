@@ -893,14 +893,13 @@ datum/reagent/teporone
 	addiction_chance = 20
 	overdose_threshold = 50
 
-datum/reagent/teporone/on_mob_life(var/mob/living/M as mob)
+datum/reagent/teporone/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	if(M.bodytemperature > 310)
-		M.bodytemperature -= 10
-	if(M.bodytemperature < 310)
-		M.bodytemperature += 10
+		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	else if(M.bodytemperature < 311)
+		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	..()
-	return
 
 /datum/chemical_reaction/teporone
 	name = "Teporone"
