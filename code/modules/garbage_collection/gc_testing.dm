@@ -71,17 +71,17 @@ var/global/list/ghdels_profiled = list()
 		code = 2
 	switch(code)
 		if(0) // Directly deleted (skipped the GC queue entirely)
-			if (!("[type]" in dels_profiled))
+			if(!("[type]" in dels_profiled))
 				dels_profiled["[type]"] = 0
 
 			dels_profiled["[type]"] += 1
 		if(1) // Hard-deleted by the GC
-			if (!("[type]" in ghdels_profiled))
+			if(!("[type]" in ghdels_profiled))
 				ghdels_profiled["[type]"] = 0
 
 			ghdels_profiled["[type]"] += 1
 		if(2) // qdel'd and garbage collected by BYOND
-			if (!("[type]" in gdels_profiled))
+			if(!("[type]" in gdels_profiled))
 				gdels_profiled["[type]"] = 0
 
 			gdels_profiled["[type]"] += 1
@@ -117,7 +117,7 @@ var/global/list/ghdels_profiled = list()
 		L.Swap(i,s)
 
 	var/dat = "<table border='1' id='[anchorid]'><tr><th colspan='2'>[header]</th></tr>"
-	for (var/t in L)
+	for(var/t in L)
 		dat +="<tr><td>[L[t]]</td><td>[t]</td></tr>"
 	dat += "</table>"
 	return dat

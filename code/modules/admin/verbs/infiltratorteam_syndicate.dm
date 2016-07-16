@@ -48,14 +48,14 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/list/infiltrators = list()
 
 	if(pick_manually)
-		var/list/ghost_ckeys = list()
+		var/list/possible_ghosts = list()
 		for(var/mob/dead/observer/G in player_list)
 			if(!G.client.is_afk())
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					ghost_ckeys += G.key
-		for(var/i=teamsize,(i>0&&ghost_ckeys.len),i--) //Decrease with every SIT member selected.
-			var/candidate = input("Pick characters to spawn as a SIT member. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in ghost_ckeys // auto-picks if only one candidate
-			ghost_ckeys -= candidate
+					possible_ghosts += G
+		for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every SIT member selected.
+			var/candidate = input("Pick characters to spawn as a SIT member. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
+			possible_ghosts -= candidate
 			infiltrators += candidate
 	else
 		to_chat(src, "Polling candidates...")
@@ -108,9 +108,9 @@ var/global/sent_syndicate_infiltration_team = 0
 		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
-		var/datum/atom_hud/antag/sithud = huds[ANTAG_HUD_SIT]
-		sithud.join_hud(new_syndicate_infiltrator.mind.current)
-		ticker.mode.set_antag_hud(new_syndicate_infiltrator.mind.current, "hudsit")
+		var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+		opshud.join_hud(new_syndicate_infiltrator.mind.current)
+		ticker.mode.set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
 		new_syndicate_infiltrator.regenerate_icons()
 		num_spawned++
 		if(!teamsize)
@@ -126,9 +126,9 @@ var/global/sent_syndicate_infiltration_team = 0
 			officer.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/syndi/elite, slot_wear_suit)
 			officer.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/syndi/elite, slot_head)
 			officer.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate, slot_wear_mask)
-			var/datum/atom_hud/antag/sithud = huds[ANTAG_HUD_SIT]
-			sithud.join_hud(officer.mind.current)
-			ticker.mode.set_antag_hud(officer.mind.current, "hudsit")
+			var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+			opshud.join_hud(officer.mind.current)
+			ticker.mode.set_antag_hud(officer.mind.current, "hudoperative")
 			officer.mind.special_role = "Syndicate Officer"
 			officer.regenerate_icons()
 			to_chat(officer, "<span class='userdanger'>You have spawned as a Syndicate Officer. You should brief them on their mission before they go.</span>")
@@ -177,7 +177,10 @@ var/global/sent_syndicate_infiltration_team = 0
 	// Uplink
 	var/obj/item/weapon/implant/uplink/U = new /obj/item/weapon/implant/uplink(src)
 	U.implant(src)
-	U.hidden_uplink.uses = num_tc
+	if (flag_officer)
+		U.hidden_uplink.uses = 500
+	else
+		U.hidden_uplink.uses = num_tc
 	// Storage
 	//var/obj/item/weapon/implant/storage/T = new /obj/item/weapon/implant/storage(src)
 	//T.implant(src)
@@ -195,7 +198,10 @@ var/global/sent_syndicate_infiltration_team = 0
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/syndigaloshes(src), slot_shoes)
 
 	var/obj/item/weapon/card/id/syndicate/W = new(src) //Untrackable by AI
-	W.icon_state = "id"
+	if (flag_officer)
+		W.icon_state = "commander"
+	else
+		W.icon_state = "id"
 	W.access = list(access_maint_tunnels,access_external_airlocks)
 	W.assignment = "Civilian"
 	W.access += get_access("Civilian")

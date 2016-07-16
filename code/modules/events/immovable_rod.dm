@@ -54,11 +54,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		x = clong.x
 		y = clong.y
 
-	if (istype(clong, /turf) || istype(clong, /obj))
+	if(istype(clong, /turf) || istype(clong, /obj))
 		if(clong.density)
 			clong.ex_act(2)
 
-	else if (istype(clong, /mob))
+	else if(istype(clong, /mob))
 		if(istype(clong, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = clong
 			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")

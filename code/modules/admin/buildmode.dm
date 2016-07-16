@@ -92,7 +92,7 @@
 	qdel(I)
 
 /obj/effect/buildmode_line
-	var/image/I 
+	var/image/I
 	var/client/cl
 
 /obj/effect/buildmode_line/New(var/client/c, var/atom/atom_a, var/atom/atom_b, var/linename)
@@ -101,13 +101,13 @@
 	I = image('icons/misc/mark.dmi', src, "line", 19.0)
 	var/x_offset = ((atom_b.x * 32) + atom_b.pixel_x) - ((atom_a.x * 32) + atom_a.pixel_x)
 	var/y_offset = ((atom_b.y * 32) + atom_b.pixel_y) - ((atom_a.y * 32) + atom_a.pixel_y)
-	
+
 	var/matrix/M = matrix()
 	M.Translate(0, 16)
 	M.Scale(1, sqrt((x_offset * x_offset) + (y_offset * y_offset)) / 32)
 	M.Turn(90 - Atan2(x_offset, y_offset)) // So... You pass coords in order x,y to this version of atan2. It should be called acsc2.
 	M.Translate(atom_a.pixel_x, atom_a.pixel_y)
-	
+
 	transform = M
 	cl = c
 	cl.images += I
@@ -242,6 +242,7 @@
 		if(FILL_BUILDMODE)
 			to_chat(user, "<span class='notice'>***********************************************************</span>")
 			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button + Alt on turf/obj/mob = Delete region</span>")
 			to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>")
 			to_chat(user, "<span class='notice'>***********************************************************</span>")
 		if(LINK_BUILDMODE)
@@ -509,16 +510,20 @@
 				cornerB = select_tile(get_turf(object))
 			if(left_click) //rectangular
 				if(cornerA && cornerB)
-					if(!objholder)
-						to_chat(user, "<span class='warning'>Select object type first.</span>")
+					if(alt_click)
+						empty_region(block(get_turf(cornerA),get_turf(cornerB)))
+						deselect_region()
 					else
-						for(var/turf/T in block(get_turf(cornerA),get_turf(cornerB)))
-							if(ispath(objholder,/turf))
-								T.ChangeTurf(objholder)
-							else
-								var/obj/A = new objholder(T)
-								A.dir = build_dir
-					deselect_region()
+						if(!objholder)
+							to_chat(user, "<span class='warning'>Select object type first.</span>")
+						else
+							for(var/turf/T in block(get_turf(cornerA),get_turf(cornerB)))
+								if(ispath(objholder,/turf))
+									T.ChangeTurf(objholder)
+								else
+									var/obj/A = new objholder(T)
+									A.dir = build_dir
+						deselect_region()
 					return
 
 			//Something wrong - Reset
@@ -567,13 +572,13 @@
 					if(P.id_tag && P.id_tag != 1 && alert(holder, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
 						goto(line_jump)
 					P.id_tag = M.id
-			
+
 			line_jump // For the goto
 			valid_links = 0
 			for(var/obj/effect/buildmode_line/L in link_lines)
 				qdel(L)
 				link_lines -= L
-			
+
 			if(istype(link_obj, /obj/machinery/door_control))
 				var/obj/machinery/door_control/M = link_obj
 				for(var/obj/machinery/door/airlock/P in range(M.range,M))

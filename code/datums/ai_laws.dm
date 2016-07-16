@@ -83,17 +83,17 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 	if(full_sync || supplied_laws.len)
 		S.laws.clear_supplied_laws()
 
-	for (var/datum/ai_law/law in ion_laws)
+	for(var/datum/ai_law/law in ion_laws)
 		S.laws.add_ion_law(law.law)
-	for (var/datum/ai_law/law in inherent_laws)
+	for(var/datum/ai_law/law in inherent_laws)
 		S.laws.add_inherent_law(law.law)
-	for (var/datum/ai_law/law in supplied_laws)
+	for(var/datum/ai_law/law in supplied_laws)
 		if(law)
 			S.laws.add_supplied_law(law.index, law.law)
 
 
 /mob/living/silicon/proc/sync_zeroth(var/datum/ai_law/zeroth_law, var/datum/ai_law/zeroth_law_borg)
-	if (!is_special_character(src) || mind.original != src)
+	if(!is_special_character(src) || mind.original != src)
 		if(zeroth_law_borg)
 			laws.set_zeroth_law(zeroth_law_borg.law)
 		else if(zeroth_law)
@@ -159,7 +159,7 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 	if(supplied_laws.len >= number && supplied_laws[number])
 		delete_law(supplied_laws[number])
 
-	while (src.supplied_laws.len < number)
+	while(src.supplied_laws.len < number)
 		src.supplied_laws += ""
 		if(state_supplied.len < supplied_laws.len)
 			state_supplied += 1

@@ -74,12 +74,10 @@
 	add_click_catcher()
 
 	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
-		for(var/aakey in viewing_alternate_appearances)
-			var/datum/alternate_appearance/AA = viewing_alternate_appearances[aakey]
-			if(AA)
-				AA.display_to(list(src))
+		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
+			AA.display_to(list(src))
 
-	CallHook("Login", list("client" = src.client, "mob" = src))
+	callHook("mob_login", list("client" = client, "mob" = src))
 
 // Calling update_interface() in /mob/Login() causes the Cyborg to immediately be ghosted; because of winget().
 // Calling it in the overriden Login, such as /mob/living/Login() doesn't cause this.

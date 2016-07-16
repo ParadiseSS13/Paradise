@@ -275,3 +275,28 @@ obj/item/clothing/mask/bandana/purple
 	icon_state = "bandblack"
 	item_color = "black"
 	desc = "It's a black bandana."
+
+/obj/item/clothing/mask/cursedclown
+	name = "cursed clown mask"
+	desc = "This is a very, very odd looking mask."
+	icon = 'icons/goonstation/objects/clothing/mask.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_hat"
+	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	flags = NODROP
+
+/obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
+	..()
+	var/mob/living/carbon/human/H = user
+	if(istype(H) && slot == slot_wear_mask)
+		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
+		if(H.mind && H.mind.assigned_role != "Cluwne")
+			H.makeCluwne()
+
+/obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
+	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
+	spawn(10)
+		user.gib()
+	return BRUTELOSS

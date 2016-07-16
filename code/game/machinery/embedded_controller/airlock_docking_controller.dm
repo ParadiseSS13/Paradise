@@ -26,7 +26,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "docking_airlock_console.tmpl", name, 470, 290)
 		ui.set_initial_data(data)
 		ui.open()
@@ -71,8 +71,8 @@
 	airlock_program.master_prog = src
 
 /datum/computer/file/embedded_program/docking/airlock/receive_user_command(command)
-	if (command == "toggle_override")
-		if (override_enabled)
+	if(command == "toggle_override")
+		if(override_enabled)
 			disable_override()
 		else
 			enable_override()
@@ -120,7 +120,7 @@
 	var/datum/computer/file/embedded_program/docking/airlock/master_prog
 
 /datum/computer/file/embedded_program/airlock/docking/receive_user_command(command)
-	if (master_prog.undocked() || master_prog.override_enabled)	//only allow the port to be used as an airlock if nothing is docked here or the override is enabled
+	if(master_prog.undocked() || master_prog.override_enabled)	//only allow the port to be used as an airlock if nothing is docked here or the override is enabled
 		..(command)
 
 /datum/computer/file/embedded_program/airlock/docking/proc/enable_mech_regulators()
@@ -134,7 +134,7 @@
 	toggleDoor(memory["exterior_status"], tag_exterior_door, memory["secure"], "open")
 
 /datum/computer/file/embedded_program/airlock/docking/cycleDoors(var/target)
-	if (master_prog.undocked() || master_prog.override_enabled)	//only allow the port to be used as an airlock if nothing is docked here or the override is enabled
+	if(master_prog.undocked() || master_prog.override_enabled)	//only allow the port to be used as an airlock if nothing is docked here or the override is enabled
 		..(target)
 
 /*** DEBUG VERBS ***

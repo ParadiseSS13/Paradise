@@ -18,7 +18,7 @@
 /mob/living/simple_animal/slime/Bump(atom/movable/AM as mob|obj, yes)
 
 	spawn( 0 )
-		if ((!( yes ) || now_pushing))
+		if((!( yes ) || now_pushing))
 			return
 		now_pushing = 1
 		if(ismob(AM))
@@ -35,13 +35,13 @@
 			tmob.LAssailant = src
 		now_pushing = 0
 		..()
-		if (!( istype(AM, /atom/movable) ))
+		if(!( istype(AM, /atom/movable) ))
 			return
-		if (!( now_pushing ))
+		if(!( now_pushing ))
 			now_pushing = 1
-			if (!( AM.anchored ))
+			if(!( AM.anchored ))
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window/full))
+				if(istype(AM, /obj/structure/window/full))
 					for(var/obj/structure/window/win in get_step(AM,t))
 						now_pushing = 0
 						return

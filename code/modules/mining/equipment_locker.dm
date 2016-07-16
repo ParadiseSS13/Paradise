@@ -84,9 +84,9 @@
 		var/i = 0
 		if(T)
 			for(var/obj/item/weapon/ore/O in T)
-				if (i >= ore_pickup_rate)
+				if(i >= ore_pickup_rate)
 					break
-				else if (!O || !O.refined_type)
+				else if(!O || !O.refined_type)
 					continue
 				else
 					process_sheet(O)
@@ -95,16 +95,16 @@
 			var/obj/structure/ore_box/B = locate() in T
 			if(B)
 				for(var/obj/item/weapon/ore/O in B.contents)
-					if (i >= ore_pickup_rate)
+					if(i >= ore_pickup_rate)
 						break
-					else if (!O || !O.refined_type)
+					else if(!O || !O.refined_type)
 						continue
 					else
 						process_sheet(O)
 						i++
 
 /obj/machinery/mineral/ore_redemption/attackby(var/obj/item/weapon/W, var/mob/user, params)
-	if (!powered())
+	if(!powered())
 		return
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = usr.get_active_hand()
@@ -425,7 +425,7 @@
 	if(href_list["purchase"])
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
-			if (!prize || !(prize in prize_list))
+			if(!prize || !(prize in prize_list))
 				return
 			if(prize.cost > inserted_id.mining_points)
 			else
@@ -521,7 +521,7 @@
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
@@ -677,7 +677,7 @@
 /obj/item/weapon/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
-	w_class = 2.0
+	w_class = 2
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "minedronecube"
 	item_state = "electronic"
@@ -902,7 +902,7 @@
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 5
 	var/loaded = 1
@@ -962,7 +962,7 @@
 	name = "mining scanner"
 	icon_state = "mining1"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 0
@@ -993,7 +993,7 @@
 	name = "advanced mining scanner"
 	icon_state = "mining0"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 0

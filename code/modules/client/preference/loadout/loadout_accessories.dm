@@ -62,3 +62,34 @@
 /datum/gear/accessory/scarf/stripedblue
 	display_name = "scarf, striped blue"
 	path = /obj/item/clothing/accessory/stripedbluescarf
+
+/datum/gear/accessory/holobadge
+	display_name = "holobadge, pin"
+	path = /obj/item/clothing/accessory/holobadge
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/accessory/holobadge_n
+	display_name = "holobadge, cord"
+	path = /obj/item/clothing/accessory/holobadge/cord
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/accessory/tieblue
+	display_name = "tie, blue"
+	path = /obj/item/clothing/accessory/blue
+
+/datum/gear/accessory/tiered
+	display_name = "tie, red"
+	path = /obj/item/clothing/accessory/red
+
+/datum/gear/accessory/tieblack
+	display_name = "tie, black"
+	path = /obj/item/clothing/accessory/black
+
+/datum/gear/accessory/tiehorrible
+	display_name = "tie, vomit green"
+	path = /obj/item/clothing/accessory/horrible
+
+/datum/gear/accessory/stethoscope
+	display_name = "stethoscope"
+	path = /obj/item/clothing/accessory/stethoscope
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")

@@ -140,6 +140,15 @@
 	anchored = 0
 	movable = 1
 
+/obj/structure/stool/bed/chair/comfy/attackby(obj/item/weapon/W, mob/user, params)
+	if(iswrench(W))
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		new /obj/item/stack/sheet/metal(get_turf(src))
+		new /obj/item/stack/sheet/metal(get_turf(src))
+		qdel(src)
+	else
+		..()
+
 /obj/structure/stool/bed/chair/office/Bump(atom/A)
 	..()
 	if(!buckled_mob)	return

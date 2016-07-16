@@ -100,9 +100,9 @@
 /obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
-	if (istype(W, /obj/item/weapon/flamethrower))
+	if(istype(W, /obj/item/weapon/flamethrower))
 		var/obj/item/weapon/flamethrower/F = W
-		if ((!F.status)||(F.ptank))	return
+		if((!F.status)||(F.ptank))	return
 		src.master = F
 		F.ptank = src
 		user.unEquip(src)
@@ -135,7 +135,7 @@
 	icon_state = "emergency"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	w_class = 2.0
+	w_class = 2
 	force = 4.0
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)

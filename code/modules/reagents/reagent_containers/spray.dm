@@ -7,7 +7,7 @@
 	flags = OPENCONTAINER | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 7
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
@@ -92,7 +92,7 @@
 	set src in usr
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
@@ -159,7 +159,7 @@
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
 	throwforce = 0
-	w_class = 3.0
+	w_class = 3
 	spray_maxrange = 7
 	spray_currentrange = 7
 	amount_per_transfer_from_this = 10
@@ -228,10 +228,10 @@
 /obj/item/weapon/reagent_containers/spray/plantbgone/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
 
-	if (istype(A, /obj/machinery/portable_atmospherics/hydroponics)) // We are targeting hydrotray
+	if(istype(A, /obj/machinery/portable_atmospherics/hydroponics)) // We are targeting hydrotray
 		return
 
-	if (istype(A, /obj/effect/blob)) // blob damage in blob code
+	if(istype(A, /obj/effect/blob)) // blob damage in blob code
 		return
 
 	..()

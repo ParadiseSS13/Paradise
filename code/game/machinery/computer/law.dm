@@ -29,7 +29,7 @@
 
 
 	attackby(obj/item/weapon/O as obj, mob/user as mob, params)
-		if (user.z > 6)
+		if(user.z > 6)
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 		if(istype(O, /obj/item/weapon/aiModule))
@@ -54,7 +54,7 @@
 
 		src.current = select_active_ai(user)
 
-		if (!src.current)
+		if(!src.current)
 			to_chat(usr, "No active AIs detected.")
 		else
 			to_chat(usr, "[src.current.name] selected for law changes.")
@@ -94,7 +94,7 @@
 
 		src.current = freeborg()
 
-		if (!src.current)
+		if(!src.current)
 			to_chat(usr, "No free cyborgs detected.")
 		else
 			to_chat(usr, "[src.current.name] selected for law changes.")

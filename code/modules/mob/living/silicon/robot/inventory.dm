@@ -45,7 +45,7 @@
 	if(activated(O))
 		to_chat(src, "Already activated")
 		return
-	if (is_component_functioning("power cell") && cell)
+	if(is_component_functioning("power cell") && cell)
 		if(istype(O, /obj/item/borg))
 			var/obj/item/borg/B = O
 			if(B.powerneeded)

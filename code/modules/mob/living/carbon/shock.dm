@@ -23,7 +23,7 @@
 	if(istype(src,/mob/living/carbon/human))
 		var/mob/living/carbon/human/M = src
 		for(var/obj/item/organ/external/organ in M.organs)
-			if (!organ)
+			if(!organ)
 				continue
 			else if(organ.status & ORGAN_BROKEN || organ.open)
 				src.traumatic_shock += 15

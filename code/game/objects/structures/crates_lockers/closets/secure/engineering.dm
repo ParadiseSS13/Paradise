@@ -15,6 +15,7 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
 		new /obj/item/weapon/storage/backpack/duffel/engineering(src)
+		new /obj/item/clothing/head/beret/ce(src)
 		new /obj/item/areaeditor/blueprints(src)
 		new /obj/item/weapon/storage/box/permits(src)
 		new /obj/item/clothing/under/rank/chief_engineer(src)

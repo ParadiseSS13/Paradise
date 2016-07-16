@@ -1,6 +1,12 @@
 
 // /datum/recipe/grill
 
+/datum/recipe/grill/bacon
+	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/raw_bacon,
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/bacon
+
 /datum/recipe/grill/telebacon
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/meat,

@@ -6,7 +6,7 @@
 			var/obj/item/weapon/stock_parts/cell/CELL
 			if(CELL.maxcharge > cell.maxcharge && suitGloves)
 				to_chat(U, "<span class='notice'>Higher maximum capacity detected.\nUpgrading...</span>")
-				if (n_gloves && n_gloves.candrain && do_after(U,s_delay, target = U))
+				if(n_gloves && n_gloves.candrain && do_after(U,s_delay, target = U))
 					U.drop_item()
 					CELL.loc = src
 					CELL.charge = min(CELL.charge+cell.charge, CELL.maxcharge)
