@@ -188,9 +188,7 @@
 	user.set_machine(src)
 
 	// dat
-	var/dat = "<HTML><BODY><TT>"
-
-	dat += "<HR>Timer System:</hr>"
+	var/dat = "<HR>Timer System:</hr>"
 	dat += " <b>Door [src.id] controls</b><br/>"
 
 	// Start/Stop timer
@@ -220,9 +218,10 @@
 			dat += "<br/><A href='?src=\ref[src];fc=1'>Activate Flash</A>"
 
 	dat += "<br/><br/><a href='?src=\ref[user];mach_close=computer'>Close</a>"
-	dat += "</TT></BODY></HTML>"
 
-	user << browse(dat, "window=computer;size=400x500")
+	var/datum/browser/popup = new(user, "door_timer", name, 400, 500)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "computer")
 	return
 

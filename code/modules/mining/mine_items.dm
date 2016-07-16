@@ -9,6 +9,27 @@
 
 /**********************Miner Lockers**************************/
 
+/obj/structure/closet/wardrobe/miner
+	name = "mining wardrobe"
+	icon_state = "mixed"
+	icon_closed = "mixed"
+
+/obj/structure/closet/wardrobe/miner/New()
+	..()
+	contents = list()
+	new /obj/item/weapon/storage/backpack/duffel(src)
+	new /obj/item/weapon/storage/backpack/industrial(src)
+	new /obj/item/weapon/storage/backpack/satchel_eng(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
 	icon_state = "miningsec1"
@@ -21,20 +42,11 @@
 
 /obj/structure/closet/secure_closet/miner/New()
 	..()
-	sleep(2)
-	if(prob(50))
-		new /obj/item/weapon/storage/backpack/industrial(src)
-	else
-		new /obj/item/weapon/storage/backpack/satchel_eng(src)
-	new /obj/item/device/radio/headset/headset_cargo(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/device/mining_scanner(src)
-	new /obj/item/weapon/storage/bag/ore(src)
-	new /obj/item/device/flashlight/lantern(src)
 	new /obj/item/weapon/shovel(src)
 	new /obj/item/weapon/pickaxe(src)
+	new /obj/item/device/radio/headset/headset_cargo/mining(src)
+	new /obj/item/device/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/weapon/storage/bag/ore(src)
 	new /obj/item/clothing/glasses/meson(src)
 
 /**********************Shuttle Computer**************************/
@@ -250,3 +262,49 @@
 		colorindex = 0
 	icon_state = "mobcap[colorindex]"
 	update_icon()
+
+//Fans
+/obj/structure/fans
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "fans"
+	name = "environmental regulation system"
+	desc = "A large machine releasing a constant gust of air."
+	anchored = 1
+	density = 1
+	var/arbitraryatmosblockingvar = 1
+	var/buildstacktype = /obj/item/stack/sheet/metal
+	var/buildstackamount = 5
+
+/obj/structure/fans/proc/deconstruct()
+	if(buildstacktype)
+		new buildstacktype(loc, buildstackamount)
+	qdel(src)
+
+/obj/structure/fans/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
+							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+		if(do_after(user, 20, target = src))
+			deconstruct()
+			return ..()
+
+/obj/structure/fans/tiny
+	name = "tiny fan"
+	desc = "A tiny fan, releasing a thin gust of air."
+	layer = TURF_LAYER+0.1
+	density = 0
+	icon_state = "fan_tiny"
+	buildstackamount = 2
+
+/obj/structure/fans/New(loc)
+	..()
+	air_update_turf(1)
+
+/obj/structure/fans/Destroy()
+	arbitraryatmosblockingvar = 0
+	air_update_turf(1)
+	return ..()
+
+/obj/structure/fans/CanAtmosPass(turf/T)
+	return !arbitraryatmosblockingvar

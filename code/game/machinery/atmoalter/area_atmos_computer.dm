@@ -85,7 +85,9 @@
 				<i>[zone]</i>
 			</body>
 		</html>"}
-		user << browse("[dat]", "window=miningshuttle;size=400x400")
+		var/datum/browser/popup = new(user, "area_atmos", name, 400, 400)
+		popup.set_content(dat)
+		popup.open(0)
 		status = ""
 
 	Topic(href, href_list)

@@ -224,7 +224,7 @@
 				explosive.forceMove(user.loc)
 				explosive = null
 			qdel(src)
-	if(istype(I, /obj/item/weapon/grenade) || istype(I, /obj/item/weapon/c4))
+	if(istype(I, /obj/item/weapon/grenade) || istype(I, /obj/item/weapon/grenade/plastic/c4))
 		if(explosive)
 			to_chat(user, "<span class='warning'>There is already a device attached behind \the [src], remove it first.</span>")
 			return 1
@@ -268,11 +268,6 @@
 		var/obj/item/weapon/grenade/G = explosive
 		explosive = null
 		G.prime()
-	else if(istype(explosive, /obj/item/weapon/c4))
-		var/obj/item/weapon/c4/C = explosive
-		explosive = null
-		C.target = get_step(get_turf(src), dir)
-		C.explode(get_turf(loc))
 
 /obj/structure/sign/picture_frame/proc/toggle_tilt(mob/user)
 	if(!isliving(usr) || usr.stat)

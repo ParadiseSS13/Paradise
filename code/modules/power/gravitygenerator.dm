@@ -82,6 +82,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 //
 
 /obj/machinery/gravity_generator/main/station/initialize()
+	..()
 	setup_parts()
 	middle.overlays += "activated"
 	update_list()
@@ -215,17 +216,17 @@ var/const/GRAV_NEEDS_WRENCH = 3
 /obj/machinery/gravity_generator/main/attack_hand(mob/user as mob)
 	if(!..())
 		return interact(user)
-		
+
 /obj/machinery/gravity_generator/main/attack_ai(mob/user as mob)
 	return 1
-	
+
 /obj/machinery/gravity_generator/main/attack_ghost(mob/user as mob)
 	return interact(user)
 
 /obj/machinery/gravity_generator/main/interact(mob/user as mob)
 	if(stat & BROKEN)
 		return
-		
+
 	var/dat = "Gravity Generator Breaker: "
 	if(breaker)
 		dat += "<span class='linkOn'>ON</span> <A href='?src=\ref[src];gentoggle=1'>OFF</A>"

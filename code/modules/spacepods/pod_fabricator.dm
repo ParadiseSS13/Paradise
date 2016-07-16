@@ -319,9 +319,8 @@
 			if("parts")
 				left_part += output_parts_list(part_set)
 				left_part += "<hr><a href='?src=\ref[src];screen=main'>Return</a>"
-	dat = {"<html>
-			  <head>
-			  <title>[name]</title>
+	dat = {"
+			<title>[name]</title>
 				<style>
 				.res_name {font-weight: bold; text-transform: capitalize;}
 				.red {color: #f00;}
@@ -335,21 +334,19 @@
 				<script language='javascript' type='text/javascript'>
 				[js_byjax]
 				</script>
-				</head><body>
-				<body>
 				<table style='width: 100%;'>
 				<tr>
 				<td style='width: 65%; padding-right: 10px;'>
 				[left_part]
 				</td>
-				<td style='width: 35%; background: #ccc;' id='queue'>
+				<td style='width: 35%; background: #000;' id='queue'>
 				[list_queue()]
 				</td>
 				<tr>
-				</table>
-				</body>
-				</html>"}
-	user << browse(dat, "window=mecha_fabricator;size=1000x430")
+				</table>"}
+	var/datum/browser/popup = new(user, "mecha_fabricator", name, 1000, 430)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "mecha_fabricator")
 	return
 

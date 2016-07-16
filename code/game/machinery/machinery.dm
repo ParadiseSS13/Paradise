@@ -47,7 +47,7 @@ Class Variables:
       Currently unused.
 
 Class Procs:
-   New()                     'game/machinery/machine.dm'
+   initialize()                     'game/machinery/machine.dm'
 
    Destroy()                     'game/machinery/machine.dm'
 
@@ -117,9 +117,10 @@ Class Procs:
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 
-/obj/machinery/New()
+/obj/machinery/initialize()
 	addAtProcessing()
-	return ..()
+	. = ..()
+	power_change()
 
 /obj/machinery/proc/addAtProcessing()
 	if(use_power)

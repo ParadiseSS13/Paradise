@@ -11,8 +11,16 @@
 								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
+	// This var is used with the maploader (modules/awaymissions/maploader/reader.dm)
+	// if this is 1, when used in a map snippet, this will instantiate a unique
+	// area from any other instances already present (meaning you can have
+	// separate APCs, and so on)
+	var/there_can_be_many = 0
+
 
 /area/New()
+
+	..()
 	icon_state = ""
 	layer = 10
 	uid = ++global_uid
@@ -28,12 +36,10 @@
 //		lighting_state = 4
 		//has_gravity = 0    // Space has gravity.  Because.. because.
 
-	if(!requires_power)
+	if(requires_power != 0)
 		power_light = 0			//rastaf0
 		power_equip = 0			//rastaf0
 		power_environ = 0		//rastaf0
-
-	..()
 
 	power_change()		// all machines set to current power level, also updates lighting icon
 

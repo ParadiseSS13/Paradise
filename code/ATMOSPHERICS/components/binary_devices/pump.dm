@@ -109,7 +109,9 @@ Thus, the two variables affect pump operation are set in New():
 				[round(target_pressure,0.1)]kPa | <a href='?src=\ref[src];set_press=1'>Change</a>
 				"}
 
-	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_pump")
+	var/datum/browser/popup = new(user, "atmo_pump", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "atmo_pump")
 
 /obj/machinery/atmospherics/binary/pump/initialize()

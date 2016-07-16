@@ -1075,7 +1075,7 @@ steam.start() -- spawns the effect
 	desc = "A lightweight foamed metal wall."
 	var/metal = MFOAM_ALUMINUM
 
-/obj/structure/foamedmetal/New()
+/obj/structure/foamedmetal/initialize()
 	..()
 	air_update_turf(1)
 

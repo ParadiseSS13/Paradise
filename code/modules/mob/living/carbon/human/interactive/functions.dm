@@ -648,7 +648,7 @@
 			newSnack.name = "Synthetic [newSnack.name]"
 			custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")] as they vomit [newSnack] from their mouth!")
 	catch(var/exception/e)
-		log_to_dd("Cooking error: [e] in [e.file]:[e.line]")
+		log_runtime(e, src, "Caught in SNPC cooking module")
 	doing &= ~SNPC_SPECIAL
 // END COOKING MODULE
 

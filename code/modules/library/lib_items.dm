@@ -26,6 +26,7 @@
 								/obj/item/weapon/storage/bible)
 
 /obj/structure/bookcase/initialize()
+	..()
 	for(var/obj/item/I in loc)
 		if(is_type_in_list(I, valid_types))
 			I.forceMove(src)

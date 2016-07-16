@@ -303,7 +303,7 @@
 
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
-	if (!yes || ( \
+	if(!yes || ( \
 	 !istype(AM,/obj/machinery/door) && \
 	 !istype(AM,/obj/machinery/recharge_station) && \
 	 !istype(AM,/obj/machinery/disposal/deliveryChute) && \

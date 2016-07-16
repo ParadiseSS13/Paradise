@@ -1,3 +1,5 @@
+#define EMAG_DELAY 50
+
 /obj/machinery/photocopier
 	name = "photocopier"
 	icon = 'icons/obj/library.dmi'
@@ -9,6 +11,7 @@
 	idle_power_usage = 30
 	active_power_usage = 200
 	power_channel = EQUIP
+	var/emag_cooldown
 	atom_say_verb = "bleeps"
 	var/obj/item/copyitem = null	//what's in the copier!
 	var/copies = 1	//how many copies to print!
@@ -37,7 +40,9 @@
 	dat += "Current toner level: [toner]"
 	if(!toner)
 		dat +="<BR>Please insert a new toner cartridge!"
-	user << browse(dat, "window=copier")
+	var/datum/browser/popup = new(user, "copier", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "copier")
 	return
 
@@ -50,6 +55,9 @@
 		for(var/i = 0, i < copies, i++)
 			if(toner <= 0)
 				break
+
+			if(emag_cooldown > world.time)
+				return
 
 			if(istype(copyitem, /obj/item/weapon/paper))
 				copy(copyitem)
@@ -237,9 +245,11 @@
 			G.take_damage(0, 30)
 			spawn(20)
 				H.emote("scream")
+			emag_cooldown = world.time + EMAG_DELAY
 		else
 			to_chat(ass, "<span class='notice'>Something smells toasty...</span>")
 			ass.apply_damage(30, BURN)
+			emag_cooldown = world.time + EMAG_DELAY
 	if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/H = ass
 		temp_img = icon('icons/obj/butts.dmi', H.species.butt_sprite)
@@ -334,3 +344,5 @@
 	name = "toner cartridge"
 	icon_state = "tonercartridge"
 	var/toner_amount = 30
+
+#undef EMAG_DELAY

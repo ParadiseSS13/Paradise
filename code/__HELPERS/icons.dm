@@ -815,9 +815,13 @@ The _flatIcons list is a cache for generated icon files.
 
 /proc/getHologramIcon(icon/A, safety=1)//If safety is on, a new icon is not created.
 	var/icon/flat_icon = safety ? A : new(A)//Has to be a new icon to not constantly change the same icon.
+	var/icon/alpha_mask
 	flat_icon.ColorTone(rgb(125,180,225))//Let's make it bluish.
 	flat_icon.ChangeOpacity(0.5)//Make it half transparent.
-	var/icon/alpha_mask = new('icons/effects/effects.dmi', "scanline")//Scanline effect.
+	if(A.Height() == 64)
+		alpha_mask = new('icons/mob/ancient_machine.dmi', "scanline2")//Scaline for tall icons.
+	else
+		alpha_mask = new('icons/effects/effects.dmi', "scanline")//Scanline effect.
 	flat_icon.AddAlphaMask(alpha_mask)//Finally, let's mix in a distortion effect.
 	return flat_icon
 
