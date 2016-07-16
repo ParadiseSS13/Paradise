@@ -198,7 +198,7 @@ Filter types:
 */
 	var/datum/browser/popup = new(user, "atmo_filter", name, 400, 400)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "atmo_filter")
 	return
 

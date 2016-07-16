@@ -98,7 +98,7 @@
 		<A href='?src=\ref[src];close=1'>Close</A>"}
 		var/datum/browser/popup = new(user, "timer", name, 400, 400)
 		popup.set_content(dat)
-		popup.open()
+		popup.open(0)
 		onclose(user, "timer")
 		return
 

@@ -203,7 +203,7 @@
 	var/datum/browser/popup = new(user, "secure_rec", name, 600, 400)
 	popup.set_content(dat)
 	popup.add_head_content(head_content)
-	popup.open()
+	popup.open(0)
 	onclose(user, "secure_rec")
 	return
 

@@ -160,7 +160,7 @@ obj/machinery/air_sensor
 		var/html=return_text()
 		var/datum/browser/popup = new(user, "gac", name, 400, 400)
 		popup.set_content(html)
-		popup.open()
+		popup.open(0)
 		user.set_machine(src)
 		onclose(user, "gac")
 

@@ -55,7 +55,7 @@
 
 		var/datum/browser/popup = new(user, "airlock_electronics", name, 400, 400)
 		popup.set_content(t1)
-		popup.open()
+		popup.open(0)
 		onclose(user, "airlock")
 
 	Topic(href, href_list)

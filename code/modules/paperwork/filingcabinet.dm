@@ -62,7 +62,7 @@
 	dat += "</table></center>"
 	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 
 	return
 

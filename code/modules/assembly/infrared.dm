@@ -141,7 +141,7 @@
 				<BR><BR><A href='?src=\ref[src];close=1'>Close</A>"}
 	var/datum/browser/popup = new(user, "infra", name, 400, 400)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "infra")
 
 /obj/item/device/assembly/infra/Topic(href, href_list)

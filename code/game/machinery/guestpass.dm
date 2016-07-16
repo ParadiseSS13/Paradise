@@ -96,7 +96,7 @@
 
 	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "guestpass")
 
 

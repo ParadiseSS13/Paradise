@@ -96,7 +96,7 @@
 
 	var/datum/browser/popup = new(user, "atmo_pump", name, 400, 400)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "atmo_pump")
 
 /obj/machinery/atmospherics/binary/passive_gate/receive_signal(datum/signal/signal)

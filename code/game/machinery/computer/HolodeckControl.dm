@@ -60,7 +60,7 @@
 
 	var/datum/browser/popup = new(user, "holodeck_computer", name, 400, 500)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "computer")
 	return
 

@@ -211,7 +211,7 @@ log transactions
 
 		var/datum/browser/popup = new(user, "atm", name, 550, 650)
 		popup.set_content(dat)
-		popup.open()
+		popup.open(0)
 	else
 		user << browse(null,"window=atm")
 

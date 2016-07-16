@@ -89,7 +89,7 @@ var/list/ingredients_source = list(
 
 	var/datum/browser/popup = new(user, "icecreamvat", name, 600, 400)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 
 /obj/machinery/icecream_vat/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/reagent_containers))

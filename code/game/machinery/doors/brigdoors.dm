@@ -221,7 +221,7 @@
 
 	var/datum/browser/popup = new(user, "door_timer", name, 400, 500)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "computer")
 	return
 

@@ -236,7 +236,7 @@
 
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "[src.name]")
 	return
 

@@ -316,7 +316,7 @@
 				</table>"}
 	var/datum/browser/popup = new(user, "mecha_fabricator", name, 1000, 490)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "mecha_fabricator")
 	return
 

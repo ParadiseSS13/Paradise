@@ -104,7 +104,7 @@
 		dat += "<A href='?src=\ref[src];action=detach'>Detach a beaker!<BR>"
 	var/datum/browser/popup = new(user, "juicer", name, 400, 400)
 	popup.set_content(dat)
-	popup.open()
+	popup.open(0)
 	onclose(user, "juicer")
 	return
 
