@@ -156,7 +156,7 @@
 	blacklist = null
 	whitelist = list(/obj/item/weapon/tank,/obj/item/weapon/reagent_containers,
 					/obj/item/stack/medical,/obj/item/weapon/storage/pill_bottle,/obj/item/weapon/gun/syringe,
-					/obj/item/weapon/c4,/obj/item/weapon/grenade,/obj/item/ammo_box,
+					/obj/item/weapon/grenade/plastic/c4,/obj/item/weapon/grenade,/obj/item/ammo_box,
 					/obj/item/weapon/gun/grenadelauncher,/obj/item/weapon/flamethrower,	/obj/item/weapon/lighter,
 					/obj/item/weapon/match,/obj/item/weapon/weldingtool)
 
@@ -258,7 +258,7 @@
 	whitelist = list(/obj/item/weapon/banhammer,/obj/item/weapon/sord,/obj/item/weapon/claymore,/obj/item/weapon/holo/esword,
 					/obj/item/weapon/flamethrower,/obj/item/weapon/grenade,/obj/item/weapon/gun,/obj/item/weapon/hatchet,/obj/item/weapon/katana,
 					/obj/item/weapon/kitchen/knife,/obj/item/weapon/melee,/obj/item/weapon/nullrod,/obj/item/weapon/pickaxe,/obj/item/weapon/twohanded,
-					/obj/item/weapon/c4,/obj/item/weapon/scalpel,/obj/item/weapon/shield,/obj/item/weapon/grown/nettle/death)
+					/obj/item/weapon/grenade/plastic/c4,/obj/item/weapon/scalpel,/obj/item/weapon/shield,/obj/item/weapon/grown/nettle/death)
 
 /datum/cargoprofile/tools
 	name = "Devices & Tools"

@@ -843,7 +843,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			sec_briefcase.contents += new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 			sec_briefcase.contents += new /obj/item/weapon/gun/projectile/revolver/mateba
 			sec_briefcase.contents += new /obj/item/ammo_box/a357
-			sec_briefcase.contents += new /obj/item/weapon/c4
+			sec_briefcase.contents += new /obj/item/weapon/grenade/plastic/c4
 			M.equip_to_slot_or_del(sec_briefcase, slot_l_hand)
 
 			var/obj/item/device/pda/heads/pda = new(M)
