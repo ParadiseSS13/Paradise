@@ -39,26 +39,26 @@
 
 	process()
 		..()
-		if (src.working) use_power(src.powconsumption)
+		if(src.working) use_power(src.powconsumption)
 
 	ex_act(severity)
 		switch(severity)
 			if(1.0) qdel(src)
 			if(2.0)
-				if (prob(60)) stat |= BROKEN
+				if(prob(60)) stat |= BROKEN
 			if(3.0)
-				if (prob(30)) stat |= BROKEN
+				if(prob(30)) stat |= BROKEN
 		return
 
 	blob_act()
-		if (prob(25)) del src
+		if(prob(25)) del src
 		return
 
 	power_change()
 		if(stat & BROKEN) icon_state = "fab-broken"
 		else
 			if( powered() )
-				if (src.working) src.icon_state = "fab-active"
+				if(src.working) src.icon_state = "fab-active"
 				else src.icon_state = "fab-idle"
 				stat &= ~NOPOWER
 			else
@@ -92,31 +92,31 @@
 		var/AMTfabr = 0
 
 		for(var/obj/item/weapon/ore/O in src.contents)
-			if (istype(O,/obj/item/weapon/ore/iron)) AMTmaux++
-			if (istype(O,/obj/item/weapon/ore/glass)) AMTmoli++
-			if (istype(O,/obj/item/weapon/ore/silver)) AMTphar++
-			if (istype(O,/obj/item/weapon/ore/diamond)) AMTclar++
-			if (istype(O,/obj/item/weapon/ore/gold)) AMTbohr++
-			if (istype(O,/obj/item/weapon/ore/coal)) AMTereb++
-			if (istype(O,/obj/item/weapon/ore/uranium)) AMTcere++
-			if (istype(O,/obj/item/weapon/ore/plasma)) AMTplas++
-			if (istype(O,/obj/item/weapon/ore/osmium)) AMTuqil++
-			if (istype(O,/obj/item/weapon/ore/hydrogen)) AMTtele++
-			if (istype(O,/obj/item/weapon/ore/fabric)) AMTfabr++
+			if(istype(O,/obj/item/weapon/ore/iron)) AMTmaux++
+			if(istype(O,/obj/item/weapon/ore/glass)) AMTmoli++
+			if(istype(O,/obj/item/weapon/ore/silver)) AMTphar++
+			if(istype(O,/obj/item/weapon/ore/diamond)) AMTclar++
+			if(istype(O,/obj/item/weapon/ore/gold)) AMTbohr++
+			if(istype(O,/obj/item/weapon/ore/coal)) AMTereb++
+			if(istype(O,/obj/item/weapon/ore/uranium)) AMTcere++
+			if(istype(O,/obj/item/weapon/ore/plasma)) AMTplas++
+			if(istype(O,/obj/item/weapon/ore/osmium)) AMTuqil++
+			if(istype(O,/obj/item/weapon/ore/hydrogen)) AMTtele++
+			if(istype(O,/obj/item/weapon/ore/fabric)) AMTfabr++
 
 		dat += "<B>Available Minerals</B><BR>"
-		if (AMTmaux) dat += "<A href='?src=\ref[src];eject=1'><B>Iron:</B></A> [AMTmaux]<br>"
-		if (AMTmoli) dat += "<A href='?src=\ref[src];eject=2'><B>Glass:</B></A> [AMTmoli]<br>"
-		if (AMTphar) dat += "<A href='?src=\ref[src];eject=3'><B>Silver:</B></A> [AMTphar]<br>"
-		if (AMTclar) dat += "<A href='?src=\ref[src];eject=4'><B>Diamond:</B></A> [AMTclar]<br>"
-		if (AMTbohr) dat += "<A href='?src=\ref[src];eject=5'><B>Gold:</B></A> [AMTbohr]<br>"
-		if (AMTereb) dat += "<A href='?src=\ref[src];eject=6'><B>Coal:</B></A> [AMTereb]<br>"
-		if (AMTcere) dat += "<A href='?src=\ref[src];eject=7'><B>Uranium:</B></A> [AMTcere]<br>"
-		if (AMTplas) dat += "<A href='?src=\ref[src];eject=8'><B>Plasma:</B></A> [AMTplas]<br>"
-		if (AMTuqil) dat += "<A href='?src=\ref[src];eject=9'><B>Platinum:</B></A> [AMTuqil]<br>"
-		if (AMTtele) dat += "<A href='?src=\ref[src];eject=10'><B>Hydrogen:</B></A> [AMTtele]<br>"
-		if (AMTfabr) dat += "<A href='?src=\ref[src];eject=11'><B>Fabric:</B></A> [AMTfabr]<br>"
-		if (!AMTmaux && !AMTmoli && !AMTphar && !AMTclar && !AMTbohr && !AMTereb && !AMTcere && !AMTplas && !AMTuqil && !AMTtele && !AMTfabr)
+		if(AMTmaux) dat += "<A href='?src=\ref[src];eject=1'><B>Iron:</B></A> [AMTmaux]<br>"
+		if(AMTmoli) dat += "<A href='?src=\ref[src];eject=2'><B>Glass:</B></A> [AMTmoli]<br>"
+		if(AMTphar) dat += "<A href='?src=\ref[src];eject=3'><B>Silver:</B></A> [AMTphar]<br>"
+		if(AMTclar) dat += "<A href='?src=\ref[src];eject=4'><B>Diamond:</B></A> [AMTclar]<br>"
+		if(AMTbohr) dat += "<A href='?src=\ref[src];eject=5'><B>Gold:</B></A> [AMTbohr]<br>"
+		if(AMTereb) dat += "<A href='?src=\ref[src];eject=6'><B>Coal:</B></A> [AMTereb]<br>"
+		if(AMTcere) dat += "<A href='?src=\ref[src];eject=7'><B>Uranium:</B></A> [AMTcere]<br>"
+		if(AMTplas) dat += "<A href='?src=\ref[src];eject=8'><B>Plasma:</B></A> [AMTplas]<br>"
+		if(AMTuqil) dat += "<A href='?src=\ref[src];eject=9'><B>Platinum:</B></A> [AMTuqil]<br>"
+		if(AMTtele) dat += "<A href='?src=\ref[src];eject=10'><B>Hydrogen:</B></A> [AMTtele]<br>"
+		if(AMTfabr) dat += "<A href='?src=\ref[src];eject=11'><B>Fabric:</B></A> [AMTfabr]<br>"
+		if(!AMTmaux && !AMTmoli && !AMTphar && !AMTclar && !AMTbohr && !AMTereb && !AMTcere && !AMTplas && !AMTuqil && !AMTtele && !AMTfabr)
 			dat += "No minerals currently loaded.<br>"
 
 		dat += {"<HR>
@@ -126,42 +126,42 @@
 			dat += {"<BR><A href='?src=\ref[src];disp=\ref[A]'>
 			<b><u>[A.name]</u></b></A><br>
 			<b>Cost:</b> [A.amount1] [A.cname1]"}
-			if (A.cost2) dat += ", [A.amount2] [A.cname2]"
-			if (A.cost3) dat += ", [A.amount3] [A.cname3]"
+			if(A.cost2) dat += ", [A.amount2] [A.cname2]"
+			if(A.cost3) dat += ", [A.amount3] [A.cname3]"
 			dat += "<br><b>Time:</b> [A.time] Seconds<br>"
 
 		for(var/datum/manufacture/A in src.download)
 			dat += {"<BR><A href='?src=\ref[src];disp=\ref[A]'>
 			<b><u>[A.name]</u></b></A> (Downloaded)<br>
 			<b>Cost:</b> [A.amount1] [A.cname1]"}
-			if (A.cost2) dat += ", [A.amount2] [A.cname2]"
-			if (A.cost3) dat += ", [A.amount3] [A.cname3]"
+			if(A.cost2) dat += ", [A.amount2] [A.cname2]"
+			if(A.cost3) dat += ", [A.amount3] [A.cname3]"
 			dat += "<br><b>Time:</b> [A.time] Seconds<br>"
 
 		for(var/datum/manufacture/A in src.diskload)
 			dat += {"<BR><A href='?src=\ref[src];disp=\ref[A]'>
 			<b><u>[A.name]</u></b></A> (Disk)<br>
 			<b>Cost:</b> [A.amount1] [A.cname1]"}
-			if (A.cost2) dat += ", [A.amount2] [A.cname2]"
-			if (A.cost3) dat += ", [A.amount3] [A.cname3]"
+			if(A.cost2) dat += ", [A.amount2] [A.cname2]"
+			if(A.cost3) dat += ", [A.amount3] [A.cname3]"
 			dat += "<br><b>Time:</b> [A.time] Seconds<br>"
 
-		if (src.hacked)
+		if(src.hacked)
 			for(var/datum/manufacture/A in src.hidden)
 				dat += {"<BR><A href='?src=\ref[src];disp=\ref[A]'>
 				<b><u>[A.name]</u></b></A> (Secret)<br>
 				<b>Cost:</b> [A.amount1] [A.cname1]"}
-				if (A.cost2) dat += ", [A.amount2] [A.cname2]"
-				if (A.cost3) dat += ", [A.amount3] [A.cname3]"
+				if(A.cost2) dat += ", [A.amount2] [A.cname2]"
+				if(A.cost3) dat += ", [A.amount3] [A.cname3]"
 				dat += "<br><b>Time:</b> [A.time] Seconds<br>"
 
 		dat += "<hr>"
 
-		if (src.dl_list)
+		if(src.dl_list)
 			dat += {"<A href='?src=\ref[src];download=1'>Download Available Schematics</A><BR>
 			<A href='?src=\ref[src];delete=2'>Clear Downloaded Schematics</A><BR>"}
 
-		if (src.acceptdisk)
+		if(src.acceptdisk)
 			dat += {"<A href='?src=\ref[src];delete=1'>Clear Disk Schematics</A><BR>"}
 
 		user << browse(dat, "window=manufact;size=400x500")
@@ -173,45 +173,45 @@
 		if(usr.stat || usr.restrained())
 			return
 
-		if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))))
+		if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))))
 			usr.machine = src
 
-			if (href_list["download"])
+			if(href_list["download"])
 				to_chat(if(!src.dl_list) usr, "\red This unit is not capable of downloading any additional schematics.")
 				else
 					var/amtdl = 0
 					//var/dontload = 0
-					if (src.dl_list == "robotics")
+					if(src.dl_list == "robotics")
 						/*for(var/i = robotics_research.starting_tier, i <= robotics_research.max_tiers, i++)
 							for(var/datum/roboresearch/X in robotics_research.researched_items[i])
-								for (var/datum/manufacture/S in X.schematics)
-									for (var/datum/manufacture/A in src.download)
-										if (istype(S,A)) dontload = 1
-									if (!dontload)
+								for(var/datum/manufacture/S in X.schematics)
+									for(var/datum/manufacture/A in src.download)
+										if(istype(S,A)) dontload = 1
+									if(!dontload)
 										src.download += new S.type(src)
 										amtdl++
 									else dontload = 0*/
-						to_chat(if (amtdl) usr, "\blue [amtdl] new schematics downloaded from Robotics Research Database.")
+						to_chat(if(amtdl) usr, "\blue [amtdl] new schematics downloaded from Robotics Research Database.")
 						to_chat(else usr, "\red No new schematics currently available in Robotics Research Database.")
 
-			if (href_list["delete"])
+			if(href_list["delete"])
 				var/operation = text2num(href_list["delete"])
 				if(operation == 1) // Clear Disk Schematics
 					var/amtgone = 0
 					for(var/datum/manufacture/D in src.diskload)
 						src.diskload-= D
 						amtgone++
-					to_chat(if (amtgone) usr, "\blue Cleared [amtgone] schematics from database.")
+					to_chat(if(amtgone) usr, "\blue Cleared [amtgone] schematics from database.")
 					to_chat(else usr, "\red No disk-loaded schematics detected in database.")
 				if(operation == 2) // Clear Download Schematics
 					var/amtgone = 0
 					for(var/datum/manufacture/D in src.download)
 						src.download-= D
 						amtgone++
-					to_chat(if (amtgone) usr, "\blue Cleared [amtgone] schematics from database.")
+					to_chat(if(amtgone) usr, "\blue Cleared [amtgone] schematics from database.")
 					to_chat(else usr, "\red No downloaded schematics detected in database.")
 
-			if (href_list["eject"])
+			if(href_list["eject"])
 				var/operation = text2num(href_list["eject"])
 				var/ejectamt = 0
 				var/ejecting = null
@@ -233,22 +233,22 @@
 				sleep(3)
 				ejectamt = input(usr,"How many units do you want to eject?","Eject Materials") as num
 				for(var/obj/item/weapon/ore/O in src.contents)
-					if (ejectamt <= 0) break
-					if (istype(O, ejecting))
+					if(ejectamt <= 0) break
+					if(istype(O, ejecting))
 						O.loc = usr.loc
 						ejectamt--
 
-			if (href_list["disp"])
+			if(href_list["disp"])
 				var/datum/manufacture/I = locate(href_list["disp"])
 				// Material Check
 				var/A1 = 0
 				var/A2 = 0
 				var/A3 = 0
 				for(var/obj/item/weapon/ore/O in src.contents)
-					if (istype(O,I.cost1)) A1++
-					if (istype(O,I.cost2)) A2++
-					if (istype(O,I.cost3)) A3++
-				if (A1 < I.amount1 || A2 < I.amount2 || A3 < I.amount3)
+					if(istype(O,I.cost1)) A1++
+					if(istype(O,I.cost2)) A2++
+					if(istype(O,I.cost3)) A3++
+				if(A1 < I.amount1 || A2 < I.amount2 || A3 < I.amount3)
 					to_chat(usr, "\red Insufficient materials to manufacture that item.")
 					return
 				// Consume Mats
@@ -256,13 +256,13 @@
 				var/C2 = I.amount2
 				var/C3 = I.amount3
 				for(var/obj/item/weapon/ore/O in src.contents)
-					if (istype(O,I.cost1) && C1)
+					if(istype(O,I.cost1) && C1)
 						del O
 						C1--
-					if (istype(O,I.cost2) && C2)
+					if(istype(O,I.cost2) && C2)
 						del O
 						C2--
-					if (istype(O,I.cost3) && C3)
+					if(istype(O,I.cost3) && C3)
 						del O
 						C3--
 				// Manufacture Item
@@ -272,16 +272,16 @@
 				var/powconsume = round(1500*worktime/3)
 				/*for(var/i = robotics_research.starting_tier, i <= robotics_research.max_tiers, i++)
 					for(var/datum/roboresearch/a in robotics_research.researched_items[i])
-						if (a.manubonus)
+						if(a.manubonus)
 							worktime -= a.timebonus
-							if (a.multiplier != 0) worktime /= a.multiplier
+							if(a.multiplier != 0) worktime /= a.multiplier
 							powconsume -= a.powbonus*/
-				if (worktime < 1) worktime = 1
+				if(worktime < 1) worktime = 1
 				src.powconsumption = powconsume
 				src.updateUsrDialog()
 				sleep(worktime)
 				var/make = I.create
-				while (make > 0)
+				while(make > 0)
 					new I.item(src.loc)
 					make--
 				src.working = 0
@@ -298,24 +298,24 @@
 			var/obj/item/stack/sheet/STACK = W
 			for(var/mob/O in viewers(user, null)) O.show_message(text("\blue [] loads [] into the [].", user, W, src), 1)
 			if(istype(STACK, /obj/item/stack/sheet/metal))
-				for (var/amt = STACK.amount, amt > 0, amt--) new /obj/item/weapon/ore/iron(src)
+				for(var/amt = STACK.amount, amt > 0, amt--) new /obj/item/weapon/ore/iron(src)
 			if(istype(STACK, /obj/item/stack/sheet/plasteel))
-				for (var/amt = STACK.amount, amt > 0, amt--)
+				for(var/amt = STACK.amount, amt > 0, amt--)
 					new /obj/item/weapon/ore/iron(src)
 					new /obj/item/weapon/ore/plasma(src)
 			if(istype(STACK, /obj/item/stack/sheet/glass))
-				for (var/amt = STACK.amount, amt > 0, amt--) new /obj/item/weapon/ore/glass(src)
+				for(var/amt = STACK.amount, amt > 0, amt--) new /obj/item/weapon/ore/glass(src)
 			if(istype(STACK, /obj/item/stack/sheet/rglass))
-				for (var/amt = STACK.amount, amt > 0, amt--)
+				for(var/amt = STACK.amount, amt > 0, amt--)
 					new /obj/item/weapon/ore/iron(src)
 					new /obj/item/weapon/ore/glass(src)
 			load = 2
-		//else if (istype(W, /obj/item/weapon/plant/wheat/metal))
+		//else if(istype(W, /obj/item/weapon/plant/wheat/metal))
 		//	new /obj/item/weapon/ore/iron(src)
 		//	load = 2
 		/*else if(istype(W, /obj/item/stack/cable_coil/))
 			for(var/mob/O in viewers(user, null)) O.show_message(text("\blue [] loads [] into the [].", user, W, src), 1)
-			for (var/amt = W:amount, amt > 0, amt--)
+			for(var/amt = W:amount, amt > 0, amt--)
 				new /obj/item/weapon/ore/silver(src)
 				amt--
 			load = 2*/
@@ -324,7 +324,7 @@
 			load = 2
 		else if(istype(W, /obj/item/stack/rods))
 			var/obj/item/stack/RODS = W
-			for (var/amt = RODS.amount, amt > 0, amt--) new /obj/item/weapon/ore/iron(src)
+			for(var/amt = RODS.amount, amt > 0, amt--) new /obj/item/weapon/ore/iron(src)
 			load = 2
 		else if(istype(W, /obj/item/clothing/))
 			if(istype(W, /obj/item/clothing/under/))
@@ -337,78 +337,78 @@
 					if(istype(W,/obj/item/clothing/suit/space/)) new /obj/item/weapon/ore/fabric(src)
 					load = 2
 		else if(istype(W, /obj/item/weapon/disk/data/schematic))
-			to_chat(if (!src.acceptdisk) user, "\red This unit is unable to accept disks.")
+			to_chat(if(!src.acceptdisk) user, "\red This unit is unable to accept disks.")
 			else
 				var/amtload = 0
 				var/dontload = 0
-				for (var/datum/manufacture/WS in W:schematics)
-					for (var/datum/manufacture/A in src.available)
-						if (istype(WS,A)) dontload = 1
-					for (var/datum/manufacture/B in src.download)
-						if (istype(WS,B)) dontload = 1
-					for (var/datum/manufacture/C in src.diskload)
-						if (istype(WS,C)) dontload = 1
-					for (var/datum/manufacture/D in src.hidden)
-						if (istype(WS,D) && src.hacked) dontload = 1
-					if (!dontload)
+				for(var/datum/manufacture/WS in W:schematics)
+					for(var/datum/manufacture/A in src.available)
+						if(istype(WS,A)) dontload = 1
+					for(var/datum/manufacture/B in src.download)
+						if(istype(WS,B)) dontload = 1
+					for(var/datum/manufacture/C in src.diskload)
+						if(istype(WS,C)) dontload = 1
+					for(var/datum/manufacture/D in src.hidden)
+						if(istype(WS,D) && src.hacked) dontload = 1
+					if(!dontload)
 						src.diskload += new WS.type(src)
 						amtload++
 					else dontload = 0
-				to_chat(if (amtload) user, "\blue [amtload] new schematics downloaded from disk.")
+				to_chat(if(amtload) user, "\blue [amtload] new schematics downloaded from disk.")
 				to_chat(else user, "\red No new schematics available on disk.")
-		else if (istype(W, /obj/item/weapon/storage/bag/ore))
+		else if(istype(W, /obj/item/weapon/storage/bag/ore))
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] uses the []'s automatic ore loader on []!", user, src, W), 1)
 			var/amtload = 0
-			for (var/obj/item/weapon/ore/M in W.contents)
+			for(var/obj/item/weapon/ore/M in W.contents)
 				M.loc = src
 				amtload++
-			to_chat(if (amtload) user, "\blue [amtload] pieces of ore loaded from [W]!")
+			to_chat(if(amtload) user, "\blue [amtload] pieces of ore loaded from [W]!")
 			to_chat(else user, "\red No ore loaded!")
 		else if(istype(W, /obj/item/weapon/card/emag))
 			src.hacked = 1
 			to_chat(user, "\blue You remove the [src]'s product locks!")
 		else ..()
 
-		if (load == 1)
+		if(load == 1)
 			user.unEquip(W)
 			W.loc = src
-			if ((user.client && user.s_active != src))
+			if((user.client && user.s_active != src))
 				user.client.screen -= W
 			W.dropped()
-		else if (load == 2)
+		else if(load == 2)
 			user.unEquip(W)
 			W.dropped()
-			if ((user.client && user.s_active != src))
+			if((user.client && user.s_active != src))
 				user.client.screen -= W
 			del W
 
 		src.updateUsrDialog()
 
 	MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
-		if (istype(O, /obj/structure/closet/crate/))
+		if(istype(O, /obj/structure/closet/crate/))
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] uses the []'s automatic ore loader on []!", user, src, O), 1)
 			var/amtload = 0
-			for (var/obj/item/weapon/ore/M in O.contents)
+			for(var/obj/item/weapon/ore/M in O.contents)
 				M.loc = src
 				amtload++
-			to_chat(if (amtload) user, "\blue [amtload] pieces of ore loaded from [O]!")
+			to_chat(if(amtload) user, "\blue [amtload] pieces of ore loaded from [O]!")
 			to_chat(else user, "\red No ore loaded!")
-		else if (istype(O, /obj/item/weapon/ore/))
+		else if(istype(O, /obj/item/weapon/ore/))
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] begins quickly stuffing ore into []!", user, src), 1)
 			var/staystill = user.loc
 			for(var/obj/item/weapon/ore/M in view(1,user))
 				M.loc = src
 				sleep(3)
-				if (user.loc != staystill) break
+				if(user.loc != staystill) break
 			to_chat(user, "\blue You finish stuffing ore into [src]!")
-		/*else if (istype(O, /obj/item/weapon/plant/wheat/metal))
+		/*else if(istype(O, /obj/item/weapon/plant/wheat/metal))
 			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] begins quickly stuffing [O] into []!", user, src), 1)
 			var/staystill = user.loc
 			for(var/obj/item/weapon/plant/wheat/metal/M in view(1,user))
 				new /obj/item/weapon/ore/iron(src)
 				del M
 				sleep(3)
-				if (user.loc != staystill) break
+				if(user.loc != staystill) break
 			to_chat(user, "\blue You finish stuffing [O] into [src]!"*/)
 		else ..()
 		src.updateUsrDialog()

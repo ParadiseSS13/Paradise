@@ -15,7 +15,7 @@
 
 /turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
@@ -90,7 +90,7 @@
 				return
 
 		if(1)
-			if (istype(W, /obj/item/weapon/screwdriver))
+			if(istype(W, /obj/item/weapon/screwdriver))
 				to_chat(user, "<span class='notice'>You begin removing the support lines.</span>")
 				playsound(src, 'sound/items/Screwdriver.ogg', 100, 1)
 

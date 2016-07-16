@@ -26,6 +26,7 @@
 								/obj/item/weapon/storage/bible)
 
 /obj/structure/bookcase/initialize()
+	..()
 	for(var/obj/item/I in loc)
 		if(is_type_in_list(I, valid_types))
 			I.forceMove(src)
@@ -69,7 +70,7 @@
 			if("brute")
 				health -= O.force * 0.75
 			else
-		if (health <= 0)
+		if(health <= 0)
 			visible_message("<span class=warning>The bookcase is smashed apart!</span>")
 			new /obj/item/stack/sheet/wood(get_turf(src))
 			new /obj/item/stack/sheet/wood(get_turf(src))
@@ -288,7 +289,7 @@
 	icon_state ="scanner"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1.0
+	w_class = 1
 	var/obj/machinery/computer/library/checkout/computer // Associated computer - Modes 1 to 3 use this
 	var/obj/item/weapon/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory

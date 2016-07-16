@@ -43,7 +43,7 @@
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
 	var/proj_edge = has_edge(P)
-	if ((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
+	if((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
 		proj_sharp = 0
 		proj_edge = 0
 
@@ -62,49 +62,40 @@
 
 //this proc handles being hit by a thrown atom
 /mob/living/hitby(atom/movable/AM as mob|obj,var/speed = 5)//Standardization and logging -Sieve
-	if(istype(AM,/obj/))
-		var/obj/O = AM
+	if(istype(AM, /obj/item))
+		var/obj/item/I = AM
 		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
-		if(istype(O,/obj/item/weapon))
-			var/obj/item/weapon/W = O
+		if(istype(I, /obj/item/weapon))
+			var/obj/item/weapon/W = I
 			dtype = W.damtype
-			if (W.hitsound && W.throwforce > 0)
+			if(W.hitsound && W.throwforce > 0)
 				playsound(loc, W.hitsound, 30, 1, -1)
 
 		//run to-hit check here
 
-		var/throw_damage = O.throwforce*(speed/5)
+		var/throw_damage = I.throwforce*(speed/5)
 
-		//var/miss_chance = 15
-		//if (O.throw_source)
-			//var/distance = get_dist(O.throw_source, loc)
-			//miss_chance = min(15*(distance-2), 0)
-		/*
-		if (prob(miss_chance))
-			visible_message("\blue \The [O] misses [src] narrowly!")
-			return
-		*/
-		src.visible_message("\red [src] has been hit by [O].")
-		var/armor = run_armor_check(zone, "melee")
+		src.visible_message("\red [src] has been hit by [I].")
+		var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", I.armour_penetration)
 
-		apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
+		apply_damage(throw_damage, dtype, zone, armor, is_sharp(I), has_edge(I), I)
 
-		O.throwing = 0		//it hit, so stop moving
+		I.throwing = 0		//it hit, so stop moving
 
-		if(ismob(O.thrower))
-			var/mob/M = O.thrower
+		if(ismob(I.thrower))
+			var/mob/M = I.thrower
 			if(M)
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [key_name(M)]</font>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [O]</font>")
+				attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [I], thrown by [key_name(M)]</font>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [I]</font>")
 				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[key_name_admin(src)] was hit by a [O], thrown by [key_name_admin(M)]")
+					msg_admin_attack("[key_name_admin(src)] was hit by a [I], thrown by [key_name_admin(M)]")
 
 		// Begin BS12 momentum-transfer code.
-		if(O.throw_source && speed >= 15)
-			var/obj/item/weapon/W = O
+		if(I.throw_source && speed >= 15)
+			var/obj/item/weapon/W = I
 			var/momentum = speed/2
-			var/dir = get_dir(O.throw_source, src)
+			var/dir = get_dir(I.throw_source, src)
 
 			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
 			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
@@ -113,16 +104,16 @@
 
 			if(W.sharp) //Projectile is suitable for pinning.
 				//Handles embedding for non-humans and simple_animals.
-				O.loc = src
-				src.embedded += O
+				I.loc = src
+				embedded += I
 
 				var/turf/T = near_wall(dir,2)
 
 				if(T)
 					src.loc = T
-					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
+					visible_message("<span class='warning'>[src] is pinned to the wall by [I]!</span>","<span class='warning'>You are pinned to the wall by [I]!</span>")
 					src.anchored = 1
-					src.pinned += O
+					src.pinned += I
 
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == I_HARM)

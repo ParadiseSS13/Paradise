@@ -17,7 +17,7 @@
 	icon_state = "tatgun"
 	force = 0
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	var/used = 0
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
@@ -85,6 +85,8 @@
 	update_icon()
 
 
+
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
@@ -92,7 +94,7 @@
 	sharp = 0
 	edge = 0
 
-/obj/item/weapon/claymore/fluff/IsShield()
+/obj/item/weapon/claymore/fluff/hit_reaction()
 	return 0
 
 /obj/item/weapon/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
@@ -170,6 +172,30 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jello_guitar"
 	item_state = "jello_guitar"
+
+/obj/item/fluff/wingler_comb
+	name = "blue comb"
+	desc = "A blue comb, it looks like it was made to groom a Tajaran's fur."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "wingler_comb"
+	attack_verb = list("combed")
+	hitsound = 'sound/weapons/tap.ogg'
+	force = 0
+	throwforce = 0
+	w_class = 2
+	var/used = 0
+
+/obj/item/fluff/wingler_comb/attack_self(mob/user)
+	if(used)
+		return
+
+	var/mob/living/carbon/human/target = user
+	if(!istype(target) || target.get_species() != "Tajaran") // Only catbeasts, kthnx.
+		return
+
+	if(target.change_body_accessory("Jay Wingler Tail"))
+		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
+		used = 1
 
 //////////////////////////////////
 //////////// Clothing ////////////

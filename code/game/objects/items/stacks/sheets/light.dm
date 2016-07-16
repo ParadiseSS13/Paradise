@@ -4,7 +4,7 @@
 	singular_name = "wired glass floor tile"
 	desc = "A glass tile, which is wired, somehow."
 	icon_state = "glass_wire"
-	w_class = 3.0
+	w_class = 3
 	force = 3.0
 	throwforce = 5.0
 	throw_speed = 5

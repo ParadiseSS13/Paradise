@@ -75,6 +75,6 @@ var/global/vox_tick = 1
 
 */
 	vox_tick++
-	if (vox_tick > 4) vox_tick = 1
+	if(vox_tick > 4) vox_tick = 1
 
 	return 1

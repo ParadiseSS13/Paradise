@@ -40,10 +40,10 @@
 		return
 	if(M.anchored&&istype(M, /obj/mecha))
 		return
-	if (!( target ))
+	if(!( target ))
 		qdel(src)
 		return
-	if (istype(M, /atom/movable))
+	if(istype(M, /atom/movable))
 		if(prob(failchance)) //oh dear a problem, put em in deep space
 			src.icon_state = "portal1"
 			do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0)

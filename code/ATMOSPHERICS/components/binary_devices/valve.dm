@@ -52,7 +52,7 @@
 	add_fingerprint(usr)
 	update_icon(1)
 	sleep(10)
-	if (open)
+	if(open)
 		close()
 		return
 	open()

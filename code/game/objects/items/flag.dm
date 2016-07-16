@@ -1,6 +1,6 @@
 /obj/item/flag
 	icon = 'icons/obj/flag.dmi'
-	w_class = 4.0
+	w_class = 4
 	var/lit = 0
 	var/burntime = 30
 

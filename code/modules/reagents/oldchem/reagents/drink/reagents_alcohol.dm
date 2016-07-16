@@ -198,7 +198,7 @@
 	M:drowsyness = max(0,M:drowsyness-7)
 	//if(!M:sleeping_willingly)
 	//	M:sleeping = max(0,M.sleeping-2)
-	if (M.bodytemperature > 310)
+	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature-5)
 	M.Jitter(1)
 	return
@@ -528,7 +528,7 @@
 
 /datum/reagent/ethanol/sbiten/on_mob_life(var/mob/living/M as mob)
 	..()
-	if (M.bodytemperature < 360)
+	if(M.bodytemperature < 360)
 		M.bodytemperature = min(360, M.bodytemperature+50) //310 is the normal bodytemp. 310.055
 	return
 
@@ -566,7 +566,7 @@
 
 /datum/reagent/ethanol/iced_beer/on_mob_life(var/mob/living/M as mob)
 	..()
-	if (M.bodytemperature < 270)
+	if(M.bodytemperature < 270)
 		M.bodytemperature = min(270, M.bodytemperature-40) //310 is the normal bodytemp. 310.055
 	return
 
@@ -689,7 +689,7 @@
 /datum/reagent/ethanol/driestmartini/on_mob_life(var/mob/living/M as mob)
 	M.dizziness +=10
 	if(current_cycle >= 55 && current_cycle <115)
-		if (!M.stuttering) M.stuttering = 1
+		if(!M.stuttering) M.stuttering = 1
 		M.stuttering += 10
 	..()
 

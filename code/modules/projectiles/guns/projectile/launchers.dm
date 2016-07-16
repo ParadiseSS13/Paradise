@@ -6,7 +6,7 @@
 	name = "grenade launcher"
 	icon_state = "dshotgun-sawn"
 	item_state = "gun"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher
+	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	w_class = 3
 

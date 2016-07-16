@@ -9,19 +9,25 @@
 	nutriment_factor = 12 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 
-/datum/reagent/nutriment/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/nutriment/on_mob_life(mob/living/M)
+	if(!M)
+		M = holder.my_atom
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat())	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50)) M.adjustBruteLoss(-1)
+				if(prob(50))
+					M.adjustBruteLoss(-1)
+				if(H.species.exotic_blood)
+					H.vessel.add_reagent(H.species.exotic_blood, 0.4)
+				else
+					if(!(H.species.flags & NO_BLOOD))
+						H.vessel.add_reagent("blood", 0.4)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
-			if(prob(50)) M.heal_organ_damage(1,0)
+			if(prob(50))
+				M.heal_organ_damage(1,0)
 	..()
-	return
-
 
 /datum/reagent/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Protein"
@@ -205,7 +211,7 @@
 	color = "#403010" // rgb: 64, 48, 16
 
 /datum/reagent/hot_coco/on_mob_life(var/mob/living/M as mob)
-	if (M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.nutrition += nutriment_factor
 	..()
@@ -224,17 +230,17 @@
 	if(!data) data = 1
 	switch(data)
 		if(1 to 5)
-			if (!M.stuttering) M.stuttering = 1
+			if(!M.stuttering) M.stuttering = 1
 			M.Dizzy(5)
 			if(prob(10)) M.emote(pick("twitch","giggle"))
 		if(5 to 10)
-			if (!M.stuttering) M.stuttering = 1
+			if(!M.stuttering) M.stuttering = 1
 			M.Jitter(10)
 			M.Dizzy(10)
 			M.druggy = max(M.druggy, 35)
 			if(prob(20)) M.emote(pick("twitch","giggle"))
-		if (10 to INFINITY)
-			if (!M.stuttering) M.stuttering = 1
+		if(10 to INFINITY)
+			if(!M.stuttering) M.stuttering = 1
 			M.Jitter(20)
 			M.Dizzy(20)
 			M.druggy = max(M.druggy, 40)
@@ -277,7 +283,7 @@
 	return
 
 /datum/reagent/cornoil/reaction_turf(var/turf/simulated/T, var/volume)
-	if (!istype(T)) return
+	if(!istype(T)) return
 	src = null
 	if(volume >= 3)
 		T.MakeSlippery()
@@ -322,7 +328,7 @@
 
 /datum/reagent/hot_ramen/on_mob_life(var/mob/living/M as mob)
 	M.nutrition += nutriment_factor
-	if (M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (10 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	..()
 	return

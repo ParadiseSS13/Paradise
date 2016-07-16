@@ -86,7 +86,7 @@
 	return 0
 
 /turf/Enter(atom/movable/mover as mob|obj, atom/forget as mob|obj|turf|area)
-	if (!mover)
+	if(!mover)
 		return 1
 
 
@@ -109,7 +109,7 @@
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
-	if (!src.CanPass(mover, src))
+	if(!src.CanPass(mover, src))
 		mover.Bump(src, 1)
 		return 0
 
@@ -156,9 +156,11 @@
 		qdel(L)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(var/path)
-	if(!path)			return
-	if(path == type)	return src
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE)
+	if(!path)
+		return
+	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
+		return src
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
 	var/list/old_affecting_lights = affecting_lights
@@ -167,12 +169,10 @@
 
 	if(air_master)
 		air_master.remove_from_active(src)
-
 	var/turf/W = new path(src)
+	if(!defer_change)
+		W.AfterChange()
 
-	if(istype(W, /turf/simulated))
-		W:Assimilate_Air()
-		W.RemoveLattice()
 	W.blueprint_data = old_blueprint_data
 
 	for(var/turf/space/S in range(W,1))
@@ -189,13 +189,22 @@
 		else
 			lighting_clear_overlays()
 
-	W.levelupdate()
-	W.CalculateAdjacentTurfs()
+	return W
 
-	if(!can_have_cabling())
+// I'm including `ignore_air` because BYOND lacks positional-only arguments
+/turf/proc/AfterChange(ignore_air, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
+	levelupdate()
+	CalculateAdjacentTurfs()
+
+	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
-	return W
+
+/turf/simulated/AfterChange(ignore_air, keep_cabling = FALSE)
+	..()
+	RemoveLattice()
+	if(!ignore_air)
+		Assimilate_Air()
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()

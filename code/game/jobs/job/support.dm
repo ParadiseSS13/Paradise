@@ -81,8 +81,8 @@
 	spawn_positions = 2
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
-	minimal_access = list(access_hydroponics, access_morgue, access_maint_tunnels) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
+	access = list(access_hydroponics, access_bar, access_kitchen)
+	minimal_access = list(access_hydroponics, access_maint_tunnels)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 
 

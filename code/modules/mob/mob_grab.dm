@@ -26,7 +26,7 @@
 	plane = HUD_PLANE
 	item_state = "nothing"
 	icon = 'icons/mob/screen_gen.dmi'
-	w_class = 5.0
+	w_class = 5
 
 
 /obj/item/weapon/grab/New(var/mob/user, var/mob/victim)
@@ -54,7 +54,7 @@
 
 	//check if assailant is grabbed by victim as well
 	if(assailant.grabbed_by)
-		for (var/obj/item/weapon/grab/G in assailant.grabbed_by)
+		for(var/obj/item/weapon/grab/G in assailant.grabbed_by)
 			if(G.assailant == affecting && G.affecting == assailant)
 				G.dancing = 1
 				G.adjust_position()
@@ -362,7 +362,7 @@
 						msg_admin_attack("[key_name(assailant)] has pressed his fingers into [key_name(affecting)]'s eyes.")
 						var/obj/item/organ/internal/eyes/eyes = affected.get_int_organ(/obj/item/organ/internal/eyes)
 						eyes.damage += rand(3,4)
-						if (eyes.damage >= eyes.min_broken_damage)
+						if(eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
 								to_chat(M, "\red You go blind!")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 

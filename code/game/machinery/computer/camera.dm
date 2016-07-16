@@ -43,7 +43,7 @@
 
 
 /obj/machinery/computer/security/check_eye(var/mob/user as mob)
-	if ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
+	if((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
 		return null
 	user.reset_view(current)
 	return 1
@@ -118,7 +118,7 @@
 		data["current"] = current.nano_structure()
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
 
 		// adding a template with the key "mapContent" enables the map ui functionality

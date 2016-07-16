@@ -1,7 +1,7 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
-	//w_class = 2.0
+	//w_class = 2
 	//flags = GLASSESCOVERSEYES
 	//slot_flags = SLOT_EYES
 	//var/vision_flags = 0
@@ -18,7 +18,7 @@
 		name = "prescription [name]"
 
 /obj/item/clothing/glasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
+	if(user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
 	if(prescription_upgradable)
@@ -158,6 +158,7 @@
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	item_state = "headset" // lol
+	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -220,6 +221,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+	prescription_upgradable = 1
 
 /obj/item/clothing/glasses/sunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -424,6 +426,7 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	origin_tech = "magnets=3;syndicate=4"
+	prescription_upgradable = 1
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"

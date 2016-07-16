@@ -73,7 +73,7 @@
 			for(var/mob/M in range(10, src))
 				if(!M.stat && !istype(M, /mob/living/silicon/ai))
 					shake_camera(M, 3, 1)
-		if (A)
+		if(A)
 			playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 
 			if(ismob(A))

@@ -167,7 +167,7 @@
 	Unlike the object spell system, it's also possible to attach verb procs from these objects to right-click menus.
 	This requires creating a verb for the object proc holder.
 
-	if (proc_holder_list.len)//Generic list for proc_holder objects.
+	if(proc_holder_list.len)//Generic list for proc_holder objects.
 		for(var/obj/effect/proc_holder/P in proc_holder_list)
 			statpanel("[P.panel]","",P)
 	*/

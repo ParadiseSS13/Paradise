@@ -121,7 +121,7 @@
 		radio_connection.post_signal(src, signal, filter = RADIO_LOGIC)
 
 	for(var/obj/machinery/door/poddoor/M in range(src,range))
-		if (M.id_tag == src.id_tag && !M.protected)
+		if(M.id_tag == src.id_tag && !M.protected)
 			spawn()
 				M.open()
 
@@ -134,7 +134,7 @@
 	sleep(50)
 
 	for(var/obj/machinery/door/poddoor/M in range(src,range))
-		if (M.id_tag == src.id_tag && !M.protected)
+		if(M.id_tag == src.id_tag && !M.protected)
 			spawn()
 				M.close()
 				return
@@ -182,7 +182,7 @@
 	icon_state = "launcheract"
 
 	for(var/obj/machinery/sparker/M in world)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			spawn( 0 )
 				M.spark()
 
