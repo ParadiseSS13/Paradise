@@ -103,65 +103,45 @@
 
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
-		if(user.a_intent == I_HELP)
-			var/their = "their"
-			var/target
-			if(user == M)
-				their = "your"
-				target = "their"
-			else
-				switch(M.gender)
-					if(MALE)	their = "his"
-					if(FEMALE)	their = "her"
-				target = M
-
-			var/heart_sound = "cannot"
-			var/lung_sound = "anything"
-			var/and = " and "
-
-			if(!(M.stat == DEAD) && !(M.status_flags&FAKEDEATH) && (M.get_int_organ(/obj/item/organ/internal/heart) || M.get_int_organ(/obj/item/organ/internal/lungs)))
-				if(M.get_int_organ(/obj/item/organ/internal/heart))
-					var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
-					switch(H.damage)
-						if(0)
-							heart_sound = "hear a healthy pulse"
-						if(1 to 25)
-							heart_sound = "hear an offbeat pulse"
-						if(26 to 50)
-							heart_sound = "hear an uneven pulse"
-						if(50 to INFINITY)
-							heart_sound = "hear a weak, unhealthy pulse"
-				else
-					and = " but hear "
-					heart_sound = "cannot hear a pulse"
-				if(NO_BREATH in M.mutations || M.species.flags & NO_BREATH)
-					and = " but "
-					lung_sound = "cannot hear any respiration"
-				else
-					if(M.get_int_organ(/obj/item/organ/internal/lungs))
-						var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
-						if((M.oxyloss > 50) && L.damage < 26)
-							lung_sound = "labored respiration"
-						else
-							switch(L.damage)
-								if(0)
-									if(heart_sound == "hear a healthy pulse")
-										lung_sound = "respiration"
-									else
-										lung_sound = "healthy respiration"
-								if(1 to 25)
-									lung_sound = "labored respiration"
-								if(26 to 50)
-									lung_sound = "pained respiration"
-								if(51 to INFINITY)
-									lung_sound = "gurgling"
-					else
-						and = " but "
-						lung_sound = "cannot hear any respiration"
-			else
-				and = " hear "
-			user.visible_message("[user] places \the [src] against [target]'s chest and listens attentively.", "You place \the [src] against [their] chest. You [heart_sound][and][lung_sound].")
-			return
+		if(user == M)
+			user.visible_message("[user] places \the [src] against \his chest and listens attentively.", "You place \the [src] against your chest...")
+		else
+			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
+		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
+		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
+		if((H && M.pulse) || (L && !(NO_BREATH in M.mutations) && !(M.species.flags & NO_BREATH)))
+			var/color = "notice"
+			if(H)
+				var/heart_sound
+				switch(H.damage)
+					if(0 to 1)
+						heart_sound = "healthy"
+					if(1 to 25)
+						heart_sound = "offbeat"
+					if(25 to 50)
+						heart_sound = "uneven"
+						color = "warning"
+					if(50 to INFINITY)
+						heart_sound = "weak, unhealthy"
+						color = "warning"
+				to_chat(user, "<span class='[color]'>You hear \an [heart_sound] pulse.</span>")
+			if(L)
+				var/lung_sound
+				switch(L.damage)
+					if(0 to 1)
+						lung_sound = "healthy respiration"
+					if(1 to 25)
+						lung_sound = "labored respiration"
+					if(25 to 50)
+						lung_sound = "pained respiration"
+						color = "warning"
+					if(50 to INFINITY)
+						lung_sound = "gurgling"
+						color = "warning"
+				to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
+		else
+			to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		return
 	return ..(M,user)
 
 
