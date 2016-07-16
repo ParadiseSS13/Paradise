@@ -56,6 +56,7 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/toggleattacklogs,
+	/client/proc/toggleadminlogs,
 	/client/proc/toggledebuglogs,
 	/client/proc/update_mob_sprite,
 	/client/proc/toggledrones,
@@ -882,6 +883,20 @@ var/list/admin_verbs_snpc = list(
 		to_chat(usr, "You now will get attack log messages")
 	else
 		to_chat(usr, "You now won't get attack log messages")
+
+/client/proc/toggleadminlogs()
+	set name = "Toggle Admin Log Messages"
+	set category = "Preferences"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	prefs.toggles ^= CHAT_NO_ADMINLOGS
+	prefs.save_preferences(src)
+	if(prefs.toggles & CHAT_NO_ADMINLOGS)
+		to_chat(usr, "You now won't get admin log messages.")
+	else
+		to_chat(usr, "You now will get admin log messages.")
 
 /client/proc/toggledrones()
 	set name = "Toggle Maintenance Drones"
