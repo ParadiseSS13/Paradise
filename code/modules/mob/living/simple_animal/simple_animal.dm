@@ -10,6 +10,7 @@
 	var/icon_dead = ""
 	var/icon_resting = ""
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
+	var/icon_nohead = "" //for trophies
 
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
@@ -62,6 +63,9 @@
 
 	var/obj/item/clothing/accessory/petcollar/collar = null
 	var/can_collar = 0 // can add collar to mob or not
+	var/can_trophy = 0
+	var/trophied = 0
+	var/trophy //It's bad, yeah, but not all simple_animal names correspond to trophy names
 
 //Hot simple_animal baby making vars
 	var/childtype = null
@@ -432,6 +436,25 @@
 			name = C.tagname
 			real_name = C.tagname
 		return
+	else if(istype(O, /obj/item/weapon/kitchen/knife/hunting)) //trophy heads
+		var/obj/item/weapon/kitchen/knife/hunting/H = O //kill me
+		if(H.mode == "trophy")
+			if(can_trophy && stat == DEAD && !trophied)
+				to_chat(user, "<span class='notice'>You begin cutting off the trophy head from the [src]...</span>")
+				if(do_after(user, 50, target = src))
+					icon_state = icon_nohead
+					var/obj/item/weapon/trophy/T = text2path("/obj/item/weapon/trophy/[src.trophy]")
+					new T(get_turf(user))
+					trophied = 1
+					to_chat(user, "<span class='notice'>You cut off the trophy head from the [src].</span>")
+			else
+				to_chat(user, "<span class='warning'>You cannot trophy [src].</span>")
+		else if(H.mode == "hunt")
+			var/damage = 0
+			damage = H.force //so snowflakey
+			adjustBruteLoss(damage)
+			visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
+							"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)

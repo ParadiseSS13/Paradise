@@ -6,6 +6,7 @@
  *		Knives
  *		Kitchen knives
  *		Butcher's cleaver
+ *    Hunting knives
  *		Rolling Pins
  *		Candy Moulds
  */
@@ -141,6 +142,29 @@
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
 	force = 25.0
 	throwforce = 15.0
+
+/obj/item/weapon/kitchen/knife/hunting
+	name = "Hunting Knife"
+	icon_state = "hknife"
+	item_state = "knife"
+	desc = "A specialized knife used for hunting purposes. With this knife, you can easily chop off trophy heads, while still being able to use it for butchering."
+	force = 10
+	throwforce = 10
+	var/mode = "hunt"
+
+/obj/item/weapon/kitchen/knife/hunting/proc/switchMode(mob/user)
+	if(mode == "hunt")
+		mode = "trophy"
+		to_chat(user, "<span class='info'>You will now create trophies from your prey, if possible.</span>")
+	else if(mode == "trophy")
+		mode = "butcher"
+		to_chat(user, "<span class='info'>You will now butcher your prey, if possible.</span>")
+	else
+		mode = "hunt"
+		to_chat(user, "<span class='info'>You will now attack your prey.</span>")
+
+/obj/item/weapon/kitchen/knife/hunting/attack_self(mob/user)
+	switchMode(user)
 
 /obj/item/weapon/kitchen/knife/combat
 	name = "combat knife"
