@@ -181,7 +181,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		C.received_irc_pm = world.time
 		C.irc_admin = input["sender"]
 
-		C << 'sound/effects/adminhelp.ogg'
+		C << 'sound/effects/adminhelp.ogg'
 		to_chat(C, message)
 
 		for(var/client/A in admins)
@@ -249,6 +249,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	spawn(0)
 		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg'))// random end sounds!! - LastyBatsy
+
 
 
 	processScheduler.stop()
@@ -256,6 +257,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	for(var/client/C in clients)
 		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
+
 	..(0)
 
 #define INACTIVITY_KICK	6000	//10 minutes in ticks (approx.)
@@ -322,7 +324,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/save_mode(var/the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
-	F << the_mode
+	F << the_mode
 
 /hook/startup/proc/loadMusic()
 	for(var/obj/machinery/media/jukebox/J in machines)
@@ -334,7 +336,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	return 1
 
 /world/proc/load_motd()
-	join_motd = file2text("config/motd.txt")
+	join_motd = sanitize_local(file2text("config/motd.txt"))
 
 
 /proc/load_configuration()
@@ -353,11 +355,11 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	s += "<b>[station_name()]</b>";
 	s += " ("
-	s += "<a href=\"http://nanotrasen.se/phpBB3/index.php\">" //Change this to wherever you want the hub to link to.
+	s += "<a href=\"https://vk.com/atmta_station\">" //Change this to wherever you want the hub to link to.
 	s += "[game_version]"
 	s += "</a>"
 	s += ")"
-	s += "<br>The Perfect Mix of RP & Action<br>"
+	s += "<br>Acceptable mix of Memes and shitspawn.<br>"
 
 
 

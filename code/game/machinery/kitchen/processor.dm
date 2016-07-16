@@ -86,6 +86,7 @@
 /datum/food_processor_process/spaghetti
 	input = /obj/item/weapon/reagent_containers/food/snacks/doughslice
 	output = /obj/item/weapon/reagent_containers/food/snacks/spagetti
+
 /////////////////////////
 ///END OBJECT RECIPIES///
 /////////////////////////

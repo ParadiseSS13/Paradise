@@ -122,7 +122,7 @@
 			obj_count++
 		output += "</UL>"
 
-	recipient << browse(output,"window=memory")
+	recipient << browse(sanitize_local(output, SANITIZE_BROWSER),"window=memory")
 
 /datum/mind/proc/edit_memory()
 	if(!ticker || !ticker.mode)
@@ -293,7 +293,7 @@
 			text += "<b>OPERATIVE</b>|<a href='?src=\ref[src];nuclear=clear'>nanotrasen</a>"
 			text += "<br><a href='?src=\ref[src];nuclear=lair'>To shuttle</a>, <a href='?src=\ref[src];common=undress'>undress</a>, <a href='?src=\ref[src];nuclear=dressup'>dress up</a>."
 			var/code
-			for(var/obj/machinery/nuclearbomb/bombue in machines)
+			for (var/obj/machinery/nuclearbomb/bombue in machines)
 				if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 					code = bombue.r_code
 					break
@@ -388,7 +388,7 @@
 		var/mob/living/silicon/ai/ai = current
 		if(istype(ai) && ai.connected_robots.len)
 			var/n_e_robots = 0
-			for(var/mob/living/silicon/robot/R in ai.connected_robots)
+			for (var/mob/living/silicon/robot/R in ai.connected_robots)
 				if(R.emagged)
 					n_e_robots++
 			text += "<br>[n_e_robots] of [ai.connected_robots.len] slaved cyborgs are emagged. <a href='?src=\ref[src];silicon=unemagcyborgs'>Unemag</a>"
@@ -413,7 +413,7 @@
 		if(sections[ticker.mode.config_tag])
 			out += sections[ticker.mode.config_tag]+"<br>"
 		sections -= ticker.mode.config_tag
-	for(var/i in sections)
+	for (var/i in sections)
 		if(sections[i])
 			out += sections[i]+"<br>"
 
@@ -454,7 +454,7 @@
 
 	out += "<a href='?src=\ref[src];obj_announce=1'>Announce objectives</a><br><br>"
 
-	usr << browse(out, "window=edit_memory[src]")
+	usr << browse(sanitize_local(out, SANITIZE_BROWSER), "window=edit_memory[src]")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))	return
@@ -494,7 +494,7 @@
 
 		var/datum/objective/new_objective = null
 
-		switch(new_obj_type)
+		switch (new_obj_type)
 			if("assassinate","protect","debrain", "brig", "maroon")
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
@@ -615,7 +615,7 @@
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing their identification card."
 			if("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize_local(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl) return
 				new_objective = new /datum/objective
 				new_objective.owner = src
@@ -733,7 +733,7 @@
 					// copy targets
 					var/datum/mind/valid_head = locate() in ticker.mode.head_revolutionaries
 					if(valid_head)
-						for(var/datum/objective/mutiny/O in valid_head.objectives)
+						for (var/datum/objective/mutiny/O in valid_head.objectives)
 							var/datum/objective/mutiny/rev_obj = new
 							rev_obj.owner = src
 							rev_obj.target = O.target
@@ -958,7 +958,7 @@
 					ticker.mode.syndicates -= src
 					ticker.mode.update_synd_icons_removed(src)
 					special_role = null
-					for(var/datum/objective/nuclear/O in objectives)
+					for (var/datum/objective/nuclear/O in objectives)
 						objectives-=O
 					to_chat(current, "\red <FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
@@ -1002,7 +1002,7 @@
 
 			if("tellcode")
 				var/code
-				for(var/obj/machinery/nuclearbomb/bombue in machines)
+				for (var/obj/machinery/nuclearbomb/bombue in machines)
 					if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 						code = bombue.r_code
 						break
@@ -1167,7 +1167,7 @@
 			if("unemagcyborgs")
 				if(istype(current, /mob/living/silicon/ai))
 					var/mob/living/silicon/ai/ai = current
-					for(var/mob/living/silicon/robot/R in ai.connected_robots)
+					for (var/mob/living/silicon/robot/R in ai.connected_robots)
 						R.emagged = 0
 						if(R.module)
 							if(R.activated(R.module.emag))
@@ -1237,7 +1237,7 @@
 
 	// remove traitor uplinks
 	var/list/L = current.get_contents()
-	for(var/t in L)
+	for (var/t in L)
 		if(istype(t, /obj/item/device/pda))
 			if(t:uplink) qdel(t:uplink)
 			t:uplink = null
@@ -1265,7 +1265,7 @@
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
-	for(var/obj/item/I in L)
+	for (var/obj/item/I in L)
 		if(I.hidden_uplink)
 			return I.hidden_uplink
 	return null
@@ -1399,7 +1399,7 @@
 		// copy targets
 		var/datum/mind/valid_head = locate() in ticker.mode.head_revolutionaries
 		if(valid_head)
-			for(var/datum/objective/mutiny/O in valid_head.objectives)
+			for (var/datum/objective/mutiny/O in valid_head.objectives)
 				var/datum/objective/mutiny/rev_obj = new
 				rev_obj.owner = src
 				rev_obj.target = O.target

@@ -43,7 +43,7 @@
 					if(event.keyCode == 13){	//Enter / return
 						var vars_ol = document.getElementById('vars');
 						var lis = vars_ol.getElementsByTagName("li");
-						for( var i = 0; i < lis.length; ++i )
+						for ( var i = 0; i < lis.length; ++i )
 						{
 							try{
 								var li = lis\[i\];
@@ -62,7 +62,7 @@
 					if(event.keyCode == 38){	//Up arrow
 						var vars_ol = document.getElementById('vars');
 						var lis = vars_ol.getElementsByTagName("li");
-						for( var i = 0; i < lis.length; ++i )
+						for ( var i = 0; i < lis.length; ++i )
 						{
 							try{
 								var li = lis\[i\];
@@ -83,7 +83,7 @@
 					if(event.keyCode == 40){	//Down arrow
 						var vars_ol = document.getElementById('vars');
 						var lis = vars_ol.getElementsByTagName("li");
-						for( var i = 0; i < lis.length; ++i )
+						for ( var i = 0; i < lis.length; ++i )
 						{
 							try{
 								var li = lis\[i\];
@@ -113,7 +113,7 @@
 						var vars_ol = document.getElementById('vars');
 						var lis = vars_ol.getElementsByTagName("li");
 
-						for( var i = 0; i < lis.length; ++i )
+						for ( var i = 0; i < lis.length; ++i )
 						{
 							try{
 								var li = lis\[i\];
@@ -126,7 +126,7 @@
 						}
 					}
 					var lis_new = vars_ol.getElementsByTagName("li");
-					for( var j = 0; j < lis_new.length; ++j )
+					for ( var j = 0; j < lis_new.length; ++j )
 					{
 						var li1 = lis\[j\];
 						if(j == 0){
@@ -294,12 +294,12 @@
 	body += "<ol id='vars'>"
 
 	var/list/names = list()
-	for(var/V in D.vars)
+	for (var/V in D.vars)
 		names += V
 
 	names = sortList(names)
 
-	for(var/V in names)
+	for (var/V in names)
 		body += debug_variable(V, D.vars[V], 0, D)
 
 	body += "</ol>"

@@ -875,7 +875,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 
 		dat+="<BR><HR><div align='center'>[src.curr_page+1]</div>"
-		human_user << browse(dat, "window=newspaper_main;size=300x400")
+		human_user << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=newspaper_main;size=300x400")
 		onclose(human_user, "newspaper_main")
 	else
 		to_chat(user, "The paper is full of intelligible symbols!")

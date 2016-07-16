@@ -16,7 +16,7 @@ datum/game_mode/mutiny
 
 	name = "mutiny"
 	config_tag = "mutiny"
-	required_players = 20
+	required_players = 15
 	ert_disabled = 1
 
 	New()
@@ -224,7 +224,7 @@ datum/game_mode/mutiny
 		else if(!directives_completed && !ead_activated)
 			to_chat(world, fluff.mutineer_major_victory())
 
-		world << sound('sound/machines/twobeep.ogg')
+		world << sound('sound/machines/twobeep.ogg')
 
 	proc/update_all_icons()
 		spawn(0)
@@ -308,7 +308,7 @@ datum/game_mode/mutiny
 		return
 
 	var/list/candidates = list()
-	for(var/mob/living/carbon/human/P in oview(src))
+	for (var/mob/living/carbon/human/P in oview(src))
 		if(!stat && P.client && mode.can_be_recruited(P.mind, "loyalist"))
 			candidates += P
 
@@ -345,7 +345,7 @@ datum/game_mode/mutiny
 		return
 
 	var/list/candidates = list()
-	for(var/mob/living/carbon/human/P in oview(src))
+	for (var/mob/living/carbon/human/P in oview(src))
 		if(!stat && P.client && mode.can_be_recruited(P.mind, "mutineer"))
 			candidates += P
 

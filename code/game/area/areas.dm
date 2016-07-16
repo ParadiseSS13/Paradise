@@ -29,7 +29,7 @@
 	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area
 		requires_power = 1
 		always_unpowered = 1
-		lighting_use_dynamic = 1
+		dynamic_lighting = 1
 		power_light = 0
 		power_equip = 0
 		power_environ = 0
@@ -47,7 +47,7 @@
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
-	for(var/obj/machinery/camera/C in src)
+	for (var/obj/machinery/camera/C in src)
 		cameras += C
 	return cameras
 
@@ -59,7 +59,7 @@
 		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
 
 	//Check all the alarms before lowering atmosalm. Raising is perfectly fine.
-	for(var/obj/machinery/alarm/AA in src)
+	for (var/obj/machinery/alarm/AA in src)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
 			danger_level = max(danger_level, AA.danger_level)
 
@@ -71,7 +71,7 @@
 			air_doors_close()
 
 		atmosalm = danger_level
-		for(var/obj/machinery/alarm/AA in src)
+		for (var/obj/machinery/alarm/AA in src)
 			AA.update_icon()
 
 		air_alarm_repository.update_cache(src)
@@ -324,14 +324,14 @@
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))	//split off the white noise from the rest of the ambience because of annoyance complaints - Kluys
 		L.client.ambience_playing = 1
-		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)
+		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)
 	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ)) L.client.ambience_playing = 0
 
 	if(prob(35) && !newarea.media_source && L && L.client && (L.client.prefs.sound & SOUND_AMBIENCE))
 		var/sound = pick(ambientsounds)
 
 		if(!L.client.played)
-			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
+			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
 			L.client.played = 1
 			spawn(600)			//ewww - this is very very bad
 				if(L.&& L.client)
