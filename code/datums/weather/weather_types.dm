@@ -31,6 +31,9 @@
 		return
 	L.adjustFireLoss(3)
 
+/datum/weather/floor_is_lava/fake
+	name = "fake lava"
+	aesthetic = TRUE
 
 /datum/weather/advanced_darkness //Advanced Darkness: Restricts the vision of all affected mobs to a single tile in the cardinal directions.
 	name = "advanced darkness"

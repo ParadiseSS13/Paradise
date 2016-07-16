@@ -107,6 +107,7 @@
 					<A href='?src=\ref[src];secretsfun=onlyoneteam'>Dodgeball (TDM)!</A><BR>
 					<b>Round-enders</b><br>
 					<A href='?src=\ref[src];secretsfun=floorlava'>The floor is lava! (DANGEROUS: extremely lame)</A><BR>
+					<A href='?src=\ref[src];secretsfun=fakelava'>The floor is fake-lava! (non-harmful)</A><BR>
 					<A href='?src=\ref[src];secretsfun=monkey'>Turn all humans into monkeys</A><BR>
 					<A href='?src=\ref[src];secretsfun=fakeguns'>Make all items look like guns</A><BR>
 					<A href='?src=\ref[src];secretsfun=prisonwarp'>Warp all Players to Prison</A><BR>
