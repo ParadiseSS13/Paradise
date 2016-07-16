@@ -45,6 +45,7 @@
 	return ..()
 
 /obj/machinery/turretid/initialize()
+	..()
 	if(!control_area)
 		control_area = get_area(src)
 	else if(istext(control_area))

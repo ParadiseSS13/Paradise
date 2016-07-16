@@ -7,7 +7,7 @@
 	density = 0
 	anchored = 1
 
-/obj/structure/spacepoddoor/New()
+/obj/structure/spacepoddoor/initialize()
 	..()
 	air_update_turf(1)
 

@@ -1,4 +1,3 @@
-
 /obj/item/clothing/suit/armor
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/classic_baton/telescopic,/obj/item/weapon/kitchen/knife/combat)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
@@ -90,6 +89,20 @@
 	item_state = "bloody_armor"
 	species_fit = null
 	sprite_sheets = null
+
+/obj/item/clothing/suit/armor/secjacket
+	name = "security jacket"
+	desc = "A sturdy black jacket with reinforced fabric. Bears insignia of NT corporate security."
+	icon_state = "secjacket_open"
+	item_state = "hos"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	armor = list(melee = 15, bullet = 10, laser = 15, energy = 5, bomb = 15, bio = 0, rad = 0)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	action_button_name = "Open/Close Jacket"
+	adjust_flavour = "unzip"
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"

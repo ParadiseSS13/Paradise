@@ -327,9 +327,7 @@
 
 /datum/controller/process/proc/catchException(var/exception/e, var/thrower)
 	if(istype(e)) // Real runtimes go to the real error handler
-		// There are two newlines here, because handling desc sucks
-		e.desc = "  Caught by process: [name]\n\n" + e.desc
-		world.Error(e, e_src = thrower)
+		log_runtime(e, thrower, "Caught by process: [name]")
 		return
 	var/etext = "[e]"
 	var/eid = "[e]" // Exception ID, for tracking repeated exceptions

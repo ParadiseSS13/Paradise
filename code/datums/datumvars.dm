@@ -234,6 +234,7 @@
 
 	body += "<option value='?_src_=vars;mark_object=\ref[D]'>Mark Object</option>"
 	body += "<option value='?_src_=vars;proc_call=\ref[D]'>Call Proc</option>"
+	body += "<option value='?_src_=vars;jump_to=\ref[D]'>Jump to Object</option>"
 	if(ismob(D))
 		body += "<option value='?_src_=vars;mob_player_panel=\ref[D]'>Show player panel</option>"
 
@@ -394,11 +395,7 @@ body
 				html += "<ul>"
 				var/index = 1
 				for(var/entry in L)
-					if(istext(entry))
-						html += debug_variable(entry, L[entry], level + 1)
-					//html += debug_variable("[index]", L[index], level + 1)
-					else
-						html += debug_variable(index, L[index], level + 1)
+					html += debug_variable(index, L[index], level + 1)
 					index++
 				html += "</ul>"
 
@@ -735,6 +732,17 @@ body
 
 		if(T)
 			callproc_datum(T)
+
+	else if(href_list["jump_to"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/atom/A = locate(href_list["jump_to"])
+		var/turf/T = get_turf(A)
+		if(T)
+			usr.client.jumptoturf(T)
+		href_list["datumrefresh"] = href_list["jump_to"]
+
 
 	else if(href_list["rotatedatum"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
@@ -1080,4 +1088,3 @@ body
 		src.debug_variables(DAT)
 
 	return
-

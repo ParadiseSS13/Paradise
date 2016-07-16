@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Fixed morgue trays not updating themselves when you ghost into/out of your body."

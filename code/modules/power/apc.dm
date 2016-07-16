@@ -99,10 +99,21 @@
 	var/global/list/status_overlays_lighting
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
+	var/keep_preset_name = 0
 
 	var/report_power_alarm = 1
 
 	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
+
+/obj/machinery/power/apc/worn_out
+	name = "\improper Worn out APC"
+	keep_preset_name = 1
+	locked = 0
+	environ = 0
+	equipment = 0
+	lighting = 0
+	operating = 0
+
 
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = 0
@@ -192,15 +203,19 @@
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
 		cell.charge = start_charge * cell.maxcharge / 100.0 		// (convert percentage to actual value)
 
-	var/area/A = src.loc.loc
+	var/area/A = get_area(src)
 
 
 	//if area isn't specified use current
-	if(isarea(A) && src.areastring == null)
-		src.area = A
+	if(keep_preset_name)
+		if(isarea(A))
+			area = A
+		// no-op, keep the name
+	else if(isarea(A) && src.areastring == null)
+		area = A
 		name = "\improper [area.name] APC"
 	else
-		src.area = get_area_name(areastring)
+		area = get_area_name(areastring)
 		name = "\improper [area.name] APC"
 	area.apc |= src
 	update_icon()
@@ -623,7 +638,7 @@
 		else
 			if(istype(user, /mob/living/silicon))
 				return src.attack_hand(user)
-			if (!opened && wiresexposed && \
+			if(!opened && wiresexposed && \
 				(istype(W, /obj/item/device/multitool) || \
 				istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/assembly/signaler)))
 				return src.attack_hand(user)
@@ -853,7 +868,7 @@
 	if(istype(user, /mob/living/silicon))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
-		if (                                                             \
+		if(                                                             \
 			src.aidisabled ||                                            \
 			malfhack && istype(malfai) &&                                \
 			(                                                            \

@@ -9,6 +9,7 @@ var/global/datum/controller/process/ticker/tickerProcess
 	schedule_interval = 20 // every 2 seconds
 
 	lastTickerTime = world.timeofday
+	log_startup_progress("Time ticker starting up.")
 
 	if(!ticker)
 		ticker = new
