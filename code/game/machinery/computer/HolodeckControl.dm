@@ -58,7 +58,9 @@
 		dat += "<BR>"
 		dat += "Safety Protocols are <font color=green> ENABLED </font><BR>"
 
-	user << browse(dat, "window=computer;size=400x500")
+	var/datum/browser/popup = new(user, "holodeck_computer", name, 400, 500)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "computer")
 	return
 
