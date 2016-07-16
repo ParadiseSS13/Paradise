@@ -338,9 +338,12 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	ini_dir = dir
 	if(!color && !istype(src,/obj/structure/window/plasmabasic) && !istype(src,/obj/structure/window/plasmareinforced))
 		color = color_windows(src)
-	air_update_turf(1)
 	update_nearby_icons()
 	return
+
+/obj/structure/window/initialize()
+	air_update_turf(1)
+	return ..()
 
 /obj/structure/window/Destroy()
 	density = 0
@@ -402,9 +405,12 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 /obj/structure/window/plasmabasic/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	air_update_turf(1)
 	update_nearby_icons()
 	return
+
+/obj/structure/window/plasmabasic/initialize()
+	..()
+	air_update_turf(1)
 
 /obj/structure/window/plasmabasic/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 32000)
@@ -433,9 +439,12 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	air_update_turf(1)
 	update_nearby_icons()
 	return
+
+/obj/structure/window/plasmareinforced/initialize()
+	..()
+	air_update_turf(1)
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return

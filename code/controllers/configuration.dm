@@ -167,6 +167,7 @@
 	var/list/overflow_whitelist = list() //whitelist for overflow
 
 	var/disable_away_missions = 0 // disable away missions
+	var/disable_space_ruins = 0 //disable space ruins
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -546,6 +547,9 @@
 
 				if("disable_away_missions")
 					config.disable_away_missions = 1
+
+				if("disable_space_ruins")
+					config.disable_space_ruins = 1
 
 				if("disable_lobby_music")
 					config.disable_lobby_music = 1

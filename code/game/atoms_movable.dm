@@ -23,8 +23,11 @@
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
-	if(auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
-		initialize()
+
+	// If you're wondering what goofery this is, this is for things that need the environment
+	// around them set up - like `air_update_turf` and the like
+	if((ticker && ticker.current_state == GAME_STATE_PLAYING))
+		attempt_init()
 
 /atom/movable/Destroy()
 	for(var/atom/movable/AM in contents)
@@ -35,6 +38,16 @@
 			pulledby.pulling = null
 		pulledby = null
 	return ..()
+
+// used to provide a good interface for the init delay system to step in
+// and we don't need to call `get_turf` until the game's started
+// at which point object creations are a fair toss more seldom
+/atom/movable/proc/attempt_init()
+	var/turf/T = get_turf(src)
+	if(T && zlevels.is_zlevel_dirty(T.z))
+		zlevels.postpone_init(T.z, src)
+	else if(auto_init)
+		initialize()
 
 /atom/movable/proc/initialize()
 	return

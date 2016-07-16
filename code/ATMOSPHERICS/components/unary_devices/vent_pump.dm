@@ -60,13 +60,13 @@
 	icon_state = "map_vent_in"
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
+	..()
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
 	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
-	..()
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "large air vent"
