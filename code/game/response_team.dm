@@ -75,24 +75,24 @@ var/ert_request_answered = 0
 /mob/dead/observer/proc/JoinResponseTeam()
 
 	if(!send_emergency_team)
-		to_chat(usr, "No emergency response team is currently being sent.")
+		to_chat(src, "No emergency response team is currently being sent.")
 		return 0
 
-	if(jobban_isbanned(usr, ROLE_ERT))
-		to_chat(usr, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
+	if(jobban_isbanned(src, ROLE_ERT))
+		to_chat(src, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
 		return 0
 
-	var/player_age_check = check_client_age(usr.client, responseteam_age)
+	var/player_age_check = check_client_age(src.client, responseteam_age)
 	if(player_age_check && config.use_age_restriction_for_antags)
-		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return 0
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		to_chat(usr, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
+		to_chat(src, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
 		return 0
 
 	if(response_team_members.len > 6)
-		to_chat(usr, "The emergency response team is already full!")
+		to_chat(src, "The emergency response team is already full!")
 		return 0
 
 	for(var/obj/effect/landmark/L in landmarks_list)
@@ -100,12 +100,13 @@ var/ert_request_answered = 0
 			L.name = null
 			if(!src.client)
 				return
-			var/client/C = src.client
-			var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc)
-			qdel(L)
-			new_commando.mind.key = usr.key
-			new_commando.key = usr.key
-			new_commando.update_icons()
+			spawn(-1)
+				var/client/C = src.client
+				var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc)
+				qdel(L)
+				new_commando.mind.key = src.key
+				new_commando.key = src.key
+				new_commando.update_icons()
 			return 1
 
 /proc/trigger_armed_response_team(var/datum/response_team/response_team_type)
@@ -132,7 +133,14 @@ var/ert_request_answered = 0
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	response_team_members |= M
 
-	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
+	var/new_gender = alert(src, "Please select your gender.", "ERT Character Generation", "Male", "Female")
+
+	var/class = 0
+	while(!class)
+		class = input(src, "Which loadout would you like to choose?") in active_team.get_slot_list()
+		if(!active_team.check_slot_available(class)) // Because the prompt does not update automatically when a slot gets filled.
+			class = 0
+
 	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
@@ -181,12 +189,6 @@ var/ert_request_answered = 0
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
 	M.loc = spawn_location
-
-	var/class = 0
-	while(!class)
-		class = input("Which loadout would you like to choose?") in active_team.get_slot_list()
-		if(!active_team.check_slot_available(class)) // Because the prompt does not update automatically when a slot gets filled.
-			class = 0
 
 	active_team.equip_officer(class, M)
 

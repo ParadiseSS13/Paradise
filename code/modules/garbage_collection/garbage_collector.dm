@@ -109,7 +109,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			hint = D.Destroy()
 		catch(var/exception/e)
 			if(istype(e))
-				gcwarning("qdel() caught runtime destroying [D.type]: [e] in [e.file], line [e.line]")
+				log_runtime(e, D, "Caught by qdel() destroying [D.type]")
 			else
 				gcwarning("qdel() caught runtime destroying [D.type]: [e]")
 			// Destroy runtimed? Panic! Hard delete!
@@ -169,7 +169,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			Destroy()
 		catch(var/exception/e)
 			if(istype(e))
-				gcwarning("Del() caught runtime destroying [type]: [e] in [e.file], line [e.line]")
+				log_runtime(e, src, "Caught by Del() destroying [type]")
 			else
 				gcwarning("Del() caught runtime destroying [type]: [e]")
 		if(del_profiling)
