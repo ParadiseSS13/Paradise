@@ -151,6 +151,15 @@
 				"" = 90
 				)
 
+/obj/effect/spawner/lootdrop/crate_spawner // for ruins
+	name = "lootcrate spawner"
+	lootdoubles = 0
+
+	loot = list(
+				/obj/structure/closet/crate/secure/loot = 20,
+				"" = 80,
+				)
+
 /obj/effect/spawner/lootdrop/trade_sol_rare
 	name = "trader rare item spawner"
 	lootdoubles = 0

@@ -21,6 +21,7 @@
 	// Bonus chance if the tray is unoccupied.
 	if(waterlevel > 10 && nutrilevel > 2 && prob(isnull(seed) ? 6 : 3))
 		weedlevel += 1 * HYDRO_SPEED_MULTIPLIER
+		plant_hud_set_weed()
 
 	// There's a chance for a weed explosion to happen if the weeds take over.
 	// Plants that are themselves weeds (weed_tolerance > 10) are unaffected.
@@ -48,8 +49,10 @@
 	// Maintain tray nutrient and water levels.
 	if(seed.get_trait(TRAIT_NUTRIENT_CONSUMPTION) > 0 && nutrilevel > 0 && prob(25))
 		nutrilevel -= max(0,seed.get_trait(TRAIT_NUTRIENT_CONSUMPTION) * HYDRO_SPEED_MULTIPLIER)
+		plant_hud_set_nutrient()
 	if(seed.get_trait(TRAIT_WATER_CONSUMPTION) > 0 && waterlevel > 0 && prob(25))
 		waterlevel -= max(0,seed.get_trait(TRAIT_WATER_CONSUMPTION) * HYDRO_SPEED_MULTIPLIER)
+		plant_hud_set_water()
 
 	// Make sure the plant is not starving or thirsty. Adequate
 	// water and nutrients will cause a plant to become healthier.
@@ -91,6 +94,7 @@
 		if(toxins > seed.get_trait(TRAIT_TOXINS_TOLERANCE))
 			health -= toxin_uptake
 		toxins -= toxin_uptake
+		plant_hud_set_toxin()
 
 	// Check for pests and weeds.
 	// Some carnivorous plants happily eat pests.
@@ -100,6 +104,7 @@
 			pestlevel -= HYDRO_SPEED_MULTIPLIER
 		else if(pestlevel >= seed.get_trait(TRAIT_PEST_TOLERANCE))
 			health -= HYDRO_SPEED_MULTIPLIER
+		plant_hud_set_pest()
 
 	// Some plants thrive and live off of weeds.
 	if(weedlevel > 0)
@@ -108,6 +113,7 @@
 			weedlevel -= HYDRO_SPEED_MULTIPLIER
 		else if(weedlevel >= seed.get_trait(TRAIT_WEED_TOLERANCE))
 			health -= HYDRO_SPEED_MULTIPLIER
+		plant_hud_set_weed()
 
 	// Handle life and death.
 	// If the plant gets too old, begin killing it each cycle

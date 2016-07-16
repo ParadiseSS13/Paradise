@@ -25,7 +25,7 @@
 
 	var/health = 50.0
 
-/obj/structure/inflatable/New(location)
+/obj/structure/inflatable/initialize(location)
 	..()
 	air_update_turf(1)
 

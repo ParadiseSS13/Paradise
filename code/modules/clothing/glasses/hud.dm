@@ -115,3 +115,18 @@
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = 1
+
+/obj/item/clothing/glasses/hud/hydroponic
+	name = "Hydroponic HUD"
+	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
+	icon_state = "hydroponichud"
+	HUDType = DATA_HUD_HYDROPONIC
+
+/obj/item/clothing/glasses/hud/hydroponic/night
+	name = "Night Vision Hydroponic HUD"
+	desc = "A hydroponic HUD fitted with a light amplifier."
+	icon_state = "hydroponichudnight"
+	item_state = "glasses"
+	darkness_view = 8
+	see_darkness = 0
+	prescription_upgradable = 0

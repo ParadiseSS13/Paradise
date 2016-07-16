@@ -250,3 +250,49 @@
 		colorindex = 0
 	icon_state = "mobcap[colorindex]"
 	update_icon()
+
+//Fans
+/obj/structure/fans
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "fans"
+	name = "environmental regulation system"
+	desc = "A large machine releasing a constant gust of air."
+	anchored = 1
+	density = 1
+	var/arbitraryatmosblockingvar = 1
+	var/buildstacktype = /obj/item/stack/sheet/metal
+	var/buildstackamount = 5
+
+/obj/structure/fans/proc/deconstruct()
+	if(buildstacktype)
+		new buildstacktype(loc, buildstackamount)
+	qdel(src)
+
+/obj/structure/fans/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
+							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+		if(do_after(user, 20, target = src))
+			deconstruct()
+			return ..()
+
+/obj/structure/fans/tiny
+	name = "tiny fan"
+	desc = "A tiny fan, releasing a thin gust of air."
+	layer = TURF_LAYER+0.1
+	density = 0
+	icon_state = "fan_tiny"
+	buildstackamount = 2
+
+/obj/structure/fans/New(loc)
+	..()
+	air_update_turf(1)
+
+/obj/structure/fans/Destroy()
+	arbitraryatmosblockingvar = 0
+	air_update_turf(1)
+	return ..()
+
+/obj/structure/fans/CanAtmosPass(turf/T)
+	return !arbitraryatmosblockingvar

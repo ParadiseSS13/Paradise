@@ -1,6 +1,0 @@
-author: Kyep
-delete-after: True
-changes: 
-  - tweak: "Ghosts no longer miss out on ERTs due to not knowing it was called, or not being able to find the verb. They are now prompted about joining an ERT when one is called."
-  - bugfix: "Fixed a condition where 'we are assembling an ERT' message is broadcast, but no ERT is generated."
-  - bugfix: "Typo fixes in ERT messages."

@@ -8,6 +8,7 @@ var/global/datum/controller/process/timer/timer_master
 	name = "timer"
 	schedule_interval = 5 //every 0.5 seconds
 	timer_master = src
+	log_startup_progress("Timer process starting up.")
 
 /datum/controller/process/timer/statProcess()
 	..()

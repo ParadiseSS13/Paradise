@@ -1083,6 +1083,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "beekeeper suits"
 
+//Bottler
+/datum/supply_packs/organic/bottler
+	name = "Brewing Buddy Bottler Unit"
+	contains = list(/obj/machinery/bottler,
+					/obj/item/weapon/wrench)
+	cost = 35
+	containername = "bottler crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Materials ///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
