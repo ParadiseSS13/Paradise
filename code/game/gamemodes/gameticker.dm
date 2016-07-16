@@ -39,10 +39,12 @@ var/round_start_time = 0
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
 	'sound/music/THUNDERDOME.ogg',\
-	'sound/music/space.ogg',\
-	'sound/music/Title1.ogg',\
-	'sound/music/Title2.ogg',\
-	'sound/music/Title3.ogg',)
+	'sound/music/title1.ogg',\
+	'sound/music/title2.ogg',\
+	'sound/music/title3.ogg',\
+	'sound/music/title4.ogg',\
+	'sound/music/title5.ogg',)
+
 	do
 		pregame_timeleft = 180
 		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
@@ -156,6 +158,8 @@ var/round_start_time = 0
 		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
 		world << sound('sound/AI/welcome.ogg')// Skie
 
+
+
 		if(holiday_master.holidays)
 			to_chat(world, "<font color='blue'>and...</font>")
 			for(var/holidayname in holiday_master.holidays)
@@ -186,7 +190,7 @@ var/round_start_time = 0
 				if(candidate_source.match_tag != current_destination.match_tag)
 					continue
 
-				if (candidate_source.match_width != current_destination.match_width || \
+				if(candidate_source.match_width != current_destination.match_width || \
 					candidate_source.match_height != current_destination.match_height)
 					continue
 
@@ -479,4 +483,3 @@ var/round_start_time = 0
 	event_manager.RoundEnd()
 
 	return 1
-
