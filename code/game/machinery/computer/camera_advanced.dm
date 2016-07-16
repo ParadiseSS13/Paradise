@@ -153,16 +153,16 @@
 
 	var/list/L = list()
 
-	for (var/obj/machinery/camera/cam in cameranet.cameras)
+	for(var/obj/machinery/camera/cam in cameranet.cameras)
 		L.Add(cam)
 
 	camera_sort(L)
 
 	var/list/T = list()
 
-	for (var/obj/machinery/camera/netcam in L)
+	for(var/obj/machinery/camera/netcam in L)
 		var/list/tempnetwork = netcam.network&origin.networks
-		if (tempnetwork.len)
+		if(tempnetwork.len)
 			T[text("[][]", netcam.c_tag, (netcam.can_use() ? null : " (Deactivated)"))] = netcam
 
 

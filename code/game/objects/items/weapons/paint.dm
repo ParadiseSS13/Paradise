@@ -9,7 +9,7 @@ var/global/list/cached_icons = list()
 	icon_state = "paint_neutral"
 	item_state = "paintcan"
 	materials = list(MAT_METAL=200)
-	w_class = 3.0
+	w_class = 3
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10,20,30,50,70)
 	volume = 70
@@ -73,7 +73,7 @@ var/global/list/cached_icons = list()
 	icon_state = "paint_neutral"
 	color = "FFFFFF"
 	item_state = "paintcan"
-	w_class = 3.0
+	w_class = 3
 
 /obj/item/weapon/paint/red
 	name = "Red paint"
@@ -117,7 +117,7 @@ var/global/list/cached_icons = list()
 
 	attack_self(mob/user as mob)
 		var/t1 = input(user, "Please select a color:", "Locking Computer", null) in list( "red", "blue", "green", "yellow", "black", "white")
-		if ((user.get_active_hand() != src || user.stat || user.restrained()))
+		if((user.get_active_hand() != src || user.stat || user.restrained()))
 			return
 		switch(t1)
 			if("red")

@@ -4,7 +4,7 @@
 	icon_state = "soulstone"
 	item_state = "electronic"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
-	w_class = 1.0
+	w_class = 1
 	slot_flags = SLOT_BELT
 	origin_tech = "bluespace=4;materials=4"
 	var/imprinted = "empty"
@@ -45,7 +45,7 @@
 ///////////////////Options for using captured souls///////////////////////////////////////
 
 	attack_self(mob/user)
-		if (!in_range(src, user))
+		if(!in_range(src, user))
 			return
 		user.set_machine(src)
 		var/dat = "<TT><B>Soul Stone</B><BR>"
@@ -63,7 +63,7 @@
 
 	Topic(href, href_list)
 		var/mob/U = usr
-		if (!in_range(src, U)||U.machine!=src)
+		if(!in_range(src, U)||U.machine!=src)
 			U << browse(null, "window=aicard")
 			U.unset_machine()
 			return
@@ -72,12 +72,12 @@
 		U.set_machine(src)
 
 		switch(href_list["choice"])//Now we switch based on choice.
-			if ("Close")
+			if("Close")
 				U << browse(null, "window=aicard")
 				U.unset_machine()
 				return
 
-			if ("Summon")
+			if("Summon")
 				for(var/mob/living/simple_animal/shade/A in src)
 					A.status_flags &= ~GODMODE
 					A.canmove = 1
@@ -110,7 +110,7 @@
 			if(C.imprinted != "empty")
 				to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone has already been imprinted with [C.imprinted]'s mind!")
 			else
-				if (T.stat == 0)
+				if(T.stat == 0)
 					to_chat(U, "<span class='danger'>Capture failed!</span>: Kill or maim the victim first!")
 				else
 					if(T.client == null)
@@ -136,7 +136,7 @@
 							S.faction |= "\ref[U]"
 							S.name = "Shade of [T.real_name]"
 							S.real_name = "Shade of [T.real_name]"
-							if (T.client)
+							if(T.client)
 								T.client.mob = S
 							S.cancel_camera()
 							C.icon_state = "soulstone2"
@@ -149,7 +149,7 @@
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
 			var/obj/item/device/soulstone/C = src
-			if (T.stat == DEAD)
+			if(T.stat == DEAD)
 				to_chat(U, "<span class='danger'>Capture failed!</span>: The shade has already been banished!")
 			else
 				if(C.contents.len)

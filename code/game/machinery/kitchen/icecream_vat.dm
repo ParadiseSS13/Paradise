@@ -126,7 +126,7 @@ var/list/ingredients_source = list(
 			var/obj/item/weapon/reagent_containers/R = O
 			if(R.reagents)
 				src.visible_message("<span class='info'>[user] has emptied all of [R] into [src].</span>")
-				for (var/datum/reagent/current_reagent in R.reagents.reagent_list)
+				for(var/datum/reagent/current_reagent in R.reagents.reagent_list)
 					if(ingredients_source[current_reagent.id])
 						add(ingredients_source[current_reagent.id], current_reagent.volume / 2)
 					else

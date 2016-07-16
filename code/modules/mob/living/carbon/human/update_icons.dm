@@ -637,10 +637,10 @@ var/global/list/damage_icon_parts = list()
 		for( var/obj/item/thing in list(r_store, l_store, wear_id, wear_pda, belt) )						//
 			if(thing)																			//
 				unEquip(thing)																	//
-				if (client)																		//
+				if(client)																		//
 					client.screen -= thing														//
 																								//
-				if (thing)																		//
+				if(thing)																		//
 					thing.loc = loc																//
 					thing.dropped(src)															//
 					thing.layer = initial(thing.layer)
@@ -1269,13 +1269,17 @@ var/global/list/damage_icon_parts = list()
 	if(wear_suit)
 		if(wear_suit.icon_override)
 			var/icon_path = "[wear_suit.icon_override]"
-			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty) so there won't be an issue.
-			var/icon/icon_file = new(icon_path)
+			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty).
+			var/icon/icon_file
+			if(fexists(icon_path)) //Just ensuring the nonexistance of a file with the above path won't cause a runtime.
+				icon_file = new(icon_path)
 			standing = image("icon" = icon_file, "icon_state" = "[wear_suit.icon_state]")
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[species.name])
 			var/icon_path = "[wear_suit.sprite_sheets[species.name]]"
-			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty) so there won't be an issue.
-			var/icon/icon_file = new(icon_path)
+			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty).
+			var/icon/icon_file
+			if(fexists(icon_path)) //Just ensuring the nonexistance of a file with the above path won't cause a runtime.
+				icon_file = new(icon_path)
 			standing = image("icon" = icon_file, "icon_state" = "[wear_suit.icon_state]")
 		else
 			if(wear_suit.icon_state in C.IconStates())
@@ -1290,7 +1294,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/generate_head_icon()
 //gender no longer matters for the mouth, although there should probably be seperate base head icons.
 //	var/g = "m"
-//	if (gender == FEMALE)	g = "f"
+//	if(gender == FEMALE)	g = "f"
 	var/obj/item/organ/external/head/H = get_organ("head")
 	//base icons
 	var/icon/face_lying		= new /icon('icons/mob/human_face.dmi',"bald_l")

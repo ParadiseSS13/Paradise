@@ -51,7 +51,7 @@
 			filling.icon += mix_color_from_reagents(reagents.reagent_list)
 			overlays += filling
 
-		if (!is_open_container())
+		if(!is_open_container())
 			var/image/lid = image(icon, src, "lid_bottle")
 			overlays += lid
 

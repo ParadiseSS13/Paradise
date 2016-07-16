@@ -19,7 +19,7 @@
 	..()
 
 /obj/machinery/drone_fabricator/power_change()
-	if (powered())
+	if(powered())
 		stat &= ~NOPOWER
 	else
 		icon_state = "drone_fab_nopower"
@@ -88,10 +88,10 @@
 		to_chat(src, "\red That verb is not currently permitted.")
 		return
 
-	if (!src.stat)
+	if(!src.stat)
 		return
 
-	if (usr != src)
+	if(usr != src)
 		return 0 //something is terribly wrong
 
 	if(jobban_isbanned(src,"nonhumandept") || jobban_isbanned(src,"Drone"))
@@ -128,7 +128,7 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if (deathtime < 6000 && joinedasobserver == 0)
+	if(deathtime < 6000 && joinedasobserver == 0)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
 		to_chat(usr, "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>")
 		return

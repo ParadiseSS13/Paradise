@@ -7,7 +7,7 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
-	w_class = 3.0
+	w_class = 3
 	throw_speed = 2
 	throw_range = 7
 	force = 10
@@ -29,7 +29,7 @@
 	hitsound = null	//it is much lighter, after all.
 	flags = null //doesn't CONDUCT
 	throwforce = 2
-	w_class = 2.0
+	w_class = 2
 	force = 3.0
 	materials = list()
 	max_water = 30
@@ -83,12 +83,12 @@
 	var/Refill = AttemptRefill(target, user)
 	if(Refill)
 		return
-	if (!safety)
-		if (src.reagents.total_volume < 1)
+	if(!safety)
+		if(src.reagents.total_volume < 1)
 			to_chat(usr, "<span class='danger'>\The [src] is empty.</span>")
 			return
 
-		if (world.time < src.last_use + 20)
+		if(world.time < src.last_use + 20)
 			return
 
 		src.last_use = world.time

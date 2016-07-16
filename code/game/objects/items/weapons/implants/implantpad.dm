@@ -55,7 +55,7 @@
 	set name = "Remove Implant"
 	set src in usr
 
-	if (usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return
 
 	dropcase(usr)
@@ -70,7 +70,7 @@
 	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = "<B>Implant Mini-Computer:</B><HR>"
-	if (case)
+	if(case)
 		if(case.imp)
 			if(istype(case.imp, /obj/item/weapon/implant))
 				dat += "<A href='byond://?src=\ref[src];removecase=1'>Remove Case</A><HR>"
@@ -96,7 +96,7 @@
 		return 1
 
 	var/mob/living/user = usr
-	if (href_list["tracking_id"])
+	if(href_list["tracking_id"])
 		if(case && case.imp)
 			var/obj/item/weapon/implant/tracking/T = case.imp
 			T.id += text2num(href_list["tracking_id"])

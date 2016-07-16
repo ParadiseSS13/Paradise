@@ -77,7 +77,7 @@
 		M.regenerate_icons()
 	return
 
-/obj/item/clothing/suit/armor/abductor/vest/IsShield()
+/obj/item/clothing/suit/armor/abductor/vest/hit_reaction()
 	DeactivateStealth()
 	return 0
 
@@ -413,11 +413,11 @@ Congratulations! You are now trained for xenobiology research!"}
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.check_shields(0, "[user]'s [name]"))
+		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
 			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
 			return 0
 
-	switch (mode)
+	switch(mode)
 		if(BATON_STUN)
 			StunAttack(L,user)
 		if(BATON_SLEEP)

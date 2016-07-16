@@ -50,7 +50,7 @@
 		src = null
 		var/replace = (user.get_inactive_hand()==G)
 		G.use(1)
-		if (!G && !RG && replace)
+		if(!G && !RG && replace)
 			user.put_in_hands(RG)
 	else
 		return ..()
@@ -70,7 +70,7 @@
 
 			var/list/directions = new/list(cardinal)
 			var/i = 0
-			for (var/obj/structure/window/win in user.loc)
+			for(var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
 					to_chat(user, "<span class='danger'>There are too many windows in this location.</span>")
@@ -173,7 +173,7 @@
 			if(src.loc != user)	return 1
 			var/list/directions = new/list(cardinal)
 			var/i = 0
-			for (var/obj/structure/window/win in user.loc)
+			for(var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
 					to_chat(user, "<span class='danger'>There are too many windows in this location.</span>")
@@ -282,7 +282,7 @@
 		src = null
 		var/replace = (user.get_inactive_hand()==G)
 		G.use(1)
-		if (!G && !RG && replace)
+		if(!G && !RG && replace)
 			user.put_in_hands(RG)
 	else
 		return ..()
@@ -301,7 +301,7 @@
 			if(src.loc != user)  return 1
 			var/list/directions = new/list(cardinal)
 			var/i = 0
-			for (var/obj/structure/window/win in user.loc)
+			for(var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
 					to_chat(user, "<span class='danger'>There are too many windows in this location.</span>")
@@ -373,7 +373,7 @@
 			if(src.loc != user)  return 1
 			var/list/directions = new/list(cardinal)
 			var/i = 0
-			for (var/obj/structure/window/win in user.loc)
+			for(var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
 					to_chat(user, "<span class='danger'>There are too many windows in this location.</span>")

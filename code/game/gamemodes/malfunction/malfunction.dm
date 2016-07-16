@@ -44,7 +44,7 @@
 		chosen_ai=pick(antag_candidates)
 		malf_ai += chosen_ai
 		antag_candidates -= malf_ai
-	if (malf_ai.len < required_enemies)
+	if(malf_ai.len < required_enemies)
 		return 0
 	for(var/datum/mind/ai_mind in malf_ai)
 		ai_mind.assigned_role = "MODE"
@@ -98,15 +98,15 @@
 
 
 /datum/game_mode/malfunction/process()
-	if (apcs >= 3 && malf_mode_declared)
+	if(apcs >= 3 && malf_mode_declared)
 		AI_win_timeleft -= ((apcs/6)*tickerProcess.getLastTickerTimeDuration()) //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
 	..()
-	if (AI_win_timeleft<=0)
+	if(AI_win_timeleft<=0)
 		check_win()
 
 
 /datum/game_mode/malfunction/check_win()
-	if (AI_win_timeleft <= 0 && !station_captured)
+	if(AI_win_timeleft <= 0 && !station_captured)
 		station_captured = 1
 		capture_the_station()
 		return 1
@@ -134,7 +134,7 @@
 /datum/game_mode/proc/is_malf_ai_dead()
 	var/all_dead = 1
 	for(var/datum/mind/AI_mind in malf_ai)
-		if (istype(AI_mind.current,/mob/living/silicon/ai) && AI_mind.current.stat!=2)
+		if(istype(AI_mind.current,/mob/living/silicon/ai) && AI_mind.current.stat!=2)
 			all_dead = 0
 	return all_dead
 
@@ -146,9 +146,9 @@
 	return 0
 
 /datum/game_mode/malfunction/check_finished()
-	if (station_captured && !to_nuke_or_not_to_nuke)
+	if(station_captured && !to_nuke_or_not_to_nuke)
 		return 1
-	if (is_malf_ai_dead() || !check_ai_loc())
+	if(is_malf_ai_dead() || !check_ai_loc())
 		if(config.continuous_rounds)
 			if(shuttle_master && shuttle_master.emergencyNoEscape)
 				shuttle_master.emergencyNoEscape = 0
@@ -160,7 +160,7 @@
 
 /datum/game_mode/malfunction/Topic(href, href_list)
 	..()
-	if (href_list["ai_win"])
+	if(href_list["ai_win"])
 		ai_win()
 	return
 
@@ -169,17 +169,17 @@
 	set category = "Malfunction"
 	set name = "System Override"
 	set desc = "Start the victory timer"
-	if (!istype(ticker.mode,/datum/game_mode/malfunction))
+	if(!istype(ticker.mode,/datum/game_mode/malfunction))
 		to_chat(usr, "You cannot begin a takeover in this round type!.")
 		return
-	if (ticker.mode:malf_mode_declared)
+	if(ticker.mode:malf_mode_declared)
 		to_chat(usr, "You've already begun your takeover.")
 		return
-	if (ticker.mode:apcs < 3)
+	if(ticker.mode:apcs < 3)
 		to_chat(usr, "You don't have enough hacked APCs to take over the station yet. You need to hack at least 3, however hacking more will make the takeover faster. You have hacked [ticker.mode:apcs] APCs so far.")
 		return
 
-	if (alert(usr, "Are you sure you wish to initiate the takeover? The station hostile runtime detection software is bound to alert everyone. You have hacked [ticker.mode:apcs] APCs.", "Takeover:", "Yes", "No") != "Yes")
+	if(alert(usr, "Are you sure you wish to initiate the takeover? The station hostile runtime detection software is bound to alert everyone. You have hacked [ticker.mode:apcs] APCs.", "Takeover:", "Yes", "No") != "Yes")
 		return
 
 	command_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
@@ -224,7 +224,7 @@
 	var/AN = "Self-Destruct System"
 
 	R.autosay("Caution. Self-Destruct sequence has been actived. Self-destructing in Ten..", AN)
-	for (var/i=9 to 1 step -1)
+	for(var/i=9 to 1 step -1)
 		sleep(10)
 		var/msg = ""
 		switch(i)
@@ -276,27 +276,27 @@
 	var/malf_dead = is_malf_ai_dead()
 	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 
-	if      ( station_captured &&                station_was_nuked)
+	if( station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - nuke")
 		to_chat(world, "<FONT size = 3><B>AI Victory</B></FONT>")
 		to_chat(world, "<B>Everyone was killed by the self-destruct!</B>")
 
-	else if ( station_captured &&  malf_dead && !station_was_nuked)
+	else if( station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - AI killed, staff lost control")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>The AI has been killed!</B> The staff has lose control over the station.")
 
-	else if ( station_captured && !malf_dead && !station_was_nuked)
+	else if( station_captured && !malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - no explosion")
 		to_chat(world, "<FONT size = 3><B>AI Victory</B></FONT>")
 		to_chat(world, "<B>The AI has chosen not to explode you all!</B>")
 
-	else if (!station_captured &&                station_was_nuked)
+	else if(!station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - everyone killed by nuke")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Everyone was killed by the nuclear blast!</B>")
 
-	else if (!station_captured &&  malf_dead && !station_was_nuked)
+	else if(!station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","loss - staff win")
 		to_chat(world, "<FONT size = 3><B>Human Victory</B></FONT>")
 		to_chat(world, "<B>The AI has been killed!</B> The staff is victorious.")
@@ -306,12 +306,12 @@
 		to_chat(world, "<font size=3><b>Minor Human Victory</b></font>")
 		to_chat(world, "<b>The malfunctioning AI has left the station's z-level and was disconnected from its systems!</b> The crew are victorious.")
 
-	else if (!station_captured && !malf_dead && !station_was_nuked && crew_evacuated)
+	else if(!station_captured && !malf_dead && !station_was_nuked && crew_evacuated)
 		feedback_set_details("round_end_result","halfwin - evacuated")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>")
 
-	else if (!station_captured && !malf_dead && !station_was_nuked && !crew_evacuated)
+	else if(!station_captured && !malf_dead && !station_was_nuked && !crew_evacuated)
 		feedback_set_details("round_end_result","nalfwin - interrupted")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Round was mysteriously interrupted!</B>")

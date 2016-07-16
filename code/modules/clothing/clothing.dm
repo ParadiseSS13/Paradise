@@ -31,7 +31,7 @@
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
 	//if we can equip the item anyway, don't bother with species_restricted (aslo cuts down on spam)
-	if (!..())
+	if(!..())
 		return 0
 
 	if(species_restricted && istype(M,/mob/living/carbon/human))
@@ -66,12 +66,12 @@
 			species_restricted = list(target_species)
 
 	//Set icon
-	if (sprite_sheets && (target_species in sprite_sheets))
+	if(sprite_sheets && (target_species in sprite_sheets))
 		icon_override = sprite_sheets[target_species]
 	else
 		icon_override = initial(icon_override)
 
-	if (sprite_sheets_obj && (target_species in sprite_sheets_obj))
+	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
 		icon = sprite_sheets_obj[target_species]
 	else
 		icon = initial(icon)
@@ -79,14 +79,14 @@
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
-	w_class = 1.0
+	w_class = 1
 	throwforce = 2
 	slot_flags = SLOT_EARS
 
 /obj/item/clothing/ears/attack_hand(mob/user as mob)
-	if (!user) return
+	if(!user) return
 
-	if (src.loc != user || !istype(user,/mob/living/carbon/human))
+	if(src.loc != user || !istype(user,/mob/living/carbon/human))
 		..()
 		return
 
@@ -110,7 +110,7 @@
 
 	user.unEquip(src)
 
-	if (O)
+	if(O)
 		user.put_in_hands(O)
 		O.add_fingerprint(user)
 
@@ -119,7 +119,7 @@
 
 /obj/item/clothing/ears/offear
 	name = "Other ear"
-	w_class = 5.0
+	w_class = 5
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
@@ -144,7 +144,7 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
-	w_class = 2.0
+	w_class = 2
 	flags = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
@@ -171,7 +171,7 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
-	w_class = 2.0
+	w_class = 2
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
@@ -212,8 +212,8 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/set_sensors(mob/user as mob)
 	var/mob/M = user
-	if (istype(M, /mob/dead/)) return
-	if (user.stat || user.restrained()) return
+	if(istype(M, /mob/dead/)) return
+	if(user.stat || user.restrained()) return
 	if(has_sensor >= 2)
 		to_chat(user, "The controls are locked.")
 		return 0
@@ -228,7 +228,7 @@ BLIND     // can't see anything
 		return
 	sensor_mode = modes.Find(switchMode) - 1
 
-	if (src.loc == user)
+	if(src.loc == user)
 		switch(sensor_mode)
 			if(0)
 				to_chat(user, "You disable your suit's remote sensing equipment.")
@@ -243,7 +243,7 @@ BLIND     // can't see anything
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if (istype(src.loc, /mob))
+	else if(istype(src.loc, /mob))
 		switch(sensor_mode)
 			if(0)
 				for(var/mob/V in viewers(user, 1))
@@ -591,7 +591,7 @@ BLIND     // can't see anything
 		return 0
 	if(accessories.len && (A.slot in list("utility","armband")))
 		for(var/obj/item/clothing/accessory/AC in accessories)
-			if (AC.slot == A.slot)
+			if(AC.slot == A.slot)
 				return 0
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
@@ -624,18 +624,18 @@ BLIND     // can't see anything
 			A.attack_hand(user)
 		return
 
-	if (ishuman(usr) && src.loc == user)	//make it harder to accidentally undress yourself
+	if(ishuman(usr) && src.loc == user)	//make it harder to accidentally undress yourself
 		return
 
 	..()
 
 /obj/item/clothing/under/MouseDrop(obj/over_object as obj)
-	if (ishuman(usr))
+	if(ishuman(usr))
 		//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
-		if (!(src.loc == usr))
+		if(!(src.loc == usr))
 			return
 
-		if (!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
+		if(!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
 			switch(over_object.name)
 				if("r_hand")
 					usr.unEquip(src)

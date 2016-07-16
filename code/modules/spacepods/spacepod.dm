@@ -82,7 +82,7 @@
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 
 /obj/spacepod/Destroy()
-	if (equipment_system.cargo_system)
+	if(equipment_system.cargo_system)
 		equipment_system.cargo_system.removed(null)
 	qdel(equipment_system)
 	equipment_system = null
@@ -294,7 +294,7 @@
 
 	if(istype(W, /obj/item/device/spacepod_key) && istype(equipment_system.lock_system, /obj/item/device/spacepod_equipment/lock/keyed))
 		var/obj/item/device/spacepod_key/key = W
-		if (key.id == equipment_system.lock_system.id)
+		if(key.id == equipment_system.lock_system.id)
 			lock_pod()
 			return
 		else
@@ -309,7 +309,7 @@
 		if(!WT.isOn())
 			to_chat(user, "\red The welder must be on for this task.")
 			return
-		if (health < initial(health))
+		if(health < initial(health))
 			to_chat(user, "\blue You start welding the spacepod...")
 			playsound(loc, 'sound/items/Welder.ogg', 50, 1)
 			if(do_after(user, 20, target = src))
@@ -467,7 +467,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		L += S.return_inv()
 	for(var/obj/item/weapon/gift/G in src)
 		L += G.gift
-		if (istype(G.gift, /obj/item/weapon/storage))
+		if(istype(G.gift, /obj/item/weapon/storage))
 			var/obj/item/weapon/storage/inv = G.gift
 			L += inv.return_inv()
 	return L
@@ -645,7 +645,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		to_chat(user, "<span class='warning'>\The [src] already has \an [C.storage]</span>")
 
 /obj/spacepod/proc/enter_pod(mob/user)
-	if (usr.stat != CONSCIOUS)
+	if(usr.stat != CONSCIOUS)
 		return 0
 
 	if(equipment_system.lock_system && !unlocked)
@@ -732,7 +732,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	if(!istype(user))
 		return
 
-	if (user.stat != CONSCIOUS || user.incapacitated()) // unconscious and restrained people can't let themselves out
+	if(user.stat != CONSCIOUS || user.incapacitated()) // unconscious and restrained people can't let themselves out
 		return
 
 	occupant_sanity_check()
@@ -939,8 +939,8 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		if(moveship)
 			Move(get_step(src, direction), direction)
 			if(equipment_system.cargo_system)
-				for (var/turf/T in locs)
-					for (var/obj/item/I in T.contents)
+				for(var/turf/T in locs)
+					for(var/obj/item/I in T.contents)
 						equipment_system.cargo_system.passover(I)
 
 	else

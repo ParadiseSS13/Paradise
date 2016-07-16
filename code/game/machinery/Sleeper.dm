@@ -51,7 +51,7 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				//SN src = null
 				qdel(src)
 				return
@@ -78,11 +78,11 @@
 	return
 
 /obj/machinery/sleep_console/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
-	if (istype(G, /obj/item/weapon/screwdriver))
+	if(istype(G, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "console-p", "console", G)
 		return
 
-	if (istype(G, /obj/item/weapon/wrench))
+	if(istype(G, /obj/item/weapon/wrench))
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
@@ -109,14 +109,14 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if (panel_open)
+	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	if (!src.connected)
+	if(!src.connected)
 		findsleeper()
 
-	if (src.connected)
+	if(src.connected)
 		ui_interact(user)
 
 /obj/machinery/sleep_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -125,7 +125,7 @@
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
 	var/crisis = 0
-	if (occupant)
+	if(occupant)
 		occupantData["name"] = occupant.name
 		occupantData["stat"] = occupant.stat
 		occupantData["health"] = occupant.health
@@ -141,27 +141,27 @@
 		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
 		// Because we can put simple_animals in here, we need to do something tricky to get things working nice
 		occupantData["temperatureSuitability"] = 0 // 0 is the baseline
-		if (ishuman(occupant) && occupant.species)
+		if(ishuman(occupant) && occupant.species)
 			// I wanna do something where the bar gets bluer as the temperature gets lower
 			// For now, I'll just use the standard format for the temperature status
 			var/datum/species/sp = occupant.species
-			if (occupant.bodytemperature < sp.cold_level_3)
+			if(occupant.bodytemperature < sp.cold_level_3)
 				occupantData["temperatureSuitability"] = -3
-			else if (occupant.bodytemperature < sp.cold_level_2)
+			else if(occupant.bodytemperature < sp.cold_level_2)
 				occupantData["temperatureSuitability"] = -2
-			else if (occupant.bodytemperature < sp.cold_level_1)
+			else if(occupant.bodytemperature < sp.cold_level_1)
 				occupantData["temperatureSuitability"] = -1
-			else if (occupant.bodytemperature > sp.heat_level_3)
+			else if(occupant.bodytemperature > sp.heat_level_3)
 				occupantData["temperatureSuitability"] = 3
-			else if (occupant.bodytemperature > sp.heat_level_2)
+			else if(occupant.bodytemperature > sp.heat_level_2)
 				occupantData["temperatureSuitability"] = 2
-			else if (occupant.bodytemperature > sp.heat_level_1)
+			else if(occupant.bodytemperature > sp.heat_level_1)
 				occupantData["temperatureSuitability"] = 1
-		else if (istype(occupant, /mob/living/simple_animal))
+		else if(istype(occupant, /mob/living/simple_animal))
 			var/mob/living/simple_animal/silly = occupant
-			if (silly.bodytemperature < silly.minbodytemp)
+			if(silly.bodytemperature < silly.minbodytemp)
 				occupantData["temperatureSuitability"] = -3
-			else if (silly.bodytemperature > silly.maxbodytemp)
+			else if(silly.bodytemperature > silly.maxbodytemp)
 				occupantData["temperatureSuitability"] = 3
 		// Blast you, imperial measurement system
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
@@ -171,18 +171,19 @@
 		crisis = (occupant.health < connected.min_health)
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
-		if (ishuman(occupant) && occupant.vessel && !(occupant.species && occupant.species.flags & NO_BLOOD))
+		if(ishuman(occupant) && occupant.vessel && !(occupant.species && occupant.species.flags & NO_BLOOD))
+			var/blood_type = occupant.get_blood_name()
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
-			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount("blood"))
+			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount(blood_type))
 			occupantData["bloodMax"] = occupant.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount("blood")/occupant.max_blood), 0.01)
+			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount(blood_type)/occupant.max_blood), 0.01)
 
 	data["occupant"] = occupantData
 	data["maxchem"] = connected.max_chem
 	data["minhealth"] = connected.min_health
 	data["dialysis"] = connected.filtering
-	if (connected.beaker)
+	if(connected.beaker)
 		data["isBeakerLoaded"] = 1
 		if(connected.beaker.reagents)
 			data["beakerFreeSpace"] = round(connected.beaker.reagents.maximum_volume - connected.beaker.reagents.total_volume)
@@ -190,7 +191,7 @@
 			data["beakerFreeSpace"] = 0
 
 	var/chemicals[0]
-	for (var/re in connected.injection_chems)
+	for(var/re in connected.injection_chems)
 		var/datum/reagent/temp = chemical_reagents_list[re]
 		if(temp)
 			var/reagent_amount = 0
@@ -198,15 +199,15 @@
 			var/injectable = occupant ? 1 : 0
 			var/overdosing = 0
 			var/caution = 0 // To make things clear that you're coming close to an overdose
-			if (crisis && !(temp.id in connected.emergency_chems))
+			if(crisis && !(temp.id in connected.emergency_chems))
 				injectable = 0
 
-			if (occupant && occupant.reagents)
+			if(occupant && occupant.reagents)
 				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
 				// If they're mashing the highest concentration, they get one warning
-				if (temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
+				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
 					caution = 1
-				if (temp.id in occupant.reagents.overdose_list())
+				if(temp.id in occupant.reagents.overdose_list())
 					overdosing = 1
 
 			// Because I don't know how to do this on the nano side
@@ -216,7 +217,7 @@
 	data["chemicals"] = chemicals
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "sleeper.tmpl", ui_title, 550, 655)
 		ui.set_initial_data(data)
 		ui.open()
@@ -233,21 +234,21 @@
 		to_chat(usr, "<span class='notice'>Close the maintenance panel first.</span>")
 		return 0
 
-	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
-		if (href_list["chemical"])
-			if (src.connected)
-				if (src.connected.occupant)
-					if (src.connected.occupant.stat == DEAD)
+	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
+		if(href_list["chemical"])
+			if(src.connected)
+				if(src.connected.occupant)
+					if(src.connected.occupant.stat == DEAD)
 						to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take them to a department capable of reanimating them.</span>")
 					else if(src.connected.occupant.health > src.connected.min_health || (href_list["chemical"] in connected.emergency_chems))
 						src.connected.inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 					else
 						to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
-		if (href_list["removebeaker"])
+		if(href_list["removebeaker"])
 			src.connected.remove_beaker()
-		if (href_list["togglefilter"])
+		if(href_list["togglefilter"])
 			src.connected.toggle_filter()
-		if (href_list["ejectify"])
+		if(href_list["ejectify"])
 			src.connected.eject()
 		src.add_fingerprint(usr)
 	return 1
@@ -380,7 +381,7 @@
 /obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(!beaker)
-			if (!user.drop_item())
+			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [G] is stuck to you!</span>")
 				return
 
@@ -393,14 +394,14 @@
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
 			return
 
-	if (istype(G, /obj/item/weapon/screwdriver))
+	if(istype(G, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "sleeper-o", "sleeper-open", G)
 		return
 
-	if (istype(G, /obj/item/weapon/wrench))
+	if(istype(G, /obj/item/weapon/wrench))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
@@ -497,8 +498,8 @@
 // ???
 // This looks cool, although mildly broken, should it be included again?
 /obj/machinery/sleeper/alter_health(mob/living/M as mob)
-	if (M.health > 0)
-		if (M.getOxyLoss() >= 10)
+	if(M.health > 0)
+		if(M.getOxyLoss() >= 10)
 			var/amount = max(0.15, 1)
 			M.adjustOxyLoss(-amount)
 		else
@@ -507,7 +508,7 @@
 	M.AdjustParalysis(-4)
 	M.AdjustWeakened(-4)
 	M.AdjustStunned(-4)
-	if (M:reagents.get_reagent_amount("salglu_solution") < 5)
+	if(M:reagents.get_reagent_amount("salglu_solution") < 5)
 		M:reagents.add_reagent("salglu_solution", 5)
 	return
 
@@ -533,7 +534,7 @@
 		A.forceMove(loc)
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
-	if (!(chemical in injection_chems))
+	if(!(chemical in injection_chems))
 		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</notice>")
 		return
 
@@ -645,7 +646,7 @@
 	if(src.occupant)
 		to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 		return
-	if (panel_open)
+	if(panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other

@@ -198,7 +198,7 @@
 			new /obj/item/seeds/grassseed(O.loc, O)
 
 	for(var/mob/M in range(1))
-		if (M.s_active == src)
+		if(M.s_active == src)
 			src.close(M)
 
 
@@ -263,7 +263,7 @@
 		if(!inserted || !S.amount)
 			usr.unEquip(S)
 			usr.update_icons()	//update our overlays
-			if (usr.client && usr.s_active != src)
+			if(usr.client && usr.s_active != src)
 				usr.client.screen -= S
 			S.dropped(usr)
 			if(!S.amount)
@@ -296,7 +296,7 @@
 
 		var/row_num = 0
 		var/col_count = min(7,storage_slots) -1
-		if (adjusted_contents > 7)
+		if(adjusted_contents > 7)
 			row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
 		src.standard_orient_objs(row_num, col_count, numbered_contents)
 		return
@@ -389,7 +389,7 @@
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 4.0
+	w_class = 4
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
@@ -432,17 +432,17 @@
 /obj/item/weapon/storage/bag/tray/cyborg
 
 /obj/item/weapon/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
-	if ( isturf(target) || istype(target,/obj/structure/table) )
+	if( isturf(target) || istype(target,/obj/structure/table) )
 		var foundtable = istype(target,/obj/structure/table/)
-		if ( !foundtable ) //it must be a turf!
+		if( !foundtable ) //it must be a turf!
 			for(var/obj/structure/table/T in target)
 				foundtable = 1
 				break
 
 		var turf/dropspot
-		if ( !foundtable ) // don't unload things onto walls or other silly places.
+		if( !foundtable ) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
-		else if ( isturf(target) ) // they clicked on a turf with a table in it
+		else if( isturf(target) ) // they clicked on a turf with a table in it
 			dropspot = target
 		else					// they clicked on a table
 			dropspot = target.loc
@@ -462,8 +462,8 @@
 						if(I)
 							step(I, pick(NORTH,SOUTH,EAST,WEST))
 							sleep(rand(2,4))
-		if ( droppedSomething )
-			if ( foundtable )
+		if( droppedSomething )
+			if( foundtable )
 				user.visible_message("\blue [user] unloads their service tray.")
 			else
 				user.visible_message("\blue [user] drops all the items on their tray.")

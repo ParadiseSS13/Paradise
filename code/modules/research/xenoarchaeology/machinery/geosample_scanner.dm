@@ -97,8 +97,8 @@
 	fresh_coolant = 0
 	coolant_purity = 0
 	var/num_reagent_types = 0
-	for (var/datum/reagent/current_reagent in src.reagents.reagent_list)
-		if (!current_reagent)
+	for(var/datum/reagent/current_reagent in src.reagents.reagent_list)
+		if(!current_reagent)
 			continue
 		var/cur_purity = coolant_reagents_purity[current_reagent.id]
 		if(!cur_purity)
@@ -144,7 +144,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "geoscanner.tmpl", "High Res Radiocarbon Spectrometer", 900, 825)

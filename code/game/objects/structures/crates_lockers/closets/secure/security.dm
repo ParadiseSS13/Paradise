@@ -14,6 +14,7 @@
 			new /obj/item/weapon/storage/backpack/captain(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_cap(src)
+		new /obj/item/weapon/book/manual/faxes(src)
 		new /obj/item/weapon/storage/backpack/duffel/captain(src)
 		new /obj/item/clothing/suit/captunic(src)
 		new /obj/item/clothing/suit/captunic/capjacket(src)
@@ -42,6 +43,7 @@
 
 	New()
 		..()
+		new /obj/item/weapon/book/manual/faxes(src)
 		new /obj/item/clothing/glasses/sunglasses(src)
 		new /obj/item/clothing/head/hopcap(src)
 		new /obj/item/weapon/cartridge/hop(src)
@@ -98,6 +100,7 @@
 			new /obj/item/weapon/storage/backpack/security(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
+		new /obj/item/weapon/book/manual/faxes(src)
 		new /obj/item/weapon/cartridge/hos(src)
 		new /obj/item/device/radio/headset/heads/hos/alt(src)
 		new /obj/item/clothing/under/rank/head_of_security(src)
@@ -261,6 +264,7 @@
 
 	New()
 		..()
+		new /obj/item/weapon/book/manual/faxes(src)
 		new /obj/item/weapon/storage/briefcase(src)
 		new /obj/item/device/paicard(src)
 		new /obj/item/device/flash(src)
@@ -272,6 +276,8 @@
 		new /obj/item/clothing/under/lawyer/female(src)
 		new /obj/item/clothing/head/ntrep(src)
 		new /obj/item/clothing/shoes/sandal/fancy(src)
+		new /obj/item/weapon/storage/box/tapes(src)
+		new /obj/item/device/taperecorder(src)
 
 
 /obj/structure/closet/secure_closet/security/cargo
@@ -349,7 +355,7 @@
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"
-	req_access = list(access_captain)
+	req_access = list(access_security)
 
 
 	New()

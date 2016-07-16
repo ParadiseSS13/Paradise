@@ -22,7 +22,7 @@
 /obj/machinery/suspension_gen/process()
 	//set background = 1
 
-	if (suspension_field)
+	if(suspension_field)
 		cell.charge -= power_use
 
 		var/turf/T = get_turf(suspension_field)
@@ -126,11 +126,11 @@
 	if(href_list["select_field"])
 		field_type = href_list["select_field"]
 	else if(href_list["insertcard"])
-		if (istype(usr, /mob/living/silicon))
+		if(istype(usr, /mob/living/silicon))
 			locked = 0
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/weapon/card))
+			if(istype(I, /obj/item/weapon/card))
 				usr.drop_item()
 				I.loc = src
 				auth_card = I
@@ -169,14 +169,14 @@
 		to_chat(user, "<span class='info'>You remove the power cell</span>")
 
 /obj/machinery/suspension_gen/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!open)
 			if(screwed)
 				screwed = 0
 			else
 				screwed = 1
 			to_chat(user, "<span class='info'>You [screwed ? "screw" : "unscrew"] the battery panel.</span>")
-	else if (istype(W, /obj/item/weapon/crowbar))
+	else if(istype(W, /obj/item/weapon/crowbar))
 		if(!locked)
 			if(!screwed)
 				if(!suspension_field)
@@ -192,7 +192,7 @@
 				to_chat(user, "<span class='warning'>Unscrew [src]'s battery panel first.</span>")
 		else
 			to_chat(user, "<span class='warning'>[src]'s security locks are engaged.</span>")
-	else if (istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/weapon/wrench))
 		if(!suspension_field)
 			if(anchored)
 				anchored = 0
@@ -205,7 +205,7 @@
 				desc = "It has stubby legs bolted up against it's body for stabilising."
 		else
 			to_chat(user, "<span class='warning'>You are unable to secure [src] while it is active!</span>")
-	else if (istype(W, /obj/item/weapon/stock_parts/cell))
+	else if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(open)
 			if(cell)
 				to_chat(user, "<span class='warning'>There is a power cell already installed.</span>")

@@ -207,9 +207,9 @@
 	interact(user)
 
 /obj/machinery/biogenerator/proc/activate()
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
-	if (src.stat != 0) //NOPOWER etc
+	if(src.stat != 0) //NOPOWER etc
 		return
 	if(src.processing)
 		to_chat(usr, "<span class='warning'>The biogenerator is in the process of working.</span>")
@@ -236,7 +236,7 @@
 	return
 
 /obj/machinery/biogenerator/proc/check_cost(var/cost, var/checkonly)
-	if (cost > points)
+	if(cost > points)
 		menustat = "nopoints"
 		return 1
 	else if(checkonly)
@@ -258,89 +258,89 @@
 		//Food
 		if("milk")
 			if(check_container_volume(10)) return 0
-			else if (check_cost(20/efficiency)) return 0
+			else if(check_cost(20/efficiency)) return 0
 			else beaker.reagents.add_reagent("milk",10)
 		if("cream")
 			if(check_container_volume(10)) return 0
-			else if (check_cost(30/efficiency)) return 0
+			else if(check_cost(30/efficiency)) return 0
 			else beaker.reagents.add_reagent("cream",10)
 		if("meat")
-			if (check_cost(250/efficiency)) return 0
+			if(check_cost(250/efficiency)) return 0
 			else new/obj/item/weapon/reagent_containers/food/snacks/monkeycube(src.loc)
 		//Nutrients
 		if("ez")
-			if (check_cost(10/efficiency, 1)) return 0
+			if(check_cost(10/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("eznutrient",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
-			if (check_cost(10/efficiency)) return 0
+			if(check_cost(10/efficiency)) return 0
 		if("l4z")
-			if (check_cost(20/efficiency, 1)) return 0
+			if(check_cost(20/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("left4zed",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
-			if (check_cost(20/efficiency)) return 0
+			if(check_cost(20/efficiency)) return 0
 		if("rh")
-			if (check_cost(25/efficiency, 1)) return 0
+			if(check_cost(25/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("robustharvest",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
-			if (check_cost(25/efficiency)) return 0
+			if(check_cost(25/efficiency)) return 0
 		//Leather
 		if("wallet")
-			if (check_cost(100/efficiency)) return 0
+			if(check_cost(100/efficiency)) return 0
 			else new/obj/item/weapon/storage/wallet(src.loc)
 		if("bkbag")
-			if (check_cost(200/efficiency)) return 0
+			if(check_cost(200/efficiency)) return 0
 			else new/obj/item/weapon/storage/bag/books(src.loc)
 		if("ptbag")
-			if (check_cost(200/efficiency)) return 0
+			if(check_cost(200/efficiency)) return 0
 			else new/obj/item/weapon/storage/bag/plants(src.loc)
 		if("mnbag")
-			if (check_cost(200/efficiency)) return 0
+			if(check_cost(200/efficiency)) return 0
 			else new/obj/item/weapon/storage/bag/ore(src.loc)
 		if("chbag")
-			if (check_cost(200/efficiency)) return 0
+			if(check_cost(200/efficiency)) return 0
 			else new/obj/item/weapon/storage/bag/chemistry(src.loc)
 		if("rag")
-			if (check_cost(200/efficiency)) return 0
+			if(check_cost(200/efficiency)) return 0
 			else new/obj/item/weapon/reagent_containers/glass/rag(src.loc)
 		if("gloves")
-			if (check_cost(250/efficiency)) return 0
+			if(check_cost(250/efficiency)) return 0
 			else new/obj/item/clothing/gloves/botanic_leather(src.loc)
 		if("satchel")
-			if (check_cost(400/efficiency)) return 0
+			if(check_cost(400/efficiency)) return 0
 			else new/obj/item/weapon/storage/backpack/satchel(src.loc)
 		if("cashbag")
-			if (check_cost(400/efficiency)) return 0
+			if(check_cost(400/efficiency)) return 0
 			else new/obj/item/weapon/storage/bag/cash(src.loc)
 		if("jacket")
-			if (check_cost(500/efficiency)) return 0
+			if(check_cost(500/efficiency)) return 0
 			else new/obj/item/clothing/suit/jacket/leather(src.loc)
 		//Belts
 		if("tbelt")
-			if (check_cost(300/efficiency)) return 0
+			if(check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/utility(src.loc)
 		if("bbelt")
-			if (check_cost(300/efficiency)) return 0
+			if(check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/botany(src.loc)
 		if("sbelt")
-			if (check_cost(300/efficiency)) return 0
+			if(check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/security(src.loc)
 		if("mbelt")
-			if (check_cost(300/efficiency)) return 0
+			if(check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/medical(src.loc)
 		if("jbelt")
-			if (check_cost(300/efficiency)) return 0
+			if(check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/janitor(src.loc)
 		if("band")
-			if (check_cost(300/efficiency)) return 0
+			if(check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/bandolier(src.loc)
 	processing = 0
 	menustat = "complete"

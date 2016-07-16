@@ -368,13 +368,13 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 			M.Weaken(max(10/distance, 3))
 			M.ear_damage += rand(0, 5)
 			M.ear_deaf = max(M.ear_deaf,15)
-			if (M.ear_damage >= 15)
+			if(M.ear_damage >= 15)
 				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 				if(prob(M.ear_damage - 10 + 5))
 					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 					M.disabilities |= DEAF
 			else
-				if (M.ear_damage >= 5)
+				if(M.ear_damage >= 5)
 					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
 
 /datum/chemical_reaction/sonic_powder/on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -397,13 +397,13 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 			M.Weaken(max(10/distance, 3))
 			M.ear_damage += rand(0, 5)
 			M.ear_deaf = max(M.ear_deaf,15)
-			if (M.ear_damage >= 15)
+			if(M.ear_damage >= 15)
 				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 				if(prob(M.ear_damage - 10 + 5))
 					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 					M.disabilities |= DEAF
 			else
-				if (M.ear_damage >= 5)
+				if(M.ear_damage >= 5)
 					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
 	holder.remove_reagent("sonic_powder", created_volume)
 
@@ -571,7 +571,7 @@ datum/reagent/firefighting_foam/reaction_mob(var/mob/living/M, var/method=TOUCH,
 		return
 
 datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
-	if (!istype(T)) return
+	if(!istype(T)) return
 	var/CT = cooling_temperature
 	src = null
 	if(!istype(T, /turf/space))

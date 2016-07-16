@@ -116,7 +116,7 @@ proc/random_skin_tone(species = "Human")
 
 proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")
-		switch (tone)
+		switch(tone)
 			if(30 to INFINITY)		return "albino"
 			if(20 to 30)			return "pale"
 			if(5 to 15)				return "light skinned"
@@ -190,15 +190,15 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 
 	var/holding = user.get_active_hand()
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, time, target)
 
 	var/endtime = world.time+time
 	var/starttime = world.time
 	. = 1
-	while (world.time < endtime)
+	while(world.time < endtime)
 		sleep(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 		if(!user || !target)
 			. = 0
@@ -213,7 +213,7 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying )
 			. = 0
 			break
-	if (progress)
+	if(progress)
 		qdel(progbar)
 
 /proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1)
@@ -236,15 +236,15 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		holdingnull = 0 //Users hand started holding something, check to see if it's still holding that
 
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, delay, target)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = 1
-	while (world.time < endtime)
+	while(world.time < endtime)
 		sleep(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 
 		if(drifting && !user.inertia_dir)
@@ -269,5 +269,5 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 			if(user.get_active_hand() != holding)
 				. = 0
 				break
-	if (progress)
+	if(progress)
 		qdel(progbar)
