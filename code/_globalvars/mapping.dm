@@ -54,3 +54,10 @@ var/list/carplist = list() //list of all carp-spawn landmarks
 
 //away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to
+
+//List of preloaded templates
+var/list/datum/map_template/map_templates = list()
+
+var/list/datum/map_template/ruins_templates = list()
+var/list/datum/map_template/space_ruins_templates = list()
+//var/list/datum/map_template/lava_ruins_templates = list()

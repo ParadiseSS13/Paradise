@@ -8,6 +8,7 @@
 	var/on=0
 
 /obj/machinery/media/receiver/boombox/initialize()
+	..()
 	if(on)
 		update_on()
 	update_icon()

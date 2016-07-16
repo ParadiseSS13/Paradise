@@ -48,7 +48,7 @@
 	src.scanner = findscanner()
 	releasecloner()
 	findcloner()
-	if(!selected_pod)
+	if(!selected_pod && pods.len)
 		selected_pod = pods[1]
 
 /obj/machinery/computer/cloning/proc/findscanner()

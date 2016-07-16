@@ -244,6 +244,14 @@
 #define REGION_COMMAND		7
 #define REGION_CENTCOMM		8
 
+//used for maploader
+#define MAP_MINX 1
+#define MAP_MINY 2
+#define MAP_MINZ 3
+#define MAP_MAXX 4
+#define MAP_MAXY 5
+#define MAP_MAXZ 6
+
 //Matricies
 #define MATRIX_DEFAULT list(1, 0, 0, 0,\
                             0, 1, 0, 0,\

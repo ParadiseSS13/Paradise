@@ -41,13 +41,13 @@
 	connect_types = list(1,3) //connects to regular and scrubber pipes
 
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
+	..()
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
 	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
-	..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc && frequency == 1439)
