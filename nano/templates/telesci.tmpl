@@ -1,0 +1,73 @@
+{{if data.screen == 0}}
+	<div class='statusDisplay'>
+		{{:data.temp_msg}}
+	</div>
+	<div class='item'>{{:helper.link('Show Beacons', 'search', {'screen': 1})}}</div>
+	<div class='statusDisplay'>
+		{{if data.locked_target}}
+			Target locked: {{:data.locked_target}} in {{:data.locked_target_area}} ({{:data.locked_target_x}}, {{:data.locked_target_y}})
+		{{else}}
+			No target locked.
+		{{/if}}
+	</div>
+	{{if data.telepad}}
+		<div class='item'>
+			{{:helper.link('Send', 'share', {'send': 1})}}
+			{{:helper.link('Receive', 'reply', {'receive': 1})}}
+		</div>
+	{{/if}}
+	<div class='item'>
+		{{:data.crystals_len}} bluespace crystals in telepad. 
+	</div>
+	<div class='item'>
+		{{:helper.link('Eject Crystals', 'eject', {'eject': 1}, data.crystals_len ? null : 'disabled')}}
+	</div>
+	<div class='item'>
+		{{:helper.link('View Usage Logs', 'align-left', {'screen': '3'})}}
+	</div>
+{{else data.screen == 1}}
+	{{:helper.link('Show Map', 'thumb-tack', {'showMap' : 1})}}
+	{{:helper.link('Main Menu', 'reply', {'screen': 0})}}
+	<table width="100%">
+		{{for data.beacons}}
+			{{if value.z == data.z}}
+				<tr>
+					<td class='tracking'>{{:helper.link('Scan Nearby', null, {'scan': value.id})}}</td>
+					<td class='tracking'>{{:helper.link('Lock Target', null, {'lock': value.id})}}</td>
+					<td colspan=2>{{:value.name}}</td>
+					<td>{{:value.area_name}}({{:value.x}}, {{:value.y}})</td>
+				</tr>
+			{{/if}}
+		{{/for}}
+		{{for data.crewmembers}}
+			{{if value.sensor_type == 3}}
+				<tr>
+					<td class='tracking'>{{:helper.link('Scan Nearby', null, {'scan': value.id})}}</td>
+					<td class='tracking'>{{:helper.link('Lock Target', null, {'lock': value.id})}}</td>
+					<td>{{:value.name}} ({{:value.assignment}})</td>
+					<td>{{:value.dead ? "<span class='bad'>Deceased</span>" : "<span class='good'>Living</span>"}} (<span class="oxyloss_light">{{:value.oxy}}</span>/<span class="toxin_light">{{:value.tox}}</span>/<span class="burn">{{:value.fire}}</span>/<span class="brute">{{:value.brute}}</span>)</td>
+					<td>{{:value.area}}({{:value.x}}, {{:value.y}})</td>
+				</tr>
+			{{/if}}
+		{{/for}}
+	</table>
+{{else data.screen == 2}}
+	{{:helper.link('Main Menu', 'reply', {'screen': 0})}}
+	<table width="100%">
+		{{for data.scanned_objects}}
+			<tr>
+				<td class='tracking'>{{:helper.link('Lock Target', null, {'lock': value.id})}}</td>
+				<td>{{:value.name}}</td>
+				<td>Offset: &lt;{{:value.offset_x}}, {{:value.offset_y}}&gt;</td>
+				<td>{{:value.area}}({{:value.x}}, {{:value.y}})</td>
+			</tr>
+		{{/for}}
+	</table>
+{{else data.screen == 3}}
+	<div class='item'>{{:helper.link('Main Menu', 'reply', {'screen': 0})}}</div>
+	<div class='statusDisplay'>
+		{{for data.usage_logs}}
+			<div class='line'>{{:value}}</div>
+		{{/for}}
+	</div>
+{{/if}}
