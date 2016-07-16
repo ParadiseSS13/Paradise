@@ -221,7 +221,12 @@
 		fat="_fat"
 	preview_icon = new /icon(icobase, "torso_[g][fat]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
-	preview_icon.Blend(new /icon(icobase, "head_[g]"), ICON_OVERLAY)
+	var/head = "head"
+	if(alt_head)
+		var/datum/sprite_accessory/alt_heads/H = alt_heads_list[alt_head]
+		if(H.icon_state)
+			head = H.icon_state
+	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
 
 	for(var/name in list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand"))
 		if(organ_data[name] == "amputated") continue

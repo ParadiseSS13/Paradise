@@ -140,7 +140,12 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/icon/temp
 	temp = new /icon(icobase, "groin_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
-	temp = new /icon(icobase, "head_[g]")
+	var/head = "head"
+	if(head_organ.alt_head)
+		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[head_organ.alt_head]
+		if(alternate_head.icon_state)
+			head = alternate_head.icon_state
+	temp = new /icon(icobase, "[head]_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Tail

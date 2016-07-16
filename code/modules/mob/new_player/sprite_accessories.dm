@@ -44,6 +44,7 @@
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
 	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
+	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
 	var/marking_location //Specifies which bodypart a body marking is located on.
 
@@ -1962,10 +1963,22 @@
 	species_allowed = list("Unathi")
 	icon_state = "markings_face_snout_round_una"
 
+/datum/sprite_accessory/body_markings/head/snout_round_lower_una
+	name = "Unathi Round Snout - Lower"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_round_lower_una"
+
 /datum/sprite_accessory/body_markings/head/snout_sharp_una
 	name = "Unathi Sharp Snout"
 	species_allowed = list("Unathi")
 	icon_state = "markings_face_snout_sharp_una"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/snout_sharp_lower_una
+	name = "Unathi Sharp Snout - Lower"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_sharp_lower_una"
+	heads_allowed = list("Unathi Sharp Snout")
 
 /datum/sprite_accessory/body_markings/head/optics
 	name = "Humanoid Optics"
@@ -2044,3 +2057,22 @@
 	species_allowed = list("Vulpkanin")
 	tails_allowed = list("Vulpkanin Alt 4 (Short)")
 	icon_state = "markings_vulptail5_tip"
+
+/* ALT HEADS */
+
+/datum/sprite_accessory/alt_heads
+	name = "Alternate Head"
+	icon = null
+	icon_state = null
+	species_allowed = null
+
+/datum/sprite_accessory/alt_heads/none
+	name = "None"
+	icon = null
+	icon_state = null
+	species_allowed = null
+
+/datum/sprite_accessory/alt_heads/una_sharp_snout
+	name = "Unathi Sharp Snout"
+	species_allowed = list("Unathi")
+	icon_state = "head_sharp"

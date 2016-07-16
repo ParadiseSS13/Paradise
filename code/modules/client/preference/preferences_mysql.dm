@@ -125,6 +125,7 @@
 					facial_style_name,
 					marking_styles,
 					head_accessory_style_name,
+					alt_head_name,
 					eyes_red,
 					eyes_green,
 					eyes_blue,
@@ -194,46 +195,47 @@
 		f_style = query.item[23]
 		m_styles = query.item[24]
 		ha_style = query.item[25]
-		r_eyes = text2num(query.item[26])
-		g_eyes = text2num(query.item[27])
-		b_eyes = text2num(query.item[28])
-		underwear = query.item[29]
-		undershirt = query.item[30]
-		backbag = text2num(query.item[31])
-		b_type = query.item[32]
+		alt_head = query.item[26]
+		r_eyes = text2num(query.item[27])
+		g_eyes = text2num(query.item[28])
+		b_eyes = text2num(query.item[29])
+		underwear = query.item[30]
+		undershirt = query.item[31]
+		backbag = text2num(query.item[32])
+		b_type = query.item[33]
 
 
 		//Jobs
-		alternate_option = text2num(query.item[33])
-		job_support_high = text2num(query.item[34])
-		job_support_med = text2num(query.item[35])
-		job_support_low = text2num(query.item[36])
-		job_medsci_high = text2num(query.item[37])
-		job_medsci_med = text2num(query.item[38])
-		job_medsci_low = text2num(query.item[39])
-		job_engsec_high = text2num(query.item[40])
-		job_engsec_med = text2num(query.item[41])
-		job_engsec_low = text2num(query.item[42])
-		job_karma_high = text2num(query.item[43])
-		job_karma_med = text2num(query.item[44])
-		job_karma_low = text2num(query.item[44])
+		alternate_option = text2num(query.item[34])
+		job_support_high = text2num(query.item[35])
+		job_support_med = text2num(query.item[36])
+		job_support_low = text2num(query.item[37])
+		job_medsci_high = text2num(query.item[38])
+		job_medsci_med = text2num(query.item[39])
+		job_medsci_low = text2num(query.item[40])
+		job_engsec_high = text2num(query.item[41])
+		job_engsec_med = text2num(query.item[42])
+		job_engsec_low = text2num(query.item[43])
+		job_karma_high = text2num(query.item[44])
+		job_karma_med = text2num(query.item[45])
+		job_karma_low = text2num(query.item[46])
 
 		//Miscellaneous
-		flavor_text = query.item[46]
-		med_record = query.item[47]
-		sec_record = query.item[48]
-		gen_record = query.item[49]
-		disabilities = text2num(query.item[50])
-		player_alt_titles = params2list(query.item[51])
-		organ_data = params2list(query.item[52])
-		rlimb_data = params2list(query.item[53])
-		nanotrasen_relation = query.item[54]
-		speciesprefs = text2num(query.item[55])
+		flavor_text = query.item[47]
+		med_record = query.item[48]
+		sec_record = query.item[49]
+		gen_record = query.item[50]
+		disabilities = text2num(query.item[51])
+		player_alt_titles = params2list(query.item[52])
+		organ_data = params2list(query.item[53])
+		rlimb_data = params2list(query.item[54])
+		nanotrasen_relation = query.item[55]
+		speciesprefs = text2num(query.item[56])
 
 		//socks
-		socks = query.item[56]
-		body_accessory = query.item[57]
-		gear = params2list(query.item[58])
+		socks = query.item[57]
+		body_accessory = query.item[58]
+		gear = params2list(query.item[59])
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -262,6 +264,7 @@
 	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	ha_style		= sanitize_inlist(ha_style, head_accessory_styles_list, initial(ha_style))
+	alt_head		= sanitize_inlist(alt_head, alt_heads_list, initial(alt_head))
 	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))
 	g_eyes			= sanitize_integer(g_eyes, 0, 255, initial(g_eyes))
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
@@ -341,6 +344,7 @@
 												facial_style_name='[sql_sanitize_text(f_style)]',
 												marking_styles='[m_styles]',
 												head_accessory_style_name='[sql_sanitize_text(ha_style)]',
+												alt_head_name='[sql_sanitize_text(alt_head)]',
 												eyes_red='[r_eyes]',
 												eyes_green='[g_eyes]',
 												eyes_blue='[b_eyes]',
@@ -393,7 +397,7 @@
 											skin_tone, skin_red, skin_green, skin_blue,
 											marking_colours,
 											head_accessory_red, head_accessory_green, head_accessory_blue,
-											hair_style_name, facial_style_name, marking_styles, head_accessory_style_name,
+											hair_style_name, facial_style_name, marking_styles, head_accessory_style_name, alt_head_name,
 											eyes_red, eyes_green, eyes_blue,
 											underwear, undershirt,
 											backbag, b_type, alternate_option,
@@ -414,7 +418,7 @@
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',
 											'[m_colours]',
 											'[r_headacc]', '[g_headacc]', '[b_headacc]',
-											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[m_styles]', '[sql_sanitize_text(ha_style)]',
+											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[m_styles]', '[sql_sanitize_text(ha_style)]', '[sql_sanitize_text(alt_head)]',
 											'[r_eyes]', '[g_eyes]', '[b_eyes]',
 											'[underwear]', '[undershirt]',
 											'[backbag]', '[b_type]', '[alternate_option]',

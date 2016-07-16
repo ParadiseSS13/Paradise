@@ -140,6 +140,7 @@
 	gendered_icon = 1
 	encased = "skull"
 	var/can_intake_reagents = 1
+	var/alt_head = null
 
 	//Hair colour and style
 	var/r_hair = 0

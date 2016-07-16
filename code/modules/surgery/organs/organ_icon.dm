@@ -139,6 +139,13 @@ var/global/list/limb_icon_cache = list()
 			else if(status & ORGAN_ROBOT)
 				mob_icon = new /icon('icons/mob/human_races/robotic.dmi', "[icon_name][gender ? "_[gender]" : ""]")
 			else
+				if(limb_name == "head")
+					var/obj/item/organ/external/head/head_organ = src
+					if(head_organ.alt_head)
+						var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[head_organ.alt_head]
+						if(alternate_head.icon_state)
+							icon_name = alternate_head.icon_state
+
 				if(status & ORGAN_MUTATED)
 					mob_icon = new /icon(species.deform, "[icon_name][gender ? "_[gender]" : ""]")
 				else

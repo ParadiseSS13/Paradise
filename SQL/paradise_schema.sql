@@ -48,6 +48,7 @@ CREATE TABLE `characters` (
   `facial_style_name` varchar(45) NOT NULL,
   `marking_styles` mediumtext NOT NULL,
   `head_accessory_style_name` varchar(45) NOT NULL,
+  `alt_head_name` varchar(45) NOT NULL,
   `eyes_red` smallint(4) NOT NULL,
   `eyes_green` smallint(4) NOT NULL,
   `eyes_blue` smallint(4) NOT NULL,

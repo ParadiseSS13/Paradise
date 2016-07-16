@@ -365,7 +365,7 @@ var/global/list/damage_icon_parts = list()
 	if(chest_organ && !chest_organ.is_stump() && !(chest_organ.status & ORGAN_DESTROYED) && marking_styles["body"])
 		var/body_marking = marking_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
-		if(body_marking_style)
+		if(body_marking_style && body_marking_style.species_allowed && (species.name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
 				marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
@@ -376,7 +376,7 @@ var/global/list/damage_icon_parts = list()
 	if(head_organ && !head_organ.is_stump() && !(head_organ.status & ORGAN_DESTROYED) && marking_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = marking_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
-		if(head_marking_style)
+		if(head_marking_style && head_marking_style.species_allowed && (head_organ.species.name in head_marking_style.species_allowed))
 			var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
 				marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])

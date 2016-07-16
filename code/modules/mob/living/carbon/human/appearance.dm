@@ -96,9 +96,15 @@
 	if(!(marking_style in marking_styles_list))
 		return
 
-	var/datum/sprite_accessory/marking = marking_styles_list[marking_style]
+	var/datum/sprite_accessory/body_markings/marking = marking_styles_list[marking_style]
 	if(marking.name != "None" && marking.marking_location != location)
 		return
+
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	if(location == "head" && head_organ.alt_head)
+		var/datum/sprite_accessory/body_markings/head/H
+		if(!H.heads_allowed || !(head_organ.alt_head in H.heads_allowed))
+			return
 
 	marking_styles[location] = marking_style
 	m_styles = list2params(marking_styles)
@@ -403,10 +409,18 @@
 			else
 				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
 					continue
-		if(location == "head" && H.species.flags & ALL_RPARTS) //If the user is a species that can have a robotic head...
-			var/datum/robolimb/robohead = all_robolimbs[H.model]
-			if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
-				continue
+		if(location == "head")
+			var/datum/sprite_accessory/body_markings/head/M = marking_styles_list[S.name]
+			if(H.species.flags & ALL_RPARTS)//If the user is a species that can have a robotic head...
+				var/datum/robolimb/robohead = all_robolimbs[H.model]
+				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
+					continue
+			else if(H.alt_head && H.alt_head != "None") //If the user's got an alt head, validate markings for that head.
+				if(!(H.alt_head in M.heads_allowed))
+					continue
+			else
+				if(M.heads_allowed)
+					continue
 		valid_markings += marking
 
 	return valid_markings
