@@ -225,6 +225,7 @@
 	air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/initialize()
+	..()
 	set_frequency(frequency)
 	if(!master_is_operating())
 		elect_master()

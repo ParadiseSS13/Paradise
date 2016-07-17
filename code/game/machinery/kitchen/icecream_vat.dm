@@ -87,7 +87,9 @@ var/list/ingredients_source = list(
 		dat += "No beaker inserted. "
 	dat += "<a href='?src=\ref[src];refresh=1'>Refresh</a> <a href='?src=\ref[src];close=1'>Close</a>"
 
-	user << browse(dat,"window=icecreamvat;size=600x400")
+	var/datum/browser/popup = new(user, "icecreamvat", name, 600, 400)
+	popup.set_content(dat)
+	popup.open(0)
 
 /obj/machinery/icecream_vat/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/reagent_containers))

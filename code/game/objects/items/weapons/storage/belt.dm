@@ -68,10 +68,12 @@
 	new /obj/item/weapon/crowbar(src)
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
+	update_icon()
 
 /obj/item/weapon/storage/belt/utility/full/multitool/New()
 	..()
 	new /obj/item/device/multitool(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/utility/atmostech/New()
 	..()
@@ -82,6 +84,7 @@
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/device/t_scanner(src)
 	new /obj/item/weapon/extinguisher/mini(src)
+	update_icon()
 
 
 
@@ -124,6 +127,7 @@
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	update_icon()
 
 
 /obj/item/weapon/storage/belt/botany
@@ -183,6 +187,7 @@
 /obj/item/weapon/storage/belt/security/sec/New()
 	..()
 	new /obj/item/device/flashlight/seclite(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/security/response_team/New()
 	..()
@@ -191,6 +196,7 @@
 	new /obj/item/device/flash(src)
 	new /obj/item/weapon/melee/classic_baton/telescopic(src)
 	new /obj/item/weapon/grenade/flashbang(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/soulstone
 	name = "soul stone belt"
@@ -211,6 +217,7 @@
 	new /obj/item/device/soulstone(src)
 	new /obj/item/device/soulstone(src)
 	new /obj/item/device/soulstone(src)
+	update_icon()
 
 
 /obj/item/weapon/storage/belt/champion
@@ -262,6 +269,7 @@
 	new /obj/item/weapon/soap(src)
 	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
 	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/lazarus
 	name = "trainer's belt"
@@ -366,6 +374,8 @@
 	for(var/obj/item/weapon/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
 		W.max_charges = initial(W.max_charges)
 		W.charges = W.max_charges
+	update_icon()
+
 
 /obj/item/weapon/storage/belt/fannypack
 	name = "fannypack"

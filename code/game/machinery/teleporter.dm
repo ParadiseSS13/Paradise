@@ -20,6 +20,7 @@
 	return
 
 /obj/machinery/computer/teleporter/initialize()
+	..()
 	link_power_station()
 	update_icon()
 
@@ -294,6 +295,7 @@
 	RefreshParts()
 
 /obj/machinery/teleport/hub/initialize()
+	..()
 	link_power_station()
 
 /obj/machinery/teleport/hub/Destroy()
@@ -472,6 +474,7 @@
 	link_console_and_hub()
 
 /obj/machinery/teleport/station/initialize()
+	..()
 	link_console_and_hub()
 
 /obj/machinery/teleport/station/RefreshParts()

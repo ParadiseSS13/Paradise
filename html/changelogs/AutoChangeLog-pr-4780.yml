@@ -1,0 +1,9 @@
+author: CrAzYPiLoT
+delete-after: True
+changes: 
+  - rscadd: "Ports randomized space ruins from /tg/ station. There is a number of maps which can be spawned at any location on the empty z-level at roundstart, and up to three random ones will be chosen each round. Credits to KorPhaeron."
+  - rscadd: "Lays the groundwork for a future lavaland implementation, if we choose to have it."
+  - rscadd: "Adds a feature to the map loader where areas with the right var set can be distinctly initialized on map load - meaning separate APCs, and the like."
+  - rscadd: "Using a z-level specific initialization freeze system, large elaborate maps like the cyberiad can be loaded without a single runtime, with minimal impact on the round elsewhere."
+  - rscadd: "Adds a delete mode to the \"Fill\" buildmode - just alt-click for the second corner, and everything within will be removed."
+  - rscadd: "Adds a \"Jump To\" function in VV, which is useful for getting an idea of what exactly you're looking at."

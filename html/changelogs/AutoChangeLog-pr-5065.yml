@@ -1,0 +1,6 @@
+author: Krausus
+delete-after: True
+changes: 
+  - tweak: "All admins can now see \"admin log\" messages."
+  - rscadd: "Admins can now toggle \"admin log\" messages on or off."
+  - tweak: "Admins will no longer be notified about ghosted admins jumping around."

@@ -13,7 +13,10 @@
 /obj/machinery/shield/New()
 	src.dir = pick(1,2,3,4)
 	..()
+
+/obj/machinery/shield/initialize()
 	air_update_turf(1)
+	..()
 
 /obj/machinery/shield/Destroy()
 	opacity = 0
