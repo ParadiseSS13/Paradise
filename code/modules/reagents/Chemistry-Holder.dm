@@ -341,8 +341,6 @@ var/const/INGEST = 2
 			qdel(A)
 			update_total()
 			my_atom.on_reagent_change()
-			check_gofast(my_atom)
-			check_goreallyfast(my_atom)
 			return 0
 
 

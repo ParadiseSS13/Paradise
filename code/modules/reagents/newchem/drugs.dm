@@ -251,6 +251,10 @@
 		M.adjustBrainLoss(1.0)
 	..()
 
+/datum/reagent/methamphetamine/reagent_deleted(mob/living/M)
+	M.status_flags &= ~GOTTAGOREALLYFAST
+	..()
+
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1)
@@ -618,6 +622,10 @@
 	M.adjustBrainLoss(0.5)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
+	..()
+
+/datum/reagent/lube/ultra/reagent_deleted(mob/living/M)
+	M.status_flags &= ~GOTTAGOREALLYFAST
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)

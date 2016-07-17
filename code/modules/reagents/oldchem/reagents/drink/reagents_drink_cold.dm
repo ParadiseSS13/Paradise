@@ -54,6 +54,10 @@
 	M.status_flags |= GOTTAGOFAST
 	..()
 
+/datum/reagent/drink/cold/nuka_cola/reagent_deleted(mob/living/M)
+	M.status_flags &= ~GOTTAGOFAST
+	..()
+
 /datum/reagent/drink/cold/spacemountainwind
 	name = "Space Mountain Wind"
 	id = "spacemountainwind"

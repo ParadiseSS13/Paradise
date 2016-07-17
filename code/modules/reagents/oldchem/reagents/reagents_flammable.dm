@@ -35,6 +35,10 @@
 		M.adjustBruteLoss(2)
 	..()
 
+/datum/reagent/fuel/unholywater/reagent_deleted(mob/living/M)
+	M.status_flags &= ~GOTTAGOFAST
+	..()
+
 /datum/reagent/plasma
 	name = "Plasma"
 	id = "plasma"

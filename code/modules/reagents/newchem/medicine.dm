@@ -804,6 +804,10 @@
 	M.adjustStaminaLoss(-5*REM)
 	..()
 
+/datum/reagent/medicine/stimulative_agent/reagent_deleted(mob/living/M)
+	M.status_flags &= ~GOTTAGOFAST
+	..()
+
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	if(prob(33))
 		M.adjustStaminaLoss(2.5*REM)
