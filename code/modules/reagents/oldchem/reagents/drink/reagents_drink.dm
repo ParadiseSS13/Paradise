@@ -56,7 +56,6 @@
 	color = "#FF8CFF" // rgb: 255, 140, 255
 
 /datum/reagent/drink/doctors_delight/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(M.getToxLoss() && prob(20))
 		M.adjustToxLoss(-1)
 	..()
@@ -102,7 +101,6 @@
 	color = "#863333" // rgb: 175, 175, 0
 
 /datum/reagent/drink/banana/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.nutrition += nutriment_factor
 	if((istype(M, /mob/living/carbon/human) && M.job in list("Clown") ) || issmall(M))
 		M.adjustBruteLoss(-1)
@@ -117,7 +115,6 @@
 /datum/reagent/drink/nothing/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
-		if(!M) M = holder.my_atom
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
@@ -266,7 +263,6 @@
 	color = "#664300" // rgb: 102, 67, 0
 
 /datum/reagent/drink/bananahonk/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.nutrition += nutriment_factor
 	if((istype(M, /mob/living/carbon/human) && M.job in list("Clown") ) || issmall(M))
 		M.adjustBruteLoss(-1)
@@ -281,10 +277,8 @@
 	color = "#664300" // rgb: 102, 67, 0
 
 /datum/reagent/drink/silencer/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
-		if(!M) M = holder.my_atom
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()

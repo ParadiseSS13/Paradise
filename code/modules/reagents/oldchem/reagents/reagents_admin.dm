@@ -8,7 +8,6 @@
 	admin_only = 1
 
 /datum/reagent/adminordrazine/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom ///This can even heal dead people.
 	M.setCloneLoss(0)
 	M.setOxyLoss(0)
 	M.radiation = 0

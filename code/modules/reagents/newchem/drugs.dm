@@ -14,7 +14,6 @@
 	addiction_chance = 70
 
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
@@ -75,7 +74,6 @@
 	addiction_chance = 50
 
 /datum/reagent/crank/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.AdjustParalysis(-2)
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
@@ -161,7 +159,6 @@
 
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.jitteriness -= 40
 	if(prob(25))
 		M.adjustBrainLoss(1)
@@ -239,7 +236,6 @@
 	metabolization_rate = 0.6
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	if(current_cycle >= 25)
@@ -324,7 +320,6 @@
 	metabolization_rate = 0.6
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	var/check = rand(0,100)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -445,7 +440,6 @@
 	addiction_chance = 30
 
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.Dizzy(5)
 	if(prob(10))
 		M.emote(pick("twitch_s","drool","moan"))
@@ -467,7 +461,6 @@
 	color = "#60A584" // rgb: 96, 165, 132
 
 /datum/reagent/aranesp/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustStaminaLoss(-40)
 	if(prob(90))
 		M.adjustToxLoss(1)
@@ -492,7 +485,6 @@
 
 
 /datum/reagent/thc/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.stuttering += rand(0,2)
 	if(prob(5))
 		M.emote(pick("laugh","giggle","smile"))
@@ -532,7 +524,6 @@
 	..()
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(current_cycle == 5)
 		M.SpinAnimation(speed = 11, loops = -1)
 	if(current_cycle == 10)
@@ -612,7 +603,6 @@
 	mix_message = "The mixture darkens and appears to partially vaporize into a chilling aerosol."
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
 	if(prob(1))
 		if(prob(1))
@@ -657,7 +647,6 @@
 
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.druggy = max(M.druggy, 15)
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 	if(prob(1))

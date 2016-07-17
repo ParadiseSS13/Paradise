@@ -12,16 +12,18 @@
 	var/chem_temp = 300
 	var/list/datum/reagent/addiction_list = new/list()
 
-/datum/reagents/proc/metabolize(mob/M)
+/datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
-		if(!istype(M, /mob/living))		//Non-living mobs can't metabolize reagents, so don't bother trying (runtime safety check)
-			return
 		chem_temp = M.bodytemperature
 		handle_reactions()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(!istype(R))
 			continue
+		if(!R.holder)
+			continue
+		if(!M)
+			M = R.holder.my_atom
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent

@@ -20,7 +20,6 @@
 	color = "#535E66" // rgb: 83, 94, 102
 
 /datum/reagent/nanomachines/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	if(volume > 1.5)
 		M.ForceContractDisease(new /datum/disease/transformation/robot(0))
 	..()
@@ -33,7 +32,6 @@
 	color = "#535E66" // rgb: 83, 94, 102
 
 /datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	if(volume > 1.5)
 		M.ContractDisease(new /datum/disease/transformation/xeno(0))
 	..()
@@ -45,7 +43,6 @@
 	color = "#92D17D" // rgb: 146, 209, 125
 
 /datum/reagent/fungalspores/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	if(volume > 2.5)
 		M.ForceContractDisease(new /datum/disease/tuberculosis(0))
 	..()
@@ -58,7 +55,6 @@
 	color = "#FA0000" // rgb: 250, 0, 0
 
 /datum/reagent/jagged_crystals/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	M.ForceContractDisease(new /datum/disease/berserker(0))
 	..()
 
@@ -70,7 +66,6 @@
 	color = "#1E4600"
 
 /datum/reagent/salmonella/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 	..()
 
@@ -82,7 +77,6 @@
 	color = "#FF0000"
 
 /datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	if(volume > 2.5)
 		M.ForceContractDisease(new /datum/disease/gbs/curable(0))
 	..()
@@ -95,7 +89,6 @@
 	color = "#FFFFFF"
 
 /datum/reagent/prions/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	if(volume > 4.5)
 		M.ForceContractDisease(new /datum/disease/kuru(0))
 	..()
@@ -108,7 +101,6 @@
 	color = "#465046"
 
 /datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	if(volume > 4.5)
 		M.ForceContractDisease(new /datum/disease/vampire(0))
 	..()
@@ -121,7 +113,6 @@
 	color = "#925D6C"
 
 /datum/reagent/heartworms/on_mob_life(mob/living/carbon/M)
-	if(!M) M = holder.my_atom
 	if(volume > 4.5)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -141,7 +132,6 @@
 	var/blob_point_rate = 3
 
 /datum/reagent/spore/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(holder.has_reagent("atrazine",45))
 		holder.del_reagent("spore") //apparently this never metabolizes and stays in forever unless you have 45 units of atrazine in you or some stupid thing like that.
 	if(prob(1))

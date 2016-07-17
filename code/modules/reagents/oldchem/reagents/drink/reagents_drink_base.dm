@@ -12,7 +12,6 @@
 	var/adj_temp_cool = 0
 
 /datum/reagent/drink/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.nutrition += nutriment_factor
 	if(adj_dizzy)
 		M.dizziness = max(0, M.dizziness + adj_dizzy)

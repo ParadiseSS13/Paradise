@@ -21,7 +21,6 @@
 	color = "#808080" // rgb: 128, 128, 128
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if(M.canmove && !M.restrained())
 			step(M, pick(cardinal))
@@ -38,7 +37,6 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 
 /datum/reagent/hippies_delight/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.druggy = max(M.druggy, 50)
 	switch(current_cycle)
 		if(1 to 5)
@@ -67,7 +65,6 @@
 	color = "#0000D8"
 
 /datum/reagent/lsd/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.druggy = max(M.druggy, 15)
 	M.hallucination += 10
 	..()
@@ -82,7 +79,6 @@
 	addiction_chance = 65
 
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.druggy = max(M.druggy, 15)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if(M.canmove && !M.restrained())

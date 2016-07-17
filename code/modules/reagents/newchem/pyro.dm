@@ -37,7 +37,6 @@
 	min_temp = 424
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjust_fire_stacks(4)
 	M.adjustFireLoss(0.35*M.fire_stacks)
 	..()
@@ -421,7 +420,6 @@
 		new /obj/effect/hotspot(turf)
 
 /datum/reagent/phlogiston/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjust_fire_stacks(1)
 	M.IgniteMob()
 	M.adjustFireLoss(0.2*M.fire_stacks)
@@ -436,7 +434,6 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/napalm/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjust_fire_stacks(1)
 	..()
 

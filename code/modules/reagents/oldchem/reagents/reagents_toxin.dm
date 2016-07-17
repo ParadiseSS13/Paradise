@@ -6,7 +6,6 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(2)
 	..()
 
@@ -18,9 +17,8 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 
 /datum/reagent/spider_venom/on_mob_life(mob/living/M)
-		if(!M) M = holder.my_atom
-		M.adjustToxLoss(1.5)
-		..()
+	M.adjustToxLoss(1.5)
+	..()
 
 /datum/reagent/plasticide
 	name = "Plasticide"
@@ -30,7 +28,6 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 
 /datum/reagent/plasticide/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1.5)
 	..()
 
@@ -43,7 +40,6 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(FAT in M.mutations)
 		M.gib()
 	..()
@@ -71,7 +67,6 @@
 	color = "#13BC5E" // rgb: 19, 188, 94
 
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
 		if(human.species.name != "Shadow")
@@ -104,7 +99,6 @@
 	penetrates_skin = 1
 
 /datum/reagent/mercury/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(70))
 		M.adjustBrainLoss(1)
 	..()
@@ -119,7 +113,6 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/chlorine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustFireLoss(1)
 	..()
 
@@ -133,7 +126,6 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustFireLoss(1)
 	M.adjustToxLoss(1*REM)
 	..()
@@ -148,7 +140,6 @@
 	penetrates_skin = 1
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(M.radiation < 80)
 		M.apply_effect(4, IRRADIATE, negate_armor = 1)
 	..()
@@ -180,7 +171,6 @@
 
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	if(!M) M = holder.my_atom
 	M.apply_effect(2*REM, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
@@ -195,7 +185,6 @@
 	color = "#B8B8C0" // rgb: 184, 184, 192
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
 	..()
 
@@ -215,9 +204,6 @@
 	metabolization_rate = 0.2
 
 /datum/reagent/lexorin/on_mob_life(mob/living/M)
-	if(M.stat == 2.0)
-		return
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1)
 	..()
 
@@ -231,7 +217,6 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/sacid/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustFireLoss(1)
 	..()
 
@@ -321,7 +306,6 @@
 	color = "#003333" // rgb: 0, 51, 51
 
 /datum/reagent/carpotoxin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(2*REM)
 	..()
 
@@ -433,7 +417,6 @@
 				victim.drop_item()
 
 /datum/reagent/condensedcapsaicin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(5))
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
 	..()

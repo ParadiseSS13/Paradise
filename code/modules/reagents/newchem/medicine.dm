@@ -25,7 +25,6 @@
 	..()
 
 /datum/reagent/silver_sulfadiazine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustFireLoss(-2*REM)
 	..()
 
@@ -51,7 +50,6 @@
 	..()
 
 /datum/reagent/styptic_powder/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustBruteLoss(-2*REM)
 	..()
 
@@ -65,8 +63,6 @@
 	metabolization_rate = 0.15
 
 /datum/reagent/salglu_solution/on_mob_life(mob/living/M)
-	if(!M)
-		M = holder.my_atom
 	if(prob(33))
 		M.adjustBruteLoss(-2*REM)
 		M.adjustFireLoss(-2*REM)
@@ -84,7 +80,6 @@
 	color = "#FFEBEB"
 
 /datum/reagent/synthflesh/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
-	if(!M) M = holder.my_atom
 	if(iscarbon(M))
 		if(method == TOUCH)
 			M.adjustBruteLoss(-1.5*volume)
@@ -107,7 +102,6 @@
 	color = "#000000"
 
 /datum/reagent/charcoal/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1.5*REM)
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
@@ -169,7 +163,6 @@
 	addiction_chance = 5
 
 /datum/reagent/omnizine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1*REM)
 	M.adjustOxyLoss(-1*REM)
 	M.adjustBruteLoss(-2*REM)
@@ -221,7 +214,6 @@
 	metabolization_rate = 0.8
 
 /datum/reagent/calomel/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,5)
@@ -248,7 +240,6 @@
 	color = "#B4DCBE"
 
 /datum/reagent/potass_iodide/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(80))
 		M.radiation = max(0, M.radiation-1)
 	..()
@@ -269,7 +260,6 @@
 	color = "#C8A5DC"
 
 /datum/reagent/pen_acid/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,4)
@@ -301,7 +291,6 @@
 	overdose_threshold = 25
 
 /datum/reagent/sal_acid/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(55))
 		M.adjustBruteLoss(-2*REM)
 	if(ishuman(M))
@@ -328,7 +317,6 @@
 	metabolization_rate = 0.2
 
 /datum/reagent/salbutamol/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustOxyLoss(-6*REM)
 	M.losebreath = max(0, M.losebreath-4)
 	..()
@@ -352,7 +340,6 @@
 	addiction_chance = 20
 
 /datum/reagent/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
-	if(!M) M = holder.my_atom
 	M.adjustOxyLoss(-25*REM)
 	if(volume >= 4)
 		M.losebreath = max(M.losebreath, 6)
@@ -383,7 +370,6 @@
 	addiction_chance = 25
 
 /datum/reagent/ephedrine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
@@ -437,7 +423,6 @@
 	addiction_chance = 10
 
 /datum/reagent/diphenhydramine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.jitteriness = max(0, M.jitteriness-20)
 	M.reagents.remove_reagent("histamine",3)
 	M.reagents.remove_reagent("itching_powder",3)
@@ -469,7 +454,6 @@
 	shock_reduction = 50
 
 /datum/reagent/morphine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.jitteriness = max(0, M.jitteriness-25)
 	switch(current_cycle)
 		if(1 to 15)
@@ -487,7 +471,6 @@
 	..()
 
 /datum/reagent/oculine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(80))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -533,7 +516,6 @@
 	overdose_threshold = 25
 
 /datum/reagent/atropine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.dizziness += 1
 	M.confused = max(M.confused, 5)
 	if(prob(4))
@@ -569,7 +551,6 @@
 	overdose_threshold = 20
 
 /datum/reagent/epinephrine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.drowsyness = max(0, M.drowsyness-5)
 	if(prob(20))
 		M.AdjustParalysis(-1)
@@ -663,7 +644,6 @@
 	..()
 
 /datum/reagent/strange_reagent/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(10))
 		M.adjustBruteLoss(2*REM)
 		M.adjustToxLoss(2*REM)
@@ -778,7 +758,6 @@
 	metabolization_rate = 0.4
 
 /datum/reagent/stimulants/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(volume > 5)
 		M.adjustOxyLoss(-5*REM)
 		M.adjustToxLoss(-5*REM)
@@ -801,7 +780,6 @@
 	..()
 
 /datum/reagent/stimulants/reagent_deleted(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
 	..()
 
@@ -840,7 +818,6 @@
 	color = "#C8A5DC"
 
 /datum/reagent/insulin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.reagents.remove_reagent("sugar", 5)
 	..()
 
@@ -869,7 +846,6 @@
 	overdose_threshold = 50
 
 /datum/reagent/teporone/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(M.bodytemperature < 311)
@@ -893,7 +869,6 @@
 	color = "#FFDCFF"
 
 /datum/reagent/haloperidol/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.reagents.remove_reagent("crank", 5)
 	M.reagents.remove_reagent("methamphetamine", 5)
 	M.reagents.remove_reagent("space_drugs", 5)
@@ -932,7 +907,6 @@
 	color = "#96DEDE"
 
 /datum/reagent/ether/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.jitteriness = max(M.jitteriness-25,0)
 	switch(current_cycle)
 		if(1 to 15)
@@ -982,7 +956,6 @@
 			T.MakeDry(TURF_WET_LUBE)
 
 /datum/reagent/degreaser/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)

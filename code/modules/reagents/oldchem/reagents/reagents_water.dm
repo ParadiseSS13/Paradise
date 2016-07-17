@@ -257,7 +257,6 @@
 		to_chat(M, "Oh god, why did you drink that?")
 
 /datum/reagent/fishwater/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
 		if(prob(50))	// 50/50 chance of green vomit vs normal vomit
 			M.fakevomit(1)

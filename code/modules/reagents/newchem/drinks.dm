@@ -15,7 +15,6 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ginsonic/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.drowsyness = max(0, M.drowsyness-5)
 	if(prob(25))
 		M.AdjustParalysis(-1)
@@ -77,7 +76,6 @@
 			M.adjust_fire_stacks(3)
 
 /datum/reagent/ethanol/dragons_breath/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(M.reagents.has_reagent("milk"))
 		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
 		M.reagents.del_reagent("milk")
@@ -127,7 +125,7 @@
 	mix_message = "The chemicals mix to create shiny, blue substance."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/ethanol/synthanol/on_mob_life(mob/living/M, alien)
+/datum/reagent/ethanol/synthanol/on_mob_life(mob/living/M)
 	if(!M.isSynthetic())
 		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
 		if(prob(25))

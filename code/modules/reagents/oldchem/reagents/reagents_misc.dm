@@ -152,8 +152,6 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
-	if(!M)
-		M = holder.my_atom
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD))

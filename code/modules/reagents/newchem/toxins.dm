@@ -14,7 +14,6 @@
 	penetrates_skin = 1
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.apply_effect(8, IRRADIATE, negate_armor = 1)
 	..()
 
@@ -37,7 +36,6 @@
 			M.emote("drool")
 
 /datum/reagent/histamine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(20))
 		M.emote(pick("twitch", "grumble", "sneeze", "cough"))
 	if(prob(10))
@@ -102,7 +100,6 @@
 	penetrates_skin = 1
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1*REM)
 	if(prob(10))
 		M.reagents.add_reagent("histamine",rand(5,15))
@@ -127,7 +124,6 @@
 	overdose_threshold = 40
 
 /datum/reagent/venom/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(25))
 		M.reagents.add_reagent("histamine",rand(5,10))
 	if(volume < 20)
@@ -206,7 +202,6 @@
 	penetrates_skin = 1
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1.5*REM)
 	if(prob(5))
 		M.emote("drool")
@@ -247,7 +242,6 @@
 	penetrates_skin = 1
 
 /datum/reagent/itching_powder/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(25))
 		M.emote(pick("twitch", "laugh", "sneeze", "cry"))
 	if(prob(20))
@@ -282,7 +276,6 @@
 	mix_sound = 'sound/effects/blobattack.ogg'
 
 /datum/reagent/facid/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1*REM)
 	M.adjustFireLoss(1)
 	..()
@@ -366,7 +359,6 @@
 	metabolization_rate = 0.4
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(33))
 		M.adjustToxLoss(rand(5,25))
 	if(prob(33))
@@ -406,7 +398,6 @@
 	metabolization_rate = 0.4
 
 /datum/reagent/concentrated_initro/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(volume >=5)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -422,7 +413,6 @@
 	metabolization_rate = 0.2
 
 /datum/reagent/pancuronium/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	switch(current_cycle)
 		if(1 to 5)
 			if(prob(10))
@@ -455,7 +445,6 @@
 	metabolization_rate = 0.7
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	switch(current_cycle)
 		if(1)
 			M.emote("drool")
@@ -483,7 +472,6 @@
 	penetrates_skin = 1
 
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	switch(current_cycle)
 		if(1 to 5)
 			if(prob(25))
@@ -517,7 +505,6 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/sulfonal/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.jitteriness = max(0, M.jitteriness-30)
 	switch(current_cycle)
 		if(1 to 10)
@@ -543,7 +530,6 @@
 	color = "#D9D9D9"
 
 /datum/reagent/amanitin/reagent_deleted(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(current_cycle*rand(2,4))
 	..()
 
@@ -563,7 +549,6 @@
 	result_amount = 3
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(!M.nutrition)
 		switch(rand(1,3))
 			if(1)
@@ -587,7 +572,6 @@
 	metabolization_rate = 0.05
 
 /datum/reagent/coniine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(2)
 	M.losebreath += 5
 	..()
@@ -602,7 +586,6 @@
 	penetrates_skin = 1
 
 /datum/reagent/curare/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1)
 	M.adjustOxyLoss(1)
 	switch(current_cycle)
@@ -654,7 +637,6 @@
 			C.reagents.add_reagent("sarin",4)
 
 /datum/reagent/sarin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	switch(current_cycle)
 		if(1 to 15)
 			M.jitteriness += 20
@@ -708,7 +690,6 @@
 	color = "#17002D"
 
 /datum/reagent/atrazine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(2)
 	..()
 
@@ -777,7 +758,6 @@
 	mix_message = "The smell of death wafts up from the solution."
 
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	switch(current_cycle)
 		if(1 to 5)
 			M.eye_blurry += 10
@@ -808,7 +788,6 @@
 	mix_message = "The solution begins to slosh about violently by itself."
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.silent = max(M.silent, 2)
 	..()
 
@@ -820,7 +799,6 @@
 	color = "#00C81E"
 
 /datum/reagent/toxic_slurry/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(10))
 		M.adjustToxLoss(rand(2.4))
 	if(prob(7))
@@ -847,7 +825,6 @@
 		M.UpdateAppearance()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
 	if(prob(15))
 		randmutb(M)
@@ -874,7 +851,6 @@
 
 
 /datum/reagent/ants/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustBruteLoss(2)
 	..()
 

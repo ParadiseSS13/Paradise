@@ -42,7 +42,6 @@
 	color = "#7A2B94"
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1*REM)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)

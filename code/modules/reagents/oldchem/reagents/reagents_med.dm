@@ -8,7 +8,6 @@
 	shock_reduction = 200
 
 /datum/reagent/hydrocodone/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.traumatic_shock < 100)
@@ -42,7 +41,6 @@
 	overdose_threshold = 40
 
 /datum/reagent/synaptizine/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
@@ -81,7 +79,6 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
 /datum/reagent/mitocholide/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
@@ -105,7 +102,6 @@
 	color = "#0000C8" // rgb: 200, 165, 220
 
 /datum/reagent/cryoxadone/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(M.bodytemperature < 265)
 		M.adjustCloneLoss(-4)
 		M.adjustOxyLoss(-10)

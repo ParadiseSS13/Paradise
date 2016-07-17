@@ -23,7 +23,6 @@
 	color = "#F0C814"
 
 /datum/reagent/egg/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(8))
 		M.emote("fart")
 	if(prob(3))
@@ -76,7 +75,6 @@
 	color = "#C8A5DC"
 
 /datum/reagent/corn_syrup/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.reagents.add_reagent("sugar", 1.2)
 	..()
 
@@ -97,7 +95,6 @@
 	color = "#C8A5DC"
 
 /datum/reagent/vhfcs/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.reagents.add_reagent("sugar", 2.4)
 	..()
 
@@ -118,8 +115,6 @@
 	color = "#d3a308"
 
 /datum/reagent/honey/on_mob_life(mob/living/M)
-	if(!M)
-		M = holder.my_atom
 	M.reagents.add_reagent("sugar", 0.4)
 	if(prob(20))
 		M.heal_organ_damage(3,1)
@@ -134,7 +129,6 @@
 	color = "#2E2418"
 
 /datum/reagent/chocolate/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.nutrition += nutriment_factor
 	M.reagents.add_reagent("sugar", 0.8)
 	..()
@@ -152,7 +146,6 @@
 	color = "#21170E"
 
 /datum/reagent/mugwort/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(istype(M, /mob/living/carbon/human) && M.mind)
 		if(M.mind.special_role == "Wizard")
 			M.adjustToxLoss(-1*REM)
@@ -318,7 +311,6 @@
 	color = "#684435"
 
 /datum/reagent/beans/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(prob(10))
 		M.emote("fart")
 	..()

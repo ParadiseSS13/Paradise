@@ -10,8 +10,6 @@
 	color = "#664330" // rgb: 102, 67, 48
 
 /datum/reagent/nutriment/on_mob_life(mob/living/M)
-	if(!M)
-		M = holder.my_atom
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -38,7 +36,6 @@
 	color = "#664330" // rgb: 102, 67, 48
 
 /datum/reagent/protein/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -61,7 +58,6 @@
 	color = "#664330" // rgb: 102, 67, 48
 
 /datum/reagent/plantmatter/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -100,7 +96,6 @@
 	color = "#B31008" // rgb: 179, 16, 8
 
 /datum/reagent/capsaicin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	switch(current_cycle)
 		if(1 to 15)
 			M.bodytemperature += 5 * TEMPERATURE_DAMAGE_COEFFICIENT
@@ -131,7 +126,6 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/frostoil/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	switch(current_cycle)
 		if(1 to 15)
 			M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
@@ -217,7 +211,6 @@
 	color = "#E700E7" // rgb: 231, 0, 231
 
 /datum/reagent/psilocybin/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.druggy = max(M.druggy, 30)
 	switch(current_cycle)
 		if(1 to 5)
@@ -249,7 +242,6 @@
 /datum/reagent/sprinkles/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
 	if(istype(M, /mob/living/carbon/human) && M.job in list("Security Officer", "Head of Security", "Detective", "Warden"))
-		if(!M) M = holder.my_atom
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()

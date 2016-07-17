@@ -63,7 +63,7 @@
 	src = null
 	return
 
-/datum/reagent/proc/on_mob_life(mob/living/M, alien)
+/datum/reagent/proc/on_mob_life(mob/living/M)
 	if(!istype(M))
 		return
 	if(holder)

@@ -10,7 +10,7 @@
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 
-/datum/reagent/ethanol/on_mob_life(mob/living/M, alien)
+/datum/reagent/ethanol/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
 	M.AdjustDrunk(alcohol_perc)
 	M.dizziness += dizzy_adj
@@ -88,7 +88,6 @@
 
 //copy paste from LSD... shoot me
 /datum/reagent/ethanol/absinthe/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.hallucination += 5
 	..()
 

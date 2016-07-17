@@ -61,7 +61,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	color = "#474747"
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1.5)
 	..()
 
@@ -285,8 +284,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	mix_message = "The substance makes a little 'toot' noise and starts to smell pretty bad."
 
 /datum/reagent/fartonium/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
-
 	if(prob(66))
 		M.emote("fart")
 
@@ -363,8 +360,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
 /datum/reagent/love/on_mob_life(mob/living/M)
-	if(!M) M = holder.my_atom
-
 	if(M.a_intent == I_HARM)
 		M.a_intent = I_HELP
 
