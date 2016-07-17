@@ -67,10 +67,9 @@
 	set_antag_hud(wiz_mind.current, null)
 
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
-	if(!(locate(/datum/objective/hijack) in wizard.objectives))
-		var/datum/objective/hijack/hijack_objective = new
-		hijack_objective.owner = wizard
-		wizard.objectives += hijack_objective
+	var/datum/objective/wizchaos/wiz_objective = new
+	wiz_objective.owner = wizard
+	wizard.objectives += wiz_objective
 	return
 
 
