@@ -9,7 +9,7 @@ var/global/nologevent = 0
 	log_adminwarn(msg)
 	for(var/client/C in admins)
 		if(R_ADMIN & C.holder.rights)
-			if(!(C.prefs.toggles & CHAT_NO_ADMINLOGS))
+			if(C.prefs && !(C.prefs.toggles & CHAT_NO_ADMINLOGS))
 				to_chat(C, msg)
 
 /proc/msg_admin_attack(var/text) //Toggleable Attack Messages
