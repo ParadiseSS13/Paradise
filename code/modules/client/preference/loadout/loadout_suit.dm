@@ -1,19 +1,19 @@
 /datum/gear/suit
 	subtype_path = /datum/gear/suit
 	slot = slot_wear_suit
+	cost = 2
 	sort_category = "External Wear"
 
 //WINTER COATS
 /datum/gear/suit/coat
 	subtype_path = /datum/gear/suit/coat
-	cost = 2
 
 /datum/gear/suit/coat/grey
 	display_name = "winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat
 
 /datum/gear/suit/coat/job
-	subtype_path = /datum/gear/suit/coat
+	subtype_path = /datum/gear/suit/coat/job
 	subtype_cost_overlap = FALSE
 
 /datum/gear/suit/coat/job/sec

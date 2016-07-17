@@ -1,0 +1,6 @@
+author: DaveTheHeadcrab
+delete-after: True
+changes: 
+  - tweak: "Plastic explosives are now a subtype of grenades. Shouldn't be any noticable difference for players."
+  - tweak: "Plastic explosives no longer use the wire datum. You may directly attach an assembly holder (Such as a remote signaller + igniter assembly)"
+  - rscadd: "Adds X-4 shaped charges, designed for breaching explosively without harming the user. Pick some up at your local nukies r us."

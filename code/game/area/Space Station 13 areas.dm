@@ -29,6 +29,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	layer = 10
 	luminosity = 0
 	mouse_opacity = 0
+	invisibility = INVISIBILITY_LIGHTING
 	var/lightswitch = 1
 
 	var/eject = null

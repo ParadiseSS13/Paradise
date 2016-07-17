@@ -148,10 +148,10 @@ var/global/sent_syndicate_strike_team = 0
 
 	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/c4(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/x4(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
 	if(!syndicate_leader_selected)
-		equip_to_slot_or_del(new /obj/item/weapon/c4(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/x4(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/weapon/card/emag(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/weapon/pinpointer(src), slot_in_backpack)
