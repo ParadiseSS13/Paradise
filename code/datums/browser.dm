@@ -97,7 +97,7 @@
 /datum/browser/proc/get_content()
 	return {"
 	[get_header()]
-	[content]
+	[sanitize_local(content, SANITIZE_BROWSER)]
 	[get_footer()]
 	"}
 

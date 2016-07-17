@@ -40,6 +40,9 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 
+/obj/item/weapon/melee/touch_attack/disintegrate/ripandtear
+	catchphrase = "RIP AND TEAR YOUR GUTS, RIP AND TEAR!!!!"
+
 /obj/item/weapon/melee/touch_attack/disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
 		return

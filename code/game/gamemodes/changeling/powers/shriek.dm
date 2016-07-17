@@ -16,10 +16,10 @@
 				M.confused += 20
 				M.Jitter(50)
 			else
-				M << sound('sound/effects/screech.ogg')
+				M << sound('sound/effects/screech.ogg')
 
 		if(issilicon(M))
-			M << sound('sound/weapons/flash.ogg')
+			M << sound('sound/weapons/flash.ogg')
 			M.Weaken(rand(5,10))
 
 	for(var/obj/machinery/light/L in range(4, user))
@@ -42,5 +42,3 @@
 		L.broken()
 	empulse(get_turf(user), 2, 4, 1)
 	return 1
-
-

@@ -60,7 +60,7 @@
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
-			M << 'sound/effects/singlebeat.ogg'
+			M << 'sound/effects/singlebeat.ogg'
 			M.Paralyse(5)
 			M.Jitter(30)
 			M.adjustToxLoss(6)
@@ -364,7 +364,7 @@
 /datum/reagent/bath_salts/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(method == INGEST)
 		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
-		M << 'sound/effects/singlebeat.ogg'
+		M << 'sound/effects/singlebeat.ogg'
 		M.emote("faint")
 		M.apply_effect(5, IRRADIATE, negate_armor = 1)
 		M.adjustToxLoss(5)

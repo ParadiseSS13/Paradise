@@ -35,6 +35,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+
 /*
  * Costume
  */
@@ -815,6 +816,13 @@
 	item_state = "noble_coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/suit/grisha_apron
+	name = "Grisha's apron"
+	desc = "Branded orange apron. Only by looking at it, you start wondering about art of cooking."
+	icon_state = "zu_apron"
+	item_state = "zu_apron"
+	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 ///Advanced Protective Suit, AKA, God Mode in wearable form.
 

@@ -86,7 +86,7 @@ nanoui is used to open and update nano browser uis
 	add_template("main", ntemplate_filename)
 
 	if(ntitle)
-		title = ntitle
+		title = sanitize(ntitle)
 	if(nwidth)
 		width = nwidth
 	if(nheight)
@@ -186,7 +186,7 @@ nanoui is used to open and update nano browser uis
 			"showMap" = show_map,
 			"mapZLevel" = map_z_level,
 			"user" = list(
-				"name" = user.name,
+				"name" = sanitize(user.name),
 				"fancy" = user.client.prefs.nanoui_fancy
 			),
 			"window" = list(
@@ -345,20 +345,20 @@ nanoui is used to open and update nano browser uis
 
 	var/head_content = ""
 
-	for(var/filename in scripts)
+	for (var/filename in scripts)
 		head_content += "<script type='text/javascript' src='[filename]'></script> "
 
-	for(var/filename in stylesheets)
+	for (var/filename in stylesheets)
 		head_content += "<link rel='stylesheet' type='text/css' href='[filename]'> "
 
 	var/template_data_json = "{}" // An empty JSON object
 	if(templates.len > 0)
-		template_data_json = json_encode(templates)
+		template_data_json = list2json(templates)
 
 	var/list/send_data = get_send_data(initial_data)
-	var/initial_data_json = replacetext(replacetext(json_encode(send_data), "&#34;", "&amp;#34;"), "'", "&#39;")
+	var/initial_data_json = replacetext(replacetext(list2json_usecache(send_data), "&#34;", "&amp;#34;"), "'", "&#39;")
 
-	var/url_parameters_json = json_encode(list("src" = "\ref[src]"))
+	var/url_parameters_json = list2json(list("src" = "\ref[src]"))
 
 	return {"
 <!DOCTYPE html>
@@ -412,7 +412,7 @@ nanoui is used to open and update nano browser uis
 	if(status == STATUS_CLOSE)
 		return
 
-	user << browse(get_html(), "window=[window_id];[window_size][window_options]")
+	user << browse(sanitize_local(get_html(), SANITIZE_BROWSER), "window=[window_id];[window_size][window_options]")
 	winset(user, "mapwindow.map", "focus=true") // return keyboard focus to map
 	on_close_winset()
 	//onclose(user, window_id)
@@ -457,7 +457,7 @@ nanoui is used to open and update nano browser uis
 
 //	to_chat(user, list2json_usecache(send_data))// used for debugging //NANO DEBUG HOOK
 
-	user << output(list2params(list(json_encode(send_data))),"[window_id].browser:receiveUpdateData")
+	user << output(list2params(list(list2json_usecache(send_data))),"[window_id].browser:receiveUpdateData")
 
  /**
   * This Topic() proc is called whenever a user clicks on a link within a Nano UI
