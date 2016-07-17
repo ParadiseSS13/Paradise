@@ -157,8 +157,10 @@ obj/machinery/air_sensor
 	attack_hand(mob/user)
 		if(..(user))
 			return
-		var/html=return_text()+"</body></html>"
-		user << browse(html,"window=gac")
+		var/html=return_text()
+		var/datum/browser/popup = new(user, "gac", name, 400, 400)
+		popup.set_content(html)
+		popup.open(0)
 		user.set_machine(src)
 		onclose(user, "gac")
 
@@ -220,16 +222,12 @@ obj/machinery/air_sensor
 			else
 				sensor_data = "<em>No sensors connected.</em>"
 
-		var/output = {"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-	<head>
-		<title>[name]</title>
+		var/output = {"
 		<style type="text/css">
 html,body {
 	font-family:sans-serif,verdana;
 	font-size:smaller;
-	color:#666;
+	color:#fff;
 }
 h1 {
 	border-bottom:1px solid maroon;
@@ -251,15 +249,12 @@ th {
 
 fieldset {
 	border:1px solid #ccc;
-	background: #efefef;
+	background: #333;
 }
 legend {
 	font-weight:bold;
 }
 		</style>
-	</head>
-	<body>
-		<h1>[name]</h1>
 		[show_sensors ? "<h2>Sensor Data:</h2>" + sensor_data : ""]
 		"}
 

@@ -1,0 +1,4 @@
+author: monster860
+delete-after: True
+changes: 
+  - rscadd: "A bunch of interfaces now use /datum/browser."

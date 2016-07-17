@@ -1,0 +1,14 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Removes most of the miner's uniform equipment from their lockers and puts it in a miner's wardrobe"
+  - tweak: "Miners start off with a lot of their clothing equipment equipped to them"
+  - rscadd: "Miners now have unique headset sprites"
+  - tweak: "Miners no longer have lanterns, but a seclite; they can attach this to their kinetic accelerators now"
+  - tweak: "Miners have workboots instead of black shoes"
+  - tweak: "Miners no longer have a default mining scanner but an advanced one that works at reduced range (5 instead of 7) and has a longer cooldown between pulses (5 instead of 3.5)"
+  - tweak: "removed extra mining hardsuit from the outpost"
+  - tweak: "removed medikit spam from outpost; now just a toxin kit and a regular medical kit"
+  - rscadd: "Bluespace crystals now earn you points and can be refined into bluespace polycrystal sheets"
+  - tweak: "Spare vouchers from QM and HoP removed"
+  - tweak: "removed armor from the fake tactical turtleneck"
