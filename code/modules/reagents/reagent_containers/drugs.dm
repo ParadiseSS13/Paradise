@@ -133,7 +133,4 @@
 		overlays += filling
 
 /obj/item/weapon/reagent_containers/drugs/baggie/meth
-
-/obj/item/weapon/reagent_containers/drugs/New()
-	..()
-	reagents.add_reagent("methamphetamine", 10)
+	list_reagents = list("methamphetamine" = 10)

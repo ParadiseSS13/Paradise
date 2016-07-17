@@ -207,7 +207,7 @@
 	name = "Acid Bottle"
 	desc = "A reagent bottle. Contains sulfuric acid."
 	icon_state = "rbottle6"
-	list_reagents = list("diethylamine" = 50)
+	list_reagents = list("sacid" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/formaldehyde
 	name = "Formaldehyde Bottle"

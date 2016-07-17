@@ -121,7 +121,7 @@
 	volume = 40
 	spray_maxrange = 4
 	amount_per_transfer_from_this = 5
-	list_reagents = list("condensedcapsaicin" = 50)
+	list_reagents = list("condensedcapsaicin" = 40)
 
 //water flower
 /obj/item/weapon/reagent_containers/spray/waterflower
