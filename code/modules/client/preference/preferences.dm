@@ -1184,7 +1184,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-
 					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 					var/prev_species = species
 //						var/whitelisted = 0
@@ -1269,6 +1268,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						m_styles = "head=None;\
 									body=None;\
 									tail=None" // No Unathi markings on Tajara
+						alt_head = null	//No alt heads on species that don't have them.
 
 						body_accessory = null //no vulptail on humans damnit
 
@@ -1379,7 +1379,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("alt_head")
 					if(organ_data["head"] == "cyborg")
 						return
-					if(species in list("Unathi")) //Species with head accessories.
+					if(species in list("Unathi")) //Species with alt heads.
 						var/list/valid_alt_heads = list()
 						valid_alt_heads["None"] = alt_heads_list["None"] //The only null entry should be the "None" option
 						for(var/alternate_head in alt_heads_list)

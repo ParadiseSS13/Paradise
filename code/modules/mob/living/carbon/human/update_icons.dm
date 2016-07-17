@@ -202,7 +202,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 //BASE MOB SPRITE
-/mob/living/carbon/human/proc/update_body(var/update_icons=1)
+/mob/living/carbon/human/proc/update_body(var/update_icons=1, var/rebuild_base=0)
 
 	var/husk_color_mod = rgb(96,88,80)
 	var/hulk_color_mod = rgb(48,224,40)
@@ -252,7 +252,7 @@ var/global/list/damage_icon_parts = list()
 	icon_key = "[icon_key][husk ? 1 : 0][fat ? 1 : 0][hulk ? 1 : 0][skeleton ? 1 : 0]"
 
 	var/icon/base_icon
-	if(human_icon_cache[icon_key])
+	if(human_icon_cache[icon_key] && !rebuild_base)
 		base_icon = human_icon_cache[icon_key]
 	else
 		//BEGIN CACHED ICON GENERATION.
@@ -560,7 +560,7 @@ var/global/list/damage_icon_parts = list()
 	..()
 	if(notransform)		return
 	update_mutations(0)
-	update_body(0)
+	update_body(0, 1) //Update the body and force limb icon regeneration.
 	update_hair(0)
 	update_head_accessory(0)
 	update_fhair(0)

@@ -11,6 +11,7 @@
 	var/list/valid_body_marking_styles = list()
 	var/list/valid_tail_marking_styles = list()
 	var/list/valid_body_accessories = list()
+	var/list/valid_alt_head_styles = list()
 
 	var/check_whitelist
 	var/list/whitelist
@@ -174,6 +175,11 @@
 			if(owner.change_body_accessory(href_list["body_accessory"]))
 				update_dna()
 				return 1
+	if(href_list["alt_head"])
+		if(can_change_alt_head() && (href_list["alt_head"] in valid_alt_head_styles))
+			if(owner.change_alt_head(href_list["alt_head"]))
+				update_dna()
+				return 1
 
 	return 0
 
@@ -259,6 +265,14 @@
 			BA = owner.body_accessory.name
 		data["body_accessory_style"] = BA
 
+	data["change_alt_head"] = can_change_alt_head()
+	if(data["change_alt_head"])
+		var/alt_head_styles[0]
+		for(var/alt_head_style in valid_alt_head_styles)
+			alt_head_styles[++alt_head_styles.len] = list("altheadstyle" = alt_head_style)
+		data["alt_head_styles"] = alt_head_styles
+		data["alt_head_style"] = head_organ.alt_head
+
 	data["change_head_accessory_color"] = can_change_head_accessory()
 	data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
 	data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
@@ -289,18 +303,28 @@
 	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
 
 /datum/nano_module/appearance_changer/proc/can_change_markings(var/location = "body")
-	var/marking_flag
+	var/marking_flag = HAS_BODY_MARKINGS
+	var/body_flags = owner.species.bodyflags
 	if(location == "head")
+		var/obj/item/organ/external/head/H = owner.get_organ("head")
+		body_flags = H.species.bodyflags
 		marking_flag = HAS_HEAD_MARKINGS
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
 	if(location == "tail")
 		marking_flag = HAS_TAIL_MARKINGS
 
-	return owner && (flags & APPEARANCE_MARKINGS) && (owner.species.bodyflags & marking_flag)
+
+
+	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag)
 
 /datum/nano_module/appearance_changer/proc/can_change_body_accessory()
 	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.species.bodyflags & HAS_TAIL)
+
+/datum/nano_module/appearance_changer/proc/can_change_alt_head()
+	if(owner.species.bodyflags & HAS_ALT_HEADS)
+		to_chat(world, "has alt heads")
+	return owner && (flags & APPEARANCE_ALT_HEAD) && (owner.species.bodyflags & HAS_ALT_HEADS)
 
 /datum/nano_module/appearance_changer/proc/cut_and_generate_data()
 	// Making the assumption that the available species remain constant
@@ -311,6 +335,7 @@
 	valid_body_marking_styles.Cut()
 	valid_tail_marking_styles.Cut()
 	valid_body_accessories.Cut()
+	valid_alt_head_styles.Cut()
 	generate_data()
 
 /datum/nano_module/appearance_changer/proc/generate_data()
@@ -331,3 +356,5 @@
 		valid_tail_marking_styles = owner.generate_valid_markings("tail")
 	if(!valid_body_accessories.len)
 		valid_body_accessories = owner.generate_valid_body_accessories()
+	if(!valid_alt_head_styles.len)
+		valid_alt_head_styles = owner.generate_valid_alt_heads()

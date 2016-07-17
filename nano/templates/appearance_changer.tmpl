@@ -150,3 +150,16 @@
         </div>
     </div>
 {{/if}}
+
+{{if data.change_alt_head}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Alternate Heads:
+        </div>
+        <div class="itemContentWide">
+            {{for data.alt_head_styles}}
+                {{:helper.link(value.altheadstyle, null, { 'alt_head' : value.altheadstyle}, null, data.alt_head_style == value.altheadstyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}

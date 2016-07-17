@@ -65,6 +65,7 @@
 #define TAIL_WAGGING    	4096
 #define NO_EYES				8192
 #define HAS_FUR				16384
+#define HAS_ALT_HEADS		32768
 
 //Species Diet Flags
 #define DIET_CARN		1

@@ -51,6 +51,13 @@
 		M.b_eyes = hex2num(copytext(new_eyes, 6, 8))
 		M.change_eye_color(M.r_eyes, M.g_eyes, M.b_eyes)
 
+	//Alt heads.
+	if(head_organ.species.bodyflags & HAS_ALT_HEADS)
+		var/list/valid_alt_heads = M.generate_valid_alt_heads()
+		var/new_alt_head = input("Please select alternate head", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
+		if(new_alt_head)
+			M.change_alt_head(new_alt_head)
+
 	// hair
 	var/list/valid_hairstyles = M.generate_valid_hairstyles()
 	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
