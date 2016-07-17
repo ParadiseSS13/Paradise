@@ -997,7 +997,7 @@ About the new airlock wires panel:
 	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
 		return
 
-	if(istype(C, /obj/item/weapon/c4))
+	if(istype(C, /obj/item/weapon/grenade/plastic/c4))
 		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
 		return
 
