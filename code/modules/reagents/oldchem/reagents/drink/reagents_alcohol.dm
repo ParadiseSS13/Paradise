@@ -622,11 +622,11 @@
 	description = "A strong neurotoxin that puts the subject into a death-like state."
 	reagent_state = LIQUID
 	color = "#2E2E61" // rgb: 46, 46, 97
+	dizzy_adj = 6
 	alcohol_perc = 0.7
 
 /datum/reagent/ethanol/neurotoxin/on_mob_life(mob/living/M)
 	M.weakened = max(M.weakened, 3)
-	dizzy_adj = 6
 	if(current_cycle >=55)
 		M.druggy = max(M.druggy, 55)
 	if(current_cycle >=200)

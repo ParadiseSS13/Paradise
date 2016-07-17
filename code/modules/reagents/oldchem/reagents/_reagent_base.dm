@@ -19,7 +19,8 @@
 	var/admin_only = 0
 
 /datum/reagent/proc/reaction_mob(mob/M, method=TOUCH, volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
-	if(!istype(M, /mob/living))	return 0
+	if(!istype(M, /mob/living))
+		return 0
 	var/datum/reagent/self = src
 	src = null
 

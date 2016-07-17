@@ -14,7 +14,7 @@
 	mix_message = "The drink turns electric blue and starts quivering violently."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/ginsonic/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ginsonic/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	M.drowsyness = max(0, M.drowsyness-5)
 	if(prob(25))
@@ -29,7 +29,6 @@
 		else
 			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
 	..()
-	return
 
 /datum/reagent/ethanol/applejack
 	name = "Applejack"
@@ -72,12 +71,12 @@
 	color = "#DC0000"
 	alcohol_perc = 1
 
-/datum/reagent/ethanol/dragons_breath/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+/datum/reagent/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST && prob(20))
 		if(M.on_fire)
 			M.adjust_fire_stacks(3)
 
-/datum/reagent/ethanol/dragons_breath/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ethanol/dragons_breath/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	if(M.reagents.has_reagent("milk"))
 		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
@@ -128,7 +127,7 @@
 	mix_message = "The chemicals mix to create shiny, blue substance."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
+/datum/reagent/ethanol/synthanol/on_mob_life(mob/living/M, alien)
 	if(!M.isSynthetic())
 		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
 		if(prob(25))
@@ -136,7 +135,7 @@
 			M.fakevomit()
 	..()
 
-datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+/datum/reagent/ethanol/synthanol/reaction_mob(mob/M, method=TOUCH, volume)
 	if(!istype(M, /mob/living))
 		return
 	if(M.isSynthetic())

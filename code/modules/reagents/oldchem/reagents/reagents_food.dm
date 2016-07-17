@@ -37,7 +37,7 @@
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 
-/datum/reagent/protein/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/protein/on_mob_life(mob/living/M)
 	if(!M) M = holder.my_atom
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
@@ -175,7 +175,6 @@
 	if(prob(70))
 		M.adjustBrainLoss(1)
 	..()
-
 
 /datum/reagent/blackpepper
 	name = "Black Pepper"
@@ -375,7 +374,6 @@
 	M.nutrition += nutriment_factor
 	..()
 
-
 /datum/reagent/toxin/coffeepowder
 	name = "Coffee Grounds"
 	id = "coffeepowder"
@@ -396,7 +394,6 @@
 	id = "fertilizer"
 	description = "A chemical mix good for growing plants with."
 	reagent_state = LIQUID
-//			toxpwr = 0.2 //It's not THAT poisonous.
 	color = "#664330" // rgb: 102, 67, 48
 
 /datum/reagent/toxin/fertilizer/eznutrient

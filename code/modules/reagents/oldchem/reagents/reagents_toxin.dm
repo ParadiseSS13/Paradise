@@ -89,7 +89,7 @@
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 
-/datum/reagent/aslimetoxin/reaction_mob(mob/M, method=TOUCH, reac_volume)
+/datum/reagent/aslimetoxin/reaction_mob(mob/M, method=TOUCH, volume)
 	if(method != TOUCH)
 		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
 
