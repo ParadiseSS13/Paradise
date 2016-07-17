@@ -8,12 +8,13 @@
 	reagent_state = SOLID
 	nutriment_factor = 12 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
+	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/nutriment/on_mob_life(mob/living/M)
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.can_eat())	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				H.nutrition += nutriment_factor	// For hunger and fatness
 				if(prob(50))
 					M.adjustBruteLoss(-1)
@@ -22,54 +23,44 @@
 				else
 					if(!(H.species.flags & NO_BLOOD))
 						H.vessel.add_reagent("blood", 0.4)
-		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
-			if(prob(50))
-				M.heal_organ_damage(1,0)
 	..()
 
-/datum/reagent/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
+/datum/reagent/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Protein"
 	id = "protein"
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
-	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
-	color = "#664330" // rgb: 102, 67, 48
+	diet_flags = DIET_CARN | DIET_OMNI
 
-/datum/reagent/protein/on_mob_life(mob/living/M)
-	if(!(M.mind in ticker.mode.vampires))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_eat(DIET_CARN | DIET_OMNI))	//Make sure that it is not a herbivore
-				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50))
-					M.adjustBruteLoss(-1)
-		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
-			if(prob(50))
-				M.heal_organ_damage(1, 0)
-	..()
-
-
-/datum/reagent/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
+/datum/reagent/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Plant-matter"
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
-	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
+	diet_flags = DIET_HERB | DIET_OMNI
+
+
+/datum/reagent/vitamin
+	name = "Vitamin"
+	id = "vitamin"
+	description = "All the best vitamins, minerals, and carbohydrates the body needs in pure form."
+	reagent_state = SOLID
+	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 
-/datum/reagent/plantmatter/on_mob_life(mob/living/M)
-	if(!(M.mind in ticker.mode.vampires))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_eat(DIET_HERB | DIET_OMNI))	//Make sure that it is not a carnivore
-				H.nutrition += nutriment_factor	// For hunger and fatness
-				if(prob(50))
-					M.adjustBruteLoss(-1)
-		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
-			if(prob(50))
-				M.heal_organ_damage(1,0)
+/datum/reagent/vitamin/on_mob_life(mob/living/M) //everyone needs vitamins, so this works on everyone, regardless of diet or if they're a vampire.
+	M.nutrition += nutriment_factor
+	if(prob(50))
+		M.adjustBruteLoss(-1)
+		M.adjustFireLoss(-1)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.species.exotic_blood)
+			H.vessel.add_reagent(H.species.exotic_blood, 0.5)
+		else
+			if(!(H.species.flags & NO_BLOOD))
+				H.vessel.add_reagent("blood", 0.5)
 	..()
-
 
 /datum/reagent/soysauce
 	name = "Soysauce"
@@ -241,7 +232,7 @@
 
 /datum/reagent/sprinkles/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
-	if(istype(M, /mob/living/carbon/human) && M.job in list("Security Officer", "Head of Security", "Detective", "Warden"))
+	if(istype(M, /mob/living/carbon/human) && M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate"))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
