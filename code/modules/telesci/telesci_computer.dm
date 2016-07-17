@@ -13,7 +13,7 @@
 	var/atom/movable/scan_target
 	var/atom/movable/locked_target
 	var/screen = 0
-	var/list/usage_logs
+	var/list/usage_logs = list()
 
 	// Based on the power used
 	var/teleport_cooldown = 0 // every index requires a bluespace crystal
@@ -74,6 +74,8 @@
 	if(locked_target)
 		if(!scan_target)
 			locked_target = null
+		if(locked_target == scan_target)
+			return
 		if(!(locked_target in view(crystals.len, get_turf(scan_target))))
 			locked_target = null
 
@@ -89,7 +91,7 @@
 	user.set_machine(src)
 	var/list/data = list()
 	
-	check_target_sanity
+	check_target_sanity()
 	// Suit sensors data.
 	data["isAI"] = isAI(user)
 	data["crewmembers"] = crew_repository.health_data(get_turf(src))
@@ -197,6 +199,10 @@
 		crystals -= I
 
 /obj/machinery/computer/telescience/proc/teleport(var/direction)
+	if(world.time < teleport_cooldown)
+		temp_msg = "Please wait another [(teleport_cooldown - world.time)/10] seconds before teleporting."
+		return
+	teleport_cooldown = world.time + 100
 	var/turf/source
 	var/turf/dest
 	if(direction)
@@ -253,7 +259,7 @@
 	log_msg += " [direction ? "to" : "from"] [T.x], [T.y], [T.z] ([T.loc])"
 	int_log_msg += " [direction ? "to" : "from"] [T.x], [T.y], [T.z] ([T.loc])"
 	investigate_log(log_msg, "telesci")
-	usage_logs[++usage_logs.len] = int_log_msg
+	usage_logs += int_log_msg
 	temp_msg = "Teleport complete."
 	return
 
@@ -278,6 +284,7 @@
 		from_blink.do_blink(blink_icon, disappear_icon, 0)
 	var/obj/effect/teleport_blink/to_blink = new(dest)
 	to_blink.invisibility = A.invisibility
+	to_blink.reset_turf = get_turf(A)
 	A.forceMove(to_blink)
 	spawn()
 		to_blink.do_blink(blink_icon, appear_icon, 1)
@@ -286,6 +293,7 @@
 	unacidable = 1
 	anchored = 1
 	density = 0
+	var/turf/reset_turf
 
 /obj/effect/teleport_blink/proc/do_blink(icon/blink_icon, icon/transition_icon, var/appear)
 	icon = blink_icon
@@ -300,6 +308,21 @@
 		if(appear)
 			flick(transition_icon, A)
 	qdel(src)
+
+/obj/effect/teleport_blink/container_resist(mob/living/M)
+	if(!reset_turf)
+		return
+	if(prob(50))
+		to_chat(M, "<span class='warning'>You resist the teleportation!</span>")
+		visible_message("<span class='warning'>The teleport beam collapses!</span>")
+		M.forceMove(reset_turf)
+		M.adjustToxLoss(15) // A bit of toxins damage.
+		M.reset_view()
+		qdel(src)
+	else
+		to_chat(M, "<span class='danger'>You fail to resist the teleportation!</span>")
+		visible_message("<span class='notice'>The teleport beam flickers for a moment.</span>")
+		M.adjustToxLoss(15)
 
 /obj/effect/teleport_blink/Destroy()
 	if(contents.len)
@@ -316,6 +339,8 @@
 /obj/machinery/computer/telescience/Topic(href, href_list)
 	if(..())
 		return
+	
+	check_target_sanity()
 
 	if(href_list["eject"])
 		eject()
@@ -343,6 +368,8 @@
 		var/atom/movable/A = locate(href_list["lock"])
 		if(!is_valid_scantarget(A) && (!is_valid_scantarget(scan_target) || !(A in view(crystals.len, get_turf(scan_target)))))
 			return
+		if(is_valid_scantarget(A))
+			scan_target = A
 		locked_target = A
 		screen = 0
 	if(href_list["screen"])
