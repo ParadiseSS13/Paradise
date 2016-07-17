@@ -194,3 +194,9 @@
 				disfigure("brute")
 		if(burn_dam > 40)
 			disfigure("burn")
+
+/obj/item/organ/external/head/proc/handle_alt_icon()
+	if(alt_head)
+		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[alt_head]
+		if(alternate_head.icon_state)
+			icon_name = alternate_head.icon_state

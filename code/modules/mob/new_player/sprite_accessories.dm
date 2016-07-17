@@ -1966,7 +1966,7 @@
 /datum/sprite_accessory/body_markings/head/snout_round_lower_una
 	name = "Unathi Round Snout - Lower"
 	species_allowed = list("Unathi")
-	icon_state = "markings_face_snout_round_lower_una"
+	icon_state = "markings_face_snout_lower_una"
 
 /datum/sprite_accessory/body_markings/head/snout_sharp_una
 	name = "Unathi Sharp Snout"
@@ -1977,7 +1977,7 @@
 /datum/sprite_accessory/body_markings/head/snout_sharp_lower_una
 	name = "Unathi Sharp Snout - Lower"
 	species_allowed = list("Unathi")
-	icon_state = "markings_face_snout_sharp_lower_una"
+	icon_state = "markings_face_snout_lower_una"
 	heads_allowed = list("Unathi Sharp Snout")
 
 /datum/sprite_accessory/body_markings/head/optics

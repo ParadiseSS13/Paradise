@@ -122,8 +122,6 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
-	//Default styles for created mobs.
-	default_headacc = "Tajaran Ears"
 	butt_sprite = "tajaran"
 
 	has_organ = list(

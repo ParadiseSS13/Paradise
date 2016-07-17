@@ -1584,7 +1584,8 @@
 		H.g_headacc = 0
 		H.b_headacc = 0
 
-	reset_markings()
+	m_styles = initial(m_styles) //Wipes out markings, setting them all to "None".
+	m_colours = initial(m_styles) //Defaults colour to #00000 for all markings.
 
 	if(!dna)
 		dna = new /datum/dna(null)
