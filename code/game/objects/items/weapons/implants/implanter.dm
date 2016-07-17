@@ -58,8 +58,6 @@
 		update_icon()
 
 
-
-
 /obj/item/weapon/implanter/adrenalin
 	name = "implanter (adrenalin)"
 

@@ -96,7 +96,9 @@
 		<A href='?src=\ref[src];refresh=1'>Refresh</A>
 		<BR><BR>
 		<A href='?src=\ref[src];close=1'>Close</A>"}
-		user << browse(dat, "window=timer")
+		var/datum/browser/popup = new(user, "timer", name, 400, 400)
+		popup.set_content(dat)
+		popup.open(0)
 		onclose(user, "timer")
 		return
 
