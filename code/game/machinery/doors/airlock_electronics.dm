@@ -53,7 +53,9 @@
 
 		t1 += text("<p><a href='?src=\ref[];close=1'>Close</a></p>\n", src)
 
-		user << browse(t1, "window=airlock_electronics")
+		var/datum/browser/popup = new(user, "airlock_electronics", name, 400, 400)
+		popup.set_content(t1)
+		popup.open(0)
 		onclose(user, "airlock")
 
 	Topic(href, href_list)

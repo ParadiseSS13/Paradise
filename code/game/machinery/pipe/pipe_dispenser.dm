@@ -61,7 +61,9 @@
 //What number the make points to is in the define # at the top of construction.dm in same folder
 //which for some reason couldn't just be left defined, so it could be used here, top kek
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "pipedispenser")
 	return
 
@@ -178,7 +180,9 @@ Nah
 <A href='?src=\ref[src];dmake=7'>Chute</A><BR>
 "}
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
+	popup.set_content(dat)
+	popup.open()
 	return
 
 // 0=straight, 1=bent, 2=junction-j1, 3=junction-j2, 4=junction-y, 5=trunk

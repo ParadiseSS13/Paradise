@@ -45,6 +45,39 @@
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	var/dat
+	
+	// search javascript
+	var/head_content = {"
+	<script src="libraries.min.js"></script>
+	<script type='text/javascript'>
+
+	function updateSearch(){
+		var filter_text = document.getElementById('filter');
+		var filter = filter_text.value.toLowerCase();
+
+		if(complete_list != null && complete_list != ""){
+			var mtbl = document.getElementById("maintable_data_archive");
+			mtbl.innerHTML = complete_list;
+		}
+
+		if(filter.value == ""){
+			return;
+		}else{
+			$("#maintable_data").children("tbody").children("tr").children("td").children("input").filter(function(index)
+			{
+				return $(this)\[0\].value.toLowerCase().indexOf(filter) == -1
+			}).parent("td").parent("tr").hide()
+		}
+	}
+
+	function selectTextField(){
+		var filter_text = document.getElementById('filter');
+		filter_text.focus();
+		filter_text.select();
+	}
+
+	</script>
+"}
 
 	if(temp)
 		dat = text("<TT>[]</TT><BR><BR><A href='?src=\ref[];choice=Clear Screen'>Clear Screen</A>", temp, src)
@@ -56,43 +89,7 @@
 
 					//body tag start + onload and onkeypress (onkeyup) javascript event calls
 					dat += "<body onload='selectTextField(); updateSearch();' onkeyup='updateSearch();'>"
-					//search bar javascript
-					dat += {"
-
-		<head>
-			<script src="libraries.min.js"></script>
-			<script type='text/javascript'>
-
-				function updateSearch(){
-					var filter_text = document.getElementById('filter');
-					var filter = filter_text.value.toLowerCase();
-
-					if(complete_list != null && complete_list != ""){
-						var mtbl = document.getElementById("maintable_data_archive");
-						mtbl.innerHTML = complete_list;
-					}
-
-					if(filter.value == ""){
-						return;
-					}else{
-						$("#maintable_data").children("tbody").children("tr").children("td").children("input").filter(function(index)
-						{
-							return $(this)\[0\].value.toLowerCase().indexOf(filter) == -1
-						}).parent("td").parent("tr").hide()
-					}
-				}
-
-				function selectTextField(){
-					var filter_text = document.getElementById('filter');
-					filter_text.focus();
-					filter_text.select();
-				}
-
-			</script>
-		</head>
-
-
-	"}
+					
 					dat += {"
 <p style='text-align:center;'>"}
 					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)
@@ -132,17 +129,17 @@
 							var/background
 							switch(crimstat)
 								if("*Arrest*")
-									background = "'background-color:#DC143C;'"
+									background = "'background-color:#890E26'"
 								if("Incarcerated")
-									background = "'background-color:#CD853F;'"
+									background = "'background-color:#743B03'"
 								if("Parolled")
-									background = "'background-color:#CD853F;'"
+									background = "'background-color:#743B03'"
 								if("Released")
-									background = "'background-color:#3BB9FF;'"
+									background = "'background-color:#216489'"
 								if("None")
-									background = "'background-color:#00FF7F;'"
+									background = "'background-color:#007f47'"
 								if("")
-									background = "'background-color:#FFFFFF;'"
+									background = "''"
 									crimstat = "No Record."
 							dat += "<tr style=[background]>"
 							dat += text("<td><input type='hidden' value='[] [] [] []'></input><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", R.fields["name"], R.fields["id"], R.fields["rank"], R.fields["fingerprint"], src, R, R.fields["name"])
@@ -199,7 +196,10 @@
 				else
 		else
 			dat += text("<A href='?src=\ref[];choice=Log In'>{Log In}</A>", src)
-	user << browse(text("<HEAD><TITLE>Security Records</TITLE></HEAD><TT>[]</TT>", dat), "window=secure_rec;size=600x400")
+	var/datum/browser/popup = new(user, "secure_rec", name, 600, 400)
+	popup.set_content(dat)
+	popup.add_head_content(head_content)
+	popup.open(0)
 	onclose(user, "secure_rec")
 	return
 
