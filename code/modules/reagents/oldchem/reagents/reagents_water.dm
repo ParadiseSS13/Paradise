@@ -283,17 +283,13 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
-	if(!data) data = 1
-	data++
 	M.jitteriness = max(M.jitteriness-5,0)
-	if(data >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		if(!M.stuttering) M.stuttering = 1
+	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.stuttering += 4
 		M.Dizzy(5)
 		if(iscultist(M) && prob(5))
 			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
-	if(data >= 75 && prob(33))	// 30 units, 150 seconds
-		if(!M.confused) M.confused = 1
+	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.confused += 3
 		if(isvampirethrall(M))
 			ticker.mode.remove_vampire_mind(M.mind)
@@ -310,7 +306,7 @@
 			M.confused = 0
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
-		switch(data)
+		switch(current_cycle)
 			if(1 to 4)
 				to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
 				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)

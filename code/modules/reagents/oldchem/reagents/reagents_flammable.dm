@@ -18,6 +18,7 @@
 	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
+	metabolization_rate = 1
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	M.adjustBrainLoss(3)
@@ -32,7 +33,7 @@
 		M.adjustFireLoss(2)
 		M.adjustOxyLoss(2)
 		M.adjustBruteLoss(2)
-	holder.remove_reagent(src.id, 1)
+	..()
 
 /datum/reagent/plasma
 	name = "Plasma"
