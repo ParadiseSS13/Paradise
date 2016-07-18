@@ -82,7 +82,7 @@
 				addiction_list.Remove(R)
 	update_total()
 
-/datum/reagents/proc/death_metabolize(mob/M)
+/datum/reagents/proc/death_metabolize(mob/living/M)
 	if(!M)
 		return
 	if(M.stat != DEAD)				//what part of DEATH_metabolize don't you get?
