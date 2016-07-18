@@ -70,6 +70,9 @@
 		holder.remove_reagent(id, metabolization_rate) //By default it slowly disappears.
 		current_cycle++
 
+/datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
+	return
+
 // Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(data)
 	return

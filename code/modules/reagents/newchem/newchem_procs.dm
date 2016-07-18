@@ -84,6 +84,18 @@
 				addiction_list.Remove(R)
 	update_total()
 
+/datum/reagents/proc/death_metabolize(mob/living/M)
+	if(!M)
+		return
+	if(M.stat != DEAD)				//what part of DEATH_metabolize don't you get?
+		return
+	for(var/A in reagent_list)
+		var/datum/reagent/R = A
+		if(!istype(R))
+			continue
+		if(M && R)
+			R.on_mob_death(M)
+
 /datum/reagents/proc/overdose_list()
 	var/od_chems[0]
 	for(var/datum/reagent/R in reagent_list)
