@@ -27,17 +27,12 @@
 
 	var/is_electronic = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/mimic/FindTarget()
 	. = ..()
 	if(.)
 		custom_emote(1, "growls at [.]")
-
-/mob/living/simple_animal/hostile/mimic/death()
-	..()
-	visible_message("<span class='danger'>[src]</b> stops moving!</span>")
-	ghostize()
-	qdel(src)
 
 /mob/living/simple_animal/hostile/mimic/emp_act(severity)
 	if(is_electronic)
@@ -100,7 +95,7 @@
 	..()
 	icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/mimic/crate/death()
+/mob/living/simple_animal/hostile/mimic/crate/death(gibbed)
 	var/obj/structure/closet/crate/C = new(get_turf(src))
 	// Put loot in crate
 	for(var/obj/O in src)
@@ -135,7 +130,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
 		death()
 
-/mob/living/simple_animal/hostile/mimic/copy/death()
+/mob/living/simple_animal/hostile/mimic/copy/death(gibbed)
 
 	for(var/atom/movable/M in src)
 		M.loc = get_turf(src)

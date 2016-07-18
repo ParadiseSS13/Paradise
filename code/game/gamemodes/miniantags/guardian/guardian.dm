@@ -70,7 +70,7 @@
 			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
 			Recall()
 
-/mob/living/simple_animal/hostile/guardian/death()
+/mob/living/simple_animal/hostile/guardian/death(gibbed)
 	..()
 	to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
 	summoner.death()
