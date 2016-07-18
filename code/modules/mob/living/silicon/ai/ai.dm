@@ -54,6 +54,7 @@ var/list/ai_verbs_default = list(
 	var/obj/item/device/pda/silicon/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
+	var/custom_hologram = 0 //For our custom holograms
 
 	var/obj/item/device/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -298,18 +299,19 @@ var/list/ai_verbs_default = list(
 				Entry[i] = trim(Entry[i])
 
 			if(Entry.len < 2)
-				continue;
+				continue
 
-			if(Entry[1] == src.ckey && Entry[2] == src.real_name)
+			if(Entry.len < 3 && Entry[1] == ckey && Entry[2] == real_name)
 				custom_sprite = 1 //They're in the list? Custom sprite time
 				icon = 'icons/mob/custom-synthetic.dmi'
+
 
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
 	if(custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
 	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President", "NT")
 	switch(icontype)
-		if("Custom") icon_state = "[src.ckey]-ai"
+		if("Custom") icon_state = "[ckey]-ai"
 		if("Clown") icon_state = "ai-clown2"
 		if("Monochrome") icon_state = "ai-mono"
 		if("Inverted") icon_state = "ai-u"
@@ -792,6 +794,21 @@ var/list/ai_verbs_default = list(
 
 	if(check_unable())
 		return
+	if(!custom_hologram) //Check to see if custom sprite time, checking the appopriate file to change a var
+		var/file = file2text("config/custom_sprites.txt")
+		var/lines = splittext(file, "\n")
+
+		for(var/line in lines)
+		// split & clean up
+			var/list/Entry = splittext(line, ":")
+			for(var/i = 1 to Entry.len)
+				Entry[i] = trim(Entry[i])
+
+			if(Entry.len < 3)
+				continue
+
+			if (Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
+				custom_hologram = 1  // option is given in hologram menu
 
 	var/input
 	if(alert("Would you like to select a hologram based on a crew member or switch to unique avatar?",,"Crew Member","Unique")=="Crew Member")
@@ -818,6 +835,9 @@ var/list/ai_verbs_default = list(
 		"eldritch",
 		"ancient machine"
 		)
+		if(custom_hologram) //insert custom hologram
+			icon_list.Add("custom")
+
 		input = input("Please select a hologram:") as null|anything in icon_list
 		if(input)
 			qdel(holo_icon)
@@ -832,6 +852,8 @@ var/list/ai_verbs_default = list(
 					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
 				if("ancient machine")
 					holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
+				if("custom")
+					holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
 	return
 
 /mob/living/silicon/ai/proc/corereturn()

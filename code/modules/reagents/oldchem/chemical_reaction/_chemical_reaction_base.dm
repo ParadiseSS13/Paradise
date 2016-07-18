@@ -19,5 +19,5 @@
 	var/mix_sound = 'sound/effects/bubbles.ogg'
 	var/no_message = 0
 
-/datum/chemical_reaction/proc/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
