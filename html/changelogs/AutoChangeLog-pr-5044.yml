@@ -1,0 +1,4 @@
+author: Kyep
+delete-after: True
+changes: 
+  - tweak: "Improved admin 'select equipment' verb. ERT option now works, costumes get IDs and proper headsets, two new costumes added, and some outfits minorly tweaked (e.g: tunnel clowns get toolbelts)."
