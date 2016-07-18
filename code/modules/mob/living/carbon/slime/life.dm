@@ -243,6 +243,7 @@
 	else if(nutrition >= get_grow_nutrition() && amount_grown < 10)
 		nutrition -= 20
 		amount_grown++
+		update_action_buttons_icon()
 
 	if(amount_grown >= 10 && !Victim && !Target && !ckey)
 		if(is_adult)

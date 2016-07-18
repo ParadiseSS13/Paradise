@@ -49,7 +49,6 @@
 	var/list/icon/pipes_shown = list()
 	var/last_played_vent
 
-	var/list/datum/action/actions = list()
 	var/step_count = 0
 
 	var/list/butcher_results = null

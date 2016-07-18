@@ -11,7 +11,7 @@
 	throwforce = 6
 	w_class = 4
 	origin_tech = "biotech=4"
-	action_button_name = "Toggle Paddles"
+	actions_types = list(/datum/action/item_action/toggle_paddles)
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
@@ -74,11 +74,7 @@
 	update_icon()
 
 /obj/item/weapon/defibrillator/ui_action_click()
-	if(usr.get_item_by_slot(slot_back) == src)
-		toggle_paddles()
-	else
-		to_chat(usr, "<span class='warning'>Put the defibrillator on your back first!</span>")
-	return
+	toggle_paddles()
 
 /obj/item/weapon/defibrillator/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
@@ -147,15 +143,22 @@
 		remove_paddles(user)
 
 	update_icon()
-	return
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/weapon/defibrillator/proc/make_paddles()
 	return new /obj/item/weapon/twohanded/shockpaddles(src)
 
 /obj/item/weapon/defibrillator/equipped(mob/user, slot)
+	..()
 	if(slot != slot_back)
 		remove_paddles(user)
 		update_icon()
+
+/obj/item/weapon/defibrillator/item_action_slot_check(slot, mob/user)
+	if(slot == slot_back)
+		return 1
 
 /obj/item/weapon/defibrillator/proc/remove_paddles(mob/user)
 	var/mob/living/carbon/human/M = user
@@ -210,12 +213,9 @@
 	slot_flags = SLOT_BELT
 	origin_tech = "biotech=4"
 
-/obj/item/weapon/defibrillator/compact/ui_action_click()
-	if(usr.get_item_by_slot(slot_belt) == src)
-		toggle_paddles()
-	else
-		to_chat(usr, "<span class='warning'>Strap the defibrillator's belt on first!</span>")
-	return
+/obj/item/weapon/defibrillator/compact/item_action_slot_check(slot, mob/user)
+	if(slot == slot_belt)
+		return 1
 
 /obj/item/weapon/defibrillator/compact/loaded/New()
 	..()
@@ -284,7 +284,7 @@
 
 /obj/item/weapon/twohanded/shockpaddles/dropped(mob/user as mob)
 	if(user)
-		var/obj/item/weapon/twohanded/O = user.get_inactive_hand()
+		var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
 		if(istype(O))
 			O.unwield()
 		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")

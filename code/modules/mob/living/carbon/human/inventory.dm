@@ -166,9 +166,8 @@
 			update_fhair()
 			update_head_accessory()
 		if(internal)
-			if(internals)
-				internals.icon_state = "internal0"
 			internal = null
+			update_internals_hud_icon(0)
 		sec_hud_set_ID()
 		update_inv_wear_mask()
 	else if(I == wear_id)

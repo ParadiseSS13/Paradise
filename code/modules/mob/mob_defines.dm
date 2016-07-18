@@ -13,7 +13,6 @@
 
 	var/obj/screen/hands = null
 	var/obj/screen/pullin = null
-	var/obj/screen/internals = null
 	var/obj/screen/i_select = null
 	var/obj/screen/m_select = null
 	var/obj/screen/healths = null
@@ -123,7 +122,6 @@
 	hud_possible = list(SPECIALROLE_HUD)
 
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
-	var/datum/action/scan_mode/scanner = new
 
 	var/list/grabbed_by = list(  )
 	var/list/requests = list(  )
@@ -234,3 +232,5 @@
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
 	var/list/permanent_huds = list()
+
+	var/list/actions = list()

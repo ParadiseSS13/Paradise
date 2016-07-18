@@ -297,11 +297,11 @@
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
 	for(var/mob/living/carbon/C in range(T, 1))
-		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+		if(C.can_breathe_gas())
 			C.emote("gasp")
 			C.losebreath++
-			C.reagents.add_reagent("toxin",10)
-			C.reagents.add_reagent("neurotoxin2",20)
+			C.reagents.add_reagent("toxin", 10)
+			C.reagents.add_reagent("neurotoxin2", 20)
 
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
@@ -438,7 +438,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
 	for(var/mob/living/carbon/C in range(T, 1))
-		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+		if(C.can_breathe_gas())
 			C.reagents.add_reagent("jenkem", 25)
 
 /datum/reagent/jenkem
