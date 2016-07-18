@@ -98,7 +98,7 @@
 	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
 
-/datum/reagent/carbon/reaction_turf(var/turf/T, var/volume)
+/datum/reagent/carbon/reaction_turf(turf/T, volume)
 	src = null
 	// Only add one dirt per turf.  Was causing people to crash.
 	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T))
@@ -152,8 +152,6 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
-	if(!M)
-		M = holder.my_atom
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD))
