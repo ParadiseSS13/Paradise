@@ -759,7 +759,7 @@
 #include "code\game\objects\items\mountable_frames\lights.dm"
 #include "code\game\objects\items\mountable_frames\mountables.dm"
 #include "code\game\objects\items\mountable_frames\newscaster_frame.dm"
-#include "code\game\objects\items\mountable_frames\wallmount.dm"
+#include "code\game\objects\items\mountable_frames\trophymount.dm"
 #include "code\game\objects\items\robot\robot_items.dm"
 #include "code\game\objects\items\robot\robot_parts.dm"
 #include "code\game\objects\items\robot\robot_upgrades.dm"
