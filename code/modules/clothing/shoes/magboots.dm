@@ -8,7 +8,6 @@
 	action_button_name = "Toggle Magboots"
 	strip_delay = 70
 	put_on_delay = 70
-	species_restricted = null
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(src.magpulse)
