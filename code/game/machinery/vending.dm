@@ -208,16 +208,21 @@
 				break
 	return total
 
-/obj/machinery/vending/attackby(obj/item/weapon/W, mob/user, params)
+/obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(currently_vending && vendor_account && !vendor_account.suspended)
 		var/paid = 0
 		var/handled = 0
-		if(istype(W, /obj/item/weapon/card/id))
-			var/obj/item/weapon/card/id/C = W
+		if(istype(I, /obj/item/weapon/card/id))
+			var/obj/item/weapon/card/id/C = I
 			paid = pay_with_card(C)
 			handled = 1
-		else if(istype(W, /obj/item/weapon/spacecash))
-			var/obj/item/weapon/spacecash/C = W
+		if(istype(I, /obj/item/device/pda))
+			var/obj/item/device/pda/PDA = I
+			if(PDA.id)
+				paid = pay_with_card(PDA.id)
+				handled = 1
+		else if(istype(I, /obj/item/weapon/spacecash))
+			var/obj/item/weapon/spacecash/C = I
 			paid = pay_with_cash(C, user)
 			handled = 1
 
@@ -228,10 +233,10 @@
 			nanomanager.update_uis(src)
 			return // don't smack that machine with your 2 thalers
 
-	if(default_unfasten_wrench(user, W, time = 60))
+	if(default_unfasten_wrench(user, I, time = 60))
 		return
 
-	if(istype(W, /obj/item/weapon/screwdriver) && anchored)
+	if(istype(I, /obj/item/weapon/screwdriver) && anchored)
 		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
@@ -242,9 +247,9 @@
 		return
 
 	if(panel_open)
-		if(istype(W, /obj/item/device/multitool)||istype(W, /obj/item/weapon/wirecutters))
+		if(istype(I, /obj/item/device/multitool)||istype(I, /obj/item/weapon/wirecutters))
 			return attack_hand(user)
-		if(component_parts && istype(W, /obj/item/weapon/crowbar))
+		if(component_parts && istype(I, /obj/item/weapon/crowbar))
 			var/datum/data/vending_product/machine = product_records
 			for(var/datum/data/vending_product/machine_content in machine)
 				while(machine_content.amount !=0)
@@ -253,21 +258,21 @@
 						machine_content.amount--
 						if(!machine_content.amount)
 							break
-			default_deconstruction_crowbar(W)
-	if(istype(W, /obj/item/weapon/coin) && premium.len > 0)
+			default_deconstruction_crowbar(I)
+	if(istype(I, /obj/item/weapon/coin) && premium.len > 0)
 		user.drop_item()
-		W.loc = src
-		coin = W
+		I.loc = src
+		coin = I
 		categories |= CAT_COIN
-		to_chat(user, "\blue You insert the [W] into the [src]")
+		to_chat(user, "\blue You insert the [I] into the [src]")
 		nanomanager.update_uis(src)
 		return
-	else if(istype(W, refill_canister) && refill_canister != null)
+	else if(istype(I, refill_canister) && refill_canister != null)
 		if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>It does nothing.</span>")
 		else if(panel_open)
 			//if the panel is open we attempt to refill the machine
-			var/obj/item/weapon/vending_refill/canister = W
+			var/obj/item/weapon/vending_refill/canister = I
 			if(canister.charges == 0)
 				to_chat(user, "<span class='notice'>This [canister.name] is empty!</span>")
 			else

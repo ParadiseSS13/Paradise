@@ -292,7 +292,7 @@
 /obj/item/clothing/head/helmet/space/rig/syndi
 	name = "blood-red hardsuit helmet"
 	desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
-	icon_state = "hardsuit1-syndi"
+	icon_state = "rig1-syndi"
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
@@ -301,7 +301,7 @@
 	action_button_name = "Toggle Helmet Mode"
 
 /obj/item/clothing/head/helmet/space/rig/syndi/update_icon()
-	icon_state = "hardsuit[on]-[item_color]"
+	icon_state = "rig[on]-[item_color]"
 
 /obj/item/clothing/head/helmet/space/rig/syndi/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -334,7 +334,7 @@
 /obj/item/clothing/suit/space/rig/syndi
 	name = "blood-red hardsuit"
 	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
-	icon_state = "hardsuit1-syndi"
+	icon_state = "rig1-syndi"
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
 	w_class = 3
@@ -344,7 +344,7 @@
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 
 /obj/item/clothing/suit/space/rig/syndi/update_icon()
-	icon_state = "hardsuit[on]-[item_color]"
+	icon_state = "rig[on]-[item_color]"
 
 /obj/item/clothing/suit/space/rig/syndi/attack_self(mob/user)
 	on = !on
@@ -374,7 +374,7 @@
 /obj/item/clothing/head/helmet/space/rig/syndi/elite
 	name = "elite syndicate hardsuit helmet"
 	desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in travel mode. Property of Gorlex Marauders."
-	icon_state = "hardsuit0-syndielite"
+	icon_state = "rig0-syndielite"
 	item_color = "syndielite"
 	armor = list(melee = 60, bullet = 60, laser = 50, energy = 25, bomb = 55, bio = 100, rad = 70)
 	heat_protection = HEAD
@@ -393,7 +393,7 @@
 /obj/item/clothing/suit/space/rig/syndi/elite
 	name = "elite syndicate hardsuit"
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in travel mode."
-	icon_state = "hardsuit0-syndielite"
+	icon_state = "rig0-syndielite"
 	item_color = "syndielite"
 	armor = list(melee = 60, bullet = 60, laser = 50, energy = 25, bomb = 55, bio = 100, rad = 70)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -516,14 +516,14 @@
 /obj/item/clothing/head/helmet/space/rig/security/hos
 	name = "head of security's hardsuit helmet"
 	desc = "a special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-	icon_state = "hardsuit0-hos"
+	icon_state = "rig0-hos"
 	item_color = "hos"
 	armor = list(melee = 45, bullet = 25, laser = 30,energy = 10, bomb = 25, bio = 100, rad = 50)
 	sprite_sheets = null
 
 
 /obj/item/clothing/suit/space/rig/security/hos
-	icon_state = "hardsuit-hos"
+	icon_state = "rig-hos"
 	name = "head of security's hardsuit"
 	desc = "A special bulky suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
@@ -535,7 +535,7 @@
 /obj/item/clothing/suit/space/rig/shielded
 	name = "shielded hardsuit"
 	desc = "A hardsuit with built in energy shielding. Will rapidly recharge when not under fire."
-	icon_state = "hardsuit-hos"
+	icon_state = "rig-hos"
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank, /obj/item/weapon/gun,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
 	var/current_charges = 3
@@ -585,7 +585,7 @@
 /obj/item/clothing/suit/space/rig/shielded/syndi
 	name = "blood-red hardsuit"
 	desc = "An advanced hardsuit with built in energy shielding."
-	icon_state = "hardsuit1-syndi"
+	icon_state = "rig1-syndi"
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
@@ -603,7 +603,7 @@
 /obj/item/clothing/head/helmet/space/rig/shielded/syndi
 	name = "blood-red hardsuit helmet"
 	desc = "An advanced hardsuit helmet with built in energy shielding."
-	icon_state = "hardsuit1-syndi"
+	icon_state = "rig1-syndi"
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
