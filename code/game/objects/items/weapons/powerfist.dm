@@ -16,6 +16,12 @@
 	var/obj/item/weapon/tank/tank = null //Tank used for the gauntlet's piston-ram.
 
 
+/obj/item/weapon/melee/powerfist/Destroy()
+	if(tank)
+		qdel(tank)
+		tank = null
+	return ..()
+
 /obj/item/weapon/melee/powerfist/examine(mob/user)
 	..()
 	if(!in_range(user, src))
@@ -23,7 +29,6 @@
 		return
 	if(tank)
 		to_chat(user, "<span class='notice'>\icon [tank] It has \the [tank] mounted onto it.</span>")
-
 
 /obj/item/weapon/melee/powerfist/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/tank))
@@ -76,6 +81,9 @@
 		to_chat(user, "<span class='warning'>\The [src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
 		return
+
+	user.do_attack_animation(target)
+
 	target.apply_damage(force * fisto_setting, BRUTE)
 	target.visible_message("<span class='danger'>[user]'s powerfist lets out a loud hiss as they punch [target.name]!</span>", \
 		"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>")
