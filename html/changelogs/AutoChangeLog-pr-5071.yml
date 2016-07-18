@@ -1,0 +1,8 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Sleepers no longer require a console to build, only the sleeper itself"
+  - tweak: "Clicking on the sleeper brings up the menu that was previously brought up for the console"
+  - rscadd: "Adds in syndicate sleepers--these sleepers are not only syndie themed but also allow the user to inject chems into themselves while inside the sleepers"
+  - tweak: "Sleepers can now inject silver sulfadiazine"
+  - tweak: "removes cryofeeds from cryodorms and adds in 2 more cryopods"
