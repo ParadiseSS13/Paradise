@@ -30,9 +30,8 @@
 #define slot_in_backpack 18
 #define slot_legcuffed 19
 #define slot_r_ear 20
-#define slot_wear_pda 21
-#define slot_tie 22
-#define slots_amt 22
+#define slot_tie 21
+#define slots_amt 21
 
 //Cant seem to find a mob bitflags area other than the powers one
 
