@@ -1,7 +1,7 @@
 /obj/machinery/computer
 	name = "computer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "frame"
 	density = 1
 	anchored = 1.0
 	use_power = 1

@@ -5,6 +5,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card
 	name = "identification computer"
 	desc = "Terminal for programming Nanotrasen employee ID cards to access parts of the station."
+	icon_state = "frame-cmd"
 	icon_keyboard = "id_key"
 	icon_screen = "id"
 	req_access = list(access_change_ids)

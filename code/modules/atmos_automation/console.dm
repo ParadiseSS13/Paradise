@@ -1,5 +1,6 @@
 /obj/machinery/computer/general_air_control/atmos_automation
 	icon = 'icons/obj/computer.dmi'
+	icon_state = "frame"
 	icon_screen = "area_atmos"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/weapon/circuitboard/atmos_automation

@@ -1,6 +1,7 @@
 /obj/machinery/computer/camera_advanced
 	name = "advanced camera console"
 	desc = "Used to access the various cameras on the station."
+	//icon_state = "frame-sec"
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
 	var/mob/camera/aiEye/remote/eyeobj

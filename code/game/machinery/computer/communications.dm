@@ -8,6 +8,7 @@
 /obj/machinery/computer/communications
 	name = "communications console"
 	desc = "This can be used for various important functions. Still under developement."
+	icon_state = "frame-cmd"
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(access_heads)

@@ -2,6 +2,7 @@
 /obj/machinery/computer/account_database
 	name = "Accounts Uplink Terminal"
 	desc = "Access transaction logs, account data and all kinds of other financial records."
+	icon_state = "frame-cmd"
 	icon_screen = "accounts"
 	density = 1
 	req_one_access = list(access_hop, access_captain, access_cent_commander)
