@@ -202,6 +202,11 @@
 		icon_state = "hair_hbraid"
 		gender = FEMALE
 
+	braid3
+		name = "Hippie Braid"
+		icon_state = "hair_ubraid"
+		species_allowed = list("Human", "Unathi")
+
 	buzz
 		name = "Buzzcut"
 		icon_state = "hair_buzzcut"
@@ -243,9 +248,9 @@
 		icon_state = "hair_bigafro"
 		gender = MALE
 
-	sargeant
+	sergeant
 		name = "Flat Top"
-		icon_state = "hair_sargeant"
+		icon_state = "hair_sergeant"
 		gender = MALE
 
 	emo
@@ -300,7 +305,7 @@
 		icon_state = "hair_spikey"
 		species_allowed = list("Human", "Unathi")
 
-	kusangi
+	kusanagi
 		name = "Kusanagi Hair"
 		icon_state = "hair_kusanagi"
 
@@ -759,8 +764,8 @@
 		species_allowed = list("Tajaran")
 
 	taj_hair_spiky
-		name = "Tajara Spiky"
-		icon_state = "hair_tajspiky"
+		name = "Tajara Spikey"
+		icon_state = "hair_tajspikey"
 		species_allowed = list("Tajaran")
 
 	taj_hair_messy
@@ -843,6 +848,11 @@
 	vulp_hair_spike
 		name = "Spike"
 		icon_state = "spike"
+		species_allowed = list("Vulpkanin")
+
+	vulp_hair_braided
+		name = "Braided"
+		icon_state = "braided"
 		species_allowed = list("Vulpkanin")
 
 //Vox
@@ -1909,6 +1919,11 @@
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_belly_fox_vulp"
 
+/datum/sprite_accessory/body_markings/belly_crest_vulp
+	name = "Vulpkanin Belly Crest"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_belly_crest_vulp"
+
 /datum/sprite_accessory/body_markings/tiger
 	name = "Tiger Body"
 	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
@@ -1979,6 +1994,11 @@
 	species_allowed = list("Unathi")
 	icon_state = "markings_face_snout_lower_una"
 	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/nose_default_vulp
+	name = "Vulpkanin Nose"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_nose_vulp"
 
 /datum/sprite_accessory/body_markings/head/optics
 	name = "Humanoid Optics"

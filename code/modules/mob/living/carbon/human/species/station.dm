@@ -172,11 +172,11 @@
 
 	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
-	base_color = "#E63F1C"
+	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
 
 	has_organ = list(

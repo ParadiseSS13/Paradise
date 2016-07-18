@@ -289,7 +289,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a> "
 				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Color</a> [color_square(r_headacc, g_headacc, b_headacc)]<br>"
 
-			if(species in list("Machine", "Tajaran", "Unathi")) //Species with head markings.
+			if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
 				var/list/marking_styles = params2list(m_styles)
 				var/list/marking_colours = params2list(m_colours)
 				marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
@@ -1401,7 +1401,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								m_styles = list2params(marking_styles)
 
 				if("m_style_head")
-					if(species in list("Machine", "Tajaran", "Unathi")) //Species with head markings.
+					if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
 						var/list/valid_markings = list()
 						valid_markings["None"] = marking_styles_list["None"]
 						for(var/markingstyle in marking_styles_list)
@@ -1439,7 +1439,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							m_styles = list2params(marking_styles)
 
 				if("m_head_colour")
-					if(species in list("Machine", "Tajaran", "Unathi")) //Species with head markings.
+					if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
 						var/input = "Choose the colour of your your character's head markings:"
 						var/list/marking_colours = params2list(m_colours)
 						marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
