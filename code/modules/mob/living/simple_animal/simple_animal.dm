@@ -65,7 +65,8 @@
 	var/can_collar = 0 // can add collar to mob or not
 	var/can_trophy = 0
 	var/trophied = 0
-	var/trophy //It's bad, yeah, but not all simple_animal names correspond to trophy names
+	var/obj/item/weapon/trophy/trophy = null
+	var/trophy_id = "generic" //for name and desc modification
 
 //Hot simple_animal baby making vars
 	var/childtype = null

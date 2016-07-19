@@ -18,7 +18,8 @@
 	maxHealth = 25
 	health = 25
 	can_trophy = 1
-	trophy = "carp"
+	trophy = /obj/item/weapon/trophy/carp
+	trophy_id = "carp"
 
 	harm_intent_damage = 8
 	melee_damage_lower = 15
@@ -78,7 +79,7 @@
 	maxHealth = 65
 	health = 65
 	pixel_x = -16
-	trophy = "megacarp"
+	trophy = /obj/item/weapon/trophy/megacarp
 
 	melee_damage_lower = 20
 	melee_damage_upper = 20

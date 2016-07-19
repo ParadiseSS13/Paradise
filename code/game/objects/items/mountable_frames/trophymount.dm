@@ -3,11 +3,11 @@
 	desc = "Used to hang your old hunting trophies. "
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "wallmount"
-	materials = list(MAT_WOOD=1000)
 	anchored = 0
 	var/initial_name = "wooden wall mount"
 	var/initial_desc = "Used to hang your old hunting trophies. "
 	var/has_trophy = 0
+	var/obj/item/weapon/trophy/trophy = null
 	var/trophy_id
 
 /obj/item/mounted/frame/trophy_mount/do_build(turf/on_wall, mob/user)
@@ -36,6 +36,8 @@
 				desc += "It has a [T.id] trophy head attached to it."
 				has_trophy = 1
 				trophy_id = T.id
+				trophy = T
+				trophy.loc = src
 				qdel(T)
 				to_chat(user, "<span class='notice'>You attach the [T.id] trophy head to the mount.</span>")
 			else
@@ -86,7 +88,9 @@
 	if(do_after(user, 80, target = src))
 		to_chat(user, "<span class='info'>You cut the trophy head off [S] and attach it to the mount.</span>")
 		has_trophy = 1
-		trophy_id = S.trophy
+		trophy = S.trophy
+		trophy = new trophy(src) //fml
+		trophy_id = S.trophy_id
 		S.trophied = 1
 		S.icon_state = S.icon_nohead
 		icon_state = "wallmount_[trophy_id]"
@@ -99,9 +103,8 @@
 		name = initial_name
 		desc = initial_desc
 		has_trophy = 0
-		var/obj/O = text2path("/obj/item/weapon/trophy/[trophy_id]")
-		new O(get_turf(user))
-		trophy_id = null //sanity
+		trophy.loc = get_turf(user)
+		trophy = null //sanity
 		to_chat(user, "<span class='notice'>You remove the trophy from the mount.</span>")
 	else
 		to_chat(user, "<span class='warning'>There isn't anything attached to the mount!</span>")
