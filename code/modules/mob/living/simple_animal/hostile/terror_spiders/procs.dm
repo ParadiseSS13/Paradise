@@ -97,7 +97,7 @@
 		if(E.spiderling_type == specific_type && E.z == z)
 			numspiders += E.spiderling_number
 	for(var/obj/effect/spider/spiderling/terror_spiderling/L in ts_spiderling_list)
-		if (!L.stillborn && L.grow_as == specific_type && L.z == z)
+		if(!L.stillborn && L.grow_as == specific_type && L.z == z)
 			numspiders += 1
 	return numspiders
 

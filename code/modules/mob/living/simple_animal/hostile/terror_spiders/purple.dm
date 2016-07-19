@@ -69,7 +69,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life()
 	..()
 	if(!degenerate && spider_myqueen)
-		if (dcheck_counter >= 10)
+		if(dcheck_counter >= 10)
 			dcheck_counter = 0
 			purple_distance_check()
 		else
