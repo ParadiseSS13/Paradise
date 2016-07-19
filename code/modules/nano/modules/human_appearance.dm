@@ -103,6 +103,16 @@
 				if(owner.change_facial_hair_color(r_facial, g_facial, b_facial))
 					update_dna()
 					return 1
+	if(href_list["secondary_facial_hair_color"])
+		if(can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR))
+			var/new_facial = input("Please select secondary facial hair color.", "Secondary Facial Hair Color", rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec)) as color|null
+			if(new_facial && can_still_topic(state))
+				var/r_facial_sec = hex2num(copytext(new_facial, 2, 4))
+				var/g_facial_sec = hex2num(copytext(new_facial, 4, 6))
+				var/b_facial_sec = hex2num(copytext(new_facial, 6, 8))
+				if(owner.change_secondary_facial_hair_color(r_facial_sec, g_facial_sec, b_facial_sec))
+					update_dna()
+					return 1
 	if(href_list["eye_color"])
 		if(can_change(APPEARANCE_EYE_COLOR))
 			var/new_eyes = input("Please select eye color.", "Eye Color", rgb(owner.r_eyes, owner.g_eyes, owner.b_eyes)) as color|null
@@ -276,6 +286,7 @@
 	data["change_head_accessory_color"] = can_change_head_accessory()
 	data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
 	data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
+	data["change_secondary_facial_hair_color"] = can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR)
 	data["change_head_marking_color"] = can_change_markings("head")
 	data["change_body_marking_color"] = can_change_markings("body")
 	data["change_tail_marking_color"] = can_change_markings("tail")
@@ -314,16 +325,12 @@
 	if(location == "tail")
 		marking_flag = HAS_TAIL_MARKINGS
 
-
-
 	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag)
 
 /datum/nano_module/appearance_changer/proc/can_change_body_accessory()
 	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.species.bodyflags & HAS_TAIL)
 
 /datum/nano_module/appearance_changer/proc/can_change_alt_head()
-	if(owner.species.bodyflags & HAS_ALT_HEADS)
-		to_chat(world, "has alt heads")
 	return owner && (flags & APPEARANCE_ALT_HEAD) && (owner.species.bodyflags & HAS_ALT_HEADS)
 
 /datum/nano_module/appearance_changer/proc/cut_and_generate_data()

@@ -204,6 +204,12 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 			facial_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_ADD)
 		else
 			facial_s.Blend(rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial), ICON_ADD)
+
+		if(facial_hair_style.secondary_colour)
+			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_colour]_s")
+			facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
+			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
+
 		face_s.Blend(facial_s, ICON_OVERLAY)
 
 	//Markings

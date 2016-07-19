@@ -470,12 +470,12 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[FHAIR_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
+	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
 		if(update_icons)   update_icons()
 		return
 
 	//masks and helmets can obscure our facial hair, unless we're a synthetic
-	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	if((head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
 		if(update_icons)   update_icons()
 		return
 
@@ -491,6 +491,12 @@ var/global/list/damage_icon_parts = list()
 					facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
 				else if(facial_hair_style.do_colouration)
 					facial_s.Blend(rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial), ICON_ADD)
+
+				if(facial_hair_style.secondary_colour)
+					var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_colour]_s")
+					facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
+					facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
+
 				face_standing.Blend(facial_s, ICON_OVERLAY)
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
@@ -1118,9 +1124,9 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/proc/update_tail_layer(var/update_icons=1)
 	overlays_standing[TAIL_UNDERLIMBS_LAYER] = null // SEW direction icons, overlayed by LIMBS_LAYER.
-	overlays_standing[TAIL_LAYER] = null // This will be one of two things:
-										 // If the species' tail is overlapped by limbs, this will be only the N direction icon so tails can still appear on the outside of uniforms and such.
-										 // Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions.
+	overlays_standing[TAIL_LAYER] = null /* This will be one of two things:
+											If the species' tail is overlapped by limbs, this will be only the N direction icon so tails can still appear on the outside of uniforms and such.
+											Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
 	var/list/marking_styles = params2list(m_styles)
 	var/icon/tail_marking_icon
@@ -1143,20 +1149,20 @@ var/global/list/damage_icon_parts = list()
 			if(species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs...
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")
-				under.Insert(new/icon(accessory_s,dir=SOUTH),dir=SOUTH)
-				under.Insert(new/icon(accessory_s,dir=EAST),dir=EAST)
-				under.Insert(new/icon(accessory_s,dir=WEST),dir=WEST)
+				under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
+				under.Insert(new/icon(accessory_s, dir=EAST), dir=EAST)
+				under.Insert(new/icon(accessory_s, dir=WEST), dir=WEST)
 
-				overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(under, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+				overlays_standing[TAIL_UNDERLIMBS_LAYER] = image(under, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
 				// Creates a blank icon, and copies accessory_s' north direction sprite into it
 				// before passing that to the tail layer that overlays uniforms and such.
-				var/icon/over = new/icon("icon" = 'icons/mob/body_accessory.dmi', "icon state" = "accessory_none_s")
-				over.Insert(new/icon(accessory_s,dir=NORTH),dir=NORTH)
+				var/icon/over = new/icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")
+				over.Insert(new/icon(accessory_s, dir=NORTH), dir=NORTH)
 
-				overlays_standing[TAIL_LAYER]	= image(over, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+				overlays_standing[TAIL_LAYER] = image(over, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
-				overlays_standing[TAIL_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+				overlays_standing[TAIL_LAYER] = image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
 	else if(species.tail && species.bodyflags & HAS_TAIL) //no tailless tajaran
 		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
@@ -1172,15 +1178,15 @@ var/global/list/damage_icon_parts = list()
 				under.Insert(new/icon(tail_s, dir=EAST), dir=EAST)
 				under.Insert(new/icon(tail_s, dir=WEST), dir=WEST)
 
-				overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(under)
+				overlays_standing[TAIL_UNDERLIMBS_LAYER] = image(under)
 
 				// Creates a blank icon, and copies accessory_s' north direction sprite into it before passing that to the tail layer that overlays uniforms and such.
 				var/icon/over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "blank")
 				over.Insert(new/icon(tail_s, dir=NORTH), dir=NORTH)
 
-				overlays_standing[TAIL_LAYER]	= image(over)
+				overlays_standing[TAIL_LAYER] = image(over)
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
-				overlays_standing[TAIL_LAYER]	= image(tail_s)
+				overlays_standing[TAIL_LAYER] = image(tail_s)
 
 	if(update_icons)
 		update_icons()
@@ -1188,9 +1194,9 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/proc/start_tail_wagging(var/update_icons=1)
 	overlays_standing[TAIL_UNDERLIMBS_LAYER] = null // SEW direction icons, overlayed by LIMBS_LAYER.
-	overlays_standing[TAIL_LAYER] = null // This will be one of two things:
-										 // If the species' tail is overlapped by limbs, this will be only the N direction icon so tails can still appear on the outside of uniforms and such.
-										 // Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions.
+	overlays_standing[TAIL_LAYER] = null /* This will be one of two things:
+											If the species' tail is overlapped by limbs, this will be only the N direction icon so tails can still appear on the outside of uniforms and such.
+											Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
 	var/list/marking_styles = params2list(m_styles)
 	var/icon/tail_marking_icon
@@ -1211,24 +1217,24 @@ var/global/list/damage_icon_parts = list()
 			accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if(species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs...
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
-			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "vulpkanin_tail_delay")
+			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "Vulpkanin_tail_delay")
 			if(body_accessory.allowed_species && (species.name in body_accessory.allowed_species))
 				under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.name]_tail_delay")
-			under.Insert(accessory_s, dir=SOUTH)
-			under.Insert(accessory_s, dir=EAST)
-			under.Insert(accessory_s, dir=WEST)
+			under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
+			under.Insert(new/icon(accessory_s, dir=EAST), dir=EAST)
+			under.Insert(new/icon(accessory_s, dir=WEST), dir=WEST)
 
-			overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(under, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+			overlays_standing[TAIL_UNDERLIMBS_LAYER] = image(under, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
 			// Creates a blank icon, and copies accessory_s' north direction sprite into it before passing that to the tail layer that overlays uniforms and such.
-			var/icon/over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "vulpkanin_tail_delay")
+			var/icon/over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "Vulpkanin_tail_delay")
 			if(body_accessory.allowed_species && (species.name in body_accessory.allowed_species)) // If the user's species is in the list of allowed species for the currently selected body accessory, use the appropriate animation timing blank
 				over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.name]_tail_delay")
-			over.Insert(accessory_s, dir=NORTH)
+			over.Insert(new/icon(accessory_s, dir=NORTH), dir=NORTH)
 
-			overlays_standing[TAIL_LAYER]	= image(over, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+			overlays_standing[TAIL_LAYER] = image(over, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 		else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
-			overlays_standing[TAIL_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+			overlays_standing[TAIL_LAYER] = image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
 	else if(species.tail && species.bodyflags & HAS_TAIL)
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
@@ -1239,19 +1245,19 @@ var/global/list/damage_icon_parts = list()
 		if(species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs...
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.name]_tail_delay")
-			under.Insert(tailw_s, dir=SOUTH)
-			under.Insert(tailw_s, dir=EAST)
-			under.Insert(tailw_s, dir=WEST)
+			under.Insert(new/icon(tailw_s, dir=SOUTH), dir=SOUTH)
+			under.Insert(new/icon(tailw_s, dir=EAST), dir=EAST)
+			under.Insert(new/icon(tailw_s, dir=WEST), dir=WEST)
 
-			overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(under)
+			overlays_standing[TAIL_UNDERLIMBS_LAYER] = image(under)
 
 			// Creates a blank icon, and copies accessory_s' north direction sprite into it before passing that to the tail layer that overlays uniforms and such.
 			var/icon/over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.name]_tail_delay")
-			over.Insert(tailw_s, dir=NORTH)
+			over.Insert(new/icon(tailw_s, dir=NORTH), dir=NORTH)
 
-			overlays_standing[TAIL_LAYER]	= image(over)
+			overlays_standing[TAIL_LAYER] = image(over)
 		else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
-			overlays_standing[TAIL_LAYER]	= image(tailw_s)
+			overlays_standing[TAIL_LAYER] = image(tailw_s)
 
 	if(update_icons)
 		update_icons()

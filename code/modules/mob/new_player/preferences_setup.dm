@@ -338,6 +338,12 @@
 			facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
 		else
 			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+
+		if(facial_hair_style.secondary_colour)
+			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_colour]_s")
+			facial_secondary_s.Blend(rgb(r_facial_sec, g_facial_sec, b_facial_sec), ICON_ADD)
+			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
+
 		face_s.Blend(facial_s, ICON_OVERLAY)
 
 	var/icon/underwear_s = null

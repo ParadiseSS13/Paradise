@@ -120,10 +120,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/r_hair = 0						//Hair color
 	var/g_hair = 0						//Hair color
 	var/b_hair = 0						//Hair color
-	var/f_style = "Shaved"				//Face hair type
-	var/r_facial = 0					//Face hair color
-	var/g_facial = 0					//Face hair color
-	var/b_facial = 0					//Face hair color
+	var/f_style = "Shaved"				//Facial hair type
+	var/r_facial = 0					//Facial hair color
+	var/g_facial = 0					//Facial hair color
+	var/b_facial = 0					//Facial hair color
+	var/r_facial_sec = 0				//Secondary facial hair color
+	var/g_facial_sec = 0				//Secondary facial hair color
+	var/b_facial_sec = 0				//Secondary facial hair color
 	var/s_tone = 0						//Skin tone
 	var/r_skin = 0						//Skin color
 	var/g_skin = 0						//Skin color
@@ -318,6 +321,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Facial Hair:</b> "
 			dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
 			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(r_facial, g_facial, b_facial)]<br>"
+			var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
+			if(facial_hair_style.secondary_colour)
+				dat += "<a href='?_src_=prefs;preference=secondary_facial;task=input'>Secondary Color</a> [color_square(r_facial_sec, g_facial_sec, b_facial_sec)]<br>"
+
 
 			if(species != "Machine")
 				dat += "<b>Eyes:</b> "
@@ -1256,6 +1263,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						r_hair = 0//hex2num(copytext(new_hair, 2, 4))
 						g_hair = 0//hex2num(copytext(new_hair, 4, 6))
 						b_hair = 0//hex2num(copytext(new_hair, 6, 8))
+						r_facial = 0
+						g_facial = 0
+						b_facial = 0
+						r_facial_sec = 0
+						g_facial_sec = 0
+						b_facial_sec = 0
 
 						s_tone = 0
 
@@ -1269,7 +1282,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									body=None;\
 									tail=None" // No Unathi markings on Tajara
 
-						alt_head = null	//No alt heads on species that don't have them.
+						alt_head = "None" //No alt heads on species that don't have them.
 
 						body_accessory = null //no vulptail on humans damnit
 
@@ -1541,6 +1554,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							r_facial = hex2num(copytext(new_facial, 2, 4))
 							g_facial = hex2num(copytext(new_facial, 4, 6))
 							b_facial = hex2num(copytext(new_facial, 6, 8))
+
+				if("secondary_facial")
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+						var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
+						if(facial_hair_style.secondary_colour)
+							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", rgb(r_facial_sec, g_facial_sec, b_facial_sec)) as color|null
+							if(new_facial)
+								r_facial_sec = hex2num(copytext(new_facial, 2, 4))
+								g_facial_sec = hex2num(copytext(new_facial, 4, 6))
+								b_facial_sec = hex2num(copytext(new_facial, 6, 8))
 
 				if("f_style")
 					var/list/valid_facialhairstyles = list()
@@ -2000,6 +2023,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	H.r_facial = r_facial
 	H.g_facial = g_facial
 	H.b_facial = b_facial
+
+	H.r_facial_sec = r_facial_sec
+	H.g_facial_sec = g_facial_sec
+	H.b_facial_sec = b_facial_sec
 
 	H.h_style = h_style
 	H.f_style = f_style

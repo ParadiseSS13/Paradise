@@ -234,6 +234,18 @@
 	update_fhair()
 	return 1
 
+/mob/living/carbon/human/proc/change_secondary_facial_hair_color(var/red, var/green, var/blue)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(red == H.r_facial_sec && green == H.g_facial_sec && blue == H.b_facial_sec)
+		return
+
+	H.r_facial_sec = red
+	H.g_facial_sec = green
+	H.b_facial_sec = blue
+
+	update_fhair()
+	return 1
+
 /mob/living/carbon/human/proc/change_head_accessory_color(var/red, var/green, var/blue)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(red == H.r_headacc && green == H.g_headacc && blue == H.b_headacc)
@@ -271,6 +283,7 @@
 	b_skin = blue
 
 	force_update_limbs()
+	update_body()
 	return 1
 
 /mob/living/carbon/human/proc/change_skin_tone(var/tone)

@@ -158,6 +158,9 @@
 	var/r_facial = 0
 	var/g_facial = 0
 	var/b_facial = 0
+	var/r_facial_sec = 0
+	var/g_facial_sec = 0
+	var/b_facial_sec = 0
 	var/f_style = "Shaved"
 
 /obj/item/organ/external/head/remove()

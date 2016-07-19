@@ -47,6 +47,7 @@
 	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
 	var/marking_location //Specifies which bodypart a body marking is located on.
+	var/secondary_colour = null //If exists, there's a secondary colour to that hair style and the secondary colour's icon state's suffix is equal to this.
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -1107,6 +1108,12 @@
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
+	una_frills_aquatic
+		name = "Aquatic Frills"
+		icon_state = "soghun_aquaticfrills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
 	una_frills_long
 		name = "Long Frills"
 		icon_state = "soghun_longfrills"
@@ -1119,22 +1126,25 @@
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
+	una_frills_webbed_aquatic
+		name = "Aquatic Webbed Frills"
+		icon_state = "soghun_aquaticfrills"
+		species_allowed = list("Unathi")
+		secondary_colour = "webbing"
+		gender = NEUTER
+
 	una_frills_webbed_long
 		name = "Long Webbed Frills"
-		icon_state = "soghun_longfrills_webbed"
+		icon_state = "soghun_longfrills"
 		species_allowed = list("Unathi")
+		secondary_colour = "webbing"
 		gender = NEUTER
 
 	una_frills_webbed_short
 		name = "Short Webbed Frills"
-		icon_state = "soghun_shortfrills_webbed"
+		icon_state = "soghun_shortfrills"
 		species_allowed = list("Unathi")
-		gender = NEUTER
-
-	una_frills_webbed_aquatic
-		name = "Aquatic Frills"
-		icon_state = "soghun_aquaticfrills_webbed"
-		species_allowed = list("Unathi")
+		secondary_colour = "webbing"
 		gender = NEUTER
 
 
@@ -1968,10 +1978,20 @@
 	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
 	icon_state = "markings_tiger"
 
-/datum/sprite_accessory/body_markings/tigerhead
-	name = "Tiger Body and Head"
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
-	icon_state = "markings_tigerhead"
+/datum/sprite_accessory/body_markings/tigerhead_taj
+	name = "Tajaran Tiger Body and Head"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_tigerhead_taj"
+
+/datum/sprite_accessory/body_markings/tigerhead_vulp
+	name = "Vulpkanin Tiger Body and Head"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_tigerhead_vulp"
+
+/datum/sprite_accessory/body_markings/tigerhead_una
+	name = "Unathi Tiger Body and Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_tigerhead_una"
 
 /datum/sprite_accessory/body_markings/tigerheadface_taj
 	name = "Tajaran Tiger Body, Head and Face"
