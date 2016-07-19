@@ -78,6 +78,8 @@
 		if(slot_wear_id)
 			// the only relevant check for this is the uniform check
 			return 1
+		if(slot_wear_pda)
+			return 1
 		if(slot_l_ear)
 			return has_organ("head")
 		if(slot_r_ear)
@@ -248,6 +250,9 @@
 			wear_id = W
 			sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
+		if(slot_wear_pda)
+			wear_pda = W
+			update_inv_wear_pda(redraw_mob)
 		if(slot_l_ear)
 			l_ear = W
 			if(l_ear.slot_flags & SLOT_TWOEARS)
@@ -334,6 +339,8 @@
 			return belt
 		if(slot_wear_id)
 			return wear_id
+		if(slot_wear_pda)
+			return wear_pda
 		if(slot_l_ear)
 			return l_ear
 		if(slot_r_ear)
@@ -511,6 +518,16 @@
 					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
 				return 0
 			if(!(I.slot_flags & SLOT_ID))
+				return 0
+			return 1
+		if(slot_wear_pda)
+			if(wear_pda)
+				return 0
+			if(!w_uniform)
+				if(!disable_warning)
+					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+				return 0
+			if(!(I.slot_flags & SLOT_PDA))
 				return 0
 			return 1
 		if(slot_l_store)
