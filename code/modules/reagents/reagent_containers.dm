@@ -56,7 +56,7 @@
 	reagents.handle_reactions()
 	..()
 
-/obj/item/weapon/reagent_containers/attack_self(mob/user as mob)
+/obj/item/weapon/reagent_containers/attack_self(mob/user)
 	return
 
 // this prevented pills, food, and other things from being picked up by bags.
@@ -69,7 +69,7 @@
 /obj/item/weapon/reagent_containers/afterattack(obj/target, mob/user , flag)
 	return
 
-/obj/item/weapon/reagent_containers/proc/reagentlist(var/obj/item/weapon/reagent_containers/snack) //Attack logs for regents in pills
+/obj/item/weapon/reagent_containers/proc/reagentlist(obj/item/weapon/reagent_containers/snack) //Attack logs for regents in pills
 	var/data
 	if(snack && snack.reagents && snack.reagents.reagent_list && snack.reagents.reagent_list.len) //find a reagent list if there is and check if it has entries
 		for(var/datum/reagent/R in snack.reagents.reagent_list) //no reagents will be left behind

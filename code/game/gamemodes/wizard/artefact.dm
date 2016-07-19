@@ -409,10 +409,6 @@ var/global/list/multiverse = list()
 		if(belt)
 			M.equip_to_slot_or_del(new belt.type(M), slot_belt)
 
-		var/obj/pda = H.get_item_by_slot(slot_wear_pda)
-		if(pda)
-			M.equip_to_slot_or_del(new pda.type(M), slot_wear_pda)
-
 		var/obj/back = H.get_item_by_slot(slot_back)
 		if(back)
 			M.equip_to_slot_or_del(new back.type(M), slot_back)

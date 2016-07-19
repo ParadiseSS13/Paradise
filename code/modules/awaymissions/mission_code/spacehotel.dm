@@ -54,9 +54,8 @@
 	name = "space hotel pamphlet"
 	info = "<h3>Welcome to Deep Space Hotel 419!</h3>Thank you for choosing our hotel. Simply hand your credit or debit card to the concierge and get your room key! To check out, hand your credit card back.<small><h4>Conditions:</h4><ul><li>The hotel is not responsible for any losses due to time or space anomalies.<li>The hotel is not responsible for events that occur outside of the hotel station, including, but not limited to, events that occur inside of dimensional pockets.<li>The hotel is not responsible for overcharging your account.<li>The hotel is not responsible for missing persons.<li>The hotel is not responsible for mind-altering effects due to drugs, magic, demons, or space worms.</ul></small>"
 
-/obj/effect/landmark/map_loader/hotel_room/New()
+/obj/effect/landmark/map_loader/hotel_room/initialize()
 	..()
-
 	// load and randomly assign rooms
 	var/global/list/south_room_templates = list()
 	var/global/list/north_room_templates = list()
@@ -65,26 +64,27 @@
 	if(!loaded)
 		loaded = 1
 		for(var/map in flist(path))
-			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
-			if(copytext(map, 1, 3) == "n_")
-				north_room_templates += T
-			else if(copytext(map, 1, 3) == "s_")
-				south_room_templates += T
-			else
-				// omnidirectional rooms are randomly assigned
-				if(prob(50))
+			if(cmptext(copytext(map, length(map) - 3), ".dmm"))
+				var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
+				if(copytext(map, 1, 3) == "n_")
 					north_room_templates += T
-				else
+				else if(copytext(map, 1, 3) == "s_")
 					south_room_templates += T
+				else
+					// omnidirectional rooms are randomly assigned
+					if(prob(50))
+						north_room_templates += T
+					else
+						south_room_templates += T
 
 	var/datum/map_template/M = safepick(dir == NORTH ? north_room_templates : south_room_templates)
 	if(M)
 		template = M
-		load(M)
 		if(dir == NORTH)
 			north_room_templates -= M
 		else
 			south_room_templates -= M
+		load(M)
 
 // The door to a hotel room, but also metadata for the room itself
 /obj/machinery/door/unpowered/hotel_door

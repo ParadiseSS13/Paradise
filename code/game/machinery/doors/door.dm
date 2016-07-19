@@ -45,11 +45,13 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-	air_update_turf(1)
 	update_freelook_sight()
 	airlocks += src
 	return
 
+/obj/machinery/door/initialize()
+	air_update_turf(1)
+	..()
 
 /obj/machinery/door/Destroy()
 	density = 0

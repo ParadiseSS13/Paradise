@@ -94,7 +94,9 @@
 				dat += "<a href='?src=\ref[src];choice=access;access=[A]'>[area]</a><br>"
 		dat += "<br><a href='?src=\ref[src];action=issue'>Issue pass</a><br>"
 
-	user << browse(dat, "window=guestpass;size=400x520")
+	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "guestpass")
 
 

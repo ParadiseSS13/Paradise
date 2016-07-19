@@ -230,11 +230,13 @@
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
 		dat += {"<HR><BR>\
-<A href='?src=\ref[src];action=cook'>Turn on!<BR>\
-<A href='?src=\ref[src];action=dispose'>Eject ingredients!<BR>\
+<A href='?src=\ref[src];action=cook'>Turn on!</A><BR>\
+<A href='?src=\ref[src];action=dispose'>Eject ingredients!</A><BR>\
 "}
 
-	user << browse("<HEAD><TITLE>[src] Controls</TITLE></HEAD><TT>[dat]</TT>", "window=[src.name]")
+	var/datum/browser/popup = new(user, name, name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "[src.name]")
 	return
 
@@ -313,7 +315,7 @@
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
 	for(var/obj/O in contents)
-		if ( \
+		if( \
 				!istype(O,/obj/item/weapon/reagent_containers/food) && \
 				!istype(O, /obj/item/weapon/grown) \
 			)

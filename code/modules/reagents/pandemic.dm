@@ -265,7 +265,9 @@
 		dat += "<BR><A href='?src=\ref[src];eject=1'>Eject beaker</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=\ref[src];empty_beaker=1'>Empty beaker</A>":"")]<BR>"
 		dat += "<A href='?src=\ref[user];mach_close=pandemic'>Close</A>"
 
-	user << browse("<TITLE>[src.name]</TITLE><BR>[dat]", "window=pandemic;size=575x400")
+	var/datum/browser/popup = new(user, "pandemic", name, 575, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "pandemic")
 	return
 

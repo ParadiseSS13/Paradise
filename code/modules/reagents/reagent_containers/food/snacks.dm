@@ -146,7 +146,7 @@
 		return
 	else
 		return 1
-	if ( \
+	if( \
 			!isturf(src.loc) || \
 			!(locate(/obj/structure/table) in src.loc) && \
 			!(locate(/obj/machinery/optable) in src.loc) && \
@@ -706,6 +706,18 @@
 	name = "spider meat"
 	desc = "A slab of spider meat."
 	icon_state = "spidermeat"
+	New()
+		..()
+		reagents.add_reagent("protein", 3)
+		reagents.add_reagent("toxin", 3)
+		bitesize = 3
+
+/obj/item/weapon/reagent_containers/food/snacks/lizardmeat
+	name = "mutant lizard meat"
+	desc = "Seems to be a slab of meat from some mutant lizard thing?"
+	icon_state = "xenomeat"
+	filling_color = "#43DE18"
+
 	New()
 		..()
 		reagents.add_reagent("protein", 3)

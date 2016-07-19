@@ -154,6 +154,7 @@
 
 
 /obj/item/device/camera/spooky/CheckParts()
+	..()
 	var/obj/item/device/camera/C = locate(/obj/item/device/camera) in contents
 	if(C)
 		pictures_max = C.pictures_max
