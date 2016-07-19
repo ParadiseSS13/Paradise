@@ -85,7 +85,7 @@
 	if(!client)
 		return
 
-	if(sleeping || stat == DEAD) //If unconscious or sleeping
+	if(sleeping || stat == UNCONSCIOUS) //If unconscious or sleeping
 		hear_sleep(message)
 		return
 
