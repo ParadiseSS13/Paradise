@@ -53,7 +53,7 @@
 			updateTank(tank, 1, user)
 
 
-/obj/item/weapon/melee/powerfist/proc/updateTank(obj/item/weapon/tank/emergency_oxygen/thetank, removing = 0, mob/living/carbon/human/user)
+/obj/item/weapon/melee/powerfist/proc/updateTank(obj/item/weapon/tank/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)
 		if(!tank)
 			to_chat(user, "<span class='notice'>\The [src] currently has no tank attached to it.</span>")
