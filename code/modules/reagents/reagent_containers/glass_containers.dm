@@ -268,7 +268,7 @@
 	if(assembly)
 		assembly.Crossed(AM)
 
-/obj/item/weapon/reagent_containers/glass/beaker/on_found(mob/finder as mob) //for mousetraps
+/obj/item/weapon/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
 		assembly.on_found(finder)
 
@@ -319,20 +319,14 @@
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	flags = OPENCONTAINER
 
-/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone/New()
-	..()
-	reagents.add_reagent("cryoxadone", 30)
-	update_icon()
+/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone
+	list_reagents = list("cryoxadone" = 30)
 
-/obj/item/weapon/reagent_containers/glass/beaker/sulphuric/New()
-	..()
-	reagents.add_reagent("sacid", 50)
-	update_icon()
+/obj/item/weapon/reagent_containers/glass/beaker/sulphuric
+	list_reagents = list("sacid" = 50)
 
-/obj/item/weapon/reagent_containers/glass/beaker/slime/New()
-	..()
-	reagents.add_reagent("slimejelly", 50)
-	update_icon()
+/obj/item/weapon/reagent_containers/glass/beaker/slime
+	list_reagents = list("slimejelly" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bucket
 	desc = "It's a bucket."
@@ -347,7 +341,7 @@
 	volume = 120
 	flags = OPENCONTAINER
 
-/obj/item/weapon/reagent_containers/glass/bucket/attackby(var/obj/D, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
 	if(isprox(D))
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)
@@ -366,51 +360,3 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1,5,15)
 	flags = OPENCONTAINER
-
-/*
-/obj/item/weapon/reagent_containers/glass/blender_jug
-	name = "Blender Jug"
-	desc = "A blender jug, part of a blender."
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "blender_jug_e"
-	volume = 100
-
-	on_reagent_change()
-		switch(src.reagents.total_volume)
-			if(0)
-				icon_state = "blender_jug_e"
-			if(1 to 75)
-				icon_state = "blender_jug_h"
-			if(76 to 100)
-				icon_state = "blender_jug_f"
-
-/obj/item/weapon/reagent_containers/glass/canister		//not used apparantly
-	desc = "It's a canister. Mainly used for transporting fuel."
-	name = "canister"
-	icon = 'icons/obj/tank.dmi'
-	icon_state = "canister"
-	item_state = "canister"
-	materials = list(MAT_METAL=300)
-	w_class = 4
-
-	amount_per_transfer_from_this = 20
-	possible_transfer_amounts = list(10,20,30,60)
-	volume = 120
-
-/obj/item/weapon/reagent_containers/glass/dispenser
-	name = "reagent glass"
-	desc = "A reagent glass."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "beaker0"
-	amount_per_transfer_from_this = 10
-	flags = OPENCONTAINER
-
-/obj/item/weapon/reagent_containers/glass/dispenser/surfactant
-	name = "reagent glass (surfactant)"
-	icon_state = "liquid"
-
-	New()
-		..()
-		reagents.add_reagent("fluorosurfactant", 20)
-
-*/

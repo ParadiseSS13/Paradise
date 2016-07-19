@@ -53,6 +53,8 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/speech_problem_flag = 0
 
+	var/datum/personal_crafting/handcrafting
+
 	var/datum/martial_art/martial_art = null
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.

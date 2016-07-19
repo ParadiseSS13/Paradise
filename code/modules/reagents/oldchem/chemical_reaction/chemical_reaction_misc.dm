@@ -15,7 +15,7 @@
 	required_reagents = list("fluorosurfactant" = 1, "water" = 1)
 	result_amount = 2
 
-/datum/chemical_reaction/foam/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out foam!</span>")
 
@@ -32,7 +32,7 @@
 	required_reagents = list("aluminum" = 3, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 5
 
-/datum/chemical_reaction/metalfoam/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
@@ -49,7 +49,7 @@
 	required_reagents = list("iron" = 3, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 5
 
-/datum/chemical_reaction/ironfoam/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
 	holder.my_atom.visible_message("<span class='warning>The solution spews out a metalic foam!</span>")
@@ -100,7 +100,7 @@
 	required_reagents = list("facid" = 10, "plasticide" = 20)
 	result_amount = 1
 
-/datum/chemical_reaction/plastication/on_reaction(var/datum/reagents/holder)
+/datum/chemical_reaction/plastication/on_reaction(datum/reagents/holder)
 	var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/mineral/plastic
 	M.amount = 10
 	M.forceMove(get_turf(holder.my_atom))
