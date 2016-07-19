@@ -1,0 +1,14 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "nanites will no longer purge chems, but will now heal internal organ damage, attempt to mend fractures, and will no longer cure beneficial viruses"
+  - bugfix: "cold and hot drinks should now properly heat you up or cool you down (this also goes for medical reagents)"
+  - tweak: "beer no longer reduces jitteriness"
+  - tweak: "toxins special and antifreeze heat you up"
+  - tweak: "banana juice and banana honk now heals monkeys"
+  - bugfix: "Fixes atrazine not killing nymphs"
+  - tweak: "mining autoinjectors no longer poison you"
+  - tweak: "combat hypospray now has omni+epinephrine+teporone"
+  - tweak: "stimpack is now meth+coffee instead of meth+epinephrine"
+  - tweak: "Cheese and synth meat amount creation scales with volume of the reaction"
+  - tweak: "sprinkles now heals all members of sec (brig phys, sec pod pilot, magistrate, and IAA are no longer left out)"

@@ -313,7 +313,8 @@
 	throw_range = 3
 	w_class = 4
 	var/extend = 1
-	flags = NOSHIELD | CONDUCT
+	flags = CONDUCT
+	armour_penetration = 20
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -336,9 +337,9 @@
 	edge = 0
 	throw_speed = 2
 	throw_range = 3
-	w_class = 2.0
+	w_class = 2
 	extend = 0
-	flags = NOSHIELD
+	armour_penetration = 20
 	slot_flags = SLOT_BELT
 	origin_tech = "materials=3;combat=3"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -373,7 +374,7 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	if (!blood_DNA) return
+	if(!blood_DNA) return
 	if(blood_overlay && (blood_DNA.len >= 1)) //updates blood overlay, if any
 		overlays.Cut()//this might delete other item overlays as well but eeeeeeeh
 
@@ -396,7 +397,7 @@
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	w_class = 3.0
+	w_class = 3
 
 /obj/item/weapon/bananapeel
 	name = "banana peel"
@@ -404,7 +405,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "banana_peel"
 	item_state = "banana_peel"
-	w_class = 1.0
+	w_class = 1
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -415,7 +416,7 @@
 	icon = 'icons/obj/harvest.dmi'
 	icon_state = "corncob"
 	item_state = "corncob"
-	w_class = 1.0
+	w_class = 1
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20

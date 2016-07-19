@@ -10,7 +10,7 @@
 	item_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	w_class = 4.0
+	w_class = 4
 	slot_flags = SLOT_BACK	//ERROOOOO
 	max_w_class = 3
 	max_combined_w_class = 21
@@ -63,13 +63,13 @@
 			. = ..()
 
 	proc/failcheck(mob/user as mob)
-		if (prob(src.reliability)) return 1 //No failure
-		if (prob(src.reliability))
+		if(prob(src.reliability)) return 1 //No failure
+		if(prob(src.reliability))
 			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
 
 		else
 			to_chat(user, "\red The Bluespace generator malfunctions!")
-			for (var/obj/O in src.contents) //it broke, delete what was in it
+			for(var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
 			icon_state = "brokenpack"
@@ -85,7 +85,7 @@
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	w_class = 4.0
+	w_class = 4
 	max_w_class = 3
 	max_combined_w_class = 400 // can store a ton of shit!
 
@@ -321,6 +321,25 @@
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/device/mmi/syndie(src)
+
+/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
+	name = "surgery dufflebag"
+	desc = "A suspicious looking dufflebag for holding surgery tools."
+	icon_state = "duffel-syndimed"
+	item_state = "duffle-syndimed"
+
+/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake/New()
+	..()
+	new /obj/item/weapon/scalpel(src)
+	new /obj/item/weapon/hemostat(src)
+	new /obj/item/weapon/retractor(src)
+	new /obj/item/weapon/cautery(src)
+	new /obj/item/weapon/bonegel(src)
+	new /obj/item/weapon/bonesetter(src)
+	new /obj/item/weapon/FixOVein(src)
+	if(prob(50))
+		new /obj/item/weapon/circular_saw(src)
+		new /obj/item/weapon/surgicaldrill(src)
 
 /obj/item/weapon/storage/backpack/duffel/captain
 	name = "captain's duffelbag"

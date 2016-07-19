@@ -47,10 +47,10 @@
 	if(!on)
 		return
 	scrub(loc)
-	if (widenet)
+	if(widenet)
 		var/turf/T = loc
-		if (istype(T))
-			for (var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
+		if(istype(T))
+			for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
 				scrub(tile)
 	
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/turf/simulated/tile)
@@ -69,7 +69,7 @@
 		removed = loc.remove_air(transfer_moles)
 
 	//Filter it
-	if (removed)
+	if(removed)
 		var/datum/gas_mixture/filtered_out = new
 
 		filtered_out.temperature = removed.temperature
@@ -126,12 +126,12 @@
 	data["on"] = on ? 1 : 0
 
 	data["hasHoldingTank"] = holding ? 1 : 0
-	if (holding)
+	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure() > 0 ? holding.air_contents.return_pressure() : 0))
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "portscrubber.tmpl", "Portable Scrubber", 480, 400, state = physical_state)
@@ -205,7 +205,7 @@
 		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 		return
 
-	else if ((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
+	else if((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 		
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary

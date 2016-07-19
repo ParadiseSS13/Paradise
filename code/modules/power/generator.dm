@@ -92,9 +92,9 @@
 				air1.temperature = air1.temperature - energy_transfer/air1_heat_capacity
 
 	//Transfer the air
-	if (air1)
+	if(air1)
 		circ1.air2.merge(air1)
-	if (air2)
+	if(air2)
 		circ2.air2.merge(air2)
 
 	//Update the gas networks
@@ -137,7 +137,7 @@
 
 
 /obj/machinery/power/generator/interact(mob/user)
-	if ( (get_dist(src, user) > 1 ) && (!istype(user, /mob/living/silicon/ai)))
+	if( (get_dist(src, user) > 1 ) && (!istype(user, /mob/living/silicon/ai)))
 		user.unset_machine()
 		user << browse(null, "window=teg")
 		return
@@ -195,7 +195,7 @@
 	set name = "Rotate Generator (Clockwise)"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained()  || anchored)
+	if(usr.stat || usr.restrained()  || anchored)
 		return
 
 	src.dir = turn(src.dir, 90)
@@ -205,7 +205,7 @@
 	set name = "Rotate Generator (Counterclockwise)"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained()  || anchored)
+	if(usr.stat || usr.restrained()  || anchored)
 		return
 
 	src.dir = turn(src.dir, -90)

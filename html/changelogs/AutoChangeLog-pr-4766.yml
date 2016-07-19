@@ -1,0 +1,5 @@
+author: Kyep
+delete-after: True
+changes: 
+  - tweak: "Tracking implants are now useful, showing the implanted person's general location, and health status, on prisoner consoles."
+  - bugfix: "The NODROP flag now works correctly on jumpsuits."

@@ -89,7 +89,7 @@
 					bloodcolor = M.feet_blood_color
 					M.track_blood--
 
-			if (bloodDNA)
+			if(bloodDNA)
 				src.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints,bloodDNA,M.dir,0,bloodcolor) // Coming
 				var/turf/simulated/from = get_step(M,reverse_direction(M.dir))
 				if(istype(from) && from)
@@ -97,25 +97,24 @@
 
 				bloodDNA = null
 
-			switch (src.wet)
+			switch(src.wet)
 				if(TURF_WET_WATER)
-					if (!(M.slip("wet floor", 4, 2, 0, 1)))
+					if(!(M.slip("wet floor", 4, 2, 0, 1)))
 						M.inertia_dir = 0
 						return
 
 				if(TURF_WET_LUBE) //lube
-					if(M.slip("floor", 0, 7, 4, 0, 1))
-						M.take_organ_damage(2) // Was 5 -- TLE
+					M.slip("floor", 0, 5, 3, 0, 1)
 
 
 				if(TURF_WET_ICE) // Ice
-					if (!(prob(30) && M.slip("icy floor", 4, 2, 1, 1)))
+					if(!(prob(30) && M.slip("icy floor", 4, 2, 1, 1)))
 						M.inertia_dir = 0
 
 
 //returns 1 if made bloody, returns 0 otherwise
 /turf/simulated/add_blood(mob/living/carbon/human/M)
-	if (!..())
+	if(!..())
 		return 0
 
 	var/obj/effect/decal/cleanable/blood/B = locate() in contents	//check for existing blood splatter

@@ -3,7 +3,7 @@
 	player_list -= src
 	log_access("Logout: [key_name(src)]")
 	if(admin_datums[src.ckey])
-		if (ticker && ticker.current_state == GAME_STATE_PLAYING) //Only report this stuff if we are currently playing.
+		if(ticker && ticker.current_state == GAME_STATE_PLAYING) //Only report this stuff if we are currently playing.
 			var/admins_number = admins.len
 
 			message_admins("Admin logout: [key_name_admin(src)]")
@@ -11,6 +11,6 @@
 				send2adminirc("[key_name(src)] logged out - no more admins online.")
 	..()
 	
-	CallHook("Logout", list("client" = src.client, "mob" = src))	
+	callHook("mob_logout", list("client" = client, "mob" = src))	
 	
 	return 1

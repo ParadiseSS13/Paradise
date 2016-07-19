@@ -42,7 +42,7 @@
 	if(!proximity) return
 
 	// Moved from the can code; not necessary since closed cans aren't open containers now, but, eh.
-	if (istype(target, /obj/item/weapon/reagent_containers/food/drinks/cans))
+	if(istype(target, /obj/item/weapon/reagent_containers/food/drinks/cans))
 		var/obj/item/weapon/reagent_containers/food/drinks/cans/cantarget = target
 		if(cantarget.canopened == 0)
 			to_chat(user, "<span class='notice'>You need to open the drink you want to pour into!</span>")
@@ -109,12 +109,12 @@
 		return
 	if(!reagents || reagents.total_volume==0)
 		to_chat(user, "<span class='notice'> \The [src] is empty!</span>")
-	else if (reagents.total_volume<=src.volume/4)
+	else if(reagents.total_volume<=src.volume/4)
 		to_chat(user, "<span class='notice'> \The [src] is almost empty!</span>")
-	else if (reagents.total_volume<=src.volume*0.66)
+	else if(reagents.total_volume<=src.volume*0.66)
 		to_chat(user, "<span class='notice'> \The [src] is half full!</span>")// We're all optimistic, right?!
 
-	else if (reagents.total_volume<=src.volume*0.90)
+	else if(reagents.total_volume<=src.volume*0.90)
 		to_chat(user, "<span class='notice'> \The [src] is almost full!</span>")
 	else
 		to_chat(user, "<span class='notice'> \The [src] is full!</span>")

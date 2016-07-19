@@ -95,7 +95,7 @@
 		if(paralysis)
 			stat = UNCONSCIOUS
 
-		else if (status_flags & FAKEDEATH)
+		else if(status_flags & FAKEDEATH)
 			stat = UNCONSCIOUS
 
 		else

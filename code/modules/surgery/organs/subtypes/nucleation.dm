@@ -32,6 +32,7 @@
 
 /obj/item/organ/internal/eyes/luminescent_crystal/New()
 	set_light(2)
+	..()
 
 /obj/item/organ/internal/brain/crystal
 	name = "crystalized brain"

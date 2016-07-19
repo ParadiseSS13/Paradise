@@ -29,7 +29,7 @@
 	init_datum_subtypes(/datum/nations, all_nations, null, "default_name")
 	init_datum_subtypes(/datum/language, all_languages, null, "name")
 
-	for (var/language_name in all_languages)
+	for(var/language_name in all_languages)
 		var/datum/language/L = all_languages[language_name]
 		if(!(L.flags & NONGLOBAL))
 			language_keys[":[lowertext(L.key)]"] = L
@@ -46,21 +46,13 @@
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
 
-	paths = subtypesof(/datum/emote)
-	for(var/T in paths)
-		var/datum/emote/E = new T
-		if(istype(T, /datum/emote/custom))
-			continue
-		emotes += E
-
-
-	init_subtypes(/datum/table_recipe, table_recipes)
+	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 	return 1
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
-	for (var/reaction in chemical_reactions_list)
+	for(var/reaction in chemical_reactions_list)
 		. += "chemical_reactions_list\[\"[reaction]\"\] = \"[chemical_reactions_list[reaction]]\"\n"
 		if(islist(chemical_reactions_list[reaction]))
 			var/list/L = chemical_reactions_list[reaction]

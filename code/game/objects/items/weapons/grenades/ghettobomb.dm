@@ -17,7 +17,7 @@
 /obj/item/weapon/grenade/iedcasing
 	name = "improvised explosive assembly"
 	desc = "An igniter stuffed into an aluminum shell."
-	w_class = 2.0
+	w_class = 2
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
 	item_state = "flashbang"
@@ -67,7 +67,7 @@
 /obj/item/weapon/grenade/iedcasing/filled
 	name = "improvised firebomb"
 	desc = "A weak, improvised incendiary device."
-	w_class = 2.0
+	w_class = 2
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
 	item_state = "flashbang"
@@ -94,6 +94,7 @@
 		range = pick(2,2,2,3,3,3,4)
 
 /obj/item/weapon/grenade/iedcasing/CheckParts()
+	..()
 	var/obj/item/weapon/reagent_containers/food/drinks/cans/can = locate() in contents
 	if(can)
 		underlays += can

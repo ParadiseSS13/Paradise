@@ -50,7 +50,7 @@ var/global/sent_honksquad = 0
 //Spawns HONKsquad and equips them.
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(honksquad_number<=0)	break
-		if (L.name == "HONKsquad")
+		if(L.name == "HONKsquad")
 			honk_leader_selected = honksquad_number == 1?1:0
 
 			var/mob/living/carbon/human/new_honksquad = create_honksquad(L, honk_leader_selected)
@@ -111,7 +111,7 @@ var/global/sent_honksquad = 0
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(src), slot_w_uniform)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/device/pda/clown(src), slot_wear_pda)
+	equip_to_slot_or_del(new /obj/item/device/pda/clown(src), slot_belt)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/snacks/grown/banana(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/weapon/bikehorn(src), slot_in_backpack)

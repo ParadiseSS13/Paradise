@@ -36,9 +36,9 @@
 
 
 /obj/machinery/juicer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if (istype(O,/obj/item/weapon/reagent_containers/glass) || \
+	if(istype(O,/obj/item/weapon/reagent_containers/glass) || \
 		istype(O,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
-		if (beaker)
+		if(beaker)
 			return 1
 		else
 			if(!user.unEquip(O))
@@ -50,7 +50,7 @@
 			update_icon()
 			src.updateUsrDialog()
 			return 0
-	if (!is_type_in_list(O, allowed_items))
+	if(!is_type_in_list(O, allowed_items))
 		to_chat(user, "It doesn't look like that contains any juice.")
 		return 1
 	if(!user.unEquip(O))
@@ -73,21 +73,21 @@
 	var/processing_chamber = ""
 	var/beaker_contents = ""
 
-	for (var/i in allowed_items)
-		for (var/obj/item/O in src.contents)
-			if (!istype(O,i))
+	for(var/i in allowed_items)
+		for(var/obj/item/O in src.contents)
+			if(!istype(O,i))
 				continue
 			processing_chamber+= "some <B>[O]</B><BR>"
 			break
-	if (!processing_chamber)
+	if(!processing_chamber)
 		is_chamber_empty = 1
 		processing_chamber = "Nothing."
-	if (!beaker)
+	if(!beaker)
 		beaker_contents = "\The [src] has no beaker attached."
-	else if (!beaker.reagents.total_volume)
+	else if(!beaker.reagents.total_volume)
 		beaker_contents = "\The [src]  has attached an empty beaker."
 		is_beaker_ready = 1
-	else if (beaker.reagents.total_volume < beaker.reagents.maximum_volume)
+	else if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 		beaker_contents = "\The [src]  has attached a beaker with something."
 		is_beaker_ready = 1
 	else
@@ -98,11 +98,13 @@
 [processing_chamber]<br>
 [beaker_contents]<hr>
 "}
-	if (is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
+	if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
 		dat += "<A href='?src=\ref[src];action=juice'>Turn on!<BR>"
-	if (beaker)
+	if(beaker)
 		dat += "<A href='?src=\ref[src];action=detach'>Detach a beaker!<BR>"
-	user << browse("<HEAD><TITLE>Juicer</TITLE></HEAD><TT>[dat]</TT>", "window=juicer")
+	var/datum/browser/popup = new(user, "juicer", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "juicer")
 	return
 
@@ -112,10 +114,10 @@
 		return
 	usr.set_machine(src)
 	switch(href_list["action"])
-		if ("juice")
+		if("juice")
 			juice()
 
-		if ("detach")
+		if("detach")
 			detach()
 	src.updateUsrDialog()
 	return
@@ -124,9 +126,9 @@
 	set category = "Object"
 	set name = "Detach Beaker from the juicer"
 	set src in oview(1)
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
-	if (!beaker)
+	if(!beaker)
 		return
 	src.verbs -= /obj/machinery/juicer/verb/detach
 	beaker.forceMove(src.loc)
@@ -134,7 +136,7 @@
 	update_icon()
 
 /obj/machinery/juicer/proc/get_juice_id(var/obj/item/weapon/reagent_containers/food/snacks/O)
-	if (istype(O, /obj/item/weapon/reagent_containers/food/snacks/watermelonslice))
+	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/watermelonslice))
 		return "watermelonjuice"
 	else if(istype(O, /obj.item/weapon/reagent_containers/food/snacks/grown))
 		var/obj/item/weapon/reagent_containers/food/snacks/grown/G = O
@@ -144,9 +146,9 @@
 		return "water"
 
 /obj/machinery/juicer/proc/get_juice_amount(var/obj/item/weapon/reagent_containers/food/snacks/grown/O)
-	if (!istype(O))
+	if(!istype(O))
 		return 5
-	else if (O.potency == -1)
+	else if(O.potency == -1)
 		return 5
 	else
 		return round(5*sqrt(O.potency))
@@ -155,14 +157,14 @@
 	power_change() //it is a portable machine
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if (!beaker || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+	if(!beaker || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
 	playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
-	for (var/obj/item/weapon/reagent_containers/food/snacks/O in src.contents)
+	for(var/obj/item/weapon/reagent_containers/food/snacks/O in src.contents)
 		var/r_id = get_juice_id(O)
 		beaker.reagents.add_reagent(r_id,get_juice_amount(O))
 		qdel(O)
-		if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 
 /obj/structure/closet/crate/juice

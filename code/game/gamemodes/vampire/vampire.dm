@@ -155,12 +155,12 @@
 
 	switch(rand(1,100))
 		if(1 to 80)
-			if (!(locate(/datum/objective/escape) in vampire.objectives))
+			if(!(locate(/datum/objective/escape) in vampire.objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = vampire
 				vampire.objectives += escape_objective
 		else
-			if (!(locate(/datum/objective/survive) in vampire.objectives))
+			if(!(locate(/datum/objective/survive) in vampire.objectives))
 				var/datum/objective/survive/survive_objective = new
 				survive_objective.owner = vampire
 				vampire.objectives += survive_objective
@@ -173,15 +173,15 @@
 
 /datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
 	var/dat
-	if (you_are)
+	if(you_are)
 		dat = "<span class='danger'>You are a Vampire!</span><br>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(vampire.current, dat)
 	to_chat(vampire.current, "<B>You must complete the following tasks:</B>")
 
-	if (vampire.current.mind)
-		if (vampire.current.mind.assigned_role == "Clown")
+	if(vampire.current.mind)
+		if(vampire.current.mind.assigned_role == "Clown")
 			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
 			vampire.current.mutations.Remove(CLUMSY)
 
@@ -371,7 +371,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 		if(T.density)
 			return
-	vamp_burn()
+	vamp_burn(1)
 
 /datum/vampire/proc/handle_vampire()
 	if(owner.hud_used)
@@ -388,7 +388,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(istype(owner.loc, /turf/space))
 		check_sun()
 	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
-		vamp_burn()
+		vamp_burn(0)
 	nullified = max(0, nullified - 1)
 
 /datum/vampire/proc/handle_vampire_cloak()
@@ -415,27 +415,23 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	else
 		owner.alpha = round((255 * 0.80))
 
-/datum/vampire/proc/vamp_burn()
-	if(prob(35))
+/datum/vampire/proc/vamp_burn(severe_burn)
+	var/burn_chance = severe_burn ? 35 : 8
+	if(prob(burn_chance) && owner.health >= 50)
 		switch(owner.health)
-			if(80 to 100)
+			if(75 to 100)
 				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>")
-			if(60 to 80)
+			if(50 to 75)
 				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>")
-			if((-INFINITY) to 60)
-				if(!owner.on_fire)
-					to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
-				else
-					to_chat(owner, "<span class='danger'>You continue to burn!</span>")
-				owner.fire_stacks += 5
-				owner.IgniteMob()
-		owner.emote("scream")
-	else
-		switch(owner.health)
-			if((-INFINITY) to 60)
-				owner.fire_stacks++
-				owner.IgniteMob()
-	owner.adjustFireLoss(3)
+		owner.adjustFireLoss(3)
+	else if(owner.health < 50)
+		if(!owner.on_fire)
+			to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
+			owner.emote("scream")
+		else
+			to_chat(owner, "<span class='danger'>You continue to burn!</span>")
+		owner.adjust_fire_stacks(5)
+		owner.IgniteMob()
 	return
 
 /datum/hud/proc/remove_vampire_hud()

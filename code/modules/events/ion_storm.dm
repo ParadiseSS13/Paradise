@@ -492,7 +492,7 @@
 
 /proc/generate_static_ion_law()
 	/var/list/players = list()
-	for (var/mob/living/carbon/human/player in player_list)
+	for(var/mob/living/carbon/human/player in player_list)
 		if(	!player.mind || player.mind.assigned_role == "MODE" || player.client.inactivity > MinutesToTicks(10))
 			continue
 		players += player.real_name

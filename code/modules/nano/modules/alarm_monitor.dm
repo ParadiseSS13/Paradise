@@ -81,7 +81,7 @@
 	data["categories"] = categories
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "alarm_monitor.tmpl", "Alarm Monitoring Console", 800, 800, state = state)
 		ui.set_initial_data(data)
 		ui.open()

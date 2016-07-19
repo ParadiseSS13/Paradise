@@ -53,6 +53,8 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/speech_problem_flag = 0
 
+	var/datum/personal_crafting/handcrafting
+
 	var/datum/martial_art/martial_art = null
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
@@ -70,7 +72,7 @@ var/global/default_martial_art = new/datum/martial_art
 	var/mob/remoteview_target = null
 	var/meatleft = 3 //For chef item
 	var/decaylevel = 0 // For rotting bodies
-	var/max_blood = 560 // For stuff in the vessel
+	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
 	var/slime_color = "blue" //For slime people this defines their color, it's blue by default to pay tribute to the old icons
 
 	var/check_mutations=0 // Check mutations on next life tick

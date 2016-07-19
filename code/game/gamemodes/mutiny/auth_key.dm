@@ -17,13 +17,13 @@
 
 	proc/keep_alive()
 		var/in_space = istype(loc, /turf/space)
-		if (!in_space && time_entered_space)
+		if(!in_space && time_entered_space)
 			// Recovered before the key was lost
 			time_entered_space = null
-		else if (in_space && !time_entered_space)
+		else if(in_space && !time_entered_space)
 			// The key has left the station
 			time_entered_space = world.time
-		else if (in_space && time_entered_space + (10 SECONDS) < world.time)
+		else if(in_space && time_entered_space + (10 SECONDS) < world.time)
 			// Time is up
 			radio.autosay("This device has left the station's perimeter. Triggering emergency activation failsafe.", name)
 			qdel(src)

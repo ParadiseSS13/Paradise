@@ -16,14 +16,14 @@ datum/directive/ipc_virus
 	proc/get_ipcs()
 		var/list/machines[0]
 		for(var/mob/M in player_list)
-			if (M.is_ready() && M.get_species() == "Machine")
+			if(M.is_ready() && M.get_species() == "Machine")
 				machines+=(M)
 		return machines
 
 	proc/get_roboticists()
 		var/list/roboticists[0]
 		for(var/mob/M in player_list)
-			if (M.is_ready() && roboticist_roles.Find(M.mind.assigned_role))
+			if(M.is_ready() && roboticist_roles.Find(M.mind.assigned_role))
 				roboticists+=(M)
 		return roboticists
 
@@ -64,7 +64,7 @@ datum/directive/ipc_virus/get_remaining_orders()
 
 /hook/debrain/proc/debrain_directive(var/obj/item/organ/internal/brain/B)
 	var/datum/directive/ipc_virus/D = get_directive("ipc_virus")
-	if (!D) return 1
+	if(!D) return 1
 
 	if(D.brains_to_enslave.Find(B.brainmob.mind))
 		D.brains_to_enslave-=B.brainmob.mind
@@ -73,7 +73,7 @@ datum/directive/ipc_virus/get_remaining_orders()
 
 /hook/borgify/proc/borgify_directive(mob/living/silicon/robot/cyborg)
 	var/datum/directive/ipc_virus/D = get_directive("ipc_virus")
-	if (!D) return 1
+	if(!D) return 1
 
 	if(D.cyborgs_to_make.Find(cyborg.mind))
 		D.cyborgs_to_make-=cyborg.mind
@@ -88,7 +88,7 @@ datum/directive/ipc_virus/get_remaining_orders()
 
 /hook/terminate_employee/proc/ipc_termination(obj/item/weapon/card/id)
 	var/datum/directive/ipc_virus/D = get_directive("ipc_virus")
-	if (!D) return 1
+	if(!D) return 1
 
 	if(D.ids_to_terminate && D.ids_to_terminate.Find(id))
 		D.ids_to_terminate-=id

@@ -6,7 +6,7 @@
 	item_state = ""	//no inhands
 	item_color = "bluetie"
 	slot_flags = SLOT_TIE
-	w_class = 2.0
+	w_class = 2
 	var/slot = "decor"
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
@@ -90,6 +90,10 @@
 	icon_state = "waistcoat"
 	item_state = "waistcoat"
 	item_color = "waistcoat"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/stethoscope
 	name = "stethoscope"
@@ -99,35 +103,45 @@
 
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
-		if(user.a_intent == I_HELP)
-			var/body_part = parse_zone(user.zone_sel.selecting)
-			if(body_part)
-				var/their = "their"
-				switch(M.gender)
-					if(MALE)	their = "his"
-					if(FEMALE)	their = "her"
-
-				var/sound = "pulse"
-				var/sound_strength
-
-				if(M.stat == DEAD || (M.status_flags&FAKEDEATH))
-					sound_strength = "cannot hear"
-					sound = "anything"
-				else
-					sound_strength = "hear a weak"
-					switch(body_part)
-						if("chest")
-							if(M.oxyloss < 50)
-								sound_strength = "hear a healthy"
-							sound = "pulse and respiration"
-						if("eyes","mouth")
-							sound_strength = "cannot hear"
-							sound = "anything"
-						else
-							sound_strength = "hear a weak"
-
-				user.visible_message("[user] places [src] against [M]'s [body_part] and listens attentively.", "You place [src] against [their] [body_part]. You [sound_strength] [sound].")
-				return
+		if(user == M)
+			user.visible_message("[user] places \the [src] against \his chest and listens attentively.", "You place \the [src] against your chest...")
+		else
+			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
+		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
+		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
+		if((H && M.pulse) || (L && !(NO_BREATH in M.mutations) && !(M.species.flags & NO_BREATH)))
+			var/color = "notice"
+			if(H)
+				var/heart_sound
+				switch(H.damage)
+					if(0 to 1)
+						heart_sound = "healthy"
+					if(1 to 25)
+						heart_sound = "offbeat"
+					if(25 to 50)
+						heart_sound = "uneven"
+						color = "warning"
+					if(50 to INFINITY)
+						heart_sound = "weak, unhealthy"
+						color = "warning"
+				to_chat(user, "<span class='[color]'>You hear \an [heart_sound] pulse.</span>")
+			if(L)
+				var/lung_sound
+				switch(L.damage)
+					if(0 to 1)
+						lung_sound = "healthy respiration"
+					if(1 to 25)
+						lung_sound = "labored respiration"
+					if(25 to 50)
+						lung_sound = "pained respiration"
+						color = "warning"
+					if(50 to INFINITY)
+						lung_sound = "gurgling"
+						color = "warning"
+				to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
+		else
+			to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		return
 	return ..(M,user)
 
 
@@ -232,7 +246,7 @@
 	..()
 
 /obj/item/clothing/accessory/holobadge/emag_act(user as mob)
-	if (emagged)
+	if(emagged)
 		to_chat(user, "\red [src] is already cracked.")
 		return
 	else
@@ -420,15 +434,15 @@
 		return
 	var/list/A = U.accessories
 	var/total = A.len
-	if (total == 1)
+	if(total == 1)
 		return "\a [A[1]]"
-	else if (total == 2)
+	else if(total == 2)
 		return "\a [A[1]] and \a [A[2]]"
 	else
 		var/output = ""
 		var/index = 1
 		var/comma_text = ", "
-		while (index < total)
+		while(index < total)
 			output += "\a [A[index]][comma_text]"
 			index++
 

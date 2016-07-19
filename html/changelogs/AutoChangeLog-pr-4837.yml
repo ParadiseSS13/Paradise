@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Fixed Hotkey Help and hotkey mode toggle messages not appearing."

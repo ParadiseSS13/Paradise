@@ -14,7 +14,6 @@
 	throw_range = 5
 	w_class = 2
 	w_class_on = 2
-	flags = NOSHIELD
 	attack_verb = list("attacked", "slashed", "gored", "sliced", "torn", "ripped", "butchered", "cut")
 	attack_verb_on = list()
 

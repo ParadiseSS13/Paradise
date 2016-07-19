@@ -17,7 +17,7 @@
 	icon_state = "tatgun"
 	force = 0
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	var/used = 0
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
@@ -85,6 +85,8 @@
 	update_icon()
 
 
+
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
@@ -92,7 +94,7 @@
 	sharp = 0
 	edge = 0
 
-/obj/item/weapon/claymore/fluff/IsShield()
+/obj/item/weapon/claymore/fluff/hit_reaction()
 	return 0
 
 /obj/item/weapon/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
@@ -171,6 +173,30 @@
 	icon_state = "jello_guitar"
 	item_state = "jello_guitar"
 
+/obj/item/fluff/wingler_comb
+	name = "blue comb"
+	desc = "A blue comb, it looks like it was made to groom a Tajaran's fur."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "wingler_comb"
+	attack_verb = list("combed")
+	hitsound = 'sound/weapons/tap.ogg'
+	force = 0
+	throwforce = 0
+	w_class = 2
+	var/used = 0
+
+/obj/item/fluff/wingler_comb/attack_self(mob/user)
+	if(used)
+		return
+
+	var/mob/living/carbon/human/target = user
+	if(!istype(target) || target.get_species() != "Tajaran") // Only catbeasts, kthnx.
+		return
+
+	if(target.change_body_accessory("Jay Wingler Tail"))
+		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
+		used = 1
+
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
@@ -212,6 +238,8 @@
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "aeneasrinil_open"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/jacket/fluff/kidosvest // Anxipal: Kido Qasteth
 	name = "Kido's Vest"
@@ -222,6 +250,8 @@
 	ignore_suitadjust = 1
 	action_button_name = null
 	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
 	name = "Nano Fibre Jacket"
@@ -259,6 +289,8 @@
 	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulders and rolled up sleeves."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "labcoat_red_open"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
 	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
@@ -333,6 +365,8 @@
 	ignore_suitadjust = 1
 	action_button_name = null
 	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/under/fluff/fox
 	name = "Aeronautics Jumpsuit"
@@ -410,7 +444,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_robe"
 	item_state = "chronx_robe"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	action_button_name = "Transform Robes"
 	adjust_flavour = "untransform"
 	ignore_suitadjust = 0
@@ -440,6 +474,8 @@
 	icon = 'icons/obj/clothing/ties.dmi'
 	icon_state = "vest_black"
 	item_state = "vest_black"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
@@ -455,6 +491,8 @@
 	item_state = "elliot_windbreaker_open"
 	adjust_flavour = "unzip"
 	suit_adjusted = 1
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat
 	desc = "A cheap plastic tattoo application pen.<br>This one seems heavily used."

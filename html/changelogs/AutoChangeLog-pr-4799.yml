@@ -1,4 +1,0 @@
-author: Fethas
-delete-after: True
-changes: 
-  - bugfix: "adds comfirmation dialogs to transforms from player panel"

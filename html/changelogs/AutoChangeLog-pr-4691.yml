@@ -1,0 +1,4 @@
+author: Tauka Usanake
+delete-after: True
+changes: 
+  - rscadd: "Adds a Hydroponics HUD and a night vision version of it that can both be created in R&D. It provides additional details on plants in hydro trays and soil plots. Shows the health, nutrient, water, toxin, pest, and weed level of the plant as well as whenever it is ready to be harvested or is dead."

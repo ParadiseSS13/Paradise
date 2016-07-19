@@ -13,6 +13,6 @@
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 
 /obj/item/weapon/reagent_containers/food/New()
-		..()
-		src.pixel_x = rand(-10.0, 10) //Randomizes postion
-		src.pixel_y = rand(-10.0, 10)
+	..()
+	pixel_x = rand(-10, 10) //Randomizes postion
+	pixel_y = rand(-10, 10)

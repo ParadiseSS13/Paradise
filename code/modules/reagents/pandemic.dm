@@ -74,7 +74,7 @@
 	usr.set_machine(src)
 	if(!beaker) return
 
-	if (href_list["create_vaccine"])
+	if(href_list["create_vaccine"])
 		if(!src.wait)
 			var/obj/item/weapon/reagent_containers/glass/bottle/B = new/obj/item/weapon/reagent_containers/glass/bottle(src.loc)
 			if(B)
@@ -104,7 +104,7 @@
 			src.temp_html = "The replicator is not ready yet."
 		src.updateUsrDialog()
 		return
-	else if (href_list["create_virus_culture"])
+	else if(href_list["create_virus_culture"])
 		if(!wait)
 			var/type = GetVirusTypeByIndex(text2num(href_list["create_virus_culture"]))//the path is received as string - converting
 			var/datum/disease/D = null
@@ -135,11 +135,11 @@
 			src.temp_html = "The replicator is not ready yet."
 		src.updateUsrDialog()
 		return
-	else if (href_list["empty_beaker"])
+	else if(href_list["empty_beaker"])
 		beaker.reagents.clear_reagents()
 		src.updateUsrDialog()
 		return
-	else if (href_list["eject"])
+	else if(href_list["eject"])
 		beaker:loc = src.loc
 		beaker = null
 		icon_state = "mixer0"
@@ -265,7 +265,9 @@
 		dat += "<BR><A href='?src=\ref[src];eject=1'>Eject beaker</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=\ref[src];empty_beaker=1'>Empty beaker</A>":"")]<BR>"
 		dat += "<A href='?src=\ref[user];mach_close=pandemic'>Close</A>"
 
-	user << browse("<TITLE>[src.name]</TITLE><BR>[dat]", "window=pandemic;size=575x400")
+	var/datum/browser/popup = new(user, "pandemic", name, 575, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "pandemic")
 	return
 

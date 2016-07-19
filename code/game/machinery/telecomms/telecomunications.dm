@@ -145,6 +145,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		listening_level = position.z
 
 /obj/machinery/telecomms/initialize()
+	..()
 	if(autolinkers.len)
 		// Links nearby machines
 		if(!long_range_link)
@@ -584,10 +585,3 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/name = "data packet (#)"
 	var/garbage_collector = 1 // if set to 0, will not be garbage collected
 	var/input_type = "Speech File"
-
-
-
-
-
-
-

@@ -323,7 +323,7 @@ Auto Patrol[]"},
 		return
 	anchored = 0
 	threatlevel = 0
-	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
 
