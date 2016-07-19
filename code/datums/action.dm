@@ -33,23 +33,23 @@
 	button = null
 	return ..()
 
-/datum/action/proc/Grant(mob/living/L)
+/datum/action/proc/Grant(mob/M)
 	if(owner)
-		if(owner == L)
+		if(owner == M)
 			return
 		Remove(owner)
-	owner = L
-	L.actions += src
-	if(L.client)
-		L.client.screen += button
-	L.update_action_buttons()
+	owner = M
+	M.actions += src
+	if(M.client)
+		M.client.screen += button
+	M.update_action_buttons()
 
-/datum/action/proc/Remove(mob/living/L)
-	if(L.client)
-		L.client.screen -= button
+/datum/action/proc/Remove(mob/M)
+	if(M.client)
+		M.client.screen -= button
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
-	L.actions -= src
-	L.update_action_buttons()
+	M.actions -= src
+	M.update_action_buttons()
 	owner = null
 
 /datum/action/proc/Trigger()
@@ -67,7 +67,7 @@
 		if(owner.restrained())
 			return 0
 	if(check_flags & AB_CHECK_STUNNED)
-		if(owner.stunned)
+		if(owner.stunned || owner.weakened)
 			return 0
 	if(check_flags & AB_CHECK_LYING)
 		if(owner.lying)
@@ -183,24 +183,28 @@
 	name = "Toggle Hardsuit Mode"
 
 /datum/action/item_action/toggle
+
 /datum/action/item_action/toggle/New(Target)
 	..()
 	name = "Toggle [target.name]"
 	button.name = name
 
 /datum/action/item_action/openclose
+
 /datum/action/item_action/openclose/New(Target)
 	..()
 	name = "Open/Close [target.name]"
 	button.name = name
 
 /datum/action/item_action/button
+
 /datum/action/item_action/button/New(Target)
 	..()
 	name = "Button/Unbutton [target.name]"
 	button.name = name
 
 /datum/action/item_action/zipper
+
 /datum/action/item_action/zipper/New(Target)
 	..()
 	name = "Zip/Unzip [target.name]"
@@ -228,6 +232,7 @@
 	name = "YEAH!"
 
 /datum/action/item_action/adjust
+
 /datum/action/item_action/adjust/New(Target)
 	..()
 	name = "Adjust [target.name]"
@@ -294,6 +299,7 @@
 	return ..()
 
 /datum/action/item_action/organ_action/toggle
+
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
 	name = "Toggle [target.name]"
@@ -353,25 +359,22 @@
 		return 0
 	var/obj/effect/proc_holder/spell/spell = target
 
-	if(usr)
-		return spell.can_cast(usr)
-	else
-		if(owner)
-			return spell.can_cast(owner)
-	return 1
+	if(owner)
+		return spell.can_cast(owner)
+	return 0
 
-/*/datum/action/spell_action/alien
+/*
+/datum/action/spell_action/alien
+
 /datum/action/spell_action/alien/IsAvailable()
 	if(!target)
 		return 0
 	var/obj/effect/proc_holder/alien/ab = target
 
-	if(usr)
-		return ab.cost_check(ab.check_turf, usr, 1)
-	else
-		if(owner)
-			return ab.cost_check(ab.check_turf, owner, 1)
-	return 1*/
+	if(owner)
+		return ab.cost_check(ab.check_turf, owner, 1)
+	return 0
+*/
 
 //Preset for general and toggled actions
 /datum/action/innate
