@@ -192,7 +192,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate(src)
 	R.set_frequency(SYND_FREQ) //Same frequency as the syndicate team in Nuke mode.
 	equip_to_slot_or_del(R, slot_l_ear)
-	equip_or_collect(new /obj/item/device/pda(src), slot_wear_pda)
+	equip_or_collect(new /obj/item/device/pda(src), slot_in_backpack)
 
 	// Other gear
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/syndigaloshes(src), slot_shoes)
