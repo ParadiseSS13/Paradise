@@ -49,7 +49,7 @@ var/const/INGEST = 2
 				chemical_reactions_list[id] += D
 				break // Don't bother adding ourselves to other reagent ids, it is redundant.
 
-/datum/reagents/proc/remove_any(var/amount=1)
+/datum/reagents/proc/remove_any(amount=1)
 	var/total_transfered = 0
 	var/current_list_element = 1
 
@@ -91,7 +91,7 @@ var/const/INGEST = 2
 
 	return the_id
 
-/datum/reagents/proc/trans_to(var/target, var/amount=1, var/multiplier=1, var/preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
+/datum/reagents/proc/trans_to(target, amount=1, multiplier=1, preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	if(!target)
 		return
 	if(src.total_volume <= 0)
@@ -135,7 +135,7 @@ var/const/INGEST = 2
 	src.handle_reactions()
 	return amount
 
-/datum/reagents/proc/copy_to(var/obj/target, var/amount=1, var/multiplier=1, var/preserve_data=1, var/safety = 0)
+/datum/reagents/proc/copy_to(obj/target, amount=1, multiplier=1, preserve_data=1, safety = 0)
 	if(!target)
 		return
 	if(!target.reagents || src.total_volume<=0)
@@ -156,7 +156,7 @@ var/const/INGEST = 2
 	src.handle_reactions()
 	return amount
 
-/datum/reagents/proc/trans_id_to(var/obj/target, var/reagent, var/amount=1, var/preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
+/datum/reagents/proc/trans_id_to(obj/target, reagent, amount=1, preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
 	if(!target)
 		return
 	if(!target.reagents || src.total_volume<=0 || !src.get_reagent_amount(reagent))
@@ -214,12 +214,12 @@ var/const/INGEST = 2
 */
 
 
-/datum/reagents/proc/conditional_update_move(var/atom/A, var/Running = 0)
+/datum/reagents/proc/conditional_update_move(atom/A, Running = 0)
 	for(var/datum/reagent/R in reagent_list)
 		R.on_move (A, Running)
 	update_total()
 
-/datum/reagents/proc/conditional_update(var/atom/A, )
+/datum/reagents/proc/conditional_update(atom/A, )
 	for(var/datum/reagent/R in reagent_list)
 		R.on_update (A)
 	update_total()
@@ -323,14 +323,14 @@ var/const/INGEST = 2
 	update_total()
 	return 0
 
-/datum/reagents/proc/isolate_reagent(var/reagent)
+/datum/reagents/proc/isolate_reagent(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.id != reagent)
 			del_reagent(R.id)
 			update_total()
 
-/datum/reagents/proc/del_reagent(var/reagent)
+/datum/reagents/proc/del_reagent(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.id == reagent)
@@ -341,8 +341,6 @@ var/const/INGEST = 2
 			qdel(A)
 			update_total()
 			my_atom.on_reagent_change()
-			check_gofast(my_atom)
-			check_goreallyfast(my_atom)
 			return 0
 
 
@@ -363,7 +361,7 @@ var/const/INGEST = 2
 		del_reagent(R.id)
 	return 0
 
-/datum/reagents/proc/reaction_check(var/mob/M, var/datum/reagent/R)
+/datum/reagents/proc/reaction_check(mob/M, datum/reagent/R)
 	var/can_process = 0
 	if(!istype(M, /mob/living))		//Non-living mobs can't metabolize reagents, so don't bother trying (runtime safety check)
 		return can_process
@@ -436,7 +434,7 @@ var/const/INGEST = 2
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(var/reagent, var/amount, var/list/data=null, var/reagtemp = 300)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300)
 	if(!isnum(amount)) return 1
 	update_total()
 	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
@@ -476,7 +474,7 @@ var/const/INGEST = 2
 
 	return 1
 
-/datum/reagents/proc/remove_reagent(var/reagent, var/amount, var/safety)//Added a safety check for the trans_id_to
+/datum/reagents/proc/remove_reagent(reagent, amount, safety)//Added a safety check for the trans_id_to
 
 	if(!isnum(amount)) return 1
 
@@ -492,7 +490,7 @@ var/const/INGEST = 2
 
 	return 1
 
-/datum/reagents/proc/has_reagent(var/reagent, var/amount = -1)
+/datum/reagents/proc/has_reagent(reagent, amount = -1)
 
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
@@ -504,7 +502,7 @@ var/const/INGEST = 2
 
 	return 0
 
-/datum/reagents/proc/get_reagent_amount(var/reagent)
+/datum/reagents/proc/get_reagent_amount(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.id == reagent)
@@ -520,7 +518,10 @@ var/const/INGEST = 2
 
 	return res
 
-/datum/reagents/proc/remove_all_type(var/reagent_type, var/amount, var/strict = 0, var/safety = 1) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
+/datum/reagents/proc/get_reagent(type)
+	. = locate(type) in reagent_list
+
+/datum/reagents/proc/remove_all_type(reagent_type, amount, strict = 0, safety = 1) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount)) return 1
 
 	var/has_removed_reagent = 0
@@ -542,7 +543,7 @@ var/const/INGEST = 2
 	return has_removed_reagent
 
 // Admin logging.
-/datum/reagents/proc/get_reagent_ids(var/and_amount=0)
+/datum/reagents/proc/get_reagent_ids(and_amount=0)
 	var/list/stuff = list()
 	for(var/datum/reagent/A in reagent_list)
 		if(and_amount)
@@ -552,19 +553,19 @@ var/const/INGEST = 2
 	return english_list(stuff)
 
 //two helper functions to preserve data across reactions (needed for xenoarch)
-/datum/reagents/proc/get_data(var/reagent_id)
+/datum/reagents/proc/get_data(reagent_id)
 	for(var/datum/reagent/D in reagent_list)
 		if(D.id == reagent_id)
 //			to_chat(world, "proffering a data-carrying reagent ([reagent_id])")
 			return D.data
 
-/datum/reagents/proc/set_data(var/reagent_id, var/new_data)
+/datum/reagents/proc/set_data(reagent_id, new_data)
 	for(var/datum/reagent/D in reagent_list)
 		if(D.id == reagent_id)
 //			to_chat(world, "reagent data set ([reagent_id])")
 			D.data = new_data
 
-/datum/reagents/proc/copy_data(var/datum/reagent/current_reagent)
+/datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data) return null
 	if(!istype(current_reagent.data, /list)) return current_reagent.data
 
@@ -588,11 +589,11 @@ var/const/INGEST = 2
 
 // Convenience proc to create a reagents holder for an atom
 // Max vol is maximum volume of holder
-atom/proc/create_reagents(var/max_vol)
+atom/proc/create_reagents(max_vol)
 	reagents = new/datum/reagents(max_vol)
 	reagents.my_atom = src
 
-/datum/reagents/proc/get_reagent_from_id(var/id)
+/datum/reagents/proc/get_reagent_from_id(id)
 	var/datum/reagent/result = null
 	for(var/datum/reagent/R in reagent_list)
 		if(R.id == id)

@@ -24,6 +24,7 @@
 	return
 
 /obj/item/weapon/melee/baton/CheckParts()
+	..()
 	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
 	update_icon()
 

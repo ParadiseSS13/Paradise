@@ -262,7 +262,7 @@
 		MYPDA = wear_pda
 	else
 		MYPDA = new(src)
-		equip_to_slot_or_del(MYPDA, slot_wear_pda)
+		equip_to_slot_or_del(MYPDA, slot_belt)
 	MYPDA.owner = real_name
 	MYPDA.ownjob = alt_title
 	MYPDA.ownrank = job

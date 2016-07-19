@@ -3,6 +3,9 @@
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
+/mob/living/proc/OpenCraftingMenu()
+	return
+
 /mob/living/Stat()
 	. = ..()
 	if(. && get_rig_stats)
