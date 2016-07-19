@@ -799,12 +799,6 @@
 		species_allowed = list("Tajaran")
 
 //Vulpkanin
-
-	vulp_hair_none
-		name = "None"
-		icon_state = "bald"
-		species_allowed = list("Vulpkanin")
-
 	vulp_hair_kajam
 		name = "Kajam"
 		icon_state = "kajam"
