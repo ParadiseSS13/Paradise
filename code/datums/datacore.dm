@@ -141,7 +141,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	temp = new /icon(icobase, "groin_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
 	var/head = "head"
-	if(head_organ.alt_head)
+	if(head_organ.alt_head && head_organ.species.bodyflags & HAS_ALT_HEADS)
 		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[head_organ.alt_head]
 		if(alternate_head.icon_state)
 			head = alternate_head.icon_state

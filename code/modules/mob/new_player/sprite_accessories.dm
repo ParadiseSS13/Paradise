@@ -67,7 +67,7 @@
 		name = "Bald"
 		icon_state = "bald"
 		gender = MALE
-		species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton")
+		species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
 
 	short
 		name = "Short Hair"	  // try to capatilize the names please~
@@ -771,6 +771,31 @@
 	taj_hair_messy
 		name = "Tajara Messy"
 		icon_state = "hair_messy"
+		species_allowed = list("Tajaran")
+
+	taj_hair_curls
+		name = "Tajara Curly"
+		icon_state = "hair_curly"
+		species_allowed = list("Tajaran")
+
+	taj_hair_wife
+		name = "Tajaran Ladies' Retro"
+		icon_state = "hair_ladies_retro"
+		species_allowed = list("Tajaran")
+
+	taj_hair_victory
+		name = "Tajara Victory Curls"
+		icon_state = "hair_victory"
+		species_allowed = list("Tajaran")
+
+	taj_hair_bob
+		name = "Tajara Bob"
+		icon_state = "hair_tbob"
+		species_allowed = list("Tajaran")
+
+	taj_hair_fingercurl
+		name = "Tajara Finger Curls"
+		icon_state = "hair_fingerwave"
 		species_allowed = list("Tajaran")
 
 //Vulpkanin
@@ -1800,6 +1825,26 @@
 	species_allowed = list("Unathi")
 	icon_state = "horns_ram"
 
+/datum/sprite_accessory/head_accessory/outears_taj
+	name = "Tajaran Outer Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_outears_taj"
+
+/datum/sprite_accessory/head_accessory/inears_taj
+	name = "Tajaran Inner Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_inears_taj"
+
+/datum/sprite_accessory/head_accessory/muzzle_taj
+	name = "Tajaran Muzzle"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/head_accessory/muzzle_and_inears_taj
+	name = "Tajaran Muzzle and Inner Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_muzzle_and_inears_taj"
+
 /datum/sprite_accessory/head_accessory/vulp_earfluff
 	icon = 'icons/mob/human_face.dmi'
 	name = "Vulpkanin Earfluff"
@@ -1994,6 +2039,11 @@
 	species_allowed = list("Unathi")
 	icon_state = "markings_face_snout_lower_una"
 	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/nose_taj
+	name = "Tajaran Nose"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_nose_taj"
 
 /datum/sprite_accessory/body_markings/head/nose_default_vulp
 	name = "Vulpkanin Nose"

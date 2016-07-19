@@ -77,6 +77,15 @@
 		if(marking.name != "None" && (!H.heads_allowed || !(head_organ.alt_head in H.heads_allowed)))
 			return
 
+	if(location == "tail" && marking.name != "None")
+		var/datum/sprite_accessory/body_markings/tail/tail_marking = marking_styles_list[marking_style]
+		if(!body_accessory)
+			if(tail_marking.tails_allowed)
+				return
+		else
+			if(!tail_marking.tails_allowed || !(body_accessory.name in tail_marking.tails_allowed))
+				return
+
 	marking_styles[location] = marking_style
 	m_styles = list2params(marking_styles)
 
@@ -107,7 +116,7 @@
 
 /mob/living/carbon/human/proc/change_alt_head(var/alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(H.alt_head == alternate_head || (H.status & ORGAN_ROBOT) || !(species.bodyflags & HAS_ALT_HEADS) || !(alternate_head in alt_heads_list))
+	if(H.alt_head == alternate_head || (H.status & ORGAN_ROBOT) || (!(species.bodyflags & HAS_ALT_HEADS) && alternate_head != "None") || !(alternate_head in alt_heads_list))
 		return
 
 	H.alt_head = alternate_head
@@ -262,7 +271,6 @@
 	b_skin = blue
 
 	force_update_limbs()
-	update_body()
 	return 1
 
 /mob/living/carbon/human/proc/change_skin_tone(var/tone)
@@ -386,7 +394,7 @@
 				if(S.tails_allowed)
 					continue
 			else
-				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
+				if(!S.tails_allowed || !(body_accessory.name in S.tails_allowed))
 					continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = marking_styles_list[S.name]

@@ -131,7 +131,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/r_eyes = 0						//Eye color
 	var/g_eyes = 0						//Eye color
 	var/b_eyes = 0						//Eye color
-	var/alt_head = null					//Alt head style.
+	var/alt_head = "None"				//Alt head style.
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 
@@ -1268,6 +1268,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						m_styles = "head=None;\
 									body=None;\
 									tail=None" // No Unathi markings on Tajara
+
 						alt_head = null	//No alt heads on species that don't have them.
 
 						body_accessory = null //no vulptail on humans damnit

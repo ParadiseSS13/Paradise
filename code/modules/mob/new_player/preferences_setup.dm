@@ -222,7 +222,7 @@
 	preview_icon = new /icon(icobase, "torso_[g][fat]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
 	var/head = "head"
-	if(alt_head)
+	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
 		var/datum/sprite_accessory/alt_heads/H = alt_heads_list[alt_head]
 		if(H.icon_state)
 			head = H.icon_state

@@ -140,7 +140,7 @@
 	gendered_icon = 1
 	encased = "skull"
 	var/can_intake_reagents = 1
-	var/alt_head = null
+	var/alt_head = "None"
 
 	//Hair colour and style
 	var/r_hair = 0
@@ -200,5 +200,8 @@
 		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[alt_head]
 		if(alternate_head.icon_state)
 			icon_name = alternate_head.icon_state
-		else
+		else //If alternate_head.icon_state doesn't exist, that means alternate_head is "None", so default icon_name back to "head".
 			icon_name = initial(icon_name)
+	else //If alt_head is null, set it to "None" and default icon_name for sanity.
+		alt_head = initial(alt_head)
+		icon_name = initial(icon_name)
