@@ -460,7 +460,7 @@ var/global/list/ts_spiderling_list = list()
 			else if(ckey)
 				notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)")
 			else if(ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
-				notify_ghosts("[src] has appeared in [get_area(src)].", entry_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src)
+				notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	ts_spiderlist -= src

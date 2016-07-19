@@ -1,0 +1,4 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - tweak: "Mobs with PSY_RESISTANCE are no longer valid targets for REMOTE_VIEW"

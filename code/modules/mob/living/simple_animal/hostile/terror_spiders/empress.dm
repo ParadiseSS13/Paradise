@@ -34,7 +34,7 @@
 
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
-	ai_type = TS_AI_DEFENSIVE // defend self only!
+	ai_type = TS_AI_AGGRESSIVE
 
 	ranged = 1
 	retreat_distance = 5
@@ -47,7 +47,7 @@
 	spider_opens_doors = 2
 
 	var/shown_guide = 0 // has the empress player been warned of the chaos that can result from the use of their powers?
-
+	var/phasing = 0
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/Life()
 	if(stat != DEAD)
@@ -225,6 +225,21 @@
 			S.stillborn = 1
 		if(spider_growinstantly)
 			S.amount_grown = 250
+
+/mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/PhaseShift()
+	set name = "Phase Shift"
+	set category = "Spider"
+	set desc = "Debug: Turns you semi-visible and intangible."
+	phasing = !phasing
+	if(phasing)
+		visible_message("<span class='danger'>[src] steps into a bluespace portal!</span>", "<span class='terrorspider'>You step into the realm of nightmares.</span>")
+		incorporeal_move = 1
+		alpha = 0
+	else
+		visible_message("<span class='danger'>[src] steps out of a bluespace portal!</span>", "<span class='terrorspider'>You return from the realm of nightmares.</span>")
+		incorporeal_move = 0
+		alpha = 255
+	new /obj/effect/effect/bad_smoke(loc)
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/death(gibbed)

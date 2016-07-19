@@ -35,7 +35,7 @@
 	sleep(8)
 	delayed = 0
 
-/datum/table_recipe/picket_sign
+/datum/crafting_recipe/picket_sign
 	name = "Picket Sign"
 	result = /obj/item/weapon/picket_sign
 	reqs = list(/obj/item/stack/rods = 1,

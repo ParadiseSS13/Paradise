@@ -318,12 +318,13 @@
 				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, 1, 0)
 		return
 	var/numlings = 1
-	if(canlay >= 5)
-		numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5)
-	else if(canlay >= 3)
-		numlings = input("How many in the batch?") as null|anything in list(1, 2, 3)
-	else if(canlay == 2)
-		numlings = input("How many in the batch?") as null|anything in list(1, 2)
+	if(eggtype != TS_DESC_PURPLE)
+		if(canlay >= 5)
+			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5)
+		else if(canlay >= 3)
+			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3)
+		else if(canlay == 2)
+			numlings = input("How many in the batch?") as null|anything in list(1, 2)
 	if(eggtype == null || numlings == null)
 		to_chat(src, "Cancelled.")
 		return

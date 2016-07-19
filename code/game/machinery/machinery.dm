@@ -362,6 +362,7 @@ Class Procs:
 	return ..()
 
 /obj/machinery/CheckParts()
+	..()
 	RefreshParts()
 	return
 

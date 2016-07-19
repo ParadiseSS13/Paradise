@@ -192,16 +192,6 @@
 	build_path = /obj/item/weapon/circuitboard/sleeper
 	category = list("Medical Machinery")
 
-/datum/design/sleep_console
-	name = "Machine Board (Sleeper Console)"
-	desc = "Allows for the construction of circuit boards used to build a Sleeper Console."
-	id = "sleeper_console"
-	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/sleep_console
-	category = list("Medical Machinery")
-
 /datum/design/biogenerator
 	name = "Machine Board (Biogenerator)"
 	desc = "The circuit board for a Biogenerator."

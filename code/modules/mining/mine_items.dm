@@ -9,6 +9,27 @@
 
 /**********************Miner Lockers**************************/
 
+/obj/structure/closet/wardrobe/miner
+	name = "mining wardrobe"
+	icon_state = "mixed"
+	icon_closed = "mixed"
+
+/obj/structure/closet/wardrobe/miner/New()
+	..()
+	contents = list()
+	new /obj/item/weapon/storage/backpack/duffel(src)
+	new /obj/item/weapon/storage/backpack/industrial(src)
+	new /obj/item/weapon/storage/backpack/satchel_eng(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
 	icon_state = "miningsec1"
@@ -21,20 +42,11 @@
 
 /obj/structure/closet/secure_closet/miner/New()
 	..()
-	sleep(2)
-	if(prob(50))
-		new /obj/item/weapon/storage/backpack/industrial(src)
-	else
-		new /obj/item/weapon/storage/backpack/satchel_eng(src)
-	new /obj/item/device/radio/headset/headset_cargo(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/device/mining_scanner(src)
-	new /obj/item/weapon/storage/bag/ore(src)
-	new /obj/item/device/flashlight/lantern(src)
 	new /obj/item/weapon/shovel(src)
 	new /obj/item/weapon/pickaxe(src)
+	new /obj/item/device/radio/headset/headset_cargo/mining(src)
+	new /obj/item/device/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/weapon/storage/bag/ore(src)
 	new /obj/item/clothing/glasses/meson(src)
 
 /**********************Shuttle Computer**************************/

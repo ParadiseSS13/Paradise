@@ -83,6 +83,9 @@
 					<A href='?src=\ref[src];secretsfun=securitylevel3'>Security Level - Gamma</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=securitylevel4'>Security Level - Epsilon</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=securitylevel5'>Security Level - Delta</A><BR>
+					<b>Create Weather</b><BR>
+					<A href='?src=\ref[src];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
+					<A href='?src=\ref[src];secretsfun=weatherdarkness'>Weather - Advanced Darkness</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
 
@@ -104,6 +107,7 @@
 					<A href='?src=\ref[src];secretsfun=onlyoneteam'>Dodgeball (TDM)!</A><BR>
 					<b>Round-enders</b><br>
 					<A href='?src=\ref[src];secretsfun=floorlava'>The floor is lava! (DANGEROUS: extremely lame)</A><BR>
+					<A href='?src=\ref[src];secretsfun=fakelava'>The floor is fake-lava! (non-harmful)</A><BR>
 					<A href='?src=\ref[src];secretsfun=monkey'>Turn all humans into monkeys</A><BR>
 					<A href='?src=\ref[src];secretsfun=fakeguns'>Make all items look like guns</A><BR>
 					<A href='?src=\ref[src];secretsfun=prisonwarp'>Warp all Players to Prison</A><BR>

@@ -29,7 +29,7 @@
 	message = "The blob splashes you with burning oil"
 	message_living = ", and you feel your skin char and melt"
 
-/datum/reagent/blob/boiling_oil/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume)
+/datum/reagent/blob/boiling_oil/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		M.adjust_fire_stacks(round(volume/12))
 		volume = ..()
@@ -97,7 +97,7 @@
 	color = "#61407E"
 	message = "You feel a thrum as the blob strikes you, and everything flies at you"
 
-/datum/reagent/blob/dark_matter/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume)
+/datum/reagent/blob/dark_matter/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		reagent_vortex(M, 0, volume)
 		volume = ..()
@@ -110,7 +110,7 @@
 	color = "#808000"
 	message = "The blob slams into you, and sends you flying"
 
-/datum/reagent/blob/b_sorium/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume)
+/datum/reagent/blob/b_sorium/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		reagent_vortex(M, 1, volume)
 		volume = ..()
@@ -145,7 +145,7 @@
 							if(!step_towards(X, pull))
 								break
 
-/datum/reagent/blob/proc/send_message(var/mob/living/M as mob)
+/datum/reagent/blob/proc/send_message(mob/living/M)
 	var/totalmessage = message
 	if(message_living && !issilicon(M))
 		totalmessage += message_living

@@ -94,6 +94,7 @@
 		range = pick(2,2,2,3,3,3,4)
 
 /obj/item/weapon/grenade/iedcasing/CheckParts()
+	..()
 	var/obj/item/weapon/reagent_containers/food/drinks/cans/can = locate() in contents
 	if(can)
 		underlays += can
