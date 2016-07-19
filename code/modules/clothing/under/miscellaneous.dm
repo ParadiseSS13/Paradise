@@ -668,8 +668,6 @@
 	desc = "A soft brown jumpsuit made of synthetic feathers and strong conviction."
 	icon_state = "owl"
 	item_color = "owl"
-
-/obj/item/clothing/under/owl/super_hero
 	flags = NODROP
 
 /obj/item/clothing/under/griffin
@@ -677,8 +675,6 @@
 	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
 	icon_state = "griffin"
 	item_color = "griffin"
-
-/obj/item/clothing/under/griffin/super_hero
 	flags = NODROP
 
 /obj/item/clothing/under/noble_clothes
