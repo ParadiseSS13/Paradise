@@ -269,3 +269,7 @@
 
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (round_start_time ? (world.time - round_start_time) : 0)
+
+// Used by radios to indicate that they have sent a message via something other than subspace
+#define RADIO_CONNECTION_FAIL 0
+#define RADIO_CONNECTION_NON_SUBSPACE 1

@@ -103,10 +103,7 @@
 #define CHEM_MOB_SPAWN_HOSTILE   1
 #define CHEM_MOB_SPAWN_FRIENDLY  2
 
-#define isobserver(A)	(istype((A), /mob/dead/observer))
 #define isliving(A)		(istype((A), /mob/living))
-#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
-
 #define iscarbon(A)		(istype((A), /mob/living/carbon))
 #define ishuman(A)		(istype((A), /mob/living/carbon/human))
 #define isbrain(A)		(istype((A), /mob/living/carbon/brain))
@@ -127,11 +124,17 @@
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
 
+#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
+
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
 #define isSpirit(A)		(istype((A), /mob/spirit))
 #define ismask(A)		(istype((A), /mob/spirit/mask))
+
+#define isobserver(A)	(istype((A), /mob/dead/observer))
+
+#define isnewplayer(A)  (istype((A), /mob/new_player))
 
 #define isorgan(A)		(istype((A), /obj/item/organ/external))
 #define hasorgans(A)	(ishuman(A))
