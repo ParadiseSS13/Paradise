@@ -132,12 +132,6 @@
 		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
 		return
 
-	/*else if(istype(target, /obj/machinery/bunsen_burner))
-		return
-
-	else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
-		return*/
-
 	else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
 		return
 
@@ -181,20 +175,9 @@
 	item_state = "beaker"
 	materials = list(MAT_GLASS=500)
 	var/obj/item/device/assembly_holder/assembly = null
+	var/can_assembly = 1
 
 /obj/item/weapon/reagent_containers/glass/beaker/on_reagent_change()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/glass/beaker/pickup(mob/user)
-	..()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/glass/beaker/dropped(mob/user)
-	..()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/glass/beaker/attack_hand()
-	..()
 	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/beaker/update_icon()
@@ -233,7 +216,7 @@
 	set name = "Remove Assembly"
 	set category = "Object"
 	set src in usr
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if(assembly)
 		to_chat(usr, "<span class='notice'>You detach [assembly] from \the [src]</span>")
@@ -249,7 +232,7 @@
 		reagents.handle_reactions()
 
 /obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/device/assembly_holder))
+	if(istype(W, /obj/item/device/assembly_holder) && can_assembly)
 		if(assembly)
 			to_chat(usr, "<span class='warning'>The [src] already has an assembly.</span>")
 			return ..()
@@ -299,6 +282,17 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25)
 	flags = OPENCONTAINER
+	can_assembly = 0
+
+/obj/item/weapon/reagent_containers/glass/beaker/drugs
+	name = "baggie"
+	desc = "A baggie. Can hold up to 10 units."
+	icon_state = "baggie"
+	amount_per_transfer_from_this = 2
+	possible_transfer_amounts = 2
+	volume = 10
+	flags = OPENCONTAINER
+	can_assembly = 0
 
 /obj/item/weapon/reagent_containers/glass/beaker/noreact
 	name = "cryostasis beaker"
@@ -319,14 +313,20 @@
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	flags = OPENCONTAINER
 
+
 /obj/item/weapon/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
 
 /obj/item/weapon/reagent_containers/glass/beaker/sulphuric
 	list_reagents = list("sacid" = 50)
 
+
 /obj/item/weapon/reagent_containers/glass/beaker/slime
 	list_reagents = list("slimejelly" = 50)
+
+/obj/item/weapon/reagent_containers/glass/beaker/drugs/meth
+	list_reagents = list("methamphetamine" = 10)
+
 
 /obj/item/weapon/reagent_containers/glass/bucket
 	desc = "It's a bucket."
@@ -350,13 +350,3 @@
 		qdel(src)
 	else
 		..()
-
-/obj/item/weapon/reagent_containers/glass/beaker/vial
-	name = "vial"
-	desc = "Small glass vial. Looks fragile."
-	icon_state = "vial"
-	materials = list(MAT_GLASS=500)
-	volume = 15
-	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list(1,5,15)
-	flags = OPENCONTAINER
