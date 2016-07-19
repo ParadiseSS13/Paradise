@@ -24,7 +24,8 @@
 
 	admin_forcemove(usr, T)
 	log_admin("[key_name(usr)] jumped to [A]")
-	message_admins("[key_name_admin(usr)] jumped to [A]")
+	if(!isobserver(usr))
+		message_admins("[key_name_admin(usr)] jumped to [A]")
 	feedback_add_details("admin_verb","JA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/jumptoturf(var/turf/T in world)
@@ -35,7 +36,8 @@
 		return
 
 	log_admin("[key_name(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]")
-	message_admins("[key_name_admin(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]", 1)
+	if(!isobserver(usr))
+		message_admins("[key_name_admin(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]", 1)
 	admin_forcemove(usr, T)
 	feedback_add_details("admin_verb","JT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
@@ -48,7 +50,8 @@
 		return
 
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
-	message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
+	if(!isobserver(usr))
+		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
 	if(src.mob)
 		var/mob/A = src.mob
 		var/turf/T = get_turf(M)
@@ -69,7 +72,8 @@
 	if(T)
 		admin_forcemove(usr, T)
 		feedback_add_details("admin_verb","JC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	message_admins("[key_name_admin(usr)] jumped to coordinates [tx], [ty], [tz]")
+	if(!isobserver(usr))
+		message_admins("[key_name_admin(usr)] jumped to coordinates [tx], [ty], [tz]")
 
 /client/proc/jumptokey()
 	set category = "Admin"
@@ -87,7 +91,8 @@
 		return
 	var/mob/M = selection:mob
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
-	message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
+	if(!isobserver(usr))
+		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
 
 	admin_forcemove(usr, M.loc)
 
