@@ -8,23 +8,23 @@
 	var/stage = 1
 
 /obj/item/organ/internal/body_egg/spider_eggs/on_life()
-	if (stage < 5 && prob(3))
+	if(stage < 5 && prob(3))
 		stage++
 
 	switch(stage)
-		if (2)
-			if (prob(3))
+		if(2)
+			if(prob(3))
 				owner.reagents.add_reagent("histamine", 2)
-		if (3)
-			if (prob(5))
+		if(3)
+			if(prob(5))
 				owner.reagents.add_reagent("histamine", 3)
-		if (4)
-			if (prob(12))
+		if(4)
+			if(prob(12))
 				owner.reagents.add_reagent("histamine", 5)
-		if (5)
+		if(5)
 			to_chat(owner, "<span class='danger'>You feel like something is tearing its way out of your skin...</span>")
 			owner.reagents.add_reagent("histamine", 10)
-			if (prob(30))
+			if(prob(30))
 				owner.emote("scream")
 				var/spiders = rand(3,5)
 				for(var/i in 1 to spiders)
@@ -51,31 +51,31 @@
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
 	current_cycle += 1
-	if (owner.health < -25)
+	if(owner.health < -25)
 		to_chat(owner,"<span class='notice'>You feel a strange, blissful senstation.</span>")
 		owner.adjustBruteLoss(-5)
 		owner.adjustFireLoss(-5)
 		owner.adjustToxLoss(-5)
 		// the spider eggs secrete stimulants/etc to keep their host alive until they hatch
-	switch (current_cycle)
-		if (1) // immediately
+	switch(current_cycle)
+		if(1) // immediately
 			to_chat(owner,"<span class='danger'>Your spider bite wound hurts horribly! </span>")
-			if (istype(get_area(owner), /area/awaycontent) || istype(get_area(owner), /area/awaymission/))
+			if(istype(get_area(owner), /area/awaycontent) || istype(get_area(owner), /area/awaymission/))
 				awaymission_infection = 1
-		if (15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
+		if(15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
 			to_chat(owner,"<span class='notice'>The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>")
 			owner.adjustBruteLoss(-10)
-		if (60) // 2 minutes... the point where the venom uses and accellerates the healing process, to feed the eggs
+		if(60) // 2 minutes... the point where the venom uses and accellerates the healing process, to feed the eggs
 			to_chat(owner,"<span class='notice'>Your bite wound has completely sealed up, though the skin is still black. You feel significantly better.</span>")
 			owner.adjustBruteLoss(-20)
-		if (120) // 4 minutes... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
+		if(120) // 4 minutes... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
 			to_chat(owner,"<span class='notice'>The black flesh around your old spider bite wound has started to peel off.</span>")
-		if (150) // 5 minutes... where the victim realizes something is wrong - this is not a normal wound
+		if(150) // 5 minutes... where the victim realizes something is wrong - this is not a normal wound
 			to_chat(owner,"<span class='danger'>The black flesh around your spider bite wound has cracked, and started to split open!</span>")
-		if (165) // 5m 30s
+		if(165) // 5m 30s
 			to_chat(owner,"<span class='danger'>The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>")
-		if (180) // 6m
-			if (awaymission_infection && owner.z <= MAX_Z)
+		if(180) // 6m
+			if(awaymission_infection && owner.z <= MAX_Z)
 				// we started in the awaymission, we ended on the station.
 				// To prevent someone bringing an infection back, we're going to trigger an alternate, equally-bad result here.
 				// Actually, let's make it slightly worse... just to discourage people from bringing back infections.
@@ -94,7 +94,7 @@
 			var/obj/effect/spider/spiderling/terror_spiderling/S3 = new(get_turf(owner))
 			S3.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			S3.name = "green spiderling"
-			if (alternate_ending)
+			if(alternate_ending)
 				// This is the alternate ending of the infestation, triggered above by someone bringing back an infection from a gateway mission to the main station.
 				// In this ending, we still spawn spiderlings - but we make sure they're stillborn, and don't grow up.
 				// In addition, we give you an extra 60 toxin... enough to crit most people.
@@ -105,7 +105,7 @@
 				owner.gib()
 			else
 				owner.adjustToxLoss(rand(100,180)) // normal case, range: 100-180, average 140, almost crit (150).
-		if (190) // 6m 30s
+		if(190) // 6m 30s
 			to_chat(owner,"<span class='danger'>The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting.</span>")
 			owner.reagents.remove_reagent("terror_white_toxin")
 			qdel(src)

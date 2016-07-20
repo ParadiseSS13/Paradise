@@ -127,7 +127,7 @@
 				ai_ventcrawls = 0
 			else if(entry_vent)
 				if(!path_to_vent)
-					visible_message("<span class='danger'>\The [src] looks around warily - then retreats.</span>")
+					visible_message("<span class='danger'>\The [src] looks around warily - then seeks a better nesting ground.</span>")
 					path_to_vent = 1
 			else
 				visible_message("<span class='danger'>\The [src] looks around, searching for the vent that should be there, but isn't. A bluespace portal forms on her, and she is gone.</span>")

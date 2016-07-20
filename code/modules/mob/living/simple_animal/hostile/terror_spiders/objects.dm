@@ -446,8 +446,8 @@
 		var/obj/vent = pick(vents)
 		var/obj/effect/spider/spiderling/S = new(vent.loc)
 		S.name = "evil-looking spiderling"
-		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/white, /mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/prince, /mob/living/simple_animal/hostile/poison/terror_spider/queen)
+		S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/white
 		S.amount_grown = 50 // double-speed growth
-		notify_ghosts("[src] has detonated in [get_area(src)], drawing a terror spiderling to [get_area(S)]")
+		notify_ghosts("[src] has detonated in [get_area(src)], drawing a white terror spiderling to [get_area(S)]")
 		vents -= vent
 		spawncount--
