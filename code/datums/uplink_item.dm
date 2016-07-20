@@ -754,7 +754,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/chamsechud
 	name = "Chameleon Security HUD"
-	desc = "A stolen Nanotrasen Security HUD with Syndicat chameleon technology implemented into it. The glasses can be morphed into various eyewear, while reatining the HUD qualities when worn."
+	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
 	reference = "CHHUD"
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
