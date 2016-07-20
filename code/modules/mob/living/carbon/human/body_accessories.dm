@@ -139,6 +139,7 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	allowed_species = list("Vulpkanin")
 
 /datum/body_accessory/tail/vulpkanin_6
+	name = "Vulpkanin Alt 5 (Straight Bushy)"
 
 	icon_state = "vulptail6"
 	animated_icon_state = "vulptail6_a"
