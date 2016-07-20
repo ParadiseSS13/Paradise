@@ -12,7 +12,7 @@
 	var/amount_per_transfer_from_this = 10
 	var/possible_transfer_amounts = list(10,25,50,100)
 
-/obj/structure/reagent_dispensers/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/reagent_dispensers/attackby(obj/item/weapon/W, mob/user, params)
 	return
 
 /obj/structure/reagent_dispensers/New()
@@ -139,7 +139,7 @@
 			rig = null
 			overlays = new/list()
 
-/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W,/obj/item/device/assembly_holder) && accepts_rig)
 		if(rig)
 			to_chat(user, "\red There is another device in the way.")

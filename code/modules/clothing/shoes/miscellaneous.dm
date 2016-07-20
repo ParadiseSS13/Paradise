@@ -184,7 +184,7 @@
 	desc = "Looks sneaky."
 	icon_state = "sheet-cloth"
 
-/datum/table_recipe/shoe_rags
+/datum/crafting_recipe/shoe_rags
 	name = "Shoe Rags"
 
 	result = /obj/item/shoe_silencer

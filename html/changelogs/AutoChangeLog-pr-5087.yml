@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes wizard's who have a regular satchel set in their prefs winding up with none"
+  - bugfix: "Spellbooks are automatically bound to wizards at round start (no more ragin' exploitative mages)"

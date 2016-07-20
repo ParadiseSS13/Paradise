@@ -101,15 +101,11 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/science/equipped(mob/user, slot)
+/obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == slot_glasses)
-		user.scanner.Grant(user)
-	..(user, slot)
-
-/obj/item/clothing/glasses/science/dropped(mob/user)
-	user.scanner.devices -= 1
-	..(user)
+		return 1
 
 /obj/item/clothing/glasses/science/night
 	name = "Night Vision Science Goggle"
@@ -242,13 +238,16 @@
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
-	action_button_name = "Noir Mode"
+	actions_types = list(/datum/action/item_action/noir)
 	var/noir_mode = 0
 	color_view = MATRIX_GREYSCALE
 
 /obj/item/clothing/glasses/sunglasses/noir/attack_self()
-	if(is_equipped())
-		toggle_noir()
+	toggle_noir()
+
+/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
+	if(slot == slot_glasses)
+		return 1
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
 	if(!noir_mode)
@@ -277,11 +276,10 @@
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
 	var/punused = null
-	action_button_name = "YEAH!"
+	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
 
 /obj/item/clothing/glasses/sunglasses/yeah/attack_self()
 	pun()
-
 
 /obj/item/clothing/glasses/sunglasses/yeah/verb/pun()
 	set category = "Object"
@@ -330,7 +328,7 @@
 	desc = "Protects the eyes from welders, approved by the mad scientist association."
 	icon_state = "welding-g"
 	item_state = "welding-g"
-	action_button_name = "Flip welding goggles"
+	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = 2
 	tint = 2
 	species_fit = list("Vox")
@@ -375,7 +373,6 @@
 	item_state = "rwelding-g"
 	flash_protect = 2
 	tint = 0
-	action_button_name = "Flip welding goggles"
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"

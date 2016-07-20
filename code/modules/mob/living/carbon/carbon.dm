@@ -644,8 +644,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
 					if(internal)
 						internal = null
-						if(internals)
-							internals.icon_state = "internal0"
+						update_internals_hud_icon(0)
 					else
 						var/no_mask2
 						if(!(wear_mask && wear_mask.flags & AIRTIGHT))
@@ -655,8 +654,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
 						internal = ITEM
-						if(internals)
-							internals.icon_state = "internal1"
+						update_internals_hud_icon(1)
 
 					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
 									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
@@ -858,7 +856,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
 	else
 		clear_alert("handcuffed")
-	update_action_buttons() //some of our action buttons might be unusable when we're handcuffed.
+	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
 	update_hud_handcuffed()
 
@@ -1031,3 +1029,16 @@ so that different stomachs can handle things in different ways VB*/
 	var/obj/item/LH = get_inactive_hand()
 	if(LH)
 		. |= LH.GetAccess()
+
+/mob/living/carbon/proc/can_breathe_gas()
+	if(!wear_mask)
+		return TRUE
+
+	if(!(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT) && internal == null)
+		return TRUE
+
+	return FALSE
+
+/mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
+	if(hud_used && hud_used.internals)
+		hud_used.internals.icon_state = "internal[internal_state]"

@@ -350,7 +350,7 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR|NODROP
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	action_button_name = "Caw"
+	actions_types = list(/datum/action/item_action/caw)
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()

@@ -10,7 +10,6 @@
 	var/slot = "decor"
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
-	action_button_custom_type = /datum/action/item_action/accessory
 
 /obj/item/clothing/accessory/New()
 	..()
@@ -23,6 +22,13 @@
 	has_suit = S
 	loc = has_suit
 	has_suit.overlays += inv_overlay
+	has_suit.actions += actions
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		if(has_suit.is_equipped())
+			var/mob/M = has_suit.loc
+			A.Grant(M)
 
 	if(user)
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
@@ -32,6 +38,14 @@
 	if(!has_suit)
 		return
 	has_suit.overlays -= inv_overlay
+	has_suit.actions -= actions
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		if(ismob(has_suit.loc))
+			var/mob/M = has_suit.loc
+			A.Remove(M)
+
 	has_suit = null
 	usr.put_in_hands(src)
 	src.add_fingerprint(user)

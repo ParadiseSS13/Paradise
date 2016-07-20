@@ -167,17 +167,17 @@
 
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
 
-	for(var/obj/machinery/abductor/pad/p in machines)
+	for(var/obj/machinery/abductor/pad/p in abductor_equipment)
 		if(p.team == team)
 			pad = p
 			break
 
-	for(var/obj/machinery/abductor/experiment/e in machines)
+	for(var/obj/machinery/abductor/experiment/e in abductor_equipment)
 		if(e.team == team)
 			experiment = e
 			e.console = src
 
-	for(var/obj/machinery/computer/camera_advanced/abductor/c in machines)
+	for(var/obj/machinery/computer/camera_advanced/abductor/c in abductor_equipment)
 		if(c.team == team)
 			camera = c
 			c.console = src
