@@ -34,30 +34,28 @@
 /obj/item/clothing/mask/gas/welding/attack_self()
 	toggle()
 
+/obj/item/clothing/mask/gas/welding/proc/toggle()
+	if(up)
+		up = !src.up
+		flags |= (MASKCOVERSEYES)
+		flags_inv |= (HIDEEYES)
+		icon_state = initial(icon_state)
+		to_chat(usr, "You flip the [src] down to protect your eyes.")
+		flash_protect = 2
+		tint = 2
+	else
+		up = !up
+		flags &= ~(MASKCOVERSEYES)
+		flags_inv &= ~(HIDEEYES)
+		icon_state = "[initial(icon_state)]up"
+		to_chat(usr, "You push the [src] up out of your face.")
+		flash_protect = 0
+		tint = 0
+	usr.update_inv_wear_mask()	//so our mob-overlays update
 
-/obj/item/clothing/mask/gas/welding/verb/toggle()
-	set category = "Object"
-	set name = "Adjust welding mask"
-	set src in usr
-
-	if(usr.canmove && !usr.stat && !usr.restrained())
-		if(src.up)
-			src.up = !src.up
-			src.flags |= (MASKCOVERSEYES)
-			flags_inv |= (HIDEEYES)
-			icon_state = initial(icon_state)
-			to_chat(usr, "You flip the [src] down to protect your eyes.")
-			flash_protect = 2
-			tint = 2
-		else
-			src.up = !src.up
-			src.flags &= ~(MASKCOVERSEYES)
-			flags_inv &= ~(HIDEEYES)
-			icon_state = "[initial(icon_state)]up"
-			to_chat(usr, "You push the [src] up out of your face.")
-			flash_protect = 0
-			tint = 0
-		usr.update_inv_wear_mask()	//so our mob-overlays update
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
@@ -171,14 +169,7 @@
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
 
-/obj/item/clothing/mask/gas/owl_mask/verb/hoot()
-
-	set category = "Object"
-	set name = "Hoot"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
+/obj/item/clothing/mask/gas/owl_mask/proc/hoot()
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
 		playsound(src.loc, "sound/misc/hoot.ogg", 50, 1)
 		cooldown = world.time
@@ -270,13 +261,7 @@
 	else
 		return
 
-/obj/item/clothing/mask/gas/sechailer/verb/halt()
-	set category = "Object"
-	set name = "HALT"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
+/obj/item/clothing/mask/gas/sechailer/proc/halt()
 	var/phrase = 0	//selects which phrase to use
 	var/phrase_text = null
 	var/phrase_sound = null

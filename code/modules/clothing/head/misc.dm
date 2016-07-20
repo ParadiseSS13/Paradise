@@ -355,14 +355,7 @@
 /obj/item/clothing/head/griffin/attack_self()
 	caw()
 
-/obj/item/clothing/head/griffin/verb/caw()
-
-	set category = "Object"
-	set name = "Caw"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
+/obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
 		playsound(src.loc, "sound/misc/caw.ogg", 50, 1)
 		cooldown = world.time

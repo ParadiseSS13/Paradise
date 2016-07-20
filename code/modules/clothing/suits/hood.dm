@@ -7,7 +7,6 @@
 
 /obj/item/clothing/suit/hooded/New()
 	MakeHood()
-	verbs -= /obj/item/clothing/suit/verb/openjacket //you can't unbutton those, deal with it
 	..()
 
 /obj/item/clothing/suit/hooded/Destroy()
@@ -46,16 +45,6 @@
 /obj/item/clothing/suit/hooded/dropped()
 	..()
 	RemoveHood()
-
-/obj/item/clothing/suit/hooded/verb/Hooderize(var/mob/user)
-	set name = "Adjust the hood"
-	set category = "Object"
-	set src in usr
-	if(!isliving(usr))
-		return
-	if(usr.stat)
-		return
-	ToggleHood()
 
 /obj/item/clothing/suit/hooded/proc/ToggleHood()
 	if(!suit_adjusted)
