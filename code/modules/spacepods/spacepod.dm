@@ -130,7 +130,7 @@
 	light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
-	if(P.damage && !P.nodamage)
+	if(P.damage && !P.nodamage && P.damage_type != STAMINA)
 		deal_damage(P.damage)
 	else if(P.flag == "energy" && istype(P,/obj/item/projectile/ion)) //needed to make sure ions work properly
 		empulse(src, 1, 1)
@@ -370,7 +370,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 			if(do_after(user, 50, target = src))
 				target.forceMove(get_turf(src))
 				target.Stun(1)
-				passengers -= target
+				if(pilot)
+					pilot = null
+				else
+					passengers -= target
 				target.visible_message("<span class='warning'>[user] flings the door open and tears [target] out of the [src]</span>",
 					"<span class='warning'>The door flies open and you are thrown out of the [src] and to the ground!</span>")
 				return
