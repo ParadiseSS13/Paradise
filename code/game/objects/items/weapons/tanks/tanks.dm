@@ -40,6 +40,10 @@
 
 	return ..()
 
+
+/obj/item/weapon/tank/ui_action_click(mob/user)
+	toggle_internals(user)
+
 /obj/item/weapon/tank/proc/toggle_internals(mob/user)
 	var/mob/living/carbon/C = user
 	if(!istype(C))
