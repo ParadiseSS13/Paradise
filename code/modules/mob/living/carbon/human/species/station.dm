@@ -523,7 +523,7 @@
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
 	exotic_blood = "water"
-	//ventcrawler = 1 //ventcrawling commented out
+	ventcrawler = 1
 	butt_sprite = "slime"
 
 	has_organ = list(
