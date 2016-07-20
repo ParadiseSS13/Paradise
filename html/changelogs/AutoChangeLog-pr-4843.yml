@@ -1,0 +1,11 @@
+author: FreeStylaLT
+delete-after: True
+changes: 
+  - rscadd: "Added courtroom, left of brig."
+  - tweak: "Remapped brig"
+  - tweak: "Moved prisoner processing and evidence storage to the right of brig, next to Detective's office."
+  - tweak: "Changed current processing to Interrogation and a hallway."
+  - tweak: "Re-mapped Conference and Locker rooms."
+  - tweak: "Lots of other minor tweaks to brig."
+  - tweak: "Seriously, way too many small changes to list here, go and have a look at the brig yourself."
+  - rscdel: "Removed temp. detainment and observation from brig."

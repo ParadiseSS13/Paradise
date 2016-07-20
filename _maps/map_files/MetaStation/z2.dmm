@@ -580,7 +580,7 @@
 "nD" = (/obj/structure/extinguisher_cabinet{pixel_y = -28},/turf/unsimulated/floor{tag = "icon-darkbrown"; icon_state = "darkbrown"; dir = 2},/area/centcom/ferry)
 "nE" = (/turf/unsimulated/floor{tag = "icon-darkred"; icon_state = "darkred"; dir = 2},/area/centcom/ferry)
 "nF" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/box/emps,/obj/item/weapon/gun/energy/ionrifle,/turf/unsimulated/floor{icon_state = "dark"},/area/centcom/ferry)
-"nG" = (/obj/structure/table/reinforced,/obj/item/weapon/c4,/obj/item/weapon/c4{pixel_x = 7},/turf/unsimulated/floor{icon_state = "dark"},/area/centcom/ferry)
+"nG" = (/obj/structure/table/reinforced,/obj/item/weapon/grenade/plastic/c4,/obj/item/weapon/grenade/plastic/c4{pixel_x = 7},/turf/unsimulated/floor{icon_state = "dark"},/area/centcom/ferry)
 "nH" = (/turf/unsimulated/floor{icon_state = "red"; dir = 10},/area/tdome/tdomeobserve)
 "nI" = (/turf/unsimulated/floor{icon_state = "red"; dir = 2},/area/tdome/tdomeobserve)
 "nJ" = (/turf/unsimulated/floor{icon_state = "green"},/area/tdome/tdomeobserve)

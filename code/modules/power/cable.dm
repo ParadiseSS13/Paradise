@@ -128,7 +128,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			to_chat(user, "\red This cable is connected to nearby breaker box. Use breaker box to interact with it.")
 			return */
 
-		if (shock(user, 50))
+		if(shock(user, 50))
 			return
 
 		if(src.d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
@@ -157,7 +157,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.get_amount() < 1)
+		if(coil.get_amount() < 1)
 			to_chat(user, "Not enough cable")
 			return
 		coil.cable_join(src, user)
@@ -173,7 +173,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		shock(user, 5, 0.2)
 
 	else
-		if (W.flags & CONDUCT)
+		if(W.flags & CONDUCT)
 			shock(user, 50, 0.7)
 
 	src.add_fingerprint(user)
@@ -182,7 +182,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/proc/shock(mob/user, prb, var/siemens_coeff = 1.0)
 	if(!prob(prb))
 		return 0
-	if (electrocute_mob(user, powernet, src, siemens_coeff))
+	if(electrocute_mob(user, powernet, src, siemens_coeff))
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
@@ -196,12 +196,12 @@ By design, d1 is the smallest direction and d2 is the highest
 		if(1.0)
 			qdel(src) // qdel
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				new/obj/item/stack/cable_coil(src.loc, src.d1 ? 2 : 1, color)
 				qdel(src) // qdel
 
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				new/obj/item/stack/cable_coil(src.loc, src.d1 ? 2 : 1, color)
 				qdel(src) // qdel
 	return
@@ -341,7 +341,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	var/turf/T
 
 ///// Z-Level Stuff
-	/* if (d1 == 11 || d1 == 12)
+	/* if(d1 == 11 || d1 == 12)
 		var/turf/controllerlocation = locate(1, 1, z)
 		for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
 			if(controller.up && d1 == 12)
@@ -466,7 +466,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	color = COLOR_RED
 	desc = "A coil of power cable."
 	throwforce = 10
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
@@ -485,7 +485,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/paramcolor = null)
 	..()
 	src.amount = length
-	if (paramcolor)
+	if(paramcolor)
 		color = paramcolor
 	else
 		color = color
@@ -526,7 +526,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	return C
 
 /obj/item/stack/cable_coil/update_icon()
-	if (!color)
+	if(!color)
 		color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_ORANGE, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 		color = color
 	if(amount == 1)
@@ -541,9 +541,9 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 /obj/item/stack/cable_coil/proc/update_wclass()
 	if(amount == 1)
-		w_class = 1.0
+		w_class = 1
 	else
-		w_class = 2.0
+		w_class = 2
 
 /obj/item/stack/cable_coil/examine(mob/user)
 	if(!..(user, 1))
@@ -674,8 +674,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		use(1)
 
-		if (C.shock(user, 50))
-			if (prob(50)) //fail
+		if(C.shock(user, 50))
+			if(prob(50)) //fail
 				new/obj/item/stack/cable_coil(C.loc, 1, C.color)
 				qdel(C) // qdel
 
@@ -738,8 +738,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 			use(1)
 
-			if (NC.shock(user, 50))
-				if (prob(50)) //fail
+			if(NC.shock(user, 50))
+				if(prob(50)) //fail
 					new/obj/item/stack/cable_coil(NC.loc, 1, NC.color)
 					qdel(NC) // qdel
 
@@ -786,8 +786,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		use(1)
 
-		if (C.shock(user, 50))
-			if (prob(50)) //fail
+		if(C.shock(user, 50))
+			if(prob(50)) //fail
 				new/obj/item/stack/cable_coil(C.loc, 2, C.color)
 				qdel(C) // qdel
 				return

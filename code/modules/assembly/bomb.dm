@@ -3,7 +3,7 @@
 	icon = 'icons/obj/tank.dmi'
 	item_state = "assembly"
 	throwforce = 5
-	w_class = 3.0
+	w_class = 3
 	throw_speed = 2
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
@@ -141,7 +141,7 @@
 
 		if(strength >=1)
 			explosion(ground_zero, 0, round(strength,1), round(strength*2,1), round(strength*3,1))
-		else if (strength >=0.5)
+		else if(strength >=0.5)
 			explosion(ground_zero, -1, 0, 1, 2)
 		else
 			ground_zero.assume_air(air_contents)
@@ -150,7 +150,7 @@
 	else if(air_contents.temperature > (T0C + 100))
 		strength = (fuel_moles/25)
 
-		if (strength >=1)
+		if(strength >=1)
 			explosion(ground_zero, -1, 0, round(strength,1), round(strength*3,1))
 		else
 			ground_zero.assume_air(air_contents)

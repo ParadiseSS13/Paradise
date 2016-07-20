@@ -3,6 +3,9 @@
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
+/mob/living/proc/OpenCraftingMenu()
+	return
+
 /mob/living/Stat()
 	. = ..()
 	if(. && get_rig_stats)
@@ -55,7 +58,7 @@
 
 /mob/living/verb/succumb()
 	set hidden = 1
-	if (InCritical())
+	if(InCritical())
 		attack_log += "[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!"
 		adjustOxyLoss(health - config.health_threshold_dead)
 		updatehealth()
@@ -271,7 +274,7 @@
 /mob/living/proc/get_organ_target()
 	var/mob/shooter = src
 	var/t = shooter:zone_sel.selecting
-	if ((t in list( "eyes", "mouth" )))
+	if((t in list( "eyes", "mouth" )))
 		t = "head"
 	var/obj/item/organ/external/def_zone = ran_zone(t)
 	return def_zone
@@ -323,12 +326,12 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 
-		if (C.handcuffed && !initial(C.handcuffed))
+		if(C.handcuffed && !initial(C.handcuffed))
 			C.unEquip(C.handcuffed)
 		C.handcuffed = initial(C.handcuffed)
 		C.update_handcuffed()
 
-		if (C.legcuffed && !initial(C.legcuffed))
+		if(C.legcuffed && !initial(C.legcuffed))
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 		C.update_inv_legcuffed()
@@ -440,26 +443,26 @@
 	return
 
 /mob/living/Move(atom/newloc, direct)
-	if (buckled && buckled.loc != newloc) //not updating position
-		if (!buckled.anchored)
+	if(buckled && buckled.loc != newloc) //not updating position
+		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
 		else
 			return 0
 
-	if (restrained())
+	if(restrained())
 		stop_pulling()
 
 
 	var/t7 = 1
-	if (restrained())
+	if(restrained())
 		for(var/mob/living/M in range(src, 1))
-			if ((M.pulling == src && M.stat == 0 && !( M.restrained() )))
+			if((M.pulling == src && M.stat == 0 && !( M.restrained() )))
 				t7 = null
 	if(t7 && pulling && (get_dist(src, pulling) <= 1 || pulling.loc == loc))
 		var/turf/T = loc
 		. = ..()
 
-		if (pulling && pulling.loc)
+		if(pulling && pulling.loc)
 			if(!( isturf(pulling.loc) ))
 				stop_pulling()
 				return
@@ -473,46 +476,46 @@
 			stop_pulling()
 			return
 
-		if (!restrained())
+		if(!restrained())
 			var/diag = get_dir(src, pulling)
-			if ((diag - 1) & diag)
+			if((diag - 1) & diag)
 			else
 				diag = null
-			if ((get_dist(src, pulling) > 1 || diag))
-				if (isliving(pulling))
+			if((get_dist(src, pulling) > 1 || diag))
+				if(isliving(pulling))
 					var/mob/living/M = pulling
 					var/ok = 1
-					if (locate(/obj/item/weapon/grab, M.grabbed_by))
-						if (prob(75))
+					if(locate(/obj/item/weapon/grab, M.grabbed_by))
+						if(prob(75))
 							var/obj/item/weapon/grab/G = pick(M.grabbed_by)
-							if (istype(G, /obj/item/weapon/grab))
+							if(istype(G, /obj/item/weapon/grab))
 								for(var/mob/O in viewers(M, null))
 									O.show_message(text("\red [] has been pulled from []'s grip by []", G.affecting, G.assailant, src), 1)
 								//G = null
 								qdel(G)
 						else
 							ok = 0
-						if (locate(/obj/item/weapon/grab, M.grabbed_by.len))
+						if(locate(/obj/item/weapon/grab, M.grabbed_by.len))
 							ok = 0
-					if (ok)
+					if(ok)
 						var/atom/movable/t = M.pulling
 						M.stop_pulling()
 
-						if (M.lying && (prob(M.getBruteLoss() / 6)))
+						if(M.lying && (prob(M.getBruteLoss() / 6)))
 							var/turf/location = M.loc
-							if (istype(location, /turf/simulated))
+							if(istype(location, /turf/simulated))
 								location.add_blood(M)
 						pulling.Move(T, get_dir(pulling, T))
 						if(M)
 							M.start_pulling(t)
 				else
-					if (pulling)
+					if(pulling)
 						pulling.Move(T, get_dir(pulling, T))
 	else
 		stop_pulling()
 		. = ..()
 
-	if (s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
+	if(s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 	if(.) // did we actually move?
@@ -854,7 +857,7 @@
 	return tally
 
 /mob/living/proc/can_use_guns(var/obj/item/weapon/gun/G)
-	if (G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser())
+	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser())
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
 	return 1

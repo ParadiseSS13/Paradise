@@ -35,7 +35,7 @@
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/New()
 	..()
-	if (!id_tag)
+	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
 	icon = null
@@ -93,11 +93,11 @@
 		if(T.intact && node1 && node2 && node1.level == 1 && node2.level == 1 && istype(node1, /obj/machinery/atmospherics/pipe) && istype(node2, /obj/machinery/atmospherics/pipe))
 			return
 		else
-			if (node1)
+			if(node1)
 				add_underlay(T, node1, turn(dir, -180), node1.icon_connect_type)
 			else
 				add_underlay(T, node1, turn(dir, -180))
-			if (node2)
+			if(node2)
 				add_underlay(T, node2, dir, node2.icon_connect_type)
 			else
 				add_underlay(T, node2, dir)

@@ -9,9 +9,9 @@
 		return 1
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if ((other_mobs && moving_mob.other_mobs))
+		if((other_mobs && moving_mob.other_mobs))
 			return 1
-		if (mover == buckled_mob)
+		if(mover == buckled_mob)
 			return 1
 	return (!mover.density || !density || lying)
 
@@ -107,7 +107,7 @@
 	set hidden = 1
 	if(!istype(mob, /mob/living/carbon))
 		return
-	if (!mob.stat && isturf(mob.loc) && !mob.restrained())
+	if(!mob.stat && isturf(mob.loc) && !mob.restrained())
 		mob:toggle_throw_mode()
 	else
 		return
@@ -122,9 +122,9 @@
 
 /client/Center()
 	/* No 3D movement in 2D spessman game. dir 16 is Z Up
-	if (isobj(mob.loc))
+	if(isobj(mob.loc))
 		var/obj/O = mob.loc
-		if (mob.canmove)
+		if(mob.canmove)
 			return O.relaymove(mob, 16)
 	*/
 	return
@@ -256,14 +256,14 @@
 					L -= mob
 					var/mob/M = L[1]
 					if(M)
-						if ((get_dist(mob, M) <= 1 || M.loc == mob.loc))
+						if((get_dist(mob, M) <= 1 || M.loc == mob.loc))
 							. = ..()
-							if (isturf(M.loc))
+							if(isturf(M.loc))
 								var/diag = get_dir(mob, M)
-								if ((diag - 1) & diag)
+								if((diag - 1) & diag)
 								else
 									diag = null
-								if ((get_dist(mob, M) > 1 || diag))
+								if((get_dist(mob, M) > 1 || diag))
 									step(M, get_dir(M.loc, T))
 				else
 					for(var/mob/M in L)
@@ -284,11 +284,11 @@
 		else
 			. = ..()
 
-		for (var/obj/item/weapon/grab/G in mob)
-			if (G.state == GRAB_NECK)
+		for(var/obj/item/weapon/grab/G in mob)
+			if(G.state == GRAB_NECK)
 				mob.set_dir(reverse_dir[direct])
 			G.adjust_position()
-		for (var/obj/item/weapon/grab/G in mob.grabbed_by)
+		for(var/obj/item/weapon/grab/G in mob.grabbed_by)
 			G.adjust_position()
 
 		moving = 0
@@ -454,17 +454,17 @@
 	return 0
 
 /mob/proc/Move_Pulled(atom/A)
-	if (!canmove || restrained() || !pulling)
+	if(!canmove || restrained() || !pulling)
 		return
-	if (pulling.anchored)
+	if(pulling.anchored)
 		return
-	if (!pulling.Adjacent(src))
+	if(!pulling.Adjacent(src))
 		return
-	if (A == loc && pulling.density)
+	if(A == loc && pulling.density)
 		return
-	if (!Process_Spacemove(get_dir(pulling.loc, A)))
+	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
-	if (ismob(pulling))
+	if(ismob(pulling))
 		var/mob/M = pulling
 		var/atom/movable/t = M.pulling
 		M.stop_pulling()

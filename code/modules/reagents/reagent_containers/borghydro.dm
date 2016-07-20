@@ -60,7 +60,7 @@
 	return 1
 
 // Use this to add more chemicals for the borghypo to produce.
-/obj/item/weapon/reagent_containers/borghypo/proc/add_reagent(var/reagent)
+/obj/item/weapon/reagent_containers/borghypo/proc/add_reagent(reagent)
 	reagent_ids |= reagent
 	var/datum/reagents/RG = new(30)
 	RG.my_atom = src
@@ -69,14 +69,14 @@
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
 
-/obj/item/weapon/reagent_containers/borghypo/attack(mob/living/M as mob, mob/user as mob)
+/obj/item/weapon/reagent_containers/borghypo/attack(mob/living/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
 		to_chat(user, "<span class='warning'>The injector is empty.</span>")
 		return
-	if (!istype(M))
+	if(!istype(M))
 		return
-	if (R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
+	if(R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
 
@@ -94,7 +94,7 @@
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 	return
 
-/obj/item/weapon/reagent_containers/borghypo/attack_self(mob/user as mob)
+/obj/item/weapon/reagent_containers/borghypo/attack_self(mob/user)
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 	mode++
 	if(mode > reagent_list.len)

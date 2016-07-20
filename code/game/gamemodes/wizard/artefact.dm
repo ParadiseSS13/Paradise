@@ -7,7 +7,7 @@
 	icon_state ="scroll2"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1.0
+	w_class = 1
 	var/used = 0
 
 
@@ -46,7 +46,7 @@
 	if(loc == H || (in_range(src, H) && istype(loc, /turf)))
 		H.set_machine(src)
 		if(href_list["school"])
-			if (used)
+			if(used)
 				to_chat(H, "You already used this contract!")
 				return
 			used = 1
@@ -89,7 +89,7 @@
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
 				var/newname = sanitize(copytext(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
-				if (!newname)
+				if(!newname)
 					newname = randomname
 				M.mind.name = newname
 				M.real_name = newname
@@ -409,10 +409,6 @@ var/global/list/multiverse = list()
 		if(belt)
 			M.equip_to_slot_or_del(new belt.type(M), slot_belt)
 
-		var/obj/pda = H.get_item_by_slot(slot_wear_pda)
-		if(pda)
-			M.equip_to_slot_or_del(new pda.type(M), slot_wear_pda)
-
 		var/obj/back = H.get_item_by_slot(slot_back)
 		if(back)
 			M.equip_to_slot_or_del(new back.type(M), slot_back)
@@ -493,8 +489,7 @@ var/global/list/multiverse = list()
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("cultist")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/culthood/alt(M), slot_head)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/cultrobes/alt(M), slot_wear_suit)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(M), slot_wear_suit)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
@@ -712,7 +707,7 @@ var/global/list/multiverse = list()
 
 /obj/item/device/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
 	H.set_species("Human")
-	if (H.gender == MALE)
+	if(H.gender == MALE)
 		H.change_gender(FEMALE)
 
 	var/list/anime_hair =list("Odango", "Kusanagi Hair", "Pigtails", "Hime Cut", "Floorlength Braid", "Ombre", "Twincurls", "Twincurls 2")
@@ -868,3 +863,9 @@ var/global/list/multiverse = list()
 		target.IgniteMob()
 		GiveHint(target,1)
 	return ..()
+
+/obj/item/organ/internal/heart/cursed/wizard
+	pump_delay = 60
+	heal_brute = 25
+	heal_burn = 25
+	heal_oxy = 25

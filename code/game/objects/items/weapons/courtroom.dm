@@ -9,7 +9,7 @@
 	icon_state = "gavelhammer"
 	force = 5.0
 	throwforce = 6.0
-	w_class = 2.0
+	w_class = 2
 	attack_verb = list("bashed", "battered", "judged", "whacked")
 
 /obj/item/weapon/gavelhammer/suicide_act(mob/user)
@@ -24,7 +24,7 @@
 	icon_state = "gavelblock"
 	force = 2.0
 	throwforce = 2.0
-	w_class = 1.0
+	w_class = 1
 
 /obj/item/weapon/gavelblock/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/gavelhammer))

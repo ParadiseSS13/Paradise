@@ -7,7 +7,7 @@
 	sharp = 1
 	edge = 1
 	desc = "Could probably be used as ... a throwing weapon?"
-	w_class = 1.0
+	w_class = 1
 	force = 5.0
 	throwforce = 10.0
 	item_state = "shard-glass"
@@ -53,7 +53,7 @@
 /obj/item/weapon/shard/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if (M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
+		if(M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
 			return
 		to_chat(M, "\red <B>You step on \the [src]!</B>")
 		playsound(src.loc, 'sound/effects/glass_step.ogg', 50, 1) // not sure how to handle metal shards with sounds

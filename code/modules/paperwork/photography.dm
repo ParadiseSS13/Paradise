@@ -15,7 +15,7 @@
 	desc = "A camera film cartridge. Insert it into a camera to reload it."
 	icon_state = "film"
 	item_state = "electropack"
-	w_class = 1.0
+	w_class = 1
 
 
 /********
@@ -26,7 +26,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
-	w_class = 2.0
+	w_class = 2
 	var/icon/img	//Big photo image
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
@@ -141,7 +141,7 @@
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "electropack"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
@@ -154,6 +154,7 @@
 
 
 /obj/item/device/camera/spooky/CheckParts()
+	..()
 	var/obj/item/device/camera/C = locate(/obj/item/device/camera) in contents
 	if(C)
 		pictures_max = C.pictures_max
@@ -249,7 +250,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 				// Calculate where we are relative to the center of the photo
 				var/xoff = (A.x - center.x) * 32 + center_offset
 				var/yoff = (A.y - center.y) * 32 + center_offset
-				if (istype(A,/atom/movable))
+				if(istype(A,/atom/movable))
 					xoff+=A:step_x
 					yoff+=A:step_y
 				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
@@ -489,7 +490,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	desc = "video camera that can send live feed to the entertainment network."
 	icon_state = "videocam"
 	item_state = "videocam"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	var/on = 0
@@ -523,7 +524,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		to_chat(user, "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active.")
 
 /obj/item/device/videocam/hear_talk(mob/M as mob, msg)
-	if (camera && on)
+	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
 		for(var/obj/machinery/computer/security/telescreen/T in machines)
@@ -531,7 +532,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
 
 /obj/item/device/videocam/hear_message(mob/M as mob, msg)
-	if (camera && on)
+	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in machines)
 			if(T.current == camera)
 				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)

@@ -39,14 +39,14 @@
 	return
 
 /obj/effect/spresent/relaymove(mob/user as mob)
-	if (user.stat)
+	if(user.stat)
 		return
 	to_chat(user, "\blue You cant move.")
 
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
-	if (!istype(W, /obj/item/weapon/wirecutters))
+	if(!istype(W, /obj/item/weapon/wirecutters))
 		to_chat(user, "\blue I need wirecutters for that.")
 		return
 
@@ -54,7 +54,7 @@
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc
-		if (M.client)
+		if(M.client)
 			M.client.eye = M.client.mob
 			M.client.perspective = MOB_PERSPECTIVE
 

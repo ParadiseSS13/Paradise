@@ -97,8 +97,8 @@
 		icon_state = "grey_target_prism"
 	else
 		if( powered() )
-			if (src.enabled)
-				if (src.lasers)
+			if(src.enabled)
+				if(src.lasers)
 					icon_state = "orange_target_prism"
 				else
 					icon_state = "target_prism"
@@ -219,10 +219,10 @@
 /obj/machinery/turret/proc/shootAt(var/atom/movable/target)
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(target)
-	if (!T || !U)
+	if(!T || !U)
 		return
 	var/obj/item/projectile/A
-	if (src.lasers)
+	if(src.lasers)
 		switch(lasertype)
 			if(1)
 				A = new /obj/item/projectile/beam(loc)
@@ -256,25 +256,25 @@
 	return (invisibility!=0)
 
 /obj/machinery/turret/proc/popUp()
-	if ((!isPopping()) || src.popping==-1)
+	if((!isPopping()) || src.popping==-1)
 		invisibility = 0
 		popping = 1
 		playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-		if (src.cover!=null)
+		if(src.cover!=null)
 			flick("popup", src.cover)
 			src.cover.icon_state = "openTurretCover"
 		spawn(10)
-			if (popping==1) popping = 0
+			if(popping==1) popping = 0
 
 /obj/machinery/turret/proc/popDown()
-	if ((!isPopping()) || src.popping==1)
+	if((!isPopping()) || src.popping==1)
 		popping = -1
 		playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-		if (src.cover!=null)
+		if(src.cover!=null)
 			flick("popdown", src.cover)
 			src.cover.icon_state = "turretCover"
 		spawn(10)
-			if (popping==-1)
+			if(popping==-1)
 				invisibility = INVISIBILITY_LEVEL_TWO
 				popping = 0
 
@@ -284,7 +284,7 @@
 		..()
 		if(prob(45) && Proj.damage > 0) src.spark_system.start()
 		qdel(Proj)
-		if (src.health <= 0)
+		if(src.health <= 0)
 			src.die()
 	return
 
@@ -294,7 +294,7 @@
 	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 	src.spark_system.start()
 	src.health -= W.force * 0.5
-	if (src.health <= 0)
+	if(src.health <= 0)
 		src.die()
 	return
 
@@ -315,7 +315,7 @@
 	src.density = 0
 	src.stat |= BROKEN
 	src.icon_state = "destroyed_target_prism"
-	if (cover!=null)
+	if(cover!=null)
 		qdel(cover)
 	sleep(3)
 	flick("explosion", src)
@@ -332,7 +332,7 @@
 		add_logs(M, src, "attacked", admin=0)
 		//src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		src.health -= M.melee_damage_upper
-		if (src.health <= 0)
+		if(src.health <= 0)
 			src.die()
 	else
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
@@ -348,7 +348,7 @@
 		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 		visible_message("<span class='userdanger'>[M] has slashed at [src]!</span>")
 		src.health -= 15
-		if (src.health <= 0)
+		if(src.health <= 0)
 			src.die()
 	else
 		to_chat(M, "\green That object is useless to you.")
@@ -359,22 +359,22 @@
 /obj/machinery/turretid/Topic(href, href_list, var/nowindow = 0)
 	if(..(href, href_list))
 		return 1
-	if (src.locked)
-		if (!istype(usr, /mob/living/silicon))
+	if(src.locked)
+		if(!istype(usr, /mob/living/silicon))
 			to_chat(usr, "Control panel is locked!")
 			return
-	if (href_list["toggleOn"])
+	if(href_list["toggleOn"])
 		src.enabled = !src.enabled
 		src.updateTurrets()
-	else if (href_list["toggleLethal"])
+	else if(href_list["toggleLethal"])
 		src.lethal = !src.lethal
 		src.updateTurrets()
 	if(!nowindow)
 		src.attack_hand(usr)
 
 /obj/machinery/turretid/proc/update_icons()
-	if (src.enabled)
-		if (src.lethal)
+	if(src.enabled)
+		if(src.lethal)
 			icon_state = "control_kill"
 		else
 			icon_state = "control_stun"
@@ -382,7 +382,7 @@
 		icon_state = "control_standby"
 																				//CODE FIXED BUT REMOVED
 //	if(control_area)															//USE: updates other controls in the area
-//		for (var/obj/machinery/turretid/Turret_Control in world)				//I'm not sure if this is what it was
+//		for(var/obj/machinery/turretid/Turret_Control in world)				//I'm not sure if this is what it was
 //			if( Turret_Control.control_area != src.control_area )	continue	//supposed to do. Or whether the person
 //			Turret_Control.icon_state = icon_state								//who coded it originally was just tired
 //			Turret_Control.enabled = enabled									//or something. I don't see  any situation
@@ -512,6 +512,8 @@
 			continue
 		if(faction in M.faction)
 			continue
+		if(ispAI(M))
+			continue
 		pos_targets += M
 	for(var/obj/mecha/M in oview(scan_range, src))
 		if(M.occupant)
@@ -542,9 +544,9 @@
 	if(!src)
 		return
 	var/turf/curloc = get_turf(src)
-	if (!targloc || !curloc)
+	if(!targloc || !curloc)
 		return
-	if (targloc == curloc)
+	if(targloc == curloc)
 		return
 	playsound(get_turf(src), firing_sound, 60, 1)
 	var/obj/item/projectile/A = new bullet_type(curloc)

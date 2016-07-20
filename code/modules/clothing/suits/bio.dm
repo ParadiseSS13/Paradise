@@ -25,6 +25,11 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 70
 	put_on_delay = 70
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+	hide_tail_by_species = list("Vox")
 
 //Standard biosuit, orange stripe
 /obj/item/clothing/head/bio_hood/general
@@ -84,3 +89,5 @@
 	item_state = "bio_suit"
 	strip_delay = 40
 	put_on_delay = 20
+	species_fit = null
+	sprite_sheets = null

@@ -21,6 +21,9 @@
 /obj/effect/levelref/New()
 	..()
 	levels += src
+
+/obj/effect/levelref/initialize()
+	..()
 	for(var/obj/effect/levelref/O in levels)
 		if(id == O.id && O != src)
 			other = O
@@ -104,7 +107,7 @@
 /turf/unsimulated/floor/upperlevel/New()
 	..()
 	var/obj/effect/levelref/R = locate() in get_area(src)
-	if(R)
+	if(R && R.other)
 		init(R)
 
 /turf/unsimulated/floor/upperlevel/Destroy()
@@ -159,6 +162,8 @@
 	..()
 	portals += src
 
+/obj/effect/view_portal/initialize()
+	..()
 	if(id)
 		for(var/obj/effect/view_portal/O in portals)
 			if(id == O.id && O != src && can_link(O))

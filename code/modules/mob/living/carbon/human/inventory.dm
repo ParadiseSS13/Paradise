@@ -39,10 +39,10 @@
 
 
 /mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
-	for (var/slot in slots)
-		if (equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
+	for(var/slot in slots)
+		if(equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
 			return slot
-	if (del_on_fail)
+	if(del_on_fail)
 		qdel(W)
 	return null
 
@@ -77,8 +77,6 @@
 			return has_organ("chest")
 		if(slot_wear_id)
 			// the only relevant check for this is the uniform check
-			return 1
-		if(slot_wear_pda)
 			return 1
 		if(slot_l_ear)
 			return has_organ("head")
@@ -150,7 +148,7 @@
 	else if(I == r_ear)
 		r_ear = null
 		update_inv_ears()
-	else if (I == l_ear)
+	else if(I == l_ear)
 		l_ear = null
 		update_inv_ears()
 	else if(I == shoes)
@@ -251,9 +249,6 @@
 			wear_id = W
 			sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
-		if(slot_wear_pda)
-			wear_pda = W
-			update_inv_wear_pda(redraw_mob)
 		if(slot_l_ear)
 			l_ear = W
 			if(l_ear.slot_flags & SLOT_TWOEARS)
@@ -340,8 +335,6 @@
 			return belt
 		if(slot_wear_id)
 			return wear_id
-		if(slot_wear_pda)
-			return wear_pda
 		if(slot_l_ear)
 			return l_ear
 		if(slot_r_ear)
@@ -519,16 +512,6 @@
 					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
 				return 0
 			if(!(I.slot_flags & SLOT_ID))
-				return 0
-			return 1
-		if(slot_wear_pda)
-			if(wear_pda)
-				return 0
-			if(!w_uniform)
-				if(!disable_warning)
-					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
-				return 0
-			if(!(I.slot_flags & SLOT_PDA))
 				return 0
 			return 1
 		if(slot_l_store)

@@ -825,6 +825,7 @@
 	display_name = "grapevines"
 	mutants = list("greengrapes")
 	chems = list("plantmatter" = list(1,10), "sugar" = list(1,5))
+	kitchen_tag = "grapes"
 	preset_icon = "grapes"
 
 /datum/seed/grapes/New()
@@ -1089,6 +1090,7 @@
 	seed_name = "sugarcane"
 	display_name = "sugarcanes"
 	chems = list("sugar" = list(4,5))
+	kitchen_tag = "sugarcane"
 	preset_icon = "sugarcane"
 
 /datum/seed/sugarcane/New()

@@ -57,10 +57,10 @@
 		to_chat(usr, "\red Access denied.")
 		return
 
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
-	if (href_list["setarea"])
+	if(href_list["setarea"])
 
 		//Probably should consider using another list, but this one will do.
 		var/t_area = input("Select the area to ping.", "Set Target Area", null) as null|anything in TAGGERLOCATIONS
@@ -71,14 +71,14 @@
 		drone_call_area = t_area
 		to_chat(usr, "\blue You set the area selector to [drone_call_area].")
 
-	else if (href_list["ping"])
+	else if(href_list["ping"])
 
 		to_chat(usr, "\blue You issue a maintenance request for all active drones, highlighting [drone_call_area].")
 		for(var/mob/living/silicon/robot/drone/D in world)
 			if(D.client && D.stat == 0)
 				to_chat(D, "-- Maintenance drone presence requested in: [drone_call_area].")
 
-	else if (href_list["resync"])
+	else if(href_list["resync"])
 
 		var/mob/living/silicon/robot/drone/D = locate(href_list["resync"])
 
@@ -86,7 +86,7 @@
 			to_chat(usr, "\red You issue a law synchronization directive for the drone.")
 			D.law_resync()
 
-	else if (href_list["shutdown"])
+	else if(href_list["shutdown"])
 
 		var/mob/living/silicon/robot/drone/D = locate(href_list["shutdown"])
 
@@ -96,7 +96,7 @@
 			log_game("[key_name(usr)] issued kill order for [key_name(src)] from control console.")
 			D.shut_down()
 
-	else if (href_list["search_fab"])
+	else if(href_list["search_fab"])
 		if(dronefab)
 			return
 
@@ -111,7 +111,7 @@
 
 		to_chat(usr, "\red Unable to locate drone fabricator.")
 
-	else if (href_list["toggle_fab"])
+	else if(href_list["toggle_fab"])
 
 		if(!dronefab)
 			return

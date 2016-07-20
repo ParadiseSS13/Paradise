@@ -4,10 +4,9 @@
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define AIRTIGHT				8		// mask allows internals
 #define HANDSLOW        		16		// If an item has this flag, it will slow you to carry it
-#define NOSHIELD				32		// weapon not affected by shield
-#define CONDUCT					64		// conducts electricity (metal etc.)
-#define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
-#define ON_BORDER				256		// item has priority to check when entering or leaving
+#define CONDUCT					32		// conducts electricity (metal etc.)
+#define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
+#define ON_BORDER				128		// item has priority to check when entering or leaving
 
 #define GLASSESCOVERSEYES		1024
 #define MASKCOVERSEYES			1024	// get rid of some of the other retardation in these flags
@@ -103,8 +102,7 @@
 #define SLOT_POCKET 2048		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
 #define SLOT_DENYPOCKET 4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
 #define SLOT_TWOEARS 8192
-#define SLOT_PDA 16384
-#define SLOT_TIE 32768
+#define SLOT_TIE 16384
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

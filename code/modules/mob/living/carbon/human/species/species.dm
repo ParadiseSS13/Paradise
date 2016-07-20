@@ -42,7 +42,6 @@
 	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
-	var/passive_temp_gain = 0			//IS_SYNTHETIC species will gain this much temperature every second
 	var/reagent_tag                 //Used for metabolizing reagents.
 
 	var/siemens_coeff = 1 //base electrocution coefficient
@@ -393,7 +392,7 @@
 	return
 
 /datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
-	for (var/proc/ability in species_abilities)
+	for(var/proc/ability in species_abilities)
 		H.verbs -= ability
 	return
 

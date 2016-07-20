@@ -1,4 +1,0 @@
-author: TheDZD
-delete-after: True
-changes: 
-  - bugfix: "Burst fire selection is now a proc, as it was meant to be, rather than a verb."

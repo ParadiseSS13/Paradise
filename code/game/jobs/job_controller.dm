@@ -217,7 +217,7 @@ var/global/datum/controller/occupations/job_master
 		if((job.title == "AI") && (config) && (!config.allow_ai))	return 0
 
 		if(ticker.mode.name == "AI malfunction")	// malf. AIs are pre-selected before jobs
-			for (var/datum/mind/mAI in ticker.mode.malf_ai)
+			for(var/datum/mind/mAI in ticker.mode.malf_ai)
 				AssignRole(mAI.current, "AI")
 				ai_selected++
 			if(ai_selected)	return 1
@@ -594,7 +594,7 @@ var/global/datum/controller/occupations/job_master
 
 			H.equip_to_slot_or_del(C, slot_wear_id)
 
-		H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_wear_pda)
+		H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_belt)
 		if(locate(/obj/item/device/pda,H))
 			var/obj/item/device/pda/pda = locate(/obj/item/device/pda,H)
 			pda.owner = H.real_name
@@ -616,7 +616,7 @@ var/global/datum/controller/occupations/job_master
 				continue
 
 			job = trim(job)
-			if (!length(job))
+			if(!length(job))
 				continue
 
 			var/pos = findtext(job, "=")

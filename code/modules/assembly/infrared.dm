@@ -139,7 +139,9 @@
 				</TT>
 				<BR><BR><A href='?src=\ref[src];refresh=1'>Refresh</A>
 				<BR><BR><A href='?src=\ref[src];close=1'>Close</A>"}
-	user << browse(dat, "window=infra")
+	var/datum/browser/popup = new(user, "infra", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "infra")
 
 /obj/item/device/assembly/infra/Topic(href, href_list)

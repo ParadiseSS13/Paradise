@@ -116,12 +116,12 @@
 	data["on"] = on ? 1 : 0
 
 	data["hasHoldingTank"] = holding ? 1 : 0
-	if (holding)
+	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure() > 0 ? holding.air_contents.return_pressure() : 0))
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "portpump.tmpl", "Portable Pump", 480, 400, state = physical_state)
@@ -143,13 +143,13 @@
 	if(href_list["direction"])
 		direction_out = !direction_out
 
-	if (href_list["remove_tank"])
+	if(href_list["remove_tank"])
 		if(holding)
 			holding.loc = loc
 			holding = null
 		update_icon()
 
-	if (href_list["pressure_adj"])
+	if(href_list["pressure_adj"])
 		var/diff = text2num(href_list["pressure_adj"])
 		target_pressure = Clamp(target_pressure+diff, pressuremin, pressuremax)
 		update_icon()

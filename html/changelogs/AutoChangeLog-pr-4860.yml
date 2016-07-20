@@ -1,9 +1,0 @@
-author: FreeStylaLT
-delete-after: True
-changes: 
-  - rscadd: "Added windows and a missing firelock to Genetics/Cloning"
-  - tweak: "Tweaked layout of Genetics slightly"
-  - rscadd: "Added photocopier to R&D."
-  - tweak: "Tweaked RD's office layout slightly"
-  - tweak: "Changed access on Tcomms' external airlocks' buttons to be same as general Tcomms access"
-  - bugfix: "fixed the airless tiles in Assembly Line's windows"

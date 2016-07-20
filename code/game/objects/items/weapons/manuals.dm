@@ -1184,6 +1184,65 @@
 				</html>
 			"}
 
+/obj/item/weapon/book/manual/faxes
+	name = "A Guide to Faxes"
+	desc = "A NanoTrasen-approved guide to writing faxes"
+	icon_state = "book6"
+	author = "NanoTrasen"
+	title = "A Guide to Faxes"
+	dat = {"
+
+		<html>
+				<head>
+				<style>
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<font face="Verdana" color=black>
+
+				<h1><a name="Contents">Contents</a></h1>
+				<ol>
+					<li><a href="#what">What's a Fax?</a></li>
+					<li><a href="#when">When to Fax?</a></li>
+					<li><a href="#how">How to Fax?</a></li>
+				</ol>
+				<br><BR>
+
+				<h1><a name="what"><U><B>What's a Fax?</B></U></a></h1><BR>
+				<li>Faxes are your main method of communicating with the NAS Trurl, better known as Central Command.</li>
+				<li>Faxes allow personnel on the station to maintain open lines of communication with the NAS Trurl, allowing for vital information to flow both ways.</li>
+				<li>Being written communications, proper grammar, syntax and typography is required, in addition to a signature and, if applicable, a stamp. Failure to sign faxes will lead to an automatic rejection.</li>
+				<li>We at NanoTrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, NanoTrasen Representative, and Internal Affairs Agents.</li>
+				<li>This means that we trust the recipients of these fax machines to only use them in the proper circumstances (see <B>When to Fax?</B>).</li>
+
+				<h1><a name="when"><B>When to Fax?</B></a></h1><BR>
+				<li>While it is up to the discretion of each individual person to decide when to fax Central Command, there are some simple guidelines on when to do this.</li>
+				<li>Firstly, any situation that can reasonably be solved on-site, <I>should</I> be handled on-site. Knowledge of Standard Operating Procedure is <B>mandatory</B> for everyone with access to a fax machine.</li>
+				<li>Resolving issues on-site not only leads to more expedient problem-solving, it also frees up company resources and provides valuable work experience for all parties involved.</li>
+				<li>This means that you should work with the Heads of Staff concerning personnel and workplace issues, and attempt to resolve situations with them. If, for whatever reason, the relevent Head of Staff is not available or receptive, consider speaking with the Captain and/or NanoTrasen Representative.</li>
+				<li>If, for whatever reason, these issues cannot be solved on-site, either due to incompetence or just plain refusal to cooperate, faxing Central Command becomes a viable option.</li>
+				<li>Secondly, station status reports should be sent occasionally, but never at the start of the shift. Remember, we assign personnel to the station. We do not need a repeat of what we just signed off on.</li>
+				<li>Thirdly, staff/departmental evaluations are always welcome, especially in cases of noticeable (in)competence. Just as a brilliant coworker can be rewarded, an incompetent one can be punished.</li>
+				<li>Fourthly, do not issue faxes asking for sentences. You have an entire Security department and an associated Detective, not to mention on-site Space Law manuals.</li>
+				<li>Lastly, please pay attention to context. If the station is facing a massive emergency, such as a Class 7-10 Blob Organism, most, if not all, non-relevant faxes will be duly ignored.</li>
+
+				<h1><a name="how"><B>How to Fax?</B></a></h1><BR>
+				<li>Sending a fax is simple. Simply insert your ID into the fax machine, then log in.</li>
+				<li>Once logged in, insert a piece of paper and select the destination from the provided list. Remember, you can rename your fax from within the fax machine's menu.</li>
+				<li>You can send faxes to any other fax machine on the station, which can be a very useful tool when you need to issue broad communications to all of the Heads of Staff.</li>
+				<li>To send a fax to Central Command, simply select the correct destination, and send the fax. Keep in mind, the communication arrays need to recharge after sending a fax to Central Command, so make sure you sent everything you need.</li>
+				<li>Lastly, paper bundles can also be faxed as a single item, so feel free to bundle up all relevant documentation and send it in at once.</li>
+
+				</ol><BR>
+				</body>
+				</html>
+
+		"}
+
 /obj/item/weapon/book/manual/sop_science
 	name = "Science Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all scientific activities."

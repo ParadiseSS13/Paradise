@@ -14,6 +14,10 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
 
+/obj/machinery/computer/camera_advanced/abductor/New()
+	abductor_equipment.Add(src)
+	..()
+
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
 	..()
 	eyeobj.visible_icon = 1

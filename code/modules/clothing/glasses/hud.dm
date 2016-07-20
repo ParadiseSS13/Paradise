@@ -73,7 +73,6 @@
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
 	var/global/list/jobs[0]
-	flash_protect = 1
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -84,11 +83,12 @@
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "Chamleon Security HUD"
 	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Toggle to disguise the HUD. Provides flash protection."
+	flash_protect = 1
 
 /obj/item/clothing/glasses/hud/security/chameleon/attack_self(mob/user)
 	chameleon(user)
 
-/obj/item/clothing/glasses/hud/security/jensenshades
+/obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
 	name = "augmented shades"
 	desc = "Polarized bioneural eyewear, designed to augment your vision."
 	icon_state = "jensenshades"
@@ -109,8 +109,28 @@
 	desc = "Sunglasses with a HUD."
 	icon_state = "sunhud"
 	darkness_view = 1
+	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = 1
+
+/obj/item/clothing/glasses/hud/hydroponic
+	name = "Hydroponic HUD"
+	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
+	icon_state = "hydroponichud"
+	HUDType = DATA_HUD_HYDROPONIC
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
+
+/obj/item/clothing/glasses/hud/hydroponic/night
+	name = "Night Vision Hydroponic HUD"
+	desc = "A hydroponic HUD fitted with a light amplifier."
+	icon_state = "hydroponichudnight"
+	item_state = "glasses"
+	darkness_view = 8
+	see_darkness = 0
+	prescription_upgradable = 0

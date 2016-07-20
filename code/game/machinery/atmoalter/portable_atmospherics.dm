@@ -57,6 +57,10 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
+	// To avoid a chicken-egg thing where pipes need to
+	// be initialized before the atmos cans are
+	if(!connected_port.parent)
+		connected_port.build_network()
 	connected_port.parent.reconcile_air()
 
 	anchored = 1 //Prevent movement
@@ -78,8 +82,8 @@
 	return air_contents
 
 /obj/machinery/portable_atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if ((istype(W, /obj/item/weapon/tank) && !( src.destroyed )))
-		if (src.holding)
+	if((istype(W, /obj/item/weapon/tank) && !( src.destroyed )))
+		if(src.holding)
 			return
 		var/obj/item/weapon/tank/T = W
 		user.drop_item()
@@ -88,7 +92,7 @@
 		update_icon()
 		return
 
-	else if (istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/weapon/wrench))
 		if(connected_port)
 			disconnect()
 			to_chat(user, "\blue You disconnect [name] from the port.")
@@ -108,7 +112,7 @@
 				to_chat(user, "\blue Nothing happens.")
 				return
 
-	else if ((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
+	else if((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 
 	return
