@@ -1,5 +1,0 @@
-author: LittleBigKid2000 and TullyBBurnalot
-delete-after: True
-changes: 
-  - rscadd: "Stethoscopes can now be used to tell if a person's heart or lungs are damaged, or if they have any at all. Now they're actually useful instead of telling you the obvious in a vague way."
-  - bugfix: "Stethoscopes can no longer be used to hear the heartbeat and breathing of a person that doesn't have a heart or lungs."
