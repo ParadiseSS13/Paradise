@@ -19,10 +19,6 @@
 
 	var/being_shocked = 0
 
-	// What reagents should be logged when transferred TO this object?
-	// Reagent ID => friendly name
-	var/list/reagents_to_log=list()
-
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 

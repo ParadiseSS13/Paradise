@@ -114,17 +114,6 @@
 			to_chat(user, "<span class='warning'>[target] is full.</span>")
 			return
 
-		// /vg/: Logging transfers of bad things
-		if(target.reagents_to_log.len)
-			var/list/badshit=list()
-			for(var/bad_reagent in target.reagents_to_log)
-				if(reagents.has_reagent(bad_reagent))
-					badshit += reagents_to_log[bad_reagent]
-			if(badshit.len)
-				var/hl = "<span class='danger'>([english_list(badshit)])</span>"
-				message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
-				log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
-
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
 
@@ -142,7 +131,7 @@
 		return
 
 
-/obj/item/weapon/reagent_containers/glass/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
 		return
 	if(is_hot(I))
@@ -231,7 +220,7 @@
 		reagents.chem_temp += 30
 		reagents.handle_reactions()
 
-/obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/device/assembly_holder) && can_assembly)
 		if(assembly)
 			to_chat(usr, "<span class='warning'>The [src] already has an assembly.</span>")
