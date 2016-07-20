@@ -322,7 +322,7 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 	ignore_suitadjust = 1
-	action_button_name = null
+	actions_types = list()
 	adjust_flavour = null
 	species_fit = null
 	sprite_sheets = null
@@ -437,7 +437,7 @@
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
 	ignore_suitadjust = 1
-	action_button_name = null
+	actions_types = list()
 	adjust_flavour = null
 	species_fit = null
 	sprite_sheets = null
@@ -489,7 +489,7 @@
 	icon_state = "chronx_hood"
 	item_state = "chronx_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
-	action_button_name = "Transform Hood"
+	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = 0
 
 /obj/item/clothing/head/fluff/chronx/ui_action_click()
@@ -519,7 +519,7 @@
 	icon_state = "chronx_robe"
 	item_state = "chronx_robe"
 	flags_size = ONESIZEFITSALL
-	action_button_name = "Transform Robes"
+	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
 	ignore_suitadjust = 0
 

@@ -375,7 +375,7 @@ client/proc/one_click_antag()
 
 				new_syndicate_commando.key = theghost.key
 				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.internals.icon_state = "internal1"
+				new_syndicate_commando.update_internals_hud_icon(1)
 
 				//So they don't forget their code or mission.
 

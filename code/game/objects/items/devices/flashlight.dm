@@ -8,7 +8,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
-	action_button_name = "Flashlight"
+	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
 
@@ -36,6 +36,9 @@
 		return 0
 	on = !on
 	update_brightness(user)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 	return 1
 
 

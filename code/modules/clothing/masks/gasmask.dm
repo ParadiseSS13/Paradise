@@ -29,7 +29,7 @@
 	tint = 2
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	origin_tech = "materials=2;engineering=2"
-	action_button_name = "Toggle Welding Helmet"
+	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/clothing/mask/gas/welding/attack_self()
 	toggle()
@@ -166,7 +166,7 @@
 	desc = "Twoooo!"
 	icon_state = "owl"
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
-	action_button_name = "Hoot"
+	actions_types = list(/datum/action/item_action/hoot)
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
@@ -190,26 +190,24 @@
 /obj/item/clothing/mask/gas/sechailer
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
-	action_button_name = "HALT!"
 	icon_state = "sechailer"
 	var/aggressiveness = 2
 	var/safety = 1
-	ignore_maskadjust = 0
-	action_button_name = "HALT!"
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
 	icon_state = "hosmask"
 	aggressiveness = 3
-	ignore_maskadjust = 1
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/warden
 	name = "\improper Warden SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
 	icon_state = "wardenmask"
 	aggressiveness = 3
-	ignore_maskadjust = 1
+	actions_types = list(/datum/action/item_action/halt)
 
 
 /obj/item/clothing/mask/gas/sechailer/swat
@@ -217,7 +215,7 @@
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
 	aggressiveness = 3
-	ignore_maskadjust = 1
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/blue
 	name = "\improper blue SWAT mask"
@@ -225,7 +223,7 @@
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
 	aggressiveness = 3
-	ignore_maskadjust = 1
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
 	name = "security hailer"
@@ -233,16 +231,13 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
 	aggressiveness = 1 //Borgs are nicecurity!
-	ignore_maskadjust = 1
+	actions_types = list(/datum/action/item_action/halt)
 
-/obj/item/clothing/mask/gas/sechailer/cyborg/New()
-	..()
-	verbs -= /obj/item/clothing/mask/gas/sechailer/verb/adjust
-
-/obj/item/clothing/mask/gas/sechailer/verb/adjust()
-	set category = "Object"
-	set name = "Adjust Mask"
-	adjustmask(usr)
+/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/halt)
+		halt()
+	else
+		adjustmask(user)
 
 /obj/item/clothing/mask/gas/sechailer/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
