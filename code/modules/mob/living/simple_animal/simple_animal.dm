@@ -434,6 +434,8 @@
 		return
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(attempt_harvest(O, user))
+			return
 		user.do_attack_animation(src)
 		if(istype(O) && istype(user) && !O.attack(src, user))
 			var/damage = 0
@@ -451,7 +453,6 @@
 				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 			adjustBruteLoss(damage)
-	..()
 
 
 /mob/living/simple_animal/movement_delay()

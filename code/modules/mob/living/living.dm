@@ -837,6 +837,15 @@
 /mob/living/proc/get_permeability_protection()
 	return 0
 
+/mob/living/proc/attempt_harvest(obj/item/I, mob/user)
+	if(stat == DEAD && !isnull(butcher_results)) //can we butcher it?
+		if(istype(I, /obj/item/weapon/kitchen/knife))
+			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+			if(do_mob(user, src, 80))
+				harvest(user)
+			return 1
+
 /mob/living/proc/harvest(mob/living/user)
 	if(qdeleted(src))
 		return
