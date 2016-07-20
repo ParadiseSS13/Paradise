@@ -1,6 +1,0 @@
-author: tigercat2000
-delete-after: True
-changes: 
-  - rscadd: "Gas tanks now have an action button for accessing their interface."
-  - rscadd: "You can now shift-click on movable HUD elements (such as action buttons) to reset them to their initial position."
-  - tweak: "Implants with limited uses, such as freedom implants, now delete themselves when they run out of uses."

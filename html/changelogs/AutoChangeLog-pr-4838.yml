@@ -1,6 +1,0 @@
-author: FalseIncarnate
-delete-after: True
-changes: 
-  - rscadd: "Adds new Bottler machine for making unique beverages! Order one from cargo today!"
-  - rscadd: "Adds 6 new drinks obtainable via the Bottler. Get brewing!"
-  - bugfix: "Grapes now can be properly juiced again, as they now have the right kitchen tag."

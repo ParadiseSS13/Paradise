@@ -1,7 +1,0 @@
-author: DaveTheHeadcrab
-delete-after: True
-changes: 
-  - rscadd: "Replaces tablecrafting with personal crafting, click the hammer icon by your intent selector to use it."
-  - rscdel: "Removes the PDA slot, your PDA can now go in your ID slot (Again)."
-  - rscadd: "You can now alt click to remove an ID from a PDA, for quick interaction while it's in your ID slot."
-  - rscadd: "Adds an overlay for an ID while it's inserted into your PDA."
