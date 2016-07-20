@@ -752,6 +752,13 @@ var/list/uplink_items = list()
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 3
 
+/datum/uplink_item/stealthy_weapons/chamsechud
+	name = "Chameleon Security HUD"
+	desc = "A stolen Nanotrasen Security HUD with Syndicat chameleon technology implemented into it. The glasses can be morphed into various eyewear, while reatining the HUD qualities when worn."
+	reference = "CHHUD"
+	item = /obj/item/clothing/glasses/hud/security/chameleon
+	cost = 2
+
 // STEALTHY TOOLS
 
 /datum/uplink_item/stealthy_tools
