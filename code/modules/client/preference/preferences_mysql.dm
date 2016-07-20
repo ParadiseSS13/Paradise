@@ -110,6 +110,9 @@
 					hair_red,
 					hair_green,
 					hair_blue,
+					secondary_hair_red,
+					secondary_hair_green,
+					secondary_hair_blue,
 					facial_red,
 					facial_green,
 					facial_blue,
@@ -183,65 +186,68 @@
 		r_hair = text2num(query.item[8])
 		g_hair = text2num(query.item[9])
 		b_hair = text2num(query.item[10])
-		r_facial = text2num(query.item[11])
-		g_facial = text2num(query.item[12])
-		b_facial = text2num(query.item[13])
-		r_facial_sec = text2num(query.item[14])
-		g_facial_sec = text2num(query.item[15])
-		b_facial_sec = text2num(query.item[16])
-		s_tone = text2num(query.item[17])
-		r_skin = text2num(query.item[18])
-		g_skin = text2num(query.item[19])
-		b_skin = text2num(query.item[20])
-		m_colours = query.item[21]
-		r_headacc = text2num(query.item[22])
-		g_headacc = text2num(query.item[23])
-		b_headacc = text2num(query.item[24])
-		h_style = query.item[25]
-		f_style = query.item[26]
-		m_styles = query.item[27]
-		ha_style = query.item[28]
-		alt_head = query.item[29]
-		r_eyes = text2num(query.item[30])
-		g_eyes = text2num(query.item[31])
-		b_eyes = text2num(query.item[32])
-		underwear = query.item[33]
-		undershirt = query.item[34]
-		backbag = text2num(query.item[35])
-		b_type = query.item[36]
+		r_hair_sec = text2num(query.item[11])
+		g_hair_sec = text2num(query.item[12])
+		b_hair_sec = text2num(query.item[13])
+		r_facial = text2num(query.item[14])
+		g_facial = text2num(query.item[15])
+		b_facial = text2num(query.item[16])
+		r_facial_sec = text2num(query.item[17])
+		g_facial_sec = text2num(query.item[18])
+		b_facial_sec = text2num(query.item[19])
+		s_tone = text2num(query.item[20])
+		r_skin = text2num(query.item[21])
+		g_skin = text2num(query.item[22])
+		b_skin = text2num(query.item[23])
+		m_colours = query.item[24]
+		r_headacc = text2num(query.item[25])
+		g_headacc = text2num(query.item[26])
+		b_headacc = text2num(query.item[27])
+		h_style = query.item[28]
+		f_style = query.item[29]
+		m_styles = query.item[30]
+		ha_style = query.item[31]
+		alt_head = query.item[32]
+		r_eyes = text2num(query.item[33])
+		g_eyes = text2num(query.item[34])
+		b_eyes = text2num(query.item[35])
+		underwear = query.item[36]
+		undershirt = query.item[37]
+		backbag = text2num(query.item[38])
+		b_type = query.item[39]
 
 
 		//Jobs
-		alternate_option = text2num(query.item[37])
-		job_support_high = text2num(query.item[38])
-		job_support_med = text2num(query.item[39])
-		job_support_low = text2num(query.item[40])
-		job_medsci_high = text2num(query.item[41])
-		job_medsci_med = text2num(query.item[42])
-		job_medsci_low = text2num(query.item[43])
-		job_engsec_high = text2num(query.item[44])
-		job_engsec_med = text2num(query.item[45])
-		job_engsec_low = text2num(query.item[46])
-		job_karma_high = text2num(query.item[47])
-		job_karma_med = text2num(query.item[48])
-		job_karma_low = text2num(query.item[49])
+		alternate_option = text2num(query.item[40])
+		job_support_high = text2num(query.item[41])
+		job_support_med = text2num(query.item[42])
+		job_support_low = text2num(query.item[43])
+		job_medsci_high = text2num(query.item[44])
+		job_medsci_med = text2num(query.item[45])
+		job_medsci_low = text2num(query.item[46])
+		job_engsec_high = text2num(query.item[47])
+		job_engsec_med = text2num(query.item[48])
+		job_engsec_low = text2num(query.item[49])
+		job_karma_high = text2num(query.item[50])
+		job_karma_med = text2num(query.item[51])
+		job_karma_low = text2num(query.item[52])
 
 		//Miscellaneous
-		flavor_text = query.item[50]
-		med_record = query.item[51]
-		sec_record = query.item[52]
-		gen_record = query.item[53]
-		disabilities = text2num(query.item[54])
-		player_alt_titles = params2list(query.item[55])
-		organ_data = params2list(query.item[56])
-		rlimb_data = params2list(query.item[57])
-		nanotrasen_relation = query.item[58]
-		speciesprefs = text2num(query.item[59])
+		flavor_text = query.item[53]
+		med_record = query.item[54]
+		sec_record = query.item[55]
+		gen_record = query.item[56]
+		disabilities = text2num(query.item[57])
+		player_alt_titles = params2list(query.item[58])
+		organ_data = params2list(query.item[59])
+		rlimb_data = params2list(query.item[60])
+		nanotrasen_relation = query.item[61]
+		speciesprefs = text2num(query.item[62])
 
 		//socks
-		socks = query.item[60]
-		body_accessory = query.item[61]
-		gear = params2list(query.item[62])
+		socks = query.item[63]
+		body_accessory = query.item[64]
+		gear = params2list(query.item[65])
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -256,7 +262,10 @@
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	r_hair			= sanitize_integer(r_hair, 0, 255, initial(r_hair))
 	g_hair			= sanitize_integer(g_hair, 0, 255, initial(g_hair))
-	b_hair			= sanitize_integer(b_hair, 0, 255, initial(b_hair))
+	b_hair_sec		= sanitize_integer(b_hair, 0, 255, initial(b_hair))
+	r_hair_sec		= sanitize_integer(r_hair_sec, 0, 255, initial(r_hair_sec))
+	g_hair_sec		= sanitize_integer(g_hair_sec, 0, 255, initial(g_hair_sec))
+	b_hair			= sanitize_integer(b_hair_sec, 0, 255, initial(b_hair_sec))
 	r_facial		= sanitize_integer(r_facial, 0, 255, initial(r_facial))
 	g_facial		= sanitize_integer(g_facial, 0, 255, initial(g_facial))
 	b_facial		= sanitize_integer(b_facial, 0, 255, initial(b_facial))
@@ -338,6 +347,9 @@
 												hair_red='[r_hair]',
 												hair_green='[g_hair]',
 												hair_blue='[b_hair]',
+												secondary_hair_red='[r_hair_sec]',
+												secondary_hair_green='[g_hair_sec]',
+												secondary_hair_blue='[b_hair_sec]',
 												facial_red='[r_facial]',
 												facial_green='[g_facial]',
 												facial_blue='[b_facial]',
@@ -405,8 +417,9 @@
 					INSERT INTO [format_table_name("characters")] (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
 											age, species, language,
 											hair_red, hair_green, hair_blue,
+											secondary_hair_red, secondary_hair_green, secondary_hair_blue,
 											facial_red, facial_green, facial_blue,
-											secondary_facial_blue, secondary_facial_green, secondary_facial_blue,
+											secondary_facial_red, secondary_facial_green, secondary_facial_blue,
 											skin_tone, skin_red, skin_green, skin_blue,
 											marking_colours,
 											head_accessory_red, head_accessory_green, head_accessory_blue,
@@ -427,6 +440,7 @@
 											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
 											'[age]', '[sql_sanitize_text(species)]', '[sql_sanitize_text(language)]',
 											'[r_hair]', '[g_hair]', '[b_hair]',
+											'[r_hair_sec]', '[g_hair_sec]', '[b_hair_sec]',
 											'[r_facial]', '[g_facial]', '[b_facial]',
 											'[r_facial_sec]', '[g_facial_sec]', '[b_facial_sec]',
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',

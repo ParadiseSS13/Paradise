@@ -187,6 +187,13 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 			hair_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_ADD)
 		else
 			hair_s.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
+
+		if(hair_style.secondary_theme)
+			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
+			if(!hair_style.no_sec_colour)
+				hair_secondary_s.Blend(rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec), ICON_ADD)
+			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
+
 		face_s.Blend(hair_s, ICON_OVERLAY)
 
 	//Head Accessory
@@ -205,9 +212,10 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		else
 			facial_s.Blend(rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial), ICON_ADD)
 
-		if(facial_hair_style.secondary_colour)
-			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_colour]_s")
-			facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
+		if(facial_hair_style.secondary_theme)
+			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
+			if(!facial_hair_style.no_sec_colour)
+				facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
 			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(facial_s, ICON_OVERLAY)

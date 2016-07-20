@@ -121,7 +121,7 @@
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
-	base_color = "#333333"
+	base_color = "#424242"
 	butt_sprite = "tajaran"
 
 	has_organ = list(

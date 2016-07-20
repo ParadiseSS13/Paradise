@@ -47,7 +47,8 @@
 	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
 	var/marking_location //Specifies which bodypart a body marking is located on.
-	var/secondary_colour = null //If exists, there's a secondary colour to that hair style and the secondary colour's icon state's suffix is equal to this.
+	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
+	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -203,10 +204,18 @@
 		icon_state = "hair_hbraid"
 		gender = FEMALE
 
-	braid3
+	braid_hip
 		name = "Hippie Braid"
+		icon_state = "hair_hipbraid"
+		species_allowed = list("Human")
+		secondary_theme = "beads"
+
+
+	braid_hip_una
+		name = "Unathi Hippie Braid"
 		icon_state = "hair_ubraid"
-		species_allowed = list("Human", "Unathi")
+		species_allowed = list("Unathi")
+		secondary_theme = "beads"
 
 	buzz
 		name = "Buzzcut"
@@ -697,27 +706,34 @@
 
 	skr_gold_m
 		name = "Gold plated Skrell Male Tentacles"
-		icon_state = "skrell_goldhair_m"
+		icon_state = "skrell_hair_m"
 		species_allowed = list("Skrell")
 		gender = MALE
+		secondary_theme = "gold"
+		no_sec_colour = 1
 
 	skr_gold_f
 		name = "Gold chained Skrell Female Tentacles"
-		icon_state = "skrell_goldhair_f"
+		icon_state = "skrell_hair_f"
 		species_allowed = list("Skrell")
 		gender = FEMALE
+		secondary_theme = "gold"
+		no_sec_colour = 1
+
 
 	skr_clothtentacle_m
 		name = "Cloth draped Skrell Male Tentacles"
-		icon_state = "skrell_clothhair_m"
+		icon_state = "skrell_hair_m"
 		species_allowed = list("Skrell")
 		gender = MALE
+		secondary_theme = "cloth"
 
 	skr_clothtentacle_f
 		name = "Cloth draped Skrell Female Tentacles"
-		icon_state = "skrell_clothhair_f"
+		icon_state = "skrell_hair_f"
 		species_allowed = list("Skrell")
 		gender = FEMALE
+		secondary_theme = "cloth"
 
 	taj_hair_clean
 		name = "Tajara Clean"
@@ -733,6 +749,7 @@
 		name = "Tajara Braid"
 		icon_state = "hair_tbraid"
 		species_allowed = list("Tajaran")
+		secondary_theme = "beads"
 
 	taj_hair_shaggy
 		name = "Tajara Shaggy"
@@ -874,6 +891,7 @@
 		name = "Braided"
 		icon_state = "braided"
 		species_allowed = list("Vulpkanin")
+		secondary_theme = "beads"
 
 //Vox
 
@@ -1130,21 +1148,21 @@
 		name = "Aquatic Webbed Frills"
 		icon_state = "soghun_aquaticfrills"
 		species_allowed = list("Unathi")
-		secondary_colour = "webbing"
+		secondary_theme = "webbing"
 		gender = NEUTER
 
 	una_frills_webbed_long
 		name = "Long Webbed Frills"
 		icon_state = "soghun_longfrills"
 		species_allowed = list("Unathi")
-		secondary_colour = "webbing"
+		secondary_theme = "webbing"
 		gender = NEUTER
 
 	una_frills_webbed_short
 		name = "Short Webbed Frills"
 		icon_state = "soghun_shortfrills"
 		species_allowed = list("Unathi")
-		secondary_colour = "webbing"
+		secondary_theme = "webbing"
 		gender = NEUTER
 
 

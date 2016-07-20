@@ -120,6 +120,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/r_hair = 0						//Hair color
 	var/g_hair = 0						//Hair color
 	var/b_hair = 0						//Hair color
+	var/r_hair_sec = 0					//Secondary hair color
+	var/g_hair_sec = 0					//Secondary hair color
+	var/b_hair_sec = 0					//Secondary hair color
 	var/f_style = "Shaved"				//Facial hair type
 	var/r_facial = 0					//Facial hair color
 	var/g_facial = 0					//Facial hair color
@@ -316,14 +319,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			dat += "<b>Hair:</b> "
 			dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
-			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(r_hair, g_hair, b_hair)]<br>"
+			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(r_hair, g_hair, b_hair)]"
+			var/datum/sprite_accessory/temp_hair_style = hair_styles_list[h_style]
+			if(temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
+				dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(r_hair_sec, g_hair_sec, b_hair_sec)]"
+			dat += "<br>"
 
 			dat += "<b>Facial Hair:</b> "
 			dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
-			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(r_facial, g_facial, b_facial)]<br>"
-			var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
-			if(facial_hair_style.secondary_colour)
-				dat += "<a href='?_src_=prefs;preference=secondary_facial;task=input'>Secondary Color</a> [color_square(r_facial_sec, g_facial_sec, b_facial_sec)]<br>"
+			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(r_facial, g_facial, b_facial)]"
+			var/datum/sprite_accessory/temp_facial_hair_style = facial_hair_styles_list[f_style]
+			if(temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
+				dat += " <a href='?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(r_facial_sec, g_facial_sec, b_facial_sec)]"
+			dat += "<br>"
 
 
 			if(species != "Machine")
@@ -1260,9 +1268,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							socks = random_socks(gender, species)
 
 						//reset hair colour and skin colour
-						r_hair = 0//hex2num(copytext(new_hair, 2, 4))
-						g_hair = 0//hex2num(copytext(new_hair, 4, 6))
-						b_hair = 0//hex2num(copytext(new_hair, 6, 8))
+						r_hair = 0
+						g_hair = 0
+						b_hair = 0
+						r_hair_sec = 0
+						g_hair_sec = 0
+						b_hair_sec = 0
 						r_facial = 0
 						g_facial = 0
 						b_facial = 0
@@ -1332,6 +1343,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							r_hair = hex2num(copytext(new_hair, 2, 4))
 							g_hair = hex2num(copytext(new_hair, 4, 6))
 							b_hair = hex2num(copytext(new_hair, 6, 8))
+
+				if("secondary_hair")
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+						var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
+							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", rgb(r_hair_sec, g_hair_sec, b_hair_sec)) as color|null
+							if(new_hair)
+								r_hair_sec = hex2num(copytext(new_hair, 2, 4))
+								g_hair_sec = hex2num(copytext(new_hair, 4, 6))
+								b_hair_sec = hex2num(copytext(new_hair, 6, 8))
 
 				if("h_style")
 					var/list/valid_hairstyles = list()
@@ -1558,7 +1579,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("secondary_facial")
 					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
 						var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
-						if(facial_hair_style.secondary_colour)
+						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", rgb(r_facial_sec, g_facial_sec, b_facial_sec)) as color|null
 							if(new_facial)
 								r_facial_sec = hex2num(copytext(new_facial, 2, 4))
@@ -2019,6 +2040,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	H.r_hair = r_hair
 	H.g_hair = g_hair
 	H.b_hair = b_hair
+
+	H.r_hair_sec = r_hair_sec
+	H.g_hair_sec = g_hair_sec
+	H.b_hair_sec = b_hair_sec
 
 	H.r_facial = r_facial
 	H.g_facial = g_facial

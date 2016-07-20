@@ -146,6 +146,9 @@
 	var/r_hair = 0
 	var/g_hair = 0
 	var/b_hair = 0
+	var/r_hair_sec = 0
+	var/g_hair_sec = 0
+	var/b_hair_sec = 0
 	var/h_style = "Bald"
 
 	//Head accessory colour and style

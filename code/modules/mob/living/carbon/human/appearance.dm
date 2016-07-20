@@ -72,10 +72,17 @@
 		return
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(location == "head" && head_organ.alt_head && head_organ.alt_head != "None")
-		var/datum/sprite_accessory/body_markings/head/H = marking_styles_list[marking_style]
-		if(marking.name != "None" && (!H.heads_allowed || !(head_organ.alt_head in H.heads_allowed)))
-			return
+	if(location == "head")
+		if(head_organ.alt_head && head_organ.alt_head != "None")
+			var/datum/sprite_accessory/body_markings/head/H = marking_styles_list[marking_style]
+			if(marking.name != "None" && (!H.heads_allowed || !(head_organ.alt_head in H.heads_allowed)))
+				return
+		else
+			if(!head_organ.alt_head || head_organ.alt_head == "None")
+				head_organ.alt_head = "None"
+				var/datum/sprite_accessory/body_markings/head/H = marking_styles_list[marking_style]
+				if(H.heads_allowed )
+					return
 
 	if(location == "tail" && marking.name != "None")
 		var/datum/sprite_accessory/body_markings/tail/tail_marking = marking_styles_list[marking_style]
@@ -210,38 +217,42 @@
 	update_body()
 	return 1
 
-/mob/living/carbon/human/proc/change_hair_color(var/red, var/green, var/blue)
+/mob/living/carbon/human/proc/change_hair_color(var/red, var/green, var/blue, var/secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(red == H.r_hair && green == H.g_hair && blue == H.b_hair)
-		return
+	if(!secondary)
+		if(red == H.r_hair && green == H.g_hair && blue == H.b_hair)
+			return
 
-	H.r_hair = red
-	H.g_hair = green
-	H.b_hair = blue
+		H.r_hair = red
+		H.g_hair = green
+		H.b_hair = blue
+	else
+		if(red == H.r_hair_sec && green == H.g_hair_sec && blue == H.b_hair_sec)
+			return
+
+		H.r_hair_sec = red
+		H.g_hair_sec = green
+		H.b_hair_sec = blue
 
 	update_hair()
 	return 1
 
-/mob/living/carbon/human/proc/change_facial_hair_color(var/red, var/green, var/blue)
+/mob/living/carbon/human/proc/change_facial_hair_color(var/red, var/green, var/blue, var/secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(red == H.r_facial && green == H.g_facial && blue == H.b_facial)
-		return
+	if(!secondary)
+		if(red == H.r_facial && green == H.g_facial && blue == H.b_facial)
+			return
 
-	H.r_facial = red
-	H.g_facial = green
-	H.b_facial = blue
+		H.r_facial = red
+		H.g_facial = green
+		H.b_facial = blue
+	else
+		if(red == H.r_facial_sec && green == H.g_facial_sec && blue == H.b_facial_sec)
+			return
 
-	update_fhair()
-	return 1
-
-/mob/living/carbon/human/proc/change_secondary_facial_hair_color(var/red, var/green, var/blue)
-	var/obj/item/organ/external/head/H = get_organ("head")
-	if(red == H.r_facial_sec && green == H.g_facial_sec && blue == H.b_facial_sec)
-		return
-
-	H.r_facial_sec = red
-	H.g_facial_sec = green
-	H.b_facial_sec = blue
+		H.r_facial_sec = red
+		H.g_facial_sec = green
+		H.b_facial_sec = blue
 
 	update_fhair()
 	return 1

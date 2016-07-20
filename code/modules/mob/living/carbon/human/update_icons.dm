@@ -425,15 +425,15 @@ var/global/list/damage_icon_parts = list()
 //HAIR OVERLAY
 /mob/living/carbon/human/proc/update_hair(var/update_icons=1)
 	//Reset our hair
-	overlays_standing[HAIR_LAYER]	= null
+	overlays_standing[HAIR_LAYER] = null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
+	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
 		if(update_icons)   update_icons()
 		return
 
 	//masks and helmets can obscure our hair, unless we're a synthetic
-	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	if((head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
 		if(update_icons)   update_icons()
 		return
 
@@ -453,13 +453,19 @@ var/global/list/damage_icon_parts = list()
 				else if(hair_style.do_colouration)
 					hair_s.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
 
+				if(hair_style.secondary_theme)
+					var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
+					if(!hair_style.no_sec_colour)
+						hair_secondary_s.Blend(rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec), ICON_ADD)
+					hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
+
 				hair_standing = hair_s //hair_standing.Blend(hair_s, ICON_OVERLAY)
 									   //Having it this way preserves animations. Useful for IPC screens.
 		else
 			//warning("Invalid h_style for [species.name]: [h_style]")
 		//hair_standing.Blend(debrained_s, ICON_OVERLAY)//how does i overlay for fish?
 
-	overlays_standing[HAIR_LAYER]	= image(hair_standing)
+	overlays_standing[HAIR_LAYER] = image(hair_standing)
 
 	if(update_icons)   update_icons()
 
@@ -467,7 +473,7 @@ var/global/list/damage_icon_parts = list()
 //FACIAL HAIR OVERLAY
 /mob/living/carbon/human/proc/update_fhair(var/update_icons=1)
 	//Reset our facial hair
-	overlays_standing[FHAIR_LAYER]	= null
+	overlays_standing[FHAIR_LAYER] = null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
@@ -492,16 +498,17 @@ var/global/list/damage_icon_parts = list()
 				else if(facial_hair_style.do_colouration)
 					facial_s.Blend(rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial), ICON_ADD)
 
-				if(facial_hair_style.secondary_colour)
-					var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_colour]_s")
-					facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
+				if(facial_hair_style.secondary_theme)
+					var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
+					if(!facial_hair_style.no_sec_colour)
+						facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
 					facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 				face_standing.Blend(facial_s, ICON_OVERLAY)
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
 
-	overlays_standing[FHAIR_LAYER]	= image(face_standing)
+	overlays_standing[FHAIR_LAYER] = image(face_standing)
 
 	if(update_icons)   update_icons()
 

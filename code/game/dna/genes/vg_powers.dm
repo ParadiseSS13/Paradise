@@ -67,6 +67,11 @@
 	if(new_hair)
 		M.change_hair_color(hex2num(copytext(new_hair, 2, 4)), hex2num(copytext(new_hair, 4, 6)), hex2num(copytext(new_hair, 6, 8)))
 
+	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
+	if(hair_style.secondary_theme && !hair_style.no_sec_colour)
+		new_hair = input("Please select secondary hair color.", "Character Generation", rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec)) as null|color
+		M.change_hair_color(hex2num(copytext(new_hair, 2, 4)), hex2num(copytext(new_hair, 4, 6)), hex2num(copytext(new_hair, 6, 8)), 1)
+
 	// facial hair
 	var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
 	new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
@@ -79,9 +84,9 @@
 		M.change_facial_hair_color(hex2num(copytext(new_facial, 2, 4)), hex2num(copytext(new_facial, 4, 6)), hex2num(copytext(new_facial, 6, 8)))
 
 	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
-	if(facial_hair_style.secondary_colour)
+	if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 		new_facial = input("Please select secondary facial hair color.", "Character Generation", rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec)) as null|color
-		M.change_secondary_facial_hair_color(hex2num(copytext(new_facial, 2, 4)), hex2num(copytext(new_facial, 4, 6)), hex2num(copytext(new_facial, 6, 8)))
+		M.change_facial_hair_color(hex2num(copytext(new_facial, 2, 4)), hex2num(copytext(new_facial, 4, 6)), hex2num(copytext(new_facial, 6, 8)), 1)
 
 	//Head accessory.
 	if(head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
