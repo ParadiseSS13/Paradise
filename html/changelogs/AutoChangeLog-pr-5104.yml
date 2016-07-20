@@ -1,0 +1,5 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Beating on simple animals will no longer be twice as noisy as intended."
+  - bugfix: "Emergency Response Teams are now usable again."
