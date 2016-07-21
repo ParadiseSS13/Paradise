@@ -214,23 +214,10 @@
 				for(var/datum/reagent/blood/d in src.reagents.reagent_list)
 					B = d
 					break
-				var/datum/reagent/water/W
-				for(var/datum/reagent/water/r in src.reagents.reagent_list)
-					W = r
-					break
 				var/trans
-				if(W && istype(target,/mob/living/carbon/human/slime))
-					var/mob/living/carbon/human/slime/S = target
-					S.vessel.add_reagent("water", 5)
-					S.vessel.update_total()
 				if(B && istype(target,/mob/living/carbon))
-					if(istype(target,/mob/living/carbon/human/slime))
-						var/mob/living/carbon/human/slime/S = target
-						S.reagents.add_reagent("blood", 5)
-						S.reagents.update_total()
-					else
-						var/mob/living/carbon/C = target
-						C.inject_blood(src,5)
+					var/mob/living/carbon/C = target
+					C.inject_blood(src, 5)
 				else
 					trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 					to_chat(user, "\blue You inject [trans] units of the solution. The syringe now contains [src.reagents.total_volume] units.")
