@@ -39,7 +39,7 @@
 /datum/gear/suit/coat/job/engi
 	display_name = "winter coat, engineering"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering
-	allowed_roles = list("Chief Engineer", "Engineer", "Mechanic")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic")
 
 /datum/gear/suit/coat/job/atmos
 	display_name = "winter coat, atmospherics"
