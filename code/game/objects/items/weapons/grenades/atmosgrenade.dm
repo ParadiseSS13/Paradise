@@ -37,8 +37,9 @@
 	var/list/spread_turfs = list()
 	var/list/scan_turfs = list()
 
-	if(!origin)
+	if(!istype(origin))
 		// Error, unsimulated turf.
+		qdel(src)
 		return
 
 	scan_turfs += origin
