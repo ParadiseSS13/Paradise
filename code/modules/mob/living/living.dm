@@ -282,11 +282,13 @@
 
 //damage/heal the mob ears and adjust the deaf amount
 /mob/living/adjustEarDamage(damage, deaf)
+	if(istype(src, /mob/living/silicon/ai)) return
 	ear_damage = max(0, ear_damage + damage)
 	ear_deaf = max(0, ear_deaf + deaf)
 
 //pass a negative argument to skip one of the variable
 /mob/living/setEarDamage(damage, deaf)
+	if(istype(src, /mob/living/silicon/ai)) return
 	if(damage >= 0)
 		ear_damage = damage
 	if(deaf >= 0)
