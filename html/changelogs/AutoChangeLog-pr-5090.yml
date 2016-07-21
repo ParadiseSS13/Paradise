@@ -1,4 +1,4 @@
 author: Fox McCloud
 delete-after: True
 changes: 
-  - rscadd: "Adds in a weather system"
+  - rscadd: "Adds in simple animal mob spawners"

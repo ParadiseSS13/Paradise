@@ -96,8 +96,8 @@
 	mymob.throw_icon.alpha = ui_alpha
 	hotkeybuttons += mymob.throw_icon
 
-	mymob.internals = new /obj/screen/internals()
-	infodisplay += mymob.internals
+	internals = new /obj/screen/internals()
+	infodisplay += internals
 
 	mymob.healths = new /obj/screen/healths()
 	infodisplay += mymob.healths

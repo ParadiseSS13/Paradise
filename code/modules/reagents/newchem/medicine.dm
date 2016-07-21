@@ -478,15 +478,15 @@
 			if(istype(E))
 				E.damage = max(E.damage-1, 0)
 		M.eye_blurry = max(M.eye_blurry-1 , 0)
-		M.ear_damage = max(M.ear_damage-1, 0)
+		M.adjustEarDamage(-1,0)
 	if(prob(50))
 		M.disabilities &= ~NEARSIGHTED
 	if(prob(30))
-		M.sdisabilities &= ~BLIND
+		M.disabilities &= ~BLIND
 		M.eye_blind = 0
 	if(M.ear_damage <= 25)
 		if(prob(30))
-			M.ear_deaf = 0
+			M.setEarDamage(-1,0)
 	..()
 
 /datum/chemical_reaction/oculine
@@ -696,7 +696,7 @@
 
 /datum/reagent/mutadone/on_mob_life(mob/living/carbon/human/M)
 	M.jitteriness = 0
-	var/needs_update = M.mutations.len > 0 || M.disabilities > 0 || M.sdisabilities > 0
+	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
 	if(needs_update)
 		for(var/block=1;block<=DNA_SE_LENGTH;block++)

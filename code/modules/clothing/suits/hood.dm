@@ -1,13 +1,12 @@
 //Hoods for winter coats and chaplain hoodie etc
 
 /obj/item/clothing/suit/hooded
-	action_button_name = "Adjust hood"
+	actions_types = list(/datum/action/item_action/toggle)
 	var/obj/item/clothing/head/hood
 	var/hoodtype = /obj/item/clothing/head/winterhood //so the chaplain hoodie or other hoodies can override this
 
 /obj/item/clothing/suit/hooded/New()
 	MakeHood()
-	verbs -= /obj/item/clothing/suit/verb/openjacket //you can't unbutton those, deal with it
 	..()
 
 /obj/item/clothing/suit/hooded/Destroy()
@@ -22,6 +21,10 @@
 /obj/item/clothing/suit/hooded/ui_action_click()
 	ToggleHood()
 
+/obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
+	if(slot == slot_wear_suit)
+		return 1
+
 /obj/item/clothing/suit/hooded/equipped(mob/user, slot)
 	if(slot != slot_wear_suit)
 		RemoveHood()
@@ -35,20 +38,13 @@
 		H.unEquip(hood, 1)
 		H.update_inv_wear_suit()
 	hood.loc = src
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/hooded/dropped()
 	..()
 	RemoveHood()
-
-/obj/item/clothing/suit/hooded/verb/Hooderize(var/mob/user)
-	set name = "Adjust the hood"
-	set category = "Object"
-	set src in usr
-	if(!isliving(usr))
-		return
-	if(usr.stat)
-		return
-	ToggleHood()
 
 /obj/item/clothing/suit/hooded/proc/ToggleHood()
 	if(!suit_adjusted)
@@ -64,5 +60,8 @@
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()
+				for(var/X in actions)
+					var/datum/action/A = X
+					A.UpdateButtonIcon()
 	else
 		RemoveHood()

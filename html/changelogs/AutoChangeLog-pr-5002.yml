@@ -1,5 +1,0 @@
-author: Chakirski
-delete-after: True
-changes: 
-  - imageadd: "Adds M.E. Reaper sprite."
-  - rscadd: "AI can now choose a 32x64 reaper hologram."

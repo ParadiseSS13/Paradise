@@ -521,7 +521,7 @@
 		to_chat(src, "<span class='warning'>You are far too small to pull anything!</span>")
 	return
 
-/mob/living/silicon/pai/update_canmove()
+/mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
 	. = ..()
 	density = 0 //this is reset every canmove update otherwise
 

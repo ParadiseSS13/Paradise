@@ -68,6 +68,7 @@
 
 
 	dropped()
+		..()
 		spawn(0)
 			sense()
 			return

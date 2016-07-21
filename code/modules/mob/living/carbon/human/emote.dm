@@ -10,7 +10,7 @@
 		act = copytext(act, 1, t1)
 
 	var/muzzled = is_muzzled()
-	if(sdisabilities & MUTE || silent)
+	if(disabilities & MUTE || silent)
 		muzzled = 1
 	//var/m_type = 1
 

@@ -1,7 +1,7 @@
 /////////////////////
 // DISABILITY GENES
 //
-// These activate either a mutation, disability, or sdisability.
+// These activate either a mutation, disability
 //
 // Gene is always activated.
 /////////////////////
@@ -14,9 +14,6 @@
 
 	// Disability to give (or 0)
 	var/disability=0
-
-	// SDisability to give (or 0)
-	var/sdisability=0
 
 	// Activation message
 	var/activation_message=""
@@ -33,8 +30,6 @@
 		M.mutations.Add(mutation)
 	if(disability)
 		M.disabilities|=disability
-	if(sdisability)
-		M.sdisabilities|=sdisability
 	if(activation_message)
 		to_chat(M, "<span class='warning'>[activation_message]</span>")
 	else
@@ -46,8 +41,6 @@
 		M.mutations.Remove(mutation)
 	if(disability)
 		M.disabilities &= ~disability
-	if(sdisability)
-		M.sdisabilities &= ~sdisability
 	if(deactivation_message)
 		to_chat(M, "<span class='warning'>[deactivation_message]</span>")
 	else
@@ -117,7 +110,7 @@
 	activation_message="You can't seem to see anything."
 	deactivation_message ="You can see now, in case you didn't notice..."
 	instability = -GENE_INSTABILITY_MAJOR
-	sdisability=BLIND
+	disability=BLIND
 
 /datum/dna/gene/disability/blindness/New()
 	block=BLINDBLOCK
@@ -127,7 +120,7 @@
 	activation_message="It's kinda quiet."
 	deactivation_message ="You can hear again!"
 	instability = -GENE_INSTABILITY_MAJOR
-	sdisability=DEAF
+	disability=DEAF
 
 /datum/dna/gene/disability/deaf/New()
 	block=DEAFBLOCK

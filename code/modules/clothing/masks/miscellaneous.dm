@@ -64,8 +64,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 25, rad = 0)
-	action_button_name = "Adjust Sterile Mask"
-	ignore_maskadjust = 0
+	actions_types = list(/datum/action/item_action/adjust)
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -209,7 +208,6 @@
 	flags_inv = HIDEFACE
 	w_class = 1
 	slot_flags = SLOT_MASK
-	ignore_maskadjust = 0
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
@@ -219,7 +217,7 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
-	action_button_name = "Adjust Bandana"
+	actions_types = list(/datum/action/item_action/adjust)
 
 /obj/item/clothing/mask/bandana/attack_self(var/mob/user)
 	adjustmask(user)

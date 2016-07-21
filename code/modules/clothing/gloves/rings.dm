@@ -8,22 +8,22 @@
 	icon = 'icons/obj/clothing/rings.dmi'
 	var/material = "iron"
 	var/stud = 0
-	species_restricted = null
 
-	New()
-		..()
-		update_icon()
-
+/obj/item/clothing/gloves/ring/New()
+	..()
 	update_icon()
-		if(stud)
-			icon_state = "d_[initial(icon_state)]"
-		else
-			icon_state = initial(icon_state)
-	examine(mob/user)
-		..(user)
-		to_chat(user, "This one is made of [material].")
-		if(stud)
-			to_chat(user, "It is adorned with a single gem.")
+
+/obj/item/clothing/gloves/ring/update_icon()
+	if(stud)
+		icon_state = "d_[initial(icon_state)]"
+	else
+		icon_state = initial(icon_state)
+
+/obj/item/clothing/gloves/ring/examine(mob/user)
+	..(user)
+	to_chat(user, "This one is made of [material].")
+	if(stud)
+		to_chat(user, "It is adorned with a single gem.")
 
 /obj/item/clothing/gloves/ring/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
@@ -69,10 +69,11 @@
 	icon_state = "redring"
 
 /obj/item/clothing/gloves/ring/plastic/random
-	New()
-		var/c = pick("white","blue","red")
-		name = "[c] plastic ring"
-		icon_state = "[c]ring"
+
+/obj/item/clothing/gloves/ring/plastic/random/New()
+	var/c = pick("white","blue","red")
+	name = "[c] plastic ring"
+	icon_state = "[c]ring"
 
 // weird
 /obj/item/clothing/gloves/ring/glass

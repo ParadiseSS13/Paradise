@@ -112,7 +112,7 @@
 	hear_radio_list -= src
 	return ..()
 
-/mob/living/simple_animal/parrot/death()
+/mob/living/simple_animal/parrot/death(gibbed)
 	if(held_item)
 		held_item.loc = src.loc
 		held_item = null

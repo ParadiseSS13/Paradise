@@ -1,51 +1,54 @@
 // At minimum every mob has a hear_say proc.
 
-/mob/proc/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
+/mob/proc/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
 	if(!client)
-		return
+		return 0
 
-	if(speaker && !speaker.client && istype(src,/mob/dead/observer) && client.prefs.toggles & CHAT_GHOSTEARS && !speaker in view(src))
+	if(isobserver(src) && client.prefs.toggles & CHAT_GHOSTEARS)
+		if(speaker && !speaker.client && !(speaker in view(src)))
 			//Does the speaker have a client?  It's either random stuff that observers won't care about (Experiment 97B says, 'EHEHEHEHEHEHEHE')
 			//Or someone snoring.  So we make it where they won't hear it.
-		return
+			return 0
 
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
-	if((T) && (!(istype(src, /mob/dead/observer)))) //Ghosts can hear even in vacuum.
+	if(T && !isobserver(src))
 		var/datum/gas_mixture/environment = T.return_air()
-		var/pressure = (environment)? environment.return_pressure() : 0
+		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
-			return
+			return 0
 
-		if(pressure < ONE_ATMOSPHERE*0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
+		if(pressure < ONE_ATMOSPHERE * 0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
 			italics = 1
-			sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
+			sound_vol *= 0.5
 
-	if(sleeping || stat == 1)
+	if(sleeping || stat == UNCONSCIOUS)
 		hear_sleep(message)
-		return
+		return 0
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if(language && (language.flags & NONVERBAL))
-		if(!speaker || (src.sdisabilities & BLIND || src.blinded) || !(speaker in view(src)))
+		if(disabilities & BLIND || blinded) //blind people can't see dumbass
 			message = stars(message)
 
-	if(!(language && (language.flags & INNATE))) // skip understanding checks for INNATE languages
-		if(!say_understands(speaker,language))
-			if(istype(speaker,/mob/living/simple_animal))
-				var/mob/living/simple_animal/S = speaker
-				if(S.speak.len)
-					message = pick(S.speak)
-				else
-					stars(message)
+		if(!speaker || !(speaker in view(src)))
+			message = stars(message)
+
+	if(!say_understands(speaker, language))
+		if(isanimal(speaker))
+			var/mob/living/simple_animal/S = speaker
+			if(S.speak.len)
+				message = pick(S.speak)
 			else
-				if(language)
-					message = language.scramble(message)
-				else
-					message = stars(message)
+				message = stars(message)
+		else
+			if(language)
+				message = language.scramble(message)
+			else
+				message = stars(message)
 
 	var/speaker_name = speaker.name
-	if(istype(speaker, /mob/living/carbon/human))
+	if(ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
 
@@ -53,7 +56,7 @@
 		message = "<i>[message]</i>"
 
 	var/track = null
-	if(istype(src, /mob/dead/observer))
+	if(isobserver(src))
 		if(italics && client.prefs.toggles & CHAT_GHOSTRADIO)
 			return
 		if(speaker_name != speaker.real_name && speaker.real_name)
@@ -62,7 +65,7 @@
 		if(client.prefs.toggles & CHAT_GHOSTEARS && speaker in view(src))
 			message = "<b>[message]</b>"
 
-	if(sdisabilities & DEAF || ear_deaf)
+	if(disabilities & DEAF || ear_deaf)
 		if(!language || !(language.flags & INNATE)) // INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 			if(speaker == src)
 				to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
@@ -78,12 +81,11 @@
 			src.playsound_local(source, speech_sound, sound_vol, 1)
 
 
-/mob/proc/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname ="", var/atom/follow_target)
-
+/mob/proc/hear_radio(var/message, var/verb = "says", var/datum/language/language = null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname = "", var/atom/follow_target)
 	if(!client)
 		return
 
-	if(sleeping || stat==1) //If unconscious or sleeping
+	if(sleeping || stat == UNCONSCIOUS) //If unconscious or sleeping
 		hear_sleep(message)
 		return
 
@@ -93,25 +95,27 @@
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if(language && (language.flags & NONVERBAL))
-		if(!speaker || (src.sdisabilities & BLIND || src.blinded) || !(speaker in view(src)))
+		if(disabilities & BLIND || blinded) //blind people can't see dumbass
 			message = stars(message)
 
-	if(!(language && (language.flags & INNATE))) // skip understanding checks for INNATE languages
-		if(!say_understands(speaker,language))
-			if(isanimal(speaker))
-				var/mob/living/simple_animal/S = speaker
-				if(S.speak && S.speak.len)
-					message = pick(S.speak)
-				else
-					return
+		if(!speaker || !(speaker in view(src)))
+			message = stars(message)
+
+	if(!say_understands(speaker, language))
+		if(isanimal(speaker))
+			var/mob/living/simple_animal/S = speaker
+			if(S.speak && S.speak.len)
+				message = pick(S.speak)
 			else
-				if(language)
-					message = language.scramble(message)
-				else
-					message = stars(message)
+				return
+		else
+			if(language)
+				message = language.scramble(message)
+			else
+				message = stars(message)
 
-		if(hard_to_hear)
-			message = stars(message)
+	if(hard_to_hear)
+		message = stars(message)
 
 	var/speaker_name = "unknown"
 	if(speaker)
@@ -178,7 +182,7 @@
 		formatted = language.format_message_radio(message, verb)
 	else
 		formatted = "[verb], <span class=\"body\">\"[message]\"</span>"
-	if(sdisabilities & DEAF || ear_deaf)
+	if(disabilities & DEAF || ear_deaf)
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else if(track)

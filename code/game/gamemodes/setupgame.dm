@@ -86,7 +86,6 @@
 	CRYOBLOCK      = getAssignedBlock("CRYO",       numsToAssign, DNA_HARD_BOUNDS, good=1)
 	EATBLOCK       = getAssignedBlock("EAT",        numsToAssign, DNA_HARD_BOUNDS, good=1)
 	JUMPBLOCK      = getAssignedBlock("JUMP",       numsToAssign, DNA_HARD_BOUNDS, good=1)
-//	MELTBLOCK      = getAssignedBlock("MELT",       numsToAssign, good=1)
 	IMMOLATEBLOCK  = getAssignedBlock("IMMOLATE",   numsToAssign)
 	EMPATHBLOCK    = getAssignedBlock("EMPATH",     numsToAssign, DNA_HARD_BOUNDS, good=1)
 	SUPERFARTBLOCK = getAssignedBlock("SUPERFART",  numsToAssign, DNA_HARDER_BOUNDS, good=1)
@@ -98,7 +97,6 @@
 
 	// Disabilities
 	LOUDBLOCK      = getAssignedBlock("LOUD",       numsToAssign)
-	//WHISPERBLOCK   = getAssignedBlock("WHISPER",    numsToAssign) BROKEN WITH NEW SAYCODE
 	DIZZYBLOCK     = getAssignedBlock("DIZZY",      numsToAssign)
 
 
@@ -166,7 +164,6 @@
 			M.real_name = "Corpse"
 			M.death()
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_eng(M), slot_l_ear)
-			M.equip_to_slot_or_del(new /obj/item/device/pda/engineering(M), slot_wear_pda)
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/engineer(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(M), slot_shoes)
 		//	M.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical(M), slot_l_hand)

@@ -48,7 +48,7 @@
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
 
-	init_subtypes(/datum/table_recipe, table_recipes)
+	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 	return 1
 
 /* // Uncomment to debug chemical reaction list.

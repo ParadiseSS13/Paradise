@@ -71,8 +71,14 @@
 	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
 
 	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+
+	var/mob/living/simple_animal/hostile/spawner/nest
+
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
+	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/deathmessage = ""
+	var/death_sound = null //The sound played on death
 
 
 /mob/living/simple_animal/New()
@@ -434,6 +440,8 @@
 		return
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(attempt_harvest(O, user))
+			return
 		user.do_attack_animation(src)
 		if(istype(O) && istype(user) && !O.attack(src, user))
 			var/damage = 0
@@ -451,7 +459,6 @@
 				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 			adjustBruteLoss(damage)
-	..()
 
 
 /mob/living/simple_animal/movement_delay()
@@ -468,15 +475,28 @@
 	stat(null, "Health: [round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/death(gibbed)
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
 	if(loot.len)
 		for(var/i in loot)
 			new i(loc)
-	health = 0
-	icon_state = icon_dead
-	stat = DEAD
-	density = 0
 	if(!gibbed)
-		visible_message("<span class='danger'>\The [src] stops moving...</span>")
+		if(death_sound)
+			playsound(get_turf(src),death_sound, 200, 1)
+		if(deathmessage)
+			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
+		else if(!del_on_death)
+			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+	if(del_on_death)
+		ghostize()
+		qdel(src)
+	else
+		health = 0
+		icon_state = icon_dead
+		stat = DEAD
+		density = 0
+		lying = 1
 	..()
 
 /mob/living/simple_animal/ex_act(severity)
@@ -616,7 +636,7 @@
 
 	return verb
 
-/mob/living/simple_animal/update_canmove()
+/mob/living/simple_animal/update_canmove(delay_action_updates = 0)
 	if(paralysis || stunned || weakened || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
@@ -626,6 +646,8 @@
 	else
 		canmove = 1
 	update_transform()
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 /mob/living/simple_animal/update_transform()
@@ -692,4 +714,10 @@
 		. |= collar.GetAccess()
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
+	return
+
+/mob/living/simple_animal/adjustEarDamage()
+	return
+
+/mob/living/simple_animal/setEarDamage()
 	return

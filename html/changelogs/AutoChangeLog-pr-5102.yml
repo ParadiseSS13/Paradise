@@ -1,0 +1,8 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscdel: "Removed drinking glass shattering (regular bottle shattering is still a thing)"
+  - rscadd: "Captain's flask is now gold instead of silver"
+  - tweak: "Bottles have a throwforce of 15"
+  - rscadd: "can crack eggs into drinking glasses"
+  - tweak: "Detective's flask starts out with 30 units of whiskey"
