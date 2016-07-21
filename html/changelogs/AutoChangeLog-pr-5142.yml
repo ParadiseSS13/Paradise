@@ -1,0 +1,4 @@
+author: Alffd
+delete-after: True
+changes: 
+  - tweak: "Fixes animations, side view, and pixel fill for Vulpkanin tail 6"
