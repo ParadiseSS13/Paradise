@@ -404,7 +404,7 @@
 
 //hoodies
 /obj/item/clothing/suit/hooded/hoodie
-	name = "hoodie"
+	name = "black hoodie"
 	desc = "It's a hoodie. It has a hood. Most hoodies do."
 	icon_state = "black_hoodie"
 	item_state = "labcoat"
@@ -416,7 +416,7 @@
 		)
 
 /obj/item/clothing/head/hood
-	name = "hood"
+	name = "black hood"
 	desc = "A hood attached to a hoodie."
 	icon_state = "blackhood"
 	body_parts_covered = HEAD
@@ -800,6 +800,9 @@
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 	usr.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/lordadmiral
 	name = "Lord Admiral's Coat"

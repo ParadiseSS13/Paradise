@@ -64,21 +64,18 @@
 	response_harm   = "stomps on"
 	emote_see = list("jiggles", "bounces in place")
 	var/colour = "grey"
+	del_on_death = 1
 
 /mob/living/simple_animal/adultslime/New()
 	..()
 	overlays += "aslime-:33"
 
 
-/mob/living/simple_animal/slime/adult/death()
-	var/mob/living/simple_animal/slime/S1 = new /mob/living/simple_animal/slime (src.loc)
-	S1.icon_state = "[src.colour] baby slime"
-	S1.icon_living = "[src.colour] baby slime"
-	S1.icon_dead = "[src.colour] baby slime dead"
-	S1.colour = "[src.colour]"
-	var/mob/living/simple_animal/slime/S2 = new /mob/living/simple_animal/slime (src.loc)
-	S2.icon_state = "[src.colour] baby slime"
-	S2.icon_living = "[src.colour] baby slime"
-	S2.icon_dead = "[src.colour] baby slime dead"
-	S2.colour = "[src.colour]"
-	qdel(src)
+/mob/living/simple_animal/slime/adult/death(gibbed)
+	for(var/i in 1 to 2)
+		var/mob/living/simple_animal/slime/S = new /mob/living/simple_animal/slime (src.loc)
+		S.icon_state = "[colour] baby slime"
+		S.icon_living = "[colour] baby slime"
+		S.icon_dead = "[colour] baby slime dead"
+		S.colour = "[colour]"
+	..()

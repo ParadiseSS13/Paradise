@@ -748,6 +748,7 @@
 	description = "A rare drug that causes the user to appear dead for some time."
 	reagent_state = LIQUID
 	color = "#60A584"
+	heart_rate_stop = 1
 
 /datum/chemical_reaction/capulettium
 	name = "capulettium"
@@ -778,6 +779,7 @@
 	description = "A rare and expensive drug that causes the user to appear dead for some time while they retain consciousness and vision."
 	reagent_state = LIQUID
 	color = "#60A584"
+	heart_rate_stop = 1
 
 /datum/chemical_reaction/capulettium_plus
 	name = "capulettium_plus"

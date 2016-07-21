@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscdel: "removes redundant object verbs that have an action button"

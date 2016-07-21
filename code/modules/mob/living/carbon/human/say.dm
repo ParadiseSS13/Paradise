@@ -106,7 +106,7 @@
 	var/list/returns[3]
 	var/speech_problem_flag = 0
 
-	if(silent || (sdisabilities & MUTE))
+	if(silent || (disabilities & MUTE))
 		message = ""
 		speech_problem_flag = 1
 
@@ -162,14 +162,14 @@
 			var/obj/item/device/radio/R = null
 			if(isradio(l_ear))
 				R = l_ear
+				used_radios += R
 				if(R.talk_into(src, message, null, verb, speaking))
-					used_radios += R
 					return
 
 			if(isradio(r_ear))
 				R = r_ear
+				used_radios += R
 				if(R.talk_into(src, message, null, verb, speaking))
-					used_radios += R
 					return
 
 		if("right ear")
@@ -179,8 +179,8 @@
 			else if(isradio(r_hand))
 				R = r_hand
 			if(R)
-				if(R.talk_into(src,message,null,verb,speaking))
-					used_radios += R
+				used_radios += R
+				R.talk_into(src, message, null, verb, speaking)
 
 		if("left ear")
 			var/obj/item/device/radio/R
@@ -189,8 +189,8 @@
 			else if(isradio(l_hand))
 				R = l_hand
 			if(R)
-				if(R.talk_into(src, message, null, verb, speaking))
-					used_radios += R
+				used_radios += R
+				R.talk_into(src, message, null, verb, speaking)
 
 		if("whisper")
 			whisper_say(message, speaking, alt_name)
@@ -198,13 +198,13 @@
 		else
 			if(message_mode)
 				if(isradio(l_ear))
+					used_radios += l_ear
 					if(l_ear.talk_into(src, message, message_mode, verb, speaking))
-						used_radios += l_ear
 						return
 
 				if(isradio(r_ear))
+					used_radios += r_ear
 					if(r_ear.talk_into(src, message, message_mode, verb, speaking))
-						used_radios += r_ear
 						return
 
 /mob/living/carbon/human/handle_speech_sound()

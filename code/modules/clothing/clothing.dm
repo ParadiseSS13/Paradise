@@ -179,33 +179,13 @@ BLIND     // can't see anything
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
-	var/clipped = 0
 	strip_delay = 20
 	put_on_delay = 40
-	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
-
-/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/wirecutters))
-		if(!clipped)
-			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
-			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
-			clipped = 1
-			name = "mangled [name]"
-			desc = "[desc] They have had the fingertips cut off of them."
-			if("exclude" in species_restricted)
-				species_restricted -= "Unathi"
-				species_restricted -= "Tajaran"
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
-		return
-	else
-		..()
 
 /obj/item/clothing/gloves/proc/Touch()
 	return
@@ -370,7 +350,6 @@ BLIND     // can't see anything
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
-	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/shoes.dmi'
@@ -403,9 +382,6 @@ BLIND     // can't see anything
 				item_state = "[item_state]_opentoe"
 				name = "mangled [name]"
 				desc = "[desc] They have had their toes opened up."
-				if("exclude" in species_restricted)
-					species_restricted -= "Unathi"
-					species_restricted -= "Tajaran"
 				update_icon()
 			else
 				to_chat(user, "<span class='notice'>[src] have already had their toes cut open!</span>")
@@ -463,6 +439,9 @@ BLIND     // can't see anything
 						flavour = "[copytext(adjust_flavour, 3, lentext(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
 					to_chat(user, "You [flavour] \the [src].")
 					suit_adjusted = 0 //Suit is no longer adjusted.
+					for(var/X in actions)
+						var/datum/action/A = X
+						A.UpdateButtonIcon()
 				else
 					var/flavour = "open"
 					icon_state += "_open"
@@ -471,6 +450,9 @@ BLIND     // can't see anything
 						flavour = "[adjust_flavour]"
 					to_chat(user, "You [flavour] \the [src].")
 					suit_adjusted = 1 //Suit's adjusted.
+					for(var/X in actions)
+						var/datum/action/A = X
+						A.UpdateButtonIcon()
 			else
 				if(user.canUnEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
 					if(contents) //If the suit's got any storage capability...
@@ -501,16 +483,6 @@ BLIND     // can't see anything
 		else
 			if(!(initial(flags_inv) & HIDETAIL) && (flags_inv & HIDETAIL)) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
 				flags_inv &= ~HIDETAIL
-
-/obj/item/clothing/suit/verb/openjacket(var/mob/user) //The verb you can use to adjust jackets.
-	set name = "Open/Close Jacket"
-	set category = "Object"
-	set src in usr
-	if(!isliving(usr))
-		return
-	if(usr.stat)
-		return
-	adjustsuit(user)
 
 /obj/item/clothing/suit/ui_action_click(mob/user) //This is what happens when you click the HUD action button to adjust your suit.
 	if(!ignore_suitadjust)

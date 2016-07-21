@@ -4,7 +4,6 @@
 	icon_state = "boxing"
 	item_state = "boxing"
 	put_on_delay = 60
-	species_restricted = null
 
 /obj/item/clothing/gloves/boxing/green
 	icon_state = "boxinggreen"

@@ -118,7 +118,16 @@
 	..()
 	new /obj/item/clothing/suit/space/rig/syndi/elite(src)
 	new /obj/item/clothing/head/helmet/space/rig/syndi/elite(src)
-	return
+
+/obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
+	name = "Boxed Shielded Syndicate Hardsuit and Helmet"
+	can_hold = list("/obj/item/clothing/suit/space/rig/shielded/syndi", "/obj/item/clothing/head/helmet/space/rig/shielded/syndi")
+	max_w_class = 4
+
+/obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit/New()
+	..()
+	new /obj/item/clothing/suit/space/rig/shielded/syndi(src)
+	new /obj/item/clothing/head/helmet/space/rig/shielded/syndi(src)
 
 /obj/item/weapon/storage/box/syndie_kit/conversion
 	name = "box (CK)"

@@ -15,18 +15,16 @@
 #define DIAG_BATT_HUD	"10"// Borg/Mech power meter
 #define DIAG_MECH_HUD	"11"// Mech health bar
 #define STATUS_HUD_OOC	"12"// STATUS_HUD without virus db check for someone being ill.
-#define DIAG_BOT_HUD	"13"// Bot HUDS
-#define PLANT_NUTRIENT_HUD	"15"// Plant nutrient level
-#define PLANT_WATER_HUD		"16"// Plant water level
-#define PLANT_STATUS_HUD	"17"// Plant harvest/dead
-#define PLANT_HEALTH_HUD	"18"// Plant health
-#define PLANT_TOXIN_HUD		"19"// Toxin level
-#define PLANT_PEST_HUD		"20"// Pest level
-#define PLANT_WEED_HUD		"21"// Weed level
-
-//for antag huds. these are used at the /mob level
-#define SPECIALROLE_HUD 		"13"
+#define SPECIALROLE_HUD "13" //for antag huds. these are used at the /mob level
 #define NATIONS_HUD		"14" //Show nations icons during nations gamemode
+#define DIAG_BOT_HUD	"15"// Bot HUDS
+#define PLANT_NUTRIENT_HUD	"16"// Plant nutrient level
+#define PLANT_WATER_HUD		"17"// Plant water level
+#define PLANT_STATUS_HUD	"18"// Plant harvest/dead
+#define PLANT_HEALTH_HUD	"19"// Plant health
+#define PLANT_TOXIN_HUD		"20"// Toxin level
+#define PLANT_PEST_HUD		"21"// Pest level
+#define PLANT_WEED_HUD		"22"// Weed level
 
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!

@@ -17,31 +17,27 @@
 
 /obj/item/weapon/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
-		to_chat(user, "\red [src] is empty.")
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
-	if(!istype(M))
+	if(!iscarbon(M))
 		return
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1)))
-		to_chat(user, "\blue You inject [M] with [src].")
-		to_chat(M, "\red You feel a tiny prick!")
 
-		src.reagents.add_reagent(M)
+	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
+		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
+		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
+
 		if(M.reagents)
 			var/list/injected = list()
-			for(var/datum/reagent/R in src.reagents.reagent_list)
+			for(var/datum/reagent/R in reagents.reagent_list)
 				injected += R.name
-			var/contained = english_list(injected)
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [key_name(M)]. Reagents: [contained]</font>")
-			if(M.ckey)
-				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
-			if(!iscarbon(user))
-				M.LAssailant = null
-			else
-				M.LAssailant = user
 
 			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
-			to_chat(user, "\blue [trans] units injected. [reagents.total_volume] units remaining in [src].")
+
+			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
+
+			var/contained = english_list(injected)
+
+			add_logs(M, user, "injected", src, "([contained])")
 
 /obj/item/weapon/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)

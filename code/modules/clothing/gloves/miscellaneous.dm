@@ -7,10 +7,8 @@
 	transfer_prints = TRUE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	species_restricted = null
 	strip_delay = 40
 	put_on_delay = 20
-	clipped = 1
 
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"

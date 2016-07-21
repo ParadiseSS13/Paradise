@@ -1920,15 +1920,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(DEAFBLOCK,1,1)
-		character.sdisabilities|=DEAF
+		character.disabilities|=DEAF
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
 		character.dna.SetSEState(BLINDBLOCK,1,1)
-		character.sdisabilities|=BLIND
+		character.disabilities|=BLIND
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
-		character.sdisabilities |= MUTE
+		character.disabilities |= MUTE
 
 	S.handle_dna(character)
 
