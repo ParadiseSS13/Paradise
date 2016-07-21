@@ -101,14 +101,15 @@
 	var/obj/item/weapon/card/id/card
 	if(C.reader)
 		card = C.reader
+		C.remove_reader(usr)
 	else if(C.writer)
 		card = C.writer
+		C.remove_writer(usr)
 	else
 		to_chat(usr, "There is nothing to remove from the laptop card port.")
 		return
 
 	to_chat(usr, "You remove [card] from the laptop.")
-	C.remove(card)
 
 
 /obj/machinery/computer3/laptop
