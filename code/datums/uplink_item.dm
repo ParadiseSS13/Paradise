@@ -452,6 +452,13 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
+/datum/uplink_item/dangerous/atmosgrenades
+	name = "Atmos Grenades"
+	desc = "A box of four (4) grenades that wreck havoc with the atmosphere of the target area, causing fire, suffocation, vacuum and/or crushing pressure. Use extreme caution! Unlike normal gasses, these are explosively propelled and instantly engulf a large area!"
+	reference = "AGG"
+	item = /obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades
+	cost = 6
+
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
 	desc = "A box that contains two EMP grenades and an EMP implant. Useful to disrupt communication, \
