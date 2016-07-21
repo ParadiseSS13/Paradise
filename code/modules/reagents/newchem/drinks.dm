@@ -201,7 +201,7 @@
 	name = "Uplink"
 	id = "uplink"
 	result = "uplink"
-	required_reagents = list("rum" = 1, "vodka" = 1, "tequilla" = 1, "whiskey" = 1, "synthanol" = 1)
+	required_reagents = list("rum" = 1, "vodka" = 1, "tequila" = 1, "whiskey" = 1, "synthanol" = 1)
 	result_amount = 5
 
 /datum/reagent/ethanol/synthanol/synthnsoda

@@ -80,18 +80,6 @@
 			else
 				M.LAssailant = user
 
-		// /vg/: Logging transfers of bad things
-		if(isobj(target))
-			if(target.reagents_to_log.len)
-				var/list/badshit=list()
-				for(var/bad_reagent in target.reagents_to_log)
-					if(reagents.has_reagent(bad_reagent))
-						badshit += reagents_to_log[bad_reagent]
-				if(badshit.len)
-					var/hl = "<span class='danger'>([english_list(badshit)])</span>"
-					message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
-					log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
-
 		trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "\blue You transfer [trans] units of the solution.")
 		if(src.reagents.total_volume<=0)
