@@ -35,9 +35,9 @@
 	return 0
 
 proc/isSSD(A)
-	if(istype(A,/mob))
+	if(istype(A, /mob))
 		var/mob/M = A
-		if (M.player_logged)
+		if(M.player_logged)
 			return 1
 	return 0
 
