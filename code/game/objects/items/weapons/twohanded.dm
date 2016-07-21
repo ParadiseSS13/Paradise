@@ -90,12 +90,13 @@
 	return ..()
 
 /obj/item/weapon/twohanded/dropped(mob/user)
+	..()
 	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
 	if(user)
 		var/obj/item/weapon/twohanded/O = user.get_inactive_hand()
 		if(istype(O))
 			O.unwield(user)
-	return	unwield(user)
+	return unwield(user)
 
 /obj/item/weapon/twohanded/update_icon()
 	return
@@ -109,7 +110,7 @@
 
 ///////////OFFHAND///////////////
 /obj/item/weapon/twohanded/offhand
-	w_class = 5.0
+	w_class = 5
 	icon_state = "offhand"
 	name = "offhand"
 	flags = ABSTRACT
@@ -123,7 +124,7 @@
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
 /obj/item/weapon/twohanded/required/
-	w_class = 5.0
+	w_class = 5
 
 /obj/item/weapon/twohanded/required/attack_self()
 	return
@@ -157,7 +158,7 @@
 	throwforce = 15
 	sharp = 1
 	edge = 1
-	w_class = 4.0
+	w_class = 4
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
@@ -192,7 +193,7 @@
 	throwforce = 5.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	force_unwielded = 3
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
@@ -279,7 +280,7 @@
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
 	force = 10
-	w_class = 4.0
+	w_class = 4
 	slot_flags = SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 18 // Was 13, Buffed - RR
@@ -356,7 +357,7 @@
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 5
-	w_class = 4.0 // can't fit in backpacks
+	w_class = 4 // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	wieldsound = 'sound/weapons/chainsawstart.ogg'

@@ -11,7 +11,7 @@
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 3.0
+	w_class = 3
 	materials = list(MAT_METAL=500)
 	origin_tech = "combat=1;plasmatech=1"
 	var/status = 0
@@ -165,6 +165,7 @@
 	return
 
 /obj/item/weapon/flamethrower/CheckParts()
+	..()
 	weldtool = locate(/obj/item/weapon/weldingtool) in contents
 	igniter = locate(/obj/item/device/assembly/igniter) in contents
 	update_icon()

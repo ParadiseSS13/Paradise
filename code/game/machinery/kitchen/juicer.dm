@@ -102,7 +102,9 @@
 		dat += "<A href='?src=\ref[src];action=juice'>Turn on!<BR>"
 	if(beaker)
 		dat += "<A href='?src=\ref[src];action=detach'>Detach a beaker!<BR>"
-	user << browse("<HEAD><TITLE>Juicer</TITLE></HEAD><TT>[dat]</TT>", "window=juicer")
+	var/datum/browser/popup = new(user, "juicer", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "juicer")
 	return
 

@@ -40,6 +40,8 @@
 
 	var/has_loot = 1
 	faction = list("malf_drone")
+	deathmessage = "suddenly breaks apart."
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/retaliate/malf_drone/New()
 	..()
@@ -148,11 +150,6 @@
 	disabled = rand(150, 600)
 	hostile_drone = 0
 	walk(src,0)
-
-/mob/living/simple_animal/hostile/retaliate/malf_drone/death()
-	..()
-	visible_message("\blue [bicon(src)] [src] suddenly breaks apart.")
-	qdel(src)
 
 /mob/living/simple_animal/hostile/retaliate/malf_drone/Destroy() //Seriously, what the actual hell.
 	//some random debris left behind

@@ -146,7 +146,7 @@
 		return
 	else
 		return 1
-	if ( \
+	if( \
 			!isturf(src.loc) || \
 			!(locate(/obj/structure/table) in src.loc) && \
 			!(locate(/obj/machinery/optable) in src.loc) && \
@@ -706,6 +706,18 @@
 	name = "spider meat"
 	desc = "A slab of spider meat."
 	icon_state = "spidermeat"
+	New()
+		..()
+		reagents.add_reagent("protein", 3)
+		reagents.add_reagent("toxin", 3)
+		bitesize = 3
+
+/obj/item/weapon/reagent_containers/food/snacks/lizardmeat
+	name = "mutant lizard meat"
+	desc = "Seems to be a slab of meat from some mutant lizard thing?"
+	icon_state = "xenomeat"
+	filling_color = "#43DE18"
+
 	New()
 		..()
 		reagents.add_reagent("protein", 3)
@@ -1577,6 +1589,27 @@
 		reagents.add_reagent("frostoil", 3)
 		reagents.add_reagent("tomatojuice", 2)
 		bitesize = 5
+
+/obj/item/weapon/reagent_containers/food/snacks/raw_bacon
+	name = "raw bacon"
+	desc = "It's fleshy and pink!"
+	icon_state = "raw_bacon"
+	bitesize = 2
+	New()
+		..()
+		reagents.add_reagent("nutriment", 1)
+		reagents.add_reagent("porktonium", 10)
+
+/obj/item/weapon/reagent_containers/food/snacks/bacon
+	name = "bacon"
+	desc = "It looks juicy and tastes amazing!"
+	icon_state = "bacon2"
+	bitesize = 2
+	New()
+		..()
+		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("porktonium", 10)
+		reagents.add_reagent("msg", 4)
 
 
 /obj/item/weapon/reagent_containers/food/snacks/telebacon
@@ -2687,6 +2720,23 @@
 		..()
 		reagents.add_reagent("nutriment", 1)
 
+/obj/item/weapon/reagent_containers/food/snacks/rawcutlet
+	name = "raw cutlet"
+	desc = "A thin piece of raw meat."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "rawcutlet"
+	bitesize = 1
+	New()
+		..()
+		reagents.add_reagent("protein", 1)
+	attackby(obj/item/weapon/W, mob/user, params)
+		if(istype(W,/obj/item/weapon/kitchen/knife))
+			user.visible_message( \
+				"[user] cuts the raw cutlet with the knife!", \
+				"<span class ='notice'>You cut the raw cutlet with your knife!</span>" \
+				)
+			new /obj/item/weapon/reagent_containers/food/snacks/raw_bacon(src.loc)
+			qdel(src)
 
 
 /////////////////////////////////////////////////PIZZA////////////////////////////////////////
@@ -3268,16 +3318,6 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 7)
-
-/obj/item/weapon/reagent_containers/food/snacks/rawcutlet
-	name = "raw cutlet"
-	desc = "A thin piece of raw meat."
-	icon = 'icons/obj/food/food_ingredients.dmi'
-	icon_state = "rawcutlet"
-	bitesize = 1
-	New()
-		..()
-		reagents.add_reagent("protein", 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/cutlet
 	name = "cutlet"

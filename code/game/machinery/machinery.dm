@@ -47,7 +47,7 @@ Class Variables:
       Currently unused.
 
 Class Procs:
-   New()                     'game/machinery/machine.dm'
+   initialize()                     'game/machinery/machine.dm'
 
    Destroy()                     'game/machinery/machine.dm'
 
@@ -117,9 +117,10 @@ Class Procs:
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 
-/obj/machinery/New()
+/obj/machinery/initialize()
 	addAtProcessing()
-	return ..()
+	. = ..()
+	power_change()
 
 /obj/machinery/proc/addAtProcessing()
 	if(use_power)
@@ -324,14 +325,13 @@ Class Procs:
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-/obj/machinery/attack_ai(var/mob/user as mob)
-	if(isrobot(user))
-		// For some reason attack_robot doesn't work
-		// This is to stop robots from using cameras to remotely control machines.
-		if(user.client && user.client.eye == user)
-			return src.attack_hand(user)
+/obj/machinery/attack_ai(mob/user)
+	if(isrobot(user))// For some reason attack_robot doesn't work
+		var/mob/living/silicon/robot/R = user
+		if(R.client && R.client.eye == R && !R.low_power_mode)// This is to stop robots from using cameras to remotely control machines; and from using machines when the borg has no power.
+			return attack_hand(user)
 	else
-		return src.attack_hand(user)
+		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
 	if(user.lying || user.stat)
@@ -362,6 +362,7 @@ Class Procs:
 	return ..()
 
 /obj/machinery/CheckParts()
+	..()
 	RefreshParts()
 	return
 

@@ -260,3 +260,18 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 
 	send_asset_list(client, uncommon)
 	send_asset_list(client, common)
+
+/datum/asset/chem_master
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/chem_master/register()
+	for(var/i = 1 to 20)
+		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
+	for(var/i = 1 to 20)
+		assets["bottle[i].png"] = icon('icons/obj/chemical.dmi', "bottle[i]")
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/chem_master/send(client)
+	send_asset_list(client,assets,verify)

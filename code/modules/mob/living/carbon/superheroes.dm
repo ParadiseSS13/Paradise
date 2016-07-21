@@ -33,8 +33,9 @@
 	if(default_spells.len)
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/S = spell
-			if(!S) return
-			H.AddSpell(new S)
+			if(!S)
+				return
+			H.mind.AddSpell(new S(null))
 
 /datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
 	var/obj/item/weapon/card/id/syndicate/W = new(H)

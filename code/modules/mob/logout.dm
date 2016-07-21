@@ -11,6 +11,6 @@
 				send2adminirc("[key_name(src)] logged out - no more admins online.")
 	..()
 	
-	CallHook("Logout", list("client" = src.client, "mob" = src))	
+	callHook("mob_logout", list("client" = client, "mob" = src))	
 	
 	return 1

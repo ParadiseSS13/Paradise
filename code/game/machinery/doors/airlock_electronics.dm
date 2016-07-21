@@ -4,7 +4,7 @@
 	name = "airlock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	w_class = 2.0 //It should be tiny! -Agouri
+	w_class = 2 //It should be tiny! -Agouri
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
 	req_access = list(access_engine)
@@ -53,7 +53,9 @@
 
 		t1 += text("<p><a href='?src=\ref[];close=1'>Close</a></p>\n", src)
 
-		user << browse(t1, "window=airlock_electronics")
+		var/datum/browser/popup = new(user, "airlock_electronics", name, 400, 400)
+		popup.set_content(t1)
+		popup.open(0)
 		onclose(user, "airlock")
 
 	Topic(href, href_list)

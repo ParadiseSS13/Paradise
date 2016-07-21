@@ -515,7 +515,7 @@ steam.start() -- spawns the effect
 			chemholder.reagents.reaction(A)
 			if(iscarbon(A))
 				var/mob/living/carbon/C = A
-				if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+				if(C.can_breathe_gas())
 					chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
 			if(istype(A, /obj/machinery/portable_atmospherics/hydroponics))
 				var/obj/machinery/portable_atmospherics/hydroponics/tray = A
@@ -1075,7 +1075,7 @@ steam.start() -- spawns the effect
 	desc = "A lightweight foamed metal wall."
 	var/metal = MFOAM_ALUMINUM
 
-/obj/structure/foamedmetal/New()
+/obj/structure/foamedmetal/initialize()
 	..()
 	air_update_turf(1)
 

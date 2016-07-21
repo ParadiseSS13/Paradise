@@ -81,11 +81,6 @@
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/unathi/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-
 /datum/species/tajaran
 	name = "Tajaran"
 	name_plural = "Tajaran"
@@ -147,11 +142,6 @@
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
-
-/datum/species/tajaran/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
@@ -364,8 +354,7 @@
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
-	if(H.internals)
-		H.internals.icon_state = "internal1"
+	H.update_internals_hud_icon(1)
 
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
 	updatespeciescolor(H)
@@ -692,7 +681,7 @@
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
-	//language = "Grey" // Perhaps if they ever get a hivemind
+	language = "Psionic Communication"
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
@@ -703,7 +692,7 @@
 		"lungs" =    /obj/item/organ/internal/lungs,
 		"liver" =    /obj/item/organ/internal/liver/grey,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"brain" =    /obj/item/organ/internal/brain/grey,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes,
 		)
@@ -728,8 +717,6 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
-	C.mutations.Add(GREY)
-	C.update_mutations()
 	..()
 
 /datum/species/diona
@@ -805,8 +792,7 @@
 		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(var/mob/other)
-	var/mob/living/simple_animal/diona/D = other
-	if(istype(D))
+	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
 	return 0
 
@@ -863,17 +849,6 @@
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
 	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
-
-	cold_level_1 = 50
-	cold_level_2 = -1
-	cold_level_3 = -1
-
-	heat_level_1 = 500		//gives them about 25 seconds in space before taking damage
-	heat_level_2 = 540
-	heat_level_3 = 600
-	heat_level_3_breathe = 600
-
-	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS

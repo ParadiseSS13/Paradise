@@ -4,7 +4,7 @@
 	desc = "Eggs laid by a fish. This cluster seems... empty?"
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "eggs"
-	w_class = 2.0
+	w_class = 2
 	var/fish_type = null			//Holds the name of the fish that the egg is for
 
 /obj/item/fish_eggs/New()

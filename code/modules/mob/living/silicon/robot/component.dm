@@ -7,7 +7,6 @@
 	var/toggled = 1
 	var/brute_damage = 0
 	var/electronics_damage = 0
-	var/energy_consumption = 0
 	var/max_damage = 30
 	var/component_disabled = 0
 	var/mob/living/silicon/robot/owner
@@ -52,28 +51,22 @@
 	electronics_damage = max(0, electronics_damage - electronics)
 
 /datum/robot_component/proc/is_powered()
-	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (!energy_consumption || powered)
+	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)
 
 
 /datum/robot_component/proc/consume_power()
 	if(toggled == 0)
 		powered = 0
 		return
-	if(owner.cell.charge >= energy_consumption)
-		owner.cell.use(energy_consumption)
-		powered = 1
-	else
-		powered = 0
+	powered = 1
 
 /datum/robot_component/armour
 	name = "armour plating"
-	energy_consumption = 0
 	external_type = /obj/item/robot_parts/robot_component/armour
 	max_damage = 100
 
 /datum/robot_component/actuator
 	name = "actuator"
-	energy_consumption = 1
 	external_type = /obj/item/robot_parts/robot_component/actuator
 	max_damage = 50
 
@@ -88,24 +81,20 @@
 /datum/robot_component/radio
 	name = "radio"
 	external_type = /obj/item/robot_parts/robot_component/radio
-	energy_consumption = 1
 	max_damage = 40
 
 /datum/robot_component/binary_communication
 	name = "binary communication device"
 	external_type = /obj/item/robot_parts/robot_component/binary_communication_device
-	energy_consumption = 0
 	max_damage = 30
 
 /datum/robot_component/camera
 	name = "camera"
 	external_type = /obj/item/robot_parts/robot_component/camera
-	energy_consumption = 1
 	max_damage = 40
 
 /datum/robot_component/diagnosis_unit
 	name = "self-diagnosis unit"
-	energy_consumption = 1
 	external_type = /obj/item/robot_parts/robot_component/diagnosis_unit
 	max_damage = 30
 
@@ -182,7 +171,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"

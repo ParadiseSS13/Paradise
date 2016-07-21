@@ -276,6 +276,24 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
 
+/datum/language/grey
+	name = "Psionic Communication"
+	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy. Talk to other greys within a limited radius."
+	speech_verb = "expresses"
+	ask_verb = "inquires"
+	exclaim_verb = "imparts"
+	colour = "abductor"
+	key = "^"
+	flags = RESTRICTED | HIVEMIND
+
+/datum/language/grey/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+	..(speaker,message,speaker.real_name)
+
+/datum/language/grey/check_special_condition(var/mob/living/carbon/human/other, var/mob/living/carbon/human/speaker)
+	if(other in range(7, speaker))
+		return 1
+	return 0
+
 /datum/language/drask
 	name = "Orluum"
 	desc = "The droning, vibrous language of the Drask. It sounds somewhat like whalesong."
@@ -529,12 +547,6 @@
 		if(istype(M, /mob/living/silicon) || M.binarycheck())
 			continue
 		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>",2)
-
-	//robot binary xmitter component power usage
-	if(isrobot(speaker))
-		var/mob/living/silicon/robot/R = speaker
-		var/datum/robot_component/C = R.components["comms"]
-		R.use_power(C.energy_consumption)
 
 /datum/language/binary/drone
 	name = "Drone Talk"

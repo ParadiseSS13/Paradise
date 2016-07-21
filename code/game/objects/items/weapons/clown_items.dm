@@ -15,7 +15,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "banana_peel"
 	item_state = "banana_peel"
-	w_class = 1.0
+	w_class = 1
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -77,7 +77,7 @@
 	item_state = "bike_horn"
 	hitsound = null
 	throwforce = 3
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 3
 	throw_range = 15
 	attack_verb = list("HONKED")

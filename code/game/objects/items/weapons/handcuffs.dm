@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
@@ -20,9 +20,18 @@
 	if(!user.IsAdvancedToolUser())
 		return
 
+	if(!istype(C))
+		return
+
 	if(CLUMSY in user.mutations && prob(50))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user,user)
+
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		if(!(H.get_organ("l_hand") || H.get_organ("r_hand")))
+			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
+			return
 
 	if(!C.handcuffed)
 		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
@@ -117,6 +126,11 @@
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
 	if(isrobot(user))
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			if(!(H.get_organ("l_hand") || H.get_organ("r_hand")))
+				to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
+				return
 		if(!C.handcuffed)
 			playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 			C.visible_message("<span class='danger'>[user] is trying to put zipties on [C]!</span>", \

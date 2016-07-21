@@ -357,12 +357,13 @@
 			var/bloodData[0]
 			bloodData["hasBlood"] = 0
 			if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
-				var/blood_volume = round(H.vessel.get_reagent_amount("blood"))
+				var/blood_type = H.get_blood_name()
+				var/blood_volume = round(H.vessel.get_reagent_amount(blood_type))
 				bloodData["hasBlood"] = 1
 				bloodData["volume"] = blood_volume
-				bloodData["percent"] = round(((blood_volume / 560)*100))
+				bloodData["percent"] = round(((blood_volume / BLOOD_VOLUME_NORMAL)*100))
 				bloodData["pulse"] = H.get_pulse(GETPULSE_TOOL)
-				bloodData["bloodLevel"] = round(H.vessel.get_reagent_amount("blood"))
+				bloodData["bloodLevel"] = blood_volume
 				bloodData["bloodMax"] = H.max_blood
 			occupantData["blood"] = bloodData
 
@@ -443,7 +444,7 @@
 
 			occupantData["intOrgan"] = intOrganData
 
-			occupantData["blind"] = (H.sdisabilities & BLIND)
+			occupantData["blind"] = (H.disabilities & BLIND)
 			occupantData["nearsighted"] = (H.disabilities & NEARSIGHTED)
 
 		data["occupant"] = occupantData
@@ -530,8 +531,9 @@
 				dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
 			if(occupant.vessel)
-				var/blood_volume = round(occupant.vessel.get_reagent_amount("blood"))
-				var/blood_percent =  blood_volume / 560
+				var/blood_type = occupant.get_blood_name()
+				var/blood_volume = round(occupant.vessel.get_reagent_amount(blood_type))
+				var/blood_percent =  blood_volume / BLOOD_VOLUME_NORMAL
 				blood_percent *= 100
 
 				extra_font = (blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
@@ -634,7 +636,7 @@
 				dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 				dat += "</tr>"
 			dat += "</table>"
-			if(occupant.sdisabilities & BLIND)
+			if(occupant.disabilities & BLIND)
 				dat += "<font color='red'>Cataracts detected.</font><BR>"
 			if(occupant.disabilities & NEARSIGHTED)
 				dat += "<font color='red'>Retinal misalignment detected.</font><BR>"

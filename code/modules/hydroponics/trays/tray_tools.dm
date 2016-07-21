@@ -337,7 +337,7 @@
 	edge = 0
 	throw_speed = 2
 	throw_range = 3
-	w_class = 2.0
+	w_class = 2
 	extend = 0
 	armour_penetration = 20
 	slot_flags = SLOT_BELT
@@ -397,7 +397,7 @@
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	w_class = 3.0
+	w_class = 3
 
 /obj/item/weapon/bananapeel
 	name = "banana peel"
@@ -405,7 +405,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "banana_peel"
 	item_state = "banana_peel"
-	w_class = 1.0
+	w_class = 1
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -416,7 +416,7 @@
 	icon = 'icons/obj/harvest.dmi'
 	icon_state = "corncob"
 	item_state = "corncob"
-	w_class = 1.0
+	w_class = 1
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20

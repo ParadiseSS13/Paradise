@@ -25,6 +25,15 @@
 	icon_state = "pwig"
 	item_state = "pwig"
 
+/obj/item/clothing/head/beret/blue
+	icon_state = "beret_blue"
+
+/obj/item/clothing/head/beret/black
+	icon_state = "beret_black"
+
+/obj/item/clothing/head/beret/purple_normal
+	icon_state = "beret_purple_normal"
+
 /obj/item/clothing/head/that
 	name = "top-hat"
 	desc = "It's an amish looking hat."
@@ -160,6 +169,12 @@
 	icon_state = "boater_hat"
 	item_state = "boater_hat"
 	desc = "Goes well with celery."
+
+/obj/item/clothing/head/cowboyhat
+	name = "cowboy hat"
+	icon_state = "cowboyhat"
+	item_state = "fedora"
+	desc = "There's a new sheriff in town. Pass the whiskey."
 
 /obj/item/clothing/head/fedora
 	name = "\improper fedora"
@@ -325,7 +340,7 @@
 	throwforce = 3.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
 
 /obj/item/clothing/head/griffin
@@ -335,19 +350,12 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR|NODROP
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	action_button_name = "Caw"
+	actions_types = list(/datum/action/item_action/caw)
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()
 
-/obj/item/clothing/head/griffin/verb/caw()
-
-	set category = "Object"
-	set name = "Caw"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
+/obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
 		playsound(src.loc, "sound/misc/caw.ogg", 50, 1)
 		cooldown = world.time

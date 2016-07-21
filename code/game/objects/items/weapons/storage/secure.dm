@@ -23,7 +23,7 @@
 	var/l_hacking = 0
 	var/emagged = 0
 	var/open = 0
-	w_class = 3.0
+	w_class = 3
 	max_w_class = 2
 	max_combined_w_class = 14
 
@@ -165,7 +165,7 @@
 	force = 8.0
 	throw_speed = 2
 	throw_range = 4
-	w_class = 4.0
+	w_class = 4
 	max_w_class = 3
 	max_combined_w_class = 21
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
@@ -213,7 +213,7 @@
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
 	force = 8.0
-	w_class = 5.0
+	w_class = 5
 	max_w_class = 8
 	anchored = 1.0
 	density = 0

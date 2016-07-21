@@ -7,7 +7,7 @@
 	flags = OPENCONTAINER | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 7
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
@@ -17,7 +17,7 @@
 	possible_transfer_amounts = null
 
 
-/obj/item/weapon/reagent_containers/spray/afterattack(atom/A as mob|obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/spray/afterattack(atom/A, mob/user)
 	if(istype(A, /obj/item/weapon/storage) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/weapon/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/portable_atmospherics/hydroponics))
 		return
@@ -103,20 +103,13 @@
 /obj/item/weapon/reagent_containers/spray/cleaner
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
-
-
-/obj/item/weapon/reagent_containers/spray/cleaner/New()
-	..()
-	reagents.add_reagent("cleaner", 250)
+	list_reagents = list("cleaner" = 250)
 
 /obj/item/weapon/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	volume = 50
-
-/obj/item/weapon/reagent_containers/spray/cleaner/New()
-	..()
-	reagents.add_reagent("cleaner", src.volume)
+	list_reagents = list("cleaner" = 50)
 
 //pepperspray
 /obj/item/weapon/reagent_containers/spray/pepper
@@ -128,11 +121,7 @@
 	volume = 40
 	spray_maxrange = 4
 	amount_per_transfer_from_this = 5
-
-
-/obj/item/weapon/reagent_containers/spray/pepper/New()
-	..()
-	reagents.add_reagent("condensedcapsaicin", 40)
+	list_reagents = list("condensedcapsaicin" = 40)
 
 //water flower
 /obj/item/weapon/reagent_containers/spray/waterflower
@@ -143,12 +132,9 @@
 	item_state = "sunflower"
 	amount_per_transfer_from_this = 1
 	volume = 10
+	list_reagents = list("water" = 10)
 
-/obj/item/weapon/reagent_containers/spray/waterflower/New()
-	..()
-	reagents.add_reagent("water", 10)
-
-/obj/item/weapon/reagent_containers/spray/waterflower/attack_self(var/mob/user) //Don't allow changing how much the flower sprays
+/obj/item/weapon/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
 	return
 
 //chemsprayer
@@ -159,7 +145,7 @@
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
 	throwforce = 0
-	w_class = 3.0
+	w_class = 3
 	spray_maxrange = 7
 	spray_currentrange = 7
 	amount_per_transfer_from_this = 10
@@ -218,14 +204,10 @@
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
 	volume = 100
+	list_reagents = list("atrazine" = 100)
 
 
-/obj/item/weapon/reagent_containers/spray/plantbgone/New()
-	..()
-	reagents.add_reagent("atrazine", 100)
-
-
-/obj/item/weapon/reagent_containers/spray/plantbgone/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
+/obj/item/weapon/reagent_containers/spray/plantbgone/afterattack(atom/A, mob/user, proximity)
 	if(!proximity) return
 
 	if(istype(A, /obj/machinery/portable_atmospherics/hydroponics)) // We are targeting hydrotray

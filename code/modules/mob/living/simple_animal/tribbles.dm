@@ -79,7 +79,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 					src.procreate()
 
 
-/mob/living/simple_animal/tribble/death() // Gotta make sure to remove tribbles from the list on death
+/mob/living/simple_animal/tribble/death(gibbed) // Gotta make sure to remove tribbles from the list on death
 	..()
 	totaltribbles -= 1
 
@@ -91,7 +91,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribble1"
 	item_state = "tribble1"
-	w_class = 10.0
+	w_class = 10
 	var/gestation = 0
 
 /obj/item/toy/tribble/attack_self(mob/user as mob) //hug that tribble (and play a sound if we add one)

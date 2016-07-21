@@ -38,7 +38,7 @@
 	. = ..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/death()
+/mob/living/simple_animal/pet/corgi/death(gibbed)
 	..()
 	regenerate_icons()
 
@@ -164,7 +164,7 @@
 					if(!item_to_add)
 						usr.visible_message("[usr] pets [src].","<span class='notice'>You rest your hand on [src]'s back for a moment.</span>")
 						return
-					if(istype(item_to_add,/obj/item/weapon/c4)) // last thing he ever wears, I guess
+					if(istype(item_to_add,/obj/item/weapon/grenade/plastic/c4)) // last thing he ever wears, I guess
 						item_to_add.afterattack(src,usr,1)
 						return
 
@@ -208,7 +208,7 @@
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 /mob/living/simple_animal/pet/corgi/proc/place_on_head(obj/item/item_to_add, var/mob/user as mob)
 
-	if(istype(item_to_add,/obj/item/weapon/c4)) // last thing he ever wears, I guess
+	if(istype(item_to_add,/obj/item/weapon/grenade/plastic/c4)) // last thing he ever wears, I guess
 		item_to_add.afterattack(src,user,1)
 		return
 
@@ -612,6 +612,8 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	del_on_death = 1
+	deathmessage = "blows apart!"
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/emag_act(user as mob)
 	if(!emagged)
@@ -656,12 +658,8 @@
 		s.set_up(3, 1, src)
 		s.start()
 
-/mob/living/simple_animal/pet/corgi/Ian/borgi/death()
-	..()
-	visible_message("<b>[src]</b> blows apart!")
+/mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	respawnable_list += src
-	qdel(src)
-	return
+	..()

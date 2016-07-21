@@ -64,7 +64,7 @@ var/global/sent_strike_team = 0
 				new_commando.key = pick(commandos)
 				commandos -= new_commando.key
 				new_commando.internal = new_commando.s_store
-				new_commando.internals.icon_state = "internal1"
+				new_commando.update_internals_hud_icon(1)
 
 			//So they don't forget their code or mission.
 			if(nuke_code)
@@ -144,7 +144,7 @@ var/global/sent_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
 	if(!leader_selected)
-		equip_to_slot_or_del(new /obj/item/weapon/c4(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/x4(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/weapon/pinpointer(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/weapon/disk/nuclear(src), slot_in_backpack)

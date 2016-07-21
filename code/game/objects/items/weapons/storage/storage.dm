@@ -8,7 +8,7 @@
 /obj/item/weapon/storage
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
-	w_class = 3.0
+	w_class = 3
 	var/silent = 0 // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
@@ -372,9 +372,6 @@
 
 	handle_item_insertion(W)
 	return 1
-
-/obj/item/weapon/storage/dropped(mob/user as mob)
-	return
 
 
 /obj/item/weapon/storage/attack_hand(mob/user as mob)

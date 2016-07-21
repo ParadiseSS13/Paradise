@@ -79,7 +79,9 @@
 		dat += text("Bluespace crystals: [amt_bluespace]<br>")
 
 	dat += text("<br><br><A href='?src=\ref[src];removeall=1'>Empty box</A>")
-	user << browse("[dat]", "window=orebox")
+	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	return
 
 /obj/structure/ore_box/Topic(href, href_list)

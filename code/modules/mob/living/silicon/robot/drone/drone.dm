@@ -303,7 +303,7 @@
 
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
-	if (!yes || ( \
+	if(!yes || ( \
 	 !istype(AM,/obj/machinery/door) && \
 	 !istype(AM,/obj/machinery/recharge_station) && \
 	 !istype(AM,/obj/machinery/disposal/deliveryChute) && \
@@ -337,7 +337,7 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
 
-/mob/living/silicon/robot/drone/update_canmove()
+/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
 	density = 0 //this is reset every canmove update otherwise
 

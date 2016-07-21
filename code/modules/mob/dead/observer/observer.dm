@@ -36,7 +36,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	verbs += /mob/dead/observer/proc/dead_tele
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -72,7 +72,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 					name = capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
 
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
-	
+
 	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
 	ghostimage.overlays = overlays
 	ghostimage.dir = dir
@@ -157,13 +157,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		resting = 1
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
-
 	var/obj/structure/morgue/Morgue = locate() in M.loc
-	if(istype(M.loc,/obj/structure/morgue))
+	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
-
+	if(istype(M.loc, /obj/machinery/cryopod))
+		var/obj/machinery/cryopod/P = M.loc
+		if(!P.control_computer)
+			P.find_control_computer(urgent=1)
+		if(P.control_computer)
+			P.despawn_occupant()
 	return
 
 

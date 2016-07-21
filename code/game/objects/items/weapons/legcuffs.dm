@@ -6,7 +6,7 @@
 	icon_state = "handcuff"
 	flags = CONDUCT
 	throwforce = 0
-	w_class = 3.0
+	w_class = 3
 	origin_tech = "materials=1"
 	slowdown = 7
 	breakouttime = 300	//Deciseconds = 30s = 0.5 minute

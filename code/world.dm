@@ -35,16 +35,11 @@ var/global/datum/global_init/init = new ()
 	if(config && config.log_runtimes)
 		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	SetupHooks() // /vg/
-
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
 		// dumb and hardcoded but I don't care~
 		config.server_name += " #[(world.port % 1000) / 100]"
 
 	timezoneOffset = text2num(time2text(0,"hh")) * 36000
-
-	if(config && config.log_runtime)
-		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
 	callHook("startup")
 
@@ -287,31 +282,6 @@ var/world_topic_spam_protect_time = world.timeofday
 			sleep_check = world.timeofday
 		waiting++
 //#undef INACTIVITY_KICK
-/*
-#define DISCONNECTED_DELETE	6000	//10 minutes in ticks (approx)
-/world/proc/KickDisconnectedClients()
-	spawn(-1)
-		//set background = 1
-		while(1)
-			sleep(DISCONNECTED_DELETE)
-			for(var/mob/living/carbon/human/C in living_mob_list)
-				if(dd_hasprefix(C.key,@)) return
-				if(!C.client && C.brain_op_stage!=4.0 && C.lastKnownIP)
-					sleep(600)
-					if(!C.client && C.stat != DEAD && C.brain_op_stage!=4.0)
-						job_master.FreeRole(C.job)
-						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client disconnect for 10 minutes</b></font>)\n")
-						for(var/obj/item/W in C)
-							C.unEquip(W)
-						del(C)
-					else if(!C.key && C.stat != DEAD && C.brain_op_stage!=4.0)
-						job_master.FreeRole(C.job)
-						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client quit BYOND</b></font>)\n")
-						for(var/obj/item/W in C)
-							C.unEquip(W)
-						del(C)
-#undef INACTIVITY_KICK
-*/
 
 /hook/startup/proc/loadMode()
 	world.load_mode()

@@ -42,6 +42,7 @@
 	cameranet.addCamera(src)
 
 /obj/machinery/camera/initialize()
+	..()
 	if(z == ZLEVEL_STATION && prob(3) && !start_active)
 		toggle_cam()
 

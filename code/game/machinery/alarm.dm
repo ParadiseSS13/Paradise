@@ -225,6 +225,7 @@
 	air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/initialize()
+	..()
 	set_frequency(frequency)
 	if(!master_is_operating())
 		elect_master()
@@ -1109,5 +1110,5 @@ Just an object used in constructing air alarms
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "Looks like a circuit. Probably is."
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)

@@ -9,6 +9,7 @@
 	var/dye_color = "#FFFFFF"
 
 /obj/machinery/dye_generator/initialize()
+	..()
 	power_change()
 
 /obj/machinery/dye_generator/power_change()
@@ -73,7 +74,7 @@
 	throw_speed = 4
 	throw_range = 7
 	force = 0
-	w_class = 1.0
+	w_class = 1
 	var/dye_color = "#FFFFFF"
 
 /obj/item/hair_dye_bottle/New()

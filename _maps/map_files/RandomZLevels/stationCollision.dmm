@@ -616,7 +616,6 @@
 "lX" = (/obj/structure/stool/bed/roller,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/southblock)
 "lY" = (/obj/structure/window/reinforced/tinted{dir = 8; icon_state = "twindow"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "whitehall"; dir = 2},/area/awaymission/southblock)
 "lZ" = (/obj/machinery/sleeper{dir = 1},/turf/simulated/floor/plasteel{icon_state = "whitehall"; dir = 2},/area/awaymission/southblock)
-"ma" = (/obj/machinery/sleep_console,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/southblock)
 "mb" = (/turf/simulated/floor/plasteel{icon_state = "warning"},/area/awaymission/southblock)
 "mc" = (/turf/simulated/floor/plasteel{dir = 6; icon_state = "warning"},/area/awaymission/southblock)
 "md" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/obj/machinery/light/small,/turf/simulated/floor/plasteel,/area/awaymission/gateroom)
@@ -685,7 +684,7 @@ aaaaaaaaaaaaaaaaaafZkOgbkQfZaagzhujzhujzhuhuhuiYkfkdkfkpkRjKkYkZlaiYjKjEjulbkVkW
 aaaaaaaaaaaaaaaaaafZkOgckQfZaagzlehulfhulghuhuiYiYiYiYiYlhjKlijKljiYjKjEjulkkVkWkVlljujujujujulmlnloaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaahvlqlrlqhRaagzlthuluhulvjzhuiYlwlxlyiYkRjKlijKlziYjKlAjujujulBjujujulClDlEjuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaagzltlFlGlHhuhuhuiYlIkfkfkpkRjKlJjKlKiYlLlMlNlOlOlPlOlQlRlSlTlUjuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaagzgzgzgzgzgzgzgziYlVlWlXiYkfkdlYlZmaiYjKjKjKmbmbmbmbmcjulCmdmejuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaagzgzgzgzgzgzgzgziYlVlWlXiYkfkdlYlZkfiYjKjKjKmbmbmbmbmcjulCmdmejuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYiYjujujujujuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
 

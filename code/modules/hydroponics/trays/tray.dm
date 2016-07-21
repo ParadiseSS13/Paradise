@@ -7,6 +7,8 @@
 	flags = OPENCONTAINER
 	volume = 100
 
+	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
+
 	var/mechanical = 1         // Set to 0 to stop it from drawing the alert lights.
 	var/base_name = "tray"
 
@@ -73,10 +75,12 @@
 		if(weedlevel > 0)
 			nymph.reagents.add_reagent("nutriment", weedlevel)
 			weedlevel = 0
+			plant_hud_set_weed()
 			nymph.visible_message("<font color='blue'><b>[nymph]</b> begins rooting through [src], ripping out weeds and eating them noisily.</font>","<font color='blue'>You begin rooting through [src], ripping out weeds and eating them noisily.</font>")
 		else if(nymph.nutrition > 100 && nutrilevel < 10)
 			nymph.nutrition -= ((10-nutrilevel)*5)
 			nutrilevel = 10
+			plant_hud_set_nutrient()
 			nymph.visible_message("<font color='blue'><b>[nymph]</b> secretes a trickle of green liquid, refilling [src].</font>","<font color='blue'>You secrete a trickle of green liquid, refilling [src].</font>")
 		else
 			nymph.visible_message("<font color='blue'><b>[nymph]</b> rolls around in [src] for a bit.</font>","<font color='blue'>You roll around in [src] for a bit.</font>")
@@ -84,6 +88,17 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/New()
 	..()
+
+	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
+	prepare_huds()
+	hydro_hud.add_to_hud(src)
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
+	plant_hud_set_status()
+	plant_hud_set_health()
+	plant_hud_set_toxin()
+	plant_hud_set_pest()
+	plant_hud_set_weed()
 
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/hydroponics(null)
@@ -100,6 +115,7 @@
 	update_icon()
 	if(closed_system)
 		flags &= ~OPENCONTAINER
+
 
 /obj/machinery/portable_atmospherics/hydroponics/upgraded/New()
 	..()
@@ -118,6 +134,8 @@
 	maxnutri = tmp_capacity * 5 // Up to 30
 	//waterlevel = maxwater
 	//nutrilevel = 3
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
 
 /obj/machinery/portable_atmospherics/hydroponics/bullet_act(var/obj/item/projectile/Proj)
 
@@ -150,12 +168,18 @@
 		die()
 	check_level_sanity()
 	update_icon()
+	plant_hud_set_status()
+	plant_hud_set_health()
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/die()
 	dead = 1
 	harvest = 0
 	weedlevel += 1 * HYDRO_SPEED_MULTIPLIER
 	pestlevel = 0
+	plant_hud_set_status()
+	plant_hud_set_health()
+	plant_hud_set_weed()
+	plant_hud_set_pest()
 
 //Harvests the product of a plant.
 /obj/machinery/portable_atmospherics/hydroponics/proc/harvest(var/mob/user)
@@ -233,6 +257,9 @@
 	pestlevel = 0
 	sampled = 0
 	update_icon()
+	plant_hud_set_weed()
+	plant_hud_set_status()
+	plant_hud_set_health()
 	visible_message("<span class='notice'>[src] has been overtaken by [seed.display_name].</span>")
 
 	return
@@ -391,6 +418,14 @@
 	toxins =		max(0,min(toxins,10))
 	yield_mod =		min(100, yield_mod)
 
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
+	plant_hud_set_status()
+	plant_hud_set_health()
+	plant_hud_set_toxin()
+	plant_hud_set_pest()
+	plant_hud_set_weed()
+
 /obj/machinery/portable_atmospherics/hydroponics/proc/mutate_species()
 
 	var/previous_plant = seed.display_name
@@ -408,6 +443,9 @@
 	lastproduce = 0
 	harvest = 0
 	weedlevel = 0
+
+	plant_hud_set_health()
+	plant_hud_set_weed()
 
 	update_icon()
 	visible_message("\red The \blue [previous_plant] \red has suddenly mutated into \blue [seed.display_name]!")
@@ -585,6 +623,7 @@
 			user.visible_message("<span class='danger'>[user] starts uprooting the weeds.</span>", "<span class='danger'>You remove the weeds from the [src].</span>")
 			weedlevel = 0
 			update_icon()
+			plant_hud_set_weed()
 		else
 			to_chat(user, "<span class='danger'>This plot is completely devoid of weeds. It doesn't need uprooting.</span>")
 

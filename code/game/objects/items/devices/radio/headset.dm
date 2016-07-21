@@ -55,10 +55,12 @@
 		if(translate_binary)
 			var/datum/language/binary = all_languages["Robot Talk"]
 			binary.broadcast(M, message)
+			return RADIO_CONNECTION_NON_SUBSPACE
 		if(translate_hive)
 			var/datum/language/hivemind = all_languages["Hivemind"]
 			hivemind.broadcast(M, message)
-		return null
+			return RADIO_CONNECTION_NON_SUBSPACE
+		return RADIO_CONNECTION_FAIL
 
 	return ..()
 
@@ -209,27 +211,18 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/hop
-/*
-/obj/item/device/radio/headset/headset_mine
-	name = "mining radio headset"
-	desc = "Headset used by miners. How useless."
-	icon_state = "mine_headset"
-	item_state = "headset"
-	ks2type = /obj/item/device/encryptionkey/headset_mine
 
-/obj/item/device/radio/headset/heads/qm
-	name = "quartermaster's headset"
-	desc = "The headset of the man who control your toiletpaper supply."
-	icon_state = "cargo_headset"
-	item_state = "headset"
-	ks2type = /obj/item/device/encryptionkey/heads/qm
-*/
 /obj/item/device/radio/headset/headset_cargo
 	name = "supply radio headset"
 	desc = "A headset used by the cargo department."
 	icon_state = "cargo_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/headset_cargo
+
+/obj/item/device/radio/headset/headset_cargo/mining
+	name = "mining radio headset"
+	desc = "Headset used by shaft miners."
+	icon_state = "mine_headset"
 
 /obj/item/device/radio/headset/headset_service
 	name = "service radio headset"
