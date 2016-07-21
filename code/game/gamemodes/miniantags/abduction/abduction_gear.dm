@@ -374,6 +374,9 @@ Congratulations! You are now trained for xenobiology research!"}
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
 	update_icon()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/weapon/abductor_baton/update_icon()
 	switch(mode)

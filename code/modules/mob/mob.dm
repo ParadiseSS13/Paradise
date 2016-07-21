@@ -1016,7 +1016,7 @@ var/list/slot_equipment_priority = list( \
 	return 1
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/proc/update_canmove()
+/mob/proc/update_canmove(delay_action_updates = 0)
 	var/ko = weakened || paralysis || stat || (status_flags & FAKEDEATH)
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	if(ko || resting || stunned)
@@ -1041,7 +1041,8 @@ var/list/slot_equipment_priority = list( \
 			layer = initial(layer)
 
 	update_transform()
-	update_action_buttons_icon()
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 /mob/proc/fall(var/forced)

@@ -281,10 +281,7 @@
 /obj/item/clothing/glasses/sunglasses/yeah/attack_self()
 	pun()
 
-/obj/item/clothing/glasses/sunglasses/yeah/verb/pun()
-	set category = "Object"
-	set name = "YEAH!"
-	set src in usr
+/obj/item/clothing/glasses/sunglasses/yeah/proc/pun()
 	if(!punused)//one per round
 		punused = 1
 		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
@@ -340,31 +337,28 @@
 /obj/item/clothing/glasses/welding/attack_self()
 	toggle()
 
+/obj/item/clothing/glasses/welding/proc/toggle()
+	if(up)
+		up = !up
+		flags |= GLASSESCOVERSEYES
+		flags_inv |= HIDEEYES
+		icon_state = initial(icon_state)
+		to_chat(usr, "You flip the [src] down to protect your eyes.")
+		flash_protect = 2
+		tint = initial(tint) //better than istype
+	else
+		up = !up
+		flags &= ~GLASSESCOVERSEYES
+		flags_inv &= ~HIDEEYES
+		icon_state = "[initial(icon_state)]up"
+		to_chat(usr, "You push the [src] up out of your face.")
+		flash_protect = 0
+		tint = 0
+	usr.update_inv_glasses()
 
-/obj/item/clothing/glasses/welding/verb/toggle()
-	set category = "Object"
-	set name = "Adjust welding goggles"
-	set src in usr
-
-	if(usr.canmove && !usr.stat && !usr.restrained())
-		if(src.up)
-			src.up = !src.up
-			src.flags |= GLASSESCOVERSEYES
-			flags_inv |= HIDEEYES
-			icon_state = initial(icon_state)
-			to_chat(usr, "You flip the [src] down to protect your eyes.")
-			flash_protect = 2
-			tint = initial(tint) //better than istype
-		else
-			src.up = !src.up
-			src.flags &= ~HEADCOVERSEYES
-			flags_inv &= ~HIDEEYES
-			icon_state = "[initial(icon_state)]up"
-			to_chat(usr, "You push the [src] up out of your face.")
-			flash_protect = 0
-			tint = 0
-
-		usr.update_inv_glasses()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/glasses/welding/superior
 	name = "superior welding goggles"

@@ -250,7 +250,6 @@
 	unacidable = 1
 	hit_reaction_chance = 50
 
-
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
 	if(active)
@@ -263,6 +262,9 @@
 		item_state = "reactiveoff"
 		add_fingerprint(user)
 	user.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = 0
