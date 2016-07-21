@@ -12,6 +12,7 @@
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
 	addiction_chance = 70
+	heart_rate_increase = 1
 
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
@@ -234,6 +235,7 @@
 	overdose_threshold = 20
 	addiction_chance = 60
 	metabolization_rate = 0.6
+	heart_rate_increase = 1
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	if(prob(5))

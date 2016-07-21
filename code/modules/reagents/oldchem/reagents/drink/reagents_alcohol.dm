@@ -182,6 +182,7 @@
 	reagent_state = LIQUID
 	color = "#102000" // rgb: 16, 32, 0
 	alcohol_perc = 0.3
+	heart_rate_increase = 1
 
 /datum/reagent/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
@@ -623,6 +624,7 @@
 	color = "#2E2E61" // rgb: 46, 46, 97
 	dizzy_adj = 6
 	alcohol_perc = 0.7
+	heart_rate_decrease = 1
 
 /datum/reagent/ethanol/neurotoxin/on_mob_life(mob/living/M)
 	M.weakened = max(M.weakened, 3)

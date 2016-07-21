@@ -1040,9 +1040,11 @@
 
 /mob/living/carbon/human/proc/handle_pulse()
 
-	if(mob_master.current_cycle % 5) return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
+	if(mob_master.current_cycle % 5)
+		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
-	if(species && species.flags & NO_BLOOD) return PULSE_NONE //No blood, no pulse.
+	if(species && species.flags & NO_BLOOD)
+		return PULSE_NONE //No blood, no pulse.
 
 	if(stat == DEAD)
 		return PULSE_NONE	//that's it, you're dead, nothing can influence your pulse
@@ -1060,25 +1062,21 @@
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
 	for(var/datum/reagent/R in reagents.reagent_list)
-		if(R.id in bradycardics)
+		if(R.heart_rate_decrease)
 			if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
 				temp--
-				break		//one reagent is enough
-							//comment out the breaks to make med effects stack
-	for(var/datum/reagent/R in reagents.reagent_list)				//handles different chems' influence on pulse
-		if(R.id in tachycardics)
+				break
+
+	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
+		if(R.heart_rate_increase)
 			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
 				temp++
 				break
+
 	for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
-		if(R.id in heartstopper)
+		if(R.heart_rate_stop)
 			temp = PULSE_NONE
 			break
-	for(var/datum/reagent/R in reagents.reagent_list) //Conditional heart-stoppage
-		if(R.id in cheartstopper)
-			if(R.volume >= R.overdose_threshold)
-				temp = PULSE_NONE
-				break
 
 	return temp
 

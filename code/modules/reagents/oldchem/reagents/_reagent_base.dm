@@ -11,6 +11,9 @@
 	//var/list/viruses = list()
 	var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 	var/shock_reduction = 0
+	var/heart_rate_increase = 0
+	var/heart_rate_decrease = 0
+	var/heart_rate_stop = 0
 	var/penetrates_skin = 0 //Whether or not a reagent penetrates the skin
 	var/can_grow_in_plants = 1	//Determines if the reagent can be grown in plants, 0 means it cannot be grown
 	//Processing flags, defines the type of mobs the reagent will affect
