@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes brig cell timers not having the option to flash people"
