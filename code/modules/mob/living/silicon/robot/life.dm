@@ -18,7 +18,7 @@
 	SetParalysis(min(paralysis, 30))
 	SetWeakened(min(weakened, 20))
 	sleeping = 0
-	ear_deaf = 0
+	setEarDamage(-1,0)
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)

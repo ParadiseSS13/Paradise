@@ -840,7 +840,7 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.ear_deaf += 50
+			C.adjustEarDamage(0,50)
 			C.show_message("\red The world around you suddenly becomes quiet.", 3)
 			affected++
 			if(prob(1))
@@ -859,7 +859,7 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.ear_deaf += 30
+			C.adjustEarDamage(0,30)
 			//talismans is weaker.
 			C.show_message("\red The world around you suddenly becomes quiet.", 3)
 			affected++

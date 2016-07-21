@@ -478,7 +478,7 @@
 			if(istype(E))
 				E.damage = max(E.damage-1, 0)
 		M.eye_blurry = max(M.eye_blurry-1 , 0)
-		M.ear_damage = max(M.ear_damage-1, 0)
+		M.adjustEarDamage(-1,0)
 	if(prob(50))
 		M.disabilities &= ~NEARSIGHTED
 	if(prob(30))
@@ -486,7 +486,7 @@
 		M.eye_blind = 0
 	if(M.ear_damage <= 25)
 		if(prob(30))
-			M.ear_deaf = 0
+			M.setEarDamage(-1,0)
 	..()
 
 /datum/chemical_reaction/oculine

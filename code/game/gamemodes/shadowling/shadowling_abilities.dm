@@ -557,7 +557,7 @@
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				M.confused += 10
-				M.ear_damage += 3
+				M.setEarDamage(M.ear_damage + 3)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")

@@ -346,7 +346,7 @@
 	dead_mob_list -= src
 	living_mob_list |= src
 	mob_list |= src
-	ear_deaf = 0
+	setEarDamage(-1,0)
 	timeofdeath = 0
 
 /mob/living/proc/rejuvenate()
@@ -377,8 +377,7 @@
 	blinded = 0
 	eye_blind = 0
 	eye_blurry = 0
-	ear_deaf = 0
-	ear_damage = 0
+	setEarDamage(0,0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0
