@@ -40,6 +40,8 @@
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	origin_tech = "bluespace=2"
 	blink_range = 4 // Not as good as the organic stuff!
+	points = 0 // nice try
+	refined_type = null
 
 // Polycrystals, aka stacks
 
