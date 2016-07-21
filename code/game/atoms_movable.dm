@@ -33,7 +33,7 @@
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	var/turf/un_opaque
-	if (opacity && isturf(loc))
+	if(opacity && isturf(loc))
 		un_opaque = loc
 		
 	loc = null
