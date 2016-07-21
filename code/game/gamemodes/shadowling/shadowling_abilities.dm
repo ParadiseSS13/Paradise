@@ -438,24 +438,24 @@
 		if(thralls >= 3 && !screech_acquired)
 			screech_acquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies, plus stunning silicon lifeforms.</span>")
-			user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech)
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech(null))
 
 		if(thralls >= 5 && !blind_smoke_acquired)
 			blind_smoke_acquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i></span>")
-			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke)
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke(null))
 
 		if(thralls >= 7 && !drainLifeAcquired)
 			drainLifeAcquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Drain Life</b> ability. You can now drain the health of nearby humans to heal yourself.</i></span>")
-			user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/drainLife)
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/drainLife(null))
 
 		if(thralls >= 9 && !reviveThrallAcquired)
 			reviveThrallAcquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
-			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/reviveThrall)
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/reviveThrall(null))
 
 		if(thralls < victory_threshold)
 			to_chat(user, "<span class='shadowling'>You do not have the power to ascend. You require [victory_threshold] thralls, but only [thralls] living thralls are present.</span>")
@@ -469,8 +469,8 @@
 					if(CM in M.mind.spell_list)
 						M.mind.spell_list -= CM
 						qdel(CM)
-					M.mind.remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
-					M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_ascend)
+					M.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
+					M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_ascend(null))
 					if(M == usr)
 						to_chat(M, "<span class='shadowling'><i>You project this power to the rest of the shadowlings.</i></span>")
 					else
@@ -674,10 +674,10 @@
 											   "<span class='shadowling'><b>You feel new power flow into you. You have been gifted by your masters. You now closely resemble them. You are empowered in \
 											    darkness but wither slowly in light. In addition, Lesser Glare and Guise have been upgraded into their true forms.</b></span>")
 				thrallToRevive.set_species("Lesser Shadowling")
-				thrallToRevive.mind.remove_spell(/obj/effect/proc_holder/spell/targeted/lesser_glare)
-				thrallToRevive.mind.remove_spell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare)
-				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk)
+				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_glare)
+				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
+				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
+				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
 			if("Revive")
 				if(!is_thrall(thrallToRevive))
 					to_chat(usr, "<span class='warning'>[thrallToRevive] is not a thrall.</span>")

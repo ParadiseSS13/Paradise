@@ -19,7 +19,7 @@
 		blinded = 1
 		silent = 0
 	else				//ALIVE. LIGHTS ARE ON
-		if(health < -25 || brain_op_stage == 4.0)
+		if(health < -25 || !get_int_organ(/obj/item/organ/internal/brain))
 			death()
 			blinded = 1
 			silent = 0

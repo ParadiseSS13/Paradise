@@ -1055,18 +1055,13 @@
 		switch(href_list["shadowling"])
 			if("clear")
 				ticker.mode.update_shadow_icons_removed(src)
-				current.spell_list.Cut()
 				if(src in ticker.mode.shadows)
 					ticker.mode.shadows -= src
 					special_role = null
 					to_chat(current, "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>")
-					current.spell_list.Cut()
-					if(current.mind)
-						current.mind.spell_list.Cut()
 					message_admins("[key_name_admin(usr)] has de-shadowlinged [current].")
 					log_admin("[key_name(usr)] has de-shadowlinged [current].")
-					remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
-					remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_ascend)
+					current.spellremove(current)
 					current.remove_language("Shadowling Hivemind")
 				else if(src in ticker.mode.shadowling_thralls)
 					ticker.mode.remove_thrall(src,0)
@@ -1488,9 +1483,17 @@
 
 	return (duration <= world.time - brigged_since)
 
-/datum/mind/proc/AddSpell(var/obj/effect/proc_holder/spell/spell)
-	spell_list += spell
-	spell.action.Grant(current)
+/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
+	spell_list += S
+	S.action.Grant(current)
+
+/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
+	if(!spell)
+		return
+	for(var/obj/effect/proc_holder/spell/S in spell_list)
+		if(istype(S, spell))
+			qdel(S)
+			spell_list -= S
 
 /datum/mind/proc/transfer_actions(var/mob/living/new_character)
 	if(current && current.actions)

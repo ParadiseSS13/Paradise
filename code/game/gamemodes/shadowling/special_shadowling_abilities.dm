@@ -92,19 +92,19 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(usr), slot_glasses)
 				H.set_species("Shadowling")	//can't be a shadowling without being a shadowling
 
-				H.mind.remove_spell(src)
+				H.mind.RemoveSpell(src)
 
 				sleep(10)
 				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/collective_mind)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_regenarmor)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_extend_shuttle)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/collective_mind(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_regenarmor(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_extend_shuttle(null))
 
 /obj/effect/proc_holder/spell/targeted/shadowling_ascend
 	name = "Ascend"
@@ -162,15 +162,15 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				var/mob/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)
 					if(S == src) continue
-					H.mind.remove_spell(S)
+					H.mind.RemoveSpell(S)
 				H.mind.transfer_to(A)
 				A.name = H.real_name
 				A.languages = H.languages
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/annihilate)
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/hypnosis)
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_phase_shift)
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/ascendant_storm)
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowlingAscendantTransmit)
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/annihilate(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/hypnosis(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_phase_shift(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/ascendant_storm(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowlingAscendantTransmit(null))
 				if(A.real_name)
 					A.real_name = H.real_name
 				H.invisibility = 60 //This is pretty bad, but is also necessary for the shuttle call to function properly
@@ -179,5 +179,5 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				if(!ticker.mode.shadowling_ascended)
 					shuttle_master.emergency.request(null, 0.3)
 				ticker.mode.shadowling_ascended = 1
-				A.mind.remove_spell(src)
+				A.mind.RemoveSpell(src)
 				qdel(H)

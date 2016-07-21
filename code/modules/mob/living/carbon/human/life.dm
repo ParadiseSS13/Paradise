@@ -816,9 +816,6 @@
 			handle_organs()
 			handle_blood()
 
-		//the analgesic effect wears off slowly
-		analgesic = max(0, analgesic - 1)
-
 		if(paralysis)
 			blinded = 1
 			stat = UNCONSCIOUS
@@ -987,8 +984,10 @@
 
 /mob/living/carbon/human/handle_shock()
 	..()
-	if(status_flags & GODMODE)	return 0	//godmode
-	if(analgesic || (species && species.flags & NO_PAIN)) return // analgesic avoids all traumatic shock temporarily
+	if(status_flags & GODMODE)
+		return 0	//godmode
+	if(species && species.flags & NO_PAIN)
+		return
 
 	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
 		shock_stage = max(shock_stage, 61)

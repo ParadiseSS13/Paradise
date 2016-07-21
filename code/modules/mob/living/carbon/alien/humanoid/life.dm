@@ -59,7 +59,7 @@
 		blinded = 1
 		silent = 0
 	else				//ALIVE. LIGHTS ARE ON
-		if(health < config.health_threshold_dead || brain_op_stage == 4.0)
+		if(health < config.health_threshold_dead || !get_int_organ(/obj/item/organ/internal/brain))
 			death()
 			blinded = 1
 			stat = DEAD
