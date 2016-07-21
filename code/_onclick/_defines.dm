@@ -1,3 +1,4 @@
 #define CLICKCATCHER_PLANE -99
 
+#define SHUTTLE_ANIM_PLANE 5
 #define HUD_PLANE 90
