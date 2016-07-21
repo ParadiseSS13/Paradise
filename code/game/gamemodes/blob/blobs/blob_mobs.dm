@@ -36,6 +36,7 @@
 	melee_damage_upper = 4
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
+	del_on_death = 1
 	speak_emote = list("pulses")
 	var/obj/effect/blob/factory/factory = null
 	var/list/human_overlays = list()
@@ -90,9 +91,7 @@
 	H.loc = src
 	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
-/mob/living/simple_animal/hostile/blob/blobspore/death()
-	..()
-
+/mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// On death, create a small smoke of harmful gas (s-Acid)
 	var/datum/effect/system/chem_smoke_spread/S = new
 	var/turf/location = get_turf(src)
@@ -109,8 +108,7 @@
 	S.attach(location)
 	S.set_up(reagents, 1, 1, location, 15, 1) // only 1-2 smoke cloud
 	S.start()
-
-	qdel(src)
+	..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Destroy()
 	if(factory)
@@ -169,6 +167,6 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
 	return
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/death()
+/mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	..()
 	flick("blobbernaut_death", src)
