@@ -17,9 +17,7 @@
 	speed = 0
 	maxHealth = 25
 	health = 25
-	can_trophy = 1
 	trophy = /obj/item/weapon/trophy/carp
-	trophy_id = "carp"
 
 	harm_intent_damage = 8
 	melee_damage_lower = 15
@@ -59,7 +57,7 @@
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
-	can_trophy = 0
+	trophy = null
 
 /mob/living/simple_animal/hostile/carp/holocarp/death()
 	..()

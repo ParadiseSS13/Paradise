@@ -63,10 +63,7 @@
 
 	var/obj/item/clothing/accessory/petcollar/collar = null
 	var/can_collar = 0 // can add collar to mob or not
-	var/can_trophy = 0
-	var/trophied = 0
 	var/obj/item/weapon/trophy/trophy = null
-	var/trophy_id = "generic" //for name and desc modification
 
 //Hot simple_animal baby making vars
 	var/childtype = null
