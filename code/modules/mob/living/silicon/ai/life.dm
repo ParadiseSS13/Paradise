@@ -158,8 +158,6 @@
 			health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		diag_hud_set_status()
 		diag_hud_set_health()
-		ear_damage = null
-		ear_deaf = null
 
 
 /mob/living/silicon/ai/proc/lacks_power()
