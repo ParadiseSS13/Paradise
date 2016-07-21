@@ -348,7 +348,7 @@
 		tint = initial(tint) //better than istype
 	else
 		up = !up
-		flags &= ~HEADCOVERSEYES
+		flags &= ~GLASSESCOVERSEYES
 		flags_inv &= ~HIDEEYES
 		icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push the [src] up out of your face.")
