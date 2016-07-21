@@ -72,7 +72,7 @@
 	name = "manipulate organs"
 	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
-	var/implements_mend = list(/obj/item/stack/medical/advanced/bruise_pack = 100,/obj/item/stack/nanopaste = 100,/obj/item/stack/medical/bruise_pack = 20)
+	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	//Finish is just so you can close up after you do other things.
 	var/implements_finsh = list(/obj/item/weapon/scalpel/manager = 120,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
 	var/current_type
@@ -156,10 +156,10 @@
 	else if(implement_type in implements_mend)
 		current_type = "mend"
 		var/tool_name = "\the [tool]"
-		if(istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
-			tool_name = "regenerative membrane"
-		else if(istype(tool, /obj/item/stack/medical/bruise_pack))
+		if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
+		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+			tool_name = "regenerative membrane"
 		else if(istype(tool, /obj/item/stack/nanopaste))
 			tool_name = "\the [tool]" //what else do you call nanopaste medically?
 
@@ -177,7 +177,8 @@
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
-			to_chat(user, "[I] does not appear to be damaged.")
+			else
+				to_chat(user, "[I] does not appear to be damaged.")
 		H.custom_pain("The pain in your [affected.name] is living hell!",1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
@@ -188,7 +189,7 @@
 /datum/surgery_step/internal/manipulate_organs/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(current_type == "mend")
 		var/tool_name = "\the [tool]"
-		if(istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
+		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
 			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
@@ -266,7 +267,7 @@
 		"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!</span>")
 		var/dam_amt = 2
 
-		if(istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
+		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
 			target.adjustToxLoss(5)
 
 		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
