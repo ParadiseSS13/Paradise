@@ -81,11 +81,6 @@
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/unathi/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-
 /datum/species/tajaran
 	name = "Tajaran"
 	name_plural = "Tajaran"
@@ -147,11 +142,6 @@
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
-
-/datum/species/tajaran/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"

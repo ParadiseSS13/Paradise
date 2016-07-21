@@ -179,33 +179,13 @@ BLIND     // can't see anything
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
-	var/clipped = 0
 	strip_delay = 20
 	put_on_delay = 40
-	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
-
-/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/wirecutters))
-		if(!clipped)
-			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
-			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
-			clipped = 1
-			name = "mangled [name]"
-			desc = "[desc] They have had the fingertips cut off of them."
-			if("exclude" in species_restricted)
-				species_restricted -= "Unathi"
-				species_restricted -= "Tajaran"
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
-		return
-	else
-		..()
 
 /obj/item/clothing/gloves/proc/Touch()
 	return
@@ -370,7 +350,6 @@ BLIND     // can't see anything
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
-	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/shoes.dmi'
@@ -403,9 +382,6 @@ BLIND     // can't see anything
 				item_state = "[item_state]_opentoe"
 				name = "mangled [name]"
 				desc = "[desc] They have had their toes opened up."
-				if("exclude" in species_restricted)
-					species_restricted -= "Unathi"
-					species_restricted -= "Tajaran"
 				update_icon()
 			else
 				to_chat(user, "<span class='notice'>[src] have already had their toes cut open!</span>")
