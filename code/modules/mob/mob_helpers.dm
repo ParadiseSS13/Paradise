@@ -34,6 +34,13 @@
 			return 1
 	return 0
 
+proc/isSSD(A)
+	if(istype(A,/mob))
+		var/mob/M = A
+		if (M.player_logged)
+			return 1
+	return 0
+
 proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A

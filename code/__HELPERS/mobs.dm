@@ -171,7 +171,7 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
 		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
-	if(istype(target) && target.client)
+	if(istype(target) && (target.client || target.player_logged))
 		if(what_done in ignore) return
 		if(target == user)return
 		if(!admin) return

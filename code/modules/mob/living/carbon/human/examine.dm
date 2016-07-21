@@ -270,7 +270,9 @@
 		msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
 	if(species.show_ssd && (!species.has_organ["brain"] || get_int_organ(/obj/item/organ/internal/brain)) && stat != DEAD)
-		if(istype(src, /mob/living/carbon/human/interactive))
+		if(src.player_logged)
+			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep, suffering from Space Sleep Disorder.</span>\n"
+		else if(istype(src, /mob/living/carbon/human/interactive))
 			msg += "<span class='deadsay'>[t_He] appears to be some sort of sick automaton: [t_his] eyes are glazed over and [t_his] mouth is slightly agape.</span>\n"
 		else if(!key)
 			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
