@@ -902,32 +902,48 @@ var/list/uplink_items = list()
 	cost = 9
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/device_tools/space_suit
-	name = "Space Suit"
-	desc = "The red and black syndicate space suit is less encumbering than Nanotrasen variants, fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit sightings."
+//Space Suits and Hardsuits
+/datum/uplink_item/suits
+	category = "Space Suits and Hardsuits"
+	surplus = 40
+
+/datum/uplink_item/suits/space_suit
+	name = "Syndicate Space Suit"
+	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
+			fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit \
+			sightings, however."
 	reference = "SS"
 	item = /obj/item/weapon/storage/box/syndie_kit/space
 	cost = 4
 
-/datum/uplink_item/device_tools/hardsuit
-	name = "Blood-red Hardsuit"
-	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armor. When the helmet is deployed your identity will be protected. Toggling the suit into combat mode \
-	will allow you all the mobility of a loose fitting uniform without sacrificing armor. Additionally the suit is collapsible, small enough to fit within a backpack. \
-	Nanotrasen crewmembers are trained to report red space suit sightings, these suits in particular are known to drive employees into a panic."
+/datum/uplink_item/suits/hardsuit
+	name = "Syndicate Hardsuit"
+	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armoring and a built in jetpack \
+			that runs off standard atmospheric tanks. When the built in helmet is deployed your identity will be \
+			protected, even in death, as the suit cannot be removed by outside forces. Toggling the suit in and out of \
+			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
+			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
+			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
 
-/datum/uplink_item/device_tools/elite_hardsuit
+/datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
-	desc = "The elite Syndicate hardsuit is worn by only the best nuclear agents. Features much better armoring and complete fireproofing. \
-	When the built in helmet is deployed your identity will be protected. Toggling the suit into combat mode will allow you all the mobility \
-	of a loose fitting uniform without sacrificing armoring. Additionally the suit is collapsible, small enough to fit within a backpack. \
-	Nanotrasen crewmembers are trained to report red space suit sightings; these suits in particular are known to drive employees into a panic."
-	reference = "ESHS"
+	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."
 	item = /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
 	cost = 8
+	reference = "ESHS"
 	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/suits/hardsuit/shielded
+	name = "Shielded Hardsuit"
+	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
+	item = /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
+	cost = 30
+	reference = "SHS"
+	gamemodes = list(/datum/game_mode/nuclear)
+
 
 /datum/uplink_item/device_tools/thermal
 	name = "Thermal Imaging Glasses"
