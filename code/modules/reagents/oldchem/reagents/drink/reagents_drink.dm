@@ -175,7 +175,6 @@
 	adj_sleepy = -2
 	adj_temp_hot = 25
 	overdose_threshold = 45
-	addiction_chance = 1 // It's true.
 
 /datum/reagent/drink/coffee/on_mob_life(mob/living/M)
 	if(holder.has_reagent("frostoil"))
