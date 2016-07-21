@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes up mindswap spell so it behaves more properly"
+  - bugfix: "Fixes genetic abilities action buttons not properly clearing"
+  - bugfix: "Fixes simple animals, silicons, and brains becoming perma deaf from flashbangs and other sources"
