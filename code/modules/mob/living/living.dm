@@ -672,8 +672,6 @@
 			if(silent)
 				put_in_hands(what)
 			add_logs(who, src, "stripped", addition="of [what]")
-			if(who.player_logged)
-				to_chat(src,"<span class='adminhelp'>Warning: looting from SSD players (like [who]) is forbidden unless you have ahelped first and got permission.</span>")
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
