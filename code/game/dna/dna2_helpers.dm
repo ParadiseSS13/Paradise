@@ -159,10 +159,7 @@
 
 		H.update_eyes()
 
-		if(H.species.bodyflags & HAS_SKIN_TONE)
-			H.s_tone = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
-		else if(H.species.bodyflags & HAS_ICON_SKIN_TONE)
-			H.s_tone = dna.GetUIValueRange(DNA_UI_SKIN_TONE, H.species.icon_skin_tones.len)
+		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
 		if(dna.GetUIState(DNA_UI_GENDER))
 			H.change_gender(FEMALE, 0)

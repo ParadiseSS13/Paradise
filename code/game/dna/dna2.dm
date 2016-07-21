@@ -205,13 +205,7 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_TAIL_MARK_G,	hex2num(copytext(marking_colours["tail"], 4, 6)),	255,	1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_B,	hex2num(copytext(marking_colours["tail"], 6, 8)),	255,	1)
 
-	var/s_tone_value = 35-character.s_tone
-	var/s_tone_max = 220
-	if(character.species.bodyflags & HAS_ICON_SKIN_TONE)
-		s_tone_value = character.s_tone
-		s_tone_max = character.species.icon_skin_tones.len
-
-	SetUIValueRange(DNA_UI_SKIN_TONE, s_tone_value,	s_tone_max,	1)
+	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone,	220,	1) // Value can be negative.
 
 	SetUIState(DNA_UI_GENDER,		character.gender!=MALE,		1)
 
