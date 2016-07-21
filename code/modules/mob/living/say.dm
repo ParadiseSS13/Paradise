@@ -169,7 +169,7 @@ proc/get_radio_key_from_channel(var/channel)
 	if(!message || message == "")
 		return 0
 
-	var/list/used_radios = new
+	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name))
 		return 1
 
