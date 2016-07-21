@@ -482,7 +482,7 @@
 	if(prob(50))
 		M.disabilities &= ~NEARSIGHTED
 	if(prob(30))
-		M.sdisabilities &= ~BLIND
+		M.disabilities &= ~BLIND
 		M.eye_blind = 0
 	if(M.ear_damage <= 25)
 		if(prob(30))
@@ -696,7 +696,7 @@
 
 /datum/reagent/mutadone/on_mob_life(mob/living/carbon/human/M)
 	M.jitteriness = 0
-	var/needs_update = M.mutations.len > 0 || M.disabilities > 0 || M.sdisabilities > 0
+	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
 	if(needs_update)
 		for(var/block=1;block<=DNA_SE_LENGTH;block++)

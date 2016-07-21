@@ -63,7 +63,7 @@ proc/iscuffed(A)
 proc/isdeaf(A)
 	if(istype(A, /mob))
 		var/mob/M = A
-		return (M.sdisabilities & DEAF) || M.ear_deaf
+		return (M.disabilities & DEAF) || M.ear_deaf
 	return 0
 
 proc/hassensorlevel(A, var/level)
@@ -358,7 +358,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 /proc/is_blind(A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(C.sdisabilities & BLIND || C.blinded)
+		if(C.disabilities & BLIND || C.blinded)
 			return 1
 	return 0
 

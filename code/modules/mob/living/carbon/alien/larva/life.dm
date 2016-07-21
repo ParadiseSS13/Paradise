@@ -54,7 +54,7 @@
 			move_delay_add = max(0, move_delay_add - rand(1, 2))
 
 		//Eyes
-		if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
+		if(disabilities & BLIND)	//disabled-blind, doesn't get better on its own
 			blinded = 1
 		else if(eye_blind)			//blindness, heals slowly over time
 			eye_blind = max(eye_blind-1,0)
@@ -63,7 +63,7 @@
 			eye_blurry = max(eye_blurry-1, 0)
 
 		//Ears
-		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
 			ear_deaf = max(ear_deaf, 1)
 		else if(ear_deaf)			//deafness, heals slowly over time
 			ear_deaf = max(ear_deaf-1, 0)

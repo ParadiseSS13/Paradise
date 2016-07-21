@@ -861,7 +861,7 @@
 
 		else
 			//blindness
-			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
+			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
 				blinded =    1
 
 			else if(eye_blind)		       // Blindness, heals slowly over time
@@ -881,7 +881,7 @@
 
 
 		//Ears
-		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
 			ear_deaf = max(ear_deaf, 1)
 
 		else if(ear_deaf)			//deafness, heals slowly over time
