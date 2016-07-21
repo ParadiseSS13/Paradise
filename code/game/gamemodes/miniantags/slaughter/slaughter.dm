@@ -179,7 +179,7 @@
 	..()
 	if(M.mind)
 		M.bloodcrawl = 0
-		M.mind.remove_spell(/obj/effect/proc_holder/spell/bloodcrawl)
+		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
 
 /obj/item/organ/internal/heart/demon/Stop()
 	return 0 // Always beating.

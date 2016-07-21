@@ -12,8 +12,6 @@ mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0
 		return
 	if(reagents.has_reagent("hydrocodone"))
 		return
-	if(analgesic)
-		return
 	if(world.time < next_pain_time && !force)
 		return
 	if(amount > 10 && istype(src,/mob/living/carbon/human))
@@ -55,8 +53,6 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 		return
 	if(reagents.has_reagent("hydrocodone"))
 		return
-	if(analgesic)
-		return
 	var/msg = "\red <b>[message]</b>"
 	if(flash_strength >= 1)
 		msg = "\red <font size=3><b>[message]</b></font>"
@@ -93,8 +89,6 @@ mob/living/carbon/human/proc/handle_pain()
 	if(reagents.has_reagent("morphine"))
 		return
 	if(reagents.has_reagent("hydrocodone"))
-		return
-	if(analgesic)
 		return
 	var/maxdam = 0
 	var/obj/item/organ/external/damaged_organ = null

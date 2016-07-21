@@ -27,7 +27,7 @@
 	name = text("[initial(name)] ([rand(1, 1000)])")
 	real_name = name
 	for(var/spell in construct_spells)
-		AddSpell(new spell(src))
+		AddSpell(new spell(null))
 	updateglow()
 
 /mob/living/simple_animal/construct/death()

@@ -816,9 +816,6 @@
 			handle_organs()
 			handle_blood()
 
-		//the analgesic effect wears off slowly
-		analgesic = max(0, analgesic - 1)
-
 		if(paralysis)
 			blinded = 1
 			stat = UNCONSCIOUS
@@ -864,7 +861,7 @@
 
 		else
 			//blindness
-			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
+			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
 				blinded =    1
 
 			else if(eye_blind)		       // Blindness, heals slowly over time
@@ -884,18 +881,18 @@
 
 
 		//Ears
-		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			ear_deaf = max(ear_deaf, 1)
+		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+			setEarDamage(-1, max(ear_deaf, 1))
 
 		else if(ear_deaf)			//deafness, heals slowly over time
-			ear_deaf = max(ear_deaf - 1, 0)
+			adjustEarDamage(0,-1)
 
 		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			ear_damage = max(ear_damage - 0.15, 0)
-			ear_deaf = max(ear_deaf, 1)
+			adjustEarDamage(-0.15,0)
+			setEarDamage(-1, max(ear_deaf, 1))
 
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			ear_damage = max(ear_damage - 0.05, 0)
+			adjustEarDamage(-0.05,0)
 
 		if(flying)
 			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
@@ -987,8 +984,10 @@
 
 /mob/living/carbon/human/handle_shock()
 	..()
-	if(status_flags & GODMODE)	return 0	//godmode
-	if(analgesic || (species && species.flags & NO_PAIN)) return // analgesic avoids all traumatic shock temporarily
+	if(status_flags & GODMODE)
+		return 0	//godmode
+	if(species && species.flags & NO_PAIN)
+		return
 
 	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
 		shock_stage = max(shock_stage, 61)

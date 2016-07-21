@@ -13,7 +13,7 @@
 	activation_message   = "You feel unable to express yourself at all."
 	deactivation_message = "You feel able to speak freely again."
 	instability = -GENE_INSTABILITY_MODERATE
-	sdisability = MUTE
+	disability = MUTE
 
 /datum/dna/gene/disability/mute/New()
 	..()

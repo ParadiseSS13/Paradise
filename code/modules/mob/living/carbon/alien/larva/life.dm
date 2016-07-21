@@ -19,7 +19,7 @@
 		blinded = 1
 		silent = 0
 	else				//ALIVE. LIGHTS ARE ON
-		if(health < -25 || brain_op_stage == 4.0)
+		if(health < -25 || !get_int_organ(/obj/item/organ/internal/brain))
 			death()
 			blinded = 1
 			silent = 0
@@ -54,7 +54,7 @@
 			move_delay_add = max(0, move_delay_add - rand(1, 2))
 
 		//Eyes
-		if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
+		if(disabilities & BLIND)	//disabled-blind, doesn't get better on its own
 			blinded = 1
 		else if(eye_blind)			//blindness, heals slowly over time
 			eye_blind = max(eye_blind-1,0)
@@ -63,12 +63,12 @@
 			eye_blurry = max(eye_blurry-1, 0)
 
 		//Ears
-		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			ear_deaf = max(ear_deaf, 1)
+		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+			setEarDamage(-1, max(ear_deaf, 1))
 		else if(ear_deaf)			//deafness, heals slowly over time
-			ear_deaf = max(ear_deaf-1, 0)
+			adjustEarDamage(0,-1)
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold.
-			ear_damage = max(ear_damage-0.05, 0)
+			adjustEarDamage(-0.05,0)
 
 		//Other
 		if(stunned)

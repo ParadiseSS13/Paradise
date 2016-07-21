@@ -231,7 +231,7 @@
 	amt_eye_blurry = 20
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	sdisabilities = BLIND
+	disabilities = BLIND
 	duration = 300
 
 /obj/effect/proc_holder/spell/dumbfire/fireball
