@@ -404,7 +404,7 @@
 
 //hoodies
 /obj/item/clothing/suit/hooded/hoodie
-	name = "hoodie"
+	name = "black hoodie"
 	desc = "It's a hoodie. It has a hood. Most hoodies do."
 	icon_state = "black_hoodie"
 	item_state = "labcoat"
@@ -416,7 +416,7 @@
 		)
 
 /obj/item/clothing/head/hood
-	name = "hood"
+	name = "black hood"
 	desc = "A hood attached to a hoodie."
 	icon_state = "blackhood"
 	body_parts_covered = HEAD
