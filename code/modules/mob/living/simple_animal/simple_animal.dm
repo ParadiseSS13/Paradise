@@ -10,6 +10,7 @@
 	var/icon_dead = ""
 	var/icon_resting = ""
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
+	var/icon_nohead = "" //for trophies
 
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
@@ -62,6 +63,10 @@
 
 	var/obj/item/clothing/accessory/petcollar/collar = null
 	var/can_collar = 0 // can add collar to mob or not
+	var/can_trophy = 0
+	var/trophied = 0
+	var/obj/item/weapon/trophy/trophy = null
+	var/trophy_id = "generic" //for name and desc modification
 
 //Hot simple_animal baby making vars
 	var/childtype = null

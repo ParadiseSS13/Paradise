@@ -7,6 +7,7 @@
 	icon_living = "carp"
 	icon_dead = "carp_dead"
 	icon_gib = "carp_gib"
+	icon_nohead = "carp_nohead"
 	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/carpmeat = 2)
@@ -16,6 +17,9 @@
 	speed = 0
 	maxHealth = 25
 	health = 25
+	can_trophy = 1
+	trophy = /obj/item/weapon/trophy/carp
+	trophy_id = "carp"
 
 	harm_intent_damage = 8
 	melee_damage_lower = 15
@@ -55,6 +59,7 @@
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	can_trophy = 0
 
 /mob/living/simple_animal/hostile/carp/holocarp/death()
 	..()
@@ -70,9 +75,11 @@
 	icon_living = "megacarp"
 	icon_dead = "megacarp_dead"
 	icon_gib = "megacarp_gib"
+	icon_nohead = "megacarp_nohead"
 	maxHealth = 65
 	health = 65
 	pixel_x = -16
+	trophy = /obj/item/weapon/trophy/megacarp
 
 	melee_damage_lower = 20
 	melee_damage_upper = 20
