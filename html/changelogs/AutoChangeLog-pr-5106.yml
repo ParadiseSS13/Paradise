@@ -1,0 +1,4 @@
+author: Twinmold
+delete-after: True
+changes: 
+  - bugfix: "Fixes removing ID cards from laptops with the Eject ID verb."
