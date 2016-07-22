@@ -123,3 +123,65 @@
 	icon = 'icons/goonstation/pods/pod_parts.dmi'
 	icon_state = "pod_armor_civ"
 	desc = "Spacepod armor. This is the civilian version. It looks rather flimsy."
+	var/armor_max_health = 240
+	var/armor_health = 240
+	var/pod_desc = "A sleek civilian space pod."
+	var/pod_icon_state = "pod_civ"
+	var/pod_light_color = LIGHT_COLOR_WHITE
+
+/obj/item/pod_parts/armor/mining
+	name = "mining pod armor"
+	icon_state = "pod_armor_mining"
+	desc = "Mining spacepod armor. Design for use in mining conditions."
+	armor_max_health = 290
+	armor_health = 290
+	pod_desc = "A spacepod designed for mining."
+	pod_icon_state = "pod_mining"
+	pod_light_color = "#FFBE55"
+
+/obj/item/pod_parts/armor/security
+	name = "security pod armor"
+	icon_state = "pod_armor_mil"
+	desc = "Security spacepod armor. Designed for space combat"
+	armor_max_health = 390
+	armor_health = 390
+	pod_desc = "An armed security spacepod with reinforced armor plating."
+	pod_icon_state = "pod_mil"
+	pod_light_color = "#BBF093"
+
+/obj/item/pod_parts/armor/black
+	name = "black pod armor"
+	icon_state = "pod_armor_black"
+	desc = "Spacepod armor. It is black, and has no identifications."
+	pod_desc = "An all black space pod with no insignias."
+	pod_icon_state = "pod_black"
+	pod_light_color = "#3B8FE5"
+
+/obj/item/pod_parts/armor/synd
+	name = "syndicate pod armor"
+	icon_state = "pod_armor_synd"
+	desc = "Spacepod armor used by syndicate spacepods."
+	armor_max_health = 340
+	armor_health = 340
+	pod_desc = "A menacing military space pod with \"Fuck NT\" stenciled onto the side."
+	pod_icon_state = "pod_synd"
+	pod_light_color = LIGHT_COLOR_RED
+
+/obj/item/pod_parts/armor/gold
+	name = "gold pod armor"
+	icon_state = "pod_armor_gold"
+	desc = "Spacepod armor made out of gold. It looks extremely weak"
+	armor_max_health = 90
+	armor_health = 90
+	pod_desc = "A civilian space pod with a gold body, must have cost somebody a pretty penny"
+	pod_icon_state = "pod_gold"
+
+/obj/item/pod_parts/armor/industrial
+	name = "industrial pod armor"
+	icon_state = "pod_armor_industrial"
+	desc = "Spacepod armor, meant for industrial spacepods"
+	armor_max_health = 290
+	armor_health = 290
+	pod_desc = "A rough looking space pod meant for industrial work"
+	pod_icon_state = "pod_industrial"
+	pod_light_color = "#CCCC00"

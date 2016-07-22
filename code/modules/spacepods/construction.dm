@@ -8,7 +8,7 @@
 	icon = 'icons/goonstation/48x48/pod_construction.dmi'
 	icon_state = "pod_1"
 
-	var/datum/construction/construct
+	var/datum/construction/reversible2/construct
 
 /obj/structure/spacepod_frame/New()
 	..()
@@ -20,6 +20,33 @@
 	dir = EAST
 
 /obj/structure/spacepod_frame/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(construct.index == 1 && istype(W, /obj/item/weapon/wirecutters))
+		visible_message(user, "[user] cuts the struts on \the [src]", "You cut the struts on \the [src]")
+		//var/obj/item/pod_parts/pod_frame/F = new /obj/item/pod_parts/pod_frame()
+		switch(dir)
+			if(NORTH)
+				new /obj/item/pod_parts/pod_frame/aft_port{dir = 1}(get_turf(src))
+				new /obj/item/pod_parts/pod_frame/aft_starboard{dir = 1}(get_step(src, EAST))
+				new /obj/item/pod_parts/pod_frame/fore_port{dir = 1}(get_step(src, NORTH))
+				new /obj/item/pod_parts/pod_frame/fore_starboard{dir = 1}(get_step(get_step(src, EAST), NORTH))
+			if(SOUTH)
+				new /obj/item/pod_parts/pod_frame/fore_starboard{dir = 2}(get_turf(src))
+				new /obj/item/pod_parts/pod_frame/fore_port{dir = 2}(get_step(src, EAST))
+				new /obj/item/pod_parts/pod_frame/aft_starboard{dir = 2}(get_step(src, NORTH))
+				new /obj/item/pod_parts/pod_frame/aft_port{dir = 2}(get_step(get_step(src, EAST), NORTH))
+			if(EAST)
+				new /obj/item/pod_parts/pod_frame/aft_starboard{dir = 4}(get_turf(src))
+				new /obj/item/pod_parts/pod_frame/fore_starboard{dir = 4}(get_step(src, EAST))
+				new /obj/item/pod_parts/pod_frame/aft_port{dir = 4}(get_step(src, NORTH))
+				new /obj/item/pod_parts/pod_frame/fore_port{dir = 4}(get_step(get_step(src, EAST), NORTH))
+			if(WEST)
+				new /obj/item/pod_parts/pod_frame/fore_port{dir = 8}(get_turf(src))
+				new /obj/item/pod_parts/pod_frame/aft_port{dir = 8}(get_step(src, EAST))
+				new /obj/item/pod_parts/pod_frame/fore_starboard{dir = 8}(get_step(src, NORTH))
+				new /obj/item/pod_parts/pod_frame/aft_starboard{dir = 8}(get_step(get_step(src, EAST), NORTH))
+		qdel(src)
+		return
+
 	if(!construct || !construct.action(W, user))
 		..()
 	return
@@ -33,7 +60,7 @@
 // CONSTRUCTION STEPS
 /////////////////////////////////
 /datum/construction/reversible2/pod
-	result = /obj/spacepod/civilian
+	result = /obj/spacepod
 	base_icon="pod"
 	//taskpath = /datum/job_objective/make_pod
 	steps = list(
@@ -169,51 +196,6 @@
 						"key"      = /obj/item/weapon/weldingtool,
 						"vis_msg"  = "{USER} seals the {HOLDER}'s bulkhead panelling with a weld.",
 						"self_msg" = "You seal the {HOLDER}'s bulkhead panelling with a weld."
-					)
-				),
-				// 10. Welded bulkhead
-				list(
-					"desc" = "A space pod with sealed bulkhead panelling exposed.",
-					state_prev = list(
-						"key"      = /obj/item/weapon/weldingtool,
-						"vis_msg"  = "{USER} cuts the {HOLDER}'s bulkhead panelling loose.",
-						"self_msg" = "You cut the {HOLDER}'s bulkhead panelling loose."
-					),
-					state_next = list(
-						"key"      = /obj/item/pod_parts/armor,
-						"vis_msg"  = "{USER} installs the {HOLDER}'s armor plating.",
-						"self_msg" = "You install the {HOLDER}'s armor plating.",
-						"delete"   = 1
-					)
-				),
-				// 11. Loose armor
-				list(
-					"desc" = "A space pod with unsecured armor.",
-					state_prev = list(
-						"key"      = /obj/item/weapon/crowbar,
-						"vis_msg"  = "{USER} pries off {HOLDER}'s armor.",
-						"self_msg" = "You pry off {HOLDER}'s armor.",
-						"spawn"    = /obj/item/pod_parts/armor,
-						"amount"   = 1
-					),
-					state_next = list(
-						"key"      = /obj/item/weapon/wrench,
-						"vis_msg"  = "{USER} bolts down the {HOLDER}'s armor.",
-						"self_msg" = "You bolt down the {HOLDER}'s armor."
-					)
-				),
-				// 12. Bolted-down armor
-				list(
-					"desc" = "A space pod with unsecured armor.",
-					state_prev = list(
-						"key"      = /obj/item/weapon/wrench,
-						"vis_msg"  = "{USER} unsecures the {HOLDER}'s armor.",
-						"self_msg" = "You unsecure the {HOLDER}'s armor."
-					),
-					state_next = list(
-						"key"      = /obj/item/weapon/weldingtool,
-						"vis_msg"  = "{USER} welds the {HOLDER}'s armor.",
-						"self_msg" = "You weld the {HOLDER}'s armor."
 					)
 				)
 				// EOF

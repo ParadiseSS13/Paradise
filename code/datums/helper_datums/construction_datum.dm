@@ -95,7 +95,8 @@
 				if(istype(task))
 					task.unit_completed()
 
-			new result(get_turf(holder))
+			var/obj/result_obj = new result(get_turf(holder))
+			result_obj.dir = holder.dir
 			spawn()
 				qdel(holder)
 		return
