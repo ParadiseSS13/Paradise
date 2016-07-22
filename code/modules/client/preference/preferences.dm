@@ -302,7 +302,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>Head Markings:</b> "
 				dat += "<a href='?_src_=prefs;preference=m_style_head;task=input'>[marking_styles["head"]]</a>"
 				dat += "<a href='?_src_=prefs;preference=m_head_colour;task=input'>Color</a> [color_square(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))]<br>"
-			if(species in list("Unathi", "Vulpkanin", "Tajaran")) //Species with body markings.
+			if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")) //Species with body markings/tattoos.
 				var/list/marking_styles = params2list(m_styles)
 				var/list/marking_colours = params2list(m_colours)
 				marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
@@ -1484,7 +1484,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							m_colours = list2params(marking_colours)
 
 				if("m_style_body")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran")) //Species with body markings.
+					if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")) //Species with body markings/tattoos.
 						var/list/valid_markings = list()
 						valid_markings["None"] = marking_styles_list["None"]
 						for(var/markingstyle in marking_styles_list)
@@ -1503,7 +1503,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							m_styles = list2params(marking_styles)
 
 				if("m_body_colour")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran")) //Species with body markings.
+					if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")) //Species with body markings/tattoos.
 						var/input = "Choose the colour of your your character's body markings:"
 						var/list/marking_colours = params2list(m_colours)
 						marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])

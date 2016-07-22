@@ -1961,15 +1961,30 @@
 	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
+/datum/sprite_accessory/body_markings/tiger
+	name = "Tiger Body"
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
+	icon_state = "markings_tiger"
+
 /datum/sprite_accessory/body_markings/stripe_una
 	name = "Unathi Stripe"
 	species_allowed = list("Unathi")
 	icon_state = "markings_stripe_una"
 
-/datum/sprite_accessory/body_markings/belly_flat_una
+/datum/sprite_accessory/body_markings/belly_narrow_una
 	name = "Unathi Belly"
 	species_allowed = list("Unathi")
-	icon_state = "markings_belly_flat_una"
+	icon_state = "markings_belly_narrow_una"
+
+/datum/sprite_accessory/body_markings/banded_una
+	name = "Unathi Banded"
+	species_allowed = list("Unathi")
+	icon_state = "markings_banded_una"
+
+/datum/sprite_accessory/body_markings/points_una
+	name = "Unathi Points"
+	species_allowed = list("Unathi")
+	icon_state = "markings_points_una"
 
 /datum/sprite_accessory/body_markings/belly_flat_taj
 	name = "Tajaran Belly"
@@ -1981,54 +1996,59 @@
 	species_allowed = list("Tajaran")
 	icon_state = "markings_belly_crest_taj"
 
+/datum/sprite_accessory/body_markings/belly_full_taj
+	name = "Tajaran Belly 2"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_belly_full_taj"
+
+/datum/sprite_accessory/body_markings/points_taj
+	name = "Tajaran Points"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_points_taj"
+
+/datum/sprite_accessory/body_markings/patchy_taj
+	name = "Tajaran Patches"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_patch_taj"
+
 /datum/sprite_accessory/body_markings/belly_fox_vulp
 	name = "Vulpkanin Belly"
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_belly_fox_vulp"
+
+/datum/sprite_accessory/body_markings/belly_full_vulp
+	name = "Vulpkanin Belly 2"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_belly_full_vulp"
 
 /datum/sprite_accessory/body_markings/belly_crest_vulp
 	name = "Vulpkanin Belly Crest"
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_belly_crest_vulp"
 
-/datum/sprite_accessory/body_markings/tiger
-	name = "Tiger Body"
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
-	icon_state = "markings_tiger"
-
-/datum/sprite_accessory/body_markings/tigerhead_taj
-	name = "Tajaran Tiger Body and Head"
-	species_allowed = list("Tajaran")
-	icon_state = "markings_tigerhead_taj"
-
-/datum/sprite_accessory/body_markings/tigerhead_vulp
-	name = "Vulpkanin Tiger Body and Head"
+/datum/sprite_accessory/body_markings/points_fade_vulp
+	name = "Vulpkanin Points"
 	species_allowed = list("Vulpkanin")
-	icon_state = "markings_tigerhead_vulp"
+	icon_state = "markings_points_fade_vulp"
 
-/datum/sprite_accessory/body_markings/tigerhead_una
-	name = "Unathi Tiger Body and Head"
-	species_allowed = list("Unathi")
-	icon_state = "markings_tigerhead_una"
-
-/datum/sprite_accessory/body_markings/tigerheadface_taj
-	name = "Tajaran Tiger Body, Head and Face"
-	species_allowed = list("Tajaran")
-	icon_state = "markings_tigerheadface_taj"
-
-/datum/sprite_accessory/body_markings/tigerheadface_vulp
-	name = "Vulpkanin Tiger Body, Head and Face"
+/datum/sprite_accessory/body_markings/points_sharp_vulp
+	name = "Vulpkanin Points 2"
 	species_allowed = list("Vulpkanin")
-	icon_state = "markings_tigerheadface_vulp"
-
-/datum/sprite_accessory/body_markings/tigerheadface_una
-	name = "Unathi Tiger Body, Head and Face"
-	species_allowed = list("Unathi")
-	icon_state = "markings_tigerheadface_una"
+	icon_state = "markings_points_sharp_vulp"
 
 /datum/sprite_accessory/body_markings/head
 	marking_location = "head"
 	species_allowed = list()
+
+/datum/sprite_accessory/body_markings/head/tiger_head_taj
+	name = "Tajaran Tiger Head"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_head_tiger_taj"
+
+/datum/sprite_accessory/body_markings/head/tiger_face_taj
+	name = "Tajaran Tiger Head and Face"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_tiger_taj"
 
 /datum/sprite_accessory/body_markings/head/outears_taj
 	name = "Tajaran Outer Ears"
@@ -2040,6 +2060,11 @@
 	species_allowed = list("Tajaran")
 	icon_state = "markings_face_inears_taj"
 
+/datum/sprite_accessory/body_markings/head/nose_taj
+	name = "Tajaran Nose"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_nose_taj"
+
 /datum/sprite_accessory/body_markings/head/muzzle_taj
 	name = "Tajaran Muzzle"
 	species_allowed = list("Tajaran")
@@ -2050,37 +2075,115 @@
 	species_allowed = list("Tajaran")
 	icon_state = "markings_face_muzzle_and_inears_taj"
 
-/datum/sprite_accessory/body_markings/head/snout_round_una
-	name = "Unathi Round Snout"
-	species_allowed = list("Unathi")
-	icon_state = "markings_face_snout_round_una"
-
-/datum/sprite_accessory/body_markings/head/snout_round_lower_una
-	name = "Unathi Round Snout - Lower"
-	species_allowed = list("Unathi")
-	icon_state = "markings_face_snout_lower_una"
-
-/datum/sprite_accessory/body_markings/head/snout_sharp_una
-	name = "Unathi Sharp Snout"
-	species_allowed = list("Unathi")
-	icon_state = "markings_face_snout_sharp_una"
-	heads_allowed = list("Unathi Sharp Snout")
-
-/datum/sprite_accessory/body_markings/head/snout_sharp_lower_una
-	name = "Unathi Sharp Snout - Lower"
-	species_allowed = list("Unathi")
-	icon_state = "markings_face_snout_lower_una"
-	heads_allowed = list("Unathi Sharp Snout")
-
-/datum/sprite_accessory/body_markings/head/nose_taj
-	name = "Tajaran Nose"
+/datum/sprite_accessory/body_markings/head/muzzle_alt_taj //Companion marking for Tajaran Belly 2.
+	name = "Tajaran Muzzle 2"
 	species_allowed = list("Tajaran")
-	icon_state = "markings_face_nose_taj"
+	icon_state = "markings_face_full_taj"
+
+/datum/sprite_accessory/body_markings/head/points_taj //Companion marking for Tajaran Points.
+	name = "Tajaran Points Head"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_points_taj"
+
+/datum/sprite_accessory/body_markings/head/patchy_taj //Companion marking for Tajaran Patches.
+	name = "Tajaran Patches Head"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_patch_taj"
+
+/datum/sprite_accessory/body_markings/head/tiger_head_vulp
+	name = "Vulpkanin Tiger Head"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_head_tiger_vulp"
+
+/datum/sprite_accessory/body_markings/head/tiger_face_vulp
+	name = "Vulpkanin Tiger Head and Face"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_tiger_vulp"
 
 /datum/sprite_accessory/body_markings/head/nose_default_vulp
 	name = "Vulpkanin Nose"
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_face_nose_vulp"
+
+/datum/sprite_accessory/body_markings/head/muzzle_vulp //Companion marking for Vulpkanin Belly Alt..
+	name = "Vulpkanin Muzzle"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_full_vulp"
+
+/datum/sprite_accessory/body_markings/head/points_fade_vulp //Companion marking for Vulpkanin Points Fade.
+	name = "Vulpkanin Points Head"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_points_fade_vulp"
+
+/datum/sprite_accessory/body_markings/head/points_sharp_vulp //Companion marking for Vulpkanin Points Sharp.
+	name = "Vulpkanin Points Head 2"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_points_sharp_vulp"
+
+/datum/sprite_accessory/body_markings/head/tiger_head_una
+	name = "Unathi Tiger Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_head_tiger_una"
+
+/datum/sprite_accessory/body_markings/head/tiger_face_una
+	name = "Unathi Tiger Head and Face"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_tiger_una"
+
+/datum/sprite_accessory/body_markings/head/tiger_face_una_sharp
+	name = "Unathi Sharp Tiger Head and Face"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_tiger_una_sharp"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/snout_una_round
+	name = "Unathi Round Snout"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_una_round"
+
+/datum/sprite_accessory/body_markings/head/snout_lower_una_round
+	name = "Unathi Lower Round Snout"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_lower_una"
+
+/datum/sprite_accessory/body_markings/head/snout_una_sharp
+	name = "Unathi Sharp Snout"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_una_sharp"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/banded_una //Companion marking for Unathi Banded.
+	name = "Unathi Banded Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_banded_una"
+
+/datum/sprite_accessory/body_markings/head/banded_una_sharp //Companion marking for Unathi Banded.
+	name = "Unathi Sharp Banded Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_banded_una"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/snout_narrow_una //Companion marking for Unathi Narrow Belly.
+	name = "Unathi Snout 2"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_narrow_una"
+
+/datum/sprite_accessory/body_markings/head/snout_narrow_una_sharp //Companion marking for Unathi Narrow Belly.
+	name = "Unathi Sharp Snout 2"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_narrow_una_sharp"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/points_una //Companion marking for Unathi Points.
+	name = "Unathi Points Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_points_una"
+
+/datum/sprite_accessory/body_markings/head/points_una_sharp //Companion marking for Unathi Points.
+	name = "Unathi Sharp Points Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_points_una"
+	heads_allowed = list("Unathi Sharp Snout")
 
 /datum/sprite_accessory/body_markings/head/optics
 	name = "Humanoid Optics"
@@ -2120,6 +2223,21 @@
 /datum/sprite_accessory/body_markings/tattoo/elliot
 	name = "Elliot Circuit Tattoo"
 	icon_state = "campbell_tattoo"
+
+/datum/sprite_accessory/body_markings/tattoo/heart
+	name = "Heart Tattoo"
+	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "markings_tattoo_heart"
+
+/datum/sprite_accessory/body_markings/tattoo/hive
+	name = "Hive Tattoo"
+	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "markings_tattoo_hive"
+
+/datum/sprite_accessory/body_markings/tattoo/nightling
+	name = "Nightling Tattoo"
+	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "markings_tattoo_nightling"
 
 /datum/sprite_accessory/body_markings/tail
 	name = "Tail Markings"
