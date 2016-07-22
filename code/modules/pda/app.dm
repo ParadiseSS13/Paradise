@@ -24,14 +24,13 @@
 			L = get(pda, /mob/living/silicon)
 
 		if(L)
-			to_chat(L, "\icon[pda] [message]")
+			to_chat(L, "[bicon(pda)] [message]")
 			nanomanager.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
 	if(!notify_silent)
 		pda.play_ringtone()
 
 	if(blink && !(src in pda.notifying_programs))
-		pda.overlays.Cut()
 		pda.overlays += image('icons/obj/pda.dmi', "pda-r")
 		pda.notifying_programs |= src
 
@@ -39,7 +38,7 @@
 	if(src in pda.notifying_programs)
 		pda.notifying_programs -= src
 		if(!pda.notifying_programs.len)
-			pda.overlays.Cut()
+			pda.overlays -= image('icons/obj/pda.dmi', "pda-r")
 
 /datum/data/pda/proc/
 

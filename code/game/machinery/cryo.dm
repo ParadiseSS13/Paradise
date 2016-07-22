@@ -63,6 +63,7 @@
 	efficiency = C
 
 /obj/machinery/atmospherics/unary/cryo_cell/initialize()
+	..()
 	if(node) return
 	for(var/cdir in cardinal)
 		node = findConnecting(cdir)
@@ -185,7 +186,7 @@
 	data["hasOccupant"] = occupant ? 1 : 0
 
 	var/occupantData[0]
-	if (occupant)
+	if(occupant)
 		occupantData["name"] = occupant.name
 		occupantData["stat"] = occupant.stat
 		occupantData["health"] = occupant.health
@@ -217,7 +218,7 @@
 	data["beakerVolume"] = 0
 	if(beaker)
 		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
-		if (beaker.reagents && beaker.reagents.reagent_list.len)
+		if(beaker.reagents && beaker.reagents.reagent_list.len)
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
@@ -225,7 +226,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 420)
@@ -283,7 +284,7 @@
 
 		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 
-	if (istype(G, /obj/item/weapon/screwdriver))
+	if(istype(G, /obj/item/weapon/screwdriver))
 		if(occupant || on)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
@@ -411,31 +412,34 @@
 	air_update_turf()
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
-	if(!( occupant ))
+	if(!occupant)
 		return
-	if (occupant.client)
+	if(occupant.client)
 		occupant.client.eye = occupant.client.mob
 		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
+	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
 		occupant.bodytemperature = 261
 	occupant = null
 	update_icon()
-	return
+	// eject trash the occupant dropped
+	for(var/atom/movable/A in contents - component_parts - list(beaker))
+		A.forceMove(get_step(loc, SOUTH))
+
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
-	if (!istype(M))
+	if(!istype(M))
 		to_chat(usr, "\red <B>The cryo cell cannot handle such a lifeform!</B>")
 		return
-	if (occupant)
+	if(occupant)
 		to_chat(usr, "\red <B>The cryo cell is already occupied!</B>")
 		return
-	if (M.abiotic())
+	if(M.abiotic())
 		to_chat(usr, "\red Subject may not have abiotic items on.")
 		return
 	if(!node)
 		to_chat(usr, "\red The cell is not correctly connected to its pipe network!")
 		return
-	if (M.client)
+	if(M.client)
 		M.client.perspective = EYE_PERSPECTIVE
 		M.client.eye = src
 	M.stop_pulling()
@@ -454,7 +458,7 @@
 	set category = "Object"
 	set src in oview(1)
 	if(usr == occupant)//If the user is inside the tube...
-		if (usr.stat == 2)//and he's not dead....
+		if(usr.stat == 2)//and he's not dead....
 			return
 		to_chat(usr, "\blue Release sequence activated. This will take two minutes.")
 		sleep(600)
@@ -462,7 +466,7 @@
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if (usr.stat != 0)
+		if(usr.stat != 0)
 			return
 		go_out()
 	add_fingerprint(usr)
@@ -476,7 +480,7 @@
 		if(M.Victim == usr)
 			to_chat(usr, "You're too busy getting your life sucked out of you.")
 			return
-	if (usr.stat != 0 || stat & (NOPOWER|BROKEN))
+	if(usr.stat != 0 || stat & (NOPOWER|BROKEN))
 		return
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return

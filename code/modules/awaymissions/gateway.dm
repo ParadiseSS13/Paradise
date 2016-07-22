@@ -149,7 +149,7 @@ obj/machinery/gateway/centerstation/process()
 
 /obj/machinery/gateway/centerstation/attackby(obj/item/device/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/device/multitool))
-		to_chat(user, "\black The gate is already calibrated, there is no work for you to do here.")
+		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
 		return
 
 /////////////////////////////////////Away////////////////////////
@@ -236,10 +236,10 @@ obj/machinery/gateway/centerstation/process()
 	if(!ready)	return
 	if(!active)	return
 	if(istype(M, /mob/living/carbon))
-		if (exilecheck(M)) return
+		if(exilecheck(M)) return
 	if(istype(M, /obj))
 		for(var/mob/living/carbon/F in M)
-			if (exilecheck(F)) return
+			if(exilecheck(F)) return
 	M.forceMove(get_step(stationgate.loc, SOUTH))
 	M.dir = SOUTH
 

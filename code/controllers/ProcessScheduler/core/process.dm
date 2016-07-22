@@ -171,7 +171,7 @@
 	main.restartProcess(src.name)
 
 /datum/controller/process/proc/kill()
-	if (!killed)
+	if(!killed)
 		var/msg = "[name] process was killed at tick #[ticks]."
 		log_debug(msg)
 		message_admins(msg)
@@ -186,22 +186,22 @@
 // Do not call this directly - use SHECK or SCHECK_EVERY
 /datum/controller/process/proc/sleepCheck(var/tickId = 0)
 	calls_since_last_scheck = 0
-	if (killed)
+	if(killed)
 		// The kill proc is the only place where killed is set.
 		// The kill proc should have deleted this datum, and all sleeping procs that are
 		// owned by it.
 		CRASH("A killed process is still running somehow...")
-	if (hung)
+	if(hung)
 		// This will only really help if the doWork proc ends up in an infinite loop.
 		handleHung()
 		CRASH("Process [name] hung and was restarted.")
 
-	if (main.getCurrentTickElapsedTime() > main.timeAllowance)
+	if(main.getCurrentTickElapsedTime() > main.timeAllowance)
 		sleep(world.tick_lag)
 		cpu_defer_count++
 		last_slept = 0
 	else
-		if (TimeOfTick > last_slept + sleep_interval)
+		if(TimeOfTick > last_slept + sleep_interval)
 			// If we haven't slept in sleep_interval deciseconds, sleep to allow other work to proceed.
 			sleep(0)
 			last_slept = TimeOfTick
@@ -213,14 +213,14 @@
 
 	var/elapsedTime = getElapsedTime()
 
-	if (hung)
+	if(hung)
 		handleHung()
 		return
-	else if (elapsedTime > hang_restart_time)
+	else if(elapsedTime > hang_restart_time)
 		hung()
-	else if (elapsedTime > hang_alert_time)
+	else if(elapsedTime > hang_alert_time)
 		setStatus(PROCESS_STATUS_PROBABLY_HUNG)
-	else if (elapsedTime > hang_warning_time)
+	else if(elapsedTime > hang_warning_time)
 		setStatus(PROCESS_STATUS_MAYBE_HUNG)
 
 
@@ -327,9 +327,7 @@
 
 /datum/controller/process/proc/catchException(var/exception/e, var/thrower)
 	if(istype(e)) // Real runtimes go to the real error handler
-		// There are two newlines here, because handling desc sucks
-		e.desc = "  Caught by process: [name]\n\n" + e.desc
-		world.Error(e, e_src = thrower)
+		log_runtime(e, thrower, "Caught by process: [name]")
 		return
 	var/etext = "[e]"
 	var/eid = "[e]" // Exception ID, for tracking repeated exceptions

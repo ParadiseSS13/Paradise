@@ -41,7 +41,7 @@
 /obj/item/weapon/gun/projectile/revolver/attack_self(mob/living/user)
 	var/num_unloaded = 0
 	chambered = null
-	while (get_ammo() > 0)
+	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
 		if(CB)
@@ -49,7 +49,7 @@
 			CB.SpinAnimation(10, 1)
 			CB.update_icon()
 			num_unloaded++
-	if (num_unloaded)
+	if(num_unloaded)
 		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
@@ -68,6 +68,7 @@
 		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
 		C.spin()
 		chamber_round(0)
+		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
 		usr.visible_message("[usr] spins [src]'s chamber.", "<span class='notice'>You spin [src]'s chamber.</span>")
 	else
 		verbs -= /obj/item/weapon/gun/projectile/revolver/verb/spin
@@ -77,9 +78,9 @@
 
 /obj/item/weapon/gun/projectile/revolver/get_ammo(countchambered = 0, countempties = 1)
 	var/boolets = 0 //mature var names for mature people
-	if (chambered && countchambered)
+	if(chambered && countchambered)
 		boolets++
-	if (magazine)
+	if(magazine)
 		boolets += magazine.ammo_count(countempties)
 	return boolets
 
@@ -207,14 +208,14 @@
 		Spin()
 	else
 		var/num_unloaded = 0
-		while (get_ammo() > 0)
+		while(get_ammo() > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round()
 			chambered = null
 			CB.loc = get_turf(loc)
 			CB.update_icon()
 			num_unloaded++
-		if (num_unloaded)
+		if(num_unloaded)
 			to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
@@ -306,14 +307,14 @@
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
-	while (get_ammo() > 0)
+	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
 		chambered = null
 		CB.loc = get_turf(loc)
 		CB.update_icon()
 		num_unloaded++
-	if (num_unloaded)
+	if(num_unloaded)
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
@@ -354,7 +355,7 @@
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
-	if (slung && (slot_flags & SLOT_BELT) )
+	if(slung && (slot_flags & SLOT_BELT) )
 		slung = 0
 		icon_state = "ishotgun-sawn"
 
@@ -405,7 +406,7 @@
 			f_name = "a "
 		f_name += "<span class='danger'>blood-stained</span> [name]!"
 
-	to_chat(user, "\icon[src] That's [f_name]")
+	to_chat(user, "[bicon(src)] That's [f_name]")
 
 	if(desc)
 		to_chat(user, desc)

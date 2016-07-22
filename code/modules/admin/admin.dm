@@ -8,8 +8,9 @@ var/global/nologevent = 0
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	log_adminwarn(msg)
 	for(var/client/C in admins)
-		if(R_SERVER & C.holder.rights)
-			to_chat(C, msg)
+		if(R_ADMIN & C.holder.rights)
+			if(C.prefs && !(C.prefs.toggles & CHAT_NO_ADMINLOGS))
+				to_chat(C, msg)
 
 /proc/msg_admin_attack(var/text) //Toggleable Attack Messages
 	log_attack(text)
@@ -103,7 +104,7 @@ var/global/nologevent = 0
 		<A href='?_src_=holder;subtlemessage=\ref[M]'>Subtle message</A>
 	"}
 
-	if (M.client)
+	if(M.client)
 		if(!istype(M, /mob/new_player))
 			body += "<br><br>"
 			body += "<b>Transformation:</b>"
@@ -191,7 +192,7 @@ var/global/nologevent = 0
 				<A href='?_src_=holder;simplemake=shade;mob=\ref[M]'>Shade</A>
 			"}
 
-	if (M.client)
+	if(M.client)
 		body += {"<br><br>
 			<b>Other actions:</b>
 			<br>
@@ -243,7 +244,7 @@ var/global/nologevent = 0
 	if(!check_rights(R_EVENT))
 		return
 
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		src = usr.client.holder
 
 	var/dat
@@ -576,7 +577,7 @@ var/global/nologevent = 0
 		return
 
 	config.looc_allowed = !(config.looc_allowed)
-	if (config.looc_allowed)
+	if(config.looc_allowed)
 		to_chat(world, "<B>The LOOC channel has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>The LOOC channel has been globally disabled!</B>")
@@ -592,7 +593,7 @@ var/global/nologevent = 0
 		return
 
 	config.dsay_allowed = !(config.dsay_allowed)
-	if (config.dsay_allowed)
+	if(config.dsay_allowed)
 		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
@@ -643,7 +644,7 @@ var/global/nologevent = 0
 		return
 
 	enter_allowed = !( enter_allowed )
-	if (!( enter_allowed ))
+	if(!( enter_allowed ))
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>New players may now enter the game.</B>")
@@ -661,7 +662,7 @@ var/global/nologevent = 0
 		return
 
 	config.allow_ai = !( config.allow_ai )
-	if (!( config.allow_ai ))
+	if(!( config.allow_ai ))
 		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
 	else
 		to_chat(world, "<B>The AI job is chooseable now.</B>")
@@ -679,7 +680,7 @@ var/global/nologevent = 0
 		return
 
 	abandon_allowed = !( abandon_allowed )
-	if (abandon_allowed)
+	if(abandon_allowed)
 		to_chat(world, "<B>You may now respawn.</B>")
 	else
 		to_chat(world, "<B>You may no longer respawn :(</B>")
@@ -709,13 +710,13 @@ var/global/nologevent = 0
 	if(!check_rights(R_SERVER))
 		return
 
-	if (!ticker || ticker.current_state != GAME_STATE_PREGAME)
+	if(!ticker || ticker.current_state != GAME_STATE_PREGAME)
 		ticker.delay_end = !ticker.delay_end
 		log_admin("[key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
 		return //alert("Round end delayed", null, null, null, null, null)
 	going = !( going )
-	if (!( going ))
+	if(!( going ))
 		to_chat(world, "<b>The game start has been delayed.</b>")
 		log_admin("[key_name(usr)] delayed the game.")
 	else
@@ -728,34 +729,34 @@ var/global/nologevent = 0
 /proc/is_special_character(mob/M as mob) // returns 1 for specail characters and 2 for heroes of gamemode
 	if(!ticker || !ticker.mode)
 		return 0
-	if (!istype(M))
+	if(!istype(M))
 		return 0
 	if((M.mind in ticker.mode.head_revolutionaries) || (M.mind in ticker.mode.revolutionaries))
-		if (ticker.mode.config_tag == "revolution")
+		if(ticker.mode.config_tag == "revolution")
 			return 2
 		return 1
 	if(M.mind in ticker.mode.cult)
-		if (ticker.mode.config_tag == "cult")
+		if(ticker.mode.config_tag == "cult")
 			return 2
 		return 1
 	if(M.mind in ticker.mode.malf_ai)
-		if (ticker.mode.config_tag == "malfunction")
+		if(ticker.mode.config_tag == "malfunction")
 			return 2
 		return 1
 	if(M.mind in ticker.mode.syndicates)
-		if (ticker.mode.config_tag == "nuclear")
+		if(ticker.mode.config_tag == "nuclear")
 			return 2
 		return 1
 	if(M.mind in ticker.mode.wizards)
-		if (ticker.mode.config_tag == "wizard")
+		if(ticker.mode.config_tag == "wizard")
 			return 2
 		return 1
 	if(M.mind in ticker.mode.changelings)
-		if (ticker.mode.config_tag == "changeling")
+		if(ticker.mode.config_tag == "changeling")
 			return 2
 		return 1
 	if(M.mind in ticker.mode.abductors)
-		if (ticker.mode.config_tag == "abduction")
+		if(ticker.mode.config_tag == "abduction")
 			return 2
 		return 1
 	if(isrobot(M))
@@ -829,7 +830,7 @@ var/global/nologevent = 0
 		return
 
 	guests_allowed = !( guests_allowed )
-	if (!( guests_allowed ))
+	if(!( guests_allowed ))
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
@@ -846,7 +847,7 @@ var/global/nologevent = 0
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
 			to_chat(usr, "<b>CYBORG [key_name(S, usr)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>")
-		else if (ispAI(S))
+		else if(ispAI(S))
 			var/mob/living/silicon/pai/P = S
 			to_chat(usr, "<b>pAI [key_name(S, usr)]'s laws:</b>")
 			to_chat(usr, "[P.pai_law0]")
@@ -856,7 +857,7 @@ var/global/nologevent = 0
 		else
 			to_chat(usr, "<b>SILICON [key_name(S, usr)]'s laws:</b>")
 
-		if (S.laws == null)
+		if(S.laws == null)
 			to_chat(usr, "[key_name(S, usr)]'s laws are null. Contact a coder.")
 		else
 			S.laws.show_laws(usr)
@@ -888,7 +889,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 /proc/move_gamma_ship()
 	var/area/fromArea
 	var/area/toArea
-	if (gamma_ship_location == 1)
+	if(gamma_ship_location == 1)
 		fromArea = locate(/area/shuttle/gamma/space)
 		toArea = locate(/area/shuttle/gamma/station)
 	else
@@ -905,7 +906,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	for(var/obj/machinery/alarm/A in toArea)
 		A.first_run()
 
-	if (gamma_ship_location)
+	if(gamma_ship_location)
 		gamma_ship_location = 0
 	else
 		gamma_ship_location = 1
@@ -955,18 +956,18 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		return //extra sanity check to make sure only observers are shoved into things
 
 	//same as assume-direct-control perm requirements.
-	if (!check_rights(R_VAREDIT,0)) //no varedit, check if they have r_admin and r_debug
+	if(!check_rights(R_VAREDIT,0)) //no varedit, check if they have r_admin and r_debug
 		if(!check_rights(R_ADMIN|R_DEBUG,0)) //if they don't have r_admin and r_debug, return
 			return 0 //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
 
-	if (!frommob.ckey)
+	if(!frommob.ckey)
 		return 0
 
 	if(istype(tothing, /obj/item))
 		var/mob/living/toitem = tothing
 
 		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")
-		if (ask != "Yes")
+		if(ask != "Yes")
 			return 1
 
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
@@ -986,12 +987,12 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		var/mob/living/tomob = tothing
 
 		var/question = ""
-		if (tomob.ckey)
+		if(tomob.ckey)
 			question = "This mob already has a user ([tomob.key]) in control of it! "
 		question += "Are you sure you want to place [frommob.name]([frommob.key]) in control of [tomob.name]?"
 
 		var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
-		if (ask != "Yes")
+		if(ask != "Yes")
 			return 1
 
 		if(!frommob || !tomob) //make sure the mobs don't go away while we waited for a response

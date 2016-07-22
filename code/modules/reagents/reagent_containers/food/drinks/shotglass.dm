@@ -11,10 +11,15 @@
 
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]1")
-		switch(reagents.total_volume)
-			if(0 to 4)		filling.icon_state = "[icon_state]1"
-			if(5 to 11) 	filling.icon_state = "[icon_state]5"
-			if(12 to INFINITY)	filling.icon_state = "[icon_state]12"
+
+		var/percent = round((reagents.total_volume / volume) * 100)
+		switch(percent)
+			if(0 to 25)
+				filling.icon_state = "[icon_state]1"
+			if(26 to 79)
+				filling.icon_state = "[icon_state]5"
+			if(80 to INFINITY)
+				filling.icon_state = "[icon_state]12"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling

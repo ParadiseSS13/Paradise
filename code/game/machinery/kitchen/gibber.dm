@@ -281,12 +281,12 @@
 		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 		operating = 0
 
-		for (var/obj/item/thing in contents) //Meat is spawned inside the gibber and thrown out afterwards.
+		for(var/obj/item/thing in contents) //Meat is spawned inside the gibber and thrown out afterwards.
 			thing.loc = get_turf(thing) // Drop it onto the turf for throwing.
 			thing.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15) // Being pelted with bits of meat and bone would hurt.
 			sleep(1)
 
-		for (var/obj/effect/gibs in contents) //throw out the gibs too
+		for(var/obj/effect/gibs in contents) //throw out the gibs too
 			gibs.loc = get_turf(gibs) //drop onto turf for throwing
 			gibs.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 			sleep(1)

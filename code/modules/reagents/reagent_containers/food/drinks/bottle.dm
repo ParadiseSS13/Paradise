@@ -7,18 +7,21 @@
 /obj/item/weapon/reagent_containers/food/drinks/bottle
 	amount_per_transfer_from_this = 10
 	volume = 100
+	throwforce = 15
 	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
 	var/isGlass = 1 //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 
-/obj/item/weapon/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target as mob, mob/living/user as mob)
+/obj/item/weapon/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target, mob/living/user, ranged = 0)
 
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
-	user.drop_item()
-	var/obj/item/weapon/broken_bottle/B = new /obj/item/weapon/broken_bottle(user.loc)
-	user.put_in_active_hand(B)
-	if(prob(33))
-		new /obj/item/weapon/shard(target.loc) // Create a glass shard at the target's location!
+	var/new_location = get_turf(loc)
+	var/obj/item/weapon/broken_bottle/B = new /obj/item/weapon/broken_bottle(new_location)
+	if(ranged)
+		B.loc = new_location
+	else
+		user.drop_item()
+		user.put_in_active_hand(B)
 	B.icon_state = src.icon_state
 
 	var/icon/I = new('icons/obj/drinks.dmi', src.icon_state)
@@ -26,13 +29,20 @@
 	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
 	B.icon = I
 
-	playsound(src, "shatter", 70, 1)
-	user.put_in_active_hand(B)
-	src.transfer_fingerprints_to(B)
+	if(isGlass)
+		if(prob(33))
+			new/obj/item/weapon/shard(new_location)
+		playsound(src, "shatter", 70, 1)
+	else
+		B.name = "broken carton"
+		B.force = 0
+		B.throwforce = 0
+		B.desc = "A carton with the bottom half burst open. Might give you a papercut."
+	transfer_fingerprints_to(B)
 
 	qdel(src)
 
-/obj/item/weapon/reagent_containers/food/drinks/bottle/attack(mob/living/target as mob, mob/living/user as mob)
+/obj/item/weapon/reagent_containers/food/drinks/bottle/attack(mob/living/target, mob/living/user)
 
 	if(!target)
 		return
@@ -40,25 +50,24 @@
 	if(user.a_intent != I_HARM || !isGlass)
 		return ..()
 
-
 	force = 15 //Smashing bottles over someoen's head hurts.
 
 	var/obj/item/organ/external/affecting = user.zone_sel.selecting //Find what the player is aiming at
 
-	var/armor_block = 0 //Get the target's armour values for normal attack damage.
+	var/armor_block = 0 //Get the target's armor values for normal attack damage.
 	var/armor_duration = 0 //The more force the bottle has, the longer the duration.
 
 	//Calculating duration and calculating damage.
 	if(ishuman(target))
 
 		var/mob/living/carbon/human/H = target
-		var/headarmor = 0 // Target's head armour
-		armor_block = H.run_armor_check(affecting, "melee", armour_penetration = armour_penetration) // For normal attack damage
+		var/headarmor = 0 // Target's head armor
+		armor_block = H.run_armor_check(affecting, "melee","","",armour_penetration) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(istype(H.head, /obj/item/clothing/head) && affecting == "head")
 
-			// If their head has an armour value, assign headarmor to it, else give it 0.
+			// If their head has an armor value, assign headarmor to it, else give it 0.
 			if(H.head.armor["melee"])
 				headarmor = H.head.armor["melee"]
 			else
@@ -70,221 +79,201 @@
 		armor_duration = (duration - headarmor) + force
 
 	else
-		//Only humans can have armour, right?
+		//Only humans can have armor, right?
 		armor_block = target.run_armor_check(affecting, "melee")
 		if(affecting == "head")
 			armor_duration = duration + force
 	armor_duration /= 10
 
 	//Apply the damage!
-	target.apply_damage(force, BRUTE, affecting, armor_block, sharp=0)
+	armor_block = min(90, armor_block)
+	target.apply_damage(force, BRUTE, affecting, armor_block)
 
 	// You are going to knock someone out for longer if they are not wearing a helmet.
-	if(affecting == "head" && istype(target, /mob/living/carbon/))
-
-		//Display an attack message.
-		for(var/mob/O in viewers(user, null))
-			if(target != user) O.show_message(text("\red <B>[target] has been hit over the head with a bottle of [src.name], by [user]!</B>"), 1)
-			else O.show_message(text("\red <B>[target] hit himself with a bottle of [src.name] on the head!</B>"), 1)
+	var/head_attack_message = ""
+	if(affecting == "head" && iscarbon(target))
+		head_attack_message = " on the head"
 		//Weaken the target for the duration that we calculated and divide it by 5.
 		if(armor_duration)
 			target.apply_effect(min(armor_duration, 10) , WEAKEN) // Never weaken more than a flash!
 
+	//Display an attack message.
+	if(target != user)
+		target.visible_message("<span class='danger'>[user] has hit [target][head_attack_message] with a bottle of [src.name]!</span>", \
+				"<span class='userdanger'>[user] has hit [target][head_attack_message] with a bottle of [src.name]!</span>")
 	else
-		//Default attack message and don't weaken the target.
-		for(var/mob/O in viewers(user, null))
-			if(target != user) O.show_message(text("\red <B>[target] has been attacked with a bottle of [src.name], by [user]!</B>"), 1)
-			else O.show_message(text("\red <B>[target] has attacked himself with a bottle of [src.name]!</B>"), 1)
+		user.visible_message("<span class='danger'>[target] hits \himself with a bottle of [src.name][head_attack_message]!</span>", \
+				"<span class='userdanger'>[target] hits \himself with a bottle of [src.name][head_attack_message]!</span>")
 
 	//Attack logs
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has attacked [key_name(target)] with a bottle!</font>")
-	target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been smashed with a bottle by [key_name(user)]</font>")
-	if(target.ckey)
-		msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(target)] with a bottle. (INTENT: [uppertext(user.a_intent)])")
-	if(!iscarbon(user))
-		target.LAssailant = null
-	else
-		target.LAssailant = user
+	add_logs(target, user, "attacked", src)
 
 	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
-	if(src.reagents)
-		for(var/mob/O in viewers(user, null))
-			O.show_message(text("\blue <B>The contents of the [src] splashes all over [target]!</B>"), 1)
-		src.reagents.reaction(target, TOUCH)
+	SplashReagents(target)
 
 	//Finally, smash the bottle. This kills (del) the bottle.
-	src.smash(target, user)
+	smash(target, user)
 
-	return
+/obj/item/weapon/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)
+	if(reagents && reagents.total_volume)
+		M.visible_message("<span class='danger'>The contents of \the [src] splashes all over [M]!</span>")
+		reagents.reaction(M, TOUCH)
+		reagents.clear_reagents()
 
 //Keeping this here for now, I'll ask if I should keep it here.
 /obj/item/weapon/broken_bottle
-
-	name = "broken bottle"
+	name = "Broken Bottle"
 	desc = "A bottle with a sharp broken bottom."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "broken_bottle"
-	force = 9.0
-	throwforce = 5.0
+	force = 9
+	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
+	w_class = 1
 	item_state = "beer"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
-	sharp = 1
-	edge = 0
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
+	sharp = 1
+	edge = 1
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/gin
-	name = "\improper Griffeater Gin"
+	name = "Griffeater Gin"
 	desc = "A bottle of high quality gin, produced in the New London Space Station."
 	icon_state = "ginbottle"
-	New()
-		..()
-		reagents.add_reagent("gin", 100)
+	list_reagents = list("gin" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey
-	name = "\improper Uncle Git's Special Reserve"
+	name = "Uncle Git's Special Reserve"
 	desc = "A premium single-malt whiskey, gently matured inside the tunnels of a nuclear shelter. TUNNEL WHISKEY RULES."
 	icon_state = "whiskeybottle"
-	New()
-		..()
-		reagents.add_reagent("whiskey", 100)
+	list_reagents = list("whiskey" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/vodka
-	name = "\improper Tunguska Triple Distilled"
+	name = "Tunguska Triple Distilled"
 	desc = "Aah, vodka. Prime choice of drink AND fuel by Russians worldwide."
 	icon_state = "vodkabottle"
-	New()
-		..()
-		reagents.add_reagent("vodka", 100)
+	list_reagents = list("vodka" = 100)
 
-/obj/item/weapon/reagent_containers/food/drinks/bottle/tequilla
-	name = "\improper Caccavo Guaranteed Quality Tequilla"
+/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka/badminka
+	name = "Badminka Vodka"
+	desc = "The label's written in Cyrillic. All you can make out is the name and a word that looks vaguely like 'Vodka'."
+	icon_state = "badminka"
+	list_reagents = list("vodka" = 100)
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/tequila
+	name = "Caccavo Guaranteed Quality Tequila"
 	desc = "Made from premium petroleum distillates, pure thalidomide and other fine quality ingredients!"
-	icon_state = "tequillabottle"
-	New()
-		..()
-		reagents.add_reagent("tequilla", 100)
+	icon_state = "tequilabottle"
+	list_reagents = list("tequila" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing
-	name = "\improper Bottle of Nothing"
-	desc = "A bottle filled with nothing"
+	name = "Bottle of Nothing"
+	desc = "A bottle filled with nothing."
 	icon_state = "bottleofnothing"
-	New()
-		..()
-		reagents.add_reagent("nothing", 100)
+	list_reagents = list("nothing" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/patron
-	name = "\improper Wrapp Artiste Patron"
-	desc = "Silver laced tequilla, served in space night clubs across the galaxy."
+	name = "Wrapp Artiste Patron"
+	desc = "Silver laced tequila, served in space night clubs across the galaxy."
 	icon_state = "patronbottle"
-	New()
-		..()
-		reagents.add_reagent("patron", 100)
+	list_reagents = list("patron" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/rum
-	name = "\improper Captain Pete's Cuban Spiced Rum"
+	name = "Captain Pete's Cuban Spiced Rum"
 	desc = "This isn't just rum, oh no. It's practically GRIFF in a bottle."
 	icon_state = "rumbottle"
-	New()
-		..()
-		reagents.add_reagent("rum", 100)
+	list_reagents = list("rum" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/holywater
-	name = "\improper Flask of Holy Water"
+	name = "Flask of Holy Water"
 	desc = "A flask of the chaplain's holy water."
 	icon_state = "holyflask"
-	New()
-		..()
-		reagents.add_reagent("holywater", 100)
+	list_reagents = list("holywater" = 100)
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/holywater/hell
+	desc = "A flask of holy water...it's been sitting in the Necropolis a while though."
+	list_reagents = list("hell_water" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/vermouth
-	name = "\improper Goldeneye Vermouth"
+	name = "Goldeneye Vermouth"
 	desc = "Sweet, sweet dryness~"
 	icon_state = "vermouthbottle"
-	New()
-		..()
-		reagents.add_reagent("vermouth", 100)
+	list_reagents = list("vermouth" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua
-	name = "\improper Robert Robust's Coffee Liqueur"
-	desc = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936, HONK"
+	name = "Robert Robust's Coffee Liqueur"
+	desc = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936, HONK."
 	icon_state = "kahluabottle"
-	New()
-		..()
-		reagents.add_reagent("kahlua", 100)
+	list_reagents = list("kahlua" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/goldschlager
-	name = "\improper College Girl Goldschlager"
+	name = "College Girl Goldschlager"
 	desc = "Because they are the only ones who will drink 100 proof cinnamon schnapps."
 	icon_state = "goldschlagerbottle"
-	New()
-		..()
-		reagents.add_reagent("goldschlager", 100)
+	list_reagents = list("goldschlager" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/cognac
-	name = "\improper Chateau De Baton Premium Cognac"
+	name = "Chateau De Baton Premium Cognac"
 	desc = "A sweet and strongly alchoholic drink, made after numerous distillations and years of maturing. You might as well not scream 'SHITCURITY' this time."
 	icon_state = "cognacbottle"
-	New()
-		..()
-		reagents.add_reagent("cognac", 100)
+	list_reagents = list("cognac" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/wine
-	name = "\improper Doublebeard Bearded Special Wine"
+	name = "Doublebeard Bearded Special Wine"
 	desc = "A faint aura of unease and asspainery surrounds the bottle."
 	icon_state = "winebottle"
-	New()
-		..()
-		reagents.add_reagent("wine", 100)
+	list_reagents = list("wine" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe
-	name = "\improper Jailbreaker Verte"
-	desc = "One sip of this and you just know you're gonna have a good time."
+	name = "Extra-Strong Absinthe"
+	desc = "An strong alcoholic drink brewed and distributed by"
 	icon_state = "absinthebottle"
-	New()
-		..()
-		reagents.add_reagent("absinthe", 100)
+	list_reagents = list("absinthe" = 100)
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe/premium
+	name = "Gwyn's Premium Absinthe"
+	desc = "A potent alcoholic beverage, almost makes you forget the ash in your lungs."
+	icon_state = "absinthepremium"
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/hcider
+	name = "Jian Hard Cider"
+	desc = "Apple juice for adults."
+	icon_state = "hcider"
+	volume = 50
+	list_reagents = list("suicider" = 50)
 
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice
-	name = "orange juice"
+	name = "Orange Juice"
 	desc = "Full of vitamins and deliciousness!"
 	icon_state = "orangejuice"
 	item_state = "carton"
 	isGlass = 0
-	New()
-		..()
-		reagents.add_reagent("orangejuice", 100)
+	list_reagents = list("orangejuice" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/cream
-	name = "milk cream"
+	name = "Milk Cream"
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
 	icon_state = "cream"
 	item_state = "carton"
 	isGlass = 0
-	New()
-		..()
-		reagents.add_reagent("cream", 100)
+	list_reagents = list("cream" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice
-	name = "tomato juice"
+	name = "Tomato Juice"
 	desc = "Well, at least it LOOKS like tomato juice. You can't tell with all that redness."
 	icon_state = "tomatojuice"
 	item_state = "carton"
 	isGlass = 0
-	New()
-		..()
-		reagents.add_reagent("tomatojuice", 100)
+	list_reagents = list("tomatojuice" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice
-	name = "lime juice"
+	name = "Lime Juice"
 	desc = "Sweet-sour goodness."
 	icon_state = "limejuice"
 	item_state = "carton"
 	isGlass = 0
-	New()
-		..()
-		reagents.add_reagent("limejuice", 100)
+	list_reagents = list("limejuice" = 100)

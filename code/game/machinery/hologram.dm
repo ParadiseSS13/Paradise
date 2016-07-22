@@ -81,7 +81,7 @@ var/const/HOLOPAD_MODE = 0
 			to_chat(user, "<span class='notice'>A request for AI presence was already sent recently.</span>")
 
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
-	if (!istype(user))
+	if(!istype(user))
 		return
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
@@ -100,9 +100,9 @@ var/const/HOLOPAD_MODE = 0
 			create_holo(user)//Create one.
 			src.visible_message("A holographic image of [user] flicks to life right before your eyes!")
 		else
-			to_chat(user, "\red ERROR: \black Image feed in progress.")
+			to_chat(user, "<font color='red'>ERROR:</font> Image feed in progress.")
 	else
-		to_chat(user, "\red ERROR: \black Unable to project hologram.")
+		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
 	return
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
@@ -123,7 +123,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			rendered = "<i><span class='game say'>Holopad received, <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
 		master.show_message(rendered, 2)
 	return
-	
+
 /obj/machinery/hologram/holopad/hear_message(mob/living/M, text)
 	if(M&&hologram&&master)//Master is mostly a safety in case lag hits or something.
 		var/name_used = M.GetVoice()
@@ -165,7 +165,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				if((HOLOPAD_MODE == 0 && (get_dist(master.eyeobj, src) <= holo_range)))
 					return 1
 
-				else if (HOLOPAD_MODE == 1)
+				else if(HOLOPAD_MODE == 1)
 
 					var/area/holo_area = get_area(src)
 					var/area/eye_area = get_area(master.eyeobj)
@@ -219,10 +219,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		if(1.0)
 			qdel(src)
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 	return
 

@@ -1,7 +1,7 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
-	//w_class = 2.0
+	//w_class = 2
 	//flags = GLASSESCOVERSEYES
 	//slot_flags = SLOT_EYES
 	//var/vision_flags = 0
@@ -18,7 +18,7 @@
 		name = "prescription [name]"
 
 /obj/item/clothing/glasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
+	if(user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
 	if(prescription_upgradable)
@@ -101,15 +101,11 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/science/equipped(mob/user, slot)
+/obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == slot_glasses)
-		user.scanner.Grant(user)
-	..(user, slot)
-
-/obj/item/clothing/glasses/science/dropped(mob/user)
-	user.scanner.devices -= 1
-	..(user)
+		return 1
 
 /obj/item/clothing/glasses/science/night
 	name = "Night Vision Science Goggle"
@@ -158,6 +154,7 @@
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	item_state = "headset" // lol
+	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -220,6 +217,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+	prescription_upgradable = 1
 
 /obj/item/clothing/glasses/sunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -240,13 +238,16 @@
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
-	action_button_name = "Noir Mode"
+	actions_types = list(/datum/action/item_action/noir)
 	var/noir_mode = 0
 	color_view = MATRIX_GREYSCALE
 
 /obj/item/clothing/glasses/sunglasses/noir/attack_self()
-	if(is_equipped())
-		toggle_noir()
+	toggle_noir()
+
+/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
+	if(slot == slot_glasses)
+		return 1
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
 	if(!noir_mode)
@@ -275,16 +276,12 @@
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
 	var/punused = null
-	action_button_name = "YEAH!"
+	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
 
 /obj/item/clothing/glasses/sunglasses/yeah/attack_self()
 	pun()
 
-
-/obj/item/clothing/glasses/sunglasses/yeah/verb/pun()
-	set category = "Object"
-	set name = "YEAH!"
-	set src in usr
+/obj/item/clothing/glasses/sunglasses/yeah/proc/pun()
 	if(!punused)//one per round
 		punused = 1
 		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
@@ -328,7 +325,7 @@
 	desc = "Protects the eyes from welders, approved by the mad scientist association."
 	icon_state = "welding-g"
 	item_state = "welding-g"
-	action_button_name = "Flip welding goggles"
+	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = 2
 	tint = 2
 	species_fit = list("Vox")
@@ -340,31 +337,28 @@
 /obj/item/clothing/glasses/welding/attack_self()
 	toggle()
 
+/obj/item/clothing/glasses/welding/proc/toggle()
+	if(up)
+		up = !up
+		flags |= GLASSESCOVERSEYES
+		flags_inv |= HIDEEYES
+		icon_state = initial(icon_state)
+		to_chat(usr, "You flip the [src] down to protect your eyes.")
+		flash_protect = 2
+		tint = initial(tint) //better than istype
+	else
+		up = !up
+		flags &= ~GLASSESCOVERSEYES
+		flags_inv &= ~HIDEEYES
+		icon_state = "[initial(icon_state)]up"
+		to_chat(usr, "You push the [src] up out of your face.")
+		flash_protect = 0
+		tint = 0
+	usr.update_inv_glasses()
 
-/obj/item/clothing/glasses/welding/verb/toggle()
-	set category = "Object"
-	set name = "Adjust welding goggles"
-	set src in usr
-
-	if(usr.canmove && !usr.stat && !usr.restrained())
-		if(src.up)
-			src.up = !src.up
-			src.flags |= GLASSESCOVERSEYES
-			flags_inv |= HIDEEYES
-			icon_state = initial(icon_state)
-			to_chat(usr, "You flip the [src] down to protect your eyes.")
-			flash_protect = 2
-			tint = initial(tint) //better than istype
-		else
-			src.up = !src.up
-			src.flags &= ~HEADCOVERSEYES
-			flags_inv &= ~HIDEEYES
-			icon_state = "[initial(icon_state)]up"
-			to_chat(usr, "You push the [src] up out of your face.")
-			flash_protect = 0
-			tint = 0
-
-		usr.update_inv_glasses()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/glasses/welding/superior
 	name = "superior welding goggles"
@@ -373,7 +367,6 @@
 	item_state = "rwelding-g"
 	flash_protect = 2
 	tint = 0
-	action_button_name = "Flip welding goggles"
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
@@ -424,6 +417,7 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	origin_tech = "magnets=3;syndicate=4"
+	prescription_upgradable = 1
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"

@@ -24,6 +24,8 @@
 	speak_emote = list("states")
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	deathmessage = "blows apart!"
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"
@@ -45,15 +47,11 @@
 	maxHealth = 80
 	ranged = 1
 
-/mob/living/simple_animal/hostile/hivebot/death()
-	..()
-	visible_message("<b>[src]</b> blows apart!")
+/mob/living/simple_animal/hostile/hivebot/death(gibbed)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	ghostize()
-	qdel(src)
-	return
+	..()
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
 	name = "Beacon"

@@ -235,7 +235,7 @@
 /obj/item/ammo_casing/shotgun/dart/bioterror/New()
 	..()
 	reagents.add_reagent("neurotoxin", 6)
-	reagents.add_reagent("spores", 6)
+	reagents.add_reagent("spore", 6)
 	reagents.add_reagent("mutetoxin", 6) //;HELP OPS IN MAINT
 	reagents.add_reagent("coniine", 6)
 	reagents.add_reagent("sodium_thiopental", 6)
@@ -269,7 +269,7 @@
 	desc = "A caseless bullet casing."
 
 /obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet)
-	if (..())
+	if(..())
 		loc = null
 		return 1
 	else
@@ -298,7 +298,7 @@
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
 	..()
-	if (modified)
+	if(modified)
 		icon_state = "foamdart_empty"
 		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
@@ -312,11 +312,11 @@
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if (istype(A, /obj/item/weapon/screwdriver) && !modified)
+	if(istype(A, /obj/item/weapon/screwdriver) && !modified)
 		modified = 1
 		FD.damage_type = BRUTE
 		update_icon()
-	else if ((istype(A, /obj/item/weapon/pen)) && modified && !FD.pen)
+	else if((istype(A, /obj/item/weapon/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		A.loc = FD

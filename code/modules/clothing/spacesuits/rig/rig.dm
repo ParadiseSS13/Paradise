@@ -17,7 +17,7 @@
 	w_class = 4
 
 	// These values are passed on to all component pieces.
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 20)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.2
@@ -82,13 +82,13 @@
 	var/datum/effect/system/spark_spread/spark_system
 
 /obj/item/weapon/rig/examine()
-	to_chat(usr, "This is \icon[src][src.name].")
+	to_chat(usr, "This is [bicon(src)][src.name].")
 	to_chat(usr, "[src.desc]")
 	if(wearer)
 		for(var/obj/item/piece in list(helmet,gloves,chest,boots))
 			if(!piece || piece.loc != wearer)
 				continue
-			to_chat(usr, "\icon[piece] \The [piece] [piece.gender == PLURAL ? "are" : "is"] deployed.")
+			to_chat(usr, "[bicon(piece)] \The [piece] [piece.gender == PLURAL ? "are" : "is"] deployed.")
 
 	if(src.loc == usr)
 		to_chat(usr, "The maintenance panel is [open ? "open" : "closed"].")
@@ -431,7 +431,7 @@
 			if(!offline)
 				if(istype(wearer))
 					if(flags & NODROP)
-						if (offline_slowdown < 3)
+						if(offline_slowdown < 3)
 							to_chat(wearer, "<span class='danger'>Your suit beeps stridently, and suddenly goes dead.</span>")
 						else
 							to_chat(wearer, "<span class='danger'>Your suit beeps stridently, and suddenly you're wearing a leaden mass of metal and plastic composites instead of a powered suit.</span>")
@@ -576,7 +576,7 @@
 		data["modules"] = module_list
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, ((src.loc != user) ? ai_interface_path : interface_path), interface_title, 480, 550, state = nano_state)
 		ui.set_initial_data(data)
 		ui.open()
@@ -819,7 +819,7 @@
 	take_hit((100/severity_class), "electrical pulse", 1)
 
 /obj/item/weapon/rig/proc/shock(mob/user)
-	if (electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
+	if(electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
 		spark_system.start()
 		if(user.stunned)
 			return 1

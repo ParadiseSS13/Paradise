@@ -13,14 +13,15 @@
 	blood_overlay_type = "armor"
 	origin_tech = "materials=5;biotech=4;powerstorage=5;abductor=3"
 	armor = list(melee = 15, bullet = 15, laser = 15, energy = 15, bomb = 15, bio = 15, rad = 15)
-	action_button_name = "Activate"
-	action_button_custom_type = /datum/action/item_action/hands_free
+	actions_types = list(/datum/action/item_action/hands_free/activate)
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list(melee = 15, bullet = 15, laser = 15, energy = 15, bomb = 15, bio = 15, rad = 15)
 	var/combat_armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 50, rad = 50)
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
@@ -29,18 +30,21 @@
 			DeactivateStealth()
 			armor = combat_armor
 			icon_state = "vest_combat"
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				H.update_inv_wear_suit()
-			return
 		if(VEST_COMBAT)// TO STEALTH
 			mode = VEST_STEALTH
 			armor = stealth_armor
 			icon_state = "vest_stealth"
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				H.update_inv_wear_suit()
-			return
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
+	if(slot == slot_wear_suit) //we only give the mob the ability to activate the vest if he's actually wearing it.
+		return 1
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
 	disguise = entry
@@ -75,7 +79,7 @@
 		M.regenerate_icons()
 	return
 
-/obj/item/clothing/suit/armor/abductor/vest/IsShield()
+/obj/item/clothing/suit/armor/abductor/vest/hit_reaction()
 	DeactivateStealth()
 	return 0
 
@@ -353,7 +357,7 @@ Congratulations! You are now trained for xenobiology research!"}
 	origin_tech = "materials=6;combat=5;biotech=7;abductor=4"
 	force = 7
 	w_class = 3
-	action_button_name = "Toggle Mode"
+	actions_types = list(/datum/action/item_action/toggle_mode)
 
 /obj/item/weapon/abductor_baton/proc/toggle(mob/living/user=usr)
 	mode = (mode+1)%BATON_MODES
@@ -370,6 +374,9 @@ Congratulations! You are now trained for xenobiology research!"}
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
 	update_icon()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/weapon/abductor_baton/update_icon()
 	switch(mode)
@@ -409,7 +416,13 @@ Congratulations! You are now trained for xenobiology research!"}
 
 	user.do_attack_animation(L)
 
-	switch (mode)
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
+			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
+			return 0
+
+	switch(mode)
 		if(BATON_STUN)
 			StunAttack(L,user)
 		if(BATON_SLEEP)

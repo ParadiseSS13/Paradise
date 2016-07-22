@@ -80,7 +80,7 @@
 
 /obj/item/weapon/grown/nettle/death
 	name = "deathnettle"
-	desc = "The <span class='danger'>glowing</span> \black nettle incites <span class='boldannounce'>rage</span>\black in you just from looking at it!"
+	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
 	icon_state = "deathnettle"
 	force = 30
 	throwforce = 15
@@ -110,7 +110,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "corncob"
 	item_state = "corncob"
-	w_class = 2.0
+	w_class = 2
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -129,7 +129,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "banana_peel"
 	item_state = "banana_peel"
-	w_class = 2.0
+	w_class = 2
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -143,7 +143,7 @@
 	icon = 'icons/obj/harvest.dmi'
 	icon_state = "sunflower"
 	item_state = "sunflower"
-	w_class = 2.0
+	w_class = 2
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -161,7 +161,7 @@
 	icon = 'icons/obj/harvest.dmi'
 	icon_state = "novaflower"
 	item_state = "sunflower"
-	w_class = 2.0
+	w_class = 2
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20

@@ -42,7 +42,6 @@
 	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
-	var/passive_temp_gain = 0			//IS_SYNTHETIC species will gain this much temperature every second
 	var/reagent_tag                 //Used for metabolizing reagents.
 
 	var/siemens_coeff = 1 //base electrocution coefficient
@@ -393,7 +392,7 @@
 	return
 
 /datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
-	for (var/proc/ability in species_abilities)
+	for(var/proc/ability in species_abilities)
 		H.verbs -= ability
 	return
 
@@ -607,25 +606,22 @@
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(H.healths)
-		if(H.analgesic)
-			H.healths.icon_state = "health_health_numb"
+		if(H.stat == DEAD)
+			H.healths.icon_state = "health7"
 		else
-			if(H.stat == DEAD)
-				H.healths.icon_state = "health7"
-			else
-				switch(H.hal_screwyhud)
-					if(1)	H.healths.icon_state = "health6"
-					if(2)	H.healths.icon_state = "health7"
-					if(5)	H.healths.icon_state = "health0"
-					else
-						switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
-							if(100 to INFINITY)		H.healths.icon_state = "health0"
-							if(80 to 100)			H.healths.icon_state = "health1"
-							if(60 to 80)			H.healths.icon_state = "health2"
-							if(40 to 60)			H.healths.icon_state = "health3"
-							if(20 to 40)			H.healths.icon_state = "health4"
-							if(0 to 20)				H.healths.icon_state = "health5"
-							else					H.healths.icon_state = "health6"
+			switch(H.hal_screwyhud)
+				if(1)	H.healths.icon_state = "health6"
+				if(2)	H.healths.icon_state = "health7"
+				if(5)	H.healths.icon_state = "health0"
+				else
+					switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
+						if(100 to INFINITY)		H.healths.icon_state = "health0"
+						if(80 to 100)			H.healths.icon_state = "health1"
+						if(60 to 80)			H.healths.icon_state = "health2"
+						if(40 to 60)			H.healths.icon_state = "health3"
+						if(20 to 40)			H.healths.icon_state = "health4"
+						if(0 to 20)				H.healths.icon_state = "health5"
+						else					H.healths.icon_state = "health6"
 
 	if(H.healthdoll)
 		H.healthdoll.overlays.Cut()

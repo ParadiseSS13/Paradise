@@ -51,13 +51,12 @@
 	if(!ear_safety)
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
-		M.ear_damage += rand(0, 5)
-		M.ear_deaf = max(M.ear_deaf,15)
-		if (M.ear_damage >= 15)
+		M.setEarDamage(M.ear_damage + rand(0, 5), max(M.ear_deaf,15))
+		if(M.ear_damage >= 15)
 			to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 			if(prob(M.ear_damage - 10 + 5))
 				to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 				M.disabilities |= DEAF
 		else
-			if (M.ear_damage >= 5)
+			if(M.ear_damage >= 5)
 				to_chat(M, "<span class='warning'>Your ears start to ring!</span>")

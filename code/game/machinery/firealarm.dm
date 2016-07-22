@@ -110,7 +110,9 @@ FIRE ALARM
 				else if(istype(W, /obj/item/weapon/crowbar))
 					to_chat(user, "<span class='warning'>You pry out the circuit!</span>")
 					playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
-					spawn(20)
+					if(do_after(user, 20, target = src))
+						if(buildstage != 1)
+							return
 						var/obj/item/weapon/firealarm_electronics/circuit = new /obj/item/weapon/firealarm_electronics()
 						circuit.loc = user.loc
 						buildstage = 0
@@ -174,14 +176,14 @@ FIRE ALARM
 	var/area/A = src.loc
 	var/d1
 	var/d2
-	if (ishuman(user) || issilicon(user) || isobserver(user))
+	if(ishuman(user) || issilicon(user) || isobserver(user))
 		A = A.loc
 
-		if (A.fire)
+		if(A.fire)
 			d1 = text("<A href='?src=\ref[];reset=1'>Reset - Lockdown</A>", src)
 		else
 			d1 = text("<A href='?src=\ref[];alarm=1'>Alarm - Lockdown</A>", src)
-		if (src.timing)
+		if(src.timing)
 			d2 = text("<A href='?src=\ref[];time=0'>Stop Time Lock</A>", src)
 		else
 			d2 = text("<A href='?src=\ref[];time=1'>Initiate Time Lock</A>", src)
@@ -192,11 +194,11 @@ FIRE ALARM
 		onclose(user, "firealarm")
 	else
 		A = A.loc
-		if (A.fire)
+		if(A.fire)
 			d1 = text("<A href='?src=\ref[];reset=1'>[]</A>", src, stars("Reset - Lockdown"))
 		else
 			d1 = text("<A href='?src=\ref[];alarm=1'>[]</A>", src, stars("Alarm - Lockdown"))
-		if (src.timing)
+		if(src.timing)
 			d2 = text("<A href='?src=\ref[];time=0'>[]</A>", src, stars("Stop Time Lock"))
 		else
 			d2 = text("<A href='?src=\ref[];time=1'>[]</A>", src, stars("Initiate Time Lock"))
@@ -258,7 +260,7 @@ FIRE ALARM
 		time = min(max(round(src.time), 0), 120)
 
 /obj/machinery/firealarm/proc/reset()
-	if (!( src.working ))
+	if(!( src.working ))
 		return
 	var/area/A = get_area(src)
 	A.fire_reset()
@@ -267,7 +269,7 @@ FIRE ALARM
 	return
 
 /obj/machinery/firealarm/proc/alarm(var/duration = 0)
-	if (!( src.working))
+	if(!( src.working))
 		return
 	var/area/A = get_area(src)
 	for(var/obj/machinery/firealarm/FA in A)
@@ -308,7 +310,7 @@ Just a object used in constructing fire alarms
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "A circuit. It has a label on it, it says \"Can handle heat levels up to 40 degrees celsius!\""
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
 /obj/machinery/partyalarm
@@ -330,7 +332,7 @@ Just a object used in constructing fire alarms
 
 /obj/machinery/partyalarm/New()
 	var/area/A = get_area_master(src)
-	if (!( istype(A, /area) ))
+	if(!( istype(A, /area) ))
 		return
 	master_area=A
 
@@ -343,13 +345,13 @@ Just a object used in constructing fire alarms
 	ASSERT(isarea(A))
 	var/d1
 	var/d2
-	if (istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
+	if(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
 
-		if (A.party)
+		if(A.party)
 			d1 = text("<A href='?src=\ref[];reset=1'>No Party :(</A>", src)
 		else
 			d1 = text("<A href='?src=\ref[];alarm=1'>PARTY!!!</A>", src)
-		if (timing)
+		if(timing)
 			d2 = text("<A href='?src=\ref[];time=0'>Stop Time Lock</A>", src)
 		else
 			d2 = text("<A href='?src=\ref[];time=1'>Initiate Time Lock</A>", src)
@@ -359,11 +361,11 @@ Just a object used in constructing fire alarms
 		user << browse(dat, "window=partyalarm")
 		onclose(user, "partyalarm")
 	else
-		if (A.fire)
+		if(A.fire)
 			d1 = text("<A href='?src=\ref[];reset=1'>[]</A>", src, stars("No Party :("))
 		else
 			d1 = text("<A href='?src=\ref[];alarm=1'>[]</A>", src, stars("PARTY!!!"))
-		if (timing)
+		if(timing)
 			d2 = text("<A href='?src=\ref[];time=0'>[]</A>", src, stars("Stop Time Lock"))
 		else
 			d2 = text("<A href='?src=\ref[];time=1'>[]</A>", src, stars("Initiate Time Lock"))
@@ -375,7 +377,7 @@ Just a object used in constructing fire alarms
 	return
 
 /obj/machinery/partyalarm/proc/reset()
-	if (!( working ))
+	if(!( working ))
 		return
 	var/area/A = get_area(src)
 	ASSERT(isarea(A))
@@ -383,7 +385,7 @@ Just a object used in constructing fire alarms
 	return
 
 /obj/machinery/partyalarm/proc/alarm()
-	if (!( working ))
+	if(!( working ))
 		return
 	var/area/A = get_area(src)
 	ASSERT(isarea(A))
@@ -392,20 +394,20 @@ Just a object used in constructing fire alarms
 
 /obj/machinery/partyalarm/Topic(href, href_list)
 	..()
-	if (usr.stat || stat & (BROKEN|NOPOWER))
+	if(usr.stat || stat & (BROKEN|NOPOWER))
 		return
-	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
+	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
 		usr.machine = src
-		if (href_list["reset"])
+		if(href_list["reset"])
 			reset()
 		else
-			if (href_list["alarm"])
+			if(href_list["alarm"])
 				alarm()
 			else
-				if (href_list["time"])
+				if(href_list["time"])
 					timing = text2num(href_list["time"])
 				else
-					if (href_list["tp"])
+					if(href_list["tp"])
 						var/tp = text2num(href_list["tp"])
 						time += tp
 						time = min(max(round(time), 0), 120)

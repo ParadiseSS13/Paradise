@@ -65,7 +65,7 @@
 			var/answer = input(M, "[P] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[P] Check DNA", "No") in list("Yes", "No")
 			if(answer == "Yes")
 				var/turf/T = get_turf_or_move(P.loc)
-				for (var/mob/v in viewers(T))
+				for(var/mob/v in viewers(T))
 					v.show_message("<span class='notice'>[M] presses \his thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
 				var/datum/dna/dna = M.dna
 				to_chat(P, "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>")
@@ -296,7 +296,7 @@
 						return
 					t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 					t = readd_quotes(t)
-					if (!t)
+					if(!t)
 						return
 
 					M.current_room.topic = t
@@ -329,7 +329,7 @@
 							return
 						t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 						t = readd_quotes(t)
-						if (!t || !P.pda.can_use())
+						if(!t || !P.pda.can_use())
 							return
 
 						target.post(M, t)
@@ -380,12 +380,12 @@
 			if(record)
 				var/datum/data/record/R = record
 				var/datum/data/record/M = null
-				if (!( data_core.general.Find(R) ))
+				if(!( data_core.general.Find(R) ))
 					P.medical_cannotfind = 1
 				else
 					P.medical_cannotfind = 0
 					for(var/datum/data/record/E in data_core.medical)
-						if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
+						if((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 							M = E
 					P.medicalActive1 = R
 					P.medicalActive2 = M
@@ -434,14 +434,14 @@
 			if(record)
 				var/datum/data/record/R = record
 				var/datum/data/record/S = null
-				if (!( data_core.general.Find(R) ))
+				if(!( data_core.general.Find(R) ))
 					P.securityActive1 = null
 					P.securityActive2 = null
 					P.security_cannotfind = 1
 				else
 					P.security_cannotfind = 0
 					for(var/datum/data/record/E in data_core.security)
-						if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
+						if((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 							S = E
 					P.securityActive1 = R
 					P.securityActive2 = S
@@ -670,7 +670,7 @@
 		if(href_list["send"])
 			P.sradio.send_signal("ACTIVATE")
 			for(var/mob/O in hearers(1, P.loc))
-				O.show_message(text("\icon[] *beep* *beep*", P), 3, "*beep* *beep*", 2)
+				O.show_message("[bicon(P)] *beep* *beep*", 3, "*beep* *beep*", 2)
 			return 1
 
 		else if(href_list["freq"])

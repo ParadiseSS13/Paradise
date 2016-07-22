@@ -95,7 +95,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (src.anchored)
+	if(src.anchored)
 		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 270)
@@ -108,7 +108,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (src.anchored)
+	if(src.anchored)
 		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 90)
@@ -149,11 +149,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				qdel(src)
 				return
 		else
@@ -288,7 +288,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (src.anchored)
+	if(src.anchored)
 		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 270)
@@ -301,7 +301,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (src.anchored)
+	if(src.anchored)
 		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 90)
@@ -323,11 +323,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				qdel(src)
 				return
 		else

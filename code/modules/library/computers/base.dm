@@ -19,8 +19,8 @@
 	if(stat & (BROKEN | NOPOWER))
 		return 1
 
-	if (!Adjacent(user))
-		if (!issilicon(user) && !isobserver(user))
+	if(!Adjacent(user))
+		if(!issilicon(user) && !isobserver(user))
 			user.unset_machine()
 			user << browse(null, "window=library")
 			return 1

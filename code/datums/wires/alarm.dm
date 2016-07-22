@@ -35,8 +35,8 @@ var/const/AALARM_WIRE_AALARM = 16
 			A.update_icon()
 //			to_chat(world, "Power wire cut")
 
-		if (AALARM_WIRE_AI_CONTROL)
-			if (A.aidisabled == !mended)
+		if(AALARM_WIRE_AI_CONTROL)
+			if(A.aidisabled == !mended)
 				A.aidisabled = mended
 //				to_chat(world, "AI Control Wire Cut")
 
@@ -47,7 +47,7 @@ var/const/AALARM_WIRE_AALARM = 16
 //				to_chat(world, "Syphon Wire Cut")
 
 		if(AALARM_WIRE_AALARM)
-			if (A.alarm_area.atmosalert(2, A))
+			if(A.alarm_area.atmosalert(2, A))
 				A.post_alert(2)
 			A.update_icon()
 
@@ -58,7 +58,7 @@ var/const/AALARM_WIRE_AALARM = 16
 			A.locked = !A.locked
 //			to_chat(world, "Idscan wire pulsed")
 
-		if (AALARM_WIRE_POWER)
+		if(AALARM_WIRE_POWER)
 //			to_chat(world, "Power wire pulsed")
 			if(A.shorted == 0)
 				A.shorted = 1
@@ -70,13 +70,13 @@ var/const/AALARM_WIRE_AALARM = 16
 					A.update_icon()
 
 
-		if (AALARM_WIRE_AI_CONTROL)
+		if(AALARM_WIRE_AI_CONTROL)
 //			to_chat(world, "AI Control wire pulsed")
-			if (A.aidisabled == 0)
+			if(A.aidisabled == 0)
 				A.aidisabled = 1
 			A.updateDialog()
 			spawn(100)
-				if (A.aidisabled == 1)
+				if(A.aidisabled == 1)
 					A.aidisabled = 0
 
 		if(AALARM_WIRE_SYPHON)
@@ -89,6 +89,6 @@ var/const/AALARM_WIRE_AALARM = 16
 
 		if(AALARM_WIRE_AALARM)
 //			to_chat(world, "Aalarm wire pulsed")
-			if (A.alarm_area.atmosalert(0, A))
+			if(A.alarm_area.atmosalert(0, A))
 				A.post_alert(0)
 			A.update_icon()

@@ -6,6 +6,7 @@
 	min_broken_damage = 30
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/head/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -14,6 +15,7 @@
 /obj/item/organ/external/chest/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/chest/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -22,6 +24,7 @@
 /obj/item/organ/external/groin/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/groin/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -30,6 +33,7 @@
 /obj/item/organ/external/arm/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/arm/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -38,6 +42,7 @@
 /obj/item/organ/external/arm/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/arm/right/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -45,6 +50,7 @@
 /obj/item/organ/external/leg/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/leg/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -53,7 +59,7 @@
 /obj/item/organ/external/leg/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
-
+	species = "Machine"
 
 /obj/item/organ/external/leg/right/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -62,7 +68,7 @@
 /obj/item/organ/external/foot/ipc
 	encased = null
 	status = ORGAN_ROBOT
-
+	species = "Machine"
 
 /obj/item/organ/external/foot/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -71,7 +77,7 @@
 /obj/item/organ/external/foot/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
-
+	species = "Machine"
 
 /obj/item/organ/external/foot/right/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -80,6 +86,7 @@
 /obj/item/organ/external/hand/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/hand/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -88,6 +95,7 @@
 /obj/item/organ/external/hand/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/hand/right/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -103,6 +111,7 @@
 	slot = "heart"
 	vital = 1
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/internal/cell/New()
 	robotize()
@@ -123,6 +132,7 @@
 	icon_state = "camera"
 	slot = "eyes"
 	status = ORGAN_ROBOT
+	species = "Machine"
 //	dead_icon = "camera_broken"
 
 /obj/item/organ/internal/optical_sensor/New()
@@ -140,7 +150,7 @@
 	if(!owner)
 		return
 	owner.disabilities &= ~NEARSIGHTED
-	owner.sdisabilities &= ~BLIND
+	owner.disabilities &= ~BLIND
 	owner.eye_blurry = 0
 	owner.eye_blind = 0
 
@@ -154,6 +164,7 @@
 	max_damage = 200
 	slot = "brain"
 	status = ORGAN_ROBOT
+	species = "Machine"
 	var/obj/item/device/mmi/stored_mmi
 
 /obj/item/organ/internal/brain/mmi_holder/proc/update_from_mmi()

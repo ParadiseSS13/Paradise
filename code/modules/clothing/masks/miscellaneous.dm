@@ -63,9 +63,8 @@
 	flags = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 25, rad = 0)
-	action_button_name = "Adjust Sterile Mask"
-	ignore_maskadjust = 0
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 25, rad = 0)
+	actions_types = list(/datum/action/item_action/adjust)
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -209,7 +208,6 @@
 	flags_inv = HIDEFACE
 	w_class = 1
 	slot_flags = SLOT_MASK
-	ignore_maskadjust = 0
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
@@ -219,7 +217,7 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
-	action_button_name = "Adjust Bandana"
+	actions_types = list(/datum/action/item_action/adjust)
 
 /obj/item/clothing/mask/bandana/attack_self(var/mob/user)
 	adjustmask(user)
@@ -275,3 +273,28 @@ obj/item/clothing/mask/bandana/purple
 	icon_state = "bandblack"
 	item_color = "black"
 	desc = "It's a black bandana."
+
+/obj/item/clothing/mask/cursedclown
+	name = "cursed clown mask"
+	desc = "This is a very, very odd looking mask."
+	icon = 'icons/goonstation/objects/clothing/mask.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_hat"
+	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	flags = NODROP
+
+/obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
+	..()
+	var/mob/living/carbon/human/H = user
+	if(istype(H) && slot == slot_wear_mask)
+		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
+		if(H.mind && H.mind.assigned_role != "Cluwne")
+			H.makeCluwne()
+
+/obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
+	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
+	spawn(10)
+		user.gib()
+	return BRUTELOSS

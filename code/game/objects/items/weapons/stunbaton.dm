@@ -24,6 +24,7 @@
 	return
 
 /obj/item/weapon/melee/baton/CheckParts()
+	..()
 	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
 	update_icon()
 
@@ -132,6 +133,11 @@
 
 
 /obj/item/weapon/melee/baton/proc/baton_stun(mob/living/L, mob/user)
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
+			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
+			return
 	user.lastattacked = L
 	L.lastattacker = user
 
@@ -181,13 +187,6 @@
 //secborg stun baton module
 /obj/item/weapon/melee/baton/loaded/robot
 	hitcost = 1000
-
-
-/obj/item/weapon/melee/baton/loaded/ntcane
-	name = "fancy cane"
-	desc = "A cane with special engraving on it. It has a strange button on the handle..."
-	icon_state = "cane_nt"
-	item_state = "cane_nt"
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/weapon/melee/baton/cattleprod

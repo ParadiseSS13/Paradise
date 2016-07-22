@@ -5,13 +5,9 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
-	admin_only=1
+	admin_only = 1
 
-/datum/reagent/adminordrazine/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom ///This can even heal dead people.
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,5)
+/datum/reagent/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0)
 	M.setOxyLoss(0)
 	M.radiation = 0
@@ -20,15 +16,17 @@
 	M.adjustToxLoss(-5)
 	M.hallucination = 0
 	M.setBrainLoss(0)
-	M.disabilities = 0
-	M.sdisabilities = 0
-	M.eye_blurry = 0
-	M.eye_blind = 0
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(istype(E))
-			E.damage = max(E.damage-5 , 0)
+		for(var/name in H.internal_organs)
+			var/obj/item/organ/internal/I = H.get_int_organ(name)
+			I.damage = max(0, I.damage-5)
+		for(var/obj/item/organ/external/E in H.organs)
+			if(E.mend_fracture())
+				E.perma_injury = 0
+	M.disabilities = 0
+	M.eye_blurry = 0
+	M.eye_blind = 0
 	M.SetWeakened(0)
 	M.SetStunned(0)
 	M.SetParalysis(0)
@@ -38,12 +36,15 @@
 	M.stuttering = 0
 	M.slurring = 0
 	M.confused = 0
-	M.sleeping = 0
+	M.SetSleeping(0)
 	M.jitteriness = 0
-	if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
-		var/mob/living/carbon/C = M
-		for(var/datum/disease/D in C.viruses)
-			D.cure(0)
+	for(var/datum/disease/D in M.viruses)
+		if(D.severity == NONTHREAT)
+			continue
+		D.spread_text = "Remissive"
+		D.stage--
+		if(D.stage < 1)
+			D.cure()
 	..()
 
 /datum/reagent/adminordrazine/nanites
@@ -59,7 +60,7 @@
 	for(var/tocheck in incoming)
 		if(ispath(tocheck))
 			var/check = new tocheck
-			if (istype(check, /atom))
+			if(istype(check, /atom))
 				var/atom/reagentCheck = check
 				var/datum/reagents/reagents = reagentCheck.reagents
 				var/admin = 0

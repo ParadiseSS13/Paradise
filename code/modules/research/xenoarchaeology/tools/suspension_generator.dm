@@ -22,7 +22,7 @@
 /obj/machinery/suspension_gen/process()
 	//set background = 1
 
-	if (suspension_field)
+	if(suspension_field)
 		cell.charge -= power_use
 
 		var/turf/T = get_turf(suspension_field)
@@ -126,11 +126,11 @@
 	if(href_list["select_field"])
 		field_type = href_list["select_field"]
 	else if(href_list["insertcard"])
-		if (istype(usr, /mob/living/silicon))
+		if(istype(usr, /mob/living/silicon))
 			locked = 0
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/weapon/card))
+			if(istype(I, /obj/item/weapon/card))
 				usr.drop_item()
 				I.loc = src
 				auth_card = I
@@ -169,14 +169,14 @@
 		to_chat(user, "<span class='info'>You remove the power cell</span>")
 
 /obj/machinery/suspension_gen/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!open)
 			if(screwed)
 				screwed = 0
 			else
 				screwed = 1
 			to_chat(user, "<span class='info'>You [screwed ? "screw" : "unscrew"] the battery panel.</span>")
-	else if (istype(W, /obj/item/weapon/crowbar))
+	else if(istype(W, /obj/item/weapon/crowbar))
 		if(!locked)
 			if(!screwed)
 				if(!suspension_field)
@@ -192,7 +192,7 @@
 				to_chat(user, "<span class='warning'>Unscrew [src]'s battery panel first.</span>")
 		else
 			to_chat(user, "<span class='warning'>[src]'s security locks are engaged.</span>")
-	else if (istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/weapon/wrench))
 		if(!suspension_field)
 			if(anchored)
 				anchored = 0
@@ -205,7 +205,7 @@
 				desc = "It has stubby legs bolted up against it's body for stabilising."
 		else
 			to_chat(user, "<span class='warning'>You are unable to secure [src] while it is active!</span>")
-	else if (istype(W, /obj/item/weapon/stock_parts/cell))
+	else if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(open)
 			if(cell)
 				to_chat(user, "<span class='warning'>There is a power cell already installed.</span>")
@@ -248,7 +248,7 @@
 			success = 1
 			for(var/mob/living/carbon/C in T)
 				C.AdjustWeakened(5)
-				C.visible_message("\blue \icon[C] [C] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
+				C.visible_message("\blue [bicon(C)] [C] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
 		if("nitrogen")
 			success = 1
 			//
@@ -271,19 +271,19 @@
 			success = 1
 			for(var/mob/living/silicon/R in T)
 				R.AdjustWeakened(5)
-				R.visible_message("\blue \icon[R] [R] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
+				R.visible_message("\blue [bicon(R)] [R] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
 			//
 	//in case we have a bad field type
 	if(!success)
 		return
 
 	for(var/mob/living/simple_animal/C in T)
-		C.visible_message("\blue \icon[C] [C] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
+		C.visible_message("\blue [bicon(C)] [C] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
 		C.AdjustWeakened(5)
 
 	suspension_field = new(T)
 	suspension_field.field_type = field_type
-	src.visible_message("\blue \icon[src] [src] activates with a low hum.")
+	src.visible_message("\blue [bicon(src)] [src] activates with a low hum.")
 	icon_state = "suspension3"
 
 	for(var/obj/item/I in T)
@@ -293,7 +293,7 @@
 	if(collected)
 		suspension_field.icon_state = "energynet"
 		suspension_field.overlays += "shield2"
-		src.visible_message("\blue \icon[suspension_field] [suspension_field] gently absconds [collected > 1 ? "something" : "several things"].")
+		src.visible_message("\blue [bicon(suspension_field)] [suspension_field] gently absconds [collected > 1 ? "something" : "several things"].")
 	else
 		if(istype(T,/turf/simulated/mineral) || istype(T,/turf/simulated/wall))
 			suspension_field.icon_state = "shieldsparkles"
@@ -308,7 +308,7 @@
 		to_chat(M, "<span class='info'>You no longer feel like floating.</span>")
 		M.SetWeakened(min(M.weakened, 3))
 
-	src.visible_message("\blue \icon[src] [src] deactivates with a gentle shudder.")
+	src.visible_message("\blue [bicon(src)] [src] deactivates with a gentle shudder.")
 	qdel(suspension_field)
 	icon_state = "suspension2"
 

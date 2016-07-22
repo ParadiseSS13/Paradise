@@ -39,20 +39,20 @@ var/bomb_set
 	return ..()
 
 /obj/machinery/nuclearbomb/process()
-	if (timing)
+	if(timing)
 		bomb_set = 1 //So long as there is one nuke timing, it means one nuke is armed.
 		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
-		if (timeleft <= 0)
+		if(timeleft <= 0)
 			spawn
 				explode()
 		nanomanager.update_uis(src)
 	return
 
 /obj/machinery/nuclearbomb/attackby(obj/item/weapon/O as obj, mob/user as mob, params)
-	if (istype(O, /obj/item/weapon/screwdriver))
+	if(istype(O, /obj/item/weapon/screwdriver))
 		add_fingerprint(user)
-		if (auth)
-			if (panel_open == 0)
+		if(auth)
+			if(panel_open == 0)
 				panel_open = 1
 				overlays += image(icon, "npanel_open")
 				to_chat(user, "You unscrew the control panel of [src].")
@@ -63,9 +63,9 @@ var/bomb_set
 				to_chat(user, "You screw the control panel of [src] back on.")
 				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 		else
-			if (panel_open == 0)
+			if(panel_open == 0)
 				to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
-			if (panel_open == 1)
+			if(panel_open == 1)
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
@@ -73,24 +73,24 @@ var/bomb_set
 			flick("nuclearbombc", src)
 		return
 
-	if (panel_open && (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters)))
+	if(panel_open && (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters)))
 		return attack_hand(user)
 
-	if (extended)
-		if (istype(O, /obj/item/weapon/disk/nuclear))
+	if(extended)
+		if(istype(O, /obj/item/weapon/disk/nuclear))
 			usr.drop_item()
 			O.loc = src
 			auth = O
 			add_fingerprint(user)
 			return attack_hand(user)
 
-	if (anchored)
+	if(anchored)
 		switch(removal_stage)
 			if(0)
 				if(istype(O,/obj/item/weapon/weldingtool))
 					var/obj/item/weapon/weldingtool/WT = O
 					if(!WT.isOn()) return
-					if (WT.get_fuel() < 5) // uses up 5 fuel.
+					if(WT.get_fuel() < 5) // uses up 5 fuel.
 						to_chat(user, "\red You need more fuel to complete this task.")
 						return
 
@@ -117,7 +117,7 @@ var/bomb_set
 
 					var/obj/item/weapon/weldingtool/WT = O
 					if(!WT.isOn()) return
-					if (WT.get_fuel() < 5) // uses up 5 fuel.
+					if(WT.get_fuel() < 5) // uses up 5 fuel.
 						to_chat(user, "\red You need more fuel to complete this task.")
 						return
 
@@ -157,12 +157,12 @@ var/bomb_set
 	attack_hand(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
-	if (extended)
-		if (panel_open)
+	if(extended)
+		if(panel_open)
 			wires.Interact(user)
 		else
 			ui_interact(user)
-	else if (deployable)
+	else if(deployable)
 		if(removal_stage < 5)
 			anchored = 1
 			visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring!")
@@ -179,13 +179,13 @@ var/bomb_set
 	data["is_syndicate"] = is_syndicate
 	data["hacking"] = 0
 	data["auth"] = is_auth(user)
-	if (is_auth(user))
-		if (yes_code)
+	if(is_auth(user))
+		if(yes_code)
 			data["authstatus"] = timing ? "Functional/Set" : "Functional"
 		else
 			data["authstatus"] = "Auth. S2"
 	else
-		if (timing)
+		if(timing)
 			data["authstatus"] = "Set"
 		else
 			data["authstatus"] = "Auth. S1"
@@ -196,13 +196,13 @@ var/bomb_set
 	data["anchored"] = anchored
 	data["yescode"] = yes_code
 	data["message"] = "AUTH"
-	if (is_auth(user))
+	if(is_auth(user))
 		data["message"] = code
-		if (yes_code)
+		if(yes_code)
 			data["message"] = "*****"
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550)
 		ui.set_initial_data(data)
 		ui.open()
@@ -216,7 +216,7 @@ var/bomb_set
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 
-	if (deployable)
+	if(deployable)
 		to_chat(usr, "\red You close several panels to make [src] undeployable.")
 		deployable = 0
 	else
@@ -236,54 +236,54 @@ var/bomb_set
 	if(..())
 		return 1
 
-	if (href_list["auth"])
-		if (auth)
+	if(href_list["auth"])
+		if(auth)
 			auth.loc = loc
 			yes_code = 0
 			auth = null
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/weapon/disk/nuclear))
+			if(istype(I, /obj/item/weapon/disk/nuclear))
 				usr.drop_item()
 				I.loc = src
 				auth = I
-	if (is_auth(usr))
-		if (href_list["type"])
-			if (href_list["type"] == "E")
-				if (code == r_code)
+	if(is_auth(usr))
+		if(href_list["type"])
+			if(href_list["type"] == "E")
+				if(code == r_code)
 					yes_code = 1
 					code = null
 				else
 					code = "ERROR"
 			else
-				if (href_list["type"] == "R")
+				if(href_list["type"] == "R")
 					yes_code = 0
 					code = null
 				else
 					lastentered = text("[]", href_list["type"])
-					if (text2num(lastentered) == null)
+					if(text2num(lastentered) == null)
 						var/turf/LOC = get_turf(usr)
 						message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=\ref[src]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
 						log_admin("EXPLOIT: [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
 					else
 						code += lastentered
-						if (length(code) > 5)
+						if(length(code) > 5)
 							code = "ERROR"
-		if (yes_code)
-			if (href_list["time"])
+		if(yes_code)
+			if(href_list["time"])
 				var/time = text2num(href_list["time"])
 				timeleft += time
 				timeleft = min(max(round(src.timeleft), 120), 600)
-			if (href_list["timer"])
-				if (timing == -1.0)
+			if(href_list["timer"])
+				if(timing == -1.0)
 					nanomanager.update_uis(src)
 					return
-				if (safety)
+				if(safety)
 					to_chat(usr, "\red The safety is still on.")
 					nanomanager.update_uis(src)
 					return
 				timing = !(timing)
-				if (timing)
+				if(timing)
 					if(!lighthack)
 						icon_state = "nuclearbomb2"
 					if(!safety)
@@ -299,14 +299,14 @@ var/bomb_set
 					bomb_set = 0
 					if(!lighthack)
 						icon_state = "nuclearbomb1"
-			if (href_list["safety"])
+			if(href_list["safety"])
 				safety = !(safety)
 				if(safety)
 					if(!is_syndicate)
 						set_security_level(previous_level)
 					timing = 0
 					bomb_set = 0
-			if (href_list["anchor"])
+			if(href_list["anchor"])
 				if(removal_stage == 5)
 					anchored = 0
 					visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
@@ -328,7 +328,7 @@ var/bomb_set
 	return
 
 /obj/machinery/nuclearbomb/blob_act()
-	if (timing == -1.0)
+	if(timing == -1.0)
 		return
 	else
 		return ..()
@@ -336,7 +336,7 @@ var/bomb_set
 
 #define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
-	if (safety)
+	if(safety)
 		timing = 0
 		return
 	timing = -1.0
@@ -345,7 +345,7 @@ var/bomb_set
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
 	playsound(src,'sound/machines/Alarm.ogg',100,0,5)
-	if (ticker && ticker.mode)
+	if(ticker && ticker.mode)
 		ticker.mode.explosion_in_progress = 1
 	sleep(100)
 
@@ -393,7 +393,7 @@ var/bomb_set
 	icon = 'icons/obj/items.dmi'
 	icon_state = "nucleardisk"
 	item_state = "card-id"
-	w_class = 1.0
+	w_class = 1
 
 /obj/item/weapon/disk/nuclear/New()
 	..()
@@ -402,7 +402,9 @@ var/bomb_set
 /obj/item/weapon/disk/nuclear/process()
 	var/turf/disk_loc = get_turf(src)
 	if(disk_loc.z != ZLEVEL_STATION && disk_loc.z != ZLEVEL_CENTCOMM)
-		to_chat(get(src, /mob), "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
+		var/holder = get(src, /mob)
+		if(holder)
+			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
 		qdel(src)
 
 /obj/item/weapon/disk/nuclear/Destroy()

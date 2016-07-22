@@ -11,6 +11,9 @@
 	//var/list/viruses = list()
 	var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 	var/shock_reduction = 0
+	var/heart_rate_increase = 0
+	var/heart_rate_decrease = 0
+	var/heart_rate_stop = 0
 	var/penetrates_skin = 0 //Whether or not a reagent penetrates the skin
 	var/can_grow_in_plants = 1	//Determines if the reagent can be grown in plants, 0 means it cannot be grown
 	//Processing flags, defines the type of mobs the reagent will affect
@@ -18,8 +21,9 @@
 	var/process_flags = ORGANIC
 	var/admin_only = 0
 
-/datum/reagent/proc/reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
-	if(!istype(M, /mob/living))	return 0
+/datum/reagent/proc/reaction_mob(mob/M, method=TOUCH, volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
+	if(!istype(M, /mob/living))
+		return 0
 	var/datum/reagent/self = src
 	src = null
 
@@ -52,31 +56,34 @@
 							AD.addiction_stage = 1
 		return 1
 
-/datum/reagent/proc/reaction_obj(var/obj/O, var/volume) //By default we transfer a small part of the reagent to the object
+/datum/reagent/proc/reaction_obj(obj/O, volume) //By default we transfer a small part of the reagent to the object
 	src = null						//if it can hold reagents. nope!
 	//if(O.reagents)
 	//	O.reagents.add_reagent(id,volume/3)
 	return
 
-/datum/reagent/proc/reaction_turf(var/turf/T, var/volume)
+/datum/reagent/proc/reaction_turf(turf/T, volume)
 	src = null
 	return
 
-/datum/reagent/proc/on_mob_life(var/mob/living/M as mob, var/alien)
+/datum/reagent/proc/on_mob_life(mob/living/M)
 	if(!istype(M))
 		return
 	if(holder)
 		holder.remove_reagent(id, metabolization_rate) //By default it slowly disappears.
 		current_cycle++
 
+/datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
+	return
+
 // Called when two reagents of the same are mixing.
-/datum/reagent/proc/on_merge(var/data)
+/datum/reagent/proc/on_merge(data)
 	return
 
-/datum/reagent/proc/on_move(var/mob/M)
+/datum/reagent/proc/on_move(mob/M)
 	return
 
-/datum/reagent/proc/on_update(var/atom/A)
+/datum/reagent/proc/on_update(atom/A)
 	return
 
 // Called after add_reagents creates a new reagent.

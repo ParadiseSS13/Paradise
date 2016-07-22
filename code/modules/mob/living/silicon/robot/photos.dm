@@ -1,12 +1,12 @@
 /mob/living/silicon/robot/proc/photosync()
 	var/obj/item/device/camera/siliconcam/master_cam = connected_ai ? connected_ai.aiCamera : null
-	if (!master_cam)
+	if(!master_cam)
 		return
 
 	var/synced
 	synced = 0
 	for(var/datum/picture/z in aiCamera.aipictures)
-		if (!(master_cam.aipictures.Find(z)))
+		if(!(master_cam.aipictures.Find(z)))
 			aiCamera.printpicture(null, z)
 			synced = 1
 	if(synced)

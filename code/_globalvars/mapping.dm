@@ -37,6 +37,7 @@ var/list/latejoin_cyborg = list()
 var/list/prisonwarp = list()	//prisoners go to these
 var/list/holdingfacility = list()	//captured people go here
 var/list/xeno_spawn = list()//Aliens spawn at these.
+var/list/ertdirector = list()
 //	list/mazewarp = list()
 var/list/tdome1 = list()
 var/list/tdome2 = list()
@@ -53,3 +54,10 @@ var/list/carplist = list() //list of all carp-spawn landmarks
 
 //away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to
+
+//List of preloaded templates
+var/list/datum/map_template/map_templates = list()
+
+var/list/datum/map_template/ruins_templates = list()
+var/list/datum/map_template/space_ruins_templates = list()
+//var/list/datum/map_template/lava_ruins_templates = list()

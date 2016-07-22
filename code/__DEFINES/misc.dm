@@ -66,6 +66,7 @@
 #define COLOR_YELLOW 	"#FFFF00"
 #define COLOR_ORANGE 	"#FF9900"
 #define COLOR_WHITE 	"#FFFFFF"
+#define COLOR_GRAY      "#808080"
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
@@ -156,6 +157,8 @@
 	for(type in view(range, dview_mob))
 #define END_FOR_DVIEW dview_mob.loc = null
 
+#define get_turf(A) (get_step(A, 0))
+
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
@@ -241,6 +244,14 @@
 #define REGION_COMMAND		7
 #define REGION_CENTCOMM		8
 
+//used for maploader
+#define MAP_MINX 1
+#define MAP_MINY 2
+#define MAP_MINZ 3
+#define MAP_MAXX 4
+#define MAP_MAXY 5
+#define MAP_MAXZ 6
+
 //Matricies
 #define MATRIX_DEFAULT list(1, 0, 0, 0,\
                             0, 1, 0, 0,\
@@ -255,3 +266,10 @@
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
+
+// Macro to get the current elapsed round time, rather than total world runtime
+#define ROUND_TIME (round_start_time ? (world.time - round_start_time) : 0)
+
+// Used by radios to indicate that they have sent a message via something other than subspace
+#define RADIO_CONNECTION_FAIL 0
+#define RADIO_CONNECTION_NON_SUBSPACE 1

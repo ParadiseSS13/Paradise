@@ -30,6 +30,8 @@
 	faction = list("hostile", "winter")
 	loot = list(/obj/item/stack/sheet/wood)
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	deathmessage = "is hacked into pieces!"
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/tree/FindTarget()
 	. = ..()
@@ -43,8 +45,3 @@
 		if(prob(15))
 			L.Weaken(3)
 			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
-
-/mob/living/simple_animal/hostile/tree/death()
-	..()
-	visible_message("\red <b>[src]</b> is hacked into pieces!")
-	qdel(src)

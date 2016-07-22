@@ -10,7 +10,7 @@
 /proc/get_area_master(const/O)
 	var/area/A = get_area(O)
 
-	if (isarea(A))
+	if(isarea(A))
 		return A
 
 /proc/get_area(atom/A)
@@ -42,7 +42,6 @@
 // Like view but bypasses luminosity check
 
 /proc/hear(var/range, var/atom/source)
-
 	var/lum = source.luminosity
 	source.luminosity = 6
 
@@ -194,7 +193,7 @@
 				var/datum/robot_component/CO = borg.get_component("radio")
 				if(!CO)
 					continue //No radio component (Shouldn't happen)
-				if(!borg.is_component_functioning("radio") || !borg.use_power(CO.energy_consumption))
+				if(!borg.is_component_functioning("radio"))
 					continue //No power.
 
 			var/turf/speaker = get_turf(R)
@@ -440,7 +439,7 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
-	if (!Question)
+	if(!Question)
 		Question = "Would you like to be a special role?"
 
 	for(var/mob/dead/observer/G in player_list)

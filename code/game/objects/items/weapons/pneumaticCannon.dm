@@ -24,9 +24,9 @@
 		return
 	for(var/obj/item/I in loadedItems)
 		spawn(0)
-			to_chat(user, "<span class='info'>\icon [I] It has \the [I] loaded.</span>")
+			to_chat(user, "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>")
 	if(tank)
-		to_chat(user, "<span class='notice'>\icon [tank] It has \the [tank] mounted onto it.</span>")
+		to_chat(user, "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>")
 
 
 /obj/item/weapon/pneumatic_cannon/attackby(obj/item/weapon/W, mob/user, params)
@@ -132,7 +132,7 @@
 	maxWeightClass = 7
 	gasPerThrow = 5
 
-/datum/table_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
+/datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
 	name = "Pneumatic Cannon"
 	result = /obj/item/weapon/pneumatic_cannon/ghetto
 	tools = list(/obj/item/weapon/weldingtool,

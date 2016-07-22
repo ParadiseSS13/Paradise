@@ -11,7 +11,7 @@ datum/directive/terminations/alien_fraud
 datum/directive/terminations/alien_fraud/get_crew_to_terminate()
 	var/list/aliens[0]
 	for(var/mob/M in player_list)
-		if (M.is_ready() && is_alien(M) && M != mode.head_loyalist.current)
+		if(M.is_ready() && is_alien(M) && M != mode.head_loyalist.current)
 			aliens.Add(M)
 	return aliens
 
@@ -35,7 +35,7 @@ datum/directive/terminations/alien_fraud/meets_prerequisites()
 		if(species == "Unathi")
 			unathi++
 
-	if (!tajarans || !unathi)
+	if(!tajarans || !unathi)
 		return 0
 
 	return (tajarans + unathi) <= (player_list.len / 3)
