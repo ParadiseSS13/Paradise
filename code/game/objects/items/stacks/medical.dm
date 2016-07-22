@@ -12,7 +12,7 @@
 
 /obj/item/stack/medical/attack(mob/living/carbon/M, mob/user)
 	if(!istype(M))
-		to_chat(user, "<span class='danger'>\The [src] cannot be applied to [M]!</span>")
+		to_chat(user, "<span class='danger'>The [src] cannot be applied to [M]!</span>")
 		return 1
 
 	if(!user.IsAdvancedToolUser())
@@ -42,7 +42,7 @@
 	else
 		M.heal_organ_damage(heal_brute/2, heal_burn/2)
 		user.visible_message("<span class='notice'>[M] has been applied with [src] by [user].</span>", \
-							 "<span class='notice'>You apply \the [src] to [M].</span>")
+							 "<span class='notice'>You apply the [src] to [M].</span>")
 		use(1)
 
 	M.updatehealth()
@@ -193,29 +193,29 @@
 				to_chat(user, "<span class='notice'>You remove the splint from [M]'s [limb].</span>")
 			return
 		if(M != user)
-			user.visible_message("<span class='notice'>[user] starts to apply \the [src] to [M]'s [limb].</span>", \
-								 "<span class='notice'>You start to apply \the [src] to [M]'s [limb].</span>", \
+			user.visible_message("<span class='notice'>[user] starts to apply the [src] to [M]'s [limb].</span>", \
+								 "<span class='notice'>You start to apply the [src] to [M]'s [limb].</span>", \
 								 "<span class='notice'>You hear something being wrapped.</span>")
 		else
 			if((!user.hand && affecting.limb_name in list("r_arm", "r_hand")) || (user.hand && affecting.limb_name in list("l_arm", "l_hand")))
 				to_chat(user, "<span class='danger'>You can't apply a splint to the arm you're using!</span>")
 				return
-			user.visible_message("<span class='notice'>[user] starts to apply \the [src] to their [limb].</span>", \
-								 "<span class='notice'>You start to apply \the [src] to your [limb].</span>", \
+			user.visible_message("<span class='notice'>[user] starts to apply the [src] to their [limb].</span>", \
+								 "<span class='notice'>You start to apply the [src] to your [limb].</span>", \
 								 "<span class='notice'>You hear something being wrapped.</span>")
 		if(do_after(user, 50, target = M))
 			if(M != user)
-				user.visible_message("<span class='notice'>[user] finishes applying \the [src] to [M]'s [limb].</span>", \
-									"<span class='notice'>You finish applying \the [src] to [M]'s [limb].</span>", \
+				user.visible_message("<span class='notice'>[user] finishes applying the [src] to [M]'s [limb].</span>", \
+									"<span class='notice'>You finish applying the [src] to [M]'s [limb].</span>", \
 									"<span class='notice'>You hear something being wrapped.</span>")
 			else
 				if(prob(25))
-					user.visible_message("<span class='notice'>[user] successfully applies \the [src] to their [limb].</span>", \
-										 "<span class='notice'>You successfully apply \the [src] to your [limb].</span>", \
+					user.visible_message("<span class='notice'>[user] successfully applies the [src] to their [limb].</span>", \
+										 "<span class='notice'>You successfully apply the [src] to your [limb].</span>", \
 										 "<span class='notice'>You hear something being wrapped.</span>")
 				else
-					user.visible_message("<span class='warning'>[user] fumbles \the [src].</span>",
-										 "<span class='warning'>You fumble \the [src].</span>",
+					user.visible_message("<span class='warning'>[user] fumbles the [src].</span>",
+										 "<span class='warning'>You fumble the [src].</span>",
 										 "<span class='warning'>You hear something being wrapped.</span>")
 					return
 			affecting.status |= ORGAN_SPLINTED
