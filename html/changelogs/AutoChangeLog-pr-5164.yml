@@ -1,0 +1,5 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - bugfix: "Fixes tempgun not recharging."
+  - bugfix: "Fixes tempgun beams costing one tenth of what they are supposed to."
