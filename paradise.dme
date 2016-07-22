@@ -1855,6 +1855,7 @@
 #include "code\modules\reagents\oldchem\reagents\reagents_food.dm"
 #include "code\modules\reagents\oldchem\reagents\reagents_med.dm"
 #include "code\modules\reagents\oldchem\reagents\reagents_misc.dm"
+#include "code\modules\reagents\oldchem\reagents\reagents_paint.dm"
 #include "code\modules\reagents\oldchem\reagents\reagents_toxin.dm"
 #include "code\modules\reagents\oldchem\reagents\reagents_water.dm"
 #include "code\modules\reagents\oldchem\reagents\drink\reagents_alcohol.dm"
