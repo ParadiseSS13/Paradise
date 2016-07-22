@@ -128,11 +128,11 @@
 	if(!..(user, 2))
 		return
 	if(rig)
-		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.")
+		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.</span>")
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if(rig)
-		usr.visible_message("[usr] begins to detach [rig] from [src].</span>", "You begin to detach [rig] from [src].</span>")
+		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
 		if(do_after(usr, 20, target = src))
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.loc = get_turf(usr)
