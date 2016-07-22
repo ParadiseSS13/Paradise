@@ -806,7 +806,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 		var/datum/game_mode/heist/H = ticker.mode
 		for(var/datum/mind/raider in H.raiders)
-			vox_total_kills = vox_total_kills + raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
+			vox_total_kills += raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
 
 		if(vox_total_kills > vox_allowed_kills) return 0
 		return 1
