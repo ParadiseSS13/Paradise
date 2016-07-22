@@ -181,8 +181,8 @@
 		"/obj/item/weapon/melee/classic_baton",
 		"/obj/item/device/flashlight/seclite",
 		"/obj/item/taperoll/police",
-		"/obj/item/weapon/melee/classic_baton/telescopic"
-		)
+		"/obj/item/weapon/melee/classic_baton/telescopic",
+		"/obj/item/weapon/restraints/legcuffs/bola")
 
 /obj/item/weapon/storage/belt/security/sec/New()
 	..()
@@ -476,7 +476,7 @@
 	allow_quick_empty = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/smokebomb",
-		"/obj/item/weapon/legcuffs/bolas"
+		"/obj/item/weapon/restraints/legcuffs/bola"
 		)
 
 	flags = NODROP
@@ -492,8 +492,8 @@
 	new /obj/item/weapon/grenade/smokebomb(src)
 	new /obj/item/weapon/grenade/smokebomb(src)
 	new /obj/item/weapon/grenade/smokebomb(src)
-	new /obj/item/weapon/legcuffs/bolas(src)
-	new /obj/item/weapon/legcuffs/bolas(src)
+	new /obj/item/weapon/restraints/legcuffs/bola(src)
+	new /obj/item/weapon/restraints/legcuffs/bola(src)
 	processing_objects.Add(src)
 	cooldown = world.time
 
@@ -504,7 +504,7 @@
 		for(S in src)
 			smokecount++
 		bolacount = 0
-		var/obj/item/weapon/legcuffs/bolas/B
+		var/obj/item/weapon/restraints/legcuffs/bola/B
 		for(B in src)
 			bolacount++
 		if(smokecount < 4)
@@ -513,7 +513,7 @@
 				smokecount++
 		if(bolacount < 2)
 			while(bolacount < 2)
-				new /obj/item/weapon/legcuffs/bolas(src)
+				new /obj/item/weapon/restraints/legcuffs/bola(src)
 				bolacount++
 		cooldown = world.time
 		update_icon()
