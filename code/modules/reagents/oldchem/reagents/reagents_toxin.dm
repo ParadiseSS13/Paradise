@@ -84,7 +84,7 @@
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 
-/datum/reagent/aslimetoxin/reaction_mob(mob/M, method=TOUCH, volume)
+/datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method != TOUCH)
 		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
 
@@ -145,12 +145,8 @@
 	..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 3)
-		if(!istype(T, /turf/space))
-			new /obj/effect/decal/cleanable/greenglow(T)
-			return
-
+	if(volume >= 3 && !istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/greenglow(T)
 
 /datum/reagent/mutagen
 	name = "Unstable mutagen"
@@ -160,17 +156,19 @@
 	color = "#04DF27"
 	metabolization_rate = 0.3
 
-/datum/reagent/mutagen/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!..())	return
-	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	src = null
+/datum/reagent/mutagen/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(!..())
+		return
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==TOUCH && prob(33)) || method==INGEST)
 		randmutb(M)
 		domutcheck(M, null)
 		M.UpdateAppearance()
 
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
-	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	M.apply_effect(2*REM, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
@@ -189,10 +187,8 @@
 	..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 3)
-		if(!istype(T, /turf/space))
-			new /obj/effect/decal/cleanable/greenglow(T)
+	if(volume >= 3 && !istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/greenglow(T)
 
 
 /datum/reagent/lexorin
@@ -221,8 +217,6 @@
 	..()
 
 /datum/reagent/sacid/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -278,8 +272,7 @@
 		if(!O.unacidable)
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
-			for(var/mob/M in viewers(5, O))
-				to_chat(M, "\red \the [O] melts.")
+			O.visible_message("<span class='warning'>\the [O] melts.</span>")
 			qdel(O)
 
 
@@ -361,10 +354,8 @@
 	color = "#B31008" // rgb: 179, 16, 8
 
 /datum/reagent/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
 			var/mouth_covered = 0
 			var/eyes_covered = 0

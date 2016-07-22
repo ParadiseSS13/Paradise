@@ -167,7 +167,7 @@
 
 	if(href_list["dispense"])
 		if(dispensable_reagents.Find(href_list["dispense"]) && beaker != null)
-			var/obj/item/weapon/reagent_containers/glass/B = src.beaker
+			var/obj/item/weapon/reagent_containers/glass/B = beaker
 			var/datum/reagents/R = B.reagents
 			var/space = R.maximum_volume - R.total_volume
 
@@ -214,12 +214,12 @@
 		to_chat(user, "<span class='notice'>You fix [src].</span>")
 		return
 
-	if(src.beaker)
+	if(beaker)
 		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
 		return
 
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks))
-		src.beaker =  B
+		beaker =  B
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
@@ -248,10 +248,10 @@
 			return
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_ghost(mob/user)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
 	if(stat & BROKEN)
@@ -430,13 +430,13 @@
 
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
 
-		if(src.beaker)
+		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
-		src.beaker = B
+		beaker = B
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 		nanomanager.update_uis(src)
@@ -444,14 +444,14 @@
 
 	else if(istype(B, /obj/item/weapon/storage/pill_bottle))
 
-		if(src.loaded_pill_bottle)
+		if(loaded_pill_bottle)
 			to_chat(user, "<span class='warning'>A pill bottle is already loaded into the machine.</span>")
 			return
 
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
-		src.loaded_pill_bottle = B
+		loaded_pill_bottle = B
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the pill bottle into the dispenser slot!</span>")
 		nanomanager.update_uis(src)
@@ -461,13 +461,13 @@
 	if(..())
 		return 1
 
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	usr.set_machine(src)
 
 
 	if(href_list["ejectp"])
 		if(loaded_pill_bottle)
-			loaded_pill_bottle.forceMove(src.loc)
+			loaded_pill_bottle.forceMove(loc)
 			loaded_pill_bottle = null
 	else if(href_list["close"])
 		usr << browse(null, "window=chem_master")
@@ -476,12 +476,12 @@
 		return
 
 	if(href_list["print_p"])
-		if(!(src.printing))
-			src.printing = 1
+		if(!(printing))
+			printing = 1
 			for(var/mob/O in viewers(usr))
 				O.show_message("\blue \the [src] rattles and prints out a sheet of paper.", 1)
 			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( src.loc )
+			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
 			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
 			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
 			P.info += "<b>Chemical name:</b> [href_list["name"]]<br>"
@@ -499,7 +499,7 @@
 				P.info += "<b>Description:</b> [href_list["desc"]]"
 			P.info += "<br><br><b>Notes:</b><br>"
 			P.name = "Chemical Analysis - [href_list["name"]]"
-			src.printing = null
+			printing = null
 
 	if(beaker)
 		var/datum/reagents/R = beaker.reagents
@@ -537,7 +537,7 @@
 			var/id = href_list["addcustom"]
 			useramount = input("Select the amount to transfer.", 30, useramount) as num
 			useramount = isgoodnumber(useramount)
-			src.Topic(null, list("amount" = "[useramount]", "add" = "[id]"))
+			Topic(null, list("amount" = "[useramount]", "add" = "[id]"))
 
 		else if(href_list["remove"])
 
@@ -555,7 +555,7 @@
 			var/id = href_list["removecustom"]
 			useramount = input("Select the amount to transfer.", 30, useramount) as num
 			useramount = isgoodnumber(useramount)
-			src.Topic(null, list("amount" = "[useramount]", "remove" = "[id]"))
+			Topic(null, list("amount" = "[useramount]", "remove" = "[id]"))
 
 		else if(href_list["toggle"])
 			mode = !mode
@@ -586,23 +586,23 @@
 					return
 				name = reject_bad_text(name)
 				while(count--)
-					var/obj/item/weapon/reagent_containers/food/pill/P = new/obj/item/weapon/reagent_containers/food/pill(src.loc)
+					var/obj/item/weapon/reagent_containers/food/pill/P = new/obj/item/weapon/reagent_containers/food/pill(loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] pill"
 					P.pixel_x = rand(-7, 7) //random position
 					P.pixel_y = rand(-7, 7)
 					P.icon_state = "pill"+pillsprite
 					reagents.trans_to(P,amount_per_pill)
-					if(src.loaded_pill_bottle)
+					if(loaded_pill_bottle)
 						if(loaded_pill_bottle.contents.len < loaded_pill_bottle.storage_slots)
 							P.forceMove(loaded_pill_bottle)
-							src.updateUsrDialog()
+							updateUsrDialog()
 			else
 				var/name = input(usr,"Name:","Name your bag!",reagents.get_master_reagent_name()) as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
-				var/obj/item/weapon/reagent_containers/food/condiment/pack/P = new/obj/item/weapon/reagent_containers/food/condiment/pack(src.loc)
+				var/obj/item/weapon/reagent_containers/food/condiment/pack/P = new/obj/item/weapon/reagent_containers/food/condiment/pack(loc)
 				if(!name) name = reagents.get_master_reagent_name()
 				P.originalname = name
 				P.name = "[name] pack"
@@ -627,7 +627,7 @@
 				name = reject_bad_text(name)
 				var/is_medical_patch = chemical_safety_check(reagents)
 				while(count--)
-					var/obj/item/weapon/reagent_containers/food/pill/patch/P = new/obj/item/weapon/reagent_containers/food/pill/patch(src.loc)
+					var/obj/item/weapon/reagent_containers/food/pill/patch/P = new/obj/item/weapon/reagent_containers/food/pill/patch(loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] patch"
 					P.pixel_x = rand(-7, 7) //random position
@@ -642,7 +642,7 @@
 				if(!name)
 					return
 				name = reject_bad_text(name)
-				var/obj/item/weapon/reagent_containers/glass/bottle/P = new/obj/item/weapon/reagent_containers/glass/bottle(src.loc)
+				var/obj/item/weapon/reagent_containers/glass/bottle/P = new/obj/item/weapon/reagent_containers/glass/bottle(loc)
 				if(!name) name = reagents.get_master_reagent_name()
 				P.name = "[name] bottle"
 				P.pixel_x = rand(-7, 7) //random position
@@ -650,7 +650,7 @@
 				P.icon_state = "bottle"+bottlesprite
 				reagents.trans_to(P,30)
 			else
-				var/obj/item/weapon/reagent_containers/food/condiment/P = new/obj/item/weapon/reagent_containers/food/condiment(src.loc)
+				var/obj/item/weapon/reagent_containers/food/condiment/P = new/obj/item/weapon/reagent_containers/food/condiment(loc)
 				reagents.trans_to(P,50)
 		else if(href_list["change_pill"])
 			#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
@@ -693,10 +693,10 @@
 	return
 
 /obj/machinery/chem_master/attack_ai(mob/user)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/chem_master/attack_ghost(mob/user)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/chem_master/attack_hand(mob/user)
 	if(..())
@@ -733,7 +733,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_master.tmpl", src.name, 575, 400)
+		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 400)
 		ui.set_initial_data(data)
 		ui.open()
 
@@ -793,7 +793,7 @@
 			default_deconstruction_crowbar(B)
 			return 1
 		else
-			to_chat(user, "<span class='warning'>You can't use the [src.name] while it's panel is opened!</span>")
+			to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
 			return 1
 	else
 		..()
@@ -886,10 +886,10 @@
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
 				return
-			src.beaker =  O
+			beaker =  O
 			O.forceMove(src)
 			update_icon()
-			src.updateUsrDialog()
+			updateUsrDialog()
 			return 0
 
 	if(holdingitems && holdingitems.len >= limit)
@@ -910,7 +910,7 @@
 		if(!O.contents.len)
 			to_chat(user, "<span class='notice'>You empty the plant bag into the All-In-One grinder.</span>")
 
-		src.updateUsrDialog()
+		updateUsrDialog()
 		return 0
 
 
@@ -921,7 +921,7 @@
 	user.unEquip(O)
 	O.forceMove(src)
 	holdingitems += O
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return 0
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
@@ -989,7 +989,7 @@
 			eject()
 		if("detach")
 			detach()
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return
 
 /obj/machinery/reagentgrinder/proc/detach()
@@ -998,7 +998,7 @@
 		return
 	if(!beaker)
 		return
-	beaker.forceMove(src.loc)
+	beaker.forceMove(loc)
 	beaker = null
 	update_icon()
 
@@ -1010,7 +1010,7 @@
 		return
 
 	for(var/obj/item/O in holdingitems)
-		O.forceMove(src.loc)
+		O.forceMove(loc)
 		holdingitems -= O
 	holdingitems = list()
 
@@ -1071,7 +1071,7 @@
 		return
 	if(!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 		return
-	playsound(src.loc, 'sound/machines/juicer.ogg', 20, 1)
+	playsound(loc, 'sound/machines/juicer.ogg', 20, 1)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 	inuse = 1
@@ -1111,7 +1111,7 @@
 		return
 	if(!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 		return
-	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
+	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 	inuse = 1

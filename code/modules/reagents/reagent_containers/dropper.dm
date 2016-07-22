@@ -45,17 +45,17 @@
 				if(safe_thing)
 					if(!safe_thing.reagents)
 						safe_thing.create_reagents(100)
-					trans = src.reagents.trans_to(safe_thing, amount_per_transfer_from_this)
+					trans = reagents.trans_to(safe_thing, amount_per_transfer_from_this)
 
 					for(var/mob/O in viewers(world.view, user))
 						O.show_message(text("\red <B>[] tries to squirt something into []'s eyes, but fails!</B>", user, target), 1)
 					spawn(5)
-						src.reagents.reaction(safe_thing, TOUCH)
+						reagents.reaction(safe_thing, TOUCH)
 
 
 
 					to_chat(user, "\blue You transfer [trans] units of the solution.")
-					if(src.reagents.total_volume<=0)
+					if(reagents.total_volume<=0)
 						filled = 0
 						icon_state = "[initial(icon_state)]"
 					return
@@ -63,26 +63,26 @@
 
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message(text("\red <B>[] squirts something into []'s eyes!</B>", user, target), 1)
-			src.reagents.reaction(target, TOUCH)
+			reagents.reaction(target, TOUCH)
 
 			var/mob/living/M = target
 
 			var/list/injected = list()
-			for(var/datum/reagent/R in src.reagents.reagent_list)
+			for(var/datum/reagent/R in reagents.reagent_list)
 				injected += R.name
 			var/contained = english_list(injected)
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been squirted with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to squirt [key_name(M)]. Reagents: [contained]</font>")
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been squirted with [name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to squirt [key_name(M)]. Reagents: [contained]</font>")
 			if(M.ckey)
-				msg_admin_attack("[key_name_admin(user)] squirted [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
+				msg_admin_attack("[key_name_admin(user)] squirted [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			if(!iscarbon(user))
 				M.LAssailant = null
 			else
 				M.LAssailant = user
 
-		trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
+		trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "\blue You transfer [trans] units of the solution.")
-		if(src.reagents.total_volume<=0)
+		if(reagents.total_volume<=0)
 			filled = 0
 			icon_state = "[initial(icon_state)]"
 

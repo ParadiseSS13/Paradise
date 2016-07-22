@@ -44,7 +44,7 @@
 
 	spray(A)
 
-	playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1, -6)
+	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
 	user.newtonian_move(get_dir(A, user))
 
@@ -82,8 +82,8 @@
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/weapon/reagent_containers/spray/examine(mob/user)
-	if(..(user, 0) && user==src.loc)
-		to_chat(user, "[round(src.reagents.total_volume)] units left.")
+	if(..(user, 0) && user == loc)
+		to_chat(user, "[round(reagents.total_volume)] units left.")
 
 /obj/item/weapon/reagent_containers/spray/verb/empty()
 
@@ -94,10 +94,10 @@
 		return
 	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
-	if(isturf(usr.loc) && src.loc == usr)
+	if(isturf(usr.loc) && loc == usr)
 		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
 		reagents.reaction(usr.loc)
-		src.reagents.clear_reagents()
+		reagents.clear_reagents()
 
 //space cleaner
 /obj/item/weapon/reagent_containers/spray/cleaner
@@ -156,10 +156,10 @@
 /obj/item/weapon/reagent_containers/spray/chemsprayer/spray(var/atom/A)
 	var/Sprays[3]
 	for(var/i=1, i<=3, i++) // intialize sprays
-		if(src.reagents.total_volume < 1) break
+		if(reagents.total_volume < 1) break
 		var/obj/effect/decal/chempuff/D = new/obj/effect/decal/chempuff(get_turf(src))
 		D.create_reagents(amount_per_transfer_from_this)
-		src.reagents.trans_to(D, amount_per_transfer_from_this)
+		reagents.trans_to(D, amount_per_transfer_from_this)
 
 		D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 

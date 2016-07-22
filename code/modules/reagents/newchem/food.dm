@@ -6,9 +6,7 @@
 	color = "#63DE63"
 	metabolization_rate = 0.4
 
-/datum/reagent/questionmark/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/questionmark/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		M.Stun(2)
 		M.Weaken(2)
@@ -45,9 +43,7 @@
 	mix_message = "The citrus juices begin to blend together."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/triple_citrus/reaction_mob(mob/living/carbon/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living/carbon))
-		return
+/datum/reagent/triple_citrus/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		M.adjustToxLoss(-rand(1,2))
 
@@ -134,8 +130,7 @@
 	..()
 
 /datum/reagent/chocolate/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 5)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/choc_pile(T)
 
 /datum/reagent/mugwort
@@ -146,7 +141,7 @@
 	color = "#21170E"
 
 /datum/reagent/mugwort/on_mob_life(mob/living/M)
-	if(istype(M, /mob/living/carbon/human) && M.mind)
+	if(ishuman(M) && M.mind)
 		if(M.mind.special_role == "Wizard")
 			M.adjustToxLoss(-1*REM)
 			M.adjustOxyLoss(-1*REM)
@@ -177,9 +172,7 @@
 	reagent_state = LIQUID
 	color = "#C87D28"
 
-/datum/reagent/fungus/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/fungus/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		var/ranchance = rand(1,10)
 		if(ranchance == 1)
@@ -211,9 +204,7 @@
 	color = "#F5F5F5"
 	metabolization_rate = 0.2
 
-/datum/reagent/msg/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/msg/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		to_chat(M, "<span class='notice'>That tasted amazing!</span>")
 
@@ -242,8 +233,7 @@
 	..()
 
 /datum/reagent/cheese/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 5)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/cheesewedge(T)
 
 /datum/chemical_reaction/cheese
@@ -286,8 +276,7 @@
 	..()
 
 /datum/reagent/weird_cheese/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 5)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge(T)
 
 /datum/chemical_reaction/weird_cheese
@@ -323,8 +312,7 @@
 	color = "#9C5013"
 
 /datum/reagent/bread/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 5)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/breadslice(T)
 
 /datum/reagent/vomit
@@ -335,8 +323,7 @@
 	color = "#FFFF00"
 
 /datum/reagent/vomit/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 5)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -348,8 +335,7 @@
 	color = "#78FF74"
 
 /datum/reagent/greenvomit/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 5)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit/green(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -362,9 +348,7 @@
 	color = "#8EAE7B"
 	process_flags = ORGANIC | SYNTHETIC		//Because apparently ghosts in the shell
 
-/datum/reagent/ectoplasm/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
 		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
@@ -376,8 +360,7 @@
 	..()
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 10)
+	if(volume >= 10 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(T)
 
 /datum/reagent/soybeanoil
@@ -448,8 +431,7 @@
 	..()
 
 /datum/reagent/meatslurry/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 5 && prob(10))
+	if(volume >= 5 && prob(10) && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 

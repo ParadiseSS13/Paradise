@@ -20,7 +20,7 @@
 	reagents = R
 	R.my_atom = src
 	if(!possible_transfer_amounts)
-		src.verbs -= /obj/structure/reagent_dispensers/verb/set_APTFT
+		verbs -= /obj/structure/reagent_dispensers/verb/set_APTFT
 	..()
 
 /obj/structure/reagent_dispensers/examine(mob/user)
@@ -50,12 +50,12 @@
 			return
 		if(2.0)
 			if(prob(50))
-				new /obj/effect/effect/water(src.loc)
+				new /obj/effect/effect/water(loc)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(5))
-				new /obj/effect/effect/water(src.loc)
+				new /obj/effect/effect/water(loc)
 				qdel(src)
 				return
 		else
@@ -63,7 +63,7 @@
 
 /obj/structure/reagent_dispensers/blob_act()
 	if(prob(50))
-		new /obj/effect/effect/water(src.loc)
+		new /obj/effect/effect/water(loc)
 		qdel(src)
 
 
@@ -106,7 +106,7 @@
 		boom()
 
 /obj/structure/reagent_dispensers/fueltank/proc/boom()
-	explosion(src.loc,0,1,5,7,10, flame_range = 5)
+	explosion(loc,0,1,5,7,10, flame_range = 5)
 	if(src)
 		qdel(src)
 
@@ -231,7 +231,7 @@
 	reagents.add_reagent("beer",1000)
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act()
-	explosion(src.loc,0,3,5,7,10)
+	explosion(loc,0,3,5,7,10)
 	qdel(src)
 
 /obj/structure/reagent_dispensers/virusfood
