@@ -96,7 +96,7 @@
 	color = "#1C1300" // rgb: 30, 20, 0
 
 /datum/reagent/carbon/reaction_turf(turf/T, volume)
-	if(!istype(T) && !(locate(/obj/effect/decal/cleanable/dirt) in T)) // Only add one dirt per turf.  Was causing people to crash.
+	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T)) // Only add one dirt per turf.  Was causing people to crash.
 		new /obj/effect/decal/cleanable/dirt(T)
 
 /datum/reagent/gold
