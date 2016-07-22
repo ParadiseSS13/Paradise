@@ -193,6 +193,8 @@
 /obj/item/weapon/reagent_containers/food/drinks/tea
 	name = "Duke Purple Tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
+	icon_state = "teacup"
+	item_state = "coffee"
 	list_reagents = list("tea" = 30)
 
 /obj/item/weapon/reagent_containers/food/drinks/tea/New()
@@ -210,6 +212,8 @@
 /obj/item/weapon/reagent_containers/food/drinks/h_chocolate
 	name = "Dutch Hot Coco"
 	desc = "Made in Space South America."
+	icon_state = "hot_coco"
+	item_state = "coffee"
 	list_reagents = list("hot_coco" = 30, "sugar" = 5)
 
 /obj/item/weapon/reagent_containers/food/drinks/chocolate
@@ -223,13 +227,13 @@
 	name = "Weight-Loss Shake"
 	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
 	icon_state = "coffee"
-	item_state = "coffee"
 	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
 
 /obj/item/weapon/reagent_containers/food/drinks/dry_ramen
 	name = "Cup Ramen"
 	desc = "Just add 10ml of water, self heats! A taste that reminds you of your school years."
 	icon_state = "ramen"
+	item_state = "coffee"
 	list_reagents = list("dry_ramen" = 30)
 
 /obj/item/weapon/reagent_containers/food/drinks/dry_ramen/New()
@@ -241,12 +245,14 @@
 	name = "Cup Chicken Soup"
 	desc = "A delicious and soothing cup of chicken noodle soup; just like spessmom used to make it."
 	icon_state = "ramen"
+	item_state = "coffee"
 	list_reagents = list("chicken_soup" = 30)
 
 /obj/item/weapon/reagent_containers/food/drinks/sillycup
 	name = "paper cup"
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
+	item_state = "coffee"
 	possible_transfer_amounts = list()
 	volume = 10
 
