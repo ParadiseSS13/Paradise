@@ -799,7 +799,17 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
-	completed = 1
+
+	check_completion()
+		var/vox_allowed_kills = 3 // The number of people the vox can accidently kill. Mostly a counter to people killing themselves if a raider touches them to force fail.
+		var/vox_total_kills = 0
+
+		var/datum/game_mode/heist/H = ticker.mode
+		for(var/datum/mind/raider in H.raiders)
+			vox_total_kills = vox_total_kills + raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
+
+		if(vox_total_kills > vox_allowed_kills) return 0
+		return 1
 
 // Traders
 
