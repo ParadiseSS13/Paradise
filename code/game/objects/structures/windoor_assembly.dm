@@ -322,6 +322,16 @@ obj/structure/windoor_assembly/Destroy()
 	update_icon()
 	return
 
+/obj/structure/windoor_assembly/AltClick(mob/user)
+	..()
+	if(user.incapacitated())
+		user << "<span class='warning'>You can't do that right now!</span>"
+		return
+	if(!in_range(src, user))
+		return
+	else
+		revrotate()
+
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 /obj/structure/windoor_assembly/verb/flip()
 	set name = "Flip Windoor Assembly"
