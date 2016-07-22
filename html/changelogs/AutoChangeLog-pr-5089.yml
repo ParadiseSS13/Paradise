@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Tajarans and Unathi can now wear all shoe and glove types"
-  - tweak: "Glove clipping removed except for black gloves, which makes them fingerless gloves"
-  - rscadd: "Adds sandals as a loadout option"
