@@ -576,3 +576,48 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+
+// Energized Fire axe
+/obj/item/weapon/twohanded/energizedfireaxe
+	name = "energized fire axe"
+	desc = "Someone with a love for fire axes decided to turn one into a single-charge energy weapon. Seems excessive."
+	icon_state = "fireaxe0"
+	force = 5
+	throwforce = 15
+	sharp = 1
+	edge = 1
+	w_class = 5
+	armour_penetration = 20
+	slot_flags = SLOT_BACK
+	force_unwielded  = 5
+	force_wielded = 30
+	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	var/charged = 1
+	
+/obj/item/weapon/twohanded/energizedfireaxe/update_icon()
+	if(wielded)
+		icon_state = "fireaxe2"
+	else
+		icon_state = "fireaxe0"
+
+/obj/item/weapon/twohanded/energizedfireaxe/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
+	if(!proximity) return
+	if(wielded)
+		if(istype(A, /mob/living))
+			var/mob/living/Z = A
+			if(charged == 1)
+				charged = 0
+				Z.take_organ_damage(0,70)
+				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
+				playsound(src.loc, 'sound/magic/lightningbolt.ogg', 5, 1)
+				var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+				sparks.set_up(1, 1, src)
+				sparks.start()
+				
+		if(A && wielded && (istype(A,/obj/structure/window) || istype(A,/obj/structure/grille)))
+			if(istype(A, /obj/structure/window))
+				var/obj/structure/window/W = A
+				W.destroy()
+			else
+				qdel(A)
