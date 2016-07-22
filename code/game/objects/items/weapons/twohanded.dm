@@ -603,7 +603,7 @@
 
 /obj/item/weapon/twohanded/energizedfireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity) 
-	return
+		return
 	if(wielded)
 		if(istype(A, /mob/living))
 			var/mob/living/Z = A
