@@ -608,8 +608,8 @@
 		if(istype(A, /mob/living))
 			var/mob/living/Z = A
 			if(charged)
-				charged = 0
-				Z.take_organ_damage(0,40)
+				charged--
+				Z.take_organ_damage(0,30)
 				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 				var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
@@ -620,5 +620,11 @@
 			if(istype(A, /obj/structure/window))
 				var/obj/structure/window/W = A
 				W.destroy()
+				if(prob(4))
+					charged++
+					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
 			else
 				qdel(A)
+				if(prob(4))
+					charged++
+					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
