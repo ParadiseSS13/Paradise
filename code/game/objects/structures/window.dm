@@ -323,10 +323,9 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!in_range(src, user))
+	if(!Adjacent(user))
 		return
-	else
-		revrotate()
+	revrotate()
 
 /*
 /obj/structure/window/proc/updateSilicate()

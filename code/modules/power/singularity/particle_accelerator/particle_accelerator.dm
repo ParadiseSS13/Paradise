@@ -106,10 +106,9 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!in_range(src, user))
+	if(!Adjacent(user))
 		return
-	else
-		rotate()
+	rotate()
 
 /obj/structure/particle_accelerator/verb/rotateccw()
 	set name = "Rotate Counter Clockwise"

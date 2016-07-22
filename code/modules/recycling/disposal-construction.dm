@@ -101,10 +101,9 @@
 	if(user.incapacitated())
 		to_chat(user << "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!in_range(src, user))
+	if(!Adjacent(user))
 		return
-	else
-		rotate()
+	rotate()
 
 /obj/structure/disposalconstruct/verb/flip()
 	set name = "Flip Pipe"

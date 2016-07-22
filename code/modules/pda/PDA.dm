@@ -300,15 +300,16 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
-/obj/item/device/pda/AltClick()
+/obj/item/device/pda/AltClick(mob/user)
+	..()
 	if(issilicon(usr))
 		return
 
-	if(can_use(usr))
+	if(can_use(user))
 		if(id)
 			remove_id()
 		else
-			usr << "<span class='warning'>This PDA does not have an ID in it!</span>"
+			to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
 
 /obj/item/device/pda/proc/remove_id()
 	if(id)
