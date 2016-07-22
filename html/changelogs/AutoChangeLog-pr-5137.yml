@@ -1,0 +1,5 @@
+author: Kyep
+delete-after: True
+changes: 
+  - rscadd: "Admins can now see attacks against SSD players more easily."
+  - tweak: "Clarified the text you get when examining a SSD player."
