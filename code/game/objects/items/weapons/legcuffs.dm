@@ -132,8 +132,8 @@
 					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
 				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 					H.legcuffed = src
-					src.loc = H
-					H.update_inv_legcuffed(0)
+					forceMove(H)
+					H.update_inv_legcuffed()
 					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
 
 			else
@@ -179,12 +179,12 @@
 		return//abort
 	var/mob/living/carbon/C = hit_atom
 	if(!C.legcuffed)
-		visible_message("<span class='danger'>\The [src] ensnares [C]!</span>")
+		visible_message("<span class='danger'>The [src] ensnares [C]!</span>")
 		C.legcuffed = src
-		src.loc = C
+		forceMove(C)
 		C.update_inv_legcuffed()
 		feedback_add_details("handcuffs","B")
-		to_chat(C, "<span class='userdanger'>\The [src] ensnares you!</span>")
+		to_chat(C, "<span class='userdanger'>The [src] ensnares you!</span>")
 		C.Weaken(weaken)
 
 /obj/item/weapon/restraints/legcuffs/bola/tactical //traitor variant
