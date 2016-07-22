@@ -18,11 +18,11 @@
 	if(filled)
 
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, "\red [target] is full.")
+			to_chat(user, "<span class='warning'>[target] is full.</span>")
 			return
 
 		if(!target.is_open_container() && !ismob(target) && !istype(target,/obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/clothing/mask/cigarette)) //You can inject humans and food but you cant remove the shit.
-			to_chat(user, "\red You cannot directly fill this object.")
+			to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 			return
 
 		var/trans = 0
@@ -47,22 +47,20 @@
 						safe_thing.create_reagents(100)
 					trans = reagents.trans_to(safe_thing, amount_per_transfer_from_this)
 
-					for(var/mob/O in viewers(world.view, user))
-						O.show_message(text("\red <B>[] tries to squirt something into []'s eyes, but fails!</B>", user, target), 1)
+					visible_message("<span class='danger'>[user] tries to squirt something into [victim]'s eyes, but fails!</span>")
 					spawn(5)
 						reagents.reaction(safe_thing, TOUCH)
 
 
 
-					to_chat(user, "\blue You transfer [trans] units of the solution.")
+					to_chat(user, "<span class='notice'>You transfer [trans] units of the solution.</span>")
 					if(reagents.total_volume<=0)
 						filled = 0
 						icon_state = "[initial(icon_state)]"
 					return
 
 
-			for(var/mob/O in viewers(world.view, user))
-				O.show_message(text("\red <B>[] squirts something into []'s eyes!</B>", user, target), 1)
+			visible_message("<span class='danger'>[user] squirts something into [target]'s eyes!</span>")
 			reagents.reaction(target, TOUCH)
 
 			var/mob/living/M = target
@@ -81,7 +79,7 @@
 				M.LAssailant = user
 
 		trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "\blue You transfer [trans] units of the solution.")
+		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution.</span>")
 		if(reagents.total_volume<=0)
 			filled = 0
 			icon_state = "[initial(icon_state)]"
@@ -89,16 +87,16 @@
 	else
 
 		if(!target.is_open_container() && !istype(target,/obj/structure/reagent_dispensers))
-			to_chat(user, "\red You cannot directly remove reagents from [target].")
+			to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target].</span>")
 			return
 
 		if(!target.reagents.total_volume)
-			to_chat(user, "\red [target] is empty.")
+			to_chat(user, "<span class='warning'>[target] is empty.</span>")
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
-		to_chat(user, "\blue You fill the [src] with [trans] units of the solution.")
+		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution.</span>")
 
 		filled = 1
 		icon_state = "[initial(icon_state)][filled]"

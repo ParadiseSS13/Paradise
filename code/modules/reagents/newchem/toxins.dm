@@ -335,7 +335,7 @@
 		if(!O.unacidable)
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
-			O.visible_message("<span class='warning'>\the [O] melts.</span>")
+			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
 
 /datum/chemical_reaction/facid

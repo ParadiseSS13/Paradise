@@ -207,7 +207,7 @@
 			S.use(1)
 		else
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
+				to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
 				return
 			qdel(B)
 		broken_requirements -= broken_requirements[1]
@@ -221,7 +221,7 @@
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks))
 		beaker =  B
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
+			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
 			return
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [B] on the machine.</span>")
@@ -362,10 +362,10 @@
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(anchored)
 			anchored = 0
-			to_chat(user, "<span class='caution'>\The [src] can now be moved.</span>")
+			to_chat(user, "<span class='caution'>[src] can now be moved.</span>")
 		else if(!anchored)
 			anchored = 1
-			to_chat(user, "<span class='caution'>\The [src] is now secured.</span>")
+			to_chat(user, "<span class='caution'>[src] is now secured.</span>")
 
 	if(panel_open)
 		if(istype(I, /obj/item/weapon/crowbar))
@@ -434,7 +434,7 @@
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
+			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
 			return
 		beaker = B
 		B.forceMove(src)
@@ -449,7 +449,7 @@
 			return
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
+			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
 			return
 		loaded_pill_bottle = B
 		B.forceMove(src)
@@ -478,8 +478,7 @@
 	if(href_list["print_p"])
 		if(!(printing))
 			printing = 1
-			for(var/mob/O in viewers(usr))
-				O.show_message("\blue \the [src] rattles and prints out a sheet of paper.", 1)
+			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
 			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
 			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
@@ -884,7 +883,7 @@
 			return 1
 		else
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
+				to_chat(user, "<span class='warning'>[O] is stuck to you!</span>")
 				return
 			beaker =  O
 			O.forceMove(src)
