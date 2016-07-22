@@ -609,7 +609,7 @@
 			var/mob/living/Z = A
 			if(charged)
 				charged = 0
-				Z.take_organ_damage(0,70)
+				Z.take_organ_damage(0,40)
 				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 				var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
