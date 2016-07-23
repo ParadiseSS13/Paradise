@@ -1921,6 +1921,12 @@
 	icon_state = "vulp_facial_swift"
 	species_allowed = list("Vulpkanin")
 
+/datum/sprite_accessory/head_accessory/vulp_nose
+	icon = 'icons/mob/body_accessory.dmi'
+	name = "Vulpkanin Nose"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_nose_vulp"
+
 /datum/sprite_accessory/head_accessory/taj_ears
 	icon = 'icons/mob/human_face.dmi'
 	name = "Tajaran Ears"
@@ -2266,6 +2272,11 @@
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_vulptail_tip"
 
+/datum/sprite_accessory/body_markings/tail/vulp_default_fade
+	name = "Vulpkanin Default Tail Fade"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_vulptail_fade"
+
 /datum/sprite_accessory/body_markings/tail/vulp_bushy_fluff
 	name = "Vulpkanin Bushy Tail Fluff"
 	species_allowed = list("Vulpkanin")
@@ -2277,6 +2288,18 @@
 	species_allowed = list("Vulpkanin")
 	tails_allowed = list("Vulpkanin Alt 4 (Short)")
 	icon_state = "markings_vulptail5_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulp_hybrid_tip
+	name = "Vulpkanin Bushy Straight Tail Tip"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulp_hybrid_fade
+	name = "Vulpkanin Bushy Straight Tail Fade"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_fade"
 
 /* ALT HEADS */
 
