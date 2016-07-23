@@ -24,13 +24,12 @@
 			body += debug_variable("icon", new/icon(A.icon, A.icon_state, A.dir), 0)
 		#endif
 
-	var/icon/sprite
+	var/sprite
 
 	if(istype(D,/atom))
 		var/atom/AT = D
 		if(AT.icon && AT.icon_state)
-			sprite = new /icon(AT.icon, AT.icon_state)
-			usr << browse_rsc(sprite, "view_vars_sprite.png")
+			sprite = 1
 
 	title = "[D] (\ref[D]) = [D.type]"
 
@@ -162,7 +161,7 @@
 	body += "<div align='center'><table width='100%'><tr><td width='50%'>"
 
 	if(sprite)
-		body += "<table align='center' width='100%'><tr><td><img src='view_vars_sprite.png'></td><td>"
+		body += "<table align='center' width='100%'><tr><td>[bicon(D)]</td><td>"
 	else
 		body += "<table align='center' width='100%'><tr><td>"
 
@@ -351,26 +350,18 @@ body
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		var/icon/I = new/icon(value)
-		var/rnd = rand(1,10000)
-		var/rname = "tmp\ref[I][rnd].png"
-		usr << browse_rsc(I, rname)
-		html += "[name] = (<span class='value'>[value]</span>) <img class=icon src=\"[rname]\">"
+		html += "[name] = /icon (<span class='value'>[value]</span>) [bicon(value)]"
 		#else
 		html += "[name] = /icon (<span class='value'>[value]</span>)"
 		#endif
 
-/*		else if(istype(value, /image))
+	else if(istype(value, /image))
 		#ifdef VARSICON
-		var/rnd = rand(1, 10000)
-		var/image/I = value
-
-		src << browse_rsc(I.icon, "tmp\ref[value][rnd].png")
-		html += "[name] = <img src=\"tmp\ref[value][rnd].png\">"
+		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value)]"
 		#else
-		html += "[name] = /image (<span class='value'>[value]</span>)"
+		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
-*/
+
 	else if(isfile(value))
 		html += "[name] = <span class='value'>'[value]'</span>"
 
