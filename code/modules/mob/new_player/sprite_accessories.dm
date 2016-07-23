@@ -2121,6 +2121,11 @@
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_face_full_vulp"
 
+/datum/sprite_accessory/body_markings/head/muzzle_ears_vulp //Companion marking for Vulpkanin Belly Alt..
+	name = "Vulpkanin Muzzle and Ears"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_full_ears_vulp"
+
 /datum/sprite_accessory/body_markings/head/points_fade_vulp //Companion marking for Vulpkanin Points Fade.
 	name = "Vulpkanin Points Head"
 	species_allowed = list("Vulpkanin")
