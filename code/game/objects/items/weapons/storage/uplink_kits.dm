@@ -194,8 +194,5 @@
 
 /obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades/New()
 		..()
-		new /obj/item/weapon/grenade/gas(src)
-		new /obj/item/weapon/grenade/gas/overpressure(src)
-		new /obj/item/weapon/grenade/gas/suffocation(src)
-		new /obj/item/weapon/grenade/gas/vacuum(src)
-		new /obj/item/weapon/grenade/gas/knockout(src)
+		new /obj/item/weapon/grenade/clusterbuster/plasma(src)
+		new /obj/item/weapon/grenade/clusterbuster/n2o(src)
