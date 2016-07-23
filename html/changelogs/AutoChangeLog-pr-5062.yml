@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Can scan vending machines with your PDA to pay for items (if there's an ID in your PDA)"

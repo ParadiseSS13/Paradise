@@ -17,8 +17,7 @@
 	SetStunned(min(stunned, 30))
 	SetParalysis(min(paralysis, 30))
 	SetWeakened(min(weakened, 20))
-	sleeping = 0
-	ear_deaf = 0
+	SetSleeping(0)
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
@@ -228,12 +227,14 @@
 			weapon_lock = 0
 			weaponlock_time = 120
 
-/mob/living/silicon/robot/update_canmove()
+/mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
 	if(paralysis || stunned || weakened || buckled || lockcharge)
 		canmove = 0
 	else
 		canmove = 1
 	update_transform()
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 //Robots on fire

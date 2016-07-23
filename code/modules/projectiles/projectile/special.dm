@@ -55,7 +55,7 @@
 
 /obj/item/projectile/temp/New(loc, shot_temp)
 	..(loc)
-	if(shot_temp)
+	if(!isnull(shot_temp))
 		temperature = shot_temp
 	switch(temperature)
 		if(501 to INFINITY)

@@ -20,8 +20,8 @@
 
 		if(L.pulling && (istype(L.pulling, /mob/living)))
 			var/mob/living/M =	L.pulling
-			if(M.spell_list.len != 0 || (M.mind && M.mind.spell_list.len != 0))
-				for(var/obj/effect/proc_holder/spell/S in M.spell_list)
+			if(M.mob_spell_list.len != 0 || (M.mind && M.mind.spell_list.len != 0))
+				for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)
 					S.charge_counter = S.charge_max
 				if(M.mind)
 					for(var/obj/effect/proc_holder/spell/S in M.mind.spell_list)

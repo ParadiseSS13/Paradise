@@ -80,13 +80,13 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	return power_supply.charge >= shot.e_cost
 
-/obj/item/weapon/gun/energy/newshot(params)
+/obj/item/weapon/gun/energy/newshot()
 	if(!ammo_type || !power_supply)
 		return
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(power_supply.charge >= shot.e_cost) //if there's enough power in the power_supply cell...
 		chambered = shot //...prepare a new shot based on the current ammo type selected
-		chambered.newshot(params)
+		chambered.newshot()
 	return
 
 /obj/item/weapon/gun/energy/process_chamber()

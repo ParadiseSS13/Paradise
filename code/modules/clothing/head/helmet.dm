@@ -100,7 +100,7 @@
 	icon_state = "justice"
 	toggle_message = "You turn off the lights on"
 	alt_toggle_message = "You turn on the lights on"
-	action_button_name = "Toggle JUSTICE"
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	can_toggle = 1
 	toggle_cooldown = 20
 	active_sound = 'sound/items/WEEOO1.ogg'

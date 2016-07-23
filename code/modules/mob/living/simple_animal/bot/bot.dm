@@ -161,7 +161,7 @@
 	diag_hud.add_hud_to(src)
 	permanent_huds |= diag_hud
 
-/mob/living/simple_animal/bot/update_canmove()
+/mob/living/simple_animal/bot/update_canmove(delay_action_updates = 0)
 	. = ..()
 	if(!on)
 		. = 0

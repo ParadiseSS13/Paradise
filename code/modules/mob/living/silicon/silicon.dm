@@ -359,3 +359,11 @@
 
 /mob/living/silicon/is_mechanical()
 	return 1
+
+/////////////////////////////////// EAR DAMAGE ////////////////////////////////////
+
+/mob/living/silicon/adjustEarDamage()
+	return
+
+/mob/living/silicon/setEarDamage()
+	return

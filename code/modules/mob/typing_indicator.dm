@@ -15,10 +15,10 @@ var/global/image/typing_indicator
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.sdisabilities & MUTE || H.silent)
+		if(H.disabilities & MUTE || H.silent)
 			overlays -= typing_indicator
 			return
-		
+
 	if(client)
 		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
 			overlays -= typing_indicator

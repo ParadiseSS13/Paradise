@@ -259,7 +259,7 @@
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
-		C.ear_deaf = 20
+		C.adjustEarDamage(0,20)
 		C.stuttering = 20
 		C.Stun(4)
 		C.Jitter(150)

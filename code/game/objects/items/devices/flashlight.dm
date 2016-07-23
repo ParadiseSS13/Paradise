@@ -8,7 +8,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
-	action_button_name = "Flashlight"
+	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
 
@@ -36,6 +36,9 @@
 		return 0
 	on = !on
 	update_brightness(user)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 	return 1
 
 
@@ -68,7 +71,7 @@
 								 "<span class='notice'>You direct [src] to [M]'s eyes.</span>")
 
 			if(istype(M, /mob/living/carbon/human))	//robots and aliens are unaffected
-				if(M.stat == DEAD || M.sdisabilities & BLIND)	//mob is dead or fully blind
+				if(M.stat == DEAD || M.disabilities & BLIND)	//mob is dead or fully blind
 					to_chat(user, "<span class='notice'>[M] pupils does not react to the light!</span>")
 				else if(XRAY in M.mutations)	//mob has X-RAY vision
 					to_chat(user, "<span class='notice'>[M] pupils give an eerie glow!</span>")

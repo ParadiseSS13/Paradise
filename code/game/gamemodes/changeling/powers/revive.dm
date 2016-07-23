@@ -19,8 +19,7 @@
 	user.radiation = 0
 	user.eye_blind = 0
 	user.eye_blurry = 0
-	user.ear_deaf = 0
-	user.ear_damage = 0
+	user.setEarDamage(0,0)
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss())
 	user.reagents.clear_reagents()
 	user.germ_level = 0

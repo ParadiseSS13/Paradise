@@ -1,7 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - rscadd: "The ChemMaster now uses the asset cache, eliminating the enormous lag spike when you first use it. Yey!"
-  - bugfix: "Fixes the window not closing when selecting an icon for the chem-master"
-  - bugfix: "Fixes the chem master window not updating when selecting an icon"
-  - tweak: "The chem-master icon selection window now has a 4x5 grid of icons."

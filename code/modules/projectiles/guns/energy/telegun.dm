@@ -38,4 +38,6 @@
 	teleport_target = L[desc]
 
 /obj/item/weapon/gun/energy/telegun/newshot()
-	..(teleport_target)
+	var/obj/item/ammo_casing/energy/teleport/T = ammo_type[select]
+	T.teleport_target = teleport_target
+	..()

@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes organ repair surgery saying an organ wasn't damaged when it actually was"
+  - tweak: "Removes the 1 burn heal from regular ointment"
+  - tweak: "Regular bandages will now disinfect (in addition to stopping bleeding as they previously did)"
