@@ -65,8 +65,8 @@
 /obj/item/weapon/restraints/handcuffs/cable
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
-	icon_state = "cuff_white"
-	item_state = "coil_red"
+	icon_state = "cuff_red"
+	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
@@ -122,6 +122,7 @@
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
 	icon_state = "cuff_white"
 	breakouttime = 450 //Deciseconds = 45s
+	materials = list()
 	trashtype = /obj/item/weapon/restraints/handcuffs/cable/zipties/used
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
