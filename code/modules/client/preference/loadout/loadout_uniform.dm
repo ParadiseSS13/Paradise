@@ -106,7 +106,7 @@
 	path = /obj/item/clothing/under/rank/security/formal
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
-/datum/gear/uniform/secorporate
+/datum/gear/uniform/sec/secorporate
 	display_name = "security uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/corp
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
