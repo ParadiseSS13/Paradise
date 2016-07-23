@@ -19,14 +19,17 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 		if(istype(vote))
 			qdel(vote)
 		vote = src
+	spawn(0)
+		while(TRUE)
+			process()
+			sleep(10)
 
-/datum/controller/vote/proc/process()	//called by master_controller
+/datum/controller/vote/proc/process()
 	if(mode)
 		// No more change mode votes after the game has started.
-		// 3 is GAME_STATE_PLAYING, but that #define is undefined for some reason
-		if(mode == "gamemode" && ticker.current_state >= 2)
+		if(mode == "gamemode" && ticker.current_state >= GAME_STATE_SETTING_UP)
 			to_chat(world, "<b>Voting aborted due to game start.</b>")
-			src.reset()
+			reset()
 			return
 
 		// Calculate how much time is remaining by comparing current time, to time of vote start,
@@ -37,14 +40,10 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 			result()
 			for(var/client/C in voting)
 				if(C)
-					C << browse(null,"window=vote;can_close=0")
+					C << browse(null,"window=vote")
 			reset()
 		else
-			for(var/client/C in voting)
-				if(C)
-					C << browse(vote.interface(C),"window=vote;can_close=0")
-
-			voting.Cut()
+			update_panel()
 
 /datum/controller/vote/proc/autotransfer()
 	initiate_vote("crew_transfer","the server")
@@ -68,14 +67,26 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 
 
 /datum/controller/vote/proc/get_result()
-	//get the highest number of votes
 	var/greatest_votes = 0
 	var/total_votes = 0
-	for(var/option in choices)
-		var/votes = choices[option]
-		total_votes += votes
-		if(votes > greatest_votes)
-			greatest_votes = votes
+	var/list/sorted_choices = list()
+	var/sorted_highest
+	var/sorted_votes = -1
+	//get the highest number of votes, while also sorting the list
+	while(choices.len)
+		// This is a very inefficient sorting method, but that's okay
+		for(var/option in choices)
+			var/votes = choices[option]
+			if(sorted_votes < votes)
+				sorted_highest = option
+				sorted_votes = votes
+			if(votes > greatest_votes)
+				greatest_votes = votes
+		sorted_votes = -1
+		total_votes += choices[sorted_highest]
+		sorted_choices[sorted_highest] = choices[sorted_highest] || 0
+		choices -= sorted_highest
+	choices = sorted_choices
 	//default-vote for everyone who didn't vote
 	if(!config.vote_no_default && choices.len)
 		var/non_voters = (clients.len - total_votes)
@@ -129,11 +140,18 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 		for(var/key in current_votes)
 			if(choices[current_votes[key]] == .)
 				round_voters += key // Keep track of who voted for the winning round.
-		if((mode == "gamemode" && . == "extended") || ticker.hide_mode == 0) // Announce Extended gamemode, but not other gamemodes
-			text += "<b>Vote Result: [.]</b>"
+		if(mode == "gamemode" && (. == "extended" || ticker.hide_mode == 0)) // Announce Extended gamemode, but not other gamemodes
+			text += "<b>Vote Result: [.] ([choices[.]] vote\s)</b>"
 		else
-			if(mode != "gamemode")
-				text += "<b>Vote Result: [.]</b>"
+			if(mode == "custom")
+				// Completely replace text to show all results in custom votes
+				text = "<b><span style='text-decoration: underline;'>[question]</span></b>\n"
+				for(var/option in winners)
+					text += "\t<b>[option]: [choices[option]] vote\s</b>\n"
+				for(var/option in (choices-winners))
+					text += "\t[option]: [choices[option]] vote\s\n"
+			else if(mode != "gamemode")
+				text += "<b>Vote Result: [.] ([choices[.]] vote\s)</b>"
 			else
 				text += "<b>The vote has ended.</b>" // What will be shown if it is a gamemode vote that isn't extended
 
@@ -217,7 +235,8 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 					var/option = capitalize(html_encode(input(usr,"Please enter an option or hit cancel to finish") as text|null))
 					if(!option || mode || !usr.client)	break
 					choices.Add(option)
-			else			return 0
+			else
+				return 0
 		mode = vote_type
 		initiator = initiator_key
 		started_time = world.time
@@ -226,7 +245,9 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 			text += "\n[question]"
 
 		log_vote(text)
-		to_chat(world, "<font color='purple'><b>[text]</b>\nType vote to place your votes.\nYou have [config.vote_period/10] seconds to vote.</font>")
+		to_chat(world, {"<font color='purple'><b>[text]</b>
+			<a href='?src=\ref[src];vote=open'>Click here or type vote to place your vote.</a>
+			You have [config.vote_period/10] seconds to vote.</font>"})
 		switch(vote_type)
 			if("crew_transfer")
 				world << sound('sound/ambience/alarm4.ogg')
@@ -256,74 +277,92 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 			log_admin("OOC was toggled automatically due to custom vote.")
 			message_admins("OOC has been toggled off automatically.")
 
-
-
-
 		time_remaining = round(config.vote_period/10)
 		return 1
 	return 0
 
-/datum/controller/vote/proc/interface(var/client/C)
-	if(!C)	return
-	var/admin = check_rights(R_ADMIN,0)
+/datum/controller/vote/proc/browse_to(var/client/C)
+	if(!C)
+		return
+	var/admin = check_rights(R_ADMIN, 0, user = C.mob)
 	voting |= C
 
-	. = "<html><head><title>Voting Panel</title></head><body>"
+	var/dat = {"<script>
+		function update_vote_div(new_content) {
+			var votediv = document.getElementById("vote_div");
+			if(votediv) {
+				votediv.innerHTML = new_content;
+			}
+		}
+		</script>"}
 	if(mode)
-		if(question)	. += "<h2>Vote: '[question]'</h2>"
-		else			. += "<h2>Vote: [capitalize(mode)]</h2>"
-		. += "Time Left: [time_remaining] s<hr><ul>"
-		for(var/i = 1, i <= choices.len, i++)
-			var/votes = choices[choices[i]]
-			if(!votes)	votes = 0
-			if(current_votes[C.ckey] == i)
-				. += "<li><b><a href='?src=\ref[src];vote=[i]'>[choices[i]] ([votes] votes)</a></b></li>"
-			else
-				. += "<li><a href='?src=\ref[src];vote=[i]'>[choices[i]] ([votes] votes)</a></li>"
-
-		. += "</ul><hr>"
+		dat += "<div id='vote_div'>[vote_html(C)]</div><hr>"
 		if(admin)
-			. += "(<a href='?src=\ref[src];vote=cancel'>Cancel Vote</a>) "
+			dat += "(<a href='?src=\ref[src];vote=cancel'>Cancel Vote</a>) "
 	else
-		. += "<h2>Start a vote:</h2><hr><ul><li>"
+		dat += "<div id='vote_div'><h2>Start a vote:</h2><hr><ul><li>"
 		//restart
 		if(admin || config.allow_vote_restart)
-			. += "<a href='?src=\ref[src];vote=restart'>Restart</a>"
+			dat += "<a href='?src=\ref[src];vote=restart'>Restart</a>"
 		else
-			. += "<font color='grey'>Restart (Disallowed)</font>"
-		. += "</li><li>"
+			dat += "<font color='grey'>Restart (Disallowed)</font>"
+		dat += "</li><li>"
 		if(admin || config.allow_vote_restart)
-			. += "<a href='?src=\ref[src];vote=crew_transfer'>Crew Transfer</a>"
+			dat += "<a href='?src=\ref[src];vote=crew_transfer'>Crew Transfer</a>"
 		else
-			. += "<font color='grey'>Crew Transfer (Disallowed)</font>"
+			dat += "<font color='grey'>Crew Transfer (Disallowed)</font>"
 		if(admin)
-			. += "\t(<a href='?src=\ref[src];vote=toggle_restart'>[config.allow_vote_restart?"Allowed":"Disallowed"]</a>)"
-		. += "</li><li>"
+			dat += "\t(<a href='?src=\ref[src];vote=toggle_restart'>[config.allow_vote_restart?"Allowed":"Disallowed"]</a>)"
+		dat += "</li><li>"
 		//gamemode
 		if(admin || config.allow_vote_mode)
-			. += "<a href='?src=\ref[src];vote=gamemode'>GameMode</a>"
+			dat += "<a href='?src=\ref[src];vote=gamemode'>GameMode</a>"
 		else
-			. += "<font color='grey'>GameMode (Disallowed)</font>"
+			dat += "<font color='grey'>GameMode (Disallowed)</font>"
 		if(admin)
-			. += "\t(<a href='?src=\ref[src];vote=toggle_gamemode'>[config.allow_vote_mode?"Allowed":"Disallowed"]</a>)"
+			dat += "\t(<a href='?src=\ref[src];vote=toggle_gamemode'>[config.allow_vote_mode?"Allowed":"Disallowed"]</a>)"
 
-		. += "</li>"
+		dat += "</li>"
 		//custom
 		if(admin)
-			. += "<li><a href='?src=\ref[src];vote=custom'>Custom</a></li>"
-		. += "</ul><hr>"
-	. += "<a href='?src=\ref[src];vote=close' style='position:absolute;right:50px'>Close</a></body></html>"
-	return .
+			dat += "<li><a href='?src=\ref[src];vote=custom'>Custom</a></li>"
+		dat += "</ul></div><hr>"
+	var/datum/browser/popup = new(C.mob, "vote", "Voting Panel", nref=src)
+	popup.set_content(dat)
+	popup.open()
+
+/datum/controller/vote/proc/update_panel(var/client/client)
+	for(var/client/C in (client ? list(client) : voting))
+		C << output(url_encode(vote_html(C)), "vote.browser:update_vote_div")
+
+/datum/controller/vote/proc/vote_html(var/client/C)
+	. = ""
+	if(question)
+		. += "<h2>Vote: '[question]'</h2>"
+	else
+		. += "<h2>Vote: [capitalize(mode)]</h2>"
+	. += "Time Left: [time_remaining] s<hr><ul>"
+	for(var/i = 1, i <= choices.len, i++)
+		var/votes = choices[choices[i]]
+		if(!votes)
+			votes = 0
+		if(current_votes[C.ckey] == i)
+			. += "<li><b><a href='?src=\ref[src];vote=[i]'>[choices[i]] ([votes] vote\s)</a></b></li>"
+		else
+			. += "<li><a href='?src=\ref[src];vote=[i]'>[choices[i]] ([votes] vote\s)</a></li>"
+
+	. += "</ul>"
 
 
 /datum/controller/vote/Topic(href,href_list[],hsrc)
 	if(!usr || !usr.client)	return	//not necessary but meh...just in-case somebody does something stupid
 	var/admin = check_rights(R_ADMIN,0)
+	if(href_list["close"])
+		voting -= usr.client
+		return
 	switch(href_list["vote"])
-		if("close")
-			voting -= usr.client
-			usr << browse(null, "window=vote")
-			return
+		if("open")
+			// vote proc will automatically get called after this switch ends
 		if("cancel")
 			if(admin)
 				reset()
@@ -347,6 +386,8 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 				initiate_vote("custom",usr.key)
 		else
 			submit_vote(usr.ckey, round(text2num(href_list["vote"])))
+			update_panel(usr.client)
+			return
 	usr.vote()
 
 
@@ -355,4 +396,4 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	set name = "Vote"
 
 	if(vote)
-		src << browse(vote.interface(client),"window=vote;can_close=0")
+		vote.browse_to(client)
