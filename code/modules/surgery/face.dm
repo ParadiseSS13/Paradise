@@ -128,7 +128,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s hand slips, tearing skin on [target]'s face with \the [tool]!</span>", \
 		"<span class='warning'> Your hand slips, tearing skin on [target]'s face with \the [tool]!</span>")
-		target.apply_damage(10, BRUTE, affected, sharp=1, sharp=1)
+		target.apply_damage(10, BRUTE, affected, sharp=1, edge=1)
 		return 0
 
 /datum/surgery_step/face/cauterize

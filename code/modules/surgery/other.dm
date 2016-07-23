@@ -256,11 +256,11 @@
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			C.Weaken(6)
-			C.apply_damage(20, "brute", "chest")
+			C.apply_damage(20, BRUTE, "chest")
 		else if(issilicon(user))
 			var/mob/living/silicon/S = user
 			S.Weaken(8)
-			S.apply_damage(20, "brute")
+			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return 0
 	user.visible_message("[user] shines light onto the tumor in [target]'s head!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
