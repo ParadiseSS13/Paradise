@@ -229,8 +229,8 @@
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
 	for(var/mob/living/carbon/C in range(T, 1))
-		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
-			C.reagents.add_reagent("cyanide",7)
+		if(C.can_breathe_gas())
+			C.reagents.add_reagent("cyanide", 7)
 
 /datum/reagent/itching_powder
 	name = "Itching Powder"
@@ -633,8 +633,8 @@
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
 	for(var/mob/living/carbon/C in range(T, 2))
-		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
-			C.reagents.add_reagent("sarin",4)
+		if(C.can_breathe_gas())
+			C.reagents.add_reagent("sarin", 4)
 
 /datum/reagent/sarin/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -748,6 +748,7 @@
 	description = "A rare drug that causes the user to appear dead for some time."
 	reagent_state = LIQUID
 	color = "#60A584"
+	heart_rate_stop = 1
 
 /datum/chemical_reaction/capulettium
 	name = "capulettium"
@@ -778,6 +779,7 @@
 	description = "A rare and expensive drug that causes the user to appear dead for some time while they retain consciousness and vision."
 	reagent_state = LIQUID
 	color = "#60A584"
+	heart_rate_stop = 1
 
 /datum/chemical_reaction/capulettium_plus
 	name = "capulettium_plus"

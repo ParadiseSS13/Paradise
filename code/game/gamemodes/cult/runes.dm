@@ -840,11 +840,11 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.ear_deaf += 50
+			C.adjustEarDamage(0,50)
 			C.show_message("\red The world around you suddenly becomes quiet.", 3)
 			affected++
 			if(prob(1))
-				C.sdisabilities |= DEAF
+				C.disabilities |= DEAF
 		if(affected)
 			usr.say("Sti[pick("'","`")] kaliedir!")
 			to_chat(usr, "\red The world becomes quiet as the deafening rune dissipates into fine dust.")
@@ -859,7 +859,7 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.ear_deaf += 30
+			C.adjustEarDamage(0,30)
 			//talismans is weaker.
 			C.show_message("\red The world around you suddenly becomes quiet.", 3)
 			affected++
@@ -885,7 +885,7 @@ var/list/sacrificed = list()
 			if(prob(5))
 				C.disabilities |= NEARSIGHTED
 				if(prob(10))
-					C.sdisabilities |= BLIND
+					C.disabilities |= BLIND
 			C.show_message("\red Suddenly you see red flash that blinds you.", 3)
 			affected++
 		if(affected)

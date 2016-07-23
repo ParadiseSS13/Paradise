@@ -81,11 +81,6 @@
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/unathi/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-
 /datum/species/tajaran
 	name = "Tajaran"
 	name_plural = "Tajaran"
@@ -147,11 +142,6 @@
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
-
-/datum/species/tajaran/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
@@ -364,8 +354,7 @@
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
-	if(H.internals)
-		H.internals.icon_state = "internal1"
+	H.update_internals_hud_icon(1)
 
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
 	updatespeciescolor(H)
@@ -803,8 +792,7 @@
 		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(var/mob/other)
-	var/mob/living/simple_animal/diona/D = other
-	if(istype(D))
+	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
 	return 0
 

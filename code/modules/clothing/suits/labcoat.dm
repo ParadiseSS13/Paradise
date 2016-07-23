@@ -13,7 +13,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-	action_button_name = "Button/Unbutton Labcoat"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/labcoat/cmo

@@ -324,10 +324,10 @@
 	..()
 
 
-/datum/reagent/spores
+/datum/reagent/spore
 	name = "Spore Toxin"
-	id = "spores"
-	description = "A toxic spore cloud which blocks vision when ingested."
+	id = "spore"
+	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
 
 /datum/reagent/spores/on_mob_life(mob/living/M)

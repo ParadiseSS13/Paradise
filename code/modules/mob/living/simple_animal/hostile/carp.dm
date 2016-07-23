@@ -55,12 +55,8 @@
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	del_on_death = 1
 
-/mob/living/simple_animal/hostile/carp/holocarp/death()
-	..()
-	ghostize()
-	qdel(src)
-	return
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/alienqueen.dmi'

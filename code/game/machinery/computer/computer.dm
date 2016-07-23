@@ -21,6 +21,7 @@
 	..()
 
 /obj/machinery/computer/initialize()
+	..()
 	power_change()
 	update_icon()
 

@@ -219,7 +219,7 @@
 
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
-/mob/living/simple_animal/hostile/death()
+/mob/living/simple_animal/hostile/death(gibbed)
 	LoseAggro()
 	mouse_opacity = 1
 	..()

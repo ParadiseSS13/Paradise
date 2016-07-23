@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes teacups and some other drinks having no sprite, in-hand, or object"

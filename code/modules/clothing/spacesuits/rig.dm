@@ -10,7 +10,7 @@
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	item_color = "engineering" //Determines used sprites: rig[on]-[color] and rig[on]-[color]2 (lying down sprite)
-	action_button_name = "Toggle Helmet Light"
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	//Species-specific stuff.
 	species_restricted = list("exclude","Diona","Wryn")
@@ -31,10 +31,6 @@
 		)
 
 /obj/item/clothing/head/helmet/space/rig/attack_self(mob/user)
-	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>")//To prevent some lighting anomalities.
-
-		return
 	toggle_light(user)
 
 /obj/item/clothing/head/helmet/space/rig/proc/toggle_light(mob/user)
@@ -49,6 +45,14 @@
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_head()
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/head/helmet/space/rig/item_action_slot_check(slot)
+	if(slot == slot_head)
+		return 1
 
 /obj/item/clothing/suit/space/rig
 	name = "hardsuit"
@@ -298,17 +302,12 @@
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	on = 1
 	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
-	action_button_name = "Toggle Helmet Mode"
+	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 
 /obj/item/clothing/head/helmet/space/rig/syndi/update_icon()
 	icon_state = "rig[on]-[item_color]"
 
 /obj/item/clothing/head/helmet/space/rig/syndi/attack_self(mob/user)
-	if(!isturf(user.loc))
-		to_chat(user, "You cannot toggle your helmet while in this [user.loc].")//To prevent some lighting anomalities.
-
-		return
-
 	on = !on
 	if(on)
 		to_chat(user, "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>")
@@ -331,6 +330,10 @@
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	user.update_inv_head()
 
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
 /obj/item/clothing/suit/space/rig/syndi
 	name = "blood-red hardsuit"
 	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
@@ -339,7 +342,7 @@
 	item_color = "syndi"
 	w_class = 3
 	var/on = 1
-	action_button_name = "Toggle Hardsuit Mode"
+	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 
@@ -369,6 +372,10 @@
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	user.update_inv_wear_suit()
 	user.update_inv_w_uniform()
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/rig/syndi/elite

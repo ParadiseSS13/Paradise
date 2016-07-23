@@ -24,11 +24,7 @@
 	check_friendly_fire = 1
 	status_flags = CANPUSH
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier)
-
-/mob/living/simple_animal/hostile/syndicate/death()
-	..()
-	qdel(src)
-	return
+	del_on_death = 1
 
 ///////////////Sword and shield////////////
 
@@ -124,9 +120,5 @@
 	minbodytemp = 0
 	flying = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
-
-/mob/living/simple_animal/hostile/viscerator/death()
-	..()
-	visible_message("\red <b>[src]</b> is smashed into pieces!")
-	qdel(src)
-	return
+	del_on_death = 1
+	deathmessage = "is smashed into pieces!"

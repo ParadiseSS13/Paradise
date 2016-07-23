@@ -50,12 +50,17 @@
 		return ..()
 
 
-/mob/living/carbon/brain/update_canmove()
+/mob/living/carbon/brain/update_canmove(delay_action_updates = 0)
 	if(in_contents_of(/obj/mecha))
 		canmove = 1
 		use_me = 1 //If it can move, let it emote
-	else if(istype(loc, /obj/item/device/mmi))	canmove = 1 //mmi won't move anyways so whatever
-	else							canmove = 0
+	else if(istype(loc, /obj/item/device/mmi))
+		canmove = 1 //mmi won't move anyways so whatever
+	else
+		canmove = 0
+
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
@@ -95,3 +100,9 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 /mob/living/carbon/brain/can_safely_leave_loc()
 	return 0 //You're not supposed to be ethereal jaunting, brains
+
+/mob/living/carbon/brain/adjustEarDamage()
+	return
+
+/mob/living/carbon/brain/setEarDamage() // no ears to damage or heal
+	return

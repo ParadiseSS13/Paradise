@@ -1,0 +1,6 @@
+author: Twinmold
+delete-after: True
+changes: 
+  - bugfix: "Can no longer destroy pods with anything other than brute and burn weapons."
+  - bugfix: "Can no longer pull someone out of a pod when no one is actually in the pod."
+  - tweak: "Can now melee attack pods with weapons when harm intent is on."

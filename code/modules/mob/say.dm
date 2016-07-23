@@ -53,13 +53,12 @@
 
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
 
-/mob/proc/say_understands(var/mob/other,var/datum/language/speaking = null)
-
-	if(src.stat == 2)		//Dead
+/mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
+	if(stat == DEAD)
 		return 1
 
 	//Universal speak makes everything understandable, for obvious reasons.
-	else if(src.universal_speak || src.universal_understand)
+	if(universal_speak || universal_understand)
 		return 1
 
 	//Languages are handled after.
@@ -78,7 +77,7 @@
 		return 1
 
 	//Language check.
-	for(var/datum/language/L in src.languages)
+	for(var/datum/language/L in languages)
 		if(speaking.name == L.name)
 			return 1
 
@@ -92,9 +91,9 @@
 	if(speaking)
 		verb = speaking.get_spoken_verb(ending)
 	else
-		if(ending=="!")
-			verb = pick("exclaims","shouts","yells")
-		else if(ending=="?")
+		if(ending == "!")
+			verb = pick("exclaims", "shouts", "yells")
+		else if(ending == "?")
 			verb = "asks"
 	return verb
 
@@ -123,8 +122,8 @@
 //parses the message mode code (e.g. :h, :w) from text, such as that supplied to say.
 //returns the message mode string or null for no message mode.
 //standard mode is the mode returned for the special ';' radio code.
-/mob/proc/parse_message_mode(var/message, var/standard_mode="headset")
-	if(length(message) >= 1 && copytext(message,1,2) == ";")
+/mob/proc/parse_message_mode(var/message, var/standard_mode = "headset")
+	if(length(message) >= 1 && copytext(message, 1, 2) == ";")
 		return standard_mode
 
 	if(length(message) >= 2)
@@ -136,7 +135,7 @@
 //parses the language code (e.g. :j) from text, such as that supplied to say.
 //returns the language object only if the code corresponds to a language that src can speak, otherwise null.
 /mob/proc/parse_language(var/message)
-	var/prefix = copytext(message,1,2)
+	var/prefix = copytext(message, 1, 2)
 	if(length(message) >= 1 && prefix == "!")
 		return all_languages["Noise"]
 

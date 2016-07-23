@@ -328,7 +328,6 @@
 
 
 /mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
-
 	if(internal)
 		var/null_internals = 0      //internals are invalid, therefore turn them off
 		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
@@ -353,12 +352,10 @@
 
 
 	if(internal) //check for hud updates every time this is called
-		if(internals)
-			internals.icon_state = "internal1"
+		update_internals_hud_icon(1)
 		return internal.remove_air_volume(volume_needed) //returns the valid air
 	else
-		if(internals)
-			internals.icon_state = "internal0"
+		update_internals_hud_icon(0)
 
 	return null
 
@@ -819,9 +816,6 @@
 			handle_organs()
 			handle_blood()
 
-		//the analgesic effect wears off slowly
-		analgesic = max(0, analgesic - 1)
-
 		if(paralysis)
 			blinded = 1
 			stat = UNCONSCIOUS
@@ -867,7 +861,7 @@
 
 		else
 			//blindness
-			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
+			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
 				blinded =    1
 
 			else if(eye_blind)		       // Blindness, heals slowly over time
@@ -887,18 +881,18 @@
 
 
 		//Ears
-		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			ear_deaf = max(ear_deaf, 1)
+		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+			setEarDamage(-1, max(ear_deaf, 1))
 
 		else if(ear_deaf)			//deafness, heals slowly over time
-			ear_deaf = max(ear_deaf - 1, 0)
+			adjustEarDamage(0,-1)
 
 		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			ear_damage = max(ear_damage - 0.15, 0)
-			ear_deaf = max(ear_deaf, 1)
+			adjustEarDamage(-0.15,0)
+			setEarDamage(-1, max(ear_deaf, 1))
 
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			ear_damage = max(ear_damage - 0.05, 0)
+			adjustEarDamage(-0.05,0)
 
 		if(flying)
 			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
@@ -990,8 +984,10 @@
 
 /mob/living/carbon/human/handle_shock()
 	..()
-	if(status_flags & GODMODE)	return 0	//godmode
-	if(analgesic || (species && species.flags & NO_PAIN)) return // analgesic avoids all traumatic shock temporarily
+	if(status_flags & GODMODE)
+		return 0	//godmode
+	if(species && species.flags & NO_PAIN)
+		return
 
 	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
 		shock_stage = max(shock_stage, 61)
@@ -1040,9 +1036,11 @@
 
 /mob/living/carbon/human/proc/handle_pulse()
 
-	if(mob_master.current_cycle % 5) return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
+	if(mob_master.current_cycle % 5)
+		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
-	if(species && species.flags & NO_BLOOD) return PULSE_NONE //No blood, no pulse.
+	if(species && species.flags & NO_BLOOD)
+		return PULSE_NONE //No blood, no pulse.
 
 	if(stat == DEAD)
 		return PULSE_NONE	//that's it, you're dead, nothing can influence your pulse
@@ -1060,25 +1058,21 @@
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
 	for(var/datum/reagent/R in reagents.reagent_list)
-		if(R.id in bradycardics)
+		if(R.heart_rate_decrease)
 			if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
 				temp--
-				break		//one reagent is enough
-							//comment out the breaks to make med effects stack
-	for(var/datum/reagent/R in reagents.reagent_list)				//handles different chems' influence on pulse
-		if(R.id in tachycardics)
+				break
+
+	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
+		if(R.heart_rate_increase)
 			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
 				temp++
 				break
+
 	for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
-		if(R.id in heartstopper)
+		if(R.heart_rate_stop)
 			temp = PULSE_NONE
 			break
-	for(var/datum/reagent/R in reagents.reagent_list) //Conditional heart-stoppage
-		if(R.id in cheartstopper)
-			if(R.volume >= R.overdose_threshold)
-				temp = PULSE_NONE
-				break
 
 	return temp
 

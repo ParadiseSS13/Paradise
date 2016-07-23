@@ -1,0 +1,11 @@
+author: FreeStylaLT
+delete-after: True
+changes: 
+  - bugfix: "Fixed brig cell block APCs not getting power"
+  - bugfix: "Fixed space buggery Kyet made :angry:"
+  - bugfix: "Fixed missing light near labor shuttle dock"
+  - bugfix: "Fixed wrongly placed cobweb in solitary"
+  - bugfix: "Fixed basketball court not having a basketball"
+  - rscadd: "Added windows to brig processing entrance"
+  - rscadd: "Re-added the missing EOD and biohazard lockers in Armory"
+  - rscdel: "6 gas masks from Armory"
