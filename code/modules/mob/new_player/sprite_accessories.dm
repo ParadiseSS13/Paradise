@@ -2037,6 +2037,11 @@
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_points_fade_vulp"
 
+/datum/sprite_accessory/body_markings/points_fade_belly_vulp
+	name = "Vulpkanin Points and Belly"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_points_fade_belly_vulp"
+
 /datum/sprite_accessory/body_markings/points_sharp_vulp
 	name = "Vulpkanin Points 2"
 	species_allowed = list("Vulpkanin")
@@ -2300,6 +2305,12 @@
 	species_allowed = list("Vulpkanin")
 	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
 	icon_state = "markings_vulptail6_fade"
+
+/datum/sprite_accessory/body_markings/tail/vulp_hybrid_silverf
+	name = "Vulpkanin Bushy Straight Tail Black Fade White Tip"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_silverf"
 
 /* ALT HEADS */
 
