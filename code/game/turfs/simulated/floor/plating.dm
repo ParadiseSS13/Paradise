@@ -133,6 +133,10 @@
 	name = "engraved floor"
 	icon_state = "cult"
 
+/turf/simulated/floor/engine/cult/New()
+	..()
+	icon_state = ticker.mode.cultdat.cult_floor_icon_state
+
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 

@@ -14,7 +14,7 @@
 	var/entity_title1 = "The Dark One"
 	var/entity_title2 = "The One Who Sees"
 	var/entity_title3 = "The Geometer of Blood"
-	var/entity_icon_state = ""
+	var/entity_icon_state = "narsie"
 
 
 	//Builder Construct
@@ -60,18 +60,28 @@
 	entity_title1 = "The Burning One"
 	entity_title2 = "The One Who Consumes"
 	entity_title3 = "The Harbinger of Fire"
+	entity_icon_state = "narbee"
+
+	cult_wall_icon_state = "firecult"
+	cult_floor_icon_state = "cultfire"
 
 	artificer_name = "Igniting Ember"
+	artificer_icon_state = "fireartificer"
 
 	behemoth_name = "Devouring Hatred"
+	behemoth_icon_state = "firejuggernaut"
 
 	wraith_name = "Living Flame"
+	wraith_icon_state = "firewraith"
 
 	juggernaut_name = "Pyre Armor"
+	juggernaut_icon_state = "firejuggernaut"
 
-	harvester_name = "Coal Seeker"
+	harvester_name = "Coal Seeker"//or nipple pincher...
+	harvester_icon_state = "fireharvester"
 
 	shade_name = "Charred Soul"
+	shade_icon_state = "shade"
 
 /datum/cult_info/death
 	name = "Cult of Mortality"

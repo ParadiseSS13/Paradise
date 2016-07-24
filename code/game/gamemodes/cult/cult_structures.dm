@@ -75,7 +75,7 @@
 
 /obj/structure/cult/culttalisman
 	name = "altar"
-	desc = "A bloodstained altar dedicated to Nar-Sie."
+	desc = "A bloodstained altar dedicated to a cult."
 	icon_state = "talismanaltar"
 	health = 150 //Sturdy
 	death_message = "<span class='warning'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
@@ -91,7 +91,7 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
 		return
-	var/choice = alert(user,"You study the schematics etched into the forge...",,"Eldritch Whetstone","Zealot's Blindfold","Flask of Unholy Water")
+	var/choice = alert(user,"You study the schematics etched into the forge...","Cultist Dagger", "Eldritch Whetstone","Zealot's Blindfold","Flask of Unholy Water")
 	var/pickedtype
 	switch(choice)
 		if("Eldritch Whetstone")
@@ -100,6 +100,8 @@
 			pickedtype = /obj/item/clothing/glasses/night/cultblind
 		if("Flask of Unholy Water")
 			pickedtype = /obj/item/weapon/reagent_containers/food/drinks/bottle/unholywater
+		if("Cultist Dagger")
+			pickedtype = /obj/item/weapon/melee/cultblade/dagger
 	if(pickedtype && Adjacent(user) && src && !qdeleted(src) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		var/obj/item/N = new pickedtype(get_turf(src))
@@ -143,18 +145,17 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
 		return
-	var/choice = alert(user,"You study the schematics etched into the forge...",, "Flagellant's Robe","Cultist Hardsuit", "Cultist Dagger")
+	var/choice = alert(user,"You study the schematics etched into the forge...",, "Shielded Hardsuit", "Flagellant's Robe","Cultist Hardsuit")
 	var/pickedtype
 	var/otheritem //ie:helmet..
 	switch(choice)
+		if("Shielded Robe")
+			pickedtype = /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 		if("Flagellant's Robe")
-			pickedtype = /obj/item/clothing/suit/cultrobes/berserker
-			otheritem = /obj/item/clothing/head/berserkerhood
+			pickedtype = /obj/item/clothing/suit/hooded/cultrobes/berserker
 		if("Cultist Hardsuit")
 			pickedtype = /obj/item/clothing/suit/space/cult
 			otheritem = /obj/item/clothing/head/helmet/space/cult
-		if("Cultist Dagger")
-			pickedtype = /obj/item/weapon/melee/cultblade/dagger
 	if(pickedtype && Adjacent(user) && src && !qdeleted(src) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		var/obj/item/N = new pickedtype(get_turf(src))

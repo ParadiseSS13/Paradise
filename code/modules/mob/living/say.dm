@@ -78,7 +78,10 @@ proc/get_radio_key_from_channel(var/channel)
 			message = stutter(message)
 		verb = "stammers"
 		speech_problem_flag = 1
-
+	if(cultslurring)
+		message = cultslur(message)
+		verb = "slurs"
+		speech_problem_flag = 1
 	if(COMIC in mutations)
 		message = "<span class='sans'>[message]</span>"
 

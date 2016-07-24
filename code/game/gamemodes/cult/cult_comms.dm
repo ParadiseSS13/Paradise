@@ -1,16 +1,15 @@
-/datum/action/cultcomm
+/datum/action/innate/cultcomm
 	name = "Communion"
 	button_icon_state = "cult_comms"
 	background_icon_state = "bg_cult"
-	action_type = AB_INNATE
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
 
-/datum/action/cultcomm/IsAvailable()
+/datum/action/innate/cultcomm/IsAvailable()
 	if(!iscultist(owner))
 		return 0
 	return ..()
 
-/datum/action/cultcomm/Activate()
+/datum/action/innate/cultcomm/Activate()
 	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
 	if(!input || !IsAvailable())
 		return
