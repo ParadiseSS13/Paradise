@@ -677,6 +677,7 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive")
 	var/random = TRUE
+	var/refundable = FALSE
 
 /obj/item/weapon/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
@@ -700,6 +701,23 @@
 	else
 		to_chat(user, "[failure_message]")
 		used = FALSE
+
+/obj/item/weapon/guardiancreator/afterattack(var/obj/item/I as obj, mob/user as mob, proximity)
+	..()
+	if(!proximity)
+		return
+	if(!refundable)
+		return
+	if(istype(I, /obj/item))
+		if(I.hidden_uplink && I.hidden_uplink.active)
+			if(used == TRUE)
+				to_chat(user, "[used_message]")
+				return
+			var/datum/uplink_item/dangerous/guardian/D = new /datum/uplink_item/dangerous/guardian
+			I.hidden_uplink.uses += D.cost
+			to_chat(user, "<span class='notice'>You send [src] back, getting a refund for its TC.</span>")
+			qdel(D)
+			qdel(src)
 
 
 /obj/item/weapon/guardiancreator/proc/spawn_guardian(var/mob/living/user, var/key)
@@ -793,6 +811,7 @@
 	used_message = "The injector has already been used."
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
 	ling_failure = "The holoparasites recoil in horror. They want nothing to do with a creature like you."
+	refundable = TRUE
 
 /obj/item/weapon/guardiancreator/tech/choose
 	random = FALSE
