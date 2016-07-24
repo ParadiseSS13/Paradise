@@ -20,9 +20,13 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 			qdel(vote)
 		vote = src
 	spawn(0)
-		while(TRUE)
-			process()
-			sleep(10)
+		while(!gcDestroyed)
+			try
+				while(!gcDestroyed)
+					sleep(10)
+					process()
+			catch(var/exception/e)
+				log_runtime(e, src, "Caught in vote controller")
 
 /datum/controller/vote/proc/process()
 	if(mode)
@@ -43,7 +47,9 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 					C << browse(null,"window=vote")
 			reset()
 		else
-			update_panel()
+			for(var/client/C in voting)
+				update_panel(C)
+				CHECK_TICK
 
 /datum/controller/vote/proc/autotransfer()
 	initiate_vote("crew_transfer","the server")
@@ -243,6 +249,10 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 		var/text = "[capitalize(mode)] vote started by [initiator]."
 		if(mode == "custom")
 			text += "\n[question]"
+			if(usr)
+				log_admin("[capitalize(mode)] ([question]) vote started by [key_name(usr)].")
+		else if(usr)
+			log_admin("[capitalize(mode)] vote started by [key_name(usr)].")
 
 		log_vote(text)
 		to_chat(world, {"<font color='purple'><b>[text]</b>
@@ -331,9 +341,8 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	popup.set_content(dat)
 	popup.open()
 
-/datum/controller/vote/proc/update_panel(var/client/client)
-	for(var/client/C in (client ? list(client) : voting))
-		C << output(url_encode(vote_html(C)), "vote.browser:update_vote_div")
+/datum/controller/vote/proc/update_panel(var/client/C)
+	C << output(url_encode(vote_html(C)), "vote.browser:update_vote_div")
 
 /datum/controller/vote/proc/vote_html(var/client/C)
 	. = ""
@@ -355,7 +364,8 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 
 
 /datum/controller/vote/Topic(href,href_list[],hsrc)
-	if(!usr || !usr.client)	return	//not necessary but meh...just in-case somebody does something stupid
+	if(!usr || !usr.client)
+		return	//not necessary but meh...just in-case somebody does something stupid
 	var/admin = check_rights(R_ADMIN,0)
 	if(href_list["close"])
 		voting -= usr.client
@@ -364,7 +374,11 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 		if("open")
 			// vote proc will automatically get called after this switch ends
 		if("cancel")
-			if(admin)
+			if(admin && mode)
+				var/votedesc = capitalize(mode)
+				if(mode == "custom")
+					votedesc += " ([question])"
+				admin_log_and_message_admins("cancelled the running [votedesc] vote.")
 				reset()
 		if("toggle_restart")
 			if(admin)
