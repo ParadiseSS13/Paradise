@@ -207,10 +207,10 @@ var/global/list/damage_icon_parts = list()
 	var/husk_color_mod = rgb(96,88,80)
 	var/hulk_color_mod = rgb(48,224,40)
 
-	var/husk = (HUSK in src.mutations)
-	var/fat = (FAT in src.mutations)
-	var/hulk = (HULK in src.mutations)
-	var/skeleton = (SKELETON in src.mutations)
+	var/husk = (HUSK in mutations)
+	var/fat = (FAT in mutations)
+	var/hulk = (HULK in mutations)
+	var/skeleton = (SKELETON in mutations)
 
 	if(species && species.bodyflags & HAS_ICON_SKIN_TONE)
 		species.updatespeciescolor(src)
@@ -299,7 +299,7 @@ var/global/list/damage_icon_parts = list()
 
 	//END CACHED ICON GENERATION.
 	stand_icon.Blend(base_icon,ICON_OVERLAY)
-	if(src.species.bodyflags & TAIL_OVERLAPPED) // If the user's species is flagged to have a tail that needs to be overlapped by limbs...
+	if(((body_accessory && istype(body_accessory, /datum/body_accessory/tail)) || !body_accessory) && species.bodyflags & TAIL_OVERLAPPED) // If the user's species is flagged to have a tail that needs to be overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 		overlays_standing[LIMBS_LAYER]	= image(stand_icon) // Diverts limbs to their own layer so they can overlay things (i.e. tails).
 	else
 		overlays_standing[LIMBS_LAYER] = null // So we don't get the old species' sprite splatted on top of the new one's
@@ -548,7 +548,7 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/proc/update_mutantrace(var/update_icons=1)
 //BS12 EDIT
-	var/skel = (SKELETON in src.mutations)
+	var/skel = (SKELETON in mutations)
 	if(skel)
 		skeleton = 'icons/mob/human_races/r_skeleton.dmi'
 	else
@@ -1053,7 +1053,7 @@ var/global/list/damage_icon_parts = list()
 	clear_alert("legcuffed")
 	if(legcuffed)
 		overlays_standing[LEGCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "legcuff1")
-		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = src.legcuffed)
+		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
 		if(m_intent != "walk")
 			m_intent = "walk"
 			if(hud_used && hud_used.move_intent)
@@ -1143,7 +1143,7 @@ var/global/list/damage_icon_parts = list()
 				accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
 			if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 				accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
-			if(species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs...
+			if(((body_accessory && istype(body_accessory, /datum/body_accessory/tail)) || !body_accessory) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")
 				under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
@@ -1168,7 +1168,7 @@ var/global/list/damage_icon_parts = list()
 				tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 			if(tail_marking_icon)
 				tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
-			if(species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs...
+			if(((body_accessory && istype(body_accessory, /datum/body_accessory/tail)) || !body_accessory) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "blank")
 				under.Insert(new/icon(tail_s, dir=SOUTH), dir=SOUTH)
@@ -1212,7 +1212,7 @@ var/global/list/damage_icon_parts = list()
 			accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
 		if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 			accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
-		if(species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs...
+		if(((body_accessory && istype(body_accessory, /datum/body_accessory/tail)) || !body_accessory) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "Vulpkanin_tail_delay")
 			if(body_accessory.allowed_species && (species.name in body_accessory.allowed_species))
@@ -1239,7 +1239,7 @@ var/global/list/damage_icon_parts = list()
 			tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 		if(tail_marking_icon)
 			tailw_s.Blend(tail_marking_icon, ICON_OVERLAY)
-		if(species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs...
+		if(((body_accessory && istype(body_accessory, /datum/body_accessory/tail)) || !body_accessory) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.name]_tail_delay")
 			under.Insert(new/icon(tailw_s, dir=SOUTH), dir=SOUTH)
