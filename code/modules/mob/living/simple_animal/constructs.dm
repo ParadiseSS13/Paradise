@@ -42,9 +42,9 @@
 	..(user)
 
 	var/msg = ""
-	if (src.health < src.maxHealth)
+	if(src.health < src.maxHealth)
 		msg += "<span class='warning'>"
-		if (src.health >= src.maxHealth/2)
+		if(src.health >= src.maxHealth/2)
 			msg += "It looks slightly dented.\n"
 		else
 			msg += "<B>It looks severely dented!</B>\n"

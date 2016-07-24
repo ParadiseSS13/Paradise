@@ -9,6 +9,8 @@
 /turf/simulated/wall/cult/New()
 	new /obj/effect/overlay/temp/cult/turf(src)
 	..()
+	//if(ticker.mode.cultdat.theme != "blood")//THE ONLY REASON THIS IS COMMENTED OUT IF CUASE I NEED TO FIGURE OUT THIS SHIT WITH WALL SMOOTHING
+	//	icon = 'icons/turf/walls/cult_[ticker.mode.cultdat.theme]_wall.dmi'//CALM YOUR TITS
 	icon_state = ticker.mode.cultdat.cult_wall_icon_state
 
 /turf/simulated/wall/cult/artificer
