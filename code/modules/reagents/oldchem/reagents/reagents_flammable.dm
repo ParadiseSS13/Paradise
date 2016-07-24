@@ -70,8 +70,8 @@
 /datum/reagent/thermite/reaction_turf(turf/simulated/wall/W, volume)
 	if(volume >= 5 && istype(W))
 		W.thermite = 1
-		T.overlays.Cut()
-		T.overlays = image('icons/effects/effects.dmi',icon_state = "thermite")
+		W.overlays.Cut()
+		W.overlays = image('icons/effects/effects.dmi',icon_state = "thermite")
 
 /datum/reagent/glycerol
 	name = "Glycerol"
