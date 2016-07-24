@@ -702,13 +702,13 @@
 		to_chat(user, "[failure_message]")
 		used = FALSE
 
-/obj/item/weapon/guardiancreator/afterattack(var/obj/item/I as obj, mob/user as mob, proximity)
+/obj/item/weapon/guardiancreator/afterattack(var/obj/item/I, var/mob/user, var/proximity)
 	..()
 	if(!proximity)
 		return
 	if(!refundable)
 		return
-	if(istype(I, /obj/item))
+	if(istype(I))
 		if(I.hidden_uplink && I.hidden_uplink.active)
 			if(used == TRUE)
 				to_chat(user, "[used_message]")
