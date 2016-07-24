@@ -713,10 +713,10 @@
 			if(used == TRUE)
 				to_chat(user, "[used_message]")
 				return
-			var/datum/uplink_item/dangerous/guardian/D = new /datum/uplink_item/dangerous/guardian
-			I.hidden_uplink.uses += D.cost
+			var/datum/uplink_item/U = /datum/uplink_item/dangerous/guardian
+			I.hidden_uplink.uses += initial(U.cost)
 			to_chat(user, "<span class='notice'>You send [src] back, getting a refund for its TC.</span>")
-			qdel(D)
+			qdel(U)
 			qdel(src)
 
 
