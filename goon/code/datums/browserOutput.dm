@@ -221,6 +221,8 @@ var/to_chat_src
 			message = replacetext(message, "\improper", "")
 		if(findtext(message, "\proper"))
 			message = replacetext(message, "\proper", "")
+		if(findtext(message, "ÿ"))
+			message = replacetext(message, "ÿ", "&#1103;")
 
 		var/client/C
 		if(istype(target, /client))
