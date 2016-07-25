@@ -47,11 +47,11 @@
 
 /obj/item/weapon/melee/baton/update_icon()
 	if(status)
-		icon_state = "[initial(icon_state)]_active"
+		icon_state = "[initial(name)]_active"
 	else if(!bcell)
-		icon_state = "[initial(icon_state)]_nocell"
+		icon_state = "[initial(name)]_nocell"
 	else
-		icon_state = "[initial(icon_state)]"
+		icon_state = "[initial(name)]"
 
 /obj/item/weapon/melee/baton/examine(mob/user)
 	..(user)
@@ -199,11 +199,3 @@
 	stunforce = 5
 	hitcost = 3750
 	slot_flags = null
-
-/obj/item/weapon/melee/baton/cattleprod/update_icon()
-	if(status)
-		icon_state = "stunprod_active"
-	else if(!bcell)
-		icon_state = "stunprod_nocell"
-	else
-		icon_state = "stunprod"

@@ -332,15 +332,15 @@
 /obj/item/weapon/twohanded/spear/CheckParts(list/parts_list)
 	..()
 	if(explosive)
-		explosive.loc = get_turf(src.loc)
+		explosive.forceMove(get_turf(loc))
 		explosive = null
+		update_icon()
 	var/obj/item/weapon/grenade/G = locate() in contents
 	if(G)
 		explosive = G
 		name = "explosive lance"
 		desc = "A makeshift spear with [G] attached to it. Alt+click on the spear to set your war cry!"
-		return
-	update_icon()
+		update_icon()
 
 //GREY TIDE
 /obj/item/weapon/twohanded/spear/grey_tide

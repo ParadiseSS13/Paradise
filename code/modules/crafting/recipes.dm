@@ -55,6 +55,18 @@
 	parts = list(/obj/item/weapon/stock_parts/cell = 1)
 	category = CAT_WEAPON
 
+/datum/crafting_recipe/teleprod
+	name = "Teleprod"
+	result = /obj/item/weapon/melee/baton/cattleprod/teleprod
+	reqs = list(/obj/item/weapon/restraints/handcuffs/cable = 1,
+				/obj/item/stack/rods = 1,
+				/obj/item/weapon/wirecutters = 1,
+				/obj/item/weapon/stock_parts/cell = 1,
+				/obj/item/weapon/ore/bluespace_crystal = 1)
+	time = 40
+	parts = list(/obj/item/weapon/stock_parts/cell = 1)
+	category = CAT_WEAPON
+
 /datum/crafting_recipe/bola
 	name = "Bola"
 	result = /obj/item/weapon/restraints/legcuffs/bola
