@@ -665,6 +665,10 @@
 				if(!muzzled)
 					message = "<B>[src]</B> sneezes."
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, "honk/sound/emotes/female_sneeze.wav", 60, 1, 0, pitch = get_age_pitch())
+					else
+						playsound(src.loc, "honk/sound/emotes/male_sneeze.wav", 60, 1, 0, pitch = get_age_pitch())
 				else
 					message = "<B>[src]</B> makes a strange noise."
 					m_type = 2
