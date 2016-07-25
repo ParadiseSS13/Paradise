@@ -126,7 +126,7 @@
 					var/author = CB.author
 					var/controls =  "<A href='?src=\ref[src];id=[CB.id]'>\[Order\]</A>"
 					controls += {" <A href="?src=\ref[src];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</A>"}
-					if(check_rights(R_ADMIN, user = user))
+					if(check_rights(R_ADMIN, 0, user = user))
 						controls +=  " <A style='color:red' href='?src=\ref[src];del=[CB.id]'>\[Delete\]</A>"
 						author += " (<A style='color:red' href='?src=\ref[src];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</A>)"
 					dat += {"<tr>
@@ -255,7 +255,6 @@
 		screenstate = 4
 	if(href_list["del"])
 		if(!check_rights(R_ADMIN))
-			to_chat(usr, "You aren't an admin, piss off.")
 			return
 		var/datum/cachedbook/target = getBookByID(href_list["del"]) // Sanitized in getBookByID
 		var/ans = alert(usr, "Are you sure you wish to delete \"[target.title]\", by [target.author]? This cannot be undone.", "Library System", "Yes", "No")
@@ -272,7 +271,6 @@
 
 	if(href_list["delbyckey"])
 		if(!check_rights(R_ADMIN))
-			to_chat(usr, "You aren't an admin, piss off.")
 			return
 		var/tckey = ckey(href_list["delbyckey"])
 		var/ans = alert(usr,"Are you sure you wish to delete all books by [tckey]? This cannot be undone.", "Library System", "Yes", "No")
