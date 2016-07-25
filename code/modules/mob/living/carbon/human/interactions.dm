@@ -195,7 +195,7 @@ mob/living/carbon/human/proc/cum(mob/living/carbon/human/H as mob, mob/living/ca
 		else
 			message = pick("извиваетс[ya] в приступе оргазма", "прикрывает глаза и мелко дрожит", "содрагаетс[ya], а затем резко расслабл[ya]етс[ya]", "замирает, закатив глаза")
 
-		playsound(loc, "honk/sound/interactions/final_m[rand(1, 5)].ogg", 50, 1, 0, pitch = get_age_pitch())
+		playsound(loc, "honk/sound/interactions/final_m[rand(1, 5)].ogg", 70, 1, 0, pitch = get_age_pitch())
 
 		H.visible_message("<B>[H] [message]</B>")
 		if (istype(P.loc, /obj/structure/closet))
@@ -208,7 +208,7 @@ mob/living/carbon/human/proc/cum(mob/living/carbon/human/H as mob, mob/living/ca
 		H.visible_message("<B>[H] [message].</B>")
 		if (istype(P.loc, /obj/structure/closet))
 			P.visible_message("<B>[H] [message].</B>")
-		playsound(loc, "honk/sound/interactions/final_f[rand(1, 3)].ogg", 70, 1, 0, pitch = get_age_pitch())
+		playsound(loc, "honk/sound/interactions/final_f[rand(1, 3)].ogg", 90, 1, 0, pitch = get_age_pitch())
 		var/delta = pick(20, 30, 40, 50)
 		src.lust -= delta
 
@@ -505,7 +505,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 				H.cum(H, P, "mouth")
 
 			H.do_fucking_animation(P)
-			playsound(loc, "honk/sound/interactions/oral[rand(1, 2)].ogg", 50, 1, -1)
+			playsound(loc, "honk/sound/interactions/oral[rand(1, 2)].ogg", 70, 1, -1)
 			if (P.species.name == "Slime")
 				playsound(loc, "honk/sound/interactions/champ[rand(1, 2)].ogg", 50, 1, -1)
 			if (prob(H.potenzia))
@@ -551,7 +551,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 			H.do_fucking_animation(P)
 			playsound(loc, "honk/sound/interactions/bang[rand(1, 3)].ogg", 70, 1, -1)
 			if (H.species.name == "Slime")
-				playsound(loc, "honk/sound/interactions/champ[rand(1, 2)].ogg", 70, 1, -1)
+				playsound(loc, "honk/sound/interactions/champ[rand(1, 2)].ogg", 50, 1, -1)
 
 mob/living/carbon/human/proc/moan()
 	var/ya = "&#1103;"
@@ -565,19 +565,19 @@ mob/living/carbon/human/proc/moan()
 			if (moan == lastmoan)
 				moan--
 			if(!istype(loc, /obj/structure/closet))
-				playsound(loc, "honk/sound/interactions/moan_[g][moan].ogg", 50, 1, 0, pitch = get_age_pitch())
+				playsound(loc, "honk/sound/interactions/moan_[g][moan].ogg", 70, 1, 0, pitch = get_age_pitch())
 			else if (g == "f")
-				playsound(loc, "honk/sound/interactions/under_moan_f[rand(1, 4)].ogg", 50, 1, 0, pitch = get_age_pitch())
+				playsound(loc, "honk/sound/interactions/under_moan_f[rand(1, 4)].ogg", 70, 1, 0, pitch = get_age_pitch())
 			lastmoan = moan
 
 			if (istype(H.head, /obj/item/clothing/head/kitty)  || istype(H.head, /obj/item/clothing/head/collectable/kitty))
-				playsound(loc, "honk/sound/interactions/purr_f[rand(1, 3)].ogg", 50, 1, 0)
+				playsound(loc, "honk/sound/interactions/purr_f[rand(1, 3)].ogg", 70, 1, 0)
 
 	else if (H.species.name == "Tajaran")
 		if (prob(H.lust / src.resistenza * 70))
 			var/message = pick("мурлычет", "мурлычет от удовольстви[ya]", "закатывает глаза", "довольно облизываетс[ya]")
 			H.visible_message("<B>[H]</B> [message].")
-			playsound(loc, "honk/sound/interactions/purr[rand(1, 3)].ogg", 50, 1, 0, pitch = get_age_pitch())
+			playsound(loc, "honk/sound/interactions/purr[rand(1, 3)].ogg", 70, 1, 0, pitch = get_age_pitch())
 
 	else if (H.species.name == "Unathi")
 		if (prob(H.lust / H.resistenza * 70))
@@ -680,18 +680,19 @@ mob/living/carbon/human/proc/handle_lust()
 			else
 				message = pick("удовлетвор[ya]ет [M] с помощью [rus_name]", "заталкивает в [M] [rus_name]", "погружает [rus_name] в лоно [M]")
 
-			if (prob(5) && M.stat != DEAD)
+			if (prob(5) && M.stat != DEAD && M.stat != UNCONSCIOUS)
 				user.visible_message("<font color=purple><B>[user] [message].</B></font>")
-				M.lust += pleasure
-			else
-				user.visible_message("<font color=purple>[user] [message].</font>")
+				M.lust += pleasure * 2
 
-			if (M.stat != DEAD && M.stat != UNCONSCIOUS)
+			else if (M.stat != DEAD && M.stat != UNCONSCIOUS)
+				user.visible_message("<font color=purple>[user] [message].</font>")
 				M.lust += pleasure
-				if (M.lust >= M.resistenza)
-					M.cum(M, user, "floor")
-				else
-					M.moan()
+
+			if (M.lust >= M.resistenza)
+				M.cum(M, user, "floor")
+			else
+				M.moan()
+
 			user.do_fucking_animation(M)
 			playsound(loc, "honk/sound/interactions/bang[rand(4, 6)].ogg", 70, 1, -1)
 
@@ -701,18 +702,19 @@ mob/living/carbon/human/proc/handle_lust()
 			else
 				message = pick("удовлетвор[ya]ет [M] анально с помощью [rus_name]", "заталкивает [rus_name] [M] в анус", "чистит дымоход [M], использу[ya] [rus_name]")
 
-			if (prob(5) && M.stat != DEAD)
+			if (prob(5) && M.stat != DEAD && M.stat != UNCONSCIOUS)
 				user.visible_message("<font color=purple><B>[user] [message].</B></font>")
-				M.lust += pleasure
-			else
-				user.visible_message("<font color=purple>[user] [message].</font>")
+				M.lust += pleasure * 2
 
-			if (M.stat != DEAD && M.stat != UNCONSCIOUS)
+			else if (M.stat != DEAD && M.stat != UNCONSCIOUS)
+				user.visible_message("<font color=purple>[user] [message].</font>")
 				M.lust += pleasure
-				if (M.lust >= M.resistenza)
-					M.cum(M, user, "floor")
-				else
-					M.moan()
+
+			if (M.lust >= M.resistenza)
+				M.cum(M, user, "floor")
+			else
+				M.moan()
+
 			user.do_fucking_animation(M)
 			playsound(loc, "honk/sound/interactions/bang[rand(4, 6)].ogg", 70, 1, -1)
 
