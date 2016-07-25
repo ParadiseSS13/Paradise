@@ -23,7 +23,7 @@
 	update_icon()
 	return
 
-/obj/item/weapon/melee/baton/CheckParts()
+/obj/item/weapon/melee/baton/CheckParts(list/parts_list)
 	..()
 	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
 	update_icon()
