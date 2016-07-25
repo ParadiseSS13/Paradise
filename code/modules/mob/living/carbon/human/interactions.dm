@@ -208,7 +208,7 @@ mob/living/carbon/human/proc/cum(mob/living/carbon/human/H as mob, mob/living/ca
 		H.visible_message("<B>[H] [message].</B>")
 		if (istype(P.loc, /obj/structure/closet))
 			P.visible_message("<B>[H] [message].</B>")
-		playsound(loc, "honk/sound/interactions/final_f[rand(1, 3)].ogg", 50, 1, 0, pitch = get_age_pitch())
+		playsound(loc, "honk/sound/interactions/final_f[rand(1, 3)].ogg", 70, 1, 0, pitch = get_age_pitch())
 		var/delta = pick(20, 30, 40, 50)
 		src.lust -= delta
 
@@ -557,14 +557,17 @@ mob/living/carbon/human/proc/moan()
 	var/ya = "&#1103;"
 	var/mob/living/carbon/human/H = src
 	if (species.name == "Human" || H.species.name == "Skrell" || H.species.name == "Slime")
-		if (prob(H.lust / H.resistenza * 80))
+		if (prob(H.lust / H.resistenza * 65))
 			var/message = pick("постанывает", "стонет от удовольстви[ya]", "закатывает глаза", "закусывает губу")
 			H.visible_message("<B>[H]</B> [message].")
 			var/g = H.gender == FEMALE ? "f" : "m"
 			var/moan = rand(1, 7)
 			if (moan == lastmoan)
 				moan--
-			playsound(loc, "honk/sound/interactions/moan_[g][moan].ogg", 50, 1, 0, pitch = get_age_pitch())
+			if(!istype(loc, /obj/structure/closet))
+				playsound(loc, "honk/sound/interactions/moan_[g][moan].ogg", 50, 1, 0, pitch = get_age_pitch())
+			else if (g == "f")
+				playsound(loc, "honk/sound/interactions/under_moan_f[rand(1, 4)].ogg", 50, 1, 0, pitch = get_age_pitch())
 			lastmoan = moan
 
 			if (istype(H.head, /obj/item/clothing/head/kitty)  || istype(H.head, /obj/item/clothing/head/collectable/kitty))
@@ -659,7 +662,7 @@ mob/living/carbon/human/proc/handle_lust()
 	w_class = 1
 	throw_speed = 3
 	throw_range = 15
-	attack_verb = list("slammed, bashed, whipped")
+	attack_verb = list("slammed", "bashed", "whipped")
 	var/hole = "vagina" //or "anus"
 	var/rus_name = "дилдо"
 	var/ya = "&#1103;"
@@ -686,7 +689,7 @@ mob/living/carbon/human/proc/handle_lust()
 			if (M.stat != DEAD && M.stat != UNCONSCIOUS)
 				M.lust += pleasure
 				if (M.lust >= M.resistenza)
-					M.cum(M, user)
+					M.cum(M, user, "floor")
 				else
 					M.moan()
 			user.do_fucking_animation(M)
@@ -707,7 +710,7 @@ mob/living/carbon/human/proc/handle_lust()
 			if (M.stat != DEAD && M.stat != UNCONSCIOUS)
 				M.lust += pleasure
 				if (M.lust >= M.resistenza)
-					M.cum(M, user)
+					M.cum(M, user, "floor")
 				else
 					M.moan()
 			user.do_fucking_animation(M)

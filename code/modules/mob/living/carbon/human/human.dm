@@ -1324,7 +1324,7 @@
 						H.fuck(H, P, "anal")
 				else
 					var/message = pick("Не хочетс[ya] мне...", "Как-то нет желани[ya]...", "Что-то не охота...", "Нет, не сейчас.")
-					H << message
+					to_chat(H, message)
 
 		else if (href_list["interaction"] == "vaginal")
 			if (H.loc == P.loc && isnude_p && isnude && haspenis && hasanus_p)
@@ -1333,7 +1333,7 @@
 						H.fuck(H, P, "vaginal")
 				else
 					var/message = pick("Не хочетс[ya] мне...", "Как-то нет желани[ya]...", "Что-то не охота...", "Нет, не сейчас.")
-					H << message
+					to_chat(H, message)
 
 		else if (href_list["interaction"] == "oral")
 			if (H.loc == P.loc && isnude && mouthfree_p && haspenis)
@@ -1342,18 +1342,18 @@
 						H.fuck(H, P, "oral")
 				else
 					var/message = pick("Не хочетс[ya] мне...", "Как-то нет желани[ya]...", "Что-то не охота...", "Нет, не сейчас.")
-					H << message
+					to_chat(H, message)
 
 		else if (href_list["interaction"] == "mount")
 			if (H.loc == P.loc && isnude && isnude_p && haspenis_p && hasvagina)
 				if (P.lust <= 0)
 					var/message = pick("Инструмент не переведен в рабочее состо[ya]ние...", "У него еще не встал...", "А он лежит...", "Никак не насадитьс[ya]...")
-					H << message
+					to_chat(H, message)
 				else if (H.erpcooldown == 0)
 					H.fuck(H, P, "mount")
 				else
 					var/message = pick("Не хочетс[ya] мне...", "Как-то нет желани[ya]...", "Что-то не охота...", "Нет, не сейчас.")
-					H << message
+					to_chat(H, message)
 	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
 		src.examinate(I)
