@@ -11,7 +11,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda"
 	item_state = "electronic"
 	w_class = 1
-	slot_flags = SLOT_ID | SLOT_BELT
+	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
 
 	//Main variables
 	var/owner = null

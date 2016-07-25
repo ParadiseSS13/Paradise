@@ -43,7 +43,7 @@
 	. = list()
 	. += user.r_hand
 	. += user.l_hand
-	if(!istype(user.loc, /turf))
+	if(!isturf(user.loc))
 		return
 	var/list/L = block(get_step(user, SOUTHWEST), get_step(user, NORTHEAST))
 	for(var/A in L)
@@ -231,8 +231,7 @@
 	var/list/surroundings = get_surroundings(user)
 	var/dat = "<h3>Crafting menu</h3>"
 	if(busy)
-		dat += "<div class='statusDisplay'>"
-		dat += "Crafting in progress...</div>"
+		dat += "<div class='statusDisplay'>Crafting in progress...</div>"
 	else
 		dat += "<A href='?src=\ref[src];backwardCat=1'><--</A>"
 		dat += " [categories[prev_cat()]] |"

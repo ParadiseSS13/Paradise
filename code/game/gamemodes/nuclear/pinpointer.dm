@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_PDA | SLOT_BELT
 	w_class = 2
 	item_state = "electronic"
 	throw_speed = 4
