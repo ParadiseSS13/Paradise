@@ -374,7 +374,7 @@
 /obj/machinery/camera/proc/nano_structure()
 	var/cam[0]
 	var/turf/T = get_turf(src)
-	cam["name"] = sanitize(c_tag)
+	cam["name"] = sanitize_local(c_tag)
 	cam["deact"] = !can_use()
 	cam["camera"] = "\ref[src]"
 	if(T)

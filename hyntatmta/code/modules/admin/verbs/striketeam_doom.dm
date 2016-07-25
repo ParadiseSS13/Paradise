@@ -16,7 +16,7 @@ var/global/sent_doomstrike_team = 0
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext(input(src, "Please specify which mission the DOOMguy shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = sanitize_local(copytext(input(src, "Please specify which mission the DOOMguy shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 		if(!input)
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return

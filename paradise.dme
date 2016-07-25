@@ -1690,6 +1690,7 @@
 #include "code\modules\nano\nanomanager.dm"
 #include "code\modules\nano\nanomapgen.dm"
 #include "code\modules\nano\nanoui.dm"
+#include "code\modules\nano\rJSON.dm"
 #include "code\modules\nano\interaction\admin.dm"
 #include "code\modules\nano\interaction\base.dm"
 #include "code\modules\nano\interaction\conscious.dm"

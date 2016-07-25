@@ -41,11 +41,11 @@ var/global/list/localisation = list()
 		temp = ""
 
 	cyrillic_ya
-		letter = "ï¿½"
+		letter = "ÿ"
 		chat = "&#1103;"
 		browser = "&#1103;"
-		log = "ï¿½"
-		temp = "ï¿½"
+		log = "ß"
+		temp = "¶"
 
 proc/sanitize_local(var/text, var/mode = SANITIZE_CHAT)
 	if(!istext(text))
@@ -73,13 +73,13 @@ proc/sanitize_local(var/text, var/mode = SANITIZE_CHAT)
 
 /proc/lhtml_encode(var/text)
 	text = sanitize_local(text, SANITIZE_TEMP)
-	text = lhtml_encode(text)
+	text = html_encode(text)
 	text = sanitize_local(text)
 	return text
 
 /proc/lhtml_decode(var/text)
 	text = sanitize_local(text, SANITIZE_TEMP)
-	text = lhtml_decode(text)
+	text = html_decode(text)
 	text = sanitize_local(text)
 	return text
 
@@ -98,7 +98,7 @@ proc/sanitize_local(var/text, var/mode = SANITIZE_CHAT)
 		if((letter_ascii >= 65 && letter_ascii <= 90) || (letter_ascii >= 192 && letter_ascii < 223))
 			lcase_letter = ascii2text(letter_ascii + 32)
 		else if(letter_ascii == 223)
-			lcase_letter = "ï¿½"
+			lcase_letter = "¶"
 
 		new_text += lcase_letter
 		p++
@@ -118,8 +118,8 @@ proc/sanitize_local(var/text, var/mode = SANITIZE_CHAT)
 
 		if((letter_ascii >= 97 && letter_ascii <= 122) || (letter_ascii >= 224 && letter_ascii < 255))
 			ucase_letter = ascii2text(letter_ascii - 32)
-		else if(letter_ascii == text2ascii("ï¿½"))
-			ucase_letter = "ï¿½"
+		else if(letter_ascii == text2ascii("¶"))
+			ucase_letter = "ß"
 
 		new_text += ucase_letter
 		p++

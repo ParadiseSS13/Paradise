@@ -25,9 +25,9 @@
  * Text sanitization
  */
 /*
-/proc/sanitize(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
+/proc/sanitize_local(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
 	#ifdef DEBUG_CYRILLIC
-	to_chat(world, "\magenta DEBUG: \red <b>sanitize() entered, text:</b> <i>[input]</i>")
+	to_chat(world, "\magenta DEBUG: \red <b>sanitize_local() entered, text:</b> <i>[input]</i>")
 	to_chat(world, "\magenta DEBUG: \red <b>ja_mode:</b> [mode]")
 	#endif
 	if(!input)
@@ -40,7 +40,7 @@
 	input = sanitize_local(input, mode)
 
 	#ifdef DEBUG_CYRILLIC
-	to_chat(world, "\magenta DEBUG: \blue <b>sanitize() finished, text:</b> <i>[input]</i>")
+	to_chat(world, "\magenta DEBUG: \blue <b>sanitize_local() finished, text:</b> <i>[input]</i>")
 	#endif
 
 	return input
@@ -87,7 +87,7 @@
 
 	if(encode)
 		// The below \ escapes have a space inserted to attempt to enable Travis auto-checking of span class usage. Please do not remove the space.
-		//In addition to processing html, lhtml_encode removes byond formatting codes like "\ red", "\ i" and other.
+		//In addition to processing html, html_encode removes byond formatting codes like "\ red", "\ i" and other.
 		//It is important to avoid double-encode text, it can "break" quotes and some other characters.
 		//Also, keep in mind that escaped characters don't work in the interface (window titles, lower left corner of the main window, etc.)
 		input = lhtml_encode(input)
@@ -102,7 +102,7 @@
 	return input
 
 //Runs sanitize and strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's lhtml_encode()
+//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize_local() calls byond's lhtml_encode()
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
@@ -408,10 +408,10 @@ proc/checkhtml(var/t)
 /proc/copytext_preserve_html(var/text, var/first, var/last)
 	return lhtml_encode(copytext(lhtml_decode(text), first, last))
 
-//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after lhtml_encode().
+//Run sanitize_local(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after lhtml_encode().
 //Best used for sanitize object names, window titles.
-//If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
-//this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
+//If you have a problem with sanitize_local() in chat, when quotes and >, < are displayed as html entites -
+//this is a problem of double-encode(when & becomes &amp;), use sanitize_local() with encode=0, but not the sanitizeSafe()!
 /proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
@@ -464,8 +464,8 @@ proc/checkhtml(var/t)
 		else if(a == 184)
 			t += ascii2text(168)
 		else t += ascii2text(a)
-	t = replacetext(t,"&#1103;","ï¿½")
-	t = replacetext(t, "ï¿½", "ï¿½")
+	t = replacetext(t,"&#1103;","ÿ")
+	t = replacetext(t, "ÿ", "ß")
 	return t
 
 
@@ -478,5 +478,5 @@ proc/checkhtml(var/t)
 		else if(a == 168)
 			t += ascii2text(184)
 		else t += ascii2text(a)
-	t = replacetext(t,"ï¿½","&#1103;")
+	t = replacetext(t,"ÿ","&#1103;")
 	return t

@@ -21,7 +21,7 @@
 	set category = "Object"
 	set src in usr
 
-	var/voice = sanitize(copytext(name,1,MAX_MESSAGE_LEN))
+	var/voice = sanitize_local(copytext(name,1,MAX_MESSAGE_LEN))
 	if(!voice || !length(voice)) return
 	changer.voice = voice
 	to_chat(usr, "<span class='notice'>You are now mimicking <B>[changer.voice]</B>.</span>")

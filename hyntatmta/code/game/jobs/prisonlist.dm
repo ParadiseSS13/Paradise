@@ -44,6 +44,12 @@ var/list/bwhitelist
 	var/DBQuery/select_query = dbcon.NewQuery("SELECT ckey FROM [format_table_name("bwhitelist")] ORDER BY ckey ASC")
 	select_query.Execute()
 
+	output += {"<table width='90%' bgcolor='#e3e3e3' cellpadding='5' cellspacing='0' align='center'>
+			<tr>
+			<th width='60%'><b>CKEY</b></th>
+			<th width='40%'><b>OPTIONS</b></th>
+			</tr>"}
+
 	while(select_query.NextRow())
 		var/ckey = select_query.item[1]
 		output += {"<tr bgcolor='lightgrey'>
@@ -52,6 +58,23 @@ var/list/bwhitelist
 		</tr>"}
 
 	if(ckeyname)
+		output = "<div align='center'><table width='90%'><tr>"
+		output += {"<td width='35%' align='center'><h1>Whitelist</h1></td>
+		<td width='65%' align='center' bgcolor='#f9f9f9'>
+		<form method='GET' action='?src=\ref[src]'>
+		<input type='hidden' name='src' value='\ref[src]'>
+		<table width='100%'><tr>
+		<td><b>Ckey:</b> <input type='text' name='ckeyname'></td>
+		<td><input type='submit' name='addtowhitelist' value='Add to Whitelist'></td>
+		</form>
+		</tr>
+		</td>
+		</table>
+		<form method='GET' action='?src=\ref[src]'><b>Search</b>
+		<input type='hidden' name='src' value='\ref[src]'>
+		<b>Ckey:</b> <input type='text' name='whitelistsearchckey' value='[ckeyname]'>
+		<input type='submit' value='search'>
+		</form>"}
 		output += {"<table width='90%' bgcolor='#e3e3e3' cellpadding='5' cellspacing='0' align='center'>
 				<tr>
 				<th width='60%'><b>CKEY</b></th>
