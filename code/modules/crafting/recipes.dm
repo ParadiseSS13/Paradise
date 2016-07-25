@@ -23,7 +23,7 @@
 				/obj/item/device/assembly/igniter = 1,
 				/obj/item/weapon/reagent_containers/food/drinks/cans = 1)
 	parts = list(/obj/item/weapon/reagent_containers/food/drinks/cans = 1)
-	time = 80
+	time = 15
 	category = CAT_WEAPON
 
 /datum/crafting_recipe/stunprod
@@ -33,9 +33,17 @@
 				/obj/item/stack/rods = 1,
 				/obj/item/weapon/wirecutters = 1,
 				/obj/item/weapon/stock_parts/cell = 1)
-	time = 80
+	time = 40
 	parts = list(/obj/item/weapon/stock_parts/cell = 1)
 	category = CAT_WEAPON
+
+/datum/crafting_recipe/bola
+	name = "Bola"
+	result = /obj/item/weapon/restraints/legcuffs/bola
+	reqs = list(/obj/item/weapon/restraints/handcuffs/cable = 1,
+				/obj/item/stack/sheet/metal = 6)
+	time = 20//15 faster than crafting them by hand!
+	category= CAT_WEAPON
 
 /datum/crafting_recipe/ed209
 	name = "ED209"
@@ -52,7 +60,7 @@
 				/obj/item/device/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	tools = list(/obj/item/weapon/weldingtool, /obj/item/weapon/screwdriver)
-	time = 120
+	time = 60
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/secbot
@@ -64,7 +72,7 @@
 				/obj/item/device/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	tools = list(/obj/item/weapon/weldingtool)
-	time = 120
+	time = 60
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/cleanbot
@@ -73,7 +81,7 @@
 	reqs = list(/obj/item/weapon/reagent_containers/glass/bucket = 1,
 				/obj/item/device/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
-	time = 80
+	time = 40
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/floorbot
@@ -83,7 +91,7 @@
 				/obj/item/stack/tile/plasteel = 1,
 				/obj/item/device/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
-	time = 80
+	time = 40
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/medbot
@@ -93,7 +101,7 @@
 				/obj/item/weapon/storage/firstaid = 1,
 				/obj/item/device/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
-	time = 80
+	time = 40
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/flamethrower
@@ -103,7 +111,7 @@
 				/obj/item/device/assembly/igniter = 1,
 				/obj/item/stack/rods = 2)
 	tools = list(/obj/item/weapon/screwdriver)
-	time = 20
+	time = 10
 	category = CAT_WEAPON
 
 /datum/crafting_recipe/meteorshot
@@ -171,7 +179,8 @@
 	name = "Overload Improvised Shell"
 	result = /obj/item/ammo_casing/shotgun/improvised/overload
 	reqs = list(/obj/item/ammo_casing/shotgun/improvised = 1,
-				/datum/reagent/blackpowder = 5)
+				/datum/reagent/blackpowder = 10,
+				/datum/reagent/plasma_dust = 20)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 5
 	category = CAT_AMMO
@@ -194,7 +203,16 @@
 				/obj/item/weaponcrafting/stock = 1,
 				/obj/item/stack/packageWrap = 5,)
 	tools = list(/obj/item/weapon/screwdriver)
-	time = 200
+	time = 100
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/spear
+	name = "Spear"
+	result = /obj/item/weapon/twohanded/spear
+	reqs = list(/obj/item/weapon/restraints/handcuffs/cable = 1,
+				/obj/item/weapon/shard = 1,
+				/obj/item/stack/rods = 1)
+	time = 40
 	category = CAT_WEAPON
 
 /datum/crafting_recipe/spooky_camera
@@ -208,7 +226,7 @@
 /datum/crafting_recipe/notreallysoap
 	name = "Homemade Soap"
 	result = /obj/item/weapon/soap/ducttape
-	time = 100
+	time = 50
 	reqs = list(/obj/item/stack/tape_roll = 1,
 				/datum/reagent/liquidgibs = 10)
 
@@ -224,7 +242,7 @@
 /datum/crafting_recipe/makeshift_bolt
 	name = "Makeshift Bolt"
 	result = /obj/item/weapon/arrow/rod
-	time = 15
+	time = 5
 	reqs = list(/obj/item/stack/rods = 1)
 	tools = list(/obj/item/weapon/weldingtool)
 	category = CAT_AMMO
@@ -232,7 +250,7 @@
 /datum/crafting_recipe/crossbow
 	name = "Powered Crossbow"
 	result = /obj/item/weapon/gun/throw/crossbow
-	time = 300
+	time = 150
 	reqs = list(/obj/item/stack/rods = 3,
 				/obj/item/stack/cable_coil = 10,
 				/obj/item/stack/sheet/mineral/plastic = 3,
