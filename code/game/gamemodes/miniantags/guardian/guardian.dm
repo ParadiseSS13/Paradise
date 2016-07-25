@@ -714,8 +714,8 @@
 				to_chat(user, "[used_message]")
 				return
 			var/datum/uplink_item/U = /datum/uplink_item/dangerous/guardian
-			I.hidden_uplink.uses += initial(U.cost)
-			to_chat(user, "<span class='notice'>You send [src] back, getting a refund for its TC.</span>")
+			I.hidden_uplink.uses += (initial(U.cost) - 4)
+			to_chat(user, "<span class='notice'>You send [src] back, getting a partial refund for its TC cost.</span>")
 			qdel(src)
 
 
