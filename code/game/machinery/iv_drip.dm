@@ -96,7 +96,6 @@
 		beaker = W
 		to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
 		update_icon()
-		return
 	else
 		return ..()
 
@@ -105,7 +104,7 @@
 	if(!attached)
 		return PROCESS_KILL
 
-	if(!(get_dist(src, attached) <= 1 && isturf(attached.loc)))
+	if(get_dist(src, attached) > 1 && isturf(attached.loc))
 		to_chat(attached, "<span class='userdanger'>The IV drip needle is ripped out of you!</span>")
 		attached.apply_damage(3, BRUTE, pick("r_arm", "l_arm"))
 		attached = null
@@ -196,7 +195,7 @@
 	set src in view(1)
 
 	if(!iscarbon(usr))
-		usr << "<span class='warning'>You can't do that!</span>"
+		to_chat(usr, "<span class='warning'>You can't do that!</span>")
 		return
 
 	if(usr.incapacitated())
