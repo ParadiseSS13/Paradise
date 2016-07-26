@@ -154,6 +154,39 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return list2params(s)
 
+	else if("manifest" in input)
+		var/list/positions = list()
+		var/list/set_names = list(
+			"heads" = command_positions,
+			"sec" = security_positions,
+			"eng" = engineering_positions,
+			"med" = medical_positions,
+			"sci" = science_positions,
+			"car" = supply_positions,
+			"srv" = service_positions,
+			"civ" = civilian_positions,
+			"bot" = nonhuman_positions
+		)
+
+		for(var/datum/data/record/t in data_core.general)
+			var/name = t.fields["name"]
+			var/rank = t.fields["rank"]
+			var/real_rank = t.fields["real_rank"]
+
+			var/department = 0
+			for(var/k in set_names)
+				if(real_rank in set_names[k])
+					if(!positions[k])
+						positions[k] = list()
+					positions[k][name] = rank
+					department = 1
+			if(!department)
+				if(!positions["misc"])
+					positions["misc"] = list()
+				positions["misc"][name] = rank
+
+		return json_encode(positions)
+
 	else if("adminmsg" in input)
 		/*
 			We got an adminmsg from IRC bot lets split the input then validate the input.
