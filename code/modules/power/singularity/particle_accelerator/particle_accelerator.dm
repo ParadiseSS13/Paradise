@@ -102,7 +102,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 1
 
 /obj/structure/particle_accelerator/AltClick(mob/user)
-	..()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return

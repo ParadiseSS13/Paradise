@@ -323,7 +323,6 @@ obj/structure/windoor_assembly/Destroy()
 	return
 
 /obj/structure/windoor_assembly/AltClick(mob/user)
-	..()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
