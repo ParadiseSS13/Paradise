@@ -1,0 +1,8 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "IV Drip sprites updated; has visual feedback for if it's injecting or taking blood"
+  - tweak: "IV Drip injection rate dramatically increased"
+  - rscadd: "Warning ping for when someone is low on blood"
+  - rscadd: "Support for species with exotic blood type"
+  - rscadd: "Alt-Click to toggle between modes"
