@@ -2245,15 +2245,30 @@
 	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "markings_tattoo_heart"
 
+/datum/sprite_accessory/body_markings/tattoo/heart_vox
+	name = "Vox Heart Tattoo"
+	species_allowed = list("Vox")
+	icon_state = "markings_tattoo_heart_vox"
+
 /datum/sprite_accessory/body_markings/tattoo/hive
 	name = "Hive Tattoo"
 	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "markings_tattoo_hive"
 
+/datum/sprite_accessory/body_markings/tattoo/hive_vox
+	name = "Vox Hive Tattoo"
+	species_allowed = list("Vox")
+	icon_state = "markings_tattoo_hive_vox"
+
 /datum/sprite_accessory/body_markings/tattoo/nightling
 	name = "Nightling Tattoo"
 	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "markings_tattoo_nightling"
+
+/datum/sprite_accessory/body_markings/tattoo/nightling_vox
+	name = "Vox Nightling Tattoo"
+	species_allowed = list("Vox")
+	icon_state = "markings_tattoo_nightling_vox"
 
 /datum/sprite_accessory/body_markings/tail
 	name = "Tail Markings"
