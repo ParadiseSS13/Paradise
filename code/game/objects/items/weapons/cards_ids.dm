@@ -105,7 +105,7 @@
 	var/photo
 	var/dat
 	var/stamped = 0
-	
+
 	var/obj/item/weapon/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
 /obj/item/weapon/card/id/New()
@@ -242,10 +242,10 @@
 	set name = "Remove Guest Pass"
 	set category = "Object"
 	set src in range(0)
-	
+
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	
+
 	if(guest_pass)
 		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
 		guest_pass.forceMove(get_turf(src))
@@ -317,7 +317,7 @@
 			return
 		src.registered_name = t
 
-		var u = sanitize(stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than maintenance.", "Agent Card Job Assignment", "Agent", MAX_MESSAGE_LEN))
+		var u = sanitize_local(stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than maintenance.", "Agent Card Job Assignment", "Agent", MAX_MESSAGE_LEN))
 		if(!u)
 			to_chat(user, "<span class='warning'>Invalid assignment.</span>")
 			src.registered_name = ""
@@ -392,7 +392,7 @@
 						to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
 
 					if("Sex")
-						var/new_sex = sanitize(stripped_input(user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(user) ? capitalize(user.gender) : "Male", MAX_MESSAGE_LEN))
+						var/new_sex = sanitize_local(stripped_input(user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(user) ? capitalize(user.gender) : "Male", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.sex = new_sex
@@ -400,7 +400,7 @@
 						RebuildHTML()
 
 					if("Age")
-						var/new_age = sanitize(stripped_input(user,"What age would you like to put on this card?","Agent Card Age","21", MAX_MESSAGE_LEN))
+						var/new_age = sanitize_local(stripped_input(user,"What age would you like to put on this card?","Agent Card Age","21", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.age = new_age
@@ -408,7 +408,7 @@
 						RebuildHTML()
 
 					if("Occupation")
-						var/new_job = sanitize(stripped_input(user,"What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
+						var/new_job = sanitize_local(stripped_input(user,"What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.assignment = new_job
@@ -430,7 +430,7 @@
 							if(H.dna)
 								default = H.dna.b_type
 
-						var/new_blood_type = sanitize(input(user,"What blood type would you like to be written on this card?","Agent Card Blood Type",default) as text)
+						var/new_blood_type = sanitize_local(input(user,"What blood type would you like to be written on this card?","Agent Card Blood Type",default) as text)
 						if(!Adjacent(user))
 							return
 						src.blood_type = new_blood_type
@@ -444,7 +444,7 @@
 							if(H.dna)
 								default = H.dna.unique_enzymes
 
-						var/new_dna_hash = sanitize(input(user,"What DNA hash would you like to be written on this card?","Agent Card DNA Hash",default) as text)
+						var/new_dna_hash = sanitize_local(input(user,"What DNA hash would you like to be written on this card?","Agent Card DNA Hash",default) as text)
 						if(!Adjacent(user))
 							return
 						src.dna_hash = new_dna_hash
@@ -458,7 +458,7 @@
 							if(H.dna)
 								default = md5(H.dna.uni_identity)
 
-						var/new_fingerprint_hash = sanitize(input(user,"What fingerprint hash would you like to be written on this card?","Agent Card Fingerprint Hash",default) as text)
+						var/new_fingerprint_hash = sanitize_local(input(user,"What fingerprint hash would you like to be written on this card?","Agent Card Fingerprint Hash",default) as text)
 						if(!Adjacent(user))
 							return
 						src.fingerprint_hash = new_fingerprint_hash

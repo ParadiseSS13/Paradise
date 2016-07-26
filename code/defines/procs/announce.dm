@@ -52,7 +52,7 @@
 
 	if(!msg_sanitized)
 		message = trim_strip_html_properly(message, allow_lines = 1)
-	message_title = html_encode(message_title)
+	message_title = lhtml_encode(message_title)
 
 	Message(message, message_title, from)
 	if(do_newscast)
@@ -66,7 +66,7 @@ datum/announcement/proc/Message(message as text, message_title as text)
 			to_chat(M, "<h2 class='alert'>[title]</h2>")
 			to_chat(M, "<span class='alert'>[message]</span>")
 			if(announcer)
-				to_chat(M, "<span class='alert'> -[html_encode(announcer)]</span>")
+				to_chat(M, "<span class='alert'> -[lhtml_encode(announcer)]</span>")
 
 /datum/announcement/minor/Message(message as text, message_title as text)
 	to_chat(world, "<b><font size=3><font color=red>[message_title]</font color></font></b>")
@@ -76,7 +76,7 @@ datum/announcement/priority/Message(message as text, message_title as text)
 	to_chat(world, "<h1 class='alert'>[message_title]</h1>")
 	to_chat(world, "<span class='alert'>[message]</span>")
 	if(announcer)
-		to_chat(world, "<span class='alert'> -[html_encode(announcer)]</span>")
+		to_chat(world, "<span class='alert'> -[lhtml_encode(announcer)]</span>")
 	to_chat(world, "<br>")
 
 datum/announcement/priority/command/Message(message as text, message_title as text)

@@ -807,7 +807,7 @@ var/list/ai_verbs_default = list(
 			if(Entry.len < 3)
 				continue
 
-			if (Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
+			if(Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
 				custom_hologram = 1  // option is given in hologram menu
 
 	var/input

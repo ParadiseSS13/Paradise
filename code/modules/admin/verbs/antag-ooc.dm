@@ -5,7 +5,7 @@
 
 	if(!check_rights(R_ADMIN))	return
 
-	msg = sanitize(msg)
+	msg = sanitize_local(msg)
 	if(!msg)	return
 
 	var/display_name = src.key
