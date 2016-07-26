@@ -7,16 +7,15 @@
 
 /obj/item/weapon/melee/baton/cattleprod/teleprod/attack(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
 	..()
-	if(status && (CLUMSY in user.mutations) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally hits themself with [src]!</span>", \
-							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		user.Weaken(stunforce*3)
-		deductcharge(hitcost)
-		do_teleport(user, get_turf(user), 50)//honk honk
-	else
-		if(status)
-			if(iscarbon(M) && !M.anchored)
-				do_teleport(M, get_turf(M), 15)
+	if(status)
+		if((CLUMSY in user.mutations) && prob(50))
+			user.visible_message("<span class='danger'>[user] accidentally hits themself with [src]!</span>", \
+								"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
+			user.Weaken(stunforce*3)
+			deductcharge(hitcost)
+			do_teleport(user, get_turf(user), 50)//honk honk
+		else if(iscarbon(M) && !M.anchored)
+			do_teleport(M, get_turf(M), 15)
 
 /obj/item/weapon/melee/baton/cattleprod/attackby(obj/item/I, mob/user, params)//handles sticking a crystal onto a stunprod to make a teleprod
 	if(istype(I, /obj/item/weapon/ore/bluespace_crystal))
