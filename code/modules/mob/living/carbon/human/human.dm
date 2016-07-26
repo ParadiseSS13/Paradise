@@ -39,6 +39,9 @@
 
 	martial_art = default_martial_art
 
+	potenzia = (prob(80) ? rand(9, 14) : pick(rand(5, 13), rand(15, 20)))
+	resistenza = (prob(80) ? rand(150, 300) : pick(rand(10, 100), rand(350,600)))
+
 	handcrafting = new()
 
 	var/mob/M = src
@@ -1117,8 +1120,8 @@
 		var/hasvagina = (H.gender == FEMALE && H.species.genitals && H.species.name != "Unathi" && H.species.name != "Stok")
 		var/hasvagina_p = (P.gender == FEMALE && P.species.genitals && P.species.name != "Unathi" && P.species.name != "Stok")
 		var/hasanus_p = P.species.anus
-		var/isnude = ( !H.wear_suit && !H.w_uniform && H.underwear == "Nude")
-		var/isnude_p = ( !P.wear_suit && !P.w_uniform && P.underwear == "Nude")
+		var/isnude = H.is_nude()
+		var/isnude_p = P.is_nude()
 		var/ya = "&#1103;"
 
 
@@ -1284,7 +1287,7 @@
 				P.attack_log += text("\[[time_stamp()]\] <font color='orange'>was ass-slapped by [H.name] ([H.ckey])</font>")
 
 		else if (href_list["interaction"] == "pull")
-			if(((Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained() && P.species.name == "Tajara")
+			if(((Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained() && P.species.name == "Tajaran")
 				if (prob(30))
 					H.visible_message("<span class='danger'>[H] дёргает [P] за хвост!</span>")
 					if (istype(P.loc, /obj/structure/closet))
@@ -1321,7 +1324,7 @@
 						H.fuck(H, P, "anal")
 				else
 					var/message = pick("Не хочетс[ya] мне...", "Как-то нет желани[ya]...", "Что-то не охота...", "Нет, не сейчас.")
-					H << message
+					to_chat(H, message)
 
 		else if (href_list["interaction"] == "vaginal")
 			if (H.loc == P.loc && isnude_p && isnude && haspenis && hasanus_p)
@@ -1330,7 +1333,7 @@
 						H.fuck(H, P, "vaginal")
 				else
 					var/message = pick("Не хочетс[ya] мне...", "Как-то нет желани[ya]...", "Что-то не охота...", "Нет, не сейчас.")
-					H << message
+					to_chat(H, message)
 
 		else if (href_list["interaction"] == "oral")
 			if (H.loc == P.loc && isnude && mouthfree_p && haspenis)
@@ -1339,18 +1342,18 @@
 						H.fuck(H, P, "oral")
 				else
 					var/message = pick("Не хочетс[ya] мне...", "Как-то нет желани[ya]...", "Что-то не охота...", "Нет, не сейчас.")
-					H << message
+					to_chat(H, message)
 
 		else if (href_list["interaction"] == "mount")
 			if (H.loc == P.loc && isnude && isnude_p && haspenis_p && hasvagina)
 				if (P.lust <= 0)
 					var/message = pick("Инструмент не переведен в рабочее состо[ya]ние...", "У него еще не встал...", "А он лежит...", "Никак не насадитьс[ya]...")
-					H << message
+					to_chat(H, message)
 				else if (H.erpcooldown == 0)
 					H.fuck(H, P, "mount")
 				else
 					var/message = pick("Не хочетс[ya] мне...", "Как-то нет желани[ya]...", "Что-то не охота...", "Нет, не сейчас.")
-					H << message
+					to_chat(H, message)
 	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
 		src.examinate(I)
