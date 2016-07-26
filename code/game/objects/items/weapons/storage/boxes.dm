@@ -721,7 +721,7 @@
 	var/design = NODESIGN
 
 /obj/item/weapon/storage/box/papersack/update_icon()
-	if(contents.len == 0)
+	if(!contents.len)
 		icon_state = "[item_state]"
 	else icon_state = "[item_state]_closed"
 
@@ -729,21 +729,22 @@
 	if(istype(W, /obj/item/weapon/pen))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
-			to_chat(user, "<span class='warning'>You can't modify this [src] with items still inside!</span>")
+			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
 			return
-		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE, "Cancel")
-		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) in designs
-		if(get_dist(usr, src) > 1)
+		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
+		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) as null|anything in designs
+		if(!switchDesign)
+			return
+		if(get_dist(usr, src) > 1 && !usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
 			return
-		var/choice = designs.Find(switchDesign)
-		if(design == designs[choice] || designs[choice] == "Cancel")
-			return 0
-		to_chat(usr, "<span class='notice'>You make some modifications to the [src] using your pen.</span>")
-		design = designs[choice]
+		if(design == switchDesign)
+			return
+		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+		design = switchDesign
 		icon_state = "paperbag_[design]"
 		item_state = "paperbag_[design]"
-		switch(designs[choice])
+		switch(design)
 			if(NODESIGN)
 				desc = "A sack neatly crafted out of paper."
 			if(NANOTRASEN)
@@ -754,19 +755,19 @@
 				desc = "A paper sack with a heart etched onto the side."
 			if(SMILE)
 				desc = "A paper sack with a crude smile etched onto the side."
-		return 0
+		return
 	else if(is_sharp(W))
 		if(!contents.len)
 			if(item_state == "paperbag_None")
-				to_chat(user, "<span class='notice'>You cut eyeholes into the [src].</span>")
+				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
 				new /obj/item/clothing/head/papersack(user.loc)
 				qdel(src)
-				return 0
+				return
 			else if(item_state == "paperbag_SmileyFace")
-				to_chat(user, "<span class='notice'>You cut eyeholes into the [src] and modify the design.</span>")
+				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
 				new /obj/item/clothing/head/papersack/smiley(user.loc)
 				qdel(src)
-				return 0
+				return
 	return ..()
 
 #undef NODESIGN

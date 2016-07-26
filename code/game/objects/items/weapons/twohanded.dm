@@ -309,7 +309,7 @@
 		return
 	if(explosive && wielded)
 		user.say("[war_cry]")
-		explosive.loc = AM
+		explosive.forceMove(AM)
 		explosive.prime()
 		qdel(src)
 
@@ -319,7 +319,7 @@
 		explosive.prime()
 		qdel(src)
 
-/obj/item/weapon/twohanded/spear/AltClick()
+/obj/item/weapon/twohanded/spear/AltClick(mob/user)
 	..()
 	if(!explosive)
 		return

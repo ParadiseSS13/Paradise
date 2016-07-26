@@ -91,7 +91,7 @@
 			if(istype(M.loc, /mob/living))
 				var/mob/living/L = M.loc
 				L.unEquip(M)
-			M.loc = src
+			M.forceMove(src)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	qdel(giver)

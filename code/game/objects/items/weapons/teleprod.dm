@@ -30,6 +30,6 @@
 			qdel(I)
 			qdel(src)
 		else
-			user.visible_message("<span class='warning'>You can't put the crystal onto the stunprod while it has a power cell installed!</span>")
+			to_chat(user, "<span class='warning'>You can't put the crystal onto the stunprod while it has a power cell installed!</span>")
 	else
 		return ..()

@@ -122,7 +122,7 @@
 	..()
 
 /obj/item/weapon/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
-	if (!spam_flag)
+	if(!spam_flag)
 		var/turf/T = get_turf(src)
 		for(M in ohearers(7, T))
 			if(istype(M, /mob/living/carbon/human))
