@@ -149,11 +149,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/mob/M = src
 
-	if(stat == DEAD)
+	if(!suiciding && stat == DEAD)
 		ghostize(1)
 	else
-		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)","Are you sure you want to ghost?","Ghost","Stay in body")
-		if(response != "Ghost")	return	//didn't want to ghost after-all
+		var/response
+		var/alertmsg
+		if(suiciding)
+			alertmsg = "Are you -sure- you want to ghost?\n(You have committed suicide. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
+		else
+			alertmsg = "Are you -sure- you want to ghost?\n(You are alive. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
+		response = alert(src, alertmsg,"Are you sure you want to ghost?","Ghost","Stay in body")
+		if(response != "Ghost")
+			return	//didn't want to ghost after-all
 		resting = 1
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.

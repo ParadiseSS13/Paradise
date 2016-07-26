@@ -382,7 +382,9 @@
 			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
-	// Delete the mob.
+	// Ghost and delete the mob.
+	if(!occupant.get_ghost(1))
+		occupant.ghostize(0) // Despawned players may not re-enter the game
 	qdel(occupant)
 	occupant = null
 	name = initial(name)

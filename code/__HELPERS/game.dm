@@ -442,7 +442,7 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 	if(!Question)
 		Question = "Would you like to be a special role?"
 
-	for(var/mob/dead/observer/G in player_list)
+	for(var/mob/dead/observer/G in respawnable_list)
 		if(!G.key || !G.client)
 			continue
 		if(be_special_type)
