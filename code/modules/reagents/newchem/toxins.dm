@@ -289,8 +289,6 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/facid/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return //wooo more runtime fixin
 	if(method == TOUCH || method == INGEST)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -311,18 +309,18 @@
 						if(!H.wear_mask.unacidable)
 							qdel(H.wear_mask)
 							H.update_inv_wear_mask()
-							to_chat(H, "\red Your mask melts away but protects you from the acid!")
+							to_chat(H, "<span class='warning'>Your mask melts away but protects you from the acid!</span>")
 						else
-							to_chat(H, "\red Your mask protects you from the acid!")
+							to_chat(H, "<span class='warning'>Your mask protects you from the acid!</span>")
 						return
 
 					if(H.head)
 						if(!H.head.unacidable)
 							qdel(H.head)
 							H.update_inv_head()
-							to_chat(H, "\red Your helmet melts away but protects you from the acid")
+							to_chat(H, "<span class='warning'>Your helmet melts away but protects you from the acid</span>")
 						else
-							to_chat(H, "\red Your helmet protects you from the acid!")
+							to_chat(H, "<span class='warning'>Your helmet protects you from the acid!</span>")
 						return
 
 				if(!H.unacidable)
@@ -333,12 +331,11 @@
 					H.status_flags |= DISFIGURED
 
 /datum/reagent/facid/reaction_obj(obj/O, volume)
-	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)))
+	if((istype(O, /obj/item) || istype(O, /obj/effect/glowshroom)))
 		if(!O.unacidable)
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
-			for(var/mob/M in viewers(5, O))
-				to_chat(M, "\red \the [O] melts.")
+			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
 
 /datum/chemical_reaction/facid
@@ -694,45 +691,41 @@
 	..()
 
 			// Clear off wallrot fungi
-/datum/reagent/atrazine/reaction_turf(turf/T, volume)
-	if(istype(T, /turf/simulated/wall))
-		var/turf/simulated/wall/W = T
-		if(W.rotting)
-			W.rotting = 0
-			for(var/obj/effect/E in W)
-				if(E.name == "Wallrot")
-					qdel(E)
+/datum/reagent/atrazine/reaction_turf(turf/simulated/wall/W, volume)
+	if(istype(W) && W.rotting)
+		W.rotting = 0
+		for(var/obj/effect/overlay/O in W)
+			if(O.name == "Wallrot") // This is so awful
+				qdel(O)
 
-			for(var/mob/O in viewers(W, null))
-				O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)
+		W.visible_message("<span class='warning'>The fungi are completely dissolved by the solution!</span>")
 
 /datum/reagent/atrazine/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/structure/alien/weeds/))
 		var/obj/structure/alien/weeds/alien_weeds = O
 		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
 		alien_weeds.healthcheck()
-	else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it
+	else if(istype(O, /obj/effect/glowshroom)) //even a small amount is enough to kill it
 		qdel(O)
 	else if(istype(O,/obj/effect/plant))
-		if(prob(50)) qdel(O) //Kills kudzu too.
+		if(prob(50))
+			qdel(O) //Kills kudzu too.
 	// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
 
 /datum/reagent/atrazine/reaction_mob(mob/living/M, method=TOUCH, volume)
-	src = null
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(2) // 4 toxic damage per application, doubled for some reason
+			C.adjustToxLoss(2) // 2 toxic damage per application
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.dna)
-				if(H.species.flags & IS_PLANT) //plantmen take a LOT of damage
-					H.adjustToxLoss(50)
-					..()
-		else if(istype(M,/mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
-			var/mob/living/simple_animal/diona/D = M
-			D.adjustHealth(100)
-			..()
+			if(H.species.flags & IS_PLANT) //plantmen take a LOT of damage
+				H.adjustToxLoss(50)
+				..()
+	else if(istype(M, /mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
+		var/mob/living/simple_animal/diona/D = M
+		D.adjustHealth(100)
+		..()
 
 /datum/chemical_reaction/atrazine
 	name = "atrazine"
@@ -817,10 +810,11 @@
 	reagent_state = LIQUID
 	color = "#00FD00"
 
-/datum/reagent/glowing_slurry/reaction_mob(mob/M, method=TOUCH, volume) //same as mutagen
-	if(!..())	return
-	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	src = null
+/datum/reagent/glowing_slurry/reaction_mob(mob/living/M, method=TOUCH, volume) //same as mutagen
+	if(!..())
+		return
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==TOUCH && prob(50)) || method==INGEST)
 		randmutb(M)
 		domutcheck(M, null)
@@ -828,6 +822,8 @@
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
+	if(!M.dna)
+		return
 	if(prob(15))
 		randmutb(M)
 	if(prob(3))

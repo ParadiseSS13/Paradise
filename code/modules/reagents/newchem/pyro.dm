@@ -65,7 +65,7 @@
 		new /obj/effect/hotspot(T)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH && isliving(M))
+	if(method == TOUCH)
 		M.adjust_fire_stacks(5)
 		M.IgniteMob()
 		M.bodytemperature += 30
@@ -177,9 +177,8 @@
 	mix_sound = null
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
-	src = null
-	if(volume >= 5)
-		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in get_turf(T)) //let's not have hundreds of decals of black powder on the same turf
+	if(volume >= 5 && !istype(T, /turf/space))
+		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in T) //let's not have hundreds of decals of black powder on the same turf
 			new /obj/effect/decal/cleanable/dirt/blackpowder(T)
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
@@ -436,7 +435,7 @@
 	..()
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH && isliving(M))
+	if(method == TOUCH)
 		M.adjust_fire_stacks(7)
 
 /datum/chemical_reaction/napalm
@@ -474,7 +473,7 @@
 		holder.handle_reactions()
 	..()
 
-/datum/reagent/cryostylane/reaction_turf(turf/simulated/T, volume)
+/datum/reagent/cryostylane/reaction_turf(turf/T, volume)
 	if(volume >= 5)
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
@@ -537,9 +536,6 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
-
 // Put out fire
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(volume / 5)) // more effective than water
@@ -550,24 +546,23 @@
 	if(!istype(T))
 		return
 	var/CT = cooling_temperature
-	src = null
-	if(!istype(T, /turf/space))
-		new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
+	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !istype(T, /turf/space))
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
+	if(hotspot)
+		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
+		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), 0)
 		lowertemp.react()
 		T.assume_air(lowertemp)
 		qdel(hotspot)
 
 /datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
-	src = null
-	var/turf/T = get_turf(O)
+	var/turf/simulated/T = get_turf(O)
+	if(!istype(T))
+		return
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !istype(T, /turf/space))
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+	if(hotspot)
+		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
+		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
 		lowertemp.react()
 		T.assume_air(lowertemp)
 		qdel(hotspot)
@@ -625,8 +620,6 @@
 		T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 5)
 		return

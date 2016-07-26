@@ -133,9 +133,7 @@
 			M.fakevomit()
 	..()
 
-/datum/reagent/ethanol/synthanol/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.isSynthetic())
 		return
 	if(method == INGEST)

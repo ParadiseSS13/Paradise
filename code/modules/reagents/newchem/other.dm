@@ -124,7 +124,7 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	mix_message = "The substance flashes multiple colors and emits the smell of a pocket protector."
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
-    if(M && istype(M))
+    if(isanimal(M))
         M.color = pick(random_color_list)
     ..()
 
@@ -187,7 +187,7 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	result_amount = 2
 
 /datum/reagent/hair_dye/reaction_mob(mob/living/M, volume)
-	if(M && ishuman(M))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		head_organ.r_facial = rand(0,255)
@@ -217,7 +217,7 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	mix_message = "The liquid becomes slightly hairy."
 
 /datum/reagent/hairgrownium/reaction_mob(mob/living/M, volume)
-	if(M && ishuman(M))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
@@ -244,7 +244,7 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	mix_message = "The liquid becomes amazingly furry and smells peculiar."
 
 /datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
-	if(M && ishuman(M))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		var/datum/sprite_accessory/tmp_hair_style = hair_styles_list["Very Long Hair"]
