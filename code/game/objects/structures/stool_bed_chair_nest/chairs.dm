@@ -66,6 +66,14 @@
 		handle_rotation()
 		return
 
+/obj/structure/stool/bed/chair/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	rotate()
+
 // Chair types
 /obj/structure/stool/bed/chair/wood
 	// TODO:  Special ash subtype that looks like charred chair legs
