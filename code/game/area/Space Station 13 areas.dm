@@ -451,6 +451,11 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
 
+/area/shuttle/uzhin
+	name = "Grisha's shuttle"
+	icon_state = "shuttle"
+	requires_power = 0
+
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
 /area/dummy/           // Referenced in engine.dm:261
@@ -2464,6 +2469,11 @@ area/security/podbay
 	name = "Undersea"
 	icon_state = "undersea"
 
+/area/awaymission/uzhin
+	name = "Shesterochka"
+	requires_power = 0
+	ambientsounds = 'sound/music/uzhin.ogg'
+	icon_state = "uzhin"
 
 ////////////////////////AWAY AREAS///////////////////////////////////
 
@@ -2632,4 +2642,3 @@ var/list/the_station_areas = list (
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,
 )
-
