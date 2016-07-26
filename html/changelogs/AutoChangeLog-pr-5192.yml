@@ -1,0 +1,5 @@
+author: Fox-McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in a few makeshift items/weapons: molotovs, grenade lances, golden bikehorn, paper bags, and DIY chainsaws"
+  - bugfix: "Fixes some personal crafting behaving as other than intended"
