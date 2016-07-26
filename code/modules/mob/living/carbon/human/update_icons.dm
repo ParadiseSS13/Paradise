@@ -968,6 +968,16 @@ var/global/list/damage_icon_parts = list()
 				client.screen += r_store
 				r_store.screen_loc = ui_storage2
 
+/mob/living/carbon/human/update_inv_wear_pda()
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_pda]
+		if(inv)
+			inv.update_icon()
+
+		if(wear_pda)
+			client.screen += wear_pda
+			wear_pda.screen_loc = ui_pda
+
 /mob/living/carbon/human/update_inv_wear_mask(var/update_icons = 1)
 	..()
 	if(client && hud_used)

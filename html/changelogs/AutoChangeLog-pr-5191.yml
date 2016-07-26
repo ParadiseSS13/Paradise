@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - tweak: "The RnD console now shows an overlay while you're waiting for it to do work, rather than using a separate wait screen."

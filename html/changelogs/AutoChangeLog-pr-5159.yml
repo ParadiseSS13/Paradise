@@ -1,0 +1,9 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes a few crafting recipes not having the proper category"
+  - bugfix: "Fixes laser slugs not firing lasers"
+  - tweak: "Adjusts the damage/consistency of improvised slugs"
+  - rscadd: "Adds in craftable bolas; throw them at someone to slow them down"
+  - rscadd: "Secvend starts off with e-bolas"
+  - rscadd: "Can make spears with personal crafting now"

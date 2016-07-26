@@ -111,7 +111,7 @@ var/global/sent_honksquad = 0
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(src), slot_w_uniform)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/device/pda/clown(src), slot_belt)
+	equip_to_slot_or_del(new /obj/item/device/pda/clown(src), slot_wear_pda)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/snacks/grown/banana(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/weapon/bikehorn(src), slot_in_backpack)

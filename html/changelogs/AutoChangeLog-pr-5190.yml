@@ -1,0 +1,4 @@
+author: Kyep
+delete-after: True
+changes: 
+  - bugfix: "It is now possible for admins to remove a person's vamp thrall status."
