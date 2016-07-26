@@ -41,31 +41,31 @@
 
 /datum/species/unathi
 	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss")
+			"ñ" = list("ñ", "ñññ", "ññññ")
 		)
 	autohiss_extra_map = list(
-			"x" = list("ks", "kss", "ksss")
+			"êñ" = list("êñ", "êññ", "êñññ")
 		)
 	autohiss_exempt = list("Sinta'unathi")
 
 /datum/species/tajaran
 	autohiss_basic_map = list(
-			"r" = list("rr", "rrr", "rrrr")
+			"ğ" = list("ğğ", "ğğğ", "ğğğğ")
 		)
 	autohiss_exempt = list("Siik'tajr")
 
 /datum/species/plasmaman
 	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss")
+			"ñ" = list("ññ", "ñññ", "ññññ")
 		)
 
 /datum/species/kidan
 	autohiss_basic_map = list(
-			"z" = list("zz", "zzz", "zzzz"),
-			"v" = list("vv", "vvv", "vvvv")
+			"ç" = list("çç", "ççç", "çççç"),
+			"â" = list("ââ", "âââ", "ââââ")
 		)
 	autohiss_extra_map = list(
-			"s" = list("z", "zs", "zzz", "zzsz")
+			"ñ" = list("ç", "çñ", "ççç", "ççñç")
 		)
 	autohiss_exempt = list("Chittin")
 

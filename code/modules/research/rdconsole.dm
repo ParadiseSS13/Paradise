@@ -775,7 +775,7 @@ proc/CallMaterialName(ID)
 				var/list/materials_list = list()
 				design_list["materials"] = materials_list
 				design_list["id"] = D.id
-				design_list["name"] = sanitize(D.name)
+				design_list["name"] = sanitize_local(D.name)
 				var/c = 50
 				for(var/M in D.materials)
 					var/list/material_list = list()
@@ -839,7 +839,7 @@ proc/CallMaterialName(ID)
 				var/list/materials_list = list()
 				design_list["materials"] = materials_list
 				design_list["id"] = D.id
-				design_list["name"] = sanitize(D.name)
+				design_list["name"] = sanitize_local(D.name)
 				var/check_materials = 1
 				for(var/M in D.materials)
 					var/list/material_list = list()
