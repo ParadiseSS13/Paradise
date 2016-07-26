@@ -26,6 +26,24 @@
 	time = 15
 	category = CAT_WEAPON
 
+/datum/crafting_recipe/lance
+	name = "explosive lance (grenade)"
+	result = /obj/item/weapon/twohanded/spear
+	reqs = list(/obj/item/weapon/twohanded/spear = 1,
+				/obj/item/weapon/grenade = 1)
+	parts = list(/obj/item/weapon/grenade = 1)
+	time = 15
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/molotov
+	name = "Molotov"
+	result = /obj/item/weapon/reagent_containers/food/drinks/bottle/molotov
+	reqs = list(/obj/item/weapon/reagent_containers/glass/rag = 1,
+				/obj/item/weapon/reagent_containers/food/drinks/bottle = 1)
+	parts = list(/obj/item/weapon/reagent_containers/food/drinks/bottle = 1)
+	time = 40
+	category = CAT_WEAPON
+
 /datum/crafting_recipe/stunprod
 	name = "Stunprod"
 	result = /obj/item/weapon/melee/baton/cattleprod
@@ -109,7 +127,9 @@
 	result = /obj/item/weapon/flamethrower
 	reqs = list(/obj/item/weapon/weldingtool = 1,
 				/obj/item/device/assembly/igniter = 1,
-				/obj/item/stack/rods = 2)
+				/obj/item/stack/rods = 1)
+	parts = list(/obj/item/device/assembly/igniter = 1,
+				/obj/item/weapon/weldingtool = 1)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 10
 	category = CAT_WEAPON
@@ -206,6 +226,16 @@
 	time = 100
 	category = CAT_WEAPON
 
+/datum/crafting_recipe/chainsaw
+	name = "Chainsaw"
+	result = /obj/item/weapon/twohanded/required/chainsaw
+	reqs = list(/obj/item/weapon/circular_saw = 1,
+				/obj/item/stack/cable_coil = 1,
+				/obj/item/stack/sheet/plasteel = 1)
+	tools = list(/obj/item/weapon/weldingtool)
+	time = 50
+	category = CAT_WEAPON
+
 /datum/crafting_recipe/spear
 	name = "Spear"
 	result = /obj/item/weapon/twohanded/spear
@@ -222,6 +252,13 @@
 	reqs = list(/obj/item/device/camera = 1,
 				/datum/reagent/holywater = 10)
 	parts = list(/obj/item/device/camera = 1)
+
+/datum/crafting_recipe/papersack
+	name = "Paper Sack"
+	result = /obj/item/weapon/storage/box/papersack
+	time = 10
+	reqs = list(/obj/item/weapon/paper = 5)
+	category = CAT_MISC
 
 /datum/crafting_recipe/notreallysoap
 	name = "Homemade Soap"
@@ -265,3 +302,11 @@
 	time = 15
 	reqs = list(/obj/item/clothing/gloves/color/latex = 1,
 				/obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/gold_horn
+	name = "Golden bike horn"
+	result = /obj/item/weapon/bikehorn/golden
+	time = 20
+	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5,
+				/obj/item/weapon/bikehorn)
+	category = CAT_MISC
