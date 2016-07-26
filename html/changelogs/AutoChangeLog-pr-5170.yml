@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "\"Drop Everything\" in VV no longer causes limbs to fall to the ground."
