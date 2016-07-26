@@ -122,6 +122,25 @@
 				qdel(ate_heart)
 	..()
 
+//virus-specific symptom reagents
+
+/datum/reagent/synaphydramine
+	name = "Diphen-Synaptizine"
+	id = "synaphydramine"
+	description = "Reduces drowsiness, hallucinations, and Histamine from body."
+	color = "#EC536D" // rgb: 236, 83, 109
+
+/datum/reagent/synaphydramine/on_mob_life(mob/living/M)
+	M.drowsyness = max(M.drowsyness-5, 0)
+	if(holder.has_reagent("lsd"))
+		holder.remove_reagent("lsd", 5)
+	if(holder.has_reagent("histamine"))
+		holder.remove_reagent("histamine", 5)
+	M.hallucination = max(0, M.hallucination - 10)
+	if(prob(30))
+		M.adjustToxLoss(1)
+	..()
+
 //virus food
 /datum/reagent/virus_food
 	name = "Virus Food"
