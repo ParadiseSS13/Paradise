@@ -177,12 +177,11 @@
 
 /datum/crafting_recipe/shoe_rags
 	name = "Shoe Rags"
-
 	result = /obj/item/shoe_silencer
 	reqs = list(/obj/item/stack/tape_roll = 10)
 	tools = list(/obj/item/weapon/wirecutters)
-
 	time = 40
+	category = CAT_MISC
 
 /obj/item/clothing/shoes/sandal/white
 	name = "White Sandals"

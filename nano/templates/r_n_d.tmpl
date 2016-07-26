@@ -1,4 +1,4 @@
-{{if data.menu > 0 && !data.wait_message}}
+{{if data.menu > 0}}
 	<div class='item'>
 		{{:helper.link('Main Menu', 'reply', {'menu': 0, 'submenu': 0})}}
 		{{if data.submenu > 0}}
@@ -18,9 +18,7 @@
 	</div>
 {{/if}}
 <div class='statusDisplay'>
-	{{if data.wait_message}}
-		{{:data.wait_message}}
-	{{else data.menu == 0}}
+	{{if data.menu == 0}}
 		<h3>Main Menu:</h3>
 		<div class='line'>{{:helper.link('Disk Operations', 'save', {'menu': 2, 'submenu': 0}, data.disk_type ? null : 'disabled')}}</div>
 		<div class='line'>{{:helper.link('Destructive Analyzer Menu', 'chain-broken', {'menu': 3, 'submenu': 0}, data.linked_destroy ? null : 'disabled')}}</div>
@@ -263,3 +261,11 @@
 		{{/if}}
 	{{/if}}
 </div>
+
+{{if data.wait_message}}
+	<div class="mask">
+		<div class="maskContent">
+			<h1>{{:data.wait_message}}</h1>
+		</div>
+	</div>
+{{/if}}

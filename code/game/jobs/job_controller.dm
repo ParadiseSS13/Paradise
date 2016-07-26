@@ -609,7 +609,7 @@ var/global/datum/controller/occupations/job_master
 		if(rank=="D-class Prisoner")
 			to_chat(H, "<B>Godspeed, prisoner.</B>")
 		else
-			H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_belt)
+			H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_wear_pda)
 		if(locate(/obj/item/device/pda,H))
 			var/obj/item/device/pda/pda = locate(/obj/item/device/pda,H)
 			pda.owner = H.real_name
