@@ -1146,7 +1146,7 @@
 					H.give(P)
 
 		else if (href_list["interaction"] == "kiss")
-			if( ((Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && mouthfree && mouthfree_p  && (P.species.name == "Human" || P.species.name == "Skrell" || P.species.name == "Arachna" || P.species.name == "Slime")  && (H.species.name == "Human" || H.species.name == "Skrell" || H.species.name == "Arachna" || H.species.name == "Slime"))
+			if( ((Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && mouthfree && mouthfree_p  && (H.species.flags & HAS_LIPS) && (P.species.flags & HAS_LIPS))
 				if (H.lust == 0)
 					H.visible_message("<B>[H]</B> целует <B>[P]</B>.")
 					if (istype(P.loc, /obj/structure/closet))
