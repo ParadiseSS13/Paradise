@@ -384,7 +384,7 @@
 												speciesprefs='[speciesprefs]',
 												socks='[socks]',
 												body_accessory='[body_accessory]',
-												gear='[gearlist]'
+												gear='[gearlist]',
 												spawn_location='[spawnpoint]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
