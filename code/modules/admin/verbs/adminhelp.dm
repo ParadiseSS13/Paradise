@@ -27,7 +27,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
 
-	msg = sanitize_local(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN)) //sanitize_local?
 	if(!msg)	return
 	var/original_msg = msg
 
@@ -65,6 +65,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/mobs_found = list()
 	for(var/original_word in msglist)
 		var/word = ckey(original_word)
+		//if(word) Basically, this line kills every cyrillic symbol.
 		if(!(word in adminhelp_ignored_words))
 			if(word == "ai")
 				ai_found = 1
