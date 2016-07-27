@@ -196,7 +196,7 @@
 		return
 	if(brainmob && brainmob.key)
 		return // No point pinging a posibrain with a player already inside
-	if(O.can_reenter_corpse && (world.time >= next_ping_at))
+	if(check_observer(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
 		var/turf/T = get_turf_or_move(src.loc)
 		for(var/mob/M in viewers(T))
