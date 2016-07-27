@@ -1,0 +1,5 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - tweak: "AI Integrity Restorers now destroy any AIs inside if they get EMP'd"
+  - tweak: "AI Integrity Restorers can be deconstructed if broken via explosions. This kills the AI inside"
