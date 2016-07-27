@@ -159,7 +159,8 @@
 					speciesprefs,
 					socks,
 					body_accessory,
-					gear
+					gear,
+					spawn_location
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
@@ -238,6 +239,8 @@
 		socks = query.item[58]
 		body_accessory = query.item[59]
 		gear = params2list(query.item[60])
+
+		spawnpoint = query.item[61]
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -382,6 +385,7 @@
 												socks='[socks]',
 												body_accessory='[body_accessory]',
 												gear='[gearlist]'
+												spawn_location='[spawnpoint]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -412,7 +416,7 @@
 											flavor_text, med_record, sec_record, gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear)
+											socks, body_accessory, gear, spawn_location)
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
@@ -433,7 +437,7 @@
 											'[sql_sanitize_text(html_encode(flavor_text))]', '[sql_sanitize_text(html_encode(med_record))]', '[sql_sanitize_text(html_encode(sec_record))]', '[sql_sanitize_text(html_encode(gen_record))]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]', '[gearlist]')
+											'[socks]', '[body_accessory]', '[gearlist]', '[spawnpoint]')
 
 "}
 )

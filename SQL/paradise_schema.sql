@@ -83,6 +83,7 @@ CREATE TABLE `characters` (
   `socks` mediumtext NOT NULL,
   `body_accessory` mediumtext NOT NULL,
   `gear` mediumtext NOT NULL,
+  `spawn_location` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18747 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
