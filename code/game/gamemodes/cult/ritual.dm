@@ -226,9 +226,6 @@
 		if(ticker.mode.name == "cult")
 			if(!canbypass == 1)//not an admin-tome, check things
 				var/datum/game_mode/cult/cult_mode = ticker.mode
-				if(!("eldergod" in cult_mode.objectives) || !("slughter" in cult_mode.objectives))
-					to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
-					return
 				if(!cult_mode.narsie_condition_cleared)
 					to_chat(user, "<span class='warning'>There is still more to do before unleashing [cult_mode.cultdat.entity_name] power!</span>")
 					return
@@ -237,6 +234,9 @@
 					return
 				if(cult_mode.demons_summoned)
 					to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
+					return
+				if(!("eldergod" in cult_mode.objectives) || !("slughter" in cult_mode.objectives))
+					to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 					return
 				var/confirm_final = alert(user, "This is the FINAL step to summon Nar-Sie, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
 				if(confirm_final == "No")
@@ -254,8 +254,8 @@
 	var/mob/living/carbon/human/H = user
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = H.get_organ(ran_zone(dam_zone))
-	user.visible_message("<span class='warning'>[user] cuts open their \the [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
-	user.apply_damage(initial(rune_to_scribe.scribe_damage), ticker.mode.cultdat.dam_type, affecting)
+	user.visible_message("<span class='warning'>[user] cuts open their \The [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
+	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE , affecting)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/machinery/shield/S = V

@@ -39,7 +39,7 @@ var/runetype = "rune"
 			I.Blend(icon('icons/effects/uristrunes.dmi', "[runetype]-[1 << i]"), ICON_OVERLAY)
 
 
-	I.SwapColor(rgb(0, 0, 0, 100), rgb(100, 0, 0, 200))
+	I.SwapColor(rgb(0, 0, 0, 100), rgb(100, 0, 0, 200))//TO DO COMMENT:NEED TO ADJUST FOR DIFFRNET CULTS
 	I.SwapColor(rgb(0, 0, 0, 50), rgb(150, 0, 0, 200))
 
 	for(var/x = 1, x <= 32, x++)

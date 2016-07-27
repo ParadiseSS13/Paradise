@@ -31,6 +31,7 @@
 	..()
 	name = "[ticker.mode.cultdat.get_name(const_type)] ([rand(1, 1000)])"
 	real_name = ticker.mode.cultdat.get_name(const_type)
+	icon_living = ticker.mode.cultdat.get_icon(const_type)
 	icon_state = ticker.mode.cultdat.get_icon(const_type)
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))

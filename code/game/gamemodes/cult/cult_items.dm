@@ -42,14 +42,14 @@
 	throwforce = 25
 	var/cooldown = 0
 
-/obj/item/weapon/melee/cultblade/dagger/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target, mob/living/carbon/human/user)
 	..()
-	if(cooldown <= world.time && prob(50) && !target.stat)
-		if(ishuman(target))
+	if(ishuman(target))
+		var/mob/living/carbon/human/bleeder = target
+		if(cooldown <= world.time && prob(50) && (!bleeder.stat || (!bleeder.species.flags & NO_BLOOD)))
 			visible_message("<span class='warning'>The runes on the blade absorb the blood of [target]!</span>")
-			var/mob/living/carbon/human/H = target
-			H.drip(500)
-		cooldown = world.time + 2400
+			bleeder.drip(500)
+			cooldown = world.time + 2400
 
 
 /obj/item/weapon/legcuffs/bolas/cult
