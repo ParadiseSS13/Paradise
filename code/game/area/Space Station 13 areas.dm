@@ -1876,6 +1876,10 @@ area/security/podbay
 	name = "\improper Experimentation Lab"
 	icon_state = "toxmisc"
 
+/area/toxins/telesci
+	name = "\improper Telescience Lab"
+	icon_state = "telesci"
+
 //Storage
 
 /area/storage/tools
