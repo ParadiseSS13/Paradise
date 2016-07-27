@@ -198,7 +198,7 @@
 		else*/
 		msg += "[t_He] [t_is] wearing [bicon(wear_id)] \a [wear_id].\n"
 
-	if(!wear_suit && !w_uniform && underwear == "Nude" && (gender == MALE))
+	if(is_nude() && gender == MALE && species.genitals)
 		msg += "<B>Penis size: [potenzia].</B>\n"
 	//Jitters
 	switch(jitteriness)
