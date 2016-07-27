@@ -129,11 +129,15 @@ Works together with spawning an observer, noted above.
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
 	if(key)
+		if(non_respawnable_keys[ckey])
+			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		respawnable_list -= src
 		if(ghost.can_reenter_corpse)
 			respawnable_list += ghost
+		else
+			non_respawnable_keys[ckey] = 1
 		ghost.key = key
 		if(!(ghost.client && ghost.client.holder) && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
 			ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
@@ -148,16 +152,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Relinquish your life and enter the land of the dead."
 
 	var/mob/M = src
+	var/warningmsg = null
 
-	if(!suiciding && stat == DEAD)
+	if(suiciding)
+		warningmsg = "You have committed suicide"
+	else if(stat != DEAD)
+		warningmsg = "You are alive"
+	else if(non_respawnable_keys[ckey])
+		warningmsg = "You have lost your right to respawn"
+
+	if(!warningmsg)
 		ghostize(1)
 	else
 		var/response
-		var/alertmsg
-		if(suiciding)
-			alertmsg = "Are you -sure- you want to ghost?\n(You have committed suicide. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
-		else
-			alertmsg = "Are you -sure- you want to ghost?\n(You are alive. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
+		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Ghost","Stay in body")
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all

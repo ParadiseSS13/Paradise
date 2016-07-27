@@ -13,6 +13,7 @@
 	req_access = list(access_robotics)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 	var/silenced = 0 //if set to 1, they can't talk.
+	var/next_ping_at = 0
 
 
 /obj/item/device/mmi/posibrain/attack_self(mob/user as mob)
@@ -52,6 +53,8 @@
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
+		return 0
+	if(!O.can_reenter_corpse)
 		return 0
 	if(O.client)
 		return 1
@@ -190,7 +193,11 @@
 /obj/item/device/mmi/posibrain/attack_ghost(var/mob/dead/observer/O)
 	if(searching)
 		volunteer(O)
-	else
+		return
+	if(brainmob && brainmob.key)
+		return // No point pinging a posibrain with a player already inside
+	if(O.can_reenter_corpse && (world.time >= next_ping_at))
+		next_ping_at = world.time + (20 SECONDS)
 		var/turf/T = get_turf_or_move(src.loc)
 		for(var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain pings softly.")

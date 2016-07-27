@@ -114,13 +114,17 @@ var/ert_request_answered = 0
 	active_team = response_team_type
 
 	send_emergency_team = 1
-	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600)
+	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1)
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = 0
 		return
 	var/teamsize = 0
-	for(var/mob/dead/observer/M in ert_candidates)
+	// Respawnable players get first dibs
+	for(var/mob/dead/observer/M in (ert_candidates & respawnable_list))
+		teamsize += M.JoinResponseTeam()
+	// If there's still open slots, non-respawnable players can fill them
+	for(var/mob/dead/observer/M in (ert_candidates - respawnable_list))
 		teamsize += M.JoinResponseTeam()
 	send_emergency_team = 0
 	if (!teamsize)
