@@ -93,6 +93,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/show_ghostitem_attack = TRUE
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
+	var/space_parallax = 1
+	var/space_dust = 1
+	var/parallax_speed = 1
 
 
 	//character preferences
@@ -378,6 +381,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(TAB_GAME) // General Preferences
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
+			dat += "<b>Space Parallax:</b> <a href='?_src_=prefs;preference=parallax'><b>[space_parallax ? "Enabled" : "Disabled"]</b></a><br>"
+			dat += "<b>Parallax Speed:</b> <a href='?_src_=prefs;preference=p_speed'><b>[parallax_speed]</b></a><br>"
+			dat += "<b>Space Dust:</b> <a href='?_src_=prefs;preference=dust'><b>[space_dust ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Ghost-Item Attack Animation:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
@@ -1754,6 +1760,21 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
+
+				if("parallax")
+					space_parallax = !space_parallax
+
+					if(usr && usr.hud_used)
+						usr.hud_used.update_parallax_and_dust()
+
+				if("dust")
+					space_dust = !space_dust
+
+					if(usr && usr.hud_used)
+						usr.hud_used.update_parallax_and_dust()
+
+				if("p_speed")
+					parallax_speed = min(max(input(user, "Enter a number between 0 and 5 included (default=2)","Parallax Speed Preferences",parallax_speed),0),5)
 
 				if("be_special")
 					var/r = href_list["role"]
