@@ -250,7 +250,6 @@ CREATE TABLE `player` (
   `nanoui_fancy` smallint(4) DEFAULT '1',
   `show_ghostitem_attack` smallint(4) DEFAULT '1',
   `lastchangelog` varchar(32) NOT NULL DEFAULT '0',
-  `lastchangelog` varchar(32) NOT NULL,
   `space_parallax` smallint(4) DEFAULT '1',
   `space_dust` smallint(4) DEFAULT '1',
   `parallax_speed` float(24) DEFAULT '2',
