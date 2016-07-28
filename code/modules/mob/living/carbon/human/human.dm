@@ -2037,10 +2037,20 @@
 	var/list/data = ..()
 	var/list/limbs_list = list()
 	var/list/organs_list = list()
+	var/list/equip_list = list()
 	data["limbs"] = limbs_list
 	data["iorgans"] = organs_list
+	data["equip"] = equip_list
+
 	data["dna"] = dna.serialize()
+	data["age"] = age
+
+	// No being naked
 	data["ushirt"] = undershirt
+	data["socks"] = socks
+	data["uwear"] = underwear
+
+	// Limbs
 	for(var/limb in organs_by_name)
 		var/obj/item/organ/O = organs_by_name[limb]
 		if(!O)
@@ -2049,15 +2059,25 @@
 
 		limbs_list[limb] = O.serialize()
 
+	// Internal organs/augments
 	for(var/organ in internal_organs)
 		var/obj/item/organ/O = organ
 		organs_list[O.name] = O.serialize()
 
-	return json_encode(data)
+	// Equipment
+	equip_list.len = slots_amt
+	for(var/i = 1, i < slots_amt, i++)
+		var/obj/item/thing = get_item_by_slot(i)
+		if(thing != null)
+			equip_list[i] = thing.serialize()
+
+	return data
 
 /mob/living/carbon/human/deserialize(list/data)
 	var/list/limbs_list = data["limbs"]
 	var/list/organs_list = data["iorgans"]
+	var/list/equip_list = data["equip"]
+	var/turf/T = get_turf(src)
 	if(!islist(data["limbs"]))
 		throw EXCEPTION("Expected a limbs list, but found none")
 
@@ -2067,7 +2087,10 @@
 		name = real_name
 		UpdateAppearance()
 		set_species(dna.species)
+	age = data["age"]
 	undershirt = data["ushirt"]
+	underwear = data["uwear"]
+	socks = data["socks"]
 	for(var/obj/item/organ/internal/iorgan in internal_organs)
 		qdel(iorgan)
 
@@ -2085,5 +2108,26 @@
 	for(var/organ in organs_list)
 		// As above, "New" code handles insertion, DNA sync
 		list_to_object(organs_list[organ], src)
+
+
+	// De-serialize equipment
+	// #1: Jumpsuit
+	// #2: Outer suit
+	// #3+: Everything else
+	if(islist(equip_list[slot_w_uniform]))
+		var/obj/item/clothing/C = list_to_object(equip_list[slot_w_uniform], T)
+		equip_to_slot_if_possible(C, slot_w_uniform)
+
+	if(islist(equip_list[slot_wear_suit]))
+		var/obj/item/clothing/C = list_to_object(equip_list[slot_wear_suit], T)
+		equip_to_slot_if_possible(C, slot_wear_suit)
+
+	for(var/i = 1, i < slots_amt, i++)
+		if(i == slot_w_uniform || i == slot_wear_suit)
+			continue
+		if(islist(equip_list[i]))
+			var/obj/item/clothing/C = list_to_object(equip_list[i], T)
+			equip_to_slot_if_possible(C, i)
 	update_icons()
+
 	..()
