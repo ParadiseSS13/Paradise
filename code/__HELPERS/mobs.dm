@@ -301,9 +301,12 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		var/mob/living/L = M
 		var/status
 		switch(M.stat)
-			if(0) status = "Alive"
-			if(1) status = "<font color='orange'><b>Unconscious</b></font>"
-			if(2) status = "<font color='red'><b>Dead</b></font>"
+			if(CONSCIOUS) 
+				status = "Alive"
+			if(UNCONSCIOUS)
+				status = "<font color='orange'><b>Unconscious</b></font>"
+			if(DEAD)
+				status = "<font color='red'><b>Dead</b></font>"
 		health_description = "Status = [status]"
 		health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
 	else
@@ -311,8 +314,10 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 
 	//Gener
 	switch(M.gender)
-		if(MALE,FEMALE)	gender_description = "[M.gender]"
-		else			gender_description = "<font color='red'><b>[M.gender]</b></font>"
+		if(MALE, FEMALE)
+			gender_description = "[M.gender]"
+		else
+			gender_description = "<font color='red'><b>[M.gender]</b></font>"
 
 	to_chat(user, "<b>Info about [M.name]:</b> ")
 	to_chat(user, "Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]")
@@ -320,3 +325,20 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
 	to_chat(user, "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)")
+
+// Gets the first mob contained in an atom, and warns the user if there's not exactly one
+/proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
+	if(!istype(A))
+		return null
+	if(ismob(A))
+		return A
+
+	. = null
+	for(var/mob/M in A)
+		if(!.)
+			. = M
+		else
+			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			break
+	if(!.)
+		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
