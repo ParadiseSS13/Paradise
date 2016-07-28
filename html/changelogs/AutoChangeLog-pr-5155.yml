@@ -1,0 +1,4 @@
+author: Twinmold
+delete-after: True
+changes: 
+  - tweak: "Vox Objective 4 now calculates the kills vox raiders actually have, instead of always complete."

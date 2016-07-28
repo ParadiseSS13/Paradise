@@ -1,0 +1,8 @@
+author: Krausus
+delete-after: True
+changes: 
+  - tweak: "The voting panel now uses the browser datum, which means it looks nicer."
+  - tweak: "The voting panel now updates while a vote is in progress."
+  - tweak: "When a vote is started, it will now include a link to open the vote panel, as an alternative to typing in \"vote\"."
+  - tweak: "Custom votes will now show full voting results upon completion."
+  - bugfix: "Admins should no longer lose the \"cancel vote\" link in the voting panel."

@@ -222,37 +222,37 @@
 /obj/item/clothing/mask/bandana/attack_self(var/mob/user)
 	adjustmask(user)
 
-obj/item/clothing/mask/bandana/red
+/obj/item/clothing/mask/bandana/red
 	name = "red bandana"
 	icon_state = "bandred"
 	item_color = "red"
 	desc = "It's a red bandana."
 
-obj/item/clothing/mask/bandana/blue
+/obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
 	icon_state = "bandblue"
 	item_color = "blue"
 	desc = "It's a blue bandana."
 
-obj/item/clothing/mask/bandana/gold
+/obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
 	icon_state = "bandgold"
 	item_color = "yellow"
 	desc = "It's a gold bandana."
 
-obj/item/clothing/mask/bandana/green
+/obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	icon_state = "bandgreen"
 	item_color = "green"
 	desc = "It's a green bandana."
 
-obj/item/clothing/mask/bandana/orange
+/obj/item/clothing/mask/bandana/orange
 	name = "orange bandana"
 	icon_state = "bandorange"
 	item_color = "orange"
 	desc = "It's an orange bandana."
 
-obj/item/clothing/mask/bandana/purple
+/obj/item/clothing/mask/bandana/purple
 	name = "purple bandana"
 	icon_state = "bandpurple"
 	item_color = "purple"

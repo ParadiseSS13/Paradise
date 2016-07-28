@@ -1,0 +1,7 @@
+author: FlattestGuitar
+delete-after: True
+changes: 
+  - tweak: "IAAs can now select the classic secHUD in loadouts"
+  - rscadd: "adds bananas and suit jackets to the loadout system"
+  - rscadd: "adds dress shoes and fancy sandals to the loadout system"
+  - bugfix: "Miners can now get the mining coat from loadouts"

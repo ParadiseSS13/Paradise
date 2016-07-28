@@ -13,7 +13,10 @@
 					volume,
 					nanoui_fancy,
 					show_ghostitem_attack,
-					lastchangelog
+					lastchangelog,
+					space_parallax,
+					space_dust,
+					parallax_speed
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -40,6 +43,9 @@
 		nanoui_fancy = text2num(query.item[11])
 		show_ghostitem_attack = text2num(query.item[12])
 		lastchangelog = query.item[13]
+		space_parallax = text2num(query.item[14])
+		space_dust = text2num(query.item[15])
+		parallax_speed = text2num(query.item[16])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -54,6 +60,9 @@
 	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
 	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
+	space_parallax	= sanitize_integer(space_parallax, 0, 1, initial(space_parallax))
+	space_dust		= sanitize_integer(space_dust, 0, 1, initial(space_dust))
+	parallax_speed	= sanitize_integer(parallax_speed, 0, 5, initial(parallax_speed))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -78,7 +87,10 @@
 					volume='[volume]',
 					nanoui_fancy='[nanoui_fancy]',
 					show_ghostitem_attack='[show_ghostitem_attack]',
-					lastchangelog='[lastchangelog]'
+					lastchangelog='[lastchangelog]',
+					space_parallax='[space_parallax]',
+					space_dust='[space_dust]',
+					parallax_speed='[parallax_speed]'
 					WHERE ckey='[C.ckey]'"}
 					)
 

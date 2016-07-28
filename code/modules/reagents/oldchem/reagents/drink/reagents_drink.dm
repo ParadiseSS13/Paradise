@@ -102,7 +102,7 @@
 
 /datum/reagent/drink/banana/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
-	if((istype(M, /mob/living/carbon/human) && M.job in list("Clown") ) || issmall(M))
+	if((ishuman(M) && M.job in list("Clown") ) || issmall(M))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
@@ -114,7 +114,7 @@
 
 /datum/reagent/drink/nothing/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
-	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
+	if(ishuman(M) && M.job in list("Mime"))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
@@ -265,7 +265,7 @@
 
 /datum/reagent/drink/bananahonk/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
-	if((istype(M, /mob/living/carbon/human) && M.job in list("Clown") ) || issmall(M))
+	if((ishuman(M) && M.job in list("Clown") ) || issmall(M))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
@@ -279,7 +279,7 @@
 
 /datum/reagent/drink/silencer/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
-	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
+	if(ishuman(M) && M.job in list("Mime"))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()

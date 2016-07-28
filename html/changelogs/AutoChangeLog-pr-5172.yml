@@ -1,0 +1,8 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Cablecuffs are now made by opening the cable stack's crafting menu by using it in your hand"
+  - bugfix: "Fixes cablecuffs not having a unique in-hand icon"
+  - bugfix: "Fixes cable coils not having a unique in-hand icon"
+  - tweak: "All cablecuffs will be red, regardless of what they're produced from"
+  - bugfix: "Fixes an unlimited metal exploit"

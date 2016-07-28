@@ -275,7 +275,7 @@
 		else if(!key)
 			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
 		else if(!client)
-			msg += "[t_He] [t_has] suddenly fallen asleep.\n"
+			msg += "[t_He] [t_has] suddenly fallen asleep, suffering from Space Sleep Disorder.\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [t_his] brain is missing...</span>\n"

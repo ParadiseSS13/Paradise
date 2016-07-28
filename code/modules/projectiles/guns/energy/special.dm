@@ -442,6 +442,7 @@
 	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
+	selfcharge = 1
 	cell_type = /obj/item/weapon/stock_parts/cell
 
 	var/powercost = ""
@@ -461,7 +462,7 @@
 	return ..()
 
 /obj/item/weapon/gun/energy/temperature/newshot()
-	..(temperature, e_cost)
+	..()
 
 /obj/item/weapon/gun/energy/temperature/attack_self(mob/living/user as mob)
 	user.set_machine(src)
@@ -493,26 +494,32 @@
 	return
 
 /obj/item/weapon/gun/energy/temperature/process()
+	..()
+	var/obj/item/ammo_casing/energy/temp/T = ammo_type[select]
+	T.temp = temperature
 	switch(temperature)
 		if(0 to 100)
-			e_cost = 3000
+			T.e_cost = 3000
 			powercost = "High"
 		if(100 to 250)
-			e_cost = 2000
+			T.e_cost = 2000
 			powercost = "Medium"
 		if(251 to 300)
-			e_cost = 1000
+			T.e_cost = 1000
 			powercost = "Low"
 		if(301 to 400)
-			e_cost = 2000
+			T.e_cost = 2000
 			powercost = "Medium"
 		if(401 to 1000)
-			e_cost = 3000
+			T.e_cost = 3000
 			powercost = "High"
 	switch(powercost)
-		if("High")		powercostcolor = "orange"
-		if("Medium")	powercostcolor = "green"
-		else			powercostcolor = "blue"
+		if("High")
+			powercostcolor = "orange"
+		if("Medium")
+			powercostcolor = "green"
+		else
+			powercostcolor = "blue"
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
 		if(difference >= (10 + 40*emagged)) //so emagged temp guns adjust their temperature much more quickly
@@ -616,4 +623,6 @@
 	var/mimic_type = /obj/item/weapon/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
 
 /obj/item/weapon/gun/energy/mimicgun/newshot()
-	..(mimic_type)
+	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
+	M.mimic_type = mimic_type
+	..()

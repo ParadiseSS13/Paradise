@@ -5,9 +5,8 @@
 	reagent_state = LIQUID
 	color = "#C7FFFF" // rgb: 199, 255, 255
 
-/datum/reagent/silicate/reaction_obj(var/obj/O, var/volume)
-	src = null
-	if(istype(O,/obj/structure/window))
+/datum/reagent/silicate/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/structure/window))
 		if(O:silicate <= 200)
 
 			O:silicate += volume
@@ -30,9 +29,7 @@
 				var/b = (volume / 50) + 1
 				I.SetIntensity(r,g,b)
 				O.icon = I
-				O:silicateIcon = I
-
-	return*/
+				O:silicateIcon = I */
 
 
 /datum/reagent/oxygen
@@ -99,11 +96,8 @@
 	color = "#1C1300" // rgb: 30, 20, 0
 
 /datum/reagent/carbon/reaction_turf(turf/T, volume)
-	src = null
-	// Only add one dirt per turf.  Was causing people to crash.
-	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T))
+	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T)) // Only add one dirt per turf.  Was causing people to crash.
 		new /obj/effect/decal/cleanable/dirt(T)
-
 
 /datum/reagent/gold
 	name = "Gold"

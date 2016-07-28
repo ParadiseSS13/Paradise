@@ -1,0 +1,6 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - bugfix: "Admin-only jobs check for R_EVENT now, instead of R_ADMIN, as event-related tools should."
+  - bugfix: "Mentors should no longer get spammed by the library checkout computer on occasion."
+  - bugfix: "Mentors should no longer get spammed by mirrors due to body accessories."

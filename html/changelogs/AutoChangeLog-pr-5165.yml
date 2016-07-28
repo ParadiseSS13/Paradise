@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "adds alt-click rotating of chairs, disposal pipes, windows, the PA, emitters, and windoor assemblies"

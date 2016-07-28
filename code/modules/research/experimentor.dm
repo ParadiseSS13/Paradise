@@ -260,7 +260,7 @@
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] malfunctions and destroys [exp_on], lashing its arms out at nearby people!</span>")
 			for(var/mob/living/m in oview(1, src))
-				m.apply_damage(15,"brute",pick("head","chest","groin"))
+				m.apply_damage(15,BRUTE,pick("head","chest","groin"))
 				investigate_log("Experimentor dealt minor brute to [m].", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
@@ -398,7 +398,7 @@
 			visible_message("<span class='warning'>[src] malfunctions, activating its emergency coolant systems!</span>")
 			throwSmoke(src.loc)
 			for(var/mob/living/m in oview(1, src))
-				m.apply_damage(5,"burn",pick("head","chest","groin"))
+				m.apply_damage(5,BURN,pick("head","chest","groin"))
 				investigate_log("Experimentor has dealt minor burn damage to [m]", "experimentor")
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////

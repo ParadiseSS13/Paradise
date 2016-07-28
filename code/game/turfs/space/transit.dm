@@ -1,4 +1,5 @@
 /turf/space/transit
+	plane = 0
 	var/pushdirection // push things that get caught in the transit tile this direction
 
 //Overwrite because we dont want people building rods in space.

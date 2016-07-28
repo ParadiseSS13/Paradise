@@ -100,8 +100,8 @@
 	ui_interact(user)
 
 /obj/machinery/chem_heater/attack_ai(mob/user)
-	src.add_hiddenprint(user)
-	return src.attack_hand(user)
+	add_hiddenprint(user)
+	return attack_hand(user)
 
 /obj/machinery/chem_heater/Topic(href, href_list)
 	if(..())
