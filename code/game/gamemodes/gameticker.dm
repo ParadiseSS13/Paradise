@@ -470,6 +470,7 @@ var/round_start_time = 0
 		if(findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
+	update_exp(round(ROUND_TIME / 60))
 	scoreboard()
 	karmareminder()
 

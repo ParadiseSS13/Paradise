@@ -127,6 +127,9 @@
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
 
+	var/use_exp_tracking = 1
+	var/use_exp_restrictions = 0
+
 	var/simultaneous_pm_warning_timeout = 100
 
 	var/assistant_maint = 0 //Do assistants get maint access?
@@ -238,6 +241,12 @@
 
 				if("use_age_restriction_for_antags")
 					config.use_age_restriction_for_antags = 1
+
+				if("use_exp_tracking")
+					config.use_exp_tracking = 1
+
+				if("use_exp_restrictions")
+					config.use_exp_restrictions = 1
 
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1

@@ -17,6 +17,10 @@ JOBS_HAVE_MINIMAL_ACCESS
 ## you have noone older than 0 days, since noone has been logged yet. Only turn this on once you have had the database up for 30 days.
 #USE_AGE_RESTRICTION_FOR_JOBS
 
+## Unhash the first to track playtime in database. Unhash the second to restrict job access based on playtime. Note: playtime is not account age, it is actual playtime on the server. Some jobs (e.g: head jobs) require playtime in their department to unlock.
+#USE_EXP_TRACKING
+#USE_EXP_RESTRICTIONS
+
 ## Unhash this entry to have certain antagonist roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different antag roles by editing special_role_times in /code/modules/client/preferences.dm.
 ## See USE_AGE_RESTRICTION_FOR_JOBS for more information
 #USE_AGE_RESTRICTION_FOR_ANTAGS

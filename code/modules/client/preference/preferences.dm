@@ -84,6 +84,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/exp
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
@@ -550,6 +551,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			continue
 		if(jobban_isbanned(user, rank))
 			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
+			continue
+		if(!has_exp_for_job(user, job.title))
+			HTML += "<del>[rank]</del></td><td> \[TIME]</td></tr>"
 			continue
 		if(!job.player_old_enough(user.client))
 			var/available_in_days = job.available_in_days(user.client)
