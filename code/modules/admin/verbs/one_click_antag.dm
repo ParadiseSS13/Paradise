@@ -62,7 +62,7 @@ client/proc/one_click_antag()
 			if(player_old_enough_antag(applicant.client,ROLE_TRAITOR))
 				if(!applicant.stat)
 					if(applicant.mind)
-						if (!applicant.mind.special_role)
+						if(!applicant.mind.special_role)
 							if(!jobban_isbanned(applicant, "traitor") && !jobban_isbanned(applicant, "Syndicate"))
 								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
 									if(!(applicant.client.prefs.species in temp.protected_species))
@@ -96,7 +96,7 @@ client/proc/one_click_antag()
 			if(player_old_enough_antag(applicant.client,ROLE_CHANGELING))
 				if(!applicant.stat)
 					if(applicant.mind)
-						if (!applicant.mind.special_role)
+						if(!applicant.mind.special_role)
 							if(!jobban_isbanned(applicant, "changeling") && !jobban_isbanned(applicant, "Syndicate"))
 								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
 									if(!(applicant.client.prefs.species in temp.protected_species))
@@ -277,13 +277,13 @@ client/proc/one_click_antag()
 		if(closet_spawn)
 			new /obj/structure/closet/syndicate/nuclear(closet_spawn.loc)
 
-		for (var/obj/effect/landmark/A in /area/syndicate_station/start)//Because that's the only place it can BE -Sieve
-			if (A.name == "Syndicate-Gear-Closet")
+		for(var/obj/effect/landmark/A in /area/syndicate_station/start)//Because that's the only place it can BE -Sieve
+			if(A.name == "Syndicate-Gear-Closet")
 				new /obj/structure/closet/syndicate/personal(A.loc)
 				qdel(A)
 				continue
 
-			if (A.name == "Syndicate-Bomb")
+			if(A.name == "Syndicate-Bomb")
 				new /obj/effect/spawner/newbomb/timer/syndicate(A.loc)
 				qdel(A)
 				continue
@@ -303,7 +303,7 @@ client/proc/one_click_antag()
 							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
 							synd_mind.current.client.images += I
 
-		for (var/obj/machinery/nuclearbomb/bomb in world)
+		for(var/obj/machinery/nuclearbomb/bomb in world)
 			bomb.r_code = nuke_code						// All the nukes are set to this code.
 
 	return 1
@@ -356,10 +356,10 @@ client/proc/one_click_antag()
 	if(candidates.len)
 		var/numagents = 6
 		//Spawns commandos and equips them.
-		for (var/obj/effect/landmark/L in /area/syndicate_mothership/elite_squad)
+		for(var/obj/effect/landmark/L in /area/syndicate_mothership/elite_squad)
 			if(numagents<=0)
 				break
-			if (L.name == "Syndicate-Commando")
+			if(L.name == "Syndicate-Commando")
 				syndicate_leader_selected = numagents == 1?1:0
 
 				var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, syndicate_leader_selected)
@@ -375,7 +375,7 @@ client/proc/one_click_antag()
 
 				new_syndicate_commando.key = theghost.key
 				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.internals.icon_state = "internal1"
+				new_syndicate_commando.update_internals_hud_icon(1)
 
 				//So they don't forget their code or mission.
 
@@ -386,8 +386,8 @@ client/proc/one_click_antag()
 		if(numagents >= 6)
 			return 0
 
-		for (var/obj/effect/landmark/L in /area/shuttle/syndicate_elite)
-			if (L.name == "Syndicate-Commando-Bomb")
+		for(var/obj/effect/landmark/L in /area/shuttle/syndicate_elite)
+			if(L.name == "Syndicate-Commando-Bomb")
 				new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 
 	return 1
@@ -469,7 +469,7 @@ client/proc/one_click_antag()
 		var/max_raiders = 1
 		var/raiders = max_raiders
 		//Spawns vox raiders and equips them.
-		for (var/obj/effect/landmark/L in world)
+		for(var/obj/effect/landmark/L in world)
 			if(L.name == "voxstart")
 				if(raiders<=0)
 					break
@@ -551,7 +551,7 @@ client/proc/one_click_antag()
 			if(player_old_enough_antag(applicant.client,ROLE_VAMPIRE))
 				if(!applicant.stat)
 					if(applicant.mind)
-						if (!applicant.mind.special_role)
+						if(!applicant.mind.special_role)
 							if(!jobban_isbanned(applicant, "vampire") && !jobban_isbanned(applicant, "Syndicate"))
 								if(!(applicant.job in temp.restricted_jobs))
 									if(!(applicant.client.prefs.species in temp.protected_species))
@@ -600,7 +600,7 @@ client/proc/one_click_antag()
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
 		var/datum/preferences/A = new()
-		for (var/obj/effect/landmark/L in world)
+		for(var/obj/effect/landmark/L in world)
 			if(L.name == "tdome1")
 				if(teamOneMembers<=0)
 					break

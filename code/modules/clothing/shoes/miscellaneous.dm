@@ -7,7 +7,6 @@
 	flags = NOSLIP
 	origin_tech = "syndicate=3"
 	var/list/clothing_choices = list()
-	species_restricted = null
 	silence_steps = 1
 
 /obj/item/clothing/shoes/mime
@@ -22,7 +21,6 @@
 	icon_state = "jackboots"
 	item_state = "jackboots"
 	armor = list(melee = 25, bullet = 25, laser = 25, energy = 25, bomb = 50, bio = 10, rad = 0)
-	species_restricted = null //Syndicate tech means even Tajarans can kick ass with these
 	strip_delay = 70
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
@@ -38,7 +36,6 @@
 	icon_state = "wizard"
 	strip_delay = 50
 	put_on_delay = 50
-	species_restricted = null
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
@@ -54,7 +51,6 @@
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
-	species_restricted = null
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -74,7 +70,6 @@
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
-	species_restricted = null
 	silence_steps = 1
 	shoe_sound = "clownstep"
 
@@ -97,7 +92,6 @@
 	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
-	species_restricted = null
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
@@ -116,7 +110,6 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
-	species_restricted = null
 
 /obj/item/clothing/shoes/cyborg
 	name = "cyborg boots"
@@ -128,7 +121,6 @@
 	desc = "Fluffy!"
 	icon_state = "slippers"
 	item_state = "slippers"
-	species_restricted = null
 
 /obj/item/clothing/shoes/slippers_worn
 	name = "worn bunny slippers"
@@ -149,7 +141,6 @@
 	item_state = "roman"
 	strip_delay = 100
 	put_on_delay = 100
-	species_restricted = null
 
 /obj/item/clothing/shoes/centcom
 	name = "dress shoes"
@@ -184,26 +175,34 @@
 	desc = "Looks sneaky."
 	icon_state = "sheet-cloth"
 
-/datum/table_recipe/shoe_rags
+/datum/crafting_recipe/shoe_rags
 	name = "Shoe Rags"
-
 	result = /obj/item/shoe_silencer
 	reqs = list(/obj/item/stack/tape_roll = 10)
 	tools = list(/obj/item/weapon/wirecutters)
-
 	time = 40
+	category = CAT_MISC
 
 /obj/item/clothing/shoes/sandal/white
 	name = "White Sandals"
 	desc = "Medical sandals that nerds wear."
 	icon_state = "medsandal"
 	item_color = "medsandal"
-	species_restricted = null
 
 /obj/item/clothing/shoes/sandal/fancy
 	name = "Fancy Sandals"
 	desc = "FANCY!!."
 	icon_state = "fancysandal"
 	item_color = "fancysandal"
-	species_restricted = null
 
+/obj/item/clothing/shoes/cursedclown
+	name = "cursed clown shoes"
+	desc = "Moldering clown flip flops. They're neon green for some reason."
+	icon = 'icons/goonstation/objects/clothing/feet.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_shoes"
+	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	flags = NODROP
+	shoe_sound = "clownstep"

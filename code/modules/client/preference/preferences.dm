@@ -532,7 +532,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 	var/datum/job/lastJob
-	if (!job_master)		return
+	if(!job_master)		return
 	for(var/datum/job/job in job_master.occupations)
 
 		if(job.admin_only)
@@ -656,10 +656,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return
 
 /datum/preferences/proc/SetJobPreferenceLevel(var/datum/job/job, var/level)
-	if (!job)
+	if(!job)
 		return 0
 
-	if (level == 1) // to high
+	if(level == 1) // to high
 		// remove any other job(s) set to high
 		job_support_med |= job_support_high
 		job_engsec_med |= job_engsec_high
@@ -670,59 +670,59 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		job_medsci_high = 0
 		job_karma_high = 0
 
-	if (job.department_flag == SUPPORT)
+	if(job.department_flag == SUPPORT)
 		job_support_low &= ~job.flag
 		job_support_med &= ~job.flag
 		job_support_high &= ~job.flag
 
 		switch(level)
-			if (1)
+			if(1)
 				job_support_high |= job.flag
-			if (2)
+			if(2)
 				job_support_med |= job.flag
-			if (3)
+			if(3)
 				job_support_low |= job.flag
 
 		return 1
-	else if (job.department_flag == ENGSEC)
+	else if(job.department_flag == ENGSEC)
 		job_engsec_low &= ~job.flag
 		job_engsec_med &= ~job.flag
 		job_engsec_high &= ~job.flag
 
 		switch(level)
-			if (1)
+			if(1)
 				job_engsec_high |= job.flag
-			if (2)
+			if(2)
 				job_engsec_med |= job.flag
-			if (3)
+			if(3)
 				job_engsec_low |= job.flag
 
 		return 1
-	else if (job.department_flag == MEDSCI)
+	else if(job.department_flag == MEDSCI)
 		job_medsci_low &= ~job.flag
 		job_medsci_med &= ~job.flag
 		job_medsci_high &= ~job.flag
 
 		switch(level)
-			if (1)
+			if(1)
 				job_medsci_high |= job.flag
-			if (2)
+			if(2)
 				job_medsci_med |= job.flag
-			if (3)
+			if(3)
 				job_medsci_low |= job.flag
 
 		return 1
-	else if (job.department_flag == KARMA)
+	else if(job.department_flag == KARMA)
 		job_karma_low &= ~job.flag
 		job_karma_med &= ~job.flag
 		job_karma_high &= ~job.flag
 
 		switch(level)
-			if (1)
+			if(1)
 				job_karma_high |= job.flag
-			if (2)
+			if(2)
 				job_karma_med |= job.flag
-			if (3)
+			if(3)
 				job_karma_low |= job.flag
 
 		return 1
@@ -737,7 +737,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if (!isnum(desiredLvl))
+	if(!isnum(desiredLvl))
 		to_chat(user, "\red UpdateJobPreference - desired level was not a number. Please notify coders!")
 		ShowChoices(user)
 		return
@@ -997,9 +997,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				else
 					return 0
 				SetChoices(user)
-			if ("alt_title")
+			if("alt_title")
 				var/datum/job/job = locate(href_list["job"])
-				if (job)
+				if(job)
 					var/choices = list(job.title) + job.alt_titles
 					var/choice = input("Pick a title for [job.title].", "Character Generation", GetPlayerAltTitle(job)) as anything in choices | null
 					if(choice)
@@ -1155,7 +1155,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			switch(href_list["preference"])
 				if("name")
 					var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
-					if (!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
+					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name)
 						if(new_name)
 							real_name = new_name
@@ -1838,7 +1838,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					close_load_dialog(user)
 
 				if("tab")
-					if (href_list["tab"])
+					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
 
 	ShowChoices(user)
@@ -1865,10 +1865,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.name = character.real_name
 
 	character.flavor_text = flavor_text
-	if(character.ckey && !jobban_isbanned(character, "Records"))
-		character.med_record = med_record
-		character.sec_record = sec_record
-		character.gen_record = gen_record
+	character.med_record = med_record
+	character.sec_record = sec_record
+	character.gen_record = gen_record
 
 	character.change_gender(gender)
 	character.age = age
@@ -1942,15 +1941,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(DEAFBLOCK,1,1)
-		character.sdisabilities|=DEAF
+		character.disabilities|=DEAF
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
 		character.dna.SetSEState(BLINDBLOCK,1,1)
-		character.sdisabilities|=BLIND
+		character.disabilities|=BLIND
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
-		character.sdisabilities |= MUTE
+		character.disabilities |= MUTE
 
 	S.handle_dna(character)
 

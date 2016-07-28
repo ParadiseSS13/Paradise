@@ -33,7 +33,7 @@
 /obj/item/weapon/implant/death_alarm/activate(var/cause)
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
-	switch (cause)
+	switch(cause)
 		if("death")
 			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 			if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
@@ -43,7 +43,7 @@
 				a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
 			qdel(a)
 			qdel(src)
-		if ("emp")
+		if("emp")
 			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 			var/name = prob(50) ? t.name : pick(teleportlocs)
 			a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")

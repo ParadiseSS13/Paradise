@@ -130,6 +130,12 @@
 	log_name = "RP"
 	category = "Defensive"
 
+/datum/spellbook_entry/rathens
+	name = "Rathen's Secret"
+	spell_type = /obj/effect/proc_holder/spell/targeted/rathens
+	log_name = "RS"
+	category = "Defensive"
+
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
@@ -233,6 +239,11 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/cluwne
+	name = "Curse of the Cluwne"
+	spell_type = /obj/effect/proc_holder/spell/targeted/touch/cluwne
+	log_name = "CC"
+
 /datum/spellbook_entry/item
 	name = "Buy Item"
 	refundable = 0
@@ -298,7 +309,7 @@
 
 /datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	if(..())
-		if (!(XRAY in user.mutations))
+		if(!(XRAY in user.mutations))
 			user.mutations.Add(XRAY)
 			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
@@ -397,6 +408,14 @@
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
 	item_path = /obj/item/weapon/twohanded/singularityhammer
 	log_name = "SI"
+
+/datum/spellbook_entry/item/cursed_heart
+	name = "Cursed Heart"
+	desc = "A heart that has been revived by dark magicks, the user must concentrate to ensure the heart beats, but every beat heals them. It must beat every 6 seconds."
+	item_path = /obj/item/organ/internal/heart/cursed/wizard
+	log_name = "CH"
+	cost = 1
+	category = "Defensive"
 
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
@@ -665,9 +684,9 @@
 /obj/item/weapon/spellbook/oneuse/Initialize() //No need to init
 	return
 
-/obj/item/weapon/spellbook/oneuse/attack_self(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/attack_self(mob/user)
 	var/obj/effect/proc_holder/spell/S = new spell
-	for(var/obj/effect/proc_holder/spell/knownspell in user.spell_list)
+	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)
 			if(user.mind)
 				if(user.mind.special_role == "apprentice" || user.mind.special_role == "Wizard")
@@ -684,10 +703,10 @@
 		onlearned(user)
 
 
-/obj/item/weapon/spellbook/oneuse/proc/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/proc/recoil(mob/user)
 	user.visible_message("<span class='warning'>[src] glows in a black light!</span>")
 
-/obj/item/weapon/spellbook/oneuse/proc/onlearned(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/proc/onlearned(mob/user)
 	used = 1
 	user.visible_message("<span class='caution'>[src] glows dark for a second!</span>")
 
@@ -743,7 +762,7 @@
 	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	..()
 
-/obj/item/weapon/spellbook/oneuse/mindswap/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/mindswap/recoil(mob/user)
 	..()
 	if(stored_swap in dead_mob_list)
 		stored_swap = null
@@ -755,31 +774,8 @@
 		to_chat(user, "<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
 		return
 
-	if(user.mind.special_verbs.len)
-		for(var/V in user.mind.special_verbs)
-			user.verbs -= V
-
-	if(stored_swap.mind.special_verbs.len)
-		for(var/V in stored_swap.mind.special_verbs)
-			stored_swap.verbs -= V
-
-	var/mob/dead/observer/ghost = stored_swap.ghostize(0)
-	ghost.spell_list = stored_swap.spell_list
-
-	user.mind.transfer_to(stored_swap)
-	stored_swap.spell_list = user.spell_list
-
-	if(stored_swap.mind.special_verbs.len)
-		for(var/V in user.mind.special_verbs)
-			user.verbs += V
-
-	ghost.mind.transfer_to(user)
-	user.key = ghost.key
-	user.spell_list = ghost.spell_list
-
-	if(user.mind.special_verbs.len)
-		for(var/V in user.mind.special_verbs)
-			user.verbs += V
+	var/obj/effect/proc_holder/spell/targeted/mind_transfer/swapper = new
+	swapper.cast(user, stored_swap, 1)
 
 	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
 	to_chat(user, "<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")

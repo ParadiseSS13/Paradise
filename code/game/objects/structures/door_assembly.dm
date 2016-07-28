@@ -151,7 +151,7 @@ obj/structure/door_assembly/multi_tile/Move()
 
 	if(istype(W, /obj/item/weapon/weldingtool) && ( (istext(glass)) || (glass == 1) || (!anchored) ))
 		var/obj/item/weapon/weldingtool/WT = W
-		if (WT.remove_fuel(0, user))
+		if(WT.remove_fuel(0, user))
 			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 			if(istext(glass))
 				user.visible_message("[user] welds the [glass] plating off the airlock assembly.", "You start to weld the [glass] plating off the airlock assembly.")
@@ -235,7 +235,7 @@ obj/structure/door_assembly/multi_tile/Move()
 			src.state = 1
 			src.name = "Wired Airlock Assembly"
 			var/obj/item/weapon/airlock_electronics/ae
-			if (!electronics)
+			if(!electronics)
 				ae = new/obj/item/weapon/airlock_electronics( src.loc )
 			else
 				ae = electronics
@@ -244,8 +244,8 @@ obj/structure/door_assembly/multi_tile/Move()
 
 	else if(istype(W, /obj/item/stack/sheet) && !glass)
 		var/obj/item/stack/sheet/S = W
-		if (S)
-			if (S.amount>=1)
+		if(S)
+			if(S.amount>=1)
 				if(istype(S, /obj/item/stack/sheet/rglass))
 					playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 					user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly.")
@@ -273,7 +273,7 @@ obj/structure/door_assembly/multi_tile/Move()
 			var/path
 			if(istext(glass))
 				path = text2path("/obj/machinery/door/airlock/[glass]")
-			else if (glass == 1)
+			else if(glass == 1)
 				path = text2path("/obj/machinery/door/airlock[glass_type]")
 			else
 				path = text2path("/obj/machinery/door/airlock[airlock_type]")
@@ -298,9 +298,9 @@ obj/structure/door_assembly/multi_tile/Move()
 /obj/structure/door_assembly/proc/update_state()
 	icon_state = "door_as_[glass == 1 ? "g" : ""][istext(glass) ? glass : base_icon_state][state]"
 	name = ""
-	switch (state)
+	switch(state)
 		if(0)
-			if (anchored)
+			if(anchored)
 				name = "Secured "
 		if(1)
 			name = "Wired "

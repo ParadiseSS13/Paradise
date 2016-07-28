@@ -18,7 +18,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
-	
+
 /obj/machinery/chem_heater/upgraded/New()
 	..()
 	component_parts = list()
@@ -68,7 +68,7 @@
 			stat |= NOPOWER
 	nanomanager.update_uis(src)
 
-/obj/machinery/chem_heater/attackby(var/obj/item/I as obj, var/mob/user as mob)
+/obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
 	if(isrobot(user))
 		return
 
@@ -96,12 +96,12 @@
 			default_deconstruction_crowbar(I)
 			return 1
 
-/obj/machinery/chem_heater/attack_hand(var/mob/user as mob)
+/obj/machinery/chem_heater/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/chem_heater/attack_ai(mob/user as mob)
-	src.add_hiddenprint(user)
-	return src.attack_hand(user)
+/obj/machinery/chem_heater/attack_ai(mob/user)
+	add_hiddenprint(user)
+	return attack_hand(user)
 
 /obj/machinery/chem_heater/Topic(href, href_list)
 	if(..())
@@ -126,8 +126,9 @@
 		eject_beaker()
 		. = 0 //updated in eject_beaker() already
 
-/obj/machinery/chem_heater/ui_interact(var/mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	if(user.stat || user.restrained()) return
+/obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null)
+	if(user.stat || user.restrained())
+		return
 
 	var/data[0]
 	data["targetTemp"] = desired_temp
@@ -147,7 +148,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 270)
 		ui.set_initial_data(data)
 		ui.open()

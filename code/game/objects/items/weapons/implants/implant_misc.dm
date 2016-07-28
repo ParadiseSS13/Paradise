@@ -33,7 +33,6 @@
 	return dat
 
 /obj/item/weapon/implant/adrenalin/activate()
-	if(uses < 1)	return 0
 	uses--
 	to_chat(imp_in, "<span class='notice'>You feel a sudden surge of energy!</span>")
 	imp_in.SetStunned(0)
@@ -46,6 +45,8 @@
 	imp_in.reagents.add_reagent("synaptizine", 10)
 	imp_in.reagents.add_reagent("omnizine", 10)
 	imp_in.reagents.add_reagent("stimulative_agent", 10)
+	if(!uses)
+		qdel(src)
 
 
 /obj/item/weapon/implant/emp
@@ -56,9 +57,10 @@
 	uses = 2
 
 /obj/item/weapon/implant/emp/activate()
-	if (src.uses < 1)	return 0
-	src.uses--
+	uses--
 	empulse(imp_in, 3, 5)
+	if(!uses)
+		qdel(src)
 
 /obj/item/weapon/implant/cortical
 	name = "cortical stack"

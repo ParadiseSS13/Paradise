@@ -21,7 +21,7 @@
 
 	for(var/obj/item/device/radio/beacon/R in beacons)
 		var/turf/T = get_turf(R)
-		if (!T)
+		if(!T)
 			continue
 		if((T.z in config.admin_levels) || T.z > 7)
 			continue
@@ -38,4 +38,6 @@
 	teleport_target = L[desc]
 
 /obj/item/weapon/gun/energy/telegun/newshot()
-	..(teleport_target)
+	var/obj/item/ammo_casing/energy/teleport/T = ammo_type[select]
+	T.teleport_target = teleport_target
+	..()

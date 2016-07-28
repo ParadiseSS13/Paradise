@@ -2,17 +2,21 @@
 	name = "Human Observation Console"
 	var/team = 0
 	networks = list("SS13","Abductor")
-	off_action = new/datum/action/camera_off/abductor //specific datum
-	var/datum/action/teleport_in/tele_in_action = new
-	var/datum/action/teleport_out/tele_out_action = new
-	var/datum/action/teleport_self/tele_self_action = new
-	var/datum/action/vest_mode_swap/vest_mode_action = new
-	var/datum/action/vest_disguise_swap/vest_disguise_action = new
-	var/datum/action/set_droppoint/set_droppoint_action = new
+	off_action = new /datum/action/innate/camera_off/abductor //specific datum
+	var/datum/action/innate/teleport_in/tele_in_action = new
+	var/datum/action/innate/teleport_out/tele_out_action = new
+	var/datum/action/innate/teleport_self/tele_self_action = new
+	var/datum/action/innate/vest_mode_swap/vest_mode_action = new
+	var/datum/action/innate/vest_disguise_swap/vest_disguise_action = new
+	var/datum/action/innate/set_droppoint/set_droppoint_action = new
 	var/obj/machinery/abductor/console/console
 
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
+
+/obj/machinery/computer/camera_advanced/abductor/New()
+	abductor_equipment.Add(src)
+	..()
 
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
 	..()
@@ -57,7 +61,7 @@
 		return
 	return ..()
 
-/datum/action/camera_off/abductor/Activate()
+/datum/action/innate/camera_off/abductor/Activate()
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
@@ -84,12 +88,11 @@
 	src.Remove(C)
 
 
-/datum/action/teleport_in
+/datum/action/innate/teleport_in
 	name = "Send To"
 	button_icon_state = "beam_down"
-	action_type = AB_INNATE
 
-/datum/action/teleport_in/Activate()
+/datum/action/innate/teleport_in/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
@@ -99,24 +102,22 @@
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		P.PadToLoc(remote_eye.loc)
 
-/datum/action/teleport_out
+/datum/action/innate/teleport_out
 	name = "Retrieve"
 	button_icon_state = "beam_up"
-	action_type = AB_INNATE
 
-/datum/action/teleport_out/Activate()
+/datum/action/innate/teleport_out/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
 
 	console.TeleporterRetrieve()
 
-/datum/action/teleport_self
+/datum/action/innate/teleport_self
 	name = "Send Self"
 	button_icon_state = "beam_down"
-	action_type = AB_INNATE
 
-/datum/action/teleport_self/Activate()
+/datum/action/innate/teleport_self/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
@@ -126,35 +127,32 @@
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		P.MobToLoc(remote_eye.loc,C)
 
-/datum/action/vest_mode_swap
+/datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"
 	button_icon_state = "vest_mode"
-	action_type = AB_INNATE
 
-/datum/action/vest_mode_swap/Activate()
+/datum/action/innate/vest_mode_swap/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
 	console.FlipVest()
 
 
-/datum/action/vest_disguise_swap
+/datum/action/innate/vest_disguise_swap
 	name = "Switch Vest Disguise"
 	button_icon_state = "vest_disguise"
-	action_type = AB_INNATE
 
-/datum/action/vest_disguise_swap/Activate()
+/datum/action/innate/vest_disguise_swap/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
 	console.SelectDisguise(remote=1)
 
-/datum/action/set_droppoint
+/datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"
 	button_icon_state = "set_drop"
-	action_type = AB_INNATE
 
-/datum/action/set_droppoint/Activate()
+/datum/action/innate/set_droppoint/Activate()
 	if(!target || !iscarbon(owner))
 		return
 

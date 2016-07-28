@@ -32,6 +32,8 @@ Pipelines + Other Objects -> Pipe network
 	var/global/datum/pipe_icon_manager/icon_manager
 
 /obj/machinery/atmospherics/New()
+	..()
+	
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -41,8 +43,6 @@ Pipelines + Other Objects -> Pipe network
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
-
-	..()
 
 /obj/machinery/atmospherics/initialize()
 	..()
@@ -156,7 +156,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
 		var/turf/T = get_turf(src)
-		if (level == 1 && isturf(T) && T.intact)
+		if(level == 1 && isturf(T) && T.intact)
 			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
 			return 1
 		var/datum/gas_mixture/int_air = return_air()
@@ -168,11 +168,11 @@ Pipelines + Other Objects -> Pipe network
 
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-		if (internal_pressure > 2*ONE_ATMOSPHERE)
+		if(internal_pressure > 2*ONE_ATMOSPHERE)
 			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if (do_after(user, 40, target = src) && isnull(gcDestroyed))
+		if(do_after(user, 40, target = src) && isnull(gcDestroyed))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
@@ -293,7 +293,7 @@ Pipelines + Other Objects -> Pipe network
 			add_underlay_adapter(T, , node_dir, "")
 			add_underlay_adapter(T, node, node_dir, "-supply")
 			add_underlay_adapter(T, , node_dir, "-scrubbers")
-		else if (node.icon_connect_type == "-scrubbers")
+		else if(node.icon_connect_type == "-scrubbers")
 			add_underlay_adapter(T, , node_dir, "")
 			add_underlay_adapter(T, , node_dir, "-supply")
 			add_underlay_adapter(T, node, node_dir, "-scrubbers")

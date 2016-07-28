@@ -109,7 +109,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			hint = D.Destroy()
 		catch(var/exception/e)
 			if(istype(e))
-				gcwarning("qdel() caught runtime destroying [D.type]: [e] in [e.file], line [e.line]")
+				log_runtime(e, D, "Caught by qdel() destroying [D.type]")
 			else
 				gcwarning("qdel() caught runtime destroying [D.type]: [e]")
 			// Destroy runtimed? Panic! Hard delete!
@@ -129,14 +129,14 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 				return
 			if(QDEL_HINT_IWILLGC)   //functionally the same as the above. qdel should assume the object will gc on its own, and not check it.
 				return
-			if (QDEL_HINT_HARDDEL_NOW)  //qdel should assume this object won't gc, and hard del it post haste.
+			if(QDEL_HINT_HARDDEL_NOW)  //qdel should assume this object won't gc, and hard del it post haste.
 				D.hard_deleted = -1 // -1 means "this hard del skipped the queue", used for profiling
 				del(D)
 				if(garbageCollector)
 					garbageCollector.dels_count++
-			if (QDEL_HINT_PUTINPOOL)  //qdel will put this object in the pool.
+			if(QDEL_HINT_PUTINPOOL)  //qdel will put this object in the pool.
 				PlaceInPool(D,0)
-			if (QDEL_HINT_FINDREFERENCE)//qdel will, if TESTING is enabled, display all references to this object, then queue the object for deletion.
+			if(QDEL_HINT_FINDREFERENCE)//qdel will, if TESTING is enabled, display all references to this object, then queue the object for deletion.
 				#ifdef TESTING
 				D.find_references(remove_from_queue = FALSE)
 				#endif
@@ -148,9 +148,9 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 
 // Returns 1 if the object has been queued for deletion.
 /proc/qdeleted(var/datum/D)
-	if (!istype(D))
+	if(!istype(D))
 		return 0
-	if (!isnull(D.gcDestroyed))
+	if(!isnull(D.gcDestroyed))
 		return 1
 	return 0
 
@@ -169,7 +169,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			Destroy()
 		catch(var/exception/e)
 			if(istype(e))
-				gcwarning("Del() caught runtime destroying [type]: [e] in [e.file], line [e.line]")
+				log_runtime(e, src, "Caught by Del() destroying [type]")
 			else
 				gcwarning("Del() caught runtime destroying [type]: [e]")
 		if(del_profiling)

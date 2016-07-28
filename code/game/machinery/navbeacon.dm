@@ -86,9 +86,9 @@
 
 		updateicon()
 
-	else if (istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
+	else if(istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
 		if(open)
-			if (src.allowed(user))
+			if(src.allowed(user))
 				src.locked = !src.locked
 				to_chat(user, "<span class='notice'>Controls are now [src.locked ? "locked" : "unlocked"].</span>")
 			else

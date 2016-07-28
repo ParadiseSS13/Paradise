@@ -170,7 +170,7 @@
 	if(!owner)
 		return
 	owner.disabilities &= ~NEARSIGHTED
-	owner.sdisabilities &= ~BLIND
+	owner.disabilities &= ~BLIND
 	owner.eye_blurry = 0
 	owner.eye_blind = 0
 

@@ -35,7 +35,7 @@ datum/directive/tau_ceti_needs_women
 	proc/count_heads_reassigned()
 		var/heads_reassigned = 0
 		for(var/obj/item/weapon/card/id in command_targets)
-			if (command_targets[id])
+			if(command_targets[id])
 				heads_reassigned++
 
 		return heads_reassigned
@@ -97,7 +97,7 @@ datum/directive/tau_ceti_needs_women/get_remaining_orders()
 
 /hook/terminate_employee/proc/gender_target_termination_directive(obj/item/weapon/card/id)
 	var/datum/directive/tau_ceti_needs_women/D = get_directive("tau_ceti_needs_women")
-	if (!D) return 1
+	if(!D) return 1
 
 	if(D.alien_targets && D.alien_targets.Find(id))
 		D.alien_targets-=id

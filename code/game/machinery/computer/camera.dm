@@ -43,17 +43,15 @@
 
 
 /obj/machinery/computer/security/check_eye(var/mob/user as mob)
-	if ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
+	if((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
 		return null
 	user.reset_view(current)
 	return 1
 
 // Network configuration
-/obj/machinery/computer/security/attackby(I as obj, user as mob, params)
-	access = list()
-	if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
-		var/obj/item/weapon/card/id/E = I
-		access = E.access
+/obj/machinery/computer/security/attackby(obj/item/I, user as mob, params)
+	access = I.GetAccess()
+	if(access.len) // If hit by something with access.
 		ui_interact(user)
 	else
 		..()
@@ -118,7 +116,7 @@
 		data["current"] = current.nano_structure()
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
 
 		// adding a template with the key "mapContent" enables the map ui functionality
@@ -172,10 +170,7 @@
 		user.set_machine(src)
 
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.wear_id)
-			var/obj/item/weapon/card/id/gold/C = H.wear_id
-			access = C.access
+		access = user.get_access()
 
 	ui_interact(user)
 

@@ -80,14 +80,14 @@ var/list/uplink_items = list()
 	if(!istype(U))
 		return 0
 
-	if (user.stat || user.restrained())
+	if(user.stat || user.restrained())
 		return 0
 
-	if (!(istype(user, /mob/living/carbon/human)))
+	if(!(istype(user, /mob/living/carbon/human)))
 		return 0
 
 	// If the uplink's holder is in the user's contents
-	if ((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
+	if((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
 		user.set_machine(U)
 		if(cost > U.uses)
 			return 0
@@ -410,6 +410,16 @@ var/list/uplink_items = list()
 	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
 	reference = "ES"
 	item = /obj/item/weapon/melee/energy/sword/saber
+	cost = 8
+
+/datum/uplink_item/dangerous/powerfist
+	name = "Power Fist"
+	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply.\
+		 Upon hitting a target, the piston-ram will extend foward to make contact for some serious damage. \
+		 Using a wrench on the piston valve will allow you to tweak the amount of gas used per punch to \
+		 deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
+	reference = "PF"
+	item = /obj/item/weapon/melee/powerfist
 	cost = 8
 
 /datum/uplink_item/dangerous/chainsaw
@@ -752,6 +762,13 @@ var/list/uplink_items = list()
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 3
 
+/datum/uplink_item/stealthy_weapons/chamsechud
+	name = "Chameleon Security HUD"
+	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
+	reference = "CHHUD"
+	item = /obj/item/clothing/glasses/hud/security/chameleon
+	cost = 2
+
 // STEALTHY TOOLS
 
 /datum/uplink_item/stealthy_tools
@@ -885,32 +902,48 @@ var/list/uplink_items = list()
 	cost = 9
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/device_tools/space_suit
-	name = "Space Suit"
-	desc = "The red and black syndicate space suit is less encumbering than Nanotrasen variants, fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit sightings."
+//Space Suits and Hardsuits
+/datum/uplink_item/suits
+	category = "Space Suits and Hardsuits"
+	surplus = 40
+
+/datum/uplink_item/suits/space_suit
+	name = "Syndicate Space Suit"
+	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
+			fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit \
+			sightings, however."
 	reference = "SS"
 	item = /obj/item/weapon/storage/box/syndie_kit/space
 	cost = 4
 
-/datum/uplink_item/device_tools/hardsuit
-	name = "Blood-red Hardsuit"
-	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armor. When the helmet is deployed your identity will be protected. Toggling the suit into combat mode \
-	will allow you all the mobility of a loose fitting uniform without sacrificing armor. Additionally the suit is collapsible, small enough to fit within a backpack. \
-	Nanotrasen crewmembers are trained to report red space suit sightings, these suits in particular are known to drive employees into a panic."
+/datum/uplink_item/suits/hardsuit
+	name = "Syndicate Hardsuit"
+	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armoring and a built in jetpack \
+			that runs off standard atmospheric tanks. When the built in helmet is deployed your identity will be \
+			protected, even in death, as the suit cannot be removed by outside forces. Toggling the suit in and out of \
+			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
+			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
+			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
 
-/datum/uplink_item/device_tools/elite_hardsuit
+/datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
-	desc = "The elite Syndicate hardsuit is worn by only the best nuclear agents. Features much better armoring and complete fireproofing. \
-	When the built in helmet is deployed your identity will be protected. Toggling the suit into combat mode will allow you all the mobility \
-	of a loose fitting uniform without sacrificing armoring. Additionally the suit is collapsible, small enough to fit within a backpack. \
-	Nanotrasen crewmembers are trained to report red space suit sightings; these suits in particular are known to drive employees into a panic."
-	reference = "ESHS"
+	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."
 	item = /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
 	cost = 8
+	reference = "ESHS"
 	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/suits/hardsuit/shielded
+	name = "Shielded Hardsuit"
+	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
+	item = /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
+	cost = 30
+	reference = "SHS"
+	gamemodes = list(/datum/game_mode/nuclear)
+
 
 /datum/uplink_item/device_tools/thermal
 	name = "Thermal Imaging Glasses"
@@ -953,10 +986,18 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/plastic_explosives
 	name = "Composition C-4"
-	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect a signaller to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
+	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect an assembly to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
 	reference = "C4"
-	item = /obj/item/weapon/c4
+	item = /obj/item/weapon/grenade/plastic/c4
 	cost = 1
+
+/datum/uplink_item/device_tools/breaching_charge
+	name = "Composition X-4"
+	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
+	reference = "X4"
+	item = /obj/item/weapon/grenade/plastic/x4
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"

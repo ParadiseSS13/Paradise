@@ -298,7 +298,7 @@ datum/tech/robotics
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk2"
 	item_state = "card-id"
-	w_class = 1.0
+	w_class = 1
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/tech/stored
 
@@ -312,7 +312,7 @@ datum/tech/robotics
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk2"
 	item_state = "card-id"
-	w_class = 1.0
+	w_class = 1
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/design/blueprint
 

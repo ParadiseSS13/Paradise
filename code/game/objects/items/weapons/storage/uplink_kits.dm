@@ -1,7 +1,7 @@
 /obj/item/weapon/storage/box/syndicate/
 	New()
 		..()
-		switch (pickweight(list("bloodyspai" = 1, "stealth" = 1, "bond" = 1, "screwed" = 1, "guns" = 1, "murder" = 1, "implant" = 1, "hacker" = 1, "lordsingulo" = 1, "darklord" = 1)))
+		switch(pickweight(list("bloodyspai" = 1, "stealth" = 1, "bond" = 1, "screwed" = 1, "guns" = 1, "murder" = 1, "implant" = 1, "hacker" = 1, "lordsingulo" = 1, "darklord" = 1)))
 			if("bloodyspai")
 				new /obj/item/clothing/under/chameleon(src)
 				new /obj/item/clothing/mask/gas/voice(src)
@@ -37,7 +37,7 @@
 				new /obj/item/weapon/gun/projectile/revolver(src)
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/weapon/card/emag(src)
-				new /obj/item/weapon/c4(src)
+				new /obj/item/weapon/grenade/plastic/c4(src)
 				new /obj/item/clothing/gloves/color/latex/nitrile(src)
 				new /obj/item/clothing/mask/gas/clown_hat(src)
 				new /obj/item/clothing/under/suit_jacket/really_black(src)
@@ -118,7 +118,16 @@
 	..()
 	new /obj/item/clothing/suit/space/rig/syndi/elite(src)
 	new /obj/item/clothing/head/helmet/space/rig/syndi/elite(src)
-	return
+
+/obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
+	name = "Boxed Shielded Syndicate Hardsuit and Helmet"
+	can_hold = list("/obj/item/clothing/suit/space/rig/shielded/syndi", "/obj/item/clothing/head/helmet/space/rig/shielded/syndi")
+	max_w_class = 4
+
+/obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit/New()
+	..()
+	new /obj/item/clothing/suit/space/rig/shielded/syndi(src)
+	new /obj/item/clothing/head/helmet/space/rig/shielded/syndi(src)
 
 /obj/item/weapon/storage/box/syndie_kit/conversion
 	name = "box (CK)"

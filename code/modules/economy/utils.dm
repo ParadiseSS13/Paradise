@@ -16,7 +16,7 @@
 /obj/proc/get_card_account(var/obj/item/weapon/card/I, var/mob/user=null, var/terminal_name="", var/transaction_purpose="", var/require_pin=0)
 	if(terminal_name=="")
 		terminal_name=src.name
-	if (istype(I, /obj/item/weapon/card/id))
+	if(istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(C.associated_account_number)

@@ -110,7 +110,7 @@
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
-	if((I.flags & NODROP) && !force)
+	if(!canUnEquip(I, force))
 		return 0
 
 	if(I == r_hand)
@@ -165,7 +165,7 @@
 	return list(wear_mask, back, l_hand, r_hand)
 
 /mob/proc/get_id_card()
-	for(var/obj/item/I in src.get_all_slots())
+	for(var/obj/item/I in get_all_slots())
 		. = I.GetID()
 		if(.)
 			break

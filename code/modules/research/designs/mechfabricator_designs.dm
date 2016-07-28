@@ -837,13 +837,13 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_bolas
-	name = "Exosuit Weapon Design (PCMK-6 Bolas Launcher)"
-	desc = "Allows for the construction of PCMK-6 Bolas Launcher."
-	id = "mech_bolas"
+/datum/design/mech_bola
+	name = "Exosuit Weapon Design (PCMK-6 Bola Launcher)"
+	desc = "Allows for the construction of PCMK-6 Bola Launcher."
+	id = "mech_bola"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -960,34 +960,13 @@
 	category = list("Exosuit Equipment")
 
 //Cyborg Upgrade Modules
-/datum/design/borg_syndicate_module
-	name = "Borg Illegal Weapons Upgrade"
-	desc = "Allows for the construction of illegal upgrades for cyborgs"
-	id = "borg_syndicate_module"
-	build_type = MECHFAB
-	req_tech = list("combat" = 4, "syndicate" = 3)
-	build_path = /obj/item/borg/upgrade/syndicate
-	materials = list(MAT_METAL=10000,MAT_GLASS=15000,MAT_DIAMOND = 10000)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_jetpack
-	name = "Cyborg Upgrade Module (Mining Jetpack)"
-	id = "borg_upgrade_jetpack"
+/datum/design/borg_upgrade_reset
+	name = "Cyborg Upgrade Module (Reset)"
+	id = "borg_upgrade_reset"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/jetpack
-	req_tech = list("engineering" = 4, "power" = 4)
-	materials = list(MAT_METAL=10000, MAT_PLASMA=5000, MAT_URANIUM = 6000)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_upgrade_disablercooler
-	name = "Cyborg Upgrade Module (Rapid Disabler Cooling)"
-	id = "borg_upgrade_disablercooler"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/disablercooler
-	req_tech = list("combat" = 5, "power" = 4)
-	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_GOLD= 2000, MAT_DIAMOND = 500)
+	build_path = /obj/item/borg/upgrade/reset
+	materials = list(MAT_METAL=10000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
@@ -997,15 +976,6 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/rename
 	materials = list(MAT_METAL=35000)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_upgrade_reset
-	name = "Cyborg Upgrade Module (Reset)"
-	id = "borg_upgrade_reset"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/reset
-	materials = list(MAT_METAL=10000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
@@ -1028,6 +998,26 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_thrusters
+	name = "Cyborg Upgrade (Ion Thrusters)"
+	id = "borg_upgrade_thrusters"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/thrusters
+	req_tech = list("engineering" = 4, "powerstorage" = 4)
+	materials = list(MAT_METAL=10000, MAT_PLASMA=5000, MAT_URANIUM = 6000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_disablercooler
+	name = "Cyborg Upgrade Module (Rapid Disabler Cooling)"
+	id = "borg_upgrade_disablercooler"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/disablercooler
+	req_tech = list("combat" = 5, "power" = 4)
+	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_GOLD= 2000, MAT_DIAMOND = 500)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_diamonddrill
 	name = "Cyborg Upgrade (Diamond Drill)"
 	id = "borg_upgrade_diamonddrill"
@@ -1045,6 +1035,36 @@
 	build_path = /obj/item/borg/upgrade/soh
 	req_tech = list("engineering" = 5, "materials" = 5, "bluespace" = 3)
 	materials = list(MAT_METAL = 10000, MAT_GOLD = 250, MAT_URANIUM = 500)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_hyperka
+	name = "Cyborg Upgrade (Hyper-Kinetic Accelerator)"
+	id = "borg_upgrade_hyperka"
+	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 5, "magnets" = 5, "combat" = 4)
+	build_type = MECHFAB //Reqs same as human Hyper KA
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/borg/upgrade/hyperka
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_syndicate_module
+	name = "Cyborg Upgrade (Illegal Modules)"
+	id = "borg_syndicate_module"
+	build_type = MECHFAB
+	req_tech = list("combat" = 4, "syndicate" = 3)
+	build_path = /obj/item/borg/upgrade/syndicate
+	materials = list(MAT_METAL=10000,MAT_GLASS=15000,MAT_DIAMOND = 10000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_selfrepair
+	name = "Cyborg Upgrade (Self-repair)"
+	id = "borg_upgrade_selfrepair"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/selfrepair
+	req_tech = list("materials" = 4, "engineering" = 4)
+	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 

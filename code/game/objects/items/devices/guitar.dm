@@ -34,7 +34,7 @@
 /obj/item/device/guitar/Topic(href, href_list)
 	song.Topic(href, href_list)
 
-/datum/table_recipe/guitar
+/datum/crafting_recipe/guitar
 	name = "Guitar"
 	result = /obj/item/device/guitar
 	reqs = list(/obj/item/stack/sheet/wood = 5,

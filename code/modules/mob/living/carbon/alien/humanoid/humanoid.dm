@@ -29,22 +29,22 @@
 //This is fine, works the same as a human
 /mob/living/carbon/alien/humanoid/Bump(atom/movable/AM as mob|obj, yes)
 	spawn( 0 )
-		if ((!( yes ) || now_pushing))
+		if((!( yes ) || now_pushing))
 			return
 		now_pushing = 0
 		..()
-		if (!istype(AM, /atom/movable))
+		if(!istype(AM, /atom/movable))
 			return
 
-		if (ismob(AM))
+		if(ismob(AM))
 			var/mob/tmob = AM
 			tmob.LAssailant = src
 
-		if (!now_pushing)
+		if(!now_pushing)
 			now_pushing = 1
-			if (!AM.anchored)
+			if(!AM.anchored)
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window/full))
+				if(istype(AM, /obj/structure/window/full))
 					for(var/obj/structure/window/win in get_step(AM,t))
 						now_pushing = 0
 						return
@@ -55,13 +55,13 @@
 
 /mob/living/carbon/alien/humanoid/movement_delay()
 	var/tally = 0
-	if (istype(src, /mob/living/carbon/alien/humanoid/queen))
+	if(istype(src, /mob/living/carbon/alien/humanoid/queen))
 		tally += 4
-	if (istype(src, /mob/living/carbon/alien/humanoid/drone))
+	if(istype(src, /mob/living/carbon/alien/humanoid/drone))
 		tally += 0
-	if (istype(src, /mob/living/carbon/alien/humanoid/sentinel))
+	if(istype(src, /mob/living/carbon/alien/humanoid/sentinel))
 		tally += 0
-	if (istype(src, /mob/living/carbon/alien/humanoid/hunter))
+	if(istype(src, /mob/living/carbon/alien/humanoid/hunter))
 		tally = -2 // hunters go supersuperfast
 	return (tally + move_delay_add + config.alien_delay)
 
@@ -85,26 +85,24 @@
 
 	var/b_loss = null
 	var/f_loss = null
-	switch (severity)
-		if (1.0)
+	switch(severity)
+		if(1.0)
 			gib()
 			return
 
-		if (2.0)
-			if (!shielded)
+		if(2.0)
+			if(!shielded)
 				b_loss += 60
 
 			f_loss += 60
 
-			ear_damage += 30
-			ear_deaf += 120
+			adjustEarDamage(30, 120)
 
 		if(3.0)
 			b_loss += 30
-			if (prob(50) && !shielded)
+			if(prob(50) && !shielded)
 				Paralyse(1)
-			ear_damage += 15
-			ear_deaf += 60
+			adjustEarDamage(15,60)
 
 	adjustBruteLoss(b_loss)
 	adjustFireLoss(f_loss)
@@ -112,13 +110,13 @@
 	updatehealth()
 
 /mob/living/carbon/alien/humanoid/attack_slime(mob/living/carbon/slime/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if(M.Victim) return // can't attack while eating!
 
-	if (stat > -100)
+	if(stat > -100)
 
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
@@ -153,7 +151,7 @@
 				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
 
 				Weaken(power)
-				if (stuttering < power)
+				if(stuttering < power)
 					stuttering = power
 				Stun(power)
 
@@ -161,7 +159,7 @@
 				s.set_up(5, 1, src)
 				s.start()
 
-				if (prob(stunprob) && M.powerlevel >= 8)
+				if(prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6,10))
 
 
@@ -183,11 +181,11 @@
 		updatehealth()
 
 /mob/living/carbon/alien/humanoid/attack_hand(mob/living/carbon/human/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
@@ -196,17 +194,17 @@
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			help_shake_act(M)
 
-		if (I_GRAB)
+		if(I_GRAB)
 			grabbedby(M)
 
-		if (I_HARM)
+		if(I_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
-			if (prob(90))
-				if (HULK in M.mutations)//HULK SMASH
+			if(prob(90))
+				if(HULK in M.mutations)//HULK SMASH
 					damage = 15
 					spawn(0)
 						Paralyse(1)
@@ -216,7 +214,7 @@
 				playsound(loc, "punch", 25, 1, -1)
 				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 						"<span class='userdanger'>[M] has punched [src]!</span>")
-				if ((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
+				if((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
 					Paralyse(2)
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 							"<span class='userdanger'>[M] has weakened [src]!</span>", \
@@ -227,15 +225,15 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 
-		if (I_DISARM)
-			if (!lying)
-				if (prob(5))//Very small chance to push an alien down.
+		if(I_DISARM)
+			if(!lying)
+				if(prob(5))//Very small chance to push an alien down.
 					Paralyse(2)
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
 							"<span class='userdanger'>[M] has pushed down [src]!</span>")
 				else
-					if (prob(50))
+					if(prob(50))
 						drop_item()
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
@@ -251,11 +249,11 @@ In all, this is a lot like the monkey code. /N
 */
 
 /mob/living/carbon/alien/humanoid/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
@@ -263,7 +261,7 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			sleeping = max(0,sleeping-5)
 			resting = 0
 			AdjustParalysis(-3)
@@ -272,7 +270,7 @@ In all, this is a lot like the monkey code. /N
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		else
-			if (health > 0)
+			if(health > 0)
 				M.do_attack_animation(src)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				var/damage = rand(1, 3)
@@ -294,7 +292,7 @@ In all, this is a lot like the monkey code. /N
 
 
 		else
-			if (health > 0)
+			if(health > 0)
 				L.do_attack_animation(src)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				var/damage = rand(1, 3)
@@ -310,7 +308,7 @@ In all, this is a lot like the monkey code. /N
 
 
 /mob/living/carbon/alien/humanoid/restrained()
-	if (handcuffed)
+	if(handcuffed)
 		return 1
 	return 0
 

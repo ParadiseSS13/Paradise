@@ -6,8 +6,8 @@
 	var/mob/camera/aiEye/remote/eyeobj
 	var/mob/living/carbon/human/current_user = null
 	var/list/networks = list("SS13")
-	var/datum/action/camera_off/off_action = new
-	var/datum/action/camera_jump/jump_action = new
+	var/datum/action/innate/camera_off/off_action = new
+	var/datum/action/innate/camera_jump/jump_action = new
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
 	eyeobj = new()
@@ -115,12 +115,11 @@
 	else
 		sprint = initial
 
-/datum/action/camera_off
+/datum/action/innate/camera_off
 	name = "End Camera View"
-	action_type = AB_INNATE
 	button_icon_state = "camera_off"
 
-/datum/action/camera_off/Activate()
+/datum/action/innate/camera_off/Activate()
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
@@ -139,12 +138,11 @@
 	C.unset_machine()
 	src.Remove(C)
 
-/datum/action/camera_jump
+/datum/action/innate/camera_jump
 	name = "Jump To Camera"
-	action_type = AB_INNATE
 	button_icon_state = "camera_jump"
 
-/datum/action/camera_jump/Activate()
+/datum/action/innate/camera_jump/Activate()
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
@@ -153,16 +151,16 @@
 
 	var/list/L = list()
 
-	for (var/obj/machinery/camera/cam in cameranet.cameras)
+	for(var/obj/machinery/camera/cam in cameranet.cameras)
 		L.Add(cam)
 
 	camera_sort(L)
 
 	var/list/T = list()
 
-	for (var/obj/machinery/camera/netcam in L)
+	for(var/obj/machinery/camera/netcam in L)
 		var/list/tempnetwork = netcam.network&origin.networks
-		if (tempnetwork.len)
+		if(tempnetwork.len)
 			T[text("[][]", netcam.c_tag, (netcam.can_use() ? null : " (Deactivated)"))] = netcam
 
 

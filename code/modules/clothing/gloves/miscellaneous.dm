@@ -7,10 +7,8 @@
 	transfer_prints = TRUE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	species_restricted = null
 	strip_delay = 40
 	put_on_delay = 20
-	clipped = 1
 
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"
@@ -48,3 +46,10 @@
 	icon_state = "bmgloves"
 	item_state = "bmgloves"
 	item_color="bmgloves"
+
+/obj/item/clothing/gloves/cursedclown
+	name = "cursed white gloves"
+	desc = "These things smell terrible, and they're all lumpy. Gross."
+	icon_state = "latex"
+	item_state = "lgloves"
+	flags = NODROP

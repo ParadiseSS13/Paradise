@@ -19,7 +19,7 @@
 	var/ore_pickup_rate = 15
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
-	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("plasma" = 15), ("silver" = 16), ("gold" = 18), ("uranium" = 30), ("diamond" = 50), ("bananium" = 60), ("tranquillite" = 60))
+	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("plasma" = 15), ("silver" = 16), ("gold" = 18), ("uranium" = 30), ("diamond" = 50), ("bluespace crystal" = 50), ("bananium" = 60), ("tranquillite" = 60))
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
 
 /obj/machinery/mineral/ore_redemption/New()
@@ -84,9 +84,9 @@
 		var/i = 0
 		if(T)
 			for(var/obj/item/weapon/ore/O in T)
-				if (i >= ore_pickup_rate)
+				if(i >= ore_pickup_rate)
 					break
-				else if (!O || !O.refined_type)
+				else if(!O || !O.refined_type)
 					continue
 				else
 					process_sheet(O)
@@ -95,16 +95,16 @@
 			var/obj/structure/ore_box/B = locate() in T
 			if(B)
 				for(var/obj/item/weapon/ore/O in B.contents)
-					if (i >= ore_pickup_rate)
+					if(i >= ore_pickup_rate)
 						break
-					else if (!O || !O.refined_type)
+					else if(!O || !O.refined_type)
 						continue
 					else
 						process_sheet(O)
 						i++
 
 /obj/machinery/mineral/ore_redemption/attackby(var/obj/item/weapon/W, var/mob/user, params)
-	if (!powered())
+	if(!powered())
 		return
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = usr.get_active_hand()
@@ -425,7 +425,7 @@
 	if(href_list["purchase"])
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
-			if (!prize || !(prize in prize_list))
+			if(!prize || !(prize in prize_list))
 				return
 			if(prize.cost > inserted_id.mining_points)
 			else
@@ -521,7 +521,7 @@
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
@@ -677,7 +677,7 @@
 /obj/item/weapon/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
-	w_class = 2.0
+	w_class = 2
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "minedronecube"
 	item_state = "electronic"
@@ -902,7 +902,7 @@
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 5
 	var/loaded = 1
@@ -958,14 +958,15 @@
 /**********************Mining Scanner**********************/
 
 /obj/item/device/mining_scanner
-	desc = "A scanner that checks surrounding rock for useful minerals, it can also be used to stop gibtonite detonations. Requires you to wear mesons to work properly."
-	name = "mining scanner"
+	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
+	name = "manual mining scanner"
 	icon_state = "mining1"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 0
+	origin_tech = "engineering=1;magnets=1"
 
 /obj/item/device/mining_scanner/attack_self(mob/user)
 	if(!user.client)
@@ -989,29 +990,51 @@
 	qdel(src)
 
 /obj/item/device/t_scanner/adv_mining_scanner
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Requires you to wear mesons to function properly."
-	name = "advanced mining scanner"
+	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range."
+	name = "advanced automatic mining scanner"
 	icon_state = "mining0"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	var/cooldown = 0
+	var/cooldown = 35
+	var/on_cooldown = 0
+	var/range = 7
+	var/meson = TRUE
+	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/device/t_scanner/adv_mining_scanner/cyborg
 	flags = CONDUCT | NODROP
 
+/obj/item/device/t_scanner/adv_mining_scanner/material
+	meson = FALSE
+	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results. This one has an extended range."
+
+/obj/item/device/t_scanner/adv_mining_scanner/lesser
+	name = "automatic mining scanner"
+	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results."
+	range = 4
+	cooldown = 50
+
+/obj/item/device/t_scanner/adv_mining_scanner/lesser/material
+	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
+	meson = FALSE
+
 /obj/item/device/t_scanner/adv_mining_scanner/scan()
-	if(!cooldown)
-		cooldown = 1
-		spawn(35)
-			cooldown = 0
+	if(!on_cooldown)
+		on_cooldown = 1
+		spawn(cooldown)
+			on_cooldown = 0
 		var/turf/t = get_turf(src)
 		var/list/mobs = recursive_mob_check(t, client_check = 1, sight_check = 0, include_radio = 0)
 		if(!mobs.len)
 			return
-		mineral_scan_pulse(mobs, t)
+		if(meson)
+			mineral_scan_pulse(mobs, t, range)
+		else
+			mineral_scan_pulse_material(mobs, t, range)
 
+//For use with mesons
 /proc/mineral_scan_pulse(list/mobs, turf/T, range = world.view)
 	var/list/minerals = list()
 	for(var/turf/simulated/mineral/M in range(range, T))
@@ -1028,6 +1051,26 @@
 					spawn(30)
 						if(C)
 							C.images -= I
+
+//For use with material scanners
+/proc/mineral_scan_pulse_material(list/mobs, turf/T, range = world.view)
+	var/list/minerals = list()
+	for(var/turf/simulated/mineral/M in range(range, T))
+		if(M.scan_state)
+			minerals += M
+	if(minerals.len)
+		for(var/turf/simulated/mineral/M in minerals)
+			var/obj/effect/overlay/temp/mining_overlay/C = new/obj/effect/overlay/temp/mining_overlay(M)
+			C.icon_state = M.scan_state
+
+/obj/effect/overlay/temp/mining_overlay
+	layer = 18
+	icon = 'icons/turf/mining.dmi'
+	anchored = 1
+	mouse_opacity = 0
+	duration = 30
+	pixel_x = -4
+	pixel_y = -4
 
 /**********************Xeno Warning Sign**********************/
 /obj/structure/sign/xeno_warning_mining

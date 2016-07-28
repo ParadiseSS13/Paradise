@@ -164,7 +164,7 @@
 
 /mob/living/simple_animal/revenant/death()
 	..()
-	if(!revealed || stat == DEAD) //Revenants cannot die if they aren't revealed //or are already dead
+	if(!revealed)
 		return
 	ghost_darkness_images -= ghostimage
 	updateallghostimages()
@@ -187,7 +187,6 @@
 	ghostize()
 	qdel(src)
 	return
-
 
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/weapon/nullrod))

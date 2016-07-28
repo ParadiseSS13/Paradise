@@ -75,12 +75,12 @@
 /mob/living/carbon/slime/regenerate_icons()
 	icon_state = "[colour] [is_adult ? "adult" : "baby"] slime"
 	overlays.len = 0
-	if (mood)
+	if(mood)
 		overlays += image('icons/mob/slimes.dmi', icon_state = "aslime-[mood]")
 	..()
 
 /mob/living/carbon/slime/movement_delay()
-	if (bodytemperature >= 330.23) // 135 F
+	if(bodytemperature >= 330.23) // 135 F
 		return -1	// slimes become supercharged at high temperatures
 
 	var/tally = 0
@@ -88,7 +88,7 @@
 	var/health_deficiency = (100 - health)
 	if(health_deficiency >= 45) tally += (health_deficiency / 25)
 
-	if (bodytemperature < 183.222)
+	if(bodytemperature < 183.222)
 		tally += (283.222 - bodytemperature) / 10 * 1.75
 
 	if(reagents)
@@ -104,7 +104,7 @@
 	return tally + config.slime_delay
 
 /mob/living/carbon/slime/Bump(atom/movable/AM as mob|obj, yes)
-	if ((!(yes) || now_pushing))
+	if((!(yes) || now_pushing))
 		return
 	now_pushing = 1
 
@@ -121,7 +121,7 @@
 			if(prob(probab))
 				if(istype(AM, /obj/structure/window) || istype(AM, /obj/structure/grille))
 					if(nutrition <= get_hunger_nutrition() && !Atkcool)
-						if (is_adult || prob(5))
+						if(is_adult || prob(5))
 							AM.attack_slime(src)
 							spawn()
 								Atkcool = 1
@@ -143,13 +143,13 @@
 
 	now_pushing = 0
 	..()
-	if (!istype(AM, /atom/movable))
+	if(!istype(AM, /atom/movable))
 		return
-	if (!( now_pushing ))
+	if(!( now_pushing ))
 		now_pushing = 1
-		if (!( AM.anchored ))
+		if(!( AM.anchored ))
 			var/t = get_dir(src, AM)
-			if (istype(AM, /obj/structure/window))
+			if(istype(AM, /obj/structure/window))
 				if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
 					for(var/obj/structure/window/win in get_step(AM,t))
 						now_pushing = 0
@@ -169,7 +169,7 @@
 	else
 		stat(null, "Health: [round((health / 150) * 100)]%")
 
-	if (client.statpanel == "Status")
+	if(client.statpanel == "Status")
 		stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
 		if(amount_grown >= 10)
 			if(is_adult)
@@ -197,12 +197,12 @@
 
 	var/b_loss = null
 	var/f_loss = null
-	switch (severity)
-		if (1.0)
+	switch(severity)
+		if(1.0)
 			qdel(src)
 			return
 
-		if (2.0)
+		if(2.0)
 
 			b_loss += 60
 			f_loss += 60
@@ -231,13 +231,13 @@
 	return
 
 /mob/living/carbon/slime/attack_slime(mob/living/carbon/slime/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (Victim) return // can't attack while eating!
+	if(Victim) return // can't attack while eating!
 
-	if (health > -100)
+	if(health > -100)
 
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'> The [M.name] has glomped [src]!</span>", \
@@ -292,11 +292,11 @@
 				adjustBruteLoss(damage)
 
 /mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
@@ -377,10 +377,10 @@
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			help_shake_act(M)
 
-		if (I_GRAB)
+		if(I_GRAB)
 			grabbedby(M)
 
 		else
@@ -388,8 +388,8 @@
 			var/damage = rand(1, 9)
 
 			attacked += 10
-			if (prob(90))
-				if (HULK in M.mutations)
+			if(prob(90))
+				if(HULK in M.mutations)
 					damage += 15
 					if(Victim || Target)
 						Victim = null
@@ -418,25 +418,25 @@
 
 
 /mob/living/carbon/slime/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	switch(M.a_intent)
-		if (I_HELP)
+		if(I_HELP)
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
 
-		if (I_HARM)
+		if(I_HARM)
 			M.do_attack_animation(src)
-			if (prob(95))
+			if(prob(95))
 				attacked += 10
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
-				if (damage >= 25)
+				if(damage >= 25)
 					damage = rand(20, 40)
 					visible_message("<span class='danger'>[M] has attacked [name]!</span>", \
 							"<span class='userdanger'>[M] has attacked [name]!</span>")
@@ -450,10 +450,10 @@
 				visible_message("<span class='danger'>[M] has attempted to lunge at [name]!</span>", \
 						"<span class='userdanger'>[M] has attempted to lunge at [name]!</span>")
 
-		if (I_GRAB)
+		if(I_GRAB)
 			grabbedby(M)
 
-		if (I_DISARM)
+		if(I_DISARM)
 			M.do_attack_animation(src)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			var/damage = 5
@@ -499,7 +499,7 @@
 				if(S.next_step(user, src))
 					return 1
 	if(istype(W,/obj/item/stack/sheet/mineral/plasma)) //Lets you feed slimes plasma.
-		if (user in Friends)
+		if(user in Friends)
 			++Friends[user]
 		else
 			Friends[user] = 1
@@ -580,8 +580,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 
 /mob/living/carbon/slime/proc/apply_water()
 	adjustToxLoss(rand(15,20))
-	if (!client)
-		if (Target) // Like cats
+	if(!client)
+		if(Target) // Like cats
 			Target = null
 			++Discipline
 	return

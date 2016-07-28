@@ -94,7 +94,7 @@
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
 		CreateDoor(target)
-	else if (isturf(T) && T.density)
+	else if(isturf(T) && T.density)
 		CreateDoor(T)
 	else if(istype(target, /obj/machinery/door))
 		OpenDoor(target)

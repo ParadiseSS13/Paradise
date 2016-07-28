@@ -101,7 +101,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				var/datum/data/pda/app/chatroom/C = P.find_program(/datum/data/pda/app/chatroom)
 				var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
-				if (!P.owner || P == pda || PM.m_hidden || (C in current_room.invites) || (C in current_room.users))
+				if(!P.owner || P == pda || PM.m_hidden || (C in current_room.invites) || (C in current_room.users))
 					continue
 				pdas += list(list(name = "[P.owner] ([P.ownjob])", ref = "\ref[C]"))
 			data["people"] = pdas
@@ -180,7 +180,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 					return
 				t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 				t = readd_quotes(t)
-				if (!t || !pda.can_use())
+				if(!t || !pda.can_use())
 					return
 
 				target.post(src, t)
@@ -194,7 +194,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 					return
 				t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 				t = readd_quotes(t)
-				if (!t)
+				if(!t)
 					return
 
 				current_room.topic = t
@@ -238,7 +238,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				return
 
 			spawn()
-				if (!t || !check_messaging_available() || !pda.can_use())
+				if(!t || !check_messaging_available() || !pda.can_use())
 					return
 
 				// check if already taken

@@ -35,7 +35,6 @@
 #define ui_swaphand2 "CENTER: 16,SOUTH+1:5"
 #define ui_storage1 "CENTER+1:18,SOUTH:5"
 #define ui_storage2 "CENTER+2:20,SOUTH:5"
-
 #define ui_pda "CENTER+3:22,SOUTH:5"
 
 #define ui_alien_head "4:12,1:5"	//aliens
@@ -43,6 +42,7 @@
 
 #define ui_borg_sensor "CENTER-3:16, SOUTH:5"	//borgs
 #define ui_borg_lamp "CENTER-4:16, SOUTH:5"		//borgs
+#define ui_borg_thrusters "CENTER-5:16, SOUTH:5"//borgs
 #define ui_inv1 "CENTER-2:16,SOUTH:5"			//borgs
 #define ui_inv2 "CENTER-1  :16,SOUTH:5"			//borgs
 #define ui_inv3 "CENTER  :16,SOUTH:5"			//borgs
@@ -64,6 +64,8 @@
 #define ui_movi "EAST-3:24,SOUTH:5"
 #define ui_zonesel "EAST-1:28,SOUTH:5"
 #define ui_acti_alt "EAST-1:28,SOUTH:5" //alternative intent switcher for when the interface is hidden (F12)
+
+#define ui_crafting	"EAST:-5,SOUTH+2:7"
 
 #define ui_borg_pull "EAST-2:26,SOUTH+1:7"
 #define ui_borg_radio "EAST-1:28,SOUTH+1:7"

@@ -66,6 +66,14 @@
 		handle_rotation()
 		return
 
+/obj/structure/stool/bed/chair/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	rotate()
+
 // Chair types
 /obj/structure/stool/bed/chair/wood
 	// TODO:  Special ash subtype that looks like charred chair legs
@@ -139,6 +147,15 @@
 /obj/structure/stool/bed/chair/office
 	anchored = 0
 	movable = 1
+
+/obj/structure/stool/bed/chair/comfy/attackby(obj/item/weapon/W, mob/user, params)
+	if(iswrench(W))
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		new /obj/item/stack/sheet/metal(get_turf(src))
+		new /obj/item/stack/sheet/metal(get_turf(src))
+		qdel(src)
+	else
+		..()
 
 /obj/structure/stool/bed/chair/office/Bump(atom/A)
 	..()

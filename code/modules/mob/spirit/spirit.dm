@@ -26,7 +26,7 @@ mob/spirit
 
 
 mob/spirit/proc/is_active()
-	if (client && client.inactivity <= 10 * 60 * 10)
+	if(client && client.inactivity <= 10 * 60 * 10)
 		return TRUE
 	return FALSE
 
@@ -39,7 +39,7 @@ mob/spirit/New()
 	loc = pick(latejoin)
 
 	// no nameless spirits
-	if (!name)
+	if(!name)
 		name = "Boogyman"
 
 	spirits+=src
@@ -58,10 +58,10 @@ mob/spirit/Topic(href, href_list)
 	..()
 
 	to_chat(usr, "Spirit Href = [href]")
-	for (var/tempref in href_list)
+	for(var/tempref in href_list)
 		to_chat(usr, "Spirit href list [tempref] = [href_list[tempref]]")
 
-	if (href_list["track"])
+	if(href_list["track"])
 		to_chat(usr, "Got to tracking.")
 		var/mob/target = locate(href_list["track"]) in mob_list
 		var/mob/spirit/A = locate(href_list["track2"]) in spirits

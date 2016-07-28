@@ -64,7 +64,7 @@
 		if(!C || brainmob.key || 0 == searching)	return		//handle logouts that happen whilst the alert is waiting for a response, and responses issued after a brain has been located.
 		if(response == "Yes")
 			transfer_personality(C.mob)
-		else if (response == "Never for this round")
+		else if(response == "Never for this round")
 			C.prefs.be_special -= ROLE_POSIBRAIN
 
 // This should not ever happen, but let's be safe
@@ -99,7 +99,7 @@
 	src.brainmob.mind.assigned_role = "Positronic Brain"
 
 	var/turf/T = get_turf_or_move(src.loc)
-	for (var/mob/M in viewers(T))
+	for(var/mob/M in viewers(T))
 		M.show_message("\blue The positronic brain chimes quietly.")
 	icon_state = "posibrain-occupied"
 
@@ -110,7 +110,7 @@
 	icon_state = "posibrain"
 
 	var/turf/T = get_turf_or_move(src.loc)
-	for (var/mob/M in viewers(T))
+	for(var/mob/M in viewers(T))
 		M.show_message("\blue The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?")
 
 /obj/item/device/mmi/posibrain/Topic(href,href_list)
@@ -183,7 +183,6 @@
 	src.brainmob.container = src
 	src.brainmob.stat = 0
 	src.brainmob.silent = 0
-	src.brainmob.brain_op_stage = 4.0
 	dead_mob_list -= src.brainmob
 
 	..()
@@ -193,7 +192,7 @@
 		volunteer(O)
 	else
 		var/turf/T = get_turf_or_move(src.loc)
-		for (var/mob/M in viewers(T))
+		for(var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain pings softly.")
 
 /obj/item/device/mmi/posibrain/ipc

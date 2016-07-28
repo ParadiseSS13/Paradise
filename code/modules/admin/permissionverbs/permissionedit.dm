@@ -156,7 +156,7 @@
 		
 /datum/admins/proc/updateranktodb(ckey,newrank)
 	establish_db_connection()
-	if (!dbcon.IsConnected())
+	if(!dbcon.IsConnected())
 		return
 	var/sql_ckey = sanitizeSQL(ckey)
 	var/sql_admin_rank = sanitizeSQL(newrank)

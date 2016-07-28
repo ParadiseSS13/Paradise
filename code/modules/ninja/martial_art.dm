@@ -165,7 +165,7 @@
 	if(user.a_intent == "help") // No special move for help intent.
 		user.pointed(A)
 		return 0
-	if (!(A in range(1,user))) // Is the target within one tile of us?
+	if(!(A in range(1,user))) // Is the target within one tile of us?
 		user.pointed(A)
 		return 0
 

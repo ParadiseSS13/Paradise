@@ -26,7 +26,7 @@
 	if(!istype(over_object, /obj/screen))
 		return ..()
 	playsound(src.loc, "rustle", 50, 1, -5)
-	if (!M.restrained() && !M.stat && can_use())
+	if(!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
 				M.unEquip(src)
@@ -68,10 +68,12 @@
 	new /obj/item/weapon/crowbar(src)
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
+	update_icon()
 
 /obj/item/weapon/storage/belt/utility/full/multitool/New()
 	..()
 	new /obj/item/device/multitool(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/utility/atmostech/New()
 	..()
@@ -82,6 +84,7 @@
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/device/t_scanner(src)
 	new /obj/item/weapon/extinguisher/mini(src)
+	update_icon()
 
 
 
@@ -124,6 +127,7 @@
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	update_icon()
 
 
 /obj/item/weapon/storage/belt/botany
@@ -177,12 +181,13 @@
 		"/obj/item/weapon/melee/classic_baton",
 		"/obj/item/device/flashlight/seclite",
 		"/obj/item/taperoll/police",
-		"/obj/item/weapon/melee/classic_baton/telescopic"
-		)
+		"/obj/item/weapon/melee/classic_baton/telescopic",
+		"/obj/item/weapon/restraints/legcuffs/bola")
 
 /obj/item/weapon/storage/belt/security/sec/New()
 	..()
 	new /obj/item/device/flashlight/seclite(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/security/response_team/New()
 	..()
@@ -191,6 +196,7 @@
 	new /obj/item/device/flash(src)
 	new /obj/item/weapon/melee/classic_baton/telescopic(src)
 	new /obj/item/weapon/grenade/flashbang(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/soulstone
 	name = "soul stone belt"
@@ -211,6 +217,7 @@
 	new /obj/item/device/soulstone(src)
 	new /obj/item/device/soulstone(src)
 	new /obj/item/device/soulstone(src)
+	update_icon()
 
 
 /obj/item/weapon/storage/belt/champion
@@ -262,6 +269,7 @@
 	new /obj/item/weapon/soap(src)
 	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
 	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
+	update_icon()
 
 /obj/item/weapon/storage/belt/lazarus
 	name = "trainer's belt"
@@ -366,6 +374,8 @@
 	for(var/obj/item/weapon/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
 		W.max_charges = initial(W.max_charges)
 		W.charges = W.max_charges
+	update_icon()
+
 
 /obj/item/weapon/storage/belt/fannypack
 	name = "fannypack"
@@ -443,13 +453,13 @@
 	can_hold = list()
 
 	proc/failcheck(mob/user as mob)
-		if (prob(src.reliability)) return 1 //No failure
-		if (prob(src.reliability))
+		if(prob(src.reliability)) return 1 //No failure
+		if(prob(src.reliability))
 			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
 
 		else
 			to_chat(user, "\red The Bluespace generator malfunctions!")
-			for (var/obj/O in src.contents) //it broke, delete what was in it
+			for(var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
 			return 0
@@ -466,7 +476,7 @@
 	allow_quick_empty = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/smokebomb",
-		"/obj/item/weapon/legcuffs/bolas"
+		"/obj/item/weapon/restraints/legcuffs/bola"
 		)
 
 	flags = NODROP
@@ -482,8 +492,8 @@
 	new /obj/item/weapon/grenade/smokebomb(src)
 	new /obj/item/weapon/grenade/smokebomb(src)
 	new /obj/item/weapon/grenade/smokebomb(src)
-	new /obj/item/weapon/legcuffs/bolas(src)
-	new /obj/item/weapon/legcuffs/bolas(src)
+	new /obj/item/weapon/restraints/legcuffs/bola(src)
+	new /obj/item/weapon/restraints/legcuffs/bola(src)
 	processing_objects.Add(src)
 	cooldown = world.time
 
@@ -494,7 +504,7 @@
 		for(S in src)
 			smokecount++
 		bolacount = 0
-		var/obj/item/weapon/legcuffs/bolas/B
+		var/obj/item/weapon/restraints/legcuffs/bola/B
 		for(B in src)
 			bolacount++
 		if(smokecount < 4)
@@ -503,7 +513,7 @@
 				smokecount++
 		if(bolacount < 2)
 			while(bolacount < 2)
-				new /obj/item/weapon/legcuffs/bolas(src)
+				new /obj/item/weapon/restraints/legcuffs/bola(src)
 				bolacount++
 		cooldown = world.time
 		update_icon()
@@ -519,9 +529,9 @@
  // As a last resort, the belt can be used as a plastic explosive with a fixed timer (15 seconds).  Naturally, you'll lose all your gear...
  // Of course, it could be worse.  It could spawn a singularity!
 /obj/item/weapon/storage/belt/bluespace/owlman/afterattack(atom/target as obj|turf, mob/user as mob, flag)
-	if (!flag)
+	if(!flag)
 		return
-	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/structure/table) || istype(target, /obj/structure/closet))
+	if(istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/structure/table) || istype(target, /obj/structure/closet))
 		return
 	to_chat(user, "Planting explosives...")
 	user.visible_message("[user.name] is fiddling with their toolbelt.")
@@ -536,8 +546,8 @@
 		target = target
 		loc = null
 		var/location
-		if (isturf(target)) location = target
-		if (ismob(target))
+		if(isturf(target)) location = target
+		if(ismob(target))
 			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
@@ -547,12 +557,12 @@
 				if(ismob(target) || isobj(target))
 					location = target.loc // These things can move
 				explosion(location, -1, -1, 2, 3)
-				if (istype(target, /turf/simulated/wall)) target:dismantle_wall(1)
+				if(istype(target, /turf/simulated/wall)) target:dismantle_wall(1)
 				else target.ex_act(1)
-				if (isobj(target))
-					if (target)
+				if(isobj(target))
+					if(target)
 						qdel(target)
-				if (src)
+				if(src)
 					qdel(src)
 */
 

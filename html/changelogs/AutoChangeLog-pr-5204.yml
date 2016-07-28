@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Sensory restoration virology symptom no longer has anti-stun properties nor heals brain damage, but has a lower acquisition level"
+  - tweak: "Damage convert heals individual limbs instead of healing overall damage (actual impact is low)"
