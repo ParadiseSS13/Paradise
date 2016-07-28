@@ -149,7 +149,7 @@
 	var/pickedtype
 	var/otheritem //ie:helmet..
 	switch(choice)
-		if("Shielded Robe")
+		if("Shielded Hardsuit")
 			pickedtype = /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 		if("Flagellant's Robe")
 			pickedtype = /obj/item/clothing/suit/hooded/cultrobes/berserker

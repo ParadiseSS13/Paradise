@@ -42,11 +42,11 @@
 	throwforce = 25
 	var/cooldown = 0
 
-/obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/weapon/melee/cultblade/dagger/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
 	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/bleeder = target
-		if(cooldown <= world.time && prob(50) && (!bleeder.stat || (!bleeder.species.flags & NO_BLOOD)))
+		if(!(cooldown > world.time) && (!bleeder.stat || !(bleeder.species.flags & NO_BLOOD)))
 			visible_message("<span class='warning'>The runes on the blade absorb the blood of [target]!</span>")
 			bleeder.drip(500)
 			cooldown = world.time + 2400
@@ -130,8 +130,8 @@
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist armor"
 	desc = "Empowered garb which creates a powerful shield around the user."
-	icon_state = "cult_armor"
-	item_state = "cult_armor"
+	icon_state = "cult_armour"
+	item_state = "cult_armour"
 	w_class = 4
 	armor = list(melee = 50, bullet = 40, laser = 50,energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
