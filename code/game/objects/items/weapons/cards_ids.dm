@@ -281,7 +281,7 @@
 	mining_points = data["mining"]
 	// We'd need to use icon serialization(b64) to save the photo, and I don't feel like i
 	UpdateName()
-	RebuildHTML()t
+	RebuildHTML()
 	..()
 
 /obj/item/weapon/card/id/silver
