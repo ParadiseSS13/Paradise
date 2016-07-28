@@ -1,0 +1,5 @@
+author: Kyep
+delete-after: True
+changes: 
+  - rscadd: "Adds Vox, Greytide & Soviet loadouts to admin Select Equipment verb."
+  - bugfix: "Fixes an issue with spy loadouts, and excessive access on loadouts in general"
