@@ -196,12 +196,20 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		if(1) // Species Unlocks
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 15KP</a><br>
++			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 15KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=8'>Unlock Unathi -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=9'>Unlock Tajaran -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 100KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=12'>Unlock Wryn -- 50KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
+
 			"}
 
 		if(2) // Karma Refunds

@@ -207,6 +207,7 @@
 				text += "body destroyed"
 			text += ")"
 
+			var/karma_reward = 0
 			var/count = 1
 			var/wizardwin = 1
 			for(var/datum/objective/objective in wizard.objectives)
@@ -218,10 +219,13 @@
 					feedback_add_details("wizard_objective","[objective.type]|FAIL")
 					wizardwin = 0
 				count++
+				karma_reward = count - 1
 
 			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
 				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
 				feedback_add_details("wizard_success","SUCCESS")
+				sql_report_objective_karma(wizard.key, karma_reward)
+				to_chat(world, "<b>[wizard.key] got [karma_reward] karma points for completing special role!</b>")
 			else
 				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
 				feedback_add_details("wizard_success","FAIL")

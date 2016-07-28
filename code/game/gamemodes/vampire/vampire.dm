@@ -77,6 +77,7 @@
 		for(var/datum/mind/vampire in vampires)
 			var/traitorwin = 1
 
+			var/karma_reward = 0
 			text += "<br>[vampire.key] was [vampire.name] ("
 			if(vampire.current)
 				if(vampire.current.stat == DEAD)
@@ -95,11 +96,14 @@
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
+						sql_report_objective_karma(vampire.key, karma_reward)
+						to_chat(world, "<b>[vampire.key] got [karma_reward] karma points for completing special role!</b>")
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						feedback_add_details("traitor_objective","[objective.type]|FAIL")
 						traitorwin = 0
 					count++
+					karma_reward = count - 1
 
 			var/special_role_text
 			if(vampire.special_role)

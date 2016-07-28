@@ -275,26 +275,31 @@
 /datum/game_mode/malfunction/declare_completion()
 	var/malf_dead = is_malf_ai_dead()
 	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	var/karma_reward = 0
 
 	if( station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - nuke")
 		to_chat(world, "<FONT size = 3><B>AI Victory</B></FONT>")
 		to_chat(world, "<B>Everyone was killed by the self-destruct!</B>")
+		karma_reward = 5
 
 	else if( station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - AI killed, staff lost control")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>The AI has been killed!</B> The staff has lose control over the station.")
+		karma_reward = 1
 
 	else if( station_captured && !malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - no explosion")
 		to_chat(world, "<FONT size = 3><B>AI Victory</B></FONT>")
 		to_chat(world, "<B>The AI has chosen not to explode you all!</B>")
+		karma_reward = 5
 
 	else if(!station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - everyone killed by nuke")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Everyone was killed by the nuclear blast!</B>")
+		karma_reward = 1
 
 	else if(!station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","loss - staff win")
@@ -310,11 +315,18 @@
 		feedback_set_details("round_end_result","halfwin - evacuated")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>")
+		karma_reward = 1
 
 	else if(!station_captured && !malf_dead && !station_was_nuked && !crew_evacuated)
-		feedback_set_details("round_end_result","nalfwin - interrupted")
+		feedback_set_details("round_end_result","halfwin - interrupted")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
+	for(var/datum/mind/malf in malf_ai)
+		if(karma_reward == 0)
+			to_chat(world, "No karma for losers(")
+		else
+			to_chat(world, "[malf.key] earned [karma_reward] karma points for AI role")
+			sql_report_objective_karma(malf.key, karma_reward)
 	..()
 	return 1
 
