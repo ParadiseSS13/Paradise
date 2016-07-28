@@ -10,7 +10,6 @@
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20
-	var/stop_bleeding = 0   //does it stop bleeding or not?
 	var/unique_handling = 0 //some things give a special prompt, do we want to bypass some checks in parent?
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
@@ -77,7 +76,6 @@
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
 	origin_tech = "biotech=1"
-	stop_bleeding = 1
 
 /obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
 	if(..())
@@ -88,15 +86,19 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			if(stop_bleeding)
-				affecting.bandage()
-				affecting.disinfect()
-			user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].", \
-								 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
+			var/bandaged = affecting.bandage()
+			var/disinfected = affecting.disinfect()
 
-			affecting.heal_damage(heal_brute, heal_burn)
-			H.UpdateDamageIcon()
-			use(1)
+			if(!(bandaged || disinfected))
+				to_chat(user, "<span class='warning'>The wounds on [H]'s [affecting.name] have already been bandaged.</span>")
+				return 1
+			else
+				user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].", \
+								 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
+
+				affecting.heal_damage(heal_brute, heal_burn)
+				H.UpdateDamageIcon()
+				use(1)
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than a bandage!</span>")
 
@@ -106,8 +108,7 @@
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
-	heal_brute = 20
-	stop_bleeding = 0 // Heals, but doesn't stop bleeding
+	heal_brute = 25
 
 
 
@@ -131,13 +132,15 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			affecting.salve()
-			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].", \
-								 "<span class='green'>You salve the wounds on [H]'s [affecting.name].</span>" )
-
-			affecting.heal_damage(heal_brute, heal_burn)
-			H.UpdateDamageIcon()
-			use(1)
+			if(!affecting.salve())
+				to_chat(user, "<span class='warning'>The wounds on [H]'s [affecting.name] have already been salved.</span>")
+				return 1
+			else
+				user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].", \
+								 	 "<span class='green'>You salve the wounds on [H]'s [affecting.name].</span>" )
+				affecting.heal_damage(heal_brute, heal_burn)
+				H.UpdateDamageIcon()
+				use(1)
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than some ointment!</span>")
 
@@ -147,7 +150,7 @@
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
 	icon_state = "burnkit"
-	heal_burn = 20
+	heal_burn = 25
 
 
 
@@ -183,6 +186,7 @@
 	singular_name = "medical splint"
 	icon_state = "splint"
 	unique_handling = 1
+	self_delay = 100
 
 /obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
 	if(..())
@@ -192,6 +196,9 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 		var/limb = affecting.name
+		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
+			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")
+			return
 		if(affecting.status & ORGAN_SPLINTED)
 			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
 			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Removing.", "Yes", "No") == "Yes")
