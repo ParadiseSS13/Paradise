@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - rscadd: "Admins now have click shortcuts for opening a player panel, showing mob info, and viewing variables. Specifics are in Hotkey Help."
