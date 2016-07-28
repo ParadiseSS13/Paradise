@@ -1,7 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Librarian now starts off with a bookbag"
-  - tweak: "Bookbag can now hold Bibles, cult tomes, books, and spellbooks"
-  - rscadd: "Can empty a bookbag into a bookshelf"
-  - bugfix: "Fixes an exploit where you could generate wood out of thin air"
