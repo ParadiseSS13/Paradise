@@ -80,6 +80,7 @@
 			if(pickpocket)
 				F.pickpocket = 1
 			qdel(src)
+			return
 	..()
 
 /obj/item/clothing/gloves/color/orange
