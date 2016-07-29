@@ -159,6 +159,7 @@
 	density = 0
 	anchored = 1
 	invisibility = 60
+	burn_state = LAVA_PROOF
 
 /obj/effect/dummy/slaughter/relaymove(mob/user, direction)
 	forceMove(get_step(src,direction))

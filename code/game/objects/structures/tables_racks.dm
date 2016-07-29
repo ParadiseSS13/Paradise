@@ -369,6 +369,8 @@
 	parts = /obj/item/weapon/table_parts/wood
 	health = 50
 	canSmoothWith = list(/obj/structure/table/woodentable, /obj/structure/table/woodentable/poker)
+	burn_state = FLAMMABLE
+	burntime = 20
 	var/canPokerize = 1
 
 /obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob, params)

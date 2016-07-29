@@ -1,5 +1,6 @@
 /obj/item/clothing
 	name = "clothing"
+	burn_state = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/rig_restrict_helmet = 0 // Stops the user from equipping a rig helmet without attaching it to the suit first.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
@@ -82,6 +83,7 @@
 	w_class = 1
 	throwforce = 2
 	slot_flags = SLOT_EARS
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/ears/attack_hand(mob/user as mob)
 	if(!user) return
@@ -139,6 +141,7 @@
 	flags = EARBANGPROTECT
 	strip_delay = 15
 	put_on_delay = 25
+	burn_state = FLAMMABLE
 
 //Glasses
 /obj/item/clothing/glasses
@@ -155,6 +158,7 @@
 	var/color_view = null//overrides client.color while worn
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
+	burn_state = FIRE_PROOF
 	species_restricted = list("exclude","Kidan")
 /*
 SEE_SELF  // can see self, no matter what
@@ -510,6 +514,7 @@ BLIND     // can't see anything
 	flash_protect = 2
 	strip_delay = 50
 	put_on_delay = 50
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/suit/space
 	name = "Space suit"
@@ -531,6 +536,7 @@ BLIND     // can't see anything
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	strip_delay = 80
 	put_on_delay = 80
+	burn_state = FIRE_PROOF
 	species_restricted = list("exclude","Diona","Vox","Wryn")
 
 //Under clothing

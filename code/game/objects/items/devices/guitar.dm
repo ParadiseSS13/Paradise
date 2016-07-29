@@ -7,6 +7,8 @@
 	icon_state = "guitar"
 	item_state = "guitar"
 	force = 10
+	burn_state = FLAMMABLE
+	burntime = 20
 	var/datum/song/handheld/song
 	hitsound = 'sound/effects/guitarsmash.ogg'
 

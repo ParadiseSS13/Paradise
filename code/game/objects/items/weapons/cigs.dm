@@ -59,6 +59,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 
 
+/obj/item/clothing/mask/cigarette/fire_act()
+	light()
+
 /obj/item/clothing/mask/cigarette/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weapon/weldingtool))

@@ -7,6 +7,8 @@
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 0
+	burn_state = FLAMMABLE
+	burntime = 20
 	w_class = 4
 
 /obj/item/weapon/moneybag/attack_hand(user as mob)

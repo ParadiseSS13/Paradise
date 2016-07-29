@@ -44,6 +44,10 @@
 				light()
 
 
+	fire_act()
+		if(!lit)
+			light() //honk
+
 	light(var/flavor_text = "\red [usr] lights the [name].")
 		if(!src.lit)
 			src.lit = 1
