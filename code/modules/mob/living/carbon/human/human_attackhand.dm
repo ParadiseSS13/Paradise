@@ -113,7 +113,7 @@
 				if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
 					to_chat(M, "<span class='warning'>Remove their mask!</span>")
 					return
-				if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))
+				if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && ((M.wear_mask.flags & MASKCOVERSMOUTH) && !(M.wear_mask.flags & DONT_BLOCK_BLOODSUCKING))))
 					to_chat(M, "<span class='warning'>Remove your mask!</span>")
 					return
 				if(mind && mind.vampire && (mind in ticker.mode.vampires))
