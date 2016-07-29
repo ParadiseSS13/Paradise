@@ -325,6 +325,7 @@
 	var/datum/spawnpoint/S
 	if(IsPrisonListJob(rank))
 		join_message = "transfered to the station permabrig for heavy crimes"
+		character.loc = pick(permaprisoner)
 	else
 		if(IsAdminJob(rank))
 			if(IsERTSpawnJob(rank))
