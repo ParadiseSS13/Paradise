@@ -524,7 +524,6 @@
 	w_class = 2
 	throw_speed = 3
 	throw_range = 5
-	origin_tech = "bluespace=2"
 
 /obj/item/device/wormhole_jaunter/attack_self(mob/user as mob)
 	var/turf/device_turf = get_turf(user)
@@ -593,7 +592,6 @@
 	name = "upgraded resonator"
 	desc = "An upgraded version of the resonator that can produce more fields at once."
 	icon_state = "resonator_u"
-	origin_tech = "magnets=3;combat=3"
 	fieldlimit = 5
 
 /obj/item/weapon/resonator/proc/CreateResonance(var/target, var/creator)
@@ -966,7 +964,6 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 0
-	origin_tech = "engineering=1;magnets=1"
 
 /obj/item/device/mining_scanner/attack_self(mob/user)
 	if(!user.client)
@@ -1001,7 +998,6 @@
 	var/on_cooldown = 0
 	var/range = 7
 	var/meson = TRUE
-	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/device/t_scanner/adv_mining_scanner/cyborg
 	flags = CONDUCT | NODROP
@@ -1097,7 +1093,6 @@
 	icon_state = "bottle19"
 	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
 	w_class = 1
-	origin_tech = "biotech=1"
 
 /obj/item/weapon/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
 	var/obj/item/organ/internal/hivelord_core/C = M

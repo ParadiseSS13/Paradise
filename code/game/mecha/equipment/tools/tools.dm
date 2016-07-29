@@ -134,7 +134,6 @@
 	name = "Diamond Drill"
 	desc = "This is an upgraded version of the drill that'll pierce the heavens! (Can be attached to: Combat and Engineering Exosuits)"
 	icon_state = "mecha_diamond_drill"
-	origin_tech = "materials=4;engineering=3"
 	equip_cooldown = 20
 	force = 15
 
@@ -271,7 +270,6 @@
 	name = "Mounted RCD"
 	desc = "An exosuit-mounted Rapid Construction Device. (Can be attached to: Any exosuit)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4"
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED
@@ -376,7 +374,6 @@
 	name = "Teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view."
 	icon_state = "mecha_teleport"
-	origin_tech = "bluespace=10"
 	equip_cooldown = 150
 	energy_drain = 1000
 	range = RANGED
@@ -396,7 +393,6 @@
 	name = "Wormhole Generator"
 	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
 	icon_state = "mecha_wholegen"
-	origin_tech = "bluespace=3"
 	equip_cooldown = 50
 	energy_drain = 300
 	range = RANGED
@@ -446,7 +442,6 @@
 	name = "Gravitational Catapult"
 	desc = "An exosuit mounted Gravitational Catapult."
 	icon_state = "mecha_teleport"
-	origin_tech = "bluespace=2;magnets=3"
 	equip_cooldown = 10
 	energy_drain = 100
 	range = MELEE|RANGED
@@ -512,7 +507,6 @@
 	name = "Armor Booster Module (Close Combat Weaponry)"
 	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"
-	origin_tech = "materials=3"
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
@@ -562,7 +556,6 @@
 	name = "Armor Booster Module (Ranged Weaponry)"
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
 	icon_state = "mecha_abooster_proj"
-	origin_tech = "materials=4"
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
@@ -633,7 +626,6 @@
 	name = "Repair Droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid"
-	origin_tech = "magnets=3;programming=3"
 	equip_cooldown = 20
 	energy_drain = 100
 	range = 0
@@ -721,7 +713,6 @@
 	name = "Energy Relay"
 	desc = "Wirelessly drains energy from any available power channel in area. The performance index is quite low."
 	icon_state = "tesla"
-	origin_tech = "magnets=4;powerstorage=3"
 	equip_cooldown = 10
 	energy_drain = 0
 	range = 0
@@ -832,7 +823,6 @@
 	name = "Plasma Converter"
 	desc = "Generates power using solid plasma as fuel. Pollutes the environment."
 	icon_state = "tesla"
-	origin_tech = "plasmatech=2;powerstorage=2;engineering=1"
 	equip_cooldown = 10
 	energy_drain = 0
 	range = MELEE
@@ -991,7 +981,6 @@
 	name = "ExoNuclear Reactor"
 	desc = "Generates power using uranium. Pollutes the environment."
 	icon_state = "tesla"
-	origin_tech = "powerstorage=3;engineering=3"
 	fuel_name = "uranium" // Our fuel name as a string
 	fuel_type = MAT_URANIUM
 	max_fuel = 50000
@@ -1090,7 +1079,6 @@
 	name = "exosuit mining scanner"
 	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
 	icon_state = "mecha_analyzer"
-	origin_tech = "materials=3;engineering=2"
 	equip_cooldown = 30
 	var/scanning = 0
 
@@ -1119,7 +1107,6 @@
 	name = "Mounted MRCD"
 	desc = "An exosuit-mounted Mime Rapid Construction Device. (Can be attached to: Recitence)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4"
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED

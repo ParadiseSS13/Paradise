@@ -9,7 +9,6 @@
  * Stacks
  */
 /obj/item/stack
-	origin_tech = "materials=1"
 	var/list/datum/stack_recipe/recipes
 	var/singular_name
 	var/amount = 1

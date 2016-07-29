@@ -4,7 +4,6 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cell"
 	item_state = "cell"
-	origin_tech = "powerstorage=1"
 	force = 5.0
 	throwforce = 5.0
 	throw_speed = 3
@@ -54,7 +53,6 @@
 
 /obj/item/weapon/stock_parts/cell/high
 	name = "high-capacity power cell"
-	origin_tech = "powerstorage=2"
 	icon_state = "hcell"
 	maxcharge = 15000
 	rating = 3
@@ -67,7 +65,6 @@
 
 /obj/item/weapon/stock_parts/cell/super
 	name = "super-capacity power cell"
-	origin_tech = "powerstorage=5"
 	icon_state = "scell"
 	maxcharge = 20000
 	materials = list(MAT_GLASS=70)
@@ -80,7 +77,6 @@
 
 /obj/item/weapon/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
-	origin_tech = "powerstorage=6"
 	icon_state = "hpcell"
 	maxcharge = 30000
 	rating = 5
@@ -93,7 +89,6 @@
 
 /obj/item/weapon/stock_parts/cell/bluespace
 	name = "bluespace power cell"
-	origin_tech = "powerstorage=7"
 	icon_state = "bscell"
 	maxcharge = 40000
 	materials = list(MAT_GLASS=80)
@@ -119,7 +114,6 @@
 /obj/item/weapon/stock_parts/cell/potato
 	name = "potato battery"
 	desc = "A rechargable starch based power cell."
-	origin_tech = "powerstorage=1"
 	icon = 'icons/obj/power.dmi' //'icons/obj/harvest.dmi'
 	icon_state = "potato_cell" //"potato_battery"
 	charge = 100
@@ -131,7 +125,6 @@
 /obj/item/weapon/stock_parts/cell/high/slime
 	name = "charged slime core"
 	desc = "A yellow slime core infused with plasma, it crackles with power."
-	origin_tech = "powerstorage=2;biotech=4"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
 	materials = list()

@@ -6,7 +6,6 @@
 	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
 	flags = CONDUCT
 	w_class = 2
-	origin_tech = "materials=1;biotech=1"
 
 
 /obj/item/weapon/hemostat
@@ -17,7 +16,6 @@
 	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
 	flags = CONDUCT
 	w_class = 1
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 
 
@@ -29,7 +27,6 @@
 	materials = list(MAT_METAL=2500, MAT_GLASS=750)
 	flags = CONDUCT
 	w_class = 1
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 
 
@@ -45,7 +42,6 @@
 	sharp = 1
 	edge = 1
 	w_class = 3
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 
 	suicide_act(mob/user)
@@ -68,7 +64,6 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -129,7 +124,6 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
 //misc, formerly from code/defines/weapons.dm
@@ -140,7 +134,6 @@
 	force = 0
 	w_class = 2
 	throwforce = 1.0
-	origin_tech = "materials=1;biotech=1"
 
 /obj/item/weapon/FixOVein
 	name = "FixOVein"
@@ -148,7 +141,6 @@
 	icon_state = "fixovein"
 	force = 0
 	throwforce = 1.0
-	origin_tech = "materials=1;biotech=1"
 	w_class = 2
 
 /obj/item/weapon/bonesetter
@@ -161,7 +153,6 @@
 	throw_range = 5
 	w_class = 2
 	attack_verb = list("attacked", "hit", "bludgeoned")
-	origin_tech = "materials=1;biotech=1"
 
 /obj/item/weapon/surgical_drapes
 	name = "surgical drapes"
@@ -169,5 +160,4 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "surgical_drapes"
 	w_class = 1
-	origin_tech = "biotech=1"
 	attack_verb = list("slapped")

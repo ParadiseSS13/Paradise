@@ -2,7 +2,6 @@
 	name = "microbomb implant"
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
-	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
 	var/weak = 2
 	var/medium = 0.8
 	var/heavy = 0.4
@@ -75,7 +74,6 @@
 	name = "macrobomb implant"
 	desc = "And boom goes the weasel. And everything else nearby."
 	icon_state = "explosive"
-	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
 	weak = 16
 	medium = 8
 	heavy = 4

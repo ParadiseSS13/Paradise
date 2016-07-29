@@ -6,7 +6,6 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
 	w_class = 3
-	origin_tech = "biotech=3"
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
@@ -121,7 +120,6 @@
 /obj/item/device/mmi/radio_enabled
 	name = "Radio-enabled Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity. This one comes with a built-in radio."
-	origin_tech = "biotech=4"
 
 	var/obj/item/device/radio/radio = null//Let's give it a radio.
 

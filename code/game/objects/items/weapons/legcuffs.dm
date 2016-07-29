@@ -7,7 +7,6 @@
 	flags = CONDUCT
 	throwforce = 0
 	w_class = 3
-	origin_tech = "materials=1"
 	slowdown = 7
 	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
 
@@ -171,7 +170,6 @@
 	icon_state = "bola"
 	breakouttime = 35//easy to apply, easy to break out of
 	gender = NEUTER
-	origin_tech = "engineering=3;combat=1"
 	var/weaken = 0
 
 /obj/item/weapon/restraints/legcuffs/bola/throw_impact(atom/hit_atom)
@@ -192,7 +190,6 @@
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
 	breakouttime = 70
-	origin_tech = "engineering=4;combat=3"
 	weaken = 1
 
 /obj/item/weapon/restraints/legcuffs/bola/energy //For Security

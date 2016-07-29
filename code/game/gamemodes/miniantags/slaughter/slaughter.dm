@@ -136,7 +136,6 @@
 	desc = "Still it beats furiously, emanating an aura of utter hate."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
-	origin_tech = "combat=5;biotech=8"
 
 /obj/item/organ/internal/heart/demon/update_icon()
 	return //always beating visually

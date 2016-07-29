@@ -449,7 +449,6 @@
 	w_class = 4
 	max_w_class = 2
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
-	origin_tech = "bluespace=4"
 	can_hold = list()
 
 	proc/failcheck(mob/user as mob)
@@ -472,7 +471,6 @@
 	storage_slots = 6
 	max_w_class = 3
 	max_combined_w_class = 18
-	origin_tech = "bluespace=4;syndicate=2"
 	allow_quick_empty = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/smokebomb",

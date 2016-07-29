@@ -42,7 +42,6 @@
 /obj/item/weapon/ore/uranium
 	name = "uranium ore"
 	icon_state = "Uranium ore"
-	origin_tech = "materials=5"
 	points = 30
 	refined_type = /obj/item/stack/sheet/mineral/uranium
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -50,7 +49,6 @@
 /obj/item/weapon/ore/iron
 	name = "iron ore"
 	icon_state = "Iron ore"
-	origin_tech = "materials=1"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
@@ -58,7 +56,6 @@
 /obj/item/weapon/ore/glass
 	name = "sand pile"
 	icon_state = "Glass ore"
-	origin_tech = "materials=1"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
@@ -85,7 +82,6 @@
 /obj/item/weapon/ore/plasma
 	name = "plasma ore"
 	icon_state = "Plasma ore"
-	origin_tech = "plasmatech=2;materials=2"
 	points = 15
 	refined_type = /obj/item/stack/sheet/mineral/plasma
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
@@ -101,7 +97,6 @@
 /obj/item/weapon/ore/silver
 	name = "silver ore"
 	icon_state = "Silver ore"
-	origin_tech = "materials=3"
 	points = 16
 	refined_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
@@ -109,7 +104,6 @@
 /obj/item/weapon/ore/gold
 	name = "gold ore"
 	icon_state = "Gold ore"
-	origin_tech = "materials=4"
 	points = 18
 	refined_type = /obj/item/stack/sheet/mineral/gold
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
@@ -117,7 +111,6 @@
 /obj/item/weapon/ore/diamond
 	name = "diamond ore"
 	icon_state = "Diamond ore"
-	origin_tech = "materials=6"
 	points = 50
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
@@ -125,7 +118,6 @@
 /obj/item/weapon/ore/bananium
 	name = "bananium ore"
 	icon_state = "Clown ore"
-	origin_tech = "materials=4"
 	points = 60
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -133,7 +125,6 @@
 /obj/item/weapon/ore/tranquillite
 	name = "tranquillite ore"
 	icon_state = "Mime ore"
-	origin_tech = "materials=4"
 	points = 60
 	refined_type = /obj/item/stack/sheet/mineral/tranquillite
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)

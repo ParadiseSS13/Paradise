@@ -174,7 +174,6 @@
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
 	icon_state = "9x19p"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
 	max_ammo = 8
@@ -270,7 +269,6 @@
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"
 	icon_state = "c20r45"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 20
@@ -289,7 +287,6 @@
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50ae)"
 	icon_state = "50ae"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = ".50"
 	max_ammo = 7
@@ -306,7 +303,6 @@
 /obj/item/ammo_box/magazine/m556
 	name = "toploader magazine (5.56mm)"
 	icon_state = "5.56m"
-	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a556
 	caliber = "a556"
 	max_ammo = 30
@@ -317,7 +313,6 @@
 	desc = "A drum magazine."
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun
-	origin_tech = "combat=3;syndicate=1"
 	caliber = "shotgun"
 	max_ammo = 8
 

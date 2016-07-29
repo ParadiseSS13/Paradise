@@ -54,7 +54,6 @@
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
-	origin_tech = "biotech=1"
 
 /obj/item/stack/medical/bruise_pack/attack(mob/living/carbon/M, mob/user)
 	if(..())
@@ -109,7 +108,6 @@
 	gender = PLURAL
 	singular_name = "ointment"
 	icon_state = "ointment"
-	origin_tech = "biotech=1"
 
 /obj/item/stack/medical/ointment/attack(mob/living/carbon/M, mob/user)
 	if(..())

@@ -9,7 +9,6 @@
 	throwforce = 10
 	throw_range = 7
 	w_class = 3
-	origin_tech = "combat=5;powerstorage=3;syndicate=3"
 	var/click_delay = 1.5
 	var/fisto_setting = 1
 	var/gasperfist = 3

@@ -7,7 +7,6 @@
 	slot_flags = SLOT_BELT
 	flags = NOBLUDGEON
 	var/flush = null
-	origin_tech = "programming=4;materials=4"
 
 
 /obj/item/device/aicard/afterattack(atom/target, mob/user, proximity)

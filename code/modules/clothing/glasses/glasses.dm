@@ -48,7 +48,6 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	item_state = "glasses"
-	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
 	prescription_upgradable = 1
 	see_darkness = 0 //don't render darkness while wearing mesons
@@ -130,7 +129,6 @@
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
 	item_state = "glasses"
-	origin_tech = "magnets=2"
 	darkness_view = 8
 	see_darkness = 0
 	species_fit = list("Vox")
@@ -166,7 +164,6 @@
 	desc = "Very confusing glasses."
 	icon_state = "material"
 	item_state = "glasses"
-	origin_tech = "magnets=3;engineering=3"
 	vision_flags = SEE_OBJS
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -391,7 +388,6 @@
 	desc = "Thermals in the shape of glasses."
 	icon_state = "thermal"
 	item_state = "glasses"
-	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
 	invisa_view = 2
 	flash_protect = -1
@@ -416,7 +412,6 @@
 	name = "Optical Meson Scanner"
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
-	origin_tech = "magnets=3;syndicate=4"
 	prescription_upgradable = 1
 
 /obj/item/clothing/glasses/thermal/monocle

@@ -35,7 +35,6 @@
 	singular_name = "grass floor tile"
 	desc = "A patch of grass like they often use on golf courses"
 	icon_state = "tile_grass"
-	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/grass
 
 /*
@@ -111,7 +110,6 @@
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip"
 	turf_type = /turf/simulated/floor/noslip
-	origin_tech = "materials=3"
 
 /obj/item/stack/tile/noslip/loaded
 	amount = 20
@@ -121,7 +119,6 @@
 	singular_name = "silent floor tile"
 	desc = "A tile made out of tranquillite, SHHHHHHHHH!"
 	icon_state = "tile-silent"
-	origin_tech = "materials=1"
 	turf_type = /turf/simulated/floor/silent
 	mineralType = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=500)

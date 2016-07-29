@@ -4,7 +4,6 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain"
 	w_class = 3
-	origin_tech = "biotech=3;programming=2"
 
 	var/searching = 0
 	var/askDelay = 10 * 60 * 1

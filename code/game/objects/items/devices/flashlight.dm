@@ -241,7 +241,6 @@ obj/item/device/flashlight/lamp/bananalamp
 	return //Bio-luminescence does not toggle.
 
 /obj/item/device/flashlight/emp
-	origin_tech = "magnets=4;syndicate=5"
 
 	var/emp_max_charges = 4
 	var/emp_cur_charges = 4

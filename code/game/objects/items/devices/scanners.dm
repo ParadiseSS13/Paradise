@@ -17,20 +17,16 @@ REAGENT SCANNER
 	w_class = 2
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
-	origin_tech = "magnets=1;engineering=1"
 	var/scan_range = 1
 	var/pulse_duration = 10
 
 /obj/item/device/t_scanner/longer_pulse
-	origin_tech = "magnets=2;engineering=2"
 	pulse_duration = 50
 
 /obj/item/device/t_scanner/extended_range
-	origin_tech = "magnets=1;engineering=3"
 	scan_range = 3
 
 /obj/item/device/t_scanner/extended_range/longer_pulse
-	origin_tech = "magnets=2;engineering=3"
 	scan_range = 3
 	pulse_duration = 50
 
@@ -121,7 +117,6 @@ REAGENT SCANNER
 	throw_speed = 5
 	throw_range = 10
 	materials = list(MAT_METAL=200)
-	origin_tech = "magnets=1;biotech=1"
 	var/upgraded = 0
 	var/mode = 1;
 
@@ -295,7 +290,6 @@ REAGENT SCANNER
 	icon_state = "healthupgrade"
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
 	w_class = 1
-	origin_tech = "magnets=2;biotech=2"
 
 /obj/item/device/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels."
@@ -309,7 +303,6 @@ REAGENT SCANNER
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=1;engineering=1"
 
 /obj/item/device/analyzer/attack_self(mob/user as mob)
 
@@ -375,7 +368,6 @@ REAGENT SCANNER
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=2;biotech=2"
 	var/details = 0
 	var/recent_fail = 0
 
@@ -433,7 +425,6 @@ REAGENT SCANNER
 	name = "advanced mass-spectrometer"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = "magnets=4;biotech=2"
 
 /obj/item/device/reagent_scanner
 	name = "reagent scanner"
@@ -447,7 +438,6 @@ REAGENT SCANNER
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=2;biotech=2"
 	var/details = 0
 	var/recent_fail = 0
 
@@ -490,13 +480,11 @@ REAGENT SCANNER
 	name = "advanced reagent scanner"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = "magnets=4;biotech=2"
 
 /obj/item/device/slime_scanner
 	name = "slime scanner"
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
-	origin_tech = "biotech=1"
 	w_class = 2
 	flags = CONDUCT
 	throwforce = 0

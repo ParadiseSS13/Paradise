@@ -8,7 +8,6 @@
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	fire_delay = 40
 	burst_size = 1
-	origin_tech = "combat=8"
 	can_unsuppress = 1
 	can_suppress = 1
 	w_class = 3
@@ -26,13 +25,11 @@
 /obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
-	origin_tech = "combat=8;syndicate=4"
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
 	name = "sniper rounds (.50)"
 	icon_state = ".50mag"
-	origin_tech = "combat=6;syndicate=2"
 	ammo_type = /obj/item/ammo_casing/point50
 	max_ammo = 6
 	caliber = ".50"
@@ -68,7 +65,6 @@
 	name = "sniper rounds (Zzzzz)"
 	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
 	icon_state = "soporific"
-	origin_tech = "combat=6;syndicate=3"
 	ammo_type = /obj/item/ammo_casing/soporific
 	max_ammo = 3
 
@@ -99,7 +95,6 @@
 	name = "sniper rounds (Bleed)"
 	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain"
 	icon_state = "haemorrhage"
-	origin_tech = "combat=7;syndicate=5"
 	ammo_type = /obj/item/ammo_casing/haemorrhage
 	max_ammo = 5
 

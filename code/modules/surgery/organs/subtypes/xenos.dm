@@ -1,5 +1,4 @@
 /obj/item/organ/internal/xenos
-	origin_tech = "biotech=5"
 	icon_state = "xgibmid2"
 	var/list/alien_powers = list()
 	tough = 1
@@ -36,7 +35,6 @@
 /obj/item/organ/internal/xenos/plasmavessel
 	name = "xeno plasma vessel"
 	icon_state = "plasma"
-	origin_tech = "biotech=5;plasmatech=2"
 	w_class = 3
 	parent_organ = "chest"
 	slot = "plasmavessel"
@@ -56,7 +54,6 @@
 /obj/item/organ/internal/xenos/plasmavessel/queen
 	name = "bloated xeno plasma vessel"
 	icon_state = "plasma_large"
-	origin_tech = "biotech=6;plasma=3"
 	stored_plasma = 200
 	max_plasma = 500
 	plasma_rate = 25
@@ -117,7 +114,6 @@
 	icon_state = "acid"
 	parent_organ = "head"
 	slot = "acid"
-	origin_tech = "biotech=5;materials=2;combat=2"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
 
 
@@ -126,7 +122,6 @@
 	icon_state = "hivenode"
 	parent_organ = "head"
 	slot = "hivenode"
-	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = 1
 	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/whisp)
 
@@ -147,7 +142,6 @@
 	icon_state = "neurotox"
 	parent_organ = "head"
 	slot = "neurotox"
-	origin_tech = "biotech=5;combat=5"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/neurotoxin)
 
 /obj/item/organ/internal/xenos/resinspinner
@@ -155,7 +149,6 @@
 	parent_organ = "mouth"
 	icon_state = "liver-x"
 	slot = "spinner"
-	origin_tech = "biotech=5;materials=4"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/resin)
 
 /obj/item/organ/internal/xenos/eggsac
@@ -164,5 +157,4 @@
 	parent_organ = "groin"
 	slot = "eggsac"
 	w_class = 4
-	origin_tech = "biotech=8"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/queen/verb/lay_egg)

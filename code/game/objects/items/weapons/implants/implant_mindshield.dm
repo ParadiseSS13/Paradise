@@ -1,7 +1,6 @@
 /obj/item/weapon/implant/loyalty
 	name = "mindshield implant"
 	desc = "Stops people messing with your mind."
-	origin_tech = "materials=2;biotech=4;programming=4"
 	activated = 0
 
 /obj/item/weapon/implant/loyalty/get_data()

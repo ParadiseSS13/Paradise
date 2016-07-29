@@ -60,14 +60,12 @@
 	name = "broken cryptographic sequencer"
 	icon_state = "emag"
 	item_state = "card-id"
-	origin_tech = "magnets=2;syndicate=2"
 
 /obj/item/weapon/card/emag
 	desc = "It's a card with a magnetic strip attached to some circuitry."
 	name = "cryptographic sequencer"
 	icon_state = "emag"
 	item_state = "card-id"
-	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 
 /obj/item/weapon/card/emag/attack()
@@ -105,7 +103,7 @@
 	var/photo
 	var/dat
 	var/stamped = 0
-	
+
 	var/obj/item/weapon/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
 /obj/item/weapon/card/id/New()
@@ -242,10 +240,10 @@
 	set name = "Remove Guest Pass"
 	set category = "Object"
 	set src in range(0)
-	
+
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	
+
 	if(guest_pass)
 		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
 		guest_pass.forceMove(get_turf(src))
@@ -268,7 +266,6 @@
 /obj/item/weapon/card/id/syndicate
 	name = "agent card"
 	var/list/initial_access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)
-	origin_tech = "syndicate=3"
 	var/registered_user = null
 	untrackable = 1
 

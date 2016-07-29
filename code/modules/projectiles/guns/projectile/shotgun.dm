@@ -7,7 +7,6 @@
 	force = 10
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	var/recentpump = 0 // to prevent spammage
 
@@ -171,7 +170,6 @@
 	name = "combat shotgun"
 	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
 	icon_state = "cshotgun"
-	origin_tech = "combat=5;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = 5
 
@@ -181,7 +179,6 @@
 	name = "cycler shotgun"
 	desc = "An advanced shotgun with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
-	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = 5
 	var/toggled = 0

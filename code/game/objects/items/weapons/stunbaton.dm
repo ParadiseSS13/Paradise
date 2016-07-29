@@ -7,7 +7,6 @@
 	force = 10
 	throwforce = 7
 	w_class = 3
-	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	var/stunforce = 7
 	var/status = 0
