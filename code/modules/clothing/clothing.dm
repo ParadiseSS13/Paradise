@@ -179,6 +179,7 @@ BLIND     // can't see anything
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
+	var/clipped = 0
 	strip_delay = 20
 	put_on_delay = 40
 	species_fit = list("Vox")
@@ -189,6 +190,21 @@ BLIND     // can't see anything
 
 /obj/item/clothing/gloves/proc/Touch()
 	return
+
+/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/wirecutters))
+		if(!clipped)
+			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
+			clipped = 1
+			name = "mangled [name]"
+			desc = "[desc] They have had the fingertips cut off of them."
+			update_icon()
+		else
+			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
+		return
+	else
+		..()
 
 /obj/item/clothing/under/proc/set_sensors(mob/user as mob)
 	var/mob/M = user
