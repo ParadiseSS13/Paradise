@@ -3,6 +3,7 @@ var/global/datum/zlev_manager/zlevels = new
 /datum/zlev_manager
 	// A list of z-levels
 	var/list/z_list = list()
+	var/list/heaps = list()
 
 
 // Populate our z level list
@@ -20,36 +21,6 @@ var/global/datum/zlev_manager/zlevels = new
 		throw EXCEPTION("Untracked z level: '[z]'")
 	else
 		return z_list[z]
-
-// For when you need the z-level to be at a certain point
-/datum/zlev_manager/proc/increase_max_zlevel_to(new_maxz)
-	if(world.maxz>=new_maxz)
-		return
-	while(world.maxz<new_maxz)
-		add_new_zlevel()
-
-// Increments the max z-level by one
-// For convenience's sake returns the z-level added
-/datum/zlev_manager/proc/add_new_zlevel()
-	world.maxz++
-	var/our_z = world.maxz
-	z_list.len++
-	z_list[our_z] = new /datum/zlevel(our_z)
-	return our_z
-
-/datum/zlev_manager/proc/cut_levels_downto(new_maxz)
-	if(world.maxz <= new_maxz)
-		return
-	while(world.maxz>new_maxz)
-		kill_topmost_zlevel()
-
-// Decrements the max z-level by one
-// not normally used, but hey the swapmap loader wanted it
-/datum/zlev_manager/proc/kill_topmost_zlevel()
-	var/our_z = world.maxz
-	qdel(z_list[our_z])
-	z_list.len--
-	world.maxz--
 
 /*
 * "Dirt" management
@@ -87,3 +58,63 @@ var/global/datum/zlev_manager/zlevels = new
 /datum/zlev_manager/proc/postpone_init(z, thing)
 	var/datum/zlevel/our_z = get_zlev(z)
 	our_z.init_list.Add(thing)
+
+
+/**
+*
+*	SPACE ALLOCATION
+*
+*/
+
+
+// For when you need the z-level to be at a certain point
+/datum/zlev_manager/proc/increase_max_zlevel_to(new_maxz)
+	if(world.maxz>=new_maxz)
+	return
+	while(world.maxz<new_maxz)
+	add_new_zlevel()
+
+// Increments the max z-level by one
+// For convenience's sake returns the z-level added
+/datum/zlev_manager/proc/add_new_zlevel()
+	world.maxz++
+	var/our_z = world.maxz
+	z_list.len++
+	z_list[our_z] = new /datum/zlevel(our_z)
+	return our_z
+
+/datum/zlev_manager/proc/cut_levels_downto(new_maxz)
+	if(world.maxz <= new_maxz)
+	return
+	while(world.maxz>new_maxz)
+	kill_topmost_zlevel()
+
+// Decrements the max z-level by one
+// not normally used, but hey the swapmap loader wanted it
+/datum/zlev_manager/proc/kill_topmost_zlevel()
+	var/our_z = world.maxz
+	qdel(z_list[our_z])
+	z_list.len--
+	world.maxz--
+
+
+// An internally-used proc used for heap-zlevel management
+/datum/zlev_manager/proc/add_new_heap()
+	world.maxz++
+	z_list.len++
+	var/datum/zlevel/yup = new /datum/zlevel/heap(our_z)
+	z_list[world.max_z] = yup
+	return yup
+
+// This is what you can call to allocate a section of space
+// Later, I'll add an argument to let you define the flags on the region
+/datum/zlev_manager/proc/allocate_space(width, height)
+	if(!heaps.len)
+		heaps.len++
+		heaps[heaps.len] = add_new_heap()
+	var/datum/zlevel/heap/our_heap
+	for(our_heap in heaps)
+		var/weve_got_vacancy = our_heap.request(width, height)
+		if(weve_got_vacancy)
+			break // We're sticking with the present value of `our_heap` - it's got room
+	
