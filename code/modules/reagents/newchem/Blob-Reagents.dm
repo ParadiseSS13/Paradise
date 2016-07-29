@@ -35,8 +35,7 @@
 		volume = ..()
 		M.apply_damage(0.6*volume, BURN)
 		M.IgniteMob()
-		if(isliving(M))
-			M.emote("scream")
+		M.emote("scream")
 
 /datum/reagent/blob/envenomed_filaments //toxin, hallucination, and some bonus spore toxin
 	name = "Envenomed Filaments"

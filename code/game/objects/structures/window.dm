@@ -318,6 +318,14 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	return
 
 
+/obj/structure/window/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	revrotate()
+
 /*
 /obj/structure/window/proc/updateSilicate()
 	if(silicateIcon && silicate)

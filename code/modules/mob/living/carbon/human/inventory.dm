@@ -107,13 +107,17 @@
 		if(slot_tie)
 			return 1
 
+// The actual dropping happens at the mob level - checks to prevent drops should
+// come here
+/mob/living/carbon/human/canUnEquip(obj/item/I, force)
+	. = ..()
+	var/obj/item/organ/O = I
+	if(istype(O) && O.owner == src)
+		. = 0 // keep a good grip on your heart
+
 /mob/living/carbon/human/unEquip(obj/item/I)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
-		return
-
-	var/obj/item/organ/internal/O = I //Organs shouldn't be removed unless you call droplimb.
-	if(istype(O) && O.owner == src)
 		return
 
 	if(I == wear_suit)

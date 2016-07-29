@@ -92,19 +92,19 @@
 			M.bodytemperature += 5 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(holder.has_reagent("frostoil"))
 				holder.remove_reagent("frostoil", 5)
-			if(istype(M, /mob/living/carbon/slime))
+			if(isslime(M))
 				M.bodytemperature += rand(5,20)
 		if(15 to 25)
 			M.bodytemperature += 10 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(istype(M, /mob/living/carbon/slime))
+			if(isslime(M))
 				M.bodytemperature += rand(10,20)
 		if(25 to 35)
 			M.bodytemperature += 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(istype(M, /mob/living/carbon/slime))
+			if(isslime(M))
 				M.bodytemperature += rand(15,20)
 		if(35 to INFINITY)
 			M.bodytemperature += 20 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(istype(M, /mob/living/carbon/slime))
+			if(isslime(M))
 				M.bodytemperature += rand(20,25)
 	..()
 
@@ -122,27 +122,27 @@
 			M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(holder.has_reagent("capsaicin"))
 				holder.remove_reagent("capsaicin", 5)
-			if(istype(M, /mob/living/carbon/slime))
+			if(isslime(M))
 				M.bodytemperature -= rand(5,20)
 		if(15 to 25)
 			M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(istype(M, /mob/living/carbon/slime))
+			if(isslime(M))
 				M.bodytemperature -= rand(10,20)
 		if(25 to 35)
 			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(prob(1))
 				M.emote("shiver")
-			if(istype(M, /mob/living/carbon/slime))
+			if(isslime(M))
 				M.bodytemperature -= rand(15,20)
 		if(35 to INFINITY)
 			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(prob(1))
 				M.emote("shiver")
-			if(istype(M, /mob/living/carbon/slime))
+			if(isslime(M))
 				M.bodytemperature -= rand(20,25)
 	..()
 
-/datum/reagent/frostoil/reaction_turf(turf/simulated/T, volume)
+/datum/reagent/frostoil/reaction_turf(turf/T, volume)
 	if(volume >= 5)
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
@@ -202,7 +202,7 @@
 
 /datum/reagent/sprinkles/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
-	if(istype(M, /mob/living/carbon/human) && M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate"))
+	if(ishuman(M) && M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate"))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
@@ -221,14 +221,14 @@
 	..()
 
 /datum/reagent/cornoil/reaction_turf(turf/simulated/T, volume)
-	if(!istype(T)) return
-	src = null
+	if(!istype(T))
+		return
 	if(volume >= 3)
 		T.MakeSlippery()
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
+		lowertemp.temperature = max(min(lowertemp.temperature-2000, lowertemp.temperature / 2), 0)
 		lowertemp.react()
 		T.assume_air(lowertemp)
 		qdel(hotspot)
@@ -297,7 +297,6 @@
 	..()
 
 /datum/reagent/flour/reaction_turf(turf/T, volume)
-	src = null
 	if(!istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/flour(T)
 
