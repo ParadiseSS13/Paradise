@@ -54,8 +54,8 @@
 /turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
 	..()
 	if(!ignoreRest)
-		if(ismob(A)) //only mobs make dirt
-			if(prob(80))
+		if(ismob(A) && isliving(A))
+			if(prob(50))
 				dirt++
 
 			var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt) in src
