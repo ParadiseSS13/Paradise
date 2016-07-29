@@ -113,11 +113,14 @@
 				if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
 					to_chat(M, "<span class='warning'>Remove their mask!</span>")
 					return
-				if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && ((M.wear_mask.flags & MASKCOVERSMOUTH) && !(M.wear_mask.flags & DONT_BLOCK_BLOODSUCKING))))
+				if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && !istype(M.wear_mask, /obj/item/clothing/mask/breath)))
 					to_chat(M, "<span class='warning'>Remove your mask!</span>")
 					return
 				if(mind && mind.vampire && (mind in ticker.mode.vampires))
 					to_chat(M, "<span class='warning'>Your fangs fail to pierce [src.name]'s cold flesh</span>")
+					return
+				if(species && ((species.flags & NO_BLOOD) || species.exotic_blood))
+					to_chat(M, "<span class='warning'>They don't have blood!</span>")
 					return
 				if(SKELETON in mutations)
 					to_chat(M, "<span class='warning'>There is no blood in a skeleton!</span>")

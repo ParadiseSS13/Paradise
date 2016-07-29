@@ -27,8 +27,6 @@
 
 #define	NOREACT					16384 	//Reagents dont' react inside this container.
 
-#define DONT_BLOCK_BLOODSUCKING	32768	//Masks with this tag won't prevent the wearer from sucking blood as a vampire. Bluespace magic.
-
 //Species flags.
 
 #define NO_BLOOD		1
