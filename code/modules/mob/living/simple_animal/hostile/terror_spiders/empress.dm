@@ -49,12 +49,6 @@
 	var/shown_guide = 0 // has the empress player been warned of the chaos that can result from the use of their powers?
 	var/phasing = 0
 
-/mob/living/simple_animal/hostile/poison/terror_spider/empress/Life()
-	if(stat != DEAD)
-		if(ckey && !shown_guide)
-			shown_guide = 1
-			ShowGuide()
-	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Retaliate()
 	..()
