@@ -153,9 +153,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/mob/M = src
 	var/warningmsg = null
+	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
 
-	if(suiciding)
-		warningmsg = "You have committed suicide"
+	if(P)
+		if(TOO_EARLY_TO_GHOST)
+			warningmsg = "It's too early in the shift to enter cryo"
+		// If it's not too early, we'll skip straight to ghosting out without penalty
+	else if(suiciding && TOO_EARLY_TO_GHOST)
+		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
 		warningmsg = "You are alive"
 	else if(non_respawnable_keys[ckey])
@@ -177,8 +182,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
-	if(istype(M.loc, /obj/machinery/cryopod))
-		var/obj/machinery/cryopod/P = M.loc
+	if(P)
 		if(!P.control_computer)
 			P.find_control_computer(urgent=1)
 		if(P.control_computer)

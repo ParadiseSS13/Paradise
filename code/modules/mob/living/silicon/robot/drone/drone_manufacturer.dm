@@ -133,6 +133,9 @@
 		to_chat(usr, "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>")
 		return
 
+	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
+		return
+
 	for(var/obj/machinery/drone_fabricator/DF in world)
 		if(DF.stat & NOPOWER || !DF.produce_drones)
 			continue
