@@ -193,6 +193,6 @@
 	name = "Atmos Grenades"
 
 /obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades/New()
-		..()
-		new /obj/item/weapon/grenade/clusterbuster/plasma(src)
-		new /obj/item/weapon/grenade/clusterbuster/n2o(src)
+	..()
+	new /obj/item/weapon/grenade/clusterbuster/plasma(src)
+	new /obj/item/weapon/grenade/clusterbuster/n2o(src)
