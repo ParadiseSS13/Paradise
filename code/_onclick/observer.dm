@@ -25,6 +25,21 @@
 		return
 
 	var/list/modifiers = params2list(params)
+	if(check_rights(R_ADMIN, 0)) // Admin click shortcuts
+		var/mob/M
+		if(modifiers["shift"] && modifiers["ctrl"])
+			client.debug_variables(A)
+			return
+		if(modifiers["ctrl"])
+			M = get_mob_in_atom_with_warning(A)
+			if(M)
+				client.holder.show_player_panel(M)
+			return
+		if(modifiers["shift"] && modifiers["middle"])
+			M = get_mob_in_atom_with_warning(A)
+			if(M)
+				admin_mob_info(M)
+			return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return

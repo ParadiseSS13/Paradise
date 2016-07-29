@@ -97,7 +97,7 @@
 		return -1
 
 	for(var/client/C in clients)
-		if(C.inactivity < (10 * 10 * 60))
+		if(C.inactivity < (10 MINUTES))
 			//var/list/play_records = params2list(C.prefs.exp)
 
 			var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[C.ckey]'")
