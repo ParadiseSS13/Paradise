@@ -98,6 +98,13 @@
 	shuttle_master.emergency = src
 	return 1
 
+/obj/docking_port/mobile/emergency/Destroy()
+	if(src.i_know_what_im_doing)
+		// This'll make the shuttle subsystem use the backup shuttle.
+		shuttle_master.emergencyDeregister()
+
+	. = ..()
+
 /obj/docking_port/mobile/emergency/timeLeft(divisor)
 	if(divisor <= 0)
 		divisor = 10
@@ -286,3 +293,22 @@
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)
 	src.loc = T
+
+/obj/docking_port/mobile/emergency/backup
+	name = "backup shuttle"
+	id = "backup"
+	dwidth = 2
+	width = 8
+	height = 8
+	dir = 4
+
+	roundstart_move = "backup_away"
+
+/obj/docking_port/mobile/emergency/backup/New()
+	// We want to be a valid emergency shuttle
+	// but not be the main one, keep whatever's set
+	// valid.
+	var/current_emergency = SSshuttle.emergency
+	..()
+	shuttle_master.emergency = current_emergency
+	shuttle_master.backup_shuttle = src

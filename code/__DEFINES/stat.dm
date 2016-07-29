@@ -42,6 +42,9 @@
 #define SHUTTLE_ESCAPE 5
 #define SHUTTLE_ENDGAME 6
 
+// Shuttle return values
+#define SHUTTLE_ALREADY_DOCKED 7
+
 
 /*
 	Logic

@@ -37,6 +37,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
 	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
+	/client/proc/cmd_admin_destroy_shuttle, /* Destroys the emergency shuttle, allowing us to import a new shuttle template. Or just horribly fuck with the game. */	/client/proc/cmd_admin_import_shuttle, /* Imports a emergency shuttle from a template, and sends it to its round start location. Probably should destroy the old one first.*/
 	/client/proc/check_words,			/*displays cult-words*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */

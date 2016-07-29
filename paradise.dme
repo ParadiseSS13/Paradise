@@ -10,6 +10,7 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
+#include "shuttles.dm"
 #include "_maps\cyberiad.dm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
@@ -202,6 +203,7 @@
 #include "code\datums\progressbar.dm"
 #include "code\datums\recipe.dm"
 #include "code\datums\ruins.dm"
+#include "code\datums\shuttles.dm"
 #include "code\datums\spell.dm"
 #include "code\datums\supplypacks.dm"
 #include "code\datums\uplink_item.dm"
@@ -1994,6 +1996,7 @@
 #include "code\modules\shuttle\assault_pod.dm"
 #include "code\modules\shuttle\emergency.dm"
 #include "code\modules\shuttle\shuttle.dm"
+#include "code\modules\shuttle\shuttle_mainpulator.dm"
 #include "code\modules\shuttle\supply.dm"
 #include "code\modules\shuttle\syndicate.dm"
 #include "code\modules\space_transition\space_transition.dm"

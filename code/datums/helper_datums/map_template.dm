@@ -147,7 +147,7 @@
 		if(istype(R, /datum/map_template/ruin/space))
 			space_ruins_templates[R.name] = R
 
-/*
+
 /proc/preloadShuttleTemplates()
 	for(var/item in subtypesof(/datum/map_template/shuttle))
 		var/datum/map_template/shuttle/shuttle_type = item
@@ -158,4 +158,3 @@
 
 		shuttle_templates[S.shuttle_id] = S
 		map_templates[S.shuttle_id] = S
-*/
