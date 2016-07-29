@@ -35,15 +35,14 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
 	var/tcamount = text2num(tctext)
 	tcamount = between(0, tcamount, 1000)
-	var/spawn_sit_officer = 0
-	if(alert("Spawn a syndicate officer for you, so you can brief them before they go?",,"Yes","No")=="Yes")
-		spawn_sit_officer = 1
+	var/spawn_sit_mgmt = 0
+	if(alert("Spawn a syndicate mob for you, so you can brief them before they go?",,"Yes","No")=="Yes")
+		spawn_sit_mgmt = 1
 	if(sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
 
 	var/syndicate_leader_selected = 0
-	//var/list/infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, 7)
 
 	var/list/infiltrators = list()
 
@@ -59,7 +58,7 @@ var/global/sent_syndicate_infiltration_team = 0
 			infiltrators += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?")
+		infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?") // ROLE_TRAITOR, 7
 
 	if(!infiltrators.len)
 		to_chat(src, "Nobody volunteered.")
@@ -69,14 +68,14 @@ var/global/sent_syndicate_infiltration_team = 0
 
 	var/list/sit_spawns = list()
 	var/list/sit_spawns_leader = list()
-	var/list/sit_spawns_officer = list()
+	var/list/sit_spawns_mgmt = list()
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(L.name == "Syndicate-Infiltrator")
 			sit_spawns += L
 		if(L.name == "Syndicate-Infiltrator-Leader")
 			sit_spawns_leader += L
 		if(L.name == "Syndicate-Infiltrator-Admin")
-			sit_spawns_officer += L
+			sit_spawns_mgmt += L
 
 	var/num_spawned = 1
 	var/team_leader = null
@@ -86,7 +85,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
 		if(infiltrators.len)
 			var/mob/theguy = pick(infiltrators)
-			if(!spawn_sit_officer || theguy.key != key)
+			if(!spawn_sit_mgmt || theguy.key != key)
 				new_syndicate_infiltrator.key = theguy.key
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_internals_hud_icon(1)
@@ -115,30 +114,30 @@ var/global/sent_syndicate_infiltration_team = 0
 		num_spawned++
 		if(!teamsize)
 			break
-	if(spawn_sit_officer)
-		for(var/obj/effect/landmark/L in sit_spawns_officer)
-			var/mob/living/carbon/human/officer = create_syndicate_infiltrator(L, 1, 100, 1)
-			officer.key = key
-			officer.internal = officer.s_store
-			officer.update_internals_hud_icon(1)
-			officer.faction += "syndicate"
-			officer.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
-			officer.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/syndi/elite, slot_wear_suit)
-			officer.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/syndi/elite, slot_head)
-			officer.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate, slot_wear_mask)
+	if(spawn_sit_mgmt)
+		for(var/obj/effect/landmark/L in sit_spawns_mgmt)
+			var/mob/living/carbon/human/syndimgmtmob = create_syndicate_infiltrator(L, 1, 100, 1)
+			syndimgmtmob.key = key
+			syndimgmtmob.internal = syndimgmtmob.s_store
+			syndimgmtmob.update_internals_hud_icon(1)
+			syndimgmtmob.faction += "syndicate"
+			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
+			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/syndi/elite, slot_wear_suit)
+			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/syndi/elite, slot_head)
+			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate, slot_wear_mask)
 			var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
-			opshud.join_hud(officer.mind.current)
-			ticker.mode.set_antag_hud(officer.mind.current, "hudoperative")
-			officer.mind.special_role = "Syndicate Officer"
-			officer.regenerate_icons()
-			to_chat(officer, "<span class='userdanger'>You have spawned as a Syndicate Officer. You should brief them on their mission before they go.</span>")
+			opshud.join_hud(syndimgmtmob.mind.current)
+			ticker.mode.set_antag_hud(syndimgmtmob.mind.current, "hudoperative")
+			syndimgmtmob.mind.special_role = "Syndicate Management Consultant"
+			syndimgmtmob.regenerate_icons()
+			to_chat(syndimgmtmob, "<span class='userdanger'>You have spawned as Syndicate Management. You should brief them on their mission before they go.</span>")
 	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
 	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
 
-/client/proc/create_syndicate_infiltrator(obj/spawn_location, syndicate_leader_selected = 0, uplink_tc = 20, is_officer = 0)
+/client/proc/create_syndicate_infiltrator(obj/spawn_location, syndicate_leader_selected = 0, uplink_tc = 20, is_mgmt = 0)
 	var/mob/living/carbon/human/new_syndicate_infiltrator = new(spawn_location.loc)
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
@@ -154,18 +153,18 @@ var/global/sent_syndicate_infiltration_team = 0
 	new_syndicate_infiltrator.mind.assigned_role = "MODE"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
 	ticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
-	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_officer)
+	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
 	qdel(spawn_location)
 	return new_syndicate_infiltrator
 
 // ---------------------------------------------------------------------------------------------------------
 
-/mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_officer)
+/mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_mgmt)
 	// Storage items
 	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
-	if(!flag_officer)
+	if(!flag_mgmt)
 		equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(src), slot_belt)
 
@@ -177,7 +176,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	// Uplink
 	var/obj/item/weapon/implant/uplink/U = new /obj/item/weapon/implant/uplink(src)
 	U.implant(src)
-	if (flag_officer)
+	if (flag_mgmt)
 		U.hidden_uplink.uses = 500
 	else
 		U.hidden_uplink.uses = num_tc
@@ -198,7 +197,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/syndigaloshes(src), slot_shoes)
 
 	var/obj/item/weapon/card/id/syndicate/W = new(src) //Untrackable by AI
-	if (flag_officer)
+	if (flag_mgmt)
 		W.icon_state = "commander"
 	else
 		W.icon_state = "id"
@@ -206,8 +205,8 @@ var/global/sent_syndicate_infiltration_team = 0
 	W.assignment = "Civilian"
 	W.access += get_access("Civilian")
 	W.access += list(access_medical, access_engine, access_cargo, access_research)
-	if(flag_officer)
-		W.assignment = "Syndicate Officer"
+	if(flag_mgmt)
+		W.assignment = "Syndicate Management Consultant"
 		W.access += get_syndicate_access("Syndicate Commando")
 	else if(syndicate_leader_selected)
 		W.access += get_syndicate_access("Syndicate Commando")
