@@ -33,7 +33,7 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = 3
+	w_class = 1
 	max_w_class = 2
 	storage_slots = 30
 	can_hold = list() // any
@@ -46,12 +46,17 @@
 
 /obj/item/weapon/storage/bag/trash/update_icon()
 	if(contents.len == 0)
+		w_class = 1
 		icon_state = "[initial(icon_state)]"
 	else if(contents.len < 12)
+		w_class = 3
 		icon_state = "[initial(icon_state)]1"
 	else if(contents.len < 21)
+		w_class = 4
 		icon_state = "[initial(icon_state)]2"
-	else icon_state = "[initial(icon_state)]3"
+	else
+		w_class = 4
+		icon_state = "[initial(icon_state)]3"
 
 /obj/item/weapon/storage/bag/trash/cyborg
 
