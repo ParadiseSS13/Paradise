@@ -273,10 +273,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	owner.attack_log += text("\[[time_stamp()]\] <font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
 	H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
 	log_attack("[owner] ([owner.ckey]) bit [H] ([H.ckey]) in the neck")
-	if(owner.get_species() == "Vox")
-		owner.visible_message("<span class='danger'>[owner] stabs a needled internals tube into [H]'s neck!</span>", "<span class='danger'>You stab a needled internals tube into [H]'s neck and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
-	else
-		owner.visible_message("<span class='danger'>[owner] bites [H]'s neck!</span>", "<span class='danger'>You bite [H]'s neck and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	owner.visible_message("<span class='danger'>[owner] grabs [H]'s harshly and sinks in thier fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
 		H.LAssailant = null
 	else
