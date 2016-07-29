@@ -197,10 +197,6 @@ var/list/chatResources = list(
 
 	return "<img [class] src='data:image/png;base64,[bicon_cache[key]]'>"
 
-//Aliases for bicon
-/proc/bi(obj)
-	bicon(obj)
-
 var/to_chat_filename
 var/to_chat_line
 var/to_chat_src
