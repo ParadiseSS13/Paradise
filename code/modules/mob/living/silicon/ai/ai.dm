@@ -855,8 +855,10 @@ var/list/ai_verbs_default = list(
 				if("custom")
 					if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic.dmi'))
 						holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
-					else
+					else if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic64.dmi'))
 						holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+					else
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
 
 	return
 
