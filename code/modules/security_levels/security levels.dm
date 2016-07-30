@@ -4,7 +4,9 @@
 //2 = code red
 //3 = gamma
 //4 = epsilon
-//5 = code delta
+//6 = code grey
+//7 = code delta
+
 
 //config.alert_desc_blue_downto
 /var/datum/announcement/priority/security/security_announcement_up = new(do_log = 0, do_newscast = 1, new_sound = sound('sound/misc/notice1.ogg'))
@@ -22,8 +24,11 @@
 			level = SEC_LEVEL_GAMMA
 		if("epsilon")
 			level = SEC_LEVEL_EPSILON
+		if("grey")
+			level = SEC_LEVEL_GREY
 		if("delta")
 			level = SEC_LEVEL_DELTA
+
 
 	//Will not be announced if you try to set to the same level as it already is
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != security_level)
@@ -118,6 +123,19 @@
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
+			if(SEC_LEVEL_GREY)
+				security_announcement_up.Announce("Central Command has intiated Code Grey on the station. Security is to neutralize the Greytide by any means necessary.","Attention! Code Grey activated!")
+				security_level = SEC_LEVEL_GREY
+
+				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
+				if(CC)
+					CC.post_status("alert", "greyalert")
+
+				for(var/obj/machinery/firealarm/FA in world)
+					if((FA.z in config.contact_levels))
+						FA.overlays = list()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_grey")
+
 			if(SEC_LEVEL_DELTA)
 				security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!")
 				security_level = SEC_LEVEL_DELTA
@@ -130,6 +148,8 @@
 					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+
+
 
 	else
 		return
@@ -148,6 +168,8 @@
 			return "epsilon"
 		if(SEC_LEVEL_DELTA)
 			return "delta"
+		if (SEC_LEVEL_GREY)
+			return "grey"
 
 /proc/num2seclevel(var/num)
 	switch(num)
@@ -163,6 +185,8 @@
 			return "epsilon"
 		if(SEC_LEVEL_DELTA)
 			return "delta"
+		if(SEC_LEVEL_GREY)
+			return "grey"
 
 /proc/seclevel2num(var/seclevel)
 	switch( lowertext(seclevel) )
@@ -178,6 +202,8 @@
 			return SEC_LEVEL_EPSILON
 		if("delta")
 			return SEC_LEVEL_DELTA
+		if("grey")
+			return SEC_LEVEL_GREY
 
 
 /*DEBUG
