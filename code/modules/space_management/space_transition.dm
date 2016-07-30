@@ -93,10 +93,10 @@
 // it is already surrounded on all sides
 /datum/point/proc/set_neighbors(datum/spacewalk_grid/SW)
 	neighbors.Cut()
-	neighbors |= SW.get(x+1, y)
-	neighbors |= SW.get(x-1, y)
-	neighbors |= SW.get(x, y+1)
-	neighbors |= SW.get(x, y-1)
+	neighbors |= SW.get(x+1, y, allow_empty = 1)
+	neighbors |= SW.get(x-1, y, allow_empty = 1)
+	neighbors |= SW.get(x, y+1, allow_empty = 1)
+	neighbors |= SW.get(x, y-1, allow_empty = 1)
 
 // Updates variables of the space level
 /datum/point/proc/set_space_level(datum/space_level/S)
@@ -142,6 +142,7 @@
 			result -= thing
 	return result
 
+// This looks around itself to see if it has any active nodes within the cardinal directions
 /datum/point/proc/has_no_neighbors(datum/spacewalk_grid/SW)
 	var/result = 1
 	if(spl)
