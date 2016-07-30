@@ -7,7 +7,6 @@
 //6 = code grey
 //7 = code delta
 
-
 //config.alert_desc_blue_downto
 /var/datum/announcement/priority/security/security_announcement_up = new(do_log = 0, do_newscast = 1, new_sound = sound('sound/misc/notice1.ogg'))
 /var/datum/announcement/priority/security/security_announcement_down = new(do_log = 0, do_newscast = 1)
@@ -28,7 +27,6 @@
 			level = SEC_LEVEL_GREY
 		if("delta")
 			level = SEC_LEVEL_DELTA
-
 
 	//Will not be announced if you try to set to the same level as it already is
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != security_level)
@@ -149,8 +147,6 @@
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
 
-
-
 	else
 		return
 
@@ -166,10 +162,10 @@
 			return "gamma"
 		if(SEC_LEVEL_EPSILON)
 			return "epsilon"
-		if(SEC_LEVEL_DELTA)
-			return "delta"
 		if (SEC_LEVEL_GREY)
 			return "grey"
+		if(SEC_LEVEL_DELTA)
+			return "delta"
 
 /proc/num2seclevel(var/num)
 	switch(num)
@@ -183,10 +179,10 @@
 			return "gamma"
 		if(SEC_LEVEL_EPSILON)
 			return "epsilon"
-		if(SEC_LEVEL_DELTA)
-			return "delta"
 		if(SEC_LEVEL_GREY)
 			return "grey"
+		if(SEC_LEVEL_DELTA)
+			return "delta"
 
 /proc/seclevel2num(var/seclevel)
 	switch( lowertext(seclevel) )
@@ -200,10 +196,11 @@
 			return SEC_LEVEL_GAMMA
 		if("epsilon")
 			return SEC_LEVEL_EPSILON
-		if("delta")
-			return SEC_LEVEL_DELTA
 		if("grey")
 			return SEC_LEVEL_GREY
+		if("delta")
+			return SEC_LEVEL_DELTA
+
 
 
 /*DEBUG
