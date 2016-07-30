@@ -207,11 +207,11 @@
 	P.get_empty_neighbors(src)
 	if(min_x > P.x)
 		min_x = P.x
-	else if (max_x < P.x)
+	else if(max_x < P.x)
 		max_x = P.x
 	if(min_y > P.y)
 		min_y = P.y
-	else if (max_y < P.y)
+	else if(max_y < P.y)
 		max_y = P.y
 	P.set_neighbors(src)
 
