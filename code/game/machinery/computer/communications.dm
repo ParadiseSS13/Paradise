@@ -54,6 +54,7 @@
 	if(..(href, href_list))
 		return 1
 
+	// TODO: Tie into space manager
 	if((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
 		to_chat(usr, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return 1
@@ -303,6 +304,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
+	// TODO: Tie into space manager
 	if(!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
 		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return

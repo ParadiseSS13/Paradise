@@ -10,11 +10,13 @@
 	#include "map_files\RandomZLevels\spacehotel.dmm"
 	#include "map_files\RandomZLevels\stationCollision.dmm"
 	#include "map_files\RandomZLevels\wildwest.dmm"
-	
+
 	#include "map_files\RandomZLevels\evil_santa.dmm"
 
 	#define MAP_FILE "beach.dmm"
 	#define MAP_NAME "Away Missions Test"
+	// I'm not sure if MAP_TRANSITION_CONFIG makes sense here
+	// Travis will tell me if it is
 
 #elif !defined(MAP_OVERRIDE)
 	#warn a map has already been included.

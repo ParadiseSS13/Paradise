@@ -373,6 +373,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	for(var/I in singularities)
 		var/obj/singularity/S = I
+		// TODO: Tie into space manager
 		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
 			continue
 		qdel(S)

@@ -62,7 +62,7 @@
 	goal = locate(endx, endy, 1)
 	src.x = startx
 	src.y = starty
-	src.z = 1
+	src.z = ZLEVEL_STATION
 	spawn(0)
 		walk_towards(src, goal, 1)
 	return

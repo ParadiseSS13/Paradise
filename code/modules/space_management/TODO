@@ -1,0 +1,17 @@
+# Add a system to let us give arbitrary amounts of space
+## Divide space into 4 repeatedly until we get a nice chunk
+## I am NOT handling concave chunks - rectangles only
+
+# Allow the map transition code to add z levels without radically altering structure - DONE!
+
+# Make sure people can't teleport while in our pocket dimensions
+## Maybe add flags or similar, as an option for each requested chunk
+
+# Give credit to https://github.com/tgstation/tgstation/pull/12370 for the
+# map transition update
+
+# Tie various systems into the z level manager
+# Search for terms like:
+## ZLEVEL_CENTCOMM
+## ZLEVEL_STATION
+## config.station_levels
