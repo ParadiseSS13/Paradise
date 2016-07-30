@@ -335,7 +335,7 @@
 		job_master.FreeRole(job)
 
 		if(occupant.mind.objectives.len)
-			qdel(occupant.mind.objectives)
+			occupant.mind.objectives.Cut()
 			occupant.mind.special_role = null
 		else
 			if(ticker.mode.name == "AutoTraitor")
