@@ -851,6 +851,7 @@
 		name = "Belle"
 		icon_state = "belle"
 		species_allowed = list("Vulpkanin")
+		secondary_theme = "bands"
 
 	vulp_hair_bun
 		name = "Bun"
