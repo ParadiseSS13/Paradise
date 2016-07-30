@@ -109,7 +109,7 @@ var/list/chatResources = list(
 
 /datum/chatOutput/proc/ehjax_send(var/client/C = owner, var/window = "browseroutput", var/data)
 	if(islist(data))
-		data = json_encode(data)
+		data = rjson_encode(data)
 	C << output("[data]", "[window]:ehjaxCallback")
 
 
@@ -118,7 +118,7 @@ var/list/chatResources = list(
 	deets["clientData"]["ckey"] = owner.ckey
 	deets["clientData"]["ip"] = owner.address
 	deets["clientData"]["compid"] = owner.computer_id
-	var/data = json_encode(deets)
+	var/data = rjson_encode(deets)
 	ehjax_send(data = data)
 
 /datum/chatOutput/proc/analyzeClientData(cookie = "")
@@ -126,7 +126,7 @@ var/list/chatResources = list(
 		return
 
 	if(cookie != "none")
-		var/list/connData = json_decode(cookie)
+		var/list/connData = rjson_decode(cookie)
 		if(connData && islist(connData) && connData.len > 0 && connData["connData"])
 			connectionHistory = connData["connData"]
 			var/list/found = new()
@@ -230,7 +230,7 @@ var/to_chat_src
 
 		if(C && C.chatOutput)
 			if(C.chatOutput.broken)
-				C << message
+				C << sanitize_local(message)
 				return
 
 			if(!C.chatOutput.loaded && C.chatOutput.messageQueue && islist(C.chatOutput.messageQueue))

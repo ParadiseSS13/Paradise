@@ -145,7 +145,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(reject_bad_text(href_list["write"]))
 		recipient = href_list["write"] //write contains the string of the receiving department's name
 
-		var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+		var/new_message = sanitize_local(input("Write your message:", "Awaiting Input", ""))
 		if(new_message)
 			message = new_message
 			screen = RCS_MESSAUTH
@@ -157,7 +157,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			reset_message(1)
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+		var/new_message = sanitize_local(input("Write your message:", "Awaiting Input", ""))
 		if(new_message)
 			message = new_message
 		else

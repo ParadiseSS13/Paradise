@@ -27,7 +27,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
 
-	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize_local(copytext(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return
 	var/original_msg = msg
 
