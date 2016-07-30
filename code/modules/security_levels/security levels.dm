@@ -4,8 +4,8 @@
 //2 = code red
 //3 = gamma
 //4 = epsilon
-//6 = code grey
-//7 = code delta
+//5 = code grey
+//6 = code delta
 
 //config.alert_desc_blue_downto
 /var/datum/announcement/priority/security/security_announcement_up = new(do_log = 0, do_newscast = 1, new_sound = sound('sound/misc/notice1.ogg'))
@@ -200,7 +200,6 @@
 			return SEC_LEVEL_GREY
 		if("delta")
 			return SEC_LEVEL_DELTA
-
 
 
 /*DEBUG
