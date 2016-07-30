@@ -70,6 +70,14 @@
 	src.dir = turn(src.dir, 90)
 	return 1
 
+/obj/machinery/power/emitter/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	rotate()
+
 /obj/machinery/power/emitter/initialize()
 	..()
 	if(state == 2 && anchored)

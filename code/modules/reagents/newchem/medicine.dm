@@ -89,8 +89,7 @@
 	..()
 
 /datum/reagent/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
-	src = null
-	if(volume >= 5)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -620,7 +619,7 @@
 				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
 				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		if(method == INGEST)
 			if(M.stat == DEAD)
 				if(M.getBruteLoss()+M.getFireLoss() >= 150)
@@ -952,11 +951,8 @@
 	result_amount = 2
 
 /datum/reagent/degreaser/reaction_turf(turf/simulated/T, volume)
-	if(!istype(T))
-		return
-	src = null
-	if(volume >= 1)
-		if(istype(T) && T.wet)
+	if(volume >= 1 && istype(T))
+		if(T.wet)
 			T.MakeDry(TURF_WET_LUBE)
 
 /datum/reagent/degreaser/on_mob_life(mob/living/M)

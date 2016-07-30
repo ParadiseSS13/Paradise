@@ -7,7 +7,8 @@
 #define AREAEDIT_BUILDMODE 7
 #define FILL_BUILDMODE 8
 #define LINK_BUILDMODE 9
-#define NUM_BUILDMODES 9
+#define BOOM_BUILDMODE 10
+#define NUM_BUILDMODES 10
 
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
@@ -167,6 +168,12 @@
 	var/list/link_lines = list()
 	var/obj/link_obj
 	var/valid_links = 0
+	//Explosion mode
+	var/devastation = -1
+	var/heavy = -1
+	var/light = -1
+	var/flash = -1
+	var/flames = -1
 
 /datum/click_intercept/buildmode/New(client/c)
 	..()
@@ -250,6 +257,10 @@
 			to_chat(user, "<span class='notice'>Left Mouse Button on obj  = Select button to link</span>")
 			to_chat(user, "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button")
 			to_chat(user, "<span class='notice'>***********************************************************</span>")
+		if(BOOM_BUILDMODE)
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Mouse Button on obj  = Kaboom</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/click_intercept/buildmode/proc/change_settings(mob/user)
 	switch(mode)
@@ -322,6 +333,17 @@
 				if(ispath(objholder,/mob) && !check_rights(R_DEBUG,0))
 					objholder = /obj/structure/closet
 			deselect_region()
+		if(BOOM_BUILDMODE)
+			devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null
+			if(devastation == null) devastation = -1
+			var/heavy = input("Range of heavy impact. -1 to none", text("Input"))  as num|null
+			if(heavy == null) heavy = -1
+			var/light = input("Range of light impact. -1 to none", text("Input"))  as num|null
+			if(light == null) light = -1
+			var/flash = input("Range of flash. -1 to none", text("Input"))  as num|null
+			if(flash == null) flash = -1
+			var/flames = input("Range of flames. -1 to none", text("Input"))  as num|null
+			if(flames == null) flames = -1
 
 /datum/click_intercept/buildmode/proc/change_dir()
 	switch(build_dir)
@@ -601,3 +623,5 @@
 						var/obj/effect/buildmode_line/L2 = new(holder, P, M, "[M.name] to [P.name]") // Yes, reversed one so that you can see it from both sides.
 						L2.color = L.color
 						link_lines += L2
+		if(BOOM_BUILDMODE)
+			explosion(object, devastation, heavy, light, flash, null, null,flames)

@@ -54,10 +54,10 @@
 /obj/item/weapon/reagent_containers/glass/attack_self()
 	..()
 	if(is_open_container())
-		to_chat(usr, "<span class='notice'>You put the lid on \the [src].</span>")
+		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
 		flags ^= OPENCONTAINER
 	else
-		to_chat(usr, "<span class='notice'>You take the lid off \the [src].</span>")
+		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
 		flags |= OPENCONTAINER
 	update_icon()
 
@@ -208,7 +208,7 @@
 	if(usr.incapacitated())
 		return
 	if(assembly)
-		to_chat(usr, "<span class='notice'>You detach [assembly] from \the [src]</span>")
+		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
 		update_icon()
@@ -223,7 +223,7 @@
 /obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/device/assembly_holder) && can_assembly)
 		if(assembly)
-			to_chat(usr, "<span class='warning'>The [src] already has an assembly.</span>")
+			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
 			return ..()
 		assembly = W
 		user.drop_item()

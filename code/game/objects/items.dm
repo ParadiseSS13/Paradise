@@ -1,3 +1,5 @@
+var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire")
+
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
