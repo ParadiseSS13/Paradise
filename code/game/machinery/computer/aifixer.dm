@@ -12,11 +12,12 @@
 
 /obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
 	if(occupant && istype(I, /obj/item/weapon/screwdriver))
-		if(stat & (NOPOWER|BROKEN))
+		if(stat & BROKEN)
+			..()
+		if(stat & NOPOWER)
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge.</span>")
 		else
-			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep.</span>")
-		return
+			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
 	else
 		..()
 
@@ -135,3 +136,18 @@
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Reconstruction in progress.")
 		else if(!occupant)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Unable to locate artificial intelligence.")
+
+/obj/machinery/computer/aifixer/Destroy()
+	if(occupant)
+		occupant.ghostize()
+		qdel(occupant)
+		occupant = null
+	return ..()
+
+/obj/machinery/computer/aifixer/emp_act()
+	if(occupant)
+		occupant.ghostize()
+		qdel(occupant)
+		occupant = null
+	else
+		..()
