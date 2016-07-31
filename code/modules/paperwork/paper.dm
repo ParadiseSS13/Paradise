@@ -434,7 +434,7 @@
 			user.IgniteMob()
 			return
 
-		if(!(in_range(user, src))) //to prevent issues as a result of telepathically lighting a paper
+		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
 		user.unEquip(src)
