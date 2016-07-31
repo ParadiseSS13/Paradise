@@ -39,7 +39,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		L.imp_in = H
 		L.implanted = 1
 		H.sec_hud_set_implants()
-		captain_announcement.Announce("All hands, captain [H.real_name] on deck!")
+		captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
 		callHook("captain_spawned", list("captain" = H))
 		return 1
 
@@ -143,7 +143,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the nanotrasen representative"
+	supervisors = "the Nanotrasen representative"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
