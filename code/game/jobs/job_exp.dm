@@ -2,6 +2,8 @@
 // Player Verbs
 
 
+/*
+// Player's "check my EXP" verb, commented by request of Neca
 /client/verb/check_exp()
 	set name = "EXP"
 	set desc = "Shows your EXP status"
@@ -12,14 +14,14 @@
 	body += get_exp_report()
 	body += "</HTML>"
 	src << browse(body, "window=playerexp;size=550x615")
-
+*/
 
 // Admin Verbs
 
-/client/proc/cmd_mentor_check_player_exp()	//Allows mentors / admins to determine who the newer players are.
+/client/proc/cmd_admin_check_player_exp()	//Allows admins to determine who the newer players are.
 	set category = "Admin"
 	set name = "Check Player XP"
-	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+	if(!check_rights(R_ADMIN))
 		return
 	var/msg = "<html><head><title>EXP Report</title></head><BR>"
 	for(var/client/C in clients)
@@ -29,10 +31,11 @@
 		msg += "<BR> - [key_name_admin(C.mob)]: <A href='?_src_=holder;getexpwindow=\ref[C.mob]'>" + C.get_exp_general() + "</a> "
 	if(msg != "")
 		src << browse(msg, "window=Player_exp_check")
-
+	log_admin("[key_name(usr)] checked player EXP")
+	feedback_add_details("admin_verb","MEXP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_show_exp_panel(var/client/C in clients)
-	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+	if(!check_rights(R_ADMIN))
 		return
 	var/body = "<html><head><title>EXP for [C.key]</title></head><BR>"
 	body += C.get_exp_report()
@@ -40,7 +43,7 @@
 	src << browse(body, "window=playerexp;size=550x615")
 
 
-// Debug verbs
+// Admin Debug verbs
 
 /client/verb/add_exp()
 	set name = "EXP Add"
@@ -49,7 +52,8 @@
 	if(!check_rights(R_DEBUG))
 		return
 	update_exp(60, 1)
-
+	log_admin("[key_name(usr)] granted player EXP")
+	feedback_add_details("admin_verb","GEXP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 // Procs
@@ -92,8 +96,9 @@
 		return "[src] has no client."
 
 /client/proc/get_exp_report()
+	if(!config.use_exp_tracking)
+		return "EXP tracking is disabled in the server configuration file."
 	var/return_text = ""
-	//to_chat(src,"MARK 1 [return_text]")
 	var/list/play_records = params2list(prefs.exp)
 	var/exp_gen = text2num(play_records["gen"])
 	var/exp_com = text2num(play_records["com"])
@@ -107,30 +112,28 @@
 	var/exp_gho = text2num(play_records["gho"])
 	var/exp_imm = text2num(play_records["imm"])
 	if(play_records.len)
-		//to_chat(src,"MARK 2 [return_text]")
 		if(exp_gen > 0)
-			return_text += "Experience:<BR>- General: [exp_gen]"
+			return_text += "Experience:<BR>- General: " + get_exp_format(exp_gen)
 		if(exp_com > 0)
-			return_text += "<BR>- Command: [exp_com]"
+			return_text += "<BR>- Command: " + get_exp_format(exp_com)
 		if(exp_sec > 0)
-			return_text += "<BR>- Security: [exp_sec]"
+			return_text += "<BR>- Security: " + get_exp_format(exp_sec)
 		if(exp_sci > 0)
-			return_text += "<BR>- Science: [exp_sci]"
+			return_text += "<BR>- Science: " + get_exp_format(exp_sci)
 		if(exp_eng > 0)
-			return_text += "<BR>- Engineering: [exp_eng]"
+			return_text += "<BR>- Engineering: " + get_exp_format(exp_eng)
 		if(exp_med > 0)
-			return_text += "<BR>- Medical: [exp_med]"
+			return_text += "<BR>- Medical: " + get_exp_format(exp_med)
 		if(exp_sup > 0)
-			return_text += "<BR>- Support: [exp_sup]"
+			return_text += "<BR>- Support: " + get_exp_format(exp_sup)
 		if(exp_sil > 0)
-			return_text += "<BR>- Silicon: [exp_sil]"
+			return_text += "<BR>- Silicon: " + get_exp_format(exp_sil)
 		if(exp_ant > 0)
-			return_text += "<BR>- Special: [exp_ant]"
+			return_text += "<BR>- Special: " + get_exp_format(exp_ant)
 		if(exp_gho > 0)
-			return_text += "<BR>- Ghost: [exp_gho]"
+			return_text += "<BR>- Ghost: " + get_exp_format(exp_gho)
 		if(exp_imm > 0)
 			return_text += "<BR>- Grandfathered: YES"
-		//to_chat(src,"MARK 3 [return_text]")
 		var/list/jobs_locked = list()
 		var/list/jobs_unlocked = list()
 		for(var/datum/job/job in job_master.occupations)
@@ -140,24 +143,15 @@
 				else if(has_exp_for_job(mob, job.title))
 					jobs_unlocked += "<BR>- " + job.title
 				else
-					jobs_locked += "<BR>- " + job.title + " (" + play_records[job.exp_type] + " / [job.exp_requirements] [job.exp_type] EXP)"
+					jobs_locked += "<BR>- " + job.title + " (" + get_exp_format(text2num(play_records[job.exp_type])) + " / " + get_exp_format(job.exp_requirements) + " [job.exp_type] EXP)"
 		if(jobs_unlocked.len)
 			return_text += "<BR><BR>Jobs Unlocked: "
-			//var/counter = 0
 			for(var/text in jobs_unlocked)
-				//if(counter)
-				//	return_text += ","
 				return_text += text
-				//counter++
 		if(jobs_locked.len)
 			return_text += "<BR><BR>Jobs Not Unlocked: "
-			//counter = 0
 			for(var/text in jobs_locked)
-				//if(counter)
-				//	return_text += ","
 				return_text += text
-				//counter++
-			//to_chat(src,"MARK 4 [return_text]")
 		return return_text
 	else
 		return "[src] has no EXP records."
@@ -165,22 +159,25 @@
 /client/proc/get_exp_general()
 	var/list/play_records = params2list(prefs.exp)
 	var/exp_gen = text2num(play_records["gen"])
-	return num2text(round(exp_gen / 60)) + "h"
+	return get_exp_format(exp_gen)
 
+/client/proc/get_exp_format(var/expnum)
+	if(expnum > 0)
+		return num2text(round(expnum / 60)) + "h"
+	else
+		return "0h"
 
 /proc/update_exp(var/minutes, var/announce_changes = 0)
 	if(!establish_db_connection())
 		return -1
 	for(var/client/C in clients)
 		if(C.inactivity < (10 MINUTES))
-			//var/list/play_records = params2list(C.prefs.exp)
 
 			var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[C.ckey]'")
 			exp_read.Execute()
 			var/list/play_records = list()
 			while(exp_read.NextRow())
 				play_records = params2list(exp_read.item[1])
-			// -------------
 
 			for(var/rtype in list("gen","com","sec","sci","eng","med","sup","sil","ant", "gho", "imm"))
 				if(!text2num(play_records[rtype]))

@@ -2,8 +2,7 @@
 var/list/admin_verbs_default = list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/cmd_mentor_check_new_players,
-	/client/proc/cmd_mentor_check_player_exp
+	/client/proc/cmd_mentor_check_new_players
 	)
 var/list/admin_verbs_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/
@@ -75,7 +74,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
-	/client/proc/reset_all_tcs			/*resets all telecomms scripts*/
+	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
+	/client/proc/cmd_admin_check_player_exp
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
