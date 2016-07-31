@@ -36,7 +36,8 @@
 	var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new Me(pickedstart)
 	M.dest = pickedgoal
-	M.z_original = 1
+	// TODO: Tie into space manager
+	M.z_original = ZLEVEL_STATION
 	spawn(0)
 		walk_towards(M, M.dest, 1)
 	return
@@ -102,6 +103,7 @@
 	var/dropamt = 2
 
 /obj/effect/meteor/Move()
+	// TODO: Tie into space manager
 	if(z != z_original || loc == dest)
 		qdel(src)
 		return
@@ -309,5 +311,3 @@
 /obj/effect/meteor/goreops/Bump(atom/A)
 	A.ex_act(hitpwr)
 	get_hit()
-
-

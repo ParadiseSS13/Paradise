@@ -6,6 +6,7 @@
 	height = 7
 
 /obj/docking_port/mobile/assault_pod/request()
+	// TODO: Tie into space manager
 	if(z == initial(src.z)) //No launching pods that have already launched
 		return ..()
 

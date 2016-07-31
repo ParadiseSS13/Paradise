@@ -75,6 +75,7 @@
 
 	var/list/cameras = list()
 	for(var/obj/machinery/camera/C in cameranet.cameras)
+		// TODO: Tie into space manager
 		if((z > MAX_Z || C.z > MAX_Z) && (C.z != z)) //can only recieve away mission cameras on away missions
 			continue
 		if(!can_access_camera(C))

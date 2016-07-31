@@ -180,6 +180,7 @@
 	var/turf/position = get_turf(src)
 
 	// Toggle on/off getting signals from the station or the current Z level
+	// TODO: Tie into space manager
 	if(src.listening_level == ZLEVEL_STATION) // equals the station
 		src.listening_level = position.z
 		return 1
@@ -393,4 +394,3 @@
 	if(issilicon(user) || in_range(user, src))
 		return 1
 	return 0
-

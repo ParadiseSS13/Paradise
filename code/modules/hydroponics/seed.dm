@@ -376,6 +376,7 @@
 
 	// Bluespace tomato code copied over from grown.dm.
 	if(get_trait(TRAIT_TELEPORTING))
+		// TODO: Tie into space manager
 		if(target.z in config.admin_levels)
 			return 1
 

@@ -382,6 +382,7 @@
 	range = RANGED
 
 	action(atom/target)
+		// TODO: Tie into space manager
 		if(!action_checks(target) || (src.loc.z in config.admin_levels)) return
 		var/turf/T = get_turf(target)
 		if(T)
@@ -403,6 +404,7 @@
 
 
 	action(atom/target)
+		// TODO: Tie into space manager
 		if(!action_checks(target) || (src.loc.z in config.admin_levels)) return
 		var/list/theareas = list()
 		for(var/area/AR in orange(100, chassis))
