@@ -48,7 +48,6 @@
 	var/obj/item/r_hand_obj = null
 	implant_color = "#DE7E00"
 	slot = "brain_antidrop"
-	origin_tech = "materials=5;programming=4;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
@@ -126,7 +125,6 @@
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
-	origin_tech = "materials=6;programming=4;biotech=5"
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/on_life()
 	..()
@@ -149,7 +147,6 @@
 	desc = "<span class='sans'>Uh oh.</span>"
 	implant_color = "#DEDE00"
 	slot = "brain_clownvoice"
-	origin_tech = "materials=2;biotech=2"
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
@@ -168,7 +165,6 @@
 	var/synthesizing = 0
 	var/poison_amount = 5
 	slot = "stomach"
-	origin_tech = "materials=5;programming=3;biotech=4"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
 	if(!owner)
@@ -197,14 +193,12 @@
 	implant_color = "#006607"
 	hunger_threshold = 300
 	poison_amount = 10
-	origin_tech = "materials=5;programming=3;biotech=5"
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
 	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
 	icon_state = "chest_implant"
 	implant_color = "#AD0000"
-	origin_tech = "materials=6;programming=3;biotech=6;syndicate=4"
 	slot = "heartdrive"
 	var/revive_cost = 0
 	var/reviving = 0
@@ -262,7 +256,6 @@
 	icon_state = "chest_implant"
 	implant_color = "#007ACC"
 	slot = "shoulders"
-	origin_tech = "materials=5;biotech=4;powerstorage=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/obj/holder//is defined as the retractable item itself. ensure this is defined somewhere!
 	var/out = 0//determines if the item is in the owner's hand or not
@@ -318,7 +311,6 @@
 	name = "Arm-cannon taser implant"
 	desc = "A variant of the arm cannon implant that fires electrodes and disabler shots. The cannon emerges from the subject's arms and remains in the shoulders when not in use."
 	icon_state = "armcannon_tase_implant"
-	origin_tech = "materials=5;combat=5;biotech=4;powerstorage=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/tase/New()//when the implant is created...
@@ -328,7 +320,6 @@
 	name = "Arm-cannon laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arms and remains in the shoulders when not in use."
 	icon_state = "armcannon_lase_implant"
-	origin_tech = "materials=5;combat=5;biotech=4;powerstorage=4;syndicate=5"//this is kinda nutty and i might lower it
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/lase/New()

@@ -150,7 +150,6 @@
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
-	origin_tech = "combat=2;materials=2"
 
 /obj/item/weapon/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
@@ -163,7 +162,6 @@
 	name = "nagant revolver"
 	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
-	origin_tech = "combat=3"
 	can_suppress = 1
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
@@ -173,7 +171,6 @@
 /obj/item/weapon/gun/projectile/revolver/russian
 	name = "\improper Russian Revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
-	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357
 	var/spun = 0
 
@@ -278,7 +275,6 @@
 	force = 10
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	origin_tech = "combat=3;materials=1"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	sawn_desc = "Omar's coming!"
 	unique_rename = 1
@@ -332,7 +328,6 @@
 	w_class = 4
 	force = 10
 	slot_flags = null
-	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = 0
@@ -381,7 +376,6 @@
 	force = 10
 	can_unsuppress = 0
 	slot_flags = null
-	origin_tech = "" // NO GIVAWAYS
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")

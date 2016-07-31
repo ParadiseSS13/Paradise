@@ -1,7 +1,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon
 	name = "mecha weapon"
 	range = RANGED
-	origin_tech = "materials=3;combat=3"
 	var/projectile
 	var/fire_sound
 	var/size=0
@@ -95,7 +94,6 @@
 	name = "eZ-13 mk2 Heavy pulse rifle"
 	icon_state = "mecha_pulse"
 	energy_drain = 120
-	origin_tech = "materials=3;combat=6;powerstorage=4"
 	projectile = /obj/item/projectile/beam/pulse/heavy
 	fire_sound = 'sound/weapons/marauder.ogg'
 
@@ -449,7 +447,6 @@
 	icon_state = "mecha_plasmacutter"
 	item_state = "plasmacutter"
 	energy_drain = 60
-	origin_tech = "materials=3;combat=2;powerstorage=3;plasmatech=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'
 

@@ -2,7 +2,6 @@
 	name = "flashbang"
 	icon_state = "flashbang"
 	item_state = "flashbang"
-	origin_tech = "materials=2;combat=1"
 
 /obj/item/weapon/grenade/flashbang/prime()
 	update_mob()

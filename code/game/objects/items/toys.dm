@@ -195,7 +195,6 @@
 	throw_range = 5
 	force_unwielded = 0
 	force_wielded = 0
-	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 
 /obj/item/weapon/twohanded/dualsaber/toy/hit_reaction()
@@ -1331,7 +1330,6 @@ obj/item/toy/cards/deck/syndicate/black
 	throw_speed = 4
 	throw_range = 5
 	force = 5.0
-	origin_tech = "combat=1"
 	attack_verb = list("struck", "hit", "bashed")
 	var/bullet_position = 1
 	var/is_empty = 0

@@ -5,7 +5,6 @@
 	item_state = "l6closedmag"
 	w_class = 5
 	slot_flags = 0
-	origin_tech = "combat=5;materials=1;syndicate=2"
 	mag_type = /obj/item/ammo_box/magazine/mm556x45
 	weapon_weight = WEAPON_MEDIUM
 	fire_sound = 'sound/weapons/Gunshot3.ogg'
@@ -102,14 +101,12 @@ obj/item/projectile/bullet/saw/incen/Move()
 /obj/item/ammo_box/magazine/mm556x45
 	name = "box magazine (5.56x45mm)"
 	icon_state = "a762-50"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45
 	caliber = "mm55645"
 	max_ammo = 50
 
 /obj/item/ammo_box/magazine/mm556x45/bleeding
 	name = "box magazine (Bleeding 5.56x45mm)"
-	origin_tech = "combat=3"
 	ammo_type = /obj/item/ammo_casing/mm556x45/bleeding
 
 /obj/item/ammo_box/magazine/mm556x45/hollow
@@ -119,12 +116,10 @@ obj/item/projectile/bullet/saw/incen/Move()
 
 /obj/item/ammo_box/magazine/mm556x45/ap
 	name = "box magazine (Armor Penetrating 5.56x45mm)"
-	origin_tech = "combat=4"
 	ammo_type = /obj/item/ammo_casing/mm556x45/ap
 
 /obj/item/ammo_box/magazine/mm556x45/incen
 	name = "box magazine (Incendiary 5.56x45mm)"
-	origin_tech = "combat=4"
 	ammo_type = /obj/item/ammo_casing/mm556x45/incen
 
 /obj/item/ammo_box/magazine/mm556x45/update_icon()

@@ -10,7 +10,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
-	origin_tech = "magnets=1;biotech=1"
 	var/form_title
 	var/last_data
 
@@ -290,7 +289,6 @@
 	throw_speed = 4
 	throw_range = 4
 	materials = list(MAT_METAL=15000)
-	origin_tech = "materials=2;combat=1"
 	attack_verb = list("chopped", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -316,7 +314,6 @@
 	flags = CONDUCT
 	armour_penetration = 20
 	slot_flags = SLOT_BACK
-	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 

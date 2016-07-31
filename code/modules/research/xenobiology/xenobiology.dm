@@ -11,7 +11,6 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 6
-	origin_tech = "biotech=3"
 	var/Uses = 1 // uses before it goes inert
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
@@ -122,7 +121,6 @@
 	name = "slime potion"
 	desc = "A hard yet gelatinous capsule excreted by a slime, containing mysterious substances."
 	w_class = 1
-	origin_tech = "biotech=4"
 
 /obj/item/slimepotion/afterattack(obj/item/weapon/reagent_containers/target, mob/user , proximity)
 	if(istype(target))
@@ -180,7 +178,6 @@
 	desc = "A miraculous chemical mix that can raise the intelligence of creatures to human levels. Unlike normal slime potions, it can be absorbed by any nonsentient being."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
-	origin_tech = "biotech=5"
 	var/list/not_interested = list()
 	var/being_used = 0
 	var/sentience_type = SENTIENCE_ORGANIC

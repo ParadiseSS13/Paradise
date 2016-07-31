@@ -4,7 +4,6 @@
 	icon_state = "energy"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
-	origin_tech = "combat=3;magnets=2"
 	modifystate = 2
 	can_flashlight = 1
 	ammo_x_offset = 3
@@ -82,7 +81,6 @@
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
 	item_state = "nucgun"
-	origin_tech = "combat=3;materials=5;powerstorage=3"
 	var/fail_tick = 0
 	charge_delay = 5
 	can_charge = 0

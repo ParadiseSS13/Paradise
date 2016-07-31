@@ -3,7 +3,6 @@
 	desc = "Use this to escape from those evil Red Shirts."
 	icon_state = "freedom"
 	item_color = "r"
-	origin_tech = "materials=2;magnets=3;biotech=3;syndicate=4"
 	uses = 4
 
 

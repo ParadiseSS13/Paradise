@@ -11,7 +11,6 @@
 	throw_range = 7
 	w_class = 4
 	materials = list(MAT_METAL = 500)
-	origin_tech = "combat=1"
 	attack_verb = list("robusted")
 	hitsound = "sound/weapons/smash.ogg"
 
@@ -77,7 +76,6 @@
 	name = "suspicious looking toolbox"
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
-	origin_tech = "combat=1;syndicate=1"
 	silent = 1
 	force = 15.0
 	throwforce = 18.0

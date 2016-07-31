@@ -84,20 +84,17 @@
 	item_state = "com_headset_alt"
 
 /obj/item/device/radio/headset/syndicate
-	origin_tech = "syndicate=3"
 	syndie = 1
 	ks1type = /obj/item/device/encryptionkey/syndicate
 
-/obj/item/device/radio/headset/syndicate/alt //undisguised bowman with flash protection
+/obj/item/device/radio/headset/syndicate/alt //undisguised bowman with flashbang protection
 	name = "syndicate headset"
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
-	origin_tech = "syndicate=3"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
 /obj/item/device/radio/headset/binary
-	origin_tech = "syndicate=3"
 	ks1type = /obj/item/device/encryptionkey/binary
 
 /obj/item/device/radio/headset/headset_sec

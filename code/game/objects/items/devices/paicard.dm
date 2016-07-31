@@ -5,7 +5,6 @@
 	item_state = "electronic"
 	w_class = 2
 	slot_flags = SLOT_BELT
-	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/device/radio/radio

@@ -26,7 +26,6 @@
 	throwforce = 7.0
 	w_class = 2
 	materials = list(MAT_METAL=150)
-	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 
 
@@ -106,7 +105,6 @@
 	throw_range = 7
 	w_class = 2
 	materials = list(MAT_METAL=80)
-	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
 	hitsound = "sound/items/Wirecutter.ogg"
 	sharp = 1
@@ -152,9 +150,6 @@
 
 	//Cost to make in the autolathe
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
-
-	//R&D tech level
-	origin_tech = "engineering=1"
 
 	//Welding tool specific stuff
 	var/welding = 0 	//Whether or not the welding tool is off(0), on(1) or currently welding(2)
@@ -384,7 +379,6 @@
 	icon_state = "indwelder"
 	max_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
-	origin_tech = "engineering=2"
 
 /obj/item/weapon/weldingtool/largetank/cyborg
 
@@ -411,7 +405,6 @@
 	max_fuel = 80
 	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
-	origin_tech = "engineering=3"
 
 /obj/item/weapon/weldingtool/experimental
 	name = "Experimental Welding Tool"
@@ -421,7 +414,6 @@
 	max_fuel = 40
 	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
-	origin_tech = "engineering=4;plasmatech=3"
 	var/last_gen = 0
 	change_icons = 0
 	can_off_process = 1
@@ -455,7 +447,6 @@
 	item_state = "crowbar"
 	w_class = 2
 	materials = list(MAT_METAL=50)
-	origin_tech = "engineering=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 
 /obj/item/weapon/crowbar/red
@@ -480,7 +471,6 @@
 	icon_state = "kit"
 	flags = CONDUCT
 	w_class = 2
-	origin_tech = "combat=2"
 	var/open = 0
 
 	New()

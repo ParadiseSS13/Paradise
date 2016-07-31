@@ -11,7 +11,6 @@
 	icon_state = "vest_stealth"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	origin_tech = "materials=5;biotech=4;powerstorage=5;abductor=3"
 	armor = list(melee = 15, bullet = 15, laser = 15, energy = 15, bomb = 15, bio = 15, rad = 15)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	var/mode = VEST_STEALTH
@@ -140,7 +139,6 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gizmo_scan"
 	item_state = "gizmo"
-	origin_tech = "materials=5;magnets=5;bluespace=6;abductor=4"
 	var/mode = GIZMO_SCAN
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
@@ -221,7 +219,6 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "silencer"
 	item_state = "silencer"
-	origin_tech = "materials=5;magnets=5;abductor=3"
 
 /obj/item/device/abductor/silencer/attack(mob/living/M, mob/user)
 	if(!AbductorCheck(user))
@@ -265,7 +262,6 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "implant"
 	activated = 1
-	origin_tech = "materials=2;biotech=3;magnets=4;bluespace=5;abductor=5"
 	var/obj/machinery/abductor/pad/home
 	var/cooldown = 30
 
@@ -311,7 +307,6 @@
 	desc = "A complicated gun that fires bursts of high-intensity radiation."
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
-	origin_tech = "combat=5;materials=4;powerstorage=3;abductor=3"
 	restricted_species = list("Abductor")
 
 /obj/item/weapon/paper/abductor
@@ -354,7 +349,6 @@ Congratulations! You are now trained for xenobiology research!"}
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
 	slot_flags = SLOT_BELT
-	origin_tech = "materials=6;combat=5;biotech=7;abductor=4"
 	force = 7
 	w_class = 3
 	actions_types = list(/datum/action/item_action/toggle_mode)
@@ -517,7 +511,6 @@ Congratulations! You are now trained for xenobiology research!"}
 	icon_state = "cuff_white" // Needs sprite
 	breakouttime = 450
 	trashtype = /obj/item/weapon/restraints/handcuffs/energy/used
-	origin_tech = "materials=2;magnets=5;abductor=2"
 
 /obj/item/weapon/restraints/handcuffs/energy/used
 	desc = "energy discharge"
@@ -546,32 +539,26 @@ Congratulations! You are now trained for xenobiology research!"}
 /obj/item/weapon/scalpel/alien
 	name = "alien scalpel"
 	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
 
 /obj/item/weapon/hemostat/alien
 	name = "alien hemostat"
 	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
 
 /obj/item/weapon/retractor/alien
 	name = "alien retractor"
 	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
 
 /obj/item/weapon/circular_saw/alien
 	name = "alien saw"
 	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
 
 /obj/item/weapon/surgicaldrill/alien
 	name = "alien drill"
 	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
 
 /obj/item/weapon/cautery/alien
 	name = "alien cautery"
 	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
 
 /obj/item/clothing/head/helmet/abductor
 	name = "agent headgear"
@@ -579,7 +566,6 @@ Congratulations! You are now trained for xenobiology research!"}
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
 	blockTracking = 1
-	origin_tech = "materials=6;magnets=5;abductor=3"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 

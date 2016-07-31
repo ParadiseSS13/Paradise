@@ -126,12 +126,10 @@
 /obj/item/weapon/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
-	origin_tech = "programming=3"
 
 /obj/item/weapon/circuitboard/robotstoragecontrol
 	name = "Circuit board (Robotic Storage Console)"
 	build_path = "/obj/machinery/computer/cryopod/robot"
-	origin_tech = "programming=3"
 
 //Decorative structures to go alongside cryopods.
 /obj/structure/cryofeed

@@ -35,4 +35,3 @@
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=100)
-	origin_tech = "magnets=1"

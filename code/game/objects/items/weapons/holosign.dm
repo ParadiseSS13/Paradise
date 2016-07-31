@@ -9,7 +9,6 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	origin_tech = "programming=3"
 	var/list/signs = list()
 	var/max_signs = 10
 

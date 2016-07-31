@@ -39,7 +39,6 @@
 	icon_state = "ling_eyeshield"
 	eye_colour = null
 	implant_overlay = null
-	origin_tech = "biotech=4"
 	slot = "eye_ling"
 	status = 0
 	aug_message = "We feel a minute twitch in our eyes, our eyes feel more durable."
@@ -62,7 +61,6 @@
 	icon_state = "ling_thermal"
 	eye_colour = null
 	implant_overlay = null
-	origin_tech = "biotech=5;magnets=5"
 	slot = "eye_ling"
 	status = 0
 	aug_message = "We feel a minute twitch in our eyes, and darkness creeps away."

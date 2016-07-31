@@ -551,7 +551,6 @@
 	name = "Circuit board (Programmable Unloader)"
 	build_path = "/obj/machinery/programmable"
 	board_type = "machine"
-	origin_tech = "engineering=3;programming=6"
 	frame_desc = "Requires 2 Manipulators, 1 Scanning Module, 1 Cable."
 	req_components = list(
 							/obj/item/weapon/stock_parts/scanning_module = 1,

@@ -36,7 +36,6 @@
 	desc = "A dual-mode taser designed to fire both short-range high-power electrodes and long-range disabler beams."
 	icon_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
-	origin_tech = null
 	ammo_x_offset = 2
 
 /obj/item/weapon/gun/energy/gun/advtaser/cyborg

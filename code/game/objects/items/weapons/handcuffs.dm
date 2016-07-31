@@ -11,7 +11,6 @@
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
-	origin_tech = "materials=1"
 	breakouttime = 600 //Deciseconds = 60s = 1 minutes
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs

@@ -5,7 +5,6 @@
 	item_state = "laser"
 	w_class = 3
 	materials = list(MAT_METAL=2000)
-	origin_tech = "combat=3;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = 1
@@ -38,7 +37,6 @@
 	icon_state = "lasercannon"
 	item_state = "laser"
 	desc = "An industrial-grade heavy-duty laser rifle with a modified laser lense to scatter its shot into multiple smaller lasers. The inner-core can self-charge for theorically infinite use."
-	origin_tech = "combat=5;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = 0
 
@@ -70,7 +68,6 @@
 	force = 10
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
-	origin_tech = "combat=4;materials=3;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
 
@@ -111,7 +108,6 @@
 	name = "xray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts."
 	icon_state = "xray"
-	origin_tech = "combat=5;materials=3;magnets=2;syndicate=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 
 /obj/item/weapon/gun/energy/immolator
@@ -120,7 +116,6 @@
 	icon_state = "immolator"
 	item_state = "laser"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
-	origin_tech = "combat=4;materials=4;magnets=3;plasmatech=2"
 	shaded_charge = 1
 
 ////////Laser Tag////////////////////
@@ -130,7 +125,6 @@
 	icon_state = "bluetag"
 	desc = "Standard issue weapon of the Imperial Guard"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
-	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
 	needs_permit = 0
 	ammo_x_offset = 2
@@ -141,7 +135,6 @@
 	icon_state = "redtag"
 	desc = "Standard issue weapon of the Imperial Guard"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
-	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
 	needs_permit = 0
 	ammo_x_offset = 2

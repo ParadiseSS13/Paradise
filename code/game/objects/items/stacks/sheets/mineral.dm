@@ -88,7 +88,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	icon_state = "sheet-sandstone"
 	throw_speed = 3
 	throw_range = 5
-	origin_tech = "materials=1"
 	sheettype = "sandstone"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
@@ -99,7 +98,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
-	origin_tech = "materials=6"
 	sheettype = "diamond"
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
@@ -111,7 +109,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
 	icon_state = "sheet-uranium"
-	origin_tech = "materials=5"
 	sheettype = "uranium"
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 
@@ -122,7 +119,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
-	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 
@@ -133,7 +129,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral/plastic
 	name = "Plastic"
 	icon_state = "sheet-plastic"
-	origin_tech = "materials=3"
 
 /obj/item/stack/sheet/mineral/plastic/New()
 	..()
@@ -146,7 +141,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
-	origin_tech = "materials=4"
 	sheettype = "gold"
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 
@@ -157,7 +151,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
-	origin_tech = "materials=3"
 	sheettype = "silver"
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 
@@ -168,7 +161,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
 	icon_state = "sheet-clown"
-	origin_tech = "materials=4"
 	sheettype = "clown"
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
@@ -180,7 +172,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	name = "tranquillite"
 	singular_name = "beret"
 	icon_state = "sheet-mime"
-	origin_tech = "materials=4"
 	sheettype = "mime"
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 
@@ -191,7 +182,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"
 	icon_state = "sheet-enruranium"
-	origin_tech = "materials=6"
 	materials = list(MAT_URANIUM=3000)
 
 /*
@@ -207,7 +197,6 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	w_class = 3
 	throw_speed = 1
 	throw_range = 3
-	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"
 
 var/global/list/datum/stack_recipe/abductor_recipes = list ( \

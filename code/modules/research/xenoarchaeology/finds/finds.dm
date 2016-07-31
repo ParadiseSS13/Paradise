@@ -30,7 +30,6 @@
 	icon_state = "strange"
 	var/obj/item/weapon/inside
 	var/method = 0// 0 = fire, 1 = brush, 2 = pick
-	origin_tech = "materials=5"
 
 /obj/item/weapon/ore/strangerock/New(loc, var/inside_item_type = 0)
 	..(loc)

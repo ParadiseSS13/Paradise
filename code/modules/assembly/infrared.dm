@@ -3,7 +3,6 @@
 	desc = "Emits a visible or invisible beam and is triggered when the beam is interrupted."
 	icon_state = "infrared"
 	materials = list(MAT_METAL=1000, MAT_GLASS=500)
-	origin_tech = "magnets=2"
 
 	bomb_name = "tripwire mine"
 
@@ -174,7 +173,7 @@
 		return
 
 	dir = turn(dir, 90)
-	
+
 	if(usr.machine == src)
 		interact(usr)
 

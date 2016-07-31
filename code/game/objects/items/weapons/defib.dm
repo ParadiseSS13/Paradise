@@ -10,7 +10,6 @@
 	force = 5
 	throwforce = 6
 	w_class = 4
-	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -212,7 +211,6 @@
 	item_state = "defibcompact"
 	w_class = 3
 	slot_flags = SLOT_BELT
-	origin_tech = "biotech=4"
 
 /obj/item/weapon/defibrillator/compact/item_action_slot_check(slot, mob/user)
 	if(slot == slot_belt)

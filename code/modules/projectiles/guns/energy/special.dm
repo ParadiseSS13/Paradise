@@ -4,7 +4,6 @@
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/IonRifle.ogg'
-	origin_tech = "combat=2;magnets=4"
 	w_class = 5
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
@@ -20,7 +19,6 @@
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
-	origin_tech = "combat=4;magnets=4;materials=4"
 	w_class = 3
 	slot_flags = SLOT_BELT
 	ammo_x_offset = 2
@@ -32,7 +30,6 @@
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
 	icon_state = "decloner"
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	origin_tech = "combat=5;materials=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
 
@@ -49,7 +46,6 @@
 	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
-	origin_tech = "materials=2;biotech=3;powerstorage=3"
 	modifystate = 1
 	ammo_x_offset = 1
 	selfcharge = 1
@@ -121,7 +117,6 @@
 	// Apparently these are safe to carry? I'm sure goliaths would disagree.
 	needs_permit = 0
 	unique_rename = 1
-	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
 	can_flashlight = 1
 	flight_x_offset = 15
@@ -137,7 +132,6 @@
 	icon_state = "kineticgun_u"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/super)
 	overheat_time = 15
-	origin_tech = "combat=3;powerstorage=2"
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/hyper
 	name = "hyper-kinetic accelerator"
@@ -145,7 +139,6 @@
 	icon_state = "kineticgun_h"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/hyper)
 	overheat_time = 14
-	origin_tech = "combat=4;powerstorage=3"
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
@@ -226,7 +219,6 @@
 	item_state = "crossbow"
 	w_class = 2
 	materials = list(MAT_METAL=2000)
-	origin_tech = "combat=2;magnets=2;syndicate=5"
 	suppressed = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
 	weapon_weight = WEAPON_LIGHT
@@ -245,7 +237,6 @@
 	icon_state = "crossbowlarge"
 	w_class = 3
 	materials = list(MAT_METAL=4000)
-	origin_tech = "combat=2;magnets=2;syndicate=3" //can be further researched for more syndie tech
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 
@@ -268,7 +259,6 @@
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
 	modifystate = -1
-	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=2;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	flags = CONDUCT | OPENCONTAINER
@@ -303,7 +293,6 @@
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
-	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=3;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
 
@@ -411,7 +400,6 @@
 	icon_state = "toxgun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	w_class = 3
-	origin_tech = "combat=4;plasmatech=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = 1
 
@@ -419,7 +407,6 @@
 	name = "L.W.A.P. Sniper Rifle"
 	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
 	icon_state = "esniper"
-	origin_tech = "combat=6;materials=5;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	slot_flags = SLOT_BACK
 	w_class = 4
@@ -439,7 +426,6 @@
 	var/temperature = 300
 	var/target_temperature = 300
 	var/e_cost = 1000
-	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
 	selfcharge = 1

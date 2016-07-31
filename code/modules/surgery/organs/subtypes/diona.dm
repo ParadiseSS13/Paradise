@@ -121,7 +121,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 	organ_tag = "heart" // Turns into a nymph instantly, no transplanting possible.
-	origin_tech = "biotech=3"
 	parent_organ = "chest"
 	slot = "heart"
 	species = "Diona"
@@ -132,7 +131,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 	organ_tag = "brain" // Turns into a nymph instantly, no transplanting possible.
-	origin_tech = "biotech=3"
 	slot = "brain"
 	species = "Diona"
 
@@ -141,7 +139,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 	organ_tag = "kidneys" // Turns into a nymph instantly, no transplanting possible.
-	origin_tech = "biotech=3"
 	parent_organ = "groin"
 	slot = "kidneys"
 	species = "Diona"
@@ -151,7 +148,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 	organ_tag = "appendix" // Turns into a nymph instantly, no transplanting possible.
-	origin_tech = "biotech=3"
 	parent_organ = "groin"
 	slot = "appendix"
 	species = "Diona"
@@ -161,7 +157,6 @@
 	organ_tag = "eyes"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
-	origin_tech = "biotech=3"
 	parent_organ = "head"
 	slot = "eyes"
 	species = "Diona"

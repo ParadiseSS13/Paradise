@@ -6,7 +6,6 @@
 	flags = NOBLUDGEON
 	det_time = 10
 	display_timer = 0
-	origin_tech = "syndicate=2"
 	var/atom/target = null
 	var/image_overlay = null
 	var/obj/item/device/assembly_holder/nadeassembly = null

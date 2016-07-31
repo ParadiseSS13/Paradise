@@ -23,7 +23,6 @@
 	throw_speed = 3
 	throw_range = 5
 	flags = CONDUCT
-	origin_tech = "materials=1"
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 0
@@ -97,7 +96,6 @@
 	throw_speed = 3
 	throw_range = 6
 	materials = list(MAT_METAL=12000)
-	origin_tech = "materials=1"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	no_embed = 1
 	sharp = 1
@@ -149,7 +147,6 @@
 	desc = "A military combat utility survival knife."
 	force = 20
 	throwforce = 20
-	origin_tech = "materials=2;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 
 /*
