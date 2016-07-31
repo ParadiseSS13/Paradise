@@ -162,7 +162,7 @@
 			return "gamma"
 		if(SEC_LEVEL_EPSILON)
 			return "epsilon"
-		if (SEC_LEVEL_GREY)
+		if(SEC_LEVEL_GREY)
 			return "grey"
 		if(SEC_LEVEL_DELTA)
 			return "delta"
@@ -200,7 +200,6 @@
 			return SEC_LEVEL_GREY
 		if("delta")
 			return SEC_LEVEL_DELTA
-
 
 /*DEBUG
 /mob/verb/set_thing0()
