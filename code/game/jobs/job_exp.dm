@@ -115,23 +115,23 @@
 		if(exp_gen > 0)
 			return_text += "Experience:<BR>- General: " + get_exp_format(exp_gen)
 		if(exp_com > 0)
-			return_text += "<BR>- Command: " + get_exp_format(exp_com)
+			return_text += "<BR>- Command: " + get_exp_format(exp_com) + " (" + num2text(round(exp_com/exp_gen*100)) + "%)"
 		if(exp_sec > 0)
-			return_text += "<BR>- Security: " + get_exp_format(exp_sec)
+			return_text += "<BR>- Security: " + get_exp_format(exp_sec) + " (" + num2text(round(exp_sec/exp_gen*100)) + "%)"
 		if(exp_sci > 0)
-			return_text += "<BR>- Science: " + get_exp_format(exp_sci)
+			return_text += "<BR>- Science: " + get_exp_format(exp_sci) + " (" + num2text(round(exp_sci/exp_gen*100)) + "%)"
 		if(exp_eng > 0)
-			return_text += "<BR>- Engineering: " + get_exp_format(exp_eng)
+			return_text += "<BR>- Engineering: " + get_exp_format(exp_eng) + " (" + num2text(round(exp_eng/exp_gen*100)) + "%)"
 		if(exp_med > 0)
-			return_text += "<BR>- Medical: " + get_exp_format(exp_med)
+			return_text += "<BR>- Medical: " + get_exp_format(exp_med) + " (" + num2text(round(exp_med/exp_gen*100)) + "%)"
 		if(exp_sup > 0)
-			return_text += "<BR>- Support: " + get_exp_format(exp_sup)
+			return_text += "<BR>- Support: " + get_exp_format(exp_sup) + " (" + num2text(round(exp_sup/exp_gen*100)) + "%)"
 		if(exp_sil > 0)
-			return_text += "<BR>- Silicon: " + get_exp_format(exp_sil)
+			return_text += "<BR>- Silicon: " + get_exp_format(exp_sil) + " (" + num2text(round(exp_sil/exp_gen*100)) + "%)"
 		if(exp_ant > 0)
-			return_text += "<BR>- Special: " + get_exp_format(exp_ant)
+			return_text += "<BR>- Special: " + get_exp_format(exp_ant) + " (" + num2text(round(exp_ant/exp_gen*100)) + "%)"
 		if(exp_gho > 0)
-			return_text += "<BR>- Ghost: " + get_exp_format(exp_gho)
+			return_text += "<BR>- Ghost: " + get_exp_format(exp_gho) + " (" + num2text(round(exp_gho/exp_gen*100)) + "%)"
 		if(exp_imm > 0)
 			return_text += "<BR>- Grandfathered: YES"
 		var/list/jobs_locked = list()
