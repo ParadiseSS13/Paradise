@@ -19,9 +19,6 @@
 	var/list/all_items = owner.current.get_contents()
 	for(var/obj/I in all_items) //Check for items
 		if(istype(I, typepath) && check_special_completion(I))
-			//Stealing the cheap autoinjector doesn't count
-			if(istype(I, /obj/item/weapon/reagent_containers/hypospray/autoinjector))
-				continue
 			return 1
 	return 0
 
