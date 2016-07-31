@@ -8,7 +8,7 @@
 	supervisors = "your laws"
 	req_admin_notify = 1
 	minimal_player_age = 30
-	exp_requirements = 240
+	exp_requirements = 300
 	exp_type = "sil"
 
 	equip(var/mob/living/carbon/human/H)
@@ -28,7 +28,7 @@
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
-	exp_requirements = 120
+	exp_requirements = 300
 	exp_type = "all"
 	alt_titles = list("Android", "Robot")
 

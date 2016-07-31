@@ -17,7 +17,7 @@
 			            access_research, access_robotics, access_xenobiology, access_ai_upload,
 			            access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_minisat, access_maint_tunnels, access_mineral_storeroom)
 	minimal_player_age = 21
-	exp_requirements = 240
+	exp_requirements = 600
 	exp_type = "sci"
 
 	// All science-y guys get bonuses for maxing out their tech.
@@ -57,7 +57,7 @@
 	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
-	exp_requirements = 240
+	exp_requirements = 60
 	exp_type = "all"
 
 	// All science-y guys get bonuses for maxing out their tech.
@@ -95,7 +95,7 @@
 	minimal_access = list(access_robotics, access_tech_storage, access_morgue, access_research, access_maint_tunnels, access_mineral_storeroom) //As a job that handles so many corpses, it makes sense for them to have morgue access.
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 	minimal_player_age = 3
-	exp_requirements = 120
+	exp_requirements = 60
 	exp_type = "all"
 
 	required_objectives=list(

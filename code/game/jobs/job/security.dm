@@ -17,7 +17,7 @@
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
 			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_pilot, access_weapons)
 	minimal_player_age = 21
-	exp_requirements = 240
+	exp_requirements = 600
 	exp_type = "sec"
 
 	equip(var/mob/living/carbon/human/H)
@@ -62,7 +62,7 @@
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue, access_weapons)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 21
-	exp_requirements = 120
+	exp_requirements = 300
 	exp_type = "sec"
 
 	equip(var/mob/living/carbon/human/H)
@@ -110,7 +110,7 @@
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
-	exp_requirements = 120
+	exp_requirements = 300
 	exp_type = "all"
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -168,7 +168,7 @@
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 14
-	exp_requirements = 120
+	exp_requirements = 300
 	exp_type = "all"
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

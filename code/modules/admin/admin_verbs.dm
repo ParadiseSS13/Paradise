@@ -2,7 +2,8 @@
 var/list/admin_verbs_default = list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/cmd_mentor_check_new_players
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp
 	)
 var/list/admin_verbs_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/

@@ -67,6 +67,11 @@ var/round_start_time = 0
 		initialtpass = 1
 		votetimer()
 
+/datum/controller/gameticker/proc/exptimer()
+	spawn(600)
+		update_exp(1,0)
+		exptimer()
+
 /datum/controller/gameticker/proc/setup()
 	//Create and announce mode
 	if(master_mode=="secret")
@@ -228,6 +233,8 @@ var/round_start_time = 0
 	if(config.sql_enabled)
 		spawn(3000)
 			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
+		if(config.use_exp_tracking)
+			exptimer()
 
 	votetimer()
 
@@ -470,7 +477,6 @@ var/round_start_time = 0
 		if(findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
-	update_exp(round(ROUND_TIME / 60))
 	scoreboard()
 	karmareminder()
 

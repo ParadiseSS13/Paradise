@@ -15,7 +15,7 @@
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
 	minimal_player_age = 21
-	exp_requirements = 240
+	exp_requirements = 600
 	exp_type = "med"
 
 	equip(var/mob/living/carbon/human/H)
@@ -53,6 +53,8 @@
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse","Coroner")
 	minimal_player_age = 3
+	exp_requirements = 60
+	exp_type = "all"
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -116,7 +118,8 @@
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
-
+	exp_requirements = 180
+	exp_type = "all"
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -148,6 +151,8 @@
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
+	exp_requirements = 60
+	exp_type = "all"
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -178,6 +183,8 @@
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
+	exp_requirements = 180
+	exp_type = "all"
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

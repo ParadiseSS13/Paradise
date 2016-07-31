@@ -12,7 +12,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
-	exp_requirements = 240
+	exp_requirements = 600
 	exp_type = "com"
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -61,7 +61,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
 	minimal_player_age = 21
-	exp_requirements = 240
+	exp_requirements = 600
 	exp_type = "sup"
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_ai_upload, access_eva, access_heads,
@@ -242,6 +242,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	alt_titles = list("Lawyer","Public Defender")
 	minimal_player_age = 30
+	exp_requirements = 300
+	exp_type = "sec"
 	idtype = /obj/item/weapon/card/id/security
 
 	equip(var/mob/living/carbon/human/H)
