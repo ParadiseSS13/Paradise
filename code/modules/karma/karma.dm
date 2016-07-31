@@ -197,7 +197,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 15KP</a><br>
-+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 15KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 15KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>

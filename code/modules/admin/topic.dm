@@ -959,6 +959,10 @@
 				if(!mins)
 					return
 				if(mins >= 525600) mins = 525599
+				if(mins >= 1440)
+					switch(alert("Remove player from whitelist?",, "Yes","No"))
+						if("Yes")
+							bwhitelist_remove(ckey(M.mind.key))
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
