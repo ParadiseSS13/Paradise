@@ -96,7 +96,7 @@ var/global/dmm_suite/preloader/_preloader = new
 						if(cropMap)
 							continue
 						else
-							zlevels.increase_max_zlevel_to(zcrd) //create a new z_level if needed
+							space_manager.increase_max_zlevel_to(zcrd) //create a new z_level if needed
 
 				bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrdStart)
 				bounds[MAP_MINZ] = min(bounds[MAP_MINZ], zcrd)

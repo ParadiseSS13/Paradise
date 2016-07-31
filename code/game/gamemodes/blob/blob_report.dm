@@ -23,6 +23,7 @@
 			var/nukecode = rand(10000, 99999)
 			for(var/obj/machinery/nuclearbomb/bomb in world)
 				if(bomb && bomb.r_code)
+					// TODO: Tie into space manager
 					if(bomb.z == ZLEVEL_STATION)
 						bomb.r_code = nukecode
 

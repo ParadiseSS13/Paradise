@@ -69,6 +69,7 @@ rcd light flash thingy on matter drain
 	src.verbs -= /mob/living/silicon/ai/proc/upgrade_turrets
 	for(var/obj/machinery/porta_turret/turret in machines)
 		var/turf/T = get_turf(turret)
+		// TODO: Tie into space manager
 		if(T.z in config.station_levels)
 			// Increase health by 37.5% of original max, decrease delays between shots to 66%
 			turret.health += initial(turret.health) * 3 / 8

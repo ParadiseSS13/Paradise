@@ -113,6 +113,7 @@
 			scrubber.update_icon()
 
 	proc/validscrubber( var/obj/machinery/portable_atmospherics/scrubber/huge/scrubber as obj )
+		// TODO: Tie into space manager
 		if(!isobj(scrubber) || get_dist(scrubber.loc, src.loc) > src.range || scrubber.loc.z != src.loc.z)
 			return 0
 

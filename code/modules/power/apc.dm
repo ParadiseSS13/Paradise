@@ -170,6 +170,7 @@
 	apcs -= src
 	if(malfai && operating)
 		if(ticker.mode.config_tag == "malfunction")
+			// TODO: Tie into space manager
 			if(src.z == ZLEVEL_STATION)
 				ticker.mode:apcs--
 	area.power_light = 0
@@ -995,6 +996,7 @@
 					malfai.malfhacking = 0
 					locked = 1
 					if(ticker.mode.config_tag == "malfunction")
+						// TODO: Tie into space manager
 						if((src.z in config.station_levels)) //if(is_type_in_list(get_area(src), the_station_areas))
 							ticker.mode:apcs++
 					if(usr:parent)
@@ -1027,6 +1029,7 @@
 
 	if(malfai)
 		if(ticker.mode.config_tag == "malfunction")
+			// TODO: Tie into space manager
 			if((src.z in config.station_levels)) //if(is_type_in_list(get_area(src), the_station_areas))
 				operating ? ticker.mode:apcs++ : ticker.mode:apcs--
 
@@ -1042,6 +1045,7 @@
 	if(!malf.can_shunt)
 		to_chat(malf, "<span class='warning'>You cannot shunt.</span>")
 		return
+	// TODO: Tie into space manager
 	if(!(src.z in config.station_levels))
 		return
 	src.occupier = new /mob/living/silicon/ai(src,malf.laws,null,1)
@@ -1091,6 +1095,7 @@
 
 /obj/machinery/power/apc/proc/ion_act()
 	//intended to be exactly the same as an AI malf attack
+	// TODO: Tie into space manager
 	if(!src.malfhack && (src.z in config.station_levels))
 		if(prob(3))
 			src.locked = 1
@@ -1366,6 +1371,7 @@
 /obj/machinery/power/apc/proc/set_broken()
 	if(malfai && operating)
 		if(ticker.mode.config_tag == "malfunction")
+			// TODO: Tie into space manager
 			if((src.z in config.station_levels)) //if(is_type_in_list(get_area(src), the_station_areas))
 				ticker.mode:apcs--
 	stat |= BROKEN
