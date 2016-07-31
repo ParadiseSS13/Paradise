@@ -54,7 +54,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Captain"
+	supervisors = "the captain"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
@@ -143,7 +143,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen Representative"
+	supervisors = "the Nanotrasen representative"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
@@ -232,7 +232,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = SUPPORT
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the Magistrate"
+	supervisors = "the magistrate"
 	selection_color = "#ddddff"
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
