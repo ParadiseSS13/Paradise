@@ -111,7 +111,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/hypospray
 	name = "a hypospray"
-	typepath = /obj/item/weapon/reagent_containers/hypospray
+	typepath = /obj/item/weapon/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 
 /datum/theft_objective/ablative
