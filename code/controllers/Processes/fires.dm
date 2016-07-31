@@ -15,7 +15,7 @@ var/global/datum/controller/process/fire/fire_master
 
 /datum/controller/process/fire/doWork()
 	for(var/obj/burningobj in burning)
-		if(burningobj && (burningobj.burn_state == ON_FIRE))
+		if(burningobj.burn_state == ON_FIRE)
 			if(burningobj.burn_world_time < world.time)
 				burningobj.burn()
 				SCHECK
