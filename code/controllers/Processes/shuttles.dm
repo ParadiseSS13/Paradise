@@ -209,7 +209,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		if(!M.roundstart_move)
 			continue
 		for(var/obj/docking_port/stationary/S in stationary)
-			if(is_station_level(S.z) && findtext(S.id, M.id))
+			if(!is_station_level(S.z) && findtext(S.id, M.id))
 				S.width = M.width
 				S.height = M.height
 				S.dwidth = M.dwidth
