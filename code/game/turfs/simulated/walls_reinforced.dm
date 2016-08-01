@@ -12,6 +12,7 @@
 	walltype = "rwall"
 
 	var/d_state = 0
+	var/can_be_reinforced = 1
 
 /turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -229,6 +230,23 @@
 			smooth_icon_neighbors(src)
 			to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
 
+	//UPGRADING TO COATED
+	else if(istype(W, /obj/item/stack/sheet/plasteel) && !d_state)
+		var/obj/item/stack/sheet/plasteel/MS = W
+		if(!can_be_reinforced)
+			to_chat(user, "<span class='notice'>The wall is either too damaged or already reinforced!</span>")
+			return
+		to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall with \a [MS].</span>")
+
+		if(!MS.use(2))
+			to_chat(user, "<span class='warning'>You don't have enough plasteel for that!</span>")
+			return
+
+		ChangeTurf(/turf/simulated/wall/r_wall/coated)
+		update_icon()
+		smooth_icon_neighbors(src)
+		can_be_reinforced = 0
+		return
 
 	//APC
 	else if(istype(W,/obj/item/mounted))
@@ -294,3 +312,12 @@
 	else
 		smooth = SMOOTH_TRUE
 		icon_state = ""
+
+/turf/simulated/wall/r_wall/coated			//Coated for the heat resistance
+	name = "coated reinforced wall"
+	desc = "A huge chunk of reinforced metal used to seperate rooms. It seems to have additional plating to protect against heat."
+	icon = 'icons/turf/walls/reinforced_wall.dmi'
+	icon_state = "r_wall"
+	max_temperature = INFINITY
+	walltype = "rwall"
+
