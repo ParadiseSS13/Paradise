@@ -219,3 +219,47 @@
 	name = "Nar'Sie Cultist flag"
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
+	
+//Chameleon
+
+/obj/item/flag/chameleon
+	name = "Chameleon flag"
+	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
+	icon_state = "ntflag"
+	origin_tech = "materials=3;magnets=4;syndicate=4"
+	var/time = 0
+	var/used = 0
+	
+/obj/item/flag/chameleon/New()
+	time = rand(0,30)
+	
+/obj/item/flag/chameleon/attack_self(mob/user as mob)
+	if(used)
+		return
+
+	var/list/flag_types = typesof(/obj/item/flag) - list(src.type, /obj/item/flag)
+	var/list/flag = list()
+
+	for(var/flag_type in flag_types)
+		var/obj/item/flag/F = new flag_type
+		flag[capitalize(F.name)] = F
+
+	var/list/show_flag = list("EXIT" = null) + sortList(flag)
+
+	var/input_flag = input(user, "Choose a flag to disguise as.", "Choose a flag.") in show_flag
+
+	if(user && src in user.contents)
+
+		var/obj/item/flag/chosen_flag = flag[capitalize(input_flag)]
+
+		if(chosen_flag)
+			name = chosen_flag.name
+			icon_state = chosen_flag.icon_state
+			used = 1
+			
+/obj/item/flag/chameleon/process()
+	if(lit && (time > 0))
+		time -= 2
+	if(lit && (time <= 0))
+		explosion(src.loc,1,2,4,4, flame_range = 4)
+		qdel(src)
