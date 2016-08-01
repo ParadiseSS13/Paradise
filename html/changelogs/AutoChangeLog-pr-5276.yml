@@ -1,0 +1,5 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - bugfix: "Shadowling ascendance and badmins pressing the \"Destroy All Lights\" button should no longer bring the server to its knees."
+  - bugfix: "Broken lights will no longer re-break."
