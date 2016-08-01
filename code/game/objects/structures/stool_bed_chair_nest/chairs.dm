@@ -3,6 +3,7 @@
 	desc = "You sit in this. Either by will or force."
 	icon_state = "chair"
 	buckle_lying = 0 //you sit in a chair, not lay
+	burn_state = FIRE_PROOF
 
 	var/propelled = 0 // Check for fire-extinguisher-driven chairs
 
@@ -76,6 +77,8 @@
 
 // Chair types
 /obj/structure/stool/bed/chair/wood
+	burn_state = FLAMMABLE
+	burntime = 20
 	// TODO:  Special ash subtype that looks like charred chair legs
 
 /obj/structure/stool/bed/chair/wood/normal
@@ -103,6 +106,8 @@
 	desc = "It looks comfy."
 	icon_state = "comfychair"
 	color = rgb(255,255,255)
+	burn_state = FLAMMABLE
+	burntime = 30
 	var/image/armrest = null
 
 /obj/structure/stool/bed/chair/comfy/New()

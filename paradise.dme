@@ -168,6 +168,7 @@
 #include "code\controllers\Processes\alarm.dm"
 #include "code\controllers\Processes\diseases.dm"
 #include "code\controllers\Processes\event.dm"
+#include "code\controllers\Processes\fires.dm"
 #include "code\controllers\Processes\garbage.dm"
 #include "code\controllers\Processes\inactivity.dm"
 #include "code\controllers\Processes\lighting.dm"

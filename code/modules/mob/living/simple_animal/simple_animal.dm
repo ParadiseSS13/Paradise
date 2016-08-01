@@ -560,15 +560,23 @@
 			return 0
 	return 1
 
+/mob/living/simple_animal/handle_fire()
+	return
+
+/mob/living/simple_animal/update_fire()
+	return
+
+/mob/living/simple_animal/IgniteMob()
+	return 0
+
+/mob/living/simple_animal/ExtinguishMob()
+	return
+
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
 	if(damage <= force_threshold || !damage_coeff[damagetype])
 		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
 	else
 		apply_damage(damage, damagetype)
-
-
-/mob/living/simple_animal/update_fire()
-	return
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()

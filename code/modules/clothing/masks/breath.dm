@@ -8,6 +8,7 @@
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox", "Vox Armalis", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
