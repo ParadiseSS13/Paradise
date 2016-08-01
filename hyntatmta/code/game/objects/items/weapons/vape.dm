@@ -11,7 +11,7 @@
 	var/chem_volume = 30
 	var/vape_cooldown = 0
 	var/vape_delay = 30
-	var/vape_consume = 1
+	var/vape_consume = 0.25
 
 /obj/item/device/vape/New()
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
@@ -31,6 +31,7 @@
 			to_chat(user, "Вы вдыхаете содержимое [name]...")
 			if(do_after(user, 15, target = src))
 				vaping(user)
+				user.visible_message("<span class='notice'><B>[user]</B> выдыхает пар, сделанный [name]</span>", "<span class='notice'>Вы выдыхаете пар, сделанный [name]</span>")
 				vape_cooldown = world.time + vape_delay
 	return
 
@@ -50,7 +51,7 @@
 /obj/item/device/vape/proc/vaping(mob/user as mob)
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		var/mob/living/carbon/C = loc
-		reagents.trans_to(C, vape_consume)
+		reagents.trans_to(C, vape_consume*4)
 		var/datum/effect/system/chem_smoke_spread/smoke = new
 		smoke.set_up(reagents, 1, 0, src.loc, 0, silent = 1)
 		playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1, -3)
@@ -84,7 +85,6 @@
 				var/datum/effect/system/reagents_explosion/e = new()
 				e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
 				e.start()
-				user.visible_message("<span class='notice'><B>[user]</B> выдыхает пар, сделанный [name]</span>", "<span class='notice'>Вы выдыхайте пар, сделанный [name]</span>")
 				if(ismob(loc))
 					var/mob/M = loc
 					M.unEquip(src, 1)

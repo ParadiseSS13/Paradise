@@ -30,7 +30,7 @@
 		return PROCESS_KILL
 
 /obj/item/weapon/stock_parts/cell/crap
-	name = "\improper Nanotrasen brand rechargable AA battery"
+	name = "Nanotrasen brand rechargable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	origin_tech = null
 	maxcharge = 5000
@@ -42,7 +42,7 @@
 	charge = 0
 
 /obj/item/weapon/stock_parts/cell/secborg
-	name = "\improper Security borg rechargable D battery"
+	name = "Security borg rechargable D battery"
 	origin_tech = null
 	maxcharge = 6000	//6000 max charge / 1000 charge per shot = six shots
 	rating = 2.5
@@ -159,7 +159,7 @@
 	materials = list(MAT_GLASS=60)
 
 /obj/item/weapon/stock_parts/cell/emproof
-	name = "\improper EMP-proof cell"
+	name = "EMP-proof cell"
 	desc = "An EMP-proof cell."
 	maxcharge = 5000
 	rating = 2

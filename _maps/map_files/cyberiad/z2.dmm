@@ -540,7 +540,7 @@
 "kt" = (/obj/structure/stool/bed/chair{dir = 8},/obj/machinery/light/small{tag = "icon-bulb1 (EAST)"; icon_state = "bulb1"; dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/assault_pod)
 "ku" = (/obj/machinery/computer/shuttle/syndicate/drop_pod,/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/shuttle/assault_pod)
 "kv" = (/obj/structure/stool/bed/chair{dir = 4},/obj/machinery/light/small{tag = "icon-bulb1 (WEST)"; icon_state = "bulb1"; dir = 8},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/assault_pod)
-"kw" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'FOURTH WALL'."; name = "\improper FOURTH WALL"; pixel_x = -32},/turf/unsimulated/floor/snow,/area/syndicate_mothership)
+"kw" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'FOURTH WALL'."; name = "FOURTH WALL"; pixel_x = -32},/turf/unsimulated/floor/snow,/area/syndicate_mothership)
 "kx" = (/turf/unsimulated/floor/snow,/obj/structure/flora/grass/brown,/turf/unsimulated/floor/snow{tag = "icon-gravsnow_corner (WEST)"; icon_state = "gravsnow_corner"; dir = 8},/area/syndicate_mothership)
 "ky" = (/obj/effect/decal/warning_stripes/southeastcorner,/obj/item/device/radio/intercom/syndicate{pixel_x = -28},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
 "kz" = (/obj/effect/landmark{name = "Syndicate-Spawn"},/obj/effect/decal/warning_stripes/south,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
