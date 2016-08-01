@@ -317,7 +317,6 @@
 	var/datum/spacewalk_grid/point_grid = new
 	// We do this so we can display the way the levels connect later
 	linkage_map = point_grid
-	var/datum/point/P
 
 	// Now, we pop entries in a random order from our list of space levels
 	// and assign its connections based on the grid
