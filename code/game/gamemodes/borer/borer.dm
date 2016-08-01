@@ -35,7 +35,7 @@
 		return 0 // not enough candidates for borer
 
 	for(var/obj/machinery/atmospherics/unary/vent_pump/v in world)
-		if(!v.welded && (v.z in config.station_levels))
+		if(!v.welded && is_station_level(v.z))
 			found_vents.Add(v)
 
 	// for each 2 possible borers, add one borer and one host

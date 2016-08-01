@@ -499,8 +499,7 @@
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/living/silicon/ai/AI in player_list)
-		// TODO: Tie into space manager
-		if(!T || !(T.z in config.contact_levels))
+		if(!T || !is_station_contact(T.z))
 			break
 		if(T.loc)
 			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>")

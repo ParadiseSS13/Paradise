@@ -41,8 +41,7 @@
 	if(!T)
 		return 0
 
-	// TODO: Tie into space manager
-	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+	if(!is_admin_level(T.z))//if not, don't bother
 		return 0
 
 	//check for centcomm shuttles
@@ -59,8 +58,7 @@
 	if(!T)
 		return 0
 
-	// TODO: Tie into space manager
-	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+	if(!is_admin_level(T.z))//if not, don't bother
 		return 0
 
 	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))

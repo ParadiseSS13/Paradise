@@ -69,8 +69,7 @@ rcd light flash thingy on matter drain
 	src.verbs -= /mob/living/silicon/ai/proc/upgrade_turrets
 	for(var/obj/machinery/porta_turret/turret in machines)
 		var/turf/T = get_turf(turret)
-		// TODO: Tie into space manager
-		if(T.z in config.station_levels)
+		if(is_station_level(T.z))
 			// Increase health by 37.5% of original max, decrease delays between shots to 66%
 			turret.health += initial(turret.health) * 3 / 8
 			turret.eprojectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.

@@ -23,8 +23,7 @@
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
-		// TODO: Tie into space manager
-		if((T.z in config.admin_levels) || T.z > ZLEVEL_EMPTY)
+		if(!is_teleport_allowed(T.z))
 			continue
 		if(R.syndicate == 1)
 			continue
