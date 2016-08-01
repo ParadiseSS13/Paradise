@@ -250,16 +250,17 @@
 
 	if(user && src in user.contents)
 
-		var/obj/item/flag/chosen_flag = flag[capitalize(input_flag)]
+		var/obj/item/flag/chosen_flag = flag[input_flag]
 
 		if(chosen_flag)
 			name = chosen_flag.name
 			icon_state = chosen_flag.icon_state
+			desc = chosen_flag.desc
 			used = 1
 			
 /obj/item/flag/chameleon/process()
 	if(lit && (time > 0))
 		time -= 2
 	if(lit && (time <= 0))
-		explosion(src.loc,1,2,4,4, flame_range = 4)
+		explosion(loc,1,2,4,4, flame_range = 4)
 		qdel(src)
