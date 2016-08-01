@@ -10,7 +10,6 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
-#include "shuttles.dm"
 #include "_maps\cyberiad.dm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
@@ -1045,6 +1044,7 @@
 #include "code\modules\admin\verbs\possess.dm"
 #include "code\modules\admin\verbs\pray.dm"
 #include "code\modules\admin\verbs\randomverbs.dm"
+#include "code\modules\admin\verbs\shuttles.dm"
 #include "code\modules\admin\verbs\striketeam.dm"
 #include "code\modules\admin\verbs\striketeam_syndicate.dm"
 #include "code\modules\admin\verbs\ticklag.dm"

@@ -6,8 +6,8 @@
 		I took the one less traveled by,\n\
 		And that has made all the difference."
 
-	icon = 'icons/obj/machines/dominator.dmi'
-	icon_state = "dominator-blue"
+	//icon = 'icons/obj/machines/dominator.dmi'
+//	icon_state = "dominator-blue"
 
 /obj/machinery/shuttle_manipulator/process()
 	return

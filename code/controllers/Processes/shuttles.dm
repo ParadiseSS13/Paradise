@@ -93,8 +93,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
 		if(!backup_shuttle)
-			throw EXCEPTION("requestEvac(): There is no emergency shuttle, or backup shuttle! The game will be unresolvable. This is likely due to a mapping error")
- 			return
+			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle! The game will be unresolvable. This is likely due to a mapping error")
+			return
 		emergency = backup_shuttle
 
 	if(world.time - round_start_time < config.shuttle_refuel_delay)

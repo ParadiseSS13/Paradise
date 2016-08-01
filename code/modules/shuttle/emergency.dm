@@ -308,7 +308,7 @@
 	// We want to be a valid emergency shuttle
 	// but not be the main one, keep whatever's set
 	// valid.
-	var/current_emergency = SSshuttle.emergency
+	var/current_emergency = shuttle_master.emergency
 	..()
 	shuttle_master.emergency = current_emergency
 	shuttle_master.backup_shuttle = src

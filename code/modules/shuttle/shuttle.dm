@@ -262,12 +262,12 @@
 	//check the dock isn't occupied
 	var/currently_docked = S.get_docked()
 	// by someone other than us
-		if(currently_docked != src)
-			return 6
-		else
-		// This isn't an error, per se, but we can't let the shuttle code
-		// attempt to move us where we currently are, it will get weird.
-			return SHUTTLE_ALREADY_DOCKED
+	if(currently_docked != src)
+		return 6
+	else
+	// This isn't an error, per se, but we can't let the shuttle code
+	// attempt to move us where we currently are, it will get weird.
+		return SHUTTLE_ALREADY_DOCKED
 	return 0	//0 means we can dock
 
 //call the shuttle to destination S
@@ -351,7 +351,7 @@
 	// Destroys the docking port and the shuttle contents.
 	// Not in a fancy way, it just ceases.
 	var/obj/docking_port/stationary/S0 = get_docked()
-	var/turf_type = /turf/open/space
+	var/turf_type = /turf/space
 	var/area_type = /area/space
 	if(S0)
 		if(S0.turf_type)
@@ -381,7 +381,7 @@
 
 		T0.ChangeTurf(turf_type)
 
-		T0.redraw_lighting()
+		//T0.redraw_lighting()
 		air_master.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
