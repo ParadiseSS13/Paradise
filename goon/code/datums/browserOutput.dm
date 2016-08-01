@@ -203,6 +203,7 @@ var/to_chat_line
 var/to_chat_src
 // Call using macro: to_chat(target, message)
 /proc/__to_chat(target, message)
+	message = sanitize_local(message)
 	if(istype(message, /image) || istype(message, /sound) || istype(target, /savefile) || !(ismob(target) || islist(target) || isclient(target) || target == world))
 		target << message
 		if(!istext(message))
@@ -230,7 +231,7 @@ var/to_chat_src
 
 		if(C && C.chatOutput)
 			if(C.chatOutput.broken)
-				C << sanitize_local(message)
+				C << message
 				return
 
 			if(!C.chatOutput.loaded && C.chatOutput.messageQueue && islist(C.chatOutput.messageQueue))

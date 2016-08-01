@@ -867,10 +867,10 @@
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/weapon/storage/fancy/cigarettes = 5,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 1,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 2, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4,/obj/item/weapon/rollingpaperpack = 5)
-	contraband = list(/obj/item/weapon/lighter/zippo = 4)
-	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 150, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60, /obj/item/weapon/rollingpaperpack = 20)
+	products = list(/obj/item/weapon/storage/fancy/cigarettes = 5,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 1,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 2, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4,/obj/item/weapon/rollingpaperpack = 5, /obj/item/device/vape = 3)
+	contraband = list(/obj/item/weapon/lighter/zippo = 4, /obj/item/device/vape/random = 1)
+	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold = 1, /obj/item/device/vape/stylish = 1)
+	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 150, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60, /obj/item/weapon/rollingpaperpack = 20, /obj/item/device/vape = 700)
 	refill_canister = /obj/item/weapon/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/New()
@@ -1249,22 +1249,6 @@
 	component_parts += new /obj/item/weapon/vending_refill/clothing(0)
 	component_parts += new /obj/item/weapon/vending_refill/clothing(0)
 	component_parts += new /obj/item/weapon/vending_refill/clothing(0)
-
-/obj/machinery/vending/vapevend
-	name = "VAPE-o-MATE"
-	desc = "A vending machine for vape supplies."
-	product_slogans = "Vape Nation!;Go Green!;Smoking cures cancer!. ;FATTEST CLOUDS!"
-	product_ads = "Do you hear about a VAPE NATION?;VAPE NASHYALL;Create your own atmos with our VAPES!;Go green, go natural."
-	vend_delay = 15
-	icon_state = "artvend"
-	products = list(/obj/item/device/vape/completed = 5,/obj/item/device/vape/cheap/completed = 10,/obj/item/device/vape/neon/completed = 5,
-	/obj/item/weapon/RDA/normal = 10,/obj/item/weapon/RDA/wide = 10,/obj/item/weapon/RDA/tight = 10)
-	prices = list(/obj/item/device/vape/completed = 250,/obj/item/device/vape/cheap/completed = 150,/obj/item/device/vape/neon/completed = 300,
-	/obj/item/weapon/RDA/normal = 50,/obj/item/weapon/RDA/wide = 50,/obj/item/weapon/RDA/tight = 50)
-	contraband = list(/obj/item/device/vape/expensive/completed/max = 1)
-	premium = list(/obj/item/device/vape/expensive/completed = 5)
-	prices = list(/obj/item/device/vape/completed = 250,/obj/item/device/vape/cheap/completed = 150,/obj/item/device/vape/neon/completed = 300,
-	/obj/item/weapon/RDA/normal = 50,/obj/item/weapon/RDA/wide = 50,/obj/item/weapon/RDA/tight = 50)
 
 /obj/machinery/vending/artvend
 	name = "\improper ArtVend"
