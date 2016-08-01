@@ -80,7 +80,7 @@
 
 
 	// Check station's power levels
-	for(var/obj/machinery/power/apc/A in machines)
+	for(var/obj/machinery/power/apc/A in apcs)
 		// TODO: Tie into space manager
 		if(!(A.z in config.station_levels)) continue
 
