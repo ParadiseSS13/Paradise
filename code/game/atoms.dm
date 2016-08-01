@@ -41,6 +41,7 @@
 	if(!T)
 		return 0
 
+	// TODO: Tie into space manager
 	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
 		return 0
 
@@ -58,6 +59,7 @@
 	if(!T)
 		return 0
 
+	// TODO: Tie into space manager
 	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
 		return 0
 

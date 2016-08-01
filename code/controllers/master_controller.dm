@@ -41,13 +41,25 @@ var/global/pipe_processing_killed = 0
 /datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
-	zlevels.initialize()
-
 	preloadTemplates()
 	if(!config.disable_away_missions)
 		createRandomZlevel()
+	// Create 6 extra space levels to put space ruins on
 	if(!config.disable_space_ruins)
-		seedRuins(7, rand(0, 3), /area/space, space_ruins_templates)
+		var/timer = start_watch()
+		log_startup_progress("Creating random space levels...")
+		seedRuins(ZLEVEL_EMPTY, rand(0, 3), /area/space, space_ruins_templates)
+		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.")
+
+		// We'll keep this around for the time when we finally expunge all
+		// code that checks on hard-defined z positions
+
+		// var/num_extra_space = 6
+		// for(var/i = 1, i <= num_extra_space, i++)
+		// 	var/zlev = space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED)
+		// 	seedRuins(zlev, rand(0, 3), /area/space, space_ruins_templates)
+
+	space_manager.do_transition_setup()
 
 	setup_objects()
 	setupgenetics()

@@ -115,6 +115,7 @@
 		to_chat(H, "<span class='warning'>You cannot teleport into solid walls.</span>")
 		return 0*///Who the fuck cares? Ninjas in walls are cool.
 
+	// TODO: Tie into space manager
 	if(T.z in config.admin_levels)
 		to_chat(H, "<span class='warning'>You cannot use your teleporter on this Z-level.</span>")
 		return 0

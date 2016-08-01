@@ -20,24 +20,30 @@
 	opacity = 1
 	var/health = 50
 	var/tmp/busy = 0
-	var/list/valid_types = list(/obj/item/weapon/book, \
-								/obj/item/weapon/tome, \
-								/obj/item/weapon/spellbook, \
-								/obj/item/weapon/storage/bible)
+	var/list/allowed_books = list(/obj/item/weapon/book, /obj/item/weapon/spellbook, /obj/item/weapon/storage/bible, /obj/item/weapon/tome) //Things allowed in the bookcase
 
 /obj/structure/bookcase/initialize()
 	..()
 	for(var/obj/item/I in loc)
-		if(is_type_in_list(I, valid_types))
+		if(is_type_in_list(I, allowed_books))
 			I.forceMove(src)
 	update_icon()
 
 /obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob, params)
 	if(busy) //So that you can't mess with it while deconstructing
 		return 1
-	if(is_type_in_list(O, valid_types))
-		user.drop_item()
+	if(is_type_in_list(O, allowed_books))
+		if(!user.drop_item())
+			return
 		O.forceMove(src)
+		update_icon()
+		return 1
+	else if(istype(O, /obj/item/weapon/storage/bag/books))
+		var/obj/item/weapon/storage/bag/books/B = O
+		for(var/obj/item/T in B.contents)
+			if(istype(T, /obj/item/weapon/book) || istype(T, /obj/item/weapon/spellbook) || istype(T, /obj/item/weapon/tome) || istype(T, /obj/item/weapon/storage/bible))
+				B.remove_from_storage(T, src)
+		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
 		return 1
 	else if(istype(O, /obj/item/weapon/wrench))
@@ -51,8 +57,6 @@
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")
 			busy = 0
-			for(var/i = 1 to 5)
-				new /obj/item/stack/sheet/wood(get_turf(src))
 			density = 0
 			qdel(src)
 		else
@@ -72,9 +76,6 @@
 			else
 		if(health <= 0)
 			visible_message("<span class=warning>The bookcase is smashed apart!</span>")
-			new /obj/item/stack/sheet/wood(get_turf(src))
-			new /obj/item/stack/sheet/wood(get_turf(src))
-			new /obj/item/stack/sheet/wood(get_turf(src))
 			qdel(src)
 		return ..()
 
@@ -110,10 +111,10 @@
 	return
 
 /obj/structure/bookcase/Destroy()
-	for(var/i = 1 to 3)
+	for(var/i in 1 to 5)
 		new /obj/item/stack/sheet/wood(get_turf(src))
 	for(var/obj/item/I in contents)
-		if(is_type_in_list(I, valid_types))
+		if(is_type_in_list(I, allowed_books))
 			I.forceMove(get_turf(src))
 	return ..()
 

@@ -13,6 +13,7 @@
 
 /datum/event/wormholes/start()
 	for(var/turf/simulated/floor/T in world)
+		// TODO: Tie into space manager
 		if((T.z in config.station_levels))
 			pick_turfs += T
 

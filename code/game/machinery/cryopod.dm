@@ -335,7 +335,7 @@
 		job_master.FreeRole(job)
 
 		if(occupant.mind.objectives.len)
-			qdel(occupant.mind.objectives)
+			occupant.mind.objectives.Cut()
 			occupant.mind.special_role = null
 		else
 			if(ticker.mode.name == "AutoTraitor")
@@ -458,7 +458,7 @@
 
 			// Book keeping!
 			log_admin("<span class='notice'>[key_name(M)] has entered a stasis pod.</span>")
-			message_admins("[key_name_admin(user)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			message_admins("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 			//Despawning occurs when process() is called with an occupant without a client.
 			src.add_fingerprint(M)

@@ -161,7 +161,7 @@
 	body += "<div align='center'><table width='100%'><tr><td width='50%'>"
 
 	if(sprite)
-		body += "<table align='center' width='100%'><tr><td>[bicon(D)]</td><td>"
+		body += "<table align='center' width='100%'><tr><td>[bicon(D, use_class=0)]</td><td>"
 	else
 		body += "<table align='center' width='100%'><tr><td>"
 
@@ -350,14 +350,14 @@ body
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		html += "[name] = /icon (<span class='value'>[value]</span>) [bicon(value)]"
+		html += "[name] = /icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
 		html += "[name] = /icon (<span class='value'>[value]</span>)"
 		#endif
 
 	else if(istype(value, /image))
 		#ifdef VARSICON
-		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value)]"
+		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
 		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif

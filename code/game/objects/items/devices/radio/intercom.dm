@@ -124,6 +124,7 @@
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
+		// TODO: Tie into space manager
 		if(isnull(position) || !(position.z in level))
 			return -1
 	if(!src.listening)

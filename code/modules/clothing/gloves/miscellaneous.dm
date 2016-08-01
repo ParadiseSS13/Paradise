@@ -9,6 +9,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	strip_delay = 40
 	put_on_delay = 20
+	clipped = 1
 
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"
