@@ -92,12 +92,13 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 	if(isnull(D))
 		return
 
-	if(isnull(garbageCollector))
+	if(!istype(D)) // A non-datum was passed into qdel - just delete it outright.
+		// warning("qdel() passed object of type [D.type]. qdel() can only handle /datum/ types.")
 		del(D)
 		return
 
-	if(!istype(D)) // A non-datum was passed into qdel - just delete it outright.
-		// warning("qdel() passed object of type [D.type]. qdel() can only handle /datum/ types.")
+	if(isnull(garbageCollector))
+		D.Destroy()
 		del(D)
 		return
 
