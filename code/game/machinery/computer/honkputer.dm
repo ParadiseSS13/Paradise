@@ -20,7 +20,7 @@
 /obj/machinery/computer/HONKputer/Topic(href, href_list)
 	if(..())
 		return 1
-	if(!is_station_level(src.z))
+	if(is_away_level(src.z))
 		to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	usr.set_machine(src)
