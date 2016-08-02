@@ -12,6 +12,7 @@
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
 	addiction_chance = 70
+	heart_rate_increase = 1
 
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
@@ -234,6 +235,7 @@
 	overdose_threshold = 20
 	addiction_chance = 60
 	metabolization_rate = 0.6
+	heart_rate_increase = 1
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	if(prob(5))
@@ -292,11 +294,11 @@
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
 	for(var/mob/living/carbon/C in range(T, 1))
-		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+		if(C.can_breathe_gas())
 			C.emote("gasp")
 			C.losebreath++
-			C.reagents.add_reagent("toxin",10)
-			C.reagents.add_reagent("neurotoxin2",20)
+			C.reagents.add_reagent("toxin", 10)
+			C.reagents.add_reagent("neurotoxin2", 20)
 
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
@@ -432,7 +434,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
 	for(var/mob/living/carbon/C in range(T, 1))
-		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+		if(C.can_breathe_gas())
 			C.reagents.add_reagent("jenkem", 25)
 
 /datum/reagent/jenkem
@@ -520,9 +522,7 @@
 	result_amount = 4
 	mix_message = "The mixture swirls around excitedly!"
 
-/datum/reagent/fliptonium/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST || method == TOUCH)
 		M.SpinAnimation(speed = 12, loops = -1)
 	..()

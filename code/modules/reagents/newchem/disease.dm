@@ -122,30 +122,24 @@
 				qdel(ate_heart)
 	..()
 
-/datum/reagent/spore
-	name = "Blob Spores"
-	id = "spore"
-	description = "Spores of some blob creature thingy."
-	reagent_state = LIQUID
-	color = "#CE760A" // rgb: 206, 118, 10
-	var/client/blob_client = null
-	var/blob_point_rate = 3
+//virus-specific symptom reagents
 
-/datum/reagent/spore/on_mob_life(mob/living/M)
-	if(holder.has_reagent("atrazine",45))
-		holder.del_reagent("spore") //apparently this never metabolizes and stays in forever unless you have 45 units of atrazine in you or some stupid thing like that.
-	if(prob(1))
-		to_chat(M, "<span class='danger'>Your mouth tastes funny.</span>")
-	if(prob(1) && prob(25))
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(directory[ckey(C.key)])
-				blob_client = directory[ckey(C.key)]
-				C.gib()
-				if(blob_client)
-					var/obj/effect/blob/core/core = new(get_turf(C), 200, blob_client, blob_point_rate)
-					if(core.overmind && core.overmind.mind)
-						core.overmind.mind.name = C.name
+/datum/reagent/synaphydramine
+	name = "Diphen-Synaptizine"
+	id = "synaphydramine"
+	description = "Reduces drowsiness and hallucinations while also purging histamine from the body."
+	color = "#EC536D" // rgb: 236, 83, 109
+
+/datum/reagent/synaphydramine/on_mob_life(mob/living/M)
+	M.drowsyness = max(M.drowsyness-5, 0)
+	if(holder.has_reagent("lsd"))
+		holder.remove_reagent("lsd", 5)
+	if(holder.has_reagent("histamine"))
+		holder.remove_reagent("histamine", 5)
+	M.hallucination = max(0, M.hallucination - 10)
+	if(prob(30))
+		M.adjustToxLoss(1)
+	..()
 
 //virus food
 /datum/reagent/virus_food

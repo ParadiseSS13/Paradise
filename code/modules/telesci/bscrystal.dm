@@ -22,6 +22,7 @@
 	qdel(src)
 
 /obj/item/weapon/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
+	// TODO: Tie into space manager
 	if(L.z in config.admin_levels)
 		src.visible_message("<span class=warning>[src]'s fragments begin rapidly vibrating and blink out of existence.<span>")
 		qdel(src)
@@ -40,6 +41,8 @@
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	origin_tech = "bluespace=2"
 	blink_range = 4 // Not as good as the organic stuff!
+	points = 0 // nice try
+	refined_type = null
 
 // Polycrystals, aka stacks
 

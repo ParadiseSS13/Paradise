@@ -139,7 +139,9 @@ var/list/admin_verbs_show_debug_verbs = list(
 	/client/proc/print_jobban_old_filter,
 	/client/proc/forceEvent,
 	/client/proc/nanomapgen_DumpImage,
-	/client/proc/reload_nanoui_resources
+	/client/proc/reload_nanoui_resources,
+	/client/proc/admin_redo_space_transitions,
+	/client/proc/make_turf_space_map
 )
 
 /client/proc/enable_debug_verbs()

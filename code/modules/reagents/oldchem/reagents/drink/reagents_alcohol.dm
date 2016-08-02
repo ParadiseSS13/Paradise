@@ -29,14 +29,10 @@
 			to_chat(usr, "The solution melts away the ink on the book.")
 		else
 			to_chat(usr, "It wasn't enough...")
-	return
 
 /datum/reagent/ethanol/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 15)
-		return
 
 
 /datum/reagent/ethanol/beer
@@ -130,9 +126,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 
-/datum/reagent/ethanol/tequilla
+/datum/reagent/ethanol/tequila
 	name = "Tequila"
-	id = "tequilla"
+	id = "tequila"
 	description = "A strong and mildly flavoured, mexican produced spirit. Feeling thirsty hombre?"
 	color = "#A8B0B7" // rgb: 168, 176, 183
 	alcohol_perc = 0.4
@@ -182,6 +178,7 @@
 	reagent_state = LIQUID
 	color = "#102000" // rgb: 16, 32, 0
 	alcohol_perc = 0.3
+	heart_rate_increase = 1
 
 /datum/reagent/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
@@ -323,9 +320,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 
-/datum/reagent/ethanol/tequilla_sunrise
+/datum/reagent/ethanol/tequila_sunrise
 	name = "Tequila Sunrise"
-	id = "tequillasunrise"
+	id = "tequilasunrise"
 	description = "Tequila and orange juice. Much like a Screwdriver, only Mexican~"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
@@ -623,6 +620,7 @@
 	color = "#2E2E61" // rgb: 46, 46, 97
 	dizzy_adj = 6
 	alcohol_perc = 0.7
+	heart_rate_decrease = 1
 
 /datum/reagent/ethanol/neurotoxin/on_mob_life(mob/living/M)
 	M.weakened = max(M.weakened, 3)

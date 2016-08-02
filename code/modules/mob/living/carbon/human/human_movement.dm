@@ -79,7 +79,7 @@
 			break
 
 	if(thrust)
-		if((movement_dir || thrust.stabilization_on) && thrust.allow_thrust(0.01, src))
+		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
 			return 1
 	return 0
 

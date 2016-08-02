@@ -18,6 +18,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return 0
+	// TODO: Tie into space manager
 	if(T.z == ZLEVEL_CENTCOMM) //dont detect mobs on centcomm
 		return 0
 	if(T.z >= MAX_Z)
@@ -346,7 +347,7 @@
 	dead_mob_list -= src
 	living_mob_list |= src
 	mob_list |= src
-	ear_deaf = 0
+	setEarDamage(-1,0)
 	timeofdeath = 0
 
 /mob/living/proc/rejuvenate()
@@ -373,13 +374,11 @@
 	hallucination = 0
 	nutrition = 400
 	bodytemperature = 310
-	sdisabilities = 0
 	disabilities = 0
 	blinded = 0
 	eye_blind = 0
 	eye_blurry = 0
-	ear_deaf = 0
-	ear_damage = 0
+	setEarDamage(0,0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0
@@ -646,7 +645,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !(sdisabilities & BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !(disabilities & BLIND)))
 		overlay_fullscreen("flash", type)
 		addtimer(src, "clear_fullscreen", 25, FALSE, "flash", 25)
 		return 1
@@ -836,6 +835,15 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+/mob/living/proc/attempt_harvest(obj/item/I, mob/user)
+	if(stat == DEAD && !isnull(butcher_results)) //can we butcher it?
+		if(istype(I, /obj/item/weapon/kitchen/knife))
+			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+			if(do_mob(user, src, 80))
+				harvest(user)
+			return 1
 
 /mob/living/proc/harvest(mob/living/user)
 	if(qdeleted(src))

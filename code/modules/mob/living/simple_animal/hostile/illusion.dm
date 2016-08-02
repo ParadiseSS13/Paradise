@@ -16,18 +16,14 @@
 	var/life_span = INFINITY //how long until they despawn
 	var/mob/living/parent_mob
 	var/multiply_chance = 0 //if we multiply on hit
+	deathmessage = "vanishes into thin air! It was a fake!"
+	del_on_death = 1
 
 
 /mob/living/simple_animal/hostile/illusion/Life()
 	..()
 	if(world.time > life_span)
 		death()
-
-/mob/living/simple_animal/hostile/illusion/death(gibbed)
-	..()
-	visible_message("<span class='danger'>\The [src] vanishes into thin air! It was a fake!</span>")
-	ghostize()
-	qdel(src)
 
 /mob/living/simple_animal/hostile/illusion/proc/Copy_Parent(mob/living/original, life = 50, health = 100, damage = 0, replicate = 0 )
 	appearance = original.appearance

@@ -8,7 +8,7 @@
 	w_class = 4
 	slot_flags = SLOT_BACK
 	slowdown = 1
-	action_button_name = "Toggle Mister"
+	actions_types = list(/datum/action/item_action/toggle_mister)
 
 	var/obj/item/weapon/noz
 	var/on = 0
@@ -21,6 +21,10 @@
 
 /obj/item/weapon/watertank/ui_action_click()
 	toggle_mister()
+
+/obj/item/weapon/watertank/item_action_slot_check(slot, mob/user)
+	if(slot == slot_back)
+		return 1
 
 /obj/item/weapon/watertank/verb/toggle_mister()
 	set name = "Toggle Mister"
@@ -52,6 +56,7 @@
 	return new /obj/item/weapon/reagent_containers/spray/mister(src)
 
 /obj/item/weapon/watertank/equipped(mob/user, slot)
+	..()
 	if(slot != slot_back)
 		remove_noz()
 
@@ -75,8 +80,8 @@
 	..()
 
 /obj/item/weapon/watertank/MouseDrop(obj/over_object)
-	if(ishuman(src.loc))
-		var/mob/living/carbon/human/H = src.loc
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
 		switch(over_object.name)
 			if("r_hand")
 				if(H.r_hand)
@@ -125,6 +130,7 @@
 	return
 
 /obj/item/weapon/reagent_containers/spray/mister/dropped(mob/user as mob)
+	..()
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
 	tank.on = 0
 	loc = tank
@@ -198,6 +204,7 @@
 	return new /obj/item/weapon/extinguisher/mini/nozzle(src)
 
 /obj/item/weapon/watertank/atmos/dropped(mob/user as mob)
+	..()
 	icon_state = "waterbackpackatmos"
 	if(istype(noz, /obj/item/weapon/extinguisher/mini/nozzle))
 		var/obj/item/weapon/extinguisher/mini/nozzle/N = noz
@@ -255,6 +262,7 @@
 	return
 
 /obj/item/weapon/extinguisher/mini/nozzle/dropped(mob/user as mob)
+	..()
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = 0
 	loc = tank
@@ -365,7 +373,8 @@
 			V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
 		for(var/mob/living/L in T)
 			L.ExtinguishMob()
-	return
+		for(var/obj/item/Item in T)
+			Item.extinguish()
 
 /datum/effect/system/freezing_smoke_spread
 

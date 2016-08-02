@@ -1,5 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "Wearing a suit will no longer cause runtimes due to the way suit-collars are handled."
-  - bugfix: "The north direction sprite of the Vulpkanin 'Patch' facial hair style won't hang a pixel off the head anymore."

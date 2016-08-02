@@ -4,6 +4,8 @@
 	icon_state = "coffin"
 	icon_closed = "coffin"
 	icon_opened = "coffin_open"
+	burn_state = FLAMMABLE
+	burntime = 20
 
 /obj/structure/closet/coffin/update_icon()
 	if(!opened)

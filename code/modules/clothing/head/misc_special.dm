@@ -22,7 +22,8 @@
 	tint = 2
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-	action_button_name = "flip welding helmet"
+	actions_types = list(/datum/action/item_action/toggle)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -50,26 +51,28 @@
 	toggle()
 
 /obj/item/clothing/head/welding/proc/toggle()
-	set src in usr
+	if(up)
+		up = !up
+		flags |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
+		flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
+		icon_state = initial(icon_state)
+		to_chat(usr, "You flip the [src] down to protect your eyes.")
+		flash_protect = 2
+		tint = 2
+	else
+		up = !up
+		flags &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+		flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
+		icon_state = "[initial(icon_state)]up"
+		to_chat(usr, "You push the [src] up out of your face.")
+		flash_protect = 0
+		tint = 0
+	usr.update_inv_head()	//so our mob-overlays update
 
-	if(usr.canmove && !usr.stat && !usr.restrained())
-		if(src.up)
-			src.up = !src.up
-			src.flags |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
-			flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-			icon_state = initial(icon_state)
-			to_chat(usr, "You flip the [src] down to protect your eyes.")
-			flash_protect = 2
-			tint = 2
-		else
-			src.up = !src.up
-			src.flags &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
-			flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-			icon_state = "[initial(icon_state)]up"
-			to_chat(usr, "You push the [src] up out of your face.")
-			flash_protect = 0
-			tint = 0
-		usr.update_inv_head()	//so our mob-overlays update
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
 
 
 /*
@@ -148,7 +151,6 @@
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
-	action_button_name = "Toggle Pumpkin Light"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	brightness_on = 2 //luminosity when on
 
@@ -160,7 +162,6 @@
 	item_state = "hardhat0_reindeer"
 	item_color = "reindeer"
 	flags_inv = 0
-	action_button_name = "Toggle Nose Light"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	brightness_on = 1 //luminosity when on
 

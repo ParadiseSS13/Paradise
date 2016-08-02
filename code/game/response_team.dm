@@ -241,7 +241,7 @@ var/ert_request_answered = 0
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/engineer(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/responseteam(M), slot_in_backpack)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
 
 			var/obj/item/weapon/card/id/W = new(src)
 			W.assignment = "Emergency Response Team Member"
@@ -256,7 +256,7 @@ var/ert_request_answered = 0
 			pda.ownjob = "Emergency Response Team Member"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.icon_state = "pda-engineer"
-			M.equip_to_slot_or_del(pda, slot_belt)
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
 
 		if("Security")
@@ -265,7 +265,7 @@ var/ert_request_answered = 0
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/security(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/responseteam(M), slot_in_backpack)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/response_team(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/response_team(M), slot_belt)
 
 			var/obj/item/weapon/card/id/W = new(src)
 			W.assignment = "Emergency Response Team Member"
@@ -280,7 +280,7 @@ var/ert_request_answered = 0
 			pda.ownjob = "Emergency Response Team Member"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.icon_state = "pda-security"
-			M.equip_to_slot_or_del(pda, slot_belt)
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
 
 		if("Medic")
@@ -302,7 +302,7 @@ var/ert_request_answered = 0
 			pda.ownjob = "Emergency Response Team Member"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.icon_state = "pda-medical"
-			M.equip_to_slot_or_del(pda, slot_belt)
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
 
 		if("Commander")
@@ -329,7 +329,7 @@ var/ert_request_answered = 0
 			pda.owner = M.real_name
 			pda.ownjob = "Emergency Response Team Leader"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
-			M.equip_to_slot_or_del(pda, slot_belt)
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
 /datum/response_team/proc/cannot_send_team()
 	command_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
@@ -382,12 +382,13 @@ var/ert_request_answered = 0
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest/ert/medical(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health(M), slot_glasses)
 
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/medical/response_team(M), slot_belt)
+
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/ert/medical(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/o2(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/brute(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/adv(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/medical/response_team(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/CMO(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
@@ -398,11 +399,12 @@ var/ert_request_answered = 0
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest/ert/command(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(M), slot_glasses)
 
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_belt)
+
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/ert/command(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/lockbox/loyalty(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
@@ -420,7 +422,7 @@ var/ert_request_answered = 0
 	switch(officer_type)
 		if("Engineer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/engi(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson(M), slot_glasses)
@@ -440,7 +442,7 @@ var/ert_request_answered = 0
 
 		if("Security")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/security(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/advtaser(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
@@ -458,10 +460,11 @@ var/ert_request_answered = 0
 
 		if("Medic")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex/nitrile(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/medical(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health/health_advanced(M), slot_glasses)
 
+			M.equip_to_slot_or_del(new /obj/item/weapon/defibrillator/compact/loaded(M), slot_belt)
 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/medical(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), slot_in_backpack)
@@ -470,22 +473,22 @@ var/ert_request_answered = 0
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/adv(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/surgery(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/defibrillator/compact/loaded(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/CMO(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
 
 		if("Commander")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/commander(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/nuclear(M), slot_belt)
 
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/commander(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/lockbox/loyalty(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/nuclear(M), slot_in_backpack)
 
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_l_store)
@@ -504,7 +507,7 @@ var/ert_request_answered = 0
 	switch(officer_type)
 		if("Engineer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson/night(M), slot_glasses)
@@ -544,12 +547,12 @@ var/ert_request_answered = 0
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/medical(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health/night(M), slot_glasses)
 
+			M.equip_to_slot_or_del(new /obj/item/weapon/defibrillator/compact/loaded(M), slot_belt)
+
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/medical(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/surgery(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/defibrillator/compact/loaded(M), slot_in_backpack)
-
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
@@ -562,13 +565,13 @@ var/ert_request_answered = 0
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/commander(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/night(M), slot_glasses)
 
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/nuclear(M), slot_belt)
+
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/commander(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/lockbox/loyalty(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/nuclear(M), slot_in_backpack)
-
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)

@@ -31,12 +31,11 @@
 
 /datum/reagent/blob/boiling_oil/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
-		M.adjust_fire_stacks(round(volume/12))
+		M.adjust_fire_stacks(round(volume/10))
 		volume = ..()
 		M.apply_damage(0.6*volume, BURN)
 		M.IgniteMob()
-		if(isliving(M))
-			M.emote("scream")
+		M.emote("scream")
 
 /datum/reagent/blob/envenomed_filaments //toxin, hallucination, and some bonus spore toxin
 	name = "Envenomed Filaments"
@@ -49,7 +48,7 @@
 		volume = ..()
 		M.apply_damage(0.6*volume, TOX)
 		M.hallucination += 0.6*volume
-		M.reagents.add_reagent("spores", 0.4*volume)
+		M.reagents.add_reagent("spore", 0.4*volume)
 
 /datum/reagent/blob/lexorin_jelly //does tons of oxygen damage and a little brute
 	name = "Lexorin Jelly"

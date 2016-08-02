@@ -24,7 +24,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable
 	level = 1
-	anchored =1
+	anchored = 1
 	on_blueprints = TRUE
 	var/datum/powernet/powernet
 	name = "power cable"
@@ -457,10 +457,16 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 #define MAXCOIL 30
 
+var/global/list/datum/stack_recipe/cable_coil_recipes = list(
+	new /datum/stack_recipe/cable_restraints("cable restraints", /obj/item/weapon/restraints/handcuffs/cable, 15),
+)
+
 /obj/item/stack/cable_coil
 	name = "cable coil"
+	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
+	item_state = "coil_red"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	color = COLOR_RED
@@ -492,6 +498,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
+	recipes = cable_coil_recipes
 	update_wclass()
 
 ///////////////////////////////////
@@ -556,37 +563,12 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	else
 		to_chat(user, "A coil of power cable. There are [get_amount()] lengths of cable in the coil.")
 
-
-/obj/item/stack/cable_coil/verb/make_restraint()
-	set name = "Make Cable Restraints"
-	set category = "Object"
-	var/mob/M = usr
-
-	if(ishuman(M) && !M.restrained() && !M.stat && !M.paralysis && ! M.stunned)
-		if(!istype(usr.loc,/turf)) return
-		if(src.amount <= 14)
-			to_chat(usr, "<span class='warning'>You need at least 15 lengths to make restraints!</span>")
-			return
-		var/obj/item/weapon/restraints/handcuffs/cable/B = new /obj/item/weapon/restraints/handcuffs/cable(usr.loc)
-		B.color = color
-		to_chat(usr, "<span class='notice'>You wind some cable together to make some restraints.</span>")
-		src.use(15)
-	else
-		to_chat(usr, "<span class='warning'>You cannot do that.</span>")
-	..()
-
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
 /obj/item/stack/cable_coil/attackby(obj/item/weapon/W, mob/user)
 	..()
-	if( istype(W, /obj/item/weapon/wirecutters) && src.amount > 1)
-		src.amount--
-		new/obj/item/stack/cable_coil(user.loc, 1,color)
-		to_chat(user, "You cut a piece off the cable coil.")
-		src.update_icon()
-		return
-	else if(istype(W, /obj/item/stack/cable_coil))
+	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(C.amount >= MAXCOIL)
 			to_chat(user, "The coil is too long, you cannot add any more cable to it.")

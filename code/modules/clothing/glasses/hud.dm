@@ -14,6 +14,7 @@
 		H.add_hud_to(user)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
+	..()
 	if(HUDType && istype(user) && user.glasses == src)
 		var/datum/atom_hud/H = huds[HUDType]
 		H.remove_hud_from(user)
@@ -81,7 +82,7 @@
 		)
 
 /obj/item/clothing/glasses/hud/security/chameleon
-	name = "Chamleon Security HUD"
+	name = "Chameleon Security HUD"
 	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Toggle to disguise the HUD. Provides flash protection."
 	flash_protect = 1
 

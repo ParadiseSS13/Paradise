@@ -20,6 +20,8 @@ var/global/datum/global_init/init = new ()
 
 #define RECOMMENDED_VERSION 510
 
+var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
+
 /world/New()
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
@@ -51,7 +53,7 @@ var/global/datum/global_init/init = new ()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
-	setup_map_transitions() //Before the MC starts up
+	space_manager.initialize() //Before the MC starts up
 
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
@@ -153,6 +155,39 @@ var/world_topic_spam_protect_time = world.timeofday
 				s["adminrank[i - 1]"] = A[2]
 
 		return list2params(s)
+
+	else if("manifest" in input)
+		var/list/positions = list()
+		var/list/set_names = list(
+			"heads" = command_positions,
+			"sec" = security_positions,
+			"eng" = engineering_positions,
+			"med" = medical_positions,
+			"sci" = science_positions,
+			"car" = supply_positions,
+			"srv" = service_positions,
+			"civ" = civilian_positions,
+			"bot" = nonhuman_positions
+		)
+
+		for(var/datum/data/record/t in data_core.general)
+			var/name = t.fields["name"]
+			var/rank = t.fields["rank"]
+			var/real_rank = t.fields["real_rank"]
+
+			var/department = 0
+			for(var/k in set_names)
+				if(real_rank in set_names[k])
+					if(!positions[k])
+						positions[k] = list()
+					positions[k][name] = rank
+					department = 1
+			if(!department)
+				if(!positions["misc"])
+					positions["misc"] = list()
+				positions["misc"][name] = rank
+
+		return json_encode(positions)
 
 	else if("adminmsg" in input)
 		/*
@@ -282,31 +317,6 @@ var/world_topic_spam_protect_time = world.timeofday
 			sleep_check = world.timeofday
 		waiting++
 //#undef INACTIVITY_KICK
-/*
-#define DISCONNECTED_DELETE	6000	//10 minutes in ticks (approx)
-/world/proc/KickDisconnectedClients()
-	spawn(-1)
-		//set background = 1
-		while(1)
-			sleep(DISCONNECTED_DELETE)
-			for(var/mob/living/carbon/human/C in living_mob_list)
-				if(dd_hasprefix(C.key,@)) return
-				if(!C.client && C.brain_op_stage!=4.0 && C.lastKnownIP)
-					sleep(600)
-					if(!C.client && C.stat != DEAD && C.brain_op_stage!=4.0)
-						job_master.FreeRole(C.job)
-						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client disconnect for 10 minutes</b></font>)\n")
-						for(var/obj/item/W in C)
-							C.unEquip(W)
-						del(C)
-					else if(!C.key && C.stat != DEAD && C.brain_op_stage!=4.0)
-						job_master.FreeRole(C.job)
-						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client quit BYOND</b></font>)\n")
-						for(var/obj/item/W in C)
-							C.unEquip(W)
-						del(C)
-#undef INACTIVITY_KICK
-*/
 
 /hook/startup/proc/loadMode()
 	world.load_mode()

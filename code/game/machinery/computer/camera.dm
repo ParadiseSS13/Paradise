@@ -49,11 +49,9 @@
 	return 1
 
 // Network configuration
-/obj/machinery/computer/security/attackby(I as obj, user as mob, params)
-	access = list()
-	if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
-		var/obj/item/weapon/card/id/E = I
-		access = E.access
+/obj/machinery/computer/security/attackby(obj/item/I, user as mob, params)
+	access = I.GetAccess()
+	if(access.len) // If hit by something with access.
 		ui_interact(user)
 	else
 		..()
@@ -77,6 +75,7 @@
 
 	var/list/cameras = list()
 	for(var/obj/machinery/camera/C in cameranet.cameras)
+		// TODO: Tie into space manager
 		if((z > MAX_Z || C.z > MAX_Z) && (C.z != z)) //can only recieve away mission cameras on away missions
 			continue
 		if(!can_access_camera(C))
@@ -172,10 +171,7 @@
 		user.set_machine(src)
 
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.wear_id)
-			var/obj/item/weapon/card/id/gold/C = H.wear_id
-			access = C.access
+		access = user.get_access()
 
 	ui_interact(user)
 

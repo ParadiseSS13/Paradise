@@ -88,6 +88,8 @@ var/list/robot_verbs_default = list(
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
 
+	var/datum/action/item_action/toggle_research_scanner/scanner = null
+
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
@@ -144,6 +146,7 @@ var/list/robot_verbs_default = list(
 		cell_component.installed = 1
 
 	diag_hud_set_borgcell()
+	scanner = new(src)
 	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)

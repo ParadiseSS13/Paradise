@@ -1,5 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds in fans which can block atmospherics passing over them"
-  - bugfix: "All mass driver blast doors have a fan underneath them, allowing you to use them repeatedly instead of once"

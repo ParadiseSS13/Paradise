@@ -17,6 +17,7 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/weapon/gun/energy/laser/bluetag)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -30,6 +31,7 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/weapon/gun/energy/laser/redtag)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -136,6 +138,7 @@
 	w_class = 3
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	burn_state = FIRE_PROOF
 
 
 /obj/item/clothing/suit/hastur
@@ -404,7 +407,7 @@
 
 //hoodies
 /obj/item/clothing/suit/hooded/hoodie
-	name = "hoodie"
+	name = "black hoodie"
 	desc = "It's a hoodie. It has a hood. Most hoodies do."
 	icon_state = "black_hoodie"
 	item_state = "labcoat"
@@ -416,7 +419,7 @@
 		)
 
 /obj/item/clothing/head/hood
-	name = "hood"
+	name = "black hood"
 	desc = "A hood attached to a hoodie."
 	icon_state = "blackhood"
 	body_parts_covered = HEAD
@@ -515,6 +518,7 @@
 	desc = "A long, thick black leather coat."
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/suit/browncoat
 	name = "brown leather coat"
@@ -558,7 +562,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Open/Close Jacket"
+	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -623,7 +627,7 @@
 	icon_state = "militaryjacket"
 	item_state = "militaryjacket"
 	ignore_suitadjust = 1
-	action_button_name = null
+	actions_types = list()
 	adjust_flavour = null
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter,/obj/item/weapon/gun/projectile/automatic/pistol,/obj/item/weapon/gun/projectile/revolver,/obj/item/weapon/gun/projectile/revolver/detective)
 
@@ -717,7 +721,7 @@
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
-	action_button_name = "Zip/Unzip Jacket"
+	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -746,8 +750,9 @@
 	desc = "Pompadour not included."
 	icon_state = "leatherjacket"
 	ignore_suitadjust = 1
-	action_button_name = null
+	actions_types = list()
 	adjust_flavour = null
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/suit/officercoat
 	name = "Clown Officer's Coat"
@@ -755,7 +760,7 @@
 	icon_state = "officersuit"
 	item_state = "officersuit"
 	ignore_suitadjust = 0
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -768,7 +773,7 @@
 	icon_state = "soldiersuit"
 	item_state = "soldiersuit"
 	ignore_suitadjust = 0
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -783,7 +788,7 @@
 	body_parts_covered = ARMS
 	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
-	action_button_name = "Toggle Owl Wings"
+	actions_types = list(/datum/action/item_action/toggle_wings)
 	flags = NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings
@@ -800,6 +805,9 @@
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 	usr.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/lordadmiral
 	name = "Lord Admiral's Coat"
@@ -823,7 +831,7 @@
 	desc = "An incredibly advanced and complex suit; it has so many buttons and dials as to be incomprehensible."
 	icon_state = "bomb"
 	item_state = "bomb"
-	action_button_name = "Toggle Advanced Protective Suit"
+	actions_types = list(/datum/action/item_action/toggle)
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP

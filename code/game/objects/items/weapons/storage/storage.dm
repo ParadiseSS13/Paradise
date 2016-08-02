@@ -323,7 +323,7 @@
 	return 1
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
-/obj/item/weapon/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/weapon/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location, burn = 0)
 	if(!istype(W)) return 0
 
 	if(istype(src, /obj/item/weapon/storage/fancy))
@@ -357,7 +357,13 @@
 	W.on_exit_storage(src)
 	update_icon()
 	W.mouse_opacity = initial(W.mouse_opacity)
+	if(burn)
+		W.fire_act()
 	return 1
+
+/obj/item/weapon/storage/empty_object_contents(burn, loc)
+	for(var/obj/item/Item in contents)
+		remove_from_storage(Item, loc, burn)
 
 //This proc is called when you want to place an item into the storage item.
 /obj/item/weapon/storage/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -372,9 +378,6 @@
 
 	handle_item_insertion(W)
 	return 1
-
-/obj/item/weapon/storage/dropped(mob/user as mob)
-	return
 
 
 /obj/item/weapon/storage/attack_hand(mob/user as mob)
@@ -544,3 +547,34 @@
 
 	return depth
 
+/obj/item/weapon/storage/serialize()
+	var data = ..()
+	var/list/content_list = list()
+	data["content"] = content_list
+	data["slots"] = storage_slots
+	data["max_w_class"] = max_w_class
+	data["max_c_w_class"] = max_combined_w_class
+	for(var/thing in contents)
+		var/atom/movable/AM = thing
+		// This code does not watch out for infinite loops
+		// But then again a tesseract would destroy the server anyways
+		// Also I wish I could just insert a list instead of it reading it the wrong way
+		content_list.len++
+		content_list[content_list.len] = AM.serialize()
+	return data
+
+/obj/item/weapon/storage/deserialize(list/data)
+	if(isnum(data["slots"]))
+		storage_slots = data["slots"]
+	if(isnum(data["max_w_class"]))
+		max_w_class = data["max_w_class"]
+	if(isnum(data["max_c_w_class"]))
+		max_combined_w_class = data["max_c_w_class"]
+	for(var/thing in contents)
+		qdel(thing) // out with the old
+	for(var/thing in data["content"])
+		if(islist(thing))
+			list_to_object(thing, src)
+		else
+			log_debug("Non-list thing: [thing]. We are a [name]")
+	..()

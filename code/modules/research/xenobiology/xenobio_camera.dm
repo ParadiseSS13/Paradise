@@ -16,11 +16,11 @@
 	name = "Slime management console"
 	desc = "A computer used for remotely handling slimes."
 	networks = list("SS13")
-	off_action = new/datum/action/camera_off/xenobio
-	var/datum/action/slime_place/slime_place_action = new
-	var/datum/action/slime_pick_up/slime_up_action = new
-	var/datum/action/feed_slime/feed_slime_action = new
-	var/datum/action/monkey_recycle/monkey_recycle_action = new
+	off_action = new /datum/action/innate/camera_off/xenobio
+	var/datum/action/innate/slime_place/slime_place_action = new
+	var/datum/action/innate/slime_pick_up/slime_up_action = new
+	var/datum/action/innate/feed_slime/feed_slime_action = new
+	var/datum/action/innate/monkey_recycle/monkey_recycle_action = new
 
 	var/list/stored_slimes = list()
 	var/max_slimes = 5
@@ -62,7 +62,7 @@
 		return
 	return ..()
 
-/datum/action/camera_off/xenobio/Activate()
+/datum/action/innate/camera_off/xenobio/Activate()
 	if(!target || !ishuman(target))
 		return
 	var/mob/living/carbon/C = target
@@ -88,12 +88,11 @@
 	src.Remove(C)
 
 
-/datum/action/slime_place
+/datum/action/innate/slime_place
 	name = "Place Slimes"
-	action_type = AB_INNATE
 	button_icon_state = "slime_down"
 
-/datum/action/slime_place/Activate()
+/datum/action/innate/slime_place/Activate()
 	if(!target || !ishuman(owner))
 		return
 	var/mob/living/carbon/human/C = owner
@@ -106,12 +105,11 @@
 			S.visible_message("[S] warps in!")
 			X.stored_slimes -= S
 
-/datum/action/slime_pick_up
+/datum/action/innate/slime_pick_up
 	name = "Pick up Slime"
-	action_type = AB_INNATE
 	button_icon_state = "slime_up"
 
-/datum/action/slime_pick_up/Activate()
+/datum/action/innate/slime_pick_up/Activate()
 	if(!target || !ishuman(owner))
 		return
 	var/mob/living/carbon/human/C = owner
@@ -131,12 +129,11 @@
 				X.stored_slimes += S
 
 
-/datum/action/feed_slime
+/datum/action/innate/feed_slime
 	name = "Feed Slimes"
-	action_type = AB_INNATE
 	button_icon_state = "monkey_down"
 
-/datum/action/feed_slime/Activate()
+/datum/action/innate/feed_slime/Activate()
 	if(!target || !ishuman(owner))
 		return
 	var/mob/living/carbon/human/C = owner
@@ -151,12 +148,11 @@
 			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 
 
-/datum/action/monkey_recycle
+/datum/action/innate/monkey_recycle
 	name = "Recycle Monkeys"
-	action_type = AB_INNATE
 	button_icon_state = "monkey_up"
 
-/datum/action/monkey_recycle/Activate()
+/datum/action/innate/monkey_recycle/Activate()
 	if(!target || !ishuman(owner))
 		return
 	var/mob/living/carbon/human/C = owner

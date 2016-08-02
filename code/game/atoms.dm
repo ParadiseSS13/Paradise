@@ -41,6 +41,7 @@
 	if(!T)
 		return 0
 
+	// TODO: Tie into space manager
 	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
 		return 0
 
@@ -58,6 +59,7 @@
 	if(!T)
 		return 0
 
+	// TODO: Tie into space manager
 	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
 		return 0
 
@@ -84,14 +86,14 @@
 		if(istype(A, /datum/reagent))
 			if(!reagents)
 				reagents = new()
-				reagents.reagent_list.Add(A)
-				reagents.conditional_update()
+			reagents.reagent_list.Add(A)
+			reagents.conditional_update()
 		else if(istype(A, /atom/movable))
 			var/atom/movable/M = A
 			if(istype(M.loc, /mob/living))
 				var/mob/living/L = M.loc
 				L.unEquip(M)
-				M.loc = src
+			M.forceMove(src)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	qdel(giver)

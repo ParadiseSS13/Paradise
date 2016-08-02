@@ -161,7 +161,7 @@
 		return 0
 	return 1
 
-obj/item/weapon/gun/proc/newshot(params)
+obj/item/weapon/gun/proc/newshot()
 	return
 
 /obj/item/weapon/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
@@ -251,7 +251,9 @@ obj/item/weapon/gun/proc/newshot(params)
 				I.loc = src
 				update_icon()
 				update_gunlight(user)
-				verbs += /obj/item/weapon/gun/proc/toggle_gunlight
+				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
+				if(loc == user)
+					A.Grant(user)
 
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(F && can_flashlight)
@@ -262,7 +264,8 @@ obj/item/weapon/gun/proc/newshot(params)
 				update_gunlight(user)
 				S.update_brightness(user)
 				update_icon()
-				verbs -= /obj/item/weapon/gun/proc/toggle_gunlight
+				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
+					qdel(TGL)
 
 	if(unique_rename)
 		if(istype(I, /obj/item/weapon/pen))
@@ -295,6 +298,10 @@ obj/item/weapon/gun/proc/newshot(params)
 		update_icon()
 	else
 		set_light(0)
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/weapon/gun/pickup(mob/user)
 	..()
@@ -376,7 +383,7 @@ obj/item/weapon/gun/proc/newshot(params)
 
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
-	check_flags = AB_CHECK_ALIVE|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
 	button_icon_state = "sniper_zoom"
 	var/obj/item/weapon/gun/gun = null
 

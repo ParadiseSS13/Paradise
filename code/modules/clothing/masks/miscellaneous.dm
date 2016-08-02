@@ -64,8 +64,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 25, rad = 0)
-	action_button_name = "Adjust Sterile Mask"
-	ignore_maskadjust = 0
+	actions_types = list(/datum/action/item_action/adjust)
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -209,7 +208,6 @@
 	flags_inv = HIDEFACE
 	w_class = 1
 	slot_flags = SLOT_MASK
-	ignore_maskadjust = 0
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
@@ -219,42 +217,42 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
-	action_button_name = "Adjust Bandana"
+	actions_types = list(/datum/action/item_action/adjust)
 
 /obj/item/clothing/mask/bandana/attack_self(var/mob/user)
 	adjustmask(user)
 
-obj/item/clothing/mask/bandana/red
+/obj/item/clothing/mask/bandana/red
 	name = "red bandana"
 	icon_state = "bandred"
 	item_color = "red"
 	desc = "It's a red bandana."
 
-obj/item/clothing/mask/bandana/blue
+/obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
 	icon_state = "bandblue"
 	item_color = "blue"
 	desc = "It's a blue bandana."
 
-obj/item/clothing/mask/bandana/gold
+/obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
 	icon_state = "bandgold"
 	item_color = "yellow"
 	desc = "It's a gold bandana."
 
-obj/item/clothing/mask/bandana/green
+/obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	icon_state = "bandgreen"
 	item_color = "green"
 	desc = "It's a green bandana."
 
-obj/item/clothing/mask/bandana/orange
+/obj/item/clothing/mask/bandana/orange
 	name = "orange bandana"
 	icon_state = "bandorange"
 	item_color = "orange"
 	desc = "It's an orange bandana."
 
-obj/item/clothing/mask/bandana/purple
+/obj/item/clothing/mask/bandana/purple
 	name = "purple bandana"
 	icon_state = "bandpurple"
 	item_color = "purple"
