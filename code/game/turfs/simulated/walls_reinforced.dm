@@ -234,19 +234,20 @@
 	else if(istype(W, /obj/item/stack/sheet/plasteel) && !d_state)
 		var/obj/item/stack/sheet/plasteel/MS = W
 		if(!can_be_reinforced)
-			to_chat(user, "<span class='notice'>The wall is either too damaged or already reinforced!</span>")
+			to_chat(user, "<span class='notice'>The wall is already coated!</span>")
 			return
-		to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall with \a [MS].</span>")
+		to_chat(user, "<span class='notice'>You begin adding an additional layer of coating to the wall with \a [MS].</span>")
 
-		if(!MS.use(2))
-			to_chat(user, "<span class='warning'>You don't have enough plasteel for that!</span>")
+		if(do_after(user, 40, target = src) && !d_state)
+			if(!MS.use(2))
+				to_chat(user, "<span class='warning'>You don't have enough plasteel for that!</span>")
+				return
+			to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall!</span>")
+			ChangeTurf(/turf/simulated/wall/r_wall/coated)
+			update_icon()
+			smooth_icon_neighbors(src)
+			can_be_reinforced = 0
 			return
-
-		ChangeTurf(/turf/simulated/wall/r_wall/coated)
-		update_icon()
-		smooth_icon_neighbors(src)
-		can_be_reinforced = 0
-		return
 
 	//APC
 	else if(istype(W,/obj/item/mounted))
