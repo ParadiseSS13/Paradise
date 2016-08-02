@@ -1,7 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds in object burning system that allows things to be lit on fire"
-  - tweak: "being on fire should heat you up a bit quicker and do a bit more damage"
-  - tweak: "Novaflowers ignite you rather than uselessly heating you up"
-  - tweak: "Adjusts a few pyrotechnic chems to better fit with other tweaks to fire damage"

@@ -1,4 +1,0 @@
-author: Kyep
-delete-after: True
-changes: 
-  - bugfix: "Fixed bug with adv pinpointers and CMO hypospray theft objectives. Fixes #5232"

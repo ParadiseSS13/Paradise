@@ -1,5 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - rscadd: "Admins are now able to print a map of the z levels."
-  - rscadd: "Admins are now capable of scrambling the z levels' transitions."
