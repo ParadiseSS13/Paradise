@@ -44,7 +44,7 @@
 						<A href='?src=\ref[src];secretsfun=forcelaunchshuttle'>Force launch a shuttle</A><BR>
 						<A href='?src=\ref[src];secretsfun=jumpshuttle'>Jump a shuttle</A>&nbsp;&nbsp;
 						<A href='?src=\ref[src];secretsfun=moveshuttle'>Move a shuttle</A><BR>
-						<BR></center>
+						<BR></center> s
 					"}
 
 			else if(check_rights(R_SERVER,0)) //only add this if admin secrets are unavailiable; otherwise, it's added inline
