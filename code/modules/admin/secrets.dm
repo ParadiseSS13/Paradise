@@ -38,13 +38,7 @@
 						<A href='?src=\ref[src];secretsfun=power'>Make all areas powered</A>&nbsp;&nbsp;
 						<A href='?src=\ref[src];secretsfun=unpower'>Make all areas unpowered</A>&nbsp;&nbsp;
 						<A href='?src=\ref[src];secretsfun=quickpower'>Power all SMES</A><BR>
-						<BR>
-						<B>Shuttle options</b><br>
-						<A href='?src=\ref[src];secretsfun=launchshuttle'>Launch a shuttle</A>&nbsp;&nbsp;
-						<A href='?src=\ref[src];secretsfun=forcelaunchshuttle'>Force launch a shuttle</A><BR>
-						<A href='?src=\ref[src];secretsfun=jumpshuttle'>Jump a shuttle</A>&nbsp;&nbsp;
-						<A href='?src=\ref[src];secretsfun=moveshuttle'>Move a shuttle</A><BR>
-						<BR></center>
+						</center>
 					"}
 
 			else if(check_rights(R_SERVER,0)) //only add this if admin secrets are unavailiable; otherwise, it's added inline
@@ -133,3 +127,5 @@
 	var/datum/browser/popup = new(usr, "secrets", "<div align='center'>Admin Secrets</div>", 630, 670)
 	popup.set_content(dat)
 	popup.open(0)
+
+
