@@ -80,7 +80,6 @@
 	// Check station's power levels
 	for(var/obj/machinery/power/apc/A in apcs)
 		if(!is_station_level(A.z)) continue
-
 		for(var/obj/item/weapon/stock_parts/cell/C in A.contents)
 			if(C.charge < 2300)
 				score_powerloss++ //200 charge leeway
