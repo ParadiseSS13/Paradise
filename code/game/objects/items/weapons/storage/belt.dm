@@ -37,7 +37,9 @@
 		src.add_fingerprint(usr)
 		return
 
-
+/obj/item/weapon/storage/belt/deserialize(list/data)
+	..()
+	update_icon()
 
 /obj/item/weapon/storage/belt/utility
 	name = "tool-belt" //Carn: utility belt is nicer, but it bamboozles the text parsing.

@@ -53,7 +53,7 @@
 				apc.overload_lighting()
 
 	else
-		for(var/obj/machinery/power/apc/apc in machines)
+		for(var/obj/machinery/power/apc/apc in apcs)
 			apc.overload_lighting()
 
 	return

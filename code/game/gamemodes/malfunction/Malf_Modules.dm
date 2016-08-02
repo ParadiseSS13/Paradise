@@ -78,7 +78,7 @@ rcd light flash thingy on matter drain
 /datum/AI_Module/large/destroy_rcd
 	module_name = "Destroy RCDs"
 	mod_pick_name = "rcd"
-	description = "Send a specialised pulse to detonate all hand-held and exosuit Rapid Cconstruction Devices on the station."
+	description = "Send a specialised pulse to detonate all hand-held and exosuit Rapid Construction Devices on the station."
 	cost = 25
 	one_time = 1
 
@@ -108,7 +108,7 @@ rcd light flash thingy on matter drain
 /datum/AI_Module/large/mecha_domination
 	module_name = "Viral Mech Domination"
 	mod_pick_name = "mechjack"
-	description = "Hack into a mech's onboard computer, shunting all processes into it and ejecting any occupants. Once uploaded to the mech, it is impossible to leave.\
+	description = "Hack into a mech's onboard computer, shunting all processes into it and ejecting any occupants. Once uploaded to the mech, it is impossible to leave. \
 	Do not allow the mech to leave the station's vicinity or allow it to be destroyed."
 	cost = 30
 	one_time = 1
@@ -288,7 +288,7 @@ rcd light flash thingy on matter drain
 	for(var/datum/AI_Module/small/blackout/blackout in current_modules)
 		if(blackout.uses > 0)
 			blackout.uses --
-			for(var/obj/machinery/power/apc/apc in world)
+			for(var/obj/machinery/power/apc/apc in apcs)
 				if(prob(30*apc.overload))
 					apc.overload_lighting()
 				else

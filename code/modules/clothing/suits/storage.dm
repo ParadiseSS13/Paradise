@@ -50,3 +50,12 @@
 		if(istype(G.gift, /obj/item/weapon/storage))
 			L += G.gift:return_inv()
 	return L
+
+/obj/item/clothing/suit/storage/serialize()
+	var/list/data = ..()
+	data["pockets"] = pockets.serialize()
+	return data
+
+/obj/item/clothing/suit/storage/deserialize(list/data)
+	qdel(pockets)
+	pockets = list_to_object(data["pockets"], src)

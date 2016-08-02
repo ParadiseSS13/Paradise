@@ -10,6 +10,7 @@
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/reagent_containers/food/drinks/New()
 	..()

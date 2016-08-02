@@ -24,7 +24,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable
 	level = 1
-	anchored =1
+	anchored = 1
 	on_blueprints = TRUE
 	var/datum/powernet/powernet
 	name = "power cable"
@@ -457,12 +457,13 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 #define MAXCOIL 30
 
-var/global/list/datum/stack_recipe/cable_coil_recipes = list ( \
-	new/datum/stack_recipe("cable restraints", /obj/item/weapon/restraints/handcuffs/cable, 15), \
-	)
+var/global/list/datum/stack_recipe/cable_coil_recipes = list(
+	new /datum/stack_recipe/cable_restraints("cable restraints", /obj/item/weapon/restraints/handcuffs/cable, 15),
+)
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
+	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
 	item_state = "coil_red"

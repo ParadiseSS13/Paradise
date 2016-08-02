@@ -8528,7 +8528,7 @@
 "dhZ" = (/obj/structure/table,/obj/item/weapon/grenade/plastic/c4{pixel_x = 2; pixel_y = 1},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
 "dia" = (/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
 "dib" = (/obj/machinery/atmospherics/unary/vent_pump/high_volume{dir = 2; frequency = 1331; id_tag = "synd_pump"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
-"dic" = (/obj/machinery/atmospherics/unary/tank/air{dir = 1},/turf/simulated/shuttle/wall{dir = 4; icon_state = "wall3"},/area/shuttle/syndicate)
+"dic" = (/obj/machinery/atmospherics/unary/tank/air{dir = 2},/turf/simulated/shuttle/wall{dir = 4; icon_state = "wall3"},/area/shuttle/syndicate)
 "did" = (/obj/machinery/door/window{dir = 4; name = "Equipment Room"; req_access_txt = "150"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
 "die" = (/obj/machinery/access_button{command = "cycle_interior"; frequency = 1331; master_tag = "synd_airlock"; name = "interior access button"; pixel_x = 25; pixel_y = 25; req_access_txt = "0"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
 "dif" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)

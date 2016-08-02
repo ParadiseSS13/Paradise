@@ -852,7 +852,13 @@ var/list/ai_verbs_default = list(
 				if("ancient machine")
 					holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 				if("custom")
-					holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
+					if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic.dmi'))
+						holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
+					else if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic64.dmi'))
+						holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+					else
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
+
 	return
 
 /mob/living/silicon/ai/proc/corereturn()

@@ -110,11 +110,8 @@
 		if(I_HARM)
 			//Vampire code
 			if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining && M.zone_sel && M.zone_sel.selecting == "head" && src != M)
-				if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
-					to_chat(M, "<span class='warning'>Remove their mask!</span>")
-					return
-				if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))
-					to_chat(M, "<span class='warning'>Remove your mask!</span>")
+				if(species && species.flags & NO_BLOOD)//why this hell were we never checkinf for this?
+					to_chat(M, "<span class='warning'>They have no blood!</span>")
 					return
 				if(mind && mind.vampire && (mind in ticker.mode.vampires))
 					to_chat(M, "<span class='warning'>Your fangs fail to pierce [src.name]'s cold flesh</span>")

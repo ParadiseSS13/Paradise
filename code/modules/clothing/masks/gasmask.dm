@@ -8,6 +8,7 @@
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -95,6 +96,7 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
 
@@ -130,24 +132,28 @@
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
 	desc = "The traditional mime's mask. It has an eerie facial posture."
 	icon_state = "mime"
 	item_state = "mime"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
 	desc = "A mask used when acting as a monkey."
 	icon_state = "monkeymask"
 	item_state = "monkeymask"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/sexymime
 	name = "sexy mime mask"
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
 	item_state = "sexymime"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
@@ -158,12 +164,14 @@
 	name = "cyborg visor"
 	desc = "Beep boop"
 	icon_state = "death"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/owl_mask
 	name = "owl mask"
 	desc = "Twoooo!"
 	icon_state = "owl"
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	burn_state = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
