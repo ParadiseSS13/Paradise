@@ -1,4 +1,0 @@
-author: Fethas
-delete-after: True
-changes: 
-  - bugfix: "(Maybe?)..We actually check if the race HAS BLOOD before trying to suck them"

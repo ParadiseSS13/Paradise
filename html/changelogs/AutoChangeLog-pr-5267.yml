@@ -1,6 +1,0 @@
-author: Fethas
-delete-after: True
-changes: 
-  - rscadd: "Due to various complaints from tajarans having hand cramps, glove makers have removed plasteel from the fabric."
-  - tweak: "Plasmaman can no longer be vampires."
-  - tweak: "Removes the mask check on both victim AND vampire, also makes the message a bit more obscure, so it's up to your imagination of where you are biting them and with what."
