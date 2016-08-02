@@ -44,7 +44,7 @@
 						<A href='?src=\ref[src];secretsfun=forcelaunchshuttle'>Force launch a shuttle</A><BR>
 						<A href='?src=\ref[src];secretsfun=jumpshuttle'>Jump a shuttle</A>&nbsp;&nbsp;
 						<A href='?src=\ref[src];secretsfun=moveshuttle'>Move a shuttle</A><BR>
-						<BR></center> s
+						<BR></center>
 					"}
 
 			else if(check_rights(R_SERVER,0)) //only add this if admin secrets are unavailiable; otherwise, it's added inline
@@ -133,5 +133,3 @@
 	var/datum/browser/popup = new(usr, "secrets", "<div align='center'>Admin Secrets</div>", 630, 670)
 	popup.set_content(dat)
 	popup.open(0)
-
-
