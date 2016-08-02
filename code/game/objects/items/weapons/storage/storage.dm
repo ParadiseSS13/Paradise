@@ -547,3 +547,34 @@
 
 	return depth
 
+/obj/item/weapon/storage/serialize()
+	var data = ..()
+	var/list/content_list = list()
+	data["content"] = content_list
+	data["slots"] = storage_slots
+	data["max_w_class"] = max_w_class
+	data["max_c_w_class"] = max_combined_w_class
+	for(var/thing in contents)
+		var/atom/movable/AM = thing
+		// This code does not watch out for infinite loops
+		// But then again a tesseract would destroy the server anyways
+		// Also I wish I could just insert a list instead of it reading it the wrong way
+		content_list.len++
+		content_list[content_list.len] = AM.serialize()
+	return data
+
+/obj/item/weapon/storage/deserialize(list/data)
+	if(isnum(data["slots"]))
+		storage_slots = data["slots"]
+	if(isnum(data["max_w_class"]))
+		max_w_class = data["max_w_class"]
+	if(isnum(data["max_c_w_class"]))
+		max_combined_w_class = data["max_c_w_class"]
+	for(var/thing in contents)
+		qdel(thing) // out with the old
+	for(var/thing in data["content"])
+		if(islist(thing))
+			list_to_object(thing, src)
+		else
+			log_debug("Non-list thing: [thing]. We are a [name]")
+	..()
