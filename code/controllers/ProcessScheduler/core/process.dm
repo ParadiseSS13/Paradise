@@ -105,6 +105,10 @@
 	last_task = 0
 	last_object = null
 
+/datum/controller/process/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
+
 /datum/controller/process/proc/started()
 	// Initialize run_start so we can detect hung processes.
 	run_start = TimeOfGame
@@ -180,8 +184,7 @@
 		// Allow inheritors to clean up if needed
 		onKill()
 
-		// This should del
-		del(src)
+		qdel(src)
 
 // Do not call this directly - use SHECK or SCHECK_EVERY
 /datum/controller/process/proc/sleepCheck(var/tickId = 0)
