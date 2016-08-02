@@ -44,7 +44,7 @@ var/list/blob_nodes = list()
 			break
 		var/datum/mind/blob = pick(possible_blobs)
 		infected_crew += blob
-		blob.special_role = "Blob"
+		blob.special_role = SPECIAL_ROLE_BLOB
 		blob.restricted_roles = restricted_jobs
 		log_game("[blob.key] (ckey) has been selected as a Blob")
 		possible_blobs -= blob
@@ -67,7 +67,7 @@ var/list/blob_nodes = list()
 	if(!istype(blobmind))
 		return 0
 	infected_crew += blobmind
-	blobmind.special_role = "Blob"
+	blobmind.special_role = SPECIAL_ROLE_BLOB
 	log_game("[blob.key] (ckey) has been selected as a Blob")
 	greet_blob(blobmind)
 	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
@@ -141,7 +141,7 @@ var/list/blob_nodes = list()
 					core.overmind.mind.name = blob.name
 					infected_crew -= blob
 					infected_crew += core.overmind.mind
-					core.overmind.mind.special_role = "Blob Overmind"
+					core.overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
 /datum/game_mode/blob/post_setup()
 

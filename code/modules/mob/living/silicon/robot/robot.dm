@@ -1383,7 +1383,7 @@ var/list/robot_verbs_default = list(
 			var/mob/M = pick(borg_candidates)
 			M.mind.transfer_to(src)
 			M.mind.assigned_role = "MODE"
-			M.mind.special_role = "Death Commando"
+			M.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 			ticker.mode.traitors |= M.mind // Adds them to current traitor list. Which is really the extra antagonist list.
 			key = M.key
 		else

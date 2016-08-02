@@ -42,7 +42,7 @@
 
 	for(var/datum/mind/xeno in xenos)
 		xeno.assigned_role = "MODE"
-		xeno.special_role = "Alien"
+		xeno.special_role = SPECIAL_ROLE_XENOMORPH
 		set_antag_hud(xeno, "hudalien")//like this is needed...
 	return 1
 

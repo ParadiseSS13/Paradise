@@ -238,7 +238,7 @@ datum/game_mode/nations
 	return 1
 
 /proc/get_nations_mode()
-	if(!ticker || !istype(ticker.mode, /datum/game_mode/nations))
+	if(!GAMEMODE_IS_NATIONS)
 		return null
 
 	return ticker.mode

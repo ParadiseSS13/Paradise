@@ -52,7 +52,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	for(var/datum/mind/raider in raiders)
 		raider.assigned_role = "MODE"
-		raider.special_role = "Vox Raider"
+		raider.special_role = SPECIAL_ROLE_RAIDER
 	return 1
 
 /datum/game_mode/heist/pre_setup()
@@ -253,7 +253,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 datum/game_mode/proc/auto_declare_completion_heist()
 	if(raiders.len)
 		var/check_return = 0
-		if(ticker && istype(ticker.mode,/datum/game_mode/heist))
+		if(GAMEMODE_IS_HEIST)
 			check_return = 1
 		var/text = "<FONT size = 2><B>The Vox raiders were:</B></FONT>"
 
@@ -298,7 +298,7 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	overlays += icon('icons/obj/computer.dmi', "syndie")
 
 /obj/vox/win_button/attack_hand(mob/user)
-	if(!istype(ticker.mode, /datum/game_mode/heist) || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round
+	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round
 		to_chat(user, "<span class='warning'>\The [src] does not appear to have a connection.</span>")
 		return 0
 
