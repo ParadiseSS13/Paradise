@@ -566,6 +566,9 @@
 	var/obj/item/weapon/holder/H = ..()
 	if(!istype(H))
 		return
+	if(resting)
+		icon_state = "[chassis]"
+		resting = 0
 	H.icon_state = "pai-[icon_state]"
 	H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work

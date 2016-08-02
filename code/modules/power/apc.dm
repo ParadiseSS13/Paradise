@@ -977,8 +977,8 @@
 		return 0
 
 	else if(href_list["overload"])
-		if(istype(usr, /mob/living/silicon) && !aidisabled)
-			src.overload_lighting()
+		if(issilicon(usr) && !aidisabled)
+			overload_lighting()
 
 	else if(href_list["malfhack"])
 		var/mob/living/silicon/ai/malfai = usr
@@ -1383,17 +1383,17 @@
 
 // overload all the lights in this APC area
 
-/obj/machinery/power/apc/proc/overload_lighting(var/chance = 100)
-	if(/* !get_connection() || */ !operating || shorted)
+/obj/machinery/power/apc/proc/overload_lighting(chance = 100)
+	if(!operating || shorted)
 		return
-	if( cell && cell.charge>=20)
-		cell.use(20);
+	if(cell && cell.charge >= 20)
+		cell.use(20)
 		spawn(0)
 			for(var/obj/machinery/light/L in area)
 				if(prob(chance))
 					L.on = 1
 					L.broken()
-				sleep(1)
+					stoplag()
 
 /obj/machinery/power/apc/proc/setsubsystem(val)
 	if(cell && cell.charge > 0)

@@ -37,8 +37,9 @@
 	min_temp = 424
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
-	M.adjust_fire_stacks(4)
-	M.adjustFireLoss(0.35*M.fire_stacks)
+	M.adjust_fire_stacks(2)
+	var/burndmg = max(0.3*M.fire_stacks, 0.3)
+	M.adjustFireLoss(burndmg)
 	..()
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
@@ -66,7 +67,7 @@
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
-		M.adjust_fire_stacks(5)
+		M.adjust_fire_stacks(min(volume/5, 10))
 		M.IgniteMob()
 		M.bodytemperature += 30
 
@@ -416,10 +417,14 @@
 	for(var/turf/simulated/turf in range(min(created_volume/10,4),T))
 		new /obj/effect/hotspot(turf)
 
+/datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
+	M.IgniteMob()
+	..()
+
 /datum/reagent/phlogiston/on_mob_life(mob/living/M)
 	M.adjust_fire_stacks(1)
-	M.IgniteMob()
-	M.adjustFireLoss(0.2*M.fire_stacks)
+	var/burndmg = max(0.3*M.fire_stacks, 0.3)
+	M.adjustFireLoss(burndmg)
 	..()
 
 /datum/reagent/napalm
@@ -436,7 +441,7 @@
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
-		M.adjust_fire_stacks(7)
+		M.adjust_fire_stacks(min(volume/4, 20))
 
 /datum/chemical_reaction/napalm
 	name = "Napalm"
@@ -539,8 +544,11 @@
 // Put out fire
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(volume / 5)) // more effective than water
-		if(M.fire_stacks <= 0)
-			M.ExtinguishMob()
+		M.ExtinguishMob()
+
+/datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
+	if(istype(O))
+		O.extinguish()
 
 /datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -551,18 +559,6 @@
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
 		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), 0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
-
-/datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
-	var/turf/simulated/T = get_turf(O)
-	if(!istype(T))
-		return
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
 		lowertemp.react()
 		T.assume_air(lowertemp)
 		qdel(hotspot)
