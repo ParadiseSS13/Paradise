@@ -289,7 +289,7 @@ rcd light flash thingy on matter drain
 	for(var/datum/AI_Module/small/blackout/blackout in current_modules)
 		if(blackout.uses > 0)
 			blackout.uses --
-			for(var/obj/machinery/power/apc/apc in world)
+			for(var/obj/machinery/power/apc/apc in apcs)
 				if(prob(30*apc.overload))
 					apc.overload_lighting()
 				else
