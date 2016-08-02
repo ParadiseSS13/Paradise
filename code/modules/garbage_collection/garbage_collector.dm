@@ -162,22 +162,5 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 	tag = null
 	return QDEL_HINT_QUEUE // Garbage Collect everything.
 
-// If something gets deleted directly, make sure its Destroy proc is still called
-/datum/Del()
-	if(isnull(gcDestroyed)) // Not GC'd
-		try
-			Destroy()
-		catch(var/exception/e)
-			if(istype(e))
-				log_runtime(e, src, "Caught by Del() destroying [type]")
-			else
-				gcwarning("Del() caught runtime destroying [type]: [e]")
-		if(del_profiling)
-			delete_profile(src)
-	else
-		if(del_profiling)
-			delete_profile(src)
-	return ..()
-
 /proc/gcwarning(msg)
 	log_to_dd("## GC WARNING: [msg]")
