@@ -279,3 +279,7 @@
 #define FIRE_PROOF -1
 #define FLAMMABLE 0
 #define ON_FIRE 1
+
+// Sound
+#define SOUND_MINIMUM_PRESSURE 10
+#define FALLOFF_SOUNDS 0.5
