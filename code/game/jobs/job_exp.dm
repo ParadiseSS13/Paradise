@@ -1,20 +1,4 @@
 
-// Player Verbs
-
-
-/*
-// Player's "check my EXP" verb, commented by request of Neca
-/client/verb/check_exp()
-	set name = "EXP"
-	set desc = "Shows your EXP status"
-	set category = "Special Verbs"
-	//if(!establish_db_connection())
-	//	return 0
-	var/body = "<html><head><title>EXP for [key]</title></head><BR>"
-	body += get_exp_report()
-	body += "</HTML>"
-	src << browse(body, "window=playerexp;size=550x615")
-*/
 
 // Admin Verbs
 
@@ -43,19 +27,6 @@
 	src << browse(body, "window=playerexp;size=550x615")
 
 
-// Admin Debug verbs
-
-/client/verb/add_exp()
-	set name = "EXP Add"
-	set desc = "DEBUG"
-	set category = "Debug"
-	if(!check_rights(R_DEBUG))
-		return
-	update_exp(60, 1)
-	log_admin("[key_name(usr)] granted player EXP")
-	feedback_add_details("admin_verb","GEXP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
 // Procs
 
 /proc/has_exp_for_job(mob/M, rank)
@@ -68,15 +39,14 @@
 		return 1
 	if(!M.client)
 		return 0
-	//if(check_rights(R_ADMIN, 0, M))
-	//	return 1
+	if(check_rights(R_ADMIN, 0, M))
+		return 1
 	var/list/play_records = params2list(M.client.prefs.exp)
 	var/imm = text2num(play_records["imm"])
 	if(imm)
 		return 1
 	var/my_exp = text2num(play_records[job.exp_type])
 	if(my_exp >= text2num(job.exp_requirements))
-		//return_text += "<BR><span class='notice'>[C.mob] has [my_exp] of the [job.exp_requirements] [job.exp_type] EXP required for [job.title].</span>"
 		return 1
 	else
 		return 0

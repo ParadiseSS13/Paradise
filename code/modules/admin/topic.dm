@@ -2017,7 +2017,7 @@
 		fax_panel(usr)
 
 	else if(href_list["getexpwindow"])
-		if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))	return
+		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locate(href_list["getexpwindow"])
 		usr.client.cmd_show_exp_panel(M.client)
