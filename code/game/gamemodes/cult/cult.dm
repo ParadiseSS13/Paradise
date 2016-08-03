@@ -28,7 +28,7 @@
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "D-class Prisoner", "Nanotrasen Navy Officer", "Special Operations Officer")
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -326,6 +326,17 @@
 					if(!eldergod)
 						explanation = "Summon Nar-Sie. <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_narsie|SUCCESS")
+						for(var/datum/mind/cultist in cult)
+							if(cultist.current)
+								if(cultist.current.stat == DEAD)
+									to_chat(world, "[cultist.key]'s character is dead - earned 1 karma point for summoning Nar-Sie!")
+									sql_report_objective_karma(cultist.key, 1)
+								else
+									to_chat(world, "[cultist.key]'s character survived - earned 5 karma point for summoning Nar-Sie!")
+									sql_report_objective_karma(cultist.key, 5)
+							else
+								to_chat(world, "[cultist.key]'s character gibbed - earned 1 karma point for summoning Nar-Sie!")
+								sql_report_objective_karma(cultist.key, 1)
 					else
 						explanation = "Summon Nar-Sie. <font color='red'>Fail.</font>"
 						feedback_add_details("cult_objective","cult_narsie|FAIL")

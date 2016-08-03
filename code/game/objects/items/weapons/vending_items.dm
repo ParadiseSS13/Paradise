@@ -16,7 +16,7 @@
 
 /obj/item/weapon/vending_refill/New(amt = -1)
 	..()
-	name = "\improper [machine_name] restocking unit"
+	name = "[machine_name] restocking unit"
 	if(isnum(amt) && amt > -1)
 		charges = amt
 
