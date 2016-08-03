@@ -379,8 +379,13 @@ var/global/dmm_suite/preloader/_preloader = new
 			var/trim_right = trim_text(copytext(text,equal_position+1,position))//the content of the variable
 
 			//Check for string
+			// Make it read to the next delimiter, instead of the quote
 			if(findtext(trim_right,quote,1,2))
-				trim_right = copytext(trim_right,2,findtext(trim_right,quote,3,0))
+				log_debug(trim_right)
+				var/endquote = findtext(trim_right,quote,-1)
+				if(!endquote)
+					log_debug("Terminating quote not found!")
+				trim_right = copytext(trim_right,2,endquote)
 
 			//Check for number
 			else if(isnum(text2num(trim_right)))
@@ -402,7 +407,6 @@ var/global/dmm_suite/preloader/_preloader = new
 			else if(ispath(text2path(trim_right)))
 				trim_right = text2path(trim_right)
 
-			log_debug(trim_right)
 			to_return[trim_left] = trim_right
 
 		else//simple var

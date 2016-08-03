@@ -22,10 +22,10 @@
 	return
 
 
-/atom/movable
+/atom
 	// This is so specific atoms can override these, and ignore certain ones
 	var/list/vars_to_save = list("dir","name","color","icon","icon_state")
-/atom/movable/serialize()
+/atom/serialize()
 	var/list/data = ..()
 	for(var/thing in vars_to_save)
 		if(vars[thing] != initial(vars[thing]))
@@ -33,7 +33,7 @@
 	return data
 
 
-/atom/movable/deserialize(var/list/data)
+/atom/deserialize(var/list/data)
 	for(var/thing in vars_to_save)
 		if(thing in data)
 			vars[thing] = data[thing]
