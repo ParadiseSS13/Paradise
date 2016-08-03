@@ -1979,6 +1979,7 @@
 				return
 		else
 			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+				// TODO: Tie into space manager
 				if((F.z in config.station_levels))
 					spawn(0)
 						if(!F.receivefax(P))
@@ -2326,6 +2327,7 @@
 				for(var/mob/living/carbon/human/H in mob_list)
 					var/turf/loc = find_loc(H)
 					var/security = 0
+					// TODO: Tie into space manager
 					if(!(loc.z in config.station_levels) || prisonwarped.Find(H))
 
 //don't warp them if they aren't ready or are already there
@@ -2563,6 +2565,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","EgL")
 				for(var/obj/machinery/door/airlock/W in world)
+					// TODO: Tie into space manager
 					if((W.z in config.station_levels) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")

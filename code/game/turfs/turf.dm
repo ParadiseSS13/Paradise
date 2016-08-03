@@ -135,9 +135,6 @@
 		loopsanity--
 		A.HasProximity(M, 1)
 
-/turf/proc/adjacent_fire_act(turf/simulated/floor/source, temperature, volume)
-	return
-
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1)
@@ -166,6 +163,7 @@
 	var/list/old_affecting_lights = affecting_lights
 	var/old_lighting_overlay = lighting_overlay
 	var/old_blueprint_data = blueprint_data
+	var/old_obscured = obscured
 
 	if(air_master)
 		air_master.remove_from_active(src)
@@ -188,6 +186,8 @@
 			lighting_build_overlays()
 		else
 			lighting_clear_overlays()
+	
+	obscured = old_obscured
 
 	return W
 

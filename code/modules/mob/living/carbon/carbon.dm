@@ -551,12 +551,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src)
-/*
-/mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	..()
-	src.IgniteMob()
-	bodytemperature = max(bodytemperature, BODYTEMP_HEAT_DAMAGE_LIMIT+10)
-*/
+
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return 0

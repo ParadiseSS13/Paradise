@@ -14,7 +14,8 @@ var/list/sacrificed = list()
 	for(var/obj/effect/rune/R in world)
 		if(R == src)
 			continue
-		if(R.word1 == cultwords["travel"] && R.word2 == cultwords["self"] && R.word3 == key && R.z != 2)
+		// TODO: Tie into space manager
+		if(R.word1 == cultwords["travel"] && R.word2 == cultwords["self"] && R.word3 == key && R.z != ZLEVEL_CENTCOMM)
 			index++
 			allrunesloc.len = index
 			allrunesloc[index] = R.loc

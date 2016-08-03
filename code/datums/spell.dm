@@ -67,6 +67,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			caster.reset_view(0)
 			return 0
 
+	// TODO: Tie into space manager
 	if(user.z == ZLEVEL_CENTCOMM && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 	if(user.z == ZLEVEL_CENTCOMM && ticker.mode.name == "ragin' mages")
@@ -363,6 +364,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		return 0
 
+	// TODO: Tie into space manager
 	if(user.z == ZLEVEL_CENTCOMM && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 	if(user.z == ZLEVEL_CENTCOMM && ticker.mode.name == "ragin' mages")

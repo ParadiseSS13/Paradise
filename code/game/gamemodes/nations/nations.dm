@@ -142,6 +142,7 @@ datum/game_mode/nations
 
 /datum/game_mode/nations/proc/remove_access()
 	for(var/obj/machinery/door/airlock/W in airlocks)
+		// TODO: Tie into space manager
 		if(W.z in config.station_levels)
 			W.req_access = list()
 

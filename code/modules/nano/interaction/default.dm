@@ -41,6 +41,7 @@
 	// Prevents the AI from using Topic on admin levels (by for example viewing through the court/thunderdome cameras)
 	// unless it's on the same level as the object it's interacting with.
 	var/turf/T = get_turf(src_object)
+	// TODO: Tie into space manager
 	if(!T || !(z == T.z || (T.z in config.player_levels)))
 		return STATUS_CLOSE
 

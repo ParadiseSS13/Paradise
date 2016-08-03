@@ -41,11 +41,12 @@
 /obj/machinery/computer/secure_data/attack_hand(mob/user as mob)
 	if(..())
 		return
-	if(src.z > 6)
+	// TODO: Tie into space manager
+	if(src.z > ZLEVEL_DERELICT)
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	var/dat
-	
+
 	// search javascript
 	var/head_content = {"
 	<script src="libraries.min.js"></script>
@@ -89,7 +90,7 @@
 
 					//body tag start + onload and onkeypress (onkeyup) javascript event calls
 					dat += "<body onload='selectTextField(); updateSearch();' onkeyup='updateSearch();'>"
-					
+
 					dat += {"
 <p style='text-align:center;'>"}
 					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)

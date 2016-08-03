@@ -25,25 +25,28 @@ var/list/ricochet = list('sound/weapons/effects/ric1.ogg', 'sound/weapons/effect
 	var/turf/turf_source = get_turf(source)
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
+	var/sound/S = sound(soundin)
+	var/maxdistance = (world.view + extrarange) * 3
 	for(var/P in player_list)
 		var/mob/M = P
 		if(!M || !M.client)
 			continue
-
 		var/distance = get_dist(M, turf_source)
-		if(distance <= (world.view + extrarange) * 3)
+
+		if(distance <= maxdistance)
 			var/turf/T = get_turf(M)
 
 			if(T && T.z == turf_source.z)
-				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global)
+				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global, S)
 
 var/const/FALLOFF_SOUNDS = 0.5
 
-/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global)
-	if(!src.client || ear_deaf > 0)	return
-	soundin = get_sfx(soundin)
+/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global, sound/S)
+	if(!src.client || ear_deaf > 0)
+		return
 
-	var/sound/S = sound(soundin)
+	if(!S)
+		S = sound(get_sfx(soundin))
 	S.wait = 0 //No queue
 	S.channel = 0 //Any channel
 	S.volume = vol
