@@ -40,6 +40,13 @@
 		R.update_icon()
 	..()
 
+/datum/stack_recipe/bluespacecrystals
+/datum/stack_recipe/bluespacecrystals/post_build(var/obj/item/stack/S, var/obj/result)
+	if(istype(result, obj/item/weapon/ore/bluespacecrystal/B))
+		var/obj/item/weapon/ore/bluespacecrystal/B = result
+		B.refined_type = null
+	..()
+
 /*
  * Recipe list datum
  */
