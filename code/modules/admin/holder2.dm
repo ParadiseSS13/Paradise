@@ -24,6 +24,10 @@ var/list/admin_datums = list()
 	rights = initial_rights
 	admin_datums[ckey] = src
 
+/datum/admins/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
+
 /datum/admins/proc/associate(client/C)
 	if(istype(C))
 		owner = C
@@ -85,7 +89,7 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 	admin_datums -= ckey
 	if(holder)
 		holder.disassociate()
-		del(holder)
+		qdel(holder)
 	return 1
 
 //This proc checks whether subject has at least ONE of the rights specified in rights_required.

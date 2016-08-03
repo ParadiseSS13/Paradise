@@ -85,12 +85,12 @@
 				move_gamma_ship()
 
 				if(security_level < SEC_LEVEL_RED)
-					for(var/obj/machinery/door/airlock/highsecurity/red/R in world)
+					for(var/obj/machinery/door/airlock/highsecurity/red/R in airlocks)
 						if(is_station_level(R.z))
 							R.locked = 0
 							R.update_icon()
 
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in world)
+				for(var/obj/machinery/door/airlock/hatch/gamma/H in airlocks)
 					if(is_station_level(H.z))
 						H.locked = 0
 						H.update_icon()

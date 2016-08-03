@@ -613,7 +613,7 @@
 						var/obj/effect/buildmode_line/L2 = new(holder, P, M, "[M.name] to [P.name]") // Yes, reversed one so that you can see it from both sides.
 						L2.color = L.color
 						link_lines += L2
-				for(var/obj/machinery/door/poddoor/P in world)
+				for(var/obj/machinery/door/poddoor/P in airlocks)
 					if(P.id_tag == M.id)
 						var/obj/effect/buildmode_line/L = new(holder, M, P, "[M.name] to [P.name]")
 						L.color = M.normaldoorcontrol ? "#993333" : "#339933"

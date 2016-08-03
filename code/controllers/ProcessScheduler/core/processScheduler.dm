@@ -58,6 +58,10 @@ var/global/datum/controller/processScheduler/processScheduler
 	timeAllowance = world.tick_lag * 0.5
 	timeAllowanceMax = world.tick_lag
 
+/datum/controller/processScheduler/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
+
 /**
  * deferSetupFor
  * @param path processPath
@@ -72,7 +76,7 @@ var/global/datum/controller/processScheduler/processScheduler
 /datum/controller/processScheduler/proc/setup()
 	// There can be only one
 	if(processScheduler && (processScheduler != src))
-		del(src)
+		qdel(src)
 		return 0
 
 	var/process

@@ -24,7 +24,7 @@ var/global/pipe_processing_killed = 0
 	//There can be only one master_controller. Out with the old and in with the new.
 	if(master_controller != src)
 		if(istype(master_controller))
-			del(master_controller)
+			qdel(master_controller)
 		master_controller = src
 
 	var/watch=0
@@ -37,6 +37,10 @@ var/global/pipe_processing_killed = 0
 
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
+
+/datum/controller/game_controller/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
