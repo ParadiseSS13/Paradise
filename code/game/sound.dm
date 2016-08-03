@@ -39,8 +39,6 @@ var/list/ricochet = list('sound/weapons/effects/ric1.ogg', 'sound/weapons/effect
 			if(T && T.z == turf_source.z)
 				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global, S)
 
-var/const/FALLOFF_SOUNDS = 0.5
-
 /mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global, sound/S)
 	if(!src.client || ear_deaf > 0)
 		return
