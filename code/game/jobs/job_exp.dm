@@ -140,65 +140,67 @@
 /proc/update_exp(var/minutes, var/announce_changes = 0)
 	if(!establish_db_connection())
 		return -1
-	for(var/client/C in clients)
-		if(C.inactivity < (10 MINUTES))
+	spawn(0)
+		for(var/client/C in clients)
+			if(C.inactivity < (10 MINUTES))
 
-			var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[C.ckey]'")
-			exp_read.Execute()
-			var/list/play_records = list()
-			while(exp_read.NextRow())
-				play_records = params2list(exp_read.item[1])
+				var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[C.ckey]'")
+				exp_read.Execute()
+				var/list/play_records = list()
+				while(exp_read.NextRow())
+					play_records = params2list(exp_read.item[1])
 
-			for(var/rtype in list("gen","com","sec","sci","eng","med","sup","sil","ant", "gho", "imm"))
-				if(!text2num(play_records[rtype]))
-					play_records[rtype] = 0
+				for(var/rtype in list("gen","com","sec","sci","eng","med","sup","sil","ant", "gho", "imm"))
+					if(!text2num(play_records[rtype]))
+						play_records[rtype] = 0
+					else
+						play_records[rtype] = text2num(play_records[rtype])
+
+				if(C.mob.stat == CONSCIOUS && C.mob.mind.assigned_role)
+					play_records["gen"] += minutes
+					if(announce_changes)
+						to_chat(C.mob,"<span class='notice'>You got: [minutes] General EXP!")
+					if(C.mob.mind.assigned_role in command_positions)
+						play_records["com"] += minutes
+						if(announce_changes)
+							to_chat(C.mob,"<span class='notice'>You got: [minutes] Command EXP!")
+					if(C.mob.mind.assigned_role in security_positions)
+						play_records["sec"] += minutes
+						if(announce_changes)
+							to_chat(C.mob,"<span class='notice'>You got: [minutes] Security EXP!")
+					if(C.mob.mind.assigned_role in science_positions)
+						play_records["sci"] += minutes
+						if(announce_changes)
+							to_chat(C.mob,"<span class='notice'>You got: [minutes] Science EXP!")
+					if(C.mob.mind.assigned_role in engineering_positions)
+						play_records["eng"] += minutes
+						if(announce_changes)
+							to_chat(C.mob,"<span class='notice'>You got: [minutes] Engineering EXP!")
+					if(C.mob.mind.assigned_role in medical_positions)
+						play_records["med"] += minutes
+						if(announce_changes)
+							to_chat(C.mob,"<span class='notice'>You got: [minutes] Medical EXP!")
+					if(C.mob.mind.assigned_role in support_positions)
+						play_records["sup"] += minutes
+						if(announce_changes)
+							to_chat(C.mob,"<span class='notice'>You got: [minutes] Support EXP!")
+					if(C.mob.mind.assigned_role in nonhuman_positions)
+						play_records["sil"] += minutes
+						if(announce_changes)
+							to_chat(C.mob,"<span class='notice'>You got: [minutes] Silicon EXP!")
+					if(C.mob.mind.special_role)
+						play_records["ant"] += minutes
+						if(announce_changes)
+							to_chat(C.mob,"<span class='notice'>You got: [minutes] Special EXP!")
+				else if(isobserver(C.mob))
+					play_records["gho"] += minutes
+					if(announce_changes)
+						to_chat(C.mob,"<span class='notice'>You got: [minutes] Ghost EXP!")
 				else
-					play_records[rtype] = text2num(play_records[rtype])
-
-			if(C.mob.stat == CONSCIOUS && C.mob.mind.assigned_role)
-				play_records["gen"] += minutes
-				if(announce_changes)
-					to_chat(C.mob,"<span class='notice'>You got: [minutes] General EXP!")
-				if(C.mob.mind.assigned_role in command_positions)
-					play_records["com"] += minutes
-					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] Command EXP!")
-				if(C.mob.mind.assigned_role in security_positions)
-					play_records["sec"] += minutes
-					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] Security EXP!")
-				if(C.mob.mind.assigned_role in science_positions)
-					play_records["sci"] += minutes
-					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] Science EXP!")
-				if(C.mob.mind.assigned_role in engineering_positions)
-					play_records["eng"] += minutes
-					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] Engineering EXP!")
-				if(C.mob.mind.assigned_role in medical_positions)
-					play_records["med"] += minutes
-					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] Medical EXP!")
-				if(C.mob.mind.assigned_role in support_positions)
-					play_records["sup"] += minutes
-					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] Support EXP!")
-				if(C.mob.mind.assigned_role in nonhuman_positions)
-					play_records["sil"] += minutes
-					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] Silicon EXP!")
-				if(C.mob.mind.special_role)
-					play_records["ant"] += minutes
-					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] Special EXP!")
-			else if(isobserver(C.mob))
-				play_records["gho"] += minutes
-				if(announce_changes)
-					to_chat(C.mob,"<span class='notice'>You got: [minutes] Ghost EXP!")
-			else
-				return
-			var/new_exp = list2params(play_records)
-			C.prefs.exp = new_exp
-			new_exp = sanitizeSQL(new_exp)
-			var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]' WHERE ckey='[C.ckey]'")
-			update_query.Execute()
+					return
+				var/new_exp = list2params(play_records)
+				C.prefs.exp = new_exp
+				new_exp = sanitizeSQL(new_exp)
+				var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]' WHERE ckey='[C.ckey]'")
+				update_query.Execute()
+				sleep(10)
