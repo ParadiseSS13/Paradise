@@ -71,7 +71,7 @@ var/round_start_time = 0
 	spawn(0)
 		while(TRUE)
 			update_exp(5,0)
-			sleep(3000)
+			sleep(5 MINUTES)
 
 /datum/controller/gameticker/proc/setup()
 	//Create and announce mode
