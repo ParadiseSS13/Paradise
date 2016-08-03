@@ -30,7 +30,7 @@
 	config_tag = "cult"
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "D-class Prisoner", "Nanotrasen Navy Officer", "Special Operations Officer")
 	protected_jobs = list()
-	required_players = 30
+	required_players = 10
 	required_enemies = 3
 	recommended_enemies = 4
 
