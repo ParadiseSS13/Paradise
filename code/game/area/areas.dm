@@ -376,6 +376,7 @@
 		return 1
 	else
 		// There's a gravity generator on our z level
+		// This would do well when integrated with the z level manager
 		if(T && gravity_generators["[T.z]"] && length(gravity_generators["[T.z]"]))
 			return 1
 	return 0

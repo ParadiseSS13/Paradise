@@ -16,6 +16,8 @@
 	pressure_resistance = 0
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
+	burn_state = FLAMMABLE
+	burntime = 5
 	attack_verb = list("bapped")
 
 	var/info		//What's actually written on the paper.
@@ -289,30 +291,6 @@
 		\[hr\] : Adds a horizontal rule.
 	</BODY></HTML>"}, "window=paper_help")
 
-/obj/item/weapon/paper/proc/burnpaper(obj/item/weapon/lighter/P, mob/user)
-	var/class = "<span class='warning'>"
-
-	if(P.lit && !user.restrained())
-		if(istype(P, /obj/item/weapon/lighter/zippo))
-			class = "<span class='rose'>"
-
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like \he's trying to burn it!", \
-		"[class]You hold \the [P] up to \the [src], burning it slowly.")
-
-		spawn(20)
-			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
-
-				if(user.get_inactive_hand() == src)
-					user.unEquip(src)
-
-				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				qdel(src)
-
-			else
-				to_chat(user, "\red You must hold \the [P] steady to burn \the [src].")
-
 /obj/item/weapon/paper/Topic(href, href_list)
 	..()
 	if(!usr || (usr.stat || usr.restrained()))
@@ -361,8 +339,12 @@
 		update_icon()
 
 
-/obj/item/weapon/paper/attackby(obj/item/weapon/P as obj, mob/user as mob, params)
+/obj/item/weapon/paper/attackby(obj/item/weapon/P, mob/living/user, params)
 	..()
+
+	if(burn_state == ON_FIRE)
+		return
+
 	var/clown = 0
 	if(user.mind && (user.mind.assigned_role == "Clown"))
 		clown = 1
@@ -443,11 +425,27 @@
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 
-	else if(istype(P, /obj/item/weapon/lighter))
-		burnpaper(P, user)
+	if(is_hot(P))
+		if((CLUMSY in user.mutations) && prob(10))
+			user.visible_message("<span class='warning'>[user] accidentally ignites themselves!</span>", \
+								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
+			user.unEquip(P)
+			user.adjust_fire_stacks(1)
+			user.IgniteMob()
+			return
+
+		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
+			return
+
+		user.unEquip(src)
+		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		fire_act()
 
 	add_fingerprint(user)
-	return
+
+/obj/item/weapon/paper/fire_act()
+	..()
+	info = "[stars(info)]"
 
 /obj/item/weapon/paper/proc/stamp(var/obj/item/weapon/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"

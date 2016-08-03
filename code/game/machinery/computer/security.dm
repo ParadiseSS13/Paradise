@@ -41,7 +41,8 @@
 /obj/machinery/computer/secure_data/attack_hand(mob/user as mob)
 	if(..())
 		return
-	if(src.z > 6)
+	// TODO: Tie into space manager
+	if(src.z > ZLEVEL_DERELICT)
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	var/dat

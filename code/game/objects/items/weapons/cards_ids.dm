@@ -111,7 +111,7 @@
 /obj/item/weapon/card/id/New()
 	..()
 	spawn(30)
-		if(ishuman(loc))
+		if(ishuman(loc) && blood_type == "\[UNSET\]")
 			var/mob/living/carbon/human/H = loc
 			SetOwnerInfo(H)
 
@@ -252,6 +252,37 @@
 		guest_pass = null
 	else
 		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
+
+/obj/item/weapon/card/id/serialize()
+	var/list/data = ..()
+
+	data["sex"] = sex
+	data["age"] = age
+	data["btype"] = blood_type
+	data["dna_hash"] = dna_hash
+	data["fprint_hash"] = fingerprint_hash
+	data["access"] = access
+	data["job"] = assignment
+	data["account"] = associated_account_number
+	data["owner"] = registered_name
+	data["mining"] = mining_points
+	return data
+
+/obj/item/weapon/card/id/deserialize(list/data)
+	sex = data["sex"]
+	age = data["age"]
+	blood_type = data["btype"]
+	dna_hash = data["dna_hash"]
+	fingerprint_hash = data["fprint_hash"]
+	access = data["access"] // No need for a copy, the list isn't getting touched
+	assignment = data["job"]
+	associated_account_number = data["account"]
+	registered_name = data["owner"]
+	mining_points = data["mining"]
+	// We'd need to use icon serialization(b64) to save the photo, and I don't feel like i
+	UpdateName()
+	RebuildHTML()
+	..()
 
 /obj/item/weapon/card/id/silver
 	name = "identification card"

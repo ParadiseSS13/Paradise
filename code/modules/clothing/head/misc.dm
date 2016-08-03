@@ -342,6 +342,7 @@
 	throw_range = 5
 	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"

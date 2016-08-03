@@ -273,3 +273,13 @@
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
 #define RADIO_CONNECTION_NON_SUBSPACE 1
+
+//Fire stuff, for burn_state
+#define LAVA_PROOF -2
+#define FIRE_PROOF -1
+#define FLAMMABLE 0
+#define ON_FIRE 1
+
+// Sound
+#define SOUND_MINIMUM_PRESSURE 10
+#define FALLOFF_SOUNDS 0.5

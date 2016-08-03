@@ -65,6 +65,7 @@
 				health_display = "DEAD"
 			else if(total_loss)
 				health_display = "HURT ([total_loss])"
+			// TODO: Tie into space manager
 			if((M.z in config.station_levels) && !istype(M.loc, /turf/space))
 				loc_display = "[get_area(M)]"
 			dat += "ID: [T.id] <BR>Subject: [M] <BR>Location: [loc_display] <BR>Health: [health_display] <BR>"

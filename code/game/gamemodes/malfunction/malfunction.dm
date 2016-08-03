@@ -141,6 +141,7 @@
 /datum/game_mode/proc/check_ai_loc()
 	for(var/datum/mind/AI_mind in malf_ai)
 		var/turf/ai_location = get_turf(AI_mind.current)
+		// TODO: Tie into space manager
 		if(ai_location && (ai_location.z == ZLEVEL_STATION))
 			return 1
 	return 0

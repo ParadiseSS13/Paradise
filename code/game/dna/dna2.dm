@@ -419,3 +419,26 @@ var/global/list/bad_blocks[0]
 
 	unique_enzymes = md5(character.real_name)
 	reg_dna[unique_enzymes] = character.real_name
+
+// Hmm, I wonder how to go about this without a huge convention break
+/datum/dna/proc/serialize()
+	var/data = list()
+	data["UE"] = unique_enzymes
+	data["SE"] = SE.Copy() // This is probably too lazy for my own good
+	data["UI"] = UI.Copy()
+	data["species"] = species // This works because `species` is a string, not a datum
+	// Because old DNA coders were insane or something
+	data["b_type"] = b_type
+	data["real_name"] = real_name
+	return data
+
+/datum/dna/proc/deserialize(data)
+	unique_enzymes = data["UE"]
+	// The de-serializer is unlikely to tamper with the lists
+	SE = data["SE"]
+	UI = data["UI"]
+	UpdateUI()
+	UpdateSE()
+	species = data["species"]
+	b_type = data["b_type"]
+	real_name = data["real_name"]

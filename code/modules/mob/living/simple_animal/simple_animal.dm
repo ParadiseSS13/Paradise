@@ -407,26 +407,7 @@
 	return
 
 /mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
-	if(istype(O, /obj/item/stack/medical) && healable)
-		if(stat != DEAD)
-			var/obj/item/stack/medical/MED = O
-			if(health < maxHealth)
-				if(MED.amount >= 1)
-					if(MED.heal_brute >= 1)
-						heal_organ_damage((MED.heal_brute * 1.66), (MED.heal_burn * 1.66))
-						MED.use(1)
-						visible_message("<span class='notice'>[user] applies [MED] on [src]</span>")
-						return
-					else
-						to_chat(user, "<span class='notice'>[MED] won't help at all.</span>")
-						return
-			else
-				to_chat(user, "<span class='notice'>[src] is at full health.</span>")
-				return
-		else
-			to_chat(user, "<span class='notice'>[src] is dead, medical items won't bring it back to life.</span>")
-			return
-	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
+	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
 		user.drop_item()
 		C.forceMove(src)
@@ -560,15 +541,23 @@
 			return 0
 	return 1
 
+/mob/living/simple_animal/handle_fire()
+	return
+
+/mob/living/simple_animal/update_fire()
+	return
+
+/mob/living/simple_animal/IgniteMob()
+	return 0
+
+/mob/living/simple_animal/ExtinguishMob()
+	return
+
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
 	if(damage <= force_threshold || !damage_coeff[damagetype])
 		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
 	else
 		apply_damage(damage, damagetype)
-
-
-/mob/living/simple_animal/update_fire()
-	return
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()

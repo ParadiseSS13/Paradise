@@ -528,7 +528,8 @@
 
 /obj/item/device/wormhole_jaunter/attack_self(mob/user as mob)
 	var/turf/device_turf = get_turf(user)
-	if(!device_turf||device_turf.z==2||device_turf.z>=7)
+	// TODO: Tie into space manager
+	if(!device_turf||device_turf.z==ZLEVEL_CENTCOMM||device_turf.z>=ZLEVEL_EMPTY)
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
 		return
 	else
@@ -536,6 +537,7 @@
 		var/list/L = list()
 		for(var/obj/item/device/radio/beacon/B in world)
 			var/turf/T = get_turf(B)
+			// TODO: Tie into space manager
 			if(T.z == ZLEVEL_STATION)
 				L += B
 		if(!L.len)

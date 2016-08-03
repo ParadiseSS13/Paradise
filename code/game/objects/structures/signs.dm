@@ -41,6 +41,7 @@
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
 	w_class = 3		//big
+	burn_state = FLAMMABLE
 	var/sign_state = ""
 
 /obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction

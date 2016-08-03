@@ -1,3 +1,4 @@
+// TODO: Tie into space manager
 //Used for all kinds of weather, ex. lavaland ash storms.
 var/global/datum/controller/process/weather/weather_master
 

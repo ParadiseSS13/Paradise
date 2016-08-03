@@ -353,6 +353,7 @@ var/bomb_set
 
 	var/off_station = 0
 	var/turf/bomb_location = get_turf(src)
+	// TODO: Tie into space manager
 	if( bomb_location && (bomb_location.z in config.station_levels) )
 		if( (bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)) )
 			off_station = 1
@@ -363,7 +364,8 @@ var/bomb_set
 		if(ticker.mode && ticker.mode.name == "nuclear emergency")
 			var/obj/docking_port/mobile/syndie_shuttle = shuttle_master.getShuttle("syndicate")
 			if(syndie_shuttle)
-				ticker.mode:syndies_didnt_escape = (syndie_shuttle.z > 1 ? 0 : 1)	//muskets will make me change this, but it will do for now
+				// TODO: Tie into space manager
+				ticker.mode:syndies_didnt_escape = (syndie_shuttle.z > ZLEVEL_STATION ? 0 : 1)	//muskets will make me change this, but it will do for now
 			ticker.mode:nuke_off_station = off_station
 		ticker.station_explosion_cinematic(off_station,null)
 		if(ticker.mode)
@@ -401,6 +403,7 @@ var/bomb_set
 
 /obj/item/weapon/disk/nuclear/process()
 	var/turf/disk_loc = get_turf(src)
+	// TODO: Tie into space manager
 	if(disk_loc.z != ZLEVEL_STATION && disk_loc.z != ZLEVEL_CENTCOMM)
 		var/holder = get(src, /mob)
 		if(holder)

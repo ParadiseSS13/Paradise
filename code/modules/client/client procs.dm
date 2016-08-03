@@ -57,7 +57,6 @@
 	if( findtext(href,"<script",1,0) )
 		log_to_dd("Attempted use of scripts within a topic call, by [src]")
 		message_admins("Attempted use of scripts within a topic call, by [src]")
-		//del(usr)
 		return
 
 	//Admin PM

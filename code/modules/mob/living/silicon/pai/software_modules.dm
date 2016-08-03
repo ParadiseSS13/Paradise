@@ -499,6 +499,7 @@
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/living/silicon/ai/AI in player_list)
+		// TODO: Tie into space manager
 		if(!T || !(T.z in config.contact_levels))
 			break
 		if(T.loc)

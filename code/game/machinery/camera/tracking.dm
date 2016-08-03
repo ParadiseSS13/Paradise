@@ -1,6 +1,7 @@
 /mob/living/silicon/ai/proc/InvalidTurf(turf/T as turf)
 	if(!T)
 		return 1
+	// TODO: Tie into space manager
 	if((T.z in config.admin_levels))
 		return 1
 	if(T.z > MAX_Z)

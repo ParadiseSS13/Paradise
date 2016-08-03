@@ -10,6 +10,8 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
+	burn_state = FLAMMABLE
+	burntime = 5
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/egg)) //breaking eggs
@@ -24,6 +26,15 @@
 			return
 	else
 		..()
+
+/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/fire_act()
+	if(!reagents.total_volume)
+		return
+	..()
+
+/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/burn()
+	reagents.clear_reagents()
+	extinguish()
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/on_reagent_change() // *scream
 	if(reagents.reagent_list.len > 0)

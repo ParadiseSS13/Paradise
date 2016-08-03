@@ -651,7 +651,7 @@ datum
 						return 10
 					else
 						return 20
-						
+
 
 			/*burger
 				steal_target = /obj/item/weapon/reagent_containers/food/snacks/human/burger
@@ -1358,6 +1358,7 @@ datum
 					var/turf/T = get_turf(target.current)
 					if(target.current.stat == 2)
 						return 1
+					// TODO: Tie into space manager
 					else if((T) && !(T.z in config.station_levels))//If they leave the station they count as dead for this
 						return 2
 					else

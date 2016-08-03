@@ -29,7 +29,8 @@
 
 
 	attackby(obj/item/weapon/O as obj, mob/user as mob, params)
-		if(user.z > 6)
+		// TODO: Tie into space manager
+		if(user.z > ZLEVEL_DERELICT)
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 		if(istype(O, /obj/item/weapon/aiModule))
