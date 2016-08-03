@@ -4,6 +4,7 @@
 #define DMM_IGNORE_NPCS 8
 #define DMM_IGNORE_PLAYERS 16
 #define DMM_IGNORE_MOBS 24
+#define DMM_USE_JSON 32
 dmm_suite{
 	var{
 		quote = "\""
@@ -31,11 +32,13 @@ dmm_suite{
 		if(!isturf(t1) || !isturf(t2)){
 			CRASH("Invalid arguments supplied to proc save_map, arguments were not turfs.")
 			}
+		var/map_prefix = "_maps/quicksave/"
+		var/map_path = "[map_prefix][map_name].dmm"
 		var/file_text = write_map(t1,t2,flags)
-		if(fexists("[map_name].dmm")){
-			fdel("[map_name].dmm")
+		if(fexists(map_path)){
+			fdel(map_path)
 			}
-		var/saved_map = file("[map_name].dmm")
+		var/saved_map = file(map_path)
 		saved_map << file_text
 		return saved_map
 		}
@@ -44,17 +47,22 @@ dmm_suite{
 		if(!isturf(t1) || !isturf(t2)){
 			CRASH("Invalid arguments supplied to proc write_map, arguments were not turfs.")
 			}
-		var/turf/nw = locate(min(t1.x,t2.x),max(t1.y,t2.y),min(t1.z,t2.z))
-		var/turf/se = locate(max(t1.x,t2.x),min(t1.y,t2.y),max(t1.z,t2.z))
+		var/turf/ne = locate(max(t1.x,t2.x),max(t1.y,t2.y),max(t1.z,t2.z)) // Outer corner
+		var/turf/sw = locate(min(t1.x,t2.x),min(t1.y,t2.y),min(t1.z,t2.z)) // Inner corner
 		var/list/templates[0]
 		var/template_buffer = {""}
 		var/dmm_text = {""}
-		for(var/pos_z in nw.z to se.z){
-			for(var/pos_y in nw.y to se.y){
-				for(var/pos_x in nw.x to se.x){
+		for(var/pos_z in sw.z to ne.z){
+			// log_debug("z: [pos_z]")
+			for(var/pos_y in sw.y to ne.y){
+				// log_debug("y: [pos_y]")
+				for(var/pos_x in sw.x to ne.x){
+					// log_debug("x: [pos_x]")
 					var/turf/test_turf = locate(pos_x,pos_y,pos_z)
 					var/test_template = make_template(test_turf, flags)
 					var/template_number = templates.Find(test_template)
+					// log_debug("Template number: [template_number]")
+					// log_debug("Template string: [test_template]")
 					if(!template_number){
 						templates.Add(test_template)
 						template_number = templates.len
@@ -65,6 +73,10 @@ dmm_suite{
 				}
 			template_buffer += "."
 			}
+		// log_debug("[template_buffer]")
+		// log_debug("We are done with the loop, doing log")
+		if(templates.len == 0)
+			CRASH("No templates found!")
 		var/key_length = round/*floor*/(log(letter_digits.len,templates.len-1)+1)
 		var/list/keys[templates.len]
 		for(var/key_pos in 1 to templates.len){
@@ -98,57 +110,71 @@ dmm_suite{
 		}
 	proc{
 		make_template(var/turf/model as turf, var/flags as num){
+			var/use_json = 0
+			if(flags & DMM_USE_JSON)
+				use_json = 1
 			var/template = ""
 			var/obj_template = ""
 			var/mob_template = ""
 			var/turf_template = ""
 			if(!(flags & DMM_IGNORE_TURFS)){
-				turf_template = "[model.type][check_attributes(model)],"
+				turf_template = "[model.type][check_attributes(model,use_json=use_json)],"
 				} else{ turf_template = "[world.turf],"}
 			var/area_template = ""
 			if(!(flags & DMM_IGNORE_OBJS)){
 				for(var/obj/O in model.contents){
-					obj_template += "[O.type][check_attributes(O)],"
+					obj_template += "[O.type][check_attributes(O,use_json=use_json)],"
 					}
 				}
 			for(var/mob/M in model.contents){
 				if(M.client){
 					if(!(flags & DMM_IGNORE_PLAYERS)){
-						mob_template += "[M.type][check_attributes(M)],"
+						mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
 						}
 					}
 				else{
 					if(!(flags & DMM_IGNORE_NPCS)){
-						mob_template += "[M.type][check_attributes(M)],"
+						mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
 						}
 					}
 				}
 			if(!(flags & DMM_IGNORE_AREAS)){
 				var/area/m_area = model.loc
-				area_template = "[m_area.type][check_attributes(m_area)]"
+				area_template = "[m_area.type][check_attributes(m_area,use_json=use_json)]"
 				} else{ area_template = "[world.area]"}
 			template = "[obj_template][mob_template][turf_template][area_template]"
 			return template
 			}
-		check_attributes(var/atom/A){
+		check_attributes(var/atom/A,use_json=0){
 			var/attributes_text = {"{"}
-			for(var/V in A.vars){
-				sleep(-1)
-				if((!issaved(A.vars[V])) || (A.vars[V]==initial(A.vars[V]))){continue}
-				if(istext(A.vars[V])){
-					attributes_text += {"[V] = "[A.vars[V]]""}
+			if(!use_json){
+				for(var/V in A.vars){
+					sleep(-1)
+					if((!issaved(A.vars[V])) || (A.vars[V]==initial(A.vars[V]))){continue}
+					if(istext(A.vars[V])){
+						attributes_text += {"[V] = "[A.vars[V]]""}
+						}
+					else if(isnum(A.vars[V])||ispath(A.vars[V])){
+						attributes_text += {"[V] = [A.vars[V]]"}
+						}
+					else if(isicon(A.vars[V])||isfile(A.vars[V])){
+						attributes_text += {"[V] = '[A.vars[V]]'"}
+						}
+					else{
+						continue
+						}
+					if(attributes_text != {"{"}){
+						attributes_text+={"; "}
+						}
 					}
-				else if(isnum(A.vars[V])||ispath(A.vars[V])){
-					attributes_text += {"[V] = [A.vars[V]]"}
-					}
-				else if(isicon(A.vars[V])||isfile(A.vars[V])){
-					attributes_text += {"[V] = '[A.vars[V]]'"}
-					}
-				else{
-					continue
-					}
-				if(attributes_text != {"{"}){
-					attributes_text+={"; "}
+				} else {
+				var/list/yeah = A.serialize()
+				// Remove useless info
+				yeah -= "type"
+				var/json_stuff = json_encode(yeah)
+				if(yeah.len) {
+					log_debug(json_stuff)
+					attributes_text += {"map_json_data = "[json_stuff]""}
 					}
 				}
 			if(attributes_text=={"{"}){

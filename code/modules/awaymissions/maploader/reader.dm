@@ -373,6 +373,7 @@ var/global/dmm_suite/preloader/_preloader = new
 
 		var/trim_left = trim_text(copytext(text,old_position,(equal_position ? equal_position : position)),1)//the name of the variable, must trim quotes to build a BYOND compliant associatives list
 		old_position = position + 1
+		log_debug(trim_left)
 
 		if(equal_position)//associative var, so do the association
 			var/trim_right = trim_text(copytext(text,equal_position+1,position))//the content of the variable
@@ -401,6 +402,7 @@ var/global/dmm_suite/preloader/_preloader = new
 			else if(ispath(text2path(trim_right)))
 				trim_right = text2path(trim_right)
 
+			log_debug(trim_right)
 			to_return[trim_left] = trim_right
 
 		else//simple var
@@ -430,19 +432,26 @@ var/global/dmm_suite/preloader/_preloader = new
 	parent_type = /datum
 	var/list/attributes
 	var/target_path
+	var/json_ready = 0
 
 /dmm_suite/preloader/proc/setup(list/the_attributes, path)
 	if(the_attributes.len)
+		if("map_json_data" in the_attributes)
+			json_ready = 1
 		use_preloader = TRUE
 		attributes = the_attributes
 		target_path = path
 
 /dmm_suite/preloader/proc/load(atom/what)
-	for(var/attribute in attributes)
-		var/value = attributes[attribute]
-		if(islist(value))
-			value = deepCopyList(value)
-		what.vars[attribute] = value
+	if(json_ready)
+		log_debug(attributes["map_json_data"])
+		what.deserialize(json_decode(attributes["map_json_data"]))
+	else
+		for(var/attribute in attributes)
+			var/value = attributes[attribute]
+			if(islist(value))
+				value = deepCopyList(value)
+			what.vars[attribute] = value
 	use_preloader = FALSE
 
 // If the map loader fails, make this safe

@@ -5,8 +5,9 @@
 * If we want to store this info, we can pass it to `json_encode` or some other
 * interface that suits our fancy, to make it into an easily-handled string
 */
-/atom/movable/proc/serialize()
-	return list("type" = "[type]")
+/datum/proc/serialize()
+	var/data = list("type" = "[type]")
+	return data
 
 /*
 * This is given the byond list from above, to bring this atom to the state
@@ -17,8 +18,27 @@
 * Also, this should only be called by `json_to_object` in persistence.dm - at least
 * with current plans - that way it can actually initialize the type from the list
 */
-/atom/movable/proc/deserialize(var/data)
+/datum/proc/deserialize(var/list/data)
 	return
+
+
+/atom/movable
+	// This is so specific atoms can override these, and ignore certain ones
+	var/list/vars_to_save = list("dir","name","color","icon","icon_state")
+/atom/movable/serialize()
+	var/list/data = ..()
+	for(var/thing in vars_to_save)
+		if(vars[thing] != initial(vars[thing]))
+			data[thing] = vars[thing]
+	return data
+
+
+/atom/movable/deserialize(var/list/data)
+	for(var/thing in vars_to_save)
+		if(thing in data)
+			vars[thing] = data[thing]
+	..()
+
 
 /proc/json_to_object(var/json_data, var/loc)
 	var/data = json_decode(json_data)
