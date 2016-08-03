@@ -192,6 +192,7 @@
 			return
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
+			// TODO: Tie into space manager
 			if(!(src.z in config.contact_levels))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
 				return

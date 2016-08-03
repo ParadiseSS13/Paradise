@@ -164,6 +164,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 				continue
 
 		var/turf/T = get_turf(thing)
+		// TODO: Tie into space manager
 		if(T && T.z == ZLEVEL_STATION)
 			callShuttle = 0
 			break
@@ -209,6 +210,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		if(!M.roundstart_move)
 			continue
 		for(var/obj/docking_port/stationary/S in stationary)
+			// TODO: Tie into space manager
 			if(S.z != ZLEVEL_STATION && findtext(S.id, M.id))
 				S.width = M.width
 				S.height = M.height

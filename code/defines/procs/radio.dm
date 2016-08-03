@@ -47,6 +47,7 @@
 /proc/get_receiver_reception(var/receiver, var/datum/signal/signal)
 	if(receiver && check_signal(signal))
 		var/turf/pos = get_turf(receiver)
+		// Maybe should get tie-in to the space manager?
 		if(pos && (pos.z in signal.data["level"]))
 			return TELECOMMS_RECEPTION_RECEIVER
 	return TELECOMMS_RECEPTION_NONE

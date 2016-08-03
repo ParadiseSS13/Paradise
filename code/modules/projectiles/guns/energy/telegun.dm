@@ -23,7 +23,8 @@
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
-		if((T.z in config.admin_levels) || T.z > 7)
+		// TODO: Tie into space manager
+		if((T.z in config.admin_levels) || T.z > ZLEVEL_EMPTY)
 			continue
 		if(R.syndicate == 1)
 			continue

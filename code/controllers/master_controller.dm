@@ -24,7 +24,7 @@ var/global/pipe_processing_killed = 0
 	//There can be only one master_controller. Out with the old and in with the new.
 	if(master_controller != src)
 		if(istype(master_controller))
-			del(master_controller)
+			qdel(master_controller)
 		master_controller = src
 
 	var/watch=0
@@ -38,26 +38,37 @@ var/global/pipe_processing_killed = 0
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
 
+/datum/controller/game_controller/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
+
 /datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
-
-	zlevels.initialize()
 
 	preloadTemplates()
 	if(!config.disable_away_missions)
 		createRandomZlevel()
+	// Create 6 extra space levels to put space ruins on
 	if(!config.disable_space_ruins)
-		seedRuins(7, rand(0, 3), /area/space, space_ruins_templates)
+		var/timer = start_watch()
+		log_startup_progress("Creating random space levels...")
+		seedRuins(ZLEVEL_EMPTY, rand(0, 3), /area/space, space_ruins_templates)
+		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.")
+
+		// We'll keep this around for the time when we finally expunge all
+		// code that checks on hard-defined z positions
+
+		// var/num_extra_space = 6
+		// for(var/i = 1, i <= num_extra_space, i++)
+		// 	var/zlev = space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED)
+		// 	seedRuins(zlev, rand(0, 3), /area/space, space_ruins_templates)
+
+	space_manager.do_transition_setup()
 
 	setup_objects()
 	setupgenetics()
 	setupfactions()
 	setup_economy()
-	
-	var/watch = start_watch()
-	log_startup_progress("Caching space parallax simulation...")
-	cachespaceparallax()
-	log_startup_progress("  Finished caching space parallax simulation in [stop_watch(watch)]s.")
 
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()

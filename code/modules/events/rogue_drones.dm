@@ -41,7 +41,7 @@
 		var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread()
 		sparks.set_up(3, 0, D.loc)
 		sparks.start()
-		D.z = 2
+		D.z = ZLEVEL_CENTCOMM
 		D.has_loot = 0
 
 		qdel(D)

@@ -293,6 +293,8 @@ FIRE ALARM
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 
+	// TODO: Tie into space manager
+	// also hwat
 	if(z == ZLEVEL_STATION || ZLEVEL_ASTEROID == 5)
 		if(security_level)
 			src.overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")

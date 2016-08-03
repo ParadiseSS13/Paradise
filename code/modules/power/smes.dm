@@ -433,6 +433,7 @@
 	return 1
 
 /obj/machinery/power/smes/proc/ion_act()
+	// TODO: Tie into space manager
 	if(src.z in config.station_levels)
 		if(prob(1)) //explosion
 			for(var/mob/M in viewers(src))

@@ -20,9 +20,7 @@
 // Put out fire
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(volume / 10))
-		if(M.fire_stacks <= 0)
-			M.ExtinguishMob()
-		return
+		M.ExtinguishMob()
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -42,15 +40,9 @@
 		qdel(hotspot)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	var/turf/simulated/T = get_turf(O)
-	if(istype(T))
-		var/hotspot = (locate(/obj/effect/hotspot) in T)
-		if(hotspot)
-			var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles() )
-			lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
-			lowertemp.react()
-			T.assume_air(lowertemp)
-			qdel(hotspot)
+	if(istype(O))
+		O.extinguish()
+
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
 		var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
 		if(!cube.wrapped)

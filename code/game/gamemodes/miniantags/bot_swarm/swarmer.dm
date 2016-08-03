@@ -290,6 +290,7 @@
 /mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(var/mob/living/target)
 	if(target != src)
 		to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
+		// TODO: Tie into space manager
 		if(src.z != ZLEVEL_STATION)
 			to_chat(src, "<span class='warning'>Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area.</span>")
 			return
@@ -512,4 +513,3 @@
 		for(var/mob/M in mob_list)
 			if(isswarmer(M) || (M in dead_mob_list))
 				to_chat(M, "<B>Swarm communication - </b> [src] states: [message]")
-

@@ -192,6 +192,22 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
+	if(burn_state == ON_FIRE)
+		var/mob/living/carbon/human/H = user
+		if(istype(H))
+			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
+				extinguish()
+				to_chat(user, "<span class='notice'>You put out the fire on [src].</span>")
+			else
+				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
+				if(affecting && affecting.take_damage(0, 5))		// 5 burn damage
+					H.UpdateDamageIcon()
+				H.updatehealth()
+				return
+		else
+			extinguish()
+
 	if(istype(src.loc, /obj/item/weapon/storage))
 		//If the item is in a storage item, take it out
 		var/obj/item/weapon/storage/S = src.loc

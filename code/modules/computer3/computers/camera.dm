@@ -181,7 +181,8 @@
 
 	//proc/camera_list(var/datum/file/camnet_key/key)
 	get_machines(var/datum/file/camnet_key/key)
-		if(!computer || computer.z > 6)
+		// TODO: Tie into space manager
+		if(!computer || computer.z > ZLEVEL_DERELICT)
 			return null
 
 		var/list/L = list()

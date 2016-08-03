@@ -18,7 +18,8 @@
 
 /datum/event/brand_intelligence/start()
 	for(var/obj/machinery/vending/V in machines)
-		if(V.z != 1)	continue
+		// TODO: Tie into space manager
+		if(V.z != ZLEVEL_STATION)	continue
 		vendingMachines.Add(V)
 
 	if(!vendingMachines.len)

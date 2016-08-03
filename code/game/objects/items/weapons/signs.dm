@@ -6,6 +6,7 @@
 	force = 5
 	w_class = 4
 	attack_verb = list("bashed","smacked")
+	burn_state = FLAMMABLE
 
 	var/delayed = 0 //used to do delays
 
