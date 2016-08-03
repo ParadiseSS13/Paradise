@@ -436,6 +436,7 @@ var/global/dmm_suite/preloader/_preloader = new
 
 /dmm_suite/preloader/proc/setup(list/the_attributes, path)
 	if(the_attributes.len)
+		json_ready = 0
 		if("map_json_data" in the_attributes)
 			json_ready = 1
 		use_preloader = TRUE

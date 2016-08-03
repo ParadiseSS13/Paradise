@@ -54,7 +54,7 @@ dmm_suite{
 		var/dmm_text = {""}
 		for(var/pos_z in sw.z to ne.z){
 			// log_debug("z: [pos_z]")
-			for(var/pos_y in sw.y to ne.y){
+			for(var/pos_y = ne.y, pos_y >= sw.y, pos_y--){ // We're reversing this because the map format is silly
 				// log_debug("y: [pos_y]")
 				for(var/pos_x in sw.x to ne.x){
 					// log_debug("x: [pos_x]")
