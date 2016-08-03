@@ -9,6 +9,7 @@ var/list/response_team_members = list()
 var/responseteam_age = 21 // Minimum account age to play as an ERT member
 var/datum/response_team/active_team = null
 var/send_emergency_team
+var/ert_request_answered = 0
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
@@ -47,6 +48,7 @@ var/send_emergency_team
 	if(!ert_type)
 		return
 
+	ert_request_answered = 1
 	message_admins("[key_name_admin(usr)] is dispatching an Emergency Response Team", 1)
 	log_admin("[key_name(usr)] used Dispatch Emergency Response Team..")
 	trigger_armed_response_team(ert_type)
@@ -59,100 +61,87 @@ var/send_emergency_team
 			else
 				return pick_ert_type()
 		if("Code Red")
-			if(alert("Confirm: Deploy code 'RED' <b>medium ERT</b>?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
+			if(alert("Confirm: Deploy code 'RED' medium ERT?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
 				return new /datum/response_team/red
 			else
 				return pick_ert_type()
 		if("Code Gamma")
-			if(alert("Confirm: Deploy code 'GAMMA' <b>elite ERT</b>?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
+			if(alert("Confirm: Deploy code 'GAMMA' elite ERT?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
 				return new /datum/response_team/gamma
 			else
 				return pick_ert_type()
 	return 0
 
-/mob/dead/observer/verb/JoinResponseTeam()
-	set category = "Ghost"
-	set name = "Join Emergency Response Team"
-	set desc = "Join the Emergency Response Team. Only possible if it has been called by the crew."
-
-	if(!istype(usr,/mob/dead/observer) && !istype(usr,/mob/new_player))
-		to_chat(usr, "You need to be an observer or new player to use this.")
-		return
+/mob/dead/observer/proc/JoinResponseTeam()
 
 	if(!send_emergency_team)
-		to_chat(usr, "No emergency response team is currently being sent.")
-		return
+		to_chat(src, "No emergency response team is currently being sent.")
+		return 0
 
-	if(jobban_isbanned(usr, ROLE_ERT))
-		to_chat(usr, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
-		return
+	if(jobban_isbanned(src, ROLE_ERT))
+		to_chat(src, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
+		return 0
 
-	var/player_age_check = check_client_age(usr.client, responseteam_age)
+	var/player_age_check = check_client_age(src.client, responseteam_age)
 	if(player_age_check && config.use_age_restriction_for_antags)
-		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
-		return
+		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		return 0
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		to_chat(usr, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
-		return
+		to_chat(src, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
+		return 0
 
 	if(response_team_members.len > 6)
-		to_chat(usr, "The emergency response team is already full!")
-		return
+		to_chat(src, "The emergency response team is already full!")
+		return 0
 
-	for (var/obj/effect/landmark/L in landmarks_list)
-		if (L.name == "Response Team")
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == "Response Team")
 			L.name = null
-
-			if(alert(usr, "Would you like to join the Emergency Response Team?", "Emergency Response Team", "Yes", "No") == "No")
-				L.name = "Response Team"
-				return
-
 			if(!src.client)
 				return
-			var/client/C = src.client
-			var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc)
-			qdel(L)
-			new_commando.mind.key = usr.key
-			new_commando.key = usr.key
-			new_commando.update_icons()
-
-			return
+			spawn(-1)
+				var/client/C = src.client
+				var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc)
+				qdel(L)
+				new_commando.mind.key = src.key
+				new_commando.key = src.key
+				new_commando.update_icons()
+			return 1
 
 /proc/trigger_armed_response_team(var/datum/response_team/response_team_type)
 
 	active_team = response_team_type
-	active_team.announce_team()
 
 	send_emergency_team = 1
-	sleep(600 * 5)
-	send_emergency_team = 0 // Can no longer join the ERT.
-
-/*
-	var/area/security/nuke_storage/nukeloc = locate() //To find the nuke in the vault
-	var/obj/machinery/nuclearbomb/nuke = locate() in nukeloc
-	if(!nuke)
-		nuke = locate() in world
-	var/obj/item/weapon/paper/P = new
-	P.info = "Your orders, Commander, are to use all means necessary to return the station to a survivable condition.<br>To this end, you have been provided with the best tools we can give for Security, Medical, Engineering and Janitorial duties. The nuclear authorization code is: <b>[ nuke ? nuke.r_code : "UNKNOWN"]</b>. Be warned, if you detonate this without good reason, we will hold you to account for damages. Memorise this code, and then destroy this message."
-	P.name = "ERT Orders and Emergency Nuclear Code"
-	var/obj/item/weapon/stamp/centcom/stamp = new
-	P.stamp(stamp)
-	qdel(stamp)
-	for (var/obj/effect/landmark/A in world)
-		if (A.name == "nukecode")
-			P.loc = A.loc
-			qdel(A)
-			continue
-*/
+	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600)
+	if(!ert_candidates.len)
+		active_team.cannot_send_team()
+		send_emergency_team = 0
+		return
+	var/teamsize = 0
+	for(var/mob/dead/observer/M in ert_candidates)
+		teamsize += M.JoinResponseTeam()
+	send_emergency_team = 0
+	if (!teamsize)
+		active_team.cannot_send_team()
+		return
+	active_team.announce_team()
 
 /client/proc/create_response_team(obj/spawn_location)
 	var/mob/living/carbon/human/M = new(null)
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	response_team_members |= M
 
-	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
-	if (new_gender)
+	var/new_gender = alert(src, "Please select your gender.", "ERT Character Generation", "Male", "Female")
+
+	var/class = 0
+	while(!class)
+		class = input(src, "Which loadout would you like to choose?") in active_team.get_slot_list()
+		if(!active_team.check_slot_available(class)) // Because the prompt does not update automatically when a slot gets filled.
+			class = 0
+
+	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
 		else
@@ -200,12 +189,6 @@ var/send_emergency_team
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
 	M.loc = spawn_location
-
-	var/class = 0
-	while (!class)
-		class = input("Which loadout would you like to choose?") in active_team.get_slot_list()
-		if(!active_team.check_slot_available(class)) // Because the prompt does not update automatically when a slot gets filled.
-			class = 0
 
 	active_team.equip_officer(class, M)
 
@@ -348,16 +331,18 @@ var/send_emergency_team
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
+/datum/response_team/proc/cannot_send_team()
+	command_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
 
 /datum/response_team/proc/announce_team()
-	command_announcement.Announce("Attention, [station_name()]. We are attempting to assemble a team of highly trained assistants to aid(?) you. Standby.", "Central Command")
+	command_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
 
 // -- AMBER TEAM --
 
 /datum/response_team/amber
 
 /datum/response_team/amber/announce_team()
-	command_announcement.Announce("Attention, [station_name()]. We are attempting to assemble a code AMBER light Emergency Response Team. Standby.", "Central Command")
+	command_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/response_team/amber/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
 	..()
@@ -429,7 +414,7 @@ var/send_emergency_team
 /datum/response_team/red
 
 /datum/response_team/red/announce_team()
-	command_announcement.Announce("Attention, [station_name()]. We are attempting to assemble a code RED Emergency Response Team. Standby.", "Central Command")
+	command_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/response_team/red/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
 	..()
@@ -437,7 +422,7 @@ var/send_emergency_team
 	switch(officer_type)
 		if("Engineer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/engi(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson(M), slot_glasses)
@@ -457,7 +442,7 @@ var/send_emergency_team
 
 		if("Security")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/security(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/advtaser(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
@@ -475,7 +460,7 @@ var/send_emergency_team
 
 		if("Medic")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex/nitrile(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/medical(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health/health_advanced(M), slot_glasses)
 
@@ -494,7 +479,7 @@ var/send_emergency_team
 
 		if("Commander")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/commander(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
 
@@ -505,6 +490,7 @@ var/send_emergency_team
 			M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/lockbox/loyalty(M), slot_in_backpack)
 
+
 			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
 
@@ -513,7 +499,7 @@ var/send_emergency_team
 /datum/response_team/gamma
 
 /datum/response_team/gamma/announce_team()
-	command_announcement.Announce("Attention, [station_name()]. We are attempting to assemble a code GAMMA elite Emergency Response Team. Standby.", "Central Command")
+	command_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/response_team/gamma/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
 	..()
@@ -521,7 +507,7 @@ var/send_emergency_team
 	switch(officer_type)
 		if("Engineer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson/night(M), slot_glasses)

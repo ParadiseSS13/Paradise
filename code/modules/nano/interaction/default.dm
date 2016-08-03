@@ -41,6 +41,7 @@
 	// Prevents the AI from using Topic on admin levels (by for example viewing through the court/thunderdome cameras)
 	// unless it's on the same level as the object it's interacting with.
 	var/turf/T = get_turf(src_object)
+	// TODO: Tie into space manager
 	if(!T || !(z == T.z || (T.z in config.player_levels)))
 		return STATUS_CLOSE
 
@@ -64,15 +65,15 @@
 	return user.shared_living_nano_distance(src_object)
 
 /mob/living/proc/shared_living_nano_distance(var/atom/movable/src_object)
-	if (!(src_object in view(4, src))) 	// If the src object is not in visable, disable updates
+	if(!(src_object in view(4, src))) 	// If the src object is not in visable, disable updates
 		return STATUS_CLOSE
 
 	var/dist = get_dist(src_object, src)
-	if (dist <= 1)
+	if(dist <= 1)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
-	else if (dist <= 2)
+	else if(dist <= 2)
 		return STATUS_UPDATE 		// update only (orange visibility)
-	else if (dist <= 4)
+	else if(dist <= 4)
 		return STATUS_DISABLED 		// no updates, completely disabled (red visibility)
 	return STATUS_CLOSE
 

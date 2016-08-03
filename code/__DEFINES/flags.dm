@@ -4,10 +4,9 @@
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define AIRTIGHT				8		// mask allows internals
 #define HANDSLOW        		16		// If an item has this flag, it will slow you to carry it
-#define NOSHIELD				32		// weapon not affected by shield
-#define CONDUCT					64		// conducts electricity (metal etc.)
-#define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
-#define ON_BORDER				256		// item has priority to check when entering or leaving
+#define CONDUCT					32		// conducts electricity (metal etc.)
+#define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
+#define ON_BORDER				128		// item has priority to check when entering or leaving
 
 #define GLASSESCOVERSEYES		1024
 #define MASKCOVERSEYES			1024	// get rid of some of the other retardation in these flags

@@ -91,7 +91,7 @@
 				to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		else
 			sleep(6)
-			if (animation)
+			if(animation)
 				qdel(animation)
 		notransform = 0
 	return 1
@@ -159,6 +159,7 @@
 	density = 0
 	anchored = 1
 	invisibility = 60
+	burn_state = LAVA_PROOF
 
 /obj/effect/dummy/slaughter/relaymove(mob/user, direction)
 	forceMove(get_step(src,direction))

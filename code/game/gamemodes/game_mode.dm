@@ -87,7 +87,7 @@
 /datum/game_mode/proc/process_job_tasks()
 	var/obj/machinery/message_server/useMS = null
 	if(message_servers)
-		for (var/obj/machinery/message_server/MS in message_servers)
+		for(var/obj/machinery/message_server/MS in message_servers)
 			if(MS.active)
 				useMS = MS
 				break
@@ -95,7 +95,7 @@
 		if(M.mind)
 			var/obj/item/device/pda/P=null
 			for(var/obj/item/device/pda/check_pda in PDAs)
-				if (check_pda.owner==M.name)
+				if(check_pda.owner==M.name)
 					P=check_pda
 					break
 			var/count=0
@@ -427,6 +427,7 @@ proc/get_nt_opposed()
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in world)
+		// TODO: Tie into space manager
 		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
 			nukecode = bomb.r_code
 	return nukecode
@@ -452,6 +453,7 @@ proc/get_nt_opposed()
 		else
 			text += " <span class='greenannounce'>survived</span>"
 		if(fleecheck && ply.current.z > ZLEVEL_STATION)
+			// TODO: Tie into space manager
 			text += " while <span class='boldannounce'>fleeing the station</span>"
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]</b>"

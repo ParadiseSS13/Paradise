@@ -19,8 +19,7 @@
 	description = "Microscopic construction robots."
 	color = "#535E66" // rgb: 83, 94, 102
 
-/datum/reagent/nanomachines/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/nanomachines/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
 		M.ForceContractDisease(new /datum/disease/transformation/robot(0))
 	..()
@@ -32,8 +31,7 @@
 	description = "Microbes with an entirely alien cellular structure."
 	color = "#535E66" // rgb: 83, 94, 102
 
-/datum/reagent/xenomicrobes/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
 		M.ContractDisease(new /datum/disease/transformation/xeno(0))
 	..()
@@ -44,8 +42,7 @@
 	description = "Active fungal spores."
 	color = "#92D17D" // rgb: 146, 209, 125
 
-/datum/reagent/fungalspores/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/fungalspores/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
 		M.ForceContractDisease(new /datum/disease/tuberculosis(0))
 	..()
@@ -57,8 +54,7 @@
 	reagent_state = SOLID
 	color = "#FA0000" // rgb: 250, 0, 0
 
-/datum/reagent/jagged_crystals/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/jagged_crystals/on_mob_life(mob/living/carbon/M)
 	M.ForceContractDisease(new /datum/disease/berserker(0))
 	..()
 
@@ -69,8 +65,7 @@
 	reagent_state = LIQUID
 	color = "#1E4600"
 
-/datum/reagent/salmonella/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/salmonella/on_mob_life(mob/living/carbon/M)
 	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 	..()
 
@@ -81,8 +76,7 @@
 	reagent_state = LIQUID
 	color = "#FF0000"
 
-/datum/reagent/gibbis/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
 		M.ForceContractDisease(new /datum/disease/gbs/curable(0))
 	..()
@@ -94,8 +88,7 @@
 	reagent_state = LIQUID
 	color = "#FFFFFF"
 
-/datum/reagent/prions/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/prions/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		M.ForceContractDisease(new /datum/disease/kuru(0))
 	..()
@@ -107,8 +100,7 @@
 	reagent_state = LIQUID
 	color = "#465046"
 
-/datum/reagent/grave_dust/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		M.ForceContractDisease(new /datum/disease/vampire(0))
 	..()
@@ -120,8 +112,7 @@
 	reagent_state = SOLID
 	color = "#925D6C"
 
-/datum/reagent/heartworms/on_mob_life(var/mob/living/carbon/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/heartworms/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -131,31 +122,24 @@
 				qdel(ate_heart)
 	..()
 
-/datum/reagent/spore
-	name = "Blob Spores"
-	id = "spore"
-	description = "Spores of some blob creature thingy."
-	reagent_state = LIQUID
-	color = "#CE760A" // rgb: 206, 118, 10
-	var/client/blob_client = null
-	var/blob_point_rate = 3
+//virus-specific symptom reagents
 
-/datum/reagent/spore/on_mob_life(var/mob/living/M)
-	if(!M) M = holder.my_atom
-	if(holder.has_reagent("atrazine",45))
-		holder.del_reagent("spore") //apparently this never metabolizes and stays in forever unless you have 45 units of atrazine in you or some stupid thing like that.
-	if(prob(1))
-		to_chat(M, "<span class='danger'>Your mouth tastes funny.</span>")
-	if(prob(1) && prob(25))
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(directory[ckey(C.key)])
-				blob_client = directory[ckey(C.key)]
-				C.gib()
-				if(blob_client)
-					var/obj/effect/blob/core/core = new(get_turf(C), 200, blob_client, blob_point_rate)
-					if(core.overmind && core.overmind.mind)
-						core.overmind.mind.name = C.name
+/datum/reagent/synaphydramine
+	name = "Diphen-Synaptizine"
+	id = "synaphydramine"
+	description = "Reduces drowsiness and hallucinations while also purging histamine from the body."
+	color = "#EC536D" // rgb: 236, 83, 109
+
+/datum/reagent/synaphydramine/on_mob_life(mob/living/M)
+	M.drowsyness = max(M.drowsyness-5, 0)
+	if(holder.has_reagent("lsd"))
+		holder.remove_reagent("lsd", 5)
+	if(holder.has_reagent("histamine"))
+		holder.remove_reagent("histamine", 5)
+	M.hallucination = max(0, M.hallucination - 10)
+	if(prob(30))
+		M.adjustToxLoss(1)
+	..()
 
 //virus food
 /datum/reagent/virus_food

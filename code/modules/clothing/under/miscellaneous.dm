@@ -146,6 +146,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
@@ -163,6 +164,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
+	burn_state = LAVA_PROOF
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
@@ -334,6 +336,7 @@
 	item_state = "gladiator"
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	burn_state = FIRE_PROOF
 
 //dress
 
@@ -467,6 +470,7 @@
 	item_color = "roman"
 	item_state = "armor"
 	strip_delay = 100
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/maid
 	name = "maid costume"
@@ -709,3 +713,15 @@
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>")
 			return 0
 	return 1
+
+/obj/item/clothing/under/cursedclown
+	name = "cursed clown suit"
+	desc = "It wasn't already?"
+	icon = 'icons/goonstation/objects/clothing/uniform.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_uniform"
+	item_color = "cursedclown"
+	icon_override = 'icons/goonstation/mob/clothing/uniform.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	flags = NODROP

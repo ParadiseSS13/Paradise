@@ -326,7 +326,7 @@ swapmap
 		x2+=x1-1
 		y2+=y1-1
 		z2+=z1-1
-		world.maxz=max(z2,world.maxz)	// stretch z if necessary
+		space_manager.increase_max_zlevel_to(z2)	// stretch z if necessary
 		if(!ischunk)
 			swapmaps_loaded[src]=null
 			swapmaps_byname[id]=src
@@ -373,7 +373,7 @@ swapmap
 			mz=max(mz,M.z2)
 		world.maxx=mx
 		world.maxy=my
-		world.maxz=mz
+		space_manager.cut_levels_downto(mz)
 
 	// save and delete
 	proc/Unload()

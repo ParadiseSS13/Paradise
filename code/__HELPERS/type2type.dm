@@ -10,7 +10,7 @@
 
 //Returns an integer given a hex input
 /proc/hex2num(hex)
-	if (!( istext(hex) ))
+	if(!( istext(hex) ))
 		return
 
 	var/num = 0

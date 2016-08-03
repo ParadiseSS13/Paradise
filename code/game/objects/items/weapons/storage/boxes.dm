@@ -24,6 +24,7 @@
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 	item_state = "syringe_kit"
+	burn_state = FLAMMABLE
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
 /obj/item/weapon/storage/box/large
@@ -39,21 +40,28 @@
 	New()
 		..()
 		contents = list()
-		sleep(1)
 		new /obj/item/clothing/mask/breath( src )
 		new /obj/item/weapon/tank/emergency_oxygen( src )
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
 		return
 
-/obj/item/weapon/storage/box/engineer/
+/obj/item/weapon/storage/box/engineer
 	New()
 		..()
 		contents = list()
-		sleep(1)
 		new /obj/item/clothing/mask/breath( src )
 		new /obj/item/weapon/tank/emergency_oxygen/engi( src )
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
 		return
+
+/obj/item/weapon/storage/box/survival_mining
+	New()
+		..()
+		contents = list()
+		new /obj/item/clothing/mask/breath(src)
+		new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+		new /obj/item/weapon/crowbar/red(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/weapon/storage/box/gloves
 	name = "box of latex gloves"
@@ -261,6 +269,19 @@
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implanter(src)
 
+/obj/item/weapon/storage/box/tapes
+	name = "Tape Box"
+	desc = "A box of spare recording tapes"
+	icon_state = "box"
+
+	New()
+		..()
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
 
 /obj/item/weapon/storage/box/rxglasses
 	name = "prescription glasses"
@@ -603,7 +624,7 @@
 	icon_state = "syringe"
 	New()
 		..()
-		for (var/i; i < storage_slots; i++)
+		for(var/i; i < storage_slots; i++)
 			new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/weapon/storage/box/autoinjector/utility
@@ -685,3 +706,73 @@
 	new /obj/item/weapon/lipstick/green(src)
 	new /obj/item/weapon/lipstick/blue(src)
 	new /obj/item/weapon/lipstick/white(src)
+
+#define NODESIGN "None"
+#define NANOTRASEN "NanotrasenStandard"
+#define SYNDI "SyndiSnacks"
+#define HEART "Heart"
+#define SMILE "SmileyFace"
+
+/obj/item/weapon/storage/box/papersack
+	name = "paper sack"
+	desc = "A sack neatly crafted out of paper."
+	icon_state = "paperbag_None"
+	item_state = "paperbag_None"
+	foldable = null
+	var/design = NODESIGN
+
+/obj/item/weapon/storage/box/papersack/update_icon()
+	if(!contents.len)
+		icon_state = "[item_state]"
+	else icon_state = "[item_state]_closed"
+
+/obj/item/weapon/storage/box/papersack/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/pen))
+		//if a pen is used on the sack, dialogue to change its design appears
+		if(contents.len)
+			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
+			return
+		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
+		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) as null|anything in designs
+		if(!switchDesign)
+			return
+		if(get_dist(usr, src) > 1 && !usr.incapacitated())
+			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+			return
+		if(design == switchDesign)
+			return
+		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+		design = switchDesign
+		icon_state = "paperbag_[design]"
+		item_state = "paperbag_[design]"
+		switch(design)
+			if(NODESIGN)
+				desc = "A sack neatly crafted out of paper."
+			if(NANOTRASEN)
+				desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+			if(SYNDI)
+				desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+			if(HEART)
+				desc = "A paper sack with a heart etched onto the side."
+			if(SMILE)
+				desc = "A paper sack with a crude smile etched onto the side."
+		return
+	else if(is_sharp(W))
+		if(!contents.len)
+			if(item_state == "paperbag_None")
+				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
+				new /obj/item/clothing/head/papersack(user.loc)
+				qdel(src)
+				return
+			else if(item_state == "paperbag_SmileyFace")
+				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
+				new /obj/item/clothing/head/papersack/smiley(user.loc)
+				qdel(src)
+				return
+	return ..()
+
+#undef NODESIGN
+#undef NANOTRASEN
+#undef SYNDI
+#undef HEART
+#undef SMILE

@@ -17,6 +17,7 @@
 /datum/event/alien_infestation/start()
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
+		// TODO: Tie into space manager
 		if((temp_vent.loc.z in config.station_levels) && !temp_vent.welded)
 			if(temp_vent.parent.other_atmosmch.len > 50)	//Stops Aliens getting stuck in small networks. See: Security, Virology
 				vents += temp_vent
@@ -34,4 +35,3 @@
 
 				spawncount--
 				successSpawn = 1
-

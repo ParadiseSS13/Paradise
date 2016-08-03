@@ -11,12 +11,12 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	set desc = "Check the rune-word meaning"
 	if(!cultwords["travel"])
 		runerandom()
-	for (var/word in engwords)
+	for(var/word in engwords)
 		to_chat(usr, "[cultwords[word]] is [word]")
 
 /proc/runerandom() //randomizes word meaning
 	var/list/runewords=list("ire","ego","nahlizet","certum","veri","jatkaa","mgar","balaq", "karazet", "geeri") ///"orkan" and "allaq" removed.
-	for (var/word in engwords)
+	for(var/word in engwords)
 		var/runeword = pick(runewords)
 		cultwords[word] = runeword
 		rune_to_english[runeword] = word
@@ -102,10 +102,10 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 
 
 /obj/effect/rune/proc/get_word_string()
-	if (word1 == cultwords["travel"])
-		if (word2 == cultwords["self"])
+	if(word1 == cultwords["travel"])
+		if(word2 == cultwords["self"])
 			return "teleport"
-		if (word2 == cultwords["other"])
+		if(word2 == cultwords["other"])
 			return "itemport"
 	return "[rune_to_english[word1]]_[rune_to_english[word2]]_[rune_to_english[word3]]"
 
@@ -149,7 +149,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		return fizzle()
 
 	var/word_string = get_word_string()
-	if (word_string in effect_dictionary)
+	if(word_string in effect_dictionary)
 		cult_log("of type [effect_dictionary[word_string]] activated by [key_name_admin(user)].")
 		return call(src,effect_dictionary[word_string])()
 	return fizzle()
@@ -160,7 +160,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		usr.say(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
 	else
 		usr.whisper(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
-	for (var/mob/V in viewers(src))
+	for(var/mob/V in viewers(src))
 		V.show_message("\red The markings pulse with a small burst of light, then fall dark.", 3, "\red You hear a faint fizzle.", 2)
 	return
 
@@ -172,7 +172,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	icon_state ="tome"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	var/notedat = ""
 	var/tomedat = ""
 	var/list/words = list("ire" = "ire", "ego" = "ego", "nahlizet" = "nahlizet", "certum" = "certum", "veri" = "veri", "jatkaa" = "jatkaa", "balaq" = "balaq", "mgar" = "mgar", "karazet" = "karazet", "geeri" = "geeri")
@@ -275,17 +275,17 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 
 
 	Topic(href,href_list[])
-		if (src.loc == usr)
+		if(src.loc == usr)
 			var/number = text2num(href_list["number"])
-			if (usr.stat|| usr.restrained())
+			if(usr.stat|| usr.restrained())
 				return
 			switch(href_list["action"])
 				if("clear")
 					words[words[number]] = words[number]
 				if("change")
 					words[words[number]] = input("Enter the translation for [words[number]]", "Word notes") in engwords
-					for (var/w in words)
-						if ((words[w] == words[words[number]]) && (w != words[number]))
+					for(var/w in words)
+						if((words[w] == words[words[number]]) && (w != words[number]))
 							words[w] = w
 			notedat = {"
 						<br><b>Word translation notes</b> <br>
@@ -370,14 +370,14 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			var/C = 0
 			for(var/obj/effect/rune/N in world)
 				C++
-			if (!istype(user.loc,/turf))
+			if(!istype(user.loc,/turf))
 				to_chat(user, "\red You do not have enough space to write a proper rune.")
 				return
 
 
 
 
-			if (C>=26+runedec+ticker.mode.cult.len) //including the useless rune at the secret room, shouldn't count against the limit of 25 runes - Urist
+			if(C>=26+runedec+ticker.mode.cult.len) //including the useless rune at the secret room, shouldn't count against the limit of 25 runes - Urist
 				alert("The cloth of reality can't take that much of a strain. Remove some runes first!")
 				return
 			else
@@ -442,33 +442,33 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 
 			var/list/scribewords = list("none")
 
-			for (var/entry in words)
-				if (words[entry] != entry)
+			for(var/entry in words)
+				if(words[entry] != entry)
 					english += list(words[entry] = entry)
 
-			for (var/entry in dictionary)
+			for(var/entry in dictionary)
 				var/list/required = dictionary[entry]
-				if (length(english&required) == required.len)
+				if(length(english&required) == required.len)
 					scribewords += entry
 
 			var/chosen_rune = null
 
 			if(usr)
 				chosen_rune = input ("Choose a rune to scribe.") in scribewords
-				if (!chosen_rune)
+				if(!chosen_rune)
 					return
-				if (chosen_rune == "none")
+				if(chosen_rune == "none")
 					to_chat(user, "\red You decide against scribing a rune, perhaps you should take this time to study your notes.")
 					return
-				if (chosen_rune == "teleport")
+				if(chosen_rune == "teleport")
 					dictionary[chosen_rune] += input ("Choose a destination word") in english
-				if (chosen_rune == "teleport other")
+				if(chosen_rune == "teleport other")
 					dictionary[chosen_rune] += input ("Choose a destination word") in english
 
 			if(usr.get_active_hand() != src)
 				return
 
-			for (var/mob/V in viewers(src))
+			for(var/mob/V in viewers(src))
 				V.show_message("\red [user] slices open a finger and begins to chant and paint symbols on the floor.", 3, "\red You hear chanting.", 2)
 			to_chat(user, "\red You slice open one of your fingers and begin drawing a rune on the floor whilst chanting the ritual that binds your life essence with the dark arcane energies flowing through the surrounding world.")
 			user.take_overall_damage((rand(9)+1)/10) // 0.1 to 1.0 damage
@@ -497,7 +497,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				if("cancel")
 					return
 	//		var/list/nearby = viewers(1,src) //- Fuck this as well. No clue why this doesnt work. -K0000
-	//			if (T.loc != user)
+	//			if(T.loc != user)
 	//				return
 	//		for(var/mob/M in nearby)
 	//			if(M == user)
@@ -513,7 +513,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			to_chat(user, "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though.")
 
 /obj/item/weapon/tome/imbued //admin tome, spawns working runes without waiting
-	w_class = 2.0
+	w_class = 2
 	var/cultistsonly = 1
 	attack_self(mob/user as mob)
 		if(src.cultistsonly && !iscultist(usr))
@@ -522,7 +522,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			runerandom()
 		if(user)
 			var/r
-			if (!istype(user.loc,/turf))
+			if(!istype(user.loc,/turf))
 				to_chat(user, "\red You do not have enough space to write a proper rune.")
 			var/list/runes = list("teleport", "itemport", "tome", "armor", "convert", "tear in reality", "emp", "drain", "seer", "raise", "obscure", "reveal", "astral journey", "manifest", "imbue talisman", "sacrifice", "wall", "freedom", "cultsummon", "deafen", "blind", "bloodboil", "communicate", "stun")
 			r = input("Choose a rune to scribe", "Rune Scribing") in runes //not cancellable.

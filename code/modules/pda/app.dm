@@ -31,7 +31,6 @@
 		pda.play_ringtone()
 
 	if(blink && !(src in pda.notifying_programs))
-		pda.overlays.Cut()
 		pda.overlays += image('icons/obj/pda.dmi', "pda-r")
 		pda.notifying_programs |= src
 
@@ -39,7 +38,7 @@
 	if(src in pda.notifying_programs)
 		pda.notifying_programs -= src
 		if(!pda.notifying_programs.len)
-			pda.overlays.Cut()
+			pda.overlays -= image('icons/obj/pda.dmi', "pda-r")
 
 /datum/data/pda/proc/
 

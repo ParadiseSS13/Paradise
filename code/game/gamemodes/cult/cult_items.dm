@@ -23,6 +23,7 @@
 	return
 
 /obj/item/weapon/melee/cultblade/pickup(mob/living/user as mob)
+	..()
 	if(!iscultist(user))
 		to_chat(user, "\red An overwhelming feeling of dread comes over you as you pick up the cultist's sword. It would be wise to be rid of this blade quickly.")
 		user.Dizzy(120)
@@ -43,16 +44,18 @@
 	icon_state = "cult_hoodalt"
 	item_state = "cult_hoodalt"
 
-/obj/item/clothing/suit/cultrobes/alt
+/obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"
 	item_state = "cultrobesalt"
+	hoodtype = /obj/item/clothing/head/culthood/alt
 
-/obj/item/clothing/suit/cultrobes
+/obj/item/clothing/suit/hooded/cultrobes
 	name = "cult robes"
 	desc = "A set of armored robes worn by the followers of Nar-Sie"
 	icon_state = "cultrobes"
 	item_state = "cultrobes"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	hoodtype = /obj/item/clothing/head/culthood
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
 	flags_inv = HIDEJUMPSUIT

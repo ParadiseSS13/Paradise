@@ -46,10 +46,10 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 	client << browse_rsc(asset_cache[asset_name], asset_name)
 	if(!verify || !winexists(client, "asset_cache_browser")) // Can't access the asset cache browser, rip.
-		if (client)
+		if(client)
 			client.cache += asset_name
 		return 1
-	if (!client)
+	if(!client)
 		return 0
 
 	client.sending |= asset_name
@@ -91,17 +91,17 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	var/list/unreceived = asset_list - (client.cache + client.sending)
 	if(!unreceived || !unreceived.len)
 		return 0
-	if (unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
+	if(unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
 		to_chat(client, "Sending Resources...")
 	for(var/asset in unreceived)
-		if (asset in asset_cache)
+		if(asset in asset_cache)
 			client << browse_rsc(asset_cache[asset], asset)
 
 	if(!verify || !winexists(client, "asset_cache_browser")) // Can't access the asset cache browser, rip.
-		if (client)
+		if(client)
 			client.cache += unreceived
 		return 1
-	if (!client)
+	if(!client)
 		return 0
 	client.sending |= unreceived
 	var/job = ++client.last_asset_job
@@ -129,9 +129,9 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 //The proc calls procs that sleep for long times.
 proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 	for(var/file in files)
-		if (!client)
+		if(!client)
 			break
-		if (register_asset)
+		if(register_asset)
 			register_asset(file,files[file])
 		send_asset(client,file)
 		sleep(-1) //queuing calls like this too quickly can cause issues in some client versions
@@ -159,7 +159,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 
 //get a assetdatum or make a new one
 /proc/get_asset_datum(var/type)
-	if (!(type in asset_datums))
+	if(!(type in asset_datums))
 		return new type()
 	return asset_datums[type]
 
@@ -240,14 +240,14 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 
 /datum/asset/nanoui/register()
 	// Crawl the directories to find files.
-	for (var/path in common_dirs)
+	for(var/path in common_dirs)
 		var/list/filenames = flist(path)
 		for(var/filename in filenames)
 			if(copytext(filename, length(filename)) != "/") // Ignore directories.
 				if(fexists(path + filename))
 					common[filename] = fcopy_rsc(path + filename)
 					register_asset(filename, common[filename])
-	for (var/path in uncommon_dirs)
+	for(var/path in uncommon_dirs)
 		var/list/filenames = flist(path)
 		for(var/filename in filenames)
 			if(copytext(filename, length(filename)) != "/") // Ignore directories.
@@ -260,3 +260,18 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 
 	send_asset_list(client, uncommon)
 	send_asset_list(client, common)
+
+/datum/asset/chem_master
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/chem_master/register()
+	for(var/i = 1 to 20)
+		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
+	for(var/i = 1 to 20)
+		assets["bottle[i].png"] = icon('icons/obj/chemical.dmi', "bottle[i]")
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/chem_master/send(client)
+	send_asset_list(client,assets,verify)

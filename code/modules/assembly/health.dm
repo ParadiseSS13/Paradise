@@ -76,7 +76,9 @@
 	var/dat = text("<TT><B>Health Sensor</B> <A href='?src=\ref[src];scanning=1'>[scanning?"On":"Off"]</A>")
 	if(scanning && health_scan)
 		dat += "<BR>Health: [health_scan]"
-	user << browse(dat, "window=hscan")
+	var/datum/browser/popup = new(user, "hscan", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "hscan")
 	return
 

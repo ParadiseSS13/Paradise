@@ -125,6 +125,7 @@ log transactions
 	if(get_dist(src,user) <= 1)
 		//check to see if the user has low security enabled
 		scan_user(user)
+		add_fingerprint(user)
 
 		//js replicated from obj/machinery/computer/card
 		var/dat = {"<h1>Nanotrasen Automatic Teller Machine</h1>
@@ -209,7 +210,9 @@ log transactions
 			dat += "<span class='warning'>Unable to connect to accounts database, please retry and if the issue persists contact Nanotrasen IT support.</span>"
 			reconnect_database()
 
-		user << browse(dat,"window=atm;size=550x650")
+		var/datum/browser/popup = new(user, "atm", name, 550, 650)
+		popup.set_content(dat)
+		popup.open(0)
 	else
 		user << browse(null,"window=atm")
 
@@ -364,7 +367,7 @@ log transactions
 
 				else
 					var/obj/item/I = usr.get_active_hand()
-					if (istype(I, /obj/item/weapon/card/id))
+					if(istype(I, /obj/item/weapon/card/id))
 						usr.drop_item()
 						I.loc = src
 						held_card = I

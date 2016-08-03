@@ -54,16 +54,16 @@
 
 /obj/item/pipe/New(loc, pipe_type, dir, obj/machinery/atmospherics/make_from)
 	..()
-	if (make_from)
+	if(make_from)
 		src.dir = make_from.dir
 		src.pipename = make_from.name
 		color = make_from.pipe_color
 		var/is_bent
-		if  (make_from.initialize_directions in list(NORTH|SOUTH, WEST|EAST))
+		if(make_from.initialize_directions in list(NORTH|SOUTH, WEST|EAST))
 			is_bent = 0
 		else
 			is_bent = 1
-		if     (istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction))
+		if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction))
 			src.pipe_type = PIPE_JUNCTION
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
 			src.pipe_type = PIPE_HE_STRAIGHT + is_bent
@@ -158,13 +158,13 @@
 	else
 		src.pipe_type = pipe_type
 		src.dir = dir
-		if (pipe_type == PIPE_SUPPLY_STRAIGHT || pipe_type == PIPE_SUPPLY_BENT || pipe_type == PIPE_SUPPLY_MANIFOLD || pipe_type == PIPE_SUPPLY_MANIFOLD4W || pipe_type == PIPE_SUPPLY_CAP)
+		if(pipe_type == PIPE_SUPPLY_STRAIGHT || pipe_type == PIPE_SUPPLY_BENT || pipe_type == PIPE_SUPPLY_MANIFOLD || pipe_type == PIPE_SUPPLY_MANIFOLD4W || pipe_type == PIPE_SUPPLY_CAP)
 			connect_types = list(2)
 			src.color = PIPE_COLOR_BLUE
-		else if (pipe_type == PIPE_SCRUBBERS_STRAIGHT || pipe_type == PIPE_SCRUBBERS_BENT || pipe_type == PIPE_SCRUBBERS_MANIFOLD || pipe_type == PIPE_SCRUBBERS_MANIFOLD4W || pipe_type == PIPE_SCRUBBERS_CAP)
+		else if(pipe_type == PIPE_SCRUBBERS_STRAIGHT || pipe_type == PIPE_SCRUBBERS_BENT || pipe_type == PIPE_SCRUBBERS_MANIFOLD || pipe_type == PIPE_SCRUBBERS_MANIFOLD4W || pipe_type == PIPE_SCRUBBERS_CAP)
 			connect_types = list(3)
 			src.color = PIPE_COLOR_RED
-		else if (pipe_type == PIPE_UNIVERSAL)
+		else if(pipe_type == PIPE_UNIVERSAL)
 			connect_types = list(1,2,3)
 
 	update(make_from)
@@ -278,7 +278,7 @@
 	set name = "Rotate Pipe"
 	set src in view(1)
 
-	if ( usr.stat || usr.restrained() )
+	if( usr.stat || usr.restrained() )
 		return
 
 	src.dir = turn(src.dir, -90)
@@ -292,10 +292,10 @@
 	set name = "Flip Pipe"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return
 
-	if (pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE))
+	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE))
 		if(flipped)
 			icon_state = copytext(icon_state,3)
 		else
@@ -311,10 +311,10 @@
 
 /obj/item/pipe/Move()
 	..()
-	if (is_bent_pipe() \
+	if(is_bent_pipe() \
 		&& (src.dir in cardinal))
 		src.dir = src.dir|turn(src.dir, 90)
-	else if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
+	else if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir==2)
 			dir = 1
 		else if(dir==8)
@@ -324,7 +324,7 @@
 // returns all pipe's endpoints
 
 /obj/item/pipe/proc/get_pipe_dir()
-	if (!dir)
+	if(!dir)
 		return 0
 	
 	var/direct = dir
@@ -374,7 +374,7 @@
 //	var/cw = turn(dir, -90)
 //	var/acw = turn(dir, 90)
 
-	if (!(pipe_type in list(PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_JUNCTION)))
+	if(!(pipe_type in list(PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_JUNCTION)))
 		return get_pipe_dir()
 	switch(pipe_type)
 		if(PIPE_HE_STRAIGHT,PIPE_HE_BENT)
@@ -408,12 +408,12 @@
 
 //Helper to clean up dir
 /obj/item/pipe/proc/fixdir()
-	if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
+	if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir==2)
 			dir = 1
 		else if(dir==8)
 			dir = 4
-	else if (pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER))
+	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER))
 		dir = 2
 
 /obj/item/pipe/attack_self(mob/user as mob)
@@ -422,10 +422,10 @@
 /obj/item/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	..()
 
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 		
-	if (!isturf(src.loc))
+	if(!isturf(src.loc))
 		return 1
 
 	fixdir()
@@ -461,7 +461,7 @@
 
 		if(PIPE_CONNECTOR)		// connector
 			var/obj/machinery/atmospherics/unary/portables_connector/C = new( src.loc )
-			if (pipename)
+			if(pipename)
 				C.name = pipename
 			C.construction(dir, pipe_dir, color)
 
@@ -500,13 +500,13 @@
 
 		if(PIPE_MVALVE)		//manual valve
 			var/obj/machinery/atmospherics/binary/valve/V = new( src.loc)
-			if (pipename)
+			if(pipename)
 				V.name = pipename
 			V.construction(dir, get_pdir(), color)
 			
 		if(PIPE_DVALVE)
 			var/obj/machinery/atmospherics/binary/valve/digital/V = new( src.loc )
-			if (pipename)
+			if(pipename)
 				V.name = pipename
 			V.construction(dir, get_pdir(), color)
 			
@@ -526,13 +526,13 @@
 				if(PIPE_DTVALVE)
 					P = new /obj/machinery/atmospherics/trinary/tvalve/digital(src.loc)
 			P.flipped = flipped
-			if (pipename)
+			if(pipename)
 				P.name = pipename
 			P.construction(unflip(dir), pipe_dir, color)
 
 		if(PIPE_SCRUBBER)		//scrubber
 			var/obj/machinery/atmospherics/unary/vent_scrubber/S = new(src.loc)
-			if (pipename)
+			if(pipename)
 				S.name = pipename
 			S.construction(dir, pipe_dir, color)
 
@@ -554,37 +554,37 @@
 
 		if(PIPE_PASSIVE_GATE)		//passive gate
 			var/obj/machinery/atmospherics/binary/passive_gate/P = new(src.loc)
-			if (pipename)
+			if(pipename)
 				P.name = pipename
 			P.construction(dir, pipe_dir, color)
 
 		if(PIPE_VOLUME_PUMP)		//volume pump
 			var/obj/machinery/atmospherics/binary/volume_pump/P = new(src.loc)
-			if (pipename)
+			if(pipename)
 				P.name = pipename
 			P.construction(dir, pipe_dir, color)
 
 		if(PIPE_HEAT_EXCHANGE)		// heat exchanger
 			var/obj/machinery/atmospherics/unary/heat_exchanger/C = new( src.loc )
-			if (pipename)
+			if(pipename)
 				C.name = pipename
 			C.construction(dir, pipe_dir, color)
 
 		if(PIPE_INJECTOR)		// air injector
 			var/obj/machinery/atmospherics/unary/outlet_injector/P = new( src.loc )
-			if (pipename)
+			if(pipename)
 				P.name = pipename
 			P.construction(dir, pipe_dir, color)
 			
 		if(PIPE_DP_VENT)
 			var/obj/machinery/atmospherics/binary/dp_vent_pump/P = new(src.loc)
-			if (pipename)
+			if(pipename)
 				P.name = pipename
 			P.construction(dir, pipe_dir, color)
 			
 		if(PIPE_PASV_VENT)
 			var/obj/machinery/atmospherics/unary/passive_vent/P  = new(src.loc)
-			if (pipename)
+			if(pipename)
 				P.name = pipename
 			P.construction(dir, pipe_dir, color)
 
@@ -616,7 +616,7 @@
 /obj/item/pipe_meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	..()
 
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
 		to_chat(user, "\red You need to fasten it to a pipe")
@@ -636,7 +636,7 @@
 
 /obj/item/pipe_gsensor/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	..()
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )
 	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)

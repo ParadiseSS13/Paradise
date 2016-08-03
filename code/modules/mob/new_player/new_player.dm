@@ -70,8 +70,8 @@
 	..()
 
 	statpanel("Status")
-	if (client.statpanel == "Status" && ticker)
-		if (ticker.current_state != GAME_STATE_PREGAME)
+	if(client.statpanel == "Status" && ticker)
+		if(ticker.current_state != GAME_STATE_PREGAME)
 			stat(null, "Station Time: [worldtime2text()]")
 	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && ticker)
@@ -245,7 +245,7 @@
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(src.client))	return 0
-	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
+	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
@@ -275,7 +275,7 @@
 		return 0
 
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
-	if (src != usr)
+	if(src != usr)
 		return 0
 	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "\red The round is either not ready, or has already finished...")
@@ -360,11 +360,11 @@
 
 
 /mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
-	if (ticker.current_state == GAME_STATE_PLAYING)
+	if(ticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for (var/mob/living/silicon/ai/A in living_mob_list)
+		for(var/mob/living/silicon/ai/A in living_mob_list)
 			ailist += A
-		if (ailist.len)
+		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
@@ -385,11 +385,11 @@
 					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
-	if (ticker.current_state == GAME_STATE_PLAYING)
+	if(ticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for (var/mob/living/silicon/ai/A in living_mob_list)
+		for(var/mob/living/silicon/ai/A in living_mob_list)
 			ailist += A
-		if (ailist.len)
+		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.special_role != "MODE"))
@@ -402,7 +402,7 @@
 					global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/LateChoices()
-	var/mills = world.time // 1/10 of a second, not real milliseconds but whatever
+	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
 	//var/secs = ((mills % 36000) % 600) / 10 //Not really needed, but I'll leave it here for refrence.. or something
 	var/mins = (mills % 36000) / 600
 	var/hours = mills / 36000

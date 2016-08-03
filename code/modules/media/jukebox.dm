@@ -183,12 +183,12 @@ var/global/loopModeNames=list(
 		to_chat(usr, "\red You touch the bluescreened menu. Nothing happens. You feel dumber.")
 		return
 
-	if (href_list["power"])
+	if(href_list["power"])
 		playing=!playing
 		update_music()
 		update_icon()
 
-	if (href_list["playlist"])
+	if(href_list["playlist"])
 		if(!check_reload())
 			to_chat(usr, "\red You must wait 60 seconds between playlist reloads.")
 			return
@@ -199,12 +199,12 @@ var/global/loopModeNames=list(
 		update_music()
 		update_icon()
 
-	if (href_list["song"])
+	if(href_list["song"])
 		current_song=Clamp(text2num(href_list["song"]),1,playlist.len)
 		update_music()
 		update_icon()
 
-	if (href_list["mode"])
+	if(href_list["mode"])
 		loop_mode = (loop_mode % JUKEMODE_COUNT) + 1
 
 	return attack_hand(usr)

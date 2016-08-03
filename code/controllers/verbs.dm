@@ -18,7 +18,7 @@
 	return
 
 
-/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler","Nano"))
+/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler","Nano","Vote"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -28,7 +28,7 @@
 		if("Master")
 			debug_variables(master_controller)
 			feedback_add_details("admin_verb","DMC")
-		if ("failsafe")
+		if("failsafe")
 			debug_variables(failsafe)
 			feedback_add_details("admin_verb", "dfailsafe")
 		if("Ticker")
@@ -73,6 +73,9 @@
 		if("Nano")
 			debug_variables(nanomanager)
 			feedback_add_details("admin_verb","DNano")
+		if("Vote")
+			debug_variables(vote)
+			feedback_add_details("admin_verb","DVote")
 
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
 	return

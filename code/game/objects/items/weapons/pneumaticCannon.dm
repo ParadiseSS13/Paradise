@@ -132,7 +132,7 @@
 	maxWeightClass = 7
 	gasPerThrow = 5
 
-/datum/table_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
+/datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
 	name = "Pneumatic Cannon"
 	result = /obj/item/weapon/pneumatic_cannon/ghetto
 	tools = list(/obj/item/weapon/weldingtool,
@@ -141,6 +141,7 @@
 				/obj/item/stack/packageWrap = 8,
 				/obj/item/pipe = 2)
 	time = 300
+	category = CAT_WEAPON
 
 /obj/item/weapon/pneumatic_cannon/proc/updateTank(obj/item/weapon/tank/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)

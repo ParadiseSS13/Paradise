@@ -1,7 +1,7 @@
 /obj/item/weapon/antag_spawner
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1.0
+	w_class = 1
 	var/used = 0
 
 /obj/item/weapon/antag_spawner/proc/spawn_antag(var/client/C, var/turf/T, var/type = "")
@@ -80,6 +80,7 @@
 	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
 
 /obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
+	// TODO: Tie into space manager
 	if(user.z == ZLEVEL_CENTCOMM)//this is to make sure the wizard does NOT summon a demon from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return

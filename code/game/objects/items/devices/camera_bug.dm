@@ -55,12 +55,13 @@
 	interact(user)
 
 /obj/item/device/camera_bug/check_eye(var/mob/user as mob)
-	if (user.stat || loc != user || !user.canmove || user.eye_blind || !current)
+	if(user.stat || loc != user || !user.canmove || user.eye_blind || !current)
 		user.reset_view(null)
 		user.unset_machine()
 		return null
 
 	var/turf/T = get_turf(user.loc)
+	// TODO: Tie into space manager
 	if(T.z != current.z || !current.can_use())
 		to_chat(user, "<span class='danger'>[src] has lost the signal.</span>")
 		current = null
@@ -225,6 +226,7 @@
 				to_chat(usr, "<span class='danger'>Something's wrong with that camera.  You can't get a feed.</span>")
 				return
 			var/turf/T = get_turf(loc)
+			// TODO: Tie into space manager
 			if(!T || C.z != T.z)
 				to_chat(usr, "<span class='danger'>You can't get a signal.</span>")
 				return

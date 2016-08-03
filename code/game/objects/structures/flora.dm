@@ -1,3 +1,7 @@
+/obj/structure/flora
+	burn_state = FLAMMABLE
+	burntime = 30
+
 //trees
 /obj/structure/flora/tree
 	name = "tree"
@@ -230,6 +234,7 @@
 	desc = "a rock"
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
+	burn_state = FIRE_PROOF
 	anchored = 1
 
 /obj/structure/flora/rock/New()
@@ -288,10 +293,10 @@
 
 /*
 /obj/structure/bush/Bumped(M as mob)
-	if (istype(M, /mob/living/simple_animal))
+	if(istype(M, /mob/living/simple_animal))
 		var/mob/living/simple_animal/A = M
 		A.loc = get_turf(src)
-	else if (istype(M, /mob/living/carbon/monkey))
+	else if(istype(M, /mob/living/carbon/monkey))
 		var/mob/living/carbon/monkey/A = M
 		A.loc = get_turf(src)
 */

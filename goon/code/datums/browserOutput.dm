@@ -31,7 +31,8 @@ var/list/chatResources = list(
 		return 0
 
 	if(!winexists(owner, "browseroutput"))
-		alert(owner.mob, "Updated chat window does not exist. If you are using a custom skin file please allow the game to update.")
+		spawn()
+			alert(owner.mob, "Updated chat window does not exist. If you are using a custom skin file please allow the game to update.")
 		broken = TRUE
 		return 0
 
@@ -170,7 +171,8 @@ var/list/chatResources = list(
 	var/list/partial = splittext(iconData, "{")
 	return replacetext(copytext(partial[2], 3, -5), "\n", "")
 
-/proc/bicon(var/obj)
+/proc/bicon(var/obj, var/use_class = 1)
+	var/class = use_class ? "class='icon misc'" : null
 	if (!obj)
 		return
 
@@ -178,7 +180,7 @@ var/list/chatResources = list(
 		if (!bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
 			bicon_cache["\ref[obj]"] = icon2base64(obj)
 
-		return "<img class='icon misc' src='data:image/png;base64,[bicon_cache["\ref[obj]"]]'>"
+		return "<img [class] src='data:image/png;base64,[bicon_cache["\ref[obj]"]]'>"
 
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
 	var/atom/A = obj
@@ -190,12 +192,10 @@ var/list/chatResources = list(
 			I = icon()
 			I.Insert(temp, dir = SOUTH)
 		bicon_cache[key] = icon2base64(I, key)
+	if(use_class)
+		class = "class='icon [A.icon_state]'"
 
-	return "<img class='icon [A.icon_state]' src='data:image/png;base64,[bicon_cache[key]]'>"
-
-//Aliases for bicon
-/proc/bi(obj)
-	bicon(obj)
+	return "<img [class] src='data:image/png;base64,[bicon_cache[key]]'>"
 
 var/to_chat_filename
 var/to_chat_line

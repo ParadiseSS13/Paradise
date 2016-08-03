@@ -76,9 +76,7 @@
 	w_class = 5
 	force = 5
 	slot_flags = SLOT_BACK
-
-/obj/item/weapon/nullrod/staff/IsShield()
-	return 1
+	block_chance = 50
 
 /obj/item/weapon/nullrod/staff/blue
 	name = "blue holy staff"
@@ -92,16 +90,16 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = 4
 	slot_flags = SLOT_BACK|SLOT_BELT
+	block_chance = 30
 	sharp = 1
 	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-/obj/item/weapon/nullrod/claymore/IsShield()
-	if(prob(30))
-		return 1
-	else
-		return 0
+/obj/item/weapon/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
 
 /obj/item/weapon/nullrod/claymore/darkblade
 	icon_state = "cultblade"
@@ -333,6 +331,7 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	w_class = 4
 	force = 15
+	block_chance = 40
 	slot_flags = SLOT_BACK
 	sharp = 0
 	edge = 0
@@ -341,12 +340,6 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
-
-/obj/item/weapon/nullrod/claymore/bostaff/IsShield()
-	if(prob(40))
-		return 1
-	else
-		return 0
 
 /obj/item/weapon/nullrod/tribal_knife
 	icon_state = "crysknife"

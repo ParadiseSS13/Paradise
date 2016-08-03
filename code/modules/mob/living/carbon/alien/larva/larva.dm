@@ -31,7 +31,7 @@
 /mob/living/carbon/alien/larva/Bump(atom/movable/AM as mob|obj, yes)
 
 	spawn( 0 )
-		if ((!( yes ) || now_pushing))
+		if((!( yes ) || now_pushing))
 			return
 		now_pushing = 1
 		if(ismob(AM))
@@ -48,11 +48,11 @@
 
 		now_pushing = 0
 		..()
-		if (!( istype(AM, /atom/movable) ))
+		if(!( istype(AM, /atom/movable) ))
 			return
-		if (!( now_pushing ))
+		if(!( now_pushing ))
 			now_pushing = 1
-			if (!( AM.anchored ))
+			if(!( AM.anchored ))
 				var/t = get_dir(src, AM)
 				step(AM, t)
 			now_pushing = null
@@ -76,26 +76,24 @@
 
 	var/b_loss = null
 	var/f_loss = null
-	switch (severity)
-		if (1.0)
+	switch(severity)
+		if(1.0)
 			gib()
 			return
 
-		if (2.0)
+		if(2.0)
 
 			b_loss += 60
 
 			f_loss += 60
 
-			ear_damage += 30
-			ear_deaf += 120
+			adjustEarDamage(30,120)
 
 		if(3.0)
 			b_loss += 30
-			if (prob(50))
+			if(prob(50))
 				Paralyse(1)
-			ear_damage += 15
-			ear_deaf += 60
+			adjustEarDamage(15,60)
 
 	adjustBruteLoss(b_loss)
 	adjustFireLoss(f_loss)
@@ -123,14 +121,14 @@
 
 
 /mob/living/carbon/alien/larva/attack_slime(mob/living/carbon/slime/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if(M.Victim)
 		return // can't attack while eating!
 
-	if (stat != DEAD)
+	if(stat != DEAD)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
@@ -148,11 +146,11 @@
 	return
 
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
@@ -160,17 +158,17 @@
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			help_shake_act(M)
 
-		if (I_GRAB)
+		if(I_GRAB)
 			grabbedby(M)
 
 		else
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
-			if (prob(90))
-				if (HULK in M.mutations)
+			if(prob(90))
+				if(HULK in M.mutations)
 					damage += 5
 					spawn(0)
 						Paralyse(1)
@@ -180,7 +178,7 @@
 				playsound(loc, "punch", 25, 1, -1)
 				visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
 						"<span class='userdanger'>[M] has kicked [src]!</span>")
-				if ((stat != DEAD) && (damage > 4.9))
+				if((stat != DEAD) && (damage > 4.9))
 					Paralyse(rand(5,10))
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 							"<span class='userdanger'>[M] has weakened [src]!</span>", \
@@ -194,11 +192,11 @@
 	return
 
 /mob/living/carbon/alien/larva/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
@@ -206,7 +204,7 @@
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			sleeping = max(0,sleeping-5)
 			resting = 0
 			AdjustParalysis(-3)
@@ -215,7 +213,7 @@
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		else
-			if (health > 0)
+			if(health > 0)
 				M.do_attack_animation(src)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				var/damage = 1

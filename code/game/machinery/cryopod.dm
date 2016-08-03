@@ -40,7 +40,7 @@
 
 	var/dat
 
-	if (!( ticker ))
+	if(!( ticker ))
 		return
 
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
@@ -319,7 +319,7 @@
 		else if(O.target && istype(O.target,/datum/mind))
 			if(O.target == occupant.mind)
 				if(O.owner && O.owner.current)
-					to_chat(O.owner.current, "<span class='warning'>You get the feeling your target is no longer within your reach. Time for Plan [pick(list("A","B","C","D","X","Y","Z"))]...</span>")
+					to_chat(O.owner.current, "<span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 				O.target = null
 				spawn(1) //This should ideally fire after the occupant is deleted.
 					if(!O) return
@@ -335,7 +335,7 @@
 		job_master.FreeRole(job)
 
 		if(occupant.mind.objectives.len)
-			qdel(occupant.mind.objectives)
+			occupant.mind.objectives.Cut()
 			occupant.mind.special_role = null
 		else
 			if(ticker.mode.name == "AutoTraitor")
@@ -344,16 +344,18 @@
 
 	// Delete them from datacore.
 
+	var/announce_rank = null
 	if(PDA_Manifest.len)
 		PDA_Manifest.Cut()
 	for(var/datum/data/record/R in data_core.medical)
-		if ((R.fields["name"] == occupant.real_name))
+		if((R.fields["name"] == occupant.real_name))
 			qdel(R)
 	for(var/datum/data/record/T in data_core.security)
-		if ((T.fields["name"] == occupant.real_name))
+		if((T.fields["name"] == occupant.real_name))
 			qdel(T)
 	for(var/datum/data/record/G in data_core.general)
-		if ((G.fields["name"] == occupant.real_name))
+		if((G.fields["name"] == occupant.real_name))
+			announce_rank = G.fields["rank"]
 			qdel(G)
 
 	if(orient_right)
@@ -365,14 +367,19 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/ailist[] = list()
-	for (var/mob/living/silicon/ai/A in living_mob_list)
+	for(var/mob/living/silicon/ai/A in living_mob_list)
 		ailist += A
-	if (ailist.len)
+	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)
-		announcer.say(";[occupant.real_name] [on_store_message]")
+		if (announce_rank)
+			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+		else
+			announcer.say(";[occupant.real_name] [on_store_message]")
 	else
-		announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-
+		if (announce_rank)
+			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+		else
+			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Delete the mob.
@@ -451,7 +458,7 @@
 
 			// Book keeping!
 			log_admin("<span class='notice'>[key_name(M)] has entered a stasis pod.</span>")
-			message_admins("[key_name_admin(user)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			message_admins("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 			//Despawning occurs when process() is called with an occupant without a client.
 			src.add_fingerprint(M)

@@ -54,7 +54,7 @@
 	return alarms
 
 /datum/alarm_handler/proc/check_alarm_cleared(var/datum/alarm/alarm)
-	if ((alarm.end_time && world.time > alarm.end_time) || !alarm.sources.len)
+	if((alarm.end_time && world.time > alarm.end_time) || !alarm.sources.len)
 		alarms -= alarm
 		alarms_assoc -= alarm.origin
 		on_alarm_change(alarm, ALARM_CLEARED)

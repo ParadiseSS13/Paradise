@@ -19,7 +19,7 @@
 		if(!computer.cradle.occupant)
 			overlay.icon_state = "ai-fixer-empty"
 		else
-			if (computer.cradle.occupant.health >= 0 && computer.cradle.occupant.stat != 2)
+			if(computer.cradle.occupant.health >= 0 && computer.cradle.occupant.stat != 2)
 				overlay.icon_state = "ai-fixer-full"
 			else
 				overlay.icon_state = "ai-fixer-404"
@@ -39,34 +39,34 @@
 
 	proc/aifixer_menu()
 		var/dat = ""
-		if (computer.cradle.occupant)
+		if(computer.cradle.occupant)
 			var/laws
 			dat += "<h3>Stored AI: [computer.cradle.occupant.name]</h3>"
 			dat += "<b>System integrity:</b> [(computer.cradle.occupant.health+100)/2]%<br>"
 
-			if (computer.cradle.occupant.laws.zeroth)
+			if(computer.cradle.occupant.laws.zeroth)
 				laws += "<b>0:</b> [computer.cradle.occupant.laws.zeroth]<BR>"
 
 			var/number = 1
-			for (var/index = 1, index <= computer.cradle.occupant.laws.inherent.len, index++)
+			for(var/index = 1, index <= computer.cradle.occupant.laws.inherent.len, index++)
 				var/law = computer.cradle.occupant.laws.inherent[index]
-				if (length(law) > 0)
+				if(length(law) > 0)
 					laws += "<b>[number]:</b> [law]<BR>"
 					number++
 
-			for (var/index = 1, index <= computer.cradle.occupant.laws.supplied.len, index++)
+			for(var/index = 1, index <= computer.cradle.occupant.laws.supplied.len, index++)
 				var/law = computer.cradle.occupant.laws.supplied[index]
-				if (length(law) > 0)
+				if(length(law) > 0)
 					laws += "<b>[number]:</b> [law]<BR>"
 					number++
 
 			dat += "<b>Laws:</b><br>[laws]<br>"
 
-			if (computer.cradle.occupant.stat == 2)
+			if(computer.cradle.occupant.stat == 2)
 				dat += "<span class='bad'>AI non-functional</span>"
 			else
 				dat += "<span class='good'>AI functional</span>"
-			if (!computer.cradle.busy)
+			if(!computer.cradle.busy)
 				dat += "<br><br>[topic_link(src,"fix","Begin Reconstruction")]"
 			else
 				dat += "<br><br>Reconstruction in process, please wait.<br>"
@@ -77,7 +77,7 @@
 		if(!interactable() || !computer.cradle || ..(href,href_list))
 			return
 
-		if ("fix" in href_list)
+		if("fix" in href_list)
 			var/mob/living/silicon/ai/occupant = computer.cradle.occupant
 			if(!occupant) return
 
@@ -85,7 +85,7 @@
 			computer.overlays += image('icons/obj/computer.dmi', "ai-fixer-on")
 
 			var/i = 0
-			while (occupant.health < 100)
+			while(occupant.health < 100)
 				if(!computer || (computer.stat&~MAINT)) // takes some time, keep checking
 					break
 
@@ -94,7 +94,7 @@
 				occupant.adjustToxLoss(-1)
 				occupant.adjustBruteLoss(-1)
 				occupant.updatehealth()
-				if (occupant.health >= 0 && computer.cradle.occupant.stat == 2)
+				if(occupant.health >= 0 && computer.cradle.occupant.stat == 2)
 					occupant.stat = 0
 					occupant.lying = 0
 					dead_mob_list -= occupant

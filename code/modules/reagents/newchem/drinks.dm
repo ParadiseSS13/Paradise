@@ -14,8 +14,7 @@
 	mix_message = "The drink turns electric blue and starts quivering violently."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/ginsonic/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/ginsonic/on_mob_life(mob/living/M)
 	M.drowsyness = max(0, M.drowsyness-5)
 	if(prob(25))
 		M.AdjustParalysis(-1)
@@ -29,7 +28,6 @@
 		else
 			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
 	..()
-	return
 
 /datum/reagent/ethanol/applejack
 	name = "Applejack"
@@ -72,13 +70,12 @@
 	color = "#DC0000"
 	alcohol_perc = 1
 
-/datum/reagent/ethanol/dragons_breath/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+/datum/reagent/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST && prob(20))
 		if(M.on_fire)
 			M.adjust_fire_stacks(3)
 
-/datum/reagent/ethanol/dragons_breath/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/ethanol/dragons_breath/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("milk"))
 		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
 		M.reagents.del_reagent("milk")
@@ -128,7 +125,7 @@
 	mix_message = "The chemicals mix to create shiny, blue substance."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
+/datum/reagent/ethanol/synthanol/on_mob_life(mob/living/M)
 	if(!M.isSynthetic())
 		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
 		if(prob(25))
@@ -136,9 +133,7 @@
 			M.fakevomit()
 	..()
 
-datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.isSynthetic())
 		return
 	if(method == INGEST)
@@ -204,7 +199,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	name = "Uplink"
 	id = "uplink"
 	result = "uplink"
-	required_reagents = list("rum" = 1, "vodka" = 1, "tequilla" = 1, "whiskey" = 1, "synthanol" = 1)
+	required_reagents = list("rum" = 1, "vodka" = 1, "tequila" = 1, "whiskey" = 1, "synthanol" = 1)
 	result_amount = 5
 
 /datum/reagent/ethanol/synthanol/synthnsoda

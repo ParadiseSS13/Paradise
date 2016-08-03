@@ -79,7 +79,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 					src.procreate()
 
 
-/mob/living/simple_animal/tribble/death() // Gotta make sure to remove tribbles from the list on death
+/mob/living/simple_animal/tribble/death(gibbed) // Gotta make sure to remove tribbles from the list on death
 	..()
 	totaltribbles -= 1
 
@@ -91,7 +91,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribble1"
 	item_state = "tribble1"
-	w_class = 10.0
+	w_class = 10
 	var/gestation = 0
 
 /obj/item/toy/tribble/attack_self(mob/user as mob) //hug that tribble (and play a sound if we add one)
@@ -115,7 +115,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	if(istype(O, /obj/item/weapon/scalpel) && src.gestation != null)
 		gestation = null
 		to_chat(user, "<span class='notice'>You neuter the tribble so that it can no longer re-produce.</span>")
-	else if (istype(O, /obj/item/weapon/cautery) && src.gestation == null)
+	else if(istype(O, /obj/item/weapon/cautery) && src.gestation == null)
 		gestation = 0
 		to_chat(user, "<span class='notice'>You fuse some recently cut tubes together, it should be able to reproduce again.</span>")
 
@@ -136,16 +136,16 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 
 /obj/structure/tribble_cage/ex_act(severity)
 	switch(severity)
-		if (1)
+		if(1)
 			new /obj/item/weapon/shard( src.loc )
 			Break()
 			qdel(src)
-		if (2)
-			if (prob(50))
+		if(2)
+			if(prob(50))
 				src.health -= 15
 				src.healthcheck()
-		if (3)
-			if (prob(50))
+		if(3)
+			if(prob(50))
 				src.health -= 5
 				src.healthcheck()
 
@@ -158,15 +158,15 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 
 
 /obj/structure/tribble_cage/blob_act()
-	if (prob(75))
+	if(prob(75))
 		new /obj/item/weapon/shard( src.loc )
 		Break()
 		qdel(src)
 
 
 /obj/structure/tribble_cage/proc/healthcheck()
-	if (src.health <= 0)
-		if (!( src.destroyed ))
+	if(src.health <= 0)
+		if(!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
 			new /obj/item/weapon/shard( src.loc )
@@ -192,12 +192,12 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 
 
 /obj/structure/tribble_cage/attack_hand(mob/user as mob)
-	if (src.destroyed)
+	if(src.destroyed)
 		return
 	else
 		to_chat(usr, text("\blue You kick the lab cage."))
 		for(var/mob/O in oviewers())
-			if ((O.client && !( O.blinded )))
+			if((O.client && !( O.blinded )))
 				to_chat(O, text("\red [] kicks the lab cage.", usr))
 		src.health -= 2
 		healthcheck()
