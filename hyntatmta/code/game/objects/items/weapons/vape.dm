@@ -8,10 +8,11 @@
 	var/on = 0
 	var/lastHolder = null
 	var/smoketime = 300
-	var/chem_volume = 30
+	var/chem_volume = 10
 	var/vape_cooldown = 0
 	var/vape_delay = 30
 	var/vape_consume = 0.25
+	var/vape_clouds = 1
 
 /obj/item/device/vape/New()
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
@@ -53,13 +54,13 @@
 		var/mob/living/carbon/C = loc
 		reagents.trans_to(C, vape_consume*4)
 		var/datum/effect/system/chem_smoke_spread/smoke = new
-		smoke.set_up(reagents, 1, 0, src.loc, 0, silent = 1)
+		smoke.set_up(reagents, vape_clouds, 0, src.loc, 0, silent = 1)
 		playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1, -3)
 		smoke.start(2)
 		if(!reagents.total_volume) // There were reagents, but now they're gone
 			to_chat(C, "<span class='notice'>Жидкость внутри [name] закончилась.</span>")
 	else // else just remove some of the reagents
-		reagents.remove_any(vape_consume)
+		reagents.remove_any(vape_consume*4)
 	return
 
 /obj/item/device/vape/attack_self(mob/user as mob)
@@ -73,6 +74,15 @@
 			icon_state = "[initial(icon_state)]-on"
 			to_chat(user, "Вы включили [name].")
 			if(reagents.get_reagent_amount("plasma")) // the plasma explodes when exposed to fire
+				var/datum/effect/system/reagents_explosion/e = new()
+				e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
+				e.start()
+				if(ismob(loc))
+					var/mob/M = loc
+					M.unEquip(src, 1)
+				qdel(src)
+				return
+			if(reagents.get_reagent_amount("plasma_dust")) // the plasma explodes when exposed to fire
 				var/datum/effect/system/reagents_explosion/e = new()
 				e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
 				e.start()
@@ -98,14 +108,21 @@
 	name = "VapeX RandomRoulette"
 	desc = "Содержимое этой штуки неизвестно."
 	icon_state = "random"
+	vape_consume = 1
+	chem_volume = 30
+	vape_clouds = 2
 
 /obj/item/device/vape/random/New()
 	..()
 	var/random_reagent = pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin")
 	reagents.add_reagent(random_reagent, 10)
 
+
 /obj/item/device/vape/stylish
 	name = "VapeNation eCig"
 	desc = "Стиль решает все. Го грин."
 	icon_state = "stylish"
 	w_class = 3
+	vape_consume = 0.5
+	chem_volume = 50
+	vape_clouds = 2
