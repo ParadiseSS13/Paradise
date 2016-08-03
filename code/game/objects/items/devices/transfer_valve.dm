@@ -11,6 +11,18 @@
 	var/toggle = 1
 	origin_tech = "materials=1;engineering=1"
 
+/obj/item/device/transfer_valve/Destroy()
+	if(tank_one)
+		qdel(tank_one)
+		tank_one = null
+	if(tank_two)
+		qdel(tank_two)
+		tank_two = null
+	if(attached_device)
+		qdel(attached_device)
+		attached_device = null
+	return ..()
+
 /obj/item/device/transfer_valve/proc/process_activation(var/obj/item/device/D)
 
 /obj/item/device/transfer_valve/IsAssemblyHolder()
