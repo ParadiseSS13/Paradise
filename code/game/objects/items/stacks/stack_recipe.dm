@@ -42,7 +42,7 @@
 
 /datum/stack_recipe/bluespacecrystals
 /datum/stack_recipe/bluespacecrystals/post_build(var/obj/item/stack/S, var/obj/result)
-	if(istype(result, obj/item/weapon/ore/bluespacecrystal/B))
+	if(istype(result, /obj/item/weapon/ore/bluespacecrystal))
 		var/obj/item/weapon/ore/bluespacecrystal/B = result
 		B.refined_type = null
 	..()
