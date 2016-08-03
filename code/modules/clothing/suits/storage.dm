@@ -23,7 +23,7 @@
 
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	pockets.attackby(W, user, params)
+	return pockets.attackby(W, user, params)
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	pockets.emp_act(severity)
