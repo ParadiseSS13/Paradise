@@ -140,7 +140,7 @@
 	if(get_dist(src,user) > 1)
 		return 0
 	if(H != null)
-		user.visible_message(user, "<span class='notice'>[src.name] is too cumbersome to carry in one hand!</span>")
+		to_chat(user, "<span class='notice'>[src.name] is too cumbersome to carry in one hand!</span>")
 		return
 	var/obj/item/weapon/twohanded/offhand/O = new(user)
 	user.put_in_inactive_hand(O)
