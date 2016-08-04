@@ -99,6 +99,27 @@
 			to_chat(user, "You need a working light.")
 			return
 
+	if(istype(W, /obj/item/weapon/storage))
+		var/obj/item/weapon/storage/S = W
+		var/found_lightbulbs = 0
+
+		for(var/obj/item/I in S.contents)
+			if(istype(I,/obj/item/weapon/light))
+				var/obj/item/weapon/light/L = I
+				found_lightbulbs = 1
+				if(src.uses >= max_uses)
+					to_chat(user, "<span class='warning'>\The [src] is full!</span>")
+					break
+				if(L.status == LIGHT_OK)
+					AddUses(1)
+					qdel(L)
+				else if(L.status == LIGHT_BROKEN || L.status == LIGHT_BURNED)
+					continue
+			to_chat(user, "<span class='notice'>You fill \the [src] with lights from \the [S].")
+		if(!found_lightbulbs)
+			to_chat(user, "<span class='warning'>\The [S] contains no bulbs.</span>")
+			return
+
 /obj/item/device/lightreplacer/emag_act(user as mob)
 	if(!emagged)
 		Emag()
