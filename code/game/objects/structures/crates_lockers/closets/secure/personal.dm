@@ -6,12 +6,9 @@
 
 /obj/structure/closet/secure_closet/personal/New()
 	..()
-	if(prob(50))
-		new /obj/item/weapon/storage/backpack/duffel(src)
-	if(prob(50))
-		new /obj/item/weapon/storage/backpack(src)
-	else
-		new /obj/item/weapon/storage/backpack/satchel_norm(src)
+	new /obj/item/weapon/storage/backpack/duffel(src)
+	new /obj/item/weapon/storage/backpack(src)
+	new /obj/item/weapon/storage/backpack/satchel_norm(src)
 	new /obj/item/device/radio/headset( src )
 
 
@@ -33,8 +30,6 @@
 	icon_opened = "cabinetdetective_open"
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
-	burn_state = FLAMMABLE
-	burntime = 20
 
 /obj/structure/closet/secure_closet/personal/cabinet/update_icon()
 	if(broken)
