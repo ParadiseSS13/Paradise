@@ -13,6 +13,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
 	icon_living = "daemon"
+	var/icon_jauntdown = "jaunt"
+	var/icon_jauntup = "jauntup"
 	speed = 1
 	a_intent = I_HARM
 	stop_automated_movement = 1
@@ -43,6 +45,7 @@
 	var/list/nearby_mortals = list()
 	var/cooldown = 0
 	var/gorecooldown = 0
+	var/datum/action/innate/slaughterWhisper = new
 	var/vialspawned = FALSE
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon)
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: To kill.  \
@@ -57,13 +60,13 @@
 	..()
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
+	slaughterWhisper.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = 1
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>")
 		src << 'sound/misc/demon_dies.ogg'
-		mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new
@@ -106,10 +109,12 @@
 //Paradise Port:I added this cuase..SPOOPY DEMON IN YOUR BRAIN
 
 
-/mob/living/simple_animal/slaughter/proc/slaughterWhisper()
-	set name = "Whisper"
-	set desc = "Whisper to a mortal"
-	set category = "Daemon"
+/datum/action/innate/slaughterWhisper
+	name = "Blood Whisper"
+	button_icon_state = "gib"
+	background_icon_state = "bg_demon"
+
+/datum/action/innate/slaughterWhisper/Activate()
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in living_mob_list)
@@ -209,6 +214,22 @@
 			to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
 	..()
 
+
+
+/mob/living/simple_animal/slaughter/panda
+	name = "Slaughter Panda"
+	real_name = "Slaughter Panda"
+	desc = "A large, furry creature bathed in shadows."
+	speak_emote = list("rawrs", "growls")
+	emote_hear = list("glares", "seethes")
+	attacktext = "mauls"
+
+	icon_state = "pdaemon"
+	icon_living = "pdaemon"
+	deathmessage = "fades out into a coaslace of shadows.but you swear you can still see its eyes."
+	icon_jauntdown = "pjaunt"
+	icon_jauntup = "pjauntup"
+	loot = list(/obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge)
 
 //Objectives and helpers.
 
