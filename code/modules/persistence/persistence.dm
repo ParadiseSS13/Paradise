@@ -24,7 +24,7 @@
 
 /atom
 	// This is so specific atoms can override these, and ignore certain ones
-	var/list/vars_to_save = list("dir","name","color","icon","icon_state")
+	var/list/vars_to_save = list("dir","name","color","icon","icon_state", "pixel_x", "pixel_y")
 /atom/serialize()
 	var/list/data = ..()
 	for(var/thing in vars_to_save)

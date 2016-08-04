@@ -34,15 +34,16 @@ dmm_suite{
 			}
 		var/map_prefix = "_maps/quicksave/"
 		var/map_path = "[map_prefix][map_name].dmm"
-		var/file_text = write_map(t1,t2,flags)
 		if(fexists(map_path)){
 			fdel(map_path)
 			}
-		var/saved_map = file(map_path)
-		saved_map << file_text
+		var/saved_map = file(map_path) // We give the map writer the file directly
+		// Because repeated string appending is super murder for performance
+		var/map_text = write_map(t1,t2,flags,saved_map)
+		saved_map << map_text
 		return saved_map
 		}
-	write_map(var/turf/t1 as turf, var/turf/t2 as turf, var/flags as num){
+	write_map(var/turf/t1 as turf, var/turf/t2 as turf, var/flags as num, var/map_file as file){
 		//Check for valid turfs.
 		if(!isturf(t1) || !isturf(t2)){
 			CRASH("Invalid arguments supplied to proc write_map, arguments were not turfs.")
@@ -51,30 +52,41 @@ dmm_suite{
 		var/turf/sw = locate(min(t1.x,t2.x),min(t1.y,t2.y),min(t1.z,t2.z)) // Inner corner
 		var/list/templates[0]
 		var/template_buffer = {""}
+		var/buffer_line = {""}
 		var/dmm_text = {""}
+
+
+		// // Don't write more than 1000 maps at once ;)
+		// var/static/cache_index = 0
+		// if(cache_index > 1000)
+		// 	cache_index = 0
+		// cache_index++
+		// var/cache_prefix = "data/map_cache/"
+		// var/cache_name = "mapcache[cache_index].txt"
+		// var/cache_path = "[cache_prefix][cache_name]"
+		// if(fexists(cache_path))
+		// 	fdel(cache_path)
+		// // Here's hoping file writes are less pricey than repeated string appends
+		// var/template_buffer_cache = file(cache_path)
+
 		for(var/pos_z in sw.z to ne.z){
-			// log_debug("z: [pos_z]")
 			for(var/pos_y = ne.y, pos_y >= sw.y, pos_y--){ // We're reversing this because the map format is silly
-				// log_debug("y: [pos_y]")
 				for(var/pos_x in sw.x to ne.x){
-					// log_debug("x: [pos_x]")
 					var/turf/test_turf = locate(pos_x,pos_y,pos_z)
 					var/test_template = make_template(test_turf, flags)
 					var/template_number = templates.Find(test_template)
-					// log_debug("Template number: [template_number]")
-					// log_debug("Template string: [test_template]")
 					if(!template_number){
 						templates.Add(test_template)
 						template_number = templates.len
 						}
-					template_buffer += "[template_number],"
+					buffer_line += "[template_number],"
+					CHECK_TICK
 					}
-				template_buffer += ";"
+				template_buffer += "[buffer_line];"
+				buffer_line = ""
 				}
 			template_buffer += "."
 			}
-		// log_debug("[template_buffer]")
-		// log_debug("We are done with the loop, doing log")
 		if(templates.len == 0)
 			CRASH("No templates found!")
 		var/key_length = round/*floor*/(log(letter_digits.len,templates.len-1)+1)
@@ -86,7 +98,7 @@ dmm_suite{
 		var/z_level = 0
 		for(var/z_pos=1;TRUE;z_pos=findtext(template_buffer,".",z_pos)+1){
 			if(z_pos>=length(template_buffer)){break}
-			if(z_level){dmm_text+={"\n"}}
+			if(z_level){dmm_text += {"\n"}}
 			dmm_text += {"\n(1,1,[++z_level]) = {"\n"}
 			var/z_block = copytext(template_buffer,z_pos,findtext(template_buffer,".",z_pos))
 			for(var/y_pos=1;TRUE;y_pos=findtext(z_block,";",y_pos)+1){
@@ -97,14 +109,13 @@ dmm_suite{
 					var/x_block = copytext(y_block,x_pos,findtext(y_block,",",x_pos))
 					var/key_number = text2num(x_block)
 					var/temp_key = keys[key_number]
-					dmm_text += temp_key
-					sleep(-1)
+					buffer_line += temp_key
+					CHECK_TICK
 					}
-				dmm_text += {"\n"}
-				sleep(-1)
+				dmm_text += {"[buffer_line]\n"}
+				buffer_line = ""
 				}
 			dmm_text += {"\"}"}
-			sleep(-1)
 			}
 		return dmm_text
 		}
@@ -171,9 +182,9 @@ dmm_suite{
 				var/list/yeah = A.serialize()
 				// Remove useless info
 				yeah -= "type"
-				var/json_stuff = json_encode(yeah)
 				if(yeah.len) {
-					log_debug(json_stuff)
+					var/json_stuff = json_encode(yeah)
+					json_stuff = dmm_encode(json_stuff)
 					attributes_text += {"map_json_data = "[json_stuff]""}
 					}
 				}

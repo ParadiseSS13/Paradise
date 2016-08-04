@@ -228,10 +228,12 @@ var/global/dmm_suite/preloader/_preloader = new
 
 			var/full_def = trim_text(copytext(model, old_position, dpos)) //full definition, e.g : /obj/foo/bar{variables=derp}
 			var/variables_start = findtext(full_def, "{")
-			var/atom_def = text2path(trim_text(copytext(full_def, 1, variables_start))) //path definition, e.g /obj/foo/bar
+			var/atom_text = trim_text(copytext(full_def, 1, variables_start))
+			var/atom_def = text2path(atom_text) //path definition, e.g /obj/foo/bar
 			old_position = dpos + 1
 
 			if(!atom_def) // Skip the item if the path does not exist.  Fix your crap, mappers!
+				log_debug("Bad path: [atom_text]")
 				continue
 			members.Add(atom_def)
 
@@ -373,7 +375,6 @@ var/global/dmm_suite/preloader/_preloader = new
 
 		var/trim_left = trim_text(copytext(text,old_position,(equal_position ? equal_position : position)),1)//the name of the variable, must trim quotes to build a BYOND compliant associatives list
 		old_position = position + 1
-		log_debug(trim_left)
 
 		if(equal_position)//associative var, so do the association
 			var/trim_right = trim_text(copytext(text,equal_position+1,position))//the content of the variable
@@ -381,7 +382,6 @@ var/global/dmm_suite/preloader/_preloader = new
 			//Check for string
 			// Make it read to the next delimiter, instead of the quote
 			if(findtext(trim_right,quote,1,2))
-				log_debug(trim_right)
 				var/endquote = findtext(trim_right,quote,-1)
 				if(!endquote)
 					log_debug("Terminating quote not found!")
@@ -449,8 +449,13 @@ var/global/dmm_suite/preloader/_preloader = new
 
 /dmm_suite/preloader/proc/load(atom/what)
 	if(json_ready)
-		log_debug(attributes["map_json_data"])
-		what.deserialize(json_decode(attributes["map_json_data"]))
+		var/json_data = attributes["map_json_data"]
+		json_data = dmm_decode(json_data)
+		try
+			what.deserialize(json_decode(json_data))
+		catch(var/exception/e)
+			log_debug("Bad json data: '[json_data]'")
+			throw e
 	else
 		for(var/attribute in attributes)
 			var/value = attributes[attribute]
