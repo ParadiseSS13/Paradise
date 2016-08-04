@@ -129,6 +129,7 @@
 
 	var/use_exp_tracking = 0
 	var/use_exp_restrictions_heads = 0
+	var/use_exp_restrictions_heads_hours = 0
 	var/use_exp_restrictions_other = 0
 
 	var/simultaneous_pm_warning_timeout = 100
@@ -248,6 +249,9 @@
 
 				if("use_exp_restrictions_heads")
 					config.use_exp_restrictions_heads = 1
+
+				if("use_exp_restrictions_heads_hours")
+					config.use_exp_restrictions_heads_hours = value
 
 				if("use_exp_restrictions_other")
 					config.use_exp_restrictions_other = 1

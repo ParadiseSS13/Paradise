@@ -2016,10 +2016,10 @@
 
 		fax_panel(usr)
 
-	else if(href_list["getexpwindow"])
+	else if(href_list["getplaytimewindow"])
 		if(!check_rights(R_ADMIN))	return
 
-		var/mob/M = locate(href_list["getexpwindow"])
+		var/mob/M = locate(href_list["getplaytimewindow"])
 		usr.client.cmd_show_exp_panel(M.client)
 
 	else if(href_list["jumpto"])

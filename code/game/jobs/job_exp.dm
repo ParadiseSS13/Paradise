@@ -1,30 +1,49 @@
 
+// Globals, Defines, Etc
+
+var/global/list/exp_jobsmap = list(
+	"Crew" = list(), // all playtime from all jobs, together
+	"Command" = list(titles = command_positions),
+	"Engineering" = list(titles = engineering_positions),
+	"Security" = list(titles = security_positions),
+	"Silicon" = list(titles = nonhuman_positions),
+	"Service" = list(titles = service_positions),
+	"Medical" = list(titles = medical_positions),
+	"Science" = list(titles = science_positions),
+	"Supply" = list(titles = supply_positions),
+	"Special" = list(), // special_role
+	"Ghost" = list(), // dead/observer
+	"Exempt" = list() // special grandfather setting
+)
+
 
 // Admin Verbs
 
+
 /client/proc/cmd_admin_check_player_exp()	//Allows admins to determine who the newer players are.
 	set category = "Admin"
-	set name = "Check Player XP"
+	set name = "Check Player Playtime"
 	if(!check_rights(R_ADMIN))
 		return
-	var/msg = "<html><head><title>EXP Report</title></head><BR>"
+	var/msg = "<html><head><title>Playtime Report</title></head><BR>Playtime:<BR>"
 	for(var/client/C in clients)
 		var/list/play_records = params2list(C.prefs.exp)
-		var/gen_exp_time = text2num(play_records["gen"])
+		var/gen_exp_time = text2num(play_records["Crew"])
 		gen_exp_time = num2text(round(gen_exp_time / 60)) + "h"
-		msg += "<BR> - [key_name_admin(C.mob)]: <A href='?_src_=holder;getexpwindow=\ref[C.mob]'>" + C.get_exp_general() + "</a> "
+		msg += "<BR> - [key_name_admin(C.mob)]: <A href='?_src_=holder;getplaytimewindow=\ref[C.mob]'>" + C.get_exp_general() + "</a> "
 	if(msg != "")
-		src << browse(msg, "window=Player_exp_check")
-	log_admin("[key_name(usr)] checked player EXP")
-	feedback_add_details("admin_verb","MEXP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		src << browse(msg, "window=Player_playtime_check")
+	log_admin("[key_name(usr)] checked player playtime")
+	feedback_add_details("admin_verb","MCPP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /client/proc/cmd_show_exp_panel(var/client/C in clients)
 	if(!check_rights(R_ADMIN))
 		return
-	var/body = "<html><head><title>EXP for [C.key]</title></head><BR>"
+	var/body = "<html><head><title>Playtime for [C.key]</title></head><BR>Playtime:"
 	body += C.get_exp_report()
 	body += "</HTML>"
-	src << browse(body, "window=playerexp;size=550x615")
+	src << browse(body, "window=playerplaytime;size=550x615")
 
 
 // Procs
@@ -42,11 +61,14 @@
 	if(check_rights(R_ADMIN, 0, M))
 		return 1
 	var/list/play_records = params2list(M.client.prefs.exp)
-	var/imm = text2num(play_records["imm"])
-	if(imm)
+	var/isexempt = text2num(play_records["Exempt"])
+	if(isexempt)
 		return 1
 	var/my_exp = text2num(play_records[job.exp_type])
-	if(my_exp >= text2num(job.exp_requirements))
+	var/job_requirement = text2num(job.exp_requirements)
+	if(config.use_exp_restrictions_heads_hours && ((rank in command_positions) || rank == "AI"))
+		job_requirement = text2num(config.use_exp_restrictions_heads_hours) * 60
+	if(my_exp >= job_requirement)
 		return 1
 	else
 		return 0
@@ -67,68 +89,55 @@
 
 /client/proc/get_exp_report()
 	if(!config.use_exp_tracking)
-		return "EXP tracking is disabled in the server configuration file."
-	var/return_text = ""
+		return "Tracking is disabled in the server configuration file."
+
 	var/list/play_records = params2list(prefs.exp)
-	var/exp_gen = text2num(play_records["gen"])
-	var/exp_com = text2num(play_records["com"])
-	var/exp_sec = text2num(play_records["sec"])
-	var/exp_sci = text2num(play_records["sci"])
-	var/exp_eng = text2num(play_records["eng"])
-	var/exp_med = text2num(play_records["med"])
-	var/exp_sup = text2num(play_records["sup"])
-	var/exp_sil = text2num(play_records["sil"])
-	var/exp_ant = text2num(play_records["ant"])
-	var/exp_gho = text2num(play_records["gho"])
-	var/exp_imm = text2num(play_records["imm"])
-	if(play_records.len)
-		if(exp_gen > 0)
-			return_text += "Experience:<BR>- General: " + get_exp_format(exp_gen)
-		if(exp_com > 0)
-			return_text += "<BR>- Command: " + get_exp_format(exp_com) + " (" + num2text(round(exp_com/exp_gen*100)) + "%)"
-		if(exp_sec > 0)
-			return_text += "<BR>- Security: " + get_exp_format(exp_sec) + " (" + num2text(round(exp_sec/exp_gen*100)) + "%)"
-		if(exp_sci > 0)
-			return_text += "<BR>- Science: " + get_exp_format(exp_sci) + " (" + num2text(round(exp_sci/exp_gen*100)) + "%)"
-		if(exp_eng > 0)
-			return_text += "<BR>- Engineering: " + get_exp_format(exp_eng) + " (" + num2text(round(exp_eng/exp_gen*100)) + "%)"
-		if(exp_med > 0)
-			return_text += "<BR>- Medical: " + get_exp_format(exp_med) + " (" + num2text(round(exp_med/exp_gen*100)) + "%)"
-		if(exp_sup > 0)
-			return_text += "<BR>- Support: " + get_exp_format(exp_sup) + " (" + num2text(round(exp_sup/exp_gen*100)) + "%)"
-		if(exp_sil > 0)
-			return_text += "<BR>- Silicon: " + get_exp_format(exp_sil) + " (" + num2text(round(exp_sil/exp_gen*100)) + "%)"
-		if(exp_ant > 0)
-			return_text += "<BR>- Special: " + get_exp_format(exp_ant) + " (" + num2text(round(exp_ant/exp_gen*100)) + "%)"
-		if(exp_gho > 0)
-			return_text += "<BR>- Ghost: " + get_exp_format(exp_gho) + " (" + num2text(round(exp_gho/exp_gen*100)) + "%)"
-		if(exp_imm > 0)
-			return_text += "<BR>- Grandfathered: YES"
-		var/list/jobs_locked = list()
-		var/list/jobs_unlocked = list()
-		for(var/datum/job/job in job_master.occupations)
-			if(job.exp_requirements && job.exp_type)
-				if(!job_is_xp_locked(job.title))
-					continue
-				else if(has_exp_for_job(mob, job.title))
-					jobs_unlocked += "<BR>- " + job.title
-				else
-					jobs_locked += "<BR>- " + job.title + " (" + get_exp_format(text2num(play_records[job.exp_type])) + " / " + get_exp_format(job.exp_requirements) + " [job.exp_type] EXP)"
-		if(jobs_unlocked.len)
-			return_text += "<BR><BR>Jobs Unlocked: "
-			for(var/text in jobs_unlocked)
-				return_text += text
-		if(jobs_locked.len)
-			return_text += "<BR><BR>Jobs Not Unlocked: "
-			for(var/text in jobs_locked)
-				return_text += text
-		return return_text
-	else
-		return "[src] has no EXP records."
+	if(!play_records.len)
+		return "[src] has no records."
+
+	var/return_text = ""
+
+	var/list/exp_data = list()
+	for(var/cat in exp_jobsmap)
+		if(text2num(play_records[cat]))
+			exp_data[cat] = text2num(play_records[cat])
+		else
+			exp_data[cat] = 0
+
+	for(var/dep in exp_data)
+		if(exp_data[dep] > 0)
+			if(dep == "Exempt")
+				return_text += "<BR>- Exempt (all jobs auto-unlocked)"
+			else
+				return_text += "<BR>- [dep] " + get_exp_format(exp_data[dep]) + " (" + num2text(round(exp_data[dep]/exp_data["Crew"]*100)) + "%)"
+
+	var/list/jobs_locked = list()
+	var/list/jobs_unlocked = list()
+	for(var/datum/job/job in job_master.occupations)
+		if(job.exp_requirements && job.exp_type)
+			if(!job_is_xp_locked(job.title))
+				continue
+			else if(has_exp_for_job(mob, job.title))
+				jobs_unlocked += "<BR>- " + job.title
+			else
+				var/xp_req = job.exp_requirements
+				if(config.use_exp_restrictions_heads_hours && ((job.title in command_positions) || job.title == "AI"))
+					xp_req = text2num(config.use_exp_restrictions_heads_hours) * 60
+				jobs_locked += "<BR>- " + job.title + " (" + get_exp_format(text2num(play_records[job.exp_type])) + " / " + get_exp_format(xp_req) + " [job.exp_type] EXP)"
+	if(jobs_unlocked.len)
+		return_text += "<BR><BR>Jobs Unlocked: "
+		for(var/text in jobs_unlocked)
+			return_text += text
+	if(jobs_locked.len)
+		return_text += "<BR><BR>Jobs Not Unlocked: "
+		for(var/text in jobs_locked)
+			return_text += text
+	return return_text
+
 
 /client/proc/get_exp_general()
 	var/list/play_records = params2list(prefs.exp)
-	var/exp_gen = text2num(play_records["gen"])
+	var/exp_gen = text2num(play_records["Crew"])
 	return get_exp_format(exp_gen)
 
 /client/proc/get_exp_format(var/expnum)
@@ -146,54 +155,36 @@
 
 				var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[C.ckey]'")
 				exp_read.Execute()
-				var/list/play_records = list()
+				var/list/read_records = list()
 				while(exp_read.NextRow())
-					play_records = params2list(exp_read.item[1])
+					read_records = params2list(exp_read.item[1])
 
-				for(var/rtype in list("gen","com","sec","sci","eng","med","sup","sil","ant", "gho", "imm"))
-					if(!text2num(play_records[rtype]))
-						play_records[rtype] = 0
+				var/list/play_records = list()
+				for(var/rtype in exp_jobsmap)
+					if(text2num(read_records[rtype]))
+						play_records[rtype] = text2num(read_records[rtype])
 					else
-						play_records[rtype] = text2num(play_records[rtype])
+						play_records[rtype] = 0
 
 				if(C.mob.stat == CONSCIOUS && C.mob.mind.assigned_role)
-					play_records["gen"] += minutes
+					play_records["Crew"] += minutes
 					if(announce_changes)
 						to_chat(C.mob,"<span class='notice'>You got: [minutes] General EXP!")
-					if(C.mob.mind.assigned_role in command_positions)
-						play_records["com"] += minutes
-						if(announce_changes)
-							to_chat(C.mob,"<span class='notice'>You got: [minutes] Command EXP!")
-					if(C.mob.mind.assigned_role in security_positions)
-						play_records["sec"] += minutes
-						if(announce_changes)
-							to_chat(C.mob,"<span class='notice'>You got: [minutes] Security EXP!")
-					if(C.mob.mind.assigned_role in science_positions)
-						play_records["sci"] += minutes
-						if(announce_changes)
-							to_chat(C.mob,"<span class='notice'>You got: [minutes] Science EXP!")
-					if(C.mob.mind.assigned_role in engineering_positions)
-						play_records["eng"] += minutes
-						if(announce_changes)
-							to_chat(C.mob,"<span class='notice'>You got: [minutes] Engineering EXP!")
-					if(C.mob.mind.assigned_role in medical_positions)
-						play_records["med"] += minutes
-						if(announce_changes)
-							to_chat(C.mob,"<span class='notice'>You got: [minutes] Medical EXP!")
-					if(C.mob.mind.assigned_role in support_positions)
-						play_records["sup"] += minutes
-						if(announce_changes)
-							to_chat(C.mob,"<span class='notice'>You got: [minutes] Support EXP!")
-					if(C.mob.mind.assigned_role in nonhuman_positions)
-						play_records["sil"] += minutes
-						if(announce_changes)
-							to_chat(C.mob,"<span class='notice'>You got: [minutes] Silicon EXP!")
+
+					for(var/cat in exp_jobsmap)
+						if(exp_jobsmap[cat]["titles"])
+							if(C.mob.mind.assigned_role in exp_jobsmap[cat]["titles"])
+								play_records[cat] += minutes
+								if(announce_changes)
+									to_chat(C.mob,"<span class='notice'>You got: [minutes] [cat] EXP!")
+
 					if(C.mob.mind.special_role)
-						play_records["ant"] += minutes
+						play_records["Special"] += minutes
 						if(announce_changes)
 							to_chat(C.mob,"<span class='notice'>You got: [minutes] Special EXP!")
+
 				else if(isobserver(C.mob))
-					play_records["gho"] += minutes
+					play_records["Ghost"] += minutes
 					if(announce_changes)
 						to_chat(C.mob,"<span class='notice'>You got: [minutes] Ghost EXP!")
 				else

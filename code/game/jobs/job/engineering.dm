@@ -18,7 +18,7 @@
 			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, access_minisat, access_mechanic, access_mineral_storeroom)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = "eng"
+	exp_type = "Engineering"
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -56,7 +56,7 @@
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
 	exp_requirements = 180
-	exp_type = "all"
+	exp_type = "Crew"
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)
@@ -92,7 +92,7 @@
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
 	exp_requirements = 180
-	exp_type = "all"
+	exp_type = "Crew"
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)

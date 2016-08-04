@@ -17,9 +17,12 @@ JOBS_HAVE_MINIMAL_ACCESS
 ## you have noone older than 0 days, since noone has been logged yet. Only turn this on once you have had the database up for 30 days.
 #USE_AGE_RESTRICTION_FOR_JOBS
 
-## Unhash the first to track playtime in database. Unhash the second to restrict job access based on playtime for head jobs and the AI. Unhash the second to do so for other non-civ jobs. Playtime is based on actual playtime on this server. All of these require database to be enabled.
+## USE_EXP_TRACKING enables playtime/exp tracking. REQUIRES DATABASE TO BE ENABLED.
+## USE_EXP_RESTRICTIONS_HEADS enables playtime/exp requirements for head jobs. If USE_EXP_RESTRICTIONS_HEADS_HOURS is enabled also, it uses that value for their time requirements. If not, it goes by the values defined on their job definitions in code.
+## USE_EXP_RESTRICTIONS_OTHER enables playtime/exp requirements for some dangerous non-head jobs, like engineer, scientist, security officer, etc. The requirements for these jobs are always taken from code.
 #USE_EXP_TRACKING
 #USE_EXP_RESTRICTIONS_HEADS
+#USE_EXP_RESTRICTIONS_HEADS_HOURS 15
 #USE_EXP_RESTRICTIONS_OTHER
 
 ## Unhash this entry to have certain antagonist roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different antag roles by editing special_role_times in /code/modules/client/preferences.dm.

@@ -18,7 +18,7 @@
 			            access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_minisat, access_maint_tunnels, access_mineral_storeroom)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = "sci"
+	exp_type = "Science"
 
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives=list(
@@ -58,7 +58,7 @@
 	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_requirements = 60
-	exp_type = "all"
+	exp_type = "Crew"
 
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives=list(
@@ -96,7 +96,7 @@
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 	minimal_player_age = 3
 	exp_requirements = 60
-	exp_type = "all"
+	exp_type = "Crew"
 
 	required_objectives=list(
 		/datum/job_objective/make_cyborg,

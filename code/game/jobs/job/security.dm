@@ -18,7 +18,7 @@
 			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_pilot, access_weapons)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = "sec"
+	exp_type = "Security"
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -63,7 +63,7 @@
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 21
 	exp_requirements = 300
-	exp_type = "sec"
+	exp_type = "Security"
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -111,7 +111,7 @@
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	exp_requirements = 300
-	exp_type = "all"
+	exp_type = "Crew"
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec/alt(H), slot_l_ear)
@@ -169,7 +169,7 @@
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 14
 	exp_requirements = 300
-	exp_type = "all"
+	exp_type = "Crew"
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec/alt(H), slot_l_ear)
