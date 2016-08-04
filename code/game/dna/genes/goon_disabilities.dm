@@ -130,7 +130,7 @@
 	block=SWEDEBLOCK
 
 
-OnSay(var/mob/M, var/message)
+/datum/dna/gene/disability/speech/swedish/OnSay(var/mob/M, var/message)
 	// svedish
 	message = replacetextEx(message,"W","V")
 	message = replacetextEx(message,"w","v")
@@ -143,7 +143,7 @@ OnSay(var/mob/M, var/message)
 	message = replacetextEx(message,"bo","bjo")
 	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
 	message = replacetextEx(message,"o",pick("ö","ø","o"))
-		if(prob(30))
+	if(prob(30))
 		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 
