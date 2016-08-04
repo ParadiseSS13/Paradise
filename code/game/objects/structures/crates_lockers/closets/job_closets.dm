@@ -90,19 +90,6 @@
 	new /obj/item/weapon/watertank/janitor(src)
 	new /obj/item/weapon/storage/belt/janitor(src)
 
-/obj/structure/closet/jcloset2
-	name = "custodial supplies"
-	desc = "It's a storage unit for glass and traps."
-	icon_state = "mixed"
-	icon_closed = "mixed"
-
-/obj/structure/closet/jcloset2/New()
-	..()
-	new /obj/item/weapon/storage/box/mousetraps(src)
-	new /obj/item/weapon/storage/box/mousetraps(src)
-	new /obj/item/weapon/restraints/legcuffs/beartrap(src)
-	new /obj/item/weapon/restraints/legcuffs/beartrap(src)
-
 /*
  * Lawyer
  */
