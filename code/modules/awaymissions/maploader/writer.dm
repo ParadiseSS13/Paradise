@@ -126,7 +126,7 @@ dmm_suite{
 					}
 				}
 			for(var/mob/M in model.contents){
-				if(O.dont_save)
+				if(M.dont_save)
 					continue
 				if(M.client){
 					if(!(flags & DMM_IGNORE_PLAYERS)){
