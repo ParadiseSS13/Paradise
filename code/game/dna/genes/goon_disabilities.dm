@@ -129,23 +129,23 @@
 	..()
 	block=SWEDEBLOCK
 
-	OnSay(var/mob/M, var/message)
-		// svedish
-		message = replacetextEx(message,"W","V")
-		message = replacetextEx(message,"w","v")
-		message = replacetextEx(message,"J","Y")
-		message = replacetextEx(message,"j","y")
-		message = replacetextEx(message,"A",pick("Å","Ä","Æ","A"))
-		message = replacetextEx(message,"a",pick("å","ä","æ","a"))
-		message = replacetextEx(message,"BO","BJO")
-		message = replacetextEx(message,"Bo","Bjo")
-		message = replacetextEx(message,"bo","bjo")
-		message = replacetextEx(message,"O",pick("Ö","Ø","O"))
-		message = replacetextEx(message,"o",pick("ö","ø","o"))
 
+OnSay(var/mob/M, var/message)
+	// svedish
+	message = replacetextEx(message,"W","V")
+	message = replacetextEx(message,"w","v")
+	message = replacetextEx(message,"J","Y")
+	message = replacetextEx(message,"j","y")
+	message = replacetextEx(message,"A",pick("Å","Ä","Æ","A"))
+	message = replacetextEx(message,"a",pick("å","ä","æ","a"))
+	message = replacetextEx(message,"BO","BJO")
+	message = replacetextEx(message,"Bo","Bjo")
+	message = replacetextEx(message,"bo","bjo")
+	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
+	message = replacetextEx(message,"o",pick("ö","ø","o"))
 		if(prob(30))
-			message += " Bork[pick("",", bork",", bork, bork")]!"
-		return message
+		message += " Bork[pick("",", bork",", bork, bork")]!"
+	return message
 
 // WAS: /datum/bioEffect/unintelligable
 /datum/dna/gene/disability/unintelligable
