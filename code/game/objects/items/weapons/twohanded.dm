@@ -140,7 +140,7 @@
 	if(get_dist(src,user) > 1)
 		return 0
 	if(H != null)
-		user.visible_message("<span class='notice'>[src.name] is too cumbersome to carry in one hand!</span>")
+		user.visible_message(user, "<span class='notice'>[src.name] is too cumbersome to carry in one hand!</span>")
 		return
 	var/obj/item/weapon/twohanded/offhand/O = new(user)
 	user.put_in_inactive_hand(O)
@@ -693,7 +693,7 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-				
+
 // Energized Fire axe
 /obj/item/weapon/twohanded/energizedfireaxe
 	name = "energized fire axe"
@@ -711,7 +711,7 @@
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
-	
+
 /obj/item/weapon/twohanded/energizedfireaxe/update_icon()
 	if(wielded)
 		icon_state = "fireaxe2"
@@ -719,7 +719,7 @@
 		icon_state = "fireaxe0"
 
 /obj/item/weapon/twohanded/energizedfireaxe/afterattack(atom/A, mob/user, proximity)
-	if(!proximity) 
+	if(!proximity)
 		return
 	if(wielded)
 		if(istype(A, /mob/living))
@@ -732,7 +732,7 @@
 				var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
 				sparks.set_up(1, 1, src)
 				sparks.start()
-				
+
 		if(A && wielded && (istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)))
 			if(istype(A, /obj/structure/window))
 				var/obj/structure/window/W = A
