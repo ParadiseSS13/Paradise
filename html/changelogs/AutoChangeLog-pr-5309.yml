@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes a rare case where the singularity would escape containment when properly set up+contained"
