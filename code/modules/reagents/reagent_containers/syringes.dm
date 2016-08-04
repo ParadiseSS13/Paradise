@@ -82,7 +82,7 @@
 				if(istype(target, /mob/living/carbon/slime))
 					to_chat(user, "\red You are unable to locate any blood.")
 					return
-				if(src.reagents.has_reagent("blood"))
+				if(reagents.has_reagent("blood"))
 					to_chat(user, "\red There is already a blood sample in this syringe")
 					return
 				if(istype(target, /mob/living/carbon))//maybe just add a blood reagent to all mobs. Then you can suck them dry...With hundreds of syringes. Jolly good idea.
@@ -109,7 +109,7 @@
 					if(!do_mob(user, target, time))
 						return
 
-					var/amount = src.reagents.maximum_volume - src.reagents.total_volume
+					var/amount = reagents.maximum_volume - reagents.total_volume
 					if(amount == 0)
 						to_chat(usr, "<span class='warning'>The syringe is full!</span>")
 						return
@@ -125,10 +125,10 @@
 						B = T.take_blood(src,amount)
 
 					if(B)
-						src.reagents.reagent_list |= B
-						src.reagents.update_total()
-						src.on_reagent_change()
-						src.reagents.handle_reactions()
+						reagents.reagent_list |= B
+						reagents.update_total()
+						on_reagent_change()
+						reagents.handle_reactions()
 
 						to_chat(user, "\blue You take a blood sample from [target]")
 						for(var/mob/O in viewers(4, user))
@@ -193,25 +193,25 @@
 				if(istype(target,/mob/living))
 					var/mob/living/M = target
 					var/list/injected = list()
-					for(var/datum/reagent/R in src.reagents.reagent_list)
+					for(var/datum/reagent/R in reagents.reagent_list)
 						injected += R.name
 					var/contained = english_list(injected)
-					M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
-					user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [key_name(M)]. Reagents: [contained]</font>")
+					M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [key_name(user)]. Reagents: [contained]</font>")
+					user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to inject [key_name(M)]. Reagents: [contained]</font>")
 					if(M.ckey)
-						msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
+						msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 					if(!iscarbon(user))
 						M.LAssailant = null
 					else
 						M.LAssailant = user
 
-				src.reagents.reaction(target, INGEST)
+				reagents.reaction(target, INGEST)
 			if(ismob(target) && target == user)
-				src.reagents.reaction(target, INGEST)
+				reagents.reaction(target, INGEST)
 
 			spawn(5)
 				var/datum/reagent/blood/B
-				for(var/datum/reagent/blood/d in src.reagents.reagent_list)
+				for(var/datum/reagent/blood/d in reagents.reagent_list)
 					B = d
 					break
 				var/trans
@@ -219,8 +219,8 @@
 					var/mob/living/carbon/C = target
 					C.inject_blood(src, 5)
 				else
-					trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-					to_chat(user, "\blue You inject [trans] units of the solution. The syringe now contains [src.reagents.total_volume] units.")
+					trans = reagents.trans_to(target, amount_per_transfer_from_this)
+					to_chat(user, "\blue You inject [trans] units of the solution. The syringe now contains [reagents.total_volume] units.")
 					if(istype(target, /obj/item/weapon/reagent_containers/food/pill/patch))
 						var/obj/item/weapon/reagent_containers/food/pill/patch/P = target
 						if(P.instant_application)
@@ -342,12 +342,12 @@
 				if(!do_mob(user, target, 300)) return
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message(text("\red [] injects [] with a giant syringe!", user, target), 1)
-				src.reagents.reaction(target, INGEST)
+				reagents.reaction(target, INGEST)
 			if(ismob(target) && target == user)
-				src.reagents.reaction(target, INGEST)
+				reagents.reaction(target, INGEST)
 			spawn(5)
-				var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-				to_chat(user, "\blue You inject [trans] units of the solution. The syringe now contains [src.reagents.total_volume] units.")
+				var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
+				to_chat(user, "\blue You inject [trans] units of the solution. The syringe now contains [reagents.total_volume] units.")
 				if(reagents.total_volume >= reagents.maximum_volume && mode==SYRINGE_INJECT)
 					mode = SYRINGE_DRAW
 					update_icon()

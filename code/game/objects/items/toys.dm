@@ -257,31 +257,31 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
 	w_class = 1
+	var/ash_type = /obj/effect/decal/cleanable/ash
 
-/obj/item/toy/snappop/throw_impact(atom/hit_atom)
-	..()
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-	s.set_up(3, 1, src)
+/obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
+	var/datum/effect/system/spark_spread/s = new()
+	s.set_up(n, c, src)
 	s.start()
-	new /obj/effect/decal/cleanable/ash(src.loc)
-	visible_message("<span class='warning'>The [src.name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
+	new ash_type(loc)
+	visible_message("<span class='warning'>[src] explodes!</span>",
+		"<span class='italics'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
+/obj/item/toy/snappop/fire_act()
+	pop_burst()
+
+/obj/item/toy/snappop/throw_impact(atom/hit_atom)
+	..()
+	pop_burst()
+
 /obj/item/toy/snappop/Crossed(H as mob|obj)
-	if((ishuman(H))) //i guess carp and shit shouldn't set them off
+	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
-		if(M.m_intent == "run")
-			to_chat(M, "<span class='warning'>You step on the snap pop!</span>")
-
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-			s.set_up(2, 0, src)
-			s.start()
-			new /obj/effect/decal/cleanable/ash(src.loc)
-			visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
-			playsound(src, 'sound/effects/snap.ogg', 50, 1)
-			qdel(src)
-
+		if(issilicon(H) || M.m_intent == "run")
+			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
+			pop_burst(2, 0)
 
 
 /*
@@ -394,6 +394,8 @@
 
 
 obj/item/toy/cards
+	burn_state = FLAMMABLE
+	burntime = 5
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -749,6 +751,7 @@ obj/item/toy/cards/deck/syndicate
 	card_throw_speed = 3
 	card_throw_range = 20
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+	burn_state = FIRE_PROOF
 
 /*
 || Custom card decks ||
@@ -884,6 +887,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "carpplushie"
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	var/bitesound = 'sound/weapons/bite.ogg'
+	burn_state = FLAMMABLE
 
 // Attack mob
 /obj/item/toy/carpplushie/attack(mob/M as mob, mob/user as mob)
@@ -946,6 +950,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/toy.dmi'
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
 	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+	burn_state = FLAMMABLE
 
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
@@ -1071,6 +1076,7 @@ obj/item/toy/cards/deck/syndicate/black
  	item_state = "arm_blade"
  	attack_verb = list("pricked", "absorbed", "gored")
  	w_class = 2
+ 	burn_state = FLAMMABLE
 
 /*
  * Toy/fake flash
@@ -1372,7 +1378,7 @@ obj/item/toy/cards/deck/syndicate/black
 			is_empty = 1
 			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
 			user.visible_message("<span class='danger'>The [src] goes off!</span>")
-			M.apply_damage(200, "brute", "head", used_weapon = "Self-inflicted gunshot would to the head.", sharp=1)
+			M.apply_damage(200, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot would to the head.")
 			M.death()
 	else
 		user.visible_message("<span class='danger'>[user] lowers the [src] from their head.</span>")

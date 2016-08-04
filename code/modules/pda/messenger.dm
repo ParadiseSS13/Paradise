@@ -158,6 +158,7 @@
 		if(signal.data["done"])
 			useTC = 1
 			var/turf/pos = get_turf(P)
+			// TODO: Tie into space manager
 			if(pos.z in signal.data["level"])
 				useTC = 2
 				//Let's make this barely readable

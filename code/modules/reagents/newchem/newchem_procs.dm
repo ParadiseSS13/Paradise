@@ -8,17 +8,13 @@
 	var/overdosed = 0 // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
 
-/datum/reagents
-	var/chem_temp = 300
-	var/list/datum/reagent/addiction_list = new/list()
-
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		chem_temp = M.bodytemperature
 		handle_reactions()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(!istype(R))
+		if(!istype(R)) // How are non-reagents ending up in the reagents_list?
 			continue
 		if(!R.holder)
 			continue

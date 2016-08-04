@@ -373,6 +373,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	for(var/I in singularities)
 		var/obj/singularity/S = I
+		// TODO: Tie into space manager
 		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
 			continue
 		qdel(S)
@@ -593,17 +594,25 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"tournament janitor",
 		"pirate",
 		"space pirate",
+		"soviet tourist",
+		"soviet soldier",
 		"soviet admiral",
 		"tunnel clown",
+		"mime assassin",
 		"survivor",
+		"greytide",
+		"greytide leader",
+		"greytide xeno",
 		"masked killer",
 		"singuloth knight",
 		"dark lord",
 		"assassin",
 		"spy",
+		"vox",
 		"death commando",
 		"syndicate agent",
 		"syndicate operative",
+		"syndicate bomber",
 		"syndicate strike team",
 		"syndicate officer",
 		"chrono legionnaire",
@@ -728,7 +737,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
 			var/obj/item/weapon/storage/backpack/backpack = new(M)
 			for(var/obj/item/I in backpack)
-				del(I)
+				qdel(I)
 			M.equip_to_slot_or_del(backpack, slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/mop(M), slot_r_hand)
 			var/obj/item/weapon/reagent_containers/glass/bucket/bucket = new(M)
@@ -746,30 +755,29 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		if("pirate")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/pirate(M), slot_r_hand)
-			equip_special_id(M,get_all_accesses(), "Pirate", /obj/item/weapon/card/id)
+			equip_special_id(M,list(access_maint_tunnels), "Pirate", /obj/item/weapon/card/id)
 
-		if("space pirate")
+		if("space pirate") // not spaceworthy, just has fancier coat.
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/pirate(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/pirate(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/pirate(M), slot_r_hand)
-			equip_special_id(M,get_all_accesses(), "Space Pirate", /obj/item/weapon/card/id)
-
-		if("soviet soldier")
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/ushanka(M), slot_head)
-			equip_special_id(M,get_all_accesses(), "Soviet Soldier", /obj/item/weapon/card/id)
+			equip_special_id(M,list(access_maint_tunnels), "Space Pirate", /obj/item/weapon/card/id)
 
 		if("tunnel clown")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(M), slot_wear_mask)
@@ -780,25 +788,106 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/chaplain_hoodie(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/snacks/grown/banana(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(M), slot_r_store)
-			equip_special_id(M,get_all_accesses(), "Tunnel Clown", /obj/item/weapon/card/id)
+			equip_special_id(M,list(access_clown, access_theatre, access_maint_tunnels), "Tunnel Clown", /obj/item/weapon/card/id)
 			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
 			var/obj/item/weapon/twohanded/fireaxe/fire_axe = new(M)
 			M.equip_to_slot_or_del(fire_axe, slot_r_hand)
+
+
+		if("mime assassin")
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/mime(M), slot_back)
+			if(M.gender == FEMALE)
+				M.equip_or_collect(new /obj/item/clothing/under/sexymime(M), slot_w_uniform)
+				M.equip_or_collect(new /obj/item/clothing/mask/gas/sexymime(M), slot_wear_mask)
+			else
+				M.equip_or_collect(new /obj/item/clothing/under/mime(M), slot_w_uniform)
+				M.equip_or_collect(new /obj/item/clothing/mask/gas/mime(M), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/beret(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/syndie_kit/caneshotgun, slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/toy/crayon/mime, slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/suppressor(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/pen/sleepy(M), slot_in_backpack)
+			M.equip_or_collect(new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(M), slot_in_backpack)
+			var/obj/item/device/pda/mime/pda = new(M)
+			pda.owner = M.real_name
+			pda.ownjob = "Mime"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+			equip_special_id(M,list(access_mime, access_theatre, access_maint_tunnels), "Mime", /obj/item/weapon/card/id/syndicate)
+			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
 
 		if("survivor")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/overalls(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
-			equip_special_id(M,get_all_accesses(), "Survivor", /obj/item/weapon/card/id)
+			equip_special_id(M,list(access_maint_tunnels), "Survivor", /obj/item/weapon/card/id)
 			for(var/obj/item/carried_item in M.contents)
 				if(!istype(carried_item, /obj/item/weapon/implant))
 					carried_item.add_blood(M)
 
+		if("greytide")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical(M), slot_l_hand)
+			M.equip_to_slot_or_del(new /obj/item/flag/grey(M), slot_r_hand)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
+			equip_special_id(M,list(access_maint_tunnels), "Greytide", /obj/item/weapon/card/id)
+
+		if("greytide leader")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical(M), slot_l_hand)
+			M.equip_to_slot_or_del(new /obj/item/flag/grey(M), slot_r_hand)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/welding(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
+			equip_special_id(M,list(access_maint_tunnels), "Greytide Leader", /obj/item/weapon/card/id)
+
+		if("greytide xeno")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/xenos(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/xenos(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_l_store)
+			M.equip_to_slot_or_del(new /obj/item/toy/toy_xeno(M), slot_r_store)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/welding(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
+			equip_special_id(M,list(access_maint_tunnels), "Legit Xenomorph", /obj/item/weapon/card/id)
+
 		if("masked killer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/overalls(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), slot_wear_mask)
@@ -809,7 +898,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/kitchen/knife(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/scalpel(M), slot_r_store)
 			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
-			equip_special_id(M,get_all_accesses(), "Masked Killer", /obj/item/weapon/card/id/syndicate, "syndie")
+			equip_special_id(M,list(access_maint_tunnels), "Masked Killer", /obj/item/weapon/card/id/syndicate, "syndie")
 			var/obj/item/weapon/twohanded/fireaxe/fire_axe = new(M)
 			M.equip_to_slot_or_del(fire_axe, slot_r_hand)
 			for(var/obj/item/carried_item in M.contents)
@@ -821,6 +910,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/syndicate(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_l_hand)
@@ -841,6 +931,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wcoat(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
 			var/obj/item/weapon/storage/secure/briefcase/sec_briefcase = new(M)
 			for(var/obj/item/briefcase_item in sec_briefcase)
@@ -859,7 +950,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			pda.owner = M.real_name
 			pda.ownjob = "Reaper"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
-			M.equip_to_slot_or_del(pda, slot_belt)
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
 			equip_special_id(M,get_all_accesses(), "Reaper", /obj/item/weapon/card/id/syndicate, "syndie")
 
 		if("spy")
@@ -880,14 +971,39 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/pen/sleepy(M), slot_r_store)
 			var/obj/item/weapon/implant/dust/DUST = new /obj/item/weapon/implant/dust(M)
 			DUST.implant(M)
-			var/obj/item/weapon/implant/dust/STOR = new /obj/item/weapon/implant/storage(M)
-			STOR.implant(M)
+			M.equip_to_slot_or_del(new /obj/item/weapon/implanter/storage(M), slot_in_backpack)
 			var/obj/item/device/pda/heads/pda = new(M)
 			pda.owner = M.real_name
 			pda.ownjob = "Spy"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			M.equip_to_slot_or_del(pda, slot_belt)
-			equip_special_id(M,get_all_accesses(), "Spy", /obj/item/weapon/card/id/syndicate, "syndie")
+			equip_special_id(M,list(access_maint_tunnels), "Spy", /obj/item/weapon/card/id/syndicate, "syndie")
+
+
+		if("vox")
+			if(istype(M, /mob/living/carbon/human/voxarmalis)) // have to do this, they cannot wear normal vox gear!
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/vox_grey(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(M), slot_wear_mask)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/vox/carapace(M), slot_wear_suit)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/vox/carapace(M), slot_head)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/vox/vox_robes (M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/vox(M), slot_shoes)
+				M.equip_to_slot_or_del(new /obj/item/weapon/card/id/syndicate/vox(M), slot_shoes)
+				M.equip_to_slot_or_del(new /obj/item/device/radio/headset/syndicate, slot_l_ear)
+				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow/vox, slot_gloves)
+				M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic, slot_l_store)
+				M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/vox, slot_r_store)
+				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle, slot_glasses)
+				M.equip_to_slot_or_del(new /obj/item/device/flashlight, slot_in_backpack)
+				M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs/cable/zipties, slot_in_backpack)
+				M.equip_to_slot_or_del(new /obj/item/device/flash, slot_in_backpack)
+				M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/noisecannon, slot_in_backpack)
+				equip_special_id(M,get_all_accesses(), "Vox Armalis", /obj/item/weapon/card/id/syndicate/vox, "syndie")
+			else
+				M.equip_vox_raider()
+				M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_l_hand)
+				M.regenerate_icons()
 
 		if("death commando")
 			M.equip_death_commando()
@@ -909,15 +1025,31 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			U.hidden_uplink.uses = 20
 			M.equip_to_slot_or_del(U, slot_r_store)
 
+		if("syndicate bomber")
+			M.equip_or_collect(new /obj/item/clothing/under/syndicate(M), slot_w_uniform)
+			M.equip_or_collect(new /obj/item/clothing/shoes/combat(M), slot_shoes)
+			M.equip_or_collect(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_or_collect(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
+			M.equip_or_collect(new /obj/item/device/flashlight(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/card/emag(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/beacon/syndicate/bomb(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/beacon/syndicate/bomb(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/syndicatedetonator(M), slot_in_backpack)
+			M.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
+			M.equip_or_collect(new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(M), slot_in_backpack)
+			M.equip_or_collect(new /obj/item/device/radio/headset/syndicate(M), slot_l_ear)
+			equip_special_id(M,get_syndicate_access("Syndicate Operative"), "Syndicate Bomber", /obj/item/weapon/card/id/syndicate, "syndie")
+
 		if("syndicate operative")
 			M.equip_or_collect(new /obj/item/clothing/under/syndicate(M), slot_w_uniform)
 			M.equip_or_collect(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_or_collect(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_or_collect(new /obj/item/weapon/storage/backpack(M), slot_back)
+			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/reagent_containers/food/pill/initropidril(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/gun/projectile/automatic/pistol(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/ammo_box/magazine/m10mm(M), slot_in_backpack)
-			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/crowbar/red(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/clothing/glasses/night(M), slot_glasses)
 			M.equip_or_collect(new /obj/item/weapon/storage/belt/military(M), slot_belt)
@@ -948,8 +1080,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_or_collect(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_or_collect(new /obj/item/weapon/storage/backpack(M), slot_back)
-			M.equip_or_collect(new /obj/item/weapon/reagent_containers/food/pill/initropidril(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
+			M.equip_or_collect(new /obj/item/weapon/reagent_containers/food/pill/initropidril(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/clothing/glasses/thermal(M), slot_glasses)
 			M.equip_or_collect(new /obj/item/weapon/storage/belt/military(M), slot_belt)
 			M.equip_or_collect(new /obj/item/weapon/pinpointer/advpinpointer(M), slot_l_store)
@@ -974,9 +1106,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/shoes/black(M), slot_shoes)
 			M.equip_or_collect(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/clothing/head/that(M), slot_head)
 			M.equip_or_collect(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
-			M.equip_or_collect(new /obj/item/device/pda/(M), slot_belt)
+			M.equip_or_collect(new /obj/item/device/pda/(M), slot_wear_pda)
 			equip_special_id(M,get_centcom_access("VIP Guest"), "VIP Guest", /obj/item/weapon/card/id/centcom)
 
 		if("nt navy officer")
@@ -985,10 +1118,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_or_collect(new /obj/item/device/radio/headset/centcom(M), slot_l_ear)
 			M.equip_or_collect(new /obj/item/clothing/head/beret/centcom/officer(M), slot_head)
-			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_belt)
+			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_wear_pda)
 			M.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
+			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
 			M.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
-			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
+			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/implanter/dust(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/implanter/death_alarm(M), slot_in_backpack)
 			var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
@@ -1003,10 +1137,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_or_collect(new /obj/item/device/radio/headset/centcom(M), slot_l_ear)
 			M.equip_or_collect(new /obj/item/clothing/head/beret/centcom/captain(M), slot_head)
-			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_belt)
+			M.equip_or_collect(new /obj/item/device/pda/centcom(M), slot_wear_pda)
 			M.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
+			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
 			M.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
-			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_in_backpack)
+			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/implanter/dust(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/implanter/death_alarm(M), slot_in_backpack)
 			var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
@@ -1047,10 +1182,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/centcom(src), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head) // job has /obj/item/clothing/head/beret/centcom/officer/navy
-			M.equip_to_slot_or_del(new /obj/item/device/pda/centcom(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/device/pda/centcom(M), slot_wear_pda)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses) // job has /obj/item/clothing/glasses/hud/security/sunglasses
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(M), slot_back)
+			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/deathsquad/officer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/implanter/dust(M), slot_in_backpack)
@@ -1075,9 +1211,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/centcom(src), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses) // special
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_wear_mask)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
 			M.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_in_backpack)
 
@@ -1088,7 +1225,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition designed for military field work."
 
-			M.equip_or_collect(pda, slot_belt)
+			M.equip_or_collect(pda, slot_wear_pda)
 			M.equip_or_collect(new /obj/item/weapon/implanter/dust(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/implanter/death_alarm(M), slot_in_backpack)
 			equip_special_id(M,get_centcom_access("Special Operations Officer"), "Special Operations Officer", /obj/item/weapon/card/id/centcom)
@@ -1117,7 +1254,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/spellbook(M), slot_r_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/staff(M), slot_l_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			equip_special_id(M,get_all_accesses(), "Wizard", /obj/item/weapon/card/id)
 
 		if("red wizard")
@@ -1130,7 +1267,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/spellbook(M), slot_r_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/staff(M), slot_l_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			equip_special_id(M,get_all_accesses(), "Wizard", /obj/item/weapon/card/id)
 
 		if("marisa wizard")
@@ -1143,20 +1280,53 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/spellbook(M), slot_r_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/staff(M), slot_l_hand)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
 			equip_special_id(M,get_all_accesses(), "Wizard", /obj/item/weapon/card/id)
 
+		if("soviet tourist")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/ushanka(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(M), slot_in_backpack)
+			equip_special_id(M,list(access_maint_tunnels), "Soviet Tourist", /obj/item/weapon/card/id)
+
+		if("soviet soldier")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/ushanka(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/syndicate(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/card/emag(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/c4(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/c4(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/mateba(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/a357(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/a357(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/a357(M), slot_in_backpack)
+			equip_special_id(M,list(access_maint_tunnels), "Soviet Soldier", /obj/item/weapon/card/id)
+
 		if("soviet admiral")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/hgpiratecap(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
-			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/syndicate(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/hgpirate(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/mateba(M), slot_belt)
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
-			equip_special_id(M,get_all_accesses() + get_all_centcom_access(), "Admiral", /obj/item/weapon/card/id, "commander")
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/mateba(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/a357(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/a357(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/a357(M), slot_in_backpack)
+			equip_special_id(M,get_all_accesses() + get_all_centcom_access(), "Soviet Admiral", /obj/item/weapon/card/id, "commander")
 			//W.icon_state = "commander"
 
 		if("chrono legionnaire")
@@ -1201,19 +1371,25 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in world)
+	for(var/obj/machinery/power/emitter/E in machines)
 		if(E.anchored)
 			E.active = 1
 
-	for(var/obj/machinery/field/generator/F in world)
-		if(F.anchored)
-			F.Varedit_start = 1
+	for(var/obj/machinery/field/generator/F in machines)
+		if(F.active == 0)
+			F.active = 1
+			F.state = 2
+			F.power = 250
+			F.anchored = 1
+			F.warming_up = 3
+			F.start_fields()
+			F.update_icon()
+
 	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in world)
+		for(var/obj/machinery/the_singularitygen/G in machines)
 			if(G.anchored)
 				var/obj/singularity/S = new /obj/singularity(get_turf(G), 50)
-				spawn(0)
-					qdel(G)
+//				qdel(G)
 				S.energy = 1750
 				S.current_size = 7
 				S.icon = 'icons/effects/224x224.dmi'
@@ -1227,7 +1403,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				//S.dissipate_track = 0
 				//S.dissipate_strength = 10
 
-	for(var/obj/machinery/power/rad_collector/Rad in world)
+	for(var/obj/machinery/power/rad_collector/Rad in machines)
 		if(Rad.anchored)
 			if(!Rad.P)
 				var/obj/item/weapon/tank/plasma/Plasma = new/obj/item/weapon/tank/plasma(Rad)
@@ -1239,7 +1415,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in world)
+	for(var/obj/machinery/power/smes/SMES in machines)
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 

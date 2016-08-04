@@ -409,6 +409,10 @@ var/global/list/multiverse = list()
 		if(belt)
 			M.equip_to_slot_or_del(new belt.type(M), slot_belt)
 
+		var/obj/pda = H.get_item_by_slot(slot_wear_pda)
+		if(pda)
+			M.equip_to_slot_or_del(new pda.type(M), slot_wear_pda)
+
 		var/obj/back = H.get_item_by_slot(slot_back)
 		if(back)
 			M.equip_to_slot_or_del(new back.type(M), slot_back)
@@ -762,8 +766,8 @@ var/global/list/multiverse = list()
 	var/obj/item/link = null
 	var/cooldown_time = 30 //3s
 	var/cooldown = 0
-
-
+	burntime = 0
+	burn_state = FLAMMABLE
 
 /obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(target && cooldown < world.time)

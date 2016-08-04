@@ -64,7 +64,7 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user, params)
-	if(stat & BROKEN || !I || !user || ((I.flags & NODROP) && !istype(I, /obj/item/weapon/storage/bag/trash/cyborg)))
+	if(stat & BROKEN || !I || !user)
 		return
 
 	src.add_fingerprint(user)
@@ -144,7 +144,8 @@
 
 	if(!I)	return
 
-	user.drop_item()
+	if(!user.drop_item())
+		return
 	if(I)
 		I.loc = src
 

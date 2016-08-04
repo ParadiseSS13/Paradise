@@ -342,6 +342,7 @@
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
+	C.burn_state = FIRE_PROOF
 	uses --
 	if(!uses)
 		qdel(src)
@@ -401,6 +402,8 @@
 	if(!O.client)
 		return 0
 	if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
+		return 0
+	if(!O.can_reenter_corpse)
 		return 0
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0

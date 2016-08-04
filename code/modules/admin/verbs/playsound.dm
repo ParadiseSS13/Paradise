@@ -81,6 +81,7 @@ var/list/sounds_cache = list()
 
 	for(var/O in global_intercoms)
 		var/obj/item/device/radio/intercom/I = O
+		// TODO: Tie into space manager
 		if(I.z != ZLEVEL_STATION && !ignore_z)
 			continue
 		if(!I.on && !ignore_power)

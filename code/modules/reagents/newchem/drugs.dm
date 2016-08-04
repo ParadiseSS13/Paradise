@@ -522,9 +522,7 @@
 	result_amount = 4
 	mix_message = "The mixture swirls around excitedly!"
 
-/datum/reagent/fliptonium/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST || method == TOUCH)
 		M.SpinAnimation(speed = 12, loops = -1)
 	..()

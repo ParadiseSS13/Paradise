@@ -12,6 +12,8 @@
 	max_w_class = 3
 	max_combined_w_class = 21
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	burn_state = FLAMMABLE
+	burntime = 20
 
 /obj/item/weapon/storage/briefcase/New()
 	..()
